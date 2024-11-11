@@ -19,15 +19,13 @@ import {
     ViewEncapsulation
 } from '@angular/core';
 import { ControlValueAccessor, FormControl, NG_VALUE_ACCESSOR, NgControl } from '@angular/forms';
+import { BaseComponent, SharedModule } from '@primeng/core';
+import { CheckIcon, MinusIcon } from '@primeng/icons';
+import { contains, equals } from '@primeuix/utils';
 import { AutoFocus } from 'primeng/autofocus';
-import { CheckIcon } from 'primeng/icons/check';
 import { Nullable } from 'primeng/ts-helpers';
-import { ObjectUtils } from 'primeng/utils';
 import { CheckboxChangeEvent } from './checkbox.interface';
-import { MinusIcon } from 'primeng/icons/minus';
-import { BaseComponent } from 'primeng/basecomponent';
 import { CheckboxStyle } from './style/checkboxstyle';
-import { SharedModule } from 'primeng/api';
 
 export const CHECKBOX_VALUE_ACCESSOR: any = {
     provide: NG_VALUE_ACCESSOR,
@@ -213,7 +211,7 @@ export class Checkbox extends BaseComponent implements ControlValueAccessor {
     @ViewChild('input') inputViewChild: Nullable<ElementRef>;
 
     get checked() {
-        return this._indeterminate() ? false : this.binary ? this.model === this.trueValue : ObjectUtils.contains(this.value, this.model);
+        return this._indeterminate() ? false : this.binary ? this.model === this.trueValue : contains(this.value, this.model);
     }
 
     get containerClass() {
@@ -264,7 +262,7 @@ export class Checkbox extends BaseComponent implements ControlValueAccessor {
         const currentModelValue = selfControl && !this.formControl ? selfControl.value : this.model;
 
         if (!this.binary) {
-            if (this.checked || this._indeterminate()) newModelValue = currentModelValue.filter((val) => !ObjectUtils.equals(val, this.value));
+            if (this.checked || this._indeterminate()) newModelValue = currentModelValue.filter((val) => !equals(val, this.value));
             else newModelValue = currentModelValue ? [...currentModelValue, this.value] : [this.value];
 
             this.onModelChange(newModelValue);

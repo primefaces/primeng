@@ -2,19 +2,13 @@ import { animate, AnimationEvent, style, transition, trigger } from '@angular/an
 import { CommonModule } from '@angular/common';
 import { AfterContentInit, booleanAttribute, ChangeDetectionStrategy, Component, ContentChild, ElementRef, EventEmitter, HostListener, inject, Input, NgModule, Output, TemplateRef, ViewChild, ViewEncapsulation } from '@angular/core';
 import { SafeUrl } from '@angular/platform-browser';
-import { SharedModule } from 'primeng/api';
-import { DomHandler } from 'primeng/dom';
-import { EyeIcon } from 'primeng/icons/eye';
-import { RefreshIcon } from 'primeng/icons/refresh';
-import { SearchMinusIcon } from 'primeng/icons/searchminus';
-import { SearchPlusIcon } from 'primeng/icons/searchplus';
-import { TimesIcon } from 'primeng/icons/times';
-import { UndoIcon } from 'primeng/icons/undo';
-import { ZIndexUtils } from 'primeng/utils';
-import { Nullable } from 'primeng/ts-helpers';
+import { BaseComponent, SharedModule } from '@primeng/core';
+import { EyeIcon, RefreshIcon, SearchMinusIcon, SearchPlusIcon, TimesIcon, UndoIcon } from '@primeng/icons';
+import { addClass, appendChild, blockBodyScroll, focus, unblockBodyScroll } from '@primeuix/utils';
 import { FocusTrap } from 'primeng/focustrap';
+import { Nullable } from 'primeng/ts-helpers';
+import { ZIndexUtils } from 'primeng/utils';
 import { ImageStyle } from './style/imagestyle';
-import { BaseComponent } from 'primeng/basecomponent';
 
 /**
  * Displays an image with preview and tranformation options. For multiple image, see Galleria.
@@ -343,7 +337,7 @@ export class Image extends BaseComponent implements AfterContentInit {
         if (this.preview) {
             this.maskVisible = true;
             this.previewVisible = true;
-            DomHandler.blockBodyScroll();
+            blockBodyScroll();
         }
     }
 
@@ -360,7 +354,7 @@ export class Image extends BaseComponent implements AfterContentInit {
             case 'Escape':
                 this.onMaskClick();
                 setTimeout(() => {
-                    DomHandler.focus(this.previewButton.nativeElement);
+                    focus(this.previewButton.nativeElement);
                 }, 25);
                 event.preventDefault();
 
@@ -404,12 +398,12 @@ export class Image extends BaseComponent implements AfterContentInit {
                 this.moveOnTop();
 
                 setTimeout(() => {
-                    DomHandler.focus(this.closeButton.nativeElement);
+                    focus(this.closeButton.nativeElement);
                 }, 25);
                 break;
 
             case 'void':
-                DomHandler.addClass(this.wrapper, 'p-overlay-mask-leave');
+                addClass(this.wrapper, 'p-overlay-mask-leave');
                 break;
         }
     }
@@ -437,7 +431,7 @@ export class Image extends BaseComponent implements AfterContentInit {
     appendContainer() {
         if (this.appendTo) {
             if (this.appendTo === 'body') this.document.body.appendChild(this.wrapper as HTMLElement);
-            else DomHandler.appendChild(this.wrapper, this.appendTo);
+            else appendChild(this.wrapper, this.appendTo);
         }
     }
 
@@ -464,7 +458,7 @@ export class Image extends BaseComponent implements AfterContentInit {
         this.previewVisible = false;
         this.rotate = 0;
         this.scale = this.zoomSettings.default;
-        DomHandler.unblockBodyScroll();
+        unblockBodyScroll();
     }
 
     imageError(event: Event) {

@@ -20,16 +20,14 @@ import {
     TemplateRef,
     ViewEncapsulation
 } from '@angular/core';
-import { SharedModule } from 'primeng/api';
-import { DomHandler } from 'primeng/dom';
-import { SpinnerIcon } from 'primeng/icons/spinner';
-import { Ripple } from 'primeng/ripple';
-import { ObjectUtils } from 'primeng/utils';
+import { BaseComponent, SharedModule } from '@primeng/core';
+import { SpinnerIcon } from '@primeng/icons';
+import { addClass, findSingle, isEmpty } from '@primeuix/utils';
 import { AutoFocus } from 'primeng/autofocus';
-import { BaseComponent } from 'primeng/basecomponent';
-import { ButtonStyle } from './style/buttonstyle';
 import { BadgeModule } from 'primeng/badge';
+import { Ripple } from 'primeng/ripple';
 import { ButtonProps } from './button.interface';
+import { ButtonStyle } from './style/buttonstyle';
 
 type ButtonIconPosition = 'left' | 'right' | 'top' | 'bottom';
 
@@ -244,7 +242,7 @@ export class ButtonDirective extends BaseComponent implements AfterViewInit, OnD
 
     ngAfterViewInit() {
         super.ngAfterViewInit();
-        DomHandler.addMultipleClasses(this.htmlElement, this.getStyleClass().join(' '));
+        addClass(this.htmlElement, this.getStyleClass().join(' '));
 
         this.createIcon();
         this.createLabel();
@@ -268,7 +266,7 @@ export class ButtonDirective extends BaseComponent implements AfterViewInit, OnD
     getStyleClass(): string[] {
         const styleClass: string[] = [INTERNAL_BUTTON_CLASSES.button, INTERNAL_BUTTON_CLASSES.component];
 
-        if (this.icon && !this.label && ObjectUtils.isEmpty(this.htmlElement.textContent)) {
+        if (this.icon && !this.label && isEmpty(this.htmlElement.textContent)) {
             styleClass.push(INTERNAL_BUTTON_CLASSES.iconOnly);
         }
 
@@ -279,7 +277,7 @@ export class ButtonDirective extends BaseComponent implements AfterViewInit, OnD
                 styleClass.push(INTERNAL_BUTTON_CLASSES.labelOnly);
             }
 
-            if (this.icon && !this.label && !ObjectUtils.isEmpty(this.htmlElement.textContent)) {
+            if (this.icon && !this.label && !isEmpty(this.htmlElement.textContent)) {
                 styleClass.push(INTERNAL_BUTTON_CLASSES.iconOnly);
             }
         }
@@ -331,7 +329,7 @@ export class ButtonDirective extends BaseComponent implements AfterViewInit, OnD
         const nativeElement = this.el.nativeElement;
         const fluidComponent = nativeElement.closest('p-fluid');
 
-        return ObjectUtils.isEmpty(this.fluid) ? !!fluidComponent : this.fluid;
+        return isEmpty(this.fluid) ? !!fluidComponent : this.fluid;
     }
 
     setStyleClass() {
@@ -341,7 +339,7 @@ export class ButtonDirective extends BaseComponent implements AfterViewInit, OnD
     }
 
     createLabel() {
-        const created = DomHandler.findSingle(this.htmlElement, '.p-button-label');
+        const created = findSingle(this.htmlElement, '.p-button-label');
         if (!created && this.label) {
             let labelElement = this.document.createElement('span');
             if (this.icon && !this.label) {
@@ -356,7 +354,7 @@ export class ButtonDirective extends BaseComponent implements AfterViewInit, OnD
     }
 
     createIcon() {
-        const created = DomHandler.findSingle(this.htmlElement, '.p-button-icon');
+        const created = findSingle(this.htmlElement, '.p-button-icon');
         if (!created && (this.icon || this.loading)) {
             let iconElement = this.document.createElement('span');
             iconElement.className = 'p-button-icon';
@@ -364,13 +362,13 @@ export class ButtonDirective extends BaseComponent implements AfterViewInit, OnD
             let iconPosClass = this.label ? 'p-button-icon-' + this.iconPos : null;
 
             if (iconPosClass) {
-                DomHandler.addClass(iconElement, iconPosClass);
+                addClass(iconElement, iconPosClass);
             }
 
             let iconClass = this.getIconClass();
 
             if (iconClass) {
-                DomHandler.addMultipleClasses(iconElement, iconClass);
+                addClass(iconElement, iconClass);
             }
 
             if (!this.loadingIcon && this.loading) {
@@ -382,7 +380,7 @@ export class ButtonDirective extends BaseComponent implements AfterViewInit, OnD
     }
 
     updateLabel() {
-        let labelElement = DomHandler.findSingle(this.htmlElement, '.p-button-label');
+        let labelElement = findSingle(this.htmlElement, '.p-button-label');
 
         if (!this.label) {
             labelElement && this.htmlElement.removeChild(labelElement);
@@ -393,8 +391,8 @@ export class ButtonDirective extends BaseComponent implements AfterViewInit, OnD
     }
 
     updateIcon() {
-        let iconElement = DomHandler.findSingle(this.htmlElement, '.p-button-icon');
-        let labelElement = DomHandler.findSingle(this.htmlElement, '.p-button-label');
+        let iconElement = findSingle(this.htmlElement, '.p-button-icon');
+        let labelElement = findSingle(this.htmlElement, '.p-button-label');
 
         if (this.loading && !this.loadingIcon && iconElement) {
             iconElement.innerHTML = this.spinnerIcon;
@@ -654,7 +652,7 @@ export class Button extends BaseComponent implements AfterContentInit {
         const nativeElement = this.el.nativeElement;
         const fluidComponent = nativeElement.closest('p-fluid');
 
-        return ObjectUtils.isEmpty(this.fluid) ? !!fluidComponent : this.fluid;
+        return isEmpty(this.fluid) ? !!fluidComponent : this.fluid;
     }
 
     _componentStyle = inject(ButtonStyle);

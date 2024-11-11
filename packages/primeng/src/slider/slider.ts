@@ -1,13 +1,12 @@
 import { CommonModule, isPlatformBrowser } from '@angular/common';
 import { booleanAttribute, ChangeDetectionStrategy, Component, ElementRef, EventEmitter, forwardRef, inject, Input, NgModule, NgZone, numberAttribute, OnDestroy, Output, ViewChild, ViewEncapsulation } from '@angular/core';
 import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
-import { DomHandler } from 'primeng/dom';
-import { Nullable, VoidListener } from 'primeng/ts-helpers';
+import { BaseComponent, SharedModule } from '@primeng/core';
+import { addClass, getWindowScrollLeft, getWindowScrollTop, removeClass } from '@primeuix/utils';
 import { AutoFocus } from 'primeng/autofocus';
+import { Nullable, VoidListener } from 'primeng/ts-helpers';
 import { SliderChangeEvent, SliderSlideEndEvent } from './slider.interface';
 import { SliderStyle } from './style/sliderstyle';
-import { BaseComponent } from 'primeng/basecomponent';
-import { SharedModule } from 'primeng/api';
 
 export const SLIDER_VALUE_ACCESSOR: any = {
     provide: NG_VALUE_ACCESSOR,
@@ -285,7 +284,7 @@ export class Slider extends BaseComponent implements OnDestroy, ControlValueAcce
         event.preventDefault();
 
         if (this.animate) {
-            DomHandler.removeClass(this.el.nativeElement.children[0], 'p-slider-animate');
+            removeClass(this.el.nativeElement.children[0], 'p-slider-animate');
         }
     }
 
@@ -312,7 +311,7 @@ export class Slider extends BaseComponent implements OnDestroy, ControlValueAcce
         }
 
         if (this.animate) {
-            DomHandler.removeClass(this.el.nativeElement.children[0], 'p-slider-animate');
+            removeClass(this.el.nativeElement.children[0], 'p-slider-animate');
         }
 
         event.preventDefault();
@@ -348,7 +347,7 @@ export class Slider extends BaseComponent implements OnDestroy, ControlValueAcce
         else this.onSlideEnd.emit({ originalEvent: event, value: this.value as number });
 
         if (this.animate) {
-            DomHandler.addClass(this.el.nativeElement.children[0], 'p-slider-animate');
+            addClass(this.el.nativeElement.children[0], 'p-slider-animate');
         }
 
         event.preventDefault();
@@ -472,7 +471,7 @@ export class Slider extends BaseComponent implements OnDestroy, ControlValueAcce
                                 else this.onSlideEnd.emit({ originalEvent: event, value: this.value as number });
 
                                 if (this.animate) {
-                                    DomHandler.addClass(this.el.nativeElement.children[0], 'p-slider-animate');
+                                    addClass(this.el.nativeElement.children[0], 'p-slider-animate');
                                 }
                             });
                         }
@@ -576,8 +575,8 @@ export class Slider extends BaseComponent implements OnDestroy, ControlValueAcce
 
     updateDomData(): void {
         let rect = this.el.nativeElement.children[0].getBoundingClientRect();
-        this.initX = rect.left + DomHandler.getWindowScrollLeft();
-        this.initY = rect.top + DomHandler.getWindowScrollTop();
+        this.initX = rect.left + getWindowScrollLeft();
+        this.initY = rect.top + getWindowScrollTop();
         this.barWidth = this.el.nativeElement.children[0].offsetWidth;
         this.barHeight = this.el.nativeElement.children[0].offsetHeight;
     }

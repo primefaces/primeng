@@ -1,15 +1,10 @@
+import { animate, style, transition, trigger } from '@angular/animations';
 import { CommonModule } from '@angular/common';
 import { booleanAttribute, ChangeDetectionStrategy, Component, ContentChild, EventEmitter, inject, Input, NgModule, Output, signal, TemplateRef, ViewEncapsulation } from '@angular/core';
-import { BaseComponent } from 'primeng/basecomponent';
-import { CheckIcon } from 'primeng/icons/check';
-import { ExclamationTriangleIcon } from 'primeng/icons/exclamationtriangle';
-import { InfoCircleIcon } from 'primeng/icons/infocircle';
-import { TimesCircleIcon } from 'primeng/icons/timescircle';
-import { MessageStyle } from './style/messagestyle';
+import { BaseComponent, SharedModule } from '@primeng/core';
+import { CheckIcon, ExclamationTriangleIcon, InfoCircleIcon, TimesCircleIcon, TimesIcon } from '@primeng/icons';
 import { Ripple } from 'primeng/ripple';
-import { animate, style, transition, trigger } from '@angular/animations';
-import { TimesIcon } from 'primeng/icons/times';
-import { SharedModule } from 'primeng/api';
+import { MessageStyle } from './style/messagestyle';
 
 /**
  * Message groups a collection of contents in tabs.

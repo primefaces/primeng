@@ -1,12 +1,11 @@
 import { animate, AnimationEvent, state, style, transition, trigger } from '@angular/animations';
 import { CommonModule, isPlatformBrowser } from '@angular/common';
 import { ChangeDetectionStrategy, Component, ContentChild, inject, Input, NgModule, numberAttribute, OnDestroy, OnInit, QueryList, TemplateRef, ViewEncapsulation } from '@angular/core';
-import { PrimeTemplate, SharedModule } from 'primeng/api';
-import { DomHandler } from 'primeng/dom';
-import { ChevronUpIcon } from 'primeng/icons/chevronup';
-import { ZIndexUtils } from 'primeng/utils';
+import { BaseComponent, PrimeTemplate, SharedModule } from '@primeng/core';
+import { ChevronUpIcon } from '@primeng/icons';
+import { getWindowScrollTop } from '@primeuix/utils';
 import { Button, ButtonProps } from 'primeng/button';
-import { BaseComponent } from 'primeng/basecomponent';
+import { ZIndexUtils } from 'primeng/utils';
 import { ScrollTopStyle } from './style/scrolltopstyle';
 
 /**
@@ -194,7 +193,7 @@ export class ScrollTop extends BaseComponent implements OnInit, OnDestroy {
     bindDocumentScrollListener() {
         if (isPlatformBrowser(this.platformId)) {
             this.documentScrollListener = this.renderer.listen(this.document.defaultView, 'scroll', () => {
-                this.checkVisibility(DomHandler.getWindowScrollTop());
+                this.checkVisibility(getWindowScrollTop());
             });
         }
     }

@@ -1,14 +1,13 @@
 import { animate, animation, style, transition, trigger, useAnimation } from '@angular/animations';
 import { CommonModule } from '@angular/common';
 import { AfterViewInit, booleanAttribute, ChangeDetectionStrategy, Component, ContentChild, ElementRef, EventEmitter, inject, Input, NgModule, numberAttribute, OnDestroy, Output, TemplateRef, ViewChild, ViewEncapsulation } from '@angular/core';
-import { DomHandler } from 'primeng/dom';
-import { TimesIcon } from 'primeng/icons/times';
+import { BaseComponent, SharedModule } from '@primeng/core';
+import { TimesIcon } from '@primeng/icons';
+import { addClass, appendChild, blockBodyScroll, setAttribute, unblockBodyScroll } from '@primeuix/utils';
+import { Button, ButtonProps } from 'primeng/button';
 import { Nullable, VoidListener } from 'primeng/ts-helpers';
 import { ZIndexUtils } from 'primeng/utils';
 import { DrawerStyle } from './style/drawerstyle';
-import { BaseComponent } from 'primeng/basecomponent';
-import { Button, ButtonProps } from 'primeng/button';
-import { SharedModule } from 'primeng/api';
 
 const showAnimation = animation([style({ transform: '{{transform}}', opacity: 0 }), animate('{{transition}}')]);
 
@@ -335,8 +334,8 @@ export class Drawer extends BaseComponent implements AfterViewInit, OnDestroy {
         if (!this.mask) {
             this.mask = this.renderer.createElement('div');
             this.renderer.setStyle(this.mask, 'zIndex', zIndex);
-            DomHandler.setAttribute(this.mask, 'style', this.maskStyle);
-            DomHandler.addMultipleClasses(this.mask, 'p-overlay-mask p-drawer-mask p-overlay-mask-enter');
+            setAttribute(this.mask, 'style', this.maskStyle);
+            addClass(this.mask, 'p-overlay-mask p-drawer-mask p-overlay-mask-enter');
 
             if (this.dismissible) {
                 this.maskClickListener = this.renderer.listen(this.mask, 'click', (event: any) => {
@@ -348,14 +347,14 @@ export class Drawer extends BaseComponent implements AfterViewInit, OnDestroy {
 
             this.renderer.appendChild(this.document.body, this.mask);
             if (this.blockScroll) {
-                DomHandler.blockBodyScroll();
+                blockBodyScroll();
             }
         }
     }
 
     disableModality() {
         if (this.mask) {
-            DomHandler.addClass(this.mask, 'p-overlay-mask-leave');
+            addClass(this.mask, 'p-overlay-mask-leave');
             this.animationEndListener = this.renderer.listen(this.mask, 'animationend', this.destroyModal.bind(this));
         }
     }
@@ -368,7 +367,7 @@ export class Drawer extends BaseComponent implements AfterViewInit, OnDestroy {
         }
 
         if (this.blockScroll) {
-            DomHandler.unblockBodyScroll();
+            unblockBodyScroll();
         }
 
         this.unbindAnimationEndListener();
@@ -402,7 +401,7 @@ export class Drawer extends BaseComponent implements AfterViewInit, OnDestroy {
     appendContainer() {
         if (this.appendTo) {
             if (this.appendTo === 'body') this.renderer.appendChild(this.document.body, this.container);
-            else DomHandler.appendChild(this.container, this.appendTo);
+            else appendChild(this.container, this.appendTo);
         }
     }
 

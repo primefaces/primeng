@@ -1,3 +1,4 @@
+import { CommonModule } from '@angular/common';
 import {
     booleanAttribute,
     ChangeDetectionStrategy,
@@ -17,16 +18,15 @@ import {
     TemplateRef,
     ViewEncapsulation
 } from '@angular/core';
-import { CommonModule } from '@angular/common';
-import { ObjectUtils } from 'primeng/utils';
-import { BlockableUI, FilterService, Footer, Header, SharedModule, TranslationKeys } from 'primeng/api';
+import { BaseComponent, FilterService, Footer, Header, SharedModule, TranslationKeys } from '@primeng/core';
+import { SpinnerIcon } from '@primeng/icons';
+import { resolveFieldData } from '@primeuix/utils';
+import { BlockableUI } from 'primeng/api';
 import { PaginatorModule } from 'primeng/paginator';
-import { Subscription } from 'rxjs';
-import { SpinnerIcon } from 'primeng/icons/spinner';
 import { Nullable } from 'primeng/ts-helpers';
+import { Subscription } from 'rxjs';
 import { DataViewLayoutChangeEvent, DataViewLazyLoadEvent, DataViewPageEvent, DataViewPaginatorState, DataViewSortEvent } from './dataview.interface';
 import { DataViewStyle } from './style/dataviewstyle';
-import { BaseComponent } from 'primeng/basecomponent';
 
 /**
  * DataView displays data in grid or list layout with pagination and sorting features.
@@ -532,8 +532,8 @@ export class DataView extends BaseComponent implements OnInit, OnDestroy, Blocka
             this.onLazyLoad.emit(this.createLazyLoadMetadata());
         } else if (this.value) {
             this.value.sort((data1, data2) => {
-                let value1 = ObjectUtils.resolveFieldData(data1, this.sortField);
-                let value2 = ObjectUtils.resolveFieldData(data2, this.sortField);
+                let value1 = resolveFieldData(data1, this.sortField);
+                let value2 = resolveFieldData(data2, this.sortField);
                 let result = null;
 
                 if (value1 == null && value2 != null) result = -1;

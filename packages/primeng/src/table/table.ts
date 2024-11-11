@@ -34,28 +34,52 @@ import {
     ViewEncapsulation
 } from '@angular/core';
 import { FormsModule } from '@angular/forms';
-import { BlockableUI, FilterMatchMode, FilterMetadata, FilterOperator, FilterService, LazyLoadMeta, OverlayService, PrimeTemplate, ScrollerOptions, SelectItem, SharedModule, SortMeta, TableState, TranslationKeys } from 'primeng/api';
+import { BaseComponent, FilterMatchMode, FilterMetadata, FilterOperator, FilterService, OverlayService, PrimeTemplate, SharedModule, SortMeta, TranslationKeys } from '@primeng/core';
+import { ArrowDownIcon, ArrowUpIcon, CheckIcon, FilterIcon, FilterSlashIcon, PlusIcon, SortAltIcon, SortAmountDownIcon, SortAmountUpAltIcon, SpinnerIcon, TrashIcon } from '@primeng/icons';
+import {
+    absolutePosition,
+    addClass,
+    clearSelection,
+    equals,
+    find,
+    findIndexInList,
+    findSingle,
+    focus,
+    getAttribute,
+    getFirstFocusableElement,
+    getFocusableElements,
+    getHiddenElementOuterHeight,
+    getHiddenElementOuterWidth,
+    getIndex,
+    getOffset,
+    getOuterHeight,
+    getOuterWidth,
+    hasClass,
+    invokeElementMethod,
+    isNotEmpty,
+    isTouchDevice,
+    removeClass,
+    reorderArray,
+    resolveFieldData,
+    setAttribute,
+    uuid
+} from '@primeuix/utils';
+import { BlockableUI, LazyLoadMeta, ScrollerOptions, SelectItem, TableState } from 'primeng/api';
 import { Button, ButtonDirective } from 'primeng/button';
+import { Checkbox } from 'primeng/checkbox';
+import { DatePicker } from 'primeng/datepicker';
 import { ConnectedOverlayScrollHandler, DomHandler } from 'primeng/dom';
-import { ArrowDownIcon } from 'primeng/icons/arrowdown';
-import { ArrowUpIcon } from 'primeng/icons/arrowup';
-import { CheckIcon } from 'primeng/icons/check';
-import { FilterIcon } from 'primeng/icons/filter';
-import { FilterSlashIcon } from 'primeng/icons/filterslash';
-import { PlusIcon } from 'primeng/icons/plus';
-import { SortAltIcon } from 'primeng/icons/sortalt';
-import { SortAmountDownIcon } from 'primeng/icons/sortamountdown';
-import { SortAmountUpAltIcon } from 'primeng/icons/sortamountupalt';
-import { SpinnerIcon } from 'primeng/icons/spinner';
-import { TrashIcon } from 'primeng/icons/trash';
 import { InputNumber } from 'primeng/inputnumber';
 import { InputText } from 'primeng/inputtext';
 import { Paginator } from 'primeng/paginator';
+import { RadioButton, RadioButtonClickEvent } from 'primeng/radiobutton';
 import { Scroller } from 'primeng/scroller';
+import { Select } from 'primeng/select';
 import { SelectButton } from 'primeng/selectbutton';
 import { Nullable, VoidListener } from 'primeng/ts-helpers';
-import { ObjectUtils, UniqueComponentId, ZIndexUtils } from 'primeng/utils';
+import { ObjectUtils, ZIndexUtils } from 'primeng/utils';
 import { Subject, Subscription } from 'rxjs';
+import { TableStyle } from './style/tablestyle';
 import {
     ExportCSVOptions,
     TableColResizeEvent,
@@ -76,12 +100,6 @@ import {
     TableRowUnSelectEvent,
     TableSelectAllChangeEvent
 } from './table.interface';
-import { Checkbox } from 'primeng/checkbox';
-import { TableStyle } from './style/tablestyle';
-import { BaseComponent } from 'primeng/basecomponent';
-import { RadioButton, RadioButtonClickEvent } from 'primeng/radiobutton';
-import { Select } from 'primeng/select';
-import { DatePicker } from 'primeng/datepicker';
 
 @Injectable()
 export class TableService {
@@ -178,7 +196,7 @@ export class FrozenColumn implements AfterViewInit {
     @HostListener('window:resize', ['$event'])
     recalculateColumns() {
         const siblings = DomHandler.siblings(this.el.nativeElement);
-        const index = DomHandler.index(this.el.nativeElement);
+        const index = getIndex(this.el.nativeElement);
         const time = (siblings.length - index + 1) * 50;
 
         setTimeout(() => {
@@ -192,14 +210,14 @@ export class FrozenColumn implements AfterViewInit {
                 let right = 0;
                 let next = this.el.nativeElement.nextElementSibling;
                 if (next) {
-                    right = DomHandler.getOuterWidth(next) + (parseFloat(next.style.right) || 0);
+                    right = getOuterWidth(next) + (parseFloat(next.style.right) || 0);
                 }
                 this.el.nativeElement.style.right = right + 'px';
             } else {
                 let left = 0;
                 let prev = this.el.nativeElement.previousElementSibling;
                 if (prev) {
-                    left = DomHandler.getOuterWidth(prev) + (parseFloat(prev.style.left) || 0);
+                    left = getOuterWidth(prev) + (parseFloat(prev.style.left) || 0);
                 }
                 this.el.nativeElement.style.left = left + 'px';
             }
@@ -207,7 +225,7 @@ export class FrozenColumn implements AfterViewInit {
             const filterRow = this.el.nativeElement?.parentElement?.nextElementSibling;
 
             if (filterRow) {
-                let index = DomHandler.index(this.el.nativeElement);
+                let index = getIndex(this.el.nativeElement);
                 if (filterRow.children && filterRow.children[index]) {
                     filterRow.children[index].style.left = this.el.nativeElement.style.left;
                     filterRow.children[index].style.right = this.el.nativeElement.style.right;
@@ -267,7 +285,7 @@ export class SortableColumn implements OnInit, OnDestroy {
                 field: this.field
             });
 
-            DomHandler.clearSelection();
+            clearSelection();
         }
     }
 
@@ -294,7 +312,7 @@ export class SortableColumn implements OnInit, OnDestroy {
     }
 
     private isFilterElementIconOrButton(element: HTMLElement) {
-        return DomHandler.hasClass(element, 'pi-filter-icon') || DomHandler.hasClass(element, 'p-column-filter-menu-button');
+        return hasClass(element, 'pi-filter-icon') || hasClass(element, 'p-column-filter-menu-button');
     }
 }
 
@@ -535,7 +553,7 @@ export class SelectableRow implements OnInit, OnDestroy {
 
         if (event.ctrlKey && event.shiftKey) {
             const data = this.dt.dataToRender(this.dt.rows);
-            const lastSelectableRowIndex = DomHandler.getAttribute(lastRow, 'index');
+            const lastSelectableRowIndex = getAttribute(lastRow, 'index');
 
             this.dt.anchorRowIndex = lastSelectableRowIndex;
             this.dt.selection = data.slice(this.index, data.length);
@@ -551,7 +569,7 @@ export class SelectableRow implements OnInit, OnDestroy {
 
         if (event.ctrlKey && event.shiftKey) {
             const data = this.dt.dataToRender(this.dt.rows);
-            const firstSelectableRowIndex = DomHandler.getAttribute(firstRow, 'index');
+            const firstSelectableRowIndex = getAttribute(firstRow, 'index');
 
             this.dt.anchorRowIndex = this.dt.anchorRowIndex || firstSelectableRowIndex;
             this.dt.selection = data.slice(0, this.index + 1);
@@ -571,14 +589,14 @@ export class SelectableRow implements OnInit, OnDestroy {
                 const data = this.dt.dataToRender(this.dt.rows);
                 let index;
 
-                if (ObjectUtils.isNotEmpty(this.dt.selection) && this.dt.selection.length > 0) {
+                if (isNotEmpty(this.dt.selection) && this.dt.selection.length > 0) {
                     let firstSelectedRowIndex, lastSelectedRowIndex;
-                    firstSelectedRowIndex = ObjectUtils.findIndexInList(this.dt.selection[0], data);
-                    lastSelectedRowIndex = ObjectUtils.findIndexInList(this.dt.selection[this.dt.selection.length - 1], data);
+                    firstSelectedRowIndex = findIndexInList(this.dt.selection[0], data);
+                    lastSelectedRowIndex = findIndexInList(this.dt.selection[this.dt.selection.length - 1], data);
 
                     index = this.index <= firstSelectedRowIndex ? lastSelectedRowIndex : firstSelectedRowIndex;
                 } else {
-                    index = ObjectUtils.findIndexInList(this.dt.selection, data);
+                    index = findIndexInList(this.dt.selection, data);
                 }
 
                 this.dt.anchorRowIndex = index;
@@ -593,17 +611,17 @@ export class SelectableRow implements OnInit, OnDestroy {
     focusRowChange(firstFocusableRow, currentFocusedRow) {
         firstFocusableRow.tabIndex = '-1';
         currentFocusedRow.tabIndex = '0';
-        DomHandler.focus(currentFocusedRow);
+        focus(currentFocusedRow);
     }
 
     findLastSelectableRow() {
-        const rows = DomHandler.find(this.dt.el.nativeElement, '.p-datatable-selectable-row');
+        const rows = find(this.dt.el.nativeElement, '.p-datatable-selectable-row');
 
         return rows ? rows[rows.length - 1] : null;
     }
 
     findFirstSelectableRow() {
-        const firstRow = DomHandler.findSingle(this.dt.el.nativeElement, '.p-datatable-selectable-row');
+        const firstRow = findSingle(this.dt.el.nativeElement, '.p-datatable-selectable-row');
 
         return firstRow;
     }
@@ -611,7 +629,7 @@ export class SelectableRow implements OnInit, OnDestroy {
     findNextSelectableRow(row: HTMLTableRowElement): HTMLTableRowElement | null {
         let nextRow = <HTMLTableRowElement>row.nextElementSibling;
         if (nextRow) {
-            if (DomHandler.hasClass(nextRow, 'p-selectable-row')) return nextRow;
+            if (hasClass(nextRow, 'p-selectable-row')) return nextRow;
             else return this.findNextSelectableRow(nextRow);
         } else {
             return null;
@@ -621,7 +639,7 @@ export class SelectableRow implements OnInit, OnDestroy {
     findPrevSelectableRow(row: HTMLTableRowElement): HTMLTableRowElement | null {
         let prevRow = <HTMLTableRowElement>row.previousElementSibling;
         if (prevRow) {
-            if (DomHandler.hasClass(prevRow, 'p-selectable-row')) return prevRow;
+            if (hasClass(prevRow, 'p-selectable-row')) return prevRow;
             else return this.findPrevSelectableRow(prevRow);
         } else {
             return null;
@@ -821,7 +839,7 @@ export class ResizableColumn implements AfterViewInit, OnDestroy {
     ngAfterViewInit() {
         if (isPlatformBrowser(this.platformId)) {
             if (this.isEnabled()) {
-                DomHandler.addClass(this.el.nativeElement, 'p-datatable-resizable-column');
+                addClass(this.el.nativeElement, 'p-datatable-resizable-column');
                 this.resizer = this.renderer.createElement('span');
                 this.renderer.addClass(this.resizer, 'p-datatable-column-resizer');
                 this.renderer.appendChild(this.el.nativeElement, this.resizer);
@@ -984,7 +1002,7 @@ export class ReorderableColumn implements AfterViewInit, OnDestroy {
     }
 
     onMouseDown(event: any) {
-        if (event.target.nodeName === 'INPUT' || event.target.nodeName === 'TEXTAREA' || DomHandler.hasClass(event.target, 'p-datatable-column-resizer')) this.el.nativeElement.draggable = false;
+        if (event.target.nodeName === 'INPUT' || event.target.nodeName === 'TEXTAREA' || hasClass(event.target, 'p-datatable-column-resizer')) this.el.nativeElement.draggable = false;
         else this.el.nativeElement.draggable = true;
     }
 
@@ -1051,7 +1069,7 @@ export class EditableColumn implements OnChanges, AfterViewInit, OnDestroy {
 
     ngAfterViewInit() {
         if (this.isEnabled()) {
-            DomHandler.addClass(this.el.nativeElement, 'p-editable-column');
+            addClass(this.el.nativeElement, 'p-editable-column');
         }
     }
 
@@ -1077,7 +1095,7 @@ export class EditableColumn implements OnChanges, AfterViewInit, OnDestroy {
 
     openCell() {
         this.dt.updateEditingCell(this.el.nativeElement, this.data, this.field, <number>this.rowIndex);
-        DomHandler.addClass(this.el.nativeElement, 'p-cell-editing');
+        addClass(this.el.nativeElement, 'p-cell-editing');
         this.dt.onEditInit.emit({
             field: this.field,
             data: this.data,
@@ -1086,7 +1104,7 @@ export class EditableColumn implements OnChanges, AfterViewInit, OnDestroy {
         this.zone.runOutsideAngular(() => {
             setTimeout(() => {
                 let focusCellSelector = this.pFocusCellSelector || 'input, textarea, select';
-                let focusableElement = DomHandler.findSingle(this.el.nativeElement, focusCellSelector);
+                let focusableElement = <any>findSingle(this.el.nativeElement, focusCellSelector);
 
                 if (focusableElement) {
                     focusableElement.focus();
@@ -1123,7 +1141,7 @@ export class EditableColumn implements OnChanges, AfterViewInit, OnDestroy {
             });
         }
 
-        DomHandler.removeClass(this.dt.editingCell, 'p-cell-editing');
+        removeClass(this.dt.editingCell, 'p-cell-editing');
         this.dt.editingCell = null;
         this.dt.editingCellData = null;
         this.dt.editingCellField = null;
@@ -1184,7 +1202,7 @@ export class EditableColumn implements OnChanges, AfterViewInit, OnDestroy {
         if (this.isEnabled()) {
             let currentCell = this.findCell(event.target);
             if (currentCell) {
-                let cellIndex = DomHandler.index(currentCell);
+                let cellIndex = getIndex(currentCell);
                 let targetCell = this.findNextEditableColumnByIndex(currentCell, cellIndex);
 
                 if (targetCell) {
@@ -1192,8 +1210,8 @@ export class EditableColumn implements OnChanges, AfterViewInit, OnDestroy {
                         this.closeEditingCell(true, event);
                     }
 
-                    DomHandler.invokeElementMethod(event.target, 'blur');
-                    DomHandler.invokeElementMethod(targetCell, 'click');
+                    invokeElementMethod(event.target as any, 'blur', undefined);
+                    invokeElementMethod(targetCell, 'click', undefined);
                 }
 
                 event.preventDefault();
@@ -1206,7 +1224,7 @@ export class EditableColumn implements OnChanges, AfterViewInit, OnDestroy {
         if (this.isEnabled()) {
             let currentCell = this.findCell(event.target);
             if (currentCell) {
-                let cellIndex = DomHandler.index(currentCell);
+                let cellIndex = getIndex(currentCell);
                 let targetCell = this.findPrevEditableColumnByIndex(currentCell, cellIndex);
 
                 if (targetCell) {
@@ -1214,8 +1232,8 @@ export class EditableColumn implements OnChanges, AfterViewInit, OnDestroy {
                         this.closeEditingCell(true, event);
                     }
 
-                    DomHandler.invokeElementMethod(event.target, 'blur');
-                    DomHandler.invokeElementMethod(targetCell, 'click');
+                    invokeElementMethod(event.target as any, 'blur', undefined);
+                    invokeElementMethod(targetCell, 'click', undefined);
                 }
 
                 event.preventDefault();
@@ -1240,7 +1258,7 @@ export class EditableColumn implements OnChanges, AfterViewInit, OnDestroy {
     findCell(element: any) {
         if (element) {
             let cell = element;
-            while (cell && !DomHandler.hasClass(cell, 'p-cell-editing')) {
+            while (cell && !hasClass(cell, 'p-cell-editing')) {
                 cell = cell.parentElement;
             }
 
@@ -1260,8 +1278,8 @@ export class EditableColumn implements OnChanges, AfterViewInit, OnDestroy {
                     this.closeEditingCell(true, event);
                 }
 
-                DomHandler.invokeElementMethod(event.target, 'blur');
-                DomHandler.invokeElementMethod(targetCell, 'click');
+                invokeElementMethod(event.target as any, 'blur', undefined);
+                invokeElementMethod(targetCell, 'click', undefined);
                 event.preventDefault();
             }
         }
@@ -1277,8 +1295,8 @@ export class EditableColumn implements OnChanges, AfterViewInit, OnDestroy {
                     this.closeEditingCell(true, event);
                 }
 
-                DomHandler.invokeElementMethod(event.target, 'blur');
-                DomHandler.invokeElementMethod(targetCell, 'click');
+                invokeElementMethod(event.target as any, 'blur', undefined);
+                invokeElementMethod(targetCell, 'click', undefined);
                 event.preventDefault();
             } else {
                 if (this.dt.isEditingCellValid()) {
@@ -1299,7 +1317,7 @@ export class EditableColumn implements OnChanges, AfterViewInit, OnDestroy {
         }
 
         if (prevCell) {
-            if (DomHandler.hasClass(prevCell, 'p-editable-column')) return prevCell;
+            if (hasClass(prevCell, 'p-editable-column')) return prevCell;
             else return this.findPreviousEditableColumn(prevCell);
         } else {
             return null;
@@ -1317,7 +1335,7 @@ export class EditableColumn implements OnChanges, AfterViewInit, OnDestroy {
         }
 
         if (nextCell) {
-            if (DomHandler.hasClass(nextCell, 'p-editable-column')) return nextCell;
+            if (hasClass(nextCell, 'p-editable-column')) return nextCell;
             else return this.findNextEditableColumn(nextCell);
         } else {
             return null;
@@ -1330,7 +1348,7 @@ export class EditableColumn implements OnChanges, AfterViewInit, OnDestroy {
         if (nextRow) {
             let nextCell = nextRow.children[index];
 
-            if (nextCell && DomHandler.hasClass(nextCell, 'p-editable-column')) {
+            if (nextCell && hasClass(nextCell, 'p-editable-column')) {
                 return nextCell;
             }
 
@@ -1346,7 +1364,7 @@ export class EditableColumn implements OnChanges, AfterViewInit, OnDestroy {
         if (prevRow) {
             let prevCell = prevRow.children[index];
 
-            if (prevCell && DomHandler.hasClass(prevCell, 'p-editable-column')) {
+            if (prevCell && hasClass(prevCell, 'p-editable-column')) {
                 return prevCell;
             }
 
@@ -1529,7 +1547,7 @@ export class TableRadioButton {
 
             this.inputViewChild?.inputViewChild.nativeElement?.focus();
         }
-        DomHandler.clearSelection();
+        clearSelection();
     }
 
     ngOnDestroy() {
@@ -1602,7 +1620,7 @@ export class TableCheckbox {
                 this.value
             );
         }
-        DomHandler.clearSelection();
+        clearSelection();
     }
 
     onFocus() {
@@ -1679,7 +1697,7 @@ export class TableHeaderCheckbox {
             }
         }
 
-        DomHandler.clearSelection();
+        clearSelection();
     }
 
     onFocus() {
@@ -1714,7 +1732,7 @@ export class TableHeaderCheckbox {
             const val = this.dt.frozenValue ? [...this.dt.frozenValue, ...data] : data;
             const selectableVal = this.dt.rowSelectable ? val.filter((data: any, index: number) => this.dt.rowSelectable({ data, index })) : val;
 
-            return ObjectUtils.isNotEmpty(selectableVal) && ObjectUtils.isNotEmpty(this.dt.selection) && selectableVal.every((v: any) => this.dt.selection.some((s: any) => this.dt.equals(v, s)));
+            return isNotEmpty(selectableVal) && isNotEmpty(this.dt.selection) && selectableVal.every((v: any) => this.dt.selection.some((s: any) => this.dt.equals(v, s)));
         }
     }
 }
@@ -1730,7 +1748,7 @@ export class ReorderableRowHandle implements AfterViewInit {
     constructor(public el: ElementRef) {}
 
     ngAfterViewInit() {
-        // DomHandler.addClass(this.el.nativeElement, 'p-datatable-reorderable-row-handle');
+        // addClass(this.el.nativeElement, 'p-datatable-reorderable-row-handle');
     }
 }
 
@@ -2468,7 +2486,7 @@ export class ColumnFilter extends BaseComponent implements AfterContentInit {
 
     ngOnInit() {
         super.ngOnInit();
-        this.overlayId = UniqueComponentId();
+        this.overlayId = uuid('pn_id_');
         if (!this.dt.filters[<string>this.field]) {
             this.initFieldFilterConstraint();
         }
@@ -2620,7 +2638,7 @@ export class ColumnFilter extends BaseComponent implements AfterContentInit {
             matchMode: this.getDefaultMatchMode(),
             operator: this.getDefaultOperator()
         });
-        DomHandler.focus(this.clearButtonViewChild.nativeElement);
+        focus(this.clearButtonViewChild.nativeElement);
     }
 
     removeConstraint(filterMeta: FilterMetadata) {
@@ -2628,7 +2646,7 @@ export class ColumnFilter extends BaseComponent implements AfterContentInit {
         if (!this.showApplyButton) {
             this.dt._filter();
         }
-        DomHandler.focus(this.clearButtonViewChild.nativeElement);
+        focus(this.clearButtonViewChild.nativeElement);
     }
 
     onOperatorChange(value: any) {
@@ -2655,7 +2673,7 @@ export class ColumnFilter extends BaseComponent implements AfterContentInit {
 
             case 'ArrowDown':
                 if (this.overlayVisible) {
-                    let focusable = DomHandler.getFocusableElements(<HTMLElement>this.overlay);
+                    let focusable = <any>getFocusableElements(<HTMLElement>this.overlay);
                     if (focusable) {
                         focusable[0].focus();
                     }
@@ -2680,14 +2698,14 @@ export class ColumnFilter extends BaseComponent implements AfterContentInit {
     findNextItem(item: HTMLLIElement): any {
         let nextItem = <HTMLLIElement>item.nextElementSibling;
 
-        if (nextItem) return DomHandler.hasClass(nextItem, 'p-datatable-filter-constraint-separator') ? this.findNextItem(nextItem) : nextItem;
+        if (nextItem) return hasClass(nextItem, 'p-datatable-filter-constraint-separator') ? this.findNextItem(nextItem) : nextItem;
         else return item.parentElement?.firstElementChild;
     }
 
     findPrevItem(item: HTMLLIElement): any {
         let prevItem = <HTMLLIElement>item.previousElementSibling;
 
-        if (prevItem) return DomHandler.hasClass(prevItem, 'p-datatable-filter-constraint-separator') ? this.findPrevItem(prevItem) : prevItem;
+        if (prevItem) return hasClass(prevItem, 'p-datatable-filter-constraint-separator') ? this.findPrevItem(prevItem) : prevItem;
         else return item.parentElement?.lastElementChild;
     }
 
@@ -2701,7 +2719,7 @@ export class ColumnFilter extends BaseComponent implements AfterContentInit {
                 this.overlay = event.element;
                 this.renderer.appendChild(this.document.body, this.overlay);
                 ZIndexUtils.set('overlay', this.overlay, this.config.zIndex.overlay);
-                DomHandler.absolutePosition(this.overlay, this.icon?.nativeElement);
+                absolutePosition(this.overlay, this.icon?.nativeElement);
                 this.bindDocumentClickListener();
                 this.bindDocumentResizeListener();
                 this.bindScrollListener();
@@ -2740,7 +2758,7 @@ export class ColumnFilter extends BaseComponent implements AfterContentInit {
 
     focusOnFirstElement() {
         if (this.overlay) {
-            DomHandler.focus(DomHandler.getFirstFocusableElement(this.overlay, ''));
+            focus(getFirstFocusableElement(this.overlay, '') as any);
         }
     }
 
@@ -2765,16 +2783,16 @@ export class ColumnFilter extends BaseComponent implements AfterContentInit {
 
     isOutsideClicked(event: any): boolean {
         return !(
-            DomHandler.hasClass(this.overlay?.nextElementSibling, 'p-overlay') ||
-            DomHandler.hasClass(this.overlay?.nextElementSibling, 'p-popover') ||
+            hasClass(this.overlay?.nextElementSibling, 'p-overlay') ||
+            hasClass(this.overlay?.nextElementSibling, 'p-popover') ||
             this.overlay?.isSameNode(event.target) ||
             this.overlay?.contains(event.target) ||
             this.icon?.nativeElement.isSameNode(event.target) ||
             this.icon?.nativeElement.contains(event.target) ||
-            DomHandler.hasClass(event.target, 'p-datatable-filter-add-rule-button') ||
-            DomHandler.hasClass(event.target.parentElement, 'p-datatable-filter-add-rule-button') ||
-            DomHandler.hasClass(event.target, 'p-datatable-filter-remove-rule-button') ||
-            DomHandler.hasClass(event.target.parentElement, 'p-datatable-filter-remove-rule-button')
+            hasClass(event.target, 'p-datatable-filter-add-rule-button') ||
+            hasClass(event.target.parentElement, 'p-datatable-filter-add-rule-button') ||
+            hasClass(event.target, 'p-datatable-filter-remove-rule-button') ||
+            hasClass(event.target.parentElement, 'p-datatable-filter-remove-rule-button')
         );
     }
 
@@ -2805,7 +2823,7 @@ export class ColumnFilter extends BaseComponent implements AfterContentInit {
     bindDocumentResizeListener() {
         if (!this.documentResizeListener) {
             this.documentResizeListener = this.renderer.listen(this.document.defaultView, 'resize', (event) => {
-                if (this.overlayVisible && !DomHandler.isTouchDevice()) {
+                if (this.overlayVisible && !isTouchDevice()) {
                     this.hide();
                 }
             });
@@ -3102,10 +3120,10 @@ export class TableBody implements AfterViewInit, OnDestroy {
     }
 
     shouldRenderRowGroupHeader(value: any, rowData: any, i: number) {
-        let currentRowFieldData = ObjectUtils.resolveFieldData(rowData, this.dt.groupRowsBy);
+        let currentRowFieldData = resolveFieldData(rowData, this.dt.groupRowsBy);
         let prevRowData = value[i - (1 + this.dt._first)];
         if (prevRowData) {
-            let previousRowFieldData = ObjectUtils.resolveFieldData(prevRowData, this.dt.groupRowsBy);
+            let previousRowFieldData = resolveFieldData(prevRowData, this.dt.groupRowsBy);
             return currentRowFieldData !== previousRowFieldData;
         } else {
             return true;
@@ -3113,10 +3131,10 @@ export class TableBody implements AfterViewInit, OnDestroy {
     }
 
     shouldRenderRowGroupFooter(value: any, rowData: any, i: number) {
-        let currentRowFieldData = ObjectUtils.resolveFieldData(rowData, this.dt.groupRowsBy);
+        let currentRowFieldData = resolveFieldData(rowData, this.dt.groupRowsBy);
         let nextRowData = value[i + (1 + this.dt._first)];
         if (nextRowData) {
-            let nextRowFieldData = ObjectUtils.resolveFieldData(nextRowData, this.dt.groupRowsBy);
+            let nextRowFieldData = resolveFieldData(nextRowData, this.dt.groupRowsBy);
             return currentRowFieldData !== nextRowFieldData;
         } else {
             return true;
@@ -3124,10 +3142,10 @@ export class TableBody implements AfterViewInit, OnDestroy {
     }
 
     shouldRenderRowspan(value: any, rowData: any, i: number) {
-        let currentRowFieldData = ObjectUtils.resolveFieldData(rowData, this.dt.groupRowsBy);
+        let currentRowFieldData = resolveFieldData(rowData, this.dt.groupRowsBy);
         let prevRowData = value[i - 1];
         if (prevRowData) {
-            let previousRowFieldData = ObjectUtils.resolveFieldData(prevRowData, this.dt.groupRowsBy);
+            let previousRowFieldData = resolveFieldData(prevRowData, this.dt.groupRowsBy);
             return currentRowFieldData !== previousRowFieldData;
         } else {
             return true;
@@ -3135,7 +3153,7 @@ export class TableBody implements AfterViewInit, OnDestroy {
     }
 
     calculateRowGroupSize(value: any, rowData: any, index: number) {
-        let currentRowFieldData = ObjectUtils.resolveFieldData(rowData, this.dt.groupRowsBy);
+        let currentRowFieldData = resolveFieldData(rowData, this.dt.groupRowsBy);
         let nextRowFieldData = currentRowFieldData;
         let groupRowSpan = 0;
 
@@ -3143,7 +3161,7 @@ export class TableBody implements AfterViewInit, OnDestroy {
             groupRowSpan++;
             let nextRowData = value[++index];
             if (nextRowData) {
-                nextRowFieldData = ObjectUtils.resolveFieldData(nextRowData, this.dt.groupRowsBy);
+                nextRowFieldData = resolveFieldData(nextRowData, this.dt.groupRowsBy);
             } else {
                 break;
             }
@@ -3159,12 +3177,12 @@ export class TableBody implements AfterViewInit, OnDestroy {
     }
 
     updateFrozenRowStickyPosition() {
-        this.el.nativeElement.style.top = DomHandler.getOuterHeight(this.el.nativeElement.previousElementSibling) + 'px';
+        this.el.nativeElement.style.top = getOuterHeight(this.el.nativeElement.previousElementSibling) + 'px';
     }
 
     updateFrozenRowGroupHeaderStickyPosition() {
         if (this.el.nativeElement.previousElementSibling) {
-            let tableHeaderHeight = DomHandler.getOuterHeight(this.el.nativeElement.previousElementSibling);
+            let tableHeaderHeight = getOuterHeight(this.el.nativeElement.previousElementSibling);
             this.dt.rowGroupHeaderStyleObject.top = tableHeaderHeight + 'px';
         }
     }
@@ -4425,7 +4443,7 @@ export class Table extends BaseComponent implements OnInit, AfterViewInit, After
 
     rowGroupHeaderStyleObject: any = {};
 
-    id: string = UniqueComponentId();
+    id: string = uuid('pn_id_');
 
     styleElement: any;
 
@@ -4732,10 +4750,10 @@ export class Table extends BaseComponent implements OnInit, AfterViewInit, After
             this.selectionKeys = {};
             if (Array.isArray(this._selection)) {
                 for (let data of this._selection) {
-                    this.selectionKeys[String(ObjectUtils.resolveFieldData(data, this.dataKey))] = 1;
+                    this.selectionKeys[String(resolveFieldData(data, this.dataKey))] = 1;
                 }
             } else {
-                this.selectionKeys[String(ObjectUtils.resolveFieldData(this._selection, this.dataKey))] = 1;
+                this.selectionKeys[String(resolveFieldData(this._selection, this.dataKey))] = 1;
             }
         }
     }
@@ -4861,8 +4879,8 @@ export class Table extends BaseComponent implements OnInit, AfterViewInit, After
                     });
                 } else {
                     this.value.sort((data1, data2) => {
-                        let value1 = ObjectUtils.resolveFieldData(data1, field);
-                        let value2 = ObjectUtils.resolveFieldData(data2, field);
+                        let value1 = resolveFieldData(data1, field);
+                        let value2 = resolveFieldData(data2, field);
                         let result = null;
 
                         if (value1 == null && value2 != null) result = -1;
@@ -4929,8 +4947,8 @@ export class Table extends BaseComponent implements OnInit, AfterViewInit, After
     }
 
     multisortField(data1: any, data2: any, multiSortMeta: SortMeta[], index: number): any {
-        const value1 = ObjectUtils.resolveFieldData(data1, multiSortMeta[index].field);
-        const value2 = ObjectUtils.resolveFieldData(data2, multiSortMeta[index].field);
+        const value1 = resolveFieldData(data1, multiSortMeta[index].field);
+        const value2 = resolveFieldData(data2, multiSortMeta[index].field);
         if (ObjectUtils.compare(value1, value2, this.filterLocale) === 0) {
             return multiSortMeta.length - 1 > index ? this.multisortField(data1, data2, multiSortMeta, index + 1) : 0;
         }
@@ -4974,7 +4992,7 @@ export class Table extends BaseComponent implements OnInit, AfterViewInit, After
         let target = <HTMLElement>event.originalEvent.target;
         let targetNode = target.nodeName;
         let parentNode = target.parentElement && target.parentElement.nodeName;
-        if (targetNode == 'INPUT' || targetNode == 'BUTTON' || targetNode == 'A' || parentNode == 'INPUT' || parentNode == 'BUTTON' || parentNode == 'A' || DomHandler.hasClass(event.originalEvent.target, 'p-clickable')) {
+        if (targetNode == 'INPUT' || targetNode == 'BUTTON' || targetNode == 'A' || parentNode == 'INPUT' || parentNode == 'BUTTON' || parentNode == 'A' || hasClass(event.originalEvent.target, 'p-clickable')) {
             return;
         }
 
@@ -4984,7 +5002,7 @@ export class Table extends BaseComponent implements OnInit, AfterViewInit, After
 
             this.preventSelectionSetterPropagation = true;
             if (this.isMultipleSelectionMode() && event.originalEvent.shiftKey && this.anchorRowIndex != null) {
-                DomHandler.clearSelection();
+                clearSelection();
                 if (this.rangeRowIndex != null) {
                     this.clearSelectionRange(event.originalEvent);
                 }
@@ -4999,7 +5017,7 @@ export class Table extends BaseComponent implements OnInit, AfterViewInit, After
                 }
 
                 let metaSelection = this.rowTouched ? false : this.metaKeySelection;
-                let dataKeyValue = this.dataKey ? String(ObjectUtils.resolveFieldData(rowData, this.dataKey)) : null;
+                let dataKeyValue = this.dataKey ? String(resolveFieldData(rowData, this.dataKey)) : null;
                 this.anchorRowIndex = rowIndex;
                 this.rangeRowIndex = rowIndex;
 
@@ -5144,7 +5162,7 @@ export class Table extends BaseComponent implements OnInit, AfterViewInit, After
             } else if (this.contextMenuSelectionMode === 'joint') {
                 this.preventSelectionSetterPropagation = true;
                 let selected = this.isSelected(rowData);
-                let dataKeyValue = this.dataKey ? String(ObjectUtils.resolveFieldData(rowData, this.dataKey)) : null;
+                let dataKeyValue = this.dataKey ? String(resolveFieldData(rowData, this.dataKey)) : null;
 
                 if (!selected) {
                     if (!this.isRowSelectable(rowData, rowIndex)) {
@@ -5209,7 +5227,7 @@ export class Table extends BaseComponent implements OnInit, AfterViewInit, After
 
                 rangeRowsData.push(rangeRowData);
                 this._selection = [...this.selection, rangeRowData];
-                let dataKeyValue = this.dataKey ? String(ObjectUtils.resolveFieldData(rangeRowData, this.dataKey)) : null;
+                let dataKeyValue = this.dataKey ? String(resolveFieldData(rangeRowData, this.dataKey)) : null;
                 if (dataKeyValue) {
                     this.selectionKeys[dataKeyValue] = 1;
                 }
@@ -5243,7 +5261,7 @@ export class Table extends BaseComponent implements OnInit, AfterViewInit, After
             let rangeRowData = this.value[i];
             let selectionIndex = this.findIndexInSelection(rangeRowData);
             this._selection = this.selection.filter((val: any, i: number) => i != selectionIndex);
-            let dataKeyValue = this.dataKey ? String(ObjectUtils.resolveFieldData(rangeRowData, this.dataKey)) : null;
+            let dataKeyValue = this.dataKey ? String(resolveFieldData(rangeRowData, this.dataKey)) : null;
             if (dataKeyValue) {
                 delete this.selectionKeys[dataKeyValue];
             }
@@ -5258,7 +5276,7 @@ export class Table extends BaseComponent implements OnInit, AfterViewInit, After
     isSelected(rowData: any) {
         if (rowData && this.selection) {
             if (this.dataKey) {
-                return this.selectionKeys[ObjectUtils.resolveFieldData(rowData, this.dataKey)] !== undefined;
+                return this.selectionKeys[resolveFieldData(rowData, this.dataKey)] !== undefined;
             } else {
                 if (Array.isArray(this.selection)) return this.findIndexInSelection(rowData) > -1;
                 else return this.equals(rowData, this.selection);
@@ -5309,7 +5327,7 @@ export class Table extends BaseComponent implements OnInit, AfterViewInit, After
 
             if (this.dataKey) {
                 this.selectionKeys = {};
-                this.selectionKeys[String(ObjectUtils.resolveFieldData(rowData, this.dataKey))] = 1;
+                this.selectionKeys[String(resolveFieldData(rowData, this.dataKey))] = 1;
             }
         } else {
             this._selection = null;
@@ -5332,7 +5350,7 @@ export class Table extends BaseComponent implements OnInit, AfterViewInit, After
     toggleRowWithCheckbox(event: any, rowData: any) {
         this.selection = this.selection || [];
         let selected = this.isSelected(rowData);
-        let dataKeyValue = this.dataKey ? String(ObjectUtils.resolveFieldData(rowData, this.dataKey)) : null;
+        let dataKeyValue = this.dataKey ? String(resolveFieldData(rowData, this.dataKey)) : null;
         this.preventSelectionSetterPropagation = true;
 
         if (selected) {
@@ -5402,7 +5420,7 @@ export class Table extends BaseComponent implements OnInit, AfterViewInit, After
     }
 
     equals(data1: any, data2: any) {
-        return this.compareSelectionBy === 'equals' ? data1 === data2 : ObjectUtils.equals(data1, data2, this.dataKey);
+        return this.compareSelectionBy === 'equals' ? data1 === data2 : equals(data1, data2, this.dataKey);
     }
 
     /* Legacy Filtering for custom elements */
@@ -5495,7 +5513,7 @@ export class Table extends BaseComponent implements OnInit, AfterViewInit, After
                     if (this.filters['global'] && !globalMatch && globalFilterFieldsArray) {
                         for (let j = 0; j < globalFilterFieldsArray.length; j++) {
                             let globalFilterField = globalFilterFieldsArray[j].field || globalFilterFieldsArray[j];
-                            globalMatch = (<any>this.filterService).filters[(<any>this.filters['global']).matchMode](ObjectUtils.resolveFieldData(this.value[i], globalFilterField), (<FilterMetadata>this.filters['global']).value, this.filterLocale);
+                            globalMatch = (<any>this.filterService).filters[(<any>this.filters['global']).matchMode](resolveFieldData(this.value[i], globalFilterField), (<FilterMetadata>this.filters['global']).value, this.filterLocale);
 
                             if (globalMatch) {
                                 break;
@@ -5550,7 +5568,7 @@ export class Table extends BaseComponent implements OnInit, AfterViewInit, After
     executeLocalFilter(field: string, rowData: any, filterMeta: FilterMetadata): boolean {
         let filterValue = filterMeta.value;
         let filterMatchMode = filterMeta.matchMode || FilterMatchMode.STARTS_WITH;
-        let dataFieldValue = ObjectUtils.resolveFieldData(rowData, field);
+        let dataFieldValue = resolveFieldData(rowData, field);
         let filterConstraint = (<any>this.filterService).filters[filterMatchMode];
 
         return filterConstraint(dataFieldValue, filterValue, this.filterLocale);
@@ -5653,7 +5671,7 @@ export class Table extends BaseComponent implements OnInit, AfterViewInit, After
             .map((record: any) =>
                 exportableColumns
                     .map((column) => {
-                        let cellData = ObjectUtils.resolveFieldData(record, column.field);
+                        let cellData = resolveFieldData(record, column.field);
 
                         if (cellData != null) {
                             if (this.exportFunction) {
@@ -5745,14 +5763,14 @@ export class Table extends BaseComponent implements OnInit, AfterViewInit, After
     }
 
     isEditingCellValid() {
-        return this.editingCell && DomHandler.find(this.editingCell, '.ng-invalid.ng-dirty').length === 0;
+        return this.editingCell && find(this.editingCell, '.ng-invalid.ng-dirty').length === 0;
     }
 
     bindDocumentEditListener() {
         if (!this.documentEditListener) {
             this.documentEditListener = this.renderer.listen(this.document, 'click', (event) => {
                 if (this.editingCell && !this.selfClick && this.isEditingCellValid()) {
-                    DomHandler.removeClass(this.editingCell, 'p-cell-editing');
+                    removeClass(this.editingCell, 'p-cell-editing');
                     this.editingCell = null;
                     this.onEditComplete.emit({
                         field: this.editingCellField,
@@ -5784,19 +5802,19 @@ export class Table extends BaseComponent implements OnInit, AfterViewInit, After
     }
 
     initRowEdit(rowData: any) {
-        let dataKeyValue = String(ObjectUtils.resolveFieldData(rowData, this.dataKey));
+        let dataKeyValue = String(resolveFieldData(rowData, this.dataKey));
         this.editingRowKeys[dataKeyValue] = true;
     }
 
     saveRowEdit(rowData: any, rowElement: HTMLTableRowElement) {
-        if (DomHandler.find(rowElement, '.ng-invalid.ng-dirty').length === 0) {
-            let dataKeyValue = String(ObjectUtils.resolveFieldData(rowData, this.dataKey));
+        if (find(rowElement, '.ng-invalid.ng-dirty').length === 0) {
+            let dataKeyValue = String(resolveFieldData(rowData, this.dataKey));
             delete this.editingRowKeys[dataKeyValue];
         }
     }
 
     cancelRowEdit(rowData: any) {
-        let dataKeyValue = String(ObjectUtils.resolveFieldData(rowData, this.dataKey));
+        let dataKeyValue = String(resolveFieldData(rowData, this.dataKey));
         delete this.editingRowKeys[dataKeyValue];
     }
 
@@ -5805,7 +5823,7 @@ export class Table extends BaseComponent implements OnInit, AfterViewInit, After
             throw new Error('dataKey or groupRowsBy must be defined to use row expansion');
         }
 
-        let dataKeyValue = this.groupRowsBy ? String(ObjectUtils.resolveFieldData(rowData, this.groupRowsBy)) : String(ObjectUtils.resolveFieldData(rowData, this.dataKey));
+        let dataKeyValue = this.groupRowsBy ? String(resolveFieldData(rowData, this.groupRowsBy)) : String(resolveFieldData(rowData, this.dataKey));
 
         if (this.expandedRowKeys[dataKeyValue] != null) {
             delete this.expandedRowKeys[dataKeyValue];
@@ -5835,11 +5853,11 @@ export class Table extends BaseComponent implements OnInit, AfterViewInit, After
     }
 
     isRowExpanded(rowData: any): boolean {
-        return this.groupRowsBy ? this.expandedRowKeys[String(ObjectUtils.resolveFieldData(rowData, this.groupRowsBy))] === true : this.expandedRowKeys[String(ObjectUtils.resolveFieldData(rowData, this.dataKey))] === true;
+        return this.groupRowsBy ? this.expandedRowKeys[String(resolveFieldData(rowData, this.groupRowsBy))] === true : this.expandedRowKeys[String(resolveFieldData(rowData, this.dataKey))] === true;
     }
 
     isRowEditing(rowData: any): boolean {
-        return this.editingRowKeys[String(ObjectUtils.resolveFieldData(rowData, this.dataKey))] === true;
+        return this.editingRowKeys[String(resolveFieldData(rowData, this.dataKey))] === true;
     }
 
     isSingleSelectionMode() {
@@ -5851,7 +5869,7 @@ export class Table extends BaseComponent implements OnInit, AfterViewInit, After
     }
 
     onColumnResizeBegin(event: any) {
-        let containerLeft = DomHandler.getOffset(this.containerViewChild?.nativeElement).left;
+        let containerLeft = <any>getOffset(this.containerViewChild?.nativeElement).left;
         this.resizeColumnElement = event.target.parentElement;
         this.columnResizing = true;
         if (event.type == 'touchstart') {
@@ -5864,8 +5882,8 @@ export class Table extends BaseComponent implements OnInit, AfterViewInit, After
     }
 
     onColumnResize(event: any) {
-        let containerLeft = DomHandler.getOffset(this.containerViewChild?.nativeElement).left;
-        DomHandler.addClass(this.containerViewChild?.nativeElement, 'p-unselectable-text');
+        let containerLeft = <any>getOffset(this.containerViewChild?.nativeElement).left;
+        addClass(this.containerViewChild?.nativeElement, 'p-unselectable-text');
         (<ElementRef>this.resizeHelperViewChild).nativeElement.style.height = this.containerViewChild?.nativeElement.offsetHeight + 'px';
         (<ElementRef>this.resizeHelperViewChild).nativeElement.style.top = 0 + 'px';
         if (event.type == 'touchmove') {
@@ -5909,21 +5927,21 @@ export class Table extends BaseComponent implements OnInit, AfterViewInit, After
         }
 
         (<ElementRef>this.resizeHelperViewChild).nativeElement.style.display = 'none';
-        DomHandler.removeClass(this.containerViewChild?.nativeElement, 'p-unselectable-text');
+        removeClass(this.containerViewChild?.nativeElement, 'p-unselectable-text');
     }
 
     private _totalTableWidth(): number[] {
         let widths = [];
-        const tableHead = DomHandler.findSingle(this.containerViewChild.nativeElement, '.p-datatable-thead');
-        let headers = DomHandler.find(tableHead, 'tr > th');
-        headers.forEach((header) => widths.push(DomHandler.getOuterWidth(header)));
+        const tableHead = findSingle(this.containerViewChild.nativeElement, '.p-datatable-thead');
+        let headers = find(tableHead, 'tr > th');
+        headers.forEach((header) => widths.push(getOuterWidth(header)));
 
         return widths;
     }
 
     onColumnDragStart(event: any, columnElement: any) {
-        this.reorderIconWidth = DomHandler.getHiddenElementOuterWidth(this.reorderIndicatorUpViewChild?.nativeElement);
-        this.reorderIconHeight = DomHandler.getHiddenElementOuterHeight(this.reorderIndicatorDownViewChild?.nativeElement);
+        this.reorderIconWidth = getHiddenElementOuterWidth(this.reorderIndicatorUpViewChild?.nativeElement);
+        this.reorderIconHeight = getHiddenElementOuterHeight(this.reorderIndicatorDownViewChild?.nativeElement);
         this.draggedColumn = columnElement;
         event.dataTransfer.setData('text', 'b'); // For firefox
     }
@@ -5931,8 +5949,8 @@ export class Table extends BaseComponent implements OnInit, AfterViewInit, After
     onColumnDragEnter(event: any, dropHeader: any) {
         if (this.reorderableColumns && this.draggedColumn && dropHeader) {
             event.preventDefault();
-            let containerOffset = DomHandler.getOffset(this.containerViewChild?.nativeElement);
-            let dropHeaderOffset = DomHandler.getOffset(dropHeader);
+            let containerOffset = <any>getOffset(this.containerViewChild?.nativeElement);
+            let dropHeaderOffset = <any>getOffset(dropHeader);
 
             if (this.draggedColumn != dropHeader) {
                 let dragIndex = DomHandler.indexWithinGroup(this.draggedColumn, 'preorderablecolumn');
@@ -5986,7 +6004,7 @@ export class Table extends BaseComponent implements OnInit, AfterViewInit, After
             }
 
             if (allowDrop) {
-                ObjectUtils.reorderArray(<any[]>this.columns, dragIndex, dropIndex);
+                reorderArray(<any[]>this.columns, dragIndex, dropIndex);
 
                 this.onColReorder.emit({
                     dragIndex: dragIndex,
@@ -6005,7 +6023,7 @@ export class Table extends BaseComponent implements OnInit, AfterViewInit, After
 
             if (this.resizableColumns && this.resizeColumnElement) {
                 let width = this.columnResizeMode === 'expand' ? this._initialColWidths : this._totalTableWidth();
-                ObjectUtils.reorderArray(width, dragIndex + 1, dropIndex + 1);
+                reorderArray(width, dragIndex + 1, dropIndex + 1);
                 this.updateStyleElement(width, dragIndex, null, null);
             }
 
@@ -6018,7 +6036,7 @@ export class Table extends BaseComponent implements OnInit, AfterViewInit, After
     }
 
     resizeTableCells(newColumnWidth: number, nextColumnWidth: number | null) {
-        let colIndex = DomHandler.index(this.resizeColumnElement);
+        let colIndex = getIndex(this.resizeColumnElement);
         let width = this.columnResizeMode === 'expand' ? this._initialColWidths : this._totalTableWidth();
         this.updateStyleElement(width, colIndex, newColumnWidth, nextColumnWidth);
     }
@@ -6050,23 +6068,23 @@ export class Table extends BaseComponent implements OnInit, AfterViewInit, After
 
     onRowDragOver(event: MouseEvent, index: number, rowElement: any) {
         if (this.rowDragging && this.draggedRowIndex !== index) {
-            let rowY = DomHandler.getOffset(rowElement).top;
+            let rowY = <any>getOffset(rowElement).top;
             let pageY = event.pageY;
-            let rowMidY = rowY + DomHandler.getOuterHeight(rowElement) / 2;
+            let rowMidY = rowY + <any>getOuterHeight(rowElement) / 2;
             let prevRowElement = rowElement.previousElementSibling;
 
             if (pageY < rowMidY) {
-                DomHandler.removeClass(rowElement, 'p-datatable-dragpoint-bottom');
+                removeClass(rowElement, 'p-datatable-dragpoint-bottom');
 
                 this.droppedRowIndex = index;
-                if (prevRowElement) DomHandler.addClass(prevRowElement, 'p-datatable-dragpoint-bottom');
-                else DomHandler.addClass(rowElement, 'p-datatable-dragpoint-top');
+                if (prevRowElement) addClass(prevRowElement, 'p-datatable-dragpoint-bottom');
+                else addClass(rowElement, 'p-datatable-dragpoint-top');
             } else {
-                if (prevRowElement) DomHandler.removeClass(prevRowElement, 'p-datatable-dragpoint-bottom');
-                else DomHandler.addClass(rowElement, 'p-datatable-dragpoint-top');
+                if (prevRowElement) removeClass(prevRowElement, 'p-datatable-dragpoint-bottom');
+                else addClass(rowElement, 'p-datatable-dragpoint-top');
 
                 this.droppedRowIndex = index + 1;
-                DomHandler.addClass(rowElement, 'p-datatable-dragpoint-bottom');
+                addClass(rowElement, 'p-datatable-dragpoint-bottom');
             }
         }
     }
@@ -6074,11 +6092,11 @@ export class Table extends BaseComponent implements OnInit, AfterViewInit, After
     onRowDragLeave(event: Event, rowElement: any) {
         let prevRowElement = rowElement.previousElementSibling;
         if (prevRowElement) {
-            DomHandler.removeClass(prevRowElement, 'p-datatable-dragpoint-bottom');
+            removeClass(prevRowElement, 'p-datatable-dragpoint-bottom');
         }
 
-        DomHandler.removeClass(rowElement, 'p-datatable-dragpoint-bottom');
-        DomHandler.removeClass(rowElement, 'p-datatable-dragpoint-top');
+        removeClass(rowElement, 'p-datatable-dragpoint-bottom');
+        removeClass(rowElement, 'p-datatable-dragpoint-top');
     }
 
     onRowDragEnd(event: Event) {
@@ -6090,7 +6108,7 @@ export class Table extends BaseComponent implements OnInit, AfterViewInit, After
     onRowDrop(event: Event, rowElement: any) {
         if (this.droppedRowIndex != null) {
             let dropIndex = <number>this.draggedRowIndex > this.droppedRowIndex ? this.droppedRowIndex : this.droppedRowIndex === 0 ? 0 : this.droppedRowIndex - 1;
-            ObjectUtils.reorderArray(this.value, <number>this.draggedRowIndex, dropIndex);
+            reorderArray(this.value, <number>this.draggedRowIndex, dropIndex);
 
             if (this.virtualScroll) {
                 // TODO: Check
@@ -6255,12 +6273,12 @@ export class Table extends BaseComponent implements OnInit, AfterViewInit, After
 
     saveColumnWidths(state: any) {
         let widths: any[] = [];
-        let headers = DomHandler.find(this.containerViewChild?.nativeElement, '.p-datatable-thead > tr > th');
-        headers.forEach((header) => widths.push(DomHandler.getOuterWidth(header)));
+        let headers = find(this.containerViewChild?.nativeElement, '.p-datatable-thead > tr > th');
+        headers.forEach((header) => widths.push(getOuterWidth(header)));
         state.columnWidths = widths.join(',');
 
         if (this.columnResizeMode === 'expand') {
-            state.tableWidth = DomHandler.getOuterWidth(this.tableViewChild?.nativeElement);
+            state.tableWidth = getOuterWidth(this.tableViewChild?.nativeElement);
         }
     }
 
@@ -6277,7 +6295,7 @@ export class Table extends BaseComponent implements OnInit, AfterViewInit, After
                 this.setResizeTableWidth(this.tableWidthState + 'px');
             }
 
-            if (ObjectUtils.isNotEmpty(widths)) {
+            if (isNotEmpty(widths)) {
                 this.createStyleElement();
 
                 let innerHTML = '';
@@ -6346,7 +6364,7 @@ export class Table extends BaseComponent implements OnInit, AfterViewInit, After
         this.styleElement = this.renderer.createElement('style');
         this.styleElement.type = 'text/css';
         this.renderer.appendChild(this.document.head, this.styleElement);
-        DomHandler.setAttribute(this.styleElement, 'nonce', this.config?.csp()?.nonce);
+        setAttribute(this.styleElement, 'nonce', this.config?.csp()?.nonce);
     }
 
     getGroupRowsMeta() {

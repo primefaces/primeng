@@ -1,5 +1,4 @@
-import { FilterMetadata } from './filtermetadata';
-import { SortMeta } from './sortmeta';
+import { SortMeta, FilterMetadata } from '@primeng/core/api';
 /**
  * Meta data for lazy load event.
  * @group Interface

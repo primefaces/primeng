@@ -19,14 +19,13 @@ import {
     ViewChild,
     ViewEncapsulation
 } from '@angular/core';
-import { SharedModule } from 'primeng/api';
-import { DomHandler } from 'primeng/dom';
-import { TimesIcon } from 'primeng/icons/times';
+import { BaseComponent, SharedModule } from '@primeng/core';
+import { TimesIcon } from '@primeng/icons';
+import { appendChild, blockBodyScroll } from '@primeuix/utils';
+import { ButtonModule, ButtonProps } from 'primeng/button';
 import { Ripple } from 'primeng/ripple';
 import { Nullable, VoidListener } from 'primeng/ts-helpers';
 import { ZIndexUtils } from 'primeng/utils';
-import { ButtonModule, ButtonProps } from 'primeng/button';
-import { BaseComponent } from 'primeng/basecomponent';
 import { DrawerStyle } from './style/drawerstyle';
 
 const showAnimation = animation([style({ transform: '{{transform}}', opacity: 0 }), animate('{{transition}}')]);
@@ -347,7 +346,7 @@ export class Sidebar extends BaseComponent implements AfterViewInit, AfterConten
         }
 
         if (this.blockScroll) {
-            DomHandler.blockBodyScroll();
+            blockBodyScroll();
         }
     }
 
@@ -377,7 +376,7 @@ export class Sidebar extends BaseComponent implements AfterViewInit, AfterConten
 
     appendContainer() {
         if (this.appendTo) {
-            return this.appendTo === 'body' ? this.renderer.appendChild(this.document.body, this.container) : DomHandler.appendChild(this.container, this.appendTo);
+            return this.appendTo === 'body' ? this.renderer.appendChild(this.document.body, this.container) : appendChild(this.container, this.appendTo);
         }
     }
 

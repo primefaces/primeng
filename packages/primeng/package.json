@@ -71,6 +71,8 @@
     },
     "dependencies": {
         "@primeuix/styled": "catalog:",
-        "@primeuix/utils": "catalog:"
+        "@primeuix/utils": "catalog:",
+        "@primeng/core": "workspace:*",
+        "@primeng/icons": "workspace:*"
     }
 }

@@ -19,15 +19,15 @@ import {
     ViewEncapsulation,
     ViewRef
 } from '@angular/core';
-import { OverlayService, SharedModule } from 'primeng/api';
-import { ConnectedOverlayScrollHandler, DomHandler } from 'primeng/dom';
-import { TimesIcon } from 'primeng/icons/times';
+import { BaseComponent, OverlayService, SharedModule } from '@primeng/core';
+import { TimesIcon } from '@primeng/icons';
+import { absolutePosition, addClass, appendChild, findSingle, getOffset, isIOS, isTouchDevice } from '@primeuix/utils';
+import { ConnectedOverlayScrollHandler } from 'primeng/dom';
 import { Ripple } from 'primeng/ripple';
 import { Nullable, VoidListener } from 'primeng/ts-helpers';
 import { ZIndexUtils } from 'primeng/utils';
 import { Subscription } from 'rxjs';
 import { PopoverStyle } from './style/popoverstyle';
-import { BaseComponent } from 'primeng/basecomponent';
 
 /**
  * OverlayPanel is a container component positioned as connected to its target.
@@ -230,7 +230,7 @@ export class OverlayPanel extends BaseComponent implements AfterContentInit, OnD
     bindDocumentClickListener() {
         if (isPlatformBrowser(this.platformId)) {
             if (!this.documentClickListener && this.dismissable) {
-                let documentEvent = DomHandler.isIOS() ? 'touchstart' : 'click';
+                let documentEvent = isIOS() ? 'touchstart' : 'click';
                 const documentTarget: any = this.el ? this.el.nativeElement.ownerDocument : this.document;
 
                 this.documentClickListener = this.renderer.listen(documentTarget, documentEvent, (event) => {
@@ -315,7 +315,7 @@ export class OverlayPanel extends BaseComponent implements AfterContentInit, OnD
     appendContainer() {
         if (this.appendTo) {
             if (this.appendTo === 'body') this.renderer.appendChild(this.document.body, this.container);
-            else DomHandler.appendChild(this.container, this.appendTo);
+            else appendChild(this.container, this.appendTo);
         }
     }
 
@@ -330,10 +330,10 @@ export class OverlayPanel extends BaseComponent implements AfterContentInit, OnD
             ZIndexUtils.set('overlay', this.container, this.baseZIndex + this.config.zIndex.overlay);
         }
 
-        DomHandler.absolutePosition(this.container, this.target, false);
+        absolutePosition(this.container, this.target, false);
 
-        const containerOffset = DomHandler.getOffset(this.container);
-        const targetOffset = DomHandler.getOffset(this.target);
+        const containerOffset = getOffset(this.container);
+        const targetOffset = getOffset(this.target);
         const borderRadius = this.document.defaultView?.getComputedStyle(this.container!).getPropertyValue('border-radius');
         let arrowLeft = 0;
 
@@ -343,7 +343,7 @@ export class OverlayPanel extends BaseComponent implements AfterContentInit, OnD
         this.container?.style.setProperty('--overlayArrowLeft', `${arrowLeft}px`);
 
         if (containerOffset.top < targetOffset.top) {
-            DomHandler.addClass(this.container, 'p-popover-flipped');
+            addClass(this.container, 'p-popover-flipped');
 
             if (this.showCloseIcon) {
                 this.renderer.setStyle(this.container, 'margin-top', '-30px');
@@ -409,7 +409,7 @@ export class OverlayPanel extends BaseComponent implements AfterContentInit, OnD
     }
 
     focus() {
-        let focusable = DomHandler.findSingle(this.container, '[autofocus]');
+        let focusable = findSingle(this.container, '[autofocus]');
         if (focusable) {
             this.zone.runOutsideAngular(() => {
                 setTimeout(() => focusable.focus(), 5);
@@ -436,7 +436,7 @@ export class OverlayPanel extends BaseComponent implements AfterContentInit, OnD
     }
 
     onWindowResize() {
-        if (this.overlayVisible && !DomHandler.isTouchDevice()) {
+        if (this.overlayVisible && !isTouchDevice()) {
             this.hide();
         }
     }

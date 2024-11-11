@@ -1,12 +1,10 @@
-import { TestBed, ComponentFixture, fakeAsync, tick } from '@angular/core/testing';
-import { By } from '@angular/platform-browser';
-import { Toast, ToastItem } from './toast';
-import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 import { Component } from '@angular/core';
+import { ComponentFixture, TestBed } from '@angular/core/testing';
+import { By } from '@angular/platform-browser';
+import { NoopAnimationsModule } from '@angular/platform-browser/animations';
+import { CheckIcon, ExclamationTriangleIcon, TimesIcon } from '@primeng/icons';
 import { MessageService } from 'primeng/api';
-import { ExclamationTriangleIcon } from 'primeng/icons/exclamationtriangle';
-import { CheckIcon } from 'primeng/icons/check';
-import { TimesIcon } from 'primeng/icons/times';
+import { Toast, ToastItem } from './toast';
 
 @Component({
     template: ` <p-toast></p-toast> `,

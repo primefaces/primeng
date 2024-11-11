@@ -1,8 +1,7 @@
 import { CommonModule } from '@angular/common';
 import { ChangeDetectionStrategy, Component, EventEmitter, HostBinding, inject, Input, NgModule, Output, ViewEncapsulation } from '@angular/core';
-import { BaseComponent } from 'primeng/basecomponent';
+import { BaseComponent, SharedModule } from '@primeng/core';
 import { AvatarStyle } from './style/avatarstyle';
-import { SharedModule } from 'primeng/api';
 
 /**
  * Avatar represents people using icons, labels and images.

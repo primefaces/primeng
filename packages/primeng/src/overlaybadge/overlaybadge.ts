@@ -1,9 +1,8 @@
 import { CommonModule } from '@angular/common';
 import { booleanAttribute, ChangeDetectionStrategy, Component, inject, Input, NgModule, ViewEncapsulation } from '@angular/core';
-import { SharedModule } from 'primeng/api';
-import { OverlayBadgeStyle } from './style/overlaybadgestyle';
-import { BaseComponent } from 'primeng/basecomponent';
+import { BaseComponent, SharedModule } from '@primeng/core';
 import { BadgeModule } from 'primeng/badge';
+import { OverlayBadgeStyle } from './style/overlaybadgestyle';
 
 /**
  * OverlayPanel is a container component positioned as connected to its target.

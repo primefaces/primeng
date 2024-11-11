@@ -19,18 +19,13 @@ import {
     ViewChild,
     ViewEncapsulation
 } from '@angular/core';
-import { Footer, Header, SharedModule } from 'primeng/api';
-import { ChevronDownIcon } from 'primeng/icons/chevrondown';
-import { ChevronLeftIcon } from 'primeng/icons/chevronleft';
-import { ChevronRightIcon } from 'primeng/icons/chevronright';
-import { ChevronUpIcon } from 'primeng/icons/chevronup';
-import { Ripple } from 'primeng/ripple';
-import { UniqueComponentId } from 'primeng/utils';
-import { CarouselPageEvent, CarouselResponsiveOptions } from './carousel.interface';
-import { DomHandler } from 'primeng/dom';
+import { BaseComponent, Footer, Header, SharedModule } from '@primeng/core';
+import { ChevronDownIcon, ChevronLeftIcon, ChevronRightIcon, ChevronUpIcon } from '@primeng/icons';
+import { find, findSingle, getAttribute, setAttribute, uuid } from '@primeuix/utils';
 import { Button, ButtonProps } from 'primeng/button';
+import { Ripple } from 'primeng/ripple';
+import { CarouselPageEvent, CarouselResponsiveOptions } from './carousel.interface';
 import { CarouselStyle } from './style/carouselstyle';
-import { BaseComponent } from 'primeng/basecomponent';
 
 /**
  * Carousel is a content slider featuring various customization options.
@@ -445,7 +440,7 @@ export class Carousel extends BaseComponent implements AfterContentInit {
     }
 
     ngAfterContentInit() {
-        this.id = UniqueComponentId();
+        this.id = uuid('pn_id_');
         if (isPlatformBrowser(this.platformId)) {
             this.allowAutoplay = !!this.autoplayInterval;
 
@@ -543,7 +538,7 @@ export class Carousel extends BaseComponent implements AfterContentInit {
         if (!this.carouselStyle) {
             this.carouselStyle = this.renderer.createElement('style');
             this.carouselStyle.type = 'text/css';
-            DomHandler.setAttribute(this.carouselStyle, 'nonce', this.config?.csp()?.nonce);
+            setAttribute(this.carouselStyle, 'nonce', this.config?.csp()?.nonce);
             this.renderer.appendChild(this.document.head, this.carouselStyle);
         }
 
@@ -735,7 +730,7 @@ export class Carousel extends BaseComponent implements AfterContentInit {
     }
 
     onRightKey() {
-        const indicators = [...DomHandler.find(this.indicatorContent.nativeElement, '[data-pc-section="indicator"]')];
+        const indicators = [...find(this.indicatorContent.nativeElement, '[data-pc-section="indicator"]')];
         const activeIndex = this.findFocusedIndicatorIndex();
 
         this.changedFocusedIndicator(activeIndex, activeIndex + 1 === indicators.length ? indicators.length - 1 : activeIndex + 1);
@@ -754,17 +749,17 @@ export class Carousel extends BaseComponent implements AfterContentInit {
     }
 
     onEndKey() {
-        const indicators = [...DomHandler.find(this.indicatorContent.nativeElement, '[data-pc-section="indicator"]r')];
+        const indicators = [...find(this.indicatorContent.nativeElement, '[data-pc-section="indicator"]r')];
         const activeIndex = this.findFocusedIndicatorIndex();
 
         this.changedFocusedIndicator(activeIndex, indicators.length - 1);
     }
 
     onTabKey() {
-        const indicators = [...DomHandler.find(this.indicatorContent.nativeElement, '[data-pc-section="indicator"]')];
-        const highlightedIndex = indicators.findIndex((ind) => DomHandler.getAttribute(ind, 'data-p-highlight') === true);
+        const indicators = <any>[...find(this.indicatorContent.nativeElement, '[data-pc-section="indicator"]')];
+        const highlightedIndex = indicators.findIndex((ind) => getAttribute(ind, 'data-p-highlight') === true);
 
-        const activeIndicator = DomHandler.findSingle(this.indicatorContent.nativeElement, '[data-pc-section="indicator"] > button[tabindex="0"]');
+        const activeIndicator = <any>findSingle(this.indicatorContent.nativeElement, '[data-pc-section="indicator"] > button[tabindex="0"]');
         const activeIndex = indicators.findIndex((ind) => ind === activeIndicator.parentElement);
 
         indicators[activeIndex].children[0].tabIndex = '-1';
@@ -772,14 +767,14 @@ export class Carousel extends BaseComponent implements AfterContentInit {
     }
 
     findFocusedIndicatorIndex() {
-        const indicators = [...DomHandler.find(this.indicatorContent.nativeElement, '[data-pc-section="indicator"]')];
-        const activeIndicator = DomHandler.findSingle(this.indicatorContent.nativeElement, '[data-pc-section="indicator"] > button[tabindex="0"]');
+        const indicators = [...find(this.indicatorContent.nativeElement, '[data-pc-section="indicator"]')];
+        const activeIndicator = findSingle(this.indicatorContent.nativeElement, '[data-pc-section="indicator"] > button[tabindex="0"]');
 
         return indicators.findIndex((ind) => ind === activeIndicator.parentElement);
     }
 
     changedFocusedIndicator(prevInd, nextInd) {
-        const indicators = [...DomHandler.find(this.indicatorContent.nativeElement, '[data-pc-section="indicator"]')];
+        const indicators = <any>[...find(this.indicatorContent.nativeElement, '[data-pc-section="indicator"]')];
 
         indicators[prevInd].children[0].tabIndex = '-1';
         indicators[nextInd].children[0].tabIndex = '0';

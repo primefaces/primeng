@@ -22,19 +22,14 @@ import {
     ViewEncapsulation
 } from '@angular/core';
 import { NG_VALUE_ACCESSOR } from '@angular/forms';
-import { OverlayOptions, OverlayService, SharedModule, TranslationKeys } from 'primeng/api';
-import { DomHandler } from 'primeng/dom';
-import { AngleRightIcon } from 'primeng/icons/angleright';
+import { BaseComponent, OverlayOptions, OverlayService, SharedModule, TranslationKeys } from '@primeng/core';
+import { AngleRightIcon, ChevronDownIcon, TimesIcon } from '@primeng/icons';
+import { calculateScrollbarWidth, equals, findLastIndex, findSingle, focus, getHiddenElementOuterWidth, getOffset, getOuterWidth, getViewport, isEmpty, isNotEmpty, isPrintableCharacter, resolveFieldData, uuid } from '@primeuix/utils';
 import { AutoFocus } from 'primeng/autofocus';
-
-import { ChevronDownIcon } from 'primeng/icons/chevrondown';
-import { TimesIcon } from 'primeng/icons/times';
 import { Overlay } from 'primeng/overlay';
 import { Ripple } from 'primeng/ripple';
 import { Nullable, VoidListener } from 'primeng/ts-helpers';
-import { ObjectUtils, UniqueComponentId } from 'primeng/utils';
 import { CascadeSelectBeforeHideEvent, CascadeSelectBeforeShowEvent, CascadeSelectChangeEvent, CascadeSelectHideEvent, CascadeSelectShowEvent } from './cascadeselect.interface';
-import { BaseComponent } from 'primeng/basecomponent';
 import { CascadeSelectStyle } from './style/cascadeselectstyle';
 
 export const CASCADESELECT_VALUE_ACCESSOR: any = {
@@ -159,11 +154,11 @@ export class CascadeSelectSub extends BaseComponent implements OnInit {
     }
 
     getOptionLabel(processedOption) {
-        return this.optionLabel ? ObjectUtils.resolveFieldData(processedOption.option, this.optionLabel) : processedOption.option;
+        return this.optionLabel ? resolveFieldData(processedOption.option, this.optionLabel) : processedOption.option;
     }
 
     getOptionValue(processedOption) {
-        return this.optionValue ? ObjectUtils.resolveFieldData(processedOption.option, this.optionValue) : processedOption.option;
+        return this.optionValue ? resolveFieldData(processedOption.option, this.optionValue) : processedOption.option;
     }
 
     getOptionLabelToRender(processedOption) {
@@ -171,11 +166,11 @@ export class CascadeSelectSub extends BaseComponent implements OnInit {
     }
 
     isOptionDisabled(processedOption) {
-        return this.optionDisabled ? ObjectUtils.resolveFieldData(processedOption.option, this.optionDisabled) : false;
+        return this.optionDisabled ? resolveFieldData(processedOption.option, this.optionDisabled) : false;
     }
 
     getOptionGroupLabel(processedOption) {
-        return this.optionGroupLabel ? ObjectUtils.resolveFieldData(processedOption.option, this.optionGroupLabel) : null;
+        return this.optionGroupLabel ? resolveFieldData(processedOption.option, this.optionGroupLabel) : null;
     }
 
     getOptionGroupChildren(processedOption) {
@@ -183,7 +178,7 @@ export class CascadeSelectSub extends BaseComponent implements OnInit {
     }
 
     isOptionGroup(processedOption) {
-        return ObjectUtils.isNotEmpty(processedOption.children);
+        return isNotEmpty(processedOption.children);
     }
 
     isOptionSelected(processedOption) {
@@ -211,11 +206,11 @@ export class CascadeSelectSub extends BaseComponent implements OnInit {
 
     position() {
         const parentItem = this.el.nativeElement.parentElement;
-        const containerOffset = DomHandler.getOffset(parentItem);
-        const viewport = DomHandler.getViewport();
-        const sublistWidth = this.el.nativeElement.children[0].offsetParent ? this.el.nativeElement.children[0].offsetWidth : DomHandler.getHiddenElementOuterWidth(this.el.nativeElement.children[0]);
-        const itemOuterWidth = DomHandler.getOuterWidth(parentItem.children[0]);
-        if (parseInt(containerOffset.left, 10) + itemOuterWidth + sublistWidth > viewport.width - DomHandler.calculateScrollbarWidth()) {
+        const containerOffset = <any>getOffset(parentItem);
+        const viewport = <any>getViewport();
+        const sublistWidth = this.el.nativeElement.children[0].offsetParent ? this.el.nativeElement.children[0].offsetWidth : getHiddenElementOuterWidth(this.el.nativeElement.children[0]);
+        const itemOuterWidth = <any>getOuterWidth(parentItem.children[0]);
+        if (parseInt(containerOffset.left, 10) + itemOuterWidth + sublistWidth > viewport.width - calculateScrollbarWidth()) {
             this.el.nativeElement.children[0].style.left = '-200%';
         }
     }
@@ -726,7 +721,7 @@ export class CascadeSelect extends BaseComponent implements OnInit {
     }
 
     get focusedOptionId() {
-        return this.focusedOptionInfo().index !== -1 ? `${this.id}${ObjectUtils.isNotEmpty(this.focusedOptionInfo().parentKey) ? '_' + this.focusedOptionInfo().parentKey : ''}_${this.focusedOptionInfo().index}` : null;
+        return this.focusedOptionInfo().index !== -1 ? `${this.id}${isNotEmpty(this.focusedOptionInfo().parentKey) ? '_' + this.focusedOptionInfo().parentKey : ''}_${this.focusedOptionInfo().index}` : null;
     }
 
     get filled(): boolean {
@@ -736,7 +731,7 @@ export class CascadeSelect extends BaseComponent implements OnInit {
     }
 
     get searchResultMessageText() {
-        return ObjectUtils.isNotEmpty(this.visibleOptions()) ? this.searchMessageText.replaceAll('{0}', this.visibleOptions().length) : this.emptySearchMessageText;
+        return isNotEmpty(this.visibleOptions()) ? this.searchMessageText.replaceAll('{0}', this.visibleOptions().length) : this.emptySearchMessageText;
     }
 
     get searchMessageText() {
@@ -774,7 +769,7 @@ export class CascadeSelect extends BaseComponent implements OnInit {
 
         if (this.hasSelectedOption()) {
             const activeOptionPath = this.findOptionPathByValue(this.modelValue(), null);
-            const processedOption = ObjectUtils.isNotEmpty(activeOptionPath) ? activeOptionPath[activeOptionPath.length - 1] : null;
+            const processedOption = isNotEmpty(activeOptionPath) ? activeOptionPath[activeOptionPath.length - 1] : null;
 
             return processedOption ? this.getOptionLabel(processedOption.option) : label;
         }
@@ -786,7 +781,7 @@ export class CascadeSelect extends BaseComponent implements OnInit {
 
         if (this.hasSelectedOption()) {
             const activeOptionPath = this.findOptionPathByValue(this.modelValue(), null);
-            const processedOption = ObjectUtils.isNotEmpty(activeOptionPath) ? activeOptionPath[activeOptionPath.length - 1] : null;
+            const processedOption = isNotEmpty(activeOptionPath) ? activeOptionPath[activeOptionPath.length - 1] : null;
 
             return processedOption ? this.getOptionLabel(processedOption.option) : label;
         }
@@ -802,7 +797,7 @@ export class CascadeSelect extends BaseComponent implements OnInit {
     }
 
     hasSelectedOption() {
-        return ObjectUtils.isNotEmpty(this.modelValue());
+        return isNotEmpty(this.modelValue());
     }
 
     createProcessedOptions(options, level = 0, parent = {}, parentKey = '') {
@@ -908,7 +903,7 @@ export class CascadeSelect extends BaseComponent implements OnInit {
                 break;
 
             default:
-                if (!metaKey && ObjectUtils.isPrintableCharacter(event.key)) {
+                if (!metaKey && isPrintableCharacter(event.key)) {
                     !this.overlayVisible && this.show();
                     this.searchOptions(event, event.key);
                 }
@@ -952,7 +947,7 @@ export class CascadeSelect extends BaseComponent implements OnInit {
             const processedOption = this.visibleOptions()[this.focusedOptionInfo().index];
             const parentOption = this.activeOptionPath().find((p) => p.key === processedOption.parentKey);
             const matched = this.focusedOptionInfo().parentKey === '' || (parentOption && parentOption.key === this.focusedOptionInfo().parentKey);
-            const root = ObjectUtils.isEmpty(processedOption.parent);
+            const root = isEmpty(processedOption.parent);
 
             if (matched) {
                 const activeOptionPath = this.activeOptionPath().filter((p) => p.parentKey !== this.focusedOptionInfo().parentKey);
@@ -1041,7 +1036,7 @@ export class CascadeSelect extends BaseComponent implements OnInit {
     }
 
     onBackspaceKey(event) {
-        if (ObjectUtils.isNotEmpty(this.modelValue()) && this.showClear) {
+        if (isNotEmpty(this.modelValue()) && this.showClear) {
             this.clear();
         }
 
@@ -1078,7 +1073,7 @@ export class CascadeSelect extends BaseComponent implements OnInit {
 
     scrollInView(index = -1) {
         const id = index !== -1 ? `${this.id}_${index}` : this.focusedOptionId;
-        const element = DomHandler.findSingle(this.panelViewChild?.nativeElement, `li[id="${id}"]`);
+        const element = findSingle(this.panelViewChild?.nativeElement, `li[id="${id}"]`);
 
         if (element) {
             element.scrollIntoView && element.scrollIntoView({ block: 'nearest', inline: 'start' });
@@ -1136,7 +1131,7 @@ export class CascadeSelect extends BaseComponent implements OnInit {
     }
 
     isOptionDisabled(option) {
-        return this.optionDisabled ? ObjectUtils.resolveFieldData(option, this.optionDisabled) : false;
+        return this.optionDisabled ? resolveFieldData(option, this.optionDisabled) : false;
     }
 
     isValidOption(processedOption) {
@@ -1155,12 +1150,12 @@ export class CascadeSelect extends BaseComponent implements OnInit {
         processedOptions = processedOptions || (level === 0 && this.processedOptions);
 
         if (!processedOptions) return null;
-        if (ObjectUtils.isEmpty(value)) return [];
+        if (isEmpty(value)) return [];
 
         for (let i = 0; i < processedOptions.length; i++) {
             const processedOption = processedOptions[i];
 
-            if (ObjectUtils.equals(value, this.getOptionValue(processedOption.option), this.equalityKey())) {
+            if (equals(value, this.getOptionValue(processedOption.option), this.equalityKey())) {
                 return [processedOption];
             }
 
@@ -1179,7 +1174,7 @@ export class CascadeSelect extends BaseComponent implements OnInit {
     }
 
     findLastOptionIndex() {
-        return ObjectUtils.findLastIndex(this.visibleOptions(), (processedOption) => this.isValidOption(processedOption));
+        return findLastIndex(this.visibleOptions(), (processedOption) => this.isValidOption(processedOption));
     }
 
     findNextOptionIndex(index) {
@@ -1194,7 +1189,7 @@ export class CascadeSelect extends BaseComponent implements OnInit {
     }
 
     findPrevOptionIndex(index) {
-        const matchedOptionIndex = index > 0 ? ObjectUtils.findLastIndex(this.visibleOptions().slice(0, index), (processedOption) => this.isValidOption(processedOption)) : -1;
+        const matchedOptionIndex = index > 0 ? findLastIndex(this.visibleOptions().slice(0, index), (processedOption) => this.isValidOption(processedOption)) : -1;
 
         return matchedOptionIndex > -1 ? matchedOptionIndex : index;
     }
@@ -1266,7 +1261,7 @@ export class CascadeSelect extends BaseComponent implements OnInit {
             this.activeOptionPath.set([]);
             this.focusedOptionInfo.set({ index: -1, level: 0, parentKey: '' });
 
-            isFocus && DomHandler.focus(this.focusInputViewChild.nativeElement);
+            isFocus && focus(this.focusInputViewChild.nativeElement);
             this.onHide.emit(event);
         };
 
@@ -1282,7 +1277,7 @@ export class CascadeSelect extends BaseComponent implements OnInit {
         this.activeOptionPath.set(activeOptionPath);
         let focusedOptionInfo;
 
-        if (this.hasSelectedOption() && ObjectUtils.isNotEmpty(this.activeOptionPath())) {
+        if (this.hasSelectedOption() && isNotEmpty(this.activeOptionPath())) {
             const processedOption = this.activeOptionPath()[this.activeOptionPath().length - 1];
 
             focusedOptionInfo = {
@@ -1296,11 +1291,11 @@ export class CascadeSelect extends BaseComponent implements OnInit {
 
         this.focusedOptionInfo.set(focusedOptionInfo);
 
-        isFocus && DomHandler.focus(this.focusInputViewChild.nativeElement);
+        isFocus && focus(this.focusInputViewChild.nativeElement);
     }
 
     clear(event?: MouseEvent) {
-        if (ObjectUtils.isNotEmpty(this.modelValue()) && this.showClear) {
+        if (isNotEmpty(this.modelValue()) && this.showClear) {
             this.updateModel(null);
             this.focusedOptionInfo.set({ index: -1, level: 0, parentKey: '' });
             this.activeOptionPath.set([]);
@@ -1311,19 +1306,19 @@ export class CascadeSelect extends BaseComponent implements OnInit {
     }
 
     getOptionLabel(option) {
-        return this.optionLabel ? ObjectUtils.resolveFieldData(option, this.optionLabel) : option;
+        return this.optionLabel ? resolveFieldData(option, this.optionLabel) : option;
     }
 
     getOptionValue(option) {
-        return this.optionValue ? ObjectUtils.resolveFieldData(option, this.optionValue) : option;
+        return this.optionValue ? resolveFieldData(option, this.optionValue) : option;
     }
 
     getOptionGroupLabel(optionGroup) {
-        return this.optionGroupLabel ? ObjectUtils.resolveFieldData(optionGroup, this.optionGroupLabel) : null;
+        return this.optionGroupLabel ? resolveFieldData(optionGroup, this.optionGroupLabel) : null;
     }
 
     getOptionGroupChildren(optionGroup, level) {
-        return ObjectUtils.resolveFieldData(optionGroup, this.optionGroupChildren[level]);
+        return resolveFieldData(optionGroup, this.optionGroupChildren[level]);
     }
 
     isOptionGroup(option, level) {
@@ -1331,7 +1326,7 @@ export class CascadeSelect extends BaseComponent implements OnInit {
     }
 
     isProccessedOptionGroup(processedOption) {
-        return ObjectUtils.isNotEmpty(processedOption.children);
+        return isNotEmpty(processedOption.children);
     }
 
     getProccessedOptionLabel(processedOption) {
@@ -1344,7 +1339,7 @@ export class CascadeSelect extends BaseComponent implements OnInit {
         super();
         effect(() => {
             const activeOptionPath = this.activeOptionPath();
-            if (ObjectUtils.isNotEmpty(activeOptionPath)) {
+            if (isNotEmpty(activeOptionPath)) {
                 this.overlayViewChild.alignOverlay();
             }
         });
@@ -1355,11 +1350,11 @@ export class CascadeSelect extends BaseComponent implements OnInit {
 
     onOptionChange(event) {
         const { originalEvent, value, isFocus, isHide } = event;
-        if (ObjectUtils.isEmpty(value)) return;
+        if (isEmpty(value)) return;
 
         const { index, level, parentKey, children, key } = value;
 
-        const grouped = ObjectUtils.isNotEmpty(children);
+        const grouped = isNotEmpty(children);
         const selected = this.isSelected(value);
         if (selected) {
             const activeOptionPath = this.activeOptionPath().filter((p) => key !== p.key && key.startsWith(p.key));
@@ -1386,12 +1381,12 @@ export class CascadeSelect extends BaseComponent implements OnInit {
         // grouped
         //     ? this.onOptionGroupSelect({ originalEvent, value, isFocus: false })
         //     : this.onOptionSelect({ originalEvent, value, isFocus });
-        isFocus && DomHandler.focus(this.focusInputViewChild.nativeElement);
+        isFocus && focus(this.focusInputViewChild.nativeElement);
     }
 
     ngOnInit() {
         super.ngOnInit();
-        this.id = this.id || UniqueComponentId();
+        this.id = this.id || uuid('pn_id_');
         this.autoUpdateModel();
         this.bindMatchMediaListener();
     }

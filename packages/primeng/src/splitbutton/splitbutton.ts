@@ -1,17 +1,16 @@
 import { CommonModule } from '@angular/common';
 import { booleanAttribute, ChangeDetectionStrategy, Component, ContentChild, ElementRef, EventEmitter, inject, Input, NgModule, numberAttribute, Output, signal, TemplateRef, ViewChild, ViewEncapsulation } from '@angular/core';
-import { MenuItem, SharedModule, TooltipOptions } from 'primeng/api';
-import { ButtonDirective } from 'primeng/button';
-import { ChevronDownIcon } from 'primeng/icons/chevrondown';
-import { TieredMenu } from 'primeng/tieredmenu';
-import { UniqueComponentId } from 'primeng/utils';
+import { BaseComponent, SharedModule } from '@primeng/core';
+import { ChevronDownIcon } from '@primeng/icons';
+import { uuid } from '@primeuix/utils';
+import { MenuItem, TooltipOptions } from 'primeng/api';
 import { AutoFocus } from 'primeng/autofocus';
-
+import { ButtonDirective } from 'primeng/button';
+import { Ripple } from 'primeng/ripple';
+import { TieredMenu } from 'primeng/tieredmenu';
+import { TooltipModule } from 'primeng/tooltip';
 import { ButtonProps, MenuButtonProps } from './splitbutton.interface';
 import { SplitButtonStyle } from './style/splitbuttonstyle';
-import { BaseComponent } from 'primeng/basecomponent';
-import { Ripple } from 'primeng/ripple';
-import { TooltipModule } from 'primeng/tooltip';
 
 type SplitButtonIconPosition = 'left' | 'right';
 /**
@@ -335,7 +334,7 @@ export class SplitButton extends BaseComponent {
 
     ngOnInit() {
         super.ngOnInit();
-        this.ariaId = UniqueComponentId();
+        this.ariaId = uuid('pn_id_');
     }
 
     get containerClass() {

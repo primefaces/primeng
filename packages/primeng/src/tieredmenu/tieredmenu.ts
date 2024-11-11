@@ -26,16 +26,16 @@ import {
     signal
 } from '@angular/core';
 import { RouterModule } from '@angular/router';
-import { MenuItem, OverlayService, SharedModule } from 'primeng/api';
-import { ConnectedOverlayScrollHandler, DomHandler } from 'primeng/dom';
-import { AngleRightIcon } from 'primeng/icons/angleright';
+import { BaseComponent, OverlayService, SharedModule } from '@primeng/core';
+import { AngleRightIcon } from '@primeng/icons';
+import { absolutePosition, appendChild, findLastIndex, findSingle, focus, isEmpty, isNotEmpty, isPrintableCharacter, isTouchDevice, nestedPosition, relativePosition, resolve, uuid } from '@primeuix/utils';
+import { MenuItem } from 'primeng/api';
+import { ConnectedOverlayScrollHandler } from 'primeng/dom';
 import { Ripple } from 'primeng/ripple';
 import { TooltipModule } from 'primeng/tooltip';
 import { Nullable, VoidListener } from 'primeng/ts-helpers';
-import { ObjectUtils, UniqueComponentId, ZIndexUtils } from 'primeng/utils';
+import { ZIndexUtils } from 'primeng/utils';
 import { TieredMenuStyle } from './style/tieredmenustyle';
-import { BaseComponent } from 'primeng/basecomponent';
-import { nestedPosition } from '@primeuix/utils/dom';
 
 @Component({
     selector: 'p-tieredMenuSub, p-tieredmenusub',
@@ -241,7 +241,7 @@ export class TieredMenuSub extends BaseComponent {
         super();
         effect(() => {
             const path = this.activeItemPath();
-            if (ObjectUtils.isNotEmpty(path)) {
+            if (isNotEmpty(path)) {
                 this.positionSubmenu();
             }
         });
@@ -257,7 +257,7 @@ export class TieredMenuSub extends BaseComponent {
     }
 
     getItemProp(processedItem: any, name: string, params: any | null = null) {
-        return processedItem && processedItem.item ? ObjectUtils.getItemValue(processedItem.item[name], params) : undefined;
+        return processedItem && processedItem.item ? resolve(processedItem.item[name], params) : undefined;
     }
 
     getItemId(processedItem: any): string {
@@ -324,7 +324,7 @@ export class TieredMenuSub extends BaseComponent {
     }
 
     isItemGroup(processedItem: any): boolean {
-        return ObjectUtils.isNotEmpty(processedItem.items);
+        return isNotEmpty(processedItem.items);
     }
 
     onItemMouseEnter(param: any) {
@@ -563,7 +563,7 @@ export class TieredMenu extends BaseComponent implements OnInit, OnDestroy {
 
     get focusedItemId() {
         const focusedItemInfo = this.focusedItemInfo();
-        return focusedItemInfo.item?.id ? focusedItemInfo.item.id : focusedItemInfo.index !== -1 ? `${this.id}${ObjectUtils.isNotEmpty(focusedItemInfo.parentKey) ? '_' + focusedItemInfo.parentKey : ''}_${focusedItemInfo.index}` : null;
+        return focusedItemInfo.item?.id ? focusedItemInfo.item.id : focusedItemInfo.index !== -1 ? `${this.id}${isNotEmpty(focusedItemInfo.parentKey) ? '_' + focusedItemInfo.parentKey : ''}_${focusedItemInfo.index}` : null;
     }
 
     constructor(public overlayService: OverlayService) {
@@ -571,7 +571,7 @@ export class TieredMenu extends BaseComponent implements OnInit, OnDestroy {
         effect(() => {
             const path = this.activeItemPath();
 
-            if (ObjectUtils.isNotEmpty(path)) {
+            if (isNotEmpty(path)) {
                 this.bindOutsideClickListener();
                 this.bindResizeListener();
             } else {
@@ -584,7 +584,7 @@ export class TieredMenu extends BaseComponent implements OnInit, OnDestroy {
     ngOnInit() {
         super.ngOnInit();
         this.bindMatchMediaListener();
-        this.id = this.id || UniqueComponentId();
+        this.id = this.id || uuid('pn_id_');
     }
 
     bindMatchMediaListener() {
@@ -634,7 +634,7 @@ export class TieredMenu extends BaseComponent implements OnInit, OnDestroy {
     }
 
     getItemProp(item: any, name: string) {
-        return item ? ObjectUtils.getItemValue(item[name]) : undefined;
+        return item ? resolve(item[name]) : undefined;
     }
 
     getProccessedItemLabel(processedItem: any) {
@@ -646,7 +646,7 @@ export class TieredMenu extends BaseComponent implements OnInit, OnDestroy {
     }
 
     isProcessedItemGroup(processedItem: any): boolean {
-        return processedItem && ObjectUtils.isNotEmpty(processedItem.items);
+        return processedItem && isNotEmpty(processedItem.items);
     }
 
     isSelected(processedItem: any): boolean {
@@ -678,7 +678,7 @@ export class TieredMenu extends BaseComponent implements OnInit, OnDestroy {
     }
 
     isProccessedItemGroup(processedItem: any): boolean {
-        return processedItem && ObjectUtils.isNotEmpty(processedItem.items);
+        return processedItem && isNotEmpty(processedItem.items);
     }
 
     onOverlayClick(event: MouseEvent) {
@@ -693,7 +693,7 @@ export class TieredMenu extends BaseComponent implements OnInit, OnDestroy {
     onItemClick(event: any) {
         const { originalEvent, processedItem } = event;
         const grouped = this.isProcessedItemGroup(processedItem);
-        const root = ObjectUtils.isEmpty(processedItem.parent);
+        const root = isEmpty(processedItem.parent);
         const selected = this.isSelected(processedItem);
 
         if (selected) {
@@ -703,7 +703,7 @@ export class TieredMenu extends BaseComponent implements OnInit, OnDestroy {
             this.focusedItemInfo.set({ index, level, parentKey, item });
 
             this.dirty = true;
-            DomHandler.focus(this.rootmenu.sublistViewChild.nativeElement);
+            focus(this.rootmenu.sublistViewChild.nativeElement);
         } else {
             if (grouped) {
                 this.onItemChange(event);
@@ -712,13 +712,13 @@ export class TieredMenu extends BaseComponent implements OnInit, OnDestroy {
                 this.hide(originalEvent);
                 this.changeFocusedItemIndex(originalEvent, rootProcessedItem ? rootProcessedItem.index : -1);
 
-                DomHandler.focus(this.rootmenu.sublistViewChild.nativeElement);
+                focus(this.rootmenu.sublistViewChild.nativeElement);
             }
         }
     }
 
     onItemMouseEnter(event: any) {
-        if (!DomHandler.isTouchDevice()) {
+        if (!isTouchDevice()) {
             if (this.dirty) {
                 this.onItemChange(event, 'hover');
             }
@@ -780,7 +780,7 @@ export class TieredMenu extends BaseComponent implements OnInit, OnDestroy {
                 break;
 
             default:
-                if (!metaKey && ObjectUtils.isPrintableCharacter(event.key)) {
+                if (!metaKey && isPrintableCharacter(event.key)) {
                     this.searchItems(event, event.key);
                 }
 
@@ -832,7 +832,7 @@ export class TieredMenu extends BaseComponent implements OnInit, OnDestroy {
     onArrowLeftKey(event: KeyboardEvent) {
         const processedItem = this.visibleItems[this.focusedItemInfo().index];
         const parentItem = this.activeItemPath().find((p) => p.key === processedItem.parentKey);
-        const root = ObjectUtils.isEmpty(processedItem.parent);
+        const root = isEmpty(processedItem.parent);
 
         if (!root) {
             this.focusedItemInfo.set({ index: -1, parentKey: parentItem ? parentItem.parentKey : '', item: processedItem.item });
@@ -880,8 +880,8 @@ export class TieredMenu extends BaseComponent implements OnInit, OnDestroy {
 
     onEnterKey(event: KeyboardEvent) {
         if (this.focusedItemInfo().index !== -1) {
-            const element = DomHandler.findSingle(this.rootmenu.el.nativeElement, `li[id="${`${this.focusedItemId}`}"]`);
-            const anchorElement = element && DomHandler.findSingle(element, 'a[data-pc-section="action"]');
+            const element = <any>findSingle(this.rootmenu.el.nativeElement, `li[id="${`${this.focusedItemId}`}"]`);
+            const anchorElement = element && <any>findSingle(element, 'a[data-pc-section="action"]');
 
             anchorElement ? anchorElement.click() : element && element.click();
 
@@ -899,17 +899,17 @@ export class TieredMenu extends BaseComponent implements OnInit, OnDestroy {
     onItemChange(event: any, type?: string | undefined) {
         const { processedItem, isFocus } = event;
 
-        if (ObjectUtils.isEmpty(processedItem)) return;
+        if (isEmpty(processedItem)) return;
 
         const { index, key, level, parentKey, items, item } = processedItem;
-        const grouped = ObjectUtils.isNotEmpty(items);
+        const grouped = isNotEmpty(items);
         const activeItemPath = this.activeItemPath().filter((p) => p.parentKey !== parentKey && p.parentKey !== key);
 
         grouped && activeItemPath.push(processedItem);
         this.focusedItemInfo.set({ index, level, parentKey, item });
 
         grouped && (this.dirty = true);
-        isFocus && DomHandler.focus(this.rootmenu.sublistViewChild.nativeElement);
+        isFocus && focus(this.rootmenu.sublistViewChild.nativeElement);
 
         if (type === 'hover' && this.queryMatches) {
             return;
@@ -944,7 +944,7 @@ export class TieredMenu extends BaseComponent implements OnInit, OnDestroy {
                     this.bindOutsideClickListener();
                     this.bindResizeListener();
                     this.bindScrollListener();
-                    DomHandler.focus(this.rootmenu.sublistViewChild.nativeElement);
+                    focus(this.rootmenu.sublistViewChild.nativeElement);
                     this.scrollInView();
                 }
                 break;
@@ -957,8 +957,8 @@ export class TieredMenu extends BaseComponent implements OnInit, OnDestroy {
     }
 
     alignOverlay() {
-        if (this.relativeAlign) DomHandler.relativePosition(this.container, this.target);
-        else DomHandler.absolutePosition(this.container, this.target);
+        if (this.relativeAlign) relativePosition(this.container, this.target);
+        else absolutePosition(this.container, this.target);
     }
 
     onOverlayAnimationEnd(event: AnimationEvent) {
@@ -972,7 +972,7 @@ export class TieredMenu extends BaseComponent implements OnInit, OnDestroy {
     appendOverlay() {
         if (this.appendTo) {
             if (this.appendTo === 'body') this.renderer.appendChild(this.document.body, this.container);
-            else DomHandler.appendChild(this.container, this.appendTo);
+            else appendChild(this.container, this.appendTo);
         }
     }
 
@@ -1000,7 +1000,7 @@ export class TieredMenu extends BaseComponent implements OnInit, OnDestroy {
         this.activeItemPath.set([]);
         this.focusedItemInfo.set({ index: -1, level: 0, parentKey: '' });
 
-        isFocus && DomHandler.focus(this.relatedTarget || this.target || this.rootmenu.sublistViewChild.nativeElement);
+        isFocus && focus(this.relatedTarget || this.target || this.rootmenu.sublistViewChild.nativeElement);
         this.dirty = false;
     }
 
@@ -1028,7 +1028,7 @@ export class TieredMenu extends BaseComponent implements OnInit, OnDestroy {
 
         this.focusedItemInfo.set({ index: -1, level: 0, parentKey: '' });
 
-        isFocus && DomHandler.focus(this.rootmenu.sublistViewChild.nativeElement);
+        isFocus && focus(this.rootmenu.sublistViewChild.nativeElement);
 
         this.cd.markForCheck();
     }
@@ -1076,11 +1076,11 @@ export class TieredMenu extends BaseComponent implements OnInit, OnDestroy {
     }
 
     findLastItemIndex() {
-        return ObjectUtils.findLastIndex(this.visibleItems, (processedItem) => this.isValidItem(processedItem));
+        return findLastIndex(this.visibleItems, (processedItem) => this.isValidItem(processedItem));
     }
 
     findPrevItemIndex(index: number) {
-        const matchedItemIndex = index > 0 ? ObjectUtils.findLastIndex(this.visibleItems.slice(0, index), (processedItem) => this.isValidItem(processedItem)) : -1;
+        const matchedItemIndex = index > 0 ? findLastIndex(this.visibleItems.slice(0, index), (processedItem) => this.isValidItem(processedItem)) : -1;
 
         return matchedItemIndex > -1 ? matchedItemIndex : index;
     }
@@ -1115,7 +1115,7 @@ export class TieredMenu extends BaseComponent implements OnInit, OnDestroy {
 
     scrollInView(index: number = -1) {
         const id = index !== -1 ? `${this.id}_${index}` : this.focusedItemId;
-        const element = DomHandler.findSingle(this.rootmenu.el.nativeElement, `li[id="${id}"]`);
+        const element = findSingle(this.rootmenu.el.nativeElement, `li[id="${id}"]`);
 
         if (element) {
             element.scrollIntoView && element.scrollIntoView({ block: 'nearest', inline: 'nearest' });
@@ -1145,7 +1145,7 @@ export class TieredMenu extends BaseComponent implements OnInit, OnDestroy {
         if (isPlatformBrowser(this.platformId)) {
             if (!this.resizeListener) {
                 this.resizeListener = this.renderer.listen(this.document.defaultView, 'resize', (event) => {
-                    if (!DomHandler.isTouchDevice()) {
+                    if (!isTouchDevice()) {
                         this.hide(event, true);
                     }
                 });

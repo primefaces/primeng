@@ -1,9 +1,7 @@
 import { CommonModule } from '@angular/common';
 import { AfterViewInit, booleanAttribute, ChangeDetectionStrategy, Component, computed, Directive, inject, Input, input, NgModule, OnChanges, SimpleChanges, ViewEncapsulation } from '@angular/core';
-import { SharedModule } from 'primeng/api';
-import { DomHandler } from 'primeng/dom';
-import { ObjectUtils, UniqueComponentId } from 'primeng/utils';
-import { BaseComponent } from 'primeng/basecomponent';
+import { BaseComponent, SharedModule } from '@primeng/core';
+import { addClass, hasClass, isEmpty, isNotEmpty, removeClass, uuid } from '@primeuix/utils';
 import { BadgeStyle } from './style/badgestyle';
 
 /**
@@ -90,7 +88,7 @@ export class BadgeDirective extends BaseComponent implements OnChanges, AfterVie
     }
 
     public ngAfterViewInit(): void {
-        this.id = UniqueComponentId() + '_badge';
+        this.id = uuid('pn_id_') + '_badge';
         this.renderBadgeContent();
     }
 
@@ -102,21 +100,21 @@ export class BadgeDirective extends BaseComponent implements OnChanges, AfterVie
         }
 
         if (this.value != null) {
-            if (DomHandler.hasClass(badge, 'p-badge-dot')) {
-                DomHandler.removeClass(badge, 'p-badge-dot');
+            if (hasClass(badge, 'p-badge-dot')) {
+                removeClass(badge, 'p-badge-dot');
             }
 
             if (this.value && String(this.value).length === 1) {
-                DomHandler.addClass(badge, 'p-badge-circle');
+                addClass(badge, 'p-badge-circle');
             } else {
-                DomHandler.removeClass(badge, 'p-badge-circle');
+                removeClass(badge, 'p-badge-circle');
             }
         } else {
-            if (!DomHandler.hasClass(badge, 'p-badge-dot')) {
-                DomHandler.addClass(badge, 'p-badge-dot');
+            if (!hasClass(badge, 'p-badge-dot')) {
+                addClass(badge, 'p-badge-dot');
             }
 
-            DomHandler.removeClass(badge, 'p-badge-circle');
+            removeClass(badge, 'p-badge-circle');
         }
 
         badge.innerHTML = '';
@@ -133,27 +131,27 @@ export class BadgeDirective extends BaseComponent implements OnChanges, AfterVie
 
         if (this.badgeSize) {
             if (this.badgeSize === 'large') {
-                DomHandler.addClass(badge, 'p-badge-lg');
-                DomHandler.removeClass(badge, 'p-badge-xl');
+                addClass(badge, 'p-badge-lg');
+                removeClass(badge, 'p-badge-xl');
             }
 
             if (this.badgeSize === 'xlarge') {
-                DomHandler.addClass(badge, 'p-badge-xl');
-                DomHandler.removeClass(badge, 'p-badge-lg');
+                addClass(badge, 'p-badge-xl');
+                removeClass(badge, 'p-badge-lg');
             }
         } else if (this.size && !this.badgeSize) {
             if (this.size === 'large') {
-                DomHandler.addClass(badge, 'p-badge-lg');
-                DomHandler.removeClass(badge, 'p-badge-xl');
+                addClass(badge, 'p-badge-lg');
+                removeClass(badge, 'p-badge-xl');
             }
 
             if (this.size === 'xlarge') {
-                DomHandler.addClass(badge, 'p-badge-xl');
-                DomHandler.removeClass(badge, 'p-badge-lg');
+                addClass(badge, 'p-badge-xl');
+                removeClass(badge, 'p-badge-lg');
             }
         } else {
-            DomHandler.removeClass(badge, 'p-badge-lg');
-            DomHandler.removeClass(badge, 'p-badge-xl');
+            removeClass(badge, 'p-badge-lg');
+            removeClass(badge, 'p-badge-xl');
         }
     }
 
@@ -170,7 +168,7 @@ export class BadgeDirective extends BaseComponent implements OnChanges, AfterVie
         this.setSeverity(null, badge);
         this.setSizeClasses(badge);
         this.setValue(badge);
-        DomHandler.addClass(el, 'p-overlay-badge');
+        addClass(el, 'p-overlay-badge');
         this.renderer.appendChild(el, badge);
     }
 
@@ -182,11 +180,11 @@ export class BadgeDirective extends BaseComponent implements OnChanges, AfterVie
         }
 
         if (this.severity) {
-            DomHandler.addClass(badge, `p-badge-${this.severity}`);
+            addClass(badge, `p-badge-${this.severity}`);
         }
 
         if (oldSeverity) {
-            DomHandler.removeClass(badge, `p-badge-${oldSeverity}`);
+            removeClass(badge, `p-badge-${oldSeverity}`);
         }
     }
 
@@ -269,11 +267,11 @@ export class Badge extends BaseComponent {
     containerClass = computed<{ [klass: string]: any }>(() => {
         return {
             'p-badge p-component': true,
-            'p-badge-circle': ObjectUtils.isNotEmpty(this.value()) && String(this.value()).length === 1,
+            'p-badge-circle': isNotEmpty(this.value()) && String(this.value()).length === 1,
             'p-badge-lg': this.badgeSize() === 'large',
             'p-badge-xl': this.badgeSize() === 'xlarge',
             'p-badge-sm': this.badgeSize() === 'small',
-            'p-badge-dot': ObjectUtils.isEmpty(this.value()),
+            'p-badge-dot': isEmpty(this.value()),
             [`p-badge-${this.severity()}`]: this.severity()
         };
     });

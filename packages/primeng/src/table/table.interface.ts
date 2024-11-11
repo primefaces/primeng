@@ -1,7 +1,8 @@
-import { FilterMetadata, LazyLoadMeta, TableState } from 'primeng/api';
-import { Table } from './table';
 import { TemplateRef } from '@angular/core';
+import { FilterMetadata } from '@primeng/core';
+import { LazyLoadMeta } from 'primeng/api';
 import { ButtonProps } from 'primeng/button';
+import { Table } from './table';
 /**
  * Custom select event.
  * @see {@link Table.onRowSelect}

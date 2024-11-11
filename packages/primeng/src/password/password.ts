@@ -26,17 +26,15 @@ import {
     ViewEncapsulation
 } from '@angular/core';
 import { NG_VALUE_ACCESSOR } from '@angular/forms';
-import { OverlayService, SharedModule, TranslationKeys } from 'primeng/api';
+import { BaseComponent, OverlayService, SharedModule, TranslationKeys } from '@primeng/core';
+import { EyeIcon, EyeSlashIcon, TimesIcon } from '@primeng/icons';
+import { absolutePosition, addClass, getOuterWidth, hasClass, isTouchDevice, relativePosition, removeClass } from '@primeuix/utils';
+import { AutoFocus } from 'primeng/autofocus';
 import { ConnectedOverlayScrollHandler, DomHandler } from 'primeng/dom';
-import { EyeIcon } from 'primeng/icons/eye';
-import { EyeSlashIcon } from 'primeng/icons/eyeslash';
-import { TimesIcon } from 'primeng/icons/times';
 import { InputText } from 'primeng/inputtext';
 import { Nullable, VoidListener } from 'primeng/ts-helpers';
 import { ZIndexUtils } from 'primeng/utils';
-import { AutoFocus } from 'primeng/autofocus';
 import { Subscription } from 'rxjs';
-import { BaseComponent } from 'primeng/basecomponent';
 import { PasswordStyle } from './style/passwordstyle';
 
 type Meter = {
@@ -181,19 +179,19 @@ export class PasswordDirective extends BaseComponent implements OnDestroy, DoChe
             this.renderer.setStyle(this.panel, 'display', 'block');
             this.zone.runOutsideAngular(() => {
                 setTimeout(() => {
-                    DomHandler.addClass(this.panel, 'p-connected-overlay-visible');
+                    addClass(this.panel, 'p-connected-overlay-visible');
                     this.bindScrollListener();
                     this.bindDocumentResizeListener();
                 }, 1);
             });
-            DomHandler.absolutePosition(this.panel, this.el.nativeElement);
+            absolutePosition(this.panel, this.el.nativeElement);
         }
     }
 
     hideOverlay() {
         if (this.feedback && this.panel) {
-            DomHandler.addClass(this.panel, 'p-connected-overlay-hidden');
-            DomHandler.removeClass(this.panel, 'p-connected-overlay-visible');
+            addClass(this.panel, 'p-connected-overlay-hidden');
+            removeClass(this.panel, 'p-connected-overlay-visible');
             this.unbindScrollListener();
             this.unbindDocumentResizeListener();
 
@@ -240,7 +238,7 @@ export class PasswordDirective extends BaseComponent implements OnDestroy, DoChe
                 }
             }
 
-            if (!this.panel || !DomHandler.hasClass(this.panel, 'p-connected-overlay-visible')) {
+            if (!this.panel || !hasClass(this.panel, 'p-connected-overlay-visible')) {
                 this.showOverlay();
             }
 
@@ -284,7 +282,7 @@ export class PasswordDirective extends BaseComponent implements OnDestroy, DoChe
     bindScrollListener() {
         if (!this.scrollHandler) {
             this.scrollHandler = new ConnectedOverlayScrollHandler(this.el.nativeElement, () => {
-                if (DomHandler.hasClass(this.panel, 'p-connected-overlay-visible')) {
+                if (hasClass(this.panel, 'p-connected-overlay-visible')) {
                     this.hideOverlay();
                 }
             });
@@ -316,7 +314,7 @@ export class PasswordDirective extends BaseComponent implements OnDestroy, DoChe
     }
 
     onWindowResize() {
-        if (!DomHandler.isTouchDevice()) {
+        if (!isTouchDevice()) {
             this.hideOverlay();
         }
     }
@@ -706,10 +704,10 @@ export class Password extends BaseComponent implements OnInit {
 
     alignOverlay() {
         if (this.appendTo) {
-            (this.overlay as HTMLElement).style.minWidth = DomHandler.getOuterWidth(this.input.nativeElement) + 'px';
-            DomHandler.absolutePosition(this.overlay, this.input.nativeElement);
+            (this.overlay as HTMLElement).style.minWidth = getOuterWidth(this.input.nativeElement) + 'px';
+            absolutePosition(this.overlay as any, this.input.nativeElement);
         } else {
-            DomHandler.relativePosition(this.overlay, this.input.nativeElement);
+            relativePosition(this.overlay as any, this.input.nativeElement);
         }
     }
 
@@ -855,7 +853,7 @@ export class Password extends BaseComponent implements OnInit {
             if (!this.resizeListener) {
                 const window = this.document.defaultView as Window;
                 this.resizeListener = this.renderer.listen(window, 'resize', () => {
-                    if (this.overlayVisible && !DomHandler.isTouchDevice()) {
+                    if (this.overlayVisible && !isTouchDevice()) {
                         this.overlayVisible = false;
                     }
                 });

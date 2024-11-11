@@ -1,8 +1,7 @@
 import { CommonModule } from '@angular/common';
 import { ChangeDetectionStrategy, Component, inject, NgModule, ViewEncapsulation } from '@angular/core';
-import { SharedModule } from 'primeng/api';
 import { RouterModule } from '@angular/router';
-import { BaseComponent } from 'primeng/basecomponent';
+import { BaseComponent, SharedModule } from '@primeng/core';
 import { IftaLabelStyle } from './style/iftalabelstyle';
 
 /**

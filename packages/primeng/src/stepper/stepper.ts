@@ -21,12 +21,11 @@ import {
     ViewEncapsulation
 } from '@angular/core';
 
-import { BaseComponent } from 'primeng/basecomponent';
-import { ObjectUtils, transformToBoolean, UniqueComponentId } from 'primeng/utils';
-import { StepperStyle } from './style/stepperstyle';
-import { DomHandler } from 'primeng/dom';
 import { animate, state, style, transition, trigger } from '@angular/animations';
-import { SharedModule } from 'primeng/api';
+import { BaseComponent, SharedModule } from '@primeng/core';
+import { find, findIndexInList, uuid } from '@primeuix/utils';
+import { transformToBoolean } from 'primeng/utils';
+import { StepperStyle } from './style/stepperstyle';
 
 /**
  * Context interface for the StepPanel content template.
@@ -202,8 +201,8 @@ export class Step extends BaseComponent implements AfterContentInit {
 
     isSeparatorVisible = computed(() => {
         if (this.pcStepper.stepList()) {
-            const index = ObjectUtils.findIndexInList(this.el.nativeElement, this.pcStepper.stepList().el.nativeElement.children);
-            const stepLen = DomHandler.find(this.pcStepper.stepList().el.nativeElement, '[data-pc-name="step"]').length;
+            const index = findIndexInList(this.el.nativeElement, this.pcStepper.stepList().el.nativeElement.children);
+            const stepLen = find(this.pcStepper.stepList().el.nativeElement, '[data-pc-name="step"]').length;
             return index !== stepLen - 1;
         }
     });
@@ -303,8 +302,8 @@ export class StepPanel extends BaseComponent implements AfterContentInit {
     isSeparatorVisible = computed(() => {
         if (this.pcStepper.stepItems()) {
             const stepLen = this.pcStepper.stepItems().length;
-            const stepPanelElements = DomHandler.find(this.pcStepper.el.nativeElement, '[data-pc-name="steppanel"]');
-            const index = ObjectUtils.findIndexInList(this.el.nativeElement, stepPanelElements);
+            const stepPanelElements = find(this.pcStepper.el.nativeElement, '[data-pc-name="steppanel"]');
+            const index = findIndexInList(this.el.nativeElement, stepPanelElements);
 
             return index !== stepLen - 1;
         }
@@ -392,7 +391,7 @@ export class Stepper extends BaseComponent {
 
     _componentStyle = inject(StepperStyle);
 
-    id = signal<string>(UniqueComponentId());
+    id = signal<string>(uuid('pn_id_'));
 
     stepItems = contentChildren(StepItem);
 

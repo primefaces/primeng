@@ -2,22 +2,19 @@ import { AnimationEvent } from '@angular/animations';
 import { CommonModule } from '@angular/common';
 import { booleanAttribute, ChangeDetectionStrategy, Component, ContentChild, ElementRef, EventEmitter, forwardRef, inject, Input, NgModule, Output, TemplateRef, ViewChild, ViewEncapsulation } from '@angular/core';
 import { NG_VALUE_ACCESSOR } from '@angular/forms';
-import { OverlayOptions, ScrollerOptions, SharedModule, TreeNode } from 'primeng/api';
-import { DomHandler } from 'primeng/dom';
-import { ChevronDownIcon } from 'primeng/icons/chevrondown';
-import { SearchIcon } from 'primeng/icons/search';
-import { TimesIcon } from 'primeng/icons/times';
+import { BaseComponent, OverlayOptions, SharedModule } from '@primeng/core';
+import { ChevronDownIcon, SearchIcon, TimesIcon } from '@primeng/icons';
+import { focus, getFirstFocusableElement, getFocusableElements, getLastFocusableElement, hasClass, isNotEmpty, uuid } from '@primeuix/utils';
+import { ScrollerOptions, TreeNode } from 'primeng/api';
+import { AutoFocus } from 'primeng/autofocus';
+import { Chip } from 'primeng/chip';
+import { InputText } from 'primeng/inputtext';
 import { Overlay } from 'primeng/overlay';
 import { Ripple } from 'primeng/ripple';
 import { Tree, TreeFilterEvent, TreeNodeSelectEvent, TreeNodeUnSelectEvent } from 'primeng/tree';
-import { ObjectUtils, UniqueComponentId } from 'primeng/utils';
 import { Nullable } from 'primeng/ts-helpers';
-import { AutoFocus } from 'primeng/autofocus';
-import { TreeSelectNodeCollapseEvent, TreeSelectNodeExpandEvent } from './treeselect.interface';
-import { Chip } from 'primeng/chip';
-import { BaseComponent } from 'primeng/basecomponent';
 import { TreeSelectStyle } from './style/treeselectstyle';
-import { InputText } from 'primeng/inputtext';
+import { TreeSelectNodeCollapseEvent, TreeSelectNodeExpandEvent } from './treeselect.interface';
 
 export const TREESELECT_VALUE_ACCESSOR: any = {
     provide: NG_VALUE_ACCESSOR,
@@ -587,7 +584,7 @@ export class TreeSelect extends BaseComponent {
 
     ngOnInit() {
         super.ngOnInit();
-        this.listId = UniqueComponentId() + '_list';
+        this.listId = uuid('pn_id_') + '_list';
         this.updateTreeState();
     }
 
@@ -595,10 +592,10 @@ export class TreeSelect extends BaseComponent {
         switch (event.toState) {
             case 'visible':
                 if (this.filter) {
-                    ObjectUtils.isNotEmpty(this.filterValue) && this.treeViewChild?._filter(<any>this.filterValue);
+                    isNotEmpty(this.filterValue) && this.treeViewChild?._filter(<any>this.filterValue);
                     this.filterInputAutoFocus && this.filterViewChild?.nativeElement.focus();
                 } else {
-                    let focusableElements = DomHandler.getFocusableElements(this.panelEl.nativeElement);
+                    let focusableElements = <any>getFocusableElements(this.panelEl.nativeElement);
 
                     if (focusableElements && focusableElements.length > 0) {
                         focusableElements[0].focus();
@@ -609,7 +606,7 @@ export class TreeSelect extends BaseComponent {
     }
 
     onOverlayBeforeHide(event: any) {
-        let focusableElements = DomHandler.getFocusableElements(this.containerEl.nativeElement);
+        let focusableElements = <any>getFocusableElements(this.containerEl.nativeElement);
 
         if (focusableElements && focusableElements.length > 0) {
             focusableElements[0].focus();
@@ -622,17 +619,12 @@ export class TreeSelect extends BaseComponent {
         this.cd.markForCheck();
     }
 
-    onClick(event: Event) {
+    onClick(event: any) {
         if (this.disabled) {
             return;
         }
 
-        if (
-            !this.overlayViewChild?.el?.nativeElement?.contains(event.target) &&
-            !DomHandler.hasClass(event.target, 'p-treeselect-close') &&
-            !DomHandler.hasClass(event.target, 'p-checkbox-box') &&
-            !DomHandler.hasClass(event.target, 'p-checkbox-icon')
-        ) {
+        if (!this.overlayViewChild?.el?.nativeElement?.contains(event.target) && !hasClass(event.target, 'p-treeselect-close') && !hasClass(event.target, 'p-checkbox-box') && !hasClass(event.target, 'p-checkbox-icon')) {
             if (this.overlayVisible) {
                 this.hide();
             } else {
@@ -697,7 +689,7 @@ export class TreeSelect extends BaseComponent {
 
     onArrowDown(event: KeyboardEvent) {
         if (this.overlayVisible && this.panelEl?.nativeElement) {
-            let focusableElements = DomHandler.getFocusableElements(this.panelEl.nativeElement, '.p-treenode');
+            let focusableElements = <any>getFocusableElements(this.panelEl.nativeElement, '.p-treenode');
 
             if (focusableElements && focusableElements.length > 0) {
                 focusableElements[0].focus();
@@ -708,17 +700,15 @@ export class TreeSelect extends BaseComponent {
     }
 
     onFirstHiddenFocus(event) {
-        const focusableEl =
-            event.relatedTarget === this.focusInput?.nativeElement ? DomHandler.getFirstFocusableElement(this.overlayViewChild?.overlayViewChild?.nativeElement, ':not([data-p-hidden-focusable="true"])') : this.focusInput?.nativeElement;
+        const focusableEl = event.relatedTarget === this.focusInput?.nativeElement ? getFirstFocusableElement(this.overlayViewChild?.overlayViewChild?.nativeElement, ':not([data-p-hidden-focusable="true"])') : this.focusInput?.nativeElement;
 
-        DomHandler.focus(focusableEl);
+        focus(focusableEl);
     }
 
     onLastHiddenFocus(event) {
-        const focusableEl =
-            event.relatedTarget === this.focusInput?.nativeElement ? DomHandler.getLastFocusableElement(this.overlayViewChild?.overlayViewChild?.nativeElement, ':not([data-p-hidden-focusable="true"])') : this.focusInput?.nativeElement;
+        const focusableEl = event.relatedTarget === this.focusInput?.nativeElement ? getLastFocusableElement(this.overlayViewChild?.overlayViewChild?.nativeElement, ':not([data-p-hidden-focusable="true"])') : this.focusInput?.nativeElement;
 
-        DomHandler.focus(focusableEl);
+        focus(focusableEl);
     }
 
     show() {
@@ -744,13 +734,13 @@ export class TreeSelect extends BaseComponent {
     }
 
     checkValue() {
-        return this.value !== null && ObjectUtils.isNotEmpty(this.value);
+        return this.value !== null && isNotEmpty(this.value);
     }
 
     onTabKey(event, pressedInInputText = false) {
         if (!pressedInInputText) {
             if (this.overlayVisible && this.hasFocusableElements()) {
-                DomHandler.focus(event.shiftKey ? this.lastHiddenFocusableElementOnOverlay.nativeElement : this.firstHiddenFocusableElementOnOverlay.nativeElement);
+                focus(event.shiftKey ? this.lastHiddenFocusableElementOnOverlay.nativeElement : this.firstHiddenFocusableElementOnOverlay.nativeElement);
 
                 event.preventDefault();
             } else {
@@ -760,7 +750,7 @@ export class TreeSelect extends BaseComponent {
     }
 
     hasFocusableElements() {
-        return DomHandler.getFocusableElements(this.overlayViewChild.overlayViewChild.nativeElement, ':not([data-p-hidden-focusable="true"])').length > 0;
+        return getFocusableElements(this.overlayViewChild.overlayViewChild.nativeElement, ':not([data-p-hidden-focusable="true"])').length > 0;
     }
 
     resetFilter() {

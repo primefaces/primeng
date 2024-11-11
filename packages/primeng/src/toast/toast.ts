@@ -20,20 +20,16 @@ import {
     inject,
     numberAttribute
 } from '@angular/core';
-import { ToastMessageOptions, MessageService, SharedModule } from 'primeng/api';
-import { CheckIcon } from 'primeng/icons/check';
-import { ExclamationTriangleIcon } from 'primeng/icons/exclamationtriangle';
-import { InfoCircleIcon } from 'primeng/icons/infocircle';
-import { TimesIcon } from 'primeng/icons/times';
-import { TimesCircleIcon } from 'primeng/icons/timescircle';
-import { Ripple } from 'primeng/ripple';
-import { ObjectUtils, UniqueComponentId, ZIndexUtils } from 'primeng/utils';
-import { Subscription } from 'rxjs';
-import { ToastCloseEvent, ToastItemCloseEvent, ToastPositionType } from './toast.interface';
-import { DomHandler } from 'primeng/dom';
-import { ToastStyle } from './style/toaststyle';
-import { BaseComponent } from 'primeng/basecomponent';
+import { BaseComponent, SharedModule } from '@primeng/core';
+import { CheckIcon, ExclamationTriangleIcon, InfoCircleIcon, TimesCircleIcon, TimesIcon } from '@primeng/icons';
+import { isEmpty, setAttribute, uuid } from '@primeuix/utils';
+import { MessageService, ToastMessageOptions } from 'primeng/api';
 import { Button } from 'primeng/button';
+import { Ripple } from 'primeng/ripple';
+import { ZIndexUtils } from 'primeng/utils';
+import { Subscription } from 'rxjs';
+import { ToastStyle } from './style/toaststyle';
+import { ToastCloseEvent, ToastItemCloseEvent, ToastPositionType } from './toast.interface';
 
 @Component({
     selector: 'p-toastItem',
@@ -376,7 +372,7 @@ export class Toast extends BaseComponent implements OnInit, OnDestroy {
 
     styleElement: any;
 
-    id: string = UniqueComponentId();
+    id: string = uuid('pn_id_');
 
     ngOnInit() {
         super.ngOnInit();
@@ -469,7 +465,7 @@ export class Toast extends BaseComponent implements OnInit, OnDestroy {
 
     onAnimationEnd(event: AnimationEvent) {
         if (event.toState === 'void') {
-            if (this.autoZIndex && ObjectUtils.isEmpty(this.messages)) {
+            if (this.autoZIndex && isEmpty(this.messages)) {
                 ZIndexUtils.clear(this.containerViewChild?.nativeElement);
             }
         }
@@ -496,7 +492,7 @@ export class Toast extends BaseComponent implements OnInit, OnDestroy {
             }
 
             this.renderer.setProperty(this.styleElement, 'innerHTML', innerHTML);
-            DomHandler.setAttribute(this.styleElement, 'nonce', this.config?.csp()?.nonce);
+            setAttribute(this.styleElement, 'nonce', this.config?.csp()?.nonce);
         }
     }
 

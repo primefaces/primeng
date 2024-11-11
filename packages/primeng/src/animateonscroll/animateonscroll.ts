@@ -1,7 +1,7 @@
 import { isPlatformBrowser } from '@angular/common';
 import { AfterViewInit, booleanAttribute, Directive, Input, NgModule, numberAttribute, OnInit } from '@angular/core';
-import { BaseComponent } from 'primeng/basecomponent';
-import { DomHandler } from 'primeng/dom';
+import { BaseComponent } from '@primeng/core';
+import { addClass, removeClass } from '@primeuix/utils';
 
 interface AnimateOnScrollOptions {
     root?: HTMLElement;
@@ -105,7 +105,7 @@ export class AnimateOnScroll extends BaseComponent implements OnInit, AfterViewI
             ([entry]) => {
                 if (entry.boundingClientRect.top > 0 && !entry.isIntersecting) {
                     this.el.nativeElement.style.opacity = this.enterClass ? '0' : '';
-                    DomHandler.removeMultipleClasses(this.el.nativeElement, [this.enterClass, this.leaveClass]);
+                    removeClass(this.el.nativeElement, [this.enterClass, this.leaveClass]);
 
                     this.resetObserver.unobserve(this.el.nativeElement);
                 }
@@ -119,8 +119,8 @@ export class AnimateOnScroll extends BaseComponent implements OnInit, AfterViewI
     enter() {
         if (this.animationState !== 'enter' && this.enterClass) {
             this.el.nativeElement.style.opacity = '';
-            DomHandler.removeMultipleClasses(this.el.nativeElement, this.leaveClass);
-            DomHandler.addMultipleClasses(this.el.nativeElement, this.enterClass);
+            removeClass(this.el.nativeElement, this.leaveClass);
+            addClass(this.el.nativeElement, this.enterClass);
 
             this.once && this.unbindIntersectionObserver();
 
@@ -132,8 +132,8 @@ export class AnimateOnScroll extends BaseComponent implements OnInit, AfterViewI
     leave() {
         if (this.animationState !== 'leave' && this.leaveClass) {
             this.el.nativeElement.style.opacity = this.enterClass ? '0' : '';
-            DomHandler.removeMultipleClasses(this.el.nativeElement, this.enterClass);
-            DomHandler.addMultipleClasses(this.el.nativeElement, this.leaveClass);
+            removeClass(this.el.nativeElement, this.enterClass);
+            addClass(this.el.nativeElement, this.leaveClass);
 
             this.bindAnimationEvents();
             this.animationState = 'leave';
@@ -143,7 +143,7 @@ export class AnimateOnScroll extends BaseComponent implements OnInit, AfterViewI
     bindAnimationEvents() {
         if (!this.animationEndListener) {
             this.animationEndListener = this.renderer.listen(this.el.nativeElement, 'animationend', () => {
-                DomHandler.removeMultipleClasses(this.el.nativeElement, [this.enterClass, this.leaveClass]);
+                removeClass(this.el.nativeElement, [this.enterClass, this.leaveClass]);
                 !this.once && this.resetObserver.observe(this.el.nativeElement);
                 this.unbindAnimationEvents();
             });

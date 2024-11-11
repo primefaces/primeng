@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
-import { BaseStyle } from 'primeng/base';
-import { ObjectUtils } from 'primeng/utils';
+import { BaseStyle } from '@primeng/core/base';
+import { isEmpty, isNotEmpty } from '@primeuix/utils';
 
 const theme = ({ dt }) => `
 .p-badge {
@@ -101,8 +101,8 @@ const classes = {
     root: ({ props, instance }) => [
         'p-badge p-component',
         {
-            'p-badge-circle': ObjectUtils.isNotEmpty(props.value) && String(props.value).length === 1,
-            'p-badge-dot': ObjectUtils.isEmpty(props.value) && !instance.$slots.default,
+            'p-badge-circle': isNotEmpty(props.value) && String(props.value).length === 1,
+            'p-badge-dot': isEmpty(props.value) && !instance.$slots.default,
             'p-badge-sm': props.size === 'small',
             'p-badge-lg': props.size === 'large',
             'p-badge-xl': props.size === 'xlarge',

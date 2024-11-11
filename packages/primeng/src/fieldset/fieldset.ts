@@ -1,15 +1,14 @@
 import { animate, state, style, transition, trigger } from '@angular/animations';
 import { CommonModule } from '@angular/common';
 import { booleanAttribute, ChangeDetectionStrategy, Component, ContentChild, EventEmitter, inject, Input, NgModule, Output, TemplateRef, ViewEncapsulation } from '@angular/core';
-import { BlockableUI, SharedModule } from 'primeng/api';
-import { MinusIcon } from 'primeng/icons/minus';
-import { PlusIcon } from 'primeng/icons/plus';
+import { BaseComponent, SharedModule } from '@primeng/core';
+import { MinusIcon, PlusIcon } from '@primeng/icons';
+import { uuid } from '@primeuix/utils';
+import { BlockableUI } from 'primeng/api';
+import { ButtonModule } from 'primeng/button';
 import { Ripple } from 'primeng/ripple';
 import { Nullable } from 'primeng/ts-helpers';
-import { UniqueComponentId } from 'primeng/utils';
 import { FieldsetAfterToggleEvent, FieldsetBeforeToggleEvent } from './fieldset.interface';
-import { ButtonModule } from 'primeng/button';
-import { BaseComponent } from 'primeng/basecomponent';
 import { FieldsetStyle } from './style/fieldsetstyle';
 
 /**
@@ -158,7 +157,7 @@ export class Fieldset extends BaseComponent implements BlockableUI {
     @Output() onAfterToggle: EventEmitter<FieldsetAfterToggleEvent> = new EventEmitter<FieldsetAfterToggleEvent>();
 
     get id() {
-        return UniqueComponentId();
+        return uuid('pn_id_');
     }
 
     get buttonAriaLabel() {

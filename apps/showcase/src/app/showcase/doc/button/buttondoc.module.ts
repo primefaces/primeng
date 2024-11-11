@@ -1,14 +1,16 @@
 import { CommonModule } from '@angular/common';
 import { NgModule } from '@angular/core';
 import { RouterModule } from '@angular/router';
+import { AppCodeModule } from '@layout/doc/app.code.component';
+import { AppDocModule } from '@layout/doc/app.doc.module';
+import { WindowMaximizeIcon } from '@primeng/icons';
 import { ButtonModule } from 'primeng/button';
 import { ButtonGroupModule } from 'primeng/buttongroup';
 import { RippleModule } from 'primeng/ripple';
-import { AppDocModule } from '@layout/doc/app.doc.module';
-import { AppCodeModule } from '@layout/doc/app.code.component';
 import { AccessibilityDoc } from './accessibilitydoc';
 import { BadgeDoc } from './badgedoc';
 import { BasicDoc } from './basicdoc';
+import { ButtonGroupDoc } from './buttongroupdoc';
 import { ButtonsetDoc } from './buttonsetdoc';
 import { DirectiveDoc } from './directivedoc';
 import { DisabledDoc } from './disableddoc';
@@ -26,8 +28,6 @@ import { SizesDoc } from './sizesdoc';
 import { StyleDoc } from './styledoc';
 import { TemplateDoc } from './templatedoc';
 import { TextDoc } from './textdoc';
-import { ButtonGroupDoc } from './buttongroupdoc';
-import { WindowMaximizeIcon } from 'primeng/icons/windowmaximize';
 
 @NgModule({
     imports: [CommonModule, AppCodeModule, AppDocModule, ButtonModule, ButtonGroupModule, RippleModule, RouterModule, WindowMaximizeIcon],

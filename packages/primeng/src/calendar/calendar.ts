@@ -21,24 +21,37 @@ import {
     ViewEncapsulation
 } from '@angular/core';
 import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
-import { OverlayService, SharedModule, TranslationKeys } from 'primeng/api';
-import { Button } from 'primeng/button';
-import { ConnectedOverlayScrollHandler, DomHandler } from 'primeng/dom';
-import { Ripple } from 'primeng/ripple';
-import { ObjectUtils, UniqueComponentId, ZIndexUtils } from 'primeng/utils';
-import { Subscription } from 'rxjs';
-import { ChevronLeftIcon } from 'primeng/icons/chevronleft';
-import { ChevronRightIcon } from 'primeng/icons/chevronright';
-import { ChevronUpIcon } from 'primeng/icons/chevronup';
-import { ChevronDownIcon } from 'primeng/icons/chevrondown';
-import { TimesIcon } from 'primeng/icons/times';
-import { CalendarIcon } from 'primeng/icons/calendar';
-import { Nullable, VoidListener } from 'primeng/ts-helpers';
-import { CalendarMonthChangeEvent, CalendarResponsiveOptions, CalendarTypeView, CalendarYearChangeEvent, LocaleSettings, Month, NavigationState } from './calendar.interface';
+import { BaseComponent, OverlayService, SharedModule, TranslationKeys } from '@primeng/core';
+import { CalendarIcon, ChevronDownIcon, ChevronLeftIcon, ChevronRightIcon, ChevronUpIcon, TimesIcon } from '@primeng/icons';
+import {
+    absolutePosition,
+    addClass,
+    appendChild,
+    blockBodyScroll,
+    find,
+    findSingle,
+    getFocusableElements,
+    getIndex,
+    getOuterWidth,
+    hasClass,
+    isDate,
+    isNotEmpty,
+    isTouchDevice,
+    relativePosition,
+    setAttribute,
+    unblockBodyScroll,
+    uuid
+} from '@primeuix/utils';
 import { AutoFocus } from 'primeng/autofocus';
+import { Button } from 'primeng/button';
+import { ConnectedOverlayScrollHandler } from 'primeng/dom';
 import { InputText } from 'primeng/inputtext';
+import { Ripple } from 'primeng/ripple';
+import { Nullable, VoidListener } from 'primeng/ts-helpers';
+import { ZIndexUtils } from 'primeng/utils';
+import { Subscription } from 'rxjs';
+import { CalendarMonthChangeEvent, CalendarResponsiveOptions, CalendarTypeView, CalendarYearChangeEvent, LocaleSettings, Month, NavigationState } from './calendar.interface';
 import { CalendarStyle } from './style/calendarstyle';
-import { BaseComponent } from 'primeng/basecomponent';
 
 export const CALENDAR_VALUE_ACCESSOR: any = {
     provide: NG_VALUE_ACCESSOR,
@@ -1277,7 +1290,7 @@ export class Calendar extends BaseComponent implements OnInit, OnDestroy, Contro
     ngOnInit() {
         console.log('Calendar component is deprecated as of v18, use DatePicker component instead.');
         super.ngOnInit();
-        this.attributeSelector = UniqueComponentId();
+        this.attributeSelector = uuid('pn_id_');
         this.panelId = this.attributeSelector + '_panel';
         const date = this.defaultDate || new Date();
         this.createResponsiveStyle();
@@ -1310,7 +1323,7 @@ export class Calendar extends BaseComponent implements OnInit, OnDestroy, Contro
                 this.initFocusableCell();
                 if (this.numberOfMonths === 1) {
                     if (this.contentViewChild && this.contentViewChild.nativeElement) {
-                        this.contentViewChild.nativeElement.style.width = DomHandler.getOuterWidth(this.containerViewChild?.nativeElement) + 'px';
+                        this.contentViewChild.nativeElement.style.width = getOuterWidth(this.containerViewChild?.nativeElement) + 'px';
                     }
                 }
             }
@@ -1911,13 +1924,13 @@ export class Calendar extends BaseComponent implements OnInit, OnDestroy, Contro
     }
 
     isDateEquals(value: any, dateMeta: any) {
-        if (value && ObjectUtils.isDate(value)) return value.getDate() === dateMeta.day && value.getMonth() === dateMeta.month && value.getFullYear() === dateMeta.year;
+        if (value && isDate(value)) return value.getDate() === dateMeta.day && value.getMonth() === dateMeta.month && value.getFullYear() === dateMeta.year;
         else return false;
     }
 
     isDateBetween(start: Date, end: Date, dateMeta: any) {
         let between: boolean = false;
-        if (ObjectUtils.isDate(start) && ObjectUtils.isDate(end)) {
+        if (isDate(start) && isDate(end)) {
             let date: Date = this.formatDateMetaToDate(dateMeta);
             return start.getTime() <= date.getTime() && end.getTime() >= date.getTime();
         }
@@ -2087,7 +2100,7 @@ export class Calendar extends BaseComponent implements OnInit, OnDestroy, Contro
                     this.trapFocus(event);
                 }
                 if (this.inline) {
-                    const headerElements = DomHandler.findSingle(this.containerViewChild?.nativeElement, '.p-datepicker-header');
+                    const headerElements = findSingle(this.containerViewChild?.nativeElement, '.p-datepicker-header');
                     const element = event.target;
                     if (this.timeOnly) {
                         return;
@@ -2128,7 +2141,7 @@ export class Calendar extends BaseComponent implements OnInit, OnDestroy, Contro
                 event.preventDefault();
             }
         } else if (event.keyCode === 9 && this.contentViewChild) {
-            DomHandler.getFocusableElements(this.contentViewChild.nativeElement).forEach((el) => (el.tabIndex = '-1'));
+            getFocusableElements(this.contentViewChild.nativeElement).forEach((el: any) => (el.tabIndex = '-1'));
             if (this.overlayVisible) {
                 this.overlayVisible = false;
             }
@@ -2143,11 +2156,11 @@ export class Calendar extends BaseComponent implements OnInit, OnDestroy, Contro
             //down arrow
             case 40: {
                 cellContent.tabIndex = '-1';
-                let cellIndex = DomHandler.index(cell);
+                let cellIndex = getIndex(cell);
                 let nextRow = cell.parentElement.nextElementSibling;
                 if (nextRow) {
                     let focusCell = nextRow.children[cellIndex].children[0];
-                    if (DomHandler.hasClass(focusCell, 'p-disabled')) {
+                    if (hasClass(focusCell, 'p-disabled')) {
                         this.navigationState = { backward: false };
                         this.navForward(event);
                     } else {
@@ -2165,11 +2178,11 @@ export class Calendar extends BaseComponent implements OnInit, OnDestroy, Contro
             //up arrow
             case 38: {
                 cellContent.tabIndex = '-1';
-                let cellIndex = DomHandler.index(cell);
+                let cellIndex = getIndex(cell);
                 let prevRow = cell.parentElement.previousElementSibling;
                 if (prevRow) {
                     let focusCell = prevRow.children[cellIndex].children[0];
-                    if (DomHandler.hasClass(focusCell, 'p-disabled')) {
+                    if (hasClass(focusCell, 'p-disabled')) {
                         this.navigationState = { backward: true };
                         this.navBackward(event);
                     } else {
@@ -2190,7 +2203,7 @@ export class Calendar extends BaseComponent implements OnInit, OnDestroy, Contro
                 let prevCell = cell.previousElementSibling;
                 if (prevCell) {
                     let focusCell = prevCell.children[0];
-                    if (DomHandler.hasClass(focusCell, 'p-disabled') || DomHandler.hasClass(focusCell.parentElement, 'p-datepicker-weeknumber')) {
+                    if (hasClass(focusCell, 'p-disabled') || hasClass(focusCell.parentElement, 'p-datepicker-weeknumber')) {
                         this.navigateToMonth(true, groupIndex);
                     } else {
                         focusCell.tabIndex = '0';
@@ -2209,7 +2222,7 @@ export class Calendar extends BaseComponent implements OnInit, OnDestroy, Contro
                 let nextCell = cell.nextElementSibling;
                 if (nextCell) {
                     let focusCell = nextCell.children[0];
-                    if (DomHandler.hasClass(focusCell, 'p-disabled')) {
+                    if (hasClass(focusCell, 'p-disabled')) {
                         this.navigateToMonth(false, groupIndex);
                     } else {
                         focusCell.tabIndex = '0';
@@ -2272,7 +2285,7 @@ export class Calendar extends BaseComponent implements OnInit, OnDestroy, Contro
                 cellContent.tabIndex = '-1';
                 const firstDayDate = new Date(currentDate.getFullYear(), currentDate.getMonth(), 1);
                 const firstDayDateKey = this.formatDateKey(firstDayDate);
-                const firstDayCell = DomHandler.findSingle(cellContent.offsetParent, `span[data-date='${firstDayDateKey}']:not(.p-disabled):not(.p-ink)`);
+                const firstDayCell = <any>findSingle(cellContent.offsetParent, `span[data-date='${firstDayDateKey}']:not(.p-disabled):not(.p-ink)`);
                 if (firstDayCell) {
                     firstDayCell.tabIndex = '0';
                     firstDayCell.focus();
@@ -2285,7 +2298,7 @@ export class Calendar extends BaseComponent implements OnInit, OnDestroy, Contro
                 cellContent.tabIndex = '-1';
                 const lastDayDate = new Date(currentDate.getFullYear(), currentDate.getMonth() + 1, 0);
                 const lastDayDateKey = this.formatDateKey(lastDayDate);
-                const lastDayCell = DomHandler.findSingle(cellContent.offsetParent, `span[data-date='${lastDayDateKey}']:not(.p-disabled):not(.p-ink)`);
+                const lastDayCell = <any>findSingle(cellContent.offsetParent, `span[data-date='${lastDayDateKey}']:not(.p-disabled):not(.p-ink)`);
                 if (lastDayDate) {
                     lastDayCell.tabIndex = '0';
                     lastDayCell.focus();
@@ -2307,7 +2320,7 @@ export class Calendar extends BaseComponent implements OnInit, OnDestroy, Contro
             case 40: {
                 cell.tabIndex = '-1';
                 var cells = cell.parentElement.children;
-                var cellIndex = DomHandler.index(cell);
+                var cellIndex = getIndex(cell);
                 let nextCell = cells[event.which === 40 ? cellIndex + 3 : cellIndex - 3];
                 if (nextCell) {
                     nextCell.tabIndex = '0';
@@ -2389,7 +2402,7 @@ export class Calendar extends BaseComponent implements OnInit, OnDestroy, Contro
             case 40: {
                 cell.tabIndex = '-1';
                 var cells = cell.parentElement.children;
-                var cellIndex = DomHandler.index(cell);
+                var cellIndex = getIndex(cell);
                 let nextCell = cells[event.which === 40 ? cellIndex + 2 : cellIndex - 2];
                 if (nextCell) {
                     nextCell.tabIndex = '0';
@@ -2469,11 +2482,11 @@ export class Calendar extends BaseComponent implements OnInit, OnDestroy, Contro
             } else {
                 let prevMonthContainer = this.contentViewChild.nativeElement.children[groupIndex - 1];
                 if (focusKey) {
-                    const firstDayCell = DomHandler.findSingle(prevMonthContainer, focusKey);
+                    const firstDayCell = <any>findSingle(prevMonthContainer, focusKey);
                     firstDayCell.tabIndex = '0';
                     firstDayCell.focus();
                 } else {
-                    let cells = DomHandler.find(prevMonthContainer, '.p-datepicker-calendar td span:not(.p-disabled):not(.p-ink)');
+                    let cells = <any>find(prevMonthContainer, '.p-datepicker-calendar td span:not(.p-disabled):not(.p-ink)');
                     let focusCell = cells[cells.length - 1];
                     focusCell.tabIndex = '0';
                     focusCell.focus();
@@ -2487,11 +2500,11 @@ export class Calendar extends BaseComponent implements OnInit, OnDestroy, Contro
             } else {
                 let nextMonthContainer = this.contentViewChild.nativeElement.children[groupIndex + 1];
                 if (focusKey) {
-                    const firstDayCell = DomHandler.findSingle(nextMonthContainer, focusKey);
+                    const firstDayCell = <any>findSingle(nextMonthContainer, focusKey);
                     firstDayCell.tabIndex = '0';
                     firstDayCell.focus();
                 } else {
-                    let focusCell = DomHandler.findSingle(nextMonthContainer, '.p-datepicker-calendar td span:not(.p-disabled):not(.p-ink)');
+                    let focusCell = <any>findSingle(nextMonthContainer, '.p-datepicker-calendar td span:not(.p-disabled):not(.p-ink)');
                     focusCell.tabIndex = '0';
                     focusCell.focus();
                 }
@@ -2506,18 +2519,18 @@ export class Calendar extends BaseComponent implements OnInit, OnDestroy, Contro
             if (this.navigationState.button) {
                 this.initFocusableCell();
 
-                if (this.navigationState.backward) DomHandler.findSingle(this.contentViewChild.nativeElement, '.p-datepicker-prev').focus();
-                else DomHandler.findSingle(this.contentViewChild.nativeElement, '.p-datepicker-next').focus();
+                if (this.navigationState.backward) (findSingle(this.contentViewChild.nativeElement, '.p-datepicker-prev') as any).focus();
+                else (findSingle(this.contentViewChild.nativeElement, '.p-datepicker-next') as any).focus();
             } else {
                 if (this.navigationState.backward) {
                     let cells;
 
                     if (this.currentView === 'month') {
-                        cells = DomHandler.find(this.contentViewChild.nativeElement, '.p-monthpicker .p-monthpicker-month:not(.p-disabled)');
+                        cells = find(this.contentViewChild.nativeElement, '.p-monthpicker .p-monthpicker-month:not(.p-disabled)');
                     } else if (this.currentView === 'year') {
-                        cells = DomHandler.find(this.contentViewChild.nativeElement, '.p-yearpicker .p-yearpicker-year:not(.p-disabled)');
+                        cells = find(this.contentViewChild.nativeElement, '.p-yearpicker .p-yearpicker-year:not(.p-disabled)');
                     } else {
-                        cells = DomHandler.find(this.contentViewChild.nativeElement, this._focusKey || '.p-datepicker-calendar td span:not(.p-disabled):not(.p-ink)');
+                        cells = find(this.contentViewChild.nativeElement, this._focusKey || '.p-datepicker-calendar td span:not(.p-disabled):not(.p-ink)');
                     }
 
                     if (cells && cells.length > 0) {
@@ -2525,11 +2538,11 @@ export class Calendar extends BaseComponent implements OnInit, OnDestroy, Contro
                     }
                 } else {
                     if (this.currentView === 'month') {
-                        cell = DomHandler.findSingle(this.contentViewChild.nativeElement, '.p-monthpicker .p-monthpicker-month:not(.p-disabled)');
+                        cell = findSingle(this.contentViewChild.nativeElement, '.p-monthpicker .p-monthpicker-month:not(.p-disabled)');
                     } else if (this.currentView === 'year') {
-                        cell = DomHandler.findSingle(this.contentViewChild.nativeElement, '.p-yearpicker .p-yearpicker-year:not(.p-disabled)');
+                        cell = findSingle(this.contentViewChild.nativeElement, '.p-yearpicker .p-yearpicker-year:not(.p-disabled)');
                     } else {
-                        cell = DomHandler.findSingle(this.contentViewChild.nativeElement, this._focusKey || '.p-datepicker-calendar td span:not(.p-disabled):not(.p-ink)');
+                        cell = findSingle(this.contentViewChild.nativeElement, this._focusKey || '.p-datepicker-calendar td span:not(.p-disabled):not(.p-ink)');
                     }
                 }
 
@@ -2551,31 +2564,31 @@ export class Calendar extends BaseComponent implements OnInit, OnDestroy, Contro
         let cell!: any;
 
         if (this.currentView === 'month') {
-            let cells = DomHandler.find(contentEl, '.p-monthpicker .p-monthpicker-month:not(.p-disabled)');
-            let selectedCell = DomHandler.findSingle(contentEl, '.p-monthpicker .p-monthpicker-month.p-highlight');
+            let cells = <any>find(contentEl, '.p-monthpicker .p-monthpicker-month:not(.p-disabled)');
+            let selectedCell = <any>findSingle(contentEl, '.p-monthpicker .p-monthpicker-month.p-highlight');
             cells.forEach((cell) => (cell.tabIndex = -1));
             cell = selectedCell || cells[0];
 
             if (cells.length === 0) {
-                let disabledCells = DomHandler.find(contentEl, '.p-monthpicker .p-monthpicker-month.p-disabled[tabindex = "0"]');
+                let disabledCells = <any>find(contentEl, '.p-monthpicker .p-monthpicker-month.p-disabled[tabindex = "0"]');
                 disabledCells.forEach((cell) => (cell.tabIndex = -1));
             }
         } else if (this.currentView === 'year') {
-            let cells = DomHandler.find(contentEl, '.p-yearpicker .p-yearpicker-year:not(.p-disabled)');
-            let selectedCell = DomHandler.findSingle(contentEl, '.p-yearpicker .p-yearpicker-year.p-highlight');
+            let cells = <any>find(contentEl, '.p-yearpicker .p-yearpicker-year:not(.p-disabled)');
+            let selectedCell = <any>findSingle(contentEl, '.p-yearpicker .p-yearpicker-year.p-highlight');
             cells.forEach((cell) => (cell.tabIndex = -1));
             cell = selectedCell || cells[0];
 
             if (cells.length === 0) {
-                let disabledCells = DomHandler.find(contentEl, '.p-yearpicker .p-yearpicker-year.p-disabled[tabindex = "0"]');
+                let disabledCells = <any>find(contentEl, '.p-yearpicker .p-yearpicker-year.p-disabled[tabindex = "0"]');
                 disabledCells.forEach((cell) => (cell.tabIndex = -1));
             }
         } else {
-            cell = DomHandler.findSingle(contentEl, 'span.p-highlight');
+            cell = findSingle(contentEl, 'span.p-highlight');
             if (!cell) {
-                let todayCell = DomHandler.findSingle(contentEl, 'td.p-datepicker-today span:not(.p-disabled):not(.p-ink)');
+                let todayCell = findSingle(contentEl, 'td.p-datepicker-today span:not(.p-disabled):not(.p-ink)');
                 if (todayCell) cell = todayCell;
-                else cell = DomHandler.findSingle(contentEl, '.p-datepicker-calendar td span:not(.p-disabled):not(.p-ink)');
+                else cell = findSingle(contentEl, '.p-datepicker-calendar td span:not(.p-disabled):not(.p-ink)');
             }
         }
 
@@ -2595,7 +2608,7 @@ export class Calendar extends BaseComponent implements OnInit, OnDestroy, Contro
     }
 
     trapFocus(event: any) {
-        let focusableElements = DomHandler.getFocusableElements(this.contentViewChild.nativeElement);
+        let focusableElements = <any>getFocusableElements(this.contentViewChild.nativeElement);
 
         if (focusableElements && focusableElements.length > 0) {
             if (!focusableElements[0].ownerDocument.activeElement) {
@@ -3008,7 +3021,7 @@ export class Calendar extends BaseComponent implements OnInit, OnDestroy, Contro
     }
 
     isValidDate(date: any) {
-        return ObjectUtils.isDate(date) && ObjectUtils.isNotEmpty(date);
+        return isDate(date) && isNotEmpty(date);
     }
 
     updateUI() {
@@ -3113,7 +3126,7 @@ export class Calendar extends BaseComponent implements OnInit, OnDestroy, Contro
     appendOverlay() {
         if (this.appendTo) {
             if (this.appendTo === 'body') this.document.body.appendChild(<HTMLElement>this.overlay);
-            else DomHandler.appendChild(this.overlay, this.appendTo);
+            else appendChild(this.overlay, this.appendTo);
         }
     }
 
@@ -3129,15 +3142,15 @@ export class Calendar extends BaseComponent implements OnInit, OnDestroy, Contro
         } else if (this.overlay) {
             if (this.appendTo) {
                 if (this.view === 'date') {
-                    this.overlay.style.width = DomHandler.getOuterWidth(this.overlay) + 'px';
-                    this.overlay.style.minWidth = DomHandler.getOuterWidth(this.inputfieldViewChild?.nativeElement) + 'px';
+                    this.overlay.style.width = getOuterWidth(this.overlay) + 'px';
+                    this.overlay.style.minWidth = getOuterWidth(this.inputfieldViewChild?.nativeElement) + 'px';
                 } else {
-                    this.overlay.style.width = DomHandler.getOuterWidth(this.inputfieldViewChild?.nativeElement) + 'px';
+                    this.overlay.style.width = getOuterWidth(this.inputfieldViewChild?.nativeElement) + 'px';
                 }
 
-                DomHandler.absolutePosition(this.overlay, this.inputfieldViewChild?.nativeElement);
+                absolutePosition(this.overlay, this.inputfieldViewChild?.nativeElement);
             } else {
-                DomHandler.relativePosition(this.overlay, this.inputfieldViewChild?.nativeElement);
+                relativePosition(this.overlay, this.inputfieldViewChild?.nativeElement);
             }
         }
     }
@@ -3147,20 +3160,20 @@ export class Calendar extends BaseComponent implements OnInit, OnDestroy, Contro
             this.mask = this.renderer.createElement('div');
             this.renderer.setStyle(this.mask, 'zIndex', String(parseInt(element.style.zIndex) - 1));
             let maskStyleClass = 'p-overlay-mask p-datepicker-mask p-datepicker-mask-scrollblocker p-overlay-mask p-overlay-mask-enter';
-            DomHandler.addMultipleClasses(this.mask, maskStyleClass);
+            addClass(this.mask, maskStyleClass);
 
             this.maskClickListener = this.renderer.listen(this.mask, 'click', (event: any) => {
                 this.disableModality();
                 this.overlayVisible = false;
             });
             this.renderer.appendChild(this.document.body, this.mask);
-            DomHandler.blockBodyScroll();
+            blockBodyScroll();
         }
     }
 
     disableModality() {
         if (this.mask) {
-            DomHandler.addClass(this.mask, 'p-overlay-mask-leave');
+            addClass(this.mask, 'p-overlay-mask-leave');
             if (!this.animationEndListener) {
                 this.animationEndListener = this.renderer.listen(this.mask, 'animationend', this.destroyMask.bind(this));
             }
@@ -3176,14 +3189,14 @@ export class Calendar extends BaseComponent implements OnInit, OnDestroy, Contro
         let hasBlockerMasks!: boolean;
         for (let i = 0; i < bodyChildren.length; i++) {
             let bodyChild = bodyChildren[i];
-            if (DomHandler.hasClass(bodyChild, 'p-datepicker-mask-scrollblocker')) {
+            if (hasClass(bodyChild, 'p-datepicker-mask-scrollblocker')) {
                 hasBlockerMasks = true;
                 break;
             }
         }
 
         if (!hasBlockerMasks) {
-            DomHandler.unblockBodyScroll();
+            unblockBodyScroll();
         }
 
         this.unbindAnimationEndListener();
@@ -3635,7 +3648,7 @@ export class Calendar extends BaseComponent implements OnInit, OnDestroy, Contro
             }
 
             (<HTMLStyleElement>this.responsiveStyleElement).innerHTML = innerHTML;
-            DomHandler.setAttribute(this.responsiveStyleElement, 'nonce', this.config?.csp()?.nonce);
+            setAttribute(this.responsiveStyleElement, 'nonce', this.config?.csp()?.nonce);
         }
     }
 
@@ -3707,14 +3720,12 @@ export class Calendar extends BaseComponent implements OnInit, OnDestroy, Contro
         return !(this.el.nativeElement.isSameNode(event.target) || this.isNavIconClicked(event) || this.el.nativeElement.contains(event.target) || (this.overlay && this.overlay.contains(<Node>event.target)));
     }
 
-    isNavIconClicked(event: Event) {
-        return (
-            DomHandler.hasClass(event.target, 'p-datepicker-prev') || DomHandler.hasClass(event.target, 'p-datepicker-prev-icon') || DomHandler.hasClass(event.target, 'p-datepicker-next') || DomHandler.hasClass(event.target, 'p-datepicker-next-icon')
-        );
+    isNavIconClicked(event: any) {
+        return hasClass(event.target, 'p-datepicker-prev') || hasClass(event.target, 'p-datepicker-prev-icon') || hasClass(event.target, 'p-datepicker-next') || hasClass(event.target, 'p-datepicker-next-icon');
     }
 
     onWindowResize() {
-        if (this.overlayVisible && !DomHandler.isTouchDevice()) {
+        if (this.overlayVisible && !isTouchDevice()) {
             this.hideOverlay();
         }
     }

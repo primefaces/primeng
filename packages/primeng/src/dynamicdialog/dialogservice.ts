@@ -1,11 +1,11 @@
-import { Injectable, ApplicationRef, Injector, Type, EmbeddedViewRef, ComponentRef, Inject, createComponent } from '@angular/core';
-import { DomHandler } from 'primeng/dom';
-import { DynamicDialogComponent } from './dynamicdialog';
-import { DynamicDialogInjector } from './dynamicdialog-injector';
-import { DynamicDialogConfig } from './dynamicdialog-config';
-import { DynamicDialogRef } from './dynamicdialog-ref';
 import { DOCUMENT } from '@angular/common';
-import { ObjectUtils } from 'primeng/utils';
+import { ApplicationRef, ComponentRef, EmbeddedViewRef, Inject, Injectable, Injector, Type, createComponent } from '@angular/core';
+import { appendChild } from '@primeuix/utils';
+import { DynamicDialogComponent } from './dynamicdialog';
+import { DynamicDialogConfig } from './dynamicdialog-config';
+import { DynamicDialogInjector } from './dynamicdialog-injector';
+import { DynamicDialogRef } from './dynamicdialog-ref';
+
 /**
  * Dynamic Dialog component methods.
  * @group Service
@@ -74,7 +74,7 @@ export class DialogService {
         if (!config.appendTo || config.appendTo === 'body') {
             this.document.body.appendChild(domElem);
         } else {
-            DomHandler.appendChild(domElem, config.appendTo);
+            appendChild(domElem, config.appendTo);
         }
 
         this.dialogComponentRefMap.set(dialogRef, componentRef);

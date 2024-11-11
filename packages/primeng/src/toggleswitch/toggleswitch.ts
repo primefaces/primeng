@@ -1,11 +1,10 @@
 import { CommonModule } from '@angular/common';
 import { AfterContentInit, booleanAttribute, ChangeDetectionStrategy, Component, ContentChild, ElementRef, EventEmitter, forwardRef, inject, Input, NgModule, numberAttribute, Output, TemplateRef, ViewChild, ViewEncapsulation } from '@angular/core';
 import { NG_VALUE_ACCESSOR } from '@angular/forms';
+import { BaseComponent, SharedModule } from '@primeng/core';
 import { AutoFocus } from 'primeng/autofocus';
-import { ToggleSwitchChangeEvent } from './toggleswitch.interface';
 import { ToggleSwitchStyle } from './style/toggleswitchstyle';
-import { BaseComponent } from 'primeng/basecomponent';
-import { SharedModule } from 'primeng/api';
+import { ToggleSwitchChangeEvent } from './toggleswitch.interface';
 
 /**
  * Context interface for the handle template.

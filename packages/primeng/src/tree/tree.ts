@@ -3,7 +3,6 @@ import {
     booleanAttribute,
     ChangeDetectionStrategy,
     Component,
-    contentChild,
     ContentChild,
     ElementRef,
     EventEmitter,
@@ -22,21 +21,20 @@ import {
     ViewChild,
     ViewEncapsulation
 } from '@angular/core';
-import { BlockableUI, SharedModule, TranslationKeys, TreeDragDropService, TreeNode } from 'primeng/api';
-import { DomHandler } from 'primeng/dom';
+import { FormsModule } from '@angular/forms';
+import { BaseComponent, SharedModule, TranslationKeys } from '@primeng/core';
+import { CheckIcon, ChevronDownIcon, ChevronRightIcon, MinusIcon, PlusIcon, SearchIcon, SpinnerIcon } from '@primeng/icons';
+import { find, findSingle, focus, hasClass, removeAccents, resolveFieldData } from '@primeuix/utils';
+import { BlockableUI, ScrollerOptions, TreeDragDropService, TreeNode } from 'primeng/api';
+import { Checkbox } from 'primeng/checkbox';
+import { IconField } from 'primeng/iconfield';
+import { InputIcon } from 'primeng/inputicon';
+import { InputText } from 'primeng/inputtext';
 import { Ripple } from 'primeng/ripple';
 import { Scroller } from 'primeng/scroller';
-import { ScrollerOptions } from 'primeng/api';
-import { ObjectUtils } from 'primeng/utils';
-import { Subscription } from 'rxjs';
-import { CheckIcon } from 'primeng/icons/check';
-import { ChevronDownIcon } from 'primeng/icons/chevrondown';
-import { ChevronRightIcon } from 'primeng/icons/chevronright';
-import { MinusIcon } from 'primeng/icons/minus';
-import { PlusIcon } from 'primeng/icons/plus';
-import { SearchIcon } from 'primeng/icons/search';
-import { SpinnerIcon } from 'primeng/icons/spinner';
 import { Nullable } from 'primeng/ts-helpers';
+import { Subscription } from 'rxjs';
+import { TreeStyle } from './style/treestyle';
 import {
     TreeFilterEvent,
     TreeLazyLoadEvent,
@@ -49,13 +47,6 @@ import {
     TreeScrollEvent,
     TreeScrollIndexChangeEvent
 } from './tree.interface';
-import { InputText } from 'primeng/inputtext';
-import { InputIcon } from 'primeng/inputicon';
-import { IconField } from 'primeng/iconfield';
-import { Checkbox } from 'primeng/checkbox';
-import { FormsModule } from '@angular/forms';
-import { TreeStyle } from './style/treestyle';
-import { BaseComponent } from 'primeng/basecomponent';
 
 @Component({
     selector: 'p-treeNode',
@@ -616,7 +607,7 @@ export class UITreeNode extends BaseComponent implements OnInit {
     }
 
     setAllNodesTabIndexes() {
-        const nodes = DomHandler.find(this.tree.el.nativeElement, '.p-treenode');
+        const nodes = <any>find(this.tree.el.nativeElement, '.p-treenode');
 
         const hasSelectedNode = [...nodes].some((node) => node.getAttribute('aria-selected') === 'true' || node.getAttribute('aria-checked') === 'true');
 
@@ -633,18 +624,18 @@ export class UITreeNode extends BaseComponent implements OnInit {
         }
 
         if (nodes.length) {
-            [...nodes][0].tabIndex = 0;
+            ([...nodes][0] as any).tabIndex = 0;
         }
     }
 
     setTabIndexForSelectionMode(event, nodeTouched) {
         if (this.tree.selectionMode !== null) {
-            const elements = [...DomHandler.find(this.tree.el.nativeElement, '.p-treenode')];
+            const elements = [...find(this.tree.el.nativeElement, '.p-treenode')];
 
             event.currentTarget.tabIndex = nodeTouched === false ? -1 : 0;
 
-            if (elements.every((element) => element.tabIndex === -1)) {
-                elements[0].tabIndex = 0;
+            if (elements.every((element: any) => element.tabIndex === -1)) {
+                (elements[0] as any).tabIndex = 0;
             }
         }
     }
@@ -661,7 +652,7 @@ export class UITreeNode extends BaseComponent implements OnInit {
     }
 
     findLastVisibleDescendant(nodeElement: any): any {
-        const listElement = <HTMLElement>Array.from(nodeElement.children).find((el) => DomHandler.hasClass(el, 'p-treenode'));
+        const listElement = <HTMLElement>Array.from(nodeElement.children).find((el: any) => hasClass(el, 'p-treenode'));
         const childrenListElement = listElement.children[1];
         if (childrenListElement && childrenListElement.children.length > 0) {
             const lastChildElement = childrenListElement.children[childrenListElement.children.length - 1];
@@ -692,8 +683,8 @@ export class UITreeNode extends BaseComponent implements OnInit {
 
     focusVirtualNode() {
         this.timeout = setTimeout(() => {
-            let node = DomHandler.findSingle(document.body, `[data-id="${<TreeNode>this.node?.key ?? <TreeNode>this.node?.data}"]`);
-            DomHandler.focus(node);
+            let node = <any>findSingle(document.body, `[data-id="${<TreeNode>this.node?.key ?? <TreeNode>this.node?.data}"]`);
+            focus(node);
         }, 1);
     }
 }
@@ -1217,7 +1208,7 @@ export class Tree extends BaseComponent implements OnInit, OnChanges, OnDestroy,
 
     onNodeClick(event: Event, node: TreeNode) {
         let eventTarget = <Element>event.target;
-        if (DomHandler.hasClass(eventTarget, 'p-tree-toggler') || DomHandler.hasClass(eventTarget, 'p-tree-toggler-icon')) {
+        if (hasClass(eventTarget, 'p-tree-toggler') || hasClass(eventTarget, 'p-tree-toggler-icon')) {
             return;
         } else if (this.selectionMode) {
             if (node.selectable === false) {
@@ -1597,7 +1588,7 @@ export class Tree extends BaseComponent implements OnInit, OnChanges, OnDestroy,
         } else {
             this.filteredNodes = [];
             const searchFields: string[] = this.filterBy.split(',');
-            const filterText = ObjectUtils.removeAccents(filterValue).toLocaleLowerCase(this.filterLocale);
+            const filterText = removeAccents(filterValue).toLocaleLowerCase(this.filterLocale);
             const isStrictMode = this.filterMode === 'strict';
             for (let node of <TreeNode<any>[]>this.value) {
                 let copyNode = { ...node };
@@ -1681,7 +1672,7 @@ export class Tree extends BaseComponent implements OnInit, OnChanges, OnDestroy,
         let { searchFields, filterText, isStrictMode } = params;
         let matched = false;
         for (let field of searchFields) {
-            let fieldValue = ObjectUtils.removeAccents(String(ObjectUtils.resolveFieldData(node, field))).toLocaleLowerCase(this.filterLocale);
+            let fieldValue = removeAccents(String(resolveFieldData(node, field))).toLocaleLowerCase(this.filterLocale);
             if (fieldValue.indexOf(filterText) > -1) {
                 matched = true;
             }

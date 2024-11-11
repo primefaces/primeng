@@ -29,29 +29,41 @@ import {
     ViewEncapsulation
 } from '@angular/core';
 import { ControlValueAccessor, FormsModule, NG_VALUE_ACCESSOR } from '@angular/forms';
-import { FilterService, Footer, Header, OverlayOptions, OverlayService, PrimeNGConfig, PrimeTemplate, ScrollerOptions, SharedModule, TranslationKeys } from 'primeng/api';
-import { DomHandler } from 'primeng/dom';
+import { BaseComponent, FilterService, Footer, Header, OverlayOptions, OverlayService, PrimeNGConfig, PrimeTemplate, SharedModule, TranslationKeys } from '@primeng/core';
+import { CheckIcon, ChevronDownIcon, MinusIcon, SearchIcon, TimesCircleIcon, TimesIcon } from '@primeng/icons';
+import {
+    deepEquals,
+    equals,
+    findLastIndex,
+    findSingle,
+    focus,
+    getFirstFocusableElement,
+    getFocusableElements,
+    getLastFocusableElement,
+    hasClass,
+    isArray,
+    isHidden,
+    isNotEmpty,
+    isObject,
+    isPrintableCharacter,
+    resolveFieldData,
+    unblockBodyScroll,
+    uuid
+} from '@primeuix/utils';
+import { ScrollerOptions } from 'primeng/api';
+import { AutoFocus } from 'primeng/autofocus';
+import { Checkbox } from 'primeng/checkbox';
+import { Chip } from 'primeng/chip';
+import { IconField } from 'primeng/iconfield';
+import { InputIcon } from 'primeng/inputicon';
+import { InputText } from 'primeng/inputtext';
 import { Overlay } from 'primeng/overlay';
 import { Ripple } from 'primeng/ripple';
 import { Scroller } from 'primeng/scroller';
 import { Tooltip } from 'primeng/tooltip';
-import { ObjectUtils, UniqueComponentId } from 'primeng/utils';
-import { CheckIcon } from 'primeng/icons/check';
-import { SearchIcon } from 'primeng/icons/search';
-import { TimesCircleIcon } from 'primeng/icons/timescircle';
-import { TimesIcon } from 'primeng/icons/times';
-import { ChevronDownIcon } from 'primeng/icons/chevrondown';
 import { Nullable } from 'primeng/ts-helpers';
-import { AutoFocus } from 'primeng/autofocus';
 import { MultiSelectBlurEvent, MultiSelectChangeEvent, MultiSelectFilterEvent, MultiSelectFilterOptions, MultiSelectFocusEvent, MultiSelectLazyLoadEvent, MultiSelectRemoveEvent, MultiSelectSelectAllChangeEvent } from './multiselect.interface';
-import { MinusIcon } from 'primeng/icons/minus';
-import { IconField } from 'primeng/iconfield';
-import { InputText } from 'primeng/inputtext';
-import { InputIcon } from 'primeng/inputicon';
-import { Chip } from 'primeng/chip';
-import { Checkbox } from 'primeng/checkbox';
 import { MultiSelectStyle } from './style/multiselectstyle';
-import { BaseComponent } from 'primeng/basecomponent';
 
 export const MULTISELECT_VALUE_ACCESSOR: any = {
     provide: NG_VALUE_ACCESSOR,
@@ -821,7 +833,7 @@ export class MultiSelect extends BaseComponent implements OnInit, AfterViewInit,
         return options;
     }
     set options(val: any[] | undefined) {
-        if (!ObjectUtils.deepEquals(this._options(), val)) {
+        if (!deepEquals(this._options(), val)) {
             this._options.set(val);
         }
     }
@@ -1106,11 +1118,11 @@ export class MultiSelect extends BaseComponent implements OnInit, AfterViewInit,
     get filled(): boolean {
         if (typeof this.modelValue() === 'string') return !!this.modelValue();
 
-        return ObjectUtils.isNotEmpty(this.modelValue());
+        return isNotEmpty(this.modelValue());
     }
 
     get isVisibleClearIcon(): boolean | undefined {
-        return this.modelValue() != null && this.modelValue() !== '' && ObjectUtils.isNotEmpty(this.modelValue()) && this.showClear && !this.disabled && this.filled;
+        return this.modelValue() != null && this.modelValue() !== '' && isNotEmpty(this.modelValue()) && this.showClear && !this.disabled && this.filled;
     }
 
     get toggleAllAriaLabel() {
@@ -1137,7 +1149,7 @@ export class MultiSelect extends BaseComponent implements OnInit, AfterViewInit,
 
     visibleOptions = computed(() => {
         const options = this.getAllVisibleAndNonVisibleOptions();
-        const isArrayOfObjects = ObjectUtils.isArray(options) && ObjectUtils.isObject(options[0]);
+        const isArrayOfObjects = isArray(options) && isObject(options[0]);
 
         if (this._filterValue()) {
             let filteredOptions;
@@ -1176,7 +1188,7 @@ export class MultiSelect extends BaseComponent implements OnInit, AfterViewInit,
         const modelValue = this.modelValue();
 
         if (modelValue && modelValue.length && this.displaySelectedLabel) {
-            if (ObjectUtils.isNotEmpty(this.maxSelectedLabels) && modelValue.length > this.maxSelectedLabels) {
+            if (isNotEmpty(this.maxSelectedLabels) && modelValue.length > this.maxSelectedLabels) {
                 return this.getSelectedItemsLabel();
             } else {
                 label = '';
@@ -1196,7 +1208,7 @@ export class MultiSelect extends BaseComponent implements OnInit, AfterViewInit,
     });
 
     chipSelectedItems = computed(() => {
-        return ObjectUtils.isNotEmpty(this.maxSelectedLabels) && this.modelValue() && this.modelValue().length > this.maxSelectedLabels ? this.modelValue().slice(0, this.maxSelectedLabels) : this.modelValue();
+        return isNotEmpty(this.maxSelectedLabels) && this.modelValue() && this.modelValue().length > this.maxSelectedLabels ? this.modelValue().slice(0, this.maxSelectedLabels) : this.modelValue();
     });
 
     constructor(
@@ -1210,7 +1222,7 @@ export class MultiSelect extends BaseComponent implements OnInit, AfterViewInit,
             const modelValue = this.modelValue();
 
             const visibleOptions = this.visibleOptions();
-            if (visibleOptions && ObjectUtils.isNotEmpty(visibleOptions)) {
+            if (visibleOptions && isNotEmpty(visibleOptions)) {
                 if (this.optionValue && this.optionLabel && modelValue) {
                     this.selectedOptions = visibleOptions.filter((option) => modelValue.includes(option[this.optionLabel]) || modelValue.includes(option[this.optionValue]));
                 } else {
@@ -1223,7 +1235,7 @@ export class MultiSelect extends BaseComponent implements OnInit, AfterViewInit,
 
     ngOnInit() {
         super.ngOnInit();
-        this.id = this.id || UniqueComponentId();
+        this.id = this.id || uuid('pn_id_');
         this.autoUpdateModel();
 
         if (this.filterBy) {
@@ -1385,7 +1397,7 @@ export class MultiSelect extends BaseComponent implements OnInit, AfterViewInit,
         let value = null;
 
         if (selected) {
-            value = this.modelValue().filter((val) => !ObjectUtils.equals(val, this.getOptionValue(option), this.equalityKey()));
+            value = this.modelValue().filter((val) => !equals(val, this.getOptionValue(option), this.equalityKey()));
         } else {
             value = [...(this.modelValue() || []), this.getOptionValue(option)];
         }
@@ -1393,7 +1405,7 @@ export class MultiSelect extends BaseComponent implements OnInit, AfterViewInit,
         this.updateModel(value, originalEvent);
         index !== -1 && this.focusedOptionIndex.set(index);
 
-        isFocus && DomHandler.focus(this.focusInputViewChild?.nativeElement);
+        isFocus && focus(this.focusInputViewChild?.nativeElement);
 
         this.onChange.emit({
             originalEvent: event,
@@ -1443,7 +1455,7 @@ export class MultiSelect extends BaseComponent implements OnInit, AfterViewInit,
     }
 
     findPrevSelectedOptionIndex(index) {
-        const matchedOptionIndex = this.hasSelectedOption() && index > 0 ? ObjectUtils.findLastIndex(this.visibleOptions().slice(0, index), (option) => this.isValidSelectedOption(option)) : -1;
+        const matchedOptionIndex = this.hasSelectedOption() && index > 0 ? findLastIndex(this.visibleOptions().slice(0, index), (option) => this.isValidSelectedOption(option)) : -1;
 
         return matchedOptionIndex > -1 ? matchedOptionIndex : -1;
     }
@@ -1478,7 +1490,7 @@ export class MultiSelect extends BaseComponent implements OnInit, AfterViewInit,
     }
 
     hasSelectedOption() {
-        return ObjectUtils.isNotEmpty(this.modelValue());
+        return isNotEmpty(this.modelValue());
     }
 
     isValidSelectedOption(option) {
@@ -1497,12 +1509,12 @@ export class MultiSelect extends BaseComponent implements OnInit, AfterViewInit,
         if (this.maxSelectionLimitReached() && !this.isSelected(option)) {
             return true;
         }
-        return this.optionDisabled ? ObjectUtils.resolveFieldData(option, this.optionDisabled) : option && option.disabled !== undefined ? option.disabled : false;
+        return this.optionDisabled ? resolveFieldData(option, this.optionDisabled) : option && option.disabled !== undefined ? option.disabled : false;
     }
 
     isSelected(option) {
         const optionValue = this.getOptionValue(option);
-        return (this.modelValue() || []).some((value) => ObjectUtils.equals(value, optionValue, this.equalityKey()));
+        return (this.modelValue() || []).some((value) => equals(value, optionValue, this.equalityKey()));
     }
 
     isOptionMatched(option) {
@@ -1534,7 +1546,7 @@ export class MultiSelect extends BaseComponent implements OnInit, AfterViewInit,
 
     getLabelByValue(value) {
         const options = this.group ? this.flatOptions(this._options()) : this._options() || [];
-        const matchedOption = options.find((option) => !this.isOptionGroup(option) && ObjectUtils.equals(this.getOptionValue(option), value, this.equalityKey()));
+        const matchedOption = options.find((option) => !this.isOptionGroup(option) && equals(this.getOptionValue(option), value, this.equalityKey()));
         return matchedOption ? this.getOptionLabel(matchedOption) : null;
     }
 
@@ -1550,19 +1562,19 @@ export class MultiSelect extends BaseComponent implements OnInit, AfterViewInit,
     }
 
     getOptionLabel(option: any) {
-        return this.optionLabel ? ObjectUtils.resolveFieldData(option, this.optionLabel) : option && option.label != undefined ? option.label : option;
+        return this.optionLabel ? resolveFieldData(option, this.optionLabel) : option && option.label != undefined ? option.label : option;
     }
 
     getOptionValue(option: any) {
-        return this.optionValue ? ObjectUtils.resolveFieldData(option, this.optionValue) : !this.optionLabel && option && option.value !== undefined ? option.value : option;
+        return this.optionValue ? resolveFieldData(option, this.optionValue) : !this.optionLabel && option && option.value !== undefined ? option.value : option;
     }
 
     getOptionGroupLabel(optionGroup: any) {
-        return this.optionGroupLabel ? ObjectUtils.resolveFieldData(optionGroup, this.optionGroupLabel) : optionGroup && optionGroup.label != undefined ? optionGroup.label : optionGroup;
+        return this.optionGroupLabel ? resolveFieldData(optionGroup, this.optionGroupLabel) : optionGroup && optionGroup.label != undefined ? optionGroup.label : optionGroup;
     }
 
     getOptionGroupChildren(optionGroup: any) {
-        return this.optionGroupChildren ? ObjectUtils.resolveFieldData(optionGroup, this.optionGroupChildren) : optionGroup.items;
+        return this.optionGroupChildren ? resolveFieldData(optionGroup, this.optionGroupChildren) : optionGroup.items;
     }
 
     onKeyDown(event: KeyboardEvent) {
@@ -1628,7 +1640,7 @@ export class MultiSelect extends BaseComponent implements OnInit, AfterViewInit,
                     break;
                 }
 
-                if (!metaKey && ObjectUtils.isPrintableCharacter(event.key)) {
+                if (!metaKey && isPrintableCharacter(event.key)) {
                     !this.overlayVisible && this.show();
                     this.searchOptions(event, event.key);
                     event.preventDefault();
@@ -1807,7 +1819,7 @@ export class MultiSelect extends BaseComponent implements OnInit, AfterViewInit,
     onTabKey(event, pressedInInputText = false) {
         if (!pressedInInputText) {
             if (this.overlayVisible && this.hasFocusableElements()) {
-                DomHandler.focus(event.shiftKey ? this.lastHiddenFocusableElementOnOverlay.nativeElement : this.firstHiddenFocusableElementOnOverlay.nativeElement);
+                focus(event.shiftKey ? this.lastHiddenFocusableElementOnOverlay.nativeElement : this.firstHiddenFocusableElementOnOverlay.nativeElement);
 
                 event.preventDefault();
             } else {
@@ -1849,11 +1861,9 @@ export class MultiSelect extends BaseComponent implements OnInit, AfterViewInit,
 
     onFirstHiddenFocus(event) {
         const focusableEl =
-            event.relatedTarget === this.focusInputViewChild?.nativeElement
-                ? DomHandler.getFirstFocusableElement(this.overlayViewChild?.overlayViewChild?.nativeElement, ':not([data-p-hidden-focusable="true"])')
-                : this.focusInputViewChild?.nativeElement;
+            event.relatedTarget === this.focusInputViewChild?.nativeElement ? getFirstFocusableElement(this.overlayViewChild?.overlayViewChild?.nativeElement, ':not([data-p-hidden-focusable="true"])') : this.focusInputViewChild?.nativeElement;
 
-        DomHandler.focus(focusableEl);
+        focus(focusableEl);
     }
 
     onInputFocus(event: Event) {
@@ -1888,11 +1898,9 @@ export class MultiSelect extends BaseComponent implements OnInit, AfterViewInit,
 
     onLastHiddenFocus(event) {
         const focusableEl =
-            event.relatedTarget === this.focusInputViewChild?.nativeElement
-                ? DomHandler.getLastFocusableElement(this.overlayViewChild?.overlayViewChild?.nativeElement, ':not([data-p-hidden-focusable="true"])')
-                : this.focusInputViewChild?.nativeElement;
+            event.relatedTarget === this.focusInputViewChild?.nativeElement ? getLastFocusableElement(this.overlayViewChild?.overlayViewChild?.nativeElement, ':not([data-p-hidden-focusable="true"])') : this.focusInputViewChild?.nativeElement;
 
-        DomHandler.focus(focusableEl);
+        focus(focusableEl);
     }
 
     onOptionMouseEnter(event, index) {
@@ -1945,7 +1953,7 @@ export class MultiSelect extends BaseComponent implements OnInit, AfterViewInit,
         } else {
             // pre-selected disabled options should always be selected.
             const selectedDisabledOptions = this.getAllVisibleAndNonVisibleOptions().filter(
-                (option) => this.isSelected(option) && (this.optionDisabled ? ObjectUtils.resolveFieldData(option, this.optionDisabled) : option && option.disabled !== undefined ? option.disabled : false)
+                (option) => this.isSelected(option) && (this.optionDisabled ? resolveFieldData(option, this.optionDisabled) : option && option.disabled !== undefined ? option.disabled : false)
             );
 
             const visibleOptions = this.allSelected()
@@ -1972,7 +1980,7 @@ export class MultiSelect extends BaseComponent implements OnInit, AfterViewInit,
         }
 
         this.onChange.emit({ originalEvent: event, value: this.value });
-        DomHandler.focus(this.headerCheckboxViewChild?.nativeElement);
+        focus(this.headerCheckboxViewChild?.nativeElement);
         this.headerCheckboxFocus = true;
 
         event.preventDefault();
@@ -1993,7 +2001,7 @@ export class MultiSelect extends BaseComponent implements OnInit, AfterViewInit,
     scrollInView(index = -1) {
         const id = index !== -1 ? `${this.id}_${index}` : this.focusedOptionId;
         if (this.itemsViewChild && this.itemsViewChild.nativeElement) {
-            const element = DomHandler.findSingle(this.itemsViewChild.nativeElement, `li[id="${id}"]`);
+            const element = findSingle(this.itemsViewChild.nativeElement, `li[id="${id}"]`);
             if (element) {
                 element.scrollIntoView && element.scrollIntoView({ block: 'nearest', inline: 'nearest' });
             } else if (!this.virtualScrollerDisabled) {
@@ -2028,7 +2036,7 @@ export class MultiSelect extends BaseComponent implements OnInit, AfterViewInit,
     }
 
     allSelected() {
-        return this.selectAll !== null ? this.selectAll : ObjectUtils.isNotEmpty(this.visibleOptions()) && this.visibleOptions().every((option) => this.isOptionGroup(option) || this.isOptionDisabled(option) || this.isSelected(option));
+        return this.selectAll !== null ? this.selectAll : isNotEmpty(this.visibleOptions()) && this.visibleOptions().every((option) => this.isOptionGroup(option) || this.isOptionDisabled(option) || this.isSelected(option));
     }
 
     partialSelected() {
@@ -2045,7 +2053,7 @@ export class MultiSelect extends BaseComponent implements OnInit, AfterViewInit,
         this.focusedOptionIndex.set(focusedOptionIndex);
 
         if (isFocus) {
-            DomHandler.focus(this.focusInputViewChild?.nativeElement);
+            focus(this.focusInputViewChild?.nativeElement);
         }
 
         this.cd.markForCheck();
@@ -2063,10 +2071,10 @@ export class MultiSelect extends BaseComponent implements OnInit, AfterViewInit,
             this.resetFilter();
         }
         if (this.overlayOptions?.mode === 'modal') {
-            DomHandler.unblockBodyScroll();
+            unblockBodyScroll();
         }
 
-        isFocus && DomHandler.focus(this.focusInputViewChild?.nativeElement);
+        isFocus && focus(this.focusInputViewChild?.nativeElement);
         this.onPanelHide.emit();
         this.cd.markForCheck();
     }
@@ -2074,17 +2082,17 @@ export class MultiSelect extends BaseComponent implements OnInit, AfterViewInit,
     onOverlayAnimationStart(event: AnimationEvent) {
         switch (event.toState) {
             case 'visible':
-                this.itemsWrapper = DomHandler.findSingle(this.overlayViewChild?.overlayViewChild?.nativeElement, this.virtualScroll ? '.p-scroller' : '.p-multiselect-items-wrapper');
+                this.itemsWrapper = findSingle(this.overlayViewChild?.overlayViewChild?.nativeElement, this.virtualScroll ? '.p-scroller' : '.p-multiselect-items-wrapper');
                 this.virtualScroll && this.scroller?.setContentEl(this.itemsViewChild?.nativeElement);
 
                 if (this._options() && this._options().length) {
                     if (this.virtualScroll) {
-                        const selectedIndex = ObjectUtils.isNotEmpty(this.modelValue()) ? this.focusedOptionIndex() : -1;
+                        const selectedIndex = isNotEmpty(this.modelValue()) ? this.focusedOptionIndex() : -1;
                         if (selectedIndex !== -1) {
                             this.scroller?.scrollToIndex(selectedIndex);
                         }
                     } else {
-                        let selectedListItem = DomHandler.findSingle(this.itemsWrapper, '[data-p-highlight="true"]');
+                        let selectedListItem = findSingle(this.itemsWrapper, '[data-p-highlight="true"]');
 
                         if (selectedListItem) {
                             selectedListItem.scrollIntoView({ block: 'nearest', inline: 'nearest' });
@@ -2138,7 +2146,7 @@ export class MultiSelect extends BaseComponent implements OnInit, AfterViewInit,
     }
 
     removeOption(optionValue, event) {
-        let value = this.modelValue().filter((val) => !ObjectUtils.equals(val, optionValue, this.equalityKey()));
+        let value = this.modelValue().filter((val) => !equals(val, optionValue, this.equalityKey()));
 
         this.updateModel(value, event);
         this.onChange.emit({
@@ -2153,14 +2161,14 @@ export class MultiSelect extends BaseComponent implements OnInit, AfterViewInit,
     findNextItem(item: any): HTMLElement | null {
         let nextItem = item.nextElementSibling;
 
-        if (nextItem) return DomHandler.hasClass(nextItem.children[0], 'p-disabled') || DomHandler.isHidden(nextItem.children[0]) || DomHandler.hasClass(nextItem, 'p-multiselect-item-group') ? this.findNextItem(nextItem) : nextItem.children[0];
+        if (nextItem) return hasClass(nextItem.children[0], 'p-disabled') || isHidden(nextItem.children[0]) || hasClass(nextItem, 'p-multiselect-item-group') ? this.findNextItem(nextItem) : nextItem.children[0];
         else return null;
     }
 
     findPrevItem(item: any): HTMLElement | null {
         let prevItem = item.previousElementSibling;
 
-        if (prevItem) return DomHandler.hasClass(prevItem.children[0], 'p-disabled') || DomHandler.isHidden(prevItem.children[0]) || DomHandler.hasClass(prevItem, 'p-multiselect-item-group') ? this.findPrevItem(prevItem) : prevItem.children[0];
+        if (prevItem) return hasClass(prevItem.children[0], 'p-disabled') || isHidden(prevItem.children[0]) || hasClass(prevItem, 'p-multiselect-item-group') ? this.findPrevItem(prevItem) : prevItem.children[0];
         else return null;
     }
 
@@ -2175,13 +2183,13 @@ export class MultiSelect extends BaseComponent implements OnInit, AfterViewInit,
     }
 
     findPrevOptionIndex(index) {
-        const matchedOptionIndex = index > 0 ? ObjectUtils.findLastIndex(this.visibleOptions().slice(0, index), (option) => this.isValidOption(option)) : -1;
+        const matchedOptionIndex = index > 0 ? findLastIndex(this.visibleOptions().slice(0, index), (option) => this.isValidOption(option)) : -1;
 
         return matchedOptionIndex > -1 ? matchedOptionIndex : index;
     }
 
     findLastSelectedOptionIndex() {
-        return this.hasSelectedOption() ? ObjectUtils.findLastIndex(this.visibleOptions(), (option) => this.isValidSelectedOption(option)) : -1;
+        return this.hasSelectedOption() ? findLastIndex(this.visibleOptions(), (option) => this.isValidSelectedOption(option)) : -1;
     }
 
     findLastFocusedOptionIndex() {
@@ -2191,7 +2199,7 @@ export class MultiSelect extends BaseComponent implements OnInit, AfterViewInit,
     }
 
     findLastOptionIndex() {
-        return ObjectUtils.findLastIndex(this.visibleOptions(), (option) => this.isValidOption(option));
+        return findLastIndex(this.visibleOptions(), (option) => this.isValidOption(option));
     }
 
     searchOptions(event, char) {
@@ -2259,7 +2267,7 @@ export class MultiSelect extends BaseComponent implements OnInit, AfterViewInit,
     }
 
     hasFocusableElements() {
-        return DomHandler.getFocusableElements(this.overlayViewChild.overlayViewChild.nativeElement, ':not([data-p-hidden-focusable="true"])').length > 0;
+        return getFocusableElements(this.overlayViewChild.overlayViewChild.nativeElement, ':not([data-p-hidden-focusable="true"])').length > 0;
     }
 
     hasFilter() {

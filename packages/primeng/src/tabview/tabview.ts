@@ -21,19 +21,16 @@ import {
     ViewChild,
     ViewEncapsulation
 } from '@angular/core';
-import { BlockableUI, PrimeTemplate, SharedModule } from 'primeng/api';
-import { DomHandler } from 'primeng/dom';
-import { ChevronLeftIcon } from 'primeng/icons/chevronleft';
-import { ChevronRightIcon } from 'primeng/icons/chevronright';
-import { TimesIcon } from 'primeng/icons/times';
+import { BaseComponent, PrimeTemplate, SharedModule } from '@primeng/core';
+import { ChevronLeftIcon, ChevronRightIcon, TimesIcon } from '@primeng/icons';
+import { find, findSingle, focus, getAttribute, getOffset, getOuterWidth, getWidth, uuid } from '@primeuix/utils';
+import { BlockableUI } from 'primeng/api';
 import { Ripple } from 'primeng/ripple';
 import { TooltipModule } from 'primeng/tooltip';
-import { Subscription } from 'rxjs';
-import { TabViewChangeEvent, TabViewCloseEvent } from './tabview.interface';
-import { UniqueComponentId } from 'primeng/utils';
 import { Nullable } from 'primeng/ts-helpers';
+import { Subscription } from 'rxjs';
 import { TabsStyle } from './style/tabsstyle';
-import { BaseComponent } from 'primeng/basecomponent';
+import { TabViewChangeEvent, TabViewCloseEvent } from './tabview.interface';
 
 /**
  * TabPanel is a helper component for TabView component.
@@ -64,6 +61,9 @@ import { BaseComponent } from 'primeng/basecomponent';
     providers: [TabsStyle]
 })
 export class TabPanel extends BaseComponent implements AfterContentInit, OnDestroy {
+    ngOnDestroy(): void {
+        throw new Error('Method not implemented.');
+    }
     /**
      * Defines if tab can be removed.
      * @group Props
@@ -205,7 +205,7 @@ export class TabPanel extends BaseComponent implements AfterContentInit, OnDestr
 
     loaded: boolean = false;
 
-    public id: string | undefined = UniqueComponentId();
+    public id: string | undefined = uuid('pn_id_');
 
     contentTemplate: TemplateRef<any> | undefined;
 
@@ -531,8 +531,8 @@ export class TabView extends BaseComponent implements AfterContentInit, AfterVie
     }
 
     bindResizeObserver() {
-        this.container = DomHandler.findSingle(this.el.nativeElement, '[data-pc-section="navcontent"]');
-        this.list = DomHandler.findSingle(this.el.nativeElement, '[data-pc-section="nav"]');
+        this.container = findSingle(this.el.nativeElement, '[data-pc-section="navcontent"]');
+        this.list = findSingle(this.el.nativeElement, '[data-pc-section="nav"]');
 
         this.resizeObserver = new ResizeObserver(() => {
             if (this.list.offsetWidth >= this.container.offsetWidth) {
@@ -631,7 +631,7 @@ export class TabView extends BaseComponent implements AfterContentInit, AfterVie
 
     onTabArrowLeftKey(event: KeyboardEvent) {
         const prevHeaderAction = this.findPrevHeaderAction(<HTMLElement>event.currentTarget);
-        const index = DomHandler.getAttribute(prevHeaderAction, 'data-pc-index');
+        const index = getAttribute(prevHeaderAction, 'data-pc-index');
 
         prevHeaderAction ? this.changeFocusedTab(event, prevHeaderAction, index) : this.onTabEndKey(event);
         event.preventDefault();
@@ -640,14 +640,14 @@ export class TabView extends BaseComponent implements AfterContentInit, AfterVie
     onTabArrowRightKey(event: KeyboardEvent) {
         const nextHeaderAction = this.findNextHeaderAction(<HTMLElement>event.currentTarget);
 
-        const index = DomHandler.getAttribute(nextHeaderAction, 'data-pc-index');
+        const index = getAttribute(nextHeaderAction, 'data-pc-index');
         nextHeaderAction ? this.changeFocusedTab(event, nextHeaderAction, index) : this.onTabHomeKey(event);
         event.preventDefault();
     }
 
     onTabHomeKey(event: KeyboardEvent) {
         const firstHeaderAction = this.findFirstHeaderAction();
-        const index = DomHandler.getAttribute(firstHeaderAction, 'data-pc-index');
+        const index = getAttribute(firstHeaderAction, 'data-pc-index');
 
         this.changeFocusedTab(event, firstHeaderAction, index);
         event.preventDefault();
@@ -655,7 +655,7 @@ export class TabView extends BaseComponent implements AfterContentInit, AfterVie
 
     onTabEndKey(event: KeyboardEvent) {
         const lastHeaderAction = this.findLastHeaderAction();
-        const index = DomHandler.getAttribute(lastHeaderAction, 'data-pc-index');
+        const index = getAttribute(lastHeaderAction, 'data-pc-index');
 
         this.changeFocusedTab(event, lastHeaderAction, index);
         event.preventDefault();
@@ -663,7 +663,7 @@ export class TabView extends BaseComponent implements AfterContentInit, AfterVie
 
     changeFocusedTab(event: KeyboardEvent, element: any, index: number) {
         if (element) {
-            DomHandler.focus(element);
+            focus(element);
             element.scrollIntoView({ block: 'nearest' });
 
             if (this.selectOnFocus) {
@@ -676,13 +676,13 @@ export class TabView extends BaseComponent implements AfterContentInit, AfterVie
     findNextHeaderAction(tabElement: any, selfCheck = false) {
         const headerElement = selfCheck ? tabElement : tabElement.nextElementSibling;
 
-        return headerElement ? (DomHandler.getAttribute(headerElement, 'data-p-disabled') || DomHandler.getAttribute(headerElement, 'data-pc-section') === 'inkbar' ? this.findNextHeaderAction(headerElement) : headerElement) : null;
+        return headerElement ? (getAttribute(headerElement, 'data-p-disabled') || getAttribute(headerElement, 'data-pc-section') === 'inkbar' ? this.findNextHeaderAction(headerElement) : headerElement) : null;
     }
 
     findPrevHeaderAction(tabElement: any, selfCheck = false) {
         const headerElement = selfCheck ? tabElement : tabElement.previousElementSibling;
 
-        return headerElement ? (DomHandler.getAttribute(headerElement, 'data-p-disabled') || DomHandler.getAttribute(headerElement, 'data-pc-section') === 'inkbar' ? this.findPrevHeaderAction(headerElement) : headerElement) : null;
+        return headerElement ? (getAttribute(headerElement, 'data-p-disabled') || getAttribute(headerElement, 'data-pc-section') === 'inkbar' ? this.findPrevHeaderAction(headerElement) : headerElement) : null;
     }
 
     findFirstHeaderAction() {
@@ -692,7 +692,7 @@ export class TabView extends BaseComponent implements AfterContentInit, AfterVie
 
     findLastHeaderAction() {
         const lastEl = this.navbar.nativeElement.lastElementChild;
-        const lastHeaderAction = DomHandler.getAttribute(lastEl, 'data-pc-section') === 'inkbar' ? lastEl.previousElementSibling : lastEl;
+        const lastHeaderAction = getAttribute(lastEl, 'data-pc-section') === 'inkbar' ? lastEl.previousElementSibling : lastEl;
         return this.findPrevHeaderAction(lastHeaderAction, true);
     }
 
@@ -790,20 +790,20 @@ export class TabView extends BaseComponent implements AfterContentInit, AfterVie
     updateInkBar() {
         if (isPlatformBrowser(this.platformId)) {
             if (this.navbar) {
-                const tabHeader: HTMLElement | null = DomHandler.findSingle(this.navbar.nativeElement, '[data-pc-section="headeraction"][data-p-active="true"]');
+                const tabHeader: HTMLElement | null = findSingle(this.navbar.nativeElement, '[data-pc-section="headeraction"][data-p-active="true"]');
 
                 if (!tabHeader) {
                     return;
                 }
 
-                (this.inkbar as ElementRef).nativeElement.style.width = DomHandler.getOuterWidth(tabHeader) + 'px';
-                (this.inkbar as ElementRef).nativeElement.style.left = DomHandler.getOffset(tabHeader).left - DomHandler.getOffset(this.navbar.nativeElement).left + 'px';
+                (this.inkbar as ElementRef).nativeElement.style.width = getOuterWidth(tabHeader) + 'px';
+                (this.inkbar as ElementRef).nativeElement.style.left = getOffset(tabHeader).left - getOffset(this.navbar.nativeElement).left + 'px';
             }
         }
     }
 
     updateScrollBar(index: number) {
-        let tabHeader = DomHandler.find(this.navbar.nativeElement, '[data-pc-section="headeraction"]')[index];
+        let tabHeader = find(this.navbar.nativeElement, '[data-pc-section="headeraction"]')[index];
 
         if (tabHeader) {
             tabHeader.scrollIntoView({ block: 'nearest' });
@@ -813,15 +813,15 @@ export class TabView extends BaseComponent implements AfterContentInit, AfterVie
     updateButtonState() {
         const content = (this.content as ElementRef).nativeElement;
         const { scrollLeft, scrollWidth } = content;
-        const width = DomHandler.getWidth(content);
+        const width = getWidth(content);
 
         this.backwardIsDisabled = scrollLeft === 0;
         this.forwardIsDisabled = Math.round(scrollLeft) === scrollWidth - width;
     }
 
     refreshButtonState() {
-        this.container = DomHandler.findSingle(this.el.nativeElement, '[data-pc-section="navcontent"]');
-        this.list = DomHandler.findSingle(this.el.nativeElement, '[data-pc-section="nav"]');
+        this.container = findSingle(this.el.nativeElement, '[data-pc-section="navcontent"]');
+        this.list = findSingle(this.el.nativeElement, '[data-pc-section="nav"]');
         if (this.list.offsetWidth >= this.container.offsetWidth) {
             if (this.list.offsetWidth >= this.container.offsetWidth) {
                 this.buttonVisible = true;
@@ -840,19 +840,19 @@ export class TabView extends BaseComponent implements AfterContentInit, AfterVie
     }
 
     getVisibleButtonWidths() {
-        return [this.prevBtn?.nativeElement, this.nextBtn?.nativeElement].reduce((acc, el) => (el ? acc + DomHandler.getWidth(el) : acc), 0);
+        return [this.prevBtn?.nativeElement, this.nextBtn?.nativeElement].reduce((acc, el) => (el ? acc + getWidth(el) : acc), 0);
     }
 
     navBackward() {
         const content = (this.content as ElementRef).nativeElement;
-        const width = DomHandler.getWidth(content) - this.getVisibleButtonWidths();
+        const width = getWidth(content) - this.getVisibleButtonWidths();
         const pos = content.scrollLeft - width;
         content.scrollLeft = pos <= 0 ? 0 : pos;
     }
 
     navForward() {
         const content = (this.content as ElementRef).nativeElement;
-        const width = DomHandler.getWidth(content) - this.getVisibleButtonWidths();
+        const width = getWidth(content) - this.getVisibleButtonWidths();
         const pos = content.scrollLeft + width;
         const lastPos = content.scrollWidth - width;
 

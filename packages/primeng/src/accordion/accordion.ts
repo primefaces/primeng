@@ -26,13 +26,12 @@ import {
     TemplateRef,
     ViewEncapsulation
 } from '@angular/core';
-import { BlockableUI, Header, SharedModule } from 'primeng/api';
-import { BaseComponent } from 'primeng/basecomponent';
-import { DomHandler } from 'primeng/dom';
-import { ChevronDownIcon } from 'primeng/icons/chevrondown';
-import { ChevronUpIcon } from 'primeng/icons/chevronup';
+import { BaseComponent, Header, SharedModule } from '@primeng/core';
+import { ChevronDownIcon, ChevronUpIcon } from '@primeng/icons';
+import { findSingle, focus, getAttribute, uuid } from '@primeuix/utils';
+import { BlockableUI } from 'primeng/api';
 import { Ripple } from 'primeng/ripple';
-import { transformToBoolean, UniqueComponentId } from 'primeng/utils';
+import { transformToBoolean } from 'primeng/utils';
 import { Subscription } from 'rxjs';
 import { AccordionStyle } from './style/accordionstyle';
 
@@ -229,19 +228,19 @@ export class AccordionHeader extends BaseComponent {
     }
 
     private findHeader(panelElement) {
-        return DomHandler.findSingle(panelElement, '[data-pc-name="accordionheader"]');
+        return findSingle(panelElement, '[data-pc-name="accordionheader"]');
     }
 
     private findNextPanel(panelElement, selfCheck = false) {
         const element = selfCheck ? panelElement : panelElement.nextElementSibling;
 
-        return element ? (DomHandler.getAttribute(element, 'data-p-disabled') ? this.findNextPanel(element) : this.findHeader(element)) : null;
+        return element ? (getAttribute(element, 'data-p-disabled') ? this.findNextPanel(element) : this.findHeader(element)) : null;
     }
 
     private findPrevPanel(panelElement, selfCheck = false) {
         const element = selfCheck ? panelElement : panelElement.previousElementSibling;
 
-        return element ? (DomHandler.getAttribute(element, 'data-p-disabled') ? this.findPrevPanel(element) : this.findHeader(element)) : null;
+        return element ? (getAttribute(element, 'data-p-disabled') ? this.findPrevPanel(element) : this.findHeader(element)) : null;
     }
 
     private findFirstPanel() {
@@ -253,7 +252,7 @@ export class AccordionHeader extends BaseComponent {
     }
 
     private changeFocusedPanel(event, element) {
-        DomHandler.focus(element);
+        focus(element);
     }
 
     private arrowDownKey(event: KeyboardEvent) {
@@ -449,7 +448,7 @@ export class AccordionTab extends BaseComponent implements AfterContentInit, OnD
      * Current id state as a string.
      * @group Props
      */
-    @Input() id: string | undefined = UniqueComponentId();
+    @Input() id: string | undefined = uuid('pn_id_');
     /**
      * Used to define the header of the tab.
      * @group Props
@@ -775,7 +774,7 @@ export class Accordion extends BaseComponent implements BlockableUI, AfterConten
      */
     @Output() onOpen: EventEmitter<AccordionTabOpenEvent> = new EventEmitter();
 
-    id = signal(UniqueComponentId());
+    id = signal(uuid('pn_id_'));
 
     @ContentChildren(AccordionTab, { descendants: true }) tabList: QueryList<AccordionTab> | undefined;
 
@@ -856,7 +855,7 @@ export class Accordion extends BaseComponent implements BlockableUI, AfterConten
 
     changeFocusedTab(element) {
         if (element) {
-            DomHandler.focus(element);
+            focus(element);
 
             if (this.selectOnFocus()) {
                 this.tabs.forEach((tab, i) => {
@@ -893,16 +892,16 @@ export class Accordion extends BaseComponent implements BlockableUI, AfterConten
 
     findNextHeaderAction(tabElement, selfCheck = false) {
         const nextTabElement = selfCheck ? tabElement : tabElement.nextElementSibling;
-        const headerElement = DomHandler.findSingle(nextTabElement, '[data-pc-section="accordionheader"]');
+        const headerElement = findSingle(nextTabElement, '[data-pc-section="accordionheader"]');
 
-        return headerElement ? (DomHandler.getAttribute(headerElement, 'data-p-disabled') ? this.findNextHeaderAction(headerElement.parentElement) : DomHandler.findSingle(headerElement.parentElement, '[data-pc-section="accordionheader"]')) : null;
+        return headerElement ? (getAttribute(headerElement, 'data-p-disabled') ? this.findNextHeaderAction(headerElement.parentElement) : findSingle(headerElement.parentElement, '[data-pc-section="accordionheader"]')) : null;
     }
 
     findPrevHeaderAction(tabElement, selfCheck = false) {
         const prevTabElement = selfCheck ? tabElement : tabElement.previousElementSibling;
-        const headerElement = DomHandler.findSingle(prevTabElement, '[data-pc-section="accordionheader"]');
+        const headerElement = findSingle(prevTabElement, '[data-pc-section="accordionheader"]');
 
-        return headerElement ? (DomHandler.getAttribute(headerElement, 'data-p-disabled') ? this.findPrevHeaderAction(headerElement.parentElement) : DomHandler.findSingle(headerElement.parentElement, '[data-pc-section="accordionheader"]')) : null;
+        return headerElement ? (getAttribute(headerElement, 'data-p-disabled') ? this.findPrevHeaderAction(headerElement.parentElement) : findSingle(headerElement.parentElement, '[data-pc-section="accordionheader"]')) : null;
     }
 
     findFirstHeaderAction() {

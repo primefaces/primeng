@@ -1,9 +1,9 @@
 import { AfterViewInit, booleanAttribute, Directive, DoCheck, HostListener, inject, Input, NgModule, Optional } from '@angular/core';
 import { NgModel } from '@angular/forms';
+import { BaseComponent } from '@primeng/core';
+import { isEmpty } from '@primeuix/utils';
 import { Nullable } from 'primeng/ts-helpers';
-import { BaseComponent } from 'primeng/basecomponent';
 import { InputTextStyle } from './style/inputtextstyle';
-import { ObjectUtils } from 'primeng/utils';
 
 /**
  * InputText directive is an extension to standard input element with theming.
@@ -49,7 +49,7 @@ export class InputText extends BaseComponent implements DoCheck, AfterViewInit {
         const nativeElement = this.el.nativeElement;
         const fluidComponent = nativeElement.closest('p-fluid');
 
-        return ObjectUtils.isEmpty(this.fluid) ? !!fluidComponent : this.fluid;
+        return isEmpty(this.fluid) ? !!fluidComponent : this.fluid;
     }
 
     constructor(@Optional() public ngModel: NgModel) {

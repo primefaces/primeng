@@ -1,9 +1,9 @@
 import { CommonModule } from '@angular/common';
 import { AfterContentInit, ChangeDetectionStrategy, Component, ContentChild, HostBinding, inject, Input, NgModule, QueryList, TemplateRef, ViewEncapsulation } from '@angular/core';
-import { BlockableUI, PrimeTemplate, SharedModule } from 'primeng/api';
+import { BaseComponent, PrimeTemplate, SharedModule } from '@primeng/core';
+import { BlockableUI } from 'primeng/api';
 import { Nullable } from 'primeng/ts-helpers';
 import { TimelineStyle } from './style/timelinestyle';
-import { BaseComponent } from 'primeng/basecomponent';
 
 /**
  * Timeline visualizes a series of chained events.

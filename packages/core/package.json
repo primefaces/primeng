@@ -1,0 +1,74 @@
+{
+    "name": "@primeng/core",
+    "version": "4.2.1",
+    "author": "PrimeTek Informatics",
+    "description": "",
+    "homepage": "https://primeng.org/",
+    "license": "MIT",
+    "repository": {
+        "type": "git",
+        "url": "https://github.com/primefaces/primeng.git",
+        "directory": "packages/core"
+    },
+    "bugs": {
+        "url": "https://github.com/primefaces/primeng/issues"
+    },
+    "main": "./src/index.js",
+    "module": "./src/index.js",
+    "types": "./src/index.d.ts",
+    "exports": {
+        "./api": "./src/api/Api.js",
+        "./base/style": "./src/base/style/BaseStyle.js",
+        "./base": "./src/base/Base.js",
+        "./basecomponent/style": "./src/basecomponent/style/BaseComponentStyle.js",
+        "./basecomponent": "./src/basecomponent/BaseComponent.vue",
+        "./basedirective": "./src/basedirective/BaseDirective.js",
+        "./baseeditableholder": "./src/baseeditableholder/BaseEditableHolder.vue",
+        "./baseinput": "./src/baseinput/BaseInput.vue",
+        "./config": "./src/config/PrimeVue.js",
+        "./service": "./src/service/PrimeVueService.js",
+        "./usestyle": "./src/usestyle/UseStyle.js",
+        "./utils": "./src/utils/Utils.js"
+    },
+    "publishConfig": {
+        "main": "./index.mjs",
+        "module": "./index.mjs",
+        "types": "./index.d.ts",
+        "exports": {
+            ".": {
+                "types": "./index.d.ts",
+                "import": "./index.mjs",
+                "default": "./index.mjs"
+            },
+            "./*": {
+                "types": "./*/index.d.ts",
+                "import": "./*/index.mjs",
+                "default": "./*/index.mjs"
+            }
+        },
+        "directory": "dist",
+        "linkDirectory": false,
+        "access": "public"
+    },
+    "scripts": {
+        "build": "NODE_ENV=production INPUT_DIR=src/ OUTPUT_DIR=dist/ pnpm run build:package",
+        "build:package": "pnpm run build:prebuild && ng build primeng-core && pnpm run build:postbuild",
+        "build:prebuild": "node ./scripts/prebuild.mjs",
+        "build:postbuild": "node ./scripts/postbuild.mjs",
+        "dev:link": "pnpm link --global && npm link"
+    },
+    "dependencies": {
+        "@primeuix/styled": "catalog:",
+        "@primeuix/utils": "catalog:"
+    },
+    "devDependencies": {
+        "@angular/animations": "^17.0.0 || ^18.0.0",
+        "@angular/cdk": "^17.0.0 || ^18.0.0",
+        "@angular/common": "^17.0.0 || ^18.0.0",
+        "@angular/core": "^17.0.0 || ^18.0.0",
+        "@angular/forms": "^17.0.0 || ^18.0.0",
+        "@angular/router": "^17.0.0 || ^18.0.0",
+        "rxjs": "^6.0.0 || ^7.8.1",
+        "zone.js": "~0.14.0"
+    }
+}

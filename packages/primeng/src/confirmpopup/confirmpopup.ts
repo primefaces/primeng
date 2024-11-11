@@ -19,14 +19,15 @@ import {
     TemplateRef,
     ViewEncapsulation
 } from '@angular/core';
-import { Confirmation, ConfirmationService, OverlayService, PrimeNGConfig, SharedModule, TranslationKeys } from 'primeng/api';
+import { BaseComponent, OverlayService, PrimeNGConfig, SharedModule, TranslationKeys } from '@primeng/core';
+import { absolutePosition, addClass, findSingle, getOffset, isIOS, isTouchDevice } from '@primeuix/utils';
+import { Confirmation, ConfirmationService } from 'primeng/api';
 import { ButtonModule } from 'primeng/button';
-import { ConnectedOverlayScrollHandler, DomHandler } from 'primeng/dom';
+import { ConnectedOverlayScrollHandler } from 'primeng/dom';
 import { Nullable, VoidListener } from 'primeng/ts-helpers';
 import { ZIndexUtils } from 'primeng/utils';
 import { Subscription } from 'rxjs';
 import { ConfirmPopupStyle } from './style/confirmpopupstyle';
-import { BaseComponent } from 'primeng/basecomponent';
 
 /**
  * ConfirmPopup displays a confirmation overlay displayed relatively to its target.
@@ -315,10 +316,10 @@ export class ConfirmPopup extends BaseComponent implements AfterContentInit, OnD
     getElementToFocus() {
         switch (this.defaultFocus) {
             case 'accept':
-                return DomHandler.findSingle(this.container, '.p-confirm-popup-accept');
+                return <any>findSingle(this.container, '.p-confirm-popup-accept');
 
             case 'reject':
-                return DomHandler.findSingle(this.container, '.p-confirm-popup-reject');
+                return <any>findSingle(this.container, '.p-confirm-popup-reject');
 
             case 'none':
                 return null;
@@ -333,10 +334,10 @@ export class ConfirmPopup extends BaseComponent implements AfterContentInit, OnD
         if (!this.confirmation) {
             return;
         }
-        DomHandler.absolutePosition(this.container, this.confirmation?.target, false);
+        absolutePosition(this.container, this.confirmation?.target as any, false);
 
-        const containerOffset = DomHandler.getOffset(this.container);
-        const targetOffset = DomHandler.getOffset(this.confirmation?.target);
+        const containerOffset = <any>getOffset(this.container);
+        const targetOffset = <any>getOffset(this.confirmation?.target as any);
         let arrowLeft = 0;
 
         if (containerOffset.left < targetOffset.left) {
@@ -345,7 +346,7 @@ export class ConfirmPopup extends BaseComponent implements AfterContentInit, OnD
         (this.container as HTMLDivElement).style.setProperty('--overlayArrowLeft', `${arrowLeft}px`);
 
         if (containerOffset.top < targetOffset.top) {
-            DomHandler.addClass(this.container, 'p-confirm-popup-flipped');
+            addClass(this.container, 'p-confirm-popup-flipped');
         }
     }
 
@@ -397,7 +398,7 @@ export class ConfirmPopup extends BaseComponent implements AfterContentInit, OnD
 
     bindDocumentClickListener() {
         if (!this.documentClickListener) {
-            let documentEvent = DomHandler.isIOS() ? 'touchstart' : 'click';
+            let documentEvent = isIOS() ? 'touchstart' : 'click';
             const documentTarget: any = this.el ? this.el.nativeElement.ownerDocument : this.document;
 
             this.documentClickListener = this.renderer.listen(documentTarget, documentEvent, (event) => {
@@ -419,7 +420,7 @@ export class ConfirmPopup extends BaseComponent implements AfterContentInit, OnD
     }
 
     onWindowResize() {
-        if (this.visible && !DomHandler.isTouchDevice()) {
+        if (this.visible && !isTouchDevice()) {
             this.hide();
         }
     }

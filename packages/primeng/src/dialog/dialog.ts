@@ -20,18 +20,16 @@ import {
     ViewEncapsulation,
     ViewRef
 } from '@angular/core';
-import { SharedModule, TranslationKeys } from 'primeng/api';
-import { DomHandler } from 'primeng/dom';
+import { BaseComponent, SharedModule, TranslationKeys } from '@primeng/core';
+import { TimesIcon, WindowMaximizeIcon, WindowMinimizeIcon } from '@primeng/icons';
+import { addClass, appendChild, blockBodyScroll, getFocusableElements, getOuterHeight, getOuterWidth, getViewport, hasClass, removeClass, setAttribute, unblockBodyScroll, uuid } from '@primeuix/utils';
+import { Button, ButtonProps } from 'primeng/button';
 import { FocusTrap } from 'primeng/focustrap';
-import { TimesIcon } from 'primeng/icons/times';
-import { WindowMaximizeIcon } from 'primeng/icons/windowmaximize';
-import { WindowMinimizeIcon } from 'primeng/icons/windowminimize';
 import { Ripple } from 'primeng/ripple';
 import { Nullable, VoidListener } from 'primeng/ts-helpers';
-import { UniqueComponentId, ZIndexUtils } from 'primeng/utils';
-import { Button, ButtonProps } from 'primeng/button';
+import { ZIndexUtils } from 'primeng/utils';
 import { DialogStyle } from './style/dialogstyle';
-import { BaseComponent } from 'primeng/basecomponent';
+import { DomHandler } from 'primeng/dom';
 
 const showAnimation = animation([style({ transform: '{{transform}}', opacity: 0 }), animate('{{transition}}')]);
 
@@ -555,7 +553,7 @@ export class Dialog extends BaseComponent implements OnInit, OnDestroy {
 
     preMaximizePageY: number | undefined;
 
-    id: string = UniqueComponentId();
+    id: string = uuid('pn_id_');
 
     _style: any = {};
 
@@ -595,11 +593,11 @@ export class Dialog extends BaseComponent implements OnInit, OnDestroy {
     }
 
     getAriaLabelledBy() {
-        return this.header !== null ? UniqueComponentId() + '_header' : null;
+        return this.header !== null ? uuid('pn_id_') + '_header' : null;
     }
 
     focus(focusParentElement = this.contentViewChild.nativeElement) {
-        let focusable = DomHandler.getFocusableElement(focusParentElement, '[autofocus]');
+        let focusable = <any>getFocusableElements(focusParentElement, '[autofocus]');
         if (focusable) {
             this.zone.runOutsideAngular(() => {
                 setTimeout(() => focusable.focus(), 5);
@@ -632,7 +630,7 @@ export class Dialog extends BaseComponent implements OnInit, OnDestroy {
         }
 
         if (this.modal) {
-            DomHandler.blockBodyScroll();
+            blockBodyScroll();
         }
     }
 
@@ -646,7 +644,7 @@ export class Dialog extends BaseComponent implements OnInit, OnDestroy {
             const scrollBlockers = document.querySelectorAll('.p-dialog-mask-scrollblocker');
 
             if (this.modal && scrollBlockers && scrollBlockers.length == 1) {
-                DomHandler.unblockBodyScroll();
+                unblockBodyScroll();
             }
 
             if (!(this.cd as ViewRef).destroyed) {
@@ -660,9 +658,9 @@ export class Dialog extends BaseComponent implements OnInit, OnDestroy {
 
         if (!this.modal && !this.blockScroll) {
             if (this.maximized) {
-                DomHandler.blockBodyScroll();
+                blockBodyScroll();
             } else {
-                DomHandler.unblockBodyScroll();
+                unblockBodyScroll();
             }
         }
 
@@ -701,13 +699,13 @@ export class Dialog extends BaseComponent implements OnInit, OnDestroy {
                 }
 
                 this.renderer.setProperty(this.styleElement, 'innerHTML', innerHTML);
-                DomHandler.setAttribute(this.styleElement, 'nonce', this.config?.csp()?.nonce);
+                setAttribute(this.styleElement, 'nonce', this.config?.csp()?.nonce);
             }
         }
     }
 
     initDrag(event: MouseEvent) {
-        if (DomHandler.hasClass(event.target, 'p-dialog-maximize-icon') || DomHandler.hasClass(event.target, 'p-dialog-header-close-icon') || DomHandler.hasClass((<HTMLElement>event.target).parentElement, 'p-dialog-header-icon')) {
+        if (hasClass(event.target as any, 'p-dialog-maximize-icon') || hasClass(event.target as any, 'p-dialog-header-close-icon') || hasClass((<HTMLElement>event.target).parentElement, 'p-dialog-header-icon')) {
             return;
         }
 
@@ -717,14 +715,14 @@ export class Dialog extends BaseComponent implements OnInit, OnDestroy {
             this.lastPageY = event.pageY;
 
             (this.container as HTMLDivElement).style.margin = '0';
-            DomHandler.addClass(this.document.body, 'p-unselectable-text');
+            addClass(this.document.body, 'p-unselectable-text');
         }
     }
 
     onDrag(event: MouseEvent) {
         if (this.dragging) {
-            const containerWidth = DomHandler.getOuterWidth(this.container);
-            const containerHeight = DomHandler.getOuterHeight(this.container);
+            const containerWidth = getOuterWidth(this.container);
+            const containerHeight = getOuterHeight(this.container);
             const deltaX = event.pageX - (this.lastPageX as number);
             const deltaY = event.pageY - (this.lastPageY as number);
             const offset = this.container.getBoundingClientRect();
@@ -736,7 +734,7 @@ export class Dialog extends BaseComponent implements OnInit, OnDestroy {
 
             const leftPos = offset.left + deltaX - leftMargin;
             const topPos = offset.top + deltaY - topMargin;
-            const viewport = DomHandler.getViewport();
+            const viewport = getViewport();
 
             this.container.style.position = 'fixed';
 
@@ -764,7 +762,7 @@ export class Dialog extends BaseComponent implements OnInit, OnDestroy {
     endDrag(event: DragEvent) {
         if (this.dragging) {
             this.dragging = false;
-            DomHandler.removeClass(this.document.body, 'p-unselectable-text');
+            removeClass(this.document.body, 'p-unselectable-text');
             this.cd.detectChanges();
             this.onDragEnd.emit(event);
         }
@@ -787,7 +785,7 @@ export class Dialog extends BaseComponent implements OnInit, OnDestroy {
             this.resizing = true;
             this.lastPageX = event.pageX;
             this.lastPageY = event.pageY;
-            DomHandler.addClass(this.document.body, 'p-unselectable-text');
+            addClass(this.document.body, 'p-unselectable-text');
             this.onResizeInit.emit(event);
         }
     }
@@ -796,15 +794,15 @@ export class Dialog extends BaseComponent implements OnInit, OnDestroy {
         if (this.resizing) {
             let deltaX = event.pageX - (this.lastPageX as number);
             let deltaY = event.pageY - (this.lastPageY as number);
-            let containerWidth = DomHandler.getOuterWidth(this.container);
-            let containerHeight = DomHandler.getOuterHeight(this.container);
-            let contentHeight = DomHandler.getOuterHeight(this.contentViewChild?.nativeElement);
+            let containerWidth = getOuterWidth(this.container);
+            let containerHeight = getOuterHeight(this.container);
+            let contentHeight = getOuterHeight(this.contentViewChild?.nativeElement);
             let newWidth = containerWidth + deltaX;
             let newHeight = containerHeight + deltaY;
             let minWidth = (this.container as HTMLDivElement).style.minWidth;
             let minHeight = (this.container as HTMLDivElement).style.minHeight;
             let offset = (this.container as HTMLDivElement).getBoundingClientRect();
-            let viewport = DomHandler.getViewport();
+            let viewport = getViewport();
             let hasBeenDragged = !parseInt((this.container as HTMLDivElement).style.top) || !parseInt((this.container as HTMLDivElement).style.left);
 
             if (hasBeenDragged) {
@@ -834,7 +832,7 @@ export class Dialog extends BaseComponent implements OnInit, OnDestroy {
     resizeEnd(event: MouseEvent) {
         if (this.resizing) {
             this.resizing = false;
-            DomHandler.removeClass(this.document.body, 'p-unselectable-text');
+            removeClass(this.document.body, 'p-unselectable-text');
             this.onResizeEnd.emit(event);
         }
     }
@@ -929,7 +927,7 @@ export class Dialog extends BaseComponent implements OnInit, OnDestroy {
     appendContainer() {
         if (this.appendTo) {
             if (this.appendTo === 'body') this.renderer.appendChild(this.document.body, this.wrapper);
-            else DomHandler.appendChild(this.wrapper, this.appendTo);
+            else appendChild(this.wrapper, this.appendTo);
         }
     }
 
@@ -954,7 +952,7 @@ export class Dialog extends BaseComponent implements OnInit, OnDestroy {
                 }
 
                 // if (!this.modal && this.blockScroll) {
-                //     DomHandler.addClass(this.document.body, 'p-overflow-hidden');
+                //     addClass(this.document.body, 'p-overflow-hidden');
                 // }
 
                 if (this.focusOnShow) {
@@ -965,7 +963,7 @@ export class Dialog extends BaseComponent implements OnInit, OnDestroy {
 
             case 'void':
                 if (this.wrapper && this.modal) {
-                    DomHandler.addClass(this.wrapper, 'p-overlay-mask-leave');
+                    addClass(this.wrapper, 'p-overlay-mask-leave');
                 }
                 break;
         }
@@ -991,7 +989,7 @@ export class Dialog extends BaseComponent implements OnInit, OnDestroy {
         this.maskVisible = false;
 
         if (this.maximized) {
-            // DomHandler.removeClass(this.document.body, 'p-overflow-hidden')
+            // removeClass(this.document.body, 'p-overflow-hidden')
             this.document.body.style.removeProperty('--scrollbar;-width');
             this.maximized = false;
         }
@@ -1001,11 +999,11 @@ export class Dialog extends BaseComponent implements OnInit, OnDestroy {
         }
 
         // if (this.blockScroll) {
-        //      DomHandler.removeClass(this.document.body, 'p-overflow-hidden');
+        //      removeClass(this.document.body, 'p-overflow-hidden');
         // }
 
-        if (DomHandler.hasClass(this.document.body, 'p-overflow-hidden')) {
-            DomHandler.removeClass(this.document.body, 'p-overflow-hidden');
+        if (hasClass(this.document.body, 'p-overflow-hidden')) {
+            removeClass(this.document.body, 'p-overflow-hidden');
         }
 
         if (this.container && this.autoZIndex) {

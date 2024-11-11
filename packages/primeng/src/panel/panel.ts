@@ -1,15 +1,14 @@
 import { animate, state, style, transition, trigger } from '@angular/animations';
 import { CommonModule } from '@angular/common';
 import { booleanAttribute, ChangeDetectionStrategy, Component, ContentChild, EventEmitter, inject, Input, NgModule, Output, TemplateRef, ViewEncapsulation } from '@angular/core';
-import { BlockableUI, Footer, SharedModule } from 'primeng/api';
-import { MinusIcon } from 'primeng/icons/minus';
-import { PlusIcon } from 'primeng/icons/plus';
+import { BaseComponent, Footer, SharedModule } from '@primeng/core';
+import { MinusIcon, PlusIcon } from '@primeng/icons';
+import { uuid } from '@primeuix/utils';
+import { BlockableUI } from 'primeng/api';
+import { ButtonModule } from 'primeng/button';
 import { Ripple } from 'primeng/ripple';
 import { Nullable } from 'primeng/ts-helpers';
-import { UniqueComponentId } from 'primeng/utils';
-import { ButtonModule } from 'primeng/button';
 import { PanelStyle } from './style/panelstyle';
-import { BaseComponent } from 'primeng/basecomponent';
 
 /**
  * Custom panel toggle event, emits before panel toggle.
@@ -338,7 +337,7 @@ export class Panel extends BaseComponent implements BlockableUI {
         });
     }
 
-    readonly id = UniqueComponentId();
+    readonly id = uuid('pn_id_');
 
     get buttonAriaLabel() {
         return this.header;

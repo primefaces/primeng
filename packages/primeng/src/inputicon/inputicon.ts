@@ -1,8 +1,7 @@
 import { CommonModule } from '@angular/common';
 import { ChangeDetectionStrategy, Component, HostBinding, inject, Input, NgModule, ViewEncapsulation } from '@angular/core';
-import { BaseComponent } from 'primeng/basecomponent';
+import { BaseComponent, SharedModule } from '@primeng/core';
 import { InputIconStyle } from './style/inputiconstyle';
-import { SharedModule } from 'primeng/api';
 
 /**
  * InputIcon displays an icon.

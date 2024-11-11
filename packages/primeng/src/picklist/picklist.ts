@@ -19,22 +19,14 @@ import {
     ViewChild,
     ViewEncapsulation
 } from '@angular/core';
-import { FilterService, PrimeTemplate, SharedModule } from 'primeng/api';
+import { FormsModule } from '@angular/forms';
+import { BaseComponent, FilterService, PrimeTemplate, SharedModule } from '@primeng/core';
+import { AngleDoubleDownIcon, AngleDoubleLeftIcon, AngleDoubleRightIcon, AngleDoubleUpIcon, AngleDownIcon, AngleLeftIcon, AngleRightIcon, AngleUpIcon, SearchIcon } from '@primeng/icons';
+import { find, findIndexInList, findSingle, isEmpty, scrollInView, setAttribute, uuid } from '@primeuix/utils';
 import { ButtonDirective, ButtonProps } from 'primeng/button';
-import { DomHandler } from 'primeng/dom';
-import { AngleDoubleDownIcon } from 'primeng/icons/angledoubledown';
-import { AngleDoubleLeftIcon } from 'primeng/icons/angledoubleleft';
-import { AngleDoubleRightIcon } from 'primeng/icons/angledoubleright';
-import { AngleDoubleUpIcon } from 'primeng/icons/angledoubleup';
-import { AngleDownIcon } from 'primeng/icons/angledown';
-import { AngleLeftIcon } from 'primeng/icons/angleleft';
-import { AngleRightIcon } from 'primeng/icons/angleright';
-import { AngleUpIcon } from 'primeng/icons/angleup';
-import { HomeIcon } from 'primeng/icons/home';
-import { SearchIcon } from 'primeng/icons/search';
+import { Listbox } from 'primeng/listbox';
 import { Ripple } from 'primeng/ripple';
 import { Nullable, VoidListener } from 'primeng/ts-helpers';
-import { ObjectUtils, UniqueComponentId } from 'primeng/utils';
 import {
     PickListFilterOptions,
     PickListMoveAllToSourceEvent,
@@ -49,9 +41,6 @@ import {
     PickListTargetSelectEvent
 } from './picklist.interface';
 import { PickListStyle } from './style/pickliststyle';
-import { BaseComponent } from 'primeng/basecomponent';
-import { Listbox } from 'primeng/listbox';
-import { FormsModule } from '@angular/forms';
 
 /**
  * PickList is used to reorder items between different lists.
@@ -74,7 +63,6 @@ import { FormsModule } from '@angular/forms';
         AngleRightIcon,
         AngleUpIcon,
         SearchIcon,
-        HomeIcon,
         Listbox,
         FormsModule,
         SharedModule
@@ -785,7 +773,7 @@ export class PickList extends BaseComponent implements AfterViewChecked, AfterCo
 
     styleElement: any;
 
-    id: string = UniqueComponentId();
+    id: string = uuid('pn_id_');
 
     filterValueSource: Nullable<string>;
 
@@ -1048,13 +1036,13 @@ export class PickList extends BaseComponent implements AfterViewChecked, AfterCo
 
     ngAfterViewChecked() {
         if (this.movedUp || this.movedDown) {
-            let listItems = DomHandler.find(this.reorderedListElement, 'li.p-highlight');
+            let listItems = find(this.reorderedListElement, 'li.p-highlight');
             let listItem;
 
             if (this.movedUp) listItem = listItems[0];
             else listItem = listItems[listItems.length - 1];
 
-            DomHandler.scrollInView(this.reorderedListElement, listItem);
+            scrollInView(this.reorderedListElement, listItem);
             this.movedUp = false;
             this.movedDown = false;
             this.reorderedListElement = null;
@@ -1177,7 +1165,7 @@ export class PickList extends BaseComponent implements AfterViewChecked, AfterCo
     }
 
     private sortByIndexInList(items: any[], list: any) {
-        return items.sort((item1, item2) => ObjectUtils.findIndexInList(item1, list) - ObjectUtils.findIndexInList(item2, list));
+        return items.sort((item1, item2) => findIndexInList(item1, list) - findIndexInList(item2, list));
     }
 
     viewChildMarkForCheck() {
@@ -1190,7 +1178,7 @@ export class PickList extends BaseComponent implements AfterViewChecked, AfterCo
             selectedItems = this.sortByIndexInList(selectedItems, list);
             for (let i = 0; i < selectedItems.length; i++) {
                 let selectedItem = selectedItems[i];
-                let selectedItemIndex: number = ObjectUtils.findIndexInList(selectedItem, list);
+                let selectedItemIndex: number = findIndexInList(selectedItem, list);
 
                 if (selectedItemIndex != 0) {
                     let movedItem = list[selectedItemIndex];
@@ -1216,7 +1204,7 @@ export class PickList extends BaseComponent implements AfterViewChecked, AfterCo
             selectedItems = this.sortByIndexInList(selectedItems, list);
             for (let i = 0; i < selectedItems.length; i++) {
                 let selectedItem = selectedItems[i];
-                let selectedItemIndex: number = ObjectUtils.findIndexInList(selectedItem, list);
+                let selectedItemIndex: number = findIndexInList(selectedItem, list);
 
                 if (selectedItemIndex != 0) {
                     let movedItem = list.splice(selectedItemIndex, 1)[0];
@@ -1239,7 +1227,7 @@ export class PickList extends BaseComponent implements AfterViewChecked, AfterCo
             selectedItems = this.sortByIndexInList(selectedItems, list);
             for (let i = selectedItems.length - 1; i >= 0; i--) {
                 let selectedItem = selectedItems[i];
-                let selectedItemIndex: number = ObjectUtils.findIndexInList(selectedItem, list);
+                let selectedItemIndex: number = findIndexInList(selectedItem, list);
 
                 if (selectedItemIndex != list.length - 1) {
                     let movedItem = list[selectedItemIndex];
@@ -1265,7 +1253,7 @@ export class PickList extends BaseComponent implements AfterViewChecked, AfterCo
             selectedItems = this.sortByIndexInList(selectedItems, list);
             for (let i = selectedItems.length - 1; i >= 0; i--) {
                 let selectedItem = selectedItems[i];
-                let selectedItemIndex: number = ObjectUtils.findIndexInList(selectedItem, list);
+                let selectedItemIndex: number = findIndexInList(selectedItem, list);
 
                 if (selectedItemIndex != list.length - 1) {
                     let movedItem = list.splice(selectedItemIndex, 1)[0];
@@ -1287,11 +1275,11 @@ export class PickList extends BaseComponent implements AfterViewChecked, AfterCo
         if (this.selectedItemsSource && this.selectedItemsSource.length) {
             for (let i = 0; i < this.selectedItemsSource.length; i++) {
                 let selectedItem = this.selectedItemsSource[i];
-                if (ObjectUtils.findIndexInList(selectedItem, this.target) == -1) {
-                    this.target?.push(this.source?.splice(ObjectUtils.findIndexInList(selectedItem, this.source), 1)[0]);
+                if (findIndexInList(selectedItem, this.target) == -1) {
+                    this.target?.push(this.source?.splice(findIndexInList(selectedItem, this.source), 1)[0]);
 
                     if (this.visibleOptionsSource?.includes(selectedItem)) {
-                        this.visibleOptionsSource.splice(ObjectUtils.findIndexInList(selectedItem, this.visibleOptionsSource), 1);
+                        this.visibleOptionsSource.splice(findIndexInList(selectedItem, this.visibleOptionsSource), 1);
                     }
                 }
             }
@@ -1348,11 +1336,11 @@ export class PickList extends BaseComponent implements AfterViewChecked, AfterCo
         if (this.selectedItemsTarget && this.selectedItemsTarget.length) {
             for (let i = 0; i < this.selectedItemsTarget.length; i++) {
                 let selectedItem = this.selectedItemsTarget[i];
-                if (ObjectUtils.findIndexInList(selectedItem, this.source) == -1) {
-                    this.source?.push(this.target?.splice(ObjectUtils.findIndexInList(selectedItem, this.target), 1)[0]);
+                if (findIndexInList(selectedItem, this.source) == -1) {
+                    this.source?.push(this.target?.splice(findIndexInList(selectedItem, this.target), 1)[0]);
 
                     if (this.visibleOptionsTarget?.includes(selectedItem)) {
-                        this.visibleOptionsTarget.splice(ObjectUtils.findIndexInList(selectedItem, this.visibleOptionsTarget), 1)[0];
+                        this.visibleOptionsTarget.splice(findIndexInList(selectedItem, this.visibleOptionsTarget), 1)[0];
                     }
                 }
             }
@@ -1411,7 +1399,7 @@ export class PickList extends BaseComponent implements AfterViewChecked, AfterCo
     }
 
     findIndexInList(item: any, selectedItems: any[]): number {
-        return ObjectUtils.findIndexInList(item, selectedItems);
+        return findIndexInList(item, selectedItems);
     }
 
     onDrop(event: CdkDragDrop<string[]>, listType: number) {
@@ -1421,7 +1409,7 @@ export class PickList extends BaseComponent implements AfterViewChecked, AfterCo
         if (listType === this.SOURCE_LIST) {
             if (isTransfer) {
                 transferArrayItem(event.previousContainer.data, event.container.data, dropIndexes.previousIndex, dropIndexes.currentIndex);
-                let selectedItemIndex = ObjectUtils.findIndexInList(event.item.data, this.selectedItemsTarget);
+                let selectedItemIndex = findIndexInList(event.item.data, this.selectedItemsTarget);
 
                 if (selectedItemIndex != -1) {
                     this.selectedItemsTarget.splice(selectedItemIndex, 1);
@@ -1446,7 +1434,7 @@ export class PickList extends BaseComponent implements AfterViewChecked, AfterCo
             if (isTransfer) {
                 transferArrayItem(event.previousContainer.data, event.container.data, dropIndexes.previousIndex, dropIndexes.currentIndex);
 
-                let selectedItemIndex = ObjectUtils.findIndexInList(event.item.data, this.selectedItemsSource);
+                let selectedItemIndex = findIndexInList(event.item.data, this.selectedItemsSource);
 
                 if (selectedItemIndex != -1) {
                     this.selectedItemsSource.splice(selectedItemIndex, 1);
@@ -1485,7 +1473,7 @@ export class PickList extends BaseComponent implements AfterViewChecked, AfterCo
     getListItems(listType: number) {
         let listElemet = this.getListElement(listType);
 
-        return DomHandler.find(listElemet, 'li.p-picklist-item');
+        return find(listElemet, 'li.p-picklist-item');
     }
 
     getLatestSelectedVisibleOptionIndex(visibleList: any[], selectedItems: any[]): number {
@@ -1512,14 +1500,14 @@ export class PickList extends BaseComponent implements AfterViewChecked, AfterCo
     findNextOptionIndex(index: number, listType: number) {
         const items = this.getListItems(listType);
 
-        const matchedOptionIndex = [...items].findIndex((link) => link.id === index);
+        const matchedOptionIndex = [...items].findIndex((link: any) => link.id === index);
 
         return matchedOptionIndex > -1 ? matchedOptionIndex + 1 : 0;
     }
 
     findPrevOptionIndex(index: number, listType: number) {
         const items = this.getListItems(listType);
-        const matchedOptionIndex = [...items].findIndex((link) => link.id === index);
+        const matchedOptionIndex = [...items].findIndex((link: any) => link.id === index);
 
         return matchedOptionIndex > -1 ? matchedOptionIndex - 1 : 0;
     }
@@ -1584,7 +1572,7 @@ export class PickList extends BaseComponent implements AfterViewChecked, AfterCo
     }
 
     scrollInView(id, listType) {
-        const element = DomHandler.findSingle(this.getListElement(listType), `li[id="${id}"]`);
+        const element = findSingle(this.getListElement(listType), `li[id="${id}"]`);
 
         if (element) {
             element.scrollIntoView && element.scrollIntoView({ block: 'nearest', inline: 'start' });
@@ -1628,7 +1616,7 @@ export class PickList extends BaseComponent implements AfterViewChecked, AfterCo
             let lastSelectedIndex = this.getLatestSelectedVisibleOptionIndex(visibleList, selectedItems);
 
             if (lastSelectedIndex !== -1) {
-                let focusedIndex = ObjectUtils.findIndexInList(this.focusedOption, visibleList);
+                let focusedIndex = findIndexInList(this.focusedOption, visibleList);
 
                 selectedItems = [...visibleList.slice(Math.min(lastSelectedIndex, focusedIndex), Math.max(lastSelectedIndex, focusedIndex) + 1)];
                 this.setSelectionList(listType, selectedItems);
@@ -1644,7 +1632,7 @@ export class PickList extends BaseComponent implements AfterViewChecked, AfterCo
     onHomeKey(event: Event | any, selectedItems: any[], callback: EventEmitter<any>, listType: number) {
         if (event.ctrlKey && event.shiftKey) {
             let visibleList = this.getVisibleList(listType);
-            let focusedIndex = ObjectUtils.findIndexInList(this.focusedOption, visibleList);
+            let focusedIndex = findIndexInList(this.focusedOption, visibleList);
 
             selectedItems = [...visibleList.slice(0, focusedIndex + 1)];
             this.setSelectionList(listType, selectedItems);
@@ -1662,7 +1650,7 @@ export class PickList extends BaseComponent implements AfterViewChecked, AfterCo
         if (lastIndex === null) return;
 
         if (event.ctrlKey && event.shiftKey) {
-            let focusedIndex = ObjectUtils.findIndexInList(this.focusedOption, visibleList);
+            let focusedIndex = findIndexInList(this.focusedOption, visibleList);
             selectedItems = [...visibleList.slice(focusedIndex, lastIndex)];
 
             this.setSelectionList(listType, selectedItems);
@@ -1678,10 +1666,10 @@ export class PickList extends BaseComponent implements AfterViewChecked, AfterCo
         let previousIndex, currentIndex;
 
         if (droppedList === this.SOURCE_LIST) {
-            previousIndex = isTransfer ? (this.filterValueTarget ? ObjectUtils.findIndexInList(data, this.target) : fromIndex) : this.filterValueSource ? ObjectUtils.findIndexInList(data, this.source) : fromIndex;
+            previousIndex = isTransfer ? (this.filterValueTarget ? findIndexInList(data, this.target) : fromIndex) : this.filterValueSource ? findIndexInList(data, this.source) : fromIndex;
             currentIndex = this.filterValueSource ? this.findFilteredCurrentIndex(<any[]>this.visibleOptionsSource, toIndex, this.source) : toIndex;
         } else {
-            previousIndex = isTransfer ? (this.filterValueSource ? ObjectUtils.findIndexInList(data, this.source) : fromIndex) : this.filterValueTarget ? ObjectUtils.findIndexInList(data, this.target) : fromIndex;
+            previousIndex = isTransfer ? (this.filterValueSource ? findIndexInList(data, this.source) : fromIndex) : this.filterValueTarget ? findIndexInList(data, this.target) : fromIndex;
             currentIndex = this.filterValueTarget ? this.findFilteredCurrentIndex(<any[]>this.visibleOptionsTarget, toIndex, this.target) : toIndex;
         }
 
@@ -1690,11 +1678,11 @@ export class PickList extends BaseComponent implements AfterViewChecked, AfterCo
 
     findFilteredCurrentIndex(visibleOptions: any[], index: number, options: any) {
         if (visibleOptions.length === index) {
-            let toIndex = ObjectUtils.findIndexInList(visibleOptions[index - 1], options);
+            let toIndex = findIndexInList(visibleOptions[index - 1], options);
 
             return toIndex + 1;
         } else {
-            return ObjectUtils.findIndexInList(visibleOptions[index], options);
+            return findIndexInList(visibleOptions[index], options);
         }
     }
 
@@ -1764,7 +1752,7 @@ export class PickList extends BaseComponent implements AfterViewChecked, AfterCo
                 }`;
 
                 this.renderer.setProperty(this.styleElement, 'innerHTML', innerHTML);
-                DomHandler.setAttribute(this.styleElement, 'nonce', this.config?.csp()?.nonce);
+                setAttribute(this.styleElement, 'nonce', this.config?.csp()?.nonce);
             }
         }
     }
@@ -1782,19 +1770,19 @@ export class PickList extends BaseComponent implements AfterViewChecked, AfterCo
     }
 
     moveRightDisabled() {
-        return this.disabled || ObjectUtils.isEmpty(this.selectedItemsSource);
+        return this.disabled || isEmpty(this.selectedItemsSource);
     }
 
     moveLeftDisabled() {
-        return this.disabled || ObjectUtils.isEmpty(this.selectedItemsTarget);
+        return this.disabled || isEmpty(this.selectedItemsTarget);
     }
 
     moveAllRightDisabled() {
-        return this.disabled || ObjectUtils.isEmpty(this.source);
+        return this.disabled || isEmpty(this.source);
     }
 
     moveAllLeftDisabled() {
-        return this.disabled || ObjectUtils.isEmpty(this.target);
+        return this.disabled || isEmpty(this.target);
     }
 
     destroyStyle() {

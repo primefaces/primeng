@@ -1,8 +1,8 @@
 import { CommonModule } from '@angular/common';
 import { ChangeDetectionStrategy, Component, ContentChild, inject, Input, NgModule, signal, TemplateRef, ViewEncapsulation } from '@angular/core';
-import { BlockableUI, Footer, Header, SharedModule } from 'primeng/api';
-import { BaseComponent } from 'primeng/basecomponent';
-import { ObjectUtils } from 'primeng/utils';
+import { BaseComponent, Footer, Header, SharedModule } from '@primeng/core';
+import { equals } from '@primeuix/utils';
+import { BlockableUI } from 'primeng/api';
 import { CardStyle } from './style/cardstyle';
 
 /**
@@ -59,7 +59,7 @@ export class Card extends BaseComponent implements BlockableUI {
      * @group Props
      */
     @Input() set style(value: { [klass: string]: any } | null | undefined) {
-        if (!ObjectUtils.equals(this._style(), value)) {
+        if (!equals(this._style(), value)) {
             this._style.set(value);
         }
     }

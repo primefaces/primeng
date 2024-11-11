@@ -1,13 +1,12 @@
+import { CommonModule } from '@angular/common';
 import { booleanAttribute, ChangeDetectionStrategy, Component, ContentChild, EventEmitter, forwardRef, inject, Input, NgModule, numberAttribute, Output, TemplateRef, ViewEncapsulation } from '@angular/core';
 import { ControlValueAccessor, FormsModule, NG_VALUE_ACCESSOR } from '@angular/forms';
+import { BaseComponent, SharedModule } from '@primeng/core';
+import { equals, resolveFieldData } from '@primeuix/utils';
 import { Ripple } from 'primeng/ripple';
-import { ObjectUtils } from 'primeng/utils';
-import { SelectButtonChangeEvent, SelectButtonOptionClickEvent } from './selectbutton.interface';
 import { ToggleButton } from 'primeng/togglebutton';
-import { BaseComponent } from 'primeng/basecomponent';
+import { SelectButtonChangeEvent, SelectButtonOptionClickEvent } from './selectbutton.interface';
 import { SelectButtonStyle } from './style/selectbuttonstyle';
-import { CommonModule } from '@angular/common';
-import { SharedModule } from 'primeng/api';
 
 export const SELECTBUTTON_VALUE_ACCESSOR: any = {
     provide: NG_VALUE_ACCESSOR,
@@ -165,15 +164,15 @@ export class SelectButton extends BaseComponent implements ControlValueAccessor 
     _componentStyle = inject(SelectButtonStyle);
 
     getOptionLabel(option: any) {
-        return this.optionLabel ? ObjectUtils.resolveFieldData(option, this.optionLabel) : option.label != undefined ? option.label : option;
+        return this.optionLabel ? resolveFieldData(option, this.optionLabel) : option.label != undefined ? option.label : option;
     }
 
     getOptionValue(option: any) {
-        return this.optionValue ? ObjectUtils.resolveFieldData(option, this.optionValue) : this.optionLabel || option.value === undefined ? option : option.value;
+        return this.optionValue ? resolveFieldData(option, this.optionValue) : this.optionLabel || option.value === undefined ? option : option.value;
     }
 
     isOptionDisabled(option: any) {
-        return this.optionDisabled ? ObjectUtils.resolveFieldData(option, this.optionDisabled) : option.disabled !== undefined ? option.disabled : false;
+        return this.optionDisabled ? resolveFieldData(option, this.optionDisabled) : option.disabled !== undefined ? option.disabled : false;
     }
 
     writeValue(value: any): void {
@@ -209,7 +208,7 @@ export class SelectButton extends BaseComponent implements ControlValueAccessor 
         let newValue;
 
         if (this.multiple) {
-            if (selected) newValue = this.value.filter((val) => !ObjectUtils.equals(val, optionValue, this.equalityKey));
+            if (selected) newValue = this.value.filter((val) => !equals(val, optionValue, this.equalityKey));
             else newValue = this.value ? [...this.value, optionValue] : [optionValue];
         } else {
             if (selected && !this.allowEmpty) {
@@ -262,7 +261,7 @@ export class SelectButton extends BaseComponent implements ControlValueAccessor 
     }
 
     removeOption(option: any): void {
-        this.value = this.value.filter((val: any) => !ObjectUtils.equals(val, this.getOptionValue(option), this.dataKey));
+        this.value = this.value.filter((val: any) => !equals(val, this.getOptionValue(option), this.dataKey));
     }
 
     isSelected(option: any) {
@@ -272,14 +271,14 @@ export class SelectButton extends BaseComponent implements ControlValueAccessor 
         if (this.multiple) {
             if (this.value && Array.isArray(this.value)) {
                 for (let val of this.value) {
-                    if (ObjectUtils.equals(val, optionValue, this.dataKey)) {
+                    if (equals(val, optionValue, this.dataKey)) {
                         selected = true;
                         break;
                     }
                 }
             }
         } else {
-            selected = ObjectUtils.equals(this.getOptionValue(option), this.value, this.equalityKey);
+            selected = equals(this.getOptionValue(option), this.value, this.equalityKey);
         }
 
         return selected;

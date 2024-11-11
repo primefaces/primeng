@@ -1,15 +1,14 @@
 import { CommonModule } from '@angular/common';
 import { ChangeDetectionStrategy, ChangeDetectorRef, Component, ContentChild, ElementRef, EventEmitter, inject, Input, NgModule, Output, TemplateRef, ViewChild, ViewEncapsulation } from '@angular/core';
 import { RouterModule } from '@angular/router';
-import { MenuItem, SharedModule } from 'primeng/api';
+import { BaseComponent, SharedModule } from '@primeng/core';
+import { find, findSingle, resolve, uuid } from '@primeuix/utils';
+import { MenuItem } from 'primeng/api';
+import { Divider } from 'primeng/divider';
 import { Ripple } from 'primeng/ripple';
 import { TooltipModule } from 'primeng/tooltip';
 import { Nullable } from 'primeng/ts-helpers';
-import { ObjectUtils, UniqueComponentId } from 'primeng/utils';
-import { DomHandler } from 'primeng/dom';
 import { DockStyle } from './style/dockstyle';
-import { BaseComponent } from 'primeng/basecomponent';
-import { Divider } from 'primeng/divider';
 
 /**
  * Dock is a navigation component consisting of menuitems.
@@ -174,7 +173,7 @@ export class Dock extends BaseComponent {
 
     ngOnInit() {
         super.ngOnInit();
-        this.id = this.id || UniqueComponentId();
+        this.id = this.id || uuid('pn_id_');
     }
 
     @ContentChild('item') itemTemplate: TemplateRef<any> | undefined;
@@ -184,7 +183,7 @@ export class Dock extends BaseComponent {
     }
 
     getItemProp(processedItem, name) {
-        return processedItem && processedItem.item ? ObjectUtils.getItemValue(processedItem.item[name]) : undefined;
+        return processedItem && processedItem.item ? resolve(processedItem.item[name]) : undefined;
     }
 
     disabled(item) {
@@ -294,25 +293,25 @@ export class Dock extends BaseComponent {
     }
 
     onEndKey() {
-        this.changeFocusedOptionIndex(DomHandler.find(this.listViewChild.nativeElement, 'li[data-pc-section="menuitem"][data-p-disabled="false"]').length - 1);
+        this.changeFocusedOptionIndex(find(this.listViewChild.nativeElement, 'li[data-pc-section="menuitem"][data-p-disabled="false"]').length - 1);
     }
 
     onSpaceKey() {
-        const element = DomHandler.findSingle(this.listViewChild.nativeElement, `li[id="${`${this.focusedOptionIndex}`}"]`);
-        const anchorElement = element && DomHandler.findSingle(element, '[data-pc-section="action"]');
+        const element = <any>findSingle(this.listViewChild.nativeElement, `li[id="${`${this.focusedOptionIndex}`}"]`);
+        const anchorElement = element && <any>findSingle(element, '[data-pc-section="action"]');
 
         anchorElement ? anchorElement.click() : element && element.click();
     }
 
     findNextOptionIndex(index) {
-        const menuitems = DomHandler.find(this.listViewChild.nativeElement, 'li[data-pc-section="menuitem"][data-p-disabled="false"]');
+        const menuitems = find(this.listViewChild.nativeElement, 'li[data-pc-section="menuitem"][data-p-disabled="false"]');
         const matchedOptionIndex = [...menuitems].findIndex((link) => link.id === index);
 
         return matchedOptionIndex > -1 ? matchedOptionIndex + 1 : 0;
     }
 
     changeFocusedOptionIndex(index) {
-        const menuitems = DomHandler.find(this.listViewChild.nativeElement, 'li[data-pc-section="menuitem"][data-p-disabled="false"]');
+        const menuitems = <any>find(this.listViewChild.nativeElement, 'li[data-pc-section="menuitem"][data-p-disabled="false"]');
 
         let order = index >= menuitems.length ? menuitems.length - 1 : index < 0 ? 0 : index;
 
@@ -320,7 +319,7 @@ export class Dock extends BaseComponent {
     }
 
     findPrevOptionIndex(index) {
-        const menuitems = DomHandler.find(this.listViewChild.nativeElement, 'li[data-pc-section="menuitem"][data-p-disabled="false"]');
+        const menuitems = find(this.listViewChild.nativeElement, 'li[data-pc-section="menuitem"][data-p-disabled="false"]');
         const matchedOptionIndex = [...menuitems].findIndex((link) => link.id === index);
 
         return matchedOptionIndex > -1 ? matchedOptionIndex - 1 : 0;

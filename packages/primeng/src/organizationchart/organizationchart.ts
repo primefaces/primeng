@@ -19,15 +19,14 @@ import {
     TemplateRef,
     ViewEncapsulation
 } from '@angular/core';
-import { PrimeTemplate, SharedModule, TreeNode } from 'primeng/api';
-import { DomHandler } from 'primeng/dom';
-import { ChevronDownIcon } from 'primeng/icons/chevrondown';
-import { ChevronUpIcon } from 'primeng/icons/chevronup';
+import { BaseComponent, PrimeTemplate, SharedModule } from '@primeng/core';
+import { ChevronDownIcon, ChevronUpIcon } from '@primeng/icons';
+import { hasClass } from '@primeuix/utils';
+import { TreeNode } from 'primeng/api';
 import { Nullable } from 'primeng/ts-helpers';
 import { Subject, Subscription } from 'rxjs';
 import { OrganizationChartNodeCollapseEvent, OrganizationChartNodeExpandEvent, OrganizationChartNodeSelectEvent, OrganizationChartNodeUnSelectEvent } from './organizationchart.interface';
 import { OrganizationChartStyle } from './style/organizationchartstyle';
-import { BaseComponent } from 'primeng/basecomponent';
 
 @Component({
     selector: '[pOrganizationChartNode]',
@@ -304,7 +303,7 @@ export class OrganizationChart extends BaseComponent implements AfterContentInit
     onNodeClick(event: Event, node: TreeNode) {
         let eventTarget = <Element>event.target;
 
-        if (eventTarget.className && (DomHandler.hasClass(eventTarget, 'p-organizationchart-node-toggle-button') || DomHandler.hasClass(eventTarget, 'p-organizationchart-node-toggle-button-icon'))) {
+        if (eventTarget.className && (hasClass(eventTarget, 'p-organizationchart-node-toggle-button') || hasClass(eventTarget, 'p-organizationchart-node-toggle-button-icon'))) {
             return;
         } else if (this.selectionMode) {
             if (node.selectable === false) {

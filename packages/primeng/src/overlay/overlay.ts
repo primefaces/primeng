@@ -1,11 +1,11 @@
 import { animate, animation, AnimationEvent, style, transition, trigger, useAnimation } from '@angular/animations';
 import { CommonModule, isPlatformBrowser } from '@angular/common';
 import { ChangeDetectionStrategy, Component, ContentChild, ElementRef, EventEmitter, inject, Input, NgModule, NgZone, OnDestroy, Output, TemplateRef, ViewChild, ViewEncapsulation } from '@angular/core';
-import { OverlayModeType, OverlayOnBeforeHideEvent, OverlayOnBeforeShowEvent, OverlayOnHideEvent, OverlayOnShowEvent, OverlayOptions, OverlayService, ResponsiveOverlayOptions, SharedModule } from 'primeng/api';
+import { BaseComponent, OverlayModeType, OverlayOnBeforeHideEvent, OverlayOnBeforeShowEvent, OverlayOnHideEvent, OverlayOnShowEvent, OverlayOptions, OverlayService, ResponsiveOverlayOptions, SharedModule } from '@primeng/core';
+import { addClass, focus, getTargetElement, isTouchDevice, removeClass } from '@primeuix/utils';
 import { ConnectedOverlayScrollHandler, DomHandler } from 'primeng/dom';
-import { ObjectUtils, ZIndexUtils } from 'primeng/utils';
 import { VoidListener } from 'primeng/ts-helpers';
-import { BaseComponent } from 'primeng/basecomponent';
+import { ObjectUtils, ZIndexUtils } from 'primeng/utils';
 import { OverlayStyle } from './style/overlaystyle';
 
 const showOverlayContentAnimation = animation([style({ transform: '{{transform}}', opacity: 0 }), animate('{{showTransitionParams}}')]);
@@ -395,7 +395,7 @@ export class Overlay extends BaseComponent implements OnDestroy {
     }
 
     get targetEl() {
-        return DomHandler.getTargetElement(this.target, this.el?.nativeElement);
+        return <any>getTargetElement(this.target, this.el?.nativeElement);
     }
 
     constructor(
@@ -409,8 +409,8 @@ export class Overlay extends BaseComponent implements OnDestroy {
         this.onVisibleChange(true);
         this.handleEvents('onShow', { overlay: overlay || this.overlayEl, target: this.targetEl, mode: this.overlayMode });
 
-        isFocus && DomHandler.focus(this.targetEl);
-        this.modal && DomHandler.addClass(this.document?.body, 'p-overflow-hidden');
+        isFocus && focus(this.targetEl);
+        this.modal && addClass(this.document?.body, 'p-overflow-hidden');
     }
 
     hide(overlay?: HTMLElement, isFocus: boolean = false) {
@@ -419,8 +419,8 @@ export class Overlay extends BaseComponent implements OnDestroy {
         } else {
             this.onVisibleChange(false);
             this.handleEvents('onHide', { overlay: overlay || this.overlayEl, target: this.targetEl, mode: this.overlayMode });
-            isFocus && DomHandler.focus(this.targetEl);
-            this.modal && DomHandler.removeClass(this.document?.body, 'p-overflow-hidden');
+            isFocus && focus(this.targetEl as any);
+            this.modal && removeClass(this.document?.body, 'p-overflow-hidden');
         }
     }
 
@@ -462,7 +462,7 @@ export class Overlay extends BaseComponent implements OnDestroy {
             case 'void':
                 this.handleEvents('onBeforeHide', { overlay: this.overlayEl, target: this.targetEl, mode: this.overlayMode });
 
-                this.modal && DomHandler.addClass(this.overlayEl, 'p-overlay-mask-leave');
+                this.modal && addClass(this.overlayEl, 'p-overlay-mask-leave');
 
                 break;
         }
@@ -536,7 +536,7 @@ export class Overlay extends BaseComponent implements OnDestroy {
     bindDocumentClickListener() {
         if (!this.documentClickListener) {
             this.documentClickListener = this.renderer.listen(this.document, 'click', (event) => {
-                const isTargetClicked = this.targetEl && (this.targetEl.isSameNode(event.target) || (!this.isOverlayClicked && this.targetEl.contains(event.target)));
+                const isTargetClicked = this.targetEl && ((this.targetEl as any).isSameNode(event.target) || (!this.isOverlayClicked && (this.targetEl as any).contains(event.target)));
                 const isOutsideClicked = !isTargetClicked && !this.isOverlayContentClicked;
                 const valid = this.listener ? this.listener(event, { type: 'outside', mode: this.overlayMode, valid: event.which !== 3 && isOutsideClicked }) : isOutsideClicked;
 
@@ -556,7 +556,7 @@ export class Overlay extends BaseComponent implements OnDestroy {
     bindDocumentResizeListener() {
         if (!this.documentResizeListener) {
             this.documentResizeListener = this.renderer.listen(this.document.defaultView, 'resize', (event) => {
-                const valid = this.listener ? this.listener(event, { type: 'resize', mode: this.overlayMode, valid: !DomHandler.isTouchDevice() }) : !DomHandler.isTouchDevice();
+                const valid = this.listener ? this.listener(event, { type: 'resize', mode: this.overlayMode, valid: !isTouchDevice() }) : !isTouchDevice();
 
                 valid && this.hide(event, true);
             });
@@ -581,7 +581,7 @@ export class Overlay extends BaseComponent implements OnDestroy {
                     return;
                 }
 
-                const valid = this.listener ? this.listener(event, { type: 'keydown', mode: this.overlayMode, valid: !DomHandler.isTouchDevice() }) : !DomHandler.isTouchDevice();
+                const valid = this.listener ? this.listener(event, { type: 'keydown', mode: this.overlayMode, valid: !isTouchDevice() }) : !isTouchDevice();
 
                 if (valid) {
                     this.zone.run(() => {

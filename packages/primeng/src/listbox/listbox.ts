@@ -1,3 +1,4 @@
+import { CommonModule } from '@angular/common';
 import {
     AfterContentInit,
     booleanAttribute,
@@ -20,25 +21,21 @@ import {
     ViewChild,
     ViewEncapsulation
 } from '@angular/core';
-import { CommonModule } from '@angular/common';
-import { FilterService, Footer, Header, ScrollerOptions, SharedModule } from 'primeng/api';
-import { DomHandler } from 'primeng/dom';
-import { ObjectUtils, UniqueComponentId } from 'primeng/utils';
 import { ControlValueAccessor, FormsModule, NG_VALUE_ACCESSOR } from '@angular/forms';
-import { Ripple } from 'primeng/ripple';
-import { Subscription } from 'rxjs';
-import { SearchIcon } from 'primeng/icons/search';
-import { CheckIcon } from 'primeng/icons/check';
-import { Nullable } from 'primeng/ts-helpers';
-import { ListboxChangeEvent, ListboxClickEvent, ListboxDoubleClickEvent, ListboxFilterEvent, ListboxFilterOptions, ListboxSelectAllChangeEvent } from './listbox.interface';
-import { Scroller, ScrollerLazyLoadEvent } from 'primeng/scroller';
-import { IconField } from 'primeng/iconfield';
-import { InputText } from 'primeng/inputtext';
-import { BaseComponent } from 'primeng/basecomponent';
-import { ListBoxStyle } from './style/listboxstyle';
-import { BlankIcon } from 'primeng/icons/blank';
+import { BaseComponent, FilterService, Footer, Header, SharedModule } from '@primeng/core';
+import { BlankIcon, CheckIcon, SearchIcon } from '@primeng/icons';
+import { equals, findLastIndex, findSingle, focus, getFirstFocusableElement, isEmpty, isNotEmpty, isPrintableCharacter, resolveFieldData, uuid } from '@primeuix/utils';
+import { ScrollerOptions } from 'primeng/api';
 import { Checkbox } from 'primeng/checkbox';
+import { IconField } from 'primeng/iconfield';
 import { InputIcon } from 'primeng/inputicon';
+import { InputText } from 'primeng/inputtext';
+import { Ripple } from 'primeng/ripple';
+import { Scroller, ScrollerLazyLoadEvent } from 'primeng/scroller';
+import { Nullable } from 'primeng/ts-helpers';
+import { Subscription } from 'rxjs';
+import { ListboxChangeEvent, ListboxClickEvent, ListboxDoubleClickEvent, ListboxFilterEvent, ListboxFilterOptions, ListboxSelectAllChangeEvent } from './listbox.interface';
+import { ListBoxStyle } from './style/listboxstyle';
 
 export const LISTBOX_VALUE_ACCESSOR: any = {
     provide: NG_VALUE_ACCESSOR,
@@ -709,7 +706,7 @@ export class Listbox extends BaseComponent implements AfterContentInit, OnInit, 
     }
 
     get filterResultMessageText() {
-        return ObjectUtils.isNotEmpty(this.visibleOptions()) ? this.filterMessageText.replaceAll('{0}', this.visibleOptions().length) : this.emptyFilterMessageText;
+        return isNotEmpty(this.visibleOptions()) ? this.filterMessageText.replaceAll('{0}', this.visibleOptions().length) : this.emptyFilterMessageText;
     }
 
     get filterMessageText() {
@@ -777,7 +774,7 @@ export class Listbox extends BaseComponent implements AfterContentInit, OnInit, 
 
     ngOnInit() {
         super.ngOnInit();
-        this.id = this.id || UniqueComponentId();
+        this.id = this.id || uuid('pn_id_');
         this.translationSubscription = this.config.translationObserver.subscribe(() => {
             this.cd.markForCheck();
         });
@@ -901,7 +898,7 @@ export class Listbox extends BaseComponent implements AfterContentInit, OnInit, 
     }
 
     removeOption(option) {
-        return this.modelValue().filter((val) => !ObjectUtils.equals(val, this.getOptionValue(option), this.equalityKey()));
+        return this.modelValue().filter((val) => !equals(val, this.getOptionValue(option), this.equalityKey()));
     }
 
     onOptionSelect(event, option, index = -1) {
@@ -985,7 +982,7 @@ export class Listbox extends BaseComponent implements AfterContentInit, OnInit, 
         if (this.disabled || this.readonly) {
             return;
         }
-        DomHandler.focus(this.headerCheckboxViewChild.nativeElement);
+        focus(this.headerCheckboxViewChild.nativeElement);
 
         if (this.selectAll !== null) {
             this.onSelectAllChange.emit({
@@ -1008,7 +1005,7 @@ export class Listbox extends BaseComponent implements AfterContentInit, OnInit, 
     }
 
     allSelected() {
-        return this.selectAll !== null ? this.selectAll : ObjectUtils.isNotEmpty(this.visibleOptions()) && this.visibleOptions().every((option) => this.isOptionGroup(option) || this.isOptionDisabled(option) || this.isSelected(option));
+        return this.selectAll !== null ? this.selectAll : isNotEmpty(this.visibleOptions()) && this.visibleOptions().every((option) => this.isOptionGroup(option) || this.isOptionDisabled(option) || this.isSelected(option));
     }
 
     onOptionTouchEnd() {
@@ -1042,9 +1039,9 @@ export class Listbox extends BaseComponent implements AfterContentInit, OnInit, 
     }
 
     onFirstHiddenFocus(event: FocusEvent) {
-        DomHandler.focus(this.listViewChild.nativeElement);
-        const firstFocusableEl = DomHandler.getFirstFocusableElement(this.el.nativeElement, ':not([data-p-hidden-focusable="true"])');
-        this.lastHiddenFocusableElement.nativeElement.tabIndex = ObjectUtils.isEmpty(firstFocusableEl) ? '-1' : undefined;
+        focus(this.listViewChild.nativeElement);
+        const firstFocusableEl = getFirstFocusableElement(this.el.nativeElement, ':not([data-p-hidden-focusable="true"])');
+        this.lastHiddenFocusableElement.nativeElement.tabIndex = isEmpty(firstFocusableEl) ? '-1' : undefined;
         this.firstHiddenFocusableElement.nativeElement.tabIndex = -1;
     }
 
@@ -1052,12 +1049,12 @@ export class Listbox extends BaseComponent implements AfterContentInit, OnInit, 
         const relatedTarget = event.relatedTarget;
 
         if (relatedTarget === this.listViewChild.nativeElement) {
-            const firstFocusableEl = DomHandler.getFirstFocusableElement(this.el.nativeElement, ':not(.p-hidden-focusable)');
+            const firstFocusableEl = <any>getFirstFocusableElement(this.el.nativeElement, ':not(.p-hidden-focusable)');
 
-            DomHandler.focus(firstFocusableEl);
+            focus(firstFocusableEl);
             this.firstHiddenFocusableElement.nativeElement.tabIndex = undefined;
         } else {
-            DomHandler.focus(this.firstHiddenFocusableElement.nativeElement);
+            focus(this.firstHiddenFocusableElement.nativeElement);
         }
         this.lastHiddenFocusableElement.nativeElement.tabIndex = -1;
     }
@@ -1113,7 +1110,7 @@ export class Listbox extends BaseComponent implements AfterContentInit, OnInit, 
     }
 
     onHeaderCheckboxTabKeyDown(event) {
-        DomHandler.focus(this.listViewChild.nativeElement);
+        focus(this.listViewChild.nativeElement);
         event.preventDefault();
     }
 
@@ -1187,7 +1184,7 @@ export class Listbox extends BaseComponent implements AfterContentInit, OnInit, 
                     break;
                 }
 
-                if (!metaKey && ObjectUtils.isPrintableCharacter(event.key)) {
+                if (!metaKey && isPrintableCharacter(event.key)) {
                     this.searchOptions(event, event.key);
                     event.preventDefault();
                 }
@@ -1327,15 +1324,15 @@ export class Listbox extends BaseComponent implements AfterContentInit, OnInit, 
     }
 
     getOptionGroupChildren(optionGroup) {
-        return this.optionGroupChildren ? ObjectUtils.resolveFieldData(optionGroup, this.optionGroupChildren) : optionGroup.items;
+        return this.optionGroupChildren ? resolveFieldData(optionGroup, this.optionGroupChildren) : optionGroup.items;
     }
 
     getOptionGroupLabel(optionGroup: any) {
-        return this.optionGroupLabel ? ObjectUtils.resolveFieldData(optionGroup, this.optionGroupLabel) : optionGroup && optionGroup.label !== undefined ? optionGroup.label : optionGroup;
+        return this.optionGroupLabel ? resolveFieldData(optionGroup, this.optionGroupLabel) : optionGroup && optionGroup.label !== undefined ? optionGroup.label : optionGroup;
     }
 
     getOptionLabel(option) {
-        return this.optionLabel ? ObjectUtils.resolveFieldData(option, this.optionLabel) : option.label != undefined ? option.label : option;
+        return this.optionLabel ? resolveFieldData(option, this.optionLabel) : option.label != undefined ? option.label : option;
     }
 
     getOptionIndex(index, scrollerOptions) {
@@ -1343,7 +1340,7 @@ export class Listbox extends BaseComponent implements AfterContentInit, OnInit, 
     }
 
     getOptionValue(option: any) {
-        return this.optionValue ? ObjectUtils.resolveFieldData(option, this.optionValue) : !this.optionLabel && option && option.value !== undefined ? option.value : option;
+        return this.optionValue ? resolveFieldData(option, this.optionValue) : !this.optionLabel && option && option.value !== undefined ? option.value : option;
     }
 
     getAriaPosInset(index: number) {
@@ -1358,7 +1355,7 @@ export class Listbox extends BaseComponent implements AfterContentInit, OnInit, 
     }
 
     hasSelectedOption() {
-        return ObjectUtils.isNotEmpty(this.modelValue());
+        return isNotEmpty(this.modelValue());
     }
 
     isOptionGroup(option) {
@@ -1426,7 +1423,7 @@ export class Listbox extends BaseComponent implements AfterContentInit, OnInit, 
 
     scrollInView(index = -1) {
         const id = index !== -1 ? `${this.id}_${index}` : this.focusedOptionId;
-        const element = DomHandler.findSingle(this.listViewChild.nativeElement, `li[id="${id}"]`);
+        const element = findSingle(this.listViewChild.nativeElement, `li[id="${id}"]`);
 
         if (element) {
             element.scrollIntoView && element.scrollIntoView({ block: 'nearest', inline: 'nearest' });
@@ -1440,7 +1437,7 @@ export class Listbox extends BaseComponent implements AfterContentInit, OnInit, 
     }
 
     findLastOptionIndex() {
-        return ObjectUtils.findLastIndex(this.visibleOptions(), (option) => this.isValidOption(option));
+        return findLastIndex(this.visibleOptions(), (option) => this.isValidOption(option));
     }
 
     findFirstFocusedOptionIndex() {
@@ -1456,7 +1453,7 @@ export class Listbox extends BaseComponent implements AfterContentInit, OnInit, 
     }
 
     findLastSelectedOptionIndex() {
-        return this.hasSelectedOption() ? ObjectUtils.findLastIndex(this.visibleOptions(), (option) => this.isValidSelectedOption(option)) : -1;
+        return this.hasSelectedOption() ? findLastIndex(this.visibleOptions(), (option) => this.isValidSelectedOption(option)) : -1;
     }
 
     findNextOptionIndex(index) {
@@ -1482,7 +1479,7 @@ export class Listbox extends BaseComponent implements AfterContentInit, OnInit, 
     }
 
     findPrevSelectedOptionIndex(index) {
-        const matchedOptionIndex = this.hasSelectedOption() && index > 0 ? ObjectUtils.findLastIndex(this.visibleOptions().slice(0, index), (option) => this.isValidSelectedOption(option)) : -1;
+        const matchedOptionIndex = this.hasSelectedOption() && index > 0 ? findLastIndex(this.visibleOptions().slice(0, index), (option) => this.isValidSelectedOption(option)) : -1;
 
         return matchedOptionIndex > -1 ? matchedOptionIndex : -1;
     }
@@ -1492,7 +1489,7 @@ export class Listbox extends BaseComponent implements AfterContentInit, OnInit, 
     }
 
     findPrevOptionIndex(index) {
-        const matchedOptionIndex = index > 0 ? ObjectUtils.findLastIndex(this.visibleOptions().slice(0, index), (option) => this.isValidOption(option)) : -1;
+        const matchedOptionIndex = index > 0 ? findLastIndex(this.visibleOptions().slice(0, index), (option) => this.isValidOption(option)) : -1;
 
         return matchedOptionIndex > -1 ? matchedOptionIndex : index;
     }
@@ -1522,14 +1519,14 @@ export class Listbox extends BaseComponent implements AfterContentInit, OnInit, 
     }
 
     isOptionDisabled(option: any) {
-        return this.optionDisabled ? ObjectUtils.resolveFieldData(option, this.optionDisabled) : false;
+        return this.optionDisabled ? resolveFieldData(option, this.optionDisabled) : false;
     }
 
     isSelected(option) {
         const optionValue = this.getOptionValue(option);
 
-        if (this.multiple) return (this.modelValue() || []).some((value) => ObjectUtils.equals(value, optionValue, this.equalityKey()));
-        else return ObjectUtils.equals(this.modelValue(), optionValue, this.equalityKey());
+        if (this.multiple) return (this.modelValue() || []).some((value) => equals(value, optionValue, this.equalityKey()));
+        else return equals(this.modelValue(), optionValue, this.equalityKey());
     }
 
     isValidOption(option) {

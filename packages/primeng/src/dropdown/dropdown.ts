@@ -29,26 +29,37 @@ import {
     ViewRef
 } from '@angular/core';
 import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
-import { FilterService, OverlayOptions, PrimeTemplate, ScrollerOptions, SelectItem, SharedModule, TranslationKeys } from 'primeng/api';
+import { BaseComponent, FilterService, OverlayOptions, PrimeTemplate, SharedModule, TranslationKeys } from '@primeng/core';
+import { BlankIcon, CheckIcon, ChevronDownIcon, SearchIcon, TimesIcon } from '@primeng/icons';
+import {
+    deepEquals,
+    equals,
+    findLastIndex,
+    findSingle,
+    focus,
+    getFirstFocusableElement,
+    getFocusableElements,
+    getLastFocusableElement,
+    isEmpty,
+    isNotEmpty,
+    isPrintableCharacter,
+    resolveFieldData,
+    scrollInView,
+    unblockBodyScroll,
+    uuid
+} from '@primeuix/utils';
+import { ScrollerOptions, SelectItem } from 'primeng/api';
 import { AutoFocusModule } from 'primeng/autofocus';
-import { DomHandler } from 'primeng/dom';
+import { IconField } from 'primeng/iconfield';
+import { InputIcon } from 'primeng/inputicon';
+import { InputTextModule } from 'primeng/inputtext';
 import { Overlay, OverlayModule } from 'primeng/overlay';
 import { Ripple } from 'primeng/ripple';
 import { Scroller } from 'primeng/scroller';
 import { TooltipModule } from 'primeng/tooltip';
-import { ObjectUtils, UniqueComponentId } from 'primeng/utils';
-import { TimesIcon } from 'primeng/icons/times';
-import { CheckIcon } from 'primeng/icons/check';
-import { BlankIcon } from 'primeng/icons/blank';
-import { ChevronDownIcon } from 'primeng/icons/chevrondown';
-import { SearchIcon } from 'primeng/icons/search';
-import { DropdownChangeEvent, DropdownFilterEvent, DropdownFilterOptions, DropdownLazyLoadEvent } from './dropdown.interface';
 import { Nullable } from 'primeng/ts-helpers';
-import { InputTextModule } from 'primeng/inputtext';
-import { IconField } from 'primeng/iconfield';
-import { InputIcon } from 'primeng/inputicon';
+import { DropdownChangeEvent, DropdownFilterEvent, DropdownFilterOptions, DropdownLazyLoadEvent } from './dropdown.interface';
 import { DropdownStyle } from './style/dropdownstyle';
-import { BaseComponent } from 'primeng/basecomponent';
 
 export const DROPDOWN_VALUE_ACCESSOR: any = {
     provide: NG_VALUE_ACCESSOR,
@@ -752,7 +763,7 @@ export class Dropdown extends BaseComponent implements OnInit, AfterViewInit, Af
         return options;
     }
     set options(val: any[] | undefined) {
-        if (!ObjectUtils.deepEquals(val, this._options())) {
+        if (!deepEquals(val, this._options())) {
             this._options.set(val);
         }
     }
@@ -1049,7 +1060,7 @@ export class Dropdown extends BaseComponent implements OnInit, AfterViewInit, Af
             const modelValue = this.modelValue();
             const visibleOptions = this.visibleOptions();
 
-            if (visibleOptions && ObjectUtils.isNotEmpty(visibleOptions)) {
+            if (visibleOptions && isNotEmpty(visibleOptions)) {
                 const selectedOptionIndex = this.findSelectedOptionIndex();
 
                 if (selectedOptionIndex !== -1 || modelValue === undefined || (typeof modelValue === 'string' && modelValue.length === 0) || this.isModelValueNotSet() || this.editable) {
@@ -1057,7 +1068,7 @@ export class Dropdown extends BaseComponent implements OnInit, AfterViewInit, Af
                 }
             }
 
-            if (ObjectUtils.isEmpty(visibleOptions) && (modelValue === undefined || this.isModelValueNotSet()) && ObjectUtils.isNotEmpty(this.selectedOption)) {
+            if (isEmpty(visibleOptions) && (modelValue === undefined || this.isModelValueNotSet()) && isNotEmpty(this.selectedOption)) {
                 this.selectedOption = null;
             }
 
@@ -1079,7 +1090,7 @@ export class Dropdown extends BaseComponent implements OnInit, AfterViewInit, Af
     ngOnInit() {
         super.ngOnInit();
         console.log('Dropdown component is deprecated as of v18, use Select component instead.');
-        this.id = this.id || UniqueComponentId();
+        this.id = this.id || uuid('pn_id_');
         this.autoUpdateModel();
 
         if (this.filterBy) {
@@ -1104,9 +1115,9 @@ export class Dropdown extends BaseComponent implements OnInit, AfterViewInit, Af
         }
 
         if (this.selectedOptionUpdated && this.itemsWrapper) {
-            let selectedItem = DomHandler.findSingle(this.overlayViewChild?.overlayViewChild?.nativeElement, 'li.p-highlight');
+            let selectedItem = <any>findSingle(this.overlayViewChild?.overlayViewChild?.nativeElement, 'li.p-highlight');
             if (selectedItem) {
-                DomHandler.scrollInView(this.itemsWrapper, selectedItem);
+                scrollInView(this.itemsWrapper, selectedItem);
             }
             this.selectedOptionUpdated = false;
         }
@@ -1245,7 +1256,7 @@ export class Dropdown extends BaseComponent implements OnInit, AfterViewInit, Af
     }
 
     private isOptionValueEqualsModelValue(option: any) {
-        return ObjectUtils.equals(this.modelValue(), this.getOptionValue(option), this.equalityKey());
+        return equals(this.modelValue(), this.getOptionValue(option), this.equalityKey());
     }
 
     ngAfterViewInit() {
@@ -1283,27 +1294,27 @@ export class Dropdown extends BaseComponent implements OnInit, AfterViewInit, Af
     }
 
     getOptionLabel(option: any) {
-        return this.optionLabel !== undefined && this.optionLabel !== null ? ObjectUtils.resolveFieldData(option, this.optionLabel) : option && option.label !== undefined ? option.label : option;
+        return this.optionLabel !== undefined && this.optionLabel !== null ? resolveFieldData(option, this.optionLabel) : option && option.label !== undefined ? option.label : option;
     }
 
     getOptionValue(option: any) {
-        return this.optionValue && this.optionValue !== null ? ObjectUtils.resolveFieldData(option, this.optionValue) : !this.optionLabel && option && option.value !== undefined ? option.value : option;
+        return this.optionValue && this.optionValue !== null ? resolveFieldData(option, this.optionValue) : !this.optionLabel && option && option.value !== undefined ? option.value : option;
     }
 
     isOptionDisabled(option: any) {
         if (this.getOptionValue(this.modelValue()) === this.getOptionValue(option) || (this.getOptionLabel(this.modelValue() === this.getOptionLabel(option)) && option.disabled === false)) {
             return false;
         } else {
-            return this.optionDisabled ? ObjectUtils.resolveFieldData(option, this.optionDisabled) : option && option.disabled !== undefined ? option.disabled : false;
+            return this.optionDisabled ? resolveFieldData(option, this.optionDisabled) : option && option.disabled !== undefined ? option.disabled : false;
         }
     }
 
     getOptionGroupLabel(optionGroup: any) {
-        return this.optionGroupLabel !== undefined && this.optionGroupLabel !== null ? ObjectUtils.resolveFieldData(optionGroup, this.optionGroupLabel) : optionGroup && optionGroup.label !== undefined ? optionGroup.label : optionGroup;
+        return this.optionGroupLabel !== undefined && this.optionGroupLabel !== null ? resolveFieldData(optionGroup, this.optionGroupLabel) : optionGroup && optionGroup.label !== undefined ? optionGroup.label : optionGroup;
     }
 
     getOptionGroupChildren(optionGroup: any) {
-        return this.optionGroupChildren !== undefined && this.optionGroupChildren !== null ? ObjectUtils.resolveFieldData(optionGroup, this.optionGroupChildren) : optionGroup.items;
+        return this.optionGroupChildren !== undefined && this.optionGroupChildren !== null ? resolveFieldData(optionGroup, this.optionGroupChildren) : optionGroup.items;
     }
 
     getAriaPosInset(index) {
@@ -1379,7 +1390,7 @@ export class Dropdown extends BaseComponent implements OnInit, AfterViewInit, Af
             this.onChange.emit({ originalEvent: event, value: value });
         }, 1);
 
-        !this.overlayVisible && ObjectUtils.isNotEmpty(value) && this.show();
+        !this.overlayVisible && isNotEmpty(value) && this.show();
     }
     /**
      * Displays the panel.
@@ -1391,7 +1402,7 @@ export class Dropdown extends BaseComponent implements OnInit, AfterViewInit, Af
         this.focusedOptionIndex.set(focusedOptionIndex);
 
         if (isFocus) {
-            DomHandler.focus(this.focusInputViewChild?.nativeElement);
+            focus(this.focusInputViewChild?.nativeElement);
         }
 
         this.cd.markForCheck();
@@ -1399,7 +1410,7 @@ export class Dropdown extends BaseComponent implements OnInit, AfterViewInit, Af
 
     onOverlayAnimationStart(event: any) {
         if (event.toState === 'visible') {
-            this.itemsWrapper = DomHandler.findSingle(this.overlayViewChild?.overlayViewChild?.nativeElement, this.virtualScroll ? '.p-scroller' : '.p-dropdown-items-wrapper');
+            this.itemsWrapper = <any>findSingle(this.overlayViewChild?.overlayViewChild?.nativeElement, this.virtualScroll ? '.p-scroller' : '.p-dropdown-items-wrapper');
             this.virtualScroll && this.scroller?.setContentEl(this.itemsViewChild?.nativeElement);
 
             if (this.options && this.options.length) {
@@ -1409,7 +1420,7 @@ export class Dropdown extends BaseComponent implements OnInit, AfterViewInit, Af
                         this.scroller?.scrollToIndex(selectedIndex);
                     }
                 } else {
-                    let selectedListItem = DomHandler.findSingle(this.itemsWrapper, '.p-dropdown-item.p-highlight');
+                    let selectedListItem = findSingle(this.itemsWrapper, '.p-dropdown-item.p-highlight');
 
                     if (selectedListItem) {
                         selectedListItem.scrollIntoView({ block: 'nearest', inline: 'nearest' });
@@ -1444,17 +1455,17 @@ export class Dropdown extends BaseComponent implements OnInit, AfterViewInit, Af
         this.searchValue = '';
 
         if (this.overlayOptions?.mode === 'modal') {
-            DomHandler.unblockBodyScroll();
+            unblockBodyScroll();
         }
         if (this.filter && this.resetFilterOnHide) {
             this.resetFilter();
         }
         if (isFocus) {
             if (this.focusInputViewChild) {
-                DomHandler.focus(this.focusInputViewChild?.nativeElement);
+                focus(this.focusInputViewChild?.nativeElement);
             }
             if (this.editable && this.editableInputViewChild) {
-                DomHandler.focus(this.editableInputViewChild?.nativeElement);
+                focus(this.editableInputViewChild?.nativeElement);
             }
         }
         this.cd.markForCheck();
@@ -1555,7 +1566,7 @@ export class Dropdown extends BaseComponent implements OnInit, AfterViewInit, Af
                 break;
 
             default:
-                if (!event.metaKey && ObjectUtils.isPrintableCharacter(event.key)) {
+                if (!event.metaKey && isPrintableCharacter(event.key)) {
                     !this.overlayVisible && this.show();
                     !this.editable && this.searchOptions(event, event.key);
                 }
@@ -1648,7 +1659,7 @@ export class Dropdown extends BaseComponent implements OnInit, AfterViewInit, Af
         const id = index !== -1 ? `${this.id}_${index}` : this.focusedOptionId;
 
         if (this.itemsViewChild && this.itemsViewChild.nativeElement) {
-            const element = DomHandler.findSingle(this.itemsViewChild.nativeElement, `li[id="${id}"]`);
+            const element = findSingle(this.itemsViewChild.nativeElement, `li[id="${id}"]`);
             if (element) {
                 element.scrollIntoView && element.scrollIntoView({ block: 'nearest', inline: 'nearest' });
             } else if (!this.virtualScrollerDisabled) {
@@ -1695,13 +1706,13 @@ export class Dropdown extends BaseComponent implements OnInit, AfterViewInit, Af
     }
 
     findPrevOptionIndex(index) {
-        const matchedOptionIndex = index > 0 ? ObjectUtils.findLastIndex(this.visibleOptions().slice(0, index), (option) => this.isValidOption(option)) : -1;
+        const matchedOptionIndex = index > 0 ? findLastIndex(this.visibleOptions().slice(0, index), (option) => this.isValidOption(option)) : -1;
 
         return matchedOptionIndex > -1 ? matchedOptionIndex : index;
     }
 
     findLastOptionIndex() {
-        return ObjectUtils.findLastIndex(this.visibleOptions(), (option) => this.isValidOption(option));
+        return findLastIndex(this.visibleOptions(), (option) => this.isValidOption(option));
     }
 
     findLastFocusedOptionIndex() {
@@ -1825,7 +1836,7 @@ export class Dropdown extends BaseComponent implements OnInit, AfterViewInit, Af
     onTabKey(event, pressedInInputText = false) {
         if (!pressedInInputText) {
             if (this.overlayVisible && this.hasFocusableElements()) {
-                DomHandler.focus(event.shiftKey ? this.lastHiddenFocusableElementOnOverlay.nativeElement : this.firstHiddenFocusableElementOnOverlay.nativeElement);
+                focus(event.shiftKey ? this.lastHiddenFocusableElementOnOverlay.nativeElement : this.firstHiddenFocusableElementOnOverlay.nativeElement);
                 event.preventDefault();
             } else {
                 if (this.focusedOptionIndex() !== -1 && this.overlayVisible) {
@@ -1839,21 +1850,19 @@ export class Dropdown extends BaseComponent implements OnInit, AfterViewInit, Af
     }
 
     onFirstHiddenFocus(event) {
-        const focusableEl = event.relatedTarget === this.focusInputViewChild?.nativeElement ? DomHandler.getFirstFocusableElement(this.overlayViewChild.el?.nativeElement, ':not(.p-hidden-focusable)') : this.focusInputViewChild?.nativeElement;
-        DomHandler.focus(focusableEl);
+        const focusableEl = event.relatedTarget === this.focusInputViewChild?.nativeElement ? getFirstFocusableElement(this.overlayViewChild.el?.nativeElement, ':not(.p-hidden-focusable)') : this.focusInputViewChild?.nativeElement;
+        focus(focusableEl);
     }
 
     onLastHiddenFocus(event) {
         const focusableEl =
-            event.relatedTarget === this.focusInputViewChild?.nativeElement
-                ? DomHandler.getLastFocusableElement(this.overlayViewChild?.overlayViewChild?.nativeElement, ':not([data-p-hidden-focusable="true"])')
-                : this.focusInputViewChild?.nativeElement;
+            event.relatedTarget === this.focusInputViewChild?.nativeElement ? getLastFocusableElement(this.overlayViewChild?.overlayViewChild?.nativeElement, ':not([data-p-hidden-focusable="true"])') : this.focusInputViewChild?.nativeElement;
 
-        DomHandler.focus(focusableEl);
+        focus(focusableEl);
     }
 
     hasFocusableElements() {
-        return DomHandler.getFocusableElements(this.overlayViewChild.overlayViewChild.nativeElement, ':not([data-p-hidden-focusable="true"])').length > 0;
+        return getFocusableElements(this.overlayViewChild.overlayViewChild.nativeElement, ':not([data-p-hidden-focusable="true"])').length > 0;
     }
 
     onBackspaceKey(event: KeyboardEvent, pressedInInputText = false) {
@@ -1927,8 +1936,8 @@ export class Dropdown extends BaseComponent implements OnInit, AfterViewInit, Af
     }
 
     applyFocus(): void {
-        if (this.editable) DomHandler.findSingle(this.el.nativeElement, '.p-dropdown-label.p-inputtext').focus();
-        else DomHandler.focus(this.focusInputViewChild?.nativeElement);
+        if (this.editable) (findSingle(this.el.nativeElement, '.p-dropdown-label.p-inputtext') as any).focus();
+        else focus(this.focusInputViewChild?.nativeElement);
     }
     /**
      * Applies focus.

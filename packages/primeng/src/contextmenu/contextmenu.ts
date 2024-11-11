@@ -24,16 +24,35 @@ import {
     ViewRef
 } from '@angular/core';
 import { RouterModule } from '@angular/router';
-import { MenuItem, OverlayService, SharedModule } from 'primeng/api';
-import { DomHandler } from 'primeng/dom';
-import { AngleRightIcon } from 'primeng/icons/angleright';
+import { BaseComponent, OverlayService, SharedModule } from '@primeng/core';
+import { AngleRightIcon } from '@primeng/icons';
+import {
+    appendChild,
+    calculateScrollbarWidth,
+    findLastIndex,
+    findSingle,
+    focus,
+    getHiddenElementOuterHeight,
+    getHiddenElementOuterWidth,
+    getOffset,
+    getOuterWidth,
+    getViewport,
+    isAndroid,
+    isEmpty,
+    isIOS,
+    isNotEmpty,
+    isPrintableCharacter,
+    removeChild,
+    resolve,
+    uuid
+} from '@primeuix/utils';
+import { MenuItem } from 'primeng/api';
+import { BadgeModule } from 'primeng/badge';
 import { Ripple } from 'primeng/ripple';
 import { TooltipModule } from 'primeng/tooltip';
 import { VoidListener } from 'primeng/ts-helpers';
-import { ObjectUtils, UniqueComponentId, ZIndexUtils } from 'primeng/utils';
+import { ZIndexUtils } from 'primeng/utils';
 import { ContextMenuStyle } from './style/contextmenustyle';
-import { BaseComponent } from 'primeng/basecomponent';
-import { BadgeModule } from 'primeng/badge';
 
 @Component({
     selector: 'p-contextMenuSub, p-contextmenu-sub',
@@ -236,7 +255,7 @@ export class ContextMenuSub extends BaseComponent {
     }
 
     getItemProp(processedItem: any, name: string, params: any | null = null) {
-        return processedItem && processedItem.item ? ObjectUtils.getItemValue(processedItem.item[name], params) : undefined;
+        return processedItem && processedItem.item ? resolve(processedItem.item[name], params) : undefined;
     }
 
     getItemId(processedItem: any): string {
@@ -295,7 +314,7 @@ export class ContextMenuSub extends BaseComponent {
     }
 
     isItemGroup(processedItem: any): boolean {
-        return ObjectUtils.isNotEmpty(processedItem.items);
+        return isNotEmpty(processedItem.items);
     }
 
     onItemMouseEnter(param: any) {
@@ -317,14 +336,14 @@ export class ContextMenuSub extends BaseComponent {
 
     position(sublist) {
         const parentItem = sublist.parentElement.parentElement;
-        const containerOffset = DomHandler.getOffset(sublist.parentElement.parentElement);
-        const viewport = DomHandler.getViewport();
-        const sublistWidth = sublist.offsetParent ? sublist.offsetWidth : DomHandler.getHiddenElementOuterWidth(sublist);
-        const itemOuterWidth = DomHandler.getOuterWidth(parentItem.children[0]);
+        const containerOffset = <any>getOffset(sublist.parentElement.parentElement);
+        const viewport = getViewport();
+        const sublistWidth = sublist.offsetParent ? sublist.offsetWidth : getHiddenElementOuterWidth(sublist);
+        const itemOuterWidth = <any>getOuterWidth(parentItem.children[0]);
 
         sublist.style.top = '0px';
 
-        if (parseInt(containerOffset.left, 10) + itemOuterWidth + sublistWidth > viewport.width - DomHandler.calculateScrollbarWidth()) {
+        if (parseInt(containerOffset.left, 10) + itemOuterWidth + sublistWidth > viewport.width - calculateScrollbarWidth()) {
             sublist.style.left = -1 * sublistWidth + 'px';
         } else {
             sublist.style.left = itemOuterWidth + 'px';
@@ -537,7 +556,7 @@ export class ContextMenu extends BaseComponent implements OnInit, OnDestroy {
 
     get focusedItemId() {
         const focusedItem = this.focusedItemInfo();
-        return focusedItem.item && focusedItem.item?.id ? focusedItem.item.id : focusedItem.index !== -1 ? `${this.id}${ObjectUtils.isNotEmpty(focusedItem.parentKey) ? '_' + focusedItem.parentKey : ''}_${focusedItem.index}` : null;
+        return focusedItem.item && focusedItem.item?.id ? focusedItem.item.id : focusedItem.index !== -1 ? `${this.id}${isNotEmpty(focusedItem.parentKey) ? '_' + focusedItem.parentKey : ''}_${focusedItem.index}` : null;
     }
 
     constructor(public overlayService: OverlayService) {
@@ -545,7 +564,7 @@ export class ContextMenu extends BaseComponent implements OnInit, OnDestroy {
         effect(() => {
             const path = this.activeItemPath();
 
-            if (ObjectUtils.isNotEmpty(path)) {
+            if (isNotEmpty(path)) {
                 this.bindGlobalListeners();
             } else if (!this.visible()) {
                 this.unbindGlobalListeners();
@@ -555,13 +574,13 @@ export class ContextMenu extends BaseComponent implements OnInit, OnDestroy {
 
     ngOnInit() {
         super.ngOnInit();
-        this.id = this.id || UniqueComponentId();
+        this.id = this.id || uuid('pn_id_');
         this.bindMatchMediaListener();
         this.bindTriggerEventListener();
     }
 
     isMobile() {
-        return DomHandler.isIOS() || DomHandler.isAndroid();
+        return isIOS() || isAndroid();
     }
 
     bindTriggerEventListener() {
@@ -673,7 +692,7 @@ export class ContextMenu extends BaseComponent implements OnInit, OnDestroy {
     }
 
     getItemProp(item: any, name: string) {
-        return item ? ObjectUtils.getItemValue(item[name]) : undefined;
+        return item ? resolve(item[name]) : undefined;
     }
 
     getProccessedItemLabel(processedItem: any) {
@@ -685,7 +704,7 @@ export class ContextMenu extends BaseComponent implements OnInit, OnDestroy {
     }
 
     isProcessedItemGroup(processedItem: any): boolean {
-        return processedItem && ObjectUtils.isNotEmpty(processedItem.items);
+        return processedItem && isNotEmpty(processedItem.items);
     }
 
     isSelected(processedItem: any): boolean {
@@ -713,7 +732,7 @@ export class ContextMenu extends BaseComponent implements OnInit, OnDestroy {
     }
 
     isProccessedItemGroup(processedItem: any): boolean {
-        return processedItem && ObjectUtils.isNotEmpty(processedItem.items);
+        return processedItem && isNotEmpty(processedItem.items);
     }
 
     onItemClick(event: any) {
@@ -727,7 +746,7 @@ export class ContextMenu extends BaseComponent implements OnInit, OnDestroy {
             this.activeItemPath.set(this.activeItemPath().filter((p) => key !== p.key && key.startsWith(p.key)));
             this.focusedItemInfo.set({ index, level, parentKey, item });
 
-            DomHandler.focus(this.rootmenu.sublistViewChild.nativeElement);
+            focus(this.rootmenu.sublistViewChild.nativeElement);
         } else {
             grouped ? this.onItemChange(event) : this.hide();
         }
@@ -790,7 +809,7 @@ export class ContextMenu extends BaseComponent implements OnInit, OnDestroy {
                 break;
 
             default:
-                if (!metaKey && ObjectUtils.isPrintableCharacter(event.key)) {
+                if (!metaKey && isPrintableCharacter(event.key)) {
                     this.searchItems(event, event.key);
                 }
 
@@ -841,7 +860,7 @@ export class ContextMenu extends BaseComponent implements OnInit, OnDestroy {
     onArrowLeftKey(event: KeyboardEvent) {
         const processedItem = this.visibleItems[this.focusedItemInfo().index];
         const parentItem = this.activeItemPath().find((p) => p.key === processedItem.parentKey);
-        const root = ObjectUtils.isEmpty(processedItem.parent);
+        const root = isEmpty(processedItem.parent);
 
         if (!root) {
             this.focusedItemInfo.set({ index: -1, parentKey: parentItem ? parentItem.parentKey : '', item: processedItem.item });
@@ -891,8 +910,8 @@ export class ContextMenu extends BaseComponent implements OnInit, OnDestroy {
 
     onEnterKey(event: KeyboardEvent) {
         if (this.focusedItemInfo().index !== -1) {
-            const element = DomHandler.findSingle(this.rootmenu.el.nativeElement, `li[id="${`${this.focusedItemId}`}"]`);
-            const anchorElement = element && DomHandler.findSingle(element, 'a[data-pc-section="action"]');
+            const element = <any>findSingle(this.rootmenu.el.nativeElement, `li[id="${`${this.focusedItemId}`}"]`);
+            const anchorElement = element && <any>findSingle(element, 'a[data-pc-section="action"]');
 
             anchorElement ? anchorElement.click() : element && element.click();
 
@@ -910,10 +929,10 @@ export class ContextMenu extends BaseComponent implements OnInit, OnDestroy {
 
     onItemChange(event: any, type?: string | undefined) {
         const { processedItem, isFocus } = event;
-        if (ObjectUtils.isEmpty(processedItem)) return;
+        if (isEmpty(processedItem)) return;
 
         const { index, key, level, parentKey, items } = processedItem;
-        const grouped = ObjectUtils.isNotEmpty(items);
+        const grouped = isNotEmpty(items);
         const activeItemPath = this.activeItemPath().filter((p) => p.parentKey !== parentKey && p.parentKey !== key);
 
         if (grouped) {
@@ -921,7 +940,7 @@ export class ContextMenu extends BaseComponent implements OnInit, OnDestroy {
             this.submenuVisible.set(true);
         }
         this.focusedItemInfo.set({ index, level, parentKey, item: processedItem.item });
-        isFocus && DomHandler.focus(this.rootmenu.sublistViewChild.nativeElement);
+        isFocus && focus(this.rootmenu.sublistViewChild.nativeElement);
 
         if (type === 'hover' && this.queryMatches) {
             return;
@@ -951,7 +970,7 @@ export class ContextMenu extends BaseComponent implements OnInit, OnDestroy {
                 this.moveOnTop();
                 this.appendOverlay();
                 this.bindGlobalListeners();
-                DomHandler.focus(this.rootmenu.sublistViewChild.nativeElement);
+                focus(this.rootmenu.sublistViewChild.nativeElement);
                 break;
         }
     }
@@ -967,7 +986,7 @@ export class ContextMenu extends BaseComponent implements OnInit, OnDestroy {
     appendOverlay() {
         if (this.appendTo) {
             if (this.appendTo === 'body') this.renderer.appendChild(this.document.body, this.containerViewChild.nativeElement);
-            else DomHandler.appendChild(this.containerViewChild.nativeElement, this.appendTo);
+            else appendChild(this.containerViewChild.nativeElement, this.appendTo);
         }
     }
 
@@ -1029,9 +1048,9 @@ export class ContextMenu extends BaseComponent implements OnInit, OnDestroy {
     position() {
         let left = this.pageX + 1;
         let top = this.pageY + 1;
-        let width = this.containerViewChild.nativeElement.offsetParent ? this.containerViewChild.nativeElement.offsetWidth : DomHandler.getHiddenElementOuterWidth(this.containerViewChild.nativeElement);
-        let height = this.containerViewChild.nativeElement.offsetParent ? this.containerViewChild.nativeElement.offsetHeight : DomHandler.getHiddenElementOuterHeight(this.containerViewChild.nativeElement);
-        let viewport = DomHandler.getViewport();
+        let width = this.containerViewChild.nativeElement.offsetParent ? this.containerViewChild.nativeElement.offsetWidth : getHiddenElementOuterWidth(this.containerViewChild.nativeElement);
+        let height = this.containerViewChild.nativeElement.offsetParent ? this.containerViewChild.nativeElement.offsetHeight : getHiddenElementOuterHeight(this.containerViewChild.nativeElement);
+        let viewport = getViewport();
 
         //flip
         if (left + width - this.document.scrollingElement.scrollLeft > viewport.width) {
@@ -1095,7 +1114,7 @@ export class ContextMenu extends BaseComponent implements OnInit, OnDestroy {
     }
 
     findVisibleItem(index) {
-        return ObjectUtils.isNotEmpty(this.visibleItems) ? this.visibleItems[index] : null;
+        return isNotEmpty(this.visibleItems) ? this.visibleItems[index] : null;
     }
 
     findLastFocusedItemIndex() {
@@ -1104,11 +1123,11 @@ export class ContextMenu extends BaseComponent implements OnInit, OnDestroy {
     }
 
     findLastItemIndex() {
-        return ObjectUtils.findLastIndex(this.visibleItems, (processedItem) => this.isValidItem(processedItem));
+        return findLastIndex(this.visibleItems, (processedItem) => this.isValidItem(processedItem));
     }
 
     findPrevItemIndex(index: number) {
-        const matchedItemIndex = index > 0 ? ObjectUtils.findLastIndex(this.visibleItems.slice(0, index), (processedItem) => this.isValidItem(processedItem)) : -1;
+        const matchedItemIndex = index > 0 ? findLastIndex(this.visibleItems.slice(0, index), (processedItem) => this.isValidItem(processedItem)) : -1;
 
         return matchedItemIndex > -1 ? matchedItemIndex : index;
     }
@@ -1144,7 +1163,7 @@ export class ContextMenu extends BaseComponent implements OnInit, OnDestroy {
 
     scrollInView(index: number = -1) {
         const id = index !== -1 ? `${this.id}_${index}` : this.focusedItemId;
-        const element = DomHandler.findSingle(this.rootmenu.el.nativeElement, `li[id="${id}"]`);
+        const element = findSingle(this.rootmenu.el.nativeElement, `li[id="${id}"]`);
 
         if (element) {
             element.scrollIntoView && element.scrollIntoView({ block: 'nearest', inline: 'nearest' });
@@ -1206,7 +1225,7 @@ export class ContextMenu extends BaseComponent implements OnInit, OnDestroy {
             if (this.appendTo === 'body') {
                 this.renderer.removeChild(this.document.body, this.containerViewChild.nativeElement);
             } else {
-                DomHandler.removeChild(this.containerViewChild.nativeElement, this.appendTo);
+                removeChild(this.containerViewChild.nativeElement, this.appendTo);
             }
         }
     }

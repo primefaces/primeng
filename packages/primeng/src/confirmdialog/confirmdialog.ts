@@ -1,18 +1,16 @@
 import { animate, animation, style, transition, trigger, useAnimation } from '@angular/animations';
 import { CommonModule } from '@angular/common';
 import { booleanAttribute, ChangeDetectionStrategy, Component, ContentChild, ElementRef, EventEmitter, inject, Input, NgModule, NgZone, numberAttribute, OnDestroy, OnInit, Output, TemplateRef, ViewEncapsulation } from '@angular/core';
-import { Confirmation, ConfirmationService, ConfirmEventType, Footer, SharedModule, TranslationKeys } from 'primeng/api';
+import { BaseComponent, Footer, SharedModule, TranslationKeys } from '@primeng/core';
+import { CheckIcon, TimesIcon } from '@primeng/icons';
+import { findSingle, setAttribute, uuid } from '@primeuix/utils';
+import { Confirmation, ConfirmationService, ConfirmEventType } from 'primeng/api';
 import { Button } from 'primeng/button';
-import { DomHandler } from 'primeng/dom';
-import { CheckIcon } from 'primeng/icons/check';
-import { TimesIcon } from 'primeng/icons/times';
+import { Dialog } from 'primeng/dialog';
 import { Ripple } from 'primeng/ripple';
 import { Nullable } from 'primeng/ts-helpers';
-import { UniqueComponentId } from 'primeng/utils';
 import { Subscription } from 'rxjs';
-import { BaseComponent } from 'primeng/basecomponent';
 import { ConfirmDialogStyle } from './style/confirmdialogstyle';
-import { Dialog } from 'primeng/dialog';
 
 const showAnimation = animation([style({ transform: '{{transform}}', opacity: 0 }), animate('{{transition}}', style({ transform: 'none', opacity: 1 }))]);
 
@@ -366,7 +364,7 @@ export class ConfirmDialog extends BaseComponent implements OnInit, OnDestroy {
 
     styleElement: any;
 
-    id = UniqueComponentId();
+    id = uuid('pn_id_');
 
     ariaLabelledBy: string = this.getAriaLabelledBy();
 
@@ -420,7 +418,7 @@ export class ConfirmDialog extends BaseComponent implements OnInit, OnDestroy {
     }
 
     getAriaLabelledBy() {
-        return this.header !== null ? UniqueComponentId() + '_header' : null;
+        return this.header !== null ? uuid('pn_id_') + '_header' : null;
     }
 
     option(name: string, k?: string) {
@@ -438,20 +436,20 @@ export class ConfirmDialog extends BaseComponent implements OnInit, OnDestroy {
     getElementToFocus() {
         switch (this.option('defaultFocus')) {
             case 'accept':
-                return DomHandler.findSingle(this.dialog.el.nativeElement, '.p-confirm-dialog-accept');
+                return findSingle(this.dialog.el.nativeElement, '.p-confirm-dialog-accept');
 
             case 'reject':
-                return DomHandler.findSingle(this.dialog.el.nativeElement, '.p-confirm-dialog-reject');
+                return findSingle(this.dialog.el.nativeElement, '.p-confirm-dialog-reject');
 
             case 'close':
-                return DomHandler.findSingle(this.dialog.el.nativeElement, '.p-dialog-header-close');
+                return findSingle(this.dialog.el.nativeElement, '.p-dialog-header-close');
 
             case 'none':
                 return null;
 
             //backward compatibility
             default:
-                return DomHandler.findSingle(this.dialog.el.nativeElement, '.p-confirm-dialog-accept');
+                return findSingle(this.dialog.el.nativeElement, '.p-confirm-dialog-accept');
         }
     }
 
@@ -472,7 +470,7 @@ export class ConfirmDialog extends BaseComponent implements OnInit, OnDestroy {
             }
 
             this.styleElement.innerHTML = innerHTML;
-            DomHandler.setAttribute(this.styleElement, 'nonce', this.config?.csp()?.nonce);
+            setAttribute(this.styleElement, 'nonce', this.config?.csp()?.nonce);
         }
     }
 

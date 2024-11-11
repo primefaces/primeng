@@ -26,24 +26,21 @@ import {
     ViewEncapsulation
 } from '@angular/core';
 import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
+import { BaseComponent, OverlayOptions, OverlayService, PrimeTemplate, SharedModule, TranslationKeys } from '@primeng/core';
+import { ChevronDownIcon, SpinnerIcon, TimesCircleIcon, TimesIcon } from '@primeng/icons';
+import { equals, findLastIndex, findSingle, focus, isEmpty, isNotEmpty, resolveFieldData, uuid } from '@primeuix/utils';
+import { ScrollerOptions } from 'primeng/api';
 import { AutoFocus } from 'primeng/autofocus';
 import { Button } from 'primeng/button';
-import { OverlayOptions, OverlayService, PrimeTemplate, ScrollerOptions, SharedModule, TranslationKeys } from 'primeng/api';
-import { ConnectedOverlayScrollHandler, DomHandler } from 'primeng/dom';
+import { Chip } from 'primeng/chip';
+import { ConnectedOverlayScrollHandler } from 'primeng/dom';
 import { InputText } from 'primeng/inputtext';
 import { Overlay } from 'primeng/overlay';
 import { Ripple } from 'primeng/ripple';
 import { Scroller } from 'primeng/scroller';
-import { ObjectUtils, UniqueComponentId } from 'primeng/utils';
-import { TimesCircleIcon } from 'primeng/icons/timescircle';
-import { SpinnerIcon } from 'primeng/icons/spinner';
-import { TimesIcon } from 'primeng/icons/times';
-import { ChevronDownIcon } from 'primeng/icons/chevrondown';
 import { Nullable } from 'primeng/ts-helpers';
 import { AutoCompleteCompleteEvent, AutoCompleteDropdownClickEvent, AutoCompleteLazyLoadEvent, AutoCompleteSelectEvent, AutoCompleteUnselectEvent } from './autocomplete.interface';
-import { Chip } from 'primeng/chip';
 import { AutoCompleteStyle } from './style/autocompletestyle';
-import { BaseComponent } from 'primeng/basecomponent';
 
 export const AUTOCOMPLETE_VALUE_ACCESSOR: any = {
     provide: NG_VALUE_ACCESSOR,
@@ -843,9 +840,9 @@ export class AutoComplete extends BaseComponent implements AfterViewChecked, Aft
 
     inputValue = computed(() => {
         const modelValue = this.modelValue();
-        const selectedOption = this.optionValueSelected ? (this.suggestions || []).find((item: any) => ObjectUtils.resolveFieldData(item, this.optionValue) === modelValue) : modelValue;
+        const selectedOption = this.optionValueSelected ? (this.suggestions || []).find((item: any) => resolveFieldData(item, this.optionValue) === modelValue) : modelValue;
 
-        if (ObjectUtils.isNotEmpty(modelValue)) {
+        if (isNotEmpty(modelValue)) {
             if (typeof modelValue === 'object' || this.optionValueSelected) {
                 const label = this.getOptionLabel(selectedOption);
 
@@ -890,7 +887,7 @@ export class AutoComplete extends BaseComponent implements AfterViewChecked, Aft
     }
 
     get searchResultMessageText() {
-        return ObjectUtils.isNotEmpty(this.visibleOptions()) && this.overlayVisible ? this.searchMessageText.replaceAll('{0}', this.visibleOptions().length) : this.emptySearchMessageText;
+        return isNotEmpty(this.visibleOptions()) && this.overlayVisible ? this.searchMessageText.replaceAll('{0}', this.visibleOptions().length) : this.emptySearchMessageText;
     }
 
     get searchMessageText() {
@@ -948,13 +945,13 @@ export class AutoComplete extends BaseComponent implements AfterViewChecked, Aft
     ) {
         super();
         effect(() => {
-            this.filled = ObjectUtils.isNotEmpty(this.modelValue());
+            this.filled = isNotEmpty(this.modelValue());
         });
     }
 
     ngOnInit() {
         super.ngOnInit();
-        this.id = this.id || UniqueComponentId();
+        this.id = this.id || uuid('pn_id_');
         this.cd.detectChanges();
     }
 
@@ -1058,7 +1055,7 @@ export class AutoComplete extends BaseComponent implements AfterViewChecked, Aft
     }
 
     findLastOptionIndex() {
-        return ObjectUtils.findLastIndex(this.visibleOptions(), (option) => this.isValidOption(option));
+        return findLastIndex(this.visibleOptions(), (option) => this.isValidOption(option));
     }
 
     findFirstFocusedOptionIndex() {
@@ -1089,7 +1086,7 @@ export class AutoComplete extends BaseComponent implements AfterViewChecked, Aft
     }
 
     findPrevOptionIndex(index) {
-        const matchedOptionIndex = index > 0 ? ObjectUtils.findLastIndex(this.visibleOptions().slice(0, index), (option) => this.isValidOption(option)) : -1;
+        const matchedOptionIndex = index > 0 ? findLastIndex(this.visibleOptions().slice(0, index), (option) => this.isValidOption(option)) : -1;
 
         return matchedOptionIndex > -1 ? matchedOptionIndex : index;
     }
@@ -1103,14 +1100,14 @@ export class AutoComplete extends BaseComponent implements AfterViewChecked, Aft
     }
 
     isOptionDisabled(option) {
-        return this.optionDisabled ? ObjectUtils.resolveFieldData(option, this.optionDisabled) : false;
+        return this.optionDisabled ? resolveFieldData(option, this.optionDisabled) : false;
     }
 
     isSelected(option) {
         if (this.multiple) {
-            return this.unique ? this.modelValue()?.find((model) => ObjectUtils.equals(model, this.getOptionValue(option), this.equalityKey())) : false;
+            return this.unique ? this.modelValue()?.find((model) => equals(model, this.getOptionValue(option), this.equalityKey())) : false;
         }
-        return ObjectUtils.equals(this.modelValue(), this.getOptionValue(option), this.equalityKey());
+        return equals(this.modelValue(), this.getOptionValue(option), this.equalityKey());
     }
 
     isOptionMatched(option, value) {
@@ -1133,7 +1130,7 @@ export class AutoComplete extends BaseComponent implements AfterViewChecked, Aft
         }
 
         if (!this.overlayViewChild || !this.overlayViewChild.overlayViewChild?.nativeElement.contains(event.target)) {
-            DomHandler.focus(this.inputEL.nativeElement);
+            focus(this.inputEL.nativeElement);
         }
     }
 
@@ -1143,7 +1140,7 @@ export class AutoComplete extends BaseComponent implements AfterViewChecked, Aft
         if (this.overlayVisible) {
             this.hide(true);
         } else {
-            DomHandler.focus(this.inputEL.nativeElement);
+            focus(this.inputEL.nativeElement);
             query = this.inputEL.nativeElement.value;
 
             if (this.dropdownMode === 'blank') this.search(event, '', 'dropdown');
@@ -1392,8 +1389,8 @@ export class AutoComplete extends BaseComponent implements AfterViewChecked, Aft
         const target = event.currentTarget;
         this.focusedOptionIndex.set(-1);
         if (this.multiple) {
-            if (ObjectUtils.isEmpty(target.value) && this.hasSelectedOption()) {
-                DomHandler.focus(this.multiContainerEL.nativeElement);
+            if (isEmpty(target.value) && this.hasSelectedOption()) {
+                focus(this.multiContainerEL.nativeElement);
                 this.focusedMultipleOptionIndex.set(this.modelValue().length);
             } else {
                 event.stopPropagation(); // To prevent onArrowLeftKeyOnMultiple method
@@ -1472,7 +1469,7 @@ export class AutoComplete extends BaseComponent implements AfterViewChecked, Aft
 
     onBackspaceKey(event) {
         if (this.multiple) {
-            if (ObjectUtils.isNotEmpty(this.modelValue()) && !this.inputEL.nativeElement.value) {
+            if (isNotEmpty(this.modelValue()) && !this.inputEL.nativeElement.value) {
                 const removedValue = this.modelValue()[this.modelValue().length - 1];
                 const newValue = this.modelValue().slice(0, -1);
                 this.updateModel(newValue);
@@ -1499,7 +1496,7 @@ export class AutoComplete extends BaseComponent implements AfterViewChecked, Aft
         this.focusedMultipleOptionIndex.set(optionIndex);
         if (optionIndex > this.modelValue().length - 1) {
             this.focusedMultipleOptionIndex.set(-1);
-            DomHandler.focus(this.inputEL.nativeElement);
+            focus(this.inputEL.nativeElement);
         }
     }
 
@@ -1557,7 +1554,7 @@ export class AutoComplete extends BaseComponent implements AfterViewChecked, Aft
 
         this.updateModel(value);
         this.onUnselect.emit({ originalEvent: event, value: removedOption });
-        DomHandler.focus(this.inputEL.nativeElement);
+        focus(this.inputEL.nativeElement);
     }
 
     updateModel(value) {
@@ -1589,7 +1586,7 @@ export class AutoComplete extends BaseComponent implements AfterViewChecked, Aft
     scrollInView(index = -1) {
         const id = index !== -1 ? `${this.id}_${index}` : this.focusedOptionId;
         if (this.itemsViewChild && this.itemsViewChild.nativeElement) {
-            const element = DomHandler.findSingle(this.itemsViewChild.nativeElement, `li[id="${id}"]`);
+            const element = findSingle(this.itemsViewChild.nativeElement, `li[id="${id}"]`);
             if (element) {
                 element.scrollIntoView && element.scrollIntoView({ block: 'nearest', inline: 'nearest' });
             } else if (!this.virtualScrollerDisabled) {
@@ -1616,9 +1613,9 @@ export class AutoComplete extends BaseComponent implements AfterViewChecked, Aft
         this.overlayVisible = true;
         const focusedOptionIndex = this.focusedOptionIndex() !== -1 ? this.focusedOptionIndex() : this.autoOptionFocus ? this.findFirstFocusedOptionIndex() : -1;
         this.focusedOptionIndex.set(focusedOptionIndex);
-        isFocus && DomHandler.focus(this.inputEL.nativeElement);
+        isFocus && focus(this.inputEL.nativeElement);
         if (isFocus) {
-            DomHandler.focus(this.inputEL.nativeElement);
+            focus(this.inputEL.nativeElement);
         }
         this.onShow.emit();
         this.cd.markForCheck();
@@ -1629,7 +1626,7 @@ export class AutoComplete extends BaseComponent implements AfterViewChecked, Aft
             this.dirty = isFocus;
             this.overlayVisible = false;
             this.focusedOptionIndex.set(-1);
-            isFocus && DomHandler.focus(this.inputEL.nativeElement);
+            isFocus && focus(this.inputEL.nativeElement);
             this.onHide.emit();
             this.cd.markForCheck();
         };
@@ -1653,7 +1650,7 @@ export class AutoComplete extends BaseComponent implements AfterViewChecked, Aft
     }
 
     hasSelectedOption() {
-        return ObjectUtils.isNotEmpty(this.modelValue());
+        return isNotEmpty(this.modelValue());
     }
 
     getAriaPosInset(index) {
@@ -1668,11 +1665,11 @@ export class AutoComplete extends BaseComponent implements AfterViewChecked, Aft
     }
 
     getOptionLabel(option: any) {
-        return this.field || this.optionLabel ? ObjectUtils.resolveFieldData(option, this.field || this.optionLabel) : option && option.label != undefined ? option.label : option;
+        return this.field || this.optionLabel ? resolveFieldData(option, this.field || this.optionLabel) : option && option.label != undefined ? option.label : option;
     }
 
     getOptionValue(option) {
-        return this.optionValue ? ObjectUtils.resolveFieldData(option, this.optionValue) : option && option.value != undefined ? option.value : option;
+        return this.optionValue ? resolveFieldData(option, this.optionValue) : option && option.value != undefined ? option.value : option;
     }
 
     getOptionIndex(index, scrollerOptions) {
@@ -1680,11 +1677,11 @@ export class AutoComplete extends BaseComponent implements AfterViewChecked, Aft
     }
 
     getOptionGroupLabel(optionGroup: any) {
-        return this.optionGroupLabel ? ObjectUtils.resolveFieldData(optionGroup, this.optionGroupLabel) : optionGroup && optionGroup.label != undefined ? optionGroup.label : optionGroup;
+        return this.optionGroupLabel ? resolveFieldData(optionGroup, this.optionGroupLabel) : optionGroup && optionGroup.label != undefined ? optionGroup.label : optionGroup;
     }
 
     getOptionGroupChildren(optionGroup: any) {
-        return this.optionGroupChildren ? ObjectUtils.resolveFieldData(optionGroup, this.optionGroupChildren) : optionGroup.items;
+        return this.optionGroupChildren ? resolveFieldData(optionGroup, this.optionGroupChildren) : optionGroup.items;
     }
 
     registerOnChange(fn: Function): void {
@@ -1702,7 +1699,7 @@ export class AutoComplete extends BaseComponent implements AfterViewChecked, Aft
 
     onOverlayAnimationStart(event: AnimationEvent) {
         if (event.toState === 'visible') {
-            this.itemsWrapper = DomHandler.findSingle(this.overlayViewChild.overlayViewChild?.nativeElement, this.virtualScroll ? '.p-scroller' : '.p-autocomplete-panel');
+            this.itemsWrapper = <any>findSingle(this.overlayViewChild.overlayViewChild?.nativeElement, this.virtualScroll ? '.p-scroller' : '.p-autocomplete-panel');
 
             if (this.virtualScroll) {
                 this.scroller?.setContentEl(this.itemsViewChild?.nativeElement);
@@ -1716,7 +1713,7 @@ export class AutoComplete extends BaseComponent implements AfterViewChecked, Aft
                         this.scroller?.scrollToIndex(selectedIndex);
                     }
                 } else {
-                    let selectedListItem = DomHandler.findSingle(this.itemsWrapper, '.p-autocomplete-item.p-highlight');
+                    let selectedListItem = findSingle(this.itemsWrapper, '.p-autocomplete-item.p-highlight');
 
                     if (selectedListItem) {
                         selectedListItem.scrollIntoView({ block: 'nearest', inline: 'center' });

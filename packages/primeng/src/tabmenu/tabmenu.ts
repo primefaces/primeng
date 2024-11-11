@@ -22,17 +22,15 @@ import {
     ViewEncapsulation
 } from '@angular/core';
 import { ActivatedRoute, Router, RouterModule } from '@angular/router';
-import { MenuItem, SharedModule } from 'primeng/api';
-import { DomHandler } from 'primeng/dom';
-import { ChevronLeftIcon } from 'primeng/icons/chevronleft';
-import { ChevronRightIcon } from 'primeng/icons/chevronright';
+import { BaseComponent, SharedModule } from '@primeng/core';
+import { ChevronLeftIcon, ChevronRightIcon } from '@primeng/icons';
+import { findSingle, focus, getAttribute, getOffset, getWidth, resolve } from '@primeuix/utils';
+import { MenuItem } from 'primeng/api';
+import { BadgeModule } from 'primeng/badge';
 import { Ripple } from 'primeng/ripple';
 import { TooltipModule } from 'primeng/tooltip';
 import { Nullable } from 'primeng/ts-helpers';
-import { ObjectUtils } from 'primeng/utils';
 import { TabMenuStyle } from './style/tabmenustyle';
-import { BaseComponent } from 'primeng/basecomponent';
-import { BadgeModule } from 'primeng/badge';
 
 /**
  * TabMenu is a navigation component that displays items as tab headers.
@@ -321,7 +319,7 @@ export class TabMenu extends BaseComponent implements AfterContentInit, AfterVie
     }
 
     getItemProp(item: any, name: string) {
-        return item ? ObjectUtils.getItemValue(item[name]) : undefined;
+        return item ? resolve(item[name]) : undefined;
     }
 
     visible(item) {
@@ -415,13 +413,13 @@ export class TabMenu extends BaseComponent implements AfterContentInit, AfterVie
 
     onTabKeyDown(tabLinks) {
         tabLinks.forEach((item) => {
-            item.nativeElement.tabIndex = DomHandler.getAttribute(item.nativeElement.parentElement, 'data-p-highlight') ? '0' : '-1';
+            item.nativeElement.tabIndex = getAttribute(item.nativeElement.parentElement, 'data-p-highlight') ? '0' : '-1';
         });
     }
 
     changeFocusedTab(event: KeyboardEvent, element: HTMLLIElement, index: number) {
         if (element) {
-            DomHandler.focus(element);
+            focus(element);
             element.scrollIntoView({ block: 'nearest' });
 
             this.itemClick(event, element);
@@ -437,7 +435,7 @@ export class TabMenu extends BaseComponent implements AfterContentInit, AfterVie
 
         let nextItem = items[i];
 
-        if (nextItem) return DomHandler.getAttribute(nextItem.nativeElement, 'data-p-disabled') ? this.findNextItem(items, i) : { nextItem: nextItem.nativeElement, i };
+        if (nextItem) return getAttribute(nextItem.nativeElement, 'data-p-disabled') ? this.findNextItem(items, i) : { nextItem: nextItem.nativeElement, i };
         else return null;
     }
 
@@ -450,26 +448,26 @@ export class TabMenu extends BaseComponent implements AfterContentInit, AfterVie
 
         let prevItem = items[i];
 
-        if (prevItem) return DomHandler.getAttribute(prevItem.nativeElement, 'data-p-disabled') ? this.findPrevItem(items, i) : { prevItem: prevItem.nativeElement, i };
+        if (prevItem) return getAttribute(prevItem.nativeElement, 'data-p-disabled') ? this.findPrevItem(items, i) : { prevItem: prevItem.nativeElement, i };
         else return null;
     }
 
     updateInkBar() {
-        const tabHeader = DomHandler.findSingle(this.navbar?.nativeElement, 'li.p-tabmenu-active');
+        const tabHeader = findSingle(this.navbar?.nativeElement, 'li.p-tabmenu-active');
         if (tabHeader) {
-            (this.inkbar as ElementRef).nativeElement.style.width = DomHandler.getWidth(tabHeader) + 'px';
-            (this.inkbar as ElementRef).nativeElement.style.left = DomHandler.getOffset(tabHeader).left - DomHandler.getOffset(this.navbar?.nativeElement).left + 'px';
+            (this.inkbar as ElementRef).nativeElement.style.width = getWidth(tabHeader as any) + 'px';
+            (this.inkbar as ElementRef).nativeElement.style.left = <any>getOffset(tabHeader).left - <any>getOffset(this.navbar?.nativeElement).left + 'px';
         }
     }
 
     getVisibleButtonWidths() {
-        return [this.prevBtn?.nativeElement, this.nextBtn?.nativeElement].reduce((acc, el) => (el ? acc + DomHandler.getWidth(el) : acc), 0);
+        return [this.prevBtn?.nativeElement, this.nextBtn?.nativeElement].reduce((acc, el) => (el ? acc + getWidth(el) : acc), 0);
     }
 
     updateButtonState() {
         const content = this.content?.nativeElement;
         const { scrollLeft, scrollWidth } = content;
-        const width = DomHandler.getWidth(content);
+        const width = getWidth(content);
 
         this.backwardIsDisabled = scrollLeft === 0;
         this.forwardIsDisabled = parseInt(scrollLeft) === scrollWidth - width;
@@ -493,14 +491,14 @@ export class TabMenu extends BaseComponent implements AfterContentInit, AfterVie
 
     navBackward() {
         const content = this.content?.nativeElement;
-        const width = DomHandler.getWidth(content) - this.getVisibleButtonWidths();
+        const width = getWidth(content) - this.getVisibleButtonWidths();
         const pos = content.scrollLeft - width;
         content.scrollLeft = pos <= 0 ? 0 : pos;
     }
 
     navForward() {
         const content = this.content?.nativeElement;
-        const width = DomHandler.getWidth(content) - this.getVisibleButtonWidths();
+        const width = getWidth(content) - this.getVisibleButtonWidths();
         const pos = content.scrollLeft + width;
         const lastPos = content.scrollWidth - width;
         content.scrollLeft = pos >= lastPos ? lastPos : pos;

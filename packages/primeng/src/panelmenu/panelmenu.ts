@@ -23,16 +23,12 @@ import {
     ViewEncapsulation
 } from '@angular/core';
 import { RouterModule } from '@angular/router';
-import { MenuItem, SharedModule } from 'primeng/api';
-import { DomHandler } from 'primeng/dom';
-import { AngleDownIcon } from 'primeng/icons/angledown';
-import { AngleRightIcon } from 'primeng/icons/angleright';
-import { ChevronDownIcon } from 'primeng/icons/chevrondown';
-import { ChevronRightIcon } from 'primeng/icons/chevronright';
+import { BaseComponent, SharedModule } from '@primeng/core';
+import { AngleDownIcon, AngleRightIcon, ChevronDownIcon, ChevronRightIcon } from '@primeng/icons';
+import { equals, findLast, findSingle, focus, getAttribute, isEmpty, isNotEmpty, isPrintableCharacter, resolve, uuid } from '@primeuix/utils';
+import { MenuItem } from 'primeng/api';
 import { TooltipModule } from 'primeng/tooltip';
-import { ObjectUtils, UniqueComponentId } from 'primeng/utils';
 import { PanelMenuStyle } from './style/panelmenustyle';
-import { BaseComponent } from 'primeng/basecomponent';
 
 @Component({
     selector: 'p-panelMenuSub, p-panelmenu-sub',
@@ -219,7 +215,7 @@ export class PanelMenuSub extends BaseComponent {
     }
 
     getItemProp(processedItem, name?, params?) {
-        return processedItem && processedItem.item ? ObjectUtils.getItemValue(processedItem.item[name], params) : undefined;
+        return processedItem && processedItem.item ? resolve(processedItem.item[name], params) : undefined;
     }
 
     getItemLabel(processedItem) {
@@ -247,7 +243,7 @@ export class PanelMenuSub extends BaseComponent {
     }
 
     isItemGroup(processedItem) {
-        return ObjectUtils.isNotEmpty(processedItem.items);
+        return isNotEmpty(processedItem.items);
     }
 
     getAnimation(processedItem) {
@@ -346,7 +342,7 @@ export class PanelMenuList extends BaseComponent implements OnChanges {
 
     get focusedItemId() {
         const focusedItem = this.focusedItem();
-        return focusedItem && focusedItem.item?.id ? focusedItem.item.id : ObjectUtils.isNotEmpty(this.focusedItem()) ? `${this.panelId}_${this.focusedItem().key}` : undefined;
+        return focusedItem && focusedItem.item?.id ? focusedItem.item.id : isNotEmpty(this.focusedItem()) ? `${this.panelId}_${this.focusedItem().key}` : undefined;
     }
 
     ngOnChanges(changes: SimpleChanges) {
@@ -354,7 +350,7 @@ export class PanelMenuList extends BaseComponent implements OnChanges {
     }
 
     getItemProp(processedItem, name) {
-        return processedItem && processedItem.item ? ObjectUtils.getItemValue(processedItem.item[name]) : undefined;
+        return processedItem && processedItem.item ? resolve(processedItem.item[name]) : undefined;
     }
 
     getItemLabel(processedItem) {
@@ -374,7 +370,7 @@ export class PanelMenuList extends BaseComponent implements OnChanges {
     }
 
     isItemGroup(processedItem) {
-        return ObjectUtils.isNotEmpty(processedItem.items);
+        return isNotEmpty(processedItem.items);
     }
 
     isElementInPanel(event, element) {
@@ -400,7 +396,7 @@ export class PanelMenuList extends BaseComponent implements OnChanges {
     }
 
     findLastItem() {
-        return ObjectUtils.findLast(this.visibleItems(), (processedItem) => this.isValidItem(processedItem));
+        return findLast(this.visibleItems(), (processedItem) => this.isValidItem(processedItem));
     }
 
     findItemByEventTarget(target: EventTarget): undefined | any {
@@ -464,7 +460,7 @@ export class PanelMenuList extends BaseComponent implements OnChanges {
     changeFocusedItem(event) {
         const { originalEvent, processedItem, focusOnNext, selfCheck, allowHeaderFocus = true } = event;
 
-        if (ObjectUtils.isNotEmpty(this.focusedItem()) && this.focusedItem().key !== processedItem.key) {
+        if (isNotEmpty(this.focusedItem()) && this.focusedItem().key !== processedItem.key) {
             this.focusedItem.set(processedItem);
             this.scrollInView();
         } else if (allowHeaderFocus) {
@@ -473,7 +469,7 @@ export class PanelMenuList extends BaseComponent implements OnChanges {
     }
 
     scrollInView() {
-        const element = DomHandler.findSingle(this.subMenuViewChild.listViewChild.nativeElement, `li[id="${`${this.focusedItemId}`}"]`);
+        const element = findSingle(this.subMenuViewChild.listViewChild.nativeElement, `li[id="${`${this.focusedItemId}`}"]`);
 
         if (element) {
             element.scrollIntoView && element.scrollIntoView({ block: 'nearest', inline: 'nearest' });
@@ -567,7 +563,7 @@ export class PanelMenuList extends BaseComponent implements OnChanges {
                 break;
 
             default:
-                if (!metaKey && ObjectUtils.isPrintableCharacter(event.key)) {
+                if (!metaKey && isPrintableCharacter(event.key)) {
                     this.searchItems(event, event.key);
                 }
 
@@ -576,26 +572,26 @@ export class PanelMenuList extends BaseComponent implements OnChanges {
     }
 
     onArrowDownKey(event) {
-        const processedItem = ObjectUtils.isNotEmpty(this.focusedItem()) ? this.findNextItem(this.focusedItem()) : this.findFirstItem();
+        const processedItem = isNotEmpty(this.focusedItem()) ? this.findNextItem(this.focusedItem()) : this.findFirstItem();
         this.changeFocusedItem({ originalEvent: event, processedItem, focusOnNext: true });
         event.preventDefault();
     }
     onArrowUpKey(event) {
-        const processedItem = ObjectUtils.isNotEmpty(this.focusedItem()) ? this.findPrevItem(this.focusedItem()) : this.findLastItem();
+        const processedItem = isNotEmpty(this.focusedItem()) ? this.findPrevItem(this.focusedItem()) : this.findLastItem();
 
         this.changeFocusedItem({ originalEvent: event, processedItem, selfCheck: true });
         event.preventDefault();
     }
 
     onArrowLeftKey(event) {
-        if (ObjectUtils.isNotEmpty(this.focusedItem())) {
+        if (isNotEmpty(this.focusedItem())) {
             const matched = this.activeItemPath().some((p) => p.key === this.focusedItem().key);
 
             if (matched) {
                 const activeItemPath = this.activeItemPath().filter((p) => p.key !== this.focusedItem().key);
                 this.activeItemPath.set(activeItemPath);
             } else {
-                const focusedItem = ObjectUtils.isNotEmpty(this.focusedItem().parent) ? this.focusedItem().parent : this.focusedItem();
+                const focusedItem = isNotEmpty(this.focusedItem().parent) ? this.focusedItem().parent : this.focusedItem();
                 this.focusedItem.set(focusedItem);
             }
 
@@ -604,7 +600,7 @@ export class PanelMenuList extends BaseComponent implements OnChanges {
     }
 
     onArrowRightKey(event) {
-        if (ObjectUtils.isNotEmpty(this.focusedItem())) {
+        if (isNotEmpty(this.focusedItem())) {
             const grouped = this.isItemGroup(this.focusedItem());
 
             if (grouped) {
@@ -635,9 +631,9 @@ export class PanelMenuList extends BaseComponent implements OnChanges {
     }
 
     onEnterKey(event) {
-        if (ObjectUtils.isNotEmpty(this.focusedItem())) {
-            const element = DomHandler.findSingle(this.subMenuViewChild.listViewChild.nativeElement, `li[id="${`${this.focusedItemId}`}"]`);
-            const anchorElement = element && (DomHandler.findSingle(element, '[data-pc-section="action"]') || DomHandler.findSingle(element, 'a,button'));
+        if (isNotEmpty(this.focusedItem())) {
+            const element = <any>findSingle(this.subMenuViewChild.listViewChild.nativeElement, `li[id="${`${this.focusedItemId}`}"]`);
+            const anchorElement = element && (<any>findSingle(element, '[data-pc-section="action"]') || findSingle(element, 'a,button'));
 
             anchorElement ? anchorElement.click() : element && element.click();
         }
@@ -663,7 +659,7 @@ export class PanelMenuList extends BaseComponent implements OnChanges {
 
     findPrevItem(processedItem) {
         const index = this.visibleItems().findIndex((item) => item.key === processedItem.key);
-        const matchedItem = index > 0 ? ObjectUtils.findLast(this.visibleItems().slice(0, index), (pItem) => this.isValidItem(pItem)) : undefined;
+        const matchedItem = index > 0 ? findLast(this.visibleItems().slice(0, index), (pItem) => this.isValidItem(pItem)) : undefined;
 
         return matchedItem || processedItem;
     }
@@ -674,13 +670,13 @@ export class PanelMenuList extends BaseComponent implements OnChanges {
         let matchedItem = null;
         let matched = false;
 
-        if (ObjectUtils.isNotEmpty(this.focusedItem())) {
+        if (isNotEmpty(this.focusedItem())) {
             const focusedItemIndex = this.visibleItems().findIndex((processedItem) => processedItem.key === this.focusedItem().key);
 
             matchedItem = this.visibleItems()
                 .slice(focusedItemIndex)
                 .find((processedItem) => this.isItemMatched(processedItem));
-            matchedItem = ObjectUtils.isEmpty(matchedItem)
+            matchedItem = isEmpty(matchedItem)
                 ? this.visibleItems()
                       .slice(0, focusedItemIndex)
                       .find((processedItem) => this.isItemMatched(processedItem))
@@ -689,15 +685,15 @@ export class PanelMenuList extends BaseComponent implements OnChanges {
             matchedItem = this.visibleItems().find((processedItem) => this.isItemMatched(processedItem));
         }
 
-        if (ObjectUtils.isNotEmpty(matchedItem)) {
+        if (isNotEmpty(matchedItem)) {
             matched = true;
         }
 
-        if (ObjectUtils.isEmpty(matchedItem) && ObjectUtils.isEmpty(this.focusedItem())) {
+        if (isEmpty(matchedItem) && isEmpty(this.focusedItem())) {
             matchedItem = this.findFirstItem();
         }
 
-        if (ObjectUtils.isNotEmpty(matchedItem)) {
+        if (isNotEmpty(matchedItem)) {
             this.changeFocusedItem({
                 originalEvent: event,
                 processedItem: matchedItem,
@@ -917,7 +913,7 @@ export class PanelMenu extends BaseComponent implements AfterContentInit {
 
     ngOnInit() {
         super.ngOnInit();
-        this.id = this.id || UniqueComponentId();
+        this.id = this.id || uuid('pn_id_');
     }
 
     ngAfterContentInit() {
@@ -959,7 +955,7 @@ export class PanelMenu extends BaseComponent implements AfterContentInit {
 
     changeActiveItem(event, item, index?: number, selfActive = false) {
         if (!this.isItemDisabled(item)) {
-            const activeItem = selfActive ? item : this.activeItem && ObjectUtils.equals(item, this.activeItem) ? null : item;
+            const activeItem = selfActive ? item : this.activeItem && equals(item, this.activeItem) ? null : item;
             this.activeItem.set(activeItem);
         }
     }
@@ -969,7 +965,7 @@ export class PanelMenu extends BaseComponent implements AfterContentInit {
     }
 
     getItemProp(item, name) {
-        return item ? ObjectUtils.getItemValue(item[name]) : undefined;
+        return item ? resolve(item[name]) : undefined;
     }
 
     getItemLabel(item) {
@@ -989,7 +985,7 @@ export class PanelMenu extends BaseComponent implements AfterContentInit {
     }
 
     isItemGroup(item) {
-        return ObjectUtils.isNotEmpty(item.items);
+        return isNotEmpty(item.items);
     }
 
     getPanelId(index, item?) {
@@ -1007,27 +1003,27 @@ export class PanelMenu extends BaseComponent implements AfterContentInit {
     updateFocusedHeader(event) {
         const { originalEvent, focusOnNext, selfCheck } = event;
         const panelElement = originalEvent.currentTarget.closest('[data-pc-section="panel"]');
-        const header = selfCheck ? DomHandler.findSingle(panelElement, '[data-pc-section="header"]') : focusOnNext ? this.findNextHeader(panelElement) : this.findPrevHeader(panelElement);
+        const header = selfCheck ? findSingle(panelElement, '[data-pc-section="header"]') : focusOnNext ? this.findNextHeader(panelElement) : this.findPrevHeader(panelElement);
 
         header ? this.changeFocusedHeader(originalEvent, header) : focusOnNext ? this.onHeaderHomeKey(originalEvent) : this.onHeaderEndKey(originalEvent);
     }
 
     changeFocusedHeader(event, element) {
-        element && DomHandler.focus(element);
+        element && focus(element);
     }
 
     findNextHeader(panelElement, selfCheck = false) {
         const nextPanelElement = selfCheck ? panelElement : panelElement.nextElementSibling;
-        const headerElement = DomHandler.findSingle(nextPanelElement, '[data-pc-section="header"]');
+        const headerElement = findSingle(nextPanelElement, '[data-pc-section="header"]');
 
-        return headerElement ? (DomHandler.getAttribute(headerElement, 'data-p-disabled') ? this.findNextHeader(headerElement.parentElement) : headerElement) : null;
+        return headerElement ? (getAttribute(headerElement, 'data-p-disabled') ? this.findNextHeader(headerElement.parentElement) : headerElement) : null;
     }
 
     findPrevHeader(panelElement, selfCheck = false) {
         const prevPanelElement = selfCheck ? panelElement : panelElement.previousElementSibling;
-        const headerElement = DomHandler.findSingle(prevPanelElement, '[data-pc-section="header"]');
+        const headerElement = findSingle(prevPanelElement, '[data-pc-section="header"]');
 
-        return headerElement ? (DomHandler.getAttribute(headerElement, 'data-p-disabled') ? this.findPrevHeader(headerElement.parentElement) : headerElement) : null;
+        return headerElement ? (getAttribute(headerElement, 'data-p-disabled') ? this.findPrevHeader(headerElement.parentElement) : headerElement) : null;
     }
 
     findFirstHeader() {
@@ -1060,7 +1056,7 @@ export class PanelMenu extends BaseComponent implements AfterContentInit {
         item.expanded = !item.expanded;
         this.changeActiveItem(event, item, index);
         this.animating = true;
-        DomHandler.focus(event.currentTarget as HTMLElement);
+        focus(event.currentTarget as HTMLElement);
     }
 
     onHeaderKeyDown(event, item, index) {
@@ -1092,17 +1088,17 @@ export class PanelMenu extends BaseComponent implements AfterContentInit {
     }
 
     onHeaderArrowDownKey(event) {
-        const rootList = DomHandler.getAttribute(event.currentTarget, 'data-p-highlight') === true ? DomHandler.findSingle(event.currentTarget.nextElementSibling, '[data-pc-section="menu"]') : null;
+        const rootList = getAttribute(event.currentTarget, 'data-p-highlight') === true ? <any>findSingle(event.currentTarget.nextElementSibling, '[data-pc-section="menu"]') : null;
 
-        rootList ? DomHandler.focus(rootList) : this.updateFocusedHeader({ originalEvent: event, focusOnNext: true });
+        rootList ? focus(rootList) : this.updateFocusedHeader({ originalEvent: event, focusOnNext: true });
         event.preventDefault();
     }
 
     onHeaderArrowUpKey(event) {
         const prevHeader = this.findPrevHeader(event.currentTarget.parentElement) || this.findLastHeader();
-        const rootList = DomHandler.getAttribute(prevHeader, 'data-p-highlight') === true ? DomHandler.findSingle(prevHeader.nextElementSibling, '[data-pc-section="menu"]') : null;
+        const rootList = getAttribute(prevHeader, 'data-p-highlight') === true ? <any>findSingle(prevHeader.nextElementSibling, '[data-pc-section="menu"]') : null;
 
-        rootList ? DomHandler.focus(rootList) : this.updateFocusedHeader({ originalEvent: event, focusOnNext: false });
+        rootList ? focus(rootList) : this.updateFocusedHeader({ originalEvent: event, focusOnNext: false });
         event.preventDefault();
     }
 
@@ -1117,7 +1113,7 @@ export class PanelMenu extends BaseComponent implements AfterContentInit {
     }
 
     onHeaderEnterKey(event, item, index) {
-        const headerAction = DomHandler.findSingle(event.currentTarget, '[data-pc-section="headeraction"]');
+        const headerAction = <any>findSingle(event.currentTarget, '[data-pc-section="headeraction"]');
 
         headerAction ? headerAction.click() : this.onHeaderClick(event, item, index);
         event.preventDefault();

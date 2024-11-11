@@ -1,20 +1,18 @@
 import { animate, animation, AnimationEvent, style, transition, trigger, useAnimation } from '@angular/animations';
 import { CommonModule, isPlatformBrowser } from '@angular/common';
 import { AfterViewInit, ChangeDetectionStrategy, Component, ComponentRef, ElementRef, inject, NgModule, NgZone, OnDestroy, Optional, Renderer2, SkipSelf, Type, ViewChild, ViewEncapsulation, ViewRef } from '@angular/core';
-import { SharedModule, TranslationKeys } from 'primeng/api';
+import { BaseComponent, SharedModule, TranslationKeys } from '@primeng/core';
+import { TimesIcon, WindowMaximizeIcon, WindowMinimizeIcon } from '@primeng/icons';
+import { addClass, getOuterHeight, getOuterWidth, getViewport, hasClass, removeClass, setAttribute, uuid } from '@primeuix/utils';
+import { Button } from 'primeng/button';
 import { DomHandler } from 'primeng/dom';
 import { FocusTrap } from 'primeng/focustrap';
-import { TimesIcon } from 'primeng/icons/times';
-import { WindowMaximizeIcon } from 'primeng/icons/windowmaximize';
-import { WindowMinimizeIcon } from 'primeng/icons/windowminimize';
 import { Nullable, VoidListener } from 'primeng/ts-helpers';
-import { UniqueComponentId, ZIndexUtils } from 'primeng/utils';
+import { ZIndexUtils } from 'primeng/utils';
 import { DynamicDialogConfig } from './dynamicdialog-config';
 import { DynamicDialogRef } from './dynamicdialog-ref';
 import { DynamicDialogContent } from './dynamicdialogcontent';
-import { BaseComponent } from 'primeng/basecomponent';
 import { DynamicDialogStyle } from './style/dynamicdialogstyle';
-import { Button } from 'primeng/button';
 
 const showAnimation = animation([style({ transform: '{{transform}}', opacity: 0 }), animate('{{transition}}', style({ transform: 'none', opacity: 1 }))]);
 
@@ -135,7 +133,7 @@ export class DynamicDialogComponent extends BaseComponent implements AfterViewIn
 
     ariaLabelledBy: string | undefined;
 
-    id: string = UniqueComponentId();
+    id: string = uuid('pn_id_');
 
     styleElement: any;
 
@@ -316,7 +314,7 @@ export class DynamicDialogComponent extends BaseComponent implements AfterViewIn
                 }
 
                 this.renderer.setProperty(this.styleElement, 'innerHTML', innerHTML);
-                DomHandler.setAttribute(this.styleElement, 'nonce', this.config?.csp()?.nonce);
+                setAttribute(this.styleElement, 'nonce', this.config?.csp()?.nonce);
             }
         }
     }
@@ -335,7 +333,7 @@ export class DynamicDialogComponent extends BaseComponent implements AfterViewIn
     }
 
     getAriaLabelledBy() {
-        return this.header !== null ? UniqueComponentId() + '_header' : null;
+        return this.header !== null ? uuid('pn_id_') + '_header' : null;
     }
 
     loadChildComponent(componentType: Type<any>) {
@@ -376,7 +374,7 @@ export class DynamicDialogComponent extends BaseComponent implements AfterViewIn
 
             case 'void':
                 if (this.wrapper && this.ddconfig.modal !== false) {
-                    DomHandler.addClass(this.wrapper, 'p-overlay-mask-leave');
+                    addClass(this.wrapper, 'p-overlay-mask-leave');
                 }
                 break;
         }
@@ -426,7 +424,7 @@ export class DynamicDialogComponent extends BaseComponent implements AfterViewIn
         }
 
         if (this.ddconfig.modal !== false) {
-            DomHandler.addClass(this.document.body, 'p-overflow-hidden');
+            addClass(this.document.body, 'p-overflow-hidden');
         }
     }
 
@@ -437,7 +435,7 @@ export class DynamicDialogComponent extends BaseComponent implements AfterViewIn
             }
 
             if (this.ddconfig.modal !== false) {
-                DomHandler.removeClass(this.document.body, 'p-overflow-hidden');
+                removeClass(this.document.body, 'p-overflow-hidden');
             }
 
             if (!(this.cd as ViewRef).destroyed) {
@@ -471,9 +469,9 @@ export class DynamicDialogComponent extends BaseComponent implements AfterViewIn
         this.maximized = !this.maximized;
 
         if (this.maximized) {
-            DomHandler.addClass(this.document.body, 'p-overflow-hidden');
+            addClass(this.document.body, 'p-overflow-hidden');
         } else {
-            DomHandler.removeClass(this.document.body, 'p-overflow-hidden');
+            removeClass(this.document.body, 'p-overflow-hidden');
         }
 
         this.dialogRef.maximize({ maximized: this.maximized });
@@ -488,7 +486,7 @@ export class DynamicDialogComponent extends BaseComponent implements AfterViewIn
             this.resizing = true;
             this.lastPageX = event.pageX;
             this.lastPageY = event.pageY;
-            DomHandler.addClass(this.document.body, 'p-unselectable-text');
+            addClass(this.document.body, 'p-unselectable-text');
             this.dialogRef.resizeInit(event);
         }
     }
@@ -497,15 +495,15 @@ export class DynamicDialogComponent extends BaseComponent implements AfterViewIn
         if (this.resizing) {
             let deltaX = event.pageX - (this.lastPageX as number);
             let deltaY = event.pageY - (this.lastPageY as number);
-            let containerWidth = DomHandler.getOuterWidth(this.container);
-            let containerHeight = DomHandler.getOuterHeight(this.container);
-            let contentHeight = DomHandler.getOuterHeight((<ElementRef>this.contentViewChild).nativeElement);
+            let containerWidth = getOuterWidth(this.container);
+            let containerHeight = getOuterHeight(this.container);
+            let contentHeight = getOuterHeight((<ElementRef>this.contentViewChild).nativeElement);
             let newWidth = containerWidth + deltaX;
             let newHeight = containerHeight + deltaY;
             let minWidth = (this.container as HTMLDivElement).style.minWidth;
             let minHeight = (this.container as HTMLDivElement).style.minHeight;
             let offset = (this.container as HTMLDivElement).getBoundingClientRect();
-            let viewport = DomHandler.getViewport();
+            let viewport = getViewport();
             let hasBeenDragged = !parseInt((this.container as HTMLDivElement).style.top) || !parseInt((this.container as HTMLDivElement).style.left);
 
             if (hasBeenDragged) {
@@ -535,13 +533,13 @@ export class DynamicDialogComponent extends BaseComponent implements AfterViewIn
     resizeEnd(event: MouseEvent) {
         if (this.resizing) {
             this.resizing = false;
-            DomHandler.removeClass(this.document.body, 'p-unselectable-text');
+            removeClass(this.document.body, 'p-unselectable-text');
             this.dialogRef.resizeEnd(event);
         }
     }
 
     initDrag(event: MouseEvent) {
-        if (DomHandler.hasClass(event.target, 'p-dialog-header-icon') || DomHandler.hasClass((<HTMLElement>event.target).parentElement, 'p-dialog-header-icon')) {
+        if (hasClass(event.target as any, 'p-dialog-header-icon') || hasClass((<HTMLElement>event.target).parentElement, 'p-dialog-header-icon')) {
             return;
         }
 
@@ -551,21 +549,21 @@ export class DynamicDialogComponent extends BaseComponent implements AfterViewIn
             this.lastPageY = event.pageY;
 
             (this.container as HTMLDivElement).style.margin = '0';
-            DomHandler.addClass(this.document.body, 'p-unselectable-text');
+            addClass(this.document.body, 'p-unselectable-text');
             this.dialogRef.dragStart(event);
         }
     }
 
     onDrag(event: MouseEvent) {
         if (this.dragging) {
-            let containerWidth = DomHandler.getOuterWidth(this.container);
-            let containerHeight = DomHandler.getOuterHeight(this.container);
+            let containerWidth = getOuterWidth(this.container);
+            let containerHeight = getOuterHeight(this.container);
             let deltaX = event.pageX - (this.lastPageX as number);
             let deltaY = event.pageY - (this.lastPageY as number);
             let offset = (this.container as HTMLDivElement).getBoundingClientRect();
             let leftPos = offset.left + deltaX;
             let topPos = offset.top + deltaY;
-            let viewport = DomHandler.getViewport();
+            let viewport = getViewport();
 
             (this.container as HTMLDivElement).style.position = 'fixed';
 
@@ -593,7 +591,7 @@ export class DynamicDialogComponent extends BaseComponent implements AfterViewIn
     endDrag(event: MouseEvent) {
         if (this.dragging) {
             this.dragging = false;
-            DomHandler.removeClass(this.document.body, 'p-unselectable-text');
+            removeClass(this.document.body, 'p-unselectable-text');
             this.dialogRef.dragEnd(event);
             this.cd.detectChanges();
         }

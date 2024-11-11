@@ -1,6 +1,6 @@
 import { DOCUMENT, isPlatformBrowser } from '@angular/common';
 import { booleanAttribute, Directive, ElementRef, inject, Input, NgModule, PLATFORM_ID } from '@angular/core';
-import { BaseComponent } from 'primeng/basecomponent';
+import { BaseComponent } from '@primeng/core';
 import { DomHandler } from 'primeng/dom';
 
 /**

@@ -1,4 +1,5 @@
 import { AfterViewInit, booleanAttribute, Directive, ElementRef, EventEmitter, HostListener, Input, NgModule, NgZone, OnDestroy, Output, Renderer2 } from '@angular/core';
+import { addClass, removeClass } from '@primeuix/utils';
 import { DomHandler } from 'primeng/dom';
 import { VoidListener } from 'primeng/ts-helpers';
 
@@ -233,7 +234,7 @@ export class Droppable implements AfterViewInit, OnDestroy {
     @HostListener('drop', ['$event'])
     drop(event: DragEvent) {
         if (this.allowDrop(event)) {
-            DomHandler.removeClass(this.el.nativeElement, 'p-draggable-enter');
+            removeClass(this.el.nativeElement, 'p-draggable-enter');
             event.preventDefault();
             this.onDrop.emit(event);
         }
@@ -247,7 +248,7 @@ export class Droppable implements AfterViewInit, OnDestroy {
             (event.dataTransfer as DataTransfer).dropEffect = this.dropEffect;
         }
 
-        DomHandler.addClass(this.el.nativeElement, 'p-draggable-enter');
+        addClass(this.el.nativeElement, 'p-draggable-enter');
         this.onDragEnter.emit(event);
     }
 
@@ -256,7 +257,7 @@ export class Droppable implements AfterViewInit, OnDestroy {
         event.preventDefault();
 
         if (!this.el.nativeElement.contains(event.relatedTarget)) {
-            DomHandler.removeClass(this.el.nativeElement, 'p-draggable-enter');
+            removeClass(this.el.nativeElement, 'p-draggable-enter');
             this.onDragLeave.emit(event);
         }
     }

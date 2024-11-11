@@ -1,8 +1,7 @@
 import { CommonModule } from '@angular/common';
 import { Component, inject, Input, NgModule } from '@angular/core';
+import { BaseComponent, SharedModule } from '@primeng/core';
 import { InputGroupStyle } from './style/inputgroupstyle';
-import { BaseComponent } from 'primeng/basecomponent';
-import { SharedModule } from 'primeng/api';
 
 /**
  * InputGroup displays text, icon, buttons and other content can be grouped next to an input.

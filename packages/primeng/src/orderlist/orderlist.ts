@@ -1,22 +1,16 @@
 import { CdkDragDrop, DragDropModule, moveItemInArray } from '@angular/cdk/drag-drop';
 import { CommonModule, isPlatformBrowser } from '@angular/common';
 import { AfterContentInit, booleanAttribute, ChangeDetectionStrategy, Component, ContentChild, ElementRef, EventEmitter, inject, Input, NgModule, numberAttribute, Output, QueryList, TemplateRef, ViewChild, ViewEncapsulation } from '@angular/core';
-import { FilterService, PrimeTemplate, SharedModule } from 'primeng/api';
+import { FormsModule } from '@angular/forms';
+import { BaseComponent, FilterService, PrimeTemplate, SharedModule } from '@primeng/core';
+import { AngleDoubleDownIcon, AngleDoubleUpIcon, AngleDownIcon, AngleUpIcon, SearchIcon } from '@primeng/icons';
+import { find, findIndexInList, findSingle, hasClass, insertIntoOrderedArray, isHidden, scrollInView, setAttribute, uuid } from '@primeuix/utils';
 import { ButtonDirective, ButtonProps } from 'primeng/button';
-import { DomHandler } from 'primeng/dom';
-import { AngleDoubleDownIcon } from 'primeng/icons/angledoubledown';
-import { AngleDoubleUpIcon } from 'primeng/icons/angledoubleup';
-import { AngleDownIcon } from 'primeng/icons/angledown';
-import { AngleUpIcon } from 'primeng/icons/angleup';
-import { SearchIcon } from 'primeng/icons/search';
+import { Listbox } from 'primeng/listbox';
 import { Ripple } from 'primeng/ripple';
 import { Nullable } from 'primeng/ts-helpers';
-import { ObjectUtils, UniqueComponentId } from 'primeng/utils';
 import { OrderListFilterEvent, OrderListFilterOptions, OrderListSelectionChangeEvent } from './orderlist.interface';
 import { OrderListStyle } from './style/orderliststyle';
-import { BaseComponent } from 'primeng/basecomponent';
-import { Listbox } from 'primeng/listbox';
-import { FormsModule } from '@angular/forms';
 
 /**
  * OrderList is used to manage the order of a collection.
@@ -433,7 +427,7 @@ export class OrderList extends BaseComponent implements AfterContentInit {
 
     styleElement: any;
 
-    id: string = UniqueComponentId();
+    id: string = uuid('pn_id_');
 
     focused: boolean = false;
 
@@ -534,7 +528,7 @@ export class OrderList extends BaseComponent implements AfterContentInit {
 
     ngAfterViewChecked() {
         if (this.movedUp || this.movedDown) {
-            let listItems = DomHandler.find(this.listViewChild?.el.nativeElement, 'li.p-listbox-option-selected');
+            let listItems = find(this.listViewChild?.el.nativeElement, 'li.p-listbox-option-selected');
 
             let listItem;
 
@@ -542,7 +536,7 @@ export class OrderList extends BaseComponent implements AfterContentInit {
                 if (this.movedUp) listItem = listItems[0];
                 else listItem = listItems[listItems.length - 1];
 
-                DomHandler.scrollInView(this.listViewChild?.el.nativeElement, listItem);
+                scrollInView(this.listViewChild?.el.nativeElement, listItem);
             }
             this.movedUp = false;
             this.movedDown = false;
@@ -551,8 +545,8 @@ export class OrderList extends BaseComponent implements AfterContentInit {
 
     onItemClick(event, item: any, index?: number, selectedId?: string) {
         this.itemTouched = false;
-        let focusedIndex = index ? index : ObjectUtils.findIndexInList(this.focusedOption, this.value);
-        let selectedIndex = ObjectUtils.findIndexInList(item, this.d_selection);
+        let focusedIndex = index ? index : findIndexInList(this.focusedOption, this.value);
+        let selectedIndex = findIndexInList(item, this.d_selection);
         let selected = selectedIndex !== -1;
         let metaSelection = this.itemTouched ? false : this.metaKeySelection;
 
@@ -567,14 +561,14 @@ export class OrderList extends BaseComponent implements AfterContentInit {
                 this.d_selection = this.d_selection.filter((val, focusedIndex) => focusedIndex !== selectedIndex);
             } else {
                 this.d_selection = metaKey ? (this.d_selection ? [...this.d_selection] : []) : [];
-                ObjectUtils.insertIntoOrderedArray(item, focusedIndex, this.d_selection, this.value);
+                insertIntoOrderedArray(item, focusedIndex, this.d_selection, this.value);
             }
         } else {
             if (selected) {
                 this.d_selection = this.d_selection.filter((val, focusedIndex) => focusedIndex !== selectedIndex);
             } else {
                 this.d_selection = this.d_selection ? [...this.d_selection] : [];
-                ObjectUtils.insertIntoOrderedArray(item, focusedIndex, this.d_selection, this.value);
+                insertIntoOrderedArray(item, focusedIndex, this.d_selection, this.value);
             }
         }
 
@@ -626,7 +620,7 @@ export class OrderList extends BaseComponent implements AfterContentInit {
     }
 
     isSelected(item: any) {
-        return ObjectUtils.findIndexInList(item, this.d_selection) !== -1;
+        return findIndexInList(item, this.d_selection) !== -1;
     }
 
     isEmpty() {
@@ -637,7 +631,7 @@ export class OrderList extends BaseComponent implements AfterContentInit {
         if (this.selection) {
             for (let i = 0; i < this.selection.length; i++) {
                 let selectedItem = this.selection[i];
-                let selectedItemIndex: number = ObjectUtils.findIndexInList(selectedItem, this.value);
+                let selectedItemIndex: number = findIndexInList(selectedItem, this.value);
 
                 if (selectedItemIndex != 0 && this.value instanceof Array) {
                     let movedItem = this.value[selectedItemIndex];
@@ -661,7 +655,7 @@ export class OrderList extends BaseComponent implements AfterContentInit {
         if (this.selection) {
             for (let i = this.selection.length - 1; i >= 0; i--) {
                 let selectedItem = this.selection[i];
-                let selectedItemIndex: number = ObjectUtils.findIndexInList(selectedItem, this.value);
+                let selectedItemIndex: number = findIndexInList(selectedItem, this.value);
 
                 if (selectedItemIndex != 0 && this.value instanceof Array) {
                     let movedItem = this.value.splice(selectedItemIndex, 1)[0];
@@ -685,7 +679,7 @@ export class OrderList extends BaseComponent implements AfterContentInit {
         if (this.selection) {
             for (let i = this.selection.length - 1; i >= 0; i--) {
                 let selectedItem = this.selection[i];
-                let selectedItemIndex: number = ObjectUtils.findIndexInList(selectedItem, this.value);
+                let selectedItemIndex: number = findIndexInList(selectedItem, this.value);
 
                 if (this.value instanceof Array && selectedItemIndex != this.value.length - 1) {
                     let movedItem = this.value[selectedItemIndex];
@@ -710,7 +704,7 @@ export class OrderList extends BaseComponent implements AfterContentInit {
         if (this.selection) {
             for (let i = 0; i < this.selection.length; i++) {
                 let selectedItem = this.selection[i];
-                let selectedItemIndex: number = ObjectUtils.findIndexInList(selectedItem, this.value);
+                let selectedItemIndex: number = findIndexInList(selectedItem, this.value);
 
                 if (this.value instanceof Array && selectedItemIndex != this.value.length - 1) {
                     let movedItem = this.value.splice(selectedItemIndex, 1)[0];
@@ -735,8 +729,8 @@ export class OrderList extends BaseComponent implements AfterContentInit {
         if (previousIndex !== currentIndex) {
             if (this.visibleOptions) {
                 if (this.filterValue) {
-                    previousIndex = ObjectUtils.findIndexInList(event.item.data, this.value);
-                    currentIndex = ObjectUtils.findIndexInList(this.visibleOptions[currentIndex], this.value);
+                    previousIndex = findIndexInList(event.item.data, this.value);
+                    currentIndex = findIndexInList(this.visibleOptions[currentIndex], this.value);
                 }
 
                 moveItemInArray(this.visibleOptions, event.previousIndex, event.currentIndex);
@@ -749,10 +743,10 @@ export class OrderList extends BaseComponent implements AfterContentInit {
     }
 
     onListFocus(event) {
-        const focusableEl = DomHandler.findSingle(this.listViewChild.el.nativeElement, '[data-p-highlight="true"]') || DomHandler.findSingle(this.listViewChild.el.nativeElement, '[data-pc-section="item"]');
+        const focusableEl = findSingle(this.listViewChild.el.nativeElement, '[data-p-highlight="true"]') || findSingle(this.listViewChild.el.nativeElement, '[data-pc-section="item"]');
 
         if (focusableEl) {
-            const findIndex = ObjectUtils.findIndexInList(focusableEl, this.listViewChild.el.nativeElement.children);
+            const findIndex = findIndexInList(focusableEl, this.listViewChild.el.nativeElement.children);
             this.focused = true;
             const index = this.focusedOptionIndex !== -1 ? this.focusedOptionIndex : focusableEl ? findIndex : -1;
 
@@ -830,7 +824,7 @@ export class OrderList extends BaseComponent implements AfterContentInit {
     onHomeKey(event) {
         if (event.ctrlKey && event.shiftKey) {
             let visibleOptions = this.getVisibleOptions();
-            let focusedIndex = ObjectUtils.findIndexInList(this.focusedOption, visibleOptions);
+            let focusedIndex = findIndexInList(this.focusedOption, visibleOptions);
             this.d_selection = [...this.value].slice(0, focusedIndex + 1);
             this.selectionChange.emit(this.d_selection);
         } else {
@@ -843,11 +837,11 @@ export class OrderList extends BaseComponent implements AfterContentInit {
     onEndKey(event) {
         if (event.ctrlKey && event.shiftKey) {
             let visibleOptions = this.getVisibleOptions();
-            let focusedIndex = ObjectUtils.findIndexInList(this.focusedOption, visibleOptions);
+            let focusedIndex = findIndexInList(this.focusedOption, visibleOptions);
             this.d_selection = [...this.value].slice(focusedIndex, visibleOptions.length - 1);
             this.selectionChange.emit(this.d_selection);
         } else {
-            this.changeFocusedOptionIndex(DomHandler.find(this.listViewChild.el.nativeElement, '[data-pc-section="item"]').length - 1);
+            this.changeFocusedOptionIndex(find(this.listViewChild.el.nativeElement, '[data-pc-section="item"]').length - 1);
         }
 
         event.preventDefault();
@@ -867,7 +861,7 @@ export class OrderList extends BaseComponent implements AfterContentInit {
             let lastSelectedIndex = this.getLatestSelectedVisibleOptionIndex(visibleOptions);
 
             if (lastSelectedIndex !== -1) {
-                let focusedIndex = ObjectUtils.findIndexInList(this.focusedOption, visibleOptions);
+                let focusedIndex = findIndexInList(this.focusedOption, visibleOptions);
                 this.d_selection = [...visibleOptions.slice(Math.min(lastSelectedIndex, focusedIndex), Math.max(lastSelectedIndex, focusedIndex) + 1)];
                 this.selectionChange.emit(this.d_selection);
                 this.onSelectionChange.emit({ originalEvent: event, value: this.d_selection });
@@ -880,14 +874,14 @@ export class OrderList extends BaseComponent implements AfterContentInit {
     }
 
     findNextOptionIndex(index) {
-        const items = DomHandler.find(this.listViewChild.el.nativeElement, '[data-pc-section="item"]');
+        const items = find(this.listViewChild.el.nativeElement, '[data-pc-section="item"]');
         const matchedOptionIndex = [...items].findIndex((link) => link.id === index);
 
         return matchedOptionIndex > -1 ? matchedOptionIndex + 1 : 0;
     }
 
     findPrevOptionIndex(index) {
-        const items = DomHandler.find(this.listViewChild.el.nativeElement, '[data-pc-section="item"]');
+        const items = find(this.listViewChild.el.nativeElement, '[data-pc-section="item"]');
         const matchedOptionIndex = [...items].findIndex((link) => link.id === index);
 
         return matchedOptionIndex > -1 ? matchedOptionIndex - 1 : 0;
@@ -910,7 +904,7 @@ export class OrderList extends BaseComponent implements AfterContentInit {
     }
 
     changeFocusedOptionIndex(index) {
-        const items = DomHandler.find(this.listViewChild.el.nativeElement, '[data-pc-section="item"]');
+        const items = find(this.listViewChild.el.nativeElement, '[data-pc-section="item"]');
 
         let order = index >= items.length ? items.length - 1 : index < 0 ? 0 : index;
 
@@ -921,7 +915,7 @@ export class OrderList extends BaseComponent implements AfterContentInit {
     }
 
     scrollInView(id) {
-        const element = DomHandler.findSingle(this.listViewChild.el.nativeElement, `[data-pc-section="item"][id="${id}"]`);
+        const element = findSingle(this.listViewChild.el.nativeElement, `[data-pc-section="item"][id="${id}"]`);
 
         if (element) {
             element.scrollIntoView && element.scrollIntoView({ block: 'nearest', inline: 'nearest' });
@@ -931,14 +925,14 @@ export class OrderList extends BaseComponent implements AfterContentInit {
     findNextItem(item: any): HTMLElement | null {
         let nextItem = item.nextElementSibling;
 
-        if (nextItem) return !DomHandler.hasClass(nextItem, 'p-orderlist-item') || DomHandler.isHidden(nextItem) ? this.findNextItem(nextItem) : nextItem;
+        if (nextItem) return !hasClass(nextItem, 'p-orderlist-item') || isHidden(nextItem) ? this.findNextItem(nextItem) : nextItem;
         else return null;
     }
 
     findPrevItem(item: any): HTMLElement | null {
         let prevItem = item.previousElementSibling;
 
-        if (prevItem) return !DomHandler.hasClass(prevItem, 'p-orderlist-item') || DomHandler.isHidden(prevItem) ? this.findPrevItem(prevItem) : prevItem;
+        if (prevItem) return !hasClass(prevItem, 'p-orderlist-item') || isHidden(prevItem) ? this.findPrevItem(prevItem) : prevItem;
         else return null;
     }
 
@@ -982,7 +976,7 @@ export class OrderList extends BaseComponent implements AfterContentInit {
                     }
                 `;
                 this.renderer.setProperty(this.styleElement, 'innerHTML', innerHTML);
-                DomHandler.setAttribute(this.styleElement, 'nonce', this.config?.csp()?.nonce);
+                setAttribute(this.styleElement, 'nonce', this.config?.csp()?.nonce);
             }
         }
     }

@@ -1,0 +1,14 @@
+{
+    "extends": "../../../tsconfig.json",
+    "angularCompilerOptions": {
+        "annotateForClosureCompiler": false,
+        "strictTemplates": false,
+        "strictMetadataEmit": true,
+        "skipTemplateCodegen": true,
+        "enableI18nLegacyMessageIdFormat": false,
+        "strictInjectionParameters": true,
+        "strictInputAccessModifiers": true,
+        "flatModuleOutFile": "primeng-icons.js",
+        "flatModuleId": "primeng-icons"
+    }
+}

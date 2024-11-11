@@ -1,7 +1,7 @@
 import { DOCUMENT, isPlatformBrowser } from '@angular/common';
 import { booleanAttribute, Directive, ElementRef, EventEmitter, forwardRef, HostListener, Inject, Input, NgModule, Output, PLATFORM_ID, Provider } from '@angular/core';
 import { AbstractControl, NG_VALIDATORS, Validator } from '@angular/forms';
-import { DomHandler } from 'primeng/dom';
+import { getBrowser, isAndroid } from '@primeuix/utils';
 import { KeyFilterPattern } from './keyfilter.interface';
 
 export const KEYFILTER_VALIDATOR: Provider = {
@@ -117,7 +117,7 @@ export class KeyFilter implements Validator {
         public el: ElementRef
     ) {
         if (isPlatformBrowser(this.platformId)) {
-            this.isAndroid = DomHandler.isAndroid();
+            this.isAndroid = isAndroid();
         } else {
             this.isAndroid = false;
         }
@@ -125,7 +125,7 @@ export class KeyFilter implements Validator {
 
     isNavKeyPress(e: KeyboardEvent) {
         let k = e.keyCode;
-        k = DomHandler.getBrowser().safari ? (SAFARI_KEYS as any)[k] || k : k;
+        k = getBrowser().safari ? (SAFARI_KEYS as any)[k] || k : k;
 
         return (k >= 33 && k <= 40) || k == KEYS.RETURN || k == KEYS.TAB || k == KEYS.ESC;
     }
@@ -133,12 +133,12 @@ export class KeyFilter implements Validator {
     isSpecialKey(e: KeyboardEvent) {
         let k = e.keyCode || e.charCode;
 
-        return k == 9 || k == 13 || k == 27 || k == 16 || k == 17 || (k >= 18 && k <= 20) || (DomHandler.getBrowser().opera && !e.shiftKey && (k == 8 || (k >= 33 && k <= 35) || (k >= 36 && k <= 39) || (k >= 44 && k <= 45)));
+        return k == 9 || k == 13 || k == 27 || k == 16 || k == 17 || (k >= 18 && k <= 20) || (getBrowser().opera && !e.shiftKey && (k == 8 || (k >= 33 && k <= 35) || (k >= 36 && k <= 39) || (k >= 44 && k <= 45)));
     }
 
     getKey(e: KeyboardEvent) {
         let k = e.keyCode || e.charCode;
-        return DomHandler.getBrowser().safari ? (SAFARI_KEYS as any)[k] || k : k;
+        return getBrowser().safari ? (SAFARI_KEYS as any)[k] || k : k;
     }
 
     getCharCode(e: KeyboardEvent) {
@@ -206,7 +206,7 @@ export class KeyFilter implements Validator {
             return;
         }
 
-        let browser = DomHandler.getBrowser();
+        let browser = getBrowser();
         let k = this.getKey(e);
 
         if (browser.mozilla && (e.ctrlKey || e.altKey)) {

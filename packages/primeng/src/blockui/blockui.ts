@@ -1,10 +1,9 @@
 import { CommonModule, isPlatformBrowser } from '@angular/common';
 import { AfterViewInit, booleanAttribute, ChangeDetectionStrategy, Component, ContentChild, ElementRef, inject, Input, NgModule, numberAttribute, OnDestroy, TemplateRef, ViewChild, ViewEncapsulation } from '@angular/core';
-import { DomHandler } from 'primeng/dom';
+import { BaseComponent, SharedModule } from '@primeng/core';
+import { addClass, blockBodyScroll, removeClass, unblockBodyScroll } from '@primeuix/utils';
 import { ZIndexUtils } from 'primeng/utils';
-import { BaseComponent } from 'primeng/basecomponent';
 import { BlockUiStyle } from './style/blockuistyle';
-import { SharedModule } from 'primeng/api';
 
 /**
  * BlockUI can either block other components or the whole page.
@@ -105,7 +104,7 @@ export class BlockUI extends BaseComponent implements AfterViewInit, OnDestroy {
                 this.target.getBlockableElement().style.position = 'relative';
             } else {
                 this.renderer.appendChild(this.document.body, (this.mask as ElementRef).nativeElement);
-                DomHandler.blockBodyScroll();
+                blockBodyScroll();
             }
 
             if (this.autoZIndex) {
@@ -119,7 +118,7 @@ export class BlockUI extends BaseComponent implements AfterViewInit, OnDestroy {
             // this.animationEndListener = this.renderer.listen(this.mask.nativeElement, 'animationend', this.destroyModal.bind(this));
             // TODO Add animation
             this.destroyModal();
-            DomHandler.addClass(this.mask.nativeElement, 'p-overlay-mask-leave');
+            addClass(this.mask.nativeElement, 'p-overlay-mask-leave');
         }
     }
 
@@ -127,9 +126,9 @@ export class BlockUI extends BaseComponent implements AfterViewInit, OnDestroy {
         this._blocked = false;
         if (this.mask && isPlatformBrowser(this.platformId)) {
             ZIndexUtils.clear(this.mask.nativeElement);
-            DomHandler.removeClass(this.mask.nativeElement, 'p-overlay-mask-leave');
+            removeClass(this.mask.nativeElement, 'p-overlay-mask-leave');
             this.renderer.removeChild(this.el.nativeElement, this.mask.nativeElement);
-            DomHandler.unblockBodyScroll();
+            unblockBodyScroll();
         }
         this.unbindAnimationEndListener();
         this.cd.markForCheck();

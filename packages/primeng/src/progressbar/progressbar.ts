@@ -1,8 +1,7 @@
 import { CommonModule } from '@angular/common';
 import { booleanAttribute, ChangeDetectionStrategy, Component, ContentChild, inject, Input, NgModule, numberAttribute, TemplateRef, ViewEncapsulation } from '@angular/core';
-import { BaseComponent } from 'primeng/basecomponent';
+import { BaseComponent, SharedModule } from '@primeng/core';
 import { ProgressBarStyle } from './style/progressbarstyle';
-import { SharedModule } from 'primeng/api';
 
 /**
  * ProgressBar is a process status indicator.

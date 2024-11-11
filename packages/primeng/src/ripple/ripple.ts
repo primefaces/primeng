@@ -1,7 +1,7 @@
 import { isPlatformBrowser } from '@angular/common';
 import { AfterViewInit, Directive, effect, inject, NgModule, NgZone, OnDestroy } from '@angular/core';
-import { BaseComponent } from 'primeng/basecomponent';
-import { DomHandler } from 'primeng/dom';
+import { BaseComponent } from '@primeng/core';
+import { addClass, getHeight, getOffset, getOuterHeight, getOuterWidth, getWidth, removeClass, remove as utils_remove } from '@primeuix/utils';
 import { VoidListener } from 'primeng/ts-helpers';
 import { RippleStyle } from './style/ripplestyle';
 
@@ -52,25 +52,25 @@ export class Ripple extends BaseComponent implements AfterViewInit, OnDestroy {
             return;
         }
 
-        DomHandler.removeClass(ink, 'p-ink-active');
-        if (!DomHandler.getHeight(ink) && !DomHandler.getWidth(ink)) {
-            let d = Math.max(DomHandler.getOuterWidth(this.el.nativeElement), DomHandler.getOuterHeight(this.el.nativeElement));
+        removeClass(ink, 'p-ink-active');
+        if (!getHeight(ink) && !getWidth(ink)) {
+            let d = Math.max(getOuterWidth(this.el.nativeElement), getOuterHeight(this.el.nativeElement));
             ink.style.height = d + 'px';
             ink.style.width = d + 'px';
         }
 
-        let offset = DomHandler.getOffset(this.el.nativeElement);
-        let x = event.pageX - offset.left + this.document.body.scrollTop - DomHandler.getWidth(ink) / 2;
-        let y = event.pageY - offset.top + this.document.body.scrollLeft - DomHandler.getHeight(ink) / 2;
+        let offset = <any>getOffset(this.el.nativeElement);
+        let x = event.pageX - offset.left + this.document.body.scrollTop - getWidth(ink) / 2;
+        let y = event.pageY - offset.top + this.document.body.scrollLeft - getHeight(ink) / 2;
 
         this.renderer.setStyle(ink, 'top', y + 'px');
         this.renderer.setStyle(ink, 'left', x + 'px');
-        DomHandler.addClass(ink, 'p-ink-active');
+        addClass(ink, 'p-ink-active');
 
         this.timeout = setTimeout(() => {
             let ink = this.getInk();
             if (ink) {
-                DomHandler.removeClass(ink, 'p-ink-active');
+                removeClass(ink, 'p-ink-active');
             }
         }, 401);
     }
@@ -88,7 +88,7 @@ export class Ripple extends BaseComponent implements AfterViewInit, OnDestroy {
     resetInk() {
         let ink = this.getInk();
         if (ink) {
-            DomHandler.removeClass(ink, 'p-ink-active');
+            removeClass(ink, 'p-ink-active');
         }
     }
 
@@ -96,7 +96,7 @@ export class Ripple extends BaseComponent implements AfterViewInit, OnDestroy {
         if (this.timeout) {
             clearTimeout(this.timeout);
         }
-        DomHandler.removeClass(event.currentTarget, 'p-ink-active');
+        removeClass(event.currentTarget as any, 'p-ink-active');
     }
 
     create() {
@@ -119,7 +119,7 @@ export class Ripple extends BaseComponent implements AfterViewInit, OnDestroy {
             this.mouseDownListener = null;
             this.animationListener = null;
 
-            DomHandler.removeElement(ink);
+            utils_remove(ink);
         }
     }
 

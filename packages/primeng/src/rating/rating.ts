@@ -1,17 +1,13 @@
 import { CommonModule } from '@angular/common';
 import { booleanAttribute, ChangeDetectionStrategy, Component, ContentChild, EventEmitter, forwardRef, inject, Input, NgModule, numberAttribute, OnInit, Output, signal, TemplateRef, ViewEncapsulation } from '@angular/core';
 import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
-import { BanIcon } from 'primeng/icons/ban';
-import { StarIcon } from 'primeng/icons/star';
-import { StarFillIcon } from 'primeng/icons/starfill';
+import { BaseComponent, SharedModule } from '@primeng/core';
+import { BanIcon, StarFillIcon, StarIcon } from '@primeng/icons';
+import { focus, getFirstFocusableElement, uuid } from '@primeuix/utils';
+import { AutoFocus } from 'primeng/autofocus';
 import { Nullable } from 'primeng/ts-helpers';
 import { RatingRateEvent } from './rating.interface';
-import { DomHandler } from 'primeng/dom';
-import { UniqueComponentId } from 'primeng/utils';
-import { AutoFocus } from 'primeng/autofocus';
 import { RatingStyle } from './style/ratingstyle';
-import { BaseComponent } from 'primeng/basecomponent';
-import { SharedModule } from 'primeng/api';
 
 export const RATING_VALUE_ACCESSOR: any = {
     provide: NG_VALUE_ACCESSOR,
@@ -179,7 +175,7 @@ export class Rating extends BaseComponent implements OnInit, ControlValueAccesso
 
     ngOnInit() {
         super.ngOnInit();
-        this.nameattr = this.nameattr || UniqueComponentId();
+        this.nameattr = this.nameattr || uuid('pn_id_');
         this.starsArray = [];
         for (let i = 0; i < this.stars; i++) {
             this.starsArray[i] = i;
@@ -190,9 +186,9 @@ export class Rating extends BaseComponent implements OnInit, ControlValueAccesso
         if (!this.readonly && !this.disabled) {
             this.onOptionSelect(event, value);
             this.isFocusVisibleItem = false;
-            const firstFocusableEl = DomHandler.getFirstFocusableElement(event.currentTarget, '');
+            const firstFocusableEl = <any>getFirstFocusableElement(event.currentTarget, '');
 
-            firstFocusableEl && DomHandler.focus(firstFocusableEl);
+            firstFocusableEl && focus(firstFocusableEl);
         }
     }
 

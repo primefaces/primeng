@@ -2,13 +2,13 @@ import { animate, AnimationEvent, style, transition, trigger } from '@angular/an
 import { CommonModule, isPlatformBrowser } from '@angular/common';
 import { booleanAttribute, ChangeDetectionStrategy, Component, ElementRef, EventEmitter, forwardRef, inject, Input, NgModule, numberAttribute, OnDestroy, Output, TemplateRef, ViewChild, ViewEncapsulation } from '@angular/core';
 import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
-import { OverlayService, SharedModule, TranslationKeys } from 'primeng/api';
-import { ConnectedOverlayScrollHandler, DomHandler } from 'primeng/dom';
+import { BaseComponent, OverlayService, SharedModule, TranslationKeys } from '@primeng/core';
+import { absolutePosition, appendChild, isTouchDevice, relativePosition } from '@primeuix/utils';
 import { AutoFocusModule } from 'primeng/autofocus';
+import { ConnectedOverlayScrollHandler } from 'primeng/dom';
 import { Nullable, VoidListener } from 'primeng/ts-helpers';
 import { ZIndexUtils } from 'primeng/utils';
 import { ColorPickerChangeEvent } from './colorpicker.interface';
-import { BaseComponent } from 'primeng/basecomponent';
 import { ColorPickerStyle } from './style/colorpickerstyle';
 
 export const COLORPICKER_VALUE_ACCESSOR: any = {
@@ -463,7 +463,7 @@ export class ColorPicker extends BaseComponent implements ControlValueAccessor, 
     appendOverlay() {
         if (this.appendTo) {
             if (this.appendTo === 'body') this.renderer.appendChild(this.document.body, this.overlay);
-            else DomHandler.appendChild(this.overlay, this.appendTo);
+            else appendChild(this.overlay, this.appendTo);
         }
     }
 
@@ -474,8 +474,8 @@ export class ColorPicker extends BaseComponent implements ControlValueAccessor, 
     }
 
     alignOverlay() {
-        if (this.appendTo) DomHandler.absolutePosition(this.overlay, this.inputViewChild?.nativeElement);
-        else DomHandler.relativePosition(this.overlay, this.inputViewChild?.nativeElement);
+        if (this.appendTo) absolutePosition(this.overlay, this.inputViewChild?.nativeElement);
+        else relativePosition(this.overlay, this.inputViewChild?.nativeElement);
     }
 
     hide() {
@@ -613,7 +613,7 @@ export class ColorPicker extends BaseComponent implements ControlValueAccessor, 
     }
 
     onWindowResize() {
-        if (this.overlayVisible && !DomHandler.isTouchDevice()) {
+        if (this.overlayVisible && !isTouchDevice()) {
             this.hide();
         }
     }

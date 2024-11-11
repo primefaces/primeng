@@ -23,17 +23,14 @@ import {
     ViewEncapsulation
 } from '@angular/core';
 import { ControlValueAccessor, NG_VALUE_ACCESSOR, NgControl } from '@angular/forms';
-import { SharedModule } from 'primeng/api';
+import { BaseComponent, SharedModule } from '@primeng/core';
+import { AngleDownIcon, AngleUpIcon, TimesIcon } from '@primeng/icons';
+import { getSelection } from '@primeuix/utils';
 import { AutoFocus } from 'primeng/autofocus';
 import { Button } from 'primeng/button';
-import { DomHandler } from 'primeng/dom';
-import { AngleDownIcon } from 'primeng/icons/angledown';
-import { AngleUpIcon } from 'primeng/icons/angleup';
-import { TimesIcon } from 'primeng/icons/times';
 import { InputText } from 'primeng/inputtext';
 import { Nullable } from 'primeng/ts-helpers';
 import { InputNumberInputEvent } from './inputnumber.interface';
-import { BaseComponent } from 'primeng/basecomponent';
 import { InputNumberStyle } from './style/inputnumberstyle';
 
 export const INPUTNUMBER_VALUE_ACCESSOR: any = {
@@ -1288,7 +1285,7 @@ export class InputNumber extends BaseComponent implements OnInit, AfterContentIn
     onInputClick() {
         const currentValue = this.input?.nativeElement.value;
 
-        if (!this.readonly && currentValue !== DomHandler.getSelection()) {
+        if (!this.readonly && currentValue !== getSelection()) {
             this.initCursor();
         }
     }

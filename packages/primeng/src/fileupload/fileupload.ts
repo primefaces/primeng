@@ -21,20 +21,18 @@ import {
     ViewEncapsulation
 } from '@angular/core';
 import { DomSanitizer } from '@angular/platform-browser';
-import { BlockableUI, SharedModule, TranslationKeys } from 'primeng/api';
+import { BaseComponent, SharedModule, TranslationKeys } from '@primeng/core';
+import { PlusIcon, TimesIcon, UploadIcon } from '@primeng/icons';
+import { addClass, removeClass } from '@primeuix/utils';
+import { BlockableUI } from 'primeng/api';
 import { Button } from 'primeng/button';
-import { DomHandler } from 'primeng/dom';
-import { PlusIcon } from 'primeng/icons/plus';
-import { TimesIcon } from 'primeng/icons/times';
-import { UploadIcon } from 'primeng/icons/upload';
+import { Message } from 'primeng/message';
 import { ProgressBar } from 'primeng/progressbar';
 import { Ripple } from 'primeng/ripple';
 import { VoidListener } from 'primeng/ts-helpers';
 import { Subscription } from 'rxjs';
 import { FileBeforeUploadEvent, FileProgressEvent, FileRemoveEvent, FileSelectEvent, FileSendEvent, FileUploadErrorEvent, FileUploadEvent, FileUploadHandlerEvent, RemoveUploadedFileEvent } from './fileupload.interface';
 import { FileUploadStyle } from './style/fileuploadstyle';
-import { BaseComponent } from 'primeng/basecomponent';
-import { Message } from 'primeng/message';
 
 /**
  * FileUpload is an advanced uploader with dragdrop support, multi file uploads, auto uploading, progress tracking and validations.
@@ -910,7 +908,7 @@ export class FileUpload extends BaseComponent implements AfterViewInit, OnInit, 
 
     onDragOver(e: DragEvent) {
         if (!this.disabled) {
-            DomHandler.addClass(this.content?.nativeElement, 'p-fileupload-highlight');
+            addClass(this.content?.nativeElement, 'p-fileupload-highlight');
             this.dragHighlight = true;
             e.stopPropagation();
             e.preventDefault();
@@ -919,13 +917,13 @@ export class FileUpload extends BaseComponent implements AfterViewInit, OnInit, 
 
     onDragLeave(event: DragEvent) {
         if (!this.disabled) {
-            DomHandler.removeClass(this.content?.nativeElement, 'p-fileupload-highlight');
+            removeClass(this.content?.nativeElement, 'p-fileupload-highlight');
         }
     }
 
     onDrop(event: any) {
         if (!this.disabled) {
-            DomHandler.removeClass(this.content?.nativeElement, 'p-fileupload-highlight');
+            removeClass(this.content?.nativeElement, 'p-fileupload-highlight');
             event.stopPropagation();
             event.preventDefault();
 

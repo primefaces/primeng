@@ -1,11 +1,10 @@
-import { TestBed, ComponentFixture, fakeAsync, tick, async } from '@angular/core/testing';
-import { By } from '@angular/platform-browser';
-import { TreeTable, TreeTableModule, TTScrollableView } from './treetable';
-import { NoopAnimationsModule } from '@angular/platform-browser/animations';
-import { FormsModule } from '@angular/forms';
 import { Component } from '@angular/core';
-import { ContextMenuModule, ContextMenu } from 'primeng/contextmenu';
-import { MinusIcon } from 'primeng/icons/minus';
+import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import { FormsModule } from '@angular/forms';
+import { By } from '@angular/platform-browser';
+import { NoopAnimationsModule } from '@angular/platform-browser/animations';
+import { ContextMenu, ContextMenuModule } from 'primeng/contextmenu';
+import { TreeTable, TreeTableModule } from './treetable';
 
 @Component({
     template: `

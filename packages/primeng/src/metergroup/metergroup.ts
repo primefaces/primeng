@@ -1,9 +1,8 @@
 import { CommonModule } from '@angular/common';
 import { ChangeDetectionStrategy, Component, ContentChild, ElementRef, forwardRef, inject, Input, NgModule, TemplateRef, ViewChild, ViewEncapsulation } from '@angular/core';
-import { SharedModule } from 'primeng/api';
-import { DomHandler } from 'primeng/dom';
+import { BaseComponent, SharedModule } from '@primeng/core';
+import { getOuterHeight } from '@primeuix/utils';
 import { MeterItem } from './metergroup.interface';
-import { BaseComponent } from 'primeng/basecomponent';
 import { MeterGroupStyle } from './style/metergroupstyle';
 
 @Component({
@@ -164,7 +163,7 @@ export class MeterGroup extends BaseComponent {
     ngAfterViewInit() {
         super.ngAfterViewInit();
         const _container = this.container.nativeElement;
-        const height = DomHandler.getOuterHeight(_container);
+        const height = getOuterHeight(_container);
         this.vertical && (_container.style.height = height + 'px');
     }
 

@@ -1,17 +1,12 @@
-import { TestBed, ComponentFixture } from '@angular/core/testing';
-import { By } from '@angular/platform-browser';
-import { Messages } from './messages';
-import { NoopAnimationsModule } from '@angular/platform-browser/animations';
-import { Component, NO_ERRORS_SCHEMA } from '@angular/core';
-import { Button } from 'primeng/button';
+import { Component } from '@angular/core';
+import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { FormsModule } from '@angular/forms';
-import { MessageService } from 'primeng/api';
-import { ToastMessageOptions } from 'primeng/api';
-import { CheckIcon } from 'primeng/icons/check';
-import { TimesCircleIcon } from 'primeng/icons/timescircle';
-import { ExclamationTriangleIcon } from 'primeng/icons/exclamationtriangle';
-import { InfoCircleIcon } from 'primeng/icons/infocircle';
-import { TimesIcon } from 'primeng/icons/times';
+import { By } from '@angular/platform-browser';
+import { NoopAnimationsModule } from '@angular/platform-browser/animations';
+import { CheckIcon, ExclamationTriangleIcon, InfoCircleIcon, TimesCircleIcon, TimesIcon } from '@primeng/icons';
+import { MessageService, ToastMessageOptions } from 'primeng/api';
+import { Button } from 'primeng/button';
+import { Messages } from './messages';
 
 @Component({
     template: `

@@ -1,7 +1,7 @@
-import { ChangeDetectionStrategy, Component, computed, forwardRef, inject, model, ViewEncapsulation } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { BaseComponent } from 'primeng/basecomponent';
-import { ObjectUtils } from 'primeng/utils';
+import { ChangeDetectionStrategy, Component, computed, forwardRef, inject, model, ViewEncapsulation } from '@angular/core';
+import { BaseComponent } from '@primeng/core';
+import { equals } from '@primeuix/utils';
 import { Tabs } from './tabs';
 
 /**
@@ -40,5 +40,5 @@ export class TabPanel extends BaseComponent {
 
     ariaLabelledby = computed(() => `${this.pcTabs.id()}_tab_${this.value()}`);
 
-    active = computed(() => ObjectUtils.equals(this.pcTabs.value(), this.value()));
+    active = computed(() => equals(this.pcTabs.value(), this.value()));
 }

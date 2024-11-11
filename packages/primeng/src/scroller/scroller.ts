@@ -20,13 +20,13 @@ import {
     ViewChild,
     ViewEncapsulation
 } from '@angular/core';
-import { PrimeTemplate, ScrollerOptions, SharedModule } from 'primeng/api';
-import { DomHandler } from 'primeng/dom';
-import { SpinnerIcon } from 'primeng/icons/spinner';
+import { BaseComponent, PrimeTemplate, SharedModule } from '@primeng/core';
+import { SpinnerIcon } from '@primeng/icons';
+import { findSingle, getHeight, getWidth, isTouchDevice, isVisible } from '@primeuix/utils';
+import { ScrollerOptions } from 'primeng/api';
 import { Nullable, VoidListener } from 'primeng/ts-helpers';
 import { ScrollerLazyLoadEvent, ScrollerScrollEvent, ScrollerScrollIndexChangeEvent, ScrollerToType } from './scroller.interface';
 import { ScrollerStyle } from './style/scrollerstyle';
-import { BaseComponent } from 'primeng/basecomponent';
 
 /**
  * Scroller is a performance-approach to handle huge data efficiently.
@@ -637,15 +637,15 @@ export class Scroller extends BaseComponent implements OnInit, AfterContentInit,
 
     viewInit() {
         if (isPlatformBrowser(this.platformId) && !this.initialized) {
-            if (DomHandler.isVisible(this.elementViewChild?.nativeElement)) {
+            if (isVisible(this.elementViewChild?.nativeElement)) {
                 this.setInitialState();
                 this.setContentEl(this.contentEl);
                 this.init();
 
-                this.defaultWidth = DomHandler.getWidth(this.elementViewChild?.nativeElement);
-                this.defaultHeight = DomHandler.getHeight(this.elementViewChild?.nativeElement);
-                this.defaultContentWidth = DomHandler.getWidth(this.contentEl);
-                this.defaultContentHeight = DomHandler.getHeight(this.contentEl);
+                this.defaultWidth = getWidth(this.elementViewChild?.nativeElement);
+                this.defaultHeight = getHeight(this.elementViewChild?.nativeElement);
+                this.defaultContentWidth = getWidth(this.contentEl);
+                this.defaultContentHeight = getHeight(this.contentEl);
                 this.initialized = true;
             }
         }
@@ -663,7 +663,7 @@ export class Scroller extends BaseComponent implements OnInit, AfterContentInit,
     }
 
     setContentEl(el?: HTMLElement) {
-        this.contentEl = el || this.contentViewChild?.nativeElement || DomHandler.findSingle(this.elementViewChild?.nativeElement, '.p-virtualscroller-content');
+        this.contentEl = el || this.contentViewChild?.nativeElement || findSingle(this.elementViewChild?.nativeElement, '.p-virtualscroller-content');
     }
 
     setInitialState() {
@@ -862,11 +862,11 @@ export class Scroller extends BaseComponent implements OnInit, AfterContentInit,
                     this.contentEl.style.position = 'relative';
                     (<ElementRef>this.elementViewChild).nativeElement.style.contain = 'none';
 
-                    const [contentWidth, contentHeight] = [DomHandler.getWidth(this.contentEl), DomHandler.getHeight(this.contentEl)];
+                    const [contentWidth, contentHeight] = [getWidth(this.contentEl), getHeight(this.contentEl)];
                     contentWidth !== this.defaultContentWidth && ((<ElementRef>this.elementViewChild).nativeElement.style.width = '');
                     contentHeight !== this.defaultContentHeight && ((<ElementRef>this.elementViewChild).nativeElement.style.height = '');
 
-                    const [width, height] = [DomHandler.getWidth((<ElementRef>this.elementViewChild).nativeElement), DomHandler.getHeight((<ElementRef>this.elementViewChild).nativeElement)];
+                    const [width, height] = [getWidth((<ElementRef>this.elementViewChild).nativeElement), getHeight((<ElementRef>this.elementViewChild).nativeElement)];
                     (this.both || this.horizontal) && ((<ElementRef>this.elementViewChild).nativeElement.style.width = width < <number>this.defaultWidth ? width + 'px' : this._scrollWidth || this.defaultWidth + 'px');
                     (this.both || this.vertical) && ((<ElementRef>this.elementViewChild).nativeElement.style.height = height < <number>this.defaultHeight ? height + 'px' : this._scrollHeight || this.defaultHeight + 'px');
 
@@ -1089,7 +1089,7 @@ export class Scroller extends BaseComponent implements OnInit, AfterContentInit,
             if (!this.windowResizeListener) {
                 this.zone.runOutsideAngular(() => {
                     const window = this.document.defaultView as Window;
-                    const event = DomHandler.isTouchDevice() ? 'orientationchange' : 'resize';
+                    const event = isTouchDevice() ? 'orientationchange' : 'resize';
                     this.windowResizeListener = this.renderer.listen(window, event, this.onWindowResize.bind(this));
                 });
             }
@@ -1109,8 +1109,8 @@ export class Scroller extends BaseComponent implements OnInit, AfterContentInit,
         }
 
         this.resizeTimeout = setTimeout(() => {
-            if (DomHandler.isVisible(this.elementViewChild?.nativeElement)) {
-                const [width, height] = [DomHandler.getWidth(this.elementViewChild?.nativeElement), DomHandler.getHeight(this.elementViewChild?.nativeElement)];
+            if (isVisible(this.elementViewChild?.nativeElement)) {
+                const [width, height] = [getWidth(this.elementViewChild?.nativeElement), getHeight(this.elementViewChild?.nativeElement)];
                 const [isDiffWidth, isDiffHeight] = [width !== this.defaultWidth, height !== this.defaultHeight];
                 const reinit = this.both ? isDiffWidth || isDiffHeight : this.horizontal ? isDiffWidth : this.vertical ? isDiffHeight : false;
 
@@ -1119,8 +1119,8 @@ export class Scroller extends BaseComponent implements OnInit, AfterContentInit,
                         this.d_numToleratedItems = this._numToleratedItems;
                         this.defaultWidth = width;
                         this.defaultHeight = height;
-                        this.defaultContentWidth = DomHandler.getWidth(this.contentEl);
-                        this.defaultContentHeight = DomHandler.getHeight(this.contentEl);
+                        this.defaultContentWidth = getWidth(this.contentEl);
+                        this.defaultContentHeight = getHeight(this.contentEl);
 
                         this.init();
                     });

@@ -27,15 +27,16 @@ import {
 } from '@angular/core';
 import { DomSanitizer, SafeHtml } from '@angular/platform-browser';
 import { RouterModule } from '@angular/router';
-import { MenuItem, OverlayService, SharedModule } from 'primeng/api';
-import { ConnectedOverlayScrollHandler, DomHandler } from 'primeng/dom';
+import { BaseComponent, OverlayService, SharedModule } from '@primeng/core';
+import { absolutePosition, appendChild, find, findSingle, focus, isTouchDevice, relativePosition, uuid } from '@primeuix/utils';
+import { MenuItem } from 'primeng/api';
+import { BadgeModule } from 'primeng/badge';
+import { ConnectedOverlayScrollHandler } from 'primeng/dom';
 import { Ripple } from 'primeng/ripple';
 import { TooltipModule } from 'primeng/tooltip';
 import { Nullable, VoidListener } from 'primeng/ts-helpers';
-import { UniqueComponentId, ZIndexUtils } from 'primeng/utils';
+import { ZIndexUtils } from 'primeng/utils';
 import { MenuStyle } from './style/menustyle';
-import { BaseComponent } from 'primeng/basecomponent';
-import { BadgeModule } from 'primeng/badge';
 
 @Pipe({
     name: 'safeHtml',
@@ -385,7 +386,7 @@ export class Menu extends BaseComponent implements OnDestroy {
 
     constructor(public overlayService: OverlayService) {
         super();
-        this.id = this.id || UniqueComponentId();
+        this.id = this.id || uuid('pn_id_');
     }
     /**
      * Toggles the visibility of the popup menu.
@@ -491,7 +492,7 @@ export class Menu extends BaseComponent implements OnDestroy {
                     this.bindDocumentClickListener();
                     this.bindDocumentResizeListener();
                     this.bindScrollListener();
-                    DomHandler.focus(this.listViewChild.nativeElement);
+                    focus(this.listViewChild.nativeElement);
                 }
                 break;
 
@@ -513,14 +514,14 @@ export class Menu extends BaseComponent implements OnDestroy {
     }
 
     alignOverlay() {
-        if (this.relativeAlign) DomHandler.relativePosition(this.container, this.target);
-        else DomHandler.absolutePosition(this.container, this.target);
+        if (this.relativeAlign) relativePosition(this.container, this.target);
+        else absolutePosition(this.container, this.target);
     }
 
     appendOverlay() {
         if (this.appendTo) {
             if (this.appendTo === 'body') this.renderer.appendChild(this.document.body, this.container);
-            else DomHandler.appendChild(this.container, this.appendTo);
+            else appendChild(this.container, this.appendTo);
         }
     }
 
@@ -546,7 +547,7 @@ export class Menu extends BaseComponent implements OnDestroy {
     }
 
     onWindowResize() {
-        if (this.visible && !DomHandler.isTouchDevice()) {
+        if (this.visible && !isTouchDevice()) {
             this.hide();
         }
     }
@@ -621,7 +622,7 @@ export class Menu extends BaseComponent implements OnDestroy {
             case 'Escape':
             case 'Tab':
                 if (this.popup) {
-                    DomHandler.focus(this.target);
+                    focus(this.target);
                     this.hide();
                 }
                 this.overlayVisible && this.hide();
@@ -640,7 +641,7 @@ export class Menu extends BaseComponent implements OnDestroy {
 
     onArrowUpKey(event) {
         if (event.altKey && this.popup) {
-            DomHandler.focus(this.target);
+            focus(this.target);
             this.hide();
             event.preventDefault();
         } else {
@@ -657,15 +658,15 @@ export class Menu extends BaseComponent implements OnDestroy {
     }
 
     onEndKey(event) {
-        this.changeFocusedOptionIndex(DomHandler.find(this.containerViewChild.nativeElement, 'li[data-pc-section="menuitem"][data-p-disabled="false"]').length - 1);
+        this.changeFocusedOptionIndex(find(this.containerViewChild.nativeElement, 'li[data-pc-section="menuitem"][data-p-disabled="false"]').length - 1);
         event.preventDefault();
     }
 
     onEnterKey(event) {
-        const element = DomHandler.findSingle(this.containerViewChild.nativeElement, `li[id="${`${this.focusedOptionIndex()}`}"]`);
-        const anchorElement = element && DomHandler.findSingle(element, 'a[data-pc-section="action"]');
+        const element = <any>findSingle(this.containerViewChild.nativeElement, `li[id="${`${this.focusedOptionIndex()}`}"]`);
+        const anchorElement = element && <any>findSingle(element, 'a[data-pc-section="action"]');
 
-        this.popup && DomHandler.focus(this.target);
+        this.popup && focus(this.target);
         anchorElement ? anchorElement.click() : element && element.click();
 
         event.preventDefault();
@@ -676,21 +677,21 @@ export class Menu extends BaseComponent implements OnDestroy {
     }
 
     findNextOptionIndex(index) {
-        const links = DomHandler.find(this.containerViewChild.nativeElement, 'li[data-pc-section="menuitem"][data-p-disabled="false"]');
+        const links = find(this.containerViewChild.nativeElement, 'li[data-pc-section="menuitem"][data-p-disabled="false"]');
         const matchedOptionIndex = [...links].findIndex((link) => link.id === index);
 
         return matchedOptionIndex > -1 ? matchedOptionIndex + 1 : 0;
     }
 
     findPrevOptionIndex(index) {
-        const links = DomHandler.find(this.containerViewChild.nativeElement, 'li[data-pc-section="menuitem"][data-p-disabled="false"]');
+        const links = find(this.containerViewChild.nativeElement, 'li[data-pc-section="menuitem"][data-p-disabled="false"]');
         const matchedOptionIndex = [...links].findIndex((link) => link.id === index);
 
         return matchedOptionIndex > -1 ? matchedOptionIndex - 1 : 0;
     }
 
     changeFocusedOptionIndex(index) {
-        const links = DomHandler.find(this.containerViewChild.nativeElement, 'li[data-pc-section="menuitem"][data-p-disabled="false"]');
+        const links = find(this.containerViewChild.nativeElement, 'li[data-pc-section="menuitem"][data-p-disabled="false"]');
 
         if (links.length > 0) {
             let order = index >= links.length ? links.length - 1 : index < 0 ? 0 : index;

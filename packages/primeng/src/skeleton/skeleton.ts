@@ -1,8 +1,7 @@
 import { CommonModule } from '@angular/common';
 import { ChangeDetectionStrategy, Component, inject, Input, NgModule, ViewEncapsulation } from '@angular/core';
-import { BaseComponent } from 'primeng/basecomponent';
+import { BaseComponent, SharedModule } from '@primeng/core';
 import { SkeletonStyle } from './style/skeletonstyle';
-import { SharedModule } from 'primeng/api';
 
 /**
  * Skeleton is a placeholder to display instead of the actual content.

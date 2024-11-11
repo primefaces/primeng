@@ -1,12 +1,10 @@
-import { AfterContentInit, AfterViewInit, ChangeDetectionStrategy, Component, computed, ContentChild, effect, ElementRef, forwardRef, inject, signal, TemplateRef, ViewChild, ViewEncapsulation } from '@angular/core';
 import { CommonModule, isPlatformBrowser } from '@angular/common';
-import { ChevronLeftIcon } from 'primeng/icons/chevronleft';
-import { ChevronRightIcon } from 'primeng/icons/chevronright';
+import { AfterContentInit, AfterViewInit, ChangeDetectionStrategy, Component, computed, ContentChild, effect, ElementRef, forwardRef, inject, signal, TemplateRef, ViewChild, ViewEncapsulation } from '@angular/core';
+import { BaseComponent, SharedModule } from '@primeng/core';
+import { ChevronLeftIcon, ChevronRightIcon } from '@primeng/icons';
+import { findSingle, getHeight, getOffset, getOuterWidth, getWidth } from '@primeuix/utils';
 import { RippleModule } from 'primeng/ripple';
-import { BaseComponent } from 'primeng/basecomponent';
 import { Tabs } from './tabs';
-import { DomHandler } from 'primeng/dom';
-import { SharedModule } from 'primeng/api';
 
 /**
  * TabList is a helper component for Tabs component.
@@ -142,7 +140,7 @@ export class TabList extends BaseComponent implements AfterViewInit, AfterConten
 
     onPrevButtonClick() {
         const _content = this.content.nativeElement;
-        const width = DomHandler.getWidth(_content);
+        const width = getWidth(_content);
 
         const pos = _content.scrollLeft - width;
 
@@ -151,7 +149,7 @@ export class TabList extends BaseComponent implements AfterViewInit, AfterConten
 
     onNextButtonClick() {
         const _content = this.content.nativeElement;
-        const width = DomHandler.getWidth(_content) - this.getVisibleButtonWidths();
+        const width = getWidth(_content) - this.getVisibleButtonWidths();
         const pos = _content.scrollLeft + width;
         const lastPos = _content.scrollWidth - width;
 
@@ -163,7 +161,7 @@ export class TabList extends BaseComponent implements AfterViewInit, AfterConten
         const _list = this.el?.nativeElement;
 
         const { scrollLeft, scrollTop, scrollWidth, scrollHeight, offsetWidth, offsetHeight } = _content;
-        const [width, height] = [DomHandler.getWidth(_content), DomHandler.getHeight(_content)];
+        const [width, height] = [getWidth(_content), getHeight(_content)];
 
         this.isPrevButtonEnabled.set(scrollLeft !== 0);
         this.isNextButtonEnabled.set(_list.offsetWidth >= offsetWidth && scrollLeft !== scrollWidth - width);
@@ -174,17 +172,17 @@ export class TabList extends BaseComponent implements AfterViewInit, AfterConten
         const _inkbar = this.inkbar.nativeElement;
         const _tabs = this.tabs.nativeElement;
 
-        const activeTab = DomHandler.findSingle(_content, '[data-pc-name="tab"][data-p-active="true"]');
+        const activeTab = findSingle(_content, '[data-pc-name="tab"][data-p-active="true"]');
 
-        _inkbar.style.width = DomHandler.getOuterWidth(activeTab) + 'px';
-        _inkbar.style.left = DomHandler.getOffset(activeTab).left - DomHandler.getOffset(_tabs).left + 'px';
+        _inkbar.style.width = getOuterWidth(activeTab) + 'px';
+        _inkbar.style.left = <any>getOffset(activeTab).left - <any>getOffset(_tabs).left + 'px';
     }
 
     getVisibleButtonWidths() {
         const _prevBtn = this.prevButton?.nativeElement;
         const _nextBtn = this.nextButton?.nativeElement;
 
-        return [_prevBtn, _nextBtn].reduce((acc, el) => (el ? acc + DomHandler.getWidth(el) : acc), 0);
+        return [_prevBtn, _nextBtn].reduce((acc, el) => (el ? acc + getWidth(el) : acc), 0);
     }
 
     bindResizeObserver() {

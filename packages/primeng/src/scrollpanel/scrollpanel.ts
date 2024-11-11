@@ -1,11 +1,9 @@
 import { CommonModule, isPlatformBrowser } from '@angular/common';
 import { AfterViewInit, ChangeDetectionStrategy, Component, ContentChild, ElementRef, inject, Input, NgModule, NgZone, numberAttribute, OnDestroy, TemplateRef, ViewChild, ViewEncapsulation } from '@angular/core';
-import { DomHandler } from 'primeng/dom';
+import { BaseComponent, SharedModule } from '@primeng/core';
+import { addClass, getHeight, removeClass, uuid } from '@primeuix/utils';
 import { Nullable } from 'primeng/ts-helpers';
-import { UniqueComponentId } from 'primeng/utils';
-import { BaseComponent } from 'primeng/basecomponent';
 import { ScrollPanelStyle } from './style/scrollpanelstyle';
-import { SharedModule } from 'primeng/api';
 
 /**
  * ScrollPanel is a cross browser, lightweight and themable alternative to native browser scrollbar.
@@ -136,7 +134,7 @@ export class ScrollPanel extends BaseComponent implements AfterViewInit, OnDestr
 
     ngOnInit() {
         super.ngOnInit();
-        this.contentId = UniqueComponentId() + '_content';
+        this.contentId = uuid('pn_id_') + '_content';
     }
 
     ngAfterViewInit() {
@@ -170,7 +168,7 @@ export class ScrollPanel extends BaseComponent implements AfterViewInit, OnDestr
 
         let containerStyles: { [klass: string]: any } = window.getComputedStyle(container),
             xBarStyles = window.getComputedStyle(xBar),
-            pureContainerHeight = DomHandler.getHeight(container) - parseInt(xBarStyles['height'], 10);
+            pureContainerHeight = getHeight(container) - parseInt(xBarStyles['height'], 10);
 
         if (containerStyles['max-height'] != 'none' && pureContainerHeight == 0) {
             if (content.offsetHeight + parseInt(xBarStyles['height'], 10) > parseInt(containerStyles['max-height'], 10)) {
@@ -204,10 +202,10 @@ export class ScrollPanel extends BaseComponent implements AfterViewInit, OnDestr
         this.requestAnimationFrame(() => {
             if ((this.scrollXRatio as number) >= 1) {
                 xBar.setAttribute('data-p-scrollpanel-hidden', 'true');
-                DomHandler.addClass(xBar, 'p-scrollpanel-hidden');
+                addClass(xBar, 'p-scrollpanel-hidden');
             } else {
                 xBar.setAttribute('data-p-scrollpanel-hidden', 'false');
-                DomHandler.removeClass(xBar, 'p-scrollpanel-hidden');
+                removeClass(xBar, 'p-scrollpanel-hidden');
                 const xBarWidth = Math.max((this.scrollXRatio as number) * 100, 10);
                 const xBarLeft = (content.scrollLeft * (100 - xBarWidth)) / (totalWidth - ownWidth);
                 xBar.style.cssText = 'width:' + xBarWidth + '%; left:' + xBarLeft + '%;bottom:' + bottom + 'px;';
@@ -215,10 +213,10 @@ export class ScrollPanel extends BaseComponent implements AfterViewInit, OnDestr
 
             if ((this.scrollYRatio as number) >= 1) {
                 yBar.setAttribute('data-p-scrollpanel-hidden', 'true');
-                DomHandler.addClass(yBar, 'p-scrollpanel-hidden');
+                addClass(yBar, 'p-scrollpanel-hidden');
             } else {
                 yBar.setAttribute('data-p-scrollpanel-hidden', 'false');
-                DomHandler.removeClass(yBar, 'p-scrollpanel-hidden');
+                removeClass(yBar, 'p-scrollpanel-hidden');
                 const yBarHeight = Math.max((this.scrollYRatio as number) * 100, 10);
                 const yBarTop = (content.scrollTop * (100 - yBarHeight)) / (totalHeight - ownHeight);
                 yBar.style.cssText = 'height:' + yBarHeight + '%; top: calc(' + yBarTop + '% - ' + xBar.clientHeight + 'px);right:' + right + 'px;';
@@ -349,10 +347,10 @@ export class ScrollPanel extends BaseComponent implements AfterViewInit, OnDestr
         this.lastPageY = e.pageY;
 
         this.yBarViewChild.nativeElement.setAttribute('data-p-scrollpanel-grabbed', 'true');
-        DomHandler.addClass((this.yBarViewChild as ElementRef).nativeElement, 'p-scrollpanel-grabbed');
+        addClass((this.yBarViewChild as ElementRef).nativeElement, 'p-scrollpanel-grabbed');
 
         this.document.body.setAttribute('data-p-scrollpanel-grabbed', 'true');
-        DomHandler.addClass(this.document.body, 'p-scrollpanel-grabbed');
+        addClass(this.document.body, 'p-scrollpanel-grabbed');
         this.bindDocumentMouseListeners();
         e.preventDefault();
     }
@@ -363,10 +361,10 @@ export class ScrollPanel extends BaseComponent implements AfterViewInit, OnDestr
         this.lastPageX = e.pageX;
 
         this.xBarViewChild.nativeElement.setAttribute('data-p-scrollpanel-grabbed', 'false');
-        DomHandler.addClass((this.xBarViewChild as ElementRef).nativeElement, 'p-scrollpanel-grabbed');
+        addClass((this.xBarViewChild as ElementRef).nativeElement, 'p-scrollpanel-grabbed');
 
         this.document.body.setAttribute('data-p-scrollpanel-grabbed', 'false');
-        DomHandler.addClass(this.document.body, 'p-scrollpanel-grabbed');
+        addClass(this.document.body, 'p-scrollpanel-grabbed');
 
         this.bindDocumentMouseListeners();
         e.preventDefault();
@@ -427,11 +425,11 @@ export class ScrollPanel extends BaseComponent implements AfterViewInit, OnDestr
 
     onDocumentMouseUp(e: Event) {
         this.yBarViewChild.nativeElement.setAttribute('data-p-scrollpanel-grabbed', 'false');
-        DomHandler.removeClass((this.yBarViewChild as ElementRef).nativeElement, 'p-scrollpanel-grabbed');
+        removeClass((this.yBarViewChild as ElementRef).nativeElement, 'p-scrollpanel-grabbed');
         this.xBarViewChild.nativeElement.setAttribute('data-p-scrollpanel-grabbed', 'false');
-        DomHandler.removeClass((this.xBarViewChild as ElementRef).nativeElement, 'p-scrollpanel-grabbed');
+        removeClass((this.xBarViewChild as ElementRef).nativeElement, 'p-scrollpanel-grabbed');
         this.document.body.setAttribute('data-p-scrollpanel-grabbed', 'false');
-        DomHandler.removeClass(this.document.body, 'p-scrollpanel-grabbed');
+        removeClass(this.document.body, 'p-scrollpanel-grabbed');
 
         this.unbindDocumentMouseListeners();
         this.isXBarClicked = false;

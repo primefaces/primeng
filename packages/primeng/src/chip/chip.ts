@@ -1,9 +1,8 @@
 import { CommonModule } from '@angular/common';
 import { booleanAttribute, ChangeDetectionStrategy, Component, ContentChild, EventEmitter, inject, Input, NgModule, Output, SimpleChanges, TemplateRef, ViewEncapsulation } from '@angular/core';
-import { SharedModule, TranslationKeys } from 'primeng/api';
-import { TimesCircleIcon } from 'primeng/icons/timescircle';
+import { BaseComponent, SharedModule, TranslationKeys } from '@primeng/core';
+import { TimesCircleIcon } from '@primeng/icons';
 import { ChipProps } from './chip.interface';
-import { BaseComponent } from 'primeng/basecomponent';
 import { ChipStyle } from './style/chipstyle';
 
 /**

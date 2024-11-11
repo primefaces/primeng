@@ -1,13 +1,13 @@
 import { CommonModule } from '@angular/common';
 import { booleanAttribute, ChangeDetectionStrategy, Component, inject, input, model, NgModule, numberAttribute, signal, ViewEncapsulation } from '@angular/core';
 
-import { BaseComponent } from 'primeng/basecomponent';
+import { BaseComponent } from '@primeng/core';
+import { uuid } from '@primeuix/utils';
 import { TabsStyle } from './style/tabsstyle';
-import { UniqueComponentId } from 'primeng/utils';
-import { TabPanels } from './tabpanels';
-import { TabPanel } from './tabpanel';
 import { Tab } from './tab';
 import { TabList } from './tablist';
+import { TabPanel } from './tabpanel';
+import { TabPanels } from './tabpanels';
 
 /**
  * Tabs facilitates seamless switching between different views.
@@ -72,7 +72,7 @@ export class Tabs extends BaseComponent {
      */
     tabindex = input(0, { transform: numberAttribute });
 
-    id = signal<string>(UniqueComponentId());
+    id = signal<string>(uuid('pn_id_'));
 
     _componentStyle = inject(TabsStyle);
 

@@ -1,13 +1,10 @@
 import { CommonModule } from '@angular/common';
 import { booleanAttribute, ChangeDetectionStrategy, Component, computed, forwardRef, HostListener, inject, input, model, ViewEncapsulation } from '@angular/core';
-
-import { BaseComponent } from 'primeng/basecomponent';
-import { ObjectUtils } from 'primeng/utils';
+import { BaseComponent, SharedModule } from '@primeng/core';
+import { equals, focus, getAttribute } from '@primeuix/utils';
 import { Ripple } from 'primeng/ripple';
-import { DomHandler } from 'primeng/dom';
-import { Tabs } from './tabs';
 import { TabList } from './tablist';
-import { SharedModule } from 'primeng/api';
+import { Tabs } from './tabs';
 
 /**
  * Defines valid properties in Tab component.
@@ -59,7 +56,7 @@ export class Tab extends BaseComponent {
 
     ariaControls = computed(() => `${this.pcTabs.id()}_tabpanel_${this.value()}`);
 
-    active = computed(() => ObjectUtils.equals(this.pcTabs.value(), this.value()));
+    active = computed(() => equals(this.pcTabs.value(), this.value()));
 
     tabindex = computed(() => (this.active() ? this.pcTabs.tabindex() : -1));
 
@@ -155,13 +152,13 @@ export class Tab extends BaseComponent {
     findNextTab(tabElement, selfCheck = false) {
         const element = selfCheck ? tabElement : tabElement.nextElementSibling;
 
-        return element ? (DomHandler.getAttribute(element, 'data-p-disabled') || DomHandler.getAttribute(element, 'data-pc-section') === 'inkbar' ? this.findNextTab(element) : element) : null;
+        return element ? (getAttribute(element, 'data-p-disabled') || getAttribute(element, 'data-pc-section') === 'inkbar' ? this.findNextTab(element) : element) : null;
     }
 
     findPrevTab(tabElement, selfCheck = false) {
         const element = selfCheck ? tabElement : tabElement.previousElementSibling;
 
-        return element ? (DomHandler.getAttribute(element, 'data-p-disabled') || DomHandler.getAttribute(element, 'data-pc-section') === 'inkbar' ? this.findPrevTab(element) : element) : null;
+        return element ? (getAttribute(element, 'data-p-disabled') || getAttribute(element, 'data-pc-section') === 'inkbar' ? this.findPrevTab(element) : element) : null;
     }
 
     findFirstTab() {
@@ -177,7 +174,7 @@ export class Tab extends BaseComponent {
     }
 
     changeFocusedTab(event, element) {
-        DomHandler.focus(element);
+        focus(element);
         this.scrollInView(element);
     }
 

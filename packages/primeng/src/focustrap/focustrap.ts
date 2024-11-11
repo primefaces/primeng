@@ -1,7 +1,7 @@
-import { DomHandler } from 'primeng/dom';
 import { DOCUMENT, isPlatformBrowser } from '@angular/common';
 import { booleanAttribute, Directive, inject, Input, NgModule, PLATFORM_ID, SimpleChanges } from '@angular/core';
-import { BaseComponent } from 'primeng/basecomponent';
+import { BaseComponent } from '@primeng/core';
+import { createElement, focus, getFirstFocusableElement, getLastFocusableElement } from '@primeuix/utils';
 
 /**
  * Focus Trap keeps focus within a certain DOM element while tabbing.
@@ -61,7 +61,7 @@ export class FocusTrap extends BaseComponent {
         const tabindex = '0';
 
         const createFocusableElement = (onFocus) => {
-            return DomHandler.createElement('span', {
+            return createElement('span', {
                 class: 'p-hidden-accessible p-hidden-focusable',
                 tabindex,
                 role: 'presentation',
@@ -85,17 +85,17 @@ export class FocusTrap extends BaseComponent {
     onFirstHiddenElementFocus(event) {
         const { currentTarget, relatedTarget } = event;
         const focusableElement =
-            relatedTarget === this.lastHiddenFocusableElement || !this.el.nativeElement?.contains(relatedTarget) ? DomHandler.getFirstFocusableElement(currentTarget.parentElement, ':not(.p-hidden-focusable)') : this.lastHiddenFocusableElement;
+            relatedTarget === this.lastHiddenFocusableElement || !this.el.nativeElement?.contains(relatedTarget) ? getFirstFocusableElement(currentTarget.parentElement, ':not(.p-hidden-focusable)') : this.lastHiddenFocusableElement;
 
-        DomHandler.focus(focusableElement);
+        focus(focusableElement as any);
     }
 
     onLastHiddenElementFocus(event) {
         const { currentTarget, relatedTarget } = event;
         const focusableElement =
-            relatedTarget === this.firstHiddenFocusableElement || !this.el.nativeElement?.contains(relatedTarget) ? DomHandler.getLastFocusableElement(currentTarget.parentElement, ':not(.p-hidden-focusable)') : this.firstHiddenFocusableElement;
+            relatedTarget === this.firstHiddenFocusableElement || !this.el.nativeElement?.contains(relatedTarget) ? getLastFocusableElement(currentTarget.parentElement, ':not(.p-hidden-focusable)') : this.firstHiddenFocusableElement;
 
-        DomHandler.focus(focusableElement);
+        focus(focusableElement as any);
     }
 }
 

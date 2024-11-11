@@ -29,20 +29,15 @@ import {
     ViewChild,
     ViewEncapsulation
 } from '@angular/core';
-import { PrimeNGConfig, PrimeTemplate, SharedModule } from 'primeng/api';
-import { DomHandler } from 'primeng/dom';
-import { ChevronLeftIcon } from 'primeng/icons/chevronleft';
-import { ChevronRightIcon } from 'primeng/icons/chevronright';
-import { TimesIcon } from 'primeng/icons/times';
-import { WindowMaximizeIcon } from 'primeng/icons/windowmaximize';
-import { WindowMinimizeIcon } from 'primeng/icons/windowminimize';
+import { BaseComponent, PrimeNGConfig, PrimeTemplate, SharedModule } from '@primeng/core';
+import { ChevronLeftIcon, ChevronRightIcon, TimesIcon, WindowMaximizeIcon, WindowMinimizeIcon } from '@primeng/icons';
+import { addClass, blockBodyScroll, find, findSingle, focus, getAttribute, removeClass, setAttribute, unblockBodyScroll, uuid } from '@primeuix/utils';
+import { FocusTrap } from 'primeng/focustrap';
 import { Ripple } from 'primeng/ripple';
 import { VoidListener } from 'primeng/ts-helpers';
-import { UniqueComponentId, ZIndexUtils } from 'primeng/utils';
+import { ZIndexUtils } from 'primeng/utils';
 import { GalleriaResponsiveOptions } from './galleria.interface';
-import { FocusTrap } from 'primeng/focustrap';
 import { GalleriaStyle } from './style/galleriastyle';
-import { BaseComponent } from 'primeng/basecomponent';
 
 /**
  * Galleria is an advanced content gallery component.
@@ -359,12 +354,12 @@ export class Galleria extends BaseComponent implements OnChanges, OnDestroy {
             case 'visible':
                 this.enableModality();
                 setTimeout(() => {
-                    DomHandler.focus(DomHandler.findSingle(this.container.nativeElement, '[data-pc-section="closebutton"]'));
+                    focus(<any>findSingle(this.container.nativeElement, '[data-pc-section="closebutton"]'));
                 }, 25);
                 break;
 
             case 'void':
-                DomHandler.addClass(this.mask?.nativeElement, 'p-overlay-mask-leave');
+                addClass(this.mask?.nativeElement, 'p-overlay-mask-leave');
                 break;
         }
     }
@@ -378,7 +373,7 @@ export class Galleria extends BaseComponent implements OnChanges, OnDestroy {
     }
 
     enableModality() {
-        DomHandler.blockBodyScroll();
+        blockBodyScroll();
         this.cd.markForCheck();
 
         if (this.mask) {
@@ -387,7 +382,7 @@ export class Galleria extends BaseComponent implements OnChanges, OnDestroy {
     }
 
     disableModality() {
-        DomHandler.unblockBodyScroll();
+        unblockBodyScroll();
         this.maskVisible = false;
         this.cd.markForCheck();
 
@@ -398,7 +393,7 @@ export class Galleria extends BaseComponent implements OnChanges, OnDestroy {
 
     ngOnDestroy() {
         if (this.fullScreen) {
-            DomHandler.removeClass(this.document.body, 'p-overflow-hidden');
+            removeClass(this.document.body, 'p-overflow-hidden');
         }
 
         if (this.mask) {
@@ -514,7 +509,7 @@ export class GalleriaContent implements DoCheck {
         public config: PrimeNGConfig,
         private elementRef: ElementRef
     ) {
-        this.id = this.galleria.id || UniqueComponentId();
+        this.id = this.galleria.id || uuid('pn_id_');
         this.differ = this.differs.find(this.galleria).create();
     }
 
@@ -1073,7 +1068,7 @@ export class GalleriaThumbnails implements OnInit, AfterContentChecked, AfterVie
             }
 
             if (this._oldactiveIndex !== this._activeIndex) {
-                DomHandler.removeClass(this.itemsContainer.nativeElement, 'p-items-hidden');
+                removeClass(this.itemsContainer.nativeElement, 'p-items-hidden');
                 this.itemsContainer.nativeElement.style.transition = 'transform 500ms ease 0s';
             }
 
@@ -1130,7 +1125,7 @@ export class GalleriaThumbnails implements OnInit, AfterContentChecked, AfterVie
         }
 
         this.thumbnailsStyle.innerHTML = innerHTML;
-        DomHandler.setAttribute(this.thumbnailsStyle, 'nonce', this.galleria.config?.csp()?.nonce);
+        setAttribute(this.thumbnailsStyle, 'nonce', this.galleria.config?.csp()?.nonce);
     }
 
     calculatePosition() {
@@ -1258,7 +1253,7 @@ export class GalleriaThumbnails implements OnInit, AfterContentChecked, AfterVie
     }
 
     onRightKey() {
-        const indicators = DomHandler.find(this.itemsContainer.nativeElement, '[data-pc-section="thumbnailitem"]');
+        const indicators = find(this.itemsContainer.nativeElement, '[data-pc-section="thumbnailitem"]');
         const activeIndex = this.findFocusedIndicatorIndex();
 
         this.changedFocusedIndicator(activeIndex, activeIndex + 1 === indicators.length ? indicators.length - 1 : activeIndex + 1);
@@ -1277,17 +1272,17 @@ export class GalleriaThumbnails implements OnInit, AfterContentChecked, AfterVie
     }
 
     onEndKey() {
-        const indicators = DomHandler.find(this.itemsContainer.nativeElement, '[data-pc-section="thumbnailitem"]');
+        const indicators = find(this.itemsContainer.nativeElement, '[data-pc-section="thumbnailitem"]');
         const activeIndex = this.findFocusedIndicatorIndex();
 
         this.changedFocusedIndicator(activeIndex, indicators.length - 1);
     }
 
     onTabKey() {
-        const indicators = [...DomHandler.find(this.itemsContainer.nativeElement, '[data-pc-section="thumbnailitem"]')];
-        const highlightedIndex = indicators.findIndex((ind) => DomHandler.getAttribute(ind, 'data-p-active') === true);
+        const indicators = <any>[...find(this.itemsContainer.nativeElement, '[data-pc-section="thumbnailitem"]')];
+        const highlightedIndex = indicators.findIndex((ind) => getAttribute(ind, 'data-p-active') === true);
 
-        const activeIndicator = DomHandler.findSingle(this.itemsContainer.nativeElement, '[tabindex="0"]');
+        const activeIndicator = <any>findSingle(this.itemsContainer.nativeElement, '[tabindex="0"]');
 
         const activeIndex = indicators.findIndex((ind) => ind === activeIndicator.parentElement);
 
@@ -1296,14 +1291,14 @@ export class GalleriaThumbnails implements OnInit, AfterContentChecked, AfterVie
     }
 
     findFocusedIndicatorIndex() {
-        const indicators = [...DomHandler.find(this.itemsContainer.nativeElement, '[data-pc-section="thumbnailitem"]')];
-        const activeIndicator = DomHandler.findSingle(this.itemsContainer.nativeElement, '[data-pc-section="thumbnailitem"] > [tabindex="0"]');
+        const indicators = [...find(this.itemsContainer.nativeElement, '[data-pc-section="thumbnailitem"]')];
+        const activeIndicator = findSingle(this.itemsContainer.nativeElement, '[data-pc-section="thumbnailitem"] > [tabindex="0"]');
 
         return indicators.findIndex((ind) => ind === activeIndicator.parentElement);
     }
 
     changedFocusedIndicator(prevInd, nextInd) {
-        const indicators = DomHandler.find(this.itemsContainer.nativeElement, '[data-pc-section="thumbnailitem"]');
+        const indicators = <any>find(this.itemsContainer.nativeElement, '[data-pc-section="thumbnailitem"]');
 
         indicators[prevInd].children[0].tabIndex = '-1';
         indicators[nextInd].children[0].tabIndex = '0';
@@ -1328,7 +1323,7 @@ export class GalleriaThumbnails implements OnInit, AfterContentChecked, AfterVie
         }
 
         if (this.itemsContainer) {
-            DomHandler.removeClass(this.itemsContainer.nativeElement, 'p-items-hidden');
+            removeClass(this.itemsContainer.nativeElement, 'p-items-hidden');
             this.itemsContainer.nativeElement.style.transform = this.isVertical ? `translate3d(0, ${totalShiftedItems * (100 / this.d_numVisible)}%, 0)` : `translate3d(${totalShiftedItems * (100 / this.d_numVisible)}%, 0, 0)`;
             this.itemsContainer.nativeElement.style.transition = 'transform 500ms ease 0s';
         }
@@ -1364,7 +1359,7 @@ export class GalleriaThumbnails implements OnInit, AfterContentChecked, AfterVie
 
     onTransitionEnd() {
         if (this.itemsContainer && this.itemsContainer.nativeElement) {
-            DomHandler.addClass(this.itemsContainer.nativeElement, 'p-items-hidden');
+            addClass(this.itemsContainer.nativeElement, 'p-items-hidden');
             this.itemsContainer.nativeElement.style.transition = '';
         }
     }

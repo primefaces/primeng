@@ -1,11 +1,10 @@
 import { CommonModule, isPlatformBrowser } from '@angular/common';
 import { ChangeDetectionStrategy, Component, ContentChildren, ElementRef, EventEmitter, inject, Input, NgModule, numberAttribute, Output, QueryList, ViewChild, ViewEncapsulation } from '@angular/core';
-import { DomHandler } from 'primeng/dom';
+import { BaseComponent, SharedModule } from '@primeng/core';
+import { addClass, getHeight, getOuterHeight, getOuterWidth, getWidth, hasClass, removeClass } from '@primeuix/utils';
 import { Nullable, VoidListener } from 'primeng/ts-helpers';
 import { SplitterResizeEndEvent, SplitterResizeStartEvent } from './splitter.interface';
-import { BaseComponent } from 'primeng/basecomponent';
 import { SplitterStyle } from './style/splitterstyle';
-import { SharedModule } from 'primeng/api';
 
 /**
  * Splitter is utilized to separate and resize panels.
@@ -116,7 +115,7 @@ export class Splitter extends BaseComponent {
         this._panelSizes = val;
 
         if (this.el && this.el.nativeElement && this.panels.length > 0) {
-            let children = [...this.el.nativeElement.children[0].children].filter((child) => DomHandler.hasClass(child, 'p-splitter-panel'));
+            let children = [...this.el.nativeElement.children[0].children].filter((child) => hasClass(child, 'p-splitter-panel'));
             let _panelSizes = [];
 
             this.panels.map((panel, i) => {
@@ -204,7 +203,7 @@ export class Splitter extends BaseComponent {
                 }
 
                 if (!initialized) {
-                    let children = [...this.el.nativeElement.children[0].children].filter((child) => DomHandler.hasClass(child, 'p-splitter-panel'));
+                    let children = [...this.el.nativeElement.children[0].children].filter((child) => hasClass(child, 'p-splitter-panel'));
                     let _panelSizes = [];
 
                     this.panels.map((panel, i) => {
@@ -224,7 +223,7 @@ export class Splitter extends BaseComponent {
 
     resizeStart(event: TouchEvent | MouseEvent, index: number, isKeyDown?: boolean) {
         this.gutterElement = (event.currentTarget as HTMLElement) || (event.target as HTMLElement).parentElement;
-        this.size = this.horizontal() ? DomHandler.getWidth((this.containerViewChild as ElementRef).nativeElement) : DomHandler.getHeight((this.containerViewChild as ElementRef).nativeElement);
+        this.size = this.horizontal() ? getWidth((this.containerViewChild as ElementRef).nativeElement) : getHeight((this.containerViewChild as ElementRef).nativeElement);
 
         if (!isKeyDown) {
             this.dragging = true;
@@ -235,17 +234,17 @@ export class Splitter extends BaseComponent {
         this.nextPanelElement = this.gutterElement.nextElementSibling as HTMLElement;
 
         if (isKeyDown) {
-            this.prevPanelSize = this.horizontal() ? DomHandler.getOuterWidth(this.prevPanelElement, true) : DomHandler.getOuterHeight(this.prevPanelElement, true);
-            this.nextPanelSize = this.horizontal() ? DomHandler.getOuterWidth(this.nextPanelElement, true) : DomHandler.getOuterHeight(this.nextPanelElement, true);
+            this.prevPanelSize = this.horizontal() ? getOuterWidth(this.prevPanelElement, true) : getOuterHeight(this.prevPanelElement, true);
+            this.nextPanelSize = this.horizontal() ? getOuterWidth(this.nextPanelElement, true) : getOuterHeight(this.nextPanelElement, true);
         } else {
-            this.prevPanelSize = (100 * (this.horizontal() ? DomHandler.getOuterWidth(this.prevPanelElement, true) : DomHandler.getOuterHeight(this.prevPanelElement, true))) / this.size;
-            this.nextPanelSize = (100 * (this.horizontal() ? DomHandler.getOuterWidth(this.nextPanelElement, true) : DomHandler.getOuterHeight(this.nextPanelElement, true))) / this.size;
+            this.prevPanelSize = (100 * (this.horizontal() ? getOuterWidth(this.prevPanelElement, true) : getOuterHeight(this.prevPanelElement, true))) / this.size;
+            this.nextPanelSize = (100 * (this.horizontal() ? getOuterWidth(this.nextPanelElement, true) : getOuterHeight(this.nextPanelElement, true))) / this.size;
         }
 
         this.prevPanelIndex = index;
-        DomHandler.addClass(this.gutterElement, 'p-splitter-gutter-resizing');
+        addClass(this.gutterElement, 'p-splitter-gutter-resizing');
         this.gutterElement.setAttribute('data-p-gutter-resizing', 'true');
-        DomHandler.addClass((this.containerViewChild as ElementRef).nativeElement, 'p-splitter-resizing');
+        addClass((this.containerViewChild as ElementRef).nativeElement, 'p-splitter-resizing');
         this.containerViewChild.nativeElement.setAttribute('data-p-resizing', 'true');
         this.onResizeStart.emit({ originalEvent: event, sizes: this._panelSizes as number[] });
     }
@@ -285,8 +284,8 @@ export class Splitter extends BaseComponent {
         }
 
         this.onResizeEnd.emit({ originalEvent: event, sizes: this._panelSizes });
-        DomHandler.removeClass(this.gutterElement, 'p-splitter-gutter-resizing');
-        DomHandler.removeClass((this.containerViewChild as ElementRef).nativeElement, 'p-splitter-resizing');
+        removeClass(this.gutterElement as any, 'p-splitter-gutter-resizing');
+        removeClass((this.containerViewChild as ElementRef).nativeElement, 'p-splitter-resizing');
         this.clear();
     }
 
@@ -464,7 +463,7 @@ export class Splitter extends BaseComponent {
     isNested() {
         if (this.el.nativeElement) {
             let parent = this.el.nativeElement.parentElement;
-            while (parent && !DomHandler.hasClass(parent, 'p-splitter')) {
+            while (parent && !hasClass(parent, 'p-splitter')) {
                 parent = parent.parentElement;
             }
 
@@ -505,7 +504,7 @@ export class Splitter extends BaseComponent {
 
         if (stateString) {
             this._panelSizes = JSON.parse(stateString);
-            let children = [...(this.containerViewChild as ElementRef).nativeElement.children].filter((child) => DomHandler.hasClass(child, 'p-splitter-panel'));
+            let children = [...(this.containerViewChild as ElementRef).nativeElement.children].filter((child) => hasClass(child, 'p-splitter-panel'));
             children.forEach((child, i) => {
                 child.style.flexBasis = 'calc(' + this._panelSizes[i] + '% - ' + (this.panels.length - 1) * this.gutterSize + 'px)';
             });

@@ -1,13 +1,13 @@
 import { CommonModule } from '@angular/common';
 import { booleanAttribute, ChangeDetectionStrategy, Component, ElementRef, EventEmitter, inject, Input, NgModule, numberAttribute, OnDestroy, OnInit, Output, ViewChild, ViewEncapsulation } from '@angular/core';
 import { ActivatedRoute, Router, RouterModule } from '@angular/router';
-import { DomHandler } from 'primeng/dom';
-import { Nullable } from 'primeng/ts-helpers';
-import { MenuItem, SharedModule } from 'primeng/api';
+import { BaseComponent, SharedModule } from '@primeng/core';
+import { find, findSingle } from '@primeuix/utils';
+import { MenuItem } from 'primeng/api';
 import { TooltipModule } from 'primeng/tooltip';
+import { Nullable } from 'primeng/ts-helpers';
 import { Subscription } from 'rxjs';
 import { StepsStyle } from './style/stepsstyle';
-import { BaseComponent } from 'primeng/basecomponent';
 
 /**
  * Steps components is an indicator for the steps in a wizard workflow.
@@ -189,7 +189,7 @@ export class Steps extends BaseComponent implements OnInit, OnDestroy {
 
             case 'Tab':
                 if (i !== this.activeIndex) {
-                    const siblings = DomHandler.find(this.listViewChild.nativeElement, '[data-pc-section="menuitem"]');
+                    const siblings = <any>find(this.listViewChild.nativeElement, '[data-pc-section="menuitem"]');
                     siblings[i].children[0].tabIndex = '-1';
                     siblings[this.activeIndex].children[0].tabIndex = '0';
                 }
@@ -238,12 +238,12 @@ export class Steps extends BaseComponent implements OnInit, OnDestroy {
         return prevItem ? prevItem.children[0] : null;
     }
     findFirstItem() {
-        const firstSibling = DomHandler.findSingle(this.listViewChild.nativeElement, '[data-pc-section="menuitem"]');
+        const firstSibling = findSingle(this.listViewChild.nativeElement, '[data-pc-section="menuitem"]');
 
         return firstSibling ? firstSibling.children[0] : null;
     }
     findLastItem() {
-        const siblings = DomHandler.find(this.listViewChild.nativeElement, '[data-pc-section="menuitem"]');
+        const siblings = find(this.listViewChild.nativeElement, '[data-pc-section="menuitem"]');
 
         return siblings ? siblings[siblings.length - 1].children[0] : null;
     }

@@ -1,11 +1,12 @@
 import { isPlatformBrowser } from '@angular/common';
 import { AfterViewInit, booleanAttribute, Directive, ElementRef, HostListener, inject, Input, NgModule, NgZone, numberAttribute, OnDestroy, SimpleChanges, TemplateRef, ViewContainerRef } from '@angular/core';
+import { BaseComponent } from '@primeng/core';
+import { appendChild, fadeIn, findSingle, getOuterHeight, getOuterWidth, getViewport, getWindowScrollLeft, getWindowScrollTop, hasClass, removeChild, uuid } from '@primeuix/utils';
 import { TooltipOptions } from 'primeng/api';
-import { ConnectedOverlayScrollHandler, DomHandler } from 'primeng/dom';
+import { ConnectedOverlayScrollHandler } from 'primeng/dom';
 import { Nullable } from 'primeng/ts-helpers';
-import { UniqueComponentId, ZIndexUtils } from 'primeng/utils';
+import { ZIndexUtils } from 'primeng/utils';
 import { TooltipStyle } from './style/tooltipstyle';
-import { BaseComponent } from 'primeng/basecomponent';
 
 /**
  * Tooltip directive provides advisory information for a component.
@@ -132,7 +133,7 @@ export class Tooltip extends BaseComponent implements AfterViewInit, OnDestroy {
         life: null,
         autoHide: true,
         hideOnEscape: true,
-        id: UniqueComponentId() + '_tooltip'
+        id: uuid('pn_id_') + '_tooltip'
     };
 
     _disabled: boolean | undefined;
@@ -315,7 +316,7 @@ export class Tooltip extends BaseComponent implements AfterViewInit, OnDestroy {
 
     onMouseLeave(e: MouseEvent) {
         if (!this.isAutoHide()) {
-            const valid = DomHandler.hasClass(e.relatedTarget, 'p-tooltip') || DomHandler.hasClass(e.relatedTarget, 'p-tooltip-text') || DomHandler.hasClass(e.relatedTarget, 'p-tooltip-arrow');
+            const valid = hasClass(e.relatedTarget as any, 'p-tooltip') || hasClass(e.relatedTarget as any, 'p-tooltip-text') || hasClass(e.relatedTarget as any, 'p-tooltip-arrow');
             !valid && this.deactivate();
         } else {
             this.deactivate();
@@ -399,8 +400,8 @@ export class Tooltip extends BaseComponent implements AfterViewInit, OnDestroy {
         this.container.appendChild(this.tooltipText);
 
         if (this.getOption('appendTo') === 'body') document.body.appendChild(this.container);
-        else if (this.getOption('appendTo') === 'target') DomHandler.appendChild(this.container, this.el.nativeElement);
-        else DomHandler.appendChild(this.container, this.getOption('appendTo'));
+        else if (this.getOption('appendTo') === 'target') appendChild(this.container, this.el.nativeElement);
+        else appendChild(this.container, this.getOption('appendTo'));
 
         this.container.style.display = 'inline-block';
 
@@ -451,7 +452,7 @@ export class Tooltip extends BaseComponent implements AfterViewInit, OnDestroy {
             this.align();
         }
 
-        DomHandler.fadeIn(this.container, 250);
+        fadeIn(this.container, 250);
 
         if (this.getOption('tooltipZIndex') === 'auto') ZIndexUtils.set('tooltip', this.container, this.config.zIndex.tooltip);
         else this.container.style.zIndex = this.getOption('tooltipZIndex');
@@ -549,8 +550,8 @@ export class Tooltip extends BaseComponent implements AfterViewInit, OnDestroy {
     getHostOffset() {
         if (this.getOption('appendTo') === 'body' || this.getOption('appendTo') === 'target') {
             let offset = this.el.nativeElement.getBoundingClientRect();
-            let targetLeft = offset.left + DomHandler.getWindowScrollLeft();
-            let targetTop = offset.top + DomHandler.getWindowScrollTop();
+            let targetLeft = offset.left + getWindowScrollLeft();
+            let targetTop = offset.top + getWindowScrollTop();
 
             return { left: targetLeft, top: targetTop };
         } else {
@@ -563,21 +564,21 @@ export class Tooltip extends BaseComponent implements AfterViewInit, OnDestroy {
         const el = this.activeElement;
 
         const hostOffset = this.getHostOffset();
-        const left = hostOffset.left + DomHandler.getOuterWidth(el);
-        const top = hostOffset.top + (DomHandler.getOuterHeight(el) - DomHandler.getOuterHeight(this.container)) / 2;
+        const left = hostOffset.left + getOuterWidth(el);
+        const top = hostOffset.top + (getOuterHeight(el) - getOuterHeight(this.container)) / 2;
         this.container.style.left = left + this.getOption('positionLeft') + 'px';
         this.container.style.top = top + this.getOption('positionTop') + 'px';
     }
 
     private get activeElement(): HTMLElement {
-        return this.el.nativeElement.nodeName.includes('P-') ? DomHandler.findSingle(this.el.nativeElement, '.p-component') : this.el.nativeElement;
+        return this.el.nativeElement.nodeName.includes('P-') ? findSingle(this.el.nativeElement, '.p-component') : this.el.nativeElement;
     }
 
     alignLeft() {
         this.preAlign('left');
         let hostOffset = this.getHostOffset();
-        let left = hostOffset.left - DomHandler.getOuterWidth(this.container);
-        let top = hostOffset.top + (DomHandler.getOuterHeight(this.el.nativeElement) - DomHandler.getOuterHeight(this.container)) / 2;
+        let left = hostOffset.left - getOuterWidth(this.container);
+        let top = hostOffset.top + (getOuterHeight(this.el.nativeElement) - getOuterHeight(this.container)) / 2;
         this.container.style.left = left + this.getOption('positionLeft') + 'px';
         this.container.style.top = top + this.getOption('positionTop') + 'px';
     }
@@ -585,8 +586,8 @@ export class Tooltip extends BaseComponent implements AfterViewInit, OnDestroy {
     alignTop() {
         this.preAlign('top');
         let hostOffset = this.getHostOffset();
-        let left = hostOffset.left + (DomHandler.getOuterWidth(this.el.nativeElement) - DomHandler.getOuterWidth(this.container)) / 2;
-        let top = hostOffset.top - DomHandler.getOuterHeight(this.container);
+        let left = hostOffset.left + (getOuterWidth(this.el.nativeElement) - getOuterWidth(this.container)) / 2;
+        let top = hostOffset.top - getOuterHeight(this.container);
         this.container.style.left = left + this.getOption('positionLeft') + 'px';
         this.container.style.top = top + this.getOption('positionTop') + 'px';
     }
@@ -594,8 +595,8 @@ export class Tooltip extends BaseComponent implements AfterViewInit, OnDestroy {
     alignBottom() {
         this.preAlign('bottom');
         let hostOffset = this.getHostOffset();
-        let left = hostOffset.left + (DomHandler.getOuterWidth(this.el.nativeElement) - DomHandler.getOuterWidth(this.container)) / 2;
-        let top = hostOffset.top + DomHandler.getOuterHeight(this.el.nativeElement);
+        let left = hostOffset.left + (getOuterWidth(this.el.nativeElement) - getOuterWidth(this.container)) / 2;
+        let top = hostOffset.top + getOuterHeight(this.el.nativeElement);
         this.container.style.left = left + this.getOption('positionLeft') + 'px';
         this.container.style.top = top + this.getOption('positionTop') + 'px';
     }
@@ -609,7 +610,7 @@ export class Tooltip extends BaseComponent implements AfterViewInit, OnDestroy {
     }
 
     getTarget(el: Element) {
-        return DomHandler.hasClass(el, 'p-inputwrapper') ? DomHandler.findSingle(el, 'input') : el;
+        return hasClass(el, 'p-inputwrapper') ? findSingle(el, 'input') : el;
     }
 
     preAlign(position: string) {
@@ -624,9 +625,9 @@ export class Tooltip extends BaseComponent implements AfterViewInit, OnDestroy {
         let offset = this.container.getBoundingClientRect();
         let targetTop = offset.top;
         let targetLeft = offset.left;
-        let width = DomHandler.getOuterWidth(this.container);
-        let height = DomHandler.getOuterHeight(this.container);
-        let viewport = DomHandler.getViewport();
+        let width = getOuterWidth(this.container);
+        let height = getOuterHeight(this.container);
+        let viewport = getViewport();
 
         return targetLeft + width > viewport.width || targetLeft < 0 || targetTop < 0 || targetTop + height > viewport.height;
     }
@@ -692,7 +693,7 @@ export class Tooltip extends BaseComponent implements AfterViewInit, OnDestroy {
         if (this.container && this.container.parentElement) {
             if (this.getOption('appendTo') === 'body') document.body.removeChild(this.container);
             else if (this.getOption('appendTo') === 'target') this.el.nativeElement.removeChild(this.container);
-            else DomHandler.removeChild(this.container, this.getOption('appendTo'));
+            else removeChild(this.container, this.getOption('appendTo'));
         }
 
         this.unbindDocumentResizeListener();

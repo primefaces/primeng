@@ -25,20 +25,18 @@ import {
     ViewEncapsulation
 } from '@angular/core';
 import { RouterModule } from '@angular/router';
-import { MenuItem, PrimeNGConfig, SharedModule } from 'primeng/api';
-import { DomHandler } from 'primeng/dom';
-import { AngleDownIcon } from 'primeng/icons/angledown';
-import { AngleRightIcon } from 'primeng/icons/angleright';
-import { BarsIcon } from 'primeng/icons/bars';
+import { BaseComponent, PrimeNGConfig, SharedModule } from '@primeng/core';
+import { AngleDownIcon, AngleRightIcon, BarsIcon } from '@primeng/icons';
+import { findLastIndex, findSingle, focus, isEmpty, isNotEmpty, isPrintableCharacter, isTouchDevice, resolve, uuid } from '@primeuix/utils';
+import { MenuItem } from 'primeng/api';
+import { BadgeModule } from 'primeng/badge';
 import { Ripple } from 'primeng/ripple';
 import { TooltipModule } from 'primeng/tooltip';
 import { VoidListener } from 'primeng/ts-helpers';
-import { ObjectUtils, UniqueComponentId, ZIndexUtils } from 'primeng/utils';
+import { ZIndexUtils } from 'primeng/utils';
 import { interval, Subject, Subscription } from 'rxjs';
 import { debounce, filter } from 'rxjs/operators';
 import { MenuBarStyle } from './style/menubarstyle';
-import { BaseComponent } from 'primeng/basecomponent';
-import { BadgeModule } from 'primeng/badge';
 
 @Injectable()
 export class MenubarService {
@@ -271,7 +269,7 @@ export class MenubarSub extends BaseComponent implements OnInit, OnDestroy {
     }
 
     getItemProp(processedItem: any, name: string, params: any | null = null) {
-        return processedItem && processedItem.item ? ObjectUtils.getItemValue(processedItem.item[name], params) : undefined;
+        return processedItem && processedItem.item ? resolve(processedItem.item[name], params) : undefined;
     }
 
     getItemId(processedItem: any): string {
@@ -326,7 +324,7 @@ export class MenubarSub extends BaseComponent implements OnInit, OnDestroy {
     }
 
     isItemGroup(processedItem: any): boolean {
-        return ObjectUtils.isNotEmpty(processedItem.items);
+        return isNotEmpty(processedItem.items);
     }
 
     getAriaSetSize() {
@@ -553,7 +551,7 @@ export class Menubar extends BaseComponent implements OnDestroy, OnInit {
 
     get focusedItemId() {
         const focusedItem = this.focusedItemInfo();
-        return focusedItem.item && focusedItem.item?.id ? focusedItem.item.id : focusedItem.index !== -1 ? `${this.id}${ObjectUtils.isNotEmpty(focusedItem.parentKey) ? '_' + focusedItem.parentKey : ''}_${focusedItem.index}` : null;
+        return focusedItem.item && focusedItem.item?.id ? focusedItem.item.id : focusedItem.index !== -1 ? `${this.id}${isNotEmpty(focusedItem.parentKey) ? '_' + focusedItem.parentKey : ''}_${focusedItem.index}` : null;
     }
 
     constructor(
@@ -569,7 +567,7 @@ export class Menubar extends BaseComponent implements OnDestroy, OnInit {
         effect(() => {
             const path = this.activeItemPath();
 
-            if (ObjectUtils.isNotEmpty(path)) {
+            if (isNotEmpty(path)) {
                 this.bindOutsideClickListener();
                 this.bindResizeListener();
             } else {
@@ -585,7 +583,7 @@ export class Menubar extends BaseComponent implements OnDestroy, OnInit {
         this.menubarService.autoHide = this.autoHide;
         this.menubarService.autoHideDelay = this.autoHideDelay;
         this.mouseLeaveSubscriber = this.menubarService.mouseLeft$.subscribe(() => this.unbindOutsideClickListener());
-        this.id = this.id || UniqueComponentId();
+        this.id = this.id || uuid('pn_id_');
     }
 
     /**
@@ -665,7 +663,7 @@ export class Menubar extends BaseComponent implements OnDestroy, OnInit {
     }
 
     getItemProp(item: any, name: string) {
-        return item ? ObjectUtils.getItemValue(item[name]) : undefined;
+        return item ? resolve(item[name]) : undefined;
     }
 
     menuButtonClick(event: MouseEvent) {
@@ -679,7 +677,7 @@ export class Menubar extends BaseComponent implements OnDestroy, OnInit {
     onItemClick(event: any) {
         const { originalEvent, processedItem } = event;
         const grouped = this.isProcessedItemGroup(processedItem);
-        const root = ObjectUtils.isEmpty(processedItem.parent);
+        const root = isEmpty(processedItem.parent);
         const selected = this.isSelected(processedItem);
 
         if (selected) {
@@ -689,7 +687,7 @@ export class Menubar extends BaseComponent implements OnDestroy, OnInit {
             this.focusedItemInfo.set({ index, level, parentKey, item });
 
             this.dirty = !root;
-            DomHandler.focus(this.rootmenu.menubarViewChild.nativeElement);
+            focus(this.rootmenu.menubarViewChild.nativeElement);
         } else {
             if (grouped) {
                 this.onItemChange(event);
@@ -699,13 +697,13 @@ export class Menubar extends BaseComponent implements OnDestroy, OnInit {
                 this.changeFocusedItemIndex(originalEvent, rootProcessedItem ? rootProcessedItem.index : -1);
 
                 this.mobileActive = false;
-                DomHandler.focus(this.rootmenu.menubarViewChild.nativeElement);
+                focus(this.rootmenu.menubarViewChild.nativeElement);
             }
         }
     }
 
     onItemMouseEnter(event: any) {
-        if (!DomHandler.isTouchDevice()) {
+        if (!isTouchDevice()) {
             if (!this.mobileActive) {
                 this.onItemChange(event);
             }
@@ -723,7 +721,7 @@ export class Menubar extends BaseComponent implements OnDestroy, OnInit {
 
     scrollInView(index: number = -1) {
         const id = index !== -1 ? `${this.id}_${index}` : this.focusedItemId;
-        const element = DomHandler.findSingle(this.rootmenu.el.nativeElement, `li[id="${id}"]`);
+        const element = findSingle(this.rootmenu.el.nativeElement, `li[id="${id}"]`);
 
         if (element) {
             element.scrollIntoView && element.scrollIntoView({ block: 'nearest', inline: 'nearest' });
@@ -733,10 +731,10 @@ export class Menubar extends BaseComponent implements OnDestroy, OnInit {
     onItemChange(event: any) {
         const { processedItem, isFocus } = event;
 
-        if (ObjectUtils.isEmpty(processedItem)) return;
+        if (isEmpty(processedItem)) return;
 
         const { index, key, level, parentKey, items, item } = processedItem;
-        const grouped = ObjectUtils.isNotEmpty(items);
+        const grouped = isNotEmpty(items);
         const activeItemPath = this.activeItemPath().filter((p) => p.parentKey !== parentKey && p.parentKey !== key);
 
         grouped && activeItemPath.push(processedItem);
@@ -744,7 +742,7 @@ export class Menubar extends BaseComponent implements OnDestroy, OnInit {
         this.activeItemPath.set(activeItemPath);
 
         grouped && (this.dirty = true);
-        isFocus && DomHandler.focus(this.rootmenu.menubarViewChild.nativeElement);
+        isFocus && focus(this.rootmenu.menubarViewChild.nativeElement);
     }
 
     toggle(event: MouseEvent) {
@@ -767,21 +765,21 @@ export class Menubar extends BaseComponent implements OnDestroy, OnInit {
     hide(event?, isFocus?: boolean) {
         if (this.mobileActive) {
             setTimeout(() => {
-                DomHandler.focus(this.menubutton.nativeElement);
+                focus(this.menubutton.nativeElement);
             }, 0);
         }
 
         this.activeItemPath.set([]);
         this.focusedItemInfo.set({ index: -1, level: 0, parentKey: '', item: null });
 
-        isFocus && DomHandler.focus(this.rootmenu?.menubarViewChild.nativeElement);
+        isFocus && focus(this.rootmenu?.menubarViewChild.nativeElement);
         this.dirty = false;
     }
 
     show() {
         const processedItem = this.findVisibleItem(this.findFirstFocusedItemIndex());
         this.focusedItemInfo.set({ index: this.findFirstFocusedItemIndex(), level: 0, parentKey: '', item: processedItem?.item });
-        DomHandler.focus(this.rootmenu?.menubarViewChild.nativeElement);
+        focus(this.rootmenu?.menubarViewChild.nativeElement);
     }
 
     onMenuFocus(event: any) {
@@ -854,7 +852,7 @@ export class Menubar extends BaseComponent implements OnDestroy, OnInit {
                 break;
 
             default:
-                if (!metaKey && ObjectUtils.isPrintableCharacter(event.key)) {
+                if (!metaKey && isPrintableCharacter(event.key)) {
                     this.searchItems(event, event.key);
                 }
 
@@ -863,7 +861,7 @@ export class Menubar extends BaseComponent implements OnDestroy, OnInit {
     }
 
     findVisibleItem(index) {
-        return ObjectUtils.isNotEmpty(this.visibleItems) ? this.visibleItems[index] : null;
+        return isNotEmpty(this.visibleItems) ? this.visibleItems[index] : null;
     }
 
     findFirstFocusedItemIndex() {
@@ -881,7 +879,7 @@ export class Menubar extends BaseComponent implements OnDestroy, OnInit {
     }
 
     isProcessedItemGroup(processedItem: any): boolean {
-        return processedItem && ObjectUtils.isNotEmpty(processedItem.items);
+        return processedItem && isNotEmpty(processedItem.items);
     }
 
     isSelected(processedItem: any): boolean {
@@ -909,7 +907,7 @@ export class Menubar extends BaseComponent implements OnDestroy, OnInit {
     }
 
     isProccessedItemGroup(processedItem: any): boolean {
-        return processedItem && ObjectUtils.isNotEmpty(processedItem.items);
+        return processedItem && isNotEmpty(processedItem.items);
     }
 
     searchItems(event: any, char: string) {
@@ -959,7 +957,7 @@ export class Menubar extends BaseComponent implements OnDestroy, OnInit {
 
     onArrowDownKey(event: KeyboardEvent) {
         const processedItem = this.visibleItems[this.focusedItemInfo().index];
-        const root = processedItem ? ObjectUtils.isEmpty(processedItem.parent) : null;
+        const root = processedItem ? isEmpty(processedItem.parent) : null;
 
         if (root) {
             const grouped = this.isProccessedItemGroup(processedItem);
@@ -999,7 +997,7 @@ export class Menubar extends BaseComponent implements OnDestroy, OnInit {
 
     onArrowUpKey(event: KeyboardEvent) {
         const processedItem = this.visibleItems[this.focusedItemInfo().index];
-        const root = ObjectUtils.isEmpty(processedItem.parent);
+        const root = isEmpty(processedItem.parent);
 
         if (root) {
             const grouped = this.isProccessedItemGroup(processedItem);
@@ -1079,8 +1077,8 @@ export class Menubar extends BaseComponent implements OnDestroy, OnInit {
 
     onEnterKey(event: KeyboardEvent) {
         if (this.focusedItemInfo().index !== -1) {
-            const element = DomHandler.findSingle(this.rootmenu.el.nativeElement, `li[id="${`${this.focusedItemId}`}"]`);
-            const anchorElement = element && DomHandler.findSingle(element, 'a[data-pc-section="action"]');
+            const element = <any>findSingle(this.rootmenu.el.nativeElement, `li[id="${`${this.focusedItemId}`}"]`);
+            const anchorElement = element && <any>findSingle(element, 'a[data-pc-section="action"]');
 
             anchorElement ? anchorElement.click() : element && element.click();
         }
@@ -1094,11 +1092,11 @@ export class Menubar extends BaseComponent implements OnDestroy, OnInit {
     }
 
     findLastItemIndex() {
-        return ObjectUtils.findLastIndex(this.visibleItems, (processedItem) => this.isValidItem(processedItem));
+        return findLastIndex(this.visibleItems, (processedItem) => this.isValidItem(processedItem));
     }
 
     findPrevItemIndex(index: number) {
-        const matchedItemIndex = index > 0 ? ObjectUtils.findLastIndex(this.visibleItems.slice(0, index), (processedItem) => this.isValidItem(processedItem)) : -1;
+        const matchedItemIndex = index > 0 ? findLastIndex(this.visibleItems.slice(0, index), (processedItem) => this.isValidItem(processedItem)) : -1;
 
         return matchedItemIndex > -1 ? matchedItemIndex : index;
     }
@@ -1113,7 +1111,7 @@ export class Menubar extends BaseComponent implements OnDestroy, OnInit {
         if (isPlatformBrowser(this.platformId)) {
             if (!this.resizeListener) {
                 this.resizeListener = this.renderer.listen(this.document.defaultView, 'resize', (event) => {
-                    if (!DomHandler.isTouchDevice()) {
+                    if (!isTouchDevice()) {
                         this.hide(event, true);
                     }
 

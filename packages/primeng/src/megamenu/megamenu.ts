@@ -21,18 +21,16 @@ import {
     ViewEncapsulation
 } from '@angular/core';
 import { RouterModule } from '@angular/router';
-import { MegaMenuItem, PrimeNGConfig, SharedModule } from 'primeng/api';
-import { BaseComponent } from 'primeng/basecomponent';
-import { DomHandler } from 'primeng/dom';
-import { AngleDownIcon } from 'primeng/icons/angledown';
-import { AngleRightIcon } from 'primeng/icons/angleright';
+import { BaseComponent, PrimeNGConfig, SharedModule } from '@primeng/core';
+import { AngleDownIcon, AngleRightIcon, BarsIcon } from '@primeng/icons';
+import { findLastIndex, findSingle, focus, isEmpty, isNotEmpty, isPrintableCharacter, isTouchDevice, resolve, uuid } from '@primeuix/utils';
+import { MegaMenuItem } from 'primeng/api';
+import { BadgeModule } from 'primeng/badge';
 import { Ripple } from 'primeng/ripple';
 import { TooltipModule } from 'primeng/tooltip';
 import { VoidListener } from 'primeng/ts-helpers';
-import { ObjectUtils, UniqueComponentId, ZIndexUtils } from 'primeng/utils';
+import { ZIndexUtils } from 'primeng/utils';
 import { MegaMenuStyle } from './style/megamenustyle';
-import { BadgeModule } from 'primeng/badge';
-import { BarsIcon } from 'primeng/icons/bars';
 
 @Component({
     selector: 'p-megaMenuSub, p-megamenu-sub',
@@ -256,7 +254,7 @@ export class MegaMenuSub extends BaseComponent {
     }
 
     getItemProp(processedItem: any, name: string, params: any | null = null) {
-        return processedItem && processedItem.item ? ObjectUtils.getItemValue(processedItem.item[name], params) : undefined;
+        return processedItem && processedItem.item ? resolve(processedItem.item[name], params) : undefined;
     }
 
     getItemId(processedItem: any): string {
@@ -342,7 +340,7 @@ export class MegaMenuSub extends BaseComponent {
     }
 
     isItemActive(processedItem) {
-        return ObjectUtils.isNotEmpty(this.activeItem) ? this.activeItem.key === processedItem.key : false;
+        return isNotEmpty(this.activeItem) ? this.activeItem.key === processedItem.key : false;
     }
 
     isItemDisabled(processedItem: any): boolean {
@@ -354,7 +352,7 @@ export class MegaMenuSub extends BaseComponent {
     }
 
     isItemGroup(processedItem: any): boolean {
-        return ObjectUtils.isNotEmpty(processedItem.items);
+        return isNotEmpty(processedItem.items);
     }
 
     getAriaSetSize() {
@@ -586,7 +584,7 @@ export class MegaMenu extends BaseComponent implements OnDestroy, OnInit {
     public mobileActive: boolean = false;
 
     get visibleItems() {
-        const processedItem = ObjectUtils.isNotEmpty(this.activeItem()) ? this.activeItem() : null;
+        const processedItem = isNotEmpty(this.activeItem()) ? this.activeItem() : null;
 
         return processedItem
             ? processedItem.items.reduce((items, col) => {
@@ -610,14 +608,14 @@ export class MegaMenu extends BaseComponent implements OnDestroy, OnInit {
 
     get focusedItemId() {
         const focusedItem = this.focusedItemInfo();
-        return focusedItem?.item && focusedItem.item?.id ? focusedItem.item.id : ObjectUtils.isNotEmpty(focusedItem.key) ? `${this.id}_${focusedItem.key}` : null;
+        return focusedItem?.item && focusedItem.item?.id ? focusedItem.item.id : isNotEmpty(focusedItem.key) ? `${this.id}_${focusedItem.key}` : null;
     }
 
     constructor(public config: PrimeNGConfig) {
         super();
         effect(() => {
             const activeItem = this.activeItem();
-            if (ObjectUtils.isNotEmpty(activeItem)) {
+            if (isNotEmpty(activeItem)) {
                 this.bindOutsideClickListener();
                 this.bindResizeListener();
             } else {
@@ -630,7 +628,7 @@ export class MegaMenu extends BaseComponent implements OnDestroy, OnInit {
     ngOnInit(): void {
         super.ngOnInit();
         this.bindMatchMediaListener();
-        this.id = this.id || UniqueComponentId();
+        this.id = this.id || uuid('pn_id_');
     }
 
     bindMatchMediaListener() {
@@ -683,13 +681,13 @@ export class MegaMenu extends BaseComponent implements OnDestroy, OnInit {
     }
 
     getItemProp(item: any, name: string) {
-        return item ? ObjectUtils.getItemValue(item[name]) : undefined;
+        return item ? resolve(item[name]) : undefined;
     }
 
     onItemClick(event: any) {
         const { originalEvent, processedItem } = event;
         const grouped = this.isProcessedItemGroup(processedItem);
-        const root = ObjectUtils.isEmpty(processedItem.parent);
+        const root = isEmpty(processedItem.parent);
         const selected = this.isSelected(processedItem);
 
         if (selected) {
@@ -700,7 +698,7 @@ export class MegaMenu extends BaseComponent implements OnDestroy, OnInit {
 
             this.dirty = !root;
             if (!this.mobileActive) {
-                DomHandler.focus(this.rootmenu?.menubarViewChild?.nativeElement, { preventScroll: true });
+                focus(this.rootmenu?.menubarViewChild?.nativeElement, { preventScroll: true });
             }
         } else {
             if (grouped) {
@@ -745,7 +743,7 @@ export class MegaMenu extends BaseComponent implements OnDestroy, OnInit {
     show() {
         this.focusedItemInfo.set({ index: this.findFirstFocusedItemIndex(), level: 0, parentKey: '' });
 
-        DomHandler.focus(this.rootmenu?.el.nativeElement);
+        focus(this.rootmenu?.el.nativeElement);
     }
 
     scrollInView(index: number = -1) {
@@ -756,7 +754,7 @@ export class MegaMenu extends BaseComponent implements OnDestroy, OnInit {
         if (id === null && this.queryMatches) {
             element = this.menubuttonViewChild.nativeElement;
         } else {
-            element = DomHandler.findSingle(this.rootmenu?.menubarViewChild?.nativeElement, `li[id="${id}"]`);
+            element = findSingle(this.rootmenu?.menubarViewChild?.nativeElement, `li[id="${id}"]`);
         }
 
         if (element) {
@@ -767,10 +765,10 @@ export class MegaMenu extends BaseComponent implements OnDestroy, OnInit {
     onItemChange(event: any) {
         const { processedItem, isFocus } = event;
 
-        if (ObjectUtils.isEmpty(processedItem)) return;
+        if (isEmpty(processedItem)) return;
 
         const { index, key, parentKey, items, item } = processedItem;
-        const grouped = ObjectUtils.isNotEmpty(items);
+        const grouped = isNotEmpty(items);
 
         if (grouped) {
             this.activeItem.set(processedItem);
@@ -778,14 +776,14 @@ export class MegaMenu extends BaseComponent implements OnDestroy, OnInit {
         this.focusedItemInfo.set({ index, key, parentKey, item });
 
         grouped && (this.dirty = true);
-        isFocus && DomHandler.focus(this.rootmenu?.menubarViewChild?.nativeElement);
+        isFocus && focus(this.rootmenu?.menubarViewChild?.nativeElement);
     }
 
     hide(event?, isFocus?: boolean) {
         if (this.mobileActive) {
             this.mobileActive = false;
             setTimeout(() => {
-                DomHandler.focus(this.menubuttonViewChild?.nativeElement);
+                focus(this.menubuttonViewChild?.nativeElement);
                 this.scrollInView();
             }, 100);
         }
@@ -793,7 +791,7 @@ export class MegaMenu extends BaseComponent implements OnDestroy, OnInit {
         this.activeItem.set(null);
         this.focusedItemInfo.set({ index: -1, key: '', parentKey: '', item: null });
 
-        isFocus && DomHandler.focus(this.rootmenu?.menubarViewChild?.nativeElement);
+        isFocus && focus(this.rootmenu?.menubarViewChild?.nativeElement);
         this.dirty = false;
     }
 
@@ -867,7 +865,7 @@ export class MegaMenu extends BaseComponent implements OnDestroy, OnInit {
                 break;
 
             default:
-                if (!metaKey && ObjectUtils.isPrintableCharacter(event.key)) {
+                if (!metaKey && isPrintableCharacter(event.key)) {
                     this.searchItems(event, event.key);
                 }
 
@@ -890,11 +888,11 @@ export class MegaMenu extends BaseComponent implements OnDestroy, OnInit {
     }
 
     isProcessedItemGroup(processedItem: any): boolean {
-        return processedItem && ObjectUtils.isNotEmpty(processedItem.items);
+        return processedItem && isNotEmpty(processedItem.items);
     }
 
     isSelected(processedItem: any): boolean {
-        return ObjectUtils.isNotEmpty(this.activeItem()) ? this.activeItem().key === processedItem.key : false;
+        return isNotEmpty(this.activeItem()) ? this.activeItem().key === processedItem.key : false;
     }
 
     isValidSelectedItem(processedItem: any): boolean {
@@ -918,7 +916,7 @@ export class MegaMenu extends BaseComponent implements OnDestroy, OnInit {
     }
 
     isProccessedItemGroup(processedItem: any): boolean {
-        return processedItem && ObjectUtils.isNotEmpty(processedItem.items);
+        return processedItem && isNotEmpty(processedItem.items);
     }
 
     searchItems(event: any, char: string) {
@@ -968,7 +966,7 @@ export class MegaMenu extends BaseComponent implements OnDestroy, OnInit {
 
     changeFocusedItemInfo(event, index) {
         const processedItem = this.findVisibleItem(index);
-        if (ObjectUtils.isNotEmpty(processedItem)) {
+        if (isNotEmpty(processedItem)) {
             const { key, parentKey, item } = processedItem;
             this.focusedItemInfo.set({ index, key: key ? key : '', parentKey, item });
         }
@@ -978,7 +976,7 @@ export class MegaMenu extends BaseComponent implements OnDestroy, OnInit {
 
     onArrowDownKey(event: KeyboardEvent) {
         if (this.orientation === 'horizontal') {
-            if (ObjectUtils.isNotEmpty(this.activeItem()) && this.activeItem().key === this.focusedItemInfo().key) {
+            if (isNotEmpty(this.activeItem()) && this.activeItem().key === this.focusedItemInfo().key) {
                 const { key, item } = this.activeItem();
                 this.focusedItemInfo.set({ index: -1, key: '', parentKey: key, item });
             } else {
@@ -1005,7 +1003,7 @@ export class MegaMenu extends BaseComponent implements OnDestroy, OnInit {
 
         if (grouped) {
             if (this.orientation === 'vertical') {
-                if (ObjectUtils.isNotEmpty(this.activeItem()) && this.activeItem().key === processedItem.key) {
+                if (isNotEmpty(this.activeItem()) && this.activeItem().key === processedItem.key) {
                     this.focusedItemInfo.set({ index: -1, key: '', parentKey: this.activeItem().key, item: processedItem.item });
                 } else {
                     const processedItem = this.findVisibleItem(this.focusedItemInfo().index);
@@ -1043,7 +1041,7 @@ export class MegaMenu extends BaseComponent implements OnDestroy, OnInit {
                 const processedItem = this.findVisibleItem(this.focusedItemInfo().index);
                 const grouped = this.isProccessedItemGroup(processedItem);
 
-                if (!grouped && ObjectUtils.isNotEmpty(this.activeItem)) {
+                if (!grouped && isNotEmpty(this.activeItem)) {
                     if (this.focusedItemInfo().index === 0) {
                         this.focusedItemInfo.set({
                             index: this.activeItem().index,
@@ -1078,7 +1076,7 @@ export class MegaMenu extends BaseComponent implements OnDestroy, OnInit {
                 this.changeFocusedItemInfo(event, itemIndex);
             }
         } else {
-            if (this.orientation === 'vertical' && ObjectUtils.isNotEmpty(this.activeItem())) {
+            if (this.orientation === 'vertical' && isNotEmpty(this.activeItem())) {
                 if (processedItem.columnIndex === 0) {
                     this.focusedItemInfo.set({
                         index: this.activeItem().index,
@@ -1114,7 +1112,7 @@ export class MegaMenu extends BaseComponent implements OnDestroy, OnInit {
     }
 
     onEscapeKey(event: KeyboardEvent) {
-        if (ObjectUtils.isNotEmpty(this.activeItem())) {
+        if (isNotEmpty(this.activeItem())) {
             this.focusedItemInfo.set({ index: this.activeItem().index, key: this.activeItem().key, item: this.activeItem().item });
             this.activeItem.set(null);
         }
@@ -1135,8 +1133,8 @@ export class MegaMenu extends BaseComponent implements OnDestroy, OnInit {
 
     onEnterKey(event: KeyboardEvent) {
         if (this.focusedItemInfo().index !== -1) {
-            const element = DomHandler.findSingle(this.rootmenu?.el?.nativeElement, `li[id="${`${this.focusedItemId}`}"]`);
-            const anchorElement = element && DomHandler.findSingle(element, 'a[data-pc-section="action"]');
+            const element = <any>findSingle(this.rootmenu?.el?.nativeElement, `li[id="${`${this.focusedItemId}`}"]`);
+            const anchorElement = element && <any>findSingle(element, 'a[data-pc-section="action"]');
 
             anchorElement ? anchorElement.click() : element && element.click();
 
@@ -1150,7 +1148,7 @@ export class MegaMenu extends BaseComponent implements OnDestroy, OnInit {
     }
 
     findVisibleItem(index) {
-        return ObjectUtils.isNotEmpty(this.visibleItems) ? this.visibleItems[index] : null;
+        return isNotEmpty(this.visibleItems) ? this.visibleItems[index] : null;
     }
 
     findLastFocusedItemIndex() {
@@ -1159,11 +1157,11 @@ export class MegaMenu extends BaseComponent implements OnDestroy, OnInit {
     }
 
     findLastItemIndex() {
-        return ObjectUtils.findLastIndex(this.visibleItems, (processedItem) => this.isValidItem(processedItem));
+        return findLastIndex(this.visibleItems, (processedItem) => this.isValidItem(processedItem));
     }
 
     findPrevItemIndex(index: number) {
-        const matchedItemIndex = index > 0 ? ObjectUtils.findLastIndex(this.visibleItems.slice(0, index), (processedItem) => this.isValidItem(processedItem)) : -1;
+        const matchedItemIndex = index > 0 ? findLastIndex(this.visibleItems.slice(0, index), (processedItem) => this.isValidItem(processedItem)) : -1;
 
         return matchedItemIndex > -1 ? matchedItemIndex : index;
     }
@@ -1177,7 +1175,7 @@ export class MegaMenu extends BaseComponent implements OnDestroy, OnInit {
     bindResizeListener() {
         if (!this.resizeListener) {
             this.resizeListener = (event) => {
-                if (!DomHandler.isTouchDevice()) {
+                if (!isTouchDevice()) {
                     this.hide(event, true);
                 }
 

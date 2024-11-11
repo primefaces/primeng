@@ -1,9 +1,8 @@
-import { TestBed, ComponentFixture } from '@angular/core/testing';
+import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
-import { OrganizationChart, OrganizationChartNode } from './organizationchart';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
-import { ChevronDownIcon } from 'primeng/icons/chevrondown';
-import { ChevronUpIcon } from 'primeng/icons/chevronup';
+import { ChevronDownIcon, ChevronUpIcon } from '@primeng/icons';
+import { OrganizationChart, OrganizationChartNode } from './organizationchart';
 
 describe('OrganizationChart', () => {
     let organizationchart: OrganizationChart;

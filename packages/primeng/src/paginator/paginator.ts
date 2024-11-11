@@ -1,19 +1,16 @@
 import { CommonModule } from '@angular/common';
 import { booleanAttribute, ChangeDetectionStrategy, Component, ContentChild, ElementRef, EventEmitter, inject, Input, NgModule, numberAttribute, OnChanges, OnInit, Output, SimpleChanges, TemplateRef, ViewEncapsulation } from '@angular/core';
 import { FormsModule } from '@angular/forms';
-import { Aria, SelectItem, SharedModule } from 'primeng/api';
+import { Aria, BaseComponent, SharedModule } from '@primeng/core';
+import { AngleDoubleLeftIcon, AngleDoubleRightIcon, AngleLeftIcon, AngleRightIcon } from '@primeng/icons';
+import { SelectItem } from 'primeng/api';
 import { DropdownChangeEvent } from 'primeng/dropdown';
-import { AngleDoubleLeftIcon } from 'primeng/icons/angledoubleleft';
-import { AngleDoubleRightIcon } from 'primeng/icons/angledoubleright';
-import { AngleLeftIcon } from 'primeng/icons/angleleft';
-import { AngleRightIcon } from 'primeng/icons/angleright';
 import { InputNumber } from 'primeng/inputnumber';
 import { Ripple } from 'primeng/ripple';
+import { Select } from 'primeng/select';
 import { Nullable } from 'primeng/ts-helpers';
 import { PaginatorState } from './paginator.interface';
 import { PaginatorStyle } from './style/paginatorstyle';
-import { BaseComponent } from 'primeng/basecomponent';
-import { Select } from 'primeng/select';
 
 /**
  * Paginator is a generic component to display content in paged format.

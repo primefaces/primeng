@@ -1,12 +1,11 @@
+import { CommonModule } from '@angular/common';
 import { AfterViewChecked, AfterViewInit, ChangeDetectionStrategy, Component, inject, Input, NgModule, OnDestroy, ViewEncapsulation } from '@angular/core';
 import { FormsModule } from '@angular/forms';
-import { CommonModule } from '@angular/common';
-import { DomHandler } from 'primeng/dom';
-import { TerminalService } from './terminalservice';
+import { BaseComponent, SharedModule } from '@primeng/core';
+import { find } from '@primeuix/utils';
 import { Subscription } from 'rxjs';
-import { BaseComponent } from 'primeng/basecomponent';
 import { TerminalStyle } from './style/terminalstyle';
-import { SharedModule } from 'primeng/api';
+import { TerminalService } from './terminalservice';
 
 /**
  * Terminal is a text based user interface.
@@ -80,7 +79,7 @@ export class Terminal extends BaseComponent implements AfterViewInit, AfterViewC
 
     ngAfterViewInit() {
         super.ngAfterViewInit();
-        this.container = DomHandler.find(this.el.nativeElement, '.p-terminal')[0];
+        this.container = find(this.el.nativeElement, '.p-terminal')[0];
     }
 
     ngAfterViewChecked() {

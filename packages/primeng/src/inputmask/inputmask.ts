@@ -28,15 +28,14 @@
 import { CommonModule, isPlatformBrowser } from '@angular/common';
 import { booleanAttribute, ChangeDetectionStrategy, Component, ContentChild, ElementRef, EventEmitter, forwardRef, inject, Input, NgModule, numberAttribute, OnInit, Output, TemplateRef, ViewChild, ViewEncapsulation } from '@angular/core';
 import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
+import { BaseComponent, SharedModule } from '@primeng/core';
+import { TimesIcon } from '@primeng/icons';
+import { getUserAgent, isClient } from '@primeuix/utils';
 import { AutoFocus } from 'primeng/autofocus';
-import { DomHandler } from 'primeng/dom';
-import { TimesIcon } from 'primeng/icons/times';
 import { InputText } from 'primeng/inputtext';
 import { Nullable } from 'primeng/ts-helpers';
 import { Caret } from './inputmask.interface';
-import { BaseComponent } from 'primeng/basecomponent';
 import { InputMaskStyle } from './style/inputmaskstyle';
-import { SharedModule } from 'primeng/api';
 
 export const INPUTMASK_VALUE_ACCESSOR: any = {
     provide: NG_VALUE_ACCESSOR,
@@ -568,7 +567,7 @@ export class InputMask extends BaseComponent implements OnInit, ControlValueAcce
             end;
         let iPhone;
         if (isPlatformBrowser(this.platformId)) {
-            iPhone = /iphone/i.test(DomHandler.getUserAgent());
+            iPhone = /iphone/i.test(getUserAgent());
         }
         this.oldVal = this.inputViewChild?.nativeElement.value;
 
@@ -640,7 +639,7 @@ export class InputMask extends BaseComponent implements OnInit, ControlValueAcce
                     this.writeBuffer();
                     next = this.seekNext(p);
 
-                    if (DomHandler.isClient() && /android/i.test(DomHandler.getUserAgent())) {
+                    if (isClient() && /android/i.test(getUserAgent())) {
                         let proxy = () => {
                             this.caret(next);
                         };

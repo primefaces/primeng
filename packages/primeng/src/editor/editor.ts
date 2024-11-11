@@ -1,12 +1,11 @@
 import { CommonModule, isPlatformServer } from '@angular/common';
 import { AfterContentInit, afterNextRender, ChangeDetectionStrategy, Component, ContentChild, EventEmitter, forwardRef, inject, Input, NgModule, Output, TemplateRef, ViewEncapsulation } from '@angular/core';
 import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
-import { Header, SharedModule } from 'primeng/api';
-import { DomHandler } from 'primeng/dom';
+import { BaseComponent, Header, SharedModule } from '@primeng/core';
+import { findSingle } from '@primeuix/utils';
 import { Nullable } from 'primeng/ts-helpers';
 import { EditorInitEvent, EditorSelectionChangeEvent, EditorTextChangeEvent } from './editor.interface';
 import { EditorStyle } from './style/editorstyle';
-import { BaseComponent } from 'primeng/basecomponent';
 
 export const EDITOR_VALUE_ACCESSOR: any = {
     provide: NG_VALUE_ACCESSOR,
@@ -286,7 +285,7 @@ export class Editor extends BaseComponent implements AfterContentInit, ControlVa
 
         this.quill.on('text-change', (delta: any, oldContents: any, source: any) => {
             if (source === 'user') {
-                let html = isQuill2 ? this.quill.getSemanticHTML() : DomHandler.findSingle(editorElement, '.ql-editor').innerHTML;
+                let html = isQuill2 ? this.quill.getSemanticHTML() : findSingle(editorElement, '.ql-editor').innerHTML;
                 let text = this.quill.getText().trim();
                 if (html === '<p><br></p>') {
                     html = null;
@@ -320,9 +319,9 @@ export class Editor extends BaseComponent implements AfterContentInit, ControlVa
     private initQuillElements(): void {
         if (!this.quillElements) {
             this.quillElements = {
-                editorElement: DomHandler.findSingle(this.el.nativeElement, 'div.p-editor-content'),
-                toolbarElement: DomHandler.findSingle(this.el.nativeElement, 'div.p-editor-toolbar')
-            };
+                editorElement: findSingle(this.el.nativeElement, 'div.p-editor-content'),
+                toolbarElement: findSingle(this.el.nativeElement, 'div.p-editor-toolbar')
+            } as any;
         }
     }
 }

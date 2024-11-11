@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { BaseStyle } from 'primeng/base';
+import { BaseStyle } from '@primeng/core/base';
 /**
  *
  * Dropdown also known as Select, is used to choose an item from a collection of options.
