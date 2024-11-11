@@ -3311,13 +3311,13 @@ export class TableBody implements AfterViewInit, OnDestroy {
                     [step]="rows"
                     [delay]="lazy ? virtualScrollDelay : 0"
                     [inline]="true"
+                    [autoSize]="true"
                     [lazy]="lazy"
                     (onLazyLoad)="onLazyItemLoad($event)"
                     [loaderDisabled]="true"
                     [showSpacer]="false"
                     [showLoader]="loadingBodyTemplate"
                     [options]="virtualScrollOptions"
-                    [autoSize]="true"
                 >
                     <ng-template #content let-items let-scrollerOptions="options">
                         <ng-container
