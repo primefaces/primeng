@@ -369,7 +369,8 @@ export class Panel extends BaseComponent implements BlockableUI {
             if (this.collapsed) this.expand();
             else this.collapse();
         }
-
+        
+        this.cd.markForCheck()
         event.preventDefault();
     }
 
