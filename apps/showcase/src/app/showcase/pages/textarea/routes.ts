@@ -1,4 +1,4 @@
-import { TextareaDemo } from '.';
+import { TextareaDemo } from './';
 
 export default [
     {

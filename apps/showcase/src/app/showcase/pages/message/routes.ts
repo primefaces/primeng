@@ -1,4 +1,4 @@
-import { MessageDemo } from '.';
+import { MessageDemo } from './';
 
 export default [
     {

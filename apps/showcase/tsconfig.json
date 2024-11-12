@@ -6,10 +6,6 @@
         "paths": {
             "@primeng/themes/*": ["../../packages/themes/src/presets/*"],
             "@primeng/themes": ["../../packages/themes/src/index.ts"],
-            "@primeng/icons/*": ["../../packages/icons/src/*/public_api"],
-            "@primeng/icons": ["../../packages/icons/src/public_api"],
-            "@primeng/core/*": ["../../packages/core/src/*/public_api"],
-            "@primeng/core": ["../../packages/core/src/public_api"],
             "primeng/*": ["../../packages/primeng/src/*/public_api"],
 
             "@pages/*": ["src/app/showcase/pages/*"],

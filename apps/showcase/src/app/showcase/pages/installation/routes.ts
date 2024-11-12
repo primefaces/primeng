@@ -1,4 +1,4 @@
-import { InstallationDemo } from '.';
+import { InstallationDemo } from './';
 
 export default [
     {

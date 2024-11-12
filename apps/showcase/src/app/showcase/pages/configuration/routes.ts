@@ -1,4 +1,4 @@
-import { ConfigurationDemo } from '.';
+import { ConfigurationDemo } from './';
 
 export default [
     {
