@@ -212,11 +212,13 @@ export const LISTBOX_VALUE_ACCESSOR: any = {
                 <ng-content select="p-footer"></ng-content>
                 <ng-container *ngTemplateOutlet="footerTemplate; context: { $implicit: modelValue(), options: visibleOptions() }"></ng-container>
             </div>
-            <span *ngIf="isEmpty()" role="status" aria-live="polite" class="p-hidden-accessible">
-                {{ emptyMessage }}
-            </span>
-            <span role="status" aria-live="polite" class="p-hidden-accessible">
-                {{ selectedMessageText }}
+            <span *ngIf="isEmpty() " role="status" aria-live="polite" class="p-hidden-accessible">
+                <ng-container *ngIf="hasEmptyMessage()">
+                    {{ emptyMessage }} 
+                </ng-container>
+                <ng-container *ngIf="!hasEmptyMessage()">
+                    {{ selectedMessageText }}
+                </ng-container>
             </span>
             <span #lastHiddenFocusableElement role="presentation" class="p-hidden-accessible p-hidden-focusable" [tabindex]="!disabled ? tabindex : -1" (focus)="onLastHiddenFocus($event)" [attr.data-p-hidden-focusable]="true"> </span>
         </div>
@@ -1424,6 +1426,10 @@ export class Listbox implements AfterContentInit, OnInit, ControlValueAccessor, 
 
     isEmpty() {
         return !this._options()?.length || !this.visibleOptions()?.length;
+    }
+
+    hasEmptyMessage() {
+        return this.emptyMessage ? true : false;
     }
 
     hasFilter() {
