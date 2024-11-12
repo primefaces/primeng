@@ -2,10 +2,18 @@
 {
     "extends": "./tsconfig.app.json",
     "compilerOptions": {
-        "outDir": "./out-tsc/server",
-        "types": ["node"],
-        "resolveJsonModule": true,
-        "allowSyntheticDefaultImports": true
+      "outDir": "./out-tsc/server",
+      "types": [
+        "node"
+      ],
+      "resolveJsonModule": true,
+      "allowSyntheticDefaultImports": true
     },
-    "files": ["src/main.server.ts", "server.ts"]
-}
+    "files": [
+      "src/main.server.ts",
+      "server.ts",
+    ],
+    "paths": {
+      "primeng/*": ["../../packages/primeng/src/*/public_api"]
+  }
+  }

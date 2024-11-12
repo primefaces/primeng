@@ -18,9 +18,6 @@
         }
     },
     "angularCompilerOptions": {
-        "disableTypeScriptVersionCheck": true,
-        "fullTemplateTypeCheck": false,
-        "annotateForClosureCompiler": false,
         "enableI18nLegacyMessageIdFormat": false,
         "strictInjectionParameters": false,
         "strictInputAccessModifiers": false,
