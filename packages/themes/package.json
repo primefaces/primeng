@@ -82,5 +82,8 @@
     },
     "dependencies": {
         "@primeuix/styled": "catalog:"
+    },
+    "engines": {
+        "node": ">=12.11.0"
     }
 }
