@@ -2,8 +2,8 @@ import { Component } from '@angular/core';
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
-import { CheckIcon, ExclamationTriangleIcon, TimesIcon } from '@primeng/icons';
 import { MessageService } from 'primeng/api';
+import { CheckIcon, ExclamationTriangleIcon, TimesIcon } from 'primeng/icons';
 import { Toast, ToastItem } from './toast';
 
 @Component({

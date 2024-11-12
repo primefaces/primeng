@@ -20,11 +20,11 @@ import {
     inject,
     numberAttribute
 } from '@angular/core';
-import { BaseComponent, SharedModule } from '@primeng/core';
-import { CheckIcon, ExclamationTriangleIcon, InfoCircleIcon, TimesCircleIcon, TimesIcon } from '@primeng/icons';
 import { isEmpty, setAttribute, uuid } from '@primeuix/utils';
-import { MessageService, ToastMessageOptions } from 'primeng/api';
+import { MessageService, SharedModule, ToastMessageOptions } from 'primeng/api';
+import { BaseComponent } from 'primeng/basecomponent';
 import { Button } from 'primeng/button';
+import { CheckIcon, ExclamationTriangleIcon, InfoCircleIcon, TimesCircleIcon, TimesIcon } from 'primeng/icons';
 import { Ripple } from 'primeng/ripple';
 import { ZIndexUtils } from 'primeng/utils';
 import { Subscription } from 'rxjs';

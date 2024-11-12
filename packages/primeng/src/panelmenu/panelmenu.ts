@@ -23,10 +23,10 @@ import {
     ViewEncapsulation
 } from '@angular/core';
 import { RouterModule } from '@angular/router';
-import { BaseComponent, SharedModule } from '@primeng/core';
-import { AngleDownIcon, AngleRightIcon, ChevronDownIcon, ChevronRightIcon } from '@primeng/icons';
 import { equals, findLast, findSingle, focus, getAttribute, isEmpty, isNotEmpty, isPrintableCharacter, resolve, uuid } from '@primeuix/utils';
-import { MenuItem } from 'primeng/api';
+import { MenuItem, SharedModule } from 'primeng/api';
+import { BaseComponent } from 'primeng/basecomponent';
+import { AngleDownIcon, AngleRightIcon, ChevronDownIcon, ChevronRightIcon } from 'primeng/icons';
 import { TooltipModule } from 'primeng/tooltip';
 import { PanelMenuStyle } from './style/panelmenustyle';
 

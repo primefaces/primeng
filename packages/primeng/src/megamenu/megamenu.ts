@@ -21,11 +21,11 @@ import {
     ViewEncapsulation
 } from '@angular/core';
 import { RouterModule } from '@angular/router';
-import { BaseComponent, PrimeNGConfig, SharedModule } from '@primeng/core';
-import { AngleDownIcon, AngleRightIcon, BarsIcon } from '@primeng/icons';
 import { findLastIndex, findSingle, focus, isEmpty, isNotEmpty, isPrintableCharacter, isTouchDevice, resolve, uuid } from '@primeuix/utils';
-import { MegaMenuItem } from 'primeng/api';
+import { MegaMenuItem, PrimeNGConfig, SharedModule } from 'primeng/api';
 import { BadgeModule } from 'primeng/badge';
+import { BaseComponent } from 'primeng/basecomponent';
+import { AngleDownIcon, AngleRightIcon, BarsIcon } from 'primeng/icons';
 import { Ripple } from 'primeng/ripple';
 import { TooltipModule } from 'primeng/tooltip';
 import { VoidListener } from 'primeng/ts-helpers';

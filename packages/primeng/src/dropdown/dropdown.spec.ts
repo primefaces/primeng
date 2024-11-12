@@ -4,7 +4,7 @@ import { ComponentFixture, fakeAsync, flush, TestBed } from '@angular/core/testi
 import { FormsModule } from '@angular/forms';
 import { By } from '@angular/platform-browser';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
-import { ChevronDownIcon, SearchIcon, TimesIcon } from '@primeng/icons';
+import { ChevronDownIcon, SearchIcon, TimesIcon } from 'primeng/icons';
 import { OverlayModule } from 'primeng/overlay';
 import { TooltipModule } from 'primeng/tooltip';
 import { Dropdown, DropdownItem } from './dropdown';

@@ -287,56 +287,14 @@ importers:
         specifier: ~0.14.0
         version: 0.14.10
 
-  packages/core:
-    dependencies:
-      '@primeuix/styled':
-        specifier: 'catalog:'
-        version: 0.3.0
-      '@primeuix/utils':
-        specifier: 'catalog:'
-        version: 0.3.0
-    devDependencies:
-      '@angular/animations':
-        specifier: ^17.0.0 || ^18.0.0
-        version: 18.2.11(@angular/core@18.2.11(rxjs@7.8.1)(zone.js@0.14.10))
-      '@angular/cdk':
-        specifier: ^17.0.0 || ^18.0.0
-        version: 18.2.12(@angular/common@18.2.11(@angular/core@18.2.11(rxjs@7.8.1)(zone.js@0.14.10))(rxjs@7.8.1))(@angular/core@18.2.11(rxjs@7.8.1)(zone.js@0.14.10))(rxjs@7.8.1)
-      '@angular/common':
-        specifier: ^17.0.0 || ^18.0.0
-        version: 18.2.11(@angular/core@18.2.11(rxjs@7.8.1)(zone.js@0.14.10))(rxjs@7.8.1)
-      '@angular/core':
-        specifier: ^17.0.0 || ^18.0.0
-        version: 18.2.11(rxjs@7.8.1)(zone.js@0.14.10)
-      '@angular/forms':
-        specifier: ^17.0.0 || ^18.0.0
-        version: 18.2.11(@angular/common@18.2.11(@angular/core@18.2.11(rxjs@7.8.1)(zone.js@0.14.10))(rxjs@7.8.1))(@angular/core@18.2.11(rxjs@7.8.1)(zone.js@0.14.10))(@angular/platform-browser@18.2.11(@angular/animations@18.2.11(@angular/core@18.2.11(rxjs@7.8.1)(zone.js@0.14.10)))(@angular/common@18.2.11(@angular/core@18.2.11(rxjs@7.8.1)(zone.js@0.14.10))(rxjs@7.8.1))(@angular/core@18.2.11(rxjs@7.8.1)(zone.js@0.14.10)))(rxjs@7.8.1)
-      '@angular/router':
-        specifier: ^17.0.0 || ^18.0.0
-        version: 18.2.11(@angular/common@18.2.11(@angular/core@18.2.11(rxjs@7.8.1)(zone.js@0.14.10))(rxjs@7.8.1))(@angular/core@18.2.11(rxjs@7.8.1)(zone.js@0.14.10))(@angular/platform-browser@18.2.11(@angular/animations@18.2.11(@angular/core@18.2.11(rxjs@7.8.1)(zone.js@0.14.10)))(@angular/common@18.2.11(@angular/core@18.2.11(rxjs@7.8.1)(zone.js@0.14.10))(rxjs@7.8.1))(@angular/core@18.2.11(rxjs@7.8.1)(zone.js@0.14.10)))(rxjs@7.8.1)
-      rxjs:
-        specifier: ^6.0.0 || ^7.8.1
-        version: 7.8.1
-      zone.js:
-        specifier: ~0.14.0
-        version: 0.14.10
-    publishDirectory: dist
-
-  packages/icons:
-    dependencies:
-      '@primeng/core':
-        specifier: workspace:*
-        version: link:../core
-      '@primeuix/utils':
-        specifier: 'catalog:'
-        version: 0.3.0
-    publishDirectory: dist
-
   packages/primeng:
     dependencies:
       '@angular/animations':
         specifier: ^17.0.0 || ^18.0.0
         version: 18.2.11(@angular/core@18.2.11(rxjs@7.8.1)(zone.js@0.14.10))
+      '@angular/cdk':
+        specifier: ^17.0.0 || ^18.0.0
+        version: 18.2.12(@angular/common@18.2.11(@angular/core@18.2.11(rxjs@7.8.1)(zone.js@0.14.10))(rxjs@7.8.1))(@angular/core@18.2.11(rxjs@7.8.1)(zone.js@0.14.10))(rxjs@7.8.1)
       '@angular/common':
         specifier: ^17.0.0 || ^18.0.0
         version: 18.2.11(@angular/core@18.2.11(rxjs@7.8.1)(zone.js@0.14.10))(rxjs@7.8.1)
@@ -346,15 +304,12 @@ importers:
       '@angular/forms':
         specifier: ^17.0.0 || ^18.0.0
         version: 18.2.11(@angular/common@18.2.11(@angular/core@18.2.11(rxjs@7.8.1)(zone.js@0.14.10))(rxjs@7.8.1))(@angular/core@18.2.11(rxjs@7.8.1)(zone.js@0.14.10))(@angular/platform-browser@18.2.11(@angular/animations@18.2.11(@angular/core@18.2.11(rxjs@7.8.1)(zone.js@0.14.10)))(@angular/common@18.2.11(@angular/core@18.2.11(rxjs@7.8.1)(zone.js@0.14.10))(rxjs@7.8.1))(@angular/core@18.2.11(rxjs@7.8.1)(zone.js@0.14.10)))(rxjs@7.8.1)
+      '@angular/platform-browser':
+        specifier: ^17.0.0 || ^18.0.0
+        version: 18.2.11(@angular/animations@18.2.11(@angular/core@18.2.11(rxjs@7.8.1)(zone.js@0.14.10)))(@angular/common@18.2.11(@angular/core@18.2.11(rxjs@7.8.1)(zone.js@0.14.10))(rxjs@7.8.1))(@angular/core@18.2.11(rxjs@7.8.1)(zone.js@0.14.10))
       '@angular/router':
         specifier: ^17.0.0 || ^18.0.0
         version: 18.2.11(@angular/common@18.2.11(@angular/core@18.2.11(rxjs@7.8.1)(zone.js@0.14.10))(rxjs@7.8.1))(@angular/core@18.2.11(rxjs@7.8.1)(zone.js@0.14.10))(@angular/platform-browser@18.2.11(@angular/animations@18.2.11(@angular/core@18.2.11(rxjs@7.8.1)(zone.js@0.14.10)))(@angular/common@18.2.11(@angular/core@18.2.11(rxjs@7.8.1)(zone.js@0.14.10))(rxjs@7.8.1))(@angular/core@18.2.11(rxjs@7.8.1)(zone.js@0.14.10)))(rxjs@7.8.1)
-      '@primeng/core':
-        specifier: workspace:*
-        version: link:../core
-      '@primeng/icons':
-        specifier: workspace:*
-        version: link:../icons
       '@primeuix/styled':
         specifier: 'catalog:'
         version: 0.3.0
@@ -364,13 +319,7 @@ importers:
       rxjs:
         specifier: ^6.0.0 || ^7.8.1
         version: 7.8.1
-      zone.js:
-        specifier: ~0.14.0
-        version: 0.14.10
     devDependencies:
-      '@angular/cdk':
-        specifier: catalog:angular18
-        version: 18.2.12(@angular/common@18.2.11(@angular/core@18.2.11(rxjs@7.8.1)(zone.js@0.14.10))(rxjs@7.8.1))(@angular/core@18.2.11(rxjs@7.8.1)(zone.js@0.14.10))(rxjs@7.8.1)
       chart.js:
         specifier: 4.4.2
         version: 4.4.2
@@ -11634,7 +11583,7 @@ snapshots:
     dependencies:
       copy-anything: 2.0.6
       parse-node-version: 1.0.1
-      tslib: 2.6.3
+      tslib: 2.8.1
     optionalDependencies:
       errno: 0.1.8
       graceful-fs: 4.2.11

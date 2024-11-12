@@ -21,11 +21,11 @@ import {
     ViewEncapsulation
 } from '@angular/core';
 import { DomSanitizer } from '@angular/platform-browser';
-import { BaseComponent, SharedModule, TranslationKeys } from '@primeng/core';
-import { PlusIcon, TimesIcon, UploadIcon } from '@primeng/icons';
 import { addClass, removeClass } from '@primeuix/utils';
-import { BlockableUI } from 'primeng/api';
+import { BlockableUI, SharedModule, TranslationKeys } from 'primeng/api';
+import { BaseComponent } from 'primeng/basecomponent';
 import { Button } from 'primeng/button';
+import { PlusIcon, TimesIcon, UploadIcon } from 'primeng/icons';
 import { Message } from 'primeng/message';
 import { ProgressBar } from 'primeng/progressbar';
 import { Ripple } from 'primeng/ripple';

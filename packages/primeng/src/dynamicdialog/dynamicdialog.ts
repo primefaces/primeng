@@ -1,12 +1,13 @@
 import { animate, animation, AnimationEvent, style, transition, trigger, useAnimation } from '@angular/animations';
 import { CommonModule, isPlatformBrowser } from '@angular/common';
 import { AfterViewInit, ChangeDetectionStrategy, Component, ComponentRef, ElementRef, inject, NgModule, NgZone, OnDestroy, Optional, Renderer2, SkipSelf, Type, ViewChild, ViewEncapsulation, ViewRef } from '@angular/core';
-import { BaseComponent, SharedModule, TranslationKeys } from '@primeng/core';
-import { TimesIcon, WindowMaximizeIcon, WindowMinimizeIcon } from '@primeng/icons';
 import { addClass, getOuterHeight, getOuterWidth, getViewport, hasClass, removeClass, setAttribute, uuid } from '@primeuix/utils';
+import { SharedModule, TranslationKeys } from 'primeng/api';
+import { BaseComponent } from 'primeng/basecomponent';
 import { Button } from 'primeng/button';
 import { DomHandler } from 'primeng/dom';
 import { FocusTrap } from 'primeng/focustrap';
+import { TimesIcon, WindowMaximizeIcon, WindowMinimizeIcon } from 'primeng/icons';
 import { Nullable, VoidListener } from 'primeng/ts-helpers';
 import { ZIndexUtils } from 'primeng/utils';
 import { DynamicDialogConfig } from './dynamicdialog-config';

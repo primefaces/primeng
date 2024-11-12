@@ -1,6 +1,5 @@
 import { TemplateRef } from '@angular/core';
-import { FilterMetadata } from '@primeng/core';
-import { LazyLoadMeta } from 'primeng/api';
+import { FilterMetadata, LazyLoadMeta } from 'primeng/api';
 import { ButtonProps } from 'primeng/button';
 import { Table } from './table';
 /**

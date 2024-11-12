@@ -1,12 +1,12 @@
 import { animate, animation, style, transition, trigger, useAnimation } from '@angular/animations';
 import { CommonModule } from '@angular/common';
 import { booleanAttribute, ChangeDetectionStrategy, Component, ContentChild, ElementRef, EventEmitter, inject, Input, NgModule, NgZone, numberAttribute, OnDestroy, OnInit, Output, TemplateRef, ViewEncapsulation } from '@angular/core';
-import { BaseComponent, Footer, SharedModule, TranslationKeys } from '@primeng/core';
-import { CheckIcon, TimesIcon } from '@primeng/icons';
 import { findSingle, setAttribute, uuid } from '@primeuix/utils';
-import { Confirmation, ConfirmationService, ConfirmEventType } from 'primeng/api';
+import { Confirmation, ConfirmationService, ConfirmEventType, Footer, SharedModule, TranslationKeys } from 'primeng/api';
+import { BaseComponent } from 'primeng/basecomponent';
 import { Button } from 'primeng/button';
 import { Dialog } from 'primeng/dialog';
+import { CheckIcon, TimesIcon } from 'primeng/icons';
 import { Ripple } from 'primeng/ripple';
 import { Nullable } from 'primeng/ts-helpers';
 import { Subscription } from 'rxjs';

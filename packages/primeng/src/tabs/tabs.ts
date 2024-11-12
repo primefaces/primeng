@@ -1,8 +1,8 @@
 import { CommonModule } from '@angular/common';
 import { booleanAttribute, ChangeDetectionStrategy, Component, inject, input, model, NgModule, numberAttribute, signal, ViewEncapsulation } from '@angular/core';
 
-import { BaseComponent } from '@primeng/core';
 import { uuid } from '@primeuix/utils';
+import { BaseComponent } from 'primeng/basecomponent';
 import { TabsStyle } from './style/tabsstyle';
 import { Tab } from './tab';
 import { TabList } from './tablist';

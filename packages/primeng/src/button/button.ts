@@ -20,11 +20,12 @@ import {
     TemplateRef,
     ViewEncapsulation
 } from '@angular/core';
-import { BaseComponent, SharedModule } from '@primeng/core';
-import { SpinnerIcon } from '@primeng/icons';
 import { addClass, findSingle, isEmpty } from '@primeuix/utils';
+import { SharedModule } from 'primeng/api';
 import { AutoFocus } from 'primeng/autofocus';
 import { BadgeModule } from 'primeng/badge';
+import { BaseComponent } from 'primeng/basecomponent';
+import { SpinnerIcon } from 'primeng/icons';
 import { Ripple } from 'primeng/ripple';
 import { ButtonProps } from './button.interface';
 import { ButtonStyle } from './style/buttonstyle';

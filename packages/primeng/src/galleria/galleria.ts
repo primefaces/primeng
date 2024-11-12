@@ -29,10 +29,11 @@ import {
     ViewChild,
     ViewEncapsulation
 } from '@angular/core';
-import { BaseComponent, PrimeNGConfig, PrimeTemplate, SharedModule } from '@primeng/core';
-import { ChevronLeftIcon, ChevronRightIcon, TimesIcon, WindowMaximizeIcon, WindowMinimizeIcon } from '@primeng/icons';
 import { addClass, blockBodyScroll, find, findSingle, focus, getAttribute, removeClass, setAttribute, unblockBodyScroll, uuid } from '@primeuix/utils';
+import { PrimeNGConfig, PrimeTemplate, SharedModule } from 'primeng/api';
+import { BaseComponent } from 'primeng/basecomponent';
 import { FocusTrap } from 'primeng/focustrap';
+import { ChevronLeftIcon, ChevronRightIcon, TimesIcon, WindowMaximizeIcon, WindowMinimizeIcon } from 'primeng/icons';
 import { Ripple } from 'primeng/ripple';
 import { VoidListener } from 'primeng/ts-helpers';
 import { ZIndexUtils } from 'primeng/utils';

@@ -1,8 +1,9 @@
 import { CommonModule } from '@angular/common';
 import { booleanAttribute, ChangeDetectionStrategy, Component, ContentChild, EventEmitter, forwardRef, inject, Input, NgModule, numberAttribute, Output, TemplateRef, ViewEncapsulation } from '@angular/core';
 import { ControlValueAccessor, FormsModule, NG_VALUE_ACCESSOR } from '@angular/forms';
-import { BaseComponent, SharedModule } from '@primeng/core';
 import { equals, resolveFieldData } from '@primeuix/utils';
+import { SharedModule } from 'primeng/api';
+import { BaseComponent } from 'primeng/basecomponent';
 import { Ripple } from 'primeng/ripple';
 import { ToggleButton } from 'primeng/togglebutton';
 import { SelectButtonChangeEvent, SelectButtonOptionClickEvent } from './selectbutton.interface';

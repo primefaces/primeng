@@ -1,6 +1,6 @@
 import { AfterViewInit, booleanAttribute, Directive, EventEmitter, HostListener, inject, Input, NgModule, OnDestroy, OnInit, Optional, Output } from '@angular/core';
 import { NgControl, NgModel } from '@angular/forms';
-import { BaseComponent } from '@primeng/core';
+import { BaseComponent } from 'primeng/basecomponent';
 import { Subscription } from 'rxjs';
 import { TextareaStyle } from './style/textareastyle';
 

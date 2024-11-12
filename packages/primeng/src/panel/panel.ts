@@ -1,11 +1,11 @@
 import { animate, state, style, transition, trigger } from '@angular/animations';
 import { CommonModule } from '@angular/common';
 import { booleanAttribute, ChangeDetectionStrategy, Component, ContentChild, EventEmitter, inject, Input, NgModule, Output, TemplateRef, ViewEncapsulation } from '@angular/core';
-import { BaseComponent, Footer, SharedModule } from '@primeng/core';
-import { MinusIcon, PlusIcon } from '@primeng/icons';
 import { uuid } from '@primeuix/utils';
-import { BlockableUI } from 'primeng/api';
+import { BlockableUI, Footer, SharedModule } from 'primeng/api';
+import { BaseComponent } from 'primeng/basecomponent';
 import { ButtonModule } from 'primeng/button';
+import { MinusIcon, PlusIcon } from 'primeng/icons';
 import { Ripple } from 'primeng/ripple';
 import { Nullable } from 'primeng/ts-helpers';
 import { PanelStyle } from './style/panelstyle';
@@ -369,8 +369,8 @@ export class Panel extends BaseComponent implements BlockableUI {
             if (this.collapsed) this.expand();
             else this.collapse();
         }
-        
-        this.cd.markForCheck()
+
+        this.cd.markForCheck();
         event.preventDefault();
     }
 

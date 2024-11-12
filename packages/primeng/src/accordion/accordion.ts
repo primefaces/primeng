@@ -26,10 +26,10 @@ import {
     TemplateRef,
     ViewEncapsulation
 } from '@angular/core';
-import { BaseComponent, Header, SharedModule } from '@primeng/core';
-import { ChevronDownIcon, ChevronUpIcon } from '@primeng/icons';
 import { findSingle, focus, getAttribute, uuid } from '@primeuix/utils';
-import { BlockableUI } from 'primeng/api';
+import { BlockableUI, Header, SharedModule } from 'primeng/api';
+import { BaseComponent } from 'primeng/basecomponent';
+import { ChevronDownIcon, ChevronUpIcon } from 'primeng/icons';
 import { Ripple } from 'primeng/ripple';
 import { transformToBoolean } from 'primeng/utils';
 import { Subscription } from 'rxjs';

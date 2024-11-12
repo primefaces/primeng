@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { BaseStyle } from '@primeng/core/base';
+import { BaseStyle } from 'primeng/base';
 
 const theme = ({ dt }) => `
 .p-toast {
