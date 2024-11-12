@@ -108,6 +108,7 @@ export const LISTBOX_VALUE_ACCESSOR: any = {
                                 [tabindex]="!disabled && !focused ? tabindex : -1"
                                 (input)="onFilterChange($event)"
                                 (keydown)="onFilterKeyDown($event)"
+                                (focus)="onFilterFocus($event)"
                                 (blur)="onFilterBlur($event)"
                             />
                             <p-inputicon>
@@ -123,7 +124,7 @@ export const LISTBOX_VALUE_ACCESSOR: any = {
                     </span>
                 </ng-template>
             </div>
-            <div [ngClass]="'p-listbox-list-container'" [ngStyle]="listStyle" [class]="listStyleClass" [style.max-height]="virtualScroll ? 'auto' : scrollHeight || 'auto'">
+            <div [ngClass]="'p-listbox-list-container'" #container [ngStyle]="listStyle" [class]="listStyleClass" [style.max-height]="virtualScroll ? 'auto' : scrollHeight || 'auto'" [attr.tabindex]="!disabled && '0'">
                 <p-scroller
                     #scroller
                     *ngIf="virtualScroll"
@@ -131,10 +132,10 @@ export const LISTBOX_VALUE_ACCESSOR: any = {
                     [style]="{ height: scrollHeight }"
                     [itemSize]="virtualScrollItemSize"
                     [autoSize]="true"
-                    [tabindex]="-1"
                     [lazy]="lazy"
                     [options]="virtualScrollOptions"
                     (onLazyLoad)="onLazyLoad.emit($event)"
+                    [tabindex]="scrollerTabIndex"
                 >
                     <ng-template #content let-items let-scrollerOptions="options">
                         <ng-container *ngTemplateOutlet="buildInItems; context: { $implicit: items, options: scrollerOptions }"></ng-container>
@@ -597,6 +598,8 @@ export class Listbox extends BaseComponent implements AfterContentInit, OnInit, 
 
     @ViewChild('list') listViewChild: Nullable<ElementRef>;
 
+    @ViewChild('container') containerViewChild: Nullable<ElementRef>;
+
     @ContentChild(Header) headerFacet: Nullable<TemplateRef<any>>;
 
     @ContentChild(Footer) footerFacet: Nullable<TemplateRef<any>>;
@@ -690,6 +693,8 @@ export class Listbox extends BaseComponent implements AfterContentInit, OnInit, 
     translationSubscription: Nullable<Subscription>;
 
     focused: boolean | undefined;
+
+    scrollerTabIndex: string = '0';
 
     _componentStyle = inject(ListBoxStyle);
 
@@ -1062,6 +1067,8 @@ export class Listbox extends BaseComponent implements AfterContentInit, OnInit, 
     onFocusout(event: FocusEvent) {
         if (!this.el.nativeElement.contains(event.relatedTarget) && this.lastHiddenFocusableElement && this.firstHiddenFocusableElement) {
             this.firstHiddenFocusableElement.nativeElement.tabIndex = this.lastHiddenFocusableElement.nativeElement.tabIndex = undefined;
+            this.containerViewChild.nativeElement.tabIndex = '0';
+            this.scrollerTabIndex = '0';
         }
     }
 
@@ -1070,6 +1077,13 @@ export class Listbox extends BaseComponent implements AfterContentInit, OnInit, 
         const focusedOptionIndex = this.focusedOptionIndex() !== -1 ? this.focusedOptionIndex() : this.autoOptionFocus ? this.findFirstFocusedOptionIndex() : -1;
         this.focusedOptionIndex.set(focusedOptionIndex);
         this.onFocus.emit(event);
+
+        this.containerViewChild.nativeElement.tabIndex = '-1';
+        this.scrollerTabIndex = '-1';
+    }
+
+    onFilterFocus(event: FocusEvent) {
+        this.containerViewChild.nativeElement.tabIndex = '-1';
     }
 
     onListBlur(event: FocusEvent) {
