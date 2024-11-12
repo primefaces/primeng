@@ -23,7 +23,7 @@ import { CustomerService } from '@service/customerservice';
                     <ng-template #groupheader let-customer let-rowIndex="rowIndex" let-expanded="expanded">
                         <tr>
                             <td colspan="5">
-                                <button type="button" pButton pRipple [pRowToggler]="customer" class="p-button-text p-button-rounded p-button-plain mr-2" [icon]="expanded ? 'pi pi-chevron-down' : 'pi pi-chevron-right'"></button>
+                                <button type="button" pButton pRipple [pRowToggler]="customer" text rounded plain class="mr-2" [icon]="expanded ? 'pi pi-chevron-down' : 'pi pi-chevron-right'"></button>
                                 <img [alt]="customer.representative.name" src="https://primefaces.org/cdn/primeng/images/demo/avatar/{{ customer.representative.image }}" width="32" style="vertical-align: middle" />
                                 <span class="font-bold ml-2">{{ customer.representative.name }}</span>
                             </td>
@@ -135,7 +135,10 @@ export class ExpandableRowGroupDoc {
                         pButton
                         pRipple
                         [pRowToggler]="customer"
-                        class="p-button-text p-button-rounded p-button-plain mr-2"
+                        text 
+                        rounded 
+                        plain 
+                        class="mr-2"
                         [icon]="expanded ? 'pi pi-chevron-down' : 'pi pi-chevron-right'">
                     </button>
                     <img
@@ -203,7 +206,10 @@ export class ExpandableRowGroupDoc {
                             pButton
                             pRipple
                             [pRowToggler]="customer"
-                            class="p-button-text p-button-rounded p-button-plain mr-2"
+                            text 
+                            rounded 
+                            plain 
+                            class="mr-2"
                             [icon]="expanded ? 'pi pi-chevron-down' : 'pi pi-chevron-right'">
                         </button>
                         <img

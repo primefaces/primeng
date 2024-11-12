@@ -35,11 +35,11 @@ interface Column {
                         </tr>
                     </ng-template>
                     <ng-template pTemplate="paginatorleft">
-                        <p-button icon="pi pi-refresh" styleClass="p-button-text" />
+                        <p-button icon="pi pi-refresh" text />
                     </ng-template>
 
                     <ng-template pTemplate="paginatorright">
-                        <p-button icon="pi pi-download" styleClass="p-button-text" />
+                        <p-button icon="pi pi-download" text />
                     </ng-template>
                 </p-treetable>
             </p-deferred-demo>
@@ -107,10 +107,10 @@ export class PaginatorTemplateDoc {
             </tr>
         </ng-template>
         <ng-template pTemplate="paginatorleft">
-            <p-button icon="pi pi-refresh" styleClass="p-button-text" />
+            <p-button icon="pi pi-refresh" text />
         </ng-template>
         <ng-template pTemplate="paginatorright">
-            <p-button icon="pi pi-download" styleClass="p-button-text" />
+            <p-button icon="pi pi-download" text />
         </ng-template>
 </p-treetable>`,
 
@@ -138,10 +138,10 @@ export class PaginatorTemplateDoc {
                 </tr>
             </ng-template>
             <ng-template pTemplate="paginatorleft">
-                <p-button icon="pi pi-refresh" styleClass="p-button-text" />
+                <p-button icon="pi pi-refresh" text />
             </ng-template>
             <ng-template pTemplate="paginatorright">
-                <p-button icon="pi pi-download" styleClass="p-button-text" />
+                <p-button icon="pi pi-download" text />
             </ng-template>
     </p-treetable>
 </div>`,

@@ -17,7 +17,7 @@ interface PageEvent {
         <div class="card flex flex-col gap-4">
             <div class="flex items-center justify-center">
                 <div>
-                    <p-button icon="pi pi-star" styleClass="p-button-outlined" />
+                    <p-button icon="pi pi-star" outlined />
                 </div>
                 <div class="flex-1">
                     <p-paginator (onPageChange)="onPageChange1($event)" [first]="first1" [rows]="rows1" [totalRecords]="120" [rowsPerPageOptions]="[10, 20, 30]" [showFirstLastIcon]="false" />
@@ -101,7 +101,7 @@ export class TemplateDoc {
     code: Code = {
         basic: `<div class="flex items-center justify-center">
     <div>
-        <p-button icon="pi pi-star" styleClass="p-button-outlined" />
+        <p-button icon="pi pi-star" outlined />
     </div>
     <div class="flex-1">
         <p-paginator (onPageChange)="onPageChange1($event)" [first]="first1" [rows]="rows1" [totalRecords]="120" [rowsPerPageOptions]="[10, 20, 30]" [showFirstLastIcon]="false" />
@@ -130,7 +130,7 @@ export class TemplateDoc {
         html: `<div class="card flex flex-col gap-4">
     <div class="flex items-center justify-center">
         <div>
-            <p-button icon="pi pi-star" styleClass="p-button-outlined" />
+            <p-button icon="pi pi-star" outlined />
         </div>
         <div class="flex-1">
             <p-paginator (onPageChange)="onPageChange1($event)" [first]="first1" [rows]="rows1" [totalRecords]="120" [rowsPerPageOptions]="[10, 20, 30]" [showFirstLastIcon]="false" />

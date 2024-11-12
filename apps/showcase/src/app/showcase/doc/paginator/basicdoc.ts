@@ -34,20 +34,10 @@ export class BasicDoc {
     }
 
     code: Code = {
-        basic: `<p-paginator 
-    (onPageChange)="onPageChange($event)" 
-    [first]="first"
-    [rows]="rows" 
-    [totalRecords]="120" 
-    [rowsPerPageOptions]="[10, 20, 30]" />`,
+        basic: `<p-paginator (onPageChange)="onPageChange($event)" [first]="first" [rows]="rows" [totalRecords]="120" [rowsPerPageOptions]="[10, 20, 30]" />`,
 
         html: `<div class="card flex justify-center">
-    <p-paginator 
-        (onPageChange)="onPageChange($event)" 
-        [first]="first" 
-        [rows]="rows" 
-        [totalRecords]="120" 
-        [rowsPerPageOptions]="[10, 20, 30]" />
+    <p-paginator (onPageChange)="onPageChange($event)" [first]="first" [rows]="rows" [totalRecords]="120" [rowsPerPageOptions]="[10, 20, 30]" />
 </div>`,
 
         typescript: `import { Component } from '@angular/core';

@@ -27,7 +27,7 @@ import { CustomerService } from '@service/customerservice';
                             <td>{{ customer.company }}</td>
                             <td>{{ customer.representative.name }}</td>
                             <td>
-                                <button pButton pRipple type="button" [icon]="'pi pi-lock-open'" (click)="toggleLock(customer, true, index)" class="p-button-sm p-button-text"></button>
+                                <button pButton pRipple type="button" [icon]="'pi pi-lock-open'" (click)="toggleLock(customer, true, index)" size="small" text></button>
                             </td>
                         </tr>
                     </ng-template>
@@ -38,7 +38,7 @@ import { CustomerService } from '@service/customerservice';
                             <td>{{ customer.company }}</td>
                             <td>{{ customer.representative.name }}</td>
                             <td>
-                                <button pButton pRipple type="button" [icon]="'pi pi-lock'" [disabled]="lockedCustomers.length >= 2" (click)="toggleLock(customer, false, index)" class="p-button-sm p-button-text"></button>
+                                <button pButton pRipple type="button" [icon]="'pi pi-lock'" [disabled]="lockedCustomers.length >= 2" (click)="toggleLock(customer, false, index)" size="small" text></button>
                             </td>
                         </tr>
                     </ng-template>
@@ -127,7 +127,8 @@ export class FrozenRowsDoc {
                         type="button" 
                         [icon]="'pi pi-lock-open'" 
                         (click)="toggleLock(customer,true,index)" 
-                        class="p-button-sm p-button-text">
+                        size="small"
+                        text>
                     </button>
                 </td>
             </tr>
@@ -146,7 +147,8 @@ export class FrozenRowsDoc {
                         [icon]="'pi pi-lock'" 
                         [disabled]="lockedCustomers.length >= 2" 
                         (click)="toggleLock(customer,false,index)" 
-                        class="p-button-sm p-button-text">
+                        size="small"
+                        text>
                     </button>
                 </td>
             </tr>
@@ -181,7 +183,8 @@ export class FrozenRowsDoc {
                             type="button" 
                             [icon]="'pi pi-lock-open'" 
                             (click)="toggleLock(customer,true,index)" 
-                            class="p-button-sm p-button-text">
+                            size="small"
+                            text>
                         </button>
                     </td>
                 </tr>
@@ -200,7 +203,8 @@ export class FrozenRowsDoc {
                             [icon]="'pi pi-lock'" 
                             [disabled]="lockedCustomers.length >= 2" 
                             (click)="toggleLock(customer,false,index)" 
-                            class="p-button-sm p-button-text">
+                            size="small"
+                            text>
                         </button>
                     </td>
                 </tr>

@@ -50,19 +50,11 @@ export class InteractiveDoc implements OnInit {
 
     code: Code = {
         basic: `<p-toast />
-<p-steps 
-    [model]="items" 
-    [readonly]="false" 
-    [activeIndex]="activeIndex" 
-    (activeIndexChange)="onActiveIndexChange($event)" />`,
+<p-steps [model]="items" [readonly]="false" [activeIndex]="activeIndex" (activeIndexChange)="onActiveIndexChange($event)" />`,
 
         html: `<div class="card">
     <p-toast />
-    <p-steps 
-        [model]="items" 
-        [readonly]="false" 
-        [activeIndex]="activeIndex" 
-        (activeIndexChange)="onActiveIndexChange($event)" />
+    <p-steps [model]="items" [readonly]="false" [activeIndex]="activeIndex" (activeIndexChange)="onActiveIndexChange($event)" />
 </div>`,
 
         typescript: `import { Component, OnInit } from '@angular/core';
