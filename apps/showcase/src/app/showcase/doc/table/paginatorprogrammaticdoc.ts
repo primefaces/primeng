@@ -12,9 +12,9 @@ import { CustomerService } from '@service/customerservice';
         <p-deferred-demo (load)="loadDemoData()">
             <div class="card">
                 <div class="mb-4 flex gap-1">
-                    <p-button type="button" icon="pi pi-chevron-left" (click)="prev()" [disabled]="isFirstPage()" styleClass="p-button-text" />
-                    <p-button type="button" icon="pi pi-refresh" (click)="reset()" styleClass="p-button-text" />
-                    <p-button type="button" icon="pi pi-chevron-right" (click)="next()" [disabled]="isLastPage()" styleClass="p-button-text" />
+                    <p-button type="button" icon="pi pi-chevron-left" (click)="prev()" [disabled]="isFirstPage()" text />
+                    <p-button type="button" icon="pi pi-refresh" (click)="reset()" text />
+                    <p-button type="button" icon="pi pi-chevron-right" (click)="next()" [disabled]="isLastPage()" text />
                 </div>
                 <p-table
                     [value]="customers"
@@ -96,23 +96,9 @@ export class PaginatorProgrammaticDoc {
 
     code: Code = {
         basic: `<div class="mb-4">
-    <p-button
-        type="button"
-        icon="pi pi-chevron-left"
-        (click)="prev()"
-        [disabled]="isFirstPage()"
-        styleClass="p-button-text" />
-    <p-button
-        type="button"
-        icon="pi pi-refresh"
-        (click)="reset()"
-        styleClass="p-button-text" />
-    <p-button
-        type="button"
-        icon="pi pi-chevron-right"
-        (click)="next()"
-        [disabled]="isLastPage()"
-        styleClass="p-button-text" />
+    <p-button type="button" icon="pi pi-chevron-left" (click)="prev()" [disabled]="isFirstPage()" text />
+    <p-button type="button" icon="pi pi-refresh" (click)="reset()" text />
+    <p-button type="button" icon="pi pi-chevron-right" (click)="next()" [disabled]="isLastPage()" text />
 </div>
 <p-table
     [value]="customers"
@@ -142,30 +128,16 @@ export class PaginatorProgrammaticDoc {
         </tr>
     </ng-template>
     <ng-template #paginatorleft>
-        <p-button type="button" icon="pi pi-plus" styleClass="p-button-text" />
+        <p-button type="button" icon="pi pi-plus" text />
     </ng-template>
     <ng-template #paginatorright>
-        <p-button type="button" icon="pi pi-cloud" styleClass="p-button-text" />
+        <p-button type="button" icon="pi pi-cloud" text />
     </ng-template>
 </p-table>`,
         html: `<div class="mb-4">
-    <p-button
-        type="button"
-        icon="pi pi-chevron-left"
-        (click)="prev()"
-        [disabled]="isFirstPage()"
-        styleClass="p-button-text" />
-    <p-button
-        type="button"
-        icon="pi pi-refresh"
-        (click)="reset()"
-        styleClass="p-button-text" />
-    <p-button
-        type="button"
-        icon="pi pi-chevron-right"
-        (click)="next()"
-        [disabled]="isLastPage()"
-        styleClass="p-button-text" />
+    <p-button type="button" icon="pi pi-chevron-left" (click)="prev()" [disabled]="isFirstPage()" text />
+    <p-button type="button" icon="pi pi-refresh" (click)="reset()" text />
+    <p-button type="button" icon="pi pi-chevron-right" (click)="next()" [disabled]="isLastPage()" text />
 </div>
 <div class="card">
     <p-table
@@ -196,10 +168,10 @@ export class PaginatorProgrammaticDoc {
             </tr>
         </ng-template>
         <ng-template #paginatorleft>
-            <p-button type="button" icon="pi pi-plus" styleClass="p-button-text" />
+            <p-button type="button" icon="pi pi-plus" text />
         </ng-template>
         <ng-template #paginatorright>
-            <p-button type="button" icon="pi pi-cloud" styleClass="p-button-text" />
+            <p-button type="button" icon="pi pi-cloud" text />
         </ng-template>
     </p-table>
 </div>`,
