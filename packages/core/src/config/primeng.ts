@@ -1,6 +1,7 @@
 import { inject, Injectable, PLATFORM_ID, signal } from '@angular/core';
-import { FilterMatchMode, OverlayOptions, ThemeProvider, Translation } from '@primeng/core/api';
+import { FilterMatchMode, OverlayOptions, Translation } from '@primeng/core/api';
 import { Subject } from 'rxjs';
+import { ThemeProvider } from './themeprovider';
 
 @Injectable({ providedIn: 'root' })
 export class PrimeNG extends ThemeProvider {

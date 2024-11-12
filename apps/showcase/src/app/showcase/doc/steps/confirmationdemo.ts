@@ -49,7 +49,7 @@ import { Router } from '@angular/router';
                 <ng-template pTemplate="footer">
                     <div class="grid grid-cols-12 gap-4 grid-nogutter justify-between">
                         <p-button label="Back" (onClick)="prevPage()" icon="pi pi-angle-left"></p-button>
-                        <p-button label="Complete" (onClick)="complete()" icon="pi pi-angle-right" iconPos="right" styleClass="p-button-success"></p-button>
+                        <p-button label="Complete" (onClick)="complete()" icon="pi pi-angle-right" iconPos="right" severity="success"></p-button>
                     </div>
                 </ng-template>
             </p-card>

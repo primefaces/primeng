@@ -40,10 +40,10 @@ import { CustomerService } from '@service/customerservice';
                         </tr>
                     </ng-template>
                     <ng-template pTemplate="paginatorleft">
-                        <p-button type="button" icon="pi pi-plus" styleClass="p-button-text"></p-button>
+                        <p-button type="button" icon="pi pi-plus" text></p-button>
                     </ng-template>
                     <ng-template pTemplate="paginatorright">
-                        <p-button type="button" icon="pi pi-cloud" styleClass="p-button-text"></p-button>
+                        <p-button type="button" icon="pi pi-cloud" text></p-button>
                     </ng-template>
                 </p-table>
             </div>
@@ -94,10 +94,10 @@ export class PaginatorLocaleDoc {
         </tr>
     </ng-template>
     <ng-template pTemplate="paginatorleft">
-        <p-button type="button" icon="pi pi-plus" styleClass="p-button-text"></p-button>
+        <p-button type="button" icon="pi pi-plus" text></p-button>
     </ng-template>
     <ng-template pTemplate="paginatorright">
-        <p-button type="button" icon="pi pi-cloud" styleClass="p-button-text"></p-button>
+        <p-button type="button" icon="pi pi-cloud" text></p-button>
     </ng-template>
 </p-table>`,
         html: `
@@ -129,10 +129,10 @@ export class PaginatorLocaleDoc {
             </tr>
         </ng-template>
         <ng-template pTemplate="paginatorleft">
-            <p-button type="button" icon="pi pi-plus" styleClass="p-button-text"></p-button>
+            <p-button type="button" icon="pi pi-plus" text></p-button>
         </ng-template>
         <ng-template pTemplate="paginatorright">
-            <p-button type="button" icon="pi pi-cloud" styleClass="p-button-text"></p-button>
+            <p-button type="button" icon="pi pi-cloud" text></p-button>
         </ng-template>
     </p-table>
 </div>`,

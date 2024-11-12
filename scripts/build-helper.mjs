@@ -2,15 +2,22 @@ import fs from 'fs-extra';
 import path from 'path';
 import { fileURLToPath } from 'url';
 
+export const AUTO_FILE_COMMENT = `/**
+ * @file
+ * THIS FILE IS AUTO-GENERATED. PLEASE DO NOT MODIFY.
+ */`;
+
 export function resolvePath(metaUrl) {
     const __dirname = path.dirname(fileURLToPath(metaUrl || import.meta.url));
+    const __root = path.resolve(path.dirname(fileURLToPath(metaUrl || import.meta.url)), '../');
     const __workspace = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '../');
     const { INPUT_DIR, OUTPUT_DIR } = process.env;
-    const INPUT_PATH = path.resolve(__dirname, process.env.INPUT_DIR);
-    const OUTPUT_PATH = path.resolve(__dirname, process.env.OUTPUT_DIR);
+    const INPUT_PATH = path.resolve(__root, process.env.INPUT_DIR);
+    const OUTPUT_PATH = path.resolve(__root, process.env.OUTPUT_DIR);
 
     return {
         __dirname,
+        __root,
         __workspace,
         INPUT_DIR,
         OUTPUT_DIR,
@@ -20,12 +27,13 @@ export function resolvePath(metaUrl) {
 }
 
 export function removeBuild(metaUrl) {
-    const { OUTPUT_DIR } = resolvePath(metaUrl);
+    const { OUTPUT_DIR, __root } = resolvePath(metaUrl);
 
     fs.remove(OUTPUT_DIR);
+    fs.remove(path.resolve(__root, '.angular'));
 }
 
-export function updatePackageJson(localPackageJson) {
+export function updatePackageJson(localPackageJson, callback) {
     const { __workspace } = resolvePath();
     const packageJson = JSON.parse(fs.readFileSync(path.resolve(__workspace, './package.json'), { encoding: 'utf8', flag: 'r' }));
     const pkg = JSON.parse(fs.readFileSync(localPackageJson, { encoding: 'utf8', flag: 'r' }));
@@ -38,10 +46,29 @@ export function updatePackageJson(localPackageJson) {
     pkg.bugs = { ...pkg.bugs, ...packageJson.bugs };
     pkg.engines = { ...pkg.engines, ...packageJson.engines };
 
-    fs.writeFileSync(localPackageJson, JSON.stringify(pkg, null, 4));
+    callback?.(pkg);
+
+    fs.writeFileSync(localPackageJson, JSON.stringify(pkg, null, 4) + '\n', { encoding: 'utf8' });
 }
 
-export function clearPackageJson(localPackageJson) {
+export function createPackageJson_For_NG_Packager(localPackageJson, INPUT_PATH, callback) {
+    updatePackageJson(localPackageJson);
+
+    const pkgPath = path.join(INPUT_PATH, 'package.json');
+
+    fs.copyFileSync(localPackageJson, pkgPath);
+
+    clearPackageJson(pkgPath, (pkg) => {
+        delete pkg?.exports;
+        delete pkg?.main;
+        delete pkg?.module;
+        delete pkg?.types;
+    });
+
+    callback?.(pkg);
+}
+
+export function clearPackageJson(localPackageJson, callback) {
     const pkg = JSON.parse(fs.readFileSync(localPackageJson, { encoding: 'utf8', flag: 'r' }));
 
     delete pkg?.scripts;
@@ -49,7 +76,9 @@ export function clearPackageJson(localPackageJson) {
     delete pkg?.publishConfig?.directory;
     delete pkg?.publishConfig?.linkDirectory;
 
-    fs.writeFileSync(localPackageJson, JSON.stringify(pkg, null, 4));
+    callback?.(pkg);
+
+    fs.writeFileSync(localPackageJson, JSON.stringify(pkg, null, 4) + '\n', { encoding: 'utf8' });
 }
 
 export function copyDependencies(inFolder, outFolder, subFolder) {

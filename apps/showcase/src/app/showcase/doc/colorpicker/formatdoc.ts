@@ -10,17 +10,17 @@ import { Code } from '@domain/code';
         <div class="card flex flex-wrap gap-4">
             <div class="flex-1 flex flex-col items-center">
                 <label for="cp-hex" class="font-bold block mb-2"> HEX </label>
-                <p-colorpicker [(ngModel)]="color" />
+                <p-colorpicker [(ngModel)]="color" inputId="cp-hex" />
                 <span>{{ color }}</span>
             </div>
             <div class="flex-1 flex flex-col items-center">
                 <label for="cp-rgb" class="font-bold block mb-2"> RGB </label>
-                <p-colorpicker [(ngModel)]="colorRGB" format="rgb" />
+                <p-colorpicker [(ngModel)]="colorRGB" format="rgb" inputId="cp-rgb" />
                 <span>{{ 'r:' + colorRGB.r + ' g:' + colorRGB.g + ' b:' + colorRGB.b }}</span>
             </div>
             <div class="flex-1 flex flex-col items-center">
                 <label for="cp-hsb" class="font-bold block mb-2"> HSB </label>
-                <p-colorpicker [(ngModel)]="colorHSB" format="hsb" />
+                <p-colorpicker [(ngModel)]="colorHSB" format="hsb" inputId="cp-hsb" />
                 <span>{{ 'h:' + colorHSB.h + ' s:' + colorHSB.s + ' b:' + colorHSB.b }}</span>
             </div>
         </div>
@@ -35,26 +35,26 @@ export class FormatDoc {
     colorHSB: any = { h: 239, s: 59, b: 95 };
 
     code: Code = {
-        basic: `<p-colorpicker [(ngModel)]="color" />
+        basic: `<p-colorpicker [(ngModel)]="color" inputId="cp-hex" />
 
-<p-colorpicker [(ngModel)]="colorRGB" format="rgb" />
+<p-colorpicker [(ngModel)]="colorRGB" format="rgb" inputId="cp-rgb" />
 
-<p-colorpicker [(ngModel)]="colorHSB" format="hsb" />`,
+<p-colorpicker [(ngModel)]="colorHSB" format="hsb" inputId="cp-hsb" />`,
 
         html: `<div class="card flex flex-wrap gap-4">
     <div class="flex-1 flex flex-col items-center">
         <label for="cp-hex" class="font-bold block mb-2"> HEX </label>
-        <p-colorpicker [(ngModel)]="color" />
+        <p-colorpicker [(ngModel)]="color" inputId="cp-hex" />
         <span>{{ color }}</span>
     </div>
     <div class="flex-1 flex flex-col items-center">
         <label for="cp-rgb" class="font-bold block mb-2"> RGB </label>
-        <p-colorpicker [(ngModel)]="colorRGB" format="rgb" />
+        <p-colorpicker [(ngModel)]="colorRGB" format="rgb" inputId="cp-rgb" />
         <span>{{ 'r:' + colorRGB.r + ' g:' + colorRGB.g + ' b:' + colorRGB.b }}</span>
     </div>
     <div class="flex-1 flex flex-col items-center">
         <label for="cp-hsb" class="font-bold block mb-2"> HSB </label>
-        <p-colorpicker [(ngModel)]="colorHSB" format="hsb" />
+        <p-colorpicker [(ngModel)]="colorHSB" format="hsb" inputId="cp-hsb" />
         <span>{{ 'h:' + colorHSB.h + ' s:' + colorHSB.s + ' b:' + colorHSB.b }}</span>
     </div>
 </div>`,

@@ -76,7 +76,7 @@ export class MeterGroupLabel {
                         "
                     >
                     </ng-container>
-                    <ng-container *ngIf="!meterTemplate">
+                    <ng-container *ngIf="!meterTemplate && meterItem.value > 0">
                         <span class="p-metergroup-meter" [ngStyle]="meterStyle(meterItem)"></span>
                     </ng-container>
                 </ng-container>

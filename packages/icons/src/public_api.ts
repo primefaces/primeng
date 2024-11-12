@@ -1,3 +1,7 @@
+/**
+ * @file
+ * THIS FILE IS AUTO-GENERATED. PLEASE DO NOT MODIFY.
+ */
 export * from '@primeng/icons/angledoubledown';
 export * from '@primeng/icons/angledoubleleft';
 export * from '@primeng/icons/angledoubleright';
@@ -7,12 +11,18 @@ export * from '@primeng/icons/angleleft';
 export * from '@primeng/icons/angleright';
 export * from '@primeng/icons/angleup';
 export * from '@primeng/icons/arrowdown';
+export * from '@primeng/icons/arrowdownleft';
+export * from '@primeng/icons/arrowdownright';
+export * from '@primeng/icons/arrowleft';
+export * from '@primeng/icons/arrowright';
 export * from '@primeng/icons/arrowup';
 export * from '@primeng/icons/ban';
 export * from '@primeng/icons/bars';
 export * from '@primeng/icons/baseicon';
 export * from '@primeng/icons/blank';
 export * from '@primeng/icons/calendar';
+export * from '@primeng/icons/caretleft';
+export * from '@primeng/icons/caretright';
 export * from '@primeng/icons/check';
 export * from '@primeng/icons/chevrondown';
 export * from '@primeng/icons/chevronleft';

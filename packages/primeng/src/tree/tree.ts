@@ -154,6 +154,7 @@ import {
                         [index]="index"
                         [itemSize]="itemSize"
                         [level]="level + 1"
+                        [loadingMode]="loadingMode"
                     ></p-treeNode>
                 </ul>
             </li>
@@ -230,7 +231,9 @@ export class UITreeNode extends BaseComponent implements OnInit {
     ngOnInit() {
         super.ngOnInit();
         (<TreeNode>this.node).parent = this.parentNode;
-        if (this.parentNode) {
+        const nativeElement = this.tree.el.nativeElement;
+        const pDialogWrapper = nativeElement.closest('p-dialog');
+        if (this.parentNode && !pDialogWrapper) {
             this.setAllNodesTabIndexes();
             this.tree.syncNodeOption(<TreeNode>this.node, <TreeNode<any>[]>this.tree.value, 'parent', this.tree.getNodeWithKey(<string>this.parentNode.key, <TreeNode<any>[]>this.tree.value));
         }
