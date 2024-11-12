@@ -3168,12 +3168,17 @@ export class DatePicker extends BaseComponent implements OnInit, OnDestroy, Cont
         } else if (this.overlay) {
             if (this.appendTo) {
                 if (this.view === 'date') {
-                    this.overlay.style.width = getOuterWidth(this.overlay) + 'px';
-                    this.overlay.style.minWidth = getOuterWidth(this.inputfieldViewChild?.nativeElement) + 'px';
+                    if (!this.overlay.style.width) {
+                        this.overlay.style.width = getOuterWidth(this.overlay) + 'px';
+                    }
+                    if (!this.overlay.style.minWidth) {
+                        this.overlay.style.minWidth = getOuterWidth(this.inputfieldViewChild?.nativeElement) + 'px';
+                    }
                 } else {
-                    this.overlay.style.width = getOuterWidth(this.inputfieldViewChild?.nativeElement) + 'px';
+                    if (!this.overlay.style.width) {
+                        this.overlay.style.width = getOuterWidth(this.inputfieldViewChild?.nativeElement) + 'px';
+                    }
                 }
-
                 absolutePosition(this.overlay, this.inputfieldViewChild?.nativeElement);
             } else {
                 relativePosition(this.overlay, this.inputfieldViewChild?.nativeElement);
