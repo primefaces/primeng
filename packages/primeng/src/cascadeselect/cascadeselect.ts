@@ -22,10 +22,11 @@ import {
     ViewEncapsulation
 } from '@angular/core';
 import { NG_VALUE_ACCESSOR } from '@angular/forms';
-import { BaseComponent, OverlayOptions, OverlayService, SharedModule, TranslationKeys } from '@primeng/core';
-import { AngleRightIcon, ChevronDownIcon, TimesIcon } from '@primeng/icons';
 import { calculateScrollbarWidth, equals, findLastIndex, findSingle, focus, getHiddenElementOuterWidth, getOffset, getOuterWidth, getViewport, isEmpty, isNotEmpty, isPrintableCharacter, resolveFieldData, uuid } from '@primeuix/utils';
+import { OverlayOptions, OverlayService, SharedModule, TranslationKeys } from 'primeng/api';
 import { AutoFocus } from 'primeng/autofocus';
+import { BaseComponent } from 'primeng/basecomponent';
+import { AngleRightIcon, ChevronDownIcon, TimesIcon } from 'primeng/icons';
 import { Overlay } from 'primeng/overlay';
 import { Ripple } from 'primeng/ripple';
 import { Nullable, VoidListener } from 'primeng/ts-helpers';

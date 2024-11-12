@@ -29,8 +29,6 @@ import {
     ViewRef
 } from '@angular/core';
 import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
-import { BaseComponent, FilterService, OverlayOptions, PrimeTemplate, SharedModule, TranslationKeys } from '@primeng/core';
-import { BlankIcon, CheckIcon, ChevronDownIcon, SearchIcon, TimesIcon } from '@primeng/icons';
 import {
     deepEquals,
     equals,
@@ -48,9 +46,11 @@ import {
     unblockBodyScroll,
     uuid
 } from '@primeuix/utils';
-import { ScrollerOptions, SelectItem } from 'primeng/api';
+import { FilterService, OverlayOptions, PrimeTemplate, ScrollerOptions, SelectItem, SharedModule, TranslationKeys } from 'primeng/api';
 import { AutoFocusModule } from 'primeng/autofocus';
+import { BaseComponent } from 'primeng/basecomponent';
 import { IconField } from 'primeng/iconfield';
+import { BlankIcon, CheckIcon, ChevronDownIcon, SearchIcon, TimesIcon } from 'primeng/icons';
 import { InputIcon } from 'primeng/inputicon';
 import { InputTextModule } from 'primeng/inputtext';
 import { Overlay, OverlayModule } from 'primeng/overlay';

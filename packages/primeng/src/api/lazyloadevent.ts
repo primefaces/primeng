@@ -1,4 +1,5 @@
-import { FilterMetadata, SortMeta } from '@primeng/core';
+import { FilterMetadata } from './filtermetadata';
+import { SortMeta } from './sortmeta';
 
 /**
  * Represents an event object for lazy loading data.

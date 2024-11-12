@@ -1,4 +1,5 @@
-import { FilterMetadata, SortMeta } from '@primeng/core';
+import { FilterMetadata } from './filtermetadata';
+import { SortMeta } from './sortmeta';
 
 /**
  * Represents the state of a table component.

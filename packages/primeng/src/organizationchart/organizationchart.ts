@@ -19,10 +19,10 @@ import {
     TemplateRef,
     ViewEncapsulation
 } from '@angular/core';
-import { BaseComponent, PrimeTemplate, SharedModule } from '@primeng/core';
-import { ChevronDownIcon, ChevronUpIcon } from '@primeng/icons';
 import { hasClass } from '@primeuix/utils';
-import { TreeNode } from 'primeng/api';
+import { PrimeTemplate, SharedModule, TreeNode } from 'primeng/api';
+import { BaseComponent } from 'primeng/basecomponent';
+import { ChevronDownIcon, ChevronUpIcon } from 'primeng/icons';
 import { Nullable } from 'primeng/ts-helpers';
 import { Subject, Subscription } from 'rxjs';
 import { OrganizationChartNodeCollapseEvent, OrganizationChartNodeExpandEvent, OrganizationChartNodeSelectEvent, OrganizationChartNodeUnSelectEvent } from './organizationchart.interface';

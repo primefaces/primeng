@@ -21,10 +21,10 @@ import {
     ViewChild,
     ViewEncapsulation
 } from '@angular/core';
-import { BaseComponent, PrimeTemplate, SharedModule } from '@primeng/core';
-import { ChevronLeftIcon, ChevronRightIcon, TimesIcon } from '@primeng/icons';
 import { find, findSingle, focus, getAttribute, getOffset, getOuterWidth, getWidth, uuid } from '@primeuix/utils';
-import { BlockableUI } from 'primeng/api';
+import { BlockableUI, PrimeTemplate, SharedModule } from 'primeng/api';
+import { BaseComponent } from 'primeng/basecomponent';
+import { ChevronLeftIcon, ChevronRightIcon, TimesIcon } from 'primeng/icons';
 import { Ripple } from 'primeng/ripple';
 import { TooltipModule } from 'primeng/tooltip';
 import { Nullable } from 'primeng/ts-helpers';
@@ -531,8 +531,8 @@ export class TabView extends BaseComponent implements AfterContentInit, AfterVie
     }
 
     bindResizeObserver() {
-        this.container = findSingle(this.el.nativeElement, '[data-pc-section="navcontent"]');
-        this.list = findSingle(this.el.nativeElement, '[data-pc-section="nav"]');
+        this.container = <any>findSingle(this.el.nativeElement, '[data-pc-section="navcontent"]');
+        this.list = <any>findSingle(this.el.nativeElement, '[data-pc-section="nav"]');
 
         this.resizeObserver = new ResizeObserver(() => {
             if (this.list.offsetWidth >= this.container.offsetWidth) {
@@ -790,14 +790,14 @@ export class TabView extends BaseComponent implements AfterContentInit, AfterVie
     updateInkBar() {
         if (isPlatformBrowser(this.platformId)) {
             if (this.navbar) {
-                const tabHeader: HTMLElement | null = findSingle(this.navbar.nativeElement, '[data-pc-section="headeraction"][data-p-active="true"]');
+                const tabHeader: HTMLElement | null = <any>findSingle(this.navbar.nativeElement, '[data-pc-section="headeraction"][data-p-active="true"]');
 
                 if (!tabHeader) {
                     return;
                 }
 
                 (this.inkbar as ElementRef).nativeElement.style.width = getOuterWidth(tabHeader) + 'px';
-                (this.inkbar as ElementRef).nativeElement.style.left = getOffset(tabHeader).left - getOffset(this.navbar.nativeElement).left + 'px';
+                (this.inkbar as ElementRef).nativeElement.style.left = <any>getOffset(tabHeader).left - <any>getOffset(this.navbar.nativeElement).left + 'px';
             }
         }
     }
@@ -820,8 +820,8 @@ export class TabView extends BaseComponent implements AfterContentInit, AfterVie
     }
 
     refreshButtonState() {
-        this.container = findSingle(this.el.nativeElement, '[data-pc-section="navcontent"]');
-        this.list = findSingle(this.el.nativeElement, '[data-pc-section="nav"]');
+        this.container = <any>findSingle(this.el.nativeElement, '[data-pc-section="navcontent"]');
+        this.list = <any>findSingle(this.el.nativeElement, '[data-pc-section="nav"]');
         if (this.list.offsetWidth >= this.container.offsetWidth) {
             if (this.list.offsetWidth >= this.container.offsetWidth) {
                 this.buttonVisible = true;

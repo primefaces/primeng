@@ -22,11 +22,11 @@ import {
     ViewEncapsulation
 } from '@angular/core';
 import { ActivatedRoute, Router, RouterModule } from '@angular/router';
-import { BaseComponent, SharedModule } from '@primeng/core';
-import { ChevronLeftIcon, ChevronRightIcon } from '@primeng/icons';
 import { findSingle, focus, getAttribute, getOffset, getWidth, resolve } from '@primeuix/utils';
-import { MenuItem } from 'primeng/api';
+import { MenuItem, SharedModule } from 'primeng/api';
 import { BadgeModule } from 'primeng/badge';
+import { BaseComponent } from 'primeng/basecomponent';
+import { ChevronLeftIcon, ChevronRightIcon } from 'primeng/icons';
 import { Ripple } from 'primeng/ripple';
 import { TooltipModule } from 'primeng/tooltip';
 import { Nullable } from 'primeng/ts-helpers';

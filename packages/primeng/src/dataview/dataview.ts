@@ -18,10 +18,10 @@ import {
     TemplateRef,
     ViewEncapsulation
 } from '@angular/core';
-import { BaseComponent, FilterService, Footer, Header, SharedModule, TranslationKeys } from '@primeng/core';
-import { SpinnerIcon } from '@primeng/icons';
 import { resolveFieldData } from '@primeuix/utils';
-import { BlockableUI } from 'primeng/api';
+import { BlockableUI, FilterService, Footer, Header, SharedModule, TranslationKeys } from 'primeng/api';
+import { BaseComponent } from 'primeng/basecomponent';
+import { SpinnerIcon } from 'primeng/icons';
 import { PaginatorModule } from 'primeng/paginator';
 import { Nullable } from 'primeng/ts-helpers';
 import { Subscription } from 'rxjs';

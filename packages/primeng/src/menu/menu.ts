@@ -27,10 +27,10 @@ import {
 } from '@angular/core';
 import { DomSanitizer, SafeHtml } from '@angular/platform-browser';
 import { RouterModule } from '@angular/router';
-import { BaseComponent, OverlayService, SharedModule } from '@primeng/core';
 import { absolutePosition, appendChild, find, findSingle, focus, isTouchDevice, relativePosition, uuid } from '@primeuix/utils';
-import { MenuItem } from 'primeng/api';
+import { MenuItem, OverlayService, SharedModule } from 'primeng/api';
 import { BadgeModule } from 'primeng/badge';
+import { BaseComponent } from 'primeng/basecomponent';
 import { ConnectedOverlayScrollHandler } from 'primeng/dom';
 import { Ripple } from 'primeng/ripple';
 import { TooltipModule } from 'primeng/tooltip';

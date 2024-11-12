@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { BaseStyle } from '@primeng/core/base';
+import { BaseStyle } from 'primeng/base';
 
 const theme = ({ dt }) => `
 .p-checkbox {
@@ -113,7 +113,7 @@ const theme = ({ dt }) => `
 .p-checkbox.p-disabled .p-checkbox-box .p-checkbox-icon {
     color: ${dt('checkbox.icon.disabled.color')};
 }
-    
+
 .p-checkbox-sm,
 .p-checkbox-sm .p-checkbox-box {
     width: ${dt('checkbox.sm.width')};

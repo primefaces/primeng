@@ -1,8 +1,9 @@
 import { animate, animation, AnimationEvent, style, transition, trigger, useAnimation } from '@angular/animations';
 import { CommonModule, isPlatformBrowser } from '@angular/common';
 import { ChangeDetectionStrategy, Component, ContentChild, ElementRef, EventEmitter, inject, Input, NgModule, NgZone, OnDestroy, Output, TemplateRef, ViewChild, ViewEncapsulation } from '@angular/core';
-import { BaseComponent, OverlayModeType, OverlayOnBeforeHideEvent, OverlayOnBeforeShowEvent, OverlayOnHideEvent, OverlayOnShowEvent, OverlayOptions, OverlayService, ResponsiveOverlayOptions, SharedModule } from '@primeng/core';
 import { addClass, focus, getTargetElement, isTouchDevice, removeClass } from '@primeuix/utils';
+import { OverlayModeType, OverlayOnBeforeHideEvent, OverlayOnBeforeShowEvent, OverlayOnHideEvent, OverlayOnShowEvent, OverlayOptions, OverlayService, ResponsiveOverlayOptions, SharedModule } from 'primeng/api';
+import { BaseComponent } from 'primeng/basecomponent';
 import { ConnectedOverlayScrollHandler, DomHandler } from 'primeng/dom';
 import { VoidListener } from 'primeng/ts-helpers';
 import { ObjectUtils, ZIndexUtils } from 'primeng/utils';

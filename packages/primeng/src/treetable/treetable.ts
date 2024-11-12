@@ -30,8 +30,6 @@ import {
     ViewEncapsulation
 } from '@angular/core';
 import { FormsModule } from '@angular/forms';
-import { BaseComponent, FilterMetadata, FilterService, PrimeNGConfig, PrimeTemplate, SharedModule, SortMeta } from '@primeng/core';
-import { ArrowDownIcon, ArrowUpIcon, CheckIcon, ChevronDownIcon, ChevronRightIcon, MinusIcon, SortAltIcon, SortAmountDownIcon, SortAmountUpAltIcon, SpinnerIcon } from '@primeng/icons';
 import {
     addClass,
     calculateScrollbarHeight,
@@ -54,9 +52,11 @@ import {
     reorderArray,
     resolveFieldData
 } from '@primeuix/utils';
-import { BlockableUI, ScrollerOptions, TreeNode, TreeTableNode } from 'primeng/api';
+import { BlockableUI, FilterMetadata, FilterService, PrimeNGConfig, PrimeTemplate, ScrollerOptions, SharedModule, SortMeta, TreeNode, TreeTableNode } from 'primeng/api';
+import { BaseComponent } from 'primeng/basecomponent';
 import { Checkbox } from 'primeng/checkbox';
 import { DomHandler } from 'primeng/dom';
+import { ArrowDownIcon, ArrowUpIcon, CheckIcon, ChevronDownIcon, ChevronRightIcon, MinusIcon, SortAltIcon, SortAmountDownIcon, SortAmountUpAltIcon, SpinnerIcon } from 'primeng/icons';
 import { PaginatorModule } from 'primeng/paginator';
 import { Ripple } from 'primeng/ripple';
 import { Scroller } from 'primeng/scroller';

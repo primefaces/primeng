@@ -26,14 +26,14 @@ import {
     ViewEncapsulation
 } from '@angular/core';
 import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
-import { BaseComponent, OverlayOptions, OverlayService, PrimeTemplate, SharedModule, TranslationKeys } from '@primeng/core';
-import { ChevronDownIcon, SpinnerIcon, TimesCircleIcon, TimesIcon } from '@primeng/icons';
 import { equals, findLastIndex, findSingle, focus, isEmpty, isNotEmpty, resolveFieldData, uuid } from '@primeuix/utils';
-import { ScrollerOptions } from 'primeng/api';
+import { OverlayOptions, OverlayService, PrimeTemplate, ScrollerOptions, SharedModule, TranslationKeys } from 'primeng/api';
 import { AutoFocus } from 'primeng/autofocus';
+import { BaseComponent } from 'primeng/basecomponent';
 import { Button } from 'primeng/button';
 import { Chip } from 'primeng/chip';
 import { ConnectedOverlayScrollHandler } from 'primeng/dom';
+import { ChevronDownIcon, SpinnerIcon, TimesCircleIcon, TimesIcon } from 'primeng/icons';
 import { InputText } from 'primeng/inputtext';
 import { Overlay } from 'primeng/overlay';
 import { Ripple } from 'primeng/ripple';

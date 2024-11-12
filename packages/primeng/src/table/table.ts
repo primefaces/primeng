@@ -34,8 +34,6 @@ import {
     ViewEncapsulation
 } from '@angular/core';
 import { FormsModule } from '@angular/forms';
-import { BaseComponent, FilterMatchMode, FilterMetadata, FilterOperator, FilterService, OverlayService, PrimeTemplate, SharedModule, SortMeta, TranslationKeys } from '@primeng/core';
-import { ArrowDownIcon, ArrowUpIcon, CheckIcon, FilterIcon, FilterSlashIcon, PlusIcon, SortAltIcon, SortAmountDownIcon, SortAmountUpAltIcon, SpinnerIcon, TrashIcon } from '@primeng/icons';
 import {
     absolutePosition,
     addClass,
@@ -64,11 +62,13 @@ import {
     setAttribute,
     uuid
 } from '@primeuix/utils';
-import { BlockableUI, LazyLoadMeta, ScrollerOptions, SelectItem, TableState } from 'primeng/api';
+import { BlockableUI, FilterMatchMode, FilterMetadata, FilterOperator, FilterService, LazyLoadMeta, OverlayService, PrimeTemplate, ScrollerOptions, SelectItem, SharedModule, SortMeta, TableState, TranslationKeys } from 'primeng/api';
+import { BaseComponent } from 'primeng/basecomponent';
 import { Button, ButtonDirective } from 'primeng/button';
 import { Checkbox } from 'primeng/checkbox';
 import { DatePicker } from 'primeng/datepicker';
 import { ConnectedOverlayScrollHandler, DomHandler } from 'primeng/dom';
+import { ArrowDownIcon, ArrowUpIcon, CheckIcon, FilterIcon, FilterSlashIcon, PlusIcon, SortAltIcon, SortAmountDownIcon, SortAmountUpAltIcon, SpinnerIcon, TrashIcon } from 'primeng/icons';
 import { InputNumber } from 'primeng/inputnumber';
 import { InputText } from 'primeng/inputtext';
 import { Paginator } from 'primeng/paginator';

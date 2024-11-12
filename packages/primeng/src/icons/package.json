@@ -1,0 +1,30 @@
+{
+    "name": "@primeng/icons",
+    "version": "18.0.0-rc.1",
+    "author": "PrimeTek Informatics",
+    "description": "",
+    "homepage": "https://primeng.org/",
+    "license": "SEE LICENSE IN LICENSE.md",
+    "repository": {
+        "type": "git",
+        "url": "https://github.com/primefaces/primeng.git",
+        "directory": "packages/icons"
+    },
+    "bugs": {
+        "url": "https://github.com/primefaces/primeng/issues"
+    },
+    "publishConfig": {
+        "access": "public"
+    },
+    "peerDependencies": {
+        "@angular/core": "catalog:compatible",
+        "@primeng/core": "workspace:*"
+    },
+    "dependencies": {
+        "@primeuix/utils": "catalog:",
+        "@primeng/core": "workspace:*"
+    },
+    "engines": {
+        "node": ">=12.11.0"
+    }
+}

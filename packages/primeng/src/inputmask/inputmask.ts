@@ -28,10 +28,11 @@
 import { CommonModule, isPlatformBrowser } from '@angular/common';
 import { booleanAttribute, ChangeDetectionStrategy, Component, ContentChild, ElementRef, EventEmitter, forwardRef, inject, Input, NgModule, numberAttribute, OnInit, Output, TemplateRef, ViewChild, ViewEncapsulation } from '@angular/core';
 import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
-import { BaseComponent, SharedModule } from '@primeng/core';
-import { TimesIcon } from '@primeng/icons';
 import { getUserAgent, isClient } from '@primeuix/utils';
+import { SharedModule } from 'primeng/api';
 import { AutoFocus } from 'primeng/autofocus';
+import { BaseComponent } from 'primeng/basecomponent';
+import { TimesIcon } from 'primeng/icons';
 import { InputText } from 'primeng/inputtext';
 import { Nullable } from 'primeng/ts-helpers';
 import { Caret } from './inputmask.interface';

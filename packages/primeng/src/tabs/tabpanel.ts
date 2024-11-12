@@ -1,7 +1,7 @@
 import { CommonModule } from '@angular/common';
 import { ChangeDetectionStrategy, Component, computed, forwardRef, inject, model, ViewEncapsulation } from '@angular/core';
-import { BaseComponent } from '@primeng/core';
 import { equals } from '@primeuix/utils';
+import { BaseComponent } from 'primeng/basecomponent';
 import { Tabs } from './tabs';
 
 /**

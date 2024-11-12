@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { BaseStyle } from '@primeng/core/base';
+import { BaseStyle } from 'primeng/base';
 
 const theme = ({ dt }) => `
 .p-inputgroup,
@@ -55,7 +55,7 @@ const theme = ({ dt }) => `
 .p-inputgroup > .p-iftalabel > .p-inputwrapper > .p-component {
     border-radius: 0;
     margin: 0;
-} 
+}
 
 .p-inputgroupaddon:first-child,
 .p-inputgroup > .p-component:first-child,

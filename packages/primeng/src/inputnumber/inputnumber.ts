@@ -23,11 +23,12 @@ import {
     ViewEncapsulation
 } from '@angular/core';
 import { ControlValueAccessor, NG_VALUE_ACCESSOR, NgControl } from '@angular/forms';
-import { BaseComponent, SharedModule } from '@primeng/core';
-import { AngleDownIcon, AngleUpIcon, TimesIcon } from '@primeng/icons';
 import { getSelection } from '@primeuix/utils';
+import { SharedModule } from 'primeng/api';
 import { AutoFocus } from 'primeng/autofocus';
+import { BaseComponent } from 'primeng/basecomponent';
 import { Button } from 'primeng/button';
+import { AngleDownIcon, AngleUpIcon, TimesIcon } from 'primeng/icons';
 import { InputText } from 'primeng/inputtext';
 import { Nullable } from 'primeng/ts-helpers';
 import { InputNumberInputEvent } from './inputnumber.interface';

@@ -1,6 +1,6 @@
 import { isPlatformBrowser } from '@angular/common';
 import { AfterViewInit, ContentChild, Directive, EmbeddedViewRef, EventEmitter, inject, NgModule, OnDestroy, Output, TemplateRef, ViewContainerRef } from '@angular/core';
-import { BaseComponent } from '@primeng/core';
+import { BaseComponent } from 'primeng/basecomponent';
 import { Nullable } from 'primeng/ts-helpers';
 
 /**

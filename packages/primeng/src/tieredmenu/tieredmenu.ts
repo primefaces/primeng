@@ -26,11 +26,11 @@ import {
     signal
 } from '@angular/core';
 import { RouterModule } from '@angular/router';
-import { BaseComponent, OverlayService, SharedModule } from '@primeng/core';
-import { AngleRightIcon } from '@primeng/icons';
 import { absolutePosition, appendChild, findLastIndex, findSingle, focus, isEmpty, isNotEmpty, isPrintableCharacter, isTouchDevice, nestedPosition, relativePosition, resolve, uuid } from '@primeuix/utils';
-import { MenuItem } from 'primeng/api';
+import { MenuItem, OverlayService, SharedModule } from 'primeng/api';
+import { BaseComponent } from 'primeng/basecomponent';
 import { ConnectedOverlayScrollHandler } from 'primeng/dom';
+import { AngleRightIcon } from 'primeng/icons';
 import { Ripple } from 'primeng/ripple';
 import { TooltipModule } from 'primeng/tooltip';
 import { Nullable, VoidListener } from 'primeng/ts-helpers';

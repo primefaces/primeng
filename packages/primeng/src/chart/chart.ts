@@ -1,7 +1,7 @@
 import { CommonModule, isPlatformBrowser } from '@angular/common';
 import { AfterViewInit, booleanAttribute, ChangeDetectionStrategy, Component, ElementRef, EventEmitter, Inject, Input, NgModule, NgZone, OnDestroy, Output, PLATFORM_ID, ViewEncapsulation } from '@angular/core';
-import { SharedModule } from '@primeng/core';
 import Chart from 'chart.js/auto';
+import { SharedModule } from 'primeng/api';
 
 /**
  * Chart groups a collection of contents in tabs.

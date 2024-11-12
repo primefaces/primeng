@@ -21,8 +21,6 @@ import {
     ViewEncapsulation
 } from '@angular/core';
 import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
-import { BaseComponent, OverlayService, SharedModule, TranslationKeys } from '@primeng/core';
-import { CalendarIcon, ChevronDownIcon, ChevronLeftIcon, ChevronRightIcon, ChevronUpIcon, TimesIcon } from '@primeng/icons';
 import {
     absolutePosition,
     addClass,
@@ -42,9 +40,12 @@ import {
     unblockBodyScroll,
     uuid
 } from '@primeuix/utils';
+import { OverlayService, SharedModule, TranslationKeys } from 'primeng/api';
 import { AutoFocus } from 'primeng/autofocus';
+import { BaseComponent } from 'primeng/basecomponent';
 import { Button } from 'primeng/button';
 import { ConnectedOverlayScrollHandler } from 'primeng/dom';
+import { CalendarIcon, ChevronDownIcon, ChevronLeftIcon, ChevronRightIcon, ChevronUpIcon, TimesIcon } from 'primeng/icons';
 import { InputText } from 'primeng/inputtext';
 import { Ripple } from 'primeng/ripple';
 import { Nullable, VoidListener } from 'primeng/ts-helpers';

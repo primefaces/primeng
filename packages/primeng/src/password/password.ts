@@ -26,11 +26,12 @@ import {
     ViewEncapsulation
 } from '@angular/core';
 import { NG_VALUE_ACCESSOR } from '@angular/forms';
-import { BaseComponent, OverlayService, SharedModule, TranslationKeys } from '@primeng/core';
-import { EyeIcon, EyeSlashIcon, TimesIcon } from '@primeng/icons';
 import { absolutePosition, addClass, getOuterWidth, hasClass, isTouchDevice, relativePosition, removeClass } from '@primeuix/utils';
+import { OverlayService, SharedModule, TranslationKeys } from 'primeng/api';
 import { AutoFocus } from 'primeng/autofocus';
+import { BaseComponent } from 'primeng/basecomponent';
 import { ConnectedOverlayScrollHandler, DomHandler } from 'primeng/dom';
+import { EyeIcon, EyeSlashIcon, TimesIcon } from 'primeng/icons';
 import { InputText } from 'primeng/inputtext';
 import { Nullable, VoidListener } from 'primeng/ts-helpers';
 import { ZIndexUtils } from 'primeng/utils';

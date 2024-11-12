@@ -24,8 +24,6 @@ import {
     ViewRef
 } from '@angular/core';
 import { RouterModule } from '@angular/router';
-import { BaseComponent, OverlayService, SharedModule } from '@primeng/core';
-import { AngleRightIcon } from '@primeng/icons';
 import {
     appendChild,
     calculateScrollbarWidth,
@@ -46,8 +44,10 @@ import {
     resolve,
     uuid
 } from '@primeuix/utils';
-import { MenuItem } from 'primeng/api';
+import { MenuItem, OverlayService, SharedModule } from 'primeng/api';
 import { BadgeModule } from 'primeng/badge';
+import { BaseComponent } from 'primeng/basecomponent';
+import { AngleRightIcon } from 'primeng/icons';
 import { Ripple } from 'primeng/ripple';
 import { TooltipModule } from 'primeng/tooltip';
 import { VoidListener } from 'primeng/ts-helpers';

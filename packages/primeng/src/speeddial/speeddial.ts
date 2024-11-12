@@ -20,11 +20,11 @@ import {
     ViewEncapsulation
 } from '@angular/core';
 import { RouterModule } from '@angular/router';
-import { BaseComponent, SharedModule } from '@primeng/core';
-import { PlusIcon } from '@primeng/icons';
 import { find, findSingle, focus, hasClass, uuid } from '@primeuix/utils';
-import { MenuItem, TooltipOptions } from 'primeng/api';
+import { MenuItem, SharedModule, TooltipOptions } from 'primeng/api';
+import { BaseComponent } from 'primeng/basecomponent';
 import { ButtonDirective, ButtonIcon, ButtonProps } from 'primeng/button';
+import { PlusIcon } from 'primeng/icons';
 import { Ripple } from 'primeng/ripple';
 import { TooltipModule } from 'primeng/tooltip';
 import { asapScheduler } from 'rxjs';

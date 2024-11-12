@@ -4,8 +4,8 @@ import { FormsModule } from '@angular/forms';
 import { By } from '@angular/platform-browser';
 import { BrowserDynamicTestingModule } from '@angular/platform-browser-dynamic/testing';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
-import { ChevronDownIcon, TimesCircleIcon } from '@primeng/icons';
 import { ButtonModule } from 'primeng/button';
+import { ChevronDownIcon, TimesCircleIcon } from 'primeng/icons';
 import { OverlayModule } from 'primeng/overlay';
 import { AutoComplete } from './autocomplete';
 

@@ -1,9 +1,9 @@
 import { CommonModule } from '@angular/common';
 import { ChangeDetectionStrategy, ChangeDetectorRef, Component, ContentChild, ElementRef, EventEmitter, inject, Input, NgModule, Output, TemplateRef, ViewChild, ViewEncapsulation } from '@angular/core';
 import { RouterModule } from '@angular/router';
-import { BaseComponent, SharedModule } from '@primeng/core';
 import { find, findSingle, resolve, uuid } from '@primeuix/utils';
-import { MenuItem } from 'primeng/api';
+import { MenuItem, SharedModule } from 'primeng/api';
+import { BaseComponent } from 'primeng/basecomponent';
 import { Divider } from 'primeng/divider';
 import { Ripple } from 'primeng/ripple';
 import { TooltipModule } from 'primeng/tooltip';
