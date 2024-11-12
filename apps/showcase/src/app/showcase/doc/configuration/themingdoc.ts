@@ -9,7 +9,7 @@ import { Code } from '@domain/code';
         </app-docsectiontext>
         <app-code [code]="code" [hideToggleCode]="true"></app-code>
         <app-docsectiontext>
-            <p>Other option is the provide PrimeNG config in the <i>ApplicationConfig</i> as an environment provider.</p>
+            <p class="mt-4">Other option is the provide PrimeNG config in the <i>ApplicationConfig</i> as an environment provider.</p>
         </app-docsectiontext>
         <app-code [code]="code2" [hideToggleCode]="true"></app-code>
     `
