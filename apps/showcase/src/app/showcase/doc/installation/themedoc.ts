@@ -5,7 +5,7 @@ import { Code } from '@domain/code';
     selector: 'theme-doc',
     template: `
         <app-docsectiontext>
-            <p>Configure PrimeVue to use a theme like Aura.</p>
+            <p>Configure PrimeNG to use a theme like Aura.</p>
             <app-code [code]="code" [hideToggleCode]="true"></app-code>
         </app-docsectiontext>
     `
