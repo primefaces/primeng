@@ -212,9 +212,9 @@ export const LISTBOX_VALUE_ACCESSOR: any = {
                 <ng-content select="p-footer"></ng-content>
                 <ng-container *ngTemplateOutlet="footerTemplate; context: { $implicit: modelValue(), options: visibleOptions() }"></ng-container>
             </div>
-            <span *ngIf="isEmpty() " role="status" aria-live="polite" class="p-hidden-accessible">
+            <span *ngIf="isEmpty()" role="status" aria-live="polite" class="p-hidden-accessible">
                 <ng-container *ngIf="hasEmptyMessage()">
-                    {{ emptyMessage }} 
+                    {{ emptyMessage }}
                 </ng-container>
                 <ng-container *ngIf="!hasEmptyMessage()">
                     {{ selectedMessageText }}

@@ -24,7 +24,7 @@ interface AutoCompleteCompleteEvent {
 export class ShowClearDoc implements OnInit {
     countries: any[] | undefined;
 
-    countryFormGroup: FormGroup = new FormGroup({ 'country': new FormControl({ name: 'Switzerland', code: 'CH' }) });
+    countryFormGroup: FormGroup = new FormGroup({ country: new FormControl({ name: 'Switzerland', code: 'CH' }) });
 
     filteredCountries: any[] | undefined;
 
