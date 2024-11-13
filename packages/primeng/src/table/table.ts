@@ -171,7 +171,8 @@ export class FrozenColumn implements AfterViewInit {
 
     constructor(
         private el: ElementRef,
-        private zone: NgZone
+        private zone: NgZone,
+        @Inject(PLATFORM_ID) private platformId: any
     ) {}
 
     _frozen: boolean = true;
@@ -186,11 +187,13 @@ export class FrozenColumn implements AfterViewInit {
     }
 
     ngAfterViewInit() {
-        this.zone.runOutsideAngular(() => {
-            setTimeout(() => {
-                this.recalculateColumns();
-            }, 1000);
-        });
+        if (isPlatformBrowser(this.platformId)) {
+            this.zone.runOutsideAngular(() => {
+                setTimeout(() => {
+                    this.recalculateColumns();
+                }, 1000);
+            });
+        }
     }
 
     @HostListener('window:resize', ['$event'])
