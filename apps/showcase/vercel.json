@@ -1,0 +1,16 @@
+{
+    "version": 2,
+    "public": true,
+    "name": "showcase",
+    "rewrites": [
+      {
+        "source": "/(.*)",
+        "destination": "/server/api"
+      }
+    ],
+    "functions": {
+      "server/api/index.mjs": {
+        "includeFiles": "dist/showcase/**"
+      }
+    }
+}
