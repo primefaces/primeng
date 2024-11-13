@@ -207,15 +207,18 @@ export class VeronaPage {
     license = {
         documentLink: 'https://verona.primeng.org/documentation',
         description: 'The download package is an Angular CLI-based project containing all source code of the application deployed at the live demo. The project code is written in TypeScript.',
+        showDiscount: true,
         licenseDetails: [
             {
                 title: 'Basic License',
                 price: '$49',
+                discount: '$29',
                 included: ['Non Commercial Usage', 'Single End Product, No Multi-Use', '1 Year Free Updates']
             },
             {
                 title: 'Extended License',
                 price: '$490',
+                discount: '$290',
                 included: ['Commercial Usage', 'Multiple End Products', '1 Year Free Updates']
             }
         ]

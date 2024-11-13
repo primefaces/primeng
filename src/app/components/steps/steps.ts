@@ -50,7 +50,7 @@ import { SafeHtmlPipe } from '../dom/safeHtmlPipe';
                         [state]="item.state"
                         [attr.aria-current]="i === activeIndex ? 'step' : null"
                     >
-                        <span class="p-steps-number"> {{ i + 1 }}</span>
+                        <span class="p-steps-number">{{ i + 1 }}</span>
                         <span class="p-steps-title" *ngIf="item.escape !== false; else htmlLabel"> {{ item.label }}</span>
                         <ng-template #htmlLabel><span class="p-steps-title" [innerHTML]="item.label | safeHtml"></span></ng-template>
                     </a>
@@ -66,7 +66,7 @@ import { SafeHtmlPipe } from '../dom/safeHtmlPipe';
                             [attr.aria-disabled]="item.disabled || (readonly && i !== activeIndex)"
                             [attr.aria-current]="i === activeIndex ? 'step' : null"
                         >
-                            <span class="p-steps-number"> {{ i + 1 }} </span>
+                            <span class="p-steps-number">{{ i + 1 }} </span>
                             <span class="p-steps-title" *ngIf="item.escape !== false; else htmlRouteLabel">{{ item.label }}</span>
                             <ng-template #htmlRouteLabel><span class="p-steps-title" [innerHTML]="item.label | safeHtml"></span></ng-template>
                         </a>
