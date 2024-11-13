@@ -13,7 +13,16 @@
     "bugs": {
         "url": "https://github.com/primefaces/primeng/issues"
     },
-    "keywords": ["primeng", "angular", "ui library", "component library", "material", "bootstrap", "fluent", "tailwind"],
+    "keywords": [
+        "primeng",
+        "angular",
+        "ui library",
+        "component library",
+        "material",
+        "bootstrap",
+        "fluent",
+        "tailwind"
+    ],
     "publishConfig": {
         "directory": "dist",
         "linkDirectory": false,
