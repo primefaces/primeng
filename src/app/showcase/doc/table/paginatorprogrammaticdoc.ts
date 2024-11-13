@@ -57,7 +57,10 @@ export class PaginatorProgrammaticDoc {
 
     rows = 10;
 
-    constructor(private customerService: CustomerService, private cd: ChangeDetectorRef) {}
+    constructor(
+        private customerService: CustomerService,
+        private cd: ChangeDetectorRef
+    ) {}
 
     loadDemoData() {
         this.customerService.getCustomersLarge().then((customers) => {
@@ -84,7 +87,7 @@ export class PaginatorProgrammaticDoc {
     }
 
     isLastPage(): boolean {
-        return this.customers ? this.first === this.customers.length - this.rows : true;
+        return this.customers ? this.first + this.rows >= this.customers.length : true;
     }
 
     isFirstPage(): boolean {

@@ -1,6 +1,6 @@
 import { animate, state, style, transition, trigger } from '@angular/animations';
 import { CommonModule } from '@angular/common';
-import { AfterContentInit, ChangeDetectionStrategy, Component, ContentChild, ContentChildren, ElementRef, EventEmitter, Input, NgModule, Output, QueryList, TemplateRef, ViewEncapsulation, booleanAttribute } from '@angular/core';
+import { AfterContentInit, booleanAttribute, ChangeDetectionStrategy, ChangeDetectorRef, Component, ContentChild, ContentChildren, ElementRef, EventEmitter, Input, NgModule, Output, QueryList, TemplateRef, ViewEncapsulation } from '@angular/core';
 import { BlockableUI, Footer, PrimeTemplate, SharedModule } from 'primeng/api';
 import { MinusIcon } from 'primeng/icons/minus';
 import { PlusIcon } from 'primeng/icons/plus';
@@ -211,7 +211,10 @@ export class Panel implements AfterContentInit, BlockableUI {
         return this.header;
     }
 
-    constructor(private el: ElementRef) {}
+    constructor(
+        private el: ElementRef,
+        private cd: ChangeDetectorRef
+    ) {}
 
     ngAfterContentInit() {
         (this.templates as QueryList<PrimeTemplate>).forEach((item) => {
@@ -268,6 +271,7 @@ export class Panel implements AfterContentInit, BlockableUI {
             else this.collapse();
         }
 
+        this.cd.markForCheck();
         event.preventDefault();
     }
 

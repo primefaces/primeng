@@ -117,7 +117,7 @@ export class Splitter {
 
             this.panels.map((panel, i) => {
                 let panelInitialSize = this.panelSizes.length - 1 >= i ? this.panelSizes[i] : null;
-                let panelSize = panelInitialSize || 100 / this.panels.length;
+                let panelSize = panelInitialSize ?? 100 / this.panels.length;
                 _panelSizes[i] = panelSize;
                 children[i].style.flexBasis = 'calc(' + panelSize + '% - ' + (this.panels.length - 1) * this.gutterSize + 'px)';
             });
@@ -178,7 +178,13 @@ export class Splitter {
 
     private window: Window;
 
-    constructor(@Inject(DOCUMENT) private document: Document, @Inject(PLATFORM_ID) private platformId: any, private renderer: Renderer2, public cd: ChangeDetectorRef, private el: ElementRef) {
+    constructor(
+        @Inject(DOCUMENT) private document: Document,
+        @Inject(PLATFORM_ID) private platformId: any,
+        private renderer: Renderer2,
+        public cd: ChangeDetectorRef,
+        private el: ElementRef
+    ) {
         this.window = this.document.defaultView as Window;
     }
 

@@ -175,7 +175,11 @@ export class HeroSectionComponent implements OnInit, OnDestroy {
 
     subscription!: Subscription;
 
-    constructor(private configService: AppConfigService, @Inject(PLATFORM_ID) private platformId: any, private cd: ChangeDetectorRef) {
+    constructor(
+        private configService: AppConfigService,
+        @Inject(PLATFORM_ID) private platformId: any,
+        private cd: ChangeDetectorRef
+    ) {
         this.subscription = this.configService.configUpdate$.pipe(debounceTime(25)).subscribe((config) => {
             this.setChartOptions();
             this.cd.markForCheck();

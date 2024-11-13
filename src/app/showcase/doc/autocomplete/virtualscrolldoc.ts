@@ -15,7 +15,7 @@ interface AutoCompleteCompleteEvent {
             </p>
         </app-docsectiontext>
         <div class="card flex justify-content-center">
-            <p-autoComplete [(ngModel)]="selectedItem" [virtualScroll]="true" [suggestions]="filteredItems" [virtualScrollItemSize]="34" (completeMethod)="filterItems($event)" field="label" [dropdown]="true" />
+            <p-autoComplete [(ngModel)]="selectedItem" [virtualScroll]="true" [suggestions]="filteredItems" [virtualScrollItemSize]="34" (completeMethod)="filterItems($event)" optionLabel="label" [dropdown]="true" />
         </div>
         <app-code [code]="code" selector="autocomplete-virtual-scroll-demo"></app-code>`
 })
@@ -49,23 +49,23 @@ export class VirtualScrollDoc {
     }
 
     code: Code = {
-        basic: `<p-autoComplete 
-    [(ngModel)]="selectedItem" 
-    [virtualScroll]="true" 
-    [suggestions]="filteredItems" 
-    [virtualScrollItemSize]="34" 
-    (completeMethod)="filterItems($event)" 
-    field="label" 
+        basic: `<p-autoComplete
+    [(ngModel)]="selectedItem"
+    [virtualScroll]="true"
+    [suggestions]="filteredItems"
+    [virtualScrollItemSize]="34"
+    (completeMethod)="filterItems($event)"
+    optionLabel="label"
     [dropdown]="true" />`,
 
         html: `<div class="card flex justify-content-center">
-    <p-autoComplete 
-        [(ngModel)]="selectedItem" 
-        [virtualScroll]="true" 
-        [suggestions]="filteredItems" 
-        [virtualScrollItemSize]="34" 
-        (completeMethod)="filterItems($event)" 
-        field="label" 
+    <p-autoComplete
+        [(ngModel)]="selectedItem"
+        [virtualScroll]="true"
+        [suggestions]="filteredItems"
+        [virtualScrollItemSize]="34"
+        (completeMethod)="filterItems($event)"
+        optionLabel="label"
         [dropdown]="true" />
 </div>`,
 

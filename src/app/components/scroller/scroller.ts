@@ -26,8 +26,9 @@ import {
 import { PrimeTemplate, ScrollerOptions, SharedModule } from 'primeng/api';
 import { DomHandler } from 'primeng/dom';
 import { SpinnerIcon } from 'primeng/icons/spinner';
-import { Nullable, VoidListener } from 'primeng/ts-helpers';
+import { Nullable } from 'primeng/ts-helpers';
 import { ScrollerLazyLoadEvent, ScrollerScrollEvent, ScrollerScrollIndexChangeEvent, ScrollerToType } from './scroller.interface';
+
 /**
  * Scroller is a performance-approach to handle huge data efficiently.
  * @group Components
@@ -460,7 +461,7 @@ export class Scroller implements OnInit, AfterContentInit, AfterViewChecked, OnD
 
     initialized: boolean = false;
 
-    windowResizeListener: VoidListener;
+    resizeObserver: any;
 
     defaultWidth: number | undefined;
 
@@ -504,7 +505,13 @@ export class Scroller implements OnInit, AfterContentInit, AfterViewChecked, OnD
         return this._columns;
     }
 
-    constructor(@Inject(DOCUMENT) private document: Document, @Inject(PLATFORM_ID) private platformId: any, private renderer: Renderer2, private cd: ChangeDetectorRef, private zone: NgZone) {}
+    constructor(
+        @Inject(DOCUMENT) private document: Document,
+        @Inject(PLATFORM_ID) private platformId: any,
+        private renderer: Renderer2,
+        private cd: ChangeDetectorRef,
+        private zone: NgZone
+    ) {}
 
     ngOnInit() {
         this.setInitialState();
@@ -614,6 +621,8 @@ export class Scroller implements OnInit, AfterContentInit, AfterViewChecked, OnD
                 this.defaultHeight = DomHandler.getHeight(this.elementViewChild?.nativeElement);
                 this.defaultContentWidth = DomHandler.getWidth(this.contentEl);
                 this.defaultContentHeight = DomHandler.getHeight(this.contentEl);
+                this.resizeObserver = new ResizeObserver(() => this.onResize());
+                this.resizeObserver.observe(this.elementViewChild?.nativeElement);
                 this.initialized = true;
             }
         }
@@ -624,7 +633,6 @@ export class Scroller implements OnInit, AfterContentInit, AfterViewChecked, OnD
             this.setSize();
             this.calculateOptions();
             this.setSpacerSize();
-            this.bindResizeListener();
 
             this.cd.detectChanges();
         }
@@ -866,15 +874,15 @@ export class Scroller implements OnInit, AfterContentInit, AfterViewChecked, OnD
     }
 
     setSpacerSize() {
-        if (this._scrollHeight !== '100%' && this._items) {
-            const contentPos = this.getContentPosition();
-            const setProp = (_name: string, _value: any, _size: number, _cpos: number = 0) => (this.spacerStyle = { ...this.spacerStyle, ...{ [`${_name}`]: (_value || []).length * _size + _cpos + 'px' } });
+        if (this._items) {
+            const setProp = (_name, _count, _size) => (this.spacerStyle = { ...this.spacerStyle, ...{ [`${_name}`]: _count * _size + 'px' } });
 
+            const numItems = this._items.length;
             if (this.both) {
-                setProp('height', this._items, (<number[]>this._itemSize)[0], contentPos.y);
-                setProp('width', this._columns || this._items[1], (<number[]>this._itemSize)[1], contentPos.x);
+                setProp('height', numItems, this._itemSize[0]);
+                setProp('width', this._columns?.length || this._items[1]?.length, this._itemSize[1]);
             } else {
-                this.horizontal ? setProp('width', this._columns || this._items, <number>this._itemSize, contentPos.x) : setProp('height', this._items, <number>this._itemSize, contentPos.y);
+                this.horizontal ? setProp('width', this._columns.length || this._items.length, this._itemSize) : setProp('height', numItems, this._itemSize);
             }
         }
     }
@@ -1030,26 +1038,14 @@ export class Scroller implements OnInit, AfterContentInit, AfterViewChecked, OnD
         }
     }
 
-    bindResizeListener() {
-        if (isPlatformBrowser(this.platformId)) {
-            if (!this.windowResizeListener) {
-                this.zone.runOutsideAngular(() => {
-                    const window = this.document.defaultView as Window;
-                    const event = DomHandler.isTouchDevice() ? 'orientationchange' : 'resize';
-                    this.windowResizeListener = this.renderer.listen(window, event, this.onWindowResize.bind(this));
-                });
-            }
-        }
-    }
-
     unbindResizeListener() {
-        if (this.windowResizeListener) {
-            this.windowResizeListener();
-            this.windowResizeListener = null;
+        if (this.resizeObserver) {
+            this.resizeObserver.unobserve(this.elementViewChild?.nativeElement);
+            this.resizeObserver = null;
         }
     }
 
-    onWindowResize() {
+    onResize() {
         if (this.resizeTimeout) {
             clearTimeout(this.resizeTimeout);
         }

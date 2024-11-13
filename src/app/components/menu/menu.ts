@@ -31,7 +31,24 @@ import { RippleModule } from 'primeng/ripple';
 import { TooltipModule } from 'primeng/tooltip';
 import { Nullable, VoidListener } from 'primeng/ts-helpers';
 import { UniqueComponentId, ZIndexUtils } from 'primeng/utils';
-import { SafeHtmlPipe } from '../dom/safeHtmlPipe';
+
+@Pipe({
+    name: 'safeHtml'
+})
+export class SafeHtmlPipe implements PipeTransform {
+    constructor(
+        @Inject(PLATFORM_ID) private readonly platformId: any,
+        private readonly sanitizer: DomSanitizer
+    ) {}
+
+    public transform(value: string): SafeHtml {
+        if (!value || !isPlatformBrowser(this.platformId)) {
+            return value;
+        }
+
+        return this.sanitizer.bypassSecurityTrustHtml(value);
+    }
+}
 
 @Component({
     selector: '[pMenuItemContent]',

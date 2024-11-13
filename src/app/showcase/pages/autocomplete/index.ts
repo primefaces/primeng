@@ -16,6 +16,7 @@ import { DisabledDoc } from '@doc/autocomplete/disableddoc';
 import { InvalidDoc } from '@doc/autocomplete/invaliddoc';
 import { AutoCompleteDocModule } from '@doc/autocomplete/autocompletedoc.module';
 import { FilledDoc } from '@doc/autocomplete/filleddoc';
+import { ShowClearDoc } from '@doc/autocomplete/showclear-doc.component';
 
 @Component({
     template: `<app-doc docTitle="Angular AutoComplete Component" header="AutoComplete" description="AutoComplete is an input component that provides real-time suggestions when being typed." [docs]="docs" [apiDocs]="['AutoComplete']"></app-doc>`,
@@ -89,6 +90,11 @@ export class AutoCompleteDemo {
             id: 'disabled',
             label: 'Disabled',
             component: DisabledDoc
+        },
+        {
+            id: 'showclear',
+            label: 'Show Clear',
+            component: ShowClearDoc
         },
         {
             id: 'invalid',

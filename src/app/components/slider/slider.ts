@@ -265,7 +265,14 @@ export class Slider implements OnDestroy, ControlValueAccessor {
 
     public starty: Nullable<number>;
 
-    constructor(@Inject(DOCUMENT) private document: Document, @Inject(PLATFORM_ID) private platformId: any, public el: ElementRef, public renderer: Renderer2, private ngZone: NgZone, public cd: ChangeDetectorRef) {}
+    constructor(
+        @Inject(DOCUMENT) private document: Document,
+        @Inject(PLATFORM_ID) private platformId: any,
+        public el: ElementRef,
+        public renderer: Renderer2,
+        private ngZone: NgZone,
+        public cd: ChangeDetectorRef
+    ) {}
 
     onMouseDown(event: Event, index?: number) {
         if (this.disabled) {
@@ -351,8 +358,6 @@ export class Slider implements OnDestroy, ControlValueAccessor {
         if (this.animate) {
             DomHandler.addClass(this.el.nativeElement.children[0], 'p-slider-animate');
         }
-
-        event.preventDefault();
     }
 
     onBarClick(event: Event) {
@@ -406,9 +411,9 @@ export class Slider implements OnDestroy, ControlValueAccessor {
                 this.updateValue(this.max, event);
                 event.preventDefault();
                 break;
+
             case 'Tab':
                 this.onDragEnd(event);
-                event.preventDefault();
                 break;
 
             default:

@@ -41,7 +41,6 @@ import { SafeHtmlPipe } from '../dom/safeHtmlPipe';
                         (keydown)="onItemKeydown($event, item, i)"
                         [target]="item.target"
                         [attr.tabindex]="getItemTabIndex(item, i)"
-                        [attr.aria-expanded]="i === activeIndex"
                         [attr.aria-disabled]="item.disabled || (readonly && i !== activeIndex)"
                         [fragment]="item.fragment"
                         [queryParamsHandling]="item.queryParamsHandling"
@@ -49,10 +48,10 @@ import { SafeHtmlPipe } from '../dom/safeHtmlPipe';
                         [skipLocationChange]="item.skipLocationChange"
                         [replaceUrl]="item.replaceUrl"
                         [state]="item.state"
-                        [attr.ariaCurrentWhenActive]="exact ? 'step' : undefined"
+                        [attr.aria-current]="i === activeIndex ? 'step' : null"
                     >
-                        <span class="p-steps-number">{{ i + 1 }}</span>
-                        <span class="p-steps-title" *ngIf="item.escape !== false; else htmlLabel">{{ item.label }}</span>
+                        <span class="p-steps-number"> {{ i + 1 }}</span>
+                        <span class="p-steps-title" *ngIf="item.escape !== false; else htmlLabel"> {{ item.label }}</span>
                         <ng-template #htmlLabel><span class="p-steps-title" [innerHTML]="item.label | safeHtml"></span></ng-template>
                     </a>
                     <ng-template #elseBlock>
@@ -64,11 +63,10 @@ import { SafeHtmlPipe } from '../dom/safeHtmlPipe';
                             (keydown)="onItemKeydown($event, item, i)"
                             [target]="item.target"
                             [attr.tabindex]="getItemTabIndex(item, i)"
-                            [attr.aria-expanded]="i === activeIndex"
                             [attr.aria-disabled]="item.disabled || (readonly && i !== activeIndex)"
-                            [attr.ariaCurrentWhenActive]="exact && (!item.disabled || readonly) ? 'step' : undefined"
+                            [attr.aria-current]="i === activeIndex ? 'step' : null"
                         >
-                            <span class="p-steps-number">{{ i + 1 }}</span>
+                            <span class="p-steps-number"> {{ i + 1 }} </span>
                             <span class="p-steps-title" *ngIf="item.escape !== false; else htmlRouteLabel">{{ item.label }}</span>
                             <ng-template #htmlRouteLabel><span class="p-steps-title" [innerHTML]="item.label | safeHtml"></span></ng-template>
                         </a>
@@ -124,7 +122,11 @@ export class Steps implements OnInit, OnDestroy {
 
     @ViewChild('list', { static: false }) listViewChild: Nullable<ElementRef>;
 
-    constructor(private router: Router, private route: ActivatedRoute, private cd: ChangeDetectorRef) {}
+    constructor(
+        private router: Router,
+        private route: ActivatedRoute,
+        private cd: ChangeDetectorRef
+    ) {}
 
     subscription: Subscription | undefined;
 

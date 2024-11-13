@@ -9,6 +9,7 @@ import { TemplateSeparatorModule } from 'src/app/showcase/layout/templates/templ
 import { TemplateYoutubeModule } from 'src/app/showcase/layout/templates/templateyoutube';
 import { AtlantisLogo } from './atlantislogo';
 import { AtlantisSeparator } from './atlantisseparator';
+
 @Component({
     standalone: true,
     selector: 'atlantis-page',
@@ -202,13 +203,11 @@ export class AtlantisPage {
             {
                 title: 'Basic License',
                 price: '$59',
-                included: ['Non Commercial Usage', 'Single End Product, No Multi-Use', '1 Year Free Updates'],
-                discount_price:"$39",
+                included: ['Non Commercial Usage', 'Single End Product, No Multi-Use', '1 Year Free Updates']
             },
             {
                 title: 'Extended License',
                 price: '$590',
-                discount_price:"$390",
                 included: ['Commercial Usage', 'Multiple End Products', '1 Year Free Updates']
             }
         ]
