@@ -345,6 +345,7 @@ export class SplitButton {
             'p-button-rounded': this.rounded,
             'p-button-outlined': this.outlined,
             'p-button-text': this.text,
+            'p-button-plain': this.plain,
             [`p-button-${this.size === 'small' ? 'sm' : 'lg'}`]: this.size
         };
 
