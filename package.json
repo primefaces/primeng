@@ -71,9 +71,6 @@
         "access": "public"
     },
     "packageManager": "pnpm@9.6.0",
-    "engines": {
-        "node": ">=12.11.0"
-    },
     "lint-staged": {
         "**/*.{js,mjs,ts,mts,d.ts,html}": ["prettier --write"]
     }

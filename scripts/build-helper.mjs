@@ -44,7 +44,7 @@ export function updatePackageJson(localPackageJson, callback) {
     pkg.license = packageJson.license;
     pkg.repository = { ...pkg.repository, ...packageJson.repository };
     pkg.bugs = { ...pkg.bugs, ...packageJson.bugs };
-    pkg.engines = { ...pkg.engines, ...packageJson.engines };
+    //pkg.engines = { ...pkg.engines, ...packageJson.engines };
 
     callback?.(pkg);
 

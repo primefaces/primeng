@@ -59,8 +59,5 @@
     "dependencies": {
         "@primeuix/styled": "catalog:",
         "@primeuix/utils": "catalog:"
-    },
-    "engines": {
-        "node": ">=12.11.0"
     }
 }
