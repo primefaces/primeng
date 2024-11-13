@@ -7,7 +7,8 @@ export const PRIME_NG_THEME = new InjectionToken<PrimeNgFeature>('PRIME_NG_THEME
 export function providePrimeNgConfig(...features: PrimeNgFeature[]): EnvironmentProviders {
     const providers = features.map((feature) => ({
         provide: PRIME_NG_THEME,
-        useValue: feature
+        useValue: feature,
+        multi: true
     }));
 
     return makeEnvironmentProviders(providers);
