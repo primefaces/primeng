@@ -20,7 +20,7 @@ import {
     ViewEncapsulation,
     ViewRef
 } from '@angular/core';
-import { addClass, appendChild, blockBodyScroll, getFocusableElements, getOuterHeight, getOuterWidth, getViewport, hasClass, removeClass, setAttribute, unblockBodyScroll, uuid } from '@primeuix/utils';
+import { addClass, appendChild, blockBodyScroll, getOuterHeight, getOuterWidth, getViewport, hasClass, removeClass, setAttribute, unblockBodyScroll, uuid } from '@primeuix/utils';
 import { SharedModule, TranslationKeys } from 'primeng/api';
 import { BaseComponent } from 'primeng/basecomponent';
 import { Button, ButtonProps } from 'primeng/button';
@@ -598,7 +598,7 @@ export class Dialog extends BaseComponent implements OnInit, OnDestroy {
     }
 
     focus(focusParentElement = this.contentViewChild.nativeElement) {
-        let focusable = <any>getFocusableElements(focusParentElement, '[autofocus]');
+        let focusable = DomHandler.getFocusableElement(focusParentElement, '[autofocus]');
         if (focusable) {
             this.zone.runOutsideAngular(() => {
                 setTimeout(() => focusable.focus(), 5);
