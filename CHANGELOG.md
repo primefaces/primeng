@@ -1,4 +1,20 @@
 # Changelog
+## [17.18.12](https://github.com/primefaces/primeng/tree/17.18.12) (2024-11-13)
+
+[Full Changelog](https://github.com/primefaces/primeng/compare/17.18.11...17.18.12)
+
+**Fixed bugs:**
+
+- Doc: Autocomplete Show Clear Demo not working [\#16568](https://github.com/primefaces/primeng/issues/16568)
+- Sidebar: onHide not triggered via programmatic close [\#16507](https://github.com/primefaces/primeng/issues/16507)
+- Scroller: Tests are failing after 17.18.11 update [\#16458](https://github.com/primefaces/primeng/issues/16458)
+- MultiSelect: touched form property doesn't respect updateOn blur [\#14780](https://github.com/primefaces/primeng/issues/14780)
+- Table | Bug on table checkboxes [\#16618](https://github.com/primefaces/primeng/issues/16618)
+- Steps | Remove unnecessary spaces [\#16620](https://github.com/primefaces/primeng/issues/16620)
+- InputOtp: Paste event not handled in Template and Sample doc [\#16713](https://github.com/primefaces/primeng/issues/16713)
+- When using stateStorage for the p-table I always get the following error in the console when the component first loads: [\#15043](https://github.com/primefaces/primeng/issues/15043)
+- p-dropdown: selected item is not changing when typing the first character of the items in the list [\#16462](https://github.com/primefaces/primeng/issues/16462)
+
 ## [18.0.0-beta.3](https://github.com/primefaces/primeng/tree/18.0.0-beta.3) (2024-10-16)
 [Full Changelog](https://github.com/primefaces/primeng/compare/18.0.0-beta.2...18.0.0-beta.3)
 
