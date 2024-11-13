@@ -936,6 +936,24 @@
 - TypeError: this.focusedItemInfo.mutate is not a function [\#14119](https://github.com/primefaces/primeng/issues/14119)
 - Upgrade to Angular 17? [\#14063](https://github.com/primefaces/primeng/issues/14063)
 
+## ![LTS](https://www.primefaces.org/wp-content/uploads/2020/01/lts-icon-24.png "PrimeNG LTS") [16.9.17-LTS](https://www.npmjs.com/package/primeng/v/16.9.17-lts) (2024-11-13)
+
+**Fixed bugs:**
+
+- Sidebar: onHide not triggered via programmatic close [\#16507](https://github.com/primefaces/primeng/issues/16507)
+- MultiSelect: touched form property doesn't respect updateOn blur [\#14780](https://github.com/primefaces/primeng/issues/14780)
+- Table | Bug on table checkboxes [\#16618](https://github.com/primefaces/primeng/issues/16618)
+- When using stateStorage for the p-table I always get the following error in the console when the component first loads: [\#15043](https://github.com/primefaces/primeng/issues/15043)
+- p-splitter: zero width panel parsed as null [\#16425](https://github.com/primefaces/primeng/issues/16425)
+- p-tree: Unselectable children is selected when selecting parent [\#16430](https://github.com/primefaces/primeng/issues/16430)
+- ContextMenu, Dock: aria-hidden throws console error [\#16397](https://github.com/primefaces/primeng/issues/16397)
+- OrganizationChart collapsible property does not propagate [\#16361](https://github.com/primefaces/primeng/issues/16361)
+- Grouping Functionality in p-table Breaks After Pagination Navigation Beyond First Page [\#15192](https://github.com/primefaces/primeng/issues/15192)
+- Table: editable column is broken when disabled temporarily [\#16304](https://github.com/primefaces/primeng/issues/16304)
+- Component: Calendar Year picker [\#14233](https://github.com/primefaces/primeng/issues/14233)
+- Component: MultiSelect (Property 'ngOnInit' is missing in type 'MultiSelectTemplateDemo) [\#16256](https://github.com/primefaces/primeng/issues/16256)
+- Messages: Messages template does not work if messagemodule is imported alone [\#16253](https://github.com/primefaces/primeng/issues/16253)
+
 ## ![LTS](https://www.primefaces.org/wp-content/uploads/2020/01/lts-icon-24.png "PrimeNG LTS") [16.9.16-LTS](https://www.npmjs.com/package/primeng/v/16.9.16-lts) (2024-09-20)
 
 **Fixed bugs:**
@@ -1634,6 +1652,21 @@
 - Touch Control - Thumbnails selects photo randomly when tapping. [\#12943](https://github.com/primefaces/primeng/issues/12943)
 - Checkbox in p-treeNode always checked when using custom icon [\#12951](https://github.com/primefaces/primeng/issues/12951)
 - ConfirmDialog: Duplicated AcceptIcons [\#13001](https://github.com/primefaces/primeng/issues/13001)
+
+## ![LTS](https://www.primefaces.org/wp-content/uploads/2020/01/lts-icon-24.png "PrimeNG LTS") [15.4.28-LTS](https://www.npmjs.com/package/primeng/v/15.4.28-lts) (2024-11-13)
+
+**Fixed bugs:**
+
+- Sidebar: onHide not triggered via programmatic close [\#16507](https://github.com/primefaces/primeng/issues/16507)
+- Table | Bug on table checkboxes [\#16618](https://github.com/primefaces/primeng/issues/16618)
+- When using stateStorage for the p-table I always get the following error in the console when the component first loads: [\#15043](https://github.com/primefaces/primeng/issues/15043)
+- p-splitter: zero width panel parsed as null [\#16425](https://github.com/primefaces/primeng/issues/16425)
+- p-tree: Unselectable children is selected when selecting parent [\#16430](https://github.com/primefaces/primeng/issues/16430)
+- Grouping Functionality in p-table Breaks After Pagination Navigation Beyond First Page [\#15192](https://github.com/primefaces/primeng/issues/15192)
+- Table: editable column is broken when disabled temporarily [\#16304](https://github.com/primefaces/primeng/issues/16304)
+- Component: Calendar Year picker [\#14233](https://github.com/primefaces/primeng/issues/14233)
+- Component: MultiSelect (Property 'ngOnInit' is missing in type 'MultiSelectTemplateDemo) [\#16256](https://github.com/primefaces/primeng/issues/16256)
+- Messages: Messages template does not work if messagemodule is imported alone [\#16253](https://github.com/primefaces/primeng/issues/16253)
 
 ## ![LTS](https://www.primefaces.org/wp-content/uploads/2020/01/lts-icon-24.png "PrimeNG LTS") [15.4.27-LTS](https://www.npmjs.com/package/primeng/v/15.4.27-lts) (2024-09-20)
 
