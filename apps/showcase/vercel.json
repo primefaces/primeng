@@ -5,11 +5,11 @@
     "rewrites": [
       {
         "source": "/(.*)",
-        "destination": "/server/api"
+        "destination": "/api"
       }
     ],
     "functions": {
-      "server/api/index.mjs": {
+      "api/index.mjs": {
         "includeFiles": "dist/showcase/**"
       }
     }
