@@ -37,13 +37,11 @@
         "dev:link": "pnpm link --global && npm link"
     },
     "devDependencies": {
-        "chart.js": "4.4.2",
         "karma": "~6.4.2",
         "karma-chrome-launcher": "~3.2.0",
         "karma-coverage": "~2.2.0",
         "karma-jasmine": "~5.1.0",
         "karma-jasmine-html-reporter": "~2.0.0",
-        "quill": "2.0.2",
         "tslib": "^2.5.0"
     },
     "peerDependencies": {
