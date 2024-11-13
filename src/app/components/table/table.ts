@@ -2512,8 +2512,8 @@ export class Table implements OnInit, AfterViewInit, AfterContentInit, Blockable
     onColumnResizeBegin(event: any) {
         let containerLeft = DomHandler.getOffset(this.containerViewChild?.nativeElement).left;
         let resizeThElement = event.target.parentElement;
-        while(resizeThElement.tagName !== 'TH') {
-            if(resizeThElement.tagName === 'TABLE') {
+        while (resizeThElement.tagName !== 'TH') {
+            if (resizeThElement.tagName === 'TABLE') {
                 throw new Error('resizeColumnElement is not a TH element and it is not a child of a TH element');
             }
             resizeThElement = resizeThElement.parentElement;
