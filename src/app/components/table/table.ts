@@ -1158,7 +1158,7 @@ export class Table implements OnInit, AfterViewInit, AfterContentInit, Blockable
 
     overlaySubscription: Subscription | undefined;
 
-    resizeColumnElement: any;
+    resizeColumnElement: HTMLElement;
 
     columnResizing: boolean = false;
 
@@ -2511,7 +2511,14 @@ export class Table implements OnInit, AfterViewInit, AfterContentInit, Blockable
 
     onColumnResizeBegin(event: any) {
         let containerLeft = DomHandler.getOffset(this.containerViewChild?.nativeElement).left;
-        this.resizeColumnElement = event.target.parentElement;
+        let resizeThElement = event.target.parentElement;
+        while(resizeThElement.tagName !== 'TH') {
+            if(resizeThElement.tagName === 'TABLE') {
+                throw new Error('resizeColumnElement is not a TH element and it is not a child of a TH element');
+            }
+            resizeThElement = resizeThElement.parentElement;
+        }
+        this.resizeColumnElement = resizeThElement;
         this.columnResizing = true;
         if (event.type == 'touchstart') {
             this.lastResizerHelperX = event.changedTouches[0].clientX - containerLeft + this.containerViewChild?.nativeElement.scrollLeft;
@@ -2536,22 +2543,23 @@ export class Table implements OnInit, AfterViewInit, AfterContentInit, Blockable
     }
 
     onColumnResizeEnd() {
-        let delta = this.resizeHelperViewChild?.nativeElement.offsetLeft - <number>this.lastResizerHelperX;
-        let columnWidth = this.resizeColumnElement.offsetWidth;
-        let newColumnWidth = columnWidth + delta;
-        let minWidth = this.resizeColumnElement.style.minWidth.replace(/[^\d.]/g, '') || 15;
+        const delta = this.resizeHelperViewChild?.nativeElement.offsetLeft - <number>this.lastResizerHelperX;
+        const columnWidth = this.resizeColumnElement.offsetWidth;
+        const newColumnWidth = columnWidth + delta;
+        const elementMinWidth = this.resizeColumnElement.style.minWidth.replace(/[^\d.]/g, '');
+        const minWidth = elementMinWidth ? parseFloat(elementMinWidth) : 15;
 
         if (newColumnWidth >= minWidth) {
             if (this.columnResizeMode === 'fit') {
-                let nextColumn = this.resizeColumnElement.nextElementSibling;
-                let nextColumnWidth = nextColumn.offsetWidth - delta;
+                const nextColumn = this.resizeColumnElement.nextElementSibling as HTMLElement;
+                const nextColumnWidth = nextColumn.offsetWidth - delta;
 
                 if (newColumnWidth > 15 && nextColumnWidth > 15) {
                     this.resizeTableCells(newColumnWidth, nextColumnWidth);
                 }
             } else if (this.columnResizeMode === 'expand') {
                 this._initialColWidths = this._totalTableWidth();
-                let tableWidth = this.tableViewChild?.nativeElement.offsetWidth + delta;
+                const tableWidth = this.tableViewChild?.nativeElement.offsetWidth + delta;
 
                 this.setResizeTableWidth(tableWidth + 'px');
                 this.resizeTableCells(newColumnWidth, null);
