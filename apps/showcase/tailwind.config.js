@@ -5,7 +5,7 @@ module.exports = {
         preflight: false
     },
     darkMode: ['selector', '[class="p-dark"]'],
-    content: ['./src/**/*.{html,ts,scss,css}'],
+    content: ['./components/**/*.{html,ts,scss,css}', './doc/**/*.{html,ts,scss,css}', './pages/**/*.{html,ts,scss,css}', './index.html'],
     plugins: [primeui],
     theme: {
         screens: {

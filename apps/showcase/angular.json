@@ -11,29 +11,29 @@
                 }
             },
             "root": "",
-            "sourceRoot": "src",
+            "sourceRoot": "",
             "prefix": "app",
             "architect": {
                 "build": {
                     "builder": "@angular-devkit/build-angular:application",
                     "options": {
                         "outputPath": "dist/showcase",
-                        "index": "src/index.html",
-                        "browser": "src/main.ts",
+                        "index": "index.html",
+                        "browser": "app/main.ts",
                         "polyfills": ["zone.js"],
-                        "tsConfig": "tsconfig.app.json",
+                        "tsConfig": "./tsconfig.json",
                         "inlineStyleLanguage": "scss",
-                        "assets": ["src/favicon.ico", "src/assets"],
-                        "styles": ["src/styles.scss"],
+                        "assets": ["assets"],
+                        "styles": ["assets/styles/global.scss"],
                         "scripts": ["./node_modules/prismjs/prism.js", "./node_modules/prismjs/components/prism-typescript.js", "./node_modules/prismjs/components/prism-scss.js", "./node_modules/prismjs/components/prism-bash.js"],
                         "allowedCommonJsDependencies": ["chart.js", "xlsx", "jspdf-autotable", "file-saver", "jspdf", "quill", "core-js", "raf", "rgbcolor"],
-                        "server": "src/main.server.ts",
+                        "server": "server/main.server.ts",
                         "prerender": {
                             "discoverRoutes": false,
-                            "routesFile": "routes.txt"
+                            "routesFile": "router/routes.txt"
                         },
                         "ssr": {
-                            "entry": "server.ts"
+                            "entry": "server/server.ts"
                         }
                     },
                     "configurations": {
@@ -64,17 +64,6 @@
                     "builder": "@angular-devkit/build-angular:extract-i18n",
                     "options": {
                         "buildTarget": "showcase:build"
-                    }
-                },
-                "test": {
-                    "builder": "@angular-devkit/build-angular:karma",
-                    "options": {
-                        "polyfills": ["zone.js", "zone.js/testing"],
-                        "tsConfig": "tsconfig.spec.json",
-                        "inlineStyleLanguage": "scss",
-                        "assets": ["src/favicon.ico", "src/assets"],
-                        "styles": ["src/styles.scss"],
-                        "scripts": []
                     }
                 }
             }

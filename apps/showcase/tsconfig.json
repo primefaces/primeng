@@ -2,21 +2,18 @@
     "extends": "../../tsconfig.json",
     "compilerOptions": {
         "baseUrl": "./",
+        "outDir": "./out-tsc/app",
+        "types": ["node"],
         "strict": false,
         "paths": {
+            "primeng/*": ["../../packages/primeng/src/*/public_api"],
             "@primeng/themes/*": ["../../packages/themes/src/presets/*"],
             "@primeng/themes": ["../../packages/themes/src/index.ts"],
-            "primeng/*": ["../../packages/primeng/src/*/public_api"],
 
-            "@pages/*": ["src/app/showcase/pages/*"],
-            "@data/*": ["src/assets/showcase/data/*"],
-            "@doc/*": ["src/app/showcase/doc/*"],
-            "@domain/*": ["src/app/showcase/domain/*"],
-            "@service/*": ["src/app/showcase/service/*"],
-            "@layout/*": ["src/app/showcase/layout/*"],
-            "@themes/*": ["src/app/components/themes/*"]
+            "@/*": ["./*"]
         }
     },
+    "files": ["app/main.ts", "server/main.server.ts", "server/server.ts", "app/polyfills.ts"],
     "angularCompilerOptions": {
         "enableI18nLegacyMessageIdFormat": false,
         "strictInjectionParameters": false,
