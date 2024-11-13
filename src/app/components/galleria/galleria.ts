@@ -1035,7 +1035,8 @@ export class GalleriaThumbnails implements OnInit, AfterContentChecked, AfterVie
         @Inject(DOCUMENT) private document: Document,
         @Inject(PLATFORM_ID) private platformId: any,
         private renderer: Renderer2,
-        private cd: ChangeDetectorRef
+        private cd: ChangeDetectorRef,
+        private domSanitizer: DomSanitizer
     ) {}
 
     ngOnInit() {

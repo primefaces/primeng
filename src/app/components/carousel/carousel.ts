@@ -365,7 +365,8 @@ export class Carousel implements AfterContentInit {
         private renderer: Renderer2,
         @Inject(DOCUMENT) private document: Document,
         @Inject(PLATFORM_ID) private platformId: any,
-        private config: PrimeNGConfig
+        private config: PrimeNGConfig,
+        private domSanitizer: DomSanitizer
     ) {
         this.totalShiftedItems = this.page * this.numScroll * -1;
         this.window = this.document.defaultView as Window;

@@ -1178,7 +1178,8 @@ export class Calendar implements OnInit, OnDestroy, ControlValueAccessor {
         public cd: ChangeDetectorRef,
         private zone: NgZone,
         private config: PrimeNGConfig,
-        public overlayService: OverlayService
+        public overlayService: OverlayService,
+        private domSanitizer: DomSanitizer
     ) {
         this.window = this.document.defaultView as Window;
     }

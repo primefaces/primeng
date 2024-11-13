@@ -173,7 +173,8 @@ export class Tooltip implements AfterViewInit, OnDestroy {
         public zone: NgZone,
         public config: PrimeNGConfig,
         private renderer: Renderer2,
-        private viewContainer: ViewContainerRef
+        private viewContainer: ViewContainerRef,
+        private domSanitizer: DomSanitizer
     ) {}
 
     ngAfterViewInit() {

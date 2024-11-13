@@ -451,6 +451,7 @@ export class ConfirmDialog implements AfterContentInit, OnInit, OnDestroy {
         public zone: NgZone,
         private cd: ChangeDetectorRef,
         public config: PrimeNGConfig,
+        private domSanitizer: DomSanitizer,
         @Inject(DOCUMENT) private document: Document
     ) {
         this.subscription = this.confirmationService.requireConfirmation$.subscribe((confirmation) => {
