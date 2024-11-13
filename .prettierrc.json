@@ -14,13 +14,6 @@
             }
         },
         {
-            "files": ["*.json"],
-            "options": {
-                "singleQuote": false,
-                "parser": "json"
-            }
-        },
-        {
             "files": ["*.html"],
             "options": {
                 "parser": "html"

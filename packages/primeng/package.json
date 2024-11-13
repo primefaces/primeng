@@ -13,26 +13,17 @@
     "bugs": {
         "url": "https://github.com/primefaces/primeng/issues"
     },
-    "keywords": ["primeng", "angular", "ui library", "component library", "material", "bootstrap", "fluent", "tailwind"],
-    "main": "./src/index.js",
-    "module": "./src/index.js",
-    "types": "./src/index.d.ts",
+    "keywords": [
+        "primeng",
+        "angular",
+        "ui library",
+        "component library",
+        "material",
+        "bootstrap",
+        "fluent",
+        "tailwind"
+    ],
     "publishConfig": {
-        "main": "./index.mjs",
-        "module": "./index.mjs",
-        "types": "./index.d.ts",
-        "exports": {
-            ".": {
-                "types": "./index.d.ts",
-                "import": "./index.mjs",
-                "default": "./index.mjs"
-            },
-            "./*": {
-                "types": "./*/index.d.ts",
-                "import": "./*/index.mjs",
-                "default": "./*/index.mjs"
-            }
-        },
         "directory": "dist",
         "linkDirectory": false,
         "access": "public"
