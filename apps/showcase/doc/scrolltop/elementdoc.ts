@@ -16,7 +16,7 @@ import { Component } from '@angular/core';
                     Cursus sit amet dictum sit amet. Tristique senectus et netus et malesuada fames ac turpis egestas. Et tortor consequat id porta nibh venenatis cras sed. Diam maecenas ultricies mi eget mauris. Eget egestas purus viverra accumsan
                     in nisl nisi. Suscipit adipiscing bibendum est ultricies integer. Mattis aliquam faucibus purus in massa tempor nec.
                 </p>
-                <p-scrolltop target="parent" styleClass="custom-scrolltop" [threshold]="100" icon="pi pi-arrow-up" />
+                <p-scrolltop target="parent" [threshold]="100" icon="pi pi-arrow-up" [buttonProps]="{ severity: 'contrast', raised: true, rounded: true }" />
             </div>
         </div>
         <app-code [code]="code" selector="scroll-top-element-demo"></app-code>
@@ -24,7 +24,7 @@ import { Component } from '@angular/core';
 })
 export class ElementDoc {
     code: Code = {
-        basic: `<p-scrolltop target="parent" styleClass="custom-scrolltop" [threshold]="100" icon="pi pi-arrow-up" />`,
+        basic: `<p-scrolltop target="parent" [threshold]="100" icon="pi pi-arrow-up" [buttonProps]="{ severity: 'contrast', raised: true, rounded: true }" />`,
         html: `<div class="card">
     <div style="width: 250px; height: 200px; overflow: auto">
         <p>
@@ -34,7 +34,7 @@ export class ElementDoc {
             Cursus sit amet dictum sit amet. Tristique senectus et netus et malesuada fames ac turpis egestas. Et tortor consequat id porta nibh venenatis cras sed. Diam maecenas ultricies mi eget mauris. Eget egestas purus viverra accumsan
             in nisl nisi. Suscipit adipiscing bibendum est ultricies integer. Mattis aliquam faucibus purus in massa tempor nec.
         </p>
-        <p-scrolltop target="parent" styleClass="custom-scrolltop" [threshold]="100" icon="pi pi-arrow-up" />
+        <p-scrolltop target="parent" [threshold]="100" icon="pi pi-arrow-up" [buttonProps]="{ severity: 'contrast', raised: true, rounded: true }" />
     </div>
 </div>`,
         typescript: `import { Component } from '@angular/core';

@@ -33,10 +33,10 @@ import { ScrollTopStyle } from './style/scrolltopstyle';
             type="button"
             [buttonProps]="buttonProps"
         >
-            <ng-template pTemplate="icon">
+            <ng-template #icon>
                 <ng-container *ngIf="!iconTemplate">
-                    <span *ngIf="icon" [class]="icon" [ngClass]="'p-scrolltop-icon'"></span>
-                    <ChevronUpIcon *ngIf="!icon" [styleClass]="'p-scrolltop-icon'" [ngStyle]="{ 'font-size': '1rem', scale: '1.5' }" />
+                    <span *ngIf="_icon" [class]="_icon" [ngClass]="'p-scrolltop-icon'"></span>
+                    <ChevronUpIcon *ngIf="!_icon" [styleClass]="'p-scrolltop-icon'" [ngStyle]="{ 'font-size': '1rem', scale: '1.5' }" />
                 </ng-container>
                 <ng-template [ngIf]="!icon" *ngTemplateOutlet="iconTemplate; context: { styleClass: 'p-scrolltop-icon' }"></ng-template>
             </ng-template>
@@ -90,7 +90,9 @@ export class ScrollTop extends BaseComponent implements OnInit, OnDestroy {
      * Name of the icon or JSX.Element for icon.
      * @group Props
      */
-    @Input() icon: string | undefined;
+    @Input() get icon(): string | undefined {
+        return this._icon;
+    }
     /**
      * Defines the scrolling behavior, "smooth" adds an animation and "auto" scrolls with a jump.
      * @group Props
@@ -121,6 +123,12 @@ export class ScrollTop extends BaseComponent implements OnInit, OnDestroy {
      * @group Templates
      */
     @ContentChild('icon') iconTemplate: TemplateRef<any> | undefined;
+
+    private _icon: string | undefined;
+
+    set icon(value: string | undefined) {
+        this._icon = value;
+    }
 
     documentScrollListener: VoidFunction | null | undefined;
 
