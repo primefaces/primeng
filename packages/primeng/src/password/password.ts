@@ -888,7 +888,7 @@ export class Password extends BaseComponent implements OnInit {
     }
 
     strengthClass(meter: any) {
-        return `p-password-meter-label p-password-meter ${meter ? meter.strength : ''}`;
+        return `p-password-meter-label p-password-meter${meter?.strength ? `-${meter.strength}` : ''}`;
     }
 
     filled() {
