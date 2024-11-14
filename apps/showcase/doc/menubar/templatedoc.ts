@@ -89,9 +89,6 @@ export class TemplateDoc implements OnInit {
                         separator: true
                     },
                     {
-                        separator: true
-                    },
-                    {
                         label: 'UI Kit',
                         icon: 'pi pi-pencil',
                         shortcut: '⌘+U'
