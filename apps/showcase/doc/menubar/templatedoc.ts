@@ -104,7 +104,7 @@ export class TemplateDoc implements OnInit {
             <path d="..." fill="var(--primary-color)" />
         </svg>
     </ng-template>
-    <ng-template  #item let-item let-root="root">
+    <ng-template #item let-item let-root="root">
         <a pRipple class="flex items-center p-menubar-item-link">
             <span>{{ item.label }}</span>
             <p-badge *ngIf="item.badge" [ngClass]="{ 'ml-auto': !root, 'ml-2': root }" [value]="item.badge" />
@@ -176,7 +176,7 @@ export class TemplateDoc implements OnInit {
                 />
             </svg>
         </ng-template>
-        <ng-template  #item let-item let-root="root">
+        <ng-template #item let-item let-root="root">
             <a pRipple class="flex items-center p-menubar-item-link">
                 <span>{{ item.label }}</span>
                 <p-badge *ngIf="item.badge" [ngClass]="{ 'ml-auto': !root, 'ml-2': root }" [value]="item.badge" />

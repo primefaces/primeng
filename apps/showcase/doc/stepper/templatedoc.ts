@@ -10,57 +10,51 @@ import { Component } from '@angular/core';
         <div class="card flex justify-center">
             <p-stepper [(value)]="activeStep" class="basis-[40rem]">
                 <p-step-list>
-                    <p-step [value]="1">
+                    <p-step [value]="1" class="flex flex-row flex-auto gap-2">
                         <ng-template #content let-activateCallback="activateCallback" let-value="value">
-                            <div class="flex flex-row flex-auto gap-2">
-                                <button class="bg-transparent border-0 inline-flex flex-col gap-2" (click)="activateCallback()">
-                                    <span
-                                        class="rounded-border border-2 w-12 h-12 inline-flex items-center justify-center"
-                                        [ngClass]="{
-                                            'bg-primary text-primary-contrast border-primary': value <= activeStep,
-                                            'border-surface': value > activeStep
-                                        }"
-                                    >
-                                        <i class="pi pi-user"></i>
-                                    </span>
-                                </button>
-                            </div>
+                            <button class="bg-transparent border-0 inline-flex flex-col gap-2" (click)="activateCallback()">
+                                <span
+                                    class="rounded-full border-2 w-12 h-12 inline-flex items-center justify-center"
+                                    [ngClass]="{
+                                        'bg-primary text-primary-contrast border-primary': value <= activeStep,
+                                        'border-surface': value > activeStep
+                                    }"
+                                >
+                                    <i class="pi pi-user"></i>
+                                </span>
+                            </button>
                         </ng-template>
                     </p-step>
 
-                    <p-step [value]="2">
+                    <p-step [value]="2" class="flex flex-row flex-auto gap-2">
                         <ng-template #content let-activateCallback="activateCallback" let-value="value">
-                            <div class="flex flex-row flex-auto gap-2">
-                                <button class="bg-transparent border-0 inline-flex flex-col gap-2" (click)="activateCallback()">
-                                    <span
-                                        class="rounded-border border-2 w-12 h-12 inline-flex items-center justify-center"
-                                        [ngClass]="{
-                                            'bg-primary text-primary-contrast border-primary': value <= activeStep,
-                                            'border-surface': value > activeStep
-                                        }"
-                                    >
-                                        <i class="pi pi-star"></i>
-                                    </span>
-                                </button>
-                            </div>
+                            <button class="bg-transparent border-0 inline-flex flex-col gap-2" (click)="activateCallback()">
+                                <span
+                                    class="rounded-full border-2 w-12 h-12 inline-flex items-center justify-center"
+                                    [ngClass]="{
+                                        'bg-primary text-primary-contrast border-primary': value <= activeStep,
+                                        'border-surface': value > activeStep
+                                    }"
+                                >
+                                    <i class="pi pi-star"></i>
+                                </span>
+                            </button>
                         </ng-template>
                     </p-step>
 
-                    <p-step [value]="3">
+                    <p-step [value]="3" class="flex flex-row flex-auto gap-2">
                         <ng-template #content let-activateCallback="activateCallback" let-value="value">
-                            <div class="flex flex-row flex-auto gap-2">
-                                <button class="bg-transparent border-0 inline-flex flex-col gap-2" (click)="activateCallback()">
-                                    <span
-                                        class="rounded-border border-2 w-12 h-12 inline-flex items-center justify-center"
-                                        [ngClass]="{
-                                            'bg-primary text-primary-contrast border-primary': value <= activeStep,
-                                            'border-surface': value > activeStep
-                                        }"
-                                    >
-                                        <i class="pi pi-id-card"></i>
-                                    </span>
-                                </button>
-                            </div>
+                            <button class="bg-transparent border-0 inline-flex flex-col gap-2" (click)="activateCallback()">
+                                <span
+                                    class="rounded-full border-2 w-12 h-12 inline-flex items-center justify-center"
+                                    [ngClass]="{
+                                        'bg-primary text-primary-contrast border-primary': value <= activeStep,
+                                        'border-surface': value > activeStep
+                                    }"
+                                >
+                                    <i class="pi pi-id-card"></i>
+                                </span>
+                            </button>
                         </ng-template>
                     </p-step>
                 </p-step-list>
@@ -70,24 +64,14 @@ import { Component } from '@angular/core';
                         <ng-template #content let-activateCallback="activateCallback">
                             <div class="flex flex-col gap-2 mx-auto" style="min-height: 16rem; max-width: 20rem">
                                 <div class="text-center mt-4 mb-4 text-xl font-semibold">Create your account</div>
-                                <div class="field p-fluid">
-                                    <p-iconfield>
-                                        <p-inputicon>
-                                            <i class="pi pi-user"></i>
-                                        </p-inputicon>
-                                        <input [(ngModel)]="name" pInputText id="input" type="text" placeholder="Name" />
-                                    </p-iconfield>
+                                <div class="field">
+                                    <input [(ngModel)]="name" pInputText id="input" type="text" placeholder="Name" fluid />
                                 </div>
-                                <div class="field p-fluid">
-                                    <p-iconfield>
-                                        <p-inputicon>
-                                            <i class="pi pi-envelope"></i>
-                                        </p-inputicon>
-                                        <input [(ngModel)]="email" pInputText id="email" type="email" placeholder="Email" />
-                                    </p-iconfield>
+                                <div class="field">
+                                    <input [(ngModel)]="email" pInputText id="email" type="email" placeholder="Email" fluid />
                                 </div>
-                                <div class="field p-fluid">
-                                    <p-password [(ngModel)]="password" [toggleMask]="true" placeholder="Password" />
+                                <div class="field">
+                                    <p-password [(ngModel)]="password" placeholder="Password" fluid />
                                 </div>
                             </div>
                             <div class="flex pt-6 justify-end">
@@ -115,7 +99,7 @@ import { Component } from '@angular/core';
                             </div>
                             <div class="flex pt-6 justify-between">
                                 <p-button (onClick)="activateCallback(1)" label="Back" severity="secondary" icon="pi pi-arrow-left" />
-                                <p-button (onClick)="activateCallback(2)" label="Next" icon="pi pi-arrow-right" iconPos="right" />
+                                <p-button (onClick)="activateCallback(3)" label="Next" icon="pi pi-arrow-right" iconPos="right" />
                             </div>
                         </ng-template>
                     </p-step-panel>
@@ -171,57 +155,51 @@ export class TemplateDoc {
     code: Code = {
         basic: `<p-stepper [(value)]="activeStep" class="basis-[40rem]">
     <p-step-list>
-        <p-step [value]="1">
+        <p-step [value]="1" class="flex flex-row flex-auto gap-2">
             <ng-template #content let-activateCallback="activateCallback" let-value="value">
-                <div class="flex flex-row flex-auto gap-2">
-                    <button class="bg-transparent border-0 inline-flex flex-col gap-2" (click)="activateCallback()">
-                        <span
-                            class="rounded-border border-2 w-12 h-12 inline-flex items-center justify-center"
-                            [ngClass]="{
-                                'bg-primary text-primary-contrast border-primary': value <= activeStep,
-                                'border-surface': value > activeStep,
-                            }"
-                        >
-                            <i class="pi pi-user"></i>
-                        </span>
-                    </button>
-                </div>
+                <button class="bg-transparent border-0 inline-flex flex-col gap-2" (click)="activateCallback()">
+                    <span
+                        class="rounded-full border-2 w-12 h-12 inline-flex items-center justify-center"
+                        [ngClass]="{
+                            'bg-primary text-primary-contrast border-primary': value <= activeStep,
+                            'border-surface': value > activeStep
+                        }"
+                    >
+                        <i class="pi pi-user"></i>
+                    </span>
+                </button>
             </ng-template>
         </p-step>
 
-        <p-step [value]="2">
+        <p-step [value]="2" class="flex flex-row flex-auto gap-2">
             <ng-template #content let-activateCallback="activateCallback" let-value="value">
-                <div class="flex flex-row flex-auto gap-2">
-                    <button class="bg-transparent border-0 inline-flex flex-col gap-2" (click)="activateCallback()">
-                        <span
-                            class="rounded-border border-2 w-12 h-12 inline-flex items-center justify-center"
-                            [ngClass]="{
-                                'bg-primary text-primary-contrast border-primary': value <= activeStep,
-                                'border-surface': value > activeStep,
-                            }"
-                        >
-                            <i class="pi pi-star"></i>
-                        </span>
-                    </button>
-                </div>
+                <button class="bg-transparent border-0 inline-flex flex-col gap-2" (click)="activateCallback()">
+                    <span
+                        class="rounded-full border-2 w-12 h-12 inline-flex items-center justify-center"
+                        [ngClass]="{
+                            'bg-primary text-primary-contrast border-primary': value <= activeStep,
+                            'border-surface': value > activeStep
+                        }"
+                    >
+                        <i class="pi pi-star"></i>
+                    </span>
+                </button>
             </ng-template>
         </p-step>
 
-        <p-step [value]="3">
+        <p-step [value]="3" class="flex flex-row flex-auto gap-2">
             <ng-template #content let-activateCallback="activateCallback" let-value="value">
-                <div class="flex flex-row flex-auto gap-2">
-                    <button class="bg-transparent border-0 inline-flex flex-col gap-2" (click)="activateCallback()">
-                        <span
-                            class="rounded-border border-2 w-12 h-12 inline-flex items-center justify-center"
-                            [ngClass]="{
-                                'bg-primary text-primary-contrast border-primary': value <= activeStep,
-                                'border-surface': value > activeStep,
-                            }"
-                        >
-                            <i class="pi pi-id-card"></i>
-                        </span>
-                    </button>
-                </div>
+                <button class="bg-transparent border-0 inline-flex flex-col gap-2" (click)="activateCallback()">
+                    <span
+                        class="rounded-full border-2 w-12 h-12 inline-flex items-center justify-center"
+                        [ngClass]="{
+                            'bg-primary text-primary-contrast border-primary': value <= activeStep,
+                            'border-surface': value > activeStep
+                        }"
+                    >
+                        <i class="pi pi-id-card"></i>
+                    </span>
+                </button>
             </ng-template>
         </p-step>
     </p-step-list>
@@ -231,24 +209,14 @@ export class TemplateDoc {
             <ng-template #content let-activateCallback="activateCallback">
                 <div class="flex flex-col gap-2 mx-auto" style="min-height: 16rem; max-width: 20rem">
                     <div class="text-center mt-4 mb-4 text-xl font-semibold">Create your account</div>
-                    <div class="field p-fluid">
-                        <p-iconfield>
-                            <p-inputicon>
-                                <i class="pi pi-user"></i>
-                            </p-inputicon>
-                            <input [(ngModel)]="name" pInputText id="input" type="text" placeholder="Name" />
-                        </p-iconfield>
+                    <div class="field">
+                        <input [(ngModel)]="name" pInputText id="input" type="text" placeholder="Name" fluid />
                     </div>
-                    <div class="field p-fluid">
-                        <p-iconfield>
-                            <p-inputicon>
-                                <i class="pi pi-envelope"></i>
-                            </p-inputicon>
-                            <input [(ngModel)]="email" pInputText id="email" type="email" placeholder="Email" />
-                        </p-iconfield>
+                    <div class="field">
+                        <input [(ngModel)]="email" pInputText id="email" type="email" placeholder="Email" fluid />
                     </div>
-                    <div class="field p-fluid">
-                        <p-password [(ngModel)]="password" [toggleMask]="true" placeholder="Password" />
+                    <div class="field">
+                        <p-password [(ngModel)]="password" placeholder="Password" fluid />
                     </div>
                 </div>
                 <div class="flex pt-6 justify-end">
@@ -276,7 +244,7 @@ export class TemplateDoc {
                 </div>
                 <div class="flex pt-6 justify-between">
                     <p-button (onClick)="activateCallback(1)" label="Back" severity="secondary" icon="pi pi-arrow-left" />
-                    <p-button (onClick)="activateCallback(2)" label="Next" icon="pi pi-arrow-right" iconPos="right" />
+                    <p-button (onClick)="activateCallback(3)" label="Next" icon="pi pi-arrow-right" iconPos="right" />
                 </div>
             </ng-template>
         </p-step-panel>
@@ -300,57 +268,51 @@ export class TemplateDoc {
         html: `<div class="card flex justify-center">
     <p-stepper [(value)]="activeStep" class="basis-[40rem]">
         <p-step-list>
-            <p-step [value]="1">
+            <p-step [value]="1" class="flex flex-row flex-auto gap-2">
                 <ng-template #content let-activateCallback="activateCallback" let-value="value">
-                    <div class="flex flex-row flex-auto gap-2">
-                        <button class="bg-transparent border-0 inline-flex flex-col gap-2" (click)="activateCallback()">
-                            <span
-                                class="rounded-border border-2 w-12 h-12 inline-flex items-center justify-center"
-                                [ngClass]="{
-                                    'bg-primary text-primary-contrast border-primary': value <= activeStep,
-                                    'border-surface': value > activeStep,
-                                }"
-                            >
-                                <i class="pi pi-user"></i>
-                            </span>
-                        </button>
-                    </div>
+                    <button class="bg-transparent border-0 inline-flex flex-col gap-2" (click)="activateCallback()">
+                        <span
+                            class="rounded-full border-2 w-12 h-12 inline-flex items-center justify-center"
+                            [ngClass]="{
+                                'bg-primary text-primary-contrast border-primary': value <= activeStep,
+                                'border-surface': value > activeStep
+                            }"
+                        >
+                            <i class="pi pi-user"></i>
+                        </span>
+                    </button>
                 </ng-template>
             </p-step>
 
-            <p-step [value]="2">
+            <p-step [value]="2" class="flex flex-row flex-auto gap-2">
                 <ng-template #content let-activateCallback="activateCallback" let-value="value">
-                    <div class="flex flex-row flex-auto gap-2">
-                        <button class="bg-transparent border-0 inline-flex flex-col gap-2" (click)="activateCallback()">
-                            <span
-                                class="rounded-border border-2 w-12 h-12 inline-flex items-center justify-center"
-                                [ngClass]="{
-                                    'bg-primary text-primary-contrast border-primary': value <= activeStep,
-                                    'border-surface': value > activeStep,
-                                }"
-                            >
-                                <i class="pi pi-star"></i>
-                            </span>
-                        </button>
-                    </div>
+                    <button class="bg-transparent border-0 inline-flex flex-col gap-2" (click)="activateCallback()">
+                        <span
+                            class="rounded-full border-2 w-12 h-12 inline-flex items-center justify-center"
+                            [ngClass]="{
+                                'bg-primary text-primary-contrast border-primary': value <= activeStep,
+                                'border-surface': value > activeStep
+                            }"
+                        >
+                            <i class="pi pi-star"></i>
+                        </span>
+                    </button>
                 </ng-template>
             </p-step>
 
-            <p-step [value]="3">
+            <p-step [value]="3" class="flex flex-row flex-auto gap-2">
                 <ng-template #content let-activateCallback="activateCallback" let-value="value">
-                    <div class="flex flex-row flex-auto gap-2">
-                        <button class="bg-transparent border-0 inline-flex flex-col gap-2" (click)="activateCallback()">
-                            <span
-                                class="rounded-border border-2 w-12 h-12 inline-flex items-center justify-center"
-                                [ngClass]="{
-                                    'bg-primary text-primary-contrast border-primary': value <= activeStep,
-                                    'border-surface': value > activeStep,
-                                }"
-                            >
-                                <i class="pi pi-id-card"></i>
-                            </span>
-                        </button>
-                    </div>
+                    <button class="bg-transparent border-0 inline-flex flex-col gap-2" (click)="activateCallback()">
+                        <span
+                            class="rounded-full border-2 w-12 h-12 inline-flex items-center justify-center"
+                            [ngClass]="{
+                                'bg-primary text-primary-contrast border-primary': value <= activeStep,
+                                'border-surface': value > activeStep
+                            }"
+                        >
+                            <i class="pi pi-id-card"></i>
+                        </span>
+                    </button>
                 </ng-template>
             </p-step>
         </p-step-list>
@@ -360,24 +322,14 @@ export class TemplateDoc {
                 <ng-template #content let-activateCallback="activateCallback">
                     <div class="flex flex-col gap-2 mx-auto" style="min-height: 16rem; max-width: 20rem">
                         <div class="text-center mt-4 mb-4 text-xl font-semibold">Create your account</div>
-                        <div class="field p-fluid">
-                            <p-iconfield>
-                                <p-inputicon>
-                                    <i class="pi pi-user"></i>
-                                </p-inputicon>
-                                <input [(ngModel)]="name" pInputText id="input" type="text" placeholder="Name" />
-                            </p-iconfield>
+                        <div class="field">
+                            <input [(ngModel)]="name" pInputText id="input" type="text" placeholder="Name" fluid />
                         </div>
-                        <div class="field p-fluid">
-                            <p-iconfield>
-                                <p-inputicon>
-                                    <i class="pi pi-envelope"></i>
-                                </p-inputicon>
-                                <input [(ngModel)]="email" pInputText id="email" type="email" placeholder="Email" />
-                            </p-iconfield>
+                        <div class="field">
+                            <input [(ngModel)]="email" pInputText id="email" type="email" placeholder="Email" fluid />
                         </div>
-                        <div class="field p-fluid">
-                            <p-password [(ngModel)]="password" [toggleMask]="true" placeholder="Password" />
+                        <div class="field">
+                            <p-password [(ngModel)]="password" placeholder="Password" fluid />
                         </div>
                     </div>
                     <div class="flex pt-6 justify-end">
@@ -405,7 +357,7 @@ export class TemplateDoc {
                     </div>
                     <div class="flex pt-6 justify-between">
                         <p-button (onClick)="activateCallback(1)" label="Back" severity="secondary" icon="pi pi-arrow-left" />
-                        <p-button (onClick)="activateCallback(2)" label="Next" icon="pi pi-arrow-right" iconPos="right" />
+                        <p-button (onClick)="activateCallback(3)" label="Next" icon="pi pi-arrow-right" iconPos="right" />
                     </div>
                 </ng-template>
             </p-step-panel>

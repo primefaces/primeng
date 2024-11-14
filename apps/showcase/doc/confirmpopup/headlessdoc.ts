@@ -48,17 +48,17 @@ export class HeadlessDoc {
 
     code: Code = {
         basic: `<p-toast />
-    <p-confirmpopup #cp>
-        <ng-template pTemplate="headless" let-message>
-            <div class="rounded p-4">
-                <span>{{ message.message }}</span>
-                <div class="flex items-center gap-2 mt-4">
-                    <p-button (onClick)="cp.onAccept()" label="Save" size="small" />
-                    <p-button (onClick)="cp.onReject()" label="Cancel" [text]="true" size="small" severity="secondary" />
-                </div>
+<p-confirmpopup #cp>
+    <ng-template pTemplate="headless" let-message>
+        <div class="rounded p-4">
+            <span>{{ message.message }}</span>
+            <div class="flex items-center gap-2 mt-4">
+                <p-button (onClick)="cp.onAccept()" label="Save" size="small" />
+                <p-button (onClick)="cp.onReject()" label="Cancel" [text]="true" size="small" severity="secondary" />
             </div>
-        </ng-template>
-    </p-confirmpopup>
+        </div>
+    </ng-template>
+</p-confirmpopup>
 <p-button (onClick)="confirm($event)" label="Save" />`,
 
         html: `<div class="card flex justify-center gap-2">
@@ -74,7 +74,7 @@ export class HeadlessDoc {
             </div>
         </ng-template>
     </p-confirmpopup>
-<p-button (onClick)="confirm($event)" label="Save" />
+    <p-button (onClick)="confirm($event)" label="Save" />
 </div>`,
 
         typescript: `import { Component } from '@angular/core';

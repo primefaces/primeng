@@ -28,8 +28,8 @@ const theme = ({ dt }) => `
 
 .p-fileupload-content {
     border: 1px solid transparent;
-    position: relative;
     display: flex;
+    flex-direction: column;
     gap: ${dt('fileupload.content.gap')};
     transition: border-color ${dt('fileupload.transition.duration')};
     padding: ${dt('fileupload.content.padding')};
