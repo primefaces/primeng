@@ -13,7 +13,7 @@ export class ThemeDoc {
     code = {
         typescript: `import { Component } from '@angular/core';
 import { PrimeNGConfig } from 'primeng/api';
-import { Aura } from 'primeng/themes/aura';
+import Aura from '@primeng/themes/aura';
 
 @Component({...})
 export class AppComponent {

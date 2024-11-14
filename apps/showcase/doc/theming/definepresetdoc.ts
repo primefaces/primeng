@@ -14,7 +14,7 @@ export class DefinePresetDoc {
         typescript: `import { Component, inject } from '@angular/core';
 import { PrimeNGConfig } from 'primeng/api';
 import { definePreset } from 'primeng/themes';
-import { Aura } from 'primeng/themes/aura';
+import Aura from '@primeng/themes/aura';
 
 const MyPreset = definePreset(Aura, {
     //Your customizations, see the following sections for examples

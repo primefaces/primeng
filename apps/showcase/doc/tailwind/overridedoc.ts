@@ -27,7 +27,7 @@ export class OverrideDoc {
 
     code2: Code = {
         basic: `import { PrimeNGConfig } from 'primeng/api;
-import { Aura } from 'primeng/themes/aura';
+import Aura from '@primeng/themes/aura';
 @Component({...})
 export class AppComponent() {
     constructor(private primengConfig: PrimeNGConfig) {

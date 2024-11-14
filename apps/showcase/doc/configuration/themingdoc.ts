@@ -18,7 +18,7 @@ export class ThemingDoc {
     code: Code = {
         typescript: `import { Component } from '@angular/core';
 import { PrimeNG } from 'primeng/api';
-import { Aura } from 'primeng/themes/aura';
+import Aura from '@primeng/themes/aura';
 
 @Component({...})
 export class AppComponent {
