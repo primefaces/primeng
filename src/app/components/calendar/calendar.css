@@ -167,6 +167,21 @@
         cursor: pointer;
     }
 
+    .p-calendar-clear-icon-template {
+        position: absolute;
+        top: 50%;
+        cursor: pointer;
+    }
+
+    .p-button-display {
+        margin-top: -0.5rem;
+    }
+
+    .p-template-display {
+        margin-right: 0.7rem;
+        margin-top: 0rem !important;
+    }
+
     .p-datepicker-icon {
         pointer-events: none;
     }
