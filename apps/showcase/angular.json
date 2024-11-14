@@ -20,13 +20,33 @@
                         "outputPath": "dist/showcase",
                         "index": "index.html",
                         "browser": "app/main.ts",
-                        "polyfills": ["zone.js"],
+                        "polyfills": [
+                            "zone.js"
+                        ],
                         "tsConfig": "./tsconfig.json",
                         "inlineStyleLanguage": "scss",
-                        "assets": ["assets"],
+                        "assets": [
+                            "assets"
+                        ],
                         "styles": ["assets/styles/global.scss"],
-                        "scripts": ["./node_modules/prismjs/prism.js", "./node_modules/prismjs/components/prism-typescript.js", "./node_modules/prismjs/components/prism-scss.js", "./node_modules/prismjs/components/prism-bash.js"],
-                        "allowedCommonJsDependencies": ["chart.js", "xlsx", "jspdf-autotable", "file-saver", "jspdf", "quill", "core-js", "raf", "rgbcolor"],
+                        "scripts": [
+                            "./node_modules/prismjs/prism.js",
+                            "./node_modules/prismjs/components/prism-typescript.js",
+                            "./node_modules/prismjs/components/prism-scss.js",
+                            "./node_modules/prismjs/components/prism-bash.js"
+                        ],
+                        "allowedCommonJsDependencies": [
+                            "chart.js",
+                            "xlsx",
+                            "jspdf-autotable",
+                            "file-saver",
+                            "jspdf",
+                            "quill",
+                            "quill-delta",
+                            "core-js",
+                            "raf",
+                            "rgbcolor"
+                        ],
                         "server": "server/main.server.ts",
                         "prerender": {
                             "discoverRoutes": false,

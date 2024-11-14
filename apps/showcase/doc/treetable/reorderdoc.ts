@@ -34,8 +34,8 @@ interface Column {
                     </ng-template>
                 </p-treetable>
             </p-deferred-demo>
-            <app-code [code]="code" selector="tree-table-reorder-demo"></app-code>
         </div>
+        <app-code [code]="code" selector="tree-table-reorder-demo"></app-code>
     `,
     changeDetection: ChangeDetectionStrategy.OnPush
 })
@@ -74,8 +74,7 @@ export class ReorderDoc {
     </ng-template>
 </p-treetable>`,
 
-        html: `
-<div class="card">
+        html: `<div class="card">
     <p-treetable [value]="files" [columns]="cols" [reorderableColumns]="true" [scrollable]="true" [tableStyle]="{'min-width':'50rem'}">
         <ng-template pTemplate="header" let-columns>
             <tr>

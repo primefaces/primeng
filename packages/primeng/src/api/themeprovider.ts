@@ -1,8 +1,8 @@
 import { DOCUMENT } from '@angular/common';
-import { effect, inject, Inject, Injectable, signal, untracked } from '@angular/core';
+import { effect, inject, Inject, Injectable, Optional, signal, untracked } from '@angular/core';
 import { Theme, ThemeService } from '@primeuix/styled';
 import { BaseStyle } from 'primeng/base';
-import { PRIME_NG_THEME, PrimeNgFeature } from './provideprimengconfig';
+import { PRIME_NG_CONFIG, PrimeNGConfigType } from './provideprimengconfig';
 
 @Injectable({ providedIn: 'root' })
 export class ThemeProvider {
@@ -15,9 +15,9 @@ export class ThemeProvider {
 
     baseStyle: BaseStyle = inject(BaseStyle);
 
-    constructor(@Inject(PRIME_NG_THEME) private config: PrimeNgFeature) {
-        if (config.theme) {
-            this.theme.set(config.theme);
+    constructor(@Inject(PRIME_NG_CONFIG) @Optional() private config: PrimeNGConfigType) {
+        if (this.config?.theme) {
+            this.theme.set(this.config.theme);
         }
 
         effect(
@@ -56,6 +56,8 @@ export class ThemeProvider {
     }
 
     loadCommonTheme() {
+        if (this.theme() === 'none') return;
+
         // common
         if (!Theme.isStyleNameLoaded('common')) {
             const { primitive, semantic } = this.baseStyle.getCommonTheme?.() || {};

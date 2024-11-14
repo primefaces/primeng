@@ -1,6 +1,6 @@
 {
     "name": "@primeng/monorepo",
-    "version": "18.0.0-rc.1",
+    "version": "18.0.0-beta.4",
     "author": "PrimeTek Informatics",
     "homepage": "https://primeng.org/",
     "repository": {
@@ -16,8 +16,8 @@
         "init": "pnpm install && husky",
         "link": "pnpm --filter './packages/*' dev:link",
         "release": "pnpm run build && pnpm recursive publish --filter './packages/*' --no-git-checks --report-summary",
-        "release:beta": "pnpm run build && pnpm recursive publish --filter './packages/*' --no-git-checks --report-summary --tag beta",
-        "release:rc": "pnpm run build && pnpm recursive publish --filter './packages/*' --no-git-checks --report-summary --tag rc",
+        "release:beta": "pnpm run build && pnpm recursive publish --filter './packages/*' --no-git-checks --report-summary --tag v18-beta",
+        "release:rc": "pnpm run build && pnpm recursive publish --filter './packages/*' --no-git-checks --report-summary --tag v18-rc",
         "build": "NODE_ENV=production pnpm run build:check && pnpm run build:packages",
         "build:check": "pnpm run format:check && pnpm run security:check",
         "build:packages": "pnpm run build:lib && pnpm run build:themes && pnpm run build:showcase",
@@ -71,9 +71,6 @@
         "access": "public"
     },
     "packageManager": "pnpm@9.6.0",
-    "engines": {
-        "node": ">=12.11.0"
-    },
     "lint-staged": {
         "**/*.{js,mjs,ts,mts,d.ts,html}": ["prettier --write"]
     }

@@ -34,7 +34,7 @@ export class AutoFocus extends BaseComponent {
 
     ngAfterContentChecked() {
         // This sets the `attr.autofocus` which is different than the Input `autofocus` attribute.
-        if (this._autofocus === false) {
+        if (this.autofocus === false) {
             this.host.nativeElement.removeAttribute('autofocus');
         } else {
             this.host.nativeElement.setAttribute('autofocus', true);

@@ -1,6 +1,6 @@
 {
     "name": "@primeng/themes",
-    "version": "18.0.0-rc.1",
+    "version": "18.0.0-beta.4",
     "author": "PrimeTek Informatics",
     "description": "",
     "homepage": "https://primeng.org/",
@@ -82,8 +82,5 @@
     },
     "dependencies": {
         "@primeuix/styled": "catalog:"
-    },
-    "engines": {
-        "node": ">=12.11.0"
     }
 }
