@@ -1,9 +1,18 @@
-import { inject, Injectable, PLATFORM_ID, signal } from '@angular/core';
+import { Inject, inject, Injectable, Optional, PLATFORM_ID, signal } from '@angular/core';
 import { Subject } from 'rxjs';
 import { FilterMatchMode } from './filtermatchmode';
 import { OverlayOptions } from './overlayoptions';
+import { PRIME_NG_CONFIG, PrimeNGConfigType } from './provideprimengconfig';
 import { ThemeProvider } from './themeprovider';
 import { Translation } from './translation';
+
+// Type for zIndex
+export type ZIndex = {
+    modal: number;
+    overlay: number;
+    menu: number;
+    tooltip: number;
+};
 
 @Injectable({ providedIn: 'root' })
 export class PrimeNG extends ThemeProvider {
@@ -87,12 +96,12 @@ export class PrimeNG extends ThemeProvider {
         strong: 'Strong',
         passwordPrompt: 'Enter a password',
         emptyMessage: 'No results found',
-        searchMessage: '{0} results are available',
-        selectionMessage: '{0} items selected',
+        searchMessage: 'Search results are available',
+        selectionMessage: 'Items selected',
         emptySelectionMessage: 'No selected item',
         emptySearchMessage: 'No results found',
         emptyFilterMessage: 'No results found',
-        fileChosenMessage: '{0} files',
+        fileChosenMessage: 'Files',
         noFileChosenMessage: 'No file chosen',
         aria: {
             trueLabel: 'True',
@@ -152,7 +161,7 @@ export class PrimeNG extends ThemeProvider {
         }
     };
 
-    zIndex: any = {
+    zIndex: ZIndex = {
         modal: 1100,
         overlay: 1000,
         menu: 1000,
@@ -163,6 +172,11 @@ export class PrimeNG extends ThemeProvider {
 
     translationObserver = this.translationSource.asObservable();
 
+    constructor(@Inject(PRIME_NG_CONFIG) @Optional() public _config: PrimeNGConfigType) {
+        super(_config);
+        this.setConfig(_config);
+    }
+
     getTranslation(key: string): any {
         return this.translation[key as keyof typeof this.translation];
     }
@@ -170,5 +184,12 @@ export class PrimeNG extends ThemeProvider {
     setTranslation(value: Translation) {
         this.translation = { ...this.translation, ...value };
         this.translationSource.next(this.translation);
+    }
+
+    private setConfig(config: PrimeNGConfigType): void {
+        const { csp, ripple, inputStyle } = config || {};
+        if (csp) this.csp.set(csp);
+        if (ripple) this.ripple.set(ripple);
+        if (inputStyle) this.inputStyle.set(inputStyle);
     }
 }
