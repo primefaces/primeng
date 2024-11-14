@@ -148,8 +148,8 @@ import { TagModule } from 'primeng/tag';
                                 <hr class="my-4 mx-0 border-t border-0 border-surface" />
                                 <div class="flex gap-4 flex-wrap">
                                     <div class="flex gap-4 flex-wrap">
-                                    <span class="text-2xl text-muted-color line-through">$249</span>
-                                    <span class="text-2xl font-bold">$149</span>
+                                        <span class="text-2xl text-muted-color line-through">$249</span>
+                                        <span class="text-2xl font-bold">$149</span>
                                     </div>
                                 </div>
                                 <hr class="my-4 mx-0 border-t border-0 border-surface" />
@@ -189,8 +189,8 @@ import { TagModule } from 'primeng/tag';
                                 <hr class="my-4 mx-0 border-t border-0 border-surface" />
                                 <div class="flex gap-4 flex-wrap">
                                     <div class="flex gap-4 flex-wrap">
-                                    <span class="text-2xl text-muted-color line-through">$990</span>
-                                    <span class="text-2xl font-bold">$490</span>
+                                        <span class="text-2xl text-muted-color line-through">$990</span>
+                                        <span class="text-2xl font-bold">$490</span>
                                     </div>
                                 </div>
                                 <hr class="my-4 mx-0 border-t border-0 border-surface" />
