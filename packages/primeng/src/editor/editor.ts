@@ -169,7 +169,11 @@ export class Editor extends BaseComponent implements AfterContentInit, ControlVa
 
     dynamicQuill: any;
 
-    headerTemplate: Nullable<TemplateRef<any>>;
+    /**
+     * Custom item template.
+     * @group Templates
+     */
+    @ContentChild('header') headerTemplate: Nullable<TemplateRef<any>>;
 
     private get isAttachedQuillEditorToDOM(): boolean | undefined {
         return this.quillElements?.editorElement?.isConnected;
@@ -187,16 +191,6 @@ export class Editor extends BaseComponent implements AfterContentInit, ControlVa
         afterNextRender(() => {
             this.initQuillElements();
             this.initQuillEditor();
-        });
-    }
-
-    ngAfterContentInit() {
-        this.templates.forEach((item) => {
-            switch (item.getType()) {
-                case 'header':
-                    this.headerTemplate = item.template;
-                    break;
-            }
         });
     }
 
