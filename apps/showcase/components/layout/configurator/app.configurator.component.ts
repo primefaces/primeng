@@ -62,7 +62,7 @@ const presets = {
 
             <div class="config-panel-settings">
                 <span class="config-panel-label">Presets</span>
-                <p-selectbutton [options]="presets" [(ngModel)]="selectedPreset" (ngModelChange)="onPresetChange($event)" [allowEmpty]="false" size="small" />
+                <p-selectbutton [options]="presets" [ngModel]="selectedPreset()" (ngModelChange)="onPresetChange($event)" [allowEmpty]="false" size="small" />
             </div>
             <div class="config-panel-settings">
                 <span class="config-panel-label">Ripple</span>
@@ -83,8 +83,6 @@ export class AppConfiguratorComponent {
     set ripple(value: boolean) {
         this.config.ripple.set(value);
     }
-
-    selectedPreset: string = 'Aura';
 
     config: PrimeNGConfig = inject(PrimeNGConfig);
 
@@ -236,6 +234,8 @@ export class AppConfiguratorComponent {
     });
 
     selectedSurfaceColor = computed(() => this.configService.appState().surface);
+
+    selectedPreset = computed(() => this.configService.appState().preset);
 
     primaryColors = computed(() => {
         const presetPalette = presets[this.configService.appState().preset].primitive;
