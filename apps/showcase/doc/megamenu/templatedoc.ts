@@ -134,32 +134,6 @@ export class TemplateDoc implements OnInit {
     <ng-template #start>
         <svg width="33" height="35" viewBox="0 0 33 35" fill="none" xmlns="http://www.w3.org/2000/svg" class="h-8">
             <path d="..." fill="var(--primary-color)" />
-            <mask id="mask0_1_36" style="mask-type:luminance" maskUnits="userSpaceOnUse" x="0" y="0" width="31" height="33">
-                <path d="..." fill="var(--primary-color-text)" />
-            </mask>
-            <g mask="url(#mask0_1_36)">
-                <path fill-rule="evenodd" clip-rule="evenodd" d="..." fill="var(--primary-color)" />
-            </g>
-            <path d="..." fill="var(--primary-color-text)" />
-            <path d="..." fill="var(--primary-color-text)" />
-            <path
-                fill-rule="evenodd"
-                clip-rule="evenodd"
-                d="..."
-                fill="var(--primary-color-text)"
-            />
-            <path d="..." fill="var(--primary-color-text)" />
-            <path d="..." fill="var(--primary-color-text)" />
-            <path
-                fill-rule="evenodd"
-                clip-rule="evenodd"
-                d="..."
-                fill="var(--primary-color-text)"
-            />
-            <path d="..." fill="var(--primary-color-text)" />
-            <path d="..." fill="var(--primary-color-text)" />
-            <path d="..." fill="var(--primary-color-text)" />
-            <path d="..." fill="var(--primary-color-text)" />
         </svg>
     </ng-template>
     <ng-template #item let-item>
