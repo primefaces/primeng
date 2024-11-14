@@ -27,7 +27,25 @@ import { MenuItem } from 'primeng/api';
             </div>
         </div>
         <app-code [code]="code" selector="dock-basic-demo"></app-code>
-    `
+    `,
+    styles: [
+        `
+            :host ::ng-deep {
+                .dock-window {
+                    width: 100%;
+                    height: 450px;
+                    position: relative;
+                    background-image: url('https://primefaces.org/cdn/primeng/images/dock/window.jpg');
+                    background-repeat: no-repeat;
+                    background-size: cover;
+                }
+
+                .p-dock {
+                    z-index: 1000;
+                }
+            }
+        `
+    ]
 })
 export class BasicDoc implements OnInit {
     items: MenuItem[] | undefined;

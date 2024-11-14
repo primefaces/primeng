@@ -15,7 +15,7 @@ import { Subscription } from 'rxjs';
                 <i>item</i> template.
             </p>
         </app-docsectiontext>
-        <div class="card">
+        <div class="card dock-demo">
             <p-menubar [model]="menubarItems">
                 <ng-template pTemplate="start">
                     <i class="pi pi-apple px-2"></i>
@@ -68,6 +68,25 @@ import { Subscription } from 'rxjs';
         </div>
         <app-code [code]="code" selector="dock-advanced-demo"></app-code>
     `,
+    styles: [
+        `
+            :host ::ng-deep {
+                .dock-demo > .dock-window {
+                    width: 100%;
+                    height: 450px;
+                    position: relative;
+                    background-image: url('https://primefaces.org/cdn/primevue/images/dock/window.jpg');
+                    background-repeat: no-repeat;
+                    background-size: cover;
+                }
+
+                .dock-demo .p-menubar {
+                    padding: 0;
+                    border-radius: 0;
+                }
+            }
+        `
+    ],
     providers: [MessageService, TerminalService, PhotoService, NodeService]
 })
 export class AdvancedDoc implements OnInit, OnDestroy {
@@ -443,7 +462,7 @@ export class AdvancedDoc implements OnInit, OnDestroy {
         </ng-template>
     </p-galleria>`,
 
-        html: `<div class="card">
+        html: `<div class="card dock-demo">
    <p-menubar [model]="menubarItems">
         <ng-template pTemplate="start">
             <i class="pi pi-apple px-2"></i>
@@ -531,111 +550,19 @@ import { TooltipModule } from 'primeng/tooltip';
     standalone: true,
     styles: [
         \` :host ::ng-deep {
-            .dock-window {
+            .dock-demo > .dock-window {
                 width: 100%;
                 height: 450px;
                 position: relative;
-                background-image: url('https://primefaces.org/cdn/primeng/images/dock/window.jpg');
+                background-image: url('https://primefaces.org/cdn/primevue/images/dock/window.jpg');
                 background-repeat: no-repeat;
                 background-size: cover;
             }
 
-            .p-dock {
-                z-index: 1000;
-            }
-
-            .dock-advanced {
-                .p-dialog-mask,
-                .p-toast {
-                    position: absolute;
-                }
-
-                .p-dialog {
-                    .p-dialog-header {
-                        padding: .2rem;
-                    }
-
-                    .p-dialog-content {
-                        padding: 0;
-                    }
-
-                    p {
-                        margin-top: 0;
-                    }
-
-                    .p-terminal {
-                        background-color: #212121;
-                        color: #ffffff;
-                        border: 0 none;
-                        min-height: 18rem;
-                        height: 100%;
-
-                        .p-terminal-command {
-                            color: #80CBC4;
-                        }
-
-                        .p-terminal-prompt {
-                            color: #FFD54F;
-                        }
-
-                        .p-terminal-response {
-                            color: #9FA8DA;
-                        }
-                    }
-
-                    .p-tree {
-                        height: 100%;
-                        border-radius: 0;
-                        border-left-width: 0;
-                        border-right-width: 0;
-                        border-bottom-width: 0;
-                    }
-                }
-
-                .p-toast {
-                    top: 20px;
-                }
-            }
-
-            .p-menubar {
-                padding-top: 0;
-                padding-bottom: 0;
+            .dock-demo .p-menubar {
+                padding: 0;
                 border-radius: 0;
-
-                .p-menuitem:first-child {
-                    font-weight: bold;
-                    padding: 0 1rem;
-                }
-
-                .p-menuitem-link {
-                    padding: 0.5rem .75rem;
-                }
-
-                .p-menubar-root-list > .p-menuitem > .p-menuitem-link {
-                    padding: 0.5rem .75rem;
-
-                    > .p-submenu-icon {
-                        display: none;
-                    }
-                }
-
-                .p-menubar-end {
-                    span, i {
-                        padding: 0 .75rem;
-                    }
-                }
             }
-        }
-
-        .dark-tooltip {
-            .p-tooltip {
-                .p-tooltip-arrow {
-                    border-top-color: var(--surface-900);
-                }
-
-                .p-tooltip-text {
-                    background-color: var(--surface-900);
-                }
             }
         }\`
     ],
@@ -941,100 +868,19 @@ export class DockAdvancedDemo implements OnInit {
 }`,
         scss: `
 :host ::ng-deep {
-    .dock-window {
-        width: 100%;
-        height: 450px;
-        position: relative;
-        background-image: url('https://primefaces.org/cdn/primeng/images/dock/window.jpg');
-        background-repeat: no-repeat;
-        background-size: cover;
-    }
-
-    .p-dock {
-        z-index: 1000;
-    }
-
-    .dock-advanced {
-        .p-dialog-mask,
-        .p-toast {
-            position: absolute;
+    .dock-demo > .dock-window {
+            width: 100%;
+            height: 450px;
+            position: relative;
+            background-image: url('https://primefaces.org/cdn/primevue/images/dock/window.jpg');
+            background-repeat: no-repeat;
+            background-size: cover;
         }
 
-        .p-dialog {
-            .p-dialog-header {
-                padding: .2rem;
-            }
-
-            .p-dialog-content {
-                padding: 0;
-            }
-
-            p {
-                margin-top: 0;
-            }
-
-            .p-terminal {
-                background-color: #212121;
-                color: #ffffff;
-                border: 0 none;
-                min-height: 18rem;
-                height: 100%;
-
-                .p-terminal-command {
-                    color: #80CBC4;
-                }
-
-                .p-terminal-prompt {
-                    color: #FFD54F;
-                }
-
-                .p-terminal-response {
-                    color: #9FA8DA;
-                }
-            }
-
-            .p-tree {
-                height: 100%;
-                border-radius: 0;
-                border-left-width: 0;
-                border-right-width: 0;
-                border-bottom-width: 0;
-            }
+        .dock-demo .p-menubar {
+            padding: 0;
+            border-radius: 0;
         }
-
-        .p-toast {
-            top: 20px;
-        }
-    }
-
-    .p-menubar {
-        padding-top: 0;
-        padding-bottom: 0;
-        border-radius: 0;
-
-        .p-menuitem:first-child {
-            font-weight: bold;
-            padding: 0 1rem;
-        }
-
-        .p-menuitem-link {
-            padding: 0.5rem .75rem;
-        }
-
-        .p-menubar-root-list > .p-menuitem > .p-menuitem-link {
-            padding: 0.5rem .75rem;
-
-            > .p-submenu-icon {
-                display: none;
-            }
-        }
-
-        .p-menubar-end {
-            span, i {
-                padding: 0 .75rem;
-            }
-        }
-    }
 }
 
 .dark-tooltip {

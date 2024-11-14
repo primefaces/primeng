@@ -8,8 +8,7 @@ import { Component } from '@angular/core';
 @Component({
     standalone: true,
     imports: [DockDocModule],
-    template: ` <app-doc docTitle="Angular Dock Component" header="Dock" description="Dock is a navigation component consisting of menuitems." [docs]="docs" [apiDocs]="['Dock', 'MenuItem']" themeDocs="dock"></app-doc> `,
-    styleUrls: ['./dockdemo.scss']
+    template: ` <app-doc docTitle="Angular Dock Component" header="Dock" description="Dock is a navigation component consisting of menuitems." [docs]="docs" [apiDocs]="['Dock', 'MenuItem']" themeDocs="dock"></app-doc> `
 })
 export class DockDemo {
     docs = [
