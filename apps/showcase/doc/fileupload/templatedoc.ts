@@ -1,6 +1,7 @@
 import { Code } from '@/domain/code';
 import { Component } from '@angular/core';
-import { MessageService, PrimeNGConfig } from 'primeng/api';
+import { MessageService } from 'primeng/api';
+import { PrimeNG } from 'primeng/config';
 
 @Component({
     selector: 'file-upload-template-demo',
@@ -80,7 +81,7 @@ export class TemplateDoc {
     totalSizePercent: number = 0;
 
     constructor(
-        private config: PrimeNGConfig,
+        private config: PrimeNG,
         private messageService: MessageService
     ) {}
 
@@ -403,7 +404,8 @@ export class TemplateDoc {
 </div>`,
 
         typescript: `import { Component } from '@angular/core';
-import { MessageService, PrimeNGConfig} from 'primeng/api';
+import { MessageService} from 'primeng/api';
+import { PrimeNG } from 'primeng/config';
 import { FileUpload } from 'primeng/fileupload';
 import { ButtonModule } from 'primeng/button';
 import { CommonModule } from '@angular/common';
@@ -426,7 +428,7 @@ export class FileUploadTemplateDemo {
 
     totalSizePercent : number = 0;
 
-    constructor(private config: PrimeNGConfig, private messageService: MessageService) {}
+    constructor(private config: PrimeNG, private messageService: MessageService) {}
 
     choose(event, callback) {
         callback();

@@ -22099,7 +22099,7 @@
     "overlay": {
         "components": {
             "Overlay": {
-                "description": "This API allows overlay components to be controlled from the PrimeNGConfig. In this way, all overlay components in the application can have the same behavior.",
+                "description": "This API allows overlay components to be controlled from the PrimeNG. In this way, all overlay components in the application can have the same behavior.",
                 "props": {
                     "description": "Defines the input properties of the component.",
                     "values": [
