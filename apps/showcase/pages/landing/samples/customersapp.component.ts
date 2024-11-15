@@ -51,107 +51,105 @@ import { PopoverModule } from 'primeng/popover';
         PopoverModule
     ],
     template: `
-        <div class="h-full flex-1 flex flex-col overflow-hidden border border-surface rounded-2xl p-6">
-            <div class="flex items-start gap-2 justify-between">
-                <div>
-                    <div class="text-2xl leading-8 text-color font-medium">Customers</div>
-                    <div class="mt-1 leading-6 text-muted-color">The analysis list here shows all users</div>
-                </div>
-                <p-button icon="pi pi-circle-fill text-green-500" label="950 Active User" outlined severity="secondary" />
+        <div class="flex items-start gap-2 justify-between">
+            <div>
+                <div class="text-2xl leading-8 text-color font-medium">Customers</div>
+                <div class="mt-1 leading-6 text-muted-color">The analysis list here shows all users</div>
             </div>
-            <div class="mt-10 mb-4 flex items-center justify-between">
-                <p-iconfield iconPosition="left">
-                    <p-inputicon class="pi pi-search"> </p-inputicon>
-                    <input pInputText type="text" [(ngModel)]="search" placeholder="Search" />
-                </p-iconfield>
-                <div class="flex items-center gap-3">
-                    <p-button icon="pi pi-filter" outlined severity="secondary" />
-                    <p-divider layout="vertical" class="m-0 p-0" />
-                    <p-button icon="pi pi-refresh" outlined severity="secondary" />
-                    <p-button label="1 of 15" outlined severity="secondary" />
-                    <p-button icon="pi pi-chevron-left" outlined severity="secondary" />
-                    <p-button icon="pi pi-chevron-right" outlined severity="secondary" />
-                </div>
+            <p-button icon="pi pi-circle-fill text-green-500" label="950 Active User" outlined severity="secondary" />
+        </div>
+        <div class="mt-10 mb-4 flex items-center justify-between">
+            <p-iconfield iconPosition="left">
+                <p-inputicon class="pi pi-search"> </p-inputicon>
+                <input pInputText type="text" [(ngModel)]="search" placeholder="Search" />
+            </p-iconfield>
+            <div class="flex items-center gap-3">
+                <p-button icon="pi pi-filter" outlined severity="secondary" />
+                <p-divider layout="vertical" class="m-0 p-0" />
+                <p-button icon="pi pi-refresh" outlined severity="secondary" />
+                <p-button label="1 of 15" outlined severity="secondary" />
+                <p-button icon="pi pi-chevron-left" outlined severity="secondary" />
+                <p-button icon="pi pi-chevron-right" outlined severity="secondary" />
             </div>
-            <div class="flex-1 last:[&>td]:border-0 rounded-lg border border-surface w-full overflow-auto">
-                <p-table [value]="tableData" [(selection)]="selectedRows" dataKey="id" [rows]="10">
-                    <ng-template #header>
-                        <tr>
-                            <th style="width: 1rem">
-                                <p-tableHeaderCheckbox />
-                            </th>
-                            <th>Name</th>
-                            <th>Title</th>
-                            <th>Company Name</th>
-                            <th>Email Address</th>
-                            <th>Lead Source</th>
-                            <th>Status</th>
-                            <th>More</th>
-                        </tr>
-                    </ng-template>
-                    <ng-template #body let-data>
-                        <tr>
-                            <td style="width: 1rem">
-                                <p-tableCheckbox [value]="data" />
-                            </td>
-                            <td>
-                                <div class="flex items-center">
-                                    <p-overlayBadge [severity]="data.active === undefined ? 'contrast' : data.active ? 'success' : 'danger'" styleClass="w-fit">
-                                        <p-avatar
-                                            [image]="data.image"
-                                            [label]="!data.image ? data.capName : ''"
-                                            [ngClass]="{
-                                                'bg-violet-100 text-violet-950 text-xs font-medium': !data.image,
-                                                'rounded-md overflow-hidden flex': true
-                                            }"
-                                        />
-                                    </p-overlayBadge>
+        </div>
+        <div class="flex-1 last:[&>td]:border-0 rounded-lg border border-surface w-full overflow-auto">
+            <p-table [value]="tableData" [(selection)]="selectedRows" dataKey="id" [rows]="10">
+                <ng-template #header>
+                    <tr>
+                        <th style="width: 1rem">
+                            <p-tableHeaderCheckbox />
+                        </th>
+                        <th>Name</th>
+                        <th>Title</th>
+                        <th>Company Name</th>
+                        <th>Email Address</th>
+                        <th>Lead Source</th>
+                        <th>Status</th>
+                        <th>More</th>
+                    </tr>
+                </ng-template>
+                <ng-template #body let-data>
+                    <tr>
+                        <td style="width: 1rem">
+                            <p-tableCheckbox [value]="data" />
+                        </td>
+                        <td>
+                            <div class="flex items-center">
+                                <p-overlayBadge [severity]="data.active === undefined ? 'contrast' : data.active ? 'success' : 'danger'" styleClass="w-fit">
+                                    <p-avatar
+                                        [image]="data.image"
+                                        [label]="!data.image ? data.capName : ''"
+                                        [ngClass]="{
+                                            'bg-violet-100 text-violet-950 text-xs font-medium': !data.image,
+                                            'rounded-md overflow-hidden flex': true
+                                        }"
+                                    />
+                                </p-overlayBadge>
 
-                                    <div class="ml-4 leading-6 text-color font-medium">{{ data.name }}</div>
-                                </div>
-                            </td>
-                            <td>
-                                <div class="leading-6 text-muted-color">{{ data.title }}</div>
-                            </td>
-                            <td>
-                                <div class="flex items-center gap-2">
-                                    <div class="flex items-center justify-center" [innerHTML]="companyLogos[data.company.logo]"></div>
+                                <div class="ml-4 leading-6 text-color font-medium">{{ data.name }}</div>
+                            </div>
+                        </td>
+                        <td>
+                            <div class="leading-6 text-muted-color">{{ data.title }}</div>
+                        </td>
+                        <td>
+                            <div class="flex items-center gap-2">
+                                <div class="flex items-center justify-center" [innerHTML]="companyLogos[data.company.logo]"></div>
 
-                                    <div class="leading-6 text-surface-600 dark:text-surface-400">
-                                        {{ data.company.name }}
-                                    </div>
+                                <div class="leading-6 text-surface-600 dark:text-surface-400">
+                                    {{ data.company.name }}
                                 </div>
-                            </td>
-                            <td field="email" header="Email Address">
-                                <div class="leading-6 text-muted-color truncate">{{ data.email }}</div>
-                            </td>
-                            <td field="lead" header="Lead Source">
-                                <div class="leading-6 text-muted-color">{{ data.lead }}</div>
-                            </td>
-                            <td>
-                                <p-tag [severity]="data.status === 'Active' ? 'success' : data.status === 'Inactive' ? 'danger' : 'info'" [value]="data.status" styleClass="font-medium" />
-                            </td>
-                            <td>
-                                <div class="flex justify-end w-full">
-                                    <p-button (onClick)="op.show($event)" icon="pi pi-ellipsis-v" severity="secondary" rounded />
-                                </div>
-                            </td>
-                        </tr>
-                    </ng-template>
-                </p-table>
-                <p-popover #op>
-                    <ng-template pTemplate="content">
-                        <div class="flex gap-2">
-                            <p-button (onClick)="op.hide()" label="Details" size="small" />
-                            <p-button (onClick)="op.hide()" label="Delete" severity="danger" size="small" />
-                        </div>
-                    </ng-template>
-                </p-popover>
-            </div>
+                            </div>
+                        </td>
+                        <td field="email" header="Email Address">
+                            <div class="leading-6 text-muted-color truncate">{{ data.email }}</div>
+                        </td>
+                        <td field="lead" header="Lead Source">
+                            <div class="leading-6 text-muted-color">{{ data.lead }}</div>
+                        </td>
+                        <td>
+                            <p-tag [severity]="data.status === 'Active' ? 'success' : data.status === 'Inactive' ? 'danger' : 'info'" [value]="data.status" styleClass="font-medium" />
+                        </td>
+                        <td>
+                            <div class="flex justify-end w-full">
+                                <p-button (onClick)="displayPopover($event, op)" icon="pi pi-search" rounded outlined severity="secondary" />
+                            </div>
+                        </td>
+                    </tr>
+                </ng-template>
+            </p-table>
+            <p-popover #op>
+                <ng-template pTemplate="content">
+                    <div class="flex gap-2">
+                        <p-button label="Details" size="small" outlined (onClick)="op.hide()"></p-button>
+                        <p-button label="Delete" severity="danger" size="small" outlined (onClick)="op.hide()"></p-button>
+                    </div>
+                </ng-template>
+            </p-popover>
         </div>
     `,
     host: {
-        class: 'w-full h-full'
+        class: 'h-full flex-1 flex flex-col overflow-hidden border border-surface rounded-2xl p-6'
     },
     encapsulation: ViewEncapsulation.None,
     changeDetection: ChangeDetectionStrategy.OnPush
@@ -335,5 +333,12 @@ export class CustomersApp {
 <path d="M9.79907 18.5C4.82851 18.5 0.799072 14.4706 0.799072 9.5C5.76963 9.5 9.79907 13.5294 9.79907 18.5Z" />
 </svg>`)
         };
+    }
+
+    displayPopover(e, op) {
+        op.hide();
+        setTimeout(() => {
+            op.show(e);
+        }, 150);
     }
 }
