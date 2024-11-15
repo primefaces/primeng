@@ -48,7 +48,7 @@ import {
     unblockBodyScroll,
     uuid
 } from '@primeuix/utils';
-import { FilterService, Footer, Header, OverlayOptions, OverlayService, PrimeNGConfig, PrimeTemplate, ScrollerOptions, SharedModule, TranslationKeys } from 'primeng/api';
+import { FilterService, Footer, Header, OverlayOptions, OverlayService, PrimeTemplate, ScrollerOptions, SharedModule, TranslationKeys } from 'primeng/api';
 import { AutoFocus } from 'primeng/autofocus';
 import { BaseComponent } from 'primeng/basecomponent';
 import { Checkbox } from 'primeng/checkbox';
@@ -1215,7 +1215,6 @@ export class MultiSelect extends BaseComponent implements OnInit, AfterViewInit,
     constructor(
         private zone: NgZone,
         public filterService: FilterService,
-        public config: PrimeNGConfig,
         public overlayService: OverlayService
     ) {
         super();

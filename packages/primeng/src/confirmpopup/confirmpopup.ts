@@ -20,7 +20,7 @@ import {
     ViewEncapsulation
 } from '@angular/core';
 import { absolutePosition, addClass, findSingle, getOffset, isIOS, isTouchDevice } from '@primeuix/utils';
-import { Confirmation, ConfirmationService, OverlayService, PrimeNGConfig, SharedModule, TranslationKeys } from 'primeng/api';
+import { Confirmation, ConfirmationService, OverlayService, SharedModule, TranslationKeys } from 'primeng/api';
 import { BaseComponent } from 'primeng/basecomponent';
 import { ButtonModule } from 'primeng/button';
 import { ConnectedOverlayScrollHandler } from 'primeng/dom';
@@ -207,7 +207,6 @@ export class ConfirmPopup extends BaseComponent implements AfterContentInit, OnD
         private confirmationService: ConfirmationService,
         public renderer: Renderer2,
         public cd: ChangeDetectorRef,
-        public config: PrimeNGConfig,
         public overlayService: OverlayService,
         @Inject(DOCUMENT) public document: Document
     ) {
