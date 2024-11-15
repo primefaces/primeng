@@ -12,7 +12,7 @@ import { HttpClientModule } from '@angular/common/http';
 import { afterNextRender, Component, Inject, PLATFORM_ID, Renderer2 } from '@angular/core';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { NavigationEnd, Router, RouterOutlet } from '@angular/router';
-import { PrimeNGConfig } from 'primeng/api';
+import { PrimeNG } from 'primeng/config';
 import { AppMainComponent } from './app.main.component';
 import { AppConfiguratorComponent } from './configurator/app.configurator.component';
 import { AppMenuComponent } from './menu/app.menu.component';
@@ -46,7 +46,7 @@ export class AppComponent {
     constructor(
         @Inject(DOCUMENT) private document: Document,
         private renderer: Renderer2,
-        private primeng: PrimeNGConfig,
+        private primeng: PrimeNG,
         private configService: AppConfigService,
         private router: Router,
         @Inject(PLATFORM_ID) private platformId: any

@@ -10,10 +10,11 @@ import { Component } from '@angular/core';
 export class EventsDoc {
     code: Code = {
         typescript: `
-import { PrimeNGConfig, OverlayOptions, OverlayOnBeforeShowEvent, OverlayOnShowEvent, OverlayOnBeforeHideEvent, OverlayOnHideEvent } from 'primeng/api';
+import { OverlayOptions, OverlayOnBeforeShowEvent, OverlayOnShowEvent, OverlayOnBeforeHideEvent, OverlayOnHideEvent } from 'primeng/api';
+import { PrimeNG } from 'primeng/config';
 import { AnimationEvent } from '@angular/animations';
 
-this.primengConfig.overlayOptions: OverlayOptions = {
+this.primeng.overlayOptions: OverlayOptions = {
     onBeforeShow: (event?: OverlayOnBeforeShowEvent) => {};    // Callback to invoke before the overlay is shown.
     onShow: (event?: OverlayOnShowEvent) => {};                // Callback to invoke when the overlay is shown.
     onBeforeHide: (event?: OverlayOnBeforeHideEvent) => {};    // Callback to invoke before the overlay is hidden.

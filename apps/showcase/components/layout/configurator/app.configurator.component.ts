@@ -7,8 +7,8 @@ import Aura from '@primeng/themes/aura';
 import Lara from '@primeng/themes/lara';
 import Material from '@primeng/themes/material';
 import Nora from '@primeng/themes/nora';
-import { PrimeNGConfig } from 'primeng/api';
 import { ButtonModule } from 'primeng/button';
+import { PrimeNG } from 'primeng/config';
 import { InputSwitchModule } from 'primeng/inputswitch';
 import { RadioButtonModule } from 'primeng/radiobutton';
 import { SelectButton } from 'primeng/selectbutton';
@@ -84,7 +84,7 @@ export class AppConfiguratorComponent {
         this.config.ripple.set(value);
     }
 
-    config: PrimeNGConfig = inject(PrimeNGConfig);
+    config: PrimeNG = inject(PrimeNG);
 
     configService: AppConfigService = inject(AppConfigService);
 

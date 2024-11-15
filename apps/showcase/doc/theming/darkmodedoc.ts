@@ -28,12 +28,12 @@ import { Component } from '@angular/core';
 export class DarkModeDoc {
     code1 = {
         typescript: `import { Component, inject} from '@angular/core';
-import { PrimeNGConfig } from 'primeng/api';
+import { PrimeNG } from 'primeng/config';
 import Aura from '@primeng/themes/aura';
 
 @Component({...})
 export class AppComponent {
-    config: PrimeNGConfig = inject(PrimeNGConfig);
+    config: PrimeNG = inject(PrimeNG);
 
     constructor() {
         // Default theme configuration
