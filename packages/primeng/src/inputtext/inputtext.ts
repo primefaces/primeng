@@ -15,7 +15,7 @@ import { InputTextStyle } from './style/inputtextstyle';
     host: {
         class: 'p-inputtext p-component',
         '[class.p-filled]': 'filled',
-        '[class.p-variant-filled]': 'variant === "filled" || config.inputStyle() === "filled"',
+        '[class.p-variant-filled]': 'variant === "filled" || config.inputStyle() === "filled" || config.inputVariant() === "filled"',
         '[class.p-inputtext-fluid]': 'hasFluid',
         '[class.p-inputtext-sm]': 'size === "small"',
         '[class.p-inputfield-sm]': 'size === "small"',

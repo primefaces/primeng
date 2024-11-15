@@ -30,7 +30,7 @@ import {
     ViewEncapsulation
 } from '@angular/core';
 import { addClass, blockBodyScroll, find, findSingle, focus, getAttribute, removeClass, setAttribute, unblockBodyScroll, uuid } from '@primeuix/utils';
-import { PrimeNGConfig, PrimeTemplate, SharedModule } from 'primeng/api';
+import { PrimeTemplate, SharedModule } from 'primeng/api';
 import { BaseComponent } from 'primeng/basecomponent';
 import { FocusTrap } from 'primeng/focustrap';
 import { ChevronLeftIcon, ChevronRightIcon, TimesIcon, WindowMaximizeIcon, WindowMinimizeIcon } from 'primeng/icons';
@@ -281,8 +281,7 @@ export class Galleria extends BaseComponent implements OnChanges, OnDestroy {
     constructor(
         @Inject(PLATFORM_ID) public platformId: any,
         public element: ElementRef,
-        public cd: ChangeDetectorRef,
-        public config: PrimeNGConfig
+        public cd: ChangeDetectorRef
     ) {
         super();
     }
@@ -471,7 +470,7 @@ export class Galleria extends BaseComponent implements OnChanges, OnDestroy {
     `,
     changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class GalleriaContent implements DoCheck {
+export class GalleriaContent extends BaseComponent implements DoCheck {
     @Input() get activeIndex(): number {
         return this._activeIndex;
     }
@@ -507,9 +506,9 @@ export class GalleriaContent implements DoCheck {
         public galleria: Galleria,
         public cd: ChangeDetectorRef,
         private differs: KeyValueDiffers,
-        public config: PrimeNGConfig,
         private elementRef: ElementRef
     ) {
+        super();
         this.id = this.galleria.id || uuid('pn_id_');
         this.differ = this.differs.find(this.galleria).create();
     }

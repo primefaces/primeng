@@ -698,7 +698,7 @@ export class CascadeSelect extends BaseComponent implements OnInit {
             'p-disabled': this.disabled,
             'p-focus': this.focused,
             'p-inputwrapper-filled': this.modelValue(),
-            'p-variant-filled': this.variant === 'filled' || this.config.inputStyle() === 'filled',
+            'p-variant-filled': this.variant === 'filled' || this.config.inputStyle() === 'filled' || this.config.inputVariant() === 'filled',
             'p-inputwrapper-focus': this.focused || this.overlayVisible,
             'p-cascadeselect-open': this.overlayVisible,
             'p-cascadeselect-fluid': this.hasFluid,

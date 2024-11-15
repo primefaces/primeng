@@ -16,7 +16,7 @@ import { TextareaStyle } from './style/textareastyle';
         class: 'p-textarea p-component',
         '[class.p-filled]': 'filled',
         '[class.p-textarea-resizable]': 'autoResize',
-        '[class.p-variant-filled]': 'variant === "filled" || config.inputStyle() === "filled"',
+        '[class.p-variant-filled]': 'variant === "filled" || config.inputStyle() === "filled" || config.inputVariant() === "filled"',
         '[class.p-textarea-fluid]': 'hasFluid'
     },
     providers: [TextareaStyle]

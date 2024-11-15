@@ -52,7 +52,7 @@ type Meter = {
     host: {
         class: 'p-password p-inputtext p-component p-inputwrapper',
         '[class.p-inputwrapper-filled]': 'filled',
-        '[class.p-variant-filled]': 'variant === "filled" || config.inputStyle() === "filled"',
+        '[class.p-variant-filled]': 'variant === "filled" || config.inputStyle() === "filled" || config.inputVariant() === "filled"',
         '[class.p-password-fluid-directive]': 'hasFluid'
     },
     providers: [PasswordStyle]

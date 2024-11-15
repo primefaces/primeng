@@ -984,7 +984,7 @@ export class Dropdown extends BaseComponent implements OnInit, AfterViewInit, Af
     get panelClass() {
         return {
             'p-dropdown-panel p-component': true,
-            'p-input-filled': this.config.inputStyle() === 'filled',
+            'p-input-filled': this.config.inputStyle() === 'filled' || this.config.inputVariant() === 'filled',
             'p-ripple-disabled': this.config.ripple() === false
         };
     }

@@ -16,7 +16,7 @@ import { Component } from '@angular/core';
 })
 export class ZIndexDoc {
     code: Code = {
-        typescript: `import { PrimeNGConfig } from 'primeng/api';
+        typescript: `import { PrimeNG } from 'primeng/config';
 
 @Component({
     selector: 'app-root',
@@ -24,10 +24,10 @@ export class ZIndexDoc {
 })
 export class AppComponent implements OnInit {
 
-    constructor(private primengConfig: PrimeNGConfig) {}
+    constructor(private primeng: PrimeNG) {}
 
     ngOnInit() {
-        this.primengConfig.zIndex = {
+        this.primeng.zIndex = {
             modal: 1100,    // dialog, sidebar
             overlay: 1000,  // dropdown, overlaypanel
             menu: 1000,     // overlay menus

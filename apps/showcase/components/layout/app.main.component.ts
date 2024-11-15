@@ -2,7 +2,7 @@ import { AppConfigService } from '@/service/appconfigservice';
 import { CommonModule } from '@angular/common';
 import { Component, inject } from '@angular/core';
 import { RouterOutlet } from '@angular/router';
-import { PrimeNGConfig } from 'primeng/api';
+import { PrimeNG } from 'primeng/config';
 import { DomHandler } from 'primeng/dom';
 import { AppFooterComponent } from './footer/app.footer.component';
 import { AppMenuComponent } from './menu/app.menu.component';
@@ -31,7 +31,7 @@ import { AppTopBarComponent } from './topbar/app.topbar.component';
 export class AppMainComponent {
     configService: AppConfigService = inject(AppConfigService);
 
-    config: PrimeNGConfig = inject(PrimeNGConfig);
+    config: PrimeNG = inject(PrimeNG);
 
     get isNewsActive(): boolean {
         return this.configService.state.newsActive;

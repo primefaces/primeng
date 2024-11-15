@@ -13,7 +13,7 @@ const showOverlayContentAnimation = animation([style({ transform: '{{transform}}
 
 const hideOverlayContentAnimation = animation([animate('{{hideTransitionParams}}', style({ transform: '{{transform}}', opacity: 0 }))]);
 /**
- * This API allows overlay components to be controlled from the PrimeNGConfig. In this way, all overlay components in the application can have the same behavior.
+ * This API allows overlay components to be controlled from the PrimeNG. In this way, all overlay components in the application can have the same behavior.
  * @group Components
  */
 @Component({

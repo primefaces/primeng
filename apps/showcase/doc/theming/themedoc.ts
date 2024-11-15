@@ -12,13 +12,13 @@ import { Component } from '@angular/core';
 export class ThemeDoc {
     code = {
         typescript: `import { Component } from '@angular/core';
-import { PrimeNGConfig } from 'primeng/api';
+import { PrimeNG } from 'primeng/config';
 import Aura from '@primeng/themes/aura';
 
 @Component({...})
 export class AppComponent {
 
-    constructor(private config: PrimeNGConfig) {
+    constructor(private config: PrimeNG) {
         // Default theme configuration
         this.config.theme.set({
         preset: Aura,

@@ -26,7 +26,7 @@ import {
 } from '@angular/core';
 import { RouterModule } from '@angular/router';
 import { findLastIndex, findSingle, focus, isEmpty, isNotEmpty, isPrintableCharacter, isTouchDevice, resolve, uuid } from '@primeuix/utils';
-import { MenuItem, PrimeNGConfig, SharedModule } from 'primeng/api';
+import { MenuItem, SharedModule } from 'primeng/api';
 import { BadgeModule } from 'primeng/badge';
 import { BaseComponent } from 'primeng/basecomponent';
 import { AngleDownIcon, AngleRightIcon, BarsIcon } from 'primeng/icons';
@@ -556,7 +556,6 @@ export class Menubar extends BaseComponent implements OnDestroy, OnInit {
         public el: ElementRef,
         public renderer: Renderer2,
         public cd: ChangeDetectorRef,
-        public config: PrimeNGConfig,
         private menubarService: MenubarService
     ) {
         super();

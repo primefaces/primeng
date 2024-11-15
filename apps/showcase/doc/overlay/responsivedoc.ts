@@ -36,7 +36,8 @@ export class ResponsiveDoc {
     @ViewChild('docsectiontext', { static: true }) docsectiontext: AppDocSectionTextComponent;
 
     code: Code = {
-        basic: `import { PrimeNGConfig, OverlayOptions, ResponsiveOverlayDirectionType } from 'primeng/api';
+        basic: `import { OverlayOptions, ResponsiveOverlayDirectionType } from 'primeng/api';
+import { PrimeNG } from 'primeng/config';
 
 const responsiveOptions: ResponsiveOverlayOptions = {
     // style?: any;                                     // Style of component in given breakpoint or media query
@@ -49,7 +50,7 @@ const responsiveOptions: ResponsiveOverlayOptions = {
     // hideOnEscape?: boolean;                          // Hides overlay when escape key pressed.
 }
 
-this.primengConfig.overlayOptions: OverlayOptions = {
+this.primeng.overlayOptions: OverlayOptions = {
     responsive: responsiveOptions
 };`
     };

@@ -26,12 +26,12 @@ export class OverrideDoc {
     };
 
     code2: Code = {
-        basic: `import { PrimeNGConfig } from 'primeng/api;
+        basic: `import { PrimeNG } from 'primeng/config';
 import Aura from '@primeng/themes/aura';
 @Component({...})
 export class AppComponent() {
-    constructor(private primengConfig: PrimeNGConfig) {
-        this.primengConfig.theme.set({
+    constructor(private primeng: PrimeNG) {
+        this.primeng.theme.set({
             preset: Aura,
                 options: {
                     cssLayer: {

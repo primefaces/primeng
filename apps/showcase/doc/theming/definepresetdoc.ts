@@ -12,7 +12,7 @@ import { Component } from '@angular/core';
 export class DefinePresetDoc {
     code = {
         typescript: `import { Component, inject } from '@angular/core';
-import { PrimeNGConfig } from 'primeng/api';
+import { PrimeNG } from 'primeng/config';
 import { definePreset } from 'primeng/themes';
 import Aura from '@primeng/themes/aura';
 
@@ -22,7 +22,7 @@ const MyPreset = definePreset(Aura, {
 
 @Component({...})
 export class AppComponent {
-    public config: PrimeNGConfig = inject(PrimeNGConfig);
+    public config: PrimeNG = inject(PrimeNG);
 
     constructor() {
         this.config.theme.set(MyPreset);

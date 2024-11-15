@@ -2,29 +2,30 @@ import { CommonModule } from '@angular/common';
 import { ChangeDetectionStrategy, Component, ViewEncapsulation } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { RouterModule } from '@angular/router';
-import { MessageService, PrimeNGConfig } from 'primeng/api';
-import { BadgeModule } from 'primeng/badge';
-import { Chip } from 'primeng/chip';
-import { InputNumber } from 'primeng/inputnumber';
-import { InputSwitchModule } from 'primeng/inputswitch';
-import { RadioButton } from 'primeng/radiobutton';
-import { SelectButton } from 'primeng/selectbutton';
-import { Slider } from 'primeng/slider';
-import { DividerModule } from 'primeng/divider';
+import { MessageService } from 'primeng/api';
+import { AutoComplete } from 'primeng/autocomplete';
 import { AvatarModule } from 'primeng/avatar';
-import { TooltipModule } from 'primeng/tooltip';
+import { AvatarGroupModule } from 'primeng/avatargroup';
+import { BadgeModule } from 'primeng/badge';
 import { ButtonModule } from 'primeng/button';
+import { Checkbox } from 'primeng/checkbox';
+import { Chip } from 'primeng/chip';
+import { PrimeNG } from 'primeng/config';
+import { DividerModule } from 'primeng/divider';
+import { FileUpload } from 'primeng/fileupload';
+import { InputNumber } from 'primeng/inputnumber';
+import { InputOtp } from 'primeng/inputotp';
+import { InputSwitchModule } from 'primeng/inputswitch';
 import { InputTextModule } from 'primeng/inputtext';
 import { MenuModule } from 'primeng/menu';
-import { Tag } from 'primeng/tag';
-import { AvatarGroupModule } from 'primeng/avatargroup';
-import { FileUpload } from 'primeng/fileupload';
-import { InputOtp } from 'primeng/inputotp';
-import { AutoComplete } from 'primeng/autocomplete';
 import { OverlayBadgeModule } from 'primeng/overlaybadge';
-import { Checkbox } from 'primeng/checkbox';
+import { RadioButton } from 'primeng/radiobutton';
 import { Select } from 'primeng/select';
+import { SelectButton } from 'primeng/selectbutton';
+import { Slider } from 'primeng/slider';
+import { Tag } from 'primeng/tag';
 import { ToggleSwitchModule } from 'primeng/toggleswitch';
+import { TooltipModule } from 'primeng/tooltip';
 
 @Component({
     selector: 'cards-app',
@@ -505,7 +506,7 @@ export class CardsApp {
     items: any;
 
     constructor(
-        private config: PrimeNGConfig,
+        private config: PrimeNG,
         private messageService: MessageService
     ) {}
 

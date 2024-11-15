@@ -52,7 +52,7 @@ import {
     reorderArray,
     resolveFieldData
 } from '@primeuix/utils';
-import { BlockableUI, FilterMetadata, FilterService, PrimeNGConfig, PrimeTemplate, ScrollerOptions, SharedModule, SortMeta, TreeNode, TreeTableNode } from 'primeng/api';
+import { BlockableUI, FilterMetadata, FilterService, PrimeTemplate, ScrollerOptions, SharedModule, SortMeta, TreeNode, TreeTableNode } from 'primeng/api';
 import { BaseComponent } from 'primeng/basecomponent';
 import { Checkbox } from 'primeng/checkbox';
 import { DomHandler } from 'primeng/dom';
@@ -3766,13 +3766,12 @@ export class TTRow {
     `,
     encapsulation: ViewEncapsulation.None
 })
-export class TreeTableToggler {
+export class TreeTableToggler extends BaseComponent {
     @Input() rowNode: any;
 
-    constructor(
-        public tt: TreeTable,
-        private config: PrimeNGConfig
-    ) {}
+    constructor(public tt: TreeTable) {
+        super();
+    }
 
     get toggleButtonAriaLabel() {
         return this.config.translation ? (this.rowNode.expanded ? this.config.translation.aria.collapseRow : this.config.translation.aria.expandRow) : undefined;
