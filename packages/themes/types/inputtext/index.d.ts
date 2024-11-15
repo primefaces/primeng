@@ -7,10 +7,9 @@
  * @module themes/inputtext
  *
  */
+import { DesignTokens } from '..';
 
-import { ColorSchemeDesignToken } from '..';
-
-export interface InputTextDesignTokens extends ColorSchemeDesignToken<InputTextDesignTokens> {
+export interface InputTextDesignTokens extends DesignTokens<InputTextDesignTokens> {
     /**
      * Used to pass tokens of the root section
      */

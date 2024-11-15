@@ -7,10 +7,9 @@
  * @module themes/multiselect
  *
  */
+import { DesignTokens } from '..';
 
-import { ColorSchemeDesignToken } from '..';
-
-export interface MultiSelectDesignTokens extends ColorSchemeDesignToken<MultiSelectDesignTokens> {
+export interface MultiSelectDesignTokens extends DesignTokens<MultiSelectDesignTokens> {
     /**
      * Used to pass tokens of the root section
      */

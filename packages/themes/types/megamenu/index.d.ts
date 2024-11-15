@@ -7,10 +7,9 @@
  * @module themes/megamenu
  *
  */
+import { DesignTokens } from '..';
 
-import { ColorSchemeDesignToken } from '..';
-
-export interface MegaMenuDesignTokens extends ColorSchemeDesignToken<MegaMenuDesignTokens> {
+export interface MegaMenuDesignTokens extends DesignTokens<MegaMenuDesignTokens> {
     /**
      * Used to pass tokens of the root section
      */

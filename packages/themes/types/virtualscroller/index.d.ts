@@ -7,10 +7,9 @@
  * @module themes/scroller
  *
  */
+import { DesignTokens } from '..';
 
-import { ColorSchemeDesignToken } from '..';
-
-export interface VirtualScrollerDesignTokens extends ColorSchemeDesignToken<VirtualScrollerDesignTokens> {
+export interface VirtualScrollerDesignTokens extends DesignTokens<VirtualScrollerDesignTokens> {
     /**
      * Used to pass tokens of the mask section
      */

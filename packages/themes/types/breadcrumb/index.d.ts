@@ -7,10 +7,9 @@
  * @module themes/breadcrumb
  *
  */
+import { DesignTokens } from '..';
 
-import { ColorSchemeDesignToken } from '..';
-
-export interface BreadcrumbDesignTokens extends ColorSchemeDesignToken<BreadcrumbDesignTokens> {
+export interface BreadcrumbDesignTokens extends DesignTokens<BreadcrumbDesignTokens> {
     /**
      * Used to pass tokens of the root section
      */

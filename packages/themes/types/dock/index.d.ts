@@ -7,10 +7,9 @@
  * @module themes/dock
  *
  */
+import { DesignTokens } from '..';
 
-import { ColorSchemeDesignToken } from '..';
-
-export interface DockDesignTokens extends ColorSchemeDesignToken<DockDesignTokens> {
+export interface DockDesignTokens extends DesignTokens<DockDesignTokens> {
     /**
      * Used to pass tokens of the root section
      */

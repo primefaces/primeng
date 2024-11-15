@@ -7,10 +7,9 @@
  * @module themes/progressbar
  *
  */
+import { DesignTokens } from '..';
 
-import { ColorSchemeDesignToken } from '..';
-
-export interface ProgressBarDesignTokens extends ColorSchemeDesignToken<ProgressBarDesignTokens> {
+export interface ProgressBarDesignTokens extends DesignTokens<ProgressBarDesignTokens> {
     /**
      * Used to pass tokens of the root section
      */

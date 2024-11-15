@@ -17,7 +17,7 @@ export default defineConfig({
     format: ['esm'],
     outDir: 'dist',
     dts: {
-        entry: 'src/index.ts'
+        entry: ['src/index.ts']
     },
     external: [/^@primeuix\/(.*)$/, /^@primeng\/themes\/(.*)$/],
     sourcemap: true,

@@ -7,10 +7,9 @@
  * @module themes/toggleswitch
  *
  */
+import { DesignTokens } from '..';
 
-import { ColorSchemeDesignToken } from '..';
-
-export interface ToggleSwitchDesignTokens extends ColorSchemeDesignToken<ToggleSwitchDesignTokens> {
+export interface ToggleSwitchDesignTokens extends DesignTokens<ToggleSwitchDesignTokens> {
     /**
      * Used to pass tokens of the root section
      */

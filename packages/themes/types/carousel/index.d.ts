@@ -7,10 +7,9 @@
  * @module themes/carousel
  *
  */
+import { DesignTokens } from '..';
 
-import { ColorSchemeDesignToken } from '..';
-
-export interface CarouselDesignTokens extends ColorSchemeDesignToken<CarouselDesignTokens> {
+export interface CarouselDesignTokens extends DesignTokens<CarouselDesignTokens> {
     /**
      * Used to pass tokens of the root section
      */

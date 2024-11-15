@@ -7,10 +7,9 @@
  * @module themes/imagecompare
  *
  */
+import { DesignTokens } from '..';
 
-import { ColorSchemeDesignToken } from '..';
-
-export interface ImageCompareDesignTokens extends ColorSchemeDesignToken<ImageCompareDesignTokens> {
+export interface ImageCompareDesignTokens extends DesignTokens<ImageCompareDesignTokens> {
     /**
      * Used to pass tokens of the handle section
      */

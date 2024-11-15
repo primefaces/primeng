@@ -7,10 +7,9 @@
  * @module themes/tabview
  *
  */
+import { DesignTokens } from '..';
 
-import { ColorSchemeDesignToken } from '..';
-
-export interface TabViewDesignTokens extends ColorSchemeDesignToken<TabViewDesignTokens> {
+export interface TabViewDesignTokens extends DesignTokens<TabViewDesignTokens> {
     /**
      * Used to pass tokens of the root section
      */

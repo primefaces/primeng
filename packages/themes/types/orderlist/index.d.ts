@@ -7,10 +7,9 @@
  * @module themes/orderlist
  *
  */
+import { DesignTokens } from '..';
 
-import { ColorSchemeDesignToken } from '..';
-
-export interface OrderListDesignTokens extends ColorSchemeDesignToken<OrderListDesignTokens> {
+export interface OrderListDesignTokens extends DesignTokens<OrderListDesignTokens> {
     /**
      * Used to pass tokens of the root section
      */

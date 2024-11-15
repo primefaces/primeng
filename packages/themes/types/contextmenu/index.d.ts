@@ -7,10 +7,9 @@
  * @module themes/contextmenu
  *
  */
+import { DesignTokens } from '..';
 
-import { ColorSchemeDesignToken } from '..';
-
-export interface ContextMenuDesignTokens extends ColorSchemeDesignToken<ContextMenuDesignTokens> {
+export interface ContextMenuDesignTokens extends DesignTokens<ContextMenuDesignTokens> {
     /**
      * Used to pass tokens of the root section
      */

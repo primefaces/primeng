@@ -7,10 +7,9 @@
  * @module themes/confirmpopup
  *
  */
+import { DesignTokens } from '..';
 
-import { ColorSchemeDesignToken } from '..';
-
-export interface ConfirmPopupDesignTokens extends ColorSchemeDesignToken<ConfirmPopupDesignTokens> {
+export interface ConfirmPopupDesignTokens extends DesignTokens<ConfirmPopupDesignTokens> {
     /**
      * Used to pass tokens of the root section
      */

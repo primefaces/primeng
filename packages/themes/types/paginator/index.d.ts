@@ -7,10 +7,9 @@
  * @module themes/paginator
  *
  */
+import { DesignTokens } from '..';
 
-import { ColorSchemeDesignToken } from '..';
-
-export interface PaginatorDesignTokens extends ColorSchemeDesignToken<PaginatorDesignTokens> {
+export interface PaginatorDesignTokens extends DesignTokens<PaginatorDesignTokens> {
     /**
      * Used to pass tokens of the root section
      */

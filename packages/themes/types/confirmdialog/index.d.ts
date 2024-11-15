@@ -7,10 +7,9 @@
  * @module themes/confirmdialog
  *
  */
+import { DesignTokens } from '..';
 
-import { ColorSchemeDesignToken } from '..';
-
-export interface ConfirmDialogDesignTokens extends ColorSchemeDesignToken<ConfirmDialogDesignTokens> {
+export interface ConfirmDialogDesignTokens extends DesignTokens<ConfirmDialogDesignTokens> {
     /**
      * Used to pass tokens of the icon section
      */

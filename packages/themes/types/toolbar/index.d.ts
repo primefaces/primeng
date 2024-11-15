@@ -7,10 +7,9 @@
  * @module themes/toolbar
  *
  */
+import { DesignTokens } from '..';
 
-import { ColorSchemeDesignToken } from '..';
-
-export interface ToolbarDesignTokens extends ColorSchemeDesignToken<ToolbarDesignTokens> {
+export interface ToolbarDesignTokens extends DesignTokens<ToolbarDesignTokens> {
     /**
      * Used to pass tokens of the root section
      */

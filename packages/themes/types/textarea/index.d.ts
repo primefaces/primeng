@@ -7,10 +7,9 @@
  * @module themes/textarea
  *
  */
+import { DesignTokens } from '..';
 
-import { ColorSchemeDesignToken } from '..';
-
-export interface TextareaDesignTokens extends ColorSchemeDesignToken<TextareaDesignTokens> {
+export interface TextareaDesignTokens extends DesignTokens<TextareaDesignTokens> {
     /**
      * Used to pass tokens of the root section
      */

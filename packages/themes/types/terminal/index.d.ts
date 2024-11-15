@@ -7,10 +7,9 @@
  * @module themes/terminal
  *
  */
+import { DesignTokens } from '..';
 
-import { ColorSchemeDesignToken } from '..';
-
-export interface TerminalDesignTokens extends ColorSchemeDesignToken<TerminalDesignTokens> {
+export interface TerminalDesignTokens extends DesignTokens<TerminalDesignTokens> {
     /**
      * Used to pass tokens of the root section
      */

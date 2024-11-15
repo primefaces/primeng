@@ -7,10 +7,9 @@
  * @module themes/splitter
  *
  */
+import { DesignTokens } from '..';
 
-import { ColorSchemeDesignToken } from '..';
-
-export interface SplitterDesignTokens extends ColorSchemeDesignToken<SplitterDesignTokens> {
+export interface SplitterDesignTokens extends DesignTokens<SplitterDesignTokens> {
     /**
      * Used to pass tokens of the root section
      */

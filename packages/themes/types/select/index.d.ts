@@ -7,10 +7,9 @@
  * @module themes/select
  *
  */
+import { DesignTokens } from '..';
 
-import { ColorSchemeDesignToken } from '..';
-
-export interface SelectDesignTokens extends ColorSchemeDesignToken<SelectDesignTokens> {
+export interface SelectDesignTokens extends DesignTokens<SelectDesignTokens> {
     /**
      * Used to pass tokens of the root section
      */

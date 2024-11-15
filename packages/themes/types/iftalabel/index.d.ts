@@ -7,10 +7,9 @@
  * @module themes/iftalabel
  *
  */
+import { DesignTokens } from '..';
 
-import { ColorSchemeDesignToken } from '..';
-
-export interface IftaLabelDesignTokens extends ColorSchemeDesignToken<IftaLabelDesignTokens> {
+export interface IftaLabelDesignTokens extends DesignTokens<IftaLabelDesignTokens> {
     /**
      * Used to pass tokens of the root section
      */

@@ -7,10 +7,9 @@
  * @module themes/datepicker
  *
  */
+import { DesignTokens } from '..';
 
-import { ColorSchemeDesignToken } from '..';
-
-export interface DatePickerDesignTokens extends ColorSchemeDesignToken<DatePickerDesignTokens> {
+export interface DatePickerDesignTokens extends DesignTokens<DatePickerDesignTokens> {
     /**
      * Used to pass tokens of the root section
      */

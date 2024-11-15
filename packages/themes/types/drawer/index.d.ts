@@ -7,10 +7,9 @@
  * @module themes/drawer
  *
  */
+import { DesignTokens } from '..';
 
-import { ColorSchemeDesignToken } from '..';
-
-export interface DrawerDesignTokens extends ColorSchemeDesignToken<DrawerDesignTokens> {
+export interface DrawerDesignTokens extends DesignTokens<DrawerDesignTokens> {
     /**
      * Used to pass tokens of the root section
      */

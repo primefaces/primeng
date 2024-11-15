@@ -7,10 +7,9 @@
  * @module themes/knob
  *
  */
+import { DesignTokens } from '..';
 
-import { ColorSchemeDesignToken } from '..';
-
-export interface KnobDesignTokens extends ColorSchemeDesignToken<KnobDesignTokens> {
+export interface KnobDesignTokens extends DesignTokens<KnobDesignTokens> {
     /**
      * Used to pass tokens of the root section
      */

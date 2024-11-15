@@ -7,10 +7,9 @@
  * @module themes/dataview
  *
  */
+import { DesignTokens } from '..';
 
-import { ColorSchemeDesignToken } from '..';
-
-export interface DataViewDesignTokens extends ColorSchemeDesignToken<DataViewDesignTokens> {
+export interface DataViewDesignTokens extends DesignTokens<DataViewDesignTokens> {
     /**
      * Used to pass tokens of the root section
      */
