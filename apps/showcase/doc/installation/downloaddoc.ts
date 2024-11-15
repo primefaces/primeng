@@ -5,13 +5,20 @@ import { Component } from '@angular/core';
     selector: 'download-doc',
     template: `
         <app-docsectiontext>
-            <p>PrimeNG is available for download on the <a href="https://www.npmjs.com/package/primeng">npm</a> registry.</p>
+            <p>PrimeNG is available for download on the <a href="https://www.npmjs.com/package/primeng">npm registry</a>.</p>
         </app-docsectiontext>
         <app-code [code]="code" [hideToggleCode]="true"></app-code>
     `
 })
 export class DownloadDoc {
     code: Code = {
-        command: `npm install primeng`
+        command: `# Using npm
+npm install primeng @primeng/themes
+
+# Using yarn
+yarn add primeng @primeng/themes
+
+# Using pnpm
+pnpm add primeng @primeng/themes`
     };
 }

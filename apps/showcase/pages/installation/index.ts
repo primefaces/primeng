@@ -1,8 +1,8 @@
-import { AnimationsDoc } from '@/doc/installation/animationsdoc';
 import { DownloadDoc } from '@/doc/installation/downloaddoc';
 import { ExamplesDoc } from '@/doc/installation/examplesdoc';
 import { InstallationDocModule } from '@/doc/installation/installationdoc.module';
 import { NextStepsDoc } from '@/doc/installation/nextstepsdoc';
+import { ProviderDoc } from '@/doc/installation/providerdoc';
 import { ThemeDoc } from '@/doc/installation/themedoc';
 import { VerifyDoc } from '@/doc/installation/verifydoc';
 import { CommonModule } from '@angular/common';
@@ -21,9 +21,9 @@ export class InstallationDemo {
             component: DownloadDoc
         },
         {
-            id: 'animations',
-            label: 'Animations',
-            component: AnimationsDoc
+            id: 'provider',
+            label: 'Provider',
+            component: ProviderDoc
         },
         {
             id: 'theme',
