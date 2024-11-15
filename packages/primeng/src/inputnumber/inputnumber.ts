@@ -590,8 +590,8 @@ export class InputNumber extends BaseComponent implements OnInit, AfterContentIn
             currency: this.currency,
             currencyDisplay: this.currencyDisplay,
             useGrouping: this.useGrouping,
-            minimumFractionDigits: this.minFractionDigits,
-            maximumFractionDigits: this.maxFractionDigits
+            minimumFractionDigits: this.minFractionDigits ?? undefined,
+            maximumFractionDigits: this.maxFractionDigits ?? undefined
         };
     }
 
