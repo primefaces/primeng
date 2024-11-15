@@ -1,6 +1,6 @@
 {
     "name": "primeng",
-    "version": "17.18.10",
+    "version": "17.18.13",
     "license": "SEE LICENSE IN LICENSE.md",
     "scripts": {
         "ng": "ng",
@@ -13,7 +13,7 @@
         "build": "ng build",
         "format:check": "prettier --check \"**/*.{js,ts,d.ts}\"",
         "build:lib": "npm run build:check && npm run build:package",
-        "build:package": "BROWSERSLIST_ENV=library ng build primeng-library && gulp build-assets",
+        "build:package": "cross-env BROWSERSLIST_ENV=library ng build primeng-library && gulp build-assets",
         "build:check": "npm run format:check && npm run security:check",
         "security:check": "npm audit --production --audit-level high",
         "apidoc": "node ./api-generator/build-apidoc.ts"
@@ -40,6 +40,8 @@
         "@angular/platform-browser-dynamic": "^18.0.1",
         "@angular/platform-server": "^18.0.1",
         "@angular/router": "^18.0.1",
+        "@angular/ssr": "^18.0.1",
+        "@docsearch/js": "^3.3.4",
         "@stackblitz/sdk": "1.9.0",
         "@types/express": "^4.17.17",
         "@types/jasmine": "~4.3.1",
@@ -49,8 +51,10 @@
         "@typescript-eslint/eslint-plugin": "^7.11.0",
         "chart.js": "4.4.2",
         "codelyzer": "^0.0.28",
+        "cross-env": "7.0.3",
         "del": "^7.1.0",
         "domino": "^2.1.6",
+        "esbuild": "^0.19.8",
         "eslint": "^8.57.0",
         "eslint-config-prettier": "^9.1.0",
         "eslint-plugin-import": "latest",
@@ -72,8 +76,8 @@
         "karma-coverage": "~2.2.0",
         "karma-jasmine": "~5.1.0",
         "karma-jasmine-html-reporter": "~2.0.0",
-        "prettier": "^3.0.0",
         "ng-packagr": "^18.0.0",
+        "prettier": "^3.0.0",
         "primeflex": "^3.3.1",
         "primeicons": "^7.0.0",
         "prismjs": "^1.29.0",
@@ -84,9 +88,6 @@
         "typedoc": "0.25.13",
         "typescript": "5.4.5",
         "xlsx": "^0.18.5",
-        "zone.js": "~0.14.0",
-        "@angular/ssr": "^18.0.1",
-        "@docsearch/js": "^3.3.4",
-        "esbuild": "^0.19.8"
+        "zone.js": "~0.14.0"
     }
 }
