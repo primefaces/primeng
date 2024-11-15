@@ -1,7 +1,7 @@
 import { Inject, inject, Injectable, Optional, PLATFORM_ID, signal } from '@angular/core';
 import { FilterMatchMode, OverlayOptions, ThemeProvider, Translation } from 'primeng/api';
-import { PRIME_NG_CONFIG, PrimeNGConfigType } from 'primeng/config';
 import { Subject } from 'rxjs';
+import { PRIME_NG_CONFIG, PrimeNGConfigType } from './provideprimeng';
 
 // Type for zIndex
 export type ZIndex = {
