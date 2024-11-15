@@ -27,7 +27,7 @@ import { ChangeDetectionStrategy, ChangeDetectorRef, Component } from '@angular/
                     stateStorage="session"
                     stateKey="statedemo-session"
                 >
-                    <ng-template caption>
+                    <ng-template #caption>
                         <p-iconfield iconPosition="left">
                             <p-inputicon>
                                 <i class="pi pi-search"></i>
@@ -35,7 +35,7 @@ import { ChangeDetectionStrategy, ChangeDetectorRef, Component } from '@angular/
                             <input pInputText type="text" (input)="dt1.filterGlobal($event.target.value, 'contains')" placeholder="Global Search" />
                         </p-iconfield>
                     </ng-template>
-                    <ng-template header>
+                    <ng-template #header>
                         <tr>
                             <th pSortableColumn="name" style="width:25%">
                                 Name
@@ -55,7 +55,7 @@ import { ChangeDetectionStrategy, ChangeDetectorRef, Component } from '@angular/
                             </th>
                         </tr>
                     </ng-template>
-                    <ng-template body let-customer>
+                    <ng-template #body let-customer>
                         <tr [pSelectableRow]="customer">
                             <td>
                                 {{ customer.name }}
@@ -74,7 +74,7 @@ import { ChangeDetectionStrategy, ChangeDetectorRef, Component } from '@angular/
                             </td>
                         </tr>
                     </ng-template>
-                    <ng-template body let-customer>
+                    <ng-template #body let-customer>
                         <tr [pSelectableRow]="customer">
                             <td>
                                 {{ customer.name }}
@@ -127,7 +127,7 @@ export class StatefulDoc {
     stateStorage="session"
     stateKey="statedemo-session"
 >
-    <ng-template caption>
+    <ng-template #caption>
         <p-iconfield iconPosition="left">
             <p-inputicon>
                 <i class="pi pi-search"></i>
@@ -140,7 +140,7 @@ export class StatefulDoc {
             />
         </p-iconfield>
     </ng-template>
-    <ng-template header>
+    <ng-template #header>
         <tr>
             <th pSortableColumn="name" style="width:25%">Name <p-sortIcon field="name" /></th>
             <th pSortableColumn="country.name" style="width:25%">
@@ -152,7 +152,7 @@ export class StatefulDoc {
             <th pSortableColumn="status" style="width:25%">Status <p-sortIcon field="status" /></th>
         </tr>
     </ng-template>
-    <ng-template body let-customer>
+    <ng-template #body let-customer>
         <tr [pSelectableRow]="customer">
             <td>
                 {{ customer.name }}
@@ -182,7 +182,7 @@ export class StatefulDoc {
             </td>
         </tr>
     </ng-template>
-    <ng-template body let-customer>
+    <ng-template #body let-customer>
         <tr [pSelectableRow]="customer">
             <td>
                 {{ customer.name }}
@@ -231,7 +231,7 @@ export class StatefulDoc {
         stateStorage="session"
         stateKey="statedemo-session"
     >
-        <ng-template caption>
+        <ng-template #caption>
             <p-iconfield iconPosition="left">
                 <p-inputicon>
                     <i class="pi pi-search"></i>
@@ -244,7 +244,7 @@ export class StatefulDoc {
                 />
             </p-iconfield>
         </ng-template>
-        <ng-template header>
+        <ng-template #header>
             <tr>
                 <th pSortableColumn="name" style="width:25%">Name <p-sortIcon field="name" /></th>
                 <th pSortableColumn="country.name" style="width:25%">
@@ -256,7 +256,7 @@ export class StatefulDoc {
                 <th pSortableColumn="status" style="width:25%">Status <p-sortIcon field="status" /></th>
             </tr>
         </ng-template>
-        <ng-template body let-customer>
+        <ng-template #body let-customer>
             <tr [pSelectableRow]="customer">
                 <td>
                     {{ customer.name }}
@@ -286,7 +286,7 @@ export class StatefulDoc {
                 </td>
             </tr>
         </ng-template>
-        <ng-template body let-customer>
+        <ng-template #body let-customer>
             <tr [pSelectableRow]="customer">
                 <td>
                     {{ customer.name }}

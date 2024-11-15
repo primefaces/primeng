@@ -23,9 +23,9 @@ import { MessageService, SelectItem } from 'primeng/api';
         </app-docsectiontext>
         <p-deferred-demo (load)="loadDemoData()">
             <div class="card">
-                <p-toast></p-toast>
+                <p-toast />
                 <p-table [value]="products" dataKey="id" editMode="row" [tableStyle]="{ 'min-width': '50rem' }">
-                    <ng-template pTemplate="header">
+                    <ng-template #header>
                         <tr>
                             <th style="width:20%">Code</th>
                             <th style="width:20%">Name</th>
@@ -34,7 +34,7 @@ import { MessageService, SelectItem } from 'primeng/api';
                             <th style="width:20%"></th>
                         </tr>
                     </ng-template>
-                    <ng-template pTemplate="body" let-product let-editing="editing" let-ri="rowIndex">
+                    <ng-template #body let-product let-editing="editing" let-ri="rowIndex">
                         <tr [pEditableRow]="product">
                             <td>
                                 <p-cellEditor>
@@ -137,9 +137,8 @@ export class RowEditDoc {
     }
 
     code: Code = {
-        basic: `<p-toast></p-toast>
-<p-table [value]="products" dataKey="id" editMode="row" [tableStyle]="{'min-width': '50rem'}">
-    <ng-template pTemplate="header">
+        basic: `<p-table [value]="products" dataKey="id" editMode="row" [tableStyle]="{'min-width': '50rem'}">
+    <ng-template #header>
         <tr>
             <th style="width:20%">Code</th>
             <th style="width:20%">Name</th>
@@ -148,7 +147,7 @@ export class RowEditDoc {
             <th style="width:20%"></th>
         </tr>
     </ng-template>
-    <ng-template pTemplate="body" let-product let-editing="editing" let-ri="rowIndex">
+    <ng-template #body let-product let-editing="editing" let-ri="rowIndex">
         <tr [pEditableRow]="product">
             <td>
                 <p-cellEditor>
@@ -249,9 +248,9 @@ export class RowEditDoc {
     </ng-template>
 </p-table>`,
         html: `<div class="card">
-    <p-toast></p-toast>
+    <p-toast />
     <p-table [value]="products" dataKey="id" editMode="row" [tableStyle]="{'min-width': '50rem'}">
-        <ng-template pTemplate="header">
+        <ng-template #header>
             <tr>
                 <th style="width:20%">Code</th>
                 <th style="width:20%">Name</th>
@@ -260,7 +259,7 @@ export class RowEditDoc {
                 <th style="width:20%"></th>
             </tr>
         </ng-template>
-        <ng-template pTemplate="body" let-product let-editing="editing" let-ri="rowIndex">
+        <ng-template #body let-product let-editing="editing" let-ri="rowIndex">
             <tr [pEditableRow]="product">
                 <td>
                     <p-cellEditor>

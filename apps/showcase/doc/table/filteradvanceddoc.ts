@@ -15,10 +15,12 @@ import { Table } from 'primeng/table';
                     <ng-template #caption>
                         <div class="flex">
                             <p-button label="Clear" [outlined]="true" icon="pi pi-filter-slash" (click)="clear(dt1)" />
-                            <span class="p-input-icon-left ml-auto">
-                                <i class="pi pi-search"></i>
-                                <input pInputText type="text" [(ngModel)]="searchValue" (input)="dt1.filterGlobal($event.target.value, 'contains')" placeholder="Search keyword" />
-                            </span>
+                            <p-iconfield iconPosition="left" class="ml-auto">
+                                <p-inputicon>
+                                    <i class="pi pi-search"></i>
+                                </p-inputicon>
+                                <input pInputText type="text" (input)="dt2.filterGlobal($event.target.value, 'contains')" placeholder="Search keyword" />
+                            </p-iconfield>
                         </div>
                     </ng-template>
                     <ng-template #header>
@@ -221,10 +223,12 @@ export class FilterAdvancedDoc {
     <ng-template #caption>
         <div class="flex">
             <p-button label="Clear" [outlined]="true" icon="pi pi-filter-slash" (click)="clear(dt1)" />
-            <span class="p-input-icon-left ml-auto">
-                <i class="pi pi-search"></i>
-                <input pInputText type="text" [(ngModel)]="searchValue" (input)="dt1.filterGlobal($event.target.value, 'contains')" placeholder="Search keyword" />
-            </span>
+            <p-iconfield iconPosition="left" class="ml-auto">
+                <p-inputicon>
+                    <i class="pi pi-search"></i>
+                </p-inputicon>
+                <input pInputText type="text" (input)="dt2.filterGlobal($event.target.value, 'contains')" placeholder="Search keyword" />
+            </p-iconfield>
         </div>
     </ng-template>
     <ng-template #header>
@@ -361,10 +365,12 @@ export class FilterAdvancedDoc {
         <ng-template #caption>
             <div class="flex">
                 <p-button label="Clear" [outlined]="true" icon="pi pi-filter-slash" (click)="clear(dt1)" />
-                <span class="p-input-icon-left ml-auto">
-                    <i class="pi pi-search"></i>
-                    <input pInputText type="text" [(ngModel)]="searchValue" (input)="dt1.filterGlobal($event.target.value, 'contains')" placeholder="Search keyword" />
-                </span>
+                <p-iconfield iconPosition="left" class="ml-auto">
+                    <p-inputicon>
+                        <i class="pi pi-search"></i>
+                    </p-inputicon>
+                    <input pInputText type="text" (input)="dt2.filterGlobal($event.target.value, 'contains')" placeholder="Search keyword" />
+                </p-iconfield>
             </div>
         </ng-template>
         <ng-template #header>
@@ -490,15 +496,26 @@ export class FilterAdvancedDoc {
 </div>`,
         typescript: `import { Component, OnInit } from '@angular/core';
 import { Table } from 'primeng/table';
-import { Customer, Representative } from '../domain/customer';
-import { CustomerService } from '../service/customerservice';
+import { Customer, Representative } from '@/domain/customer';
+import { CustomerService } from '@/service/customerservice';
+import { TagModule } from 'primeng/tag';
+import { IconFieldModule } from 'primeng/iconfield';
+import { InputIconModule } from 'primeng/inputicon';
+import { HttpClientModule } from '@angular/common/http';
+import { InputTextModule } from 'primeng/inputtext';
+import { MultiSelectModule } from 'primeng/multiselect';
+import { SelectModule } from 'primeng/select';
+import { CommonModule } from '@angular/common';
+import { TableModule } from 'primeng/table';
+import { ProgressBar } from 'primeng/progressbar';
+import { ButtonModule } from 'primeng/button';
 
 @Component({
     selector: 'table-filter-advanced-demo',
     templateUrl: 'table-filter-advanced-demo.html',
     standalone: true,
-    imports: [TableModule, HttpClientModule, CommonModule, InputTextModule, Tag,
-    DropdownModule, MultiSelectModule, ProgressBar, ButtonModule ],
+    imports: [TableModule, HttpClientModule, CommonModule, InputTextModule, TagModule,
+    SelectModule, MultiSelectModule, ProgressBar, ButtonModule, IconFieldModule, InputIconModule],
     providers: [CustomerService]
 })
 export class TableFilterAdvancedDemo implements OnInit {

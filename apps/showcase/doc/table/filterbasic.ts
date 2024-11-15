@@ -471,6 +471,7 @@ import { InputTextModule } from 'primeng/inputtext';
 import { MultiSelectModule } from 'primeng/multiselect';
 import { SelectModule } from 'primeng/select';
 import { CommonModule } from '@angular/common';
+import { TableModule } from 'primeng/table';
 
 @Component({
     selector: 'table-filter-basic-demo',

@@ -22,7 +22,7 @@ import {
 } from '@angular/core';
 import { RouterModule } from '@angular/router';
 import { findLastIndex, findSingle, focus, isEmpty, isNotEmpty, isPrintableCharacter, isTouchDevice, resolve, uuid } from '@primeuix/utils';
-import { MegaMenuItem, PrimeNGConfig, SharedModule } from 'primeng/api';
+import { MegaMenuItem, SharedModule } from 'primeng/api';
 import { BadgeModule } from 'primeng/badge';
 import { BaseComponent } from 'primeng/basecomponent';
 import { AngleDownIcon, AngleRightIcon, BarsIcon } from 'primeng/icons';
@@ -609,7 +609,7 @@ export class MegaMenu extends BaseComponent implements OnDestroy, OnInit {
         return focusedItem?.item && focusedItem.item?.id ? focusedItem.item.id : isNotEmpty(focusedItem.key) ? `${this.id}_${focusedItem.key}` : null;
     }
 
-    constructor(public config: PrimeNGConfig) {
+    constructor() {
         super();
         effect(() => {
             const activeItem = this.activeItem();
