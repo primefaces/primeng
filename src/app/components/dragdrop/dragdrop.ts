@@ -53,7 +53,11 @@ export class Draggable implements AfterViewInit, OnDestroy {
 
     _pDraggableDisabled: boolean = false;
 
-    constructor(public el: ElementRef, public zone: NgZone, private renderer: Renderer2) {}
+    constructor(
+        public el: ElementRef,
+        public zone: NgZone,
+        private renderer: Renderer2
+    ) {}
 
     @Input() get pDraggableDisabled(): boolean {
         return this._pDraggableDisabled;
@@ -195,7 +199,11 @@ export class Droppable implements AfterViewInit, OnDestroy {
      */
     @Output() onDrop: EventEmitter<DragEvent> = new EventEmitter();
 
-    constructor(public el: ElementRef, public zone: NgZone, private renderer: Renderer2) {}
+    constructor(
+        public el: ElementRef,
+        public zone: NgZone,
+        private renderer: Renderer2
+    ) {}
 
     dragOverListener: VoidListener;
 

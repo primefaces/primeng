@@ -15,7 +15,7 @@ export interface Props {
 const app_dependencies = pkg ? pkg.devDependencies : {};
 
 const PrimeNG = {
-    version: '17.18.10',
+    version: '17.18.12',
     description:
         'PrimeNG is an open source UI library for Angular featuring a rich set of 80+ components, a theme designer, various theme alternatives such as Material, Bootstrap, Tailwind, premium templates and professional support. In addition, it integrates with PrimeBlock, which has 370+ ready to use UI blocks to build spectacular applications in no time.'
 };
@@ -398,6 +398,7 @@ const getAngularApp = (props: Props = {}) => {
     import { BadgeModule } from 'primeng/badge';
     import { BreadcrumbModule } from 'primeng/breadcrumb';
     import { ButtonModule } from 'primeng/button';
+    import { ButtonGroupModule } from 'primeng/buttongroup';
     import { CalendarModule } from 'primeng/calendar';
     import { CarouselModule } from 'primeng/carousel';
     import { CascadeSelectModule } from 'primeng/cascadeselect';
@@ -497,7 +498,7 @@ const getAngularApp = (props: Props = {}) => {
     import { HttpClientModule } from '@angular/common/http';
     import { NgModule } from '@angular/core';
     ${serviceImports}
-    
+
     @NgModule({
       imports: [
         AvatarModule,
@@ -512,6 +513,7 @@ const getAngularApp = (props: Props = {}) => {
         BreadcrumbModule,
         BlockUIModule,
         ButtonModule,
+        ButtonGroupModule,
         CalendarModule,
         CarouselModule,
         CascadeSelectModule,
@@ -618,6 +620,7 @@ const getAngularApp = (props: Props = {}) => {
         BreadcrumbModule,
         BlockUIModule,
         ButtonModule,
+        ButtonGroupModule,
         CalendarModule,
         CarouselModule,
         CascadeSelectModule,

@@ -104,7 +104,10 @@ export class AppCodeComponent {
 
     lang!: string;
 
-    constructor(@Inject(PLATFORM_ID) public platformId: any, @Inject(DOCUMENT) public document: Document) {}
+    constructor(
+        @Inject(PLATFORM_ID) public platformId: any,
+        @Inject(DOCUMENT) public document: Document
+    ) {}
 
     ngAfterViewChecked() {
         if (isPlatformBrowser(this.platformId)) {

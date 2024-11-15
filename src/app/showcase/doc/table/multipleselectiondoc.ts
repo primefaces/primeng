@@ -47,7 +47,10 @@ export class MultipleSelectionDoc {
 
     metaKey: boolean = true;
 
-    constructor(private productService: ProductService, private cd: ChangeDetectorRef) {}
+    constructor(
+        private productService: ProductService,
+        private cd: ChangeDetectorRef
+    ) {}
 
     loadDemoData() {
         this.productService.getProductsMini().then((data) => {

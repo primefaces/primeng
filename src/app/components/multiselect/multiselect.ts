@@ -1188,7 +1188,15 @@ export class MultiSelect implements OnInit, AfterViewInit, AfterContentInit, Aft
         return ObjectUtils.isNotEmpty(this.maxSelectedLabels) && this.modelValue() && this.modelValue().length > this.maxSelectedLabels ? this.modelValue().slice(0, this.maxSelectedLabels) : this.modelValue();
     });
 
-    constructor(public el: ElementRef, public renderer: Renderer2, public cd: ChangeDetectorRef, public zone: NgZone, public filterService: FilterService, public config: PrimeNGConfig, public overlayService: OverlayService) {
+    constructor(
+        public el: ElementRef,
+        public renderer: Renderer2,
+        public cd: ChangeDetectorRef,
+        public zone: NgZone,
+        public filterService: FilterService,
+        public config: PrimeNGConfig,
+        public overlayService: OverlayService
+    ) {
         effect(() => {
             const modelValue = this.modelValue();
 
@@ -2094,6 +2102,8 @@ export class MultiSelect implements OnInit, AfterViewInit, AfterContentInit, Aft
                 }
 
                 this.onPanelShow.emit();
+                break;
+
             case 'void':
                 this.itemsWrapper = null;
                 this.onModelTouched();

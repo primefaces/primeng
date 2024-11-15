@@ -37,7 +37,7 @@ import { ChevronDownIcon } from 'primeng/icons/chevrondown';
 import { TimesIcon } from 'primeng/icons/times';
 import { CalendarIcon } from 'primeng/icons/calendar';
 import { Nullable, VoidListener } from 'primeng/ts-helpers';
-import { NavigationState, CalendarResponsiveOptions, CalendarTypeView, LocaleSettings, Month, CalendarMonthChangeEvent, CalendarYearChangeEvent } from './calendar.interface';
+import { CalendarMonthChangeEvent, CalendarResponsiveOptions, CalendarTypeView, CalendarYearChangeEvent, LocaleSettings, Month, NavigationState } from './calendar.interface';
 import { AutoFocusModule } from 'primeng/autofocus';
 
 export const CALENDAR_VALUE_ACCESSOR: any = {
@@ -1169,7 +1169,15 @@ export class Calendar implements OnInit, OnDestroy, ControlValueAccessor {
         return this.currentView === 'year' ? this.getTranslation('nextDecade') : this.currentView === 'month' ? this.getTranslation('nextYear') : this.getTranslation('nextMonth');
     }
 
-    constructor(@Inject(DOCUMENT) private document: Document, public el: ElementRef, public renderer: Renderer2, public cd: ChangeDetectorRef, private zone: NgZone, private config: PrimeNGConfig, public overlayService: OverlayService) {
+    constructor(
+        @Inject(DOCUMENT) private document: Document,
+        public el: ElementRef,
+        public renderer: Renderer2,
+        public cd: ChangeDetectorRef,
+        private zone: NgZone,
+        private config: PrimeNGConfig,
+        public overlayService: OverlayService
+    ) {
         this.window = this.document.defaultView as Window;
     }
 
@@ -1836,13 +1844,11 @@ export class Calendar implements OnInit, OnDestroy, ControlValueAccessor {
     }
 
     isYearSelected(year: number) {
-        if (this.isComparable()) {
-            let value = this.isRangeSelection() ? this.value[0] : this.value;
+        if (!this.isComparable()) return false;
+        if (this.isMultipleSelection()) return false;
 
-            return !this.isMultipleSelection() ? value.getFullYear() === year : false;
-        }
-
-        return false;
+        let value = this.isRangeSelection() ? this.value[0] : this.value;
+        return value ? value.getFullYear() === year : false;
     }
 
     isDateEquals(value: any, dateMeta: any) {

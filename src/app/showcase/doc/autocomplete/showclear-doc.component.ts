@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { Code } from '@domain/code';
 import { CountryService } from '@service/countryservice';
 import { PlatformService } from '@service/platformservice';
+import { FormControl, FormGroup } from '@angular/forms';
 
 interface AutoCompleteCompleteEvent {
     originalEvent: Event;
@@ -9,22 +10,21 @@ interface AutoCompleteCompleteEvent {
 }
 
 @Component({
-    selector: 'dropdown-doc',
-    template: ` <app-docsectiontext>
-            <p>
-                Enabling <i>dropdown</i> property displays a button next to the input field where click behavior of the button is defined using <i>dropdownMode</i> property that takes <strong>blank</strong> or <strong>current</strong> as possible
-                values. <i>blank</i> is the default mode to send a query with an empty string whereas <i>current</i> setting sends a query with the current value of the input.
-            </p>
+    selector: 'autocomplete-show-clear-demo',
+    template: `
+        <app-docsectiontext>
+            <p>When <i>showClear</i> is enabled, a clear icon is added to reset the Autocomplete.</p>
         </app-docsectiontext>
-        <div class="card flex justify-content-center">
-            <p-autoComplete [(ngModel)]="selectedCountry" [dropdown]="true" placeholder="Search" [suggestions]="filteredCountries" (completeMethod)="filterCountry($event)" optionLabel="name" />
+        <div class="card flex justify-content-center" [formGroup]="countryFormGroup">
+            <p-autoComplete formControlName="country" [dropdown]="true" [showClear]="true" placeholder="Search" [suggestions]="filteredCountries" (completeMethod)="filterCountry($event)" optionLabel="name" />
         </div>
-        <app-code [code]="code" selector="autocomplete-dropdown-demo"></app-code>`
+        <app-code [code]="code" selector="autocomplete-show-clear-demo"></app-code>
+    `
 })
-export class DropdownDoc implements OnInit {
+export class ShowClearDoc implements OnInit {
     countries: any[] | undefined;
 
-    selectedCountry: any;
+    countryFormGroup: FormGroup = new FormGroup({ country: new FormControl({ name: 'Switzerland', code: 'CH' }) });
 
     filteredCountries: any[] | undefined;
 
@@ -57,16 +57,18 @@ export class DropdownDoc implements OnInit {
 
     code: Code = {
         basic: `<p-autoComplete
-    [(ngModel)]="selectedCountry"
+    formControlName="country"
     [dropdown]="true"
+    [showClear]="true"
     [suggestions]="filteredCountries"
     (completeMethod)="filterCountry($event)"
     optionLabel="name" />`,
 
-        html: `<div class="card flex justify-content-center">
+        html: `<div class="card flex justify-content-center" [formGroup]="countryFormGroup">
     <p-autoComplete
-        [(ngModel)]="selectedCountry"
+        formControlName="country"
         [dropdown]="true"
+        [showClear]="true"
         [suggestions]="filteredCountries"
         (completeMethod)="filterCountry($event)"
         optionLabel="name" />
@@ -76,6 +78,7 @@ export class DropdownDoc implements OnInit {
 import { CountryService } from '@service/countryservice';
 import { FormsModule } from '@angular/forms';
 import { AutoCompleteModule } from 'primeng/autocomplete';
+import { FormControl, FormGroup } from '@angular/forms';
 
 interface AutoCompleteCompleteEvent {
     originalEvent: Event;
@@ -83,16 +86,16 @@ interface AutoCompleteCompleteEvent {
 }
 
 @Component({
-    selector: 'autocomplete-dropdown-demo',
-    templateUrl: './autocomplete-dropdown-demo.html',
+    selector: 'autocomplete-show-clear-demo',
+    templateUrl: './autocomplete-show-clear-demo.html',
     standalone:true,
     imports: [FormsModule, AutoCompleteModule],
     providers:[CountryService]
 })
-export class AutocompleteDropdownDemo implements OnInit {
+export class AutocompleteShowClearDemo implements OnInit {
     countries: any[] | undefined;
 
-    selectedCountry: any;
+    countryFormGroup: FormGroup = new FormGroup({ 'country': new FormControl({ name: 'Switzerland', code: 'CH' }) });
 
     filteredCountries: any[] | undefined;
 

@@ -260,7 +260,13 @@ export class Sidebar implements AfterViewInit, AfterContentInit, OnDestroy {
 
     headlessTemplate: Nullable<TemplateRef<any>>;
 
-    constructor(@Inject(DOCUMENT) private document: Document, public el: ElementRef, public renderer: Renderer2, public cd: ChangeDetectorRef, public config: PrimeNGConfig) {}
+    constructor(
+        @Inject(DOCUMENT) private document: Document,
+        public el: ElementRef,
+        public renderer: Renderer2,
+        public cd: ChangeDetectorRef,
+        public config: PrimeNGConfig
+    ) {}
 
     ngAfterViewInit() {
         this.initialized = true;
@@ -322,7 +328,7 @@ export class Sidebar implements AfterViewInit, AfterContentInit, OnDestroy {
     }
 
     close(event: Event) {
-        this.hide();
+        this.hide(false);
         this.visibleChange.emit(false);
         event.preventDefault();
     }
@@ -391,7 +397,7 @@ export class Sidebar implements AfterViewInit, AfterContentInit, OnDestroy {
     onAnimationEnd(event: any) {
         switch (event.toState) {
             case 'void':
-                this.hide(false);
+                this.hide(true);
                 ZIndexUtils.clear(this.container);
                 this.unbindGlobalListeners();
                 break;
