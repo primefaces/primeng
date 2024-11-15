@@ -19,7 +19,7 @@ import { providePrimeNG } from 'primeng/config';
 export const appConfig: ApplicationConfig = {
     providers: [
         provideAnimationsAsync(),
-        providePrimeNG()
+        providePrimeNG({ /* options */ })
     ]
 };`
     };

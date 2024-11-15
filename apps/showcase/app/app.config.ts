@@ -8,7 +8,7 @@ import { providePrimeNgConfig } from 'primeng/api';
 
 export const appConfig: ApplicationConfig = {
     providers: [
-        providePrimeNgConfig({ theme: Noir, ripple: true, inputStyle: 'outlined' }),
+        providePrimeNgConfig({ theme: Noir }),
         provideRouter(routes, withInMemoryScrolling({ anchorScrolling: 'enabled', scrollPositionRestoration: 'enabled' }), withEnabledBlockingInitialNavigation()),
         provideHttpClient(withFetch()),
         provideAnimationsAsync()
