@@ -137,7 +137,7 @@ import { ToggleSwitchModule } from 'primeng/toggleswitch';
                 <div class="flex items-end gap-1 flex-1">
                     <p-button icon="pi pi-face-smile" text />
                     <p-button icon="pi pi-paperclip" text />
-                    <textarea pInputTextarea class="ml-1 flex-1 border-0 shadow-none max-h-32 min-h-9 bg-emphasis overflow-auto" autoResize rows="1" placeholder="Write your message..."></textarea>
+                    <textarea pTextarea class="ml-1 flex-1 border-0 shadow-none max-h-32 min-h-9 bg-emphasis overflow-auto" autoResize rows="1" placeholder="Write your message..."></textarea>
                 </div>
                 <p-button icon="pi pi-send" />
             </div>

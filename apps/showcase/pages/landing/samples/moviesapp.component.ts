@@ -48,7 +48,7 @@ import { OverlayBadgeModule } from 'primeng/overlaybadge';
                     </div>
                 </div>
                 <p-carousel [value]="carouselData" [page]="page" [numVisible]="5" [numScroll]="1" [responsiveOptions]="responsiveOptions" [showIndicators]="false" [showNavigators]="false">
-                    <ng-template pTemplate="item" let-item>
+                    <ng-template #item let-item>
                         <div class="p-2 rounded-xl hover:bg-emphasis transition-colors cursor-pointer">
                             <div class="relative w-full aspect-[195/118.5] rounded-lg overflow-hidden">
                                 <img [src]="item.image" class="w-full h-full object-cover" alt="Carousel Movie Image" />
