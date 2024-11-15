@@ -7,10 +7,9 @@
  * @module themes/slider
  *
  */
+import { DesignTokens } from '..';
 
-import { ColorSchemeDesignToken } from '..';
-
-export interface SliderDesignTokens extends ColorSchemeDesignToken<SliderDesignTokens> {
+export interface SliderDesignTokens extends DesignTokens<SliderDesignTokens> {
     /**
      * Used to pass tokens of the root section
      */

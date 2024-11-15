@@ -7,10 +7,9 @@
  * @module themes/listbox
  *
  */
+import { DesignTokens } from '..';
 
-import { ColorSchemeDesignToken } from '..';
-
-export interface ListboxDesignTokens extends ColorSchemeDesignToken<ListboxDesignTokens> {
+export interface ListboxDesignTokens extends DesignTokens<ListboxDesignTokens> {
     /**
      * Used to pass tokens of the root section
      */

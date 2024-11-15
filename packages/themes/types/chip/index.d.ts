@@ -7,10 +7,9 @@
  * @module themes/chip
  *
  */
+import { DesignTokens } from '..';
 
-import { ColorSchemeDesignToken } from '..';
-
-export interface ChipDesignTokens extends ColorSchemeDesignToken<ChipDesignTokens> {
+export interface ChipDesignTokens extends DesignTokens<ChipDesignTokens> {
     /**
      * Used to pass tokens of the root section
      */

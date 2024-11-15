@@ -7,10 +7,9 @@
  * @module themes/inplace
  *
  */
+import { DesignTokens } from '..';
 
-import { ColorSchemeDesignToken } from '..';
-
-export interface InplaceDesignTokens extends ColorSchemeDesignToken<InplaceDesignTokens> {
+export interface InplaceDesignTokens extends DesignTokens<InplaceDesignTokens> {
     /**
      * Used to pass tokens of the root section
      */

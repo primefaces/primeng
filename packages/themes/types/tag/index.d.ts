@@ -7,10 +7,9 @@
  * @module themes/tag
  *
  */
+import { DesignTokens } from '..';
 
-import { ColorSchemeDesignToken } from '..';
-
-export interface TagDesignTokens extends ColorSchemeDesignToken<TagDesignTokens> {
+export interface TagDesignTokens extends DesignTokens<TagDesignTokens> {
     /**
      * Used to pass tokens of the root section
      */

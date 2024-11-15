@@ -7,10 +7,9 @@
  * @module themes/card
  *
  */
+import { DesignTokens } from '..';
 
-import { ColorSchemeDesignToken } from '..';
-
-export interface CardDesignTokens extends ColorSchemeDesignToken<CardDesignTokens> {
+export interface CardDesignTokens extends DesignTokens<CardDesignTokens> {
     /**
      * Used to pass tokens of the root section
      */

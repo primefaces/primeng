@@ -7,10 +7,9 @@
  * @module themes/dynamicdialog
  *
  */
+import { DesignTokens } from '..';
 
-import { ColorSchemeDesignToken } from '..';
-
-export interface DynamicDialogDesignTokens extends ColorSchemeDesignToken<DynamicDialogDesignTokens> {
+export interface DynamicDialogDesignTokens extends DesignTokens<DynamicDialogDesignTokens> {
     /**
      * Used to pass tokens of the root section
      */

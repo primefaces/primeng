@@ -7,10 +7,9 @@
  * @module themes/iconfield
  *
  */
+import { DesignTokens } from '..';
 
-import { ColorSchemeDesignToken } from '..';
-
-export interface IconFieldDesignTokens extends ColorSchemeDesignToken<IconFieldDesignTokens> {
+export interface IconFieldDesignTokens extends DesignTokens<IconFieldDesignTokens> {
     /**
      * Used to pass tokens of the icon section
      */

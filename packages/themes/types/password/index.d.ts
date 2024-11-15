@@ -7,10 +7,9 @@
  * @module themes/password
  *
  */
+import { DesignTokens } from '..';
 
-import { ColorSchemeDesignToken } from '..';
-
-export interface PasswordDesignTokens extends ColorSchemeDesignToken<PasswordDesignTokens> {
+export interface PasswordDesignTokens extends DesignTokens<PasswordDesignTokens> {
     /**
      * Used to pass tokens of the meter section
      */

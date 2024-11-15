@@ -7,10 +7,9 @@
  * @module themes/popover
  *
  */
+import { DesignTokens } from '..';
 
-import { ColorSchemeDesignToken } from '..';
-
-export interface PopoverDesignTokens extends ColorSchemeDesignToken<PopoverDesignTokens> {
+export interface PopoverDesignTokens extends DesignTokens<PopoverDesignTokens> {
     /**
      * Used to pass tokens of the root section
      */

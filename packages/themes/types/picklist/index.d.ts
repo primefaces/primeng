@@ -7,10 +7,9 @@
  * @module themes/picklist
  *
  */
+import { DesignTokens } from '..';
 
-import { ColorSchemeDesignToken } from '..';
-
-export interface PickListDesignTokens extends ColorSchemeDesignToken<PickListDesignTokens> {
+export interface PickListDesignTokens extends DesignTokens<PickListDesignTokens> {
     /**
      * Used to pass tokens of the root section
      */

@@ -7,10 +7,9 @@
  * @module themes/blockui
  *
  */
+import { DesignTokens } from '..';
 
-import { ColorSchemeDesignToken } from '..';
-
-export interface BlockUIDesignTokens extends ColorSchemeDesignToken<BlockUIDesignTokens> {
+export interface BlockUIDesignTokens extends DesignTokens<BlockUIDesignTokens> {
     /**
      * Used to pass tokens of the root section
      */

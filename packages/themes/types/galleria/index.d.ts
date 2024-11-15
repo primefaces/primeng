@@ -7,10 +7,9 @@
  * @module themes/galleria
  *
  */
+import { DesignTokens } from '..';
 
-import { ColorSchemeDesignToken } from '..';
-
-export interface GalleriaDesignTokens extends ColorSchemeDesignToken<GalleriaDesignTokens> {
+export interface GalleriaDesignTokens extends DesignTokens<GalleriaDesignTokens> {
     /**
      * Used to pass tokens of the root section
      */

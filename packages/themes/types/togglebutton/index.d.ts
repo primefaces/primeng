@@ -7,10 +7,9 @@
  * @module themes/togglebutton
  *
  */
+import { DesignTokens } from '..';
 
-import { ColorSchemeDesignToken } from '..';
-
-export interface ToggleButtonDesignTokens extends ColorSchemeDesignToken<ToggleButtonDesignTokens> {
+export interface ToggleButtonDesignTokens extends DesignTokens<ToggleButtonDesignTokens> {
     /**
      * Used to pass tokens of the root section
      */

@@ -7,10 +7,9 @@
  * @module themes/table
  *
  */
+import { DesignTokens } from '..';
 
-import { ColorSchemeDesignToken } from '..';
-
-export interface DataTableDesignTokens extends ColorSchemeDesignToken<DataTableDesignTokens> {
+export interface DataTableDesignTokens extends DesignTokens<DataTableDesignTokens> {
     /**
      * Used to pass tokens of the root section
      */

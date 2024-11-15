@@ -7,10 +7,9 @@
  * @module themes/colorpicker
  *
  */
+import { DesignTokens } from '..';
 
-import { ColorSchemeDesignToken } from '..';
-
-export interface ColorPickerDesignTokens extends ColorSchemeDesignToken<ColorPickerDesignTokens> {
+export interface ColorPickerDesignTokens extends DesignTokens<ColorPickerDesignTokens> {
     /**
      * Used to pass tokens of the root section
      */

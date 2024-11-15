@@ -7,10 +7,9 @@
  * @module themes/organizationchart
  *
  */
+import { DesignTokens } from '..';
 
-import { ColorSchemeDesignToken } from '..';
-
-export interface OrganizationChartDesignTokens extends ColorSchemeDesignToken<OrganizationChartDesignTokens> {
+export interface OrganizationChartDesignTokens extends DesignTokens<OrganizationChartDesignTokens> {
     /**
      * Used to pass tokens of the root section
      */

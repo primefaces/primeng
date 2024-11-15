@@ -7,10 +7,9 @@
  * @module themes/inputnumber
  *
  */
+import { DesignTokens } from '..';
 
-import { ColorSchemeDesignToken } from '..';
-
-export interface InputNumberDesignTokens extends ColorSchemeDesignToken<InputNumberDesignTokens> {
+export interface InputNumberDesignTokens extends DesignTokens<InputNumberDesignTokens> {
     /**
      * Used to pass tokens of the root section
      */

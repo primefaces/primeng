@@ -7,10 +7,9 @@
  * @module themes/tooltip
  *
  */
+import { DesignTokens } from '..';
 
-import { ColorSchemeDesignToken } from '..';
-
-export interface TooltipDesignTokens extends ColorSchemeDesignToken<TooltipDesignTokens> {
+export interface TooltipDesignTokens extends DesignTokens<TooltipDesignTokens> {
     /**
      * Used to pass tokens of the root section
      */

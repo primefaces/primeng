@@ -7,10 +7,9 @@
  * @module themes/tieredmenu
  *
  */
+import { DesignTokens } from '..';
 
-import { ColorSchemeDesignToken } from '..';
-
-export interface TieredMenuDesignTokens extends ColorSchemeDesignToken<TieredMenuDesignTokens> {
+export interface TieredMenuDesignTokens extends DesignTokens<TieredMenuDesignTokens> {
     /**
      * Used to pass tokens of the root section
      */

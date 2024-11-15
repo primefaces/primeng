@@ -7,10 +7,9 @@
  * @module themes/overlaybadge
  *
  */
+import { DesignTokens } from '..';
 
-import { ColorSchemeDesignToken } from '..';
-
-export interface OverlayBadgeDesignTokens extends ColorSchemeDesignToken<OverlayBadgeDesignTokens> {
+export interface OverlayBadgeDesignTokens extends DesignTokens<OverlayBadgeDesignTokens> {
     /**
      * Used to pass tokens of the root section
      */

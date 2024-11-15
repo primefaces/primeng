@@ -7,10 +7,9 @@
  * @module themes/autocomplete
  *
  */
+import { DesignTokens } from '..';
 
-import { ColorSchemeDesignToken } from '..';
-
-export interface AutoCompleteDesignTokens extends ColorSchemeDesignToken<AutoCompleteDesignTokens> {
+export interface AutoCompleteDesignTokens extends DesignTokens<AutoCompleteDesignTokens> {
     /**
      * Used to pass tokens of the root section
      */

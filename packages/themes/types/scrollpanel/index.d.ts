@@ -7,10 +7,9 @@
  * @module themes/scrollpanel
  *
  */
+import { DesignTokens } from '..';
 
-import { ColorSchemeDesignToken } from '..';
-
-export interface ScrollPanelDesignTokens extends ColorSchemeDesignToken<ScrollPanelDesignTokens> {
+export interface ScrollPanelDesignTokens extends DesignTokens<ScrollPanelDesignTokens> {
     /**
      * Used to pass tokens of the root section
      */

@@ -7,10 +7,9 @@
  * @module themes/rating
  *
  */
+import { DesignTokens } from '..';
 
-import { ColorSchemeDesignToken } from '..';
-
-export interface RatingDesignTokens extends ColorSchemeDesignToken<RatingDesignTokens> {
+export interface RatingDesignTokens extends DesignTokens<RatingDesignTokens> {
     /**
      * Used to pass tokens of the root section
      */
