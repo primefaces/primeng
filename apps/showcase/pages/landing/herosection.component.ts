@@ -29,6 +29,7 @@ import { CustomersApp } from './samples/customersapp.component';
 import { InboxApp } from './samples/inboxapp.component';
 import { MoviesApp } from './samples/moviesapp.component';
 import { OverviewApp } from './samples/overviewapp.component';
+import { ButtonModule } from 'primeng/button';
 
 @Component({
     selector: 'hero-section',
@@ -60,7 +61,8 @@ import { OverviewApp } from './samples/overviewapp.component';
         CustomersApp,
         DrawerModule,
         OverlayBadgeModule,
-        KnobModule
+        KnobModule,
+        ButtonModule
     ],
     template: `
         <section class="landing-hero py-20 px-8 lg:px-20">
@@ -219,7 +221,7 @@ import { OverviewApp } from './samples/overviewapp.component';
                         </div>
                     </div>
                     <p-drawer [(visible)]="visibleRight" position="right" closeIcon="pi pi-sign-out" styleClass="!max-w-2xl !w-full !h-screen rounded-l-2xl">
-                        <ng-template pTemplate="headless">
+                        <ng-template #headless>
                             <div class="flex flex-col h-screen overflow-auto">
                                 <div class="">
                                     <div class="flex align-items-center gap-3 p-6">
@@ -230,7 +232,7 @@ import { OverviewApp } from './samples/overviewapp.component';
                                         </div>
                                         <p-button (onClick)="visibleRight = false" icon="pi pi-sign-out" text rounded severity="secondary" />
                                     </div>
-                                    <p-selectbutton [(ngModel)]="selectedSidebarOption" [options]="sidebarOptions" class="w-full px-6 py-3" styleClass="flex-1 py-2.5">
+                                    <p-selectbutton [(ngModel)]="selectedSidebarOption" [options]="sidebarOptions" class="w-full px-6 py-3" styleClass="flex-1 w-full py-2.5">
                                         <ng-template pTemplate="item" let-item>
                                             <span class="text-sm">{{ item }}</span>
                                         </ng-template>
