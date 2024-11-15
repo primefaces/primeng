@@ -2,7 +2,7 @@ import { Inject, inject, Injectable, Optional, PLATFORM_ID, signal } from '@angu
 import { Subject } from 'rxjs';
 import { FilterMatchMode } from './filtermatchmode';
 import { OverlayOptions } from './overlayoptions';
-import { PRIME_NG_CONFIG, PrimeNGConfigType } from './provideprimengconfig';
+import { PRIME_NG_CONFIG, PrimeNGConfigType } from 'primeng/config';
 import { ThemeProvider } from './themeprovider';
 import { Translation } from './translation';
 

@@ -17,7 +17,6 @@ export * from './overlayservice';
 export * from './primeicons';
 export * from './primeng';
 export * from './primengconfig';
-export * from './provideprimengconfig';
 export * from './scrolleroptions';
 export * from './selectitem';
 export * from './selectitemgroup';

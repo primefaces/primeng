@@ -2,7 +2,7 @@ import { DOCUMENT } from '@angular/common';
 import { effect, inject, Inject, Injectable, Optional, signal, untracked } from '@angular/core';
 import { Theme, ThemeService } from '@primeuix/styled';
 import { BaseStyle } from 'primeng/base';
-import { PRIME_NG_CONFIG, PrimeNGConfigType } from './provideprimengconfig';
+import { PRIME_NG_CONFIG, PrimeNGConfigType } from 'primeng/config';
 
 @Injectable({ providedIn: 'root' })
 export class ThemeProvider {
