@@ -5,7 +5,6 @@ import { RouterModule } from '@angular/router';
 import { MenuItem } from 'primeng/api';
 import { BadgeModule } from 'primeng/badge';
 import { ChartModule } from 'primeng/chart';
-import { InputSwitchModule } from 'primeng/inputswitch';
 import { SelectButton } from 'primeng/selectbutton';
 import { AvatarModule } from 'primeng/avatar';
 import { IconField } from 'primeng/iconfield';
@@ -14,11 +13,12 @@ import { ButtonModule } from 'primeng/button';
 import { InputTextModule } from 'primeng/inputtext';
 import { MenuModule } from 'primeng/menu';
 import { Textarea } from 'primeng/textarea';
+import { ToggleSwitchModule } from 'primeng/toggleswitch';
 
 @Component({
     selector: 'chat-app',
     standalone: true,
-    imports: [CommonModule, RouterModule, ChartModule, InputSwitchModule, SelectButton, BadgeModule, FormsModule, AvatarModule, IconField, InputIcon, ButtonModule, InputTextModule, MenuModule, Textarea],
+    imports: [CommonModule, RouterModule, ChartModule, ToggleSwitchModule, SelectButton, BadgeModule, FormsModule, AvatarModule, IconField, InputIcon, ButtonModule, InputTextModule, MenuModule, Textarea],
     template: `
         <div class="w-4/12 xl:w-3/12 min-w-40 overflow-auto flex flex-col gap-6">
             <div class="flex flex-col gap-6 pt-3 pb-2 -mb-2 px-5 sticky top-0 bg-surface-0 dark:bg-surface-950 z-10">
@@ -160,17 +160,17 @@ import { Textarea } from 'primeng/textarea';
                 <div class="flex items-center gap-2">
                     <i class="pi pi-bell text-color"></i>
                     <div class="leading-6 font-medium text-color flex-1">Notification</div>
-                    <p-inputSwitch [(ngModel)]="notification" />
+                    <p-toggleswitch [(ngModel)]="notification" />
                 </div>
                 <div class="flex items-center gap-2">
                     <i class="pi pi-volume-down text-color"></i>
                     <div class="leading-6 font-medium text-color flex-1">Sound</div>
-                    <p-inputSwitch [(ngModel)]="sound" />
+                    <p-toggleswitch [(ngModel)]="sound" />
                 </div>
                 <div class="flex items-center gap-2">
                     <i class="pi pi-download text-color"></i>
                     <div class="leading-6 font-medium text-color flex-1">Save to downloads</div>
-                    <p-inputSwitch [(ngModel)]="download" />
+                    <p-toggleswitch [(ngModel)]="download" />
                 </div>
             </div>
             <div class="mt-6">
@@ -198,7 +198,7 @@ import { Textarea } from 'primeng/textarea';
                 </div>
             </div>
             <div class="mt-5">
-                <p-selectButton [(ngModel)]="media" [options]="mediaOptions" class="w-full" styleClass="flex-1" />
+                <p-selectbutton [(ngModel)]="media" [options]="mediaOptions" class="w-full" styleClass="flex-1 w-full" />
 
                 <div class="mt-3 mb-5 grid grid-cols-3 gap-2">
                     <div *ngFor="let media of chatMedia" class="bg-emphasis hover:opacity-70 transition-all flex-1 aspect-square rounded-lg border border-surface cursor-pointer">
