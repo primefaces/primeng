@@ -51,7 +51,7 @@ export default {
     },
     css: ({ dt }) => `
 .p-checkbox {
-    border-radius: 50%
+    border-radius: 50%;
     transition: box-shadow ${dt('checkbox.transition.duration')};
 }
 

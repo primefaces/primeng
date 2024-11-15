@@ -210,8 +210,8 @@ export class BaseStyle {
         return this.load(this.css, options);
     };
 
-    loadTheme = (options: any = {}) => {
-        return this.load(this.theme, options, (computedStyle) => Theme.transformCSS(options.name || this.name, computedStyle));
+    loadTheme = (options: any = {}, style: string = '') => {
+        return this.load(this.theme, options, (computedStyle = '') => Theme.transformCSS(options.name || this.name, `${computedStyle}${style}`));
     };
 
     getCommonTheme = (params?) => {
