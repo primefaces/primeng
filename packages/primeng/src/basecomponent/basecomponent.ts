@@ -119,18 +119,23 @@ export class BaseComponent {
     _loadThemeStyles() {
         // common
         if (!Theme.isStyleNameLoaded('common')) {
-            const { primitive, semantic } = this.componentStyle?.getCommonTheme?.() || {};
+            const { primitive, semantic, global, style } = this.componentStyle?.getCommonTheme?.() || {};
+
             this.baseStyle.load(primitive?.css, { name: 'primitive-variables', ...this.styleOptions });
             this.baseStyle.load(semantic?.css, { name: 'semantic-variables', ...this.styleOptions });
-            this.baseStyle.loadTheme({ name: 'global-style', ...this.styleOptions });
+            this.baseStyle.load(global?.css, { name: 'global-variables', ...this.styleOptions });
+            this.baseStyle.loadTheme({ name: 'global-style', ...this.styleOptions }, style);
+
             Theme.setLoadedStyleName('common');
         }
 
         // component
         if (!Theme.isStyleNameLoaded(this.componentStyle?.name) && this.componentStyle?.name) {
-            const { css } = this.componentStyle?.getComponentTheme?.() || {};
+            const { css, style } = this.componentStyle?.getComponentTheme?.() || {};
+
             this.componentStyle?.load(css, { name: `${this.componentStyle?.name}-variables`, ...this.styleOptions });
-            this.componentStyle?.loadTheme({ name: `${this.componentStyle?.name}-style`, ...this.styleOptions });
+            this.componentStyle?.loadTheme({ name: `${this.componentStyle?.name}-style`, ...this.styleOptions }, style);
+
             Theme.setLoadedStyleName(this.componentStyle?.name);
         }
 

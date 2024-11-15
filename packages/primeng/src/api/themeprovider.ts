@@ -60,11 +60,13 @@ export class ThemeProvider {
 
         // common
         if (!Theme.isStyleNameLoaded('common')) {
-            const { primitive, semantic } = this.baseStyle.getCommonTheme?.() || {};
+            const { primitive, semantic, global, style } = this.baseStyle.getCommonTheme?.() || {};
             const styleOptions = { nonce: undefined };
+
             this.baseStyle.load(primitive?.css, { name: 'primitive-variables', ...styleOptions });
             this.baseStyle.load(semantic?.css, { name: 'semantic-variables', ...styleOptions });
-            this.baseStyle.loadTheme({ name: 'global-style', ...styleOptions });
+            this.baseStyle.load(global?.css, { name: 'global-variables', ...styleOptions });
+            this.baseStyle.loadTheme({ name: 'global-style', ...styleOptions }, style);
 
             Theme.setLoadedStyleName('common');
         }
