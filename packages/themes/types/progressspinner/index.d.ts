@@ -7,10 +7,9 @@
  * @module themes/progressspinner
  *
  */
+import { DesignTokens } from '..';
 
-import { ColorSchemeDesignToken } from '..';
-
-export interface ProgressSpinnerDesignTokens extends ColorSchemeDesignToken<ProgressSpinnerDesignTokens> {
+export interface ProgressSpinnerDesignTokens extends DesignTokens<ProgressSpinnerDesignTokens> {
     /**
      * Used to pass tokens of the root section
      */

@@ -17,26 +17,7 @@
     "module": "./src/index.ts",
     "exports": {
         ".": "./src/index.ts",
-        "./aura": "./src/presets/aura/index.ts",
-        "./lara": "./src/presets/lara/index.ts",
-        "./material": "./src/presets/material/index.ts",
-        "./nora": "./src/presets/nora/index.ts",
-        "./aura/*": {
-            "types": "./types/*/index.d.ts",
-            "import": "./src/presets/aura/*/index.ts"
-        },
-        "./lara/*": {
-            "types": "./types/*/index.d.ts",
-            "import": "./src/presets/lara/*/index.ts"
-        },
-        "./material/*": {
-            "types": "./types/*/index.d.ts",
-            "import": "./src/presets/material/*/index.ts"
-        },
-        "./nora/*": {
-            "types": "./types/*/index.d.ts",
-            "import": "./src/presets/nora/*/index.ts"
-        }
+        "./*": "./src/presets/*/index.ts"
     },
     "publishConfig": {
         "main": "./index.mjs",
@@ -44,24 +25,8 @@
         "types": "./index.d.mts",
         "exports": {
             ".": {
-                "types": "./index.d.ts",
+                "types": "./index.d.mts",
                 "import": "./index.mjs"
-            },
-            "./aura/*": {
-                "types": "./types/*/index.d.ts",
-                "import": "./aura/*/index.mjs"
-            },
-            "./lara/*": {
-                "types": "./types/*/index.d.ts",
-                "import": "./lara/*/index.mjs"
-            },
-            "./material/*": {
-                "types": "./types/*/index.d.ts",
-                "import": "./material/*/index.mjs"
-            },
-            "./nora/*": {
-                "types": "./types/*/index.d.ts",
-                "import": "./nora/*/index.mjs"
             },
             "./*": {
                 "types": "./*/index.d.ts",

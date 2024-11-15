@@ -7,10 +7,9 @@
  * @module themes/fieldset
  *
  */
+import { DesignTokens } from '..';
 
-import { ColorSchemeDesignToken } from '..';
-
-export interface FieldsetDesignTokens extends ColorSchemeDesignToken<FieldsetDesignTokens> {
+export interface FieldsetDesignTokens extends DesignTokens<FieldsetDesignTokens> {
     /**
      * Used to pass tokens of the root section
      */

@@ -7,10 +7,9 @@
  * @module themes/floatlabel
  *
  */
+import { DesignTokens } from '..';
 
-import { ColorSchemeDesignToken } from '..';
-
-export interface FloatLabelDesignTokens extends ColorSchemeDesignToken<FloatLabelDesignTokens> {
+export interface FloatLabelDesignTokens extends DesignTokens<FloatLabelDesignTokens> {
     /**
      * Used to pass tokens of the root section
      */

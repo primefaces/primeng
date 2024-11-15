@@ -7,10 +7,9 @@
  * @module themes/tabmenu
  *
  */
+import { DesignTokens } from '..';
 
-import { ColorSchemeDesignToken } from '..';
-
-export interface TabmenuDesignTokens extends ColorSchemeDesignToken<TabmenuDesignTokens> {
+export interface TabmenuDesignTokens extends DesignTokens<TabmenuDesignTokens> {
     /**
      * Used to pass tokens of the root section
      */

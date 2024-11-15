@@ -7,10 +7,9 @@
  * @module themes/treeselect
  *
  */
+import { DesignTokens } from '..';
 
-import { ColorSchemeDesignToken } from '..';
-
-export interface TreeSelectDesignTokens extends ColorSchemeDesignToken<TreeSelectDesignTokens> {
+export interface TreeSelectDesignTokens extends DesignTokens<TreeSelectDesignTokens> {
     /**
      * Used to pass tokens of the root section
      */

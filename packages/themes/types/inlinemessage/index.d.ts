@@ -7,10 +7,9 @@
  * @module themes/inlinemessage
  *
  */
+import { DesignTokens } from '..';
 
-import { ColorSchemeDesignToken } from '..';
-
-export interface InlineMessageDesignTokens extends ColorSchemeDesignToken<InlineMessageDesignTokens> {
+export interface InlineMessageDesignTokens extends DesignTokens<InlineMessageDesignTokens> {
     /**
      * Used to pass tokens of the root section
      */

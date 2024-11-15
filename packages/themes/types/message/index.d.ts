@@ -7,10 +7,9 @@
  * @module themes/message
  *
  */
+import { DesignTokens } from '..';
 
-import { ColorSchemeDesignToken } from '..';
-
-export interface MessageDesignTokens extends ColorSchemeDesignToken<MessageDesignTokens> {
+export interface MessageDesignTokens extends DesignTokens<MessageDesignTokens> {
     /**
      * Used to pass tokens of the root section
      */

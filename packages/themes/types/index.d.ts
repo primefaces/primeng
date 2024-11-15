@@ -12,6 +12,13 @@ export interface ColorSchemeDesignToken<T> {
     };
 }
 
+export interface DesignTokens<T> extends ColorSchemeDesignToken<T> {
+    css?: any;
+    extend?: {
+        [key: string]: any;
+    };
+}
+
 export interface PaletteDesignToken {
     50?: string;
     100?: string;
@@ -57,7 +64,6 @@ export interface PrimitiveDesignTokens {
     zinc?: PaletteDesignToken;
     neutral?: PaletteDesignToken;
     stone?: PaletteDesignToken;
-    [key: string]: any;
 }
 
 export interface SemanticDesignTokens {
@@ -84,6 +90,4 @@ export interface SemanticDesignTokens {
             shadow?: string;
         };
     };
-    // @todo
-    [key: string]: any;
 }

@@ -7,10 +7,9 @@
  * @module themes/menu
  *
  */
+import { DesignTokens } from '..';
 
-import { ColorSchemeDesignToken } from '..';
-
-export interface MenuDesignTokens extends ColorSchemeDesignToken<MenuDesignTokens> {
+export interface MenuDesignTokens extends DesignTokens<MenuDesignTokens> {
     /**
      * Used to pass tokens of the root section
      */

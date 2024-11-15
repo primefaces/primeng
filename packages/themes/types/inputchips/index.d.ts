@@ -7,10 +7,9 @@
  * @module themes/inputchips
  *
  */
+import { DesignTokens } from '..';
 
-import { ColorSchemeDesignToken } from '..';
-
-export interface InputChipsDesignTokens extends ColorSchemeDesignToken<InputChipsDesignTokens> {
+export interface InputChipsDesignTokens extends DesignTokens<InputChipsDesignTokens> {
     /**
      * Used to pass tokens of the root section
      */

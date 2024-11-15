@@ -7,10 +7,9 @@
  * @module themes/dialog
  *
  */
+import { DesignTokens } from '..';
 
-import { ColorSchemeDesignToken } from '..';
-
-export interface DialogDesignTokens extends ColorSchemeDesignToken<DialogDesignTokens> {
+export interface DialogDesignTokens extends DesignTokens<DialogDesignTokens> {
     /**
      * Used to pass tokens of the root section
      */

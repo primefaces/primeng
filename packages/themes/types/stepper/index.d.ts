@@ -7,10 +7,9 @@
  * @module themes/stepper
  *
  */
+import { DesignTokens } from '..';
 
-import { ColorSchemeDesignToken } from '..';
-
-export interface StepperDesignTokens extends ColorSchemeDesignToken<StepperDesignTokens> {
+export interface StepperDesignTokens extends DesignTokens<StepperDesignTokens> {
     /**
      * Used to pass tokens of the root section
      */

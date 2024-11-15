@@ -7,10 +7,9 @@
  * @module themes/metergroup
  *
  */
+import { DesignTokens } from '..';
 
-import { ColorSchemeDesignToken } from '..';
-
-export interface MeterGroupDesignTokens extends ColorSchemeDesignToken<MeterGroupDesignTokens> {
+export interface MeterGroupDesignTokens extends DesignTokens<MeterGroupDesignTokens> {
     /**
      * Used to pass tokens of the root section
      */

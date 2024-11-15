@@ -7,10 +7,9 @@
  * @module themes/steps
  *
  */
+import { DesignTokens } from '..';
 
-import { ColorSchemeDesignToken } from '..';
-
-export interface StepsDesignTokens extends ColorSchemeDesignToken<StepsDesignTokens> {
+export interface StepsDesignTokens extends DesignTokens<StepsDesignTokens> {
     /**
      * Used to pass tokens of the root section
      */

@@ -7,10 +7,9 @@
  * @module themes/skeleton
  *
  */
+import { DesignTokens } from '..';
 
-import { ColorSchemeDesignToken } from '..';
-
-export interface SkeletonDesignTokens extends ColorSchemeDesignToken<SkeletonDesignTokens> {
+export interface SkeletonDesignTokens extends DesignTokens<SkeletonDesignTokens> {
     /**
      * Used to pass tokens of the root section
      */

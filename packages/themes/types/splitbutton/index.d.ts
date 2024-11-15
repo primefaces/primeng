@@ -7,10 +7,9 @@
  * @module themes/splitbutton
  *
  */
+import { DesignTokens } from '..';
 
-import { ColorSchemeDesignToken } from '..';
-
-export interface SplitButtonDesignTokens extends ColorSchemeDesignToken<SplitButtonDesignTokens> {
+export interface SplitButtonDesignTokens extends DesignTokens<SplitButtonDesignTokens> {
     /**
      * Used to pass tokens of the root section
      */

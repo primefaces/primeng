@@ -7,10 +7,9 @@
  * @module themes/cascadeselect
  *
  */
+import { DesignTokens } from '..';
 
-import { ColorSchemeDesignToken } from '..';
-
-export interface CascadeSelectDesignTokens extends ColorSchemeDesignToken<CascadeSelectDesignTokens> {
+export interface CascadeSelectDesignTokens extends DesignTokens<CascadeSelectDesignTokens> {
     /**
      * Used to pass tokens of the root section
      */

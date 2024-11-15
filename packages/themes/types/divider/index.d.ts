@@ -7,10 +7,9 @@
  * @module themes/divider
  *
  */
+import { DesignTokens } from '..';
 
-import { ColorSchemeDesignToken } from '..';
-
-export interface DividerDesignTokens extends ColorSchemeDesignToken<DividerDesignTokens> {
+export interface DividerDesignTokens extends DesignTokens<DividerDesignTokens> {
     /**
      * Used to pass tokens of the root section
      */

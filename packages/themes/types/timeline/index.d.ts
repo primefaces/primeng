@@ -7,10 +7,9 @@
  * @module themes/timeline
  *
  */
+import { DesignTokens } from '..';
 
-import { ColorSchemeDesignToken } from '..';
-
-export interface TimelineDesignTokens extends ColorSchemeDesignToken<TimelineDesignTokens> {
+export interface TimelineDesignTokens extends DesignTokens<TimelineDesignTokens> {
     /**
      * Used to pass tokens of the event section
      */

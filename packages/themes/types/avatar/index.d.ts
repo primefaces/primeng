@@ -7,10 +7,9 @@
  * @module themes/avatar
  *
  */
+import { DesignTokens } from '..';
 
-import { ColorSchemeDesignToken } from '..';
-
-export interface AvatarDesignTokens extends ColorSchemeDesignToken<AvatarDesignTokens> {
+export interface AvatarDesignTokens extends DesignTokens<AvatarDesignTokens> {
     /**
      * Used to pass tokens of the root section
      */

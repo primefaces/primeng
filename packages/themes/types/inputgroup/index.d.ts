@@ -7,10 +7,9 @@
  * @module themes/inputgroup
  *
  */
+import { DesignTokens } from '..';
 
-import { ColorSchemeDesignToken } from '..';
-
-export interface InputGroupDesignTokens extends ColorSchemeDesignToken<InputGroupDesignTokens> {
+export interface InputGroupDesignTokens extends DesignTokens<InputGroupDesignTokens> {
     /**
      * Used to pass tokens of the addon section
      */

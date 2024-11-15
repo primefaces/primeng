@@ -7,10 +7,9 @@
  * @module themes/fileupload
  *
  */
+import { DesignTokens } from '..';
 
-import { ColorSchemeDesignToken } from '..';
-
-export interface FileUploadDesignTokens extends ColorSchemeDesignToken<FileUploadDesignTokens> {
+export interface FileUploadDesignTokens extends DesignTokens<FileUploadDesignTokens> {
     /**
      * Used to pass tokens of the root section
      */

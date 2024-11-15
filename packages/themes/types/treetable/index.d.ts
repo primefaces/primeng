@@ -7,10 +7,9 @@
  * @module themes/treetable
  *
  */
+import { DesignTokens } from '..';
 
-import { ColorSchemeDesignToken } from '..';
-
-export interface TreeTableDesignTokens extends ColorSchemeDesignToken<TreeTableDesignTokens> {
+export interface TreeTableDesignTokens extends DesignTokens<TreeTableDesignTokens> {
     /**
      * Used to pass tokens of the root section
      */

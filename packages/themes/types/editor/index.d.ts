@@ -7,10 +7,9 @@
  * @module themes/editor
  *
  */
+import { DesignTokens } from '..';
 
-import { ColorSchemeDesignToken } from '..';
-
-export interface EditorDesignTokens extends ColorSchemeDesignToken<EditorDesignTokens> {
+export interface EditorDesignTokens extends DesignTokens<EditorDesignTokens> {
     /**
      * Used to pass tokens of the toolbar section
      */

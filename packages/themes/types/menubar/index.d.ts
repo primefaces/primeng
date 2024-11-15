@@ -7,10 +7,9 @@
  * @module themes/menubar
  *
  */
+import { DesignTokens } from '..';
 
-import { ColorSchemeDesignToken } from '..';
-
-export interface MenubarDesignTokens extends ColorSchemeDesignToken<MenubarDesignTokens> {
+export interface MenubarDesignTokens extends DesignTokens<MenubarDesignTokens> {
     /**
      * Used to pass tokens of the root section
      */

@@ -7,10 +7,9 @@
  * @module themes/button
  *
  */
+import { DesignTokens } from '..';
 
-import { ColorSchemeDesignToken } from '..';
-
-export interface ButtonDesignTokens extends ColorSchemeDesignToken<ButtonDesignTokens> {
+export interface ButtonDesignTokens extends DesignTokens<ButtonDesignTokens> {
     /**
      * Used to pass tokens of the root section
      */

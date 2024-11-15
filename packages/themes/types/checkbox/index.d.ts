@@ -7,10 +7,9 @@
  * @module themes/checkbox
  *
  */
+import { DesignTokens } from '..';
 
-import { ColorSchemeDesignToken } from '..';
-
-export interface CheckboxDesignTokens extends ColorSchemeDesignToken<CheckboxDesignTokens> {
+export interface CheckboxDesignTokens extends DesignTokens<CheckboxDesignTokens> {
     /**
      * Used to pass tokens of the root section
      */

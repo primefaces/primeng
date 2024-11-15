@@ -7,10 +7,9 @@
  * @module themes/badge
  *
  */
+import { DesignTokens } from '..';
 
-import { ColorSchemeDesignToken } from '..';
-
-export interface BadgeDesignTokens extends ColorSchemeDesignToken<BadgeDesignTokens> {
+export interface BadgeDesignTokens extends DesignTokens<BadgeDesignTokens> {
     /**
      * Used to pass tokens of the root section
      */

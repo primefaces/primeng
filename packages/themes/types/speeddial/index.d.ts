@@ -7,10 +7,9 @@
  * @module themes/speeddial
  *
  */
+import { DesignTokens } from '..';
 
-import { ColorSchemeDesignToken } from '..';
-
-export interface SpeedDialDesignTokens extends ColorSchemeDesignToken<SpeedDialDesignTokens> {
+export interface SpeedDialDesignTokens extends DesignTokens<SpeedDialDesignTokens> {
     /**
      * Used to pass tokens of the root section
      */

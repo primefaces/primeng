@@ -7,10 +7,9 @@
  * @module themes/radiobutton
  *
  */
+import { DesignTokens } from '..';
 
-import { ColorSchemeDesignToken } from '..';
-
-export interface RadioButtonDesignTokens extends ColorSchemeDesignToken<RadioButtonDesignTokens> {
+export interface RadioButtonDesignTokens extends DesignTokens<RadioButtonDesignTokens> {
     /**
      * Used to pass tokens of the root section
      */

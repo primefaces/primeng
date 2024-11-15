@@ -7,10 +7,9 @@
  * @module themes/ripple
  *
  */
+import { DesignTokens } from '..';
 
-import { ColorSchemeDesignToken } from '..';
-
-export interface RippleDesignTokens extends ColorSchemeDesignToken<RippleDesignTokens> {
+export interface RippleDesignTokens extends DesignTokens<RippleDesignTokens> {
     /**
      * Used to pass tokens of the root section
      */

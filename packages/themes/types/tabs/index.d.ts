@@ -7,10 +7,9 @@
  * @module themes/tabs
  *
  */
+import { DesignTokens } from '..';
 
-import { ColorSchemeDesignToken } from '..';
-
-export interface TabsDesignTokens extends ColorSchemeDesignToken<TabsDesignTokens> {
+export interface TabsDesignTokens extends DesignTokens<TabsDesignTokens> {
     /**
      * Used to pass tokens of the root section
      */

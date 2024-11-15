@@ -7,10 +7,9 @@
  * @module themes/image
  *
  */
+import { DesignTokens } from '..';
 
-import { ColorSchemeDesignToken } from '..';
-
-export interface ImageDesignTokens extends ColorSchemeDesignToken<ImageDesignTokens> {
+export interface ImageDesignTokens extends DesignTokens<ImageDesignTokens> {
     /**
      * Used to pass tokens of the root section
      */

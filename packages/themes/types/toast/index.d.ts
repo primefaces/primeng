@@ -7,10 +7,9 @@
  * @module themes/toast
  *
  */
+import { DesignTokens } from '..';
 
-import { ColorSchemeDesignToken } from '..';
-
-export interface ToastDesignTokens extends ColorSchemeDesignToken<ToastDesignTokens> {
+export interface ToastDesignTokens extends DesignTokens<ToastDesignTokens> {
     /**
      * Used to pass tokens of the root section
      */

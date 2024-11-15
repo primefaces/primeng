@@ -8,9 +8,9 @@
  *
  */
 
-import { ColorSchemeDesignToken } from '..';
+import { DesignTokens } from '..';
 
-export interface AccordionDesignTokens extends ColorSchemeDesignToken<AccordionDesignTokens> {
+export interface AccordionDesignTokens extends DesignTokens<AccordionDesignTokens> {
     /**
      * Used to pass tokens of the root section
      */

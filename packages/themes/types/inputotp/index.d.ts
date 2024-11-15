@@ -7,10 +7,9 @@
  * @module themes/inputotp
  *
  */
+import { DesignTokens } from '..';
 
-import { ColorSchemeDesignToken } from '..';
-
-export interface InputOtpDesignTokens extends ColorSchemeDesignToken<InputOtpDesignTokens> {
+export interface InputOtpDesignTokens extends DesignTokens<InputOtpDesignTokens> {
     /**
      * Used to pass tokens of the root section
      */
