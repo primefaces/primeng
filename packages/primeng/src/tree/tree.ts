@@ -1286,7 +1286,9 @@ export class Tree extends BaseComponent implements OnInit, OnChanges, OnDestroy,
                             this.onNodeUnselect.emit({ originalEvent: event, node: node });
                         } else {
                             this.selection = node;
-                            this.onNodeSelect.emit({ originalEvent: event, node: node });
+                            setTimeout(() => {
+                                this.onNodeSelect.emit({ originalEvent: event, node: node });
+                            });
                         }
                     } else {
                         if (selected) {
@@ -1294,7 +1296,9 @@ export class Tree extends BaseComponent implements OnInit, OnChanges, OnDestroy,
                             this.onNodeUnselect.emit({ originalEvent: event, node: node });
                         } else {
                             this.selection = [...(this.selection || []), node];
-                            this.onNodeSelect.emit({ originalEvent: event, node: node });
+                            setTimeout(() => {
+                                this.onNodeSelect.emit({ originalEvent: event, node: node });
+                            });
                         }
                     }
 
