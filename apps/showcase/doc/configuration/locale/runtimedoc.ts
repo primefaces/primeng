@@ -5,16 +5,16 @@ import { Component } from '@angular/core';
     selector: 'ngx-translate-doc',
     template: `
         <app-docsectiontext>
-            <p>i18n API can easily be integrated with 3rd party libraries such as ngx-translate that even allows dynamically changing the language in the application.</p>
+            <p>The translations can be changed dynamically at runtime, here is an example with ngx-translate.</p>
         </app-docsectiontext>
         <app-code [code]="code" [hideToggleCode]="true"></app-code>
     `
 })
-export class NgxTranslateDoc {
+export class RuntimeDoc {
     code: Code = {
         typescript: `
 import { Component, OnInit } from '@angular/core';
-import { PrimeNGConfig } from 'primeng/api';
+import { PrimeNG } from 'primeng/config';
 import { TranslateService } from '@ngx-translate/core';
 
 @Component({
@@ -23,7 +23,7 @@ import { TranslateService } from '@ngx-translate/core';
 })
 export class AppComponent implements OnInit {
 
-    constructor(private config: PrimeNGConfig, private translateService: TranslateService) {}
+    constructor(private config: PrimeNG, private translateService: TranslateService) {}
 
     ngOnInit() {
         this.translateService.setDefaultLang('en');
@@ -31,7 +31,7 @@ export class AppComponent implements OnInit {
 
     translate(lang: string) {
         this.translateService.use(lang);
-        this.translateService.get('primeng').subscribe(res => this.config.setTranslation(res));
+        this.translateService.get('primeng').subscribe(res => this.primeng.setTranslation(res));
     }
 }`
     };
