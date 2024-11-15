@@ -4,6 +4,12 @@ import { Component } from '@angular/core';
     selector: 'breaking-doc',
     template: `
         <app-docsectiontext>
+            <h4>Configuration</h4>
+            <p>
+                The <i>PrimeNGConfig</i> has been replaced by <i>PrimeNG</i> and the initial configuration is now done via the <i>providePrimeNG</i> provider during startup. See the <a href="/installation" class="">installation</a> section for an
+                example.
+            </p>
+
             <h4>SASS Themes</h4>
             <p>
                 The styled mode theming has been reimplemented from scratch based on an all-new architecture. The <i>theme.css</i> and the <i>primeng/resources</i> do not exist anymore, so any imports of these assets needs to be removed. If you had a
