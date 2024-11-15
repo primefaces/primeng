@@ -1,8 +1,8 @@
 import { Inject, inject, Injectable, Optional, PLATFORM_ID, signal } from '@angular/core';
+import { PRIME_NG_CONFIG, PrimeNGConfigType } from 'primeng/config';
 import { Subject } from 'rxjs';
 import { FilterMatchMode } from './filtermatchmode';
 import { OverlayOptions } from './overlayoptions';
-import { PRIME_NG_CONFIG, PrimeNGConfigType } from 'primeng/config';
 import { ThemeProvider } from './themeprovider';
 import { Translation } from './translation';
 
@@ -21,6 +21,8 @@ export class PrimeNG extends ThemeProvider {
     public platformId: any = inject(PLATFORM_ID);
 
     inputStyle = signal<'outlined' | 'filled'>('outlined');
+
+    inputVariant = signal<'outlined' | 'filled'>('outlined');
 
     overlayOptions: OverlayOptions = {};
 

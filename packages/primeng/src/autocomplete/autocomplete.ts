@@ -32,6 +32,7 @@ import { AutoFocus } from 'primeng/autofocus';
 import { BaseComponent } from 'primeng/basecomponent';
 import { Button } from 'primeng/button';
 import { Chip } from 'primeng/chip';
+import { PrimeNG } from 'primeng/config';
 import { ConnectedOverlayScrollHandler } from 'primeng/dom';
 import { ChevronDownIcon, SpinnerIcon, TimesCircleIcon, TimesIcon } from 'primeng/icons';
 import { InputText } from 'primeng/inputtext';
@@ -787,6 +788,8 @@ export class AutoComplete extends BaseComponent implements AfterViewChecked, Aft
      */
     @ContentChild('dropdownicon') dropdownIconTemplate: Nullable<TemplateRef<any>>;
 
+    private primeng = inject(PrimeNG);
+
     value: string | any;
 
     _suggestions = signal<any>(null);
@@ -874,7 +877,7 @@ export class AutoComplete extends BaseComponent implements AfterViewChecked, Aft
     get panelClass() {
         return {
             'p-autocomplete-overlay p-component': true,
-            'p-input-filled': this.config.inputStyle() === 'filled',
+            'p-input-filled': this.config.inputStyle() === 'filled' || this.config.inputVariant() === 'filled',
             'p-ripple-disabled': this.config.ripple() === false
         };
     }

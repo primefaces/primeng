@@ -61,7 +61,7 @@ export class RadioControlRegistry {
                 'p-radiobutton p-component': true,
                 'p-radiobutton-checked': checked,
                 'p-disabled': disabled,
-                'p-variant-filled': variant === 'filled' || config.inputStyle() === 'filled',
+                'p-variant-filled': variant === 'filled' || config.inputStyle() === 'filled' || config.inputVariant() === 'filled',
                 'p-radiobutton-sm p-inputfield-sm': size === 'small',
                 'p-radiobutton-lg p-inputfield-lg': size === 'large'
             }"

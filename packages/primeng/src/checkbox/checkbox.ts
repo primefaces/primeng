@@ -220,7 +220,7 @@ export class Checkbox extends BaseComponent implements ControlValueAccessor {
             'p-checkbox p-component': true,
             'p-checkbox-checked p-highlight': this.checked,
             'p-disabled': this.disabled,
-            'p-variant-filled': this.variant === 'filled' || this.config.inputStyle() === 'filled',
+            'p-variant-filled': this.variant === 'filled' || this.config.inputStyle() === 'filled' || this.config.inputVariant() === 'filled',
             'p-checkbox-sm p-inputfield-sm': this.size === 'small',
             'p-checkbox-lg p-inputfield-lg': this.size === 'large'
         };
