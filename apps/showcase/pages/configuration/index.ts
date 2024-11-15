@@ -1,13 +1,14 @@
 import { ConfigurationDocModule } from '@/doc/configuration/configurationdoc.module';
 import { CspDoc } from '@/doc/configuration/cspdoc';
+import { DynamicDoc } from '@/doc/configuration/dynamicdoc';
 import { FilterModeDoc } from '@/doc/configuration/filtermodedoc';
-import { ImportDoc } from '@/doc/configuration/importdoc';
 import { ApiDoc } from '@/doc/configuration/locale/apidoc';
-import { NgxTranslateDoc } from '@/doc/configuration/locale/ngx-translatedoc';
 import { RepositoryDoc } from '@/doc/configuration/locale/repositorydoc';
-import { SetLocaleDoc } from '@/doc/configuration/locale/setlocaledoc';
+import { RuntimeDoc } from '@/doc/configuration/locale/runtimedoc';
+import { TranslationDoc } from '@/doc/configuration/locale/translationdoc';
+import { ProviderDoc } from '@/doc/configuration/providerdoc';
 import { RippleDoc } from '@/doc/configuration/rippledoc';
-import { ThemingDoc } from '@/doc/configuration/themingdoc';
+import { ThemeDoc } from '@/doc/configuration/themedoc';
 import { ZIndexDoc } from '@/doc/configuration/zindexdoc';
 import { CommonModule } from '@angular/common';
 import { Component } from '@angular/core';
@@ -16,19 +17,24 @@ import { Component } from '@angular/core';
     selector: 'configuration',
     standalone: true,
     imports: [CommonModule, ConfigurationDocModule],
-    template: `<app-doc docTitle="Configuration - PrimeNG" header="Configuration" description="Global configuration options of the components." [docs]="docs"></app-doc>`
+    template: `<app-doc docTitle="Configuration - PrimeNG" header="Configuration" description="Application wide configuration for PrimeNG." [docs]="docs"></app-doc>`
 })
 export class ConfigurationDemo {
     docs = [
         {
-            id: 'import',
-            label: 'Import',
-            component: ImportDoc
+            id: 'provider',
+            label: 'Provider',
+            component: ProviderDoc
         },
         {
-            id: 'theming',
-            label: 'Theming',
-            component: ThemingDoc
+            id: 'dynamic',
+            label: 'Dynamic',
+            component: DynamicDoc
+        },
+        {
+            id: 'theme',
+            label: 'Theme',
+            component: ThemeDoc
         },
         {
             id: 'ripple',
@@ -61,14 +67,14 @@ export class ConfigurationDemo {
             label: 'Locale',
             children: [
                 {
-                    id: 'set-locale',
-                    label: 'Set Locale',
-                    component: SetLocaleDoc
+                    id: 'translation',
+                    label: 'Translation',
+                    component: TranslationDoc
                 },
                 {
-                    id: 'ngx-translate',
-                    label: 'Ngx-translate',
-                    component: NgxTranslateDoc
+                    id: 'Runtime',
+                    label: 'Runtime',
+                    component: RuntimeDoc
                 },
                 {
                     id: 'repository',

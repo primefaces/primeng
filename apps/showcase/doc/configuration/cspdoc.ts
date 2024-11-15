@@ -12,9 +12,10 @@ import { Component } from '@angular/core';
 })
 export class CspDoc {
     code: Code = {
-        basic: `constructor(private primengConfig: PrimeNGConfig) {
-    this.config.csp.set({nonce: '...'});
-}
-        `
+        typescript: `providePrimeNG({ 
+    csp: {
+        nonce: '...'
+    }
+})`
     };
 }
