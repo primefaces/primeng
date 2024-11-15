@@ -18,8 +18,7 @@ import { IconFieldStyle } from './style/iconfieldstyle';
     host: {
         class: 'p-iconfield',
         '[class.p-iconfield-left]': 'iconPosition === "left"',
-        '[class.p-iconfield-right]': 'iconPosition === "right"',
-        '[style.display]': '"inline-block"'
+        '[class.p-iconfield-right]': 'iconPosition === "right"'
     }
 })
 export class IconField extends BaseComponent {
