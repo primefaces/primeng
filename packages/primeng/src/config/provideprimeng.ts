@@ -7,7 +7,7 @@ export type PrimeNGConfigType = { theme?: ThemeType; ripple?: boolean; inputStyl
 export const PRIME_NG_CONFIG = new InjectionToken<PrimeNGConfigType>('PRIME_NG_CONFIG');
 
 export function providePrimeNG(...features: PrimeNGConfigType[]): EnvironmentProviders {
-    const providers = features.map((feature) => ({
+    const providers = features?.map((feature) => ({
         provide: PRIME_NG_CONFIG,
         useValue: feature,
         multi: false
