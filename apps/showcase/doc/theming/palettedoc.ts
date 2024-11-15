@@ -11,7 +11,7 @@ import { Component } from '@angular/core';
 })
 export class PaletteDoc {
     code = {
-        typescript: `import { palette } from 'primeng/themes';
+        typescript: `import { palette } from '@primeng/themes';
 
 // custom color
 const values1 = palette('#10b981');
