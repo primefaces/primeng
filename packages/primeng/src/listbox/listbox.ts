@@ -77,7 +77,7 @@ export const LISTBOX_VALUE_ACCESSOR: any = {
                         [ngModel]="allSelected()"
                         [disabled]="disabled"
                         [tabindex]="-1"
-                        [variant]="config.inputStyle() === 'filled' ? 'filled' : 'outlined' : config.inputVariant() === 'filled' ? 'filled' : 'outlined'"
+                        [variant]="config.inputStyle() === 'filled' ? 'filled' : 'outlined' || config.inputVariant() === 'filled' ? 'filled' : 'outlined'"
                         [binary]="true"
                     >
                         <ng-container *ngIf="checkIconTemplate">
@@ -202,7 +202,7 @@ export const LISTBOX_VALUE_ACCESSOR: any = {
                                         [ngModel]="isSelected(option)"
                                         [disabled]="disabled || isOptionDisabled(option)"
                                         [tabindex]="-1"
-                                        [variant]="config.inputStyle() === 'filled' ? 'filled' : 'outlined': config.inputVariant() === 'filled' ? 'filled' : 'outlined'"
+                                        [variant]="config.inputStyle() === 'filled' ? 'filled' : 'outlined' || config.inputVariant() === 'filled' ? 'filled' : 'outlined'"
                                         [binary]="true"
                                     >
                                         <ng-container *ngIf="checkIconTemplate">
