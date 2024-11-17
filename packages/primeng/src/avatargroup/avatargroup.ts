@@ -1,5 +1,5 @@
 import { ChangeDetectionStrategy, Component, inject, input, NgModule, ViewEncapsulation } from '@angular/core';
-import { AvatarGroupStyle } from './style/avatargroupstyle';
+import { SharedModule } from 'primeng/api';
 import { BaseComponent } from 'primeng/basecomponent';
 import { AvatarGroupStyle } from './style/avatargroupstyle';
 
@@ -19,7 +19,7 @@ import { AvatarGroupStyle } from './style/avatargroupstyle';
         '[class.p-avatar-group]': 'true',
         '[class.p-component]': 'true',
         '[class]': 'styleClass()',
-        '[style]': 'style()',
+        '[style]': 'style()'
     }
 })
 export class AvatarGroup extends BaseComponent {
