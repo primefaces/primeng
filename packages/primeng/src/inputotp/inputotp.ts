@@ -19,7 +19,7 @@ import {
     signal
 } from '@angular/core';
 import { NG_VALUE_ACCESSOR } from '@angular/forms';
-import { SharedModule } from 'primeng/api';
+import { PrimeTemplate, SharedModule } from 'primeng/api';
 import { AutoFocus } from 'primeng/autofocus';
 import { BaseComponent } from 'primeng/basecomponent';
 import { InputText } from 'primeng/inputtext';
@@ -199,14 +199,14 @@ export class InputOtp extends BaseComponent {
      * List of PrimeTemplate instances provided by the content.
      * @group Templates
      */
-    templates = contentChildren<PrimeTemplate | undefined>(PrimeTemplate);
+    _templates = contentChildren<PrimeTemplate | undefined>(PrimeTemplate);
     /**
      * Computes the custom input template if available.
      * @returns {TemplateRef<InputOtpInputTemplateContext> | undefined} The custom input template or undefined if not available.
      */
     customInputTemplate = computed<TemplateRef<InputOtpInputTemplateContext>>(() => {
-        if (this.templates()) {
-            const templates = this.templates().reduce<{ [key: string]: TemplateRef<InputOtpInputTemplateContext> }>((prev, curr) => {
+        if (this._templates()) {
+            const templates = this._templates().reduce<{ [key: string]: TemplateRef<InputOtpInputTemplateContext> }>((prev, curr) => {
                 prev[curr.getType()] = curr.template;
                 return prev;
             }, {});
