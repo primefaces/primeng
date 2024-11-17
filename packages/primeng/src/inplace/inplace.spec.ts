@@ -1,9 +1,7 @@
-import { Component, ComponentRef, TemplateRef } from '@angular/core';
+import { Component, ComponentRef } from '@angular/core';
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
-import { TimesIcon } from 'primeng/icons';
-import { ButtonModule } from 'primeng/button';
 import { Inplace } from './inplace';
 
 @Component({
