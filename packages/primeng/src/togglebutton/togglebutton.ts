@@ -2,7 +2,6 @@ import { NgClass, NgTemplateOutlet } from '@angular/common';
 import { booleanAttribute, ChangeDetectionStrategy, Component, contentChild, OutputEmitterRef, forwardRef, computed, inject, input, model, signal, NgModule, numberAttribute, output, TemplateRef, WritableSignal } from '@angular/core';
 import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
 import { SharedModule } from 'primeng/api';
-import { AutoFocus } from 'primeng/autofocus';
 import { BaseComponent } from 'primeng/basecomponent';
 import { Ripple } from 'primeng/ripple';
 import { Nullable } from 'primeng/ts-helpers';
@@ -21,7 +20,7 @@ export const TOGGLEBUTTON_VALUE_ACCESSOR: any = {
 @Component({
     selector: 'p-toggleButton, p-togglebutton, p-toggle-button',
     standalone: true,
-    imports: [Ripple, AutoFocus, NgClass, NgTemplateOutlet, SharedModule],
+    imports: [Ripple, NgClass, NgTemplateOutlet, SharedModule],
     template: `
         <button
             pRipple
@@ -125,11 +124,6 @@ export class ToggleButton extends BaseComponent implements ControlValueAccessor 
      * @group Props
      */
     tabindex = input<number, any>(0, { transform: numberAttribute });
-    /**
-     * Defines the size of the component.
-     * @group Props
-     */
-    @Input() size: 'large' | 'small';
     /**
      * Position of the icon.
      * @group Props
