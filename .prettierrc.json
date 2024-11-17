@@ -1,12 +1,29 @@
 {
-    "tabWidth": 4,
     "useTabs": false,
-    "singleQuote": true,
+    "tabWidth": 4,
+    "trailingComma": "none",
     "semi": true,
-    "bracketSpacing": true,
-    "arrowParens": "always",
-    "trailingComma": "all",
+    "singleQuote": true,
+    "printWidth": 250,
     "bracketSameLine": false,
-    "printWidth": 140,
-    "parser": "typescript"
+    "overrides": [
+        {
+            "files": ["*.ts", "*.mts", "*.d.ts"],
+            "options": {
+                "parser": "typescript"
+            }
+        },
+        {
+            "files": ["*.html"],
+            "options": {
+                "parser": "html"
+            }
+        },
+        {
+            "files": ["*.component.html"],
+            "options": {
+                "parser": "angular"
+            }
+        }
+    ]
 }
