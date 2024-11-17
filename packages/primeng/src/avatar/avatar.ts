@@ -1,5 +1,6 @@
 import { NgClass } from '@angular/common';
-import { ChangeDetectionStrategy, Component, OutputEmitterRef, inject, input, NgModule, output, ViewEncapsulation } from '@angular/core';import { SharedModule } from 'primeng/api';
+import { ChangeDetectionStrategy, Component, OutputEmitterRef, inject, input, NgModule, output, ViewEncapsulation } from '@angular/core';
+import { SharedModule } from 'primeng/api';
 import { BaseComponent } from 'primeng/basecomponent';
 import { AvatarStyle } from './style/avatarstyle';
 
