@@ -907,25 +907,11 @@ export class TreeSelect implements AfterContentInit {
     }
 
     findIndexInSelection(node: TreeNode) {
-        let index: number = -1;
-
         if (this.value) {
-            if (this.selectionMode === 'single') {
-                let areNodesEqual = (this.value.key && this.value.key === node.key) || this.value == node;
-                index = areNodesEqual ? 0 : -1;
-            } else {
-                for (let i = 0; i < this.value.length; i++) {
-                    let selectedNode = this.value[i];
-                    let areNodesEqual = (selectedNode.key && selectedNode.key === node.key) || selectedNode == node;
-                    if (areNodesEqual) {
-                        index = i;
-                        break;
-                    }
-                }
-            }
+            const value = this.selectionMode === 'single' ? [this.value] : this.value;
+            return value.findIndex((selectedNode) => selectedNode === node || (selectedNode.key === node.key && selectedNode.key !== undefined));
         }
-
-        return index;
+        return -1;
     }
 
     onSelect(event: TreeNodeSelectEvent) {

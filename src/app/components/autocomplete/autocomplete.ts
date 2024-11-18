@@ -242,7 +242,7 @@ export const AUTOCOMPLETE_VALUE_ACCESSOR: any = {
                                         [attr.data-p-focused]="focusedOptionIndex() === getOptionIndex(i, scrollerOptions)"
                                         [attr.aria-setsize]="ariaSetSize"
                                         [attr.aria-posinset]="getAriaPosInset(getOptionIndex(i, scrollerOptions))"
-                                        (click)="onOptionSelect($event, option)"
+                                        (mousedown)="onOptionSelect($event, option)"
                                         (mouseenter)="onOptionMouseEnter($event, getOptionIndex(i, scrollerOptions))"
                                     >
                                         <span *ngIf="!itemTemplate">{{ getOptionLabel(option) }}</span>
@@ -1408,10 +1408,6 @@ export class AutoComplete implements AfterViewChecked, AfterContentInit, OnDestr
             }
 
             event.stopPropagation(); // To prevent onBackspaceKeyOnMultiple method
-        }
-
-        if (!this.multiple && this.showClear && this.findSelectedOptionIndex() != -1) {
-            this.clear();
         }
     }
 

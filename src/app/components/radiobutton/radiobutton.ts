@@ -1,11 +1,11 @@
 import { CommonModule } from '@angular/common';
 import { ChangeDetectionStrategy, ChangeDetectorRef, Component, ElementRef, EventEmitter, Injectable, Injector, Input, NgModule, OnDestroy, OnInit, Output, ViewChild, booleanAttribute, forwardRef, numberAttribute } from '@angular/core';
 import { ControlValueAccessor, NG_VALUE_ACCESSOR, NgControl } from '@angular/forms';
-import { Nullable } from 'primeng/ts-helpers';
 import { AutoFocusModule } from 'primeng/autofocus';
+import { Nullable } from 'primeng/ts-helpers';
 
-import { RadioButtonClickEvent } from './radiobutton.interface';
 import { PrimeNGConfig } from 'primeng/api';
+import { RadioButtonClickEvent } from './radiobutton.interface';
 
 export const RADIO_VALUE_ACCESSOR: any = {
     provide: NG_VALUE_ACCESSOR,
@@ -78,7 +78,6 @@ export class RadioControlRegistry {
                     [attr.aria-labelledby]="ariaLabelledBy"
                     [attr.aria-label]="ariaLabel"
                     [attr.tabindex]="tabindex"
-                    [attr.aria-checked]="checked"
                     (focus)="onInputFocus($event)"
                     (blur)="onInputBlur($event)"
                     [attr.data-pc-section]="'hiddenInput'"
@@ -222,8 +221,6 @@ export class RadioButton implements ControlValueAccessor, OnInit, OnDestroy {
     }
 
     handleClick(event: Event, radioButton: HTMLElement, focus: boolean) {
-        event.preventDefault();
-
         if (this.disabled) {
             return;
         }

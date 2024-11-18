@@ -87,8 +87,10 @@ export class TableService {
     private valueSource = new Subject<any>();
     private totalRecordsSource = new Subject<any>();
     private columnsSource = new Subject();
+    private isHeaderCheckboxSelection = new Subject<any>();
 
     sortSource$ = this.sortSource.asObservable();
+    isHeaderCheckboxSelection$ = this.isHeaderCheckboxSelection.asObservable();
     selectionSource$ = this.selectionSource.asObservable();
     contextMenuSource$ = this.contextMenuSource.asObservable();
     valueSource$ = this.valueSource.asObservable();
@@ -117,6 +119,10 @@ export class TableService {
 
     onColumnsChange(columns: any[]) {
         this.columnsSource.next(columns);
+    }
+
+    onHeaderCheckboxSelection(value) {
+        this.isHeaderCheckboxSelection.next(value);
     }
 }
 /**
@@ -1152,7 +1158,7 @@ export class Table implements OnInit, AfterViewInit, AfterContentInit, Blockable
 
     overlaySubscription: Subscription | undefined;
 
-    resizeColumnElement: any;
+    resizeColumnElement: HTMLElement;
 
     columnResizing: boolean = false;
 
@@ -2505,7 +2511,7 @@ export class Table implements OnInit, AfterViewInit, AfterContentInit, Blockable
 
     onColumnResizeBegin(event: any) {
         let containerLeft = DomHandler.getOffset(this.containerViewChild?.nativeElement).left;
-        this.resizeColumnElement = event.target.parentElement;
+        this.resizeColumnElement = event.target.closest('th');
         this.columnResizing = true;
         if (event.type == 'touchstart') {
             this.lastResizerHelperX = event.changedTouches[0].clientX - containerLeft + this.containerViewChild?.nativeElement.scrollLeft;
@@ -2530,22 +2536,23 @@ export class Table implements OnInit, AfterViewInit, AfterContentInit, Blockable
     }
 
     onColumnResizeEnd() {
-        let delta = this.resizeHelperViewChild?.nativeElement.offsetLeft - <number>this.lastResizerHelperX;
-        let columnWidth = this.resizeColumnElement.offsetWidth;
-        let newColumnWidth = columnWidth + delta;
-        let minWidth = this.resizeColumnElement.style.minWidth.replace(/[^\d.]/g, '') || 15;
+        const delta = this.resizeHelperViewChild?.nativeElement.offsetLeft - <number>this.lastResizerHelperX;
+        const columnWidth = this.resizeColumnElement.offsetWidth;
+        const newColumnWidth = columnWidth + delta;
+        const elementMinWidth = this.resizeColumnElement.style.minWidth.replace(/[^\d.]/g, '');
+        const minWidth = elementMinWidth ? parseFloat(elementMinWidth) : 15;
 
         if (newColumnWidth >= minWidth) {
             if (this.columnResizeMode === 'fit') {
-                let nextColumn = this.resizeColumnElement.nextElementSibling;
-                let nextColumnWidth = nextColumn.offsetWidth - delta;
+                const nextColumn = this.resizeColumnElement.nextElementSibling as HTMLElement;
+                const nextColumnWidth = nextColumn.offsetWidth - delta;
 
                 if (newColumnWidth > 15 && nextColumnWidth > 15) {
                     this.resizeTableCells(newColumnWidth, nextColumnWidth);
                 }
             } else if (this.columnResizeMode === 'expand') {
                 this._initialColWidths = this._totalTableWidth();
-                let tableWidth = this.tableViewChild?.nativeElement.offsetWidth + delta;
+                const tableWidth = this.tableViewChild?.nativeElement.offsetWidth + delta;
 
                 this.setResizeTableWidth(tableWidth + 'px');
                 this.resizeTableCells(newColumnWidth, null);
@@ -4790,15 +4797,26 @@ export class TableCheckbox {
 
     subscription: Subscription;
 
+    tableHeaderCheckboxSubscription: Subscription;
+
+    isTableHeaderCheckboxSelection: boolean = false;
+
     constructor(
         public dt: Table,
         public tableService: TableService,
         public cd: ChangeDetectorRef
     ) {
         this.subscription = this.dt.tableService.selectionSource$.subscribe(() => {
-            this.checked = this.dt.isSelected(this.value) && !this.disabled;
+            setTimeout(() => {
+                this.checked = this.isTableHeaderCheckboxSelection ? this.dt.isSelected(this.value) && !this.disabled : this.dt.isSelected(this.value);
+                this.cd.markForCheck();
+            });
+
             this.ariaLabel = this.ariaLabel || this.dt.config.translation.aria ? (this.checked ? this.dt.config.translation.aria.selectRow : this.dt.config.translation.aria.unselectRow) : undefined;
-            this.cd.markForCheck();
+        });
+
+        this.tableHeaderCheckboxSubscription = this.dt.tableService.isHeaderCheckboxSelection$.subscribe((val) => {
+            this.isTableHeaderCheckboxSelection = val;
         });
     }
 
@@ -4815,6 +4833,7 @@ export class TableCheckbox {
                 },
                 this.value
             );
+            this.tableService.onHeaderCheckboxSelection(false);
         }
         DomHandler.clearSelection();
     }
@@ -4830,6 +4849,10 @@ export class TableCheckbox {
     ngOnDestroy() {
         if (this.subscription) {
             this.subscription.unsubscribe();
+        }
+
+        if (this.tableHeaderCheckboxSubscription) {
+            this.tableHeaderCheckboxSubscription.unsubscribe();
         }
     }
 }
@@ -4874,6 +4897,8 @@ export class TableHeaderCheckbox {
 
     valueChangeSubscription: Subscription;
 
+    tableHeaderCheckboxSubscription: Subscription;
+
     constructor(
         public dt: Table,
         public tableService: TableService,
@@ -4896,6 +4921,7 @@ export class TableHeaderCheckbox {
     onClick(event: Event) {
         if (!this.disabled) {
             if (this.dt.value && this.dt.value.length > 0) {
+                this.tableService.onHeaderCheckboxSelection(true);
                 this.dt.toggleRowsWithCheckbox(event, !this.checked);
             }
         }
@@ -5616,7 +5642,7 @@ export class ColumnFilter implements AfterContentInit {
     }
 
     isRowMatchModeSelected(matchMode: string) {
-        return (<FilterMetadata>this.dt.filters[<string>this.field]).matchMode === matchMode;
+        return (<FilterMetadata>this.dt.filters[<string>this.field])?.matchMode === matchMode;
     }
 
     addConstraint() {
@@ -5901,7 +5927,7 @@ export class ColumnFilter implements AfterContentInit {
                 *ngTemplateOutlet="
                     filterTemplate;
                     context: {
-                        $implicit: filterConstraint.value,
+                        $implicit: filterConstraint?.value,
                         filterCallback: filterCallback,
                         type: type,
                         field: field,

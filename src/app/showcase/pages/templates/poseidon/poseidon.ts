@@ -172,15 +172,18 @@ export class PoseidonPage {
     license = {
         documentLink: 'https://poseidon.primeng.org/documentation/',
         description: 'The download package is an Angular CLI-based project containing all source code of the application deployed at the live demo. The project code is written in TypeScript.',
+        showDiscount: true,
         licenseDetails: [
             {
                 title: 'Basic License',
                 price: '$59',
+                discount: '$39',
                 included: ['Non Commercial Usage', 'Single End Product, No Multi-Use', '1 Year Free Updates']
             },
             {
                 title: 'Extended License',
                 price: '$590',
+                discount: '$390',
                 included: ['Commercial Usage', 'Multiple End Products', '1 Year Free Updates']
             }
         ]

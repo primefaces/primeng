@@ -31,9 +31,9 @@ export class PrimeIcons {
     public static readonly ARROW_UP_LEFT = 'pi pi-arrow-up-left';
     public static readonly ARROW_UP_RIGHT = 'pi pi-arrow-up-right';
     public static readonly ARROW_UP_RIGHT_AND_ARROW_DOWN_LEFT_FROM_CENTER = 'pi pi-arrow-up-right-and-arrow-down-left-from-center';
-    public static readonly ARROW_H = 'pi pi-arrows-h';
-    public static readonly ARROW_V = 'pi pi-arrows-v';
-    public static readonly ASTERIKS = 'pi pi-asteriks';
+    public static readonly ARROWS_H = 'pi pi-arrows-h';
+    public static readonly ARROWS_V = 'pi pi-arrows-v';
+    public static readonly ASTERISK = 'pi pi-asterisk';
     public static readonly AT = 'pi pi-at';
     public static readonly BACKWARD = 'pi pi-backward';
     public static readonly BAN = 'pi pi-ban';
