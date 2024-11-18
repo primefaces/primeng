@@ -294,7 +294,7 @@ describe('Tree', () => {
     it('should select nodes by reference', () => {
         // <p-tree selectionMode="single" [value]="[root]" [selection]="root" />
 
-        const root = {key: undefined, label: '(root)'};
+        const root = { key: undefined, label: '(root)' };
         tree.selectionMode = 'single';
         tree.value = [root];
 
@@ -310,15 +310,15 @@ describe('Tree', () => {
     it('should select nodes by key (even if key is empty!)', () => {
         // <p-tree selectionMode="single" [value]="[root]" [selection]="{key: root.key, label: root.label}" />
 
-        const root = {key: '', label: '(root)'};
+        const root = { key: '', label: '(root)' };
         tree.selectionMode = 'single';
         tree.value = [root];
 
-        tree.selection = {key: root.key, label: root.label};
+        tree.selection = { key: root.key, label: root.label };
         fixture.detectChanges();
         expect(fixture.debugElement.query(By.css('.p-highlight'))).toBeTruthy();
 
-        tree.selection = {key: 'non-' + root.key, label: root.label};
+        tree.selection = { key: 'non-' + root.key, label: root.label };
         fixture.detectChanges();
         expect(fixture.debugElement.query(By.css('.p-highlight'))).toBeFalsy();
     });

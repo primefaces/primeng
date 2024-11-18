@@ -1437,7 +1437,7 @@ export class Tree implements OnInit, AfterContentInit, OnChanges, OnDestroy, Blo
     findIndexInSelection(node: TreeNode) {
         if (this.selectionMode && this.selection) {
             const selection = this.isSingleSelectionMode() ? [this.selection] : this.selection;
-            return selection.findIndex(selectedNode => selectedNode === node || selectedNode.key === node.key && selectedNode.key !== undefined);
+            return selection.findIndex((selectedNode) => selectedNode === node || (selectedNode.key === node.key && selectedNode.key !== undefined));
         }
         return -1;
     }

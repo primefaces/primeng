@@ -909,7 +909,7 @@ export class TreeSelect implements AfterContentInit {
     findIndexInSelection(node: TreeNode) {
         if (this.value) {
             const value = this.selectionMode === 'single' ? [this.value] : this.value;
-            return value.findIndex(selectedNode => selectedNode === node || selectedNode.key === node.key && selectedNode.key !== undefined);
+            return value.findIndex((selectedNode) => selectedNode === node || (selectedNode.key === node.key && selectedNode.key !== undefined));
         }
         return -1;
     }
