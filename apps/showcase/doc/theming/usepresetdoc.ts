@@ -11,7 +11,7 @@ import { Component } from '@angular/core';
 })
 export class UsePresetDoc {
     code = {
-        typescript: `import { usePreset } from 'primeng/themes';
+        typescript: `import { usePreset } from '@primeng/themes';
 ...
 onButtonClick() {
     usePreset(MyPreset);

@@ -13,7 +13,7 @@ export class DefinePresetDoc {
     code = {
         typescript: `import { Component, inject } from '@angular/core';
 import { PrimeNG } from 'primeng/config';
-import { definePreset } from 'primeng/themes';
+import { definePreset } from '@primeng/themes';
 import Aura from '@primeng/themes/aura';
 
 const MyPreset = definePreset(Aura, {

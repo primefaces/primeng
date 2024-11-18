@@ -11,7 +11,7 @@ import { Component } from '@angular/core';
 })
 export class DtDoc {
     code = {
-        typescript: `import { $dt } from 'primeng/themes';
+        typescript: `import { $dt } from '@primeng/themes';
 
 const duration = $dt('transition.duration');
 /*
