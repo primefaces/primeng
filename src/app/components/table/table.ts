@@ -5641,7 +5641,7 @@ export class ColumnFilter implements AfterContentInit {
     }
 
     isRowMatchModeSelected(matchMode: string) {
-        return (<FilterMetadata>this.dt.filters[<string>this.field]).matchMode === matchMode;
+        return (<FilterMetadata>this.dt.filters[<string>this.field])?.matchMode === matchMode;
     }
 
     addConstraint() {
@@ -5926,7 +5926,7 @@ export class ColumnFilter implements AfterContentInit {
                 *ngTemplateOutlet="
                     filterTemplate;
                     context: {
-                        $implicit: filterConstraint.value,
+                        $implicit: filterConstraint?.value,
                         filterCallback: filterCallback,
                         type: type,
                         field: field,
