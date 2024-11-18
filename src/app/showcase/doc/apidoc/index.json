@@ -7659,6 +7659,16 @@
                             "description": "Callback to invoke on chip clicked."
                         },
                         {
+                            "name": "onChipContextMenu",
+                            "parameters": [
+                                {
+                                    "name": "event",
+                                    "type": "ChipsContextMenuEvent"
+                                }
+                            ],
+                            "description": "Callback to invoke on chip contextmenu."
+                        },
+                        {
                             "name": "onClear",
                             "parameters": [
                                 {
@@ -7743,7 +7753,27 @@
                                 "optional": false,
                                 "readonly": false,
                                 "type": "any",
-                                "description": "Added/Removed item value."
+                                "description": "Clicked item value."
+                            }
+                        ]
+                    },
+                    {
+                        "name": "ChipsContextMenuEvent",
+                        "description": "Custom contextmenu event.",
+                        "props": [
+                            {
+                                "name": "originalEvent",
+                                "optional": false,
+                                "readonly": false,
+                                "type": "Event",
+                                "description": "Browser event."
+                            },
+                            {
+                                "name": "value",
+                                "optional": false,
+                                "readonly": false,
+                                "type": "any",
+                                "description": "Contextmenu requested item value."
                             }
                         ]
                     }

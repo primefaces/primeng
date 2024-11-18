@@ -1,5 +1,5 @@
 import { CommonModule, isPlatformBrowser } from '@angular/common';
-import { AfterViewInit, Directive, ElementRef, HostListener, Inject, Input, NgModule, NgZone, OnDestroy, PLATFORM_ID, Renderer2, SecurityContext, SimpleChanges, TemplateRef, ViewContainerRef, booleanAttribute, numberAttribute } from '@angular/core';
+import { AfterViewInit, Directive, ElementRef, Inject, Input, NgModule, NgZone, OnDestroy, PLATFORM_ID, Renderer2, SecurityContext, SimpleChanges, TemplateRef, ViewContainerRef, booleanAttribute, numberAttribute } from '@angular/core';
 import { DomSanitizer } from '@angular/platform-browser';
 import { PrimeNGConfig, TooltipOptions } from 'primeng/api';
 import { ConnectedOverlayScrollHandler, DomHandler } from 'primeng/dom';
@@ -160,6 +160,8 @@ export class Tooltip implements AfterViewInit, OnDestroy {
     focusListener: Nullable<Function>;
 
     blurListener: Nullable<Function>;
+
+    documentEscapeListener: Nullable<Function>;
 
     scrollHandler: any;
 
@@ -335,13 +337,6 @@ export class Tooltip implements AfterViewInit, OnDestroy {
         this.deactivate();
     }
 
-    @HostListener('document:keydown.escape', ['$event'])
-    onPressEscape() {
-        if (this.hideOnEscape) {
-            this.deactivate();
-        }
-    }
-
     activate() {
         if (!this.interactionInProgress) {
             this.active = true;
@@ -359,6 +354,13 @@ export class Tooltip implements AfterViewInit, OnDestroy {
                     this.hide();
                 }, duration);
             }
+
+            if (this.getOption('hideOnEscape')) {
+                this.documentEscapeListener = this.renderer.listen('document', 'keydown.escape', () => {
+                    this.deactivate();
+                    this.documentEscapeListener();
+                });
+            }
         }
         this.interactionInProgress = true;
     }
@@ -375,6 +377,10 @@ export class Tooltip implements AfterViewInit, OnDestroy {
             }, this.getOption('hideDelay'));
         } else {
             this.hide();
+        }
+
+        if (this.documentEscapeListener) {
+            this.documentEscapeListener();
         }
     }
 
@@ -736,6 +742,10 @@ export class Tooltip implements AfterViewInit, OnDestroy {
         if (this.scrollHandler) {
             this.scrollHandler.destroy();
             this.scrollHandler = null;
+        }
+
+        if (this.documentEscapeListener) {
+            this.documentEscapeListener();
         }
     }
 }
