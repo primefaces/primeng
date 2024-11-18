@@ -1,0 +1,589 @@
+{
+    "data": [
+        {
+            "name": "Getting Started",
+            "icon": "pi pi-home",
+            "children": [
+                {
+                    "name": "Installation",
+                    "routerLink": "/installation"
+                },
+                {
+                    "name": "Configuration",
+                    "routerLink": "/configuration"
+                },
+                {
+                    "name": "Playground",
+                    "routerLink": "/playground"
+                }
+            ]
+        },
+        {
+            "name": "Theming",
+            "icon": "pi pi-palette",
+            "routerLink": "/theming"
+        },
+        {
+            "name": "Components",
+            "icon": "pi pi-compass",
+            "children": [
+                {
+                    "name": "Form",
+                    "children": [
+                        {
+                            "name": "AutoComplete",
+                            "routerLink": "/autocomplete"
+                        },
+                        {
+                            "name": "CascadeSelect",
+                            "routerLink": "/cascadeselect"
+                        },
+                        {
+                            "name": "Checkbox",
+                            "routerLink": "/checkbox"
+                        },
+                        {
+                            "name": "ColorPicker",
+                            "routerLink": "/colorpicker"
+                        },
+                        {
+                            "name": "DatePicker",
+                            "routerLink": "/datepicker"
+                        },
+                        {
+                            "name": "Editor",
+                            "routerLink": "/editor"
+                        },
+                        {
+                            "name": "FloatLabel",
+                            "routerLink": "/floatlabel",
+                            "badge": "NEW"
+                        },
+                        {
+                            "name": "IconField",
+                            "routerLink": "/iconfield"
+                        },
+                        {
+                            "name": "IftaLabel",
+                            "routerLink": "/iftalabel",
+                            "badge": "NEW"
+                        },
+                        {
+                            "name": "InputGroup",
+                            "routerLink": "/inputgroup"
+                        },
+                        {
+                            "name": "InputMask",
+                            "routerLink": "/inputmask"
+                        },
+                        {
+                            "name": "InputNumber",
+                            "routerLink": "/inputnumber"
+                        },
+                        {
+                            "name": "InputOtp",
+                            "routerLink": "/inputotp"
+                        },
+                        {
+                            "name": "InputText",
+                            "routerLink": "/inputtext"
+                        },
+                        {
+                            "name": "KeyFilter",
+                            "routerLink": "/keyfilter"
+                        },
+                        {
+                            "name": "Knob",
+                            "routerLink": "/knob"
+                        },
+                        {
+                            "name": "Listbox",
+                            "routerLink": "/listbox"
+                        },
+                        {
+                            "name": "MultiSelect",
+                            "routerLink": "/multiselect"
+                        },
+                        {
+                            "name": "Password",
+                            "routerLink": "/password"
+                        },
+                        {
+                            "name": "RadioButton",
+                            "routerLink": "/radiobutton"
+                        },
+                        {
+                            "name": "Rating",
+                            "routerLink": "/rating"
+                        },
+                        {
+                            "name": "Select",
+                            "routerLink": "/select"
+                        },
+                        {
+                            "name": "SelectButton",
+                            "routerLink": "/selectbutton"
+                        },
+                        {
+                            "name": "Slider",
+                            "routerLink": "/slider"
+                        },
+                        {
+                            "name": "Textarea",
+                            "routerLink": "/textarea"
+                        },
+                        {
+                            "name": "ToggleButton",
+                            "routerLink": "/togglebutton"
+                        },
+                        {
+                            "name": "ToggleSwitch",
+                            "routerLink": "/toggleswitch"
+                        },
+                        {
+                            "name": "TreeSelect",
+                            "routerLink": "/treeselect"
+                        }
+                    ]
+                },
+                {
+                    "name": "Button",
+                    "children": [
+                        {
+                            "name": "Button",
+                            "routerLink": "/button"
+                        },
+                        {
+                            "name": "SpeedDial",
+                            "routerLink": "/speeddial"
+                        },
+                        {
+                            "name": "SplitButton",
+                            "routerLink": "/splitbutton"
+                        }
+                    ]
+                },
+                {
+                    "name": "Data",
+                    "children": [
+                        {
+                            "name": "DataView",
+                            "routerLink": "/dataview"
+                        },
+                        {
+                            "name": "OrderList",
+                            "routerLink": "/orderlist"
+                        },
+                        {
+                            "name": "OrgChart",
+                            "routerLink": "/organizationchart"
+                        },
+                        {
+                            "name": "Paginator",
+                            "routerLink": "/paginator"
+                        },
+                        {
+                            "name": "PickList",
+                            "routerLink": "/picklist"
+                        },
+                        {
+                            "name": "Table",
+                            "routerLink": "/table"
+                        },
+                        {
+                            "name": "Timeline",
+                            "routerLink": "/timeline"
+                        },
+                        {
+                            "name": "Tree",
+                            "routerLink": "/tree"
+                        },
+                        {
+                            "name": "TreeTable",
+                            "routerLink": "/treetable"
+                        },
+                        {
+                            "name": "VirtualScroller",
+                            "routerLink": "/virtualscroller"
+                        }
+                    ]
+                },
+                {
+                    "name": "Panel",
+                    "children": [
+                        {
+                            "name": "Accordion",
+                            "routerLink": "/accordion"
+                        },
+                        {
+                            "name": "Card",
+                            "routerLink": "/card"
+                        },
+                        {
+                            "name": "Divider",
+                            "routerLink": "/divider"
+                        },
+                        {
+                            "name": "Fieldset",
+                            "routerLink": "/fieldset"
+                        },
+                        {
+                            "name": "Panel",
+                            "routerLink": "/panel"
+                        },
+                        {
+                            "name": "ScrollPanel",
+                            "routerLink": "/scrollpanel"
+                        },
+                        {
+                            "name": "Splitter",
+                            "routerLink": "/splitter"
+                        },
+                        {
+                            "name": "Stepper",
+                            "routerLink": "/stepper"
+                        },
+                        {
+                            "name": "Tabs",
+                            "routerLink": "/tabs"
+                        },
+                        {
+                            "name": "Toolbar",
+                            "routerLink": "/toolbar"
+                        }
+                    ]
+                },
+                {
+                    "name": "Overlay",
+                    "children": [
+                        {
+                            "name": "ConfirmDialog",
+                            "routerLink": "/confirmdialog"
+                        },
+                        {
+                            "name": "ConfirmPopup",
+                            "routerLink": "/confirmpopup"
+                        },
+                        {
+                            "name": "Dialog",
+                            "routerLink": "/dialog"
+                        },
+                        {
+                            "name": "Drawer",
+                            "routerLink": "/drawer"
+                        },
+                        {
+                            "name": "DynamicDialog",
+                            "routerLink": "/dynamicdialog"
+                        },
+                        {
+                            "name": "Popover",
+                            "routerLink": "/popover"
+                        },
+                        {
+                            "name": "Tooltip",
+                            "routerLink": "/tooltip"
+                        }
+                    ]
+                },
+                {
+                    "name": "File",
+                    "children": [
+                        {
+                            "name": "Upload",
+                            "routerLink": "/fileupload"
+                        }
+                    ]
+                },
+                {
+                    "name": "Menu",
+                    "children": [
+                        {
+                            "name": "Breadcrumb",
+                            "routerLink": "/breadcrumb"
+                        },
+                        {
+                            "name": "ContextMenu",
+                            "routerLink": "/contextmenu"
+                        },
+                        {
+                            "name": "Dock",
+                            "routerLink": "/dock"
+                        },
+                        {
+                            "name": "Menu",
+                            "routerLink": "/menu"
+                        },
+                        {
+                            "name": "Menubar",
+                            "routerLink": "/menubar"
+                        },
+                        {
+                            "name": "MegaMenu",
+                            "routerLink": "/megamenu"
+                        },
+                        {
+                            "name": "PanelMenu",
+                            "routerLink": "/panelmenu"
+                        },
+                        {
+                            "name": "Steps",
+                            "routerLink": "/steps"
+                        },
+                        {
+                            "name": "TieredMenu",
+                            "routerLink": "/tieredmenu"
+                        }
+                    ]
+                },
+                {
+                    "name": "Chart",
+                    "children": [
+                        {
+                            "name": "Chart.js",
+                            "routerLink": "/chart"
+                        }
+                    ]
+                },
+                {
+                    "name": "Messages",
+                    "children": [
+                        {
+                            "name": "Message",
+                            "routerLink": "/message"
+                        },
+                        {
+                            "name": "Toast",
+                            "routerLink": "/toast"
+                        }
+                    ]
+                },
+                {
+                    "name": "Media",
+                    "children": [
+                        {
+                            "name": "Carousel",
+                            "routerLink": "/carousel"
+                        },
+                        {
+                            "name": "Galleria",
+                            "routerLink": "/galleria"
+                        },
+                        {
+                            "name": "Image",
+                            "routerLink": "/image"
+                        }
+                    ]
+                },
+                {
+                    "name": "Misc",
+                    "children": [
+                        {
+                            "name": "AnimateOnScroll",
+                            "routerLink": "/animateonscroll"
+                        },
+                        {
+                            "name": "AutoFocus",
+                            "routerLink": "/autofocus"
+                        },
+                        {
+                            "name": "Avatar",
+                            "routerLink": "/avatar"
+                        },
+                        {
+                            "name": "Badge",
+                            "routerLink": "/badge"
+                        },
+                        {
+                            "name": "BlockUI",
+                            "routerLink": "/blockui"
+                        },
+                        {
+                            "name": "Chip",
+                            "routerLink": "/chip"
+                        },
+                        {
+                            "name": "FocusTrap",
+                            "routerLink": "/focustrap"
+                        },
+                        {
+                            "name": "Fluid",
+                            "routerLink": "/fluid"
+                        },
+                        {
+                            "name": "Inplace",
+                            "routerLink": "/inplace"
+                        },
+                        {
+                            "name": "MeterGroup",
+                            "routerLink": "/metergroup"
+                        },
+                        {
+                            "name": "ScrollTop",
+                            "routerLink": "/scrolltop"
+                        },
+                        {
+                            "name": "Skeleton",
+                            "routerLink": "/skeleton"
+                        },
+                        {
+                            "name": "ProgressBar",
+                            "routerLink": "/progressbar"
+                        },
+                        {
+                            "name": "ProgressSpinner",
+                            "routerLink": "/progressspinner"
+                        },
+                        {
+                            "name": "Ripple",
+                            "routerLink": "/ripple"
+                        },
+                        {
+                            "name": "StyleClass",
+                            "routerLink": "/styleclass"
+                        },
+                        {
+                            "name": "Tag",
+                            "routerLink": "/tag"
+                        },
+                        {
+                            "name": "Terminal",
+                            "routerLink": "/terminal"
+                        },
+                        {
+                            "name": "Defer",
+                            "routerLink": "/defer"
+                        }
+                    ]
+                },
+                {
+                    "name": "Utilities",
+                    "children": [
+                        {
+                            "name": "FilterService",
+                            "routerLink": "/filterservice"
+                        }
+                    ]
+                }
+            ]
+        },
+        {
+            "name": "Tailwind CSS",
+            "icon": "pi pi-heart",
+            "routerLink": "/tailwind"
+        },
+        {
+            "name": "Figma UI Kit",
+            "icon": "pi pi-pencil",
+            "href": "https://primeng.org/uikit"
+        },
+        {
+            "name": "Icons",
+            "icon": "pi pi-eye",
+            "children": [
+                {
+                    "name": "Prime Icons",
+                    "routerLink": "/icons"
+                },
+                {
+                    "name": "Custom Icons",
+                    "routerLink": "/customicons"
+                }
+            ]
+        },
+        {
+            "name": "Templates",
+            "icon": "pi pi-star",
+            "href": "https://primeng.org/templates"
+        },
+        {
+            "name": "PrimeBlocks",
+            "icon": "pi pi-server",
+            "href": "https://blocks.primeng.org"
+        },
+        {
+            "name": "Guides",
+            "icon": "pi pi-book",
+            "children": [
+                {
+                    "name": "Accessibility",
+                    "routerLink": "/guides/accessibility"
+                },
+                {
+                    "name": "Migration to V18",
+                    "routerLink": "/guides/migration"
+                },
+                {
+                    "name": "PrimeFlex",
+                    "routerLink": "/guides/primeflex"
+                },
+                {
+                    "name": "PrimeTV",
+                    "href": "https://www.youtube.com/channel/UCTgmp69aBOlLnPEqlUyetWw"
+                }
+            ]
+        },
+        {
+            "name": "Support",
+            "icon": "pi pi-question",
+            "children": [
+                {
+                    "name": "Discord Server",
+                    "href": "https://discord.gg/gzKFYnpmCY"
+                },
+                {
+                    "name": "Forum",
+                    "href": "https://github.com/orgs/primefaces/discussions"
+                },
+                {
+                    "name": "Long Term Support",
+                    "routerLink": "/lts"
+                },
+                {
+                    "name": "PRO Support",
+                    "routerLink": "/support"
+                }
+            ]
+        },
+        {
+            "name": "Contribution",
+            "to": "/contribution",
+            "icon": "pi pi-users",
+            "badge": "NEW"
+        },
+        {
+            "name": "Discover",
+            "icon": "pi pi-search",
+            "children": [
+                {
+                    "name": "About Us",
+                    "routerLink": "/team"
+                },
+                {
+                    "name": "Source Code",
+                    "href": "https://github.com/primefaces/primeng"
+                },
+                {
+                    "name": "Changelog",
+                    "href": "https://github.com/primefaces/primeng/blob/master/CHANGELOG.md"
+                },
+                {
+                    "name": "Store",
+                    "href": "https://www.primefaces.org/store/"
+                },
+                {
+                    "name": "Twitter",
+                    "href": "https://twitter.com/prime_ng"
+                },
+                {
+                    "name": "Newsletter",
+                    "href": "https://www.primefaces.org/newsletter"
+                },
+                {
+                    "name": "PrimeGear",
+                    "href": "https://gear.primefaces.org"
+                }
+            ]
+        }
+    ]
+}
