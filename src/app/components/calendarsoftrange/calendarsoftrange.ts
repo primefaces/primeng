@@ -51,12 +51,15 @@ export const CALENDAR_SOFT_RANGE_VALUE_ACCESSOR: any = {
                 [options]="optionsRangeSelectItems()"
                 (onChange)="onOptionRangeChange($event)"
                 [(ngModel)]="optionRange"
+                [variant]="variant"
+                [disabled]="disabled"
             ></p-dropdown>
             <div [ngClass]="{'p-calendarsoftrange-date-container': true}">
                 <button
                     type="button"
                     pButton
                     pRipple
+                    [disabled]="disabled"
                     [ngClass]="['p-calendarsoftrange-prev', prevButtonStyleClass]"
                     (click)="prevRange()"
                 >
@@ -67,6 +70,7 @@ export const CALENDAR_SOFT_RANGE_VALUE_ACCESSOR: any = {
                     type="button"
                     pButton
                     pRipple
+                    [disabled]="disabled"
                     [ngClass]="['p-calendarsoftrange-date', dateFormatedButtonStyleClass]"
                     (click)="openDatePanel($event)"
                 >
@@ -76,6 +80,7 @@ export const CALENDAR_SOFT_RANGE_VALUE_ACCESSOR: any = {
                     type="button"
                     pButton
                     pRipple
+                    [disabled]="disabled"
                     [ngClass]="['p-calendarsoftrange-next', nextButtonStyleClass]"
                     (click)="nextRange()"
                 >
@@ -89,6 +94,7 @@ export const CALENDAR_SOFT_RANGE_VALUE_ACCESSOR: any = {
                 selectionMode="range"
                 [inline]="true"
                 [selectOtherMonths]="true"
+                [disabled]="disabled"
                 [(ngModel)]="calendarValue"/>
 
             <p-divider></p-divider>
@@ -159,6 +165,12 @@ export class CalendarSoftRange implements OnInit, ControlValueAccessor, AfterVie
     @Input() cancelButtonStyleClass: string = 'p-button-text';
 
     /**
+     * Specifies the input variant of the component.
+     * @group Props
+     */
+    @Input() variant: 'filled' | 'outlined' = 'outlined';
+
+    /**
      * Callback to invoke on range select.
      * @param {Date} date - dates value.
      * @group Emits
@@ -166,6 +178,7 @@ export class CalendarSoftRange implements OnInit, ControlValueAccessor, AfterVie
     @Output() onSelect: EventEmitter<Date[]> = new EventEmitter<Date[]>();
 
     @ViewChild('overlayPanel') overlayPanel: OverlayPanel;
+
     @ViewChild('dateButton') dateButton: ElementRef;
 
     initialized: Nullable<boolean>;
@@ -340,80 +353,86 @@ export class CalendarSoftRange implements OnInit, ControlValueAccessor, AfterVie
     }
 
     prevRange(): void{
-        this.whenRangeIs(this.value(), {
-            dayle: () => {
-                const date: Date = new Date(this.value()[0]);
-                date.setDate(date.getDate() - 1);
-                this.updateModel([date, date]);
-            },
-            monthly: () => {
-                const date_0: Date = new Date(this.value()[0].getFullYear(), this.value()[0].getMonth() - 1, 1);
-                const date_1: Date = new Date(this.value()[1].getFullYear(), this.value()[1].getMonth(), 0);
+        if(!this.disabled){
+            this.whenRangeIs(this.value(), {
+                dayle: () => {
+                    const date: Date = new Date(this.value()[0]);
+                    date.setDate(date.getDate() - 1);
+                    this.updateModel([date, date]);
+                },
+                monthly: () => {
+                    const date_0: Date = new Date(this.value()[0].getFullYear(), this.value()[0].getMonth() - 1, 1);
+                    const date_1: Date = new Date(this.value()[1].getFullYear(), this.value()[1].getMonth(), 0);
 
-                this.updateModel([date_0, date_1]);
-            },
-            yearly: () => {
-                const date_0: Date = new Date(this.value()[0]);
-                date_0.setFullYear(date_0.getFullYear() - 1);
+                    this.updateModel([date_0, date_1]);
+                },
+                yearly: () => {
+                    const date_0: Date = new Date(this.value()[0]);
+                    date_0.setFullYear(date_0.getFullYear() - 1);
 
-                const date_1: Date = new Date(this.value()[1]);
-                date_1.setFullYear(date_1.getFullYear() - 1);
+                    const date_1: Date = new Date(this.value()[1]);
+                    date_1.setFullYear(date_1.getFullYear() - 1);
 
-                this.updateModel([date_0, date_1]);
-            },
-            custom: () => {
-                const intervalDays: number = this.getDiffDays(this.value()[0], this.value()[1]) + 1;
+                    this.updateModel([date_0, date_1]);
+                },
+                custom: () => {
+                    const intervalDays: number = this.getDiffDays(this.value()[0], this.value()[1]) + 1;
 
-                const date_0: Date = new Date(this.value()[0]);
-                date_0.setDate(date_0.getDate() - intervalDays);
+                    const date_0: Date = new Date(this.value()[0]);
+                    date_0.setDate(date_0.getDate() - intervalDays);
 
-                const date_1: Date = new Date(this.value()[1]);
-                date_1.setDate(date_1.getDate() - intervalDays);
+                    const date_1: Date = new Date(this.value()[1]);
+                    date_1.setDate(date_1.getDate() - intervalDays);
 
-                this.updateModel([date_0, date_1]);
-            }
-        });
+                    this.updateModel([date_0, date_1]);
+                }
+            });
+        }
     }
 
     nextRange(): void{
-        this.whenRangeIs(this.value(), {
-            dayle: () => {
-                const date: Date = new Date(this.value()[0]);
-                date.setDate(date.getDate() + 1);
-                this.updateModel([date, date]);
-            },
-            monthly: () => {
-                const date_0: Date = new Date(this.value()[0].getFullYear(), this.value()[0].getMonth() + 1, 1);
-                const date_1: Date = new Date(this.value()[1].getFullYear(), this.value()[1].getMonth() + 2, 0);
+        if(!this.disabled){
+            this.whenRangeIs(this.value(), {
+                dayle: () => {
+                    const date: Date = new Date(this.value()[0]);
+                    date.setDate(date.getDate() + 1);
+                    this.updateModel([date, date]);
+                },
+                monthly: () => {
+                    const date_0: Date = new Date(this.value()[0].getFullYear(), this.value()[0].getMonth() + 1, 1);
+                    const date_1: Date = new Date(this.value()[1].getFullYear(), this.value()[1].getMonth() + 2, 0);
 
-                this.updateModel([date_0, date_1]);
-            },
-            yearly: () => {
-                const date_0: Date = new Date(this.value()[0]);
-                date_0.setFullYear(date_0.getFullYear() + 1);
+                    this.updateModel([date_0, date_1]);
+                },
+                yearly: () => {
+                    const date_0: Date = new Date(this.value()[0]);
+                    date_0.setFullYear(date_0.getFullYear() + 1);
 
-                const date_1: Date = new Date(this.value()[1]);
-                date_1.setFullYear(date_1.getFullYear() + 1);
+                    const date_1: Date = new Date(this.value()[1]);
+                    date_1.setFullYear(date_1.getFullYear() + 1);
 
-                this.updateModel([date_0, date_1]);
-            },
-            custom: () => {
-                const intervalDays: number = this.getDiffDays(this.value()[0], this.value()[1]) + 1;
+                    this.updateModel([date_0, date_1]);
+                },
+                custom: () => {
+                    const intervalDays: number = this.getDiffDays(this.value()[0], this.value()[1]) + 1;
 
-                const date_0: Date = new Date(this.value()[0]);
-                date_0.setDate(date_0.getDate() + intervalDays);
+                    const date_0: Date = new Date(this.value()[0]);
+                    date_0.setDate(date_0.getDate() + intervalDays);
 
-                const date_1: Date = new Date(this.value()[1]);
-                date_1.setDate(date_1.getDate() + intervalDays);
+                    const date_1: Date = new Date(this.value()[1]);
+                    date_1.setDate(date_1.getDate() + intervalDays);
 
-                this.updateModel([date_0, date_1]);
-            }
-        });
+                    this.updateModel([date_0, date_1]);
+                }
+            });
+        }
     }
 
     openDatePanel(event: Event, target?: any): void{
-        this.calendarValue = this.value()
-        this.overlayPanel.show(event, target);
+        if(!this.disabled){
+            this.calendarValue = this.value()
+            this.overlayPanel.show(event, target);
+        }
     }
 
     applyDate(): void{
@@ -447,6 +466,8 @@ export class CalendarSoftRange implements OnInit, ControlValueAccessor, AfterVie
         const oneDayInMilliseconds = 24 * 60 * 60 * 1000;
         return Math.floor(diffInMilliseconds / oneDayInMilliseconds)
     }
+
+    protected readonly decodeURI = decodeURI;
 }
 
 @NgModule({
