@@ -1,0 +1,16 @@
+{
+    "extends": "../../tsconfig.json",
+    "angularCompilerOptions": {
+        "disableTypeScriptVersionCheck": true,
+        "fullTemplateTypeCheck": false,
+        "annotateForClosureCompiler": false,
+        "strictTemplates": false,
+        "strictMetadataEmit": true,
+        "skipTemplateCodegen": true,
+        "enableI18nLegacyMessageIdFormat": false,
+        "strictInjectionParameters": true,
+        "strictInputAccessModifiers": true,
+        "flatModuleOutFile": "primeng.js",
+        "flatModuleId": "primeng"
+    }
+}
