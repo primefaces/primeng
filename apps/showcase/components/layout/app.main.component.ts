@@ -1,6 +1,6 @@
 import { AppConfigService } from '@/service/appconfigservice';
 import { CommonModule } from '@angular/common';
-import { Component, inject } from '@angular/core';
+import { Component, computed, inject } from '@angular/core';
 import { RouterOutlet } from '@angular/router';
 import { PrimeNG } from 'primeng/config';
 import { DomHandler } from 'primeng/dom';
@@ -8,14 +8,15 @@ import { AppFooterComponent } from './footer/app.footer.component';
 import { AppMenuComponent } from './menu/app.menu.component';
 import { AppNewsComponent } from './news/app.news.component';
 import { AppTopBarComponent } from './topbar/app.topbar.component';
+import { AppDesignerComponent } from '@/components/layout/designer/app.designer.component';
 
 @Component({
     selector: 'app-main',
     template: `
-        <div class="layout-wrapper" [ngClass]="containerClass">
+        <div class="layout-wrapper" [ngClass]="containerClass()">
             <app-news />
             <app-topbar />
-            <div class="layout-mask" [ngClass]="{ 'layout-mask-active': isMenuActive }" (click)="hideMenu()"></div>
+            <div class="layout-mask" [ngClass]="{ 'layout-mask-active': isMenuActive() }" (click)="hideMenu()"></div>
             <div class="layout-content">
                 <app-menu />
                 <div class="layout-content-slot">
@@ -23,38 +24,31 @@ import { AppTopBarComponent } from './topbar/app.topbar.component';
                 </div>
             </div>
             <app-footer />
+            <app-designer />
         </div>
     `,
     standalone: true,
-    imports: [RouterOutlet, AppFooterComponent, CommonModule, AppNewsComponent, AppMenuComponent, AppTopBarComponent]
+    imports: [RouterOutlet, AppDesignerComponent, AppFooterComponent, CommonModule, AppNewsComponent, AppMenuComponent, AppTopBarComponent]
 })
 export class AppMainComponent {
     configService: AppConfigService = inject(AppConfigService);
 
-    config: PrimeNG = inject(PrimeNG);
+    primeng: PrimeNG = inject(PrimeNG);
 
-    get isNewsActive(): boolean {
-        return this.configService.state.newsActive;
-    }
+    isNewsActive = computed(() => this.configService.newsActive());
 
-    get isDarkMode(): boolean {
-        return this.configService.appState().darkTheme;
-    }
+    isMenuActive = computed(() => this.configService.appState().menuActive);
 
-    get isRippleDisabled(): boolean {
-        return this.config.ripple() === false;
-    }
+    isDarkMode = computed(() => this.configService.appState().isDarkMode);
 
-    get isMenuActive(): boolean {
-        return this.configService.state.menuActive;
-    }
+    isRippleDisabled = computed(() => this.primeng.ripple());
 
-    get containerClass() {
+    containerClass = computed(() => {
         return {
-            'layout-news-active': this.isNewsActive
+            'layout-news-active': this.isNewsActive()
             // 'p-ripple-disabled': this.isRippleDisabled,
         };
-    }
+    });
 
     hideMenu() {
         this.configService.hideMenu();

@@ -1,6 +1,6 @@
-<div class="landing" [ngClass]="landingClass">
+<div class="landing" [ngClass]="landingClass()">
     <app-news />
-    <app-topbar showConfigurator [showMenuButton]="false" />
+    <app-topbar [showConfigurator]="true" [showMenuButton]="false" />
     <hero-section />
     <features-section />
     <users-section />

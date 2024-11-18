@@ -28,13 +28,13 @@ export class AppNewsComponent {
                 const item = JSON.parse(itemString);
 
                 if (!item.hiddenNews || item.hiddenNews !== News.id) {
-                    this.configService.state.newsActive = true;
+                    this.configService.newsActive.set(true);
                     this.announcement = News;
                 } else {
-                    this.configService.state.newsActive = false;
+                    this.configService.newsActive.set(false);
                 }
             } else {
-                this.configService.state.newsActive = true;
+                this.configService.newsActive.set(true);
                 this.announcement = News;
             }
             this.cd.markForCheck();
@@ -42,7 +42,7 @@ export class AppNewsComponent {
     }
 
     get isNewsActive(): boolean {
-        return this.configService.state.newsActive;
+        return this.configService.newsActive();
     }
 
     hideNews() {

@@ -6,20 +6,18 @@ import { computed, effect, inject, Injectable, PLATFORM_ID, signal } from '@angu
     providedIn: 'root'
 })
 export class AppConfigService {
-    state: AppState = {
-        configActive: false,
-        menuActive: false,
-        newsActive: false,
-        designerKey: 'primeng-designer-theme',
-        designerActive: false
-    };
-
     appState = signal<any>({
         preset: 'Aura',
         primary: 'noir',
         surface: 'slate',
-        darkTheme: false
+        darkTheme: false,
+        menuActive: false,
+        designerKey: 'primeng-designer-theme'
     });
+
+    designerActive = signal(false);
+
+    newsActive = signal(false);
 
     document = inject(DOCUMENT);
 
@@ -41,35 +39,33 @@ export class AppConfigService {
         });
     }
 
-    showMenu() {
-        this.state.menuActive = true;
-    }
-
     hideMenu() {
-        this.state.menuActive = false;
+        this.appState.update((state) => ({
+            ...state,
+            menuActive: false
+        }));
     }
 
-    showConfig() {
-        this.state.configActive = true;
-    }
-
-    hideConfig() {
-        this.state.configActive = false;
-    }
-
-    showNews() {
-        this.state.newsActive = true;
+    showMenu() {
+        this.appState.update((state) => ({
+            ...state,
+            menuActive: true
+        }));
     }
 
     hideNews() {
-        this.state.newsActive = false;
+        this.newsActive.set(false);
+    }
+
+    showNews() {
+        this.newsActive.set(true);
     }
 
     showDesigner() {
-        this.state.designerActive = true;
+        this.designerActive.set(true);
     }
 
     hideDesigner() {
-        this.state.designerActive = false;
+        this.designerActive.set(false);
     }
 }

@@ -29,7 +29,7 @@ const presets = {
             <div class="config-panel-colors">
                 <span class="config-panel-label">Primary</span>
                 <div>
-                    @for (primaryColor of primaryColors(); track primaryColor) {
+                    @for (primaryColor of primaryColors(); track primaryColor.name) {
                         <button
                             type="button"
                             [title]="primaryColor.name"
@@ -46,7 +46,7 @@ const presets = {
             <div class="config-panel-colors">
                 <span class="config-panel-label">Surface</span>
                 <div>
-                    @for (surface of surfaces; track surface) {
+                    @for (surface of surfaces; track surface.name) {
                         <button
                             type="button"
                             [title]="surface.name"

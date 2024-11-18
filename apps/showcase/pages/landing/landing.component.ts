@@ -2,7 +2,7 @@ import { AppNewsComponent } from '@/components/layout/news/app.news.component';
 import { AppTopBarComponent } from '@/components/layout/topbar/app.topbar.component';
 import { AppConfigService } from '@/service/appconfigservice';
 import { CommonModule, NgOptimizedImage } from '@angular/common';
-import { Component, OnInit } from '@angular/core';
+import { Component, computed, OnInit } from '@angular/core';
 import { Meta, Title } from '@angular/platform-browser';
 import { Subscription } from 'rxjs';
 import { BlockSectionComponent } from './blocksection.component';
@@ -22,27 +22,23 @@ import { UsersSectionComponent } from './userssection.component';
 export class LandingComponent implements OnInit {
     subscription!: Subscription;
 
+    isNewsActive = computed(() => this.configService.newsActive());
+
+    isDarkMode = computed(() => this.configService.appState().darkTheme);
+
+    landingClass = computed(() => {
+        return {
+            'layout-dark': this.isDarkMode(),
+            'layout-light': !this.isDarkMode(),
+            'layout-news-active': this.isNewsActive()
+        };
+    });
+
     constructor(
         private configService: AppConfigService,
         private metaService: Meta,
         private titleService: Title
     ) {}
-
-    get landingClass() {
-        return {
-            'layout-dark': this.isDarkMode,
-            'layout-light': !this.isDarkMode,
-            'layout-news-active': this.isNewsActive
-        };
-    }
-
-    get isDarkMode() {
-        return this.configService.appState().darkTheme;
-    }
-
-    get isNewsActive() {
-        return this.configService.state.newsActive;
-    }
 
     ngOnInit() {
         this.titleService.setTitle('PrimeNG - Angular UI Component Library');
