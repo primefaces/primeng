@@ -1302,7 +1302,7 @@ export class Tree implements OnInit, AfterContentInit, OnChanges, OnDestroy, Blo
                     level: level,
                     visible: visible && (parent ? parent.expanded : true),
                     lastChild: index === nodes.length - 1,
-                    index: index,
+                    index: index
                 };
                 (this.serializedValue as TreeNode<any>[]).push(<TreeNode>rowNode);
 
@@ -1642,7 +1642,7 @@ export class Tree implements OnInit, AfterContentInit, OnChanges, OnDestroy, Blo
         }
     }
 
-    allowDrop(dragNode: TreeNode, dropNode: TreeNode<any> | null, dragNodeScope: any, dropPoint: 'node'|'between' = 'node'): boolean {
+    allowDrop(dragNode: TreeNode, dropNode: TreeNode<any> | null, dragNodeScope: any, dropPoint: 'node' | 'between' = 'node'): boolean {
         if (!dragNode) {
             //prevent random html elements to be dragged
             return false;
