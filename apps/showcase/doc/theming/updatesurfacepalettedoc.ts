@@ -11,7 +11,7 @@ import { Component } from '@angular/core';
 })
 export class UpdateSurfacePaletteDoc {
     code = {
-        typescript: `import { updateSurfacePalette } from 'primeng/themes';
+        typescript: `import { updateSurfacePalette } from '@primeng/themes';
 
 const changeSurfaces() {
     //changes surfaces both in light and dark mode

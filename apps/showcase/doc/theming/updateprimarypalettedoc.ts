@@ -11,7 +11,7 @@ import { Component } from '@angular/core';
 })
 export class UpdatePrimaryPaletteDoc {
     code = {
-        typescript: `import { updatePrimaryPalette } from 'primeng/themes';
+        typescript: `import { updatePrimaryPalette } from '@primeng/themes';
 ...
 const changePrimaryColor() {
     updatePrimaryPalette({

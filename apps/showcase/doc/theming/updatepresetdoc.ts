@@ -11,7 +11,7 @@ import { Component } from '@angular/core';
 })
 export class UpdatePresetDoc {
     code = {
-        typescript: `import { updatePreset } from 'primeng/themes';
+        typescript: `import { updatePreset } from '@primeng/themes';
 ...
 const changePrimaryColor() {
     updatePreset({
