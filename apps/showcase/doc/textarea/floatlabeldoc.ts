@@ -70,7 +70,7 @@ export class FloatlabelDoc {
 </div>`,
 
         typescript: `import { Component } from '@angular/core';
-import { Textarea } from 'primeng/textearea';;
+import { TextareaModule } from 'primeng/textarea;
 import { FormsModule } from '@angular/forms';
 import { FloatLabel } from 'primeng/floatlabel';
 
@@ -78,7 +78,7 @@ import { FloatLabel } from 'primeng/floatlabel';
     selector: ': 'input-textarea-floatlabel-demo',
     templateUrl: './: 'input-textarea-floatlabel-demo.html',
     standalone: true,
-    imports: [FormsModule, Textarea, FloatLabel]
+    imports: [FormsModule, TextareaModule, FloatLabel]
 })
 export class TextareaFloatlabelDemo {
     value1: string = '';
