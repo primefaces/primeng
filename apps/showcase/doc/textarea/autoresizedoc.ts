@@ -22,14 +22,14 @@ export class AutoResizeDoc {
 </div>`,
 
         typescript: `import { Component } from '@angular/core';
-import { Textarea } from 'primeng/textearea';;
+import { TextareaModule } from 'primeng/textarea;
 import { FormsModule } from '@angular/forms';
 
 @Component({
     selector: 'input-textarea-auto-resize-demo',
     templateUrl: './input-textarea-auto-resize-demo.html',
     standalone: true,
-    imports: [FormsModule, Textarea]
+    imports: [FormsModule, TextareaModule]
 })
 export class InputTextareaAutoResizeDemo {
 }`

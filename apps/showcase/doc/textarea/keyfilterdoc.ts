@@ -32,14 +32,14 @@ export class KeyfilterDoc {
 </div>`,
 
         typescript: `import { Component } from '@angular/core';
-import { Textarea } from 'primeng/textearea';;
+import { TextareaModule } from 'primeng/textarea;
 import { FormsModule } from '@angular/forms';
 
 @Component({
     selector:'input-textarea-key-filter-demo',
     templateUrl: './input-textarea-key-filter-demo.html',
     standalone: true,
-    imports: [FormsModule, Textarea]
+    imports: [FormsModule, TextareaModule]
 })
 export class InputTextareaKeyFilterDemo {
 }`
