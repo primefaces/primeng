@@ -224,19 +224,19 @@ export class ScrollPanel implements AfterViewInit, AfterContentInit, OnDestroy {
             let ownWidth = content.clientWidth;
             let bottom = (container.clientHeight - xBar.clientHeight) * -1;
             this.scrollXRatio = ownWidth / totalWidth;
-    
+
             /* vertical scroll */
             let totalHeight = content.scrollHeight;
             let ownHeight = content.clientHeight;
             let right = (container.clientWidth - yBar.clientWidth) * -1;
             this.scrollYRatio = ownHeight / totalHeight;
 
-            return {totalWidth, ownWidth, bottom, totalHeight, ownHeight, right};
-        };
+            return { totalWidth, ownWidth, bottom, totalHeight, ownHeight, right };
+        }
 
         this.requestAnimationFrame(() => {
-            let {totalWidth, ownWidth, bottom, totalHeight, ownHeight, right} = computeBarPosition.call(this);
-            
+            let { totalWidth, ownWidth, bottom, totalHeight, ownHeight, right } = computeBarPosition.call(this);
+
             if ((this.scrollXRatio as number) >= 1) {
                 xBar.setAttribute('data-p-scrollpanel-hidden', 'true');
                 DomHandler.addClass(xBar, 'p-scrollpanel-hidden');
