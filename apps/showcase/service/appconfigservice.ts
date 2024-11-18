@@ -9,7 +9,9 @@ export class AppConfigService {
     state: AppState = {
         configActive: false,
         menuActive: false,
-        newsActive: false
+        newsActive: false,
+        designerKey: 'primeng-designer-theme',
+        designerActive: false
     };
 
     appState = signal<any>({
@@ -61,5 +63,13 @@ export class AppConfigService {
 
     hideNews() {
         this.state.newsActive = false;
+    }
+
+    showDesigner() {
+        this.state.designerActive = true;
+    }
+
+    hideDesigner() {
+        this.state.designerActive = false;
     }
 }

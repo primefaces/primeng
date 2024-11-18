@@ -18,7 +18,6 @@ import { AppConfiguratorComponent } from './configurator/app.configurator.compon
 import { AppMenuComponent } from './menu/app.menu.component';
 import { AppNewsComponent } from './news/app.news.component';
 import { AppTopBarComponent } from './topbar/app.topbar.component';
-
 @Component({
     selector: 'app-root',
     template: ` <router-outlet></router-outlet>`,

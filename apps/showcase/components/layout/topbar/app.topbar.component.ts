@@ -53,6 +53,14 @@ export class AppTopBarComponent implements OnDestroy {
         }
     }
 
+    toggleDesigner() {
+        if (this.configService.state.designerActive) {
+            this.configService.hideDesigner();
+        } else {
+            this.configService.showDesigner();
+        }
+    }
+
     showConfig() {
         this.configService.showConfig();
     }

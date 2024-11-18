@@ -3,4 +3,6 @@ export interface AppState {
     menuActive?: boolean;
     newsActive?: boolean;
     announcement?: any;
+    designerKey?: string;
+    designerActive?: boolean;
 }
