@@ -8,7 +8,7 @@ const fs = require('fs');
 const rootDir = path.resolve(__dirname, '../');
 //@ts-ignore
 const outputPath = path.resolve(rootDir, '@/doc/apidoc');
-
+// packages/primeng/
 const staticMessages = {
     methods: "Defines methods that can be accessed by the component's reference.",
     emits: 'Defines emit that determine the behavior of the component based on a given condition or report the actions that the component takes.',
@@ -25,7 +25,7 @@ async function main() {
     const app = await TypeDoc.Application.bootstrapWithPlugins({
         // typedoc options here
         name: 'PrimeNG',
-        entryPoints: [`src/app/components/`],
+        entryPoints: [`packages/primeng/src/`],
         entryPointStrategy: 'expand',
         hideGenerator: true,
         excludeExternals: true,
@@ -34,7 +34,7 @@ async function main() {
         disableSources: false,
         logLevel: 'Error',
         sort: ['source-order'],
-        exclude: ['node_modules', 'src/app/components/**/*spec.ts', 'src/app/components/**/*public_api.ts']
+        exclude: ['node_modules', 'packages/primeng/src/**/*spec.ts', 'packages/primeng/src/**/*public_api.ts']
     });
 
     const project = await app.convert();
