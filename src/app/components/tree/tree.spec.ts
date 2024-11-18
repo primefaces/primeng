@@ -290,4 +290,36 @@ describe('Tree', () => {
         expect(tree.filteredNodes).toBeTruthy();
         expect(tree.filteredNodes.length).toEqual(2);
     });
+
+    it('should select nodes by reference', () => {
+        // <p-tree selectionMode="single" [value]="[root]" [selection]="root" />
+
+        const root = {key: undefined, label: '(root)'};
+        tree.selectionMode = 'single';
+        tree.value = [root];
+
+        tree.selection = root;
+        fixture.detectChanges();
+        expect(fixture.debugElement.query(By.css('.p-highlight'))).toBeTruthy();
+
+        tree.selection = undefined;
+        fixture.detectChanges();
+        expect(fixture.debugElement.query(By.css('.p-highlight'))).toBeFalsy();
+    });
+
+    it('should select nodes by key (even if key is empty!)', () => {
+        // <p-tree selectionMode="single" [value]="[root]" [selection]="{key: root.key, label: root.label}" />
+
+        const root = {key: '', label: '(root)'};
+        tree.selectionMode = 'single';
+        tree.value = [root];
+
+        tree.selection = {key: root.key, label: root.label};
+        fixture.detectChanges();
+        expect(fixture.debugElement.query(By.css('.p-highlight'))).toBeTruthy();
+
+        tree.selection = {key: 'non-' + root.key, label: root.label};
+        fixture.detectChanges();
+        expect(fixture.debugElement.query(By.css('.p-highlight'))).toBeFalsy();
+    });
 });
