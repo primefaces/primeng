@@ -5,9 +5,9 @@ const path = require('path');
 //@ts-ignore
 const fs = require('fs');
 //@ts-ignore
-const rootDir = path.resolve(__dirname, '../');
+const rootDir = path.resolve(__dirname, '../../../packages/primeng');
 //@ts-ignore
-const outputPath = path.resolve(rootDir, '@/doc/apidoc');
+const outputPath = path.resolve(rootDir, 'src/apidoc');
 // packages/primeng/
 const staticMessages = {
     methods: "Defines methods that can be accessed by the component's reference.",
@@ -25,7 +25,7 @@ async function main() {
     const app = await TypeDoc.Application.bootstrapWithPlugins({
         // typedoc options here
         name: 'PrimeNG',
-        entryPoints: [`packages/primeng/src/`],
+        entryPoints: [`src`],
         entryPointStrategy: 'expand',
         hideGenerator: true,
         excludeExternals: true,
@@ -34,7 +34,7 @@ async function main() {
         disableSources: false,
         logLevel: 'Error',
         sort: ['source-order'],
-        exclude: ['node_modules', 'packages/primeng/src/**/*spec.ts', 'packages/primeng/src/**/*public_api.ts']
+        exclude: ['node_modules', 'src/**/*spec.ts', 'src/**/*public_api.ts']
     });
 
     const project = await app.convert();
