@@ -243,6 +243,7 @@ export class AppDesignerComponent {
             semantic: presets['Aura'].semantic
         };
         this.generateACTokens(null, this.preset);
+        this.replaceColorPalette();
         this.designerService.setPreset(this.preset);
         this.designerService.setAcTokens(this.acTokens);
     }
@@ -422,9 +423,6 @@ export class AppDesignerComponent {
     }
     download() {
         const basePreset = this.configService.appState().preset;
-        console.log(basePreset);
-
-        const theme = JSON.stringify(this.preset, null, 4).replace(/"([^"]+)":/g, '$1:');
         const textContent = `import { ApplicationConfig } from '@angular/core';
 import { provideAnimationsAsync } from '@angular/platform-browser/animations/async';
 import { providePrimeNG } from 'primeng/config';
