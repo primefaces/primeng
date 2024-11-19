@@ -38,7 +38,7 @@ import { UniqueComponentId } from 'primeng/utils';
             > -->
             <p-autocomplete [(ngModel)]="modelValue" [inputId]="inputId" [suggestions]="items" (onSelect)="onOptionSelect($event)" optionLabel="label" [showEmptyMessage]="false" (completeMethod)="search($event)" (onKeyUp)="onInput($event)">
                 <ng-template #item let-option>
-                    <div [pTooltip]="option.value" tooltipPosition="left" class="flex items-center justify-between gap-4 px-2">
+                    <div [pTooltip]="getTooltipData(option)" tooltipPosition="left" class="w-full flex items-center justify-between gap-4 px-2">
                         <span>{{ option.token }}</span>
                         @if (option.isColor) {
                             <div class="border border-surface-200 dark:border-surface-700 w-4 h-4 rounded-full" [style]="{ backgroundColor: option.variable }"></div>
@@ -72,23 +72,26 @@ export class DesignTokenField {
 
     private designerService = inject(DesignerService);
 
+    getTooltipData(option) {
+        return typeof option.value !== 'object' && option.value;
+    }
+
     get inputId() {
         return this.id + '_input';
     }
 
     get previewColor() {
         const tokenValue = typeof this.modelValue === 'object' ? this.modelValue.label : this.modelValue;
-
         return tokenValue && tokenValue.trim().length && tokenValue.startsWith('{') && tokenValue.endsWith('}') ? $dt(tokenValue).variable : tokenValue;
     }
 
     onOptionSelect(event) {
-        // this.$emit('update:modelValue', event.value.label);
+        this.modelValue = event.value.label;
         event.originalEvent.stopPropagation();
     }
 
     onInput(event) {
-        // this.$emit('update:modelValue', event.target.value);
+        this.modelValue = event.target.value;
     }
 
     search(event) {

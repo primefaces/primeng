@@ -89,7 +89,6 @@ const presets = {
                                 <p-tag value="PRO" severity="contrast"></p-tag>
                             </div>
                             <span class="text-muted-color leading-6">Export the token studio json file and import to the Visual Editor. This feature is currently under development.</span>
-                            <!-- <p-fileupload mode="basic" disabled pt:root:class="!justify-start" />  -->
                             <p-fileupload mode="basic" disabled styleClass="!justify-start" />
                         </div>
                     </div>
@@ -244,6 +243,8 @@ export class AppDesignerComponent {
         };
         this.generateACTokens(null, this.preset);
         this.replaceColorPalette();
+        this.preset.semantic.colorScheme.light.surface = { ...{ 0: '#ffffff' }, ...this.preset.primitive.slate };
+        this.preset.semantic.colorScheme.dark.surface = { ...{ 0: '#ffffff' }, ...this.preset.primitive.zinc };
         this.designerService.setPreset(this.preset);
         this.designerService.setAcTokens(this.acTokens);
     }
