@@ -1,64 +1,19 @@
-// import { DOCUMENT, isPlatformBrowser } from '@angular/common';
-// import { computed, effect, inject, Injectable, PLATFORM_ID, signal } from '@angular/core';
+import { DOCUMENT, isPlatformBrowser } from '@angular/common';
+import { computed, effect, inject, Injectable, PLATFORM_ID, signal } from '@angular/core';
 
-// @Injectable({
-//     providedIn: 'root'
-// })
-// export class DesignerService {
-//     state = {
-//         configActive: false,
-//         menuActive: false,
-//         newsActive: false
-//     };
+@Injectable({
+    providedIn: 'root'
+})
+export class DesignerService {
+    preset = signal({ primitive: null, semantic: null });
 
-//     appState = signal<any>({
-//         preset: 'Aura',
-//         primary: 'noir',
-//         surface: 'slate',
-//         darkTheme: false
-//     });
+    acTokens = signal([]);
 
-//     document = inject(DOCUMENT);
+    setPreset(preset) {
+        this.preset.set(preset);
+    }
 
-//     platformId = inject(PLATFORM_ID);
-
-//     theme = computed(() => (this.appState().darkTheme ? 'dark' : 'light'));
-
-//     constructor() {
-//         effect(() => {
-//             const state = this.appState();
-
-//             if (isPlatformBrowser(this.platformId)) {
-//                 if (state.darkTheme) {
-//                     this.document.documentElement.classList.add('p-dark');
-//                 } else {
-//                     this.document.documentElement.classList.remove('p-dark');
-//                 }
-//             }
-//         });
-//     }
-
-//     showMenu() {
-//         this.state.menuActive = true;
-//     }
-
-//     hideMenu() {
-//         this.state.menuActive = false;
-//     }
-
-//     showConfig() {
-//         this.state.configActive = true;
-//     }
-
-//     hideConfig() {
-//         this.state.configActive = false;
-//     }
-
-//     showNews() {
-//         this.state.newsActive = true;
-//     }
-
-//     hideNews() {
-//         this.state.newsActive = false;
-//     }
-// }
+    setAcTokens(token) {
+        this.acTokens.set(token);
+    }
+}
