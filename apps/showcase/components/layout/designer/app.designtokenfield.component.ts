@@ -15,27 +15,6 @@ import { UniqueComponentId } from 'primeng/utils';
     template: ` <div>
         <label [for]="inputId" class="text-sm text-zinc-700 dark:text-white">{{ label }}</label>
         <div [id]="id" class="relative">
-            <!-- <AutoComplete
-                :modelValue="modelValue"
-                @input="onInput"
-                :inputId="inputId"
-                :suggestions="items"
-                @complete="search"
-                unstyled
-                optionLabel="label"
-                :showEmptyMessage="false"
-                :pt="{
-              pcInputText: {
-                  root: ['border border-surface-300 dark:border-surface-600 rounded-lg py-2 px-2 w-full', { 'pr-8': type === 'color' }]
-              },
-              overlay: 'border border-surface-200 dark:border-surface-700 bg-surface-0 dark:bg-surface-950 shadow-2 rounded-md',
-              listContainer: 'max-h-40 overflow-auto',
-              list: 'm-0 py-2 px-2 list-none',
-              loader: 'hidden',
-              option: 'cursor-pointer py-1 text-sm text-surface-700 dark:text-white/80 data-[p-focus=true]:bg-surface-100 data-[p-focus=true]:dark:bg-surface-800 rounded-md'
-          }"
-                @option-select="onOptionSelect"
-            > -->
             <p-autocomplete [(ngModel)]="modelValue" [inputId]="inputId" [suggestions]="items" (onSelect)="onOptionSelect($event)" optionLabel="label" [showEmptyMessage]="false" (completeMethod)="search($event)" (onKeyUp)="onInput($event)">
                 <ng-template #item let-option>
                     <div [pTooltip]="getTooltipData(option)" tooltipPosition="left" class="w-full flex items-center justify-between gap-4 px-2">

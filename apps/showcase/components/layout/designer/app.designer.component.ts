@@ -243,8 +243,6 @@ export class AppDesignerComponent {
         };
         this.generateACTokens(null, this.preset);
         this.replaceColorPalette();
-        this.preset.semantic.colorScheme.light.surface = { ...{ 0: '#ffffff' }, ...this.preset.primitive.slate };
-        this.preset.semantic.colorScheme.dark.surface = { ...{ 0: '#ffffff' }, ...this.preset.primitive.zinc };
         this.designerService.setPreset(this.preset);
         this.designerService.setAcTokens(this.acTokens);
     }
