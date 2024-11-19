@@ -23,3 +23,12 @@ jobs:
           issue-number: ${{ github.event.issue.number }}
           body: |
             We're unable to replicate your issue, if you are able to create a reproducer by using [PrimeNG Issue Template](https://stackblitz.com/github/primefaces/primeng-issue-template) or add details please edit this issue. This issue will be closed if no activities in 20 days.
+      - name: Needs Upvote
+        if: "${{ github.event.label.name == 'Resolution: Needs Upvote :+1:'}}"
+        uses: actions-cool/issues-helper@v3
+        with:
+          actions: 'create-comment'
+          token: ${{ secrets.GITHUB_TOKEN }}
+          issue-number: ${{ github.event.issue.number }}
+          body: |
+             Thanks a lot for this issue! PrimeNG team's roadmap is busy, but community feedback is crucial in prioritization. The more upvotes help ensure this fix can be addressed quickly or the related PR can be merged soon.
