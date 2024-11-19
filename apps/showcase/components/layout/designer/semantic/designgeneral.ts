@@ -51,7 +51,7 @@ import { DesignColorPalette } from '../app.designcolorpalette.component';
                 <design-token-field [modelValue]="designerService.preset()?.semantic.focusRing.style" label="Style" />
             </div>
             <div class="flex flex-col gap-1">
-                <design-token-field [modelValue]="designerService.preset()?.semantic.focusRing.color" label="Color" type="color" />
+                <design-token-field [modelValue]="designerService.preset()?.semantic.focusRing.color" label="Color" [type]="'color'" />
             </div>
             <div class="flex flex-col gap-1">
                 <design-token-field [modelValue]="designerService.preset()?.semantic.focusRing.offset" label="Offset" />

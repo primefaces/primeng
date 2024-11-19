@@ -15,7 +15,7 @@ import Material from '@primeng/themes/material';
 import Nora from '@primeng/themes/nora';
 import { PrimeNG } from 'primeng/config';
 import { FormsModule } from '@angular/forms';
-import { $dt, updatePreset, usePreset } from '@primeng/themes';
+import { $dt, palette, updatePreset, usePreset } from '@primeng/themes';
 import { MessageService } from 'primeng/api';
 import { FileUploadModule } from 'primeng/fileupload';
 import { DesignBorderRadius } from './primitive/designborderradius';
@@ -130,12 +130,12 @@ const presets = {
                                     <p-tabpanels class="!px-0">
                                         <p-tabpanel value="cs-0">
                                             <form (keydown)="onKeyDown($event)">
-                                                <design-cs [value]="preset.semantic.colorScheme.light" />
+                                                <design-cs [value]="designerService.preset().semantic.colorScheme.light" />
                                             </form>
                                         </p-tabpanel>
                                         <p-tabpanel value="cs-1">
                                             <form (keydown)="onKeyDown($event)">
-                                                <design-cs [value]="preset.semantic.colorScheme.dark" />
+                                                <design-cs [value]="designerService.preset().semantic.colorScheme.dark" />
                                             </form>
                                         </p-tabpanel>
                                     </p-tabpanels>
@@ -217,7 +217,7 @@ const presets = {
 export class AppDesignerComponent {
     private configService = inject(AppConfigService);
 
-    private designerService = inject(DesignerService);
+    public designerService = inject(DesignerService);
 
     private messageService = inject(MessageService);
 
@@ -419,5 +419,45 @@ export class AppDesignerComponent {
             this.apply();
             event.preventDefault();
         }
+    }
+    download() {
+        const basePreset = this.configService.appState().preset;
+        console.log(basePreset);
+
+        const theme = JSON.stringify(this.preset, null, 4).replace(/"([^"]+)":/g, '$1:');
+        const textContent = `import { ApplicationConfig } from '@angular/core';
+import { provideAnimationsAsync } from '@angular/platform-browser/animations/async';
+import { providePrimeNG } from 'primeng/config';
+import ${basePreset} from "@primeng/themes/${basePreset.toLowerCase()}";
+
+export const appConfig: ApplicationConfig = {
+    providers: [
+        provideAnimationsAsync(),
+        providePrimeNG({
+            theme: {
+               preset: ${basePreset}
+                options: {
+                    prefix: 'p',
+                    darkModeSelector: 'system',
+                    cssLayer: false
+                }
+            }
+        })
+    ]
+};
+`;
+        const blob = new Blob([textContent], { type: 'text/plain' });
+
+        const url = URL.createObjectURL(blob);
+
+        const a = document.createElement('a');
+
+        a.href = url;
+        a.download = 'mytheme.js';
+        document.body.appendChild(a);
+        a.click();
+
+        document.body.removeChild(a);
+        URL.revokeObjectURL(url);
     }
 }
