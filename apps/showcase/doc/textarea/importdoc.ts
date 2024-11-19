@@ -7,6 +7,6 @@ import { Component } from '@angular/core';
 })
 export class ImportDoc {
     code: Code = {
-        typescript: `import { Textarea } from 'primeng/textearea';;`
+        typescript: `import { TextareaModule } from 'primeng/textarea;`
     };
 }

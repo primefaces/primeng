@@ -624,7 +624,7 @@ import { ToastModule } from 'primeng/toast';
 import { ToolbarModule } from 'primeng/toolbar';
 import { ConfirmDialog } from 'primeng/confirmdialog';
 import { InputTextModule } from 'primeng/inputtext';
-import { Textarea } from 'primeng/textearea';;
+import { TextareaModule } from 'primeng/textarea;
 import { CommonModule } from '@angular/common';
 import { FileUpload } from 'primeng/fileupload';
 import { DropdownModule } from 'primeng/dropdown';
@@ -638,7 +638,7 @@ import { InputNumber } from 'primeng/inputnumber';
     selector: 'table-products-demo',
     templateUrl: 'table-products-demo.html',
     standalone: true,
-    imports: [TableModule, Dialog, Ripple, ButtonModule, ToastModule, ToolbarModule, ConfirmDialog, InputTextModule, Textarea, CommonModule, FileUpload, DropdownModule, Tag, RadioButton, Rating, InputTextModule, FormsModule, InputNumber],
+    imports: [TableModule, Dialog, Ripple, ButtonModule, ToastModule, ToolbarModule, ConfirmDialog, InputTextModule, TextareaModule, CommonModule, FileUpload, DropdownModule, Tag, RadioButton, Rating, InputTextModule, FormsModule, InputNumber],
     providers: [MessageService, ConfirmationService, ProductService],
     styles: [
         \`:host ::ng-deep .p-dialog .product-image {
