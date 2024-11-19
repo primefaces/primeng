@@ -21,6 +21,7 @@ import { Tabs } from './tabs';
     host: {
         '[class.p-tab]': 'true',
         '[class.p-tab-active]': 'active()',
+        '[class.p-disabled]': 'disabled()',
         '[class.p-component]': 'true',
         '[attr.data-pc-name]': '"tab"',
         '[attr.id]': 'id()',
