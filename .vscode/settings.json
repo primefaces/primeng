@@ -15,5 +15,6 @@
     "[typescript]": {
         "editor.defaultFormatter": "esbenp.prettier-vscode",
         "editor.formatOnSave": true
-    }
+    },
+    "angular.enable-strict-mode-prompt": false
 }
