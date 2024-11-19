@@ -1,5 +1,4 @@
-import { CommonModule } from '@angular/common';
-import { ChangeDetectionStrategy, Component, HostBinding, inject, Input, NgModule, ViewEncapsulation } from '@angular/core';
+import { ChangeDetectionStrategy, Component, inject, input, NgModule, ViewEncapsulation } from '@angular/core';
 import { SharedModule } from 'primeng/api';
 import { BaseComponent } from 'primeng/basecomponent';
 import { AvatarGroupStyle } from './style/avatargroupstyle';
@@ -11,14 +10,16 @@ import { AvatarGroupStyle } from './style/avatargroupstyle';
 @Component({
     selector: 'p-avatarGroup, p-avatar-group, p-avatargroup',
     standalone: true,
-    imports: [CommonModule, SharedModule],
+    imports: [SharedModule],
     template: ` <ng-content></ng-content> `,
     changeDetection: ChangeDetectionStrategy.OnPush,
     encapsulation: ViewEncapsulation.None,
     providers: [AvatarGroupStyle],
     host: {
         '[class.p-avatar-group]': 'true',
-        '[class.p-component]': 'true'
+        '[class.p-component]': 'true',
+        '[class]': 'styleClass()',
+        '[style]': 'style()'
     }
 })
 export class AvatarGroup extends BaseComponent {
@@ -26,20 +27,12 @@ export class AvatarGroup extends BaseComponent {
      * Style class of the component
      * @group Props
      */
-    @Input() styleClass: string | undefined;
+    styleClass = input<string>();
     /**
      * Inline style of the component.
      * @group Props
      */
-    @Input() style: { [klass: string]: any } | null | undefined;
-
-    @HostBinding('class') get hostClass() {
-        return this.styleClass;
-    }
-
-    @HostBinding('style') get hostStyle() {
-        return this.style;
-    }
+    style = input<{ [klass: string]: any } | null>();
 
     _componentStyle = inject(AvatarGroupStyle);
 }
