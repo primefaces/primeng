@@ -6,9 +6,11 @@ import { CommonModule } from '@angular/common';
     standalone: true,
     imports: [CommonModule],
     template: ` <div class="flex border border-surface rounded-l-lg rounded-r-lg overflow-hidden">
-        <div *ngFor="let color of value | keyvalue" class="w-8 h-8" [ngStyle]="{ backgroundColor: color.value }" [title]="color.value"></div>
+        <div *ngFor="let value of objectValues(value)" class="w-8 h-8" [ngStyle]="{ backgroundColor: value }" [title]="value"></div>
     </div>`
 })
 export class DesignColorPalette {
     @Input() value;
+
+    objectValues = Object.values;
 }
