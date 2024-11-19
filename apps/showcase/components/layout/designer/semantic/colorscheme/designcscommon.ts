@@ -22,39 +22,39 @@ import { DesignColorPalette } from '../../app.designcolorpalette.component';
         <div class="text-sm mb-1 font-semibold text-surface-950 dark:text-surface-0">Typography</div>
         <section class="grid grid-cols-4 mb-3 gap-2">
             <div class="flex flex-col gap-1">
-                <design-token-field [modelValue]="colorScheme.text.color" label="Text" [type]="'color'" />
+                <design-token-field [(modelValue)]="colorScheme.text.color" label="Text" [type]="'color'" />
             </div>
             <div class="flex flex-col gap-1">
-                <design-token-field [modelValue]="colorScheme.text.hoverColor" label="Text Hover" [type]="'color'" />
+                <design-token-field [(modelValue)]="colorScheme.text.hoverColor" label="Text Hover" [type]="'color'" />
             </div>
             <div class="flex flex-col gap-1">
-                <design-token-field [modelValue]="colorScheme.text.mutedColor" label="Text Muted" [type]="'color'" />
+                <design-token-field [(modelValue)]="colorScheme.text.mutedColor" label="Text Muted" [type]="'color'" />
             </div>
             <div class="flex flex-col gap-1">
-                <design-token-field [modelValue]="colorScheme.text.hoverMutedColor" label="Text Hover Muted" [type]="'color'" />
+                <design-token-field [(modelValue)]="colorScheme.text.hoverMutedColor" label="Text Hover Muted" [type]="'color'" />
             </div>
         </section>
         <section class="grid grid-cols-4 mb-3 gap-2">
             <div class="flex flex-col gap-1">
-                <design-token-field [modelValue]="colorScheme.content.background" label="Content BG" [type]="'color'" />
+                <design-token-field [(modelValue)]="colorScheme.content.background" label="Content BG" [type]="'color'" />
             </div>
             <div class="flex flex-col gap-1">
-                <design-token-field [modelValue]="colorScheme.content.hoverBackground" label="Content Hover BG" [type]="'color'" />
+                <design-token-field [(modelValue)]="colorScheme.content.hoverBackground" label="Content Hover BG" [type]="'color'" />
             </div>
             <div class="flex flex-col gap-1">
-                <design-token-field [modelValue]="colorScheme.content.borderColor" label="Content Border Color" [type]="'color'" />
+                <design-token-field [(modelValue)]="colorScheme.content.borderColor" label="Content Border Color" [type]="'color'" />
             </div>
             <div class="flex flex-col gap-1">
-                <design-token-field [modelValue]="colorScheme.content.color" label="Content Color" [type]="'color'" />
+                <design-token-field [(modelValue)]="colorScheme.content.color" label="Content Color" [type]="'color'" />
             </div>
             <div class="flex flex-col gap-1">
-                <design-token-field [modelValue]="colorScheme.content.hoverColor" label="Content Hover Color" [type]="'color'" />
+                <design-token-field [(modelValue)]="colorScheme.content.hoverColor" label="Content Hover Color" [type]="'color'" />
             </div>
             <div class="flex flex-col gap-1">
-                <design-token-field [modelValue]="colorScheme.mask.background" label="Mask BG" [type]="'color'" />
+                <design-token-field [(modelValue)]="colorScheme.mask.background" label="Mask BG" [type]="'color'" />
             </div>
             <div class="flex flex-col gap-1">
-                <design-token-field [modelValue]="colorScheme.mask.color" label="Mask Color" [type]="'color'" />
+                <design-token-field [(modelValue)]="colorScheme.mask.color" label="Mask Color" [type]="'color'" />
             </div>
         </section>
 

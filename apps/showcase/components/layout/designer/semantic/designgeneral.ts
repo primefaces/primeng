@@ -21,22 +21,22 @@ import { DesignColorPalette } from '../app.designcolorpalette.component';
         </section>
         <section class="grid grid-cols-4 mb-3 gap-2">
             <div class="flex flex-col gap-1">
-                <design-token-field [modelValue]="designerService.preset()?.semantic.transitionDuration" label="Transition Duration" />
+                <design-token-field [(modelValue)]="designerService.preset().semantic.transitionDuration" label="Transition Duration" />
             </div>
             <div class="flex flex-col gap-1">
-                <design-token-field [modelValue]="designerService.preset()?.semantic.disabledOpacity" label="Disabled Opacity" />
+                <design-token-field [(modelValue)]="designerService.preset().semantic.disabledOpacity" label="Disabled Opacity" />
             </div>
             <div class="flex flex-col gap-1">
-                <design-token-field [modelValue]="designerService.preset()?.semantic.iconSize" label="Icon Size" />
+                <design-token-field [(modelValue)]="designerService.preset().semantic.iconSize" label="Icon Size" />
             </div>
             <div class="flex flex-col gap-1">
-                <design-token-field [modelValue]="designerService.preset()?.semantic.anchorGutter" label="Anchor Gutter" />
+                <design-token-field [(modelValue)]="designerService.preset().semantic.anchorGutter" label="Anchor Gutter" />
             </div>
             <div class="flex flex-col gap-1">
-                <design-token-field [modelValue]="designerService.preset()?.semantic.content.borderRadius" label="Border Radius" />
+                <design-token-field [(modelValue)]="designerService.preset().semantic.content.borderRadius" label="Border Radius" />
             </div>
             <div class="flex flex-col gap-1">
-                <design-token-field [modelValue]="designerService.preset()?.semantic.mask.transitionDuration" label="Mask Transition Dur." />
+                <design-token-field [(modelValue)]="designerService.preset().semantic.mask.transitionDuration" label="Mask Transition Dur." />
             </div>
             <div class="flex flex-col gap-1"></div>
             <div class="flex flex-col gap-1"></div>
@@ -45,16 +45,16 @@ import { DesignColorPalette } from '../app.designcolorpalette.component';
         <div class="text-sm mb-1 font-semibold text-surface-950 dark:text-surface-0">Focus Ring</div>
         <section class="grid grid-cols-4 gap-2">
             <div class="flex flex-col gap-1">
-                <design-token-field [modelValue]="designerService.preset()?.semantic.focusRing.width" label="Width" />
+                <design-token-field [(modelValue)]="designerService.preset().semantic.focusRing.width" label="Width" />
             </div>
             <div class="flex flex-col gap-1">
-                <design-token-field [modelValue]="designerService.preset()?.semantic.focusRing.style" label="Style" />
+                <design-token-field [(modelValue)]="designerService.preset().semantic.focusRing.style" label="Style" />
             </div>
             <div class="flex flex-col gap-1">
-                <design-token-field [modelValue]="designerService.preset()?.semantic.focusRing.color" label="Color" [type]="'color'" />
+                <design-token-field [(modelValue)]="designerService.preset().semantic.focusRing.color" label="Color" [type]="'color'" />
             </div>
             <div class="flex flex-col gap-1">
-                <design-token-field [modelValue]="designerService.preset()?.semantic.focusRing.offset" label="Offset" />
+                <design-token-field [(modelValue)]="designerService.preset().semantic.focusRing.offset" label="Offset" />
             </div>
         </section>
     </p-fieldset>`

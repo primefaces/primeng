@@ -1,4 +1,4 @@
-import { Component, inject, Input, ViewEncapsulation } from '@angular/core';
+import { Component, EventEmitter, inject, Input, Output, ViewEncapsulation } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { DesignerService } from '@/service/designerservice';
 import { AutoCompleteModule } from 'primeng/autocomplete';
@@ -19,7 +19,7 @@ import { UniqueComponentId } from 'primeng/utils';
                 <ng-template #item let-option>
                     <div [pTooltip]="getTooltipData(option)" tooltipPosition="left" class="w-full flex items-center justify-between gap-4 px-2">
                         <span>{{ option.token }}</span>
-                        @if (option.isColor) {
+                        @if (getIsColor(option)) {
                             <div class="border border-surface-200 dark:border-surface-700 w-4 h-4 rounded-full" [style]="{ backgroundColor: option.variable }"></div>
                         } @else {
                             <div class="text-xs max-w-16 text-ellipsis whitespace-nowrap overflow-hidden">
@@ -41,6 +41,8 @@ export class DesignTokenField {
 
     @Input() modelValue;
 
+    @Output() modelValueChange = new EventEmitter<any>();
+
     id: string | undefined;
 
     items;
@@ -52,11 +54,15 @@ export class DesignTokenField {
     private designerService = inject(DesignerService);
 
     getTooltipData(option) {
-        return typeof option.value !== 'object' && option.value;
+        return typeof option !== 'object' && option.value;
     }
 
     get inputId() {
         return this.id + '_input';
+    }
+
+    getIsColor(option) {
+        return option.isColor;
     }
 
     get previewColor() {
@@ -66,11 +72,13 @@ export class DesignTokenField {
 
     onOptionSelect(event) {
         this.modelValue = event.value.label;
+        this.modelValueChange.emit(this.modelValue);
         event.originalEvent.stopPropagation();
     }
 
     onInput(event) {
         this.modelValue = event.target.value;
+        this.modelValueChange.emit(this.modelValue);
     }
 
     search(event) {
