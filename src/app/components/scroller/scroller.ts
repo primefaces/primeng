@@ -558,7 +558,6 @@ export class Scroller implements OnInit, AfterContentInit, AfterViewChecked, OnD
             const isChanged = !isLoadingChanged && (simpleChanges.items?.previousValue?.length !== simpleChanges.items?.currentValue?.length || simpleChanges.itemSize || simpleChanges.scrollHeight || simpleChanges.scrollWidth);
 
             if (isChanged) {
-                this.init();
                 this.calculateAutoSize();
             }
         }
@@ -614,7 +613,6 @@ export class Scroller implements OnInit, AfterContentInit, AfterViewChecked, OnD
             if (DomHandler.isVisible(this.elementViewChild?.nativeElement)) {
                 this.setInitialState();
                 this.setContentEl(this.contentEl);
-                this.init();
                 this.calculateAutoSize();
 
                 this.defaultWidth = DomHandler.getWidth(this.elementViewChild?.nativeElement);
@@ -625,16 +623,6 @@ export class Scroller implements OnInit, AfterContentInit, AfterViewChecked, OnD
                 this.resizeObserver.observe(this.elementViewChild?.nativeElement);
                 this.initialized = true;
             }
-        }
-    }
-
-    init() {
-        if (!this._disabled) {
-            this.setSize();
-            this.calculateOptions();
-            this.setSpacerSize();
-
-            this.cd.detectChanges();
         }
     }
 
@@ -1066,7 +1054,6 @@ export class Scroller implements OnInit, AfterContentInit, AfterViewChecked, OnD
                             this.defaultContentHeight = DomHandler.getHeight(this.contentEl);
                         }
 
-                        this.init();
                         this.calculateAutoSize();
                     });
             }
