@@ -15,9 +15,9 @@ import { DesignColorPalette } from '../app.designcolorpalette.component';
         <section class="flex justify-between items-center mb-4">
             <div class="flex gap-2 items-center">
                 <span class="text-sm">Primary</span>
-                <input [value]="designerService.preset()?.semantic.primary['500']" (input)="onPrimaryColorChange($event)" type="color" />
+                <input [value]="designerService.preset().semantic.primary['500']" (input)="onPrimaryColorChange($event)" type="color" />
             </div>
-            <design-color-palette [value]="designerService.preset()?.semantic.primary" />
+            <design-color-palette [value]="designerService.preset().semantic.primary" />
         </section>
         <section class="grid grid-cols-4 mb-3 gap-2">
             <div class="flex flex-col gap-1">
