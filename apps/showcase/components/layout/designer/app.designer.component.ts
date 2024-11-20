@@ -365,6 +365,7 @@ export class AppDesignerComponent {
                     const isColor = tokenName.includes('color') || tokenName.includes('background') || regex.test(tokenName);
 
                     this.acTokens.push({ token: tokenName, label: '{' + tokenName + '}', variable: $dt(tokenName).variable, value: tokenValue, isColor: isColor });
+                    this.designerService.setAcTokens(this.acTokens);
                 }
             }
         }
@@ -374,12 +375,15 @@ export class AppDesignerComponent {
         this.customTokens = [...this.customTokens, ...[{}]];
     }
 
+    removeToken(index) {
+        this.customTokens.splice(index, 1);
+    }
+
     saveTokens() {
         this.preset.extend = {};
         this.customTokens.forEach((token) => {
             this.preset.extend[this.transformTokenName(token.name)] = token.value;
         });
-
         this.refreshACTokens();
         this.saveTheme();
         this.messageService.add({ severity: 'success', summary: 'Success', detail: 'Tokens saved', life: 3000 });
