@@ -1769,25 +1769,19 @@ export class MultiSelect implements OnInit, AfterViewInit, AfterContentInit, Aft
         event.preventDefault();
     }
 
-    onEnterKey(event: KeyboardEvent) {
+    onEnterKey(event) {
         if (!this.overlayVisible) {
-            this.show(true);
-            this.focusedOptionIndex.set(this.findFirstFocusedOptionIndex());
-        }
-        else {
+            this.onArrowDownKey(event);
+        } else {
             if (this.focusedOptionIndex() !== -1) {
                 if (event.shiftKey) {
                     this.onOptionSelectRange(event, this.focusedOptionIndex());
-                } 
-                else {
-                    const selectedOption = this.visibleOptions()[this.focusedOptionIndex()];
-                    this.onOptionSelect({ originalEvent: event, option: selectedOption });
+                } else {
+                    this.onOptionSelect({ originalEvent: event, option: this.visibleOptions()[this.focusedOptionIndex()] });
                 }
             }
-            else {
-                console.warn("No option is currently focused to select.");
-            }
         }
+
         event.preventDefault();
     }
 
@@ -1879,13 +1873,13 @@ export class MultiSelect implements OnInit, AfterViewInit, AfterContentInit, Aft
     onFilterInputChange(event: KeyboardEvent) {
         let value: string = (event.target as HTMLInputElement).value;
         this._filterValue.set(value);
-    
-        if (this.autoOptionFocus && this.visibleOptions().length > 0) {
-            this.focusedOptionIndex.set(0);
-        } else {
-            this.focusedOptionIndex.set(-1);
-        }
+        this.focusedOptionIndex.set(-1);
         this.onFilter.emit({ originalEvent: event, filter: this._filterValue() });
+
+        !this.virtualScrollerDisabled && this.scroller.scrollToIndex(0);
+        setTimeout(() => {
+            this.overlayViewChild.alignOverlay();
+        });
     }
 
     onLastHiddenFocus(event) {
@@ -2108,8 +2102,6 @@ export class MultiSelect implements OnInit, AfterViewInit, AfterContentInit, Aft
                 }
 
                 this.onPanelShow.emit();
-                break;
-
             case 'void':
                 this.itemsWrapper = null;
                 this.onModelTouched();
