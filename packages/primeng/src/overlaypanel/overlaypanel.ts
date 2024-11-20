@@ -316,7 +316,7 @@ export class OverlayPanel extends BaseComponent implements AfterContentInit, OnD
     appendContainer() {
         if (this.appendTo) {
             if (this.appendTo === 'body') this.renderer.appendChild(this.document.body, this.container);
-            else appendChild(this.container, this.appendTo);
+            else appendChild(this.appendTo, this.container);
         }
     }
 

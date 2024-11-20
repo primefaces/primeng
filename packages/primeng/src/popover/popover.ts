@@ -282,7 +282,7 @@ export class Popover extends BaseComponent implements OnDestroy {
     appendContainer() {
         if (this.appendTo) {
             if (this.appendTo === 'body') this.renderer.appendChild(this.document.body, this.container);
-            else appendChild(this.container, this.appendTo);
+            else appendChild(this.appendTo, this.container);
         }
     }
 
