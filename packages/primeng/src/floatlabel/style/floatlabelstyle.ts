@@ -16,7 +16,7 @@ const theme = ({ dt }) => `
     transition-timing-function: ease;
     line-height: 1;
     font-weight: ${dt('floatlabel.font.weight')};
-    left: ${dt('floatlabel.position.x')};
+    inset-inline-start: ${dt('floatlabel.position.x')};
     color: ${dt('floatlabel.color')};
     transition-duration: ${dt('floatlabel.transition.duration')};
 }
@@ -27,7 +27,7 @@ const theme = ({ dt }) => `
 }
 
 .p-floatlabel:has(.p-inputicon:first-child) label {
-     left: calc((${dt('form.field.padding.x')} * 2) + ${dt('icon.size')});
+    inset-inline-start: calc((${dt('form.field.padding.x')} * 2) + ${dt('icon.size')});
 }
 
 .p-floatlabel:has(.ng-invalid.ng-dirty) label {
@@ -55,8 +55,8 @@ const theme = ({ dt }) => `
 
 .p-floatlabel:has(input:focus) label,
 .p-floatlabel:has(input:-webkit-autofill) label,
-.p-floatlabel:has(textarea:focus) label ,
-.p-floatlabel:has(.p-inputwrapper-focus) label  {
+.p-floatlabel:has(textarea:focus) label,
+.p-floatlabel:has(.p-inputwrapper-focus) label {
     color: ${dt('floatlabel.focus.color')};
 }
 

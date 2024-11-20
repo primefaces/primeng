@@ -23,11 +23,11 @@ const theme = ({ dt }) => `
 }
 
 .p-paginator-content-start {
-    margin-right: auto;
+    margin-inline-end: auto;
 }
 
 .p-paginator-content-end {
-    margin-left: auto;
+    margin-inline-start: auto;
 }
 
 .p-paginator-page,
@@ -71,6 +71,13 @@ const theme = ({ dt }) => `
 .p-paginator-last:not(.p-disabled):hover {
     background: ${dt('paginator.nav.button.hover.background')};
     color: ${dt('paginator.nav.button.hover.color')};
+}
+
+.p-paginator-first:dir(rtl),
+.p-paginator-prev:dir(rtl),
+.p-paginator-next:dir(rtl),
+.p-paginator-last:dir(rtl) {
+    transform: rotate(180deg);
 }
 
 .p-paginator-page.p-paginator-page-selected {

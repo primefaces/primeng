@@ -61,14 +61,14 @@ export default {
 }
 
 .p-accordionpanel:first-child {
-    border-top-left-radius: ${dt('content.border.radius')};
-    border-top-right-radius: ${dt('content.border.radius')};
+    border-start-start-radius: ${dt('content.border.radius')};
+    border-start-end-radius: ${dt('content.border.radius')};
     margin-top: 0;
 }
 
 .p-accordionpanel:last-child {
-    border-bottom-left-radius: ${dt('content.border.radius')};
-    border-bottom-right-radius: ${dt('content.border.radius')};
+    border-end-start-radius: ${dt('content.border.radius')};
+    border-end-end-radius: ${dt('content.border.radius')};
     margin-bottom: 0;
 }
 

@@ -75,8 +75,8 @@ export default {
     },
     css: ({ dt }) => `
 .p-cascadeselect.p-variant-filled {
-    border-bottom-left-radius: 0
-    border-bottom-right-radius: 0;
+    border-end-start-radius: 0
+    border-end-end-radius: 0;
     border: 1px solid transparent;
     background: ${dt('cascadeselect.filled.background')} no-repeat;
     background-image: linear-gradient(to bottom, ${dt('cascadeselect.focus.border.color')}, ${dt('cascadeselect.focus.border.color')}), linear-gradient(to bottom, ${dt('cascadeselect.border.color')}, ${dt('cascadeselect.border.color')});

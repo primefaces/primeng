@@ -16,7 +16,7 @@ p-inputmask {
     top: 50%;
     margin-top: -0.5rem;
     cursor: pointer;
-    right: ${dt('form.field.padding.x')};
+    inset-inline-end: ${dt('form.field.padding.x')};
     color: ${dt('form.field.icon.color')};
 }
 `;

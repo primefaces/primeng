@@ -9,8 +9,8 @@ const theme = ({ dt }) => `
 }
 
 .p-splitbutton-button.p-button {
-    border-top-right-radius: 0;
-    border-bottom-right-radius: 0;
+    border-start-end-radius: 0;
+    border-end-end-radius: 0;
     border-right: 0 none;
 }
 
@@ -25,8 +25,8 @@ const theme = ({ dt }) => `
 }
 
 .p-splitbutton-dropdown.p-button {
-    border-top-left-radius: 0;
-    border-bottom-left-radius: 0;
+    border-start-start-radius: 0;
+    border-end-start-radius: 0;
 }
 
 .p-splitbutton .p-menu {
@@ -38,13 +38,13 @@ const theme = ({ dt }) => `
 }
 
 .p-splitbutton-rounded .p-splitbutton-dropdown {
-    border-top-right-radius: ${dt('splitbutton.rounded.border.radius')};
-    border-bottom-right-radius: ${dt('splitbutton.rounded.border.radius')};
+    border-start-end-radius: ${dt('splitbutton.rounded.border.radius')};
+    border-end-end-radius: ${dt('splitbutton.rounded.border.radius')};
 }
 
 .p-splitbutton-rounded > .p-splitbutton-button {
-    border-top-left-radius: ${dt('splitbutton.rounded.border.radius')};
-    border-bottom-left-radius: ${dt('splitbutton.rounded.border.radius')};
+    border-start-start-radius: ${dt('splitbutton.rounded.border.radius')};
+    border-end-start-radius: ${dt('splitbutton.rounded.border.radius')};
 }
 
 .p-splitbutton-raised {

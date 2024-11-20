@@ -174,6 +174,10 @@ const theme = ({ dt }) => `
     height: 100%;
 }
 
+.p-overlay-mask:dir(rtl) {
+    flex-direction: row-reverse;
+}
+
 .p-overlay-mask-enter {
     animation: p-overlay-mask-enter-animation 150ms forwards;
 }

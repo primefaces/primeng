@@ -43,6 +43,11 @@ const theme = ({ dt }) => `
     left: 0;
 }
 
+.p-colorpicker-panel:dir(rtl) {
+    left: auto;
+    right: 0;
+}
+
 .p-colorpicker-panel-inline {
     box-shadow: none;
     position: static;
@@ -58,6 +63,11 @@ const theme = ({ dt }) => `
     top: 8px;
     left: 8px;
     position: absolute;
+}
+
+.p-colorpicker-color-selector:dir(rtl) {
+    left: auto;
+    right: 8px;
 }
 
 .p-colorpicker-color-background {
@@ -81,6 +91,12 @@ const theme = ({ dt }) => `
     border-color: ${dt('colorpicker.handle.color')};
 }
 
+.p-colorpicker-color-handle:dir(rtl) {
+    left: auto;
+    right: 150px;
+    margin: -5px -5px 0 0;
+}
+
 .p-colorpicker-hue {
     width: 17px;
     height: 150px;
@@ -98,6 +114,11 @@ const theme = ({ dt }) => `
         red);
 }
 
+.p-colorpicker-hue:dir(rtl) {
+    left: auto;
+    right: 167px;
+}
+
 .p-colorpicker-hue-handle {
     position: absolute;
     top: 150px;
@@ -111,6 +132,13 @@ const theme = ({ dt }) => `
     opacity: 0.85;
     cursor: pointer;
     border-color: ${dt('colorpicker.handle.color')};
+}
+
+.p-colorpicker-hue-handle:dir(rtl) {
+    left: auto;
+    right: 0px;
+    margin-left: 0;
+    margin-right: -2px;
 }
 `;
 

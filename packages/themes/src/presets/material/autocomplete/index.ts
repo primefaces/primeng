@@ -119,8 +119,8 @@ export default {
 }
 
 .p-variant-filled.p-autocomplete-input-multiple {
-    border-bottom-left-radius: 0;
-    border-bottom-right-radius: 0;
+    border-end-start-radius: 0;
+    border-end-end-radius: 0;
     border: 1px solid transparent;
     background: ${dt('autocomplete.filled.background')} no-repeat;
     background-image: linear-gradient(to bottom, ${dt('autocomplete.focus.border.color')}, ${dt('autocomplete.focus.border.color')}), linear-gradient(to bottom, ${dt('autocomplete.border.color')}, ${dt('autocomplete.border.color')});

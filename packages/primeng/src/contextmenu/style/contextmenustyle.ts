@@ -75,6 +75,11 @@ const theme = ({ dt }) => `
     height: ${dt('contextmenu.submenu.icon.size')};
 }
 
+.p-contextmenu-submenu-icon:dir(rtl) {
+    margin-left: 0;
+    margin-right: auto;
+}
+
 .p-contextmenu-item.p-focus > .p-contextmenu-item-content {
     color: ${dt('contextmenu.item.focus.color')};
     background: ${dt('contextmenu.item.focus.background')};
@@ -147,6 +152,11 @@ const theme = ({ dt }) => `
 /* For PrimeNG */
 .p-contextmenu-submenu-icon.p-iconwrapper {
     margin-left: auto;
+}
+
+.p-contextmenu-submenu-icon.p-iconwrapper:dir(rtl) {
+    margin-left: 0;
+    margin-right: auto;
 }
 `;
 

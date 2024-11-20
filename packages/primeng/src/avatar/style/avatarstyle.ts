@@ -44,7 +44,7 @@ const theme = ({ dt }) => `
 }
 
 .p-avatar-lg .p-avatar-icon {
-        font-size: ${dt('avatar.lg.icon.size')};
+    font-size: ${dt('avatar.lg.icon.size')};
     width: ${dt('avatar.lg.icon.size')};
     height: ${dt('avatar.lg.icon.size')};
 }
@@ -65,7 +65,7 @@ const theme = ({ dt }) => `
 }
 
 .p-avatar-group .p-avatar + .p-avatar {
-    margin-left: ${dt('avatar.group.offset')};
+    margin-inline-start: ${dt('avatar.group.offset')};
 }
 
 .p-avatar-group .p-avatar {

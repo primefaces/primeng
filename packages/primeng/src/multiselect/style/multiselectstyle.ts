@@ -53,8 +53,8 @@ const theme = ({ dt }) => `
     background: transparent;
     color: ${dt('multiselect.dropdown.color')};
     width: ${dt('multiselect.dropdown.width')};
-    border-top-right-radius: ${dt('multiselect.border.radius')};
-    border-bottom-right-radius: ${dt('multiselect.border.radius')};
+    border-start-end-radius: ${dt('multiselect.border.radius')};
+    border-end-end-radius: ${dt('multiselect.border.radius')};
 }
 
 .p-multiselect-label-container {
@@ -110,7 +110,7 @@ const theme = ({ dt }) => `
 }
 
 .p-multiselect-header .p-checkbox {
-    margin-right: ${dt('multiselect.option.gap')};
+    margin-inline-end: ${dt('multiselect.option.gap')};
 }
 
 .p-multiselect-filter-container {

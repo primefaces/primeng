@@ -49,7 +49,7 @@ const theme = ({ dt }) => `
     top: 50%;
     margin-top: -0.5rem;
     color: ${dt('select.clear.icon.color')};
-    right: ${dt('select.dropdown.width')};
+    inset-inline-end: ${dt('select.dropdown.width')};
 }
 
 .p-select-dropdown {
@@ -60,8 +60,8 @@ const theme = ({ dt }) => `
     background: transparent;
     color: ${dt('select.dropdown.color')};
     width: ${dt('select.dropdown.width')};
-    border-top-right-radius: ${dt('select.border.radius')};
-    border-bottom-right-radius: ${dt('select.border.radius')};
+    border-start-end-radius: ${dt('select.border.radius')};
+    border-end-end-radius: ${dt('select.border.radius')};
 }
 
 .p-select-label {
@@ -84,7 +84,7 @@ const theme = ({ dt }) => `
 }
 
 .p-select:has(.p-select-clear-icon) .p-select-label {
-    padding-right: calc(1rem + ${dt('select.padding.x')});
+    padding-inline-end: calc(1rem + ${dt('select.padding.x')});
 }
 
 .p-select.p-disabled .p-select-label {
@@ -107,7 +107,7 @@ input.p-select-label {
 .p-select-overlay {
     position: absolute;
     top: 0;
-    left: 0;
+    inset-inline-start: 0;
     background: ${dt('select.overlay.background')};
     color: ${dt('select.overlay.color')};
     border: 1px solid ${dt('select.overlay.border.color')};
