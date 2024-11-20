@@ -215,24 +215,28 @@ export class ScrollPanel implements AfterViewInit, AfterContentInit, OnDestroy {
     moveBar() {
         let container = (this.containerViewChild as ElementRef).nativeElement;
         let content = (this.contentViewChild as ElementRef).nativeElement;
-
-        /* horizontal scroll */
         let xBar = (this.xBarViewChild as ElementRef).nativeElement;
-        let totalWidth = content.scrollWidth;
-        let ownWidth = content.clientWidth;
-        let bottom = (container.clientHeight - xBar.clientHeight) * -1;
-
-        this.scrollXRatio = ownWidth / totalWidth;
-
-        /* vertical scroll */
         let yBar = (this.yBarViewChild as ElementRef).nativeElement;
-        let totalHeight = content.scrollHeight;
-        let ownHeight = content.clientHeight;
-        let right = (container.clientWidth - yBar.clientWidth) * -1;
 
-        this.scrollYRatio = ownHeight / totalHeight;
+        function computeBarPosition() {
+            /* horizontal scroll */
+            let totalWidth = content.scrollWidth;
+            let ownWidth = content.clientWidth;
+            let bottom = (container.clientHeight - xBar.clientHeight) * -1;
+            this.scrollXRatio = ownWidth / totalWidth;
+
+            /* vertical scroll */
+            let totalHeight = content.scrollHeight;
+            let ownHeight = content.clientHeight;
+            let right = (container.clientWidth - yBar.clientWidth) * -1;
+            this.scrollYRatio = ownHeight / totalHeight;
+
+            return { totalWidth, ownWidth, bottom, totalHeight, ownHeight, right };
+        }
 
         this.requestAnimationFrame(() => {
+            let { totalWidth, ownWidth, bottom, totalHeight, ownHeight, right } = computeBarPosition.call(this);
+
             if ((this.scrollXRatio as number) >= 1) {
                 xBar.setAttribute('data-p-scrollpanel-hidden', 'true');
                 DomHandler.addClass(xBar, 'p-scrollpanel-hidden');

@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { Code } from '@domain/code';
 import { CountryService } from '@service/countryservice';
 import { PlatformService } from '@service/platformservice';
-import { FormBuilder, FormGroup } from '@angular/forms';
+import { FormControl, FormGroup } from '@angular/forms';
 
 interface AutoCompleteCompleteEvent {
     originalEvent: Event;
@@ -10,7 +10,7 @@ interface AutoCompleteCompleteEvent {
 }
 
 @Component({
-    selector: 'dropdown-clear-icon-demo',
+    selector: 'autocomplete-show-clear-demo',
     template: `
         <app-docsectiontext>
             <p>When <i>showClear</i> is enabled, a clear icon is added to reset the Autocomplete.</p>
@@ -18,22 +18,19 @@ interface AutoCompleteCompleteEvent {
         <div class="card flex justify-content-center" [formGroup]="countryFormGroup">
             <p-autoComplete formControlName="country" [dropdown]="true" [showClear]="true" placeholder="Search" [suggestions]="filteredCountries" (completeMethod)="filterCountry($event)" optionLabel="name" />
         </div>
-        <app-code [code]="code" selector="dropdown-clear-icon-demo"></app-code>
+        <app-code [code]="code" selector="autocomplete-show-clear-demo"></app-code>
     `
 })
 export class ShowClearDoc implements OnInit {
     countries: any[] | undefined;
 
-    countryFormGroup: FormGroup = this.formBuilder.group({
-        country: [{ name: 'Switzerland', code: 'CH' }]
-    });
+    countryFormGroup: FormGroup = new FormGroup({ country: new FormControl({ name: 'Switzerland', code: 'CH' }) });
 
     filteredCountries: any[] | undefined;
 
     constructor(
         private countryService: CountryService,
-        private PlatformService: PlatformService,
-        private formBuilder: FormBuilder
+        private PlatformService: PlatformService
     ) {}
 
     ngOnInit() {
@@ -81,7 +78,7 @@ export class ShowClearDoc implements OnInit {
 import { CountryService } from '@service/countryservice';
 import { FormsModule } from '@angular/forms';
 import { AutoCompleteModule } from 'primeng/autocomplete';
-import { FormBuilder, FormGroup } from '@angular/forms';
+import { FormControl, FormGroup } from '@angular/forms';
 
 interface AutoCompleteCompleteEvent {
     originalEvent: Event;
@@ -89,8 +86,8 @@ interface AutoCompleteCompleteEvent {
 }
 
 @Component({
-    selector: 'autocomplete-dropdown-demo',
-    templateUrl: './autocomplete-dropdown-demo.html',
+    selector: 'autocomplete-show-clear-demo',
+    templateUrl: './autocomplete-show-clear-demo.html',
     standalone:true,
     imports: [FormsModule, AutoCompleteModule],
     providers:[CountryService]
@@ -98,13 +95,11 @@ interface AutoCompleteCompleteEvent {
 export class AutocompleteShowClearDemo implements OnInit {
     countries: any[] | undefined;
 
-    countryFormGroup: FormGroup = this.formBuilder.group({
-        'country': [{ name: 'Switzerland', code: 'CH' }]
-    });
+    countryFormGroup: FormGroup = new FormGroup({ 'country': new FormControl({ name: 'Switzerland', code: 'CH' }) });
 
     filteredCountries: any[] | undefined;
 
-    constructor(private countryService: CountryService, private formBuilder: FormBuilder) {}
+    constructor(private countryService: CountryService) {}
 
     ngOnInit() {
         this.countryService.getCountries().then((countries) => {
