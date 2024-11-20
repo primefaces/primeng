@@ -1,5 +1,6 @@
 import { Code } from '@/domain/code';
 import { AppConfigService } from '@/service/appconfigservice';
+import { DesignerService } from '@/service/designerservice';
 import { isPlatformBrowser } from '@angular/common';
 import { ChangeDetectorRef, Component, effect, inject, OnInit, PLATFORM_ID } from '@angular/core';
 @Component({
@@ -23,7 +24,14 @@ export class VerticalBarDoc implements OnInit {
 
     configService = inject(AppConfigService);
 
-    constructor(private cd: ChangeDetectorRef) {}
+    designerService = inject(DesignerService);
+
+    constructor(private cd: ChangeDetectorRef) {
+        this.designerService.themeUpdated$.subscribe(() => {
+            this.initChart();
+            this.cd.markForCheck();
+        });
+    }
 
     themeEffect = effect(() => {
         if (this.configService.theme()) {

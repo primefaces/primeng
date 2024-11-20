@@ -1,4 +1,5 @@
 import { AppConfigService } from '@/service/appconfigservice';
+import { DesignerService } from '@/service/designerservice';
 import { CommonModule, isPlatformBrowser } from '@angular/common';
 import { ChangeDetectionStrategy, ChangeDetectorRef, Component, effect, inject, PLATFORM_ID, ViewEncapsulation } from '@angular/core';
 import { FormsModule } from '@angular/forms';
@@ -203,7 +204,14 @@ export class OverviewApp {
 
     appState = this.configService.appState();
 
-    constructor(private cd: ChangeDetectorRef) {}
+    designerService = inject(DesignerService);
+
+    constructor(private cd: ChangeDetectorRef) {
+        this.designerService.themeUpdated$.subscribe(() => {
+            this.initChart();
+            this.cd.markForCheck();
+        });
+    }
 
     themeEffect = effect(() => {
         if (this.configService.theme()) {
