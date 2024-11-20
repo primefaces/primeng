@@ -1790,7 +1790,6 @@ export class MultiSelect implements OnInit, AfterViewInit, AfterContentInit, Aft
         }
         event.preventDefault();
     }
-    
 
     onEscapeKey(event) {
         this.overlayVisible && this.hide(true);
@@ -1886,10 +1885,8 @@ export class MultiSelect implements OnInit, AfterViewInit, AfterContentInit, Aft
         } else {
             this.focusedOptionIndex.set(-1);
         }
-    
         this.onFilter.emit({ originalEvent: event, filter: this._filterValue() });
     }
-    
 
     onLastHiddenFocus(event) {
         const focusableEl =
