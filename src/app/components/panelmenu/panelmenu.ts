@@ -366,7 +366,7 @@ export class PanelMenuList implements OnChanges {
 
         // Update and keep `expanded` property from previous data
         else {
-            this.processedItems.update(prev => prev.map(i => ({...i, expanded: i.expanded})))
+            this.processedItems.update((prev) => prev.map((i) => ({ ...i, expanded: i.expanded })));
         }
     }
 
