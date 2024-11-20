@@ -14,7 +14,7 @@ module.exports = function (config) {
             }
         },
         coverageReporter: {
-            dir: require('path').join(__dirname, './coverage/ng11'),
+            dir: require('path').join(__dirname, './coverage/primeng'),
             subdir: '.',
             reporters: [{ type: 'html' }, { type: 'text-summary' }]
         },
@@ -22,9 +22,6 @@ module.exports = function (config) {
         port: 9876,
         colors: true,
         logLevel: config.LOG_INFO,
-        autoWatch: true,
-        browsers: ['Chrome'],
-        singleRun: false,
-        restartOnFileChange: true
+        browsers: ['ChromeHeadless']
     });
 };

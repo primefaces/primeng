@@ -1,5 +1,8 @@
 {
     "extends": "../../tsconfig.json",
+    "exclude": [
+        "node_modules"
+    ],
     "angularCompilerOptions": {
         "disableTypeScriptVersionCheck": true,
         "fullTemplateTypeCheck": false,

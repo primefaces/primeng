@@ -37,7 +37,11 @@
         "dev:link": "pnpm link --global && npm link",
         "build:apidoc": "node ../../apps/showcase/scripts/build-apidoc.ts",
         "build:themedoc": "node ../../apps/showcase/scripts/build-themedoc.ts",
-        "build:docs": "node ../../apps/showcase/scripts/build-apidoc.ts && node ../../apps/showcase/scripts/build-themedoc.ts"
+        "build:docs": "node ../../apps/showcase/scripts/build-apidoc.ts && node ../../apps/showcase/scripts/build-themedoc.ts",
+        "lint": "ng lint",
+        "test:unit": "ng test primeng --watch=false",
+        "test:unit:watch": "ng test primeng",
+        "test:unit:coverage": "ng test primeng --coverage"
     },
     "devDependencies": {
         "karma": "~6.4.2",
