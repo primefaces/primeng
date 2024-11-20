@@ -11,7 +11,6 @@ import { UniqueComponentId } from 'primeng/utils';
     selector: 'design-token-field',
     standalone: true,
     imports: [CommonModule, AutoCompleteModule, FormsModule, TooltipModule],
-    styleUrl: './designtokenfieldstyle.scss',
     template: ` <div>
         <label [for]="inputId" class="text-sm text-zinc-700 dark:text-white">{{ label }}</label>
         <div [id]="id" class="relative">
@@ -31,8 +30,7 @@ import { UniqueComponentId } from 'primeng/utils';
             </p-autocomplete>
             <div *ngIf="type === 'color'" class="absolute right-[4px] top-1/2 -mt-3 w-6 h-6 rounded-md border border-surface-300 dark:border-surface-600" [style]="{ backgroundColor: previewColor }"></div>
         </div>
-    </div>`,
-    encapsulation: ViewEncapsulation.None
+    </div>`
 })
 export class DesignTokenField {
     @Input() label: string | undefined;

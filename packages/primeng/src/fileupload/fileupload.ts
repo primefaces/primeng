@@ -170,7 +170,7 @@ import { FileUploadStyle } from './style/fileuploadstyle';
                 }
             </div>
         </div>
-        <div class="p-fileupload p-fileupload-basic p-component" *ngIf="mode === 'basic'" [attr.data-pc-name]="'fileupload'">
+        <div [ngClass]="'p-fileupload p-fileupload-basic p-component'" [class]="styleClass" *ngIf="mode === 'basic'" [attr.data-pc-name]="'fileupload'">
             @for (message of msgs; track message) {
                 <p-message [severity]="message.severity" [text]="message.text"></p-message>
             }
