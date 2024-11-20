@@ -280,9 +280,6 @@ export class InputOtp implements AfterContentInit {
     }
 
     onKeyDown(event) {
-        if (event.key === "Tab") {
-            return;
-        }
         if (event.altKey || event.ctrlKey || event.metaKey) {
             return;
         }
