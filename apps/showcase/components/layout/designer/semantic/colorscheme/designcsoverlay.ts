@@ -1,16 +1,13 @@
-import { Component, inject, Input } from '@angular/core';
+import { Component, Input } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { DesignTokenField } from '../../app.designtokenfield.component';
 import { FieldsetModule } from 'primeng/fieldset';
 import { FormsModule } from '@angular/forms';
-import { DesignerService } from '@/service/designerservice';
-import { palette } from '@primeng/themes';
-import { DesignColorPalette } from '../../app.designcolorpalette.component';
 
 @Component({
     selector: 'design-cs-overlay',
     standalone: true,
-    imports: [CommonModule, DesignColorPalette, DesignTokenField, FormsModule, FieldsetModule],
+    imports: [CommonModule, DesignTokenField, FormsModule, FieldsetModule],
     template: ` <p-fieldset legend="Overlay" [toggleable]="true">
         <div class="text-sm mb-1 font-semibold text-surface-950 dark:text-surface-0">Select</div>
         <section class="grid grid-cols-4 mb-3 gap-2">

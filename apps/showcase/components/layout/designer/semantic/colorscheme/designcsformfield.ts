@@ -1,16 +1,13 @@
-import { Component, inject, Input } from '@angular/core';
+import { Component, Input } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { DesignTokenField } from '../../app.designtokenfield.component';
 import { FieldsetModule } from 'primeng/fieldset';
 import { FormsModule } from '@angular/forms';
-import { DesignerService } from '@/service/designerservice';
-import { palette } from '@primeng/themes';
-import { DesignColorPalette } from '../../app.designcolorpalette.component';
 
 @Component({
     selector: 'design-cs-form-field',
     standalone: true,
-    imports: [CommonModule, DesignColorPalette, DesignTokenField, FormsModule, FieldsetModule],
+    imports: [CommonModule, DesignTokenField, FormsModule, FieldsetModule],
     template: ` <p-fieldset legend="Form Field" [toggleable]="true">
         <section class="grid grid-cols-4 mb-3 gap-2">
             <div class="flex flex-col gap-1">

@@ -1,9 +1,8 @@
-import { Component, inject, Input } from '@angular/core';
+import { Component, Input } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { DesignTokenField } from '../../app.designtokenfield.component';
 import { FieldsetModule } from 'primeng/fieldset';
 import { FormsModule } from '@angular/forms';
-import { DesignerService } from '@/service/designerservice';
 import { palette } from '@primeng/themes';
 import { DesignColorPalette } from '../../app.designcolorpalette.component';
 

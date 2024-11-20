@@ -11,7 +11,7 @@ import { UniqueComponentId } from 'primeng/utils';
     selector: 'design-token-field',
     standalone: true,
     imports: [CommonModule, AutoCompleteModule, FormsModule, TooltipModule],
-    template: ` <div>
+    template: `<div>
         <label [for]="inputId" class="text-sm text-zinc-700 dark:text-white">{{ label }}</label>
         <div [id]="id" class="relative">
             <p-autocomplete [(ngModel)]="modelValue" [inputId]="inputId" [suggestions]="items" (onSelect)="onOptionSelect($event)" optionLabel="label" [showEmptyMessage]="false" (completeMethod)="search($event)" (onKeyUp)="onInput($event)">

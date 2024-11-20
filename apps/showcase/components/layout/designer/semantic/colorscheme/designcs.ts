@@ -10,7 +10,7 @@ import { DesignCSNavigation } from './designcsnavigation';
     selector: 'design-cs',
     standalone: true,
     imports: [CommonModule, DesignCSCommon, DesignCSOverlay, DesignCSList, DesignCSFormField, DesignCSNavigation],
-    template: ` <div class="flex flex-col gap-3">
+    template: `<div class="flex flex-col gap-3">
         <design-cs-common [colorScheme]="value" />
         <design-cs-form-field [colorScheme]="value" />
         <design-cs-overlay [colorScheme]="value" />

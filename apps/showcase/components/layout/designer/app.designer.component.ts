@@ -58,7 +58,7 @@ const presets = {
         DesignCS,
         ToastModule
     ],
-    template: `<p-drawer [visible]="visible()" (visibleChange)="hide($event)" header="Drawer" header="Theme Designer" position="right" styleClass="designer !w-screen md:!w-[48rem]" [modal]="false">
+    template: `<p-drawer [visible]="visible()" (visibleChange)="hide($event)" header="Drawer" header="Theme Designer" position="right" styleClass="designer !w-screen md:!w-[48rem]" [modal]="false" [dismissible]="false">
             <p-tabs [(value)]="activeTab">
                 <p-tablist>
                     <p-tab value="0">Base</p-tab>
@@ -286,7 +286,6 @@ export class AppDesignerComponent {
     apply() {
         this.saveTheme();
         updatePreset(this.preset);
-        // EventBus.emit('theme-palette-change');
     }
 
     saveTheme() {
