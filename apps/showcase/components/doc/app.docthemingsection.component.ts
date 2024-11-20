@@ -33,32 +33,32 @@ export class AppDocThemingSectionComponent {
     navItems = signal<any>([]);
 
     ngOnInit() {
-        // this.createDocs();
+        this.createDocs();
     }
 
-    // createDocs() {
-    //     const docName = this.header.toLowerCase().replace(/\s+/g, '');
-    //     if (ThemeDoc[docName]) {
-    //         this.tokensDoc.set(ThemeDoc[docName]);
-    //         this.navItems.update((prev) => [
-    //             ...prev,
-    //             {
-    //                 id: this.header + 'DesignTokens',
-    //                 label: 'Design Tokens'
-    //             }
-    //         ]);
-    //     }
-    //     if (APIDoc[docName]) {
-    //         const classes = APIDoc[docName]['style']['classes']['values'];
-    //         this.classDoc.set({ classes: classes });
-    //
-    //         this.navItems.update((prev) => [
-    //             {
-    //                 id: this.header + 'classes',
-    //                 label: 'CSS Classes'
-    //             },
-    //             ...prev
-    //         ]);
-    //     }
-    // }
+    createDocs() {
+        const docName = this.header.toLowerCase().replace(/\s+/g, '');
+        if (ThemeDoc[docName]) {
+            this.tokensDoc.set(ThemeDoc[docName]);
+            this.navItems.update((prev) => [
+                ...prev,
+                {
+                    id: this.header + 'DesignTokens',
+                    label: 'Design Tokens'
+                }
+            ]);
+        }
+        if (APIDoc[docName]) {
+            const classes = APIDoc[docName]['style']['classes']['values'];
+            this.classDoc.set({ classes: classes });
+
+            this.navItems.update((prev) => [
+                {
+                    id: this.header + 'classes',
+                    label: 'CSS Classes'
+                },
+                ...prev
+            ]);
+        }
+    }
 }
