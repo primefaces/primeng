@@ -129,7 +129,7 @@
                             "name": "iconPos",
                             "optional": false,
                             "readonly": false,
-                            "type": "\"end\" | \"start\"",
+                            "type": "\"start\" | \"end\"",
                             "default": "start",
                             "description": "Position of the icon."
                         },
@@ -405,6 +405,9 @@
                 ]
             }
         }
+    },
+    "public_api": {
+        "components": {}
     },
     "animateonscroll": {
         "components": {
@@ -1605,7 +1608,7 @@
                             "name": "type",
                             "optional": true,
                             "readonly": false,
-                            "type": "\"resize\" | \"scroll\" | \"outside\"",
+                            "type": "\"scroll\" | \"outside\" | \"resize\"",
                             "description": "The type of listener, which can be 'scroll', 'outside', 'resize', or undefined."
                         },
                         {
@@ -1791,12 +1794,6 @@
     "overlayservice": {
         "components": {}
     },
-    "primeng": {
-        "components": {}
-    },
-    "primengconfig": {
-        "components": {}
-    },
     "scrolleroptions": {
         "components": {},
         "interfaces": {
@@ -1866,7 +1863,7 @@
                             "name": "orientation",
                             "optional": true,
                             "readonly": false,
-                            "type": "\"both\" | \"horizontal\" | \"vertical\"",
+                            "type": "\"horizontal\" | \"vertical\" | \"both\"",
                             "description": "The orientation of scrollbar."
                         },
                         {
@@ -2253,9 +2250,6 @@
             ]
         }
     },
-    "themeprovider": {
-        "components": {}
-    },
     "toastmessage": {
         "components": {},
         "interfaces": {
@@ -2374,14 +2368,14 @@
                             "name": "tooltipPosition",
                             "optional": true,
                             "readonly": false,
-                            "type": "\"left\" | \"top\" | \"bottom\" | \"right\"",
+                            "type": "\"right\" | \"left\" | \"top\" | \"bottom\"",
                             "description": "Position of tooltip."
                         },
                         {
                             "name": "tooltipEvent",
                             "optional": true,
                             "readonly": false,
-                            "type": "\"focus\" | \"hover\"",
+                            "type": "\"hover\" | \"focus\"",
                             "description": "Event to show the tooltip."
                         },
                         {
@@ -4128,7 +4122,7 @@
                             "name": "variant",
                             "optional": false,
                             "readonly": false,
-                            "type": "\"filled\" | \"outlined\"",
+                            "type": "\"outlined\" | \"filled\"",
                             "default": "outlined",
                             "description": "Specifies the input variant of the component."
                         },
@@ -4658,7 +4652,7 @@
                             "name": "size",
                             "optional": false,
                             "readonly": false,
-                            "type": "\"normal\" | \"large\" | \"xlarge\"",
+                            "type": "\"large\" | \"xlarge\" | \"normal\"",
                             "default": "normal",
                             "description": "Size of the element."
                         },
@@ -4666,7 +4660,7 @@
                             "name": "shape",
                             "optional": false,
                             "readonly": false,
-                            "type": "\"square\" | \"circle\"",
+                            "type": "\"circle\" | \"square\"",
                             "default": "square",
                             "description": "Shape of the element."
                         },
@@ -4807,7 +4801,7 @@
                             "name": "severity",
                             "optional": false,
                             "readonly": false,
-                            "type": "\"success\" | \"info\" | \"primary\" | \"help\" | \"warn\" | \"danger\" | \"secondary\" | \"contrast\"",
+                            "type": "\"primary\" | \"secondary\" | \"success\" | \"info\" | \"warn\" | \"danger\" | \"contrast\" | \"help\"",
                             "description": "Severity type of the badge."
                         },
                         {
@@ -4861,7 +4855,7 @@
                             "name": "severity",
                             "optional": false,
                             "readonly": false,
-                            "type": "InputSignal<\"success\" | \"info\" | \"primary\" | \"help\" | \"warn\" | \"danger\" | \"secondary\" | \"contrast\">",
+                            "type": "InputSignal<\"primary\" | \"secondary\" | \"success\" | \"info\" | \"warn\" | \"danger\" | \"contrast\" | \"help\">",
                             "default": "...",
                             "description": "Severity type of the badge."
                         },
@@ -4908,9 +4902,6 @@
         "style": {
             "components": {}
         }
-    },
-    "baseicon": {
-        "components": {}
     },
     "blockui": {
         "components": {
@@ -5224,7 +5215,7 @@
                             "name": "severity",
                             "optional": false,
                             "readonly": false,
-                            "type": "\"success\" | \"info\" | \"primary\" | \"help\" | \"warn\" | \"danger\" | \"secondary\" | \"contrast\"",
+                            "type": "\"primary\" | \"secondary\" | \"success\" | \"info\" | \"warn\" | \"danger\" | \"contrast\" | \"help\"",
                             "description": "Defines the style of the button."
                         },
                         {
@@ -5389,7 +5380,7 @@
                             "name": "severity",
                             "optional": false,
                             "readonly": false,
-                            "type": "\"success\" | \"info\" | \"primary\" | \"help\" | \"warn\" | \"danger\" | \"secondary\" | \"contrast\"",
+                            "type": "\"primary\" | \"secondary\" | \"success\" | \"info\" | \"warn\" | \"danger\" | \"contrast\" | \"help\"",
                             "description": "Defines the style of the button."
                         },
                         {
@@ -5455,7 +5446,7 @@
                             "name": "badgeSeverity",
                             "optional": false,
                             "readonly": false,
-                            "type": "\"success\" | \"info\" | \"primary\" | \"help\" | \"warn\" | \"danger\" | \"secondary\" | \"contrast\"",
+                            "type": "\"primary\" | \"secondary\" | \"success\" | \"info\" | \"warn\" | \"danger\" | \"contrast\" | \"help\"",
                             "default": "secondary",
                             "description": "Severity type of the badge."
                         },
@@ -5921,7 +5912,7 @@
                             "name": "selectionMode",
                             "optional": false,
                             "readonly": false,
-                            "type": "\"multiple\" | \"range\" | \"single\"",
+                            "type": "\"range\" | \"single\" | \"multiple\"",
                             "default": "single",
                             "description": "Defines the quantity of the selection, valid values are \"single\", \"multiple\" and \"range\"."
                         },
@@ -6059,7 +6050,7 @@
                             "name": "variant",
                             "optional": false,
                             "readonly": false,
-                            "type": "\"filled\" | \"outlined\"",
+                            "type": "\"outlined\" | \"filled\"",
                             "description": "Specifies the input variant of the component."
                         },
                         {
@@ -7396,7 +7387,7 @@
                             "name": "variant",
                             "optional": false,
                             "readonly": false,
-                            "type": "\"filled\" | \"outlined\"",
+                            "type": "\"outlined\" | \"filled\"",
                             "default": "outlined",
                             "description": "Specifies the input variant of the component."
                         },
@@ -8116,7 +8107,7 @@
                             "name": "variant",
                             "optional": false,
                             "readonly": false,
-                            "type": "\"filled\" | \"outlined\"",
+                            "type": "\"outlined\" | \"filled\"",
                             "default": "outlined",
                             "description": "Specifies the input variant of the component."
                         }
@@ -8414,7 +8405,7 @@
                             "name": "format",
                             "optional": false,
                             "readonly": false,
-                            "type": "\"rgb\" | \"hex\" | \"hsb\"",
+                            "type": "\"hex\" | \"rgb\" | \"hsb\"",
                             "default": "hex",
                             "description": "Format to use in value binding."
                         },
@@ -8598,6 +8589,15 @@
         "style": {
             "components": {}
         }
+    },
+    "primeng": {
+        "components": {}
+    },
+    "provideprimeng": {
+        "components": {}
+    },
+    "themeprovider": {
+        "components": {}
     },
     "confirmdialog": {
         "components": {
@@ -8818,7 +8818,7 @@
                             "name": "defaultFocus",
                             "optional": false,
                             "readonly": false,
-                            "type": "\"none\" | \"close\" | \"accept\" | \"reject\"",
+                            "type": "\"none\" | \"accept\" | \"reject\" | \"close\"",
                             "default": "accept",
                             "description": "Element to receive the focus when the dialog gets visible."
                         },
@@ -9390,7 +9390,7 @@
                             "name": "paginatorPosition",
                             "optional": false,
                             "readonly": false,
-                            "type": "\"both\" | \"top\" | \"bottom\"",
+                            "type": "\"top\" | \"bottom\" | \"both\"",
                             "default": "bottom",
                             "description": "Position of the paginator."
                         },
@@ -9580,7 +9580,7 @@
                             "name": "layout",
                             "optional": false,
                             "readonly": false,
-                            "type": "\"grid\" | \"list\"",
+                            "type": "\"list\" | \"grid\"",
                             "default": "list",
                             "description": "Defines the layout mode."
                         }
@@ -9791,7 +9791,7 @@
                                 "name": "layout",
                                 "optional": false,
                                 "readonly": false,
-                                "type": "\"grid\" | \"list\"",
+                                "type": "\"list\" | \"grid\"",
                                 "description": "Layout of the component."
                             }
                         ]
@@ -10267,7 +10267,7 @@
                             "name": "selectionMode",
                             "optional": false,
                             "readonly": false,
-                            "type": "\"multiple\" | \"range\" | \"single\"",
+                            "type": "\"range\" | \"single\" | \"multiple\"",
                             "default": "single",
                             "description": "Defines the quantity of the selection, valid values are \"single\", \"multiple\" and \"range\"."
                         },
@@ -10405,7 +10405,7 @@
                             "name": "variant",
                             "optional": false,
                             "readonly": false,
-                            "type": "\"filled\" | \"outlined\"",
+                            "type": "\"outlined\" | \"filled\"",
                             "description": "Specifies the input variant of the component."
                         },
                         {
@@ -11491,7 +11491,7 @@
                             "name": "position",
                             "optional": false,
                             "readonly": false,
-                            "type": "\"center\" | \"left\" | \"top\" | \"bottom\" | \"right\" | \"topleft\" | \"bottomleft\" | \"topright\" | \"bottomright\"",
+                            "type": "\"center\" | \"right\" | \"left\" | \"top\" | \"bottom\" | \"topleft\" | \"bottomleft\" | \"topright\" | \"bottomright\"",
                             "description": "Position of the dialog."
                         },
                         {
@@ -11752,7 +11752,7 @@
                             "name": "type",
                             "optional": false,
                             "readonly": false,
-                            "type": "\"dashed\" | \"dotted\" | \"solid\"",
+                            "type": "\"solid\" | \"dashed\" | \"dotted\"",
                             "default": "solid",
                             "description": "Border style type."
                         },
@@ -11760,7 +11760,7 @@
                             "name": "align",
                             "optional": false,
                             "readonly": false,
-                            "type": "\"center\" | \"left\" | \"top\" | \"bottom\" | \"right\"",
+                            "type": "\"center\" | \"right\" | \"left\" | \"top\" | \"bottom\"",
                             "description": "Alignment of the content."
                         }
                     ]
@@ -11823,7 +11823,7 @@
                             "name": "position",
                             "optional": false,
                             "readonly": false,
-                            "type": "\"left\" | \"top\" | \"bottom\" | \"right\"",
+                            "type": "\"right\" | \"left\" | \"top\" | \"bottom\"",
                             "default": "bottom",
                             "description": "Position of element."
                         },
@@ -11943,7 +11943,7 @@
                             "name": "dragEffect",
                             "optional": false,
                             "readonly": false,
-                            "type": "\"link\" | \"all\" | \"none\" | \"copy\" | \"move\" | \"copyLink\" | \"copyMove\" | \"linkMove\" | \"uninitialized\"",
+                            "type": "\"link\" | \"none\" | \"copy\" | \"move\" | \"copyLink\" | \"copyMove\" | \"linkMove\" | \"all\" | \"uninitialized\"",
                             "description": "Defines the cursor style."
                         },
                         {
@@ -12483,7 +12483,7 @@
                             "name": "variant",
                             "optional": false,
                             "readonly": false,
-                            "type": "\"filled\" | \"outlined\"",
+                            "type": "\"outlined\" | \"filled\"",
                             "default": "outlined",
                             "description": "Specifies the input variant of the component."
                         },
@@ -12694,7 +12694,7 @@
                             "name": "filterMatchMode",
                             "optional": false,
                             "readonly": false,
-                            "type": "\"endsWith\" | \"startsWith\" | \"contains\" | \"equals\" | \"in\" | \"notEquals\" | \"lt\" | \"lte\" | \"gt\" | \"gte\"",
+                            "type": "\"endsWith\" | \"startsWith\" | \"in\" | \"contains\" | \"equals\" | \"notEquals\" | \"lt\" | \"lte\" | \"gt\" | \"gte\"",
                             "default": "contains",
                             "description": "Defines how the items are filtered."
                         },
@@ -12717,7 +12717,7 @@
                             "name": "tooltipPosition",
                             "optional": false,
                             "readonly": false,
-                            "type": "\"left\" | \"top\" | \"bottom\" | \"right\"",
+                            "type": "\"right\" | \"left\" | \"top\" | \"bottom\"",
                             "default": "right",
                             "description": "Position of the tooltip."
                         },
@@ -13820,6 +13820,17 @@
                                 }
                             ],
                             "description": "Callback to invoke when selection of the text changes."
+                        }
+                    ]
+                },
+                "templates": {
+                    "description": "Defines the templates used by the component.",
+                    "values": [
+                        {
+                            "name": "header",
+                            "description": "Custom item template.",
+                            "type": "TemplateRef<any>",
+                            "parameters": []
                         }
                     ]
                 }
@@ -15002,7 +15013,7 @@
                             "name": "variant",
                             "optional": false,
                             "readonly": false,
-                            "type": "\"on\" | \"over\" | \"in\"",
+                            "type": "\"over\" | \"in\" | \"on\"",
                             "default": "over",
                             "description": "Defines the positioning of the label relative to the input."
                         }
@@ -15187,7 +15198,7 @@
                             "name": "thumbnailsPosition",
                             "optional": false,
                             "readonly": false,
-                            "type": "\"left\" | \"top\" | \"bottom\" | \"right\"",
+                            "type": "\"right\" | \"left\" | \"top\" | \"bottom\"",
                             "default": "bottom",
                             "description": "Position of thumbnails."
                         },
@@ -15219,7 +15230,7 @@
                             "name": "indicatorsPosition",
                             "optional": false,
                             "readonly": false,
-                            "type": "\"left\" | \"top\" | \"bottom\" | \"right\"",
+                            "type": "\"right\" | \"left\" | \"top\" | \"bottom\"",
                             "default": "bottom",
                             "description": "Position of indicators."
                         },
@@ -15558,7 +15569,7 @@
                             "name": "iconPosition",
                             "optional": false,
                             "readonly": false,
-                            "type": "\"left\" | \"right\"",
+                            "type": "\"right\" | \"left\"",
                             "default": "left",
                             "description": "Position of the icon."
                         },
@@ -15631,6 +15642,9 @@
         "components": {}
     },
     "bars": {
+        "components": {}
+    },
+    "baseicon": {
         "components": {}
     },
     "blank": {
@@ -15861,7 +15875,7 @@
                             "name": "loading",
                             "optional": false,
                             "readonly": false,
-                            "type": "\"eager\" | \"lazy\"",
+                            "type": "\"lazy\" | \"eager\"",
                             "description": "Attribute of the image element."
                         },
                         {
@@ -16481,7 +16495,7 @@
                             "name": "variant",
                             "optional": false,
                             "readonly": false,
-                            "type": "\"filled\" | \"outlined\"",
+                            "type": "\"outlined\" | \"filled\"",
                             "default": "outlined",
                             "description": "Specifies the input variant of the component."
                         },
@@ -16953,7 +16967,7 @@
                             "name": "variant",
                             "optional": false,
                             "readonly": false,
-                            "type": "\"filled\" | \"outlined\"",
+                            "type": "\"outlined\" | \"filled\"",
                             "default": "outlined",
                             "description": "Specifies the input variant of the component."
                         },
@@ -17233,7 +17247,7 @@
                             "name": "variant",
                             "optional": false,
                             "readonly": false,
-                            "type": "\"filled\" | \"outlined\"",
+                            "type": "\"outlined\" | \"filled\"",
                             "default": "outlined",
                             "description": "Specifies the input variant of the component."
                         },
@@ -17614,7 +17628,7 @@
                             "name": "variant",
                             "optional": false,
                             "readonly": false,
-                            "type": "\"filled\" | \"outlined\"",
+                            "type": "\"outlined\" | \"filled\"",
                             "default": "outlined",
                             "description": "Specifies the input variant of the component."
                         },
@@ -17668,7 +17682,7 @@
                             "name": "variant",
                             "optional": false,
                             "readonly": false,
-                            "type": "\"filled\" | \"outlined\"",
+                            "type": "\"outlined\" | \"filled\"",
                             "default": "outlined",
                             "description": "Specifies the input variant of the component."
                         },
@@ -17719,7 +17733,7 @@
                             "name": "variant",
                             "optional": false,
                             "readonly": false,
-                            "type": "\"filled\" | \"outlined\"",
+                            "type": "\"outlined\" | \"filled\"",
                             "default": "outlined",
                             "description": "Specifies the input variant of the component."
                         },
@@ -18219,7 +18233,7 @@
                             "name": "filterMatchMode",
                             "optional": false,
                             "readonly": false,
-                            "type": "\"endsWith\" | \"startsWith\" | \"contains\" | \"equals\" | \"in\" | \"notEquals\" | \"lt\" | \"lte\" | \"gt\" | \"gte\"",
+                            "type": "\"endsWith\" | \"startsWith\" | \"in\" | \"contains\" | \"equals\" | \"notEquals\" | \"lt\" | \"lte\" | \"gt\" | \"gte\"",
                             "default": "contains",
                             "description": "Defines how the items are filtered."
                         },
@@ -20024,7 +20038,7 @@
                             "name": "labelPosition",
                             "optional": false,
                             "readonly": false,
-                            "type": "\"end\" | \"start\"",
+                            "type": "\"start\" | \"end\"",
                             "default": "end",
                             "description": "Specifies the label position of the component, valid values are 'start' and 'end'."
                         },
@@ -20326,7 +20340,7 @@
                             "name": "variant",
                             "optional": false,
                             "readonly": false,
-                            "type": "\"filled\" | \"outlined\"",
+                            "type": "\"outlined\" | \"filled\"",
                             "default": "outlined",
                             "description": "Specifies the input variant of the component."
                         },
@@ -20555,7 +20569,7 @@
                             "name": "filterMatchMode",
                             "optional": false,
                             "readonly": false,
-                            "type": "\"endsWith\" | \"startsWith\" | \"contains\" | \"equals\" | \"in\" | \"notEquals\" | \"lt\" | \"lte\" | \"gt\" | \"gte\"",
+                            "type": "\"endsWith\" | \"startsWith\" | \"in\" | \"contains\" | \"equals\" | \"notEquals\" | \"lt\" | \"lte\" | \"gt\" | \"gte\"",
                             "default": "contains",
                             "description": "Defines how the items are filtered."
                         },
@@ -20571,7 +20585,7 @@
                             "name": "tooltipPosition",
                             "optional": false,
                             "readonly": false,
-                            "type": "\"left\" | \"top\" | \"bottom\" | \"right\"",
+                            "type": "\"right\" | \"left\" | \"top\" | \"bottom\"",
                             "default": "right",
                             "description": "Position of the tooltip."
                         },
@@ -21396,7 +21410,7 @@
                             "name": "controlsPosition",
                             "optional": false,
                             "readonly": false,
-                            "type": "\"left\" | \"right\"",
+                            "type": "\"right\" | \"left\"",
                             "default": "left",
                             "description": "Defines the location of the buttons with respect to the list."
                         },
@@ -21411,7 +21425,7 @@
                             "name": "filterMatchMode",
                             "optional": false,
                             "readonly": false,
-                            "type": "\"endsWith\" | \"startsWith\" | \"contains\" | \"equals\" | \"in\" | \"notEquals\" | \"lt\" | \"lte\" | \"gt\" | \"gte\"",
+                            "type": "\"endsWith\" | \"startsWith\" | \"in\" | \"contains\" | \"equals\" | \"notEquals\" | \"lt\" | \"lte\" | \"gt\" | \"gte\"",
                             "default": "contains",
                             "description": "Defines how the items are filtered."
                         },
@@ -21858,7 +21872,7 @@
                             "name": "selectionMode",
                             "optional": false,
                             "readonly": false,
-                            "type": "\"multiple\" | \"single\"",
+                            "type": "\"single\" | \"multiple\"",
                             "description": "Defines the selection mode."
                         },
                         {
@@ -22334,7 +22348,7 @@
                             "name": "severity",
                             "optional": false,
                             "readonly": false,
-                            "type": "\"success\" | \"info\" | \"primary\" | \"help\" | \"warn\" | \"danger\" | \"secondary\" | \"contrast\"",
+                            "type": "\"primary\" | \"secondary\" | \"success\" | \"info\" | \"warn\" | \"danger\" | \"contrast\" | \"help\"",
                             "description": "Severity type of the badge."
                         },
                         {
@@ -22738,6 +22752,23 @@
                             "name": "hide",
                             "parameters": [],
                             "description": "Hides the panel."
+                        }
+                    ]
+                },
+                "templates": {
+                    "description": "Defines the templates used by the component.",
+                    "values": [
+                        {
+                            "name": "content",
+                            "description": "Custom content template.",
+                            "type": "TemplateRef<any>",
+                            "parameters": []
+                        },
+                        {
+                            "name": "closeicon",
+                            "description": "Custom close icon template.",
+                            "type": "TemplateRef<any>",
+                            "parameters": []
                         }
                     ]
                 }
@@ -23202,7 +23233,7 @@
                             "name": "iconPos",
                             "optional": false,
                             "readonly": false,
-                            "type": "\"center\" | \"end\" | \"start\"",
+                            "type": "\"center\" | \"start\" | \"end\"",
                             "default": "end",
                             "description": "Position of the icons."
                         },
@@ -23678,7 +23709,7 @@
                             "name": "variant",
                             "optional": false,
                             "readonly": false,
-                            "type": "\"filled\" | \"outlined\"",
+                            "type": "\"outlined\" | \"filled\"",
                             "default": "outlined",
                             "description": "Specifies the input variant of the component."
                         },
@@ -23901,7 +23932,7 @@
                             "name": "variant",
                             "optional": false,
                             "readonly": false,
-                            "type": "\"filled\" | \"outlined\"",
+                            "type": "\"outlined\" | \"filled\"",
                             "default": "outlined",
                             "description": "Specifies the input variant of the component."
                         }
@@ -24287,7 +24318,7 @@
                             "name": "filterMatchMode",
                             "optional": false,
                             "readonly": false,
-                            "type": "\"endsWith\" | \"startsWith\" | \"contains\" | \"equals\" | \"in\" | \"notEquals\" | \"lt\" | \"lte\" | \"gt\" | \"gte\"",
+                            "type": "\"endsWith\" | \"startsWith\" | \"in\" | \"contains\" | \"equals\" | \"notEquals\" | \"lt\" | \"lte\" | \"gt\" | \"gte\"",
                             "default": "contains",
                             "description": "Defines how the items are filtered."
                         },
@@ -25242,7 +25273,7 @@
                             "name": "variant",
                             "optional": false,
                             "readonly": false,
-                            "type": "\"filled\" | \"outlined\"",
+                            "type": "\"outlined\" | \"filled\"",
                             "default": "outlined",
                             "description": "Specifies the input variant of the component."
                         },
@@ -25711,7 +25742,7 @@
                             "name": "orientation",
                             "optional": false,
                             "readonly": false,
-                            "type": "\"both\" | \"horizontal\" | \"vertical\"",
+                            "type": "\"horizontal\" | \"vertical\" | \"both\"",
                             "description": "The orientation of scrollbar."
                         },
                         {
@@ -26617,7 +26648,7 @@
                             "name": "variant",
                             "optional": false,
                             "readonly": false,
-                            "type": "\"filled\" | \"outlined\"",
+                            "type": "\"outlined\" | \"filled\"",
                             "default": "outlined",
                             "description": "Specifies the input variant of the component."
                         },
@@ -26835,7 +26866,7 @@
                             "name": "filterMatchMode",
                             "optional": false,
                             "readonly": false,
-                            "type": "\"endsWith\" | \"startsWith\" | \"contains\" | \"equals\" | \"in\" | \"notEquals\" | \"lt\" | \"lte\" | \"gt\" | \"gte\"",
+                            "type": "\"endsWith\" | \"startsWith\" | \"in\" | \"contains\" | \"equals\" | \"notEquals\" | \"lt\" | \"lte\" | \"gt\" | \"gte\"",
                             "default": "contains",
                             "description": "Defines how the items are filtered."
                         },
@@ -26858,7 +26889,7 @@
                             "name": "tooltipPosition",
                             "optional": false,
                             "readonly": false,
-                            "type": "\"left\" | \"top\" | \"bottom\" | \"right\"",
+                            "type": "\"right\" | \"left\" | \"top\" | \"bottom\"",
                             "default": "right",
                             "description": "Position of the tooltip."
                         },
@@ -28324,7 +28355,7 @@
                             "name": "type",
                             "optional": false,
                             "readonly": false,
-                            "type": "\"linear\" | \"circle\" | \"semi-circle\" | \"quarter-circle\"",
+                            "type": "\"circle\" | \"linear\" | \"semi-circle\" | \"quarter-circle\"",
                             "default": "linear",
                             "description": "Specifies the opening type of actions."
                         },
@@ -28610,7 +28641,7 @@
                             "name": "severity",
                             "optional": false,
                             "readonly": false,
-                            "type": "\"success\" | \"info\" | \"primary\" | \"help\" | \"warn\" | \"danger\" | \"secondary\" | \"contrast\"",
+                            "type": "\"primary\" | \"secondary\" | \"success\" | \"info\" | \"warn\" | \"danger\" | \"contrast\" | \"help\"",
                             "description": "Defines the style of the button."
                         },
                         {
@@ -29721,8 +29752,8 @@
                 "description": "Defines the templates used by the component.",
                 "values": [
                     {
-                        "parent": "columnfilter",
-                        "name": "filterTemplate",
+                        "parent": "table",
+                        "name": "filter",
                         "parameters": [
                             {
                                 "name": "context",
@@ -29732,38 +29763,38 @@
                         "description": "Custom filter template."
                     },
                     {
-                        "parent": "columnfilter",
-                        "name": "headerTemplate",
+                        "parent": "table",
+                        "name": "header",
                         "parameters": [],
                         "description": "Custom header template."
                     },
                     {
-                        "parent": "columnfilter",
-                        "name": "footerTemplate",
+                        "parent": "table",
+                        "name": "footer",
                         "parameters": [],
                         "description": "Custom footer template."
                     },
                     {
-                        "parent": "columnfilter",
-                        "name": "filterIconTemplate",
+                        "parent": "table",
+                        "name": "filterIcon",
                         "parameters": [],
                         "description": "Custom filter icon template."
                     },
                     {
-                        "parent": "columnfilter",
-                        "name": "removeRuleIconTemplate",
+                        "parent": "table",
+                        "name": "removeRuleIcon",
                         "parameters": [],
                         "description": "Custom remove rule icon template."
                     },
                     {
-                        "parent": "columnfilter",
-                        "name": "addRuleIconTemplate",
+                        "parent": "table",
+                        "name": "addRuleIcon",
                         "parameters": [],
                         "description": "Custom add rule icon template."
                     },
                     {
-                        "parent": "columnfilter",
-                        "name": "clearFilterIconTemplate",
+                        "parent": "table",
+                        "name": "clearFilterIcon",
                         "parameters": [],
                         "description": "Custom clear filter icon template."
                     }
@@ -29855,7 +29886,7 @@
                             "name": "paginatorPosition",
                             "optional": false,
                             "readonly": false,
-                            "type": "\"both\" | \"top\" | \"bottom\"",
+                            "type": "\"top\" | \"bottom\" | \"both\"",
                             "default": "bottom",
                             "description": "Position of the paginator, options are \"top\", \"bottom\" or \"both\"."
                         },
@@ -29941,7 +29972,7 @@
                             "name": "sortMode",
                             "optional": false,
                             "readonly": false,
-                            "type": "\"multiple\" | \"single\"",
+                            "type": "\"single\" | \"multiple\"",
                             "default": "single",
                             "description": "Defines whether sorting works on single column or on multiple columns."
                         },
@@ -29957,7 +29988,7 @@
                             "name": "selectionMode",
                             "optional": false,
                             "readonly": false,
-                            "type": "\"multiple\" | \"single\"",
+                            "type": "\"single\" | \"multiple\"",
                             "description": "Specifies the selection mode, valid values are \"single\" and \"multiple\"."
                         },
                         {
@@ -30103,7 +30134,7 @@
                             "name": "rowExpandMode",
                             "optional": false,
                             "readonly": false,
-                            "type": "\"multiple\" | \"single\"",
+                            "type": "\"single\" | \"multiple\"",
                             "default": "multiple",
                             "description": "Whether multiple rows can be expanded at any time. Valid values are \"multiple\" and \"single\"."
                         },
@@ -30119,7 +30150,7 @@
                             "name": "scrollDirection",
                             "optional": false,
                             "readonly": false,
-                            "type": "\"both\" | \"horizontal\" | \"vertical\"",
+                            "type": "\"horizontal\" | \"vertical\" | \"both\"",
                             "default": "vertical",
                             "description": "Orientation of the scrolling, options are \"vertical\", \"horizontal\" and \"both\".",
                             "deprecated": "Property is obselete since v14.2.0."
@@ -30302,7 +30333,7 @@
                             "name": "editMode",
                             "optional": false,
                             "readonly": false,
-                            "type": "\"cell\" | \"row\"",
+                            "type": "\"row\" | \"cell\"",
                             "default": "cell",
                             "description": "Defines the editing mode, valid values are \"cell\" and \"row\"."
                         },
@@ -32231,31 +32262,31 @@
                 "description": "Defines the templates used by the component.",
                 "values": [
                     {
-                        "parent": "tabpanel",
+                        "parent": "tabview",
                         "name": "header",
                         "parameters": [],
                         "description": "Custom header template."
                     },
                     {
-                        "parent": "tabpanel",
+                        "parent": "tabview",
                         "name": "content",
                         "parameters": [],
                         "description": "Custom content template(Default)."
                     },
                     {
-                        "parent": "tabpanel",
+                        "parent": "tabview",
                         "name": "righticon",
                         "parameters": [],
                         "description": "Custom right icon template."
                     },
                     {
-                        "parent": "tabpanel",
+                        "parent": "tabview",
                         "name": "lefticon",
                         "parameters": [],
                         "description": "Custom left icon template."
                     },
                     {
-                        "parent": "tabpanel",
+                        "parent": "tabview",
                         "name": "closeicon",
                         "parameters": [],
                         "description": "Custom close icon template."
@@ -32319,7 +32350,7 @@
                             "name": "tooltipPosition",
                             "optional": false,
                             "readonly": false,
-                            "type": "\"left\" | \"top\" | \"bottom\" | \"right\"",
+                            "type": "\"right\" | \"left\" | \"top\" | \"bottom\"",
                             "default": "top",
                             "description": "Position of the tooltip."
                         },
@@ -32593,7 +32624,7 @@
                             "name": "severity",
                             "optional": false,
                             "readonly": false,
-                            "type": "\"success\" | \"info\" | \"warn\" | \"danger\" | \"secondary\" | \"contrast\"",
+                            "type": "\"secondary\" | \"success\" | \"info\" | \"warn\" | \"danger\" | \"contrast\"",
                             "description": "Severity type of the tag."
                         },
                         {
@@ -32769,21 +32800,6 @@
         }
     },
     "terminalservice": {
-        "components": {}
-    },
-    "datatable": {
-        "components": {}
-    },
-    "imagecompare": {
-        "components": {}
-    },
-    "aura": {
-        "components": {}
-    },
-    "inlinemessage": {
-        "components": {}
-    },
-    "inputchips": {
         "components": {}
     },
     "tieredmenu": {
@@ -33577,7 +33593,7 @@
                             "name": "iconPos",
                             "optional": false,
                             "readonly": false,
-                            "type": "\"left\" | \"right\"",
+                            "type": "\"right\" | \"left\"",
                             "default": "left",
                             "description": "Position of the icon."
                         },
@@ -34169,7 +34185,7 @@
                             "name": "selectionMode",
                             "optional": false,
                             "readonly": false,
-                            "type": "\"multiple\" | \"checkbox\" | \"single\"",
+                            "type": "\"single\" | \"multiple\" | \"checkbox\"",
                             "description": "Defines the selection mode."
                         },
                         {
@@ -35050,7 +35066,7 @@
                             "name": "variant",
                             "optional": false,
                             "readonly": false,
-                            "type": "\"filled\" | \"outlined\"",
+                            "type": "\"outlined\" | \"filled\"",
                             "default": "outlined",
                             "description": "Specifies the input variant of the component."
                         },
@@ -35058,7 +35074,7 @@
                             "name": "display",
                             "optional": false,
                             "readonly": false,
-                            "type": "\"comma\" | \"chip\"",
+                            "type": "\"chip\" | \"comma\"",
                             "default": "comma",
                             "description": "Defines how the selected items are displayed."
                         },
@@ -35066,7 +35082,7 @@
                             "name": "selectionMode",
                             "optional": false,
                             "readonly": false,
-                            "type": "\"multiple\" | \"checkbox\" | \"single\"",
+                            "type": "\"single\" | \"multiple\" | \"checkbox\"",
                             "default": "single",
                             "description": "Defines the selection mode."
                         },
@@ -35811,7 +35827,7 @@
                             "name": "paginatorPosition",
                             "optional": false,
                             "readonly": false,
-                            "type": "\"both\" | \"top\" | \"bottom\"",
+                            "type": "\"top\" | \"bottom\" | \"both\"",
                             "default": "bottom",
                             "description": "Position of the paginator."
                         },
@@ -35881,7 +35897,7 @@
                             "name": "sortMode",
                             "optional": false,
                             "readonly": false,
-                            "type": "\"multiple\" | \"single\"",
+                            "type": "\"single\" | \"multiple\"",
                             "default": "single",
                             "description": "Defines whether sorting works on single column or on multiple columns."
                         },
@@ -36688,7 +36704,7 @@
                                 "name": "mode",
                                 "optional": true,
                                 "readonly": false,
-                                "type": "\"multiple\" | \"single\"",
+                                "type": "\"single\" | \"multiple\"",
                                 "description": "Sort mode."
                             },
                             {
@@ -37317,21 +37333,6 @@
                 ]
             }
         }
-    },
-    "virtualscroller": {
-        "components": {}
-    },
-    "lara": {
-        "components": {}
-    },
-    "material": {
-        "components": {}
-    },
-    "nora": {
-        "components": {}
-    },
-    "themes": {
-        "components": {}
     },
     "use": {
         "style": {

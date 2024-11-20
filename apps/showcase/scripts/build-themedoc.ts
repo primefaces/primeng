@@ -5,15 +5,15 @@ const path = require('path');
 //@ts-ignore
 const fs = require('fs');
 //@ts-ignore
-const rootDir = path.resolve(__dirname, '../');
+const rootDir = path.resolve(__dirname, '../../../packages/themes');
 //@ts-ignore
-const outputPath = path.resolve(rootDir, '@/doc/apidoc');
+const outputPath = path.resolve(__dirname, '../../../apps/showcase/doc/apidoc/');
 
 async function themedoc() {
     const app = await TypeDoc.Application.bootstrapWithPlugins({
         // themedoc options here
         name: 'PrimeNG',
-        entryPoints: [`src/app/components/themes/types/`],
+        entryPoints: [`${rootDir}/types`],
         entryPointStrategy: 'expand',
         hideGenerator: true,
         excludeExternals: true,
@@ -22,11 +22,12 @@ async function themedoc() {
         disableSources: false,
         logLevel: 'Error',
         sort: ['source-order'],
-        exclude: ['node_modules', 'src/app/components/**/*spec.ts', 'src/app/components/**/*public_api.ts']
+        exclude: ['node_modules', 'src/**/*spec.ts', 'src/**/*public_api.ts']
     });
 
     const project = await app.convert();
     await app.generateJson(project, `./api-generator/themedoc.json`);
+
     if (project) {
         let doc = {};
 
@@ -95,5 +96,4 @@ async function themedoc() {
         fs.writeFileSync(path.resolve(outputPath, 'themedoc.json'), themedocJSON);
     }
 }
-
 themedoc().catch(console.error);

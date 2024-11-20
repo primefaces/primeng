@@ -1,24 +1,6 @@
 import { animate, AnimationEvent, state, style, transition, trigger } from '@angular/animations';
 import { CommonModule, isPlatformBrowser } from '@angular/common';
-import {
-    AfterContentInit,
-    booleanAttribute,
-    ChangeDetectionStrategy,
-    Component,
-    ElementRef,
-    EventEmitter,
-    HostListener,
-    inject,
-    Input,
-    NgModule,
-    NgZone,
-    numberAttribute,
-    OnDestroy,
-    Output,
-    TemplateRef,
-    ViewEncapsulation,
-    ViewRef
-} from '@angular/core';
+import { booleanAttribute, ChangeDetectionStrategy, Component, ContentChild, ElementRef, EventEmitter, HostListener, inject, Input, NgModule, NgZone, numberAttribute, OnDestroy, Output, TemplateRef, ViewEncapsulation, ViewRef } from '@angular/core';
 import { absolutePosition, addClass, appendChild, findSingle, getOffset, isIOS, isTouchDevice } from '@primeuix/utils';
 import { OverlayService, SharedModule } from 'primeng/api';
 import { BaseComponent } from 'primeng/basecomponent';
@@ -92,7 +74,7 @@ import { PopoverStyle } from './style/popoverstyle';
     encapsulation: ViewEncapsulation.None,
     providers: [PopoverStyle]
 })
-export class Popover extends BaseComponent implements AfterContentInit, OnDestroy {
+export class Popover extends BaseComponent implements OnDestroy {
     /**
      * Defines a string that labels the input for accessibility.
      * @group Props
@@ -189,9 +171,16 @@ export class Popover extends BaseComponent implements AfterContentInit, OnDestro
 
     documentResizeListener: VoidListener;
 
-    contentTemplate: Nullable<TemplateRef<any>>;
-
-    closeIconTemplate: Nullable<TemplateRef<any>>;
+    /**
+     * Custom content template.
+     * @group Templates
+     */
+    @ContentChild('content') contentTemplate: Nullable<TemplateRef<any>>;
+    /**
+     * Custom close icon template.
+     * @group Templates
+     */
+    @ContentChild('closeicon') closeIconTemplate: TemplateRef<any>;
 
     destroyCallback: Nullable<Function>;
 
@@ -204,26 +193,6 @@ export class Popover extends BaseComponent implements AfterContentInit, OnDestro
     zone = inject(NgZone);
 
     overlayService = inject(OverlayService);
-
-    ngAfterContentInit() {
-        this.templates?.forEach((item) => {
-            switch (item.getType()) {
-                case 'content':
-                    this.contentTemplate = item.template;
-                    break;
-
-                case 'closeicon':
-                    this.closeIconTemplate = item.template;
-                    break;
-
-                default:
-                    this.contentTemplate = item.template;
-                    break;
-            }
-
-            this.cd.markForCheck();
-        });
-    }
 
     bindDocumentClickListener() {
         if (isPlatformBrowser(this.platformId)) {

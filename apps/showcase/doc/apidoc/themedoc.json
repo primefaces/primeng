@@ -4719,6 +4719,61 @@
             }
         ]
     },
+    "iftalabel": {
+        "description": "IftaLabel Design Tokens\n\n[Live Demo](https://www.primeng.org/iftalabel/)",
+        "tokens": [
+            {
+                "token": "root.color",
+                "variable": "--p-iftalabel-color",
+                "description": "Color of root"
+            },
+            {
+                "token": "root.focusColor",
+                "variable": "--p-iftalabel-focus-color",
+                "description": "Focus color of root"
+            },
+            {
+                "token": "root.invalidColor",
+                "variable": "--p-iftalabel-invalid-color",
+                "description": "Invalid color of root"
+            },
+            {
+                "token": "root.transitionDuration",
+                "variable": "--p-iftalabel-transition-duration",
+                "description": "Transition duration of root"
+            },
+            {
+                "token": "root.positionX",
+                "variable": "--p-iftalabel-position-x",
+                "description": "Position x of root"
+            },
+            {
+                "token": "root.top",
+                "variable": "--p-iftalabel-top",
+                "description": "Top of root"
+            },
+            {
+                "token": "root.fontSize",
+                "variable": "--p-iftalabel-font-size",
+                "description": "Font size of root"
+            },
+            {
+                "token": "root.fontWeight",
+                "variable": "--p-iftalabel-font-weight",
+                "description": "Font weight of root"
+            },
+            {
+                "token": "input.paddingTop",
+                "variable": "--p-iftalabel-input-padding-top",
+                "description": "Padding top of input"
+            },
+            {
+                "token": "input.paddingBottom",
+                "variable": "--p-iftalabel-input-padding-bottom",
+                "description": "Padding bottom of input"
+            }
+        ]
+    },
     "image": {
         "description": "Image Design Tokens\n\n[Live Demo](https://www.primeng.org/image/)",
         "tokens": [
@@ -4851,6 +4906,81 @@
                 "token": "focusRing.shadow",
                 "variable": "--p-image-action-focus-ring-shadow",
                 "description": "Focus ring shadow of action"
+            }
+        ]
+    },
+    "imagecompare": {
+        "description": "ImageCompare Design Tokens\n\n[Live Demo](https://www.primeng.org/imagecompare/)",
+        "tokens": [
+            {
+                "token": "handle.size",
+                "variable": "--p-imagecompare-handle-size",
+                "description": "Size of handle"
+            },
+            {
+                "token": "handle.hoverSize",
+                "variable": "--p-imagecompare-handle-hover-size",
+                "description": "Hover size of handle"
+            },
+            {
+                "token": "handle.background",
+                "variable": "--p-imagecompare-handle-background",
+                "description": "Background of handle"
+            },
+            {
+                "token": "handle.hoverBackground",
+                "variable": "--p-imagecompare-handle-hover-background",
+                "description": "Hover background of handle"
+            },
+            {
+                "token": "handle.borderColor",
+                "variable": "--p-imagecompare-handle-border-color",
+                "description": "Border color of handle"
+            },
+            {
+                "token": "handle.hoverBorderColor",
+                "variable": "--p-imagecompare-handle-hover-border-color",
+                "description": "Hover border color of handle"
+            },
+            {
+                "token": "handle.borderWidth",
+                "variable": "--p-imagecompare-handle-border-width",
+                "description": "Border width of handle"
+            },
+            {
+                "token": "handle.borderRadius",
+                "variable": "--p-imagecompare-handle-border-radius",
+                "description": "Border radius of handle"
+            },
+            {
+                "token": "handle.transitionDuration",
+                "variable": "--p-imagecompare-handle-transition-duration",
+                "description": "Transition duration of handle"
+            },
+            {
+                "token": "focusRing.width",
+                "variable": "--p-imagecompare-handle-focus-ring-width",
+                "description": "Focus ring width of handle"
+            },
+            {
+                "token": "focusRing.style",
+                "variable": "--p-imagecompare-handle-focus-ring-style",
+                "description": "Focus ring style of handle"
+            },
+            {
+                "token": "focusRing.color",
+                "variable": "--p-imagecompare-handle-focus-ring-color",
+                "description": "Focus ring color of handle"
+            },
+            {
+                "token": "focusRing.offset",
+                "variable": "--p-imagecompare-handle-focus-ring-offset",
+                "description": "Focus ring offset of handle"
+            },
+            {
+                "token": "focusRing.shadow",
+                "variable": "--p-imagecompare-handle-focus-ring-shadow",
+                "description": "Focus ring shadow of handle"
             }
         ]
     },
@@ -5290,6 +5420,31 @@
                 "token": "button.activeColor",
                 "variable": "--p-inputnumber-button-active-color",
                 "description": "Active color of button"
+            }
+        ]
+    },
+    "inputotp": {
+        "description": "InputOTP Design Tokens\n\n[Live Demo](https://www.primeng.org/inputotp/)",
+        "tokens": [
+            {
+                "token": "root.gap",
+                "variable": "--p-inputotp-gap",
+                "description": "Gap of root"
+            },
+            {
+                "token": "input.width",
+                "variable": "--p-inputotp-input-width",
+                "description": "Width of input"
+            },
+            {
+                "token": "sm.width",
+                "variable": "--p-inputotp-input-sm-width",
+                "description": "Width of input in small screens"
+            },
+            {
+                "token": "lg.width",
+                "variable": "--p-inputotp-input-lg-width",
+                "description": "Width of input in large screens"
             }
         ]
     },
