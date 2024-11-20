@@ -424,22 +424,21 @@ export class AppDesignerComponent {
     }
     download() {
         const basePreset = this.configService.appState().preset;
+        const theme = JSON.stringify(this.preset, null, 4).replace(/"([^"]+)":/g, '$1:');
         const textContent = `import { ApplicationConfig } from '@angular/core';
 import { provideAnimationsAsync } from '@angular/platform-browser/animations/async';
 import { providePrimeNG } from 'primeng/config';
 import ${basePreset} from "@primeng/themes/${basePreset.toLowerCase()}";
+import { definePreset } from "@primeng/themes";
+
+const MyPreset = definePreset(${basePreset}, ${theme});
 
 export const appConfig: ApplicationConfig = {
     providers: [
         provideAnimationsAsync(),
         providePrimeNG({
             theme: {
-               preset: ${basePreset},
-                options: {
-                    prefix: 'p',
-                    darkModeSelector: 'system',
-                    cssLayer: false
-                }
+               preset: MyPreset,
             }
         })
     ]
@@ -452,7 +451,7 @@ export const appConfig: ApplicationConfig = {
         const a = document.createElement('a');
 
         a.href = url;
-        a.download = 'mytheme.js';
+        a.download = 'mytheme.ts';
         document.body.appendChild(a);
         a.click();
 
