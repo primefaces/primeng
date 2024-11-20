@@ -1769,21 +1769,28 @@ export class MultiSelect implements OnInit, AfterViewInit, AfterContentInit, Aft
         event.preventDefault();
     }
 
-    onEnterKey(event) {
+    onEnterKey(event: KeyboardEvent) {
         if (!this.overlayVisible) {
-            this.onArrowDownKey(event);
-        } else {
+            this.show(true);
+            this.focusedOptionIndex.set(this.findFirstFocusedOptionIndex());
+        }
+        else {
             if (this.focusedOptionIndex() !== -1) {
                 if (event.shiftKey) {
                     this.onOptionSelectRange(event, this.focusedOptionIndex());
-                } else {
-                    this.onOptionSelect({ originalEvent: event, option: this.visibleOptions()[this.focusedOptionIndex()] });
+                } 
+                else {
+                    const selectedOption = this.visibleOptions()[this.focusedOptionIndex()];
+                    this.onOptionSelect({ originalEvent: event, option: selectedOption });
                 }
             }
+            else {
+                console.warn("No option is currently focused to select.");
+            }
         }
-
         event.preventDefault();
     }
+    
 
     onEscapeKey(event) {
         this.overlayVisible && this.hide(true);
@@ -1873,14 +1880,16 @@ export class MultiSelect implements OnInit, AfterViewInit, AfterContentInit, Aft
     onFilterInputChange(event: KeyboardEvent) {
         let value: string = (event.target as HTMLInputElement).value;
         this._filterValue.set(value);
-        this.focusedOptionIndex.set(-1);
+    
+        if (this.autoOptionFocus && this.visibleOptions().length > 0) {
+            this.focusedOptionIndex.set(0);
+        } else {
+            this.focusedOptionIndex.set(-1);
+        }
+    
         this.onFilter.emit({ originalEvent: event, filter: this._filterValue() });
-
-        !this.virtualScrollerDisabled && this.scroller.scrollToIndex(0);
-        setTimeout(() => {
-            this.overlayViewChild.alignOverlay();
-        });
     }
+    
 
     onLastHiddenFocus(event) {
         const focusableEl =
