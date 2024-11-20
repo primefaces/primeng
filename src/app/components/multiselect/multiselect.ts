@@ -2102,6 +2102,8 @@ export class MultiSelect implements OnInit, AfterViewInit, AfterContentInit, Aft
                 }
 
                 this.onPanelShow.emit();
+                break;
+
             case 'void':
                 this.itemsWrapper = null;
                 this.onModelTouched();

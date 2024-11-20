@@ -29,7 +29,7 @@ import { DomHandler } from 'primeng/dom';
 import { RippleModule } from 'primeng/ripple';
 import { Scroller, ScrollerModule } from 'primeng/scroller';
 import { ObjectUtils } from 'primeng/utils';
-import { Subscription } from 'rxjs';
+import { first, last, Subscription } from 'rxjs';
 import { CheckIcon } from 'primeng/icons/check';
 import { ChevronDownIcon } from 'primeng/icons/chevrondown';
 import { ChevronRightIcon } from 'primeng/icons/chevronright';
@@ -361,7 +361,7 @@ export class UITreeNode implements OnInit {
         let dragNodeScope = this.tree.dragNodeScope;
         let isValidDropPointIndex = this.tree.dragNodeTree === this.tree ? position === 1 || dragNodeIndex !== <number>this.index - 1 : true;
 
-        if (this.tree.allowDrop(<TreeNode>dragNode, <TreeNode>this.node, dragNodeScope) && isValidDropPointIndex) {
+        if (this.tree.allowDrop(<TreeNode>dragNode, <TreeNode>this.node, dragNodeScope, 'between') && isValidDropPointIndex) {
             let dropParams = { ...this.createDropPointEventMetadata(<number>position) };
 
             if (this.tree.validateDrop) {
@@ -369,6 +369,7 @@ export class UITreeNode implements OnInit {
                     originalEvent: event,
                     dragNode: dragNode,
                     dropNode: this.node,
+                    dropPoint: 'between',
                     index: this.index,
                     accept: () => {
                         this.processPointDrop(dropParams);
@@ -380,6 +381,7 @@ export class UITreeNode implements OnInit {
                     originalEvent: event,
                     dragNode: dragNode,
                     dropNode: this.node,
+                    dropPoint: 'between',
                     index: this.index
                 });
             }
@@ -426,7 +428,7 @@ export class UITreeNode implements OnInit {
     }
 
     onDropPointDragEnter(event: Event, position: number) {
-        if (this.tree.allowDrop(<TreeNode>this.tree.dragNode, <TreeNode>this.node, this.tree.dragNodeScope)) {
+        if (this.tree.allowDrop(<TreeNode>this.tree.dragNode, <TreeNode>this.node, this.tree.dragNodeScope, 'between')) {
             if (position < 0) this.draghoverPrev = true;
             else this.draghoverNext = true;
         }
@@ -481,6 +483,7 @@ export class UITreeNode implements OnInit {
                         originalEvent: event,
                         dragNode: dragNode,
                         dropNode: this.node,
+                        dropPoint: 'node',
                         index: this.index,
                         accept: () => {
                             this.processNodeDrop(dropParams);
@@ -492,6 +495,7 @@ export class UITreeNode implements OnInit {
                         originalEvent: event,
                         dragNode: dragNode,
                         dropNode: this.node,
+                        dropPoint: 'node',
                         index: this.index
                     });
                 }
@@ -812,14 +816,14 @@ export class UITreeNode implements OnInit {
                         <ul *ngIf="items" class="p-tree-container" [ngClass]="scrollerOptions.contentStyleClass" [style]="scrollerOptions.contentStyle" role="tree" [attr.aria-label]="ariaLabel" [attr.aria-labelledby]="ariaLabelledBy">
                             <p-treeNode
                                 #treeNode
-                                *ngFor="let rowNode of items; let firstChild = first; let lastChild = last; let index = index; trackBy: trackBy"
+                                *ngFor="let rowNode of items; let firstChild = first; trackBy: trackBy"
                                 [level]="rowNode.level"
                                 [rowNode]="rowNode"
                                 [node]="rowNode.node"
                                 [parentNode]="rowNode.parent"
                                 [firstChild]="firstChild"
-                                [lastChild]="lastChild"
-                                [index]="getIndex(scrollerOptions, index)"
+                                [lastChild]="rowNode.lastChild"
+                                [index]="rowNode.index"
                                 [itemSize]="scrollerOptions.itemSize"
                                 [indentation]="indentation"
                                 [loadingMode]="loadingMode"
@@ -1290,20 +1294,22 @@ export class Tree implements OnInit, AfterContentInit, OnChanges, OnDestroy, Blo
 
     serializeNodes(parent: TreeNode<any> | null, nodes: TreeNode<any>[] | any, level: number, visible: boolean) {
         if (nodes && nodes.length) {
-            for (let node of nodes) {
+            nodes.forEach((node, index) => {
                 node.parent = parent;
                 const rowNode = {
                     node: node,
                     parent: parent,
                     level: level,
-                    visible: visible && (parent ? parent.expanded : true)
+                    visible: visible && (parent ? parent.expanded : true),
+                    lastChild: index === nodes.length - 1,
+                    index: index
                 };
                 (this.serializedValue as TreeNode<any>[]).push(<TreeNode>rowNode);
 
                 if (rowNode.visible && node.expanded) {
                     this.serializeNodes(node, node.children, level + 1, rowNode.visible);
                 }
-            }
+            });
         }
     }
 
@@ -1435,24 +1441,11 @@ export class Tree implements OnInit, AfterContentInit, OnChanges, OnDestroy, Blo
     }
 
     findIndexInSelection(node: TreeNode) {
-        let index: number = -1;
         if (this.selectionMode && this.selection) {
-            if (this.isSingleSelectionMode()) {
-                let areNodesEqual = (this.selection.key && this.selection.key === node.key) || this.selection == node;
-                index = areNodesEqual ? 0 : -1;
-            } else {
-                for (let i = 0; i < this.selection.length; i++) {
-                    let selectedNode = this.selection[i];
-                    let areNodesEqual = (selectedNode.key && selectedNode.key === node.key) || selectedNode == node;
-                    if (areNodesEqual) {
-                        index = i;
-                        break;
-                    }
-                }
-            }
+            const selection = this.isSingleSelectionMode() ? [this.selection] : this.selection;
+            return selection.findIndex((selectedNode) => selectedNode === node || (selectedNode.key === node.key && selectedNode.key !== undefined));
         }
-
-        return index;
+        return -1;
     }
 
     syncNodeOption(node: TreeNode, parentNodes: TreeNode<any>[], option: any, value?: any) {
@@ -1649,7 +1642,7 @@ export class Tree implements OnInit, AfterContentInit, OnChanges, OnDestroy, Blo
         }
     }
 
-    allowDrop(dragNode: TreeNode, dropNode: TreeNode<any> | null, dragNodeScope: any): boolean {
+    allowDrop(dragNode: TreeNode, dropNode: TreeNode<any> | null, dragNodeScope: any, dropPoint: 'node' | 'between' = 'node'): boolean {
         if (!dragNode) {
             //prevent random html elements to be dragged
             return false;

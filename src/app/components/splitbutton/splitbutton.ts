@@ -1,6 +1,6 @@
 import { CommonModule } from '@angular/common';
 import { ChangeDetectionStrategy, Component, ContentChildren, ElementRef, EventEmitter, Input, NgModule, Output, QueryList, TemplateRef, ViewChild, ViewEncapsulation, booleanAttribute, numberAttribute, signal } from '@angular/core';
-import { MenuItem, PrimeTemplate } from 'primeng/api';
+import { MenuItem, PrimeTemplate, TooltipOptions } from 'primeng/api';
 import { ButtonModule } from 'primeng/button';
 import { ChevronDownIcon } from 'primeng/icons/chevrondown';
 import { TieredMenu, TieredMenuModule } from 'primeng/tieredmenu';
@@ -170,7 +170,7 @@ export class SplitButton {
      * Tooltip options for the main button.
      * @group Props
      */
-    @Input() tooltipOptions: string | undefined;
+    @Input() tooltipOptions: TooltipOptions | undefined;
     /**
      * Inline style of the element.
      * @group Props
@@ -345,6 +345,7 @@ export class SplitButton {
             'p-button-rounded': this.rounded,
             'p-button-outlined': this.outlined,
             'p-button-text': this.text,
+            'p-button-plain': this.plain,
             [`p-button-${this.size === 'small' ? 'sm' : 'lg'}`]: this.size
         };
 
