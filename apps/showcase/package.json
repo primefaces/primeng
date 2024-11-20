@@ -8,9 +8,9 @@
         "e2e": "ng e2e",
         "lint": "ng lint",
         "build": "ng build",
-        "apidoc": "node ./api-generator/build-apidoc.ts",
-        "themedoc": "node ./api-generator/build-themedoc.ts",
-        "build:docs": "npm run apidoc && npm run themedoc"
+        "build:apidoc": "node ./scripts/build-apidoc.ts",
+        "build:themedoc": "node ./scripts/build-themedoc.ts",
+        "build:docs": "npm run build:apidoc && npm run build:themedoc"
     },
     "repository": {
         "type": "git",
