@@ -11,6 +11,8 @@ import { StyleDoc } from '@doc/scroller/styledoc';
 import { TemplateDoc } from '@doc/scroller/templatedoc';
 import { ProgrammaticDoc } from '@doc/scroller/programmaticdoc';
 import { AccessibilityDoc } from '@doc/scroller/accessibilitydoc';
+import { FlexibleItemsHeightDoc } from '@doc/scroller/flexibleitemsheightdoc';
+import { FlexibleGridDoc } from '@doc/scroller/flexiblegriddoc';
 
 @Component({
     templateUrl: './scrollerdemo.html',
@@ -29,6 +31,11 @@ export class ScrollerDemo {
             component: BasicDoc
         },
         {
+            id: 'flexible',
+            label: 'Flexible Height',
+            component: FlexibleItemsHeightDoc
+        },
+        {
             id: 'horizontal',
             label: 'Horizontal',
             component: HorizontalDoc
@@ -37,6 +44,11 @@ export class ScrollerDemo {
             id: 'grid',
             label: 'Grid',
             component: GridDoc
+        },
+        {
+            id: 'flexible-grid',
+            label: 'Flexible Grid',
+            component: FlexibleGridDoc
         },
         {
             id: 'programmatic',
