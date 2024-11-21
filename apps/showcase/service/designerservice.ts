@@ -9,14 +9,6 @@ export class DesignerService {
 
     acTokens = signal([]);
 
-    private themeUpdatedSource = new Subject<void>();
-
-    themeUpdated$ = this.themeUpdatedSource.asObservable();
-
-    updateTheme() {
-        this.themeUpdatedSource.next();
-    }
-
     setPreset(preset) {
         this.preset.set(preset);
     }

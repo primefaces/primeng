@@ -30,17 +30,14 @@ export class BasicDoc implements OnInit {
 
     designerService = inject(DesignerService);
 
-    constructor(private cd: ChangeDetectorRef) {
-        this.designerService.themeUpdated$.subscribe(() => {
-            this.initChart();
-            this.cd.markForCheck();
-        });
-    }
+    constructor(private cd: ChangeDetectorRef) {}
 
     themeEffect = effect(() => {
         if (this.configService.theme()) {
             this.initChart();
-            this.cd.markForCheck();
+        }
+        if (this.designerService.preset()) {
+            this.initChart();
         }
     });
 
@@ -96,6 +93,7 @@ export class BasicDoc implements OnInit {
                     }
                 }
             };
+            this.cd.markForCheck();
         }
     }
 
@@ -127,9 +125,11 @@ export class ChartBasicDemo implements OnInit {
     constructor(private cd: ChangeDetectorRef) {}
 
     themeEffect = effect(() => {
-        if (this.configService.theme() && isPlatformBrowser(this.platformId)) {
+        if (this.configService.theme()) {
             this.initChart();
-            this.cd.markForCheck();
+        }
+        if (this.designerService.preset()) {
+            this.initChart();
         }
     });
 
@@ -190,6 +190,7 @@ export class ChartBasicDemo implements OnInit {
                     },
                 },
             };
+            this.cd.markForCheck()
         }
     }
 }`

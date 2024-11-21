@@ -206,15 +206,13 @@ export class OverviewApp {
 
     designerService = inject(DesignerService);
 
-    constructor(private cd: ChangeDetectorRef) {
-        this.designerService.themeUpdated$.subscribe(() => {
-            this.initChart();
-            this.cd.markForCheck();
-        });
-    }
+    constructor(private cd: ChangeDetectorRef) {}
 
     themeEffect = effect(() => {
         if (this.configService.theme()) {
+            this.initChart();
+        }
+        if (this.designerService.preset()) {
             this.initChart();
         }
     });

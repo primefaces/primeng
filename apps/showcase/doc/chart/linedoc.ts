@@ -27,17 +27,14 @@ export class LineDoc implements OnInit {
 
     designerService = inject(DesignerService);
 
-    constructor(private cd: ChangeDetectorRef) {
-        this.designerService.themeUpdated$.subscribe(() => {
-            this.initChart();
-            this.cd.markForCheck();
-        });
-    }
+    constructor(private cd: ChangeDetectorRef) {}
 
     themeEffect = effect(() => {
         if (this.configService.theme()) {
             this.initChart();
-            this.cd.markForCheck();
+        }
+        if (this.designerService.preset()) {
+            this.initChart();
         }
     });
 
@@ -103,6 +100,7 @@ export class LineDoc implements OnInit {
                     }
                 }
             };
+            this.cd.markForCheck();
         }
     }
 
@@ -131,12 +129,16 @@ export class ChartLineDemo implements OnInit {
 
     configService = inject(AppConfigService);
 
+    designerService = inject(DesignerService);
+
     constructor(private cd: ChangeDetectorRef) {}
 
     themeEffect = effect(() => {
         if (this.configService.theme()) {
             this.initChart();
-            this.cd.markForCheck();
+        }
+        if (this.designerService.preset()) {
+            this.initChart();
         }
     });
 
@@ -159,16 +161,16 @@ export class ChartLineDemo implements OnInit {
                         data: [65, 59, 80, 81, 56, 55, 40],
                         fill: false,
                         borderColor: documentStyle.getPropertyValue('--p-cyan-500'),
-                        tension: 0.4,
+                        tension: 0.4
                     },
                     {
                         label: 'Second Dataset',
                         data: [28, 48, 40, 19, 86, 27, 90],
                         fill: false,
                         borderColor: documentStyle.getPropertyValue('--p-gray-500'),
-                        tension: 0.4,
-                    },
-                ],
+                        tension: 0.4
+                    }
+                ]
             };
 
             this.options = {
@@ -177,31 +179,32 @@ export class ChartLineDemo implements OnInit {
                 plugins: {
                     legend: {
                         labels: {
-                            color: textColor,
-                        },
-                    },
+                            color: textColor
+                        }
+                    }
                 },
                 scales: {
                     x: {
                         ticks: {
-                            color: textColorSecondary,
+                            color: textColorSecondary
                         },
                         grid: {
                             color: surfaceBorder,
-                            drawBorder: false,
-                        },
+                            drawBorder: false
+                        }
                     },
                     y: {
                         ticks: {
-                            color: textColorSecondary,
+                            color: textColorSecondary
                         },
                         grid: {
                             color: surfaceBorder,
-                            drawBorder: false,
-                        },
-                    },
-                },
+                            drawBorder: false
+                        }
+                    }
+                }
             };
+            this.cd.markForCheck()
         }
     }
 }`

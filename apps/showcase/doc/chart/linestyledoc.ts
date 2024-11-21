@@ -26,17 +26,14 @@ export class LineStyleDoc implements OnInit {
 
     designerService = inject(DesignerService);
 
-    constructor(private cd: ChangeDetectorRef) {
-        this.designerService.themeUpdated$.subscribe(() => {
-            this.initChart();
-            this.cd.markForCheck();
-        });
-    }
+    constructor(private cd: ChangeDetectorRef) {}
 
     themeEffect = effect(() => {
         if (this.configService.theme()) {
             this.initChart();
-            this.cd.markForCheck();
+        }
+        if (this.designerService.preset()) {
+            this.initChart();
         }
     });
 
@@ -109,6 +106,7 @@ export class LineStyleDoc implements OnInit {
                     }
                 }
             };
+            this.cd.markForCheck();
         }
     }
 
@@ -129,7 +127,7 @@ import { ChartModule } from 'primeng/chart';
     imports: [ChartModule]
 })
 export class ChartLineStyleDemo implements OnInit {
- data: any;
+    data: any;
 
     options: any;
 
@@ -137,12 +135,16 @@ export class ChartLineStyleDemo implements OnInit {
 
     configService = inject(AppConfigService);
 
+    designerService = inject(DesignerService);
+
     constructor(private cd: ChangeDetectorRef) {}
 
     themeEffect = effect(() => {
         if (this.configService.theme()) {
             this.initChart();
-            this.cd.markForCheck();
+        }
+        if (this.designerService.preset()) {
+            this.initChart();
         }
     });
 
@@ -165,7 +167,7 @@ export class ChartLineStyleDemo implements OnInit {
                         data: [65, 59, 80, 81, 56, 55, 40],
                         fill: false,
                         tension: 0.4,
-                        borderColor: documentStyle.getPropertyValue('--p-cyan-500'),
+                        borderColor: documentStyle.getPropertyValue('--p-cyan-500')
                     },
                     {
                         label: 'Second Dataset',
@@ -173,7 +175,7 @@ export class ChartLineStyleDemo implements OnInit {
                         fill: false,
                         borderDash: [5, 5],
                         tension: 0.4,
-                        borderColor: documentStyle.getPropertyValue('--p-orange-500'),
+                        borderColor: documentStyle.getPropertyValue('--p-orange-500')
                     },
                     {
                         label: 'Third Dataset',
@@ -181,9 +183,9 @@ export class ChartLineStyleDemo implements OnInit {
                         fill: true,
                         borderColor: documentStyle.getPropertyValue('--p-gray-500'),
                         tension: 0.4,
-                        backgroundColor: 'rgba(107, 114, 128, 0.2)',
-                    },
-                ],
+                        backgroundColor: 'rgba(107, 114, 128, 0.2)'
+                    }
+                ]
             };
 
             this.options = {
@@ -192,29 +194,30 @@ export class ChartLineStyleDemo implements OnInit {
                 plugins: {
                     legend: {
                         labels: {
-                            color: textColor,
-                        },
-                    },
+                            color: textColor
+                        }
+                    }
                 },
                 scales: {
                     x: {
                         ticks: {
-                            color: textColorSecondary,
+                            color: textColorSecondary
                         },
                         grid: {
-                            color: surfaceBorder,
-                        },
+                            color: surfaceBorder
+                        }
                     },
                     y: {
                         ticks: {
-                            color: textColorSecondary,
+                            color: textColorSecondary
                         },
                         grid: {
-                            color: surfaceBorder,
-                        },
-                    },
-                },
+                            color: surfaceBorder
+                        }
+                    }
+                }
             };
+            this.cd.markForCheck();
         }
     }
 }`

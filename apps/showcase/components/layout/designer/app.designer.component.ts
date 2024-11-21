@@ -286,7 +286,7 @@ export class AppDesignerComponent {
     apply() {
         this.saveTheme();
         updatePreset(this.preset);
-        this.designerService.updateTheme();
+        this.designerService.preset.update((state) => ({ ...state, ...this.preset }));
     }
 
     saveTheme() {
