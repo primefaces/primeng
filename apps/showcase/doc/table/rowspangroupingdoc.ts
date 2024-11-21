@@ -26,24 +26,25 @@ import { ChangeDetectionStrategy, ChangeDetectorRef, Component } from '@angular/
                         <tr>
                             <td>{{ rowIndex }}</td>
                             <td *ngIf="rowgroup" [attr.rowspan]="rowspan">
-                                <img [alt]="customer.representative.name" src="https://primefaces.org/cdn/primeng/images/demo/avatar/{{ customer.representative.image }}" width="32" style="vertical-align: middle" />
-                                <span class="font-bold ml-2">{{ customer.representative.name }}</span>
+                                <div class="flex items-center gap-2">
+                                    <img [alt]="customer.representative.name" src="https://primefaces.org/cdn/primeng/images/demo/avatar/{{ customer.representative.image }}" width="32" />
+                                    <span>{{ customer.representative.name }}</span>
+                                </div>
                             </td>
                             <td>
                                 {{ customer.name }}
                             </td>
                             <td>
-                                <img src="https://primefaces.org/cdn/primeng/images/demo/flag/flag_placeholder.png" [class]="'flag flag-' + customer.country.code" style="width: 20px" />
-                                <span class="ml-1 align-middle">{{ customer.country.name }}</span>
+                                <div class="flex items-center gap-2">
+                                    <img src="https://primefaces.org/cdn/primeng/images/demo/flag/flag_placeholder.png" [class]="'flag flag-' + customer.country.code" style="width: 20px" />
+                                    <span>{{ customer.country.name }}</span>
+                                </div>
                             </td>
                             <td>
                                 {{ customer.company }}
                             </td>
                             <td>
                                 <p-tag [value]="customer.status" [severity]="getSeverity(customer.status)" />
-                            </td>
-                            <td>
-                                {{ customer.date }}
                             </td>
                         </tr>
                     </ng-template>
@@ -129,31 +130,25 @@ export class RowspanGroupingDoc {
                 <tr>
                     <td>{{rowIndex}}</td>
                     <td *ngIf="rowgroup" [attr.rowspan]="rowspan">
-                        <img
-                            [alt]="customer.representative.name"
-                            src="https://primefaces.org/cdn/primeng/images/demo/avatar/{{customer.representative.image}}"
-                            width="32"
-                            style="vertical-align: middle" />
-                        <span class="font-bold ml-2">{{customer.representative.name}}</span>
+                        <div class="flex items-center gap-2">
+                            <img [alt]="customer.representative.name" src="https://primefaces.org/cdn/primeng/images/demo/avatar/{{ customer.representative.image }}" width="32" />
+                            <span>{{ customer.representative.name }}</span>
+                        </div>
                     </td>
                     <td>
                         {{customer.name}}
                     </td>
                     <td>
-                        <img
-                            src="https://primefaces.org/cdn/primeng/images/demo/flag/flag_placeholder.png"
-                            [class]="'flag flag-' + customer.country.code"
-                            style="width: 20px" />
-                        <span class="ml-1 align-middle">{{customer.country.name}}</span>
+                        <div class="flex items-center gap-2">
+                            <img src="https://primefaces.org/cdn/primeng/images/demo/flag/flag_placeholder.png" [class]="'flag flag-' + customer.country.code" style="width: 20px" />
+                            <span>{{ customer.country.name }}</span>
+                        </div>
                     </td>
                     <td>
                         {{customer.company}}
                     </td>
                     <td>
                         <p-tag [value]="customer.status" [severity]="getSeverity(customer.status)" />
-                    </td>
-                    <td>
-                        {{customer.date}}
                     </td>
                 </tr>
         </ng-template>
@@ -186,30 +181,25 @@ export class RowspanGroupingDoc {
                     <tr>
                         <td>{{rowIndex}}</td>
                         <td *ngIf="rowgroup" [attr.rowspan]="rowspan">
-                            <img
-                                [alt]="customer.representative.name"
-                                src="https://primefaces.org/cdn/primeng/images/demo/avatar/{{customer.representative.image}}"
-                                width="32" style="vertical-align: middle" />
-                            <span class="font-bold ml-2">{{customer.representative.name}}</span>
+                            <div class="flex items-center gap-2">
+                                <img [alt]="customer.representative.name" src="https://primefaces.org/cdn/primeng/images/demo/avatar/{{ customer.representative.image }}" width="32" />
+                                <span>{{ customer.representative.name }}</span>
+                            </div>
                         </td>
                         <td>
                             {{customer.name}}
                         </td>
                         <td>
-                            <img
-                                src="https://primefaces.org/cdn/primeng/images/demo/flag/flag_placeholder.png"
-                                [class]="'flag flag-' + customer.country.code"
-                                style="width: 20px" />
-                            <span class="ml-1 align-middle">{{customer.country.name}}</span>
+                            <div class="flex items-center gap-2">
+                                <img src="https://primefaces.org/cdn/primeng/images/demo/flag/flag_placeholder.png" [class]="'flag flag-' + customer.country.code" style="width: 20px" />
+                                <span>{{ customer.country.name }}</span>
+                            </div>
                         </td>
                         <td>
                             {{customer.company}}
                         </td>
                         <td>
                             <p-tag [value]="customer.status" [severity]="getSeverity(customer.status)" />
-                        </td>
-                        <td>
-                            {{customer.date}}
                         </td>
                     </tr>
             </ng-template>
