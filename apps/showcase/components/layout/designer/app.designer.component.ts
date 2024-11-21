@@ -258,7 +258,7 @@ const presets = {
                 </div>
             </ng-template>
         </p-drawer>
-        <p-toast /> `,
+        <p-toast />`,
     providers: [MessageService]
 })
 export class AppDesignerComponent {
@@ -362,6 +362,7 @@ export class AppDesignerComponent {
         }
 
         this.preset = {
+            ...newPreset,
             primitive: newPreset.primitive,
             semantic: newPreset.semantic
         };
