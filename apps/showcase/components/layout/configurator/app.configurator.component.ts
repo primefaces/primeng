@@ -64,9 +64,19 @@ const presets = {
                 <span class="config-panel-label">Presets</span>
                 <p-selectbutton [options]="presets" [ngModel]="selectedPreset()" (ngModelChange)="onPresetChange($event)" [allowEmpty]="false" size="small" />
             </div>
-            <div class="config-panel-settings">
-                <span class="config-panel-label">Ripple</span>
-                <p-toggleSwitch [(ngModel)]="ripple" />
+            <div class="flex">
+                <div class="flex-1">
+                    <div class="config-panel-settings">
+                        <span class="config-panel-label">Ripple</span>
+                        <p-toggleSwitch [(ngModel)]="ripple" />
+                    </div>
+                </div>
+                <div class="flex-1">
+                    <div class="config-panel-settings items-end">
+                        <span class="config-panel-label">RTL</span>
+                        <p-toggleSwitch [(ngModel)]="isRTL" (ngModelChange)="onRTLChange($event)" />
+                    </div>
+                </div>
             </div>
         </div>
     `,
@@ -84,11 +94,33 @@ export class AppConfiguratorComponent {
         this.config.ripple.set(value);
     }
 
+    get isRTL() {
+        return this.config.RTL();
+    }
+
+    set RTL(value: boolean) {
+        this.config.RTL.set(value);
+    }
+
     config: PrimeNG = inject(PrimeNG);
 
     configService: AppConfigService = inject(AppConfigService);
 
     presets = Object.keys(presets);
+
+    onRTLChange(value) {
+        this.toggleRTL(value);
+    }
+
+    toggleRTL(value) {
+        const htmlElement = document.documentElement;
+
+        if (value) {
+            htmlElement.setAttribute('dir', 'rtl');
+        } else {
+            htmlElement.removeAttribute('dir');
+        }
+    }
 
     surfaces = [
         {

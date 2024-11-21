@@ -16,6 +16,8 @@ export type ZIndex = {
 export class PrimeNG extends ThemeProvider {
     ripple = signal<boolean>(false);
 
+    RTL = signal<boolean>(false);
+
     public platformId: any = inject(PLATFORM_ID);
 
     inputStyle = signal<'outlined' | 'filled'>('outlined');
