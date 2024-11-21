@@ -1,8 +1,10 @@
 import { Injectable } from '@angular/core';
 import { resolveFieldData } from '@primeuix/utils';
+import { Subject } from 'rxjs';
+
 import { FilterMatchMode, FilterMetadata, FilterOperator, FilterService, SortMeta } from 'primeng/api';
 
-import { Subject } from 'rxjs';
+import { FiltersArg } from '../api/fitlersarg';
 
 @Injectable()
 export class TableService {
@@ -46,14 +48,14 @@ export class TableService {
         this.columnsSource.next(columns);
     }
 
-    filter(value: any[], filters: any, globalFilterFieldsArray: any[], filterLocale: string | undefined): any[] {
-        if (!value || value.length === 0 || !filters || Object.keys(filters).length === 0) {
-            return value;
+    filter(data: any[], filters: FiltersArg, globalFilterFieldsArray: any[], filterLocale: string | undefined): any[] {
+        if (!data || data.length === 0 || !filters || Object.keys(filters).length === 0) {
+            return data;
         }
 
         let filteredValue = [];
 
-        for (let i = 0; i < value.length; i++) {
+        for (let i = 0; i < data.length; i++) {
             let localMatch = true;
             let globalMatch = false;
             let localFiltered = false;
@@ -66,14 +68,14 @@ export class TableService {
 
                     if (Array.isArray(filterMeta)) {
                         for (let meta of filterMeta) {
-                            localMatch = this.executeLocalFilter(filterField, value[i], meta, filterLocale);
+                            localMatch = this.executeLocalFilter(filterField, data[i], meta, filterLocale);
 
                             if ((meta.operator === FilterOperator.OR && localMatch) || (meta.operator === FilterOperator.AND && !localMatch)) {
                                 break;
                             }
                         }
                     } else {
-                        localMatch = this.executeLocalFilter(filterField, value[i], <any>filterMeta, filterLocale);
+                        localMatch = this.executeLocalFilter(filterField, data[i], <any>filterMeta, filterLocale);
                     }
 
                     if (!localMatch) {
@@ -85,7 +87,7 @@ export class TableService {
             if (filters['global'] && !globalMatch && globalFilterFieldsArray) {
                 for (let j = 0; j < globalFilterFieldsArray.length; j++) {
                     let globalFilterField = globalFilterFieldsArray[j].field || globalFilterFieldsArray[j];
-                    globalMatch = (<any>this.filterService).filters[(<any>filters['global']).matchMode](resolveFieldData(value[i], globalFilterField), (<FilterMetadata>filters['global']).value, filterLocale);
+                    globalMatch = (<any>this.filterService).filters[(<any>filters['global']).matchMode](resolveFieldData(data[i], globalFilterField), (<FilterMetadata>filters['global']).value, filterLocale);
 
                     if (globalMatch) {
                         break;
@@ -101,7 +103,7 @@ export class TableService {
             }
 
             if (matches) {
-                filteredValue.push(value[i]);
+                filteredValue.push(data[i]);
             }
         }
 
