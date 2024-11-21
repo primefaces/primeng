@@ -32,12 +32,12 @@ jobs:
 
             - name: Install packages
               run: |
-                  npm install
+                  pnpm install
 
             - name: Code Format
               id: codeFormat
               run: |
-                  npm run format:check
+                  pnpm run format:check
 
             #- name: Unit Test
             #  id: unitTest
