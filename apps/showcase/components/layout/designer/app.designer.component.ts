@@ -60,18 +60,7 @@ const presets = {
         ToastModule,
         SkeletonModule
     ],
-    template: `<p-drawer
-            [visible]="visible()"
-            (visibleChange)="hide($event)"
-            header="Drawer"
-            header="Theme Designer"
-            position="right"
-            styleClass="designer !w-screen md:!w-[48rem]"
-            [modal]="false"
-            [dismissible]="false"
-            (onShow)="onShow()"
-            (onHide)="onHide()"
-        >
+    template: `<p-drawer [visible]="visible()" (visibleChange)="hide($event)" header="Drawer" header="Theme Designer" position="right" styleClass="designer !w-screen md:!w-[48rem]" [modal]="false" [dismissible]="false">
             <p-tabs [(value)]="activeTab">
                 <p-tablist>
                     <p-tab value="0">Base</p-tab>
@@ -82,7 +71,7 @@ const presets = {
                 </p-tablist>
 
                 <p-tabpanels>
-                    @defer (when deferredTabs && activeTab == '0') {
+                    @defer (when activeTab == '0') {
                         <p-tabpanel value="0">
                             <div class="text-lg font-semibold mb-2">Choose a Theme to Get Started</div>
                             <span class="block text-muted-color leading-6 mb-4">Begin by selecting a built-in theme as a foundation, continue editing your current theme, or import a Figma tokens file.</span>
@@ -119,7 +108,7 @@ const presets = {
                         <p-skeleton width="100%" styleClass="my-4" />
                         <p-skeleton width="100%" height="8rem" styleClass="mt-4" />
                     }
-                    @defer (when deferredTabs && activeTab == '1') {
+                    @defer (when activeTab == '1') {
                         <p-tabpanel value="1">
                             <div class="flex flex-col gap-3">
                                 <form (keydown)="onKeyDown($event)" class="flex flex-col gap-3">
@@ -132,7 +121,7 @@ const presets = {
                         <p-skeleton width="100%" height="15rem" styleClass="mt-4" />
                         <p-skeleton width="100%" height="15rem" styleClass="mt-4" />
                     }
-                    @defer (when deferredTabs && activeTab == '2') {
+                    @defer (when activeTab == '2') {
                         <p-tabpanel value="2">
                             <p-accordion [value]="['0', '1']" [multiple]="true">
                                 <p-accordion-panel value="0">
@@ -179,7 +168,7 @@ const presets = {
                         <p-skeleton width="100%" height="8rem" styleClass="mt-4" />
                         <p-skeleton width="100%" height="30rem" styleClass="mt-4" />
                     }
-                    @defer (when deferredTabs && activeTab == '3') {
+                    @defer (when activeTab == '3') {
                         <p-tabpanel value="3">
                             <span class="leading-6 text-muted-color">Component tokens are not supported by the Visual Editor at the moment and will be available with a future update. </span>
                         </p-tabpanel>
@@ -187,7 +176,7 @@ const presets = {
                         <p-skeleton width="100%" styleClass="mt-2" />
                         <p-skeleton width="10%" styleClass="mt-4" />
                     }
-                    @defer (when deferredTabs && activeTab == '4') {
+                    @defer (when activeTab == '4') {
                         <p-tabpanel value="4">
                             <span class="leading-6 text-muted-color">Extend the theming system with your own design tokens e.g. <span class="font-medium">accent.color</span>. Do not use curly braces in the name field.</span>
                             <ul class="flex flex-col gap-4 list-none p-0 mx-0 my-4">
@@ -277,8 +266,6 @@ export class AppDesignerComponent {
     presets = Object.keys(presets);
 
     preset;
-
-    deferredTabs = false;
 
     customTokens = [];
 
@@ -419,14 +406,6 @@ export class AppDesignerComponent {
                 }
             }
         }
-    }
-
-    onShow() {
-        this.deferredTabs = true;
-    }
-
-    onHide() {
-        this.deferredTabs = false;
     }
 
     addToken() {
