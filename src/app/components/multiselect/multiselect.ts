@@ -1773,19 +1773,16 @@ export class MultiSelect implements OnInit, AfterViewInit, AfterContentInit, Aft
         if (!this.overlayVisible) {
             this.show(true);
             this.focusedOptionIndex.set(this.findFirstFocusedOptionIndex());
-        }
-        else {
+        } else {
             if (this.focusedOptionIndex() !== -1) {
                 if (event.shiftKey) {
                     this.onOptionSelectRange(event, this.focusedOptionIndex());
-                } 
-                else {
+                } else {
                     const selectedOption = this.visibleOptions()[this.focusedOptionIndex()];
                     this.onOptionSelect({ originalEvent: event, option: selectedOption });
                 }
-            }
-            else {
-                console.warn("No option is currently focused to select.");
+            } else {
+                console.warn('No option is currently focused to select.');
             }
         }
         event.preventDefault();
@@ -1879,7 +1876,7 @@ export class MultiSelect implements OnInit, AfterViewInit, AfterContentInit, Aft
     onFilterInputChange(event: KeyboardEvent) {
         let value: string = (event.target as HTMLInputElement).value;
         this._filterValue.set(value);
-    
+
         if (this.autoOptionFocus && this.visibleOptions().length > 0) {
             this.focusedOptionIndex.set(0);
         } else {
