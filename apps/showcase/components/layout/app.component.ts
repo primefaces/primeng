@@ -1,4 +1,3 @@
-import { LandingComponent } from '@/pages/landing/landing.component';
 import { AppConfigService } from '@/service/appconfigservice';
 import { CarService } from '@/service/carservice';
 import { CountryService } from '@/service/countryservice';
@@ -12,7 +11,6 @@ import { HttpClientModule } from '@angular/common/http';
 import { afterNextRender, Component, Inject, PLATFORM_ID, Renderer2 } from '@angular/core';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { NavigationEnd, Router, RouterOutlet } from '@angular/router';
-import { PrimeNG } from 'primeng/config';
 import { AppDesignerComponent } from './designer/app.designer.component';
 @Component({
     selector: 'app-root',
@@ -41,8 +39,6 @@ export class AppComponent {
     constructor(
         @Inject(DOCUMENT) private document: Document,
         private renderer: Renderer2,
-        private primeng: PrimeNG,
-        private configService: AppConfigService,
         private router: Router,
         @Inject(PLATFORM_ID) private platformId: any
     ) {
