@@ -6,6 +6,7 @@ import { RouterModule } from '@angular/router';
 import { MenuItem, SelectItem } from 'primeng/api';
 import { AvatarModule } from 'primeng/avatar';
 import { BadgeModule } from 'primeng/badge';
+import { ButtonModule } from 'primeng/button';
 import { CalendarModule } from 'primeng/calendar';
 import { ChartModule } from 'primeng/chart';
 import { Chip } from 'primeng/chip';
@@ -29,7 +30,6 @@ import { CustomersApp } from './samples/customersapp.component';
 import { InboxApp } from './samples/inboxapp.component';
 import { MoviesApp } from './samples/moviesapp.component';
 import { OverviewApp } from './samples/overviewapp.component';
-import { ButtonModule } from 'primeng/button';
 
 @Component({
     selector: 'hero-section',
@@ -74,11 +74,11 @@ import { ButtonModule } from 'primeng/button';
                 <div class="flex items-center gap-4">
                     <a [routerLink]="'installation'" class="linkbox linkbox-primary">
                         <span>Get Started</span>
-                        <i class="pi pi-arrow-right ml-4"></i>
+                        <i class="pi pi-arrow-right ms-4"></i>
                     </a>
                     <a href="https://github.com/primefaces/primeng" target="_blank" rel="noopener noreferrer" class="linkbox">
                         <span>Give a Star</span>
-                        <i class="pi pi-star-fill ml-4 text-yellow-500"></i>
+                        <i class="pi pi-star-fill ms-4 text-yellow-500"></i>
                     </a>
                 </div>
                 <div class="w-full flex lg:hidden items-center justify-center mt-16 mb-4">

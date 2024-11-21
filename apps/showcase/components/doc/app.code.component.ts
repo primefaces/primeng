@@ -57,40 +57,42 @@ import { useCodeSandbox, useStackBlitz } from './codeeditor';
                 </button>
             </div>
 
-            <pre *ngIf="lang === 'basic' && importCode" class="language-javascript"><code #codeElement>
+            <div dir="ltr">
+                <pre *ngIf="lang === 'basic' && importCode" class="language-javascript"><code #codeElement>
 {{code.basic}}
 
 </code></pre>
 
-            <pre *ngIf="lang === 'basic' && !importCode" class="language-markup"><code #codeElement>
+                <pre *ngIf="lang === 'basic' && !importCode" class="language-markup"><code #codeElement>
 {{code.basic}}
 
 </code></pre>
 
-            <pre *ngIf="lang === 'html'" class="language-markup"><code #codeElement>
+                <pre *ngIf="lang === 'html'" class="language-markup"><code #codeElement>
 {{code.html}}
 
 </code></pre>
 
-            <pre *ngIf="lang === 'typescript'" class="language-typescript"><code #codeElement>
+                <pre *ngIf="lang === 'typescript'" class="language-typescript"><code #codeElement>
 {{code.typescript}}
 
 </code></pre>
 
-            <pre *ngIf="lang === 'data'" class="language-json"><code #codeElement>
+                <pre *ngIf="lang === 'data'" class="language-json"><code #codeElement>
 {{code.data}}
 
 </code></pre>
 
-            <pre *ngIf="lang === 'scss'" class="language-scss"><code #codeElement>
+                <pre *ngIf="lang === 'scss'" class="language-scss"><code #codeElement>
 {{code.scss}}
 
 </code></pre>
 
-            <pre *ngIf="lang === 'command'" class="language-shell"><code #codeElement>
+                <pre *ngIf="lang === 'command'" class="language-shell"><code #codeElement>
 {{code.command}}
 
 </code></pre>
+            </div>
         </div>
     `
 })
