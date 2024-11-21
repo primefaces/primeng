@@ -882,7 +882,7 @@ export class Scroller implements OnInit, AfterContentInit, AfterViewChecked, OnD
                 setProp('height', numItems, this._itemSize[0]);
                 setProp('width', this._columns?.length || this._items[1]?.length, this._itemSize[1]);
             } else {
-                this.horizontal ? setProp('width', this._columns.length || this._items.length, this._itemSize) : setProp('height', numItems, this._itemSize);
+                this.horizontal ? setProp('width', this._columns?.length || this._items.length, this._itemSize) : setProp('height', numItems, this._itemSize);
             }
         }
     }
