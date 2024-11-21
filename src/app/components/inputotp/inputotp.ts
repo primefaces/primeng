@@ -310,7 +310,7 @@ export class InputOtp implements AfterContentInit {
                 event.preventDefault();
 
                 break;
-            
+
             case 'Tab':
                 break;
 
