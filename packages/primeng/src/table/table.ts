@@ -38,8 +38,8 @@ import { FormsModule } from '@angular/forms';
 import { BlockableUI, FilterMatchMode, FilterMetadata, FilterOperator, FilterService, LazyLoadMeta, OverlayService, PrimeTemplate, ScrollerOptions, SelectItem, SharedModule, SortMeta, TableState, TranslationKeys } from 'primeng/api';
 import { BaseComponent } from 'primeng/basecomponent';
 import { Button, ButtonModule } from 'primeng/button';
-import { DatePickerModule } from 'primeng/datepicker';
 import { CheckboxModule } from 'primeng/checkbox';
+import { DatePickerModule } from 'primeng/datepicker';
 import { ConnectedOverlayScrollHandler, DomHandler } from 'primeng/dom';
 import { ArrowDownIcon } from 'primeng/icons/arrowdown';
 import { ArrowUpIcon } from 'primeng/icons/arrowup';
@@ -84,6 +84,12 @@ import {
     TableSelectAllChangeEvent
 } from './table.interface';
 
+import { FiltersArg } from '../api/fitlersarg';
+
+// We use this key to avoid collision with a
+// filters used for a column/filed with the name 'global'.
+export const globalFilterFieldName = '__##__global__##__';
+
 @Injectable()
 export class TableService {
     private sortSource = new Subject<SortMeta | SortMeta[] | null>();
@@ -99,6 +105,8 @@ export class TableService {
     valueSource$ = this.valueSource.asObservable();
     totalRecordsSource$ = this.totalRecordsSource.asObservable();
     columnsSource$ = this.columnsSource.asObservable();
+
+    constructor(private filterService: FilterService) {}
 
     onSort(sortMeta: SortMeta | SortMeta[] | null) {
         this.sortSource.next(sortMeta);
@@ -123,7 +131,151 @@ export class TableService {
     onColumnsChange(columns: any[]) {
         this.columnsSource.next(columns);
     }
+
+    filter(data: any[], filters: FiltersArg, globalFilterFieldsArray: any[], filterLocale: string | undefined): any[] {
+        if (!data || data.length === 0) {
+            return [];
+        }
+
+        if (!filters || Object.keys(filters).length === 0) {
+            return data;
+        }
+
+        let filteredValue = [];
+
+        for (let dataItem of data) {
+            let localMatch = true;
+            let globalMatch = false;
+            let localFiltered = false;
+
+            for (let prop in filters) {
+                if (filters.hasOwnProperty(prop) && prop !== globalFilterFieldName) {
+                    localFiltered = true;
+                    let filterField = prop;
+                    let filterMeta = filters[filterField];
+
+                    if (Array.isArray(filterMeta)) {
+                        const initialOperator = FilterOperator.AND;
+                        let operator: FilterOperator = initialOperator;
+
+                        for (let meta of filterMeta) {
+                            const currentMatch = this.executeLocalFilter(filterField, dataItem, meta, filterLocale);
+
+                            switch (operator) {
+                                case FilterOperator.OR:
+                                    localMatch ||= currentMatch;
+                                    break;
+
+                                case FilterOperator.AND:
+                                    localMatch &&= currentMatch;
+                                    break;
+                            }
+
+                            operator = meta.operator || FilterOperator.AND;
+                        }
+                    } else {
+                        localMatch = this.executeLocalFilter(filterField, dataItem, <any>filterMeta, filterLocale);
+                    }
+
+                    if (!localMatch) {
+                        break;
+                    }
+                }
+            }
+
+            if (filters[globalFilterFieldName] && !globalMatch && globalFilterFieldsArray) {
+                globalMatch = this.initGlobalMatch((<FilterMetadata>filters[globalFilterFieldName]).matchMode);
+
+                for (let globalField of globalFilterFieldsArray) {
+                    let globalFilterField = globalField.field || globalField;
+                    const matchMode = (<any>filters[globalFilterFieldName]).matchMode;
+
+                    const resolvedData = ObjectUtils.resolveFieldData(dataItem, globalFilterField);
+
+                    let currentMatch = (<any>this.filterService).filters[matchMode](resolvedData, (<FilterMetadata>filters[globalFilterFieldName]).value, filterLocale);
+
+                    if (!resolvedData && this.isNegating(matchMode)) {
+                        currentMatch = true;
+                    }
+
+                    if (this.concatWithOr(matchMode)) {
+                        globalMatch ||= currentMatch;
+                        if (currentMatch) {
+                            break;
+                        }
+                    } else if (this.concatWithAnd(matchMode)) {
+                        globalMatch &&= currentMatch;
+                        if (!currentMatch) {
+                            break;
+                        }
+                    }
+                }
+            }
+
+            let matches: boolean;
+            if (filters[globalFilterFieldName]) {
+                matches = localFiltered ? localFiltered && localMatch && globalMatch : globalMatch;
+            } else {
+                matches = localFiltered && localMatch;
+            }
+
+            if (matches) {
+                filteredValue.push(dataItem);
+            }
+        }
+
+        return filteredValue;
+    }
+
+    private initGlobalMatch(matchMode: string): boolean {
+        if (this.concatWithOr(matchMode)) {
+            return false;
+        } else if (this.concatWithAnd(matchMode)) {
+            return true;
+        } else {
+            throw new Error(`Unsupported match mode: ${matchMode}`);
+        }
+    }
+
+    private concatWithOr(matchMode: string): boolean {
+        return [
+            FilterMatchMode.STARTS_WITH,
+            FilterMatchMode.CONTAINS,
+            FilterMatchMode.ENDS_WITH,
+            FilterMatchMode.EQUALS,
+            FilterMatchMode.IN,
+            FilterMatchMode.LESS_THAN,
+            FilterMatchMode.LESS_THAN_OR_EQUAL_TO,
+            FilterMatchMode.GREATER_THAN,
+            FilterMatchMode.GREATER_THAN_OR_EQUAL_TO,
+            FilterMatchMode.BETWEEN,
+            FilterMatchMode.IS,
+            FilterMatchMode.BEFORE,
+            FilterMatchMode.AFTER,
+            FilterMatchMode.DATE_IS,
+            FilterMatchMode.DATE_BEFORE,
+            FilterMatchMode.DATE_AFTER
+        ].includes(matchMode);
+    }
+
+    private concatWithAnd(matchMode: string): boolean {
+        return this.isNegating(matchMode);
+    }
+
+    private isNegating(matchMode: string): boolean {
+        return [FilterMatchMode.NOT_CONTAINS, FilterMatchMode.NOT_EQUALS, FilterMatchMode.IS_NOT, FilterMatchMode.DATE_IS_NOT].includes(matchMode);
+    }
+
+    private executeLocalFilter(field: string, rowData: any, filterMeta: FilterMetadata, filterLocale: string | undefined): boolean {
+        const filterValue = filterMeta.value;
+        const filterMatchMode = filterMeta.matchMode || FilterMatchMode.STARTS_WITH;
+        const dataFieldValue = ObjectUtils.resolveFieldData(rowData, field);
+        const filterConstraint = (<any>this.filterService).filters[filterMatchMode];
+
+        return filterConstraint(dataFieldValue, filterValue, filterLocale);
+    }
 }
+
 /**
  * Table displays data in tabular format.
  * @group Components
@@ -2209,7 +2361,7 @@ export class Table extends BaseComponent implements OnInit, AfterViewInit, After
     }
 
     filterGlobal(value: any, matchMode: string) {
-        this.filter(value, 'global', matchMode);
+        this.filter(value, globalFilterFieldName, matchMode);
     }
 
     isFilterBlank(filter: any): boolean {
@@ -2240,64 +2392,12 @@ export class Table extends BaseComponent implements OnInit, AfterViewInit, After
                 }
             } else {
                 let globalFilterFieldsArray;
-                if (this.filters['global']) {
+                if (this.filters[globalFilterFieldName]) {
                     if (!this.columns && !this.globalFilterFields) throw new Error('Global filtering requires dynamic columns or globalFilterFields to be defined.');
                     else globalFilterFieldsArray = this.globalFilterFields || this.columns;
                 }
 
-                this.filteredValue = [];
-
-                for (let i = 0; i < this.value.length; i++) {
-                    let localMatch = true;
-                    let globalMatch = false;
-                    let localFiltered = false;
-
-                    for (let prop in this.filters) {
-                        if (this.filters.hasOwnProperty(prop) && prop !== 'global') {
-                            localFiltered = true;
-                            let filterField = prop;
-                            let filterMeta = this.filters[filterField];
-
-                            if (Array.isArray(filterMeta)) {
-                                for (let meta of filterMeta) {
-                                    localMatch = this.executeLocalFilter(filterField, this.value[i], meta);
-
-                                    if ((meta.operator === FilterOperator.OR && localMatch) || (meta.operator === FilterOperator.AND && !localMatch)) {
-                                        break;
-                                    }
-                                }
-                            } else {
-                                localMatch = this.executeLocalFilter(filterField, this.value[i], <any>filterMeta);
-                            }
-
-                            if (!localMatch) {
-                                break;
-                            }
-                        }
-                    }
-
-                    if (this.filters['global'] && !globalMatch && globalFilterFieldsArray) {
-                        for (let j = 0; j < globalFilterFieldsArray.length; j++) {
-                            let globalFilterField = globalFilterFieldsArray[j].field || globalFilterFieldsArray[j];
-                            globalMatch = (<any>this.filterService).filters[(<any>this.filters['global']).matchMode](ObjectUtils.resolveFieldData(this.value[i], globalFilterField), (<FilterMetadata>this.filters['global']).value, this.filterLocale);
-
-                            if (globalMatch) {
-                                break;
-                            }
-                        }
-                    }
-
-                    let matches: boolean;
-                    if (this.filters['global']) {
-                        matches = localFiltered ? localFiltered && localMatch && globalMatch : globalMatch;
-                    } else {
-                        matches = localFiltered && localMatch;
-                    }
-
-                    if (matches) {
-                        this.filteredValue.push(this.value[i]);
-                    }
-                }
+                this.filteredValue = this.tableService.filter(this.value, this.filters, globalFilterFieldsArray, this.filterLocale);
 
                 if (this.filteredValue.length === this.value.length) {
                     this.filteredValue = null;
@@ -2359,7 +2459,7 @@ export class Table extends BaseComponent implements OnInit, AfterViewInit, After
             sortField: this.sortField,
             sortOrder: this.sortOrder,
             filters: this.filters,
-            globalFilter: this.filters && this.filters['global'] ? (<FilterMetadata>this.filters['global']).value : null,
+            globalFilter: this.filters && this.filters[globalFilterFieldName] ? (<FilterMetadata>this.filters[globalFilterFieldName]).value : null,
             multiSortMeta: this.multiSortMeta,
             forceUpdate: () => this.cd.detectChanges()
         };
