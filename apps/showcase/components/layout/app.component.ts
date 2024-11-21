@@ -13,16 +13,12 @@ import { afterNextRender, Component, Inject, PLATFORM_ID, Renderer2 } from '@ang
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { NavigationEnd, Router, RouterOutlet } from '@angular/router';
 import { PrimeNG } from 'primeng/config';
-import { AppMainComponent } from './app.main.component';
-import { AppConfiguratorComponent } from './configurator/app.configurator.component';
-import { AppMenuComponent } from './menu/app.menu.component';
-import { AppNewsComponent } from './news/app.news.component';
-import { AppTopBarComponent } from './topbar/app.topbar.component';
+import { AppDesignerComponent } from './designer/app.designer.component';
 @Component({
     selector: 'app-root',
-    template: ` <router-outlet></router-outlet>`,
+    template: `<app-designer /> <router-outlet></router-outlet>`,
     standalone: true,
-    imports: [RouterOutlet, FormsModule, ReactiveFormsModule, HttpClientModule, AppMainComponent, LandingComponent, AppNewsComponent, AppConfiguratorComponent, AppTopBarComponent, AppMenuComponent],
+    imports: [RouterOutlet, FormsModule, ReactiveFormsModule, HttpClientModule, AppDesignerComponent],
     providers: [
         CarService,
         CountryService,

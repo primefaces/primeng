@@ -24,11 +24,10 @@ import { AppDesignerComponent } from '@/components/layout/designer/app.designer.
                 </div>
             </div>
             <app-footer />
-            <app-designer />
         </div>
     `,
     standalone: true,
-    imports: [RouterOutlet, AppDesignerComponent, AppFooterComponent, CommonModule, AppNewsComponent, AppMenuComponent, AppTopBarComponent]
+    imports: [RouterOutlet, AppFooterComponent, CommonModule, AppNewsComponent, AppMenuComponent, AppTopBarComponent]
 })
 export class AppMainComponent {
     configService: AppConfigService = inject(AppConfigService);
