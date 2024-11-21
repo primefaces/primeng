@@ -12,7 +12,8 @@ export class AppConfigService {
         surface: 'slate',
         darkTheme: false,
         menuActive: false,
-        designerKey: 'primeng-designer-theme'
+        designerKey: 'primeng-designer-theme',
+        RTL: false
     });
 
     designerActive = signal(false);

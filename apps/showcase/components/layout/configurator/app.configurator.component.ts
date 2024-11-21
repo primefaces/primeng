@@ -95,11 +95,11 @@ export class AppConfiguratorComponent {
     }
 
     get isRTL() {
-        return this.config.RTL();
+        return this.configService.appState().rtl;
     }
 
     set RTL(value: boolean) {
-        this.config.RTL.set(value);
+        this.configService.appState.update((state) => ({ ...state, RTL: value }));
     }
 
     config: PrimeNG = inject(PrimeNG);
