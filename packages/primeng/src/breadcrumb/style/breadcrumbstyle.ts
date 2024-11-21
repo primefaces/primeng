@@ -24,6 +24,10 @@ const theme = ({ dt }) => `
     color: ${dt('breadcrumb.separator.color')};
 }
 
+.p-breadcrumb-separator .p-icon:dir(rtl) {
+    transform: rotate(180deg);
+}
+
 .p-breadcrumb::-webkit-scrollbar {
     display: none;
 }

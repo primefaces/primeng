@@ -91,7 +91,7 @@ const theme = ({ dt }) => `
     display: block;
     position: absolute;
     top: 0;
-    right: 0;
+    inset-inline-end: 0;
     margin: 0;
     width: ${dt('datatable.column.resizer.width')};
     height: 100%;
@@ -208,7 +208,7 @@ const theme = ({ dt }) => `
 
 .p-datatable-popover-filter {
     display: inline-flex;
-    margin-left: auto;
+    margin-inline-start: auto;
 }
 
 .p-datatable-filter-overlay-popover {
@@ -267,7 +267,7 @@ const theme = ({ dt }) => `
     min-height: 0;
     position: sticky;
     top: 0;
-    left: 0;
+    inset-inline-start: 0;
 }
 
 .p-datatable-paginator-top {
@@ -308,7 +308,7 @@ const theme = ({ dt }) => `
     border-width: 0 0 1px 0;
     color: ${dt('datatable.header.cell.color')};
     font-weight: ${dt('datatable.column.title.font.weight')};
-    text-align: left;
+    text-align: start;
     transition: background ${dt('datatable.transition.duration')}, color ${dt('datatable.transition.duration')}, border-color ${dt('datatable.transition.duration')},
             outline-color ${dt('datatable.transition.duration')}, box-shadow ${dt('datatable.transition.duration')};
 }
@@ -328,7 +328,7 @@ const theme = ({ dt }) => `
 }
 
 .p-datatable-tbody > tr > td {
-    text-align: left;
+    text-align: start;
     border-color: ${dt('datatable.body.cell.border.color')};
     border-style: solid;
     border-width: 0 0 1px 0;
@@ -361,7 +361,7 @@ const theme = ({ dt }) => `
 }
 
 .p-datatable-tfoot > tr > td {
-    text-align: left;
+    text-align: start;
     padding: ${dt('datatable.footer.cell.padding')};
     border-color: ${dt('datatable.footer.cell.border.color')};
     border-style: solid;

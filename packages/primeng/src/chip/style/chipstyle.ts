@@ -27,7 +27,7 @@ const theme = ({ dt }) => `
 }
 
 .p-chip:has(.p-chip-remove-icon) {
-    padding-right: ${dt('chip.padding.y')};
+    padding-inline-end: ${dt('chip.padding.y')};
 }
 
 .p-chip:has(.p-chip-image) {

@@ -81,6 +81,11 @@ const theme = ({ dt }) => `
     height: 100%;
 }
 
+.p-dock-right:dir(rtl) {
+    right: auto;
+    left: 0;
+}
+
 .p-dock-right .p-dock-item {
     transform-origin: center right;
 }
@@ -93,6 +98,11 @@ const theme = ({ dt }) => `
     left: 0;
     top: 0;
     height: 100%;
+}
+
+.p-dock-left:dir(rtl) {
+    left: auto;
+    right: 0;
 }
 
 .p-dock-left .p-dock-item {

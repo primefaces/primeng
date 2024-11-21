@@ -78,6 +78,11 @@ const theme = ({ dt }) => `
     height: ${dt('menubar.submenu.icon.size')};
 }
 
+.p-menubar-submenu .p-menubar-submenu-icon:dir(rtl) {
+    margin-left: 0;
+    margin-right: auto;
+}
+
 .p-menubar-item.p-focus > .p-menubar-item-content {
     color: ${dt('menubar.item.focus.color')};
     background: ${dt('menubar.item.focus.background')};
@@ -140,7 +145,7 @@ const theme = ({ dt }) => `
     position: relative;
 }
 
- .p-menubar-submenu > .p-menubar-item-active .p-menubar-submenu {
+.p-menubar-submenu > .p-menubar-item-active .p-menubar-submenu {
     display: block;
     left: 100%;
     top: 0;
@@ -149,6 +154,11 @@ const theme = ({ dt }) => `
 .p-menubar-end {
     margin-left: auto;
     align-self: center;
+}
+
+.p-menubar-end:dir(rtl) {
+    margin-left: 0;
+    margin-right: auto;
 }
 
 .p-menubar-button {
@@ -212,6 +222,11 @@ const theme = ({ dt }) => `
     z-index: 1;
 }
 
+.p-menubar-mobile .p-menubar-root-list:dir(rtl) {
+    left: auto;
+    right: 0;
+}
+
 .p-menubar-mobile .p-menubar-root-list .p-menubar-item {
     width: 100%;
     position: static;
@@ -224,6 +239,11 @@ const theme = ({ dt }) => `
 .p-menubar-mobile .p-menubar-root-list > .p-menubar-item > .p-menubar-item-content .p-menubar-submenu-icon {
     margin-left: auto;
     transition: transform 0.2s;
+}
+
+.p-menubar-mobile .p-menubar-root-list > .p-menubar-item > .p-menubar-item-content .p-menubar-submenu-icon:dir(rtl) {
+    margin-left: 0;
+    margin-right: auto;
 }
 
 .p-menubar-mobile .p-menubar-root-list > .p-menubar-item-active > .p-menubar-item-content .p-menubar-submenu-icon {

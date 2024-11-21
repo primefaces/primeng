@@ -72,6 +72,11 @@ const theme = ({ dt }) => `
     height: ${dt('tieredmenu.submenu.icon.size')};
 }
 
+.p-tieredmenu-submenu-icon:dir(rtl) {
+    margin-left: 0;
+    margin-right: auto;
+}
+
 .p-tieredmenu-item.p-focus > .p-tieredmenu-item-content {
     color: ${dt('tieredmenu.item.focus.color')};
     background: ${dt('tieredmenu.item.focus.background')};

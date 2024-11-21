@@ -120,6 +120,24 @@ const theme = ({ dt }) => `
     transform: translate3d(100%, 0px, 0px);
 }
 
+.p-dialog-left:dir(rtl) .p-dialog-enter-from,
+.p-dialog-left:dir(rtl) .p-dialog-leave-to,
+.p-dialog-topleft:dir(rtl) .p-dialog-enter-from,
+.p-dialog-topleft:dir(rtl) .p-dialog-leave-to,
+.p-dialog-bottomleft:dir(rtl) .p-dialog-enter-from,
+.p-dialog-bottomleft:dir(rtl) .p-dialog-leave-to {
+    transform: translate3d(100%, 0px, 0px);
+}
+
+.p-dialog-right:dir(rtl) .p-dialog-enter-from,
+.p-dialog-right:dir(rtl) .p-dialog-leave-to,
+.p-dialog-topright:dir(rtl) .p-dialog-enter-from,
+.p-dialog-topright:dir(rtl) .p-dialog-leave-to,
+.p-dialog-bottomright:dir(rtl) .p-dialog-enter-from,
+.p-dialog-bottomright:dir(rtl) .p-dialog-leave-to {
+    transform: translate3d(-100%, 0px, 0px);
+}
+
 .p-dialog-maximized {
     width: 100vw !important;
     height: 100vh !important;
@@ -134,6 +152,9 @@ const theme = ({ dt }) => `
     flex-grow: 1;
 }
 
+.p-overlay-mask:dir(rtl) {
+    flex-direction: row-reverse;
+}
 
 /* For PrimeNG */
 

@@ -84,13 +84,13 @@ const theme = ({ dt }) => `
 /* For PrimeNG (directive)*/
 
 .p-overlay-badge {
-   position: relative;
+    position: relative;
 }
 
 .p-overlay-badge > .p-badge {
     position: absolute;
     top: 0;
-    right: 0;
+    inset-inline-end: 0;
     transform: translate(50%, -50%);
     transform-origin: 100% 0;
     margin: 0;

@@ -16,7 +16,7 @@ const theme = ({ dt }) => `
     line-height: 1;
     font-size: ${dt('iftalabel.font.size')};
     font-weight: ${dt('iftalabel.font.weight')};
-    left: ${dt('iftalabel.position.x')};
+    inset-inline-start: ${dt('iftalabel.position.x')};
     color: ${dt('iftalabel.color')};
     transition-duration: ${dt('iftalabel.transition.duration')};
 }
@@ -35,10 +35,10 @@ const theme = ({ dt }) => `
     color: ${dt('iftalabel.invalid.color')};
 }
 
-.p-iftalabel:has(input:focus) label ,
+.p-iftalabel:has(input:focus) label,
 .p-iftalabel:has(input:-webkit-autofill) label,
-.p-iftalabel:has(textarea:focus) label ,
-.p-iftalabel:has(.p-inputwrapper-focus) label  {
+.p-iftalabel:has(textarea:focus) label,
+.p-iftalabel:has(.p-inputwrapper-focus) label {
     color: ${dt('iftalabel.focus.color')};
 }
 

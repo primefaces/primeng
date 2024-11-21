@@ -18,11 +18,13 @@ const theme = ({ dt }) => `
 }
 
 .p-tree-root-children {
-    padding: ${dt('tree.gap')} 0 0 0;
+    padding: 0;
+    padding-block-start: ${dt('tree.gap')};
 }
 
 .p-tree-node-children {
-    padding: ${dt('tree.gap')} 0 0 ${dt('tree.indent')};
+    padding-block-start: ${dt('tree.gap')};
+    padding-inline-start: ${dt('tree.indent')};
 }
 
 .p-tree-node {
@@ -163,8 +165,8 @@ const theme = ({ dt }) => `
 
 .p-tree-horizontal {
     width: auto;
-    padding-left: 0;
-    padding-right: 0;
+    padding-inline-start: 0;
+    padding-inline-end: 0;
     overflow: auto;
 }
 
@@ -191,7 +193,7 @@ const theme = ({ dt }) => `
 
 .p-tree.p-tree-horizontal .p-tree-node.p-tree-node-leaf,
 .p-tree.p-tree-horizontal .p-tree-node.p-tree-node-collapsed {
-    padding-right: 0;
+    padding-inline-end: 0;
 }
 
 .p-tree.p-tree-horizontal .p-tree-node-children {

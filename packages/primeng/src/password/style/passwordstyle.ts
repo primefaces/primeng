@@ -66,7 +66,7 @@ const theme = ({ dt }) => `
 }
 
 .p-password-toggle-mask-icon {
-    right: ${dt('form.field.padding.x')};
+    inset-inline-end: ${dt('form.field.padding.x')};
     color: ${dt('password.icon.color')};
     position: absolute;
     top: 50%;
@@ -76,7 +76,7 @@ const theme = ({ dt }) => `
 }
 
 .p-password:has(.p-password-toggle-mask-icon) .p-password-input {
-    padding-right: calc((${dt('form.field.padding.x')} * 2) + ${dt('icon.size')});
+    padding-inline-end: calc((${dt('form.field.padding.x')} * 2) + ${dt('icon.size')});
 }
 
 /* For PrimeNG */
@@ -89,7 +89,7 @@ p-password.ng-invalid.ng-dirty > .p-password.p-inputwrapper > .p-inputtext {
     top: 50%;
     margin-top: -0.5rem;
     cursor: pointer;
-    right: ${dt('form.field.padding.x')};
+    inset-inline-end: ${dt('form.field.padding.x')};
     color: ${dt('form.field.icon.color')};
 }
 

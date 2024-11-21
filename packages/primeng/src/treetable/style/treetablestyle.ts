@@ -235,13 +235,13 @@ const theme = ({ dt }) => `
     border-width: 0 0 1px 0;
     color: ${dt('treetable.header.cell.color')};
     font-weight: ${dt('treetable.column.title.font.weight')};
-    text-align: left;
+    text-align: start;
     transition: background ${dt('treetable.transition.duration')}, color ${dt('treetable.transition.duration')}, border-color ${dt('treetable.transition.duration')},
             outline-color ${dt('treetable.transition.duration')}, box-shadow ${dt('treetable.transition.duration')};
 }
 
 .p-treetable .p-treetable-tfoot>tr>td {
-    text-align: left;
+    text-align: start;
     padding: ${dt('treetable.footer.cell.padding')};
     border-color: ${dt('treetable.footer.cell.border.color')};
     border-style: solid;
@@ -301,7 +301,7 @@ const theme = ({ dt }) => `
 }
 
 .p-treetable .p-treetable-tbody>tr>td {
-    text-align: left;
+    text-align: start;
     border-color: ${dt('treetable.body.cell.border.color')};
     border-style: solid;
     border-width: 0 0 1px 0;

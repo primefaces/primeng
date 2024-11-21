@@ -98,7 +98,7 @@ button {
 }
 
 .p-link {
-    text-align: left;
+    text-align: start;
     background-color: transparent;
     margin: 0;
     padding: 0;

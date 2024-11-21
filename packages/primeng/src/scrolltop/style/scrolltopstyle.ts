@@ -5,13 +5,18 @@ const theme = ({ dt }) => `
 .p-scrolltop.p-button {
     position: fixed;
     bottom: 20px;
-    right: 20px;
+    inset-inline-end: 20px;
 }
 
 .p-scrolltop-sticky.p-button {
     position: sticky;
     display: flex;
     margin-left: auto;
+}
+
+.p-scrolltop-sticky.p-button:dir(rtl) {
+    margin-left: 0;
+    margin-right: auto;
 }
 
 .p-scrolltop-enter-from {

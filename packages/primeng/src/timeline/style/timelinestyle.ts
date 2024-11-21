@@ -6,6 +6,7 @@ const theme = ({ dt }) => `
     display: flex;
     flex-grow: 1;
     flex-direction: column;
+    direction: ltr;
 }
 
 .p-timeline-left .p-timeline-event-opposite {
