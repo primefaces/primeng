@@ -28,6 +28,8 @@ import { DesignOverlay } from './semantic/designoverlay';
 import { DesignCS } from './semantic/colorscheme/designcs';
 import { ToastModule } from 'primeng/toast';
 import { SkeletonModule } from 'primeng/skeleton';
+import { InputTextModule } from 'primeng/inputtext';
+import { FieldsetModule } from 'primeng/fieldset';
 
 const presets = {
     Aura,
@@ -58,7 +60,10 @@ const presets = {
         DesignOverlay,
         DesignCS,
         ToastModule,
-        SkeletonModule
+        SkeletonModule,
+        InputTextModule,
+        FieldsetModule,
+        AccordionModule
     ],
     template: `<p-drawer
             [visible]="visible()"
@@ -258,7 +263,10 @@ const presets = {
                 </div>
             </ng-template>
         </p-drawer>
-        <p-toast />`,
+        <p-toast />
+        <p-fieldset hidden />
+        <input pInputText hidden />
+        <p-accordion hidden /> `,
     providers: [MessageService]
 })
 export class AppDesignerComponent {
