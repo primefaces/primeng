@@ -15,7 +15,6 @@ import {
     HostListener,
     inject,
     Inject,
-    Injectable,
     Input,
     NgModule,
     NgZone,
@@ -78,7 +77,7 @@ import { Select } from 'primeng/select';
 import { SelectButton } from 'primeng/selectbutton';
 import { Nullable, VoidListener } from 'primeng/ts-helpers';
 import { ObjectUtils, ZIndexUtils } from 'primeng/utils';
-import { Subject, Subscription } from 'rxjs';
+import { Subscription } from 'rxjs';
 import { TableStyle } from './style/tablestyle';
 import {
     ExportCSVOptions,
@@ -101,46 +100,8 @@ import {
     TableSelectAllChangeEvent
 } from './table.interface';
 
-@Injectable()
-export class TableService {
-    private sortSource = new Subject<SortMeta | SortMeta[] | null>();
-    private selectionSource = new Subject();
-    private contextMenuSource = new Subject<any>();
-    private valueSource = new Subject<any>();
-    private totalRecordsSource = new Subject<any>();
-    private columnsSource = new Subject();
-
-    sortSource$ = this.sortSource.asObservable();
-    selectionSource$ = this.selectionSource.asObservable();
-    contextMenuSource$ = this.contextMenuSource.asObservable();
-    valueSource$ = this.valueSource.asObservable();
-    totalRecordsSource$ = this.totalRecordsSource.asObservable();
-    columnsSource$ = this.columnsSource.asObservable();
-
-    onSort(sortMeta: SortMeta | SortMeta[] | null) {
-        this.sortSource.next(sortMeta);
-    }
-
-    onSelectionChange() {
-        this.selectionSource.next(null);
-    }
-
-    onContextMenu(data: any) {
-        this.contextMenuSource.next(data);
-    }
-
-    onValueChange(value: any) {
-        this.valueSource.next(value);
-    }
-
-    onTotalRecordsChange(value: number) {
-        this.totalRecordsSource.next(value);
-    }
-
-    onColumnsChange(columns: any[]) {
-        this.columnsSource.next(columns);
-    }
-}
+import { TableService } from './table.service';
+export { TableService } from './table.service';
 
 @Directive({
     selector: '[pRowGroupHeader]',
@@ -5482,59 +5443,7 @@ export class Table extends BaseComponent implements OnInit, AfterViewInit, After
                     else globalFilterFieldsArray = this.globalFilterFields || this.columns;
                 }
 
-                this.filteredValue = [];
-
-                for (let i = 0; i < this.value.length; i++) {
-                    let localMatch = true;
-                    let globalMatch = false;
-                    let localFiltered = false;
-
-                    for (let prop in this.filters) {
-                        if (this.filters.hasOwnProperty(prop) && prop !== 'global') {
-                            localFiltered = true;
-                            let filterField = prop;
-                            let filterMeta = this.filters[filterField];
-
-                            if (Array.isArray(filterMeta)) {
-                                for (let meta of filterMeta) {
-                                    localMatch = this.executeLocalFilter(filterField, this.value[i], meta);
-
-                                    if ((meta.operator === FilterOperator.OR && localMatch) || (meta.operator === FilterOperator.AND && !localMatch)) {
-                                        break;
-                                    }
-                                }
-                            } else {
-                                localMatch = this.executeLocalFilter(filterField, this.value[i], <any>filterMeta);
-                            }
-
-                            if (!localMatch) {
-                                break;
-                            }
-                        }
-                    }
-
-                    if (this.filters['global'] && !globalMatch && globalFilterFieldsArray) {
-                        for (let j = 0; j < globalFilterFieldsArray.length; j++) {
-                            let globalFilterField = globalFilterFieldsArray[j].field || globalFilterFieldsArray[j];
-                            globalMatch = (<any>this.filterService).filters[(<any>this.filters['global']).matchMode](resolveFieldData(this.value[i], globalFilterField), (<FilterMetadata>this.filters['global']).value, this.filterLocale);
-
-                            if (globalMatch) {
-                                break;
-                            }
-                        }
-                    }
-
-                    let matches: boolean;
-                    if (this.filters['global']) {
-                        matches = localFiltered ? localFiltered && localMatch && globalMatch : globalMatch;
-                    } else {
-                        matches = localFiltered && localMatch;
-                    }
-
-                    if (matches) {
-                        this.filteredValue.push(this.value[i]);
-                    }
-                }
+                this.filteredValue = this.tableService.filter(this.value, this.filters, globalFilterFieldsArray, this.filterLocale);
 
                 if (this.filteredValue.length === this.value.length) {
                     this.filteredValue = null;
@@ -5566,15 +5475,6 @@ export class Table extends BaseComponent implements OnInit, AfterViewInit, After
         if (this.scrollable) {
             this.resetScrollTop();
         }
-    }
-
-    executeLocalFilter(field: string, rowData: any, filterMeta: FilterMetadata): boolean {
-        let filterValue = filterMeta.value;
-        let filterMatchMode = filterMeta.matchMode || FilterMatchMode.STARTS_WITH;
-        let dataFieldValue = resolveFieldData(rowData, field);
-        let filterConstraint = (<any>this.filterService).filters[filterMatchMode];
-
-        return filterConstraint(dataFieldValue, filterValue, this.filterLocale);
     }
 
     hasFilter() {
