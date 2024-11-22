@@ -1925,8 +1925,11 @@ export class ReorderableRow implements AfterViewInit {
                     [value]="filterConstraint?.value"
                     (input)="onModelChange($event?.target?.value)"
                     (keydown.enter)="onTextInputEnterKeyDown($event)"
+                    (keydown)="$event.stopPropagation()"
+                    (click)="$event.stopPropagation()"
                     [attr.placeholder]="placeholder"
                 />
+
                 <p-inputNumber
                     *ngSwitchCase="'numeric'"
                     [ngModel]="filterConstraint?.value"
