@@ -14,8 +14,8 @@ position: relative;
 }
 
 .p-datepicker:has(.p-datepicker-dropdown) .p-datepicker-input {
-    border-top-right-radius: 0;
-    border-bottom-right-radius: 0;
+    border-start-end-radius: 0;
+    border-end-end-radius: 0;
 }
 
 .p-datepicker-dropdown {
@@ -28,8 +28,8 @@ position: relative;
     overflow: hidden;
     position: relative;
     width: ${dt('datepicker.dropdown.width')};
-    border-top-right-radius: ${dt('datepicker.dropdown.border.radius')};
-    border-bottom-right-radius: ${dt('datepicker.dropdown.border.radius')};
+    border-start-end-radius: ${dt('datepicker.dropdown.border.radius')};
+    border-end-end-radius: ${dt('datepicker.dropdown.border.radius')};
     background: ${dt('datepicker.dropdown.background')};
     border: 1px solid ${dt('datepicker.dropdown.border.color')};
     border-left: 0 none;

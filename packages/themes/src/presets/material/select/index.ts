@@ -86,8 +86,8 @@ export default {
     },
     css: ({ dt }) => `
 .p-select.p-variant-filled {
-    border-bottom-left-radius: 0
-    border-bottom-right-radius: 0;
+    border-end-start-radius: 0
+    border-end-end-radius: 0;
     border: 1px solid transparent;
     background: ${dt('select.filled.background')} no-repeat;
     background-image: linear-gradient(to bottom, ${dt('select.focus.border.color')}, ${dt('select.focus.border.color')}), linear-gradient(to bottom, ${dt('select.border.color')}, ${dt('select.border.color')});

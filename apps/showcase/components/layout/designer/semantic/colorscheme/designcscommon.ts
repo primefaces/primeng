@@ -60,30 +60,30 @@ import { DesignColorPalette } from '../../app.designcolorpalette.component';
         <div class="text-sm mb-1 font-semibold text-surface-950 dark:text-surface-0">Accent</div>
         <section class="grid grid-cols-4 mb-3 gap-2">
             <div class="flex flex-col gap-1">
-                <design-token-field [modelValue]="colorScheme.primary.color" label="Primary" [type]="'color'" />
+                <design-token-field [(modelValue)]="colorScheme.primary.color" label="Primary" [type]="'color'" />
             </div>
             <div class="flex flex-col gap-1">
-                <design-token-field [modelValue]="colorScheme.primary.contrastColor" label="Primary Contrast" [type]="'color'" />
+                <design-token-field [(modelValue)]="colorScheme.primary.contrastColor" label="Primary Contrast" [type]="'color'" />
             </div>
             <div class="flex flex-col gap-1">
-                <design-token-field [modelValue]="colorScheme.primary.hoverColor" label="Primary Hover" [type]="'color'" />
+                <design-token-field [(modelValue)]="colorScheme.primary.hoverColor" label="Primary Hover" [type]="'color'" />
             </div>
             <div class="flex flex-col gap-1">
-                <design-token-field [modelValue]="colorScheme.primary.activeColor" label="Primary Active" [type]="'color'" />
+                <design-token-field [(modelValue)]="colorScheme.primary.activeColor" label="Primary Active" [type]="'color'" />
             </div>
         </section>
         <section class="grid grid-cols-4 gap-2">
             <div class="flex flex-col gap-1">
-                <design-token-field [modelValue]="colorScheme.highlight.background" label="Highlight BG" [type]="'color'" />
+                <design-token-field [(modelValue)]="colorScheme.highlight.background" label="Highlight BG" [type]="'color'" />
             </div>
             <div class="flex flex-col gap-1">
-                <design-token-field [modelValue]="colorScheme.highlight.color" label="Highlight Color" [type]="'color'" />
+                <design-token-field [(modelValue)]="colorScheme.highlight.color" label="Highlight Color" [type]="'color'" />
             </div>
             <div class="flex flex-col gap-1">
-                <design-token-field [modelValue]="colorScheme.highlight.focusBackground" label="Highlight Focus BG" [type]="'color'" />
+                <design-token-field [(modelValue)]="colorScheme.highlight.focusBackground" label="Highlight Focus BG" [type]="'color'" />
             </div>
             <div class="flex flex-col gap-1">
-                <design-token-field [modelValue]="colorScheme.highlight.focusColor" label="Highlight Focus Color" [type]="'color'" />
+                <design-token-field [(modelValue)]="colorScheme.highlight.focusColor" label="Highlight Focus Color" [type]="'color'" />
             </div>
         </section>
     </p-fieldset>`

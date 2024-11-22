@@ -18,20 +18,7 @@ import { AppDesignerComponent } from '@/components/layout/designer/app.designer.
     selector: 'landing',
     standalone: true,
     templateUrl: './landing.component.html',
-    imports: [
-        CommonModule,
-        NgOptimizedImage,
-        AppNewsComponent,
-        AppTopBarComponent,
-        HeroSectionComponent,
-        FeaturesSectionComponent,
-        UsersSectionComponent,
-        ThemeSectionComponent,
-        BlockSectionComponent,
-        TemplateSectionComponent,
-        FooterSectionComponent,
-        AppDesignerComponent
-    ]
+    imports: [CommonModule, NgOptimizedImage, AppNewsComponent, AppTopBarComponent, HeroSectionComponent, FeaturesSectionComponent, UsersSectionComponent, ThemeSectionComponent, BlockSectionComponent, TemplateSectionComponent, FooterSectionComponent]
 })
 export class LandingComponent implements OnInit {
     subscription!: Subscription;

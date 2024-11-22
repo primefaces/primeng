@@ -39,19 +39,19 @@ const theme = ({ dt }) => `
     flex-direction: column;
     position: absolute;
     top: 1px;
-    right: 1px;
+    inset-inline-end: 1px;
     height: calc(100% - 2px);
     z-index: 1;
 }
 
 .p-inputnumber-stacked .p-inputnumber-increment-button {
     padding: 0;
-    border-top-right-radius: calc(${dt('inputnumber.button.border.radius')} - 1px);
+    border-end-start-radius: calc(${dt('inputnumber.button.border.radius')} - 1px);
 }
 
 .p-inputnumber-stacked .p-inputnumber-decrement-button {
     padding: 0;
-    border-bottom-right-radius: calc(${dt('inputnumber.button.border.radius')} - 1px);
+    border-end-end-radius: calc(${dt('inputnumber.button.border.radius')} - 1px);
 }
 
 .p-inputnumber-stacked .p-inputnumber-button {
@@ -73,9 +73,9 @@ const theme = ({ dt }) => `
 
 .p-inputnumber-horizontal .p-inputnumber-increment-button {
     order: 3;
-    border-top-right-radius: ${dt('inputnumber.button.border.radius')};
-    border-bottom-right-radius: ${dt('inputnumber.button.border.radius')};
-    border-left: 0 none;
+    border-start-end-radius: ${dt('inputnumber.button.border.radius')};
+    border-end-end-radius: ${dt('inputnumber.button.border.radius')};
+    border-inline-start: 0 none;
 }
 
 .p-inputnumber-horizontal .p-inputnumber-input {
@@ -85,9 +85,9 @@ const theme = ({ dt }) => `
 
 .p-inputnumber-horizontal .p-inputnumber-decrement-button {
     order: 1;
-    border-top-left-radius: ${dt('inputnumber.button.border.radius')};
-    border-bottom-left-radius: ${dt('inputnumber.button.border.radius')};
-    border-right: 0 none;
+    border-start-start-radius: ${dt('inputnumber.button.border.radius')};
+    border-end-start-radius: ${dt('inputnumber.button.border.radius')};
+    border-inline-end: 0 none;
 }
 
 .p-floatlabel:has(.p-inputnumber-horizontal) label {
@@ -100,7 +100,8 @@ const theme = ({ dt }) => `
 
 .p-inputnumber-vertical .p-inputnumber-button {
     border: 1px solid ${dt('inputnumber.button.border.color')};
-    padding: ${dt('inputnumber.button.vertical.padding')}; 0;
+    padding-block: ${dt('inputnumber.button.vertical.padding')};
+    padding-inline: 0;
 }
 
 .p-inputnumber-vertical .p-inputnumber-button:hover {
@@ -113,10 +114,10 @@ const theme = ({ dt }) => `
 
 .p-inputnumber-vertical .p-inputnumber-increment-button {
     order: 1;
-    border-top-left-radius: ${dt('inputnumber.button.border.radius')};
-    border-top-right-radius: ${dt('inputnumber.button.border.radius')};
+    border-start-start-radius: ${dt('inputnumber.button.border.radius')};
+    border-start-end-radius: ${dt('inputnumber.button.border.radius')};
     width: 100%;
-    border-bottom: 0 none;
+    border-block-end: 0 none;
 }
 
 .p-inputnumber-vertical .p-inputnumber-input {
@@ -127,10 +128,10 @@ const theme = ({ dt }) => `
 
 .p-inputnumber-vertical .p-inputnumber-decrement-button {
     order: 3;
-    border-bottom-left-radius: ${dt('inputnumber.button.border.radius')};
-    border-bottom-right-radius: ${dt('inputnumber.button.border.radius')};
+    border-end-start-radius: ${dt('inputnumber.button.border.radius')};
+    border-end-end-radius: ${dt('inputnumber.button.border.radius')};
     width: 100%;
-    border-top: 0 none;
+    border-block-start: 0 none;
 }
 
 .p-inputnumber-input {

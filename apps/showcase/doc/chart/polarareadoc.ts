@@ -1,5 +1,6 @@
 import { Code } from '@/domain/code';
 import { AppConfigService } from '@/service/appconfigservice';
+import { DesignerService } from '@/service/designerservice';
 import { isPlatformBrowser } from '@angular/common';
 import { ChangeDetectorRef, Component, effect, inject, OnInit, PLATFORM_ID } from '@angular/core';
 @Component({
@@ -23,12 +24,16 @@ export class PolarAreaDoc implements OnInit {
 
     configService = inject(AppConfigService);
 
+    designerService = inject(DesignerService);
+
     constructor(private cd: ChangeDetectorRef) {}
 
     themeEffect = effect(() => {
         if (this.configService.theme()) {
             this.initChart();
-            this.cd.markForCheck();
+        }
+        if (this.designerService.preset()) {
+            this.initChart();
         }
     });
 
@@ -75,6 +80,7 @@ export class PolarAreaDoc implements OnInit {
                     }
                 }
             };
+            this.cd.markForCheck();
         }
     }
 
@@ -103,12 +109,16 @@ export class ChartPolarAreaDemo implements OnInit {
 
     configService = inject(AppConfigService);
 
+    designerService = inject(DesignerService);
+
     constructor(private cd: ChangeDetectorRef) {}
 
     themeEffect = effect(() => {
         if (this.configService.theme()) {
             this.initChart();
-            this.cd.markForCheck();
+        }
+        if (this.designerService.preset()) {
+            this.initChart();
         }
     });
 
@@ -131,30 +141,31 @@ export class ChartPolarAreaDemo implements OnInit {
                             documentStyle.getPropertyValue('--p-gray-500'),
                             documentStyle.getPropertyValue('--p-orange-500'),
                             documentStyle.getPropertyValue('--p-purple-500'),
-                            documentStyle.getPropertyValue('--p-cyan-500'),
+                            documentStyle.getPropertyValue('--p-cyan-500')
                         ],
-                        label: 'My dataset',
-                    },
+                        label: 'My dataset'
+                    }
                 ],
-                labels: ['Pink', 'Gray', 'Orange', 'Purple', 'Cyan'],
+                labels: ['Pink', 'Gray', 'Orange', 'Purple', 'Cyan']
             };
 
             this.options = {
                 plugins: {
                     legend: {
                         labels: {
-                            color: textColor,
-                        },
-                    },
+                            color: textColor
+                        }
+                    }
                 },
                 scales: {
                     r: {
                         grid: {
-                            color: surfaceBorder,
-                        },
-                    },
-                },
+                            color: surfaceBorder
+                        }
+                    }
+                }
             };
+            this.cd.markForCheck()
         }
     }
 }`

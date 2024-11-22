@@ -1,5 +1,6 @@
 import { Code } from '@/domain/code';
 import { AppConfigService } from '@/service/appconfigservice';
+import { DesignerService } from '@/service/designerservice';
 import { isPlatformBrowser } from '@angular/common';
 import { ChangeDetectorRef, Component, effect, inject, OnInit, PLATFORM_ID } from '@angular/core';
 @Component({
@@ -23,12 +24,16 @@ export class DoughnutDoc implements OnInit {
 
     configService = inject(AppConfigService);
 
+    designerService = inject(DesignerService);
+
     constructor(private cd: ChangeDetectorRef) {}
 
     themeEffect = effect(() => {
         if (this.configService.theme()) {
             this.initChart();
-            this.cd.markForCheck();
+        }
+        if (this.designerService.preset()) {
+            this.initChart();
         }
     });
 
@@ -62,6 +67,7 @@ export class DoughnutDoc implements OnInit {
                     }
                 }
             };
+            this.cd.markForCheck();
         }
     }
     code: Code = {
@@ -88,15 +94,18 @@ export class ChartDoughnutDemo implements OnInit {
 
     configService = inject(AppConfigService);
 
+    designerService = inject(DesignerService);
+
     constructor(private cd: ChangeDetectorRef) {}
 
     themeEffect = effect(() => {
         if (this.configService.theme()) {
             this.initChart();
-            this.cd.markForCheck();
+        }
+        if (this.designerService.preset()) {
+            this.initChart();
         }
     });
-
 
     ngOnInit() {
         this.initChart();
@@ -112,18 +121,10 @@ export class ChartDoughnutDemo implements OnInit {
                 datasets: [
                     {
                         data: [300, 50, 100],
-                        backgroundColor: [
-                            documentStyle.getPropertyValue('--p-cyan-500'),
-                            documentStyle.getPropertyValue('--p-orange-500'),
-                            documentStyle.getPropertyValue('--p-gray-500'),
-                        ],
-                        hoverBackgroundColor: [
-                            documentStyle.getPropertyValue('--p-cyan-400'),
-                            documentStyle.getPropertyValue('--p-orange-400'),
-                            documentStyle.getPropertyValue('--p-gray-400'),
-                        ],
-                    },
-                ],
+                        backgroundColor: [documentStyle.getPropertyValue('--p-cyan-500'), documentStyle.getPropertyValue('--p-orange-500'), documentStyle.getPropertyValue('--p-gray-500')],
+                        hoverBackgroundColor: [documentStyle.getPropertyValue('--p-cyan-400'), documentStyle.getPropertyValue('--p-orange-400'), documentStyle.getPropertyValue('--p-gray-400')]
+                    }
+                ]
             };
 
             this.options = {
@@ -131,11 +132,12 @@ export class ChartDoughnutDemo implements OnInit {
                 plugins: {
                     legend: {
                         labels: {
-                            color: textColor,
-                        },
-                    },
-                },
+                            color: textColor
+                        }
+                    }
+                }
             };
+            this.cd.markForCheck()
         }
     }
 }`

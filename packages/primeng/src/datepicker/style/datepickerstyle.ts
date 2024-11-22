@@ -3,7 +3,7 @@ import { BaseStyle } from 'primeng/base';
 
 const theme = ({ dt }) => `
 .p-datepicker {
-position: relative;
+    position: relative;
     display: inline-flex;
     max-width: 100%;
 }
@@ -14,25 +14,24 @@ position: relative;
 }
 
 .p-datepicker:has(.p-datepicker-dropdown) .p-datepicker-input {
-    border-top-right-radius: 0;
-    border-bottom-right-radius: 0;
+    border-start-end-radius: 0;
+    border-end-end-radius: 0;
 }
 
 .p-datepicker-dropdown {
     cursor: pointer;
     display: inline-flex;
-    cursor: pointer;
     user-select: none;
     align-items: center;
     justify-content: center;
     overflow: hidden;
     position: relative;
     width: ${dt('datepicker.dropdown.width')};
-    border-top-right-radius: ${dt('datepicker.dropdown.border.radius')};
-    border-bottom-right-radius: ${dt('datepicker.dropdown.border.radius')};
+    border-start-end-radius: ${dt('datepicker.dropdown.border.radius')};
+    border-end-end-radius: ${dt('datepicker.dropdown.border.radius')};
     background: ${dt('datepicker.dropdown.background')};
     border: 1px solid ${dt('datepicker.dropdown.border.color')};
-    border-left: 0 none;
+    border-inline-start: 0 none;
     color: ${dt('datepicker.dropdown.color')};
     transition: background ${dt('datepicker.transition.duration')}, color ${dt('datepicker.transition.duration')}, border-color ${dt('datepicker.transition.duration')}, outline-color ${dt('datepicker.transition.duration')};
     outline-color: transparent;
@@ -61,16 +60,17 @@ position: relative;
 }
 
 .p-datepicker:has(.p-datepicker-input-icon-container) .p-datepicker-input {
-    padding-right: calc((${dt('form.field.padding.x')} * 2) + ${dt('icon.size')});
+    padding-inline-end: calc((${dt('form.field.padding.x')} * 2) + ${dt('icon.size')});
 }
 
 .p-datepicker-input-icon-container {
     cursor: pointer;
     position: absolute;
     top: 50%;
-    right: ${dt('form.field.padding.x')};
+    inset-inline-end: ${dt('form.field.padding.x')};
     margin-top: calc(-1 * (${dt('icon.size')} / 2));
     color: ${dt('datepicker.input.icon.color')};
+    line-height: 1;
 }
 
 .p-datepicker-fluid {
@@ -109,6 +109,14 @@ position: relative;
     background: ${dt('datepicker.header.background')};
     color: ${dt('datepicker.header.color')};
     border-bottom: 1px solid ${dt('datepicker.header.border.color')};
+}
+
+.p-datepicker-next-button:dir(rtl) {
+    transform: rotate(180deg);
+}
+
+.p-datepicker-prev-button:dir(rtl) {
+    transform: rotate(180deg);
 }
 
 .p-datepicker-title {
@@ -159,18 +167,17 @@ position: relative;
 
 .p-datepicker-calendar-container .p-datepicker-calendar {
     flex: 1 1 auto;
-    border-left: 1px solid ${dt('datepicker.group.border.color')};
-    padding-right: ${dt('datepicker.group.gap')};
-    padding-left: ${dt('datepicker.group.gap')};
+    border-inline-start: 1px solid ${dt('datepicker.group.border.color')};
+    padding-inline: ${dt('datepicker.group.gap')};
 }
 
 .p-datepicker-calendar-container .p-datepicker-calendar:first-child {
-    padding-left: 0;
-    border-left: 0 none;
+    padding-inline-start: 0;
+    border-inline-start: 0 none;
 }
 
 .p-datepicker-calendar-container .p-datepicker-calendar:last-child {
-    padding-right: 0;
+    padding-inline-end: 0;
 }
 
 .p-datepicker-day-view {

@@ -1,5 +1,6 @@
 import { Code } from '@/domain/code';
 import { AppConfigService } from '@/service/appconfigservice';
+import { DesignerService } from '@/service/designerservice';
 import { isPlatformBrowser } from '@angular/common';
 import { ChangeDetectorRef, Component, effect, inject, OnInit, PLATFORM_ID } from '@angular/core';
 @Component({
@@ -23,12 +24,16 @@ export class RadarDoc implements OnInit {
 
     configService = inject(AppConfigService);
 
+    designerService = inject(DesignerService);
+
     constructor(private cd: ChangeDetectorRef) {}
 
     themeEffect = effect(() => {
         if (this.configService.theme()) {
             this.initChart();
-            this.cd.markForCheck();
+        }
+        if (this.designerService.preset()) {
+            this.initChart();
         }
     });
 
@@ -83,6 +88,7 @@ export class RadarDoc implements OnInit {
                 }
             };
         }
+        this.cd.markForCheck();
     }
 
     code: Code = {
@@ -110,12 +116,16 @@ export class ChartRadarDemo implements OnInit {
 
     configService = inject(AppConfigService);
 
+    designerService = inject(DesignerService);
+
     constructor(private cd: ChangeDetectorRef) {}
 
     themeEffect = effect(() => {
         if (this.configService.theme()) {
             this.initChart();
-            this.cd.markForCheck();
+        }
+        if (this.designerService.preset()) {
+            this.initChart();
         }
     });
 
@@ -139,7 +149,7 @@ export class ChartRadarDemo implements OnInit {
                         pointBorderColor: documentStyle.getPropertyValue('--p-gray-400'),
                         pointHoverBackgroundColor: textColor,
                         pointHoverBorderColor: documentStyle.getPropertyValue('--p-gray-400'),
-                        data: [65, 59, 90, 81, 56, 55, 40],
+                        data: [65, 59, 90, 81, 56, 55, 40]
                     },
                     {
                         label: 'My Second dataset',
@@ -148,28 +158,29 @@ export class ChartRadarDemo implements OnInit {
                         pointBorderColor: documentStyle.getPropertyValue('--p-cyan-400'),
                         pointHoverBackgroundColor: textColor,
                         pointHoverBorderColor: documentStyle.getPropertyValue('--p-cyan-400'),
-                        data: [28, 48, 40, 19, 96, 27, 100],
-                    },
-                ],
+                        data: [28, 48, 40, 19, 96, 27, 100]
+                    }
+                ]
             };
 
             this.options = {
                 plugins: {
                     legend: {
                         labels: {
-                            color: textColor,
-                        },
-                    },
+                            color: textColor
+                        }
+                    }
                 },
                 scales: {
                     r: {
                         grid: {
-                            color: textColorSecondary,
-                        },
-                    },
-                },
+                            color: textColorSecondary
+                        }
+                    }
+                }
             };
         }
+        this.cd.markForCheck()
     }
 }`
     };

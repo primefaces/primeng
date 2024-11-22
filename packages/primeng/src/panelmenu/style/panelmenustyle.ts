@@ -20,14 +20,14 @@ const theme = ({ dt }) => `
 
 .p-panelmenu-panel:first-child {
     border-width: ${dt('panelmenu.panel.first.border.width')};
-    border-top-left-radius: ${dt('panelmenu.panel.first.top.border.radius')};
-    border-top-right-radius: ${dt('panelmenu.panel.first.top.border.radius')};
+    border-start-start-radius: ${dt('panelmenu.panel.first.top.border.radius')};
+    border-start-end-radius: ${dt('panelmenu.panel.first.top.border.radius')};
 }
 
 .p-panelmenu-panel:last-child {
     border-width: ${dt('panelmenu.panel.last.border.width')};
-    border-bottom-left-radius: ${dt('panelmenu.panel.last.bottom.border.radius')};
-    border-bottom-right-radius: ${dt('panelmenu.panel.last.bottom.border.radius')};
+    border-end-start-radius: ${dt('panelmenu.panel.last.bottom.border.radius')};
+    border-end-end-radius: ${dt('panelmenu.panel.last.bottom.border.radius')};
 }
 
 .p-panelmenu-header {
@@ -62,6 +62,10 @@ const theme = ({ dt }) => `
     color: ${dt('panelmenu.submenu.icon.color')};
 }
 
+.p-panelmenu-header:not(.p-panelmenu-header-active)  .p-panelmenu-header-content .p-panelmenu-submenu-icon:dir(rtl) {
+    transform: rotate(180deg);
+}
+
 .p-panelmenu-header:not(.p-disabled):focus-visible .p-panelmenu-header-content {
     background: ${dt('panelmenu.item.focus.background')};
     color: ${dt('panelmenu.item.focus.color')};
@@ -93,6 +97,10 @@ const theme = ({ dt }) => `
     padding: 0 0 0 ${dt('panelmenu.submenu.indent')};
     outline: 0;
     list-style: none;
+}
+
+.p-panelmenu-submenu:dir(rtl) {
+    padding: 0 ${dt('panelmenu.submenu.indent')} 0 0;
 }
 
 .p-panelmenu-item-link {

@@ -66,8 +66,8 @@ const theme = ({ dt }) => `
     background: transparent;
     color: ${dt('select.dropdown.color')};
     width: ${dt('select.dropdown.width')};
-    border-top-right-radius: ${dt('select.border.radius')};
-    border-bottom-right-radius: ${dt('select.border.radius')};
+    border-start-end-radius: ${dt('select.border.radius')};
+    border-end-end-radius: ${dt('select.border.radius')};
 }
 
 .p-select-label {

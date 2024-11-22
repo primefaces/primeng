@@ -27,6 +27,7 @@ import { DesignNavigation } from './semantic/designnavigation';
 import { DesignOverlay } from './semantic/designoverlay';
 import { DesignCS } from './semantic/colorscheme/designcs';
 import { ToastModule } from 'primeng/toast';
+import { SkeletonModule } from 'primeng/skeleton';
 
 const presets = {
     Aura,
@@ -56,7 +57,8 @@ const presets = {
         DesignNavigation,
         DesignOverlay,
         DesignCS,
-        ToastModule
+        ToastModule,
+        SkeletonModule
     ],
     template: `<p-drawer [visible]="visible()" (visibleChange)="hide($event)" header="Drawer" header="Theme Designer" position="right" styleClass="designer !w-screen md:!w-[48rem]" [modal]="false" [dismissible]="false">
             <p-tabs [(value)]="activeTab">
@@ -67,127 +69,160 @@ const presets = {
                     <p-tab value="3">Component</p-tab>
                     <p-tab value="4">Custom</p-tab>
                 </p-tablist>
-                <p-tabpanels>
-                    <p-tabpanel value="0">
-                        <div class="text-lg font-semibold mb-2">Choose a Theme to Get Started</div>
-                        <span class="block text-muted-color leading-6 mb-4">Begin by selecting a built-in theme as a foundation, continue editing your current theme, or import a Figma tokens file.</span>
-                        <div class="flex flex-col">
-                            <div class="flex flex-col gap-4 border border-surface-200 dark:border-surface-700 rounded-md p-4">
-                                <span class="font-semibold">Base Theme</span>
-                                <span class="text-muted-color">Variety of built-in themes with distinct characteristics.</span>
-                                <p-selectbutton [ngModel]="selectedPreset()" (ngModelChange)="onPresetChange($event)" [options]="presetOptions" optionLabel="label" optionValue="value" [allowEmpty]="false" />
-                            </div>
-                            <p-divider>OR</p-divider>
-                            <div class="flex flex-col gap-4 border border-surface-200 dark:border-surface-700 rounded-md p-4 items-start">
-                                <span class="font-semibold">Load Theme</span>
-                                <span class="text-muted-color">Continue editing the theme files stored locally.</span>
-                                <p-button label="Restore from local storage" styleClass="!px-3 !py-2" severity="secondary" (click)="loadFromLocalStorage()" />
-                            </div>
-                            <p-divider>OR</p-divider>
-                            <div class="flex flex-col gap-4 border border-surface-200 dark:border-surface-700 rounded-md p-4">
-                                <div class="flex items-center gap-4">
-                                    <span class="font-semibold">Import Figma Tokens </span>
-                                    <p-tag value="PRO" severity="contrast"></p-tag>
-                                </div>
-                                <span class="text-muted-color leading-6">Export the token studio json file and import to the Visual Editor. This feature is currently under development.</span>
-                                <p-fileupload mode="basic" disabled styleClass="!justify-start" />
-                            </div>
-                        </div>
-                    </p-tabpanel>
-                    <p-tabpanel value="1">
-                        <div class="flex flex-col gap-3">
-                            <form (keydown)="onKeyDown($event)" class="flex flex-col gap-3">
-                                <design-border-radius />
-                                <design-colors />
-                            </form>
-                        </div>
-                    </p-tabpanel>
-                    <p-tabpanel value="2">
-                        <p-accordion [value]="['0', '1']" [multiple]="true">
-                            <p-accordion-panel value="0">
-                                <p-accordion-header>Common</p-accordion-header>
-                                <p-accordion-content>
-                                    <div class="flex flex-col gap-3">
-                                        <form (keydown)="onKeyDown($event)" class="flex flex-col gap-3">
-                                            <design-general />
-                                            <design-form-field />
-                                            <design-list />
-                                            <design-navigation />
-                                            <design-overlay />
-                                        </form>
-                                    </div>
-                                </p-accordion-content>
-                            </p-accordion-panel>
 
-                            <p-accordion-panel value="1">
-                                <p-accordion-header>Color Scheme</p-accordion-header>
-                                <p-accordion-content>
-                                    <p-tabs value="cs-0">
-                                        <p-tablist>
-                                            <p-tab value="cs-0">Light</p-tab>
-                                            <p-tab value="cs-1">Dark</p-tab>
-                                        </p-tablist>
-                                        <p-tabpanels class="!px-0">
-                                            <p-tabpanel value="cs-0">
-                                                <form (keydown)="onKeyDown($event)">
-                                                    <design-cs [value]="designerService.preset().semantic.colorScheme.light" />
-                                                </form>
-                                            </p-tabpanel>
-                                            <p-tabpanel value="cs-1">
-                                                <form (keydown)="onKeyDown($event)">
-                                                    <design-cs [value]="designerService.preset().semantic.colorScheme.dark" />
-                                                </form>
-                                            </p-tabpanel>
-                                        </p-tabpanels>
-                                    </p-tabs>
-                                </p-accordion-content>
-                            </p-accordion-panel>
-                        </p-accordion>
-                    </p-tabpanel>
-                    <p-tabpanel value="3">
-                        <span class="leading-6 text-muted-color">Component tokens are not supported by the Visual Editor at the moment and will be available with a future update. </span>
-                    </p-tabpanel>
-                    <p-tabpanel value="4">
-                        <span class="leading-6 text-muted-color">Extend the theming system with your own design tokens e.g. <span class="font-medium">accent.color</span>. Do not use curly braces in the name field.</span>
-                        <ul class="flex flex-col gap-4 list-none p-0 mx-0 my-4">
-                            <li *ngFor="let token of customTokens" class="first:border-t border-b border-surface-200 dark:border-surface-300 py-2">
-                                <div class="flex items-center gap-4">
-                                    <label class="flex items-center gap-2 flex-auto">
-                                        <span class="text-sm">Name</span>
-                                        <input [(ngModel)]="token['name']" type="text" class="border border-surface-300 dark:border-surface-600 rounded-lg py-2 px-2 w-full" />
-                                    </label>
-                                    <label class="flex items-center gap-2 flex-auto">
-                                        <span class="text-sm">Value</span>
-                                        <input [(ngModel)]="token['value']" type="text" class="border border-surface-300 dark:border-surface-600 rounded-lg py-2 px-2 w-full" />
-                                    </label>
-                                    <button
-                                        type="button"
-                                        (click)="removeToken(index)"
-                                        class="cursor-pointer inline-flex items-center justify-center ms-auto w-8 h-8 rounded-full bg-red-50 hover:bg-red-100 text-red-600 dark:bg-red-400/10 dark:hover:bg-red-400/20 dark:text-red-400 transition-colors duration-200 focus:outline focus:outline-offset-2 focus:outline-red-600 focus:dark:outline-red-400"
-                                    >
-                                        <i class="pi pi-times"> </i>
-                                    </button>
+                <p-tabpanels>
+                    @defer (when activeTab == '0') {
+                        <p-tabpanel value="0">
+                            <div class="text-lg font-semibold mb-2">Choose a Theme to Get Started</div>
+                            <span class="block text-muted-color leading-6 mb-4">Begin by selecting a built-in theme as a foundation, continue editing your current theme, or import a Figma tokens file.</span>
+                            <div class="flex flex-col">
+                                <div class="flex flex-col gap-4 border border-surface-200 dark:border-surface-700 rounded-md p-4">
+                                    <span class="font-semibold">Base Theme</span>
+                                    <span class="text-muted-color">Variety of built-in themes with distinct characteristics.</span>
+                                    <p-selectbutton [ngModel]="selectedPreset()" (ngModelChange)="onPresetChange($event)" [options]="presetOptions" optionLabel="label" optionValue="value" [allowEmpty]="false" />
                                 </div>
-                            </li>
-                        </ul>
-                        <div class="flex justify-between">
-                            <button
-                                type="button"
-                                (click)="addToken()"
-                                class="px-3 py-2 bg-zinc-950 hover:bg-zinc-800 text-white dark:bg-white dark:hover:bg-gray-100 dark:text-black rounded-md font-medium cursor-pointer transition-colors duration-200 focus:outline focus:outline-offset-2 focus:outline-zinc-950 focus:dark:outline-white"
-                            >
-                                Add New
-                            </button>
-                            <button
-                                *ngIf="customTokens?.length"
-                                type="button"
-                                (click)="saveTokens()"
-                                class="px-3 py-2 bg-zinc-950 hover:bg-zinc-800 text-white dark:bg-white dark:hover:bg-gray-100 dark:text-black rounded-md font-medium cursor-pointer transition-colors duration-200 focus:outline focus:outline-offset-2 focus:outline-zinc-950 focus:dark:outline-white"
-                            >
-                                Save
-                            </button>
-                        </div>
-                    </p-tabpanel>
+                                <p-divider>OR</p-divider>
+                                <div class="flex flex-col gap-4 border border-surface-200 dark:border-surface-700 rounded-md p-4 items-start">
+                                    <span class="font-semibold">Load Theme</span>
+                                    <span class="text-muted-color">Continue editing the theme files stored locally.</span>
+                                    <p-button label="Restore from local storage" styleClass="!px-3 !py-2" severity="secondary" (click)="loadFromLocalStorage()" />
+                                </div>
+                                <p-divider>OR</p-divider>
+                                <div class="flex flex-col gap-4 border border-surface-200 dark:border-surface-700 rounded-md p-4">
+                                    <div class="flex items-center gap-4">
+                                        <span class="font-semibold">Import Figma Tokens </span>
+                                        <p-tag value="PRO" severity="contrast"></p-tag>
+                                    </div>
+                                    <span class="text-muted-color leading-6">Export the token studio json file and import to the Visual Editor. This feature is currently under development.</span>
+                                    <p-fileupload mode="basic" disabled styleClass="!justify-start" />
+                                </div>
+                            </div>
+                        </p-tabpanel>
+                    } @loading {
+                        <p-skeleton width="40%" styleClass="my-2" />
+                        <p-skeleton width="100%" styleClass="my-2" />
+                        <p-skeleton width="25%" styleClass="my-2" />
+                        <p-skeleton width="100%" height="8rem" styleClass="mt-4" />
+                        <p-skeleton width="100%" styleClass="my-4" />
+                        <p-skeleton width="100%" height="8rem" styleClass="mt-4" />
+                        <p-skeleton width="100%" styleClass="my-4" />
+                        <p-skeleton width="100%" height="8rem" styleClass="mt-4" />
+                    }
+                    @defer (when activeTab == '1') {
+                        <p-tabpanel value="1">
+                            <div class="flex flex-col gap-3">
+                                <form (keydown)="onKeyDown($event)" class="flex flex-col gap-3">
+                                    <design-border-radius />
+                                    <design-colors />
+                                </form>
+                            </div>
+                        </p-tabpanel>
+                    } @loading {
+                        <p-skeleton width="100%" height="15rem" styleClass="mt-4" />
+                        <p-skeleton width="100%" height="15rem" styleClass="mt-4" />
+                    }
+                    @defer (when activeTab == '2') {
+                        <p-tabpanel value="2">
+                            <p-accordion [value]="['0', '1']" [multiple]="true">
+                                <p-accordion-panel value="0">
+                                    <p-accordion-header>Common</p-accordion-header>
+                                    <p-accordion-content>
+                                        <div class="flex flex-col gap-3">
+                                            <form (keydown)="onKeyDown($event)" class="flex flex-col gap-3">
+                                                <design-general />
+                                                <design-form-field />
+                                                <design-list />
+                                                <design-navigation />
+                                                <design-overlay />
+                                            </form>
+                                        </div>
+                                    </p-accordion-content>
+                                </p-accordion-panel>
+
+                                <p-accordion-panel value="1">
+                                    <p-accordion-header>Color Scheme</p-accordion-header>
+                                    <p-accordion-content>
+                                        <p-tabs value="cs-0">
+                                            <p-tablist>
+                                                <p-tab value="cs-0">Light</p-tab>
+                                                <p-tab value="cs-1">Dark</p-tab>
+                                            </p-tablist>
+                                            <p-tabpanels class="!px-0">
+                                                <p-tabpanel value="cs-0">
+                                                    <form (keydown)="onKeyDown($event)">
+                                                        <design-cs [value]="designerService.preset().semantic.colorScheme.light" />
+                                                    </form>
+                                                </p-tabpanel>
+                                                <p-tabpanel value="cs-1">
+                                                    <form (keydown)="onKeyDown($event)">
+                                                        <design-cs [value]="designerService.preset().semantic.colorScheme.dark" />
+                                                    </form>
+                                                </p-tabpanel>
+                                            </p-tabpanels>
+                                        </p-tabs>
+                                    </p-accordion-content>
+                                </p-accordion-panel>
+                            </p-accordion>
+                        </p-tabpanel>
+                    } @loading {
+                        <p-skeleton width="100%" height="8rem" styleClass="mt-4" />
+                        <p-skeleton width="100%" height="30rem" styleClass="mt-4" />
+                    }
+                    @defer (when activeTab == '3') {
+                        <p-tabpanel value="3">
+                            <span class="leading-6 text-muted-color">Component tokens are not supported by the Visual Editor at the moment and will be available with a future update. </span>
+                        </p-tabpanel>
+                    } @loading {
+                        <p-skeleton width="100%" styleClass="mt-2" />
+                        <p-skeleton width="10%" styleClass="mt-4" />
+                    }
+                    @defer (when activeTab == '4') {
+                        <p-tabpanel value="4">
+                            <span class="leading-6 text-muted-color">Extend the theming system with your own design tokens e.g. <span class="font-medium">accent.color</span>. Do not use curly braces in the name field.</span>
+                            <ul class="flex flex-col gap-4 list-none p-0 mx-0 my-4">
+                                <li *ngFor="let token of customTokens" class="first:border-t border-b border-surface-200 dark:border-surface-300 py-2">
+                                    <div class="flex items-center gap-4">
+                                        <label class="flex items-center gap-2 flex-auto">
+                                            <span class="text-sm">Name</span>
+                                            <input [(ngModel)]="token['name']" type="text" class="border border-surface-300 dark:border-surface-600 rounded-lg py-2 px-2 w-full" />
+                                        </label>
+                                        <label class="flex items-center gap-2 flex-auto">
+                                            <span class="text-sm">Value</span>
+                                            <input [(ngModel)]="token['value']" type="text" class="border border-surface-300 dark:border-surface-600 rounded-lg py-2 px-2 w-full" />
+                                        </label>
+                                        <button
+                                            type="button"
+                                            (click)="removeToken(index)"
+                                            class="cursor-pointer inline-flex items-center justify-center ms-auto w-8 h-8 rounded-full bg-red-50 hover:bg-red-100 text-red-600 dark:bg-red-400/10 dark:hover:bg-red-400/20 dark:text-red-400 transition-colors duration-200 focus:outline focus:outline-offset-2 focus:outline-red-600 focus:dark:outline-red-400"
+                                        >
+                                            <i class="pi pi-times"> </i>
+                                        </button>
+                                    </div>
+                                </li>
+                            </ul>
+                            <div class="flex justify-between">
+                                <button
+                                    type="button"
+                                    (click)="addToken()"
+                                    class="px-3 py-2 bg-zinc-950 hover:bg-zinc-800 text-white dark:bg-white dark:hover:bg-gray-100 dark:text-black rounded-md font-medium cursor-pointer transition-colors duration-200 focus:outline focus:outline-offset-2 focus:outline-zinc-950 focus:dark:outline-white"
+                                >
+                                    Add New
+                                </button>
+                                <button
+                                    *ngIf="customTokens?.length"
+                                    type="button"
+                                    (click)="saveTokens()"
+                                    class="px-3 py-2 bg-zinc-950 hover:bg-zinc-800 text-white dark:bg-white dark:hover:bg-gray-100 dark:text-black rounded-md font-medium cursor-pointer transition-colors duration-200 focus:outline focus:outline-offset-2 focus:outline-zinc-950 focus:dark:outline-white"
+                                >
+                                    Save
+                                </button>
+                            </div>
+                        </p-tabpanel>
+                    } @loading {
+                        <p-skeleton width="100%" styleClass="mt-2" />
+                        <p-skeleton width="10%" styleClass="mt-4" />
+                        <p-skeleton width="6rem" height="2rem" styleClass="mt-6" />
+                    }
                 </p-tabpanels>
             </p-tabs>
 
@@ -286,6 +321,7 @@ export class AppDesignerComponent {
     apply() {
         this.saveTheme();
         updatePreset(this.preset);
+        this.designerService.preset.update((state) => ({ ...state, ...this.preset }));
     }
 
     saveTheme() {
@@ -313,6 +349,7 @@ export class AppDesignerComponent {
         }
 
         this.preset = {
+            ...newPreset,
             primitive: newPreset.primitive,
             semantic: newPreset.semantic
         };

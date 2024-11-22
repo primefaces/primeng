@@ -13,7 +13,8 @@ const theme = ({ dt }) => `
     color: ${dt('button.primary.color')};
     background: ${dt('button.primary.background')};
     border: 1px solid ${dt('button.primary.border.color')};
-    padding: ${dt('button.padding.y')} ${dt('button.padding.x')};
+    padding-block: ${dt('button.padding.y')};
+    padding-inline: ${dt('button.padding.x')};
     font-size: 1rem;
     font-family: inherit;
     font-feature-settings: inherit;
@@ -32,14 +33,22 @@ const theme = ({ dt }) => `
     order: 1;
 }
 
+.p-button-icon-right:dir(rtl) {
+    order: -1;
+}
+
+.p-button:not(.p-button-vertical) .p-button-icon:not(.p-button-icon-right):dir(rtl) {
+    order: 1;
+}
+
 .p-button-icon-bottom {
     order: 2;
 }
 
 .p-button-icon-only {
     width: ${dt('button.icon.only.width')};
-    padding-left: 0;
-    padding-right: 0;
+    padding-inline-start: 0;
+    padding-inline-end: 0;
     gap: 0;
 }
 
@@ -55,7 +64,8 @@ const theme = ({ dt }) => `
 
 .p-button-sm {
     font-size: ${dt('button.sm.font.size')};
-    padding: ${dt('button.sm.padding.y')} ${dt('button.sm.padding.x')};
+    padding-block: ${dt('button.sm.padding.y')};
+    padding-inline: ${dt('button.sm.padding.x')};
 }
 
 .p-button-sm .p-button-icon {
@@ -64,7 +74,8 @@ const theme = ({ dt }) => `
 
 .p-button-lg {
     font-size: ${dt('button.lg.font.size')};
-    padding: ${dt('button.lg.padding.y')} ${dt('button.lg.padding.x')};
+    padding-block: ${dt('button.lg.padding.y')};
+    padding-inline: ${dt('button.lg.padding.x')};
 }
 
 .p-button-lg .p-button-icon {
@@ -626,7 +637,6 @@ const theme = ({ dt }) => `
 p-button[iconpos='right'] spinnericon {
     order: 1;
 }
-
 `;
 
 const classes = {

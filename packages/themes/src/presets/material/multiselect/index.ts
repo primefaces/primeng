@@ -85,8 +85,8 @@ export default {
     },
     css: ({ dt }) => `
 .p-multiselect.p-variant-filled {
-    border-bottom-left-radius: 0
-    border-bottom-right-radius: 0;
+    border-end-start-radius: 0
+    border-end-end-radius: 0;
     border: 1px solid transparent;
     background: ${dt('multiselect.filled.background')} no-repeat;
     background-image: linear-gradient(to bottom, ${dt('multiselect.focus.border.color')}, ${dt('multiselect.focus.border.color')}), linear-gradient(to bottom, ${dt('multiselect.border.color')}, ${dt('multiselect.border.color')});

@@ -1,5 +1,6 @@
 import { Code } from '@/domain/code';
 import { AppConfigService } from '@/service/appconfigservice';
+import { DesignerService } from '@/service/designerservice';
 import { isPlatformBrowser } from '@angular/common';
 import { ChangeDetectorRef, Component, effect, inject, OnInit, PLATFORM_ID } from '@angular/core';
 @Component({
@@ -23,12 +24,16 @@ export class ComboDoc implements OnInit {
 
     configService = inject(AppConfigService);
 
+    designerService = inject(DesignerService);
+
     constructor(private cd: ChangeDetectorRef) {}
 
     themeEffect = effect(() => {
         if (this.configService.theme()) {
             this.initChart();
-            this.cd.markForCheck();
+        }
+        if (this.designerService.preset()) {
+            this.initChart();
         }
     });
 
@@ -101,6 +106,7 @@ export class ComboDoc implements OnInit {
                     }
                 }
             };
+            this.cd.markForCheck();
         }
     }
 
@@ -129,12 +135,16 @@ export class ChartComboDemo implements OnInit {
 
     configService = inject(AppConfigService);
 
+    designerService = inject(DesignerService);
+
     constructor(private cd: ChangeDetectorRef) {}
 
     themeEffect = effect(() => {
         if (this.configService.theme()) {
             this.initChart();
-            this.cd.markForCheck();
+        }
+        if (this.designerService.preset()) {
+            this.initChart();
         }
     });
 
@@ -159,7 +169,7 @@ export class ChartComboDemo implements OnInit {
                         borderWidth: 2,
                         fill: false,
                         tension: 0.4,
-                        data: [50, 25, 12, 48, 56, 76, 42],
+                        data: [50, 25, 12, 48, 56, 76, 42]
                     },
                     {
                         type: 'bar',
@@ -167,15 +177,15 @@ export class ChartComboDemo implements OnInit {
                         backgroundColor: documentStyle.getPropertyValue('--p-gray-500'),
                         data: [21, 84, 24, 75, 37, 65, 34],
                         borderColor: 'white',
-                        borderWidth: 2,
+                        borderWidth: 2
                     },
                     {
                         type: 'bar',
                         label: 'Dataset 3',
                         backgroundColor: documentStyle.getPropertyValue('--p-cyan-500'),
-                        data: [41, 52, 24, 74, 23, 21, 32],
-                    },
-                ],
+                        data: [41, 52, 24, 74, 23, 21, 32]
+                    }
+                ]
             };
 
             this.options = {
@@ -184,32 +194,32 @@ export class ChartComboDemo implements OnInit {
                 plugins: {
                     legend: {
                         labels: {
-                            color: textColor,
-                        },
-                    },
+                            color: textColor
+                        }
+                    }
                 },
                 scales: {
                     x: {
                         ticks: {
-                            color: textColorSecondary,
+                            color: textColorSecondary
                         },
                         grid: {
-                            color: surfaceBorder,
-                        },
+                            color: surfaceBorder
+                        }
                     },
                     y: {
                         ticks: {
-                            color: textColorSecondary,
+                            color: textColorSecondary
                         },
                         grid: {
-                            color: surfaceBorder,
-                        },
-                    },
-                },
+                            color: surfaceBorder
+                        }
+                    }
+                }
             };
+            this.cd.markForCheck();
         }
     }
-
 }`
     };
 }

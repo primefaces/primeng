@@ -53,8 +53,8 @@ const theme = ({ dt }) => `
     background: transparent;
     color: ${dt('cascadeselect.dropdown.color')};
     width: ${dt('cascadeselect.dropdown.width')};
-    border-top-right-radius: ${dt('border.radius.md')};
-    border-bottom-right-radius: ${dt('border.radius.md')};
+    border-start-end-radius: ${dt('border.radius.md')};
+    border-end-end-radius: ${dt('border.radius.md')};
 }
 
 .p-cascadeselect-label {
@@ -162,7 +162,7 @@ const theme = ({ dt }) => `
 
 .p-cascadeselect-option-active > .p-cascadeselect-option-list {
     display: block;
-    left: 100%;
+    inset-inline-start: 100%;
     top: 0;
 }
 
@@ -175,13 +175,12 @@ const theme = ({ dt }) => `
 }
 
 .p-cascadeselect-group-icon {
-    margin-left: auto;
+    margin-inline-start: auto;
     font-size: ${dt('cascadeselect.option.icon.size')};
     width: ${dt('cascadeselect.option.icon.size')};
     height: ${dt('cascadeselect.option.icon.size')};
     color: ${dt('cascadeselect.option.icon.color')};
 }
-
 
 .p-cascadeselect-group-icon:dir(rtl) {
     transform: rotate(180deg);

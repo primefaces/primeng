@@ -1,5 +1,6 @@
 import { Code } from '@/domain/code';
 import { AppConfigService } from '@/service/appconfigservice';
+import { DesignerService } from '@/service/designerservice';
 import { isPlatformBrowser } from '@angular/common';
 import { ChangeDetectorRef, Component, effect, inject, OnInit, PLATFORM_ID } from '@angular/core';
 @Component({
@@ -23,12 +24,16 @@ export class VerticalBarDoc implements OnInit {
 
     configService = inject(AppConfigService);
 
+    designerService = inject(DesignerService);
+
     constructor(private cd: ChangeDetectorRef) {}
 
     themeEffect = effect(() => {
         if (this.configService.theme()) {
             this.initChart();
-            this.cd.markForCheck();
+        }
+        if (this.designerService.preset()) {
+            this.initChart();
         }
     });
 
@@ -95,6 +100,7 @@ export class VerticalBarDoc implements OnInit {
                     }
                 }
             };
+            this.cd.markForCheck();
         }
     }
 
@@ -122,12 +128,16 @@ export class ChartVerticalBarDemo implements OnInit {
 
     configService = inject(AppConfigService);
 
+    designerService = inject(DesignerService);
+
     constructor(private cd: ChangeDetectorRef) {}
 
     themeEffect = effect(() => {
         if (this.configService.theme()) {
             this.initChart();
-            this.cd.markForCheck();
+        }
+        if (this.designerService.preset()) {
+            this.initChart();
         }
     });
 
@@ -149,15 +159,15 @@ export class ChartVerticalBarDemo implements OnInit {
                         label: 'My First dataset',
                         backgroundColor: documentStyle.getPropertyValue('--p-cyan-500'),
                         borderColor: documentStyle.getPropertyValue('--p-cyan-500'),
-                        data: [65, 59, 80, 81, 56, 55, 40],
+                        data: [65, 59, 80, 81, 56, 55, 40]
                     },
                     {
                         label: 'My Second dataset',
                         backgroundColor: documentStyle.getPropertyValue('--p-gray-500'),
                         borderColor: documentStyle.getPropertyValue('--p-gray-500'),
-                        data: [28, 48, 40, 19, 86, 27, 90],
-                    },
-                ],
+                        data: [28, 48, 40, 19, 86, 27, 90]
+                    }
+                ]
             };
 
             this.options = {
@@ -166,34 +176,35 @@ export class ChartVerticalBarDemo implements OnInit {
                 plugins: {
                     legend: {
                         labels: {
-                            color: textColor,
-                        },
-                    },
+                            color: textColor
+                        }
+                    }
                 },
                 scales: {
                     x: {
                         ticks: {
                             color: textColorSecondary,
                             font: {
-                                weight: 500,
-                            },
+                                weight: 500
+                            }
                         },
                         grid: {
                             color: surfaceBorder,
-                            drawBorder: false,
-                        },
+                            drawBorder: false
+                        }
                     },
                     y: {
                         ticks: {
-                            color: textColorSecondary,
+                            color: textColorSecondary
                         },
                         grid: {
                             color: surfaceBorder,
-                            drawBorder: false,
-                        },
-                    },
-                },
+                            drawBorder: false
+                        }
+                    }
+                }
             };
+            this.cd.markForCheck()
         }
     }
 }`,

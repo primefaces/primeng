@@ -4,11 +4,13 @@ import { minifyCSS, resolve } from '@primeuix/utils';
 import { UseStyle } from 'primeng/usestyle';
 
 const theme = ({ dt }) => `
-* {
+*,
+::before,
+::after {
     box-sizing: border-box;
 }
 
-/* Non vue overlay animations */
+/* Non ng overlay animations */
 .p-connected-overlay {
     opacity: 0;
     transform: scaleY(0.8);
@@ -27,7 +29,7 @@ const theme = ({ dt }) => `
     transition: opacity 0.1s linear;
 }
 
-/* Vue based overlay animations */
+/* NG based overlay animations */
 .p-connected-overlay-enter-from {
     opacity: 0;
     transform: scaleY(0.8);

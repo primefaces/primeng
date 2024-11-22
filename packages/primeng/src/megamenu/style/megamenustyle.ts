@@ -188,8 +188,19 @@ const theme = ({ dt }) => `
     top: 0;
 }
 
+.p-megamenu-vertical .p-megamenu-root-list > .p-megamenu-item-active >.p-megamenu-overlay:dir(rtl) {
+    left: auto;
+    right: 100%;
+}
+
 .p-megamenu-vertical .p-megamenu-root-list > .p-megamenu-item > .p-megamenu-item-content .p-megamenu-submenu-icon {
     margin-left: auto;
+}
+
+.p-megamenu-vertical .p-megamenu-root-list > .p-megamenu-item > .p-megamenu-item-content .p-megamenu-submenu-icon:dir(rtl) {
+    margin-left: 0;
+    margin-right: auto;
+    transform: rotate(180deg);
 }
 
 .p-megamenu-grid {
@@ -300,6 +311,11 @@ const theme = ({ dt }) => `
 .p-megamenu-mobile .p-megamenu-root-list > .p-megamenu-item > .p-megamenu-item-content .p-megamenu-submenu-icon {
     margin-left: auto;
     transition: transform 0.2s;
+}
+
+.p-megamenu-mobile .p-megamenu-root-list > .p-megamenu-item > .p-megamenu-item-content .p-megamenu-submenu-icon:dir(rtl) {
+    margin-left: 0;
+    margin-right: auto;
 }
 
 .p-megamenu-mobile .p-megamenu-root-list > .p-megamenu-item-active > .p-megamenu-item-content .p-megamenu-submenu-icon {

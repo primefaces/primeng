@@ -227,7 +227,7 @@ input[type=number]::-webkit-outer-spin-button, input[type=number]::-webkit-inner
 .px-link {
   font-size: 1rem;
   border-radius: var(--border-radius);
-  text-align: left;
+  text-align: start;
   background-color: transparent;
   margin: 0;
   padding: 0;
@@ -598,12 +598,12 @@ button {
   padding: 0.5rem 1rem;
 }
 .layout-config .p-selectbutton .p-button:first-child {
-  border-top-left-radius: 6px;
-  border-bottom-left-radius: 6px;
+  border-start-start-radius: 6px;
+  border-end-start-radius: 6px;
 }
 .layout-config .p-selectbutton .p-button:last-child {
-  border-top-right-radius: 6px;
-  border-bottom-right-radius: 6px;
+  border-start-end-radius: 6px;
+  border-end-end-radius: 6px;
 }
 .layout-config button:focus-visible {
   outline: 0 none;
@@ -632,7 +632,7 @@ code[class*=language-],
 pre[class*=language-] {
   background: none;
   font-family: ui-monospace, SFMono-Regular, "SF Mono", Menlo, Consolas, Liberation Mono, monospace;
-  text-align: left;
+  text-align: start;
   white-space: pre;
   word-spacing: normal;
   word-break: normal;
@@ -784,8 +784,8 @@ pre[class*=language-] code {
   margin: 0;
   transition: all 0.2s;
   border-bottom: 1px solid transparent;
-  border-top-right-radius: var(--border-round);
-  border-top-left-radius: var(--border-round);
+  border-start-end-radius: var(--border-round);
+  border-start-start-radius: var(--border-round);
   white-space: nowrap;
 }
 .doc-tabmenu li button:hover {
@@ -1006,7 +1006,7 @@ pre[class*=language-] code {
 .doc-table th {
   border-bottom: 1px solid var(--surface-border);
   padding: 0.75rem 1rem;
-  text-align: left;
+  text-align: start;
   text-transform: capitalize;
 }
 .doc-table tbody tr:hover {

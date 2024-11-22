@@ -32,18 +32,18 @@ const theme = ({ dt }) => `
 
 .p-accordionpanel:first-child > .p-accordionheader {
     border-width: ${dt('accordion.header.first.border.width')};
-    border-top-left-radius: ${dt('accordion.header.first.top.border.radius')};
-    border-top-right-radius: ${dt('accordion.header.first.top.border.radius')};
+    border-start-start-radius: ${dt('accordion.header.first.top.border.radius')};
+    border-start-end-radius: ${dt('accordion.header.first.top.border.radius')};
 }
 
 .p-accordionpanel:last-child > .p-accordionheader {
-    border-bottom-left-radius: ${dt('accordion.header.last.bottom.border.radius')};
-    border-bottom-right-radius: ${dt('accordion.header.last.bottom.border.radius')};
+    border-end-start-radius: ${dt('accordion.header.last.bottom.border.radius')};
+    border-end-end-radius: ${dt('accordion.header.last.bottom.border.radius')};
 }
 
 .p-accordionpanel:last-child.p-accordionpanel-active > .p-accordionheader {
-    border-bottom-left-radius: ${dt('accordion.header.last.active.bottom.border.radius')};
-    border-bottom-right-radius:${dt('accordion.header.last.active.bottom.border.radius')};
+    border-end-start-radius: ${dt('accordion.header.last.active.bottom.border.radius')};
+    border-end-end-radius:${dt('accordion.header.last.active.bottom.border.radius')};
 }
 
 .p-accordionheader-toggle-icon {

@@ -24,7 +24,7 @@ import { ChangeDetectionStrategy, ChangeDetectorRef, Component } from '@angular/
                         <tr>
                             <td colspan="5">
                                 <button type="button" pButton pRipple [pRowToggler]="customer" text rounded plain class="mr-2" [icon]="expanded ? 'pi pi-chevron-down' : 'pi pi-chevron-right'"></button>
-                                <img [alt]="customer.representative.name" src="https://primefaces.org/cdn/primeng/images/demo/avatar/{{ customer.representative.image }}" width="32" style="vertical-align: middle" />
+                                <img [alt]="customer.representative.name" src="https://primefaces.org/cdn/primeng/images/demo/avatar/{{ customer.representative.image }}" width="32" style="vertical-align: middle; display: inline-block" />
                                 <span class="font-bold ml-2">{{ customer.representative.name }}</span>
                             </td>
                         </tr>
@@ -41,8 +41,10 @@ import { ChangeDetectionStrategy, ChangeDetectorRef, Component } from '@angular/
                                 {{ customer.name }}
                             </td>
                             <td>
-                                <img src="https://primefaces.org/cdn/primeng/images/demo/flag/flag_placeholder.png" [class]="'flag flag-' + customer.country.code" style="width: 20px" />
-                                <span class="ml-1 align-middle">{{ customer.country.name }}</span>
+                                <div class="flex items-center gap-2">
+                                    <img src="https://primefaces.org/cdn/primeng/images/demo/flag/flag_placeholder.png" [class]="'flag flag-' + customer.country.code" style="width: 20px" />
+                                    <span>{{ customer.country.name }}</span>
+                                </div>
                             </td>
                             <td>
                                 {{ customer.company }}
@@ -145,7 +147,7 @@ export class ExpandableRowGroupDoc {
                         [alt]="customer.representative.name"
                         src="https://primefaces.org/cdn/primeng/images/demo/avatar/{{customer.representative.image}}"
                         width="32"
-                        style="vertical-align: middle" />
+                        style="vertical-align: middle; display: inline-block" />
                     <span class="font-bold ml-2">{{customer.representative.name}}</span>
                 </td>
             </tr>
@@ -162,11 +164,10 @@ export class ExpandableRowGroupDoc {
                     {{customer.name}}
                 </td>
                 <td>
-                    <img
-                        src="https://primefaces.org/cdn/primeng/images/demo/flag/flag_placeholder.png"
-                        [class]="'flag flag-' + customer.country.code"
-                        style="width: 20px">
-                    <span class="ml-1 align-middle">{{customer.country.name}}</span>
+                    <div class="flex items-center gap-2">
+                        <img src="https://primefaces.org/cdn/primeng/images/demo/flag/flag_placeholder.png" [class]="'flag flag-' + customer.country.code" style="width: 20px" />
+                        <span>{{ customer.country.name }}</span>
+                    </div>
                 </td>
                 <td>
                     {{customer.company}}
@@ -216,7 +217,7 @@ export class ExpandableRowGroupDoc {
                             [alt]="customer.representative.name"
                             src="https://primefaces.org/cdn/primeng/images/demo/avatar/{{customer.representative.image}}"
                             width="32"
-                            style="vertical-align: middle" />
+                            style="vertical-align: middle; display: inline-block" />
                         <span class="font-bold ml-2">{{customer.representative.name}}</span>
                     </td>
                 </tr>
@@ -233,11 +234,10 @@ export class ExpandableRowGroupDoc {
                         {{customer.name}}
                     </td>
                     <td>
-                        <img
-                            src="https://primefaces.org/cdn/primeng/images/demo/flag/flag_placeholder.png"
-                            [class]="'flag flag-' + customer.country.code"
-                            style="width: 20px">
-                        <span class="ml-1 align-middle">{{customer.country.name}}</span>
+                       <div class="flex items-center gap-2">
+                            <img src="https://primefaces.org/cdn/primeng/images/demo/flag/flag_placeholder.png" [class]="'flag flag-' + customer.country.code" style="width: 20px" />
+                            <span>{{ customer.country.name }}</span>
+                        </div>
                     </td>
                     <td>
                         {{customer.company}}

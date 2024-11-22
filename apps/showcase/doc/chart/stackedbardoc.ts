@@ -1,5 +1,6 @@
 import { Code } from '@/domain/code';
 import { AppConfigService } from '@/service/appconfigservice';
+import { DesignerService } from '@/service/designerservice';
 import { isPlatformBrowser } from '@angular/common';
 import { ChangeDetectorRef, Component, effect, inject, OnInit, PLATFORM_ID } from '@angular/core';
 @Component({
@@ -23,12 +24,16 @@ export class StackedBarDoc implements OnInit {
 
     configService = inject(AppConfigService);
 
+    designerService = inject(DesignerService);
+
     constructor(private cd: ChangeDetectorRef) {}
 
     themeEffect = effect(() => {
         if (this.configService.theme()) {
             this.initChart();
-            this.cd.markForCheck();
+        }
+        if (this.designerService.preset()) {
+            this.initChart();
         }
     });
 
@@ -104,6 +109,7 @@ export class StackedBarDoc implements OnInit {
                     }
                 }
             };
+            this.cd.markForCheck();
         }
     }
 
@@ -132,12 +138,16 @@ export class ChartStackedBarDemo implements OnInit {
 
     configService = inject(AppConfigService);
 
+    designerService = inject(DesignerService);
+
     constructor(private cd: ChangeDetectorRef) {}
 
     themeEffect = effect(() => {
         if (this.configService.theme()) {
             this.initChart();
-            this.cd.markForCheck();
+        }
+        if (this.designerService.preset()) {
+            this.initChart();
         }
     });
 
@@ -159,21 +169,21 @@ export class ChartStackedBarDemo implements OnInit {
                         type: 'bar',
                         label: 'Dataset 1',
                         backgroundColor: documentStyle.getPropertyValue('--p-cyan-500'),
-                        data: [50, 25, 12, 48, 90, 76, 42],
+                        data: [50, 25, 12, 48, 90, 76, 42]
                     },
                     {
                         type: 'bar',
                         label: 'Dataset 2',
                         backgroundColor: documentStyle.getPropertyValue('--p-gray-500'),
-                        data: [21, 84, 24, 75, 37, 65, 34],
+                        data: [21, 84, 24, 75, 37, 65, 34]
                     },
                     {
                         type: 'bar',
                         label: 'Dataset 3',
                         backgroundColor: documentStyle.getPropertyValue('--p-orange-500'),
-                        data: [41, 52, 24, 74, 23, 21, 32],
-                    },
-                ],
+                        data: [41, 52, 24, 74, 23, 21, 32]
+                    }
+                ]
             };
 
             this.options = {
@@ -182,37 +192,38 @@ export class ChartStackedBarDemo implements OnInit {
                 plugins: {
                     tooltip: {
                         mode: 'index',
-                        intersect: false,
+                        intersect: false
                     },
                     legend: {
                         labels: {
-                            color: textColor,
-                        },
-                    },
+                            color: textColor
+                        }
+                    }
                 },
                 scales: {
                     x: {
                         stacked: true,
                         ticks: {
-                            color: textColorSecondary,
+                            color: textColorSecondary
                         },
                         grid: {
                             color: surfaceBorder,
-                            drawBorder: false,
-                        },
+                            drawBorder: false
+                        }
                     },
                     y: {
                         stacked: true,
                         ticks: {
-                            color: textColorSecondary,
+                            color: textColorSecondary
                         },
                         grid: {
                             color: surfaceBorder,
-                            drawBorder: false,
-                        },
-                    },
-                },
+                            drawBorder: false
+                        }
+                    }
+                }
             };
+            this.cd.markForCheck()
         }
     }
 }`

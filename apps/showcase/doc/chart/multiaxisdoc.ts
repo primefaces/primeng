@@ -1,5 +1,6 @@
 import { Code } from '@/domain/code';
 import { AppConfigService } from '@/service/appconfigservice';
+import { DesignerService } from '@/service/designerservice';
 import { isPlatformBrowser } from '@angular/common';
 import { ChangeDetectorRef, Component, effect, inject, OnInit, PLATFORM_ID } from '@angular/core';
 
@@ -24,12 +25,16 @@ export class MultiAxisDoc implements OnInit {
 
     configService = inject(AppConfigService);
 
+    designerService = inject(DesignerService);
+
     constructor(private cd: ChangeDetectorRef) {}
 
     themeEffect = effect(() => {
         if (this.configService.theme()) {
             this.initChart();
-            this.cd.markForCheck();
+        }
+        if (this.designerService.preset()) {
+            this.initChart();
         }
     });
 
@@ -111,6 +116,7 @@ export class MultiAxisDoc implements OnInit {
                     }
                 }
             };
+            this.cd.markForCheck();
         }
     }
 
@@ -139,12 +145,16 @@ export class ChartMultiAxisDemo implements OnInit {
 
     configService = inject(AppConfigService);
 
+    designerService = inject(DesignerService);
+
     constructor(private cd: ChangeDetectorRef) {}
 
     themeEffect = effect(() => {
         if (this.configService.theme()) {
             this.initChart();
-            this.cd.markForCheck();
+        }
+        if (this.designerService.preset()) {
+            this.initChart();
         }
     });
 
@@ -168,7 +178,7 @@ export class ChartMultiAxisDemo implements OnInit {
                         borderColor: documentStyle.getPropertyValue('--p-cyan-500'),
                         yAxisID: 'y',
                         tension: 0.4,
-                        data: [65, 59, 80, 81, 56, 55, 10],
+                        data: [65, 59, 80, 81, 56, 55, 10]
                     },
                     {
                         label: 'Dataset 2',
@@ -176,9 +186,9 @@ export class ChartMultiAxisDemo implements OnInit {
                         borderColor: documentStyle.getPropertyValue('--p-gray-500'),
                         yAxisID: 'y1',
                         tension: 0.4,
-                        data: [28, 48, 40, 19, 86, 27, 90],
-                    },
-                ],
+                        data: [28, 48, 40, 19, 86, 27, 90]
+                    }
+                ]
             };
 
             this.options = {
@@ -188,44 +198,45 @@ export class ChartMultiAxisDemo implements OnInit {
                 plugins: {
                     legend: {
                         labels: {
-                            color: textColor,
-                        },
-                    },
+                            color: textColor
+                        }
+                    }
                 },
                 scales: {
                     x: {
                         ticks: {
-                            color: textColorSecondary,
+                            color: textColorSecondary
                         },
                         grid: {
-                            color: surfaceBorder,
-                        },
+                            color: surfaceBorder
+                        }
                     },
                     y: {
                         type: 'linear',
                         display: true,
                         position: 'left',
                         ticks: {
-                            color: textColorSecondary,
+                            color: textColorSecondary
                         },
                         grid: {
-                            color: surfaceBorder,
-                        },
+                            color: surfaceBorder
+                        }
                     },
                     y1: {
                         type: 'linear',
                         display: true,
                         position: 'right',
                         ticks: {
-                            color: textColorSecondary,
+                            color: textColorSecondary
                         },
                         grid: {
                             drawOnChartArea: false,
-                            color: surfaceBorder,
-                        },
-                    },
-                },
+                            color: surfaceBorder
+                        }
+                    }
+                }
             };
+            this.cd.markForCheck();
         }
     }
 }`

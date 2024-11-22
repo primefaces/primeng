@@ -1,5 +1,6 @@
 import { Code } from '@/domain/code';
 import { AppConfigService } from '@/service/appconfigservice';
+import { DesignerService } from '@/service/designerservice';
 import { isPlatformBrowser } from '@angular/common';
 import { ChangeDetectorRef, Component, effect, inject, OnInit, PLATFORM_ID } from '@angular/core';
 
@@ -27,12 +28,16 @@ export class BasicDoc implements OnInit {
 
     configService = inject(AppConfigService);
 
+    designerService = inject(DesignerService);
+
     constructor(private cd: ChangeDetectorRef) {}
 
     themeEffect = effect(() => {
         if (this.configService.theme()) {
             this.initChart();
-            this.cd.markForCheck();
+        }
+        if (this.designerService.preset()) {
+            this.initChart();
         }
     });
 
@@ -88,6 +93,7 @@ export class BasicDoc implements OnInit {
                     }
                 }
             };
+            this.cd.markForCheck();
         }
     }
 
@@ -119,9 +125,11 @@ export class ChartBasicDemo implements OnInit {
     constructor(private cd: ChangeDetectorRef) {}
 
     themeEffect = effect(() => {
-        if (this.configService.theme() && isPlatformBrowser(this.platformId)) {
+        if (this.configService.theme()) {
             this.initChart();
-            this.cd.markForCheck();
+        }
+        if (this.designerService.preset()) {
+            this.initChart();
         }
     });
 
@@ -182,6 +190,7 @@ export class ChartBasicDemo implements OnInit {
                     },
                 },
             };
+            this.cd.markForCheck()
         }
     }
 }`

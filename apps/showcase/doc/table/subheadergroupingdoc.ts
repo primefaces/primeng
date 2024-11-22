@@ -26,8 +26,10 @@ import { ChangeDetectionStrategy, ChangeDetectorRef, Component } from '@angular/
                     <ng-template #groupheader let-customer>
                         <tr pRowGroupHeader>
                             <td colspan="5">
-                                <img [alt]="customer.representative.name" src="https://primefaces.org/cdn/primeng/images/demo/avatar/{{ customer.representative.image }}" width="32" style="vertical-align: middle" />
-                                <span class="font-bold ml-2">{{ customer.representative.name }}</span>
+                                <div class="flex items-center gap-2">
+                                    <img [alt]="customer.representative.name" src="https://primefaces.org/cdn/primeng/images/demo/avatar/{{ customer.representative.image }}" width="32" style="vertical-align: middle" />
+                                    <span class="font-bold">{{ customer.representative.name }}</span>
+                                </div>
                             </td>
                         </tr>
                     </ng-template>
@@ -42,8 +44,10 @@ import { ChangeDetectionStrategy, ChangeDetectorRef, Component } from '@angular/
                                 {{ customer.name }}
                             </td>
                             <td>
-                                <img src="https://primefaces.org/cdn/primeng/images/demo/flag/flag_placeholder.png" [class]="'flag flag-' + customer.country.code" style="width: 20px" />
-                                <span class="ml-1 align-middle">{{ customer.country.name }}</span>
+                                <div class="flex items-center gap-2">
+                                    <img src="https://primefaces.org/cdn/primeng/images/demo/flag/flag_placeholder.png" [class]="'flag flag-' + customer.country.code" style="width: 20px" />
+                                    <span>{{ customer.country.name }}</span>
+                                </div>
                             </td>
                             <td>
                                 {{ customer.company }}
@@ -132,12 +136,10 @@ export class SubheaderGroupingDoc {
         <ng-template #groupheader let-customer>
             <tr pRowGroupHeader>
                 <td colspan="5">
-                    <img
-                        [alt]="customer.representative.name"
-                        src="https://primefaces.org/cdn/primeng/images/demo/avatar/{{customer.representative.image}}"
-                        width="32"
-                        style="vertical-align: middle" />
-                    <span class="font-bold ml-2">{{customer.representative.name}}</span>
+                    <div class="flex items-center gap-2">
+                        <img [alt]="customer.representative.name" src="https://primefaces.org/cdn/primeng/images/demo/avatar/{{ customer.representative.image }}" width="32" style="vertical-align: middle" />
+                        <span class="font-bold">{{ customer.representative.name }}</span>
+                    </div>
                 </td>
             </tr>
         </ng-template>
@@ -154,11 +156,10 @@ export class SubheaderGroupingDoc {
                     {{customer.name}}
                 </td>
                 <td>
-                    <img
-                        src="https://primefaces.org/cdn/primeng/images/demo/flag/flag_placeholder.png"
-                        [class]="'flag flag-' + customer.country.code"
-                        style="width: 20px">
-                    <span class="ml-1 align-middle">{{customer.country.name}}</span>
+                    <div class="flex items-center gap-2">
+                        <img src="https://primefaces.org/cdn/primeng/images/demo/flag/flag_placeholder.png" [class]="'flag flag-' + customer.country.code" style="width: 20px" />
+                        <span>{{ customer.country.name }}</span>
+                    </div>
                 </td>
                 <td>
                     {{customer.company}}
@@ -194,12 +195,10 @@ export class SubheaderGroupingDoc {
             <ng-template #groupheader let-customer>
                 <tr pRowGroupHeader>
                     <td colspan="5">
-                        <img
-                            [alt]="customer.representative.name"
-                            src="https://primefaces.org/cdn/primeng/images/demo/avatar/{{customer.representative.image}}"
-                            width="32"
-                            style="vertical-align: middle" />
-                        <span class="font-bold ml-2">{{customer.representative.name}}</span>
+                         <div class="flex items-center gap-2">
+                            <img [alt]="customer.representative.name" src="https://primefaces.org/cdn/primeng/images/demo/avatar/{{ customer.representative.image }}" width="32" style="vertical-align: middle" />
+                            <span class="font-bold">{{ customer.representative.name }}</span>
+                        </div>
                     </td>
                 </tr>
             </ng-template>
@@ -216,11 +215,10 @@ export class SubheaderGroupingDoc {
                         {{customer.name}}
                     </td>
                     <td>
-                        <img
-                            src="https://primefaces.org/cdn/primeng/images/demo/flag/flag_placeholder.png"
-                            [class]="'flag-' + customer.country.code"
-                            style="width: 20px">
-                        <span class="ml-1 align-middle">{{customer.country.name}}</span>
+                        <div class="flex items-center gap-2">
+                            <img src="https://primefaces.org/cdn/primeng/images/demo/flag/flag_placeholder.png" [class]="'flag flag-' + customer.country.code" style="width: 20px" />
+                            <span>{{ customer.country.name }}</span>
+                        </div>
                     </td>
                     <td>
                         {{customer.company}}

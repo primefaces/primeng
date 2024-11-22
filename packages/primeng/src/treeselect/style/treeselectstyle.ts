@@ -53,8 +53,8 @@ const theme = ({ dt }) => `
     background: transparent;
     color: ${dt('treeselect.dropdown.color')};
     width: ${dt('treeselect.dropdown.width')};
-    border-top-right-radius: ${dt('border.radius.md')};
-    border-bottom-right-radius: ${dt('border.radius.md')};
+    border-start-end-radius: ${dt('border.radius.md')};
+    border-end-end-radius: ${dt('border.radius.md')};
 }
 
 .p-treeselect-label-container {
