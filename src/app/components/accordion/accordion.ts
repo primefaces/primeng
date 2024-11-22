@@ -43,6 +43,7 @@ import { UniqueComponentId } from 'primeng/utils';
                     [ngStyle]="headerStyle"
                     role="button"
                     class="p-accordion-header-link"
+                    pRipple
                     (click)="toggle($event)"
                     (keydown)="onKeydown($event)"
                     [attr.tabindex]="disabled ? null : 0"
