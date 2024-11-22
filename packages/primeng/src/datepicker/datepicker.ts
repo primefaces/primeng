@@ -2546,8 +2546,8 @@ export class DatePicker extends BaseComponent implements OnInit, OnDestroy, Cont
             if (this.navigationState.button) {
                 this.initFocusableCell();
 
-                if (this.navigationState.backward) (findSingle(this.contentViewChild.nativeElement, '.p-datepicker-prev') as any).focus();
-                else (findSingle(this.contentViewChild.nativeElement, '.p-datepicker-next') as any).focus();
+                if (this.navigationState.backward) (findSingle(this.contentViewChild.nativeElement, '.p-datepicker-prev-button') as any).focus();
+                else (findSingle(this.contentViewChild.nativeElement, '.p-datepicker-next-button') as any).focus();
             } else {
                 if (this.navigationState.backward) {
                     let cells;
@@ -3753,7 +3753,7 @@ export class DatePicker extends BaseComponent implements OnInit, OnDestroy, Cont
     }
 
     isNavIconClicked(event: any) {
-        return hasClass(event.target, 'p-datepicker-prev') || hasClass(event.target, 'p-datepicker-prev-icon') || hasClass(event.target, 'p-datepicker-next') || hasClass(event.target, 'p-datepicker-next-icon');
+        return hasClass(event.target, 'p-datepicker-prev-button') || hasClass(event.target, 'p-datepicker-prev-icon') || hasClass(event.target, 'p-datepicker-next-button') || hasClass(event.target, 'p-datepicker-next-icon');
     }
 
     onWindowResize() {
