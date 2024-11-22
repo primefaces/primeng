@@ -116,7 +116,7 @@ export class StyleClass implements OnDestroy {
         if (this.toggleClass) {
             this.toggle();
         } else {
-            if ((this.target as HTMLElement).offsetParent === null) this.enter();
+            if ((this.target as HTMLElement)?.offsetParent === null) this.enter();
             else this.leave();
         }
     }
