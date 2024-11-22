@@ -103,6 +103,8 @@ import {
 import { TableService } from './table.service';
 export { TableService } from './table.service';
 
+import { globalFilterFieldName } from './table.service';
+
 @Directive({
     selector: '[pRowGroupHeader]',
     standalone: true,
@@ -5407,7 +5409,7 @@ export class Table extends BaseComponent implements OnInit, AfterViewInit, After
     }
 
     filterGlobal(value: any, matchMode: string) {
-        this.filter(value, 'global', matchMode);
+        this.filter(value, globalFilterFieldName, matchMode);
     }
 
     isFilterBlank(filter: any): boolean {
@@ -5438,7 +5440,7 @@ export class Table extends BaseComponent implements OnInit, AfterViewInit, After
                 }
             } else {
                 let globalFilterFieldsArray;
-                if (this.filters['global']) {
+                if (this.filters[globalFilterFieldName]) {
                     if (!this.columns && !this.globalFilterFields) throw new Error('Global filtering requires dynamic columns or globalFilterFields to be defined.');
                     else globalFilterFieldsArray = this.globalFilterFields || this.columns;
                 }
@@ -5496,7 +5498,7 @@ export class Table extends BaseComponent implements OnInit, AfterViewInit, After
             sortField: this.sortField,
             sortOrder: this.sortOrder,
             filters: this.filters,
-            globalFilter: this.filters && this.filters['global'] ? (<FilterMetadata>this.filters['global']).value : null,
+            globalFilter: this.filters && this.filters[globalFilterFieldName] ? (<FilterMetadata>this.filters[globalFilterFieldName]).value : null,
             multiSortMeta: this.multiSortMeta,
             forceUpdate: () => this.cd.detectChanges()
         };
