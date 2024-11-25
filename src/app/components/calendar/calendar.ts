@@ -37,7 +37,7 @@ import { ChevronDownIcon } from 'primeng/icons/chevrondown';
 import { TimesIcon } from 'primeng/icons/times';
 import { CalendarIcon } from 'primeng/icons/calendar';
 import { Nullable, VoidListener } from 'primeng/ts-helpers';
-import { CalendarMonthChangeEvent, CalendarResponsiveOptions, CalendarTypeView, CalendarYearChangeEvent, LocaleSettings, Month, NavigationState } from './calendar.interface';
+import { CalendarDate, CalendarMonthChangeEvent, CalendarResponsiveOptions, CalendarTypeView, CalendarYearChangeEvent, LocaleSettings, Month, NavigationState } from './calendar.interface';
 import { AutoFocusModule } from 'primeng/autofocus';
 
 export const CALENDAR_VALUE_ACCESSOR: any = {
@@ -1349,7 +1349,7 @@ export class Calendar implements OnInit, OnDestroy, ControlValueAccessor {
     }
 
     createMonth(month: number, year: number): Month {
-        let dates = [];
+        let dates: CalendarDate[][] = [];
         let firstDay = this.getFirstDayOfMonthIndex(month, year);
         let daysLength = this.getDaysCountInMonth(month, year);
         let prevMonthDaysLength = this.getDaysCountInPrevMonth(month, year);
@@ -1359,7 +1359,7 @@ export class Calendar implements OnInit, OnDestroy, ControlValueAccessor {
         let monthRows = Math.ceil((daysLength + firstDay) / 7);
 
         for (let i = 0; i < monthRows; i++) {
-            let week = [];
+            let week: CalendarDate[] = [];
 
             if (i == 0) {
                 for (let j = prevMonthDaysLength - firstDay + 1; j <= prevMonthDaysLength; j++) {
@@ -1399,12 +1399,7 @@ export class Calendar implements OnInit, OnDestroy, ControlValueAccessor {
             dates.push(week);
         }
 
-        return {
-            month: month,
-            year: year,
-            dates: <any>dates,
-            weekNumbers: weekNumbers
-        };
+        return { month, year, dates, weekNumbers };
     }
 
     initTime(date: Date) {
@@ -1882,7 +1877,7 @@ export class Calendar implements OnInit, OnDestroy, ControlValueAccessor {
         return today.getDate() === day && today.getMonth() === month && today.getFullYear() === year;
     }
 
-    isSelectable(day: any, month: any, year: any, otherMonth: any): boolean {
+    isSelectable(day: number, month: number, year: number, otherMonth: boolean): boolean {
         let validMin = true;
         let validMax = true;
         let validDate = true;
