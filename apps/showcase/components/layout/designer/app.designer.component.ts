@@ -123,7 +123,7 @@ const presets = {
                     }
                     @defer (when activeTab == '2') {
                         <p-tabpanel value="2">
-                            <p-accordion [value]="['0', '1']" [multiple]="true">
+                            <p-accordion [value]="['0', '1']" [multiple]="true" *ngIf="visible()">
                                 <p-accordion-panel value="0">
                                     <p-accordion-header>Common</p-accordion-header>
                                     <p-accordion-content>
