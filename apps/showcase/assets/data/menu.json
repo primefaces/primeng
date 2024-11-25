@@ -375,7 +375,8 @@
                         },
                         {
                             "name": "ImageCompare",
-                            "routerLink": "/imagecompare"
+                            "routerLink": "/imagecompare",
+                            "badge": "NEW"
                         }
                     ]
                 },

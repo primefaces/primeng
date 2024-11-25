@@ -500,7 +500,7 @@ const getAngularApp = (props: Props = {}) => {
     import { HttpClientModule } from '@angular/common/http';
     import { NgModule } from '@angular/core';
     import { OverlayBadgeModule } from 'primeng/overlaybadge';
-
+    import { ImageCompareModule } from 'primeng/imagecompare';
     ${serviceImports}
 
     @NgModule({
@@ -555,6 +555,7 @@ const getAngularApp = (props: Props = {}) => {
         InputGroupAddonModule,
         InputOtp,
         Image,
+        ImageCompareModule,
         Knob,
         Listbox,
         MegaMenuModule,
@@ -665,6 +666,7 @@ const getAngularApp = (props: Props = {}) => {
         InputGroupAddonModule,
         InputOtp,
         Image,
+        ImageCompareModule,
         Knob,
         Listbox,
         MegaMenuModule,
