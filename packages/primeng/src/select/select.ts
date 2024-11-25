@@ -89,7 +89,7 @@ export const SELECT_VALUE_ACCESSOR: any = {
             [ngStyle]="{ height: itemSize + 'px' }"
             [ngClass]="{
                 'p-select-option': true,
-                'p-select-option-selected': selected,
+                'p-select-option-selected': selected && !checkmark,
                 'p-disabled': disabled,
                 'p-focus': focused
             }"
@@ -1469,6 +1469,8 @@ export class Select extends BaseComponent implements OnInit, AfterViewInit, Afte
      */
     public show(isFocus?) {
         this.overlayVisible = true;
+
+        this.focusedOptionIndex.set(this.focusedOptionIndex() !== -1 ? this.focusedOptionIndex() : this.autoOptionFocus ? this.findFirstFocusedOptionIndex() : this.editable ? -1 : this.findSelectedOptionIndex());
 
         if (isFocus) {
             focus(this.focusInputViewChild?.nativeElement);
