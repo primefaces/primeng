@@ -11,6 +11,7 @@ import { IftaLabelStyle } from './style/iftalabelstyle';
  */
 @Component({
     selector: 'p-iftalabel, p-iftaLabel, p-ifta-label',
+    standalone: true,
     template: ` <ng-content></ng-content> `,
     changeDetection: ChangeDetectionStrategy.OnPush,
     encapsulation: ViewEncapsulation.None,
@@ -24,8 +25,7 @@ export class IftaLabel extends BaseComponent {
 }
 
 @NgModule({
-    imports: [CommonModule, SharedModule, RouterModule],
-    exports: [IftaLabel, SharedModule],
-    declarations: [IftaLabel]
+    imports: [IftaLabel, CommonModule, SharedModule, RouterModule],
+    exports: [IftaLabel, SharedModule]
 })
 export class IftaLabelModule {}

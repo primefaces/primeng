@@ -119,6 +119,7 @@ export class TreeTableService {
  */
 @Component({
     selector: 'p-treeTable, p-treetable, p-tree-table',
+    standalone: false,
     template: `
         <div
             #container
@@ -2292,6 +2293,7 @@ export class TreeTable extends BaseComponent implements AfterContentInit, OnInit
 
 @Component({
     selector: '[pTreeTableBody]',
+    standalone: false,
     template: `
         <ng-template ngFor let-serializedNode let-rowIndex="index" [ngForOf]="serializedNodes || tt.serializedValue" [ngForTrackBy]="tt.rowTrackBy">
             <ng-container *ngIf="serializedNode.visible">
@@ -2362,6 +2364,7 @@ export class TTBody {
 
 @Component({
     selector: '[ttScrollableView]',
+    standalone: false,
     template: `
         <div #scrollHeader class="p-treetable-scrollable-header">
             <div #scrollHeaderBox class="p-treetable-scrollable-header-box">
@@ -2637,6 +2640,7 @@ export class TTScrollableView implements AfterViewInit, OnDestroy {
 
 @Directive({
     selector: '[ttSortableColumn]',
+    standalone: false,
     host: {
         '[class.p-sortable-column]': 'isEnabled()',
         '[class.p-treetable-column-sorted]': 'sorted',
@@ -2709,6 +2713,7 @@ export class TTSortableColumn implements OnInit, OnDestroy {
 
 @Component({
     selector: 'p-treeTableSortIcon',
+    standalone: false,
     template: ` <ng-container *ngIf="!tt.sortIconTemplate">
             <SortAltIcon [styleClass]="'p-sortable-column-icon'" *ngIf="sortOrder === 0" />
             <SortAmountUpAltIcon [styleClass]="'p-sortable-column-icon'" *ngIf="sortOrder === 1" />
@@ -2766,7 +2771,8 @@ export class TTSortIcon implements OnInit, OnDestroy {
 }
 
 @Directive({
-    selector: '[ttResizableColumn]'
+    selector: '[ttResizableColumn]',
+    standalone: false
 })
 export class TTResizableColumn implements AfterViewInit, OnDestroy {
     @Input({ transform: booleanAttribute }) ttResizableColumnDisabled: boolean | undefined;
@@ -2851,7 +2857,8 @@ export class TTResizableColumn implements AfterViewInit, OnDestroy {
 }
 
 @Directive({
-    selector: '[ttReorderableColumn]'
+    selector: '[ttReorderableColumn]',
+    standalone: false
 })
 export class TTReorderableColumn implements AfterViewInit, OnDestroy {
     @Input({ transform: booleanAttribute }) ttReorderableColumnDisabled: boolean | undefined;
@@ -2956,6 +2963,7 @@ export class TTReorderableColumn implements AfterViewInit, OnDestroy {
 
 @Directive({
     selector: '[ttSelectableRow]',
+    standalone: false,
     host: {
         '[class.p-treetable-row-selected]': 'selected',
         '[attr.aria-checked]': 'selected'
@@ -3042,6 +3050,7 @@ export class TTSelectableRow implements OnInit, OnDestroy {
 
 @Directive({
     selector: '[ttSelectableRowDblClick]',
+    standalone: false,
     host: {
         '[class.p-treetable-row-selected]': 'selected'
     }
@@ -3095,6 +3104,7 @@ export class TTSelectableRowDblClick implements OnInit, OnDestroy {
 
 @Directive({
     selector: '[ttContextMenuRow]',
+    standalone: false,
     host: {
         '[class.p-treetable-contextmenu-row-selected]': 'selected',
         '[attr.tabindex]': 'isEnabled() ? 0 : undefined'
@@ -3148,6 +3158,7 @@ export class TTContextMenuRow {
 
 @Component({
     selector: 'p-treeTableCheckbox',
+    standalone: false,
     template: `
         <p-checkbox [ngModel]="checked" (onChange)="onClick($event)" [binary]="true" [indeterminate]="partialChecked" styleClass="p-treetable-node-checkbox" [tabIndex]="-1">
             <ng-container *ngIf="tt.checkboxIconTemplate">
@@ -3237,6 +3248,7 @@ export class TTCheckbox {
 
 @Component({
     selector: 'p-treeTableHeaderCheckbox',
+    standalone: false,
     template: `
         <p-checkbox [ngModel]="checked" (onChange)="onClick($event)" [binary]="true" [disabled]="!tt.value || tt.value.length === 0">
             <ng-container *ngIf="tt.headerCheckboxIconTemplate">
@@ -3330,7 +3342,8 @@ export class TTHeaderCheckbox {
 }
 
 @Directive({
-    selector: '[ttEditableColumn]'
+    selector: '[ttEditableColumn]',
+    standalone: false
 })
 export class TTEditableColumn implements AfterViewInit {
     @Input('ttEditableColumn') data: any;
@@ -3505,6 +3518,7 @@ export class TTEditableColumn implements AfterViewInit {
 
 @Component({
     selector: 'p-treeTableCellEditor, p-treetablecelleditor, p-treetable-cell-editor',
+    standalone: false,
     template: `
         <ng-container *ngIf="tt.editingCell === editableColumn.el.nativeElement">
             <ng-container *ngTemplateOutlet="inputTemplate"></ng-container>
@@ -3545,6 +3559,7 @@ export class TreeTableCellEditor extends BaseComponent implements AfterContentIn
 
 @Directive({
     selector: '[ttRow]',
+    standalone: false,
     host: {
         '[class]': `'p-element ' + styleClass`,
         '[attr.tabindex]': "'0'",
@@ -3744,6 +3759,7 @@ export class TTRow {
 
 @Component({
     selector: 'p-treeTableToggler, p-treetabletoggler, p-treetable-toggler',
+    standalone: false,
     template: `
         <button
             type="button"

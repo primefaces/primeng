@@ -37,6 +37,7 @@ import { PopoverStyle } from './style/popoverstyle';
  */
 @Component({
     selector: 'p-overlayPanel, p-overlaypanel',
+    standalone: false,
     template: `
         <div
             *ngIf="render"

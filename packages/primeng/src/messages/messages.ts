@@ -16,6 +16,7 @@ import { MessagesStyle } from './style/messagesstyle';
  */
 @Component({
     selector: 'p-messages',
+    standalone: false,
     template: `
         <div [ngClass]="cx('container')" role="alert" [ngStyle]="style" [class]="styleClass" [attr.aria-atomic]="true" [attr.aria-live]="'assertive'" [attr.data-pc-name]="'message'">
             @if (contentTemplate) {

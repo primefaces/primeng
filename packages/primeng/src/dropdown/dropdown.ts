@@ -69,6 +69,7 @@ export const DROPDOWN_VALUE_ACCESSOR: any = {
 
 @Component({
     selector: 'p-dropdownItem',
+    standalone: false,
     template: `
         <li
             [id]="id"
@@ -144,6 +145,7 @@ export class DropdownItem extends BaseComponent {
  */
 @Component({
     selector: 'p-dropdown',
+    standalone: false,
     template: `
         <span
             #focusInput

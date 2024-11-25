@@ -46,6 +46,7 @@ import { GalleriaStyle } from './style/galleriastyle';
  */
 @Component({
     selector: 'p-galleria',
+    standalone: false,
     template: `
         <div *ngIf="fullScreen; else windowed" #container>
             <div *ngIf="maskVisible" #mask [ngClass]="{ 'p-galleria-mask p-overlay-mask p-overlay-mask-enter': true }" [class]="maskClass" [attr.role]="fullScreen ? 'dialog' : 'region'" [attr.aria-modal]="fullScreen ? 'true' : undefined">
@@ -404,6 +405,7 @@ export class Galleria extends BaseComponent implements OnChanges, OnDestroy {
 
 @Component({
     selector: 'p-galleriaContent',
+    standalone: false,
     template: `
         <div
             [attr.id]="id"
@@ -592,6 +594,7 @@ export class GalleriaContent extends BaseComponent implements DoCheck {
 
 @Component({
     selector: 'p-galleriaItemSlot',
+    standalone: false,
     template: `
         <ng-container *ngIf="contentTemplate">
             <ng-container *ngTemplateOutlet="contentTemplate; context: context"></ng-container>
@@ -662,6 +665,7 @@ export class GalleriaItemSlot {
 
 @Component({
     selector: 'p-galleriaItem',
+    standalone: false,
     template: `
         <div class="p-galleria-items">
             <button
@@ -884,6 +888,7 @@ export class GalleriaItem implements OnChanges {
 
 @Component({
     selector: 'p-galleriaThumbnails',
+    standalone: false,
     template: `
         <div class="p-galleria-thumbnails">
             <div class="p-galleria-thumbnails-content">
