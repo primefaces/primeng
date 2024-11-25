@@ -781,7 +781,7 @@ export class PanelMenuList extends BaseComponent implements OnChanges {
                                 [routerLinkActive]="'p-panelmenu-item-link-active'"
                                 [routerLinkActiveOptions]="getItemProp(item, 'routerLinkActiveOptions') || { exact: false }"
                                 [target]="getItemProp(item, 'target')"
-                                class="p-panelmenu-header-action"
+                                class="p-panelmenu-header-link"
                                 [attr.tabindex]="-1"
                                 [fragment]="getItemProp(item, 'fragment')"
                                 [queryParamsHandling]="getItemProp(item, 'queryParamsHandling')"
