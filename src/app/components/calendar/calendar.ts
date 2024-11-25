@@ -1071,7 +1071,7 @@ export class Calendar implements OnInit, OnDestroy, ControlValueAccessor {
 
     filled: Nullable<boolean>;
 
-    inputFieldValue: Nullable<string> = null;
+    inputFieldValue: Nullable<string | Date> = null;
 
     _minDate?: Date | null;
 
@@ -1580,7 +1580,7 @@ export class Calendar implements OnInit, OnDestroy, ControlValueAccessor {
     }
 
     updateInputfield() {
-        let formattedValue = '';
+        let formattedValue: Date | string = '';
 
         if (this.value) {
             if (this.isSingleSelection()) {
@@ -1613,8 +1613,8 @@ export class Calendar implements OnInit, OnDestroy, ControlValueAccessor {
         }
     }
 
-    formatDateTime(date: any) {
-        let formattedValue = this.keepInvalid ? date : null;
+    formatDateTime(date: Date): string | Date {
+        let formattedValue: string | Date = this.keepInvalid ? date : null;
         const isDateValid = this.isValidDateForTimeConstraints(date);
 
         if (this.isValidDate(date)) {
@@ -3269,7 +3269,7 @@ export class Calendar implements OnInit, OnDestroy, ControlValueAccessor {
         return output;
     }
 
-    formatTime(date: any) {
+    formatTime(date: Date) {
         if (!date) {
             return '';
         }
