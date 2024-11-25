@@ -33,14 +33,17 @@ export class ImageCompare extends BaseComponent implements AfterContentInit {
     /**
      * Index of the element in tabbing order.
      * @defaultValue 0
+     * @group Props
      */
     @Input() tabindex: number | undefined;
     /**
      * Defines a string value that labels an interactive element.
+     * @group Props
      */
     @Input() ariaLabelledby: string | undefined;
     /**
      * Identifier of the underlying input element.
+     * @group Props
      */
     @Input() ariaLabel: string | undefined;
 
