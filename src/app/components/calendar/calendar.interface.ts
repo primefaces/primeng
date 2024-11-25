@@ -164,8 +164,8 @@ export interface CalendarDate {
     day: number;
     month: number;
     year: number;
-    today: boolean;
     selectable: boolean;
+    today?: boolean;
     otherMonth?: boolean;
 }
 

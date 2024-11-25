@@ -1516,7 +1516,7 @@ export class Calendar implements OnInit, OnDestroy, ControlValueAccessor {
         event.preventDefault();
     }
 
-    onDateSelect(event: Event, dateMeta: any) {
+    onDateSelect(event: Event, dateMeta: CalendarDate) {
         if (this.disabled || !dateMeta.selectable) {
             event.preventDefault();
             return;
@@ -1531,7 +1531,7 @@ export class Calendar implements OnInit, OnDestroy, ControlValueAccessor {
             }
             this.updateModel(this.value);
         } else {
-            if (this.shouldSelectDate(dateMeta)) {
+            if (this.shouldSelectDate()) {
                 this.selectDate(dateMeta);
             }
         }
@@ -1553,7 +1553,7 @@ export class Calendar implements OnInit, OnDestroy, ControlValueAccessor {
         event.preventDefault();
     }
 
-    shouldSelectDate(dateMeta: any) {
+    shouldSelectDate() {
         if (this.isMultipleSelection()) return this.maxDateCount != null ? this.maxDateCount > (this.value ? this.value.length : 0) : true;
         else return true;
     }
@@ -1633,7 +1633,7 @@ export class Calendar implements OnInit, OnDestroy, ControlValueAccessor {
         return formattedValue;
     }
 
-    formatDateMetaToDate(dateMeta: any): Date {
+    formatDateMetaToDate(dateMeta: CalendarDate): Date {
         return new Date(dateMeta.year, dateMeta.month, dateMeta.day);
     }
 
@@ -1660,7 +1660,7 @@ export class Calendar implements OnInit, OnDestroy, ControlValueAccessor {
         this.alignOverlay();
     }
 
-    selectDate(dateMeta: any) {
+    selectDate(dateMeta: CalendarDate) {
         let date = this.formatDateMetaToDate(dateMeta);
 
         if (this.showTime) {
@@ -1785,7 +1785,7 @@ export class Calendar implements OnInit, OnDestroy, ControlValueAccessor {
         return firstDayOfWeek > 0 ? 7 - firstDayOfWeek : 0;
     }
 
-    isSelected(dateMeta: any): boolean | undefined {
+    isSelected(dateMeta: CalendarDate): boolean | undefined {
         if (this.value) {
             if (this.isSingleSelection()) {
                 return this.isDateEquals(this.value, dateMeta);
@@ -1846,12 +1846,12 @@ export class Calendar implements OnInit, OnDestroy, ControlValueAccessor {
         return value ? value.getFullYear() === year : false;
     }
 
-    isDateEquals(value: any, dateMeta: any) {
+    isDateEquals(value: any, dateMeta: CalendarDate) {
         if (value && ObjectUtils.isDate(value)) return value.getDate() === dateMeta.day && value.getMonth() === dateMeta.month && value.getFullYear() === dateMeta.year;
         else return false;
     }
 
-    isDateBetween(start: Date, end: Date, dateMeta: any) {
+    isDateBetween(start: Date, end: Date, dateMeta: CalendarDate) {
         let between: boolean = false;
         if (ObjectUtils.isDate(start) && ObjectUtils.isDate(end)) {
             let date: Date = this.formatDateMetaToDate(dateMeta);
@@ -2071,7 +2071,7 @@ export class Calendar implements OnInit, OnDestroy, ControlValueAccessor {
         }
     }
 
-    onDateCellKeydown(event: any, dateMeta: any, groupIndex: number) {
+    onDateCellKeydown(event: any, dateMeta: CalendarDate, groupIndex: number) {
         const cellContent = event.currentTarget;
         const cell = cellContent.parentElement;
         const currentDate = this.formatDateMetaToDate(dateMeta);
@@ -3524,7 +3524,7 @@ export class Calendar implements OnInit, OnDestroy, ControlValueAccessor {
 
     onTodayButtonClick(event: any) {
         const date: Date = new Date();
-        const dateMeta = { day: date.getDate(), month: date.getMonth(), year: date.getFullYear(), otherMonth: date.getMonth() !== this.currentMonth || date.getFullYear() !== this.currentYear, today: true, selectable: true };
+        const dateMeta: CalendarDate = { day: date.getDate(), month: date.getMonth(), year: date.getFullYear(), otherMonth: date.getMonth() !== this.currentMonth || date.getFullYear() !== this.currentYear, today: true, selectable: true };
 
         this.createMonths(date.getMonth(), date.getFullYear());
         this.onDateSelect(event, dateMeta);
