@@ -111,4 +111,14 @@ export class ImageCompareStyle extends BaseStyle {
  * @module imagecomparestyle
  *
  */
+export enum ImageCompareClasses {
+    /**
+     * Class name of the root element
+     */
+    root = 'p-imagecompare',
+    /**
+     * Class name of the slider element
+     */
+    slider = 'p-imagecompare-slider'
+}
 export interface ImageCompareStyle extends BaseStyle {}
