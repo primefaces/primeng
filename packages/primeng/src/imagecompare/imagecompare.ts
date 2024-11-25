@@ -1,5 +1,5 @@
 import { CommonModule, isPlatformBrowser } from '@angular/common';
-import { AfterContentInit, ChangeDetectionStrategy, Component, inject, NgModule, ViewEncapsulation } from '@angular/core';
+import { AfterContentInit, ChangeDetectionStrategy, Component, inject, Input, NgModule, ViewEncapsulation } from '@angular/core';
 import { SharedModule } from 'primeng/api';
 import { BaseComponent } from 'primeng/basecomponent';
 import { ImageCompareStyle } from './style/imagecomparestyle';
@@ -18,7 +18,10 @@ import { ImageCompareStyle } from './style/imagecomparestyle';
         <input type="range" min="0" max="100" value="50" (input)="onSlide($event)" [class]="cx('slider')" />
     `,
     host: {
-        class: 'p-imagecompare'
+        class: 'p-imagecompare',
+        '[attr.tabindex]': 'tabindex',
+        '[attr.aria-labelledby]': 'ariaLabelledby',
+        '[attr.aria-label]': 'ariaLabel'
     },
     changeDetection: ChangeDetectionStrategy.OnPush,
     encapsulation: ViewEncapsulation.None,
@@ -27,11 +30,19 @@ import { ImageCompareStyle } from './style/imagecomparestyle';
 export class ImageCompare extends BaseComponent implements AfterContentInit {
     isRTL: boolean = false;
 
-    tabindex: number | undefined;
-
-    ariaLabelledby: string | undefined;
-
-    ariaLabel: string | undefined;
+    /**
+     * Index of the element in tabbing order.
+     * @defaultValue 0
+     */
+    @Input() tabindex: number | undefined;
+    /**
+     * Defines a string value that labels an interactive element.
+     */
+    @Input() ariaLabelledby: string | undefined;
+    /**
+     * Identifier of the underlying input element.
+     */
+    @Input() ariaLabel: string | undefined;
 
     _componentStyle = inject(ImageCompareStyle);
 
@@ -57,9 +68,11 @@ export class ImageCompare extends BaseComponent implements AfterContentInit {
             image.style.clipPath = `polygon(0 0, ${value}% 0, ${value}% 100%, 0 100%)`;
         }
     }
+
     updateDirection() {
         this.isRTL = !!this.el.nativeElement.closest('[dir="rtl"]');
     }
+
     observeDirectionChanges() {
         if (isPlatformBrowser(this.platformId)) {
             const targetNode = document?.documentElement;
@@ -72,6 +85,7 @@ export class ImageCompare extends BaseComponent implements AfterContentInit {
             this.mutationObserver.observe(targetNode, config);
         }
     }
+
     ngOnDestroy() {
         if (this.mutationObserver) {
             this.mutationObserver.disconnect();

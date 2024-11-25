@@ -104,9 +104,9 @@ export class ImageCompareStyle extends BaseStyle {
 
 /**
  *
- * Displays an image with preview and tranformation options. For multiple image, see Galleria.
+ * ImageCompare compares two images side by side with a slider.
  *
- * [Live Demo](https://www.primeng.org/image/)
+ * [Live Demo](https://www.primeng.org/imagecompare/)
  *
  * @module imagecomparestyle
  *
