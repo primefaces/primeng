@@ -26,4 +26,5 @@ catalogs:
         "@angular-eslint/eslint-plugin-template": ^18
         "@angular-eslint/schematics": ^18
         "@angular-eslint/template-parser": ^18
+        "zone.js": ~0.14.0
         "ng-packagr": ^18
