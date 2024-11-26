@@ -42,8 +42,8 @@ import { DataViewStyle } from './style/dataviewstyle';
                 <div class="p-dataview-loading-overlay p-overlay-mask">
                     <i *ngIf="loadingIcon" [class]="'p-dataview-loading-icon pi-spin ' + loadingIcon"></i>
                     <ng-container *ngIf="!loadingIcon">
-                        <SpinnerIcon *ngIf="!loadingIconTemplate" [spin]="true" [styleClass]="'p-dataview-loading-icon'" />
-                        <ng-template *ngTemplateOutlet="loadingIconTemplate"></ng-template>
+                        <SpinnerIcon *ngIf="!loadingicon" [spin]="true" [styleClass]="'p-dataview-loading-icon'" />
+                        <ng-template *ngTemplateOutlet="loadingicon"></ng-template>
                     </ng-container>
                 </div>
             </div>
@@ -63,11 +63,11 @@ import { DataViewStyle } from './style/dataviewstyle';
                 *ngIf="paginator && (paginatorPosition === 'top' || paginatorPosition == 'both')"
                 [dropdownAppendTo]="paginatorDropdownAppendTo"
                 [dropdownScrollHeight]="paginatorDropdownScrollHeight"
-                [templateLeft]="paginatorLeftTemplate"
-                [templateRight]="paginatorRightTemplate"
+                [templateLeft]="paginatorleft"
+                [templateRight]="paginatorright"
                 [currentPageReportTemplate]="currentPageReportTemplate"
                 [showFirstLastIcon]="showFirstLastIcon"
-                [dropdownItemTemplate]="paginatorDropdownItemTemplate"
+                [dropdownItemTemplate]="paginatordropdownitem"
                 [showCurrentPageReport]="showCurrentPageReport"
                 [showJumpToPageDropdown]="showJumpToPageDropdown"
                 [showPageLinks]="showPageLinks"
@@ -97,10 +97,10 @@ import { DataViewStyle } from './style/dataviewstyle';
                 }
                 <div *ngIf="isEmpty() && !loading">
                     <div class="p-dataview-emptymessage">
-                        <ng-container *ngIf="!emptyMessageTemplate; else empty">
+                        <ng-container *ngIf="!emptymessageTemplate; else empty">
                             {{ emptyMessageLabel }}
                         </ng-container>
-                        <ng-container #empty *ngTemplateOutlet="emptyMessageTemplate"></ng-container>
+                        <ng-container #empty *ngTemplateOutlet="emptymessageTemplate"></ng-container>
                     </div>
                 </div>
             </div>
@@ -116,11 +116,11 @@ import { DataViewStyle } from './style/dataviewstyle';
                 *ngIf="paginator && (paginatorPosition === 'bottom' || paginatorPosition == 'both')"
                 [dropdownAppendTo]="paginatorDropdownAppendTo"
                 [dropdownScrollHeight]="paginatorDropdownScrollHeight"
-                [templateLeft]="paginatorLeftTemplate"
-                [templateRight]="paginatorRightTemplate"
+                [templateLeft]="paginatorleft"
+                [templateRight]="paginatorright"
                 [currentPageReportTemplate]="currentPageReportTemplate"
                 [showFirstLastIcon]="showFirstLastIcon"
-                [dropdownItemTemplate]="paginatorDropdownItemTemplate"
+                [dropdownItemTemplate]="paginatordropdownitem"
                 [showCurrentPageReport]="showCurrentPageReport"
                 [showJumpToPageDropdown]="showJumpToPageDropdown"
                 [showPageLinks]="showPageLinks"
@@ -335,7 +335,7 @@ export class DataView extends BaseComponent implements OnInit, OnDestroy, Blocka
      * Template for the empty message section.
      * @group Templates
      */
-    @ContentChild('emptymessage') emptyMessageTemplate: TemplateRef<any>;
+    @ContentChild('emptymessage') emptymessageTemplate: TemplateRef<any>;
     /**
      * Template for the footer section.
      * @group Templates
@@ -345,32 +345,31 @@ export class DataView extends BaseComponent implements OnInit, OnDestroy, Blocka
      * Template for the left side of paginator.
      * @group Templates
      */
-    @ContentChild('paginatorleft') paginatorLeftTemplate: TemplateRef<any>;
-    /**
-     * Template for the right side of paginator.
+    @ContentChild('paginatorleft') paginatorleft: TemplateRef<any>;
+    /**r* Template for the right side of paginator.
      * @group Templates
      */
-    @ContentChild('paginatorright') paginatorRightTemplate: TemplateRef<any>;
+    @ContentChild('paginatorright') paginatorright: TemplateRef<any>;
     /**
      * Template for items in paginator dropdown.
      * @group Templates
      */
-    @ContentChild('paginatordropdownitem') paginatorDropdownItemTemplate: TemplateRef<any>;
+    @ContentChild('paginatordropdownitem') paginatordropdownitem: TemplateRef<any>;
     /**
      * Template for loading icon.
      * @group Templates
      */
-    @ContentChild('loadingIcon') loadingIconTemplate: TemplateRef<any>;
+    @ContentChild('loadingIcon') loadingicon: TemplateRef<any>;
     /**
      * Template for list icon.
      * @group Templates
      */
-    @ContentChild('listicon') listIconTemplate: TemplateRef<any>;
+    @ContentChild('listicon') listicon: TemplateRef<any>;
     /**
      * Template for grid icon.
      * @group Templates
      */
-    @ContentChild('gridicon') gridIconTemplate: TemplateRef<any>;
+    @ContentChild('gridicon') gridicon: TemplateRef<any>;
 
     @ContentChild(Header) header: any;
 
@@ -430,82 +429,6 @@ export class DataView extends BaseComponent implements OnInit, OnDestroy, Blocka
             }
         }
     }
-
-    // ngAfterContentInit() {
-    //     (this.templates as QueryList<PrimeTemplate>).forEach((item) => {
-    //         switch (item.getType()) {
-    //             // case 'listItem':
-    //             // case 'list':
-    //             //     this.listTemplate = item.template;
-    //             //     break;
-    //
-    //             // case 'gridItem':
-    //             // case 'grid':
-    //             //     this.gridTemplate = item.template;
-    //             //     break;
-    //
-    //             case 'paginatorleft':
-    //                 this.paginatorLeftTemplate = item.template;
-    //                 break;
-    //
-    //             case 'paginatorright':
-    //                 this.paginatorRightTemplate = item.template;
-    //                 break;
-    //
-    //             case 'paginatordropdownitem':
-    //                 this.paginatorDropdownItemTemplate = item.template;
-    //                 break;
-    //
-    //             case 'empty':
-    //                 this.emptyMessageTemplate = item.template;
-    //                 break;
-    //
-    //             case 'header':
-    //                 this.headerTemplate = item.template;
-    //                 break;
-    //
-    //             case 'footer':
-    //                 this.footerTemplate = item.template;
-    //                 break;
-    //
-    //             case 'loadingicon':
-    //                 this.loadingIconTemplate = item.template;
-    //                 break;
-    //
-    //             case 'listicon':
-    //                 this.listIconTemplate = item.template;
-    //                 break;
-    //
-    //             case 'gridicon':
-    //                 this.gridIconTemplate = item.template;
-    //                 break;
-    //         }
-    //     });
-    //
-    //     // this.updateItemTemplate();
-    // }
-
-    //
-    // updateItemTemplate() {
-    //     switch (this.layout) {
-    //         case 'list':
-    //             this.itemTemplate = this.listTemplate;
-    //             break;
-    //
-    //         case 'grid':
-    //             this.itemTemplate = this.gridTemplate;
-    //             break;
-    //     }
-    // }
-    //
-
-    // changeLayout(layout: 'list' | 'grid') {
-    //     this._layout = layout;
-    //     this.onChangeLayout.emit({
-    //         layout: this.layout,
-    //     });
-    //     this.cd.markForCheck();
-    // }
 
     updateTotalRecords() {
         this.totalRecords = this.lazy ? this.totalRecords : this._value ? this._value.length : 0;

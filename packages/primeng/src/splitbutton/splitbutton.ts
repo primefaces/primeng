@@ -88,8 +88,8 @@ type SplitButtonIconPosition = 'left' | 'right';
             >
                 <span *ngIf="dropdownIcon" [class]="dropdownIcon"></span>
                 <ng-container *ngIf="!dropdownIcon">
-                    <ChevronDownIcon *ngIf="!dropdownIconTemplate" />
-                    <ng-template *ngTemplateOutlet="dropdownIconTemplate"></ng-template>
+                    <ChevronDownIcon *ngIf="!dropdowniconTemplate" />
+                    <ng-template *ngTemplateOutlet="dropdowniconTemplate"></ng-template>
                 </ng-container>
             </button>
             <p-tieredMenu
@@ -318,7 +318,7 @@ export class SplitButton extends BaseComponent {
      * Template of the dropdownicon.
      * @group Templates
      **/
-    @ContentChild('dropdownicon') dropdownIconTemplate: TemplateRef<any> | undefined;
+    @ContentChild('dropdownicon') dropdowniconTemplate: TemplateRef<any> | undefined;
 
     ariaId: string | undefined;
 

@@ -85,9 +85,9 @@ export const INPUTMASK_VALUE_ACCESSOR: any = {
             [attr.data-pc-section]="'root'"
         />
         <ng-container *ngIf="value != null && filled && showClear && !disabled">
-            <TimesIcon *ngIf="!clearIconTemplate" [styleClass]="'p-inputmask-clear-icon'" (click)="clear()" [attr.data-pc-section]="'clearIcon'" />
-            <span *ngIf="clearIconTemplate" class="p-inputmask-clear-icon" (click)="clear()" [attr.data-pc-section]="'clearIcon'">
-                <ng-template *ngTemplateOutlet="clearIconTemplate"></ng-template>
+            <TimesIcon *ngIf="!cleariconTemplate" [styleClass]="'p-inputmask-clear-icon'" (click)="clear()" [attr.data-pc-section]="'clearIcon'" />
+            <span *ngIf="cleariconTemplate" class="p-inputmask-clear-icon" (click)="clear()" [attr.data-pc-section]="'clearIcon'">
+                <ng-template *ngTemplateOutlet="cleariconTemplate"></ng-template>
             </span>
         </ng-container>
     `,
@@ -282,7 +282,7 @@ export class InputMask extends BaseComponent implements OnInit, ControlValueAcce
      * Template of the clear icon.
      * @group Templates
      */
-    @ContentChild('clearicon') clearIconTemplate: Nullable<TemplateRef<any>>;
+    @ContentChild('clearicon') cleariconTemplate: Nullable<TemplateRef<any>>;
 
     @ViewChild('input', { static: true }) inputViewChild: Nullable<ElementRef>;
 

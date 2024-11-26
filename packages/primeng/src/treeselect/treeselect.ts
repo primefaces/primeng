@@ -70,15 +70,15 @@ export const TREESELECT_VALUE_ACCESSOR: any = {
                 </div>
             </div>
             <ng-container *ngIf="checkValue() && !disabled && showClear">
-                <TimesIcon *ngIf="!clearIconTemplate" [class]="'p-treeselect-clear-icon'" (click)="clear($event)" />
-                <span *ngIf="clearIconTemplate" class="p-treeselect-clear-icon" (click)="clear($event)">
-                    <ng-template *ngTemplateOutlet="clearIconTemplate"></ng-template>
+                <TimesIcon *ngIf="!cleariconTemplate" [class]="'p-treeselect-clear-icon'" (click)="clear($event)" />
+                <span *ngIf="cleariconTemplate" class="p-treeselect-clear-icon" (click)="clear($event)">
+                    <ng-template *ngTemplateOutlet="cleariconTemplate"></ng-template>
                 </span>
             </ng-container>
             <div class="p-treeselect-dropdown" role="button" aria-haspopup="tree" [attr.aria-expanded]="overlayVisible ?? false" [attr.aria-label]="'treeselect trigger'">
-                <ChevronDownIcon *ngIf="!triggerIconTemplate && !dropdownIconTemplate" [styleClass]="'p-treeselect-dropdown-icon'" />
-                <span *ngIf="triggerIconTemplate || dropdownIconTemplate" class="p-treeselect-dropdown-icon">
-                    <ng-template *ngTemplateOutlet="triggerIconTemplate || dropdownIconTemplate"></ng-template>
+                <ChevronDownIcon *ngIf="!triggericonTemplate && !dropdowniconTemplate" [styleClass]="'p-treeselect-dropdown-icon'" />
+                <span *ngIf="triggericonTemplate || dropdowniconTemplate" class="p-treeselect-dropdown-icon">
+                    <ng-template *ngTemplateOutlet="triggericonTemplate || dropdowniconTemplate"></ng-template>
                 </span>
             </div>
             <p-overlay
@@ -139,14 +139,14 @@ export const TREESELECT_VALUE_ACCESSOR: any = {
                                         <ng-container *ngTemplateOutlet="emptyTemplate"></ng-container>
                                     </ng-template>
                                 </ng-container>
-                                <ng-template #togglericon let-expanded *ngIf="itemTogglerIconTemplate">
-                                    <ng-container *ngTemplateOutlet="itemTogglerIconTemplate; context: { $implicit: expanded }"></ng-container>
+                                <ng-template #togglericon let-expanded *ngIf="itemtogglericonTemplate">
+                                    <ng-container *ngTemplateOutlet="itemtogglericonTemplate; context: { $implicit: expanded }"></ng-container>
                                 </ng-template>
-                                <ng-template #checkboxicon let-selected let-partialSelected="partialSelected" *ngIf="itemCheckboxIconTemplate">
-                                    <ng-container *ngTemplateOutlet="itemCheckboxIconTemplate; context: { $implicit: selected, partialSelected: partialSelected }"></ng-container>
+                                <ng-template #checkboxicon let-selected let-partialSelected="partialSelected" *ngIf="itemcheckboxiconTemplate">
+                                    <ng-container *ngTemplateOutlet="itemcheckboxiconTemplate; context: { $implicit: selected, partialSelected: partialSelected }"></ng-container>
                                 </ng-template>
-                                <ng-template #loadingicon *ngIf="itemLoadingIconTemplate">
-                                    <ng-container *ngTemplateOutlet="itemLoadingIconTemplate"></ng-container>
+                                <ng-template #loadingicon *ngIf="itemloadingiconTemplate">
+                                    <ng-container *ngTemplateOutlet="itemloadingiconTemplate"></ng-container>
                                 </ng-template>
                             </p-tree>
                         </div>
@@ -516,49 +516,49 @@ export class TreeSelect extends BaseComponent {
      * Custom clear icon template.
      * @group Templates
      */
-    @ContentChild('clearicon') clearIconTemplate: Nullable<TemplateRef<any>>;
+    @ContentChild('clearicon') cleariconTemplate: Nullable<TemplateRef<any>>;
 
     /**
      * Custom trigger icon template.
      * @group Templates
      */
-    @ContentChild('triggericon') triggerIconTemplate: Nullable<TemplateRef<any>>;
+    @ContentChild('triggericon') triggericonTemplate: Nullable<TemplateRef<any>>;
 
     /**
      * Custom dropdown icon template.
      * @group Templates
      */
-    @ContentChild('dropdownicon') dropdownIconTemplate: Nullable<TemplateRef<any>>;
+    @ContentChild('dropdownicon') dropdowniconTemplate: Nullable<TemplateRef<any>>;
 
     /**
      * Custom filter icon template.
      * @group Templates
      */
-    @ContentChild('filtericon') filterIconTemplate: Nullable<TemplateRef<any>>;
+    @ContentChild('filtericon') filtericonTemplate: Nullable<TemplateRef<any>>;
 
     /**
      * Custom close icon template.
      * @group Templates
      */
-    @ContentChild('closeicon') closeIconTemplate: Nullable<TemplateRef<any>>;
+    @ContentChild('closeicon') closeiconTemplate: Nullable<TemplateRef<any>>;
 
     /**
      * Custom item toggler icon template.
      * @group Templates
      */
-    @ContentChild('itemtogglericon') itemTogglerIconTemplate: Nullable<TemplateRef<any>>;
+    @ContentChild('itemtogglericon') itemtogglericonTemplate: Nullable<TemplateRef<any>>;
 
     /**
      * Custom item checkbox icon template.
      * @group Templates
      */
-    @ContentChild('itemcheckboxicon') itemCheckboxIconTemplate: Nullable<TemplateRef<any>>;
+    @ContentChild('itemcheckboxicon') itemcheckboxiconTemplate: Nullable<TemplateRef<any>>;
 
     /**
      * Custom item loading icon template.
      * @group Templates
      */
-    @ContentChild('itemloadingicon') itemLoadingIconTemplate: Nullable<TemplateRef<any>>;
+    @ContentChild('itemloadingicon') itemloadingiconTemplate: Nullable<TemplateRef<any>>;
 
     focused: Nullable<boolean>;
 

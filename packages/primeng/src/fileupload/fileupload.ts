@@ -82,9 +82,9 @@ import { FileUploadStyle } from './style/fileuploadstyle';
                         />
                         <span *ngIf="chooseIcon" [class]="chooseIcon" [attr.aria-label]="true" [attr.data-pc-section]="'chooseicon'"></span>
                         <ng-container *ngIf="!chooseIcon">
-                            <PlusIcon *ngIf="!chooseIconTemplate" [attr.aria-label]="true" [attr.data-pc-section]="'chooseicon'" />
-                            <span *ngIf="chooseIconTemplate" [attr.aria-label]="true" [attr.data-pc-section]="'chooseicon'">
-                                <ng-template *ngTemplateOutlet="chooseIconTemplate"></ng-template>
+                            <PlusIcon *ngIf="!chooseiconTemplate" [attr.aria-label]="true" [attr.data-pc-section]="'chooseicon'" />
+                            <span *ngIf="chooseiconTemplate" [attr.aria-label]="true" [attr.data-pc-section]="'chooseicon'">
+                                <ng-template *ngTemplateOutlet="chooseiconTemplate"></ng-template>
                             </span>
                         </ng-container>
                     </p-button>
@@ -92,18 +92,18 @@ import { FileUploadStyle } from './style/fileuploadstyle';
                     <p-button *ngIf="!auto && showUploadButton" [label]="uploadButtonLabel" (onClick)="upload()" [disabled]="!hasFiles() || isFileLimitExceeded()" [styleClass]="'p-fileupload-upload-button ' + uploadStyleClass">
                         <span *ngIf="uploadIcon" [ngClass]="uploadIcon" [attr.aria-hidden]="true"></span>
                         <ng-container *ngIf="!uploadIcon">
-                            <UploadIcon *ngIf="!uploadIconTemplate" />
-                            <span *ngIf="uploadIconTemplate" [attr.aria-hidden]="true">
-                                <ng-template *ngTemplateOutlet="uploadIconTemplate"></ng-template>
+                            <UploadIcon *ngIf="!uploadiconTemplate" />
+                            <span *ngIf="uploadiconTemplate" [attr.aria-hidden]="true">
+                                <ng-template *ngTemplateOutlet="uploadiconTemplate"></ng-template>
                             </span>
                         </ng-container>
                     </p-button>
                     <p-button *ngIf="!auto && showCancelButton" [label]="cancelButtonLabel" (onClick)="clear()" [disabled]="!hasFiles() || uploading" [styleClass]="'p-fileupload-cancel-button ' + cancelStyleClass">
                         <span *ngIf="cancelIcon" [ngClass]="cancelIcon"></span>
                         <ng-container *ngIf="!cancelIcon">
-                            <TimesIcon *ngIf="!cancelIconTemplate" [attr.aria-hidden]="true" />
-                            <span *ngIf="cancelIconTemplate" [attr.aria-hidden]="true">
-                                <ng-template *ngTemplateOutlet="cancelIconTemplate"></ng-template>
+                            <TimesIcon *ngIf="!canceliconTemplate" [attr.aria-hidden]="true" />
+                            <span *ngIf="canceliconTemplate" [attr.aria-hidden]="true">
+                                <ng-template *ngTemplateOutlet="canceliconTemplate"></ng-template>
                             </span>
                         </ng-container>
                     </p-button>
@@ -139,8 +139,8 @@ import { FileUploadStyle } from './style/fileuploadstyle';
                             <div class="p-fileupload-file-actions">
                                 <p-button (onClick)="remove($event, i)" [disabled]="uploading" text rounded severity="danger" [styleClass]="'p-fileupload-file-remove-button ' + removeStyleClass">
                                     <ng-template #icon>
-                                        <TimesIcon *ngIf="!cancelIconTemplate" />
-                                        <ng-template *ngTemplateOutlet="cancelIconTemplate"></ng-template>
+                                        <TimesIcon *ngIf="!canceliconTemplate" />
+                                        <ng-template *ngTemplateOutlet="canceliconTemplate"></ng-template>
                                     </ng-template>
                                 </p-button>
                             </div>
@@ -180,16 +180,16 @@ import { FileUploadStyle } from './style/fileuploadstyle';
                     @if (hasFiles() && !auto) {
                         <span *ngIf="uploadIcon" class="p-button-icon p-button-icon-left" [ngClass]="uploadIcon"></span>
                         <ng-container *ngIf="!uploadIcon">
-                            <UploadIcon *ngIf="!uploadIconTemplate" [styleClass]="'p-button-icon p-button-icon-left'" />
-                            <span *ngIf="uploadIconTemplate" class="p-button-icon p-button-icon-left">
-                                <ng-template *ngTemplateOutlet="uploadIconTemplate"></ng-template>
+                            <UploadIcon *ngIf="!uploadiconTemplate" [styleClass]="'p-button-icon p-button-icon-left'" />
+                            <span *ngIf="uploadiconTemplate" class="p-button-icon p-button-icon-left">
+                                <ng-template *ngTemplateOutlet="uploadiconTemplate"></ng-template>
                             </span>
                         </ng-container>
                     } @else {
                         <span *ngIf="chooseIcon" class="p-button-icon p-button-icon-left pi" [ngClass]="chooseIcon"></span>
                         <ng-container *ngIf="!chooseIcon">
-                            <PlusIcon *ngIf="!chooseIconTemplate" [attr.data-pc-section]="'uploadicon'" />
-                            <ng-template *ngTemplateOutlet="chooseIconTemplate"></ng-template>
+                            <PlusIcon *ngIf="!chooseiconTemplate" [attr.data-pc-section]="'uploadicon'" />
+                            <ng-template *ngTemplateOutlet="chooseiconTemplate"></ng-template>
                         </ng-container>
                     }
                 </ng-template>
@@ -487,25 +487,25 @@ export class FileUpload extends BaseComponent implements AfterViewInit, OnInit, 
      * Template for choose icon.
      * @group Templates
      */
-    @ContentChild('chooseicon') chooseIconTemplate: TemplateRef<any> | undefined;
+    @ContentChild('chooseicon') chooseiconTemplate: TemplateRef<any> | undefined;
 
     /**
      * Template for file label.
      * @group Templates
      */
-    @ContentChild('filelabel') fileLabelTemplate: TemplateRef<any> | undefined;
+    @ContentChild('filelabel') filelabelTemplate: TemplateRef<any> | undefined;
 
     /**
      * Template for upload icon.
      * @group Templates
      */
-    @ContentChild('uploadicon') uploadIconTemplate: TemplateRef<any> | undefined;
+    @ContentChild('uploadicon') uploadiconTemplate: TemplateRef<any> | undefined;
 
     /**
      * Template for cancel icon.
      * @group Templates
      */
-    @ContentChild('cancelicon') cancelIconTemplate: TemplateRef<any> | undefined;
+    @ContentChild('cancelicon') canceliconTemplate: TemplateRef<any> | undefined;
 
     /**
      * Template for empty state.

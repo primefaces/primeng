@@ -79,8 +79,8 @@ import { ScrollerStyle } from './style/scrollerstyle';
                         </ng-container>
                     </ng-container>
                     <ng-template #buildInLoader>
-                        <ng-container *ngIf="loaderIconTemplate; else buildInLoaderIcon">
-                            <ng-container *ngTemplateOutlet="loaderIconTemplate; context: { options: { styleClass: 'p-virtualscroller-loading-icon' } }"></ng-container>
+                        <ng-container *ngIf="loadericonTemplate; else buildInLoaderIcon">
+                            <ng-container *ngTemplateOutlet="loadericonTemplate; context: { options: { styleClass: 'p-virtualscroller-loading-icon' } }"></ng-container>
                         </ng-container>
                         <ng-template #buildInLoaderIcon>
                             <SpinnerIcon [styleClass]="'p-virtualscroller-loading-icon pi-spin'" [attr.data-pc-section]="'loadingIcon'" />
@@ -456,7 +456,7 @@ export class Scroller extends BaseComponent implements OnInit, AfterContentInit,
      * Loader icon template of the component.
      * @group Templates
      */
-    @ContentChild('loadericon') loaderIconTemplate: Nullable<TemplateRef<any>>;
+    @ContentChild('loadericon') loadericonTemplate: Nullable<TemplateRef<any>>;
 
     first: any = 0;
 
@@ -604,7 +604,7 @@ export class Scroller extends BaseComponent implements OnInit, AfterContentInit,
                     break;
 
                 case 'loadericon':
-                    this.loaderIconTemplate = item.template;
+                    this.loadericonTemplate = item.template;
                     break;
 
                 default:

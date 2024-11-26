@@ -139,8 +139,8 @@ import { ContextMenuStyle } from './style/contextmenustyle';
                                 </ng-template>
                                 <p-badge *ngIf="getItemProp(processedItem, 'badge')" [styleClass]="getItemProp(processedItem, 'badgeStyleClass')" [value]="getItemProp(processedItem, 'badge')" />
                                 <ng-container *ngIf="isItemGroup(processedItem)">
-                                    <AngleRightIcon *ngIf="!contextMenu.submenuIconTemplate" [class]="'p-contextmenu-submenu-icon'" [attr.data-pc-section]="'submenuicon'" [attr.aria-hidden]="true" />
-                                    <ng-template *ngTemplateOutlet="contextMenu.submenuIconTemplate; context: { class: 'p-contextmenu-submenu-icon' }" [attr.data-pc-section]="'submenuicon'" [attr.aria-hidden]="true"></ng-template>
+                                    <AngleRightIcon *ngIf="!contextMenu.submenuicon" [class]="'p-contextmenu-submenu-icon'" [attr.data-pc-section]="'submenuicon'" [attr.aria-hidden]="true" />
+                                    <ng-template *ngTemplateOutlet="contextMenu.submenuicon; context: { class: 'p-contextmenu-submenu-icon' }" [attr.data-pc-section]="'submenuicon'" [attr.aria-hidden]="true"></ng-template>
                                 </ng-container>
                             </a>
                             <a
@@ -180,8 +180,8 @@ import { ContextMenuStyle } from './style/contextmenustyle';
                                 </ng-template>
                                 <p-badge *ngIf="getItemProp(processedItem, 'badge')" [styleClass]="getItemProp(processedItem, 'badgeStyleClass')" [value]="getItemProp(processedItem, 'badge')" />
                                 <ng-container *ngIf="isItemGroup(processedItem)">
-                                    <AngleRightIcon *ngIf="!contextMenu.submenuIconTemplate" [class]="'p-contextmenu-submenu-icon'" [attr.data-pc-section]="'submenuicon'" [attr.aria-hidden]="true" />
-                                    <ng-template *ngTemplateOutlet="contextMenu.submenuIconTemplate; context: { class: 'p-contextmenu-submenu-icon' }" [attr.data-pc-section]="'submenuicon'" [attr.aria-hidden]="true"></ng-template>
+                                    <AngleRightIcon *ngIf="!contextMenu.submenuicon" [class]="'p-contextmenu-submenu-icon'" [attr.data-pc-section]="'submenuicon'" [attr.aria-hidden]="true" />
+                                    <ng-template *ngTemplateOutlet="contextMenu.submenuicon; context: { class: 'p-contextmenu-submenu-icon' }" [attr.data-pc-section]="'submenuicon'" [attr.aria-hidden]="true"></ng-template>
                                 </ng-container>
                             </a>
                         </ng-container>
@@ -643,7 +643,7 @@ export class ContextMenu extends BaseComponent implements OnInit, OnDestroy {
      * Defines template option for submenuIcon.
      * @group Templates
      */
-    @ContentChild('submenuicon') submenuIconTemplate: TemplateRef<any> | undefined;
+    @ContentChild('submenuicon') submenuicon: TemplateRef<any> | undefined;
 
     createProcessedItems(items: any, level: number = 0, parent: any = {}, parentKey: any = '') {
         const processedItems = [];

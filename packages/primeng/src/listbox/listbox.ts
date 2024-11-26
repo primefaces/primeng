@@ -233,10 +233,10 @@ export const LISTBOX_VALUE_ACCESSOR: any = {
                             </ng-container>
                         </ng-template>
                         <li *ngIf="hasFilter() && isEmpty()" class="p-listbox-empty-message" role="option">
-                            @if (!emptyFilterTemplate && !emptyTemplate) {
+                            @if (!emptyfilter && !emptyTemplate) {
                                 {{ emptyFilterMessageText }}
                             } @else {
-                                <ng-container #emptyFilter *ngTemplateOutlet="emptyFilterTemplate || emptyTemplate"></ng-container>
+                                <ng-container #emptyFilter *ngTemplateOutlet="emptyfilter || emptyTemplate"></ng-container>
                             }
                         </li>
                         <li *ngIf="!hasFilter() && isEmpty()" class="p-listbox-empty-message" role="option">
@@ -638,7 +638,7 @@ export class Listbox extends BaseComponent implements AfterContentInit, OnInit, 
      * Custom empty filter message template.
      * @group Templates
      */
-    @ContentChild('emptyfilter') emptyFilterTemplate: TemplateRef<any> | undefined;
+    @ContentChild('emptyfilter') emptyfilter: TemplateRef<any> | undefined;
 
     /**
      * Custom empty message template.
@@ -792,64 +792,6 @@ export class Listbox extends BaseComponent implements AfterContentInit, OnInit, 
                 reset: () => this.resetFilter()
             };
         }
-    }
-
-    ngAfterContentInit() {
-        this.templates.forEach((item) => {
-            switch (item.getType()) {
-                case 'item':
-                    this.itemTemplate = item.template;
-                    break;
-
-                case 'option':
-                    this.itemTemplate = item.template;
-                    break;
-
-                case 'group':
-                    this.groupTemplate = item.template;
-                    break;
-
-                case 'header':
-                    this.headerTemplate = item.template;
-                    break;
-
-                case 'filter':
-                    this.filterTemplate = item.template;
-                    break;
-
-                case 'footer':
-                    this.footerTemplate = item.template;
-                    break;
-
-                case 'empty':
-                    this.emptyTemplate = item.template;
-                    break;
-
-                case 'emptyfilter':
-                    this.emptyFilterTemplate = item.template;
-                    break;
-
-                case 'filtericon':
-                    this.filterIconTemplate = item.template;
-                    break;
-
-                case 'checkicon':
-                    this.checkIconTemplate = item.template;
-                    break;
-
-                case 'checkmark':
-                    this.checkmarkTemplate = item.template;
-                    break;
-
-                case 'loader':
-                    this.loaderTemplate = item.template;
-                    break;
-
-                default:
-                    this.itemTemplate = item.template;
-                    break;
-            }
-        });
     }
 
     writeValue(value: any): void {

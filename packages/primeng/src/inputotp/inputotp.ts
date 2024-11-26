@@ -178,21 +178,7 @@ export class InputOtp extends BaseComponent implements AfterContentInit {
      * @see {@link InputOtpInputTemplateContext}
      * @group Templates
      */
-    @ContentChild('input') inputTemplate: TemplateRef<InputOtpInputTemplateContext>;
-
-    ngAfterContentInit() {
-        this.templates?.forEach((item) => {
-            switch (item.getType()) {
-                case 'input':
-                    this.inputTemplate = item.template;
-                    break;
-
-                default:
-                    this.inputTemplate = item.template;
-                    break;
-            }
-        });
-    }
+    @ContentChild('input') inputTemplate: TemplateRef<any>;
 
     tokens: any = [];
 

@@ -64,14 +64,14 @@ export const CHECKBOX_VALUE_ACCESSOR: any = {
                 (change)="handleChange($event)"
             />
             <div class="p-checkbox-box">
-                <ng-container *ngIf="!checkboxIconTemplate">
+                <ng-container *ngIf="!checkboxicon">
                     <ng-container *ngIf="checked">
                         <span *ngIf="checkboxIcon" class="p-checkbox-icon" [ngClass]="checkboxIcon" [attr.data-pc-section]="'icon'"></span>
                         <CheckIcon *ngIf="!checkboxIcon" [styleClass]="'p-checkbox-icon'" [attr.data-pc-section]="'icon'" />
                     </ng-container>
                     <MinusIcon *ngIf="_indeterminate()" [styleClass]="'p-checkbox-icon'" [attr.data-pc-section]="'icon'" />
                 </ng-container>
-                <ng-template *ngTemplateOutlet="checkboxIconTemplate; context: { checked: checked, class: 'p-checkbox-icon' }"></ng-template>
+                <ng-template *ngTemplateOutlet="checkboxicon; context: { checked: checked, class: 'p-checkbox-icon' }"></ng-template>
             </div>
         </div>
     `,
@@ -231,7 +231,7 @@ export class Checkbox extends BaseComponent implements ControlValueAccessor {
      * The template of the checkbox icon.
      * @group Templates
      */
-    @ContentChild('checkboxicon') checkboxIconTemplate: TemplateRef<any>;
+    @ContentChild('checkboxicon') checkboxicon: TemplateRef<any>;
 
     model: any;
 

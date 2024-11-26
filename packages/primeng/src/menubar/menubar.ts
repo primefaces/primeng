@@ -133,11 +133,11 @@ export class MenubarService {
                                 <p-badge *ngIf="getItemProp(processedItem, 'badge')" [styleClass]="getItemProp(processedItem, 'badgeStyleClass')" [value]="getItemProp(processedItem, 'badge')" />
 
                                 <ng-container *ngIf="isItemGroup(processedItem)">
-                                    <ng-container *ngIf="!submenuIconTemplate">
+                                    <ng-container *ngIf="!submenuiconTemplate">
                                         <AngleDownIcon class="p-menubar-submenu-icon" *ngIf="root" [attr.data-pc-section]="'submenuicon'" />
                                         <AngleRightIcon class="p-menubar-submenu-icon" *ngIf="!root" [attr.data-pc-section]="'submenuicon'" />
                                     </ng-container>
-                                    <ng-template *ngTemplateOutlet="submenuIconTemplate" [attr.data-pc-section]="'submenuicon'"></ng-template>
+                                    <ng-template *ngTemplateOutlet="submenuiconTemplate" [attr.data-pc-section]="'submenuicon'"></ng-template>
                                 </ng-container>
                             </a>
                             <a
@@ -171,11 +171,11 @@ export class MenubarService {
                                 <ng-template #htmlRouteLabel><span class="p-menubar-item-label" [innerHTML]="getItemLabel(processedItem)" [attr.data-pc-section]="'label'"></span></ng-template>
                                 <p-badge *ngIf="getItemProp(processedItem, 'badge')" [styleClass]="getItemProp(processedItem, 'badgeStyleClass')" [value]="getItemProp(processedItem, 'badge')" />
                                 <ng-container *ngIf="isItemGroup(processedItem)">
-                                    <ng-container *ngIf="!submenuIconTemplate">
+                                    <ng-container *ngIf="!submenuiconTemplate">
                                         <AngleDownIcon class="p-menubar-submenu-icon" [attr.data-pc-section]="'submenuicon'" *ngIf="root" />
                                         <AngleRightIcon class="p-menubar-submenu-icon" [attr.data-pc-section]="'submenuicon'" *ngIf="!root" />
                                     </ng-container>
-                                    <ng-template *ngTemplateOutlet="submenuIconTemplate" [attr.data-pc-section]="'submenuicon'"></ng-template>
+                                    <ng-template *ngTemplateOutlet="submenuiconTemplate" [attr.data-pc-section]="'submenuicon'"></ng-template>
                                 </ng-container>
                             </a>
                         </ng-container>
@@ -234,7 +234,7 @@ export class MenubarSub extends BaseComponent implements OnInit, OnDestroy {
 
     @Input() inlineStyles: any;
 
-    @Input() submenuIconTemplate: TemplateRef<any> | undefined;
+    @Input() submenuiconTemplate: TemplateRef<any> | undefined;
 
     @Output() itemClick: EventEmitter<any> = new EventEmitter();
 
@@ -375,8 +375,8 @@ export class MenubarSub extends BaseComponent implements OnInit, OnDestroy {
                 (click)="menuButtonClick($event)"
                 (keydown)="menuButtonKeydown($event)"
             >
-                <BarsIcon *ngIf="!menuIconTemplate" />
-                <ng-template *ngTemplateOutlet="menuIconTemplate"></ng-template>
+                <BarsIcon *ngIf="!menuiconTemplate" />
+                <ng-template *ngTemplateOutlet="menuiconTemplate"></ng-template>
             </a>
             <p-menubarSub
                 #rootmenu
@@ -391,7 +391,7 @@ export class MenubarSub extends BaseComponent implements OnInit, OnDestroy {
                 [ariaLabel]="ariaLabel"
                 [ariaLabelledBy]="ariaLabelledBy"
                 [focusedItemId]="focused ? focusedItemId : undefined"
-                [submenuIconTemplate]="submenuIconTemplate"
+                [submenuiconTemplate]="submenuiconTemplate"
                 [activeItemPath]="activeItemPath()"
                 (itemClick)="onItemClick($event)"
                 (menuFocus)="onMenuFocus($event)"
@@ -602,12 +602,12 @@ export class Menubar extends BaseComponent implements OnDestroy, OnInit {
      * Defines template option for item.
      * @group Templates
      */
-    @ContentChild('menuicon') menuIconTemplate: TemplateRef<any> | undefined;
+    @ContentChild('menuicon') menuiconTemplate: TemplateRef<any> | undefined;
     /**
      * Defines template option for submenu icon.
      * @group Templates
      */
-    @ContentChild('submenuicon') submenuIconTemplate: TemplateRef<any> | undefined;
+    @ContentChild('submenuicon') submenuiconTemplate: TemplateRef<any> | undefined;
 
     createProcessedItems(items: any, level: number = 0, parent: any = {}, parentKey: any = '') {
         const processedItems = [];

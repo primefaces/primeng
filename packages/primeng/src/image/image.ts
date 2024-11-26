@@ -38,24 +38,24 @@ import { ImageStyle } from './style/imagestyle';
             <div #mask class="p-image-mask p-overlay-mask p-overlay-mask-enter" *ngIf="maskVisible" [attr.aria-modal]="maskVisible" role="dialog" (click)="onMaskClick()" (keydown)="onMaskKeydown($event)" pFocusTrap>
                 <div class="p-image-toolbar" (click)="handleToolbarClick($event)">
                     <button class="p-image-action p-image-rotate-right-button" (click)="rotateRight()" type="button" [attr.aria-label]="rightAriaLabel()">
-                        <RefreshIcon *ngIf="!rotateRightIconTemplate" />
-                        <ng-template *ngTemplateOutlet="rotateRightIconTemplate"></ng-template>
+                        <RefreshIcon *ngIf="!rotaterighticon" />
+                        <ng-template *ngTemplateOutlet="rotaterighticon"></ng-template>
                     </button>
                     <button class="p-image-action p-image-rotate-left-button" (click)="rotateLeft()" type="button" [attr.aria-label]="leftAriaLabel()">
-                        <UndoIcon *ngIf="!rotateLeftIconTemplate" />
-                        <ng-template *ngTemplateOutlet="rotateLeftIconTemplate"></ng-template>
+                        <UndoIcon *ngIf="!rotatelefticon" />
+                        <ng-template *ngTemplateOutlet="rotatelefticon"></ng-template>
                     </button>
                     <button [ngClass]="{ 'p-image-action p-image-zoom-out-button': true, 'p-disabled': isZoomOutDisabled }" (click)="zoomOut()" type="button" [disabled]="isZoomOutDisabled" [attr.aria-label]="zoomOutAriaLabel()">
-                        <SearchMinusIcon *ngIf="!zoomOutIconTemplate" />
-                        <ng-template *ngTemplateOutlet="zoomOutIconTemplate"></ng-template>
+                        <SearchMinusIcon *ngIf="!zoomouticon" />
+                        <ng-template *ngTemplateOutlet="zoomouticon"></ng-template>
                     </button>
                     <button [ngClass]="{ 'p-image-action p-image-zoom-in-button': true, 'p-disabled': isZoomOutDisabled }" (click)="zoomIn()" type="button" [disabled]="isZoomInDisabled" [attr.aria-label]="zoomInAriaLabel()">
-                        <SearchPlusIcon *ngIf="!zoomInIconTemplate" />
-                        <ng-template *ngTemplateOutlet="zoomInIconTemplate"></ng-template>
+                        <SearchPlusIcon *ngIf="!zoominicon" />
+                        <ng-template *ngTemplateOutlet="zoominicon"></ng-template>
                     </button>
                     <button class="p-image-action p-image-close-button" type="button" (click)="closePreview()" [attr.aria-label]="closeAriaLabel()" #closeButton>
-                        <TimesIcon *ngIf="!closeIconTemplate" />
-                        <ng-template *ngTemplateOutlet="closeIconTemplate"></ng-template>
+                        <TimesIcon *ngIf="!closeicon" />
+                        <ng-template *ngTemplateOutlet="closeicon"></ng-template>
                     </button>
                 </div>
                 <div
@@ -219,31 +219,31 @@ export class Image extends BaseComponent implements AfterContentInit {
      * Custom template of rotaterighticon.
      * @group Templates
      */
-    @ContentChild('rotaterighticon') rotateRightIconTemplate: TemplateRef<any> | undefined;
+    @ContentChild('rotaterighticon') rotaterighticon: TemplateRef<any> | undefined;
 
     /**
      * Custom template of rotatelefticon.
      * @group Templates
      */
-    @ContentChild('rotatelefticon') rotateLeftIconTemplate: TemplateRef<any> | undefined;
+    @ContentChild('rotatelefticon') rotatelefticon: TemplateRef<any> | undefined;
 
     /**
      * Custom template of zoomouticon.
      * @group Templates
      */
-    @ContentChild('zoomouticon') zoomOutIconTemplate: TemplateRef<any> | undefined;
+    @ContentChild('zoomouticon') zoomouticon: TemplateRef<any> | undefined;
 
     /**
      * Custom template of zoominicon.
      * @group Templates
      */
-    @ContentChild('zoominicon') zoomInIconTemplate: TemplateRef<any> | undefined;
+    @ContentChild('zoominicon') zoominicon: TemplateRef<any> | undefined;
 
     /**
      * Custom template of closeicon.
      * @group Templates
      */
-    @ContentChild('closeicon') closeIconTemplate: TemplateRef<any> | undefined;
+    @ContentChild('closeicon') closeicon: TemplateRef<any> | undefined;
 
     /**
      * Custom template of preview.
@@ -290,48 +290,6 @@ export class Image extends BaseComponent implements AfterContentInit {
 
     constructor() {
         super();
-    }
-
-    ngAfterContentInit() {
-        this.templates?.forEach((item) => {
-            switch (item.getType()) {
-                case 'indicator':
-                    this.indicatorTemplate = item.template;
-                    break;
-
-                case 'image':
-                    this.imageTemplate = item.template;
-                    break;
-
-                case 'preview':
-                    this.previewTemplate = item.template;
-                    break;
-
-                case 'rotaterighticon':
-                    this.rotateRightIconTemplate = item.template;
-                    break;
-
-                case 'rotatelefticon':
-                    this.rotateLeftIconTemplate = item.template;
-                    break;
-
-                case 'zoomouticon':
-                    this.zoomOutIconTemplate = item.template;
-                    break;
-
-                case 'zoominicon':
-                    this.zoomInIconTemplate = item.template;
-                    break;
-
-                case 'closeicon':
-                    this.closeIconTemplate = item.template;
-                    break;
-
-                default:
-                    this.indicatorTemplate = item.template;
-                    break;
-            }
-        });
     }
 
     onImageClick() {

@@ -5,6 +5,7 @@ import { Nullable } from 'primeng/ts-helpers';
 
 /**
  * Defer postpones the loading the content that is initially not in the viewport until it becomes visible on scroll.
+ * @deprecated use Angular defer block instead.
  * @group Components
  */
 @Directive({
@@ -27,7 +28,13 @@ export class Defer extends BaseComponent implements AfterViewInit, OnDestroy {
 
     viewContainer: ViewContainerRef = inject(ViewContainerRef);
 
+    ngOnInit() {
+        super.ngOnInit();
+        console.log('Defer is deprecated as of v18, use Angular defer block instead.');
+    }
+
     ngAfterViewInit() {
+        super.ngAfterViewInit();
         if (isPlatformBrowser(this.platformId)) {
             if (this.shouldLoad()) {
                 this.load();

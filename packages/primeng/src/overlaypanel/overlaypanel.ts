@@ -5,6 +5,7 @@ import {
     booleanAttribute,
     ChangeDetectionStrategy,
     Component,
+    ContentChild,
     ElementRef,
     EventEmitter,
     HostListener,
@@ -92,7 +93,7 @@ import { PopoverStyle } from './style/popoverstyle';
     encapsulation: ViewEncapsulation.None,
     providers: [PopoverStyle]
 })
-export class OverlayPanel extends BaseComponent implements AfterContentInit, OnDestroy {
+export class OverlayPanel extends BaseComponent implements OnDestroy {
     /**
      * Defines a string that labels the input for accessibility.
      * @group Props
@@ -189,9 +190,9 @@ export class OverlayPanel extends BaseComponent implements AfterContentInit, OnD
 
     documentResizeListener: VoidListener;
 
-    contentTemplate: Nullable<TemplateRef<any>>;
+    @ContentChild('content') contentTemplate: Nullable<TemplateRef<any>>;
 
-    closeIconTemplate: Nullable<TemplateRef<any>>;
+    @ContentChild('closeicon') closeIconTemplate: Nullable<TemplateRef<any>>;
 
     destroyCallback: Nullable<Function>;
 
@@ -207,26 +208,6 @@ export class OverlayPanel extends BaseComponent implements AfterContentInit, OnD
     ) {
         super();
         console.log('OverlayPanel is deprecated. Use Popover instead.');
-    }
-
-    ngAfterContentInit() {
-        this.templates?.forEach((item) => {
-            switch (item.getType()) {
-                case 'content':
-                    this.contentTemplate = item.template;
-                    break;
-
-                case 'closeicon':
-                    this.closeIconTemplate = item.template;
-                    break;
-
-                default:
-                    this.contentTemplate = item.template;
-                    break;
-            }
-
-            this.cd.markForCheck();
-        });
     }
 
     bindDocumentClickListener() {

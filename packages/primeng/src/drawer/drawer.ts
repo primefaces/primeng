@@ -60,8 +60,8 @@ const hideAnimation = animation([animate('{{transition}}', style({ transform: '{
                         [attr.data-pc-group-section]="'iconcontainer'"
                     >
                         <ng-template #icon>
-                            <TimesIcon *ngIf="!closeIconTemplate" [attr.data-pc-section]="'closeicon'" />
-                            <ng-template *ngTemplateOutlet="closeIconTemplate"></ng-template>
+                            <TimesIcon *ngIf="!closeiconTemplate" [attr.data-pc-section]="'closeicon'" />
+                            <ng-template *ngTemplateOutlet="closeiconTemplate"></ng-template>
                         </ng-template>
                     </p-button>
                 </div>
@@ -279,7 +279,7 @@ export class Drawer extends BaseComponent implements AfterViewInit, OnDestroy {
      * Close icon template for the close icon of the drawer.
      * @group Templates
      */
-    @ContentChild('closeicon') closeIconTemplate: TemplateRef<any> | undefined;
+    @ContentChild('closeicon') closeiconTemplate: TemplateRef<any> | undefined;
     /**
      * Headless template for the headless drawer.
      * @group Templates

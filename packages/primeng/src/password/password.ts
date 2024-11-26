@@ -393,23 +393,23 @@ export const Password_VALUE_ACCESSOR: any = {
                 [pAutoFocus]="autofocus"
             />
             <ng-container *ngIf="showClear && value != null">
-                <TimesIcon *ngIf="!clearIconTemplate" class="p-password-clear-icon" (click)="clear()" [attr.data-pc-section]="'clearIcon'" />
+                <TimesIcon *ngIf="!cleariconTemplate" class="p-password-clear-icon" (click)="clear()" [attr.data-pc-section]="'clearIcon'" />
                 <span (click)="clear()" class="p-password-clear-icon" [attr.data-pc-section]="'clearIcon'">
-                    <ng-template *ngTemplateOutlet="clearIconTemplate"></ng-template>
+                    <ng-template *ngTemplateOutlet="cleariconTemplate"></ng-template>
                 </span>
             </ng-container>
 
             <ng-container *ngIf="toggleMask">
                 <ng-container *ngIf="unmasked">
-                    <EyeSlashIcon class="p-password-toggle-mask-icon p-password-mask-icon" *ngIf="!hideIconTemplate" (click)="onMaskToggle()" [attr.data-pc-section]="'hideIcon'" />
-                    <span *ngIf="hideIconTemplate" (click)="onMaskToggle()">
-                        <ng-template *ngTemplateOutlet="hideIconTemplate; context: { class: 'p-password-toggle-mask-icon p-password-mask-icon' }"></ng-template>
+                    <EyeSlashIcon class="p-password-toggle-mask-icon p-password-mask-icon" *ngIf="!hideiconTemplate" (click)="onMaskToggle()" [attr.data-pc-section]="'hideIcon'" />
+                    <span *ngIf="hideiconTemplate" (click)="onMaskToggle()">
+                        <ng-template *ngTemplateOutlet="hideiconTemplate; context: { class: 'p-password-toggle-mask-icon p-password-mask-icon' }"></ng-template>
                     </span>
                 </ng-container>
                 <ng-container *ngIf="!unmasked">
-                    <EyeIcon *ngIf="!showIconTemplate" class="p-password-toggle-mask-icon p-password-mask-icon" (click)="onMaskToggle()" [attr.data-pc-section]="'showIcon'" />
-                    <span *ngIf="showIconTemplate" (click)="onMaskToggle()">
-                        <ng-template *ngTemplateOutlet="showIconTemplate"></ng-template>
+                    <EyeIcon *ngIf="!showiconTemplate" class="p-password-toggle-mask-icon p-password-mask-icon" (click)="onMaskToggle()" [attr.data-pc-section]="'showIcon'" />
+                    <span *ngIf="showiconTemplate" (click)="onMaskToggle()">
+                        <ng-template *ngTemplateOutlet="showiconTemplate"></ng-template>
                     </span>
                 </ng-container>
             </ng-container>
@@ -615,11 +615,11 @@ export class Password extends BaseComponent implements OnInit {
 
     @ContentChild('header') headerTemplate: Nullable<TemplateRef<any>>;
 
-    @ContentChild('clearicon') clearIconTemplate: Nullable<TemplateRef<any>>;
+    @ContentChild('clearicon') cleariconTemplate: Nullable<TemplateRef<any>>;
 
-    @ContentChild('headericon') hideIconTemplate: Nullable<TemplateRef<any>>;
+    @ContentChild('headericon') hideiconTemplate: Nullable<TemplateRef<any>>;
 
-    @ContentChild('showicon') showIconTemplate: Nullable<TemplateRef<any>>;
+    @ContentChild('showicon') showiconTemplate: Nullable<TemplateRef<any>>;
 
     overlayVisible: boolean = false;
 

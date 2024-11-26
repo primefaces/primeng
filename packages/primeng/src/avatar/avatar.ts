@@ -27,7 +27,7 @@ import { AvatarStyle } from './style/avatarstyle';
         '[class.p-avatar-lg]': 'size === "large"',
         '[class.p-avatar-xl]': 'size === "xlarge"',
         '[class.p-avatar-image]': 'image != null',
-        '[attr.data-pc-name]': 'avatar',
+        '[attr.data-pc-name]': '"avatar"',
         '[attr.aria-label]': 'ariaLabel',
         '[attr.aria-labelledby]': 'ariaLabelledBy',
         '[style]': 'style'

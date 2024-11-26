@@ -120,7 +120,7 @@ import { SpeedDialStyle } from './style/speeddialstyle';
     encapsulation: ViewEncapsulation.None,
     providers: [SpeedDialStyle]
 })
-export class SpeedDial extends BaseComponent implements AfterViewInit, AfterContentInit, OnDestroy {
+export class SpeedDial extends BaseComponent implements AfterViewInit, OnDestroy {
     /**
      * List of items id.
      * @group Props
@@ -350,22 +350,6 @@ export class SpeedDial extends BaseComponent implements AfterViewInit, AfterCont
                 }
             }
         }
-    }
-
-    ngAfterContentInit() {
-        this.templates?.forEach((item) => {
-            switch (item.getType()) {
-                case 'button':
-                    this.buttonTemplate = item.template;
-                    break;
-                case 'icon':
-                    this.iconTemplate = item.template;
-                    break;
-                case 'item':
-                    this.itemTemplate = item.template;
-                    break;
-            }
-        });
     }
 
     show() {

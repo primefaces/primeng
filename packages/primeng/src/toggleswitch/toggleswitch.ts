@@ -153,16 +153,6 @@ export class ToggleSwitch extends BaseComponent implements AfterContentInit {
 
     _componentStyle = inject(ToggleSwitchStyle);
 
-    ngAfterContentInit() {
-        this.templates.forEach((item) => {
-            switch (item.getType()) {
-                case 'handle':
-                    this.handleTemplate = item.template;
-                    break;
-            }
-        });
-    }
-
     onClick(event: Event) {
         if (!this.disabled && !this.readonly) {
             this.modelValue = this.checked() ? this.falseValue : this.trueValue;

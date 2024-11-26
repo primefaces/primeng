@@ -67,7 +67,6 @@ export const CALENDAR_VALUE_ACCESSOR: any = {
     selector: 'p-calendar',
     standalone: true,
     imports: [CommonModule, Button, Ripple, ChevronLeftIcon, ChevronRightIcon, ChevronUpIcon, ChevronDownIcon, TimesIcon, CalendarIcon, AutoFocus, InputText, SharedModule],
-
     template: `
         <span #container [ngClass]="rootClass" [ngStyle]="style" [class]="styleClass">
             <ng-template [ngIf]="!inline">
@@ -95,7 +94,7 @@ export const CALENDAR_VALUE_ACCESSOR: any = {
                     (input)="onUserInput($event)"
                     [ngStyle]="inputStyle"
                     [class]="inputStyleClass"
-                    ngClass="p-datepicker-input"
+                    [ngClass]="'p-datepicker-input'"
                     [placeholder]="placeholder || ''"
                     [disabled]="disabled"
                     [attr.tabindex]="tabindex"
@@ -106,9 +105,9 @@ export const CALENDAR_VALUE_ACCESSOR: any = {
                     [fluid]="hasFluid"
                 />
                 <ng-container *ngIf="showClear && !disabled && value != null">
-                    <TimesIcon *ngIf="!clearIconTemplate" [class]="'p-datepicker-clear-icon'" (click)="clear()" />
-                    <span *ngIf="clearIconTemplate" class="p-datepicker-clear-icon" (click)="clear()">
-                        <ng-template *ngTemplateOutlet="clearIconTemplate"></ng-template>
+                    <TimesIcon *ngIf="!clearicon" [class]="'p-datepicker-clear-icon'" (click)="clear()" />
+                    <span *ngIf="clearicon" class="p-datepicker-clear-icon" (click)="clear()">
+                        <ng-template *ngTemplateOutlet="clearicon"></ng-template>
                     </span>
                 </ng-container>
                 <button
@@ -125,21 +124,21 @@ export const CALENDAR_VALUE_ACCESSOR: any = {
                 >
                     <span *ngIf="icon" [ngClass]="icon"></span>
                     <ng-container *ngIf="!icon">
-                        <CalendarIcon *ngIf="!triggerIconTemplate" />
-                        <ng-template *ngTemplateOutlet="triggerIconTemplate"></ng-template>
+                        <CalendarIcon *ngIf="!triggericon" />
+                        <ng-template *ngTemplateOutlet="triggericon"></ng-template>
                     </ng-container>
                 </button>
                 <ng-container *ngIf="iconDisplay === 'input' && showIcon">
                     <span class="p-datepicker-input-icon-container">
                         <CalendarIcon
                             (click)="onButtonClick($event)"
-                            *ngIf="!inputIconTemplate"
+                            *ngIf="!inputicon"
                             [ngClass]="{
                                 'p-datepicker-input-icon': showOnFocus
                             }"
                         />
 
-                        <ng-container *ngTemplateOutlet="inputIconTemplate; context: { clickCallBack: onButtonClick.bind(this) }"></ng-container>
+                        <ng-container *ngTemplateOutlet="inputicon; context: { clickCallBack: onButtonClick.bind(this) }"></ng-container>
                     </span>
                 </ng-container>
             </ng-template>
@@ -163,7 +162,7 @@ export const CALENDAR_VALUE_ACCESSOR: any = {
                 *ngIf="inline || overlayVisible"
             >
                 <ng-content select="p-header"></ng-content>
-                <ng-container *ngTemplateOutlet="headerTemplate"></ng-container>
+                <ng-container *ngTemplateOutlet="header"></ng-container>
                 <ng-container *ngIf="!timeOnly">
                     <div class="p-datepicker-calendar-container">
                         <div class="p-datepicker-calendar" *ngFor="let month of months; let i = index">
@@ -179,9 +178,9 @@ export const CALENDAR_VALUE_ACCESSOR: any = {
                                     type="button"
                                     [attr.aria-label]="prevIconAriaLabel"
                                 >
-                                    <ChevronLeftIcon *ngIf="!previousIconTemplate" />
-                                    <span *ngIf="previousIconTemplate">
-                                        <ng-template *ngTemplateOutlet="previousIconTemplate"></ng-template>
+                                    <ChevronLeftIcon *ngIf="!previousicon" />
+                                    <span *ngIf="previousicon">
+                                        <ng-template *ngTemplateOutlet="previousicon"></ng-template>
                                     </span>
                                 </p-button>
                                 <div class="p-datepicker-title">
@@ -210,8 +209,8 @@ export const CALENDAR_VALUE_ACCESSOR: any = {
                                         {{ getYear(month) }}
                                     </button>
                                     <span class="p-datepicker-decade" *ngIf="currentView === 'year'">
-                                        <ng-container *ngIf="!decadeTemplate">{{ yearPickerValues()[0] }} - {{ yearPickerValues()[yearPickerValues().length - 1] }}</ng-container>
-                                        <ng-container *ngTemplateOutlet="decadeTemplate; context: { $implicit: yearPickerValues }"></ng-container>
+                                        <ng-container *ngIf="!decade">{{ yearPickerValues()[0] }} - {{ yearPickerValues()[yearPickerValues().length - 1] }}</ng-container>
+                                        <ng-container *ngTemplateOutlet="decade; context: { $implicit: yearPickerValues }"></ng-container>
                                     </span>
                                 </div>
                                 <p-button
@@ -224,10 +223,10 @@ export const CALENDAR_VALUE_ACCESSOR: any = {
                                     [ngStyle]="{ visibility: i === months.length - 1 ? 'visible' : 'hidden' }"
                                     [attr.aria-label]="nextIconAriaLabel"
                                 >
-                                    <ChevronRightIcon *ngIf="!nextIconTemplate" />
+                                    <ChevronRightIcon *ngIf="!decade" />
 
-                                    <span *ngIf="nextIconTemplate">
-                                        <ng-template *ngTemplateOutlet="nextIconTemplate"></ng-template>
+                                    <span *ngIf="nexticon">
+                                        <ng-template *ngTemplateOutlet="nexticon"></ng-template>
                                     </span>
                                 </p-button>
                             </div>
@@ -267,12 +266,12 @@ export const CALENDAR_VALUE_ACCESSOR: any = {
                                                     (keydown)="onDateCellKeydown($event, date, i)"
                                                     pRipple
                                                 >
-                                                    <ng-container *ngIf="!dateTemplate && (date.selectable || !disabledDateTemplate)">{{ date.day }}</ng-container>
-                                                    <ng-container *ngIf="date.selectable || !disabledDateTemplate">
+                                                    <ng-container *ngIf="!disabledDate && (date.selectable || !disabledDate)">{{ date.day }}</ng-container>
+                                                    <ng-container *ngIf="date.selectable || !disabledDate">
                                                         <ng-container *ngTemplateOutlet="dateTemplate; context: { $implicit: date }"></ng-container>
                                                     </ng-container>
                                                     <ng-container *ngIf="!date.selectable">
-                                                        <ng-container *ngTemplateOutlet="disabledDateTemplate; context: { $implicit: date }"></ng-container>
+                                                        <ng-container *ngTemplateOutlet="disabledDate; context: { $implicit: date }"></ng-container>
                                                     </ng-container>
                                                 </span>
                                                 <div *ngIf="isSelected(date)" class="p-hidden-accessible" aria-live="polite">
@@ -339,9 +338,9 @@ export const CALENDAR_VALUE_ACCESSOR: any = {
                             (mouseleave)="onTimePickerElementMouseLeave()"
                             [attr.aria-label]="getTranslation('nextHour')"
                         >
-                            <ChevronUpIcon *ngIf="!incrementIconTemplate" />
+                            <ChevronUpIcon *ngIf="!incrementicon" />
 
-                            <ng-template *ngTemplateOutlet="incrementIconTemplate"></ng-template>
+                            <ng-template *ngTemplateOutlet="incrementicon"></ng-template>
                         </p-button>
                         <span><ng-container *ngIf="currentHour < 10">0</ng-container>{{ currentHour }}</span>
                         <p-button
@@ -359,9 +358,9 @@ export const CALENDAR_VALUE_ACCESSOR: any = {
                             (mouseleave)="onTimePickerElementMouseLeave()"
                             [attr.aria-label]="getTranslation('prevHour')"
                         >
-                            <ChevronDownIcon *ngIf="!decrementIconTemplate" />
+                            <ChevronDownIcon *ngIf="!decrementicon" />
 
-                            <ng-template *ngTemplateOutlet="decrementIconTemplate"></ng-template>
+                            <ng-template *ngTemplateOutlet="decrementicon"></ng-template>
                         </p-button>
                     </div>
                     <div class="p-datepicker-separator">
@@ -383,9 +382,9 @@ export const CALENDAR_VALUE_ACCESSOR: any = {
                             (mouseleave)="onTimePickerElementMouseLeave()"
                             [attr.aria-label]="getTranslation('nextMinute')"
                         >
-                            <ChevronUpIcon *ngIf="!incrementIconTemplate" />
+                            <ChevronUpIcon *ngIf="!incrementicon" />
 
-                            <ng-template *ngTemplateOutlet="incrementIconTemplate"></ng-template>
+                            <ng-template *ngTemplateOutlet="incrementicon"></ng-template>
                         </p-button>
                         <span><ng-container *ngIf="currentMinute < 10">0</ng-container>{{ currentMinute }}</span>
                         <p-button
@@ -403,9 +402,9 @@ export const CALENDAR_VALUE_ACCESSOR: any = {
                             (mouseleave)="onTimePickerElementMouseLeave()"
                             [attr.aria-label]="getTranslation('prevMinute')"
                         >
-                            <ChevronDownIcon *ngIf="!decrementIconTemplate" />
-                            <ng-container *ngIf="decrementIconTemplate">
-                                <ng-template *ngTemplateOutlet="decrementIconTemplate"></ng-template>
+                            <ChevronDownIcon *ngIf="!decrementicon" />
+                            <ng-container *ngIf="decrementicon">
+                                <ng-template *ngTemplateOutlet="decrementicon"></ng-template>
                             </ng-container>
                         </p-button>
                     </div>
@@ -428,9 +427,9 @@ export const CALENDAR_VALUE_ACCESSOR: any = {
                             (mouseleave)="onTimePickerElementMouseLeave()"
                             [attr.aria-label]="getTranslation('nextSecond')"
                         >
-                            <ChevronUpIcon *ngIf="!incrementIconTemplate" />
+                            <ChevronUpIcon *ngIf="!incrementicon" />
 
-                            <ng-template *ngTemplateOutlet="incrementIconTemplate"></ng-template>
+                            <ng-template *ngTemplateOutlet="incrementicon"></ng-template>
                         </p-button>
                         <span><ng-container *ngIf="currentSecond < 10">0</ng-container>{{ currentSecond }}</span>
                         <p-button
@@ -448,9 +447,9 @@ export const CALENDAR_VALUE_ACCESSOR: any = {
                             (mouseleave)="onTimePickerElementMouseLeave()"
                             [attr.aria-label]="getTranslation('prevSecond')"
                         >
-                            <ChevronDownIcon *ngIf="!decrementIconTemplate" />
+                            <ChevronDownIcon *ngIf="!decrementicon" />
 
-                            <ng-template *ngTemplateOutlet="decrementIconTemplate"></ng-template>
+                            <ng-template *ngTemplateOutlet="decrementicon"></ng-template>
                         </p-button>
                     </div>
                     <div class="p-datepicker-separator" *ngIf="hourFormat == '12'">
@@ -467,8 +466,8 @@ export const CALENDAR_VALUE_ACCESSOR: any = {
                             (keydown.enter)="toggleAMPM($event)"
                             [attr.aria-label]="getTranslation('am')"
                         >
-                            <ChevronUpIcon *ngIf="!incrementIconTemplate" />
-                            <ng-template *ngTemplateOutlet="incrementIconTemplate"></ng-template>
+                            <ChevronUpIcon *ngIf="!incrementicon" />
+                            <ng-template *ngTemplateOutlet="incrementicon"></ng-template>
                         </p-button>
                         <span>{{ pm ? 'PM' : 'AM' }}</span>
                         <p-button
@@ -481,8 +480,8 @@ export const CALENDAR_VALUE_ACCESSOR: any = {
                             (keydown.enter)="toggleAMPM($event)"
                             [attr.aria-label]="getTranslation('pm')"
                         >
-                            <ChevronDownIcon *ngIf="!decrementIconTemplate" />
-                            <ng-template *ngTemplateOutlet="decrementIconTemplate"></ng-template>
+                            <ChevronDownIcon *ngIf="!decrementicon" />
+                            <ng-template *ngTemplateOutlet="decrementicon"></ng-template>
                         </p-button>
                     </div>
                 </div>
@@ -491,7 +490,7 @@ export const CALENDAR_VALUE_ACCESSOR: any = {
                     <p-button size="small" styleClass="p-datepicker-clear-button" [label]="getTranslation('clear')" (keydown)="onContainerButtonKeydown($event)" (onClick)="onClearButtonClick($event)" [ngClass]="[clearButtonStyleClass]" />
                 </div>
                 <ng-content select="p-footer"></ng-content>
-                <ng-container *ngTemplateOutlet="footerTemplate"></ng-container>
+                <ng-container *ngTemplateOutlet="footer"></ng-container>
             </div>
         </span>
     `,
@@ -1052,67 +1051,67 @@ export class Calendar extends BaseComponent implements OnInit, OnDestroy, Contro
      * Custom template for header section.
      * @group Templates
      */
-    @ContentChild('header') headerTemplate: Nullable<TemplateRef<any>>;
+    @ContentChild('header') header: Nullable<TemplateRef<any>>;
 
     /**
      * Custom template for footer section.
      * @group Templates
      */
-    @ContentChild('footer') footerTemplate: Nullable<TemplateRef<any>>;
+    @ContentChild('footer') footer: Nullable<TemplateRef<any>>;
 
     /**
      * Custom template for disabled date cells.
      * @group Templates
      */
-    @ContentChild('disabledDate') disabledDateTemplate: Nullable<TemplateRef<any>>;
+    @ContentChild('disabledDate') disabledDate: Nullable<TemplateRef<any>>;
 
     /**
      * Custom template for decade view.
      * @group Templates
      */
-    @ContentChild('decade') decadeTemplate: Nullable<TemplateRef<any>>;
+    @ContentChild('decade') decade: Nullable<TemplateRef<any>>;
 
     /**
      * Custom template for previous month icon.
      * @group Templates
      */
-    @ContentChild('previousicon') previousIconTemplate: Nullable<TemplateRef<any>>;
+    @ContentChild('previousicon') previousicon: Nullable<TemplateRef<any>>;
 
     /**
      * Custom template for next month icon.
      * @group Templates
      */
-    @ContentChild('nexticon') nextIconTemplate: Nullable<TemplateRef<any>>;
+    @ContentChild('nexticon') nexticon: Nullable<TemplateRef<any>>;
 
     /**
      * Custom template for trigger icon.
      * @group Templates
      */
-    @ContentChild('triggericon') triggerIconTemplate: Nullable<TemplateRef<any>>;
+    @ContentChild('triggericon') triggericon: Nullable<TemplateRef<any>>;
 
     /**
      * Custom template for clear icon.
      * @group Templates
      */
-    @ContentChild('clearicon') clearIconTemplate: Nullable<TemplateRef<any>>;
+    @ContentChild('clearicon') clearicon: Nullable<TemplateRef<any>>;
 
     /**
      * Custom template for decrement icon.
      * @group Templates
      */
-    @ContentChild('decrementicon') decrementIconTemplate: Nullable<TemplateRef<any>>;
+    @ContentChild('decrementicon') decrementicon: Nullable<TemplateRef<any>>;
 
     /**
      * Custom template for increment icon.
      * @group Templates
      */
-    @ContentChild('incrementicon') incrementIconTemplate: Nullable<TemplateRef<any>>;
+    @ContentChild('incrementicon') incrementicon: Nullable<TemplateRef<any>>;
 
     /**
      * Custom template for input icon.
      * @group Templates
      */
-    @ContentChild('inputicon') inputIconTemplate: Nullable<TemplateRef<any>>;
+    @ContentChild('inputicon') inputicon: Nullable<TemplateRef<any>>;
 
     @ViewChild('container', { static: false }) containerViewChild: Nullable<ElementRef>;
 

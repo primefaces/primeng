@@ -103,24 +103,6 @@ export class Timeline extends BaseComponent implements AfterContentInit, Blockab
     getBlockableElement(): HTMLElement {
         return this.el.nativeElement.children[0];
     }
-
-    ngAfterContentInit() {
-        (this.templates as QueryList<PrimeTemplate>).forEach((item) => {
-            switch (item.getType()) {
-                case 'content':
-                    this.contentTemplate = item.template;
-                    break;
-
-                case 'opposite':
-                    this.oppositeTemplate = item.template;
-                    break;
-
-                case 'marker':
-                    this.markerTemplate = item.template;
-                    break;
-            }
-        });
-    }
 }
 
 @NgModule({

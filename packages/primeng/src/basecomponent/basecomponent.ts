@@ -75,6 +75,16 @@ export class BaseComponent {
     ngAfterContentInit() {
         this.templates?.forEach((item) => {
             const type = item.getType();
+            const template = `${type}Template`;
+
+            if (this.hasOwnProperty(template)) {
+                this[template] = item.template;
+            }
+
+            if (this.hasOwnProperty(`_${template}`)) {
+                this[`_${template}`] = item.template;
+            }
+
             this[type] = item.template;
         });
     }

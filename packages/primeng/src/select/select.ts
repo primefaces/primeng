@@ -175,8 +175,8 @@ export class SelectItem extends BaseComponent {
             [attr.aria-required]="required"
             [attr.required]="required"
         >
-            <ng-container *ngIf="!selectedItemTemplate; else defaultPlaceholder">{{ label() === 'p-emptylabel' ? '&nbsp;' : label() }}</ng-container>
-            <ng-container *ngIf="selectedItemTemplate && selectedOption" [ngTemplateOutlet]="selectedItemTemplate" [ngTemplateOutletContext]="{ $implicit: selectedOption }"></ng-container>
+            <ng-container *ngIf="!selecteditemTemplate; else defaultPlaceholder">{{ label() === 'p-emptylabel' ? '&nbsp;' : label() }}</ng-container>
+            <ng-container *ngIf="selecteditemTemplate && selectedOption" [ngTemplateOutlet]="selecteditemTemplate" [ngTemplateOutletContext]="{ $implicit: selectedOption }"></ng-container>
             <ng-template #defaultPlaceholder>
                 <span *ngIf="!selectedOption">{{ label() === 'p-emptylabel' ? '&nbsp;' : label() }}</span>
             </ng-template>
@@ -200,30 +200,30 @@ export class SelectItem extends BaseComponent {
             (blur)="onInputBlur($event)"
         />
         <ng-container *ngIf="isVisibleClearIcon">
-            <TimesIcon class="p-select-clear-icon" (click)="clear($event)" *ngIf="!clearIconTemplate" [attr.data-pc-section]="'clearicon'" />
-            <span class="p-select-clear-icon" (click)="clear($event)" *ngIf="clearIconTemplate" [attr.data-pc-section]="'clearicon'">
-                <ng-template *ngTemplateOutlet="clearIconTemplate; context: { class: 'p-select-clear-icon' }"></ng-template>
+            <TimesIcon class="p-select-clear-icon" (click)="clear($event)" *ngIf="!cleariconTemplate" [attr.data-pc-section]="'clearicon'" />
+            <span class="p-select-clear-icon" (click)="clear($event)" *ngIf="cleariconTemplate" [attr.data-pc-section]="'clearicon'">
+                <ng-template *ngTemplateOutlet="cleariconTemplate; context: { class: 'p-select-clear-icon' }"></ng-template>
             </span>
         </ng-container>
 
         <div class="p-select-dropdown" role="button" aria-label="dropdown trigger" aria-haspopup="listbox" [attr.aria-expanded]="overlayVisible ?? false" [attr.data-pc-section]="'trigger'">
             <ng-container *ngIf="loading; else elseBlock">
-                <ng-container *ngIf="loadingIconTemplate">
-                    <ng-container *ngTemplateOutlet="loadingIconTemplate"></ng-container>
+                <ng-container *ngIf="loadingiconTemplate">
+                    <ng-container *ngTemplateOutlet="loadingiconTemplate"></ng-container>
                 </ng-container>
-                <ng-container *ngIf="!loadingIconTemplate">
+                <ng-container *ngIf="!loadingiconTemplate">
                     <span *ngIf="loadingIcon" [ngClass]="'p-select-loading-icon pi-spin ' + loadingIcon" aria-hidden="true"></span>
                     <span *ngIf="!loadingIcon" [class]="'p-select-loading-icon pi pi-spinner pi-spin'" aria-hidden="true"></span>
                 </ng-container>
             </ng-container>
 
             <ng-template #elseBlock>
-                <ng-container *ngIf="!dropdownIconTemplate">
+                <ng-container *ngIf="!dropdowniconTemplate">
                     <span class="p-select-dropdown-icon" *ngIf="dropdownIcon" [ngClass]="dropdownIcon"></span>
                     <ChevronDownIcon *ngIf="!dropdownIcon" [styleClass]="'p-select-dropdown-icon'" />
                 </ng-container>
-                <span *ngIf="dropdownIconTemplate" class="p-select-dropdown-icon">
-                    <ng-template *ngTemplateOutlet="dropdownIconTemplate; context: { class: 'p-select-dropdown-icon' }"></ng-template>
+                <span *ngIf="dropdowniconTemplate" class="p-select-dropdown-icon">
+                    <ng-template *ngTemplateOutlet="dropdowniconTemplate; context: { class: 'p-select-dropdown-icon' }"></ng-template>
                 </span>
             </ng-template>
         </div>
@@ -278,9 +278,9 @@ export class SelectItem extends BaseComponent {
                                     (blur)="onFilterBlur($event)"
                                 />
                                 <p-inputicon>
-                                    <SearchIcon *ngIf="!filterIconTemplate" />
-                                    <span *ngIf="filterIconTemplate">
-                                        <ng-template *ngTemplateOutlet="filterIconTemplate"></ng-template>
+                                    <SearchIcon *ngIf="!filtericonTemplate" />
+                                    <span *ngIf="filtericonTemplate">
+                                        <ng-template *ngTemplateOutlet="filtericonTemplate"></ng-template>
                                     </span>
                                 </p-inputicon>
                             </p-iconfield>
@@ -338,10 +338,10 @@ export class SelectItem extends BaseComponent {
                                     </ng-container>
                                 </ng-template>
                                 <li *ngIf="filterValue && isEmpty()" class="p-select-empty-message" [ngStyle]="{ height: scrollerOptions.itemSize + 'px' }" role="option">
-                                    @if (!emptyFilterTemplate && !emptyTemplate) {
+                                    @if (!emptyfilterTemplate && !emptyTemplate) {
                                         {{ emptyFilterMessageLabel }}
                                     } @else {
-                                        <ng-container #emptyFilter *ngTemplateOutlet="emptyFilterTemplate || emptyTemplate"></ng-container>
+                                        <ng-container #emptyFilter *ngTemplateOutlet="emptyfilterTemplate || emptyTemplate"></ng-container>
                                     }
                                 </li>
                                 <li *ngIf="!filterValue && isEmpty()" class="p-select-empty-message" [ngStyle]="{ height: scrollerOptions.itemSize + 'px' }" role="option">
@@ -376,7 +376,7 @@ export class SelectItem extends BaseComponent {
     changeDetection: ChangeDetectionStrategy.OnPush,
     encapsulation: ViewEncapsulation.None
 })
-export class Select extends BaseComponent implements OnInit, AfterViewInit, AfterContentInit, AfterViewChecked, ControlValueAccessor {
+export class Select extends BaseComponent implements OnInit, AfterViewInit, AfterViewChecked, ControlValueAccessor {
     /**
      * Unique identifier of the component
      * @group Props
@@ -898,7 +898,7 @@ export class Select extends BaseComponent implements OnInit, AfterViewInit, Afte
      * Custom selected item template.
      * @group Templates
      */
-    @ContentChild('selectedItem') selectedItemTemplate: Nullable<TemplateRef<any>>;
+    @ContentChild('selectedItem') selecteditemTemplate: Nullable<TemplateRef<any>>;
 
     /**
      * Custom header template.
@@ -922,7 +922,7 @@ export class Select extends BaseComponent implements OnInit, AfterViewInit, Afte
      * Custom empty filter template.
      * @group Templates
      */
-    @ContentChild('emptyfilter') emptyFilterTemplate: Nullable<TemplateRef<any>>;
+    @ContentChild('emptyfilter') emptyfilterTemplate: Nullable<TemplateRef<any>>;
 
     /**
      * Custom empty template.
@@ -934,43 +934,43 @@ export class Select extends BaseComponent implements OnInit, AfterViewInit, Afte
      * Custom dropdown icon template.
      * @group Templates
      */
-    @ContentChild('dropdownicon') dropdownIconTemplate: Nullable<TemplateRef<any>>;
+    @ContentChild('dropdownicon') dropdowniconTemplate: Nullable<TemplateRef<any>>;
 
     /**
      * Custom loading icon template.
      * @group Templates
      */
-    @ContentChild('loadingicon') loadingIconTemplate: Nullable<TemplateRef<any>>;
+    @ContentChild('loadingicon') loadingiconTemplate: Nullable<TemplateRef<any>>;
 
     /**
      * Custom clear icon template.
      * @group Templates
      */
-    @ContentChild('clearicon') clearIconTemplate: Nullable<TemplateRef<any>>;
+    @ContentChild('clearicon') cleariconTemplate: Nullable<TemplateRef<any>>;
 
     /**
      * Custom filter icon template.
      * @group Templates
      */
-    @ContentChild('filtericon') filterIconTemplate: Nullable<TemplateRef<any>>;
+    @ContentChild('filtericon') filtericonTemplate: Nullable<TemplateRef<any>>;
 
     /**
      * Custom on icon template.
      * @group Templates
      */
-    @ContentChild('onicon') onIconTemplate: Nullable<TemplateRef<any>>;
+    @ContentChild('onicon') oniconTemplate: Nullable<TemplateRef<any>>;
 
     /**
      * Custom off icon template.
      * @group Templates
      */
-    @ContentChild('officon') offIconTemplate: Nullable<TemplateRef<any>>;
+    @ContentChild('officon') officonTemplate: Nullable<TemplateRef<any>>;
 
     /**
      * Custom cancel icon template.
      * @group Templates
      */
-    @ContentChild('cancelicon') cancelIconTemplate: Nullable<TemplateRef<any>>;
+    @ContentChild('cancelicon') canceliconTemplate: Nullable<TemplateRef<any>>;
 
     filterOptions: SelectFilterOptions | undefined;
 
@@ -1049,7 +1049,7 @@ export class Select extends BaseComponent implements OnInit, AfterViewInit, Afte
         return {
             'p-select-label': true,
             'p-placeholder': this.placeholder() && label === this.placeholder(),
-            'p-select-label-empty': !this.editable && !this.selectedItemTemplate && (label === undefined || label === null || label === 'p-emptylabel' || label.length === 0)
+            'p-select-label-empty': !this.editable && !this.selecteditemTemplate && (label === undefined || label === null || label === 'p-emptylabel' || label.length === 0)
         };
     }
 
@@ -1192,68 +1192,6 @@ export class Select extends BaseComponent implements OnInit, AfterViewInit, Afte
             }
             this.selectedOptionUpdated = false;
         }
-    }
-
-    ngAfterContentInit() {
-        (this.templates as QueryList<PrimeTemplate>).forEach((item) => {
-            switch (item.getType()) {
-                case 'item':
-                    this.itemTemplate = item.template;
-                    break;
-
-                case 'selectedItem':
-                    this.selectedItemTemplate = item.template;
-                    break;
-
-                case 'header':
-                    this.headerTemplate = item.template;
-                    break;
-
-                case 'filter':
-                    this.filterTemplate = item.template;
-                    break;
-
-                case 'footer':
-                    this.footerTemplate = item.template;
-                    break;
-
-                case 'emptyfilter':
-                    this.emptyFilterTemplate = item.template;
-                    break;
-
-                case 'empty':
-                    this.emptyTemplate = item.template;
-                    break;
-
-                case 'group':
-                    this.groupTemplate = item.template;
-                    break;
-
-                case 'loader':
-                    this.loaderTemplate = item.template;
-                    break;
-
-                case 'dropdownicon':
-                    this.dropdownIconTemplate = item.template;
-                    break;
-
-                case 'loadingicon':
-                    this.loadingIconTemplate = item.template;
-                    break;
-
-                case 'clearicon':
-                    this.clearIconTemplate = item.template;
-                    break;
-
-                case 'filtericon':
-                    this.filterIconTemplate = item.template;
-                    break;
-
-                default:
-                    this.itemTemplate = item.template;
-                    break;
-            }
-        });
     }
 
     flatOptions(options) {

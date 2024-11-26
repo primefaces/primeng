@@ -21,7 +21,7 @@ import { ChipStyle } from './style/chipstyle';
             <ng-template #iconTemplate><span *ngIf="icon" [class]="icon" [ngClass]="'p-chip-icon'" [attr.data-pc-section]="'icon'"></span></ng-template>
             <div class="p-chip-label" *ngIf="label" [attr.data-pc-section]="'label'">{{ label }}</div>
             <ng-container *ngIf="removable">
-                <ng-container *ngIf="!removeIconTemplate">
+                <ng-container *ngIf="!removeicon">
                     <span
                         tabindex="0"
                         *ngIf="removeIcon"
@@ -35,8 +35,8 @@ import { ChipStyle } from './style/chipstyle';
                     ></span>
                     <TimesCircleIcon tabindex="0" *ngIf="!removeIcon" [class]="'p-chip-remove-icon'" [attr.data-pc-section]="'removeicon'" (click)="close($event)" (keydown)="onKeydown($event)" [attr.aria-label]="removeAriaLabel" role="button" />
                 </ng-container>
-                <span *ngIf="removeIconTemplate" tabindex="0" [attr.data-pc-section]="'removeicon'" class="p-chip-remove-icon" (click)="close($event)" (keydown)="onKeydown($event)" [attr.aria-label]="removeAriaLabel" role="button">
-                    <ng-template *ngTemplateOutlet="removeIconTemplate"></ng-template>
+                <span *ngIf="removeicon" tabindex="0" [attr.data-pc-section]="'removeicon'" class="p-chip-remove-icon" (click)="close($event)" (keydown)="onKeydown($event)" [attr.aria-label]="removeAriaLabel" role="button">
+                    <ng-template *ngTemplateOutlet="removeicon"></ng-template>
                 </span>
             </ng-container>
         </div>
@@ -124,7 +124,7 @@ export class Chip extends BaseComponent {
 
     _componentStyle = inject(ChipStyle);
 
-    @ContentChild('removeicon') removeIconTemplate: TemplateRef<any> | undefined;
+    @ContentChild('removeicon') removeicon: TemplateRef<any> | undefined;
 
     ngOnChanges(simpleChanges: SimpleChanges) {
         super.ngOnChanges(simpleChanges);

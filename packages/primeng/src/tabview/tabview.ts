@@ -5,6 +5,7 @@ import {
     booleanAttribute,
     ChangeDetectionStrategy,
     Component,
+    ContentChild,
     ContentChildren,
     ElementRef,
     EventEmitter,
@@ -207,49 +208,19 @@ export class TabPanel extends BaseComponent implements AfterContentInit, OnDestr
 
     public id: string | undefined = uuid('pn_id_');
 
-    contentTemplate: TemplateRef<any> | undefined;
+    @ContentChild('content') contentTemplate: TemplateRef<any> | undefined;
 
-    headerTemplate: TemplateRef<any> | undefined;
+    @ContentChild('header') headerTemplate: TemplateRef<any> | undefined;
 
-    leftIconTemplate: TemplateRef<any> | undefined;
+    @ContentChild('lefticon') lefticonTemplate: TemplateRef<any> | undefined;
 
-    rightIconTemplate: TemplateRef<any> | undefined;
+    @ContentChild('righticon') rightIconTemplate: TemplateRef<any> | undefined;
 
-    closeIconTemplate: TemplateRef<any> | undefined;
+    @ContentChild('closeicon') closeIconTemplate: TemplateRef<any> | undefined;
 
     tabView: TabView = inject(forwardRef(() => TabView)) as TabView;
 
     _componentStyle = inject(TabsStyle);
-
-    ngAfterContentInit() {
-        (this.templates as QueryList<PrimeTemplate>).forEach((item) => {
-            switch (item.getType()) {
-                case 'header':
-                    this.headerTemplate = item.template;
-                    break;
-
-                case 'content':
-                    this.contentTemplate = item.template;
-                    break;
-
-                case 'righticon':
-                    this.rightIconTemplate = item.template;
-                    break;
-
-                case 'lefticon':
-                    this.leftIconTemplate = item.template;
-                    break;
-
-                case 'closeicon':
-                    this.closeIconTemplate = item.template;
-                    break;
-
-                default:
-                    this.contentTemplate = item.template;
-                    break;
-            }
-        });
-    }
 }
 /**
  * TabView is a container component to group content with tabs.
@@ -271,8 +242,8 @@ export class TabPanel extends BaseComponent implements AfterContentInit, OnDestr
                 type="button"
                 pRipple
             >
-                <ChevronLeftIcon *ngIf="!previousIconTemplate" [attr.aria-hidden]="true" />
-                <ng-template *ngTemplateOutlet="previousIconTemplate"></ng-template>
+                <ChevronLeftIcon *ngIf="!previousiconTemplate" [attr.aria-hidden]="true" />
+                <ng-template *ngTemplateOutlet="previousiconTemplate"></ng-template>
             </button>
             <div #content class="p-tablist-content" [ngClass]="{ 'p-tablist-viewport': scrollable }" (scroll)="onScroll($event)" [attr.data-pc-section]="'navcontent'">
                 <div #navbar class="p-tablist-tab-list" role="tablist" [attr.data-pc-section]="'nav'">
@@ -308,9 +279,9 @@ export class TabPanel extends BaseComponent implements AfterContentInit, OnDestr
                                 @if (tab.headerTemplate) {
                                     <ng-container *ngTemplateOutlet="tab.headerTemplate"></ng-container>
                                 } @else {
-                                    @if (tab.leftIconTemplate) {
-                                        <ng-template *ngTemplateOutlet="tab.leftIconTemplate"></ng-template>
-                                    } @else if (tab.leftIcon && !tab.leftIconTemplate) {
+                                    @if (tab.lefticonTemplate) {
+                                        <ng-template *ngTemplateOutlet="tab.lefticonTemplate"></ng-template>
+                                    } @else if (tab.leftIcon && !tab.lefticonTemplate) {
                                         <span class="p-tabview-left-icon" [ngClass]="tab.leftIcon"></span>
                                     }
                                     {{ tab.header }}
@@ -334,8 +305,8 @@ export class TabPanel extends BaseComponent implements AfterContentInit, OnDestr
                 </div>
             </div>
             <button *ngIf="scrollable && !forwardIsDisabled && buttonVisible" #nextBtn [attr.tabindex]="tabindex" [attr.aria-label]="nextButtonAriaLabel" class="p-tablist-next-button p-tablist-nav-button" (click)="navForward()" type="button" pRipple>
-                @if (nextIconTemplate) {
-                    <ng-template *ngTemplateOutlet="nextIconTemplate"></ng-template>
+                @if (nexticonTemplate) {
+                    <ng-template *ngTemplateOutlet="nexticonTemplate"></ng-template>
                 } @else {
                     <ChevronRightIcon [attr.aria-hidden]="true" />
                 }
@@ -351,7 +322,7 @@ export class TabPanel extends BaseComponent implements AfterContentInit, OnDestr
         '[class.p-tabs]': 'true',
         '[class.p-tabs-scrollable]': 'scrollable',
         '[class.p-component]': 'true',
-        '[attr.data-pc-name]': 'tabview'
+        '[attr.data-pc-name]': '"tabview"'
     },
     providers: [TabsStyle]
 })
@@ -479,9 +450,9 @@ export class TabView extends BaseComponent implements AfterContentInit, AfterVie
 
     private tabChangesSubscription!: Subscription;
 
-    nextIconTemplate: TemplateRef<any> | undefined;
+    nexticonTemplate: TemplateRef<any> | undefined;
 
-    previousIconTemplate: TemplateRef<any> | undefined;
+    previousiconTemplate: TemplateRef<any> | undefined;
 
     resizeObserver: Nullable<ResizeObserver>;
 
@@ -502,7 +473,6 @@ export class TabView extends BaseComponent implements AfterContentInit, AfterVie
 
     ngAfterContentInit() {
         this.initTabs();
-
         this.tabChangesSubscription = (this.tabPanels as QueryList<TabPanel>).changes.subscribe((_) => {
             this.initTabs();
             this.refreshButtonState();
@@ -511,11 +481,11 @@ export class TabView extends BaseComponent implements AfterContentInit, AfterVie
         (this.templates as QueryList<PrimeTemplate>).forEach((item) => {
             switch (item.getType()) {
                 case 'previousicon':
-                    this.previousIconTemplate = item.template;
+                    this.previousiconTemplate = item.template;
                     break;
 
                 case 'nexticon':
-                    this.nextIconTemplate = item.template;
+                    this.nexticonTemplate = item.template;
                     break;
             }
         });

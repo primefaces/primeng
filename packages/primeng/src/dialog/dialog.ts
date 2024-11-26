@@ -91,26 +91,26 @@ const hideAnimation = animation([animate('{{transition}}', style({ transform: '{
                         <ng-container *ngTemplateOutlet="_headerTemplate"></ng-container>
                         <div [ngClass]="cx('headerActions')">
                             <p-button *ngIf="maximizable" [styleClass]="cx('pcMaximizeButton')" (onClick)="maximize()" (keydown.enter)="maximize()" [tabindex]="maximizable ? '0' : '-1'" [ariaLabel]="maximizeLabel" [buttonProps]="maximizeButtonProps">
-                                <span *ngIf="maximizeIcon && !_maximizeIconTemplate && !_minimizeIconTemplate" [ngClass]="maximized ? minimizeIcon : maximizeIcon"></span>
+                                <span *ngIf="maximizeIcon && !_maximizeiconTemplate && !_minimizeiconTemplate" [ngClass]="maximized ? minimizeIcon : maximizeIcon"></span>
                                 <ng-container *ngIf="!maximizeIcon && !maximizeButtonProps?.icon">
-                                    <WindowMaximizeIcon *ngIf="!maximized && !_maximizeIconTemplate" />
-                                    <WindowMinimizeIcon *ngIf="maximized && !_minimizeIconTemplate" />
+                                    <WindowMaximizeIcon *ngIf="!maximized && !_maximizeiconTemplate" />
+                                    <WindowMinimizeIcon *ngIf="maximized && !_minimizeiconTemplate" />
                                 </ng-container>
                                 <ng-container *ngIf="!maximized">
-                                    <ng-template *ngTemplateOutlet="_maximizeIconTemplate"></ng-template>
+                                    <ng-template *ngTemplateOutlet="_maximizeiconTemplate"></ng-template>
                                 </ng-container>
                                 <ng-container *ngIf="maximized">
-                                    <ng-template *ngTemplateOutlet="_minimizeIconTemplate"></ng-template>
+                                    <ng-template *ngTemplateOutlet="_minimizeiconTemplate"></ng-template>
                                 </ng-container>
                             </p-button>
                             <p-button *ngIf="closable" [styleClass]="cx('pcCloseButton')" [ariaLabel]="closeAriaLabel" (onClick)="close($event)" (keydown.enter)="close($event)" [tabindex]="closeTabindex" [buttonProps]="closeButtonProps">
                                 <ng-template #icon>
-                                    <ng-container *ngIf="!_closeIconTemplate && !closeButtonProps?.icon">
+                                    <ng-container *ngIf="!_closeiconTemplate && !closeButtonProps?.icon">
                                         <span *ngIf="closeIcon" [ngClass]="closeIcon"></span>
                                         <TimesIcon *ngIf="!closeIcon" />
                                     </ng-container>
-                                    <span *ngIf="_closeIconTemplate">
-                                        <ng-template *ngTemplateOutlet="_closeIconTemplate"></ng-template>
+                                    <span *ngIf="_closeiconTemplate">
+                                        <ng-template *ngTemplateOutlet="_closeiconTemplate"></ng-template>
                                     </span>
                                 </ng-template>
                             </p-button>
@@ -464,7 +464,7 @@ export class Dialog extends BaseComponent implements OnInit, OnDestroy {
      * Header template.
      * @group Props
      */
-    @Input() headerTemplate: TemplateRef<any> | undefined;
+    @Input('content') headerTemplate: TemplateRef<any> | undefined;
     /**
      * Content template.
      * @group Props
@@ -502,11 +502,11 @@ export class Dialog extends BaseComponent implements OnInit, OnDestroy {
 
     @ContentChild('footer') _footerTemplate: TemplateRef<any> | undefined;
 
-    @ContentChild('closeicon') _closeIconTemplate: TemplateRef<any> | undefined;
+    @ContentChild('closeicon') _closeiconTemplate: TemplateRef<any> | undefined;
 
-    @ContentChild('maximizeicon') _maximizeIconTemplate: TemplateRef<any> | undefined;
+    @ContentChild('maximizeicon') _maximizeiconTemplate: TemplateRef<any> | undefined;
 
-    @ContentChild('minimizeicon') _minimizeIconTemplate: TemplateRef<any> | undefined;
+    @ContentChild('minimizeicon') _minimizeiconTemplate: TemplateRef<any> | undefined;
 
     @ContentChild('headless') _headlessTemplate: TemplateRef<any> | undefined;
 

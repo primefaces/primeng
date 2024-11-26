@@ -176,11 +176,6 @@ export class Popover extends BaseComponent implements OnDestroy {
      * @group Templates
      */
     @ContentChild('content') contentTemplate: Nullable<TemplateRef<any>>;
-    /**
-     * Custom close icon template.
-     * @group Templates
-     */
-    @ContentChild('closeicon') closeIconTemplate: TemplateRef<any>;
 
     destroyCallback: Nullable<Function>;
 

@@ -95,7 +95,7 @@ import {
                     (dragend)="onDragStop($event)"
                 >
                     <button type="button" [attr.data-pc-section]="'toggler'" class="p-tree-node-toggle-button" (click)="toggle($event)" pRipple tabindex="-1">
-                        <ng-container *ngIf="!tree.togglerIconTemplate">
+                        <ng-container *ngIf="!tree.togglericonTemplate">
                             <ng-container *ngIf="!node.loading">
                                 <ChevronRightIcon *ngIf="!node.expanded" [styleClass]="'p-tree-node-toggle-icon'" />
                                 <ChevronDownIcon *ngIf="node.expanded" [styleClass]="'p-tree-node-toggle-icon'" />
@@ -104,8 +104,8 @@ import {
                                 <SpinnerIcon [styleClass]="'pi-spin p-tree-node-toggle-icon'" />
                             </ng-container>
                         </ng-container>
-                        <span *ngIf="tree.togglerIconTemplate" class="p-tree-node-toggle-icon">
-                            <ng-template *ngTemplateOutlet="tree.togglerIconTemplate; context: { $implicit: node.expanded }"></ng-template>
+                        <span *ngIf="tree.togglericonTemplate" class="p-tree-node-toggle-icon">
+                            <ng-template *ngTemplateOutlet="tree.togglericonTemplate; context: { $implicit: node.expanded }"></ng-template>
                         </span>
                     </button>
 
@@ -120,11 +120,11 @@ import {
                         [attr.data-p-partialchecked]="node.partialSelected"
                         [tabindex]="-1"
                     >
-                        <ng-container *ngIf="tree.checkboxIconTemplate">
+                        <ng-container *ngIf="tree.checkboxiconTemplate">
                             <ng-template #icon>
                                 <ng-template
                                     *ngTemplateOutlet="
-                                        tree.checkboxIconTemplate;
+                                        tree.checkboxiconTemplate;
                                         context: {
                                             $implicit: isSelected(),
                                             partialSelected: node.partialSelected,
@@ -704,9 +704,9 @@ export class UITreeNode extends BaseComponent implements OnInit {
             <div class="p-tree-mask p-overlay-mask" *ngIf="loading && loadingMode === 'mask'">
                 <i *ngIf="loadingIcon" [class]="'p-tree-loading-icon pi-spin ' + loadingIcon"></i>
                 <ng-container *ngIf="!loadingIcon">
-                    <SpinnerIcon *ngIf="!loadingIconTemplate" [spin]="true" [styleClass]="'p-tree-loading-icon'" />
-                    <span *ngIf="loadingIconTemplate" class="p-tree-loading-icon">
-                        <ng-template *ngTemplateOutlet="loadingIconTemplate"></ng-template>
+                    <SpinnerIcon *ngIf="!loadingiconTemplate" [spin]="true" [styleClass]="'p-tree-loading-icon'" />
+                    <span *ngIf="loadingiconTemplate" class="p-tree-loading-icon">
+                        <ng-template *ngTemplateOutlet="loadingiconTemplate"></ng-template>
                     </span>
                 </ng-container>
             </div>
@@ -717,9 +717,9 @@ export class UITreeNode extends BaseComponent implements OnInit {
                 <p-iconField *ngIf="filter">
                     <input #filter pInputText type="search" autocomplete="off" class="p-tree-filter-input" [attr.placeholder]="filterPlaceholder" (keydown.enter)="$event.preventDefault()" (input)="_filter($event.target.value)" />
                     <p-inputIcon>
-                        <SearchIcon *ngIf="!filterIconTemplate" class="p-tree-filter-icon" />
-                        <span *ngIf="filterIconTemplate">
-                            <ng-template *ngTemplateOutlet="filterIconTemplate"></ng-template>
+                        <SearchIcon *ngIf="!filtericonTemplate" class="p-tree-filter-icon" />
+                        <span *ngIf="filtericonTemplate">
+                            <ng-template *ngTemplateOutlet="filtericonTemplate"></ng-template>
                         </span>
                     </p-inputIcon>
                 </p-iconField>
@@ -783,10 +783,10 @@ export class UITreeNode extends BaseComponent implements OnInit {
             </ng-container>
 
             <div class="p-tree-empty-message" *ngIf="!loading && (getRootNode() == null || getRootNode().length === 0)">
-                <ng-container *ngIf="!emptyMessageTemplate; else emptyFilter">
+                <ng-container *ngIf="!emptymessageTemplate; else emptyFilter">
                     {{ emptyMessageLabel }}
                 </ng-container>
-                <ng-container #emptyFilter *ngTemplateOutlet="emptyMessageTemplate"></ng-container>
+                <ng-container #emptyFilter *ngTemplateOutlet="emptymessageTemplate"></ng-container>
             </div>
             <ng-container *ngTemplateOutlet="footerTemplate"></ng-container>
         </div>
@@ -1085,27 +1085,27 @@ export class Tree extends BaseComponent implements OnInit, OnChanges, OnDestroy,
      * Empty message template.
      * @group Templates
      */
-    @ContentChild('empty') emptyMessageTemplate: TemplateRef<any> | undefined;
+    @ContentChild('empty') emptymessageTemplate: TemplateRef<any> | undefined;
     /**
      * Toggler icon template.
      * @group Templates
      */
-    @ContentChild('togglericon') togglerIconTemplate: TemplateRef<any> | undefined;
+    @ContentChild('togglericon') togglericonTemplate: TemplateRef<any> | undefined;
     /**
      * Checkbox icon template.
      * @group Templates
      */
-    @ContentChild('checkboxicon') checkboxIconTemplate: TemplateRef<any> | undefined;
+    @ContentChild('checkboxicon') checkboxiconTemplate: TemplateRef<any> | undefined;
     /**
      * Loading icon template.
      * @group Templates
      */
-    @ContentChild('loadingicon') loadingIconTemplate: TemplateRef<any> | undefined;
+    @ContentChild('loadingicon') loadingiconTemplate: TemplateRef<any> | undefined;
     /**
      * Filter icon template.
      * @group Templates
      */
-    @ContentChild('filtericon') filterIconTemplate: TemplateRef<any> | undefined;
+    @ContentChild('filtericon') filtericonTemplate: TemplateRef<any> | undefined;
 
     @ViewChild('filter') filterViewChild: Nullable<ElementRef>;
 

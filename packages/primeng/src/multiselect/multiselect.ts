@@ -51,7 +51,7 @@ import {
 import { FilterService, Footer, Header, OverlayOptions, OverlayService, PrimeTemplate, ScrollerOptions, SharedModule, TranslationKeys } from 'primeng/api';
 import { AutoFocus } from 'primeng/autofocus';
 import { BaseComponent } from 'primeng/basecomponent';
-import { Checkbox } from 'primeng/checkbox';
+import { Checkbox, CheckboxModule } from 'primeng/checkbox';
 import { Chip } from 'primeng/chip';
 import { DomHandler } from 'primeng/dom';
 import { IconField } from 'primeng/iconfield';
@@ -99,9 +99,9 @@ export const MULTISELECT_VALUE_ACCESSOR: any = {
             (mouseenter)="onOptionMouseEnter($event)"
         >
             <p-checkbox [ngModel]="selected" [binary]="true" [tabindex]="-1" [variant]="variant">
-                <ng-container *ngIf="itemCheckboxIconTemplate">
+                <ng-container *ngIf="itemcheckboxiconTemplate">
                     <ng-template #icon let-class="class">
-                        <ng-template *ngTemplateOutlet="itemCheckboxIconTemplate; context: { checked: selected, class: class }"></ng-template>
+                        <ng-template *ngTemplateOutlet="itemcheckboxiconTemplate; context: { checked: selected, class: class }"></ng-template>
                     </ng-template>
                 </ng-container>
             </p-checkbox>
@@ -134,9 +134,9 @@ export class MultiSelectItem extends BaseComponent {
 
     @Input() template: TemplateRef<any> | undefined;
 
-    @Input() checkIconTemplate: TemplateRef<any> | undefined;
+    @Input() checkiconTemplate: TemplateRef<any> | undefined;
 
-    @Input() itemCheckboxIconTemplate: TemplateRef<any> | undefined;
+    @Input() itemcheckboxiconTemplate: TemplateRef<any> | undefined;
 
     @Output() onClick: EventEmitter<any> = new EventEmitter();
 
@@ -168,29 +168,7 @@ export class MultiSelectItem extends BaseComponent {
 @Component({
     selector: 'p-multiSelect, p-multiselect, p-multi-select',
     standalone: true,
-    imports: [
-        CommonModule,
-        MultiSelectItem,
-        Overlay,
-        SharedModule,
-        Tooltip,
-        Ripple,
-        Scroller,
-        AutoFocus,
-        CheckIcon,
-        SearchIcon,
-        TimesCircleIcon,
-        TimesIcon,
-        ChevronDownIcon,
-        CheckIcon,
-        MinusIcon,
-        IconField,
-        InputIcon,
-        InputText,
-        Chip,
-        Checkbox,
-        FormsModule
-    ],
+    imports: [CommonModule, MultiSelectItem, Overlay, SharedModule, Tooltip, Ripple, Scroller, AutoFocus, CheckIcon, SearchIcon, TimesCircleIcon, TimesIcon, ChevronDownIcon, MinusIcon, IconField, InputIcon, InputText, Chip, Checkbox, FormsModule],
     template: `
         <div class="p-hidden-accessible" [attr.data-p-hidden-accessible]="true">
             <input
@@ -225,16 +203,16 @@ export class MultiSelectItem extends BaseComponent {
             [tooltipStyleClass]="tooltipStyleClass"
         >
             <div [ngClass]="labelClass">
-                <ng-container *ngIf="!selectedItemsTemplate">
+                <ng-container *ngIf="!selecteditemsTemplate">
                     <ng-container *ngIf="display === 'comma'">{{ label() || 'empty' }}</ng-container>
                     <ng-container *ngIf="display === 'chip'">
                         <div #token *ngFor="let item of chipSelectedItems(); let i = index" class="p-multiselect-chip-item">
                             <p-chip styleClass="p-multiselect-chip" [label]="getLabelByValue(item)" [removable]="true" (onRemove)="removeOption(item, $event)" [removeIcon]="chipIcon">
-                                <ng-container *ngIf="chipIconTemplate || removeTokenIconTemplate">
+                                <ng-container *ngIf="chipiconTemplate || removetokeniconTemplate">
                                     <ng-template #removeicon>
                                         <ng-container *ngIf="!disabled">
-                                            <span class="p-multiselect-chip-icon" *ngIf="chipIconTemplate || removeTokenIconTemplate" (click)="removeOption(item, $event)" [attr.data-pc-section]="'clearicon'" [attr.aria-hidden]="true">
-                                                <ng-container *ngTemplateOutlet="chipIconTemplate || removeTokenIconTemplate; context: { class: 'p-multiselect-chip-icon' }"></ng-container>
+                                            <span class="p-multiselect-chip-icon" *ngIf="chipiconTemplate || removetokeniconTemplate" (click)="removeOption(item, $event)" [attr.data-pc-section]="'clearicon'" [attr.aria-hidden]="true">
+                                                <ng-container *ngTemplateOutlet="chipiconTemplate || removetokeniconTemplate; context: { class: 'p-multiselect-chip-icon' }"></ng-container>
                                             </span>
                                         </ng-container>
                                     </ng-template>
@@ -244,32 +222,32 @@ export class MultiSelectItem extends BaseComponent {
                         <ng-container *ngIf="!modelValue() || modelValue().length === 0">{{ placeholder() || defaultLabel || 'empty' }}</ng-container>
                     </ng-container>
                 </ng-container>
-                <ng-container *ngTemplateOutlet="selectedItemsTemplate; context: { $implicit: selectedOptions, removeChip: removeOption.bind(this) }"></ng-container>
+                <ng-container *ngTemplateOutlet="selecteditemsTemplate; context: { $implicit: selectedOptions, removeChip: removeOption.bind(this) }"></ng-container>
             </div>
         </div>
         <ng-container *ngIf="isVisibleClearIcon">
-            <TimesIcon *ngIf="!clearIconTemplate" class="p-multiselect-clear-icon" (click)="clear($event)" [attr.data-pc-section]="'clearicon'" [attr.aria-hidden]="true" />
-            <span *ngIf="clearIconTemplate" class="p-multiselect-clear-icon" (click)="clear($event)" [attr.data-pc-section]="'clearicon'" [attr.aria-hidden]="true">
-                <ng-template *ngTemplateOutlet="clearIconTemplate"></ng-template>
+            <TimesIcon *ngIf="!cleariconTemplate" class="p-multiselect-clear-icon" (click)="clear($event)" [attr.data-pc-section]="'clearicon'" [attr.aria-hidden]="true" />
+            <span *ngIf="cleariconTemplate" class="p-multiselect-clear-icon" (click)="clear($event)" [attr.data-pc-section]="'clearicon'" [attr.aria-hidden]="true">
+                <ng-template *ngTemplateOutlet="cleariconTemplate"></ng-template>
             </span>
         </ng-container>
         <div class="p-multiselect-dropdown">
             <ng-container *ngIf="loading; else elseBlock">
-                <ng-container *ngIf="loadingIconTemplate">
-                    <ng-container *ngTemplateOutlet="loadingIconTemplate"></ng-container>
+                <ng-container *ngIf="loadingiconTemplate">
+                    <ng-container *ngTemplateOutlet="loadingiconTemplate"></ng-container>
                 </ng-container>
-                <ng-container *ngIf="!loadingIconTemplate">
+                <ng-container *ngIf="!loadingiconTemplate">
                     <span *ngIf="loadingIcon" [ngClass]="'p-multiselect-loading-icon pi-spin ' + loadingIcon" aria-hidden="true"></span>
                     <span *ngIf="!loadingIcon" [class]="'p-multiselect-loading-icon pi pi-spinner pi-spin'" aria-hidden="true"></span>
                 </ng-container>
             </ng-container>
             <ng-template #elseBlock>
-                <ng-container *ngIf="!dropdownIconTemplate">
+                <ng-container *ngIf="!dropdowniconTemplate">
                     <span *ngIf="dropdownIcon" class="p-multiselect-dropdown-icon" [ngClass]="dropdownIcon" [attr.data-pc-section]="'triggericon'" [attr.aria-hidden]="true"></span>
                     <ChevronDownIcon *ngIf="!dropdownIcon" [styleClass]="'p-multiselect-dropdown-icon'" [attr.data-pc-section]="'triggericon'" [attr.aria-hidden]="true" />
                 </ng-container>
-                <span *ngIf="dropdownIconTemplate" class="p-multiselect-dropdown-icon" [attr.data-pc-section]="'triggericon'" [attr.aria-hidden]="true">
-                    <ng-template *ngTemplateOutlet="dropdownIconTemplate"></ng-template>
+                <span *ngIf="dropdowniconTemplate" class="p-multiselect-dropdown-icon" [attr.data-pc-section]="'triggericon'" [attr.aria-hidden]="true">
+                    <ng-template *ngTemplateOutlet="dropdowniconTemplate"></ng-template>
                 </span>
             </ng-template>
         </div>
@@ -306,11 +284,11 @@ export class MultiSelectItem extends BaseComponent {
                         </ng-container>
                         <ng-template #builtInFilterElement>
                             <p-checkbox [ngModel]="allSelected()" [binary]="true" (onChange)="onToggleAll($event)" *ngIf="showToggleAll && !selectionLimit" [variant]="variant" [disabled]="disabled" #headerCheckbox>
-                                <ng-template #icon let-class="class">
-                                    <CheckIcon *ngIf="!headerCheckboxIconTemplate && allSelected()" [styleClass]="class" [attr.data-pc-section]="'icon'" />
+                                <ng-template #checkboxicon let-class="class">
+                                    <CheckIcon *ngIf="!headercheckboxiconTemplate && allSelected()" [styleClass]="class" [attr.data-pc-section]="'icon'" />
                                     <ng-template
                                         *ngTemplateOutlet="
-                                            headerCheckboxIconTemplate;
+                                            headercheckboxiconTemplate;
                                             context: {
                                                 checked: allSelected(),
                                                 partialSelected: partialSelected(),
@@ -343,9 +321,9 @@ export class MultiSelectItem extends BaseComponent {
                                         [attr.aria-label]="ariaFilterLabel"
                                     />
                                     <p-inputicon>
-                                        <SearchIcon [styleClass]="'p-multiselect-filter-icon'" *ngIf="!filterIconTemplate" />
-                                        <span *ngIf="filterIconTemplate" class="p-multiselect-filter-icon">
-                                            <ng-template *ngTemplateOutlet="filterIconTemplate"></ng-template>
+                                        <SearchIcon [styleClass]="'p-multiselect-filter-icon'" *ngIf="!filtericonTemplate" />
+                                        <span *ngIf="filtericonTemplate" class="p-multiselect-filter-icon">
+                                            <ng-template *ngTemplateOutlet="filtericonTemplate"></ng-template>
                                         </span>
                                     </p-inputicon>
                                 </p-iconfield>
@@ -395,8 +373,8 @@ export class MultiSelectItem extends BaseComponent {
                                             [label]="getOptionLabel(option)"
                                             [disabled]="isOptionDisabled(option)"
                                             [template]="itemTemplate"
-                                            [checkIconTemplate]="checkIconTemplate"
-                                            [itemCheckboxIconTemplate]="itemCheckboxIconTemplate"
+                                            [checkiconTemplate]="checkiconTemplate"
+                                            [itemcheckboxiconTemplate]="itemcheckboxiconTemplate"
                                             [itemSize]="scrollerOptions.itemSize"
                                             [focused]="focusedOptionIndex() === getOptionIndex(i, scrollerOptions)"
                                             [ariaPosInset]="getAriaPosInset(getOptionIndex(i, scrollerOptions))"
@@ -409,10 +387,10 @@ export class MultiSelectItem extends BaseComponent {
                                 </ng-template>
 
                                 <li *ngIf="hasFilter() && isEmpty()" class="p-multiselect-empty-message" [ngStyle]="{ height: scrollerOptions.itemSize + 'px' }" role="option">
-                                    @if (!emptyFilterTemplate && !emptyTemplate) {
+                                    @if (!emptyfilterTemplate && !emptyTemplate) {
                                         {{ emptyFilterMessageLabel }}
                                     } @else {
-                                        <ng-container *ngTemplateOutlet="emptyFilterTemplate || emptyTemplate"></ng-container>
+                                        <ng-container *ngTemplateOutlet="emptyfilterTemplate || emptyTemplate"></ng-container>
                                     }
                                 </li>
                                 <li *ngIf="!hasFilter() && isEmpty()" class="p-multiselect-empty-message" [ngStyle]="{ height: scrollerOptions.itemSize + 'px' }" role="option">
@@ -1014,41 +992,45 @@ export class MultiSelect extends BaseComponent implements OnInit, AfterViewInit,
 
     public filtered: boolean | undefined;
 
-    public itemTemplate: TemplateRef<any> | undefined;
+    @ContentChild('item') itemTemplate: TemplateRef<any> | undefined;
 
-    public groupTemplate: TemplateRef<any> | undefined;
+    @ContentChild('group') groupTemplate: TemplateRef<any> | undefined;
 
-    public loaderTemplate: TemplateRef<any> | undefined;
+    @ContentChild('loader') loaderTemplate: TemplateRef<any> | undefined;
 
-    public headerTemplate: TemplateRef<any> | undefined;
+    @ContentChild('header') headerTemplate: TemplateRef<any> | undefined;
 
-    public filterTemplate: TemplateRef<any> | undefined;
+    @ContentChild('filter') filterTemplate: TemplateRef<any> | undefined;
 
-    public footerTemplate: TemplateRef<any> | undefined;
+    @ContentChild('footer') footerTemplate: TemplateRef<any> | undefined;
 
-    public emptyFilterTemplate: TemplateRef<any> | undefined;
+    @ContentChild('emptyfilter') emptyfilterTemplate: TemplateRef<any> | undefined;
 
-    public emptyTemplate: TemplateRef<any> | undefined;
+    @ContentChild('empty') emptyTemplate: TemplateRef<any> | undefined;
 
-    public selectedItemsTemplate: TemplateRef<any> | undefined;
+    @ContentChild('selecteditems') selecteditemsTemplate: TemplateRef<any> | undefined;
 
-    checkIconTemplate: TemplateRef<any> | undefined;
+    @ContentChild('checkicon') checkiconTemplate: TemplateRef<any> | undefined;
 
-    loadingIconTemplate: TemplateRef<any> | undefined;
+    @ContentChild('loadingicon') loadingiconTemplate: TemplateRef<any> | undefined;
 
-    filterIconTemplate: TemplateRef<any> | undefined;
+    @ContentChild('filtericon') filtericonTemplate: TemplateRef<any> | undefined;
 
-    removeTokenIconTemplate: TemplateRef<any> | undefined;
+    @ContentChild('removetokenicon') removetokeniconTemplate: TemplateRef<any> | undefined;
 
-    chipIconTemplate: TemplateRef<any> | undefined;
+    @ContentChild('chipicon') chipiconTemplate: TemplateRef<any> | undefined;
 
-    clearIconTemplate: TemplateRef<any> | undefined;
+    @ContentChild('clearicon') cleariconTemplate: TemplateRef<any> | undefined;
 
-    dropdownIconTemplate: TemplateRef<any> | undefined;
+    @ContentChild('dropdownicon') dropdowniconTemplate: TemplateRef<any> | undefined;
 
-    itemCheckboxIconTemplate: TemplateRef<any> | undefined;
+    @ContentChild('itemcheckboxicon') itemcheckboxiconTemplate: TemplateRef<any> | undefined;
 
-    headerCheckboxIconTemplate: TemplateRef<any> | undefined;
+    @ContentChild('headercheckboxicon') headercheckboxiconTemplate: TemplateRef<any> | undefined;
+
+    ngAfterContentInit() {
+        super.ngAfterContentInit();
+    }
 
     public headerCheckboxFocus: boolean | undefined;
 
@@ -1248,89 +1230,6 @@ export class MultiSelect extends BaseComponent implements OnInit, AfterViewInit,
 
     maxSelectionLimitReached() {
         return this.selectionLimit && this.modelValue() && this.modelValue().length === this.selectionLimit;
-    }
-
-    ngAfterContentInit() {
-        (this.templates as QueryList<PrimeTemplate>).forEach((item) => {
-            switch (item.getType()) {
-                case 'item':
-                    this.itemTemplate = item.template;
-                    break;
-
-                case 'group':
-                    this.groupTemplate = item.template;
-                    break;
-
-                case 'selectedItems':
-                    this.selectedItemsTemplate = item.template;
-                    break;
-
-                case 'header':
-                    this.headerTemplate = item.template;
-                    break;
-
-                case 'filter':
-                    this.filterTemplate = item.template;
-                    break;
-
-                case 'emptyfilter':
-                    this.emptyFilterTemplate = item.template;
-                    break;
-
-                case 'empty':
-                    this.emptyTemplate = item.template;
-                    break;
-
-                case 'footer':
-                    this.footerTemplate = item.template;
-                    break;
-
-                case 'loader':
-                    this.loaderTemplate = item.template;
-                    break;
-
-                case 'checkicon':
-                    this.checkIconTemplate = item.template;
-                    console.log('checkicon is deprecated and will removed in v18. Use itemcheckboxicon or headercheckboxicon templates instead.');
-                    break;
-
-                case 'headercheckboxicon':
-                    this.headerCheckboxIconTemplate = item.template;
-                    break;
-
-                case 'loadingicon':
-                    this.loadingIconTemplate = item.template;
-                    break;
-
-                case 'filtericon':
-                    this.filterIconTemplate = item.template;
-                    break;
-
-                case 'removetokenicon':
-                    this.removeTokenIconTemplate = item.template;
-                    break;
-
-                case 'chipicon':
-                    this.chipIconTemplate = item.template;
-                    break;
-
-                case 'clearicon':
-                    this.clearIconTemplate = item.template;
-                    break;
-
-                case 'dropdownicon':
-                    this.dropdownIconTemplate = item.template;
-                    break;
-
-                case 'itemcheckboxicon':
-                    this.itemCheckboxIconTemplate = item.template;
-                    break;
-
-                default:
-                    this.itemTemplate = item.template;
-                    break;
-            }
-        });
     }
 
     ngAfterViewInit() {

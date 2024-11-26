@@ -44,8 +44,8 @@ import { TabMenuStyle } from './style/tabmenustyle';
         <div [ngClass]="{ 'p-tabmenu p-component': true, 'p-tabmenu-scrollable': scrollable }" [ngStyle]="style" [class]="styleClass">
             <div class="p-tabmenu-nav-container">
                 <button *ngIf="scrollable && !backwardIsDisabled" #prevBtn class="p-tabmenu-nav-prev-button p-tabmenu-nav-button" (click)="navBackward()" type="button" role="navigation" pRipple>
-                    <ChevronLeftIcon *ngIf="!previousIconTemplate" [attr.aria-hidden]="true" />
-                    <ng-template *ngTemplateOutlet="previousIconTemplate"></ng-template>
+                    <ChevronLeftIcon *ngIf="!previousiconTemplate" [attr.aria-hidden]="true" />
+                    <ng-template *ngTemplateOutlet="previousiconTemplate"></ng-template>
                 </button>
                 <div #content class="p-tabmenu-nav-content" (scroll)="onScroll($event)">
                     <ul #navbar class="p-tabmenu-nav p-reset" role="menubar" [attr.aria-labelledby]="ariaLabelledBy" [attr.aria-label]="ariaLabel">
@@ -123,8 +123,8 @@ import { TabMenuStyle } from './style/tabmenustyle';
                     </ul>
                 </div>
                 <button *ngIf="scrollable && !forwardIsDisabled" #nextBtn class="p-tabmenu-nav-next-button p-tabmenu-nav-button" (click)="navForward()" type="button" role="navigation" pRipple>
-                    <ChevronRightIcon *ngIf="!previousIconTemplate" [attr.aria-hidden]="true" />
-                    <ng-template *ngTemplateOutlet="nextIconTemplate"></ng-template>
+                    <ChevronRightIcon *ngIf="!previousiconTemplate" [attr.aria-hidden]="true" />
+                    <ng-template *ngTemplateOutlet="nexticonTemplate"></ng-template>
                 </button>
             </div>
         </div>
@@ -133,7 +133,7 @@ import { TabMenuStyle } from './style/tabmenustyle';
     encapsulation: ViewEncapsulation.None,
     providers: [TabMenuStyle]
 })
-export class TabMenu extends BaseComponent implements AfterContentInit, AfterViewInit, AfterViewChecked, OnDestroy {
+export class TabMenu extends BaseComponent implements AfterViewInit, AfterViewChecked, OnDestroy {
     /**
      * An array of menuitems.
      * @group Props
@@ -221,12 +221,12 @@ export class TabMenu extends BaseComponent implements AfterContentInit, AfterVie
      * Template of the previous icon.
      * @group Templates
      */
-    @ContentChild('previousicon') previousIconTemplate: Nullable<TemplateRef<any>>;
+    @ContentChild('previousicon') previousiconTemplate: Nullable<TemplateRef<any>>;
     /**
      * Template of the next icon.
      * @group Templates
      */
-    @ContentChild('nexticon') nextIconTemplate: Nullable<TemplateRef<any>>;
+    @ContentChild('nexticon') nexticonTemplate: Nullable<TemplateRef<any>>;
 
     tabChanged: boolean | undefined;
 
@@ -264,28 +264,6 @@ export class TabMenu extends BaseComponent implements AfterContentInit, AfterVie
     constructor() {
         super();
         console.log('TabMenu is deprecated as of v18. Use tabs component instead https://primeng.org/tabs#tabmenu');
-    }
-
-    ngAfterContentInit() {
-        this.templates?.forEach((item) => {
-            switch (item.getType()) {
-                case 'item':
-                    this.itemTemplate = item.template;
-                    break;
-
-                case 'nexticon':
-                    this.nextIconTemplate = item.template;
-                    break;
-
-                case 'previousicon':
-                    this.previousIconTemplate = item.template;
-                    break;
-
-                default:
-                    this.itemTemplate = item.template;
-                    break;
-            }
-        });
     }
 
     ngAfterViewInit(): void {

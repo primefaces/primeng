@@ -54,12 +54,12 @@ import { CarouselStyle } from './style/carouselstyle';
                         [buttonProps]="prevButtonProps"
                     >
                         <ng-template #icon>
-                            <ng-container *ngIf="!previousIconTemplate && !prevButtonProps?.icon">
+                            <ng-container *ngIf="!previousicon && !prevButtonProps?.icon">
                                 <ChevronLeftIcon *ngIf="!isVertical()" [styleClass]="'carousel-prev-icon'" />
                                 <ChevronUpIcon *ngIf="isVertical()" [styleClass]="'carousel-prev-icon'" />
                             </ng-container>
-                            <span *ngIf="previousIconTemplate && !prevButtonProps?.icon" class="p-carousel-prev-icon">
-                                <ng-template *ngTemplateOutlet="previousIconTemplate"></ng-template>
+                            <span *ngIf="previousicon && !prevButtonProps?.icon" class="p-carousel-prev-icon">
+                                <ng-template *ngTemplateOutlet="previousicon"></ng-template>
                             </span>
                         </ng-template>
                     </p-button>
@@ -117,12 +117,12 @@ import { CarouselStyle } from './style/carouselstyle';
                         [buttonProps]="nextButtonProps"
                         [text]="true"
                     >
-                        <ng-container *ngIf="!nextIconTemplate && !nextButtonProps?.icon">
+                        <ng-container *ngIf="!nexticon && !nextButtonProps?.icon">
                             <ChevronRightIcon *ngIf="!isVertical()" [styleClass]="'carousel-prev-icon'" />
                             <ChevronDownIcon *ngIf="isVertical()" [styleClass]="'carousel-prev-icon'" />
                         </ng-container>
-                        <span *ngIf="nextIconTemplate && !nextButtonProps?.icon" class="p-carousel-prev-icon">
-                            <ng-template *ngTemplateOutlet="nextIconTemplate"></ng-template>
+                        <span *ngIf="nexticon && !nextButtonProps?.icon" class="p-carousel-prev-icon">
+                            <ng-template *ngTemplateOutlet="nexticon"></ng-template>
                         </span>
                     </p-button>
                 </div>
@@ -387,13 +387,13 @@ export class Carousel extends BaseComponent implements AfterContentInit {
      * Template for the previous button icon.
      * @group Templates
      */
-    @ContentChild('previousicon') previousIconTemplate: TemplateRef<any> | undefined;
+    @ContentChild('previousicon') previousicon: TemplateRef<any> | undefined;
 
     /**
      * Template for the next button icon.
      * @group Templates
      */
-    @ContentChild('nexticon') nextIconTemplate: TemplateRef<any> | undefined;
+    @ContentChild('nexticon') nexticon: TemplateRef<any> | undefined;
 
     window: Window;
 
@@ -441,6 +441,7 @@ export class Carousel extends BaseComponent implements AfterContentInit {
     }
 
     ngAfterContentInit() {
+        super.ngAfterContentInit();
         this.id = uuid('pn_id_');
         if (isPlatformBrowser(this.platformId)) {
             this.allowAutoplay = !!this.autoplayInterval;

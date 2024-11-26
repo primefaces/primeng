@@ -95,7 +95,7 @@ export interface PanelHeaderIconsTemplateContext {
                         (keydown)="onKeyDown($event)"
                         [buttonProps]="toggleButtonProps"
                     >
-                        <ng-container *ngIf="!headerIconsTemplate && !toggleButtonProps?.icon">
+                        <ng-container *ngIf="!headericonsTemplate && !toggleButtonProps?.icon">
                             <ng-container *ngIf="!collapsed">
                                 <span *ngIf="expandIcon" [class]="expandIcon"></span>
                                 <MinusIcon *ngIf="!expandIcon" />
@@ -107,7 +107,7 @@ export interface PanelHeaderIconsTemplateContext {
                             </ng-container>
                         </ng-container>
 
-                        <ng-template *ngTemplateOutlet="headerIconsTemplate; context: { $implicit: collapsed }"></ng-template>
+                        <ng-template *ngTemplateOutlet="headericonsTemplate; context: { $implicit: collapsed }"></ng-template>
                     </p-button>
                 </div>
             </div>
@@ -313,29 +313,7 @@ export class Panel extends BaseComponent implements BlockableUI {
      * @see {@link PanelHeaderIconsTemplateContext}
      * @group Templates
      */
-    @ContentChild('headericons') headerIconsTemplate: TemplateRef<PanelHeaderIconsTemplateContext> | undefined;
-
-    ngAfterContentInit() {
-        this.templates.forEach((item) => {
-            switch (item.getType()) {
-                case 'header':
-                    this.headerTemplate = item.template;
-                    break;
-                case 'icon':
-                    this.iconTemplate = item.template;
-                    break;
-                case 'content':
-                    this.contentTemplate = item.template;
-                    break;
-                case 'footer':
-                    this.footerTemplate = item.template;
-                    break;
-                case 'headericons':
-                    this.headerIconsTemplate = item.template;
-                    break;
-            }
-        });
-    }
+    @ContentChild('headericons') headericonsTemplate: TemplateRef<PanelHeaderIconsTemplateContext> | undefined;
 
     readonly id = uuid('pn_id_');
 

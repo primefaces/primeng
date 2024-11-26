@@ -25,7 +25,7 @@ import { BlockUiStyle } from './style/blockuistyle';
             [attr.data-pc-section]="'root'"
         >
             <ng-content></ng-content>
-            <ng-container *ngTemplateOutlet="contentTemplate"></ng-container>
+            <ng-container *ngTemplateOutlet="content"></ng-container>
         </div>
     `,
     changeDetection: ChangeDetectionStrategy.OnPush,
@@ -72,7 +72,7 @@ export class BlockUI extends BaseComponent implements AfterViewInit, OnDestroy {
      * template of the content
      * @group Templates
      */
-    @ContentChild('content') contentTemplate: TemplateRef<any> | undefined;
+    @ContentChild('content') content: TemplateRef<any> | undefined;
 
     @ViewChild('mask') mask: ElementRef | undefined;
 

@@ -42,8 +42,8 @@ export class InplaceContent {}
                 <ng-container *ngIf="closable">
                     <button *ngIf="closeIcon" type="button" [icon]="closeIcon" pButton pRipple (click)="onDeactivateClick($event)" [attr.aria-label]="closeAriaLabel"></button>
                     <button *ngIf="!closeIcon" type="button" pButton pRipple [ngClass]="'p-button-icon-only'" (click)="onDeactivateClick($event)" [attr.aria-label]="closeAriaLabel">
-                        <TimesIcon *ngIf="!closeIconTemplate" />
-                        <ng-template *ngTemplateOutlet="closeIconTemplate"></ng-template>
+                        <TimesIcon *ngIf="!closeicon" />
+                        <ng-template *ngTemplateOutlet="closeicon"></ng-template>
                     </button>
                 </ng-container>
             </div>
@@ -119,7 +119,7 @@ export class Inplace extends BaseComponent {
      * Content template of the element.
      * @group Templates
      */
-    @ContentChild('closeicon') closeIconTemplate: TemplateRef<any> | undefined;
+    @ContentChild('closeicon') closeicon: TemplateRef<any> | undefined;
     /**
      * Close icon template of the element.
      * @group Templates

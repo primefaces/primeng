@@ -146,17 +146,17 @@ export class Rating extends BaseComponent implements OnInit, ControlValueAccesso
      * Custom on icon template.
      * @group Templates
      */
-    @ContentChild('onicon') onIconTemplate: Nullable<TemplateRef<any>>;
+    @ContentChild('onicon') oniconTemplate: Nullable<TemplateRef<any>>;
     /**
      * Custom off icon template.
      * @group Templates
      */
-    @ContentChild('officon') offIconTemplate: Nullable<TemplateRef<any>>;
+    @ContentChild('officon') officonTemplate: Nullable<TemplateRef<any>>;
     /**
      * Custom cancel icon template.
      * @group Templates
      */
-    @ContentChild('cancelicon') cancelIconTemplate: Nullable<TemplateRef<any>>;
+    @ContentChild('cancelicon') canceliconTemplate: Nullable<TemplateRef<any>>;
 
     value: Nullable<number>;
 
@@ -238,7 +238,7 @@ export class Rating extends BaseComponent implements OnInit, ControlValueAccesso
     }
 
     getIconTemplate(i: number): Nullable<TemplateRef<any>> {
-        return !this.value || i >= this.value ? this.offIconTemplate : this.onIconTemplate;
+        return !this.value || i >= this.value ? this.officonTemplate : this.oniconTemplate;
     }
 
     writeValue(value: any): void {
@@ -260,7 +260,7 @@ export class Rating extends BaseComponent implements OnInit, ControlValueAccesso
     }
 
     get isCustomIcon(): boolean {
-        return !!(this.onIconTemplate || this.offIconTemplate || this.cancelIconTemplate);
+        return !!(this.oniconTemplate || this.officonTemplate || this.canceliconTemplate);
     }
 }
 

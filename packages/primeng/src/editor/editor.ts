@@ -78,7 +78,7 @@ export const EDITOR_VALUE_ACCESSOR: any = {
         class: 'p-editor'
     }
 })
-export class Editor extends BaseComponent implements AfterContentInit, ControlValueAccessor {
+export class Editor extends BaseComponent implements ControlValueAccessor {
     /**
      * Inline style of the container.
      * @group Props

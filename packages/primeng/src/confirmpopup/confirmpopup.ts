@@ -6,6 +6,7 @@ import {
     ChangeDetectionStrategy,
     ChangeDetectorRef,
     Component,
+    ContentChild,
     ElementRef,
     EventEmitter,
     HostListener,
@@ -79,7 +80,7 @@ import { ConfirmPopupStyle } from './style/confirmpopupstyle';
                         [buttonProps]="getRejectButtonProps()"
                     >
                         <i [class]="confirmation?.rejectIcon" *ngIf="confirmation?.rejectIcon; else rejecticon"></i>
-                        <ng-template #rejecticon *ngTemplateOutlet="rejectIconTemplate"></ng-template>
+                        <ng-template #rejecticon *ngTemplateOutlet="rejecticon"></ng-template>
                     </p-button>
                     <p-button
                         type="button"
@@ -92,8 +93,8 @@ import { ConfirmPopupStyle } from './style/confirmpopupstyle';
                         [attr.aria-label]="acceptButtonLabel"
                         [buttonProps]="getAcceptButtonProps()"
                     >
-                        <i [class]="confirmation?.acceptIcon" *ngIf="confirmation?.acceptIcon; else accepticon"></i>
-                        <ng-template #accepticon *ngTemplateOutlet="acceptIconTemplate"></ng-template>
+                        <i [class]="confirmation?.acceptIcon" *ngIf="confirmation?.acceptIcon; else accepticontemplate"></i>
+                        <ng-template #accepticontemplate *ngTemplateOutlet="accepticon"></ng-template>
                     </p-button>
                 </div>
             </ng-template>
@@ -182,13 +183,13 @@ export class ConfirmPopup extends BaseComponent implements AfterContentInit, OnD
 
     confirmation: Nullable<Confirmation>;
 
-    contentTemplate: Nullable<TemplateRef<any>>;
+    @ContentChild('content') contentTemplate: Nullable<TemplateRef<any>>;
 
-    acceptIconTemplate: Nullable<TemplateRef<any>>;
+    @ContentChild('accepticon') accepticon: Nullable<TemplateRef<any>>;
 
-    rejectIconTemplate: Nullable<TemplateRef<any>>;
+    @ContentChild('rejecticon') rejecticon: Nullable<TemplateRef<any>>;
 
-    headlessTemplate: Nullable<TemplateRef<any>>;
+    @ContentChild('headless') headlessTemplate: Nullable<TemplateRef<any>>;
 
     _visible: boolean | undefined;
 
@@ -251,28 +252,6 @@ export class ConfirmPopup extends BaseComponent implements AfterContentInit, OnD
         }
 
         return undefined;
-    }
-
-    ngAfterContentInit() {
-        this.templates?.forEach((item) => {
-            switch (item.getType()) {
-                case 'content':
-                    this.contentTemplate = item.template;
-                    break;
-
-                case 'rejecticon':
-                    this.rejectIconTemplate = item.template;
-                    break;
-
-                case 'accepticon':
-                    this.acceptIconTemplate = item.template;
-                    break;
-
-                case 'headless':
-                    this.headlessTemplate = item.template;
-                    break;
-            }
-        });
     }
 
     @HostListener('document:keydown.escape', ['$event'])

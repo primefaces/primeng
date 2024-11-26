@@ -14,7 +14,7 @@ import { MessageStyle } from './style/messagestyle';
 @Component({
     selector: 'p-message',
     standalone: true,
-    imports: [CommonModule, CheckIcon, ExclamationTriangleIcon, TimesIcon, InfoCircleIcon, TimesCircleIcon, Ripple, SharedModule],
+    imports: [CommonModule, TimesIcon, Ripple, SharedModule],
     template: `
         @if (visible()) {
             <div
@@ -58,10 +58,10 @@ import { MessageStyle } from './style/messagestyle';
                             @if (closeIcon) {
                                 <i class="p-message-close-icon" [ngClass]="closeIcon"></i>
                             }
-                            @if (closeIconTemplate) {
-                                <ng-container *ngTemplateOutlet="closeIconTemplate"></ng-container>
+                            @if (closeiconTemplate) {
+                                <ng-container *ngTemplateOutlet="closeiconTemplate"></ng-container>
                             }
-                            @if (!closeIconTemplate && !closeIcon) {
+                            @if (!closeiconTemplate && !closeIcon) {
                                 <TimesIcon styleClass="p-message-close-icon" />
                             }
                         </button>
@@ -198,7 +198,7 @@ export class Message extends BaseComponent {
      * Custom template of the close icon.
      * @group Templates
      */
-    @ContentChild('closeicon') closeIconTemplate: TemplateRef<any> | undefined;
+    @ContentChild('closeicon') closeiconTemplate: TemplateRef<any> | undefined;
 
     ngOnInit() {
         super.ngOnInit();

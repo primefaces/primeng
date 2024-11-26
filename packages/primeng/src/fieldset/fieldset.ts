@@ -18,7 +18,7 @@ import { FieldsetStyle } from './style/fieldsetstyle';
 @Component({
     selector: 'p-fieldset',
     standalone: true,
-    imports: [CommonModule, ButtonModule, Ripple, MinusIcon, PlusIcon, SharedModule],
+    imports: [CommonModule, ButtonModule, MinusIcon, PlusIcon, SharedModule],
     template: `
         <fieldset
             [attr.id]="id"
@@ -46,15 +46,15 @@ import { FieldsetStyle } from './style/fieldsetstyle';
                         class="p-fieldset-toggle-button"
                     >
                         <ng-container *ngIf="collapsed">
-                            <PlusIcon *ngIf="!expandIconTemplate" [styleClass]="'p-fieldset-toggler'" [attr.data-pc-section]="'togglericon'" />
-                            <span *ngIf="expandIconTemplate" class="p-fieldset-toggler" [attr.data-pc-section]="'togglericon'">
-                                <ng-container *ngTemplateOutlet="expandIconTemplate"></ng-container>
+                            <PlusIcon *ngIf="!expandiconTemplate" [styleClass]="'p-fieldset-toggler'" [attr.data-pc-section]="'togglericon'" />
+                            <span *ngIf="expandiconTemplate" class="p-fieldset-toggler" [attr.data-pc-section]="'togglericon'">
+                                <ng-container *ngTemplateOutlet="expandiconTemplate"></ng-container>
                             </span>
                         </ng-container>
                         <ng-container *ngIf="!collapsed">
-                            <MinusIcon *ngIf="!collapseIconTemplate" [styleClass]="'p-fieldset-toggler'" [attr.aria-hidden]="true" [attr.data-pc-section]="'togglericon'" />
-                            <span *ngIf="collapseIconTemplate" class="p-fieldset-toggler" [attr.data-pc-section]="'togglericon'">
-                                <ng-container *ngTemplateOutlet="collapseIconTemplate"></ng-container>
+                            <MinusIcon *ngIf="!collapseiconTemplate" [styleClass]="'p-fieldset-toggler'" [attr.aria-hidden]="true" [attr.data-pc-section]="'togglericon'" />
+                            <span *ngIf="collapseiconTemplate" class="p-fieldset-toggler" [attr.data-pc-section]="'togglericon'">
+                                <ng-container *ngTemplateOutlet="collapseiconTemplate"></ng-container>
                             </span>
                         </ng-container>
                         <ng-container *ngTemplateOutlet="legendContent"></ng-container>
@@ -178,13 +178,13 @@ export class Fieldset extends BaseComponent implements BlockableUI {
      * Defines the expandicon template.
      * @group Templates
      */
-    @ContentChild('expandicon') expandIconTemplate: TemplateRef<any> | undefined;
+    @ContentChild('expandicon') expandiconTemplate: TemplateRef<any> | undefined;
 
     /**
      * Defines the collapseicon template.
      * @group Templates
      */
-    @ContentChild('collapseicon') collapseIconTemplate: TemplateRef<any> | undefined;
+    @ContentChild('collapseicon') collapseiconTemplate: TemplateRef<any> | undefined;
 
     /**
      * Defines the content template.

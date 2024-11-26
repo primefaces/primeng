@@ -115,14 +115,14 @@ import { MegaMenuStyle } from './style/megamenustyle';
                                 </ng-template>
                                 <p-badge *ngIf="getItemProp(processedItem, 'badge')" [styleClass]="getItemProp(processedItem, 'badgeStyleClass')" [value]="getItemProp(processedItem, 'badge')" />
                                 <ng-container *ngIf="isItemGroup(processedItem)">
-                                    <ng-container *ngIf="!megaMenu.submenuIconTemplate">
+                                    <ng-container *ngIf="!megaMenu.submenuiconTemplate">
                                         @if (orientation === 'horizontal' || mobileActive) {
                                             <AngleDownIcon [ngClass]="'p-megamenu-submenu-icon'" [attr.data-pc-section]="'submenuicon'" [attr.aria-hidden]="true" />
                                         } @else {
                                             <AngleRightIcon [ngClass]="'p-megamenu-submenu-icon'" [attr.data-pc-section]="'submenuicon'" *ngIf="orientation === 'vertical'" [attr.aria-hidden]="true" />
                                         }
                                     </ng-container>
-                                    <ng-template *ngTemplateOutlet="megaMenu.submenuIconTemplate" [attr.data-pc-section]="'submenuicon'" [attr.aria-hidden]="true"></ng-template>
+                                    <ng-template *ngTemplateOutlet="megaMenu.submenuiconTemplate" [attr.data-pc-section]="'submenuicon'" [attr.aria-hidden]="true"></ng-template>
                                 </ng-container>
                             </a>
                             <a
@@ -158,11 +158,11 @@ import { MegaMenuStyle } from './style/megamenustyle';
                                 <ng-template #htmlRouteLabel><span class="p-megamenu-item-label" [innerHTML]="getItemLabel(processedItem)" [attr.data-pc-section]="'label'"></span></ng-template>
                                 <p-badge *ngIf="getItemProp(processedItem, 'badge')" [styleClass]="getItemProp(processedItem, 'badgeStyleClass')" [value]="getItemProp(processedItem, 'badge')" />
                                 <ng-container *ngIf="isItemGroup(processedItem)">
-                                    <ng-container *ngIf="!megaMenu.submenuIconTemplate">
+                                    <ng-container *ngIf="!megaMenu.submenuiconTemplate">
                                         <AngleDownIcon [styleClass]="'p-megamenu-submenu-icon'" [attr.data-pc-section]="'submenuicon'" *ngIf="orientation === 'horizontal'" [attr.aria-hidden]="true" />
                                         <AngleRightIcon [styleClass]="'p-megamenu-submenu-icon'" [attr.data-pc-section]="'submenuicon'" *ngIf="orientation === 'vertical'" [attr.aria-hidden]="true" />
                                     </ng-container>
-                                    <ng-template *ngTemplateOutlet="megaMenu.submenuIconTemplate" [attr.data-pc-section]="'submenuicon'" [attr.aria-hidden]="true"></ng-template>
+                                    <ng-template *ngTemplateOutlet="megaMenu.submenuiconTemplate" [attr.data-pc-section]="'submenuicon'" [attr.aria-hidden]="true"></ng-template>
                                 </ng-container>
                             </a>
                         </ng-container>
@@ -523,12 +523,12 @@ export class MegaMenu extends BaseComponent implements OnDestroy, OnInit {
      * Defines template option for menu icon.
      * @group Templates
      */
-    @ContentChild('menuicon') menuIconTemplate: TemplateRef<any> | undefined;
+    @ContentChild('menuicon') menuiconTemplate: TemplateRef<any> | undefined;
     /**
      * Defines template option for submenu icon.
      * @group Templates
      */
-    @ContentChild('submenuicon') submenuIconTemplate: TemplateRef<any> | undefined;
+    @ContentChild('submenuicon') submenuiconTemplate: TemplateRef<any> | undefined;
     /**
      * Defines template option for submenu icon.
      * @group Templates
@@ -543,7 +543,7 @@ export class MegaMenu extends BaseComponent implements OnDestroy, OnInit {
      * Custom menu button icon template on responsive mode.
      * @group Templates
      */
-    @ContentChild('buttonicon') buttonIconTemplate: TemplateRef<any> | undefined;
+    @ContentChild('buttonicon') buttoniconTemplate: TemplateRef<any> | undefined;
 
     @ViewChild('menubutton') menubuttonViewChild: ElementRef | undefined;
 

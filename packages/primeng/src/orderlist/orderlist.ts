@@ -35,16 +35,16 @@ import { OrderListStyle } from './style/orderliststyle';
         >
             <div class="p-orderlist-controls" [attr.data-pc-section]="'controls'">
                 <button type="button" [disabled]="moveDisabled()" pButton pRipple class="p-button-icon-only" (click)="moveUp()" [attr.aria-label]="moveUpAriaLabel" [attr.data-pc-section]="'moveUpButton'" [buttonProps]="getButtonProps('up')">
-                    <AngleUpIcon *ngIf="!moveUpIconTemplate" [attr.data-pc-section]="'moveupicon'" />
-                    <ng-template *ngTemplateOutlet="moveUpIconTemplate"></ng-template>
+                    <AngleUpIcon *ngIf="!moveupiconTemplate" [attr.data-pc-section]="'moveupicon'" />
+                    <ng-template *ngTemplateOutlet="moveupiconTemplate"></ng-template>
                 </button>
                 <button type="button" [disabled]="moveDisabled()" pButton pRipple class="p-button-icon-only" (click)="moveTop()" [attr.aria-label]="moveTopAriaLabel" [attr.data-pc-section]="'moveTopButton'" [buttonProps]="getButtonProps('top')">
-                    <AngleDoubleUpIcon *ngIf="!moveTopIconTemplate" [attr.data-pc-section]="'movetopicon'" />
-                    <ng-template *ngTemplateOutlet="moveTopIconTemplate"></ng-template>
+                    <AngleDoubleUpIcon *ngIf="!movetopiconTemplate" [attr.data-pc-section]="'movetopicon'" />
+                    <ng-template *ngTemplateOutlet="movetopiconTemplate"></ng-template>
                 </button>
                 <button type="button" [disabled]="moveDisabled()" pButton pRipple class="p-button-icon-only" (click)="moveDown()" [attr.aria-label]="moveDownAriaLabel" [attr.data-pc-section]="'moveDownButton'" [buttonProps]="getButtonProps('down')">
-                    <AngleDownIcon *ngIf="!moveDownIconTemplate" [attr.data-pc-section]="'movedownicon'" />
-                    <ng-template *ngTemplateOutlet="moveDownIconTemplate"></ng-template>
+                    <AngleDownIcon *ngIf="!movedowniconTemplate" [attr.data-pc-section]="'movedownicon'" />
+                    <ng-template *ngTemplateOutlet="movedowniconTemplate"></ng-template>
                 </button>
                 <button
                     type="button"
@@ -57,8 +57,8 @@ import { OrderListStyle } from './style/orderliststyle';
                     [attr.data-pc-section]="'moveBottomButton'"
                     [buttonProps]="getButtonProps('bottom')"
                 >
-                    <AngleDoubleDownIcon *ngIf="!moveBottomIconTemplate" [attr.data-pc-section]="'movebottomicon'" />
-                    <ng-template *ngTemplateOutlet="moveBottomIconTemplate"></ng-template>
+                    <AngleDoubleDownIcon *ngIf="!movebottomiconTemplate" [attr.data-pc-section]="'movebottomicon'" />
+                    <ng-template *ngTemplateOutlet="movebottomiconTemplate"></ng-template>
                 </button>
             </div>
             <div class="p-orderlist-list-container" [attr.data-pc-section]="'container'">
@@ -103,7 +103,7 @@ import { OrderListStyle } from './style/orderliststyle';
     encapsulation: ViewEncapsulation.None,
     providers: [OrderListStyle]
 })
-export class OrderList extends BaseComponent implements AfterContentInit {
+export class OrderList extends BaseComponent {
     /**
      * Text for the caption.
      * @group Props
@@ -348,13 +348,13 @@ export class OrderList extends BaseComponent implements AfterContentInit {
      * Custom empty template.
      * @group Templates
      */
-    @ContentChild('empty') emptyMessageTemplate: TemplateRef<any> | undefined;
+    @ContentChild('empty') emptymessageTemplate: TemplateRef<any> | undefined;
 
     /**
      * Custom empty filter template.
      * @group Templates
      */
-    @ContentChild('emptyfilter') emptyFilterMessageTemplate: TemplateRef<any> | undefined;
+    @ContentChild('emptyfilter') emptyfiltermessageTemplate: TemplateRef<any> | undefined;
 
     /**
      * Custom filter template.
@@ -372,31 +372,31 @@ export class OrderList extends BaseComponent implements AfterContentInit {
      * Custom move up icon template.
      * @group Templates
      */
-    @ContentChild('moveupicon') moveUpIconTemplate: TemplateRef<any> | undefined;
+    @ContentChild('moveupicon') moveupiconTemplate: TemplateRef<any> | undefined;
 
     /**
      * Custom move top icon template.
      * @group Templates
      */
-    @ContentChild('movetopicon') moveTopIconTemplate: TemplateRef<any> | undefined;
+    @ContentChild('movetopicon') movetopiconTemplate: TemplateRef<any> | undefined;
 
     /**
      * Custom move down icon template.
      * @group Templates
      */
-    @ContentChild('movedownicon') moveDownIconTemplate: TemplateRef<any> | undefined;
+    @ContentChild('movedownicon') movedowniconTemplate: TemplateRef<any> | undefined;
 
     /**
      * Custom move bottom icon template.
      * @group Templates
      */
-    @ContentChild('movebottomicon') moveBottomIconTemplate: TemplateRef<any> | undefined;
+    @ContentChild('movebottomicon') movebottomiconTemplate: TemplateRef<any> | undefined;
 
     /**
      * Custom filter icon template.
      * @group Templates
      */
-    @ContentChild('filtericon') filterIconTemplate: TemplateRef<any> | undefined;
+    @ContentChild('filtericon') filtericonTemplate: TemplateRef<any> | undefined;
 
     get moveUpAriaLabel() {
         return this.config.translation.aria ? this.config.translation.aria.moveUp : undefined;
@@ -471,60 +471,6 @@ export class OrderList extends BaseComponent implements AfterContentInit {
                 reset: () => this.resetFilter()
             };
         }
-    }
-
-    ngAfterContentInit() {
-        (this.templates as QueryList<PrimeTemplate>).forEach((item) => {
-            switch (item.getType()) {
-                case 'item':
-                    this.itemTemplate = item.template;
-                    break;
-
-                case 'option':
-                    this.itemTemplate = item.template;
-                    break;
-
-                case 'empty':
-                    this.emptyMessageTemplate = item.template;
-                    break;
-
-                case 'emptyfilter':
-                    this.emptyFilterMessageTemplate = item.template;
-                    break;
-
-                case 'filter':
-                    this.filterTemplate = item.template;
-                    break;
-
-                case 'header':
-                    this.headerTemplate = item.template;
-                    break;
-
-                case 'moveupicon':
-                    this.moveUpIconTemplate = item.template;
-                    break;
-
-                case 'movetopicon':
-                    this.moveTopIconTemplate = item.template;
-                    break;
-
-                case 'movedownicon':
-                    this.moveDownIconTemplate = item.template;
-                    break;
-
-                case 'movebottomicon':
-                    this.moveBottomIconTemplate = item.template;
-                    break;
-
-                case 'filtericon':
-                    this.filterIconTemplate = item.template;
-                    break;
-
-                default:
-                    this.itemTemplate = item.template;
-                    break;
-            }
-        });
     }
 
     ngAfterViewChecked() {

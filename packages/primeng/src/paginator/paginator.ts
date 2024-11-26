@@ -36,15 +36,15 @@ import { PaginatorStyle } from './style/paginatorstyle';
                 [ngClass]="{ 'p-disabled': isFirstPage() || empty() }"
                 [attr.aria-label]="getAriaLabel('firstPageLabel')"
             >
-                <AngleDoubleLeftIcon *ngIf="!firstPageLinkIconTemplate" [styleClass]="'p-paginator-first-icon'" />
-                <span class="p-paginator-first-icon" *ngIf="firstPageLinkIconTemplate">
-                    <ng-template *ngTemplateOutlet="firstPageLinkIconTemplate"></ng-template>
+                <AngleDoubleLeftIcon *ngIf="!firstpagelinkicon" [styleClass]="'p-paginator-first-icon'" />
+                <span class="p-paginator-first-icon" *ngIf="firstpagelinkicon">
+                    <ng-template *ngTemplateOutlet="firstpagelinkicon"></ng-template>
                 </span>
             </button>
             <button type="button" [disabled]="isFirstPage() || empty()" (click)="changePageToPrev($event)" pRipple class="p-paginator-prev" [ngClass]="{ 'p-disabled': isFirstPage() || empty() }" [attr.aria-label]="getAriaLabel('prevPageLabel')">
-                <AngleLeftIcon *ngIf="!previousPageLinkIconTemplate" [styleClass]="'p-paginator-prev-icon'" />
-                <span class="p-paginator-prev-icon" *ngIf="previousPageLinkIconTemplate">
-                    <ng-template *ngTemplateOutlet="previousPageLinkIconTemplate"></ng-template>
+                <AngleLeftIcon *ngIf="!previouspagelinkicon" [styleClass]="'p-paginator-prev-icon'" />
+                <span class="p-paginator-prev-icon" *ngIf="previouspagelinkicon">
+                    <ng-template *ngTemplateOutlet="previouspagelinkicon"></ng-template>
                 </span>
             </button>
             <span class="p-paginator-pages" *ngIf="showPageLinks">
@@ -78,14 +78,14 @@ import { PaginatorStyle } from './style/paginatorstyle';
                         <ng-container *ngTemplateOutlet="jumpToPageItemTemplate; context: { $implicit: item }"></ng-container>
                     </ng-template>
                 </ng-container>
-                <ng-template pTemplate="dropdownicon" *ngIf="dropdownIconTemplate">
-                    <ng-container *ngTemplateOutlet="dropdownIconTemplate"></ng-container>
+                <ng-template pTemplate="dropdownicon" *ngIf="dropdownicon">
+                    <ng-container *ngTemplateOutlet="dropdownicon"></ng-container>
                 </ng-template>
             </p-select>
             <button type="button" [disabled]="isLastPage() || empty()" (click)="changePageToNext($event)" pRipple class="p-paginator-next" [ngClass]="{ 'p-disabled': isLastPage() || empty() }" [attr.aria-label]="getAriaLabel('nextPageLabel')">
-                <AngleRightIcon *ngIf="!nextPageLinkIconTemplate" [styleClass]="'p-paginator-next-icon'" />
-                <span class="p-paginator-next-icon" *ngIf="nextPageLinkIconTemplate">
-                    <ng-template *ngTemplateOutlet="nextPageLinkIconTemplate"></ng-template>
+                <AngleRightIcon *ngIf="!nextpagelinkicon" [styleClass]="'p-paginator-next-icon'" />
+                <span class="p-paginator-next-icon" *ngIf="nextpagelinkicon">
+                    <ng-template *ngTemplateOutlet="nextpagelinkicon"></ng-template>
                 </span>
             </button>
             <button
@@ -98,9 +98,9 @@ import { PaginatorStyle } from './style/paginatorstyle';
                 [ngClass]="{ 'p-disabled': isLastPage() || empty() }"
                 [attr.aria-label]="getAriaLabel('lastPageLabel')"
             >
-                <AngleDoubleRightIcon *ngIf="!lastPageLinkIconTemplate" [styleClass]="'p-paginator-last-icon'" />
-                <span class="p-paginator-last-icon" *ngIf="lastPageLinkIconTemplate">
-                    <ng-template *ngTemplateOutlet="lastPageLinkIconTemplate"></ng-template>
+                <AngleDoubleRightIcon *ngIf="!lastpagelinkicon" [styleClass]="'p-paginator-last-icon'" />
+                <span class="p-paginator-last-icon" *ngIf="lastpagelinkicon">
+                    <ng-template *ngTemplateOutlet="lastpagelinkicon"></ng-template>
                 </span>
             </button>
             <p-inputnumber *ngIf="showJumpToPageInput" [ngModel]="currentPage()" class="p-paginator-jtp-input" [disabled]="empty()" (ngModelChange)="changePage($event - 1)"></p-inputnumber>
@@ -120,8 +120,8 @@ import { PaginatorStyle } from './style/paginatorstyle';
                         <ng-container *ngTemplateOutlet="dropdownItemTemplate; context: { $implicit: item }"></ng-container>
                     </ng-template>
                 </ng-container>
-                <ng-template pTemplate="dropdownicon" *ngIf="dropdownIconTemplate">
-                    <ng-container *ngTemplateOutlet="dropdownIconTemplate"></ng-container>
+                <ng-template pTemplate="dropdownicon" *ngIf="dropdownicon">
+                    <ng-container *ngTemplateOutlet="dropdownicon"></ng-container>
                 </ng-template>
             </p-select>
             <div class="p-paginator-content-end" *ngIf="templateRight" [attr.data-pc-section]="'end'">
@@ -267,31 +267,31 @@ export class Paginator extends BaseComponent implements OnInit, OnChanges {
      * Template for the dropdown icon.
      * @group Templates
      */
-    @ContentChild('dropdownicon') dropdownIconTemplate: Nullable<TemplateRef<any>>;
+    @ContentChild('dropdownicon') dropdownicon: Nullable<TemplateRef<any>>;
 
     /**
      * Template for the first page link icon.
      * @group Templates
      */
-    @ContentChild('firstpagelinkicon') firstPageLinkIconTemplate: Nullable<TemplateRef<any>>;
+    @ContentChild('firstpagelinkicon') firstpagelinkicon: Nullable<TemplateRef<any>>;
 
     /**
      * Template for the previous page link icon.
      * @group Templates
      */
-    @ContentChild('previouspagelinkicon') previousPageLinkIconTemplate: Nullable<TemplateRef<any>>;
+    @ContentChild('previouspagelinkicon') previouspagelinkicon: Nullable<TemplateRef<any>>;
 
     /**
      * Template for the last page link icon.
      * @group Templates
      */
-    @ContentChild('lastpagelinkicon') lastPageLinkIconTemplate: Nullable<TemplateRef<any>>;
+    @ContentChild('lastpagelinkicon') lastpagelinkicon: Nullable<TemplateRef<any>>;
 
     /**
      * Template for the next page link icon.
      * @group Templates
      */
-    @ContentChild('nextpagelinkicon') nextPageLinkIconTemplate: Nullable<TemplateRef<any>>;
+    @ContentChild('nextpagelinkicon') nextpagelinkicon: Nullable<TemplateRef<any>>;
 
     pageLinks: number[] | undefined;
 

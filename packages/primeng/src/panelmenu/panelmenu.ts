@@ -79,11 +79,11 @@ import { PanelMenuStyle } from './style/panelmenustyle';
                                 [attr.tabindex]="!!parentExpanded ? '0' : '-1'"
                             >
                                 <ng-container *ngIf="isItemGroup(processedItem)">
-                                    <ng-container *ngIf="!panelMenu.submenuIconTemplate">
+                                    <ng-container *ngIf="!panelMenu.submenuiconTemplate">
                                         <AngleDownIcon [styleClass]="'p-panelmenu-submenu-icon'" *ngIf="isItemActive(processedItem)" [ngStyle]="getItemProp(processedItem, 'iconStyle')" />
                                         <AngleRightIcon [styleClass]="'p-panelmenu-submenu-icon'" *ngIf="!isItemActive(processedItem)" [ngStyle]="getItemProp(processedItem, 'iconStyle')" />
                                     </ng-container>
-                                    <ng-template *ngTemplateOutlet="panelMenu.submenuIconTemplate"></ng-template>
+                                    <ng-template *ngTemplateOutlet="panelMenu.submenuiconTemplate"></ng-template>
                                 </ng-container>
                                 <span class="p-panelmenu-submenu-icon" [ngClass]="processedItem.icon" *ngIf="processedItem.icon" [ngStyle]="getItemProp(processedItem, 'iconStyle')"></span>
                                 <span class="p-panelmenu-item-label" *ngIf="processedItem.item?.escape !== false; else htmlLabel">{{ getItemProp(processedItem, 'label') }}</span>
@@ -110,11 +110,11 @@ import { PanelMenuStyle } from './style/panelmenustyle';
                                 [attr.tabindex]="!!parentExpanded ? '0' : '-1'"
                             >
                                 <ng-container *ngIf="isItemGroup(processedItem)">
-                                    <ng-container *ngIf="!panelMenu.submenuIconTemplate">
+                                    <ng-container *ngIf="!panelMenu.submenuiconTemplate">
                                         <AngleDownIcon *ngIf="isItemActive(processedItem)" [styleClass]="'p-panelmenu-submenu-icon'" [ngStyle]="getItemProp(processedItem, 'iconStyle')" />
                                         <AngleRightIcon *ngIf="!isItemActive(processedItem)" [styleClass]="'p-panelmenu-submenu-icon'" [ngStyle]="getItemProp(processedItem, 'iconStyle')" />
                                     </ng-container>
-                                    <ng-template *ngTemplateOutlet="panelMenu.submenuIconTemplate"></ng-template>
+                                    <ng-template *ngTemplateOutlet="panelMenu.submenuiconTemplate"></ng-template>
                                 </ng-container>
                                 <span class="p-panelmenu-submenu-icon" [ngClass]="processedItem.icon" *ngIf="processedItem.icon" [ngStyle]="getItemProp(processedItem, 'iconStyle')"></span>
                                 <span class="p-panelmenu-item-label" *ngIf="getItemProp(processedItem, 'escape') !== false; else htmlRouteLabel">{{ getItemProp(processedItem, 'label') }}</span>
@@ -761,11 +761,11 @@ export class PanelMenuList extends BaseComponent implements OnChanges {
                                     [attr.data-pc-section]="'headeraction'"
                                 >
                                     <ng-container *ngIf="isItemGroup(item)">
-                                        <ng-container *ngIf="!submenuIconTemplate">
+                                        <ng-container *ngIf="!submenuiconTemplate">
                                             <ChevronDownIcon [styleClass]="'p-panelmenu-submenu-icon'" *ngIf="isItemActive(item)" />
                                             <ChevronRightIcon [styleClass]="'p-panelmenu-submenu-icon'" *ngIf="!isItemActive(item)" />
                                         </ng-container>
-                                        <ng-template *ngTemplateOutlet="submenuIconTemplate"></ng-template>
+                                        <ng-template *ngTemplateOutlet="submenuiconTemplate"></ng-template>
                                     </ng-container>
                                     <span class="p-panelmenu-submenu-icon" [ngClass]="item.icon" *ngIf="item.icon" [ngStyle]="getItemProp(item, 'iconStyle')"></span>
                                     <span class="p-panelmenu-header-label" *ngIf="getItemProp(item, 'escape') !== false; else htmlLabel">{{ getItemProp(item, 'label') }}</span>
@@ -792,11 +792,11 @@ export class PanelMenuList extends BaseComponent implements OnChanges {
                                 [attr.data-pc-section]="'headeraction'"
                             >
                                 <ng-container *ngIf="isItemGroup(item)">
-                                    <ng-container *ngIf="!submenuIconTemplate">
+                                    <ng-container *ngIf="!submenuiconTemplate">
                                         <ChevronDownIcon [styleClass]="'p-panelmenu-submenu-icon'" *ngIf="isItemActive(item)" />
                                         <ChevronRightIcon [styleClass]="'p-panelmenu-submenu-icon'" *ngIf="!isItemActive(item)" />
                                     </ng-container>
-                                    <ng-template *ngTemplateOutlet="submenuIconTemplate"></ng-template>
+                                    <ng-template *ngTemplateOutlet="submenuiconTemplate"></ng-template>
                                 </ng-container>
                                 <span class="p-panelmenu-submenu-icon" [ngClass]="item.icon" *ngIf="item.icon" [ngStyle]="getItemProp(item, 'iconStyle')"></span>
                                 <span class="p-panelmenu-header-label" *ngIf="getItemProp(item, 'escape') !== false; else htmlRouteLabel">{{ getItemProp(item, 'label') }}</span>
@@ -898,7 +898,7 @@ export class PanelMenu extends BaseComponent implements AfterContentInit {
      * Template option of submenuicon.
      * @group Templates
      */
-    @ContentChild('submenuicon') submenuIconTemplate: TemplateRef<any> | undefined;
+    @ContentChild('submenuicon') submenuiconTemplate: TemplateRef<any> | undefined;
     /**
      * Template option of item.
      * @group Templates
@@ -914,24 +914,6 @@ export class PanelMenu extends BaseComponent implements AfterContentInit {
     ngOnInit() {
         super.ngOnInit();
         this.id = this.id || uuid('pn_id_');
-    }
-
-    ngAfterContentInit() {
-        this.templates?.forEach((item) => {
-            switch (item.getType()) {
-                case 'submenuicon':
-                    this.submenuIconTemplate = item.template;
-                    break;
-
-                case 'item':
-                    this.itemTemplate = item.template;
-                    break;
-
-                default:
-                    this.itemTemplate = item.template;
-                    break;
-            }
-        });
     }
 
     /**

@@ -65,8 +65,8 @@ export const CASCADESELECT_VALUE_ACCESSOR: any = {
                             <span class="p-cascadeselect-option-text" [attr.data-pc-section]="'text'">{{ getOptionLabelToRender(processedOption) }}</span>
                         </ng-template>
                         <span class="p-cascadeselect-group-icon" *ngIf="isOptionGroup(processedOption)" [attr.data-pc-section]="'groupIcon'">
-                            <AngleRightIcon *ngIf="!groupIconTemplate" />
-                            <ng-template *ngTemplateOutlet="groupIconTemplate"></ng-template>
+                            <AngleRightIcon *ngIf="!groupicon" />
+                            <ng-template *ngTemplateOutlet="groupicon"></ng-template>
                         </span>
                     </div>
                     <p-cascadeselect-sub
@@ -111,7 +111,7 @@ export class CascadeSelectSub extends BaseComponent implements OnInit {
 
     @Input() optionTemplate: Nullable<TemplateRef<any>>;
 
-    @Input() groupIconTemplate: Nullable<TemplateRef<any>>;
+    @Input() groupicon: Nullable<TemplateRef<any>>;
 
     @Input({ transform: numberAttribute }) level: number = 0;
 
@@ -257,26 +257,26 @@ export class CascadeSelectSub extends BaseComponent implements OnInit {
         </span>
 
         <ng-container *ngIf="filled && !disabled && showClear">
-            <TimesIcon *ngIf="!clearIconTemplate" class="p-cascadeselect-clear-icon" (click)="clear($event)" [attr.data-pc-section]="'clearicon'" [attr.aria-hidden]="true" />
-            <span *ngIf="clearIconTemplate" class="p-cascadeselect-clear-icon" (click)="clear($event)" [attr.data-pc-section]="'clearicon'" [attr.aria-hidden]="true">
-                <ng-template *ngTemplateOutlet="clearIconTemplate"></ng-template>
+            <TimesIcon *ngIf="!clearicon" class="p-cascadeselect-clear-icon" (click)="clear($event)" [attr.data-pc-section]="'clearicon'" [attr.aria-hidden]="true" />
+            <span *ngIf="clearicon" class="p-cascadeselect-clear-icon" (click)="clear($event)" [attr.data-pc-section]="'clearicon'" [attr.aria-hidden]="true">
+                <ng-template *ngTemplateOutlet="clearicon"></ng-template>
             </span>
         </ng-container>
 
         <div class="p-cascadeselect-dropdown" role="button" aria-haspopup="listbox" [attr.aria-expanded]="overlayVisible ?? false" [attr.data-pc-section]="'dropdownIcon'" [attr.aria-hidden]="true">
             <ng-container *ngIf="loading; else elseBlock">
-                <ng-container *ngIf="loadingIconTemplate">
-                    <ng-container *ngTemplateOutlet="loadingIconTemplate"></ng-container>
+                <ng-container *ngIf="loadingicon">
+                    <ng-container *ngTemplateOutlet="loadingicon"></ng-container>
                 </ng-container>
-                <ng-container *ngIf="!loadingIconTemplate">
+                <ng-container *ngIf="!loadingicon">
                     <span *ngIf="loadingIcon" [ngClass]="'p-cascadeselect-loading-icon pi-spin ' + loadingIcon" aria-hidden="true"></span>
                     <span *ngIf="!loadingIcon" [class]="'p-cascadeselect-loading-icon pi pi-spinner pi-spin'" aria-hidden="true"></span>
                 </ng-container>
             </ng-container>
             <ng-template #elseBlock>
-                <ChevronDownIcon *ngIf="!triggerIconTemplate" [styleClass]="'p-cascadeselect-dropdown-icon'" />
-                <span *ngIf="triggerIconTemplate" class="p-cascadeselect-dropdown-icon">
-                    <ng-template *ngTemplateOutlet="triggerIconTemplate"></ng-template>
+                <ChevronDownIcon *ngIf="!triggericon" [styleClass]="'p-cascadeselect-dropdown-icon'" />
+                <span *ngIf="triggericon" class="p-cascadeselect-dropdown-icon">
+                    <ng-template *ngTemplateOutlet="triggericon"></ng-template>
                 </span>
             </ng-template>
         </div>
@@ -310,7 +310,7 @@ export class CascadeSelectSub extends BaseComponent implements OnInit {
                             [optionValue]="optionValue"
                             [level]="0"
                             [optionTemplate]="optionTemplate"
-                            [groupIconTemplate]="groupIconTemplate"
+                            [groupicon]="groupicon"
                             [optionGroupLabel]="optionGroupLabel"
                             [optionGroupChildren]="optionGroupChildren"
                             [optionDisabled]="optionDisabled"
@@ -641,25 +641,25 @@ export class CascadeSelect extends BaseComponent implements OnInit {
      * Content template for customizing the trigger icon.
      * @group Templates
      */
-    @ContentChild('triggericon') triggerIconTemplate: Nullable<TemplateRef<any>>;
+    @ContentChild('triggericon') triggericon: Nullable<TemplateRef<any>>;
 
     /**
      * Content template for customizing the loading icon.
      * @group Templates
      */
-    @ContentChild('loadingicon') loadingIconTemplate: Nullable<TemplateRef<any>>;
+    @ContentChild('loadingicon') loadingicon: Nullable<TemplateRef<any>>;
 
     /**
      * Content template for customizing the group icon.
      * @group Templates
      */
-    @ContentChild('optiongroupicon') groupIconTemplate: Nullable<TemplateRef<any>>;
+    @ContentChild('optiongroupicon') groupicon: Nullable<TemplateRef<any>>;
 
     /**
      * Content template for customizing the clear icon.
      * @group Templates
      */
-    @ContentChild('clearicon') clearIconTemplate: Nullable<TemplateRef<any>>;
+    @ContentChild('clearicon') clearicon: Nullable<TemplateRef<any>>;
 
     _showTransitionOptions: string = '';
 

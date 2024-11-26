@@ -94,7 +94,7 @@ export const DATEPICKER_VALUE_ACCESSOR: any = {
                     (input)="onUserInput($event)"
                     [ngStyle]="inputStyle"
                     [class]="inputStyleClass"
-                    ngClass="p-datepicker-input"
+                    [ngClass]="'p-datepicker-input'"
                     [placeholder]="placeholder || ''"
                     [disabled]="disabled"
                     [attr.tabindex]="tabindex"
@@ -106,9 +106,9 @@ export const DATEPICKER_VALUE_ACCESSOR: any = {
                     [size]="size"
                 />
                 <ng-container *ngIf="showClear && !disabled && value != null">
-                    <TimesIcon *ngIf="!clearIconTemplate" [class]="'p-datepicker-clear-icon'" (click)="clear()" />
-                    <span *ngIf="clearIconTemplate" class="p-datepicker-clear-icon" (click)="clear()">
-                        <ng-template *ngTemplateOutlet="clearIconTemplate"></ng-template>
+                    <TimesIcon *ngIf="!clearicon" [class]="'p-datepicker-clear-icon'" (click)="clear()" />
+                    <span *ngIf="clearicon" class="p-datepicker-clear-icon" (click)="clear()">
+                        <ng-template *ngTemplateOutlet="clearicon"></ng-template>
                     </span>
                 </ng-container>
                 <button
@@ -125,21 +125,21 @@ export const DATEPICKER_VALUE_ACCESSOR: any = {
                 >
                     <span *ngIf="icon" [ngClass]="icon"></span>
                     <ng-container *ngIf="!icon">
-                        <CalendarIcon *ngIf="!triggerIconTemplate" />
-                        <ng-template *ngTemplateOutlet="triggerIconTemplate"></ng-template>
+                        <CalendarIcon *ngIf="!triggericon" />
+                        <ng-template *ngTemplateOutlet="triggericon"></ng-template>
                     </ng-container>
                 </button>
                 <ng-container *ngIf="iconDisplay === 'input' && showIcon">
                     <span class="p-datepicker-input-icon-container">
                         <CalendarIcon
                             (click)="onButtonClick($event)"
-                            *ngIf="!inputIconTemplate"
+                            *ngIf="!inputicon"
                             [ngClass]="{
                                 'p-datepicker-input-icon': showOnFocus
                             }"
                         />
 
-                        <ng-container *ngTemplateOutlet="inputIconTemplate; context: { clickCallBack: onButtonClick.bind(this) }"></ng-container>
+                        <ng-container *ngTemplateOutlet="inputicon; context: { clickCallBack: onButtonClick.bind(this) }"></ng-container>
                     </span>
                 </ng-container>
             </ng-template>
@@ -181,9 +181,9 @@ export const DATEPICKER_VALUE_ACCESSOR: any = {
                                     type="button"
                                     [attr.aria-label]="prevIconAriaLabel"
                                 >
-                                    <ChevronLeftIcon *ngIf="!previousIconTemplate" />
-                                    <span *ngIf="previousIconTemplate">
-                                        <ng-template *ngTemplateOutlet="previousIconTemplate"></ng-template>
+                                    <ChevronLeftIcon *ngIf="!previousicon" />
+                                    <span *ngIf="previousicon">
+                                        <ng-template *ngTemplateOutlet="previousicon"></ng-template>
                                     </span>
                                 </p-button>
                                 <div class="p-datepicker-title">
@@ -227,10 +227,10 @@ export const DATEPICKER_VALUE_ACCESSOR: any = {
                                     [ngStyle]="{ visibility: i === months.length - 1 ? 'visible' : 'hidden' }"
                                     [attr.aria-label]="nextIconAriaLabel"
                                 >
-                                    <ChevronRightIcon *ngIf="!nextIconTemplate" />
+                                    <ChevronRightIcon *ngIf="!nexticon" />
 
-                                    <span *ngIf="nextIconTemplate">
-                                        <ng-template *ngTemplateOutlet="nextIconTemplate"></ng-template>
+                                    <span *ngIf="nexticon">
+                                        <ng-template *ngTemplateOutlet="nexticon"></ng-template>
                                     </span>
                                 </p-button>
                             </div>
@@ -342,9 +342,9 @@ export const DATEPICKER_VALUE_ACCESSOR: any = {
                             (mouseleave)="onTimePickerElementMouseLeave()"
                             [attr.aria-label]="getTranslation('nextHour')"
                         >
-                            <ChevronUpIcon *ngIf="!incrementIconTemplate" />
+                            <ChevronUpIcon *ngIf="!incrementicon" />
 
-                            <ng-template *ngTemplateOutlet="incrementIconTemplate"></ng-template>
+                            <ng-template *ngTemplateOutlet="incrementicon"></ng-template>
                         </p-button>
                         <span><ng-container *ngIf="currentHour < 10">0</ng-container>{{ currentHour }}</span>
                         <p-button
@@ -362,9 +362,9 @@ export const DATEPICKER_VALUE_ACCESSOR: any = {
                             (mouseleave)="onTimePickerElementMouseLeave()"
                             [attr.aria-label]="getTranslation('prevHour')"
                         >
-                            <ChevronDownIcon *ngIf="!decrementIconTemplate" />
+                            <ChevronDownIcon *ngIf="!decrementicon" />
 
-                            <ng-template *ngTemplateOutlet="decrementIconTemplate"></ng-template>
+                            <ng-template *ngTemplateOutlet="decrementicon"></ng-template>
                         </p-button>
                     </div>
                     <div class="p-datepicker-separator">
@@ -386,9 +386,9 @@ export const DATEPICKER_VALUE_ACCESSOR: any = {
                             (mouseleave)="onTimePickerElementMouseLeave()"
                             [attr.aria-label]="getTranslation('nextMinute')"
                         >
-                            <ChevronUpIcon *ngIf="!incrementIconTemplate" />
+                            <ChevronUpIcon *ngIf="!incrementicon" />
 
-                            <ng-template *ngTemplateOutlet="incrementIconTemplate"></ng-template>
+                            <ng-template *ngTemplateOutlet="incrementicon"></ng-template>
                         </p-button>
                         <span><ng-container *ngIf="currentMinute < 10">0</ng-container>{{ currentMinute }}</span>
                         <p-button
@@ -406,9 +406,9 @@ export const DATEPICKER_VALUE_ACCESSOR: any = {
                             (mouseleave)="onTimePickerElementMouseLeave()"
                             [attr.aria-label]="getTranslation('prevMinute')"
                         >
-                            <ChevronDownIcon *ngIf="!decrementIconTemplate" />
-                            <ng-container *ngIf="decrementIconTemplate">
-                                <ng-template *ngTemplateOutlet="decrementIconTemplate"></ng-template>
+                            <ChevronDownIcon *ngIf="!decrementicon" />
+                            <ng-container *ngIf="decrementicon">
+                                <ng-template *ngTemplateOutlet="decrementicon"></ng-template>
                             </ng-container>
                         </p-button>
                     </div>
@@ -431,9 +431,9 @@ export const DATEPICKER_VALUE_ACCESSOR: any = {
                             (mouseleave)="onTimePickerElementMouseLeave()"
                             [attr.aria-label]="getTranslation('nextSecond')"
                         >
-                            <ChevronUpIcon *ngIf="!incrementIconTemplate" />
+                            <ChevronUpIcon *ngIf="!incrementicon" />
 
-                            <ng-template *ngTemplateOutlet="incrementIconTemplate"></ng-template>
+                            <ng-template *ngTemplateOutlet="incrementicon"></ng-template>
                         </p-button>
                         <span><ng-container *ngIf="currentSecond < 10">0</ng-container>{{ currentSecond }}</span>
                         <p-button
@@ -451,9 +451,9 @@ export const DATEPICKER_VALUE_ACCESSOR: any = {
                             (mouseleave)="onTimePickerElementMouseLeave()"
                             [attr.aria-label]="getTranslation('prevSecond')"
                         >
-                            <ChevronDownIcon *ngIf="!decrementIconTemplate" />
+                            <ChevronDownIcon *ngIf="!decrementicon" />
 
-                            <ng-template *ngTemplateOutlet="decrementIconTemplate"></ng-template>
+                            <ng-template *ngTemplateOutlet="decrementicon"></ng-template>
                         </p-button>
                     </div>
                     <div class="p-datepicker-separator" *ngIf="hourFormat == '12'">
@@ -470,8 +470,8 @@ export const DATEPICKER_VALUE_ACCESSOR: any = {
                             (keydown.enter)="toggleAMPM($event)"
                             [attr.aria-label]="getTranslation('am')"
                         >
-                            <ChevronUpIcon *ngIf="!incrementIconTemplate" />
-                            <ng-template *ngTemplateOutlet="incrementIconTemplate"></ng-template>
+                            <ChevronUpIcon *ngIf="!incrementicon" />
+                            <ng-template *ngTemplateOutlet="incrementicon"></ng-template>
                         </p-button>
                         <span>{{ pm ? 'PM' : 'AM' }}</span>
                         <p-button
@@ -484,8 +484,8 @@ export const DATEPICKER_VALUE_ACCESSOR: any = {
                             (keydown.enter)="toggleAMPM($event)"
                             [attr.aria-label]="getTranslation('pm')"
                         >
-                            <ChevronDownIcon *ngIf="!decrementIconTemplate" />
-                            <ng-template *ngTemplateOutlet="decrementIconTemplate"></ng-template>
+                            <ChevronDownIcon *ngIf="!decrementicon" />
+                            <ng-template *ngTemplateOutlet="decrementicon"></ng-template>
                         </p-button>
                     </div>
                 </div>
@@ -1193,43 +1193,43 @@ export class DatePicker extends BaseComponent implements OnInit, OnDestroy, Cont
      * Custom template for previous month icon.
      * @group Templates
      */
-    @ContentChild('previousicon') previousIconTemplate: Nullable<TemplateRef<any>>;
+    @ContentChild('previousicon') previousicon: Nullable<TemplateRef<any>>;
 
     /**
      * Custom template for next month icon.
      * @group Templates
      */
-    @ContentChild('nexticon') nextIconTemplate: Nullable<TemplateRef<any>>;
+    @ContentChild('nexticon') nexticon: Nullable<TemplateRef<any>>;
 
     /**
      * Custom template for trigger icon.
      * @group Templates
      */
-    @ContentChild('triggericon') triggerIconTemplate: Nullable<TemplateRef<any>>;
+    @ContentChild('triggericon') triggericon: Nullable<TemplateRef<any>>;
 
     /**
      * Custom template for clear icon.
      * @group Templates
      */
-    @ContentChild('clearicon') clearIconTemplate: Nullable<TemplateRef<any>>;
+    @ContentChild('clearicon') clearicon: Nullable<TemplateRef<any>>;
 
     /**
      * Custom template for decrement icon.
      * @group Templates
      */
-    @ContentChild('decrementicon') decrementIconTemplate: Nullable<TemplateRef<any>>;
+    @ContentChild('decrementicon') decrementicon: Nullable<TemplateRef<any>>;
 
     /**
      * Custom template for increment icon.
      * @group Templates
      */
-    @ContentChild('incrementicon') incrementIconTemplate: Nullable<TemplateRef<any>>;
+    @ContentChild('incrementicon') incrementicon: Nullable<TemplateRef<any>>;
 
     /**
      * Custom template for input icon.
      * @group Templates
      */
-    @ContentChild('inputicon') inputIconTemplate: Nullable<TemplateRef<any>>;
+    @ContentChild('inputicon') inputicon: Nullable<TemplateRef<any>>;
 
     _disabledDates!: Array<Date>;
 

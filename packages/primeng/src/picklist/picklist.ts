@@ -158,7 +158,7 @@ import { PickListStyle } from './style/pickliststyle';
                 >
                     <ng-container *ngIf="sourceHeaderTemplate">
                         <ng-template #header>
-                            <ng-template *ngTemplateOutlet="headerTemplate"></ng-template>
+                            <ng-template *ngTemplateOutlet="sourceHeaderTemplate"></ng-template>
                         </ng-template>
                     </ng-container>
                     <ng-container *ngIf="itemTemplate">
@@ -268,7 +268,7 @@ import { PickListStyle } from './style/pickliststyle';
                 >
                     <ng-container *ngIf="targetHeaderTemplate">
                         <ng-template #header>
-                            <ng-template *ngTemplateOutlet="headerTemplate"></ng-template>
+                            <ng-template *ngTemplateOutlet="targetHeaderTemplate"></ng-template>
                         </ng-template>
                     </ng-container>
                     <ng-container *ngIf="itemTemplate">

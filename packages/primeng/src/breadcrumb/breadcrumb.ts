@@ -73,59 +73,67 @@ import { BreadCrumbStyle } from './style/breadcrumbstyle';
                     </a>
                 </li>
                 <li *ngIf="model && home" class="p-breadcrumb-separator" [attr.data-pc-section]="'separator'">
-                    <ChevronRightIcon *ngIf="!separatorTemplate" />
-                    <ng-template *ngTemplateOutlet="separatorTemplate"></ng-template>
+                    <ChevronRightIcon *ngIf="!separator" />
+                    <ng-template *ngTemplateOutlet="separator"></ng-template>
                 </li>
-                <ng-template ngFor let-item let-end="last" [ngForOf]="model">
-                    <li [class]="item.styleClass" [attr.id]="item.id" [ngStyle]="item.style" [ngClass]="{ 'p-breadcrumb-item': true, 'p-disabled': item.disabled }" pTooltip [tooltipOptions]="item.tooltipOptions" [attr.data-pc-section]="'menuitem'">
-                        @if (itemTemplate) {
-                            <ng-template *ngTemplateOutlet="itemTemplate; context: { $implicit: item }"></ng-template>
+                <ng-template ngFor let-menuitem let-end="last" [ngForOf]="model">
+                    <li
+                        [class]="menuitem.styleClass"
+                        [attr.id]="menuitem.id"
+                        [ngStyle]="menuitem.style"
+                        [ngClass]="{ 'p-breadcrumb-item': true, 'p-disabled': menuitem.disabled }"
+                        pTooltip
+                        [tooltipOptions]="menuitem.tooltipOptions"
+                        [attr.data-pc-section]="'menuitem'"
+                    >
+                        @if (item) {
+                            <ng-template *ngTemplateOutlet="item; context: { $implicit: menuitem }"></ng-template>
                         } @else {
                             <a
-                                *ngIf="!item.routerLink"
-                                [attr.href]="item.url ? item.url : null"
+                                *ngIf="!menuitem?.routerLink"
+                                [attr.href]="menuitem?.url ? menuitem?.url : null"
                                 class="p-breadcrumb-item-link"
                                 (click)="onClick($event, item)"
-                                [target]="item.target"
-                                [attr.title]="item.title"
-                                [attr.tabindex]="item.disabled ? null : '0'"
+                                [target]="menuitem?.target"
+                                [attr.title]="menuitem?.title"
+                                [attr.tabindex]="menuitem?.disabled ? null : '0'"
                             >
-                                <ng-container *ngIf="!itemTemplate">
-                                    <span *ngIf="item.icon" class="p-breadcrumb-item-icon" [ngClass]="item.icon" [ngStyle]="item.iconStyle"></span>
-                                    <ng-container *ngIf="item.label">
-                                        <span *ngIf="item.escape !== false; else htmlLabel" class="p-breadcrumb-item-label'">{{ item.label }}</span>
-                                        <ng-template #htmlLabel><span class="p-breadcrumb-item-label'" [innerHTML]="item.label"></span></ng-template>
+                                <ng-container *ngIf="!item">
+                                    <span *ngIf="menuitem?.icon" class="p-breadcrumb-item-icon" [ngClass]="menuitem?.icon" [ngStyle]="menuitem?.iconStyle"></span>
+                                    <ng-container *ngIf="menuitem?.label">
+                                        <span *ngIf="menuitem?.escape !== false; else htmlLabel" class="p-breadcrumb-item-label'">{{ menuitem?.label }}</span>
+                                        <ng-template #htmlLabel><span class="p-breadcrumb-item-label'" [innerHTML]="menuitem?.label"></span></ng-template>
                                     </ng-container>
                                 </ng-container>
                             </a>
                             <a
-                                *ngIf="item.routerLink"
-                                [routerLink]="item.routerLink"
-                                [queryParams]="item.queryParams"
-                                [routerLinkActiveOptions]="item.routerLinkActiveOptions || { exact: false }"
+                                *ngIf="menuitem?.routerLink"
+                                [routerLink]="menuitem?.routerLink"
+                                [queryParams]="menuitem?.queryParams"
+                                [routerLinkActiveOptions]="menuitem?.routerLinkActiveOptions || { exact: false }"
                                 class="p-breadcrumb-item-link"
                                 (click)="onClick($event, item)"
-                                [target]="item.target"
-                                [attr.title]="item.title"
-                                [attr.tabindex]="item.disabled ? null : '0'"
-                                [fragment]="item.fragment"
-                                [queryParamsHandling]="item.queryParamsHandling"
-                                [preserveFragment]="item.preserveFragment"
-                                [skipLocationChange]="item.skipLocationChange"
-                                [replaceUrl]="item.replaceUrl"
-                                [state]="item.state"
+                                [target]="menuitem?.target"
+                                [attr.title]="menuitem?.title"
+                                [attr.tabindex]="menuitem?.disabled ? null : '0'"
+                                [fragment]="menuitem?.fragment"
+                                [queryParamsHandling]="menuitem?.queryParamsHandling"
+                                [preserveFragment]="menuitem?.preserveFragment"
+                                [skipLocationChange]="menuitem?.skipLocationChange"
+                                [replaceUrl]="menuitem?.replaceUrl"
+                                [state]="menuitem?.state"
                             >
-                                <span *ngIf="item.icon" class="p-breadcrumb-item-icon" [ngClass]="item.icon" [ngStyle]="item.iconStyle"></span>
-                                <ng-container *ngIf="item.label">
-                                    <span *ngIf="item.escape !== false; else htmlRouteLabel" class="p-breadcrumb-item-label'">{{ item.label }}</span>
-                                    <ng-template #htmlRouteLabel><span class="p-breadcrumb-item-label'" [innerHTML]="item.label"></span></ng-template>
+                                <span *ngIf="menuitem?.icon" class="p-breadcrumb-item-icon" [ngClass]="menuitem?.icon" [ngStyle]="menuitem?.iconStyle"></span>
+                                <ng-container *ngIf="menuitem?.label">
+                                    <span *ngIf="menuitem?.escape !== false; else htmlRouteLabel" class="p-breadcrumb-item-label'">{{ menuitem?.label }}</span>
+                                    <ng-template #htmlRouteLabel><span class="p-breadcrumb-item-label'" [innerHTML]="menuitem?.label"></span></ng-template>
                                 </ng-container>
                             </a>
                         }
                     </li>
                     <li *ngIf="!end" class="p-breadcrumb-separator" [attr.data-pc-section]="'separator'">
-                        <ChevronRightIcon *ngIf="!separatorTemplate" />
-                        <ng-template *ngTemplateOutlet="separatorTemplate"></ng-template>
+                        <ChevronRightIcon *ngIf="!separator" />
+                        <ng-template *ngTemplateOutlet="separator"></ng-template>
                     </li>
                 </ng-template>
             </ol>
@@ -207,31 +215,13 @@ export class Breadcrumb extends BaseComponent implements AfterContentInit {
      * Defines template option for item.
      * @group Templates
      */
-    @ContentChild('item') itemTemplate: TemplateRef<any> | undefined;
+    @ContentChild('item') item: TemplateRef<any> | undefined;
 
     /**
      * Defines template option for separator.
      * @group Templates
      */
-    @ContentChild('separator') separatorTemplate: TemplateRef<any> | undefined;
-
-    ngAfterContentInit() {
-        this.templates?.forEach((item) => {
-            switch (item.getType()) {
-                case 'separator':
-                    this.separatorTemplate = item.template;
-                    break;
-
-                case 'item':
-                    this.itemTemplate = item.template;
-                    break;
-
-                default:
-                    this.itemTemplate = item.template;
-                    break;
-            }
-        });
-    }
+    @ContentChild('separator') separator: TemplateRef<any> | undefined;
 }
 
 @NgModule({

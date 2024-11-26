@@ -87,7 +87,7 @@ const hideAnimation = animation([animate('{{transition}}', style({ transform: '{
                         @if (rejectIcon) {
                             <i *ngIf="option('rejectIcon')" [class]="option('rejectIcon')"></i>
                         }
-                        <ng-template *ngTemplateOutlet="rejectIconTemplate"></ng-template>
+                        <ng-template *ngTemplateOutlet="rejecticon"></ng-template>
                     </p-button>
                     <p-button
                         [label]="acceptButtonLabel"
@@ -100,7 +100,7 @@ const hideAnimation = animation([animate('{{transition}}', style({ transform: '{
                         @if (acceptIcon) {
                             <i *ngIf="option('acceptIcon')" [class]="option('acceptIcon')"></i>
                         }
-                        <ng-template *ngTemplateOutlet="acceptIconTemplate"></ng-template>
+                        <ng-template *ngTemplateOutlet="accepticon"></ng-template>
                     </p-button>
                 }
             </ng-template>
@@ -331,9 +331,9 @@ export class ConfirmDialog extends BaseComponent implements OnInit, OnDestroy {
 
     @ContentChild('footer') footerTemplate: Nullable<TemplateRef<any>>;
 
-    @ContentChild('reject') rejectIconTemplate: Nullable<TemplateRef<any>>;
+    @ContentChild('reject') rejecticon: Nullable<TemplateRef<any>>;
 
-    @ContentChild('accept') acceptIconTemplate: Nullable<TemplateRef<any>>;
+    @ContentChild('accept') accepticon: Nullable<TemplateRef<any>>;
 
     @ContentChild('message') messageTemplate: Nullable<TemplateRef<any>>;
 

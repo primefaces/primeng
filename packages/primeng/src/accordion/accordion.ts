@@ -124,8 +124,8 @@ export class AccordionPanel extends BaseComponent {
     standalone: true,
     template: `
         <ng-content />
-        @if (toggleIconTemplate) {
-            <ng-template *ngTemplateOutlet="toggleIconTemplate; context: { active: active() }"></ng-template>
+        @if (toggleicon) {
+            <ng-template *ngTemplateOutlet="toggleicon; context: { active: active() }"></ng-template>
         } @else {
             <ng-container *ngIf="active()">
                 <span *ngIf="pcAccordion.collapseIcon" [class]="pcAccordion.collapseIcon" [ngClass]="pcAccordion.iconClass" [attr.aria-hidden]="true"></span>
@@ -175,7 +175,7 @@ export class AccordionHeader extends BaseComponent {
      * @see {@link AccordionToggleIconTemplateContext}
      * @group Templates
      */
-    @ContentChild('toggleicon') toggleIconTemplate: TemplateRef<AccordionToggleIconTemplateContext> | undefined;
+    @ContentChild('toggleicon') toggleicon: TemplateRef<AccordionToggleIconTemplateContext> | undefined;
 
     @HostListener('click', ['$event']) onClick() {
         this.changeActiveValue();
@@ -207,16 +207,6 @@ export class AccordionHeader extends BaseComponent {
             default:
                 break;
         }
-    }
-
-    ngAfterContentInit() {
-        this.templates.forEach((item) => {
-            switch (item.getType()) {
-                case 'toggleicon':
-                    this.toggleIconTemplate = item.template;
-                    break;
-            }
-        });
     }
 
     changeActiveValue() {
@@ -577,28 +567,6 @@ export class AccordionTab extends BaseComponent implements AfterContentInit, OnD
         console.log('AccordionTab is deprecated as of v18, please use the new structure instead.');
     }
 
-    ngAfterContentInit() {
-        this.templates.forEach((item) => {
-            switch (item.getType()) {
-                case 'content':
-                    this.contentTemplate = item.template;
-                    break;
-
-                case 'header':
-                    this.headerTemplate = item.template;
-                    break;
-
-                case 'icon':
-                    this.iconTemplate = item.template;
-                    break;
-
-                default:
-                    this.contentTemplate = item.template;
-                    break;
-            }
-        });
-    }
-
     toggle(event?: MouseEvent | KeyboardEvent) {
         if (this.disabled) {
             return false;
@@ -921,6 +889,7 @@ export class Accordion extends BaseComponent implements BlockableUI, AfterConten
     }
 
     ngAfterContentInit() {
+        super.ngAfterContentInit();
         this.initTabs();
 
         this.tabListSubscription = (this.tabList as QueryList<AccordionTab>).changes.subscribe((_) => {

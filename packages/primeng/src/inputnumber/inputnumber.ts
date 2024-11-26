@@ -89,9 +89,9 @@ export const INPUTNUMBER_VALUE_ACCESSOR: any = {
             [fluid]="hasFluid"
         />
         <ng-container *ngIf="buttonLayout != 'vertical' && showClear && value">
-            <TimesIcon *ngIf="!clearIconTemplate" [ngClass]="'p-inputnumber-clear-icon'" (click)="clear()" [attr.data-pc-section]="'clearIcon'" />
-            <span *ngIf="clearIconTemplate" (click)="clear()" class="p-inputnumber-clear-icon" [attr.data-pc-section]="'clearIcon'">
-                <ng-template *ngTemplateOutlet="clearIconTemplate"></ng-template>
+            <TimesIcon *ngIf="!clearicon" [ngClass]="'p-inputnumber-clear-icon'" (click)="clear()" [attr.data-pc-section]="'clearIcon'" />
+            <span *ngIf="clearicon" (click)="clear()" class="p-inputnumber-clear-icon" [attr.data-pc-section]="'clearIcon'">
+                <ng-template *ngTemplateOutlet="clearicon"></ng-template>
             </span>
         </ng-container>
         <span class="p-inputnumber-button-group" *ngIf="showButtons && buttonLayout === 'stacked'" [attr.data-pc-section]="'buttonGroup'">
@@ -111,8 +111,8 @@ export const INPUTNUMBER_VALUE_ACCESSOR: any = {
             >
                 <span *ngIf="incrementButtonIcon" [ngClass]="incrementButtonIcon" [attr.data-pc-section]="'incrementbuttonicon'"></span>
                 <ng-container *ngIf="!incrementButtonIcon">
-                    <AngleUpIcon *ngIf="!incrementButtonIconTemplate" [attr.data-pc-section]="'incrementbuttonicon'" />
-                    <ng-template *ngTemplateOutlet="incrementButtonIconTemplate"></ng-template>
+                    <AngleUpIcon *ngIf="!incrementbuttonicon" [attr.data-pc-section]="'incrementbuttonicon'" />
+                    <ng-template *ngTemplateOutlet="incrementbuttonicon"></ng-template>
                 </ng-container>
             </button>
 
@@ -132,8 +132,8 @@ export const INPUTNUMBER_VALUE_ACCESSOR: any = {
             >
                 <span *ngIf="decrementButtonIcon" [ngClass]="decrementButtonIcon" [attr.data-pc-section]="'decrementbuttonicon'"></span>
                 <ng-container *ngIf="!decrementButtonIcon">
-                    <AngleDownIcon *ngIf="!decrementButtonIconTemplate" [attr.data-pc-section]="'decrementbuttonicon'" />
-                    <ng-template *ngTemplateOutlet="decrementButtonIconTemplate"></ng-template>
+                    <AngleDownIcon *ngIf="!decrementbuttonicon" [attr.data-pc-section]="'decrementbuttonicon'" />
+                    <ng-template *ngTemplateOutlet="decrementbuttonicon"></ng-template>
                 </ng-container>
             </button>
         </span>
@@ -154,8 +154,8 @@ export const INPUTNUMBER_VALUE_ACCESSOR: any = {
         >
             <span *ngIf="incrementButtonIcon" [ngClass]="incrementButtonIcon" [attr.data-pc-section]="'incrementbuttonicon'"></span>
             <ng-container *ngIf="!incrementButtonIcon">
-                <AngleUpIcon *ngIf="!incrementButtonIconTemplate" [attr.data-pc-section]="'incrementbuttonicon'" />
-                <ng-template *ngTemplateOutlet="incrementButtonIconTemplate"></ng-template>
+                <AngleUpIcon *ngIf="!incrementbuttonicon" [attr.data-pc-section]="'incrementbuttonicon'" />
+                <ng-template *ngTemplateOutlet="incrementbuttonicon"></ng-template>
             </ng-container>
         </button>
         <button
@@ -175,8 +175,8 @@ export const INPUTNUMBER_VALUE_ACCESSOR: any = {
         >
             <span *ngIf="decrementButtonIcon" [ngClass]="decrementButtonIcon" [attr.data-pc-section]="'decrementbuttonicon'"></span>
             <ng-container *ngIf="!decrementButtonIcon">
-                <AngleDownIcon *ngIf="!decrementButtonIconTemplate" [attr.data-pc-section]="'decrementbuttonicon'" />
-                <ng-template *ngTemplateOutlet="decrementButtonIconTemplate"></ng-template>
+                <AngleDownIcon *ngIf="!decrementbuttonicon" [attr.data-pc-section]="'decrementbuttonicon'" />
+                <ng-template *ngTemplateOutlet="decrementbuttonicon"></ng-template>
             </ng-container>
         </button>
     `,
@@ -448,18 +448,18 @@ export class InputNumber extends BaseComponent implements OnInit, AfterContentIn
      * Template of the clear icon.
      * @group Templates
      */
-    @ContentChild('clearicon') clearIconTemplate: Nullable<TemplateRef<any>>;
+    @ContentChild('clearicon') clearicon: Nullable<TemplateRef<any>>;
     /**
      * Template of the icrement button icon.
      * @group Templates
      */
-    @ContentChild('icrementbuttonicon') incrementButtonIconTemplate: Nullable<TemplateRef<any>>;
+    @ContentChild('icrementbuttonicon') incrementbuttonicon: Nullable<TemplateRef<any>>;
 
     /**
      * Template of the decrement button icon.
      * @group Templates
      */
-    @ContentChild('decrementbuttonicon') decrementButtonIconTemplate: Nullable<TemplateRef<any>>;
+    @ContentChild('decrementbuttonicon') decrementbuttonicon: Nullable<TemplateRef<any>>;
 
     @ViewChild('input') input!: ElementRef<HTMLInputElement>;
 
@@ -569,15 +569,15 @@ export class InputNumber extends BaseComponent implements OnInit, AfterContentIn
         this.templates.forEach((item) => {
             switch (item.getType()) {
                 case 'clearicon':
-                    this.clearIconTemplate = item.template;
+                    this.clearicon = item.template;
                     break;
 
                 case 'incrementbuttonicon':
-                    this.incrementButtonIconTemplate = item.template;
+                    this.incrementbuttonicon = item.template;
                     break;
 
                 case 'decrementbuttonicon':
-                    this.decrementButtonIconTemplate = item.template;
+                    this.decrementbuttonicon = item.template;
                     break;
             }
         });

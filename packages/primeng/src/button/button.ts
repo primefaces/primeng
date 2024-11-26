@@ -446,20 +446,20 @@ export class ButtonDirective extends BaseComponent implements AfterViewInit, OnD
             [pAutoFocus]="autofocus"
         >
             <ng-content></ng-content>
-            <ng-container *ngTemplateOutlet="contentTemplate"></ng-container>
+            <ng-container *ngTemplateOutlet="content"></ng-container>
             <ng-container *ngIf="loading">
-                <ng-container *ngIf="!loadingIconTemplate">
+                <ng-container *ngIf="!loadingicon">
                     <span *ngIf="loadingIcon" [ngClass]="iconClass()" [attr.aria-hidden]="true" [attr.data-pc-section]="'loadingicon'"></span>
                     <SpinnerIcon *ngIf="!loadingIcon" [styleClass]="spinnerIconClass()" [spin]="true" [attr.aria-hidden]="true" [attr.data-pc-section]="'loadingicon'" />
                 </ng-container>
-                <ng-template [ngIf]="loadingIconTemplate" *ngTemplateOutlet="loadingIconTemplate; context: { class: iconClass() }"></ng-template>
+                <ng-template [ngIf]="loadingicon" *ngTemplateOutlet="loadingicon; context: { class: iconClass() }"></ng-template>
             </ng-container>
             <ng-container *ngIf="!loading">
                 <span *ngIf="icon && !iconTemplate" [class]="icon" [ngClass]="iconClass()" [attr.data-pc-section]="'icon'"></span>
                 <ng-template [ngIf]="!icon && iconTemplate" *ngTemplateOutlet="iconTemplate; context: { class: iconClass() }"></ng-template>
             </ng-container>
-            <span class="p-button-label" [attr.aria-hidden]="icon && !label" *ngIf="!contentTemplate && label" [attr.data-pc-section]="'label'">{{ label }}</span>
-            <p-badge *ngIf="!contentTemplate && badge" [value]="badge" [severity]="badgeSeverity"></p-badge>
+            <span class="p-button-label" [attr.aria-hidden]="icon && !label" *ngIf="!content && label" [attr.data-pc-section]="'label'">{{ label }}</span>
+            <p-badge *ngIf="!content && badge" [value]="badge" [severity]="badgeSeverity"></p-badge>
         </button>
     `,
     changeDetection: ChangeDetectionStrategy.OnPush,
@@ -620,12 +620,12 @@ export class Button extends BaseComponent implements AfterContentInit {
      * Template of the content.
      * @group Templates
      **/
-    @ContentChild('content') contentTemplate: TemplateRef<any> | undefined;
+    @ContentChild('content') content: TemplateRef<any> | undefined;
     /**
      * Template of the loading.
      * @group Templates
      **/
-    @ContentChild('loading') loadingIconTemplate: TemplateRef<any> | undefined;
+    @ContentChild('loading') loadingicon: TemplateRef<any> | undefined;
     /**
      * Template of the icon.
      * @group Templates
@@ -691,7 +691,7 @@ export class Button extends BaseComponent implements AfterContentInit {
     get buttonClass() {
         return {
             'p-button p-component': true,
-            'p-button-icon-only': (this.icon || this.iconTemplate || this.loadingIcon || this.loadingIconTemplate) && !this.label,
+            'p-button-icon-only': (this.icon || this.iconTemplate || this.loadingIcon || this.loadingicon) && !this.label,
             'p-button-vertical': (this.iconPos === 'top' || this.iconPos === 'bottom') && this.label,
             'p-button-loading': this.loading,
             'p-button-loading-label-only': this.loading && !this.icon && this.label && !this.loadingIcon && this.iconPos === 'left',
@@ -707,28 +707,6 @@ export class Button extends BaseComponent implements AfterContentInit {
             'p-button-fluid': this.hasFluid,
             [`${this.styleClass}`]: this.styleClass
         };
-    }
-
-    ngAfterContentInit() {
-        this.templates?.forEach((item) => {
-            switch (item.getType()) {
-                case 'content':
-                    this.contentTemplate = item.template;
-                    break;
-
-                case 'icon':
-                    this.iconTemplate = item.template;
-                    break;
-
-                case 'loadingicon':
-                    this.loadingIconTemplate = item.template;
-                    break;
-
-                default:
-                    this.contentTemplate = item.template;
-                    break;
-            }
-        });
     }
 }
 
