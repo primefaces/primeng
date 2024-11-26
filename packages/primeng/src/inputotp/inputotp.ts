@@ -1,7 +1,25 @@
-import { CommonModule } from '@angular/common';
-import { AfterContentInit, booleanAttribute, ChangeDetectionStrategy, Component, ContentChild, EventEmitter, forwardRef, inject, Input, NgModule, Output, TemplateRef, ViewEncapsulation } from '@angular/core';
+import { NgClass, NgTemplateOutlet } from '@angular/common';
+import {
+    booleanAttribute,
+    ChangeDetectionStrategy,
+    Component,
+    contentChild,
+    contentChildren,
+    OutputEmitterRef,
+    forwardRef,
+    inject,
+    input,
+    NgModule,
+    output,
+    TemplateRef,
+    ViewEncapsulation,
+    numberAttribute,
+    computed,
+    Signal,
+    signal
+} from '@angular/core';
 import { NG_VALUE_ACCESSOR } from '@angular/forms';
-import { SharedModule } from 'primeng/api';
+import { PrimeTemplate, SharedModule } from 'primeng/api';
 import { AutoFocus } from 'primeng/autofocus';
 import { BaseComponent } from 'primeng/basecomponent';
 import { InputText } from 'primeng/inputtext';
@@ -61,35 +79,34 @@ export interface InputOtpInputTemplateContext {
 @Component({
     selector: 'p-inputOtp, p-inputotp, p-input-otp',
     standalone: true,
-    imports: [CommonModule, InputText, AutoFocus, SharedModule],
+    imports: [NgClass, NgTemplateOutlet, InputText, AutoFocus, SharedModule],
     template: `
-        <ng-container *ngFor="let i of getRange(length); trackBy: trackByFn">
-            <ng-container *ngIf="!inputTemplate">
+        @for (i of ranges(); track $index) {
+            @if (!customInputTemplate()) {
                 <input
                     type="text"
                     pInputText
                     [value]="getModelValue(i)"
                     [maxLength]="1"
-                    [type]="inputType"
+                    [type]="inputType()"
                     class="p-inputotp-input"
-                    [size]="size"
-                    [variant]="variant"
-                    [readonly]="readonly"
-                    [disabled]="disabled"
-                    [tabindex]="tabindex"
+                    [size]="size()"
+                    [variant]="variant()"
+                    [readonly]="readonly()"
+                    [disabled]="disabled()"
+                    [tabindex]="tabindex()"
                     (input)="onInput($event, i - 1)"
                     (focus)="onInputFocus($event)"
                     (blur)="onInputBlur($event)"
                     (paste)="onPaste($event)"
                     (keydown)="onKeyDown($event)"
                     [pAutoFocus]="getAutofocus(i)"
-                    [ngClass]="styleClass"
+                    [ngClass]="styleClass()"
                 />
-            </ng-container>
-            <ng-container *ngIf="inputTemplate">
-                <ng-container *ngTemplateOutlet="inputTemplate; context: { $implicit: getToken(i - 1), events: getTemplateEvents(i - 1), index: i }"> </ng-container>
-            </ng-container>
-        </ng-container>
+            } @else {
+                <ng-container *ngTemplateOutlet="customInputTemplate(); context: { $implicit: getToken(i - 1), events: getTemplateEvents(i - 1), index: i }"> </ng-container>
+            }
+        }
     `,
     changeDetection: ChangeDetectionStrategy.OnPush,
     encapsulation: ViewEncapsulation.None,
@@ -98,125 +115,123 @@ export interface InputOtpInputTemplateContext {
         class: 'p-inputotp p-component'
     }
 })
-export class InputOtp extends BaseComponent implements AfterContentInit {
+export class InputOtp extends BaseComponent {
     /**
      * When present, it specifies that the component should have invalid state style.
      * @group Props
      */
-    @Input() invalid: boolean = false;
+    invalid = input<boolean, any>(false, { transform: booleanAttribute });
     /**
      * When present, it specifies that the component should be disabled.
      * @group Props
      */
-    @Input() disabled: boolean = false;
+    disabled = input<boolean, any>(false, { transform: booleanAttribute });
     /**
      * When present, it specifies that an input field is read-only.
      * @group Props
      */
-    @Input() readonly: boolean = false;
+    readonly = input<boolean, any>(false, { transform: booleanAttribute });
     /**
      * Specifies the input variant of the component.
      * @group Props
      */
-    @Input() variant: 'filled' | 'outlined' = 'outlined';
+    variant = input<'filled' | 'outlined'>('outlined');
     /**
      * Index of the element in tabbing order.
      * @group Props
      */
-    @Input() tabindex: number | null = null;
+    tabindex = input<number | null, any>(null, { transform: numberAttribute });
     /**
      * Number of characters to initiate.
      * @group Props
      */
-    @Input() length: number = 4;
+    length = input<number, any>(4, { transform: numberAttribute });
     /**
      * Style class of the input element.
      * @group Props
      */
-    @Input() styleClass: string | undefined;
+    styleClass = input<string>();
     /**
      * Mask pattern.
      * @group Props
      */
-    @Input() mask: boolean = false;
+    mask = input<boolean, any>(false, { transform: booleanAttribute });
     /**
      * When present, it specifies that an input field is integer-only.
      * @group Props
      */
-    @Input() integerOnly: boolean = false;
+    integerOnly = input<boolean, any>(false, { transform: booleanAttribute });
     /**
      * When present, it specifies that the component should automatically get focus on load.
      * @group Props
      */
-    @Input({ transform: booleanAttribute }) autofocus: boolean | undefined;
+    autofocus = input<boolean, any>(undefined, { transform: booleanAttribute });
     /**
      * Defines the size of the component.
      * @group Props
      */
-    @Input() size: 'large' | 'small';
+    size = input<'large' | 'small'>();
     /**
      * Callback to invoke on value change.
      * @group Emits
      */
-    @Output() onChange: EventEmitter<InputOtpChangeEvent> = new EventEmitter<InputOtpChangeEvent>();
+    onChange: OutputEmitterRef<InputOtpChangeEvent> = output<InputOtpChangeEvent>();
     /**
      * Callback to invoke when the component receives focus.
      * @param {Event} event - Browser event.
      * @group Emits
      */
-    @Output() onFocus: EventEmitter<Event> = new EventEmitter();
+    onFocus: OutputEmitterRef<Event> = output<Event>();
     /**
      * Callback to invoke when the component loses focus.
      * @param {Event} event - Browser event.
      * @group Emits
      */
-    @Output() onBlur: EventEmitter<Event> = new EventEmitter();
-
+    onBlur: OutputEmitterRef<Event> = output<Event>();
     /**
      * Input template.
      * @param {InputOtpInputTemplateContext} context - Context of the template
      * @see {@link InputOtpInputTemplateContext}
      * @group Templates
      */
-    @ContentChild('input') inputTemplate: TemplateRef<InputOtpInputTemplateContext>;
+    inputTemplate = contentChild<TemplateRef<InputOtpInputTemplateContext>>('input');
+    /**
+     * List of PrimeTemplate instances provided by the content.
+     * @group Templates
+     */
+    _templates = contentChildren<PrimeTemplate | undefined>(PrimeTemplate);
+    /**
+     * Computes the custom input template if available.
+     * @returns {TemplateRef<InputOtpInputTemplateContext> | undefined} The custom input template or undefined if not available.
+     */
+    customInputTemplate = computed<TemplateRef<InputOtpInputTemplateContext>>(() => {
+        if (this._templates()) {
+            const templates = this._templates().reduce<{ [key: string]: TemplateRef<InputOtpInputTemplateContext> }>((prev, curr) => {
+                prev[curr.getType()] = curr.template;
+                return prev;
+            }, {});
+            return templates['input'];
+        }
+        return this.inputTemplate();
+    });
 
-    ngAfterContentInit() {
-        this.templates?.forEach((item) => {
-            switch (item.getType()) {
-                case 'input':
-                    this.inputTemplate = item.template;
-                    break;
-
-                default:
-                    this.inputTemplate = item.template;
-                    break;
-            }
-        });
-    }
-
-    tokens: any = [];
+    tokens = signal<string[]>([]);
 
     onModelChange: Function = () => {};
 
     onModelTouched: Function = () => {};
 
-    value: any;
+    value = signal<any | null | undefined>(undefined);
 
-    get inputMode(): string {
-        return this.integerOnly ? 'numeric' : 'text';
-    }
-
-    get inputType(): string {
-        return this.mask ? 'password' : 'text';
-    }
+    inputType: Signal<string> = computed<string>(() => (this.mask() ? 'password' : 'text'));
 
     _componentStyle = inject(InputOtpStyle);
 
-    getToken(index) {
+    getToken(index: number) {
         return this.tokens[index];
     }
 
-    getTemplateEvents(index) {
+    getTemplateEvents(index: number) {
         return {
             input: (event) => this.onInput(event, index),
             keydown: (event) => this.onKeyDown(event),
@@ -226,8 +241,24 @@ export class InputOtp extends BaseComponent implements AfterContentInit {
         };
     }
 
-    onInput(event, index) {
-        this.tokens[index] = event.target.value;
+    onInput(event, index: number) {
+        const inputValue = event.target.value;
+        const updateOne = (value: string[]) => {
+            value[index] = inputValue;
+            return value;
+        };
+        const updateMany = (value: string[]) => {
+            // Update tokens based on the input value
+            if (inputValue.length > 0) {
+                for (let i = 0; i < inputValue.length; i++) {
+                    if (index + i < this.length()) {
+                        value[index + i] = inputValue[i];
+                    }
+                }
+            }
+            return value;
+        };
+        this.tokens.update(inputValue.length === this.length() ? updateMany : updateOne);
         this.updateModel(event);
 
         if (event.inputType === 'deleteContentBackward') {
@@ -238,7 +269,7 @@ export class InputOtp extends BaseComponent implements AfterContentInit {
     }
 
     updateModel(event: any) {
-        const newValue = this.tokens.join('');
+        const newValue = this.tokens().join('');
         this.onModelChange(newValue);
 
         this.onChange.emit({
@@ -250,36 +281,35 @@ export class InputOtp extends BaseComponent implements AfterContentInit {
     writeValue(value: any): void {
         if (value) {
             if (Array.isArray(value) && value.length > 0) {
-                this.value = value.slice(0, this.length);
+                this.value.set(value.slice(0, this.length()));
             } else {
-                this.value = value.toString().split('').slice(0, this.length);
+                this.value.set(value.toString().split('').slice(0, this.length()));
             }
         } else {
-            this.value = value;
+            this.value.set(value);
         }
         this.updateTokens();
-        this.cd.markForCheck();
     }
 
     updateTokens() {
-        if (this.value !== null && this.value !== undefined) {
-            if (Array.isArray(this.value)) {
-                this.tokens = [...this.value];
+        if (this.value() !== null && this.value() !== undefined) {
+            if (Array.isArray(this.value())) {
+                this.tokens.set([...this.value()]);
             } else {
-                this.tokens = this.value.toString().split('');
+                this.tokens.set(this.value().toString().split(''));
             }
         } else {
-            this.tokens = [];
+            this.tokens.set([]);
         }
     }
 
     getModelValue(i: number) {
-        return this.tokens[i - 1] || '';
+        return this.tokens()[i - 1] || '';
     }
 
     getAutofocus(i: number): boolean {
         if (i === 1) {
-            return this.autofocus;
+            return this.autofocus();
         }
         return false;
     }
@@ -368,7 +398,7 @@ export class InputOtp extends BaseComponent implements AfterContentInit {
                 break;
 
             default:
-                if ((this.integerOnly && !((event.code.startsWith('Digit') || event.code.startsWith('Numpad')) && Number(event.key) >= 0 && Number(event.key) <= 9)) || (this.tokens.join('').length >= this.length && event.code !== 'Delete')) {
+                if ((this.integerOnly() && !((event.code.startsWith('Digit') || event.code.startsWith('Numpad')) && Number(event.key) >= 0 && Number(event.key) <= 9)) || (this.tokens().join('').length >= this.length() && event.code !== 'Delete')) {
                     event.preventDefault();
                 }
 
@@ -377,14 +407,14 @@ export class InputOtp extends BaseComponent implements AfterContentInit {
     }
 
     onPaste(event) {
-        if (!this.disabled && !this.readonly) {
+        if (!this.disabled() && !this.readonly()) {
             let paste = event.clipboardData.getData('text');
 
             if (paste.length) {
-                let pastedCode = paste.substring(0, this.length + 1);
+                let pastedCode = paste.substring(0, this.length() + 1);
 
-                if (!this.integerOnly || !isNaN(pastedCode)) {
-                    this.tokens = pastedCode.split('');
+                if (!this.integerOnly() || !isNaN(pastedCode)) {
+                    this.tokens.set(pastedCode.split(''));
                     this.updateModel(event);
                 }
             }
@@ -393,13 +423,7 @@ export class InputOtp extends BaseComponent implements AfterContentInit {
         }
     }
 
-    getRange(n: number): number[] {
-        return Array.from({ length: n }, (_, index) => index + 1);
-    }
-
-    trackByFn(index: number) {
-        return index;
-    }
+    ranges: Signal<number[]> = computed<number[]>(() => Array.from({ length: this.length() }, (_, index) => index + 1));
 }
 
 @NgModule({
