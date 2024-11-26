@@ -1,0 +1,65 @@
+.designer {
+    [type='color'] {
+        margin-top: -4px;
+        border: 0 none;
+        padding: 0;
+        -webkit-appearance: none;
+        -moz-appearance: none;
+        appearance: none;
+        width: 28px;
+        height: 28px;
+        background-color: transparent;
+        border: none;
+        cursor: pointer;
+    }
+
+    [type='color']::-webkit-color-swatch {
+        border-radius: 4px;
+        width: 24px;
+        height: 24px;
+        border: 0 none;
+    }
+
+    .p-fieldset-toggleable > .p-fieldset-legend:hover {
+        background: transparent;
+    }
+    .p-drawer-header {
+        padding: 1.25rem !important;
+    }
+    .p-drawer-content {
+        padding: 1.25rem !important;
+    }
+
+    .p-drawer-footer {
+        padding: 1.25rem !important;
+    }
+
+    .p-tabpanels {
+        padding-left: 0px !important;
+        padding-right: 0px !important;
+    }
+
+    .p-autocomplete > input {
+        @apply border border-surface-300 dark:border-surface-600 rounded-lg py-2 px-2 w-full;
+    }
+
+    .p-autocomplete > input[type='color'] {
+        @apply pr-8;
+    }
+
+    .p-autocomplete .p-autocomplete-overlay {
+        @apply border border-surface-200 dark:border-surface-700 bg-surface-0 dark:bg-surface-950 rounded-md;
+    }
+
+    .p-autocomplete .p-autocomplete-list-container {
+        @apply max-h-40 overflow-auto;
+    }
+
+    .p-autocomplete .p-autocomplete-list {
+        @apply m-0 py-2 px-2 list-none;
+    }
+
+    .p-autocomplete ul > li {
+        @apply cursor-pointer py-1 text-sm text-surface-700 dark:text-white/80 data-[p-focus=true]:bg-surface-100 data-[p-focus=true]:dark:bg-surface-800 rounded-md px-0;
+    }
+}

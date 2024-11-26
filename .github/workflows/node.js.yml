@@ -22,23 +22,23 @@ jobs:
       uses: actions/setup-node@v2
       with:
         node-version: ${{ matrix.node-version }}
-        cache: 'npm'
+        cache: 'pnpm'
 
     - name: Build
       run: |
-        npm install
+        pnpm install
 
     - name: Code Format
       if: ${{ success() }}
       run: |
-        npm run format:check
+        pnpm run format:check
 
     - name: Security Check
       if: ${{ success() }}
       run: |
-        npm run security:check
+        pnpm run security:check
 
     #- name: Test
     #  if: ${{ success() }}
     #  run: |
-    #    npm run test:headless
+    #    pnpm run test:headless
