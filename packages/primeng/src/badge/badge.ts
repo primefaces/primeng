@@ -48,8 +48,20 @@ export class BadgeDirective extends BaseComponent implements OnChanges, AfterVie
      * @group Props
      */
     @Input() public value: string | number;
+    /**
+     * Inline style of the element.
+     * @group Props
+     */
+    @Input() badgeStyle: { [klass: string]: any } | null | undefined;
+    /**
+     * Class of the element.
+     * @group Props
+     */
+    @Input() badgeStyleClass: string;
 
     private id!: string;
+
+    badgeEl: HTMLElement;
 
     _componentStyle = inject(BadgeStyle);
 
@@ -65,7 +77,7 @@ export class BadgeDirective extends BaseComponent implements OnChanges, AfterVie
         super();
     }
 
-    public ngOnChanges({ value, size, severity, disabled }: SimpleChanges): void {
+    public ngOnChanges({ value, size, severity, disabled, badgeStyle, badgeStyleClass }: SimpleChanges): void {
         super.ngOnChanges({ value, size, severity, disabled });
         if (disabled) {
             this.toggleDisableState();
@@ -85,6 +97,10 @@ export class BadgeDirective extends BaseComponent implements OnChanges, AfterVie
 
         if (value) {
             this.setValue();
+        }
+
+        if (badgeStyle || badgeStyleClass) {
+            this.applyStyles();
         }
     }
 
@@ -171,6 +187,19 @@ export class BadgeDirective extends BaseComponent implements OnChanges, AfterVie
         this.setValue(badge);
         addClass(el, 'p-overlay-badge');
         this.renderer.appendChild(el, badge);
+        this.badgeEl = badge;
+        this.applyStyles();
+    }
+
+    private applyStyles(): void {
+        if (this.badgeEl && this.badgeStyle && typeof this.badgeStyle === 'object') {
+            for (const [key, value] of Object.entries(this.badgeStyle)) {
+                this.renderer.setStyle(this.badgeEl, key, value);
+            }
+        }
+        if (this.badgeEl && this.badgeStyleClass) {
+            this.badgeEl.classList.add(...this.badgeStyleClass.split(' '));
+        }
     }
 
     private setSeverity(oldSeverity?: 'success' | 'info' | 'warn' | 'danger' | null, element?: HTMLElement): void {
