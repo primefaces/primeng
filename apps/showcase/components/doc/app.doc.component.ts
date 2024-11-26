@@ -87,4 +87,8 @@ export class AppDoc implements OnInit, OnChanges {
     activateTab(index) {
         this.docService.activeTab.set(index);
     }
+
+    ngOnDestroy() {
+        this.activateTab(0);
+    }
 }
