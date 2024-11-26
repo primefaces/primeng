@@ -170,6 +170,8 @@ export class Tooltip extends BaseComponent implements AfterViewInit, OnDestroy {
 
     _componentStyle = inject(TooltipStyle);
 
+    interactionInProgress = false;
+
     constructor(
         public zone: NgZone,
         private viewContainer: ViewContainerRef
@@ -338,31 +340,35 @@ export class Tooltip extends BaseComponent implements AfterViewInit, OnDestroy {
     }
 
     activate() {
-        this.active = true;
-        this.clearHideTimeout();
+        if (!this.interactionInProgress) {
+            this.active = true;
+            this.clearHideTimeout();
 
-        if (this.getOption('showDelay'))
-            this.showTimeout = setTimeout(() => {
-                this.show();
-            }, this.getOption('showDelay'));
-        else this.show();
+            if (this.getOption('showDelay'))
+                this.showTimeout = setTimeout(() => {
+                    this.show();
+                }, this.getOption('showDelay'));
+            else this.show();
 
-        if (this.getOption('life')) {
-            let duration = this.getOption('showDelay') ? this.getOption('life') + this.getOption('showDelay') : this.getOption('life');
-            this.hideTimeout = setTimeout(() => {
-                this.hide();
-            }, duration);
-        }
+            if (this.getOption('life')) {
+                let duration = this.getOption('showDelay') ? this.getOption('life') + this.getOption('showDelay') : this.getOption('life');
+                this.hideTimeout = setTimeout(() => {
+                    this.hide();
+                }, duration);
+            }
 
-        if (this.getOption('hideOnEscape')) {
-            this.documentEscapeListener = this.renderer.listen('document', 'keydown.escape', () => {
-                this.deactivate();
-                this.documentEscapeListener();
-            });
+            if (this.getOption('hideOnEscape')) {
+                this.documentEscapeListener = this.renderer.listen('document', 'keydown.escape', () => {
+                    this.deactivate();
+                    this.documentEscapeListener();
+                });
+            }
+            this.interactionInProgress = true;
         }
     }
 
     deactivate() {
+        this.interactionInProgress = false;
         this.active = false;
         this.clearShowTimeout();
 
