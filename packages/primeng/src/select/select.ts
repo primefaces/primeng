@@ -657,7 +657,7 @@ export class Select extends BaseComponent implements OnInit, AfterViewInit, Afte
      * Whether to focus on the first visible or selected element when the overlay panel is shown.
      * @group Props
      */
-    @Input({ transform: booleanAttribute }) autoOptionFocus: boolean = true;
+    @Input({ transform: booleanAttribute }) autoOptionFocus: boolean = false;
     /**
      * Applies focus to the filter element when the overlay is shown.
      * @group Props
