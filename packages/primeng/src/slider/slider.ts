@@ -8,6 +8,7 @@ import { BaseComponent } from 'primeng/basecomponent';
 import { Nullable, VoidListener } from 'primeng/ts-helpers';
 import { SliderChangeEvent, SliderSlideEndEvent } from './slider.interface';
 import { SliderStyle } from './style/sliderstyle';
+import {styleClassAttribute} from "primeng/base";
 
 export const SLIDER_VALUE_ACCESSOR: any = {
     provide: NG_VALUE_ACCESSOR,
@@ -181,7 +182,7 @@ export class Slider extends BaseComponent implements OnDestroy, ControlValueAcce
      * Style class of the component.
      * @group Props
      */
-    @Input() styleClass: string | undefined;
+    @Input({ transform: styleClassAttribute }) styleClass: string | undefined;
     /**
      * Defines a string that labels the input for accessibility.
      * @group Props

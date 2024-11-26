@@ -60,6 +60,7 @@ import { TooltipModule } from 'primeng/tooltip';
 import { Nullable } from 'primeng/ts-helpers';
 import { DropdownChangeEvent, DropdownFilterEvent, DropdownFilterOptions, DropdownLazyLoadEvent } from './dropdown.interface';
 import { DropdownStyle } from './style/dropdownstyle';
+import {styleClassAttribute} from "primeng/base";
 
 export const DROPDOWN_VALUE_ACCESSOR: any = {
     provide: NG_VALUE_ACCESSOR,
@@ -408,7 +409,7 @@ export class Dropdown extends BaseComponent implements OnInit, AfterViewInit, Af
      * Style class of the element.
      * @group Props
      */
-    @Input() styleClass: string | undefined;
+    @Input({ transform: styleClassAttribute }) styleClass: string | undefined;
     /**
      * Style class of the overlay panel element.
      * @group Props

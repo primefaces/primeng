@@ -12,6 +12,7 @@ import { Ripple } from 'primeng/ripple';
 import { Nullable } from 'primeng/ts-helpers';
 import { OrderListFilterEvent, OrderListFilterOptions, OrderListSelectionChangeEvent } from './orderlist.interface';
 import { OrderListStyle } from './style/orderliststyle';
+import {styleClassAttribute} from "primeng/base";
 
 /**
  * OrderList is used to manage the order of a collection.
@@ -120,7 +121,7 @@ export class OrderList extends BaseComponent implements AfterContentInit {
      * Style class of the component.
      * @group Props
      */
-    @Input() styleClass: string | undefined;
+    @Input({ transform: styleClassAttribute }) styleClass: string | undefined;
 
     /**
      * Index of the element in tabbing order.

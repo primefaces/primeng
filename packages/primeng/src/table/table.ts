@@ -100,6 +100,7 @@ import {
     TableRowUnSelectEvent,
     TableSelectAllChangeEvent
 } from './table.interface';
+import {styleClassAttribute} from "primeng/base";
 
 @Injectable()
 export class TableService {
@@ -3486,7 +3487,7 @@ export class Table extends BaseComponent implements OnInit, AfterViewInit, After
      * Style class of the component.
      * @group Props
      */
-    @Input() styleClass: string | undefined;
+    @Input({ transform: styleClassAttribute }) styleClass: string | undefined;
     /**
      * Inline style of the table.
      * @group Props

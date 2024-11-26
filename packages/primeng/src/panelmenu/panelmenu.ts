@@ -29,6 +29,7 @@ import { BaseComponent } from 'primeng/basecomponent';
 import { AngleDownIcon, AngleRightIcon, ChevronDownIcon, ChevronRightIcon } from 'primeng/icons';
 import { TooltipModule } from 'primeng/tooltip';
 import { PanelMenuStyle } from './style/panelmenustyle';
+import {styleClassAttribute} from "primeng/base";
 
 @Component({
     selector: 'p-panelMenuSub, p-panelmenu-sub',
@@ -871,7 +872,7 @@ export class PanelMenu extends BaseComponent implements AfterContentInit {
      * Style class of the component.
      * @group Props
      */
-    @Input() styleClass: string | undefined;
+    @Input({ transform: styleClassAttribute }) styleClass: string | undefined;
     /**
      * Whether multiple tabs can be activated at the same time or not.
      * @group Props

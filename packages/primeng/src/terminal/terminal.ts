@@ -7,6 +7,7 @@ import { BaseComponent } from 'primeng/basecomponent';
 import { Subscription } from 'rxjs';
 import { TerminalStyle } from './style/terminalstyle';
 import { TerminalService } from './terminalservice';
+import {styleClassAttribute} from "primeng/base";
 
 /**
  * Terminal is a text based user interface.
@@ -56,7 +57,7 @@ export class Terminal extends BaseComponent implements AfterViewInit, AfterViewC
      * Style class of the component.
      * @group Props
      */
-    @Input() styleClass: string | undefined;
+    @Input({ transform: styleClassAttribute }) styleClass: string | undefined;
 
     commands: any[] = [];
 

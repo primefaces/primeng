@@ -6,6 +6,7 @@ import { AutoFocus } from 'primeng/autofocus';
 import { BaseComponent } from 'primeng/basecomponent';
 import { InputText } from 'primeng/inputtext';
 import { InputOtpStyle } from './style/inputotpstyle';
+import {styleClassAttribute} from "primeng/base";
 
 export const INPUT_OTP_VALUE_ACCESSOR: any = {
     provide: NG_VALUE_ACCESSOR,
@@ -133,7 +134,7 @@ export class InputOtp extends BaseComponent implements AfterContentInit {
      * Style class of the input element.
      * @group Props
      */
-    @Input() styleClass: string | undefined;
+    @Input({ transform: styleClassAttribute }) styleClass: string | undefined;
     /**
      * Mask pattern.
      * @group Props

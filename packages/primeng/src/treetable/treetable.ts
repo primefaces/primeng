@@ -78,6 +78,7 @@ import {
     TreeTablePaginatorState,
     TreeTableSortEvent
 } from './treetable.interface';
+import {styleClassAttribute} from "primeng/base";
 
 @Injectable()
 export class TreeTableService {
@@ -287,7 +288,7 @@ export class TreeTable extends BaseComponent implements AfterContentInit, OnInit
      * Style class of the component.
      * @group Props
      */
-    @Input() styleClass: string | undefined;
+    @Input({ transform: styleClassAttribute }) styleClass: string | undefined;
     /**
      * Inline style of the table.
      * @group Props

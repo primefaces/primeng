@@ -7,6 +7,7 @@ import { ChevronRightIcon, HomeIcon } from 'primeng/icons';
 import { TooltipModule } from 'primeng/tooltip';
 import { BreadcrumbItemClickEvent } from './breadcrumb.interface';
 import { BreadCrumbStyle } from './style/breadcrumbstyle';
+import {styleClassAttribute} from "primeng/base";
 
 /**
  * Breadcrumb provides contextual information about page hierarchy.
@@ -150,7 +151,7 @@ export class Breadcrumb extends BaseComponent implements AfterContentInit {
      * Style class of the component.
      * @group Props
      */
-    @Input() styleClass: string | undefined;
+    @Input({ transform: styleClassAttribute }) styleClass: string | undefined;
     /**
      * MenuItem configuration for the home icon.
      * @group Props

@@ -31,6 +31,7 @@ import { Nullable } from 'primeng/ts-helpers';
 import { Subscription } from 'rxjs';
 import { TabsStyle } from './style/tabsstyle';
 import { TabViewChangeEvent, TabViewCloseEvent } from './tabview.interface';
+import {styleClassAttribute} from "primeng/base";
 
 /**
  * TabPanel is a helper component for TabView component.
@@ -372,7 +373,7 @@ export class TabView extends BaseComponent implements AfterContentInit, AfterVie
      * Style class of the component.
      * @group Props
      */
-    @Input() styleClass: string | undefined;
+    @Input({ transform: styleClassAttribute }) styleClass: string | undefined;
     /**
      * Whether tab close is controlled at onClose event or not.
      * @defaultValue false

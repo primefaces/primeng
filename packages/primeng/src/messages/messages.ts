@@ -8,6 +8,7 @@ import { CheckIcon, ExclamationTriangleIcon, InfoCircleIcon, TimesCircleIcon, Ti
 import { Ripple } from 'primeng/ripple';
 import { Subscription, timer } from 'rxjs';
 import { MessagesStyle } from './style/messagesstyle';
+import {styleClassAttribute} from "primeng/base";
 
 /**
  * Messages is used to display alerts inline.
@@ -132,7 +133,7 @@ export class Messages extends BaseComponent implements AfterContentInit, OnDestr
      * Style class of the component.
      * @group Props
      */
-    @Input() styleClass: string | undefined;
+    @Input({ transform: styleClassAttribute }) styleClass: string | undefined;
     /**
      * Whether displaying services messages are enabled.
      * @group Props

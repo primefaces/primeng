@@ -29,6 +29,7 @@ import { SpinnerIcon } from 'primeng/icons';
 import { Ripple } from 'primeng/ripple';
 import { ButtonProps } from './button.interface';
 import { ButtonStyle } from './style/buttonstyle';
+import {styleClassAttribute} from "primeng/base";
 
 type ButtonIconPosition = 'left' | 'right' | 'top' | 'bottom';
 
@@ -567,7 +568,7 @@ export class Button extends BaseComponent implements AfterContentInit {
      * Class of the element.
      * @group Props
      */
-    @Input() styleClass: string | undefined;
+    @Input({ transform: styleClassAttribute }) styleClass: string | undefined;
     /**
      * Style class of the badge.
      * @group Props

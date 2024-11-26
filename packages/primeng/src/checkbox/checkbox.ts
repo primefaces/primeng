@@ -27,6 +27,7 @@ import { CheckIcon, MinusIcon } from 'primeng/icons';
 import { Nullable } from 'primeng/ts-helpers';
 import { CheckboxChangeEvent } from './checkbox.interface';
 import { CheckboxStyle } from './style/checkboxstyle';
+import {styleClassAttribute} from "primeng/base";
 
 export const CHECKBOX_VALUE_ACCESSOR: any = {
     provide: NG_VALUE_ACCESSOR,
@@ -134,7 +135,7 @@ export class Checkbox extends BaseComponent implements ControlValueAccessor {
      * Style class of the component.
      * @group Props
      */
-    @Input() styleClass: string | undefined;
+    @Input({ transform: styleClassAttribute }) styleClass: string | undefined;
     /**
      * Style class of the input element.
      * @group Props

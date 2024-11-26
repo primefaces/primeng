@@ -30,6 +30,7 @@ import { ZIndexUtils } from 'primeng/utils';
 import { Subscription } from 'rxjs';
 import { ToastStyle } from './style/toaststyle';
 import { ToastCloseEvent, ToastItemCloseEvent, ToastPositionType } from './toast.interface';
+import {styleClassAttribute} from "primeng/base";
 
 @Component({
     selector: 'p-toastItem',
@@ -287,7 +288,7 @@ export class Toast extends BaseComponent implements OnInit, OnDestroy {
      * Inline class of the component.
      * @group Props
      */
-    @Input() styleClass: string | undefined;
+    @Input({ transform: styleClassAttribute }) styleClass: string | undefined;
 
     /**
      * Position of the toast in viewport.

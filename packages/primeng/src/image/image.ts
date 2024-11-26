@@ -10,6 +10,7 @@ import { EyeIcon, RefreshIcon, SearchMinusIcon, SearchPlusIcon, TimesIcon, UndoI
 import { Nullable } from 'primeng/ts-helpers';
 import { ZIndexUtils } from 'primeng/utils';
 import { ImageStyle } from './style/imagestyle';
+import {styleClassAttribute} from "primeng/base";
 
 /**
  * Displays an image with preview and tranformation options. For multiple image, see Galleria.
@@ -110,7 +111,7 @@ export class Image extends BaseComponent implements AfterContentInit {
      * Class of the element.
      * @group Props
      */
-    @Input() styleClass: string | undefined;
+    @Input({ transform: styleClassAttribute }) styleClass: string | undefined;
     /**
      * Inline style of the element.
      * @group Props

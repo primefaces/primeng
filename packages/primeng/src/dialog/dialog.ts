@@ -31,6 +31,7 @@ import { Ripple } from 'primeng/ripple';
 import { Nullable, VoidListener } from 'primeng/ts-helpers';
 import { ZIndexUtils } from 'primeng/utils';
 import { DialogStyle } from './style/dialogstyle';
+import {styleClassAttribute} from "primeng/base";
 
 const showAnimation = animation([style({ transform: '{{transform}}', opacity: 0 }), animate('{{transition}}')]);
 
@@ -231,7 +232,7 @@ export class Dialog extends BaseComponent implements OnInit, OnDestroy {
      * Style class of the component.
      * @group Props
      */
-    @Input() styleClass: string | undefined;
+    @Input({ transform: styleClassAttribute }) styleClass: string | undefined;
     /**
      * Style class of the mask.
      * @group Props

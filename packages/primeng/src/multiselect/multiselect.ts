@@ -65,6 +65,7 @@ import { Tooltip } from 'primeng/tooltip';
 import { Nullable } from 'primeng/ts-helpers';
 import { MultiSelectBlurEvent, MultiSelectChangeEvent, MultiSelectFilterEvent, MultiSelectFilterOptions, MultiSelectFocusEvent, MultiSelectLazyLoadEvent, MultiSelectRemoveEvent, MultiSelectSelectAllChangeEvent } from './multiselect.interface';
 import { MultiSelectStyle } from './style/multiselectstyle';
+import {styleClassAttribute} from "primeng/base";
 
 export const MULTISELECT_VALUE_ACCESSOR: any = {
     provide: NG_VALUE_ACCESSOR,
@@ -472,7 +473,7 @@ export class MultiSelect extends BaseComponent implements OnInit, AfterViewInit,
      * Style class of the element.
      * @group Props
      */
-    @Input() styleClass: string | undefined;
+    @Input({ transform: styleClassAttribute }) styleClass: string | undefined;
     /**
      * Inline style of the overlay panel.
      * @group Props

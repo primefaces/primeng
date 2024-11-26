@@ -27,6 +27,7 @@ import { Nullable } from 'primeng/ts-helpers';
 import { Subject, Subscription } from 'rxjs';
 import { OrganizationChartNodeCollapseEvent, OrganizationChartNodeExpandEvent, OrganizationChartNodeSelectEvent, OrganizationChartNodeUnSelectEvent } from './organizationchart.interface';
 import { OrganizationChartStyle } from './style/organizationchartstyle';
+import {styleClassAttribute} from "primeng/base";
 
 @Component({
     selector: '[pOrganizationChartNode]',
@@ -195,7 +196,7 @@ export class OrganizationChart extends BaseComponent implements AfterContentInit
      * Style class of the component.
      * @group Props
      */
-    @Input() styleClass: string | undefined;
+    @Input({ transform: styleClassAttribute }) styleClass: string | undefined;
     /**
      * Defines the selection mode.
      * @group Props

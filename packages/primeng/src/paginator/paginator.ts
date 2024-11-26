@@ -11,6 +11,7 @@ import { Select } from 'primeng/select';
 import { Nullable } from 'primeng/ts-helpers';
 import { PaginatorState } from './paginator.interface';
 import { PaginatorStyle } from './style/paginatorstyle';
+import {styleClassAttribute} from "primeng/base";
 
 /**
  * Paginator is a generic component to display content in paged format.
@@ -148,7 +149,7 @@ export class Paginator extends BaseComponent implements OnInit, OnChanges {
      * Style class of the component.
      * @group Props
      */
-    @Input() styleClass: string | undefined;
+    @Input({ transform: styleClassAttribute }) styleClass: string | undefined;
     /**
      * Whether to show it even there is only one page.
      * @group Props

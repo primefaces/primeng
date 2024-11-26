@@ -27,6 +27,7 @@ import { Nullable } from 'primeng/ts-helpers';
 import { Subscription } from 'rxjs';
 import { DataViewLayoutChangeEvent, DataViewLazyLoadEvent, DataViewPageEvent, DataViewPaginatorState, DataViewSortEvent } from './dataview.interface';
 import { DataViewStyle } from './style/dataviewstyle';
+import {styleClassAttribute} from "primeng/base";
 
 /**
  * DataView displays data in grid or list layout with pagination and sorting features.
@@ -236,7 +237,7 @@ export class DataView extends BaseComponent implements OnInit, OnDestroy, Blocka
      * Style class of the component.
      * @group Props
      */
-    @Input() styleClass: string | undefined;
+    @Input({ transform: styleClassAttribute }) styleClass: string | undefined;
     /**
      * Style class of the grid.
      * @group Props

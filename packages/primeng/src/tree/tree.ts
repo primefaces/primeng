@@ -47,6 +47,7 @@ import {
     TreeScrollEvent,
     TreeScrollIndexChangeEvent
 } from './tree.interface';
+import {styleClassAttribute} from "primeng/base";
 
 @Component({
     selector: 'p-treeNode',
@@ -826,7 +827,7 @@ export class Tree extends BaseComponent implements OnInit, OnChanges, OnDestroy,
      * Style class of the component.
      * @group Props
      */
-    @Input() styleClass: string | undefined;
+    @Input({ transform: styleClassAttribute }) styleClass: string | undefined;
     /**
      * Context menu instance.
      * @group Props

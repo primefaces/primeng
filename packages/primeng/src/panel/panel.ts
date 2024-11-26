@@ -9,6 +9,7 @@ import { MinusIcon, PlusIcon } from 'primeng/icons';
 import { Ripple } from 'primeng/ripple';
 import { Nullable } from 'primeng/ts-helpers';
 import { PanelStyle } from './style/panelstyle';
+import {styleClassAttribute} from "primeng/base";
 
 /**
  * Custom panel toggle event, emits before panel toggle.
@@ -206,7 +207,7 @@ export class Panel extends BaseComponent implements BlockableUI {
      * Style class of the component.
      * @group Props
      */
-    @Input() styleClass: string | undefined;
+    @Input({ transform: styleClassAttribute }) styleClass: string | undefined;
     /**
      * Position of the icons.
      * @group Props

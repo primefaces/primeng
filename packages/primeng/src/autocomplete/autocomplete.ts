@@ -42,6 +42,7 @@ import { Scroller } from 'primeng/scroller';
 import { Nullable } from 'primeng/ts-helpers';
 import { AutoCompleteCompleteEvent, AutoCompleteDropdownClickEvent, AutoCompleteLazyLoadEvent, AutoCompleteSelectEvent, AutoCompleteUnselectEvent } from './autocomplete.interface';
 import { AutoCompleteStyle } from './style/autocompletestyle';
+import {styleClassAttribute} from "primeng/base";
 
 export const AUTOCOMPLETE_VALUE_ACCESSOR: any = {
     provide: NG_VALUE_ACCESSOR,
@@ -311,7 +312,7 @@ export class AutoComplete extends BaseComponent implements AfterViewChecked, Aft
      * Style class of the component.
      * @group Props
      */
-    @Input() styleClass: string | undefined;
+    @Input({ transform: styleClassAttribute }) styleClass: string | undefined;
     /**
      * Style class of the overlay panel element.
      * @group Props

@@ -3,6 +3,7 @@ import { Component, inject, Input, NgModule } from '@angular/core';
 import { SharedModule } from 'primeng/api';
 import { BaseComponent } from 'primeng/basecomponent';
 import { InputGroupStyle } from './style/inputgroupstyle';
+import {styleClassAttribute} from "primeng/base";
 
 /**
  * InputGroup displays text, icon, buttons and other content can be grouped next to an input.
@@ -31,7 +32,7 @@ export class InputGroup extends BaseComponent {
      * Class of the element.
      * @group Props
      */
-    @Input() styleClass: string | undefined;
+    @Input({ transform: styleClassAttribute }) styleClass: string | undefined;
 
     _componentStyle = inject(InputGroupStyle);
 }

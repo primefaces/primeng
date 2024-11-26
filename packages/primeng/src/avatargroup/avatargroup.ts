@@ -3,6 +3,7 @@ import { ChangeDetectionStrategy, Component, HostBinding, inject, Input, NgModul
 import { SharedModule } from 'primeng/api';
 import { BaseComponent } from 'primeng/basecomponent';
 import { AvatarGroupStyle } from './style/avatargroupstyle';
+import {styleClassAttribute} from "primeng/base";
 
 /**
  * AvatarGroup is a helper component for Avatar.
@@ -26,7 +27,7 @@ export class AvatarGroup extends BaseComponent {
      * Style class of the component
      * @group Props
      */
-    @Input() styleClass: string | undefined;
+    @Input({ transform: styleClassAttribute }) styleClass: string | undefined;
     /**
      * Inline style of the component.
      * @group Props

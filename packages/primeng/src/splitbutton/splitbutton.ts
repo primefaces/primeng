@@ -11,6 +11,7 @@ import { TieredMenu } from 'primeng/tieredmenu';
 import { TooltipModule } from 'primeng/tooltip';
 import { ButtonProps, MenuButtonProps } from './splitbutton.interface';
 import { SplitButtonStyle } from './style/splitbuttonstyle';
+import {styleClassAttribute} from "primeng/base";
 
 type SplitButtonIconPosition = 'left' | 'right';
 /**
@@ -186,7 +187,7 @@ export class SplitButton extends BaseComponent {
      * Class of the element.
      * @group Props
      */
-    @Input() styleClass: string | undefined;
+    @Input({ transform: styleClassAttribute }) styleClass: string | undefined;
     /**
      * Inline style of the overlay menu.
      * @group Props

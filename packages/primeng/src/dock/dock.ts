@@ -9,6 +9,7 @@ import { Ripple } from 'primeng/ripple';
 import { TooltipModule } from 'primeng/tooltip';
 import { Nullable } from 'primeng/ts-helpers';
 import { DockStyle } from './style/dockstyle';
+import {styleClassAttribute} from "primeng/base";
 
 /**
  * Dock is a navigation component consisting of menuitems.
@@ -116,7 +117,7 @@ export class Dock extends BaseComponent {
      * Class of the element.
      * @group Props
      */
-    @Input() styleClass: string | undefined;
+    @Input({ transform: styleClassAttribute }) styleClass: string | undefined;
     /**
      * MenuModel instance to define the action items.
      * @group Props

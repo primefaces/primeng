@@ -42,6 +42,7 @@ import {
     PickListTargetSelectEvent
 } from './picklist.interface';
 import { PickListStyle } from './style/pickliststyle';
+import {styleClassAttribute} from "primeng/base";
 
 /**
  * PickList is used to reorder items between different lists.
@@ -471,7 +472,7 @@ export class PickList extends BaseComponent implements AfterViewChecked, AfterCo
      * Style class of the component.
      * @group Props
      */
-    @Input() styleClass: string | undefined;
+    @Input({ transform: styleClassAttribute }) styleClass: string | undefined;
     /**
      * Inline style of the source list element.
      * @group Props

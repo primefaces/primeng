@@ -7,6 +7,7 @@ import { BaseComponent } from 'primeng/basecomponent';
 import { Nullable } from 'primeng/ts-helpers';
 import { EditorInitEvent, EditorSelectionChangeEvent, EditorTextChangeEvent } from './editor.interface';
 import { EditorStyle } from './style/editorstyle';
+import {styleClassAttribute} from "primeng/base";
 
 export const EDITOR_VALUE_ACCESSOR: any = {
     provide: NG_VALUE_ACCESSOR,
@@ -88,7 +89,7 @@ export class Editor extends BaseComponent implements AfterContentInit, ControlVa
      * Style class of the container.
      * @group Props
      */
-    @Input() styleClass: string | undefined;
+    @Input({ transform: styleClassAttribute }) styleClass: string | undefined;
     /**
      * Placeholder text to show when editor is empty.
      * @group Props

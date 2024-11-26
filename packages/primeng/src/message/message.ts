@@ -6,6 +6,7 @@ import { BaseComponent } from 'primeng/basecomponent';
 import { CheckIcon, ExclamationTriangleIcon, InfoCircleIcon, TimesCircleIcon, TimesIcon } from 'primeng/icons';
 import { Ripple } from 'primeng/ripple';
 import { MessageStyle } from './style/messagestyle';
+import {styleClassAttribute} from "primeng/base";
 
 /**
  * Message groups a collection of contents in tabs.
@@ -119,7 +120,7 @@ export class Message extends BaseComponent {
      * Style class of the component.
      * @group Props
      */
-    @Input() styleClass: string | undefined;
+    @Input({ transform: styleClassAttribute }) styleClass: string | undefined;
     /**
      * Whether the message can be closed manually using the close icon.
      * @group Props

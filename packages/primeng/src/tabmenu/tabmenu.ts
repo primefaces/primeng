@@ -31,6 +31,7 @@ import { Ripple } from 'primeng/ripple';
 import { TooltipModule } from 'primeng/tooltip';
 import { Nullable } from 'primeng/ts-helpers';
 import { TabMenuStyle } from './style/tabmenustyle';
+import {styleClassAttribute} from "primeng/base";
 
 /**
  * TabMenu is a navigation component that displays items as tab headers.
@@ -180,7 +181,7 @@ export class TabMenu extends BaseComponent implements AfterContentInit, AfterVie
      * Class of the element.
      * @group Props
      */
-    @Input() styleClass: string | undefined;
+    @Input({ transform: styleClassAttribute }) styleClass: string | undefined;
     /**
      * Defines a string value that labels an interactive element.
      * @group Props

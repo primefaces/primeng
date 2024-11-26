@@ -36,6 +36,7 @@ import { TooltipModule } from 'primeng/tooltip';
 import { Nullable, VoidListener } from 'primeng/ts-helpers';
 import { ZIndexUtils } from 'primeng/utils';
 import { TieredMenuStyle } from './style/tieredmenustyle';
+import {styleClassAttribute} from "primeng/base";
 
 @Component({
     selector: 'p-tieredMenuSub, p-tieredmenusub',
@@ -420,7 +421,7 @@ export class TieredMenu extends BaseComponent implements OnInit, OnDestroy {
      * Style class of the component.
      * @group Props
      */
-    @Input() styleClass: string | undefined;
+    @Input({ transform: styleClassAttribute }) styleClass: string | undefined;
     /**
      * Target element to attach the overlay, valid values are "body" or a local ng-template variable of another element.
      * @group Props

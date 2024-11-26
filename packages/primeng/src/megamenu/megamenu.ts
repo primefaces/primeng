@@ -31,6 +31,7 @@ import { TooltipModule } from 'primeng/tooltip';
 import { VoidListener } from 'primeng/ts-helpers';
 import { ZIndexUtils } from 'primeng/utils';
 import { MegaMenuStyle } from './style/megamenustyle';
+import {styleClassAttribute} from "primeng/base";
 
 @Component({
     selector: 'p-megaMenuSub, p-megamenu-sub',
@@ -468,7 +469,7 @@ export class MegaMenu extends BaseComponent implements OnDestroy, OnInit {
      * Class of the element.
      * @group Props
      */
-    @Input() styleClass: string | undefined;
+    @Input({ transform: styleClassAttribute }) styleClass: string | undefined;
     /**
      * Defines the orientation.
      * @group Props

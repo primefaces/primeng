@@ -3,6 +3,7 @@ import { ChangeDetectionStrategy, Component, EventEmitter, HostBinding, inject, 
 import { SharedModule } from 'primeng/api';
 import { BaseComponent } from 'primeng/basecomponent';
 import { AvatarStyle } from './style/avatarstyle';
+import {styleClassAttribute} from "primeng/base";
 
 /**
  * Avatar represents people using icons, labels and images.
@@ -69,7 +70,7 @@ export class Avatar extends BaseComponent {
      * Class of the element.
      * @group Props
      */
-    @Input() styleClass: string | undefined;
+    @Input({ transform: styleClassAttribute }) styleClass: string | undefined;
     /**
      * Establishes a string value that labels the component.
      * @group Props

@@ -3,6 +3,7 @@ import { booleanAttribute, ChangeDetectionStrategy, Component, ContentChild, inj
 import { SharedModule } from 'primeng/api';
 import { BaseComponent } from 'primeng/basecomponent';
 import { ProgressBarStyle } from './style/progressbarstyle';
+import {styleClassAttribute} from "primeng/base";
 
 /**
  * ProgressBar is a process status indicator.
@@ -58,7 +59,7 @@ export class ProgressBar extends BaseComponent {
      * Style class of the element.
      * @group Props
      */
-    @Input() styleClass: string | undefined;
+    @Input({ transform: styleClassAttribute }) styleClass: string | undefined;
     /**
      * Style class of the value element.
      * @group Props

@@ -3,6 +3,7 @@ import { ChangeDetectionStrategy, Component, inject, Input, NgModule, ViewEncaps
 import { SharedModule } from 'primeng/api';
 import { BaseComponent } from 'primeng/basecomponent';
 import { SkeletonStyle } from './style/skeletonstyle';
+import {styleClassAttribute} from "primeng/base";
 
 /**
  * Skeleton is a placeholder to display instead of the actual content.
@@ -22,7 +23,7 @@ export class Skeleton extends BaseComponent {
      * Class of the element.
      * @group Props
      */
-    @Input() styleClass: string | undefined;
+    @Input({ transform: styleClassAttribute }) styleClass: string | undefined;
     /**
      * Inline style of the element.
      * @group Props

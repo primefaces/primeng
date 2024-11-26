@@ -4,6 +4,7 @@ import { BlockableUI, PrimeTemplate, SharedModule } from 'primeng/api';
 import { BaseComponent } from 'primeng/basecomponent';
 import { Nullable } from 'primeng/ts-helpers';
 import { TimelineStyle } from './style/timelinestyle';
+import {styleClassAttribute} from "primeng/base";
 
 /**
  * Timeline visualizes a series of chained events.
@@ -65,7 +66,7 @@ export class Timeline extends BaseComponent implements AfterContentInit, Blockab
      * Style class of the component.
      * @group Props
      */
-    @Input() styleClass: string | undefined;
+    @Input({ transform: styleClassAttribute }) styleClass: string | undefined;
     /**
      * Position of the timeline bar relative to the content. Valid values are "left", "right" for vertical layout and "top", "bottom" for horizontal layout.
      * @group Props

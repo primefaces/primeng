@@ -37,6 +37,7 @@ import { InputText } from 'primeng/inputtext';
 import { Nullable } from 'primeng/ts-helpers';
 import { Caret } from './inputmask.interface';
 import { InputMaskStyle } from './style/inputmaskstyle';
+import {styleClassAttribute} from "primeng/base";
 
 export const INPUTMASK_VALUE_ACCESSOR: any = {
     provide: NG_VALUE_ACCESSOR,
@@ -130,7 +131,7 @@ export class InputMask extends BaseComponent implements OnInit, ControlValueAcce
      * Style class of the input field.
      * @group Props
      */
-    @Input() styleClass: string | undefined;
+    @Input({ transform: styleClassAttribute }) styleClass: string | undefined;
     /**
      * Advisory information to display on input.
      * @group Props

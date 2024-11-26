@@ -6,6 +6,7 @@ import { AutoFocus } from 'primeng/autofocus';
 import { BaseComponent } from 'primeng/basecomponent';
 import { ToggleSwitchStyle } from './style/toggleswitchstyle';
 import { ToggleSwitchChangeEvent } from './toggleswitch.interface';
+import {styleClassAttribute} from "primeng/base";
 
 /**
  * Context interface for the handle template.
@@ -72,7 +73,7 @@ export class ToggleSwitch extends BaseComponent implements AfterContentInit {
      * Style class of the component.
      * @group Props
      */
-    @Input() styleClass: string | undefined;
+    @Input({ transform: styleClassAttribute }) styleClass: string | undefined;
     /**
      * Index of the element in tabbing order.
      * @group Props
