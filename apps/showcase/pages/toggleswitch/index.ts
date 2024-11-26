@@ -6,6 +6,7 @@ import { InputSwitchDocModule } from '@/doc/toggleswitch/inputswitchdoc.module';
 import { InvalidDoc } from '@/doc/toggleswitch/invaliddoc';
 import { PreselectionDoc } from '@/doc/toggleswitch/preselectiondoc';
 import { ReactiveFormsDoc } from '@/doc/toggleswitch/reactiveformsdoc';
+import { TemplateDoc } from '@/doc/toggleswitch/templatedoc';
 import { Component } from '@angular/core';
 
 @Component({
@@ -39,6 +40,11 @@ export class ToggleSwitchDemo {
             id: 'invalid',
             label: 'Invalid',
             component: InvalidDoc
+        },
+        {
+            id: 'template',
+            label: 'Template',
+            component: TemplateDoc
         },
         {
             id: 'disabled',

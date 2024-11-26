@@ -9,7 +9,7 @@ import { Component } from '@angular/core';
 @Component({
     standalone: true,
     imports: [FloatLabelDocModule],
-    template: ` <app-doc docTitle="Angular Float Label Component" header="FloatLabel" description="FloatLabel appears on top of the input field when focused." [docs]="docs" themeDocs="floatlabel"></app-doc> `
+    template: ` <app-doc docTitle="Angular Float Label Component" header="FloatLabel" description="FloatLabel appears on top of the input field when focused." [docs]="docs" themeDocs="floatlabel" [apiDocs]="['FloatLabel']"></app-doc> `
 })
 export class FloatLabelDemo {
     docs = [

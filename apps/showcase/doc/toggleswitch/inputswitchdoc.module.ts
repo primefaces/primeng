@@ -13,10 +13,11 @@ import { InvalidDoc } from './invaliddoc';
 import { PreselectionDoc } from './preselectiondoc';
 import { ReactiveFormsDoc } from './reactiveformsdoc';
 import { StyleDoc } from './styledoc';
+import { TemplateDoc } from './templatedoc';
 
 @NgModule({
     imports: [CommonModule, RouterModule, AppCodeModule, AppDocModule, FormsModule, ReactiveFormsModule, ToggleSwitch],
     exports: [AppDocModule],
-    declarations: [ImportDoc, BasicDoc, PreselectionDoc, DisabledDoc, InvalidDoc, StyleDoc, AccessibilityDoc, ReactiveFormsDoc]
+    declarations: [ImportDoc, BasicDoc, PreselectionDoc, DisabledDoc, InvalidDoc, StyleDoc, AccessibilityDoc, ReactiveFormsDoc, TemplateDoc]
 })
 export class InputSwitchDocModule {}
