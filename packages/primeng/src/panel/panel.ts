@@ -67,7 +67,7 @@ export interface PanelHeaderIconsTemplateContext {
             [class]="styleClass"
         >
             <div class="p-panel-header" *ngIf="showHeader" (click)="onHeaderClick($event)" [attr.id]="id + '-titlebar'">
-                <span class="p-panel-title" *ngIf="header" [attr.id]="id + '_header'">{{ header }}</span>
+                <span class="p-panel-title" *ngIf="_header" [attr.id]="id + '_header'">{{ _header }}</span>
                 <ng-content select="p-header"></ng-content>
                 <ng-container *ngTemplateOutlet="headerTemplate"></ng-container>
                 <div
@@ -191,7 +191,7 @@ export class Panel extends BaseComponent implements BlockableUI {
      * Header text of the panel.
      * @group Props
      */
-    @Input() header: string | undefined;
+    @Input('header') _header: string | undefined;
     /**
      * Defines the initial state of panel content, supports one or two-way binding as well.
      * @group Props
@@ -318,7 +318,7 @@ export class Panel extends BaseComponent implements BlockableUI {
     readonly id = uuid('pn_id_');
 
     get buttonAriaLabel() {
-        return this.header;
+        return this._header;
     }
 
     _componentStyle = inject(PanelStyle);
