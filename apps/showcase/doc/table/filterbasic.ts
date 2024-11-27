@@ -26,7 +26,7 @@ import { Table } from 'primeng/table';
                     [globalFilterFields]="['name', 'country.name', 'representative.name', 'status']"
                     [tableStyle]="{ 'min-width': '75rem' }"
                 >
-                    <ng-template #caption>
+                    <ng-template pTemplate="caption">
                         <div class="flex">
                             <p-iconfield iconPosition="left" class="ml-auto">
                                 <p-inputicon>
@@ -36,7 +36,7 @@ import { Table } from 'primeng/table';
                             </p-iconfield>
                         </div>
                     </ng-template>
-                    <ng-template #header>
+                    <ng-template pTemplate="header">
                         <tr>
                             <th style="width:22%">Name</th>
                             <th style="width:22%">Country</th>
@@ -81,7 +81,7 @@ import { Table } from 'primeng/table';
                             </th>
                         </tr>
                     </ng-template>
-                    <ng-template #body let-customer>
+                    <ng-template pTemplate="body" let-customer>
                         <tr>
                             <td>
                                 {{ customer.name }}
@@ -108,7 +108,7 @@ import { Table } from 'primeng/table';
                             </td>
                         </tr>
                     </ng-template>
-                    <ng-template #emptyMessage>
+                    <ng-template pTemplate="emptymessage">
                         <tr>
                             <td colspan="5">No customers found.</td>
                         </tr>
