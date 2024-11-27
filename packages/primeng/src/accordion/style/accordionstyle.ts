@@ -28,6 +28,8 @@ const theme = ({ dt }) => `
         'accordion.transition.duration'
     )};
     outline-color: transparent;
+    position: relative;
+    overflow: hidden;
 }
 
 .p-accordionpanel:first-child > .p-accordionheader {
