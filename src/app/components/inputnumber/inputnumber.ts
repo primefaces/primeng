@@ -1003,7 +1003,7 @@ export class InputNumber implements OnInit, AfterContentInit, OnChanges, Control
         }
 
         let code = event.which || event.keyCode;
-        let char = String.fromCharCode(code);
+        let char = event.key ?? String.fromCharCode(code);
         let isDecimalSign = this.isDecimalSign(char);
         const isMinusSign = this.isMinusSign(char);
 
