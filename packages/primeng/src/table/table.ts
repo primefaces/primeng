@@ -2064,7 +2064,7 @@ export class ColumnFilterFormElement implements OnInit {
                 [ariaLabel]="filterMenuButtonAriaLabel"
                 [attr.aria-controls]="overlayVisible ? overlayId : null"
                 [attr.aria-expanded]="overlayVisible ?? false"
-                (click)="toggleMenu()"
+                (click)="toggleMenu($event)"
                 (keydown)="onToggleButtonKeyDown($event)"
                 [buttonProps]="filterButtonProps?.filter"
             >
@@ -2668,8 +2668,9 @@ export class ColumnFilter extends BaseComponent implements AfterContentInit {
         }
     }
 
-    toggleMenu() {
+    toggleMenu(e: Event) {
         this.overlayVisible = !this.overlayVisible;
+        e.stopPropagation();
     }
 
     onToggleButtonKeyDown(event: KeyboardEvent) {
@@ -2692,7 +2693,7 @@ export class ColumnFilter extends BaseComponent implements AfterContentInit {
                 }
                 break;
             case 'Enter':
-                this.toggleMenu();
+                this.toggleMenu(event);
                 event.preventDefault();
                 break;
         }
