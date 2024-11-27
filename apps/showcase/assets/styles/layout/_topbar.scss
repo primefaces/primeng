@@ -107,7 +107,7 @@
         .config-panel {
             position: absolute;
             top: calc(100% + 2px);
-            right: 0;
+            inset-inline-end: 0;
             width: 18rem;
             padding: .75rem;
             background-color: var(--overlay-background);
