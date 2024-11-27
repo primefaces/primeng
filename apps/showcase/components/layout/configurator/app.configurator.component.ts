@@ -68,13 +68,13 @@ const presets = {
                 <div class="flex-1">
                     <div class="config-panel-settings">
                         <span class="config-panel-label">Ripple</span>
-                        <p-toggleSwitch [(ngModel)]="ripple" />
+                        <p-toggleswitch [(ngModel)]="ripple" />
                     </div>
                 </div>
                 <div class="flex-1">
                     <div class="config-panel-settings items-end">
                         <span class="config-panel-label">RTL</span>
-                        <p-toggleSwitch [(ngModel)]="isRTL" (ngModelChange)="onRTLChange($event)" />
+                        <p-toggleswitch [ngModel]="isRTL" (ngModelChange)="onRTLChange($event)" />
                     </div>
                 </div>
             </div>
@@ -95,11 +95,7 @@ export class AppConfiguratorComponent {
     }
 
     get isRTL() {
-        return this.configService.appState().rtl;
-    }
-
-    set RTL(value: boolean) {
-        this.configService.appState.update((state) => ({ ...state, RTL: value }));
+        return this.configService.appState().RTL;
     }
 
     config: PrimeNG = inject(PrimeNG);
@@ -108,11 +104,13 @@ export class AppConfiguratorComponent {
 
     presets = Object.keys(presets);
 
-    onRTLChange(value) {
+    onRTLChange(value: boolean) {
         this.toggleRTL(value);
     }
 
-    toggleRTL(value) {
+    toggleRTL(value: boolean) {
+        this.configService.appState.update((state) => ({ ...state, RTL: value }));
+
         const htmlElement = document.documentElement;
 
         if (value) {
