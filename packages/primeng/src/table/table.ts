@@ -1476,7 +1476,8 @@ export class CancelEditableRow {
             <ng-container *ngTemplateOutlet="outputTemplate"></ng-container>
         </ng-container>
     `,
-    encapsulation: ViewEncapsulation.None
+    encapsulation: ViewEncapsulation.None,
+    providers: [EditableColumn, EditableRow]
 })
 export class CellEditor extends BaseComponent {
     @ContentChild('input') inputTemplate: TemplateRef<any>;
@@ -1484,6 +1485,7 @@ export class CellEditor extends BaseComponent {
     @ContentChild('output') outputTemplate: TemplateRef<any>;
 
     dt = inject(Table);
+
     @Optional() editableColumn = inject(EditableColumn);
 
     @Optional() editableRow = inject(EditableRow);
