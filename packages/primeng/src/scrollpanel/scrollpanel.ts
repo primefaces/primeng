@@ -208,8 +208,8 @@ export class ScrollPanel extends BaseComponent implements AfterViewInit, OnDestr
                 xBar.setAttribute('data-p-scrollpanel-hidden', 'false');
                 removeClass(xBar, 'p-scrollpanel-hidden');
                 const xBarWidth = Math.max((this.scrollXRatio as number) * 100, 10);
-                const xBarLeft = (content.scrollLeft * (100 - xBarWidth)) / (totalWidth - ownWidth);
-                xBar.style.cssText = 'width:' + xBarWidth + '%; left:' + xBarLeft + '%;bottom:' + bottom + 'px;';
+                const xBarLeft = Math.abs((content.scrollLeft * (100 - xBarWidth)) / (totalWidth - ownWidth));
+                xBar.style.cssText = 'width:' + xBarWidth + '%; inset-inline-start:' + xBarLeft + '%;bottom:' + bottom + 'px;';
             }
 
             if ((this.scrollYRatio as number) >= 1) {
@@ -220,7 +220,7 @@ export class ScrollPanel extends BaseComponent implements AfterViewInit, OnDestr
                 removeClass(yBar, 'p-scrollpanel-hidden');
                 const yBarHeight = Math.max((this.scrollYRatio as number) * 100, 10);
                 const yBarTop = (content.scrollTop * (100 - yBarHeight)) / (totalHeight - ownHeight);
-                yBar.style.cssText = 'height:' + yBarHeight + '%; top: calc(' + yBarTop + '% - ' + xBar.clientHeight + 'px);right:' + right + 'px;';
+                yBar.style.cssText = 'height:' + yBarHeight + '%; top: calc(' + yBarTop + '% - ' + xBar.clientHeight + 'px); inset-inline-end:' + right + 'px;';
             }
         });
         this.cd.markForCheck();
