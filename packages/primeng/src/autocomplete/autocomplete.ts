@@ -19,7 +19,6 @@ import {
     numberAttribute,
     OnDestroy,
     Output,
-    QueryList,
     signal,
     TemplateRef,
     ViewChild,
@@ -27,10 +26,9 @@ import {
 } from '@angular/core';
 import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
 import { equals, findLastIndex, findSingle, focus, isEmpty, isNotEmpty, resolveFieldData, uuid } from '@primeuix/utils';
-import { OverlayOptions, OverlayService, PrimeTemplate, ScrollerOptions, SharedModule, TranslationKeys } from 'primeng/api';
+import { OverlayOptions, OverlayService, ScrollerOptions, SharedModule, TranslationKeys } from 'primeng/api';
 import { AutoFocus } from 'primeng/autofocus';
 import { BaseComponent } from 'primeng/basecomponent';
-import { Button } from 'primeng/button';
 import { Chip } from 'primeng/chip';
 import { PrimeNG } from 'primeng/config';
 import { ConnectedOverlayScrollHandler } from 'primeng/dom';
@@ -199,86 +197,88 @@ export const AUTOCOMPLETE_VALUE_ACCESSOR: any = {
                 (onAnimationStart)="onOverlayAnimationStart($event)"
                 (onHide)="hide()"
             >
-                <div [ngClass]="panelClass" [ngStyle]="panelStyle" [class]="panelStyleClass">
-                    <ng-container *ngTemplateOutlet="header"></ng-container>
-                    <div class="p-autocomplete-list-container" [style.max-height]="virtualScroll ? 'auto' : scrollHeight">
-                        <p-scroller
-                            *ngIf="virtualScroll"
-                            #scroller
-                            [items]="visibleOptions()"
-                            [style]="{ height: scrollHeight }"
-                            [itemSize]="virtualScrollItemSize || _itemSize"
-                            [autoSize]="true"
-                            [lazy]="lazy"
-                            (onLazyLoad)="onLazyLoad.emit($event)"
-                            [options]="virtualScrollOptions"
-                        >
-                            <ng-template pTemplate="content" let-items let-scrollerOptions="options">
-                                <ng-container *ngTemplateOutlet="buildInItems; context: { $implicit: items, options: scrollerOptions }"></ng-container>
-                            </ng-template>
-                            <ng-container *ngIf="loader">
-                                <ng-template pTemplate="loader" let-scrollerOptions="options">
-                                    <ng-container *ngTemplateOutlet="loader; context: { options: scrollerOptions }"></ng-container>
+                <ng-template #content>
+                    <div [ngClass]="panelClass" [ngStyle]="panelStyle" [class]="panelStyleClass">
+                        <ng-container *ngTemplateOutlet="header"></ng-container>
+                        <div class="p-autocomplete-list-container" [style.max-height]="virtualScroll ? 'auto' : scrollHeight">
+                            <p-scroller
+                                *ngIf="virtualScroll"
+                                #scroller
+                                [items]="visibleOptions()"
+                                [style]="{ height: scrollHeight }"
+                                [itemSize]="virtualScrollItemSize || _itemSize"
+                                [autoSize]="true"
+                                [lazy]="lazy"
+                                (onLazyLoad)="onLazyLoad.emit($event)"
+                                [options]="virtualScrollOptions"
+                            >
+                                <ng-template #content let-items let-scrollerOptions="options">
+                                    <ng-container *ngTemplateOutlet="buildInItems; context: { $implicit: items, options: scrollerOptions }"></ng-container>
                                 </ng-template>
+                                <ng-container *ngIf="loader">
+                                    <ng-template #loader let-scrollerOptions="options">
+                                        <ng-container *ngTemplateOutlet="loader; context: { options: scrollerOptions }"></ng-container>
+                                    </ng-template>
+                                </ng-container>
+                            </p-scroller>
+                            <ng-container *ngIf="!virtualScroll">
+                                <ng-container *ngTemplateOutlet="buildInItems; context: { $implicit: visibleOptions(), options: {} }"></ng-container>
                             </ng-container>
-                        </p-scroller>
-                        <ng-container *ngIf="!virtualScroll">
-                            <ng-container *ngTemplateOutlet="buildInItems; context: { $implicit: visibleOptions(), options: {} }"></ng-container>
-                        </ng-container>
-                    </div>
+                        </div>
 
-                    <ng-template #buildInItems let-items let-scrollerOptions="options">
-                        <ul #items class="p-autocomplete-list" [ngClass]="scrollerOptions.contentStyleClass" [style]="scrollerOptions.contentStyle" role="listbox" [attr.id]="id + '_list'" [attr.aria-label]="listLabel">
-                            <ng-template ngFor let-option [ngForOf]="items" let-i="index">
-                                <ng-container *ngIf="isOptionGroup(option)">
-                                    <li [attr.id]="id + '_' + getOptionIndex(i, scrollerOptions)" class="p-autocomplete-option-group" [ngStyle]="{ height: scrollerOptions.itemSize + 'px' }" role="option">
-                                        <span *ngIf="!groupTemplate">{{ getOptionGroupLabel(option.optionGroup) }}</span>
-                                        <ng-container *ngTemplateOutlet="groupTemplate; context: { $implicit: option.optionGroup }"></ng-container>
-                                    </li>
-                                </ng-container>
-                                <ng-container *ngIf="!isOptionGroup(option)">
-                                    <li
-                                        pRipple
-                                        [ngStyle]="{ height: scrollerOptions.itemSize + 'px' }"
-                                        [ngClass]="optionClass(option, i, scrollerOptions)"
-                                        [attr.id]="id + '_' + getOptionIndex(i, scrollerOptions)"
-                                        role="option"
-                                        [attr.aria-label]="getOptionLabel(option)"
-                                        [attr.aria-selected]="isSelected(option)"
-                                        [attr.aria-disabled]="isOptionDisabled(option)"
-                                        [attr.data-p-focused]="focusedOptionIndex() === getOptionIndex(i, scrollerOptions)"
-                                        [attr.aria-setsize]="ariaSetSize"
-                                        [attr.aria-posinset]="getAriaPosInset(getOptionIndex(i, scrollerOptions))"
-                                        (click)="onOptionSelect($event, option)"
-                                        (mouseenter)="onOptionMouseEnter($event, getOptionIndex(i, scrollerOptions))"
-                                    >
-                                        <span *ngIf="!item">{{ getOptionLabel(option) }}</span>
-                                        <ng-container
-                                            *ngTemplateOutlet="
-                                                item;
-                                                context: {
-                                                    $implicit: option,
-                                                    index: scrollerOptions.getOptions ? scrollerOptions.getOptions(i) : i
-                                                }
-                                            "
-                                        ></ng-container>
-                                    </li>
-                                </ng-container>
-                            </ng-template>
-                            <li *ngIf="!items || (items && items.length === 0 && showEmptyMessage)" class="p-autocomplete-empty-message" [ngStyle]="{ height: scrollerOptions.itemSize + 'px' }" role="option">
-                                @if (!empty) {
-                                    {{ searchResultMessageText }}
-                                } @else {
-                                    <ng-container *ngTemplateOutlet="empty"></ng-container>
-                                }
-                            </li>
-                        </ul>
-                    </ng-template>
-                    <ng-container *ngTemplateOutlet="footer"></ng-container>
-                </div>
-                <span role="status" aria-live="polite" class="p-hidden-accessible">
-                    {{ selectedMessageText }}
-                </span>
+                        <ng-template #buildInItems let-items let-scrollerOptions="options">
+                            <ul #items class="p-autocomplete-list" [ngClass]="scrollerOptions.contentStyleClass" [style]="scrollerOptions.contentStyle" role="listbox" [attr.id]="id + '_list'" [attr.aria-label]="listLabel">
+                                <ng-template ngFor let-option [ngForOf]="items" let-i="index">
+                                    <ng-container *ngIf="isOptionGroup(option)">
+                                        <li [attr.id]="id + '_' + getOptionIndex(i, scrollerOptions)" class="p-autocomplete-option-group" [ngStyle]="{ height: scrollerOptions.itemSize + 'px' }" role="option">
+                                            <span *ngIf="!groupTemplate">{{ getOptionGroupLabel(option.optionGroup) }}</span>
+                                            <ng-container *ngTemplateOutlet="groupTemplate; context: { $implicit: option.optionGroup }"></ng-container>
+                                        </li>
+                                    </ng-container>
+                                    <ng-container *ngIf="!isOptionGroup(option)">
+                                        <li
+                                            pRipple
+                                            [ngStyle]="{ height: scrollerOptions.itemSize + 'px' }"
+                                            [ngClass]="optionClass(option, i, scrollerOptions)"
+                                            [attr.id]="id + '_' + getOptionIndex(i, scrollerOptions)"
+                                            role="option"
+                                            [attr.aria-label]="getOptionLabel(option)"
+                                            [attr.aria-selected]="isSelected(option)"
+                                            [attr.aria-disabled]="isOptionDisabled(option)"
+                                            [attr.data-p-focused]="focusedOptionIndex() === getOptionIndex(i, scrollerOptions)"
+                                            [attr.aria-setsize]="ariaSetSize"
+                                            [attr.aria-posinset]="getAriaPosInset(getOptionIndex(i, scrollerOptions))"
+                                            (click)="onOptionSelect($event, option)"
+                                            (mouseenter)="onOptionMouseEnter($event, getOptionIndex(i, scrollerOptions))"
+                                        >
+                                            <span *ngIf="!item">{{ getOptionLabel(option) }}</span>
+                                            <ng-container
+                                                *ngTemplateOutlet="
+                                                    item;
+                                                    context: {
+                                                        $implicit: option,
+                                                        index: scrollerOptions.getOptions ? scrollerOptions.getOptions(i) : i
+                                                    }
+                                                "
+                                            ></ng-container>
+                                        </li>
+                                    </ng-container>
+                                </ng-template>
+                                <li *ngIf="!items || (items && items.length === 0 && showEmptyMessage)" class="p-autocomplete-empty-message" [ngStyle]="{ height: scrollerOptions.itemSize + 'px' }" role="option">
+                                    @if (!empty) {
+                                        {{ searchResultMessageText }}
+                                    } @else {
+                                        <ng-container *ngTemplateOutlet="empty"></ng-container>
+                                    }
+                                </li>
+                            </ul>
+                        </ng-template>
+                        <ng-container *ngTemplateOutlet="footer"></ng-container>
+                    </div>
+                    <span role="status" aria-live="polite" class="p-hidden-accessible">
+                        {{ selectedMessageText }}
+                    </span>
+                </ng-template>
             </p-overlay>
         </div>
     `,
