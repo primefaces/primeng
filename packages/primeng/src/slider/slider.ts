@@ -1,7 +1,7 @@
 import { CommonModule, isPlatformBrowser } from '@angular/common';
 import { booleanAttribute, ChangeDetectionStrategy, Component, ElementRef, EventEmitter, forwardRef, inject, Input, NgModule, NgZone, numberAttribute, OnDestroy, Output, ViewChild, ViewEncapsulation } from '@angular/core';
 import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
-import { addClass, getWindowScrollLeft, getWindowScrollTop, removeClass } from '@primeuix/utils';
+import { addClass, getWindowScrollLeft, getWindowScrollTop, isRTL, removeClass } from '@primeuix/utils';
 import { SharedModule } from 'primeng/api';
 import { AutoFocus } from 'primeng/autofocus';
 import { BaseComponent } from 'primeng/basecomponent';
@@ -42,7 +42,7 @@ export const SLIDER_VALUE_ACCESSOR: any = {
                 class="p-slider-range"
                 [ngStyle]="{
                     position: 'absolute',
-                    left: offset !== null && offset !== undefined ? offset + '%' : handleValues[0] + '%',
+                    'inset-inline-start': offset !== null && offset !== undefined ? offset + '%' : handleValues[0] + '%',
                     width: diff ? diff + '%' : handleValues[1] - handleValues[0] + '%'
                 }"
                 [attr.data-pc-section]="'range'"
@@ -66,7 +66,7 @@ export const SLIDER_VALUE_ACCESSOR: any = {
                 [style.transition]="dragging ? 'none' : null"
                 [ngStyle]="{
                     position: 'absolute',
-                    left: orientation == 'horizontal' ? handleValue + '%' : null,
+                    'inset-inline-start': orientation == 'horizontal' ? handleValue + '%' : null,
                     bottom: orientation == 'vertical' ? handleValue + '%' : null
                 }"
                 (touchstart)="onDragStart($event)"
@@ -90,7 +90,7 @@ export const SLIDER_VALUE_ACCESSOR: any = {
                 #sliderHandleStart
                 [style.transition]="dragging ? 'none' : null"
                 class="p-slider-handle"
-                [ngStyle]="{ position: 'absolute', left: rangeStartLeft, bottom: rangeStartBottom }"
+                [ngStyle]="{ position: 'absolute', 'inset-inline-start': rangeStartLeft, bottom: rangeStartBottom }"
                 [ngClass]="{ 'p-slider-handle-active': handleIndex == 0 }"
                 (keydown)="onKeyDown($event, 0)"
                 (mousedown)="onMouseDown($event, 0)"
@@ -113,7 +113,7 @@ export const SLIDER_VALUE_ACCESSOR: any = {
                 #sliderHandleEnd
                 [style.transition]="dragging ? 'none' : null"
                 class="p-slider-handle"
-                [ngStyle]="{ position: 'absolute', left: rangeEndLeft, bottom: rangeEndBottom }"
+                [ngStyle]="{ position: 'absolute', 'inset-inline-start': rangeEndLeft, bottom: rangeEndBottom }"
                 [ngClass]="{ 'p-slider-handle-active': handleIndex == 1 }"
                 (keydown)="onKeyDown($event, 1)"
                 (mousedown)="onMouseDown($event, 1)"
@@ -584,8 +584,15 @@ export class Slider extends BaseComponent implements OnDestroy, ControlValueAcce
     }
 
     calculateHandleValue(event: Event): number {
-        if (this.orientation === 'horizontal') return (((event as MouseEvent).pageX - (this.initX as number)) * 100) / (this.barWidth as number);
-        else return (((this.initY as number) + (this.barHeight as number) - (event as MouseEvent).pageY) * 100) / (this.barHeight as number);
+        if (this.orientation === 'horizontal') {
+            if (isRTL(this.el.nativeElement)) {
+                return (((this.initX as number) + (this.barWidth as number) - (event as MouseEvent).pageX) * 100) / (this.barWidth as number);
+            } else {
+                return (((event as MouseEvent).pageX - (this.initX as number)) * 100) / (this.barWidth as number);
+            }
+        } else {
+            return (((this.initY as number) + (this.barHeight as number) - (event as MouseEvent).pageY) * 100) / (this.barHeight as number);
+        }
     }
 
     updateHandleValue(): void {
