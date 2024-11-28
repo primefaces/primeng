@@ -215,7 +215,7 @@ input.p-select-label {
 
 const classes = {
     root: ({ instance }) => [
-        'p-select p-component p-inputwrapper',
+        'p-dropdown p-select p-component p-inputwrapper',
         {
             'p-disabled': instance.disabled,
             'p-variant-filled': instance.variant ? instance.variant === 'filled' : instance.config.inputStyle() === 'filled',

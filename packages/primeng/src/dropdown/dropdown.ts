@@ -921,31 +921,17 @@ export class Dropdown extends BaseComponent implements OnInit, AfterViewInit, Af
 
     panel: Nullable<HTMLDivElement>;
 
-    dimensionsUpdated: Nullable<boolean>;
-
-    hoveredItem: any;
-
     selectedOptionUpdated: Nullable<boolean>;
 
     _filterValue = signal<any>(null);
 
     searchValue: Nullable<string>;
 
-    searchIndex: Nullable<number>;
-
     searchTimeout: any;
-
-    previousSearchChar: Nullable<string>;
-
-    currentSearchChar: Nullable<string>;
 
     preventModelTouched: Nullable<boolean>;
 
     focusedOptionIndex = signal<number>(-1);
-
-    labelId: Nullable<string>;
-
-    listId: Nullable<string>;
 
     clicked = signal<boolean>(false);
 
@@ -965,10 +951,6 @@ export class Dropdown extends BaseComponent implements OnInit, AfterViewInit, Af
         return this.config.getTranslation(TranslationKeys.ARIA)['listLabel'];
     }
 
-    get rootClass() {
-        return this._componentStyle.classes.root({ instance: this });
-    }
-
     get hasFluid() {
         const nativeElement = this.el.nativeElement;
         const fluidComponent = nativeElement.closest('p-fluid');
@@ -981,14 +963,6 @@ export class Dropdown extends BaseComponent implements OnInit, AfterViewInit, Af
             'p-select-label': true,
             'p-placeholder': this.placeholder() && label === this.placeholder(),
             'p-select-label-empty': !this.editable && !this.selectedItemTemplate && (label === undefined || label === null || label === 'p-emptylabel' || label.length === 0)
-        };
-    }
-
-    get panelClass() {
-        return {
-            'p-dropdown-panel p-component': true,
-            'p-input-filled': this.config.inputStyle() === 'filled' || this.config.inputVariant() === 'filled',
-            'p-ripple-disabled': this.config.ripple() === false
         };
     }
 
