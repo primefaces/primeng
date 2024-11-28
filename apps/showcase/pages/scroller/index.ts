@@ -7,6 +7,7 @@ import { ImportDoc } from '@/doc/scroller/importdoc';
 import { LazyLoadDoc } from '@/doc/scroller/lazyloaddoc';
 import { LoaderDoc } from '@/doc/scroller/loaderdoc';
 import { ProgrammaticDoc } from '@/doc/scroller/programmaticdoc';
+import { TemplateDoc } from '@/doc/scroller/templatedoc';
 import { VirtualScrollerDocModule } from '@/doc/scroller/scrollerdoc.module';
 import { Component } from '@angular/core';
 
@@ -57,6 +58,11 @@ export class VirtualScrollerDemo {
             id: 'programmatic',
             label: 'Programmatic',
             component: ProgrammaticDoc
+        },
+        {
+            id: 'template',
+            label: 'Template',
+            component: TemplateDoc
         },
         {
             id: 'accessibility',

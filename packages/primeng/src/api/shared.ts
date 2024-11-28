@@ -17,7 +17,7 @@ export class Footer {}
 
 @Directive({
     selector: '[pTemplate]',
-    standalone: false
+    standalone: true
 })
 export class PrimeTemplate {
     @Input() type: string | undefined;
@@ -32,8 +32,8 @@ export class PrimeTemplate {
 }
 
 @NgModule({
-    imports: [CommonModule],
+    imports: [CommonModule, PrimeTemplate],
     exports: [Header, Footer, PrimeTemplate],
-    declarations: [Header, Footer, PrimeTemplate]
+    declarations: [Header, Footer]
 })
 export class SharedModule {}

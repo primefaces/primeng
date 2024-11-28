@@ -16,6 +16,14 @@ export interface ScrollerOptions {
      */
     styleClass?: string | undefined;
     /**
+     * Inline style of the content.
+     */
+    contentStyle?: { [klass: string]: any } | null | undefined;
+    /**
+     * Style class of the content.
+     */
+    contentStyleClass?: string | undefined;
+    /**
      * Index of the element in tabbing order.
      */
     tabindex?: number | undefined;
