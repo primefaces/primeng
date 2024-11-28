@@ -1051,10 +1051,14 @@ export class InputNumber extends BaseComponent implements OnInit, AfterContentIn
             char = this._decimalChar;
             code = char.charCodeAt(0);
         }
-        const newValue = this.parseValue(this.input.nativeElement.value + char);
+        const { value, selectionStart, selectionEnd } = this.input.nativeElement;
+        const newValue = this.parseValue(value + char);
         const newValueStr = newValue != null ? newValue.toString() : '';
+        const selectedValue = value.substring(selectionStart, selectionEnd);
+        const selectedValueParsed = this.parseValue(selectedValue);
+        const selectedValueStr = selectedValueParsed != null ? selectedValueParsed.toString() : '';
 
-        if (this.maxlength && this.getSelectedText()?.length == this.maxlength) {
+        if (selectionStart !== selectionEnd && selectedValueStr.length > 0) {
             this.insert(event, char, { isDecimalSign, isMinusSign });
             return;
         }
@@ -1066,15 +1070,6 @@ export class InputNumber extends BaseComponent implements OnInit, AfterContentIn
         if ((48 <= code && code <= 57) || isMinusSign || isDecimalSign) {
             this.insert(event, char, { isDecimalSign, isMinusSign });
         }
-    }
-
-    private getSelectedText() {
-        return (
-            window
-                ?.getSelection()
-                ?.toString()
-                .replaceAll(/[^0-9']/g, '') || ''
-        );
     }
 
     onPaste(event: ClipboardEvent) {
