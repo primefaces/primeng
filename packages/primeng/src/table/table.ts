@@ -55,6 +55,7 @@ import {
     hasClass,
     invokeElementMethod,
     isNotEmpty,
+    isRTL,
     isTouchDevice,
     removeClass,
     reorderArray,
@@ -215,14 +216,14 @@ export class FrozenColumn implements AfterViewInit {
                 if (next) {
                     right = getOuterWidth(next) + (parseFloat(next.style.right) || 0);
                 }
-                this.el.nativeElement.style.right = right + 'px';
+                this.el.nativeElement.style.insetInlineEnd = right + 'px';
             } else {
                 let left = 0;
                 let prev = this.el.nativeElement.previousElementSibling;
                 if (prev) {
                     left = getOuterWidth(prev) + (parseFloat(prev.style.left) || 0);
                 }
-                this.el.nativeElement.style.left = left + 'px';
+                this.el.nativeElement.style.insetInlineStart = left + 'px';
             }
 
             const filterRow = this.el.nativeElement?.parentElement?.nextElementSibling;
@@ -230,8 +231,8 @@ export class FrozenColumn implements AfterViewInit {
             if (filterRow) {
                 let index = getIndex(this.el.nativeElement);
                 if (filterRow.children && filterRow.children[index]) {
-                    filterRow.children[index].style.left = this.el.nativeElement.style.left;
-                    filterRow.children[index].style.right = this.el.nativeElement.style.right;
+                    filterRow.children[index].style.insetInlineStart = this.el.nativeElement.style.insetInlineStart;
+                    filterRow.children[index].style.insetInlineEnd = this.el.nativeElement.style.insetInlineEnd;
                 }
             }
         }
@@ -5904,7 +5905,7 @@ export class Table extends BaseComponent implements OnInit, AfterViewInit, After
     }
 
     onColumnResizeEnd() {
-        let delta = this.resizeHelperViewChild?.nativeElement.offsetLeft - <number>this.lastResizerHelperX;
+        let delta = isRTL(this.el.nativeElement) ? <number>this.lastResizerHelperX - this.resizeHelperViewChild?.nativeElement.offsetLeft : this.resizeHelperViewChild?.nativeElement.offsetLeft - <number>this.lastResizerHelperX;
         let columnWidth = this.resizeColumnElement.offsetWidth;
         let newColumnWidth = columnWidth + delta;
         let minWidth = this.resizeColumnElement.style.minWidth.replace(/[^\d.]/g, '') || 15;
