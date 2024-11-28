@@ -212,41 +212,49 @@ export class Steps extends BaseComponent implements OnInit, OnDestroy {
 
         nextItem && this.setFocusToMenuitem(target, nextItem);
     }
+
     navigateToPrevItem(target) {
         const prevItem = this.findPrevItem(target);
 
         prevItem && this.setFocusToMenuitem(target, prevItem);
     }
+
     navigateToFirstItem(target) {
         const firstItem = this.findFirstItem();
 
         firstItem && this.setFocusToMenuitem(target, firstItem);
     }
+
     navigateToLastItem(target) {
         const lastItem = this.findLastItem();
 
         lastItem && this.setFocusToMenuitem(target, lastItem);
     }
+
     findNextItem(item) {
         const nextItem = item.parentElement.nextElementSibling;
 
         return nextItem ? nextItem.children[0] : null;
     }
+
     findPrevItem(item) {
         const prevItem = item.parentElement.previousElementSibling;
 
         return prevItem ? prevItem.children[0] : null;
     }
+
     findFirstItem() {
         const firstSibling = findSingle(this.listViewChild.nativeElement, '[data-pc-section="menuitem"]');
 
         return firstSibling ? firstSibling.children[0] : null;
     }
+
     findLastItem() {
         const siblings = find(this.listViewChild.nativeElement, '[data-pc-section="menuitem"]');
 
         return siblings ? siblings[siblings.length - 1].children[0] : null;
     }
+
     setFocusToMenuitem(target, focusableItem) {
         target.tabIndex = '-1';
         focusableItem.tabIndex = '0';

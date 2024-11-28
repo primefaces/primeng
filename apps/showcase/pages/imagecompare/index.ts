@@ -1,8 +1,8 @@
 import { Component } from '@angular/core';
-import { ImportDoc } from '../../doc/imagecompare/importdoc';
-import { ImageCompareDocModule } from '../../doc/imagecompare/imagecomparedoc.module';
-import { BasicDoc } from '../../doc/imagecompare/basicdoc';
-import { AccessibilityDoc } from '../../doc/imagecompare/accessibilitydoc';
+import { ImportDoc } from '@/doc/imagecompare/importdoc';
+import { ImageCompareDocModule } from '@/doc/imagecompare/imagecomparedoc.module';
+import { BasicDoc } from '@/doc/imagecompare/basicdoc';
+import { AccessibilityDoc } from '@/doc/imagecompare/accessibilitydoc';
 import { ResponsiveDoc } from '@/doc/imagecompare/responsivedoc';
 
 @Component({
