@@ -129,7 +129,7 @@
                             "name": "iconPos",
                             "optional": false,
                             "readonly": false,
-                            "type": "\"start\" | \"end\"",
+                            "type": "\"end\" | \"start\"",
                             "default": "start",
                             "description": "Position of the icon."
                         },
@@ -1825,6 +1825,20 @@
                             "description": "Style class of the element."
                         },
                         {
+                            "name": "contentStyle",
+                            "optional": true,
+                            "readonly": false,
+                            "type": "Object",
+                            "description": "Inline style of the content."
+                        },
+                        {
+                            "name": "contentStyleClass",
+                            "optional": true,
+                            "readonly": false,
+                            "type": "string",
+                            "description": "Style class of the content."
+                        },
+                        {
                             "name": "tabindex",
                             "optional": true,
                             "readonly": false,
@@ -1863,7 +1877,7 @@
                             "name": "orientation",
                             "optional": true,
                             "readonly": false,
-                            "type": "\"horizontal\" | \"vertical\" | \"both\"",
+                            "type": "\"vertical\" | \"horizontal\" | \"both\"",
                             "description": "The orientation of scrollbar."
                         },
                         {
@@ -2072,7 +2086,7 @@
                             "name": "items",
                             "optional": false,
                             "readonly": false,
-                            "type": "SelectItem<any>[]"
+                            "type": "SelectItem<T>[]"
                         }
                     ]
                 }
@@ -4801,7 +4815,7 @@
                             "name": "severity",
                             "optional": false,
                             "readonly": false,
-                            "type": "\"primary\" | \"secondary\" | \"success\" | \"info\" | \"warn\" | \"danger\" | \"contrast\" | \"help\"",
+                            "type": "\"info\" | \"success\" | \"warn\" | \"danger\" | \"secondary\" | \"contrast\" | \"help\" | \"primary\"",
                             "description": "Severity type of the badge."
                         },
                         {
@@ -4810,6 +4824,20 @@
                             "readonly": false,
                             "type": "string | number",
                             "description": "Value to display inside the badge."
+                        },
+                        {
+                            "name": "badgeStyle",
+                            "optional": false,
+                            "readonly": false,
+                            "type": "Object",
+                            "description": "Inline style of the element."
+                        },
+                        {
+                            "name": "badgeStyleClass",
+                            "optional": false,
+                            "readonly": false,
+                            "type": "string",
+                            "description": "Class of the element."
                         }
                     ]
                 }
@@ -4855,7 +4883,7 @@
                             "name": "severity",
                             "optional": false,
                             "readonly": false,
-                            "type": "InputSignal<\"primary\" | \"secondary\" | \"success\" | \"info\" | \"warn\" | \"danger\" | \"contrast\" | \"help\">",
+                            "type": "InputSignal<\"info\" | \"success\" | \"warn\" | \"danger\" | \"secondary\" | \"contrast\" | \"help\" | \"primary\">",
                             "default": "...",
                             "description": "Severity type of the badge."
                         },
@@ -5215,7 +5243,7 @@
                             "name": "severity",
                             "optional": false,
                             "readonly": false,
-                            "type": "\"primary\" | \"secondary\" | \"success\" | \"info\" | \"warn\" | \"danger\" | \"contrast\" | \"help\"",
+                            "type": "\"info\" | \"success\" | \"warn\" | \"danger\" | \"secondary\" | \"contrast\" | \"help\" | \"primary\"",
                             "description": "Defines the style of the button."
                         },
                         {
@@ -5380,7 +5408,7 @@
                             "name": "severity",
                             "optional": false,
                             "readonly": false,
-                            "type": "\"primary\" | \"secondary\" | \"success\" | \"info\" | \"warn\" | \"danger\" | \"contrast\" | \"help\"",
+                            "type": "\"info\" | \"success\" | \"warn\" | \"danger\" | \"secondary\" | \"contrast\" | \"help\" | \"primary\"",
                             "description": "Defines the style of the button."
                         },
                         {
@@ -5446,7 +5474,7 @@
                             "name": "badgeSeverity",
                             "optional": false,
                             "readonly": false,
-                            "type": "\"primary\" | \"secondary\" | \"success\" | \"info\" | \"warn\" | \"danger\" | \"contrast\" | \"help\"",
+                            "type": "\"info\" | \"success\" | \"warn\" | \"danger\" | \"secondary\" | \"contrast\" | \"help\" | \"primary\"",
                             "default": "secondary",
                             "description": "Severity type of the badge."
                         },
@@ -6798,7 +6826,7 @@
                             "name": "orientation",
                             "optional": false,
                             "readonly": false,
-                            "type": "\"horizontal\" | \"vertical\"",
+                            "type": "\"vertical\" | \"horizontal\"",
                             "default": "horizontal",
                             "description": "Specifies the layout of the component."
                         },
@@ -7207,7 +7235,7 @@
                             "optional": false,
                             "readonly": false,
                             "type": "boolean",
-                            "default": "true",
+                            "default": "false",
                             "description": "Whether to focus on the first visible or selected element when the overlay panel is shown."
                         },
                         {
@@ -8818,7 +8846,7 @@
                             "name": "defaultFocus",
                             "optional": false,
                             "readonly": false,
-                            "type": "\"none\" | \"accept\" | \"reject\" | \"close\"",
+                            "type": "\"accept\" | \"reject\" | \"none\" | \"close\"",
                             "default": "accept",
                             "description": "Element to receive the focus when the dialog gets visible."
                         },
@@ -9672,7 +9700,7 @@
                         },
                         {
                             "name": "paginatorright",
-                            "description": "Template for the right side of paginator.",
+                            "description": "r* Template for the right side of paginator.",
                             "type": "TemplateRef<any>",
                             "parameters": []
                         },
@@ -11491,7 +11519,7 @@
                             "name": "position",
                             "optional": false,
                             "readonly": false,
-                            "type": "\"center\" | \"right\" | \"left\" | \"top\" | \"bottom\" | \"topleft\" | \"bottomleft\" | \"topright\" | \"bottomright\"",
+                            "type": "\"right\" | \"left\" | \"top\" | \"bottom\" | \"center\" | \"topleft\" | \"bottomleft\" | \"topright\" | \"bottomright\"",
                             "description": "Position of the dialog."
                         },
                         {
@@ -11744,7 +11772,7 @@
                             "name": "layout",
                             "optional": false,
                             "readonly": false,
-                            "type": "\"horizontal\" | \"vertical\"",
+                            "type": "\"vertical\" | \"horizontal\"",
                             "default": "horizontal",
                             "description": "Specifies the orientation."
                         },
@@ -11760,7 +11788,7 @@
                             "name": "align",
                             "optional": false,
                             "readonly": false,
-                            "type": "\"center\" | \"right\" | \"left\" | \"top\" | \"bottom\"",
+                            "type": "\"right\" | \"left\" | \"top\" | \"bottom\" | \"center\"",
                             "description": "Alignment of the content."
                         }
                     ]
@@ -12694,7 +12722,7 @@
                             "name": "filterMatchMode",
                             "optional": false,
                             "readonly": false,
-                            "type": "\"endsWith\" | \"startsWith\" | \"in\" | \"contains\" | \"equals\" | \"notEquals\" | \"lt\" | \"lte\" | \"gt\" | \"gte\"",
+                            "type": "\"gt\" | \"lt\" | \"in\" | \"startsWith\" | \"contains\" | \"endsWith\" | \"equals\" | \"notEquals\" | \"lte\" | \"gte\"",
                             "default": "contains",
                             "description": "Defines how the items are filtered."
                         },
@@ -15013,7 +15041,7 @@
                             "name": "variant",
                             "optional": false,
                             "readonly": false,
-                            "type": "\"over\" | \"in\" | \"on\"",
+                            "type": "\"in\" | \"over\" | \"on\"",
                             "default": "over",
                             "description": "Defines the positioning of the label relative to the input."
                         }
@@ -16114,6 +16142,72 @@
                     {
                         "class": "p-image-original",
                         "description": "Class name of the original element"
+                    }
+                ]
+            }
+        }
+    },
+    "imagecompare": {
+        "components": {
+            "ImageCompare": {
+                "description": "Compare two images side by side with a slider.",
+                "props": {
+                    "description": "Defines the input properties of the component.",
+                    "values": [
+                        {
+                            "name": "tabindex",
+                            "optional": false,
+                            "readonly": false,
+                            "type": "number",
+                            "default": "0",
+                            "description": "Index of the element in tabbing order."
+                        },
+                        {
+                            "name": "ariaLabelledby",
+                            "optional": false,
+                            "readonly": false,
+                            "type": "string",
+                            "description": "Defines a string value that labels an interactive element."
+                        },
+                        {
+                            "name": "ariaLabel",
+                            "optional": false,
+                            "readonly": false,
+                            "type": "string",
+                            "description": "Identifier of the underlying input element."
+                        }
+                    ]
+                },
+                "templates": {
+                    "description": "Defines the templates used by the component.",
+                    "values": [
+                        {
+                            "name": "left",
+                            "description": "Template for the left side.",
+                            "type": "TemplateRef<any>",
+                            "parameters": []
+                        },
+                        {
+                            "name": "right",
+                            "description": "Template for the right side.",
+                            "type": "TemplateRef<any>",
+                            "parameters": []
+                        }
+                    ]
+                }
+            }
+        },
+        "style": {
+            "components": {},
+            "classes": {
+                "values": [
+                    {
+                        "class": "p-imagecompare",
+                        "description": "Class name of the root element"
+                    },
+                    {
+                        "class": "p-imagecompare-slider",
+                        "description": "Class name of the slider element"
                     }
                 ]
             }
@@ -17348,12 +17442,12 @@
                         {
                             "name": "input",
                             "description": "Input template.",
-                            "type": "TemplateRef<InputOtpInputTemplateContext>",
+                            "type": "TemplateRef<any>",
                             "parameters": [
                                 {
                                     "name": "context",
                                     "description": "Context of the template",
-                                    "type": "InputOtpInputTemplateContext"
+                                    "type": "any"
                                 }
                             ]
                         }
@@ -18233,7 +18327,7 @@
                             "name": "filterMatchMode",
                             "optional": false,
                             "readonly": false,
-                            "type": "\"endsWith\" | \"startsWith\" | \"in\" | \"contains\" | \"equals\" | \"notEquals\" | \"lt\" | \"lte\" | \"gt\" | \"gte\"",
+                            "type": "\"gt\" | \"lt\" | \"in\" | \"startsWith\" | \"contains\" | \"endsWith\" | \"equals\" | \"notEquals\" | \"lte\" | \"gte\"",
                             "default": "contains",
                             "description": "Defines how the items are filtered."
                         },
@@ -20030,7 +20124,7 @@
                             "name": "orientation",
                             "optional": false,
                             "readonly": false,
-                            "type": "\"horizontal\" | \"vertical\"",
+                            "type": "\"vertical\" | \"horizontal\"",
                             "default": "horizontal",
                             "description": "Specifies the layout of the component, valid values are 'horizontal' and 'vertical'."
                         },
@@ -20038,7 +20132,7 @@
                             "name": "labelPosition",
                             "optional": false,
                             "readonly": false,
-                            "type": "\"start\" | \"end\"",
+                            "type": "\"end\" | \"start\"",
                             "default": "end",
                             "description": "Specifies the label position of the component, valid values are 'start' and 'end'."
                         },
@@ -20046,7 +20140,7 @@
                             "name": "labelOrientation",
                             "optional": false,
                             "readonly": false,
-                            "type": "\"horizontal\" | \"vertical\"",
+                            "type": "\"vertical\" | \"horizontal\"",
                             "default": "horizontal",
                             "description": "Specifies the label orientation of the component, valid values are 'horizontal' and 'vertical'."
                         },
@@ -20569,7 +20663,7 @@
                             "name": "filterMatchMode",
                             "optional": false,
                             "readonly": false,
-                            "type": "\"endsWith\" | \"startsWith\" | \"in\" | \"contains\" | \"equals\" | \"notEquals\" | \"lt\" | \"lte\" | \"gt\" | \"gte\"",
+                            "type": "\"gt\" | \"lt\" | \"in\" | \"startsWith\" | \"contains\" | \"endsWith\" | \"equals\" | \"notEquals\" | \"lte\" | \"gte\"",
                             "default": "contains",
                             "description": "Defines how the items are filtered."
                         },
@@ -20755,7 +20849,7 @@
                             "optional": false,
                             "readonly": false,
                             "type": "boolean",
-                            "default": "true",
+                            "default": "false",
                             "description": "Whether to focus on the first visible or selected element when the overlay panel is shown."
                         }
                     ]
@@ -21425,7 +21519,7 @@
                             "name": "filterMatchMode",
                             "optional": false,
                             "readonly": false,
-                            "type": "\"endsWith\" | \"startsWith\" | \"in\" | \"contains\" | \"equals\" | \"notEquals\" | \"lt\" | \"lte\" | \"gt\" | \"gte\"",
+                            "type": "\"gt\" | \"lt\" | \"in\" | \"startsWith\" | \"contains\" | \"endsWith\" | \"equals\" | \"notEquals\" | \"lte\" | \"gte\"",
                             "default": "contains",
                             "description": "Defines how the items are filtered."
                         },
@@ -22348,7 +22442,7 @@
                             "name": "severity",
                             "optional": false,
                             "readonly": false,
-                            "type": "\"primary\" | \"secondary\" | \"success\" | \"info\" | \"warn\" | \"danger\" | \"contrast\" | \"help\"",
+                            "type": "\"info\" | \"success\" | \"warn\" | \"danger\" | \"secondary\" | \"contrast\" | \"help\" | \"primary\"",
                             "description": "Severity type of the badge."
                         },
                         {
@@ -22761,12 +22855,6 @@
                         {
                             "name": "content",
                             "description": "Custom content template.",
-                            "type": "TemplateRef<any>",
-                            "parameters": []
-                        },
-                        {
-                            "name": "closeicon",
-                            "description": "Custom close icon template.",
                             "type": "TemplateRef<any>",
                             "parameters": []
                         }
@@ -23201,7 +23289,7 @@
                             "description": "Defines if content of panel can be expanded and collapsed."
                         },
                         {
-                            "name": "header",
+                            "name": "_header",
                             "optional": false,
                             "readonly": false,
                             "type": "string",
@@ -23233,7 +23321,7 @@
                             "name": "iconPos",
                             "optional": false,
                             "readonly": false,
-                            "type": "\"center\" | \"start\" | \"end\"",
+                            "type": "\"end\" | \"center\" | \"start\"",
                             "default": "end",
                             "description": "Position of the icons."
                         },
@@ -23266,7 +23354,7 @@
                             "name": "toggler",
                             "optional": false,
                             "readonly": false,
-                            "type": "\"header\" | \"icon\"",
+                            "type": "\"icon\" | \"header\"",
                             "default": "icon",
                             "description": "Specifies the toggler element to toggle the panel content."
                         },
@@ -24318,7 +24406,7 @@
                             "name": "filterMatchMode",
                             "optional": false,
                             "readonly": false,
-                            "type": "\"endsWith\" | \"startsWith\" | \"in\" | \"contains\" | \"equals\" | \"notEquals\" | \"lt\" | \"lte\" | \"gt\" | \"gte\"",
+                            "type": "\"gt\" | \"lt\" | \"in\" | \"startsWith\" | \"contains\" | \"endsWith\" | \"equals\" | \"notEquals\" | \"lte\" | \"gte\"",
                             "default": "contains",
                             "description": "Defines how the items are filtered."
                         },
@@ -25742,7 +25830,7 @@
                             "name": "orientation",
                             "optional": false,
                             "readonly": false,
-                            "type": "\"horizontal\" | \"vertical\" | \"both\"",
+                            "type": "\"vertical\" | \"horizontal\" | \"both\"",
                             "description": "The orientation of scrollbar."
                         },
                         {
@@ -26866,7 +26954,7 @@
                             "name": "filterMatchMode",
                             "optional": false,
                             "readonly": false,
-                            "type": "\"endsWith\" | \"startsWith\" | \"in\" | \"contains\" | \"equals\" | \"notEquals\" | \"lt\" | \"lte\" | \"gt\" | \"gte\"",
+                            "type": "\"gt\" | \"lt\" | \"in\" | \"startsWith\" | \"contains\" | \"endsWith\" | \"equals\" | \"notEquals\" | \"lte\" | \"gte\"",
                             "default": "contains",
                             "description": "Defines how the items are filtered."
                         },
@@ -26929,7 +27017,7 @@
                             "optional": false,
                             "readonly": false,
                             "type": "boolean",
-                            "default": "true",
+                            "default": "false",
                             "description": "Whether to focus on the first visible or selected element when the overlay panel is shown."
                         },
                         {
@@ -28126,7 +28214,7 @@
                             "name": "orientation",
                             "optional": false,
                             "readonly": false,
-                            "type": "\"horizontal\" | \"vertical\"",
+                            "type": "\"vertical\" | \"horizontal\"",
                             "default": "horizontal",
                             "description": "Orientation of the slider."
                         },
@@ -28641,7 +28729,7 @@
                             "name": "severity",
                             "optional": false,
                             "readonly": false,
-                            "type": "\"primary\" | \"secondary\" | \"success\" | \"info\" | \"warn\" | \"danger\" | \"contrast\" | \"help\"",
+                            "type": "\"info\" | \"success\" | \"warn\" | \"danger\" | \"secondary\" | \"contrast\" | \"help\" | \"primary\"",
                             "description": "Defines the style of the button."
                         },
                         {
@@ -30150,7 +30238,7 @@
                             "name": "scrollDirection",
                             "optional": false,
                             "readonly": false,
-                            "type": "\"horizontal\" | \"vertical\" | \"both\"",
+                            "type": "\"vertical\" | \"horizontal\" | \"both\"",
                             "default": "vertical",
                             "description": "Orientation of the scrolling, options are \"vertical\", \"horizontal\" and \"both\".",
                             "deprecated": "Property is obselete since v14.2.0."
@@ -32624,7 +32712,7 @@
                             "name": "severity",
                             "optional": false,
                             "readonly": false,
-                            "type": "\"secondary\" | \"success\" | \"info\" | \"warn\" | \"danger\" | \"contrast\"",
+                            "type": "\"info\" | \"success\" | \"warn\" | \"danger\" | \"secondary\" | \"contrast\"",
                             "description": "Severity type of the tag."
                         },
                         {
@@ -33141,7 +33229,7 @@
                             "name": "layout",
                             "optional": false,
                             "readonly": false,
-                            "type": "\"horizontal\" | \"vertical\"",
+                            "type": "\"vertical\" | \"horizontal\"",
                             "default": "vertical",
                             "description": "Orientation of the timeline."
                         }
@@ -34192,7 +34280,7 @@
                             "name": "loadingMode",
                             "optional": false,
                             "readonly": false,
-                            "type": "\"mask\" | \"icon\"",
+                            "type": "\"icon\" | \"mask\"",
                             "default": "mask",
                             "description": "Loading mode display."
                         },
