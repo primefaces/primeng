@@ -20,8 +20,8 @@ import { CardStyle } from './style/cardstyle';
                 <ng-container *ngTemplateOutlet="headerTemplate"></ng-container>
             </div>
             <div class="p-card-body">
-                <div class="p-card-title" *ngIf="header || titleTemplate">
-                    {{ header }}
+                <div class="p-card-title" *ngIf="_header || titleTemplate">
+                    {{ _header }}
                     <ng-container *ngTemplateOutlet="titleTemplate"></ng-container>
                 </div>
                 <div class="p-card-subtitle" *ngIf="subheader || subtitleTemplate">
@@ -48,7 +48,7 @@ export class Card extends BaseComponent implements BlockableUI {
      * Header of the card.
      * @group Props
      */
-    @Input() header: string | undefined;
+    @Input('header') _header: string | undefined;
     /**
      * Subheader of the card.
      * @group Props
