@@ -1,6 +1,6 @@
 import { CommonModule, isPlatformBrowser } from '@angular/common';
 import { ChangeDetectionStrategy, Component, ContentChildren, ElementRef, EventEmitter, inject, Input, NgModule, numberAttribute, Output, QueryList, ViewChild, ViewEncapsulation } from '@angular/core';
-import { addClass, getHeight, getOuterHeight, getOuterWidth, getWidth, hasClass, removeClass } from '@primeuix/utils';
+import { addClass, getHeight, getOuterHeight, getOuterWidth, getWidth, hasClass, isRTL, removeClass } from '@primeuix/utils';
 import { SharedModule } from 'primeng/api';
 import { BaseComponent } from 'primeng/basecomponent';
 import { Nullable, VoidListener } from 'primeng/ts-helpers';
@@ -262,8 +262,15 @@ export class Splitter extends BaseComponent {
                 newNextPanelSize = (100 * (this.nextPanelSize + step)) / this.size;
             }
         } else {
-            if (this.horizontal()) newPos = (event.pageX * 100) / this.size - (this.startPos * 100) / this.size;
-            else newPos = (event.pageY * 100) / this.size - (this.startPos * 100) / this.size;
+            if (this.horizontal) {
+                if (isRTL(this.el.nativeElement)) {
+                    newPos = ((this.startPos - event.pageX) * 100) / this.size;
+                } else {
+                    newPos = ((event.pageX - this.startPos) * 100) / this.size;
+                }
+            } else {
+                newPos = ((event.pageY - this.startPos) * 100) / this.size;
+            }
 
             newPrevPanelSize = (this.prevPanelSize as number) + newPos;
             newNextPanelSize = (this.nextPanelSize as number) - newPos;
