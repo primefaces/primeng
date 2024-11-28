@@ -8,21 +8,21 @@ import { Component } from '@angular/core';
             <p>Splitters can be combined to create advanced layouts.</p>
         </app-docsectiontext>
         <div class="card">
-            <p-splitter [style]="{ height: '300px' }" [panelSizes]="[20, 80]" [minSizes]="[10, 0]" styleClass="mb-8">
-                <ng-template #panel>
+            <p-splitter [style]="{ height: '300px' }" [panelSizes]="[20, 80]" styleClass="mb-8">
+                <ng-template pTemplate>
                     <div class="col flex items-center justify-center">Panel 1</div>
                 </ng-template>
-                <ng-template #panel>
-                    <p-splitter layout="vertical" [panelSizes]="[15, 85]">
-                        <ng-template #panel>
+                <ng-template pTemplate>
+                    <p-splitter layout="vertical" [panelSizes]="[50, 50]">
+                        <ng-template pTemplate>
                             <div style="flex-grow: 1;" class="flex items-center justify-center">Panel 2</div>
                         </ng-template>
-                        <ng-template #panel>
+                        <ng-template pTemplate>
                             <p-splitter [panelSizes]="[20, 80]">
-                                <ng-template #panel>
+                                <ng-template pTemplate>
                                     <div class="col flex items-center justify-center">Panel 3</div>
                                 </ng-template>
-                                <ng-template #panel>
+                                <ng-template pTemplate>
                                     <div class="col flex items-center justify-center">Panel 4</div>
                                 </ng-template>
                             </p-splitter>
