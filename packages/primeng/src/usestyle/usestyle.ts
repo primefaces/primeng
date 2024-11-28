@@ -26,7 +26,9 @@ export class UseStyle {
                 nonce
             });
 
-            first ? this.document.head.prepend(styleRef) : this.document.head.appendChild(styleRef);
+            const HEAD = this.document.head;
+
+            first && HEAD.firstChild ? HEAD.insertBefore(styleRef, HEAD.firstChild) : HEAD.appendChild(styleRef);
             setAttribute(styleRef, 'data-primeng-style-id', name);
         }
 
