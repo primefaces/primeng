@@ -454,10 +454,6 @@
                         {
                             "name": "Terminal",
                             "routerLink": "/terminal"
-                        },
-                        {
-                            "name": "Defer",
-                            "routerLink": "/defer"
                         }
                     ]
                 },
