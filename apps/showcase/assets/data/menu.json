@@ -372,6 +372,11 @@
                         {
                             "name": "Image",
                             "routerLink": "/image"
+                        },
+                        {
+                            "name": "ImageCompare",
+                            "routerLink": "/imagecompare",
+                            "badge":"NEW"
                         }
                     ]
                 },
