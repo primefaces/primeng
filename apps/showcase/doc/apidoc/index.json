@@ -129,7 +129,7 @@
                             "name": "iconPos",
                             "optional": false,
                             "readonly": false,
-                            "type": "\"start\" | \"end\"",
+                            "type": "\"end\" | \"start\"",
                             "default": "start",
                             "description": "Position of the icon."
                         },
@@ -751,6 +751,9 @@
         "components": {}
     },
     "filterservice": {
+        "components": {}
+    },
+    "api": {
         "components": {}
     },
     "lazyloadevent": {
@@ -1863,7 +1866,7 @@
                             "name": "orientation",
                             "optional": true,
                             "readonly": false,
-                            "type": "\"horizontal\" | \"vertical\" | \"both\"",
+                            "type": "\"vertical\" | \"horizontal\" | \"both\"",
                             "description": "The orientation of scrollbar."
                         },
                         {
@@ -4801,7 +4804,7 @@
                             "name": "severity",
                             "optional": false,
                             "readonly": false,
-                            "type": "\"primary\" | \"secondary\" | \"success\" | \"info\" | \"warn\" | \"danger\" | \"contrast\" | \"help\"",
+                            "type": "\"info\" | \"success\" | \"warn\" | \"danger\" | \"secondary\" | \"contrast\" | \"help\" | \"primary\"",
                             "description": "Severity type of the badge."
                         },
                         {
@@ -4855,7 +4858,7 @@
                             "name": "severity",
                             "optional": false,
                             "readonly": false,
-                            "type": "InputSignal<\"primary\" | \"secondary\" | \"success\" | \"info\" | \"warn\" | \"danger\" | \"contrast\" | \"help\">",
+                            "type": "InputSignal<\"info\" | \"success\" | \"warn\" | \"danger\" | \"secondary\" | \"contrast\" | \"help\" | \"primary\">",
                             "default": "...",
                             "description": "Severity type of the badge."
                         },
@@ -5215,7 +5218,7 @@
                             "name": "severity",
                             "optional": false,
                             "readonly": false,
-                            "type": "\"primary\" | \"secondary\" | \"success\" | \"info\" | \"warn\" | \"danger\" | \"contrast\" | \"help\"",
+                            "type": "\"info\" | \"success\" | \"warn\" | \"danger\" | \"secondary\" | \"contrast\" | \"help\" | \"primary\"",
                             "description": "Defines the style of the button."
                         },
                         {
@@ -5380,7 +5383,7 @@
                             "name": "severity",
                             "optional": false,
                             "readonly": false,
-                            "type": "\"primary\" | \"secondary\" | \"success\" | \"info\" | \"warn\" | \"danger\" | \"contrast\" | \"help\"",
+                            "type": "\"info\" | \"success\" | \"warn\" | \"danger\" | \"secondary\" | \"contrast\" | \"help\" | \"primary\"",
                             "description": "Defines the style of the button."
                         },
                         {
@@ -5446,7 +5449,7 @@
                             "name": "badgeSeverity",
                             "optional": false,
                             "readonly": false,
-                            "type": "\"primary\" | \"secondary\" | \"success\" | \"info\" | \"warn\" | \"danger\" | \"contrast\" | \"help\"",
+                            "type": "\"info\" | \"success\" | \"warn\" | \"danger\" | \"secondary\" | \"contrast\" | \"help\" | \"primary\"",
                             "default": "secondary",
                             "description": "Severity type of the badge."
                         },
@@ -6798,7 +6801,7 @@
                             "name": "orientation",
                             "optional": false,
                             "readonly": false,
-                            "type": "\"horizontal\" | \"vertical\"",
+                            "type": "\"vertical\" | \"horizontal\"",
                             "default": "horizontal",
                             "description": "Specifies the layout of the component."
                         },
@@ -8585,10 +8588,8 @@
             }
         }
     },
-    "common": {
-        "style": {
-            "components": {}
-        }
+    "config": {
+        "components": {}
     },
     "primeng": {
         "components": {}
@@ -8818,7 +8819,7 @@
                             "name": "defaultFocus",
                             "optional": false,
                             "readonly": false,
-                            "type": "\"none\" | \"accept\" | \"reject\" | \"close\"",
+                            "type": "\"accept\" | \"reject\" | \"none\" | \"close\"",
                             "default": "accept",
                             "description": "Element to receive the focus when the dialog gets visible."
                         },
@@ -9264,36 +9265,6 @@
                 }
             }
         },
-        "interfaces": {
-            "components": {},
-            "templates": {
-                "description": "Defines the templates used by the component.",
-                "values": [
-                    {
-                        "parent": "contextmenu",
-                        "name": "item",
-                        "parameters": [
-                            {
-                                "name": "context",
-                                "type": "{\n  \t $implicit: MenuItem, // Item instance.\n  }"
-                            }
-                        ],
-                        "description": "Custom item template."
-                    },
-                    {
-                        "parent": "contextmenu",
-                        "name": "submenuicon",
-                        "parameters": [
-                            {
-                                "name": "context",
-                                "type": "{\n  \t class: string, // Style class of the submenu icon.\n  }"
-                            }
-                        ],
-                        "description": "Custom template of submenuicon."
-                    }
-                ]
-            }
-        },
         "style": {
             "components": {},
             "classes": {
@@ -9337,6 +9308,36 @@
                     {
                         "class": "p-contextmenu-separator",
                         "description": "Class name of the separator element"
+                    }
+                ]
+            }
+        },
+        "interfaces": {
+            "components": {},
+            "templates": {
+                "description": "Defines the templates used by the component.",
+                "values": [
+                    {
+                        "parent": "contextmenu",
+                        "name": "item",
+                        "parameters": [
+                            {
+                                "name": "context",
+                                "type": "{\n  \t $implicit: MenuItem, // Item instance.\n  }"
+                            }
+                        ],
+                        "description": "Custom item template."
+                    },
+                    {
+                        "parent": "contextmenu",
+                        "name": "submenuicon",
+                        "parameters": [
+                            {
+                                "name": "context",
+                                "type": "{\n  \t class: string, // Style class of the submenu icon.\n  }"
+                            }
+                        ],
+                        "description": "Custom template of submenuicon."
                     }
                 ]
             }
@@ -11491,7 +11492,7 @@
                             "name": "position",
                             "optional": false,
                             "readonly": false,
-                            "type": "\"center\" | \"right\" | \"left\" | \"top\" | \"bottom\" | \"topleft\" | \"bottomleft\" | \"topright\" | \"bottomright\"",
+                            "type": "\"right\" | \"left\" | \"top\" | \"bottom\" | \"center\" | \"topleft\" | \"bottomleft\" | \"topright\" | \"bottomright\"",
                             "description": "Position of the dialog."
                         },
                         {
@@ -11744,7 +11745,7 @@
                             "name": "layout",
                             "optional": false,
                             "readonly": false,
-                            "type": "\"horizontal\" | \"vertical\"",
+                            "type": "\"vertical\" | \"horizontal\"",
                             "default": "horizontal",
                             "description": "Specifies the orientation."
                         },
@@ -11760,7 +11761,7 @@
                             "name": "align",
                             "optional": false,
                             "readonly": false,
-                            "type": "\"center\" | \"right\" | \"left\" | \"top\" | \"bottom\"",
+                            "type": "\"right\" | \"left\" | \"top\" | \"bottom\" | \"center\"",
                             "description": "Alignment of the content."
                         }
                     ]
@@ -11930,6 +11931,9 @@
         "components": {}
     },
     "domhandler": {
+        "components": {}
+    },
+    "dom": {
         "components": {}
     },
     "dragdrop": {
@@ -12694,7 +12698,7 @@
                             "name": "filterMatchMode",
                             "optional": false,
                             "readonly": false,
-                            "type": "\"endsWith\" | \"startsWith\" | \"in\" | \"contains\" | \"equals\" | \"notEquals\" | \"lt\" | \"lte\" | \"gt\" | \"gte\"",
+                            "type": "\"gt\" | \"lt\" | \"in\" | \"startsWith\" | \"contains\" | \"endsWith\" | \"equals\" | \"notEquals\" | \"lte\" | \"gte\"",
                             "default": "contains",
                             "description": "Defines how the items are filtered."
                         },
@@ -15013,7 +15017,7 @@
                             "name": "variant",
                             "optional": false,
                             "readonly": false,
-                            "type": "\"over\" | \"in\" | \"on\"",
+                            "type": "\"in\" | \"over\" | \"on\"",
                             "default": "over",
                             "description": "Defines the positioning of the label relative to the input."
                         }
@@ -18233,7 +18237,7 @@
                             "name": "filterMatchMode",
                             "optional": false,
                             "readonly": false,
-                            "type": "\"endsWith\" | \"startsWith\" | \"in\" | \"contains\" | \"equals\" | \"notEquals\" | \"lt\" | \"lte\" | \"gt\" | \"gte\"",
+                            "type": "\"gt\" | \"lt\" | \"in\" | \"startsWith\" | \"contains\" | \"endsWith\" | \"equals\" | \"notEquals\" | \"lte\" | \"gte\"",
                             "default": "contains",
                             "description": "Defines how the items are filtered."
                         },
@@ -19320,48 +19324,6 @@
                 }
             }
         },
-        "interfaces": {
-            "components": {},
-            "templates": {
-                "description": "Defines the templates used by the component.",
-                "values": [
-                    {
-                        "parent": "menu",
-                        "name": "start",
-                        "parameters": [],
-                        "description": "Custom template of start."
-                    },
-                    {
-                        "parent": "menu",
-                        "name": "end",
-                        "parameters": [],
-                        "description": "Custom template of end."
-                    },
-                    {
-                        "parent": "menu",
-                        "name": "item",
-                        "parameters": [
-                            {
-                                "name": "context",
-                                "type": "{\n  \t $implicit: MenuItem, // Item instance.\n  }"
-                            }
-                        ],
-                        "description": "Custom template of item."
-                    },
-                    {
-                        "parent": "menu",
-                        "name": "submenuheader",
-                        "parameters": [
-                            {
-                                "name": "context",
-                                "type": "{\n  \t $implicit: MenuItem, // Item instance.\n  }"
-                            }
-                        ],
-                        "description": "Custom template of submenuheader."
-                    }
-                ]
-            }
-        },
         "style": {
             "components": {},
             "classes": {
@@ -19409,6 +19371,48 @@
                     {
                         "class": "p-menu-item-label",
                         "description": "Class name of the item label element"
+                    }
+                ]
+            }
+        },
+        "interfaces": {
+            "components": {},
+            "templates": {
+                "description": "Defines the templates used by the component.",
+                "values": [
+                    {
+                        "parent": "menu",
+                        "name": "start",
+                        "parameters": [],
+                        "description": "Custom template of start."
+                    },
+                    {
+                        "parent": "menu",
+                        "name": "end",
+                        "parameters": [],
+                        "description": "Custom template of end."
+                    },
+                    {
+                        "parent": "menu",
+                        "name": "item",
+                        "parameters": [
+                            {
+                                "name": "context",
+                                "type": "{\n  \t $implicit: MenuItem, // Item instance.\n  }"
+                            }
+                        ],
+                        "description": "Custom template of item."
+                    },
+                    {
+                        "parent": "menu",
+                        "name": "submenuheader",
+                        "parameters": [
+                            {
+                                "name": "context",
+                                "type": "{\n  \t $implicit: MenuItem, // Item instance.\n  }"
+                            }
+                        ],
+                        "description": "Custom template of submenuheader."
                     }
                 ]
             }
@@ -20030,7 +20034,7 @@
                             "name": "orientation",
                             "optional": false,
                             "readonly": false,
-                            "type": "\"horizontal\" | \"vertical\"",
+                            "type": "\"vertical\" | \"horizontal\"",
                             "default": "horizontal",
                             "description": "Specifies the layout of the component, valid values are 'horizontal' and 'vertical'."
                         },
@@ -20038,7 +20042,7 @@
                             "name": "labelPosition",
                             "optional": false,
                             "readonly": false,
-                            "type": "\"start\" | \"end\"",
+                            "type": "\"end\" | \"start\"",
                             "default": "end",
                             "description": "Specifies the label position of the component, valid values are 'start' and 'end'."
                         },
@@ -20046,7 +20050,7 @@
                             "name": "labelOrientation",
                             "optional": false,
                             "readonly": false,
-                            "type": "\"horizontal\" | \"vertical\"",
+                            "type": "\"vertical\" | \"horizontal\"",
                             "default": "horizontal",
                             "description": "Specifies the label orientation of the component, valid values are 'horizontal' and 'vertical'."
                         },
@@ -20569,7 +20573,7 @@
                             "name": "filterMatchMode",
                             "optional": false,
                             "readonly": false,
-                            "type": "\"endsWith\" | \"startsWith\" | \"in\" | \"contains\" | \"equals\" | \"notEquals\" | \"lt\" | \"lte\" | \"gt\" | \"gte\"",
+                            "type": "\"gt\" | \"lt\" | \"in\" | \"startsWith\" | \"contains\" | \"endsWith\" | \"equals\" | \"notEquals\" | \"lte\" | \"gte\"",
                             "default": "contains",
                             "description": "Defines how the items are filtered."
                         },
@@ -21425,7 +21429,7 @@
                             "name": "filterMatchMode",
                             "optional": false,
                             "readonly": false,
-                            "type": "\"endsWith\" | \"startsWith\" | \"in\" | \"contains\" | \"equals\" | \"notEquals\" | \"lt\" | \"lte\" | \"gt\" | \"gte\"",
+                            "type": "\"gt\" | \"lt\" | \"in\" | \"startsWith\" | \"contains\" | \"endsWith\" | \"equals\" | \"notEquals\" | \"lte\" | \"gte\"",
                             "default": "contains",
                             "description": "Defines how the items are filtered."
                         },
@@ -22348,7 +22352,7 @@
                             "name": "severity",
                             "optional": false,
                             "readonly": false,
-                            "type": "\"primary\" | \"secondary\" | \"success\" | \"info\" | \"warn\" | \"danger\" | \"contrast\" | \"help\"",
+                            "type": "\"info\" | \"success\" | \"warn\" | \"danger\" | \"secondary\" | \"contrast\" | \"help\" | \"primary\"",
                             "description": "Severity type of the badge."
                         },
                         {
@@ -23233,7 +23237,7 @@
                             "name": "iconPos",
                             "optional": false,
                             "readonly": false,
-                            "type": "\"center\" | \"start\" | \"end\"",
+                            "type": "\"end\" | \"center\" | \"start\"",
                             "default": "end",
                             "description": "Position of the icons."
                         },
@@ -23266,7 +23270,7 @@
                             "name": "toggler",
                             "optional": false,
                             "readonly": false,
-                            "type": "\"header\" | \"icon\"",
+                            "type": "\"icon\" | \"header\"",
                             "default": "icon",
                             "description": "Specifies the toggler element to toggle the panel content."
                         },
@@ -23975,6 +23979,45 @@
                 }
             }
         },
+        "style": {
+            "components": {},
+            "classes": {
+                "values": [
+                    {
+                        "class": "p-password",
+                        "description": "Class name of the root element"
+                    },
+                    {
+                        "class": "p-password-input",
+                        "description": "Class name of the pt input element"
+                    },
+                    {
+                        "class": "p-password-mask-icon",
+                        "description": "Class name of the mask icon element"
+                    },
+                    {
+                        "class": "p-password-unmask-icon",
+                        "description": "Class name of the unmask icon element"
+                    },
+                    {
+                        "class": "p-password-overlay",
+                        "description": "Class name of the overlay element"
+                    },
+                    {
+                        "class": "p-password-meter",
+                        "description": "Class name of the meter element"
+                    },
+                    {
+                        "class": "p-password-meter-label",
+                        "description": "Class name of the meter label element"
+                    },
+                    {
+                        "class": "p-password-meter-text",
+                        "description": "Class name of the meter text element"
+                    }
+                ]
+            }
+        },
         "interfaces": {
             "components": {},
             "templates": {
@@ -24015,45 +24058,6 @@
                         "name": "showicon",
                         "parameters": [],
                         "description": "Custom template of show icon."
-                    }
-                ]
-            }
-        },
-        "style": {
-            "components": {},
-            "classes": {
-                "values": [
-                    {
-                        "class": "p-password",
-                        "description": "Class name of the root element"
-                    },
-                    {
-                        "class": "p-password-input",
-                        "description": "Class name of the pt input element"
-                    },
-                    {
-                        "class": "p-password-mask-icon",
-                        "description": "Class name of the mask icon element"
-                    },
-                    {
-                        "class": "p-password-unmask-icon",
-                        "description": "Class name of the unmask icon element"
-                    },
-                    {
-                        "class": "p-password-overlay",
-                        "description": "Class name of the overlay element"
-                    },
-                    {
-                        "class": "p-password-meter",
-                        "description": "Class name of the meter element"
-                    },
-                    {
-                        "class": "p-password-meter-label",
-                        "description": "Class name of the meter label element"
-                    },
-                    {
-                        "class": "p-password-meter-text",
-                        "description": "Class name of the meter text element"
                     }
                 ]
             }
@@ -24318,7 +24322,7 @@
                             "name": "filterMatchMode",
                             "optional": false,
                             "readonly": false,
-                            "type": "\"endsWith\" | \"startsWith\" | \"in\" | \"contains\" | \"equals\" | \"notEquals\" | \"lt\" | \"lte\" | \"gt\" | \"gte\"",
+                            "type": "\"gt\" | \"lt\" | \"in\" | \"startsWith\" | \"contains\" | \"endsWith\" | \"equals\" | \"notEquals\" | \"lte\" | \"gte\"",
                             "default": "contains",
                             "description": "Defines how the items are filtered."
                         },
@@ -25118,25 +25122,6 @@
                 }
             }
         },
-        "interfaces": {
-            "components": {},
-            "templates": {
-                "description": "Defines the templates used by the component.",
-                "values": [
-                    {
-                        "parent": "progressbar",
-                        "name": "content",
-                        "parameters": [
-                            {
-                                "name": "context",
-                                "type": "{\n  \t $implicit: any, // Value of the progressbar.\n  }"
-                            }
-                        ],
-                        "description": "Custom template of content."
-                    }
-                ]
-            }
-        },
         "style": {
             "components": {},
             "classes": {
@@ -25152,6 +25137,25 @@
                     {
                         "class": "p-progressbar-label",
                         "description": "Class name of the label element"
+                    }
+                ]
+            }
+        },
+        "interfaces": {
+            "components": {},
+            "templates": {
+                "description": "Defines the templates used by the component.",
+                "values": [
+                    {
+                        "parent": "progressbar",
+                        "name": "content",
+                        "parameters": [
+                            {
+                                "name": "context",
+                                "type": "{\n  \t $implicit: any, // Value of the progressbar.\n  }"
+                            }
+                        ],
+                        "description": "Custom template of content."
                     }
                 ]
             }
@@ -25742,7 +25746,7 @@
                             "name": "orientation",
                             "optional": false,
                             "readonly": false,
-                            "type": "\"horizontal\" | \"vertical\" | \"both\"",
+                            "type": "\"vertical\" | \"horizontal\" | \"both\"",
                             "description": "The orientation of scrollbar."
                         },
                         {
@@ -26866,7 +26870,7 @@
                             "name": "filterMatchMode",
                             "optional": false,
                             "readonly": false,
-                            "type": "\"endsWith\" | \"startsWith\" | \"in\" | \"contains\" | \"equals\" | \"notEquals\" | \"lt\" | \"lte\" | \"gt\" | \"gte\"",
+                            "type": "\"gt\" | \"lt\" | \"in\" | \"startsWith\" | \"contains\" | \"endsWith\" | \"equals\" | \"notEquals\" | \"lte\" | \"gte\"",
                             "default": "contains",
                             "description": "Defines how the items are filtered."
                         },
@@ -28126,7 +28130,7 @@
                             "name": "orientation",
                             "optional": false,
                             "readonly": false,
-                            "type": "\"horizontal\" | \"vertical\"",
+                            "type": "\"vertical\" | \"horizontal\"",
                             "default": "horizontal",
                             "description": "Orientation of the slider."
                         },
@@ -28641,7 +28645,7 @@
                             "name": "severity",
                             "optional": false,
                             "readonly": false,
-                            "type": "\"primary\" | \"secondary\" | \"success\" | \"info\" | \"warn\" | \"danger\" | \"contrast\" | \"help\"",
+                            "type": "\"info\" | \"success\" | \"warn\" | \"danger\" | \"secondary\" | \"contrast\" | \"help\" | \"primary\"",
                             "description": "Defines the style of the button."
                         },
                         {
@@ -30150,7 +30154,7 @@
                             "name": "scrollDirection",
                             "optional": false,
                             "readonly": false,
-                            "type": "\"horizontal\" | \"vertical\" | \"both\"",
+                            "type": "\"vertical\" | \"horizontal\" | \"both\"",
                             "default": "vertical",
                             "description": "Orientation of the scrolling, options are \"vertical\", \"horizontal\" and \"both\".",
                             "deprecated": "Property is obselete since v14.2.0."
@@ -32624,7 +32628,7 @@
                             "name": "severity",
                             "optional": false,
                             "readonly": false,
-                            "type": "\"secondary\" | \"success\" | \"info\" | \"warn\" | \"danger\" | \"contrast\"",
+                            "type": "\"info\" | \"success\" | \"warn\" | \"danger\" | \"secondary\" | \"contrast\"",
                             "description": "Severity type of the tag."
                         },
                         {
@@ -33141,7 +33145,7 @@
                             "name": "layout",
                             "optional": false,
                             "readonly": false,
-                            "type": "\"horizontal\" | \"vertical\"",
+                            "type": "\"vertical\" | \"horizontal\"",
                             "default": "vertical",
                             "description": "Orientation of the timeline."
                         }
@@ -34192,7 +34196,7 @@
                             "name": "loadingMode",
                             "optional": false,
                             "readonly": false,
-                            "type": "\"mask\" | \"icon\"",
+                            "type": "\"icon\" | \"mask\"",
                             "default": "mask",
                             "description": "Loading mode display."
                         },
@@ -37339,6 +37343,9 @@
             "components": {}
         }
     },
+    "utils": {
+        "components": {}
+    },
     "inpututils": {
         "components": {}
     },
@@ -37350,5 +37357,76 @@
     },
     "zindexutils": {
         "components": {}
+    },
+    "common": {
+        "style": {
+            "components": {}
+        }
+    },
+    "imagecompare": {
+        "components": {
+            "ImageCompare": {
+                "description": "Compare two images side by side with a slider.",
+                "props": {
+                    "description": "Defines the input properties of the component.",
+                    "values": [
+                        {
+                            "name": "tabindex",
+                            "optional": false,
+                            "readonly": false,
+                            "type": "number",
+                            "default": "0",
+                            "description": "Index of the element in tabbing order."
+                        },
+                        {
+                            "name": "ariaLabelledby",
+                            "optional": false,
+                            "readonly": false,
+                            "type": "string",
+                            "description": "Defines a string value that labels an interactive element."
+                        },
+                        {
+                            "name": "ariaLabel",
+                            "optional": false,
+                            "readonly": false,
+                            "type": "string",
+                            "description": "Identifier of the underlying input element."
+                        }
+                    ]
+                },
+                "templates": {
+                    "description": "Defines the templates used by the component.",
+                    "values": [
+                        {
+                            "name": "left",
+                            "description": "Template for the left side.",
+                            "type": "TemplateRef<any>",
+                            "parameters": []
+                        },
+                        {
+                            "name": "right",
+                            "description": "Template for the right side.",
+                            "type": "TemplateRef<any>",
+                            "parameters": []
+                        }
+                    ]
+                }
+            }
+        },
+        "style": {
+            "components": {},
+            "classes": {
+                "values": [
+                    {
+                        "class": "p-imagecompare",
+                        "description": "Class name of the root element"
+                    },
+                    {
+                        "class": "p-imagecompare-slider",
+                        "description": "Class name of the slider element"
+                    }
+                ]
+            }
+        }
     }
 }
