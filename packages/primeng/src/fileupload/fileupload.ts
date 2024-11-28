@@ -24,7 +24,7 @@ import { DomSanitizer } from '@angular/platform-browser';
 import { addClass, removeClass } from '@primeuix/utils';
 import { BlockableUI, SharedModule, TranslationKeys } from 'primeng/api';
 import { BaseComponent } from 'primeng/basecomponent';
-import { Button } from 'primeng/button';
+import { Button, ButtonProps } from 'primeng/button';
 import { PlusIcon, TimesIcon, UploadIcon } from 'primeng/icons';
 import { Message } from 'primeng/message';
 import { ProgressBar } from 'primeng/progressbar';
@@ -68,6 +68,7 @@ import { FileUploadStyle } from './style/fileuploadstyle';
                         (keydown.enter)="choose()"
                         tabindex="0"
                         [attr.data-pc-section]="'choosebutton'"
+                        [buttonProps]="chooseButtonProps"
                     >
                         <input
                             [attr.aria-label]="browseFilesLabel"
@@ -89,7 +90,14 @@ import { FileUploadStyle } from './style/fileuploadstyle';
                         </ng-container>
                     </p-button>
 
-                    <p-button *ngIf="!auto && showUploadButton" [label]="uploadButtonLabel" (onClick)="upload()" [disabled]="!hasFiles() || isFileLimitExceeded()" [styleClass]="'p-fileupload-upload-button ' + uploadStyleClass">
+                    <p-button
+                        *ngIf="!auto && showUploadButton"
+                        [label]="uploadButtonLabel"
+                        (onClick)="upload()"
+                        [disabled]="!hasFiles() || isFileLimitExceeded()"
+                        [styleClass]="'p-fileupload-upload-button ' + uploadStyleClass"
+                        [buttonProps]="uploadButtonProps"
+                    >
                         <span *ngIf="uploadIcon" [ngClass]="uploadIcon" [attr.aria-hidden]="true"></span>
                         <ng-container *ngIf="!uploadIcon">
                             <UploadIcon *ngIf="!uploadiconTemplate" />
@@ -98,7 +106,7 @@ import { FileUploadStyle } from './style/fileuploadstyle';
                             </span>
                         </ng-container>
                     </p-button>
-                    <p-button *ngIf="!auto && showCancelButton" [label]="cancelButtonLabel" (onClick)="clear()" [disabled]="!hasFiles() || uploading" [styleClass]="'p-fileupload-cancel-button ' + cancelStyleClass">
+                    <p-button *ngIf="!auto && showCancelButton" [label]="cancelButtonLabel" (onClick)="clear()" [disabled]="!hasFiles() || uploading" [styleClass]="'p-fileupload-cancel-button ' + cancelStyleClass" [buttonProps]="cancelButtonProps">
                         <span *ngIf="cancelIcon" [ngClass]="cancelIcon"></span>
                         <ng-container *ngIf="!cancelIcon">
                             <TimesIcon *ngIf="!canceliconTemplate" [attr.aria-hidden]="true" />
@@ -175,7 +183,16 @@ import { FileUploadStyle } from './style/fileuploadstyle';
                 <p-message [severity]="message.severity" [text]="message.text"></p-message>
             }
 
-            <p-button [styleClass]="'p-fileupload-choose-button ' + chooseStyleClass" [disabled]="disabled" [label]="chooseButtonLabel" [style]="style" (onClick)="onBasicUploaderClick()" (keydown)="onBasicKeydown($event)" tabindex="0">
+            <p-button
+                [styleClass]="'p-fileupload-choose-button ' + chooseStyleClass"
+                [disabled]="disabled"
+                [label]="chooseButtonLabel"
+                [style]="style"
+                (onClick)="onBasicUploaderClick()"
+                (keydown)="onBasicKeydown($event)"
+                tabindex="0"
+                [buttonProps]="chooseButtonProps"
+            >
                 <ng-template #icon>
                     @if (hasFiles() && !auto) {
                         <span *ngIf="uploadIcon" class="p-button-icon p-button-icon-left" [ngClass]="uploadIcon"></span>
@@ -392,6 +409,21 @@ export class FileUpload extends BaseComponent implements AfterViewInit, OnInit, 
      * @group Props
      */
     @Input() chooseStyleClass: string | undefined;
+    /**
+     * Used to pass all properties of the ButtonProps to the choose button inside the component.
+     * @group Props
+     */
+    @Input() chooseButtonProps: ButtonProps;
+    /**
+     * Used to pass all properties of the ButtonProps to the upload button inside the component.
+     * @group Props
+     */
+    @Input() uploadButtonProps: ButtonProps = { severity: 'secondary' };
+    /**
+     * Used to pass all properties of the ButtonProps to the cancel button inside the component.
+     * @group Props
+     */
+    @Input() cancelButtonProps: ButtonProps = { severity: 'secondary' };
     /**
      * Callback to invoke before file upload is initialized.
      * @param {FileBeforeUploadEvent} event - Custom upload event.
