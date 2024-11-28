@@ -191,6 +191,7 @@ export class MultiSelectItem extends BaseComponent {
                 (blur)="onInputBlur($event)"
                 (keydown)="onKeyDown($event)"
                 [pAutoFocus]="autofocus"
+                [attr.value]="label() || 'empty'"
             />
         </div>
         <div

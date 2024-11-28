@@ -227,8 +227,11 @@ export class KeyFilter implements Validator {
         if (!browser.mozilla && (this.isSpecialKey(e) || !cc)) {
             return;
         }
-        let val = this.el.nativeElement.value + cc;
-        ok = (<RegExp>this.regex).test(val);
+
+        let existingValue = this.el.nativeElement.value || '';
+        let combinedValue = existingValue + cc;
+
+        ok = (<RegExp>this.regex).test(combinedValue);
 
         if (!ok) {
             e.preventDefault();
