@@ -1,6 +1,6 @@
 import { CommonModule, isPlatformBrowser } from '@angular/common';
 import { AfterContentInit, AfterViewInit, ChangeDetectionStrategy, Component, computed, ContentChild, effect, ElementRef, forwardRef, inject, signal, TemplateRef, ViewChild, ViewEncapsulation } from '@angular/core';
-import { findSingle, getHeight, getOffset, getOuterWidth, getWidth } from '@primeuix/utils';
+import { findSingle, getHeight, getOffset, getOuterWidth, getWidth, isRTL } from '@primeuix/utils';
 import { SharedModule } from 'primeng/api';
 import { BaseComponent } from 'primeng/basecomponent';
 import { ChevronLeftIcon, ChevronRightIcon } from 'primeng/icons';
@@ -142,10 +142,10 @@ export class TabList extends BaseComponent implements AfterViewInit, AfterConten
     onPrevButtonClick() {
         const _content = this.content.nativeElement;
         const width = getWidth(_content);
+        const pos = Math.abs(_content.scrollLeft) - width;
+        const scrollLeft = pos <= 0 ? 0 : pos;
 
-        const pos = _content.scrollLeft - width;
-
-        _content.scrollLeft = pos <= 0 ? 0 : pos;
+        _content.scrollLeft = isRTL(_content) ? -1 * scrollLeft : scrollLeft;
     }
 
     onNextButtonClick() {
@@ -153,15 +153,17 @@ export class TabList extends BaseComponent implements AfterViewInit, AfterConten
         const width = getWidth(_content) - this.getVisibleButtonWidths();
         const pos = _content.scrollLeft + width;
         const lastPos = _content.scrollWidth - width;
+        const scrollLeft = pos >= lastPos ? lastPos : pos;
 
-        _content.scrollLeft = pos >= lastPos ? lastPos : pos;
+        _content.scrollLeft = isRTL(_content) ? -1 * scrollLeft : scrollLeft;
     }
 
     updateButtonState() {
         const _content = this.content?.nativeElement;
         const _list = this.el?.nativeElement;
 
-        const { scrollLeft, scrollTop, scrollWidth, scrollHeight, offsetWidth, offsetHeight } = _content;
+        const { scrollTop, scrollWidth, scrollHeight, offsetWidth, offsetHeight } = _content;
+        const scrollLeft = Math.abs(_content.scrollLeft);
         const [width, height] = [getWidth(_content), getHeight(_content)];
 
         this.isPrevButtonEnabled.set(scrollLeft !== 0);
