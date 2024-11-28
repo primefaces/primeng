@@ -39,7 +39,6 @@ export class SplitterDemo {
             label: 'Nested',
             component: NestedDoc
         },
-
         {
             id: 'accessibility',
             label: 'Accessibility',

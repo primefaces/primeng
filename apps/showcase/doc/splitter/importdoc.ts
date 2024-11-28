@@ -7,6 +7,6 @@ import { Component } from '@angular/core';
 })
 export class ImportDoc {
     code: Code = {
-        typescript: `import { Splitter } from 'primeng/splitter';`
+        typescript: `import { SplitterModule } from 'primeng/splitter';`
     };
 }
