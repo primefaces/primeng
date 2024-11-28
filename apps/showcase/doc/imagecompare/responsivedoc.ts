@@ -9,12 +9,12 @@ import { Component } from '@angular/core';
         </app-docsectiontext>
         <div class="card flex justify-center">
             <p-imagecompare class="sm:!w-96 shadow-lg rounded-2xl">
-                <ng-container left>
+                <ng-template #left>
                     <img src="https://primefaces.org/cdn/primevue/images/compare/island1.jpg" />
-                </ng-container>
-                <ng-container right>
+                </ng-template>
+                <ng-template #right>
                     <img src="https://primefaces.org/cdn/primevue/images/compare/island2.jpg" />
-                </ng-container>
+                </ng-template>
             </p-imagecompare>
         </div>
         <app-code [code]="code" selector="image-compare-basic-demo"></app-code>
@@ -23,22 +23,22 @@ import { Component } from '@angular/core';
 export class ResponsiveDoc {
     code: Code = {
         basic: `<p-imagecompare class="sm:!w-96 shadow-lg rounded-2xl">
-    <ng-container left>
+    <ng-template #left>
         <img src="https://primefaces.org/cdn/primevue/images/compare/island1.jpg" />
-    </ng-container>
-    <ng-container right>
+    </ng-template>
+    <ng-template #right>
         <img src="https://primefaces.org/cdn/primevue/images/compare/island2.jpg" />
-    </ng-container>
+    </ng-template>
 </p-imagecompare>`,
 
         html: `<div class="card flex justify-center">
     <p-imagecompare class="sm:!w-96 shadow-lg rounded-2xl">
-        <ng-container left>
+        <ng-template #left>
             <img src="https://primefaces.org/cdn/primevue/images/compare/island1.jpg" />
-        </ng-container>
-        <ng-container right>
+        </ng-template>
+        <ng-template #right>
             <img src="https://primefaces.org/cdn/primevue/images/compare/island2.jpg" />
-        </ng-container>
+        </ng-template>
     </p-imagecompare>
 </div>`,
 

@@ -10,7 +10,7 @@
         "build": "ng build",
         "build:apidoc": "node ./scripts/build-apidoc.ts",
         "build:themedoc": "node ./scripts/build-themedoc.ts",
-        "build:docs": "npm run build:apidoc && npm run build:themedoc"
+        "build:docs": "pnpm run build:apidoc && pnpm run build:themedoc"
     },
     "repository": {
         "type": "git",

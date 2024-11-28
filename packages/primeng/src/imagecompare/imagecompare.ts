@@ -1,5 +1,5 @@
 import { CommonModule, isPlatformBrowser } from '@angular/common';
-import { AfterContentInit, ChangeDetectionStrategy, Component, inject, Input, NgModule, ViewEncapsulation } from '@angular/core';
+import { AfterContentInit, ChangeDetectionStrategy, Component, ContentChild, inject, Input, NgModule, TemplateRef, ViewEncapsulation } from '@angular/core';
 import { SharedModule } from 'primeng/api';
 import { BaseComponent } from 'primeng/basecomponent';
 import { ImageCompareStyle } from './style/imagecomparestyle';
@@ -13,8 +13,8 @@ import { ImageCompareStyle } from './style/imagecomparestyle';
     standalone: true,
     imports: [CommonModule, SharedModule],
     template: `
-        <ng-content select="[left]"></ng-content>
-        <ng-content select="[right]"></ng-content>
+        <ng-template *ngTemplateOutlet="rightTemplate"></ng-template>
+        <ng-template *ngTemplateOutlet="leftTemplate"></ng-template>
         <input type="range" min="0" max="100" value="50" (input)="onSlide($event)" [class]="cx('slider')" />
     `,
     host: {
@@ -47,13 +47,21 @@ export class ImageCompare extends BaseComponent implements AfterContentInit {
      */
     @Input() ariaLabel: string | undefined;
 
+    /**
+     * Template for the left side.
+     * @group Templates
+     */
+    @ContentChild('left') leftTemplate: TemplateRef<any>;
+
+    /**
+     * Template for the right side.
+     * @group Templates
+     */
+    @ContentChild('right') rightTemplate: TemplateRef<any>;
+
     _componentStyle = inject(ImageCompareStyle);
 
     mutationObserver: MutationObserver;
-
-    constructor() {
-        super();
-    }
 
     ngOnInit() {
         super.ngOnInit();
@@ -93,6 +101,8 @@ export class ImageCompare extends BaseComponent implements AfterContentInit {
         if (this.mutationObserver) {
             this.mutationObserver.disconnect();
         }
+
+        super.ngOnDestroy();
     }
 }
 
