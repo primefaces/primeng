@@ -3,7 +3,7 @@ import { AppDocModule } from '@/components/doc/app.doc.module';
 import { CommonModule } from '@angular/common';
 import { NgModule } from '@angular/core';
 import { RouterModule } from '@angular/router';
-import { Splitter } from 'primeng/splitter';
+import { SplitterModule } from 'primeng/splitter';
 import { AccessibilityDoc } from './accessibilitydoc';
 import { HorizontalDoc } from './horizontaldoc';
 import { ImportDoc } from './importdoc';
@@ -13,7 +13,7 @@ import { StyleDoc } from './styledoc';
 import { VerticalDoc } from './verticaldoc';
 
 @NgModule({
-    imports: [CommonModule, AppCodeModule, AppDocModule, Splitter, RouterModule],
+    imports: [CommonModule, AppCodeModule, AppDocModule, SplitterModule, RouterModule],
     exports: [AppDocModule],
     declarations: [ImportDoc, HorizontalDoc, SizeDoc, VerticalDoc, NestedDoc, StyleDoc, AccessibilityDoc]
 })
