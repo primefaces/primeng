@@ -8,18 +8,16 @@ import { Component } from '@angular/core';
             <p>AccordionPanel can be generated dynamically using the standard <i>&#64;for</i> block.</p>
         </app-docsectiontext>
         <div class="card">
-            <div class="card">
-                <p-accordion [value]="['0']">
-                    @for (tab of tabs; track tab.title) {
-                        <p-accordion-panel [value]="tab.value">
-                            <p-accordion-header>{{ tab.title }}</p-accordion-header>
-                            <p-accordion-content>
-                                <p class="m-0">{{ tab.content }}</p>
-                            </p-accordion-content>
-                        </p-accordion-panel>
-                    }
-                </p-accordion>
-            </div>
+            <p-accordion [value]="['0']">
+                @for (tab of tabs; track tab.title) {
+                    <p-accordion-panel [value]="tab.value">
+                        <p-accordion-header>{{ tab.title }}</p-accordion-header>
+                        <p-accordion-content>
+                            <p class="m-0">{{ tab.content }}</p>
+                        </p-accordion-content>
+                    </p-accordion-panel>
+                }
+            </p-accordion>
         </div>
         <app-code [code]="code" selector="accordion-dynamic-demo"></app-code>
     `
