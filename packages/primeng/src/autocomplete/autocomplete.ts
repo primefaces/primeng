@@ -213,11 +213,11 @@ export const AUTOCOMPLETE_VALUE_ACCESSOR: any = {
                             (onLazyLoad)="onLazyLoad.emit($event)"
                             [options]="virtualScrollOptions"
                         >
-                            <ng-template #content let-items let-scrollerOptions="options">
+                            <ng-template pTemplate="content" let-items let-scrollerOptions="options">
                                 <ng-container *ngTemplateOutlet="buildInItems; context: { $implicit: items, options: scrollerOptions }"></ng-container>
                             </ng-template>
                             <ng-container *ngIf="loader">
-                                <ng-template #loader let-scrollerOptions="options">
+                                <ng-template pTemplate="loader" let-scrollerOptions="options">
                                     <ng-container *ngTemplateOutlet="loader; context: { options: scrollerOptions }"></ng-container>
                                 </ng-template>
                             </ng-container>
