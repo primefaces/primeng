@@ -13,7 +13,7 @@ import { MenuItem } from 'primeng/api';
         </app-docsectiontext>
         <div class="card">
             <p-menu [model]="items" class="flex justify-center" styleClass="w-full md:w-60">
-                <ng-template pTemplate="start">
+                <ng-template #start>
                     <span class="inline-flex items-center gap-1 px-2 py-2">
                         <svg width="31" height="33" viewBox="0 0 31 33" fill="none" xmlns="http://www.w3.org/2000/svg" class="block mx-auto">
                             <path d="M15.1934 0V0V0L0.0391235 5.38288L2.35052 25.3417L15.1934 32.427V32.427V32.427L28.0364 25.3417L30.3478 5.38288L15.1934 0Z" fill="var(--p-primary-color)" />
@@ -47,10 +47,10 @@ import { MenuItem } from 'primeng/api';
                         <span class="text-xl font-semibold">PRIME<span class="text-primary">APP</span></span>
                     </span>
                 </ng-template>
-                <ng-template pTemplate="submenuheader" let-item>
+                <ng-template #submenuheader let-item>
                     <span class="text-primary font-bold">{{ item.label }}</span>
                 </ng-template>
-                <ng-template pTemplate="item" let-item>
+                <ng-template #item let-item>
                     <a pRipple class="flex items-center p-menu-item-link">
                         <span [class]="item.icon"></span>
                         <span class="ml-2">{{ item.label }}</span>
@@ -58,7 +58,7 @@ import { MenuItem } from 'primeng/api';
                         <span *ngIf="item.shortcut" class="ml-auto border border-surface rounded bg-emphasis text-muted-color text-xs p-1">{{ item.shortcut }}</span>
                     </a>
                 </ng-template>
-                <ng-template pTemplate="end">
+                <ng-template #end>
                     <button pRipple class="relative overflow-hidden w-full border-0 bg-transparent flex items-start p-2 pl-4 hover:bg-surface-100 dark:hover:bg-surface-800 rounded-none cursor-pointer transition-colors duration-200">
                         <p-avatar image="https://primefaces.org/cdn/primeng/images/demo/avatar/amyelsner.png" class="mr-2" shape="circle" />
                         <span class="inline-flex flex-col items-start">
@@ -123,7 +123,7 @@ export class TemplateDoc implements OnInit {
 
     code: Code = {
         basic: `<p-menu [model]="items" class="flex justify-center" styleClass="w-full md:w-60">
-    <ng-template pTemplate="start">
+    <ng-template #start>
         <span class="inline-flex items-center gap-1 px-2 py-2">
             <svg width="33" height="35" viewBox="0 0 33 35" fill="none" xmlns="http://www.w3.org/2000/svg" class="block mx-auto">
                 <path d="..." fill="var(--primary-color)" />
@@ -133,10 +133,10 @@ export class TemplateDoc implements OnInit {
             </span>
         </span>
     </ng-template>
-    <ng-template pTemplate="submenuheader" let-item>
+    <ng-template #submenuheader let-item>
         <span class="text-primary font-bold">{{ item.label }}</span>
     </ng-template>
-    <ng-template pTemplate="item" let-item>
+    <ng-template #item let-item>
         <a pRipple class="flex items-center p-menu-item-link">
             <span [class]="item.icon"></span>
             <span class="ml-2">{{ item.label }}</span>
@@ -146,7 +146,7 @@ export class TemplateDoc implements OnInit {
             </span>
         </a>
     </ng-template>
-    <ng-template pTemplate="end">
+    <ng-template #end>
         <button pRipple class="relative overflow-hidden w-full border-0 bg-transparent flex items-start p-2 pl-4 hover:bg-surface-100 dark:hover:bg-surface-800 rounded-none cursor-pointer transition-colors duration-200">
             <p-avatar image="https://primefaces.org/cdn/primeng/images/demo/avatar/amyelsner.png" class="mr-2" shape="circle" />
             <span class="inline-flex flex-col">
@@ -159,7 +159,7 @@ export class TemplateDoc implements OnInit {
 
         html: `<div class="card">
     <p-menu [model]="items" class="flex justify-center" styleClass="w-full md:w-60">
-        <ng-template pTemplate="start">
+        <ng-template #start>
             <span class="inline-flex items-center gap-1 px-2 py-2">
                  <svg
                     width="31"
@@ -229,10 +229,10 @@ export class TemplateDoc implements OnInit {
                 <span class="text-xl font-semibold">PRIME<span class="text-primary">APP</span></span>
             </span>
         </ng-template>
-        <ng-template pTemplate="submenuheader" let-item>
+        <ng-template #submenuheader let-item>
             <span class="text-primary font-bold">{{ item.label }}</span>
         </ng-template>
-        <ng-template pTemplate="item" let-item>
+        <ng-template #item let-item>
             <a pRipple class="flex items-center p-menu-item-link">
                 <span [class]="item.icon"></span>
                 <span class="ml-2">{{ item.label }}</span>
@@ -240,7 +240,7 @@ export class TemplateDoc implements OnInit {
                 <span *ngIf="item.shortcut" class="ml-auto border border-surface rounded bg-emphasis text-muted-color text-xs p-1">{{ item.shortcut }}</span>
             </a>
         </ng-template>
-        <ng-template pTemplate="end">
+        <ng-template #end>
             <button pRipple class="relative overflow-hidden w-full border-0 bg-transparent flex items-start p-2 pl-4 hover:bg-surface-100 dark:hover:bg-surface-800 rounded-none cursor-pointer transition-colors duration-200">
                 <p-avatar image="https://primefaces.org/cdn/primeng/images/demo/avatar/amyelsner.png" class="mr-2" shape="circle" />
                 <span class="inline-flex flex-col">
