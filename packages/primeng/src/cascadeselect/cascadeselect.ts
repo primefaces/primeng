@@ -62,7 +62,6 @@ export const CASCADESELECT_VALUE_ACCESSOR: any = {
                         (click)="onOptionClick($event, processedOption)"
                         (mouseenter)="onOptionMouseEnter($event, processedOption)"
                         (mousemove)="onOptionMouseMove($event, processedOption)"
-                        [attr.tabindex]="0"
                         pRipple
                         [attr.data-pc-section]="'content'"
                     >
