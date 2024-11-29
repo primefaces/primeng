@@ -633,7 +633,7 @@ export class UITreeNode extends BaseComponent implements OnInit {
 
     setTabIndexForSelectionMode(event, nodeTouched) {
         if (this.tree.selectionMode !== null) {
-            const elements = [...find(this.tree.el.nativeElement, '.p-treenode')];
+            const elements = [...find(this.tree.el.nativeElement, '[role="treeitem"]')];
 
             event.currentTarget.tabIndex = nodeTouched === false ? -1 : 0;
 
