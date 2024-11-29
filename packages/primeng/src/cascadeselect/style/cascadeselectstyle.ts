@@ -202,7 +202,7 @@ p-cascadeselect.ng-invalid.ng-dirty .p-cascadeselect-label.p-placeholder {
     position: static;
     box-shadow: none;
     border: 0 none;
-    padding-inline-start: ${dt('cascadeselect.submenu.mobile.indent')};
+    padding-inline-start: 1rem;
     padding-inline-end: 0;
 }
 
