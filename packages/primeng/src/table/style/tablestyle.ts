@@ -314,6 +314,12 @@ const theme = ({ dt }) => `
             outline-color ${dt('datatable.transition.duration')}, box-shadow ${dt('datatable.transition.duration')};
 }
 
+/** For PrimeNG **/
+.p-datatable-thead > tr > th p-columnfilter {
+    font-weight: normal;
+}
+/** For PrimeNG End **/
+
 /*
 .p-datatable-column-title {
     font-weight: ${dt('datatable.column.title.font.weight')};
