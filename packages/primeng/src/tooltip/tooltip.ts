@@ -415,7 +415,7 @@ export class Tooltip extends BaseComponent implements AfterViewInit, OnDestroy {
         else if (this.getOption('appendTo') === 'target') appendChild(this.container, this.el.nativeElement);
         else appendChild(this.container, this.getOption('appendTo'));
 
-        this.container.style.display = 'inline-block';
+        this.container.style.display = 'none';
 
         if (this.fitContent) {
             this.container.style.width = 'fit-content';
@@ -458,9 +458,11 @@ export class Tooltip extends BaseComponent implements AfterViewInit, OnDestroy {
 
         if (pDialogWrapper) {
             setTimeout(() => {
+                this.container && (this.container.style.display = 'inline-block');
                 this.container && this.align();
             }, 100);
         } else {
+            this.container.style.display = 'inline-block';
             this.align();
         }
 
