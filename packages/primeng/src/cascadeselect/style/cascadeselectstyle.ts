@@ -149,31 +149,33 @@ p-cascadeselect.ng-invalid.ng-dirty .p-cascadeselect-label.p-placeholder {
 
 .p-cascadeselect-option-active {
     overflow: visible;
+}
+
+.p-cascadeselect-option-active > .p-cascadeselect-option-content {
     background: ${dt('cascadeselect.option.focus.background')};
     color: ${dt('cascadeselect.option.focus.color')};
 }
 
-.p-cascadeselect-option:not(.p-cascadeselect-option-selected):not(.p-disabled).p-focus {
+.p-cascadeselect-option:not(.p-cascadeselect-option-selected):not(.p-disabled).p-focus > .p-cascadeselect-option-content {
     background: ${dt('cascadeselect.option.focus.background')};
     color: ${dt('cascadeselect.option.focus.color')};
 }
 
-.p-cascadeselect-option:not(.p-cascadeselect-option-selected):not(.p-disabled).p-focus .p-cascadeselect-group-icon {
+.p-cascadeselect-option:not(.p-cascadeselect-option-selected):not(.p-disabled).p-focus > .p-cascadeselect-option-content > .p-cascadeselect-group-icon-container > .p-cascadeselect-group-icon {
     color: ${dt('cascadeselect.option.icon.focus.color')};
 }
 
-.p-cascadeselect-option-selected {
+.p-cascadeselect-option-selected > .p-cascadeselect-option-content {
     background: ${dt('cascadeselect.option.selected.background')};
     color: ${dt('cascadeselect.option.selected.color')};
 }
 
-.p-cascadeselect-option-selected.p-focus {
+.p-cascadeselect-option-selected.p-focus > .p-cascadeselect-option-content {
     background: ${dt('cascadeselect.option.selected.focus.background')};
     color: ${dt('cascadeselect.option.selected.focus.color')};
 }
 
 .p-cascadeselect-option-active > .p-cascadeselect-option-list {
-    display: block;
     inset-inline-start: 100%;
     top: 0;
 }
@@ -181,13 +183,17 @@ p-cascadeselect.ng-invalid.ng-dirty .p-cascadeselect-label.p-placeholder {
 .p-cascadeselect-option-content {
     display: flex;
     align-items: center;
+    justify-content: space-between;
     overflow: hidden;
     position: relative;
     padding: ${dt('cascadeselect.option.padding')};
+    border-radius: ${dt('cascadeselect.option.border.radius')};
+    transition: background ${dt('cascadeselect.transition.duration')}, color ${dt('cascadeselect.transition.duration')}, border-color ${dt('cascadeselect.transition.duration')}, box-shadow ${dt(
+        'cascadeselect.transition.duration'
+    )}, outline-color ${dt('cascadeselect.transition.duration')};
 }
 
 .p-cascadeselect-group-icon {
-    margin-inline-start: auto;
     font-size: ${dt('cascadeselect.option.icon.size')};
     width: ${dt('cascadeselect.option.icon.size')};
     height: ${dt('cascadeselect.option.icon.size')};
