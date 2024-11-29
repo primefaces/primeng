@@ -14,7 +14,7 @@ interface AutoCompleteCompleteEvent {
         </app-docsectiontext>
         <div class="card flex justify-center">
             <p-autocomplete [(ngModel)]="selectedCity" [group]="true" [suggestions]="filteredGroups" (completeMethod)="filterGroupedCity($event)" placeholder="Hint: type 'a'">
-                <ng-template let-group #content>
+                <ng-template let-group #group>
                     <div class="flex items-center">
                         <img src="https://primefaces.org/cdn/primeng/images/demo/flag/flag_placeholder.png" [class]="'mr-2 flag flag-' + group.value" style="width: 20px" />
                         <span>{{ group.label }}</span>
@@ -93,7 +93,7 @@ export class GroupDoc implements OnInit {
     [suggestions]="filteredGroups"
     (completeMethod)="filterGroupedCity($event)"
     placeholder="Hint: type 'a'">
-        <ng-template let-group #content>
+        <ng-template let-group #group>
             <div class="flex items-center">
                 <img
                     src="https://primefaces.org/cdn/primeng/images/demo/flag/flag_placeholder.png"
@@ -111,7 +111,7 @@ export class GroupDoc implements OnInit {
         [suggestions]="filteredGroups"
         (completeMethod)="filterGroupedCity($event)"
         placeholder="Hint: type 'a'">
-            <ng-template let-group #content>
+            <ng-template let-group #group>
                 <div class="flex items-center">
                     <img
                         src="https://primefaces.org/cdn/primeng/images/demo/flag/flag_placeholder.png"
