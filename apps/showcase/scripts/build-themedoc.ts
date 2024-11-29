@@ -64,7 +64,7 @@ async function themedoc() {
                                     } else if (prop.comment?.getTag('@designToken')) {
                                         const variable = prop.comment.getTag('@designToken').content[0]?.text || '';
                                         tokens.push({
-                                            token: _name ? `${_name}.${prop.name}` : prop.name,
+                                            token: variable,
                                             variable: '--p-' + variable.replaceAll('.', '-'),
                                             description:
                                                 prop.comment &&

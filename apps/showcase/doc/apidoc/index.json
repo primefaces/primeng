@@ -753,6 +753,9 @@
     "filterservice": {
         "components": {}
     },
+    "api": {
+        "components": {}
+    },
     "lazyloadevent": {
         "components": {},
         "interfaces": {
@@ -6678,7 +6681,7 @@
                     "description": "Defines the input properties of the component.",
                     "values": [
                         {
-                            "name": "header",
+                            "name": "_header",
                             "optional": false,
                             "readonly": false,
                             "type": "string",
@@ -8613,10 +8616,8 @@
             }
         }
     },
-    "common": {
-        "style": {
-            "components": {}
-        }
+    "config": {
+        "components": {}
     },
     "primeng": {
         "components": {}
@@ -9292,36 +9293,6 @@
                 }
             }
         },
-        "interfaces": {
-            "components": {},
-            "templates": {
-                "description": "Defines the templates used by the component.",
-                "values": [
-                    {
-                        "parent": "contextmenu",
-                        "name": "item",
-                        "parameters": [
-                            {
-                                "name": "context",
-                                "type": "{\n  \t $implicit: MenuItem, // Item instance.\n  }"
-                            }
-                        ],
-                        "description": "Custom item template."
-                    },
-                    {
-                        "parent": "contextmenu",
-                        "name": "submenuicon",
-                        "parameters": [
-                            {
-                                "name": "context",
-                                "type": "{\n  \t class: string, // Style class of the submenu icon.\n  }"
-                            }
-                        ],
-                        "description": "Custom template of submenuicon."
-                    }
-                ]
-            }
-        },
         "style": {
             "components": {},
             "classes": {
@@ -9365,6 +9336,36 @@
                     {
                         "class": "p-contextmenu-separator",
                         "description": "Class name of the separator element"
+                    }
+                ]
+            }
+        },
+        "interfaces": {
+            "components": {},
+            "templates": {
+                "description": "Defines the templates used by the component.",
+                "values": [
+                    {
+                        "parent": "contextmenu",
+                        "name": "item",
+                        "parameters": [
+                            {
+                                "name": "context",
+                                "type": "{\n  \t $implicit: MenuItem, // Item instance.\n  }"
+                            }
+                        ],
+                        "description": "Custom item template."
+                    },
+                    {
+                        "parent": "contextmenu",
+                        "name": "submenuicon",
+                        "parameters": [
+                            {
+                                "name": "context",
+                                "type": "{\n  \t class: string, // Style class of the submenu icon.\n  }"
+                            }
+                        ],
+                        "description": "Custom template of submenuicon."
                     }
                 ]
             }
@@ -11960,6 +11961,9 @@
     "domhandler": {
         "components": {}
     },
+    "dom": {
+        "components": {}
+    },
     "dragdrop": {
         "components": {
             "Draggable": {
@@ -14466,6 +14470,29 @@
                             "readonly": false,
                             "type": "string",
                             "description": "Style class of the choose button."
+                        },
+                        {
+                            "name": "chooseButtonProps",
+                            "optional": false,
+                            "readonly": false,
+                            "type": "ButtonProps",
+                            "description": "Used to pass all properties of the ButtonProps to the choose button inside the component."
+                        },
+                        {
+                            "name": "uploadButtonProps",
+                            "optional": false,
+                            "readonly": false,
+                            "type": "ButtonProps",
+                            "default": "...",
+                            "description": "Used to pass all properties of the ButtonProps to the upload button inside the component."
+                        },
+                        {
+                            "name": "cancelButtonProps",
+                            "optional": false,
+                            "readonly": false,
+                            "type": "ButtonProps",
+                            "default": "...",
+                            "description": "Used to pass all properties of the ButtonProps to the cancel button inside the component."
                         }
                     ]
                 },
@@ -16142,72 +16169,6 @@
                     {
                         "class": "p-image-original",
                         "description": "Class name of the original element"
-                    }
-                ]
-            }
-        }
-    },
-    "imagecompare": {
-        "components": {
-            "ImageCompare": {
-                "description": "Compare two images side by side with a slider.",
-                "props": {
-                    "description": "Defines the input properties of the component.",
-                    "values": [
-                        {
-                            "name": "tabindex",
-                            "optional": false,
-                            "readonly": false,
-                            "type": "number",
-                            "default": "0",
-                            "description": "Index of the element in tabbing order."
-                        },
-                        {
-                            "name": "ariaLabelledby",
-                            "optional": false,
-                            "readonly": false,
-                            "type": "string",
-                            "description": "Defines a string value that labels an interactive element."
-                        },
-                        {
-                            "name": "ariaLabel",
-                            "optional": false,
-                            "readonly": false,
-                            "type": "string",
-                            "description": "Identifier of the underlying input element."
-                        }
-                    ]
-                },
-                "templates": {
-                    "description": "Defines the templates used by the component.",
-                    "values": [
-                        {
-                            "name": "left",
-                            "description": "Template for the left side.",
-                            "type": "TemplateRef<any>",
-                            "parameters": []
-                        },
-                        {
-                            "name": "right",
-                            "description": "Template for the right side.",
-                            "type": "TemplateRef<any>",
-                            "parameters": []
-                        }
-                    ]
-                }
-            }
-        },
-        "style": {
-            "components": {},
-            "classes": {
-                "values": [
-                    {
-                        "class": "p-imagecompare",
-                        "description": "Class name of the root element"
-                    },
-                    {
-                        "class": "p-imagecompare-slider",
-                        "description": "Class name of the slider element"
                     }
                 ]
             }
@@ -19414,48 +19375,6 @@
                 }
             }
         },
-        "interfaces": {
-            "components": {},
-            "templates": {
-                "description": "Defines the templates used by the component.",
-                "values": [
-                    {
-                        "parent": "menu",
-                        "name": "start",
-                        "parameters": [],
-                        "description": "Custom template of start."
-                    },
-                    {
-                        "parent": "menu",
-                        "name": "end",
-                        "parameters": [],
-                        "description": "Custom template of end."
-                    },
-                    {
-                        "parent": "menu",
-                        "name": "item",
-                        "parameters": [
-                            {
-                                "name": "context",
-                                "type": "{\n  \t $implicit: MenuItem, // Item instance.\n  }"
-                            }
-                        ],
-                        "description": "Custom template of item."
-                    },
-                    {
-                        "parent": "menu",
-                        "name": "submenuheader",
-                        "parameters": [
-                            {
-                                "name": "context",
-                                "type": "{\n  \t $implicit: MenuItem, // Item instance.\n  }"
-                            }
-                        ],
-                        "description": "Custom template of submenuheader."
-                    }
-                ]
-            }
-        },
         "style": {
             "components": {},
             "classes": {
@@ -19503,6 +19422,48 @@
                     {
                         "class": "p-menu-item-label",
                         "description": "Class name of the item label element"
+                    }
+                ]
+            }
+        },
+        "interfaces": {
+            "components": {},
+            "templates": {
+                "description": "Defines the templates used by the component.",
+                "values": [
+                    {
+                        "parent": "menu",
+                        "name": "start",
+                        "parameters": [],
+                        "description": "Custom template of start."
+                    },
+                    {
+                        "parent": "menu",
+                        "name": "end",
+                        "parameters": [],
+                        "description": "Custom template of end."
+                    },
+                    {
+                        "parent": "menu",
+                        "name": "item",
+                        "parameters": [
+                            {
+                                "name": "context",
+                                "type": "{\n  \t $implicit: MenuItem, // Item instance.\n  }"
+                            }
+                        ],
+                        "description": "Custom template of item."
+                    },
+                    {
+                        "parent": "menu",
+                        "name": "submenuheader",
+                        "parameters": [
+                            {
+                                "name": "context",
+                                "type": "{\n  \t $implicit: MenuItem, // Item instance.\n  }"
+                            }
+                        ],
+                        "description": "Custom template of submenuheader."
                     }
                 ]
             }
@@ -24063,6 +24024,45 @@
                 }
             }
         },
+        "style": {
+            "components": {},
+            "classes": {
+                "values": [
+                    {
+                        "class": "p-password",
+                        "description": "Class name of the root element"
+                    },
+                    {
+                        "class": "p-password-input",
+                        "description": "Class name of the pt input element"
+                    },
+                    {
+                        "class": "p-password-mask-icon",
+                        "description": "Class name of the mask icon element"
+                    },
+                    {
+                        "class": "p-password-unmask-icon",
+                        "description": "Class name of the unmask icon element"
+                    },
+                    {
+                        "class": "p-password-overlay",
+                        "description": "Class name of the overlay element"
+                    },
+                    {
+                        "class": "p-password-meter",
+                        "description": "Class name of the meter element"
+                    },
+                    {
+                        "class": "p-password-meter-label",
+                        "description": "Class name of the meter label element"
+                    },
+                    {
+                        "class": "p-password-meter-text",
+                        "description": "Class name of the meter text element"
+                    }
+                ]
+            }
+        },
         "interfaces": {
             "components": {},
             "templates": {
@@ -24103,45 +24103,6 @@
                         "name": "showicon",
                         "parameters": [],
                         "description": "Custom template of show icon."
-                    }
-                ]
-            }
-        },
-        "style": {
-            "components": {},
-            "classes": {
-                "values": [
-                    {
-                        "class": "p-password",
-                        "description": "Class name of the root element"
-                    },
-                    {
-                        "class": "p-password-input",
-                        "description": "Class name of the pt input element"
-                    },
-                    {
-                        "class": "p-password-mask-icon",
-                        "description": "Class name of the mask icon element"
-                    },
-                    {
-                        "class": "p-password-unmask-icon",
-                        "description": "Class name of the unmask icon element"
-                    },
-                    {
-                        "class": "p-password-overlay",
-                        "description": "Class name of the overlay element"
-                    },
-                    {
-                        "class": "p-password-meter",
-                        "description": "Class name of the meter element"
-                    },
-                    {
-                        "class": "p-password-meter-label",
-                        "description": "Class name of the meter label element"
-                    },
-                    {
-                        "class": "p-password-meter-text",
-                        "description": "Class name of the meter text element"
                     }
                 ]
             }
@@ -25206,25 +25167,6 @@
                 }
             }
         },
-        "interfaces": {
-            "components": {},
-            "templates": {
-                "description": "Defines the templates used by the component.",
-                "values": [
-                    {
-                        "parent": "progressbar",
-                        "name": "content",
-                        "parameters": [
-                            {
-                                "name": "context",
-                                "type": "{\n  \t $implicit: any, // Value of the progressbar.\n  }"
-                            }
-                        ],
-                        "description": "Custom template of content."
-                    }
-                ]
-            }
-        },
         "style": {
             "components": {},
             "classes": {
@@ -25240,6 +25182,25 @@
                     {
                         "class": "p-progressbar-label",
                         "description": "Class name of the label element"
+                    }
+                ]
+            }
+        },
+        "interfaces": {
+            "components": {},
+            "templates": {
+                "description": "Defines the templates used by the component.",
+                "values": [
+                    {
+                        "parent": "progressbar",
+                        "name": "content",
+                        "parameters": [
+                            {
+                                "name": "context",
+                                "type": "{\n  \t $implicit: any, // Value of the progressbar.\n  }"
+                            }
+                        ],
+                        "description": "Custom template of content."
                     }
                 ]
             }
@@ -37427,6 +37388,9 @@
             "components": {}
         }
     },
+    "utils": {
+        "components": {}
+    },
     "inpututils": {
         "components": {}
     },
@@ -37438,5 +37402,76 @@
     },
     "zindexutils": {
         "components": {}
+    },
+    "common": {
+        "style": {
+            "components": {}
+        }
+    },
+    "imagecompare": {
+        "components": {
+            "ImageCompare": {
+                "description": "Compare two images side by side with a slider.",
+                "props": {
+                    "description": "Defines the input properties of the component.",
+                    "values": [
+                        {
+                            "name": "tabindex",
+                            "optional": false,
+                            "readonly": false,
+                            "type": "number",
+                            "default": "0",
+                            "description": "Index of the element in tabbing order."
+                        },
+                        {
+                            "name": "ariaLabelledby",
+                            "optional": false,
+                            "readonly": false,
+                            "type": "string",
+                            "description": "Defines a string value that labels an interactive element."
+                        },
+                        {
+                            "name": "ariaLabel",
+                            "optional": false,
+                            "readonly": false,
+                            "type": "string",
+                            "description": "Identifier of the underlying input element."
+                        }
+                    ]
+                },
+                "templates": {
+                    "description": "Defines the templates used by the component.",
+                    "values": [
+                        {
+                            "name": "left",
+                            "description": "Template for the left side.",
+                            "type": "TemplateRef<any>",
+                            "parameters": []
+                        },
+                        {
+                            "name": "right",
+                            "description": "Template for the right side.",
+                            "type": "TemplateRef<any>",
+                            "parameters": []
+                        }
+                    ]
+                }
+            }
+        },
+        "style": {
+            "components": {},
+            "classes": {
+                "values": [
+                    {
+                        "class": "p-imagecompare",
+                        "description": "Class name of the root element"
+                    },
+                    {
+                        "class": "p-imagecompare-slider",
+                        "description": "Class name of the slider element"
+                    }
+                ]
+            }
+        }
     }
 }
