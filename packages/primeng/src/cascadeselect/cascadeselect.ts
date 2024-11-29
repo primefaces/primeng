@@ -1058,7 +1058,7 @@ export class CascadeSelect extends BaseComponent implements OnInit {
     }
 
     onEscapeKey(event) {
-        this.overlayVisible && this.hide(true);
+        this.overlayVisible && this.hide(event, true);
         event.preventDefault();
     }
 
@@ -1372,7 +1372,7 @@ export class CascadeSelect extends BaseComponent implements OnInit {
     }
 
     isProccessedOptionGroup(processedOption) {
-        return isNotEmpty(processedOption.children);
+        return isNotEmpty(processedOption?.children);
     }
 
     getProccessedOptionLabel(processedOption) {
