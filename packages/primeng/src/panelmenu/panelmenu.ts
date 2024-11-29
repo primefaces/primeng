@@ -67,7 +67,7 @@ import { PanelMenuStyle } from './style/panelmenustyle';
                     [attr.data-p-disabled]="isItemDisabled(processedItem)"
                     [tooltipOptions]="getItemProp(processedItem, 'tooltipOptions')"
                 >
-                    <div class="p-menuitem-content" (click)="onItemClick($event, processedItem)">
+                    <div class="p-panelmenu-item-content" (click)="onItemClick($event, processedItem)">
                         <ng-container *ngIf="!itemTemplate">
                             <a
                                 *ngIf="!getItemProp(processedItem, 'routerLink')"
@@ -839,13 +839,15 @@ export class PanelMenuList extends BaseComponent implements OnChanges {
             state(
                 'hidden',
                 style({
-                    height: '0'
+                    height: '0',
+                    visibility: 'hidden'
                 })
             ),
             state(
                 'visible',
                 style({
-                    height: '*'
+                    height: '*',
+                    visibility: '*'
                 })
             ),
             transition('visible <=> hidden', [animate('{{transitionParams}}')]),
