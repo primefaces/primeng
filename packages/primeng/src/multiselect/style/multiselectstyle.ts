@@ -260,7 +260,7 @@ const classes = {
     labelContainer: 'p-multiselect-label-container',
     label: ({ instance }) => ({
         'p-multiselect-label': true,
-        'p-placeholder': instance.label === instance.placeholder(),
+        'p-placeholder': instance.label() === instance.placeholder(),
         'p-multiselect-label-empty': !instance.placeholder() && !instance.defaultLabel && (!instance.modelValue() || instance.modelValue().length === 0)
     }),
     chipItem: 'p-multiselect-chip-item',
