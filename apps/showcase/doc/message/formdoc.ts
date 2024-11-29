@@ -10,11 +10,11 @@ import { Component } from '@angular/core';
         <div class="card flex justify-center">
             <div class="flex flex-col gap-4">
                 <p-message severity="error" icon="pi pi-times-circle" styleClass="mb-2">Validation Failed</p-message>
-                <div class="flex flex-col">
+                <div class="flex flex-col gap-1">
                     <input pInputText placeholder="Username" aria-label="username" class="ng-invalid ng-dirty" />
                     <p-message severity="error" variant="simple" size="small">Username is required</p-message>
                 </div>
-                <div class="flex flex-col">
+                <div class="flex flex-col gap-1">
                     <input pInputText placeholder="Email" aria-label="email" class="ng-invalid ng-dirty" />
                     <p-message severity="error" variant="simple" size="small">Email is not valid</p-message>
                 </div>
@@ -27,11 +27,11 @@ export class FormDoc {
     code: Code = {
         basic: `<div class="flex flex-col gap-4">
     <p-message severity="error" icon="pi pi-times-circle" styleClass="mb-2">Validation Failed</p-message>
-    <div class="flex flex-col">
-        <input pInputText placeholder="Username" aria-label="username" class="ng-invalid ng-dirty" />
-        <p-message severity="error" variant="simple" size="small">Username is required</p-message>
-    </div>
-    <div class="flex flex-col">
+        <div class="flex flex-col gap-1">
+            <input pInputText placeholder="Username" aria-label="username" class="ng-invalid ng-dirty" />
+            <p-message severity="error" variant="simple" size="small">Username is required</p-message>
+        </div>
+        <div class="flex flex-col gap-1">
         <input pInputText placeholder="Email" aria-label="email" class="ng-invalid ng-dirty" />
         <p-message severity="error" variant="simple" size="small">Email is not valid</p-message>
     </div>
@@ -40,11 +40,11 @@ export class FormDoc {
         html: `<div class="card flex justify-center">
     <div class="flex flex-col gap-4">
         <p-message severity="error" icon="pi pi-times-circle" styleClass="mb-2">Validation Failed</p-message>
-        <div class="flex flex-col">
-            <input pInputText placeholder="Username" aria-label="username" class="ng-invalid ng-dirty" />
-            <p-message severity="error" variant="simple" size="small">Username is required</p-message>
-        </div>
-        <div class="flex flex-col">
+            <div class="flex flex-col gap-1">
+                <input pInputText placeholder="Username" aria-label="username" class="ng-invalid ng-dirty" />
+                <p-message severity="error" variant="simple" size="small">Username is required</p-message>
+            </div>
+            <div class="flex flex-col gap-1">
             <input pInputText placeholder="Email" aria-label="email" class="ng-invalid ng-dirty" />
             <p-message severity="error" variant="simple" size="small">Email is not valid</p-message>
         </div>
