@@ -1145,7 +1145,7 @@ export class CascadeSelect extends BaseComponent implements OnInit {
 
         this.activeOptionPath.set(activeOptionPath);
         this.updateModel(newValue, originalEvent);
-        isHide && this.hide(true);
+        isHide && this.hide(event, true);
     }
 
     onOptionGroupSelect(event) {
@@ -1309,6 +1309,7 @@ export class CascadeSelect extends BaseComponent implements OnInit {
 
             isFocus && focus(this.focusInputViewChild.nativeElement);
             this.onHide.emit(event);
+            this.cd.markForCheck();
         };
 
         setTimeout(() => {
