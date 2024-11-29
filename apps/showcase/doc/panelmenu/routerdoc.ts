@@ -10,7 +10,7 @@ import { MenuItem, MessageService } from 'primeng/api';
             <p>Items with navigation are defined with templating to be able to use a routerLink directive, an external link or programmatic navigation.</p>
         </app-docsectiontext>
         <div class="card flex justify-center">
-            <p-panelMenu [model]="items" styleClass="w-full md:w-80">
+            <p-panelmenu [model]="items" styleClass="w-full md:w-80">
                 <ng-template #item let-item>
                     <ng-container *ngIf="item.route; else urlRef">
                         <a [routerLink]="item.route" class="flex items-center cursor-pointer text-surface-700 dark:text-surface-0 px-4 py-2">
@@ -32,7 +32,7 @@ import { MenuItem, MessageService } from 'primeng/api';
                         </ng-template>
                     </ng-template>
                 </ng-template>
-            </p-panelMenu>
+            </p-panelmenu>
         </div>
         <app-code [code]="code" selector="panel-menu-router-demo"></app-code>
     `,
@@ -88,7 +88,7 @@ export class RouterDoc implements OnInit {
     }
 
     code: Code = {
-        basic: `<p-panelMenu [model]="items" styleClass="w-full md:w-80">
+        basic: `<p-panelmenu [model]="items" styleClass="w-full md:w-80">
     <ng-template #item let-item>
         <ng-container *ngIf="item.route; else urlRef">
             <a [routerLink]="item.route" class="flex align-items-center
@@ -112,10 +112,10 @@ export class RouterDoc implements OnInit {
             </ng-template>
         </ng-template>
     </ng-template>
-</p-panelMenu>`,
+</p-panelmenu>`,
 
         html: `<div class="card flex justify-center">
-    <p-panelMenu [model]="items" styleClass="w-full md:w-80">
+    <p-panelmenu [model]="items" styleClass="w-full md:w-80">
         <ng-template #item let-item>
             <ng-container *ngIf="item.route; else urlRef">
                 <a [routerLink]="item.route" class="flex align-items-center
@@ -139,7 +139,7 @@ export class RouterDoc implements OnInit {
                 </ng-template>
             </ng-template>
         </ng-template>
-    </p-panelMenu>
+    </p-panelmenu>
 </div>`,
 
         typescript: `import { Component, OnInit } from '@angular/core';
