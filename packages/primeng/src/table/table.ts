@@ -1493,7 +1493,7 @@ export class CellEditor extends BaseComponent {
     @Optional() editableRow = inject(EditableRow);
 
     get editing(): boolean {
-        return (this.dt.editingCell && this.editableColumn && this.dt.editingCell === this.editableColumn.el.nativeElement) || (this.editableRow && this.dt.editMode === 'row' && this.dt.isRowEditing(this.editableRow.data));
+        return (this.dt.editingCell && this.editableColumn && this.dt.editingCell.contains(this.editableColumn.el.nativeElement)) || (this.editableRow && this.dt.editMode === 'row' && this.dt.isRowEditing(this.editableRow.data));
     }
 }
 
