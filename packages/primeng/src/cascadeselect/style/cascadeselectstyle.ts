@@ -202,7 +202,7 @@ p-cascadeselect.ng-invalid.ng-dirty .p-cascadeselect-label.p-placeholder {
     position: static;
     box-shadow: none;
     border: 0 none;
-    padding-inline-start: ${dt('tieredmenu.submenu.mobile.indent')};
+    padding-inline-start: ${dt('cascadeselect.submenu.mobile.indent')};
     padding-inline-end: 0;
 }
 
@@ -258,6 +258,7 @@ const classes = {
     root: ({ instance, props }) => [
         'p-cascadeselect p-component p-inputwrapper',
         {
+            'p-cascadeselect-mobile': instance.queryMatches(),
             'p-disabled': props.disabled,
             'p-invalid': props.invalid,
             'p-variant-filled': props.variant ? props.variant === 'filled' : instance.config.inputStyle === 'filled' || instance.config.inputVariant === 'filled',
@@ -265,7 +266,9 @@ const classes = {
             'p-inputwrapper-filled': props.modelValue,
             'p-inputwrapper-focus': instance.focused || instance.overlayVisible,
             'p-cascadeselect-open': instance.overlayVisible,
-            'p-cascadeselect-fluid': props.fluid
+            'p-cascadeselect-fluid': props.fluid,
+            'p-cascadeselect-sm p-inputfield-sm': props.size === 'small',
+            'p-cascadeselect-lg p-inputfield-lg': props.size === 'large'
         }
     ],
     label: ({ instance, props }) => [
@@ -278,7 +281,12 @@ const classes = {
     dropdown: 'p-cascadeselect-dropdown',
     loadingIcon: 'p-cascadeselect-loading-icon',
     dropdownIcon: 'p-cascadeselect-dropdown-icon',
-    overlay: 'p-cascadeselect-overlay p-component',
+    overlay: ({ instance }) => [
+        'p-cascadeselect-overlay p-component',
+        {
+            'p-cascadeselect-mobile-active': instance.queryMatches()
+        }
+    ],
     listContainer: 'p-cascadeselect-list-container',
     list: 'p-cascadeselect-list',
     option: ({ instance, processedOption }) => [
