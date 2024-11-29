@@ -262,16 +262,6 @@ const theme = ({ dt }) => `
     height: ${dt('form.field.lg.font.size')};
 }
 
-/* For PrimeNG */
-
-p-autocomplete.ng-invalid.ng-dirty > .p-autocomplete.p-inputwrapper > .p-autocomplete-input.p-inputtext {
-    border-color: ${dt('autocomplete.invalid.border.color')};
-}
-
-p-autocomplete.ng-invalid.ng-dirty > .p-autocomplete.p-inputwrapper > .p-autocomplete-input-multiple {
-    border-color: ${dt('autocomplete.invalid.border.color')};
-}
-
 .p-autocomplete-clear-icon {
     position: absolute;
     top: 50%;
@@ -281,11 +271,21 @@ p-autocomplete.ng-invalid.ng-dirty > .p-autocomplete.p-inputwrapper > .p-autocom
     color: ${dt('autocomplete.dropdown.color')};
 }
 
+p-autocomplete.ng-invalid.ng-dirty .p-autocomplete-input,
+p-autocomplete.ng-invalid.ng-dirty .p-autocomplete-input-multiple {
+    border-color: ${dt('autocomplete.invalid.border.color')};
+}
+
+p-autocomplete.ng-invalid.ng-dirty .p-autocomplete-input:enabled:focus,
+p-autocomplete.ng-invalid.ng-dirty:not(.p-disabled).p-focus .p-autocomplete-input-multiple {
+    border-color: ${dt('autocomplete.focus.border.color')};
+}
+
 p-autocomplete.ng-invalid.ng-dirty .p-autocomplete-input-chip input::placeholder {
     color: ${dt('autocomplete.invalid.placeholder.color')};
 }
 
-p-autocomplete.ng-invalid.ng-dirty .p-inputtext::placeholder {
+p-autocomplete.ng-invalid.ng-dirty .p-autocomplete-input::placeholder {
     color: ${dt('autocomplete.invalid.placeholder.color')};
 }`;
 

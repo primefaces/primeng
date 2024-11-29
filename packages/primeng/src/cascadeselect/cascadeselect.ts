@@ -57,7 +57,15 @@ export const CASCADESELECT_VALUE_ACCESSOR: any = {
                     [attr.aria-selected]="isOptionGroup(processedOption) ? undefined : isOptionSelected(processedOption)"
                     [attr.aria-posinset]="i + 1"
                 >
-                    <div class="p-cascadeselect-option-content" (click)="onOptionClick($event, processedOption)" [attr.tabindex]="0" pRipple [attr.data-pc-section]="'content'">
+                    <div
+                        class="p-cascadeselect-option-content"
+                        (click)="onOptionClick($event, processedOption)"
+                        (mouseenter)="onOptionMouseEnter($event, processedOption)"
+                        (mousemove)="onOptionMouseMove($event, processedOption)"
+                        [attr.tabindex]="0"
+                        pRipple
+                        [attr.data-pc-section]="'content'"
+                    >
                         <ng-container *ngIf="optionTemplate; else defaultOptionTemplate">
                             <ng-container *ngTemplateOutlet="optionTemplate; context: { $implicit: processedOption?.option }"></ng-container>
                         </ng-container>
@@ -72,7 +80,7 @@ export const CASCADESELECT_VALUE_ACCESSOR: any = {
                     <p-cascadeselect-sub
                         *ngIf="isOptionGroup(processedOption) && isOptionActive(processedOption)"
                         [role]="'group'"
-                        class="p-cascadeselect-overlay p-cascadeselect-option-list"
+                        class="p-cascadeselect-list p-cascadeselect-overlay p-cascadeselect-option-list"
                         [selectId]="selectId"
                         [focusedOptionId]="focusedOptionId"
                         [activeOptionPath]="activeOptionPath"
@@ -80,7 +88,9 @@ export const CASCADESELECT_VALUE_ACCESSOR: any = {
                         [optionLabel]="optionLabel"
                         [optionValue]="optionValue"
                         [level]="level + 1"
-                        (onChange)="onOptionChange($event)"
+                        (onChange)="onChange.emit($event)"
+                        (onFocusChange)="onFocusChange.emit($event)"
+                        (onFocusEnterChange)="onFocusEnterChange.emit($event)"
                         [optionGroupLabel]="optionGroupLabel"
                         [optionGroupChildren]="optionGroupChildren"
                         [dirty]="dirty"
@@ -127,8 +137,16 @@ export class CascadeSelectSub extends BaseComponent implements OnInit {
 
     @Output() onChange: EventEmitter<any> = new EventEmitter();
 
+    @Output() onFocusChange: EventEmitter<any> = new EventEmitter();
+
+    @Output() onFocusEnterChange: EventEmitter<any> = new EventEmitter();
+
     get listLabel(): string {
         return this.config.getTranslation(TranslationKeys.ARIA)['listLabel'];
+    }
+
+    constructor(public cascadeselect: CascadeSelect) {
+        super();
     }
 
     ngOnInit() {
@@ -138,16 +156,20 @@ export class CascadeSelectSub extends BaseComponent implements OnInit {
         }
     }
 
-    onOptionClick(event, option: any) {
+    onOptionClick(event, processedOption: any) {
         this.onChange.emit({
             originalEvent: event,
-            value: option,
+            processedOption,
             isFocus: true
         });
     }
 
-    onOptionChange(event) {
-        this.onChange.emit(event);
+    onOptionMouseEnter(event, processedOption) {
+        this.onFocusEnterChange.emit({ originalEvent: event, processedOption });
+    }
+
+    onOptionMouseMove(event, processedOption) {
+        this.onFocusChange.emit({ originalEvent: event, processedOption });
     }
 
     getOptionId(processedOption) {
@@ -183,7 +205,7 @@ export class CascadeSelectSub extends BaseComponent implements OnInit {
     }
 
     isOptionSelected(processedOption) {
-        return !this.isOptionGroup(processedOption) && this.isOptionActive(processedOption);
+        return equals(this.cascadeselect?.modelValue(), processedOption?.option);
     }
 
     isOptionActive(processedOption) {
@@ -315,7 +337,9 @@ export class CascadeSelectSub extends BaseComponent implements OnInit {
                             [optionGroupChildren]="optionGroupChildren"
                             [optionDisabled]="optionDisabled"
                             [root]="true"
-                            (onChange)="onOptionChange($event)"
+                            (onChange)="onOptionClick($event)"
+                            (onFocusChange)="onOptionMouseMove($event)"
+                            (onFocusEnterChange)="onOptionMouseEnter($event)"
                             [dirty]="dirty"
                             [role]="'tree'"
                         >
@@ -339,11 +363,6 @@ export class CascadeSelect extends BaseComponent implements OnInit {
      * @group Props
      */
     @Input() id: string | undefined;
-    /**
-     * Determines if the option will be selected on focus.
-     * @group Props
-     */
-    @Input({ transform: booleanAttribute }) selectOnFocus: boolean = false;
     /**
      * Text to display when the search is active. Defaults to global value in i18n translation configuration.
      * @group Props
@@ -383,6 +402,16 @@ export class CascadeSelect extends BaseComponent implements OnInit {
      * @group Props
      */
     @Input() optionDisabled: any;
+    /**
+     * Fields used when filtering the options, defaults to optionLabel.
+     * @group Props
+     */
+    @Input({ transform: booleanAttribute }) focusOnHover: boolean = true;
+    /**
+     * Determines if the option will be selected on focus.
+     * @group Props
+     */
+    @Input({ transform: booleanAttribute }) selectOnFocus: boolean = false;
     /**
      * Whether to focus on the first visible or selected element when the overlay panel is shown.
      * @group Props
@@ -671,7 +700,9 @@ export class CascadeSelect extends BaseComponent implements OnInit {
 
     overlayVisible: boolean = false;
 
-    dirty: boolean = true;
+    clicked: boolean = false;
+
+    dirty: boolean = false;
 
     searchValue: string | undefined;
 
@@ -695,6 +726,7 @@ export class CascadeSelect extends BaseComponent implements OnInit {
         return {
             'p-cascadeselect p-component p-inputwrapper': true,
             'p-cascadeselect-clearable': this.showClear && !this.disabled,
+            'p-cascadeselect-mobile': this.queryMatches(),
             'p-disabled': this.disabled,
             'p-focus': this.focused,
             'p-inputwrapper-filled': this.modelValue(),
@@ -911,14 +943,19 @@ export class CascadeSelect extends BaseComponent implements OnInit {
 
                 break;
         }
+
+        this.clicked = false;
     }
 
     onArrowDownKey(event) {
-        const optionIndex = this.focusedOptionInfo().index !== -1 ? this.findNextOptionIndex(this.focusedOptionInfo().index) : this.findFirstFocusedOptionIndex();
+        if (!this.overlayVisible) {
+            this.show();
+        } else {
+            const optionIndex = this.focusedOptionInfo().index !== -1 ? this.findNextOptionIndex(this.focusedOptionInfo().index) : this.clicked ? this.findFirstOptionIndex() : this.findFirstFocusedOptionIndex();
 
-        this.changeFocusedOptionIndex(event, optionIndex);
+            this.changeFocusedOptionIndex(event, optionIndex, true);
+        }
 
-        !this.overlayVisible && this.show();
         event.preventDefault();
     }
 
@@ -928,15 +965,15 @@ export class CascadeSelect extends BaseComponent implements OnInit {
                 const processedOption = this.visibleOptions[this.focusedOptionInfo().index];
                 const grouped = this.isProccessedOptionGroup(processedOption);
 
-                !grouped && this.onOptionChange({ originalEvent: event, value: processedOption });
+                !grouped && this.onOptionChange({ originalEvent: event, processedOption });
             }
 
             this.overlayVisible && this.hide();
             event.preventDefault();
         } else {
-            const optionIndex = this.focusedOptionInfo().index !== -1 ? this.findPrevOptionIndex(this.focusedOptionInfo().index) : this.findLastFocusedOptionIndex();
+            const optionIndex = this.focusedOptionInfo().index !== -1 ? this.findPrevOptionIndex(this.focusedOptionInfo().index) : this.clicked ? this.findLastOptionIndex() : this.findLastFocusedOptionIndex();
 
-            this.changeFocusedOptionIndex(event, optionIndex);
+            this.changeFocusedOptionIndex(event, optionIndex, true);
 
             !this.overlayVisible && this.show();
             event.preventDefault();
@@ -978,7 +1015,7 @@ export class CascadeSelect extends BaseComponent implements OnInit {
                     this.searchValue = '';
                     this.onArrowDownKey(event);
                 } else {
-                    this.onOptionChange({ originalEvent: event, value: processedOption });
+                    this.onOptionChange({ originalEvent: event, processedOption });
                 }
             }
 
@@ -1002,13 +1039,14 @@ export class CascadeSelect extends BaseComponent implements OnInit {
 
     onEnterKey(event) {
         if (!this.overlayVisible) {
+            this.focusedOptionInfo.set({ ...this.focusedOptionInfo(), index: -1 }); // reset
             this.onArrowDownKey(event);
         } else {
             if (this.focusedOptionInfo().index !== -1) {
                 const processedOption = this.visibleOptions()[this.focusedOptionInfo().index];
                 const grouped = this.isProccessedOptionGroup(processedOption);
 
-                this.onOptionChange({ originalEvent: event, value: processedOption });
+                this.onOptionClick({ originalEvent: event, processedOption });
                 !grouped && this.hide();
             }
         }
@@ -1030,7 +1068,7 @@ export class CascadeSelect extends BaseComponent implements OnInit {
             const processedOption = this.visibleOptions()[this.focusedOptionInfo().index];
             const grouped = this.isProccessedOptionGroup(processedOption);
 
-            !grouped && this.onOptionChange({ originalEvent: event, value: processedOption });
+            !grouped && this.onOptionChange({ originalEvent: event, processedOption });
         }
 
         this.overlayVisible && this.hide();
@@ -1081,29 +1119,34 @@ export class CascadeSelect extends BaseComponent implements OnInit {
         }
     }
 
-    changeFocusedOptionIndex(event, index) {
-        if (this.focusedOptionInfo().index !== index) {
-            const focusedOptionInfo = this.focusedOptionInfo();
+    changeFocusedOptionIndex(event, index, preventSelection?: boolean) {
+        const focusedOptionInfo = this.focusedOptionInfo();
+
+        if (focusedOptionInfo.index !== index) {
             this.focusedOptionInfo.set({ ...focusedOptionInfo, index });
             this.scrollInView();
-        }
 
-        if (this.selectOnFocus) {
-            this.onOptionChange({ originalEvent: event, processedOption: this.visibleOptions()[index], isHide: false });
+            if (this.focusOnHover) {
+                this.onOptionClick({ originalEvent: event, processedOption: this.visibleOptions()[index], isHide: false, preventSelection });
+            }
+
+            if (this.selectOnFocus) {
+                this.onOptionChange({ originalEvent: event, processedOption: this.visibleOptions()[index], isHide: false });
+            }
         }
     }
     matchMediaListener: VoidListener;
 
     onOptionSelect(event) {
-        const { originalEvent, value, isFocus } = event;
-        const newValue = this.getOptionValue(value.option);
+        const { originalEvent, value, isHide } = event;
+        const newValue = this.getOptionValue(value);
 
         const activeOptionPath = this.activeOptionPath();
         activeOptionPath.forEach((p) => (p.selected = true));
 
         this.activeOptionPath.set(activeOptionPath);
         this.updateModel(newValue, originalEvent);
-        isFocus && this.hide(true);
+        isHide && this.hide(true);
     }
 
     onOptionGroupSelect(event) {
@@ -1125,6 +1168,8 @@ export class CascadeSelect extends BaseComponent implements OnInit {
 
             this.focusInputViewChild?.nativeElement.focus();
         }
+
+        this.clicked = true;
     }
 
     isOptionMatched(processedOption) {
@@ -1259,6 +1304,7 @@ export class CascadeSelect extends BaseComponent implements OnInit {
     hide(event?, isFocus = false) {
         const _hide = () => {
             this.overlayVisible = false;
+            this.clicked = false;
             this.activeOptionPath.set([]);
             this.focusedOptionInfo.set({ index: -1, level: 0, parentKey: '' });
 
@@ -1282,12 +1328,12 @@ export class CascadeSelect extends BaseComponent implements OnInit {
             const processedOption = this.activeOptionPath()[this.activeOptionPath().length - 1];
 
             focusedOptionInfo = {
-                index: this.autoOptionFocus ? processedOption.index : -1,
+                index: processedOption.index,
                 level: processedOption.level,
                 parentKey: processedOption.parentKey
             };
         } else {
-            focusedOptionInfo = { index: this.autoOptionFocus ? this.findFirstFocusedOptionIndex() : -1, level: 0, parentKey: '' };
+            focusedOptionInfo = { index: this.autoOptionFocus ? this.findFirstFocusedOptionIndex() : this.findSelectedOptionIndex(), level: 0, parentKey: '' };
         }
 
         this.focusedOptionInfo.set(focusedOptionInfo);
@@ -1350,39 +1396,72 @@ export class CascadeSelect extends BaseComponent implements OnInit {
     mobileActive = signal<boolean>(false);
 
     onOptionChange(event) {
-        const { originalEvent, value, isFocus, isHide } = event;
-        if (isEmpty(value)) return;
+        const { processedOption, type } = event;
 
-        const { index, level, parentKey, children, key } = value;
+        if (isEmpty(processedOption)) return;
 
+        const { index, key, level, parentKey, children } = processedOption;
         const grouped = isNotEmpty(children);
-        const selected = this.isSelected(value);
+        const activeOptionPath = this.activeOptionPath().filter((p) => p.parentKey !== parentKey && p.parentKey !== key);
+
+        this.focusedOptionInfo.set({ index, level, parentKey });
+
+        if (type == 'hover' && this.queryMatches()) {
+            return;
+        }
+
+        if (grouped) {
+            activeOptionPath.push(processedOption);
+        }
+
+        this.activeOptionPath.set([...activeOptionPath]);
+    }
+
+    onOptionClick(event) {
+        const { originalEvent, processedOption, isFocus, isHide, preventSelection } = event;
+        const { index, key, level, parentKey } = processedOption;
+        const grouped = this.isProccessedOptionGroup(processedOption);
+        const selected = this.isSelected(processedOption);
+
         if (selected) {
             const activeOptionPath = this.activeOptionPath().filter((p) => key !== p.key && key.startsWith(p.key));
             this.activeOptionPath.set([...activeOptionPath]);
             this.focusedOptionInfo.set({ index, level, parentKey });
         } else {
-            const activeOptionPath = this.activeOptionPath().filter((p) => p.parentKey !== parentKey);
+            if (grouped) {
+                this.onOptionChange(event);
+                this.onOptionGroupSelect({ originalEvent, value: processedOption.option, isFocus: false });
+            } else {
+                const activeOptionPath = this.activeOptionPath().filter((p) => p.parentKey !== parentKey);
 
-            activeOptionPath.push(value);
+                activeOptionPath.push(processedOption);
 
-            this.focusedOptionInfo.set({ index, level, parentKey });
-            this.activeOptionPath.set(activeOptionPath);
+                this.focusedOptionInfo.set({ index, level, parentKey });
 
-            grouped ? this.onOptionGroupSelect({ originalEvent, value, isFocus: false }) : this.onOptionSelect({ originalEvent, value, isFocus });
+                if (!preventSelection || processedOption?.children.length !== 0) {
+                    this.activeOptionPath.set([...activeOptionPath]);
+                    this.onOptionSelect({ originalEvent, value: processedOption.option, isHide: isFocus });
+                }
+            }
         }
 
-        // const activeOptionPath = this.activeOptionPath().filter((p) => p.parentKey !== parentKey);
-        //
-        // activeOptionPath.push(value);
-        //
-        // this.focusedOptionInfo.set({ index, level, parentKey });
-        // this.activeOptionPath.set(activeOptionPath);
-
-        // grouped
-        //     ? this.onOptionGroupSelect({ originalEvent, value, isFocus: false })
-        //     : this.onOptionSelect({ originalEvent, value, isFocus });
         isFocus && focus(this.focusInputViewChild.nativeElement);
+    }
+
+    onOptionMouseEnter(event) {
+        if (this.focusOnHover) {
+            if (this.dirty || (!this.dirty && isNotEmpty(this.modelValue()))) {
+                this.onOptionChange({ ...event, type: 'hover' });
+            } else if (!this.dirty && event.processedOption.level === 0) {
+                this.onOptionClick({ ...event, type: 'hover' });
+            }
+        }
+    }
+
+    onOptionMouseMove(event) {
+        if (this.focused && this.focusOnHover) {
+            this.changeFocusedOptionIndex(event, event.processedOption.index);
+        }
     }
 
     ngOnInit() {

@@ -2,11 +2,6 @@ import { Injectable } from '@angular/core';
 import { BaseStyle } from 'primeng/base';
 
 const theme = ({ dt }) => `
-/* For PrimeNG */
-p-inputmask.ng-invalid.ng-dirty > .p-inputtext {
-    border-color: ${dt('inputtext.invalid.border.color')};
-}
-
 p-inputmask {
     position: relative;
 }
@@ -18,6 +13,18 @@ p-inputmask {
     cursor: pointer;
     inset-inline-end: ${dt('form.field.padding.x')};
     color: ${dt('form.field.icon.color')};
+}
+
+p-inputmask.ng-invalid.ng-dirty > .p-inputtext {
+    border-color: ${dt('inputtext.invalid.border.color')};
+}
+
+p-inputmask.ng-invalid.ng-dirty > .p-inputtext:enabled:focus {
+    border-color: ${dt('inputtext.focus.border.color')};
+}
+
+p-inputmask.ng-invalid.ng-dirty > .p-inputtext::placeholder {
+    color: ${dt('inputtext.invalid.placeholder.color')};
 }
 `;
 

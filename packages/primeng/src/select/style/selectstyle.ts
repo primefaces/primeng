@@ -16,6 +16,10 @@ const theme = ({ dt }) => `
     box-shadow: ${dt('select.shadow')};
 }
 
+.p-select.ng-invalid.ng-dirty {
+    border-color: ${dt('select.invalid.border.color')};
+}
+
 .p-select:not(.p-disabled):hover {
     border-color: ${dt('select.hover.border.color')};
 }
@@ -81,6 +85,10 @@ const theme = ({ dt }) => `
 
 .p-select-label.p-placeholder {
     color: ${dt('select.placeholder.color')};
+}
+
+.p-select.ng-invalid.ng-dirty .p-select-label.p-placeholder {
+    color: ${dt('select.invalid.placeholder.color')};
 }
 
 .p-select:has(.p-select-clear-icon) .p-select-label {
@@ -216,20 +224,6 @@ input.p-select-label {
     width: ${dt('select.lg.font.size')};
     height: ${dt('select.lg.font.size')};
 }
-
-/*For PrimeNG*/
-
-.p-dropdown.ng-invalid.ng-dirty,
-.p-select.ng-invalid.ng-dirty {
-    outline: 1px solid ${dt('select.invalid.border.color')};
-    outline-offset: 0;
-}
-
-.p-dropdown.ng-invalid.ng-dirty .p-dropdown-label.p-placeholder,
-.p-select.ng-invalid.ng-dirty .p-select-label.p-placeholder {
-    color: ${dt('select.invalid.placeholder.color')};
-}
-
 `;
 
 const classes = {
