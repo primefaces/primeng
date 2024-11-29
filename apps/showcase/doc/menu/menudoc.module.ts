@@ -6,7 +6,7 @@ import { RouterModule } from '@angular/router';
 import { AvatarModule } from 'primeng/avatar';
 import { BadgeModule } from 'primeng/badge';
 import { ButtonModule } from 'primeng/button';
-import { Menu } from 'primeng/menu';
+import { Menu, MenuModule } from 'primeng/menu';
 import { Ripple } from 'primeng/ripple';
 import { ToastModule } from 'primeng/toast';
 import { AccessibilityDoc } from './accessibilitydoc';
@@ -20,7 +20,7 @@ import { StyleDoc } from './styledoc';
 import { TemplateDoc } from './templatedoc';
 
 @NgModule({
-    imports: [CommonModule, AppCodeModule, RouterModule, Menu, ToastModule, ButtonModule, Ripple, AvatarModule, AppDocModule, BadgeModule],
+    imports: [CommonModule, AppCodeModule, RouterModule, MenuModule, ToastModule, ButtonModule, Ripple, AvatarModule, AppDocModule, BadgeModule],
     declarations: [BasicDoc, CommandDoc, TemplateDoc, GroupDoc, ImportDoc, RouterDoc, PopupDoc, StyleDoc, AccessibilityDoc],
     exports: [AppDocModule]
 })

@@ -6,6 +6,7 @@ import {
     Component,
     computed,
     ContentChild,
+    ContentChildren,
     ElementRef,
     EventEmitter,
     forwardRef,
@@ -19,6 +20,7 @@ import {
     Pipe,
     PipeTransform,
     PLATFORM_ID,
+    QueryList,
     signal,
     TemplateRef,
     ViewChild,
@@ -28,7 +30,7 @@ import {
 import { DomSanitizer, SafeHtml } from '@angular/platform-browser';
 import { RouterModule } from '@angular/router';
 import { absolutePosition, appendChild, find, findSingle, focus, isTouchDevice, relativePosition, uuid } from '@primeuix/utils';
-import { MenuItem, OverlayService, SharedModule } from 'primeng/api';
+import { MenuItem, OverlayService, PrimeTemplate, SharedModule } from 'primeng/api';
 import { BadgeModule } from 'primeng/badge';
 import { BaseComponent } from 'primeng/basecomponent';
 import { ConnectedOverlayScrollHandler } from 'primeng/dom';
@@ -160,8 +162,8 @@ export class MenuItemContent {
             [attr.data-pc-name]="'menu'"
             [attr.id]="id"
         >
-            <div *ngIf="startTemplate" class="p-menu-start" [attr.data-pc-section]="'start'">
-                <ng-container *ngTemplateOutlet="startTemplate"></ng-container>
+            <div *ngIf="startTemplate ?? _startTemplate" class="p-menu-start" [attr.data-pc-section]="'start'">
+                <ng-container *ngTemplateOutlet="startTemplate ?? _startTemplate"></ng-container>
             </div>
             <ul
                 #list
@@ -189,11 +191,11 @@ export class MenuItemContent {
                         role="none"
                         [attr.id]="menuitemId(submenu, id, i)"
                     >
-                        <ng-container *ngIf="!submenuheaderTemplate">
+                        <ng-container *ngIf="!submenuheaderTemplate || _submenuheaderTemplate">
                             <span *ngIf="submenu.escape !== false; else htmlSubmenuLabel">{{ submenu.label }}</span>
                             <ng-template #htmlSubmenuLabel><span [innerHTML]="submenu.label | safeHtml"></span></ng-template>
                         </ng-container>
-                        <ng-container *ngTemplateOutlet="submenuheaderTemplate; context: { $implicit: submenu }"></ng-container>
+                        <ng-container *ngTemplateOutlet="submenuheaderTemplate ?? _submenuheaderTemplate; context: { $implicit: submenu }"></ng-container>
                     </li>
                     <ng-template ngFor let-item let-j="index" [ngForOf]="submenu.items">
                         <li class="p-menu-separator" *ngIf="item.separator" [ngClass]="{ 'p-hidden': item.visible === false || submenu.visible === false }" role="separator"></li>
@@ -201,7 +203,7 @@ export class MenuItemContent {
                             class="p-menu-item"
                             *ngIf="!item.separator"
                             [pMenuItemContent]="item"
-                            [itemTemplate]="itemTemplate"
+                            [itemTemplate]="itemTemplate ?? _itemTemplate"
                             [ngClass]="{
                                 'p-hidden': item.visible === false || submenu.visible === false,
                                 'p-focus': focusedOptionId() && menuitemId(item, id, i, j) === focusedOptionId(),
@@ -228,7 +230,7 @@ export class MenuItemContent {
                         class="p-menu-item"
                         *ngIf="!item.separator"
                         [pMenuItemContent]="item"
-                        [itemTemplate]="itemTemplate"
+                        [itemTemplate]="itemTemplate ?? _itemTemplate"
                         [ngClass]="{
                             'p-hidden': item.visible === false,
                             'p-focus': focusedOptionId() && menuitemId(item, id, i) === focusedOptionId(),
@@ -249,8 +251,8 @@ export class MenuItemContent {
                     ></li>
                 </ng-template>
             </ul>
-            <div *ngIf="endTemplate" class="p-menu-end" [attr.data-pc-section]="'end'">
-                <ng-container *ngTemplateOutlet="endTemplate"></ng-container>
+            <div *ngIf="endTemplate ?? _endTemplate" class="p-menu-end" [attr.data-pc-section]="'end'">
+                <ng-container *ngTemplateOutlet="endTemplate ?? _endTemplate"></ng-container>
             </div>
         </div>
     `,
@@ -423,30 +425,63 @@ export class Menu extends BaseComponent implements OnDestroy {
      * @group Templates
      */
     @ContentChild('start') startTemplate: TemplateRef<any> | undefined;
+    _startTemplate: TemplateRef<any> | undefined;
 
     /**
      * Defines template option for end.
      * @group Templates
      */
     @ContentChild('end') endTemplate: TemplateRef<any> | undefined;
+    _endTemplate: TemplateRef<any> | undefined;
 
     /**
      * Defines template option for header.
      * @group Templates
      */
     @ContentChild('header') headerTemplate: TemplateRef<any> | undefined;
+    _headerTemplate: TemplateRef<any> | undefined;
 
     /**
      * Defines template option for item.
      * @group Templates
      */
     @ContentChild('item') itemTemplate: TemplateRef<any> | undefined;
+    _itemTemplate: TemplateRef<any> | undefined;
 
     /**
      * Defines template option for item.
      * @group Templates
      */
     @ContentChild('submenuheader') submenuheaderTemplate: TemplateRef<any> | undefined;
+    _submenuheaderTemplate: TemplateRef<any> | undefined;
+
+    @ContentChildren(PrimeTemplate) _templates: QueryList<PrimeTemplate>;
+
+    ngAfterContentInit() {
+        this._templates?.forEach((item) => {
+            switch (item.getType()) {
+                case 'start':
+                    this._startTemplate = item.template;
+                    break;
+
+                case 'end':
+                    this._endTemplate = item.template;
+                    break;
+
+                case 'item':
+                    this._itemTemplate = item.template;
+                    break;
+
+                case 'submenuheader':
+                    this._submenuheaderTemplate = item.template;
+                    break;
+
+                default:
+                    this.itemTemplate = item.template;
+                    break;
+            }
+        });
+    }
 
     getTabIndexValue(): string | null {
         return this.tabindex !== undefined ? this.tabindex.toString() : null;
