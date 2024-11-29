@@ -656,7 +656,7 @@ export class UITreeNode extends BaseComponent implements OnInit {
 
     findLastVisibleDescendant(nodeElement: any): any {
         const listElement = <HTMLElement>Array.from(nodeElement.children).find((el: any) => hasClass(el, 'p-treenode'));
-        const childrenListElement = listElement.children[1];
+        const childrenListElement = listElement?.children[1];
         if (childrenListElement && childrenListElement.children.length > 0) {
             const lastChildElement = childrenListElement.children[childrenListElement.children.length - 1];
 
