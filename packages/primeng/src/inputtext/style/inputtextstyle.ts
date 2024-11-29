@@ -20,6 +20,10 @@ const theme = ({ dt }) => `
     box-shadow: ${dt('inputtext.shadow')};
 }
 
+.p-inputtext.ng-invalid.ng-dirty {
+    border-color: ${dt('inputtext.invalid.border.color')};
+}
+
 .p-inputtext:enabled:hover {
     border-color: ${dt('inputtext.hover.border.color')};
 }
@@ -53,6 +57,10 @@ const theme = ({ dt }) => `
     color: ${dt('inputtext.placeholder.color')};
 }
 
+.p-inputtext.ng-invalid.ng-dirty::placeholder {
+    color: ${dt('inputtext.invalid.placeholder.color')};
+}
+
 .p-inputtext-sm {
     font-size: ${dt('inputtext.sm.font.size')};
     padding-block: ${dt('inputtext.sm.padding.y')};
@@ -67,11 +75,6 @@ const theme = ({ dt }) => `
 
 .p-inputtext-fluid {
     width: 100%;
-}
-
-/* For PrimeNG */
-.p-inputtext.ng-invalid.ng-dirty {
-    border-color: ${dt('inputtext.invalid.border.color')};
 }
 `;
 

@@ -17,6 +17,14 @@ const theme = ({ dt }) => `
     box-shadow: ${dt('cascadeselect.shadow')};
 }
 
+p-cascadeselect.ng-invalid.ng-dirty .p-cascadeselect {
+    border-color: ${dt('cascadeselect.invalid.border.color')};
+}
+
+p-cascadeselect.ng-invalid.ng-dirty .p-cascadeselect.p-focus {
+    border-color: ${dt('cascadeselect.focus.border.color')};
+}
+
 .p-cascadeselect:not(.p-disabled):hover {
     border-color: ${dt('cascadeselect.hover.border.color')};
 }
@@ -73,6 +81,10 @@ const theme = ({ dt }) => `
 
 .p-cascadeselect-label.p-placeholder {
     color: ${dt('cascadeselect.placeholder.color')};
+}
+
+p-cascadeselect.ng-invalid.ng-dirty .p-cascadeselect-label.p-placeholder {
+    color: ${dt('cascadeselect.invalid.placeholder.color')};
 }
 
 .p-cascadeselect.p-disabled .p-cascadeselect-label {
@@ -236,14 +248,6 @@ const theme = ({ dt }) => `
     flex-shrink: 0;
     background: transparent;
     color: ${dt('cascadeselect.clear.icon.color')};
-}
-
-p-cascadeselect.ng-invalid.ng-dirty > .p-inputwrapper {
-    border-color: ${dt('cascadeselect.invalid.border.color')};
-}
-
-p-cascadeselect.ng-invalid.ng-dirty > .p-inputwrapper > .p-cascadeselect-label.p-placeholder {
-    color: ${dt('cascadeselect.invalid.placeholder.color')};
 }`;
 
 const inlineStyles = {

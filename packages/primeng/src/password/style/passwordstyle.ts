@@ -80,8 +80,16 @@ const theme = ({ dt }) => `
 }
 
 /* For PrimeNG */
-p-password.ng-invalid.ng-dirty > .p-password.p-inputwrapper > .p-inputtext {
-    border-color: ${dt('form.field.invalid.border.color')};
+p-password.ng-invalid.ng-dirty .p-inputtext {
+    border-color: ${dt('inputtext.invalid.border.color')};
+}
+
+p-password.ng-invalid.ng-dirty .p-inputtext:enabled:focus {
+    border-color: ${dt('inputtext.focus.border.color')};
+}
+
+p-password.ng-invalid.ng-dirty .p-inputtext::placeholder {
+    color: ${dt('inputtext.invalid.placeholder.color')};
 }
 
 .p-password-clear-icon {

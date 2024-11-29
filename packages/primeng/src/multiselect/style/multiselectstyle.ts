@@ -17,6 +17,10 @@ const theme = ({ dt }) => `
     box-shadow: ${dt('multiselect.shadow')};
 }
 
+.p-multiselect.ng-invalid.ng-dirty {
+    border-color: ${dt('multiselect.invalid.border.color')};
+}
+
 .p-multiselect:not(.p-disabled):hover {
     border-color: ${dt('multiselect.hover.border.color')};
 }
@@ -77,6 +81,10 @@ const theme = ({ dt }) => `
 
 .p-multiselect-label.p-placeholder {
     color: ${dt('multiselect.placeholder.color')};
+}
+
+p-multiselect.ng-invalid.ng-dirty .p-multiselect-label.p-placeholder {
+    color: ${dt('multiselect.invalid.placeholder.color')};
 }
 
 .p-multiselect.p-disabled .p-multiselect-label {
@@ -220,12 +228,6 @@ const theme = ({ dt }) => `
     height: ${dt('multiselect.lg.font.size')};
 }
 
-/* For PrimeNG */
-
-p-multiselect.ng-invalid.ng-dirty {
-    border-color: ${dt('multiselect.invalid.border.color')};
-}
-
 .p-multiselect-clear-icon {
     cursor: pointer;
     display: flex;
@@ -234,10 +236,6 @@ p-multiselect.ng-invalid.ng-dirty {
     flex-shrink: 0;
     background: transparent;
     color: ${dt('multiselect.clear.icon.color')};
-}
-
-p-multiselect.ng-invalid.ng-dirty .p-multiselect-label {
-    color: ${dt('multiselect.invalid.placeholder.color')};
 }`;
 
 const inlineStyles = {

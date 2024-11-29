@@ -19,6 +19,10 @@ const theme = ({ dt }) => `
     box-shadow: ${dt('textarea.shadow')};
 }
 
+.p-textarea.ng-invalid.ng-dirty {
+    border-color: ${dt('textarea.invalid.border.color')}
+};
+
 .p-textarea:enabled:hover {
     border-color: ${dt('textarea.hover.border.color')};
 }
@@ -52,6 +56,10 @@ const theme = ({ dt }) => `
     color: ${dt('textarea.placeholder.color')};
 }
 
+.p-textarea.ng-invalid.ng-dirty::placeholder {
+    color: ${dt('textarea.invalid.placeholder.color')};
+}
+
 .p-textarea-fluid {
     width: 100%;
 }
@@ -72,12 +80,6 @@ const theme = ({ dt }) => `
     padding-block: ${dt('textarea.lg.padding.y')};
     padding-inline: ${dt('textarea.lg.padding.x')};
 }
-
-/* For PrimeNG */
-
-.p-textarea.ng-invalid.ng-dirty {
-    border-color: ${dt('textarea.invalid.border.color')}
-};
 `;
 
 const classes = {

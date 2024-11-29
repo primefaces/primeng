@@ -162,10 +162,17 @@ const theme = ({ dt }) => `
     height: ${dt('form.field.lg.font.size')};
 }
 
-/* For PrimeNG */
 p-inputnumber.ng-invalid.ng-dirty > .p-inputtext {
     border-color: ${dt('inputtext.invalid.border.color')};
-};
+}
+
+p-inputnumber.ng-invalid.ng-dirty > .p-inputtext:enabled:focus {
+    border-color: ${dt('inputtext.focus.border.color')};
+}
+
+p-inputnumber.ng-invalid.ng-dirty > .p-inputtext::placeholder {
+    color: ${dt('inputtext.invalid.placeholder.color')};
+}
 `;
 
 const classes = {

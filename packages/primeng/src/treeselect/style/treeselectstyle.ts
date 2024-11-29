@@ -17,6 +17,14 @@ const theme = ({ dt }) => `
     box-shadow: ${dt('treeselect.shadow')};
 }
 
+p-treeselect.ng-invalid.ng-dirty .p-treeselect {
+    border-color: ${dt('treeselect.invalid.border.color')};
+}
+
+p-treeselect.ng-invalid.ng-dirty .p-treeselect.p-focus {
+    border-color: ${dt('treeselect.focus.border.color')};
+}
+
 .p-treeselect:not(.p-disabled):hover {
     border-color: ${dt('treeselect.hover.border.color')};
 }
@@ -77,6 +85,10 @@ const theme = ({ dt }) => `
 
 .p-treeselect-label.p-placeholder {
     color: ${dt('treeselect.placeholder.color')};
+}
+
+p-treeselect.ng-invalid.ng-dirty .p-treeselect-label.p-placeholder {
+    color: ${dt('treeselect.invalid.placeholder.color')};
 }
 
 .p-treeselect.p-disabled .p-treeselect-label {
@@ -155,11 +167,6 @@ const theme = ({ dt }) => `
     width: ${dt('treeselect.lg.font.size')};
     height: ${dt('treeselect.lg.font.size')};
 }
-/* For PrimeNG */
-
-p-treeselect.ng-invalid.ng-dirty > .p-inputwrapper {
-    border-color: ${dt('treeselect.invalid.border.color')};
-}
 
 .p-treeselect-clear-icon {
     cursor: pointer;
@@ -169,10 +176,6 @@ p-treeselect.ng-invalid.ng-dirty > .p-inputwrapper {
     flex-shrink: 0;
     background: transparent;
     color: ${dt('treeselect.clear.icon.color')};
-}
-
-p-treeselect.ng-invalid.ng-dirty .p-treeselect-label.p-placeholder {
-    color: ${dt('treeselect.invalid.placeholder.color')};
 }`;
 
 const inlineStyles = {
