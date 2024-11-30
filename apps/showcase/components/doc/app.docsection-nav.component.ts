@@ -1,51 +1,44 @@
 import { Doc } from '@/domain/doc';
 import { DOCUMENT, isPlatformBrowser, Location } from '@angular/common';
-import { Component, ElementRef, Inject, Input, NgZone, OnDestroy, OnInit, PLATFORM_ID, Renderer2, ViewChild } from '@angular/core';
+import { Component, DestroyRef, ElementRef, inject, input, OnInit, PLATFORM_ID, signal, ViewChild } from '@angular/core';
+import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { DomHandler } from 'primeng/dom';
 import { ObjectUtils } from 'primeng/utils';
-import { Subscription } from 'rxjs';
+import { fromEvent } from 'rxjs';
 
 @Component({
     selector: 'app-docsection-nav',
-    template: ` <ul #nav *ngIf="docs && docs.length" class="doc-section-nav" [ngClass]="{ hidden: visible }">
-        <li *ngFor="let doc of docs; let i = index" class="navbar-item" [ngClass]="{ 'active-navbar-item': activeId === doc.id }">
-            <ng-container *ngIf="!doc.isInterface">
-                <div class="navbar-item-content">
-                    <button class="px-link" (click)="onButtonClick($event, doc)">{{ doc.label }}</button>
-                </div>
-                <ng-container>
-                    <ul *ngIf="doc.children">
-                        <li *ngFor="let child of doc.children; let isFirst = first" class="navbar-item" [ngClass]="{ 'active-navbar-item': activeId === child.id }">
-                            <div class="navbar-item-content">
-                                <button class="px-link" (click)="onButtonClick($event, child)">
-                                    {{ child.label }}
-                                </button>
-                            </div>
-                        </li>
-                    </ul>
-                </ng-container>
-            </ng-container>
-        </li>
-    </ul>`
+    template: `
+        <ul #nav class="doc-section-nav">
+            @for (doc of docs(); track doc.label) {
+                @if (!doc.isInterface) {
+                    <li class="navbar-item" [ngClass]="{ 'active-navbar-item': activeId() === doc.id }">
+                        <div class="navbar-item-content">
+                            <button (click)="onButtonClick(doc)">{{ doc.label }}</button>
+                        </div>
+                        @if (doc.children) {
+                            <ul>
+                                @for (child of doc.children; track child.label) {
+                                    <li class="navbar-item" [ngClass]="{ 'active-navbar-item': activeId() === child.id }">
+                                        <div class="navbar-item-content">
+                                            <button (click)="onButtonClick(child)">
+                                                {{ child.label }}
+                                            </button>
+                                        </div>
+                                    </li>
+                                }
+                            </ul>
+                        }
+                    </li>
+                }
+            }
+        </ul>
+    `
 })
-export class AppDocSectionNavComponent implements OnInit, OnDestroy {
-    @Input() docs!: Doc[];
+export class AppDocSectionNavComponent implements OnInit {
+    docs = input.required<Doc[]>();
 
-    subscription!: Subscription;
-
-    scrollListener!: any;
-
-    _activeId: any;
-
-    get activeId() {
-        return this._activeId;
-    }
-
-    set activeId(val: string) {
-        if (val !== this._activeId) {
-            this._activeId = val;
-        }
-    }
+    activeId = signal<string | null>(null);
 
     isScrollBlocked: boolean = false;
 
@@ -53,46 +46,33 @@ export class AppDocSectionNavComponent implements OnInit, OnDestroy {
 
     scrollEndTimer!: any;
 
+    private readonly document = inject(DOCUMENT);
+    private readonly platformId = inject(PLATFORM_ID);
+    private readonly location = inject(Location);
+    private readonly destroyRef = inject(DestroyRef);
+
     @ViewChild('nav') nav: ElementRef;
 
-    constructor(
-        @Inject(DOCUMENT) private document: Document,
-        @Inject(PLATFORM_ID) private platformId: any,
-        private location: Location,
-        private zone: NgZone,
-        private renderer: Renderer2
-    ) {}
-
-    ngOnInit(): void {
+    ngOnInit() {
         if (isPlatformBrowser(this.platformId)) {
-            const hash = window.location.hash.substring(1);
-            const hasHash = ObjectUtils.isNotEmpty(hash);
-            const id = hasHash ? hash : ((this.docs && this.docs[0]) || {}).id;
+            this.scrollCurrentUrl();
 
-            this.activeId = id;
-            hasHash &&
-                setTimeout(() => {
-                    this.scrollToLabelById(id);
-                }, 250);
-
-            this.zone.runOutsideAngular(() => {
-                this.scrollListener = this.renderer.listen(this.document, 'scroll', (event: any) => {
-                    this.onScroll();
-                });
-            });
+            fromEvent(this.document, 'scroll')
+                .pipe(takeUntilDestroyed(this.destroyRef))
+                .subscribe(() => this.onScroll());
         }
     }
 
     scrollCurrentUrl() {
         const hash = window.location.hash.substring(1);
         const hasHash = ObjectUtils.isNotEmpty(hash);
-        const id = hasHash ? hash : (this.docs[0] || {}).id;
+        const id = hasHash ? hash : (this.docs()[0] || {}).id;
 
-        this.activeId = id;
+        this.activeId.set(id);
         hasHash &&
             setTimeout(() => {
                 this.scrollToLabelById(id);
-            }, 1);
+            }, 250);
     }
 
     getLabels() {
@@ -100,23 +80,21 @@ export class AppDocSectionNavComponent implements OnInit, OnDestroy {
     }
 
     onScroll() {
-        if (isPlatformBrowser(this.platformId) && this.nav) {
+        if (isPlatformBrowser(this.platformId)) {
             if (!this.isScrollBlocked) {
-                this.zone.run(() => {
-                    if (typeof document !== 'undefined') {
-                        const labels = this.getLabels();
-                        const windowScrollTop = DomHandler.getWindowScrollTop();
-                        labels.forEach((label) => {
-                            const { top } = DomHandler.getOffset(label);
-                            const threshold = this.getThreshold(label);
+                if (typeof document !== 'undefined') {
+                    const labels = this.getLabels();
+                    const windowScrollTop = DomHandler.getWindowScrollTop();
+                    labels.forEach((label) => {
+                        const { top } = DomHandler.getOffset(label);
+                        const threshold = this.getThreshold(label);
 
-                            if (top - threshold <= windowScrollTop) {
-                                const link = DomHandler.findSingle(label, 'a');
-                                this.activeId = link.id;
-                            }
-                        });
-                    }
-                });
+                        if (top - threshold <= windowScrollTop) {
+                            const link = DomHandler.findSingle(label, 'a');
+                            this.activeId.set(link.id);
+                        }
+                    });
+                }
             }
 
             clearTimeout(this.scrollEndTimer);
@@ -130,17 +108,15 @@ export class AppDocSectionNavComponent implements OnInit, OnDestroy {
         }
     }
 
-    onButtonClick(event, doc) {
-        this.activeId = doc.id;
+    onButtonClick(doc: Doc) {
+        this.activeId.set(doc.id);
         setTimeout(() => {
             this.scrollToLabelById(doc.id);
             this.isScrollBlocked = true;
         }, 1);
-
-        event.preventDefault();
     }
 
-    getThreshold(label) {
+    getThreshold(label: Element) {
         if (typeof document !== undefined) {
             if (!this.topbarHeight) {
                 const topbar = DomHandler.findSingle(document.body, '.layout-topbar');
@@ -152,20 +128,13 @@ export class AppDocSectionNavComponent implements OnInit, OnDestroy {
         return this.topbarHeight + DomHandler.getHeight(label) * 3.5;
     }
 
-    scrollToLabelById(id) {
+    scrollToLabelById(id: string) {
         if (typeof document !== undefined) {
             const label = document.getElementById(id);
             this.location.go(this.location.path().split('#')[0] + '#' + id);
             setTimeout(() => {
                 label && label.parentElement.scrollIntoView({ block: 'start', behavior: 'smooth' });
             }, 1);
-        }
-    }
-
-    ngOnDestroy() {
-        if (this.scrollListener) {
-            this.scrollListener();
-            this.scrollListener = null;
         }
     }
 }
