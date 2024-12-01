@@ -1,69 +1,71 @@
 import { animate, AnimationEvent, style, transition, trigger } from '@angular/animations';
 import { CommonModule, DOCUMENT, isPlatformBrowser } from '@angular/common';
-import {
-    AfterContentInit,
-    AfterViewInit,
-    booleanAttribute,
-    ChangeDetectionStrategy,
-    ChangeDetectorRef,
-    Component,
-    ContentChild,
-    ContentChildren,
-    Directive,
-    ElementRef,
-    EventEmitter,
-    forwardRef,
-    HostListener,
-    inject,
-    Inject,
-    Injectable,
-    Input,
-    NgModule,
-    NgZone,
-    numberAttribute,
-    OnChanges,
-    OnDestroy,
-    OnInit,
-    Optional,
-    Output,
-    PLATFORM_ID,
-    QueryList,
-    Renderer2,
-    SimpleChanges,
-    TemplateRef,
-    ViewChild,
-    ViewEncapsulation
-} from '@angular/core';
+import
+    {
+        AfterContentInit,
+        AfterViewInit,
+        booleanAttribute,
+        ChangeDetectionStrategy,
+        ChangeDetectorRef,
+        Component,
+        ContentChild,
+        ContentChildren,
+        Directive,
+        ElementRef,
+        EventEmitter,
+        forwardRef,
+        HostListener,
+        inject,
+        Inject,
+        Injectable,
+        Input,
+        NgModule,
+        NgZone,
+        numberAttribute,
+        OnChanges,
+        OnDestroy,
+        OnInit,
+        Optional,
+        Output,
+        PLATFORM_ID,
+        QueryList,
+        Renderer2,
+        SimpleChanges,
+        TemplateRef,
+        ViewChild,
+        ViewEncapsulation
+    } from '@angular/core';
 import { FormsModule } from '@angular/forms';
-import {
-    absolutePosition,
-    addClass,
-    clearSelection,
-    equals,
-    find,
-    findIndexInList,
-    findSingle,
-    focus,
-    getAttribute,
-    getFirstFocusableElement,
-    getFocusableElements,
-    getHiddenElementOuterHeight,
-    getHiddenElementOuterWidth,
-    getIndex,
-    getOffset,
-    getOuterHeight,
-    getOuterWidth,
-    hasClass,
-    invokeElementMethod,
-    isNotEmpty,
-    isRTL,
-    isTouchDevice,
-    removeClass,
-    reorderArray,
-    resolveFieldData,
-    setAttribute,
-    uuid
-} from '@primeuix/utils';
+import
+    {
+        absolutePosition,
+        addClass,
+        clearSelection,
+        equals,
+        find,
+        findIndexInList,
+        findSingle,
+        focus,
+        getAttribute,
+        getFirstFocusableElement,
+        getFocusableElements,
+        getHiddenElementOuterHeight,
+        getHiddenElementOuterWidth,
+        getIndex,
+        getOffset,
+        getOuterHeight,
+        getOuterWidth,
+        hasClass,
+        invokeElementMethod,
+        isNotEmpty,
+        isRTL,
+        isTouchDevice,
+        removeClass,
+        reorderArray,
+        resolveFieldData,
+        setAttribute,
+        uuid
+    } from '@primeuix/utils';
 import { BlockableUI, FilterMatchMode, FilterMetadata, FilterOperator, FilterService, LazyLoadMeta, OverlayService, PrimeTemplate, ScrollerOptions, SelectItem, SharedModule, SortMeta, TableState, TranslationKeys } from 'primeng/api';
 import { BaseComponent } from 'primeng/basecomponent';
 import { Button, ButtonDirective } from 'primeng/button';
@@ -82,26 +84,27 @@ import { Nullable, VoidListener } from 'primeng/ts-helpers';
 import { ObjectUtils, ZIndexUtils } from 'primeng/utils';
 import { Subject, Subscription } from 'rxjs';
 import { TableStyle } from './style/tablestyle';
-import {
-    ExportCSVOptions,
-    TableColResizeEvent,
-    TableColumnReorderEvent,
-    TableContextMenuSelectEvent,
-    TableEditCancelEvent,
-    TableEditCompleteEvent,
-    TableEditInitEvent,
-    TableFilterButtonPropsOptions,
-    TableFilterEvent,
-    TableHeaderCheckboxToggleEvent,
-    TableLazyLoadEvent,
-    TablePageEvent,
-    TableRowCollapseEvent,
-    TableRowExpandEvent,
-    TableRowReorderEvent,
-    TableRowSelectEvent,
-    TableRowUnSelectEvent,
-    TableSelectAllChangeEvent
-} from './table.interface';
+import
+    {
+        ExportCSVOptions,
+        TableColResizeEvent,
+        TableColumnReorderEvent,
+        TableContextMenuSelectEvent,
+        TableEditCancelEvent,
+        TableEditCompleteEvent,
+        TableEditInitEvent,
+        TableFilterButtonPropsOptions,
+        TableFilterEvent,
+        TableHeaderCheckboxToggleEvent,
+        TableLazyLoadEvent,
+        TablePageEvent,
+        TableRowCollapseEvent,
+        TableRowExpandEvent,
+        TableRowReorderEvent,
+        TableRowSelectEvent,
+        TableRowUnSelectEvent,
+        TableSelectAllChangeEvent
+    } from './table.interface';
 
 @Injectable()
 export class TableService {
@@ -3283,7 +3286,7 @@ export class TableBody implements AfterViewInit, OnDestroy {
                 *ngIf="paginator && (paginatorPosition === 'top' || paginatorPosition == 'both')"
                 [templateLeft]="paginatorLeftTemplate ?? _paginatorLeftTemplate"
                 [templateRight]="paginatorRightTemplate ?? _paginatorRightTemplate"
-                [dropdownAppendTo]="paginatorDropdownAppendTo"
+                [appendTo]="paginatorSelectAppendTo"
                 [dropdownScrollHeight]="paginatorDropdownScrollHeight"
                 [currentPageReportTemplate]="currentPageReportTemplate"
                 [showFirstLastIcon]="showFirstLastIcon"
@@ -3427,7 +3430,7 @@ export class TableBody implements AfterViewInit, OnDestroy {
                 *ngIf="paginator && (paginatorPosition === 'bottom' || paginatorPosition == 'both')"
                 [templateLeft]="paginatorLeftTemplate ?? _paginatorLeftTemplate"
                 [templateRight]="paginatorRightTemplate ?? _paginatorRightTemplate"
-                [dropdownAppendTo]="paginatorDropdownAppendTo"
+                [appendTo]="paginatorSelectAppendTo"
                 [dropdownScrollHeight]="paginatorDropdownScrollHeight"
                 [currentPageReportTemplate]="currentPageReportTemplate"
                 [showFirstLastIcon]="showFirstLastIcon"
@@ -3544,7 +3547,7 @@ export class Table extends BaseComponent implements OnInit, AfterViewInit, After
      * Target element to attach the paginator dropdown overlay, valid values are "body" or a local ng-template variable of another element (note: use binding with brackets for template variables, e.g. [appendTo]="mydiv" for a div element having #mydiv as variable name).
      * @group Props
      */
-    @Input() paginatorDropdownAppendTo: HTMLElement | ElementRef | TemplateRef<any> | string | null | undefined | any;
+    @Input() paginatorSelectAppendTo: HTMLElement | ElementRef | TemplateRef<any> | string | null | undefined | any;
     /**
      * Paginator dropdown height of the viewport in pixels, a scrollbar is defined if height of list exceeds this value.
      * @group Props

@@ -162,7 +162,7 @@ export class TreeTableService {
                 *ngIf="paginator && (paginatorPosition === 'top' || paginatorPosition == 'both')"
                 [templateLeft]="paginatorLeftTemplate"
                 [templateRight]="paginatorRightTemplate"
-                [dropdownAppendTo]="paginatorDropdownAppendTo"
+                [appendTo]="paginatorSelectAppendTo"
                 [currentPageReportTemplate]="currentPageReportTemplate"
                 [showFirstLastIcon]="showFirstLastIcon"
                 [dropdownItemTemplate]="paginatorDropdownItemTemplate"
@@ -227,7 +227,7 @@ export class TreeTableService {
                 *ngIf="paginator && (paginatorPosition === 'bottom' || paginatorPosition == 'both')"
                 [templateLeft]="paginatorLeftTemplate"
                 [templateRight]="paginatorRightTemplate"
-                [dropdownAppendTo]="paginatorDropdownAppendTo"
+                [appendTo]="paginatorSelectAppendTo"
                 [currentPageReportTemplate]="currentPageReportTemplate"
                 [showFirstLastIcon]="showFirstLastIcon"
                 [dropdownItemTemplate]="paginatorDropdownItemTemplate"
@@ -357,7 +357,7 @@ export class TreeTable extends BaseComponent implements AfterContentInit, OnInit
      * Target element to attach the paginator dropdown overlay, valid values are "body" or a local ng-template variable of another element (note: use binding with brackets for template variables, e.g. [appendTo]="mydiv" for a div element having #mydiv as variable name).
      * @group Props
      */
-    @Input() paginatorDropdownAppendTo: HTMLElement | ElementRef | TemplateRef<any> | string | null | undefined | any;
+    @Input() paginatorSelectAppendTo: HTMLElement | ElementRef | TemplateRef<any> | string | null | undefined | any;
     /**
      * Template of the current page report element. Available placeholders are {currentPage},{totalPages},{rows},{first},{last} and {totalRecords}
      * @group Props

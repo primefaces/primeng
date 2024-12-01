@@ -69,7 +69,7 @@ import { PaginatorStyle } from './style/paginatorstyle';
                 [attr.aria-label]="getAriaLabel('jumpToPageDropdownLabel')"
                 styleClass="p-paginator-jtp-dropdown"
                 (onChange)="onPageDropdownChange($event)"
-                [appendTo]="dropdownAppendTo"
+                [appendTo]="appendTo"
                 [scrollHeight]="dropdownScrollHeight"
             >
                 <ng-template pTemplate="selectedItem">{{ currentPageReport }}</ng-template>
@@ -111,7 +111,7 @@ import { PaginatorStyle } from './style/paginatorstyle';
                 styleClass="p-paginator-rpp-dropdown"
                 [disabled]="empty()"
                 (onChange)="onRppChange($event)"
-                [appendTo]="dropdownAppendTo"
+                [appendTo]="appendTo"
                 [scrollHeight]="dropdownScrollHeight"
                 [ariaLabel]="getAriaLabel('rowsPerPageLabel')"
             >
@@ -155,11 +155,6 @@ export class Paginator extends BaseComponent implements OnInit, OnChanges {
      */
     @Input({ transform: booleanAttribute }) alwaysShow: boolean = true;
     /**
-     * Target element to attach the dropdown overlay, valid values are "body" or a local ng-template variable of another element (note: use binding with brackets for template variables, e.g. [appendTo]="mydiv" for a div element having #mydiv as variable name).
-     * @group Props
-     */
-    @Input() dropdownAppendTo: HTMLElement | ElementRef | TemplateRef<any> | string | null | undefined | any;
-    /**
      * Template instance to inject into the left side of the paginator.
      * @param {PaginatorState} context - Paginator state.
      * @group Props
@@ -172,7 +167,7 @@ export class Paginator extends BaseComponent implements OnInit, OnChanges {
      */
     @Input() templateRight: TemplateRef<PaginatorState> | undefined;
     /**
-     * Target element to attach the dropdown overlay, valid values are "body" or a local ng-template variable of another element (note: use binding with brackets for template variables, e.g. [appendTo]="mydiv" for a div element having #mydiv as variable name).
+     * Target element to attach the select overlay, valid values are "body" or a local ng-template variable of another element (note: use binding with brackets for template variables, e.g. [appendTo]="mydiv" for a div element having #mydiv as variable name).
      * @group Props
      */
     @Input() appendTo: HTMLElement | ElementRef | TemplateRef<any> | string | null | undefined | any;
