@@ -256,15 +256,18 @@ export class ApolloPage {
     license = {
         documentLink: 'https://apollo.primeng.org/documentation/',
         description: 'The download package is an Angular CLI-based project containing all source code of the application deployed at the live demo. The project code is written in TypeScript.',
+        showDiscount: false,
         licenseDetails: [
             {
                 title: 'Basic License',
                 price: '$59',
+                discount_price: '$39',
                 included: ['Non Commercial Usage', 'Single End Product, No Multi-Use', 'Lifetime Support', 'Unlimited Updates']
             },
             {
                 title: 'Extended License',
                 price: '$590',
+                discount_price: '$390',
                 included: ['Commercial Usage', 'Multiple End Products', 'Lifetime Support', 'Unlimited Updates']
             }
         ]
