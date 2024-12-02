@@ -1,6 +1,6 @@
 import { Doc } from '@/domain/doc';
 import { DOCUMENT, isPlatformBrowser, Location } from '@angular/common';
-import { Component, ElementRef, Inject, Input, NgZone, OnDestroy, OnInit, PLATFORM_ID, Renderer2, ViewChild } from '@angular/core';
+import { ChangeDetectorRef, Component, ElementRef, Inject, Input, NgZone, OnDestroy, OnInit, PLATFORM_ID, Renderer2, ViewChild } from '@angular/core';
 import { DomHandler } from 'primeng/dom';
 import { ObjectUtils } from 'primeng/utils';
 import { Subscription } from 'rxjs';
@@ -44,6 +44,7 @@ export class AppDocSectionNavComponent implements OnInit, OnDestroy {
     set activeId(val: string) {
         if (val !== this._activeId) {
             this._activeId = val;
+            this.cd.markForCheck();
         }
     }
 
@@ -60,7 +61,8 @@ export class AppDocSectionNavComponent implements OnInit, OnDestroy {
         @Inject(PLATFORM_ID) private platformId: any,
         private location: Location,
         private zone: NgZone,
-        private renderer: Renderer2
+        private renderer: Renderer2,
+        private cd: ChangeDetectorRef
     ) {}
 
     ngOnInit(): void {
