@@ -10,7 +10,7 @@ import { ConfirmationService, MessageService } from 'primeng/api';
         </app-docsectiontext>
         <div class="card flex justify-center">
             <p-toast />
-            <p-confirmDialog #cd>
+            <p-confirmdialog #cd>
                 <ng-template #headless let-message let-onAccept="onAccept" let-onReject="onReject">
                     <div class="flex flex-col items-center p-8 bg-surface-0 dark:bg-surface-900 rounded">
                         <div class="rounded-full bg-primary text-primary-contrast inline-flex justify-center items-center h-24 w-24 -mt-20">
@@ -24,7 +24,7 @@ import { ConfirmationService, MessageService } from 'primeng/api';
                         </div>
                     </div>
                 </ng-template>
-            </p-confirmDialog>
+            </p-confirmdialog>
             <p-button (click)="confirm()" label="Save" />
         </div>
         <app-code [code]="code" selector="confirm-dialog-headless-demo"></app-code>
@@ -52,7 +52,7 @@ export class HeadlessDoc {
 
     code: Code = {
         basic: `<p-toast />
-<p-confirmDialog #cd>
+<p-confirmdialog #cd>
     <ng-template #headless let-message let-onAccept="onAccept" let-onReject="onReject">
         <div class="flex flex-col items-center p-8 bg-surface-0 dark:bg-surface-900 rounded">
             <div
@@ -68,12 +68,12 @@ export class HeadlessDoc {
             </div>
         </div>
     </ng-template>
-</p-confirmDialog>
+</p-confirmdialog>
 <p-button (click)="confirm()" label="Save"/>`,
 
         html: `<div class="card flex justify-center">
     <p-toast />
-    <p-confirmDialog #cd>
+    <p-confirmdialog #cd>
         <ng-template #headless let-message let-onAccept="onAccept" let-onReject="onReject">
             <div class="flex flex-col items-center p-8 bg-surface-0 dark:bg-surface-900 rounded">
                 <div
@@ -89,7 +89,7 @@ export class HeadlessDoc {
                 </div>
             </div>
         </ng-template>
-    </p-confirmDialog>
+    </p-confirmdialog>
     <p-button (click)="confirm()" label="Save"/>
 </div>`,
 
