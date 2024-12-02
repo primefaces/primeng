@@ -6515,7 +6515,8 @@ export class Table extends BaseComponent implements OnInit, AfterViewInit, After
         SaveEditableRow,
         CancelEditableRow,
         ColumnFilter,
-        ColumnFilterFormElement
+        ColumnFilterFormElement,
+        SortIcon
     ],
     exports: [
         Table,
@@ -6541,7 +6542,8 @@ export class Table extends BaseComponent implements OnInit, AfterViewInit, After
         SaveEditableRow,
         CancelEditableRow,
         ColumnFilter,
-        ColumnFilterFormElement
+        ColumnFilterFormElement,
+        SortIcon
     ],
     providers: [TableStyle]
 })
