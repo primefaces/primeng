@@ -1,8 +1,13 @@
 import { DOCUMENT } from '@angular/common';
-import { effect, inject, Inject, Injectable, Optional, signal, untracked } from '@angular/core';
+import { effect, inject, Injectable, signal, untracked } from '@angular/core';
 import { Theme, ThemeService } from '@primeuix/styled';
 import { BaseStyle } from 'primeng/base';
-import { PRIME_NG_CONFIG, PrimeNGConfigType } from './provideprimeng';
+
+export type ThemeType = { preset?: any; options?: any } | 'none' | boolean | undefined;
+
+export type ThemeConfigType = {
+    theme?: ThemeType;
+};
 
 @Injectable({ providedIn: 'root' })
 export class ThemeProvider {
@@ -15,11 +20,7 @@ export class ThemeProvider {
 
     baseStyle: BaseStyle = inject(BaseStyle);
 
-    constructor(@Inject(PRIME_NG_CONFIG) @Optional() private config: PrimeNGConfigType) {
-        if (this.config?.theme) {
-            this.theme.set(this.config.theme);
-        }
-
+    constructor() {
         effect(
             () => {
                 ThemeService.on('theme:change', (newTheme) => {
@@ -70,5 +71,10 @@ export class ThemeProvider {
 
             Theme.setLoadedStyleName('common');
         }
+    }
+
+    setThemeConfig(config: ThemeConfigType): void {
+        const { theme } = config || {};
+        if (theme) this.theme.set(theme);
     }
 }
