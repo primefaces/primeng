@@ -986,7 +986,7 @@ export class ContextMenu extends BaseComponent implements OnInit, OnDestroy {
     appendOverlay() {
         if (this.appendTo) {
             if (this.appendTo === 'body') this.renderer.appendChild(this.document.body, this.containerViewChild.nativeElement);
-            else appendChild(this.containerViewChild.nativeElement, this.appendTo);
+            else appendChild(this.appendTo, this.containerViewChild.nativeElement);
         }
     }
 

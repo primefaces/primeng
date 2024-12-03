@@ -413,7 +413,7 @@ export class Tooltip extends BaseComponent implements AfterViewInit, OnDestroy {
 
         if (this.getOption('appendTo') === 'body') document.body.appendChild(this.container);
         else if (this.getOption('appendTo') === 'target') appendChild(this.container, this.el.nativeElement);
-        else appendChild(this.container, this.getOption('appendTo'));
+        else appendChild(this.getOption('appendTo'), this.container);
 
         this.container.style.display = 'inline-block';
 

@@ -464,7 +464,7 @@ export class ColorPicker extends BaseComponent implements ControlValueAccessor, 
     appendOverlay() {
         if (this.appendTo) {
             if (this.appendTo === 'body') this.renderer.appendChild(this.document.body, this.overlay);
-            else appendChild(this.overlay, this.appendTo);
+            else appendChild(this.appendTo, this.overlay);
         }
     }
 

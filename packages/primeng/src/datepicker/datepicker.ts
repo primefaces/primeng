@@ -3153,7 +3153,7 @@ export class DatePicker extends BaseComponent implements OnInit, OnDestroy, Cont
     appendOverlay() {
         if (this.appendTo) {
             if (this.appendTo === 'body') this.document.body.appendChild(<HTMLElement>this.overlay);
-            else appendChild(this.overlay, this.appendTo);
+            else appendChild(this.appendTo, this.overlay);
         }
     }
 

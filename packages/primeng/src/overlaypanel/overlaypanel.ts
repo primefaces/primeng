@@ -1,25 +1,6 @@
 import { animate, AnimationEvent, state, style, transition, trigger } from '@angular/animations';
 import { CommonModule, isPlatformBrowser } from '@angular/common';
-import {
-    AfterContentInit,
-    booleanAttribute,
-    ChangeDetectionStrategy,
-    Component,
-    ContentChild,
-    ElementRef,
-    EventEmitter,
-    HostListener,
-    inject,
-    Input,
-    NgModule,
-    NgZone,
-    numberAttribute,
-    OnDestroy,
-    Output,
-    TemplateRef,
-    ViewEncapsulation,
-    ViewRef
-} from '@angular/core';
+import { booleanAttribute, ChangeDetectionStrategy, Component, ContentChild, ElementRef, EventEmitter, HostListener, inject, Input, NgModule, NgZone, numberAttribute, OnDestroy, Output, TemplateRef, ViewEncapsulation, ViewRef } from '@angular/core';
 import { absolutePosition, addClass, appendChild, findSingle, getOffset, isIOS, isTouchDevice } from '@primeuix/utils';
 import { OverlayService, SharedModule } from 'primeng/api';
 import { BaseComponent } from 'primeng/basecomponent';
