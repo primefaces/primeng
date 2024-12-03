@@ -22,7 +22,7 @@ interface City {
             </p-floatlabel>
 
             <p-floatlabel class="w-full md:w-56" variant="in">
-                <p-select [(ngModel)]="value2" inputId="in_label" [options]="cities" optionLabel="name" styleClass="w-full" />
+                <p-select [(ngModel)]="value2" inputId="in_label" [options]="cities" optionLabel="name" styleClass="w-full" variant="filled" />
                 <label for="in_label">In Label</label>
             </p-floatlabel>
 
@@ -60,7 +60,7 @@ export class FloatLabelDoc implements OnInit {
 </p-floatlabel>
 
 <p-floatlabel class="w-full md:w-56" variant="in">
-    <p-select [(ngModel)]="value2" inputId="in_label" [options]="cities" optionLabel="name" styleClass="w-full" />
+    <p-select [(ngModel)]="value2" inputId="in_label" [options]="cities" optionLabel="name" styleClass="w-full" variant="filled" />
     <label for="in_label">In Label</label>
 </p-floatlabel>
 
@@ -76,7 +76,7 @@ export class FloatLabelDoc implements OnInit {
     </p-floatlabel>
 
     <p-floatlabel class="w-full md:w-56" variant="in">
-        <p-select [(ngModel)]="value2" inputId="in_label" [options]="cities" optionLabel="name" styleClass="w-full" />
+        <p-select [(ngModel)]="value2" inputId="in_label" [options]="cities" optionLabel="name" styleClass="w-full" variant="filled" />
         <label for="in_label">In Label</label>
     </p-floatlabel>
 
