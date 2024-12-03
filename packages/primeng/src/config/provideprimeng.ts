@@ -1,8 +1,5 @@
-import { EnvironmentProviders, InjectionToken, makeEnvironmentProviders } from '@angular/core';
-
-export type ThemeType = { preset?: any; options?: any } | 'none' | undefined;
-
-export type PrimeNGConfigType = { theme?: ThemeType; ripple?: boolean; inputStyle?: 'outlined' | 'filled'; csp?: { nonce: string | undefined } };
+import { APP_INITIALIZER, EnvironmentProviders, InjectionToken, makeEnvironmentProviders } from '@angular/core';
+import { PrimeNG, PrimeNGConfigType } from './primeng';
 
 export const PRIME_NG_CONFIG = new InjectionToken<PrimeNGConfigType>('PRIME_NG_CONFIG');
 
@@ -13,5 +10,13 @@ export function providePrimeNG(...features: PrimeNGConfigType[]): EnvironmentPro
         multi: false
     }));
 
-    return makeEnvironmentProviders(providers);
+    // @todo: use provideAppInitializer in v19
+    const initializer = {
+        provide: APP_INITIALIZER,
+        useFactory: (PrimeNGConfig: PrimeNG) => () => features?.forEach((feature) => PrimeNGConfig.setConfig(feature)),
+        deps: [PrimeNG],
+        multi: true
+    };
+
+    return makeEnvironmentProviders([...providers, initializer]);
 }

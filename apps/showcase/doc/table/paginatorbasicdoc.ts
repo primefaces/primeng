@@ -6,10 +6,7 @@ import { ChangeDetectionStrategy, ChangeDetectorRef, Component } from '@angular/
 @Component({
     selector: 'paginator-basic-doc',
     template: ` <app-docsectiontext>
-            <p>
-                Pagination is enabled by setting <i>paginator</i> property to <i>true</i> and defining a rows property to specify the number of rows per page. For server side pagination, see the <a [routerLink]="['/table#lazy']">lazy loading</a>
-                example.
-            </p>
+            <p>Pagination is enabled by setting <i>paginator</i> property to <i>true</i> and defining a rows property to specify the number of rows per page.</p>
         </app-docsectiontext>
         <p-deferred-demo (load)="loadDemoData()">
             <div class="card">

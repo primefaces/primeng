@@ -87,9 +87,9 @@ const classes = {
     gutterHandle: 'p-splitter-gutter-handle'
 };
 
-const inlineStyles = {
+/*const inlineStyles = {
     root: ({ props }) => [{ display: 'flex', 'flex-wrap': 'nowrap' }, props.layout === 'vertical' ? { 'flex-direction': 'column' } : '']
-};
+};*/
 
 @Injectable()
 export class SplitterStyle extends BaseStyle {
@@ -99,7 +99,7 @@ export class SplitterStyle extends BaseStyle {
 
     classes = classes;
 
-    inlineStyles = inlineStyles;
+    //inlineStyles = inlineStyles;
 }
 
 /**

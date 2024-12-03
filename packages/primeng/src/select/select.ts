@@ -1,7 +1,6 @@
 import { AnimationEvent } from '@angular/animations';
 import { CommonModule } from '@angular/common';
 import {
-    AfterContentInit,
     AfterViewChecked,
     AfterViewInit,
     booleanAttribute,
@@ -21,7 +20,6 @@ import {
     numberAttribute,
     OnInit,
     Output,
-    QueryList,
     Signal,
     signal,
     TemplateRef,
@@ -47,7 +45,7 @@ import {
     unblockBodyScroll,
     uuid
 } from '@primeuix/utils';
-import { FilterService, OverlayOptions, PrimeTemplate, ScrollerOptions, SharedModule, TranslationKeys } from 'primeng/api';
+import { FilterService, OverlayOptions, ScrollerOptions, SharedModule, TranslationKeys } from 'primeng/api';
 import { AutoFocus } from 'primeng/autofocus';
 import { BaseComponent } from 'primeng/basecomponent';
 import { IconField } from 'primeng/iconfield';

@@ -72,9 +72,6 @@ const theme = ({ dt }) => `
 }
 
 .p-autocomplete-overlay {
-    position: absolute;
-    top: 0;
-    left: 0;
     background: ${dt('autocomplete.overlay.background')};
     color: ${dt('autocomplete.overlay.color')};
     border: 1px solid ${dt('autocomplete.overlay.border.color')};

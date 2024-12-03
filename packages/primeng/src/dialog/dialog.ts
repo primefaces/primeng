@@ -949,7 +949,7 @@ export class Dialog extends BaseComponent implements OnInit, OnDestroy {
     appendContainer() {
         if (this.appendTo) {
             if (this.appendTo === 'body') this.renderer.appendChild(this.document.body, this.wrapper);
-            else appendChild(this.wrapper, this.appendTo);
+            else appendChild(this.appendTo, this.wrapper);
         }
     }
 

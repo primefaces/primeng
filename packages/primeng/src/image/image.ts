@@ -390,7 +390,7 @@ export class Image extends BaseComponent implements AfterContentInit {
     appendContainer() {
         if (this.appendTo) {
             if (this.appendTo === 'body') this.document.body.appendChild(this.wrapper as HTMLElement);
-            else appendChild(this.wrapper, this.appendTo);
+            else appendChild(this.appendTo, this.wrapper);
         }
     }
 

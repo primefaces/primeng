@@ -105,9 +105,6 @@ p-treeselect.ng-invalid.ng-dirty .p-treeselect-label.p-placeholder {
 }
 
 .p-treeselect-overlay {
-    position: absolute;
-    top: 0;
-    left: 0;
     background: ${dt('treeselect.overlay.background')};
     color: ${dt('treeselect.overlay.color')};
     border: 1px solid ${dt('treeselect.overlay.border.color')};
