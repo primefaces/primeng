@@ -106,7 +106,7 @@ export class PrimeNG extends ThemeProvider {
         passwordPrompt: 'Enter a password',
         emptyMessage: 'No results found',
         searchMessage: 'Search results are available',
-        selectionMessage: 'Items selected',
+        selectionMessage: '{0} items selected',
         emptySelectionMessage: 'No selected item',
         emptySearchMessage: 'No results found',
         emptyFilterMessage: 'No results found',
