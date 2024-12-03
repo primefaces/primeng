@@ -5,7 +5,7 @@ import { Component } from '@angular/core';
     selector: 'vertical-doc',
     template: `
         <app-docsectiontext>
-            <p>Layout of the Stepper is configured with the <i>orientation</i> property that accepts <i>horizontal</i> and <i>vertical</i> as available options.</p>
+            <p>Vertical layout requires <i>StepItem</i> as a wrapper of <i>Step</i> and <i>StepPanel</i> components.</p>
         </app-docsectiontext>
         <div class="card">
             <p-stepper [value]="1">
