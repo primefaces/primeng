@@ -101,9 +101,6 @@ p-multiselect.ng-invalid.ng-dirty .p-multiselect-label.p-placeholder {
 }
 
 .p-multiselect-overlay {
-    position: absolute;
-    top: 0;
-    left: 0;
     background: ${dt('multiselect.overlay.background')};
     color: ${dt('multiselect.overlay.color')};
     border: 1px solid ${dt('multiselect.overlay.border.color')};
