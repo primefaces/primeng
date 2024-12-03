@@ -95,7 +95,7 @@ import { Tag } from 'primeng/tag';
                                 <td style="width: 14%; min-width: 14rem">
                                     <div class="flex items-center gap-2">
                                         <img src="https://primefaces.org/cdn/primeng/images/demo/flag/flag_placeholder.png" [class]="'flag flag-' + customer.country.code" width="30" height="20" alt="country flag" />
-                                        {{ customer.country.name }}
+                                        <span>{{ customer.country.name }}</span>
                                     </div>
                                 </td>
                                 <td style="width: 14%; min-width: 14rem">
@@ -108,7 +108,7 @@ import { Tag } from 'primeng/tag';
                                             style="vertical-align: middle"
                                             alt="representative"
                                         />
-                                        {{ customer.representative.name }}
+                                        <span>{{ customer.representative.name }}</span>
                                     </div>
                                 </td>
                                 <td style="width: 14%; min-width: 8rem">

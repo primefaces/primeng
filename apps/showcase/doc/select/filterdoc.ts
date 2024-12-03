@@ -48,13 +48,11 @@ export class FilterDoc implements OnInit {
         basic: `<p-select [options]="countries" [(ngModel)]="selectedCountry" optionLabel="name" [filter]="true" filterBy="name" [showClear]="true" placeholder="Select a Country" class="w-full md:w-56">
     <ng-template pTemplate="selectedItem" let-selectedOption>
         <div class="flex items-center gap-2">
-            <img src="https://primefaces.org/cdn/primeng/images/demo/flag/flag_placeholder.png" [class]="'flag flag-' + selectedCountry.code.toLowerCase()" style="width: 18px" />
             <div>{{ selectedOption.name }}</div>
         </div>
     </ng-template>
     <ng-template let-country pTemplate="item">
         <div class="flex items-center gap-2">
-            <img src="https://primefaces.org/cdn/primeng/images/demo/flag/flag_placeholder.png" [class]="'flag flag-' + country.code.toLowerCase()" style="width: 18px" />
             <div>{{ country.name }}</div>
         </div>
     </ng-template>
@@ -64,13 +62,11 @@ export class FilterDoc implements OnInit {
     <p-select [options]="countries" [(ngModel)]="selectedCountry" optionLabel="name" [filter]="true" filterBy="name" [showClear]="true" placeholder="Select a Country" class="w-full md:w-56">
         <ng-template pTemplate="selectedItem" let-selectedOption>
             <div class="flex items-center gap-2">
-                <img src="https://primefaces.org/cdn/primeng/images/demo/flag/flag_placeholder.png" [class]="'flag flag-' + selectedCountry.code.toLowerCase()" style="width: 18px" />
                 <div>{{ selectedOption.name }}</div>
             </div>
         </ng-template>
         <ng-template let-country pTemplate="item">
             <div class="flex items-center gap-2">
-                <img src="https://primefaces.org/cdn/primeng/images/demo/flag/flag_placeholder.png" [class]="'flag flag-' + country.code.toLowerCase()" style="width: 18px" />
                 <div>{{ country.name }}</div>
             </div>
         </ng-template>

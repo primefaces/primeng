@@ -63,32 +63,14 @@ import { ChangeDetectionStrategy, ChangeDetectorRef, Component } from '@angular/
                             <td>
                                 <div class="flex items-center gap-2">
                                     <img src="https://primefaces.org/cdn/primeng/images/demo/flag/flag_placeholder.png" [class]="'flag flag-' + customer.country.code" style="width: 20px" />
-                                    <span class="ml-1 align-middle">{{ customer.country.name }}</span>
+                                    <span>{{ customer.country.name }}</span>
                                 </div>
                             </td>
                             <td>
                                 <div class="flex items-center gap-2">
                                     <img [alt]="customer.representative.name" src="https://primefaces.org/cdn/primeng/images/demo/avatar/{{ customer.representative.image }}" width="32" style="vertical-align: middle" />
-                                    <span class="ml-1 align-middle">{{ customer.representative.name }}</span>
+                                    <span>{{ customer.representative.name }}</span>
                                 </div>
-                            </td>
-                            <td>
-                                <p-tag [value]="customer.status" [severity]="getSeverity(customer.status)" />
-                            </td>
-                        </tr>
-                    </ng-template>
-                    <ng-template #body let-customer>
-                        <tr [pSelectableRow]="customer">
-                            <td>
-                                {{ customer.name }}
-                            </td>
-                            <td>
-                                <img src="https://primefaces.org/cdn/primeng/images/demo/flag/flag_placeholder.png" [class]="'flag flag-' + customer.country.code" style="width: 20px" />
-                                <span class="ml-1 align-middle">{{ customer.country.name }}</span>
-                            </td>
-                            <td>
-                                <img [alt]="customer.representative.name" src="https://primefaces.org/cdn/primeng/images/demo/avatar/{{ customer.representative.image }}" width="32" style="vertical-align: middle" />
-                                <span class="ml-1 align-middle">{{ customer.representative.name }}</span>
                             </td>
                             <td>
                                 <p-tag [value]="customer.status" [severity]="getSeverity(customer.status)" />
@@ -163,43 +145,14 @@ export class StatefulDoc {
             <td>
                 <div class="flex items-center gap-2">
                     <img src="https://primefaces.org/cdn/primeng/images/demo/flag/flag_placeholder.png" [class]="'flag flag-' + customer.country.code" style="width: 20px" />
-                    <span class="ml-1 align-middle">{{ customer.country.name }}</span>
+                    <span>{{ customer.country.name }}</span>
                 </div>
             </td>
             <td>
                 <div class="flex items-center gap-2">
                     <img [alt]="customer.representative.name" src="https://primefaces.org/cdn/primeng/images/demo/avatar/{{ customer.representative.image }}" width="32" style="vertical-align: middle" />
-                    <span class="ml-1 align-middle">{{ customer.representative.name }}</span>
+                    <span>{{ customer.representative.name }}</span>
                 </div>
-            </td>
-            <td>
-                <p-tag [value]="customer.status" [severity]="getSeverity(customer.status)" />
-            </td>
-        </tr>
-    </ng-template>
-    <ng-template #body let-customer>
-        <tr [pSelectableRow]="customer">
-            <td>
-                {{ customer.name }}
-            </td>
-            <td>
-                <img
-                    src="https://primefaces.org/cdn/primeng/images/demo/flag/flag_placeholder.png"
-                    [class]="'flag flag-' + customer.country.code"
-                    style="width: 20px"
-                />
-                <span class="ml-1 align-middle">{{ customer.country.name }}</span>
-            </td>
-            <td>
-                <img
-                    [alt]="customer.representative.name"
-                    src="https://primefaces.org/cdn/primeng/images/demo/avatar/{{
-                        customer.representative.image
-                    }}"
-                    width="32"
-                    style="vertical-align: middle"
-                />
-                <span class="ml-1 align-middle">{{ customer.representative.name }}</span>
             </td>
             <td>
                 <p-tag [value]="customer.status" [severity]="getSeverity(customer.status)" />
@@ -259,43 +212,14 @@ export class StatefulDoc {
                 <td>
                     <div class="flex items-center gap-2">
                         <img src="https://primefaces.org/cdn/primeng/images/demo/flag/flag_placeholder.png" [class]="'flag flag-' + customer.country.code" style="width: 20px" />
-                        <span class="ml-1 align-middle">{{ customer.country.name }}</span>
+                        <span>{{ customer.country.name }}</span>
                     </div>
                 </td>
                 <td>
                     <div class="flex items-center gap-2">
                         <img [alt]="customer.representative.name" src="https://primefaces.org/cdn/primeng/images/demo/avatar/{{ customer.representative.image }}" width="32" style="vertical-align: middle" />
-                        <span class="ml-1 align-middle">{{ customer.representative.name }}</span>
+                        <span>{{ customer.representative.name }}</span>
                     </div>
-                </td>
-                <td>
-                    <p-tag [value]="customer.status" [severity]="getSeverity(customer.status)" />
-                </td>
-            </tr>
-        </ng-template>
-        <ng-template #body let-customer>
-            <tr [pSelectableRow]="customer">
-                <td>
-                    {{ customer.name }}
-                </td>
-                <td>
-                    <img
-                        src="https://primefaces.org/cdn/primeng/images/demo/flag/flag_placeholder.png"
-                        [class]="'flag flag-' + customer.country.code"
-                        style="width: 20px"
-                    />
-                    <span class="ml-1 align-middle">{{ customer.country.name }}</span>
-                </td>
-                <td>
-                    <img
-                        [alt]="customer.representative.name"
-                        src="https://primefaces.org/cdn/primeng/images/demo/avatar/{{
-                            customer.representative.image
-                        }}"
-                        width="32"
-                        style="vertical-align: middle"
-                    />
-                    <span class="ml-1 align-middle">{{ customer.representative.name }}</span>
                 </td>
                 <td>
                     <p-tag [value]="customer.status" [severity]="getSeverity(customer.status)" />

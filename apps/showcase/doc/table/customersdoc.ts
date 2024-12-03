@@ -132,13 +132,13 @@ import { Table } from 'primeng/table';
                             <td>
                                 <div class="flex items-center gap-2">
                                     <img src="https://primefaces.org/cdn/primeng/images/demo/flag/flag_placeholder.png" [class]="'flag flag-' + customer.country.code" style="width: 20px" />
-                                    <span class="ml-1 align-middle">{{ customer.country.name }}</span>
+                                    <span>{{ customer.country.name }}</span>
                                 </div>
                             </td>
                             <td>
                                 <div class="flex items-center gap-2">
                                     <img [alt]="customer.representative.name" src="https://primefaces.org/cdn/primeng/images/demo/avatar/{{ customer.representative.image }}" width="32" style="vertical-align: middle" />
-                                    <span class="ml-1 align-middle">{{ customer.representative.name }}</span>
+                                    <span>{{ customer.representative.name }}</span>
                                 </div>
                             </td>
                             <td>
@@ -343,13 +343,13 @@ export class CustomersDoc {
             <td>
                 <div class="flex items-center gap-2">
                     <img src="https://primefaces.org/cdn/primeng/images/demo/flag/flag_placeholder.png" [class]="'flag flag-' + customer.country.code" style="width: 20px" />
-                    <span class="ml-1 align-middle">{{ customer.country.name }}</span>
+                    <span>{{ customer.country.name }}</span>
                 </div>
             </td>
             <td>
                 <div class="flex items-center gap-2">
                     <img [alt]="customer.representative.name" src="https://primefaces.org/cdn/primeng/images/demo/avatar/{{ customer.representative.image }}" width="32" style="vertical-align: middle" />
-                    <span class="ml-1 align-middle">{{ customer.representative.name }}</span>
+                    <span>{{ customer.representative.name }}</span>
                 </div>
             </td>
             <td>
@@ -497,13 +497,13 @@ export class CustomersDoc {
                 <td>
                     <div class="flex items-center gap-2">
                         <img src="https://primefaces.org/cdn/primeng/images/demo/flag/flag_placeholder.png" [class]="'flag flag-' + customer.country.code" style="width: 20px" />
-                        <span class="ml-1 align-middle">{{ customer.country.name }}</span>
+                        <span>{{ customer.country.name }}</span>
                     </div>
                 </td>
                 <td>
                     <div class="flex items-center gap-2">
                         <img [alt]="customer.representative.name" src="https://primefaces.org/cdn/primeng/images/demo/avatar/{{ customer.representative.image }}" width="32" style="vertical-align: middle" />
-                        <span class="ml-1 align-middle">{{ customer.representative.name }}</span>
+                        <span>{{ customer.representative.name }}</span>
                     </div>
                 </td>
                 <td>
