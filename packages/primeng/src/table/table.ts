@@ -3400,17 +3400,15 @@ export class TableBody implements AfterViewInit, OnDestroy {
                             [style]="'height: calc(' + scrollerOptions.spacerStyle.height + ' - ' + scrollerOptions.rows.length * scrollerOptions.itemSize + 'px);'"
                             [ngClass]="cx('virtualScrollerSpacer')"
                         ></tbody>
-                        <tfoot role="rowgroup" *ngIf="footerGroupedTemplate || footerTemplate" #tfoot>
-                            <div class="p-datatable-footer">
-                                <ng-container
-                                    *ngTemplateOutlet="
-                                        (footerGroupedTemplate || footerTemplate) ?? _footerTemplate;
-                                        context: {
-                                            $implicit: scrollerOptions.columns
-                                        }
-                                    "
-                                ></ng-container>
-                            </div>
+                        <tfoot role="rowgroup" *ngIf="footerGroupedTemplate || footerTemplate" #tfoot [ngClass]="'p-datatable-footer'">
+                            <ng-container
+                                *ngTemplateOutlet="
+                                    (footerGroupedTemplate || footerTemplate) ?? _footerTemplate;
+                                    context: {
+                                        $implicit: scrollerOptions.columns
+                                    }
+                                "
+                            ></ng-container>
                         </tfoot>
                     </table>
                 </ng-template>

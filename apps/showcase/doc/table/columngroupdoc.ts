@@ -36,9 +36,9 @@ import { ChangeDetectionStrategy, ChangeDetectorRef, Component } from '@angular/
                     </ng-template>
                     <ng-template #footer>
                         <tr>
-                            <td colspan="3" class="text-right">Totals</td>
-                            <td>{{ lastYearTotal | currency: 'USD' }}</td>
-                            <td>{{ thisYearTotal | currency: 'USD' }}</td>
+                            <td colspan="3" class="text-right font-bold p-3 pb-0">Totals</td>
+                            <td class="font-bold p-3 pb-0">{{ lastYearTotal | currency: 'USD' }}</td>
+                            <td class="font-bold p-3 pb-0">{{ thisYearTotal | currency: 'USD' }}</td>
                         </tr>
                     </ng-template>
                 </p-table>
@@ -85,9 +85,9 @@ export class ColumnGroupDoc {
     </ng-template>
     <ng-template #footer>
         <tr>
-            <td colspan="3" class="text-right">Totals</td>
-            <td>{{lastYearTotal | currency: 'USD'}}</td>
-            <td>{{thisYearTotal | currency: 'USD'}}</td>
+            <td colspan="3" class="text-right font-bold p-3 pb-0">Totals</td>
+            <td class="font-bold p-3 pb-0">{{ lastYearTotal | currency: 'USD' }}</td>
+            <td class="font-bold p-3 pb-0">{{ thisYearTotal | currency: 'USD' }}</td>
         </tr>
     </ng-template>
 </p-table>`,
@@ -120,9 +120,9 @@ export class ColumnGroupDoc {
         </ng-template>
         <ng-template #footer>
             <tr>
-                <td colspan="3" class="text-right">Totals</td>
-                <td>{{lastYearTotal | currency: 'USD'}}</td>
-                <td>{{thisYearTotal | currency: 'USD'}}</td>
+                <td colspan="3" class="text-right font-bold p-3 pb-0">Totals</td>
+                <td class="font-bold p-3 pb-0">{{ lastYearTotal | currency: 'USD' }}</td>
+                <td class="font-bold p-3 pb-0">{{ thisYearTotal | currency: 'USD' }}</td>
             </tr>
         </ng-template>
     </p-table>
