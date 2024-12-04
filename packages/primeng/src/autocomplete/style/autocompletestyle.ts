@@ -268,6 +268,10 @@ const theme = ({ dt }) => `
     color: ${dt('autocomplete.dropdown.color')};
 }
 
+.p-autocomplete:has(.p-autocomplete-dropdown) .p-autocomplete-clear-icon {
+    right: calc(${dt('autocomplete.padding.x')} + ${dt('autocomplete.dropdown.width')});
+}
+
 p-autocomplete.ng-invalid.ng-dirty .p-autocomplete-input,
 p-autocomplete.ng-invalid.ng-dirty .p-autocomplete-input-multiple {
     border-color: ${dt('autocomplete.invalid.border.color')};
