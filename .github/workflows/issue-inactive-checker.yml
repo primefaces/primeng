@@ -14,9 +14,10 @@ jobs:
       pull-requests: write 
     runs-on: ubuntu-latest
     steps:
-      - name: cannot replicate
+      - name: Cannot Replicate
         uses: actions-cool/issues-helper@v3
         with:
           actions: "close-issues"
-          labels: "cannot replicate"
+          labels: "Resolution: Cannot Replicate"
+          token: ${{ secrets.GITHUB_TOKEN }}
           inactive-day: 20
