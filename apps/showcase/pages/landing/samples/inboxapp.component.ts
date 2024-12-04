@@ -2,23 +2,23 @@ import { CommonModule } from '@angular/common';
 import { ChangeDetectionStrategy, Component, ViewEncapsulation } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { RouterModule } from '@angular/router';
-import { DividerModule } from 'primeng/divider';
 import { AvatarModule } from 'primeng/avatar';
+import { ButtonModule } from 'primeng/button';
+import { Checkbox } from 'primeng/checkbox';
+import { DividerModule } from 'primeng/divider';
 import { IconField } from 'primeng/iconfield';
 import { InputIcon } from 'primeng/inputicon';
-import { ButtonModule } from 'primeng/button';
-import { Table } from 'primeng/table';
 import { InputTextModule } from 'primeng/inputtext';
 import { MenuModule } from 'primeng/menu';
-import { Tag } from 'primeng/tag';
-import { ProgressBar } from 'primeng/progressbar';
-import { Checkbox } from 'primeng/checkbox';
 import { OverlayBadgeModule } from 'primeng/overlaybadge';
+import { ProgressBar } from 'primeng/progressbar';
+import { TableModule } from 'primeng/table';
+import { Tag } from 'primeng/tag';
 
 @Component({
     selector: 'inbox-app',
     standalone: true,
-    imports: [CommonModule, RouterModule, FormsModule, DividerModule, AvatarModule, IconField, InputIcon, ButtonModule, Table, InputTextModule, MenuModule, Tag, ProgressBar, Checkbox, OverlayBadgeModule],
+    imports: [CommonModule, RouterModule, FormsModule, DividerModule, AvatarModule, IconField, InputIcon, ButtonModule, TableModule, InputTextModule, MenuModule, Tag, ProgressBar, Checkbox, OverlayBadgeModule],
     template: `
         <div class="w-64 h-full overflow-hidden border border-surface rounded-2xl flex flex-col">
             <div class="flex items-center justify-between gap-2 p-4 border-b border-surface">

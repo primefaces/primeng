@@ -25,7 +25,7 @@ import { MessageService, SelectItem } from 'primeng/api';
             <div class="card">
                 <p-toast />
                 <p-table [value]="products" dataKey="id" editMode="row" [tableStyle]="{ 'min-width': '50rem' }">
-                    <ng-template #header>
+                    <ng-template pTemplate="header">
                         <tr>
                             <th style="width:20%">Code</th>
                             <th style="width:20%">Name</th>
@@ -34,7 +34,7 @@ import { MessageService, SelectItem } from 'primeng/api';
                             <th style="width:20%"></th>
                         </tr>
                     </ng-template>
-                    <ng-template #body let-product let-editing="editing" let-ri="rowIndex">
+                    <ng-template pTemplate="body" let-product let-editing="editing" let-ri="rowIndex">
                         <tr [pEditableRow]="product">
                             <td>
                                 <p-cellEditor>
