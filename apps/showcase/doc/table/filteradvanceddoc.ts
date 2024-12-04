@@ -76,11 +76,11 @@ import { Table } from 'primeng/table';
                                     Status
                                     <p-columnFilter field="status" matchMode="equals" display="menu">
                                         <ng-template #filter let-value let-filter="filterCallback">
-                                            <p-dropdown [(ngModel)]="value" [options]="statuses" (onChange)="filter($event.value)" placeholder="Any">
+                                            <p-select [(ngModel)]="value" [options]="statuses" (onChange)="filter($event.value)" placeholder="Any">
                                                 <ng-template let-option #item>
                                                     <p-tag [value]="option.value" [severity]="getSeverity(option.label)"></p-tag>
                                                 </ng-template>
-                                            </p-dropdown>
+                                            </p-select>
                                         </ng-template>
                                     </p-columnFilter>
                                 </div>

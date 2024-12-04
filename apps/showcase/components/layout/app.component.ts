@@ -46,6 +46,9 @@ export class AppComponent {
             if (process.env.NODE_ENV === 'production') {
                 this.injectScripts();
             }
+            setTimeout(() => {
+                document.body.style.visibility = 'visible';
+            });
 
             this.bindRouteEvents();
         });

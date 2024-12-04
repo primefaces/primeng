@@ -38,7 +38,7 @@ export class ReactiveFormsDoc implements OnInit {
 
         typescript: `import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, ReactiveFormsModule } from '@angular/forms';
-import { TextareaModule } from 'primeng/textarea;
+import { TextareaModule } from 'primeng/textarea';
 
 @Component({
     selector: 'input-textarea-reactive-forms-demo',

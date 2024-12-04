@@ -24,7 +24,7 @@ export class FilledDoc {
 </div>`,
 
         typescript: `import { Component } from '@angular/core';
-import { TextareaModule } from 'primeng/textarea;
+import { TextareaModule } from 'primeng/textarea';
 import { FormsModule } from '@angular/forms';
 
 @Component({

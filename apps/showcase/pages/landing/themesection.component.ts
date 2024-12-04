@@ -9,13 +9,13 @@ import { IconField } from 'primeng/iconfield';
 import { InputIcon } from 'primeng/inputicon';
 import { InputTextModule } from 'primeng/inputtext';
 import { ProgressBar } from 'primeng/progressbar';
-import { Table } from 'primeng/table';
+import { Table, TableModule } from 'primeng/table';
 import { Tag } from 'primeng/tag';
 
 @Component({
     selector: 'theme-section',
     standalone: true,
-    imports: [CommonModule, Table, ButtonModule, Tag, ProgressBar, InputTextModule, IconField, InputIcon],
+    imports: [CommonModule, TableModule, ButtonModule, Tag, ProgressBar, InputTextModule, IconField, InputIcon],
     template: `
         <section class="landing-themes py-20">
             <div class="section-header">Components</div>

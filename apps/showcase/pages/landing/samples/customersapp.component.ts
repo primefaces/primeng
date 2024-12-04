@@ -1,26 +1,26 @@
 import { CommonModule } from '@angular/common';
 import { ChangeDetectionStrategy, Component, Inject, PLATFORM_ID, ViewEncapsulation } from '@angular/core';
 import { FormsModule } from '@angular/forms';
+import { DomSanitizer } from '@angular/platform-browser';
 import { RouterModule } from '@angular/router';
-import { ChartModule } from 'primeng/chart';
-import { DropdownModule } from 'primeng/dropdown';
-import { InputSwitchModule } from 'primeng/inputswitch';
-import { SelectButton } from 'primeng/selectbutton';
-import { DividerModule } from 'primeng/divider';
 import { AvatarModule } from 'primeng/avatar';
-import { TooltipModule } from 'primeng/tooltip';
+import { ButtonModule } from 'primeng/button';
+import { ChartModule } from 'primeng/chart';
+import { DividerModule } from 'primeng/divider';
+import { DrawerModule } from 'primeng/drawer';
+import { DropdownModule } from 'primeng/dropdown';
 import { IconField } from 'primeng/iconfield';
 import { InputIcon } from 'primeng/inputicon';
-import { ButtonModule } from 'primeng/button';
-import { Table, TableCheckbox, TableHeaderCheckbox } from 'primeng/table';
+import { InputSwitchModule } from 'primeng/inputswitch';
 import { InputTextModule } from 'primeng/inputtext';
-import { Tag } from 'primeng/tag';
 import { Knob } from 'primeng/knob';
 import { OverlayBadgeModule } from 'primeng/overlaybadge';
-import { DrawerModule } from 'primeng/drawer';
-import { DomSanitizer } from '@angular/platform-browser';
-import { ToggleSwitchModule } from 'primeng/toggleswitch';
 import { PopoverModule } from 'primeng/popover';
+import { SelectButton } from 'primeng/selectbutton';
+import { TableModule } from 'primeng/table';
+import { Tag } from 'primeng/tag';
+import { ToggleSwitchModule } from 'primeng/toggleswitch';
+import { TooltipModule } from 'primeng/tooltip';
 
 @Component({
     selector: 'customers-app',
@@ -39,9 +39,7 @@ import { PopoverModule } from 'primeng/popover';
         IconField,
         InputIcon,
         ButtonModule,
-        Table,
-        TableHeaderCheckbox,
-        TableCheckbox,
+        TableModule,
         InputTextModule,
         Tag,
         Knob,

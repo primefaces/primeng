@@ -302,7 +302,7 @@ export class FilterBasicDoc {
                     class="pi"
                     [ngClass]="{
                         'text-green-500 pi-check-circle': customer.verified,
-                        'text-red-500 pi-times-circle': !customer.verified,
+                        'text-red-500 pi-times-circle': !customer.verified
                     }"
                 ></i>
             </td>
@@ -440,7 +440,7 @@ export class FilterBasicDoc {
                     class="pi"
                     [ngClass]="{
                         'text-green-500 pi-check-circle': customer.verified,
-                        'text-red-500 pi-times-circle': !customer.verified,
+                        'text-red-500 pi-times-circle': !customer.verified
                     }"
                 ></i>
             </td>

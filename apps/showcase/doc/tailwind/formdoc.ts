@@ -1,3 +1,4 @@
+import { Code } from '@/domain/code';
 import { Component } from '@angular/core';
 
 @Component({
@@ -25,14 +26,14 @@ import { Component } from '@angular/core';
                     </div>
                     <div class="flex-1">
                         <label for="country" class="block font-semibold mb-2">Country</label>
-                        <p-select [options]="countries" [(ngModel)]="selectedCountry" optionLabel="name" [showClear]="true" placeholder="Select a Country">
-                            <ng-template pTemplate="selectedItem">
+                        <p-select [options]="countries" [(ngModel)]="selectedCountry" optionLabel="name" placeholder="Select a Country" class="w-full">
+                            <ng-template #selectedItem>
                                 <div class="flex items-center gap-2" *ngIf="selectedCountry">
                                     <img src="https://primefaces.org/cdn/primeng/images/demo/flag/flag_placeholder.png" [class]="'flag flag-' + selectedCountry.code.toLowerCase()" style="width: 18px" />
                                     <div>{{ selectedCountry.name }}</div>
                                 </div>
                             </ng-template>
-                            <ng-template let-country pTemplate="item">
+                            <ng-template let-country #item>
                                 <div class="flex items-center gap-2">
                                     <img src="https://primefaces.org/cdn/primeng/images/demo/flag/flag_placeholder.png" [class]="'flag flag-' + country.code.toLowerCase()" style="width: 18px" />
                                     <div>{{ country.name }}</div>
@@ -70,7 +71,7 @@ export class FormDoc {
         ];
     }
 
-    code: {
+    code: Code = {
         basic: `<div class="flex flex-col gap-6 w-full sm:w-auto">
     <div class="flex flex-col sm:flex-row sm:items-center gap-6">
         <div class="flex-auto">
@@ -93,10 +94,10 @@ export class FormDoc {
                 [options]="countries"
                 [(ngModel)]="selectedCountry"
                 optionLabel="name"
-                [showClear]="true"
                 placeholder="Select a Country"
+                class="w-full"
             >
-                <ng-template pTemplate="selectedItem">
+                <ng-template #selectedItem>
                     <div class="flex items-center gap-2" *ngIf="selectedCountry">
                         <img
                             src="https://primefaces.org/cdn/primeng/images/demo/flag/flag_placeholder.png"
@@ -106,12 +107,14 @@ export class FormDoc {
                         <div>{{ selectedCountry.name }}</div>
                     </div>
                 </ng-template>
-                <ng-template let-country pTemplate="item">
+                <ng-template let-country #item>
                     <div class="flex items-center gap-2">
-                        <div class="flex items-center gap-2">
-                            <img src="https://primefaces.org/cdn/primeng/images/demo/flag/flag_placeholder.png" [class]="'flag flag-' + country.code.toLowerCase()" style="width: 18px" />
-                            <div>{{ country.name }}</div>
-                        </div>
+                        <img
+                            src="https://primefaces.org/cdn/primeng/images/demo/flag/flag_placeholder.png"
+                            [class]="'flag flag-' + country.code.toLowerCase()"
+                            style="width: 18px"
+                        />
+                        <div>{{ country.name }}</div>
                     </div>
                 </ng-template>
             </p-select>
@@ -121,6 +124,6 @@ export class FormDoc {
         <label for="message" class="block font-semibold mb-2">Message</label>
         <textarea pTextarea id="message" class="w-full" rows="4"></textarea>
     </div>
-</div>`;
+</div>`
     };
 }
