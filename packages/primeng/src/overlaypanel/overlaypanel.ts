@@ -193,11 +193,15 @@ export class OverlayPanel extends BaseComponent implements OnDestroy {
 
     bindDocumentClickListener() {
         if (isPlatformBrowser(this.platformId)) {
-            if (!this.documentClickListener && this.dismissable) {
+            if (!this.documentClickListener) {
                 let documentEvent = isIOS() ? 'touchstart' : 'click';
                 const documentTarget: any = this.el ? this.el.nativeElement.ownerDocument : this.document;
 
                 this.documentClickListener = this.renderer.listen(documentTarget, documentEvent, (event) => {
+                    if (!this.dismissable) {
+                        return;
+                    }
+
                     if (!this.container?.contains(event.target) && this.target !== event.target && !this.target.contains(event.target) && !this.selfClick) {
                         this.hide();
                     }
