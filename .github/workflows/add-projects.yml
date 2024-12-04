@@ -1,0 +1,30 @@
+name: Add to GitHub Project
+on:
+  issues:
+    types:
+      - milestoned
+  pull_request:
+    types:
+      - milestoned
+
+jobs:
+  add-to-project:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Determine Event Type
+        id: determine-type
+        run: |
+          if [[ "${{ github.event_name }}" == "issues" ]]; then
+            echo "type=issue" >> $GITHUB_OUTPUT
+            echo "content_id=${{ github.event.issue.node_id }}" >> $GITHUB_OUTPUT
+          elif [[ "${{ github.event_name }}" == "pull_request" ]]; then
+            echo "type=pull_request" >> $GITHUB_OUTPUT
+            echo "content_id=${{ github.event.pull_request.node_id }}" >> $GITHUB_OUTPUT
+          fi
+
+      - name: Add to GitHub Project
+        uses: actions/add-to-project@v1
+        with:
+          project-url: https://github.com/orgs/primefaces/projects/4
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+          content-id: ${{ steps.determine-type.outputs.content_id }}
