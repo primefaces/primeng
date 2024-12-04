@@ -23,7 +23,7 @@ jobs:
           fi
 
       - name: Add to GitHub Project
-        uses: actions/add-to-project@1.0.2
+        uses: actions/add-to-project@v1.0.2
         with:
           project-url: https://github.com/orgs/primefaces/projects/4
           github-token: ${{ secrets.GITHUB_TOKEN }}
