@@ -1,6 +1,6 @@
 import { AppConfigService } from '@/service/appconfigservice';
-import { CommonModule } from '@angular/common';
-import { Component, computed, inject } from '@angular/core';
+import { CommonModule, isPlatformBrowser } from '@angular/common';
+import { Component, computed, inject, PLATFORM_ID } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { $t, updatePreset, updateSurfacePalette } from '@primeng/themes';
 import Aura from '@primeng/themes/aura';
@@ -102,6 +102,8 @@ export class AppConfiguratorComponent {
 
     configService: AppConfigService = inject(AppConfigService);
 
+    platformId = inject(PLATFORM_ID);
+
     presets = Object.keys(presets);
 
     onRTLChange(value: boolean) {
@@ -117,6 +119,13 @@ export class AppConfiguratorComponent {
             htmlElement.setAttribute('dir', 'rtl');
         } else {
             htmlElement.removeAttribute('dir');
+        }
+    }
+
+    ngOnInit() {
+        if (isPlatformBrowser(this.platformId)) {
+            this.onPresetChange(this.configService.appState().preset);
+            this.toggleRTL(this.configService.appState().RTL);
         }
     }
 

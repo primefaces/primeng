@@ -4,3 +4,7 @@
 @import 'quill/dist/quill.snow.css';
 @import './flags.css';
 @import '@docsearch/css/dist/style.css';
+
+body {
+    visibility: hidden;
+}
