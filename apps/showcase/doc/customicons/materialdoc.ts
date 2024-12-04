@@ -12,10 +12,10 @@ import { Component } from '@angular/core';
 })
 export class MaterialDoc {
     code: Code = {
-        basic: `<p-dropdown>
+        basic: `<p-select>
     <ng-template #dropdownicon>
         <span class="material-icons">arrow_drop_down</span>
     </ng-template>
-</p-dropdown>`
+</p-select>`
     };
 }

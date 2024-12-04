@@ -87,12 +87,16 @@ import { Table } from 'primeng/table';
                                 {{ customer.name }}
                             </td>
                             <td>
-                                <img src="https://primefaces.org/cdn/primeng/images/demo/flag/flag_placeholder.png" [class]="'flag flag-' + customer.country.code" style="width: 20px" />
-                                <span class="ml-1 align-middle">{{ customer.country.name }}</span>
+                                <div class="flex items-center gap-2">
+                                    <img src="https://primefaces.org/cdn/primeng/images/demo/flag/flag_placeholder.png" [class]="'flag flag-' + customer.country.code" style="width: 20px" />
+                                    <span>{{ customer.country.name }}</span>
+                                </div>
                             </td>
                             <td>
-                                <img [alt]="customer.representative.name" src="https://primefaces.org/cdn/primeng/images/demo/avatar/{{ customer.representative.image }}" width="32" style="vertical-align: middle" />
-                                <span class="ml-1 align-middle">{{ customer.representative.name }}</span>
+                                <div class="flex items-center gap-2">
+                                    <img [alt]="customer.representative.name" src="https://primefaces.org/cdn/primeng/images/demo/avatar/{{ customer.representative.image }}" width="32" style="vertical-align: middle" />
+                                    <span>{{ customer.representative.name }}</span>
+                                </div>
                             </td>
                             <td>
                                 <p-tag [value]="customer.status" [severity]="getSeverity(customer.status)" />
@@ -279,21 +283,16 @@ export class FilterBasicDoc {
                 {{ customer.name }}
             </td>
             <td>
-                <img
-                    src="https://primefaces.org/cdn/primeng/images/demo/flag/flag_placeholder.png"
-                    [class]="'flag flag-' + customer.country.code"
-                    style="width: 20px"
-                />
-                <span class="ml-1 align-middle">{{ customer.country.name }}</span>
+                <div class="flex items-center gap-2">
+                    <img src="https://primefaces.org/cdn/primeng/images/demo/flag/flag_placeholder.png" [class]="'flag flag-' + customer.country.code" style="width: 20px" />
+                    <span>{{ customer.country.name }}</span>
+                </div>
             </td>
             <td>
-                <img
-                    [alt]="customer.representative.name"
-                    src="https://primefaces.org/cdn/primeng/images/demo/avatar/{{ customer.representative.image }}"
-                    width="32"
-                    style="vertical-align: middle"
-                />
-                <span class="ml-1 align-middle">{{ customer.representative.name }}</span>
+                <div class="flex items-center gap-2">
+                    <img [alt]="customer.representative.name" src="https://primefaces.org/cdn/primeng/images/demo/avatar/{{ customer.representative.image }}" width="32" style="vertical-align: middle" />
+                    <span>{{ customer.representative.name }}</span>
+                </div>
             </td>
             <td>
                 <p-tag [value]="customer.status" [severity]="getSeverity(customer.status)" />
@@ -303,7 +302,7 @@ export class FilterBasicDoc {
                     class="pi"
                     [ngClass]="{
                         'text-green-500 pi-check-circle': customer.verified,
-                        'text-red-500 pi-times-circle': !customer.verified,
+                        'text-red-500 pi-times-circle': !customer.verified
                     }"
                 ></i>
             </td>
@@ -422,21 +421,16 @@ export class FilterBasicDoc {
                 {{ customer.name }}
             </td>
             <td>
-                <img
-                    src="https://primefaces.org/cdn/primeng/images/demo/flag/flag_placeholder.png"
-                    [class]="'flag flag-' + customer.country.code"
-                    style="width: 20px"
-                />
-                <span class="ml-1 align-middle">{{ customer.country.name }}</span>
+                <div class="flex items-center gap-2">
+                    <img src="https://primefaces.org/cdn/primeng/images/demo/flag/flag_placeholder.png" [class]="'flag flag-' + customer.country.code" style="width: 20px" />
+                    <span>{{ customer.country.name }}</span>
+                </div>
             </td>
             <td>
-                <img
-                    [alt]="customer.representative.name"
-                    src="https://primefaces.org/cdn/primeng/images/demo/avatar/{{ customer.representative.image }}"
-                    width="32"
-                    style="vertical-align: middle"
-                />
-                <span class="ml-1 align-middle">{{ customer.representative.name }}</span>
+                <div class="flex items-center gap-2">
+                    <img [alt]="customer.representative.name" src="https://primefaces.org/cdn/primeng/images/demo/avatar/{{ customer.representative.image }}" width="32" style="vertical-align: middle" />
+                    <span>{{ customer.representative.name }}</span>
+                </div>
             </td>
             <td>
                 <p-tag [value]="customer.status" [severity]="getSeverity(customer.status)" />
@@ -446,7 +440,7 @@ export class FilterBasicDoc {
                     class="pi"
                     [ngClass]="{
                         'text-green-500 pi-check-circle': customer.verified,
-                        'text-red-500 pi-times-circle': !customer.verified,
+                        'text-red-500 pi-times-circle': !customer.verified
                     }"
                 ></i>
             </td>
