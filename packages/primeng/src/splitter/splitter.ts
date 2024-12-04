@@ -129,7 +129,7 @@ export class Splitter extends BaseComponent {
      * Minimum size of the elements relative to 100%.
      * @group Props
      */
-    @Input({ transform: numberAttribute }) minSizes: number[] = [];
+    @Input() minSizes: number[] = [];
     /**
      * Size of the elements relative to 100%.
      * @group Props
