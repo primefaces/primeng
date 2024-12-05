@@ -375,7 +375,7 @@ export const Password_VALUE_ACCESSOR: any = {
                 [attr.id]="inputId"
                 pInputText
                 [disabled]="disabled"
-                [size]="size"
+                [pSize]="size"
                 [ngClass]="disabled | mapper: inputFieldClass"
                 [ngStyle]="inputStyle"
                 [class]="inputStyleClass"

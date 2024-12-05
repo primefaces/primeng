@@ -103,7 +103,7 @@ export const DATEPICKER_VALUE_ACCESSOR: any = {
                     [pAutoFocus]="autofocus"
                     [variant]="variant"
                     [fluid]="hasFluid"
-                    [size]="size"
+                    [pSize]="size"
                 />
                 <ng-container *ngIf="showClear && !disabled && value != null">
                     <TimesIcon *ngIf="!clearicon" [class]="'p-datepicker-clear-icon'" (click)="clear()" />

@@ -17,10 +17,10 @@ import { InputTextStyle } from './style/inputtextstyle';
         '[class.p-filled]': 'filled',
         '[class.p-variant-filled]': 'variant === "filled" || config.inputStyle() === "filled" || config.inputVariant() === "filled"',
         '[class.p-inputtext-fluid]': 'hasFluid',
-        '[class.p-inputtext-sm]': 'size === "small"',
-        '[class.p-inputfield-sm]': 'size === "small"',
-        '[class.p-inputtext-lg]': 'size === "large"',
-        '[class.p-inputfield-lg]': 'size === "large"'
+        '[class.p-inputtext-sm]': 'pSize === "small"',
+        '[class.p-inputfield-sm]': 'pSize === "small"',
+        '[class.p-inputtext-lg]': 'pSize === "large"',
+        '[class.p-inputfield-lg]': 'pSize === "large"'
     },
     providers: [InputTextStyle]
 })
@@ -39,7 +39,7 @@ export class InputText extends BaseComponent implements DoCheck, AfterViewInit {
      * Defines the size of the component.
      * @group Props
      */
-    @Input() size: 'large' | 'small';
+    @Input('pSize') pSize: 'large' | 'small';
 
     filled: Nullable<boolean>;
 
