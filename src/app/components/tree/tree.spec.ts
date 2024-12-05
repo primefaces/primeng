@@ -83,7 +83,7 @@ class TestTreeComponent implements OnInit {
                         data: 'De Niro Movies',
                         children: [
                             { label: 'Goodfellas', icon: 'pi pi-file-video-o', data: 'Goodfellas Movie' },
-                            { label: 'Untouchables', icon: 'pi pi-file-video-o', data: 'Untouchables Movie', selectable: false }
+                            { label: 'Untouchables', icon: 'pi pi-file-video-o', data: 'Untouchables Movie' }
                         ]
                     }
                 ]
@@ -195,12 +195,7 @@ describe('Tree', () => {
                         data: 'De Niro Movies',
                         children: [
                             { label: 'Goodfellas', icon: 'pi pi-file-video-o', data: 'Goodfellas Movie' },
-                            {
-                                label: 'Untouchables',
-                                icon: 'pi pi-file-video-o',
-                                data: 'Untouchables Movie',
-                                selectable: false
-                            }
+                            { label: 'Untouchables', icon: 'pi pi-file-video-o', data: 'Untouchables Movie' }
                         ]
                     }
                 ]
