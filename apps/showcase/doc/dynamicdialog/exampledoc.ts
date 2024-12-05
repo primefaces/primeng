@@ -109,12 +109,11 @@ export class DynamicDialogExampleDemo implements OnDestroy {
 
     show() {
         this.ref = this.dialogService.open(ProductListDemo, {
-            header: 'Product Listaaaa',
+            header: 'Product List',
             modal: true,
             width: '50vw',
             closable: true,
             contentStyle: { overflow: 'auto' },
-            dismissableMask: false,
             breakpoints: {
                 '960px': '75vw',
                 '640px': '90vw'
