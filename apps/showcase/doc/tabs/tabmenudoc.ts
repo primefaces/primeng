@@ -14,7 +14,7 @@ import { Component } from '@angular/core';
             <p-tabs value="dashboard">
                 <p-tablist>
                     @for (tab of tabs; track tab.route) {
-                        <p-tab [value]="tab.route" [routerLink]="tab.route">
+                        <p-tab [value]="tab.route">
                             <i [class]="tab.icon"></i>
                             <span>{{ tab.label }}</span>
                         </p-tab>
