@@ -8,9 +8,9 @@ import { Component } from '@angular/core';
             <p>InputText provides <i>small</i> and <i>large</i> sizes as alternatives to the standard.</p>
         </app-docsectiontext>
         <div class="card flex flex-col items-center gap-4 ">
-            <input pInputText [(ngModel)]="value1" type="text" size="small" placeholder="Small" />
+            <input pInputText [(ngModel)]="value1" type="text" pSize="small" placeholder="Small" />
             <input pInputText [(ngModel)]="value2" type="text" placeholder="Normal" />
-            <input pInputText [(ngModel)]="value3" type="text" size="large" placeholder="Large" />
+            <input pInputText [(ngModel)]="value3" type="text" pSize="large" placeholder="Large" />
         </div>
         <app-code [code]="code" selector="input-text-sizes-demo"></app-code>
     `
@@ -23,14 +23,14 @@ export class SizesDoc {
     value3: string | undefined;
 
     code: Code = {
-        basic: `<input pInputText [(ngModel)]="value1" type="text" size="small" placeholder="Small" />
+        basic: `<input pInputText [(ngModel)]="value1" type="text" pSize="small" placeholder="Small" />
 <input pInputText [(ngModel)]="value2" type="text" placeholder="Normal" />
-<input pInputText [(ngModel)]="value3" type="text" size="large" placeholder="Large" />`,
+<input pInputText [(ngModel)]="value3" type="text" pSize="large" placeholder="Large" />`,
 
         html: `<div class="card flex flex-col items-center gap-4 ">
-    <input pInputText [(ngModel)]="value1" type="text" size="small" placeholder="Small" />
+    <input pInputText [(ngModel)]="value1" type="text" pSize="small" placeholder="Small" />
     <input pInputText [(ngModel)]="value2" type="text" placeholder="Normal" />
-    <input pInputText [(ngModel)]="value3" type="text" size="large" placeholder="Large" />
+    <input pInputText [(ngModel)]="value3" type="text" pSize="large" placeholder="Large" />
 </div>`,
 
         typescript: `import { Component } from '@angular/core';

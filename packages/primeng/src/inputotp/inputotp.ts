@@ -72,7 +72,7 @@ export interface InputOtpInputTemplateContext {
                     [maxLength]="1"
                     [type]="inputType"
                     class="p-inputotp-input"
-                    [size]="size"
+                    [pSize]="size"
                     [variant]="variant"
                     [readonly]="readonly"
                     [disabled]="disabled"

@@ -261,6 +261,7 @@ export class SelectItem extends BaseComponent {
                                 <input
                                     #filter
                                     pInputText
+                                    [pSize]="size"
                                     type="text"
                                     role="searchbox"
                                     autocomplete="off"
