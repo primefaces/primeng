@@ -13,10 +13,12 @@ import { TreeNode } from 'primeng/api';
         <div class="card flex justify-center overflow-x-auto">
             <p-organization-chart [value]="data" selectionMode="multiple" [(selection)]="selectedNodes" [collapsible]="true">
                 <ng-template let-node pTemplate="person">
-                    <div class="p-2 text-center">
-                        <img [src]="node.data.image" class="mb-4 w-12 h-12" />
-                        <div class="font-bold">{{ node.data.name }}</div>
-                        <div>{{ node.data.title }}</div>
+                    <div class="flex flex-col">
+                        <div class="flex flex-col items-center">
+                            <img [src]="node.data.image" class="mb-4 w-12 h-12" />
+                            <div class="font-bold mb-2">{{ node.data.name }}</div>
+                            <div>{{ node.data.title }}</div>
+                        </div>
                     </div>
                 </ng-template>
             </p-organization-chart>
@@ -82,15 +84,11 @@ export class SelectionDoc {
     [(selection)]="selectedNodes"
     [collapsible]="true">
         <ng-template let-node pTemplate="person">
-            <div class="p-2 text-center">
-                <img
-                    [src]="node.data.image"
-                    class="mb-4 w-12 h-12" />
-                <div class="font-bold">
-                    {{ node.data.name }}
-                </div>
-                <div>
-                    {{ node.data.title }}
+            <div class="flex flex-col">
+                <div class="flex flex-col items-center">
+                    <img [src]="node.data.image" class="mb-4 w-12 h-12" />
+                    <div class="font-bold mb-2">{{ node.data.name }}</div>
+                    <div>{{ node.data.title }}</div>
                 </div>
             </div>
         </ng-template>
@@ -103,15 +101,11 @@ export class SelectionDoc {
         [(selection)]="selectedNodes"
         [collapsible]="true">
             <ng-template let-node pTemplate="person">
-                <div class="p-2 text-center">
-                    <img
-                        [src]="node.data.image"
-                        class="mb-4 w-12 h-12" />
-                    <div class="font-bold">
-                        {{ node.data.name }}
-                    </div>
-                    <div>
-                        {{ node.data.title }}
+                <div class="flex flex-col">
+                    <div class="flex flex-col items-center">
+                        <img [src]="node.data.image" class="mb-4 w-12 h-12" />
+                        <div class="font-bold mb-2">{{ node.data.name }}</div>
+                        <div>{{ node.data.title }}</div>
                     </div>
                 </div>
             </ng-template>
