@@ -50,7 +50,7 @@ const hideAnimation = animation([animate('{{transition}}', style({ transform: '{
                     <ng-container *ngTemplateOutlet="headerTemplate"></ng-container>
                     <div *ngIf="header" [class]="cx('title')">{{ header }}</div>
                     <p-button
-                        *ngIf="showCloseIcon || closable"
+                        *ngIf="showCloseIcon && closable"
                         [ngClass]="cx('closeButton')"
                         (onClick)="close($event)"
                         (keydown.enter)="close($event)"
