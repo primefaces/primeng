@@ -346,6 +346,7 @@ export class AppDesignerComponent {
             this.config.ripple.set(true);
         } else {
             document.body.classList.remove('material');
+            this.config.ripple.set(false);
         }
 
         this.preset = {
