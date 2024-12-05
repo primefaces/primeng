@@ -58,9 +58,9 @@ import {
         @if (node) {
             <li
                 *ngIf="tree.droppableNodes"
-                class="p-treenode-droppoint"
+                class="p-tree-node-droppoint"
                 [attr.aria-hidden]="true"
-                [ngClass]="{ 'p-treenode-droppoint-active': draghoverPrev }"
+                [ngClass]="{ 'p-tree-node-droppoint-active': draghoverPrev }"
                 (drop)="onDropPoint($event, -1)"
                 (dragover)="onDropPointDragOver($event)"
                 (dragenter)="onDropPointDragEnter($event, -1)"
@@ -176,7 +176,7 @@ import {
     encapsulation: ViewEncapsulation.None
 })
 export class UITreeNode extends BaseComponent implements OnInit {
-    static ICON_CLASS: string = 'p-treenode-icon ';
+    static ICON_CLASS: string = 'p-tree-node-icon ';
 
     @Input() rowNode: any;
 
@@ -612,7 +612,7 @@ export class UITreeNode extends BaseComponent implements OnInit {
     }
 
     setAllNodesTabIndexes() {
-        const nodes = <any>find(this.tree.el.nativeElement, '.p-treenode');
+        const nodes = <any>find(this.tree.el.nativeElement, '.p-tree-node');
 
         const hasSelectedNode = [...nodes].some((node) => node.getAttribute('aria-selected') === 'true' || node.getAttribute('aria-checked') === 'true');
 
@@ -657,7 +657,7 @@ export class UITreeNode extends BaseComponent implements OnInit {
     }
 
     findLastVisibleDescendant(nodeElement: any): any {
-        const listElement = <HTMLElement>Array.from(nodeElement.children).find((el: any) => hasClass(el, 'p-treenode'));
+        const listElement = <HTMLElement>Array.from(nodeElement.children).find((el: any) => hasClass(el, 'p-tree-node'));
         const childrenListElement = listElement?.children[1];
         if (childrenListElement && childrenListElement.children.length > 0) {
             const lastChildElement = childrenListElement.children[childrenListElement.children.length - 1];

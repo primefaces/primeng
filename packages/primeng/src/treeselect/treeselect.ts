@@ -689,7 +689,7 @@ export class TreeSelect extends BaseComponent {
 
     onArrowDown(event: KeyboardEvent) {
         if (this.overlayVisible && this.panelEl?.nativeElement) {
-            let focusableElements = <any>getFocusableElements(this.panelEl.nativeElement, '.p-treenode');
+            let focusableElements = <any>getFocusableElements(this.panelEl.nativeElement, '.p-tree-node');
 
             if (focusableElements && focusableElements.length > 0) {
                 focusableElements[0].focus();
