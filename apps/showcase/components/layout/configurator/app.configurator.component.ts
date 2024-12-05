@@ -483,6 +483,7 @@ export class AppConfiguratorComponent {
             this.config.ripple.set(true);
         } else {
             document.body.classList.remove('material');
+            this.config.ripple.set(false);
         }
         $t().preset(preset).preset(this.getPresetExt()).surfacePalette(surfacePalette).use({ useDefaultOptions: true });
     }
