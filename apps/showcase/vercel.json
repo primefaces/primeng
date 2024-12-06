@@ -3,19 +3,19 @@
     "public": true,
     "name": "showcase",
     "rewrites": [
-      {
-        "source": "/(.*)",
-        "destination": "/api"
-      }
+        {
+            "source": "/(.*)",
+            "destination": "/api"
+        }
     ],
     "functions": {
-      "api/index.mjs": {
-        "includeFiles": "dist/showcase/**"
-      }
+        "api/index.mjs": {
+            "includeFiles": "dist/showcase/**"
+        }
     },
     "git": {
-      "deploymentEnabled": {
-        "v18": false
-      }
+        "deploymentEnabled": {
+            "v18": false
+        }
     }
 }
