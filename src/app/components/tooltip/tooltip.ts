@@ -206,6 +206,18 @@ export class Tooltip implements AfterViewInit, OnDestroy {
             });
         }
     }
+    
+    setAriaDescribedBy() {
+        const tooltipId = this.getOption('id');
+        if (tooltipId && this.active) {
+            this.renderer.setAttribute(this.el.nativeElement, 'aria-describedby', tooltipId);
+        }
+    }
+
+    removeAriaDescribedBy() {
+        this.renderer.removeAttribute(this.el.nativeElement, 'aria-describedby');
+    }
+
 
     ngOnChanges(simpleChange: SimpleChanges) {
         if (simpleChange.tooltipPosition) {
@@ -423,6 +435,8 @@ export class Tooltip implements AfterViewInit, OnDestroy {
             this.container.style.pointerEvents = 'unset';
             this.bindContainerMouseleaveListener();
         }
+
+        this.setAriaDescribedBy();
     }
 
     bindContainerMouseleaveListener() {
@@ -705,6 +719,7 @@ export class Tooltip implements AfterViewInit, OnDestroy {
         this.unbindScrollListener();
         this.unbindContainerMouseleaveListener();
         this.clearTimeouts();
+        this.removeAriaDescribedBy();
         this.container = null;
         this.scrollHandler = null;
     }
