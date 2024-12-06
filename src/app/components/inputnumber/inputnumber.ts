@@ -835,7 +835,7 @@ export class InputNumber implements OnInit, AfterContentInit, OnChanges, Control
         }
 
         this.lastValue = (event.target as HTMLInputElement).value;
-        if ((event as KeyboardEvent).shiftKey || (event as KeyboardEvent).altKey) {
+        if ((event as KeyboardEvent).shiftKey || (event as KeyboardEvent).altKey || event.key === "Dead") {
             this.isSpecialChar = true;
             return;
         }
