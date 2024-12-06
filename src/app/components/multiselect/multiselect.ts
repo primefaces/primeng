@@ -2149,6 +2149,7 @@ export class MultiSelect implements OnInit, AfterViewInit, AfterContentInit, Aft
             value: value,
             itemValue: optionValue
         });
+        this.onClear.emit();
 
         event && event.stopPropagation();
     }
