@@ -21,7 +21,7 @@ import { MenuItem } from 'primeng/api';
             <div class="dock-window">
                 <p-dock [model]="items" [position]="position">
                     <ng-template #item let-item>
-                        <img [src]="item.icon" [alt]="item.label" width="100%" />
+                        <img [pTooltip]="item.label" tooltipPosition="top" [src]="item.icon" [alt]="item.label" width="100%" />
                     </ng-template>
                 </p-dock>
             </div>
@@ -95,7 +95,7 @@ export class BasicDoc implements OnInit {
     code: Code = {
         basic: `<p-dock [model]="items" [position]="position">
     <ng-template #item let-item>
-        <img [src]="item.icon" [alt]="item.label" width="100%" />
+        <img [pTooltip]="item.label" tooltipPosition="top" [src]="item.icon" [alt]="item.label" width="100%" />
     </ng-template>
 </p-dock>`,
 
@@ -115,7 +115,7 @@ export class BasicDoc implements OnInit {
     <div class="dock-window">
         <p-dock [model]="items" [position]="position">
             <ng-template #item let-item>
-                <img [src]="item.icon" [alt]="item.label" width="100%" />
+                <img [pTooltip]="item.label" tooltipPosition="top" [src]="item.icon" [alt]="item.label" width="100%" />
             </ng-template>
         </p-dock>
     </div>
@@ -127,6 +127,7 @@ import { Dock } from 'primeng/dock';
 import { RadioButton } from 'primeng/radiobutton';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
+import { TooltipModule } from 'primeng/tooltip';
 
 @Component({
     selector: 'dock-basic-demo',
@@ -146,7 +147,7 @@ import { FormsModule } from '@angular/forms';
         }\`
     ],
     standalone: true,
-    imports: [Dock, RadioButton, CommonModule, FormsModule]
+    imports: [Dock, RadioButton, CommonModule, FormsModule, TooltipModule]
 })
 export class DockBasicDemo implements OnInit {
     items: MenuItem[] | undefined;
