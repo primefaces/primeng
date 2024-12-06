@@ -174,8 +174,6 @@ export class Editor implements AfterContentInit, ControlValueAccessor {
 
     value: Nullable<string>;
 
-    delayedCommand: Function | null = null;
-
     _readonly: boolean = false;
 
     onModelChange: Function = () => {};
@@ -187,10 +185,6 @@ export class Editor implements AfterContentInit, ControlValueAccessor {
     dynamicQuill: any;
 
     headerTemplate: Nullable<TemplateRef<any>>;
-
-    private get isAttachedQuillEditorToDOM(): boolean | undefined {
-        return this.quillElements?.editorElement?.isConnected;
-    }
 
     private quillElements!: { editorElement: HTMLElement; toolbarElement: HTMLElement };
 
@@ -222,25 +216,9 @@ export class Editor implements AfterContentInit, ControlValueAccessor {
 
         if (this.quill) {
             if (value) {
-                const command = (): void => {
-                    this.quill.setContents(this.quill.clipboard.convert(this.dynamicQuill.version.startsWith('2') ? { html: this.value } : this.value));
-                };
-
-                if (this.isAttachedQuillEditorToDOM) {
-                    command();
-                } else {
-                    this.delayedCommand = command;
-                }
+                this.quill.setContents(this.quill.clipboard.convert(this.dynamicQuill.version.startsWith('2') ? { html: this.value } : this.value));
             } else {
-                const command = (): void => {
-                    this.quill.setText('');
-                };
-
-                if (this.isAttachedQuillEditorToDOM) {
-                    command();
-                } else {
-                    this.delayedCommand = command;
-                }
+                this.quill.setText('');
             }
         }
     }
