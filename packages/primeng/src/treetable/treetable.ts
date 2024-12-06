@@ -113,6 +113,7 @@ export class TreeTableService {
         this.totalRecordsSource.next(value);
     }
 }
+
 /**
  * TreeTable is used to display hierarchical data in tabular format.
  * @group Components
@@ -454,7 +455,7 @@ export class TreeTable extends BaseComponent implements AfterContentInit, OnInit
      */
     @Input({ transform: booleanAttribute }) showLoader: boolean = true;
     /**
-     * When specifies, enables horizontal and/or vertical scrolling.
+     * When specified, enables horizontal and/or vertical scrolling.
      * @group Props
      */
     @Input({ transform: booleanAttribute }) scrollable: boolean | undefined;
@@ -2500,11 +2501,13 @@ export class TTScrollableView implements AfterViewInit, OnDestroy {
                     else this.frozenSiblingBody = findSingle(frozenView, '.p-treetable-scrollable-body');
                 }
 
-                let scrollBarWidth = calculateScrollbarWidth();
-                (this.scrollHeaderBoxViewChild as ElementRef).nativeElement.style.paddingRight = scrollBarWidth + 'px';
+                if (this.scrollHeight) {
+                    let scrollBarWidth = calculateScrollbarWidth();
+                    this.scrollHeaderBoxViewChild.nativeElement.style.paddingRight = scrollBarWidth + 'px';
 
-                if (this.scrollFooterBoxViewChild && this.scrollFooterBoxViewChild.nativeElement) {
-                    this.scrollFooterBoxViewChild.nativeElement.style.paddingRight = scrollBarWidth + 'px';
+                    if (this.scrollFooterBoxViewChild && this.scrollFooterBoxViewChild.nativeElement) {
+                        this.scrollFooterBoxViewChild.nativeElement.style.paddingRight = scrollBarWidth + 'px';
+                    }
                 }
             } else {
                 if (this.scrollableAlignerViewChild && this.scrollableAlignerViewChild.nativeElement) {
