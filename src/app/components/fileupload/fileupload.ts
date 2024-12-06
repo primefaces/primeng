@@ -542,7 +542,7 @@ export class FileUpload implements AfterViewInit, AfterContentInit, OnInit, OnDe
         public cd: ChangeDetectorRef,
         public config: PrimeNGConfig
     ) {
-        this.formatter = new Intl.NumberFormat(this.locale, { maximumFractionDigits: 3 })
+        this.formatter = new Intl.NumberFormat(this.locale, { maximumFractionDigits: 3 });
     }
 
     ngAfterContentInit() {

@@ -1211,7 +1211,7 @@ export class AutoComplete implements AfterViewChecked, AfterContentInit, OnDestr
         this.focusedOptionIndex.set(-1);
         /** triggered only if user can input freely text
          * Later on it must set touched also onSelect */
-        if(!this.forceSelection){
+        if (!this.forceSelection) {
             this.onModelTouched();
         }
         this.onBlur.emit(event);

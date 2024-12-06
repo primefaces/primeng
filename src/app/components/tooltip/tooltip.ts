@@ -206,7 +206,7 @@ export class Tooltip implements AfterViewInit, OnDestroy {
             });
         }
     }
-    
+
     setAriaDescribedBy() {
         const tooltipId = this.getOption('id');
         if (tooltipId && this.active) {
@@ -217,7 +217,6 @@ export class Tooltip implements AfterViewInit, OnDestroy {
     removeAriaDescribedBy() {
         this.renderer.removeAttribute(this.el.nativeElement, 'aria-describedby');
     }
-
 
     ngOnChanges(simpleChange: SimpleChanges) {
         if (simpleChange.tooltipPosition) {

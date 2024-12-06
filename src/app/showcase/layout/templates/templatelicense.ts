@@ -12,7 +12,7 @@ import { SharedModule } from 'primeng/api';
                         <div class="template-license-card">
                             <span>{{ licenseData?.title }}</span>
                             <div class="template-license-price flex gap-3">
-                                <h2 [ngClass]="{ 'discount': license?.showDiscount }">{{ licenseData?.price }}</h2>
+                                <h2 [ngClass]="{ discount: license?.showDiscount }">{{ licenseData?.price }}</h2>
                                 <h2 *ngIf="license?.showDiscount">{{ licenseData?.discount }}</h2>
                             </div>
                             <div class="template-license-card-included">
