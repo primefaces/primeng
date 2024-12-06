@@ -364,7 +364,17 @@ export class PanelMenuList implements OnChanges {
     constructor(private el: ElementRef) {}
 
     ngOnChanges(changes: SimpleChanges) {
-        this.processedItems.set(this.createProcessedItems(changes?.items?.currentValue || this.items || []));
+        const hasItems = !!changes?.items?.currentValue;
+
+        if (hasItems) {
+            this.processedItems.set(this.createProcessedItems(changes?.items?.currentValue || this.items || []));
+            return;
+        }
+
+        // Update and keep `expanded` property from previous data
+        else {
+            this.processedItems.update((prev) => prev.map((i) => ({ ...i, expanded: i.expanded })));
+        }
     }
 
     getItemProp(processedItem, name) {
