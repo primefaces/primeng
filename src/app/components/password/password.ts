@@ -379,13 +379,13 @@ export const Password_VALUE_ACCESSOR: any = {
 
             <ng-container *ngIf="toggleMask">
                 <ng-container *ngIf="unmasked">
-                    <EyeSlashIcon *ngIf="!hideIconTemplate" (click)="onMaskToggle()" [attr.data-pc-section]="'hideIcon'" />
+                    <EyeSlashIcon *ngIf="!hideIconTemplate" tabIndex="0" (keypress)="onEyeIconPress($event)" (click)="onMaskToggle()" [attr.data-pc-section]="'hideIcon'" />
                     <span *ngIf="hideIconTemplate" (click)="onMaskToggle()">
                         <ng-template *ngTemplateOutlet="hideIconTemplate"></ng-template>
                     </span>
                 </ng-container>
                 <ng-container *ngIf="!unmasked">
-                    <EyeIcon *ngIf="!showIconTemplate" (click)="onMaskToggle()" [attr.data-pc-section]="'showIcon'" />
+                    <EyeIcon *ngIf="!showIconTemplate" tabIndex="0" (keypress)="onEyeIconPress($event)" (click)="onMaskToggle()" [attr.data-pc-section]="'showIcon'" />
                     <span *ngIf="showIconTemplate" (click)="onMaskToggle()">
                         <ng-template *ngTemplateOutlet="showIconTemplate"></ng-template>
                     </span>
@@ -730,6 +730,17 @@ export class Password implements AfterContentInit, OnInit {
         }
 
         this.onFocus.emit(event);
+    }
+
+    onEyeIconPress(event: KeyboardEvent) {
+        switch (event.code) {
+            case 'Enter':
+                this.onMaskToggle();
+                event.preventDefault();
+                break;
+            default:
+                break;
+        }
     }
 
     onInputBlur(event: Event) {
