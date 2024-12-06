@@ -106,7 +106,7 @@ export class Popover extends BaseComponent implements OnDestroy {
      */
     @Input() styleClass: string | undefined;
     /**
-     *  Target element to attach the panel, valid values are "body" or a local ng-template variable of another element (note: use binding with brackets for template variables, e.g. [appendTo]="mydiv" for a div element having #mydiv as variable name).
+     * Target element to attach the panel, valid values are "body" or a local ng-template variable of another element (note: use binding with brackets for template variables, e.g. [appendTo]="mydiv" for a div element having #mydiv as variable name).
      * @group Props
      */
     @Input() appendTo: HTMLElement | ElementRef | TemplateRef<any> | string | null | undefined | any = 'body';
@@ -191,11 +191,15 @@ export class Popover extends BaseComponent implements OnDestroy {
 
     bindDocumentClickListener() {
         if (isPlatformBrowser(this.platformId)) {
-            if (!this.documentClickListener && this.dismissable) {
+            if (!this.documentClickListener) {
                 let documentEvent = isIOS() ? 'touchstart' : 'click';
                 const documentTarget: any = this.el ? this.el.nativeElement.ownerDocument : this.document;
 
                 this.documentClickListener = this.renderer.listen(documentTarget, documentEvent, (event) => {
+                    if (!this.dismissable) {
+                        return;
+                    }
+
                     if (!this.container?.contains(event.target) && this.target !== event.target && !this.target.contains(event.target) && !this.selfClick) {
                         this.hide();
                     }
