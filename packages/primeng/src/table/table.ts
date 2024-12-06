@@ -1,40 +1,39 @@
 import { animate, AnimationEvent, style, transition, trigger } from '@angular/animations';
 import { CommonModule, DOCUMENT, isPlatformBrowser } from '@angular/common';
-import
-    {
-        AfterContentInit,
-        AfterViewInit,
-        booleanAttribute,
-        ChangeDetectionStrategy,
-        ChangeDetectorRef,
-        Component,
-        ContentChild,
-        ContentChildren,
-        Directive,
-        ElementRef,
-        EventEmitter,
-        forwardRef,
-        HostListener,
-        inject,
-        Inject,
-        Injectable,
-        Input,
-        NgModule,
-        NgZone,
-        numberAttribute,
-        OnChanges,
-        OnDestroy,
-        OnInit,
-        Optional,
-        Output,
-        PLATFORM_ID,
-        QueryList,
-        Renderer2,
-        SimpleChanges,
-        TemplateRef,
-        ViewChild,
-        ViewEncapsulation
-    } from '@angular/core';
+import {
+    AfterContentInit,
+    AfterViewInit,
+    booleanAttribute,
+    ChangeDetectionStrategy,
+    ChangeDetectorRef,
+    Component,
+    ContentChild,
+    ContentChildren,
+    Directive,
+    ElementRef,
+    EventEmitter,
+    forwardRef,
+    HostListener,
+    inject,
+    Inject,
+    Injectable,
+    Input,
+    NgModule,
+    NgZone,
+    numberAttribute,
+    OnChanges,
+    OnDestroy,
+    OnInit,
+    Optional,
+    Output,
+    PLATFORM_ID,
+    QueryList,
+    Renderer2,
+    SimpleChanges,
+    TemplateRef,
+    ViewChild,
+    ViewEncapsulation
+} from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { BlockableUI, FilterMatchMode, FilterMetadata, FilterOperator, FilterService, LazyLoadMeta, OverlayService, PrimeTemplate, ScrollerOptions, SelectItem, SharedModule, SortMeta, TableState, TranslationKeys } from 'primeng/api';
 import { BaseComponent } from 'primeng/basecomponent';
@@ -64,27 +63,26 @@ import { Nullable, VoidListener } from 'primeng/ts-helpers';
 import { ObjectUtils, UniqueComponentId, ZIndexUtils } from 'primeng/utils';
 import { Subject, Subscription } from 'rxjs';
 import { TableStyle } from './style/tablestyle';
-import
-    {
-        ExportCSVOptions,
-        TableColResizeEvent,
-        TableColumnReorderEvent,
-        TableContextMenuSelectEvent,
-        TableEditCancelEvent,
-        TableEditCompleteEvent,
-        TableEditInitEvent,
-        TableFilterButtonPropsOptions,
-        TableFilterEvent,
-        TableHeaderCheckboxToggleEvent,
-        TableLazyLoadEvent,
-        TablePageEvent,
-        TableRowCollapseEvent,
-        TableRowExpandEvent,
-        TableRowReorderEvent,
-        TableRowSelectEvent,
-        TableRowUnSelectEvent,
-        TableSelectAllChangeEvent
-    } from './table.interface';
+import {
+    ExportCSVOptions,
+    TableColResizeEvent,
+    TableColumnReorderEvent,
+    TableContextMenuSelectEvent,
+    TableEditCancelEvent,
+    TableEditCompleteEvent,
+    TableEditInitEvent,
+    TableFilterButtonPropsOptions,
+    TableFilterEvent,
+    TableHeaderCheckboxToggleEvent,
+    TableLazyLoadEvent,
+    TablePageEvent,
+    TableRowCollapseEvent,
+    TableRowExpandEvent,
+    TableRowReorderEvent,
+    TableRowSelectEvent,
+    TableRowUnSelectEvent,
+    TableSelectAllChangeEvent
+} from './table.interface';
 
 @Injectable()
 export class TableService {
