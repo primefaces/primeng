@@ -568,6 +568,15 @@ export class Accordion implements BlockableUI, AfterContentInit, OnDestroy {
         event.preventDefault();
     }
 
+    public resetActiveTab() {
+        this.tabs?.forEach((tab: AccordionTab) => {
+            tab.selected = false;
+            tab.changeDetector.markForCheck();
+        });
+
+        this.activeIndex = null;
+    }
+
     ngAfterContentInit() {
         this.initTabs();
 
