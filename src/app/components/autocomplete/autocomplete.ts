@@ -1209,7 +1209,11 @@ export class AutoComplete implements AfterViewChecked, AfterContentInit, OnDestr
         this.dirty = false;
         this.focused = false;
         this.focusedOptionIndex.set(-1);
-        this.onModelTouched();
+        /** triggered only if user can input freely text
+         * Later on it must set touched also onSelect */
+        if(!this.forceSelection){
+            this.onModelTouched();
+        }
         this.onBlur.emit(event);
     }
 
@@ -1446,6 +1450,9 @@ export class AutoComplete implements AfterViewChecked, AfterContentInit, OnDestr
             this.updateModel(value);
         }
 
+        /** triggers model touched to update FormControl
+         * value in case updateOn is set to "blur" */
+        this.onModelTouched();
         this.onSelect.emit({ originalEvent: event, value: option });
 
         isHide && this.hide(true);
