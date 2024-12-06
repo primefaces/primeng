@@ -834,6 +834,11 @@ export class Scroller implements OnInit, AfterContentInit, AfterViewChecked, OnD
                     this.contentEl.style.minHeight = this.contentEl.style.minWidth = '';
                     this.contentEl.style.position = '';
                     (<ElementRef>this.elementViewChild).nativeElement.style.contain = '';
+
+                    this.defaultWidth = width;
+                    this.defaultHeight = height;
+                    this.defaultContentWidth = contentWidth;
+                    this.defaultContentHeight = contentHeight;
                 }
             });
         }
@@ -1059,12 +1064,6 @@ export class Scroller implements OnInit, AfterContentInit, AfterViewChecked, OnD
                 reinit &&
                     this.zone.run(() => {
                         this.d_numToleratedItems = this._numToleratedItems;
-                        this.defaultWidth = width;
-                        this.defaultHeight = height;
-                        if (this.contentEl) {
-                            this.defaultContentWidth = DomHandler.getWidth(this.contentEl);
-                            this.defaultContentHeight = DomHandler.getHeight(this.contentEl);
-                        }
 
                         this.init();
                         this.calculateAutoSize();
