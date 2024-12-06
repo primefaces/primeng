@@ -29,4 +29,9 @@ export interface ImageTemplates {
      * Custom template of closeicon.
      */
     closeicon(): TemplateRef<any>;
+
+    /**
+     * Custom template of imagedescription.
+     */
+    imagedescription(): TemplateRef<any>;
 }

@@ -10763,6 +10763,14 @@
                             "description": "Specifies if autofocus should happen on show."
                         },
                         {
+                            "name": "focusOnClose",
+                            "optional": true,
+                            "readonly": false,
+                            "type": "boolean",
+                            "default": "true",
+                            "description": "Specifies if autofocus should happen on close."
+                        },
+                        {
                             "name": "focusTrap",
                             "optional": true,
                             "readonly": false,
@@ -12994,6 +13002,12 @@
                         "name": "closeicon",
                         "parameters": [],
                         "description": "Custom template of closeicon."
+                    },
+                    {
+                        "parent": "image",
+                        "name": "imagedescription",
+                        "parameters": [],
+                        "description": "Custom template of imagedescription."
                     }
                 ]
             }
