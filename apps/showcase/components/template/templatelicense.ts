@@ -13,8 +13,8 @@ import { ButtonModule } from 'primeng/button';
                         <div class="flex-1 border border-surface rounded-xl lg:rounded-2xl p-6 min-w-80">
                             <span class="text-surface-600 dark:text-surface-400 font-semibold">{{ licenseData?.title }}</span>
                             <div class="text-surface-900 dark:text-surface-0 text-4xl font-semibold mt-4 mb-5">
-                                <span [ngClass]="{ 'text-muted-color line-through mr-4': licenseData?.discount_price }">{{ licenseData?.price }}</span>
-                                <span>{{ licenseData?.discount_price }}</span>
+                                <span [ngClass]="{ 'text-muted-color line-through mr-4': license?.showDiscount }">{{ licenseData?.price }}</span>
+                                <span *ngIf="license?.showDiscount">{{ licenseData?.discount_price }}</span>
                             </div>
                             <div class="flex flex-col gap-2 mb-5">
                                 <ng-container *ngFor="let txt of licenseData?.included; let j = index">

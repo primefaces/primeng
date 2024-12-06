@@ -21,6 +21,7 @@ import {
     Output,
     Pipe,
     PipeTransform,
+    signal,
     TemplateRef,
     ViewChild,
     ViewEncapsulation
@@ -46,6 +47,10 @@ type Meter = {
  * Password directive.
  * @group Components
  */
+
+// strengthClass(meter: any) {
+//     return `p-password-meter-label p-password-meter${meter?.strength ? `-${meter.strength}` : ''}`;
+// }
 @Directive({
     selector: '[pPassword]',
     standalone: true,
@@ -103,7 +108,7 @@ export class PasswordDirective extends BaseComponent implements OnDestroy, DoChe
 
     panel: Nullable<HTMLDivElement>;
 
-    meter: Nullable<Meter>;
+    meter: Nullable<HTMLDivElement>;
 
     info: Nullable<HTMLDivElement>;
 
@@ -167,6 +172,7 @@ export class PasswordDirective extends BaseComponent implements OnDestroy, DoChe
 
             this.renderer.setStyle(this.panel, 'minWidth', `${this.el.nativeElement.offsetWidth}px`);
             this.renderer.appendChild(document.body, this.panel);
+            this.updateMeter();
         }
     }
 
@@ -214,6 +220,8 @@ export class PasswordDirective extends BaseComponent implements OnDestroy, DoChe
         this.hideOverlay();
     }
 
+    labelSignal = signal('');
+
     @HostListener('keyup', ['$event'])
     onKeyup(e: Event) {
         if (this.feedback) {
@@ -237,6 +245,9 @@ export class PasswordDirective extends BaseComponent implements OnDestroy, DoChe
                     label = this.strongLabel;
                     meterPos = '0px -30px';
                 }
+
+                this.labelSignal.set(label);
+                this.updateMeter();
             }
 
             if (!this.panel || !hasClass(this.panel, 'p-connected-overlay-visible')) {
@@ -244,8 +255,29 @@ export class PasswordDirective extends BaseComponent implements OnDestroy, DoChe
             }
 
             this.renderer.setStyle(this.meter, 'backgroundPosition', meterPos);
+
             (this.info as HTMLDivElement).textContent = label;
         }
+    }
+
+    updateMeter() {
+        if (this.labelSignal()) {
+            const label = this.labelSignal();
+            const strengthClass = this.strengthClass(label.toLowerCase());
+            const width = this.getWidth(label.toLowerCase());
+
+            this.renderer.addClass(this.meter, strengthClass);
+            this.renderer.setStyle(this.meter, 'width', width);
+            (this.info as HTMLDivElement).textContent = label;
+        }
+    }
+
+    getWidth(label: string) {
+        return label === 'weak' ? '33.33%' : label === 'medium' ? '66.66%' : label === 'strong' ? '100%' : '';
+    }
+
+    strengthClass(label) {
+        return `p-password-meter${label ? `-${label}` : ''}`;
     }
 
     testStrength(str: string) {
@@ -375,7 +407,7 @@ export const Password_VALUE_ACCESSOR: any = {
                 [attr.id]="inputId"
                 pInputText
                 [disabled]="disabled"
-                [size]="size"
+                [pSize]="size"
                 [ngClass]="disabled | mapper: inputFieldClass"
                 [ngStyle]="inputStyle"
                 [class]="inputStyleClass"

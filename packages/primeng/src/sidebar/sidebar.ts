@@ -377,7 +377,7 @@ export class Sidebar extends BaseComponent implements AfterViewInit, AfterConten
 
     appendContainer() {
         if (this.appendTo) {
-            return this.appendTo === 'body' ? this.renderer.appendChild(this.document.body, this.container) : appendChild(this.container, this.appendTo);
+            return this.appendTo === 'body' ? this.renderer.appendChild(this.document.body, this.container) : appendChild(this.appendTo, this.container);
         }
     }
 

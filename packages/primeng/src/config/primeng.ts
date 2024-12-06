@@ -1,8 +1,7 @@
-import { Inject, inject, Injectable, Optional, PLATFORM_ID, signal } from '@angular/core';
+import { inject, Injectable, PLATFORM_ID, signal } from '@angular/core';
 import { FilterMatchMode, OverlayOptions, Translation } from 'primeng/api';
 import { Subject } from 'rxjs';
-import { PRIME_NG_CONFIG, PrimeNGConfigType } from './provideprimeng';
-import { ThemeProvider } from './themeprovider';
+import { ThemeConfigType, ThemeProvider } from './themeprovider';
 
 // Type for zIndex
 export type ZIndex = {
@@ -11,6 +10,16 @@ export type ZIndex = {
     menu: number;
     tooltip: number;
 };
+
+export type PrimeNGConfigType = {
+    ripple?: boolean;
+    inputStyle?: 'outlined' | 'filled';
+    csp?: {
+        nonce: string | undefined;
+    };
+    overlayOptions?: OverlayOptions;
+    translation?: Translation;
+} & ThemeConfigType;
 
 @Injectable({ providedIn: 'root' })
 export class PrimeNG extends ThemeProvider {
@@ -97,7 +106,7 @@ export class PrimeNG extends ThemeProvider {
         passwordPrompt: 'Enter a password',
         emptyMessage: 'No results found',
         searchMessage: 'Search results are available',
-        selectionMessage: 'Items selected',
+        selectionMessage: '{0} items selected',
         emptySelectionMessage: 'No selected item',
         emptySearchMessage: 'No results found',
         emptyFilterMessage: 'No results found',
@@ -172,11 +181,6 @@ export class PrimeNG extends ThemeProvider {
 
     translationObserver = this.translationSource.asObservable();
 
-    constructor(@Inject(PRIME_NG_CONFIG) @Optional() public _config: PrimeNGConfigType) {
-        super(_config);
-        this.setConfig(_config);
-    }
-
     getTranslation(key: string): any {
         return this.translation[key as keyof typeof this.translation];
     }
@@ -186,10 +190,18 @@ export class PrimeNG extends ThemeProvider {
         this.translationSource.next(this.translation);
     }
 
-    private setConfig(config: PrimeNGConfigType): void {
-        const { csp, ripple, inputStyle } = config || {};
+    setConfig(config: PrimeNGConfigType): void {
+        const { csp, ripple, inputStyle, theme, overlayOptions, translation } = config || {};
+
         if (csp) this.csp.set(csp);
         if (ripple) this.ripple.set(ripple);
         if (inputStyle) this.inputStyle.set(inputStyle);
+        if (overlayOptions) this.overlayOptions = overlayOptions;
+        if (translation) this.setTranslation(translation);
+
+        if (theme)
+            this.setThemeConfig({
+                theme
+            } as ThemeConfigType);
     }
 }

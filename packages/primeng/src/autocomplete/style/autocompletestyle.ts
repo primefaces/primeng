@@ -72,9 +72,6 @@ const theme = ({ dt }) => `
 }
 
 .p-autocomplete-overlay {
-    position: absolute;
-    top: 0;
-    left: 0;
     background: ${dt('autocomplete.overlay.background')};
     color: ${dt('autocomplete.overlay.color')};
     border: 1px solid ${dt('autocomplete.overlay.border.color')};
@@ -269,6 +266,10 @@ const theme = ({ dt }) => `
     cursor: pointer;
     right: ${dt('autocomplete.padding.x')};
     color: ${dt('autocomplete.dropdown.color')};
+}
+
+.p-autocomplete:has(.p-autocomplete-dropdown) .p-autocomplete-clear-icon {
+    right: calc(${dt('autocomplete.padding.x')} + ${dt('autocomplete.dropdown.width')});
 }
 
 p-autocomplete.ng-invalid.ng-dirty .p-autocomplete-input,

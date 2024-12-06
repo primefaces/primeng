@@ -30,7 +30,7 @@ body:
       placeholder: https://stackblitz.com/github/primefaces/primeng-issue-template
       description: |
         Please fork one of the issue template
-        [PrimeNG Issue Template](https://stackblitz.com/github/primefaces/primeng-issue-template)
+        [PrimeNG Issue Template](https://stackblitz.com/github/primefaces/primeng-issue-template?file=src%2Fapp%2Fapp.component.html)
         and create a case demonstrating your bug report. Issues **without** a StackBlitz example have much less possibility to be reviewed.
     validations:
       required: false

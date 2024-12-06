@@ -74,7 +74,7 @@ export class DialogService {
         if (!config.appendTo || config.appendTo === 'body') {
             this.document.body.appendChild(domElem);
         } else {
-            appendChild(domElem, config.appendTo);
+            appendChild(config.appendTo, domElem);
         }
 
         this.dialogComponentRefMap.set(dialogRef, componentRef);

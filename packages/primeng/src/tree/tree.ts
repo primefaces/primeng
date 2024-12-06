@@ -4,6 +4,7 @@ import {
     ChangeDetectionStrategy,
     Component,
     ContentChild,
+    ContentChildren,
     ElementRef,
     EventEmitter,
     forwardRef,
@@ -16,6 +17,7 @@ import {
     OnInit,
     Optional,
     Output,
+    QueryList,
     SimpleChanges,
     TemplateRef,
     ViewChild,
@@ -23,7 +25,7 @@ import {
 } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { find, findSingle, focus, hasClass, removeAccents, resolveFieldData } from '@primeuix/utils';
-import { BlockableUI, ScrollerOptions, SharedModule, TranslationKeys, TreeDragDropService, TreeNode } from 'primeng/api';
+import { BlockableUI, PrimeTemplate, ScrollerOptions, SharedModule, TranslationKeys, TreeDragDropService, TreeNode } from 'primeng/api';
 import { BaseComponent } from 'primeng/basecomponent';
 import { Checkbox } from 'primeng/checkbox';
 import { IconField } from 'primeng/iconfield';
@@ -56,9 +58,9 @@ import {
         @if (node) {
             <li
                 *ngIf="tree.droppableNodes"
-                class="p-treenode-droppoint"
+                class="p-tree-node-droppoint"
                 [attr.aria-hidden]="true"
-                [ngClass]="{ 'p-treenode-droppoint-active': draghoverPrev }"
+                [ngClass]="{ 'p-tree-node-droppoint-active': draghoverPrev }"
                 (drop)="onDropPoint($event, -1)"
                 (dragover)="onDropPointDragOver($event)"
                 (dragenter)="onDropPointDragEnter($event, -1)"
@@ -138,15 +140,15 @@ import {
 
                     <span [class]="getIcon()" *ngIf="node.icon || node.expandedIcon || node.collapsedIcon"></span>
                     <span class="p-tree-node-label">
-                        <span *ngIf="!tree.nodeTemplate">{{ node.label }}</span>
-                        <span *ngIf="tree.nodeTemplate">
-                            <ng-container *ngTemplateOutlet="tree.nodeTemplate; context: { $implicit: node }"></ng-container>
+                        <span *ngIf="!tree.getTemplateForNode(node)">{{ node.label }}</span>
+                        <span *ngIf="tree.getTemplateForNode(node)">
+                            <ng-container *ngTemplateOutlet="tree.getTemplateForNode(node); context: { $implicit: node }"></ng-container>
                         </span>
                     </span>
                 </div>
                 <ul class="p-tree-node-children" style="display: none;" *ngIf="!tree.virtualScroll && node.children && node.expanded" [style.display]="node.expanded ? 'block' : 'none'" role="group">
                     <p-treeNode
-                        *ngFor="let childNode of node.children; let firstChild = first; let lastChild = last; let index = index; trackBy: tree.trackBy"
+                        *ngFor="let childNode of node.children; let firstChild = first; let lastChild = last; let index = index; trackBy: tree.trackBy.bind(this)"
                         [node]="childNode"
                         [parentNode]="node"
                         [firstChild]="firstChild"
@@ -174,7 +176,7 @@ import {
     encapsulation: ViewEncapsulation.None
 })
 export class UITreeNode extends BaseComponent implements OnInit {
-    static ICON_CLASS: string = 'p-treenode-icon ';
+    static ICON_CLASS: string = 'p-tree-node-icon ';
 
     @Input() rowNode: any;
 
@@ -610,7 +612,7 @@ export class UITreeNode extends BaseComponent implements OnInit {
     }
 
     setAllNodesTabIndexes() {
-        const nodes = <any>find(this.tree.el.nativeElement, '.p-treenode');
+        const nodes = <any>find(this.tree.el.nativeElement, '.p-tree-node');
 
         const hasSelectedNode = [...nodes].some((node) => node.getAttribute('aria-selected') === 'true' || node.getAttribute('aria-checked') === 'true');
 
@@ -655,7 +657,7 @@ export class UITreeNode extends BaseComponent implements OnInit {
     }
 
     findLastVisibleDescendant(nodeElement: any): any {
-        const listElement = <HTMLElement>Array.from(nodeElement.children).find((el: any) => hasClass(el, 'p-treenode'));
+        const listElement = <HTMLElement>Array.from(nodeElement.children).find((el: any) => hasClass(el, 'p-tree-node'));
         const childrenListElement = listElement?.children[1];
         if (childrenListElement && childrenListElement.children.length > 0) {
             const lastChildElement = childrenListElement.children[childrenListElement.children.length - 1];
@@ -769,7 +771,7 @@ export class UITreeNode extends BaseComponent implements OnInit {
                     <div #wrapper class="p-tree-root" [style.max-height]="scrollHeight">
                         <ul class="p-tree-root-children" *ngIf="getRootNode()" role="tree" [attr.aria-label]="ariaLabel" [attr.aria-labelledby]="ariaLabelledBy">
                             <p-treeNode
-                                *ngFor="let node of getRootNode(); let firstChild = first; let lastChild = last; let index = index; trackBy: trackBy"
+                                *ngFor="let node of getRootNode(); let firstChild = first; let lastChild = last; let index = index; trackBy: trackBy.bind(this)"
                                 [node]="node"
                                 [firstChild]="firstChild"
                                 [lastChild]="lastChild"
@@ -1112,6 +1114,54 @@ export class Tree extends BaseComponent implements OnInit, OnChanges, OnDestroy,
     @ViewChild('scroller') scroller: Nullable<Scroller>;
 
     @ViewChild('wrapper') wrapperViewChild: Nullable<ElementRef>;
+
+    @ContentChildren(PrimeTemplate) private _templates: QueryList<PrimeTemplate> | undefined;
+
+    ngAfterContentInit() {
+        if ((this._templates as QueryList<PrimeTemplate>).length) {
+            this._templateMap = {};
+        }
+
+        (this._templates as QueryList<PrimeTemplate>).forEach((item) => {
+            switch (item.getType()) {
+                case 'header':
+                    this.headerTemplate = item.template;
+                    break;
+
+                case 'empty':
+                    this.emptymessageTemplate = item.template;
+                    break;
+
+                case 'footer':
+                    this.footerTemplate = item.template;
+                    break;
+
+                case 'loader':
+                    this.loaderTemplate = item.template;
+                    break;
+
+                case 'togglericon':
+                    this.togglericonTemplate = item.template;
+                    break;
+
+                case 'checkboxicon':
+                    this.checkboxiconTemplate = item.template;
+                    break;
+
+                case 'loadingicon':
+                    this.loadingiconTemplate = item.template;
+                    break;
+
+                case 'filtericon':
+                    this.filtericonTemplate = item.template;
+                    break;
+
+                default:
+                    this._templateMap[<any>item.name] = item.template;
+                    break;
+            }
+        });
+    }
 
     serializedValue: Nullable<TreeNode<any>[]>;
 

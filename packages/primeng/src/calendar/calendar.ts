@@ -3126,7 +3126,7 @@ export class Calendar extends BaseComponent implements OnInit, OnDestroy, Contro
     appendOverlay() {
         if (this.appendTo) {
             if (this.appendTo === 'body') this.document.body.appendChild(<HTMLElement>this.overlay);
-            else appendChild(this.overlay, this.appendTo);
+            else appendChild(this.appendTo, this.overlay);
         }
     }
 

@@ -1,25 +1,6 @@
 import { animate, AnimationEvent, state, style, transition, trigger } from '@angular/animations';
 import { CommonModule, isPlatformBrowser } from '@angular/common';
-import {
-    AfterContentInit,
-    booleanAttribute,
-    ChangeDetectionStrategy,
-    Component,
-    ContentChild,
-    ElementRef,
-    EventEmitter,
-    HostListener,
-    inject,
-    Input,
-    NgModule,
-    NgZone,
-    numberAttribute,
-    OnDestroy,
-    Output,
-    TemplateRef,
-    ViewEncapsulation,
-    ViewRef
-} from '@angular/core';
+import { booleanAttribute, ChangeDetectionStrategy, Component, ContentChild, ElementRef, EventEmitter, HostListener, inject, Input, NgModule, NgZone, numberAttribute, OnDestroy, Output, TemplateRef, ViewEncapsulation, ViewRef } from '@angular/core';
 import { absolutePosition, addClass, appendChild, findSingle, getOffset, isIOS, isTouchDevice } from '@primeuix/utils';
 import { OverlayService, SharedModule } from 'primeng/api';
 import { BaseComponent } from 'primeng/basecomponent';
@@ -212,11 +193,15 @@ export class OverlayPanel extends BaseComponent implements OnDestroy {
 
     bindDocumentClickListener() {
         if (isPlatformBrowser(this.platformId)) {
-            if (!this.documentClickListener && this.dismissable) {
+            if (!this.documentClickListener) {
                 let documentEvent = isIOS() ? 'touchstart' : 'click';
                 const documentTarget: any = this.el ? this.el.nativeElement.ownerDocument : this.document;
 
                 this.documentClickListener = this.renderer.listen(documentTarget, documentEvent, (event) => {
+                    if (!this.dismissable) {
+                        return;
+                    }
+
                     if (!this.container?.contains(event.target) && this.target !== event.target && !this.target.contains(event.target) && !this.selfClick) {
                         this.hide();
                     }
@@ -298,7 +283,7 @@ export class OverlayPanel extends BaseComponent implements OnDestroy {
     appendContainer() {
         if (this.appendTo) {
             if (this.appendTo === 'body') this.renderer.appendChild(this.document.body, this.container);
-            else appendChild(this.container, this.appendTo);
+            else appendChild(this.appendTo, this.container);
         }
     }
 

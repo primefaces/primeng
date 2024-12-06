@@ -60,7 +60,6 @@ import { TooltipModule } from 'primeng/tooltip';
 import { Nullable } from 'primeng/ts-helpers';
 import { DropdownChangeEvent, DropdownFilterEvent, DropdownFilterOptions, DropdownLazyLoadEvent } from './dropdown.interface';
 import { DropdownStyle } from './style/dropdownstyle';
-import { useCustomJiti } from 'tailwindcss/src/lib/load-config';
 
 export const DROPDOWN_VALUE_ACCESSOR: any = {
     provide: NG_VALUE_ACCESSOR,

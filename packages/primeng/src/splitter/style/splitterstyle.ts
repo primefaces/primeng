@@ -73,6 +73,8 @@ const theme = ({ dt }) => `
 
 .p-splitterpanel-nested {
     display: flex;
+    flex-grow: 1;
+    justify-content: center;
 }
 
 .p-splitterpanel .p-splitter {
@@ -87,9 +89,9 @@ const classes = {
     gutterHandle: 'p-splitter-gutter-handle'
 };
 
-const inlineStyles = {
+/*const inlineStyles = {
     root: ({ props }) => [{ display: 'flex', 'flex-wrap': 'nowrap' }, props.layout === 'vertical' ? { 'flex-direction': 'column' } : '']
-};
+};*/
 
 @Injectable()
 export class SplitterStyle extends BaseStyle {
@@ -99,7 +101,7 @@ export class SplitterStyle extends BaseStyle {
 
     classes = classes;
 
-    inlineStyles = inlineStyles;
+    //inlineStyles = inlineStyles;
 }
 
 /**

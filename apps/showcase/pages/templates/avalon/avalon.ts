@@ -222,6 +222,7 @@ export class AvalonPage {
     license = {
         documentLink: 'https://avalon.primeng.org/documentation',
         description: 'The download package is an Angular CLI-based project containing all source code of the application deployed at the live demo. The project code is written in TypeScript.',
+        showDiscount: false,
         licenseDetails: [
             {
                 title: 'Basic License',

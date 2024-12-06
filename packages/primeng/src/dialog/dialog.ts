@@ -496,19 +496,19 @@ export class Dialog extends BaseComponent implements OnInit, OnDestroy {
      */
     @Input() headlessTemplate: TemplateRef<any> | undefined;
 
-    @ContentChild('header') _headerTemplate: TemplateRef<any> | undefined;
+    @ContentChild('header', { descendants: false }) _headerTemplate: TemplateRef<any> | undefined;
 
-    @ContentChild('content') _contentTemplate: TemplateRef<any> | undefined;
+    @ContentChild('content', { descendants: false }) _contentTemplate: TemplateRef<any> | undefined;
 
-    @ContentChild('footer') _footerTemplate: TemplateRef<any> | undefined;
+    @ContentChild('footer', { descendants: false }) _footerTemplate: TemplateRef<any> | undefined;
 
-    @ContentChild('closeicon') _closeiconTemplate: TemplateRef<any> | undefined;
+    @ContentChild('closeicon', { descendants: false }) _closeiconTemplate: TemplateRef<any> | undefined;
 
-    @ContentChild('maximizeicon') _maximizeiconTemplate: TemplateRef<any> | undefined;
+    @ContentChild('maximizeicon', { descendants: false }) _maximizeiconTemplate: TemplateRef<any> | undefined;
 
-    @ContentChild('minimizeicon') _minimizeiconTemplate: TemplateRef<any> | undefined;
+    @ContentChild('minimizeicon', { descendants: false }) _minimizeiconTemplate: TemplateRef<any> | undefined;
 
-    @ContentChild('headless') _headlessTemplate: TemplateRef<any> | undefined;
+    @ContentChild('headless', { descendants: false }) _headlessTemplate: TemplateRef<any> | undefined;
 
     _visible: boolean = false;
 
@@ -949,7 +949,7 @@ export class Dialog extends BaseComponent implements OnInit, OnDestroy {
     appendContainer() {
         if (this.appendTo) {
             if (this.appendTo === 'body') this.renderer.appendChild(this.document.body, this.wrapper);
-            else appendChild(this.wrapper, this.appendTo);
+            else appendChild(this.appendTo, this.wrapper);
         }
     }
 

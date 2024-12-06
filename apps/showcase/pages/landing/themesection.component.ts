@@ -9,13 +9,13 @@ import { IconField } from 'primeng/iconfield';
 import { InputIcon } from 'primeng/inputicon';
 import { InputTextModule } from 'primeng/inputtext';
 import { ProgressBar } from 'primeng/progressbar';
-import { Table } from 'primeng/table';
+import { Table, TableModule } from 'primeng/table';
 import { Tag } from 'primeng/tag';
 
 @Component({
     selector: 'theme-section',
     standalone: true,
-    imports: [CommonModule, Table, ButtonModule, Tag, ProgressBar, InputTextModule, IconField, InputIcon],
+    imports: [CommonModule, TableModule, ButtonModule, Tag, ProgressBar, InputTextModule, IconField, InputIcon],
     template: `
         <section class="landing-themes py-20">
             <div class="section-header">Components</div>
@@ -93,8 +93,10 @@ import { Tag } from 'primeng/tag';
                                     {{ customer.name }}
                                 </td>
                                 <td style="width: 14%; min-width: 14rem">
-                                    <img src="https://primefaces.org/cdn/primeng/images/demo/flag/flag_placeholder.png" [class]="'flag flag-' + customer.country.code" width="30" height="20" alt="country flag" />
-                                    <span class="ml-2 image-text">{{ customer.country.name }}</span>
+                                    <div class="flex items-center gap-2">
+                                        <img src="https://primefaces.org/cdn/primeng/images/demo/flag/flag_placeholder.png" [class]="'flag flag-' + customer.country.code" width="30" height="20" alt="country flag" />
+                                        <span>{{ customer.country.name }}</span>
+                                    </div>
                                 </td>
                                 <td style="width: 14%; min-width: 14rem">
                                     <div class="flex items-center gap-2">
@@ -106,7 +108,7 @@ import { Tag } from 'primeng/tag';
                                             style="vertical-align: middle"
                                             alt="representative"
                                         />
-                                        <span class="ml-2 image-text">{{ customer.representative.name }}</span>
+                                        <span>{{ customer.representative.name }}</span>
                                     </div>
                                 </td>
                                 <td style="width: 14%; min-width: 8rem">

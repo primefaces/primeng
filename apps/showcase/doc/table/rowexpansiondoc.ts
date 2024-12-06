@@ -69,7 +69,7 @@ import { TableRowCollapseEvent, TableRowExpandEvent } from 'primeng/table';
                             </td>
                         </tr>
                     </ng-template>
-                    <ng-template #rowexpansion let-product>
+                    <ng-template #expandedrow let-product>
                         <tr>
                             <td colspan="7">
                                 <div class="p-4">
@@ -218,7 +218,7 @@ export class RowExpansionDoc {
                 </td>
             </tr>
         </ng-template>
-        <ng-template #rowexpansion let-product>
+        <ng-template #expandedrow let-product>
             <tr>
                 <td colspan="7">
                     <div class="p-4">
@@ -292,7 +292,7 @@ export class RowExpansionDoc {
                 </td>
             </tr>
         </ng-template>
-        <ng-template #rowexpansion let-product>
+        <ng-template #expandedrow let-product>
             <tr>
                 <td colspan="7">
                     <div class="p-4">

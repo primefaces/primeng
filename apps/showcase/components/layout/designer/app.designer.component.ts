@@ -328,6 +328,7 @@ export class AppDesignerComponent {
         const localState = {
             themes: {
                 defaultTheme: {
+                    name: this.selectedPreset(),
                     preset: this.preset,
                     customTokens: this.customTokens
                 }
@@ -346,6 +347,7 @@ export class AppDesignerComponent {
             this.config.ripple.set(true);
         } else {
             document.body.classList.remove('material');
+            this.config.ripple.set(false);
         }
 
         this.preset = {
@@ -372,7 +374,11 @@ export class AppDesignerComponent {
 
                 if (defaultTheme.preset) {
                     this.preset = defaultTheme.preset;
-                    usePreset(this.preset);
+                    const mergedPreset = { ...this.preset, components: { ...presets[defaultTheme.name].components } };
+                    this.configService.appState.update((state) => ({ ...state, preset: defaultTheme.name }));
+
+                    usePreset(mergedPreset);
+                    this.designerService.setPreset(mergedPreset);
                 }
 
                 if (defaultTheme.customTokens) {

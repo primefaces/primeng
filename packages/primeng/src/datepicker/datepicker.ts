@@ -103,7 +103,7 @@ export const DATEPICKER_VALUE_ACCESSOR: any = {
                     [pAutoFocus]="autofocus"
                     [variant]="variant"
                     [fluid]="hasFluid"
-                    [size]="size"
+                    [pSize]="size"
                 />
                 <ng-container *ngIf="showClear && !disabled && value != null">
                     <TimesIcon *ngIf="!clearicon" [class]="'p-datepicker-clear-icon'" (click)="clear()" />
@@ -3153,7 +3153,7 @@ export class DatePicker extends BaseComponent implements OnInit, OnDestroy, Cont
     appendOverlay() {
         if (this.appendTo) {
             if (this.appendTo === 'body') this.document.body.appendChild(<HTMLElement>this.overlay);
-            else appendChild(this.overlay, this.appendTo);
+            else appendChild(this.appendTo, this.overlay);
         }
     }
 

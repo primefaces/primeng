@@ -161,6 +161,16 @@ const theme = ({ dt }) => `
 
 .p-tree .p-tree-node-droppoint-active {
     border: 0 none;
+    background-color: ${dt('primary.color')};
+}
+
+.p-tree-node-content.p-tree-node-dragover {
+    background: ${dt('tree.node.hover.background')};
+    color: ${dt('tree.node.hover.color')};
+}
+
+.p-tree-node-content.p-tree-node-dragover .p-tree-node-icon {
+    color: ${dt('tree.node.icon.hover.color')};
 }
 
 .p-tree-horizontal {
@@ -221,7 +231,7 @@ const classes = {
         'p-tree-selectable': instance.selectionMode != null,
         'p-tree-loading': instance.loading,
         'p-tree-flex-scrollable': instance.scrollHeight === 'flex',
-        'p-tree-node-tragover': instance.dragHover
+        'p-tree-node-dragover': instance.dragHover
     }),
     mask: 'p-tree-mask p-overlay-mask',
     loadingIcon: 'p-tree-loading-icon',
@@ -233,7 +243,7 @@ const classes = {
         'p-tree-node-content': true,
         [instance.styleClass]: !!instance.styleClass,
         'p-tree-node-selectable': instance.selectable,
-        'p-tree-node-dragover': instance.ragHoberNode,
+        'p-tree-node-dragover': instance.draghoverNode,
         'p-tree-node-selected': instance.selectionMode === 'checkbox' && instance.tree.highlightOnSelect ? instance.checked : instance.selected
     }),
     nodeToggleButton: 'p-tree-node-toggle-button',

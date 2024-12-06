@@ -22,7 +22,7 @@ export class BasicDoc implements OnInit {
     ngOnInit() {
         this.items = [{ label: 'Electronics' }, { label: 'Computer' }, { label: 'Accessories' }, { label: 'Keyboard' }, { label: 'Wireless' }];
 
-        this.home = { icon: 'pi pi-home', routerLink: '/' };
+        this.home = { icon: 'pi pi-home' };
     }
 
     code: Code = {
