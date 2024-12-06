@@ -80,7 +80,7 @@ const hideAnimation = animation([animate('{{transition}}', style({ transform: '{
                         *ngIf="option('rejectVisible')"
                         [label]="rejectButtonLabel"
                         (onClick)="onReject()"
-                        [styleClass]="cx('pcRejectButton', option('rejectButtonStyleClass'))"
+                        [styleClass]="getButtonStyleClass('pcRejectButton', 'rejectButtonStyleClass')"
                         [ariaLabel]="option('rejectButtonProps', 'ariaLabel')"
                         [buttonProps]="getRejectButtonProps()"
                     >
@@ -92,7 +92,7 @@ const hideAnimation = animation([animate('{{transition}}', style({ transform: '{
                     <p-button
                         [label]="acceptButtonLabel"
                         (onClick)="onAccept()"
-                        [styleClass]="cx('pcAcceptButton', option('acceptButtonStyleClass'))"
+                        [styleClass]="getButtonStyleClass('pcAcceptButton', 'acceptButtonStyleClass')"
                         *ngIf="option('acceptVisible')"
                         [ariaLabel]="option('acceptButtonProps', 'ariaLabel')"
                         [buttonProps]="getAcceptButtonProps()"
@@ -275,6 +275,7 @@ export class ConfirmDialog extends BaseComponent implements OnInit, OnDestroy {
     @Input() get visible(): any {
         return this._visible;
     }
+
     set visible(value: any) {
         this._visible = value;
 
@@ -432,6 +433,13 @@ export class ConfirmDialog extends BaseComponent implements OnInit, OnDestroy {
         }
 
         return undefined;
+    }
+
+    getButtonStyleClass(cx: string, opt: string): string {
+        const cxClass = this.cx(cx);
+        const optionClass = this.option(opt);
+
+        return [cxClass, optionClass].filter(Boolean).join(' ');
     }
 
     getElementToFocus() {
