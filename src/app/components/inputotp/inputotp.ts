@@ -311,6 +311,9 @@ export class InputOtp implements AfterContentInit {
 
                 break;
 
+            case 'Tab':
+                break;
+
             default:
                 if ((this.integerOnly && !((event.code.startsWith('Digit') || event.code.startsWith('Numpad')) && Number(event.key) >= 0 && Number(event.key) <= 9)) || (this.tokens.join('').length >= this.length && event.code !== 'Delete')) {
                     event.preventDefault();
