@@ -157,17 +157,19 @@ export class ToggleButton implements ControlValueAccessor {
     }
 
     toggle(event: Event) {
-        if (!this.disabled) {
-            this.checked = !this.checked;
-            this.onModelChange(this.checked);
-            this.onModelTouched();
-            this.onChange.emit({
-                originalEvent: event,
-                checked: this.checked
-            });
-
-            this.cd.markForCheck();
+        if (this.disabled) {
+            event.preventDefault();
+            event.stopPropagation();
+            return;
         }
+        this.checked = !this.checked;
+        this.onModelChange(this.checked);
+        this.onModelTouched();
+        this.onChange.emit({
+            originalEvent: event,
+            checked: this.checked
+        });
+        this.cd.markForCheck();
     }
 
     onKeyDown(event: KeyboardEvent) {
