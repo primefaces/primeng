@@ -1,6 +1,6 @@
 {
     "name": "showcase",
-    "version": "18.0.0-rc.2",
+    "version": "18.0.0",
     "license": "SEE LICENSE IN LICENSE.md",
     "scripts": {
         "ng": "ng",
