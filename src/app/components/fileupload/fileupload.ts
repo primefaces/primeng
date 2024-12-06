@@ -11,6 +11,7 @@ import {
     EventEmitter,
     Inject,
     Input,
+    LOCALE_ID,
     NgModule,
     NgZone,
     OnDestroy,
@@ -527,9 +528,12 @@ export class FileUpload implements AfterViewInit, AfterContentInit, OnInit, OnDe
 
     private fileUploadSubcription: Subscription;
 
+    private formatter;
+
     constructor(
         @Inject(DOCUMENT) private document: Document,
         @Inject(PLATFORM_ID) private platformId: any,
+        @Inject(LOCALE_ID) private locale: string,
         private renderer: Renderer2,
         private el: ElementRef,
         public sanitizer: DomSanitizer,
@@ -537,7 +541,9 @@ export class FileUpload implements AfterViewInit, AfterContentInit, OnInit, OnDe
         private http: HttpClient,
         public cd: ChangeDetectorRef,
         public config: PrimeNGConfig
-    ) {}
+    ) {
+        this.formatter = new Intl.NumberFormat(this.locale, { maximumFractionDigits: 3 })
+    }
 
     ngAfterContentInit() {
         this.templates?.forEach((item) => {
@@ -952,7 +958,6 @@ export class FileUpload implements AfterViewInit, AfterContentInit, OnInit, OnDe
 
     formatSize(bytes: number) {
         const k = 1024;
-        const dm = 3;
         const sizes = this.getTranslation(TranslationKeys.FILE_SIZE_TYPES);
 
         if (bytes === 0) {
@@ -960,7 +965,7 @@ export class FileUpload implements AfterViewInit, AfterContentInit, OnInit, OnDe
         }
 
         const i = Math.floor(Math.log(bytes) / Math.log(k));
-        const formattedSize = (bytes / Math.pow(k, i)).toFixed(dm);
+        const formattedSize = this.formatter.format(bytes / Math.pow(k, i));
 
         return `${formattedSize} ${sizes[i]}`;
     }
