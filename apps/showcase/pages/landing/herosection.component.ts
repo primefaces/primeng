@@ -196,7 +196,7 @@ import { OverviewApp } from './samples/overviewapp.component';
                                 <div
                                     *ngFor="let navItem of sampleAppsSidebarNavsMore"
                                     [pTooltip]="isSlimMenu ? navItem.title : null"
-                                    (click)="visibleRight = true"
+                                    (click)="dashboardSidebarVisible = true"
                                     class="px-4 py-1 flex items-center gap-1 cursor-pointer text-base rounded-lg transition-all select-none"
                                     [ngClass]="{
                                         'w-12 justify-center py-4': isSlimMenu,
@@ -220,172 +220,6 @@ import { OverviewApp } from './samples/overviewapp.component';
                             </div>
                         </div>
                     </div>
-                    <p-drawer [(visible)]="visibleRight" position="right" closeIcon="pi pi-sign-out" styleClass="!max-w-2xl !w-full !h-screen rounded-l-2xl">
-                        <ng-template #headless>
-                            <div class="flex flex-col h-screen overflow-auto">
-                                <div class="">
-                                    <div class="flex align-items-center gap-3 p-6">
-                                        <p-avatar image="https://www.primefaces.org/cdn/primevue/images/landing/apps/avatar11.jpg" size="large" class="rounded-xl overflow-hidden" />
-                                        <div class="flex-1">
-                                            <div class="leading-6 text-color font-medium">Brook Simmons</div>
-                                            <div class="mt-1 leading-5 text-muted-color text-sm">Sales Executive</div>
-                                        </div>
-                                        <p-button (onClick)="visibleRight = false" icon="pi pi-sign-out" text rounded severity="secondary" />
-                                    </div>
-                                    <p-selectbutton [(ngModel)]="selectedSidebarOption" [options]="sidebarOptions" class="w-full px-6 py-3" styleClass="flex-1 w-full py-2.5">
-                                        <ng-template pTemplate="item" let-item>
-                                            <span class="text-sm">{{ item }}</span>
-                                        </ng-template>
-                                    </p-selectbutton>
-                                </div>
-                                <div *ngIf="selectedSidebarOption === 'Interaction Logs'" class="h-[calc(100%-172px)] flex flex-col gap-4 p-6">
-                                    <div class="h-1/3 flex flex-col p-3 rounded-xl bg-emphasis">
-                                        <div class="flex items-start justify-between">
-                                            <div class="leading-6 font-medium text-color">Call Logs</div>
-                                            <p-button icon="pi pi-download text-sm" styleClass="w-8 h-8 !border-surface !bg-surface-0 dark:!bg-surface-900 hover:opacity-75 transition-all" severity="secondary" text />
-                                        </div>
-                                        <div class="overflow-y-auto flex-1 bg-surface-0 dark:bg-surface-900 mt-2 flex flex-col rounded-lg overflow-hidden divide-y divide-surface-200 dark:divide-surface-800">
-                                            <div *ngFor="let data of callLogs" class="flex items-center gap-3 p-2">
-                                                <p-overlayBadge severity="success" styleClass="w-fit">
-                                                    <p-avatar [image]="data.image" size="normal" styleClass="rounded-md w-10 h-10 overflow-hidden flex" />
-                                                </p-overlayBadge>
-
-                                                <div class="flex-1">
-                                                    <div class="text-sm leading-5 font-medium text-color">{{ data.name }}</div>
-                                                    <div class="mt-1 text-sm leading-5 text-muted-color">{{ data.time }}</div>
-                                                </div>
-                                                <p-button icon="pi pi-phone text-sm" text styleClass="bg-primary/10 dark:bg-primary/20 w-8 h-8" />
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="h-1/3 flex flex-col p-3 rounded-xl bg-emphasis">
-                                        <div class="flex items-start justify-between">
-                                            <div class="leading-6 font-medium text-color">Email Records</div>
-                                            <p-button icon="pi pi-download text-sm" styleClass="w-8 h-8 !border-surface !bg-surface-0 dark:!bg-surface-900 hover:opacity-75 transition-all" severity="secondary" text />
-                                        </div>
-                                        <div class="overflow-y-auto flex-1 bg-surface-0 dark:bg-surface-900 mt-2 flex flex-col rounded-lg overflow-hidden divide-y divide-surface-200 dark:divide-surface-800">
-                                            <div *ngFor="let data of emailRecords" class="flex items-center gap-3 p-2">
-                                                <p-overlayBadge severity="danger" styleClass="w-fit">
-                                                    <p-avatar [image]="data.image" size="normal" styleClass="rounded-md overflow-hidden w-10 h-10 flex" />
-                                                </p-overlayBadge>
-
-                                                <div class="w-1/5 text-sm leading-5 font-medium text-color">{{ data.name }}</div>
-                                                <div class="flex-1">
-                                                    <div class="text-sm leading-5 font-medium text-color line-clamp-2">
-                                                        {{ data.title }}
-                                                        <span class="text-muted-color">
-                                                            {{ data.text }}
-                                                        </span>
-                                                    </div>
-                                                </div>
-                                                <div class="w-1/6 text-sm leading-5 text-muted-color text-right">
-                                                    {{ data.time }}
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="h-1/3 flex flex-col p-3 rounded-xl bg-emphasis">
-                                        <div class="flex items-start justify-between">
-                                            <div class="leading-6 font-medium text-color">Meeting Notes</div>
-                                            <p-button icon="pi pi-download text-sm" styleClass="w-8 h-8 !border-surface !bg-surface-0 dark:!bg-surface-900 hover:opacity-75 transition-all leading-none" severity="secondary" text />
-                                        </div>
-                                        <div class="overflow-y-auto flex-1 bg-surface-0 dark:bg-surface-900 mt-2 p-4 flex flex-col rounded-lg overflow-hidden">
-                                            <div class="flex items-start justify-between gap-1">
-                                                <div class="text-sm text-color font-medium max-w-60">Subject: Meeting Wrap-up & Action Items: Jacob Jones</div>
-                                                <div class="text-sm text-muted-color">February 14, 2024 / 2:00 PM</div>
-                                            </div>
-                                            <div class="text-sm text-muted-color mt-6">
-                                                Here's a quick review of our meeting with Brook Simmons and next steps. Summary:
-                                                <br />
-                                                <br />
-                                                <ul class="list-disc pl-5">
-                                                    <li>Reviewed our SaaS solution and its features.</li>
-                                                    <li>Arlene McCoy intrigued by user experience potential.</li>
-                                                    <li>Voiced concerns on integration with current system.Action Items:</li>
-                                                </ul>
-                                                <br />
-                                                Demo: Schedule product demo with Arlene McCoy. (Assigned to: Jerome Bell)<br /><br />
-                                                Integration Blueprint: Draft and deliver technical blueprint. (Assigned to: Cameron Williamson)<br /><br />
-                                                Follow-up Meeting: Arrange to discuss any queries post-demo. (Assigned to: Dianne Russell)
-                                                <br /><br />
-                                                Please act on these items promptly.
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div *ngIf="selectedSidebarOption === 'Preferences'" class="h-[calc(100%-72px)] flex flex-col gap-4 p-6">
-                                    <div *ngFor="let data of preferences" class="h-1/4 flex flex-col p-3 rounded-xl bg-emphasis">
-                                        <div class="leading-6 font-medium text-color p-2">{{ data.title }}</div>
-                                        <div class="overflow-y-auto flex-1 bg-surface-0 dark:bg-surface-900 mt-2 p-4 flex flex-col gap-3 rounded-lg">
-                                            <div *ngFor="let pref of data.prefs" class="flex items-center gap-2">
-                                                <i class="text-lg text-color" [class]="pref.icon"></i>
-                                                <div class="font-medium text-color flex-1">{{ pref.title }}</div>
-                                                <p-toggleswitch [(ngModel)]="pref.checked" />
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div *ngIf="selectedSidebarOption === 'Opportunities'" class="grid grid-cols-2 gap-6 p-6">
-                                    <div *ngFor="let data of opportunities" class="flex flex-col p-3 rounded-xl bg-emphasis">
-                                        <div class="flex items-start justify-between gap-2">
-                                            <div class="font-medium text-color mt-0.5">{{ data.title }}</div>
-                                            <a [routerLink]="data.link" target="_blank" rel="noopener">
-                                                <p-button icon="pi pi-arrow-up-right text-sm !leading-none" styleClass="w-8 h-8 !border-surface !bg-surface-0 dark:!bg-surface-900" severity="secondary" text />
-                                            </a>
-                                        </div>
-                                        <img class="w-full rounded-lg mt-2 block" [src]="data.image" alt="Opportunutiy Image" />
-                                        <div class="flex-1 mt-2 p-2 rounded-lg bg-surface-0 dark:bg-surface-900 text-xs text-color">
-                                            {{ data.text }}
-                                        </div>
-                                    </div>
-                                </div>
-                                <div *ngIf="selectedSidebarOption === 'Statistics'" class="h-[calc(100%-160px)] p-6">
-                                    <div class="grid grid-cols-2 gap-4">
-                                        <div class="w-full h-full flex flex-col p-3 rounded-xl bg-emphasis">
-                                            <div class="flex items-center justify-between gap-2">
-                                                <div class="font-medium text-color p-2">Customer Satisfaction Score</div>
-                                            </div>
-                                            <div class="flex-1 py-4 mt-2 flex items-center justify-center rounded-lg bg-surface-0 dark:bg-surface-900 shadow-sm">
-                                                <p-knob [(ngModel)]="customerSatisfaction" [size]="150" [strokeWidth]="8" valueTemplate="{value}%" styleClass="pointer-events-none" />
-                                            </div>
-                                        </div>
-                                        <div class="w-full h-full flex flex-col p-3 rounded-xl bg-emphasis">
-                                            <div class="flex items-center justify-between gap-2">
-                                                <div class="font-medium text-color p-2">Estimated Lifetime Value</div>
-                                            </div>
-                                            <div class="flex-1 flex items-center gap-2 justify-center mt-2 p-2 rounded-lg bg-surface-0 dark:bg-surface-900 shadow-sm">
-                                                <div class="font-semibold text-lg leading-none text-color border border-surface py-3.5 px-2 rounded-lg">$</div>
-                                                <div class="font-semibold text-lg leading-none text-color border border-surface py-3.5 px-2 rounded-lg">272</div>
-                                                <div class="font-semibold text-lg leading-none text-color border border-surface py-3.5 px-2 rounded-lg">123</div>
-                                                <div class="font-semibold text-lg leading-none text-color border border-surface py-3.5 px-2 rounded-lg">000</div>
-                                            </div>
-                                        </div>
-                                        <div class="w-full h-full flex flex-col p-3 rounded-xl bg-emphasis">
-                                            <div class="flex items-center justify-between gap-2">
-                                                <div class="font-medium text-color p-2">Product Usage</div>
-                                            </div>
-                                            <div class="flex-1 mt-2 py-4 rounded-lg bg-surface-0 dark:bg-surface-900 shadow-sm">
-                                                <p-chart type="line" [data]="lineChartData" [options]="lineChartOptions" styleClass="min-h-44 w-full" width="100%" height="11rem" />
-                                            </div>
-                                        </div>
-                                        <div class="w-full h-full flex flex-col p-3 rounded-xl bg-emphasis">
-                                            <div class="font-medium text-color p-2">Churn Risk</div>
-                                            <div class="flex-1 py-4 mt-2 flex items-center justify-center rounded-lg bg-surface-0 dark:bg-surface-900 shadow-sm">
-                                                <p-knob [(ngModel)]="churnRisk" [size]="150" [strokeWidth]="8" valueTemplate="{value}%" class="pointer-events-none" />
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="mt-4 w-full flex flex-col p-3 rounded-xl bg-emphasis">
-                                        <div class="font-medium text-color p-2">Total Purchases</div>
-                                        <div class="flex-1 py-4 px-2 w-full mt-2 flex items-center justify-center rounded-lg bg-surface-0 dark:bg-surface-900 shadow-sm">
-                                            <p-chart type="bar" [data]="chartData2" [options]="chartOptions2" height="15rem" class="w-full" />
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </ng-template>
-                    </p-drawer>
-
                     <overview-app *ngIf="selectedSampleAppsSidebarNav === 'Overview'" />
                     <chat-app *ngIf="selectedSampleAppsSidebarNav === 'Chat'" />
                     <inbox-app *ngIf="selectedSampleAppsSidebarNav === 'Inbox'" />
@@ -394,6 +228,171 @@ import { OverviewApp } from './samples/overviewapp.component';
                     <customers-app *ngIf="selectedSampleAppsSidebarNav === 'Customers'" />
                 </div>
             </div>
+            <p-drawer [(visible)]="dashboardSidebarVisible" position="right" closeIcon="pi pi-sign-out" styleClass="!max-w-2xl !w-full !h-screen rounded-l-2xl">
+                <ng-template #headless>
+                    <div class="flex flex-col h-screen overflow-auto">
+                        <div class="">
+                            <div class="flex align-items-center gap-3 p-6">
+                                <p-avatar image="https://www.primefaces.org/cdn/primevue/images/landing/apps/avatar11.jpg" size="large" class="rounded-xl overflow-hidden" />
+                                <div class="flex-1">
+                                    <div class="leading-6 text-color font-medium">Brook Simmons</div>
+                                    <div class="mt-1 leading-5 text-muted-color text-sm">Sales Executive</div>
+                                </div>
+                                <p-button (onClick)="dashboardSidebarVisible = false" icon="pi pi-sign-out" text rounded severity="secondary" />
+                            </div>
+                            <p-selectbutton [(ngModel)]="selectedSidebarOption" [options]="sidebarOptions" class="w-full px-6 py-3" styleClass="flex-1 w-full py-2.5">
+                                <ng-template pTemplate="item" let-item>
+                                    <span class="text-sm">{{ item }}</span>
+                                </ng-template>
+                            </p-selectbutton>
+                        </div>
+                        <div *ngIf="selectedSidebarOption === 'Interaction Logs'" class="h-[calc(100%-172px)] flex flex-col gap-4 p-6">
+                            <div class="h-1/3 flex flex-col p-3 rounded-xl bg-emphasis">
+                                <div class="flex items-start justify-between">
+                                    <div class="leading-6 font-medium text-color">Call Logs</div>
+                                    <p-button icon="pi pi-download text-sm" styleClass="w-8 h-8 !border-surface !bg-surface-0 dark:!bg-surface-900 hover:opacity-75 transition-all" severity="secondary" text />
+                                </div>
+                                <div class="overflow-y-auto flex-1 bg-surface-0 dark:bg-surface-900 mt-2 flex flex-col rounded-lg overflow-hidden divide-y divide-surface-200 dark:divide-surface-800">
+                                    <div *ngFor="let data of callLogs" class="flex items-center gap-3 p-2">
+                                        <p-overlayBadge severity="success" styleClass="w-fit">
+                                            <p-avatar [image]="data.image" size="normal" styleClass="rounded-md w-10 h-10 overflow-hidden flex" />
+                                        </p-overlayBadge>
+
+                                        <div class="flex-1">
+                                            <div class="text-sm leading-5 font-medium text-color">{{ data.name }}</div>
+                                            <div class="mt-1 text-sm leading-5 text-muted-color">{{ data.time }}</div>
+                                        </div>
+                                        <p-button icon="pi pi-phone text-sm" text styleClass="bg-primary/10 dark:bg-primary/20 w-8 h-8" />
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="h-1/3 flex flex-col p-3 rounded-xl bg-emphasis">
+                                <div class="flex items-start justify-between">
+                                    <div class="leading-6 font-medium text-color">Email Records</div>
+                                    <p-button icon="pi pi-download text-sm" styleClass="w-8 h-8 !border-surface !bg-surface-0 dark:!bg-surface-900 hover:opacity-75 transition-all" severity="secondary" text />
+                                </div>
+                                <div class="overflow-y-auto flex-1 bg-surface-0 dark:bg-surface-900 mt-2 flex flex-col rounded-lg overflow-hidden divide-y divide-surface-200 dark:divide-surface-800">
+                                    <div *ngFor="let data of emailRecords" class="flex items-center gap-3 p-2">
+                                        <p-overlayBadge severity="danger" styleClass="w-fit">
+                                            <p-avatar [image]="data.image" size="normal" styleClass="rounded-md overflow-hidden w-10 h-10 flex" />
+                                        </p-overlayBadge>
+
+                                        <div class="w-1/5 text-sm leading-5 font-medium text-color">{{ data.name }}</div>
+                                        <div class="flex-1">
+                                            <div class="text-sm leading-5 font-medium text-color line-clamp-2">
+                                                {{ data.title }}
+                                                <span class="text-muted-color">
+                                                    {{ data.text }}
+                                                </span>
+                                            </div>
+                                        </div>
+                                        <div class="w-1/6 text-sm leading-5 text-muted-color text-right">
+                                            {{ data.time }}
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="h-1/3 flex flex-col p-3 rounded-xl bg-emphasis">
+                                <div class="flex items-start justify-between">
+                                    <div class="leading-6 font-medium text-color">Meeting Notes</div>
+                                    <p-button icon="pi pi-download text-sm" styleClass="w-8 h-8 !border-surface !bg-surface-0 dark:!bg-surface-900 hover:opacity-75 transition-all leading-none" severity="secondary" text />
+                                </div>
+                                <div class="overflow-y-auto flex-1 bg-surface-0 dark:bg-surface-900 mt-2 p-4 flex flex-col rounded-lg overflow-hidden">
+                                    <div class="flex items-start justify-between gap-1">
+                                        <div class="text-sm text-color font-medium max-w-60">Subject: Meeting Wrap-up & Action Items: Jacob Jones</div>
+                                        <div class="text-sm text-muted-color">February 14, 2024 / 2:00 PM</div>
+                                    </div>
+                                    <div class="text-sm text-muted-color mt-6">
+                                        Here's a quick review of our meeting with Brook Simmons and next steps. Summary:
+                                        <br />
+                                        <br />
+                                        <ul class="list-disc pl-5">
+                                            <li>Reviewed our SaaS solution and its features.</li>
+                                            <li>Arlene McCoy intrigued by user experience potential.</li>
+                                            <li>Voiced concerns on integration with current system.Action Items:</li>
+                                        </ul>
+                                        <br />
+                                        Demo: Schedule product demo with Arlene McCoy. (Assigned to: Jerome Bell)<br /><br />
+                                        Integration Blueprint: Draft and deliver technical blueprint. (Assigned to: Cameron Williamson)<br /><br />
+                                        Follow-up Meeting: Arrange to discuss any queries post-demo. (Assigned to: Dianne Russell)
+                                        <br /><br />
+                                        Please act on these items promptly.
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div *ngIf="selectedSidebarOption === 'Preferences'" class="h-[calc(100%-72px)] flex flex-col gap-4 p-6">
+                            <div *ngFor="let data of preferences" class="h-1/4 flex flex-col p-3 rounded-xl bg-emphasis">
+                                <div class="leading-6 font-medium text-color p-2">{{ data.title }}</div>
+                                <div class="overflow-y-auto flex-1 bg-surface-0 dark:bg-surface-900 mt-2 p-4 flex flex-col gap-3 rounded-lg">
+                                    <div *ngFor="let pref of data.prefs" class="flex items-center gap-2">
+                                        <i class="text-lg text-color" [class]="pref.icon"></i>
+                                        <div class="font-medium text-color flex-1">{{ pref.title }}</div>
+                                        <p-toggleswitch [(ngModel)]="pref.checked" />
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div *ngIf="selectedSidebarOption === 'Opportunities'" class="grid grid-cols-2 gap-6 p-6">
+                            <div *ngFor="let data of opportunities" class="flex flex-col p-3 rounded-xl bg-emphasis">
+                                <div class="flex items-start justify-between gap-2">
+                                    <div class="font-medium text-color mt-0.5">{{ data.title }}</div>
+                                    <a [routerLink]="data.link" target="_blank" rel="noopener">
+                                        <p-button icon="pi pi-arrow-up-right text-sm !leading-none" styleClass="w-8 h-8 !border-surface !bg-surface-0 dark:!bg-surface-900" severity="secondary" text />
+                                    </a>
+                                </div>
+                                <img class="w-full rounded-lg mt-2 block" [src]="data.image" alt="Opportunutiy Image" />
+                                <div class="flex-1 mt-2 p-2 rounded-lg bg-surface-0 dark:bg-surface-900 text-xs text-color">
+                                    {{ data.text }}
+                                </div>
+                            </div>
+                        </div>
+                        <div *ngIf="selectedSidebarOption === 'Statistics'" class="h-[calc(100%-160px)] p-6">
+                            <div class="grid grid-cols-2 gap-4">
+                                <div class="w-full h-full flex flex-col p-3 rounded-xl bg-emphasis">
+                                    <div class="flex items-center justify-between gap-2">
+                                        <div class="font-medium text-color p-2">Customer Satisfaction Score</div>
+                                    </div>
+                                    <div class="flex-1 py-4 mt-2 flex items-center justify-center rounded-lg bg-surface-0 dark:bg-surface-900 shadow-sm">
+                                        <p-knob [(ngModel)]="customerSatisfaction" [size]="150" [strokeWidth]="8" valueTemplate="{value}%" styleClass="pointer-events-none" />
+                                    </div>
+                                </div>
+                                <div class="w-full h-full flex flex-col p-3 rounded-xl bg-emphasis">
+                                    <div class="flex items-center justify-between gap-2">
+                                        <div class="font-medium text-color p-2">Estimated Lifetime Value</div>
+                                    </div>
+                                    <div class="flex-1 flex items-center gap-2 justify-center mt-2 p-2 rounded-lg bg-surface-0 dark:bg-surface-900 shadow-sm">
+                                        <div class="font-semibold text-lg leading-none text-color border border-surface py-3.5 px-2 rounded-lg">$</div>
+                                        <div class="font-semibold text-lg leading-none text-color border border-surface py-3.5 px-2 rounded-lg">272</div>
+                                        <div class="font-semibold text-lg leading-none text-color border border-surface py-3.5 px-2 rounded-lg">123</div>
+                                        <div class="font-semibold text-lg leading-none text-color border border-surface py-3.5 px-2 rounded-lg">000</div>
+                                    </div>
+                                </div>
+                                <div class="w-full h-full flex flex-col p-3 rounded-xl bg-emphasis">
+                                    <div class="flex items-center justify-between gap-2">
+                                        <div class="font-medium text-color p-2">Product Usage</div>
+                                    </div>
+                                    <div class="flex-1 mt-2 py-4 rounded-lg bg-surface-0 dark:bg-surface-900 shadow-sm">
+                                        <p-chart type="line" [data]="lineChartData" [options]="lineChartOptions" styleClass="min-h-44 w-full" width="100%" height="11rem" />
+                                    </div>
+                                </div>
+                                <div class="w-full h-full flex flex-col p-3 rounded-xl bg-emphasis">
+                                    <div class="font-medium text-color p-2">Churn Risk</div>
+                                    <div class="flex-1 py-4 mt-2 flex items-center justify-center rounded-lg bg-surface-0 dark:bg-surface-900 shadow-sm">
+                                        <p-knob [(ngModel)]="churnRisk" [size]="150" [strokeWidth]="8" valueTemplate="{value}%" class="pointer-events-none" />
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="mt-4 w-full flex flex-col p-3 rounded-xl bg-emphasis">
+                                <div class="font-medium text-color p-2">Total Purchases</div>
+                                <div class="flex-1 py-4 px-2 w-full mt-2 flex items-center justify-center rounded-lg bg-surface-0 dark:bg-surface-900 shadow-sm">
+                                    <p-chart type="bar" [data]="chartData2" [options]="chartOptions2" height="15rem" class="w-full" />
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </ng-template>
+            </p-drawer>
         </section>
     `
 })
@@ -418,7 +417,7 @@ export class HeroSectionComponent implements OnInit, OnDestroy {
 
     switchValue: boolean = true;
 
-    visibleRight: boolean = false;
+    dashboardSidebarVisible: boolean = false;
 
     chartData: any;
 
