@@ -108,15 +108,36 @@ export class Textarea extends BaseComponent implements OnInit, AfterViewInit, On
     }
 
     resize(event?: Event) {
-        this.el.nativeElement.style.height = 'auto';
-        this.el.nativeElement.style.height = this.el.nativeElement.scrollHeight + 'px';
+        if (!this.el?.nativeElement || typeof window === 'undefined') return;
 
-        if (parseFloat(this.el.nativeElement.style.height) >= parseFloat(this.el.nativeElement.style.maxHeight)) {
-            this.el.nativeElement.style.overflowY = 'scroll';
-            this.el.nativeElement.style.height = this.el.nativeElement.style.maxHeight;
+        const textarea = this.el.nativeElement;
+        const clone = textarea.cloneNode(true);
+        const parent = textarea.parentNode;
+
+        clone.style.width = textarea.offsetWidth + 'px';
+        clone.style.height = 'auto';
+        clone.style.visibility = 'hidden';
+        clone.style.position = 'absolute';
+        clone.style.overflow = 'hidden';
+        clone.value = textarea.value;
+
+        parent.appendChild(clone);
+
+        let height = clone.scrollHeight;
+        const computedStyle = window.getComputedStyle(clone);
+        height += parseInt(computedStyle.borderTopWidth);
+        height += parseInt(computedStyle.borderBottomWidth);
+
+        const maxHeight = parseFloat(computedStyle.maxHeight);
+        if (maxHeight && height >= maxHeight) {
+            textarea.style.overflowY = 'scroll';
+            height = maxHeight;
         } else {
-            this.el.nativeElement.style.overflow = 'hidden';
+            textarea.style.overflow = 'hidden';
         }
+
+        textarea.style.height = height + 'px';
+        parent.removeChild(clone);
 
         this.onResize.emit(event || {});
     }
