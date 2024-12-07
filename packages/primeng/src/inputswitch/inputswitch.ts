@@ -1,4 +1,4 @@
-import { CommonModule } from '@angular/common';
+import { NgClass, NgStyle } from '@angular/common';
 import { booleanAttribute, ChangeDetectionStrategy, Component, ElementRef, EventEmitter, forwardRef, inject, Input, NgModule, numberAttribute, Output, ViewChild, ViewEncapsulation } from '@angular/core';
 import { NG_VALUE_ACCESSOR } from '@angular/forms';
 import { SharedModule } from 'primeng/api';
@@ -18,8 +18,7 @@ export const INPUTSWITCH_VALUE_ACCESSOR: any = {
  */
 @Component({
     selector: 'p-inputSwitch, p-inputswitch',
-    standalone: true,
-    imports: [CommonModule, AutoFocusModule, SharedModule],
+    imports: [NgStyle, NgClass, AutoFocusModule, SharedModule],
     template: `
         <div [ngClass]="cx('root')" [ngStyle]="sx('root')" [ngStyle]="style" [class]="styleClass" (click)="onClick($event)" [attr.data-pc-name]="'inputswitch'" [attr.data-pc-section]="'root'">
             <div class="p-hidden-accessible" [attr.data-pc-section]="'hiddenInputWrapper'" [attr.data-p-hidden-accessible]="true">
