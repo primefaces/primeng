@@ -1,4 +1,4 @@
-import { CommonModule } from '@angular/common';
+import { NgClass, NgStyle, NgTemplateOutlet } from '@angular/common';
 import { ChangeDetectionStrategy, Component, ContentChild, ElementRef, forwardRef, inject, Input, NgModule, TemplateRef, ViewChild, ViewEncapsulation } from '@angular/core';
 import { getOuterHeight } from '@primeuix/utils';
 import { SharedModule } from 'primeng/api';
@@ -8,18 +8,23 @@ import { MeterGroupStyle } from './style/metergroupstyle';
 
 @Component({
     selector: 'p-meterGroupLabel, p-metergrouplabel',
-    standalone: true,
-    imports: [CommonModule, SharedModule],
+    imports: [NgClass, NgStyle, NgTemplateOutlet, SharedModule],
     template: `
         <ol [ngClass]="labelClass">
-            <li *ngFor="let labelItem of value; let index = index; trackBy: parentInstance.trackByFn" class="p-metergroup-label">
-                <ng-container *ngIf="!iconTemplate">
-                    <i *ngIf="labelItem.icon" [class]="labelItem.icon" [ngClass]="{ 'p-metergroup-label-icon': true }" [ngStyle]="{ color: labelItem.color }"></i>
-                    <span *ngIf="!labelItem.icon" class="p-metergroup-label-marker" [ngStyle]="{ backgroundColor: labelItem.color }"></span>
-                </ng-container>
-                <ng-container *ngTemplateOutlet="iconTemplate; context: { $implicit: labelItem, icon: labelItem.icon }"></ng-container>
-                <span class="p-metergroup-label-text">{{ labelItem.label }} ({{ parentInstance.percentValue(labelItem.value) }})</span>
-            </li>
+            @for (labelItem of value; track parentInstance.trackByFn(index); let index = $index) {
+                <li class="p-metergroup-label">
+                    @if (!iconTemplate) {
+                        @if (labelItem.icon) {
+                            <i [class]="labelItem.icon" [ngClass]="{ 'p-metergroup-label-icon': true }" [ngStyle]="{ color: labelItem.color }"></i>
+                        }
+                        @if (!labelItem.icon) {
+                            <span class="p-metergroup-label-marker" [ngStyle]="{ backgroundColor: labelItem.color }"></span>
+                        }
+                    }
+                    <ng-container *ngTemplateOutlet="iconTemplate; context: { $implicit: labelItem, icon: labelItem.icon }"></ng-container>
+                    <span class="p-metergroup-label-text">{{ labelItem.label }} ({{ parentInstance.percentValue(labelItem.value) }})</span>
+                </li>
+            }
         </ol>
     `
 })
@@ -52,17 +57,18 @@ export class MeterGroupLabel {
  */
 @Component({
     selector: 'p-meterGroup, p-metergroup, p-meter-group',
-    standalone: true,
-    imports: [CommonModule, MeterGroupLabel, SharedModule],
+    imports: [NgClass, NgStyle, NgTemplateOutlet, MeterGroupLabel, SharedModule],
     template: `
         <div #container [ngClass]="containerClass" [attr.role]="'meter'" [attr.aria-valuemin]="min" [attr.aria-valuemax]="max" [attr.aria-valuenow]="totalPercent()" [ngStyle]="style" [class]="styleClass">
             @if (labelPosition === 'start') {
-                <p-meterGroupLabel *ngIf="!labelTemplate" [value]="value" [labelPosition]="labelPosition" [labelOrientation]="labelOrientation" [min]="min" [max]="max" [iconTemplate]="iconTemplate" />
+                @if (!labelTemplate) {
+                    <p-meterGroupLabel [value]="value" [labelPosition]="labelPosition" [labelOrientation]="labelOrientation" [min]="min" [max]="max" [iconTemplate]="iconTemplate" />
+                }
                 <ng-container *ngTemplateOutlet="labelTemplate; context: { $implicit: value, totalPercent: totalPercent(), percentages: percentages() }"></ng-container>
             }
             <ng-container *ngTemplateOutlet="startTemplate; context: { $implicit: value, totalPercent: totalPercent(), percentages: percentages() }"></ng-container>
             <div class="p-metergroup-meters">
-                <ng-container *ngFor="let meterItem of value; let index = index; trackBy: trackByFn">
+                @for (meterItem of value; track trackByFn(index); let index = $index) {
                     <ng-container
                         *ngTemplateOutlet="
                             meterTemplate;
@@ -77,14 +83,16 @@ export class MeterGroupLabel {
                         "
                     >
                     </ng-container>
-                    <ng-container *ngIf="!meterTemplate && meterItem.value > 0">
+                    @if (!meterTemplate && meterItem.value > 0) {
                         <span class="p-metergroup-meter" [ngStyle]="meterStyle(meterItem)"></span>
-                    </ng-container>
-                </ng-container>
+                    }
+                }
             </div>
             <ng-container *ngTemplateOutlet="endTemplate; context: { $implicit: value, totalPercent: totalPercent(), percentages: percentages() }"></ng-container>
             @if (labelPosition === 'end') {
-                <p-meterGroupLabel *ngIf="!labelTemplate" [value]="value" [labelPosition]="labelPosition" [labelOrientation]="labelOrientation" [min]="min" [max]="max" [iconTemplate]="iconTemplate" />
+                @if (!labelTemplate) {
+                    <p-meterGroupLabel [value]="value" [labelPosition]="labelPosition" [labelOrientation]="labelOrientation" [min]="min" [max]="max" [iconTemplate]="iconTemplate" />
+                }
                 <ng-container *ngTemplateOutlet="labelTemplate; context: { $implicit: value, totalPercent: totalPercent(), percentages: percentages() }"></ng-container>
             }
         </div>
