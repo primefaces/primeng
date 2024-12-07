@@ -15,6 +15,7 @@
     },
     "git": {
         "deploymentEnabled": {
+            "master": false,
             "v18": false
         }
     }
