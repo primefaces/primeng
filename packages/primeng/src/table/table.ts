@@ -155,7 +155,7 @@ export class TableService {
                 *ngIf="paginator && (paginatorPosition === 'top' || paginatorPosition == 'both')"
                 [templateLeft]="paginatorLeftTemplate"
                 [templateRight]="paginatorRightTemplate"
-                [dropdownAppendTo]="paginatorDropdownAppendTo"
+                [appendTo]="paginatorSelectAppendTo"
                 [dropdownScrollHeight]="paginatorDropdownScrollHeight"
                 [currentPageReportTemplate]="currentPageReportTemplate"
                 [showFirstLastIcon]="showFirstLastIcon"
@@ -297,7 +297,7 @@ export class TableService {
                 *ngIf="paginator && (paginatorPosition === 'bottom' || paginatorPosition == 'both')"
                 [templateLeft]="paginatorLeftTemplate || _paginatorLeftTemplate"
                 [templateRight]="paginatorRightTemplate || _paginatorRightTemplate"
-                [dropdownAppendTo]="paginatorDropdownAppendTo"
+                [appendTo]="paginatorSelectAppendTo"
                 [dropdownScrollHeight]="paginatorDropdownScrollHeight"
                 [currentPageReportTemplate]="currentPageReportTemplate"
                 [showFirstLastIcon]="showFirstLastIcon"
@@ -411,10 +411,10 @@ export class Table extends BaseComponent implements OnInit, AfterViewInit, After
      */
     @Input() paginatorStyleClass: string | undefined;
     /**
-     * Target element to attach the paginator dropdown overlay, valid values are "body" or a local ng-template variable of another element (note: use binding with brackets for template variables, e.g. [appendTo]="mydiv" for a div element having #mydiv as variable name).
+     * Target element to attach the paginator select overlay, valid values are "body" or a local ng-template variable of another element (note: use binding with brackets for template variables, e.g. [appendTo]="mydiv" for a div element having #mydiv as variable name).
      * @group Props
      */
-    @Input() paginatorDropdownAppendTo: HTMLElement | ElementRef | TemplateRef<any> | string | null | undefined | any;
+    @Input() paginatorSelectAppendTo: HTMLElement | ElementRef | TemplateRef<any> | string | null | undefined | any;
     /**
      * Paginator dropdown height of the viewport in pixels, a scrollbar is defined if height of list exceeds this value.
      * @group Props
