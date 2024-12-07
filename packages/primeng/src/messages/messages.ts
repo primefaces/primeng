@@ -24,66 +24,73 @@ import { MessagesStyle } from './style/messagesstyle';
                     <ng-container *ngTemplateOutlet="contentTemplate"></ng-container>
                 </div>
             } @else {
-                <div
-                    *ngFor="let msg of messages; let i = index"
-                    [ngClass]="cx('root')"
-                    [class]="'p-message-' + msg.severity"
-                    role="alert"
-                    [@messageAnimation]="{
-                        value: 'visible',
-                        params: {
-                            showTransitionParams: showTransitionOptions,
-                            hideTransitionParams: hideTransitionOptions
-                        }
-                    }"
-                >
-                    <div [ngClass]="cx('content')" [attr.data-pc-section]="'wrapper'" [attr.id]="msg.id || null">
-                        @if (msg.icon) {
-                            <span [ngClass]="cx('icon')" [class]="'pi ' + msg.icon" [attr.data-pc-section]="'icon'"> </span>
-                        } @else {
-                            <span [ngClass]="cx('icon')">
-                                @switch (msg.icon) {
-                                    @case ('success') {
-                                        <CheckIcon [attr.data-pc-section]="'icon'" />
+                @for (msg of messages; track msg; let i = $index) {
+                    <div
+                        [ngClass]="cx('root')"
+                        [class]="'p-message-' + msg.severity"
+                        role="alert"
+                        [@messageAnimation]="{
+                            value: 'visible',
+                            params: {
+                                showTransitionParams: showTransitionOptions,
+                                hideTransitionParams: hideTransitionOptions
+                            }
+                        }"
+                    >
+                        <div [ngClass]="cx('content')" [attr.data-pc-section]="'wrapper'" [attr.id]="msg.id || null">
+                            @if (msg.icon) {
+                                <span [ngClass]="cx('icon')" [class]="'pi ' + msg.icon" [attr.data-pc-section]="'icon'"> </span>
+                            } @else {
+                                <span [ngClass]="cx('icon')">
+                                    @switch (msg.icon) {
+                                        @case ('success') {
+                                            <CheckIcon [attr.data-pc-section]="'icon'" />
+                                        }
+                                        @case ('error') {
+                                            <TimesCircleIcon [attr.data-pc-section]="'icon'" />
+                                        }
+                                        @case ('danger') {
+                                            <TimesCircleIcon [attr.data-pc-section]="'icon'" />
+                                        }
+                                        @case ('warn') {
+                                            <ExclamationTriangleIcon [attr.data-pc-section]="'icon'" />
+                                        }
+                                        @default {
+                                            <InfoCircleIcon [attr.data-pc-section]="'icon'" />
+                                        }
                                     }
-                                    @case ('error') {
-                                        <TimesCircleIcon [attr.data-pc-section]="'icon'" />
-                                    }
-                                    @case ('danger') {
-                                        <TimesCircleIcon [attr.data-pc-section]="'icon'" />
-                                    }
-                                    @case ('warn') {
-                                        <ExclamationTriangleIcon [attr.data-pc-section]="'icon'" />
-                                    }
-                                    @default {
-                                        <InfoCircleIcon [attr.data-pc-section]="'icon'" />
-                                    }
+                                </span>
+                            }
+                            @if (escape) {
+                                @if (msg.text) {
+                                    <span [ngClass]="cx('text')">{{ msg.text }}</span>
                                 }
-                            </span>
-                        }
-                        @if (escape) {
-                            @if (msg.text) {
-                                <span [ngClass]="cx('text')">{{ msg.text }}</span>
+                                @if (msg.summary) {
+                                    <span [ngClass]="cx('text', 'p-message-summary')" [attr.data-pc-section]="'summary'">
+                                        {{ msg.summary }}
+                                    </span>
+                                }
+                                @if (msg.detail) {
+                                    <span [ngClass]="cx('text', 'p-message-detail')" [attr.data-pc-section]="'detail'">
+                                        {{ msg.detail }}
+                                    </span>
+                                }
+                            } @else {
+                                @if (msg.summary) {
+                                    <span class="p-message-summary" [innerHTML]="msg.summary" [attr.data-pc-section]="'summary'"></span>
+                                }
+                                @if (msg.detail) {
+                                    <span class="p-message-detail" [innerHTML]="msg.detail" [attr.data-pc-section]="'detail'"></span>
+                                }
                             }
-                            @if (msg.summary) {
-                                <span [ngClass]="cx('text', 'p-message-summary')" [attr.data-pc-section]="'summary'">
-                                    {{ msg.summary }}
-                                </span>
+                            @if (closable && (msg.closable ?? true)) {
+                                <p-button rounded text severity="secondary" [styleClass]="cx('closeButton')" (onClick)="removeMessage(i)" [ariaLabel]="closeAriaLabel" [attr.data-pc-section]="'closebutton'">
+                                    <TimesIcon [ngClass]="cx('closeIcon')" [attr.data-pc-section]="'closeicon'" />
+                                </p-button>
                             }
-                            @if (msg.detail) {
-                                <span [ngClass]="cx('text', 'p-message-detail')" [attr.data-pc-section]="'detail'">
-                                    {{ msg.detail }}
-                                </span>
-                            }
-                        } @else {
-                            <span *ngIf="msg.summary" class="p-message-summary" [innerHTML]="msg.summary" [attr.data-pc-section]="'summary'"></span>
-                            <span *ngIf="msg.detail" class="p-message-detail" [innerHTML]="msg.detail" [attr.data-pc-section]="'detail'"></span>
-                        }
-                        <p-button *ngIf="closable && (msg.closable ?? true)" rounded text severity="secondary" [styleClass]="cx('closeButton')" (onClick)="removeMessage(i)" [ariaLabel]="closeAriaLabel" [attr.data-pc-section]="'closebutton'">
-                            <TimesIcon [ngClass]="cx('closeIcon')" [attr.data-pc-section]="'closeicon'" />
-                        </p-button>
+                        </div>
                     </div>
-                </div>
+                }
             }
         </div>
     `,
