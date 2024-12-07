@@ -58,6 +58,7 @@ export const routes: Routes = [
             { path: 'image', loadChildren: () => import('@pages/image/imagedemo.module').then((m) => m.ImageDemoModule) },
             { path: 'inplace', loadChildren: () => import('@pages/inplace/inplacedemo.module').then((m) => m.InplaceDemoModule) },
             { path: 'metergroup', loadChildren: () => import('@pages/metergroup/metergroupdemo.module').then((m) => m.MeterGroupDemoModule) },
+            { path: 'calendarsoftrange', loadChildren: () => import('@pages/calendarsoftrange/calendarsoftrangedemo.module').then((m) => m.CalendarSoftRangeDemoModule) },
             { path: 'inputmask', loadChildren: () => import('@pages/inputmask/inputmaskdemo.module').then((m) => m.InputMaskDemoModule) },
             { path: 'inputnumber', loadChildren: () => import('@pages/inputnumber/inputnumberdemo.module').then((m) => m.InputNumberDemoModule) },
             { path: 'inputotp', loadChildren: () => import('@pages/inputotp/inputotpdemo.module').then((m) => m.InputOtpDemoModule) },

@@ -405,6 +405,11 @@
                             "routerLink": "/blockui"
                         },
                         {
+                            "name": "CalendarSoftRange",
+                            "routerLink": "/calendarsoftrange",
+                            "badge": "NEW"
+                        },
+                        {
                             "name": "Chip",
                             "routerLink": "/chip"
                         },
