@@ -1,4 +1,3 @@
-import { CommonModule } from '@angular/common';
 import { ChangeDetectionStrategy, Component, computed, forwardRef, inject, model, ViewEncapsulation } from '@angular/core';
 import { equals } from '@primeuix/utils';
 import { BaseComponent } from 'primeng/basecomponent';
@@ -10,8 +9,7 @@ import { Tabs } from './tabs';
  */
 @Component({
     selector: 'p-tabpanel',
-    standalone: true,
-    imports: [CommonModule],
+    imports: [],
     template: `@if (active()) {
         <ng-content></ng-content>
     }`,
