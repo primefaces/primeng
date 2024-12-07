@@ -1,4 +1,4 @@
-import { CommonModule } from '@angular/common';
+import { NgTemplateOutlet } from '@angular/common';
 import { booleanAttribute, ChangeDetectionStrategy, Component, ContentChild, EventEmitter, forwardRef, inject, Input, NgModule, numberAttribute, Output, TemplateRef, ViewEncapsulation } from '@angular/core';
 import { ControlValueAccessor, FormsModule, NG_VALUE_ACCESSOR } from '@angular/forms';
 import { equals, resolveFieldData } from '@primeuix/utils';
@@ -20,8 +20,7 @@ export const SELECTBUTTON_VALUE_ACCESSOR: any = {
  */
 @Component({
     selector: 'p-selectButton, p-selectbutton, p-select-button',
-    standalone: true,
-    imports: [Ripple, ToggleButton, FormsModule, CommonModule, SharedModule],
+    imports: [NgTemplateOutlet, Ripple, ToggleButton, FormsModule, SharedModule],
     template: `
         @for (option of options; track option; let i = $index) {
             <p-toggleButton
