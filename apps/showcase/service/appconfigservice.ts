@@ -1,4 +1,3 @@
-import { AppState } from '@/domain/appstate';
 import { DOCUMENT, isPlatformBrowser } from '@angular/common';
 import { computed, effect, inject, Injectable, PLATFORM_ID, signal } from '@angular/core';
 
@@ -9,15 +8,19 @@ export class AppConfigService {
     private readonly STORAGE_KEY = 'appConfigState';
 
     appState = signal<any>(null);
+
     designerActive = signal(false);
+
     newsActive = signal(false);
+
     document = inject(DOCUMENT);
+
     platformId = inject(PLATFORM_ID);
 
     theme = computed(() => (this.appState()?.darkTheme ? 'dark' : 'light'));
 
     constructor() {
-        this.appState.set(this.loadAppState());
+        this.appState.set({ ...this.loadAppState() });
         effect(() => {
             const state = this.appState();
             if (state) {
@@ -74,7 +77,7 @@ export class AppConfigService {
         return {
             preset: 'Aura',
             primary: 'noir',
-            surface: 'slate',
+            surface: null,
             darkTheme: false,
             menuActive: false,
             designerKey: 'primeng-designer-theme',
