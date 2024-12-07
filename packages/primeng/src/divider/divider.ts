@@ -1,4 +1,3 @@
-import { CommonModule } from '@angular/common';
 import { ChangeDetectionStrategy, Component, HostBinding, inject, Input, NgModule, ViewEncapsulation } from '@angular/core';
 import { SharedModule } from 'primeng/api';
 import { BaseComponent } from 'primeng/basecomponent';
@@ -10,8 +9,7 @@ import { DividerStyle } from './style/dividerstyle';
  */
 @Component({
     selector: 'p-divider',
-    standalone: true,
-    imports: [CommonModule, SharedModule],
+    imports: [SharedModule],
     template: `
         <div class="p-divider-content">
             <ng-content></ng-content>
