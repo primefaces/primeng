@@ -1,4 +1,4 @@
-import { CommonModule } from '@angular/common';
+import { NgClass, NgStyle } from '@angular/common';
 import { booleanAttribute, ChangeDetectionStrategy, Component, ElementRef, EventEmitter, forwardRef, inject, Injectable, Injector, Input, NgModule, numberAttribute, OnDestroy, OnInit, Output, ViewChild } from '@angular/core';
 import { ControlValueAccessor, NG_VALUE_ACCESSOR, NgControl } from '@angular/forms';
 import { SharedModule } from 'primeng/api';
@@ -52,8 +52,7 @@ export class RadioControlRegistry {
  */
 @Component({
     selector: 'p-radioButton, p-radiobutton, p-radio-button',
-    standalone: true,
-    imports: [CommonModule, AutoFocus, SharedModule],
+    imports: [NgClass, NgStyle, AutoFocus, SharedModule],
     template: `
         <div
             [ngStyle]="style"
