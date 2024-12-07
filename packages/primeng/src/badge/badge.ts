@@ -1,4 +1,3 @@
-import { CommonModule } from '@angular/common';
 import { AfterViewInit, booleanAttribute, ChangeDetectionStrategy, Component, computed, Directive, inject, Input, input, NgModule, OnChanges, SimpleChanges, ViewEncapsulation } from '@angular/core';
 import { addClass, hasClass, isEmpty, isNotEmpty, removeClass, uuid } from '@primeuix/utils';
 import { SharedModule } from 'primeng/api';
@@ -245,8 +244,7 @@ export class BadgeDirective extends BaseComponent implements OnChanges, AfterVie
             <span [ngClass]="containerClass()" [class]="styleClass()" [ngStyle]="style()">{{ value() }}</span>
         }
     `,
-    standalone: true,
-    imports: [CommonModule, SharedModule],
+    imports: [SharedModule],
     changeDetection: ChangeDetectionStrategy.OnPush,
     encapsulation: ViewEncapsulation.None,
     providers: [BadgeStyle]
