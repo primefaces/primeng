@@ -1,4 +1,3 @@
-import { CommonModule } from '@angular/common';
 import { booleanAttribute, ChangeDetectionStrategy, Component, computed, forwardRef, HostListener, inject, input, model, ViewEncapsulation } from '@angular/core';
 import { equals, focus, getAttribute } from '@primeuix/utils';
 import { SharedModule } from 'primeng/api';
@@ -13,8 +12,7 @@ import { Tabs } from './tabs';
  */
 @Component({
     selector: 'p-tab',
-    standalone: true,
-    imports: [CommonModule, Ripple, SharedModule],
+    imports: [Ripple, SharedModule],
     template: ` <ng-content></ng-content>`,
     changeDetection: ChangeDetectionStrategy.OnPush,
     encapsulation: ViewEncapsulation.None,
