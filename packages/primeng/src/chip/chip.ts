@@ -1,4 +1,4 @@
-import { CommonModule } from '@angular/common';
+import { NgClass, NgStyle, NgTemplateOutlet } from '@angular/common';
 import { booleanAttribute, ChangeDetectionStrategy, Component, ContentChild, EventEmitter, inject, Input, NgModule, Output, SimpleChanges, TemplateRef, ViewEncapsulation } from '@angular/core';
 import { SharedModule, TranslationKeys } from 'primeng/api';
 import { BaseComponent } from 'primeng/basecomponent';
@@ -12,34 +12,38 @@ import { ChipStyle } from './style/chipstyle';
  */
 @Component({
     selector: 'p-chip',
-    standalone: true,
-    imports: [CommonModule, TimesCircleIcon, SharedModule],
+    imports: [NgTemplateOutlet, TimesCircleIcon, SharedModule, NgStyle, NgClass],
     template: `
-        <div [ngClass]="containerClass()" [class]="styleClass" [ngStyle]="style" *ngIf="visible" [attr.data-pc-name]="'chip'" [attr.aria-label]="label" [attr.data-pc-section]="'root'">
-            <ng-content></ng-content>
-            <img class="p-chip-image" [src]="image" *ngIf="image; else iconTemplate" (error)="imageError($event)" [alt]="alt" />
-            <ng-template #iconTemplate><span *ngIf="icon" [class]="icon" [ngClass]="'p-chip-icon'" [attr.data-pc-section]="'icon'"></span></ng-template>
-            <div class="p-chip-label" *ngIf="label" [attr.data-pc-section]="'label'">{{ label }}</div>
-            <ng-container *ngIf="removable">
-                <ng-container *ngIf="!removeicon">
-                    <span
-                        tabindex="0"
-                        *ngIf="removeIcon"
-                        [class]="removeIcon"
-                        [ngClass]="'p-chip-remove-icon'"
-                        [attr.data-pc-section]="'removeicon'"
-                        (click)="close($event)"
-                        (keydown)="onKeydown($event)"
-                        [attr.aria-label]="removeAriaLabel"
-                        role="button"
-                    ></span>
-                    <TimesCircleIcon tabindex="0" *ngIf="!removeIcon" [class]="'p-chip-remove-icon'" [attr.data-pc-section]="'removeicon'" (click)="close($event)" (keydown)="onKeydown($event)" [attr.aria-label]="removeAriaLabel" role="button" />
-                </ng-container>
-                <span *ngIf="removeicon" tabindex="0" [attr.data-pc-section]="'removeicon'" class="p-chip-remove-icon" (click)="close($event)" (keydown)="onKeydown($event)" [attr.aria-label]="removeAriaLabel" role="button">
-                    <ng-template *ngTemplateOutlet="removeicon"></ng-template>
-                </span>
-            </ng-container>
-        </div>
+        @if (visible) {
+            <div [ngClass]="containerClass()" [class]="styleClass" [ngStyle]="style" [attr.data-pc-name]="'chip'" [attr.aria-label]="label" [attr.data-pc-section]="'root'">
+                <ng-content></ng-content>
+                @if (image) {
+                    <img class="p-chip-image" [src]="image" (error)="imageError($event)" [alt]="alt" />
+                } @else {
+                    @if (icon) {
+                        <span [class]="icon" [ngClass]="'p-chip-icon'" [attr.data-pc-section]="'icon'"></span>
+                    }
+                }
+                @if (label) {
+                    <div class="p-chip-label" [attr.data-pc-section]="'label'">{{ label }}</div>
+                }
+                @if (removable) {
+                    @if (!removeicon) {
+                        @if (removeIcon) {
+                            <span tabindex="0" [class]="removeIcon" [ngClass]="'p-chip-remove-icon'" [attr.data-pc-section]="'removeicon'" (click)="close($event)" (keydown)="onKeydown($event)" [attr.aria-label]="removeAriaLabel" role="button"></span>
+                        }
+                        @if (!removeIcon) {
+                            <TimesCircleIcon tabindex="0" [class]="'p-chip-remove-icon'" [attr.data-pc-section]="'removeicon'" (click)="close($event)" (keydown)="onKeydown($event)" [attr.aria-label]="removeAriaLabel" role="button" />
+                        }
+                    }
+                    @if (removeicon) {
+                        <span tabindex="0" [attr.data-pc-section]="'removeicon'" class="p-chip-remove-icon" (click)="close($event)" (keydown)="onKeydown($event)" [attr.aria-label]="removeAriaLabel" role="button">
+                            <ng-template *ngTemplateOutlet="removeicon"></ng-template>
+                        </span>
+                    }
+                }
+            </div>
+        }
     `,
     changeDetection: ChangeDetectionStrategy.OnPush,
     encapsulation: ViewEncapsulation.None,
