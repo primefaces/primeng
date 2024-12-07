@@ -1,4 +1,4 @@
-import { CommonModule } from '@angular/common';
+import { NgClass, NgTemplateOutlet } from '@angular/common';
 import { booleanAttribute, ChangeDetectionStrategy, Component, ContentChild, EventEmitter, forwardRef, HostBinding, inject, Input, NgModule, numberAttribute, Output, TemplateRef } from '@angular/core';
 import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
 import { SharedModule } from 'primeng/api';
@@ -20,8 +20,7 @@ export const TOGGLEBUTTON_VALUE_ACCESSOR: any = {
  */
 @Component({
     selector: 'p-toggleButton, p-togglebutton, p-toggle-button',
-    standalone: true,
-    imports: [Ripple, AutoFocus, CommonModule, SharedModule],
+    imports: [Ripple, AutoFocus, NgClass, NgTemplateOutlet, SharedModule],
     template: `
         <button
             pRipple
