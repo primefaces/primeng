@@ -1,4 +1,3 @@
-import { CommonModule } from '@angular/common';
 import { ChangeDetectionStrategy, Component, HostBinding, inject, Input, NgModule, ViewEncapsulation } from '@angular/core';
 import { BaseComponent } from 'primeng/basecomponent';
 import { IconFieldStyle } from './style/iconfieldstyle';
@@ -9,8 +8,7 @@ import { IconFieldStyle } from './style/iconfieldstyle';
  */
 @Component({
     selector: 'p-iconfield, p-iconField, p-icon-field',
-    standalone: true,
-    imports: [CommonModule],
+    imports: [],
     template: ` <ng-content></ng-content>`,
     providers: [IconFieldStyle],
     encapsulation: ViewEncapsulation.None,
