@@ -1,5 +1,6 @@
 import { animate, animation, style, transition, trigger, useAnimation } from '@angular/animations';
-import { CommonModule } from '@angular/common';
+
+import { NgClass, NgTemplateOutlet } from '@angular/common';
 import { AfterViewInit, booleanAttribute, ChangeDetectionStrategy, Component, ContentChild, ElementRef, EventEmitter, inject, Input, NgModule, numberAttribute, OnDestroy, Output, TemplateRef, ViewChild, ViewEncapsulation } from '@angular/core';
 import { addClass, appendChild, blockBodyScroll, setAttribute, unblockBodyScroll } from '@primeuix/utils';
 import { SharedModule } from 'primeng/api';
@@ -19,65 +20,68 @@ const hideAnimation = animation([animate('{{transition}}', style({ transform: '{
  */
 @Component({
     selector: 'p-drawer',
-    standalone: true,
-    imports: [CommonModule, Button, TimesIcon, SharedModule],
+    imports: [Button, TimesIcon, SharedModule, NgClass, NgTemplateOutlet],
     template: `
-        <div
-            #container
-            [ngClass]="{
-                'p-drawer': true,
-                'p-drawer-active': visible,
-                'p-drawer-left': position === 'left' && !fullScreen,
-                'p-drawer-right': position === 'right' && !fullScreen,
-                'p-drawer-top': position === 'top' && !fullScreen,
-                'p-drawer-bottom': position === 'bottom' && !fullScreen,
-                'p-drawer-full': fullScreen || position === 'full'
-            }"
-            *ngIf="visible"
-            [@panelState]="{ value: 'visible', params: { transform: transformOptions, transition: transitionOptions } }"
-            (@panelState.start)="onAnimationStart($event)"
-            (@panelState.done)="onAnimationEnd($event)"
-            [style]="style"
-            [class]="styleClass"
-            role="complementary"
-            [attr.data-pc-name]="'sidebar'"
-            [attr.data-pc-section]="'root'"
-            (keydown)="onKeyDown($event)"
-        >
-            <ng-container *ngTemplateOutlet="headlessTemplate || notHeadless"></ng-container>
-            <ng-template #notHeadless>
-                <div [ngClass]="cx('header')" [attr.data-pc-section]="'header'">
-                    <ng-container *ngTemplateOutlet="headerTemplate"></ng-container>
-                    <div *ngIf="header" [class]="cx('title')">{{ header }}</div>
-                    <p-button
-                        *ngIf="showCloseIcon && closable"
-                        [ngClass]="cx('closeButton')"
-                        (onClick)="close($event)"
-                        (keydown.enter)="close($event)"
-                        [buttonProps]="closeButtonProps"
-                        [ariaLabel]="ariaCloseLabel"
-                        [attr.data-pc-section]="'closebutton'"
-                        [attr.data-pc-group-section]="'iconcontainer'"
-                    >
-                        <ng-template #icon>
-                            <TimesIcon *ngIf="!closeiconTemplate" [attr.data-pc-section]="'closeicon'" />
-                            <ng-template *ngTemplateOutlet="closeiconTemplate"></ng-template>
-                        </ng-template>
-                    </p-button>
-                </div>
-
-                <div [ngClass]="cx('content')" [attr.data-pc-section]="'content'">
-                    <ng-content></ng-content>
-                    <ng-container *ngTemplateOutlet="contentTemplate"></ng-container>
-                </div>
-
-                <ng-container *ngIf="footerTemplate">
-                    <div [ngClass]="cx('footer')" [attr.data-pc-section]="'footer'">
-                        <ng-container *ngTemplateOutlet="footerTemplate"></ng-container>
+        @if (visible) {
+            <div
+                #container
+                [ngClass]="{
+                    'p-drawer': true,
+                    'p-drawer-active': visible,
+                    'p-drawer-left': position === 'left' && !fullScreen,
+                    'p-drawer-right': position === 'right' && !fullScreen,
+                    'p-drawer-top': position === 'top' && !fullScreen,
+                    'p-drawer-bottom': position === 'bottom' && !fullScreen,
+                    'p-drawer-full': fullScreen || position === 'full'
+                }"
+                [@panelState]="{ value: 'visible', params: { transform: transformOptions, transition: transitionOptions } }"
+                (@panelState.start)="onAnimationStart($event)"
+                (@panelState.done)="onAnimationEnd($event)"
+                [style]="style"
+                [class]="styleClass"
+                role="complementary"
+                [attr.data-pc-name]="'sidebar'"
+                [attr.data-pc-section]="'root'"
+                (keydown)="onKeyDown($event)"
+            >
+                <ng-container *ngTemplateOutlet="headlessTemplate || notHeadless"></ng-container>
+                <ng-template #notHeadless>
+                    <div [ngClass]="cx('header')" [attr.data-pc-section]="'header'">
+                        <ng-container *ngTemplateOutlet="headerTemplate"></ng-container>
+                        @if (header) {
+                            <div [class]="cx('title')">{{ header }}</div>
+                        }
+                        @if (showCloseIcon && closable) {
+                            <p-button
+                                [ngClass]="cx('closeButton')"
+                                (onClick)="close($event)"
+                                (keydown.enter)="close($event)"
+                                [buttonProps]="closeButtonProps"
+                                [ariaLabel]="ariaCloseLabel"
+                                [attr.data-pc-section]="'closebutton'"
+                                [attr.data-pc-group-section]="'iconcontainer'"
+                            >
+                                <ng-template #icon>
+                                    @if (!closeiconTemplate) {
+                                        <TimesIcon [attr.data-pc-section]="'closeicon'" />
+                                    }
+                                    <ng-template *ngTemplateOutlet="closeiconTemplate"></ng-template>
+                                </ng-template>
+                            </p-button>
+                        }
                     </div>
-                </ng-container>
-            </ng-template>
-        </div>
+                    <div [ngClass]="cx('content')" [attr.data-pc-section]="'content'">
+                        <ng-content></ng-content>
+                        <ng-container *ngTemplateOutlet="contentTemplate"></ng-container>
+                    </div>
+                    @if (footerTemplate) {
+                        <div [ngClass]="cx('footer')" [attr.data-pc-section]="'footer'">
+                            <ng-container *ngTemplateOutlet="footerTemplate"></ng-container>
+                        </div>
+                    }
+                </ng-template>
+            </div>
+        }
     `,
     animations: [trigger('panelState', [transition('void => visible', [useAnimation(showAnimation)]), transition('visible => void', [useAnimation(hideAnimation)])])],
     changeDetection: ChangeDetectionStrategy.OnPush,
