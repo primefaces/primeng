@@ -3,7 +3,6 @@ import { ExamplesDoc } from '@/doc/installation/examplesdoc';
 import { InstallationDocModule } from '@/doc/installation/installationdoc.module';
 import { NextStepsDoc } from '@/doc/installation/nextstepsdoc';
 import { ProviderDoc } from '@/doc/installation/providerdoc';
-import { ThemeDoc } from '@/doc/installation/themedoc';
 import { VerifyDoc } from '@/doc/installation/verifydoc';
 import { CommonModule } from '@angular/common';
 import { Component } from '@angular/core';
@@ -24,11 +23,6 @@ export class InstallationDemo {
             id: 'provider',
             label: 'Provider',
             component: ProviderDoc
-        },
-        {
-            id: 'theme',
-            label: 'Theme',
-            component: ThemeDoc
         },
         {
             id: 'verify',

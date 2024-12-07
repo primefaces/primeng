@@ -9,13 +9,12 @@ import { DownloadDoc } from './downloaddoc';
 import { ExamplesDoc } from './examplesdoc';
 import { NextStepsDoc } from './nextstepsdoc';
 import { ProviderDoc } from './providerdoc';
-import { ThemeDoc } from './themedoc';
 import { VerifyDoc } from './verifydoc';
 import { VideosDoc } from './videos/videosdoc';
 
 @NgModule({
     imports: [CommonModule, RouterModule, AppCodeModule, FormsModule, AppDocModule, ButtonModule],
-    declarations: [DownloadDoc, ThemeDoc, ProviderDoc, VerifyDoc, NextStepsDoc, ExamplesDoc, VideosDoc],
+    declarations: [DownloadDoc, ProviderDoc, VerifyDoc, NextStepsDoc, ExamplesDoc, VideosDoc],
     exports: [AppDocModule]
 })
 export class InstallationDocModule {}

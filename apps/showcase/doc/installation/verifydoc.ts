@@ -13,12 +13,16 @@ import { Component } from '@angular/core';
         <div class="card flex justify-center">
             <p-button label="Check"></p-button>
         </div>
-        <app-code [code]="code" [hideStackBlitz]="true" [hideCodeSandbox]="true"></app-code>
+        <app-code [code]="code1" [hideStackBlitz]="true" [hideCodeSandbox]="true" [hideToggleCode]="true" class="block mb-4"></app-code>
+        <app-code [code]="code2" [hideStackBlitz]="true" [hideCodeSandbox]="true" [hideToggleCode]="true"></app-code>
     `
 })
 export class VerifyDoc {
-    code: Code = {
-        typescript: `import { ButtonModule } from 'primeng/button';`,
+    code1: Code = {
+        typescript: `import { ButtonModule } from 'primeng/button';`
+    };
+
+    code2: Code = {
         html: `<div class="card flex justify-center">
     <p-button label="Check"></p-button>
 </div>`
