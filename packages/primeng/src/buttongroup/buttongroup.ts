@@ -1,12 +1,10 @@
-import { CommonModule } from '@angular/common';
 import { ChangeDetectionStrategy, Component, inject, NgModule, ViewEncapsulation } from '@angular/core';
 import { BaseComponent } from 'primeng/basecomponent';
 import { ButtonGroupStyle } from './style/buttongroupstyle';
 
 @Component({
     selector: 'p-buttonGroup, p-buttongroup, p-button-group',
-    standalone: true,
-    imports: [CommonModule],
+    imports: [],
     template: `
         <span class="p-buttongroup p-component" role="group">
             <ng-content></ng-content>
