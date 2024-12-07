@@ -1,4 +1,4 @@
-import { CommonModule } from '@angular/common';
+import { NgClass, NgStyle } from '@angular/common';
 import { booleanAttribute, ChangeDetectionStrategy, Component, ElementRef, EventEmitter, inject, Input, NgModule, numberAttribute, OnDestroy, OnInit, Output, ViewChild, ViewEncapsulation } from '@angular/core';
 import { ActivatedRoute, Router, RouterModule } from '@angular/router';
 import { find, findSingle } from '@primeuix/utils';
@@ -15,71 +15,77 @@ import { StepsStyle } from './style/stepsstyle';
  */
 @Component({
     selector: 'p-steps',
-    standalone: true,
-    imports: [CommonModule, RouterModule, TooltipModule, SharedModule],
+    imports: [NgClass, NgStyle, RouterModule, TooltipModule, SharedModule],
     template: `
         <nav [ngClass]="{ 'p-steps p-component': true, 'p-readonly': readonly }" [ngStyle]="style" [class]="styleClass" [attr.data-pc-name]="'steps'">
             <ul #list [attr.data-pc-section]="'menu'" class="p-steps-list">
-                <li
-                    *ngFor="let item of model; let i = index"
-                    class="p-steps-item"
-                    #menuitem
-                    [ngStyle]="item.style"
-                    [class]="item.styleClass"
-                    [attr.aria-current]="isActive(item, i) ? 'step' : undefined"
-                    [attr.id]="item.id"
-                    pTooltip
-                    [tooltipOptions]="item.tooltipOptions"
-                    [ngClass]="{
-                        'p-steps-item-active': isActive(item, i),
-                        'p-disabled': item.disabled || (readonly && !isActive(item, i))
-                    }"
-                    [attr.data-pc-section]="'menuitem'"
-                >
-                    <a
-                        role="link"
-                        *ngIf="isClickableRouterLink(item); else elseBlock"
-                        [routerLink]="item.routerLink"
-                        [queryParams]="item.queryParams"
-                        [routerLinkActiveOptions]="item.routerLinkActiveOptions || { exact: false }"
-                        class="p-steps-item-link"
-                        (click)="onItemClick($event, item, i)"
-                        (keydown)="onItemKeydown($event, item, i)"
-                        [target]="item.target"
-                        [attr.tabindex]="getItemTabIndex(item, i)"
-                        [attr.aria-expanded]="i === activeIndex"
-                        [attr.aria-disabled]="item.disabled || (readonly && i !== activeIndex)"
-                        [fragment]="item.fragment"
-                        [queryParamsHandling]="item.queryParamsHandling"
-                        [preserveFragment]="item.preserveFragment"
-                        [skipLocationChange]="item.skipLocationChange"
-                        [replaceUrl]="item.replaceUrl"
-                        [state]="item.state"
-                        [attr.ariaCurrentWhenActive]="exact ? 'step' : undefined"
+                @for (item of model; track item; let i = $index) {
+                    <li
+                        class="p-steps-item"
+                        #menuitem
+                        [ngStyle]="item.style"
+                        [class]="item.styleClass"
+                        [attr.aria-current]="isActive(item, i) ? 'step' : undefined"
+                        [attr.id]="item.id"
+                        pTooltip
+                        [tooltipOptions]="item.tooltipOptions"
+                        [ngClass]="{
+                            'p-steps-item-active': isActive(item, i),
+                            'p-disabled': item.disabled || (readonly && !isActive(item, i))
+                        }"
+                        [attr.data-pc-section]="'menuitem'"
                     >
-                        <span class="p-steps-item-number">{{ i + 1 }}</span>
-                        <span class="p-steps-item-label" *ngIf="item.escape !== false; else htmlLabel">{{ item.label }}</span>
-                        <ng-template #htmlLabel><span class="p-steps-item-label" [innerHTML]="item.label"></span></ng-template>
-                    </a>
-                    <ng-template #elseBlock>
-                        <a
-                            role="link"
-                            [attr.href]="item.url"
-                            class="p-steps-item-link"
-                            (click)="onItemClick($event, item, i)"
-                            (keydown)="onItemKeydown($event, item, i)"
-                            [target]="item.target"
-                            [attr.tabindex]="getItemTabIndex(item, i)"
-                            [attr.aria-expanded]="i === activeIndex"
-                            [attr.aria-disabled]="item.disabled || (readonly && i !== activeIndex)"
-                            [attr.ariaCurrentWhenActive]="exact && (!item.disabled || readonly) ? 'step' : undefined"
-                        >
-                            <span class="p-steps-item-number">{{ i + 1 }}</span>
-                            <span class="p-steps-item-label" *ngIf="item.escape !== false; else htmlRouteLabel">{{ item.label }}</span>
-                            <ng-template #htmlRouteLabel><span class="p-steps-item-label" [innerHTML]="item.label"></span></ng-template>
-                        </a>
-                    </ng-template>
-                </li>
+                        @if (isClickableRouterLink(item)) {
+                            <a
+                                role="link"
+                                [routerLink]="item.routerLink"
+                                [queryParams]="item.queryParams"
+                                [routerLinkActiveOptions]="item.routerLinkActiveOptions || { exact: false }"
+                                class="p-steps-item-link"
+                                (click)="onItemClick($event, item, i)"
+                                (keydown)="onItemKeydown($event, item, i)"
+                                [target]="item.target"
+                                [attr.tabindex]="getItemTabIndex(item, i)"
+                                [attr.aria-expanded]="i === activeIndex"
+                                [attr.aria-disabled]="item.disabled || (readonly && i !== activeIndex)"
+                                [fragment]="item.fragment"
+                                [queryParamsHandling]="item.queryParamsHandling"
+                                [preserveFragment]="item.preserveFragment"
+                                [skipLocationChange]="item.skipLocationChange"
+                                [replaceUrl]="item.replaceUrl"
+                                [state]="item.state"
+                                [attr.ariaCurrentWhenActive]="exact ? 'step' : undefined"
+                            >
+                                <span class="p-steps-item-number">{{ i + 1 }}</span>
+                                @if (item.escape !== false) {
+                                    <span class="p-steps-item-label">{{ item.label }}</span>
+                                } @else {
+                                    <span class="p-steps-item-label" [innerHTML]="item.label"></span>
+                                }
+                            </a>
+                        } @else {
+                            <a
+                                role="link"
+                                [attr.href]="item.url"
+                                class="p-steps-item-link"
+                                (click)="onItemClick($event, item, i)"
+                                (keydown)="onItemKeydown($event, item, i)"
+                                [target]="item.target"
+                                [attr.tabindex]="getItemTabIndex(item, i)"
+                                [attr.aria-expanded]="i === activeIndex"
+                                [attr.aria-disabled]="item.disabled || (readonly && i !== activeIndex)"
+                                [attr.ariaCurrentWhenActive]="exact && (!item.disabled || readonly) ? 'step' : undefined"
+                            >
+                                <span class="p-steps-item-number">{{ i + 1 }}</span>
+                                @if (item.escape !== false) {
+                                    <span class="p-steps-item-label">{{ item.label }}</span>
+                                } @else {
+                                    <span class="p-steps-item-label" [innerHTML]="item.label"></span>
+                                }
+                            </a>
+                        }
+                    </li>
+                }
             </ul>
         </nav>
     `,
