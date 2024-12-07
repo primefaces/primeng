@@ -1,4 +1,4 @@
-import { CommonModule, isPlatformBrowser } from '@angular/common';
+import { isPlatformBrowser, NgClass, NgStyle, NgTemplateOutlet } from '@angular/common';
 import { ChangeDetectionStrategy, Component, computed, contentChild, ContentChildren, ElementRef, EventEmitter, inject, Input, NgModule, numberAttribute, Output, QueryList, ViewChild, ViewEncapsulation } from '@angular/core';
 import { addClass, getHeight, getOuterHeight, getOuterWidth, getWidth, hasClass, isRTL, removeClass } from '@primeuix/utils';
 import { PrimeTemplate, SharedModule } from 'primeng/api';
@@ -9,8 +9,7 @@ import { SplitterStyle } from './style/splitterstyle';
 
 @Component({
     selector: 'p-splitter-panel',
-    standalone: true,
-    imports: [CommonModule],
+    imports: [],
     template: `<ng-content></ng-content>`,
     changeDetection: ChangeDetectionStrategy.OnPush,
     host: {
@@ -29,8 +28,7 @@ export class SplitterPanel extends BaseComponent {
  */
 @Component({
     selector: 'p-splitter',
-    standalone: true,
-    imports: [CommonModule, SharedModule],
+    imports: [NgClass, NgStyle, NgTemplateOutlet, SharedModule],
     template: `
         <div
             #container
@@ -42,34 +40,35 @@ export class SplitterPanel extends BaseComponent {
             [attr.data-p-gutter-resizing]="false"
             [attr.data-pc-section]="'root'"
         >
-            <ng-template ngFor let-panel [ngForOf]="panels" let-i="index">
+            @for (panel of panels; track panel; let i = $index) {
                 <div [ngClass]="panelContainerClass()" [class]="panelStyleClass" [ngStyle]="panelStyle" tabindex="-1" [attr.data-pc-name]="'splitter'" [attr.data-pc-section]="'root'">
                     <ng-container *ngTemplateOutlet="panel"></ng-container>
                 </div>
-                <div
-                    *ngIf="i !== panels.length - 1"
-                    class="p-splitter-gutter"
-                    role="separator"
-                    tabindex="-1"
-                    (mousedown)="onGutterMouseDown($event, i)"
-                    (touchstart)="onGutterTouchStart($event, i)"
-                    (touchmove)="onGutterTouchMove($event)"
-                    (touchend)="onGutterTouchEnd($event)"
-                    [attr.data-p-gutter-resizing]="false"
-                    [attr.data-pc-section]="'gutter'"
-                >
+                @if (i !== panels.length - 1) {
                     <div
-                        class="p-splitter-gutter-handle"
-                        tabindex="0"
-                        [ngStyle]="gutterStyle()"
-                        [attr.aria-orientation]="layout"
-                        [attr.aria-valuenow]="prevSize"
-                        [attr.data-pc-section]="'gutterhandle'"
-                        (keyup)="onGutterKeyUp($event)"
-                        (keydown)="onGutterKeyDown($event, i)"
-                    ></div>
-                </div>
-            </ng-template>
+                        class="p-splitter-gutter"
+                        role="separator"
+                        tabindex="-1"
+                        (mousedown)="onGutterMouseDown($event, i)"
+                        (touchstart)="onGutterTouchStart($event, i)"
+                        (touchmove)="onGutterTouchMove($event)"
+                        (touchend)="onGutterTouchEnd($event)"
+                        [attr.data-p-gutter-resizing]="false"
+                        [attr.data-pc-section]="'gutter'"
+                    >
+                        <div
+                            class="p-splitter-gutter-handle"
+                            tabindex="0"
+                            [ngStyle]="gutterStyle()"
+                            [attr.aria-orientation]="layout"
+                            [attr.aria-valuenow]="prevSize"
+                            [attr.data-pc-section]="'gutterhandle'"
+                            (keyup)="onGutterKeyUp($event)"
+                            (keydown)="onGutterKeyDown($event, i)"
+                        ></div>
+                    </div>
+                }
+            }
         </div>
     `,
     encapsulation: ViewEncapsulation.None,
