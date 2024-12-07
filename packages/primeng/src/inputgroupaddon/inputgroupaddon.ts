@@ -1,4 +1,3 @@
-import { CommonModule } from '@angular/common';
 import { Component, HostBinding, inject, Input, NgModule } from '@angular/core';
 import { SharedModule } from 'primeng/api';
 import { BaseComponent } from 'primeng/basecomponent';
@@ -11,8 +10,7 @@ import { InputGroupAddonStyle } from './style/inputgroupaddonstyle';
 @Component({
     selector: 'p-inputgroup-addon, p-inputGroupAddon',
     template: ` <ng-content></ng-content> `,
-    standalone: true,
-    imports: [CommonModule],
+    imports: [],
     host: {
         '[class]': 'styleClass',
         '[class.p-inputgroupaddon]': 'true',
