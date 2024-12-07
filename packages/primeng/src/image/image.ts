@@ -1,5 +1,5 @@
 import { animate, AnimationEvent, style, transition, trigger } from '@angular/animations';
-import { CommonModule } from '@angular/common';
+import { NgClass, NgStyle, NgTemplateOutlet } from '@angular/common';
 import { AfterContentInit, booleanAttribute, ChangeDetectionStrategy, Component, ContentChild, ElementRef, EventEmitter, HostListener, inject, Input, NgModule, Output, TemplateRef, ViewChild, ViewEncapsulation } from '@angular/core';
 import { SafeUrl } from '@angular/platform-browser';
 import { addClass, appendChild, blockBodyScroll, focus, unblockBodyScroll } from '@primeuix/utils';
@@ -17,72 +17,85 @@ import { ImageStyle } from './style/imagestyle';
  */
 @Component({
     selector: 'p-image',
-    standalone: true,
-    imports: [CommonModule, RefreshIcon, EyeIcon, UndoIcon, SearchMinusIcon, SearchPlusIcon, TimesIcon, FocusTrap, SharedModule],
+    imports: [NgClass, NgStyle, NgTemplateOutlet, RefreshIcon, EyeIcon, UndoIcon, SearchMinusIcon, SearchPlusIcon, TimesIcon, FocusTrap, SharedModule],
     template: `
         <span [ngClass]="containerClass()" [class]="styleClass" [ngStyle]="style">
-            <ng-container *ngIf="!imageTemplate">
+            @if (!imageTemplate) {
                 <img [attr.src]="src" [attr.srcset]="srcSet" [attr.sizes]="sizes" [attr.alt]="alt" [attr.width]="width" [attr.height]="height" [attr.loading]="loading" [ngStyle]="imageStyle" [class]="imageClass" (error)="imageError($event)" />
-            </ng-container>
+            }
 
             <ng-container *ngTemplateOutlet="imageTemplate; context: { errorCallback: imageError.bind(this) }"></ng-container>
 
-            <button *ngIf="preview" [attr.aria-label]="zoomImageAriaLabel" type="button" class="p-image-preview-mask" (click)="onImageClick()" #previewButton [ngStyle]="{ height: height + 'px', width: width + 'px' }">
-                <ng-container *ngIf="indicatorTemplate; else defaultTemplate">
-                    <ng-container *ngTemplateOutlet="indicatorTemplate"></ng-container>
-                </ng-container>
-                <ng-template #defaultTemplate>
-                    <EyeIcon [styleClass]="'p-image-preview-icon'" />
-                </ng-template>
-            </button>
-            <div #mask class="p-image-mask p-overlay-mask p-overlay-mask-enter" *ngIf="maskVisible" [attr.aria-modal]="maskVisible" role="dialog" (click)="onMaskClick()" (keydown)="onMaskKeydown($event)" pFocusTrap>
-                <div class="p-image-toolbar" (click)="handleToolbarClick($event)">
-                    <button class="p-image-action p-image-rotate-right-button" (click)="rotateRight()" type="button" [attr.aria-label]="rightAriaLabel()">
-                        <RefreshIcon *ngIf="!rotaterighticon" />
-                        <ng-template *ngTemplateOutlet="rotaterighticon"></ng-template>
-                    </button>
-                    <button class="p-image-action p-image-rotate-left-button" (click)="rotateLeft()" type="button" [attr.aria-label]="leftAriaLabel()">
-                        <UndoIcon *ngIf="!rotatelefticon" />
-                        <ng-template *ngTemplateOutlet="rotatelefticon"></ng-template>
-                    </button>
-                    <button [ngClass]="{ 'p-image-action p-image-zoom-out-button': true, 'p-disabled': isZoomOutDisabled }" (click)="zoomOut()" type="button" [disabled]="isZoomOutDisabled" [attr.aria-label]="zoomOutAriaLabel()">
-                        <SearchMinusIcon *ngIf="!zoomouticon" />
-                        <ng-template *ngTemplateOutlet="zoomouticon"></ng-template>
-                    </button>
-                    <button [ngClass]="{ 'p-image-action p-image-zoom-in-button': true, 'p-disabled': isZoomOutDisabled }" (click)="zoomIn()" type="button" [disabled]="isZoomInDisabled" [attr.aria-label]="zoomInAriaLabel()">
-                        <SearchPlusIcon *ngIf="!zoominicon" />
-                        <ng-template *ngTemplateOutlet="zoominicon"></ng-template>
-                    </button>
-                    <button class="p-image-action p-image-close-button" type="button" (click)="closePreview()" [attr.aria-label]="closeAriaLabel()" #closeButton>
-                        <TimesIcon *ngIf="!closeicon" />
-                        <ng-template *ngTemplateOutlet="closeicon"></ng-template>
-                    </button>
-                </div>
-                <div
-                    *ngIf="previewVisible"
-                    [@animation]="{
-                        value: 'visible',
-                        params: { showTransitionParams: showTransitionOptions, hideTransitionParams: hideTransitionOptions }
-                    }"
-                    (@animation.start)="onAnimationStart($event)"
-                    (@animation.done)="onAnimationEnd($event)"
-                >
-                    <ng-container *ngIf="!previewTemplate">
-                        <img [attr.src]="previewImageSrc ? previewImageSrc : src" [attr.srcset]="previewImageSrcSet" [attr.sizes]="previewImageSizes" class="p-image-original" [ngStyle]="imagePreviewStyle()" (click)="onPreviewImageClick()" />
-                    </ng-container>
-                    <ng-container
-                        *ngTemplateOutlet="
-                            previewTemplate;
-                            context: {
-                                class: 'p-image-original',
-                                style: imagePreviewStyle(),
-                                previewCallback: onPreviewImageClick.bind(this)
+            @if (preview) {
+                <button [attr.aria-label]="zoomImageAriaLabel" type="button" class="p-image-preview-mask" (click)="onImageClick()" #previewButton [ngStyle]="{ height: height + 'px', width: width + 'px' }">
+                    @if (indicatorTemplate) {
+                        <ng-container *ngTemplateOutlet="indicatorTemplate"></ng-container>
+                    } @else {
+                        <EyeIcon [styleClass]="'p-image-preview-icon'" />
+                    }
+                </button>
+            }
+            @if (maskVisible) {
+                <div #mask class="p-image-mask p-overlay-mask p-overlay-mask-enter" [attr.aria-modal]="maskVisible" role="dialog" (click)="onMaskClick()" (keydown)="onMaskKeydown($event)" pFocusTrap>
+                    <div class="p-image-toolbar" (click)="handleToolbarClick($event)">
+                        <button class="p-image-action p-image-rotate-right-button" (click)="rotateRight()" type="button" [attr.aria-label]="rightAriaLabel()">
+                            @if (!rotaterighticon) {
+                                <RefreshIcon />
                             }
-                        "
-                    >
-                    </ng-container>
+                            <ng-template *ngTemplateOutlet="rotaterighticon"></ng-template>
+                        </button>
+                        <button class="p-image-action p-image-rotate-left-button" (click)="rotateLeft()" type="button" [attr.aria-label]="leftAriaLabel()">
+                            @if (!rotatelefticon) {
+                                <UndoIcon />
+                            }
+                            <ng-template *ngTemplateOutlet="rotatelefticon"></ng-template>
+                        </button>
+                        <button [ngClass]="{ 'p-image-action p-image-zoom-out-button': true, 'p-disabled': isZoomOutDisabled }" (click)="zoomOut()" type="button" [disabled]="isZoomOutDisabled" [attr.aria-label]="zoomOutAriaLabel()">
+                            @if (!zoomouticon) {
+                                <SearchMinusIcon />
+                            }
+                            <ng-template *ngTemplateOutlet="zoomouticon"></ng-template>
+                        </button>
+                        <button [ngClass]="{ 'p-image-action p-image-zoom-in-button': true, 'p-disabled': isZoomOutDisabled }" (click)="zoomIn()" type="button" [disabled]="isZoomInDisabled" [attr.aria-label]="zoomInAriaLabel()">
+                            @if (!zoominicon) {
+                                <SearchPlusIcon />
+                            }
+                            <ng-template *ngTemplateOutlet="zoominicon"></ng-template>
+                        </button>
+                        <button class="p-image-action p-image-close-button" type="button" (click)="closePreview()" [attr.aria-label]="closeAriaLabel()" #closeButton>
+                            @if (!closeicon) {
+                                <TimesIcon />
+                            }
+                            <ng-template *ngTemplateOutlet="closeicon"></ng-template>
+                        </button>
+                    </div>
+                    @if (previewVisible) {
+                        <div
+                            [@animation]="{
+                                value: 'visible',
+                                params: { showTransitionParams: showTransitionOptions, hideTransitionParams: hideTransitionOptions }
+                            }"
+                            (@animation.start)="onAnimationStart($event)"
+                            (@animation.done)="onAnimationEnd($event)"
+                        >
+                            @if (!previewTemplate) {
+                                <img [attr.src]="previewImageSrc ? previewImageSrc : src" [attr.srcset]="previewImageSrcSet" [attr.sizes]="previewImageSizes" class="p-image-original" [ngStyle]="imagePreviewStyle()" (click)="onPreviewImageClick()" />
+                            }
+                            <ng-container
+                                *ngTemplateOutlet="
+                                    previewTemplate;
+                                    context: {
+                                        class: 'p-image-original',
+                                        style: imagePreviewStyle(),
+                                        previewCallback: onPreviewImageClick.bind(this)
+                                    }
+                                "
+                            >
+                            </ng-container>
+                        </div>
+                    }
                 </div>
-            </div>
+            }
         </span>
     `,
     animations: [
