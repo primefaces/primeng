@@ -99,8 +99,8 @@ export const CALENDAR_VALUE_ACCESSOR: any = {
                     [autofocus]="autofocus"
                 />
                 <ng-container *ngIf="showClear && !disabled && value != null">
-                    <TimesIcon *ngIf="!clearIconTemplate" [styleClass]="'p-calendar-clear-icon'" (click)="clear()" />
-                    <span *ngIf="clearIconTemplate" class="p-calendar-clear-icon" (click)="clear()">
+                    <TimesIcon *ngIf="!clearIconTemplate" [styleClass]="'p-calendar-clear-icon'" [ngClass]="iconDisplay === 'button' ? 'p-button-display' : 'p-template-display'" (click)="clear()" />
+                    <span *ngIf="clearIconTemplate" class="p-calendar-clear-icon p-template-display" (click)="clear()">
                         <ng-template *ngTemplateOutlet="clearIconTemplate"></ng-template>
                     </span>
                 </ng-container>
