@@ -1,4 +1,3 @@
-import { CommonModule } from '@angular/common';
 import { ChangeDetectionStrategy, Component, EventEmitter, HostBinding, inject, Input, NgModule, Output, ViewEncapsulation } from '@angular/core';
 import { SharedModule } from 'primeng/api';
 import { BaseComponent } from 'primeng/basecomponent';
@@ -10,13 +9,20 @@ import { AvatarStyle } from './style/avatarstyle';
  */
 @Component({
     selector: 'p-avatar',
-    standalone: true,
-    imports: [CommonModule, SharedModule],
+    imports: [SharedModule],
     template: `
         <ng-content></ng-content>
-        <span class="p-avatar-text" *ngIf="label; else iconTemplate">{{ label }}</span>
-        <ng-template #iconTemplate><span [class]="icon" [ngClass]="'p-avatar-icon'" *ngIf="icon; else imageTemplate"></span></ng-template>
-        <ng-template #imageTemplate> <img [src]="image" *ngIf="image" (error)="imageError($event)" [attr.aria-label]="ariaLabel" /></ng-template>
+        @if (label) {
+            <span class="p-avatar-text">{{ label }}</span>
+        } @else {
+            @if (icon) {
+                <span [class]="icon" [ngClass]="'p-avatar-icon'"></span>
+            } @else {
+                @if (image) {
+                    <img [src]="image" (error)="imageError($event)" [attr.aria-label]="ariaLabel" />
+                }
+            }
+        }
     `,
     changeDetection: ChangeDetectionStrategy.OnPush,
     encapsulation: ViewEncapsulation.None,
