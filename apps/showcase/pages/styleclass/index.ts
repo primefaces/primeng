@@ -12,7 +12,6 @@ import { Component } from '@angular/core';
         [docs]="docs"
         [apiDocs]="['StyleClass']"
     ></app-doc>`,
-    standalone: true,
     imports: [StyleClassDocModule]
 })
 export class StyleClassDemo {

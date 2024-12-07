@@ -9,7 +9,6 @@ import { UniqueComponentId } from 'primeng/utils';
 
 @Component({
     selector: 'design-token-field',
-    standalone: true,
     imports: [CommonModule, AutoCompleteModule, FormsModule, TooltipModule],
     template: `<div>
         <label [for]="inputId" class="text-sm text-zinc-700 dark:text-white">{{ label }}</label>

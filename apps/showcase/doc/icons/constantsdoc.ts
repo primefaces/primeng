@@ -12,7 +12,8 @@ import { MenuItem, PrimeIcons } from 'primeng/api';
             <p-menu [model]="items"></p-menu>
         </div>
         <app-code [code]="code" selector="prime-icons-constants-demo" [hideToggleCode]="true"></app-code>
-    `
+    `,
+    standalone: false
 })
 export class ConstantsDoc {
     items: MenuItem[];

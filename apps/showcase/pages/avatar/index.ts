@@ -9,7 +9,6 @@ import { ShapeDoc } from '@/doc/avatar/shapedoc';
 import { Component } from '@angular/core';
 
 @Component({
-    standalone: true,
     imports: [AvatarDocModule],
     template: ` <app-doc docTitle="Angular Avatar Component" header="Avatar" description="Avatar represents people using icons, labels and images." [docs]="docs" [apiDocs]="['Avatar', 'AvatarGroup']" [themeDocs]="'Avatar'"></app-doc>`
 })

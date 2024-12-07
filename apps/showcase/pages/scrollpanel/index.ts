@@ -14,7 +14,6 @@ import { Component } from '@angular/core';
         [apiDocs]="['ScrollPanel']"
         themeDocs="scrollpanel"
     ></app-doc>`,
-    standalone: true,
     imports: [ScrollPanelDocModule]
 })
 export class ScrollPanelDemo {

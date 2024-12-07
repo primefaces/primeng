@@ -49,7 +49,8 @@ import { Component } from '@angular/core';
             </p-popover>
         </div>
         <app-code [code]="code" selector="popover-basic-demo"></app-code>
-    `
+    `,
+    standalone: false
 })
 export class BasicDoc {
     members = [

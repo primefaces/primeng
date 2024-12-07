@@ -25,7 +25,8 @@ import { MessageService } from 'primeng/api';
         </div>
         <app-code [code]="code" selector="toast-template-demo"></app-code>
     `,
-    providers: [MessageService]
+    providers: [MessageService],
+    standalone: false
 })
 export class TemplateDoc {
     constructor(private messageService: MessageService) {}

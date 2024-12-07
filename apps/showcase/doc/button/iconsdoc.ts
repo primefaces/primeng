@@ -19,7 +19,8 @@ import { Component } from '@angular/core';
             </div>
         </div>
         <app-code [code]="code" selector="button-icons-demo"></app-code>
-    `
+    `,
+    standalone: false
 })
 export class IconsDoc {
     code: Code = {

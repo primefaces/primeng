@@ -45,7 +45,8 @@ import { MenuItem } from 'primeng/api';
                 }
             }
         `
-    ]
+    ],
+    standalone: false
 })
 export class BasicDoc implements OnInit {
     items: MenuItem[] | undefined;

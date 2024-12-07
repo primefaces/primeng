@@ -6,6 +6,7 @@ import { Component } from '@angular/core';
         <app-docsectiontext>
             <p>Example layer configuration for the popular CSS libraries.</p>
         </app-docsectiontext>
-    `
+    `,
+    standalone: false
 })
 export class LibrariesDoc {}

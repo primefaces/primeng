@@ -13,7 +13,8 @@ import { MenuItem, MessageService } from 'primeng/api';
         </div>
         <app-code [code]="code" selector="menu-group-demo"></app-code>
     `,
-    providers: [MessageService]
+    providers: [MessageService],
+    standalone: false
 })
 export class GroupDoc implements OnInit {
     items: MenuItem[] | undefined;

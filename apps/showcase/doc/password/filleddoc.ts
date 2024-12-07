@@ -11,7 +11,8 @@ import { Component } from '@angular/core';
             <p-password [(ngModel)]="value" [feedback]="false" variant="filled" autocomplete="off" />
         </div>
         <app-code [code]="code" selector="password-filled-demo"></app-code>
-    `
+    `,
+    standalone: false
 })
 export class FilledDoc {
     value!: string;

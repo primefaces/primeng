@@ -37,7 +37,8 @@ import { ChangeDetectorRef, Component, OnInit } from '@angular/core';
             </p-carousel>
         </div>
         <app-code [code]="code" selector="carousel-responsive-demo" [extFiles]="extFiles"></app-code>
-    `
+    `,
+    standalone: false
 })
 export class ResponsiveDoc implements OnInit {
     products: Product[] | undefined;

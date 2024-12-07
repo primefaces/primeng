@@ -11,7 +11,8 @@ import { Component } from '@angular/core';
             <p-datepicker [(ngModel)]="dates" selectionMode="multiple" [readonlyInput]="true" />
         </div>
         <app-code [code]="code" selector="datepicker-multiple-demo"></app-code>
-    `
+    `,
+    standalone: false
 })
 export class MultipleDoc {
     dates: Date[] | undefined;

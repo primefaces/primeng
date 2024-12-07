@@ -33,7 +33,8 @@ import { Component } from '@angular/core';
             </p-floatlabel>
         </div>
         <app-code [code]="code" selector="iconfield-float-label-demo"></app-code>
-    `
+    `,
+    standalone: false
 })
 export class FloatLabelDoc {
     value1: string | undefined;

@@ -11,7 +11,8 @@ import { Component } from '@angular/core';
             <input type="text" pInputText [(ngModel)]="value" />
         </div>
         <app-code [code]="code" selector="input-text-basic-demo"></app-code>
-    `
+    `,
+    standalone: false
 })
 export class BasicDoc {
     value: string;

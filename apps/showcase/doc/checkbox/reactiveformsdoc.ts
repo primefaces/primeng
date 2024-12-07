@@ -15,7 +15,8 @@ import { FormControl, FormGroup } from '@angular/forms';
             </form>
         </div>
         <app-code [code]="code" selector="checkbox-reactive-forms-demo"></app-code>
-    `
+    `,
+    standalone: false
 })
 export class ReactiveFormsDoc implements OnInit {
     formGroup: FormGroup | undefined;

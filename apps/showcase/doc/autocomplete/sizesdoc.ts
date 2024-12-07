@@ -11,7 +11,8 @@ import { Component } from '@angular/core';
             <p-autocomplete [(ngModel)]="value2" [suggestions]="items" (completeMethod)="search()" placeholder="Normal" dropdown />
             <p-autocomplete [(ngModel)]="value3" [suggestions]="items" (completeMethod)="search()" size="large" placeholder="Large" dropdown />
         </div>
-        <app-code [code]="code" selector="autocomplete-sizes-demo"></app-code>`
+        <app-code [code]="code" selector="autocomplete-sizes-demo"></app-code>`,
+    standalone: false
 })
 export class SizesDoc {
     items: any[] | undefined;

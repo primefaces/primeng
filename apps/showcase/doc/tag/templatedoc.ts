@@ -16,7 +16,8 @@ import { Component } from '@angular/core';
             </p-tag>
         </div>
         <app-code [code]="code" selector="tag-template-demo"></app-code>
-    `
+    `,
+    standalone: false
 })
 export class TemplateDoc {
     code: Code = {

@@ -26,7 +26,8 @@ import { Component, Input, ViewChild } from '@angular/core';
                 <li>right-start</li>
                 <li>right-end</li>
             </ul>
-        </div>`
+        </div>`,
+    standalone: false
 })
 export class ResponsiveDoc {
     @Input() id: string;

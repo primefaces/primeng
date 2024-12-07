@@ -10,7 +10,6 @@ import { Component } from '@angular/core';
 import { FreyaLogo } from './freyalogo';
 import { FreyaSeparator } from './freyaseparator';
 @Component({
-    standalone: true,
     selector: 'freya-page',
     imports: [
         TemplateHeroModule,

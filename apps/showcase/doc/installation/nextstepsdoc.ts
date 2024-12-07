@@ -11,6 +11,7 @@ import { Component } from '@angular/core';
                 <li><a [routerLink]="'/support'" class="doc-link">Getting support</a></li>
             </ul>
         </app-docsectiontext>
-    `
+    `,
+    standalone: false
 })
 export class NextStepsDoc {}

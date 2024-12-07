@@ -11,7 +11,6 @@ import { VeronaLogo } from './veronalogo';
 import { VeronaSeparator } from './veronaseparator';
 
 @Component({
-    standalone: true,
     selector: 'verona-page',
     imports: [
         TemplateHeroModule,

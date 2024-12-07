@@ -49,7 +49,8 @@ import { Component } from '@angular/core';
             </div>
         </div>
         <app-code [code]="code" selector="code" [hideToggleCode]="true" [hideCodeSandbox]="true" [hideStackBlitz]="true"></app-code>
-    `
+    `,
+    standalone: false
 })
 export class FormDoc {
     countries: any[] | undefined;

@@ -37,7 +37,8 @@ import { AppDocService } from './app.doc.service';
         </div>
     </div>`,
     changeDetection: ChangeDetectionStrategy.OnPush,
-    encapsulation: ViewEncapsulation.None
+    encapsulation: ViewEncapsulation.None,
+    standalone: false
 })
 export class AppDoc implements OnInit, OnChanges {
     @Input() docTitle!: string;

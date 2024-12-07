@@ -40,7 +40,8 @@ import { Component } from '@angular/core';
                 </tbody>
             </table>
         </div>
-    </div>`
+    </div>`,
+    standalone: false
 })
 export class AccessibilityDoc {
     code: Code = {

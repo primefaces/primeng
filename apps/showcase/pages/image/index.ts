@@ -8,7 +8,6 @@ import { Component } from '@angular/core';
 
 @Component({
     template: `<app-doc docTitle="Angular Image Component" header="Image" description="Displays an image with preview and tranformation options." [docs]="docs" [apiDocs]="['Image']" themeDocs="image"></app-doc> `,
-    standalone: true,
     imports: [ImageDocModule]
 })
 export class ImageDemo {

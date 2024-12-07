@@ -24,7 +24,8 @@ import { Component } from '@angular/core';
             </p-inplace>
         </div>
         <app-code [code]="code" selector="inplace-input-demo"></app-code>
-    `
+    `,
+    standalone: false
 })
 export class InputDoc {
     code: Code = {

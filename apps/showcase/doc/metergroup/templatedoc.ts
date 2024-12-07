@@ -45,7 +45,8 @@ import { Component } from '@angular/core';
             </p-metergroup>
         </div>
         <app-code [code]="code" selector="meter-group-template-demo"></app-code>
-    `
+    `,
+    standalone: false
 })
 export class TemplateDoc {
     value = [

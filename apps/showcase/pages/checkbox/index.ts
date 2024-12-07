@@ -13,7 +13,6 @@ import { SizesDoc } from '@/doc/checkbox/sizesdoc';
 import { Component } from '@angular/core';
 
 @Component({
-    standalone: true,
     imports: [CheckboxDocModule],
     template: ` <app-doc docTitle="Angular Checkbox Component" header="Checkbox" description="Checkbox is an extension to standard checkbox element with theming." [docs]="docs" [apiDocs]="['Checkbox']" themeDocs="checkbox"></app-doc> `
 })

@@ -121,7 +121,8 @@ import { Component } from '@angular/core';
             </p-stepper>
         </div>
         <app-code [code]="code" selector="stepper-template-demo"></app-code>
-    `
+    `,
+    standalone: false
 })
 export class TemplateDoc {
     activeStep: number = 1;

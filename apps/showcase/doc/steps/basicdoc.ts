@@ -12,7 +12,8 @@ import { MenuItem } from 'primeng/api';
             <p-steps [model]="items" [readonly]="true" />
         </div>
         <app-code [code]="code" selector="steps-basic-demo"></app-code>
-    `
+    `,
+    standalone: false
 })
 export class BasicDoc implements OnInit {
     items: MenuItem[] | undefined;

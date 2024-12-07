@@ -14,7 +14,8 @@ import { Component } from '@angular/core';
             <p-badge value="2" badgeSize="small" />
         </div>
         <app-code [code]="code" selector="badge-size-demo"></app-code>
-    `
+    `,
+    standalone: false
 })
 export class SizeDoc {
     code: Code = {

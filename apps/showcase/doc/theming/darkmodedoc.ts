@@ -31,7 +31,8 @@ import { Component } from '@angular/core';
                 <app-code [code]="code5" selector="darkmode-demo4" [hideToggleCode]="true"></app-code>
             </div>
         </app-docsectiontext>
-    `
+    `,
+    standalone: false
 })
 export class DarkModeDoc {
     code1: Code = {

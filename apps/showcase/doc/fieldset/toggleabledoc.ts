@@ -16,7 +16,8 @@ import { Component } from '@angular/core';
             </p-fieldset>
         </div>
         <app-code [code]="code" selector="fieldset-toggleable-demo"></app-code>
-    `
+    `,
+    standalone: false
 })
 export class ToggleableDoc {
     code: Code = {

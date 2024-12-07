@@ -18,7 +18,8 @@ interface City {
             <p-multiselect [(ngModel)]="value3" [options]="cities" optionLabel="name" [maxSelectedLabels]="3" styleClass="w-full md:w-80" size="large" placeholder="Large" />
         </div>
         <app-code [code]="code" selector="multi-select-sizes-demo"></app-code>
-    `
+    `,
+    standalone: false
 })
 export class SizesDoc implements OnInit {
     cities!: City[];

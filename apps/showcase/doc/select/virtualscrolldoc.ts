@@ -15,7 +15,8 @@ import { SelectItem } from 'primeng/api';
             <p-select [options]="items" [(ngModel)]="selectedItem" placeholder="Select Item" [virtualScroll]="true" [virtualScrollItemSize]="38" class="w-full md:w-56" />
         </div>
         <app-code [code]="code" selector="select-virtualscroll-demo"></app-code>
-    `
+    `,
+    standalone: false
 })
 export class VirtualScrollDoc {
     items: SelectItem[];

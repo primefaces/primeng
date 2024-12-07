@@ -11,7 +11,8 @@ import { Component } from '@angular/core';
             <input type="text" pInputText [(ngModel)]="value" variant="filled" />
         </div>
         <app-code [code]="code" selector="input-text-filled-demo"></app-code>
-    `
+    `,
+    standalone: false
 })
 export class FilledDoc {
     value: string;

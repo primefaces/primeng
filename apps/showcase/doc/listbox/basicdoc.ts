@@ -20,7 +20,8 @@ interface City {
             <p-listbox [options]="cities" [(ngModel)]="selectedCity" optionLabel="name" class="w-full md:w-56" />
         </div>
         <app-code [code]="code" selector="listbox-basic-demo"></app-code>
-    `
+    `,
+    standalone: false
 })
 export class BasicDoc implements OnInit {
     cities!: City[];

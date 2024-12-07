@@ -12,7 +12,8 @@ import { MenuItem } from 'primeng/api';
             <p-panelmenu [model]="items" styleClass="w-full md:w-80" [multiple]="true" />
         </div>
         <app-code [code]="code" selector="panel-menu-multiple-demo"></app-code>
-    `
+    `,
+    standalone: false
 })
 export class MultipleDoc implements OnInit {
     items: MenuItem[];

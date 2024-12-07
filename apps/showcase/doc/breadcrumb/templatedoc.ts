@@ -19,7 +19,8 @@ import { MenuItem } from 'primeng/api';
             </p-breadcrumb>
         </div>
         <app-code [code]="code" selector="breadcrumb-template-demo"></app-code>
-    `
+    `,
+    standalone: false
 })
 export class TemplateDoc implements OnInit {
     items: MenuItem[] | undefined;

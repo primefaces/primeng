@@ -20,7 +20,8 @@ import { Component } from '@angular/core';
             />
         </div>
         <app-code [code]="code" selector="cascade-select-invalid-demo"></app-code>
-    `
+    `,
+    standalone: false
 })
 export class InvalidDoc {
     countries: any[] | undefined;

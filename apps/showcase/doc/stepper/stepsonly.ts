@@ -17,7 +17,8 @@ import { Component } from '@angular/core';
             </p-stepper>
         </div>
         <app-code [code]="code" selector="stepper-steps-only-demo"></app-code>
-    `
+    `,
+    standalone: false
 })
 export class StepsOnlyDoc {
     code: Code = {

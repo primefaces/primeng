@@ -11,7 +11,8 @@ import { Component } from '@angular/core';
             <input pInputText [(ngModel)]="value" class="ng-invalid ng-dirty" placeholder="Name" />
         </div>
         <app-code [code]="code" selector="input-text-invalid-demo"></app-code>
-    `
+    `,
+    standalone: false
 })
 export class InvalidDoc {
     value: string | undefined;

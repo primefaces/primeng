@@ -43,7 +43,8 @@ interface Column {
         </div>
         <app-code [code]="code" selector="tree-table-selection-checkbox-demo"></app-code>
     `,
-    changeDetection: ChangeDetectionStrategy.OnPush
+    changeDetection: ChangeDetectionStrategy.OnPush,
+    standalone: false
 })
 export class SelectionCheckboxDoc {
     files!: TreeNode[];

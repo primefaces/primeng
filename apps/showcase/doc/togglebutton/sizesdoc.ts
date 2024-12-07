@@ -13,7 +13,8 @@ import { Component } from '@angular/core';
             <p-togglebutton [(ngModel)]="value3" onLabel="On" offLabel="Off" size="large" styleClass="min-w-24" />
         </div>
         <app-code [code]="code" selector="toggle-button-sizes-demo"></app-code>
-    `
+    `,
+    standalone: false
 })
 export class SizesDoc {
     value1: boolean = false;

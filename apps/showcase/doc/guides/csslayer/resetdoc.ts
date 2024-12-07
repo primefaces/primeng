@@ -3,7 +3,6 @@ import { Component } from '@angular/core';
 
 @Component({
     selector: 'reset-doc',
-
     template: `
         <app-docsectiontext>
             <p>
@@ -13,7 +12,8 @@ import { Component } from '@angular/core';
             </p>
             <app-code [code]="code" selector="specificity-demo" [hideToggleCode]="true" [hideCodeSandbox]="true" [hideStackBlitz]="true"></app-code>
         </app-docsectiontext>
-    `
+    `,
+    standalone: false
 })
 export class ResetDoc {
     code: Code = {

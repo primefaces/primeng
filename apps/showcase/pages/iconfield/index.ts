@@ -10,7 +10,6 @@ import { Component } from '@angular/core';
 
 @Component({
     template: ` <app-doc docTitle="Angular IconField Component" header="IconField" description="IconField wraps an input and an icon." [docs]="docs" [apiDocs]="['IconField', 'InputIcon']" themeDocs="iconfield"></app-doc>`,
-    standalone: true,
     imports: [IconFieldDocModule]
 })
 export class IconFieldDemo {

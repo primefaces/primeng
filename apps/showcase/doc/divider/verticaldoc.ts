@@ -28,7 +28,8 @@ import { Component } from '@angular/core';
             </p>
         </div>
         <app-code [code]="code" selector="divider-vertical-demo"></app-code>
-    `
+    `,
+    standalone: false
 })
 export class VerticalDoc {
     code: Code = {

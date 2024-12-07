@@ -4,7 +4,7 @@
     "license": "SEE LICENSE IN LICENSE.md",
     "scripts": {
         "ng": "ng",
-        "start": "ng serve --watch",
+        "start": "ng serve --hmr",
         "e2e": "ng e2e",
         "lint": "ng lint",
         "build": "ng build",

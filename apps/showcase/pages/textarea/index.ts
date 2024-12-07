@@ -13,7 +13,6 @@ import { TextareaDocModule } from '@/doc/textarea/texteareadoc.module';
 import { Component } from '@angular/core';
 
 @Component({
-    standalone: true,
     imports: [TextareaDocModule],
     template: `<app-doc docTitle="Angular Textarea Component" header="Textarea" description="Textarea adds styling and autoResize functionality to standard textarea element." [docs]="docs" [apiDocs]="['Textarea']" themeDocs="textearea"></app-doc>`
 })

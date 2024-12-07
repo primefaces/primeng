@@ -44,7 +44,8 @@ import { Component } from '@angular/core';
             </p-iconfield>
         </div>
         <app-code [code]="code" selector="iconfield-template-demo"></app-code>
-    `
+    `,
+    standalone: false
 })
 export class TemplateDoc {
     code: Code = {

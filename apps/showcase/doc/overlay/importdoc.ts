@@ -3,7 +3,8 @@ import { Component, Input } from '@angular/core';
 
 @Component({
     selector: 'import-doc',
-    template: ` <app-code [code]="code" [hideToggleCode]="true"></app-code>`
+    template: ` <app-code [code]="code" [hideToggleCode]="true"></app-code>`,
+    standalone: false
 })
 export class ImportDoc {
     @Input() id: string;

@@ -26,7 +26,6 @@ import { AppDesignerComponent } from '@/components/layout/designer/app.designer.
             <app-footer />
         </div>
     `,
-    standalone: true,
     imports: [RouterOutlet, AppFooterComponent, CommonModule, AppNewsComponent, AppMenuComponent, AppTopBarComponent]
 })
 export class AppMainComponent {

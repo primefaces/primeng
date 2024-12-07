@@ -9,6 +9,7 @@ import { Component } from '@angular/core';
                 <i>states</i> and <i>extend</i>.
             </p>
         </app-docsectiontext>
-    `
+    `,
+    standalone: false
 })
 export class ReversedKeysDoc {}

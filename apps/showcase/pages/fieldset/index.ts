@@ -7,7 +7,6 @@ import { ToggleableDoc } from '@/doc/fieldset/toggleabledoc';
 import { Component } from '@angular/core';
 
 @Component({
-    standalone: true,
     imports: [FieldsetDocModule],
     template: ` <app-doc docTitle="Angular Fieldset Component" header="Fieldset" description="Fieldset is a grouping component with a content toggle feature." [docs]="docs" [apiDocs]="['Fieldset']" themeDocs="fieldset"></app-doc> `
 })

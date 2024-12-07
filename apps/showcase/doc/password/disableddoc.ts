@@ -11,7 +11,8 @@ import { Component } from '@angular/core';
             <p-password [(ngModel)]="value" [disabled]="true" placeholder="Disabled" autocomplete="off" />
         </div>
         <app-code [code]="code" selector="password-disabled-demo"></app-code>
-    `
+    `,
+    standalone: false
 })
 export class DisabledDoc {
     value!: string;

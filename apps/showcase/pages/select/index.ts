@@ -22,7 +22,6 @@ import { Component } from '@angular/core';
 
 @Component({
     template: `<app-doc docTitle="Angular Select Component" header="Select" description="Select is used to choose an item from a collection of options." [docs]="docs" [apiDocs]="['Select']" themeDocs="select"></app-doc> `,
-    standalone: true,
     imports: [SelectDocModule],
     styleUrl: './selectdemo.scss'
 })

@@ -29,7 +29,8 @@ import { Component, OnInit } from '@angular/core';
             </div>
         </div>
         <app-code [code]="code" selector="drag-drop-basic-demo" [extFiles]="extFiles"></app-code>
-    `
+    `,
+    standalone: false
 })
 export class BasicDoc implements OnInit {
     availableProducts: Product[] | undefined;

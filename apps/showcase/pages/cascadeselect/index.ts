@@ -14,7 +14,6 @@ import { TemplateDoc } from '@/doc/cascadeselect/templatedoc';
 import { Component } from '@angular/core';
 
 @Component({
-    standalone: true,
     imports: [CascadeSelectDocModule],
     template: ` <app-doc docTitle="Angular CascadeSelect Component" header="CascadeSelect" description="CascadeSelect displays a nested structure of options." [docs]="docs" [apiDocs]="['CascadeSelect']" themeDocs="CascadeSelect"></app-doc> `
 })

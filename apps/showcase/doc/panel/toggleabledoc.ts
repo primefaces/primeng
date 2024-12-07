@@ -19,7 +19,8 @@ import { Component } from '@angular/core';
             </p-panel>
         </div>
         <app-code [code]="code" selector="panel-toggleable-demo"></app-code>
-    `
+    `,
+    standalone: false
 })
 export class ToggleableDoc {
     code: Code = {

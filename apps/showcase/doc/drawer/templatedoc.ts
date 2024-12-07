@@ -29,7 +29,8 @@ import { Component } from '@angular/core';
             <button pButton (click)="visible = true" icon="pi pi-plus"></button>
         </div>
         <app-code [code]="code" selector="drawer-template-demo"></app-code>
-    `
+    `,
+    standalone: false
 })
 export class TemplateDoc {
     visible: boolean = false;

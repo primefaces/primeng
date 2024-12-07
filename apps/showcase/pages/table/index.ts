@@ -50,7 +50,6 @@ import { Component } from '@angular/core';
 
 @Component({
     template: `<app-doc docTitle="Angular Table Component" header="Table" description="Table displays data in tabular format." [docs]="docs" [apiDocs]="['Table', 'ColumnFilter']" themeDocs="table"></app-doc>`,
-    standalone: true,
     imports: [TableDocModule],
     styleUrl: './tabledemo.scss'
 })

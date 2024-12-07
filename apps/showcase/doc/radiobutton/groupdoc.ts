@@ -28,7 +28,8 @@ import { Component } from '@angular/core';
             </div>
         </div>
         <app-code [code]="code" selector="radio-button-group-demo"></app-code>
-    `
+    `,
+    standalone: false
 })
 export class GroupDoc {
     ingredient!: string;

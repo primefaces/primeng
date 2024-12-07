@@ -23,7 +23,6 @@ const presets = {
 
 @Component({
     selector: 'app-configurator',
-    standalone: true,
     template: `
         <div class="config-panel-content">
             <div class="config-panel-colors">

@@ -11,7 +11,8 @@ import { Component } from '@angular/core';
             <p-rating [(ngModel)]="value" [stars]="10" />
         </div>
         <app-code [code]="code" selector="rating-number-of-stars-demo"></app-code>
-    `
+    `,
+    standalone: false
 })
 export class NumberOfStarsDoc {
     value: number = 5;

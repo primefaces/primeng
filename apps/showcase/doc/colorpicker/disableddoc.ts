@@ -11,7 +11,8 @@ import { Component } from '@angular/core';
             <p-colorpicker [(ngModel)]="color" [disabled]="true" />
         </div>
         <app-code [code]="code" selector="color-picker-disabled-demo"></app-code>
-    `
+    `,
+    standalone: false
 })
 export class DisabledDoc {
     color: string | undefined;

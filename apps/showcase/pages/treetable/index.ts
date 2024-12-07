@@ -41,7 +41,6 @@ import { Component } from '@angular/core';
         [apiDocs]="['TreeTable', 'TreeTableNode', 'TreeNode']"
         themeDocs="treetable"
     ></app-doc>`,
-    standalone: true,
     imports: [TreeTableDocModule]
 })
 export class TreeTableDemo {

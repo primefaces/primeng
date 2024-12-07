@@ -13,7 +13,8 @@ import { MessageService } from 'primeng/api';
         </div>
         <app-code [code]="code" selector="toast-life-demo"></app-code>
     `,
-    providers: [MessageService]
+    providers: [MessageService],
+    standalone: false
 })
 export class LifeDoc {
     constructor(private messageService: MessageService) {}

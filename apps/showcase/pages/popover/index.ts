@@ -9,8 +9,7 @@ import { Component } from '@angular/core';
 
 @Component({
     template: `<app-doc docTitle="Angular Popover Component" header="Popover" description="Popover is a container component that can overlay other components on page." [docs]="docs" [apiDocs]="['Popover']" themeDocs="popover"></app-doc>`,
-    imports: [CommonModule, PopoverDocModule],
-    standalone: true
+    imports: [CommonModule, PopoverDocModule]
 })
 export class PopoverDemo {
     docs = [

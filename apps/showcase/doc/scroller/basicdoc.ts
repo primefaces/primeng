@@ -21,7 +21,8 @@ import { ChangeDetectionStrategy, Component } from '@angular/core';
         </div>
         <app-code [code]="code" selector="scroller-basic-demo"></app-code>
     `,
-    changeDetection: ChangeDetectionStrategy.OnPush
+    changeDetection: ChangeDetectionStrategy.OnPush,
+    standalone: false
 })
 export class BasicDoc {
     items!: string[];

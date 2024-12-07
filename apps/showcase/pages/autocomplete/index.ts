@@ -27,7 +27,6 @@ import { ChangeDetectionStrategy, Component } from '@angular/core';
         [apiDocs]="['AutoComplete']"
         themeDocs="AutoComplete"
     ></app-doc>`,
-    standalone: true,
     imports: [AutoCompleteDocModule],
     changeDetection: ChangeDetectionStrategy.OnPush
 })

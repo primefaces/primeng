@@ -7,7 +7,6 @@ import { Component } from '@angular/core';
 
 @Component({
     template: `<app-doc docTitle="Angular Ripple Component" header="Ripple" description="Ripple directive adds ripple effect to the host element." [docs]="docs" themeDocs="ripple"></app-doc>`,
-    standalone: true,
     imports: [RippleDocModule],
     styleUrl: './rippledemo.scss'
 })

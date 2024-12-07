@@ -26,7 +26,8 @@ import { Component } from '@angular/core';
                 <li>reset</li>
             </ul>
         </app-docsectiontext>
-    `
+    `,
+    standalone: false
 })
 export class MigrationDoc {
     code1: Code = {

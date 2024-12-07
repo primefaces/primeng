@@ -16,7 +16,8 @@ interface City {
             <p-select [options]="cities" [(ngModel)]="selectedCity" placeholder="Select a City" optionLabel="name" [disabled]="true" class="w-full md:w-56" />
         </div>
         <app-code [code]="code" selector="select-disabled-demo"></app-code>
-    `
+    `,
+    standalone: false
 })
 export class DisabledDoc {
     cities: City[] | undefined;

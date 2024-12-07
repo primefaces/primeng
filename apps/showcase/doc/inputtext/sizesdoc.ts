@@ -13,7 +13,8 @@ import { Component } from '@angular/core';
             <input pInputText [(ngModel)]="value3" type="text" pSize="large" placeholder="Large" />
         </div>
         <app-code [code]="code" selector="input-text-sizes-demo"></app-code>
-    `
+    `,
+    standalone: false
 })
 export class SizesDoc {
     value1: string | undefined;

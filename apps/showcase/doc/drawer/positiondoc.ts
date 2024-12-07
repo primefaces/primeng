@@ -43,7 +43,8 @@ import { Component } from '@angular/core';
             </div>
         </div>
         <app-code [code]="code" selector="drawer-position-demo"></app-code>
-    `
+    `,
+    standalone: false
 })
 export class PositionDoc {
     visible1: boolean = false;

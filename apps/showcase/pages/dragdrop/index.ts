@@ -7,7 +7,6 @@ import { ImportDoc } from '@/doc/dragdrop/importdoc';
 import { Component } from '@angular/core';
 
 @Component({
-    standalone: true,
     imports: [DragDropDocModule],
     template: ` <app-doc docTitle="Angular Drag and Drop Component" header="Drag and Drop" description="pDraggable and pDroppable directives apply drag-drop behaviors to any element." [docs]="docs" [apiDocs]="['DragDrop']"></app-doc>`,
     styleUrls: ['./dragdropdemo.scss']

@@ -6,7 +6,6 @@ import { ImportDoc } from '@/doc/card/importdoc';
 import { Component } from '@angular/core';
 
 @Component({
-    standalone: true,
     imports: [CardDocModule],
     template: ` <app-doc docTitle="Angular Card Component" header="Card" description="Card is a flexible container component." [docs]="docs" [apiDocs]="['Card']" themeDocs="Card"></app-doc> `
 })

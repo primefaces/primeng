@@ -33,7 +33,8 @@ import { MenuItem } from 'primeng/api';
             </p-inputgroup>
         </div>
         <app-code [code]="code" selector="input-group-button-demo"></app-code>
-    `
+    `,
+    standalone: false
 })
 export class ButtonDoc {
     items: MenuItem[] | undefined;

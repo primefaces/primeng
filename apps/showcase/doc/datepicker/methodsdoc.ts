@@ -22,7 +22,8 @@ import { Component, Input } from '@angular/core';
                 </tbody>
             </table>
         </div>
-    </section>`
+    </section>`,
+    standalone: false
 })
 export class MethodsDoc {
     @Input() id: string;

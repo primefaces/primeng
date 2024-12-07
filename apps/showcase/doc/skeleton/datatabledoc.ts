@@ -28,7 +28,8 @@ import { Component, OnInit } from '@angular/core';
             </p-table>
         </div>
         <app-code [code]="code" selector="skeleton-data-table-demo"></app-code>
-    `
+    `,
+    standalone: false
 })
 export class DataTableDoc implements OnInit {
     products: any[] | undefined;

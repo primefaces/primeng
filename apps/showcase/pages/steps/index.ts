@@ -16,7 +16,6 @@ import { Component } from '@angular/core';
         [apiDocs]="['Steps', 'MenuItem']"
         themeDocs="steps"
     ></app-doc>`,
-    standalone: true,
     imports: [StepsDocModule],
     styleUrl: './stepsdemo.scss'
 })

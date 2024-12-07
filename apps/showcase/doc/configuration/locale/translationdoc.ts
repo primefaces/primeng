@@ -8,7 +8,8 @@ import { Component } from '@angular/core';
             <p>A translation is specified using the translation property during initialization.</p>
             <app-code [code]="code" [hideToggleCode]="true"></app-code>
         </app-docsectiontext>
-    `
+    `,
+    standalone: false
 })
 export class TranslationDoc {
     code: Code = {

@@ -9,6 +9,7 @@ import { Component } from '@angular/core';
             <h3>Keyboard Support</h3>
             <p>Interactive elements of the uploader are buttons, visit the <a routerLink="/button#accessibility">Button</a> accessibility section for more information.</p>
         </app-docsectiontext>
-    `
+    `,
+    standalone: false
 })
 export class AccessibilityDoc {}

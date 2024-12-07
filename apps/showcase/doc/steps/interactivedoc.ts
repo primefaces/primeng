@@ -14,7 +14,8 @@ import { MenuItem, MessageService } from 'primeng/api';
         </div>
         <app-code [code]="code" selector="steps-interactive-demo"></app-code>
     `,
-    providers: [MessageService]
+    providers: [MessageService],
+    standalone: false
 })
 export class InteractiveDoc implements OnInit {
     items: MenuItem[] | undefined;

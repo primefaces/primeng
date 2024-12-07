@@ -24,7 +24,8 @@ import { Component } from '@angular/core';
         </p-fluid>
 
         <app-code [code]="code" selector="datepicker-time-demo"></app-code>
-    `
+    `,
+    standalone: false
 })
 export class TimeDoc {
     datetime12h: Date[] | undefined;

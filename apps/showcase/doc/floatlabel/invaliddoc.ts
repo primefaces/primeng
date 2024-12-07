@@ -24,7 +24,8 @@ import { Component } from '@angular/core';
             </p-floatlabel>
         </div>
         <app-code [code]="code" selector="float-label-invalid-demo"></app-code>
-    `
+    `,
+    standalone: false
 })
 export class InvalidDoc {
     value1: string | undefined;

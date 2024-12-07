@@ -15,7 +15,8 @@ import { Component } from '@angular/core';
         </div>
 
         <app-code [code]="code" selector="cascade-select-ifta-label-demo"></app-code>
-    `
+    `,
+    standalone: false
 })
 export class IftaLabelDoc {
     countries: any[] | undefined;

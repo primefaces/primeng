@@ -87,7 +87,8 @@ import { Subscription } from 'rxjs';
             }
         `
     ],
-    providers: [MessageService, TerminalService, PhotoService, NodeService]
+    providers: [MessageService, TerminalService, PhotoService, NodeService],
+    standalone: false
 })
 export class AdvancedDoc implements OnInit, OnDestroy {
     displayTerminal: boolean | undefined;

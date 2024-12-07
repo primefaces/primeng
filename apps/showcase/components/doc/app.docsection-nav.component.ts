@@ -33,7 +33,8 @@ import { fromEvent } from 'rxjs';
                 }
             }
         </ul>
-    `
+    `,
+    standalone: false
 })
 export class AppDocSectionNavComponent implements OnInit {
     docs = input.required<Doc[]>();

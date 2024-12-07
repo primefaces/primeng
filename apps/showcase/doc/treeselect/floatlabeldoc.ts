@@ -28,7 +28,8 @@ import { Component } from '@angular/core';
             </p-floatlabel>
         </div>
         <app-code [code]="code" selector="tree-select-floatlabel-demo"></app-code>
-    `
+    `,
+    standalone: false
 })
 export class FloatLabelDoc {
     nodes!: any[];

@@ -95,7 +95,8 @@ import { Component } from '@angular/core';
                     </tr>
                 </tbody>
             </table>
-        </div>`
+        </div>`,
+    standalone: false
 })
 export class AccessibilityDoc {
     code: Code = {

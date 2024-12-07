@@ -20,7 +20,8 @@ import { Component } from '@angular/core';
             </p-dialog>
         </div>
         <app-code [code]="code" selector="dialog-responsive-demo"></app-code>
-    `
+    `,
+    standalone: false
 })
 export class ResponsiveDoc {
     visible: boolean = false;

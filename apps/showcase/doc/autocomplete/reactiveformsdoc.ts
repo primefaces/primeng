@@ -17,7 +17,8 @@ interface AutoCompleteCompleteEvent {
                 <p-autocomplete formControlName="selectedCountry" [suggestions]="items" (completeMethod)="search($event)" />
             </form>
         </div>
-        <app-code [code]="code" selector="autocomplete-reactive-forms-demo"></app-code>`
+        <app-code [code]="code" selector="autocomplete-reactive-forms-demo"></app-code>`,
+    standalone: false
 })
 export class ReactiveFormsDoc {
     items: any[] | undefined;

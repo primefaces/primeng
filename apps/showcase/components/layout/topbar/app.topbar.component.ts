@@ -11,7 +11,6 @@ import { StyleClass } from 'primeng/styleclass';
 
 @Component({
     selector: 'app-topbar',
-    standalone: true,
     imports: [CommonModule, FormsModule, StyleClass, RouterModule, AppConfiguratorComponent],
     template: `<div class="layout-topbar">
         <div class="layout-topbar-inner">

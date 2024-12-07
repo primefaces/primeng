@@ -30,7 +30,8 @@ import { Popover } from 'primeng/popover';
         </div>
 
         <app-code [code]="code" selector="popover-basic-demo"></app-code>
-    `
+    `,
+    standalone: false
 })
 export class SelectDataDoc {
     @ViewChild('op') op!: Popover;

@@ -6,7 +6,6 @@ import { RippleModule } from 'primeng/ripple';
 import { Subscription } from 'rxjs';
 
 @Component({
-    standalone: true,
     imports: [CommonModule, RippleModule],
     template: `
         <div>

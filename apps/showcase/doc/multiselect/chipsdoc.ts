@@ -16,7 +16,8 @@ interface City {
             <p-multiselect [options]="cities" [(ngModel)]="selectedCities" placeholder="Select Cities" optionLabel="name" display="chip" styleClass="w-full md:w-80" />
         </div>
         <app-code [code]="code" selector="multi-select-chips-demo"></app-code>
-    `
+    `,
+    standalone: false
 })
 export class ChipsDoc implements OnInit {
     cities!: City[];

@@ -45,7 +45,8 @@ import { Component } from '@angular/core';
             </ng-template>
         </div>
         <app-code [code]="code" selector="tooltip-custom-demo"></app-code>
-    `
+    `,
+    standalone: false
 })
 export class CustomDoc {
     code: Code = {

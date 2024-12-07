@@ -10,7 +10,8 @@ import { Component } from '@angular/core';
             </p>
         </app-docsectiontext>
         <app-code [code]="code" selector="scale-demo" [hideToggleCode]="true"></app-code>
-    `
+    `,
+    standalone: false
 })
 export class ScaleDoc {
     code = {

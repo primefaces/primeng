@@ -37,7 +37,8 @@ import { Component } from '@angular/core';
             </p-inplace>
         </div>
         <app-code [code]="code" selector="inplace-lazy-demo"></app-code>
-    `
+    `,
+    standalone: false
 })
 export class LazyDoc {
     products: Product[] | undefined;

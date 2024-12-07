@@ -37,7 +37,8 @@ interface Column {
         </div>
         <app-code [code]="code" selector="tree-table-scroll-vertical-demo"></app-code>
     `,
-    changeDetection: ChangeDetectionStrategy.OnPush
+    changeDetection: ChangeDetectionStrategy.OnPush,
+    standalone: false
 })
 export class ScrollVerticalDoc {
     files!: TreeNode[];

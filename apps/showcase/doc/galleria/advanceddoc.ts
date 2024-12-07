@@ -47,7 +47,8 @@ import { Galleria } from 'primeng/galleria';
             </p-galleria>
         </div>
         <app-code [code]="code" selector="galleria-advanced-demo"></app-code>
-    `
+    `,
+    standalone: false
 })
 export class AdvancedDoc implements OnInit, OnDestroy {
     images: any[] | undefined;

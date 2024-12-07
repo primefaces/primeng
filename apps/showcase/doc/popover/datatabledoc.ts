@@ -78,7 +78,8 @@ import { Popover } from 'primeng/popover';
         </div>
         <app-code [code]="code" selector="popover-data-table-demo" [extFiles]="extFiles"></app-code>
     `,
-    providers: [MessageService]
+    providers: [MessageService],
+    standalone: false
 })
 export class DataTableDoc implements OnInit {
     constructor(

@@ -11,7 +11,8 @@ import { Component } from '@angular/core';
             <p-colorpicker [(ngModel)]="color" [inline]="true" />
         </div>
         <app-code [code]="code" selector="color-picker-inline-demo"></app-code>
-    `
+    `,
+    standalone: false
 })
 export class InlineDoc {
     color: string | undefined;

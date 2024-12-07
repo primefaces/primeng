@@ -19,7 +19,8 @@ import { Component } from '@angular/core';
             </p-editor>
         </div>
         <app-code [code]="code" selector="editor-customtoolbar-demo"></app-code>
-    `
+    `,
+    standalone: false
 })
 export class CustomToolbarDoc {
     text: string = '<div>Hello World!</div><div>PrimeNG <b>Editor</b> Rocks</div><div><br></div>';

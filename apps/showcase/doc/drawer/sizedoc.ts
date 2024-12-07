@@ -17,7 +17,8 @@ import { Component } from '@angular/core';
             <p-button (click)="visible = true" icon="pi pi-arrow-right" />
         </div>
         <app-code [code]="code" selector="drawer-size-demo"></app-code>
-    `
+    `,
+    standalone: false
 })
 export class SizeDoc {
     visible: boolean = false;

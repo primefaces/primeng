@@ -12,8 +12,7 @@ import { Component } from '@angular/core';
 
 @Component({
     template: `<app-doc docTitle="Angular Tabs Component" header="Tabs" description="Tabs is a container component to group content with tabs." [docs]="docs" [apiDocs]="['Tabs', 'TabPanel', 'Tab']" themeDocs="tabs"></app-doc>`,
-    imports: [TabsDocModule],
-    standalone: true
+    imports: [TabsDocModule]
 })
 export class TabsDemo {
     docs = [

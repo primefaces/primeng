@@ -16,7 +16,8 @@ interface City {
             <p-listbox [options]="cities" [(ngModel)]="selectedCity" optionLabel="name" [filter]="true" class="w-full md:w-56" />
         </div>
         <app-code [code]="code" selector="listbox-filter-demo"></app-code>
-    `
+    `,
+    standalone: false
 })
 export class FilterDoc implements OnInit {
     cities!: City[];

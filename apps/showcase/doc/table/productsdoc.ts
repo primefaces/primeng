@@ -183,7 +183,8 @@ interface ExportColumn {
         </p-deferred-demo>
         <app-code [code]="code" selector="table-products-demo" [extFiles]="extFiles"></app-code>`,
     changeDetection: ChangeDetectionStrategy.OnPush,
-    providers: [MessageService, ConfirmationService]
+    providers: [MessageService, ConfirmationService],
+    standalone: false
 })
 export class ProductsDoc {
     code: Code = {

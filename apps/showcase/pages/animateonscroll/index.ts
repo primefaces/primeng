@@ -12,8 +12,7 @@ import { Component } from '@angular/core';
         [docs]="docs"
         [apiDocs]="['AnimateOnScroll']"
     ></app-doc>`,
-    imports: [AnimateOnScrollDocModule],
-    standalone: true
+    imports: [AnimateOnScrollDocModule]
 })
 export class AnimateOnScrollDemo {
     docs = [

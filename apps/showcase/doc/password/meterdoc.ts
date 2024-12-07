@@ -11,7 +11,8 @@ import { Component } from '@angular/core';
             <p-password [(ngModel)]="value" autocomplete="off" />
         </div>
         <app-code [code]="code" selector="password-meter-demo"></app-code>
-    `
+    `,
+    standalone: false
 })
 export class MeterDoc {
     value!: string;

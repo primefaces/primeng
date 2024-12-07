@@ -25,7 +25,8 @@ import { Component } from '@angular/core';
             </p-treeselect>
         </div>
         <app-code [code]="code" selector="tree-select-template-demo"></app-code>
-    `
+    `,
+    standalone: false
 })
 export class TemplateDoc {
     nodes!: any[];

@@ -24,7 +24,8 @@ import { Component } from '@angular/core';
             </p-floatlabel>
         </div>
         <app-code [code]="code" selector="input-mask-floatlabel-demo"></app-code>
-    `
+    `,
+    standalone: false
 })
 export class FloatlabelDoc {
     value1: string | undefined;

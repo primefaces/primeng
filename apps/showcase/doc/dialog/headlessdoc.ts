@@ -58,7 +58,8 @@ import { Component } from '@angular/core';
             </p-dialog>
         </div>
         <app-code [code]="code" selector="dialog-headless-demo"></app-code>
-    `
+    `,
+    standalone: false
 })
 export class HeadlessDoc {
     visible: boolean = false;

@@ -42,7 +42,8 @@ import { ChangeDetectorRef, Component } from '@angular/core';
             </p-picklist>
         </div>
         <app-code [code]="code" selector="picklist-template-demo" [extFiles]="extFiles"></app-code>
-    `
+    `,
+    standalone: false
 })
 export class TemplateDoc {
     sourceProducts!: Product[];

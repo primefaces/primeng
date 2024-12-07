@@ -12,7 +12,8 @@ import { MegaMenuItem } from 'primeng/api';
             <p-megamenu [model]="items" orientation="vertical" />
         </div>
         <app-code [code]="code" selector="mega-menu-vertical-demo"></app-code>
-    `
+    `,
+    standalone: false
 })
 export class VerticalDoc implements OnInit {
     items: MegaMenuItem[] | undefined;

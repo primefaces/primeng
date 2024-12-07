@@ -34,7 +34,8 @@ import { MultiSelect } from 'primeng/multiselect';
             </p-multiselect>
         </div>
         <app-code [code]="code" selector="multi-select-virtual-scroll-demo"></app-code>
-    `
+    `,
+    standalone: false
 })
 export class VirtualScrollDoc {
     @ViewChild('ms') ms: MultiSelect;

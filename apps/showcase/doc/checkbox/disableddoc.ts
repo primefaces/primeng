@@ -12,7 +12,8 @@ import { Component } from '@angular/core';
             <p-checkbox [(ngModel)]="checked2" [binary]="true" [disabled]="true" />
         </div>
         <app-code [code]="code" selector="checkbox-disabled-demo"></app-code>
-    `
+    `,
+    standalone: false
 })
 export class DisabledDoc {
     checked1: boolean = false;

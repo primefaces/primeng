@@ -16,7 +16,8 @@ interface City {
             <p-select [options]="cities" [(ngModel)]="selectedCity" [checkmark]="true" optionLabel="name" [showClear]="true" placeholder="Select a City" class="w-full md:w-56" />
         </div>
         <app-code [code]="code" selector="select-checkmark-demo"></app-code>
-    `
+    `,
+    standalone: false
 })
 export class CheckmarkDoc implements OnInit {
     cities: City[];

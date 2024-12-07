@@ -11,7 +11,8 @@ import { Component } from '@angular/core';
             <p-knob [(ngModel)]="value" valueTemplate="{value}%" />
         </div>
         <app-code [code]="code" selector="knob-template-demo"></app-code>
-    `
+    `,
+    standalone: false
 })
 export class TemplateDoc {
     value: number = 60;

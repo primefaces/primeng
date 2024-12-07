@@ -14,7 +14,6 @@ import { Tag } from 'primeng/tag';
 
 @Component({
     selector: 'theme-section',
-    standalone: true,
     imports: [CommonModule, TableModule, ButtonModule, Tag, ProgressBar, InputTextModule, IconField, InputIcon],
     template: `
         <section class="landing-themes py-20">

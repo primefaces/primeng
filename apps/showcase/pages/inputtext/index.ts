@@ -13,7 +13,6 @@ import { SizesDoc } from '@/doc/inputtext/sizesdoc';
 import { Component } from '@angular/core';
 
 @Component({
-    standalone: true,
     imports: [InputtextDocModule],
     template: `<app-doc
         docTitle="Angular InputText Component"

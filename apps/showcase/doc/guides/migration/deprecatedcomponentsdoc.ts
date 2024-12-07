@@ -17,6 +17,7 @@ import { Component } from '@angular/core';
                 <li><i class="mark">pDefer</i> | Use Angular <i>defer</i> instead.</li>
             </ul>
         </app-docsectiontext>
-    `
+    `,
+    standalone: false
 })
 export class DeprecatedComponentsDoc {}

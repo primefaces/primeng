@@ -18,7 +18,8 @@ import { Component } from '@angular/core';
             </p-avatar-group>
         </div>
         <app-code [code]="code" selector="avatar-group-demo"></app-code>
-    `
+    `,
+    standalone: false
 })
 export class GroupDoc {
     code: Code = {

@@ -44,7 +44,8 @@ import { Component } from '@angular/core';
             </p>
         </div>
         <app-code [code]="code" selector="divider-content-demo"></app-code>
-    `
+    `,
+    standalone: false
 })
 export class ContentDoc {
     code: Code = {

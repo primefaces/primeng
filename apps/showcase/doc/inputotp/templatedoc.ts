@@ -35,7 +35,8 @@ import { Component } from '@angular/core';
                 border-bottom-color: var(--p-primary-color);
             }
         `
-    ]
+    ],
+    standalone: false
 })
 export class TemplateDoc {
     value: any;

@@ -14,7 +14,8 @@ import { Component } from '@angular/core';
             </p-calendar>
         </div>
         <app-code [code]="code" selector="calendar-template-demo"></app-code>
-    `
+    `,
+    standalone: false
 })
 export class TemplateDoc {
     date: Date[] | undefined;

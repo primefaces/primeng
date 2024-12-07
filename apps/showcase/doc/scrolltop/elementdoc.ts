@@ -20,7 +20,8 @@ import { Component } from '@angular/core';
             </div>
         </div>
         <app-code [code]="code" selector="scroll-top-element-demo"></app-code>
-    `
+    `,
+    standalone: false
 })
 export class ElementDoc {
     code: Code = {

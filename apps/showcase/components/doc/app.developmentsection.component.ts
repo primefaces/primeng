@@ -6,6 +6,7 @@ import { Component } from '@angular/core';
             <i class="pi pi-info-circle text-lg text-white mr-2"></i>
             Accessibility guide documents the specification of this component based on WCAG guidelines, the implementation is in progress.
         </div>
-        <ng-content></ng-content>`
+        <ng-content></ng-content>`,
+    standalone: false
 })
 export class AppDevelopmentSection {}

@@ -5,7 +5,6 @@ import { AnimateOnScrollModule } from 'primeng/animateonscroll';
 
 @Component({
     selector: 'features-section',
-    standalone: true,
     imports: [CommonModule, AnimateOnScrollModule],
     template: `
         <section class="landing-features py-20">

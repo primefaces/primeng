@@ -213,7 +213,8 @@ import { Drawer } from 'primeng/drawer';
             <p-button (click)="visible = true" icon="pi pi-bars" />
         </div>
         <app-code [code]="code" selector="drawer-headless-demo"></app-code>
-    `
+    `,
+    standalone: false
 })
 export class HeadlessDoc {
     @ViewChild('drawerRef') drawerRef!: Drawer;

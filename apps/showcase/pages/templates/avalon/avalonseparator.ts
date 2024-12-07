@@ -3,7 +3,6 @@ import { AppConfigService } from '@/service/appconfigservice';
 import { Component, inject } from '@angular/core';
 
 @Component({
-    standalone: true,
     selector: 'avalon-separator',
     imports: [TemplateSeparatorModule],
     template: `

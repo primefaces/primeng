@@ -6,7 +6,6 @@ import { FormsModule } from '@angular/forms';
 
 @Component({
     selector: 'design-cs-overlay',
-    standalone: true,
     imports: [CommonModule, DesignTokenField, FormsModule, FieldsetModule],
     template: ` <p-fieldset legend="Overlay" [toggleable]="true">
         <div class="text-sm mb-1 font-semibold text-surface-950 dark:text-surface-0">Select</div>

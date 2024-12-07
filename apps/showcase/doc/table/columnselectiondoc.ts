@@ -38,7 +38,8 @@ import { MessageService } from 'primeng/api';
         </p-deferred-demo>
         <app-code [code]="code" selector="table-column-selection-demo" [extFiles]="extFiles"></app-code>`,
     changeDetection: ChangeDetectionStrategy.OnPush,
-    providers: [MessageService]
+    providers: [MessageService],
+    standalone: false
 })
 export class ColumnSelectionDoc {
     products!: Product[];

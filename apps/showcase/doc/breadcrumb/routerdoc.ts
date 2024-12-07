@@ -26,7 +26,8 @@ import { MenuItem } from 'primeng/api';
             </p-breadcrumb>
         </div>
         <app-code [code]="code" selector="breadcrumb-router-demo"></app-code>
-    `
+    `,
+    standalone: false
 })
 export class RouterDoc implements OnInit {
     items: MenuItem[] | undefined;

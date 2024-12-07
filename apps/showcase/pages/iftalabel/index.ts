@@ -6,7 +6,6 @@ import { InvalidDoc } from '@/doc/iftalabel/invaliddoc';
 import { Component } from '@angular/core';
 
 @Component({
-    standalone: true,
     imports: [IftaLabelDocModule],
     template: ` <app-doc docTitle="Angular Ifta Label Component" header="IftaLabel" description="IftaLabel is used to create infield top aligned labels." [docs]="docs" themeDocs="iftalabel" [apiDocs]="['IftaLabel']"></app-doc> `
 })

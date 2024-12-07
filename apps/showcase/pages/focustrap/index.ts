@@ -5,7 +5,6 @@ import { Component } from '@angular/core';
 
 @Component({
     template: ` <app-doc docTitle="Angular Focus Trap Component" header="Focus Trap" description="Focus Trap keeps focus within a certain DOM element while tabbing." [docs]="docs" [apiDocs]="['FocusTrap']"></app-doc> `,
-    standalone: true,
     imports: [FocusTrapDocModule]
 })
 export class FocusTrapDemo {

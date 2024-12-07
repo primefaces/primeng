@@ -35,7 +35,8 @@ interface EventItem {
             </p-timeline>
         </div>
         <app-code [code]="code" selector="timeline-alignment-demo"></app-code>
-    `
+    `,
+    standalone: false
 })
 export class AlignmentDoc {
     events: EventItem[];

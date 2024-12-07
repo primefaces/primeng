@@ -3,7 +3,6 @@ import { Component, ElementRef, EventEmitter, Inject, Input, OnInit, Output, PLA
 
 @Component({
     selector: 'p-deferred-demo',
-    standalone: true,
     imports: [CommonModule],
     template: `
         @if (!visible) {

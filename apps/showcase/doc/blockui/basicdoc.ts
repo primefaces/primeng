@@ -19,7 +19,8 @@ import { Component } from '@angular/core';
             </p-panel>
         </div>
         <app-code [code]="code" selector="block-ui-basic-demo"></app-code>
-    `
+    `,
+    standalone: false
 })
 export class BasicDoc {
     blockedPanel: boolean = false;

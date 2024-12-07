@@ -18,7 +18,8 @@ import { Component } from '@angular/core';
             <p-button label="Contrast" variant="outlined" severity="contrast" />
         </div>
         <app-code [code]="code" selector="button-outlined-demo"></app-code>
-    `
+    `,
+    standalone: false
 })
 export class OutlinedDoc {
     code: Code = {

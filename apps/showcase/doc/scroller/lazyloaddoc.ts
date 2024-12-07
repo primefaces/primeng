@@ -27,7 +27,8 @@ interface LazyEvent {
         </div>
         <app-code [code]="code" selector="scroller-lazy-load-demo"></app-code>
     `,
-    changeDetection: ChangeDetectionStrategy.OnPush
+    changeDetection: ChangeDetectionStrategy.OnPush,
+    standalone: false
 })
 export class LazyLoadDoc {
     items!: string[];

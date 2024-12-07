@@ -13,7 +13,8 @@ import { Component } from '@angular/core';
             <p-selectbutton [(ngModel)]="value3" [options]="options" size="large" />
         </div>
         <app-code [code]="code" selector="select-button-sizes-demo"></app-code>
-    `
+    `,
+    standalone: false
 })
 export class SizesDoc {
     value1!: string;

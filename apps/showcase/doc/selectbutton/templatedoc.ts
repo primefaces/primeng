@@ -15,7 +15,8 @@ import { Component } from '@angular/core';
             </p-selectbutton>
         </div>
         <app-code [code]="code" selector="select-button-template-demo"></app-code>
-    `
+    `,
+    standalone: false
 })
 export class TemplateDoc {
     value: any;

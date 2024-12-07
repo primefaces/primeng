@@ -38,7 +38,8 @@ interface Column {
         </div>
         <app-code [code]="code" selector="tree-table-sort-multiple-columns-demo"></app-code>
     `,
-    changeDetection: ChangeDetectionStrategy.OnPush
+    changeDetection: ChangeDetectionStrategy.OnPush,
+    standalone: false
 })
 export class SortMultipleColumnsDoc {
     files!: TreeNode[];

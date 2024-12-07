@@ -83,7 +83,8 @@ import { LazyLoadEvent } from 'primeng/api';
             </div>
         </p-deferred-demo>
         <app-code [code]="code" selector="table-lazy-load-demo" [extFiles]="extFiles"></app-code>`,
-    changeDetection: ChangeDetectionStrategy.OnPush
+    changeDetection: ChangeDetectionStrategy.OnPush,
+    standalone: false
 })
 export class LazyLoadDoc implements OnInit {
     customers!: Customer[];

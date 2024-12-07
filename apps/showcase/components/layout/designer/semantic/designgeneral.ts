@@ -9,7 +9,6 @@ import { DesignColorPalette } from '../app.designcolorpalette.component';
 
 @Component({
     selector: 'design-general',
-    standalone: true,
     imports: [CommonModule, DesignColorPalette, DesignTokenField, FormsModule, FieldsetModule],
     template: ` <p-fieldset legend="General" [toggleable]="true">
         <section class="flex justify-between items-center mb-4">
