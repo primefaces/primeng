@@ -1,4 +1,4 @@
-import { CommonModule } from '@angular/common';
+import { NgClass, NgStyle } from '@angular/common';
 import { booleanAttribute, ChangeDetectionStrategy, Component, EventEmitter, forwardRef, inject, Input, NgModule, numberAttribute, Output, ViewEncapsulation } from '@angular/core';
 import { NG_VALUE_ACCESSOR } from '@angular/forms';
 import { $dt } from '@primeuix/styled';
@@ -18,8 +18,7 @@ export const KNOB_VALUE_ACCESSOR: any = {
  */
 @Component({
     selector: 'p-knob',
-    standalone: true,
-    imports: [CommonModule, SharedModule],
+    imports: [NgClass, NgStyle, SharedModule],
     template: `
         <div [ngClass]="containerClass" [class]="styleClass" [ngStyle]="style" [attr.data-pc-name]="'knob'" [attr.data-pc-section]="'root'">
             <svg
@@ -43,9 +42,11 @@ export const KNOB_VALUE_ACCESSOR: any = {
             >
                 <path [attr.d]="rangePath()" [attr.stroke-width]="strokeWidth" [attr.stroke]="rangeColor" class="p-knob-range"></path>
                 <path [attr.d]="valuePath()" [attr.stroke-width]="strokeWidth" [attr.stroke]="valueColor" class="p-knob-value"></path>
-                <text *ngIf="showValue" [attr.x]="50" [attr.y]="57" text-anchor="middle" [attr.fill]="textColor" class="p-knob-text" [attr.name]="name">
-                    {{ valueToDisplay() }}
-                </text>
+                @if (showValue) {
+                    <text [attr.x]="50" [attr.y]="57" text-anchor="middle" [attr.fill]="textColor" class="p-knob-text" [attr.name]="name">
+                        {{ valueToDisplay() }}
+                    </text>
+                }
             </svg>
         </div>
     `,
