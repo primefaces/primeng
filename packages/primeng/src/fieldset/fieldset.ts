@@ -1,5 +1,5 @@
 import { animate, state, style, transition, trigger } from '@angular/animations';
-import { CommonModule } from '@angular/common';
+import { CommonModule, NgClass, NgStyle, NgTemplateOutlet } from '@angular/common';
 import { booleanAttribute, ChangeDetectionStrategy, Component, ContentChild, EventEmitter, inject, Input, NgModule, Output, TemplateRef, ViewEncapsulation } from '@angular/core';
 import { uuid } from '@primeuix/utils';
 import { BlockableUI, SharedModule } from 'primeng/api';
@@ -17,8 +17,7 @@ import { FieldsetStyle } from './style/fieldsetstyle';
  */
 @Component({
     selector: 'p-fieldset',
-    standalone: true,
-    imports: [CommonModule, ButtonModule, MinusIcon, PlusIcon, SharedModule],
+    imports: [NgClass, NgStyle, NgTemplateOutlet, ButtonModule, MinusIcon, PlusIcon, SharedModule],
     template: `
         <fieldset
             [attr.id]="id"
@@ -33,7 +32,7 @@ import { FieldsetStyle } from './style/fieldsetstyle';
             [attr.data-pc-section]="'root'"
         >
             <legend class="p-fieldset-legend" [attr.data-pc-section]="'legend'">
-                <ng-container *ngIf="toggleable; else legendContent">
+                @if (toggleable) {
                     <button
                         [attr.id]="id + '_header'"
                         tabindex="0"
@@ -45,21 +44,33 @@ import { FieldsetStyle } from './style/fieldsetstyle';
                         (keydown)="onKeyDown($event)"
                         class="p-fieldset-toggle-button"
                     >
-                        <ng-container *ngIf="collapsed">
-                            <PlusIcon *ngIf="!expandiconTemplate" [styleClass]="'p-fieldset-toggler'" [attr.data-pc-section]="'togglericon'" />
-                            <span *ngIf="expandiconTemplate" class="p-fieldset-toggler" [attr.data-pc-section]="'togglericon'">
-                                <ng-container *ngTemplateOutlet="expandiconTemplate"></ng-container>
-                            </span>
-                        </ng-container>
-                        <ng-container *ngIf="!collapsed">
-                            <MinusIcon *ngIf="!collapseiconTemplate" [styleClass]="'p-fieldset-toggler'" [attr.aria-hidden]="true" [attr.data-pc-section]="'togglericon'" />
-                            <span *ngIf="collapseiconTemplate" class="p-fieldset-toggler" [attr.data-pc-section]="'togglericon'">
-                                <ng-container *ngTemplateOutlet="collapseiconTemplate"></ng-container>
-                            </span>
-                        </ng-container>
+                        @if (collapsed) {
+                            @if (!expandiconTemplate) {
+                                <PlusIcon [styleClass]="'p-fieldset-toggler'" [attr.data-pc-section]="'togglericon'" />
+                            }
+                            @if (expandiconTemplate) {
+                                <span class="p-fieldset-toggler" [attr.data-pc-section]="'togglericon'">
+                                    <ng-container *ngTemplateOutlet="expandiconTemplate"></ng-container>
+                                </span>
+                            }
+                        }
+                        @if (!collapsed) {
+                            @if (!collapseiconTemplate) {
+                                <MinusIcon [styleClass]="'p-fieldset-toggler'" [attr.aria-hidden]="true" [attr.data-pc-section]="'togglericon'" />
+                            }
+                            @if (collapseiconTemplate) {
+                                <span class="p-fieldset-toggler" [attr.data-pc-section]="'togglericon'">
+                                    <ng-container *ngTemplateOutlet="collapseiconTemplate"></ng-container>
+                                </span>
+                            }
+                        }
                         <ng-container *ngTemplateOutlet="legendContent"></ng-container>
                     </button>
-                </ng-container>
+                } @else {
+                    <span class="p-fieldset-legend-label" [attr.data-pc-section]="'legendtitle'">{{ legend }}</span>
+                    <ng-content select="p-header"></ng-content>
+                    <ng-container *ngTemplateOutlet="headerTemplate"></ng-container>
+                }
                 <ng-template #legendContent>
                     <span class="p-fieldset-legend-label" [attr.data-pc-section]="'legendtitle'">{{ legend }}</span>
                     <ng-content select="p-header"></ng-content>
