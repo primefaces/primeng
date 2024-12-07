@@ -21,28 +21,29 @@ import { PopoverStyle } from './style/popoverstyle';
     selector: 'p-overlayPanel, p-overlaypanel',
     standalone: false,
     template: `
-        <div
-            *ngIf="render"
-            [ngClass]="'p-popover p-component'"
-            [ngStyle]="style"
-            [class]="styleClass"
-            (click)="onOverlayClick($event)"
-            [@animation]="{
-                value: overlayVisible ? 'open' : 'close',
-                params: { showTransitionParams: showTransitionOptions, hideTransitionParams: hideTransitionOptions }
-            }"
-            (@animation.start)="onAnimationStart($event)"
-            (@animation.done)="onAnimationEnd($event)"
-            role="dialog"
-            [attr.aria-modal]="overlayVisible"
-            [attr.aria-label]="ariaLabel"
-            [attr.aria-labelledBy]="ariaLabelledBy"
-        >
-            <div class="p-popover-content" (click)="onContentClick($event)" (mousedown)="onContentClick($event)">
-                <ng-content></ng-content>
-                <ng-container *ngTemplateOutlet="contentTemplate"></ng-container>
+        @if (render) {
+            <div
+                [ngClass]="'p-popover p-component'"
+                [ngStyle]="style"
+                [class]="styleClass"
+                (click)="onOverlayClick($event)"
+                [@animation]="{
+                    value: overlayVisible ? 'open' : 'close',
+                    params: { showTransitionParams: showTransitionOptions, hideTransitionParams: hideTransitionOptions }
+                }"
+                (@animation.start)="onAnimationStart($event)"
+                (@animation.done)="onAnimationEnd($event)"
+                role="dialog"
+                [attr.aria-modal]="overlayVisible"
+                [attr.aria-label]="ariaLabel"
+                [attr.aria-labelledBy]="ariaLabelledBy"
+            >
+                <div class="p-popover-content" (click)="onContentClick($event)" (mousedown)="onContentClick($event)">
+                    <ng-content></ng-content>
+                    <ng-container *ngTemplateOutlet="contentTemplate"></ng-container>
+                </div>
             </div>
-        </div>
+        }
     `,
     animations: [
         trigger('animation', [
