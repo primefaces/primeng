@@ -1,9 +1,9 @@
 import { CdkDragDrop, DragDropModule, moveItemInArray } from '@angular/cdk/drag-drop';
-import { CommonModule, isPlatformBrowser } from '@angular/common';
-import { AfterContentInit, booleanAttribute, ChangeDetectionStrategy, Component, ContentChild, ElementRef, EventEmitter, inject, Input, NgModule, numberAttribute, Output, QueryList, TemplateRef, ViewChild, ViewEncapsulation } from '@angular/core';
+import { isPlatformBrowser, NgClass, NgStyle, NgTemplateOutlet } from '@angular/common';
+import { booleanAttribute, ChangeDetectionStrategy, Component, ContentChild, ElementRef, EventEmitter, inject, Input, NgModule, numberAttribute, Output, TemplateRef, ViewChild, ViewEncapsulation } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { find, findIndexInList, findSingle, hasClass, insertIntoOrderedArray, isHidden, scrollInView, setAttribute, uuid } from '@primeuix/utils';
-import { FilterService, PrimeTemplate, SharedModule } from 'primeng/api';
+import { FilterService, SharedModule } from 'primeng/api';
 import { BaseComponent } from 'primeng/basecomponent';
 import { ButtonDirective, ButtonProps } from 'primeng/button';
 import { AngleDoubleDownIcon, AngleDoubleUpIcon, AngleDownIcon, AngleUpIcon, SearchIcon } from 'primeng/icons';
@@ -19,8 +19,7 @@ import { OrderListStyle } from './style/orderliststyle';
  */
 @Component({
     selector: 'p-orderList, p-orderlist, p-order-list',
-    standalone: true,
-    imports: [CommonModule, ButtonDirective, Ripple, DragDropModule, AngleDoubleDownIcon, AngleDoubleUpIcon, AngleUpIcon, AngleDownIcon, SearchIcon, Listbox, FormsModule, SharedModule],
+    imports: [NgClass, NgStyle, NgTemplateOutlet, ButtonDirective, Ripple, DragDropModule, AngleDoubleDownIcon, AngleDoubleUpIcon, AngleUpIcon, AngleDownIcon, SearchIcon, Listbox, FormsModule, SharedModule],
     template: `
         <div
             [ngClass]="{
@@ -35,15 +34,21 @@ import { OrderListStyle } from './style/orderliststyle';
         >
             <div class="p-orderlist-controls" [attr.data-pc-section]="'controls'">
                 <button type="button" [disabled]="moveDisabled()" pButton pRipple class="p-button-icon-only" (click)="moveUp()" [attr.aria-label]="moveUpAriaLabel" [attr.data-pc-section]="'moveUpButton'" [buttonProps]="getButtonProps('up')">
-                    <AngleUpIcon *ngIf="!moveupiconTemplate" [attr.data-pc-section]="'moveupicon'" />
+                    @if (!moveupiconTemplate) {
+                        <AngleUpIcon [attr.data-pc-section]="'moveupicon'" />
+                    }
                     <ng-template *ngTemplateOutlet="moveupiconTemplate"></ng-template>
                 </button>
                 <button type="button" [disabled]="moveDisabled()" pButton pRipple class="p-button-icon-only" (click)="moveTop()" [attr.aria-label]="moveTopAriaLabel" [attr.data-pc-section]="'moveTopButton'" [buttonProps]="getButtonProps('top')">
-                    <AngleDoubleUpIcon *ngIf="!movetopiconTemplate" [attr.data-pc-section]="'movetopicon'" />
+                    @if (!movetopiconTemplate) {
+                        <AngleDoubleUpIcon [attr.data-pc-section]="'movetopicon'" />
+                    }
                     <ng-template *ngTemplateOutlet="movetopiconTemplate"></ng-template>
                 </button>
                 <button type="button" [disabled]="moveDisabled()" pButton pRipple class="p-button-icon-only" (click)="moveDown()" [attr.aria-label]="moveDownAriaLabel" [attr.data-pc-section]="'moveDownButton'" [buttonProps]="getButtonProps('down')">
-                    <AngleDownIcon *ngIf="!movedowniconTemplate" [attr.data-pc-section]="'movedownicon'" />
+                    @if (!movedowniconTemplate) {
+                        <AngleDownIcon [attr.data-pc-section]="'movedownicon'" />
+                    }
                     <ng-template *ngTemplateOutlet="movedowniconTemplate"></ng-template>
                 </button>
                 <button
@@ -57,7 +62,9 @@ import { OrderListStyle } from './style/orderliststyle';
                     [attr.data-pc-section]="'moveBottomButton'"
                     [buttonProps]="getButtonProps('bottom')"
                 >
-                    <AngleDoubleDownIcon *ngIf="!movebottomiconTemplate" [attr.data-pc-section]="'movebottomicon'" />
+                    @if (!movebottomiconTemplate) {
+                        <AngleDoubleDownIcon [attr.data-pc-section]="'movebottomicon'" />
+                    }
                     <ng-template *ngTemplateOutlet="movebottomiconTemplate"></ng-template>
                 </button>
             </div>
@@ -85,16 +92,16 @@ import { OrderListStyle } from './style/orderliststyle';
                     [filterLocale]="filterLocale"
                     [filterPlaceHolder]="filterPlaceholder"
                 >
-                    <ng-container *ngIf="headerTemplate">
+                    @if (headerTemplate) {
                         <ng-template #header>
                             <ng-template *ngTemplateOutlet="headerTemplate"></ng-template>
                         </ng-template>
-                    </ng-container>
-                    <ng-container *ngIf="itemTemplate">
+                    }
+                    @if (itemTemplate) {
                         <ng-template #item let-option let-selected="selected" let-index="index">
                             <ng-template *ngTemplateOutlet="itemTemplate; context: { $implicit: option, selected: selected, index: index }"></ng-template>
                         </ng-template>
-                    </ng-container>
+                    }
                 </p-listbox>
             </div>
         </div>
