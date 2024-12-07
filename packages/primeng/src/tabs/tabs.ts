@@ -1,4 +1,3 @@
-import { CommonModule } from '@angular/common';
 import { booleanAttribute, ChangeDetectionStrategy, Component, inject, input, model, NgModule, numberAttribute, signal, ViewEncapsulation } from '@angular/core';
 
 import { uuid } from '@primeuix/utils';
@@ -15,8 +14,7 @@ import { TabPanels } from './tabpanels';
  */
 @Component({
     selector: 'p-tabs',
-    standalone: true,
-    imports: [CommonModule],
+    imports: [],
     template: ` <ng-content></ng-content>`,
     changeDetection: ChangeDetectionStrategy.OnPush,
     encapsulation: ViewEncapsulation.None,
