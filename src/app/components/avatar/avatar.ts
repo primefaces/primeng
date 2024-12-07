@@ -95,7 +95,6 @@ export class Avatar implements OnChanges {
      */
     ngOnChanges(changes: SimpleChanges): void {
         if (changes['style']) {
-            // Update the currentStyle object whenever the style input changes
             this.currentStyle = { ...changes['style'].currentValue };
         }
     }
