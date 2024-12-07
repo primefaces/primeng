@@ -11,7 +11,8 @@ import { Component } from '@angular/core';
             </p>
         </app-docsectiontext>
         <app-code [code]="code" selector="tailwind-demo" [hideToggleCode]="true"></app-code>
-    `
+    `,
+    standalone: false
 })
 export class TailwindDoc {
     code = {

@@ -11,7 +11,8 @@ import { Component } from '@angular/core';
             <p-datepicker [(ngModel)]="date" view="year" dateFormat="yy" />
         </div>
         <app-code [code]="code" selector="datepicker-year-demo"></app-code>
-    `
+    `,
+    standalone: false
 })
 export class YearDoc {
     date: Date[] | undefined;

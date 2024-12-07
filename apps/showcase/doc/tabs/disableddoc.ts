@@ -39,7 +39,8 @@ import { Component } from '@angular/core';
             </p-tabs>
         </div>
         <app-code [code]="code" selector="tabs-disabled-demo"></app-code>
-    `
+    `,
+    standalone: false
 })
 export class DisabledDoc {
     code: Code = {

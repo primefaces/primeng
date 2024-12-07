@@ -16,7 +16,8 @@ import { MenuItem, MessageService } from 'primeng/api';
         </div>
         <app-code [code]="code" selector="speed-dial-circle-demo"></app-code>
     `,
-    providers: [MessageService]
+    providers: [MessageService],
+    standalone: false
 })
 export class CircleDoc implements OnInit {
     items: MenuItem[] | undefined;

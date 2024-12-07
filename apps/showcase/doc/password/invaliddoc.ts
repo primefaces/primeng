@@ -11,7 +11,8 @@ import { Component } from '@angular/core';
             <p-password [(ngModel)]="value" class="ng-invalid ng-dirty" autocomplete="off" placeholder="Password" />
         </div>
         <app-code [code]="code" selector="password-invalid-demo"></app-code>
-    `
+    `,
+    standalone: false
 })
 export class InvalidDoc {
     value!: string;

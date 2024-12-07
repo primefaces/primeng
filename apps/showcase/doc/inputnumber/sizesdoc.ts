@@ -13,7 +13,8 @@ import { Component } from '@angular/core';
             <p-inputnumber [(ngModel)]="value3" size="large" placeholder="Large" mode="currency" currency="USD" locale="en-US" />
         </div>
         <app-code [code]="code" selector="input-number-sizes-demo"></app-code>
-    `
+    `,
+    standalone: false
 })
 export class SizesDoc {
     value1!: number;

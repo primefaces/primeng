@@ -11,7 +11,8 @@ import { Component } from '@angular/core';
             <p-inputnumber inputId="integeronly" class="ng-invalid ng-dirty" [(ngModel)]="value" placeholder="Amount" />
         </div>
         <app-code [code]="code" selector="input-number-invalid-demo"></app-code>
-    `
+    `,
+    standalone: false
 })
 export class InvalidDoc {
     value!: number;

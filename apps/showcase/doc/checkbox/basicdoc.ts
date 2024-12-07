@@ -11,7 +11,8 @@ import { Component } from '@angular/core';
             <p-checkbox [(ngModel)]="checked" [binary]="true" />
         </div>
         <app-code [code]="code" selector="checkbox-basic-demo"></app-code>
-    `
+    `,
+    standalone: false
 })
 export class BasicDoc {
     checked: any = null;

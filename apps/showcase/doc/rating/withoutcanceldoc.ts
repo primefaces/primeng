@@ -11,7 +11,8 @@ import { Component } from '@angular/core';
             <p-rating [(ngModel)]="value" />
         </div>
         <app-code [code]="code" selector="rating-without-cancel-demo"></app-code>
-    `
+    `,
+    standalone: false
 })
 export class WithoutCancelDoc {
     value!: number;

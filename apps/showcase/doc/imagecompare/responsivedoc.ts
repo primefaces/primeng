@@ -18,7 +18,8 @@ import { Component } from '@angular/core';
             </p-imagecompare>
         </div>
         <app-code [code]="code" selector="image-compare-basic-demo"></app-code>
-    `
+    `,
+    standalone: false
 })
 export class ResponsiveDoc {
     code: Code = {

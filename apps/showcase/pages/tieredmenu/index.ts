@@ -10,7 +10,6 @@ import { Component } from '@angular/core';
 
 @Component({
     template: `<app-doc docTitle="Angular TieredMenu Component" header="TieredMenu" description="TieredMenu displays submenus in nested overlays." [docs]="docs" [apiDocs]="['TieredMenu', 'MenuItem']" themeDocs="tieredmenu"></app-doc>`,
-    standalone: true,
     imports: [TieredMenuDocModule]
 })
 export class TieredMenuDemo {

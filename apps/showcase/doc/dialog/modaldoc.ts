@@ -17,7 +17,8 @@ import { Component } from '@angular/core';
             </p-dialog>
         </div>
         <app-code [code]="code" selector="dialog-modal-demo"></app-code>
-    `
+    `,
+    standalone: false
 })
 export class ModalDoc {
     visible: boolean = false;

@@ -14,7 +14,8 @@ import { Component } from '@angular/core';
             </p-iftalabel>
         </div>
         <app-code [code]="code" selector="input-textarea-iftalabel-demo"></app-code>
-    `
+    `,
+    standalone: false
 })
 export class IftaLabelDoc {
     value: string = '';

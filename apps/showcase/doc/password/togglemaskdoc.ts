@@ -11,7 +11,8 @@ import { Component } from '@angular/core';
             <p-password [(ngModel)]="value" [toggleMask]="true" autocomplete="off" />
         </div>
         <app-code [code]="code" selector="password-toggle-mask-demo"></app-code>
-    `
+    `,
+    standalone: false
 })
 export class ToggleMaskDoc {
     value!: string;

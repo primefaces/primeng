@@ -18,7 +18,6 @@ import { Component } from '@angular/core';
 
 @Component({
     template: `<app-doc docTitle="Angular Tree Component" header="Tree" description="Tree is used to display hierarchical data." [docs]="docs" [apiDocs]="['Tree', 'TreeNode']" themeDocs="tree"></app-doc>`,
-    standalone: true,
     imports: [TreeDocModule]
 })
 export class TreeDemo {

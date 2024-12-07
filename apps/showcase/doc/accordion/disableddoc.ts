@@ -43,7 +43,8 @@ import { Component } from '@angular/core';
             </p-accordion>
         </div>
         <app-code [code]="code" selector="accordion-disabled-demo"></app-code>
-    `
+    `,
+    standalone: false
 })
 export class DisabledDoc {
     code: Code = {

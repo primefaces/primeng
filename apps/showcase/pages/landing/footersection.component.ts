@@ -4,7 +4,6 @@ import { RouterModule } from '@angular/router';
 
 @Component({
     selector: 'footer-section',
-    standalone: true,
     imports: [CommonModule, RouterModule],
     template: `
         <section class="landing-footer pt-20 px-8 lg:px-20">

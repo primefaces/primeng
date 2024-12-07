@@ -51,7 +51,8 @@ import { ChangeDetectionStrategy, ChangeDetectorRef, Component } from '@angular/
             </div>
         </p-deferred-demo>
         <app-code [code]="code" selector="table-presort-demo" [extFiles]="extFiles"></app-code>`,
-    changeDetection: ChangeDetectionStrategy.OnPush
+    changeDetection: ChangeDetectionStrategy.OnPush,
+    standalone: false
 })
 export class PreSortDoc {
     products!: Product[];

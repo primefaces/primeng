@@ -10,7 +10,6 @@ import { TemplateDoc } from '@/doc/drawer/templatedoc';
 import { Component } from '@angular/core';
 
 @Component({
-    standalone: true,
     imports: [DrawerDocModule],
     template: ` <app-doc docTitle="Angular Drawer Component" header="Drawer" description="Drawer is a container component displayed as an overlay." [docs]="docs" [apiDocs]="['Drawer']" themeDocs="drawer"></app-doc> `
 })

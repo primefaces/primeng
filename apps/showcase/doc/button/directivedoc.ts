@@ -17,7 +17,8 @@ import { Component } from '@angular/core';
             </button>
         </div>
         <app-code [code]="code" selector="button-directive-demo"></app-code>
-    `
+    `,
+    standalone: false
 })
 export class DirectiveDoc {
     code: Code = {

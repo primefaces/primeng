@@ -12,7 +12,8 @@ import { Component } from '@angular/core';
             <p-selectbutton [options]="stateOptions2" [(ngModel)]="value2" optionLabel="label" optionValue="value" optionDisabled="constant" />
         </div>
         <app-code [code]="code" selector="select-button-disabled-demo"></app-code>
-    `
+    `,
+    standalone: false
 })
 export class DisabledDoc {
     stateOptions: any[] = [

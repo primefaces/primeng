@@ -7,7 +7,6 @@ import { DesignerService } from '@/service/designerservice';
 
 @Component({
     selector: 'design-border-radius',
-    standalone: true,
     imports: [CommonModule, DesignTokenField, FieldsetModule, FormsModule],
     template: ` <p-fieldset legend="Rounded" [toggleable]="true">
         <section class="grid grid-cols-4 gap-2">

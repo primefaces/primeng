@@ -13,7 +13,8 @@ import { TreeNode } from 'primeng/api';
             <p-tree [value]="files" styleClass="w-full md:w-[30rem]" selectionMode="single" [(selection)]="selectedFile" />
         </div>
         <app-code [code]="code" selector="tree-single-demo"></app-code>
-    `
+    `,
+    standalone: false
 })
 export class SingleDoc implements OnInit {
     files!: TreeNode[];

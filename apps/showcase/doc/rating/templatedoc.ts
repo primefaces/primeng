@@ -21,7 +21,8 @@ import { Component } from '@angular/core';
             </p-rating>
         </div>
         <app-code [code]="code" selector="rating-template-demo"></app-code>
-    `
+    `,
+    standalone: false
 })
 export class TemplateDoc {
     value!: number;

@@ -12,7 +12,8 @@ import { MegaMenuItem } from 'primeng/api';
             <p-megamenu [model]="items" />
         </div>
         <app-code [code]="code" selector="mega-menu-basic-demo"></app-code>
-    `
+    `,
+    standalone: false
 })
 export class BasicDoc implements OnInit {
     items: MegaMenuItem[] | undefined;

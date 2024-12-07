@@ -14,7 +14,8 @@ import { ChangeDetectorRef, Component, effect, inject, OnInit, PLATFORM_ID } fro
             <p-chart type="pie" [data]="data" [options]="options" class="w-full md:w-[30rem]" />
         </div>
         <app-code [code]="code" selector="chart-pie-demo"></app-code>
-    `
+    `,
+    standalone: false
 })
 export class PieDoc implements OnInit {
     data: any;

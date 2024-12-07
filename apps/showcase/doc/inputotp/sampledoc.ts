@@ -69,7 +69,8 @@ import { Component } from '@angular/core';
                 border-color: var(--p-inputtext-border-color);
             }
         `
-    ]
+    ],
+    standalone: false
 })
 export class SampleDoc {
     value: any;

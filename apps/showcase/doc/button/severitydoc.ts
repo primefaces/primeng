@@ -18,7 +18,8 @@ import { Component } from '@angular/core';
             <p-button label="Contrast" severity="contrast" />
         </div>
         <app-code [code]="code" selector="button-severity-demo"></app-code>
-    `
+    `,
+    standalone: false
 })
 export class SeverityDoc {
     code: Code = {

@@ -11,7 +11,8 @@ import { Component } from '@angular/core';
             <p-datepicker [(ngModel)]="rangeDates" selectionMode="range" [readonlyInput]="true" />
         </div>
         <app-code [code]="code" selector="datepicker-range-demo"></app-code>
-    `
+    `,
+    standalone: false
 })
 export class RangeDoc {
     rangeDates: Date[] | undefined;

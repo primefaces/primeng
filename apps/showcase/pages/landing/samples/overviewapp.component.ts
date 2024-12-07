@@ -22,7 +22,6 @@ import { TooltipModule } from 'primeng/tooltip';
 
 @Component({
     selector: 'overview-app',
-    standalone: true,
     imports: [
         CommonModule,
         RouterModule,

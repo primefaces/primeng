@@ -11,7 +11,6 @@ import { Component } from '@angular/core';
 
 @Component({
     template: `<app-doc docTitle="Angular InputGroup Component" header="InputGroup" description="Text, icon, buttons and other content can be grouped next to an input." [docs]="docs" themeDocs="inputgroup"></app-doc> `,
-    standalone: true,
     imports: [InputGroupDocModule]
 })
 export class InputGroupDemo {

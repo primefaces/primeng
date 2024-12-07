@@ -19,7 +19,6 @@ import { Component } from '@angular/core';
 
 @Component({
     template: `<app-doc docTitle="Angular MultiSelect Component" header="MultiSelect" description="MultiSelect is used to select multiple items from a collection." [docs]="docs" [apiDocs]="['MultiSelect']" themeDocs="multiselect"></app-doc> `,
-    standalone: true,
     imports: [MultiSelectDocModule]
 })
 export class MultiSelectDemo {

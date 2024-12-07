@@ -10,7 +10,6 @@ import { Component } from '@angular/core';
 
 @Component({
     template: `<app-doc docTitle="Angular Timeline Component" header="Timeline" description="Timeline visualizes a series of chained events." [docs]="docs" [apiDocs]="['Timeline']" themeDocs="timeline"></app-doc>`,
-    standalone: true,
     imports: [TimelineDocModule],
     styleUrl: './timelinedemo.scss'
 })

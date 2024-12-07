@@ -12,7 +12,8 @@ import { Component } from '@angular/core';
             <p-radiobutton [(ngModel)]="value" [value]="2" [disabled]="true" />
         </div>
         <app-code [code]="code" selector="radio-button-disabled-demo"></app-code>
-    `
+    `,
+    standalone: false
 })
 export class DisabledDoc {
     value: number = 2;

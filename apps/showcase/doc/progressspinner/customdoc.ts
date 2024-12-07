@@ -11,7 +11,8 @@ import { Component, Input } from '@angular/core';
             <p-progress-spinner strokeWidth="8" fill="transparent" animationDuration=".5s" [style]="{ width: '50px', height: '50px' }" />
         </div>
         <app-code [code]="code" selector="progress-spinner-custom-demo"></app-code>
-    `
+    `,
+    standalone: false
 })
 export class CustomDoc {
     @Input() id: string;

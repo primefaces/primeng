@@ -30,8 +30,7 @@ import { Component } from '@angular/core';
 
 @Component({
     template: `<app-doc docTitle="Theming - PrimeNG" header="Theming" description="Choose from a variety of pre-styled themes or develop your own." [docs]="docs"></app-doc>`,
-    imports: [ThemingDocModule],
-    standalone: true
+    imports: [ThemingDocModule]
 })
 export class ThemingDemo {
     docs = [

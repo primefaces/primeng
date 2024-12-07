@@ -39,7 +39,8 @@ interface Column {
             </div>
         </p-deferred-demo>
         <app-code [code]="code" selector="table-column-toggle-demo" [extFiles]="extFiles"></app-code>`,
-    changeDetection: ChangeDetectionStrategy.OnPush
+    changeDetection: ChangeDetectionStrategy.OnPush,
+    standalone: false
 })
 export class ColumnToggleDoc {
     products!: Product[];

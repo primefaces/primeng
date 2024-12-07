@@ -9,6 +9,7 @@ import { Component } from '@angular/core';
         <app-code [code]="code1" selector="dt-demo" [hideToggleCode]="true" class="block mb-4"></app-code>
         <app-code [code]="code2" selector="dt-demo" [hideToggleCode]="true"></app-code>
     `
+    standalone: false
 })
 export class DtDoc {
     code1 = {

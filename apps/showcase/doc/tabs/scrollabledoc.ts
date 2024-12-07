@@ -26,7 +26,8 @@ import { Component } from '@angular/core';
             </p-tabs>
         </div>
         <app-code [code]="code" selector="tabs-scrollable-demo"></app-code>
-    `
+    `,
+    standalone: false
 })
 export class ScrollableDoc {
     scrollableTabs: any[] = Array.from({ length: 50 }, (_, i) => ({

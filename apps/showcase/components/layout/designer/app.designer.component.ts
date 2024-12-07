@@ -37,7 +37,6 @@ const presets = {
 };
 @Component({
     selector: 'app-designer',
-    standalone: true,
     imports: [
         CommonModule,
         DrawerModule,

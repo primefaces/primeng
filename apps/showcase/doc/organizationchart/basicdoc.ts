@@ -12,7 +12,8 @@ import { TreeNode } from 'primeng/api';
             <p-organization-chart [value]="data" />
         </div>
         <app-code [code]="code" selector="organization-chart-basic-doc"></app-code>
-    `
+    `,
+    standalone: false
 })
 export class BasicDoc {
     data: TreeNode[] = [

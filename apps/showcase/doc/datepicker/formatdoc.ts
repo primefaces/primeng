@@ -30,7 +30,8 @@ import { Component } from '@angular/core';
             <p-datepicker [(ngModel)]="date" dateFormat="dd.mm.yy" />
         </div>
         <app-code [code]="code" selector="datepicker-format-demo"></app-code>
-    `
+    `,
+    standalone: false
 })
 export class FormatDoc {
     date: Date | undefined;

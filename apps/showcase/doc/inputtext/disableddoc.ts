@@ -11,7 +11,8 @@ import { Component } from '@angular/core';
             <input pInputText [disabled]="true" [(ngModel)]="value" />
         </div>
         <app-code [code]="code" selector="input-text-disabled-demo"></app-code>
-    `
+    `,
+    standalone: false
 })
 export class DisabledDoc {
     value: string | undefined = 'Disabled';

@@ -30,7 +30,8 @@ import { Component } from '@angular/core';
             </div>
         </div>
         <app-code [code]="code" selector="avatar-label-demo"></app-code>
-    `
+    `,
+    standalone: false
 })
 export class LabelDoc {
     code: Code = {

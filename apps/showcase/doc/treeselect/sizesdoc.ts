@@ -14,7 +14,8 @@ import { Component } from '@angular/core';
             <p-treeselect [(ngModel)]="value3" [options]="nodes" size="large" placeholder="Large" class="md:w-80 w-full" containerStyleClass="w-full" />
         </div>
         <app-code [code]="code" selector="tree-select-sizes-demo"></app-code>
-    `
+    `,
+    standalone: false
 })
 export class SizesDoc {
     nodes!: any[];

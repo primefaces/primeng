@@ -37,7 +37,8 @@ import { TreeNode } from 'primeng/api';
         </div>
         <app-code [code]="code" selector="tree-table-size-demo"></app-code>
     </section>`,
-    changeDetection: ChangeDetectionStrategy.OnPush
+    changeDetection: ChangeDetectionStrategy.OnPush,
+    standalone: false
 })
 export class SizeDoc {
     files!: TreeNode[];

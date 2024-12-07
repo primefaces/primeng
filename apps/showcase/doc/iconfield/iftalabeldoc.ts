@@ -17,7 +17,8 @@ import { Component } from '@angular/core';
             </p-iftalabel>
         </div>
         <app-code [code]="code" selector="iconfield-ifta-label-demo"></app-code>
-    `
+    `,
+    standalone: false
 })
 export class IftaLabelDoc {
     value: string | undefined;

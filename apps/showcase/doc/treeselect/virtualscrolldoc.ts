@@ -25,7 +25,8 @@ import { Component } from '@angular/core';
                 [virtualScrollOptions]="{ scrollHeight: '200px' }"
             ></p-treeselect>
         </div>
-        <app-code [code]="code" selector="tree-select-virtual-scroll-demo"></app-code>`
+        <app-code [code]="code" selector="tree-select-virtual-scroll-demo"></app-code>`,
+    standalone: false
 })
 export class VirtualScrollDoc {
     nodes!: any[];

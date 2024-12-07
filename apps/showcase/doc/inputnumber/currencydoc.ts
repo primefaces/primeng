@@ -29,7 +29,8 @@ import { Component } from '@angular/core';
             </div>
         </p-fluid>
         <app-code [code]="code" selector="input-number-currency-demo"></app-code>
-    `
+    `,
+    standalone: false
 })
 export class CurrencyDoc {
     value1: number = 1500;

@@ -11,7 +11,8 @@ import { Component } from '@angular/core';
             <p-datepicker [(ngModel)]="date" class="ng-invalid ng-dirty" />
         </div>
         <app-code [code]="code" selector="datepicker-invalid-demo"></app-code>
-    `
+    `,
+    standalone: false
 })
 export class InvalidDoc {
     date: Date | undefined;

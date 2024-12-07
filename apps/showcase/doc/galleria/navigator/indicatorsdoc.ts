@@ -29,7 +29,8 @@ import { Component, OnInit } from '@angular/core';
         </div>
         <app-code [code]="code" selector="galleria-navigator-indicators-demo"></app-code>
     `,
-    providers: [PhotoService]
+    providers: [PhotoService],
+    standalone: false
 })
 export class IndicatorsDoc implements OnInit {
     images: any[] | undefined;

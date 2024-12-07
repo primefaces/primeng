@@ -24,7 +24,8 @@ import { Component } from '@angular/core';
             </div>
         </div>
         <app-code [code]="code" selector="radio-button-sizes-demo"></app-code>
-    `
+    `,
+    standalone: false
 })
 export class SizesDoc {
     size: any = false;

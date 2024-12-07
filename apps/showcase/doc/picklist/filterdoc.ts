@@ -43,7 +43,8 @@ import { ChangeDetectorRef, Component } from '@angular/core';
             </p-picklist>
         </div>
         <app-code [code]="code" selector="picklist-filter-demo" [extFiles]="extFiles"></app-code>
-    `
+    `,
+    standalone: false
 })
 export class FilterDoc {
     sourceProducts!: Product[];

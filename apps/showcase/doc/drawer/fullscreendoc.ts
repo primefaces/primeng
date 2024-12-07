@@ -17,7 +17,8 @@ import { Component } from '@angular/core';
             <p-button (click)="visible = true" icon="pi pi-window-maximize" />
         </div>
         <app-code [code]="code" selector="drawer-full-screen-demo"></app-code>
-    `
+    `,
+    standalone: false
 })
 export class FullScreenDoc {
     visible: boolean = false;

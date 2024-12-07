@@ -9,7 +9,6 @@ import { UsageDoc } from '@/doc/dynamicdialog/usagedoc';
 import { Component } from '@angular/core';
 
 @Component({
-    standalone: true,
     imports: [DynamicDialogDocModule],
     template: `
         <app-doc

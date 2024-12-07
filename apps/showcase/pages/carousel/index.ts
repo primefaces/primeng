@@ -8,7 +8,6 @@ import { VerticalDoc } from '@/doc/carousel/verticaldoc';
 import { Component } from '@angular/core';
 
 @Component({
-    standalone: true,
     imports: [CarouselDocModule],
     template: ` <app-doc docTitle="Angular Carousel Component" header="Carousel" description="Carousel is a content slider featuring various customization options." [docs]="docs" [apiDocs]="['Carousel']" themeDocs="Carousel"></app-doc> `
     // styles: [

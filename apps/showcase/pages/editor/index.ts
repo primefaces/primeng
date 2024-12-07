@@ -9,7 +9,6 @@ import { ReadOnlyDoc } from '@/doc/editor/readonlydoc';
 import { Component } from '@angular/core';
 
 @Component({
-    standalone: true,
     imports: [EditorDocModule],
     template: ` <app-doc docTitle="Angular Editor Component" header="Editor" description="Editor is rich text editor component based on Quill." [docs]="docs" [apiDocs]="['Editor']" themeDocs="editor"></app-doc> `
 })

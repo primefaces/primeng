@@ -40,7 +40,8 @@ import { Component } from '@angular/core';
             </p-accordion>
         </div>
         <app-code [code]="code" selector="accordion-multiple-demo"></app-code>
-    `
+    `,
+    standalone: false
 })
 export class MultipleDoc {
     code: Code = {

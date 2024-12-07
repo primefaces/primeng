@@ -3,7 +3,8 @@ import { Component } from '@angular/core';
 
 @Component({
     selector: 'speed-dial-import-doc',
-    template: ` <app-code [code]="code" [hideToggleCode]="true"></app-code> `
+    template: ` <app-code [code]="code" [hideToggleCode]="true"></app-code> `,
+    standalone: false
 })
 export class ImportDoc {
     code: Code = {

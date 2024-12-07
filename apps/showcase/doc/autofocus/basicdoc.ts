@@ -11,7 +11,8 @@ import { Component } from '@angular/core';
             <input type="text" pInputText [pAutoFocus]="true" placeholder="Automatically focused" />
         </div>
         <app-code [code]="code" selector="auto-focus-basic-demo"></app-code>
-    `
+    `,
+    standalone: false
 })
 export class BasicDoc {
     code: Code = {

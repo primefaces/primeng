@@ -21,7 +21,8 @@ import { TreeNode } from 'primeng/api';
             <p-tree [metaKeySelection]="metaKeySelection" [value]="files" styleClass="w-full md:w-[30rem]" selectionMode="multiple" [(selection)]="selectedFiles" />
         </div>
         <app-code [code]="code" selector="tree-multiple-demo"></app-code>
-    `
+    `,
+    standalone: false
 })
 export class MultipleDoc implements OnInit {
     metaKeySelection: boolean = false;

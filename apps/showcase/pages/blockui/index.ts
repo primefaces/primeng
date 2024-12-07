@@ -6,7 +6,6 @@ import { ImportDoc } from '@/doc/blockui/importdoc';
 import { Component } from '@angular/core';
 
 @Component({
-    standalone: true,
     imports: [BlockUIDocModule],
     template: ` <app-doc docTitle="Angular BlockUI Component" header="BlockUI" description="BlockUI can either block other components or the whole page." [docs]="docs" [apiDocs]="['BlockUI']" themeDocs="BlockUI"></app-doc>`,
     styles: [

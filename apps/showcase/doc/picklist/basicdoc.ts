@@ -20,7 +20,8 @@ import { ChangeDetectorRef, Component } from '@angular/core';
             </p-picklist>
         </div>
         <app-code [code]="code" selector="picklist-basic-demo" [extFiles]="extFiles"></app-code>
-    `
+    `,
+    standalone: false
 })
 export class BasicDoc {
     sourceProducts!: Product[];

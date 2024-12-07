@@ -18,7 +18,8 @@ interface AutoCompleteCompleteEvent {
             <label for="multiple-ac-2" class="font-bold mt-8 mb-2 block">Without Typeahead</label>
             <p-autocomplete [(ngModel)]="value2" inputId="multiple-ac-2" multiple fluid (completeMethod)="search($event)" [typeahead]="false" />
         </div>
-        <app-code [code]="code" selector="autocomplete-multiple-demo"></app-code>`
+        <app-code [code]="code" selector="autocomplete-multiple-demo"></app-code>`,
+    standalone: false
 })
 export class MultipleDoc {
     value1: any[] | undefined;

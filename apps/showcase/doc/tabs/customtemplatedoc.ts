@@ -54,7 +54,8 @@ import { Component } from '@angular/core';
             </p-tabs>
         </div>
         <app-code [code]="code" selector="tabs-template-demo"></app-code>
-    `
+    `,
+    standalone: false
 })
 export class TemplateDoc {
     code: Code = {

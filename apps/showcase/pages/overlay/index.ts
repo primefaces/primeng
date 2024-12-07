@@ -24,7 +24,6 @@ import { Component } from '@angular/core';
         [apiDocs]="['Overlay', 'OverlayOptions']"
         themeDocs="overlay"
     ></app-doc>`,
-    standalone: true,
     imports: [OverlayDocModule]
 })
 export class OverlayDemo {

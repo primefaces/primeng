@@ -15,7 +15,8 @@ import { Component } from '@angular/core';
             </div>
         </div>
         <app-code [code]="code" selector="input-text-help-text-demo"></app-code>
-    `
+    `,
+    standalone: false
 })
 export class HelpTextDoc {
     value: string | undefined;

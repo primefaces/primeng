@@ -14,7 +14,8 @@ import { Component } from '@angular/core';
             <input type="text" pInputText pTooltip="Enter your username" tooltipPosition="left" placeholder="Left" />
         </div>
         <app-code [code]="code" selector="tooltip-position-demo"></app-code>
-    `
+    `,
+    standalone: false
 })
 export class PositionDoc {
     code: Code = {

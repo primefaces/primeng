@@ -17,7 +17,8 @@ interface City {
             <p-listbox [options]="cities" formControlName="selectedCity" optionLabel="name" class="w-full md:w-56" />
         </form>
         <app-code [code]="code" selector="listbox-reactive-forms-demo"></app-code>
-    `
+    `,
+    standalone: false
 })
 export class ReactiveFormsDoc implements OnInit {
     cities!: City[];

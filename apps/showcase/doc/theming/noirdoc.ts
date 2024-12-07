@@ -10,7 +10,8 @@ import { Component } from '@angular/core';
             </p>
         </app-docsectiontext>
         <app-code [code]="code" selector="noir-demo" [hideToggleCode]="true"></app-code>
-    `
+    `,
+    standalone: false
 })
 export class NoirDoc {
     code = {

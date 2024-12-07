@@ -23,7 +23,6 @@ import { Component } from '@angular/core';
         [apiDocs]="['InputMask']"
         themeDocs="inputmask"
     ></app-doc> `,
-    standalone: true,
     imports: [InputMaskDocModule]
 })
 export class InputMaskDemo {

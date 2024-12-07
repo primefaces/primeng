@@ -8,7 +8,8 @@ import { Component } from '@angular/core';
             <p>The initial configuration is defined by the <i>providePrimeNG</i> provider during application startup.</p>
         </app-docsectiontext>
         <app-code [code]="code" [hideToggleCode]="true"></app-code>
-    `
+    `,
+    standalone: false
 })
 export class ProviderDoc {
     code: Code = {

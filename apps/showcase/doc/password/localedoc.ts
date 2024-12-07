@@ -14,7 +14,8 @@ import { Component } from '@angular/core';
             <p-password [(ngModel)]="value" promptLabel="Choose a password" weakLabel="Too simple" mediumLabel="Average complexity" strongLabel="Complex password" autocomplete="off" />
         </div>
         <app-code [code]="code" selector="password-locale-demo"></app-code>
-    `
+    `,
+    standalone: false
 })
 export class LocaleDoc {
     value!: string;

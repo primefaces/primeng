@@ -9,6 +9,7 @@ import { Component } from '@angular/core';
                 In summary, PrimeTek officially suggests Tailwind CSS as the replacement for PrimeFlex.
             </p>
         </app-docsectiontext>
-    `
+    `,
+    standalone: false
 })
 export class TailwindCSSDoc {}

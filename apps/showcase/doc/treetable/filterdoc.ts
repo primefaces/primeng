@@ -61,7 +61,8 @@ interface Column {
         </div>
         <app-code [code]="code" selector="tree-table-filter-demo"></app-code>
     `,
-    changeDetection: ChangeDetectionStrategy.OnPush
+    changeDetection: ChangeDetectionStrategy.OnPush,
+    standalone: false
 })
 export class FilterDoc {
     filterMode = 'lenient';

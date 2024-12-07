@@ -8,7 +8,6 @@ import { TemplateDoc } from '@/doc/chip/templatedoc';
 import { Component } from '@angular/core';
 
 @Component({
-    standalone: true,
     imports: [ChipDocModule],
     template: ` <app-doc docTitle="Angular Chip Component" header="Chip" description="Chip represents entities using icons, labels and images." [docs]="docs" [apiDocs]="['Chip']" themeDocs="chip"></app-doc>`
 })

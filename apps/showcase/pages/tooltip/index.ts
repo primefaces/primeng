@@ -18,7 +18,6 @@ import { Component } from '@angular/core';
         [apiDocs]="['Tooltip', 'TooltipOptions']"
         themeDocs="tooltip"
     ></app-doc>`,
-    standalone: true,
     imports: [TooltipDocModule]
 })
 export class TooltipDemo {

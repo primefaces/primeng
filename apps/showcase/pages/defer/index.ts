@@ -8,7 +8,6 @@ import { MessageService } from 'primeng/api';
 import { Car } from '../domain/car';
 
 @Component({
-    standalone: true,
     imports: [DeferDocModule],
     template: ` <app-doc
         docTitle="Angular Defer Component"

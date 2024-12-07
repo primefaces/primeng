@@ -12,7 +12,8 @@ import { ChangeDetectorRef, Component } from '@angular/core';
             <p-button label="Block" (click)="blockDocument()" />
         </div>
         <app-code [code]="code" selector="block-ui-document-demo"></app-code>
-    `
+    `,
+    standalone: false
 })
 export class DocumentDoc {
     blockedDocument: boolean = false;

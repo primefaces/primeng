@@ -13,7 +13,8 @@ import { MessageService } from 'primeng/api';
         </div>
         <app-code [code]="code" selector="progress-bar-indeterminate-demo"></app-code>
     `,
-    providers: [MessageService]
+    providers: [MessageService],
+    standalone: false
 })
 export class IndeterminateDoc {
     code: Code = {

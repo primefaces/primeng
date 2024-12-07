@@ -25,7 +25,6 @@ import { YearDoc } from '@/doc/datepicker/yeardoc';
 import { Component } from '@angular/core';
 
 @Component({
-    standalone: true,
     imports: [DatePickerDocModule],
     template: ` <app-doc docTitle="Angular DatePicker Component" header="DatePicker" description="DatePicker is an input component to select a date." [docs]="docs" [apiDocs]="['DatePicker']" themeDocs="datepicker"></app-doc> `
 })

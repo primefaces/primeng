@@ -12,7 +12,8 @@ import { Component } from '@angular/core';
             <p-treeselect class="w-full md:w-80" containerStyleClass="w-full" [(ngModel)]="selectedNodes" [options]="nodes" display="chip" [metaKeySelection]="false" selectionMode="checkbox" placeholder="Select Item" />
         </div>
         <app-code [code]="code" selector="tree-select-checkbox-demo"></app-code>
-    `
+    `,
+    standalone: false
 })
 export class CheckboxDoc {
     nodes!: any[];

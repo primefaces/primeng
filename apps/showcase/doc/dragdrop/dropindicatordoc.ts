@@ -26,7 +26,8 @@ import { Component } from '@angular/core';
             </div>
         </div>
         <app-code [code]="code" selector="drag-drop-drop-indicator-demo" [extFiles]="extFiles"></app-code>
-    `
+    `,
+    standalone: false
 })
 export class DropIndicatorDoc {
     availableProducts: Product[] | undefined;

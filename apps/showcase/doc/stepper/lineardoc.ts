@@ -52,7 +52,8 @@ import { Component } from '@angular/core';
             </p-stepper>
         </div>
         <app-code [code]="code" selector="stepper-linear-demo"></app-code>
-    `
+    `,
+    standalone: false
 })
 export class LinearDoc {
     code: Code = {

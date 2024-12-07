@@ -9,7 +9,6 @@ import { Component } from '@angular/core';
 
 @Component({
     template: `<app-doc docTitle="Angular Menubar Component" header="Menubar" description="Menubar is a horizontal menu component." [docs]="docs" [apiDocs]="['Menubar', 'MenuItem']" themeDocs="menubar"></app-doc> `,
-    standalone: true,
     imports: [MenubarDocModule]
 })
 export class MenubarDemo {

@@ -114,7 +114,8 @@ import { Component, Input } from '@angular/core';
                     </tr>
                 </tbody>
             </table>
-        </div>`
+        </div>`,
+    standalone: false
 })
 export class AccessibilityDoc {
     @Input() id: string;

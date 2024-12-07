@@ -16,7 +16,8 @@ import { Component } from '@angular/core';
             </div>
         </div>
         <app-code [code]="code" selector="checkbox-dynamic-demo"></app-code>
-    `
+    `,
+    standalone: false
 })
 export class DynamicDoc {
     selectedCategories: any[] = [];

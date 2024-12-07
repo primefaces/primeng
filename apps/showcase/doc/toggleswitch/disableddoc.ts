@@ -11,7 +11,8 @@ import { Component } from '@angular/core';
             <p-toggleswitch [(ngModel)]="checked" [disabled]="true" />
         </div>
         <app-code [code]="code" selector="toggle-switch-disabled-demo"></app-code>
-    `
+    `,
+    standalone: false
 })
 export class DisabledDoc {
     checked: boolean = false;

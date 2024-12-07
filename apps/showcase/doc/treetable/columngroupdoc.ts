@@ -48,7 +48,8 @@ import { TreeNode } from 'primeng/api';
         </div>
         <app-code [code]="code" selector="tree-table-column-group-demo"></app-code>
     `,
-    changeDetection: ChangeDetectionStrategy.OnPush
+    changeDetection: ChangeDetectionStrategy.OnPush,
+    standalone: false
 })
 export class ColumnGroupDoc {
     sales!: TreeNode[];

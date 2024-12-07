@@ -14,7 +14,8 @@ import { ChangeDetectionStrategy, Component, Input, ViewEncapsulation } from '@a
     encapsulation: ViewEncapsulation.None,
     host: {
         '[class.doc-tabpanel]': 'true'
-    }
+    },
+    standalone: false
 })
 export class AppDocFeaturesSection {
     @Input() header!: string;

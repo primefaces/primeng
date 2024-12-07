@@ -19,7 +19,8 @@ import { SelectItemGroup } from 'primeng/api';
             </p-select>
         </div>
         <app-code [code]="code" selector="select-group-demo"></app-code>
-    `
+    `,
+    standalone: false
 })
 export class GroupDoc {
     groupedCities: SelectItemGroup[];

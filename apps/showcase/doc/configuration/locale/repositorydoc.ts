@@ -9,6 +9,7 @@ import { Component } from '@angular/core';
                 <a href="https://github.com/primefaces/primelocale">PrimeLocale</a> repository. We'd appreciate if you could contribute to this repository with pull requests and share it with the rest of the community.
             </p>
         </app-docsectiontext>
-    `
+    `,
+    standalone: false
 })
 export class RepositoryDoc {}

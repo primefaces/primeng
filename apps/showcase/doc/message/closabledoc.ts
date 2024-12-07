@@ -11,7 +11,8 @@ import { Component } from '@angular/core';
             <p-message closable>Closable Message</p-message>
         </div>
         <app-code [code]="code" selector="message-closable-demo"></app-code>
-    `
+    `,
+    standalone: false
 })
 export class ClosableDoc {
     code: Code = {

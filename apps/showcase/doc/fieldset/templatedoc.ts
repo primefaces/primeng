@@ -22,7 +22,8 @@ import { Component } from '@angular/core';
             </p-fieldset>
         </div>
         <app-code [code]="code" selector="fieldset-template-demo"></app-code>
-    `
+    `,
+    standalone: false
 })
 export class TemplateDoc {
     code: Code = {

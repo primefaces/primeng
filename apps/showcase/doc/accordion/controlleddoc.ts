@@ -48,7 +48,8 @@ import { Component } from '@angular/core';
         </div>
 
         <app-code [code]="code" selector="accordion-controlled-demo"></app-code>
-    `
+    `,
+    standalone: false
 })
 export class ControlledDoc {
     active = '0';

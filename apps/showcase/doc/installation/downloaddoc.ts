@@ -8,7 +8,8 @@ import { Component } from '@angular/core';
             <p>PrimeNG is available for download on the <a href="https://www.npmjs.com/package/primeng">npm registry</a>.</p>
         </app-docsectiontext>
         <app-code [code]="code" [hideToggleCode]="true"></app-code>
-    `
+    `,
+    standalone: false
 })
 export class DownloadDoc {
     code: Code = {

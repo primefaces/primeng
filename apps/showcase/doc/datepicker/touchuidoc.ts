@@ -11,7 +11,8 @@ import { Component } from '@angular/core';
             <p-datepicker [(ngModel)]="date" [touchUI]="true" [readonlyInput]="true" />
         </div>
         <app-code [code]="code" selector="datepicker-touchui-demo"></app-code>
-    `
+    `,
+    standalone: false
 })
 export class TouchUIDoc {
     date: Date[] | undefined;

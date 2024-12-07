@@ -35,7 +35,8 @@ import { Component } from '@angular/core';
             </p-cascadeselect>
         </div>
         <app-code [code]="code" selector="cascade-select-template-demo"></app-code>
-    `
+    `,
+    standalone: false
 })
 export class TemplateDoc {
     countries: any[] | undefined;

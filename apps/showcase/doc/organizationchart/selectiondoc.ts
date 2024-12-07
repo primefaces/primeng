@@ -24,7 +24,8 @@ import { TreeNode } from 'primeng/api';
             </p-organization-chart>
         </div>
         <app-code [code]="code" selector="organization-chart-selection-demo"></app-code>
-    `
+    `,
+    standalone: false
 })
 export class SelectionDoc {
     selectedNodes!: TreeNode[];

@@ -21,7 +21,8 @@ import { MenuItem } from 'primeng/api';
             </p-panelmenu>
         </div>
         <app-code [code]="code" selector="panel-menu-template-demo"></app-code>
-    `
+    `,
+    standalone: false
 })
 export class TemplateDoc implements OnInit {
     items: MenuItem[];

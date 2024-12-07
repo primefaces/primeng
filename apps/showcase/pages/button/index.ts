@@ -21,7 +21,6 @@ import { TextDoc } from '@/doc/button/textdoc';
 import { Component } from '@angular/core';
 
 @Component({
-    standalone: true,
     imports: [ButtonDocModule],
     template: `
         <app-doc docTitle="Angular Button Component" header="Button" description="Button is an extension to standard button element with icons and theming." [docs]="docs" [apiDocs]="['Button', 'ButtonDirective']" themeDocs="button"></app-doc>

@@ -31,7 +31,8 @@ import { Component } from '@angular/core';
             </p-fluid>
         </div>
         <app-code [code]="code" selector="fluid-basic-demo"></app-code>
-    `
+    `,
+    standalone: false
 })
 export class BasicDoc {
     code: Code = {

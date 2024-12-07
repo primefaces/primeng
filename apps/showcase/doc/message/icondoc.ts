@@ -17,7 +17,8 @@ import { Component, OnInit } from '@angular/core';
             </p-message>
         </div>
         <app-code [code]="code" selector="message-icon-demo"></app-code>
-    `
+    `,
+    standalone: false
 })
 export class IconDoc implements OnInit {
     ngOnInit() {}

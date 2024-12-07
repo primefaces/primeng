@@ -15,7 +15,8 @@ import { FormControl, FormGroup } from '@angular/forms';
             </form>
         </div>
         <app-code [code]="code" selector="tree-select-reactive-forms-demo"></app-code>
-    `
+    `,
+    standalone: false
 })
 export class ReactiveFormsDoc implements OnInit {
     nodes!: any[];

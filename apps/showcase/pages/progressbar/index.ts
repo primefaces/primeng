@@ -9,7 +9,6 @@ import { Component } from '@angular/core';
 
 @Component({
     template: `<app-doc docTitle="Angular ProgressBar Component" header="ProgressBar" description="ProgressBar is a process status indicator." [docs]="docs" [apiDocs]="['ProgressBar']" themeDocs="progressbar"></app-doc>`,
-    standalone: true,
     imports: [ProgressBarDocModule]
 })
 export class ProgressBarDemo {

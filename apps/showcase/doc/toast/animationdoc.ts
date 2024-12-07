@@ -14,7 +14,8 @@ import { MessageService } from 'primeng/api';
         </div>
         <app-code [code]="code" selector="toast-animation-demo"></app-code>
     `,
-    providers: [MessageService]
+    providers: [MessageService],
+    standalone: false
 })
 export class AnimationDoc {
     constructor(private messageService: MessageService) {}

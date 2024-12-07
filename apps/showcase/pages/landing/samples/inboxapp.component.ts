@@ -17,7 +17,6 @@ import { Tag } from 'primeng/tag';
 
 @Component({
     selector: 'inbox-app',
-    standalone: true,
     imports: [CommonModule, RouterModule, FormsModule, DividerModule, AvatarModule, IconField, InputIcon, ButtonModule, TableModule, InputTextModule, MenuModule, Tag, ProgressBar, Checkbox, OverlayBadgeModule],
     template: `
         <div class="w-64 h-full overflow-hidden border border-surface rounded-2xl flex flex-col">

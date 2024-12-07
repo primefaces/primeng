@@ -11,7 +11,8 @@ import { Component } from '@angular/core';
             <p-inputmask [(ngModel)]="value" mask="99/99/9999" placeholder="99/99/9999" slotChar="mm/dd/yyyy" />
         </div>
         <app-code [code]="code" selector="input-mask-slot-char-demo"></app-code>
-    `
+    `,
+    standalone: false
 })
 export class SlotCharDoc {
     value: string | undefined;

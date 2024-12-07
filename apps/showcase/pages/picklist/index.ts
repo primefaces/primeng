@@ -8,7 +8,6 @@ import { Component } from '@angular/core';
 
 @Component({
     template: `<app-doc docTitle="Angular PickList Component" header="PickList" description="PickList is used to reorder items between different lists." [docs]="docs" [apiDocs]="['PickList']" themeDocs="picklist"></app-doc>`,
-    standalone: true,
     imports: [PicklistDocModule],
     styleUrl: './picklistdemo.scss'
 })

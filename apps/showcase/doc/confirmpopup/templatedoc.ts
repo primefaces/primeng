@@ -22,7 +22,8 @@ import { ConfirmationService, MessageService } from 'primeng/api';
         </div>
         <app-code [code]="code" selector="confirm-popup-template-demo"></app-code>
     `,
-    providers: [ConfirmationService, MessageService]
+    providers: [ConfirmationService, MessageService],
+    standalone: false
 })
 export class TemplateDoc {
     constructor(

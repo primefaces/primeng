@@ -11,7 +11,6 @@ import { VerticalDoc } from '@/doc/metergroup/verticaldoc';
 import { Component } from '@angular/core';
 
 @Component({
-    standalone: true,
     imports: [MeterGroupDocModule],
     template: ` <app-doc docTitle="Angular MeterGroup Component" header="MeterGroup" description="MeterGroup displays scalar measurements within a known range." [docs]="docs" [apiDocs]="['MeterGroup']" themeDocs="metergroup"></app-doc>`
 })

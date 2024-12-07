@@ -8,7 +8,6 @@ import { UsageDoc } from '@/doc/filterservice/usagedoc';
 import { Component } from '@angular/core';
 
 @Component({
-    standalone: true,
     imports: [FilterServiceDocModule],
     template: ` <app-doc docTitle="FilterService - PrimeNG" header="FilterService" description="FilterService is a helper utility to filter collections against constraints." [docs]="docs"></app-doc>`
 })

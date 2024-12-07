@@ -44,7 +44,8 @@ interface Column {
         </div>
         <app-code [code]="code" selector="tree-table-selection-multiple-demo"></app-code>
     `,
-    changeDetection: ChangeDetectionStrategy.OnPush
+    changeDetection: ChangeDetectionStrategy.OnPush,
+    standalone: false
 })
 export class SelectionMultipleDoc {
     metaKeySelection: boolean = true;
