@@ -6,23 +6,30 @@ import { Component } from '@angular/core';
         <app-docsectiontext>
             <p>Updates the surface colors, this is a shorthand to do the same update using <i>updatePreset</i>.</p>
         </app-docsectiontext>
-        <app-code [code]="code" selector="update-surface-palette-demo" [hideToggleCode]="true"></app-code>
+        <app-code [code]="code1" selector="update-surface-palette-demo" [hideToggleCode]="true" class="block mb-4"></app-code>
+        <app-code [code]="code2" selector="update-surface-palette-demo" [hideToggleCode]="true" class="block mb-4"></app-code>
+        <app-code [code]="code3" selector="update-surface-palette-demo" [hideToggleCode]="true" class="block mb-4"></app-code>
+        <app-code [code]="code4" selector="update-surface-palette-demo" [hideToggleCode]="true"></app-code>
     `
 })
 export class UpdateSurfacePaletteDoc {
-    code = {
-        typescript: `import { updateSurfacePalette } from '@primeng/themes';
+    code1 = {
+        typescript: `import { updateSurfacePalette } from '@primeng/themes';`
+    };
 
-const changeSurfaces() {
+    code2 = {
+        typescript: `changeSurfaces() {
     //changes surfaces both in light and dark mode
     updateSurfacePalette({
         50: '{zinc.50}',
         // ...
         950: '{zinc.950}'
     });
-}
+}`
+    };
 
-const changeLightSurfaces() {
+    code3 = {
+        typescript: `const changeLightSurfaces() {
     //changes surfaces only in light
     updateSurfacePalette({
         light: {
@@ -31,9 +38,11 @@ const changeLightSurfaces() {
             950: '{zinc.950}'
         }
     });
-}
+}`
+    };
 
-const changeDarkSurfaces() {
+    code4 = {
+        typescript: `function changeDarkSurfaces() {
     //changes surfaces only in dark mode
     updateSurfacePalette({
         dark: {

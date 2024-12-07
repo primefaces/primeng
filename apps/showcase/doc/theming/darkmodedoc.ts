@@ -1,3 +1,4 @@
+import { Code } from '@/domain/code';
 import { Component } from '@angular/core';
 
 @Component({
@@ -6,7 +7,7 @@ import { Component } from '@angular/core';
         <app-docsectiontext>
             <p>
                 PrimeNG uses the <i>system</i> as the default <i>darkModeSelector</i> in theme configuration. If you have a dark mode switch in your application, set the <i>darkModeSelector</i> to the selector you utilize such as
-                <i>.my-app-dark</i> so that PrimeNG can fit in seamlessly with your light-dark toggle.
+                <i>.my-app-dark</i> so that PrimeNG can fit in seamlessly with your color scheme.
             </p>
             <app-code [code]="code1" selector="darkmode-demo1" [hideToggleCode]="true"></app-code>
             <p class="mt-4">
@@ -22,29 +23,24 @@ import { Component } from '@angular/core';
                 <app-code [code]="code3" selector="darkmode-demo3" [hideToggleCode]="true"></app-code>
             </div>
             <p>In case you prefer to use dark mode all the time, apply the <i>darkModeSelector</i> initially and never change it.</p>
+            <div class="mb-4">
+                <app-code [code]="code4" selector="darkmode-demo4" [hideToggleCode]="true"></app-code>
+            </div>
+            <p>It is also possible to disable dark mode completely using <i>false</i> or <i>none</i> as the value of the selector.</p>
+            <div class="mb-4">
+                <app-code [code]="code5" selector="darkmode-demo4" [hideToggleCode]="true"></app-code>
+            </div>
         </app-docsectiontext>
     `
 })
 export class DarkModeDoc {
-    code1 = {
-        typescript: `import { Component, inject} from '@angular/core';
-import { PrimeNG } from 'primeng/config';
-import Aura from '@primeng/themes/aura';
-
-@Component({...})
-export class AppComponent {
-    config: PrimeNG = inject(PrimeNG);
-
-    constructor() {
-        // Default theme configuration
-        this.config.theme.set({
-            preset: Aura,
-            options: {
-                darkModeSelector: '.my-app-dark',
-            }
-        })
+    code1: Code = {
+        typescript: `providePrimeNG({ 
+    theme: {
+        preset: Aura,
+        darkModeSelector: '.my-app-dark'
     }
-}`
+})`
     };
 
     code2 = {
@@ -56,5 +52,18 @@ export class AppComponent {
     const element = document.querySelector('html');
     element.classList.toggle('my-app-dark');
 }`
+    };
+
+    code4 = {
+        html: `<html class="my-app-dark">`
+    };
+
+    code5: Code = {
+        typescript: `providePrimeNG({ 
+    theme: {
+        preset: Aura,
+        darkModeSelector: false || 'none'
+    }
+})`
     };
 }

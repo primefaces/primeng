@@ -6,14 +6,17 @@ import { Component } from '@angular/core';
         <app-docsectiontext>
             <p>Merges the provided tokens to the current preset, an example would be changing the primary color palette dynamically.</p>
         </app-docsectiontext>
-        <app-code [code]="code" selector="update-preset-demo" [hideToggleCode]="true"></app-code>
+        <app-code [code]="code1" selector="update-preset-demo" [hideToggleCode]="true" class="block mb-4"></app-code>
+        <app-code [code]="code2" selector="update-preset-demo" [hideToggleCode]="true"></app-code>
     `
 })
 export class UpdatePresetDoc {
-    code = {
-        typescript: `import { updatePreset } from '@primeng/themes';
-...
-const changePrimaryColor() {
+    code1 = {
+        typescript: `import { updatePreset } from '@primeng/themes';`
+    };
+
+    code2 = {
+        typescript: `changePrimaryColor() {
     updatePreset({
         semantic: {
             primary: {

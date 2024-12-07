@@ -4,11 +4,7 @@ import { Component } from '@angular/core';
     selector: 'colors-doc',
     template: `
         <app-docsectiontext>
-            <p>
-                Color palette of a preset is defined by the <i>primitive</i> design token group. The default colors are derived from the Tailwind colors with some extensions to make it consistent with the Tailwind Presets projects of the unstyled
-                mode.
-            </p>
-            <p>Colors can be accessed at CSS as a variable and programmatically using the <i>$dt</i> utility.</p>
+            <p>Color palette of a preset is defined by the <i>primitive</i> design token group. You can access colors using CSS variables or the <i>$dt</i> utility.</p>
             <app-code [code]="code" selector="colors-demo" [hideToggleCode]="true"></app-code>
             <div class="card mt-4">
                 <ul class="p-0 m-0 list-none flex sm:flex-col gap-4 flex-wrap sm:flex-nowrap">
@@ -19,7 +15,7 @@ import { Component } from '@angular/core';
                                 @for (shade of shades; track shade) {
                                     <div class="flex flex-col items-center gap-1 flex-1">
                                         <div class="rounded h-8 w-full" [style]="'background-color: var(--p-' + color + '-' + shade + ')'"></div>
-                                        <span class="text-sm text-surface-500 dark:text-surface-400 font-medium">{{ shades[j] }}</span>
+                                        <span class="text-sm text-surface-500 dark:text-surface-400 font-medium">{{ shade }}</span>
                                     </div>
                                 }
                             </div>

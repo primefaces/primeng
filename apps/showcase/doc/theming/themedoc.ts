@@ -1,3 +1,4 @@
+import { Code } from '@/domain/code';
 import { Component } from '@angular/core';
 
 @Component({
@@ -10,25 +11,21 @@ import { Component } from '@angular/core';
     `
 })
 export class ThemeDoc {
-    code = {
-        typescript: `import { Component } from '@angular/core';
-import { PrimeNG } from 'primeng/config';
+    code: Code = {
+        typescript: `import { ApplicationConfig } from '@angular/core';
+import { provideAnimationsAsync } from '@angular/platform-browser/animations/async';
+import { providePrimeNG } from 'primeng/config';
 import Aura from '@primeng/themes/aura';
 
-@Component({...})
-export class AppComponent {
-
-    constructor(private config: PrimeNG) {
-        // Default theme configuration
-        this.config.theme.set({
-        preset: Aura,
-        options: {
-            prefix: 'p',
-            darkModeSelector: 'system',
-            cssLayer: false
+export const appConfig: ApplicationConfig = {
+    providers: [
+        provideAnimationsAsync(),
+        providePrimeNG({ 
+            theme: {
+                preset: Aura
             }
-        });
-    }
-}`
+        })
+    ]
+};`
     };
 }

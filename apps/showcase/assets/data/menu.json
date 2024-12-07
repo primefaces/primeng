@@ -474,11 +474,6 @@
             "routerLink": "/tailwind"
         },
         {
-            "name": "Figma UI Kit",
-            "icon": "pi pi-pencil",
-            "routerLink": "/uikit"
-        },
-        {
             "name": "Icons",
             "icon": "pi pi-eye",
             "children": [
@@ -491,6 +486,11 @@
                     "routerLink": "/customicons"
                 }
             ]
+        },
+        {
+            "name": "Figma UI Kit",
+            "icon": "pi pi-pencil",
+            "routerLink": "/uikit"
         },
         {
             "name": "Templates",
