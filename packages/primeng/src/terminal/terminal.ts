@@ -1,4 +1,4 @@
-import { CommonModule } from '@angular/common';
+import { NgClass, NgStyle } from '@angular/common';
 import { AfterViewChecked, AfterViewInit, ChangeDetectionStrategy, Component, inject, Input, NgModule, OnDestroy, ViewEncapsulation } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { find } from '@primeuix/utils';
@@ -14,17 +14,20 @@ import { TerminalService } from './terminalservice';
  */
 @Component({
     selector: 'p-terminal',
-    standalone: true,
-    imports: [CommonModule, FormsModule, SharedModule],
+    imports: [NgClass, NgStyle, FormsModule, SharedModule],
     template: `
         <div [ngClass]="'p-terminal p-component'" [ngStyle]="style" [class]="styleClass" (click)="focus(in)">
-            <div class="p-terminal-welcome-message" *ngIf="welcomeMessage">{{ welcomeMessage }}</div>
+            @if (welcomeMessage) {
+                <div class="p-terminal-welcome-message">{{ welcomeMessage }}</div>
+            }
             <div class="p-terminal-command-list">
-                <div class="p-terminal-command" *ngFor="let command of commands">
-                    <span class="p-terminal-prompt-label">{{ prompt }}</span>
-                    <span class="p-terminal-command-value">{{ command.text }}</span>
-                    <div class="p-terminal-command-response" [attr.aria-live]="'polite'">{{ command.response }}</div>
-                </div>
+                @for (command of commands; track command) {
+                    <div class="p-terminal-command">
+                        <span class="p-terminal-prompt-label">{{ prompt }}</span>
+                        <span class="p-terminal-command-value">{{ command.text }}</span>
+                        <div class="p-terminal-command-response" [attr.aria-live]="'polite'">{{ command.response }}</div>
+                    </div>
+                }
             </div>
             <div class="p-terminal-prompt">
                 <span class="p-terminal-prompt-label">{{ prompt }}</span>
