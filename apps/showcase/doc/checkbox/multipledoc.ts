@@ -26,7 +26,8 @@ import { Component } from '@angular/core';
             </div>
         </div>
         <app-code [code]="code" selector="checkbox-multiple-demo"></app-code>
-    `
+    `,
+    standalone: false
 })
 export class MultipleDoc {
     pizza: string[] = [];

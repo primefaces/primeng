@@ -19,7 +19,8 @@ import { Component } from '@angular/core';
             </p-inputgroup>
         </div>
         <app-code [code]="code" selector="input-group-ifta-label-demo"></app-code>
-    `
+    `,
+    standalone: false
 })
 export class IftaLabelDoc {
     value: number = 10;

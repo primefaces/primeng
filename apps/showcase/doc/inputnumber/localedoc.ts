@@ -26,7 +26,8 @@ import { Component } from '@angular/core';
             </div>
         </p-fluid>
         <app-code [code]="code" selector="input-number-locale-demo"></app-code>
-    `
+    `,
+    standalone: false
 })
 export class LocaleDoc {
     value1: number = 151351;

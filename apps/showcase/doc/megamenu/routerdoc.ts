@@ -8,7 +8,8 @@ import { Component } from '@angular/core';
             <p>Items with navigation are defined with templating to be able to use a routerLink directive, an external link or programmatic navigation.</p>
         </app-docsectiontext>
         <app-code [code]="code" [hideToggleCode]="true" [hideStackBlitz]="true"></app-code>
-    `
+    `,
+    standalone: false
 })
 export class RouterDoc {
     code: Code = {

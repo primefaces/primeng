@@ -19,7 +19,8 @@ interface City {
             <p-listbox [options]="cities" [(ngModel)]="selectedCities" optionLabel="name" [multiple]="true" [metaKeySelection]="false" class="w-full md:w-56" />
         </div>
         <app-code [code]="code" selector="listbox-multiple-demo"></app-code>
-    `
+    `,
+    standalone: false
 })
 export class MultipleDoc implements OnInit {
     cities!: City[];

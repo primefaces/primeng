@@ -29,7 +29,6 @@ import { TooltipModule } from 'primeng/tooltip';
 
 @Component({
     selector: 'cards-app',
-    standalone: true,
     imports: [
         CommonModule,
         RouterModule,

@@ -32,7 +32,8 @@ import { ChangeDetectorRef, Component, OnInit } from '@angular/core';
             </p-carousel>
         </div>
         <app-code [code]="code" selector="carousel-vertical-demo" [extFiles]="extFiles"></app-code>
-    `
+    `,
+    standalone: false
 })
 export class VerticalDoc implements OnInit {
     products: Product[] | undefined;

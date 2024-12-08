@@ -16,7 +16,8 @@ interface City {
             <p-listbox [(ngModel)]="selectedCity" [options]="cities" optionLabel="name" [checkmark]="true" [highlightOnSelect]="false" class="w-full md:w-56" />
         </div>
         <app-code [code]="code" selector="listbox-checkmark-demo"></app-code>
-    `
+    `,
+    standalone: false
 })
 export class CheckmarkDoc implements OnInit {
     cities!: City[];

@@ -14,7 +14,8 @@ import { Component, signal } from '@angular/core';
             }
         </div>
         <app-code [code]="code" selector="message-life-demo"></app-code>
-    `
+    `,
+    standalone: false
 })
 export class LifeDoc {
     visible = signal(false);

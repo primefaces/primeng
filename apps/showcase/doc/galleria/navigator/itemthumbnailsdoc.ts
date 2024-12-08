@@ -20,7 +20,8 @@ import { Component, OnInit } from '@angular/core';
         </div>
         <app-code [code]="code" selector="galleria-navigator-item-thumbnails-demo"></app-code>
     `,
-    providers: [PhotoService]
+    providers: [PhotoService],
+    standalone: false
 })
 export class ItemThumbnailsDoc implements OnInit {
     images: any[] | undefined;

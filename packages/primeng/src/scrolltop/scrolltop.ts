@@ -1,5 +1,5 @@
 import { animate, AnimationEvent, state, style, transition, trigger } from '@angular/animations';
-import { CommonModule, isPlatformBrowser } from '@angular/common';
+import { isPlatformBrowser, NgClass, NgStyle, NgTemplateOutlet } from '@angular/common';
 import { ChangeDetectionStrategy, Component, ContentChild, inject, Input, NgModule, numberAttribute, OnDestroy, OnInit, QueryList, TemplateRef, ViewEncapsulation } from '@angular/core';
 import { getWindowScrollTop } from '@primeuix/utils';
 import { PrimeTemplate, SharedModule } from 'primeng/api';
@@ -15,32 +15,38 @@ import { ScrollTopStyle } from './style/scrolltopstyle';
  */
 @Component({
     selector: 'p-scrollTop, p-scrolltop, p-scroll-top',
-    standalone: true,
-    imports: [CommonModule, ChevronUpIcon, Button, SharedModule],
+    imports: [NgClass, NgStyle, NgTemplateOutlet, ChevronUpIcon, Button, SharedModule],
     template: `
-        <p-button
-            *ngIf="visible"
-            [@animation]="{
-                value: 'open',
-                params: { showTransitionParams: showTransitionOptions, hideTransitionParams: hideTransitionOptions }
-            }"
-            (@animation.start)="onEnter($event)"
-            (@animation.done)="onLeave($event)"
-            [attr.aria-label]="buttonAriaLabel"
-            (click)="onClick()"
-            [styleClass]="getStyleClass()"
-            [ngStyle]="style"
-            type="button"
-            [buttonProps]="buttonProps"
-        >
-            <ng-template #icon>
-                <ng-container *ngIf="!iconTemplate">
-                    <span *ngIf="_icon" [class]="_icon" [ngClass]="'p-scrolltop-icon'"></span>
-                    <ChevronUpIcon *ngIf="!_icon" [styleClass]="'p-scrolltop-icon'" [ngStyle]="{ 'font-size': '1rem', scale: '1.5' }" />
-                </ng-container>
-                <ng-template [ngIf]="!icon" *ngTemplateOutlet="iconTemplate; context: { styleClass: 'p-scrolltop-icon' }"></ng-template>
-            </ng-template>
-        </p-button>
+        @if (visible) {
+            <p-button
+                [@animation]="{
+                    value: 'open',
+                    params: { showTransitionParams: showTransitionOptions, hideTransitionParams: hideTransitionOptions }
+                }"
+                (@animation.start)="onEnter($event)"
+                (@animation.done)="onLeave($event)"
+                [attr.aria-label]="buttonAriaLabel"
+                (click)="onClick()"
+                [styleClass]="getStyleClass()"
+                [ngStyle]="style"
+                type="button"
+                [buttonProps]="buttonProps"
+            >
+                <ng-template #icon>
+                    @if (!iconTemplate) {
+                        @if (_icon) {
+                            <span [class]="_icon" [ngClass]="'p-scrolltop-icon'"></span>
+                        }
+                        @if (!_icon) {
+                            <ChevronUpIcon [styleClass]="'p-scrolltop-icon'" [ngStyle]="{ 'font-size': '1rem', scale: '1.5' }" />
+                        }
+                    }
+                    @if (!icon) {
+                        <ng-template *ngTemplateOutlet="iconTemplate; context: { styleClass: 'p-scrolltop-icon' }"></ng-template>
+                    }
+                </ng-template>
+            </p-button>
+        }
     `,
     changeDetection: ChangeDetectionStrategy.OnPush,
     encapsulation: ViewEncapsulation.None,
@@ -62,7 +68,6 @@ import { ScrollTopStyle } from './style/scrolltopstyle';
             transition('open => void', animate('{{hideTransitionParams}}'))
         ])
     ],
-
     providers: [ScrollTopStyle]
 })
 export class ScrollTop extends BaseComponent implements OnInit, OnDestroy {

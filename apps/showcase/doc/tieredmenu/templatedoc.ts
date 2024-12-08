@@ -22,7 +22,8 @@ import { MenuItem } from 'primeng/api';
             </p-tieredMenu>
         </div>
         <app-code [code]="code" selector="tiered-menu-template-demo"></app-code>
-    `
+    `,
+    standalone: false
 })
 export class TemplateDoc implements OnInit {
     items: MenuItem[] | undefined;

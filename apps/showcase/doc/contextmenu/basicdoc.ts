@@ -16,7 +16,8 @@ import { MenuItem } from 'primeng/api';
             <p-contextmenu [target]="img" [model]="items" />
         </div>
         <app-code [code]="code" selector="context-menu-basic-demo"></app-code>
-    `
+    `,
+    standalone: false
 })
 export class BasicDoc implements OnInit {
     items: MenuItem[] | undefined;

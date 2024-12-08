@@ -11,6 +11,7 @@ import { Component } from '@angular/core';
         <app-code [code]="code3" selector="update-surface-palette-demo" [hideToggleCode]="true" class="block mb-4"></app-code>
         <app-code [code]="code4" selector="update-surface-palette-demo" [hideToggleCode]="true"></app-code>
     `
+    standalone: false
 })
 export class UpdateSurfacePaletteDoc {
     code1 = {

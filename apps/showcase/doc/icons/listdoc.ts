@@ -21,7 +21,8 @@ import { Component } from '@angular/core';
                 </div>
             </div>
         </div>
-    `
+    `,
+    standalone: false
 })
 export class ListDoc {
     icons: any;

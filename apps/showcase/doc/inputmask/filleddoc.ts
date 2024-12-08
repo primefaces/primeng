@@ -11,7 +11,8 @@ import { Component } from '@angular/core';
             <p-inputmask mask="99-999999" [(ngModel)]="value" variant="filled" placeholder="99-999999" />
         </div>
         <app-code [code]="code" selector="input-mask-filled-demo"></app-code>
-    `
+    `,
+    standalone: false
 })
 export class FilledDoc {
     value: string | undefined;

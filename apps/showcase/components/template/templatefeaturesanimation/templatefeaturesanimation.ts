@@ -64,7 +64,8 @@ import { TemplateFeaturesAnimationInlineModule } from './templatefeaturesanimati
         </div>
     `,
     changeDetection: ChangeDetectionStrategy.OnPush,
-    encapsulation: ViewEncapsulation.None
+    encapsulation: ViewEncapsulation.None,
+    standalone: false
 })
 export class TemplateFeaturesAnimation {
     @Input() featuresData;

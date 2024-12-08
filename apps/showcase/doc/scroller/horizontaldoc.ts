@@ -18,7 +18,8 @@ import { ChangeDetectionStrategy, Component } from '@angular/core';
         </div>
         <app-code [code]="code" selector="scroller-horizontal-demo"></app-code>
     `,
-    changeDetection: ChangeDetectionStrategy.OnPush
+    changeDetection: ChangeDetectionStrategy.OnPush,
+    standalone: false
 })
 export class HorizontalDoc {
     items!: string[];

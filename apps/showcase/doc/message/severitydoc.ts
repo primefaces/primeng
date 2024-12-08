@@ -16,7 +16,8 @@ import { Component } from '@angular/core';
             <p-message severity="contrast">Contrast Message</p-message>
         </div>
         <app-code [code]="code" selector="message-severity-demo"></app-code>
-    `
+    `,
+    standalone: false
 })
 export class SeverityDoc {
     code: Code = {

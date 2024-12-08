@@ -11,7 +11,8 @@ import { Component } from '@angular/core';
             <p-inputmask mask="999-99-9999" [(ngModel)]="value" class="ng-invalid ng-dirty" placeholder="Serial Key" />
         </div>
         <app-code [code]="code" selector="input-mask-invalid-demo"></app-code>
-    `
+    `,
+    standalone: false
 })
 export class InvalidDoc {
     value: string | undefined;

@@ -11,7 +11,6 @@ import { Component } from '@angular/core';
 
 @Component({
     template: `<app-doc docTitle="Angular PanelMenu Component" header="PanelMenu" description="PanelMenu is a hybrid of Accordion and Tree components." [docs]="docs" [apiDocs]="['PanelMenu', 'MenuItem']"></app-doc>`,
-    standalone: true,
     imports: [PanelMenuDocModule]
 })
 export class PanelMenuDemo {

@@ -21,6 +21,7 @@ import { Component } from '@angular/core';
                 Components have been utilized more within other components, for instance Dialog close button is not actually a PrimeNG button so that <i>closeButtonProps</i> can be used to enable the features of button like outlined, raised and more.
             </p>
         </app-docsectiontext>
-    `
+    `,
+    standalone: false
 })
 export class MigrationOverviewDoc {}

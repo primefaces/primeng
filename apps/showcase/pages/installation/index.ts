@@ -8,7 +8,6 @@ import { CommonModule } from '@angular/common';
 import { Component } from '@angular/core';
 
 @Component({
-    standalone: true,
     imports: [CommonModule, InstallationDocModule],
     template: `<app-doc docTitle="Getting Started - PrimeNG" header="Installation" description="Setting up PrimeNG in an Angular CLI project." [docs]="docs"></app-doc>`
 })

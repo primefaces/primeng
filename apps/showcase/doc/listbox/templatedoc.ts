@@ -23,7 +23,8 @@ interface Country {
             </p-listbox>
         </div>
         <app-code [code]="code" selector="listbox-template-demo"></app-code>
-    `
+    `,
+    standalone: false
 })
 export class TemplateDoc implements OnInit {
     countries!: Country[];

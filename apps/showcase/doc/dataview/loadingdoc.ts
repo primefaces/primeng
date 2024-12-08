@@ -68,7 +68,8 @@ import { Component, signal } from '@angular/core';
             </p-dataview>
         </div>
         <app-code [code]="code" selector="data-view-loading-demo" [extFiles]="extFiles"></app-code>
-    `
+    `,
+    standalone: false
 })
 export class LoadingDoc {
     layout: string = 'grid';

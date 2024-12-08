@@ -6,7 +6,6 @@ import { ScrollTopDocModule } from '@/doc/scrolltop/scrolltopdoc.module';
 import { Component } from '@angular/core';
 
 @Component({
-    standalone: true,
     imports: [ScrollTopDocModule],
     template: ` <app-doc
         docTitle="Angular Scroll Top Component"

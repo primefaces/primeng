@@ -15,7 +15,8 @@ import { Component } from '@angular/core';
             </p-iftalabel>
         </div>
         <app-code [code]="code" selector="tree-select-iftalabel-demo"></app-code>
-    `
+    `,
+    standalone: false
 })
 export class IftaLabelDoc {
     nodes!: any[];

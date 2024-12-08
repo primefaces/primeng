@@ -17,7 +17,6 @@ import { Component } from '@angular/core';
 
 @Component({
     template: `<app-doc docTitle="Angular Password Component" header="Password" description="Password displays strength indicator for password fields." [docs]="docs" [apiDocs]="['Password', 'PasswordDirective']" themeDocs="password"></app-doc>`,
-    standalone: true,
     imports: [PasswordDocModule]
 })
 export class PasswordDemo {

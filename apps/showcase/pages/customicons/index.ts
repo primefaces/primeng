@@ -6,7 +6,6 @@ import { SVGDoc } from '@/doc/customicons/svgdoc';
 import { Component } from '@angular/core';
 
 @Component({
-    standalone: true,
     imports: [CustomIconsDocModule],
     template: ` <app-doc title="Custom Icons - PrimeNG" header="Custom Icons" description="PrimeNG components can be used with any icon library using the templating features." [docs]="docs"></app-doc>`
 })

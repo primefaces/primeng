@@ -38,7 +38,8 @@ interface City {
             </p-inputgroup>
         </div>
         <app-code [code]="code" selector="input-group-basic-demo"></app-code>
-    `
+    `,
+    standalone: false
 })
 export class BasicDoc {
     text1: string | undefined;

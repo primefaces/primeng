@@ -12,7 +12,8 @@ import { MenuItem } from 'primeng/api';
             <p-panelmenu [model]="items" styleClass="w-full md:w-80" />
         </div>
         <app-code [code]="code" selector="panel-menu-basic-demo"></app-code>
-    `
+    `,
+    standalone: false
 })
 export class BasicDoc implements OnInit {
     items: MenuItem[];

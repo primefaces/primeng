@@ -13,7 +13,8 @@ import { Component } from '@angular/core';
             <p-cascadeselect [(ngModel)]="value3" [options]="countries" optionLabel="cname" optionGroupLabel="name" [optionGroupChildren]="['states', 'cities']" styleClass="w-56" size="large" placeholder="Large" />
         </div>
         <app-code [code]="code" selector="cascade-select-sizes-demo"></app-code>
-    `
+    `,
+    standalone: false
 })
 export class SizesDoc {
     countries: any[] | undefined;

@@ -16,7 +16,6 @@ import { AppDesignerComponent } from '@/components/layout/designer/app.designer.
 
 @Component({
     selector: 'landing',
-    standalone: true,
     templateUrl: './landing.component.html',
     imports: [CommonModule, NgOptimizedImage, AppNewsComponent, AppTopBarComponent, HeroSectionComponent, FeaturesSectionComponent, UsersSectionComponent, ThemeSectionComponent, BlockSectionComponent, TemplateSectionComponent, FooterSectionComponent]
 })

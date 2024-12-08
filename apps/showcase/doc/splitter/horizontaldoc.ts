@@ -18,7 +18,8 @@ import { Component } from '@angular/core';
             </p-splitter>
         </div>
         <app-code [code]="code" selector="splitter-horizontal-demo"></app-code>
-    `
+    `,
+    standalone: false
 })
 export class HorizontalDoc {
     code: Code = {

@@ -33,6 +33,7 @@ import { Component } from '@angular/core';
                 resort, design tokens are the suggested approach.
             </p>
         </app-docsectiontext>
-    `
+    `,
+    standalone: false
 })
 export class ArchitectureDoc {}

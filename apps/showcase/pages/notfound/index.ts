@@ -4,7 +4,6 @@ import { RouterModule } from '@angular/router';
 import { CommonModule } from '@angular/common';
 
 @Component({
-    standalone: true,
     imports: [CommonModule, ButtonModule, RouterModule],
     template: ` <div class="flex min-h-screen items-center justify-center">
         <div class="flex card flex-col items-center gap-8 sm:p-20">

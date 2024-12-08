@@ -24,7 +24,8 @@ import { MessageService, TreeNode } from 'primeng/api';
         </div>
         <app-code [code]="code" selector="tree-events-demo"></app-code>
     `,
-    providers: [MessageService]
+    providers: [MessageService],
+    standalone: false
 })
 export class EventDoc implements OnInit {
     files!: TreeNode[];

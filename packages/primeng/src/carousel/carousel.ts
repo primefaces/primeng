@@ -1,4 +1,4 @@
-import { CommonModule, isPlatformBrowser } from '@angular/common';
+import { isPlatformBrowser, NgClass, NgStyle, NgTemplateOutlet } from '@angular/common';
 import {
     AfterContentInit,
     booleanAttribute,
@@ -34,117 +34,141 @@ import { CarouselStyle } from './style/carouselstyle';
  */
 @Component({
     selector: 'p-carousel',
-    standalone: true,
-    imports: [CommonModule, Ripple, ChevronRightIcon, ChevronLeftIcon, ChevronDownIcon, ChevronUpIcon, Button, SharedModule],
+    imports: [NgTemplateOutlet, NgClass, NgStyle, Ripple, ChevronRightIcon, ChevronLeftIcon, ChevronDownIcon, ChevronUpIcon, Button, SharedModule],
     template: `
         <div [attr.id]="id" [ngClass]="{ 'p-carousel p-component': true, 'p-carousel-vertical': isVertical(), 'p-carousel-horizontal': !isVertical() }" [ngStyle]="style" [class]="styleClass" role="region">
-            <div class="p-carousel-header" *ngIf="headerFacet || headerTemplate">
-                <ng-content select="p-header"></ng-content>
-                <ng-container *ngTemplateOutlet="headerTemplate"></ng-container>
-            </div>
+            @if (headerFacet || headerTemplate) {
+                <div class="p-carousel-header">
+                    <ng-content select="p-header"></ng-content>
+                    <ng-container *ngTemplateOutlet="headerTemplate"></ng-container>
+                </div>
+            }
             <div [class]="contentClass" [ngClass]="'p-carousel-content-container'">
                 <div class="p-carousel-content" [attr.aria-live]="allowAutoplay ? 'polite' : 'off'">
-                    <p-button
-                        *ngIf="showNavigators"
-                        [ngClass]="{ 'p-carousel-prev-button': true, 'p-disabled': isBackwardNavDisabled() }"
-                        [disabled]="isBackwardNavDisabled()"
-                        [attr.aria-label]="ariaPrevButtonLabel()"
-                        (click)="navBackward($event)"
-                        [text]="true"
-                        [buttonProps]="prevButtonProps"
-                    >
-                        <ng-template #icon>
-                            <ng-container *ngIf="!previousicon && !prevButtonProps?.icon">
-                                <ChevronLeftIcon *ngIf="!isVertical()" [styleClass]="'carousel-prev-icon'" />
-                                <ChevronUpIcon *ngIf="isVertical()" [styleClass]="'carousel-prev-icon'" />
-                            </ng-container>
-                            <span *ngIf="previousicon && !prevButtonProps?.icon" class="p-carousel-prev-icon">
-                                <ng-template *ngTemplateOutlet="previousicon"></ng-template>
-                            </span>
-                        </ng-template>
-                    </p-button>
+                    @if (showNavigators) {
+                        <p-button
+                            [ngClass]="{ 'p-carousel-prev-button': true, 'p-disabled': isBackwardNavDisabled() }"
+                            [disabled]="isBackwardNavDisabled()"
+                            [attr.aria-label]="ariaPrevButtonLabel()"
+                            (click)="navBackward($event)"
+                            [text]="true"
+                            [buttonProps]="prevButtonProps"
+                        >
+                            <ng-template #icon>
+                                @if (!previousicon && !prevButtonProps?.icon) {
+                                    @if (!isVertical()) {
+                                        <ChevronLeftIcon [styleClass]="'carousel-prev-icon'" />
+                                    }
+                                    @if (isVertical()) {
+                                        <ChevronUpIcon [styleClass]="'carousel-prev-icon'" />
+                                    }
+                                }
+                                @if (previousicon && !prevButtonProps?.icon) {
+                                    <span class="p-carousel-prev-icon">
+                                        <ng-template *ngTemplateOutlet="previousicon"></ng-template>
+                                    </span>
+                                }
+                            </ng-template>
+                        </p-button>
+                    }
                     <div class="p-carousel-viewport" [ngStyle]="{ height: isVertical() ? verticalViewPortHeight : 'auto' }" (touchend)="onTouchEnd($event)" (touchstart)="onTouchStart($event)" (touchmove)="onTouchMove($event)">
                         <div #itemsContainer class="p-carousel-item-list" (transitionend)="onTransitionEnd()">
-                            <div
-                                *ngFor="let item of clonedItemsForStarting; let index = index"
-                                [ngClass]="{
-                                    'p-carousel-item p-carousel-item-clone': true,
-                                    'p-carousel-item-active': totalShiftedItems * -1 === value.length,
-                                    'p-carousel-item-start': 0 === index,
-                                    'p-carousel-item-end': clonedItemsForStarting.length - 1 === index
-                                }"
-                                [attr.aria-hidden]="!(totalShiftedItems * -1 === value.length)"
-                                [attr.aria-label]="ariaSlideNumber(index)"
-                                [attr.aria-roledescription]="ariaSlideLabel()"
-                            >
-                                <ng-container *ngTemplateOutlet="itemTemplate; context: { $implicit: item }"></ng-container>
-                            </div>
-                            <div
-                                *ngFor="let item of value; let index = index"
-                                [ngClass]="{
-                                    'p-carousel-item': true,
-                                    'p-carousel-item-active': firstIndex() <= index && lastIndex() >= index,
-                                    'p-carousel-item-start': firstIndex() === index,
-                                    'p-carousel-item-end': lastIndex() === index
-                                }"
-                                [attr.aria-hidden]="!(totalShiftedItems * -1 === value.length)"
-                                [attr.aria-label]="ariaSlideNumber(index)"
-                                [attr.aria-roledescription]="ariaSlideLabel()"
-                            >
-                                <ng-container *ngTemplateOutlet="itemTemplate; context: { $implicit: item }"></ng-container>
-                            </div>
-                            <div
-                                *ngFor="let item of clonedItemsForFinishing; let index = index"
-                                [ngClass]="{
-                                    'p-carousel-item p-carousel-item-clone': true,
-                                    'p-carousel-item-active': totalShiftedItems * -1 === numVisible,
-                                    'p-carousel-item-start': 0 === index,
-                                    'p-carousel-item-end': clonedItemsForFinishing.length - 1 === index
-                                }"
-                            >
-                                <ng-container *ngTemplateOutlet="itemTemplate; context: { $implicit: item }"></ng-container>
-                            </div>
+                            @for (item of clonedItemsForStarting; track item; let index = $index) {
+                                <div
+                                    [ngClass]="{
+                                        'p-carousel-item p-carousel-item-clone': true,
+                                        'p-carousel-item-active': totalShiftedItems * -1 === value.length,
+                                        'p-carousel-item-start': 0 === index,
+                                        'p-carousel-item-end': clonedItemsForStarting.length - 1 === index
+                                    }"
+                                    [attr.aria-hidden]="!(totalShiftedItems * -1 === value.length)"
+                                    [attr.aria-label]="ariaSlideNumber(index)"
+                                    [attr.aria-roledescription]="ariaSlideLabel()"
+                                >
+                                    <ng-container *ngTemplateOutlet="itemTemplate; context: { $implicit: item }"></ng-container>
+                                </div>
+                            }
+                            @for (item of value; track item; let index = $index) {
+                                <div
+                                    [ngClass]="{
+                                        'p-carousel-item': true,
+                                        'p-carousel-item-active': firstIndex() <= index && lastIndex() >= index,
+                                        'p-carousel-item-start': firstIndex() === index,
+                                        'p-carousel-item-end': lastIndex() === index
+                                    }"
+                                    [attr.aria-hidden]="!(totalShiftedItems * -1 === value.length)"
+                                    [attr.aria-label]="ariaSlideNumber(index)"
+                                    [attr.aria-roledescription]="ariaSlideLabel()"
+                                >
+                                    <ng-container *ngTemplateOutlet="itemTemplate; context: { $implicit: item }"></ng-container>
+                                </div>
+                            }
+                            @for (item of clonedItemsForFinishing; track item; let index = $index) {
+                                <div
+                                    [ngClass]="{
+                                        'p-carousel-item p-carousel-item-clone': true,
+                                        'p-carousel-item-active': totalShiftedItems * -1 === numVisible,
+                                        'p-carousel-item-start': 0 === index,
+                                        'p-carousel-item-end': clonedItemsForFinishing.length - 1 === index
+                                    }"
+                                >
+                                    <ng-container *ngTemplateOutlet="itemTemplate; context: { $implicit: item }"></ng-container>
+                                </div>
+                            }
                         </div>
                     </div>
-                    <p-button
-                        type="button"
-                        *ngIf="showNavigators"
-                        [ngClass]="{ 'p-carousel-next-button': true, 'p-disabled': isForwardNavDisabled() }"
-                        [disabled]="isForwardNavDisabled()"
-                        (click)="navForward($event)"
-                        pRipple
-                        [attr.aria-label]="ariaNextButtonLabel()"
-                        [buttonProps]="nextButtonProps"
-                        [text]="true"
-                    >
-                        <ng-container *ngIf="!nexticon && !nextButtonProps?.icon">
-                            <ChevronRightIcon *ngIf="!isVertical()" [styleClass]="'carousel-prev-icon'" />
-                            <ChevronDownIcon *ngIf="isVertical()" [styleClass]="'carousel-prev-icon'" />
-                        </ng-container>
-                        <span *ngIf="nexticon && !nextButtonProps?.icon" class="p-carousel-prev-icon">
-                            <ng-template *ngTemplateOutlet="nexticon"></ng-template>
-                        </span>
-                    </p-button>
-                </div>
-                <ul #indicatorContent [ngClass]="'p-carousel-indicator-list'" [class]="indicatorsContentClass" [ngStyle]="indicatorsContentStyle" *ngIf="showIndicators" (keydown)="onIndicatorKeydown($event)">
-                    <li *ngFor="let totalDot of totalDotsArray(); let i = index" [ngClass]="{ 'p-carousel-indicator': true, 'p-carousel-indicator-active': _page === i }" [attr.data-pc-section]="'indicator'">
-                        <button
+                    @if (showNavigators) {
+                        <p-button
                             type="button"
-                            [ngClass]="'p-carousel-indicator-button'"
-                            (click)="onDotClick($event, i)"
-                            [class]="indicatorStyleClass"
-                            [ngStyle]="indicatorStyle"
-                            [attr.aria-label]="ariaPageLabel(i + 1)"
-                            [attr.aria-current]="_page === i ? 'page' : undefined"
-                            [tabindex]="_page === i ? 0 : -1"
-                        ></button>
-                    </li>
-                </ul>
+                            [ngClass]="{ 'p-carousel-next-button': true, 'p-disabled': isForwardNavDisabled() }"
+                            [disabled]="isForwardNavDisabled()"
+                            (click)="navForward($event)"
+                            pRipple
+                            [attr.aria-label]="ariaNextButtonLabel()"
+                            [buttonProps]="nextButtonProps"
+                            [text]="true"
+                        >
+                            @if (!nexticon && !nextButtonProps?.icon) {
+                                @if (!isVertical()) {
+                                    <ChevronRightIcon [styleClass]="'carousel-prev-icon'" />
+                                }
+                                @if (isVertical()) {
+                                    <ChevronDownIcon [styleClass]="'carousel-prev-icon'" />
+                                }
+                            }
+                            @if (nexticon && !nextButtonProps?.icon) {
+                                <span class="p-carousel-prev-icon">
+                                    <ng-template *ngTemplateOutlet="nexticon"></ng-template>
+                                </span>
+                            }
+                        </p-button>
+                    }
+                </div>
+                @if (showIndicators) {
+                    <ul #indicatorContent [ngClass]="'p-carousel-indicator-list'" [class]="indicatorsContentClass" [ngStyle]="indicatorsContentStyle" (keydown)="onIndicatorKeydown($event)">
+                        @for (totalDot of totalDotsArray(); track totalDot; let i = $index) {
+                            <li [ngClass]="{ 'p-carousel-indicator': true, 'p-carousel-indicator-active': _page === i }" [attr.data-pc-section]="'indicator'">
+                                <button
+                                    type="button"
+                                    [ngClass]="'p-carousel-indicator-button'"
+                                    (click)="onDotClick($event, i)"
+                                    [class]="indicatorStyleClass"
+                                    [ngStyle]="indicatorStyle"
+                                    [attr.aria-label]="ariaPageLabel(i + 1)"
+                                    [attr.aria-current]="_page === i ? 'page' : undefined"
+                                    [tabindex]="_page === i ? 0 : -1"
+                                ></button>
+                            </li>
+                        }
+                    </ul>
+                }
             </div>
-            <div class="p-carousel-footer" *ngIf="footerFacet || footerTemplate">
-                <ng-content select="p-footer"></ng-content>
-                <ng-container *ngTemplateOutlet="footerTemplate"></ng-container>
-            </div>
+            @if (footerFacet || footerTemplate) {
+                <div class="p-carousel-footer">
+                    <ng-content select="p-footer"></ng-content>
+                    <ng-container *ngTemplateOutlet="footerTemplate"></ng-container>
+                </div>
+            }
         </div>
     `,
     changeDetection: ChangeDetectionStrategy.OnPush,

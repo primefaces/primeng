@@ -11,7 +11,8 @@ import { Component } from '@angular/core';
             <textarea pKeyFilter="int" rows="5" cols="30" pTextarea></textarea>
         </div>
         <app-code [code]="code" selector="input-textarea-key-filter-demo"></app-code>
-    `
+    `,
+    standalone: false
 })
 export class KeyfilterDoc {
     code: Code = {

@@ -11,7 +11,8 @@ import { Component } from '@angular/core';
             <p-togglebutton [(ngModel)]="checked" onLabel="On" offLabel="Off" styleClass="w-24" />
         </div>
         <app-code [code]="code" selector="toggle-button-basic-demo"></app-code>
-    `
+    `,
+    standalone: false
 })
 export class BasicDoc {
     checked: boolean = false;

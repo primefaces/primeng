@@ -14,7 +14,8 @@ import { ChangeDetectorRef, Component, effect, inject, OnInit, PLATFORM_ID } fro
             <p-chart type="bar" [data]="data" [options]="options" class="h-[30rem]" />
         </div>
         <app-code [code]="code" selector="chart-horizontal-bar-demo"></app-code>
-    `
+    `,
+    standalone: false
 })
 export class HorizontalBarDoc implements OnInit {
     data: any;

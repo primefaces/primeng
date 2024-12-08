@@ -18,7 +18,8 @@ import { Component } from '@angular/core';
             <app-code [code]="code2" selector="code2" [hideToggleCode]="true" [hideCodeSandbox]="true" [hideStackBlitz]="true"></app-code>
             <app-code [code]="code3" selector="code3" [hideToggleCode]="true" [hideCodeSandbox]="true" [hideStackBlitz]="true"></app-code>
         </app-docsectiontext>
-    `
+    `,
+    standalone: false
 })
 export class OverrideDoc {
     code1: Code = {

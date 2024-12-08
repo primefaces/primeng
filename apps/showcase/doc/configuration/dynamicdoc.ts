@@ -8,7 +8,8 @@ import { Component } from '@angular/core';
             <p>Inject the <i>PrimeNG</i> to your application to update the initial configuration at runtime.</p>
         </app-docsectiontext>
         <app-code [code]="code" [hideToggleCode]="true"></app-code>
-    `
+    `,
+    standalone: false
 })
 export class DynamicDoc {
     code: Code = {

@@ -14,7 +14,8 @@ interface AutoCompleteCompleteEvent {
         <div class="card flex justify-center">
             <p-autocomplete [(ngModel)]="selectedItem" [suggestions]="suggestions" class="ng-invalid ng-dirty" (completeMethod)="search($event)" placeholder="Code" />
         </div>
-        <app-code [code]="code" selector="autocomplete-invalid-demo"></app-code>`
+        <app-code [code]="code" selector="autocomplete-invalid-demo"></app-code>`,
+    standalone: false
 })
 export class InvalidDoc {
     items: any[] | undefined;

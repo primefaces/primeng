@@ -17,7 +17,8 @@ import { Component } from '@angular/core';
             <p-tag icon="pi pi-cog" severity="contrast" value="Contrast" />
         </div>
         <app-code [code]="code" selector="tag-icon-demo"></app-code>
-    `
+    `,
+    standalone: false
 })
 export class IconDoc {
     code: Code = {

@@ -14,6 +14,7 @@ import { Component } from '@angular/core';
                 <li><i class="mark">Sidebar</i> -&gt; <i class="mark">Drawer</i>.</li>
             </ul>
         </app-docsectiontext>
-    `
+    `,
+    standalone: false
 })
 export class RenamedComponentsDoc {}

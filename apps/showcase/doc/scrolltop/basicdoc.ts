@@ -13,7 +13,8 @@ import { Component } from '@angular/core';
             <p-scrolltop />
         </div>
         <app-code [code]="code" selector="scroll-top-basic-demo"></app-code>
-    `
+    `,
+    standalone: false
 })
 export class BasicDoc {
     code: Code = {

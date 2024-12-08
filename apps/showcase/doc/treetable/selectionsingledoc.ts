@@ -45,7 +45,8 @@ interface Column {
         </div>
         <app-code [code]="code" selector="tree-table-selection-single-demo"></app-code>
     `,
-    changeDetection: ChangeDetectionStrategy.OnPush
+    changeDetection: ChangeDetectionStrategy.OnPush,
+    standalone: false
 })
 export class SelectionSingleDoc {
     metaKeySelection: boolean = true;

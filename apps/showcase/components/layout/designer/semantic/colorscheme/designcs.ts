@@ -8,7 +8,6 @@ import { DesignCSNavigation } from './designcsnavigation';
 
 @Component({
     selector: 'design-cs',
-    standalone: true,
     imports: [CommonModule, DesignCSCommon, DesignCSOverlay, DesignCSList, DesignCSFormField, DesignCSNavigation],
     template: `<div class="flex flex-col gap-3">
         <design-cs-common [colorScheme]="value" />

@@ -50,7 +50,8 @@ import { Component, inject, signal } from '@angular/core';
             </p-dataview>
         </div>
         <app-code [code]="code" selector="data-view-basic-demo" [extFiles]="extFiles"></app-code>
-    `
+    `,
+    standalone: false
 })
 export class BasicDoc {
     products = signal<any>([]);

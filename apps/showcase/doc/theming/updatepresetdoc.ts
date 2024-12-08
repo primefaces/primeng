@@ -9,6 +9,7 @@ import { Component } from '@angular/core';
         <app-code [code]="code1" selector="update-preset-demo" [hideToggleCode]="true" class="block mb-4"></app-code>
         <app-code [code]="code2" selector="update-preset-demo" [hideToggleCode]="true"></app-code>
     `
+    standalone: false
 })
 export class UpdatePresetDoc {
     code1 = {

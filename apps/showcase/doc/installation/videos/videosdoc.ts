@@ -9,6 +9,7 @@ import { Component } from '@angular/core';
         <div class="video-container">
             <iframe width="560" height="315" src="https://www.youtube.com/embed/_Zel-Eapb9Y" frameborder="0" allowfullscreen></iframe>
         </div>
-    `
+    `,
+    standalone: false
 })
 export class VideosDoc {}

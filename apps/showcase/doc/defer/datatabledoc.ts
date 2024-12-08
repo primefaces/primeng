@@ -39,7 +39,8 @@ import { MessageService } from 'primeng/api';
         </div>
         <app-code [code]="code" [extFiles]="extFiles" selector="defer-data-table-demo"></app-code>
     `,
-    providers: [MessageService, CarService]
+    providers: [MessageService, CarService],
+    standalone: false
 })
 export class DataTableDoc {
     cars: Car[] | undefined;

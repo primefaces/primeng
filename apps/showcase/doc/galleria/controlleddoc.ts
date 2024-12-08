@@ -23,7 +23,8 @@ import { Component, OnInit } from '@angular/core';
             </p-galleria>
         </div>
         <app-code [code]="code" selector="galleria-controlled-demo"></app-code>
-    `
+    `,
+    standalone: false
 })
 export class ControlledDoc implements OnInit {
     images: any[] | undefined;

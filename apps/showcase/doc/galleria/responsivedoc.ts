@@ -19,7 +19,8 @@ import { Component, OnInit } from '@angular/core';
             </p-galleria>
         </div>
         <app-code [code]="code" selector="galleria-responsive-demo"></app-code>
-    `
+    `,
+    standalone: false
 })
 export class ResponsiveDoc implements OnInit {
     images: any[] | undefined;

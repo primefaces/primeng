@@ -13,7 +13,8 @@ import { Component } from '@angular/core';
             <i class="pi pi-envelope p-text-secondary" pBadge style="font-size: 2rem" severity="danger"></i>
         </div>
         <app-code [code]="code" selector="badge-position-demo"></app-code>
-    `
+    `,
+    standalone: false
 })
 export class PositionDoc {
     code: Code = {

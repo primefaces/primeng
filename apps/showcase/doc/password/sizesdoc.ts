@@ -13,7 +13,8 @@ import { Component } from '@angular/core';
             <p-password [(ngModel)]="value3" type="text" size="large" placeholder="Large" />
         </div>
         <app-code [code]="code" selector="password-sizes-demo"></app-code>
-    `
+    `,
+    standalone: false
 })
 export class SizesDoc {
     value1: string;

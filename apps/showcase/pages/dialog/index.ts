@@ -12,7 +12,6 @@ import { WithoutModalDoc } from '@/doc/dialog/withoutmodaldoc';
 import { Component } from '@angular/core';
 
 @Component({
-    standalone: true,
     imports: [DialogDocModule],
     template: ` <app-doc docTitle="Angular Dialog Component" header="Dialog" description="Dialog is a container to display content in an overlay window." [docs]="docs" [apiDocs]="['Dialog']" themeDocs="dialog"></app-doc> `
 })

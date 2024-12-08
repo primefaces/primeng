@@ -1,5 +1,5 @@
 import { animate, AnimationEvent, state, style, transition, trigger } from '@angular/animations';
-import { CommonModule } from '@angular/common';
+import { NgClass, NgStyle, NgTemplateOutlet } from '@angular/common';
 import {
     booleanAttribute,
     ChangeDetectionStrategy,
@@ -65,11 +65,10 @@ export const CALENDAR_VALUE_ACCESSOR: any = {
  */
 @Component({
     selector: 'p-calendar',
-    standalone: true,
-    imports: [CommonModule, Button, Ripple, ChevronLeftIcon, ChevronRightIcon, ChevronUpIcon, ChevronDownIcon, TimesIcon, CalendarIcon, AutoFocus, InputText, SharedModule],
+    imports: [NgTemplateOutlet, NgClass, NgStyle, Button, Ripple, ChevronLeftIcon, ChevronRightIcon, ChevronUpIcon, ChevronDownIcon, TimesIcon, CalendarIcon, AutoFocus, InputText, SharedModule],
     template: `
         <span #container [ngClass]="rootClass" [ngStyle]="style" [class]="styleClass">
-            <ng-template [ngIf]="!inline">
+            @if (!inline) {
                 <input
                     #inputfield
                     pInputText
@@ -104,394 +103,482 @@ export const CALENDAR_VALUE_ACCESSOR: any = {
                     [variant]="variant"
                     [fluid]="hasFluid"
                 />
-                <ng-container *ngIf="showClear && !disabled && value != null">
-                    <TimesIcon *ngIf="!clearicon" [class]="'p-datepicker-clear-icon'" (click)="clear()" />
-                    <span *ngIf="clearicon" class="p-datepicker-clear-icon" (click)="clear()">
-                        <ng-template *ngTemplateOutlet="clearicon"></ng-template>
-                    </span>
-                </ng-container>
-                <button
-                    type="button"
-                    [attr.aria-label]="iconButtonAriaLabel"
-                    aria-haspopup="dialog"
-                    [attr.aria-expanded]="overlayVisible ?? false"
-                    [attr.aria-controls]="overlayVisible ? panelId : null"
-                    *ngIf="showIcon && iconDisplay === 'button'"
-                    (click)="onButtonClick($event, inputfield)"
-                    class="p-datepicker-dropdown"
-                    [disabled]="disabled"
-                    tabindex="0"
-                >
-                    <span *ngIf="icon" [ngClass]="icon"></span>
-                    <ng-container *ngIf="!icon">
-                        <CalendarIcon *ngIf="!triggericon" />
-                        <ng-template *ngTemplateOutlet="triggericon"></ng-template>
-                    </ng-container>
-                </button>
-                <ng-container *ngIf="iconDisplay === 'input' && showIcon">
+                @if (showClear && !disabled && value != null) {
+                    @if (!clearicon) {
+                        <TimesIcon [class]="'p-datepicker-clear-icon'" (click)="clear()" />
+                    }
+                    @if (clearicon) {
+                        <span class="p-datepicker-clear-icon" (click)="clear()">
+                            <ng-template *ngTemplateOutlet="clearicon"></ng-template>
+                        </span>
+                    }
+                }
+                @if (showIcon && iconDisplay === 'button') {
+                    <button
+                        type="button"
+                        [attr.aria-label]="iconButtonAriaLabel"
+                        aria-haspopup="dialog"
+                        [attr.aria-expanded]="overlayVisible ?? false"
+                        [attr.aria-controls]="overlayVisible ? panelId : null"
+                        (click)="onButtonClick($event, inputfield)"
+                        class="p-datepicker-dropdown"
+                        [disabled]="disabled"
+                        tabindex="0"
+                    >
+                        @if (icon) {
+                            <span [ngClass]="icon"></span>
+                        }
+                        @if (!icon) {
+                            @if (!triggericon) {
+                                <CalendarIcon />
+                            }
+                            <ng-template *ngTemplateOutlet="triggericon"></ng-template>
+                        }
+                    </button>
+                }
+                @if (iconDisplay === 'input' && showIcon) {
                     <span class="p-datepicker-input-icon-container">
-                        <CalendarIcon
-                            (click)="onButtonClick($event)"
-                            *ngIf="!inputicon"
-                            [ngClass]="{
-                                'p-datepicker-input-icon': showOnFocus
-                            }"
-                        />
-
+                        @if (!inputicon) {
+                            <CalendarIcon
+                                (click)="onButtonClick($event)"
+                                [ngClass]="{
+                                    'p-datepicker-input-icon': showOnFocus
+                                }"
+                            />
+                        }
                         <ng-container *ngTemplateOutlet="inputicon; context: { clickCallBack: onButtonClick.bind(this) }"></ng-container>
                     </span>
-                </ng-container>
-            </ng-template>
-            <div
-                #contentWrapper
-                [attr.id]="panelId"
-                [class]="panelStyleClass"
-                [ngStyle]="panelStyle"
-                [ngClass]="panelClass"
-                [@overlayAnimation]="{
-                    value: 'visible',
-                    params: { showTransitionParams: showTransitionOptions, hideTransitionParams: hideTransitionOptions }
-                }"
-                [attr.aria-label]="getTranslation('chooseDate')"
-                [attr.role]="inline ? null : 'dialog'"
-                [attr.aria-modal]="inline ? null : 'true'"
-                [@.disabled]="inline === true"
-                (@overlayAnimation.start)="onOverlayAnimationStart($event)"
-                (@overlayAnimation.done)="onOverlayAnimationDone($event)"
-                (click)="onOverlayClick($event)"
-                *ngIf="inline || overlayVisible"
-            >
-                <ng-content select="p-header"></ng-content>
-                <ng-container *ngTemplateOutlet="header"></ng-container>
-                <ng-container *ngIf="!timeOnly">
-                    <div class="p-datepicker-calendar-container">
-                        <div class="p-datepicker-calendar" *ngFor="let month of months; let i = index">
-                            <div class="p-datepicker-header">
-                                <p-button
-                                    size="small"
-                                    rounded
-                                    text
-                                    (keydown)="onContainerButtonKeydown($event)"
-                                    styleClass="p-datepicker-prev-button p-button-icon-only"
-                                    (onClick)="onPrevButtonClick($event)"
-                                    [ngStyle]="{ visibility: i === 0 ? 'visible' : 'hidden' }"
-                                    type="button"
-                                    [attr.aria-label]="prevIconAriaLabel"
-                                >
-                                    <ChevronLeftIcon *ngIf="!previousicon" />
-                                    <span *ngIf="previousicon">
-                                        <ng-template *ngTemplateOutlet="previousicon"></ng-template>
-                                    </span>
-                                </p-button>
-                                <div class="p-datepicker-title">
-                                    <button
-                                        *ngIf="currentView === 'date'"
-                                        type="button"
-                                        (click)="switchToMonthView($event)"
-                                        (keydown)="onContainerButtonKeydown($event)"
-                                        class="p-datepicker-select-month"
-                                        [disabled]="switchViewButtonDisabled()"
-                                        [attr.aria-label]="this.getTranslation('chooseMonth')"
-                                        pRipple
-                                    >
-                                        {{ getMonthName(month.month) }}
-                                    </button>
-                                    <button
-                                        *ngIf="currentView !== 'year'"
-                                        type="button"
-                                        (click)="switchToYearView($event)"
-                                        (keydown)="onContainerButtonKeydown($event)"
-                                        class="p-datepicker-select-year"
-                                        [disabled]="switchViewButtonDisabled()"
-                                        [attr.aria-label]="getTranslation('chooseYear')"
-                                        pRipple
-                                    >
-                                        {{ getYear(month) }}
-                                    </button>
-                                    <span class="p-datepicker-decade" *ngIf="currentView === 'year'">
-                                        <ng-container *ngIf="!decade">{{ yearPickerValues()[0] }} - {{ yearPickerValues()[yearPickerValues().length - 1] }}</ng-container>
-                                        <ng-container *ngTemplateOutlet="decade; context: { $implicit: yearPickerValues }"></ng-container>
-                                    </span>
-                                </div>
-                                <p-button
-                                    rounded
-                                    text
-                                    size="small"
-                                    (keydown)="onContainerButtonKeydown($event)"
-                                    styleClass="p-datepicker-next-button p-button-icon-only"
-                                    (onClick)="onNextButtonClick($event)"
-                                    [ngStyle]="{ visibility: i === months.length - 1 ? 'visible' : 'hidden' }"
-                                    [attr.aria-label]="nextIconAriaLabel"
-                                >
-                                    <ChevronRightIcon *ngIf="!decade" />
-
-                                    <span *ngIf="nexticon">
-                                        <ng-template *ngTemplateOutlet="nexticon"></ng-template>
-                                    </span>
-                                </p-button>
-                            </div>
-                            <table class="p-datepicker-day-view" role="grid" *ngIf="currentView === 'date'">
-                                <thead>
-                                    <tr>
-                                        <th *ngIf="showWeek" class="p-datepicker-weekheader p-disabled">
-                                            <span>{{ getTranslation('weekHeader') }}</span>
-                                        </th>
-                                        <th class="p-datepicker-weekday-cell" scope="col" *ngFor="let weekDay of weekDays; let begin = first; let end = last">
-                                            <span class="p-datepicker-weekday">{{ weekDay }}</span>
-                                        </th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    <tr *ngFor="let week of month.dates; let j = index">
-                                        <td *ngIf="showWeek" class="p-datepicker-weeknumber">
-                                            <span class="p-datepicker-weeklabel-container p-disabled">
-                                                {{ month.weekNumbers[j] }}
-                                            </span>
-                                        </td>
-                                        <td
-                                            *ngFor="let date of week"
-                                            [attr.aria-label]="date.day"
-                                            [ngClass]="{
-                                                'p-datepicker-day-cell': true,
-                                                'p-datepicker-other-month': date.otherMonth,
-                                                'p-datepicker-today': date.today
-                                            }"
+                }
+            }
+            @if (inline || overlayVisible) {
+                <div
+                    #contentWrapper
+                    [attr.id]="panelId"
+                    [class]="panelStyleClass"
+                    [ngStyle]="panelStyle"
+                    [ngClass]="panelClass"
+                    [@overlayAnimation]="{
+                        value: 'visible',
+                        params: { showTransitionParams: showTransitionOptions, hideTransitionParams: hideTransitionOptions }
+                    }"
+                    [attr.aria-label]="getTranslation('chooseDate')"
+                    [attr.role]="inline ? null : 'dialog'"
+                    [attr.aria-modal]="inline ? null : 'true'"
+                    [@.disabled]="inline === true"
+                    (@overlayAnimation.start)="onOverlayAnimationStart($event)"
+                    (@overlayAnimation.done)="onOverlayAnimationDone($event)"
+                    (click)="onOverlayClick($event)"
+                >
+                    <ng-content select="p-header"></ng-content>
+                    <ng-container *ngTemplateOutlet="header"></ng-container>
+                    @if (!timeOnly) {
+                        <div class="p-datepicker-calendar-container">
+                            @for (month of months; track month; let i = $index) {
+                                <div class="p-datepicker-calendar">
+                                    <div class="p-datepicker-header">
+                                        <p-button
+                                            size="small"
+                                            rounded
+                                            text
+                                            (keydown)="onContainerButtonKeydown($event)"
+                                            styleClass="p-datepicker-prev-button p-button-icon-only"
+                                            (onClick)="onPrevButtonClick($event)"
+                                            [ngStyle]="{ visibility: i === 0 ? 'visible' : 'hidden' }"
+                                            type="button"
+                                            [attr.aria-label]="prevIconAriaLabel"
                                         >
-                                            <ng-container *ngIf="date.otherMonth ? showOtherMonths : true">
-                                                <span
-                                                    [ngClass]="dayClass(date)"
-                                                    (click)="onDateSelect($event, date)"
-                                                    draggable="false"
-                                                    [attr.data-date]="formatDateKey(formatDateMetaToDate(date))"
-                                                    (keydown)="onDateCellKeydown($event, date, i)"
+                                            @if (!previousicon) {
+                                                <ChevronLeftIcon />
+                                            }
+                                            @if (previousicon) {
+                                                <span>
+                                                    <ng-template *ngTemplateOutlet="previousicon"></ng-template>
+                                                </span>
+                                            }
+                                        </p-button>
+                                        <div class="p-datepicker-title">
+                                            @if (currentView === 'date') {
+                                                <button
+                                                    type="button"
+                                                    (click)="switchToMonthView($event)"
+                                                    (keydown)="onContainerButtonKeydown($event)"
+                                                    class="p-datepicker-select-month"
+                                                    [disabled]="switchViewButtonDisabled()"
+                                                    [attr.aria-label]="this.getTranslation('chooseMonth')"
                                                     pRipple
                                                 >
-                                                    <ng-container *ngIf="!disabledDate && (date.selectable || !disabledDate)">{{ date.day }}</ng-container>
-                                                    <ng-container *ngIf="date.selectable || !disabledDate">
-                                                        <ng-container *ngTemplateOutlet="dateTemplate; context: { $implicit: date }"></ng-container>
-                                                    </ng-container>
-                                                    <ng-container *ngIf="!date.selectable">
-                                                        <ng-container *ngTemplateOutlet="disabledDate; context: { $implicit: date }"></ng-container>
-                                                    </ng-container>
+                                                    {{ getMonthName(month.month) }}
+                                                </button>
+                                            }
+                                            @if (currentView !== 'year') {
+                                                <button
+                                                    type="button"
+                                                    (click)="switchToYearView($event)"
+                                                    (keydown)="onContainerButtonKeydown($event)"
+                                                    class="p-datepicker-select-year"
+                                                    [disabled]="switchViewButtonDisabled()"
+                                                    [attr.aria-label]="getTranslation('chooseYear')"
+                                                    pRipple
+                                                >
+                                                    {{ getYear(month) }}
+                                                </button>
+                                            }
+                                            @if (currentView === 'year') {
+                                                <span class="p-datepicker-decade">
+                                                    @if (!decade) {
+                                                        {{ yearPickerValues()[0] }} - {{ yearPickerValues()[yearPickerValues().length - 1] }}
+                                                    }
+                                                    <ng-container *ngTemplateOutlet="decade; context: { $implicit: yearPickerValues }"></ng-container>
                                                 </span>
-                                                <div *ngIf="isSelected(date)" class="p-hidden-accessible" aria-live="polite">
-                                                    {{ date.day }}
-                                                </div>
-                                            </ng-container>
-                                        </td>
-                                    </tr>
-                                </tbody>
-                            </table>
+                                            }
+                                        </div>
+                                        <p-button
+                                            rounded
+                                            text
+                                            size="small"
+                                            (keydown)="onContainerButtonKeydown($event)"
+                                            styleClass="p-datepicker-next-button p-button-icon-only"
+                                            (onClick)="onNextButtonClick($event)"
+                                            [ngStyle]="{ visibility: i === months.length - 1 ? 'visible' : 'hidden' }"
+                                            [attr.aria-label]="nextIconAriaLabel"
+                                        >
+                                            @if (!decade) {
+                                                <ChevronRightIcon />
+                                            }
+                                            @if (nexticon) {
+                                                <span>
+                                                    <ng-template *ngTemplateOutlet="nexticon"></ng-template>
+                                                </span>
+                                            }
+                                        </p-button>
+                                    </div>
+                                    @if (currentView === 'date') {
+                                        <table class="p-datepicker-day-view" role="grid">
+                                            <thead>
+                                                <tr>
+                                                    @if (showWeek) {
+                                                        <th class="p-datepicker-weekheader p-disabled">
+                                                            <span>{{ getTranslation('weekHeader') }}</span>
+                                                        </th>
+                                                    }
+                                                    @for (weekDay of weekDays; track weekDay; let begin = $first; let end = $last) {
+                                                        <th class="p-datepicker-weekday-cell" scope="col">
+                                                            <span class="p-datepicker-weekday">{{ weekDay }}</span>
+                                                        </th>
+                                                    }
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                @for (week of month.dates; track week; let j = $index) {
+                                                    <tr>
+                                                        @if (showWeek) {
+                                                            <td class="p-datepicker-weeknumber">
+                                                                <span class="p-datepicker-weeklabel-container p-disabled">
+                                                                    {{ month.weekNumbers[j] }}
+                                                                </span>
+                                                            </td>
+                                                        }
+                                                        @for (date of week; track date) {
+                                                            <td
+                                                                [attr.aria-label]="date.day"
+                                                                [ngClass]="{
+                                                                    'p-datepicker-day-cell': true,
+                                                                    'p-datepicker-other-month': date.otherMonth,
+                                                                    'p-datepicker-today': date.today
+                                                                }"
+                                                            >
+                                                                @if (date.otherMonth ? showOtherMonths : true) {
+                                                                    <span
+                                                                        [ngClass]="dayClass(date)"
+                                                                        (click)="onDateSelect($event, date)"
+                                                                        draggable="false"
+                                                                        [attr.data-date]="formatDateKey(formatDateMetaToDate(date))"
+                                                                        (keydown)="onDateCellKeydown($event, date, i)"
+                                                                        pRipple
+                                                                    >
+                                                                        @if (!disabledDate && (date.selectable || !disabledDate)) {
+                                                                            {{ date.day }}
+                                                                        }
+                                                                        @if (date.selectable || !disabledDate) {
+                                                                            <ng-container *ngTemplateOutlet="dateTemplate; context: { $implicit: date }"></ng-container>
+                                                                        }
+                                                                        @if (!date.selectable) {
+                                                                            <ng-container *ngTemplateOutlet="disabledDate; context: { $implicit: date }"></ng-container>
+                                                                        }
+                                                                    </span>
+                                                                    @if (isSelected(date)) {
+                                                                        <div class="p-hidden-accessible" aria-live="polite">
+                                                                            {{ date.day }}
+                                                                        </div>
+                                                                    }
+                                                                }
+                                                            </td>
+                                                        }
+                                                    </tr>
+                                                }
+                                            </tbody>
+                                        </table>
+                                    }
+                                </div>
+                            }
                         </div>
-                    </div>
-                    <div class="p-datepicker-month-view" *ngIf="currentView === 'month'">
-                        <span
-                            *ngFor="let m of monthPickerValues(); let i = index"
-                            (click)="onMonthSelect($event, i)"
-                            (keydown)="onMonthCellKeydown($event, i)"
-                            [ngClass]="{
-                                'p-datepicker-month': true,
-                                'p-datepicker-month-selected': isMonthSelected(i),
-                                'p-disabled': isMonthDisabled(i)
-                            }"
-                            pRipple
-                        >
-                            {{ m }}
-                            <div *ngIf="isMonthSelected(i)" class="p-hidden-accessible" aria-live="polite">
-                                {{ m }}
+                        @if (currentView === 'month') {
+                            <div class="p-datepicker-month-view">
+                                @for (m of monthPickerValues(); track m; let i = $index) {
+                                    <span
+                                        (click)="onMonthSelect($event, i)"
+                                        (keydown)="onMonthCellKeydown($event, i)"
+                                        [ngClass]="{
+                                            'p-datepicker-month': true,
+                                            'p-datepicker-month-selected': isMonthSelected(i),
+                                            'p-disabled': isMonthDisabled(i)
+                                        }"
+                                        pRipple
+                                    >
+                                        {{ m }}
+                                        @if (isMonthSelected(i)) {
+                                            <div class="p-hidden-accessible" aria-live="polite">
+                                                {{ m }}
+                                            </div>
+                                        }
+                                    </span>
+                                }
                             </div>
-                        </span>
-                    </div>
-                    <div class="p-datepicker-year-view" *ngIf="currentView === 'year'">
-                        <span
-                            *ngFor="let y of yearPickerValues()"
-                            (click)="onYearSelect($event, y)"
-                            (keydown)="onYearCellKeydown($event, y)"
-                            [ngClass]="{
-                                'p-datepicker-year': true,
-                                'p-datepicker-year-selected': isYearSelected(y),
-                                'p-disabled': isYearDisabled(y)
-                            }"
-                            pRipple
-                        >
-                            {{ y }}
-                            <div *ngIf="isYearSelected(y)" class="p-hidden-accessible" aria-live="polite">
-                                {{ y }}
+                        }
+                        @if (currentView === 'year') {
+                            <div class="p-datepicker-year-view">
+                                @for (y of yearPickerValues(); track y) {
+                                    <span
+                                        (click)="onYearSelect($event, y)"
+                                        (keydown)="onYearCellKeydown($event, y)"
+                                        [ngClass]="{
+                                            'p-datepicker-year': true,
+                                            'p-datepicker-year-selected': isYearSelected(y),
+                                            'p-disabled': isYearDisabled(y)
+                                        }"
+                                        pRipple
+                                    >
+                                        {{ y }}
+                                        @if (isYearSelected(y)) {
+                                            <div class="p-hidden-accessible" aria-live="polite">
+                                                {{ y }}
+                                            </div>
+                                        }
+                                    </span>
+                                }
                             </div>
-                        </span>
-                    </div>
-                </ng-container>
-                <div class="p-datepicker-time-picker" *ngIf="(showTime || timeOnly) && currentView === 'date'">
-                    <div class="p-datepicker-hour-picker">
-                        <p-button
-                            rounded
-                            text
-                            size="small"
-                            styleClass="p-datepicker-increment-button p-button-icon-only"
-                            (keydown)="onContainerButtonKeydown($event)"
-                            (keydown.enter)="incrementHour($event)"
-                            (keydown.space)="incrementHour($event)"
-                            (mousedown)="onTimePickerElementMouseDown($event, 0, 1)"
-                            (mouseup)="onTimePickerElementMouseUp($event)"
-                            (keyup.enter)="onTimePickerElementMouseUp($event)"
-                            (keyup.space)="onTimePickerElementMouseUp($event)"
-                            (mouseleave)="onTimePickerElementMouseLeave()"
-                            [attr.aria-label]="getTranslation('nextHour')"
-                        >
-                            <ChevronUpIcon *ngIf="!incrementicon" />
-
-                            <ng-template *ngTemplateOutlet="incrementicon"></ng-template>
-                        </p-button>
-                        <span><ng-container *ngIf="currentHour < 10">0</ng-container>{{ currentHour }}</span>
-                        <p-button
-                            rounded
-                            text
-                            size="small"
-                            styleClass="p-datepicker-increment-button p-button-icon-only"
-                            (keydown)="onContainerButtonKeydown($event)"
-                            (keydown.enter)="decrementHour($event)"
-                            (keydown.space)="decrementHour($event)"
-                            (mousedown)="onTimePickerElementMouseDown($event, 0, -1)"
-                            (mouseup)="onTimePickerElementMouseUp($event)"
-                            (keyup.enter)="onTimePickerElementMouseUp($event)"
-                            (keyup.space)="onTimePickerElementMouseUp($event)"
-                            (mouseleave)="onTimePickerElementMouseLeave()"
-                            [attr.aria-label]="getTranslation('prevHour')"
-                        >
-                            <ChevronDownIcon *ngIf="!decrementicon" />
-
-                            <ng-template *ngTemplateOutlet="decrementicon"></ng-template>
-                        </p-button>
-                    </div>
-                    <div class="p-datepicker-separator">
-                        <span>{{ timeSeparator }}</span>
-                    </div>
-                    <div class="p-datepicker-minute-picker">
-                        <p-button
-                            rounded
-                            text
-                            size="small"
-                            styleClass="p-datepicker-increment-button p-button-icon-only"
-                            (keydown)="onContainerButtonKeydown($event)"
-                            (keydown.enter)="incrementMinute($event)"
-                            (keydown.space)="incrementMinute($event)"
-                            (mousedown)="onTimePickerElementMouseDown($event, 1, 1)"
-                            (mouseup)="onTimePickerElementMouseUp($event)"
-                            (keyup.enter)="onTimePickerElementMouseUp($event)"
-                            (keyup.space)="onTimePickerElementMouseUp($event)"
-                            (mouseleave)="onTimePickerElementMouseLeave()"
-                            [attr.aria-label]="getTranslation('nextMinute')"
-                        >
-                            <ChevronUpIcon *ngIf="!incrementicon" />
-
-                            <ng-template *ngTemplateOutlet="incrementicon"></ng-template>
-                        </p-button>
-                        <span><ng-container *ngIf="currentMinute < 10">0</ng-container>{{ currentMinute }}</span>
-                        <p-button
-                            rounded
-                            text
-                            size="small"
-                            styleClass="p-datepicker-increment-button p-button-icon-only"
-                            (keydown)="onContainerButtonKeydown($event)"
-                            (keydown.enter)="decrementMinute($event)"
-                            (keydown.space)="decrementMinute($event)"
-                            (mousedown)="onTimePickerElementMouseDown($event, 1, -1)"
-                            (mouseup)="onTimePickerElementMouseUp($event)"
-                            (keyup.enter)="onTimePickerElementMouseUp($event)"
-                            (keyup.space)="onTimePickerElementMouseUp($event)"
-                            (mouseleave)="onTimePickerElementMouseLeave()"
-                            [attr.aria-label]="getTranslation('prevMinute')"
-                        >
-                            <ChevronDownIcon *ngIf="!decrementicon" />
-                            <ng-container *ngIf="decrementicon">
-                                <ng-template *ngTemplateOutlet="decrementicon"></ng-template>
-                            </ng-container>
-                        </p-button>
-                    </div>
-                    <div class="p-datepicker-separator" *ngIf="showSeconds">
-                        <span>{{ timeSeparator }}</span>
-                    </div>
-                    <div class="p-datepicker-second-picker" *ngIf="showSeconds">
-                        <p-button
-                            rounded
-                            text
-                            size="small"
-                            styleClass="p-datepicker-increment-button p-button-icon-only"
-                            (keydown)="onContainerButtonKeydown($event)"
-                            (keydown.enter)="incrementSecond($event)"
-                            (keydown.space)="incrementSecond($event)"
-                            (mousedown)="onTimePickerElementMouseDown($event, 2, 1)"
-                            (mouseup)="onTimePickerElementMouseUp($event)"
-                            (keyup.enter)="onTimePickerElementMouseUp($event)"
-                            (keyup.space)="onTimePickerElementMouseUp($event)"
-                            (mouseleave)="onTimePickerElementMouseLeave()"
-                            [attr.aria-label]="getTranslation('nextSecond')"
-                        >
-                            <ChevronUpIcon *ngIf="!incrementicon" />
-
-                            <ng-template *ngTemplateOutlet="incrementicon"></ng-template>
-                        </p-button>
-                        <span><ng-container *ngIf="currentSecond < 10">0</ng-container>{{ currentSecond }}</span>
-                        <p-button
-                            rounded
-                            text
-                            size="small"
-                            styleClass="p-datepicker-increment-button p-button-icon-only"
-                            (keydown)="onContainerButtonKeydown($event)"
-                            (keydown.enter)="decrementSecond($event)"
-                            (keydown.space)="decrementSecond($event)"
-                            (mousedown)="onTimePickerElementMouseDown($event, 2, -1)"
-                            (mouseup)="onTimePickerElementMouseUp($event)"
-                            (keyup.enter)="onTimePickerElementMouseUp($event)"
-                            (keyup.space)="onTimePickerElementMouseUp($event)"
-                            (mouseleave)="onTimePickerElementMouseLeave()"
-                            [attr.aria-label]="getTranslation('prevSecond')"
-                        >
-                            <ChevronDownIcon *ngIf="!decrementicon" />
-
-                            <ng-template *ngTemplateOutlet="decrementicon"></ng-template>
-                        </p-button>
-                    </div>
-                    <div class="p-datepicker-separator" *ngIf="hourFormat == '12'">
-                        <span>{{ timeSeparator }}</span>
-                    </div>
-                    <div class="p-datepicker-ampm-picker" *ngIf="hourFormat == '12'">
-                        <p-button
-                            size="small"
-                            text
-                            rounded
-                            styleClass="p-datepicker-increment-button p-button-icon-only"
-                            (keydown)="onContainerButtonKeydown($event)"
-                            (onClick)="toggleAMPM($event)"
-                            (keydown.enter)="toggleAMPM($event)"
-                            [attr.aria-label]="getTranslation('am')"
-                        >
-                            <ChevronUpIcon *ngIf="!incrementicon" />
-                            <ng-template *ngTemplateOutlet="incrementicon"></ng-template>
-                        </p-button>
-                        <span>{{ pm ? 'PM' : 'AM' }}</span>
-                        <p-button
-                            size="small"
-                            text
-                            rounded
-                            styleClass="p-datepicker-increment-button p-button-icon-only"
-                            (keydown)="onContainerButtonKeydown($event)"
-                            (click)="toggleAMPM($event)"
-                            (keydown.enter)="toggleAMPM($event)"
-                            [attr.aria-label]="getTranslation('pm')"
-                        >
-                            <ChevronDownIcon *ngIf="!decrementicon" />
-                            <ng-template *ngTemplateOutlet="decrementicon"></ng-template>
-                        </p-button>
-                    </div>
+                        }
+                    }
+                    @if ((showTime || timeOnly) && currentView === 'date') {
+                        <div class="p-datepicker-time-picker">
+                            <div class="p-datepicker-hour-picker">
+                                <p-button
+                                    rounded
+                                    text
+                                    size="small"
+                                    styleClass="p-datepicker-increment-button p-button-icon-only"
+                                    (keydown)="onContainerButtonKeydown($event)"
+                                    (keydown.enter)="incrementHour($event)"
+                                    (keydown.space)="incrementHour($event)"
+                                    (mousedown)="onTimePickerElementMouseDown($event, 0, 1)"
+                                    (mouseup)="onTimePickerElementMouseUp($event)"
+                                    (keyup.enter)="onTimePickerElementMouseUp($event)"
+                                    (keyup.space)="onTimePickerElementMouseUp($event)"
+                                    (mouseleave)="onTimePickerElementMouseLeave()"
+                                    [attr.aria-label]="getTranslation('nextHour')"
+                                >
+                                    @if (!incrementicon) {
+                                        <ChevronUpIcon />
+                                    }
+                                    <ng-template *ngTemplateOutlet="incrementicon"></ng-template>
+                                </p-button>
+                                <span>
+                                    @if (currentHour < 10) {
+                                        0
+                                    }
+                                    {{ currentHour }}</span
+                                >
+                                <p-button
+                                    rounded
+                                    text
+                                    size="small"
+                                    styleClass="p-datepicker-increment-button p-button-icon-only"
+                                    (keydown)="onContainerButtonKeydown($event)"
+                                    (keydown.enter)="decrementHour($event)"
+                                    (keydown.space)="decrementHour($event)"
+                                    (mousedown)="onTimePickerElementMouseDown($event, 0, -1)"
+                                    (mouseup)="onTimePickerElementMouseUp($event)"
+                                    (keyup.enter)="onTimePickerElementMouseUp($event)"
+                                    (keyup.space)="onTimePickerElementMouseUp($event)"
+                                    (mouseleave)="onTimePickerElementMouseLeave()"
+                                    [attr.aria-label]="getTranslation('prevHour')"
+                                >
+                                    @if (!decrementicon) {
+                                        <ChevronDownIcon />
+                                    }
+                                    <ng-template *ngTemplateOutlet="decrementicon"></ng-template>
+                                </p-button>
+                            </div>
+                            <div class="p-datepicker-separator">
+                                <span>{{ timeSeparator }}</span>
+                            </div>
+                            <div class="p-datepicker-minute-picker">
+                                <p-button
+                                    rounded
+                                    text
+                                    size="small"
+                                    styleClass="p-datepicker-increment-button p-button-icon-only"
+                                    (keydown)="onContainerButtonKeydown($event)"
+                                    (keydown.enter)="incrementMinute($event)"
+                                    (keydown.space)="incrementMinute($event)"
+                                    (mousedown)="onTimePickerElementMouseDown($event, 1, 1)"
+                                    (mouseup)="onTimePickerElementMouseUp($event)"
+                                    (keyup.enter)="onTimePickerElementMouseUp($event)"
+                                    (keyup.space)="onTimePickerElementMouseUp($event)"
+                                    (mouseleave)="onTimePickerElementMouseLeave()"
+                                    [attr.aria-label]="getTranslation('nextMinute')"
+                                >
+                                    @if (!incrementicon) {
+                                        <ChevronUpIcon />
+                                    }
+                                    <ng-template *ngTemplateOutlet="incrementicon"></ng-template>
+                                </p-button>
+                                <span>
+                                    @if (currentMinute < 10) {
+                                        0
+                                    }
+                                    {{ currentMinute }}</span
+                                >
+                                <p-button
+                                    rounded
+                                    text
+                                    size="small"
+                                    styleClass="p-datepicker-increment-button p-button-icon-only"
+                                    (keydown)="onContainerButtonKeydown($event)"
+                                    (keydown.enter)="decrementMinute($event)"
+                                    (keydown.space)="decrementMinute($event)"
+                                    (mousedown)="onTimePickerElementMouseDown($event, 1, -1)"
+                                    (mouseup)="onTimePickerElementMouseUp($event)"
+                                    (keyup.enter)="onTimePickerElementMouseUp($event)"
+                                    (keyup.space)="onTimePickerElementMouseUp($event)"
+                                    (mouseleave)="onTimePickerElementMouseLeave()"
+                                    [attr.aria-label]="getTranslation('prevMinute')"
+                                >
+                                    @if (!decrementicon) {
+                                        <ChevronDownIcon />
+                                    }
+                                    @if (decrementicon) {
+                                        <ng-template *ngTemplateOutlet="decrementicon"></ng-template>
+                                    }
+                                </p-button>
+                            </div>
+                            @if (showSeconds) {
+                                <div class="p-datepicker-separator">
+                                    <span>{{ timeSeparator }}</span>
+                                </div>
+                            }
+                            @if (showSeconds) {
+                                <div class="p-datepicker-second-picker">
+                                    <p-button
+                                        rounded
+                                        text
+                                        size="small"
+                                        styleClass="p-datepicker-increment-button p-button-icon-only"
+                                        (keydown)="onContainerButtonKeydown($event)"
+                                        (keydown.enter)="incrementSecond($event)"
+                                        (keydown.space)="incrementSecond($event)"
+                                        (mousedown)="onTimePickerElementMouseDown($event, 2, 1)"
+                                        (mouseup)="onTimePickerElementMouseUp($event)"
+                                        (keyup.enter)="onTimePickerElementMouseUp($event)"
+                                        (keyup.space)="onTimePickerElementMouseUp($event)"
+                                        (mouseleave)="onTimePickerElementMouseLeave()"
+                                        [attr.aria-label]="getTranslation('nextSecond')"
+                                    >
+                                        @if (!incrementicon) {
+                                            <ChevronUpIcon />
+                                        }
+                                        <ng-template *ngTemplateOutlet="incrementicon"></ng-template>
+                                    </p-button>
+                                    <span>
+                                        @if (currentSecond < 10) {
+                                            0
+                                        }
+                                        {{ currentSecond }}</span
+                                    >
+                                    <p-button
+                                        rounded
+                                        text
+                                        size="small"
+                                        styleClass="p-datepicker-increment-button p-button-icon-only"
+                                        (keydown)="onContainerButtonKeydown($event)"
+                                        (keydown.enter)="decrementSecond($event)"
+                                        (keydown.space)="decrementSecond($event)"
+                                        (mousedown)="onTimePickerElementMouseDown($event, 2, -1)"
+                                        (mouseup)="onTimePickerElementMouseUp($event)"
+                                        (keyup.enter)="onTimePickerElementMouseUp($event)"
+                                        (keyup.space)="onTimePickerElementMouseUp($event)"
+                                        (mouseleave)="onTimePickerElementMouseLeave()"
+                                        [attr.aria-label]="getTranslation('prevSecond')"
+                                    >
+                                        @if (!decrementicon) {
+                                            <ChevronDownIcon />
+                                        }
+                                        <ng-template *ngTemplateOutlet="decrementicon"></ng-template>
+                                    </p-button>
+                                </div>
+                            }
+                            @if (hourFormat == '12') {
+                                <div class="p-datepicker-separator">
+                                    <span>{{ timeSeparator }}</span>
+                                </div>
+                            }
+                            @if (hourFormat == '12') {
+                                <div class="p-datepicker-ampm-picker">
+                                    <p-button
+                                        size="small"
+                                        text
+                                        rounded
+                                        styleClass="p-datepicker-increment-button p-button-icon-only"
+                                        (keydown)="onContainerButtonKeydown($event)"
+                                        (onClick)="toggleAMPM($event)"
+                                        (keydown.enter)="toggleAMPM($event)"
+                                        [attr.aria-label]="getTranslation('am')"
+                                    >
+                                        @if (!incrementicon) {
+                                            <ChevronUpIcon />
+                                        }
+                                        <ng-template *ngTemplateOutlet="incrementicon"></ng-template>
+                                    </p-button>
+                                    <span>{{ pm ? 'PM' : 'AM' }}</span>
+                                    <p-button
+                                        size="small"
+                                        text
+                                        rounded
+                                        styleClass="p-datepicker-increment-button p-button-icon-only"
+                                        (keydown)="onContainerButtonKeydown($event)"
+                                        (click)="toggleAMPM($event)"
+                                        (keydown.enter)="toggleAMPM($event)"
+                                        [attr.aria-label]="getTranslation('pm')"
+                                    >
+                                        @if (!decrementicon) {
+                                            <ChevronDownIcon />
+                                        }
+                                        <ng-template *ngTemplateOutlet="decrementicon"></ng-template>
+                                    </p-button>
+                                </div>
+                            }
+                        </div>
+                    }
+                    @if (showButtonBar) {
+                        <div class="p-datepicker-buttonbar">
+                            <p-button size="small" styleClass="p-datepicker-today-button" [label]="getTranslation('today')" (keydown)="onContainerButtonKeydown($event)" (onClick)="onTodayButtonClick($event)" [ngClass]="[todayButtonStyleClass]" />
+                            <p-button size="small" styleClass="p-datepicker-clear-button" [label]="getTranslation('clear')" (keydown)="onContainerButtonKeydown($event)" (onClick)="onClearButtonClick($event)" [ngClass]="[clearButtonStyleClass]" />
+                        </div>
+                    }
+                    <ng-content select="p-footer"></ng-content>
+                    <ng-container *ngTemplateOutlet="footer"></ng-container>
                 </div>
-                <div class="p-datepicker-buttonbar" *ngIf="showButtonBar">
-                    <p-button size="small" styleClass="p-datepicker-today-button" [label]="getTranslation('today')" (keydown)="onContainerButtonKeydown($event)" (onClick)="onTodayButtonClick($event)" [ngClass]="[todayButtonStyleClass]" />
-                    <p-button size="small" styleClass="p-datepicker-clear-button" [label]="getTranslation('clear')" (keydown)="onContainerButtonKeydown($event)" (onClick)="onClearButtonClick($event)" [ngClass]="[clearButtonStyleClass]" />
-                </div>
-                <ng-content select="p-footer"></ng-content>
-                <ng-container *ngTemplateOutlet="footer"></ng-container>
-            </div>
+            }
         </span>
     `,
     animations: [

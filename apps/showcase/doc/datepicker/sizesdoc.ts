@@ -13,7 +13,8 @@ import { Component } from '@angular/core';
             <p-datepicker [(ngModel)]="value3" size="large" placeholder="Large" showIcon iconDisplay="input" />
         </div>
         <app-code [code]="code" selector="datepicker-sizes-demo"></app-code>
-    `
+    `,
+    standalone: false
 })
 export class SizesDoc {
     value1: Date | undefined;

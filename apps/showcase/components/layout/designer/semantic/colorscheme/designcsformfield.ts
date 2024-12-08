@@ -6,7 +6,6 @@ import { FormsModule } from '@angular/forms';
 
 @Component({
     selector: 'design-cs-form-field',
-    standalone: true,
     imports: [CommonModule, DesignTokenField, FormsModule, FieldsetModule],
     template: ` <p-fieldset legend="Form Field" [toggleable]="true">
         <section class="grid grid-cols-4 mb-3 gap-2">

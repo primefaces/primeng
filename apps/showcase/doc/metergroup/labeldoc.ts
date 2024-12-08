@@ -14,7 +14,8 @@ import { Component } from '@angular/core';
             <p-metergroup [value]="value" labelPosition="start" labelOrientation="vertical" />
         </div>
         <app-code [code]="code" selector="meter-group-label-demo"></app-code>
-    `
+    `,
+    standalone: false
 })
 export class LabelDoc {
     value = [

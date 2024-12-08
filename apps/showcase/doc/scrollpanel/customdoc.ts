@@ -50,7 +50,8 @@ import { Component } from '@angular/core';
                 }
             }
         `
-    ]
+    ],
+    standalone: false
 })
 export class CusstomDoc {
     code: Code = {

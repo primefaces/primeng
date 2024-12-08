@@ -6,7 +6,6 @@ import { ImportDoc } from '@/doc/dock/importdoc';
 import { Component } from '@angular/core';
 
 @Component({
-    standalone: true,
     imports: [DockDocModule],
     template: ` <app-doc docTitle="Angular Dock Component" header="Dock" description="Dock is a navigation component consisting of menuitems." [docs]="docs" [apiDocs]="['Dock', 'MenuItem']" themeDocs="dock"></app-doc> `
 })

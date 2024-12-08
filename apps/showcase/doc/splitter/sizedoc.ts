@@ -18,7 +18,8 @@ import { Component } from '@angular/core';
             </p-splitter>
         </div>
         <app-code [code]="code" selector="splitter-size-demo"></app-code>
-    `
+    `,
+    standalone: false
 })
 export class SizeDoc {
     code: Code = {

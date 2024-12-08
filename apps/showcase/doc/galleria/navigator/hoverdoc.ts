@@ -20,7 +20,8 @@ import { Component, OnInit } from '@angular/core';
         </div>
         <app-code [code]="code" selector="galleria-navigator-hover-demo"></app-code>
     `,
-    providers: [PhotoService]
+    providers: [PhotoService],
+    standalone: false
 })
 export class HoverDoc implements OnInit {
     images: any[] | undefined;

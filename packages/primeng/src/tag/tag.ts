@@ -1,4 +1,4 @@
-import { CommonModule } from '@angular/common';
+import { NgClass, NgStyle, NgTemplateOutlet } from '@angular/common';
 import { booleanAttribute, ChangeDetectionStrategy, Component, inject, Input, NgModule, TemplateRef, ViewEncapsulation } from '@angular/core';
 import { SharedModule } from 'primeng/api';
 import { BaseComponent } from 'primeng/basecomponent';
@@ -10,17 +10,20 @@ import { TagStyle } from './style/tagstyle';
  */
 @Component({
     selector: 'p-tag',
-    standalone: true,
-    imports: [CommonModule, SharedModule],
+    imports: [NgClass, NgStyle, NgTemplateOutlet, SharedModule],
     template: `
         <span [ngClass]="containerClass()" [class]="styleClass" [ngStyle]="style">
             <ng-content></ng-content>
-            <ng-container *ngIf="!iconTemplate">
-                <span class="p-tag-icon" [ngClass]="icon" *ngIf="icon"></span>
-            </ng-container>
-            <span class="p-tag-icon" *ngIf="iconTemplate">
-                <ng-template *ngTemplateOutlet="iconTemplate"></ng-template>
-            </span>
+            @if (!iconTemplate) {
+                @if (icon) {
+                    <span class="p-tag-icon" [ngClass]="icon"></span>
+                }
+            }
+            @if (iconTemplate) {
+                <span class="p-tag-icon">
+                    <ng-template *ngTemplateOutlet="iconTemplate"></ng-template>
+                </span>
+            }
             <span class="p-tag-label">{{ value }}</span>
         </span>
     `,

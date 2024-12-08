@@ -17,7 +17,8 @@ import { Component } from '@angular/core';
             <p-chip label="Thriller" [removable]="true" />
         </div>
         <app-code [code]="code" selector="chip-basic-demo"></app-code>
-    `
+    `,
+    standalone: false
 })
 export class BasicDoc {
     code: Code = {

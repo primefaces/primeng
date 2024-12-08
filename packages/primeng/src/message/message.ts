@@ -1,9 +1,10 @@
 import { animate, style, transition, trigger } from '@angular/animations';
-import { CommonModule } from '@angular/common';
+
+import { NgClass, NgTemplateOutlet } from '@angular/common';
 import { booleanAttribute, ChangeDetectionStrategy, Component, ContentChild, EventEmitter, inject, Input, NgModule, Output, signal, TemplateRef, ViewEncapsulation } from '@angular/core';
 import { SharedModule } from 'primeng/api';
 import { BaseComponent } from 'primeng/basecomponent';
-import { CheckIcon, ExclamationTriangleIcon, InfoCircleIcon, TimesCircleIcon, TimesIcon } from 'primeng/icons';
+import { TimesIcon } from 'primeng/icons';
 import { Ripple } from 'primeng/ripple';
 import { MessageStyle } from './style/messagestyle';
 
@@ -13,8 +14,7 @@ import { MessageStyle } from './style/messagestyle';
  */
 @Component({
     selector: 'p-message',
-    standalone: true,
-    imports: [CommonModule, TimesIcon, Ripple, SharedModule],
+    imports: [TimesIcon, Ripple, SharedModule, NgClass, NgTemplateOutlet],
     template: `
         @if (visible()) {
             <div
@@ -38,13 +38,17 @@ import { MessageStyle } from './style/messagestyle';
                         <i class="p-message-icon" [ngClass]="icon"></i>
                     }
 
-                    <div *ngIf="!escape; else escapeOut">
-                        <span *ngIf="!escape" [ngClass]="cx('text')" [innerHTML]="text"></span>
-                    </div>
-
-                    <ng-template #escapeOut>
-                        <span *ngIf="escape && text" [ngClass]="cx('text')">{{ text }}</span>
-                    </ng-template>
+                    @if (!escape) {
+                        <div>
+                            @if (!escape) {
+                                <span [ngClass]="cx('text')" [innerHTML]="text"></span>
+                            }
+                        </div>
+                    } @else {
+                        @if (escape && text) {
+                            <span [ngClass]="cx('text')">{{ text }}</span>
+                        }
+                    }
 
                     @if (containerTemplate) {
                         <ng-container *ngTemplateOutlet="containerTemplate; context: { closeCallback: close.bind(this) }"></ng-container>

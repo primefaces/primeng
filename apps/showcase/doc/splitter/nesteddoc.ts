@@ -32,7 +32,8 @@ import { Component } from '@angular/core';
             </p-splitter>
         </div>
         <app-code [code]="code" selector="splitter-nested-demo"></app-code>
-    `
+    `,
+    standalone: false
 })
 export class NestedDoc {
     code: Code = {

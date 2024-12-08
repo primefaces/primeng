@@ -16,7 +16,8 @@ interface City {
             <p-multiselect [options]="cities" [(ngModel)]="selectedCities" [filter]="true" optionLabel="name" placeholder="Select Cities" [maxSelectedLabels]="3" styleClass="w-full md:w-80" />
         </div>
         <app-code [code]="code" selector="multi-select-filter-demo"></app-code>
-    `
+    `,
+    standalone: false
 })
 export class FilterDoc implements OnInit {
     cities!: City[];

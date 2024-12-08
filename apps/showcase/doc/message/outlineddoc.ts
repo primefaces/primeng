@@ -16,7 +16,8 @@ import { Component } from '@angular/core';
             <p-message severity="contrast" variant="outlined">Contrast Message</p-message>
         </div>
         <app-code [code]="code" selector="message-outlined-demo"></app-code>
-    `
+    `,
+    standalone: false
 })
 export class OutlinedDoc {
     code: Code = {

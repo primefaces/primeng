@@ -12,7 +12,8 @@ import { Component } from '@angular/core';
             <i class="pi pi-spin pi-cog" style="font-size: 2rem"></i>
         </div>
         <app-code [code]="code" [hideToggleCode]="true"></app-code>
-    `
+    `,
+    standalone: false
 })
 export class SpinDoc {
     code: Code = {

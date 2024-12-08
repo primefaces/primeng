@@ -29,7 +29,8 @@ import { Component } from '@angular/core';
         </div>
 
         <app-code [code]="code" selector="cascade-select-float-label-demo"></app-code>
-    `
+    `,
+    standalone: false
 })
 export class FloatLabelDoc {
     value1: string | undefined;

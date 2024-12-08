@@ -19,7 +19,8 @@ interface PageEvent {
             <img src="https://primefaces.org/cdn/primeng/images/demo/nature/nature{{ (first + 1) % 10 }}.jpg" class="max-w-full" />
         </div>
         <app-code [code]="code" selector="paginator-images-demo"></app-code>
-    `
+    `,
+    standalone: false
 })
 export class ImagesDoc {
     first: number = 0;

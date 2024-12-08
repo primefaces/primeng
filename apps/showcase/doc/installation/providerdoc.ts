@@ -8,7 +8,8 @@ import { Component } from '@angular/core';
             <p>Add <i>providePrimeNG</i> and <i>provideAnimationsAsync</i> to the list of providers in your <i>app.config.ts</i> and use the <i>theme</i> property to configure a theme such as Aura.</p>
             <app-code [code]="code" [hideToggleCode]="true"></app-code>
         </app-docsectiontext>
-    `
+    `,
+    standalone: false
 })
 export class ProviderDoc {
     code: Code = {

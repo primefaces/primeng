@@ -11,7 +11,8 @@ import { Component } from '@angular/core';
             <p-tag value="New" />
         </div>
         <app-code [code]="code" selector="tag-basic-demo"></app-code>
-    `
+    `,
+    standalone: false
 })
 export class BasicDoc {
     code: Code = {

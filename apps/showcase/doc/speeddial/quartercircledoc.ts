@@ -19,7 +19,8 @@ import { MenuItem, MessageService } from 'primeng/api';
         </div>
         <app-code [code]="code" selector="speed-dial-quarter-circle-demo"></app-code>
     `,
-    providers: [MessageService]
+    providers: [MessageService],
+    standalone: false
 })
 export class QuarterCircleDoc implements OnInit {
     items: MenuItem[] | undefined;

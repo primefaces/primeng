@@ -48,6 +48,7 @@ import { Component } from '@angular/core';
             <h3>Rows Per Page Dropdown Keyboard Support</h3>
             <p>Refer to the <a routerLink="/dropdown">dropdown</a> documentation for more details about keyboard support.</p>
         </app-docsectiontext>
-    </div>`
+    </div>`,
+    standalone: false
 })
 export class AccessibilityDoc {}

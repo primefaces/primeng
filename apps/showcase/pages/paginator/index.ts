@@ -8,7 +8,6 @@ import { Component } from '@angular/core';
 
 @Component({
     template: `<app-doc docTitle="Angular Paginator Component" header="Paginator" description="Paginator displays data in paged format and provides navigation between pages." [docs]="docs" [apiDocs]="['Paginator']" themeDocs="paginator"></app-doc>`,
-    standalone: true,
     imports: [PaginatorDocModule],
     styles: `
         .image-gallery {

@@ -8,7 +8,6 @@ import { DesignColorPalette } from '../app.designcolorpalette.component';
 
 @Component({
     selector: 'design-colors',
-    standalone: true,
     imports: [CommonModule, FieldsetModule, FormsModule, DesignColorPalette],
     template: ` <p-fieldset legend="Colors" [toggleable]="true">
         <ng-container *ngFor="let key of objectKeys(designerService.preset()?.primitive)">

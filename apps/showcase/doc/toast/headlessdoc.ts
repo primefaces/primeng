@@ -41,7 +41,8 @@ import { MessageService } from 'primeng/api';
             }
         `
     ],
-    providers: [MessageService]
+    providers: [MessageService],
+    standalone: false
 })
 export class HeadlessDoc {
     visible: boolean = false;

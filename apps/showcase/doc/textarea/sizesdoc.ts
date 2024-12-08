@@ -13,7 +13,8 @@ import { Component } from '@angular/core';
             <textarea pTextarea [(ngModel)]="value3" pSize="large" placeholder="Large" rows="3"></textarea>
         </div>
         <app-code [code]="code" selector="input-textarea-basic-demo"></app-code>
-    `
+    `,
+    standalone: false
 })
 export class SizesDoc {
     value1!: string;

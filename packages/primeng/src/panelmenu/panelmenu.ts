@@ -1,5 +1,5 @@
 import { animate, state, style, transition, trigger } from '@angular/animations';
-import { CommonModule } from '@angular/common';
+import { NgClass, NgStyle, NgTemplateOutlet } from '@angular/common';
 import {
     AfterContentInit,
     booleanAttribute,
@@ -32,8 +32,7 @@ import { PanelMenuStyle } from './style/panelmenustyle';
 
 @Component({
     selector: 'p-panelMenuSub, p-panelmenu-sub',
-    imports: [CommonModule, RouterModule, TooltipModule, AngleDownIcon, AngleRightIcon, ChevronDownIcon, ChevronRightIcon, SharedModule],
-    standalone: true,
+    imports: [NgClass, NgStyle, NgTemplateOutlet, RouterModule, TooltipModule, AngleDownIcon, AngleRightIcon, ChevronDownIcon, ChevronRightIcon, SharedModule],
     template: `
         <ul
             #list
@@ -47,102 +46,130 @@ import { PanelMenuStyle } from './style/panelmenustyle';
             (focusout)="menuBlur.emit($event)"
             (keydown)="menuKeyDown.emit($event)"
         >
-            <ng-template ngFor let-processedItem let-index="index" [ngForOf]="items">
-                <li *ngIf="processedItem.separator" class="p-menuitem-separator" role="separator"></li>
-                <li
-                    *ngIf="!processedItem.separator && isItemVisible(processedItem)"
-                    [ngClass]="getItemClass(processedItem)"
-                    role="treeitem"
-                    [attr.id]="getItemId(processedItem)"
-                    [attr.aria-label]="getItemProp(processedItem, 'label')"
-                    [attr.aria-expanded]="isItemGroup(processedItem) ? isItemActive(processedItem) : undefined"
-                    [attr.aria-level]="level + 1"
-                    [attr.aria-setsize]="getAriaSetSize()"
-                    [attr.aria-posinset]="getAriaPosInset(index)"
-                    [class]="getItemProp(processedItem, 'styleClass')"
-                    [class.p-hidden]="processedItem.visible === false"
-                    [class.p-focus]="isItemFocused(processedItem) && !isItemDisabled(processedItem)"
-                    [ngStyle]="getItemProp(processedItem, 'style')"
-                    [pTooltip]="getItemProp(processedItem, 'tooltip')"
-                    [attr.data-p-disabled]="isItemDisabled(processedItem)"
-                    [tooltipOptions]="getItemProp(processedItem, 'tooltipOptions')"
-                >
-                    <div class="p-panelmenu-item-content" (click)="onItemClick($event, processedItem)">
-                        <ng-container *ngIf="!itemTemplate">
-                            <a
-                                *ngIf="!getItemProp(processedItem, 'routerLink')"
-                                [attr.href]="getItemProp(processedItem, 'url')"
-                                class="p-panelmenu-item-link"
-                                [ngClass]="{ 'p-disabled': getItemProp(processedItem, 'disabled') }"
-                                [target]="getItemProp(processedItem, 'target')"
-                                [attr.data-pc-section]="'action'"
-                                [attr.tabindex]="!!parentExpanded ? '0' : '-1'"
-                            >
-                                <ng-container *ngIf="isItemGroup(processedItem)">
-                                    <ng-container *ngIf="!panelMenu.submenuiconTemplate">
-                                        <AngleDownIcon [styleClass]="'p-panelmenu-submenu-icon'" *ngIf="isItemActive(processedItem)" [ngStyle]="getItemProp(processedItem, 'iconStyle')" />
-                                        <AngleRightIcon [styleClass]="'p-panelmenu-submenu-icon'" *ngIf="!isItemActive(processedItem)" [ngStyle]="getItemProp(processedItem, 'iconStyle')" />
-                                    </ng-container>
-                                    <ng-template *ngTemplateOutlet="panelMenu.submenuiconTemplate"></ng-template>
-                                </ng-container>
-                                <span class="p-panelmenu-submenu-icon" [ngClass]="processedItem.icon" *ngIf="processedItem.icon" [ngStyle]="getItemProp(processedItem, 'iconStyle')"></span>
-                                <span class="p-panelmenu-item-label" *ngIf="processedItem.item?.escape !== false; else htmlLabel">{{ getItemProp(processedItem, 'label') }}</span>
-                                <ng-template #htmlLabel><span class="p-panelmenu-item-label" [innerHTML]="getItemProp(processedItem, 'label')"></span></ng-template>
-                                <span class="p-menuitem-badge" *ngIf="processedItem.badge" [ngClass]="processedItem.badgeStyleClass">{{ processedItem.badge }}</span>
-                            </a>
-                            <a
-                                *ngIf="getItemProp(processedItem, 'routerLink')"
-                                [routerLink]="getItemProp(processedItem, 'routerLink')"
-                                [queryParams]="getItemProp(processedItem, 'queryParams')"
-                                [routerLinkActive]="'p-panelmenu-item-link-active'"
-                                [routerLinkActiveOptions]="getItemProp(processedItem, 'routerLinkActiveOptions') || { exact: false }"
-                                class="p-panelmenu-item-link"
-                                [ngClass]="{ 'p-disabled': getItemProp(processedItem, 'disabled') }"
-                                [target]="getItemProp(processedItem, 'target')"
-                                [attr.title]="getItemProp(processedItem, 'title')"
-                                [fragment]="getItemProp(processedItem, 'fragment')"
-                                [queryParamsHandling]="getItemProp(processedItem, 'queryParamsHandling')"
-                                [preserveFragment]="getItemProp(processedItem, 'preserveFragment')"
-                                [skipLocationChange]="getItemProp(processedItem, 'skipLocationChange')"
-                                [replaceUrl]="getItemProp(processedItem, 'replaceUrl')"
-                                [state]="getItemProp(processedItem, 'state')"
-                                [attr.data-pc-section]="'action'"
-                                [attr.tabindex]="!!parentExpanded ? '0' : '-1'"
-                            >
-                                <ng-container *ngIf="isItemGroup(processedItem)">
-                                    <ng-container *ngIf="!panelMenu.submenuiconTemplate">
-                                        <AngleDownIcon *ngIf="isItemActive(processedItem)" [styleClass]="'p-panelmenu-submenu-icon'" [ngStyle]="getItemProp(processedItem, 'iconStyle')" />
-                                        <AngleRightIcon *ngIf="!isItemActive(processedItem)" [styleClass]="'p-panelmenu-submenu-icon'" [ngStyle]="getItemProp(processedItem, 'iconStyle')" />
-                                    </ng-container>
-                                    <ng-template *ngTemplateOutlet="panelMenu.submenuiconTemplate"></ng-template>
-                                </ng-container>
-                                <span class="p-panelmenu-submenu-icon" [ngClass]="processedItem.icon" *ngIf="processedItem.icon" [ngStyle]="getItemProp(processedItem, 'iconStyle')"></span>
-                                <span class="p-panelmenu-item-label" *ngIf="getItemProp(processedItem, 'escape') !== false; else htmlRouteLabel">{{ getItemProp(processedItem, 'label') }}</span>
-                                <ng-template #htmlRouteLabel><span class="p-panelmenu-item-label" [innerHTML]="getItemProp(processedItem, 'label')"></span></ng-template>
-                                <span class="p-menuitem-badge" *ngIf="processedItem.badge" [ngClass]="getItemProp(processedItem, 'badgeStyleClass')">{{ getItemProp(processedItem, 'badge') }}</span>
-                            </a>
-                        </ng-container>
-                        <ng-container *ngIf="itemTemplate">
-                            <ng-template *ngTemplateOutlet="itemTemplate; context: { $implicit: processedItem.item }"></ng-template>
-                        </ng-container>
-                    </div>
-                    <div class="p-toggleable-content" [@submenu]="getAnimation(processedItem)">
-                        <p-panelmenu-sub
-                            *ngIf="isItemVisible(processedItem) && isItemGroup(processedItem) && isItemExpanded(processedItem)"
-                            [id]="getItemId(processedItem) + '_list'"
-                            [panelId]="panelId"
-                            [items]="processedItem?.items"
-                            [itemTemplate]="itemTemplate"
-                            [transitionOptions]="transitionOptions"
-                            [focusedItemId]="focusedItemId"
-                            [activeItemPath]="activeItemPath"
-                            [level]="level + 1"
-                            [parentExpanded]="!!parentExpanded && isItemExpanded(processedItem)"
-                            (itemToggle)="onItemToggle($event)"
-                        ></p-panelmenu-sub>
-                    </div>
-                </li>
-            </ng-template>
+            @for (processedItem of items; track processedItem; let index = $index) {
+                @if (processedItem.separator) {
+                    <li class="p-menuitem-separator" role="separator"></li>
+                }
+                @if (!processedItem.separator && isItemVisible(processedItem)) {
+                    <li
+                        [ngClass]="getItemClass(processedItem)"
+                        role="treeitem"
+                        [attr.id]="getItemId(processedItem)"
+                        [attr.aria-label]="getItemProp(processedItem, 'label')"
+                        [attr.aria-expanded]="isItemGroup(processedItem) ? isItemActive(processedItem) : undefined"
+                        [attr.aria-level]="level + 1"
+                        [attr.aria-setsize]="getAriaSetSize()"
+                        [attr.aria-posinset]="getAriaPosInset(index)"
+                        [class]="getItemProp(processedItem, 'styleClass')"
+                        [class.p-hidden]="processedItem.visible === false"
+                        [class.p-focus]="isItemFocused(processedItem) && !isItemDisabled(processedItem)"
+                        [ngStyle]="getItemProp(processedItem, 'style')"
+                        [pTooltip]="getItemProp(processedItem, 'tooltip')"
+                        [attr.data-p-disabled]="isItemDisabled(processedItem)"
+                        [tooltipOptions]="getItemProp(processedItem, 'tooltipOptions')"
+                    >
+                        <div class="p-panelmenu-item-content" (click)="onItemClick($event, processedItem)">
+                            @if (!itemTemplate) {
+                                @if (!getItemProp(processedItem, 'routerLink')) {
+                                    <a
+                                        [attr.href]="getItemProp(processedItem, 'url')"
+                                        class="p-panelmenu-item-link"
+                                        [ngClass]="{ 'p-disabled': getItemProp(processedItem, 'disabled') }"
+                                        [target]="getItemProp(processedItem, 'target')"
+                                        [attr.data-pc-section]="'action'"
+                                        [attr.tabindex]="!!parentExpanded ? '0' : '-1'"
+                                    >
+                                        @if (isItemGroup(processedItem)) {
+                                            @if (!panelMenu.submenuiconTemplate) {
+                                                @if (isItemActive(processedItem)) {
+                                                    <AngleDownIcon [styleClass]="'p-panelmenu-submenu-icon'" [ngStyle]="getItemProp(processedItem, 'iconStyle')" />
+                                                }
+                                                @if (!isItemActive(processedItem)) {
+                                                    <AngleRightIcon [styleClass]="'p-panelmenu-submenu-icon'" [ngStyle]="getItemProp(processedItem, 'iconStyle')" />
+                                                }
+                                            }
+                                            <ng-template *ngTemplateOutlet="panelMenu.submenuiconTemplate"></ng-template>
+                                        }
+                                        @if (processedItem.icon) {
+                                            <span class="p-panelmenu-submenu-icon" [ngClass]="processedItem.icon" [ngStyle]="getItemProp(processedItem, 'iconStyle')"></span>
+                                        }
+                                        @if (processedItem.item?.escape !== false) {
+                                            <span class="p-panelmenu-item-label">{{ getItemProp(processedItem, 'label') }}</span>
+                                        } @else {
+                                            <span class="p-panelmenu-item-label" [innerHTML]="getItemProp(processedItem, 'label')"></span>
+                                        }
+                                        @if (processedItem.badge) {
+                                            <span class="p-menuitem-badge" [ngClass]="processedItem.badgeStyleClass">{{ processedItem.badge }}</span>
+                                        }
+                                    </a>
+                                }
+                                @if (getItemProp(processedItem, 'routerLink')) {
+                                    <a
+                                        [routerLink]="getItemProp(processedItem, 'routerLink')"
+                                        [queryParams]="getItemProp(processedItem, 'queryParams')"
+                                        [routerLinkActive]="'p-panelmenu-item-link-active'"
+                                        [routerLinkActiveOptions]="getItemProp(processedItem, 'routerLinkActiveOptions') || { exact: false }"
+                                        class="p-panelmenu-item-link"
+                                        [ngClass]="{ 'p-disabled': getItemProp(processedItem, 'disabled') }"
+                                        [target]="getItemProp(processedItem, 'target')"
+                                        [attr.title]="getItemProp(processedItem, 'title')"
+                                        [fragment]="getItemProp(processedItem, 'fragment')"
+                                        [queryParamsHandling]="getItemProp(processedItem, 'queryParamsHandling')"
+                                        [preserveFragment]="getItemProp(processedItem, 'preserveFragment')"
+                                        [skipLocationChange]="getItemProp(processedItem, 'skipLocationChange')"
+                                        [replaceUrl]="getItemProp(processedItem, 'replaceUrl')"
+                                        [state]="getItemProp(processedItem, 'state')"
+                                        [attr.data-pc-section]="'action'"
+                                        [attr.tabindex]="!!parentExpanded ? '0' : '-1'"
+                                    >
+                                        @if (isItemGroup(processedItem)) {
+                                            @if (!panelMenu.submenuiconTemplate) {
+                                                @if (isItemActive(processedItem)) {
+                                                    <AngleDownIcon [styleClass]="'p-panelmenu-submenu-icon'" [ngStyle]="getItemProp(processedItem, 'iconStyle')" />
+                                                }
+                                                @if (!isItemActive(processedItem)) {
+                                                    <AngleRightIcon [styleClass]="'p-panelmenu-submenu-icon'" [ngStyle]="getItemProp(processedItem, 'iconStyle')" />
+                                                }
+                                            }
+                                            <ng-template *ngTemplateOutlet="panelMenu.submenuiconTemplate"></ng-template>
+                                        }
+                                        @if (processedItem.icon) {
+                                            <span class="p-panelmenu-submenu-icon" [ngClass]="processedItem.icon" [ngStyle]="getItemProp(processedItem, 'iconStyle')"></span>
+                                        }
+                                        @if (getItemProp(processedItem, 'escape') !== false) {
+                                            <span class="p-panelmenu-item-label">{{ getItemProp(processedItem, 'label') }}</span>
+                                        } @else {
+                                            <span class="p-panelmenu-item-label" [innerHTML]="getItemProp(processedItem, 'label')"></span>
+                                        }
+                                        @if (processedItem.badge) {
+                                            <span class="p-menuitem-badge" [ngClass]="getItemProp(processedItem, 'badgeStyleClass')">{{ getItemProp(processedItem, 'badge') }}</span>
+                                        }
+                                    </a>
+                                }
+                            }
+                            @if (itemTemplate) {
+                                <ng-template *ngTemplateOutlet="itemTemplate; context: { $implicit: processedItem.item }"></ng-template>
+                            }
+                        </div>
+                        <div class="p-toggleable-content" [@submenu]="getAnimation(processedItem)">
+                            @if (isItemVisible(processedItem) && isItemGroup(processedItem) && isItemExpanded(processedItem)) {
+                                <p-panelmenu-sub
+                                    [id]="getItemId(processedItem) + '_list'"
+                                    [panelId]="panelId"
+                                    [items]="processedItem?.items"
+                                    [itemTemplate]="itemTemplate"
+                                    [transitionOptions]="transitionOptions"
+                                    [focusedItemId]="focusedItemId"
+                                    [activeItemPath]="activeItemPath"
+                                    [level]="level + 1"
+                                    [parentExpanded]="!!parentExpanded && isItemExpanded(processedItem)"
+                                    (itemToggle)="onItemToggle($event)"
+                                ></p-panelmenu-sub>
+                            }
+                        </div>
+                    </li>
+                }
+            }
         </ul>
     `,
     animations: [
@@ -272,8 +299,7 @@ export class PanelMenuSub extends BaseComponent {
 
 @Component({
     selector: 'p-panelMenuList, p-panel-menu-list',
-    imports: [CommonModule, PanelMenuSub, RouterModule, TooltipModule, AngleDownIcon, AngleRightIcon, ChevronDownIcon, ChevronRightIcon, SharedModule],
-    standalone: true,
+    imports: [NgClass, NgStyle, NgTemplateOutlet, PanelMenuSub, RouterModule, TooltipModule, AngleDownIcon, AngleRightIcon, ChevronDownIcon, ChevronRightIcon, SharedModule],
     template: `
         <p-panelmenu-sub
             #submenu
@@ -720,118 +746,144 @@ export class PanelMenuList extends BaseComponent implements OnChanges {
  */
 @Component({
     selector: 'p-panelMenu, p-panelmenu, p-panel-menu',
-    imports: [CommonModule, PanelMenuList, RouterModule, TooltipModule, AngleDownIcon, AngleRightIcon, ChevronDownIcon, ChevronRightIcon, SharedModule],
-    standalone: true,
+    imports: [NgClass, NgStyle, NgTemplateOutlet, PanelMenuList, RouterModule, TooltipModule, AngleDownIcon, AngleRightIcon, ChevronDownIcon, ChevronRightIcon, SharedModule],
     template: `
         <div [class]="styleClass" [ngStyle]="style" [ngClass]="'p-panelmenu p-component'" #container>
-            <ng-container *ngFor="let item of model; let f = first; let l = last; let i = index">
-                <div *ngIf="isItemVisible(item)" class="p-panelmenu-panel" [ngClass]="getItemProp(item, 'headerClass')" [ngStyle]="getItemProp(item, 'style')" [attr.data-pc-section]="'panel'">
-                    <div
-                        [ngClass]="{
-                            'p-component p-panelmenu-header': true,
-                            'p-panelmenu-header-active': isItemActive(item) && !!item.items,
-                            'p-disabled': isItemDisabled(item)
-                        }"
-                        [class]="getItemProp(item, 'styleClass')"
-                        [ngStyle]="getItemProp(item, 'style')"
-                        [pTooltip]="getItemProp(item, 'tooltip')"
-                        [attr.id]="getHeaderId(item, i)"
-                        [tabindex]="0"
-                        role="button"
-                        [tooltipOptions]="getItemProp(item, 'tooltipOptions')"
-                        [attr.aria-expanded]="isItemActive(item)"
-                        [attr.aria-label]="getItemProp(item, 'label')"
-                        [attr.aria-controls]="getContentId(item, i)"
-                        [attr.aria-disabled]="isItemDisabled(item)"
-                        [attr.data-p-highlight]="isItemActive(item)"
-                        [attr.data-p-disabled]="isItemDisabled(item)"
-                        [attr.data-pc-section]="'header'"
-                        (click)="onHeaderClick($event, item, i)"
-                        (keydown)="onHeaderKeyDown($event, item, i)"
-                    >
-                        <div class="p-panelmenu-header-content">
-                            <ng-container *ngIf="!itemTemplate">
-                                <a
-                                    *ngIf="!getItemProp(item, 'routerLink')"
-                                    [attr.href]="getItemProp(item, 'url')"
-                                    [attr.tabindex]="-1"
-                                    [target]="getItemProp(item, 'target')"
-                                    [attr.title]="getItemProp(item, 'title')"
-                                    class="p-panelmenu-header-link"
-                                    [attr.data-pc-section]="'headeraction'"
-                                >
-                                    <ng-container *ngIf="isItemGroup(item)">
-                                        <ng-container *ngIf="!submenuiconTemplate">
-                                            <ChevronDownIcon [styleClass]="'p-panelmenu-submenu-icon'" *ngIf="isItemActive(item)" />
-                                            <ChevronRightIcon [styleClass]="'p-panelmenu-submenu-icon'" *ngIf="!isItemActive(item)" />
-                                        </ng-container>
-                                        <ng-template *ngTemplateOutlet="submenuiconTemplate"></ng-template>
-                                    </ng-container>
-                                    <span class="p-panelmenu-submenu-icon" [ngClass]="item.icon" *ngIf="item.icon" [ngStyle]="getItemProp(item, 'iconStyle')"></span>
-                                    <span class="p-panelmenu-header-label" *ngIf="getItemProp(item, 'escape') !== false; else htmlLabel">{{ getItemProp(item, 'label') }}</span>
-                                    <ng-template #htmlLabel><span class="p-panelmenu-header-label" [innerHTML]="getItemProp(item, 'label')"></span></ng-template>
-                                    <span class="p-menuitem-badge" *ngIf="getItemProp(item, 'badge')" [ngClass]="getItemProp(item, 'badgeStyleClass')">{{ getItemProp(item, 'badge') }}</span>
-                                </a>
-                            </ng-container>
-                            <ng-container *ngTemplateOutlet="itemTemplate; context: { $implicit: item }"></ng-container>
-                            <a
-                                *ngIf="getItemProp(item, 'routerLink')"
-                                [routerLink]="getItemProp(item, 'routerLink')"
-                                [queryParams]="getItemProp(item, 'queryParams')"
-                                [routerLinkActive]="'p-panelmenu-item-link-active'"
-                                [routerLinkActiveOptions]="getItemProp(item, 'routerLinkActiveOptions') || { exact: false }"
-                                [target]="getItemProp(item, 'target')"
-                                class="p-panelmenu-header-link"
-                                [attr.tabindex]="-1"
-                                [fragment]="getItemProp(item, 'fragment')"
-                                [queryParamsHandling]="getItemProp(item, 'queryParamsHandling')"
-                                [preserveFragment]="getItemProp(item, 'preserveFragment')"
-                                [skipLocationChange]="getItemProp(item, 'skipLocationChange')"
-                                [replaceUrl]="getItemProp(item, 'replaceUrl')"
-                                [state]="getItemProp(item, 'state')"
-                                [attr.data-pc-section]="'headeraction'"
+            @for (item of model; track item; let f = $first; let l = $last; let i = $index) {
+                @if (isItemVisible(item)) {
+                    <div class="p-panelmenu-panel" [ngClass]="getItemProp(item, 'headerClass')" [ngStyle]="getItemProp(item, 'style')" [attr.data-pc-section]="'panel'">
+                        <div
+                            [ngClass]="{
+                                'p-component p-panelmenu-header': true,
+                                'p-panelmenu-header-active': isItemActive(item) && !!item.items,
+                                'p-disabled': isItemDisabled(item)
+                            }"
+                            [class]="getItemProp(item, 'styleClass')"
+                            [ngStyle]="getItemProp(item, 'style')"
+                            [pTooltip]="getItemProp(item, 'tooltip')"
+                            [attr.id]="getHeaderId(item, i)"
+                            [tabindex]="0"
+                            role="button"
+                            [tooltipOptions]="getItemProp(item, 'tooltipOptions')"
+                            [attr.aria-expanded]="isItemActive(item)"
+                            [attr.aria-label]="getItemProp(item, 'label')"
+                            [attr.aria-controls]="getContentId(item, i)"
+                            [attr.aria-disabled]="isItemDisabled(item)"
+                            [attr.data-p-highlight]="isItemActive(item)"
+                            [attr.data-p-disabled]="isItemDisabled(item)"
+                            [attr.data-pc-section]="'header'"
+                            (click)="onHeaderClick($event, item, i)"
+                            (keydown)="onHeaderKeyDown($event, item, i)"
+                        >
+                            <div class="p-panelmenu-header-content">
+                                @if (!itemTemplate) {
+                                    @if (!getItemProp(item, 'routerLink')) {
+                                        <a
+                                            [attr.href]="getItemProp(item, 'url')"
+                                            [attr.tabindex]="-1"
+                                            [target]="getItemProp(item, 'target')"
+                                            [attr.title]="getItemProp(item, 'title')"
+                                            class="p-panelmenu-header-link"
+                                            [attr.data-pc-section]="'headeraction'"
+                                        >
+                                            @if (isItemGroup(item)) {
+                                                @if (!submenuiconTemplate) {
+                                                    @if (isItemActive(item)) {
+                                                        <ChevronDownIcon [styleClass]="'p-panelmenu-submenu-icon'" />
+                                                    }
+                                                    @if (!isItemActive(item)) {
+                                                        <ChevronRightIcon [styleClass]="'p-panelmenu-submenu-icon'" />
+                                                    }
+                                                }
+                                                <ng-template *ngTemplateOutlet="submenuiconTemplate"></ng-template>
+                                            }
+                                            @if (item.icon) {
+                                                <span class="p-panelmenu-submenu-icon" [ngClass]="item.icon" [ngStyle]="getItemProp(item, 'iconStyle')"></span>
+                                            }
+                                            @if (getItemProp(item, 'escape') !== false) {
+                                                <span class="p-panelmenu-header-label">{{ getItemProp(item, 'label') }}</span>
+                                            } @else {
+                                                <span class="p-panelmenu-header-label" [innerHTML]="getItemProp(item, 'label')"></span>
+                                            }
+                                            @if (getItemProp(item, 'badge')) {
+                                                <span class="p-menuitem-badge" [ngClass]="getItemProp(item, 'badgeStyleClass')">{{ getItemProp(item, 'badge') }}</span>
+                                            }
+                                        </a>
+                                    }
+                                }
+                                <ng-container *ngTemplateOutlet="itemTemplate; context: { $implicit: item }"></ng-container>
+                                @if (getItemProp(item, 'routerLink')) {
+                                    <a
+                                        [routerLink]="getItemProp(item, 'routerLink')"
+                                        [queryParams]="getItemProp(item, 'queryParams')"
+                                        [routerLinkActive]="'p-panelmenu-item-link-active'"
+                                        [routerLinkActiveOptions]="getItemProp(item, 'routerLinkActiveOptions') || { exact: false }"
+                                        [target]="getItemProp(item, 'target')"
+                                        class="p-panelmenu-header-link"
+                                        [attr.tabindex]="-1"
+                                        [fragment]="getItemProp(item, 'fragment')"
+                                        [queryParamsHandling]="getItemProp(item, 'queryParamsHandling')"
+                                        [preserveFragment]="getItemProp(item, 'preserveFragment')"
+                                        [skipLocationChange]="getItemProp(item, 'skipLocationChange')"
+                                        [replaceUrl]="getItemProp(item, 'replaceUrl')"
+                                        [state]="getItemProp(item, 'state')"
+                                        [attr.data-pc-section]="'headeraction'"
+                                    >
+                                        @if (isItemGroup(item)) {
+                                            @if (!submenuiconTemplate) {
+                                                @if (isItemActive(item)) {
+                                                    <ChevronDownIcon [styleClass]="'p-panelmenu-submenu-icon'" />
+                                                }
+                                                @if (!isItemActive(item)) {
+                                                    <ChevronRightIcon [styleClass]="'p-panelmenu-submenu-icon'" />
+                                                }
+                                            }
+                                            <ng-template *ngTemplateOutlet="submenuiconTemplate"></ng-template>
+                                        }
+                                        @if (item.icon) {
+                                            <span class="p-panelmenu-submenu-icon" [ngClass]="item.icon" [ngStyle]="getItemProp(item, 'iconStyle')"></span>
+                                        }
+                                        @if (getItemProp(item, 'escape') !== false) {
+                                            <span class="p-panelmenu-header-label">{{ getItemProp(item, 'label') }}</span>
+                                        } @else {
+                                            <span class="p-panelmenu-header-label" [innerHTML]="getItemProp(item, 'label')"></span>
+                                        }
+                                        @if (getItemProp(item, 'badge')) {
+                                            <span class="p-menuitem-badge" [ngClass]="getItemProp(item, 'badgeStyleClass')">{{ getItemProp(item, 'badge') }}</span>
+                                        }
+                                    </a>
+                                }
+                            </div>
+                        </div>
+                        @if (isItemGroup(item)) {
+                            <div
+                                class="p-panelmenu-content-container"
+                                [@rootItem]="getAnimation(item)"
+                                (@rootItem.done)="onToggleDone()"
+                                role="region"
+                                [attr.id]="getContentId(item, i)"
+                                [attr.aria-labelledby]="getHeaderId(item, i)"
+                                [attr.data-pc-section]="'toggleablecontent'"
+                                [ngClass]="{ 'p-panelmenu-expanded': isItemActive(item) }"
                             >
-                                <ng-container *ngIf="isItemGroup(item)">
-                                    <ng-container *ngIf="!submenuiconTemplate">
-                                        <ChevronDownIcon [styleClass]="'p-panelmenu-submenu-icon'" *ngIf="isItemActive(item)" />
-                                        <ChevronRightIcon [styleClass]="'p-panelmenu-submenu-icon'" *ngIf="!isItemActive(item)" />
-                                    </ng-container>
-                                    <ng-template *ngTemplateOutlet="submenuiconTemplate"></ng-template>
-                                </ng-container>
-                                <span class="p-panelmenu-submenu-icon" [ngClass]="item.icon" *ngIf="item.icon" [ngStyle]="getItemProp(item, 'iconStyle')"></span>
-                                <span class="p-panelmenu-header-label" *ngIf="getItemProp(item, 'escape') !== false; else htmlRouteLabel">{{ getItemProp(item, 'label') }}</span>
-                                <ng-template #htmlRouteLabel><span class="p-panelmenu-header-label" [innerHTML]="getItemProp(item, 'label')"></span></ng-template>
-                                <span class="p-menuitem-badge" *ngIf="getItemProp(item, 'badge')" [ngClass]="getItemProp(item, 'badgeStyleClass')">{{ getItemProp(item, 'badge') }}</span>
-                            </a>
-                        </div>
+                                <div class="p-panelmenu-content" [attr.data-pc-section]="'menucontent'">
+                                    <p-panelMenuList
+                                        [panelId]="getPanelId(i, item)"
+                                        [items]="getItemProp(item, 'items')"
+                                        [itemTemplate]="itemTemplate"
+                                        [transitionOptions]="transitionOptions"
+                                        [root]="true"
+                                        [activeItem]="activeItem()"
+                                        [tabindex]="tabindex"
+                                        [parentExpanded]="isItemActive(item)"
+                                        (headerFocus)="updateFocusedHeader($event)"
+                                    ></p-panelMenuList>
+                                </div>
+                            </div>
+                        }
                     </div>
-                    <div
-                        *ngIf="isItemGroup(item)"
-                        class="p-panelmenu-content-container"
-                        [@rootItem]="getAnimation(item)"
-                        (@rootItem.done)="onToggleDone()"
-                        role="region"
-                        [attr.id]="getContentId(item, i)"
-                        [attr.aria-labelledby]="getHeaderId(item, i)"
-                        [attr.data-pc-section]="'toggleablecontent'"
-                        [ngClass]="{ 'p-panelmenu-expanded': isItemActive(item) }"
-                    >
-                        <div class="p-panelmenu-content" [attr.data-pc-section]="'menucontent'">
-                            <p-panelMenuList
-                                [panelId]="getPanelId(i, item)"
-                                [items]="getItemProp(item, 'items')"
-                                [itemTemplate]="itemTemplate"
-                                [transitionOptions]="transitionOptions"
-                                [root]="true"
-                                [activeItem]="activeItem()"
-                                [tabindex]="tabindex"
-                                [parentExpanded]="isItemActive(item)"
-                                (headerFocus)="updateFocusedHeader($event)"
-                            ></p-panelMenuList>
-                        </div>
-                    </div>
-                </div>
-            </ng-container>
+                }
+            }
         </div>
     `,
     animations: [

@@ -11,7 +11,8 @@ import { Component } from '@angular/core';
             <p-rating [(ngModel)]="value" [readonly]="true" />
         </div>
         <app-code [code]="code" selector="rating-readonly-demo"></app-code>
-    `
+    `,
+    standalone: false
 })
 export class ReadOnlyDoc {
     value: number = 3;

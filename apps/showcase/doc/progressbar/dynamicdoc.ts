@@ -14,7 +14,8 @@ import { MessageService } from 'primeng/api';
         </div>
         <app-code [code]="code" selector="progress-bar-dynamic-demo"></app-code>
     `,
-    providers: [MessageService]
+    providers: [MessageService],
+    standalone: false
 })
 export class DynamicDoc implements OnInit, OnDestroy {
     value: number = 0;

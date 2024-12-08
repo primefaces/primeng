@@ -18,8 +18,7 @@ import { Component } from '@angular/core';
         [apiDocs]="['Accordion', 'AccordionPanel', 'AccordionHeader']"
         themeDocs="accordion"
     ></app-doc>`,
-    imports: [AccordionDocModule],
-    standalone: true
+    imports: [AccordionDocModule]
 })
 export class AccordionDemo {
     docs = [

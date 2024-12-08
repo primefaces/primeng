@@ -7,7 +7,6 @@ import { TemplateDoc } from '@/doc/confirmpopup/templatedoc';
 import { Component } from '@angular/core';
 
 @Component({
-    standalone: true,
     imports: [ConfirmPopupDocModule],
     template: `
         <app-doc

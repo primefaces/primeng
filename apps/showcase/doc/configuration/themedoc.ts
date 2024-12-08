@@ -8,7 +8,8 @@ import { Component } from '@angular/core';
             <p>PrimeNG provides 4 predefined themes out of the box; Aura, Material, Lara and Nora. See the <a routerLink="/theming">theming</a> documentation for details.</p>
         </app-docsectiontext>
         <app-code [code]="code" [hideToggleCode]="true"></app-code>
-    `
+    `,
+    standalone: false
 })
 export class ThemeDoc {
     code: Code = {

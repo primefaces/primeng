@@ -11,7 +11,8 @@ import { Component } from '@angular/core';
             <p-metergroup [value]="value" orientation="vertical" labelOrientation="vertical" [style]="{ height: '300px' }" />
         </div>
         <app-code [code]="code" selector="meter-group-vertical-demo"></app-code>
-    `
+    `,
+    standalone: false
 })
 export class VerticalDoc {
     value = [

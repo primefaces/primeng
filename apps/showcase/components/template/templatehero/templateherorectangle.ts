@@ -24,7 +24,8 @@ import { SharedModule } from 'primeng/api';
     `,
     changeDetection: ChangeDetectionStrategy.OnPush,
     encapsulation: ViewEncapsulation.None,
-    styleUrl: '../../../pages/templates/learnmore/learnmore.scss'
+    styleUrl: '../../../pages/templates/learnmore/learnmore.scss',
+    standalone: false
 })
 export class TemplateHeroRectangle {}
 
