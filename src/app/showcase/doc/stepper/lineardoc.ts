@@ -131,8 +131,8 @@ import { StepperModule } from 'primeng/stepper';
 import { ButtonModule } from 'primeng/button';
 
 @Component({
-    selector: 'stepper-linear-demo-demo',
-    templateUrl: './stepper-linear-demo-demo.html',
+    selector: 'stepper-linear-demo',
+    templateUrl: './stepper-linear-demo.html',
     standalone: true,
     imports: [StepperModule, ButtonModule]
 })
