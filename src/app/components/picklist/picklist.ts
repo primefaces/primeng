@@ -163,24 +163,40 @@ import {
                     [attr.data-pc-group-section]="'list'"
                 >
                     <ng-template ngFor let-item [ngForOf]="source" [ngForTrackBy]="sourceTrackBy || trackBy" let-i="index" let-l="last">
-                        <li
-                            pRipple
-                            cdkDrag
-                            [id]="idSource + '_' + i"
-                            [ngClass]="itemClass(item, idSource + '_' + i, selectedItemsSource)"
-                            [cdkDragData]="item"
-                            [cdkDragDisabled]="!dragdrop"
-                            (click)="onItemClick($event, item, selectedItemsSource, SOURCE_LIST, onSourceSelect, idSource + '_' + i)"
-                            (mousedown)="onOptionMouseDown(i, SOURCE_LIST)"
-                            (dblclick)="onSourceItemDblClick()"
-                            (touchend)="onItemTouchEnd()"
-                            *ngIf="isItemVisible(item, SOURCE_LIST)"
-                            role="option"
-                            [attr.data-pc-section]="'item'"
-                            [attr.aria-selected]="isSelected(item, selectedItemsSource)"
-                        >
-                            <ng-container *ngTemplateOutlet="itemTemplate; context: { $implicit: item, index: i }"></ng-container>
-                        </li>
+                        @if (selectable){
+                            <li
+                                pRipple
+                                cdkDrag
+                                [id]="idSource + '_' + i"
+                                [ngClass]="itemClass(item, idSource + '_' + i, selectedItemsSource)"
+                                [cdkDragData]="item"
+                                [cdkDragDisabled]="!dragdrop"
+                                (click)="onItemClick($event, item, selectedItemsSource, SOURCE_LIST, onSourceSelect, idSource + '_' + i)"
+                                (mousedown)="onOptionMouseDown(i, SOURCE_LIST)"
+                                (dblclick)="onSourceItemDblClick()"
+                                (touchend)="onItemTouchEnd()"
+                                *ngIf="isItemVisible(item, SOURCE_LIST)"
+                                role="option"
+                                [attr.data-pc-section]="'item'"
+                                [attr.aria-selected]="isSelected(item, selectedItemsSource)"
+                            >
+                                <ng-container *ngTemplateOutlet="itemTemplate; context: { $implicit: item, index: i }"></ng-container>
+                            </li>
+                        }@else{
+                            <li
+                                cdkDrag
+                                [id]="idSource + '_' + i"
+                                [ngClass]="itemClass(item, idSource + '_' + i, selectedItemsSource)"
+                                [cdkDragData]="item"
+                                [cdkDragDisabled]="!dragdrop"
+                                (touchend)="onItemTouchEnd()"
+                                *ngIf="isItemVisible(item, SOURCE_LIST)"
+                                role="option"
+                                [attr.data-pc-section]="'item'"
+                            >
+                                <ng-container *ngTemplateOutlet="itemTemplate; context: { $implicit: item, index: i }"></ng-container>
+                            </li>
+                        }
                     </ng-template>
                     <ng-container *ngIf="isEmpty(SOURCE_LIST) && (emptyMessageSourceTemplate || emptyFilterMessageSourceTemplate)">
                         <li class="p-picklist-empty-message" *ngIf="!filterValueSource || !emptyFilterMessageSourceTemplate" [attr.data-pc-section]="'sourceEmptyMessage'">
@@ -271,24 +287,40 @@ import {
                     [attr.data-pc-group-section]="'list'"
                 >
                     <ng-template ngFor let-item [ngForOf]="target" [ngForTrackBy]="targetTrackBy || trackBy" let-i="index" let-l="last">
-                        <li
-                            pRipple
-                            cdkDrag
-                            [id]="idTarget + '_' + i"
-                            [ngClass]="itemClass(item, idTarget + '_' + i, selectedItemsTarget)"
-                            [cdkDragData]="item"
-                            [cdkDragDisabled]="!dragdrop"
-                            (click)="onItemClick($event, item, selectedItemsTarget, TARGET_LIST, onTargetSelect, idTarget + '_' + i)"
-                            (mousedown)="onOptionMouseDown(i, TARGET_LIST)"
-                            (dblclick)="onTargetItemDblClick()"
-                            (touchend)="onItemTouchEnd()"
-                            *ngIf="isItemVisible(item, TARGET_LIST)"
-                            role="option"
-                            [attr.data-pc-section]="'item'"
-                            [attr.aria-selected]="isSelected(item, selectedItemsTarget)"
-                        >
-                            <ng-container *ngTemplateOutlet="itemTemplate; context: { $implicit: item, index: i }"></ng-container>
-                        </li>
+                        @if(selectable){
+                            <li
+                                pRipple
+                                cdkDrag
+                                [id]="idTarget + '_' + i"
+                                [ngClass]="itemClass(item, idTarget + '_' + i, selectedItemsTarget)"
+                                [cdkDragData]="item"
+                                [cdkDragDisabled]="!dragdrop"
+                                (click)="onItemClick($event, item, selectedItemsTarget, TARGET_LIST, onTargetSelect, idTarget + '_' + i)"
+                                (mousedown)="onOptionMouseDown(i, TARGET_LIST)"
+                                (dblclick)="onTargetItemDblClick()"
+                                (touchend)="onItemTouchEnd()"
+                                *ngIf="isItemVisible(item, TARGET_LIST)"
+                                role="option"
+                                [attr.data-pc-section]="'item'"
+                                [attr.aria-selected]="isSelected(item, selectedItemsTarget)"
+                            >
+                                <ng-container *ngTemplateOutlet="itemTemplate; context: { $implicit: item, index: i }"></ng-container>
+                            </li>
+                        }@else{
+                            <li
+                                cdkDrag
+                                [id]="idTarget + '_' + i"
+                                [ngClass]="itemClass(item, idTarget + '_' + i, selectedItemsTarget)"
+                                [cdkDragData]="item"
+                                [cdkDragDisabled]="!dragdrop"
+                                (touchend)="onItemTouchEnd()"
+                                *ngIf="isItemVisible(item, TARGET_LIST)"
+                                role="option"
+                                [attr.data-pc-section]="'item'"
+                            >
+                                <ng-container *ngTemplateOutlet="itemTemplate; context: { $implicit: item, index: i }"></ng-container>
+                            </li>
+                        }
                     </ng-template>
                     <ng-container *ngIf="isEmpty(TARGET_LIST) && (emptyMessageTargetTemplate || emptyFilterMessageTargetTemplate)">
                         <li class="p-picklist-empty-message" *ngIf="!filterValueTarget || !emptyFilterMessageTargetTemplate" [attr.data-pc-section]="'targetEmptyMessage'">
@@ -474,6 +506,11 @@ export class PickList implements AfterViewChecked, AfterContentInit {
      * @group Props
      */
     @Input({ transform: booleanAttribute }) metaKeySelection: boolean = false;
+    /**
+     * Whether to enable item selection and button based movement or reordering.
+     * @group Props
+     */
+    @Input({ transform: booleanAttribute }) selectable: boolean = true;
     /**
      * Whether to enable dragdrop based reordering.
      * @group Props
@@ -918,7 +955,7 @@ export class PickList implements AfterViewChecked, AfterContentInit {
     }
 
     onItemClick(event: Event | any, item: any, selectedItems: any[], listType: number, callback: EventEmitter<any>, itemId?: string) {
-        if (this.disabled) {
+        if (!this.selectable || this.disabled) {
             return;
         }
 
@@ -1256,7 +1293,7 @@ export class PickList implements AfterViewChecked, AfterContentInit {
         return {
             'p-picklist-item': true,
             'p-highlight': this.isSelected(item, selectedItems),
-            'p-focus': id === this.focusedOptionId,
+            'p-focus': this.selectable && id === this.focusedOptionId,
             'p-disabled': this.disabled
         };
     }
@@ -1656,7 +1693,7 @@ export class PickList implements AfterViewChecked, AfterContentInit {
     }
 
     sourceMoveDisabled() {
-        if (this.disabled || !this.selectedItemsSource.length) {
+        if (!this.selectable || this.disabled || !this.selectedItemsSource.length) {
             return true;
         }
     }
