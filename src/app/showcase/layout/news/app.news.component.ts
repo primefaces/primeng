@@ -13,7 +13,7 @@ import { AppConfigService } from '@service/appconfigservice';
     imports: [CommonModule, FormsModule, StyleClassModule]
 })
 export class AppNewsComponent {
-    storageKey: string = 'primeng';
+    storageKey: string = 'primeng-v17';
 
     announcement: any;
 
@@ -21,7 +21,7 @@ export class AppNewsComponent {
         private configService: AppConfigService,
         private cd: ChangeDetectorRef
     ) {
-        afterNextRender(() => {
+        /*afterNextRender(() => {
             const itemString = localStorage.getItem(this.storageKey);
 
             if (itemString) {
@@ -38,7 +38,7 @@ export class AppNewsComponent {
                 this.announcement = News;
             }
             this.cd.markForCheck();
-        });
+        });*/
     }
 
     get isNewsActive(): boolean {

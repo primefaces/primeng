@@ -23,6 +23,8 @@ export class AppTopBarComponent implements OnDestroy {
 
     versions: any[] = Versions;
 
+    version: string = 'v17';
+
     scrollListener: VoidFunction | null;
 
     private window: Window;
