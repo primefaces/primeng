@@ -1,6 +1,25 @@
 import { animate, state, style, transition, trigger } from '@angular/animations';
 import { CommonModule } from '@angular/common';
-import { AfterContentInit, booleanAttribute, ChangeDetectionStrategy, ChangeDetectorRef, Component, ContentChild, ContentChildren, ElementRef, EventEmitter, Input, NgModule, Output, QueryList, TemplateRef, ViewEncapsulation } from '@angular/core';
+import {
+    AfterContentInit,
+    booleanAttribute,
+    ChangeDetectionStrategy,
+    ChangeDetectorRef,
+    Component,
+    ContentChild,
+    ContentChildren,
+    ElementRef,
+    EventEmitter,
+    Input,
+    NgModule,
+    OnDestroy,
+    Output,
+    QueryList,
+    Renderer2,
+    TemplateRef,
+    ViewChild,
+    ViewEncapsulation
+} from '@angular/core';
 import { BlockableUI, Footer, PrimeTemplate, SharedModule } from 'primeng/api';
 import { MinusIcon } from 'primeng/icons/minus';
 import { PlusIcon } from 'primeng/icons/plus';
@@ -8,6 +27,7 @@ import { RippleModule } from 'primeng/ripple';
 import { Nullable } from 'primeng/ts-helpers';
 import { UniqueComponentId } from 'primeng/utils';
 import { PanelAfterToggleEvent, PanelBeforeToggleEvent } from './panel.interface';
+import { Subject, takeUntil } from 'rxjs';
 
 /**
  * Panel is a container with the optional content toggle feature.
@@ -66,7 +86,7 @@ import { PanelAfterToggleEvent, PanelBeforeToggleEvent } from './panel.interface
                 "
                 (@panelContent.done)="onToggleDone($event)"
             >
-                <div class="p-panel-content">
+                <div class="p-panel-content" #contentContainer>
                     <ng-content></ng-content>
                     <ng-container *ngTemplateOutlet="contentTemplate"></ng-container>
                 </div>
@@ -111,7 +131,7 @@ import { PanelAfterToggleEvent, PanelBeforeToggleEvent } from './panel.interface
         class: 'p-element'
     }
 })
-export class Panel implements AfterContentInit, BlockableUI {
+export class Panel implements AfterContentInit, BlockableUI, OnDestroy {
     /**
      * Defines if content of panel can be expanded and collapsed.
      * @group Props
@@ -205,6 +225,12 @@ export class Panel implements AfterContentInit, BlockableUI {
 
     headerIconTemplate: Nullable<TemplateRef<any>>;
 
+    @ViewChild('contentContainer') contentContainer: ElementRef;
+
+    destroy$: Subject<void> = new Subject<void>();
+
+    focusableChildren: NodeListOf<Element> | null = null;
+
     readonly id = UniqueComponentId();
 
     get buttonAriaLabel() {
@@ -213,7 +239,8 @@ export class Panel implements AfterContentInit, BlockableUI {
 
     constructor(
         private el: ElementRef,
-        private cd: ChangeDetectorRef
+        private cd: ChangeDetectorRef,
+        private renderer: Renderer2
     ) {}
 
     ngAfterContentInit() {
@@ -243,6 +270,29 @@ export class Panel implements AfterContentInit, BlockableUI {
                     this.contentTemplate = item.template;
                     break;
             }
+        });
+
+        this.onBeforeToggle.pipe(takeUntil(this.destroy$)).subscribe((event) => {
+            if (event.collapsed) this.setTabIndexesRenderer(this.contentContainer.nativeElement, 0);
+        });
+
+        this.onAfterToggle.pipe(takeUntil(this.destroy$)).subscribe((event) => {
+            if (event.collapsed) this.setTabIndexesRenderer(this.contentContainer.nativeElement, -1);
+        });
+    }
+
+    ngOnDestroy(): void {
+        this.destroy$.next();
+        this.destroy$.complete();
+    }
+
+    setTabIndexesRenderer(parentElement: HTMLElement, tabindex: number) {
+        requestAnimationFrame(() => {
+            if (!this.focusableChildren) this.focusableChildren = parentElement.querySelectorAll('button, [href], input, select, textarea, [tabindex]:not([tabindex="-1"])');
+
+            this.focusableChildren.forEach((el) => {
+                this.renderer.setAttribute(el, 'tabindex', tabindex.toString());
+            });
         });
     }
 

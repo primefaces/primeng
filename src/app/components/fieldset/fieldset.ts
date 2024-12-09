@@ -1,6 +1,6 @@
 import { animate, state, style, transition, trigger } from '@angular/animations';
 import { CommonModule } from '@angular/common';
-import { AfterContentInit, ChangeDetectionStrategy, Component, ContentChildren, ElementRef, EventEmitter, Input, NgModule, Output, QueryList, TemplateRef, ViewEncapsulation, booleanAttribute } from '@angular/core';
+import { AfterContentInit, ChangeDetectionStrategy, Component, ContentChildren, ElementRef, EventEmitter, Input, NgModule, OnDestroy, Output, QueryList, Renderer2, TemplateRef, ViewChild, ViewEncapsulation, booleanAttribute } from '@angular/core';
 import { BlockableUI, PrimeTemplate, SharedModule } from 'primeng/api';
 import { MinusIcon } from 'primeng/icons/minus';
 import { PlusIcon } from 'primeng/icons/plus';
@@ -8,6 +8,7 @@ import { RippleModule } from 'primeng/ripple';
 import { Nullable } from 'primeng/ts-helpers';
 import { UniqueComponentId } from 'primeng/utils';
 import { FieldsetAfterToggleEvent, FieldsetBeforeToggleEvent } from './fieldset.interface';
+import { Subject, takeUntil } from 'rxjs';
 
 /**
  * Fieldset is a grouping component with the optional content toggle feature.
@@ -58,7 +59,7 @@ import { FieldsetAfterToggleEvent, FieldsetBeforeToggleEvent } from './fieldset.
                 [attr.data-pc-section]="'toggleablecontent'"
                 (@fieldsetContent.done)="onToggleDone()"
             >
-                <div class="p-fieldset-content" [attr.data-pc-section]="'content'">
+                <div class="p-fieldset-content" [attr.data-pc-section]="'content'" #contentContainer>
                     <ng-content></ng-content>
                     <ng-container *ngTemplateOutlet="contentTemplate"></ng-container>
                 </div>
@@ -90,7 +91,7 @@ import { FieldsetAfterToggleEvent, FieldsetBeforeToggleEvent } from './fieldset.
         class: 'p-element'
     }
 })
-export class Fieldset implements AfterContentInit, BlockableUI {
+export class Fieldset implements AfterContentInit, BlockableUI, OnDestroy {
     /**
      * Header text of the fieldset.
      * @group Props
@@ -161,7 +162,16 @@ export class Fieldset implements AfterContentInit, BlockableUI {
 
     expandIconTemplate: Nullable<TemplateRef<any>>;
 
-    constructor(private el: ElementRef) {}
+    @ViewChild('contentContainer') contentContainer: ElementRef;
+
+    destroy$: Subject<void> = new Subject<void>();
+
+    focusableChildren: NodeListOf<Element> | null = null;
+
+    constructor(
+        private el: ElementRef,
+        private renderer: Renderer2
+    ) {}
 
     ngAfterContentInit() {
         this.templates.forEach((item) => {
@@ -182,6 +192,29 @@ export class Fieldset implements AfterContentInit, BlockableUI {
                     this.contentTemplate = item.template;
                     break;
             }
+        });
+
+        this.onBeforeToggle.pipe(takeUntil(this.destroy$)).subscribe((event) => {
+            if (event.collapsed) this.setTabIndexesRenderer(this.contentContainer.nativeElement, 0);
+        });
+
+        this.onAfterToggle.pipe(takeUntil(this.destroy$)).subscribe((event) => {
+            if (event.collapsed) this.setTabIndexesRenderer(this.contentContainer.nativeElement, -1);
+        });
+    }
+
+    ngOnDestroy(): void {
+        this.destroy$.next();
+        this.destroy$.complete();
+    }
+
+    setTabIndexesRenderer(parentElement: HTMLElement, tabindex: number) {
+        requestAnimationFrame(() => {
+            if (!this.focusableChildren) this.focusableChildren = parentElement.querySelectorAll('button, [href], input, select, textarea, [tabindex]:not([tabindex="-1"])');
+
+            this.focusableChildren.forEach((el) => {
+                this.renderer.setAttribute(el, 'tabindex', tabindex.toString());
+            });
         });
     }
 
