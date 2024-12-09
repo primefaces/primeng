@@ -31,7 +31,7 @@ export interface MenuItem {
         '[class.active]': 'isActive()'
     },
     standalone: true,
-    imports: [CommonModule, StyleClass, RouterModule, AutoComplete, AppMenuItemComponent]
+    imports: [CommonModule, RouterModule, AppMenuItemComponent]
 })
 export class AppMenuComponent implements OnDestroy {
     menu!: MenuItem[];

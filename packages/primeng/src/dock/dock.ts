@@ -17,7 +17,7 @@ import { DockStyle } from './style/dockstyle';
 @Component({
     selector: 'p-dock',
     standalone: true,
-    imports: [CommonModule, RouterModule, Ripple, TooltipModule, Divider, SharedModule],
+    imports: [CommonModule, RouterModule, Ripple, TooltipModule, SharedModule],
     template: `
         <div [ngClass]="containerClass" [ngStyle]="style" [class]="styleClass" [attr.data-pc-name]="'dock'">
             <div class="p-dock-list-container">

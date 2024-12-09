@@ -21,7 +21,7 @@ export const RATING_VALUE_ACCESSOR: any = {
  */
 @Component({
     selector: 'p-rating',
-    imports: [CommonModule, AutoFocus, StarFillIcon, StarIcon, BanIcon, SharedModule],
+    imports: [CommonModule, AutoFocus, StarFillIcon, StarIcon, SharedModule],
     standalone: true,
     template: `
         <ng-container *ngIf="!isCustomIcon; else customTemplate">

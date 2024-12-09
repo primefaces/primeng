@@ -21,7 +21,7 @@ export const SELECTBUTTON_VALUE_ACCESSOR: any = {
 @Component({
     selector: 'p-selectButton, p-selectbutton, p-select-button',
     standalone: true,
-    imports: [Ripple, ToggleButton, FormsModule, CommonModule, SharedModule],
+    imports: [ToggleButton, FormsModule, CommonModule, SharedModule],
     template: `
         @for (option of options; track option; let i = $index) {
             <p-toggleButton

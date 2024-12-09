@@ -229,7 +229,7 @@ export class TabPanel extends BaseComponent implements AfterContentInit, OnDestr
 @Component({
     selector: 'p-tabView, p-tabview',
     standalone: true,
-    imports: [CommonModule, TabPanel, SharedModule, TooltipModule, Ripple, TimesIcon, ChevronLeftIcon, ChevronRightIcon],
+    imports: [CommonModule, SharedModule, TooltipModule, Ripple, TimesIcon, ChevronLeftIcon, ChevronRightIcon],
     template: `
         <div #elementToObserve class="p-tablist">
             <button

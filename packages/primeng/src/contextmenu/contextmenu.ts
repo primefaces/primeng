@@ -357,7 +357,7 @@ export class ContextMenuSub extends BaseComponent {
 @Component({
     selector: 'p-contextMenu, p-contextmenu, p-context-menu',
     standalone: true,
-    imports: [CommonModule, ContextMenuSub, RouterModule, Ripple, TooltipModule, AngleRightIcon, BadgeModule, SharedModule],
+    imports: [CommonModule, ContextMenuSub, RouterModule, TooltipModule, BadgeModule, SharedModule],
     template: `
         <div
             #container

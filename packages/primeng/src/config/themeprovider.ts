@@ -21,18 +21,15 @@ export class ThemeProvider {
     baseStyle: BaseStyle = inject(BaseStyle);
 
     constructor() {
-        effect(
-            () => {
-                ThemeService.on('theme:change', (newTheme) => {
-                    untracked(() => {
-                        this.isThemeChanged = true;
-                        this.theme.set(newTheme);
-                        // this.onThemeChange(this.theme());
-                    });
+        effect(() => {
+            ThemeService.on('theme:change', (newTheme) => {
+                untracked(() => {
+                    this.isThemeChanged = true;
+                    this.theme.set(newTheme);
+                    // this.onThemeChange(this.theme());
                 });
-            },
-            { allowSignalWrites: true }
-        );
+            });
+        });
         effect(() => {
             const themeValue = this.theme();
             if (this.document && themeValue) {

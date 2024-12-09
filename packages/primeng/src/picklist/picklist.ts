@@ -50,24 +50,7 @@ import { PickListStyle } from './style/pickliststyle';
 @Component({
     selector: 'p-pickList, p-picklist, p-pick-list',
     standalone: true,
-    imports: [
-        CommonModule,
-        ButtonDirective,
-        Ripple,
-        DragDropModule,
-        AngleDoubleDownIcon,
-        AngleDoubleLeftIcon,
-        AngleDoubleRightIcon,
-        AngleDoubleUpIcon,
-        AngleDownIcon,
-        AngleLeftIcon,
-        AngleRightIcon,
-        AngleUpIcon,
-        SearchIcon,
-        Listbox,
-        FormsModule,
-        SharedModule
-    ],
+    imports: [CommonModule, ButtonDirective, Ripple, DragDropModule, AngleDoubleDownIcon, AngleDoubleLeftIcon, AngleDoubleRightIcon, AngleDoubleUpIcon, AngleDownIcon, AngleLeftIcon, AngleRightIcon, AngleUpIcon, Listbox, FormsModule, SharedModule],
     template: `
         <div [class]="styleClass" [ngStyle]="style" [ngClass]="{ 'p-picklist p-component': true }" cdkDropListGroup [attr.data-pc-name]="'picklist'" [attr.data-pc-section]="'root'">
             <div class="p-picklist-controls p-picklist-source-controls" *ngIf="showSourceControls" [attr.data-pc-section]="'sourceControls'" [attr.data-pc-group-section]="'controls'">

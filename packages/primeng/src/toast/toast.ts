@@ -34,7 +34,7 @@ import { ToastCloseEvent, ToastItemCloseEvent, ToastPositionType } from './toast
 @Component({
     selector: 'p-toastItem',
     standalone: true,
-    imports: [CommonModule, CheckIcon, ExclamationTriangleIcon, InfoCircleIcon, TimesIcon, TimesCircleIcon, Ripple, Button, SharedModule],
+    imports: [CommonModule, CheckIcon, ExclamationTriangleIcon, InfoCircleIcon, TimesIcon, TimesCircleIcon, Button, SharedModule],
     template: `
         <div
             #container
@@ -231,7 +231,7 @@ export class ToastItem extends BaseComponent implements AfterViewInit, OnDestroy
 @Component({
     selector: 'p-toast',
     standalone: true,
-    imports: [CommonModule, ToastItem, CheckIcon, InfoCircleIcon, TimesCircleIcon, ExclamationTriangleIcon, TimesIcon, Button, SharedModule],
+    imports: [CommonModule, ToastItem, SharedModule],
     template: `
         <div #container [ngClass]="cx('root')" [ngStyle]="sx('root')" [style]="style" [class]="styleClass">
             <p-toastItem

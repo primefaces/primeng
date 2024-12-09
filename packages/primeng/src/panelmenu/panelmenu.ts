@@ -32,7 +32,7 @@ import { PanelMenuStyle } from './style/panelmenustyle';
 
 @Component({
     selector: 'p-panelMenuSub, p-panelmenu-sub',
-    imports: [CommonModule, RouterModule, TooltipModule, AngleDownIcon, AngleRightIcon, ChevronDownIcon, ChevronRightIcon, SharedModule],
+    imports: [CommonModule, RouterModule, TooltipModule, AngleDownIcon, AngleRightIcon, SharedModule],
     standalone: true,
     template: `
         <ul
@@ -272,7 +272,7 @@ export class PanelMenuSub extends BaseComponent {
 
 @Component({
     selector: 'p-panelMenuList, p-panel-menu-list',
-    imports: [CommonModule, PanelMenuSub, RouterModule, TooltipModule, AngleDownIcon, AngleRightIcon, ChevronDownIcon, ChevronRightIcon, SharedModule],
+    imports: [CommonModule, PanelMenuSub, RouterModule, TooltipModule, SharedModule],
     standalone: true,
     template: `
         <p-panelmenu-sub
@@ -720,7 +720,7 @@ export class PanelMenuList extends BaseComponent implements OnChanges {
  */
 @Component({
     selector: 'p-panelMenu, p-panelmenu, p-panel-menu',
-    imports: [CommonModule, PanelMenuList, RouterModule, TooltipModule, AngleDownIcon, AngleRightIcon, ChevronDownIcon, ChevronRightIcon, SharedModule],
+    imports: [CommonModule, PanelMenuList, RouterModule, TooltipModule, ChevronDownIcon, ChevronRightIcon, SharedModule],
     standalone: true,
     template: `
         <div [class]="styleClass" [ngStyle]="style" [ngClass]="'p-panelmenu p-component'" #container>

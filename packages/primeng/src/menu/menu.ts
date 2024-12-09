@@ -143,7 +143,7 @@ export class MenuItemContent {
 @Component({
     selector: 'p-menu',
     standalone: true,
-    imports: [CommonModule, RouterModule, MenuItemContent, Ripple, TooltipModule, BadgeModule, SharedModule, SafeHtmlPipe],
+    imports: [CommonModule, RouterModule, MenuItemContent, TooltipModule, BadgeModule, SharedModule, SafeHtmlPipe],
     template: `
         <div
             #container

@@ -346,7 +346,7 @@ export class TieredMenuSub extends BaseComponent {
 @Component({
     selector: 'p-tieredMenu, p-tieredmenu, p-tiered-menu',
     standalone: true,
-    imports: [CommonModule, TieredMenuSub, RouterModule, Ripple, TooltipModule, AngleRightIcon, SharedModule],
+    imports: [CommonModule, TieredMenuSub, RouterModule, TooltipModule, SharedModule],
     template: `
         <div
             #container

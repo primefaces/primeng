@@ -373,7 +373,7 @@ export class MegaMenuSub extends BaseComponent {
 @Component({
     selector: 'p-megaMenu, p-megamenu, p-mega-menu',
     standalone: true,
-    imports: [CommonModule, RouterModule, MegaMenuSub, Ripple, TooltipModule, AngleDownIcon, AngleRightIcon, BarsIcon, BadgeModule, SharedModule],
+    imports: [CommonModule, RouterModule, MegaMenuSub, TooltipModule, BarsIcon, BadgeModule, SharedModule],
     template: `
         <div
             [ngClass]="{

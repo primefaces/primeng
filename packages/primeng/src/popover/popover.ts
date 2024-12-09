@@ -19,7 +19,7 @@ import { PopoverStyle } from './style/popoverstyle';
 @Component({
     selector: 'p-popover',
     standalone: true,
-    imports: [CommonModule, Ripple, TimesIcon, SharedModule],
+    imports: [CommonModule, SharedModule],
     template: `
         <div
             *ngIf="render"

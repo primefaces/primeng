@@ -40,7 +40,7 @@ export const CHECKBOX_VALUE_ACCESSOR: any = {
 @Component({
     selector: 'p-checkbox, p-checkBox, p-check-box',
     standalone: true,
-    imports: [CommonModule, AutoFocus, CheckIcon, MinusIcon, SharedModule],
+    imports: [CommonModule, CheckIcon, MinusIcon, SharedModule],
     template: `
         <div [style]="style" [class]="styleClass" [ngClass]="containerClass" [attr.data-p-highlight]="checked" [attr.data-p-checked]="checked" [attr.data-p-disabled]="disabled">
             <input

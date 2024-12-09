@@ -17,7 +17,7 @@ import { OverlayBadgeModule } from 'primeng/overlaybadge';
 @Component({
     selector: 'movies-app',
     standalone: true,
-    imports: [CommonModule, RouterModule, SelectButton, Slider, FormsModule, AvatarModule, TooltipModule, IconField, InputIcon, ButtonModule, InputTextModule, ProgressBar, Carousel, OverlayBadgeModule],
+    imports: [CommonModule, RouterModule, SelectButton, FormsModule, AvatarModule, TooltipModule, IconField, InputIcon, ButtonModule, InputTextModule, ProgressBar, Carousel, OverlayBadgeModule],
     template: `
         <div class="flex flex-wrap gap-4 items-center justify-between">
             <p-selectbutton [(ngModel)]="value" [options]="options" aria-labelledby="basic" />

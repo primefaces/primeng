@@ -146,7 +146,7 @@ export class SelectItem extends BaseComponent {
 @Component({
     selector: 'p-select',
     standalone: true,
-    imports: [CommonModule, SelectItem, Overlay, Tooltip, Ripple, AutoFocus, TimesIcon, ChevronDownIcon, SearchIcon, BlankIcon, CheckIcon, InputText, IconField, InputIcon, Scroller, SharedModule],
+    imports: [CommonModule, SelectItem, Overlay, Tooltip, AutoFocus, TimesIcon, ChevronDownIcon, SearchIcon, InputText, IconField, InputIcon, Scroller, SharedModule],
     template: `
         <span
             #focusInput

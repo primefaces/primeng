@@ -6,8 +6,6 @@ import { Confirmation, ConfirmationService, ConfirmEventType, Footer, SharedModu
 import { BaseComponent } from 'primeng/basecomponent';
 import { Button } from 'primeng/button';
 import { Dialog } from 'primeng/dialog';
-import { CheckIcon, TimesIcon } from 'primeng/icons';
-import { Ripple } from 'primeng/ripple';
 import { Nullable } from 'primeng/ts-helpers';
 import { Subscription } from 'rxjs';
 import { ConfirmDialogStyle } from './style/confirmdialogstyle';
@@ -22,7 +20,7 @@ const hideAnimation = animation([animate('{{transition}}', style({ transform: '{
 @Component({
     selector: 'p-confirmDialog, p-confirmdialog, p-confirm-dialog',
     standalone: true,
-    imports: [CommonModule, Button, Ripple, TimesIcon, CheckIcon, Dialog, SharedModule],
+    imports: [CommonModule, Button, Dialog, SharedModule],
     template: `
         <p-dialog
             #dialog

@@ -20,7 +20,7 @@ import { OrderListStyle } from './style/orderliststyle';
 @Component({
     selector: 'p-orderList, p-orderlist, p-order-list',
     standalone: true,
-    imports: [CommonModule, ButtonDirective, Ripple, DragDropModule, AngleDoubleDownIcon, AngleDoubleUpIcon, AngleUpIcon, AngleDownIcon, SearchIcon, Listbox, FormsModule, SharedModule],
+    imports: [CommonModule, ButtonDirective, Ripple, DragDropModule, AngleDoubleDownIcon, AngleDoubleUpIcon, AngleUpIcon, AngleDownIcon, Listbox, FormsModule, SharedModule],
     template: `
         <div
             [ngClass]="{

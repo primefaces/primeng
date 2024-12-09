@@ -120,7 +120,7 @@ export class AccordionPanel extends BaseComponent {
  */
 @Component({
     selector: 'p-accordion-header, p-accordionheader',
-    imports: [CommonModule, ChevronDownIcon, ChevronUpIcon, Ripple],
+    imports: [CommonModule, ChevronDownIcon, ChevronUpIcon],
     standalone: true,
     template: `
         <ng-content />
@@ -645,7 +645,7 @@ export class AccordionTab extends BaseComponent implements AfterContentInit, OnD
 @Component({
     selector: 'p-accordion',
     standalone: true,
-    imports: [CommonModule, AccordionTab, SharedModule],
+    imports: [CommonModule, SharedModule],
     template: ` <ng-content /> `,
     host: {
         '[class.p-accordion]': 'true',

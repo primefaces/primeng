@@ -42,7 +42,7 @@ export const CASCADESELECT_VALUE_ACCESSOR: any = {
 @Component({
     selector: 'p-cascadeSelectSub, p-cascadeselect-sub',
     standalone: true,
-    imports: [CommonModule, Overlay, Ripple, AutoFocus, AngleRightIcon, SharedModule],
+    imports: [CommonModule, Ripple, AngleRightIcon, SharedModule],
     template: `
         <ul class="p-cascadeselect-list" [attr.role]="role" aria-orientation="horizontal" [attr.data-pc-section]="level === 0 ? 'list' : 'sublist'" [attr.aria-label]="listLabel">
             <ng-template ngFor let-processedOption [ngForOf]="options" let-i="index">
@@ -244,7 +244,7 @@ export class CascadeSelectSub extends BaseComponent implements OnInit {
 @Component({
     selector: 'p-cascadeSelect, p-cascadeselect, p-cascade-select',
     standalone: true,
-    imports: [CommonModule, Overlay, Ripple, AutoFocus, CascadeSelectSub, ChevronDownIcon, AngleRightIcon, TimesIcon, SharedModule],
+    imports: [CommonModule, Overlay, AutoFocus, CascadeSelectSub, ChevronDownIcon, TimesIcon, SharedModule],
     template: ` <div #container [ngClass]="containerClass" [class]="styleClass" [ngStyle]="style" (click)="onContainerClick($event)" [attr.data-pc-name]="'cascadeselect'" [attr.data-pc-section]="'root'">
         <div class="p-hidden-accessible" [attr.data-pc-section]="'hiddenInputWrapper'">
             <input
