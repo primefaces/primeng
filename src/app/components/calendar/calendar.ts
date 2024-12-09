@@ -1818,12 +1818,22 @@ export class Calendar implements OnInit, OnDestroy, ControlValueAccessor {
     }
 
     isMonthSelected(month: number) {
-        if (this.isComparable() && !this.isMultipleSelection()) {
-            const [start, end] = this.isRangeSelection() ? this.value : [this.value, this.value];
-            const selected = new Date(this.currentYear, month, 1);
-            return selected >= start && selected <= (end ?? start);
+        if (!this.isComparable() || this.isMultipleSelection()) {
+            return false;
         }
-        return false;
+
+        if (this.isRangeSelection()) {
+            const selected = new Date(this.currentYear, month, 1);
+            const start = this.value[0];
+            const end = this.value[1];
+
+            start.setDate(1);
+            end.setDate(1);
+            
+            return selected >= start && selected <= end;
+        }
+        return (this.value ? this.value.getMonth() === month : false) && 
+               (this.value.getFullYear() == this.currentYear);
     }
 
     isMonthDisabled(month: number, year?: number) {
