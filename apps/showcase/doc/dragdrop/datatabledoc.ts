@@ -5,6 +5,7 @@ import { Component, OnInit } from '@angular/core';
 
 @Component({
     selector: 'drag-drop-data-table-demo',
+    standalone: false,
     template: `
         <app-docsectiontext>
             <p>Drag and Drop to Table</p>

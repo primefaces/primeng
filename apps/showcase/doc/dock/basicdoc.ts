@@ -4,6 +4,7 @@ import { MenuItem } from 'primeng/api';
 
 @Component({
     selector: 'dock-basic-demo',
+    standalone: false,
     template: `
         <app-docsectiontext>
             <p>

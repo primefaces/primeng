@@ -3,6 +3,7 @@ import { Component } from '@angular/core';
 
 @Component({
     selector: 'badge-button-demo',
+    standalone: false,
     template: `
         <app-docsectiontext>
             <p>Buttons have built-in support for badges to display a badge inline.</p>

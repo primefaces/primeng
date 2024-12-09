@@ -3,6 +3,7 @@ import { Component } from '@angular/core';
 
 @Component({
     selector: 'checkbox-indeterminate-demo',
+    standalone: false,
     template: `
         <app-docsectiontext>
             <p>When <i>indeterminate</i> is present, the checkbox masks the actual value visually.</p>

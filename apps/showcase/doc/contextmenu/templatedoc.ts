@@ -5,6 +5,7 @@ import { ContextMenu } from 'primeng/contextmenu';
 
 @Component({
     selector: 'context-menu-template-demo',
+    standalone: false,
     template: `
         <app-docsectiontext>
             <p>ContextMenu offers item customization with the <i>item</i> template that receives the menuitem instance from the model as a parameter.</p>

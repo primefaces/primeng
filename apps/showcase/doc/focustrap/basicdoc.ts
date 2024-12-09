@@ -3,6 +3,7 @@ import { Component } from '@angular/core';
 
 @Component({
     selector: 'focus-trap-basic-demo',
+    standalone: false,
     template: `
         <app-docsectiontext>
             <p>FocusTrap is applied to a container element with the <i>pFocusTrap</i> directive.</p>

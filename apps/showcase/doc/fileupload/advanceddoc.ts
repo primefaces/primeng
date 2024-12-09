@@ -9,6 +9,7 @@ interface UploadEvent {
 
 @Component({
     selector: 'file-upload-advanced-demo',
+    standalone: false,
     template: `
         <app-docsectiontext>
             <p>FileUpload is an advanced uploader with dragdrop support, multi file uploads, auto uploading, progress tracking and validations.</p>

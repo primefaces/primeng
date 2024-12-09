@@ -5,6 +5,7 @@ import { isPlatformBrowser } from '@angular/common';
 import { ChangeDetectorRef, Component, effect, inject, OnInit, PLATFORM_ID } from '@angular/core';
 @Component({
     selector: 'chart-line-style-demo',
+    standalone: false,
     template: `
         <app-docsectiontext>
             <p>Various styles of a line series can be customized to display customizations like an area chart.</p>

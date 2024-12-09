@@ -3,6 +3,7 @@ import { Component } from '@angular/core';
 
 @Component({
     selector: 'block-ui-basic-demo',
+    standalone: false,
     template: `
         <app-docsectiontext>
             <p>The element to block should be placed as a child of BlockUI and <i>blocked</i> property is required to control the state.</p>

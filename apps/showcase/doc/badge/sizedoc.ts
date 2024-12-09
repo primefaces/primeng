@@ -3,6 +3,7 @@ import { Component } from '@angular/core';
 
 @Component({
     selector: 'badge-size-demo',
+    standalone: false,
     template: `
         <app-docsectiontext>
             <p>Badge sizes are adjusted with the <i>badgeSize</i> property that accepts <i>small</i>, <i>large</i> and <i>xlarge</i> as the possible alternatives to the default size. Currently sizes only apply to component mode.</p>

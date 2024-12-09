@@ -4,6 +4,7 @@ import { Component, OnInit } from '@angular/core';
 
 @Component({
     selector: 'galleria-controlled-demo',
+    standalone: false,
     template: `
         <app-docsectiontext>
             <p>Galleria can be controlled programmatically using the <i>activeIndex</i> property.</p>

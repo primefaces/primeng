@@ -3,6 +3,7 @@ import { Component } from '@angular/core';
 
 @Component({
     selector: 'button-basic-demo',
+    standalone: false,
     template: `
         <app-docsectiontext>
             <p>Text to display on a button is defined with the <i>label</i> property.</p>

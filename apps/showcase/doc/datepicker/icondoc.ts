@@ -3,6 +3,7 @@ import { Component } from '@angular/core';
 
 @Component({
     selector: 'datepicker-icon-demo',
+    standalone: false,
     template: `
         <app-docsectiontext>
             <p>An additional icon is displayed next to the input field when <i>showIcon</i> is present.</p>

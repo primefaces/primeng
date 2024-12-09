@@ -5,6 +5,7 @@ import { PrimeNG } from 'primeng/config';
 
 @Component({
     selector: 'file-upload-template-demo',
+    standalone: false,
     template: `
         <app-docsectiontext>
             <p>

@@ -9,6 +9,7 @@ interface AutoCompleteCompleteEvent {
 
 @Component({
     selector: 'autocomplete-template-demo',
+    standalone: false,
     template: ` <app-docsectiontext>
             <p>AutoComplete offers multiple templates for customization through templating.</p>
         </app-docsectiontext>

@@ -6,6 +6,7 @@ import { FilterMatchMode, FilterService, SelectItem } from 'primeng/api';
 
 @Component({
     selector: 'filter-service-table-integration-demo',
+    standalone: false,
     template: `
         <app-docsectiontext>
             <p>A custom equals filter that checks for exact case sensitive value is registered and defined as a match mode of a column filter.</p>

@@ -7,6 +7,7 @@ import { ProductListDemo } from './productlistdemo';
 
 @Component({
     selector: 'dynamic-dialog-example-demo',
+    standalone: false,
     template: `
         <app-docsectiontext>
             <p>

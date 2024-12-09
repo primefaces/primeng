@@ -4,6 +4,7 @@ import { ConfirmationService, MessageService } from 'primeng/api';
 
 @Component({
     selector: 'confirm-popup-template-demo',
+    standalone: false,
     template: `
         <app-docsectiontext>
             <p>Content section can be customized using <i>content</i> template.</p>

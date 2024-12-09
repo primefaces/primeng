@@ -3,6 +3,7 @@ import { Component } from '@angular/core';
 
 @Component({
     selector: 'editor-readonly-demo',
+    standalone: false,
     template: `
         <app-docsectiontext>
             <p>When <i>readonly</i> is present, the value cannot be edited.</p>

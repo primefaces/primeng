@@ -3,6 +3,7 @@ import { Component } from '@angular/core';
 
 @Component({
     selector: 'button-rounded-demo',
+    standalone: false,
     template: `
         <app-docsectiontext>
             <p>Rounded buttons have a circular border radius.</p>

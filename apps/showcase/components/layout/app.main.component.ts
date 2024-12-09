@@ -11,7 +11,6 @@ import { AppTopBarComponent } from './topbar/app.topbar.component';
 
 @Component({
     selector: 'app-main',
-    standalone: false,
     template: `
         <div class="layout-wrapper" [ngClass]="containerClass()">
             <app-news />

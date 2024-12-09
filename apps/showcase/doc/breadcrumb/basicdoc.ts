@@ -4,6 +4,7 @@ import { MenuItem } from 'primeng/api';
 
 @Component({
     selector: 'breadcrumb-basic-demo',
+    standalone: false,
     template: `
         <app-docsectiontext>
             <p>Breadcrumb provides contextual information about page hierarchy.</p>

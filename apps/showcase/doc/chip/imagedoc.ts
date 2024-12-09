@@ -3,6 +3,7 @@ import { Component } from '@angular/core';
 
 @Component({
     selector: 'chip-image-demo',
+    standalone: false,
     template: `
         <app-docsectiontext>
             <p>The <i>image</i> property is used to display an image like an avatar.</p>

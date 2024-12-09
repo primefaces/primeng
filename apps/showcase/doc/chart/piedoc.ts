@@ -6,6 +6,7 @@ import { ChangeDetectorRef, Component, effect, inject, OnInit, PLATFORM_ID } fro
 
 @Component({
     selector: 'chart-pie-demo',
+    standalone: false,
     template: `
         <app-docsectiontext>
             <p>A pie chart is a circular statistical graphic which is divided into slices to illustrate numerical proportion.</p>
@@ -141,7 +142,7 @@ export class ChartPieDemo implements OnInit {
             };
             this.cd.markForCheck()
         }
-   
+
     }
 }`
     };

@@ -3,6 +3,7 @@ import { Component } from '@angular/core';
 
 @Component({
     selector: 'avatar-image-demo',
+    standalone: false,
     template: `
         <app-docsectiontext>
             <p>Use the <i>image</i> property to display an image as an Avatar.</p>

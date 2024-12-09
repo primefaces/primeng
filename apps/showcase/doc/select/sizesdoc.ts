@@ -8,6 +8,7 @@ interface City {
 
 @Component({
     selector: 'select-size-demo',
+    standalone: false,
     template: `
         <app-docsectiontext>
             <p>Select provides <i>small</i> and <i>large</i> sizes as alternatives to the base.</p>

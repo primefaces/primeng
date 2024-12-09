@@ -3,6 +3,7 @@ import { Component } from '@angular/core';
 
 @Component({
     selector: 'dialog-basic-demo',
+    standalone: false,
     template: `
         <app-docsectiontext>
             <p>Dialog is used as a container and visibility is controlled with <i>visible</i> property.</p></app-docsectiontext

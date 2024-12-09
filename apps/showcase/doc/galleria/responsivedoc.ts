@@ -4,6 +4,7 @@ import { Component, OnInit } from '@angular/core';
 
 @Component({
     selector: 'galleria-responsive-demo',
+    standalone: false,
     template: `
         <app-docsectiontext>
             <p>Galleria responsiveness is defined with the <i>responsiveOptions</i> property.</p>

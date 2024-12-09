@@ -5,6 +5,7 @@ import { Component, signal } from '@angular/core';
 
 @Component({
     selector: 'data-view-layout-demo',
+    standalone: false,
     template: `
         <app-docsectiontext>
             <p>DataView supports <i>list</i> and <i>grid</i> display modes defined with the <i>layout</i> property. The <i>grid</i> mode is not built-in for flexibility purposes and requires a library with CSS grid features like Tailwind.</p>

@@ -3,6 +3,7 @@ import { Component, OnInit } from '@angular/core';
 
 @Component({
     selector: 'select-template-demo',
+    standalone: false,
     template: `
         <app-docsectiontext>
             <p>

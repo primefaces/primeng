@@ -4,6 +4,7 @@ import { SelectItemGroup } from 'primeng/api';
 
 @Component({
     selector: 'select-group-demo',
+    standalone: false,
     template: `
         <app-docsectiontext>
             <p>Options can be grouped when a nested data structures is provided.</p>

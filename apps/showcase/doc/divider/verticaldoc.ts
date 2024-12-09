@@ -3,6 +3,7 @@ import { Component } from '@angular/core';
 
 @Component({
     selector: 'divider-vertical-demo',
+    standalone: false,
     template: `
         <app-docsectiontext>
             <p>Vertical divider is enabled by setting the <i>layout</i> property as <i>vertical</i>.</p>

@@ -5,6 +5,7 @@ import { ChangeDetectorRef, Component, OnInit } from '@angular/core';
 
 @Component({
     selector: 'carousel-basic-demo',
+    standalone: false,
     template: `
         <app-docsectiontext>
             <p>Carousel requires a collection of items as its value along with a template to render each item.</p>

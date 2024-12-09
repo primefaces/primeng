@@ -3,6 +3,7 @@ import { Component } from '@angular/core';
 
 @Component({
     selector: 'datepicker-touchui-demo',
+    standalone: false,
     template: `
         <app-docsectiontext>
             <p>When <i>touchUI</i> is enabled, overlay is displayed as optimized for touch devices.</p>

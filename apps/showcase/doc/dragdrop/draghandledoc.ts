@@ -3,6 +3,7 @@ import { Component } from '@angular/core';
 
 @Component({
     selector: 'drag-drop-drag-handle-demo',
+    standalone: false,
     template: `
         <app-docsectiontext>
             <p><i>dragHandle</i> is used to restrict dragging unless mousedown occurs on the specified element. Panel below can only be dragged using its header.</p>

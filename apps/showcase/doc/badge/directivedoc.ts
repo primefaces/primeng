@@ -3,6 +3,7 @@ import { Component } from '@angular/core';
 
 @Component({
     selector: 'badge-directive-demo',
+    standalone: false,
     template: `
         <app-docsectiontext>
             <p>Content of the badge is specified using the <i>value</i> property.</p>

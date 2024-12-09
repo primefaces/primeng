@@ -4,6 +4,7 @@ import { MenuItem, PrimeIcons } from 'primeng/api';
 
 @Component({
     selector: 'prime-icons-constants-demo',
+    standalone: false,
     template: `
         <app-docsectiontext>
             <p>Constants API is available to reference icons easily when used programmatically.</p>

@@ -5,6 +5,7 @@ import { ChangeDetectorRef, Component, OnInit } from '@angular/core';
 
 @Component({
     selector: 'carousel-num-scroll-demo',
+    standalone: false,
     template: `
         <app-docsectiontext>
             <p>Number of items to scroll is specified with the <i>numScroll</i> option.</p>
