@@ -1,3 +1,5 @@
+@use "mixins";
+
 .layout-topbar {
     position: fixed;
     top: 0;
@@ -30,7 +32,7 @@
     .layout-topbar-icon {
         transition: outline-color .2s;
         outline-color: transparent;
-        @include focus-visible();
+        @include mixins.focus-visible();
 
         svg {
             width: 120px;
@@ -85,7 +87,7 @@
             background-color: var(--card-background);
             cursor: pointer;
 
-            @include focus-visible();
+            @include mixins.focus-visible();
 
             &:hover {
                 border-color: var(--primary-color);

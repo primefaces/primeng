@@ -1,3 +1,5 @@
+@use "../mixins";
+
 .landing {
     scroll-behavior: smooth;
     padding-top: 4rem;
@@ -50,7 +52,7 @@
         padding: 1rem 1.5rem;
         
         cursor: pointer;
-        @include focus-visible();
+        @include mixins.focus-visible();
 
         &:hover {
             background: var(--hover-background);

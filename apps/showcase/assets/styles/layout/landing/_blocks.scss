@@ -1,3 +1,5 @@
+@use "landing";
+
 .landing-blocks {
     * {
         box-sizing: content-box;
@@ -205,7 +207,7 @@
     }
 }
 
-@media screen and (max-width: $landingBreakpointXL) {
+@media screen and (max-width: landing.$landingBreakpointXL) {
     .landing-blocks .prime-blocks {
         margin: -24rem 0;
         transform: rotateX(55deg) rotateY(0deg) rotateZ(-45deg) scale(0.6);
