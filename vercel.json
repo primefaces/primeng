@@ -3,7 +3,8 @@
     "git": {
         "deploymentEnabled": {
             "master": false,
-            "v18": false
+            "v19": false,
+            "v17": false
         }
     }
 }
