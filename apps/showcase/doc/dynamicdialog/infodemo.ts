@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { DialogService, DynamicDialogComponent, DynamicDialogRef } from 'primeng/dynamicdialog';
 
 @Component({
+    standalone: false,
     template: `
         <div>
             <p>
