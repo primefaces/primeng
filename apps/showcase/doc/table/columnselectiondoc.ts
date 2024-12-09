@@ -6,6 +6,7 @@ import { MessageService } from 'primeng/api';
 
 @Component({
     selector: 'column-selection-doc',
+    standalone: false,
     template: ` <app-docsectiontext>
             <p>Row selection with an element inside a column is implemented with templating.</p>
         </app-docsectiontext>

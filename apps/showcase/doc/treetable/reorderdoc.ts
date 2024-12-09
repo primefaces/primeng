@@ -10,6 +10,7 @@ interface Column {
 
 @Component({
     selector: 'reorder-doc',
+    standalone: false,
     template: `
         <app-docsectiontext>
             <p>Order of the columns can be changed using drag and drop when <i>reorderableColumns</i> is present.</p>

@@ -4,6 +4,7 @@ import { Component, OnInit } from '@angular/core';
 
 @Component({
     selector: 'with-thumbnails-doc',
+    standalone: false,
     template: `
         <app-docsectiontext>
             <p>Full screen mode is enabled by adding <i>fullScreen</i> property.</p>

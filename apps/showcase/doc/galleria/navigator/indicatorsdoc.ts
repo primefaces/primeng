@@ -4,6 +4,7 @@ import { Component, OnInit } from '@angular/core';
 
 @Component({
     selector: 'indicators-doc',
+    standalone: false,
     template: `
         <app-docsectiontext>
             <p>Navigators and Indicators can be combined as well.</p>

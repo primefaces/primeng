@@ -3,6 +3,7 @@ import { Component } from '@angular/core';
 
 @Component({
     selector: 'linear-doc',
+    standalone: false,
     template: `
         <app-docsectiontext>
             <p>When <i>linear</i> property is set to true, current step must be completed in order to move to the next step.</p>

@@ -9,6 +9,7 @@ interface City {
 
 @Component({
     selector: 'group-doc',
+    standalone: false,
     template: `
         <app-docsectiontext>
             <p>Options can be grouped when a nested data structures is provided.</p>

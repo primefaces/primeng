@@ -3,6 +3,7 @@ import { Component } from '@angular/core';
 
 @Component({
     selector: 'darkmode-doc',
+    standalone: false,
     template: `
         <app-docsectiontext>
             <p>
@@ -35,7 +36,7 @@ import { Component } from '@angular/core';
 })
 export class DarkModeDoc {
     code1: Code = {
-        typescript: `providePrimeNG({ 
+        typescript: `providePrimeNG({
     theme: {
         preset: Aura,
         darkModeSelector: '.my-app-dark'
@@ -59,7 +60,7 @@ export class DarkModeDoc {
     };
 
     code5: Code = {
-        typescript: `providePrimeNG({ 
+        typescript: `providePrimeNG({
     theme: {
         preset: Aura,
         darkModeSelector: false || 'none'

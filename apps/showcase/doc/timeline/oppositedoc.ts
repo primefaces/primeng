@@ -11,6 +11,7 @@ interface EventItem {
 
 @Component({
     selector: 'opposite-doc',
+    standalone: false,
     template: `
         <app-docsectiontext>
             <p>Additional content at the other side of the line can be provided with the <i>opposite</i> property.</p>

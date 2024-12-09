@@ -4,6 +4,7 @@ import { Component, OnInit } from '@angular/core';
 
 @Component({
     selector: 'hover-doc',
+    standalone: false,
     template: `
         <app-docsectiontext>
             <p>Navigators are displayed on hover only if <i>showItemNavigatorsOnHover</i> is enabled.</p>

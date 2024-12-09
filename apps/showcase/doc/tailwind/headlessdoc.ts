@@ -3,6 +3,7 @@ import { Component } from '@angular/core';
 
 @Component({
     selector: 'headless-doc',
+    standalone: false,
     template: `
         <app-docsectiontext>
             <p>A headless PrimeNG dialog with a custom UI.</p>

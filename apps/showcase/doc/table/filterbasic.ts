@@ -6,6 +6,7 @@ import { Table } from 'primeng/table';
 
 @Component({
     selector: 'filter-basic-doc',
+    standalone: false,
     template: ` <app-docsectiontext>
             <p>
                 Data filtering is enabled by defining the <i>filters</i> property referring to a <i>DataTableFilterMeta</i> instance. Each column to filter also requires <i>filter</i> to be enabled. Built-in filter element is a input field and using

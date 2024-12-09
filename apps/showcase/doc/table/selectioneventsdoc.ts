@@ -6,6 +6,7 @@ import { MessageService } from 'primeng/api';
 
 @Component({
     selector: 'selection-events-doc',
+    standalone: false,
     template: ` <app-docsectiontext>
             <p>Table provides <i>onRowSelect</i> and <i>onRowUnselect</i> events to listen selection events.</p>
         </app-docsectiontext>

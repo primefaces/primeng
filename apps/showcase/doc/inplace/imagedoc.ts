@@ -3,6 +3,7 @@ import { Component } from '@angular/core';
 
 @Component({
     selector: 'image-doc',
+    standalone: false,
     template: `
         <app-docsectiontext>
             <p>Any content such as an image can be placed inside an Inplace.</p>

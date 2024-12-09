@@ -3,6 +3,7 @@ import { Component } from '@angular/core';
 
 @Component({
     selector: 'icon-doc',
+    standalone: false,
     template: `
         <app-docsectiontext>
             <p>Icons can be displayed next to the labels instead of the default marker.</p>

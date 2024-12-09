@@ -3,6 +3,7 @@ import { Component } from '@angular/core';
 
 @Component({
     selector: 'migration-doc',
+    standalone: false,
     template: `
         <app-docsectiontext>
             <p>

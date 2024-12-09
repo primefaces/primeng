@@ -4,6 +4,7 @@ import { MenuItem, MessageService } from 'primeng/api';
 
 @Component({
     selector: 'raised-text-doc',
+    standalone: false,
     template: `
         <app-docsectiontext>
             <p>Text buttons can be displayed as raised as well for elevation.</p>

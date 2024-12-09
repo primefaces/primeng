@@ -3,6 +3,7 @@ import { Component } from '@angular/core';
 
 @Component({
     selector: 'multiple-doc',
+    standalone: false,
     template: `
         <app-docsectiontext>
             <p>Adding more items to the array displays the meters in a group.</p>

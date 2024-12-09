@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 
 @Component({
     selector: 'editor-accessibility-doc',
+    standalone: false,
     template: ` <div>
         <app-docsectiontext>
             <p>

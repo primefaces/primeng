@@ -4,6 +4,7 @@ import { MessageService } from 'primeng/api';
 
 @Component({
     selector: 'dynamic-doc',
+    standalone: false,
     template: `
         <app-docsectiontext>
             <p>Value is reactive so updating it dynamically changes the bar as well.</p>

@@ -5,6 +5,7 @@ import { ChangeDetectorRef, Component, OnInit } from '@angular/core';
 
 @Component({
     selector: 'responsive-doc',
+    standalone: false,
     template: `
         <app-docsectiontext>
             <p>

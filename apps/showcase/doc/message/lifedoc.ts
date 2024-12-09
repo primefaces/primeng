@@ -3,6 +3,7 @@ import { Component, signal } from '@angular/core';
 
 @Component({
     selector: 'life-doc',
+    standalone: false,
     template: `
         <app-docsectiontext>
             <p>Messages can disappear automatically by defined the <i>life</i> in milliseconds.</p>

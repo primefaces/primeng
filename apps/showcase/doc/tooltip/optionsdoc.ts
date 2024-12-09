@@ -3,6 +3,7 @@ import { Component } from '@angular/core';
 
 @Component({
     selector: 'options-doc',
+    standalone: false,
     template: `
         <app-docsectiontext>
             <p>Tooltip is also configurable by using <i>tooltipOptions</i> property.</p>

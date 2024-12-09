@@ -3,6 +3,7 @@ import { Component } from '@angular/core';
 
 @Component({
     selector: 'default-doc',
+    standalone: false,
     template: `
         <app-docsectiontext>
             <p>Default Demo Content.</p>

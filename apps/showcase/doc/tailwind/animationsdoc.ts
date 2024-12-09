@@ -3,6 +3,7 @@ import { Component } from '@angular/core';
 
 @Component({
     selector: 'animations-doc',
+    standalone: false,
     template: `
         <app-docsectiontext>
             <p>The plugin also adds extended animation utilities that can be used with the <a routerLink="/styleclass">styleclass</a> and <a routerLink="/animateonscroll">animateonscroll</a> directives.</p>

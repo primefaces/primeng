@@ -16,6 +16,7 @@ interface ExportColumn {
 
 @Component({
     selector: 'export-doc',
+    standalone: false,
     template: ` <app-docsectiontext>
             <p>Table can export its data to CSV format.</p>
         </app-docsectiontext>

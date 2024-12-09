@@ -3,6 +3,7 @@ import { Component, ViewEncapsulation } from '@angular/core';
 
 @Component({
     selector: 'specificity-doc',
+    standalone: false,
     template: `
         <app-docsectiontext>
             <p>

@@ -9,6 +9,7 @@ interface AutoCompleteCompleteEvent {
 
 @Component({
     selector: 'force-selection-doc',
+    standalone: false,
     template: ` <app-docsectiontext>
             <p>ForceSelection mode validates the manual input to check whether it also exists in the suggestions list, if not the input value is cleared to make sure the value passed to the model is always one of the suggestions.</p>
         </app-docsectiontext>

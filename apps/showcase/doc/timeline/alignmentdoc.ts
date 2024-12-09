@@ -11,6 +11,7 @@ interface EventItem {
 
 @Component({
     selector: 'alignment-doc',
+    standalone: false,
     template: `
         <app-docsectiontext>
             <p>Content location relative the line is defined with the <i>align</i> property.</p>

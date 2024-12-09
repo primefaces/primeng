@@ -3,6 +3,7 @@ import { Component } from '@angular/core';
 
 @Component({
     selector: 'custom-doc',
+    standalone: false,
     template: `
         <app-docsectiontext>
             <p>Scrollbar visuals can be styled for a unified look across different platforms.</p>

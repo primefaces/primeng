@@ -3,6 +3,7 @@ import { Component } from '@angular/core';
 
 @Component({
     selector: 'slot-char-doc',
+    standalone: false,
     template: `
         <app-docsectiontext>
             <p>Default placeholder for a mask is underscore that can be customized using <i>slotChar</i> property.</p>

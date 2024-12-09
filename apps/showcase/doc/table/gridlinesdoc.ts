@@ -5,6 +5,7 @@ import { ChangeDetectionStrategy, ChangeDetectorRef, Component } from '@angular/
 
 @Component({
     selector: 'gridlines-doc',
+    standalone: false,
     template: ` <app-docsectiontext>
             <p>Enabling <i>showGridlines</i> displays borders between cells.</p>
         </app-docsectiontext>

@@ -5,6 +5,7 @@ import { MenuItem, MessageService } from 'primeng/api';
 
 @Component({
     selector: 'template-doc',
+    standalone: false,
     template: `
         <app-docsectiontext>
             <p>

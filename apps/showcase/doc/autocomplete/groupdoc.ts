@@ -9,6 +9,7 @@ interface AutoCompleteCompleteEvent {
 
 @Component({
     selector: 'grouped-doc',
+    standalone: false,
     template: ` <app-docsectiontext>
             <p>Option grouping is enabled when <i>group</i> property is set to <i>true</i>. <i>group</i> template is available to customize the option groups. All templates get the option instance as the default local template variable.</p>
         </app-docsectiontext>

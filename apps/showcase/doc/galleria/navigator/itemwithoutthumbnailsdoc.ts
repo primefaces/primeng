@@ -4,6 +4,7 @@ import { Component, OnInit } from '@angular/core';
 
 @Component({
     selector: 'itemwithoutthumbnails-doc',
+    standalone: false,
     template: `
         <app-docsectiontext>
             <p>Simple example with indicators only.</p>

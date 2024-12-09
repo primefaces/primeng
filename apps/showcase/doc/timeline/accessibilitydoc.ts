@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 
 @Component({
     selector: 'timeline-accessibility-doc',
+    standalone: false,
     template: ` <app-docsectiontext>
         <h3>Screen Reader</h3>
         <p>Timeline uses a semantic ordered list element to list the events. No specific role is enforced, still you may use any aria role and attributes as any valid attribute is passed to the list element.</p>

@@ -11,6 +11,7 @@ interface Column {
 
 @Component({
     selector: 'sort-removable-doc',
+    standalone: false,
     template: `
         <app-docsectiontext>
             <p>The removable sort can be implemented using the <i>customSort</i> property.</p>

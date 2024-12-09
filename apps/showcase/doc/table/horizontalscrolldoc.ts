@@ -5,6 +5,7 @@ import { ChangeDetectionStrategy, ChangeDetectorRef, Component } from '@angular/
 
 @Component({
     selector: 'horizontal-scroll-doc',
+    standalone: false,
     template: ` <app-docsectiontext>
             <p>Horizontal scrollbar is displayed when table width exceeds the parent width.</p>
         </app-docsectiontext>

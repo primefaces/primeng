@@ -4,6 +4,7 @@ import { MessageService } from 'primeng/api';
 
 @Component({
     selector: 'indeterminate-doc',
+    standalone: false,
     template: `
         <app-docsectiontext>
             <p>For progresses with no value to track, set the <i>mode</i> property to <i>indeterminate</i>.</p>

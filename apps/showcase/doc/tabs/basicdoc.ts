@@ -3,6 +3,7 @@ import { Component } from '@angular/core';
 
 @Component({
     selector: 'basic-doc',
+    standalone: false,
     template: `
         <app-docsectiontext>
             <p>Tabs is defined using <i>TabList</i>, <i>Tab</i>, <i>TabPanels</i> and <i>TabPanel</i> components. Tab and TabPanel components are associated with their <i>value</i> properties</p>

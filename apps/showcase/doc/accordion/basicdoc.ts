@@ -3,6 +3,7 @@ import { Component } from '@angular/core';
 
 @Component({
     selector: 'basic-doc',
+    standalone: false,
     template: `
         <app-docsectiontext>
             <p>Accordion is defined using <i>AccordionPanel</i>, <i>AccordionHeader</i> and <i>AccordionContent</i> components. Each AccordionPanel must contain a unique <i>value</i> property to specify the active item.</p>

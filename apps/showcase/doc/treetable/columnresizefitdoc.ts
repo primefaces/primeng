@@ -10,6 +10,7 @@ interface Column {
 
 @Component({
     selector: 'resize-fit-doc',
+    standalone: false,
     template: `
         <app-docsectiontext>
             <p>Columns can be resized with drag and drop when <i>resizableColumns</i> is enabled. Default resize mode is <i>fit</i> that does not change the overall table width.</p>

@@ -3,6 +3,7 @@ import { Component } from '@angular/core';
 
 @Component({
     selector: 'severity-doc',
+    standalone: false,
     template: `
         <app-docsectiontext>
             <p>The <i>severity</i> option specifies the type of the message.</p>

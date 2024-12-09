@@ -3,6 +3,7 @@ import { Component } from '@angular/core';
 
 @Component({
     selector: 'events-doc',
+    standalone: false,
     template: ` <section class="py-6">
         <app-code [code]="code" [hideToggleCode]="true"></app-code>
     </section>`

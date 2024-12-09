@@ -3,6 +3,7 @@ import { Component } from '@angular/core';
 
 @Component({
     selector: 'number-of-stars-doc',
+    standalone: false,
     template: `
         <app-docsectiontext>
             <p>Number of stars to display is defined with <i>stars</i> property.</p>

@@ -4,6 +4,7 @@ import { Scroller } from 'primeng/scroller';
 
 @Component({
     selector: 'programmatic-doc',
+    standalone: false,
     template: `
         <app-docsectiontext>
             <p>Scrolling to a specific index can be done with the <i>scrollToIndex</i> function.</p>

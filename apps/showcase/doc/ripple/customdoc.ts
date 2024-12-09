@@ -3,6 +3,7 @@ import { Component } from '@angular/core';
 
 @Component({
     selector: 'custom-doc',
+    standalone: false,
     template: `
         <app-docsectiontext>
             <p>Styling Demo Content.</p>

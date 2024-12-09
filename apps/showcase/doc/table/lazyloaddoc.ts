@@ -6,6 +6,7 @@ import { LazyLoadEvent } from 'primeng/api';
 
 @Component({
     selector: 'lazy-load-doc',
+    standalone: false,
     template: ` <app-docsectiontext>
             <p>
                 Lazy mode is handy to deal with large datasets, instead of loading the entire data, small chunks of data is loaded by invoking onLazyLoad callback everytime <i>paging</i>, <i>sorting</i> and <i>filtering</i> happens. Sample here loads

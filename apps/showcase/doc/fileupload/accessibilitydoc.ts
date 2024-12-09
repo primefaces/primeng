@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 
 @Component({
     selector: 'file-upload-accessibility-doc',
+    standalone: false,
     template: `
         <app-docsectiontext>
             <h3>Screen Reader</h3>

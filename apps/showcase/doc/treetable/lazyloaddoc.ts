@@ -10,6 +10,7 @@ interface Column {
 
 @Component({
     selector: 'lazy-load-doc',
+    standalone: false,
     template: `
         <app-docsectiontext>
             <p>

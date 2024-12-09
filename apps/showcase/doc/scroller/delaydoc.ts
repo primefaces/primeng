@@ -3,6 +3,7 @@ import { Component } from '@angular/core';
 
 @Component({
     selector: 'delay-doc',
+    standalone: false,
     template: `
         <app-docsectiontext>
             <p>Scroll delay is adjusted by using <i>delay</i> property.</p>

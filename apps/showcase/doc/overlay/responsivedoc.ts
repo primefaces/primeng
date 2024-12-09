@@ -4,6 +4,7 @@ import { Component, Input, ViewChild } from '@angular/core';
 
 @Component({
     selector: 'responsive-doc',
+    standalone: false,
     template: ` <app-docsectiontext>
             <p>It is the option used to determine in which mode it should appear according to the given <i>media</i> or <i>breakpoint</i>.</p>
         </app-docsectiontext>

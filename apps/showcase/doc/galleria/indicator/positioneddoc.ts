@@ -4,6 +4,7 @@ import { Component, OnInit } from '@angular/core';
 
 @Component({
     selector: 'positioned-doc',
+    standalone: false,
     template: `
         <app-docsectiontext>
             <p>

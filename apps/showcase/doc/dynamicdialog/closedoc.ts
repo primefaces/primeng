@@ -7,6 +7,7 @@ import { ProductListDemo } from './productlistdemo';
 
 @Component({
     selector: 'close-doc',
+    standalone: false,
     template: `
         <app-docsectiontext>
             <p>

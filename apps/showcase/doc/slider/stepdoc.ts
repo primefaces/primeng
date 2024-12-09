@@ -3,6 +3,7 @@ import { Component } from '@angular/core';
 
 @Component({
     selector: 'step-doc',
+    standalone: false,
     template: `
         <app-docsectiontext>
             <p>Size of each movement is defined with the <i>step</i> property.</p>

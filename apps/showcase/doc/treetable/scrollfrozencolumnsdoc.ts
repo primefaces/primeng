@@ -10,6 +10,7 @@ interface Column {
 
 @Component({
     selector: 'scroll-frozen-columns-doc',
+    standalone: false,
     template: `
         <app-docsectiontext>
             <p>A column can be fixed during horizontal scrolling by enabling the <i>frozenColumns</i> property.</p>

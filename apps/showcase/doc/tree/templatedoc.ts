@@ -4,6 +4,7 @@ import { TreeNode } from 'primeng/api';
 
 @Component({
     selector: 'template-doc',
+    standalone: false,
     template: `
         <app-docsectiontext>
             <p>Custom node content instead of a node label is defined with the <i>pTemplate</i> property.</p>

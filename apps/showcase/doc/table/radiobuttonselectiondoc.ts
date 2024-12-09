@@ -5,6 +5,7 @@ import { ChangeDetectionStrategy, ChangeDetectorRef, Component } from '@angular/
 
 @Component({
     selector: 'radio-button-selection-doc',
+    standalone: false,
     template: ` <app-docsectiontext>
             <p>Single selection can also be handled using radio buttons.</p>
         </app-docsectiontext>

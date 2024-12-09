@@ -4,6 +4,7 @@ import { Component } from '@angular/core';
 
 @Component({
     selector: 'filter-doc',
+    standalone: false,
     template: `
         <app-docsectiontext>
             <p>

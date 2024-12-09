@@ -3,6 +3,7 @@ import { Component } from '@angular/core';
 
 @Component({
     selector: 'checkbox-doc',
+    standalone: false,
     template: `
         <app-docsectiontext>
             <p>Checkbox and RadioButton components can be combined with an input element under the same group.</p>

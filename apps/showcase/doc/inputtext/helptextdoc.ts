@@ -3,6 +3,7 @@ import { Component } from '@angular/core';
 
 @Component({
     selector: 'helptext-doc',
+    standalone: false,
     template: `
         <app-docsectiontext>
             <p>An advisory text can be defined with the semantic <i>small</i> tag.</p>

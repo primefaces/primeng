@@ -5,6 +5,7 @@ import { ChangeDetectionStrategy, ChangeDetectorRef, Component } from '@angular/
 
 @Component({
     selector: 'table-style-doc',
+    standalone: false,
     template: ` <app-docsectiontext>
             <p>Certain rows or cells can easily be styled based on conditions.</p>
         </app-docsectiontext>

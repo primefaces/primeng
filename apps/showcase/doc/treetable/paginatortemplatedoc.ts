@@ -9,6 +9,7 @@ interface Column {
 
 @Component({
     selector: 'paginator-template-doc',
+    standalone: false,
     template: `
         <app-docsectiontext>
             <p>

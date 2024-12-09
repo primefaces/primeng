@@ -5,6 +5,7 @@ import { TreeNode } from 'primeng/api';
 
 @Component({
     selector: 'basic-doc',
+    standalone: false,
     template: `
         <app-docsectiontext>
             <p>Tree component requires an array of <i>TreeNode</i> objects as its <i>value</i>.</p>

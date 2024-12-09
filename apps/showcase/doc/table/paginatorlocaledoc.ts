@@ -5,6 +5,7 @@ import { ChangeDetectionStrategy, ChangeDetectorRef, Component } from '@angular/
 
 @Component({
     selector: 'paginator-locale-doc',
+    standalone: false,
     template: ` <app-docsectiontext>
             <p>
                 paginator localization information such as page numbers and rows per page options are defined with the

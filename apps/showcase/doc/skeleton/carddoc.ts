@@ -3,6 +3,7 @@ import { Component } from '@angular/core';
 
 @Component({
     selector: 'card-doc',
+    standalone: false,
     template: `
         <app-docsectiontext>
             <p>Sample Card implementation using different Skeleton components and PrimeFlex CSS utilities.</p>

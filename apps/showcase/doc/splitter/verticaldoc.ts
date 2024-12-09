@@ -3,6 +3,7 @@ import { Component } from '@angular/core';
 
 @Component({
     selector: 'vertical-doc',
+    standalone: false,
     template: `
         <app-docsectiontext>
             <p>Panels are displayed as stacked by setting the <i>layout</i> to <i>vertical</i>.</p>

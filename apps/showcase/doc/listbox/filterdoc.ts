@@ -8,6 +8,7 @@ interface City {
 
 @Component({
     selector: 'filter-doc',
+    standalone: false,
     template: `
         <app-docsectiontext>
             <p>ListBox provides built-in filtering that is enabled by adding the <i>filter</i> property.</p>

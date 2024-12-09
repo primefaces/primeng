@@ -7,6 +7,7 @@ import { Table } from 'primeng/table';
 
 @Component({
     selector: 'removable-sort-doc',
+    standalone: false,
     template: ` <app-docsectiontext>
             <p>The removable sort can be implemented using the <i>customSort</i> property.</p>
         </app-docsectiontext>

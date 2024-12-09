@@ -3,6 +3,7 @@ import { Component } from '@angular/core';
 
 @Component({
     selector: 'image-doc',
+    standalone: false,
     template: `
         <app-docsectiontext>
             <p>Any type of image can be used as an icon.</p>

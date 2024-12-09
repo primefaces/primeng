@@ -5,6 +5,7 @@ import { ChangeDetectionStrategy, ChangeDetectorRef, Component } from '@angular/
 
 @Component({
     selector: 'column-resize-scrollable-mode-doc',
+    standalone: false,
     template: ` <p-deferred-demo (load)="loadDemoData()">
             <div class="card">
                 <p-table [value]="customers" showGridlines [scrollable]="true" scrollHeight="400px" [resizableColumns]="true" [tableStyle]="{ 'min-width': '50rem' }">

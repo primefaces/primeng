@@ -3,6 +3,7 @@ import { Component } from '@angular/core';
 
 @Component({
     selector: 'csp-doc',
+    standalone: false,
     template: `
         <app-docsectiontext>
             <p>The <i>nonce</i> value to use on dynamically generated style elements in core.</p>
@@ -12,7 +13,7 @@ import { Component } from '@angular/core';
 })
 export class CspDoc {
     code: Code = {
-        typescript: `providePrimeNG({ 
+        typescript: `providePrimeNG({
     csp: {
         nonce: '...'
     }

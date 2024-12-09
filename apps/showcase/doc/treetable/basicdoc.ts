@@ -5,6 +5,7 @@ import { TreeNode } from 'primeng/api';
 
 @Component({
     selector: 'basic-doc',
+    standalone: false,
     template: ` <app-docsectiontext>
             <p>TreeTable requires a collection of <i>TreeNode</i> instances as a <i>value</i> components as children for the representation.</p>
         </app-docsectiontext>

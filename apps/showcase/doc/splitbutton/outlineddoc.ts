@@ -4,6 +4,7 @@ import { MenuItem, MessageService } from 'primeng/api';
 
 @Component({
     selector: 'outlined-doc',
+    standalone: false,
     template: `
         <app-docsectiontext>
             <p>Outlined buttons display a border without a background initially.</p>

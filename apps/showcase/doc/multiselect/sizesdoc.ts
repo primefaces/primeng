@@ -8,6 +8,7 @@ interface City {
 
 @Component({
     selector: 'sizes-doc',
+    standalone: false,
     template: `
         <app-docsectiontext>
             <p>MultiSelect provides <i>small</i> and <i>large</i> sizes as alternatives to the base.</p>

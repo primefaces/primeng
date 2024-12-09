@@ -4,6 +4,7 @@ import { MenuItem, MessageService } from 'primeng/api';
 
 @Component({
     selector: 'severity-doc',
+    standalone: false,
     template: `
         <app-docsectiontext>
             <p>The <i>severity</i> property defines the type of button.</p>

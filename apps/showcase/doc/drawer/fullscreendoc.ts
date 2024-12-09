@@ -3,6 +3,7 @@ import { Component } from '@angular/core';
 
 @Component({
     selector: 'full-screen-doc',
+    standalone: false,
     template: `
         <app-docsectiontext>
             <p>Drawer can cover the whole page when <i>fullScreen</i> property is enabled.</p>

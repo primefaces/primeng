@@ -4,6 +4,7 @@ import { Component } from '@angular/core';
 
 @Component({
     selector: 'template-doc',
+    standalone: false,
     template: `
         <app-docsectiontext>
             <p>TreeSelect offers multiple templates for customization through templating.</p>

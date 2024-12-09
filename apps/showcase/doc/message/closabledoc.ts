@@ -3,6 +3,7 @@ import { Component } from '@angular/core';
 
 @Component({
     selector: 'closable-doc',
+    standalone: false,
     template: `
         <app-docsectiontext>
             <p>Enable <i>closable</i> option to display an icon to remove a message.</p>

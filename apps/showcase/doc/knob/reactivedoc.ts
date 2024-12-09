@@ -3,6 +3,7 @@ import { Component } from '@angular/core';
 
 @Component({
     selector: 'reactive-doc',
+    standalone: false,
     template: `
         <app-docsectiontext>
             <p>Knob can be controlled with custom controls as well.</p>

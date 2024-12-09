@@ -10,6 +10,7 @@ interface PageEvent {
 
 @Component({
     selector: 'images-doc',
+    standalone: false,
     template: `
         <app-docsectiontext>
             <p>Sample image gallery implementation using paginator.</p>

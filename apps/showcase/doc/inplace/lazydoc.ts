@@ -5,6 +5,7 @@ import { Component } from '@angular/core';
 
 @Component({
     selector: 'lazy-doc',
+    standalone: false,
     template: `
         <app-docsectiontext>
             <p>Using the <i>onActivate</i> event, data can be loaded in a lazy manner before displaying it in a table.</p>

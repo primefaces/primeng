@@ -3,6 +3,7 @@ import { Component } from '@angular/core';
 
 @Component({
     selector: 'ngx-translate-doc',
+    standalone: false,
     template: `
         <app-docsectiontext>
             <p>The translations can be changed dynamically at runtime, here is an example with ngx-translate.</p>

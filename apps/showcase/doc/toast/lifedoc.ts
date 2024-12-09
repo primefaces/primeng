@@ -4,6 +4,7 @@ import { MessageService } from 'primeng/api';
 
 @Component({
     selector: 'life-doc',
+    standalone: false,
     template: `
         <app-docsectiontext>
             <p>A toast disappears after 3000ms by default, set the <i>life</i> option on either the message or toast to override this.</p>

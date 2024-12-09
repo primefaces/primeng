@@ -5,6 +5,7 @@ import { Component } from '@angular/core';
 
 @Component({
     selector: 'data-doc',
+    standalone: false,
     template: `
         <div class="card">
             <p-inplace>

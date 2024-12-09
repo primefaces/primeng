@@ -10,6 +10,7 @@ interface Column {
 
 @Component({
     selector: 'template-doc',
+    standalone: false,
     template: ` <app-docsectiontext>
             <p>Custom content at <i>header</i>, <i>body</i> and <i>footer</i> sections are supported via templating.</p>
         </app-docsectiontext>

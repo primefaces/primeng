@@ -10,6 +10,7 @@ interface Column {
 
 @Component({
     selector: 'sort-single-column-doc',
+    standalone: false,
     template: `
         <app-docsectiontext>
             <p>Sorting on a column is enabled by adding the <i>ttSortableColumn</i> property.</p>

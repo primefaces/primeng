@@ -3,6 +3,7 @@ import { Component } from '@angular/core';
 
 @Component({
     selector: 'size-doc',
+    standalone: false,
     template: `
         <app-docsectiontext>
             <p>Diameter of the knob is defined in pixels using the <i>size</i> property.</p>

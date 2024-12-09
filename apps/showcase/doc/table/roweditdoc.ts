@@ -6,6 +6,7 @@ import { MessageService, SelectItem } from 'primeng/api';
 
 @Component({
     selector: 'row-edit-doc',
+    standalone: false,
     template: ` <app-docsectiontext>
             <p>
                 Row editing toggles the visibility of all the editors in the row at once and provides additional options to save and cancel editing. Row editing functionality is enabled by setting the <i>editMode</i> to "row" on table, defining a

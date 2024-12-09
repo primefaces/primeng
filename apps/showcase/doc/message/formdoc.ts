@@ -3,6 +3,7 @@ import { Component } from '@angular/core';
 
 @Component({
     selector: 'form-doc',
+    standalone: false,
     template: `
         <app-docsectiontext>
             <p>Validation errors in a form are displayed with the <i>error</i> severity.</p>

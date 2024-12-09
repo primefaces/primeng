@@ -3,6 +3,7 @@ import { Component, OnInit } from '@angular/core';
 
 @Component({
     selector: 'datatable-doc',
+    standalone: false,
     template: `
         <app-docsectiontext>
             <p>Sample DataTable implementation using different Skeleton components and PrimeFlex CSS utilities.</p>

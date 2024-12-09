@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 
 @Component({
     selector: 'update-preset-doc',
+    standalone: false,
     template: `
         <app-docsectiontext>
             <p>Merges the provided tokens to the current preset, an example would be changing the primary color palette dynamically.</p>

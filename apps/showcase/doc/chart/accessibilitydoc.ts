@@ -3,6 +3,7 @@ import { Component } from '@angular/core';
 
 @Component({
     selector: 'chart-accessibility-doc',
+    standalone: false,
     template: ` <div>
         <app-docsectiontext>
             <div class="doc-section-description">

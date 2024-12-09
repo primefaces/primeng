@@ -4,6 +4,7 @@ import { MenuItem } from 'primeng/api';
 
 @Component({
     selector: 'button-doc',
+    standalone: false,
     template: `
         <app-docsectiontext>
             <p>Buttons can be placed at either side of an input element.</p>

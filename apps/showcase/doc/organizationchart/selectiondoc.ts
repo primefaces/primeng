@@ -4,6 +4,7 @@ import { TreeNode } from 'primeng/api';
 
 @Component({
     selector: 'selection-doc',
+    standalone: false,
     template: `
         <app-docsectiontext>
             <p>
