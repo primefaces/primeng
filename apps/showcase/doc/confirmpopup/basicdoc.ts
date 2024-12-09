@@ -4,6 +4,7 @@ import { ConfirmationService, MessageService } from 'primeng/api';
 
 @Component({
     selector: 'confirm-popup-basic-demo',
+    standalone: false,
     template: `
         <app-docsectiontext>
             <p>ConfirmPopup is defined using <i>p-confirmPopup</i> tag and an instance of <i>ConfirmationService</i> is required to display it bycalling confirm method.</p>

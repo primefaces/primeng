@@ -3,6 +3,7 @@ import { Component } from '@angular/core';
 
 @Component({
     selector: 'datepicker-time-demo',
+    standalone: false,
     template: `
         <app-docsectiontext>
             <p>A time picker is displayed when <i>showTime</i> is enabled where 12/24 hour format is configured with <i>hourFormat</i> property. In case, only time needs to be selected, add <i>timeOnly</i> to hide the date section.</p>

@@ -1,11 +1,12 @@
 import { CommonModule } from '@angular/common';
 import { ChangeDetectionStrategy, Component, Input, NgModule, ViewEncapsulation } from '@angular/core';
+import { DomSanitizer, SafeResourceUrl } from '@angular/platform-browser';
 import { SharedModule } from 'primeng/api';
 import { Dialog } from 'primeng/dialog';
-import { DomSanitizer, SafeResourceUrl } from '@angular/platform-browser';
 
 @Component({
     selector: 'template-youtube',
+    standalone: false,
     template: `
         <div class="template-youtube-wrapper">
             <div class="template-youtube">

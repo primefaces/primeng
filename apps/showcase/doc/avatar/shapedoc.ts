@@ -3,6 +3,7 @@ import { Component } from '@angular/core';
 
 @Component({
     selector: 'avatar-shape-demo',
+    standalone: false,
     template: `
         <app-docsectiontext>
             <p>Avatar comes in two different styles specified with the <i>shape</i> property, <i>square</i> is the default and <i>circle</i> is the alternative.</p>

@@ -8,6 +8,7 @@ interface AutoCompleteCompleteEvent {
 
 @Component({
     selector: 'autocomplete-virtual-scroll-demo',
+    standalone: false,
     template: ` <app-docsectiontext>
             <p>
                 Virtual scrolling is an efficient way of rendering the options by displaying a small subset of data in the viewport at any time. When dealing with huge number of options, it is suggested to enable virtual scrolling to avoid

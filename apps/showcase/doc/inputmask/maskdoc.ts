@@ -3,6 +3,7 @@ import { Component } from '@angular/core';
 
 @Component({
     selector: 'input-mask-mask-demo',
+    standalone: false,
     template: `
         <app-docsectiontext>
             <p>

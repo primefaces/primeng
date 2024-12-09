@@ -5,6 +5,7 @@ import { Component, inject, signal } from '@angular/core';
 
 @Component({
     selector: 'data-view-basic-demo',
+    standalone: false,
     template: `
         <app-docsectiontext>
             <p>DataView requires a value to display along with a <i>list</i> template that receives an object in the collection to return content.</p>

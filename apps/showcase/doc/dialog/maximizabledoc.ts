@@ -3,6 +3,7 @@ import { Component } from '@angular/core';
 
 @Component({
     selector: 'dialog-maximizable-demo',
+    standalone: false,
     template: `
         <app-docsectiontext>
             <p>Setting <i>maximizable</i> property to <i>true</i> enables the full screen mode.</p>

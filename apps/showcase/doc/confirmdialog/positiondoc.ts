@@ -4,6 +4,7 @@ import { ConfirmationService, MessageService } from 'primeng/api';
 
 @Component({
     selector: 'confirm-dialog-position-demo',
+    standalone: false,
     template: `
         <app-docsectiontext>
             <p>The <i>position</i> property of the confirm options is used to display a Dialog at all edges and corners of the screen.</p>

@@ -4,6 +4,7 @@ import { Component, OnInit } from '@angular/core';
 
 @Component({
     selector: 'galleria-caption-demo',
+    standalone: false,
     template: `
         <app-docsectiontext>
             <p>Description of an image is specified with the <i>caption</i> template.</p>

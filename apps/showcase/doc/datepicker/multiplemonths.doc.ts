@@ -3,6 +3,7 @@ import { Component } from '@angular/core';
 
 @Component({
     selector: 'datepicker-multiplemonths-demo',
+    standalone: false,
     template: `
         <app-docsectiontext>
             <p>Number of months to display is configured with the <i>numberOfMonths</i> property.</p>

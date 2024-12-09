@@ -3,6 +3,7 @@ import { Component } from '@angular/core';
 
 @Component({
     selector: 'dialog-position-demo',
+    standalone: false,
     template: `
         <app-docsectiontext>
             <p>The <i>position</i> property is used to display a Dialog at all edges and corners of the screen.</p>

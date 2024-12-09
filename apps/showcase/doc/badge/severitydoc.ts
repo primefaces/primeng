@@ -3,6 +3,7 @@ import { Component } from '@angular/core';
 
 @Component({
     selector: 'badge-severity-demo',
+    standalone: false,
     template: `
         <app-docsectiontext>
             <p>Severity defines the color of the badge, possible values are <i>success</i>, <i>info</i>, <i>warn</i> and <i>danger</i></p>

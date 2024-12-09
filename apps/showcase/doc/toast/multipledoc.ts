@@ -4,6 +4,7 @@ import { MessageService } from 'primeng/api';
 
 @Component({
     selector: 'toast-multiple-demo',
+    standalone: false,
     template: `
         <app-docsectiontext>
             <p>Multiple toasts are displayed by passing an array to the <i>showAll</i> method of the <i>messageService</i>.</p>

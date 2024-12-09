@@ -3,6 +3,7 @@ import { Component } from '@angular/core';
 
 @Component({
     selector: 'button-directive-demo',
+    standalone: false,
     template: `
         <app-docsectiontext>
             <p>

@@ -5,6 +5,7 @@ import { SharedModule } from 'primeng/api';
 
 @Component({
     selector: 'template-features',
+    standalone: false,
     template: `
         <div class="template-features">
             <ng-container *ngIf="displayType === 'horizontal'; else vertical">

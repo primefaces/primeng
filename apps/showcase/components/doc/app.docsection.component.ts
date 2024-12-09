@@ -3,6 +3,7 @@ import { ChangeDetectionStrategy, Component, Input } from '@angular/core';
 
 @Component({
     selector: 'app-docsection',
+    standalone: false,
     template: `
         <ng-container *ngIf="docs && docs.length">
             <section class="py-6" *ngFor="let doc of docs; trackBy: trackById">

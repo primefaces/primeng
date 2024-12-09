@@ -8,6 +8,7 @@ interface City {
 
 @Component({
     selector: 'select-loading-state-demo',
+    standalone: false,
     template: `
         <app-docsectiontext>
             <p>Loading state can be used <i>loading</i> property.</p>

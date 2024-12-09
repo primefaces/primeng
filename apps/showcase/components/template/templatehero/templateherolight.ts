@@ -4,6 +4,7 @@ import { SharedModule } from 'primeng/api';
 
 @Component({
     selector: 'template-hero-light',
+    standalone: false,
     template: `
         <svg width="490" height="143" viewBox="0 0 490 143" fill="none" xmlns="http://www.w3.org/2000/svg" class="template-hero-light">
             <g filter="url(#filter0_f_1970_42395)">

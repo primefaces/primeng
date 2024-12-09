@@ -5,6 +5,7 @@ import ThemeDoc from '@/doc/apidoc/themedoc.json';
 
 @Component({
     selector: 'app-docthemingsection',
+    standalone: false,
     template: `
         <div class="doc-main">
             <div class="doc-intro">

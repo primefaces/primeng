@@ -3,6 +3,7 @@ import { Component } from '@angular/core';
 
 @Component({
     selector: 'datepicker-disabled-demo',
+    standalone: false,
     template: `
         <app-docsectiontext>
             <p>When <i>disabled</i> is present, the element cannot be edited and focused.</p>

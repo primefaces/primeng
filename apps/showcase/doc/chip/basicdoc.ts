@@ -3,6 +3,7 @@ import { Component } from '@angular/core';
 
 @Component({
     selector: 'chip-basic-demo',
+    standalone: false,
     template: `
         <app-docsectiontext>
             <p>

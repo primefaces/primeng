@@ -3,6 +3,7 @@ import { Component, OnInit } from '@angular/core';
 
 @Component({
     selector: 'select-filter-demo',
+    standalone: false,
     template: `
         <app-docsectiontext>
             <p>Select provides built-in filtering that is enabled by adding the <i>filter</i> property.</p>

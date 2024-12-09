@@ -8,6 +8,7 @@ import { fromEvent } from 'rxjs';
 
 @Component({
     selector: 'app-docsection-nav',
+    standalone: false,
     template: `
         <ul #nav class="doc-section-nav">
             @for (doc of docs(); track doc.label) {

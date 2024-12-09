@@ -3,6 +3,7 @@ import { Component } from '@angular/core';
 
 @Component({
     selector: 'divider-basic-demo',
+    standalone: false,
     template: `
         <app-docsectiontext>
             <p>Divider is basically placed between the items to separate.</p>

@@ -9,6 +9,7 @@ interface AutoCompleteCompleteEvent {
 
 @Component({
     selector: 'autocomplete-objects-demo',
+    standalone: false,
     template: ` <app-docsectiontext>
             <p>
                 AutoComplete can also work with objects using the <i>field</i> property that defines the label to display as a suggestion. The value passed to the model would still be the object instance of a suggestion. Here is an example with a

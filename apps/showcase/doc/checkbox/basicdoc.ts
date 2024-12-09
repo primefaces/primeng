@@ -3,6 +3,7 @@ import { Component } from '@angular/core';
 
 @Component({
     selector: 'checkbox-basic-demo',
+    standalone: false,
     template: `
         <app-docsectiontext>
             <p>Binary checkbox is used as a controlled input with <i>ngModel</i> and <i>binary</i> properties.</p>

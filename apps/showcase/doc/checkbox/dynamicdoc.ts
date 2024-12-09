@@ -3,6 +3,7 @@ import { Component } from '@angular/core';
 
 @Component({
     selector: 'checkbox-dynamic-demo',
+    standalone: false,
     template: `
         <app-docsectiontext>
             <p>Checkboxes can be generated using a list of values.</p>

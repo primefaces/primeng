@@ -4,6 +4,7 @@ import { ScrollerOptions, SelectItem } from 'primeng/api';
 
 @Component({
     selector: 'select-lazy-virtualscroll-demo',
+    standalone: false,
     template: `
         <div class="card flex justify-center">
             <p-select [options]="items" [(ngModel)]="selectedItem" placeholder="Select Item" [virtualScroll]="true" [virtualScrollItemSize]="38" [virtualScrollOptions]="options" class="w-full md:w-56" />

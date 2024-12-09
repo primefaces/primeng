@@ -3,6 +3,7 @@ import { Component } from '@angular/core';
 
 @Component({
     selector: 'checkbox-label-demo',
+    standalone: false,
     template: `
         <app-docsectiontext>
             <p>The label attribute provides a label text for the checkbox. This label is also clickable and toggles the checked state.</p>

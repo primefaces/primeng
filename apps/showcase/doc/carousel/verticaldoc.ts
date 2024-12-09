@@ -5,6 +5,7 @@ import { ChangeDetectorRef, Component, OnInit } from '@angular/core';
 
 @Component({
     selector: 'carousel-vertical-demo',
+    standalone: false,
     template: `
         <app-docsectiontext>
             <p>To create a vertical Carousel, <i>orientation</i> needs to be set to <i>vertical</i> along with a <i>verticalViewPortHeight</i>.</p>

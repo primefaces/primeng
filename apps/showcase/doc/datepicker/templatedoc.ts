@@ -3,6 +3,7 @@ import { Component } from '@angular/core';
 
 @Component({
     selector: 'calendar-template-demo',
+    standalone: false,
     template: `
         <app-docsectiontext>
             <p>Calendar UI accepts custom content using <i>header</i> and <i>footer</i> templates.</p>

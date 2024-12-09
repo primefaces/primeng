@@ -6,6 +6,7 @@ import { TemplateHeroRectangleModule } from './templateherorectangle';
 
 @Component({
     selector: 'template-hero',
+    standalone: false,
     template: `
         <div class="w-full h-[56rem] md:h-[32rem] xl:h-[36.25rem] bg-primary rounded-3xl overflow-hidden relative">
             <ng-container *ngIf="!!templateHeroData?.pattern">

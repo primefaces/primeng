@@ -3,6 +3,7 @@ import { Component } from '@angular/core';
 
 @Component({
     selector: 'dialog-long-content-demo',
+    standalone: false,
     template: `
         <app-docsectiontext>
             <p>Dialog automatically displays a scroller when content exceeeds viewport.</p>

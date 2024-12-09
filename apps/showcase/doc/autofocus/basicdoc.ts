@@ -3,6 +3,7 @@ import { Component } from '@angular/core';
 
 @Component({
     selector: 'auto-focus-basic-demo',
+    standalone: false,
     template: `
         <app-docsectiontext>
             <p>AutoFocus is applied to any focusable input element on initial load. It's disabled by default and needs to be enabled manually.</p>
