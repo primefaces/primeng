@@ -24,7 +24,8 @@ import { Component, OnInit } from '@angular/core';
             </p-select>
         </div>
         <app-code [code]="code" selector="select-filter-demo"></app-code>
-    `
+    `,
+    standalone: false
 })
 export class FilterDoc implements OnInit {
     countries: any[] | undefined;

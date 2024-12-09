@@ -9,7 +9,6 @@ import { SortingDoc } from '@/doc/dataview/sortingdoc';
 import { Component } from '@angular/core';
 
 @Component({
-    standalone: true,
     imports: [DataViewDocModule],
     template: `
         <app-doc

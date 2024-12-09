@@ -32,7 +32,8 @@ interface City {
             </p-floatlabel>
         </div>
         <app-code [code]="code" selector="multi-select-floatlabel-demo"></app-code>
-    `
+    `,
+    standalone: false
 })
 export class FloatLabelDoc implements OnInit {
     cities!: City[];

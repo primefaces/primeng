@@ -39,7 +39,8 @@ import { Component } from '@angular/core';
                 <p-checkbox inputId="binary" [binary]="true"></p-checkbox>
             </div>
         </app-docsectiontext>
-    `
+    `,
+    standalone: false
 })
 export class WAIARIADoc {
     code1: Code = {

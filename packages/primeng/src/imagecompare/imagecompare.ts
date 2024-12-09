@@ -1,4 +1,4 @@
-import { CommonModule, isPlatformBrowser } from '@angular/common';
+import { CommonModule, isPlatformBrowser, NgTemplateOutlet } from '@angular/common';
 import { AfterContentInit, ChangeDetectionStrategy, Component, ContentChild, inject, Input, NgModule, TemplateRef, ViewEncapsulation } from '@angular/core';
 import { SharedModule } from 'primeng/api';
 import { BaseComponent } from 'primeng/basecomponent';
@@ -10,8 +10,7 @@ import { ImageCompareStyle } from './style/imagecomparestyle';
  */
 @Component({
     selector: 'p-imageCompare, p-imagecompare, p-image-compare',
-    standalone: true,
-    imports: [CommonModule, SharedModule],
+    imports: [NgTemplateOutlet, SharedModule],
     template: `
         <ng-template *ngTemplateOutlet="leftTemplate"></ng-template>
         <ng-template *ngTemplateOutlet="rightTemplate"></ng-template>

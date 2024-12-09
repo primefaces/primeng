@@ -26,7 +26,6 @@ import { Component } from '@angular/core';
         [apiDocs]="['TreeSelect', 'TreeNode']"
         themeDocs="treeselect"
     ></app-doc>`,
-    standalone: true,
     imports: [TreeSelectDocModule]
 })
 export class TreeSelectDemo {

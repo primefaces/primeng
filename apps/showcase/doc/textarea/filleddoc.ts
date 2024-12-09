@@ -11,7 +11,8 @@ import { Component } from '@angular/core';
             <textarea [(ngModel)]="value" [variant]="'filled'" rows="5" cols="30" pTextarea></textarea>
         </div>
         <app-code [code]="code" selector="input-textarea-filled-demo"></app-code>
-    `
+    `,
+    standalone: false
 })
 export class FilledDoc {
     value!: string;

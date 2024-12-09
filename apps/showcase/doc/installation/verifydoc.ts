@@ -15,7 +15,8 @@ import { Component } from '@angular/core';
         </div>
         <app-code [code]="code1" [hideStackBlitz]="true" [hideCodeSandbox]="true" [hideToggleCode]="true" class="block mb-4"></app-code>
         <app-code [code]="code2" [hideStackBlitz]="true" [hideCodeSandbox]="true" [hideToggleCode]="true"></app-code>
-    `
+    `,
+    standalone: false
 })
 export class VerifyDoc {
     code1: Code = {

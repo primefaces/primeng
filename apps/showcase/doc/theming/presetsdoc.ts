@@ -11,5 +11,6 @@ import { Component } from '@angular/core';
             </p>
         </app-docsectiontext>
     `
+    standalone: false
 })
 export class PresetsDoc {}

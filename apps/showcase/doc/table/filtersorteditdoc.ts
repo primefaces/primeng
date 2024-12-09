@@ -101,7 +101,8 @@ import { ChangeDetectionStrategy, ChangeDetectorRef, Component } from '@angular/
                 padding-bottom: 0 !important;
             }
         `
-    ]
+    ],
+    standalone: false
 })
 export class FilterSortEditDoc {
     products!: Product[];

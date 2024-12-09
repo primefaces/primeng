@@ -101,7 +101,8 @@ import { Router } from '@angular/router';
             }
         `
     ],
-    changeDetection: ChangeDetectionStrategy.OnPush
+    changeDetection: ChangeDetectionStrategy.OnPush,
+    standalone: false
 })
 export class AppDocApiTable {
     @Input() id: string;

@@ -12,7 +12,6 @@ import { Component } from '@angular/core';
 
 @Component({
     template: `<app-doc docTitle="Angular Speed Dial Component" header="Speed Dial" description="SpeedDial is a floating button with a popup menu." [docs]="docs" [apiDocs]="['SpeedDial']" themeDocs="speeddial"></app-doc>`,
-    standalone: true,
     imports: [SpeedDialDocModule],
     styleUrl: './speeddialdemo.scss'
 })

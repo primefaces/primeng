@@ -6,7 +6,6 @@ import { FormsModule } from '@angular/forms';
 
 @Component({
     selector: 'design-cs-list',
-    standalone: true,
     imports: [CommonModule, DesignTokenField, FormsModule, FieldsetModule],
     template: ` <p-fieldset legend="List" [toggleable]="true">
         <div class="text-sm mb-1 font-semibold text-surface-950 dark:text-surface-0">Option</div>

@@ -14,7 +14,6 @@ import { Component } from '@angular/core';
 
 @Component({
     template: `<app-doc docTitle="Angular Toast Component" header="Toast" description="Toast is used to display messages in an overlay." [docs]="docs" [apiDocs]="['Toast', 'ToastMessage']" themeDocs="toast"></app-doc> `,
-    standalone: true,
     imports: [ToastDocModule]
 })
 export class ToastDemo {

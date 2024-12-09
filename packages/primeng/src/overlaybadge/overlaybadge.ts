@@ -1,4 +1,3 @@
-import { CommonModule } from '@angular/common';
 import { booleanAttribute, ChangeDetectionStrategy, Component, inject, Input, NgModule, ViewEncapsulation } from '@angular/core';
 import { SharedModule } from 'primeng/api';
 import { BadgeModule } from 'primeng/badge';
@@ -11,8 +10,7 @@ import { OverlayBadgeStyle } from './style/overlaybadgestyle';
  */
 @Component({
     selector: 'p-overlayBadge, p-overlay-badge, p-overlaybadge',
-    standalone: true,
-    imports: [CommonModule, BadgeModule, SharedModule],
+    imports: [BadgeModule, SharedModule],
     template: `
         <div class="p-overlaybadge">
             <ng-content></ng-content>

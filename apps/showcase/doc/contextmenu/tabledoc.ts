@@ -9,6 +9,7 @@ import { Component } from '@angular/core';
                 <a [routerLink]="['/table']" fragment="context-menu">ContextMenu</a> demo for an example.
             </p>
         </app-docsectiontext>
-    `
+    `,
+    standalone: false
 })
 export class TableDoc {}

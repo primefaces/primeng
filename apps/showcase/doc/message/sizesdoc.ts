@@ -13,7 +13,8 @@ import { Component } from '@angular/core';
             <p-message size="large" icon="pi pi-check">Large Message</p-message>
         </div>
         <app-code [code]="code" selector="message-sizes-demo"></app-code>
-    `
+    `,
+    standalone: false
 })
 export class SizesDoc {
     code: Code = {

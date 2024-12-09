@@ -11,7 +11,8 @@ import { Component } from '@angular/core';
             <p-datepicker [(ngModel)]="date" [numberOfMonths]="2" />
         </div>
         <app-code [code]="code" selector="datepicker-multiplemonths-demo"></app-code>
-    `
+    `,
+    standalone: false
 })
 export class MultipleMonthDoc {
     date: Date[] | undefined;

@@ -33,6 +33,7 @@ import { Component } from '@angular/core';
                 </div>
             </div>
         </app-docsectiontext>
-    </div>`
+    </div>`,
+    standalone: false
 })
 export class AccessibilityDoc {}

@@ -19,7 +19,8 @@ interface City {
             </p-iftalabel>
         </div>
         <app-code [code]="code" selector="multi-select-iftalabel-demo"></app-code>
-    `
+    `,
+    standalone: false
 })
 export class IftaLabelDoc implements OnInit {
     cities!: City[];

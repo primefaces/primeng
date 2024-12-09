@@ -13,7 +13,8 @@ import { Component } from '@angular/core';
             <p-inputotp [(ngModel)]="value3" size="large" />
         </div>
         <app-code [code]="code" selector="input-otp-sizes-demo"></app-code>
-    `
+    `,
+    standalone: false
 })
 export class SizesDoc {
     value1: any;

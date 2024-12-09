@@ -19,7 +19,6 @@ import { Component } from '@angular/core';
         [apiDocs]="['RadioButton']"
         themeDocs="radiobutton"
     ></app-doc>`,
-    standalone: true,
     imports: [RadioButtonDocModule]
 })
 export class RadioButtonDemo {

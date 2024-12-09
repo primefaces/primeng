@@ -16,7 +16,8 @@ interface City {
             <p-multiselect [options]="cities" [(ngModel)]="selectedCities" [loading]="true" optionLabel="name" placeholder="Loading..." styleClass="w-full md:w-80" />
         </div>
         <app-code [code]="code" selector="multi-select-loading-state-demo"></app-code>
-    `
+    `,
+    standalone: false
 })
 export class LoadingStateDoc implements OnInit {
     cities!: City[];

@@ -25,7 +25,7 @@
     FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR
     OTHER DEALINGS IN THE SOFTWARE.
 */
-import { CommonModule, isPlatformBrowser } from '@angular/common';
+import { isPlatformBrowser, NgClass, NgStyle, NgTemplateOutlet } from '@angular/common';
 import { booleanAttribute, ChangeDetectionStrategy, Component, ContentChild, ElementRef, EventEmitter, forwardRef, inject, Input, NgModule, numberAttribute, OnInit, Output, TemplateRef, ViewChild, ViewEncapsulation } from '@angular/core';
 import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
 import { getUserAgent, isClient } from '@primeuix/utils';
@@ -49,8 +49,7 @@ export const INPUTMASK_VALUE_ACCESSOR: any = {
  */
 @Component({
     selector: 'p-inputmask, p-inputMask, p-input-mask',
-    standalone: true,
-    imports: [CommonModule, InputText, AutoFocus, TimesIcon, SharedModule],
+    imports: [NgClass, NgStyle, NgTemplateOutlet, InputText, AutoFocus, TimesIcon, SharedModule],
     template: `
         <input
             #input
@@ -84,12 +83,16 @@ export const INPUTMASK_VALUE_ACCESSOR: any = {
             [attr.data-pc-name]="'inputmask'"
             [attr.data-pc-section]="'root'"
         />
-        <ng-container *ngIf="value != null && filled && showClear && !disabled">
-            <TimesIcon *ngIf="!cleariconTemplate" [styleClass]="'p-inputmask-clear-icon'" (click)="clear()" [attr.data-pc-section]="'clearIcon'" />
-            <span *ngIf="cleariconTemplate" class="p-inputmask-clear-icon" (click)="clear()" [attr.data-pc-section]="'clearIcon'">
-                <ng-template *ngTemplateOutlet="cleariconTemplate"></ng-template>
-            </span>
-        </ng-container>
+        @if (value != null && filled && showClear && !disabled) {
+            @if (!cleariconTemplate) {
+                <TimesIcon [styleClass]="'p-inputmask-clear-icon'" (click)="clear()" [attr.data-pc-section]="'clearIcon'" />
+            }
+            @if (cleariconTemplate) {
+                <span class="p-inputmask-clear-icon" (click)="clear()" [attr.data-pc-section]="'clearIcon'">
+                    <ng-template *ngTemplateOutlet="cleariconTemplate"></ng-template>
+                </span>
+            }
+        }
     `,
     providers: [INPUTMASK_VALUE_ACCESSOR, InputMaskStyle],
     changeDetection: ChangeDetectionStrategy.OnPush,

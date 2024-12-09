@@ -17,7 +17,8 @@ interface AutoCompleteCompleteEvent {
                 <label for="ac">Identifier</label>
             </p-iftalabel>
         </div>
-        <app-code [code]="code" selector="autocomplete-ifta-label-demo"></app-code>`
+        <app-code [code]="code" selector="autocomplete-ifta-label-demo"></app-code>`,
+    standalone: false
 })
 export class IftaLabelDoc {
     items: any[] | undefined;

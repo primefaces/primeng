@@ -5,7 +5,8 @@ import { RenamedComponentsDoc } from '@/doc/guides/migration/renamedcomponentsdo
 import { Component } from '@angular/core';
 
 @Component({
-    template: ` <app-doc docTitle="Migration - PrimeNG" header="Migration" description="Migration guide to PrimeNG v18" [docs]="docs"></app-doc>`
+    template: ` <app-doc docTitle="Migration - PrimeNG" header="Migration" description="Migration guide to PrimeNG v18" [docs]="docs"></app-doc>`,
+    standalone: false
 })
 export class MigrationDemoComponent {
     docs = [

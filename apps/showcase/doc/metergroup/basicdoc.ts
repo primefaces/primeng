@@ -11,7 +11,8 @@ import { Component } from '@angular/core';
             <p-metergroup [value]="value" />
         </div>
         <app-code [code]="code" selector="meter-group-basic-demo"></app-code>
-    `
+    `,
+    standalone: false
 })
 export class BasicDoc {
     value = [{ label: 'Space used', value: 15, color: 'var(--p-primary-color)' }];

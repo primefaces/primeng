@@ -9,7 +9,6 @@ import { Component } from '@angular/core';
 
 @Component({
     template: `<app-doc docTitle="Angular Skeleton Component" header="Skeleton" description="Skeleton is a placeholder to display instead of the actual content." [docs]="docs" [apiDocs]="['Skeleton']" themeDocs="skeleton"></app-doc>`,
-    standalone: true,
     imports: [SkeletonDocModule],
     styleUrl: './skeletondemo.scss'
 })

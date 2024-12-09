@@ -54,7 +54,8 @@ interface NodeEvent {
         <app-code [code]="code" selector="tree-table-selection-events-demo"></app-code>
     `,
     providers: [MessageService],
-    changeDetection: ChangeDetectionStrategy.OnPush
+    changeDetection: ChangeDetectionStrategy.OnPush,
+    standalone: false
 })
 export class SelectionEventsDoc {
     files!: TreeNode[];

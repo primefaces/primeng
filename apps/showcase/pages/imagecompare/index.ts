@@ -7,7 +7,6 @@ import { ResponsiveDoc } from '@/doc/imagecompare/responsivedoc';
 
 @Component({
     template: `<app-doc docTitle="Angular ImageCompare Component" header="ImageCompare" description="Compare two images side by side with a slider." [docs]="docs" [apiDocs]="['ImageCompare']" themeDocs="imagecompare"></app-doc> `,
-    standalone: true,
     imports: [ImageCompareDocModule]
 })
 export class ImageCompareDemo {

@@ -52,7 +52,8 @@ import { Component } from '@angular/core';
             </p-stepper>
         </div>
         <app-code [code]="code" selector="stepper-basic-demo"></app-code>
-    `
+    `,
+    standalone: false
 })
 export class BasicDoc {
     code: Code = {

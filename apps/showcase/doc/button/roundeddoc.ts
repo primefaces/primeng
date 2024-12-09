@@ -18,7 +18,8 @@ import { Component } from '@angular/core';
             <p-button label="Contrast" [rounded]="true" severity="contrast" />
         </div>
         <app-code [code]="code" selector="button-rounded-demo"></app-code>
-    `
+    `,
+    standalone: false
 })
 export class RoundedDoc {
     code: Code = {

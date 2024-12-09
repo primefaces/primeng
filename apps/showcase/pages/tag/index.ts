@@ -10,7 +10,6 @@ import { Component } from '@angular/core';
 
 @Component({
     template: `<app-doc docTitle="Angular Tag Component" header="Tag" description="Tag component is used to categorize content." [docs]="docs" [apiDocs]="['Tag']" themeDocs="tag"></app-doc>`,
-    standalone: true,
     imports: [TagDocModule]
 })
 export class TagDemo {

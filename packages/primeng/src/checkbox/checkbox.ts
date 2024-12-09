@@ -1,4 +1,4 @@
-import { CommonModule } from '@angular/common';
+import { NgClass, NgTemplateOutlet } from '@angular/common';
 import {
     booleanAttribute,
     ChangeDetectionStrategy,
@@ -39,8 +39,7 @@ export const CHECKBOX_VALUE_ACCESSOR: any = {
  */
 @Component({
     selector: 'p-checkbox, p-checkBox, p-check-box',
-    standalone: true,
-    imports: [CommonModule, AutoFocus, CheckIcon, MinusIcon, SharedModule],
+    imports: [AutoFocus, CheckIcon, MinusIcon, SharedModule, NgTemplateOutlet, NgClass],
     template: `
         <div [style]="style" [class]="styleClass" [ngClass]="containerClass" [attr.data-p-highlight]="checked" [attr.data-p-checked]="checked" [attr.data-p-disabled]="disabled">
             <input
@@ -64,13 +63,19 @@ export const CHECKBOX_VALUE_ACCESSOR: any = {
                 (change)="handleChange($event)"
             />
             <div class="p-checkbox-box">
-                <ng-container *ngIf="!checkboxicon">
-                    <ng-container *ngIf="checked">
-                        <span *ngIf="checkboxIcon" class="p-checkbox-icon" [ngClass]="checkboxIcon" [attr.data-pc-section]="'icon'"></span>
-                        <CheckIcon *ngIf="!checkboxIcon" [styleClass]="'p-checkbox-icon'" [attr.data-pc-section]="'icon'" />
-                    </ng-container>
-                    <MinusIcon *ngIf="_indeterminate()" [styleClass]="'p-checkbox-icon'" [attr.data-pc-section]="'icon'" />
-                </ng-container>
+                @if (!checkboxicon) {
+                    @if (checked) {
+                        @if (checkboxIcon) {
+                            <span class="p-checkbox-icon" [ngClass]="checkboxIcon" [attr.data-pc-section]="'icon'"></span>
+                        }
+                        @if (!checkboxIcon) {
+                            <CheckIcon [styleClass]="'p-checkbox-icon'" [attr.data-pc-section]="'icon'" />
+                        }
+                    }
+                    @if (_indeterminate()) {
+                        <MinusIcon [styleClass]="'p-checkbox-icon'" [attr.data-pc-section]="'icon'" />
+                    }
+                }
                 <ng-template *ngTemplateOutlet="checkboxicon; context: { checked: checked, class: 'p-checkbox-icon' }"></ng-template>
             </div>
         </div>

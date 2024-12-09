@@ -24,7 +24,6 @@ import { Component } from '@angular/core';
         [apiDocs]="['SplitButton']"
         themeDocs="splitbutton"
     ></app-doc>`,
-    standalone: true,
     imports: [SplitButtonDocModule]
 })
 export class SplitButtonDemo {

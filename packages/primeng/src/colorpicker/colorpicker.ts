@@ -1,5 +1,5 @@
 import { animate, AnimationEvent, style, transition, trigger } from '@angular/animations';
-import { CommonModule, isPlatformBrowser } from '@angular/common';
+import { isPlatformBrowser, NgClass, NgStyle } from '@angular/common';
 import { booleanAttribute, ChangeDetectionStrategy, Component, ElementRef, EventEmitter, forwardRef, inject, Input, NgModule, numberAttribute, OnDestroy, Output, TemplateRef, ViewChild, ViewEncapsulation } from '@angular/core';
 import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
 import { absolutePosition, appendChild, isTouchDevice, relativePosition } from '@primeuix/utils';
@@ -23,8 +23,7 @@ export const COLORPICKER_VALUE_ACCESSOR: any = {
  */
 @Component({
     selector: 'p-colorPicker, p-colorpicker, p-color-picker',
-    standalone: true,
-    imports: [CommonModule, AutoFocusModule, SharedModule],
+    imports: [NgClass, NgStyle, AutoFocusModule, SharedModule],
     template: `
         <div
             #container
@@ -38,48 +37,50 @@ export const COLORPICKER_VALUE_ACCESSOR: any = {
             [attr.data-pc-name]="'colorpicker'"
             [attr.data-pc-section]="'root'"
         >
-            <input
-                *ngIf="!inline"
-                #input
-                type="text"
-                class="p-colorpicker-preview"
-                [ngClass]="{ 'p-disabled': disabled }"
-                readonly="readonly"
-                [attr.tabindex]="tabindex"
-                [disabled]="disabled"
-                (click)="onInputClick()"
-                (keydown)="onInputKeydown($event)"
-                (focus)="onInputFocus()"
-                [attr.id]="inputId"
-                [style.backgroundColor]="inputBgColor"
-                [attr.data-pc-section]="'input'"
-                [attr.aria-label]="ariaLabel"
-                [pAutoFocus]="autofocus"
-            />
-            <div
-                *ngIf="inline || overlayVisible"
-                [ngClass]="{ 'p-colorpicker-panel': true, 'p-colorpicker-panel-inline': inline, 'p-disabled': disabled }"
-                (click)="onOverlayClick($event)"
-                [@overlayAnimation]="{
-                    value: 'visible',
-                    params: { showTransitionParams: showTransitionOptions, hideTransitionParams: hideTransitionOptions }
-                }"
-                [@.disabled]="inline === true"
-                (@overlayAnimation.start)="onOverlayAnimationStart($event)"
-                (@overlayAnimation.done)="onOverlayAnimationEnd($event)"
-                [attr.data-pc-section]="'panel'"
-            >
-                <div class="p-colorpicker-content" [attr.data-pc-section]="'content'">
-                    <div #colorSelector class="p-colorpicker-color-selector" (touchstart)="onColorDragStart($event)" (touchmove)="onDrag($event)" (touchend)="onDragEnd()" (mousedown)="onColorMousedown($event)" [attr.data-pc-section]="'selector'">
-                        <div class="p-colorpicker-color-background" [attr.data-pc-section]="'color'">
-                            <div #colorHandle class="p-colorpicker-color-handle" [attr.data-pc-section]="'colorHandle'"></div>
+            @if (!inline) {
+                <input
+                    #input
+                    type="text"
+                    class="p-colorpicker-preview"
+                    [ngClass]="{ 'p-disabled': disabled }"
+                    readonly="readonly"
+                    [attr.tabindex]="tabindex"
+                    [disabled]="disabled"
+                    (click)="onInputClick()"
+                    (keydown)="onInputKeydown($event)"
+                    (focus)="onInputFocus()"
+                    [attr.id]="inputId"
+                    [style.backgroundColor]="inputBgColor"
+                    [attr.data-pc-section]="'input'"
+                    [attr.aria-label]="ariaLabel"
+                    [pAutoFocus]="autofocus"
+                />
+            }
+            @if (inline || overlayVisible) {
+                <div
+                    [ngClass]="{ 'p-colorpicker-panel': true, 'p-colorpicker-panel-inline': inline, 'p-disabled': disabled }"
+                    (click)="onOverlayClick($event)"
+                    [@overlayAnimation]="{
+                        value: 'visible',
+                        params: { showTransitionParams: showTransitionOptions, hideTransitionParams: hideTransitionOptions }
+                    }"
+                    [@.disabled]="inline === true"
+                    (@overlayAnimation.start)="onOverlayAnimationStart($event)"
+                    (@overlayAnimation.done)="onOverlayAnimationEnd($event)"
+                    [attr.data-pc-section]="'panel'"
+                >
+                    <div class="p-colorpicker-content" [attr.data-pc-section]="'content'">
+                        <div #colorSelector class="p-colorpicker-color-selector" (touchstart)="onColorDragStart($event)" (touchmove)="onDrag($event)" (touchend)="onDragEnd()" (mousedown)="onColorMousedown($event)" [attr.data-pc-section]="'selector'">
+                            <div class="p-colorpicker-color-background" [attr.data-pc-section]="'color'">
+                                <div #colorHandle class="p-colorpicker-color-handle" [attr.data-pc-section]="'colorHandle'"></div>
+                            </div>
+                        </div>
+                        <div #hue class="p-colorpicker-hue" (mousedown)="onHueMousedown($event)" (touchstart)="onHueDragStart($event)" (touchmove)="onDrag($event)" (touchend)="onDragEnd()" [attr.data-pc-section]="'hue'">
+                            <div #hueHandle class="p-colorpicker-hue-handle" [attr.data-pc-section]="'hueHandle'"></div>
                         </div>
                     </div>
-                    <div #hue class="p-colorpicker-hue" (mousedown)="onHueMousedown($event)" (touchstart)="onHueDragStart($event)" (touchmove)="onDrag($event)" (touchend)="onDragEnd()" [attr.data-pc-section]="'hue'">
-                        <div #hueHandle class="p-colorpicker-hue-handle" [attr.data-pc-section]="'hueHandle'"></div>
-                    </div>
                 </div>
-            </div>
+            }
         </div>
     `,
     animations: [trigger('overlayAnimation', [transition(':enter', [style({ opacity: 0, transform: 'scaleY(0.8)' }), animate('{{showTransitionParams}}')]), transition(':leave', [animate('{{hideTransitionParams}}', style({ opacity: 0 }))])])],

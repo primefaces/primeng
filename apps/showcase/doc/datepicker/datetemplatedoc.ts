@@ -16,7 +16,8 @@ import { Component } from '@angular/core';
             </p-datepicker>
         </div>
         <app-code [code]="code" selector="datepicker-datetemplate-demo"></app-code>
-    `
+    `,
+    standalone: false
 })
 export class DateTemplateDoc {
     date: Date[] | undefined;

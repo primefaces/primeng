@@ -24,7 +24,8 @@ import { Component } from '@angular/core';
             </p-scrollpanel>
         </div>
         <app-code [code]="code" selector="scroll-panel-basic-demo"></app-code>
-    `
+    `,
+    standalone: false
 })
 export class BasicDoc {
     code: Code = {

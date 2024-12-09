@@ -24,7 +24,8 @@ import { Component } from '@angular/core';
                 </ul>
             </div>
         </app-docsectiontext>
-    `
+    `,
+    standalone: false
 })
 export class ColorsDoc {
     shades = [50, 100, 200, 300, 400, 500, 600, 700, 800, 900, 950];

@@ -28,7 +28,8 @@ import { Component } from '@angular/core';
             </p-iconfield>
         </div>
         <app-code [code]="code" selector="iconfield-sizes-demo"></app-code>
-    `
+    `,
+    standalone: false
 })
 export class SizesDoc {
     value1 = null;

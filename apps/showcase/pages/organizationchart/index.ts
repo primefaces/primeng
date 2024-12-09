@@ -9,7 +9,6 @@ import { Component } from '@angular/core';
 
 @Component({
     template: ` <app-doc docTitle="Angular Organization Chart Component" header="OrganizationChart" description="OrganizationChart visualizes hierarchical organization data." [docs]="docs" [apiDocs]="['OrganizationChart']"></app-doc>`,
-    standalone: true,
     imports: [OrganizationChartDocModule],
     styleUrl: './organizationchartdemo.scss'
 })

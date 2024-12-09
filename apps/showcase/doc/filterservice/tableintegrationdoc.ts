@@ -31,7 +31,8 @@ import { FilterMatchMode, FilterService, SelectItem } from 'primeng/api';
         </div>
         <app-code [code]="code" selector="filter-service-table-integration-demo" [extFiles]="extFiles"></app-code>
     `,
-    providers: [FilterService]
+    providers: [FilterService],
+    standalone: false
 })
 export class TableIntegrationDoc implements OnInit {
     cars: Car[];

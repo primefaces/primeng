@@ -7,7 +7,6 @@ import { useCodeSandbox, useStackBlitz } from './codeeditor';
 
 @Component({
     selector: 'app-code',
-    standalone: true,
     imports: [CommonModule, ButtonModule, TooltipModule],
     template: `
         <div *ngIf="code" class="doc-section-code">

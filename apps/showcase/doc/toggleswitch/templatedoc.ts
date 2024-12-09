@@ -15,7 +15,8 @@ import { Component } from '@angular/core';
             </p-toggleswitch>
         </div>
         <app-code [code]="code" selector="toggle-switch-basic-demo"></app-code>
-    `
+    `,
+    standalone: false
 })
 export class TemplateDoc {
     checked: boolean = false;

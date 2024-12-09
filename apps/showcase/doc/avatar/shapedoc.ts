@@ -12,7 +12,8 @@ import { Component } from '@angular/core';
             <p-avatar label="T" />
         </div>
         <app-code [code]="code" selector="avatar-shape-demo"></app-code>
-    `
+    `,
+    standalone: false
 })
 export class ShapeDoc {
     code: Code = {

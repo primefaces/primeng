@@ -11,7 +11,8 @@ import { Component } from '@angular/core';
             <p-message>Message Content</p-message>
         </div>
         <app-code [code]="code" selector="message-basic-demo"></app-code>
-    `
+    `,
+    standalone: false
 })
 export class BasicDoc {
     code: Code = {

@@ -25,7 +25,8 @@ import { Component } from '@angular/core';
             </p-inputgroup>
         </div>
         <app-code [code]="code" selector="input-group-checkbox-demo"></app-code>
-    `
+    `,
+    standalone: false
 })
 export class CheckboxDoc {
     radioValue1: boolean = false;

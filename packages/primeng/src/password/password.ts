@@ -1,5 +1,5 @@
 import { animate, AnimationEvent, style, transition, trigger } from '@angular/animations';
-import { CommonModule, isPlatformBrowser } from '@angular/common';
+import { isPlatformBrowser, NgClass, NgStyle, NgTemplateOutlet } from '@angular/common';
 import {
     booleanAttribute,
     ChangeDetectionStrategy,
@@ -395,8 +395,7 @@ export const Password_VALUE_ACCESSOR: any = {
  */
 @Component({
     selector: 'p-password',
-    standalone: true,
-    imports: [CommonModule, InputText, AutoFocus, TimesIcon, EyeSlashIcon, EyeIcon, MapperPipe, SharedModule],
+    imports: [NgClass, NgStyle, NgTemplateOutlet, InputText, AutoFocus, TimesIcon, EyeSlashIcon, EyeIcon, MapperPipe, SharedModule],
     template: `
         <div [ngClass]="rootClass" [ngStyle]="style" [class]="styleClass" [attr.data-pc-name]="'password'" [attr.data-pc-section]="'root'">
             <input
@@ -424,55 +423,65 @@ export const Password_VALUE_ACCESSOR: any = {
                 [attr.data-pc-section]="'input'"
                 [pAutoFocus]="autofocus"
             />
-            <ng-container *ngIf="showClear && value != null">
-                <TimesIcon *ngIf="!cleariconTemplate" class="p-password-clear-icon" (click)="clear()" [attr.data-pc-section]="'clearIcon'" />
+            @if (showClear && value != null) {
+                @if (!cleariconTemplate) {
+                    <TimesIcon class="p-password-clear-icon" (click)="clear()" [attr.data-pc-section]="'clearIcon'" />
+                }
                 <span (click)="clear()" class="p-password-clear-icon" [attr.data-pc-section]="'clearIcon'">
                     <ng-template *ngTemplateOutlet="cleariconTemplate"></ng-template>
                 </span>
-            </ng-container>
+            }
 
-            <ng-container *ngIf="toggleMask">
-                <ng-container *ngIf="unmasked">
-                    <EyeSlashIcon class="p-password-toggle-mask-icon p-password-mask-icon" *ngIf="!hideiconTemplate" (click)="onMaskToggle()" [attr.data-pc-section]="'hideIcon'" />
-                    <span *ngIf="hideiconTemplate" (click)="onMaskToggle()">
-                        <ng-template *ngTemplateOutlet="hideiconTemplate; context: { class: 'p-password-toggle-mask-icon p-password-mask-icon' }"></ng-template>
-                    </span>
-                </ng-container>
-                <ng-container *ngIf="!unmasked">
-                    <EyeIcon *ngIf="!showiconTemplate" class="p-password-toggle-mask-icon p-password-mask-icon" (click)="onMaskToggle()" [attr.data-pc-section]="'showIcon'" />
-                    <span *ngIf="showiconTemplate" (click)="onMaskToggle()">
-                        <ng-template *ngTemplateOutlet="showiconTemplate"></ng-template>
-                    </span>
-                </ng-container>
-            </ng-container>
+            @if (toggleMask) {
+                @if (unmasked) {
+                    @if (!hideiconTemplate) {
+                        <EyeSlashIcon class="p-password-toggle-mask-icon p-password-mask-icon" (click)="onMaskToggle()" [attr.data-pc-section]="'hideIcon'" />
+                    }
+                    @if (hideiconTemplate) {
+                        <span (click)="onMaskToggle()">
+                            <ng-template *ngTemplateOutlet="hideiconTemplate; context: { class: 'p-password-toggle-mask-icon p-password-mask-icon' }"></ng-template>
+                        </span>
+                    }
+                }
+                @if (!unmasked) {
+                    @if (!showiconTemplate) {
+                        <EyeIcon class="p-password-toggle-mask-icon p-password-mask-icon" (click)="onMaskToggle()" [attr.data-pc-section]="'showIcon'" />
+                    }
+                    @if (showiconTemplate) {
+                        <span (click)="onMaskToggle()">
+                            <ng-template *ngTemplateOutlet="showiconTemplate"></ng-template>
+                        </span>
+                    }
+                }
+            }
 
-            <div
-                #overlay
-                *ngIf="overlayVisible"
-                class="p-password-overlay p-component"
-                (click)="onOverlayClick($event)"
-                [@overlayAnimation]="{
-                    value: 'visible',
-                    params: { showTransitionParams: showTransitionOptions, hideTransitionParams: hideTransitionOptions }
-                }"
-                (@overlayAnimation.start)="onAnimationStart($event)"
-                (@overlayAnimation.done)="onAnimationEnd($event)"
-                [attr.data-pc-section]="'panel'"
-            >
-                <ng-container *ngTemplateOutlet="headerTemplate"></ng-container>
-                <ng-container *ngIf="contentTemplate; else content">
-                    <ng-container *ngTemplateOutlet="contentTemplate"></ng-container>
-                </ng-container>
-                <ng-template #content>
-                    <div class="p-password-content">
-                        <div class="p-password-meter" [attr.data-pc-section]="'meter'">
-                            <div [ngClass]="meter | mapper: strengthClass" [ngStyle]="{ width: meter ? meter.width : '' }" [attr.data-pc-section]="'meterLabel'"></div>
+            @if (overlayVisible) {
+                <div
+                    #overlay
+                    class="p-password-overlay p-component"
+                    (click)="onOverlayClick($event)"
+                    [@overlayAnimation]="{
+                        value: 'visible',
+                        params: { showTransitionParams: showTransitionOptions, hideTransitionParams: hideTransitionOptions }
+                    }"
+                    (@overlayAnimation.start)="onAnimationStart($event)"
+                    (@overlayAnimation.done)="onAnimationEnd($event)"
+                    [attr.data-pc-section]="'panel'"
+                >
+                    <ng-container *ngTemplateOutlet="headerTemplate"></ng-container>
+                    @if (contentTemplate) {
+                        <ng-container *ngTemplateOutlet="contentTemplate"></ng-container>
+                    } @else {
+                        <div class="p-password-content">
+                            <div class="p-password-meter" [attr.data-pc-section]="'meter'">
+                                <div [ngClass]="meter | mapper: strengthClass" [ngStyle]="{ width: meter ? meter.width : '' }" [attr.data-pc-section]="'meterLabel'"></div>
+                            </div>
+                            <div class="p-password-meter-text" [attr.data-pc-section]="'info'">{{ infoText }}</div>
                         </div>
-                        <div class="p-password-meter-text" [attr.data-pc-section]="'info'">{{ infoText }}</div>
-                    </div>
-                </ng-template>
-                <ng-container *ngTemplateOutlet="footerTemplate"></ng-container>
-            </div>
+                    }
+                    <ng-container *ngTemplateOutlet="footerTemplate"></ng-container>
+                </div>
+            }
         </div>
     `,
     animations: [trigger('overlayAnimation', [transition(':enter', [style({ opacity: 0, transform: 'scaleY(0.8)' }), animate('{{showTransitionParams}}')]), transition(':leave', [animate('{{hideTransitionParams}}', style({ opacity: 0 }))])])],

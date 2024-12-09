@@ -1,4 +1,4 @@
-import { CommonModule } from '@angular/common';
+import { NgClass, NgStyle, NgTemplateOutlet } from '@angular/common';
 import { AfterContentInit, booleanAttribute, ChangeDetectionStrategy, Component, ContentChild, ElementRef, EventEmitter, forwardRef, inject, Input, NgModule, numberAttribute, Output, TemplateRef, ViewChild, ViewEncapsulation } from '@angular/core';
 import { NG_VALUE_ACCESSOR } from '@angular/forms';
 import { SharedModule } from 'primeng/api';
@@ -27,8 +27,7 @@ export const TOGGLESWITCH_VALUE_ACCESSOR: any = {
  */
 @Component({
     selector: 'p-toggleswitch, p-toggleSwitch, p-toggle-switch',
-    standalone: true,
-    imports: [CommonModule, AutoFocus, SharedModule],
+    imports: [NgClass, NgStyle, NgTemplateOutlet, AutoFocus, SharedModule],
     template: `
         <div [ngClass]="cx('root')" [style]="sx('root')" [ngStyle]="style" [class]="styleClass" (click)="onClick($event)" [attr.data-pc-name]="'toggleswitch'" [attr.data-pc-section]="'root'">
             <input

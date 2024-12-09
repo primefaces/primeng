@@ -38,7 +38,8 @@ import { MenuItem } from 'primeng/api';
             </p-tieredMenu>
         </div>
         <app-code [code]="code" selector="tiered-menu-router-demo"></app-code>
-    `
+    `,
+    standalone: false
 })
 export class RouterDoc implements OnInit {
     items: MenuItem[] | undefined;

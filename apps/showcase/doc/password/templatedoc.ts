@@ -24,7 +24,8 @@ import { Component } from '@angular/core';
             </p-password>
         </div>
         <app-code [code]="code" selector="password-template-demo"></app-code>
-    `
+    `,
+    standalone: false
 })
 export class TemplateDoc {
     value!: string;

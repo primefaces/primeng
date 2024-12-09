@@ -16,7 +16,8 @@ import { Component } from '@angular/core';
             <p-message severity="contrast" variant="simple">Contrast Message</p-message>
         </div>
         <app-code [code]="code" selector="message-simple-demo"></app-code>
-    `
+    `,
+    standalone: false
 })
 export class SimpleDoc {
     code: Code = {

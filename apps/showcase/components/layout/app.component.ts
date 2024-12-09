@@ -15,7 +15,6 @@ import { AppDesignerComponent } from './designer/app.designer.component';
 @Component({
     selector: 'app-root',
     template: `<app-designer /> <router-outlet></router-outlet>`,
-    standalone: true,
     imports: [RouterOutlet, FormsModule, ReactiveFormsModule, HttpClientModule, AppDesignerComponent],
     providers: [
         CarService,

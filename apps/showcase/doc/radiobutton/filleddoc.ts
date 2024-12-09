@@ -11,7 +11,8 @@ import { Component } from '@angular/core';
             <p-radiobutton [(ngModel)]="checked" variant="filled" />
         </div>
         <app-code [code]="code" selector="radio-button-filled-demo"></app-code>
-    `
+    `,
+    standalone: false
 })
 export class FilledDoc {
     checked: boolean = false;

@@ -26,7 +26,8 @@ import { ChangeDetectorRef, Component, OnInit } from '@angular/core';
                 }
             }
         `
-    ]
+    ],
+    standalone: false
 })
 export class BasicDoc implements OnInit {
     products!: Product[];

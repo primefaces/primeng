@@ -10,7 +10,6 @@ import { TemplateDoc } from '@/doc/contextmenu/templatedoc';
 import { Component } from '@angular/core';
 
 @Component({
-    standalone: true,
     imports: [ContextMenuDocModule],
     template: `
         <app-doc docTitle="Angular ContextMenu Component" header="ContextMenu" description="ContextMenu displays an overlay menu on right click of its target." [docs]="docs" [apiDocs]="['ContextMenu', 'MenuItem']" themeDocs="contextmenu"></app-doc>

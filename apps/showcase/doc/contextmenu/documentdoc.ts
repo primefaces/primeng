@@ -13,7 +13,8 @@ import { MenuItem } from 'primeng/api';
             <p-contextmenu [model]="items" [global]="true" />
         </div>
         <app-code [code]="code" selector="context-menu-document-demo"></app-code>
-    `
+    `,
+    standalone: false
 })
 export class DocumentDoc implements OnInit {
     items: MenuItem[] | undefined;

@@ -22,7 +22,8 @@ import { Component } from '@angular/core';
             </p>
             <app-code [code]="code3" selector="options-demo-3" [hideToggleCode]="true"></app-code>
         </app-docsectiontext>
-    `
+    `,
+    standalone: false
 })
 export class OptionsDoc {
     code1 = {

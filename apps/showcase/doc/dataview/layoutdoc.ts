@@ -89,7 +89,8 @@ import { Component, signal } from '@angular/core';
             </p-dataview>
         </div>
         <app-code [code]="code" selector="data-view-layout-demo" [extFiles]="extFiles"></app-code>
-    `
+    `,
+    standalone: false
 })
 export class LayoutDoc {
     layout: 'grid' | 'list' = 'grid';

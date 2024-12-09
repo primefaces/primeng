@@ -8,7 +8,6 @@ import { TemplateDoc } from '@/doc/fileupload/templatedoc';
 import { Component } from '@angular/core';
 
 @Component({
-    standalone: true,
     imports: [FileUploadDocModule],
     template: ` <app-doc
         docTitle="Angular FileUpload Component"

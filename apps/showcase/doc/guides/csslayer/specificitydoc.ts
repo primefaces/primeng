@@ -30,7 +30,8 @@ import { Component, ViewEncapsulation } from '@angular/core';
         .my-inputswitch .p-inputswitch-slider:before {
             border-radius: 0;
         }
-    `
+    `,
+    standalone: false
 })
 export class SpecificityDoc {
     checked: boolean = false;

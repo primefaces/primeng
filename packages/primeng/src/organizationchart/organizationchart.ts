@@ -1,5 +1,6 @@
 import { animate, state, style, transition, trigger } from '@angular/animations';
-import { CommonModule } from '@angular/common';
+
+import { NgClass, NgStyle, NgTemplateOutlet } from '@angular/common';
 import {
     AfterContentInit,
     booleanAttribute,
@@ -30,72 +31,86 @@ import { OrganizationChartStyle } from './style/organizationchartstyle';
 
 @Component({
     selector: '[pOrganizationChartNode]',
-    standalone: true,
-    imports: [CommonModule, ChevronDownIcon, ChevronUpIcon, SharedModule],
+    imports: [ChevronDownIcon, ChevronUpIcon, SharedModule, NgClass, NgStyle, NgTemplateOutlet],
     template: `
-        <tbody *ngIf="node" [attr.data-pc-section]="'body'">
-            <tr [attr.data-pc-section]="'row'">
-                <td [attr.colspan]="colspan" [attr.data-pc-section]="'cell'">
-                    <div
-                        [class]="node.styleClass"
-                        [ngClass]="{
-                            'p-organizationchart-node': true,
-                            'p-organizationchart-node-selectable': chart.selectionMode && node.selectable !== false,
-                            'p-organizationchart-node-selected': isSelected()
-                        }"
-                        (click)="onNodeClick($event, node)"
-                        [attr.data-pc-section]="'node'"
-                    >
-                        <div *ngIf="!chart.getTemplateForNode(node)">{{ node.label }}</div>
-                        <div *ngIf="chart.getTemplateForNode(node)">
-                            <ng-container *ngTemplateOutlet="chart.getTemplateForNode(node); context: { $implicit: node }"></ng-container>
+        @if (node) {
+            <tbody [attr.data-pc-section]="'body'">
+                <tr [attr.data-pc-section]="'row'">
+                    <td [attr.colspan]="colspan" [attr.data-pc-section]="'cell'">
+                        <div
+                            [class]="node.styleClass"
+                            [ngClass]="{
+                                'p-organizationchart-node': true,
+                                'p-organizationchart-node-selectable': chart.selectionMode && node.selectable !== false,
+                                'p-organizationchart-node-selected': isSelected()
+                            }"
+                            (click)="onNodeClick($event, node)"
+                            [attr.data-pc-section]="'node'"
+                        >
+                            @if (!chart.getTemplateForNode(node)) {
+                                <div>{{ node.label }}</div>
+                            }
+                            @if (chart.getTemplateForNode(node)) {
+                                <div>
+                                    <ng-container *ngTemplateOutlet="chart.getTemplateForNode(node); context: { $implicit: node }"></ng-container>
+                                </div>
+                            }
+                            @if (collapsible) {
+                                @if (!leaf) {
+                                    <a
+                                        tabindex="0"
+                                        class="p-organizationchart-node-toggle-button"
+                                        (click)="toggleNode($event, node)"
+                                        (keydown.enter)="toggleNode($event, node)"
+                                        (keydown.space)="toggleNode($event, node)"
+                                        [attr.data-pc-section]="'nodeToggler'"
+                                    >
+                                        @if (!chart.togglerIconTemplate) {
+                                            @if (node.expanded) {
+                                                <ChevronDownIcon [styleClass]="'p-organizationchart-node-toggle-button-icon'" [attr.data-pc-section]="'nodeTogglerIcon'" />
+                                            }
+                                            @if (!node.expanded) {
+                                                <ChevronUpIcon [styleClass]="'p-organizationchart-node-toggle-button-icon'" [attr.data-pc-section]="'nodeTogglerIcon'" />
+                                            }
+                                        }
+                                        @if (chart.togglerIconTemplate) {
+                                            <span class="p-organizationchart-node-toggle-button-icon" [attr.data-pc-section]="'nodeTogglerIcon'">
+                                                <ng-template *ngTemplateOutlet="chart.togglerIconTemplate; context: { $implicit: node.expanded }"></ng-template>
+                                            </span>
+                                        }
+                                    </a>
+                                }
+                            }
                         </div>
-                        <ng-container *ngIf="collapsible">
-                            <a
-                                *ngIf="!leaf"
-                                tabindex="0"
-                                class="p-organizationchart-node-toggle-button"
-                                (click)="toggleNode($event, node)"
-                                (keydown.enter)="toggleNode($event, node)"
-                                (keydown.space)="toggleNode($event, node)"
-                                [attr.data-pc-section]="'nodeToggler'"
-                            >
-                                <ng-container *ngIf="!chart.togglerIconTemplate">
-                                    <ChevronDownIcon *ngIf="node.expanded" [styleClass]="'p-organizationchart-node-toggle-button-icon'" [attr.data-pc-section]="'nodeTogglerIcon'" />
-                                    <ChevronUpIcon *ngIf="!node.expanded" [styleClass]="'p-organizationchart-node-toggle-button-icon'" [attr.data-pc-section]="'nodeTogglerIcon'" />
-                                </ng-container>
-                                <span class="p-organizationchart-node-toggle-button-icon" *ngIf="chart.togglerIconTemplate" [attr.data-pc-section]="'nodeTogglerIcon'">
-                                    <ng-template *ngTemplateOutlet="chart.togglerIconTemplate; context: { $implicit: node.expanded }"></ng-template>
-                                </span>
-                            </a>
-                        </ng-container>
-                    </div>
-                </td>
-            </tr>
-            <tr [ngStyle]="getChildStyle(node)" class="p-organizationchart-connectors" [@childState]="'in'" [attr.data-pc-section]="'lines'">
-                <td [attr.data-pc-section]="'lineCell'" [attr.colspan]="colspan">
-                    <div [attr.data-pc-section]="'lineDown'" class="p-organizationchart-connector-down"></div>
-                </td>
-            </tr>
-            <tr [ngStyle]="getChildStyle(node)" class="p-organizationchart-connectors" [@childState]="'in'" [attr.data-pc-section]="'lines'">
-                <ng-container *ngIf="node.children && node.children.length === 1">
+                    </td>
+                </tr>
+                <tr [ngStyle]="getChildStyle(node)" class="p-organizationchart-connectors" [@childState]="'in'" [attr.data-pc-section]="'lines'">
                     <td [attr.data-pc-section]="'lineCell'" [attr.colspan]="colspan">
                         <div [attr.data-pc-section]="'lineDown'" class="p-organizationchart-connector-down"></div>
                     </td>
-                </ng-container>
-                <ng-container *ngIf="node.children && node.children.length > 1">
-                    <ng-template ngFor let-child [ngForOf]="node.children" let-first="first" let-last="last">
-                        <td [attr.data-pc-section]="'lineLeft'" class="p-organizationchart-connector-left" [ngClass]="{ 'p-organizationchart-connector-top': !first }">&nbsp;</td>
-                        <td [attr.data-pc-section]="'lineRight'" class="p-organizationchart-connector-right" [ngClass]="{ 'p-organizationchart-connector-top': !last }">&nbsp;</td>
-                    </ng-template>
-                </ng-container>
-            </tr>
-            <tr [ngStyle]="getChildStyle(node)" class="p-organizationchart-node-children" [@childState]="'in'" [attr.data-pc-section]="'nodes'">
-                <td *ngFor="let child of node.children" colspan="2" [attr.data-pc-section]="'nodeCell'">
-                    <table class="p-organizationchart-table" pOrganizationChartNode [node]="child" [collapsible]="node.children && node.children.length > 0 && collapsible"></table>
-                </td>
-            </tr>
-        </tbody>
+                </tr>
+                <tr [ngStyle]="getChildStyle(node)" class="p-organizationchart-connectors" [@childState]="'in'" [attr.data-pc-section]="'lines'">
+                    @if (node.children && node.children.length === 1) {
+                        <td [attr.data-pc-section]="'lineCell'" [attr.colspan]="colspan">
+                            <div [attr.data-pc-section]="'lineDown'" class="p-organizationchart-connector-down"></div>
+                        </td>
+                    }
+                    @if (node.children && node.children.length > 1) {
+                        @for (child of node.children; track child; let first = $first; let last = $last) {
+                            <td [attr.data-pc-section]="'lineLeft'" class="p-organizationchart-connector-left" [ngClass]="{ 'p-organizationchart-connector-top': !first }">&nbsp;</td>
+                            <td [attr.data-pc-section]="'lineRight'" class="p-organizationchart-connector-right" [ngClass]="{ 'p-organizationchart-connector-top': !last }">&nbsp;</td>
+                        }
+                    }
+                </tr>
+                <tr [ngStyle]="getChildStyle(node)" class="p-organizationchart-node-children" [@childState]="'in'" [attr.data-pc-section]="'nodes'">
+                    @for (child of node.children; track child) {
+                        <td colspan="2" [attr.data-pc-section]="'nodeCell'">
+                            <table class="p-organizationchart-table" pOrganizationChartNode [node]="child" [collapsible]="node.children && node.children.length > 0 && collapsible"></table>
+                        </td>
+                    }
+                </tr>
+            </tbody>
+        }
     `,
     animations: [trigger('childState', [state('in', style({ opacity: 1 })), transition('void => *', [style({ opacity: 0 }), animate(150)]), transition('* => void', [animate(150, style({ opacity: 0 }))])])],
     encapsulation: ViewEncapsulation.None,
@@ -170,11 +185,12 @@ export class OrganizationChartNode implements OnDestroy {
  */
 @Component({
     selector: 'p-organizationChart, p-organization-chart, p-organizationchart',
-    standalone: true,
-    imports: [CommonModule, OrganizationChartNode, ChevronDownIcon, ChevronUpIcon, SharedModule],
+    imports: [OrganizationChartNode, ChevronDownIcon, ChevronUpIcon, SharedModule, NgStyle, NgClass],
     template: `
         <div [ngStyle]="style" [class]="styleClass" [ngClass]="{ 'p-organizationchart p-component': true, 'p-organizationchart-preservespace': preserveSpace }" [attr.data-pc-section]="'root'">
-            <table class="p-organizationchart-table" [collapsible]="collapsible" pOrganizationChartNode [node]="root" *ngIf="root"></table>
+            @if (root) {
+                <table class="p-organizationchart-table" [collapsible]="collapsible" pOrganizationChartNode [node]="root"></table>
+            }
         </div>
     `,
     changeDetection: ChangeDetectionStrategy.Default,

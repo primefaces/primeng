@@ -27,7 +27,8 @@ import { Component } from '@angular/core';
             </p-card>
         </div>
         <app-code [code]="code" selector="card-advanced-demo"></app-code>
-    `
+    `,
+    standalone: false
 })
 export class AdvancedDoc {
     code: Code = {

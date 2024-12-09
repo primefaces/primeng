@@ -1,5 +1,5 @@
 import { animate, state, style, transition, trigger } from '@angular/animations';
-import { CommonModule } from '@angular/common';
+import { NgClass, NgStyle, NgTemplateOutlet } from '@angular/common';
 import { booleanAttribute, ChangeDetectionStrategy, Component, ContentChild, EventEmitter, inject, Input, NgModule, Output, TemplateRef, ViewEncapsulation } from '@angular/core';
 import { uuid } from '@primeuix/utils';
 import { BlockableUI, Footer, SharedModule } from 'primeng/api';
@@ -52,8 +52,7 @@ export interface PanelHeaderIconsTemplateContext {
  */
 @Component({
     selector: 'p-panel',
-    standalone: true,
-    imports: [CommonModule, Ripple, PlusIcon, MinusIcon, ButtonModule, SharedModule],
+    imports: [NgClass, NgStyle, NgTemplateOutlet, Ripple, PlusIcon, MinusIcon, ButtonModule, SharedModule],
     template: `
         <div
             [attr.id]="id"
@@ -66,51 +65,62 @@ export interface PanelHeaderIconsTemplateContext {
             [ngStyle]="style"
             [class]="styleClass"
         >
-            <div class="p-panel-header" *ngIf="showHeader" (click)="onHeaderClick($event)" [attr.id]="id + '-titlebar'">
-                <span class="p-panel-title" *ngIf="_header" [attr.id]="id + '_header'">{{ _header }}</span>
-                <ng-content select="p-header"></ng-content>
-                <ng-container *ngTemplateOutlet="headerTemplate"></ng-container>
-                <div
-                    class="p-panel-icons"
-                    [ngClass]="{
-                        'p-panel-icons-start': iconPos === 'start',
-                        'p-panel-icons-end': iconPos === 'end',
-                        'p-panel-icons-center': iconPos === 'center'
-                    }"
-                >
-                    <ng-template *ngTemplateOutlet="iconTemplate"></ng-template>
-                    <p-button
-                        *ngIf="toggleable"
-                        [attr.id]="id + '_header'"
-                        severity="secondary"
-                        [text]="true"
-                        [rounded]="true"
-                        type="button"
-                        role="button"
-                        styleClass="p-panel-header-icon p-panel-toggler p-link"
-                        [attr.aria-label]="buttonAriaLabel"
-                        [attr.aria-controls]="id + '_content'"
-                        [attr.aria-expanded]="!collapsed"
-                        (click)="onIconClick($event)"
-                        (keydown)="onKeyDown($event)"
-                        [buttonProps]="toggleButtonProps"
+            @if (showHeader) {
+                <div class="p-panel-header" (click)="onHeaderClick($event)" [attr.id]="id + '-titlebar'">
+                    @if (_header) {
+                        <span class="p-panel-title" [attr.id]="id + '_header'">{{ _header }}</span>
+                    }
+                    <ng-content select="p-header"></ng-content>
+                    <ng-container *ngTemplateOutlet="headerTemplate"></ng-container>
+                    <div
+                        class="p-panel-icons"
+                        [ngClass]="{
+                            'p-panel-icons-start': iconPos === 'start',
+                            'p-panel-icons-end': iconPos === 'end',
+                            'p-panel-icons-center': iconPos === 'center'
+                        }"
                     >
-                        <ng-container *ngIf="!headericonsTemplate && !toggleButtonProps?.icon">
-                            <ng-container *ngIf="!collapsed">
-                                <span *ngIf="expandIcon" [class]="expandIcon"></span>
-                                <MinusIcon *ngIf="!expandIcon" />
-                            </ng-container>
-
-                            <ng-container *ngIf="collapsed">
-                                <span *ngIf="collapseIcon" [class]="collapseIcon"></span>
-                                <PlusIcon *ngIf="!collapseIcon" />
-                            </ng-container>
-                        </ng-container>
-
-                        <ng-template *ngTemplateOutlet="headericonsTemplate; context: { $implicit: collapsed }"></ng-template>
-                    </p-button>
+                        <ng-template *ngTemplateOutlet="iconTemplate"></ng-template>
+                        @if (toggleable) {
+                            <p-button
+                                [attr.id]="id + '_header'"
+                                severity="secondary"
+                                [text]="true"
+                                [rounded]="true"
+                                type="button"
+                                role="button"
+                                styleClass="p-panel-header-icon p-panel-toggler p-link"
+                                [attr.aria-label]="buttonAriaLabel"
+                                [attr.aria-controls]="id + '_content'"
+                                [attr.aria-expanded]="!collapsed"
+                                (click)="onIconClick($event)"
+                                (keydown)="onKeyDown($event)"
+                                [buttonProps]="toggleButtonProps"
+                            >
+                                @if (!headericonsTemplate && !toggleButtonProps?.icon) {
+                                    @if (!collapsed) {
+                                        @if (expandIcon) {
+                                            <span [class]="expandIcon"></span>
+                                        }
+                                        @if (!expandIcon) {
+                                            <MinusIcon />
+                                        }
+                                    }
+                                    @if (collapsed) {
+                                        @if (collapseIcon) {
+                                            <span [class]="collapseIcon"></span>
+                                        }
+                                        @if (!collapseIcon) {
+                                            <PlusIcon />
+                                        }
+                                    }
+                                }
+                                <ng-template *ngTemplateOutlet="headericonsTemplate; context: { $implicit: collapsed }"></ng-template>
+                            </p-button>
+                        }
+                    </div>
                 </div>
-            </div>
+            }
             <div
                 class="p-panel-content-container"
                 [id]="id + '_content'"
@@ -144,10 +154,12 @@ export interface PanelHeaderIconsTemplateContext {
                     <ng-container *ngTemplateOutlet="contentTemplate"></ng-container>
                 </div>
 
-                <div class="p-panel-footer" *ngIf="footerFacet || footerTemplate">
-                    <ng-content select="p-footer"></ng-content>
-                    <ng-container *ngTemplateOutlet="footerTemplate"></ng-container>
-                </div>
+                @if (footerFacet || footerTemplate) {
+                    <div class="p-panel-footer">
+                        <ng-content select="p-footer"></ng-content>
+                        <ng-container *ngTemplateOutlet="footerTemplate"></ng-container>
+                    </div>
+                }
             </div>
         </div>
     `,

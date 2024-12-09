@@ -13,7 +13,8 @@ import { ChangeDetectorRef, Component, effect, inject, OnInit, PLATFORM_ID } fro
             <p-chart type="doughnut" [data]="data" [options]="options" class="w-full md:w-[30rem]" />
         </div>
         <app-code [code]="code" selector="chart-doughnut-demo"></app-code>
-    `
+    `,
+    standalone: false
 })
 export class DoughnutDoc implements OnInit {
     data: any;

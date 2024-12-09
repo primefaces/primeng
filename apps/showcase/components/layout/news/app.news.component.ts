@@ -7,7 +7,6 @@ import { StyleClass } from 'primeng/styleclass';
 
 @Component({
     selector: 'app-news',
-    standalone: true,
     templateUrl: './app.news.component.html',
     changeDetection: ChangeDetectionStrategy.OnPush,
     imports: [CommonModule, FormsModule, StyleClass]

@@ -21,7 +21,8 @@ import { Component } from '@angular/core';
             </p-inputgroup>
         </div>
         <app-code [code]="code" selector="input-group-multiple-demo"></app-code>
-    `
+    `,
+    standalone: false
 })
 export class MultipleDoc {
     code: Code = {

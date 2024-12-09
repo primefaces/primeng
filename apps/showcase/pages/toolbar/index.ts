@@ -8,7 +8,6 @@ import { ToolbarDocModule } from '@/doc/toolbar/toolbardoc.module';
 
 @Component({
     template: `<app-doc docTitle="Angular Toolbar Component" header="Toolbar" description="Toolbar is a grouping component for buttons and other content." [docs]="docs" [apiDocs]="['Toolbar']" themeDocs="toolbar"></app-doc>`,
-    standalone: true,
     imports: [ToolbarDocModule]
 })
 export class ToolbarDemo {

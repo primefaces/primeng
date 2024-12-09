@@ -2,7 +2,6 @@ import { Component } from '@angular/core';
 
 @Component({
     selector: 'overview-doc',
-
     template: `
         <app-docsectiontext>
             <p>
@@ -11,6 +10,7 @@ import { Component } from '@angular/core';
                 or an in-house one, as a result adding PrimeFlex to a project was causing overlapping functionality.
             </p>
         </app-docsectiontext>
-    `
+    `,
+    standalone: false
 })
 export class OverviewDoc {}

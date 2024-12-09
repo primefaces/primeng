@@ -22,7 +22,8 @@ import { TreeNode } from 'primeng/api';
             </div>
         </div>
         <app-code [code]="code" selector="tree-filter-demo"></app-code>
-    `
+    `,
+    standalone: false
 })
 export class FilterDoc implements OnInit {
     files: TreeNode[];

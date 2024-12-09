@@ -8,7 +8,6 @@ import { RippleModule } from 'primeng/ripple';
 import { TagModule } from 'primeng/tag';
 
 @Component({
-    standalone: true,
     imports: [CommonModule, TagModule, AppCodeModule, RouterModule, RippleModule],
     template: `
         <div>

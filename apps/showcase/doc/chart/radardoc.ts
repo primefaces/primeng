@@ -13,7 +13,8 @@ import { ChangeDetectorRef, Component, effect, inject, OnInit, PLATFORM_ID } fro
             <p-chart type="radar" [data]="data" [options]="options" class="w-full md:w-[30rem]" />
         </div>
         <app-code [code]="code" selector="chart-radar-demo"></app-code>
-    `
+    `,
+    standalone: false
 })
 export class RadarDoc implements OnInit {
     data: any;

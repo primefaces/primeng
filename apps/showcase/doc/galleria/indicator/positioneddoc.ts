@@ -29,7 +29,8 @@ import { Component, OnInit } from '@angular/core';
             </p-galleria>
         </div>
         <app-code [code]="code" selector="galleria-indicator-positioned-demo"></app-code>
-    `
+    `,
+    standalone: false
 })
 export class PositionedDoc implements OnInit {
     images: any[] | undefined;

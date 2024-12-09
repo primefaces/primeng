@@ -16,7 +16,8 @@ import { Component, OnInit } from '@angular/core';
             </p-galleria>
         </div>
         <app-code [code]="code" selector="galleria-indicator-hover-event-demo"></app-code>
-    `
+    `,
+    standalone: false
 })
 export class HoverEventDoc implements OnInit {
     images: any[] | undefined;

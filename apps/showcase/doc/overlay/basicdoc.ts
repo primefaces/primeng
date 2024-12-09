@@ -10,7 +10,8 @@ import { Component } from '@angular/core';
             <p-button (click)="toggle()" label="Show Overlay"></p-button>
             <p-overlay [(visible)]="overlayVisible" [responsive]="{ breakpoint: '640px', direction: 'bottom', contentStyleClass: 'h-20rem' }" contentStyleClass="p-6 bg-surface-0 dark:bg-surface-900 shadow rounded-border"> Content </p-overlay>
         </div>
-        <app-code [code]="code" selector="overlay-basic-demo"></app-code>`
+        <app-code [code]="code" selector="overlay-basic-demo"></app-code>`,
+    standalone: false
 })
 export class OverlayBasicDemo {
     overlayVisible: boolean = false;

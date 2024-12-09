@@ -16,7 +16,6 @@ import { OverlayBadgeModule } from 'primeng/overlaybadge';
 
 @Component({
     selector: 'movies-app',
-    standalone: true,
     imports: [CommonModule, RouterModule, SelectButton, Slider, FormsModule, AvatarModule, TooltipModule, IconField, InputIcon, ButtonModule, InputTextModule, ProgressBar, Carousel, OverlayBadgeModule],
     template: `
         <div class="flex flex-wrap gap-4 items-center justify-between">

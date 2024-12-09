@@ -32,7 +32,8 @@ import { ChangeDetectorRef, Component, OnInit } from '@angular/core';
             </p-orderlist>
         </div>
         <app-code [code]="code" selector="orderlist-filter-demo" [extFiles]="extFiles"></app-code>
-    `
+    `,
+    standalone: false
 })
 export class FilterDoc implements OnInit {
     products!: Product[];

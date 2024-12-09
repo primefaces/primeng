@@ -11,7 +11,8 @@ import { Component } from '@angular/core';
             <p-metergroup [value]="value" />
         </div>
         <app-code [code]="code" selector="meter-group-icon-demo"></app-code>
-    `
+    `,
+    standalone: false
 })
 export class IconDoc {
     value = [

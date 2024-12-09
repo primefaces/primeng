@@ -9,7 +9,6 @@ import { VerticalDoc } from '@/doc/megamenu/verticaldoc';
 import { Component } from '@angular/core';
 
 @Component({
-    standalone: true,
     imports: [MegaMenuDocModule],
     template: `<app-doc docTitle="Angular MegaMenu Component" header="MegaMenu" description="MegaMenu is navigation component that displays submenus together." [docs]="docs" [apiDocs]="['MegaMenu', 'MegaMenuItem']" themeDocs="megamenu"></app-doc>`,
     styles: [

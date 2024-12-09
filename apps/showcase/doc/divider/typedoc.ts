@@ -35,7 +35,8 @@ import { Component } from '@angular/core';
             </p>
         </div>
         <app-code [code]="code" selector="divider-type-demo"></app-code>
-    `
+    `,
+    standalone: false
 })
 export class TypeDoc {
     code: Code = {

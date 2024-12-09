@@ -44,6 +44,7 @@ import { Component } from '@angular/core';
             <h4>Premium Templates</h4>
             <p>Application templates like Apollo do not support PrimeNG v18 yet, all templates will be updated to PrimeNG v18 by the end of the 2024.</p>
         </app-docsectiontext>
-    `
+    `,
+    standalone: false
 })
 export class BreakingChangesDoc {}

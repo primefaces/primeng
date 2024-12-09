@@ -38,7 +38,8 @@ import { Component } from '@angular/core';
             </p-tabs>
         </div>
         <app-code [code]="code" selector="tabs-basic-demo"></app-code>
-    `
+    `,
+    standalone: false
 })
 export class BasicDoc {
     code: Code = {

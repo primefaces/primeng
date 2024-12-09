@@ -28,7 +28,8 @@ import { Component } from '@angular/core';
             </div>
         </p-fluid>
         <app-code [code]="code" selector="datepicker-icon-demo"></app-code>
-    `
+    `,
+    standalone: false
 })
 export class IconDoc {
     date1: Date | undefined;

@@ -11,7 +11,8 @@ import { Component } from '@angular/core';
             <p-checkbox [(ngModel)]="checked" [binary]="true" variant="filled" />
         </div>
         <app-code [code]="code" selector="checkbox-filled-demo"></app-code>
-    `
+    `,
+    standalone: false
 })
 export class FilledDoc {
     checked: boolean = false;

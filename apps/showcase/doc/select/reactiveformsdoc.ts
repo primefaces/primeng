@@ -17,7 +17,8 @@ interface City {
             <p-select formControlName="selectedCity" [options]="cities" optionLabel="name" placeholder="Select a City" class="w-full md:w-56" />
         </form>
         <app-code [code]="code" selector="select-reactive-forms-demo"></app-code>
-    `
+    `,
+    standalone: false
 })
 export class ReactiveFormsDoc implements OnInit {
     cities: City[] | undefined;

@@ -17,7 +17,6 @@ import { ToggleSwitchModule } from 'primeng/toggleswitch';
 
 @Component({
     selector: 'chat-app',
-    standalone: true,
     imports: [CommonModule, RouterModule, ChartModule, ToggleSwitchModule, SelectButton, BadgeModule, FormsModule, AvatarModule, IconField, InputIcon, ButtonModule, InputTextModule, MenuModule, Textarea],
     template: `
         <div class="w-4/12 xl:w-3/12 min-w-40 overflow-auto flex flex-col gap-6">

@@ -41,7 +41,8 @@ interface Column {
             </p-deferred-demo>
         </div>
         <app-code [code]="code" selector="tree-table-scroll-horizontal-demo"></app-code>
-    `
+    `,
+    standalone: false
 })
 export class ScrollHorizontalDoc {
     files!: TreeNode[];

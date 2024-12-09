@@ -21,7 +21,8 @@ import { Component } from '@angular/core';
             </p-iconfield>
         </div>
         <app-code [code]="code" selector="iconfield-basic-demo"></app-code>
-    `
+    `,
+    standalone: false
 })
 export class BasicDoc {
     code: Code = {

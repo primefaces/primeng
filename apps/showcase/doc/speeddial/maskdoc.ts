@@ -16,7 +16,8 @@ import { MenuItem, MessageService } from 'primeng/api';
         </div>
         <app-code [code]="code" selector="speed-dial-mask-demo"></app-code>
     `,
-    providers: [MessageService]
+    providers: [MessageService],
+    standalone: false
 })
 export class MaskDoc implements OnInit {
     items: MenuItem[] | undefined;

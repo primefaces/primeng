@@ -15,7 +15,8 @@ import { Component } from '@angular/core';
             <input type="text" pInputText pTooltip="Enter your username" placeholder="autoHide: true" />
         </div>
         <app-code [code]="code" selector="tooltip-auto-hide-demo"></app-code>
-    `
+    `,
+    standalone: false
 })
 export class AutoHideDoc {
     code: Code = {

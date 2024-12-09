@@ -11,7 +11,8 @@ import { Component } from '@angular/core';
             <p-selectbutton [options]="paymentOptions" [(ngModel)]="value" [multiple]="true" optionLabel="name" optionValue="value" />
         </div>
         <app-code [code]="code" selector="select-button-multiple-demo"></app-code>
-    `
+    `,
+    standalone: false
 })
 export class MultipleDoc {
     paymentOptions: any[] = [

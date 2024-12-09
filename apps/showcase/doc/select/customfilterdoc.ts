@@ -39,7 +39,8 @@ interface City {
             </p-select>
         </div>
         <app-code [code]="code" selector="select-custom-filter-demo"></app-code>
-    `
+    `,
+    standalone: false
 })
 export class CustomFilterDoc implements OnInit {
     countries: City[] | undefined;
