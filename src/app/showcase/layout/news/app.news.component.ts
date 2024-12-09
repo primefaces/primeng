@@ -13,7 +13,7 @@ import { AppConfigService } from '@service/appconfigservice';
     imports: [CommonModule, FormsModule, StyleClassModule]
 })
 export class AppNewsComponent {
-    storageKey: string = 'primeng';
+    storageKey: string = 'primeng-v17';
 
     announcement: any;
 

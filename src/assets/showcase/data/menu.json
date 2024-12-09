@@ -494,17 +494,13 @@
                 {
                     "name": "Colors",
                     "routerLink": "/colors"
-                },
-                {
-                    "name": "SASS API",
-                    "href": "https://www.primefaces.org/designer/api/primeng/15.0.0"
                 }
             ]
         },
         {
             "name": "Figma UI Kit",
             "icon": "pi pi-pencil",
-            "routerLink": "/uikit"
+            "href": "https://primeng.org/uikit"
         },
         {
             "name": "Icons",
@@ -523,7 +519,7 @@
         {
             "name": "Templates",
             "icon": "pi pi-star",
-            "routerLink": "/templates"
+            "href": "https://primeng.org/templates"
         },
         {
             "name": "PrimeBlocks",
@@ -562,11 +558,11 @@
                 },
                 {
                     "name": "Long Term Support",
-                    "routerLink": "/lts"
+                    "href": "https://primeng.org/lts"
                 },
                 {
                     "name": "PRO Support",
-                    "routerLink": "/support"
+                    "href": "https://primeng.org/support"
                 }
             ]
         },
@@ -582,7 +578,7 @@
             "children": [
                 {
                     "name": "About Us",
-                    "routerLink": "/team"
+                    "href": "https://primeng.org/team"
                 },
                 {
                     "name": "Source Code",
