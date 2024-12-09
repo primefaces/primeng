@@ -1,5 +1,6 @@
 import { CommonModule } from '@angular/common';
-import { ChangeDetectionStrategy, Component, EventEmitter, Input, NgModule, Output, ViewEncapsulation } from '@angular/core';
+import { ChangeDetectionStrategy, Component, EventEmitter, Input, NgModule, Output, ViewEncapsulation, SimpleChanges, OnChanges } from '@angular/core';
+
 /**
  * Avatar represents people using icons, labels and images.
  * @group Components
@@ -7,7 +8,7 @@ import { ChangeDetectionStrategy, Component, EventEmitter, Input, NgModule, Outp
 @Component({
     selector: 'p-avatar',
     template: `
-        <div [ngClass]="containerClass()" [class]="styleClass" [ngStyle]="style" [attr.aria-labelledby]="ariaLabelledBy" [attr.aria-label]="ariaLabel" [attr.data-pc-name]="'avatar'">
+        <div [ngClass]="containerClass()" [class]="styleClass" [ngStyle]="currentStyle" [attr.aria-labelledby]="ariaLabelledBy" [attr.aria-label]="ariaLabel" [attr.data-pc-name]="'avatar'">
             <ng-content></ng-content>
             <span class="p-avatar-text" *ngIf="label; else iconTemplate">{{ label }}</span>
             <ng-template #iconTemplate><span [class]="icon" [ngClass]="'p-avatar-icon'" *ngIf="icon; else imageTemplate"></span></ng-template>
@@ -21,7 +22,7 @@ import { ChangeDetectionStrategy, Component, EventEmitter, Input, NgModule, Outp
         class: 'p-element'
     }
 })
-export class Avatar {
+export class Avatar implements OnChanges {
     /**
      * Defines the text to display.
      * @group Props
@@ -74,6 +75,11 @@ export class Avatar {
      */
     @Output() onImageError: EventEmitter<Event> = new EventEmitter<Event>();
 
+    /**
+     * Holds the current style of the component to allow dynamic updates.
+     */
+    currentStyle: { [klass: string]: any } | null | undefined = {};
+
     containerClass() {
         return {
             'p-avatar p-component': true,
@@ -82,6 +88,15 @@ export class Avatar {
             'p-avatar-lg': this.size === 'large',
             'p-avatar-xl': this.size === 'xlarge'
         };
+    }
+
+    /**
+     * Lifecycle hook to detect changes in inputs.
+     */
+    ngOnChanges(changes: SimpleChanges): void {
+        if (changes['style']) {
+            this.currentStyle = { ...changes['style'].currentValue };
+        }
     }
 
     imageError(event: Event) {
