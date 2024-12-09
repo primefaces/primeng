@@ -5,6 +5,7 @@ import { Component } from '@angular/core';
 
 @Component({
     selector: 'css-layer',
+    standalone: false,
     templateUrl: './primeflexdemo.component.html'
 })
 export class PrimeFlexDemoComponent {
