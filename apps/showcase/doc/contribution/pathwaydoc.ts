@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 
 @Component({
     selector: 'pathway-doc',
+    standalone: false,
     template: `
         <app-docsectiontext>
             <p>PrimeTek offers an organization structure involving contributors and the core team:</p>

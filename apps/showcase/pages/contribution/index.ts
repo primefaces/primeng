@@ -3,7 +3,7 @@ import { BenefitsDoc } from '@/doc/contribution/benefitsdoc';
 import { ContributionDocModule } from '../../doc/contribution/contribution.module';
 import { IntroductionDoc } from '@/doc/contribution/introductiondoc';
 import { HelpNeededDoc } from '@/doc/contribution/helpneededdoc';
-import { KeyPointsDoc } from '@/doc/contribution/keypoints';
+import { KeyPointsDoc } from '@/doc/contribution/keypointsdoc';
 import { CommunicationDoc } from '@/doc/contribution/communicationdoc';
 import { PathwayDoc } from '@/doc/contribution/pathwaydoc';
 import { ClaDoc } from '@/doc/contribution/cladoc';

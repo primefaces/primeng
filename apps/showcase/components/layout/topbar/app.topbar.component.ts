@@ -183,7 +183,7 @@ export class AppTopBarComponent implements OnDestroy {
 
     isDarkMode = computed(() => this.configService.appState().darkTheme);
 
-    isMenuActive = computed(() => this.configService.appState().isMenuActive);
+    isMenuActive = computed(() => this.configService.appState().menuActive);
 
     isDesignerActive = computed(() => this.configService.designerActive());
 

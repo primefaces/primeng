@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 
 @Component({
     selector: 'helpneeded-doc',
+    standalone: false,
     template: `
         <app-docsectiontext>
             <p>PrimeNG is a community-driven project backed by the expertise and sponsorship of PrimeTek, and we appreciate any help you can provide. Here are some areas where you can contribute:</p>

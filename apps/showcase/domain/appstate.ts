@@ -1,8 +1,9 @@
 export interface AppState {
-    configActive?: boolean;
+    preset?: string;
+    primary?: string;
+    surface?: string;
+    darkTheme?: boolean;
     menuActive?: boolean;
-    newsActive?: boolean;
-    announcement?: any;
     designerKey?: string;
-    designerActive?: boolean;
+    RTL?: boolean;
 }
