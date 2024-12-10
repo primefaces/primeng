@@ -26,28 +26,46 @@ export class AppConfigService {
     constructor() {
         this.appState.set({ ...this.loadAppState() });
 
-        effect(() => {
-            const state = this.appState();
+        effect(
+            () => {
+                const state = this.appState();
 
-            if (this.initialized && state) {
-                this.saveAppState(state);
-
-                if (isPlatformBrowser(this.platformId)) {
-                    const transition = (document as any).startViewTransition(() => {
-                        if (state.darkTheme) {
-                            this.document.documentElement.classList.add('p-dark');
-                        } else {
-                            this.document.documentElement.classList.remove('p-dark');
-                        }
-                    });
-                    transition.ready.then(() => {
-                        this.onTransitionEnd();
-                    });
+                if (!this.initialized || !state) {
+                    this.initialized = true;
+                    return;
                 }
+                this.saveAppState(state);
+                this.handleDarkModeTransition(state);
+            },
+            { allowSignalWrites: true }
+        );
+    }
+
+    private handleDarkModeTransition(state: any): void {
+        if (isPlatformBrowser(this.platformId)) {
+            if ((document as any).startViewTransition) {
+                this.startViewTransition(state);
             } else {
-                this.initialized = true;
+                this.toggleDarkMode(state);
+                this.onTransitionEnd();
             }
+        }
+    }
+
+    private startViewTransition(state: any): void {
+        const transition = (document as any).startViewTransition(() => {
+            this.toggleDarkMode(state);
         });
+
+        transition.ready.then(() => this.onTransitionEnd());
+    }
+
+    private toggleDarkMode(state: any): void {
+        if (state.darkTheme) {
+            this.document.documentElement.classList.add('p-dark');
+        } else {
+            this.document.documentElement.classList.remove('p-dark');
+        }
     }
 
     private onTransitionEnd() {
