@@ -1,5 +1,11 @@
 # Changelog
-## [18.0.0](https://github.com/primefaces/primeng/tree/18.0.0) (2024-11-06)
+## [19.0.0-rc.1](https://github.com/primefaces/primeng/tree/19.0.0-rc.1) (2024-12-10)
+[Full Changelog](https://github.com/primefaces/primeng/compare/18.0.0...19.0.0-rc.1)
+
+**Implemented New Features and Enhancements:**
+-  Angular 19 Support [\#16827](https://github.com/primefaces/primeng/issues/16827)
+
+## [18.0.0](https://github.com/primefaces/primeng/tree/18.0.0) (2024-12-06)
 [Full Changelog](https://github.com/primefaces/primeng/compare/18.0.0-rc.2...18.0.0)
 
 **Fixed bugs:**
