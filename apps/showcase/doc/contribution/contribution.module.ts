@@ -7,7 +7,7 @@ import { CommunicationDoc } from './communicationdoc';
 import { PathwayDoc } from './pathwaydoc';
 import { BenefitsDoc } from './benefitsdoc';
 import { ClaDoc } from './cladoc';
-import { KeyPointsDoc } from './keypoints';
+import { KeyPointsDoc } from './keypointsdoc';
 import { AppCodeModule } from '@/components/doc/app.code.component';
 import { AppDocModule } from '@/components/doc/app.doc.module';
 

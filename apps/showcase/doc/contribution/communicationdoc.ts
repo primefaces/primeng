@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 
 @Component({
     selector: 'communication-doc',
+    standalone: false,
     template: `
         <app-docsectiontext>
             <p>

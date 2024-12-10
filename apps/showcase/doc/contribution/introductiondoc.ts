@@ -3,6 +3,7 @@ import { Code } from '@/domain/code';
 
 @Component({
     selector: 'indroduction-doc',
+    standalone: false,
     template: `
         <app-docsectiontext>
             <p>
