@@ -9,7 +9,7 @@ permissions:
 
 jobs:
   nightly:
-    if: github.repository == 'primefaces/primeng' && github.ref == 'refs/heads/v18'
+    if: github.repository == 'primefaces/primeng' && github.ref == 'refs/heads/master'
     runs-on: ubuntu-latest
     name: Node ${{ matrix.node-version }}
 
@@ -25,6 +25,10 @@ jobs:
       with:
         node-version: ${{ matrix.node-version }}
         cache: 'pnpm'
+
+    - name: Install pnpm
+      run: |
+        npm install -g pnpm
 
     - name: Build
       run: |
