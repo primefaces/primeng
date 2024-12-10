@@ -1,4 +1,4 @@
-@use "landing";
+@use 'variables';
 
 .landing-blocks {
     * {
@@ -11,8 +11,8 @@
 
         &.blocks-animation {
             .prime-block {
-                .block-sidebar, 
-                .block-header, 
+                .block-sidebar,
+                .block-header,
                 .block-sidebar-list,
                 .block-content {
                     opacity: 1;
@@ -35,9 +35,9 @@
             margin: 15px;
             transition: opacity 1.3s, transform 1.3s;
 
-            .block-sidebar, 
-            .block-header, 
-            .block-sidebar-list, 
+            .block-sidebar,
+            .block-header,
+            .block-sidebar-list,
             .block-content {
                 transition: opacity 1.3s, transform 1.3s;
                 opacity: 0;
@@ -55,7 +55,7 @@
                 border-radius: 6px;
                 border: 1px solid var(--border-color);
             }
-            
+
             .block-sidebar,
             .block-header {
                 background: var(--home-blocks-sidebar-bg);
@@ -65,7 +65,7 @@
             .block-sidebar-list {
                 background: var(--home-blocks-list-bg);
             }
-            
+
             .block-content {
                 .block-main {
                     border: 1px solid var(--border-color);
@@ -87,7 +87,7 @@
                 border-radius: 4px;
                 width: 14px;
                 height: 14px;
-                
+
                 &.box-orange{
                     background-color: #F57C00;
                 }
@@ -104,7 +104,7 @@
                     background-color: #2196F3;
                 }
             }
-            
+
             .block-image {
                 background-color: var(--home-blocks-image-bg);
                 height: 44px;
@@ -131,7 +131,7 @@
                 &.animation-2{
                     animation-delay: 1s;
                 }
-                
+
                 &.animation-3{
                     animation-delay: 1.5s;
                 }
@@ -146,7 +146,7 @@
             &.block-item-table {
                 border-radius: 100px;
                 padding: 10px;
-                
+
                 .bar{
                     background: var(--home-blocks-tablebar-bg);
                 }
@@ -169,7 +169,7 @@
             &.bar-button {
                 height: 16px;
                 position: relative;
-                
+
                 &:before {
                     content: '';
                     position: absolute;
@@ -207,7 +207,7 @@
     }
 }
 
-@media screen and (max-width: landing.$landingBreakpointXL) {
+@media screen and (max-width: variables.$landingBreakpointXL) {
     .landing-blocks .prime-blocks {
         margin: -24rem 0;
         transform: rotateX(55deg) rotateY(0deg) rotateZ(-45deg) scale(0.6);
