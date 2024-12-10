@@ -548,7 +548,7 @@
         },
         {
             "name": "Contribution",
-            "to": "/contribution",
+            "routerLink": "/contribution",
             "icon": "pi pi-users",
             "badge": "NEW"
         },
