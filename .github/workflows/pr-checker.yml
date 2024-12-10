@@ -19,7 +19,7 @@ jobs:
 
         strategy:
             matrix:
-                node-version: [16.x, 18.x]
+                node-version: [18.x, 20.x]
 
         steps:
             - name: Verify Linked Issue
@@ -30,14 +30,15 @@ jobs:
                   message: 'Thanks a lot for your contribution! But, PR does not seem to be linked to any issues. Please [manually link to an issue](https://docs.github.com/en/issues/tracking-your-work-with-issues/linking-a-pull-request-to-an-issue#manually-linking-a-pull-request-or-branch-to-an-issue-using-the-issue-sidebar).'
 
             - uses: actions/checkout@v3
-            - uses: actions/setup-node@v3
+            - uses: pnpm/action-setup@v4
+              with:
+                  run_install: false
+
+            - name: Use Node.js ${{ matrix.node-version }}
+              uses: actions/setup-node@v4
               with:
                   node-version: ${{ matrix.node-version }}
                   cache: 'pnpm'
-
-            - name: Install pnpm
-              run: |
-                  npm install -g pnpm
 
             - name: Install packages
               run: |
