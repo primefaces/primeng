@@ -12,7 +12,7 @@
         "url": "https://github.com/primefaces/primeng/issues"
     },
     "scripts": {
-        "setup": "rm -rf **/node_modules **/dist **/.angular ./pnpm-lock.yaml && pnpm run init",
+        "setup": "npx rimraf **/node_modules **/dist **/.angular ./pnpm-lock.yaml && pnpm run init",
         "init": "pnpm install && husky",
         "link": "pnpm --filter './packages/*' dev:link",
         "release": "pnpm run build && pnpm recursive publish --filter './packages/*' --no-git-checks --report-summary",
@@ -65,7 +65,7 @@
         "pnpm": "^9.6.0",
         "prettier": "^3.0.0",
         "tsup": "^8.1.0",
-        "typescript": "5.5.4"
+        "typescript": "catalog:angular19"
     },
     "publishConfig": {
         "access": "public"

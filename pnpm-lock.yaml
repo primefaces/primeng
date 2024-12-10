@@ -61,8 +61,11 @@ catalogs:
       specifier: ^19
       version: 19.0.4
     ng-packagr:
-      specifier: 19.0.0
-      version: 19.0.0
+      specifier: ^19
+      version: 19.0.1
+    typescript:
+      specifier: 5.5.4
+      version: 5.5.4
     zone.js:
       specifier: ~0.15.0
       version: 0.15.0
@@ -80,7 +83,7 @@ importers:
     devDependencies:
       '@angular-devkit/build-angular':
         specifier: catalog:angular19
-        version: 19.0.4(7jzujxbir7mxzyq6jmks52zute)
+        version: 19.0.4(xr6siddfktwj654xmifxqa3a4i)
       '@angular-eslint/eslint-plugin':
         specifier: catalog:angular19
         version: 19.0.2(@typescript-eslint/utils@8.18.0(eslint@9.16.0(jiti@1.21.6))(typescript@5.5.4))(eslint@9.16.0(jiti@1.21.6))(typescript@5.5.4)
@@ -161,7 +164,7 @@ importers:
         version: 12.5.0
       ng-packagr:
         specifier: catalog:angular19
-        version: 19.0.0(@angular/compiler-cli@19.0.3(@angular/compiler@19.0.3(@angular/core@19.0.3(rxjs@7.8.1)(zone.js@0.15.0)))(typescript@5.5.4))(tailwindcss@3.4.16(ts-node@10.9.2(@types/node@22.10.1)(typescript@5.5.4)))(tslib@2.8.1)(typescript@5.5.4)
+        version: 19.0.1(@angular/compiler-cli@19.0.3(@angular/compiler@19.0.3(@angular/core@19.0.3(rxjs@7.8.1)(zone.js@0.15.0)))(typescript@5.5.4))(tailwindcss@3.4.16(ts-node@10.9.2(@types/node@22.10.1)(typescript@5.5.4)))(tslib@2.8.1)(typescript@5.5.4)
       pnpm:
         specifier: ^9.6.0
         version: 9.15.0
@@ -172,7 +175,7 @@ importers:
         specifier: ^8.1.0
         version: 8.3.5(jiti@1.21.6)(postcss@8.4.49)(typescript@5.5.4)(yaml@2.6.1)
       typescript:
-        specifier: 5.5.4
+        specifier: catalog:angular19
         version: 5.5.4
 
   apps/showcase:
@@ -4886,8 +4889,8 @@ packages:
   neo-async@2.6.2:
     resolution: {integrity: sha512-Yd3UES5mWCSqR+qNT93S3UoYUkqAZ9lLg8a7g9rimsWmYGK8cVToA4/sF3RrshdyV3sAGMXVUmpMYOw+dLpOuw==}
 
-  ng-packagr@19.0.0:
-    resolution: {integrity: sha512-CKJlpZO6sL3+RpXbmtH7wEHnqgktOkmvmoUpTUUuNOA6m3JRypvDZHW29hFzvgFkxTJI13QHuBWauuG42rtIUA==}
+  ng-packagr@19.0.1:
+    resolution: {integrity: sha512-PnXa/y3ce3v4bKJNtUBS7qcNoyv5g/tSthoMe23NyMV5kjNY4+hJT7h64zK+8tnJWTelCbIpoep7tmSPsOifBA==}
     engines: {node: ^18.19.1 || >=20.11.1}
     hasBin: true
     peerDependencies:
@@ -6643,7 +6646,7 @@ snapshots:
     transitivePeerDependencies:
       - chokidar
 
-  '@angular-devkit/build-angular@19.0.4(7jzujxbir7mxzyq6jmks52zute)':
+  '@angular-devkit/build-angular@19.0.4(xr6siddfktwj654xmifxqa3a4i)':
     dependencies:
       '@ampproject/remapping': 2.3.0
       '@angular-devkit/architect': 0.1900.4(chokidar@4.0.1)
@@ -6707,7 +6710,7 @@ snapshots:
       '@angular/ssr': 19.0.4(f7n6izbky7fl2eflezc2nurhxi)
       esbuild: 0.24.0
       karma: 6.4.4
-      ng-packagr: 19.0.0(@angular/compiler-cli@19.0.3(@angular/compiler@19.0.3(@angular/core@19.0.3(rxjs@7.8.1)(zone.js@0.15.0)))(typescript@5.5.4))(tailwindcss@3.4.16(ts-node@10.9.2(@types/node@22.10.1)(typescript@5.5.4)))(tslib@2.8.1)(typescript@5.5.4)
+      ng-packagr: 19.0.1(@angular/compiler-cli@19.0.3(@angular/compiler@19.0.3(@angular/core@19.0.3(rxjs@7.8.1)(zone.js@0.15.0)))(typescript@5.5.4))(tailwindcss@3.4.16(ts-node@10.9.2(@types/node@22.10.1)(typescript@5.5.4)))(tslib@2.8.1)(typescript@5.5.4)
       tailwindcss: 3.4.16(ts-node@10.9.2(@types/node@22.10.1)(typescript@5.5.4))
     transitivePeerDependencies:
       - '@angular/compiler'
@@ -11397,7 +11400,7 @@ snapshots:
 
   neo-async@2.6.2: {}
 
-  ng-packagr@19.0.0(@angular/compiler-cli@19.0.3(@angular/compiler@19.0.3(@angular/core@19.0.3(rxjs@7.8.1)(zone.js@0.15.0)))(typescript@5.5.4))(tailwindcss@3.4.16(ts-node@10.9.2(@types/node@22.10.1)(typescript@5.5.4)))(tslib@2.8.1)(typescript@5.5.4):
+  ng-packagr@19.0.1(@angular/compiler-cli@19.0.3(@angular/compiler@19.0.3(@angular/core@19.0.3(rxjs@7.8.1)(zone.js@0.15.0)))(typescript@5.5.4))(tailwindcss@3.4.16(ts-node@10.9.2(@types/node@22.10.1)(typescript@5.5.4)))(tslib@2.8.1)(typescript@5.5.4):
     dependencies:
       '@angular/compiler-cli': 19.0.3(@angular/compiler@19.0.3(@angular/core@19.0.3(rxjs@7.8.1)(zone.js@0.15.0)))(typescript@5.5.4)
       '@rollup/plugin-json': 6.1.0(rollup@4.28.1)
