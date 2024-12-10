@@ -107,12 +107,16 @@ export class AppConfiguratorComponent {
     presets = Object.keys(presets);
 
     onRTLChange(value: boolean) {
-        this.toggleRTL(value);
+        this.configService.appState.update((state) => ({ ...state, RTL: value }));
+        if (!(document as any).startViewTransition) {
+            this.toggleRTL(value);
+            return;
+        }
+
+        (document as any).startViewTransition(() => this.toggleRTL(value));
     }
 
     toggleRTL(value: boolean) {
-        this.configService.appState.update((state) => ({ ...state, RTL: value }));
-
         const htmlElement = document.documentElement;
 
         if (value) {
