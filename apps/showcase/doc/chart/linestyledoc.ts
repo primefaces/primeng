@@ -29,11 +29,10 @@ export class LineStyleDoc implements OnInit {
     constructor(private cd: ChangeDetectorRef) {}
 
     themeEffect = effect(() => {
-        if (this.configService.theme()) {
-            this.initChart();
-        }
-        if (this.designerService.preset()) {
-            this.initChart();
+        if (this.configService.transitionComplete()) {
+            if (this.designerService.preset()) {
+                this.initChart();
+            }
         }
     });
 
@@ -140,11 +139,10 @@ export class ChartLineStyleDemo implements OnInit {
     constructor(private cd: ChangeDetectorRef) {}
 
     themeEffect = effect(() => {
-        if (this.configService.theme()) {
-            this.initChart();
-        }
-        if (this.designerService.preset()) {
-            this.initChart();
+        if (this.configService.transitionComplete()) {
+            if (this.designerService.preset()) {
+                this.initChart();
+            }
         }
     });
 
