@@ -7,7 +7,7 @@ import { Component } from '@angular/core';
             <p>PrimeNG is a community-driven project backed by the expertise and sponsorship of PrimeTek, and we appreciate any help you can provide. Here are some areas where you can contribute:</p>
             <h3>Issue Triage</h3>
             <p>Help us manage issues by;</p>
-            <ul class="line-height-3 px-10 m-0">
+            <ul class="list-disc list-inside line-height-3 px-10 m-0">
                 <li>Reproducing reported bugs</li>
                 <li>Clarifying issue descriptions</li>
                 <li>Tagging issues with appropriate labels</li>
