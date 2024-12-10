@@ -19,21 +19,41 @@ export class AppConfigService {
 
     theme = computed(() => (this.appState()?.darkTheme ? 'dark' : 'light'));
 
+    transitionComplete = signal<boolean>(false);
+
+    private initialized = false;
+
     constructor() {
         this.appState.set({ ...this.loadAppState() });
+
         effect(() => {
             const state = this.appState();
-            if (state) {
+
+            if (this.initialized && state) {
                 this.saveAppState(state);
 
                 if (isPlatformBrowser(this.platformId)) {
-                    if (state.darkTheme) {
-                        this.document.documentElement.classList.add('p-dark');
-                    } else {
-                        this.document.documentElement.classList.remove('p-dark');
-                    }
+                    const transition = (document as any).startViewTransition(() => {
+                        if (state.darkTheme) {
+                            this.document.documentElement.classList.add('p-dark');
+                        } else {
+                            this.document.documentElement.classList.remove('p-dark');
+                        }
+                    });
+                    transition.ready.then(() => {
+                        this.onTransitionEnd();
+                    });
                 }
+            } else {
+                this.initialized = true;
             }
+        });
+    }
+
+    private onTransitionEnd() {
+        this.transitionComplete.set(true);
+        setTimeout(() => {
+            this.transitionComplete.set(false);
         });
     }
 
