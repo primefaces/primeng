@@ -1,13 +1,13 @@
 import { DOCUMENT, isPlatformBrowser } from '@angular/common';
 import { computed, effect, inject, Injectable, PLATFORM_ID, signal } from '@angular/core';
-
+import { AppState } from '@/domain/appstate';
 @Injectable({
     providedIn: 'root'
 })
 export class AppConfigService {
     private readonly STORAGE_KEY = 'appConfigState';
 
-    appState = signal<any>(null);
+    appState = signal<AppState>(null);
 
     designerActive = signal(false);
 
@@ -41,7 +41,7 @@ export class AppConfigService {
         );
     }
 
-    private handleDarkModeTransition(state: any): void {
+    private handleDarkModeTransition(state: AppState): void {
         if (isPlatformBrowser(this.platformId)) {
             if ((document as any).startViewTransition) {
                 this.startViewTransition(state);
@@ -52,7 +52,7 @@ export class AppConfigService {
         }
     }
 
-    private startViewTransition(state: any): void {
+    private startViewTransition(state: AppState): void {
         const transition = (document as any).startViewTransition(() => {
             this.toggleDarkMode(state);
         });
@@ -60,7 +60,7 @@ export class AppConfigService {
         transition.ready.then(() => this.onTransitionEnd());
     }
 
-    private toggleDarkMode(state: any): void {
+    private toggleDarkMode(state: AppState): void {
         if (state.darkTheme) {
             this.document.documentElement.classList.add('p-dark');
         } else {

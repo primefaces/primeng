@@ -38,8 +38,6 @@ export class AppMainComponent {
 
     isMenuActive = computed(() => this.configService.appState().menuActive);
 
-    isDarkMode = computed(() => this.configService.appState().isDarkMode);
-
     isRippleDisabled = computed(() => this.primeng.ripple());
 
     containerClass = computed(() => {
