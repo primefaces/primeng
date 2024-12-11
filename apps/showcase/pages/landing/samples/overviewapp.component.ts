@@ -1,7 +1,7 @@
 import { AppConfigService } from '@/service/appconfigservice';
 import { DesignerService } from '@/service/designerservice';
 import { CommonModule, isPlatformBrowser } from '@angular/common';
-import { ChangeDetectionStrategy, ChangeDetectorRef, Component, effect, inject, PLATFORM_ID, ViewEncapsulation } from '@angular/core';
+import { ChangeDetectionStrategy, ChangeDetectorRef, Component, effect, inject, PLATFORM_ID } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { RouterModule } from '@angular/router';
 import { MenuItem } from 'primeng/api';
@@ -179,7 +179,13 @@ import { TooltipModule } from 'primeng/tooltip';
     host: {
         class: 'flex-1 h-full overflow-y-auto pb-0.5'
     },
-    encapsulation: ViewEncapsulation.None,
+    styles: [
+        `
+            :host ::ng-deep .p-paginator {
+                background: transparent;
+            }
+        `
+    ],
     changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class OverviewApp {
