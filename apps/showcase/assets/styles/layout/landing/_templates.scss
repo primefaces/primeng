@@ -5,7 +5,7 @@
         transform: rotateX(55deg) rotateY(0deg) rotateZ(-45deg);
         position: relative;
         z-index: 1;
-        
+
         .template-block {
             width: 504px;
             height: 257px;
@@ -28,7 +28,7 @@
             &.block-2 {
                 animation: animated-block-2 2s 0.2s ease-in-out alternate infinite;
             }
-            
+
             &.block-middle {
                 transform: scale(0.9);
             }
@@ -147,7 +147,7 @@
                     background: var(--home-templates-line);
                 }
             }
-            
+
             .left {
                 position: absolute;
                 top: 50%;
@@ -185,7 +185,7 @@
                     transition: none !important;
                 }
             }
-            
+
             .lines {
                 opacity: 0.5;
                 width: 100%;
@@ -230,8 +230,21 @@
             .template-block {
                 width: 354px;
                 height: 180px;
-                
+
             }
         }
+    }
+}
+
+
+@keyframes animated-block-1 {
+    to {
+        transform:  translateX(-10px);
+    }
+}
+
+@keyframes animated-block-2 {
+    to {
+        transform:  translateX(10px);
     }
 }
