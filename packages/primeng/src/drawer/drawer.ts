@@ -331,6 +331,7 @@ export class Drawer extends BaseComponent implements AfterViewInit, OnDestroy {
         const activeDrawers = this.document.querySelectorAll('.p-drawer-active');
         const activeDrawersLength = activeDrawers.length;
         const zIndex = activeDrawersLength == 1 ? String(parseInt((this.container as HTMLDivElement).style.zIndex) - 1) : String(parseInt((activeDrawers[0] as HTMLElement).style.zIndex) - 1);
+        this.container.setAttribute(this.attrSelector, '');
 
         if (!this.mask) {
             this.mask = this.renderer.createElement('div');
