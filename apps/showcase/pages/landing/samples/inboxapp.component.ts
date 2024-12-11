@@ -59,7 +59,7 @@ import { Tag } from 'primeng/tag';
             </div>
         </div>
         <div class="flex-1 h-full overflow-hidden flex border border-surface rounded-2xl">
-            <p-table [value]="tableData" [(selection)]="selectedRows" dataKey="id" class="w-full" [dt]="tableTokens">
+            <p-table [value]="tableData" [(selection)]="selectedRows" dataKey="id" class="w-full" [dt]="tableTokens" [scrollable]="true" scrollHeight="flex">
                 <ng-template #caption>
                     <div class="flex xl:items-center justify-between gap-2 flex-col xl:flex-row">
                         <div class="flex items-center gap-2">
