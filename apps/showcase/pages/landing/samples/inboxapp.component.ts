@@ -50,7 +50,7 @@ import { Tag } from 'primeng/tag';
                         <div class="font-medium text-color mb-4">Free Version</div>
                         <p-progressbar [value]="75">
                             <ng-template #content let-value>
-                                <span class="w-full text-center text-sm font-normal text-surface-0 leading-5 absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2">4 days left</span>
+                                <span class="w-full text-center text-sm font-normal text-primary-contrast leading-5 absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2">4 days left</span>
                             </ng-template>
                         </p-progressbar>
                     </div>
