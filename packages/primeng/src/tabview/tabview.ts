@@ -62,9 +62,6 @@ import { TabViewChangeEvent, TabViewCloseEvent } from './tabview.interface';
     providers: [TabsStyle]
 })
 export class TabPanel extends BaseComponent implements AfterContentInit, OnDestroy {
-    ngOnDestroy(): void {
-        throw new Error('Method not implemented.');
-    }
     /**
      * Defines if tab can be removed.
      * @group Props
