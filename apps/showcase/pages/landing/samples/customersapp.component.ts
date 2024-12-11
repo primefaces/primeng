@@ -149,7 +149,6 @@ import { TooltipModule } from 'primeng/tooltip';
     host: {
         class: 'h-full flex-1 flex flex-col overflow-hidden border border-surface rounded-2xl p-6'
     },
-    encapsulation: ViewEncapsulation.None,
     changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class CustomersApp {

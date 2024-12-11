@@ -107,7 +107,6 @@ import { OverlayBadgeModule } from 'primeng/overlaybadge';
             </div>
         </div>
     `,
-    encapsulation: ViewEncapsulation.None,
     changeDetection: ChangeDetectionStrategy.OnPush,
     host: {
         class: 'flex-1 flex flex-col gap-6 p-6 h-full overflow-y-auto overflow-x-clip overflow-hidden border border-surface rounded-2xl'
