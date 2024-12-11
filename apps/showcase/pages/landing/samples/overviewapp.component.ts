@@ -100,6 +100,7 @@ import { TooltipModule } from 'primeng/tooltip';
                             [tableStyle]="{ 'min-width': '50rem' }"
                             [showFirstLastIcon]="false"
                             [dt]="tableTokens"
+                            paginatorStyleClass="!bg-transparent"
                         >
                             <ng-template #header>
                                 <tr>
@@ -179,13 +180,6 @@ import { TooltipModule } from 'primeng/tooltip';
     host: {
         class: 'flex-1 h-full overflow-y-auto pb-0.5'
     },
-    styles: [
-        `
-            :host ::ng-deep .p-paginator {
-                background: transparent;
-            }
-        `
-    ],
     changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class OverviewApp {
