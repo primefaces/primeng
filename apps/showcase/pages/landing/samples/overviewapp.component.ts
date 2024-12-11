@@ -99,6 +99,7 @@ import { TooltipModule } from 'primeng/tooltip';
                             [rows]="5"
                             [tableStyle]="{ 'min-width': '50rem' }"
                             [showFirstLastIcon]="false"
+                            [dt]="tableTokens"
                         >
                             <ng-template #header>
                                 <tr>
@@ -197,6 +198,18 @@ export class OverviewApp {
     sampleAppsTableDatas: any;
 
     metersData: any;
+
+    tableTokens = {
+        header: {
+            background: 'transparent'
+        },
+        headerCell: {
+            background: 'transparent'
+        },
+        row: {
+            background: 'transparent'
+        }
+    };
 
     platformId = inject(PLATFORM_ID);
 

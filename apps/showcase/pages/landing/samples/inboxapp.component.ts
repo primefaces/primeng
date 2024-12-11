@@ -59,7 +59,7 @@ import { Tag } from 'primeng/tag';
             </div>
         </div>
         <div class="flex-1 h-full overflow-hidden flex border border-surface rounded-2xl">
-            <p-table [value]="tableData" [(selection)]="selectedRows" dataKey="id" class="w-full">
+            <p-table [value]="tableData" [(selection)]="selectedRows" dataKey="id" class="w-full" [dt]="tableTokens">
                 <ng-template #caption>
                     <div class="flex xl:items-center justify-between gap-2 flex-col xl:flex-row">
                         <div class="flex items-center gap-2">
@@ -147,6 +147,18 @@ export class InboxApp {
     tableData: any;
 
     selectedRows: any = [];
+
+    tableTokens = {
+        header: {
+            background: 'transparent'
+        },
+        headerCell: {
+            background: 'transparent'
+        },
+        row: {
+            background: 'transparent'
+        }
+    };
 
     ngOnInit() {
         this.inboxNavs = [
