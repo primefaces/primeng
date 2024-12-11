@@ -10,7 +10,6 @@ import { SizeDoc } from '@/doc/badge/sizedoc';
 import { Component } from '@angular/core';
 
 @Component({
-    standalone: true,
     imports: [BadgeDocModule],
     template: ` <app-doc docTitle="Angular Badge Component" header="Badge" description="Badge is a small status indicator for another element." [docs]="docs" [apiDocs]="['Badge', 'BadgeDirective']" themeDocs="Badge"></app-doc>`
 })

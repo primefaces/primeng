@@ -11,7 +11,6 @@ import { Component } from '@angular/core';
 
 @Component({
     template: `<app-doc docTitle="Angular Menu Component" header="Menu" description="Menu is a navigation / command component that supports dynamic and static positioning." [docs]="docs" [apiDocs]="['Menu', 'MenuItem']" themeDocs="menu"></app-doc> `,
-    standalone: true,
     imports: [MenuDocModule]
 })
 export class MenuDemo {

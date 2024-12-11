@@ -18,7 +18,8 @@ import { Component } from '@angular/core';
             <p-button label="Plain" variant="text" />
         </div>
         <app-code [code]="code" selector="button-text-demo"></app-code>
-    `
+    `,
+    standalone: false
 })
 export class TextDoc {
     code: Code = {

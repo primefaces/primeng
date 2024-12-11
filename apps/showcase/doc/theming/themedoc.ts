@@ -8,7 +8,8 @@ import { Component } from '@angular/core';
             <p>The <i>theme</i> property is used to customize the initial theme.</p>
         </app-docsectiontext>
         <app-code [code]="code" selector="theme-demo" [hideToggleCode]="true"></app-code>
-    `
+    `,
+    standalone: false
 })
 export class ThemeDoc {
     code: Code = {

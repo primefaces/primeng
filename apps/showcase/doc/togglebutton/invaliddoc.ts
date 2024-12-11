@@ -11,7 +11,8 @@ import { Component } from '@angular/core';
             <p-togglebutton [(ngModel)]="checked" onIcon="pi pi-check" offIcon="pi pi-times" class="ng-invalid ng-dirty" styleClass="w-full sm:w-40" aria-label="Confirmation" />
         </div>
         <app-code [code]="code" selector="toggle-button-invalid-demo"></app-code>
-    `
+    `,
+    standalone: false
 })
 export class InvalidDoc {
     checked: boolean = false;

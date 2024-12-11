@@ -22,7 +22,8 @@ import { TreeNode } from 'primeng/api';
             </div>
         </div>
         <app-code [code]="code" selector="tree-lazy-demo"></app-code>
-    `
+    `,
+    standalone: false
 })
 export class LazyDoc implements OnInit {
     loading: boolean = false;

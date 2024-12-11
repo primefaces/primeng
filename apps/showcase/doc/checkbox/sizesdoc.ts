@@ -22,7 +22,8 @@ import { Component } from '@angular/core';
             </div>
         </div>
         <app-code [code]="code" selector="checkbox-sizes-demo"></app-code>
-    `
+    `,
+    standalone: false
 })
 export class SizesDoc {
     size: any = null;

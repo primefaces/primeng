@@ -15,7 +15,8 @@ import { Component } from '@angular/core';
             </p-progressbar>
         </div>
         <app-code [code]="code" selector="progress-bar-template-demo"></app-code>
-    `
+    `,
+    standalone: false
 })
 export class TemplateDoc {
     code: Code = {

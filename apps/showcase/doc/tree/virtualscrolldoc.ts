@@ -13,7 +13,8 @@ import { TreeNode } from 'primeng/api';
             <p-tree styleClass="w-full md:w-[30rem]" scrollHeight="250px" [virtualScroll]="true" [virtualScrollItemSize]="46" [value]="files" />
         </div>
         <app-code [code]="code" selector="tree-virtual-scroll-demo"></app-code>
-    `
+    `,
+    standalone: false
 })
 export class VirtualScrollDoc implements OnInit {
     loading: boolean = false;

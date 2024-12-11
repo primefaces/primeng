@@ -11,7 +11,8 @@ import { Component } from '@angular/core';
             <p-datepicker class="max-w-full" [(ngModel)]="date" [inline]="true" [showWeek]="true" />
         </div>
         <app-code [code]="code" selector="datepicker-inline-demo"></app-code>
-    `
+    `,
+    standalone: false
 })
 export class InlineDoc {
     date: Date[] | undefined;

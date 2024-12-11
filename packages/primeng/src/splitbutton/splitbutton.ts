@@ -1,4 +1,4 @@
-import { CommonModule } from '@angular/common';
+import { NgClass, NgStyle, NgTemplateOutlet } from '@angular/common';
 import { booleanAttribute, ChangeDetectionStrategy, Component, ContentChild, ElementRef, EventEmitter, inject, Input, NgModule, numberAttribute, Output, signal, TemplateRef, ViewChild, ViewEncapsulation } from '@angular/core';
 import { uuid } from '@primeuix/utils';
 import { MenuItem, SharedModule, TooltipOptions } from 'primeng/api';
@@ -19,11 +19,10 @@ type SplitButtonIconPosition = 'left' | 'right';
  */
 @Component({
     selector: 'p-splitbutton, p-splitButton, p-split-button',
-    standalone: true,
-    imports: [CommonModule, ButtonDirective, TieredMenu, AutoFocus, ChevronDownIcon, Ripple, TooltipModule, SharedModule],
+    imports: [NgClass, NgStyle, NgTemplateOutlet, ButtonDirective, TieredMenu, AutoFocus, ChevronDownIcon, Ripple, TooltipModule, SharedModule],
     template: `
         <div #container [ngClass]="containerClass" [class]="styleClass" [ngStyle]="style">
-            <ng-container *ngIf="contentTemplate; else defaultButton">
+            @if (contentTemplate) {
                 <button
                     class="p-splitbutton-button"
                     type="button"
@@ -45,8 +44,7 @@ type SplitButtonIconPosition = 'left' | 'right';
                 >
                     <ng-container *ngTemplateOutlet="contentTemplate"></ng-container>
                 </button>
-            </ng-container>
-            <ng-template #defaultButton>
+            } @else {
                 <button
                     #defaultbtn
                     class="p-splitbutton-button"
@@ -68,7 +66,7 @@ type SplitButtonIconPosition = 'left' | 'right';
                     [pTooltip]="tooltip"
                     [tooltipOptions]="tooltipOptions"
                 ></button>
-            </ng-template>
+            }
             <button
                 type="button"
                 pButton
@@ -86,11 +84,15 @@ type SplitButtonIconPosition = 'left' | 'right';
                 [attr.aria-expanded]="menuButtonProps?.['ariaExpanded'] || isExpanded()"
                 [attr.aria-controls]="menuButtonProps?.['ariaControls'] || ariaId"
             >
-                <span *ngIf="dropdownIcon" [class]="dropdownIcon"></span>
-                <ng-container *ngIf="!dropdownIcon">
-                    <ChevronDownIcon *ngIf="!dropdowniconTemplate" />
+                @if (dropdownIcon) {
+                    <span [class]="dropdownIcon"></span>
+                }
+                @if (!dropdownIcon) {
+                    @if (!dropdowniconTemplate) {
+                        <ChevronDownIcon />
+                    }
                     <ng-template *ngTemplateOutlet="dropdowniconTemplate"></ng-template>
-                </ng-container>
+                }
             </button>
             <p-tieredMenu
                 [id]="ariaId"

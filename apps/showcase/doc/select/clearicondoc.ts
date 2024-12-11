@@ -16,7 +16,8 @@ interface City {
             <p-select [options]="cities" [(ngModel)]="selectedCity" optionLabel="name" [showClear]="true" placeholder="Select a City" class="w-full md:w-56" />
         </div>
         <app-code [code]="code" selector="select-clear-icon-demo"></app-code>
-    `
+    `,
+    standalone: false
 })
 export class ClearIconDoc implements OnInit {
     cities: City[];

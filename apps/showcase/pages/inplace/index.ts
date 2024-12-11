@@ -8,7 +8,6 @@ import { LazyDoc } from '@/doc/inplace/lazydoc';
 import { Component } from '@angular/core';
 
 @Component({
-    standalone: true,
     imports: [InplaceDocModule],
     template: ` <app-doc
         docTitle="Angular Inplace Component"

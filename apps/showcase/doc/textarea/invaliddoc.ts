@@ -11,7 +11,8 @@ import { Component } from '@angular/core';
             <textarea rows="5" cols="30" pTextarea [(ngModel)]="value" class="ng-invalid ng-dirty" placeholder="Address"></textarea>
         </div>
         <app-code [code]="code" selector="input-textarea-invalid-demo"></app-code>
-    `
+    `,
+    standalone: false
 })
 export class InvalidDoc {
     value!: string;

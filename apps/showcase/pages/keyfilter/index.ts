@@ -14,7 +14,6 @@ import { Component } from '@angular/core';
         [docs]="docs"
         [apiDocs]="['KeyFilter']"
     ></app-doc>`,
-    standalone: true,
     imports: [KeyFilterDocModule]
 })
 export class KeyFilterDemo {

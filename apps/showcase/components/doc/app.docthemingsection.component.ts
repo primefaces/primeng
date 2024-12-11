@@ -19,7 +19,8 @@ import ThemeDoc from '@/doc/apidoc/themedoc.json';
         </div>
         <app-docsection-nav [docs]="navItems()" />
     `,
-    changeDetection: ChangeDetectionStrategy.OnPush
+    changeDetection: ChangeDetectionStrategy.OnPush,
+    standalone: false
 })
 export class AppDocThemingSectionComponent {
     @Input() header!: string;

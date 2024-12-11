@@ -58,7 +58,8 @@ import { MenuItem } from 'primeng/api';
             </p-menubar>
         </div>
         <app-code [code]="code" selector="menubar-template-demo"></app-code>
-    `
+    `,
+    standalone: false
 })
 export class TemplateDoc implements OnInit {
     items: MenuItem[] | undefined;

@@ -37,7 +37,8 @@ import { SortEvent } from 'primeng/api';
             </div>
         </p-deferred-demo>
         <app-code [code]="code" selector="table-custom-sort-demo" [extFiles]="extFiles"></app-code>`,
-    changeDetection: ChangeDetectionStrategy.OnPush
+    changeDetection: ChangeDetectionStrategy.OnPush,
+    standalone: false
 })
 export class CustomSortDoc {
     products!: Product[];

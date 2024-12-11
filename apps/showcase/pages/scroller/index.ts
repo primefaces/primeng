@@ -13,7 +13,6 @@ import { Component } from '@angular/core';
 
 @Component({
     template: `<app-doc docTitle="Angular Virtual Scroller Component" header="Scroller" description="VirtualScroller is a performance-approach to handle huge data efficiently." [docs]="docs" [apiDocs]="['Scroller']" themeDocs="scroller"></app-doc>`,
-    standalone: true,
     imports: [VirtualScrollerDocModule],
     styleUrl: './scrollerdemo.scss'
 })

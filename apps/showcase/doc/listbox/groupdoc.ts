@@ -24,7 +24,8 @@ interface Country {
             </p-listbox>
         </div>
         <app-code [code]="code" selector="listbox-group-demo"></app-code>
-    `
+    `,
+    standalone: false
 })
 export class GroupDoc {
     groupedCities!: SelectItemGroup[];

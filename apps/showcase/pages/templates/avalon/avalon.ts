@@ -11,7 +11,6 @@ import { AvalonLogo } from './avalonlogo';
 import { AvalonSeparator } from './avalonseparator';
 
 @Component({
-    standalone: true,
     selector: 'avalon-page',
     imports: [
         TemplateHeroModule,

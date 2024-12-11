@@ -34,7 +34,8 @@ import { ChangeDetectionStrategy, Component, Input } from '@angular/core';
             </section>
         </ng-container>
     `,
-    changeDetection: ChangeDetectionStrategy.OnPush
+    changeDetection: ChangeDetectionStrategy.OnPush,
+    standalone: false
 })
 export class AppDocSectionsComponent {
     @Input() docs!: Doc[];

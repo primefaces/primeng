@@ -1,4 +1,4 @@
-import { CommonModule, isPlatformBrowser } from '@angular/common';
+import { isPlatformBrowser, NgClass, NgStyle, NgTemplateOutlet } from '@angular/common';
 import { AfterViewInit, booleanAttribute, ChangeDetectionStrategy, Component, ContentChild, ElementRef, inject, Input, NgModule, numberAttribute, OnDestroy, TemplateRef, ViewChild, ViewEncapsulation } from '@angular/core';
 import { addClass, blockBodyScroll, removeClass, unblockBodyScroll } from '@primeuix/utils';
 import { SharedModule } from 'primeng/api';
@@ -12,8 +12,7 @@ import { BlockUiStyle } from './style/blockuistyle';
  */
 @Component({
     selector: 'p-blockUI, p-blockui, p-block-ui',
-    standalone: true,
-    imports: [CommonModule, SharedModule],
+    imports: [NgClass, NgStyle, NgTemplateOutlet, SharedModule],
     template: `
         <div
             #mask

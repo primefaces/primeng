@@ -38,6 +38,7 @@ import { Component } from '@angular/core';
                 impairments result in better design for any user.
             </p>
         </app-docsectiontext>
-    `
+    `,
+    standalone: false
 })
 export class IntroductionDoc {}

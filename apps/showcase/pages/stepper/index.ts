@@ -17,7 +17,6 @@ import { Component } from '@angular/core';
         [apiDocs]="['Stepper', 'StepItem', 'StepPanel']"
         themeDocs="stepper"
     ></app-doc>`,
-    standalone: true,
     imports: [StepperDocModule]
 })
 export class StepperDemo {

@@ -39,7 +39,8 @@ import { Component } from '@angular/core';
             </p-inputgroup>
         </div>
         <app-code [code]="code" selector="input-group-float-label-demo"></app-code>
-    `
+    `,
+    standalone: false
 })
 export class FloatLabelDoc {
     value1: string | undefined;

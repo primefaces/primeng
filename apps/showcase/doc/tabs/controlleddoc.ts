@@ -43,7 +43,8 @@ import { Component } from '@angular/core';
             </p-tabs>
         </div>
         <app-code [code]="code" selector="tabs-controlled-demo"></app-code>
-    `
+    `,
+    standalone: false
 })
 export class ControlledDoc {
     value: number = 0;

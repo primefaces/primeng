@@ -1,4 +1,4 @@
-import { CommonModule } from '@angular/common';
+import { NgClass, NgTemplateOutlet } from '@angular/common';
 import { AfterContentInit, booleanAttribute, ChangeDetectionStrategy, Component, ContentChild, EventEmitter, forwardRef, inject, Input, NgModule, Output, TemplateRef, ViewEncapsulation } from '@angular/core';
 import { NG_VALUE_ACCESSOR } from '@angular/forms';
 import { SharedModule } from 'primeng/api';
@@ -60,16 +60,15 @@ export interface InputOtpInputTemplateContext {
  */
 @Component({
     selector: 'p-inputOtp, p-inputotp, p-input-otp',
-    standalone: true,
-    imports: [CommonModule, InputText, AutoFocus, SharedModule],
+    imports: [InputText, AutoFocus, SharedModule, NgClass, NgTemplateOutlet],
     template: `
-        <ng-container *ngFor="let i of getRange(length); trackBy: trackByFn">
-            <ng-container *ngIf="!inputTemplate">
+        @for (i of getRange(length); track trackByFn(i)) {
+            @if (!inputTemplate) {
                 <input
                     type="text"
                     pInputText
                     [value]="getModelValue(i)"
-                    [maxLength]="1"
+                    [maxLength]="i === 1 ? length : 1"
                     [type]="inputType"
                     class="p-inputotp-input"
                     [pSize]="size"
@@ -85,11 +84,11 @@ export interface InputOtpInputTemplateContext {
                     [pAutoFocus]="getAutofocus(i)"
                     [ngClass]="styleClass"
                 />
-            </ng-container>
-            <ng-container *ngIf="inputTemplate">
+            }
+            @if (inputTemplate) {
                 <ng-container *ngTemplateOutlet="inputTemplate; context: { $implicit: getToken(i - 1), events: getTemplateEvents(i - 1), index: i }"> </ng-container>
-            </ng-container>
-        </ng-container>
+            }
+        }
     `,
     changeDetection: ChangeDetectionStrategy.OnPush,
     encapsulation: ViewEncapsulation.None,
@@ -213,7 +212,13 @@ export class InputOtp extends BaseComponent implements AfterContentInit {
     }
 
     onInput(event, index) {
-        this.tokens[index] = event.target.value;
+        const value = event.target.value;
+        if (index === 0 && value.length > 1) {
+            this.handleOnPaste(value, event);
+            event.stopPropagation();
+            return;
+        }
+        this.tokens[index] = value;
         this.updateModel(event);
 
         if (event.inputType === 'deleteContentBackward') {
@@ -367,15 +372,19 @@ export class InputOtp extends BaseComponent implements AfterContentInit {
             let paste = event.clipboardData.getData('text');
 
             if (paste.length) {
-                let pastedCode = paste.substring(0, this.length + 1);
-
-                if (!this.integerOnly || !isNaN(pastedCode)) {
-                    this.tokens = pastedCode.split('');
-                    this.updateModel(event);
-                }
+                this.handleOnPaste(paste, event);
             }
 
             event.preventDefault();
+        }
+    }
+
+    handleOnPaste(paste, event) {
+        let pastedCode = paste.substring(0, this.length + 1);
+
+        if (!this.integerOnly || !isNaN(pastedCode)) {
+            this.tokens = pastedCode.split('');
+            this.updateModel(event);
         }
     }
 

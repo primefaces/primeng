@@ -39,7 +39,8 @@ import { Component, OnInit } from '@angular/core';
             </p-select>
         </div>
         <app-code [code]="code" selector="select-template-demo"></app-code>
-    `
+    `,
+    standalone: false
 })
 export class TemplateDoc implements OnInit {
     countries: any[] | undefined;

@@ -11,7 +11,8 @@ import { Component } from '@angular/core';
             <p-slider [(ngModel)]="value" styleClass="w-56" />
         </div>
         <app-code [code]="code" selector="slider-basic-demo"></app-code>
-    `
+    `,
+    standalone: false
 })
 export class BasicDoc {
     value!: number;

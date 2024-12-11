@@ -54,7 +54,8 @@ import { Component } from '@angular/core';
             </p-stepper>
         </div>
         <app-code [code]="code" selector="stepper-vertical-demo"></app-code>
-    `
+    `,
+    standalone: false
 })
 export class VerticalDoc {
     code: Code = {

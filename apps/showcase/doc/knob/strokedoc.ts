@@ -11,7 +11,8 @@ import { Component } from '@angular/core';
             <p-knob [(ngModel)]="value" [strokeWidth]="5" />
         </div>
         <app-code [code]="code" selector="knob-stroke-demo"></app-code>
-    `
+    `,
+    standalone: false
 })
 export class StrokeDoc {
     value: number = 40;

@@ -11,7 +11,6 @@ import { Component } from '@angular/core';
 
 @Component({
     template: `<app-doc docTitle="Angular Rating Component" header="Rating" description="Rating component is a star based selection input." [docs]="docs" [apiDocs]="['Rating']" themeDocs="rating"></app-doc>`,
-    standalone: true,
     imports: [RatingDocModule]
 })
 export class RatingDemo {

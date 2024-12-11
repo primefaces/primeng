@@ -12,7 +12,8 @@ import { Component } from '@angular/core';
             <p-toggleswitch [(ngModel)]="checked2" [dt]="amberSwitch" />
         </div>
         <app-code [code]="code" selector="scoped-tokens-demo" [hideToggleCode]="true"></app-code>
-    `
+    `,
+    standalone: false
 })
 export class ScopedTokensDoc {
     checked1: boolean = true;

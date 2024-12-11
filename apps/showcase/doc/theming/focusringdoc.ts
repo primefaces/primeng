@@ -7,7 +7,8 @@ import { Component } from '@angular/core';
             <p>Focus ring defines the outline width, style, color and offset. Let's use a thicker ring with the primary color for the outline.</p>
         </app-docsectiontext>
         <app-code [code]="code" selector="focusring-demo" [hideToggleCode]="true"></app-code>
-    `
+    `,
+    standalone: false
 })
 export class FocusRingDoc {
     code = {

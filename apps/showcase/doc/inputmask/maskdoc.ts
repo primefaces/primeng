@@ -25,7 +25,8 @@ import { Component } from '@angular/core';
             </div>
         </p-fluid>
         <app-code [code]="code" selector="input-mask-mask-demo"></app-code>
-    `
+    `,
+    standalone: false
 })
 export class MaskDoc {
     value1: string | undefined;

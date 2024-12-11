@@ -17,7 +17,8 @@ interface City {
             <p-multiselect [options]="cities" formControlName="selectedCities" optionLabel="name" placeholder="Select Cities" [maxSelectedLabels]="3" styleClass="w-full md:w-80" />
         </form>
         <app-code [code]="code" selector="multi-select-reactive-forms-demo"></app-code>
-    `
+    `,
+    standalone: false
 })
 export class ReactiveFormsDoc implements OnInit {
     cities!: City[];

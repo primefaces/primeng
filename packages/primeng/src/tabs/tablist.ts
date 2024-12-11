@@ -1,4 +1,4 @@
-import { CommonModule, isPlatformBrowser } from '@angular/common';
+import { isPlatformBrowser, NgClass, NgTemplateOutlet } from '@angular/common';
 import { AfterContentInit, AfterViewInit, ChangeDetectionStrategy, Component, computed, ContentChild, effect, ElementRef, forwardRef, inject, signal, TemplateRef, ViewChild, ViewEncapsulation } from '@angular/core';
 import { findSingle, getHeight, getOffset, getOuterWidth, getWidth, isRTL } from '@primeuix/utils';
 import { SharedModule } from 'primeng/api';
@@ -13,8 +13,7 @@ import { Tabs } from './tabs';
  */
 @Component({
     selector: 'p-tablist',
-    standalone: true,
-    imports: [CommonModule, ChevronLeftIcon, ChevronRightIcon, RippleModule, SharedModule],
+    imports: [NgClass, NgTemplateOutlet, ChevronLeftIcon, ChevronRightIcon, RippleModule, SharedModule],
     template: `
         @if (showNavigators() && isPrevButtonEnabled()) {
             <button #prevButton pRipple class="p-tablist-nav-button p-tablist-prev-button" [attr.aria-label]="prevButtonAriaLabel" [attr.tabindex]="tabindex" [attr.data-pc-group-section]="'navigator'" (click)="onPrevButtonClick()">

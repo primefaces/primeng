@@ -9,7 +9,6 @@ import { VerticalDoc } from '@/doc/divider/verticaldoc';
 import { Component } from '@angular/core';
 
 @Component({
-    standalone: true,
     imports: [DividerDocModule],
     template: ` <app-doc docTitle="Angular Divider Component" header="Divider" description="Divider is used to separate contents." [docs]="docs" [apiDocs]="['Divider']" themeDocs="divider"></app-doc> `
 })

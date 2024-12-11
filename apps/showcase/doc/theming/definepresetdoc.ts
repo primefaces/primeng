@@ -10,6 +10,7 @@ import { Component } from '@angular/core';
         <app-code [code]="code1" selector="define-preset-demo" [hideToggleCode]="true" class="block mb-4"></app-code>
         <app-code [code]="code2" selector="define-preset-demo" [hideToggleCode]="true"></app-code>
     `
+    standalone: false
 })
 export class DefinePresetDoc {
     code1: Code = {

@@ -21,7 +21,8 @@ import { MenuItem, MessageService } from 'primeng/api';
         </div>
         <app-code [code]="code" selector="split-button-raised-text-demo"></app-code>
     `,
-    providers: [MessageService]
+    providers: [MessageService],
+    standalone: false
 })
 export class RaisedTextDoc {
     items: MenuItem[];

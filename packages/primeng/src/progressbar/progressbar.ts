@@ -1,4 +1,4 @@
-import { CommonModule } from '@angular/common';
+import { NgClass, NgStyle, NgTemplateOutlet } from '@angular/common';
 import { booleanAttribute, ChangeDetectionStrategy, Component, ContentChild, inject, Input, NgModule, numberAttribute, TemplateRef, ViewEncapsulation } from '@angular/core';
 import { SharedModule } from 'primeng/api';
 import { BaseComponent } from 'primeng/basecomponent';
@@ -10,8 +10,7 @@ import { ProgressBarStyle } from './style/progressbarstyle';
  */
 @Component({
     selector: 'p-progressBar, p-progressbar, p-progress-bar',
-    standalone: true,
-    imports: [CommonModule, SharedModule],
+    imports: [NgClass, NgStyle, NgTemplateOutlet, SharedModule],
     template: `
         <div
             role="progressbar"
@@ -28,15 +27,21 @@ import { ProgressBarStyle } from './style/progressbarstyle';
                 'p-progressbar-indeterminate': mode === 'indeterminate'
             }"
         >
-            <div *ngIf="mode === 'determinate'" [ngClass]="'p-progressbar-value p-progressbar-value-animate'" [class]="valueStyleClass" [style.width]="value + '%'" style="display:flex" [style.background]="color" [attr.data-pc-section]="'value'">
-                <div class="p-progressbar-label">
-                    <div *ngIf="showValue && !contentTemplate" [style.display]="value != null && value !== 0 ? 'flex' : 'none'" [attr.data-pc-section]="'label'">{{ value }}{{ unit }}</div>
-                    <ng-container *ngTemplateOutlet="contentTemplate; context: { $implicit: value }"></ng-container>
+            @if (mode === 'determinate') {
+                <div [ngClass]="'p-progressbar-value p-progressbar-value-animate'" [class]="valueStyleClass" [style.width]="value + '%'" style="display:flex" [style.background]="color" [attr.data-pc-section]="'value'">
+                    <div class="p-progressbar-label">
+                        @if (showValue && !contentTemplate) {
+                            <div [style.display]="value != null && value !== 0 ? 'flex' : 'none'" [attr.data-pc-section]="'label'">{{ value }}{{ unit }}</div>
+                        }
+                        <ng-container *ngTemplateOutlet="contentTemplate; context: { $implicit: value }"></ng-container>
+                    </div>
                 </div>
-            </div>
-            <div *ngIf="mode === 'indeterminate'" [ngClass]="'p-progressbar-indeterminate-container'" [class]="valueStyleClass" [attr.data-pc-section]="'container'">
-                <div class="p-progressbar-value p-progressbar-value-animate" [style.background]="color" [attr.data-pc-section]="'value'"></div>
-            </div>
+            }
+            @if (mode === 'indeterminate') {
+                <div [ngClass]="'p-progressbar-indeterminate-container'" [class]="valueStyleClass" [attr.data-pc-section]="'container'">
+                    <div class="p-progressbar-value p-progressbar-value-animate" [style.background]="color" [attr.data-pc-section]="'value'"></div>
+                </div>
+            }
         </div>
     `,
     changeDetection: ChangeDetectionStrategy.OnPush,

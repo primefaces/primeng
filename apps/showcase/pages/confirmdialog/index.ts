@@ -8,7 +8,6 @@ import { TemplateDoc } from '@/doc/confirmdialog/templatedoc';
 import { Component } from '@angular/core';
 
 @Component({
-    standalone: true,
     imports: [ConfirmDialogDocModule],
     template: `
         <app-doc

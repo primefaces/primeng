@@ -17,7 +17,8 @@ import { Component } from '@angular/core';
             </p-dialog>
         </div>
         <app-code [code]="code" selector="dialog-maximizable-demo"></app-code>
-    `
+    `,
+    standalone: false
 })
 export class MaximizableDoc {
     visible: boolean = false;

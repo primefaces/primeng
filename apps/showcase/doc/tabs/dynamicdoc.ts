@@ -24,7 +24,8 @@ import { Component, OnInit } from '@angular/core';
             </p-tabs>
         </div>
         <app-code [code]="code" selector="tabs-dynamic-demo"></app-code>
-    `
+    `,
+    standalone: false
 })
 export class DynamicDoc implements OnInit {
     tabs: { title: string; value: string; content: string }[] = [];

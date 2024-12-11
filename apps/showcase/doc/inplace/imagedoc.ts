@@ -21,7 +21,8 @@ import { Component } from '@angular/core';
             </p-inplace>
         </div>
         <app-code [code]="code" selector="inplace-image-demo"></app-code>
-    `
+    `,
+    standalone: false
 })
 export class ImageDoc {
     code: Code = {

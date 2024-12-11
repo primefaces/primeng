@@ -1,5 +1,5 @@
 import { animate, AnimationEvent, state, style, transition, trigger } from '@angular/animations';
-import { CommonModule, isPlatformBrowser } from '@angular/common';
+import { isPlatformBrowser, NgClass, NgStyle, NgTemplateOutlet } from '@angular/common';
 import { booleanAttribute, ChangeDetectionStrategy, Component, ContentChild, ElementRef, EventEmitter, HostListener, inject, Input, NgModule, NgZone, numberAttribute, OnDestroy, Output, TemplateRef, ViewEncapsulation, ViewRef } from '@angular/core';
 import { absolutePosition, addClass, appendChild, findSingle, getOffset, isIOS, isTouchDevice } from '@primeuix/utils';
 import { OverlayService, SharedModule } from 'primeng/api';
@@ -18,31 +18,31 @@ import { PopoverStyle } from './style/popoverstyle';
  */
 @Component({
     selector: 'p-popover',
-    standalone: true,
-    imports: [CommonModule, Ripple, TimesIcon, SharedModule],
+    imports: [NgClass, NgStyle, NgTemplateOutlet, Ripple, TimesIcon, SharedModule],
     template: `
-        <div
-            *ngIf="render"
-            [ngClass]="'p-popover p-component'"
-            [ngStyle]="style"
-            [class]="styleClass"
-            (click)="onOverlayClick($event)"
-            [@animation]="{
-                value: overlayVisible ? 'open' : 'close',
-                params: { showTransitionParams: showTransitionOptions, hideTransitionParams: hideTransitionOptions }
-            }"
-            (@animation.start)="onAnimationStart($event)"
-            (@animation.done)="onAnimationEnd($event)"
-            role="dialog"
-            [attr.aria-modal]="overlayVisible"
-            [attr.aria-label]="ariaLabel"
-            [attr.aria-labelledBy]="ariaLabelledBy"
-        >
-            <div class="p-popover-content" (click)="onContentClick($event)" (mousedown)="onContentClick($event)">
-                <ng-content></ng-content>
-                <ng-container *ngTemplateOutlet="contentTemplate"></ng-container>
+        @if (render) {
+            <div
+                [ngClass]="'p-popover p-component'"
+                [ngStyle]="style"
+                [class]="styleClass"
+                (click)="onOverlayClick($event)"
+                [@animation]="{
+                    value: overlayVisible ? 'open' : 'close',
+                    params: { showTransitionParams: showTransitionOptions, hideTransitionParams: hideTransitionOptions }
+                }"
+                (@animation.start)="onAnimationStart($event)"
+                (@animation.done)="onAnimationEnd($event)"
+                role="dialog"
+                [attr.aria-modal]="overlayVisible"
+                [attr.aria-label]="ariaLabel"
+                [attr.aria-labelledBy]="ariaLabelledBy"
+            >
+                <div class="p-popover-content" (click)="onContentClick($event)" (mousedown)="onContentClick($event)">
+                    <ng-content></ng-content>
+                    <ng-container *ngTemplateOutlet="contentTemplate"></ng-container>
+                </div>
             </div>
-        </div>
+        }
     `,
     animations: [
         trigger('animation', [

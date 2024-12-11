@@ -26,7 +26,8 @@ import { Component } from '@angular/core';
             </div>
         </p-fluid>
         <app-code [code]="code" selector="input-number-numerals-demo"></app-code>
-    `
+    `,
+    standalone: false
 })
 export class NumeralsDoc {
     value1: number = 42723;

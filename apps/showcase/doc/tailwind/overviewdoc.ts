@@ -14,6 +14,7 @@ import { Component } from '@angular/core';
                 The core of PrimeNG does not depend on Tailwind CSS.
             </p>
         </app-docsectiontext>
-    `
+    `,
+    standalone: false
 })
 export class OverviewDoc {}

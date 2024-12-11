@@ -12,7 +12,8 @@ import { Component } from '@angular/core';
             </p>
         </app-docsectiontext>
         <app-code [code]="code" [hideToggleCode]="true"></app-code>
-    `
+    `,
+    standalone: false
 })
 export class ZIndexDoc {
     code: Code = {

@@ -14,7 +14,8 @@ import { MenuItem, MessageService } from 'primeng/api';
         </div>
         <app-code [code]="code" selector="menubar-command-demo"></app-code>
     `,
-    providers: [MessageService]
+    providers: [MessageService],
+    standalone: false
 })
 export class CommandDoc implements OnInit {
     items: MenuItem[] | undefined;

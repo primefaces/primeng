@@ -14,7 +14,8 @@ import { FormControl, FormGroup } from '@angular/forms';
             </form>
         </div>
         <app-code [code]="code" selector="input-number-reactive-forms-demo"></app-code>
-    `
+    `,
+    standalone: false
 })
 export class ReactiveFormsDoc implements OnInit {
     formGroup!: FormGroup;

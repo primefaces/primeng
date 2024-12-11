@@ -33,7 +33,6 @@ import { OverviewApp } from './samples/overviewapp.component';
 
 @Component({
     selector: 'hero-section',
-    standalone: true,
     imports: [
         CommonModule,
         RouterModule,

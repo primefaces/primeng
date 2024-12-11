@@ -14,7 +14,8 @@ import { Component } from '@angular/core';
             <p-chip label="Xuxue Feng" image="https://primefaces.org/cdn/primeng/images/demo/avatar/xuxuefeng.png" alt="Avatar image" [removable]="true" />
         </div>
         <app-code [code]="code" selector="chip-image-demo"></app-code>
-    `
+    `,
+    standalone: false
 })
 export class ImageDoc {
     code: Code = {

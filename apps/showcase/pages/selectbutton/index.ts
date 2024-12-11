@@ -19,7 +19,6 @@ import { Component } from '@angular/core';
         [apiDocs]="['SelectButton']"
         themeDocs="selectbutton"
     ></app-doc>`,
-    standalone: true,
     imports: [SelectButtonDocModule]
 })
 export class SelectButtonDemo {

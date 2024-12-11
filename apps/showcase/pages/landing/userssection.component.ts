@@ -4,7 +4,6 @@ import { Component } from '@angular/core';
 
 @Component({
     selector: 'users-section',
-    standalone: true,
     imports: [CommonModule],
     template: `
         <section class="landing-users py-20 px-4 lg:px-20">

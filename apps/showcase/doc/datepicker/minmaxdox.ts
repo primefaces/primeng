@@ -11,7 +11,8 @@ import { Component } from '@angular/core';
             <p-datepicker [(ngModel)]="date" [minDate]="minDate" [maxDate]="maxDate" [readonlyInput]="true" />
         </div>
         <app-code [code]="code" selector="datepicker-minmax-demo"></app-code>
-    `
+    `,
+    standalone: false
 })
 export class MinMaxDoc {
     date: Date | undefined;

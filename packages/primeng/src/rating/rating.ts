@@ -1,4 +1,4 @@
-import { CommonModule } from '@angular/common';
+import { NgClass, NgStyle, NgTemplateOutlet } from '@angular/common';
 import { booleanAttribute, ChangeDetectionStrategy, Component, ContentChild, EventEmitter, forwardRef, inject, Input, NgModule, numberAttribute, OnInit, Output, signal, TemplateRef, ViewEncapsulation } from '@angular/core';
 import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
 import { focus, getFirstFocusableElement, uuid } from '@primeuix/utils';
@@ -21,11 +21,10 @@ export const RATING_VALUE_ACCESSOR: any = {
  */
 @Component({
     selector: 'p-rating',
-    imports: [CommonModule, AutoFocus, StarFillIcon, StarIcon, BanIcon, SharedModule],
-    standalone: true,
+    imports: [NgClass, NgStyle, NgTemplateOutlet, AutoFocus, StarFillIcon, StarIcon, BanIcon, SharedModule],
     template: `
-        <ng-container *ngIf="!isCustomIcon; else customTemplate">
-            <ng-template ngFor [ngForOf]="starsArray" let-star let-i="index">
+        @if (!isCustomIcon) {
+            @for (star of starsArray; track star; let i = $index) {
                 <div
                     class="p-rating-option"
                     [ngClass]="{
@@ -49,22 +48,31 @@ export const RATING_VALUE_ACCESSOR: any = {
                             [pAutoFocus]="autofocus"
                         />
                     </span>
-                    <ng-container *ngIf="!value || i >= value">
-                        <span class="p-rating-icon" *ngIf="iconOffClass" [ngStyle]="iconOffStyle" [ngClass]="iconOffClass" [attr.data-pc-section]="'offIcon'"></span>
-                        <StarIcon *ngIf="!iconOffClass" [ngStyle]="iconOffStyle" [styleClass]="'p-rating-icon'" [attr.data-pc-section]="'offIcon'" />
-                    </ng-container>
-                    <ng-container *ngIf="value && i < value">
-                        <span class="p-rating-icon p-rating-icon-active" *ngIf="iconOnClass" [ngStyle]="iconOnStyle" [ngClass]="iconOnClass" [attr.data-pc-section]="'onIcon'"></span>
-                        <StarFillIcon *ngIf="!iconOnClass" [ngStyle]="iconOnStyle" [styleClass]="'p-rating-icon p-rating-icon-active'" [attr.data-pc-section]="'onIcon'" />
-                    </ng-container>
+                    @if (!value || i >= value) {
+                        @if (iconOffClass) {
+                            <span class="p-rating-icon" [ngStyle]="iconOffStyle" [ngClass]="iconOffClass" [attr.data-pc-section]="'offIcon'"></span>
+                        }
+                        @if (!iconOffClass) {
+                            <StarIcon [ngStyle]="iconOffStyle" [styleClass]="'p-rating-icon'" [attr.data-pc-section]="'offIcon'" />
+                        }
+                    }
+                    @if (value && i < value) {
+                        @if (iconOnClass) {
+                            <span class="p-rating-icon p-rating-icon-active" [ngStyle]="iconOnStyle" [ngClass]="iconOnClass" [attr.data-pc-section]="'onIcon'"></span>
+                        }
+                        @if (!iconOnClass) {
+                            <StarFillIcon [ngStyle]="iconOnStyle" [styleClass]="'p-rating-icon p-rating-icon-active'" [attr.data-pc-section]="'onIcon'" />
+                        }
+                    }
                 </div>
-            </ng-template>
-        </ng-container>
-        <ng-template #customTemplate>
-            <span *ngFor="let star of starsArray; let i = index" (click)="onOptionClick($event, star + 1)" [attr.data-pc-section]="'onIcon'">
-                <ng-container *ngTemplateOutlet="getIconTemplate(i)"></ng-container>
-            </span>
-        </ng-template>
+            }
+        } @else {
+            @for (star of starsArray; track star; let i = $index) {
+                <span (click)="onOptionClick($event, star + 1)" [attr.data-pc-section]="'onIcon'">
+                    <ng-container *ngTemplateOutlet="getIconTemplate(i)"></ng-container>
+                </span>
+            }
+        }
     `,
     providers: [RATING_VALUE_ACCESSOR, RatingStyle],
     changeDetection: ChangeDetectionStrategy.OnPush,

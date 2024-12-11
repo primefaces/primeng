@@ -18,7 +18,8 @@ interface City {
             <p-select [(ngModel)]="value3" [options]="cities" optionLabel="name" size="large" placeholder="Large" class="w-full md:w-56" />
         </div>
         <app-code [code]="code" selector="select-size-demo"></app-code>
-    `
+    `,
+    standalone: false
 })
 export class SizesDoc implements OnInit {
     value1: City | undefined;

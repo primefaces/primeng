@@ -26,7 +26,8 @@ import { Component } from '@angular/core';
             </div>
         </p-fluid>
         <app-code [code]="code" selector="input-number-prefix-suffix-demo"></app-code>
-    `
+    `,
+    standalone: false
 })
 export class PrefixSuffixDoc {
     value1: number = 20;

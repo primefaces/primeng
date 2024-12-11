@@ -24,7 +24,8 @@ import { Component } from '@angular/core';
             <!--<router-outlet></router-outlet>-->
         </div>
         <app-code [code]="code" selector="tabs-tabmenu-demo"></app-code>
-    `
+    `,
+    standalone: false
 })
 export class TabmenuDoc {
     tabs = [

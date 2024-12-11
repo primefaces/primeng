@@ -8,7 +8,8 @@ import { Component } from '@angular/core';
             <p>The translations can be changed dynamically at runtime, here is an example with ngx-translate.</p>
         </app-docsectiontext>
         <app-code [code]="code" [hideToggleCode]="true"></app-code>
-    `
+    `,
+    standalone: false
 })
 export class RuntimeDoc {
     code: Code = {

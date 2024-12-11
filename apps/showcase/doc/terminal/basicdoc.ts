@@ -15,7 +15,8 @@ import { Subscription } from 'rxjs';
         </div>
         <app-code [code]="code" selector="terminal-basic-demo"></app-code>
     `,
-    providers: [TerminalService]
+    providers: [TerminalService],
+    standalone: false
 })
 export class BasicDoc implements OnDestroy {
     subscription: Subscription;

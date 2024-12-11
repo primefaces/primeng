@@ -11,7 +11,8 @@ import { Component } from '@angular/core';
             <p-slider [(ngModel)]="value" orientation="vertical" styleClass="h-56" />
         </div>
         <app-code [code]="code" selector="slider-vertical-demo"></app-code>
-    `
+    `,
+    standalone: false
 })
 export class VerticalDoc {
     value: number = 50;

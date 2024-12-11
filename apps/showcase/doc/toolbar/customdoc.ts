@@ -55,7 +55,8 @@ import { Component } from '@angular/core';
             </p-toolbar>
         </div>
         <app-code [code]="code" selector="toolbar-custom-demo"></app-code>
-    `
+    `,
+    standalone: false
 })
 export class CustomDoc {
     code: Code = {

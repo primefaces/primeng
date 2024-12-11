@@ -19,7 +19,8 @@ import { Component } from '@angular/core';
             </p-overlaybadge>
         </div>
         <app-code [code]="code" selector="badge-overlay-demo"></app-code>
-    `
+    `,
+    standalone: false
 })
 export class OverlayDoc {
     code: Code = {

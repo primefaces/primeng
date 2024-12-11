@@ -11,7 +11,8 @@ import { Component } from '@angular/core';
             <p-checkbox [(ngModel)]="checked" [binary]="true" [indeterminate]="true" />
         </div>
         <app-code [code]="code" selector="checkbox-indeterminate-demo"></app-code>
-    `
+    `,
+    standalone: false
 })
 export class IndeterminateDoc {
     checked: any = null;

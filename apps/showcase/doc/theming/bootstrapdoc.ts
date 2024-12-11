@@ -7,7 +7,8 @@ import { Component } from '@angular/core';
             <p>Bootstrap has a <i>reboot</i> utility to reset the CSS of the standard elements. If you are including this utility, you may give it a layer while importing it.</p>
         </app-docsectiontext>
         <app-code [code]="code" selector="bootstrap-demo" [hideToggleCode]="true"></app-code>
-    `
+    `,
+    standalone: false
 })
 export class BootstrapDoc {
     code = {

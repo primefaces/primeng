@@ -1,6 +1,5 @@
-import { CommonModule, isPlatformBrowser } from '@angular/common';
+import { isPlatformBrowser, NgClass, NgStyle, NgTemplateOutlet } from '@angular/common';
 import {
-    AfterContentInit,
     AfterViewInit,
     booleanAttribute,
     ChangeDetectionStrategy,
@@ -36,11 +35,10 @@ import { SpeedDialStyle } from './style/speeddialstyle';
  */
 @Component({
     selector: 'p-speeddial, p-speedDial, p-speed-dial',
-    standalone: true,
-    imports: [CommonModule, ButtonDirective, Ripple, TooltipModule, RouterModule, PlusIcon, ButtonIcon, SharedModule],
+    imports: [NgClass, NgStyle, NgTemplateOutlet, ButtonDirective, Ripple, TooltipModule, RouterModule, PlusIcon, ButtonIcon, SharedModule],
     template: `
         <div #container [ngClass]="containerClass()" [class]="className" [style]="style" [ngStyle]="rootStyles" [attr.data-pc-name]="'speeddial'" [attr.data-pc-section]="'root'">
-            <ng-container *ngIf="!buttonTemplate">
+            @if (!buttonTemplate) {
                 <button
                     pButton
                     pRipple
@@ -58,13 +56,15 @@ import { SpeedDialStyle } from './style/speeddialstyle';
                     [attr.data-pc-name]="'button'"
                     [buttonProps]="buttonProps"
                 >
-                    <PlusIcon pButtonIcon *ngIf="!buttonIconClass && !iconTemplate" />
+                    @if (!buttonIconClass && !iconTemplate) {
+                        <PlusIcon pButtonIcon />
+                    }
                     <ng-container *ngTemplateOutlet="iconTemplate"></ng-container>
                 </button>
-            </ng-container>
-            <ng-container *ngIf="buttonTemplate">
+            }
+            @if (buttonTemplate) {
                 <ng-container *ngTemplateOutlet="buttonTemplate; context: { toggleCallback: onButtonClick.bind(this) }"></ng-container>
-            </ng-container>
+            }
             <ul
                 #list
                 class="p-speeddial-list"
@@ -78,43 +78,46 @@ import { SpeedDialStyle } from './style/speeddialstyle';
                 [attr.data-pc-section]="'menu'"
                 [ngStyle]="listStyles"
             >
-                <li
-                    *ngFor="let item of model; let i = index"
-                    [ngStyle]="getItemStyle(i)"
-                    class="p-speeddial-item"
-                    pTooltip
-                    [tooltipOptions]="item.tooltipOptions || getTooltipOptions(item)"
-                    [ngClass]="{ 'p-hidden': item.visible === false, 'p-focus': focusedOptionId == id + '_' + i }"
-                    [id]="id + '_' + i"
-                    [attr.aria-controls]="id + '_item'"
-                    role="menuitem"
-                    [attr.data-pc-section]="'menuitem'"
-                >
-                    <ng-container *ngIf="itemTemplate">
-                        <ng-container *ngTemplateOutlet="itemTemplate; context: { $implicit: item, index: i, toggleCallback: onItemClick.bind(this) }"></ng-container>
-                    </ng-container>
-                    <ng-container *ngIf="!itemTemplate">
-                        <button
-                            pButton
-                            pRipple
-                            class="p-speeddial-action"
-                            severity="secondary"
-                            [rounded]="true"
-                            size="small"
-                            role="menuitem"
-                            [icon]="item.icon"
-                            (click)="onItemClick($event, item)"
-                            [disabled]="item?.disabled"
-                            (keydown.enter)="onItemClick($event, item)"
-                            [attr.data-pc-section]="'action'"
-                            [attr.aria-label]="item.label"
-                            [attr.tabindex]="item.disabled || !visible ? null : item.tabindex ? item.tabindex : '0'"
-                        ></button>
-                    </ng-container>
-                </li>
+                @for (item of model; track item; let i = $index) {
+                    <li
+                        [ngStyle]="getItemStyle(i)"
+                        class="p-speeddial-item"
+                        pTooltip
+                        [tooltipOptions]="item.tooltipOptions || getTooltipOptions(item)"
+                        [ngClass]="{ 'p-hidden': item.visible === false, 'p-focus': focusedOptionId == id + '_' + i }"
+                        [id]="id + '_' + i"
+                        [attr.aria-controls]="id + '_item'"
+                        role="menuitem"
+                        [attr.data-pc-section]="'menuitem'"
+                    >
+                        @if (itemTemplate) {
+                            <ng-container *ngTemplateOutlet="itemTemplate; context: { $implicit: item, index: i, toggleCallback: onItemClick.bind(this) }"></ng-container>
+                        }
+                        @if (!itemTemplate) {
+                            <button
+                                pButton
+                                pRipple
+                                class="p-speeddial-action"
+                                severity="secondary"
+                                [rounded]="true"
+                                size="small"
+                                role="menuitem"
+                                [icon]="item.icon"
+                                (click)="onItemClick($event, item)"
+                                [disabled]="item?.disabled"
+                                (keydown.enter)="onItemClick($event, item)"
+                                [attr.data-pc-section]="'action'"
+                                [attr.aria-label]="item.label"
+                                [attr.tabindex]="item.disabled || !visible ? null : item.tabindex ? item.tabindex : '0'"
+                            ></button>
+                        }
+                    </li>
+                }
             </ul>
         </div>
-        <div *ngIf="mask && visible" [ngClass]="{ 'p-speeddial-mask': true, 'p-speeddial-mask-visible': visible }" [class]="maskClassName" [ngStyle]="maskStyle"></div>
+        @if (mask && visible) {
+            <div [ngClass]="{ 'p-speeddial-mask': true, 'p-speeddial-mask-visible': visible }" [class]="maskClassName" [ngStyle]="maskStyle"></div>
+        }
     `,
     changeDetection: ChangeDetectionStrategy.OnPush,
     encapsulation: ViewEncapsulation.None,

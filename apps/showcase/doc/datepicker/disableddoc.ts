@@ -11,7 +11,8 @@ import { Component } from '@angular/core';
             <p-datepicker [(ngModel)]="date" [disabled]="true" />
         </div>
         <app-code [code]="code" selector="datepicker-disabled-demo"></app-code>
-    `
+    `,
+    standalone: false
 })
 export class DisabledDoc {
     date: Date | undefined;

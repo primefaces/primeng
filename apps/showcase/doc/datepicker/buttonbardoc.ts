@@ -11,7 +11,8 @@ import { Component } from '@angular/core';
             <p-datepicker [(ngModel)]="date" [showButtonBar]="true" />
         </div>
         <app-code [code]="code" selector="datepicker-buttonbar-demo"></app-code>
-    `
+    `,
+    standalone: false
 })
 export class ButtonBarDoc {
     date: Date[] | undefined;

@@ -18,7 +18,8 @@ import { Component } from '@angular/core';
             <p-button label="Plain" variant="text" [raised]="true" />
         </div>
         <app-code [code]="code" selector="button-raisedtext-demo"></app-code>
-    `
+    `,
+    standalone: false
 })
 export class RaisedTextDoc {
     code: Code = {

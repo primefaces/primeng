@@ -11,7 +11,8 @@ import { Component } from '@angular/core';
             <p-datepicker [(ngModel)]="date" view="month" dateFormat="mm/yy" [readonlyInput]="true" />
         </div>
         <app-code [code]="code" selector="datepicker-month-demo"></app-code>
-    `
+    `,
+    standalone: false
 })
 export class MonthDoc {
     date: Date[] | undefined;

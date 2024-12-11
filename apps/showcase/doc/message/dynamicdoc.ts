@@ -19,7 +19,8 @@ import { Component, signal } from '@angular/core';
             </div>
         </div>
         <app-code [code]="code" selector="message-dynamic-demo"></app-code>
-    `
+    `,
+    standalone: false
 })
 export class DynamicDoc {
     messages = signal<any[]>([]);

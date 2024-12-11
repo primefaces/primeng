@@ -14,7 +14,8 @@ import { Component } from '@angular/core';
             </p-chip>
         </div>
         <app-code [code]="code" selector="chip-template-demo"></app-code>
-    `
+    `,
+    standalone: false
 })
 export class TemplateDoc {
     code: Code = {

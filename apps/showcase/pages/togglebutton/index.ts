@@ -11,7 +11,6 @@ import { Component } from '@angular/core';
 
 @Component({
     template: `<app-doc docTitle="Angular ToggleButton Component" header="ToggleButton" description="ToggleButton is used to select a boolean value using a button." [docs]="docs" [apiDocs]="['ToggleButton']" themeDocs="togglebutton"></app-doc>`,
-    standalone: true,
     imports: [ToggleButtonDocModule]
 })
 export class ToggleButtonDemo {

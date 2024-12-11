@@ -7,7 +7,6 @@ import { Component } from '@angular/core';
 
 @Component({
     template: `<app-doc docTitle="Angular ProgressSpinner Component" header="ProgressSpinner" description="ProgressSpinner is a process status indicator." [docs]="docs" [apiDocs]="['ProgressSpinner']" themeDocs="progressspinner"></app-doc>`,
-    standalone: true,
     imports: [ProgressSpinnerDocModule]
 })
 export class ProgressSpinnerDemo {

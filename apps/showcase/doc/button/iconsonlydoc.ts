@@ -55,7 +55,8 @@ import { Component } from '@angular/core';
             </div>
         </div>
         <app-code [code]="code" selector="button-icon-only-demo"></app-code>
-    `
+    `,
+    standalone: false
 })
 export class IconOnlyDoc {
     code: Code = {

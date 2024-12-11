@@ -15,7 +15,8 @@ import { Component } from '@angular/core';
             </span>
         </div>
         <app-code [code]="code" selector="button-set-demo"></app-code>
-    `
+    `,
+    standalone: false
 })
 export class ButtonsetDoc {
     code: Code = {

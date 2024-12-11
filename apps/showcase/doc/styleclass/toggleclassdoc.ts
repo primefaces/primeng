@@ -15,7 +15,8 @@ import { Component } from '@angular/core';
             <input type="text" pInputText class="block mt-4" />
         </div>
         <app-code [code]="code" selector="style-class-toggle-class-demo"></app-code>
-    `
+    `,
+    standalone: false
 })
 export class ToggleClassDoc {
     code: Code = {

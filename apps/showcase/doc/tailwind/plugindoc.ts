@@ -16,7 +16,8 @@ import { Component } from '@angular/core';
             <p>After installation, configure the plugin at your tailwind configuration file.</p>
             <app-code [code]="code2" selector="code2" [hideToggleCode]="true" [hideCodeSandbox]="true" [hideStackBlitz]="true"></app-code>
         </app-docsectiontext>
-    `
+    `,
+    standalone: false
 })
 export class PluginDoc {
     code1: Code = {
