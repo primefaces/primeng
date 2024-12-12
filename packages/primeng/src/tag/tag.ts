@@ -13,20 +13,22 @@ import { TagStyle } from './style/tagstyle';
     standalone: true,
     imports: [CommonModule, SharedModule],
     template: `
-        <span [ngClass]="containerClass()" [class]="styleClass" [ngStyle]="style">
-            <ng-content></ng-content>
-            <ng-container *ngIf="!iconTemplate">
-                <span class="p-tag-icon" [ngClass]="icon" *ngIf="icon"></span>
-            </ng-container>
-            <span class="p-tag-icon" *ngIf="iconTemplate">
-                <ng-template *ngTemplateOutlet="iconTemplate"></ng-template>
-            </span>
-            <span class="p-tag-label">{{ value }}</span>
+        <ng-content></ng-content>
+        <ng-container *ngIf="!iconTemplate">
+            <span class="p-tag-icon" [ngClass]="icon" *ngIf="icon"></span>
+        </ng-container>
+        <span class="p-tag-icon" *ngIf="iconTemplate">
+            <ng-template *ngTemplateOutlet="iconTemplate"></ng-template>
         </span>
+        <span class="p-tag-label">{{ value }}</span>
     `,
     changeDetection: ChangeDetectionStrategy.OnPush,
     encapsulation: ViewEncapsulation.None,
-    providers: [TagStyle]
+    providers: [TagStyle],
+    host: {
+        '[class]': 'containerClass()',
+        '[style]': 'style'
+    }
 })
 export class Tag extends BaseComponent {
     /**
@@ -84,11 +86,21 @@ export class Tag extends BaseComponent {
     }
 
     containerClass() {
-        return {
-            'p-tag p-component': true,
-            [`p-tag-${this.severity}`]: this.severity,
-            'p-tag-rounded': this.rounded
-        };
+        let classes = 'p-tag p-component';
+
+        if (this.severity) {
+            classes += ` p-tag-${this.severity}`;
+        }
+
+        if (this.rounded) {
+            classes += ' p-tag-rounded';
+        }
+
+        if (this.styleClass) {
+            classes += ` ${this.styleClass}`;
+        }
+
+        return classes;
     }
 }
 
