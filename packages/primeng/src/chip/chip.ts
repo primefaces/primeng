@@ -15,35 +15,41 @@ import { ChipStyle } from './style/chipstyle';
     standalone: true,
     imports: [CommonModule, TimesCircleIcon, SharedModule],
     template: `
-        <div [ngClass]="containerClass()" [class]="styleClass" [ngStyle]="style" *ngIf="visible" [attr.data-pc-name]="'chip'" [attr.aria-label]="label" [attr.data-pc-section]="'root'">
-            <ng-content></ng-content>
-            <img class="p-chip-image" [src]="image" *ngIf="image; else iconTemplate" (error)="imageError($event)" [alt]="alt" />
-            <ng-template #iconTemplate><span *ngIf="icon" [class]="icon" [ngClass]="'p-chip-icon'" [attr.data-pc-section]="'icon'"></span></ng-template>
-            <div class="p-chip-label" *ngIf="label" [attr.data-pc-section]="'label'">{{ label }}</div>
-            <ng-container *ngIf="removable">
-                <ng-container *ngIf="!removeicon">
-                    <span
-                        tabindex="0"
-                        *ngIf="removeIcon"
-                        [class]="removeIcon"
-                        [ngClass]="'p-chip-remove-icon'"
-                        [attr.data-pc-section]="'removeicon'"
-                        (click)="close($event)"
-                        (keydown)="onKeydown($event)"
-                        [attr.aria-label]="removeAriaLabel"
-                        role="button"
-                    ></span>
-                    <TimesCircleIcon tabindex="0" *ngIf="!removeIcon" [class]="'p-chip-remove-icon'" [attr.data-pc-section]="'removeicon'" (click)="close($event)" (keydown)="onKeydown($event)" [attr.aria-label]="removeAriaLabel" role="button" />
-                </ng-container>
-                <span *ngIf="removeicon" tabindex="0" [attr.data-pc-section]="'removeicon'" class="p-chip-remove-icon" (click)="close($event)" (keydown)="onKeydown($event)" [attr.aria-label]="removeAriaLabel" role="button">
-                    <ng-template *ngTemplateOutlet="removeicon"></ng-template>
-                </span>
+        <ng-content></ng-content>
+        <img class="p-chip-image" [src]="image" *ngIf="image; else iconTemplate" (error)="imageError($event)" [alt]="alt" />
+        <ng-template #iconTemplate><span *ngIf="icon" [class]="icon" [ngClass]="'p-chip-icon'" [attr.data-pc-section]="'icon'"></span></ng-template>
+        <div class="p-chip-label" *ngIf="label" [attr.data-pc-section]="'label'">{{ label }}</div>
+        <ng-container *ngIf="removable">
+            <ng-container *ngIf="!removeicon">
+                <span
+                    tabindex="0"
+                    *ngIf="removeIcon"
+                    [class]="removeIcon"
+                    [ngClass]="'p-chip-remove-icon'"
+                    [attr.data-pc-section]="'removeicon'"
+                    (click)="close($event)"
+                    (keydown)="onKeydown($event)"
+                    [attr.aria-label]="removeAriaLabel"
+                    role="button"
+                ></span>
+                <TimesCircleIcon tabindex="0" *ngIf="!removeIcon" [class]="'p-chip-remove-icon'" [attr.data-pc-section]="'removeicon'" (click)="close($event)" (keydown)="onKeydown($event)" [attr.aria-label]="removeAriaLabel" role="button" />
             </ng-container>
-        </div>
+            <span *ngIf="removeicon" tabindex="0" [attr.data-pc-section]="'removeicon'" class="p-chip-remove-icon" (click)="close($event)" (keydown)="onKeydown($event)" [attr.aria-label]="removeAriaLabel" role="button">
+                <ng-template *ngTemplateOutlet="removeicon"></ng-template>
+            </span>
+        </ng-container>
     `,
     changeDetection: ChangeDetectionStrategy.OnPush,
     encapsulation: ViewEncapsulation.None,
-    providers: [ChipStyle]
+    providers: [ChipStyle],
+    host: {
+        '[class]': 'containerClass()',
+        '[style]': 'style',
+        '[style.display]': '!visible && "none"',
+        '[attr.data-pc-name]': "'chip'",
+        '[attr.aria-label]': 'label',
+        '[attr.data-pc-section]': "'root'"
+    }
 })
 export class Chip extends BaseComponent {
     /**
@@ -159,9 +165,13 @@ export class Chip extends BaseComponent {
     }
 
     containerClass() {
-        return {
-            'p-chip p-component': true
-        };
+        let classes = 'p-chip p-component';
+
+        if (this.styleClass) {
+            classes += ` ${this.styleClass}`;
+        }
+
+        return classes;
     }
 
     close(event: MouseEvent) {
