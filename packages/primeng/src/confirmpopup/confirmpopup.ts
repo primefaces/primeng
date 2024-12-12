@@ -7,6 +7,7 @@ import {
     ChangeDetectorRef,
     Component,
     ContentChild,
+    ContentChildren,
     ElementRef,
     EventEmitter,
     HostListener,
@@ -16,12 +17,13 @@ import {
     NgModule,
     numberAttribute,
     OnDestroy,
+    QueryList,
     Renderer2,
     TemplateRef,
     ViewEncapsulation
 } from '@angular/core';
 import { absolutePosition, addClass, findSingle, getOffset, isIOS, isTouchDevice } from '@primeuix/utils';
-import { Confirmation, ConfirmationService, OverlayService, SharedModule, TranslationKeys } from 'primeng/api';
+import { Confirmation, ConfirmationService, OverlayService, PrimeTemplate, SharedModule, TranslationKeys } from 'primeng/api';
 import { BaseComponent } from 'primeng/basecomponent';
 import { ButtonModule } from 'primeng/button';
 import { ConnectedOverlayScrollHandler } from 'primeng/dom';
@@ -53,13 +55,13 @@ import { ConfirmPopupStyle } from './style/confirmpopupstyle';
             (@animation.start)="onAnimationStart($event)"
             (@animation.done)="onAnimationEnd($event)"
         >
-            <ng-container *ngIf="headlessTemplate; else notHeadless">
-                <ng-container *ngTemplateOutlet="headlessTemplate; context: { $implicit: confirmation }"></ng-container>
+            <ng-container *ngIf="headlessTemplate || _headlessTemplate; else notHeadless">
+                <ng-container *ngTemplateOutlet="headlessTemplate || _headlessTemplate; context: { $implicit: confirmation }"></ng-container>
             </ng-container>
             <ng-template #notHeadless>
                 <div #content class="p-confirmpopup-content">
-                    <ng-container *ngIf="contentTemplate; else withoutContentTemplate">
-                        <ng-container *ngTemplateOutlet="contentTemplate; context: { $implicit: confirmation }"></ng-container>
+                    <ng-container *ngIf="contentTemplate || _contentTemplate; else withoutContentTemplate">
+                        <ng-container *ngTemplateOutlet="contentTemplate || _contentTemplate; context: { $implicit: confirmation }"></ng-container>
                     </ng-container>
                     <ng-template #withoutContentTemplate>
                         <i [ngClass]="'p-confirmpopup-icon'" [class]="confirmation?.icon" *ngIf="confirmation?.icon"></i>
@@ -80,7 +82,7 @@ import { ConfirmPopupStyle } from './style/confirmpopupstyle';
                         [buttonProps]="getRejectButtonProps()"
                     >
                         <i [class]="confirmation?.rejectIcon" *ngIf="confirmation?.rejectIcon; else rejecticon"></i>
-                        <ng-template #rejecticon *ngTemplateOutlet="rejecticon"></ng-template>
+                        <ng-template #rejecticon *ngTemplateOutlet="rejectIconTemplate || _rejectIconTemplate"></ng-template>
                     </p-button>
                     <p-button
                         type="button"
@@ -94,7 +96,7 @@ import { ConfirmPopupStyle } from './style/confirmpopupstyle';
                         [buttonProps]="getAcceptButtonProps()"
                     >
                         <i [class]="confirmation?.acceptIcon" *ngIf="confirmation?.acceptIcon; else accepticontemplate"></i>
-                        <ng-template #accepticontemplate *ngTemplateOutlet="accepticon"></ng-template>
+                        <ng-template #accepticontemplate *ngTemplateOutlet="acceptIconTemplate || _acceptIconTemplate"></ng-template>
                     </p-button>
                 </div>
             </ng-template>
@@ -183,13 +185,21 @@ export class ConfirmPopup extends BaseComponent implements AfterContentInit, OnD
 
     confirmation: Nullable<Confirmation>;
 
-    @ContentChild('content') contentTemplate: Nullable<TemplateRef<any>>;
+    @ContentChild('content', { descendants: false }) contentTemplate: Nullable<TemplateRef<any>>;
 
-    @ContentChild('accepticon') accepticon: Nullable<TemplateRef<any>>;
+    @ContentChild('accepticon', { descendants: false }) acceptIconTemplate: Nullable<TemplateRef<any>>;
 
-    @ContentChild('rejecticon') rejecticon: Nullable<TemplateRef<any>>;
+    @ContentChild('rejecticon', { descendants: false }) rejectIconTemplate: Nullable<TemplateRef<any>>;
 
-    @ContentChild('headless') headlessTemplate: Nullable<TemplateRef<any>>;
+    @ContentChild('headless', { descendants: false }) headlessTemplate: Nullable<TemplateRef<any>>;
+
+    _contentTemplate: TemplateRef<any> | undefined;
+
+    _acceptIconTemplate: TemplateRef<any> | undefined;
+
+    _rejectIconTemplate: TemplateRef<any> | undefined;
+
+    _headlessTemplate: TemplateRef<any> | undefined;
 
     _visible: boolean | undefined;
 
@@ -238,6 +248,30 @@ export class ConfirmPopup extends BaseComponent implements AfterContentInit, OnD
                 }
 
                 this.visible = true;
+            }
+        });
+    }
+
+    @ContentChildren(PrimeTemplate) templates: QueryList<PrimeTemplate> | undefined;
+
+    ngAfterContentInit() {
+        this.templates?.forEach((item) => {
+            switch (item.getType()) {
+                case 'content':
+                    this._contentTemplate = item.template;
+                    break;
+
+                case 'rejecticon':
+                    this._rejectIconTemplate = item.template;
+                    break;
+
+                case 'accepticon':
+                    this._acceptIconTemplate = item.template;
+                    break;
+
+                case 'headless':
+                    this._headlessTemplate = item.template;
+                    break;
             }
         });
     }
