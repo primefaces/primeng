@@ -186,7 +186,7 @@ export class BlockUI extends BaseComponent implements AfterViewInit, AfterConten
 }
 
 @NgModule({
-    imports: [BlockUI],
+    imports: [BlockUI, SharedModule],
     exports: [BlockUI, SharedModule]
 })
 export class BlockUIModule {}
