@@ -1,11 +1,12 @@
 import { CommonModule } from '@angular/common';
-import { AfterContentInit, booleanAttribute, ChangeDetectionStrategy, Component, ContentChild, EventEmitter, forwardRef, inject, Input, NgModule, Output, TemplateRef, ViewEncapsulation } from '@angular/core';
+import { AfterContentInit, booleanAttribute, ChangeDetectionStrategy, Component, ContentChild, ContentChildren, EventEmitter, forwardRef, inject, Input, NgModule, Output, QueryList, TemplateRef, ViewEncapsulation } from '@angular/core';
 import { NG_VALUE_ACCESSOR } from '@angular/forms';
-import { SharedModule } from 'primeng/api';
+import { PrimeTemplate, SharedModule } from 'primeng/api';
 import { AutoFocus } from 'primeng/autofocus';
 import { BaseComponent } from 'primeng/basecomponent';
 import { InputText } from 'primeng/inputtext';
 import { InputOtpStyle } from './style/inputotpstyle';
+import { Nullable } from 'primeng/ts-helpers';
 
 export const INPUT_OTP_VALUE_ACCESSOR: any = {
     provide: NG_VALUE_ACCESSOR,
@@ -178,7 +179,11 @@ export class InputOtp extends BaseComponent implements AfterContentInit {
      * @see {@link InputOtpInputTemplateContext}
      * @group Templates
      */
-    @ContentChild('input') inputTemplate: TemplateRef<any>;
+    @ContentChild('input', { descendants: false }) inputTemplate: TemplateRef<any>;
+
+    @ContentChildren(PrimeTemplate) templates: Nullable<QueryList<PrimeTemplate>>;
+
+    _inputTemplate: TemplateRef<any> | undefined;
 
     tokens: any = [];
 
@@ -197,6 +202,19 @@ export class InputOtp extends BaseComponent implements AfterContentInit {
     }
 
     _componentStyle = inject(InputOtpStyle);
+
+    ngAfterContentInit() {
+        (this.templates as QueryList<PrimeTemplate>).forEach((item) => {
+            switch (item.getType()) {
+                case 'input':
+                    this._inputTemplate = item.template;
+                    break;
+                default:
+                    this._inputTemplate = item.template;
+                    break;
+            }
+        });
+    }
 
     getToken(index) {
         return this.tokens[index];
