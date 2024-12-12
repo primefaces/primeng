@@ -6,6 +6,7 @@ import {
     Component,
     computed,
     ContentChild,
+    ContentChildren,
     ElementRef,
     EventEmitter,
     forwardRef,
@@ -16,6 +17,7 @@ import {
     OnDestroy,
     OnInit,
     Output,
+    QueryList,
     signal,
     TemplateRef,
     ViewChild,
@@ -23,7 +25,7 @@ import {
 } from '@angular/core';
 import { ControlValueAccessor, FormsModule, NG_VALUE_ACCESSOR } from '@angular/forms';
 import { equals, findLastIndex, findSingle, focus, getFirstFocusableElement, isEmpty, isNotEmpty, isPrintableCharacter, resolveFieldData, uuid } from '@primeuix/utils';
-import { FilterService, Footer, Header, ScrollerOptions, SharedModule } from 'primeng/api';
+import { FilterService, Footer, Header, PrimeTemplate, ScrollerOptions, SharedModule } from 'primeng/api';
 import { BaseComponent } from 'primeng/basecomponent';
 import { Checkbox } from 'primeng/checkbox';
 import { IconField } from 'primeng/iconfield';
@@ -62,9 +64,9 @@ export const LISTBOX_VALUE_ACCESSOR: any = {
                 [attr.data-p-hidden-focusable]="true"
             >
             </span>
-            <div class="p-listbox-header" *ngIf="headerFacet || headerTemplate">
+            <div class="p-listbox-header" *ngIf="headerFacet || headerTemplate || _headerTemplate">
                 <ng-content select="p-header"></ng-content>
-                <ng-container *ngTemplateOutlet="headerTemplate; context: { $implicit: modelValue(), options: visibleOptions() }"></ng-container>
+                <ng-container *ngTemplateOutlet="headerTemplate || _headerTemplate; context: { $implicit: modelValue(), options: visibleOptions() }"></ng-container>
             </div>
             <div class="p-listbox-header" *ngIf="(checkbox && multiple && showToggleAll) || filter">
                 <div *ngIf="checkbox && multiple && showToggleAll" class="p-checkbox p-component" [ngClass]="{ 'p-checkbox-disabled': disabled }" (click)="onToggleAll($event)" (keydown)="onHeaderCheckboxKeyDown($event)">
@@ -80,15 +82,15 @@ export const LISTBOX_VALUE_ACCESSOR: any = {
                         [variant]="config.inputStyle() === 'filled' ? 'filled' : 'outlined' || config.inputVariant() === 'filled' ? 'filled' : 'outlined'"
                         [binary]="true"
                     >
-                        <ng-container *ngIf="checkIconTemplate">
+                        <ng-container *ngIf="checkIconTemplate || _checkIconTemplate">
                             <ng-template #icon>
-                                <ng-template *ngTemplateOutlet="checkIconTemplate; context: { $implicit: allSelected() }"></ng-template>
+                                <ng-template *ngTemplateOutlet="checkIconTemplate || _checkIconTemplate; context: { $implicit: allSelected() }"></ng-template>
                             </ng-template>
                         </ng-container>
                     </p-checkbox>
                 </div>
-                <ng-container *ngIf="filterTemplate; else builtInFilterElement">
-                    <ng-container *ngTemplateOutlet="filterTemplate; context: { options: filterOptions }"></ng-container>
+                <ng-container *ngIf="filterTemplate || _filterTemplate; else builtInFilterElement">
+                    <ng-container *ngTemplateOutlet="filterTemplate || _filterTemplate; context: { options: filterOptions }"></ng-container>
                 </ng-container>
                 <ng-template #builtInFilterElement>
                     <div class="p-listbox-filter-container" *ngIf="filter">
@@ -112,9 +114,9 @@ export const LISTBOX_VALUE_ACCESSOR: any = {
                                 (blur)="onFilterBlur($event)"
                             />
                             <p-inputicon>
-                                <SearchIcon *ngIf="!filterIconTemplate" [styleClass]="'p-listbox-filter-icon'" [attr.aria-hidden]="true" />
-                                <span *ngIf="filterIconTemplate" class="p-listbox-filter-icon" [attr.aria-hidden]="true">
-                                    <ng-template *ngTemplateOutlet="filterIconTemplate"></ng-template>
+                                <SearchIcon *ngIf="!filterIconTemplate && !_filterIconTemplate" [styleClass]="'p-listbox-filter-icon'" [attr.aria-hidden]="true" />
+                                <span *ngIf="filterIconTemplate || _filterIconTemplate" class="p-listbox-filter-icon" [attr.aria-hidden]="true">
+                                    <ng-template *ngTemplateOutlet="filterIconTemplate || _filterIconTemplate"></ng-template>
                                 </span>
                             </p-inputicon>
                         </p-iconfield>
@@ -140,9 +142,9 @@ export const LISTBOX_VALUE_ACCESSOR: any = {
                     <ng-template #content let-items let-scrollerOptions="options">
                         <ng-container *ngTemplateOutlet="buildInItems; context: { $implicit: items, options: scrollerOptions }"></ng-container>
                     </ng-template>
-                    @if (loaderTemplate) {
+                    @if (loaderTemplate || _loaderTemplate) {
                         <ng-template #loader let-scrollerOptions="options">
-                            <ng-container *ngTemplateOutlet="loaderTemplate; context: { options: scrollerOptions }"></ng-container>
+                            <ng-container *ngTemplateOutlet="loaderTemplate || _loaderTemplate; context: { options: scrollerOptions }"></ng-container>
                         </ng-template>
                     }
                 </p-scroller>
@@ -169,8 +171,8 @@ export const LISTBOX_VALUE_ACCESSOR: any = {
                         <ng-template ngFor let-option [ngForOf]="items" let-i="index">
                             <ng-container *ngIf="isOptionGroup(option)">
                                 <li [attr.id]="id + '_' + getOptionIndex(i, scrollerOptions)" class="p-listbox-option-group" [ngStyle]="{ height: scrollerOptions.itemSize + 'px' }" role="option">
-                                    <span *ngIf="!groupTemplate">{{ getOptionGroupLabel(option.optionGroup) }}</span>
-                                    <ng-container *ngTemplateOutlet="groupTemplate; context: { $implicit: option.optionGroup }"></ng-container>
+                                    <span *ngIf="!groupTemplate && !_groupTemplate">{{ getOptionGroupLabel(option.optionGroup) }}</span>
+                                    <ng-container *ngTemplateOutlet="groupTemplate || _groupTemplate; context: { $implicit: option.optionGroup }"></ng-container>
                                 </li>
                             </ng-container>
                             <ng-container *ngIf="!isOptionGroup(option)">
@@ -205,23 +207,23 @@ export const LISTBOX_VALUE_ACCESSOR: any = {
                                         [variant]="config.inputStyle() === 'filled' ? 'filled' : 'outlined' || config.inputVariant() === 'filled' ? 'filled' : 'outlined'"
                                         [binary]="true"
                                     >
-                                        <ng-container *ngIf="checkIconTemplate">
+                                        <ng-container *ngIf="checkIconTemplate || _checkIconTemplate">
                                             <ng-template #icon>
-                                                <ng-template *ngTemplateOutlet="checkIconTemplate; context: { $implicit: isSelected(option) }"></ng-template>
+                                                <ng-template *ngTemplateOutlet="checkIconTemplate || _checkIconTemplate; context: { $implicit: isSelected(option) }"></ng-template>
                                             </ng-template>
                                         </ng-container>
                                     </p-checkbox>
                                     <ng-container *ngIf="checkmark">
-                                        <ng-container *ngIf="!checkmarkTemplate">
+                                        <ng-container *ngIf="!checkmarkTemplate && !_checkmarkTemplate">
                                             <BlankIcon *ngIf="!isSelected(option)" styleClass="p-listbox-option-check-icon" />
                                             <CheckIcon *ngIf="isSelected(option)" styleClass="p-listbox-option-check-icon" />
                                         </ng-container>
-                                        <ng-container *ngTemplateOutlet="checkmarkTemplate; context: { implicit: isSelected(option) }"></ng-container>
+                                        <ng-container *ngTemplateOutlet="checkmarkTemplate || _checkmarkTemplate; context: { implicit: isSelected(option) }"></ng-container>
                                     </ng-container>
-                                    <span *ngIf="!itemTemplate">{{ getOptionLabel(option) }}</span>
+                                    <span *ngIf="!itemTemplate && !_itemTemplate">{{ getOptionLabel(option) }}</span>
                                     <ng-container
                                         *ngTemplateOutlet="
-                                            itemTemplate;
+                                            itemTemplate || _itemTemplate;
                                             context: {
                                                 $implicit: option,
                                                 index: getOptionIndex(i, scrollerOptions),
@@ -233,25 +235,25 @@ export const LISTBOX_VALUE_ACCESSOR: any = {
                             </ng-container>
                         </ng-template>
                         <li *ngIf="hasFilter() && isEmpty()" class="p-listbox-empty-message" role="option">
-                            @if (!emptyfilter && !emptyTemplate) {
+                            @if (!emptyFilterTemplate && !_emptyFilterTemplate && !_emptyTemplate && !emptyTemplate) {
                                 {{ emptyFilterMessageText }}
                             } @else {
-                                <ng-container #emptyFilter *ngTemplateOutlet="emptyfilter || emptyTemplate"></ng-container>
+                                <ng-container #emptyFilter *ngTemplateOutlet="emptyFilterTemplate || _emptyFilterTemplate || _emptyTemplate || emptyTemplate"></ng-container>
                             }
                         </li>
                         <li *ngIf="!hasFilter() && isEmpty()" class="p-listbox-empty-message" role="option">
-                            @if (!emptyTemplate) {
+                            @if (!emptyTemplate && !_emptyTemplate) {
                                 {{ emptyMessage }}
                             } @else {
-                                <ng-container #empty *ngTemplateOutlet="emptyTemplate"></ng-container>
+                                <ng-container #empty *ngTemplateOutlet="emptyTemplate || _emptyTemplate"></ng-container>
                             }
                         </li>
                     </ul>
                 </ng-template>
             </div>
-            <div class="p-listbox-footer" *ngIf="footerFacet || footerTemplate">
+            <div class="p-listbox-footer" *ngIf="footerFacet || footerTemplate || _footerTemplate">
                 <ng-content select="p-footer"></ng-content>
-                <ng-container *ngTemplateOutlet="footerTemplate; context: { $implicit: modelValue(), options: visibleOptions() }"></ng-container>
+                <ng-container *ngTemplateOutlet="footerTemplate || _footerTemplate; context: { $implicit: modelValue(), options: visibleOptions() }"></ng-container>
             </div>
             <span *ngIf="isEmpty()" role="status" aria-live="polite" class="p-hidden-accessible">
                 {{ emptyMessage }}
@@ -608,67 +610,91 @@ export class Listbox extends BaseComponent implements AfterContentInit, OnInit, 
      * Custom item template.
      * @group Templates
      */
-    @ContentChild('item') itemTemplate: TemplateRef<any> | undefined;
+    @ContentChild('item', { descendants: false }) itemTemplate: TemplateRef<any> | undefined;
 
     /**
      * Custom group template.
      * @group Templates
      */
-    @ContentChild('group') groupTemplate: TemplateRef<any> | undefined;
+    @ContentChild('group', { descendants: false }) groupTemplate: TemplateRef<any> | undefined;
 
     /**
      * Custom header template.
      * @group Templates
      */
-    @ContentChild('header') headerTemplate: TemplateRef<any> | undefined;
+    @ContentChild('header', { descendants: false }) headerTemplate: TemplateRef<any> | undefined;
 
     /**
      * Custom filter template.
      * @group Templates
      */
-    @ContentChild('filter') filterTemplate: TemplateRef<any> | undefined;
+    @ContentChild('filter', { descendants: false }) filterTemplate: TemplateRef<any> | undefined;
 
     /**
      * Custom footer template.
      * @group Templates
      */
-    @ContentChild('footer') footerTemplate: TemplateRef<any> | undefined;
+    @ContentChild('footer', { descendants: false }) footerTemplate: TemplateRef<any> | undefined;
 
     /**
      * Custom empty filter message template.
      * @group Templates
      */
-    @ContentChild('emptyfilter') emptyfilter: TemplateRef<any> | undefined;
+    @ContentChild('emptyfilter', { descendants: false }) emptyFilterTemplate: TemplateRef<any> | undefined;
 
     /**
      * Custom empty message template.
      * @group Templates
      */
-    @ContentChild('empty') emptyTemplate: TemplateRef<any> | undefined;
+    @ContentChild('empty', { descendants: false }) emptyTemplate: TemplateRef<any> | undefined;
 
     /**
      * Custom filter icon template.
      * @group Templates
      */
-    @ContentChild('filtericon') filterIconTemplate: TemplateRef<any> | undefined;
+    @ContentChild('filtericon', { descendants: false }) filterIconTemplate: TemplateRef<any> | undefined;
 
     /**
      * Custom check icon template.
      * @group Templates
      */
-    @ContentChild('checkicon') checkIconTemplate: TemplateRef<any> | undefined;
+    @ContentChild('checkicon', { descendants: false }) checkIconTemplate: TemplateRef<any> | undefined;
 
     /**
      * Custom checkmark icon template.
      * @group Templates
      */
-    @ContentChild('checkmark') checkmarkTemplate: TemplateRef<any> | undefined;
+    @ContentChild('checkmark', { descendants: false }) checkmarkTemplate: TemplateRef<any> | undefined;
 
     /**
      * Custom loader template.
      * @group Templates
      */
-    @ContentChild('loader') loaderTemplate: TemplateRef<any> | undefined;
+    @ContentChild('loader', { descendants: false }) loaderTemplate: TemplateRef<any> | undefined;
+
+    @ContentChildren(PrimeTemplate) templates!: QueryList<PrimeTemplate>;
+
+    _itemTemplate: TemplateRef<any> | undefined;
+
+    _groupTemplate: TemplateRef<any> | undefined;
+
+    _headerTemplate: TemplateRef<any> | undefined;
+
+    _filterTemplate: TemplateRef<any> | undefined;
+
+    _footerTemplate: TemplateRef<any> | undefined;
+
+    _emptyFilterTemplate: TemplateRef<any> | undefined;
+
+    _emptyTemplate: TemplateRef<any> | undefined;
+
+    _filterIconTemplate: TemplateRef<any> | undefined;
+
+    _checkIconTemplate: TemplateRef<any> | undefined;
+
+    _checkmarkTemplate: TemplateRef<any> | undefined;
+
+    _loaderTemplate: TemplateRef<any> | undefined;
 
     public _filterValue = signal<string | null | undefined>(null);
 
@@ -792,6 +818,60 @@ export class Listbox extends BaseComponent implements AfterContentInit, OnInit, 
                 reset: () => this.resetFilter()
             };
         }
+    }
+
+    ngAfterContentInit() {
+        this.templates.forEach((item) => {
+            switch (item.getType()) {
+                case 'item':
+                    this._itemTemplate = item.template;
+                    break;
+
+                case 'group':
+                    this._groupTemplate = item.template;
+                    break;
+
+                case 'header':
+                    this._headerTemplate = item.template;
+                    break;
+
+                case 'filter':
+                    this._filterTemplate = item.template;
+                    break;
+
+                case 'footer':
+                    this._footerTemplate = item.template;
+                    break;
+
+                case 'empty':
+                    this._emptyTemplate = item.template;
+                    break;
+
+                case 'emptyfilter':
+                    this._emptyFilterTemplate = item.template;
+                    break;
+
+                case 'filtericon':
+                    this._filterIconTemplate = item.template;
+                    break;
+
+                case 'checkicon':
+                    this._checkIconTemplate = item.template;
+                    break;
+
+                case 'checkmark':
+                    this._checkmarkTemplate = item.template;
+                    break;
+
+                case 'loader':
+                    this._loaderTemplate = item.template;
+                    break;
+
+                default:
+                    this._itemTemplate = item.template;
+                    break;
+            }
+        });
     }
 
     writeValue(value: any): void {
