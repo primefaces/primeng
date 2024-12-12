@@ -1,6 +1,6 @@
 import { animate, state, style, transition, trigger } from '@angular/animations';
 import { CommonModule } from '@angular/common';
-import { booleanAttribute, ChangeDetectionStrategy, Component, ContentChild, EventEmitter, inject, Input, NgModule, Output, TemplateRef, ViewEncapsulation } from '@angular/core';
+import { booleanAttribute, ChangeDetectionStrategy, Component, ContentChild, ElementRef, EventEmitter, inject, Input, NgModule, Output, TemplateRef, ViewChild, ViewEncapsulation } from '@angular/core';
 import { uuid } from '@primeuix/utils';
 import { BlockableUI, Footer, SharedModule } from 'primeng/api';
 import { BaseComponent } from 'primeng/basecomponent';
@@ -139,7 +139,7 @@ export interface PanelHeaderIconsTemplateContext {
                 "
                 (@panelContent.done)="onToggleDone($event)"
             >
-                <div class="p-panel-content">
+                <div class="p-panel-content" #contentWrapper>
                     <ng-content></ng-content>
                     <ng-container *ngTemplateOutlet="contentTemplate"></ng-container>
                 </div>
@@ -315,6 +315,8 @@ export class Panel extends BaseComponent implements BlockableUI {
      */
     @ContentChild('headericons') headericonsTemplate: TemplateRef<PanelHeaderIconsTemplateContext> | undefined;
 
+    @ViewChild('contentWrapper') contentWrapperViewChild: ElementRef;
+
     readonly id = uuid('pn_id_');
 
     get buttonAriaLabel() {
@@ -355,15 +357,30 @@ export class Panel extends BaseComponent implements BlockableUI {
     expand() {
         this.collapsed = false;
         this.collapsedChange.emit(this.collapsed);
+        this.updateTabIndex();
     }
 
     collapse() {
         this.collapsed = true;
         this.collapsedChange.emit(this.collapsed);
+        this.updateTabIndex();
     }
 
     getBlockableElement(): HTMLElement {
         return this.el.nativeElement.children[0];
+    }
+
+    updateTabIndex() {
+        if (this.contentWrapperViewChild) {
+            const focusableElements = this.contentWrapperViewChild.nativeElement.querySelectorAll('input, button, select, a, textarea, [tabindex]:not([tabindex="-1"])');
+            focusableElements.forEach((element: HTMLElement) => {
+                if (this.collapsed) {
+                    element.setAttribute('tabindex', '-1');
+                } else {
+                    element.removeAttribute('tabindex');
+                }
+            });
+        }
     }
 
     onKeyDown(event) {
