@@ -319,7 +319,7 @@ export class CascadeSelectSub extends BaseComponent implements OnInit {
             (onHide)="hide($event)"
         >
             <ng-template #content>
-                <div #panel [ngClass]="{ 'p-cascadeselect-overlay p-component': true, 'p-cascadeselect-mobile-active': queryMatches() }" [class]="panelStyleClass" [ngStyle]="panelStyle" [attr.data-pc-section]="'panel'">
+                <div #panel [ngClass]="{ 'p-cascadeselect-overlay p-component': true, 'p-cascadeselect-mobile-active': queryMatches(), 'bottom-aligned': transformOrigin?.includes('bottom') }" [class]="panelStyleClass" [ngStyle]="panelStyle" [attr.data-pc-section]="'panel'">
                     <ng-template *ngTemplateOutlet="headerTemplate"></ng-template>
                     <div class="p-cascadeselect-list-container" [attr.data-pc-section]="'wrapper'">
                         <p-cascadeselect-sub
@@ -688,6 +688,8 @@ export class CascadeSelect extends BaseComponent implements OnInit {
      * @group Templates
      */
     @ContentChild('clearicon') clearicon: Nullable<TemplateRef<any>>;
+
+    transformOrigin?: string;
 
     _showTransitionOptions: string = '';
 
@@ -1388,6 +1390,7 @@ export class CascadeSelect extends BaseComponent implements OnInit {
             const activeOptionPath = this.activeOptionPath();
             if (isNotEmpty(activeOptionPath)) {
                 this.overlayViewChild.alignOverlay();
+                this.transformOrigin = this.overlayViewChild.overlayEl?.style?.['transform-origin'];
             }
         });
     }
