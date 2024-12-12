@@ -115,6 +115,14 @@ export class DomHandler {
             } else {
                 this.absolutePosition(overlay, target);
             }
+
+            const bTransfrom = overlay.style.transformOrigin?.includes('bottom');
+            const bClass = overlay.classList?.contains('bottom-aligned');
+            if (bTransfrom && !bClass) {
+                overlay.classList.add('bottom-aligned');
+            } else if (!bTransfrom && bClass) {
+                overlay.classList.remove('bottom-aligned');
+            }
         }
     }
 
