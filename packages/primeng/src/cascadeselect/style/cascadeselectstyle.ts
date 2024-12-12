@@ -180,6 +180,11 @@ p-cascadeselect.ng-invalid.ng-dirty .p-cascadeselect-label.p-placeholder {
     top: 0;
 }
 
+.bottom-aligned .p-cascadeselect-option-active > .p-cascadeselect-option-list {
+    top: auto;
+    bottom: 0;
+}
+
 .p-cascadeselect-option-content {
     display: flex;
     align-items: center;
