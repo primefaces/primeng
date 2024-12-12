@@ -450,10 +450,10 @@ export class InputNumber extends BaseComponent implements OnInit, AfterContentIn
      */
     @ContentChild('clearicon') clearicon: Nullable<TemplateRef<any>>;
     /**
-     * Template of the icrement button icon.
+     * Template of the increment button icon.
      * @group Templates
      */
-    @ContentChild('icrementbuttonicon') incrementbuttonicon: Nullable<TemplateRef<any>>;
+    @ContentChild('incrementbuttonicon') incrementbuttonicon: Nullable<TemplateRef<any>>;
 
     /**
      * Template of the decrement button icon.
