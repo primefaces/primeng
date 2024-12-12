@@ -134,7 +134,6 @@ import { Tag } from 'primeng/tag';
     host: {
         class: 'flex gap-4 h-full flex-1 w-full overflow-auto'
     },
-    encapsulation: ViewEncapsulation.None,
     changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class InboxApp {
