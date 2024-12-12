@@ -65,7 +65,7 @@ export interface InputOtpInputTemplateContext {
     imports: [CommonModule, InputText, AutoFocus, SharedModule],
     template: `
         <ng-container *ngFor="let i of getRange(length); trackBy: trackByFn">
-            <ng-container *ngIf="!inputTemplate">
+            <ng-container *ngIf="!inputTemplate && !_inputTemplate">
                 <input
                     type="text"
                     pInputText
@@ -87,8 +87,8 @@ export interface InputOtpInputTemplateContext {
                     [ngClass]="styleClass"
                 />
             </ng-container>
-            <ng-container *ngIf="inputTemplate">
-                <ng-container *ngTemplateOutlet="inputTemplate; context: { $implicit: getToken(i - 1), events: getTemplateEvents(i - 1), index: i }"> </ng-container>
+            <ng-container *ngIf="inputTemplate || _inputTemplate">
+                <ng-container *ngTemplateOutlet="inputTemplate || _inputTemplate; context: { $implicit: getToken(i - 1), events: getTemplateEvents(i - 1), index: i }"> </ng-container>
             </ng-container>
         </ng-container>
     `,
