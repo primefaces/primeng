@@ -272,7 +272,7 @@ import { PickListStyle } from './style/pickliststyle';
                             <ng-template *ngTemplateOutlet="targetHeaderTemplate"></ng-template>
                         </ng-template>
                     </ng-container>
-                    <div class="p-picklist-title" *ngIf="!targetHeaderTemplate">{{ sourceHeader }}</div>
+                    <div class="p-picklist-title" *ngIf="!targetHeaderTemplate">{{ targetHeader }}</div>
                     <ng-container *ngIf="itemTemplate">
                         <ng-template #item let-item let-index="index" let-selected="selected">
                             <ng-container *ngTemplateOutlet="itemTemplate; context: { $implicit: item, index: index, selected: selected }"></ng-container>
