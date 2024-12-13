@@ -1,8 +1,27 @@
 import { animate, animation, style, transition, trigger, useAnimation } from '@angular/animations';
 import { CommonModule } from '@angular/common';
-import { booleanAttribute, ChangeDetectionStrategy, Component, ContentChild, ElementRef, EventEmitter, inject, Input, NgModule, NgZone, numberAttribute, OnDestroy, OnInit, Output, TemplateRef, ViewEncapsulation } from '@angular/core';
+import {
+    booleanAttribute,
+    ChangeDetectionStrategy,
+    Component,
+    ContentChild,
+    ContentChildren,
+    ElementRef,
+    EventEmitter,
+    inject,
+    Input,
+    NgModule,
+    NgZone,
+    numberAttribute,
+    OnDestroy,
+    OnInit,
+    Output,
+    QueryList,
+    TemplateRef,
+    ViewEncapsulation
+} from '@angular/core';
 import { findSingle, setAttribute, uuid } from '@primeuix/utils';
-import { Confirmation, ConfirmationService, ConfirmEventType, Footer, SharedModule, TranslationKeys } from 'primeng/api';
+import { Confirmation, ConfirmationService, ConfirmEventType, Footer, PrimeTemplate, SharedModule, TranslationKeys } from 'primeng/api';
 import { BaseComponent } from 'primeng/basecomponent';
 import { Button } from 'primeng/button';
 import { Dialog } from 'primeng/dialog';
@@ -37,11 +56,11 @@ const hideAnimation = animation([animate('{{transition}}', style({ transform: '{
             [appendTo]="option('appendTo')"
             [position]="position"
         >
-            @if (headlessTemplate) {
+            @if (headlessTemplate || _headlessTemplate) {
                 <ng-template #headless>
                     <ng-container
                         *ngTemplateOutlet="
-                            headlessTemplate;
+                            headlessTemplate || _headlessTemplate;
                             context: {
                                 $implicit: confirmation,
                                 onAccept: onAccept.bind(this),
@@ -51,31 +70,31 @@ const hideAnimation = animation([animate('{{transition}}', style({ transform: '{
                     ></ng-container>
                 </ng-template>
             } @else {
-                @if (headerTemplate) {
+                @if (headerTemplate || _headerTemplate) {
                     <div [ngClass]="cx('header')">
-                        <ng-container *ngTemplateOutlet="headerTemplate"></ng-container>
+                        <ng-container *ngTemplateOutlet="headerTemplate || _headerTemplate"></ng-container>
                     </div>
                 }
 
                 <ng-template #content>
-                    @if (iconTemplate) {
-                        <ng-template *ngTemplateOutlet="iconTemplate"></ng-template>
-                    } @else if (!iconTemplate && !messageTemplate) {
+                    @if (iconTemplate || _iconTemplate) {
+                        <ng-template *ngTemplateOutlet="iconTemplate || _iconTemplate"></ng-template>
+                    } @else if (!iconTemplate && !_iconTemplate && !_messageTemplate && !messageTemplate) {
                         <i [ngClass]="cx('icon')" [class]="option('icon')" *ngIf="option('icon')"></i>
                     }
-                    @if (messageTemplate) {
-                        <ng-template *ngTemplateOutlet="messageTemplate; context: { $implicit: confirmation }"></ng-template>
+                    @if (messageTemplate || _messageTemplate) {
+                        <ng-template *ngTemplateOutlet="messageTemplate || _messageTemplate; context: { $implicit: confirmation }"></ng-template>
                     } @else {
                         <span [ngClass]="cx('message')" [innerHTML]="option('message')"> </span>
                     }
                 </ng-template>
             }
             <ng-template #footer>
-                @if (footer || footerTemplate) {
+                @if (footer || footerTemplate || _footerTemplate) {
                     <ng-content select="p-footer"></ng-content>
-                    <ng-container *ngTemplateOutlet="footerTemplate"></ng-container>
+                    <ng-container *ngTemplateOutlet="footerTemplate || _footerTemplate"></ng-container>
                 }
-                @if (!footer || !footerTemplate) {
+                @if (!footer && !footerTemplate && !_footerTemplate) {
                     <p-button
                         *ngIf="option('rejectVisible')"
                         [label]="rejectButtonLabel"
@@ -84,10 +103,10 @@ const hideAnimation = animation([animate('{{transition}}', style({ transform: '{
                         [ariaLabel]="option('rejectButtonProps', 'ariaLabel')"
                         [buttonProps]="getRejectButtonProps()"
                     >
-                        @if (rejectIcon) {
+                        @if (rejectIcon && !rejectIconTemplate && !_rejectIconTemplate) {
                             <i *ngIf="option('rejectIcon')" [class]="option('rejectIcon')"></i>
                         }
-                        <ng-template *ngTemplateOutlet="rejecticon"></ng-template>
+                        <ng-template *ngTemplateOutlet="rejectIconTemplate || _rejectIconTemplate"></ng-template>
                     </p-button>
                     <p-button
                         [label]="acceptButtonLabel"
@@ -97,10 +116,10 @@ const hideAnimation = animation([animate('{{transition}}', style({ transform: '{
                         [ariaLabel]="option('acceptButtonProps', 'ariaLabel')"
                         [buttonProps]="getAcceptButtonProps()"
                     >
-                        @if (acceptIcon) {
+                        @if (acceptIcon && !_acceptIconTemplate && !acceptIconTemplate) {
                             <i *ngIf="option('acceptIcon')" [class]="option('acceptIcon')"></i>
                         }
-                        <ng-template *ngTemplateOutlet="accepticon"></ng-template>
+                        <ng-template *ngTemplateOutlet="acceptIconTemplate || _acceptIconTemplate"></ng-template>
                     </p-button>
                 }
             </ng-template>
@@ -328,19 +347,35 @@ export class ConfirmDialog extends BaseComponent implements OnInit, OnDestroy {
 
     _componentStyle = inject(ConfirmDialogStyle);
 
-    @ContentChild('header') headerTemplate: Nullable<TemplateRef<any>>;
+    @ContentChild('header', { descendants: false }) headerTemplate: Nullable<TemplateRef<any>>;
 
-    @ContentChild('footer') footerTemplate: Nullable<TemplateRef<any>>;
+    @ContentChild('footer', { descendants: false }) footerTemplate: Nullable<TemplateRef<any>>;
 
-    @ContentChild('reject') rejecticon: Nullable<TemplateRef<any>>;
+    @ContentChild('rejecticon', { descendants: false }) rejectIconTemplate: Nullable<TemplateRef<any>>;
 
-    @ContentChild('accept') accepticon: Nullable<TemplateRef<any>>;
+    @ContentChild('accepticon', { descendants: false }) acceptIconTemplate: Nullable<TemplateRef<any>>;
 
-    @ContentChild('message') messageTemplate: Nullable<TemplateRef<any>>;
+    @ContentChild('message', { descendants: false }) messageTemplate: Nullable<TemplateRef<any>>;
 
-    @ContentChild('icon') iconTemplate: Nullable<TemplateRef<any>>;
+    @ContentChild('icon', { descendants: false }) iconTemplate: Nullable<TemplateRef<any>>;
 
-    @ContentChild('headless') headlessTemplate: Nullable<TemplateRef<any>>;
+    @ContentChild('headless', { descendants: false }) headlessTemplate: Nullable<TemplateRef<any>>;
+
+    @ContentChildren(PrimeTemplate) templates: QueryList<PrimeTemplate> | undefined;
+
+    _headerTemplate: TemplateRef<any> | undefined;
+
+    _footerTemplate: TemplateRef<any> | undefined;
+
+    _rejectIconTemplate: TemplateRef<any> | undefined;
+
+    _acceptIconTemplate: TemplateRef<any> | undefined;
+
+    _messageTemplate: TemplateRef<any> | undefined;
+
+    _iconTemplate: TemplateRef<any> | undefined;
+
+    _headlessTemplate: TemplateRef<any> | undefined;
 
     confirmation: Nullable<Confirmation>;
 
@@ -415,6 +450,40 @@ export class ConfirmDialog extends BaseComponent implements OnInit, OnDestroy {
         this.translationSubscription = this.config.translationObserver.subscribe(() => {
             if (this.visible) {
                 this.cd.markForCheck();
+            }
+        });
+    }
+
+    ngAfterContentInit() {
+        this.templates?.forEach((item) => {
+            switch (item.getType()) {
+                case 'header':
+                    this._headerTemplate = item.template;
+                    break;
+
+                case 'footer':
+                    this._footerTemplate = item.template;
+                    break;
+
+                case 'message':
+                    this._messageTemplate = item.template;
+                    break;
+
+                case 'icon':
+                    this._iconTemplate = item.template;
+                    break;
+
+                case 'rejecticon':
+                    this._rejectIconTemplate = item.template;
+                    break;
+
+                case 'accepticon':
+                    this._acceptIconTemplate = item.template;
+                    break;
+
+                case 'headless':
+                    this._headlessTemplate = item.template;
+                    break;
             }
         });
     }

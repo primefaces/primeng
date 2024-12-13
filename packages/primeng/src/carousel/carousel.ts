@@ -5,6 +5,7 @@ import {
     ChangeDetectionStrategy,
     Component,
     ContentChild,
+    ContentChildren,
     ElementRef,
     EventEmitter,
     inject,
@@ -20,7 +21,7 @@ import {
     ViewEncapsulation
 } from '@angular/core';
 import { find, findSingle, getAttribute, setAttribute, uuid } from '@primeuix/utils';
-import { Footer, Header, SharedModule } from 'primeng/api';
+import { Footer, Header, PrimeTemplate, SharedModule } from 'primeng/api';
 import { BaseComponent } from 'primeng/basecomponent';
 import { Button, ButtonProps } from 'primeng/button';
 import { ChevronDownIcon, ChevronLeftIcon, ChevronRightIcon, ChevronUpIcon } from 'primeng/icons';
@@ -54,12 +55,12 @@ import { CarouselStyle } from './style/carouselstyle';
                         [buttonProps]="prevButtonProps"
                     >
                         <ng-template #icon>
-                            <ng-container *ngIf="!previousicon && !prevButtonProps?.icon">
+                            <ng-container *ngIf="!previousIconTemplate && !_previousIconTemplate && !prevButtonProps?.icon">
                                 <ChevronLeftIcon *ngIf="!isVertical()" [styleClass]="'carousel-prev-icon'" />
                                 <ChevronUpIcon *ngIf="isVertical()" [styleClass]="'carousel-prev-icon'" />
                             </ng-container>
-                            <span *ngIf="previousicon && !prevButtonProps?.icon" class="p-carousel-prev-icon">
-                                <ng-template *ngTemplateOutlet="previousicon"></ng-template>
+                            <span *ngIf="(previousIconTemplate || _previousIconTemplate) && !prevButtonProps?.icon" class="p-carousel-prev-icon">
+                                <ng-template *ngTemplateOutlet="previousIconTemplate || _previousIconTemplate"></ng-template>
                             </span>
                         </ng-template>
                     </p-button>
@@ -77,7 +78,7 @@ import { CarouselStyle } from './style/carouselstyle';
                                 [attr.aria-label]="ariaSlideNumber(index)"
                                 [attr.aria-roledescription]="ariaSlideLabel()"
                             >
-                                <ng-container *ngTemplateOutlet="itemTemplate; context: { $implicit: item }"></ng-container>
+                                <ng-container *ngTemplateOutlet="itemTemplate || _itemTemplate; context: { $implicit: item }"></ng-container>
                             </div>
                             <div
                                 *ngFor="let item of value; let index = index"
@@ -91,7 +92,7 @@ import { CarouselStyle } from './style/carouselstyle';
                                 [attr.aria-label]="ariaSlideNumber(index)"
                                 [attr.aria-roledescription]="ariaSlideLabel()"
                             >
-                                <ng-container *ngTemplateOutlet="itemTemplate; context: { $implicit: item }"></ng-container>
+                                <ng-container *ngTemplateOutlet="itemTemplate || _itemTemplate; context: { $implicit: item }"></ng-container>
                             </div>
                             <div
                                 *ngFor="let item of clonedItemsForFinishing; let index = index"
@@ -102,7 +103,7 @@ import { CarouselStyle } from './style/carouselstyle';
                                     'p-carousel-item-end': clonedItemsForFinishing.length - 1 === index
                                 }"
                             >
-                                <ng-container *ngTemplateOutlet="itemTemplate; context: { $implicit: item }"></ng-container>
+                                <ng-container *ngTemplateOutlet="itemTemplate || _itemTemplate; context: { $implicit: item }"></ng-container>
                             </div>
                         </div>
                     </div>
@@ -117,12 +118,12 @@ import { CarouselStyle } from './style/carouselstyle';
                         [buttonProps]="nextButtonProps"
                         [text]="true"
                     >
-                        <ng-container *ngIf="!nexticon && !nextButtonProps?.icon">
+                        <ng-container *ngIf="!nextIconTemplate && !_nextIconTemplate && !nextButtonProps?.icon">
                             <ChevronRightIcon *ngIf="!isVertical()" [styleClass]="'carousel-prev-icon'" />
                             <ChevronDownIcon *ngIf="isVertical()" [styleClass]="'carousel-prev-icon'" />
                         </ng-container>
-                        <span *ngIf="nexticon && !nextButtonProps?.icon" class="p-carousel-prev-icon">
-                            <ng-template *ngTemplateOutlet="nexticon"></ng-template>
+                        <span *ngIf="nextIconTemplate || (_nextIconTemplate && !nextButtonProps?.icon)" class="p-carousel-prev-icon">
+                            <ng-template *ngTemplateOutlet="nextIconTemplate || _nextIconTemplate"></ng-template>
                         </span>
                     </p-button>
                 </div>
@@ -141,9 +142,9 @@ import { CarouselStyle } from './style/carouselstyle';
                     </li>
                 </ul>
             </div>
-            <div class="p-carousel-footer" *ngIf="footerFacet || footerTemplate">
+            <div class="p-carousel-footer" *ngIf="footerFacet || footerTemplate || _footerTemplate">
                 <ng-content select="p-footer"></ng-content>
-                <ng-container *ngTemplateOutlet="footerTemplate"></ng-container>
+                <ng-container *ngTemplateOutlet="footerTemplate || _footerTemplate"></ng-container>
             </div>
         </div>
     `,
@@ -369,31 +370,41 @@ export class Carousel extends BaseComponent implements AfterContentInit {
      * Template for carousel items.
      * @group Templates
      */
-    @ContentChild('item') itemTemplate: TemplateRef<any> | undefined;
+    @ContentChild('item', { descendants: false }) itemTemplate: TemplateRef<any> | undefined;
 
     /**
      * Template for the carousel header.
      * @group Templates
      */
-    @ContentChild('header') headerTemplate: TemplateRef<any> | undefined;
+    @ContentChild('header', { descendants: false }) headerTemplate: TemplateRef<any> | undefined;
 
     /**
      * Template for the carousel footer.
      * @group Templates
      */
-    @ContentChild('footer') footerTemplate: TemplateRef<any> | undefined;
+    @ContentChild('footer', { descendants: false }) footerTemplate: TemplateRef<any> | undefined;
 
     /**
      * Template for the previous button icon.
      * @group Templates
      */
-    @ContentChild('previousicon') previousicon: TemplateRef<any> | undefined;
+    @ContentChild('previousicon', { descendants: false }) previousIconTemplate: TemplateRef<any> | undefined;
 
     /**
      * Template for the next button icon.
      * @group Templates
      */
-    @ContentChild('nexticon') nexticon: TemplateRef<any> | undefined;
+    @ContentChild('nexticon', { descendants: false }) nextIconTemplate: TemplateRef<any> | undefined;
+
+    _itemTemplate: TemplateRef<any> | undefined;
+
+    _headerTemplate: TemplateRef<any> | undefined;
+
+    _footerTemplate: TemplateRef<any> | undefined;
+
+    _previousIconTemplate: TemplateRef<any> | undefined;
+
+    _nextIconTemplate: TemplateRef<any> | undefined;
 
     window: Window;
 
@@ -440,8 +451,9 @@ export class Carousel extends BaseComponent implements AfterContentInit {
         this.cd.markForCheck();
     }
 
+    @ContentChildren(PrimeTemplate) templates: QueryList<PrimeTemplate> | undefined;
+
     ngAfterContentInit() {
-        super.ngAfterContentInit();
         this.id = uuid('pn_id_');
         if (isPlatformBrowser(this.platformId)) {
             this.allowAutoplay = !!this.autoplayInterval;
@@ -462,6 +474,34 @@ export class Carousel extends BaseComponent implements AfterContentInit {
                 this.bindDocumentListeners();
             }
         }
+
+        this.templates?.forEach((item) => {
+            switch (item.getType()) {
+                case 'item':
+                    this._itemTemplate = item.template;
+                    break;
+
+                case 'header':
+                    this._headerTemplate = item.template;
+                    break;
+
+                case 'footer':
+                    this._footerTemplate = item.template;
+                    break;
+
+                case 'previousicon':
+                    this._previousIconTemplate = item.template;
+                    break;
+
+                case 'nexticon':
+                    this._nextIconTemplate = item.template;
+                    break;
+
+                default:
+                    this._itemTemplate = item.template;
+                    break;
+            }
+        });
 
         this.cd.detectChanges();
     }

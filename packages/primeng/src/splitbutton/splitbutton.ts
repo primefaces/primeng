@@ -1,7 +1,26 @@
 import { CommonModule } from '@angular/common';
-import { booleanAttribute, ChangeDetectionStrategy, Component, ContentChild, ElementRef, EventEmitter, inject, Input, NgModule, numberAttribute, Output, signal, TemplateRef, ViewChild, ViewEncapsulation } from '@angular/core';
+import {
+    AfterContentInit,
+    booleanAttribute,
+    ChangeDetectionStrategy,
+    Component,
+    ContentChild,
+    ContentChildren,
+    ElementRef,
+    EventEmitter,
+    inject,
+    Input,
+    NgModule,
+    numberAttribute,
+    Output,
+    QueryList,
+    signal,
+    TemplateRef,
+    ViewChild,
+    ViewEncapsulation
+} from '@angular/core';
 import { uuid } from '@primeuix/utils';
-import { MenuItem, SharedModule, TooltipOptions } from 'primeng/api';
+import { MenuItem, PrimeTemplate, SharedModule, TooltipOptions } from 'primeng/api';
 import { AutoFocus } from 'primeng/autofocus';
 import { BaseComponent } from 'primeng/basecomponent';
 import { ButtonDirective } from 'primeng/button';
@@ -23,7 +42,7 @@ type SplitButtonIconPosition = 'left' | 'right';
     imports: [CommonModule, ButtonDirective, TieredMenu, AutoFocus, ChevronDownIcon, Ripple, TooltipModule, SharedModule],
     template: `
         <div #container [ngClass]="containerClass" [class]="styleClass" [ngStyle]="style">
-            <ng-container *ngIf="contentTemplate; else defaultButton">
+            <ng-container *ngIf="contentTemplate || _contentTemplate; else defaultButton">
                 <button
                     class="p-splitbutton-button"
                     type="button"
@@ -43,7 +62,7 @@ type SplitButtonIconPosition = 'left' | 'right';
                     [pTooltip]="tooltip"
                     [tooltipOptions]="tooltipOptions"
                 >
-                    <ng-container *ngTemplateOutlet="contentTemplate"></ng-container>
+                    <ng-container *ngTemplateOutlet="contentTemplate || _contentTemplate"></ng-container>
                 </button>
             </ng-container>
             <ng-template #defaultButton>
@@ -88,8 +107,8 @@ type SplitButtonIconPosition = 'left' | 'right';
             >
                 <span *ngIf="dropdownIcon" [class]="dropdownIcon"></span>
                 <ng-container *ngIf="!dropdownIcon">
-                    <ChevronDownIcon *ngIf="!dropdowniconTemplate" />
-                    <ng-template *ngTemplateOutlet="dropdowniconTemplate"></ng-template>
+                    <ChevronDownIcon *ngIf="!dropdownIconTemplate && !_dropdownIconTemplate" />
+                    <ng-template *ngTemplateOutlet="dropdownIconTemplate || _dropdownIconTemplate"></ng-template>
                 </ng-container>
             </button>
             <p-tieredMenu
@@ -111,7 +130,7 @@ type SplitButtonIconPosition = 'left' | 'right';
     providers: [SplitButtonStyle],
     encapsulation: ViewEncapsulation.None
 })
-export class SplitButton extends BaseComponent {
+export class SplitButton extends BaseComponent implements AfterContentInit {
     /**
      * MenuModel instance to define the overlay items.
      * @group Props
@@ -313,12 +332,14 @@ export class SplitButton extends BaseComponent {
      * Template of the content.
      * @group Templates
      */
-    @ContentChild('content') contentTemplate: TemplateRef<any> | undefined;
+    @ContentChild('content', { descendants: false }) contentTemplate: TemplateRef<any> | undefined;
     /**
      * Template of the dropdownicon.
      * @group Templates
      **/
-    @ContentChild('dropdownicon') dropdowniconTemplate: TemplateRef<any> | undefined;
+    @ContentChild('dropdownicon', { descendants: false }) dropdownIconTemplate: TemplateRef<any> | undefined;
+
+    @ContentChildren(PrimeTemplate) templates: QueryList<PrimeTemplate> | undefined;
 
     ariaId: string | undefined;
 
@@ -332,9 +353,31 @@ export class SplitButton extends BaseComponent {
 
     _componentStyle = inject(SplitButtonStyle);
 
+    _contentTemplate: TemplateRef<any> | undefined;
+
+    _dropdownIconTemplate: TemplateRef<any> | undefined;
+
     ngOnInit() {
         super.ngOnInit();
         this.ariaId = uuid('pn_id_');
+    }
+
+    ngAfterContentInit() {
+        this.templates?.forEach((item) => {
+            switch (item.getType()) {
+                case 'content':
+                    this._contentTemplate = item.template;
+                    break;
+
+                case 'dropdownicon':
+                    this._dropdownIconTemplate = item.template;
+                    break;
+
+                default:
+                    this._contentTemplate = item.template;
+                    break;
+            }
+        });
     }
 
     get containerClass() {

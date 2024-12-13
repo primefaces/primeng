@@ -8,6 +8,7 @@ import {
     ChangeDetectionStrategy,
     Component,
     computed,
+    ContentChildren,
     effect,
     ElementRef,
     EventEmitter,
@@ -1099,8 +1100,9 @@ export class Dropdown extends BaseComponent implements OnInit, AfterViewInit, Af
         }
     }
 
+    @ContentChildren(PrimeTemplate) templates: QueryList<PrimeTemplate> | undefined;
+
     ngAfterContentInit() {
-        super.ngAfterContentInit();
         (this.templates as QueryList<PrimeTemplate>).forEach((item) => {
             switch (item.getType()) {
                 case 'item':

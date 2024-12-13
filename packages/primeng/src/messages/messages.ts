@@ -1,7 +1,7 @@
 import { animate, style, transition, trigger } from '@angular/animations';
 import { CommonModule } from '@angular/common';
-import { AfterContentInit, booleanAttribute, ChangeDetectionStrategy, Component, EventEmitter, inject, Input, NgModule, OnDestroy, Optional, Output, TemplateRef, ViewEncapsulation } from '@angular/core';
-import { MessageService, SharedModule, ToastMessageOptions } from 'primeng/api';
+import { AfterContentInit, booleanAttribute, ChangeDetectionStrategy, Component, ContentChildren, EventEmitter, inject, Input, NgModule, OnDestroy, Optional, Output, QueryList, TemplateRef, ViewEncapsulation } from '@angular/core';
+import { MessageService, PrimeTemplate, SharedModule, ToastMessageOptions } from 'primeng/api';
 import { BaseComponent } from 'primeng/basecomponent';
 import { ButtonModule } from 'primeng/button';
 import { CheckIcon, ExclamationTriangleIcon, InfoCircleIcon, TimesCircleIcon, TimesIcon } from 'primeng/icons';
@@ -192,6 +192,8 @@ export class Messages extends BaseComponent implements AfterContentInit, OnDestr
         super();
         console.log('Messages component is deprecated as of v18. Use Message component instead.');
     }
+
+    @ContentChildren(PrimeTemplate) templates: QueryList<PrimeTemplate> | undefined;
 
     ngAfterContentInit() {
         this.templates?.forEach((item) => {

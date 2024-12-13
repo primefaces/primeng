@@ -1,6 +1,6 @@
 import { CommonModule, isPlatformBrowser } from '@angular/common';
-import { AfterContentInit, ChangeDetectionStrategy, Component, ContentChild, inject, Input, NgModule, TemplateRef, ViewEncapsulation } from '@angular/core';
-import { SharedModule } from 'primeng/api';
+import { AfterContentInit, ChangeDetectionStrategy, Component, ContentChild, ContentChildren, inject, Input, NgModule, QueryList, TemplateRef, ViewEncapsulation } from '@angular/core';
+import { PrimeTemplate, SharedModule } from 'primeng/api';
 import { BaseComponent } from 'primeng/basecomponent';
 import { ImageCompareStyle } from './style/imagecomparestyle';
 
@@ -13,8 +13,8 @@ import { ImageCompareStyle } from './style/imagecomparestyle';
     standalone: true,
     imports: [CommonModule, SharedModule],
     template: `
-        <ng-template *ngTemplateOutlet="leftTemplate"></ng-template>
-        <ng-template *ngTemplateOutlet="rightTemplate"></ng-template>
+        <ng-template *ngTemplateOutlet="leftTemplate || _leftTemplate"></ng-template>
+        <ng-template *ngTemplateOutlet="rightTemplate || _rightTemplate"></ng-template>
 
         <input type="range" min="0" max="100" value="50" (input)="onSlide($event)" [class]="cx('slider')" />
     `,
@@ -52,13 +52,19 @@ export class ImageCompare extends BaseComponent implements AfterContentInit {
      * Template for the left side.
      * @group Templates
      */
-    @ContentChild('left') leftTemplate: TemplateRef<any>;
+    @ContentChild('left', { descendants: false }) leftTemplate: TemplateRef<any>;
 
     /**
      * Template for the right side.
      * @group Templates
      */
-    @ContentChild('right') rightTemplate: TemplateRef<any>;
+    @ContentChild('right', { descendants: false }) rightTemplate: TemplateRef<any>;
+
+    _leftTemplate: TemplateRef<any> | undefined;
+
+    _rightTemplate: TemplateRef<any> | undefined;
+
+    @ContentChildren(PrimeTemplate) templates: QueryList<PrimeTemplate> | undefined;
 
     _componentStyle = inject(ImageCompareStyle);
 
@@ -68,6 +74,19 @@ export class ImageCompare extends BaseComponent implements AfterContentInit {
         super.ngOnInit();
         this.updateDirection();
         this.observeDirectionChanges();
+    }
+
+    ngAfterContentInit() {
+        this.templates?.forEach((item) => {
+            switch (item.getType()) {
+                case 'left':
+                    this._leftTemplate = item.template;
+                    break;
+                case 'right':
+                    this._rightTemplate = item.template;
+                    break;
+            }
+        });
     }
 
     onSlide(event) {
