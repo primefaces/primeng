@@ -73,15 +73,15 @@ export class Card extends BaseComponent implements AfterContentInit, BlockableUI
 
     @ContentChild(Footer) footerFacet: TemplateRef<any> | undefined;
 
-    @ContentChild('header') headerTemplate: TemplateRef<any> | undefined;
+    @ContentChild('header', { descendants: false }) headerTemplate: TemplateRef<any> | undefined;
 
-    @ContentChild('title') titleTemplate: TemplateRef<any> | undefined;
+    @ContentChild('title', { descendants: false }) titleTemplate: TemplateRef<any> | undefined;
 
-    @ContentChild('subtitle') subtitleTemplate: TemplateRef<any> | undefined;
+    @ContentChild('subtitle', { descendants: false }) subtitleTemplate: TemplateRef<any> | undefined;
 
-    @ContentChild('content') contentTemplate: TemplateRef<any> | undefined;
+    @ContentChild('content', { descendants: false }) contentTemplate: TemplateRef<any> | undefined;
 
-    @ContentChild('footer') footerTemplate: TemplateRef<any> | undefined;
+    @ContentChild('footer', { descendants: false }) footerTemplate: TemplateRef<any> | undefined;
 
     _headerTemplate: TemplateRef<any> | undefined;
 
