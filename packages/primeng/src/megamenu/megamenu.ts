@@ -170,7 +170,7 @@ import { MegaMenuStyle } from './style/megamenustyle';
                             </a>
                         </ng-container>
                         <ng-container *ngIf="itemTemplate">
-                            <ng-template *ngTemplateOutlet="~; context: { $implicit: processedItem.item }"></ng-template>
+                            <ng-template *ngTemplateOutlet="itemTemplate; context: { $implicit: processedItem.item }"></ng-template>
                         </ng-container>
                     </div>
                     <div *ngIf="isItemVisible(processedItem) && isItemGroup(processedItem)" class="p-megamenu-overlay" [attr.data-pc-section]="'panel'">
