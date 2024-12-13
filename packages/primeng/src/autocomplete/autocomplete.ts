@@ -40,6 +40,7 @@ import { Overlay } from 'primeng/overlay';
 import { Ripple } from 'primeng/ripple';
 import { Scroller } from 'primeng/scroller';
 import { Nullable } from 'primeng/ts-helpers';
+import { CloseOnEscapeService } from 'primeng/utils';
 import { AutoCompleteCompleteEvent, AutoCompleteDropdownClickEvent, AutoCompleteLazyLoadEvent, AutoCompleteSelectEvent, AutoCompleteUnselectEvent } from './autocomplete.interface';
 import { AutoCompleteStyle } from './style/autocompletestyle';
 
@@ -970,6 +971,13 @@ export class AutoComplete extends BaseComponent implements AfterViewChecked, Aft
         private zone: NgZone
     ) {
         super();
+        inject(CloseOnEscapeService).closeOnEscape(
+            {
+                closeOnEscape: () => this.hide(),
+                kind: 'single'
+            },
+            this.injector
+        );
         effect(() => {
             this.filled = isNotEmpty(this.modelValue());
         });
@@ -1354,10 +1362,6 @@ export class AutoComplete extends BaseComponent implements AfterViewChecked, Aft
                 this.onEnterKey(event);
                 break;
 
-            case 'Escape':
-                this.onEscapeKey(event);
-                break;
-
             case 'Tab':
                 this.onTabKey(event);
                 break;
@@ -1483,11 +1487,6 @@ export class AutoComplete extends BaseComponent implements AfterViewChecked, Aft
             this.hide();
         }
 
-        event.preventDefault();
-    }
-
-    onEscapeKey(event) {
-        this.overlayVisible && this.hide(true);
         event.preventDefault();
     }
 
@@ -1654,6 +1653,7 @@ export class AutoComplete extends BaseComponent implements AfterViewChecked, Aft
     }
 
     hide(isFocus = false) {
+        const isVisible = this.overlayVisible;
         const _hide = () => {
             this.dirty = isFocus;
             this.overlayVisible = false;
@@ -1666,6 +1666,7 @@ export class AutoComplete extends BaseComponent implements AfterViewChecked, Aft
         setTimeout(() => {
             _hide();
         }, 0); // For ScreenReaders
+        return isVisible;
     }
 
     clear() {

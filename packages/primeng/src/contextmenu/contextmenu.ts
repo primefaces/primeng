@@ -22,6 +22,7 @@ import {
     QueryList,
     signal,
     TemplateRef,
+    untracked,
     ViewChild,
     ViewEncapsulation,
     ViewRef
@@ -54,7 +55,7 @@ import { AngleRightIcon } from 'primeng/icons';
 import { Ripple } from 'primeng/ripple';
 import { TooltipModule } from 'primeng/tooltip';
 import { VoidListener } from 'primeng/ts-helpers';
-import { ZIndexUtils } from 'primeng/utils';
+import { CloseOnEscapeService, ZIndexUtils } from 'primeng/utils';
 import { ContextMenuStyle } from './style/contextmenustyle';
 
 @Component({
@@ -572,6 +573,13 @@ export class ContextMenu extends BaseComponent implements OnInit, AfterContentIn
 
     constructor(public overlayService: OverlayService) {
         super();
+        inject(CloseOnEscapeService).closeOnEscape(
+            {
+                closeOnEscape: () => this.closeWithEscape(),
+                kind: 'single'
+            },
+            this.injector
+        );
         effect(() => {
             const path = this.activeItemPath();
 
@@ -825,10 +833,6 @@ export class ContextMenu extends BaseComponent implements OnInit, AfterContentIn
                 this.onEnterKey(event);
                 break;
 
-            case 'Escape':
-                this.onEscapeKey(event);
-                break;
-
             case 'Tab':
                 this.onTabKey(event);
                 break;
@@ -921,13 +925,12 @@ export class ContextMenu extends BaseComponent implements OnInit, AfterContentIn
         this.onEnterKey(event);
     }
 
-    onEscapeKey(event: KeyboardEvent) {
-        this.hide();
+    private closeWithEscape() {
+        const didHide = this.hide();
         const processedItem = this.findVisibleItem(this.findFirstFocusedItemIndex());
         const focusedItemInfo = this.focusedItemInfo();
         this.focusedItemInfo.set({ ...focusedItemInfo, index: this.findFirstFocusedItemIndex(), item: processedItem.item });
-
-        event.preventDefault();
+        return didHide;
     }
 
     onTabKey(event: KeyboardEvent) {
@@ -1054,10 +1057,12 @@ export class ContextMenu extends BaseComponent implements OnInit, AfterContentIn
     }
 
     hide() {
+        const isVisibile = untracked(this.visible);
         this.visible.set(false);
         this.onHide.emit();
         this.activeItemPath.set([]);
         this.focusedItemInfo.set({ index: -1, level: 0, parentKey: '', item: null });
+        return isVisibile;
     }
 
     toggle(event?: any) {

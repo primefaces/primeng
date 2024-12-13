@@ -9,7 +9,6 @@ import {
     ContentChildren,
     ElementRef,
     EventEmitter,
-    HostListener,
     inject,
     Input,
     NgModule,
@@ -26,10 +25,8 @@ import { absolutePosition, addClass, appendChild, findSingle, getOffset, isIOS, 
 import { OverlayService, PrimeTemplate, SharedModule } from 'primeng/api';
 import { BaseComponent } from 'primeng/basecomponent';
 import { ConnectedOverlayScrollHandler } from 'primeng/dom';
-import { TimesIcon } from 'primeng/icons';
-import { Ripple } from 'primeng/ripple';
 import { Nullable, VoidListener } from 'primeng/ts-helpers';
-import { ZIndexUtils } from 'primeng/utils';
+import { CloseOnEscapeService, ZIndexUtils } from 'primeng/utils';
 import { Subscription } from 'rxjs';
 import { PopoverStyle } from './style/popoverstyle';
 
@@ -213,6 +210,17 @@ export class Popover extends BaseComponent implements AfterContentInit, OnDestro
     zone = inject(NgZone);
 
     overlayService = inject(OverlayService);
+
+    constructor() {
+        super();
+        inject(CloseOnEscapeService).closeOnEscape(
+            {
+                closeOnEscape: () => this.hide(),
+                kind: 'single'
+            },
+            this.injector
+        );
+    }
 
     ngAfterContentInit() {
         this.templates.forEach((item) => {
@@ -422,18 +430,15 @@ export class Popover extends BaseComponent implements AfterContentInit, OnDestro
      * @group Method
      */
     hide() {
+        const isVisibile = this.overlayVisible;
         this.overlayVisible = false;
         this.cd.markForCheck();
+        return isVisibile;
     }
 
     onCloseClick(event: MouseEvent) {
         this.hide();
         event.preventDefault();
-    }
-
-    @HostListener('document:keydown.escape', ['$event'])
-    onEscapeKeydown(event: KeyboardEvent) {
-        this.hide();
     }
 
     onWindowResize() {

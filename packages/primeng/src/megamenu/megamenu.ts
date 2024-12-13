@@ -32,7 +32,7 @@ import { AngleDownIcon, AngleRightIcon, BarsIcon } from 'primeng/icons';
 import { Ripple } from 'primeng/ripple';
 import { TooltipModule } from 'primeng/tooltip';
 import { VoidListener } from 'primeng/ts-helpers';
-import { ZIndexUtils } from 'primeng/utils';
+import { CloseOnEscapeService, ZIndexUtils } from 'primeng/utils';
 import { MegaMenuStyle } from './style/megamenustyle';
 
 @Component({
@@ -629,6 +629,13 @@ export class MegaMenu extends BaseComponent implements AfterContentInit, OnDestr
 
     constructor() {
         super();
+        inject(CloseOnEscapeService).closeOnEscape(
+            {
+                closeOnEscape: () => this.closeWithEscape(),
+                kind: 'single'
+            },
+            this.injector
+        );
         effect(() => {
             const activeItem = this.activeItem();
             if (isNotEmpty(activeItem)) {
@@ -902,10 +909,6 @@ export class MegaMenu extends BaseComponent implements AfterContentInit, OnDestr
                 this.onEnterKey(event);
                 break;
 
-            case 'Escape':
-                this.onEscapeKey(event);
-                break;
-
             case 'Tab':
                 this.onTabKey(event);
                 break;
@@ -1165,13 +1168,13 @@ export class MegaMenu extends BaseComponent implements AfterContentInit, OnDestr
         this.onEnterKey(event);
     }
 
-    onEscapeKey(event: KeyboardEvent) {
+    private closeWithEscape() {
         if (isNotEmpty(this.activeItem())) {
             this.focusedItemInfo.set({ index: this.activeItem().index, key: this.activeItem().key, item: this.activeItem().item });
             this.activeItem.set(null);
+            return true;
         }
-
-        event.preventDefault();
+        return false;
     }
 
     onTabKey(event: KeyboardEvent) {
