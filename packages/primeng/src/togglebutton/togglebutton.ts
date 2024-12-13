@@ -1,8 +1,7 @@
 import { CommonModule } from '@angular/common';
-import { booleanAttribute, ChangeDetectionStrategy, Component, ContentChild, EventEmitter, forwardRef, HostBinding, inject, Input, NgModule, numberAttribute, Output, TemplateRef } from '@angular/core';
+import { AfterContentInit, booleanAttribute, ChangeDetectionStrategy, Component, ContentChild, ContentChildren, EventEmitter, forwardRef, HostBinding, inject, Input, NgModule, numberAttribute, Output, QueryList, TemplateRef } from '@angular/core';
 import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
-import { SharedModule } from 'primeng/api';
-import { AutoFocus } from 'primeng/autofocus';
+import { PrimeTemplate, SharedModule } from 'primeng/api';
 import { BaseComponent } from 'primeng/basecomponent';
 import { Ripple } from 'primeng/ripple';
 import { Nullable } from 'primeng/ts-helpers';
@@ -21,7 +20,7 @@ export const TOGGLEBUTTON_VALUE_ACCESSOR: any = {
 @Component({
     selector: 'p-toggleButton, p-togglebutton, p-toggle-button',
     standalone: true,
-    imports: [Ripple, AutoFocus, CommonModule, SharedModule],
+    imports: [Ripple, CommonModule, SharedModule],
     template: `
         <button
             pRipple
@@ -37,7 +36,7 @@ export const TOGGLEBUTTON_VALUE_ACCESSOR: any = {
             [attr.data-p-disabled]="disabled"
         >
             <span [ngClass]="cx('content')">
-                <ng-container *ngTemplateOutlet="contentTemplate; context: { $implicit: checked }"></ng-container>
+                <ng-container *ngTemplateOutlet="contentTemplate || _contentTemplate; context: { $implicit: checked }"></ng-container>
                 @if (!contentTemplate) {
                     @if (!iconTemplate) {
                         @if (onIcon || offIcon) {
@@ -52,9 +51,9 @@ export const TOGGLEBUTTON_VALUE_ACCESSOR: any = {
                             ></span>
                         }
                     } @else {
-                        <ng-container *ngTemplateOutlet="iconTemplate; context: { $implicit: checked }"></ng-container>
+                        <ng-container *ngTemplateOutlet="iconTemplate || _iconTemplate; context: { $implicit: checked }"></ng-container>
                     }
-                    <span [ngClass]="cx('label')" [attr.data-pc-section]="'label'">{{ checked ? (hasOnLabel ? onLabel : '\u00A0') : hasOffLabel ? offLabel : '\u00A0' }}</span>
+                    <span [ngClass]="cx('label')" [attr.data-pc-section]="'label'">{{ checked ? (hasOnLabel ? onLabel : ' ') : hasOffLabel ? offLabel : ' ' }}</span>
                 }
             </span>
         </button>
@@ -62,7 +61,7 @@ export const TOGGLEBUTTON_VALUE_ACCESSOR: any = {
     providers: [TOGGLEBUTTON_VALUE_ACCESSOR, ToggleButtonStyle],
     changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class ToggleButton extends BaseComponent implements ControlValueAccessor {
+export class ToggleButton extends BaseComponent implements AfterContentInit, ControlValueAccessor {
     /**
      * Label for the on state.
      * @group Props
@@ -108,6 +107,7 @@ export class ToggleButton extends BaseComponent implements ControlValueAccessor 
      * @group Props
      */
     @Input() styleClass: string | undefined;
+
     @HostBinding('class') get hostClass() {
         return this.styleClass || '';
     }
@@ -151,12 +151,14 @@ export class ToggleButton extends BaseComponent implements ControlValueAccessor 
      * Custom icon template.
      * @group Templates
      */
-    @ContentChild('icon') iconTemplate: Nullable<TemplateRef<any>>;
+    @ContentChild('icon', { descendants: false }) iconTemplate: Nullable<TemplateRef<any>>;
     /**
      * Custom content template.
      * @group Templates
      */
-    @ContentChild('content') contentTemplate: Nullable<TemplateRef<any>>;
+    @ContentChild('content', { descendants: false }) contentTemplate: Nullable<TemplateRef<any>>;
+
+    @ContentChildren(PrimeTemplate) templates!: QueryList<PrimeTemplate>;
 
     checked: boolean = false;
 
@@ -225,6 +227,26 @@ export class ToggleButton extends BaseComponent implements ControlValueAccessor 
 
     get active() {
         return this.checked === true;
+    }
+
+    _iconTemplate: TemplateRef<any> | undefined;
+
+    _contentTemplate: TemplateRef<any> | undefined;
+
+    ngAfterContentInit() {
+        this.templates.forEach((item) => {
+            switch (item.getType()) {
+                case 'icon':
+                    this._iconTemplate = item.template;
+                    break;
+                case 'content':
+                    this._contentTemplate = item.template;
+                    break;
+                default:
+                    this._contentTemplate = item.template;
+                    break;
+            }
+        });
     }
 }
 

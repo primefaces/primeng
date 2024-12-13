@@ -70,25 +70,6 @@ export class BaseComponent {
         }
     }
 
-    @ContentChildren(PrimeTemplate) templates: QueryList<PrimeTemplate> | undefined;
-
-    ngAfterContentInit() {
-        this.templates?.forEach((item) => {
-            const type = item.getType();
-            const template = `${type}Template`;
-
-            if (this.hasOwnProperty(template)) {
-                this[template] = item.template;
-            }
-
-            if (this.hasOwnProperty(`_${template}`)) {
-                this[`_${template}`] = item.template;
-            }
-
-            this[type] = item.template;
-        });
-    }
-
     ngOnChanges(changes: SimpleChanges) {
         if (this.document && !isPlatformServer(this.platformId)) {
             const { dt } = changes;

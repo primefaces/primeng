@@ -1,7 +1,7 @@
 import { CommonModule, isPlatformBrowser } from '@angular/common';
-import { AfterContentInit, AfterViewInit, ChangeDetectionStrategy, Component, computed, ContentChild, effect, ElementRef, forwardRef, inject, signal, TemplateRef, ViewChild, ViewEncapsulation } from '@angular/core';
+import { AfterContentInit, AfterViewInit, ChangeDetectionStrategy, Component, computed, ContentChild, ContentChildren, effect, ElementRef, forwardRef, inject, QueryList, signal, TemplateRef, ViewChild, ViewEncapsulation } from '@angular/core';
 import { findSingle, getHeight, getOffset, getOuterWidth, getWidth, isRTL } from '@primeuix/utils';
-import { SharedModule } from 'primeng/api';
+import { PrimeTemplate, SharedModule } from 'primeng/api';
 import { BaseComponent } from 'primeng/basecomponent';
 import { ChevronLeftIcon, ChevronRightIcon } from 'primeng/icons';
 import { RippleModule } from 'primeng/ripple';
@@ -18,8 +18,8 @@ import { Tabs } from './tabs';
     template: `
         @if (showNavigators() && isPrevButtonEnabled()) {
             <button #prevButton pRipple class="p-tablist-nav-button p-tablist-prev-button" [attr.aria-label]="prevButtonAriaLabel" [attr.tabindex]="tabindex" [attr.data-pc-group-section]="'navigator'" (click)="onPrevButtonClick()">
-                @if (prevIconTemplate) {
-                    <ng-container *ngTemplateOutlet="prevIconTemplate"></ng-container>
+                @if (prevIconTemplate || _prevIconTemplate) {
+                    <ng-container *ngTemplateOutlet="prevIconTemplate || _prevIconTemplate"></ng-container>
                 } @else {
                     <ChevronLeftIcon />
                 }
@@ -33,8 +33,8 @@ import { Tabs } from './tabs';
         </div>
         @if (showNavigators() && isNextButtonEnabled()) {
             <button #nextButton pRipple class="p-tablist-nav-button p-tablist-next-button" [attr.aria-label]="nextButtonAriaLabel" [attr.tabindex]="tabindex" [attr.data-pc-group-section]="'navigator'" (click)="onNextButtonClick()">
-                @if (nextIconTemplate) {
-                    <ng-container *ngTemplateOutlet="nextIconTemplate"></ng-container>
+                @if (nextIconTemplate || _nextIconTemplate) {
+                    <ng-container *ngTemplateOutlet="nextIconTemplate || _nextIconTemplate"></ng-container>
                 } @else {
                     <ChevronRightIcon />
                 }
@@ -55,13 +55,15 @@ export class TabList extends BaseComponent implements AfterViewInit, AfterConten
      * @type {TemplateRef<any> | undefined}
      * @group Templates
      */
-    @ContentChild('previcon') prevIconTemplate: TemplateRef<any> | undefined;
+    @ContentChild('previcon', { descendants: false }) prevIconTemplate: TemplateRef<any> | undefined;
     /**
      * A template reference variable that represents the next icon in a UI component.
      * @type {TemplateRef<any> | undefined}
      * @group Templates
      */
-    @ContentChild('nexticon') nextIconTemplate: TemplateRef<any> | undefined;
+    @ContentChild('nexticon', { descendants: false }) nextIconTemplate: TemplateRef<any> | undefined;
+
+    @ContentChildren(PrimeTemplate) templates: QueryList<PrimeTemplate> | undefined;
 
     @ViewChild('content') content: ElementRef<HTMLDivElement>;
 
@@ -115,14 +117,18 @@ export class TabList extends BaseComponent implements AfterViewInit, AfterConten
         }
     }
 
+    _prevIconTemplate: TemplateRef<any> | undefined;
+
+    _nextIconTemplate: TemplateRef<any> | undefined;
+
     ngAfterContentInit() {
         this.templates.forEach((t) => {
             switch (t.getType()) {
                 case 'previcon':
-                    this.prevIconTemplate = t.template;
+                    this._prevIconTemplate = t.template;
                     break;
                 case 'nexticon':
-                    this.nextIconTemplate = t.template;
+                    this._nextIconTemplate = t.template;
                     break;
             }
         });

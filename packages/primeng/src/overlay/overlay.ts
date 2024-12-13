@@ -1,8 +1,8 @@
 import { animate, animation, AnimationEvent, style, transition, trigger, useAnimation } from '@angular/animations';
 import { CommonModule, isPlatformBrowser } from '@angular/common';
-import { ChangeDetectionStrategy, Component, ContentChild, ElementRef, EventEmitter, inject, Input, NgModule, NgZone, OnDestroy, Output, TemplateRef, ViewChild, ViewEncapsulation } from '@angular/core';
+import { AfterContentInit, ChangeDetectionStrategy, Component, ContentChild, ContentChildren, ElementRef, EventEmitter, inject, Input, NgModule, NgZone, OnDestroy, Output, QueryList, TemplateRef, ViewChild, ViewEncapsulation } from '@angular/core';
 import { addClass, focus, getTargetElement, isTouchDevice, removeClass } from '@primeuix/utils';
-import { OverlayModeType, OverlayOnBeforeHideEvent, OverlayOnBeforeShowEvent, OverlayOnHideEvent, OverlayOnShowEvent, OverlayOptions, OverlayService, ResponsiveOverlayOptions, SharedModule } from 'primeng/api';
+import { OverlayModeType, OverlayOnBeforeHideEvent, OverlayOnBeforeShowEvent, OverlayOnHideEvent, OverlayOnShowEvent, OverlayOptions, OverlayService, PrimeTemplate, ResponsiveOverlayOptions, SharedModule } from 'primeng/api';
 import { BaseComponent } from 'primeng/basecomponent';
 import { ConnectedOverlayScrollHandler, DomHandler } from 'primeng/dom';
 import { VoidListener } from 'primeng/ts-helpers';
@@ -64,7 +64,7 @@ const hideOverlayContentAnimation = animation([animate('{{hideTransitionParams}}
                 (@overlayContentAnimation.done)="onOverlayContentAnimationDone($event)"
             >
                 <ng-content></ng-content>
-                <ng-container *ngTemplateOutlet="contentTemplate; context: { $implicit: { mode: overlayMode } }"></ng-container>
+                <ng-container *ngTemplateOutlet="contentTemplate || _contentTemplate; context: { $implicit: { mode: overlayMode } }"></ng-container>
             </div>
         </div>
     `,
@@ -73,7 +73,7 @@ const hideOverlayContentAnimation = animation([animate('{{hideTransitionParams}}
     encapsulation: ViewEncapsulation.None,
     providers: [OverlayStyle]
 })
-export class Overlay extends BaseComponent implements OnDestroy {
+export class Overlay extends BaseComponent implements AfterContentInit, OnDestroy {
     /**
      * The visible property is an input that determines the visibility of the component.
      * @defaultValue false
@@ -298,7 +298,11 @@ export class Overlay extends BaseComponent implements OnDestroy {
      * Content template of the component.
      * @group Templates
      */
-    @ContentChild('content') contentTemplate: TemplateRef<any> | undefined;
+    @ContentChild('content', { descendants: false }) contentTemplate: TemplateRef<any> | undefined;
+
+    @ContentChildren(PrimeTemplate) templates: QueryList<any> | undefined;
+
+    _contentTemplate: TemplateRef<any> | undefined;
 
     _visible: boolean = false;
 
@@ -404,6 +408,20 @@ export class Overlay extends BaseComponent implements OnDestroy {
         private zone: NgZone
     ) {
         super();
+    }
+
+    ngAfterContentInit() {
+        this.templates?.forEach((item) => {
+            switch (item.getType()) {
+                case 'content':
+                    this._contentTemplate = item.template;
+                    break;
+                // TODO: new template types may be added.
+                default:
+                    this._contentTemplate = item.template;
+                    break;
+            }
+        });
     }
 
     show(overlay?: HTMLElement, isFocus: boolean = false) {

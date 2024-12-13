@@ -1,10 +1,12 @@
 import { animate, AnimationEvent, style, transition, trigger } from '@angular/animations';
 import { CommonModule, isPlatformBrowser } from '@angular/common';
 import {
+    AfterContentInit,
     booleanAttribute,
     ChangeDetectionStrategy,
     Component,
     ContentChild,
+    ContentChildren,
     effect,
     ElementRef,
     EventEmitter,
@@ -17,6 +19,7 @@ import {
     OnDestroy,
     OnInit,
     Output,
+    QueryList,
     signal,
     TemplateRef,
     ViewChild,
@@ -44,7 +47,7 @@ import {
     resolve,
     uuid
 } from '@primeuix/utils';
-import { MenuItem, OverlayService, SharedModule } from 'primeng/api';
+import { MenuItem, OverlayService, PrimeTemplate, SharedModule } from 'primeng/api';
 import { BadgeModule } from 'primeng/badge';
 import { BaseComponent } from 'primeng/basecomponent';
 import { AngleRightIcon } from 'primeng/icons';
@@ -139,8 +142,12 @@ import { ContextMenuStyle } from './style/contextmenustyle';
                                 </ng-template>
                                 <p-badge *ngIf="getItemProp(processedItem, 'badge')" [styleClass]="getItemProp(processedItem, 'badgeStyleClass')" [value]="getItemProp(processedItem, 'badge')" />
                                 <ng-container *ngIf="isItemGroup(processedItem)">
-                                    <AngleRightIcon *ngIf="!contextMenu.submenuicon" [class]="'p-contextmenu-submenu-icon'" [attr.data-pc-section]="'submenuicon'" [attr.aria-hidden]="true" />
-                                    <ng-template *ngTemplateOutlet="contextMenu.submenuicon; context: { class: 'p-contextmenu-submenu-icon' }" [attr.data-pc-section]="'submenuicon'" [attr.aria-hidden]="true"></ng-template>
+                                    <AngleRightIcon *ngIf="!contextMenu.submenuIconTemplate && !contextMenu._submenuIconTemplate" [class]="'p-contextmenu-submenu-icon'" [attr.data-pc-section]="'submenuicon'" [attr.aria-hidden]="true" />
+                                    <ng-template
+                                        *ngTemplateOutlet="contextMenu.submenuIconTemplate || contextMenu._submenuIconTemplate; context: { class: 'p-contextmenu-submenu-icon' }"
+                                        [attr.data-pc-section]="'submenuicon'"
+                                        [attr.aria-hidden]="true"
+                                    ></ng-template>
                                 </ng-container>
                             </a>
                             <a
@@ -180,8 +187,12 @@ import { ContextMenuStyle } from './style/contextmenustyle';
                                 </ng-template>
                                 <p-badge *ngIf="getItemProp(processedItem, 'badge')" [styleClass]="getItemProp(processedItem, 'badgeStyleClass')" [value]="getItemProp(processedItem, 'badge')" />
                                 <ng-container *ngIf="isItemGroup(processedItem)">
-                                    <AngleRightIcon *ngIf="!contextMenu.submenuicon" [class]="'p-contextmenu-submenu-icon'" [attr.data-pc-section]="'submenuicon'" [attr.aria-hidden]="true" />
-                                    <ng-template *ngTemplateOutlet="contextMenu.submenuicon; context: { class: 'p-contextmenu-submenu-icon' }" [attr.data-pc-section]="'submenuicon'" [attr.aria-hidden]="true"></ng-template>
+                                    <AngleRightIcon *ngIf="!contextMenu.submenuIconTemplate && !contextMenu._submenuIconTemplate" [class]="'p-contextmenu-submenu-icon'" [attr.data-pc-section]="'submenuicon'" [attr.aria-hidden]="true" />
+                                    <ng-template
+                                        *ngTemplateOutlet="!contextMenu.submenuIconTemplate || !contextMenu._submenuIconTemplate; context: { class: 'p-contextmenu-submenu-icon' }"
+                                        [attr.data-pc-section]="'submenuicon'"
+                                        [attr.aria-hidden]="true"
+                                    ></ng-template>
                                 </ng-container>
                             </a>
                         </ng-container>
@@ -214,7 +225,7 @@ export class ContextMenuSub extends BaseComponent {
 
     @Input() items: any[];
 
-    @Input() itemTemplate: HTMLElement | undefined;
+    @Input() itemTemplate: TemplateRef<any> | undefined;
 
     @Input({ transform: booleanAttribute }) root: boolean | undefined = false;
 
@@ -376,7 +387,7 @@ export class ContextMenuSub extends BaseComponent {
                 #rootmenu
                 [root]="true"
                 [items]="processedItems"
-                [itemTemplate]="itemTemplate"
+                [itemTemplate]="itemTemplate || _itemTemplate"
                 [menuId]="id"
                 [tabindex]="!disabled ? tabindex : -1"
                 [ariaLabel]="ariaLabel"
@@ -399,7 +410,7 @@ export class ContextMenuSub extends BaseComponent {
     encapsulation: ViewEncapsulation.None,
     providers: [ContextMenuStyle]
 })
-export class ContextMenu extends BaseComponent implements OnInit, OnDestroy {
+export class ContextMenu extends BaseComponent implements OnInit, AfterContentInit, OnDestroy {
     /**
      * An array of menuitems.
      * @group Props
@@ -637,13 +648,35 @@ export class ContextMenu extends BaseComponent implements OnInit, OnDestroy {
      * Defines template option for item.
      * @group Templates
      */
-    @ContentChild('item') itemTemplate: TemplateRef<any> | undefined;
+    @ContentChild('item', { descendants: false }) itemTemplate: TemplateRef<any> | undefined;
 
     /**
      * Defines template option for submenuIcon.
      * @group Templates
      */
-    @ContentChild('submenuicon') submenuicon: TemplateRef<any> | undefined;
+    @ContentChild('submenuicon', { descendants: false }) submenuIconTemplate: TemplateRef<any> | undefined;
+
+    @ContentChildren(PrimeTemplate) templates: QueryList<PrimeTemplate> | undefined;
+
+    _submenuIconTemplate: TemplateRef<any> | undefined;
+
+    _itemTemplate: TemplateRef<any> | undefined;
+
+    ngAfterContentInit() {
+        this.templates?.forEach((item) => {
+            switch (item.getType()) {
+                case 'submenuicon':
+                    this._submenuIconTemplate = item.template;
+                    break;
+                case 'item':
+                    this._itemTemplate = item.template;
+                    break;
+                default:
+                    this._itemTemplate = item.template;
+                    break;
+            }
+        });
+    }
 
     createProcessedItems(items: any, level: number = 0, parent: any = {}, parentKey: any = '') {
         const processedItems = [];

@@ -1,8 +1,29 @@
 import { animate, AnimationEvent, state, style, transition, trigger } from '@angular/animations';
 import { CommonModule, isPlatformBrowser } from '@angular/common';
-import { booleanAttribute, ChangeDetectionStrategy, Component, ContentChild, ElementRef, EventEmitter, HostListener, inject, Input, NgModule, NgZone, numberAttribute, OnDestroy, Output, TemplateRef, ViewEncapsulation, ViewRef } from '@angular/core';
+import {
+    AfterContentInit,
+    booleanAttribute,
+    ChangeDetectionStrategy,
+    Component,
+    ContentChild,
+    ContentChildren,
+    ElementRef,
+    EventEmitter,
+    HostListener,
+    inject,
+    Input,
+    NgModule,
+    NgZone,
+    numberAttribute,
+    OnDestroy,
+    Output,
+    QueryList,
+    TemplateRef,
+    ViewEncapsulation,
+    ViewRef
+} from '@angular/core';
 import { absolutePosition, addClass, appendChild, findSingle, getOffset, isIOS, isTouchDevice } from '@primeuix/utils';
-import { OverlayService, SharedModule } from 'primeng/api';
+import { OverlayService, PrimeTemplate, SharedModule } from 'primeng/api';
 import { BaseComponent } from 'primeng/basecomponent';
 import { ConnectedOverlayScrollHandler } from 'primeng/dom';
 import { TimesIcon } from 'primeng/icons';
@@ -40,7 +61,7 @@ import { PopoverStyle } from './style/popoverstyle';
         >
             <div class="p-popover-content" (click)="onContentClick($event)" (mousedown)="onContentClick($event)">
                 <ng-content></ng-content>
-                <ng-container *ngTemplateOutlet="contentTemplate"></ng-container>
+                <ng-container *ngTemplateOutlet="contentTemplate || _contentTemplate"></ng-container>
             </div>
         </div>
     `,
@@ -74,7 +95,7 @@ import { PopoverStyle } from './style/popoverstyle';
     encapsulation: ViewEncapsulation.None,
     providers: [PopoverStyle]
 })
-export class OverlayPanel extends BaseComponent implements OnDestroy {
+export class OverlayPanel extends BaseComponent implements AfterContentInit, OnDestroy {
     /**
      * Defines a string that labels the input for accessibility.
      * @group Props
@@ -171,9 +192,13 @@ export class OverlayPanel extends BaseComponent implements OnDestroy {
 
     documentResizeListener: VoidListener;
 
-    @ContentChild('content') contentTemplate: Nullable<TemplateRef<any>>;
+    @ContentChild('content', { descendants: false }) contentTemplate: Nullable<TemplateRef<any>>;
 
-    @ContentChild('closeicon') closeIconTemplate: Nullable<TemplateRef<any>>;
+    @ContentChild('closeicon', { descendants: false }) closeIconTemplate: Nullable<TemplateRef<any>>;
+
+    @ContentChildren(PrimeTemplate) templates: QueryList<any> | undefined;
+
+    _contentTemplate: Nullable<TemplateRef<any>>;
 
     destroyCallback: Nullable<Function>;
 
@@ -189,6 +214,22 @@ export class OverlayPanel extends BaseComponent implements OnDestroy {
     ) {
         super();
         console.log('OverlayPanel is deprecated. Use Popover instead.');
+    }
+
+    ngAfterContentInit() {
+        this.templates?.forEach((item) => {
+            switch (item.getType()) {
+                case 'content':
+                    this._contentTemplate = item.template;
+                    break;
+
+                default:
+                    this._contentTemplate = item.template;
+                    break;
+            }
+
+            this.cd.markForCheck();
+        });
     }
 
     bindDocumentClickListener() {

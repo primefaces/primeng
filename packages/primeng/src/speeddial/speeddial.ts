@@ -6,6 +6,7 @@ import {
     ChangeDetectionStrategy,
     Component,
     ContentChild,
+    ContentChildren,
     ElementRef,
     EventEmitter,
     inject,
@@ -14,6 +15,7 @@ import {
     numberAttribute,
     OnDestroy,
     Output,
+    QueryList,
     signal,
     TemplateRef,
     ViewChild,
@@ -21,9 +23,9 @@ import {
 } from '@angular/core';
 import { RouterModule } from '@angular/router';
 import { find, findSingle, focus, hasClass, uuid } from '@primeuix/utils';
-import { MenuItem, SharedModule, TooltipOptions } from 'primeng/api';
+import { MenuItem, PrimeTemplate, SharedModule, TooltipOptions } from 'primeng/api';
 import { BaseComponent } from 'primeng/basecomponent';
-import { ButtonDirective, ButtonIcon, ButtonProps } from 'primeng/button';
+import { ButtonModule, ButtonProps } from 'primeng/button';
 import { PlusIcon } from 'primeng/icons';
 import { Ripple } from 'primeng/ripple';
 import { TooltipModule } from 'primeng/tooltip';
@@ -37,10 +39,10 @@ import { SpeedDialStyle } from './style/speeddialstyle';
 @Component({
     selector: 'p-speeddial, p-speedDial, p-speed-dial',
     standalone: true,
-    imports: [CommonModule, ButtonDirective, Ripple, TooltipModule, RouterModule, PlusIcon, ButtonIcon, SharedModule],
+    imports: [CommonModule, ButtonModule, Ripple, TooltipModule, RouterModule, PlusIcon, SharedModule],
     template: `
         <div #container [ngClass]="containerClass()" [class]="className" [style]="style" [ngStyle]="rootStyles" [attr.data-pc-name]="'speeddial'" [attr.data-pc-section]="'root'">
-            <ng-container *ngIf="!buttonTemplate">
+            <ng-container *ngIf="!buttonTemplate && !_buttonTemplate">
                 <button
                     pButton
                     pRipple
@@ -58,12 +60,12 @@ import { SpeedDialStyle } from './style/speeddialstyle';
                     [attr.data-pc-name]="'button'"
                     [buttonProps]="buttonProps"
                 >
-                    <PlusIcon pButtonIcon *ngIf="!buttonIconClass && !iconTemplate" />
-                    <ng-container *ngTemplateOutlet="iconTemplate"></ng-container>
+                    <PlusIcon pButtonIcon *ngIf="!buttonIconClass && !iconTemplate && !_iconTemplate" />
+                    <ng-container *ngTemplateOutlet="iconTemplate || _iconTemplate"></ng-container>
                 </button>
             </ng-container>
-            <ng-container *ngIf="buttonTemplate">
-                <ng-container *ngTemplateOutlet="buttonTemplate; context: { toggleCallback: onButtonClick.bind(this) }"></ng-container>
+            <ng-container *ngIf="buttonTemplate || _buttonTemplate">
+                <ng-container *ngTemplateOutlet="buttonTemplate || _buttonTemplate; context: { toggleCallback: onButtonClick.bind(this) }"></ng-container>
             </ng-container>
             <ul
                 #list
@@ -90,10 +92,10 @@ import { SpeedDialStyle } from './style/speeddialstyle';
                     role="menuitem"
                     [attr.data-pc-section]="'menuitem'"
                 >
-                    <ng-container *ngIf="itemTemplate">
-                        <ng-container *ngTemplateOutlet="itemTemplate; context: { $implicit: item, index: i, toggleCallback: onItemClick.bind(this) }"></ng-container>
+                    <ng-container *ngIf="itemTemplate || _itemTemplate">
+                        <ng-container *ngTemplateOutlet="itemTemplate || _itemTemplate; context: { $implicit: item, index: i, toggleCallback: onItemClick.bind(this) }"></ng-container>
                     </ng-container>
-                    <ng-container *ngIf="!itemTemplate">
+                    <ng-container *ngIf="!itemTemplate && !_itemTemplate">
                         <button
                             pButton
                             pRipple
@@ -120,7 +122,7 @@ import { SpeedDialStyle } from './style/speeddialstyle';
     encapsulation: ViewEncapsulation.None,
     providers: [SpeedDialStyle]
 })
-export class SpeedDial extends BaseComponent implements AfterViewInit, OnDestroy {
+export class SpeedDial extends BaseComponent implements AfterViewInit, AfterContentInit, OnDestroy {
     /**
      * List of items id.
      * @group Props
@@ -286,18 +288,26 @@ export class SpeedDial extends BaseComponent implements AfterViewInit, OnDestroy
      * Template of the button.
      * @group Templates
      */
-    @ContentChild('button') buttonTemplate: TemplateRef<any> | undefined;
+    @ContentChild('button', { descendants: false }) buttonTemplate: TemplateRef<any> | undefined;
     /**
      * Template of the item.
      * @group Templates
      */
-    @ContentChild('item') itemTemplate: TemplateRef<any> | undefined;
+    @ContentChild('item', { descendants: false }) itemTemplate: TemplateRef<any> | undefined;
 
     /**
      * Template of the item.
      * @group Templates
      */
-    @ContentChild('icon') iconTemplate: TemplateRef<any> | undefined;
+    @ContentChild('icon', { descendants: false }) iconTemplate: TemplateRef<any> | undefined;
+
+    @ContentChildren(PrimeTemplate) templates: QueryList<PrimeTemplate> | undefined;
+
+    _buttonTemplate: TemplateRef<any> | undefined;
+
+    _itemTemplate: TemplateRef<any> | undefined;
+
+    _iconTemplate: TemplateRef<any> | undefined;
 
     isItemClicked: boolean = false;
 
@@ -350,6 +360,22 @@ export class SpeedDial extends BaseComponent implements AfterViewInit, OnDestroy
                 }
             }
         }
+    }
+
+    ngAfterContentInit() {
+        this.templates?.forEach((item) => {
+            switch (item.getType()) {
+                case 'button':
+                    this._buttonTemplate = item.template;
+                    break;
+                case 'item':
+                    this._itemTemplate = item.template;
+                    break;
+                case 'icon':
+                    this._iconTemplate = item.template;
+                    break;
+            }
+        });
     }
 
     show() {

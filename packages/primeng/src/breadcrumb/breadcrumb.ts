@@ -1,7 +1,7 @@
 import { CommonModule } from '@angular/common';
-import { AfterContentInit, ChangeDetectionStrategy, Component, ContentChild, EventEmitter, inject, Input, NgModule, Output, TemplateRef, ViewEncapsulation } from '@angular/core';
+import { AfterContentInit, ChangeDetectionStrategy, Component, ContentChild, ContentChildren, EventEmitter, inject, Input, NgModule, Output, QueryList, TemplateRef, ViewEncapsulation } from '@angular/core';
 import { Router, RouterModule } from '@angular/router';
-import { MenuItem, SharedModule } from 'primeng/api';
+import { MenuItem, PrimeTemplate, SharedModule } from 'primeng/api';
 import { BaseComponent } from 'primeng/basecomponent';
 import { ChevronRightIcon, HomeIcon } from 'primeng/icons';
 import { TooltipModule } from 'primeng/tooltip';
@@ -73,8 +73,8 @@ import { BreadCrumbStyle } from './style/breadcrumbstyle';
                     </a>
                 </li>
                 <li *ngIf="model && home" class="p-breadcrumb-separator" [attr.data-pc-section]="'separator'">
-                    <ChevronRightIcon *ngIf="!separator" />
-                    <ng-template *ngTemplateOutlet="separator"></ng-template>
+                    <ChevronRightIcon *ngIf="!separatorTemplate && !_separatorTemplate" />
+                    <ng-template *ngTemplateOutlet="separatorTemplate || _separatorTemplate"></ng-template>
                 </li>
                 <ng-template ngFor let-menuitem let-end="last" [ngForOf]="model">
                     <li
@@ -86,19 +86,19 @@ import { BreadCrumbStyle } from './style/breadcrumbstyle';
                         [tooltipOptions]="menuitem.tooltipOptions"
                         [attr.data-pc-section]="'menuitem'"
                     >
-                        @if (item) {
-                            <ng-template *ngTemplateOutlet="item; context: { $implicit: menuitem }"></ng-template>
+                        @if (itemTemplate || _itemTemplate) {
+                            <ng-template *ngTemplateOutlet="itemTemplate || _itemTemplate; context: { $implicit: menuitem }"></ng-template>
                         } @else {
                             <a
                                 *ngIf="!menuitem?.routerLink"
                                 [attr.href]="menuitem?.url ? menuitem?.url : null"
                                 class="p-breadcrumb-item-link"
-                                (click)="onClick($event, item)"
+                                (click)="onClick($event, menuitem)"
                                 [target]="menuitem?.target"
                                 [attr.title]="menuitem?.title"
                                 [attr.tabindex]="menuitem?.disabled ? null : '0'"
                             >
-                                <ng-container *ngIf="!item">
+                                <ng-container *ngIf="!itemTemplate && !_itemTemplate">
                                     <span *ngIf="menuitem?.icon" class="p-breadcrumb-item-icon" [ngClass]="menuitem?.icon" [ngStyle]="menuitem?.iconStyle"></span>
                                     <ng-container *ngIf="menuitem?.label">
                                         <span *ngIf="menuitem?.escape !== false; else htmlLabel" class="p-breadcrumb-item-label'">{{ menuitem?.label }}</span>
@@ -112,7 +112,7 @@ import { BreadCrumbStyle } from './style/breadcrumbstyle';
                                 [queryParams]="menuitem?.queryParams"
                                 [routerLinkActiveOptions]="menuitem?.routerLinkActiveOptions || { exact: false }"
                                 class="p-breadcrumb-item-link"
-                                (click)="onClick($event, item)"
+                                (click)="onClick($event, menuitem)"
                                 [target]="menuitem?.target"
                                 [attr.title]="menuitem?.title"
                                 [attr.tabindex]="menuitem?.disabled ? null : '0'"
@@ -132,8 +132,8 @@ import { BreadCrumbStyle } from './style/breadcrumbstyle';
                         }
                     </li>
                     <li *ngIf="!end" class="p-breadcrumb-separator" [attr.data-pc-section]="'separator'">
-                        <ChevronRightIcon *ngIf="!separator" />
-                        <ng-template *ngTemplateOutlet="separator"></ng-template>
+                        <ChevronRightIcon *ngIf="!separatorTemplate && !_separatorTemplate" />
+                        <ng-template *ngTemplateOutlet="separatorTemplate || _separatorTemplate"></ng-template>
                     </li>
                 </ng-template>
             </ol>
@@ -205,23 +205,41 @@ export class Breadcrumb extends BaseComponent implements AfterContentInit {
         });
     }
 
-    onHomeClick(event: MouseEvent | any) {
-        if (this.home) {
-            this.onClick(event, this.home);
-        }
-    }
-
     /**
      * Defines template option for item.
      * @group Templates
      */
-    @ContentChild('item') item: TemplateRef<any> | undefined;
+    @ContentChild('item') itemTemplate: TemplateRef<any> | undefined;
 
     /**
      * Defines template option for separator.
      * @group Templates
      */
-    @ContentChild('separator') separator: TemplateRef<any> | undefined;
+    @ContentChild('separator') separatorTemplate: TemplateRef<any> | undefined;
+
+    @ContentChildren(PrimeTemplate) templates: QueryList<PrimeTemplate> | undefined;
+
+    _separatorTemplate: TemplateRef<any> | undefined;
+
+    _itemTemplate: TemplateRef<any> | undefined;
+
+    ngAfterContentInit() {
+        this.templates?.forEach((item) => {
+            switch (item.getType()) {
+                case 'separator':
+                    this._separatorTemplate = item.template;
+                    break;
+
+                case 'item':
+                    this._itemTemplate = item.template;
+                    break;
+
+                default:
+                    this._itemTemplate = item.template;
+                    break;
+            }
+        });
+    }
 }
 
 @NgModule({

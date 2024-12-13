@@ -1,6 +1,6 @@
 import { animate, AnimationEvent, state, style, transition, trigger } from '@angular/animations';
 import { CommonModule, isPlatformBrowser } from '@angular/common';
-import { ChangeDetectionStrategy, Component, ContentChild, inject, Input, NgModule, numberAttribute, OnDestroy, OnInit, QueryList, TemplateRef, ViewEncapsulation } from '@angular/core';
+import { AfterContentInit, ChangeDetectionStrategy, Component, ContentChild, ContentChildren, inject, Input, NgModule, numberAttribute, OnDestroy, OnInit, QueryList, TemplateRef, ViewEncapsulation } from '@angular/core';
 import { getWindowScrollTop } from '@primeuix/utils';
 import { PrimeTemplate, SharedModule } from 'primeng/api';
 import { BaseComponent } from 'primeng/basecomponent';
@@ -34,11 +34,11 @@ import { ScrollTopStyle } from './style/scrolltopstyle';
             [buttonProps]="buttonProps"
         >
             <ng-template #icon>
-                <ng-container *ngIf="!iconTemplate">
+                <ng-container *ngIf="!iconTemplate && !_iconTemplate">
                     <span *ngIf="_icon" [class]="_icon" [ngClass]="'p-scrolltop-icon'"></span>
                     <ChevronUpIcon *ngIf="!_icon" [styleClass]="'p-scrolltop-icon'" [ngStyle]="{ 'font-size': '1rem', scale: '1.5' }" />
                 </ng-container>
-                <ng-template [ngIf]="!icon" *ngTemplateOutlet="iconTemplate; context: { styleClass: 'p-scrolltop-icon' }"></ng-template>
+                <ng-template [ngIf]="!icon" *ngTemplateOutlet="iconTemplate || _iconTemplate; context: { styleClass: 'p-scrolltop-icon' }"></ng-template>
             </ng-template>
         </p-button>
     `,
@@ -65,7 +65,7 @@ import { ScrollTopStyle } from './style/scrolltopstyle';
 
     providers: [ScrollTopStyle]
 })
-export class ScrollTop extends BaseComponent implements OnInit, OnDestroy {
+export class ScrollTop extends BaseComponent implements OnInit, AfterContentInit, OnDestroy {
     /**
      * Class of the element.
      * @group Props
@@ -122,9 +122,13 @@ export class ScrollTop extends BaseComponent implements OnInit, OnDestroy {
      * Template of the icon.
      * @group Templates
      */
-    @ContentChild('icon') iconTemplate: TemplateRef<any> | undefined;
+    @ContentChild('icon', { descendants: false }) iconTemplate: TemplateRef<any> | undefined;
 
-    private _icon: string | undefined;
+    @ContentChildren(PrimeTemplate) templates: QueryList<PrimeTemplate> | undefined;
+
+    _iconTemplate: TemplateRef<any> | undefined;
+
+    _icon: string | undefined;
 
     set icon(value: string | undefined) {
         this._icon = value;
@@ -150,7 +154,7 @@ export class ScrollTop extends BaseComponent implements OnInit, OnDestroy {
         (this.templates as QueryList<PrimeTemplate>).forEach((item) => {
             switch (item.getType()) {
                 case 'icon':
-                    this.iconTemplate = item.template;
+                    this._iconTemplate = item.template;
                     break;
             }
         });
