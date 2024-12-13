@@ -1,9 +1,9 @@
 import { animate, style, transition, trigger } from '@angular/animations';
 import { CommonModule } from '@angular/common';
-import { booleanAttribute, ChangeDetectionStrategy, Component, ContentChild, EventEmitter, inject, Input, NgModule, Output, signal, TemplateRef, ViewEncapsulation } from '@angular/core';
-import { SharedModule } from 'primeng/api';
+import { AfterContentInit, booleanAttribute, ChangeDetectionStrategy, Component, ContentChild, ContentChildren, EventEmitter, inject, Input, NgModule, Output, QueryList, signal, TemplateRef, ViewEncapsulation } from '@angular/core';
+import { PrimeTemplate, SharedModule } from 'primeng/api';
 import { BaseComponent } from 'primeng/basecomponent';
-import { CheckIcon, ExclamationTriangleIcon, InfoCircleIcon, TimesCircleIcon, TimesIcon } from 'primeng/icons';
+import { TimesIcon } from 'primeng/icons';
 import { Ripple } from 'primeng/ripple';
 import { MessageStyle } from './style/messagestyle';
 
@@ -31,8 +31,8 @@ import { MessageStyle } from './style/messagestyle';
                 }"
             >
                 <div class="p-message-content">
-                    @if (iconTemplate) {
-                        <ng-container *ngTemplateOutlet="iconTemplate"></ng-container>
+                    @if (iconTemplate || _iconTemplate) {
+                        <ng-container *ngTemplateOutlet="iconTemplate || iconTemplate"></ng-container>
                     }
                     @if (icon) {
                         <i class="p-message-icon" [ngClass]="icon"></i>
@@ -46,8 +46,8 @@ import { MessageStyle } from './style/messagestyle';
                         <span *ngIf="escape && text" [ngClass]="cx('text')">{{ text }}</span>
                     </ng-template>
 
-                    @if (containerTemplate) {
-                        <ng-container *ngTemplateOutlet="containerTemplate; context: { closeCallback: close.bind(this) }"></ng-container>
+                    @if (containerTemplate || _containerTemplate) {
+                        <ng-container *ngTemplateOutlet="containerTemplate || containerTemplate; context: { closeCallback: close.bind(this) }"></ng-container>
                     } @else {
                         <span [ngClass]="cx('text')">
                             <ng-content></ng-content>
@@ -58,10 +58,10 @@ import { MessageStyle } from './style/messagestyle';
                             @if (closeIcon) {
                                 <i class="p-message-close-icon" [ngClass]="closeIcon"></i>
                             }
-                            @if (closeiconTemplate) {
-                                <ng-container *ngTemplateOutlet="closeiconTemplate"></ng-container>
+                            @if (closeIconTemplate || _closeIconTemplate) {
+                                <ng-container *ngTemplateOutlet="closeIconTemplate || _closeIconTemplate"></ng-container>
                             }
-                            @if (!closeiconTemplate && !closeIcon) {
+                            @if (!closeIconTemplate && !_closeIconTemplate && !closeIcon) {
                                 <TimesIcon styleClass="p-message-close-icon" />
                             }
                         </button>
@@ -92,7 +92,7 @@ import { MessageStyle } from './style/messagestyle';
         ])
     ]
 })
-export class Message extends BaseComponent {
+export class Message extends BaseComponent implements AfterContentInit {
     /**
      * Severity level of the message.
      * @defaultValue 'info'
@@ -186,19 +186,27 @@ export class Message extends BaseComponent {
      * Custom template of the message container.
      * @group Templates
      */
-    @ContentChild('container') containerTemplate: TemplateRef<any> | undefined;
+    @ContentChild('container', { descendants: false }) containerTemplate: TemplateRef<any> | undefined;
 
     /**
      * Custom template of the message icon.
      * @group Templates
      */
-    @ContentChild('icon') iconTemplate: TemplateRef<any> | undefined;
+    @ContentChild('icon', { descendants: false }) iconTemplate: TemplateRef<any> | undefined;
 
     /**
      * Custom template of the close icon.
      * @group Templates
      */
-    @ContentChild('closeicon') closeiconTemplate: TemplateRef<any> | undefined;
+    @ContentChild('closeicon', { descendants: false }) closeIconTemplate: TemplateRef<any> | undefined;
+
+    @ContentChildren(PrimeTemplate) templates: QueryList<PrimeTemplate> | undefined;
+
+    _containerTemplate: TemplateRef<any> | undefined;
+
+    _iconTemplate: TemplateRef<any> | undefined;
+
+    _closeIconTemplate: TemplateRef<any> | undefined;
 
     ngOnInit() {
         super.ngOnInit();
@@ -208,6 +216,25 @@ export class Message extends BaseComponent {
             }, this.life);
         }
     }
+
+    ngAfterContentInit() {
+        this.templates?.forEach((item) => {
+            switch (item.getType()) {
+                case 'container':
+                    this._containerTemplate = item.template;
+                    break;
+
+                case 'icon':
+                    this._iconTemplate = item.template;
+                    break;
+
+                case 'closeicon':
+                    this._closeIconTemplate = item.template;
+                    break;
+            }
+        });
+    }
+
     /**
      * Closes the message.
      * @param {Event} event - Browser event.
