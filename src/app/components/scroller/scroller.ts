@@ -828,7 +828,7 @@ export class Scroller implements OnInit, AfterContentInit, AfterViewChecked, OnD
                     contentHeight !== this.defaultContentHeight && ((<ElementRef>this.elementViewChild).nativeElement.style.height = '');
 
                     const [width, height] = [DomHandler.getWidth((<ElementRef>this.elementViewChild).nativeElement), DomHandler.getHeight((<ElementRef>this.elementViewChild).nativeElement)];
-                    
+
                     this.contentEl.style.minHeight = this.contentEl.style.minWidth = '';
                     this.contentEl.style.position = '';
                     (<ElementRef>this.elementViewChild).nativeElement.style.contain = '';
