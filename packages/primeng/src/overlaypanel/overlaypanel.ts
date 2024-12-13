@@ -192,9 +192,9 @@ export class OverlayPanel extends BaseComponent implements AfterContentInit, OnD
 
     documentResizeListener: VoidListener;
 
-    @ContentChild('content') contentTemplate: Nullable<TemplateRef<any>>;
+    @ContentChild('content', { descendants: false }) contentTemplate: Nullable<TemplateRef<any>>;
 
-    @ContentChild('closeicon') closeIconTemplate: Nullable<TemplateRef<any>>;
+    @ContentChild('closeicon', { descendants: false }) closeIconTemplate: Nullable<TemplateRef<any>>;
 
     @ContentChildren(PrimeTemplate) templates: QueryList<any> | undefined;
 

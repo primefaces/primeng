@@ -298,7 +298,7 @@ export class Overlay extends BaseComponent implements AfterContentInit, OnDestro
      * Content template of the component.
      * @group Templates
      */
-    @ContentChild('content') contentTemplate: TemplateRef<any> | undefined;
+    @ContentChild('content', { descendants: false }) contentTemplate: TemplateRef<any> | undefined;
 
     @ContentChildren(PrimeTemplate) templates: QueryList<any> | undefined;
 
