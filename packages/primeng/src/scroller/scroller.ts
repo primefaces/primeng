@@ -5,6 +5,7 @@ import {
     ChangeDetectionStrategy,
     Component,
     ContentChild,
+    ContentChildren,
     ElementRef,
     EventEmitter,
     inject,
@@ -54,23 +55,23 @@ import { ScrollerStyle } from './style/scrollerstyle';
                 [attr.data-pc-name]="'scroller'"
                 [attr.data-pc-section]="'root'"
             >
-                <ng-container *ngIf="contentTemplate; else buildInContent">
-                    <ng-container *ngTemplateOutlet="contentTemplate; context: { $implicit: loadedItems, options: getContentOptions() }"></ng-container>
+                <ng-container *ngIf="contentTemplate || _contentTemplate; else buildInContent">
+                    <ng-container *ngTemplateOutlet="contentTemplate || _contentTemplate; context: { $implicit: loadedItems, options: getContentOptions() }"></ng-container>
                 </ng-container>
                 <ng-template #buildInContent>
                     <div #content class="p-virtualscroller-content" [ngClass]="{ 'p-virtualscroller-loading ': d_loading }" [ngStyle]="contentStyle" [attr.data-pc-section]="'content'">
                         <ng-container *ngFor="let item of loadedItems; let index = index; trackBy: _trackBy">
-                            <ng-container *ngTemplateOutlet="itemTemplate; context: { $implicit: item, options: getOptions(index) }"></ng-container>
+                            <ng-container *ngTemplateOutlet="itemTemplate || _itemTemplate; context: { $implicit: item, options: getOptions(index) }"></ng-container>
                         </ng-container>
                     </div>
                 </ng-template>
                 <div *ngIf="_showSpacer" class="p-virtualscroller-spacer" [ngStyle]="spacerStyle" [attr.data-pc-section]="'spacer'"></div>
                 <div *ngIf="!loaderDisabled && _showLoader && d_loading" class="p-virtualscroller-loader" [ngClass]="{ 'p-virtualscroller-loader-mask': !loaderTemplate }" [attr.data-pc-section]="'loader'">
-                    <ng-container *ngIf="loaderTemplate; else buildInLoader">
+                    <ng-container *ngIf="loaderTemplate || _loaderTemplate; else buildInLoader">
                         <ng-container *ngFor="let item of loaderArr; let index = index">
                             <ng-container
                                 *ngTemplateOutlet="
-                                    loaderTemplate;
+                                    loaderTemplate || _loaderTemplate;
                                     context: {
                                         options: getLoaderOptions(index, both && { numCols: numItemsInViewport.cols })
                                     }
@@ -79,8 +80,8 @@ import { ScrollerStyle } from './style/scrollerstyle';
                         </ng-container>
                     </ng-container>
                     <ng-template #buildInLoader>
-                        <ng-container *ngIf="loadericonTemplate; else buildInLoaderIcon">
-                            <ng-container *ngTemplateOutlet="loadericonTemplate; context: { options: { styleClass: 'p-virtualscroller-loading-icon' } }"></ng-container>
+                        <ng-container *ngIf="loaderIconTemplate || _loaderIconTemplate; else buildInLoaderIcon">
+                            <ng-container *ngTemplateOutlet="loaderIconTemplate || _loaderIconTemplate; context: { options: { styleClass: 'p-virtualscroller-loading-icon' } }"></ng-container>
                         </ng-container>
                         <ng-template #buildInLoaderIcon>
                             <SpinnerIcon [styleClass]="'p-virtualscroller-loading-icon pi-spin'" [attr.data-pc-section]="'loadingIcon'" />
@@ -91,8 +92,8 @@ import { ScrollerStyle } from './style/scrollerstyle';
         </ng-container>
         <ng-template #disabledContainer>
             <ng-content></ng-content>
-            <ng-container *ngIf="contentTemplate">
-                <ng-container *ngTemplateOutlet="contentTemplate; context: { $implicit: items, options: { rows: _items, columns: loadedColumns } }"></ng-container>
+            <ng-container *ngIf="contentTemplate || _contentTemplate">
+                <ng-container *ngTemplateOutlet="contentTemplate || _contentTemplate; context: { $implicit: items, options: { rows: _items, columns: loadedColumns } }"></ng-container>
             </ng-container>
         </ng-template>
     `,
@@ -438,25 +439,35 @@ export class Scroller extends BaseComponent implements OnInit, AfterContentInit,
      * Content template of the component.
      * @group Templates
      */
-    @ContentChild('content') contentTemplate: Nullable<TemplateRef<any>>;
+    @ContentChild('content', { descendants: false }) contentTemplate: Nullable<TemplateRef<any>>;
 
     /**
      * Item template of the component.
      * @group Templates
      */
-    @ContentChild('item') itemTemplate: Nullable<TemplateRef<any>>;
+    @ContentChild('item', { descendants: false }) itemTemplate: Nullable<TemplateRef<any>>;
 
     /**
      * Loader template of the component.
      * @group Templates
      */
-    @ContentChild('loader') loaderTemplate: Nullable<TemplateRef<any>>;
+    @ContentChild('loader', { descendants: false }) loaderTemplate: Nullable<TemplateRef<any>>;
 
     /**
      * Loader icon template of the component.
      * @group Templates
      */
-    @ContentChild('loadericon') loadericonTemplate: Nullable<TemplateRef<any>>;
+    @ContentChild('loadericon', { descendants: false }) loaderIconTemplate: Nullable<TemplateRef<any>>;
+
+    @ContentChildren(PrimeTemplate) templates: Nullable<QueryList<PrimeTemplate>>;
+
+    _contentTemplate: TemplateRef<any> | undefined;
+
+    _itemTemplate: TemplateRef<any> | undefined;
+
+    _loaderTemplate: TemplateRef<any> | undefined;
+
+    _loaderIconTemplate: TemplateRef<any> | undefined;
 
     first: any = 0;
 
@@ -591,24 +602,23 @@ export class Scroller extends BaseComponent implements OnInit, AfterContentInit,
         (this.templates as QueryList<PrimeTemplate>).forEach((item) => {
             switch (item.getType()) {
                 case 'content':
-                    this.contentTemplate = item.template;
-
+                    this._contentTemplate = item.template;
                     break;
 
                 case 'item':
-                    this.itemTemplate = item.template;
+                    this._itemTemplate = item.template;
                     break;
 
                 case 'loader':
-                    this.loaderTemplate = item.template;
+                    this._loaderTemplate = item.template;
                     break;
 
                 case 'loadericon':
-                    this.loadericonTemplate = item.template;
+                    this._loaderIconTemplate = item.template;
                     break;
 
                 default:
-                    this.itemTemplate = item.template;
+                    this._itemTemplate = item.template;
                     break;
             }
         });

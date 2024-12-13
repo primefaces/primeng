@@ -18,14 +18,15 @@ import {
     ViewEncapsulation,
     booleanAttribute,
     inject,
-    numberAttribute
+    numberAttribute,
+    ContentChildren,
+    QueryList
 } from '@angular/core';
 import { isEmpty, setAttribute, uuid } from '@primeuix/utils';
-import { MessageService, SharedModule, ToastMessageOptions } from 'primeng/api';
+import { MessageService, PrimeTemplate, SharedModule, ToastMessageOptions } from 'primeng/api';
 import { BaseComponent } from 'primeng/basecomponent';
 import { Button } from 'primeng/button';
 import { CheckIcon, ExclamationTriangleIcon, InfoCircleIcon, TimesCircleIcon, TimesIcon } from 'primeng/icons';
-import { Ripple } from 'primeng/ripple';
 import { ZIndexUtils } from 'primeng/utils';
 import { Subscription } from 'rxjs';
 import { ToastStyle } from './style/toaststyle';
@@ -34,7 +35,7 @@ import { ToastCloseEvent, ToastItemCloseEvent, ToastPositionType } from './toast
 @Component({
     selector: 'p-toastItem',
     standalone: true,
-    imports: [CommonModule, CheckIcon, ExclamationTriangleIcon, InfoCircleIcon, TimesIcon, TimesCircleIcon, Ripple, Button, SharedModule],
+    imports: [CommonModule, CheckIcon, ExclamationTriangleIcon, InfoCircleIcon, TimesIcon, TimesCircleIcon, Button, SharedModule],
     template: `
         <div
             #container
@@ -231,7 +232,7 @@ export class ToastItem extends BaseComponent implements AfterViewInit, OnDestroy
 @Component({
     selector: 'p-toast',
     standalone: true,
-    imports: [CommonModule, ToastItem, CheckIcon, InfoCircleIcon, TimesCircleIcon, ExclamationTriangleIcon, TimesIcon, Button, SharedModule],
+    imports: [CommonModule, ToastItem, SharedModule],
     template: `
         <div #container [ngClass]="cx('root')" [ngStyle]="sx('root')" [style]="style" [class]="styleClass">
             <p-toastItem
@@ -240,8 +241,8 @@ export class ToastItem extends BaseComponent implements AfterViewInit, OnDestroy
                 [index]="i"
                 [life]="life"
                 (onClose)="onMessageClose($event)"
-                [template]="template"
-                [headlessTemplate]="headlessTemplate"
+                [template]="template || _template"
+                [headlessTemplate]="headlessTemplate || _headlessTemplate"
                 @toastAnimation
                 (@toastAnimation.start)="onAnimationStart($event)"
                 (@toastAnimation.done)="onAnimationEnd($event)"
@@ -374,6 +375,8 @@ export class Toast extends BaseComponent implements OnInit, OnDestroy {
 
     id: string = uuid('pn_id_');
 
+    @ContentChildren(PrimeTemplate) templates: QueryList<PrimeTemplate> | undefined;
+
     ngOnInit() {
         super.ngOnInit();
 
@@ -398,6 +401,27 @@ export class Toast extends BaseComponent implements OnInit, OnDestroy {
             }
 
             this.cd.markForCheck();
+        });
+    }
+
+    _template: TemplateRef<any> | undefined;
+
+    _headlessTemplate: TemplateRef<any> | undefined;
+
+    ngAfterContentInit() {
+        this.templates?.forEach((item) => {
+            switch (item.getType()) {
+                case 'message':
+                    this._template = item.template;
+                    break;
+                case 'headless':
+                    this._headlessTemplate = item.template;
+                    break;
+
+                default:
+                    this._template = item.template;
+                    break;
+            }
         });
     }
 

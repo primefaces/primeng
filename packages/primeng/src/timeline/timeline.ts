@@ -1,5 +1,5 @@
 import { CommonModule } from '@angular/common';
-import { AfterContentInit, ChangeDetectionStrategy, Component, ContentChild, HostBinding, inject, Input, NgModule, QueryList, TemplateRef, ViewEncapsulation } from '@angular/core';
+import { AfterContentInit, ChangeDetectionStrategy, Component, ContentChild, ContentChildren, HostBinding, inject, Input, NgModule, QueryList, TemplateRef, ViewEncapsulation } from '@angular/core';
 import { BlockableUI, PrimeTemplate, SharedModule } from 'primeng/api';
 import { BaseComponent } from 'primeng/basecomponent';
 import { Nullable } from 'primeng/ts-helpers';
@@ -16,11 +16,11 @@ import { TimelineStyle } from './style/timelinestyle';
     template: `
         <div *ngFor="let event of value; let last = last" class="p-timeline-event" [attr.data-pc-section]="'event'">
             <div class="p-timeline-event-opposite" [attr.data-pc-section]="'opposite'">
-                <ng-container *ngTemplateOutlet="oppositeTemplate; context: { $implicit: event }"></ng-container>
+                <ng-container *ngTemplateOutlet="oppositeTemplate || _oppositeTemplate; context: { $implicit: event }"></ng-container>
             </div>
             <div class="p-timeline-event-separator" [attr.data-pc-section]="'separator'">
-                <ng-container *ngIf="markerTemplate; else marker">
-                    <ng-container *ngTemplateOutlet="markerTemplate; context: { $implicit: event }"></ng-container>
+                <ng-container *ngIf="markerTemplate || _markerTemplate; else marker">
+                    <ng-container *ngTemplateOutlet="markerTemplate || _markerTemplate; context: { $implicit: event }"></ng-container>
                 </ng-container>
                 <ng-template #marker>
                     <div class="p-timeline-event-marker" [attr.data-pc-section]="'marker'"></div>
@@ -28,7 +28,7 @@ import { TimelineStyle } from './style/timelinestyle';
                 <div *ngIf="!last" class="p-timeline-event-connector"></div>
             </div>
             <div class="p-timeline-event-content" [attr.data-pc-section]="'content'">
-                <ng-container *ngTemplateOutlet="contentTemplate; context: { $implicit: event }"></ng-container>
+                <ng-container *ngTemplateOutlet="contentTemplate || _contentTemplate; context: { $implicit: event }"></ng-container>
             </div>
         </div>
     `,
@@ -80,19 +80,27 @@ export class Timeline extends BaseComponent implements AfterContentInit, Blockab
      * Custom content template.
      * @group Templates
      */
-    @ContentChild('content') contentTemplate: Nullable<TemplateRef<any>>;
+    @ContentChild('content', { descendants: false }) contentTemplate: Nullable<TemplateRef<any>>;
 
     /**
      * Custom opposite item template.
      * @group Templates
      */
-    @ContentChild('opposite') oppositeTemplate: Nullable<TemplateRef<any>>;
+    @ContentChild('opposite', { descendants: false }) oppositeTemplate: Nullable<TemplateRef<any>>;
 
     /**
      * Custom marker template.
      * @group Templates
      */
-    @ContentChild('marker') markerTemplate: Nullable<TemplateRef<any>>;
+    @ContentChild('marker', { descendants: false }) markerTemplate: Nullable<TemplateRef<any>>;
+
+    @ContentChildren(PrimeTemplate) templates: Nullable<QueryList<any>>;
+
+    _contentTemplate: TemplateRef<any> | undefined;
+
+    _oppositeTemplate: TemplateRef<any> | undefined;
+
+    _markerTemplate: TemplateRef<any> | undefined;
 
     _componentStyle = inject(TimelineStyle);
 
@@ -102,6 +110,24 @@ export class Timeline extends BaseComponent implements AfterContentInit, Blockab
 
     getBlockableElement(): HTMLElement {
         return this.el.nativeElement.children[0];
+    }
+
+    ngAfterContentInit() {
+        (this.templates as QueryList<PrimeTemplate>).forEach((item) => {
+            switch (item.getType()) {
+                case 'content':
+                    this._contentTemplate = item.template;
+                    break;
+
+                case 'opposite':
+                    this._oppositeTemplate = item.template;
+                    break;
+
+                case 'marker':
+                    this._markerTemplate = item.template;
+                    break;
+            }
+        });
     }
 }
 

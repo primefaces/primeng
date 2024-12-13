@@ -12,6 +12,21 @@
         <link rel="stylesheet" href="https://rsms.me/inter/inter.css" />
         <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:400|Roboto:500|Roboto:600|Roboto:700'" />
         <meta property="og:image" content="https://primefaces.org/static/social/primeng-preview.jpg" />
+        <script>
+            (function () {
+                const APP_CONFIG_KEY = 'appConfigState';
+                const storedConfig = localStorage.getItem(APP_CONFIG_KEY);
+
+                if (storedConfig) {
+                    const parsedConfig = JSON.parse(storedConfig);
+                    if (parsedConfig.darkTheme) {
+                        document.documentElement.classList.add('p-dark');
+                    } else {
+                        document.documentElement.classList.remove('p-dark');
+                    }
+                }
+            })();
+        </script>
     </head>
 
     <body>

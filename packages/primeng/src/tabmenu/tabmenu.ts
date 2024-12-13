@@ -7,6 +7,7 @@ import {
     ChangeDetectionStrategy,
     Component,
     ContentChild,
+    ContentChildren,
     ElementRef,
     EventEmitter,
     inject,
@@ -23,7 +24,7 @@ import {
 } from '@angular/core';
 import { ActivatedRoute, Router, RouterModule } from '@angular/router';
 import { findSingle, focus, getAttribute, getOffset, getWidth, resolve } from '@primeuix/utils';
-import { MenuItem, SharedModule } from 'primeng/api';
+import { MenuItem, PrimeTemplate, SharedModule } from 'primeng/api';
 import { BadgeModule } from 'primeng/badge';
 import { BaseComponent } from 'primeng/basecomponent';
 import { ChevronLeftIcon, ChevronRightIcon } from 'primeng/icons';
@@ -44,8 +45,8 @@ import { TabMenuStyle } from './style/tabmenustyle';
         <div [ngClass]="{ 'p-tabmenu p-component': true, 'p-tabmenu-scrollable': scrollable }" [ngStyle]="style" [class]="styleClass">
             <div class="p-tabmenu-nav-container">
                 <button *ngIf="scrollable && !backwardIsDisabled" #prevBtn class="p-tabmenu-nav-prev-button p-tabmenu-nav-button" (click)="navBackward()" type="button" role="navigation" pRipple>
-                    <ChevronLeftIcon *ngIf="!previousiconTemplate" [attr.aria-hidden]="true" />
-                    <ng-template *ngTemplateOutlet="previousiconTemplate"></ng-template>
+                    <ChevronLeftIcon *ngIf="!previousIconTemplate && !_previousIconTemplate" [attr.aria-hidden]="true" />
+                    <ng-template *ngTemplateOutlet="previousIconTemplate || _previousIconTemplate"></ng-template>
                 </button>
                 <div #content class="p-tabmenu-nav-content" (scroll)="onScroll($event)">
                     <ul #navbar class="p-tabmenu-nav p-reset" role="menubar" [attr.aria-labelledby]="ariaLabelledBy" [attr.aria-label]="ariaLabel">
@@ -74,7 +75,7 @@ import { TabMenuStyle } from './style/tabmenustyle';
                         >
                             <a
                                 #tabLink
-                                *ngIf="!item.routerLink && !itemTemplate"
+                                *ngIf="!item.routerLink && !itemTemplate && !_itemTemplate"
                                 class="p-menuitem-link"
                                 role="presentation"
                                 [attr.href]="getItemProp(item, 'url')"
@@ -92,7 +93,7 @@ import { TabMenuStyle } from './style/tabmenustyle';
                             </a>
                             <a
                                 #tabLink
-                                *ngIf="item.routerLink && !itemTemplate"
+                                *ngIf="item.routerLink && !itemTemplate && !_itemTemplate"
                                 [routerLink]="item.routerLink"
                                 [queryParams]="item.queryParams"
                                 [routerLinkActive]="'p-menuitem-link-active'"
@@ -123,8 +124,8 @@ import { TabMenuStyle } from './style/tabmenustyle';
                     </ul>
                 </div>
                 <button *ngIf="scrollable && !forwardIsDisabled" #nextBtn class="p-tabmenu-nav-next-button p-tabmenu-nav-button" (click)="navForward()" type="button" role="navigation" pRipple>
-                    <ChevronRightIcon *ngIf="!previousiconTemplate" [attr.aria-hidden]="true" />
-                    <ng-template *ngTemplateOutlet="nexticonTemplate"></ng-template>
+                    <ChevronRightIcon *ngIf="!previousIconTemplate && !_previousIconTemplate" [attr.aria-hidden]="true" />
+                    <ng-template *ngTemplateOutlet="nextIconTemplate || _nextIconTemplate"></ng-template>
                 </button>
             </div>
         </div>
@@ -133,7 +134,7 @@ import { TabMenuStyle } from './style/tabmenustyle';
     encapsulation: ViewEncapsulation.None,
     providers: [TabMenuStyle]
 })
-export class TabMenu extends BaseComponent implements AfterViewInit, AfterViewChecked, OnDestroy {
+export class TabMenu extends BaseComponent implements AfterViewInit, AfterContentInit, AfterViewChecked, OnDestroy {
     /**
      * An array of menuitems.
      * @group Props
@@ -216,17 +217,25 @@ export class TabMenu extends BaseComponent implements AfterViewInit, AfterViewCh
      * Template of the menu item.
      * @group Templates
      */
-    @ContentChild('item') itemTemplate: Nullable<TemplateRef<any>>;
+    @ContentChild('item', { descendants: false }) itemTemplate: Nullable<TemplateRef<any>>;
     /**
      * Template of the previous icon.
      * @group Templates
      */
-    @ContentChild('previousicon') previousiconTemplate: Nullable<TemplateRef<any>>;
+    @ContentChild('previousicon', { descendants: false }) previousIconTemplate: Nullable<TemplateRef<any>>;
     /**
      * Template of the next icon.
      * @group Templates
      */
-    @ContentChild('nexticon') nexticonTemplate: Nullable<TemplateRef<any>>;
+    @ContentChild('nexticon', { descendants: false }) nextIconTemplate: Nullable<TemplateRef<any>>;
+
+    @ContentChildren(PrimeTemplate) templates: QueryList<PrimeTemplate> | undefined;
+
+    _itemTemplate: TemplateRef<any> | undefined;
+
+    _nextIconTemplate: TemplateRef<any> | undefined;
+
+    _previousIconTemplate: TemplateRef<any> | undefined;
 
     tabChanged: boolean | undefined;
 
@@ -281,6 +290,28 @@ export class TabMenu extends BaseComponent implements AfterViewInit, AfterViewCh
         }
     }
 
+    ngAfterContentInit() {
+        this.templates?.forEach((item) => {
+            switch (item.getType()) {
+                case 'item':
+                    this._itemTemplate = item.template;
+                    break;
+
+                case 'nexticon':
+                    this._nextIconTemplate = item.template;
+                    break;
+
+                case 'previousicon':
+                    this._previousIconTemplate = item.template;
+                    break;
+
+                default:
+                    this._itemTemplate = item.template;
+                    break;
+            }
+        });
+    }
+
     ngOnDestroy(): void {
         this.clearAutoScrollHandler();
         super.ngOnDestroy();
@@ -296,7 +327,7 @@ export class TabMenu extends BaseComponent implements AfterViewInit, AfterViewCh
         return item === this.activeItem;
     }
 
-    getItemProp(item: any, name: string) {
+    getItemProp(item: any, name: string): string {
         return item ? resolve(item[name]) : undefined;
     }
 
