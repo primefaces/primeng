@@ -1,6 +1,6 @@
 import { CommonModule } from '@angular/common';
-import { booleanAttribute, ChangeDetectionStrategy, Component, inject, Input, NgModule, TemplateRef, ViewEncapsulation } from '@angular/core';
-import { SharedModule } from 'primeng/api';
+import { booleanAttribute, ChangeDetectionStrategy, Component, ContentChild, ContentChildren, inject, Input, NgModule, QueryList, TemplateRef, ViewEncapsulation } from '@angular/core';
+import { PrimeTemplate, SharedModule } from 'primeng/api';
 import { BaseComponent } from 'primeng/basecomponent';
 import { TagStyle } from './style/tagstyle';
 
@@ -15,11 +15,11 @@ import { TagStyle } from './style/tagstyle';
     template: `
         <span [ngClass]="containerClass()" [class]="styleClass" [ngStyle]="style">
             <ng-content></ng-content>
-            <ng-container *ngIf="!iconTemplate">
+            <ng-container *ngIf="!iconTemplate && !_iconTemplate">
                 <span class="p-tag-icon" [ngClass]="icon" *ngIf="icon"></span>
             </ng-container>
-            <span class="p-tag-icon" *ngIf="iconTemplate">
-                <ng-template *ngTemplateOutlet="iconTemplate"></ng-template>
+            <span class="p-tag-icon" *ngIf="iconTemplate || _iconTemplate">
+                <ng-template *ngTemplateOutlet="iconTemplate || _iconTemplate"></ng-template>
             </span>
             <span class="p-tag-label">{{ value }}</span>
         </span>
@@ -67,7 +67,11 @@ export class Tag extends BaseComponent {
      */
     @Input({ transform: booleanAttribute }) rounded: boolean | undefined;
 
-    iconTemplate: TemplateRef<any> | undefined;
+    @ContentChild('icon', { descendants: false }) iconTemplate: TemplateRef<any>;
+
+    @ContentChildren(PrimeTemplate) templates: QueryList<PrimeTemplate> | undefined;
+
+    _iconTemplate: TemplateRef<any> | undefined;
 
     _style: { [klass: string]: any } | null | undefined;
 
@@ -77,7 +81,7 @@ export class Tag extends BaseComponent {
         this.templates?.forEach((item) => {
             switch (item.getType()) {
                 case 'icon':
-                    this.iconTemplate = item.template;
+                    this._iconTemplate = item.template;
                     break;
             }
         });
