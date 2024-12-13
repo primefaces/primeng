@@ -1,5 +1,5 @@
 import { CommonModule } from '@angular/common';
-import { booleanAttribute, ChangeDetectionStrategy, Component, ContentChild, ContentChildren, inject, Input, NgModule, QueryList, TemplateRef, ViewEncapsulation } from '@angular/core';
+import { AfterContentInit, booleanAttribute, ChangeDetectionStrategy, Component, ContentChild, ContentChildren, inject, Input, NgModule, QueryList, TemplateRef, ViewEncapsulation } from '@angular/core';
 import { PrimeTemplate, SharedModule } from 'primeng/api';
 import { BaseComponent } from 'primeng/basecomponent';
 import { TagStyle } from './style/tagstyle';
@@ -28,7 +28,7 @@ import { TagStyle } from './style/tagstyle';
     encapsulation: ViewEncapsulation.None,
     providers: [TagStyle]
 })
-export class Tag extends BaseComponent {
+export class Tag extends BaseComponent implements AfterContentInit {
     /**
      * Inline style of the component.
      * @group Props
