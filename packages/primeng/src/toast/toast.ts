@@ -27,7 +27,6 @@ import { MessageService, PrimeTemplate, SharedModule, ToastMessageOptions } from
 import { BaseComponent } from 'primeng/basecomponent';
 import { Button } from 'primeng/button';
 import { CheckIcon, ExclamationTriangleIcon, InfoCircleIcon, TimesCircleIcon, TimesIcon } from 'primeng/icons';
-import { Ripple } from 'primeng/ripple';
 import { ZIndexUtils } from 'primeng/utils';
 import { Subscription } from 'rxjs';
 import { ToastStyle } from './style/toaststyle';
