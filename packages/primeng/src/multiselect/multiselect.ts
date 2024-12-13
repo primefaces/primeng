@@ -52,11 +52,11 @@ import {
 import { FilterService, Footer, Header, OverlayOptions, OverlayService, PrimeTemplate, ScrollerOptions, SharedModule, TranslationKeys } from 'primeng/api';
 import { AutoFocus } from 'primeng/autofocus';
 import { BaseComponent } from 'primeng/basecomponent';
-import { Checkbox, CheckboxModule } from 'primeng/checkbox';
+import { Checkbox } from 'primeng/checkbox';
 import { Chip } from 'primeng/chip';
 import { DomHandler } from 'primeng/dom';
 import { IconField } from 'primeng/iconfield';
-import { CheckIcon, ChevronDownIcon, MinusIcon, SearchIcon, TimesCircleIcon, TimesIcon } from 'primeng/icons';
+import { CheckIcon, ChevronDownIcon, SearchIcon, TimesIcon } from 'primeng/icons';
 import { InputIcon } from 'primeng/inputicon';
 import { InputText } from 'primeng/inputtext';
 import { Overlay } from 'primeng/overlay';
@@ -100,9 +100,9 @@ export const MULTISELECT_VALUE_ACCESSOR: any = {
             (mouseenter)="onOptionMouseEnter($event)"
         >
             <p-checkbox [ngModel]="selected" [binary]="true" [tabindex]="-1" [variant]="variant">
-                <ng-container *ngIf="itemcheckboxiconTemplate">
-                    <ng-template #icon let-class="class">
-                        <ng-template *ngTemplateOutlet="itemcheckboxiconTemplate; context: { checked: selected, class: class }"></ng-template>
+                <ng-container *ngIf="itemCheckboxIconTemplate">
+                    <ng-template #icon let-klass="class">
+                        <ng-template *ngTemplateOutlet="itemCheckboxIconTemplate; context: { checked: selected, class: klass }"></ng-template>
                     </ng-template>
                 </ng-container>
             </p-checkbox>
@@ -135,9 +135,9 @@ export class MultiSelectItem extends BaseComponent {
 
     @Input() template: TemplateRef<any> | undefined;
 
-    @Input() checkiconTemplate: TemplateRef<any> | undefined;
+    @Input() checkIconTemplate: TemplateRef<any> | undefined;
 
-    @Input() itemcheckboxiconTemplate: TemplateRef<any> | undefined;
+    @Input() itemCheckboxIconTemplate: TemplateRef<any> | undefined;
 
     @Output() onClick: EventEmitter<any> = new EventEmitter();
 
@@ -292,15 +292,15 @@ export class MultiSelectItem extends BaseComponent {
                         </ng-container>
                         <ng-template #builtInFilterElement>
                             <p-checkbox [ngModel]="allSelected()" [binary]="true" (onChange)="onToggleAll($event)" *ngIf="showToggleAll && !selectionLimit" [variant]="variant" [disabled]="disabled" #headerCheckbox>
-                                <ng-template #checkboxicon let-class="class">
-                                    <CheckIcon *ngIf="!headerCheckboxIconTemplate && !_headerCheckboxIconTemplate && allSelected()" [styleClass]="class" [attr.data-pc-section]="'icon'" />
+                                <ng-template #checkboxicon let-klass="class">
+                                    <CheckIcon *ngIf="!headerCheckboxIconTemplate && !_headerCheckboxIconTemplate && allSelected()" [styleClass]="klass" [attr.data-pc-section]="'icon'" />
                                     <ng-template
                                         *ngTemplateOutlet="
                                             headerCheckboxIconTemplate || _headerCheckboxIconTemplate;
                                             context: {
                                                 checked: allSelected(),
                                                 partialSelected: partialSelected(),
-                                                class: class
+                                                class: klass
                                             }
                                         "
                                     ></ng-template>
@@ -381,8 +381,8 @@ export class MultiSelectItem extends BaseComponent {
                                             [label]="getOptionLabel(option)"
                                             [disabled]="isOptionDisabled(option)"
                                             [template]="itemTemplate || _itemTemplate"
-                                            [checkiconTemplate]="checkIconTemplate || _checkIconTemplate"
-                                            [itemcheckboxiconTemplate]="itemCheckboxIconTemplate || _itemCheckboxIconTemplate"
+                                            [checkIconTemplate]="checkIconTemplate || _checkIconTemplate"
+                                            [itemCheckboxIconTemplate]="itemCheckboxIconTemplate || _itemCheckboxIconTemplate"
                                             [itemSize]="scrollerOptions.itemSize"
                                             [focused]="focusedOptionIndex() === getOptionIndex(i, scrollerOptions)"
                                             [ariaPosInset]="getAriaPosInset(getOptionIndex(i, scrollerOptions))"
@@ -395,7 +395,7 @@ export class MultiSelectItem extends BaseComponent {
                                 </ng-template>
 
                                 <li *ngIf="hasFilter() && isEmpty()" class="p-multiselect-empty-message" [ngStyle]="{ height: scrollerOptions.itemSize + 'px' }" role="option">
-                                    @if (!emptyfilterTemplate && !_emptyFilterTemplate && !emptyTemplate && !_emptyTemplate) {
+                                    @if (!emptyFilterTemplate && !_emptyFilterTemplate && !emptyTemplate && !_emptyTemplate) {
                                         {{ emptyFilterMessageLabel }}
                                     } @else {
                                         <ng-container *ngTemplateOutlet="emptyFilterTemplate || _emptyFilterTemplate || emptyTemplate || _emptyFilterTemplate"></ng-container>
