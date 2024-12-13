@@ -88,7 +88,7 @@ export class ProgressBar extends BaseComponent implements AfterContentInit {
      * Template of the content.
      * @group templates
      */
-    @ContentChild('content') contentTemplate: TemplateRef<any> | undefined;
+    @ContentChild('content', { descendants: false }) contentTemplate: TemplateRef<any> | undefined;
 
     _componentStyle = inject(ProgressBarStyle);
 
