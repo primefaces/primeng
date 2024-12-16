@@ -59,7 +59,8 @@ export class ThemeProvider {
         // common
         if (!Theme.isStyleNameLoaded('common')) {
             const { primitive, semantic, global, style } = this.baseStyle.getCommonTheme?.() || {};
-            const styleOptions = { nonce: undefined };
+            const cspNonce = this.theme()?.csp?.nonce;
+            const styleOptions = { nonce: cspNonce };
 
             this.baseStyle.load(primitive?.css, { name: 'primitive-variables', ...styleOptions });
             this.baseStyle.load(semantic?.css, { name: 'semantic-variables', ...styleOptions });
