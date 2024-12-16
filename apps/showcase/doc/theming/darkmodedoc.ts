@@ -38,7 +38,9 @@ export class DarkModeDoc {
         typescript: `providePrimeNG({ 
     theme: {
         preset: Aura,
-        darkModeSelector: '.my-app-dark'
+        options: {
+            darkModeSelector: '.my-app-dark'
+        }
     }
 })`
     };
