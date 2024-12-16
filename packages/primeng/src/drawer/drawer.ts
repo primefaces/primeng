@@ -67,38 +67,36 @@ const hideAnimation = animation([animate('{{transition}}', style({ transform: '{
             @if (headlessTemplate || _headlessTemplate) {
                 <ng-container *ngTemplateOutlet="headlessTemplate || _headlessTemplate"></ng-container>
             } @else {
-                <ng-template>
-                    <div [ngClass]="cx('header')" [attr.data-pc-section]="'header'">
-                        <ng-container *ngTemplateOutlet="headerTemplate || _headerTemplate"></ng-container>
-                        <div *ngIf="header" [class]="cx('title')">{{ header }}</div>
-                        <p-button
-                            *ngIf="showCloseIcon && closable"
-                            [ngClass]="cx('closeButton')"
-                            (onClick)="close($event)"
-                            (keydown.enter)="close($event)"
-                            [buttonProps]="closeButtonProps"
-                            [ariaLabel]="ariaCloseLabel"
-                            [attr.data-pc-section]="'closebutton'"
-                            [attr.data-pc-group-section]="'iconcontainer'"
-                        >
-                            <ng-template #icon>
-                                <TimesIcon *ngIf="!closeIconTemplate && !_closeIconTemplate" [attr.data-pc-section]="'closeicon'" />
-                                <ng-template *ngTemplateOutlet="closeIconTemplate || _closeIconTemplate"></ng-template>
-                            </ng-template>
-                        </p-button>
-                    </div>
+                <div [ngClass]="cx('header')" [attr.data-pc-section]="'header'">
+                    <ng-container *ngTemplateOutlet="headerTemplate || _headerTemplate"></ng-container>
+                    <div *ngIf="header" [class]="cx('title')">{{ header }}</div>
+                    <p-button
+                        *ngIf="showCloseIcon && closable"
+                        [ngClass]="cx('closeButton')"
+                        (onClick)="close($event)"
+                        (keydown.enter)="close($event)"
+                        [buttonProps]="closeButtonProps"
+                        [ariaLabel]="ariaCloseLabel"
+                        [attr.data-pc-section]="'closebutton'"
+                        [attr.data-pc-group-section]="'iconcontainer'"
+                    >
+                        <ng-template #icon>
+                            <TimesIcon *ngIf="!closeIconTemplate && !_closeIconTemplate" [attr.data-pc-section]="'closeicon'" />
+                            <ng-template *ngTemplateOutlet="closeIconTemplate || _closeIconTemplate"></ng-template>
+                        </ng-template>
+                    </p-button>
+                </div>
 
-                    <div [ngClass]="cx('content')" [attr.data-pc-section]="'content'">
-                        <ng-content></ng-content>
-                        <ng-container *ngTemplateOutlet="contentTemplate || _contentTemplate"></ng-container>
-                    </div>
+                <div [ngClass]="cx('content')" [attr.data-pc-section]="'content'">
+                    <ng-content></ng-content>
+                    <ng-container *ngTemplateOutlet="contentTemplate || _contentTemplate"></ng-container>
+                </div>
 
-                    <ng-container *ngIf="footerTemplate || _footerTemplate">
-                        <div [ngClass]="cx('footer')" [attr.data-pc-section]="'footer'">
-                            <ng-container *ngTemplateOutlet="footerTemplate || _footerTemplate"></ng-container>
-                        </div>
-                    </ng-container>
-                </ng-template>
+                <ng-container *ngIf="footerTemplate || _footerTemplate">
+                    <div [ngClass]="cx('footer')" [attr.data-pc-section]="'footer'">
+                        <ng-container *ngTemplateOutlet="footerTemplate || _footerTemplate"></ng-container>
+                    </div>
+                </ng-container>
             }
         </div>
     `,
