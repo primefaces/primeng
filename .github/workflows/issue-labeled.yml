@@ -42,7 +42,7 @@ jobs:
         with:
           actions: 'create-comment'
           token: ${{ secrets.GITHUB_TOKEN }}
-          issue-number: ${{ github.event.issue.number }}
+          issue-number: ${{ github.event.issue.number || github.event.pull_request.number }}
           body: |
             More information is needed to find a solution. A runnable StackBlitz example and additional details would be helpful.
 
