@@ -21,6 +21,7 @@ jobs:
           exempt-issue-labels: 'Core Team,PRO Support,Resolution: Help Wanted,Status: Discussion,Type: Enhancement,Type: New Feature,Resolution: Stale'
           exempt-pr-labels: 'Core Team,Resolution: Help Wanted,Status: Discussion,Status: Pending Review,Resolution: Stale'
           exempt-all-milestones: true
+          operations-per-run: 100
           days-before-stale: 365
           days-before-close: 7
           close-issue-reason: 'not_planned'
