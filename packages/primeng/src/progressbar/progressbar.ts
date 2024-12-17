@@ -1,6 +1,6 @@
 import { CommonModule } from '@angular/common';
-import { booleanAttribute, ChangeDetectionStrategy, Component, ContentChild, inject, Input, NgModule, numberAttribute, TemplateRef, ViewEncapsulation } from '@angular/core';
-import { SharedModule } from 'primeng/api';
+import { AfterContentInit, booleanAttribute, ChangeDetectionStrategy, Component, ContentChild, ContentChildren, inject, Input, NgModule, numberAttribute, QueryList, TemplateRef, ViewEncapsulation } from '@angular/core';
+import { PrimeTemplate, SharedModule } from 'primeng/api';
 import { BaseComponent } from 'primeng/basecomponent';
 import { ProgressBarStyle } from './style/progressbarstyle';
 
@@ -30,8 +30,8 @@ import { ProgressBarStyle } from './style/progressbarstyle';
         >
             <div *ngIf="mode === 'determinate'" [ngClass]="'p-progressbar-value p-progressbar-value-animate'" [class]="valueStyleClass" [style.width]="value + '%'" style="display:flex" [style.background]="color" [attr.data-pc-section]="'value'">
                 <div class="p-progressbar-label">
-                    <div *ngIf="showValue && !contentTemplate" [style.display]="value != null && value !== 0 ? 'flex' : 'none'" [attr.data-pc-section]="'label'">{{ value }}{{ unit }}</div>
-                    <ng-container *ngTemplateOutlet="contentTemplate; context: { $implicit: value }"></ng-container>
+                    <div *ngIf="showValue && !contentTemplate && !_contentTemplate" [style.display]="value != null && value !== 0 ? 'flex' : 'none'" [attr.data-pc-section]="'label'">{{ value }}{{ unit }}</div>
+                    <ng-container *ngTemplateOutlet="contentTemplate || _contentTemplate; context: { $implicit: value }"></ng-container>
                 </div>
             </div>
             <div *ngIf="mode === 'indeterminate'" [ngClass]="'p-progressbar-indeterminate-container'" [class]="valueStyleClass" [attr.data-pc-section]="'container'">
@@ -43,7 +43,7 @@ import { ProgressBarStyle } from './style/progressbarstyle';
     encapsulation: ViewEncapsulation.None,
     providers: [ProgressBarStyle]
 })
-export class ProgressBar extends BaseComponent {
+export class ProgressBar extends BaseComponent implements AfterContentInit {
     /**
      * Current value of the progress.
      * @group Props
@@ -88,9 +88,25 @@ export class ProgressBar extends BaseComponent {
      * Template of the content.
      * @group templates
      */
-    @ContentChild('content') contentTemplate: TemplateRef<any> | undefined;
+    @ContentChild('content', { descendants: false }) contentTemplate: TemplateRef<any> | undefined;
 
     _componentStyle = inject(ProgressBarStyle);
+
+    @ContentChildren(PrimeTemplate) templates: QueryList<PrimeTemplate> | undefined;
+
+    _contentTemplate: TemplateRef<any> | undefined;
+
+    ngAfterContentInit() {
+        this.templates?.forEach((item) => {
+            switch (item.getType()) {
+                case 'content':
+                    this._contentTemplate = item.template;
+                    break;
+                default:
+                    this._contentTemplate = item.template;
+            }
+        });
+    }
 }
 
 @NgModule({

@@ -1,16 +1,32 @@
 import { AnimationEvent } from '@angular/animations';
 import { CommonModule } from '@angular/common';
-import { booleanAttribute, ChangeDetectionStrategy, Component, ContentChild, ElementRef, EventEmitter, forwardRef, inject, Input, NgModule, Output, TemplateRef, ViewChild, ViewEncapsulation } from '@angular/core';
+import {
+    AfterContentInit,
+    booleanAttribute,
+    ChangeDetectionStrategy,
+    Component,
+    ContentChild,
+    ContentChildren,
+    ElementRef,
+    EventEmitter,
+    forwardRef,
+    inject,
+    Input,
+    NgModule,
+    Output,
+    QueryList,
+    TemplateRef,
+    ViewChild,
+    ViewEncapsulation
+} from '@angular/core';
 import { NG_VALUE_ACCESSOR } from '@angular/forms';
 import { focus, getFirstFocusableElement, getFocusableElements, getLastFocusableElement, hasClass, isNotEmpty, uuid } from '@primeuix/utils';
-import { OverlayOptions, ScrollerOptions, SharedModule, TreeNode } from 'primeng/api';
+import { OverlayOptions, PrimeTemplate, ScrollerOptions, SharedModule, TreeNode } from 'primeng/api';
 import { AutoFocus } from 'primeng/autofocus';
 import { BaseComponent } from 'primeng/basecomponent';
 import { Chip } from 'primeng/chip';
-import { ChevronDownIcon, SearchIcon, TimesIcon } from 'primeng/icons';
-import { InputText } from 'primeng/inputtext';
+import { ChevronDownIcon, TimesIcon } from 'primeng/icons';
 import { Overlay } from 'primeng/overlay';
-import { Ripple } from 'primeng/ripple';
 import { Tree, TreeFilterEvent, TreeNodeSelectEvent, TreeNodeUnSelectEvent } from 'primeng/tree';
 import { Nullable } from 'primeng/ts-helpers';
 import { TreeSelectStyle } from './style/treeselectstyle';
@@ -53,8 +69,8 @@ export const TREESELECT_VALUE_ACCESSOR: any = {
             </div>
             <div class="p-treeselect-label-container">
                 <div [ngClass]="labelClass" [class]="labelStyleClass" [ngStyle]="labelStyle">
-                    <ng-container *ngIf="valueTemplate; else defaultValueTemplate">
-                        <ng-container *ngTemplateOutlet="valueTemplate; context: { $implicit: value, placeholder: placeholder }"></ng-container>
+                    <ng-container *ngIf="valueTemplate || _valueTemplate; else defaultValueTemplate">
+                        <ng-container *ngTemplateOutlet="valueTemplate || _valueTemplate; context: { $implicit: value, placeholder: placeholder }"></ng-container>
                     </ng-container>
                     <ng-template #defaultValueTemplate>
                         <ng-container *ngIf="display === 'comma'; else chipsValueTemplate">
@@ -70,15 +86,15 @@ export const TREESELECT_VALUE_ACCESSOR: any = {
                 </div>
             </div>
             <ng-container *ngIf="checkValue() && !disabled && showClear">
-                <TimesIcon *ngIf="!cleariconTemplate" [class]="'p-treeselect-clear-icon'" (click)="clear($event)" />
-                <span *ngIf="cleariconTemplate" class="p-treeselect-clear-icon" (click)="clear($event)">
-                    <ng-template *ngTemplateOutlet="cleariconTemplate"></ng-template>
+                <TimesIcon *ngIf="!clearIconTemplate && !_clearIconTemplate" [class]="'p-treeselect-clear-icon'" (click)="clear($event)" />
+                <span *ngIf="clearIconTemplate || clearIconTemplate" class="p-treeselect-clear-icon" (click)="clear($event)">
+                    <ng-template *ngTemplateOutlet="clearIconTemplate || _clearIconTemplate"></ng-template>
                 </span>
             </ng-container>
             <div class="p-treeselect-dropdown" role="button" aria-haspopup="tree" [attr.aria-expanded]="overlayVisible ?? false" [attr.aria-label]="'treeselect trigger'">
-                <ChevronDownIcon *ngIf="!triggericonTemplate && !dropdowniconTemplate" [styleClass]="'p-treeselect-dropdown-icon'" />
-                <span *ngIf="triggericonTemplate || dropdowniconTemplate" class="p-treeselect-dropdown-icon">
-                    <ng-template *ngTemplateOutlet="triggericonTemplate || dropdowniconTemplate"></ng-template>
+                <ChevronDownIcon *ngIf="!triggerIconTemplate && !_triggerIconTemplate && !dropdownIconTemplate && !_dropdownIconTemplate" [styleClass]="'p-treeselect-dropdown-icon'" />
+                <span *ngIf="triggerIconTemplate || _triggerIconTemplate || dropdownIconTemplate || _dropdownIconTemplate" class="p-treeselect-dropdown-icon">
+                    <ng-template *ngTemplateOutlet="triggerIconTemplate || _triggerIconTemplate || dropdownIconTemplate || _dropdownIconTemplate"></ng-template>
                 </span>
             </div>
             <p-overlay
@@ -106,7 +122,7 @@ export const TREESELECT_VALUE_ACCESSOR: any = {
                             [attr.data-p-hidden-focusable]="true"
                         >
                         </span>
-                        <ng-container *ngTemplateOutlet="headerTemplate; context: { $implicit: value, options: options }"></ng-container>
+                        <ng-container *ngTemplateOutlet="headerTemplate || _headerTemplate; context: { $implicit: value, options: options }"></ng-container>
                         <div class="p-treeselect-tree-container" [ngStyle]="{ 'max-height': scrollHeight }">
                             <p-tree
                                 #tree
@@ -134,19 +150,19 @@ export const TREESELECT_VALUE_ACCESSOR: any = {
                                 [_templateMap]="templateMap"
                                 [loading]="loading"
                             >
-                                <ng-container *ngIf="emptyTemplate">
+                                <ng-container *ngIf="emptyTemplate || _emptyTemplate">
                                     <ng-template #empty>
-                                        <ng-container *ngTemplateOutlet="emptyTemplate"></ng-container>
+                                        <ng-container *ngTemplateOutlet="emptyTemplate || _emptyTemplate"></ng-container>
                                     </ng-template>
                                 </ng-container>
-                                <ng-template #togglericon let-expanded *ngIf="itemtogglericonTemplate">
-                                    <ng-container *ngTemplateOutlet="itemtogglericonTemplate; context: { $implicit: expanded }"></ng-container>
+                                <ng-template #togglericon let-expanded *ngIf="itemTogglerIconTemplate || _itemTogglerIconTemplate">
+                                    <ng-container *ngTemplateOutlet="itemTogglerIconTemplate || _itemTogglerIconTemplate; context: { $implicit: expanded }"></ng-container>
                                 </ng-template>
-                                <ng-template #checkboxicon let-selected let-partialSelected="partialSelected" *ngIf="itemcheckboxiconTemplate">
-                                    <ng-container *ngTemplateOutlet="itemcheckboxiconTemplate; context: { $implicit: selected, partialSelected: partialSelected }"></ng-container>
+                                <ng-template #checkboxicon let-selected let-partialSelected="partialSelected" *ngIf="itemCheckboxIconTemplate || _itemCheckboxIconTemplate">
+                                    <ng-container *ngTemplateOutlet="itemCheckboxIconTemplate || _itemCheckboxIconTemplate; context: { $implicit: selected, partialSelected: partialSelected }"></ng-container>
                                 </ng-template>
-                                <ng-template #loadingicon *ngIf="itemloadingiconTemplate">
-                                    <ng-container *ngTemplateOutlet="itemloadingiconTemplate"></ng-container>
+                                <ng-template #loadingicon *ngIf="itemLoadingIconTemplate || _itemLoadingIconTemplate">
+                                    <ng-container *ngTemplateOutlet="itemLoadingIconTemplate || _itemLoadingIconTemplate"></ng-container>
                                 </ng-template>
                             </p-tree>
                         </div>
@@ -169,7 +185,7 @@ export const TREESELECT_VALUE_ACCESSOR: any = {
     providers: [TREESELECT_VALUE_ACCESSOR, TreeSelectStyle],
     encapsulation: ViewEncapsulation.None
 })
-export class TreeSelect extends BaseComponent {
+export class TreeSelect extends BaseComponent implements AfterContentInit {
     /**
      * Identifier of the underlying input element.
      * @group Props
@@ -492,73 +508,99 @@ export class TreeSelect extends BaseComponent {
      * Custom value template.
      * @group Templates
      */
-    @ContentChild('value') valueTemplate: Nullable<TemplateRef<any>>;
+    @ContentChild('value', { descendants: false }) valueTemplate: Nullable<TemplateRef<any>>;
 
     /**
      * Custom header template.
      * @group Templates
      */
-    @ContentChild('header') headerTemplate: Nullable<TemplateRef<any>>;
+    @ContentChild('header', { descendants: false }) headerTemplate: Nullable<TemplateRef<any>>;
 
     /**
      * Custom empty message template.
      * @group Templates
      */
-    @ContentChild('empty') emptyTemplate: Nullable<TemplateRef<any>>;
+    @ContentChild('empty', { descendants: false }) emptyTemplate: Nullable<TemplateRef<any>>;
 
     /**
      * Custom footer template.
      * @group Templates
      */
-    @ContentChild('footer') footerTemplate: Nullable<TemplateRef<any>>;
+    @ContentChild('footer', { descendants: false }) footerTemplate: Nullable<TemplateRef<any>>;
 
     /**
      * Custom clear icon template.
      * @group Templates
      */
-    @ContentChild('clearicon') cleariconTemplate: Nullable<TemplateRef<any>>;
+    @ContentChild('clearicon', { descendants: false }) clearIconTemplate: Nullable<TemplateRef<any>>;
 
     /**
      * Custom trigger icon template.
      * @group Templates
      */
-    @ContentChild('triggericon') triggericonTemplate: Nullable<TemplateRef<any>>;
+    @ContentChild('triggericon', { descendants: false }) triggerIconTemplate: Nullable<TemplateRef<any>>;
 
     /**
      * Custom dropdown icon template.
      * @group Templates
      */
-    @ContentChild('dropdownicon') dropdowniconTemplate: Nullable<TemplateRef<any>>;
+    @ContentChild('dropdownicon', { descendants: false }) dropdownIconTemplate: Nullable<TemplateRef<any>>;
 
     /**
      * Custom filter icon template.
      * @group Templates
      */
-    @ContentChild('filtericon') filtericonTemplate: Nullable<TemplateRef<any>>;
+    @ContentChild('filtericon', { descendants: false }) filterIconTemplate: Nullable<TemplateRef<any>>;
 
     /**
      * Custom close icon template.
      * @group Templates
      */
-    @ContentChild('closeicon') closeiconTemplate: Nullable<TemplateRef<any>>;
+    @ContentChild('closeicon', { descendants: false }) closeIconTemplate: Nullable<TemplateRef<any>>;
 
     /**
      * Custom item toggler icon template.
      * @group Templates
      */
-    @ContentChild('itemtogglericon') itemtogglericonTemplate: Nullable<TemplateRef<any>>;
+    @ContentChild('itemtogglericon', { descendants: false }) itemTogglerIconTemplate: Nullable<TemplateRef<any>>;
 
     /**
      * Custom item checkbox icon template.
      * @group Templates
      */
-    @ContentChild('itemcheckboxicon') itemcheckboxiconTemplate: Nullable<TemplateRef<any>>;
+    @ContentChild('itemcheckboxicon', { descendants: false }) itemCheckboxIconTemplate: Nullable<TemplateRef<any>>;
 
     /**
      * Custom item loading icon template.
      * @group Templates
      */
-    @ContentChild('itemloadingicon') itemloadingiconTemplate: Nullable<TemplateRef<any>>;
+    @ContentChild('itemloadingicon', { descendants: false }) itemLoadingIconTemplate: Nullable<TemplateRef<any>>;
+
+    @ContentChildren(PrimeTemplate) templates: Nullable<QueryList<PrimeTemplate>>;
+
+    _valueTemplate: TemplateRef<any> | undefined;
+
+    _headerTemplate: TemplateRef<any> | undefined;
+
+    _emptyTemplate: TemplateRef<any> | undefined;
+
+    _footerTemplate: TemplateRef<any> | undefined;
+
+    _clearIconTemplate: TemplateRef<any> | undefined;
+
+    _triggerIconTemplate: TemplateRef<any> | undefined;
+
+    _filterIconTemplate: TemplateRef<any> | undefined;
+
+    _closeIconTemplate: TemplateRef<any> | undefined;
+
+    _itemTogglerIconTemplate: TemplateRef<any> | undefined;
+
+    _itemCheckboxIconTemplate: TemplateRef<any> | undefined;
+
+    _itemLoadingIconTemplate: TemplateRef<any> | undefined;
+
+    _dropdownIconTemplate: TemplateRef<any> | undefined;
 
     focused: Nullable<boolean>;
 
@@ -586,6 +628,69 @@ export class TreeSelect extends BaseComponent {
         super.ngOnInit();
         this.listId = uuid('pn_id_') + '_list';
         this.updateTreeState();
+    }
+
+    ngAfterContentInit() {
+        if ((this.templates as QueryList<PrimeTemplate>).length) {
+            this.templateMap = {};
+        }
+
+        (this.templates as QueryList<PrimeTemplate>).forEach((item) => {
+            switch (item.getType()) {
+                case 'value':
+                    this._valueTemplate = item.template;
+                    break;
+
+                case 'header':
+                    this._headerTemplate = item.template;
+                    break;
+
+                case 'empty':
+                    this._emptyTemplate = item.template;
+                    break;
+
+                case 'footer':
+                    this._footerTemplate = item.template;
+                    break;
+
+                case 'clearicon':
+                    this._clearIconTemplate = item.template;
+                    break;
+
+                case 'triggericon':
+                    this._triggerIconTemplate = item.template;
+                    break;
+
+                case 'filtericon':
+                    this._filterIconTemplate = item.template;
+                    break;
+
+                case 'closeicon':
+                    this._closeIconTemplate = item.template;
+                    break;
+
+                case 'itemtogglericon':
+                    this._itemTogglerIconTemplate = item.template;
+                    break;
+
+                case 'itemcheckboxicon':
+                    this._itemCheckboxIconTemplate = item.template;
+                    break;
+
+                case 'dropdownicon':
+                    this._dropdownIconTemplate = item.template;
+                    break;
+
+                case 'itemloadingicon':
+                    this._itemLoadingIconTemplate = item.template;
+                    break;
+
+                default: //TODO: @deprecated Used "value" template instead
+                    if (item.name) this.templateMap[item.name] = item.template;
+                    else this.valueTemplate = item.template;
+                    break;
+            }
+        });
     }
 
     onOverlayAnimationStart(event: AnimationEvent) {

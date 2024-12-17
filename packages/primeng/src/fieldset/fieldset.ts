@@ -1,12 +1,11 @@
 import { animate, state, style, transition, trigger } from '@angular/animations';
 import { CommonModule } from '@angular/common';
-import { booleanAttribute, ChangeDetectionStrategy, Component, ContentChild, EventEmitter, inject, Input, NgModule, Output, TemplateRef, ViewEncapsulation } from '@angular/core';
+import { AfterContentInit, booleanAttribute, ChangeDetectionStrategy, Component, ContentChild, ContentChildren, EventEmitter, inject, Input, NgModule, Output, QueryList, TemplateRef, ViewEncapsulation } from '@angular/core';
 import { uuid } from '@primeuix/utils';
-import { BlockableUI, SharedModule } from 'primeng/api';
+import { BlockableUI, PrimeTemplate, SharedModule } from 'primeng/api';
 import { BaseComponent } from 'primeng/basecomponent';
 import { ButtonModule } from 'primeng/button';
 import { MinusIcon, PlusIcon } from 'primeng/icons';
-import { Ripple } from 'primeng/ripple';
 import { Nullable } from 'primeng/ts-helpers';
 import { FieldsetAfterToggleEvent, FieldsetBeforeToggleEvent } from './fieldset.interface';
 import { FieldsetStyle } from './style/fieldsetstyle';
@@ -46,15 +45,15 @@ import { FieldsetStyle } from './style/fieldsetstyle';
                         class="p-fieldset-toggle-button"
                     >
                         <ng-container *ngIf="collapsed">
-                            <PlusIcon *ngIf="!expandiconTemplate" [styleClass]="'p-fieldset-toggler'" [attr.data-pc-section]="'togglericon'" />
-                            <span *ngIf="expandiconTemplate" class="p-fieldset-toggler" [attr.data-pc-section]="'togglericon'">
-                                <ng-container *ngTemplateOutlet="expandiconTemplate"></ng-container>
+                            <PlusIcon *ngIf="!expandIconTemplate && !_expandIconTemplate" [styleClass]="'p-fieldset-toggler'" [attr.data-pc-section]="'togglericon'" />
+                            <span *ngIf="expandIconTemplate || _expandIconTemplate" class="p-fieldset-toggler" [attr.data-pc-section]="'togglericon'">
+                                <ng-container *ngTemplateOutlet="expandIconTemplate || _expandIconTemplate"></ng-container>
                             </span>
                         </ng-container>
                         <ng-container *ngIf="!collapsed">
-                            <MinusIcon *ngIf="!collapseiconTemplate" [styleClass]="'p-fieldset-toggler'" [attr.aria-hidden]="true" [attr.data-pc-section]="'togglericon'" />
-                            <span *ngIf="collapseiconTemplate" class="p-fieldset-toggler" [attr.data-pc-section]="'togglericon'">
-                                <ng-container *ngTemplateOutlet="collapseiconTemplate"></ng-container>
+                            <MinusIcon *ngIf="!collapseIconTemplate && !_collapseIconTemplate" [styleClass]="'p-fieldset-toggler'" [attr.aria-hidden]="true" [attr.data-pc-section]="'togglericon'" />
+                            <span *ngIf="collapseIconTemplate || _collapseIconTemplate" class="p-fieldset-toggler" [attr.data-pc-section]="'togglericon'">
+                                <ng-container *ngTemplateOutlet="collapseIconTemplate || _collapseIconTemplate"></ng-container>
                             </span>
                         </ng-container>
                         <ng-container *ngTemplateOutlet="legendContent"></ng-container>
@@ -63,7 +62,7 @@ import { FieldsetStyle } from './style/fieldsetstyle';
                 <ng-template #legendContent>
                     <span class="p-fieldset-legend-label" [attr.data-pc-section]="'legendtitle'">{{ legend }}</span>
                     <ng-content select="p-header"></ng-content>
-                    <ng-container *ngTemplateOutlet="headerTemplate"></ng-container>
+                    <ng-container *ngTemplateOutlet="headerTemplate || _headerTemplate"></ng-container>
                 </ng-template>
             </legend>
             <div
@@ -78,7 +77,7 @@ import { FieldsetStyle } from './style/fieldsetstyle';
             >
                 <div class="p-fieldset-content" [attr.data-pc-section]="'content'">
                     <ng-content></ng-content>
-                    <ng-container *ngTemplateOutlet="contentTemplate"></ng-container>
+                    <ng-container *ngTemplateOutlet="contentTemplate || _contentTemplate"></ng-container>
                 </div>
             </div>
         </fieldset>
@@ -105,7 +104,7 @@ import { FieldsetStyle } from './style/fieldsetstyle';
     encapsulation: ViewEncapsulation.None,
     providers: [FieldsetStyle]
 })
-export class Fieldset extends BaseComponent implements BlockableUI {
+export class Fieldset extends BaseComponent implements AfterContentInit, BlockableUI {
     /**
      * Header text of the fieldset.
      * @group Props
@@ -172,25 +171,25 @@ export class Fieldset extends BaseComponent implements BlockableUI {
      * Defines the header template.
      * @group Templates
      */
-    @ContentChild('header') headerTemplate: TemplateRef<any> | undefined;
+    @ContentChild('header', { descendants: false }) headerTemplate: TemplateRef<any> | undefined;
 
     /**
      * Defines the expandicon template.
      * @group Templates
      */
-    @ContentChild('expandicon') expandiconTemplate: TemplateRef<any> | undefined;
+    @ContentChild('expandicon', { descendants: false }) expandIconTemplate: TemplateRef<any> | undefined;
 
     /**
      * Defines the collapseicon template.
      * @group Templates
      */
-    @ContentChild('collapseicon') collapseiconTemplate: TemplateRef<any> | undefined;
+    @ContentChild('collapseicon', { descendants: false }) collapseIconTemplate: TemplateRef<any> | undefined;
 
     /**
      * Defines the content template.
      * @group Templates
      */
-    @ContentChild('content') contentTemplate: TemplateRef<any> | undefined;
+    @ContentChild('content', { descendants: false }) contentTemplate: TemplateRef<any> | undefined;
 
     toggle(event: MouseEvent) {
         if (this.animating) {
@@ -230,6 +229,38 @@ export class Fieldset extends BaseComponent implements BlockableUI {
 
     onToggleDone() {
         this.animating = false;
+    }
+
+    _headerTemplate: TemplateRef<any> | undefined;
+
+    _expandIconTemplate: TemplateRef<any> | undefined;
+
+    _collapseIconTemplate: TemplateRef<any> | undefined;
+
+    _contentTemplate: TemplateRef<any> | undefined;
+
+    @ContentChildren(PrimeTemplate) templates!: QueryList<PrimeTemplate>;
+
+    ngAfterContentInit() {
+        this.templates.forEach((item) => {
+            switch (item.getType()) {
+                case 'header':
+                    this._headerTemplate = item.template;
+                    break;
+
+                case 'expandicon':
+                    this._expandIconTemplate = item.template;
+                    break;
+
+                case 'collapseicon':
+                    this._collapseIconTemplate = item.template;
+                    break;
+
+                case 'content':
+                    this._contentTemplate = item.template;
+                    break;
+            }
+        });
     }
 }
 

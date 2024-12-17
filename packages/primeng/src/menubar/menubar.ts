@@ -1,10 +1,12 @@
 import { CommonModule, DOCUMENT, isPlatformBrowser } from '@angular/common';
 import {
+    AfterContentInit,
     booleanAttribute,
     ChangeDetectionStrategy,
     ChangeDetectorRef,
     Component,
     ContentChild,
+    ContentChildren,
     effect,
     ElementRef,
     EventEmitter,
@@ -18,6 +20,7 @@ import {
     OnInit,
     Output,
     PLATFORM_ID,
+    QueryList,
     Renderer2,
     signal,
     TemplateRef,
@@ -26,7 +29,7 @@ import {
 } from '@angular/core';
 import { RouterModule } from '@angular/router';
 import { findLastIndex, findSingle, focus, isEmpty, isNotEmpty, isPrintableCharacter, isTouchDevice, resolve, uuid } from '@primeuix/utils';
-import { MenuItem, SharedModule } from 'primeng/api';
+import { MenuItem, PrimeTemplate, SharedModule } from 'primeng/api';
 import { BadgeModule } from 'primeng/badge';
 import { BaseComponent } from 'primeng/basecomponent';
 import { AngleDownIcon, AngleRightIcon, BarsIcon } from 'primeng/icons';
@@ -358,8 +361,8 @@ export class MenubarSub extends BaseComponent implements OnInit, OnDestroy {
     imports: [CommonModule, RouterModule, MenubarSub, TooltipModule, BarsIcon, BadgeModule, SharedModule],
     template: `
         <div [ngClass]="{ 'p-menubar p-component': true, 'p-menubar-mobile': queryMatches, 'p-menubar-mobile-active': mobileActive }" [class]="styleClass" [ngStyle]="style" [attr.data-pc-section]="'root'" [attr.data-pc-name]="'menubar'">
-            <div class="p-menubar-start" *ngIf="startTemplate">
-                <ng-container *ngTemplateOutlet="startTemplate"></ng-container>
+            <div class="p-menubar-start" *ngIf="startTemplate || _startTemplate">
+                <ng-container *ngTemplateOutlet="startTemplate || _startTemplate"></ng-container>
             </div>
             <a
                 #menubutton
@@ -375,8 +378,8 @@ export class MenubarSub extends BaseComponent implements OnInit, OnDestroy {
                 (click)="menuButtonClick($event)"
                 (keydown)="menuButtonKeydown($event)"
             >
-                <BarsIcon *ngIf="!menuiconTemplate" />
-                <ng-template *ngTemplateOutlet="menuiconTemplate"></ng-template>
+                <BarsIcon *ngIf="!menuIconTemplate && !_menuIconTemplate" />
+                <ng-template *ngTemplateOutlet="menuIconTemplate || _menuIconTemplate"></ng-template>
             </a>
             <p-menubarSub
                 #rootmenu
@@ -391,7 +394,7 @@ export class MenubarSub extends BaseComponent implements OnInit, OnDestroy {
                 [ariaLabel]="ariaLabel"
                 [ariaLabelledBy]="ariaLabelledBy"
                 [focusedItemId]="focused ? focusedItemId : undefined"
-                [submenuiconTemplate]="submenuiconTemplate"
+                [submenuiconTemplate]="submenuIconTemplate || _submenuIconTemplate"
                 [activeItemPath]="activeItemPath()"
                 (itemClick)="onItemClick($event)"
                 (menuFocus)="onMenuFocus($event)"
@@ -399,8 +402,8 @@ export class MenubarSub extends BaseComponent implements OnInit, OnDestroy {
                 (menuKeydown)="onKeyDown($event)"
                 (itemMouseEnter)="onItemMouseEnter($event)"
             ></p-menubarSub>
-            <div class="p-menubar-end" *ngIf="endTemplate; else legacy">
-                <ng-container *ngTemplateOutlet="endTemplate"></ng-container>
+            <div class="p-menubar-end" *ngIf="endTemplate || _endTemplate; else legacy">
+                <ng-container *ngTemplateOutlet="endTemplate || _endTemplate"></ng-container>
             </div>
             <ng-template #legacy>
                 <div class="p-menubar-end">
@@ -413,7 +416,7 @@ export class MenubarSub extends BaseComponent implements OnInit, OnDestroy {
     encapsulation: ViewEncapsulation.None,
     providers: [MenubarService, MenuBarStyle]
 })
-export class Menubar extends BaseComponent implements OnDestroy, OnInit {
+export class Menubar extends BaseComponent implements AfterContentInit, OnDestroy, OnInit {
     /**
      * An array of menuitems.
      * @group Props
@@ -585,29 +588,71 @@ export class Menubar extends BaseComponent implements OnDestroy, OnInit {
      * Defines template option for start.
      * @group Templates
      */
-    @ContentChild('start') startTemplate: TemplateRef<any> | undefined;
+    @ContentChild('start', { descendants: false }) startTemplate: TemplateRef<any> | undefined;
 
     /**
      * Defines template option for end.
      * @group Templates
      */
-    @ContentChild('end') endTemplate: TemplateRef<any> | undefined;
+    @ContentChild('end', { descendants: false }) endTemplate: TemplateRef<any> | undefined;
 
     /**
      * Defines template option for item.
      * @group Templates
      */
-    @ContentChild('item') itemTemplate: TemplateRef<any> | undefined;
+    @ContentChild('item', { descendants: false }) itemTemplate: TemplateRef<any> | undefined;
     /**
      * Defines template option for item.
      * @group Templates
      */
-    @ContentChild('menuicon') menuiconTemplate: TemplateRef<any> | undefined;
+    @ContentChild('menuicon', { descendants: false }) menuIconTemplate: TemplateRef<any> | undefined;
     /**
      * Defines template option for submenu icon.
      * @group Templates
      */
-    @ContentChild('submenuicon') submenuiconTemplate: TemplateRef<any> | undefined;
+    @ContentChild('submenuicon', { descendants: false }) submenuIconTemplate: TemplateRef<any> | undefined;
+
+    @ContentChildren(PrimeTemplate) templates: QueryList<PrimeTemplate> | undefined;
+
+    _startTemplate: TemplateRef<any> | undefined;
+
+    _endTemplate: TemplateRef<any> | undefined;
+
+    _itemTemplate: TemplateRef<any> | undefined;
+
+    _menuIconTemplate: TemplateRef<any> | undefined;
+
+    _submenuIconTemplate: TemplateRef<any> | undefined;
+
+    ngAfterContentInit() {
+        this.templates?.forEach((item) => {
+            switch (item.getType()) {
+                case 'start':
+                    this._startTemplate = item.template;
+                    break;
+
+                case 'end':
+                    this._endTemplate = item.template;
+                    break;
+
+                case 'menuicon':
+                    this._menuIconTemplate = item.template;
+                    break;
+
+                case 'submenuicon':
+                    this._submenuIconTemplate = item.template;
+                    break;
+
+                case 'item':
+                    this._itemTemplate = item.template;
+                    break;
+
+                default:
+                    this._itemTemplate = item.template;
+                    break;
+            }
+        });
+    }
 
     createProcessedItems(items: any, level: number = 0, parent: any = {}, parentKey: any = '') {
         const processedItems = [];

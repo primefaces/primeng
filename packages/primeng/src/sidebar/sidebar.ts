@@ -6,6 +6,7 @@ import {
     booleanAttribute,
     ChangeDetectionStrategy,
     Component,
+    ContentChildren,
     ElementRef,
     EventEmitter,
     inject,
@@ -14,13 +15,14 @@ import {
     numberAttribute,
     OnDestroy,
     Output,
+    QueryList,
     SimpleChanges,
     TemplateRef,
     ViewChild,
     ViewEncapsulation
 } from '@angular/core';
 import { appendChild, blockBodyScroll } from '@primeuix/utils';
-import { SharedModule } from 'primeng/api';
+import { PrimeTemplate, SharedModule } from 'primeng/api';
 import { BaseComponent } from 'primeng/basecomponent';
 import { ButtonModule, ButtonProps } from 'primeng/button';
 import { TimesIcon } from 'primeng/icons';
@@ -55,10 +57,11 @@ const hideAnimation = animation([animate('{{transition}}', style({ transform: '{
             (click)="maskClickListener($event)"
         >
             <div [ngClass]="cx('root')" [class]="styleClass" [attr.data-pc-section]="'root'" (keydown)="onKeyDown($event)">
-                <ng-container *ngTemplateOutlet="headlessTemplate || notHeadless"></ng-container>
-                <ng-template #notHeadless>
+                @if (headlessTemplate || _headlessTemplate) {
+                    <ng-container *ngTemplateOutlet="headlessTemplate || _headlessTemplate"></ng-container>
+                } @else {
                     <div [ngClass]="cx('header')" [attr.data-pc-section]="'header'">
-                        <ng-container *ngTemplateOutlet="headerTemplate"></ng-container>
+                        <ng-container *ngTemplateOutlet="headerTemplate || _headerTemplate"></ng-container>
                         <p-button
                             *ngIf="showCloseIcon"
                             [ngClass]="cx('closeButton')"
@@ -69,24 +72,24 @@ const hideAnimation = animation([animate('{{transition}}', style({ transform: '{
                             [attr.data-pc-section]="'closebutton'"
                             [attr.data-pc-group-section]="'iconcontainer'"
                         >
-                            <TimesIcon *ngIf="!closeIconTemplate" [attr.data-pc-section]="'closeicon'" />
-                            <span *ngIf="closeIconTemplate" class="p-sidebar-close-icon" [attr.data-pc-section]="'closeicon'">
-                                <ng-template *ngTemplateOutlet="closeIconTemplate"></ng-template>
+                            <TimesIcon *ngIf="!closeIconTemplate && !_closeIconTemplate" [attr.data-pc-section]="'closeicon'" />
+                            <span *ngIf="closeIconTemplate || _closeIconTemplate" class="p-sidebar-close-icon" [attr.data-pc-section]="'closeicon'">
+                                <ng-template *ngTemplateOutlet="closeIconTemplate || _closeIconTemplate"></ng-template>
                             </span>
                         </p-button>
                     </div>
 
                     <div [ngClass]="cx('content')" [attr.data-pc-section]="'content'">
                         <ng-content></ng-content>
-                        <ng-container *ngTemplateOutlet="contentTemplate"></ng-container>
+                        <ng-container *ngTemplateOutlet="contentTemplate || _contentTemplate"></ng-container>
                     </div>
 
-                    <ng-container *ngIf="footerTemplate">
+                    <ng-container *ngIf="footerTemplate || _footerTemplate">
                         <div [ngClass]="cx('footer')" [attr.data-pc-section]="'footer'">
-                            <ng-container *ngTemplateOutlet="footerTemplate"></ng-container>
+                            <ng-container *ngTemplateOutlet="footerTemplate || _footerTemplate"></ng-container>
                         </div>
                     </ng-container>
-                </ng-template>
+                }
             </div>
         </div>
     `,
@@ -279,6 +282,18 @@ export class Sidebar extends BaseComponent implements AfterViewInit, AfterConten
      */
     @Input() contentTemplate: Nullable<TemplateRef<any>>;
 
+    @ContentChildren(PrimeTemplate) templates: QueryList<PrimeTemplate> | undefined;
+
+    _headerTemplate: TemplateRef<any> | undefined;
+
+    _footerTemplate: TemplateRef<any> | undefined;
+
+    _contentTemplate: TemplateRef<any> | undefined;
+
+    _closeIconTemplate: TemplateRef<any> | undefined;
+
+    _headlessTemplate: TemplateRef<any> | undefined;
+
     ngAfterViewInit() {
         super.ngAfterViewInit();
         this.initialized = true;
@@ -295,20 +310,24 @@ export class Sidebar extends BaseComponent implements AfterViewInit, AfterConten
     ngAfterContentInit() {
         this.templates?.forEach((item) => {
             switch (item.getType()) {
+                case 'content':
+                    this._contentTemplate = item.template;
+                    break;
                 case 'header':
-                    this.headerTemplate = item.template || this.headerTemplate;
+                    this._headerTemplate = item.template;
                     break;
                 case 'footer':
-                    this.footerTemplate = item.template || this.footerTemplate;
+                    this._footerTemplate = item.template;
                     break;
                 case 'closeicon':
-                    this.closeIconTemplate = item.template || this.closeIconTemplate;
+                    this._closeIconTemplate = item.template;
                     break;
                 case 'headless':
-                    this.headlessTemplate = item.template || this.headlessTemplate;
+                    this._headlessTemplate = item.template;
                     break;
-                case 'content':
-                    this.contentTemplate = item.template || this.headlessTemplate;
+
+                default:
+                    this._contentTemplate = item.template;
                     break;
             }
         });

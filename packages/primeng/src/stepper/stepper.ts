@@ -6,6 +6,7 @@ import {
     computed,
     contentChild,
     ContentChild,
+    ContentChildren,
     contentChildren,
     effect,
     forwardRef,
@@ -16,6 +17,7 @@ import {
     model,
     ModelSignal,
     NgModule,
+    QueryList,
     signal,
     TemplateRef,
     ViewEncapsulation
@@ -23,7 +25,7 @@ import {
 
 import { animate, state, style, transition, trigger } from '@angular/animations';
 import { find, findIndexInList, uuid } from '@primeuix/utils';
-import { SharedModule } from 'primeng/api';
+import { PrimeTemplate, SharedModule } from 'primeng/api';
 import { BaseComponent } from 'primeng/basecomponent';
 import { transformToBoolean } from 'primeng/utils';
 import { StepperStyle } from './style/stepperstyle';
@@ -136,7 +138,7 @@ export class StepItem extends BaseComponent {
     standalone: true,
     imports: [CommonModule, StepperSeparator, SharedModule],
     template: `
-        @if (!content) {
+        @if (!content && !_contentTemplate) {
             <button [attr.id]="id()" class="p-step-header" [attr.role]="'tab'" [tabindex]="isStepDisabled() ? -1 : undefined" [attr.aria-controls]="ariaControls()" [disabled]="isStepDisabled()" (click)="onStepClick()">
                 <span class="p-step-number">{{ value() }}</span>
                 <span class="p-step-title">
@@ -147,7 +149,7 @@ export class StepItem extends BaseComponent {
                 <p-stepper-separator />
             }
         } @else {
-            <ng-container *ngTemplateOutlet="content; context: { activateCallback: onStepClick.bind(this), value: value(), active: active() }"></ng-container>
+            <ng-container *ngTemplateOutlet="content || _contentTemplate; context: { activateCallback: onStepClick.bind(this), value: value(), active: active() }"></ng-container>
             @if (isSeparatorVisible()) {
                 <p-stepper-separator />
             }
@@ -206,13 +208,17 @@ export class Step extends BaseComponent implements AfterContentInit {
      * @type {TemplateRef<StepContentTemplateContext>}
      * @group Templates
      */
-    @ContentChild('content') content: TemplateRef<StepContentTemplateContext>;
+    @ContentChild('content', { descendants: false }) content: TemplateRef<StepContentTemplateContext>;
+
+    @ContentChildren(PrimeTemplate) templates: QueryList<PrimeTemplate> | undefined;
+
+    _contentTemplate: TemplateRef<any> | undefined;
 
     ngAfterContentInit() {
         this.templates?.forEach((item) => {
             switch (item.getType()) {
                 case 'content':
-                    this.content = item.template;
+                    this._contentTemplate = item.template;
                     break;
             }
         });
@@ -237,7 +243,7 @@ export class Step extends BaseComponent implements AfterContentInit {
         }
         <div class="p-steppanel-content" [@content]="isVertical() ? (active() ? { value: 'visible', params: { transitionParams: transitionOptions() } } : { value: 'hidden', params: { transitionParams: transitionOptions() } }) : undefined">
             @if (active()) {
-                <ng-container *ngTemplateOutlet="contentTemplate; context: { activateCallback: updateValue.bind(this), value: value(), active: active() }"></ng-container>
+                <ng-container *ngTemplateOutlet="contentTemplate || _contentTemplate; context: { activateCallback: updateValue.bind(this), value: value(), active: active() }"></ng-container>
             }
         </div>
     `,
@@ -311,11 +317,15 @@ export class StepPanel extends BaseComponent implements AfterContentInit {
      */
     @ContentChild('content') contentTemplate: TemplateRef<StepPanelContentTemplateContext>;
 
+    @ContentChildren(PrimeTemplate) templates: QueryList<PrimeTemplate> | undefined;
+
+    _contentTemplate: TemplateRef<any> | undefined;
+
     ngAfterContentInit() {
         this.templates?.forEach((item) => {
             switch (item.getType()) {
                 case 'content':
-                    this.contentTemplate = item.template;
+                    this._contentTemplate = item.template;
                     break;
             }
         });

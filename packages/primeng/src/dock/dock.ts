@@ -1,8 +1,8 @@
 import { CommonModule } from '@angular/common';
-import { ChangeDetectionStrategy, ChangeDetectorRef, Component, ContentChild, ElementRef, EventEmitter, inject, Input, NgModule, Output, TemplateRef, ViewChild, ViewEncapsulation } from '@angular/core';
+import { AfterContentInit, ChangeDetectionStrategy, ChangeDetectorRef, Component, ContentChild, ContentChildren, ElementRef, EventEmitter, inject, Input, NgModule, Output, QueryList, TemplateRef, ViewChild, ViewEncapsulation } from '@angular/core';
 import { RouterModule } from '@angular/router';
 import { find, findSingle, resolve, uuid } from '@primeuix/utils';
-import { MenuItem, SharedModule } from 'primeng/api';
+import { MenuItem, PrimeTemplate, SharedModule } from 'primeng/api';
 import { BaseComponent } from 'primeng/basecomponent';
 import { Divider } from 'primeng/divider';
 import { Ripple } from 'primeng/ripple';
@@ -71,8 +71,8 @@ import { DockStyle } from './style/dockstyle';
                                 [state]="item.state"
                                 [attr.aria-hidden]="true"
                             >
-                                <span class="p-dock-item-icon" *ngIf="item.icon && !itemTemplate" [ngClass]="item.icon" [ngStyle]="item.iconStyle"></span>
-                                <ng-container *ngTemplateOutlet="itemTemplate; context: { $implicit: item }"></ng-container>
+                                <span class="p-dock-item-icon" *ngIf="item.icon && !itemTemplate && !_itemTemplate" [ngClass]="item.icon" [ngStyle]="item.iconStyle"></span>
+                                <ng-container *ngTemplateOutlet="itemTemplate || itemTemplate; context: { $implicit: item }"></ng-container>
                             </a>
                             <ng-template #elseBlock>
                                 <a
@@ -87,8 +87,8 @@ import { DockStyle } from './style/dockstyle';
                                     [attr.tabindex]="item.disabled || (i !== activeIndex && readonly) ? null : item.tabindex ? item.tabindex : '-1'"
                                     [attr.aria-hidden]="true"
                                 >
-                                    <span class="p-dock-item-icon" *ngIf="item.icon && !itemTemplate" [ngClass]="item.icon" [ngStyle]="item.iconStyle"></span>
-                                    <ng-container *ngTemplateOutlet="itemTemplate; context: { $implicit: item }"></ng-container>
+                                    <span class="p-dock-item-icon" *ngIf="item.icon && !itemTemplate && !_itemTemplate" [ngClass]="item.icon" [ngStyle]="item.iconStyle"></span>
+                                    <ng-container *ngTemplateOutlet="itemTemplate || _itemTemplate; context: { $implicit: item }"></ng-container>
                                 </a>
                             </ng-template>
                         </div>
@@ -101,7 +101,7 @@ import { DockStyle } from './style/dockstyle';
     encapsulation: ViewEncapsulation.None,
     providers: [DockStyle]
 })
-export class Dock extends BaseComponent {
+export class Dock extends BaseComponent implements AfterContentInit {
     /**
      * Current id state as a string.
      * @group Props
@@ -178,6 +178,8 @@ export class Dock extends BaseComponent {
 
     @ContentChild('item') itemTemplate: TemplateRef<any> | undefined;
 
+    _itemTemplate: TemplateRef<any> | undefined;
+
     getItemId(item, index) {
         return item && item?.id ? item.id : `${index}`;
     }
@@ -225,6 +227,7 @@ export class Dock extends BaseComponent {
         this.focusedOptionIndex = -1;
         this.onBlur.emit(event);
     }
+
     onListKeyDown(event) {
         switch (event.code) {
             case 'ArrowDown': {
@@ -341,6 +344,22 @@ export class Dock extends BaseComponent {
             'p-focus': this.isItemActive(this.getItemId(item, index)),
             'p-disabled': this.disabled(item)
         };
+    }
+
+    @ContentChildren(PrimeTemplate) templates: QueryList<PrimeTemplate> | undefined;
+
+    ngAfterContentInit() {
+        this.templates?.forEach((item) => {
+            switch (item.getType()) {
+                case 'item':
+                    this._itemTemplate = item.template;
+                    break;
+
+                default:
+                    this._itemTemplate = item.template;
+                    break;
+            }
+        });
     }
 }
 

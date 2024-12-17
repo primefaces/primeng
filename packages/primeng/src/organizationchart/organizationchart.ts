@@ -6,6 +6,8 @@ import {
     ChangeDetectionStrategy,
     ChangeDetectorRef,
     Component,
+    ContentChild,
+    ContentChildren,
     ElementRef,
     EventEmitter,
     forwardRef,
@@ -60,12 +62,12 @@ import { OrganizationChartStyle } from './style/organizationchartstyle';
                                 (keydown.space)="toggleNode($event, node)"
                                 [attr.data-pc-section]="'nodeToggler'"
                             >
-                                <ng-container *ngIf="!chart.togglerIconTemplate">
+                                <ng-container *ngIf="!chart.togglerIconTemplate && !chart._togglerIconTemplate">
                                     <ChevronDownIcon *ngIf="node.expanded" [styleClass]="'p-organizationchart-node-toggle-button-icon'" [attr.data-pc-section]="'nodeTogglerIcon'" />
                                     <ChevronUpIcon *ngIf="!node.expanded" [styleClass]="'p-organizationchart-node-toggle-button-icon'" [attr.data-pc-section]="'nodeTogglerIcon'" />
                                 </ng-container>
-                                <span class="p-organizationchart-node-toggle-button-icon" *ngIf="chart.togglerIconTemplate" [attr.data-pc-section]="'nodeTogglerIcon'">
-                                    <ng-template *ngTemplateOutlet="chart.togglerIconTemplate; context: { $implicit: node.expanded }"></ng-template>
+                                <span class="p-organizationchart-node-toggle-button-icon" *ngIf="chart.togglerIconTemplate || chart._togglerIconTemplate" [attr.data-pc-section]="'nodeTogglerIcon'">
+                                    <ng-template *ngTemplateOutlet="chart.togglerIconTemplate || chart._togglerIconTemplate; context: { $implicit: node.expanded }"></ng-template>
                                 </span>
                             </a>
                         </ng-container>
@@ -254,9 +256,13 @@ export class OrganizationChart extends BaseComponent implements AfterContentInit
      */
     @Output() onNodeCollapse: EventEmitter<OrganizationChartNodeCollapseEvent> = new EventEmitter<OrganizationChartNodeCollapseEvent>();
 
+    @ContentChildren(PrimeTemplate) templates: Nullable<QueryList<PrimeTemplate>>;
+
+    @ContentChild('togglericon', { descendants: false }) togglerIconTemplate: TemplateRef<any> | undefined;
+
     public templateMap: any;
 
-    togglerIconTemplate: Nullable<TemplateRef<any>>;
+    _togglerIconTemplate: Nullable<TemplateRef<any>>;
 
     private selectionSource = new Subject<any>();
 
@@ -286,7 +292,7 @@ export class OrganizationChart extends BaseComponent implements AfterContentInit
 
         (this.templates as QueryList<PrimeTemplate>).forEach((item) => {
             if (item.getType() === 'togglericon') {
-                this.togglerIconTemplate = item.template;
+                this._togglerIconTemplate = item.template;
             } else {
                 this.templateMap[item.getType()] = item.template;
             }

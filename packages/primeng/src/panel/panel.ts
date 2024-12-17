@@ -1,12 +1,11 @@
 import { animate, state, style, transition, trigger } from '@angular/animations';
 import { CommonModule } from '@angular/common';
-import { booleanAttribute, ChangeDetectionStrategy, Component, ContentChild, EventEmitter, inject, Input, NgModule, Output, TemplateRef, ViewEncapsulation } from '@angular/core';
+import { AfterContentInit, ViewChild, ElementRef, booleanAttribute, ChangeDetectionStrategy, Component, ContentChild, ContentChildren, EventEmitter, inject, Input, NgModule, Output, QueryList, TemplateRef, ViewEncapsulation } from '@angular/core';
 import { uuid } from '@primeuix/utils';
-import { BlockableUI, Footer, SharedModule } from 'primeng/api';
+import { BlockableUI, Footer, PrimeTemplate, SharedModule } from 'primeng/api';
 import { BaseComponent } from 'primeng/basecomponent';
 import { ButtonModule } from 'primeng/button';
 import { MinusIcon, PlusIcon } from 'primeng/icons';
-import { Ripple } from 'primeng/ripple';
 import { Nullable } from 'primeng/ts-helpers';
 import { PanelStyle } from './style/panelstyle';
 
@@ -69,7 +68,7 @@ export interface PanelHeaderIconsTemplateContext {
             <div class="p-panel-header" *ngIf="showHeader" (click)="onHeaderClick($event)" [attr.id]="id + '-titlebar'">
                 <span class="p-panel-title" *ngIf="_header" [attr.id]="id + '_header'">{{ _header }}</span>
                 <ng-content select="p-header"></ng-content>
-                <ng-container *ngTemplateOutlet="headerTemplate"></ng-container>
+                <ng-container *ngTemplateOutlet="headerTemplate || _headerTemplate"></ng-container>
                 <div
                     class="p-panel-icons"
                     [ngClass]="{
@@ -78,7 +77,7 @@ export interface PanelHeaderIconsTemplateContext {
                         'p-panel-icons-center': iconPos === 'center'
                     }"
                 >
-                    <ng-template *ngTemplateOutlet="iconTemplate"></ng-template>
+                    <ng-template *ngTemplateOutlet="iconTemplate || _iconTemplate"></ng-template>
                     <p-button
                         *ngIf="toggleable"
                         [attr.id]="id + '_header'"
@@ -95,7 +94,7 @@ export interface PanelHeaderIconsTemplateContext {
                         (keydown)="onKeyDown($event)"
                         [buttonProps]="toggleButtonProps"
                     >
-                        <ng-container *ngIf="!headericonsTemplate && !toggleButtonProps?.icon">
+                        <ng-container *ngIf="!headerIconsTemplate && !_headerIconsTemplate && !toggleButtonProps?.icon">
                             <ng-container *ngIf="!collapsed">
                                 <span *ngIf="expandIcon" [class]="expandIcon"></span>
                                 <MinusIcon *ngIf="!expandIcon" />
@@ -107,7 +106,7 @@ export interface PanelHeaderIconsTemplateContext {
                             </ng-container>
                         </ng-container>
 
-                        <ng-template *ngTemplateOutlet="headericonsTemplate; context: { $implicit: collapsed }"></ng-template>
+                        <ng-template *ngTemplateOutlet="headerIconsTemplate || _headerIconsTemplate; context: { $implicit: collapsed }"></ng-template>
                     </p-button>
                 </div>
             </div>
@@ -139,14 +138,14 @@ export interface PanelHeaderIconsTemplateContext {
                 "
                 (@panelContent.done)="onToggleDone($event)"
             >
-                <div class="p-panel-content">
+                <div class="p-panel-content" #contentWrapper>
                     <ng-content></ng-content>
-                    <ng-container *ngTemplateOutlet="contentTemplate"></ng-container>
+                    <ng-container *ngTemplateOutlet="contentTemplate || _contentTemplate"></ng-container>
                 </div>
 
-                <div class="p-panel-footer" *ngIf="footerFacet || footerTemplate">
+                <div class="p-panel-footer" *ngIf="footerFacet || footerTemplate || _footerTemplate">
                     <ng-content select="p-footer"></ng-content>
-                    <ng-container *ngTemplateOutlet="footerTemplate"></ng-container>
+                    <ng-container *ngTemplateOutlet="footerTemplate || _footerTemplate"></ng-container>
                 </div>
             </div>
         </div>
@@ -181,7 +180,7 @@ export interface PanelHeaderIconsTemplateContext {
     encapsulation: ViewEncapsulation.None,
     providers: [PanelStyle]
 })
-export class Panel extends BaseComponent implements BlockableUI {
+export class Panel extends BaseComponent implements AfterContentInit, BlockableUI {
     /**
      * Defines if content of panel can be expanded and collapsed.
      * @group Props
@@ -271,8 +270,7 @@ export class Panel extends BaseComponent implements BlockableUI {
      * Defines template option for header.
      * @group Templates
      */
-    @ContentChild('header') headerTemplate: TemplateRef<any> | undefined;
-
+    @ContentChild('header', { descendants: false }) headerTemplate: TemplateRef<any> | undefined;
     /**
      * Defines template option for icon.
      * @example
@@ -281,7 +279,7 @@ export class Panel extends BaseComponent implements BlockableUI {
      * ```
      * @group Templates
      */
-    @ContentChild('icon') iconTemplate: TemplateRef<any> | undefined;
+    @ContentChild('icon', { descendants: false }) iconTemplate: TemplateRef<any> | undefined;
 
     /**
      * Defines template option for content.
@@ -291,7 +289,7 @@ export class Panel extends BaseComponent implements BlockableUI {
      * ```
      * @group Templates
      */
-    @ContentChild('content') contentTemplate: TemplateRef<any> | undefined;
+    @ContentChild('content', { descendants: false }) contentTemplate: TemplateRef<any> | undefined;
 
     /**
      * Defines template option for footer.
@@ -301,7 +299,7 @@ export class Panel extends BaseComponent implements BlockableUI {
      * ```
      * @group Templates
      */
-    @ContentChild('footer') footerTemplate: TemplateRef<any> | undefined;
+    @ContentChild('footer', { descendants: false }) footerTemplate: TemplateRef<any> | undefined;
 
     /**
      * Defines template option for headerIcon.
@@ -313,7 +311,19 @@ export class Panel extends BaseComponent implements BlockableUI {
      * @see {@link PanelHeaderIconsTemplateContext}
      * @group Templates
      */
-    @ContentChild('headericons') headericonsTemplate: TemplateRef<PanelHeaderIconsTemplateContext> | undefined;
+    @ContentChild('headericons', { descendants: false }) headerIconsTemplate: TemplateRef<PanelHeaderIconsTemplateContext> | undefined;
+
+    _headerTemplate: TemplateRef<any> | undefined;
+
+    _iconTemplate: TemplateRef<any> | undefined;
+
+    _contentTemplate: TemplateRef<any> | undefined;
+
+    _footerTemplate: TemplateRef<any> | undefined;
+
+    _headerIconsTemplate: TemplateRef<any> | undefined;
+
+    @ViewChild('contentWrapper') contentWrapperViewChild: ElementRef;
 
     readonly id = uuid('pn_id_');
 
@@ -355,15 +365,30 @@ export class Panel extends BaseComponent implements BlockableUI {
     expand() {
         this.collapsed = false;
         this.collapsedChange.emit(this.collapsed);
+        this.updateTabIndex();
     }
 
     collapse() {
         this.collapsed = true;
         this.collapsedChange.emit(this.collapsed);
+        this.updateTabIndex();
     }
 
     getBlockableElement(): HTMLElement {
         return this.el.nativeElement.children[0];
+    }
+
+    updateTabIndex() {
+        if (this.contentWrapperViewChild) {
+            const focusableElements = this.contentWrapperViewChild.nativeElement.querySelectorAll('input, button, select, a, textarea, [tabindex]:not([tabindex="-1"])');
+            focusableElements.forEach((element: HTMLElement) => {
+                if (this.collapsed) {
+                    element.setAttribute('tabindex', '-1');
+                } else {
+                    element.removeAttribute('tabindex');
+                }
+            });
+        }
     }
 
     onKeyDown(event) {
@@ -376,6 +401,38 @@ export class Panel extends BaseComponent implements BlockableUI {
     onToggleDone(event: any) {
         this.animating = false;
         this.onAfterToggle.emit({ originalEvent: event, collapsed: this.collapsed });
+    }
+
+    @ContentChildren(PrimeTemplate) templates: QueryList<PrimeTemplate> | undefined;
+
+    ngAfterContentInit() {
+        (this.templates as QueryList<PrimeTemplate>).forEach((item) => {
+            switch (item.getType()) {
+                case 'header':
+                    this._headerTemplate = item.template;
+                    break;
+
+                case 'content':
+                    this._contentTemplate = item.template;
+                    break;
+
+                case 'footer':
+                    this._footerTemplate = item.template;
+                    break;
+
+                case 'icons':
+                    this._iconTemplate = item.template;
+                    break;
+
+                case 'headericons':
+                    this._headerIconsTemplate = item.template;
+                    break;
+
+                default:
+                    this._contentTemplate = item.template;
+                    break;
+            }
+        });
     }
 }
 

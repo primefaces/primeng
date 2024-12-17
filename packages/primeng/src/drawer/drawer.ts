@@ -1,8 +1,28 @@
 import { animate, animation, style, transition, trigger, useAnimation } from '@angular/animations';
 import { CommonModule } from '@angular/common';
-import { AfterViewInit, booleanAttribute, ChangeDetectionStrategy, Component, ContentChild, ElementRef, EventEmitter, inject, Input, NgModule, numberAttribute, OnDestroy, Output, TemplateRef, ViewChild, ViewEncapsulation } from '@angular/core';
+import {
+    AfterContentInit,
+    AfterViewInit,
+    booleanAttribute,
+    ChangeDetectionStrategy,
+    Component,
+    ContentChild,
+    ContentChildren,
+    ElementRef,
+    EventEmitter,
+    inject,
+    Input,
+    NgModule,
+    numberAttribute,
+    OnDestroy,
+    Output,
+    QueryList,
+    TemplateRef,
+    ViewChild,
+    ViewEncapsulation
+} from '@angular/core';
 import { addClass, appendChild, blockBodyScroll, setAttribute, unblockBodyScroll } from '@primeuix/utils';
-import { SharedModule } from 'primeng/api';
+import { PrimeTemplate, SharedModule } from 'primeng/api';
 import { BaseComponent } from 'primeng/basecomponent';
 import { Button, ButtonProps } from 'primeng/button';
 import { TimesIcon } from 'primeng/icons';
@@ -44,10 +64,11 @@ const hideAnimation = animation([animate('{{transition}}', style({ transform: '{
             [attr.data-pc-section]="'root'"
             (keydown)="onKeyDown($event)"
         >
-            <ng-container *ngTemplateOutlet="headlessTemplate || notHeadless"></ng-container>
-            <ng-template #notHeadless>
+            @if (headlessTemplate || _headlessTemplate) {
+                <ng-container *ngTemplateOutlet="headlessTemplate || _headlessTemplate"></ng-container>
+            } @else {
                 <div [ngClass]="cx('header')" [attr.data-pc-section]="'header'">
-                    <ng-container *ngTemplateOutlet="headerTemplate"></ng-container>
+                    <ng-container *ngTemplateOutlet="headerTemplate || _headerTemplate"></ng-container>
                     <div *ngIf="header" [class]="cx('title')">{{ header }}</div>
                     <p-button
                         *ngIf="showCloseIcon && closable"
@@ -60,23 +81,23 @@ const hideAnimation = animation([animate('{{transition}}', style({ transform: '{
                         [attr.data-pc-group-section]="'iconcontainer'"
                     >
                         <ng-template #icon>
-                            <TimesIcon *ngIf="!closeiconTemplate" [attr.data-pc-section]="'closeicon'" />
-                            <ng-template *ngTemplateOutlet="closeiconTemplate"></ng-template>
+                            <TimesIcon *ngIf="!closeIconTemplate && !_closeIconTemplate" [attr.data-pc-section]="'closeicon'" />
+                            <ng-template *ngTemplateOutlet="closeIconTemplate || _closeIconTemplate"></ng-template>
                         </ng-template>
                     </p-button>
                 </div>
 
                 <div [ngClass]="cx('content')" [attr.data-pc-section]="'content'">
                     <ng-content></ng-content>
-                    <ng-container *ngTemplateOutlet="contentTemplate"></ng-container>
+                    <ng-container *ngTemplateOutlet="contentTemplate || _contentTemplate"></ng-container>
                 </div>
 
-                <ng-container *ngIf="footerTemplate">
+                <ng-container *ngIf="footerTemplate || _footerTemplate">
                     <div [ngClass]="cx('footer')" [attr.data-pc-section]="'footer'">
-                        <ng-container *ngTemplateOutlet="footerTemplate"></ng-container>
+                        <ng-container *ngTemplateOutlet="footerTemplate || _footerTemplate"></ng-container>
                     </div>
                 </ng-container>
-            </ng-template>
+            }
         </div>
     `,
     animations: [trigger('panelState', [transition('void => visible', [useAnimation(showAnimation)]), transition('visible => void', [useAnimation(hideAnimation)])])],
@@ -84,7 +105,7 @@ const hideAnimation = animation([animate('{{transition}}', style({ transform: '{
     encapsulation: ViewEncapsulation.None,
     providers: [DrawerStyle]
 })
-export class Drawer extends BaseComponent implements AfterViewInit, OnDestroy {
+export class Drawer extends BaseComponent implements AfterViewInit, AfterContentInit, OnDestroy {
     /**
      *  Target element to attach the dialog, valid values are "body" or a local ng-template variable of another element (note: use binding with brackets for template variables, e.g. [appendTo]="mydiv" for a div element having #mydiv as variable name).
      * @group Props
@@ -212,6 +233,12 @@ export class Drawer extends BaseComponent implements AfterViewInit, OnDestroy {
      */
     @Input() maskStyle: { [klass: string]: any } | null | undefined;
     /**
+     * Whether to display close button.
+     * @group Props
+     * @defaultValue true
+     */
+    @Input({ transform: booleanAttribute }) closable: boolean = true;
+    /**
      * Callback to invoke when dialog is shown.
      * @group Emits
      */
@@ -264,33 +291,65 @@ export class Drawer extends BaseComponent implements AfterViewInit, OnDestroy {
      * Content template for the content of the drawer.
      * @group Templates
      */
-    @ContentChild('header') headerTemplate: TemplateRef<any> | undefined;
+    @ContentChild('header', { descendants: false }) headerTemplate: TemplateRef<any> | undefined;
     /**
      * Header template for the header of the drawer.
      * @group Templates
      */
-    @ContentChild('footer') footerTemplate: TemplateRef<any> | undefined;
+    @ContentChild('footer', { descendants: false }) footerTemplate: TemplateRef<any> | undefined;
     /**
      * Content template for the footer of the drawer.
      * @group Templates
      */
-    @ContentChild('content') contentTemplate: TemplateRef<any> | undefined;
+    @ContentChild('content', { descendants: false }) contentTemplate: TemplateRef<any> | undefined;
     /**
      * Close icon template for the close icon of the drawer.
      * @group Templates
      */
-    @ContentChild('closeicon') closeiconTemplate: TemplateRef<any> | undefined;
+    @ContentChild('closeicon', { descendants: false }) closeIconTemplate: TemplateRef<any> | undefined;
     /**
      * Headless template for the headless drawer.
      * @group Templates
      */
-    @ContentChild('headless') headlessTemplate: TemplateRef<any> | undefined;
-    /**
-     * Whether to display close button.
-     * @group Props
-     * @defaultValue true
-     */
-    @Input({ transform: booleanAttribute }) closable: boolean = true;
+    @ContentChild('headless', { descendants: false }) headlessTemplate: TemplateRef<any> | undefined;
+
+    _headerTemplate: TemplateRef<any> | undefined;
+
+    _footerTemplate: TemplateRef<any> | undefined;
+
+    _contentTemplate: TemplateRef<any> | undefined;
+
+    _closeIconTemplate: TemplateRef<any> | undefined;
+
+    _headlessTemplate: TemplateRef<any> | undefined;
+
+    @ContentChildren(PrimeTemplate) templates: QueryList<PrimeTemplate> | undefined;
+
+    ngAfterContentInit() {
+        this.templates?.forEach((item) => {
+            switch (item.getType()) {
+                case 'content':
+                    this._contentTemplate = item.template;
+                    break;
+                case 'header':
+                    this._headerTemplate = item.template;
+                    break;
+                case 'footer':
+                    this._footerTemplate = item.template;
+                    break;
+                case 'closeicon':
+                    this._closeIconTemplate = item.template;
+                    break;
+                case 'headless':
+                    this._headlessTemplate = item.template;
+                    break;
+
+                default:
+                    this._contentTemplate = item.template;
+                    break;
+            }
+        });
+    }
 
     onKeyDown(event: KeyboardEvent) {
         if (event.code === 'Escape') {
@@ -331,6 +390,7 @@ export class Drawer extends BaseComponent implements AfterViewInit, OnDestroy {
         const activeDrawers = this.document.querySelectorAll('.p-drawer-active');
         const activeDrawersLength = activeDrawers.length;
         const zIndex = activeDrawersLength == 1 ? String(parseInt((this.container as HTMLDivElement).style.zIndex) - 1) : String(parseInt((activeDrawers[0] as HTMLElement).style.zIndex) - 1);
+        this.container.setAttribute(this.attrSelector, '');
 
         if (!this.mask) {
             this.mask = this.renderer.createElement('div');

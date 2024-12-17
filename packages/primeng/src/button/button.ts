@@ -8,6 +8,7 @@ import {
     computed,
     contentChild,
     ContentChild,
+    ContentChildren,
     Directive,
     EventEmitter,
     inject,
@@ -16,12 +17,13 @@ import {
     numberAttribute,
     OnDestroy,
     Output,
+    QueryList,
     SimpleChanges,
     TemplateRef,
     ViewEncapsulation
 } from '@angular/core';
 import { addClass, findSingle, isEmpty } from '@primeuix/utils';
-import { SharedModule } from 'primeng/api';
+import { PrimeTemplate, SharedModule } from 'primeng/api';
 import { AutoFocus } from 'primeng/autofocus';
 import { BadgeModule } from 'primeng/badge';
 import { BaseComponent } from 'primeng/basecomponent';
@@ -446,20 +448,20 @@ export class ButtonDirective extends BaseComponent implements AfterViewInit, OnD
             [pAutoFocus]="autofocus"
         >
             <ng-content></ng-content>
-            <ng-container *ngTemplateOutlet="content"></ng-container>
+            <ng-container *ngTemplateOutlet="contentTemplate || _contentTemplate"></ng-container>
             <ng-container *ngIf="loading">
-                <ng-container *ngIf="!loadingicon">
+                <ng-container *ngIf="!loadingIconTemplate && !_loadingIconTemplate">
                     <span *ngIf="loadingIcon" [ngClass]="iconClass()" [attr.aria-hidden]="true" [attr.data-pc-section]="'loadingicon'"></span>
                     <SpinnerIcon *ngIf="!loadingIcon" [styleClass]="spinnerIconClass()" [spin]="true" [attr.aria-hidden]="true" [attr.data-pc-section]="'loadingicon'" />
                 </ng-container>
-                <ng-template [ngIf]="loadingicon" *ngTemplateOutlet="loadingicon; context: { class: iconClass() }"></ng-template>
+                <ng-template [ngIf]="loadingIconTemplate || _loadingIconTemplate" *ngTemplateOutlet="loadingIconTemplate || _loadingIconTemplate; context: { class: iconClass() }"></ng-template>
             </ng-container>
             <ng-container *ngIf="!loading">
-                <span *ngIf="icon && !iconTemplate" [class]="icon" [ngClass]="iconClass()" [attr.data-pc-section]="'icon'"></span>
-                <ng-template [ngIf]="!icon && iconTemplate" *ngTemplateOutlet="iconTemplate; context: { class: iconClass() }"></ng-template>
+                <span *ngIf="icon && !iconTemplate && !_iconTemplate" [class]="icon" [ngClass]="iconClass()" [attr.data-pc-section]="'icon'"></span>
+                <ng-template [ngIf]="!icon && (iconTemplate || _iconTemplate)" *ngTemplateOutlet="iconTemplate || _iconTemplate; context: { class: iconClass() }"></ng-template>
             </ng-container>
-            <span class="p-button-label" [attr.aria-hidden]="icon && !label" *ngIf="!content && label" [attr.data-pc-section]="'label'">{{ label }}</span>
-            <p-badge *ngIf="!content && badge" [value]="badge" [severity]="badgeSeverity"></p-badge>
+            <span class="p-button-label" [attr.aria-hidden]="icon && !label" *ngIf="!contentTemplate && !_contentTemplate && label" [attr.data-pc-section]="'label'">{{ label }}</span>
+            <p-badge *ngIf="!contentTemplate && !_contentTemplate && badge" [value]="badge" [severity]="badgeSeverity"></p-badge>
         </button>
     `,
     changeDetection: ChangeDetectionStrategy.OnPush,
@@ -620,12 +622,12 @@ export class Button extends BaseComponent implements AfterContentInit {
      * Template of the content.
      * @group Templates
      **/
-    @ContentChild('content') content: TemplateRef<any> | undefined;
+    @ContentChild('content') contentTemplate: TemplateRef<any> | undefined;
     /**
      * Template of the loading.
      * @group Templates
      **/
-    @ContentChild('loading') loadingicon: TemplateRef<any> | undefined;
+    @ContentChild('loading') loadingIconTemplate: TemplateRef<any> | undefined;
     /**
      * Template of the icon.
      * @group Templates
@@ -657,6 +659,36 @@ export class Button extends BaseComponent implements AfterContentInit {
     }
 
     _componentStyle = inject(ButtonStyle);
+
+    @ContentChildren(PrimeTemplate) templates: QueryList<PrimeTemplate> | undefined;
+
+    _contentTemplate: TemplateRef<any> | undefined;
+
+    _iconTemplate: TemplateRef<any> | undefined;
+
+    _loadingIconTemplate: TemplateRef<any> | undefined;
+
+    ngAfterContentInit() {
+        this.templates?.forEach((item) => {
+            switch (item.getType()) {
+                case 'content':
+                    this.contentTemplate = item.template;
+                    break;
+
+                case 'icon':
+                    this.iconTemplate = item.template;
+                    break;
+
+                case 'loadingicon':
+                    this.loadingIconTemplate = item.template;
+                    break;
+
+                default:
+                    this.contentTemplate = item.template;
+                    break;
+            }
+        });
+    }
 
     ngOnChanges(simpleChanges: SimpleChanges) {
         super.ngOnChanges(simpleChanges);
@@ -691,7 +723,7 @@ export class Button extends BaseComponent implements AfterContentInit {
     get buttonClass() {
         return {
             'p-button p-component': true,
-            'p-button-icon-only': (this.icon || this.iconTemplate || this.loadingIcon || this.loadingicon) && !this.label,
+            'p-button-icon-only': (this.icon || this.iconTemplate || this.loadingIcon || this.loadingIconTemplate || this._loadingIconTemplate) && !this.label,
             'p-button-vertical': (this.iconPos === 'top' || this.iconPos === 'bottom') && this.label,
             'p-button-loading': this.loading,
             'p-button-loading-label-only': this.loading && !this.icon && this.label && !this.loadingIcon && this.iconPos === 'left',

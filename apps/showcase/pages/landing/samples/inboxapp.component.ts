@@ -50,7 +50,7 @@ import { Tag } from 'primeng/tag';
                         <div class="font-medium text-color mb-4">Free Version</div>
                         <p-progressbar [value]="75">
                             <ng-template #content let-value>
-                                <span class="w-full text-center text-sm font-normal text-surface-0 leading-5 absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2">4 days left</span>
+                                <span class="w-full text-center text-sm font-normal text-primary-contrast leading-5 absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2">4 days left</span>
                             </ng-template>
                         </p-progressbar>
                     </div>
@@ -59,7 +59,7 @@ import { Tag } from 'primeng/tag';
             </div>
         </div>
         <div class="flex-1 h-full overflow-hidden flex border border-surface rounded-2xl">
-            <p-table [value]="tableData" [(selection)]="selectedRows" dataKey="id" class="w-full">
+            <p-table [value]="tableData" [(selection)]="selectedRows" dataKey="id" class="w-full" [dt]="tableTokens" [scrollable]="true" scrollHeight="flex">
                 <ng-template #caption>
                     <div class="flex xl:items-center justify-between gap-2 flex-col xl:flex-row">
                         <div class="flex items-center gap-2">
@@ -134,7 +134,6 @@ import { Tag } from 'primeng/tag';
     host: {
         class: 'flex gap-4 h-full flex-1 w-full overflow-auto'
     },
-    encapsulation: ViewEncapsulation.None,
     changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class InboxApp {
@@ -147,6 +146,18 @@ export class InboxApp {
     tableData: any;
 
     selectedRows: any = [];
+
+    tableTokens = {
+        header: {
+            background: 'transparent'
+        },
+        headerCell: {
+            background: 'transparent'
+        },
+        row: {
+            background: 'transparent'
+        }
+    };
 
     ngOnInit() {
         this.inboxNavs = [

@@ -1,8 +1,26 @@
 import { CommonModule } from '@angular/common';
-import { booleanAttribute, ChangeDetectionStrategy, Component, ContentChild, EventEmitter, forwardRef, inject, Input, NgModule, numberAttribute, OnInit, Output, signal, TemplateRef, ViewEncapsulation } from '@angular/core';
+import {
+    booleanAttribute,
+    ChangeDetectionStrategy,
+    Component,
+    ContentChild,
+    ContentChildren,
+    EventEmitter,
+    forwardRef,
+    inject,
+    Input,
+    NgModule,
+    numberAttribute,
+    OnInit,
+    Output,
+    QueryList,
+    signal,
+    TemplateRef,
+    ViewEncapsulation
+} from '@angular/core';
 import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
 import { focus, getFirstFocusableElement, uuid } from '@primeuix/utils';
-import { SharedModule } from 'primeng/api';
+import { PrimeTemplate, SharedModule } from 'primeng/api';
 import { AutoFocus } from 'primeng/autofocus';
 import { BaseComponent } from 'primeng/basecomponent';
 import { BanIcon, StarFillIcon, StarIcon } from 'primeng/icons';
@@ -146,17 +164,19 @@ export class Rating extends BaseComponent implements OnInit, ControlValueAccesso
      * Custom on icon template.
      * @group Templates
      */
-    @ContentChild('onicon') oniconTemplate: Nullable<TemplateRef<any>>;
+    @ContentChild('onicon', { descendants: false }) onIconTemplate: Nullable<TemplateRef<any>>;
     /**
      * Custom off icon template.
      * @group Templates
      */
-    @ContentChild('officon') officonTemplate: Nullable<TemplateRef<any>>;
+    @ContentChild('officon', { descendants: false }) offIconTemplate: Nullable<TemplateRef<any>>;
     /**
      * Custom cancel icon template.
      * @group Templates
      */
-    @ContentChild('cancelicon') canceliconTemplate: Nullable<TemplateRef<any>>;
+    @ContentChild('cancelicon', { descendants: false }) cancelIconTemplate: Nullable<TemplateRef<any>>;
+
+    @ContentChildren(PrimeTemplate) templates!: QueryList<PrimeTemplate>;
 
     value: Nullable<number>;
 
@@ -174,6 +194,12 @@ export class Rating extends BaseComponent implements OnInit, ControlValueAccesso
 
     _componentStyle = inject(RatingStyle);
 
+    _onIconTemplate: TemplateRef<any> | undefined;
+
+    _offIconTemplate: TemplateRef<any> | undefined;
+
+    _cancelIconTemplate: TemplateRef<any> | undefined;
+
     ngOnInit() {
         super.ngOnInit();
         this.nameattr = this.nameattr || uuid('pn_id_');
@@ -181,6 +207,24 @@ export class Rating extends BaseComponent implements OnInit, ControlValueAccesso
         for (let i = 0; i < this.stars; i++) {
             this.starsArray[i] = i;
         }
+    }
+
+    ngAfterContentInit() {
+        this.templates.forEach((item) => {
+            switch (item.getType()) {
+                case 'onicon':
+                    this._onIconTemplate = item.template;
+                    break;
+
+                case 'officon':
+                    this._offIconTemplate = item.template;
+                    break;
+
+                case 'cancelicon':
+                    this._cancelIconTemplate = item.template;
+                    break;
+            }
+        });
     }
 
     onOptionClick(event, value) {
@@ -238,7 +282,7 @@ export class Rating extends BaseComponent implements OnInit, ControlValueAccesso
     }
 
     getIconTemplate(i: number): Nullable<TemplateRef<any>> {
-        return !this.value || i >= this.value ? this.officonTemplate : this.oniconTemplate;
+        return !this.value || i >= this.value ? this.offIconTemplate || this._offIconTemplate : this.onIconTemplate || this.offIconTemplate;
     }
 
     writeValue(value: any): void {
@@ -260,7 +304,7 @@ export class Rating extends BaseComponent implements OnInit, ControlValueAccesso
     }
 
     get isCustomIcon(): boolean {
-        return !!(this.oniconTemplate || this.officonTemplate || this.canceliconTemplate);
+        return !!(this.onIconTemplate || this._onIconTemplate || this.offIconTemplate || this._offIconTemplate || this.cancelIconTemplate || this._cancelIconTemplate);
     }
 }
 

@@ -1,10 +1,12 @@
 import { animate, AnimationEvent, style, transition, trigger } from '@angular/animations';
 import { CommonModule, isPlatformBrowser } from '@angular/common';
 import {
+    AfterContentInit,
     booleanAttribute,
     ChangeDetectionStrategy,
     Component,
     ContentChild,
+    ContentChildren,
     Directive,
     DoCheck,
     ElementRef,
@@ -21,6 +23,7 @@ import {
     Output,
     Pipe,
     PipeTransform,
+    QueryList,
     signal,
     TemplateRef,
     ViewChild,
@@ -28,7 +31,7 @@ import {
 } from '@angular/core';
 import { NG_VALUE_ACCESSOR } from '@angular/forms';
 import { absolutePosition, addClass, getOuterWidth, hasClass, isTouchDevice, relativePosition, removeClass } from '@primeuix/utils';
-import { OverlayService, SharedModule, TranslationKeys } from 'primeng/api';
+import { OverlayService, PrimeTemplate, SharedModule, TranslationKeys } from 'primeng/api';
 import { AutoFocus } from 'primeng/autofocus';
 import { BaseComponent } from 'primeng/basecomponent';
 import { ConnectedOverlayScrollHandler, DomHandler } from 'primeng/dom';
@@ -425,23 +428,23 @@ export const Password_VALUE_ACCESSOR: any = {
                 [pAutoFocus]="autofocus"
             />
             <ng-container *ngIf="showClear && value != null">
-                <TimesIcon *ngIf="!cleariconTemplate" class="p-password-clear-icon" (click)="clear()" [attr.data-pc-section]="'clearIcon'" />
+                <TimesIcon *ngIf="!clearIconTemplate && !_clearIconTemplate" class="p-password-clear-icon" (click)="clear()" [attr.data-pc-section]="'clearIcon'" />
                 <span (click)="clear()" class="p-password-clear-icon" [attr.data-pc-section]="'clearIcon'">
-                    <ng-template *ngTemplateOutlet="cleariconTemplate"></ng-template>
+                    <ng-template *ngTemplateOutlet="clearIconTemplate || _clearIconTemplate"></ng-template>
                 </span>
             </ng-container>
 
             <ng-container *ngIf="toggleMask">
                 <ng-container *ngIf="unmasked">
-                    <EyeSlashIcon class="p-password-toggle-mask-icon p-password-mask-icon" *ngIf="!hideiconTemplate" (click)="onMaskToggle()" [attr.data-pc-section]="'hideIcon'" />
-                    <span *ngIf="hideiconTemplate" (click)="onMaskToggle()">
-                        <ng-template *ngTemplateOutlet="hideiconTemplate; context: { class: 'p-password-toggle-mask-icon p-password-mask-icon' }"></ng-template>
+                    <EyeSlashIcon class="p-password-toggle-mask-icon p-password-mask-icon" *ngIf="!hideIconTemplate && !_hideIconTemplate" (click)="onMaskToggle()" [attr.data-pc-section]="'hideIcon'" />
+                    <span *ngIf="hideIconTemplate || _hideIconTemplate" (click)="onMaskToggle()">
+                        <ng-template *ngTemplateOutlet="hideIconTemplate || _hideIconTemplate; context: { class: 'p-password-toggle-mask-icon p-password-mask-icon' }"></ng-template>
                     </span>
                 </ng-container>
                 <ng-container *ngIf="!unmasked">
-                    <EyeIcon *ngIf="!showiconTemplate" class="p-password-toggle-mask-icon p-password-mask-icon" (click)="onMaskToggle()" [attr.data-pc-section]="'showIcon'" />
-                    <span *ngIf="showiconTemplate" (click)="onMaskToggle()">
-                        <ng-template *ngTemplateOutlet="showiconTemplate"></ng-template>
+                    <EyeIcon *ngIf="!showIconTemplate && !_showIconTemplate" class="p-password-toggle-mask-icon p-password-mask-icon" (click)="onMaskToggle()" [attr.data-pc-section]="'showIcon'" />
+                    <span *ngIf="showIconTemplate || _showIconTemplate" (click)="onMaskToggle()">
+                        <ng-template *ngTemplateOutlet="showIconTemplate || _showIconTemplate"></ng-template>
                     </span>
                 </ng-container>
             </ng-container>
@@ -459,9 +462,9 @@ export const Password_VALUE_ACCESSOR: any = {
                 (@overlayAnimation.done)="onAnimationEnd($event)"
                 [attr.data-pc-section]="'panel'"
             >
-                <ng-container *ngTemplateOutlet="headerTemplate"></ng-container>
-                <ng-container *ngIf="contentTemplate; else content">
-                    <ng-container *ngTemplateOutlet="contentTemplate"></ng-container>
+                <ng-container *ngTemplateOutlet="headerTemplate || _headerTemplate"></ng-container>
+                <ng-container *ngIf="contentTemplate || _contentTemplate; else content">
+                    <ng-container *ngTemplateOutlet="contentTemplate || _contentTemplate"></ng-container>
                 </ng-container>
                 <ng-template #content>
                     <div class="p-password-content">
@@ -471,7 +474,7 @@ export const Password_VALUE_ACCESSOR: any = {
                         <div class="p-password-meter-text" [attr.data-pc-section]="'info'">{{ infoText }}</div>
                     </div>
                 </ng-template>
-                <ng-container *ngTemplateOutlet="footerTemplate"></ng-container>
+                <ng-container *ngTemplateOutlet="footerTemplate || _footerTemplate"></ng-container>
             </div>
         </div>
     `,
@@ -480,7 +483,7 @@ export const Password_VALUE_ACCESSOR: any = {
     changeDetection: ChangeDetectionStrategy.OnPush,
     encapsulation: ViewEncapsulation.None
 })
-export class Password extends BaseComponent implements OnInit {
+export class Password extends BaseComponent implements OnInit, AfterContentInit {
     /**
      * Defines a string that labels the input for accessibility.
      * @group Props
@@ -641,17 +644,31 @@ export class Password extends BaseComponent implements OnInit {
 
     @ViewChild('input') input!: ElementRef;
 
-    @ContentChild('content') contentTemplate: Nullable<TemplateRef<any>>;
+    @ContentChild('content', { descendants: false }) contentTemplate: Nullable<TemplateRef<any>>;
 
-    @ContentChild('footerT') footerTemplate: Nullable<TemplateRef<any>>;
+    @ContentChild('footer', { descendants: false }) footerTemplate: Nullable<TemplateRef<any>>;
 
-    @ContentChild('header') headerTemplate: Nullable<TemplateRef<any>>;
+    @ContentChild('header', { descendants: false }) headerTemplate: Nullable<TemplateRef<any>>;
 
-    @ContentChild('clearicon') cleariconTemplate: Nullable<TemplateRef<any>>;
+    @ContentChild('clearicon', { descendants: false }) clearIconTemplate: Nullable<TemplateRef<any>>;
 
-    @ContentChild('headericon') hideiconTemplate: Nullable<TemplateRef<any>>;
+    @ContentChild('headericon', { descendants: false }) hideIconTemplate: Nullable<TemplateRef<any>>;
 
-    @ContentChild('showicon') showiconTemplate: Nullable<TemplateRef<any>>;
+    @ContentChild('showicon', { descendants: false }) showIconTemplate: Nullable<TemplateRef<any>>;
+
+    @ContentChildren(PrimeTemplate) templates!: QueryList<PrimeTemplate>;
+
+    _contentTemplate: TemplateRef<any> | undefined;
+
+    _footerTemplate: TemplateRef<any> | undefined;
+
+    _headerTemplate: TemplateRef<any> | undefined;
+
+    _clearIconTemplate: TemplateRef<any> | undefined;
+
+    _hideIconTemplate: TemplateRef<any> | undefined;
+
+    _showIconTemplate: TemplateRef<any> | undefined;
 
     overlayVisible: boolean = false;
 
@@ -698,6 +715,40 @@ export class Password extends BaseComponent implements OnInit {
         this.strongCheckRegExp = new RegExp(this.strongRegex);
         this.translationSubscription = this.config.translationObserver.subscribe(() => {
             this.updateUI(this.value || '');
+        });
+    }
+
+    ngAfterContentInit() {
+        this.templates.forEach((item) => {
+            switch (item.getType()) {
+                case 'content':
+                    this._contentTemplate = item.template;
+                    break;
+
+                case 'header':
+                    this._headerTemplate = item.template;
+                    break;
+
+                case 'footer':
+                    this._footerTemplate = item.template;
+                    break;
+
+                case 'clearicon':
+                    this._clearIconTemplate = item.template;
+                    break;
+
+                case 'hideicon':
+                    this._hideIconTemplate = item.template;
+                    break;
+
+                case 'showicon':
+                    this._showIconTemplate = item.template;
+                    break;
+
+                default:
+                    this._contentTemplate = item.template;
+                    break;
+            }
         });
     }
 

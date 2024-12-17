@@ -1,6 +1,24 @@
 import { CdkDragDrop, DragDropModule, moveItemInArray } from '@angular/cdk/drag-drop';
 import { CommonModule, isPlatformBrowser } from '@angular/common';
-import { AfterContentInit, booleanAttribute, ChangeDetectionStrategy, Component, ContentChild, ElementRef, EventEmitter, inject, Input, NgModule, numberAttribute, Output, QueryList, TemplateRef, ViewChild, ViewEncapsulation } from '@angular/core';
+import {
+    AfterContentInit,
+    booleanAttribute,
+    ChangeDetectionStrategy,
+    Component,
+    ContentChild,
+    ContentChildren,
+    ElementRef,
+    EventEmitter,
+    inject,
+    Input,
+    NgModule,
+    numberAttribute,
+    Output,
+    QueryList,
+    TemplateRef,
+    ViewChild,
+    ViewEncapsulation
+} from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { find, findIndexInList, findSingle, hasClass, insertIntoOrderedArray, isHidden, scrollInView, setAttribute, uuid } from '@primeuix/utils';
 import { FilterService, PrimeTemplate, SharedModule } from 'primeng/api';
@@ -35,16 +53,16 @@ import { OrderListStyle } from './style/orderliststyle';
         >
             <div class="p-orderlist-controls" [attr.data-pc-section]="'controls'">
                 <button type="button" [disabled]="moveDisabled()" pButton pRipple class="p-button-icon-only" (click)="moveUp()" [attr.aria-label]="moveUpAriaLabel" [attr.data-pc-section]="'moveUpButton'" [buttonProps]="getButtonProps('up')">
-                    <AngleUpIcon *ngIf="!moveupiconTemplate" [attr.data-pc-section]="'moveupicon'" />
-                    <ng-template *ngTemplateOutlet="moveupiconTemplate"></ng-template>
+                    <AngleUpIcon *ngIf="!moveUpIconTemplate && !_moveUpIconTemplate" [attr.data-pc-section]="'moveupicon'" />
+                    <ng-template *ngTemplateOutlet="moveUpIconTemplate || _moveUpIconTemplate"></ng-template>
                 </button>
                 <button type="button" [disabled]="moveDisabled()" pButton pRipple class="p-button-icon-only" (click)="moveTop()" [attr.aria-label]="moveTopAriaLabel" [attr.data-pc-section]="'moveTopButton'" [buttonProps]="getButtonProps('top')">
-                    <AngleDoubleUpIcon *ngIf="!movetopiconTemplate" [attr.data-pc-section]="'movetopicon'" />
-                    <ng-template *ngTemplateOutlet="movetopiconTemplate"></ng-template>
+                    <AngleDoubleUpIcon *ngIf="!moveTopIconTemplate && !_moveTopIconTemplate" [attr.data-pc-section]="'movetopicon'" />
+                    <ng-template *ngTemplateOutlet="moveTopIconTemplate || _moveTopIconTemplate"></ng-template>
                 </button>
                 <button type="button" [disabled]="moveDisabled()" pButton pRipple class="p-button-icon-only" (click)="moveDown()" [attr.aria-label]="moveDownAriaLabel" [attr.data-pc-section]="'moveDownButton'" [buttonProps]="getButtonProps('down')">
-                    <AngleDownIcon *ngIf="!movedowniconTemplate" [attr.data-pc-section]="'movedownicon'" />
-                    <ng-template *ngTemplateOutlet="movedowniconTemplate"></ng-template>
+                    <AngleDownIcon *ngIf="!moveDownIconTemplate && !_moveDownIconTemplate" [attr.data-pc-section]="'movedownicon'" />
+                    <ng-template *ngTemplateOutlet="moveDownIconTemplate || _moveDownIconTemplate"></ng-template>
                 </button>
                 <button
                     type="button"
@@ -57,8 +75,8 @@ import { OrderListStyle } from './style/orderliststyle';
                     [attr.data-pc-section]="'moveBottomButton'"
                     [buttonProps]="getButtonProps('bottom')"
                 >
-                    <AngleDoubleDownIcon *ngIf="!movebottomiconTemplate" [attr.data-pc-section]="'movebottomicon'" />
-                    <ng-template *ngTemplateOutlet="movebottomiconTemplate"></ng-template>
+                    <AngleDoubleDownIcon *ngIf="!moveBottomIconTemplate && !_moveBottomIconTemplate" [attr.data-pc-section]="'movebottomicon'" />
+                    <ng-template *ngTemplateOutlet="moveBottomIconTemplate || _moveBottomIconTemplate"></ng-template>
                 </button>
             </div>
             <div class="p-orderlist-list-container" [attr.data-pc-section]="'container'">
@@ -85,14 +103,14 @@ import { OrderListStyle } from './style/orderliststyle';
                     [filterLocale]="filterLocale"
                     [filterPlaceHolder]="filterPlaceholder"
                 >
-                    <ng-container *ngIf="headerTemplate">
+                    <ng-container *ngIf="headerTemplate || _headerTemplate">
                         <ng-template #header>
-                            <ng-template *ngTemplateOutlet="headerTemplate"></ng-template>
+                            <ng-template *ngTemplateOutlet="headerTemplate || _headerTemplate"></ng-template>
                         </ng-template>
                     </ng-container>
-                    <ng-container *ngIf="itemTemplate">
+                    <ng-container *ngIf="itemTemplate || _itemTemplate">
                         <ng-template #item let-option let-selected="selected" let-index="index">
-                            <ng-template *ngTemplateOutlet="itemTemplate; context: { $implicit: option, selected: selected, index: index }"></ng-template>
+                            <ng-template *ngTemplateOutlet="itemTemplate || _itemTemplate; context: { $implicit: option, selected: selected, index: index }"></ng-template>
                         </ng-template>
                     </ng-container>
                 </p-listbox>
@@ -103,7 +121,7 @@ import { OrderListStyle } from './style/orderliststyle';
     encapsulation: ViewEncapsulation.None,
     providers: [OrderListStyle]
 })
-export class OrderList extends BaseComponent {
+export class OrderList extends BaseComponent implements AfterContentInit {
     /**
      * Text for the caption.
      * @group Props
@@ -342,61 +360,61 @@ export class OrderList extends BaseComponent {
      * Custom item template.
      * @group Templates
      */
-    @ContentChild('item') itemTemplate: TemplateRef<any> | undefined;
+    @ContentChild('item', { descendants: false }) itemTemplate: TemplateRef<any> | undefined;
 
     /**
      * Custom empty template.
      * @group Templates
      */
-    @ContentChild('empty') emptymessageTemplate: TemplateRef<any> | undefined;
+    @ContentChild('empty', { descendants: false }) emptyMessageTemplate: TemplateRef<any> | undefined;
 
     /**
      * Custom empty filter template.
      * @group Templates
      */
-    @ContentChild('emptyfilter') emptyfiltermessageTemplate: TemplateRef<any> | undefined;
+    @ContentChild('emptyfilter', { descendants: false }) emptyFilterMessageTemplate: TemplateRef<any> | undefined;
 
     /**
      * Custom filter template.
      * @group Templates
      */
-    @ContentChild('filter') filterTemplate: TemplateRef<any> | undefined;
+    @ContentChild('filter', { descendants: false }) filterTemplate: TemplateRef<any> | undefined;
 
     /**
      * Custom header template.
      * @group Templates
      */
-    @ContentChild('header') headerTemplate: TemplateRef<any> | undefined;
+    @ContentChild('header', { descendants: false }) headerTemplate: TemplateRef<any> | undefined;
 
     /**
      * Custom move up icon template.
      * @group Templates
      */
-    @ContentChild('moveupicon') moveupiconTemplate: TemplateRef<any> | undefined;
+    @ContentChild('moveupicon', { descendants: false }) moveUpIconTemplate: TemplateRef<any> | undefined;
 
     /**
      * Custom move top icon template.
      * @group Templates
      */
-    @ContentChild('movetopicon') movetopiconTemplate: TemplateRef<any> | undefined;
+    @ContentChild('movetopicon', { descendants: false }) moveTopIconTemplate: TemplateRef<any> | undefined;
 
     /**
      * Custom move down icon template.
      * @group Templates
      */
-    @ContentChild('movedownicon') movedowniconTemplate: TemplateRef<any> | undefined;
+    @ContentChild('movedownicon', { descendants: false }) moveDownIconTemplate: TemplateRef<any> | undefined;
 
     /**
      * Custom move bottom icon template.
      * @group Templates
      */
-    @ContentChild('movebottomicon') movebottomiconTemplate: TemplateRef<any> | undefined;
+    @ContentChild('movebottomicon', { descendants: false }) moveBottomIconTemplate: TemplateRef<any> | undefined;
 
     /**
      * Custom filter icon template.
      * @group Templates
      */
-    @ContentChild('filtericon') filtericonTemplate: TemplateRef<any> | undefined;
+    @ContentChild('filtericon', { descendants: false }) filterIconTemplate: TemplateRef<any> | undefined;
 
     get moveUpAriaLabel() {
         return this.config.translation.aria ? this.config.translation.aria.moveUp : undefined;
@@ -488,6 +506,78 @@ export class OrderList extends BaseComponent {
             this.movedUp = false;
             this.movedDown = false;
         }
+    }
+
+    @ContentChildren(PrimeTemplate) templates: Nullable<QueryList<PrimeTemplate>>;
+
+    _itemTemplate: TemplateRef<any> | undefined;
+
+    _emptyMessageTemplate: TemplateRef<any> | undefined;
+
+    _emptyFilterMessageTemplate: TemplateRef<any> | undefined;
+
+    _filterTemplate: TemplateRef<any> | undefined;
+
+    _headerTemplate: TemplateRef<any> | undefined;
+
+    _moveUpIconTemplate: TemplateRef<any> | undefined;
+
+    _moveTopIconTemplate: TemplateRef<any> | undefined;
+
+    _moveDownIconTemplate: TemplateRef<any> | undefined;
+
+    _moveBottomIconTemplate: TemplateRef<any> | undefined;
+
+    _filterIconTemplate: TemplateRef<any> | undefined;
+
+    ngAfterContentInit() {
+        (this.templates as QueryList<PrimeTemplate>).forEach((item) => {
+            switch (item.getType()) {
+                case 'item':
+                    this._itemTemplate = item.template;
+                    break;
+
+                case 'empty':
+                    this._emptyMessageTemplate = item.template;
+                    break;
+
+                case 'emptyfilter':
+                    this._emptyFilterMessageTemplate = item.template;
+                    break;
+
+                case 'filter':
+                    this._filterTemplate = item.template;
+                    break;
+
+                case 'header':
+                    this._headerTemplate = item.template;
+                    break;
+
+                case 'moveupicon':
+                    this._moveUpIconTemplate = item.template;
+                    break;
+
+                case 'movetopicon':
+                    this._moveTopIconTemplate = item.template;
+                    break;
+
+                case 'movedownicon':
+                    this._moveDownIconTemplate = item.template;
+                    break;
+
+                case 'movebottomicon':
+                    this._moveBottomIconTemplate = item.template;
+                    break;
+
+                case 'filtericon':
+                    this._filterIconTemplate = item.template;
+                    break;
+
+                default:
+                    this._itemTemplate = item.template;
+                    break;
+            }
+        });
     }
 
     onItemClick(event, item: any, index?: number, selectedId?: string) {

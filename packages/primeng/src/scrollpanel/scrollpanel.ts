@@ -1,7 +1,25 @@
 import { CommonModule, isPlatformBrowser } from '@angular/common';
-import { AfterViewInit, ChangeDetectionStrategy, Component, ContentChild, ElementRef, inject, Input, NgModule, NgZone, numberAttribute, OnDestroy, TemplateRef, ViewChild, ViewEncapsulation } from '@angular/core';
+import {
+    AfterContentInit,
+    AfterViewInit,
+    ChangeDetectionStrategy,
+    Component,
+    ContentChild,
+    ContentChildren,
+    ElementRef,
+    inject,
+    Input,
+    NgModule,
+    NgZone,
+    numberAttribute,
+    OnDestroy,
+    QueryList,
+    TemplateRef,
+    ViewChild,
+    ViewEncapsulation
+} from '@angular/core';
 import { addClass, getHeight, removeClass, uuid } from '@primeuix/utils';
-import { SharedModule } from 'primeng/api';
+import { PrimeTemplate, SharedModule } from 'primeng/api';
 import { BaseComponent } from 'primeng/basecomponent';
 import { Nullable } from 'primeng/ts-helpers';
 import { ScrollPanelStyle } from './style/scrollpanelstyle';
@@ -18,10 +36,10 @@ import { ScrollPanelStyle } from './style/scrollpanelstyle';
         <div #container [ngClass]="'p-scrollpanel p-component'" [ngStyle]="style" [class]="styleClass" [attr.data-pc-name]="'scrollpanel'">
             <div class="p-scrollpanel-content-container" [attr.data-pc-section]="'wrapper'">
                 <div #content class="p-scrollpanel-content" [attr.data-pc-section]="'content'" (mouseenter)="moveBar()" (scroll)="onScroll($event)">
-                    @if (!contentTemplate) {
+                    @if (!contentTemplate && !_contentTemplate) {
                         <ng-content></ng-content>
                     }
-                    <ng-container *ngTemplateOutlet="contentTemplate"></ng-container>
+                    <ng-container *ngTemplateOutlet="contentTemplate || _contentTemplate"></ng-container>
                 </div>
             </div>
             <div
@@ -59,7 +77,7 @@ import { ScrollPanelStyle } from './style/scrollpanelstyle';
     encapsulation: ViewEncapsulation.None,
     providers: [ScrollPanelStyle]
 })
-export class ScrollPanel extends BaseComponent implements AfterViewInit, OnDestroy {
+export class ScrollPanel extends BaseComponent implements AfterViewInit, AfterContentInit, OnDestroy {
     /**
      * Inline style of the component.
      * @group Props
@@ -87,7 +105,11 @@ export class ScrollPanel extends BaseComponent implements AfterViewInit, OnDestr
      * Defines template option for content.
      * @group Templates
      */
-    @ContentChild('content') contentTemplate: TemplateRef<any> | undefined;
+    @ContentChild('content', { descendants: false }) contentTemplate: TemplateRef<any> | undefined;
+
+    @ContentChildren(PrimeTemplate) templates: QueryList<PrimeTemplate> | undefined;
+
+    _contentTemplate: TemplateRef<any> | undefined;
 
     scrollYRatio: number | undefined;
 
@@ -159,6 +181,20 @@ export class ScrollPanel extends BaseComponent implements AfterViewInit, OnDestr
                 this.initialized = true;
             });
         }
+    }
+
+    ngAfterContentInit() {
+        (this.templates as QueryList<PrimeTemplate>).forEach((item) => {
+            switch (item.getType()) {
+                case 'content':
+                    this._contentTemplate = item.template;
+                    break;
+
+                default:
+                    this._contentTemplate = item.template;
+                    break;
+            }
+        });
     }
 
     calculateContainerHeight() {

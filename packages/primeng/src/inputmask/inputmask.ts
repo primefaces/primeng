@@ -26,10 +26,30 @@
     OTHER DEALINGS IN THE SOFTWARE.
 */
 import { CommonModule, isPlatformBrowser } from '@angular/common';
-import { booleanAttribute, ChangeDetectionStrategy, Component, ContentChild, ElementRef, EventEmitter, forwardRef, inject, Input, NgModule, numberAttribute, OnInit, Output, TemplateRef, ViewChild, ViewEncapsulation } from '@angular/core';
+import {
+    AfterContentInit,
+    booleanAttribute,
+    ChangeDetectionStrategy,
+    Component,
+    ContentChild,
+    ContentChildren,
+    ElementRef,
+    EventEmitter,
+    forwardRef,
+    inject,
+    Input,
+    NgModule,
+    numberAttribute,
+    OnInit,
+    Output,
+    QueryList,
+    TemplateRef,
+    ViewChild,
+    ViewEncapsulation
+} from '@angular/core';
 import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
 import { getUserAgent, isClient } from '@primeuix/utils';
-import { SharedModule } from 'primeng/api';
+import { PrimeTemplate, SharedModule } from 'primeng/api';
 import { AutoFocus } from 'primeng/autofocus';
 import { BaseComponent } from 'primeng/basecomponent';
 import { TimesIcon } from 'primeng/icons';
@@ -85,9 +105,9 @@ export const INPUTMASK_VALUE_ACCESSOR: any = {
             [attr.data-pc-section]="'root'"
         />
         <ng-container *ngIf="value != null && filled && showClear && !disabled">
-            <TimesIcon *ngIf="!cleariconTemplate" [styleClass]="'p-inputmask-clear-icon'" (click)="clear()" [attr.data-pc-section]="'clearIcon'" />
-            <span *ngIf="cleariconTemplate" class="p-inputmask-clear-icon" (click)="clear()" [attr.data-pc-section]="'clearIcon'">
-                <ng-template *ngTemplateOutlet="cleariconTemplate"></ng-template>
+            <TimesIcon *ngIf="!clearIconTemplate && !_clearIconTemplate" [styleClass]="'p-inputmask-clear-icon'" (click)="clear()" [attr.data-pc-section]="'clearIcon'" />
+            <span *ngIf="clearIconTemplate || _clearIconTemplate" class="p-inputmask-clear-icon" (click)="clear()" [attr.data-pc-section]="'clearIcon'">
+                <ng-template *ngTemplateOutlet="clearIconTemplate || _clearIconTemplate"></ng-template>
             </span>
         </ng-container>
     `,
@@ -95,7 +115,7 @@ export const INPUTMASK_VALUE_ACCESSOR: any = {
     changeDetection: ChangeDetectionStrategy.OnPush,
     encapsulation: ViewEncapsulation.None
 })
-export class InputMask extends BaseComponent implements OnInit, ControlValueAccessor {
+export class InputMask extends BaseComponent implements OnInit, AfterContentInit, ControlValueAccessor {
     /**
      * HTML5 input type.
      * @group Props
@@ -282,7 +302,9 @@ export class InputMask extends BaseComponent implements OnInit, ControlValueAcce
      * Template of the clear icon.
      * @group Templates
      */
-    @ContentChild('clearicon') cleariconTemplate: Nullable<TemplateRef<any>>;
+    @ContentChild('clearicon', { descendants: false }) clearIconTemplate: Nullable<TemplateRef<any>>;
+
+    @ContentChildren(PrimeTemplate) templates!: QueryList<PrimeTemplate>;
 
     @ViewChild('input', { static: true }) inputViewChild: Nullable<ElementRef>;
 
@@ -338,6 +360,18 @@ export class InputMask extends BaseComponent implements OnInit, ControlValueAcce
         }
 
         this.initMask();
+    }
+
+    _clearIconTemplate: TemplateRef<any> | undefined;
+
+    ngAfterContentInit() {
+        this.templates.forEach((item) => {
+            switch (item.getType()) {
+                case 'clearicon':
+                    this._clearIconTemplate = item.template;
+                    break;
+            }
+        });
     }
 
     initMask() {

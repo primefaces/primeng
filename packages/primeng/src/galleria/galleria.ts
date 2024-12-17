@@ -7,6 +7,7 @@ import {
     ChangeDetectionStrategy,
     ChangeDetectorRef,
     Component,
+    ContentChildren,
     DoCheck,
     ElementRef,
     EventEmitter,
@@ -33,7 +34,7 @@ import { addClass, blockBodyScroll, find, findSingle, focus, getAttribute, remov
 import { PrimeTemplate, SharedModule } from 'primeng/api';
 import { BaseComponent } from 'primeng/basecomponent';
 import { FocusTrap } from 'primeng/focustrap';
-import { ChevronLeftIcon, ChevronRightIcon, TimesIcon, WindowMaximizeIcon, WindowMinimizeIcon } from 'primeng/icons';
+import { ChevronDownIcon, ChevronLeftIcon, ChevronRightIcon, ChevronUpIcon, TimesIcon, WindowMaximizeIcon, WindowMinimizeIcon } from 'primeng/icons';
 import { Ripple } from 'primeng/ripple';
 import { VoidListener } from 'primeng/ts-helpers';
 import { ZIndexUtils } from 'primeng/utils';
@@ -286,6 +287,8 @@ export class Galleria extends BaseComponent implements OnChanges, OnDestroy {
     ) {
         super();
     }
+
+    @ContentChildren(PrimeTemplate) templates: QueryList<PrimeTemplate> | undefined;
 
     ngAfterContentInit() {
         this.templates?.forEach((item) => {
@@ -1454,7 +1457,7 @@ export class GalleriaThumbnails implements OnInit, AfterContentChecked, AfterVie
 }
 
 @NgModule({
-    imports: [CommonModule, SharedModule, Ripple, TimesIcon, ChevronRightIcon, ChevronLeftIcon, WindowMaximizeIcon, WindowMinimizeIcon, FocusTrap],
+    imports: [CommonModule, SharedModule, Ripple, TimesIcon, ChevronRightIcon, ChevronUpIcon, ChevronDownIcon, ChevronLeftIcon, WindowMaximizeIcon, WindowMinimizeIcon, FocusTrap],
     exports: [CommonModule, Galleria, GalleriaContent, GalleriaItemSlot, GalleriaItem, GalleriaThumbnails, SharedModule],
     declarations: [Galleria, GalleriaContent, GalleriaItemSlot, GalleriaItem, GalleriaThumbnails]
 })

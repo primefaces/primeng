@@ -1,6 +1,6 @@
 import { CommonModule } from '@angular/common';
-import { ChangeDetectionStrategy, Component, ContentChild, inject, Input, NgModule, TemplateRef, ViewEncapsulation } from '@angular/core';
-import { BlockableUI, SharedModule } from 'primeng/api';
+import { AfterContentInit, ChangeDetectionStrategy, Component, ContentChild, ContentChildren, inject, Input, NgModule, QueryList, TemplateRef, ViewEncapsulation } from '@angular/core';
+import { BlockableUI, PrimeTemplate, SharedModule } from 'primeng/api';
 import { BaseComponent } from 'primeng/basecomponent';
 import { ToolbarStyle } from './style/toolbarstyle';
 
@@ -15,14 +15,14 @@ import { ToolbarStyle } from './style/toolbarstyle';
     template: `
         <div [ngClass]="'p-toolbar p-component'" [attr.aria-labelledby]="ariaLabelledBy" [ngStyle]="style" [class]="styleClass" role="toolbar" [attr.data-pc-name]="'toolbar'">
             <ng-content></ng-content>
-            <div class="p-toolbar-start" *ngIf="startTemplate" [attr.data-pc-section]="'start'">
-                <ng-container *ngTemplateOutlet="startTemplate"></ng-container>
+            <div class="p-toolbar-start" *ngIf="startTemplate || _startTemplate" [attr.data-pc-section]="'start'">
+                <ng-container *ngTemplateOutlet="startTemplate || _startTemplate"></ng-container>
             </div>
-            <div class="p-toolbar-center" *ngIf="centerTemplate" [attr.data-pc-section]="'center'">
-                <ng-container *ngTemplateOutlet="centerTemplate"></ng-container>
+            <div class="p-toolbar-center" *ngIf="centerTemplate || _centerTemplate" [attr.data-pc-section]="'center'">
+                <ng-container *ngTemplateOutlet="centerTemplate || _centerTemplate"></ng-container>
             </div>
-            <div class="p-toolbar-end" *ngIf="endTemplate" [attr.data-pc-section]="'end'">
-                <ng-container *ngTemplateOutlet="endTemplate"></ng-container>
+            <div class="p-toolbar-end" *ngIf="endTemplate || _endTemplate" [attr.data-pc-section]="'end'">
+                <ng-container *ngTemplateOutlet="endTemplate || _endTemplate"></ng-container>
             </div>
         </div>
     `,
@@ -30,7 +30,7 @@ import { ToolbarStyle } from './style/toolbarstyle';
     encapsulation: ViewEncapsulation.None,
     providers: [ToolbarStyle]
 })
-export class Toolbar extends BaseComponent implements BlockableUI {
+export class Toolbar extends BaseComponent implements AfterContentInit, BlockableUI {
     /**
      * Inline style of the component.
      * @group Props
@@ -56,19 +56,47 @@ export class Toolbar extends BaseComponent implements BlockableUI {
      * Defines template option for start.
      * @group Templates
      */
-    @ContentChild('start') startTemplate: TemplateRef<any> | undefined;
+    @ContentChild('start', { descendants: false }) startTemplate: TemplateRef<any> | undefined;
 
     /**
      * Defines template option for end.
      * @group Templates
      */
-    @ContentChild('end') endTemplate: TemplateRef<any> | undefined;
+    @ContentChild('end', { descendants: false }) endTemplate: TemplateRef<any> | undefined;
 
     /**
      * Defines template option for center.
      * @group Templates
      */
-    @ContentChild('center') centerTemplate: TemplateRef<any> | undefined;
+    @ContentChild('center', { descendants: false }) centerTemplate: TemplateRef<any> | undefined;
+
+    @ContentChildren(PrimeTemplate) templates: QueryList<PrimeTemplate> | undefined;
+
+    _startTemplate: TemplateRef<any> | undefined;
+
+    _endTemplate: TemplateRef<any> | undefined;
+
+    _centerTemplate: TemplateRef<any> | undefined;
+
+    ngAfterContentInit() {
+        (this.templates as QueryList<PrimeTemplate>).forEach((item) => {
+            switch (item.getType()) {
+                case 'start':
+                case 'left':
+                    this._startTemplate = item.template;
+                    break;
+
+                case 'end':
+                case 'right':
+                    this._endTemplate = item.template;
+                    break;
+
+                case 'center':
+                    this._centerTemplate = item.template;
+                    break;
+            }
+        });
+    }
 }
 
 @NgModule({

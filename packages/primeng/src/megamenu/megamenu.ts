@@ -1,9 +1,11 @@
 import { CommonModule, isPlatformBrowser } from '@angular/common';
 import {
+    AfterContentInit,
     booleanAttribute,
     ChangeDetectionStrategy,
     Component,
     ContentChild,
+    ContentChildren,
     effect,
     ElementRef,
     EventEmitter,
@@ -15,6 +17,7 @@ import {
     OnDestroy,
     OnInit,
     Output,
+    QueryList,
     signal,
     TemplateRef,
     ViewChild,
@@ -22,7 +25,7 @@ import {
 } from '@angular/core';
 import { RouterModule } from '@angular/router';
 import { findLastIndex, findSingle, focus, isEmpty, isNotEmpty, isPrintableCharacter, isTouchDevice, resolve, uuid } from '@primeuix/utils';
-import { MegaMenuItem, SharedModule } from 'primeng/api';
+import { MegaMenuItem, PrimeTemplate, SharedModule } from 'primeng/api';
 import { BadgeModule } from 'primeng/badge';
 import { BaseComponent } from 'primeng/basecomponent';
 import { AngleDownIcon, AngleRightIcon, BarsIcon } from 'primeng/icons';
@@ -115,14 +118,14 @@ import { MegaMenuStyle } from './style/megamenustyle';
                                 </ng-template>
                                 <p-badge *ngIf="getItemProp(processedItem, 'badge')" [styleClass]="getItemProp(processedItem, 'badgeStyleClass')" [value]="getItemProp(processedItem, 'badge')" />
                                 <ng-container *ngIf="isItemGroup(processedItem)">
-                                    <ng-container *ngIf="!megaMenu.submenuiconTemplate">
+                                    <ng-container *ngIf="!megaMenu.submenuIconTemplate && !megaMenu._submenuIconTemplate">
                                         @if (orientation === 'horizontal' || mobileActive) {
                                             <AngleDownIcon [ngClass]="'p-megamenu-submenu-icon'" [attr.data-pc-section]="'submenuicon'" [attr.aria-hidden]="true" />
                                         } @else {
                                             <AngleRightIcon [ngClass]="'p-megamenu-submenu-icon'" [attr.data-pc-section]="'submenuicon'" *ngIf="orientation === 'vertical'" [attr.aria-hidden]="true" />
                                         }
                                     </ng-container>
-                                    <ng-template *ngTemplateOutlet="megaMenu.submenuiconTemplate" [attr.data-pc-section]="'submenuicon'" [attr.aria-hidden]="true"></ng-template>
+                                    <ng-template *ngTemplateOutlet="megaMenu.submenuIconTemplate || megaMenu._submenuIconTemplate" [attr.data-pc-section]="'submenuicon'" [attr.aria-hidden]="true"></ng-template>
                                 </ng-container>
                             </a>
                             <a
@@ -158,11 +161,11 @@ import { MegaMenuStyle } from './style/megamenustyle';
                                 <ng-template #htmlRouteLabel><span class="p-megamenu-item-label" [innerHTML]="getItemLabel(processedItem)" [attr.data-pc-section]="'label'"></span></ng-template>
                                 <p-badge *ngIf="getItemProp(processedItem, 'badge')" [styleClass]="getItemProp(processedItem, 'badgeStyleClass')" [value]="getItemProp(processedItem, 'badge')" />
                                 <ng-container *ngIf="isItemGroup(processedItem)">
-                                    <ng-container *ngIf="!megaMenu.submenuiconTemplate">
+                                    <ng-container *ngIf="!megaMenu.submenuIconTemplate && !megaMenu._submenuIconTemplate">
                                         <AngleDownIcon [styleClass]="'p-megamenu-submenu-icon'" [attr.data-pc-section]="'submenuicon'" *ngIf="orientation === 'horizontal'" [attr.aria-hidden]="true" />
                                         <AngleRightIcon [styleClass]="'p-megamenu-submenu-icon'" [attr.data-pc-section]="'submenuicon'" *ngIf="orientation === 'vertical'" [attr.aria-hidden]="true" />
                                     </ng-container>
-                                    <ng-template *ngTemplateOutlet="megaMenu.submenuiconTemplate" [attr.data-pc-section]="'submenuicon'" [attr.aria-hidden]="true"></ng-template>
+                                    <ng-template *ngTemplateOutlet="megaMenu.submenuIconTemplate || megaMenu._submenuIconTemplate" [attr.data-pc-section]="'submenuicon'" [attr.aria-hidden]="true"></ng-template>
                                 </ng-container>
                             </a>
                         </ng-container>
@@ -391,10 +394,10 @@ export class MegaMenuSub extends BaseComponent {
             [attr.id]="id"
             #container
         >
-            <div class="p-megamenu-start" *ngIf="startTemplate">
-                <ng-container *ngTemplateOutlet="startTemplate"></ng-container>
+            <div class="p-megamenu-start" *ngIf="startTemplate || _startTemplate">
+                <ng-container *ngTemplateOutlet="startTemplate || _startTemplate"></ng-container>
             </div>
-            <ng-container *ngIf="!buttonTemplate">
+            <ng-container *ngIf="!buttonTemplate && !_buttonTemplate">
                 <a
                     *ngIf="model && model.length > 0"
                     #menubutton
@@ -408,15 +411,14 @@ export class MegaMenuSub extends BaseComponent {
                     (click)="menuButtonClick($event)"
                     (keydown)="menuButtonKeydown($event)"
                 >
-                    <ng-container *ngIf="!buttonTemplate">
-                        <BarsIcon />
-                    </ng-container>
+                    <BarsIcon *ngIf="!buttonIconTemplate && !_buttonIconTemplate" />
+                    <ng-template *ngTemplateOutlet="buttonIconTemplate || _buttonIconTemplate"></ng-template>
                 </a>
             </ng-container>
-            <ng-container *ngTemplateOutlet="buttonTemplate"></ng-container>
+            <ng-container *ngTemplateOutlet="buttonTemplate || _buttonTemplate"></ng-container>
             <p-megamenu-sub
                 #rootmenu
-                [itemTemplate]="itemTemplate"
+                [itemTemplate]="itemTemplate || _itemTemplate"
                 [items]="processedItems"
                 [attr.id]="id + '_list'"
                 [menuId]="id"
@@ -438,8 +440,8 @@ export class MegaMenuSub extends BaseComponent {
                 [queryMatches]="queryMatches"
                 [scrollHeight]="scrollHeight"
             ></p-megamenu-sub>
-            <div class="p-megamenu-end" *ngIf="endTemplate">
-                <ng-container *ngTemplateOutlet="endTemplate"></ng-container>
+            <div class="p-megamenu-end" *ngIf="endTemplate || _endTemplate">
+                <ng-container *ngTemplateOutlet="endTemplate || _endTemplate"></ng-container>
             </div>
         </div>
     `,
@@ -447,7 +449,7 @@ export class MegaMenuSub extends BaseComponent {
     encapsulation: ViewEncapsulation.None,
     providers: [MegaMenuStyle]
 })
-export class MegaMenu extends BaseComponent implements OnDestroy, OnInit {
+export class MegaMenu extends BaseComponent implements AfterContentInit, OnDestroy, OnInit {
     /**
      * An array of menuitems.
      * @group Props
@@ -513,43 +515,59 @@ export class MegaMenu extends BaseComponent implements OnDestroy, OnInit {
      * Defines template option for start.
      * @group Templates
      */
-    @ContentChild('start') startTemplate: TemplateRef<any> | undefined;
+    @ContentChild('start', { descendants: false }) startTemplate: TemplateRef<any> | undefined;
     /**
      * Defines template option for end.
      * @group Templates
      */
-    @ContentChild('end') endTemplate: TemplateRef<any> | undefined;
+    @ContentChild('end', { descendants: false }) endTemplate: TemplateRef<any> | undefined;
     /**
      * Defines template option for menu icon.
      * @group Templates
      */
-    @ContentChild('menuicon') menuiconTemplate: TemplateRef<any> | undefined;
+    @ContentChild('menuicon', { descendants: false }) menuIconTemplate: TemplateRef<any> | undefined;
     /**
      * Defines template option for submenu icon.
      * @group Templates
      */
-    @ContentChild('submenuicon') submenuiconTemplate: TemplateRef<any> | undefined;
+    @ContentChild('submenuicon', { descendants: false }) submenuIconTemplate: TemplateRef<any> | undefined;
     /**
      * Defines template option for submenu icon.
      * @group Templates
      */
-    @ContentChild('item') itemTemplate: TemplateRef<any> | undefined;
+    @ContentChild('item', { descendants: false }) itemTemplate: TemplateRef<any> | undefined;
     /**
      * Custom menu button template on responsive mode.
      * @group Templates
      */
-    @ContentChild('button') buttonTemplate: TemplateRef<any> | undefined;
+    @ContentChild('button', { descendants: false }) buttonTemplate: TemplateRef<any> | undefined;
     /**
      * Custom menu button icon template on responsive mode.
      * @group Templates
      */
-    @ContentChild('buttonicon') buttoniconTemplate: TemplateRef<any> | undefined;
+    @ContentChild('buttonicon', { descendants: false }) buttonIconTemplate: TemplateRef<any> | undefined;
+
+    @ContentChildren(PrimeTemplate) templates: QueryList<PrimeTemplate> | undefined;
 
     @ViewChild('menubutton') menubuttonViewChild: ElementRef | undefined;
 
     @ViewChild('rootmenu') rootmenu: MegaMenuSub | undefined;
 
     @ViewChild('container') container: ElementRef | undefined;
+
+    _startTemplate: TemplateRef<any> | undefined;
+
+    _endTemplate: TemplateRef<any> | undefined;
+
+    _menuIconTemplate: TemplateRef<any> | undefined;
+
+    _submenuIconTemplate: TemplateRef<any> | undefined;
+
+    _itemTemplate: TemplateRef<any> | undefined;
+
+    _buttonTemplate: TemplateRef<any> | undefined;
+
+    _buttonIconTemplate: TemplateRef<any> | undefined;
 
     outsideClickListener: VoidListener;
 
@@ -627,6 +645,44 @@ export class MegaMenu extends BaseComponent implements OnDestroy, OnInit {
         super.ngOnInit();
         this.bindMatchMediaListener();
         this.id = this.id || uuid('pn_id_');
+    }
+
+    ngAfterContentInit() {
+        this.templates?.forEach((item) => {
+            switch (item.getType()) {
+                case 'start':
+                    this._startTemplate = item.template;
+                    break;
+
+                case 'end':
+                    this._endTemplate = item.template;
+                    break;
+
+                case 'menuicon':
+                    this._menuIconTemplate = item.template;
+                    break;
+
+                case 'submenuicon':
+                    this._submenuIconTemplate = item.template;
+                    break;
+
+                case 'item':
+                    this._itemTemplate = item.template;
+                    break;
+
+                case 'button':
+                    this._buttonTemplate = item.template;
+                    break;
+
+                case 'buttonicon':
+                    this._buttonIconTemplate = item.template;
+                    break;
+
+                default:
+                    this._itemTemplate = item.template;
+                    break;
+            }
+        });
     }
 
     bindMatchMediaListener() {

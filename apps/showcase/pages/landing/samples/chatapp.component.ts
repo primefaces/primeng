@@ -215,7 +215,6 @@ import { ToggleSwitchModule } from 'primeng/toggleswitch';
     host: {
         class: 'flex-1 h-full overflow-y-auto overflow-x-clip overflow-hidden flex border border-surface rounded-2xl'
     },
-    encapsulation: ViewEncapsulation.None,
     changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class ChatApp {

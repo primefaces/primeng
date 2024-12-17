@@ -165,7 +165,7 @@ export class TableService {
                 [showJumpToPageDropdown]="showJumpToPageDropdown"
                 [showJumpToPageInput]="showJumpToPageInput"
                 [showPageLinks]="showPageLinks"
-                [styleClass]="cx('pcPaginator')"
+                [styleClass]="cx('pcPaginator') + ' ' + paginatorStyleClass && paginatorStyleClass"
                 [locale]="paginatorLocale"
             >
                 <ng-template pTemplate="dropdownicon" *ngIf="paginatorDropdownIconTemplate || _paginatorDropdownIconTemplate">
@@ -307,7 +307,7 @@ export class TableService {
                 [showJumpToPageDropdown]="showJumpToPageDropdown"
                 [showJumpToPageInput]="showJumpToPageInput"
                 [showPageLinks]="showPageLinks"
-                [styleClass]="cx('pcPaginator')"
+                [styleClass]="cx('pcPaginator') + ' ' + paginatorStyleClass && paginatorStyleClass"
                 [locale]="paginatorLocale"
             >
                 <ng-template pTemplate="dropdownicon" *ngIf="paginatorDropdownIconTemplate || _paginatorDropdownIconTemplate">
@@ -1041,100 +1041,100 @@ export class Table extends BaseComponent implements OnInit, AfterViewInit, After
     filteredValue: any[] | undefined | null;
 
     // @todo will be refactored later
-    @ContentChild('header') _headerTemplate: TemplateRef<any>;
+    @ContentChild('header', { descendants: false }) _headerTemplate: TemplateRef<any>;
     headerTemplate: Nullable<TemplateRef<any>>;
 
-    @ContentChild('headergrouped') _headerGroupedTemplate: TemplateRef<any>;
+    @ContentChild('headergrouped', { descendants: false }) _headerGroupedTemplate: TemplateRef<any>;
     headerGroupedTemplate: Nullable<TemplateRef<any>>;
 
-    @ContentChild('body') _bodyTemplate: TemplateRef<any>;
+    @ContentChild('body', { descendants: false }) _bodyTemplate: TemplateRef<any>;
     bodyTemplate: Nullable<TemplateRef<any>>;
 
-    @ContentChild('loadingbody') _loadingBodyTemplate: TemplateRef<any>;
+    @ContentChild('loadingbody', { descendants: false }) _loadingBodyTemplate: TemplateRef<any>;
     loadingBodyTemplate: Nullable<TemplateRef<any>>;
 
-    @ContentChild('caption') _captionTemplate: TemplateRef<any>;
+    @ContentChild('caption', { descendants: false }) _captionTemplate: TemplateRef<any>;
     captionTemplate: Nullable<TemplateRef<any>>;
 
-    @ContentChild('footer') _footerTemplate: TemplateRef<any>;
+    @ContentChild('footer', { descendants: false }) _footerTemplate: TemplateRef<any>;
     footerTemplate: Nullable<TemplateRef<any>>;
 
-    @ContentChild('footergrouped') _footerGroupedTemplate: TemplateRef<any>;
+    @ContentChild('footergrouped', { descendants: false }) _footerGroupedTemplate: TemplateRef<any>;
     footerGroupedTemplate: Nullable<TemplateRef<any>>;
 
-    @ContentChild('summary') _summaryTemplate: TemplateRef<any>;
+    @ContentChild('summary', { descendants: false }) _summaryTemplate: TemplateRef<any>;
     summaryTemplate: Nullable<TemplateRef<any>>;
 
-    @ContentChild('colgroup') _colGroupTemplate: TemplateRef<any>;
+    @ContentChild('colgroup', { descendants: false }) _colGroupTemplate: TemplateRef<any>;
     colGroupTemplate: Nullable<TemplateRef<any>>;
 
-    @ContentChild('expandedrow') _expandedRowTemplate: TemplateRef<any>;
+    @ContentChild('expandedrow', { descendants: false }) _expandedRowTemplate: TemplateRef<any>;
     expandedRowTemplate: Nullable<TemplateRef<any>>;
 
-    @ContentChild('groupheader') _groupHeaderTemplate: TemplateRef<any>;
+    @ContentChild('groupheader', { descendants: false }) _groupHeaderTemplate: TemplateRef<any>;
     groupHeaderTemplate: Nullable<TemplateRef<any>>;
 
-    @ContentChild('groupfooter') _groupFooterTemplate: TemplateRef<any>;
+    @ContentChild('groupfooter', { descendants: false }) _groupFooterTemplate: TemplateRef<any>;
     groupFooterTemplate: Nullable<TemplateRef<any>>;
 
-    @ContentChild('frozenexpandedrow') _frozenExpandedRowTemplate: TemplateRef<any>;
+    @ContentChild('frozenexpandedrow', { descendants: false }) _frozenExpandedRowTemplate: TemplateRef<any>;
     frozenExpandedRowTemplate: Nullable<TemplateRef<any>>;
 
-    @ContentChild('frozenheader') _frozenHeaderTemplate: TemplateRef<any>;
+    @ContentChild('frozenheader', { descendants: false }) _frozenHeaderTemplate: TemplateRef<any>;
     frozenHeaderTemplate: Nullable<TemplateRef<any>>;
 
-    @ContentChild('frozenbody') _frozenBodyTemplate: TemplateRef<any>;
+    @ContentChild('frozenbody', { descendants: false }) _frozenBodyTemplate: TemplateRef<any>;
     frozenBodyTemplate: Nullable<TemplateRef<any>>;
 
-    @ContentChild('frozenfooter') _frozenFooterTemplate: TemplateRef<any>;
+    @ContentChild('frozenfooter', { descendants: false }) _frozenFooterTemplate: TemplateRef<any>;
     frozenFooterTemplate: Nullable<TemplateRef<any>>;
 
-    @ContentChild('frozencolgroup') _frozenColGroupTemplate: TemplateRef<any>;
+    @ContentChild('frozencolgroup', { descendants: false }) _frozenColGroupTemplate: TemplateRef<any>;
     frozenColGroupTemplate: Nullable<TemplateRef<any>>;
 
-    @ContentChild('emptymessage') _emptyMessageTemplate: TemplateRef<any>;
+    @ContentChild('emptymessage', { descendants: false }) _emptyMessageTemplate: TemplateRef<any>;
     emptyMessageTemplate: Nullable<TemplateRef<any>>;
 
-    @ContentChild('paginatorleft') _paginatorLeftTemplate: TemplateRef<any>;
+    @ContentChild('paginatorleft', { descendants: false }) _paginatorLeftTemplate: TemplateRef<any>;
     paginatorLeftTemplate: Nullable<TemplateRef<any>>;
 
-    @ContentChild('paginatorright') _paginatorRightTemplate: TemplateRef<any>;
+    @ContentChild('paginatorright', { descendants: false }) _paginatorRightTemplate: TemplateRef<any>;
     paginatorRightTemplate: Nullable<TemplateRef<any>>;
 
-    @ContentChild('paginatordropdownitem') _paginatorDropdownItemTemplate: TemplateRef<any>;
+    @ContentChild('paginatordropdownitem', { descendants: false }) _paginatorDropdownItemTemplate: TemplateRef<any>;
     paginatorDropdownItemTemplate: Nullable<TemplateRef<any>>;
 
-    @ContentChild('loadingicon') _loadingIconTemplate: TemplateRef<any>;
+    @ContentChild('loadingicon', { descendants: false }) _loadingIconTemplate: TemplateRef<any>;
     loadingIconTemplate: Nullable<TemplateRef<any>>;
 
-    @ContentChild('reorderindicatorupicon') _reorderIndicatorUpIconTemplate: TemplateRef<any>;
+    @ContentChild('reorderindicatorupicon', { descendants: false }) _reorderIndicatorUpIconTemplate: TemplateRef<any>;
     reorderIndicatorUpIconTemplate: Nullable<TemplateRef<any>>;
 
-    @ContentChild('reorderindicatordownicon') _reorderIndicatorDownIconTemplate: TemplateRef<any>;
+    @ContentChild('reorderindicatordownicon', { descendants: false }) _reorderIndicatorDownIconTemplate: TemplateRef<any>;
     reorderIndicatorDownIconTemplate: Nullable<TemplateRef<any>>;
 
-    @ContentChild('sorticon') _sortIconTemplate: TemplateRef<any>;
+    @ContentChild('sorticon', { descendants: false }) _sortIconTemplate: TemplateRef<any>;
     sortIconTemplate: Nullable<TemplateRef<any>>;
 
-    @ContentChild('checkboxicon') _checkboxIconTemplate: TemplateRef<any>;
+    @ContentChild('checkboxicon', { descendants: false }) _checkboxIconTemplate: TemplateRef<any>;
     checkboxIconTemplate: Nullable<TemplateRef<any>>;
 
-    @ContentChild('headercheckboxicon') _headerCheckboxIconTemplate: TemplateRef<any>;
+    @ContentChild('headercheckboxicon', { descendants: false }) _headerCheckboxIconTemplate: TemplateRef<any>;
     headerCheckboxIconTemplate: Nullable<TemplateRef<any>>;
 
-    @ContentChild('paginatordropdownicon') _paginatorDropdownIconTemplate: TemplateRef<any>;
+    @ContentChild('paginatordropdownicon', { descendants: false }) _paginatorDropdownIconTemplate: TemplateRef<any>;
     paginatorDropdownIconTemplate: Nullable<TemplateRef<any>>;
 
-    @ContentChild('paginatorfirstpagelinkicon') _paginatorFirstPageLinkIconTemplate: TemplateRef<any>;
+    @ContentChild('paginatorfirstpagelinkicon', { descendants: false }) _paginatorFirstPageLinkIconTemplate: TemplateRef<any>;
     paginatorFirstPageLinkIconTemplate: Nullable<TemplateRef<any>>;
 
-    @ContentChild('paginatorlastpagelinkicon') _paginatorLastPageLinkIconTemplate: TemplateRef<any>;
+    @ContentChild('paginatorlastpagelinkicon', { descendants: false }) _paginatorLastPageLinkIconTemplate: TemplateRef<any>;
     paginatorLastPageLinkIconTemplate: Nullable<TemplateRef<any>>;
 
-    @ContentChild('paginatorpreviouspagelinkicon') _paginatorPreviousPageLinkIconTemplate: TemplateRef<any>;
+    @ContentChild('paginatorpreviouspagelinkicon', { descendants: false }) _paginatorPreviousPageLinkIconTemplate: TemplateRef<any>;
     paginatorPreviousPageLinkIconTemplate: Nullable<TemplateRef<any>>;
 
-    @ContentChild('paginatornextpagelinkicon') _paginatorNextPageLinkIconTemplate: TemplateRef<any>;
+    @ContentChild('paginatornextpagelinkicon', { descendants: false }) _paginatorNextPageLinkIconTemplate: TemplateRef<any>;
     paginatorNextPageLinkIconTemplate: Nullable<TemplateRef<any>>;
 
     selectionKeys: any = {};
@@ -5587,25 +5587,25 @@ export class ColumnFilter extends BaseComponent implements AfterContentInit {
 
     overlaySubscription: Subscription | undefined;
 
-    @ContentChild('header') _headerTemplate: TemplateRef<any>;
+    @ContentChild('header', { descendants: false }) _headerTemplate: TemplateRef<any>;
     headerTemplate: Nullable<TemplateRef<any>>;
 
-    @ContentChild('filter') _filterTemplate: TemplateRef<any>;
+    @ContentChild('filter', { descendants: false }) _filterTemplate: TemplateRef<any>;
     filterTemplate: Nullable<TemplateRef<any>>;
 
-    @ContentChild('footer') _footerTemplate: TemplateRef<any>;
+    @ContentChild('footer', { descendants: false }) _footerTemplate: TemplateRef<any>;
     footerTemplate: Nullable<TemplateRef<any>>;
 
-    @ContentChild('filtericon') _filterIconTemplate: TemplateRef<any>;
+    @ContentChild('filtericon', { descendants: false }) _filterIconTemplate: TemplateRef<any>;
     filterIconTemplate: Nullable<TemplateRef<any>>;
 
-    @ContentChild('removeruleicon') _removeRuleIconTemplate: TemplateRef<any>;
+    @ContentChild('removeruleicon', { descendants: false }) _removeRuleIconTemplate: TemplateRef<any>;
     removeRuleIconTemplate: Nullable<TemplateRef<any>>;
 
-    @ContentChild('addruleicon') _addRuleIconTemplate: TemplateRef<any>;
+    @ContentChild('addruleicon', { descendants: false }) _addRuleIconTemplate: TemplateRef<any>;
     addRuleIconTemplate: Nullable<TemplateRef<any>>;
 
-    @ContentChild('clearfiltericon') _clearFilterIconTemplate: TemplateRef<any>;
+    @ContentChild('clearfiltericon', { descendants: false }) _clearFilterIconTemplate: TemplateRef<any>;
     clearFilterIconTemplate: Nullable<TemplateRef<any>>;
 
     operatorOptions: any[] | undefined;
