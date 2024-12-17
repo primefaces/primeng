@@ -1463,7 +1463,7 @@ export class Table implements OnInit, AfterViewInit, AfterContentInit, Blockable
     dataToRender(data: any) {
         const _data = data || this.processedData;
 
-        if (_data && this.paginator) {
+        if (_data && this.paginator && this.rows > 0) {
             const first = this.lazy ? 0 : this.first;
             return _data.slice(first, <number>first + <number>this.rows);
         }
