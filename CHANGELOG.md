@@ -1,4 +1,15 @@
 # Changelog
+## [19.0.0](https://github.com/primefaces/primeng/tree/19.0.0) (2024-11-17)
+[Full Changelog](https://github.com/primefaces/primeng/compare/19.0.0-rc.1...19.0.0)
+
+**Fixed bugs:**
+- Component: Dynamic dialog rendering styles instead of title [\#17005](https://github.com/primefaces/primeng/issues/17005)
+- p-confirmDialog: style & styleClass are not being passed to confirm dialog [\#17072](https://github.com/primefaces/primeng/issues/17072)
+- Component: Dynamic dialog can't be closed (19.0.0-rc.1) [\#17009](https://github.com/primefaces/primeng/issues/17009)
+- ThemeProvider loadCommonTheme always injects undefined nonce [\#17012](https://github.com/primefaces/primeng/issues/17012)
+- providePrimeNG csp nonce does not solve all csp issues when "theme" property is defined [\#17048](https://github.com/primefaces/primeng/issues/17048)
+- ProvidePrimeng(v19): deprecated APP_INITIALIZER [\#17042](https://github.com/primefaces/primeng/issues/17042)
+
 ## [18.0.1](https://github.com/primefaces/primeng/tree/18.0.1) (2024-11-17)
 [Full Changelog](https://github.com/primefaces/primeng/compare/18.0.0...18.0.1)
 
@@ -80,6 +91,13 @@
 - Component: Button primary focus styling broken, missing semi-colon (v18.0.0-rc.1) [\#16774](https://github.com/primefaces/primeng/issues/16774)
 - Component: ConfirmDialog [\#16861](https://github.com/primefaces/primeng/issues/16861)
 - Showcase (v18): Table of Contents not updating on scroll. [\#16892](https://github.com/primefaces/primeng/issues/16892)
+
+## [17.18.14](https://github.com/primefaces/primeng/tree/17.18.14) (2024-11-17)
+[Full Changelog](https://github.com/primefaces/primeng/compare/17.18.13...17.18.14)
+
+**Fixed bugs:**
+- Documentation for tag using property that is deprecated since v15 [\#16220](https://github.com/primefaces/primeng/issues/16220)
+- Component: Dropdown Auto Scroll- UI Issue [\#17039](https://github.com/primefaces/primeng/issues/17039)
 
 ## [17.18.12](https://github.com/primefaces/primeng/tree/17.18.12) (2024-11-13)
 
