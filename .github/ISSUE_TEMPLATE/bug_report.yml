@@ -5,10 +5,8 @@ labels: ['Status: Needs Triage']
 body:
   - type: markdown
     attributes:
-      # yamllint disable rule:line-length
       value: >
-        ### There is no guarantee in receiving an immediate response in GitHub Issue Tracker, If you'd like to secure our response, you may consider *PrimeNG PRO Support* where support is provided within 4 business hours
-      # yamllint enable rule:line-length
+        ### There is no guarantee in receiving an immediate response in GitHub Issue Tracker. If you'd like to secure our response, you may consider *PrimeNG PRO Support* where support is provided within 4 business hours.
   - type: textarea
     id: description
     attributes:
@@ -34,10 +32,10 @@ body:
 
         If you're unable to provide a pull request, we'd love to know why! Understanding the barriers to contribution can help us improve our project and documentation. Please let us know below:
 
-        -  [ ] Lack of time
-        -  [ ] Unsure how to implement the fix/feature
-        -  [ ] Difficulty understanding the codebase
-        -  [ ] Other (please specify):
+        - [ ] Lack of time
+        - [ ] Unsure how to implement the fix/feature
+        - [ ] Difficulty understanding the codebase
+        - [ ] Other (please specify):
 
         Since there is a high rate of issues opening and exceeding PrimeTek's bandwidth, if it's not a PR, it'll be automatically tagged with "help-wanted".
   - type: textarea
