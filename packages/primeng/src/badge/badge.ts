@@ -240,16 +240,17 @@ export class BadgeDirective extends BaseComponent implements OnChanges, AfterVie
  */
 @Component({
     selector: 'p-badge',
-    template: `
-        @if (!badgeDisabled()) {
-            <span [ngClass]="containerClass()" [class]="styleClass()" [ngStyle]="style()">{{ value() }}</span>
-        }
-    `,
+    template: `{{ value() }}`,
     standalone: true,
     imports: [CommonModule, SharedModule],
     changeDetection: ChangeDetectionStrategy.OnPush,
     encapsulation: ViewEncapsulation.None,
-    providers: [BadgeStyle]
+    providers: [BadgeStyle],
+    host: {
+        '[class]': 'containerClass()',
+        '[style.display]': 'badgeDisabled() && "none"',
+        '[style]': 'style()'
+    }
 })
 export class Badge extends BaseComponent {
     /**
@@ -294,16 +295,34 @@ export class Badge extends BaseComponent {
      * Computes the container class for the badge element based on its properties.
      * @returns An object representing the CSS classes to be applied to the badge container.
      */
-    containerClass = computed<{ [klass: string]: any }>(() => {
-        return {
-            'p-badge p-component': true,
-            'p-badge-circle': isNotEmpty(this.value()) && String(this.value()).length === 1,
-            'p-badge-lg': this.badgeSize() === 'large',
-            'p-badge-xl': this.badgeSize() === 'xlarge',
-            'p-badge-sm': this.badgeSize() === 'small',
-            'p-badge-dot': isEmpty(this.value()),
-            [`p-badge-${this.severity()}`]: this.severity()
-        };
+    containerClass = computed<string>(() => {
+        let classes = 'p-badge p-component';
+
+        if (isNotEmpty(this.value()) && String(this.value()).length === 1) {
+            classes += ' p-badge-circle';
+        }
+
+        if (this.badgeSize() === 'large') {
+            classes += ' p-badge-lg';
+        } else if (this.badgeSize() === 'xlarge') {
+            classes += ' p-badge-xl';
+        } else if (this.badgeSize() === 'small') {
+            classes += ' p-badge-sm';
+        }
+
+        if (isEmpty(this.value())) {
+            classes += ' p-badge-dot';
+        }
+
+        if (this.styleClass()) {
+            classes += ` ${this.styleClass()}`;
+        }
+
+        if (this.severity()) {
+            classes += ` p-badge-${this.severity()}`;
+        }
+
+        return classes;
     });
 }
 

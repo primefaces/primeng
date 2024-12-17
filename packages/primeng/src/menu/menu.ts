@@ -1,6 +1,7 @@
 import { animate, AnimationEvent, style, transition, trigger } from '@angular/animations';
 import { CommonModule, isPlatformBrowser } from '@angular/common';
 import {
+    AfterContentInit,
     booleanAttribute,
     ChangeDetectionStrategy,
     Component,
@@ -191,11 +192,11 @@ export class MenuItemContent {
                         role="none"
                         [attr.id]="menuitemId(submenu, id, i)"
                     >
-                        <ng-container *ngIf="!submenuheaderTemplate || _submenuheaderTemplate">
+                        <ng-container *ngIf="!submenuHeaderTemplate && !_submenuHeaderTemplate">
                             <span *ngIf="submenu.escape !== false; else htmlSubmenuLabel">{{ submenu.label }}</span>
                             <ng-template #htmlSubmenuLabel><span [innerHTML]="submenu.label | safeHtml"></span></ng-template>
                         </ng-container>
-                        <ng-container *ngTemplateOutlet="submenuheaderTemplate ?? _submenuheaderTemplate; context: { $implicit: submenu }"></ng-container>
+                        <ng-container *ngTemplateOutlet="submenuHeaderTemplate ?? _submenuHeaderTemplate; context: { $implicit: submenu }"></ng-container>
                     </li>
                     <ng-template ngFor let-item let-j="index" [ngForOf]="submenu.items">
                         <li class="p-menu-separator" *ngIf="item.separator" [ngClass]="{ 'p-hidden': item.visible === false || submenu.visible === false }" role="separator"></li>
@@ -261,7 +262,7 @@ export class MenuItemContent {
     encapsulation: ViewEncapsulation.None,
     providers: [MenuStyle]
 })
-export class Menu extends BaseComponent implements OnDestroy {
+export class Menu extends BaseComponent implements AfterContentInit, OnDestroy {
     /**
      * An array of menuitems.
      * @group Props
@@ -424,41 +425,41 @@ export class Menu extends BaseComponent implements OnDestroy {
      * Defines template option for start.
      * @group Templates
      */
-    @ContentChild('start') startTemplate: TemplateRef<any> | undefined;
+    @ContentChild('start', { descendants: false }) startTemplate: TemplateRef<any> | undefined;
     _startTemplate: TemplateRef<any> | undefined;
 
     /**
      * Defines template option for end.
      * @group Templates
      */
-    @ContentChild('end') endTemplate: TemplateRef<any> | undefined;
+    @ContentChild('end', { descendants: false }) endTemplate: TemplateRef<any> | undefined;
     _endTemplate: TemplateRef<any> | undefined;
 
     /**
      * Defines template option for header.
      * @group Templates
      */
-    @ContentChild('header') headerTemplate: TemplateRef<any> | undefined;
+    @ContentChild('header', { descendants: false }) headerTemplate: TemplateRef<any> | undefined;
     _headerTemplate: TemplateRef<any> | undefined;
 
     /**
      * Defines template option for item.
      * @group Templates
      */
-    @ContentChild('item') itemTemplate: TemplateRef<any> | undefined;
+    @ContentChild('item', { descendants: false }) itemTemplate: TemplateRef<any> | undefined;
     _itemTemplate: TemplateRef<any> | undefined;
 
     /**
      * Defines template option for item.
      * @group Templates
      */
-    @ContentChild('submenuheader') submenuheaderTemplate: TemplateRef<any> | undefined;
-    _submenuheaderTemplate: TemplateRef<any> | undefined;
+    @ContentChild('submenuheader', { descendants: false }) submenuHeaderTemplate: TemplateRef<any> | undefined;
+    _submenuHeaderTemplate: TemplateRef<any> | undefined;
 
-    @ContentChildren(PrimeTemplate) _templates: QueryList<PrimeTemplate>;
+    @ContentChildren(PrimeTemplate) templates: QueryList<PrimeTemplate>;
 
     ngAfterContentInit() {
-        this._templates?.forEach((item) => {
+        this.templates?.forEach((item) => {
             switch (item.getType()) {
                 case 'start':
                     this._startTemplate = item.template;
@@ -473,11 +474,11 @@ export class Menu extends BaseComponent implements OnDestroy {
                     break;
 
                 case 'submenuheader':
-                    this._submenuheaderTemplate = item.template;
+                    this._submenuHeaderTemplate = item.template;
                     break;
 
                 default:
-                    this.itemTemplate = item.template;
+                    this._itemTemplate = item.template;
                     break;
             }
         });

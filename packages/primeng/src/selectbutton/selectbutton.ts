@@ -1,10 +1,26 @@
 import { CommonModule } from '@angular/common';
-import { booleanAttribute, ChangeDetectionStrategy, Component, ContentChild, EventEmitter, forwardRef, inject, Input, NgModule, numberAttribute, Output, TemplateRef, ViewEncapsulation } from '@angular/core';
+import {
+    AfterContentInit,
+    booleanAttribute,
+    ChangeDetectionStrategy,
+    Component,
+    ContentChild,
+    ContentChildren,
+    EventEmitter,
+    forwardRef,
+    inject,
+    Input,
+    NgModule,
+    numberAttribute,
+    Output,
+    QueryList,
+    TemplateRef,
+    ViewEncapsulation
+} from '@angular/core';
 import { ControlValueAccessor, FormsModule, NG_VALUE_ACCESSOR } from '@angular/forms';
 import { equals, resolveFieldData } from '@primeuix/utils';
-import { SharedModule } from 'primeng/api';
+import { PrimeTemplate, SharedModule } from 'primeng/api';
 import { BaseComponent } from 'primeng/basecomponent';
-import { Ripple } from 'primeng/ripple';
 import { ToggleButton } from 'primeng/togglebutton';
 import { SelectButtonChangeEvent, SelectButtonOptionClickEvent } from './selectbutton.interface';
 import { SelectButtonStyle } from './style/selectbuttonstyle';
@@ -35,9 +51,9 @@ export const SELECTBUTTON_VALUE_ACCESSOR: any = {
                 [allowEmpty]="allowEmpty"
                 [size]="size"
             >
-                @if (itemTemplate) {
+                @if (itemTemplate || _itemTemplate) {
                     <ng-template #content>
-                        <ng-container *ngTemplateOutlet="itemTemplate; context: { $implicit: option, index: i }"></ng-container>
+                        <ng-container *ngTemplateOutlet="itemTemplate || _itemTemplate; context: { $implicit: option, index: i }"></ng-container>
                     </ng-template>
                 }
             </p-toggleButton>
@@ -56,7 +72,7 @@ export const SELECTBUTTON_VALUE_ACCESSOR: any = {
         '[attr.data-pc-name]': "'selectbutton'"
     }
 })
-export class SelectButton extends BaseComponent implements ControlValueAccessor {
+export class SelectButton extends BaseComponent implements AfterContentInit, ControlValueAccessor {
     /**
      * An array of selectitems to display as the available options.
      * @group Props
@@ -148,7 +164,9 @@ export class SelectButton extends BaseComponent implements ControlValueAccessor 
      * Template of an item in the list.
      * @group Templates
      */
-    @ContentChild('item') itemTemplate: TemplateRef<any>;
+    @ContentChild('item', { descendants: false }) itemTemplate: TemplateRef<any>;
+
+    _itemTemplate: TemplateRef<any> | undefined;
 
     get equalityKey() {
         return this.optionValue ? null : this.dataKey;
@@ -283,6 +301,18 @@ export class SelectButton extends BaseComponent implements ControlValueAccessor 
         }
 
         return selected;
+    }
+
+    @ContentChildren(PrimeTemplate) templates: QueryList<PrimeTemplate> | undefined;
+
+    ngAfterContentInit() {
+        (this.templates as QueryList<PrimeTemplate>).forEach((item) => {
+            switch (item.getType()) {
+                case 'item':
+                    this._itemTemplate = item.template;
+                    break;
+            }
+        });
     }
 }
 

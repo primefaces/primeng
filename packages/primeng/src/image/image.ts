@@ -1,9 +1,27 @@
 import { animate, AnimationEvent, style, transition, trigger } from '@angular/animations';
 import { CommonModule } from '@angular/common';
-import { AfterContentInit, booleanAttribute, ChangeDetectionStrategy, Component, ContentChild, ElementRef, EventEmitter, HostListener, inject, Input, NgModule, Output, TemplateRef, ViewChild, ViewEncapsulation } from '@angular/core';
+import {
+    AfterContentInit,
+    booleanAttribute,
+    ChangeDetectionStrategy,
+    Component,
+    ContentChild,
+    ContentChildren,
+    ElementRef,
+    EventEmitter,
+    HostListener,
+    inject,
+    Input,
+    NgModule,
+    Output,
+    QueryList,
+    TemplateRef,
+    ViewChild,
+    ViewEncapsulation
+} from '@angular/core';
 import { SafeUrl } from '@angular/platform-browser';
 import { addClass, appendChild, blockBodyScroll, focus, unblockBodyScroll } from '@primeuix/utils';
-import { SharedModule } from 'primeng/api';
+import { PrimeTemplate, SharedModule } from 'primeng/api';
 import { BaseComponent } from 'primeng/basecomponent';
 import { FocusTrap } from 'primeng/focustrap';
 import { EyeIcon, RefreshIcon, SearchMinusIcon, SearchPlusIcon, TimesIcon, UndoIcon } from 'primeng/icons';
@@ -21,15 +39,15 @@ import { ImageStyle } from './style/imagestyle';
     imports: [CommonModule, RefreshIcon, EyeIcon, UndoIcon, SearchMinusIcon, SearchPlusIcon, TimesIcon, FocusTrap, SharedModule],
     template: `
         <span [ngClass]="containerClass()" [class]="styleClass" [ngStyle]="style">
-            <ng-container *ngIf="!imageTemplate">
+            <ng-container *ngIf="!imageTemplate && !_imageTemplate">
                 <img [attr.src]="src" [attr.srcset]="srcSet" [attr.sizes]="sizes" [attr.alt]="alt" [attr.width]="width" [attr.height]="height" [attr.loading]="loading" [ngStyle]="imageStyle" [class]="imageClass" (error)="imageError($event)" />
             </ng-container>
 
-            <ng-container *ngTemplateOutlet="imageTemplate; context: { errorCallback: imageError.bind(this) }"></ng-container>
+            <ng-container *ngTemplateOutlet="imageTemplate || _imageTemplate; context: { errorCallback: imageError.bind(this) }"></ng-container>
 
             <button *ngIf="preview" [attr.aria-label]="zoomImageAriaLabel" type="button" class="p-image-preview-mask" (click)="onImageClick()" #previewButton [ngStyle]="{ height: height + 'px', width: width + 'px' }">
-                <ng-container *ngIf="indicatorTemplate; else defaultTemplate">
-                    <ng-container *ngTemplateOutlet="indicatorTemplate"></ng-container>
+                <ng-container *ngIf="indicatorTemplate || !_indicatorTemplate; else defaultTemplate">
+                    <ng-container *ngTemplateOutlet="indicatorTemplate || _indicatorTemplate"></ng-container>
                 </ng-container>
                 <ng-template #defaultTemplate>
                     <EyeIcon [styleClass]="'p-image-preview-icon'" />
@@ -38,24 +56,24 @@ import { ImageStyle } from './style/imagestyle';
             <div #mask class="p-image-mask p-overlay-mask p-overlay-mask-enter" *ngIf="maskVisible" [attr.aria-modal]="maskVisible" role="dialog" (click)="onMaskClick()" (keydown)="onMaskKeydown($event)" pFocusTrap>
                 <div class="p-image-toolbar" (click)="handleToolbarClick($event)">
                     <button class="p-image-action p-image-rotate-right-button" (click)="rotateRight()" type="button" [attr.aria-label]="rightAriaLabel()">
-                        <RefreshIcon *ngIf="!rotaterighticon" />
-                        <ng-template *ngTemplateOutlet="rotaterighticon"></ng-template>
+                        <RefreshIcon *ngIf="!rotateRightIconTemplate && !_rotateRightIconTemplate" />
+                        <ng-template *ngTemplateOutlet="rotateRightIconTemplate || _rotateRightIconTemplate"></ng-template>
                     </button>
                     <button class="p-image-action p-image-rotate-left-button" (click)="rotateLeft()" type="button" [attr.aria-label]="leftAriaLabel()">
-                        <UndoIcon *ngIf="!rotatelefticon" />
-                        <ng-template *ngTemplateOutlet="rotatelefticon"></ng-template>
+                        <UndoIcon *ngIf="!rotateLeftIconTemplate && !_rotateLeftIconTemplate" />
+                        <ng-template *ngTemplateOutlet="rotateLeftIconTemplate || _rotateLeftIconTemplate"></ng-template>
                     </button>
                     <button [ngClass]="{ 'p-image-action p-image-zoom-out-button': true, 'p-disabled': isZoomOutDisabled }" (click)="zoomOut()" type="button" [disabled]="isZoomOutDisabled" [attr.aria-label]="zoomOutAriaLabel()">
-                        <SearchMinusIcon *ngIf="!zoomouticon" />
-                        <ng-template *ngTemplateOutlet="zoomouticon"></ng-template>
+                        <SearchMinusIcon *ngIf="!zoomOutIconTemplate && !_zoomOutIconTemplate" />
+                        <ng-template *ngTemplateOutlet="zoomOutIconTemplate || _zoomOutIconTemplate"></ng-template>
                     </button>
                     <button [ngClass]="{ 'p-image-action p-image-zoom-in-button': true, 'p-disabled': isZoomOutDisabled }" (click)="zoomIn()" type="button" [disabled]="isZoomInDisabled" [attr.aria-label]="zoomInAriaLabel()">
-                        <SearchPlusIcon *ngIf="!zoominicon" />
-                        <ng-template *ngTemplateOutlet="zoominicon"></ng-template>
+                        <SearchPlusIcon *ngIf="!zoomInIconTemplate && !_zoomInIconTemplate" />
+                        <ng-template *ngTemplateOutlet="zoomInIconTemplate || _zoomInIconTemplate"></ng-template>
                     </button>
                     <button class="p-image-action p-image-close-button" type="button" (click)="closePreview()" [attr.aria-label]="closeAriaLabel()" #closeButton>
-                        <TimesIcon *ngIf="!closeicon" />
-                        <ng-template *ngTemplateOutlet="closeicon"></ng-template>
+                        <TimesIcon *ngIf="!closeIconTemplate && !_closeIconTemplate" />
+                        <ng-template *ngTemplateOutlet="closeIconTemplate || _closeIconTemplate"></ng-template>
                     </button>
                 </div>
                 <div
@@ -67,12 +85,12 @@ import { ImageStyle } from './style/imagestyle';
                     (@animation.start)="onAnimationStart($event)"
                     (@animation.done)="onAnimationEnd($event)"
                 >
-                    <ng-container *ngIf="!previewTemplate">
+                    <ng-container *ngIf="!previewTemplate && !_previewTemplate">
                         <img [attr.src]="previewImageSrc ? previewImageSrc : src" [attr.srcset]="previewImageSrcSet" [attr.sizes]="previewImageSizes" class="p-image-original" [ngStyle]="imagePreviewStyle()" (click)="onPreviewImageClick()" />
                     </ng-container>
                     <ng-container
                         *ngTemplateOutlet="
-                            previewTemplate;
+                            previewTemplate || _previewTemplate;
                             context: {
                                 class: 'p-image-original',
                                 style: imagePreviewStyle(),
@@ -213,49 +231,49 @@ export class Image extends BaseComponent implements AfterContentInit {
      * Custom template of indicator.
      * @group Templates
      */
-    @ContentChild('indicator') indicatorTemplate: TemplateRef<any> | undefined;
+    @ContentChild('indicator', { descendants: false }) indicatorTemplate: TemplateRef<any> | undefined;
 
     /**
      * Custom template of rotaterighticon.
      * @group Templates
      */
-    @ContentChild('rotaterighticon') rotaterighticon: TemplateRef<any> | undefined;
+    @ContentChild('rotaterighticon', { descendants: false }) rotateRightIconTemplate: TemplateRef<any> | undefined;
 
     /**
      * Custom template of rotatelefticon.
      * @group Templates
      */
-    @ContentChild('rotatelefticon') rotatelefticon: TemplateRef<any> | undefined;
+    @ContentChild('rotatelefticon', { descendants: false }) rotateLeftIconTemplate: TemplateRef<any> | undefined;
 
     /**
      * Custom template of zoomouticon.
      * @group Templates
      */
-    @ContentChild('zoomouticon') zoomouticon: TemplateRef<any> | undefined;
+    @ContentChild('zoomouticon', { descendants: false }) zoomOutIconTemplate: TemplateRef<any> | undefined;
 
     /**
      * Custom template of zoominicon.
      * @group Templates
      */
-    @ContentChild('zoominicon') zoominicon: TemplateRef<any> | undefined;
+    @ContentChild('zoominicon', { descendants: false }) zoomInIconTemplate: TemplateRef<any> | undefined;
 
     /**
      * Custom template of closeicon.
      * @group Templates
      */
-    @ContentChild('closeicon') closeicon: TemplateRef<any> | undefined;
+    @ContentChild('closeicon', { descendants: false }) closeIconTemplate: TemplateRef<any> | undefined;
 
     /**
      * Custom template of preview.
      * @group Templates
      */
-    @ContentChild('preview') previewTemplate: TemplateRef<any> | undefined;
+    @ContentChild('preview', { descendants: false }) previewTemplate: TemplateRef<any> | undefined;
 
     /**
      * Custom template of image.
      * @group Templates
      */
-    @ContentChild('image') imageTemplate: TemplateRef<any> | undefined;
+    @ContentChild('image', { descendants: false }) imageTemplate: TemplateRef<any> | undefined;
 
     maskVisible: boolean = false;
 
@@ -290,6 +308,66 @@ export class Image extends BaseComponent implements AfterContentInit {
 
     constructor() {
         super();
+    }
+
+    @ContentChildren(PrimeTemplate) templates: QueryList<PrimeTemplate> | undefined;
+
+    _indicatorTemplate: TemplateRef<any> | undefined;
+
+    _rotateRightIconTemplate: TemplateRef<any> | undefined;
+
+    _rotateLeftIconTemplate: TemplateRef<any> | undefined;
+
+    _zoomOutIconTemplate: TemplateRef<any> | undefined;
+
+    _zoomInIconTemplate: TemplateRef<any> | undefined;
+
+    _closeIconTemplate: TemplateRef<any> | undefined;
+
+    _imageTemplate: TemplateRef<any> | undefined;
+
+    _previewTemplate: TemplateRef<any> | undefined;
+
+    ngAfterContentInit() {
+        this.templates?.forEach((item) => {
+            switch (item.getType()) {
+                case 'indicator':
+                    this._indicatorTemplate = item.template;
+                    break;
+
+                case 'rotaterighticon':
+                    this._rotateRightIconTemplate = item.template;
+                    break;
+
+                case 'rotatelefticon':
+                    this._rotateLeftIconTemplate = item.template;
+                    break;
+
+                case 'zoomouticon':
+                    this._zoomOutIconTemplate = item.template;
+                    break;
+
+                case 'zoominicon':
+                    this._zoomInIconTemplate = item.template;
+                    break;
+
+                case 'closeicon':
+                    this._closeIconTemplate = item.template;
+                    break;
+
+                case 'image':
+                    this._imageTemplate = item.template;
+                    break;
+
+                case 'preview':
+                    this._previewTemplate = item.template;
+                    break;
+
+                default:
+                    this._indicatorTemplate = item.template;
+                    break;
+            }
+        });
     }
 
     onImageClick() {

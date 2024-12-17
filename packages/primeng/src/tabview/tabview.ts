@@ -53,8 +53,8 @@ import { TabViewChangeEvent, TabViewCloseEvent } from './tabview.interface';
             [attr.data-pc-name]="'tabpanel'"
         >
             <ng-content></ng-content>
-            <ng-container *ngIf="contentTemplate && (cache ? loaded : selected)">
-                <ng-container *ngTemplateOutlet="contentTemplate"></ng-container>
+            <ng-container *ngIf="(contentTemplate || _contentTemplate) && (cache ? loaded : selected)">
+                <ng-container *ngTemplateOutlet="contentTemplate || _contentTemplate"></ng-container>
             </ng-container>
         </div>
     `,
@@ -62,9 +62,6 @@ import { TabViewChangeEvent, TabViewCloseEvent } from './tabview.interface';
     providers: [TabsStyle]
 })
 export class TabPanel extends BaseComponent implements AfterContentInit, OnDestroy {
-    ngOnDestroy(): void {
-        throw new Error('Method not implemented.');
-    }
     /**
      * Defines if tab can be removed.
      * @group Props
@@ -212,15 +209,57 @@ export class TabPanel extends BaseComponent implements AfterContentInit, OnDestr
 
     @ContentChild('header') headerTemplate: TemplateRef<any> | undefined;
 
-    @ContentChild('lefticon') lefticonTemplate: TemplateRef<any> | undefined;
+    @ContentChild('lefticon') leftIconTemplate: TemplateRef<any> | undefined;
 
     @ContentChild('righticon') rightIconTemplate: TemplateRef<any> | undefined;
 
     @ContentChild('closeicon') closeIconTemplate: TemplateRef<any> | undefined;
 
+    @ContentChildren(PrimeTemplate) templates: QueryList<PrimeTemplate> | undefined;
+
     tabView: TabView = inject(forwardRef(() => TabView)) as TabView;
 
     _componentStyle = inject(TabsStyle);
+
+    _headerTemplate: TemplateRef<any> | undefined;
+
+    _contentTemplate: TemplateRef<any> | undefined;
+
+    _rightIconTemplate: TemplateRef<any> | undefined;
+
+    _leftIconTemplate: TemplateRef<any> | undefined;
+
+    _closeIconTemplate: TemplateRef<any> | undefined;
+
+    ngAfterContentInit() {
+        (this.templates as QueryList<PrimeTemplate>).forEach((item) => {
+            switch (item.getType()) {
+                case 'header':
+                    this._headerTemplate = item.template;
+                    break;
+
+                case 'content':
+                    this._contentTemplate = item.template;
+                    break;
+
+                case 'righticon':
+                    this._rightIconTemplate = item.template;
+                    break;
+
+                case 'lefticon':
+                    this._leftIconTemplate = item.template;
+                    break;
+
+                case 'closeicon':
+                    this._closeIconTemplate = item.template;
+                    break;
+
+                default:
+                    this._contentTemplate = item.template;
+                    break;
+            }
+        });
+    }
 }
 /**
  * TabView is a container component to group content with tabs.
@@ -242,8 +281,8 @@ export class TabPanel extends BaseComponent implements AfterContentInit, OnDestr
                 type="button"
                 pRipple
             >
-                <ChevronLeftIcon *ngIf="!previousiconTemplate" [attr.aria-hidden]="true" />
-                <ng-template *ngTemplateOutlet="previousiconTemplate"></ng-template>
+                <ChevronLeftIcon *ngIf="!previousIconTemplate && !_previousIconTemplate" [attr.aria-hidden]="true" />
+                <ng-template *ngTemplateOutlet="previousIconTemplate && _previousIconTemplate"></ng-template>
             </button>
             <div #content class="p-tablist-content" [ngClass]="{ 'p-tablist-viewport': scrollable }" (scroll)="onScroll($event)" [attr.data-pc-section]="'navcontent'">
                 <div #navbar class="p-tablist-tab-list" role="tablist" [attr.data-pc-section]="'nav'">
@@ -276,23 +315,23 @@ export class TabPanel extends BaseComponent implements AfterContentInit, OnDestr
                                 (keydown)="onTabKeyDown($event, tab)"
                                 pRipple
                             >
-                                @if (tab.headerTemplate) {
-                                    <ng-container *ngTemplateOutlet="tab.headerTemplate"></ng-container>
+                                @if (tab.headerTemplate || tab._headerTemplate) {
+                                    <ng-container *ngTemplateOutlet="tab.headerTemplate || tab._headerTemplate"></ng-container>
                                 } @else {
-                                    @if (tab.lefticonTemplate) {
-                                        <ng-template *ngTemplateOutlet="tab.lefticonTemplate"></ng-template>
-                                    } @else if (tab.leftIcon && !tab.lefticonTemplate) {
+                                    @if (tab.leftIconTemplate || tab._leftIconTemplate) {
+                                        <ng-template *ngTemplateOutlet="tab.leftIconTemplate || tab._leftIconTemplate"></ng-template>
+                                    } @else if (tab.leftIcon && !tab.leftIconTemplate && !tab._leftIconTemplate) {
                                         <span class="p-tabview-left-icon" [ngClass]="tab.leftIcon"></span>
                                     }
                                     {{ tab.header }}
-                                    @if (tab.rightIconTemplate) {
-                                        <ng-template *ngTemplateOutlet="tab.rightIconTemplate"></ng-template>
-                                    } @else if (tab.rightIcon && !tab.rightIconTemplate) {
+                                    @if (tab.rightIconTemplate || tab._rightIconTemplate) {
+                                        <ng-template *ngTemplateOutlet="tab.rightIconTemplate || tab._rightIconTemplate"></ng-template>
+                                    } @else if (tab.rightIcon && !tab.rightIconTemplate && !tab._rightIconTemplate) {
                                         <span class="p-tabview-right-icon" [ngClass]="tab.rightIcon"></span>
                                     }
                                     @if (tab.closable) {
-                                        @if (tab.closeIconTemplate) {
-                                            <ng-template *ngTemplateOutlet="tab.closeIconTemplate"></ng-template>
+                                        @if (tab.closeIconTemplate || tab._closeIconTemplate) {
+                                            <ng-template *ngTemplateOutlet="tab.closeIconTemplate || tab._closeIconTemplate"></ng-template>
                                         } @else {
                                             <TimesIcon (click)="close($event, tab)" />
                                         }
@@ -305,8 +344,8 @@ export class TabPanel extends BaseComponent implements AfterContentInit, OnDestr
                 </div>
             </div>
             <button *ngIf="scrollable && !forwardIsDisabled && buttonVisible" #nextBtn [attr.tabindex]="tabindex" [attr.aria-label]="nextButtonAriaLabel" class="p-tablist-next-button p-tablist-nav-button" (click)="navForward()" type="button" pRipple>
-                @if (nexticonTemplate) {
-                    <ng-template *ngTemplateOutlet="nexticonTemplate"></ng-template>
+                @if (nextIconTemplate || _nextIconTemplate) {
+                    <ng-template *ngTemplateOutlet="nextIconTemplate || _nextIconTemplate"></ng-template>
                 } @else {
                     <ChevronRightIcon [attr.aria-hidden]="true" />
                 }
@@ -450,10 +489,6 @@ export class TabView extends BaseComponent implements AfterContentInit, AfterVie
 
     private tabChangesSubscription!: Subscription;
 
-    nexticonTemplate: TemplateRef<any> | undefined;
-
-    previousiconTemplate: TemplateRef<any> | undefined;
-
     resizeObserver: Nullable<ResizeObserver>;
 
     container: HTMLDivElement | undefined;
@@ -464,7 +499,17 @@ export class TabView extends BaseComponent implements AfterContentInit, AfterVie
 
     @ViewChild('elementToObserve') elementToObserve: ElementRef;
 
+    @ContentChild('previousicon') previousIconTemplate: TemplateRef<any> | undefined;
+
+    @ContentChild('nexticon') nextIconTemplate: TemplateRef<any> | undefined;
+
+    _previousIconTemplate: TemplateRef<any> | undefined;
+
+    _nextIconTemplate: TemplateRef<any> | undefined;
+
     _componentStyle = inject(TabsStyle);
+
+    @ContentChildren(PrimeTemplate) templates: QueryList<PrimeTemplate> | undefined;
 
     ngOnInit() {
         super.ngOnInit();
@@ -481,11 +526,11 @@ export class TabView extends BaseComponent implements AfterContentInit, AfterVie
         (this.templates as QueryList<PrimeTemplate>).forEach((item) => {
             switch (item.getType()) {
                 case 'previousicon':
-                    this.previousiconTemplate = item.template;
+                    this._previousIconTemplate = item.template;
                     break;
 
                 case 'nexticon':
-                    this.nexticonTemplate = item.template;
+                    this._nextIconTemplate = item.template;
                     break;
             }
         });

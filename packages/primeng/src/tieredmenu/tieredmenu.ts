@@ -23,11 +23,13 @@ import {
     inject,
     input,
     numberAttribute,
-    signal
+    signal,
+    ContentChildren,
+    QueryList
 } from '@angular/core';
 import { RouterModule } from '@angular/router';
 import { absolutePosition, appendChild, findLastIndex, findSingle, focus, isEmpty, isNotEmpty, isPrintableCharacter, isTouchDevice, nestedPosition, relativePosition, resolve, uuid } from '@primeuix/utils';
-import { MenuItem, OverlayService, SharedModule } from 'primeng/api';
+import { MenuItem, OverlayService, PrimeTemplate, SharedModule } from 'primeng/api';
 import { BaseComponent } from 'primeng/basecomponent';
 import { ConnectedOverlayScrollHandler } from 'primeng/dom';
 import { AngleRightIcon } from 'primeng/icons';
@@ -118,8 +120,8 @@ import { TieredMenuStyle } from './style/tieredmenustyle';
                                 <span class="p-menuitem-badge" *ngIf="getItemProp(processedItem, 'badge')" [ngClass]="getItemProp(processedItem, 'badgeStyleClass')">{{ getItemProp(processedItem, 'badge') }}</span>
 
                                 <ng-container *ngIf="isItemGroup(processedItem)">
-                                    <AngleRightIcon *ngIf="!tieredMenu.submenuiconTemplate" [ngClass]="'p-tieredmenu-submenu-icon'" [attr.data-pc-section]="'submenuicon'" [attr.aria-hidden]="true" />
-                                    <ng-template *ngTemplateOutlet="tieredMenu.submenuiconTemplate" [attr.data-pc-section]="'submenuicon'" [attr.aria-hidden]="true"></ng-template>
+                                    <AngleRightIcon *ngIf="!tieredMenu.submenuIconTemplate && !tieredMenu._submenuIconTemplate" [ngClass]="'p-tieredmenu-submenu-icon'" [attr.data-pc-section]="'submenuicon'" [attr.aria-hidden]="true" />
+                                    <ng-template *ngTemplateOutlet="tieredMenu.submenuIconTemplate || tieredMenu._submenuIconTemplate" [attr.data-pc-section]="'submenuicon'" [attr.aria-hidden]="true"></ng-template>
                                 </ng-container>
                             </a>
                             <a
@@ -160,8 +162,8 @@ import { TieredMenuStyle } from './style/tieredmenustyle';
                                 <span class="p-menuitem-badge" *ngIf="getItemProp(processedItem, 'badge')" [ngClass]="getItemProp(processedItem, 'badgeStyleClass')">{{ getItemProp(processedItem, 'badge') }}</span>
 
                                 <ng-container *ngIf="isItemGroup(processedItem)">
-                                    <AngleRightIcon *ngIf="!tieredMenu.submenuiconTemplate" [ngClass]="'p-tieredmenu-submenu-icon'" [attr.data-pc-section]="'submenuicon'" [attr.aria-hidden]="true" />
-                                    <ng-template *ngTemplateOutlet="tieredMenu.submenuiconTemplate" [attr.data-pc-section]="'submenuicon'" [attr.aria-hidden]="true"></ng-template>
+                                    <AngleRightIcon *ngIf="!tieredMenu.submenuIconTemplate && !tieredMenu._submenuIconTemplate" [ngClass]="'p-tieredmenu-submenu-icon'" [attr.data-pc-section]="'submenuicon'" [attr.aria-hidden]="true" />
+                                    <ng-template *ngTemplateOutlet="tieredMenu.submenuIconTemplate || tieredMenu._submenuIconTemplate" [attr.data-pc-section]="'submenuicon'" [attr.aria-hidden]="true"></ng-template>
                                 </ng-container>
                             </a>
                         </ng-container>
@@ -193,7 +195,7 @@ import { TieredMenuStyle } from './style/tieredmenustyle';
 export class TieredMenuSub extends BaseComponent {
     @Input() items: any[];
 
-    @Input() itemTemplate: HTMLElement | undefined;
+    @Input() itemTemplate: TemplateRef<any> | undefined;
 
     @Input({ transform: booleanAttribute }) root: boolean | undefined = false;
 
@@ -282,7 +284,7 @@ export class TieredMenuSub extends BaseComponent {
         return this.getItemProp(processedItem, 'label');
     }
 
-    getSeparatorItemClass(processedItem: any) {
+    getSeparatorItemClass(processedItem: any): string {
         return {
             ...this.getItemProp(processedItem, 'class'),
             'p-tieredmenu-separator': true
@@ -370,7 +372,7 @@ export class TieredMenuSub extends BaseComponent {
                 #rootmenu
                 [root]="true"
                 [items]="processedItems"
-                [itemTemplate]="itemTemplate"
+                [itemTemplate]="itemTemplate || _itemTemplate"
                 [menuId]="id"
                 [tabindex]="!disabled ? tabindex : -1"
                 [ariaLabel]="ariaLabel"
@@ -500,12 +502,14 @@ export class TieredMenu extends BaseComponent implements OnInit, OnDestroy {
      * Template of the submenu icon.
      * @group Templates
      */
-    @ContentChild('submenuicon') submenuiconTemplate: TemplateRef<any>;
+    @ContentChild('submenuicon', { descendants: false }) submenuIconTemplate: TemplateRef<any>;
     /**
      * Template of the item.
      * @group Templates
      */
-    @ContentChild('item') itemTemplate: TemplateRef<any>;
+    @ContentChild('item', { descendants: false }) itemTemplate: TemplateRef<any>;
+
+    @ContentChildren(PrimeTemplate) templates: QueryList<PrimeTemplate> | undefined;
 
     container: HTMLDivElement | undefined;
 
@@ -549,6 +553,10 @@ export class TieredMenu extends BaseComponent implements OnInit, OnDestroy {
 
     public queryMatches: boolean;
 
+    _submenuIconTemplate: TemplateRef<any> | undefined;
+
+    _itemTemplate: TemplateRef<any> | undefined;
+
     get visibleItems() {
         const processedItem = this.activeItemPath().find((p) => p.key === this.focusedItemInfo().parentKey);
         return processedItem ? processedItem.items : this.processedItems;
@@ -585,6 +593,24 @@ export class TieredMenu extends BaseComponent implements OnInit, OnDestroy {
         super.ngOnInit();
         this.bindMatchMediaListener();
         this.id = this.id || uuid('pn_id_');
+    }
+
+    ngAfterContentInit() {
+        this.templates?.forEach((item) => {
+            switch (item.getType()) {
+                case 'submenuicon':
+                    this._submenuIconTemplate = item.template;
+                    break;
+
+                case 'item':
+                    this._itemTemplate = item.template;
+                    break;
+
+                default:
+                    this._itemTemplate = item.template;
+                    break;
+            }
+        });
     }
 
     bindMatchMediaListener() {

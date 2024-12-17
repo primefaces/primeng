@@ -9,7 +9,7 @@ import { Component } from '@angular/core';
             <p>Content can easily be customized with the dynamic content instead of using the built-in modes.</p>
         </app-docsectiontext>
         <div class="card">
-            <p-chip styleClass="!py-0 !pl-0 !pr-4">
+            <p-chip class="!py-0 !pl-0 !pr-4">
                 <span class="bg-primary text-primary-contrast rounded-full w-8 h-8 flex items-center justify-center">P</span>
                 <span class="ml-2 font-medium">PRIME</span>
             </p-chip>
@@ -19,7 +19,7 @@ import { Component } from '@angular/core';
 })
 export class TemplateDoc {
     code: Code = {
-        basic: `<p-chip styleClass="!py-0 !pl-0 !pr-4">
+        basic: `<p-chip class="!py-0 !pl-0 !pr-4">
     <span class="bg-primary text-primary-contrast rounded-full w-8 h-8 flex items-center justify-center">
         P
     </span>
@@ -28,7 +28,7 @@ export class TemplateDoc {
     </span>
 </p-chip>`,
         html: `<div class="card">
-    <p-chip styleClass="!py-0 !pl-0 !pr-4">
+    <p-chip class="!py-0 !pl-0 !pr-4">
         <span class="bg-primary text-primary-contrast rounded-full w-8 h-8 flex items-center justify-center">
             P
         </span>

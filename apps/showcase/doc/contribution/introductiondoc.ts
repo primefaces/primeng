@@ -27,8 +27,8 @@ export class IntroductionDoc {
 cd primeng`
     };
     code2: Code = {
-        basic: `npm install
-ng serve`
+        basic: `pnpm run setup
+pnpm run dev`
     };
     code3: Code = {
         basic: `- app

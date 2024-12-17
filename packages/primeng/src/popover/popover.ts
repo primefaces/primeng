@@ -1,8 +1,29 @@
 import { animate, AnimationEvent, state, style, transition, trigger } from '@angular/animations';
 import { CommonModule, isPlatformBrowser } from '@angular/common';
-import { booleanAttribute, ChangeDetectionStrategy, Component, ContentChild, ElementRef, EventEmitter, HostListener, inject, Input, NgModule, NgZone, numberAttribute, OnDestroy, Output, TemplateRef, ViewEncapsulation, ViewRef } from '@angular/core';
+import {
+    AfterContentInit,
+    booleanAttribute,
+    ChangeDetectionStrategy,
+    Component,
+    ContentChild,
+    ContentChildren,
+    ElementRef,
+    EventEmitter,
+    HostListener,
+    inject,
+    Input,
+    NgModule,
+    NgZone,
+    numberAttribute,
+    OnDestroy,
+    Output,
+    QueryList,
+    TemplateRef,
+    ViewEncapsulation,
+    ViewRef
+} from '@angular/core';
 import { absolutePosition, addClass, appendChild, findSingle, getOffset, isIOS, isTouchDevice } from '@primeuix/utils';
-import { OverlayService, SharedModule } from 'primeng/api';
+import { OverlayService, PrimeTemplate, SharedModule } from 'primeng/api';
 import { BaseComponent } from 'primeng/basecomponent';
 import { ConnectedOverlayScrollHandler } from 'primeng/dom';
 import { TimesIcon } from 'primeng/icons';
@@ -40,7 +61,7 @@ import { PopoverStyle } from './style/popoverstyle';
         >
             <div class="p-popover-content" (click)="onContentClick($event)" (mousedown)="onContentClick($event)">
                 <ng-content></ng-content>
-                <ng-container *ngTemplateOutlet="contentTemplate"></ng-container>
+                <ng-container *ngTemplateOutlet="contentTemplate || _contentTemplate"></ng-container>
             </div>
         </div>
     `,
@@ -74,7 +95,7 @@ import { PopoverStyle } from './style/popoverstyle';
     encapsulation: ViewEncapsulation.None,
     providers: [PopoverStyle]
 })
-export class Popover extends BaseComponent implements OnDestroy {
+export class Popover extends BaseComponent implements AfterContentInit, OnDestroy {
     /**
      * Defines a string that labels the input for accessibility.
      * @group Props
@@ -175,7 +196,11 @@ export class Popover extends BaseComponent implements OnDestroy {
      * Custom content template.
      * @group Templates
      */
-    @ContentChild('content') contentTemplate: Nullable<TemplateRef<any>>;
+    @ContentChild('content', { descendants: false }) contentTemplate: Nullable<TemplateRef<any>>;
+
+    @ContentChildren(PrimeTemplate) templates!: QueryList<PrimeTemplate>;
+
+    _contentTemplate: TemplateRef<any> | undefined;
 
     destroyCallback: Nullable<Function>;
 
@@ -188,6 +213,16 @@ export class Popover extends BaseComponent implements OnDestroy {
     zone = inject(NgZone);
 
     overlayService = inject(OverlayService);
+
+    ngAfterContentInit() {
+        this.templates.forEach((item) => {
+            switch (item.getType()) {
+                case 'content':
+                    this._contentTemplate = item.template;
+                    break;
+            }
+        });
+    }
 
     bindDocumentClickListener() {
         if (isPlatformBrowser(this.platformId)) {

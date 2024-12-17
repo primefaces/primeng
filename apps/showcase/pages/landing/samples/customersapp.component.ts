@@ -69,7 +69,7 @@ import { TooltipModule } from 'primeng/tooltip';
             </div>
         </div>
         <div class="flex-1 last:[&>td]:border-0 rounded-lg border border-surface w-full overflow-auto">
-            <p-table [value]="tableData" [(selection)]="selectedRows" dataKey="id" [rows]="10">
+            <p-table [value]="tableData" [(selection)]="selectedRows" dataKey="id" [rows]="10" [dt]="tableTokens">
                 <ng-template #header>
                     <tr>
                         <th style="width: 1rem">
@@ -147,7 +147,6 @@ import { TooltipModule } from 'primeng/tooltip';
     host: {
         class: 'h-full flex-1 flex flex-col overflow-hidden border border-surface rounded-2xl p-6'
     },
-    encapsulation: ViewEncapsulation.None,
     changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class CustomersApp {
@@ -158,6 +157,18 @@ export class CustomersApp {
     companyLogos: any;
 
     selectedRows: any = [];
+
+    tableTokens = {
+        header: {
+            background: 'transparent'
+        },
+        headerCell: {
+            background: 'transparent'
+        },
+        row: {
+            background: 'transparent'
+        }
+    };
 
     constructor(
         @Inject(PLATFORM_ID) private platformId: any,

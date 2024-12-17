@@ -1,10 +1,12 @@
 import { CommonModule } from '@angular/common';
 import {
+    AfterContentInit,
     booleanAttribute,
     ChangeDetectionStrategy,
     Component,
     computed,
     ContentChild,
+    ContentChildren,
     effect,
     ElementRef,
     EventEmitter,
@@ -15,6 +17,7 @@ import {
     numberAttribute,
     OnInit,
     Output,
+    QueryList,
     signal,
     SimpleChanges,
     TemplateRef,
@@ -23,7 +26,7 @@ import {
 } from '@angular/core';
 import { NG_VALUE_ACCESSOR } from '@angular/forms';
 import { calculateScrollbarWidth, equals, findLastIndex, findSingle, focus, getHiddenElementOuterWidth, getOffset, getOuterWidth, getViewport, isEmpty, isNotEmpty, isPrintableCharacter, resolveFieldData, uuid } from '@primeuix/utils';
-import { OverlayOptions, OverlayService, SharedModule, TranslationKeys } from 'primeng/api';
+import { OverlayOptions, OverlayService, PrimeTemplate, SharedModule, TranslationKeys } from 'primeng/api';
 import { AutoFocus } from 'primeng/autofocus';
 import { BaseComponent } from 'primeng/basecomponent';
 import { AngleRightIcon, ChevronDownIcon, TimesIcon } from 'primeng/icons';
@@ -269,8 +272,8 @@ export class CascadeSelectSub extends BaseComponent implements OnInit {
             />
         </div>
         <span [ngClass]="labelClass" [attr.data-pc-section]="'label'">
-            <ng-container *ngIf="valueTemplate; else defaultValueTemplate">
-                <ng-container *ngTemplateOutlet="valueTemplate; context: { $implicit: value, placeholder: placeholder }"></ng-container>
+            <ng-container *ngIf="valueTemplate || _valueTemplate; else defaultValueTemplate">
+                <ng-container *ngTemplateOutlet="valueTemplate || _valueTemplate; context: { $implicit: value, placeholder: placeholder }"></ng-container>
             </ng-container>
             <ng-template #defaultValueTemplate>
                 {{ label() }}
@@ -278,26 +281,26 @@ export class CascadeSelectSub extends BaseComponent implements OnInit {
         </span>
 
         <ng-container *ngIf="filled && !disabled && showClear">
-            <TimesIcon *ngIf="!clearicon" class="p-cascadeselect-clear-icon" (click)="clear($event)" [attr.data-pc-section]="'clearicon'" [attr.aria-hidden]="true" />
-            <span *ngIf="clearicon" class="p-cascadeselect-clear-icon" (click)="clear($event)" [attr.data-pc-section]="'clearicon'" [attr.aria-hidden]="true">
-                <ng-template *ngTemplateOutlet="clearicon"></ng-template>
+            <TimesIcon *ngIf="!clearIconTemplate && !_clearIconTemplate" class="p-cascadeselect-clear-icon" (click)="clear($event)" [attr.data-pc-section]="'clearicon'" [attr.aria-hidden]="true" />
+            <span *ngIf="clearIconTemplate || _clearIconTemplate" class="p-cascadeselect-clear-icon" (click)="clear($event)" [attr.data-pc-section]="'clearicon'" [attr.aria-hidden]="true">
+                <ng-template *ngTemplateOutlet="clearIconTemplate || _clearIconTemplate"></ng-template>
             </span>
         </ng-container>
 
         <div class="p-cascadeselect-dropdown" role="button" aria-haspopup="listbox" [attr.aria-expanded]="overlayVisible ?? false" [attr.data-pc-section]="'dropdownIcon'" [attr.aria-hidden]="true">
             <ng-container *ngIf="loading; else elseBlock">
-                <ng-container *ngIf="loadingicon">
-                    <ng-container *ngTemplateOutlet="loadingicon"></ng-container>
+                <ng-container *ngIf="loadingIconTemplate || _loadingIconTemplate">
+                    <ng-container *ngTemplateOutlet="loadingIconTemplate || _loadingIconTemplate"></ng-container>
                 </ng-container>
-                <ng-container *ngIf="!loadingicon">
+                <ng-container *ngIf="!loadingIconTemplate && !_loadingIconTemplate">
                     <span *ngIf="loadingIcon" [ngClass]="'p-cascadeselect-loading-icon pi-spin ' + loadingIcon" aria-hidden="true"></span>
                     <span *ngIf="!loadingIcon" [class]="'p-cascadeselect-loading-icon pi pi-spinner pi-spin'" aria-hidden="true"></span>
                 </ng-container>
             </ng-container>
             <ng-template #elseBlock>
-                <ChevronDownIcon *ngIf="!triggericon" [styleClass]="'p-cascadeselect-dropdown-icon'" />
-                <span *ngIf="triggericon" class="p-cascadeselect-dropdown-icon">
-                    <ng-template *ngTemplateOutlet="triggericon"></ng-template>
+                <ChevronDownIcon *ngIf="!triggerIconTemplate && !_triggerIconTemplate" [styleClass]="'p-cascadeselect-dropdown-icon'" />
+                <span *ngIf="triggerIconTemplate || _triggerIconTemplate" class="p-cascadeselect-dropdown-icon">
+                    <ng-template *ngTemplateOutlet="triggerIconTemplate || _triggerIconTemplate"></ng-template>
                 </span>
             </ng-template>
         </div>
@@ -320,7 +323,7 @@ export class CascadeSelectSub extends BaseComponent implements OnInit {
         >
             <ng-template #content>
                 <div #panel [ngClass]="{ 'p-cascadeselect-overlay p-component': true, 'p-cascadeselect-mobile-active': queryMatches() }" [class]="panelStyleClass" [ngStyle]="panelStyle" [attr.data-pc-section]="'panel'">
-                    <ng-template *ngTemplateOutlet="headerTemplate"></ng-template>
+                    <ng-template *ngTemplateOutlet="headerTemplate || _headerTemplate"></ng-template>
                     <div class="p-cascadeselect-list-container" [attr.data-pc-section]="'wrapper'">
                         <p-cascadeselect-sub
                             [options]="processedOptions"
@@ -330,8 +333,8 @@ export class CascadeSelectSub extends BaseComponent implements OnInit {
                             [optionLabel]="optionLabel"
                             [optionValue]="optionValue"
                             [level]="0"
-                            [optionTemplate]="optionTemplate"
-                            [groupicon]="groupicon"
+                            [optionTemplate]="optionTemplate || _optionTemplate"
+                            [groupicon]="groupIconTemplate || groupIconTemplate"
                             [optionGroupLabel]="optionGroupLabel"
                             [optionGroupChildren]="optionGroupChildren"
                             [optionDisabled]="optionDisabled"
@@ -347,7 +350,7 @@ export class CascadeSelectSub extends BaseComponent implements OnInit {
                     <span role="status" aria-live="polite" class="p-hidden-accessible">
                         {{ selectedMessageText }}
                     </span>
-                    <ng-template *ngTemplateOutlet="footerTemplate"></ng-template>
+                    <ng-template *ngTemplateOutlet="footerTemplate || _footerTemplate"></ng-template>
                 </div>
             </ng-template>
         </p-overlay>
@@ -356,7 +359,7 @@ export class CascadeSelectSub extends BaseComponent implements OnInit {
     changeDetection: ChangeDetectionStrategy.OnPush,
     encapsulation: ViewEncapsulation.None
 })
-export class CascadeSelect extends BaseComponent implements OnInit {
+export class CascadeSelect extends BaseComponent implements OnInit, AfterContentInit {
     /**
      * Unique identifier of the component
      * @group Props
@@ -645,49 +648,65 @@ export class CascadeSelect extends BaseComponent implements OnInit {
      * Content template for displaying the selected value.
      * @group Templates
      */
-    @ContentChild('value') valueTemplate: Nullable<TemplateRef<any>>;
+    @ContentChild('value', { descendants: false }) valueTemplate: Nullable<TemplateRef<any>>;
 
     /**
      * Content template for customizing the option display.
      * @group Templates
      */
-    @ContentChild('option') optionTemplate: Nullable<TemplateRef<any>>;
+    @ContentChild('option', { descendants: false }) optionTemplate: Nullable<TemplateRef<any>>;
 
     /**
      * Content template for customizing the header.
      * @group Templates
      */
-    @ContentChild('header') headerTemplate: Nullable<TemplateRef<any>>;
+    @ContentChild('header', { descendants: false }) headerTemplate: Nullable<TemplateRef<any>>;
 
     /**
      * Content template for customizing the footer.
      * @group Templates
      */
-    @ContentChild('footer') footerTemplate: Nullable<TemplateRef<any>>;
+    @ContentChild('footer', { descendants: false }) footerTemplate: Nullable<TemplateRef<any>>;
 
     /**
      * Content template for customizing the trigger icon.
      * @group Templates
      */
-    @ContentChild('triggericon') triggericon: Nullable<TemplateRef<any>>;
+    @ContentChild('triggericon', { descendants: false }) triggerIconTemplate: Nullable<TemplateRef<any>>;
 
     /**
      * Content template for customizing the loading icon.
      * @group Templates
      */
-    @ContentChild('loadingicon') loadingicon: Nullable<TemplateRef<any>>;
+    @ContentChild('loadingicon', { descendants: false }) loadingIconTemplate: Nullable<TemplateRef<any>>;
 
     /**
      * Content template for customizing the group icon.
      * @group Templates
      */
-    @ContentChild('optiongroupicon') groupicon: Nullable<TemplateRef<any>>;
+    @ContentChild('optiongroupicon', { descendants: false }) groupIconTemplate: Nullable<TemplateRef<any>>;
 
     /**
      * Content template for customizing the clear icon.
      * @group Templates
      */
-    @ContentChild('clearicon') clearicon: Nullable<TemplateRef<any>>;
+    @ContentChild('clearicon', { descendants: false }) clearIconTemplate: Nullable<TemplateRef<any>>;
+
+    _valueTemplate: TemplateRef<any> | undefined;
+
+    _optionTemplate: TemplateRef<any> | undefined;
+
+    _headerTemplate: TemplateRef<any> | undefined;
+
+    _footerTemplate: TemplateRef<any> | undefined;
+
+    _triggerIconTemplate: TemplateRef<any> | undefined;
+
+    _loadingIconTemplate: TemplateRef<any> | undefined;
+
+    _groupIconTemplate: TemplateRef<any> | undefined;
+
+    _clearIconTemplate: TemplateRef<any> | undefined;
 
     _showTransitionOptions: string = '';
 
@@ -818,6 +837,38 @@ export class CascadeSelect extends BaseComponent implements OnInit {
             return processedOption ? this.getOptionLabel(processedOption.option) : label;
         }
         return label;
+    }
+
+    @ContentChildren(PrimeTemplate) templates!: QueryList<PrimeTemplate>;
+
+    ngAfterContentInit() {
+        this.templates.forEach((item) => {
+            switch (item.getType()) {
+                case 'value':
+                    this._valueTemplate = item.template;
+                    break;
+
+                case 'option':
+                    this._optionTemplate = item.template;
+                    break;
+
+                case 'triggericon':
+                    this._triggerIconTemplate = item.template;
+                    break;
+
+                case 'loadingicon':
+                    this._loadingIconTemplate = item.template;
+                    break;
+
+                case 'clearicon':
+                    this._clearIconTemplate = item.template;
+                    break;
+
+                case 'optiongroupicon':
+                    this._groupIconTemplate = item.template;
+                    break;
+            }
+        });
     }
 
     ngOnChanges(changes: SimpleChanges): void {

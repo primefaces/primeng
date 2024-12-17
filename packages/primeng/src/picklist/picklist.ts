@@ -7,6 +7,7 @@ import {
     ChangeDetectionStrategy,
     Component,
     ContentChild,
+    ContentChildren,
     ElementRef,
     EventEmitter,
     inject,
@@ -66,8 +67,8 @@ import { PickListStyle } from './style/pickliststyle';
                     [attr.data-pc-section]="'sourceMoveUpButton'"
                     [buttonProps]="getButtonProps('moveup')"
                 >
-                    <AngleUpIcon *ngIf="!moveUpIconTemplate" [attr.data-pc-section]="'moveupicon'" />
-                    <ng-template *ngTemplateOutlet="moveUpIconTemplate"></ng-template>
+                    <AngleUpIcon *ngIf="!moveUpIconTemplate && !_moveUpIconTemplate" [attr.data-pc-section]="'moveupicon'" />
+                    <ng-template *ngTemplateOutlet="moveUpIconTemplate || _moveUpIconTemplate"></ng-template>
                 </button>
                 <button
                     type="button"
@@ -81,8 +82,8 @@ import { PickListStyle } from './style/pickliststyle';
                     [attr.data-pc-section]="'sourceMoveTopButton'"
                     [buttonProps]="getButtonProps('movetop')"
                 >
-                    <AngleDoubleUpIcon *ngIf="!moveTopIconTemplate" [attr.data-pc-section]="'movetopicon'" />
-                    <ng-template *ngTemplateOutlet="moveTopIconTemplate"></ng-template>
+                    <AngleDoubleUpIcon *ngIf="!moveTopIconTemplate && !_moveTopIconTemplate" [attr.data-pc-section]="'movetopicon'" />
+                    <ng-template *ngTemplateOutlet="moveTopIconTemplate || _moveTopIconTemplate"></ng-template>
                 </button>
                 <button
                     type="button"
@@ -96,8 +97,8 @@ import { PickListStyle } from './style/pickliststyle';
                     [attr.data-pc-section]="'sourceMoveDownButton'"
                     [buttonProps]="getButtonProps('movedown')"
                 >
-                    <AngleDownIcon *ngIf="!moveDownIconTemplate" [attr.data-pc-section]="'movedownicon'" />
-                    <ng-template *ngTemplateOutlet="moveDownIconTemplate"></ng-template>
+                    <AngleDownIcon *ngIf="!moveDownIconTemplate && !_moveDownIconTemplate" [attr.data-pc-section]="'movedownicon'" />
+                    <ng-template *ngTemplateOutlet="moveDownIconTemplate || _moveDownIconTemplate"></ng-template>
                 </button>
                 <button
                     type="button"
@@ -111,8 +112,8 @@ import { PickListStyle } from './style/pickliststyle';
                     [attr.data-pc-section]="'sourceMoveBottomButton'"
                     [buttonProps]="getButtonProps('movebottom')"
                 >
-                    <AngleDoubleDownIcon *ngIf="!moveBottomIconTemplate" [attr.data-pc-section]="'movebottomicon'" />
-                    <ng-template *ngTemplateOutlet="moveBottomIconTemplate"></ng-template>
+                    <AngleDoubleDownIcon *ngIf="!moveBottomIconTemplate || _moveBottomIconTemplate" [attr.data-pc-section]="'movebottomicon'" />
+                    <ng-template *ngTemplateOutlet="moveBottomIconTemplate || _moveBottomIconTemplate"></ng-template>
                 </button>
             </div>
             <div class="p-picklist-list-container p-picklist-source-list-container" [attr.data-pc-section]="'sourceWrapper'" [attr.data-pc-group-section]="'listWrapper'">
@@ -139,16 +140,25 @@ import { PickListStyle } from './style/pickliststyle';
                     [filterLocale]="filterLocale"
                     [filterPlaceHolder]="sourceFilterPlaceholder"
                 >
-                    <ng-container *ngIf="sourceHeaderTemplate">
+                    <ng-container *ngIf="sourceHeaderTemplate || _sourceHeaderTemplate">
                         <ng-template #header>
-                            <ng-template *ngTemplateOutlet="sourceHeaderTemplate"></ng-template>
+                            <ng-template *ngTemplateOutlet="sourceHeaderTemplate || _sourceHeaderTemplate"></ng-template>
                         </ng-template>
                     </ng-container>
-                    <div class="p-picklist-title" *ngIf="!sourceHeaderTemplate">{{ sourceHeader }}</div>
-                    <ng-container *ngIf="itemTemplate">
+                    <ng-container *ngIf="sourceFilterTemplate || _sourceFilterTemplate">
+                        <ng-container *ngTemplateOutlet="sourceFilterTemplate || _sourceFilterTemplate; context: { options: sourceFilterOptions }"></ng-container>
+                    </ng-container>
+                    <ng-container *ngIf="sourceFilterIconTemplate || _sourceFilterIconTemplate">
+                        <ng-container *ngTemplateOutlet="sourceFilterIconTemplate || _sourceFilterIconTemplate"></ng-container>
+                    </ng-container>
+                    <div class="p-picklist-title" *ngIf="!sourceHeaderTemplate && !_sourceHeaderTemplate">{{ sourceHeader }}</div>
+                    <ng-container *ngIf="itemTemplate || _itemTemplate">
                         <ng-template #item let-item let-index="index" let-selected="selected">
-                            <ng-container *ngTemplateOutlet="itemTemplate; context: { $implicit: item, index: index, selected: selected }"></ng-container>
+                            <ng-container *ngTemplateOutlet="itemTemplate || _itemTemplate; context: { $implicit: item, index: index, selected: selected }"></ng-container>
                         </ng-template>
+                    </ng-container>
+                    <ng-container *ngIf="emptyFilterMessageSourceTemplate || _emptyFilterMessageSourceTemplate || emptyMessageSourceTemplate || _emptyMessageSourceTemplate">
+                        <ng-container *ngTemplateOutlet="emptyFilterMessageSourceTemplate || _emptyFilterMessageSourceTemplate || emptyMessageSourceTemplate || _emptyMessageSourceTemplate"></ng-container>
                     </ng-container>
                 </p-listbox>
             </div>
@@ -165,11 +175,11 @@ import { PickListStyle } from './style/pickliststyle';
                     [attr.data-pc-section]="'moveToTargetButton'"
                     [buttonProps]="getButtonProps('movetotarget')"
                 >
-                    <ng-container *ngIf="!moveToTargetIconTemplate">
+                    <ng-container *ngIf="!moveToTargetIconTemplate && !_moveToTargetIconTemplate">
                         <AngleRightIcon *ngIf="!viewChanged" [attr.data-pc-section]="'movetotargeticon'" />
                         <AngleDownIcon *ngIf="viewChanged" [attr.data-pc-section]="'movetotargeticon'" />
                     </ng-container>
-                    <ng-template *ngTemplateOutlet="moveToTargetIconTemplate; context: { $implicit: viewChanged }"></ng-template>
+                    <ng-template *ngTemplateOutlet="moveToTargetIconTemplate || _moveToTargetIconTemplate; context: { $implicit: viewChanged }"></ng-template>
                 </button>
                 <button
                     type="button"
@@ -183,11 +193,11 @@ import { PickListStyle } from './style/pickliststyle';
                     [attr.data-pc-section]="'moveAllToTargetButton'"
                     [buttonProps]="getButtonProps('movealltotarget')"
                 >
-                    <ng-container *ngIf="!moveAllToTargetIconTemplate">
+                    <ng-container *ngIf="!moveAllToTargetIconTemplate && !_moveAllToTargetIconTemplate">
                         <AngleDoubleRightIcon *ngIf="!viewChanged" [attr.data-pc-section]="'movealltotargeticon'" />
                         <AngleDoubleDownIcon *ngIf="viewChanged" [attr.data-pc-section]="'movealltotargeticon'" />
                     </ng-container>
-                    <ng-template *ngTemplateOutlet="moveAllToTargetIconTemplate; context: { $implicit: viewChanged }"></ng-template>
+                    <ng-template *ngTemplateOutlet="moveAllToTargetIconTemplate || _moveAllToTargetIconTemplate; context: { $implicit: viewChanged }"></ng-template>
                 </button>
                 <button
                     type="button"
@@ -201,11 +211,11 @@ import { PickListStyle } from './style/pickliststyle';
                     [attr.data-pc-section]="'moveToSourceButton'"
                     [buttonProps]="getButtonProps('movetosource')"
                 >
-                    <ng-container *ngIf="!moveToSourceIconTemplate">
+                    <ng-container *ngIf="!moveToSourceIconTemplate && !_moveToSourceIconTemplate">
                         <AngleLeftIcon *ngIf="!viewChanged" [attr.data-pc-section]="'movedownsourceticon'" />
                         <AngleUpIcon *ngIf="viewChanged" [attr.data-pc-section]="'movedownsourceticon'" />
                     </ng-container>
-                    <ng-template *ngTemplateOutlet="moveToSourceIconTemplate; context: { $implicit: viewChanged }"></ng-template>
+                    <ng-template *ngTemplateOutlet="moveToSourceIconTemplate || _moveToSourceIconTemplate; context: { $implicit: viewChanged }"></ng-template>
                 </button>
                 <button
                     type="button"
@@ -219,11 +229,11 @@ import { PickListStyle } from './style/pickliststyle';
                     [attr.data-pc-section]="'moveAllToSourceButton'"
                     [buttonProps]="getButtonProps('movealltosource')"
                 >
-                    <ng-container *ngIf="!moveAllToSourceIconTemplate">
+                    <ng-container *ngIf="!moveAllToSourceIconTemplate && !_moveAllToSourceIconTemplate">
                         <AngleDoubleLeftIcon *ngIf="!viewChanged" [attr.data-pc-section]="'movealltosourceticon'" />
                         <AngleDoubleUpIcon *ngIf="viewChanged" [attr.data-pc-section]="'movealltosourceticon'" />
                     </ng-container>
-                    <ng-template *ngTemplateOutlet="moveAllToSourceIconTemplate; context: { $implicit: viewChanged }"></ng-template>
+                    <ng-template *ngTemplateOutlet="moveAllToSourceIconTemplate || _moveAllToSourceIconTemplate; context: { $implicit: viewChanged }"></ng-template>
                 </button>
             </div>
             <div class="p-picklist-list-container p-picklist-target-list-container" [attr.data-pc-section]="'targetWrapper'" [attr.data-pc-group-section]="'listwrapper'">
@@ -250,16 +260,25 @@ import { PickListStyle } from './style/pickliststyle';
                     [filterLocale]="filterLocale"
                     [filterPlaceHolder]="targetFilterPlaceholder"
                 >
-                    <ng-container *ngIf="targetHeaderTemplate">
+                    <ng-container *ngIf="targetHeaderTemplate || _targetHeaderTemplate">
                         <ng-template #header>
-                            <ng-template *ngTemplateOutlet="targetHeaderTemplate"></ng-template>
+                            <ng-template *ngTemplateOutlet="targetHeaderTemplate || _targetHeaderTemplate"></ng-template>
                         </ng-template>
                     </ng-container>
-                    <div class="p-picklist-title" *ngIf="!targetHeaderTemplate">{{ sourceHeader }}</div>
-                    <ng-container *ngIf="itemTemplate">
+                    <ng-container *ngIf="targetFilterTemplate || _targetFilterTemplate">
+                        <ng-container *ngTemplateOutlet="targetFilterTemplate || _targetFilterTemplate; context: { options: targetFilterOptions }"></ng-container>
+                    </ng-container>
+                    <ng-container *ngIf="targetFilterIconTemplate || _targetFilterIconTemplate">
+                        <ng-container *ngTemplateOutlet="targetFilterIconTemplate || _targetFilterIconTemplate"></ng-container>
+                    </ng-container>
+                    <div class="p-picklist-title" *ngIf="!targetHeaderTemplate && !_targetHeaderTemplate">{{ sourceHeader }}</div>
+                    <ng-container *ngIf="itemTemplate || _itemTemplate">
                         <ng-template #item let-item let-index="index" let-selected="selected">
-                            <ng-container *ngTemplateOutlet="itemTemplate; context: { $implicit: item, index: index, selected: selected }"></ng-container>
+                            <ng-container *ngTemplateOutlet="itemTemplate || _itemTemplate; context: { $implicit: item, index: index, selected: selected }"></ng-container>
                         </ng-template>
+                    </ng-container>
+                    <ng-container *ngIf="emptyFilterMessageTargetTemplate || _emptyFilterMessageTargetTemplate || emptyMessageTargetTemplate || _emptyMessageTargetTemplate">
+                        <ng-container *ngTemplateOutlet="emptyFilterMessageTargetTemplate || _emptyFilterMessageTargetTemplate || emptyMessageTargetTemplate || _emptyMessageTargetTemplate"></ng-container>
                     </ng-container>
                 </p-listbox>
             </div>
@@ -276,8 +295,8 @@ import { PickListStyle } from './style/pickliststyle';
                     [attr.data-pc-section]="'targetMoveUpButton'"
                     [buttonProps]="getButtonProps('moveup')"
                 >
-                    <AngleUpIcon *ngIf="!moveUpIconTemplate" [attr.data-pc-section]="'moveupicon'" />
-                    <ng-template *ngTemplateOutlet="moveUpIconTemplate"></ng-template>
+                    <AngleUpIcon *ngIf="!moveUpIconTemplate && !_moveUpIconTemplate" [attr.data-pc-section]="'moveupicon'" />
+                    <ng-template *ngTemplateOutlet="moveUpIconTemplate || _moveUpIconTemplate"></ng-template>
                 </button>
                 <button
                     type="button"
@@ -291,8 +310,8 @@ import { PickListStyle } from './style/pickliststyle';
                     [attr.data-pc-section]="'targetMoveTopButton'"
                     [buttonProps]="getButtonProps('movetop')"
                 >
-                    <AngleDoubleUpIcon *ngIf="!moveTopIconTemplate" [attr.data-pc-section]="'movetopicon'" />
-                    <ng-template *ngTemplateOutlet="moveTopIconTemplate"></ng-template>
+                    <AngleDoubleUpIcon *ngIf="!moveTopIconTemplate && !_moveTopIconTemplate" [attr.data-pc-section]="'movetopicon'" />
+                    <ng-template *ngTemplateOutlet="moveTopIconTemplate || moveTopIconTemplate"></ng-template>
                 </button>
                 <button
                     type="button"
@@ -306,8 +325,8 @@ import { PickListStyle } from './style/pickliststyle';
                     [attr.data-pc-section]="'targetMoveDownButton'"
                     [buttonProps]="getButtonProps('movedown')"
                 >
-                    <AngleDownIcon *ngIf="!moveDownIconTemplate" [attr.data-pc-section]="'movedownicon'" />
-                    <ng-template *ngTemplateOutlet="moveDownIconTemplate"></ng-template>
+                    <AngleDownIcon *ngIf="!moveDownIconTemplate && !_moveDownIconTemplate" [attr.data-pc-section]="'movedownicon'" />
+                    <ng-template *ngTemplateOutlet="moveDownIconTemplate || _moveDownIconTemplate"></ng-template>
                 </button>
                 <button
                     type="button"
@@ -321,8 +340,8 @@ import { PickListStyle } from './style/pickliststyle';
                     [attr.data-pc-section]="'targetMoveBottomButton'"
                     [buttonProps]="getButtonProps('movebottom')"
                 >
-                    <AngleDoubleDownIcon *ngIf="!moveBottomIconTemplate" [attr.data-pc-section]="'movebottomicon'" />
-                    <ng-template *ngTemplateOutlet="moveBottomIconTemplate"></ng-template>
+                    <AngleDoubleDownIcon *ngIf="!moveBottomIconTemplate && !_moveBottomIconTemplate" [attr.data-pc-section]="'movebottomicon'" />
+                    <ng-template *ngTemplateOutlet="moveBottomIconTemplate || _moveBottomIconTemplate"></ng-template>
                 </button>
             </div>
         </div>
@@ -820,201 +839,241 @@ export class PickList extends BaseComponent implements AfterViewChecked, AfterCo
      * Custom item template.
      * @group Templates
      */
-    @ContentChild('item') itemTemplate: TemplateRef<any>;
+    @ContentChild('item', { descendants: false }) itemTemplate: TemplateRef<any>;
 
     /**
      * Custom source header template.
      * @group Templates
      */
-    @ContentChild('sourceHeader') sourceHeaderTemplate: TemplateRef<any>;
+    @ContentChild('sourceHeader', { descendants: false }) sourceHeaderTemplate: TemplateRef<any>;
 
     /**
      * Custom target header template.
      * @group Templates
      */
-    @ContentChild('targetHeader') targetHeaderTemplate: TemplateRef<any>;
+    @ContentChild('targetHeader', { descendants: false }) targetHeaderTemplate: TemplateRef<any>;
 
     /**
      * Custom source filter template.
      * @group Templates
      */
-    @ContentChild('sourceFilter') sourceFilterTemplate: TemplateRef<{ options: PickListFilterOptions }>;
+    @ContentChild('sourceFilter', { descendants: false }) sourceFilterTemplate: TemplateRef<{ options: PickListFilterOptions }>;
 
     /**
      * Custom target filter template.
      * @group Templates
      */
-    @ContentChild('targetFilter') targetFilterTemplate: TemplateRef<{ options: PickListFilterOptions }>;
+    @ContentChild('targetFilter', { descendants: false }) targetFilterTemplate: TemplateRef<{ options: PickListFilterOptions }>;
 
     /**
      * Custom empty message when source is empty template.
      * @group Templates
      */
-    @ContentChild('emptymessagesource') emptyMessageSourceTemplate: TemplateRef<any>;
+    @ContentChild('emptymessagesource', { descendants: false }) emptyMessageSourceTemplate: TemplateRef<any>;
 
     /**
      * Custom empty filter message when source is empty template.
      * @group Templates
      */
-    @ContentChild('emptyfiltermessagesource') emptyFilterMessageSourceTemplate: TemplateRef<any>;
+    @ContentChild('emptyfiltermessagesource', { descendants: false }) emptyFilterMessageSourceTemplate: TemplateRef<any>;
 
     /**
      * Custom empty message when target is empty template.
      * @group Templates
      */
-    @ContentChild('emptymessagetarget') emptyMessageTargetTemplate: TemplateRef<any>;
+    @ContentChild('emptymessagetarget', { descendants: false }) emptyMessageTargetTemplate: TemplateRef<any>;
 
     /**
      * Custom empty filter message when target is empty template.
      * @group Templates
      */
-    @ContentChild('emptyfiltermessagetarget') emptyFilterMessageTargetTemplate: TemplateRef<any>;
+    @ContentChild('emptyfiltermessagetarget', { descendants: false }) emptyFilterMessageTargetTemplate: TemplateRef<any>;
 
     /**
      * Custom move up icon template.
      * @group Templates
      */
-    @ContentChild('moveupicon') moveUpIconTemplate: TemplateRef<{ $implicit: boolean }>;
+    @ContentChild('moveupicon', { descendants: false }) moveUpIconTemplate: TemplateRef<{ $implicit: boolean }>;
 
     /**
      * Custom move top icon template.
      * @group Templates
      */
-    @ContentChild('movetopicon') moveTopIconTemplate: TemplateRef<{ $implicit: boolean }>;
+    @ContentChild('movetopicon', { descendants: false }) moveTopIconTemplate: TemplateRef<{ $implicit: boolean }>;
 
     /**
      * Custom move down icon template.
      * @group Templates
      */
-    @ContentChild('movedownicon') moveDownIconTemplate: TemplateRef<{ $implicit: boolean }>;
+    @ContentChild('movedownicon', { descendants: false }) moveDownIconTemplate: TemplateRef<{ $implicit: boolean }>;
 
     /**
      * Custom move bottom icon template.
      * @group Templates
      */
-    @ContentChild('movebottomicon') moveBottomIconTemplate: TemplateRef<{ $implicit: boolean }>;
+    @ContentChild('movebottomicon', { descendants: false }) moveBottomIconTemplate: TemplateRef<{ $implicit: boolean }>;
 
     /**
      * Custom move to target icon template.
      * @group Templates
      */
-    @ContentChild('movetotargeticon') moveToTargetIconTemplate: TemplateRef<{ $implicit: boolean }>;
+    @ContentChild('movetotargeticon', { descendants: false }) moveToTargetIconTemplate: TemplateRef<{ $implicit: boolean }>;
 
     /**
      * Custom move all to target icon template.
      * @group Templates
      */
-    @ContentChild('movealltotargeticon') moveAllToTargetIconTemplate: TemplateRef<{ $implicit: boolean }>;
+    @ContentChild('movealltotargeticon', { descendants: false }) moveAllToTargetIconTemplate: TemplateRef<{ $implicit: boolean }>;
 
     /**
      * Custom move to source icon template.
      * @group Templates
      */
-    @ContentChild('movetosourceicon') moveToSourceIconTemplate: TemplateRef<{ $implicit: boolean }>;
+    @ContentChild('movetosourceicon', { descendants: false }) moveToSourceIconTemplate: TemplateRef<{ $implicit: boolean }>;
 
     /**
      * Custom move all to source icon template.
      * @group Templates
      */
-    @ContentChild('movealltosourceicon') moveAllToSourceIconTemplate: TemplateRef<{ $implicit: boolean }>;
+    @ContentChild('movealltosourceicon', { descendants: false }) moveAllToSourceIconTemplate: TemplateRef<{ $implicit: boolean }>;
 
     /**
      * Custom target filter icon template.
      * @group Templates
      */
-    @ContentChild('targetfiltericon') targetFilterIconTemplate: TemplateRef<{ options: PickListFilterOptions }>;
+    @ContentChild('targetfiltericon', { descendants: false }) targetFilterIconTemplate: TemplateRef<{ options: PickListFilterOptions }>;
 
     /**
      * Custom source filter icon template.
      * @group Templates
      */
-    @ContentChild('sourcefiltericon') sourceFilterIconTemplate: TemplateRef<{ options: PickListFilterOptions }>;
+    @ContentChild('sourcefiltericon', { descendants: false }) sourceFilterIconTemplate: TemplateRef<{ options: PickListFilterOptions }>;
+
+    @ContentChildren(PrimeTemplate) templates!: QueryList<PrimeTemplate>;
+
+    _itemTemplate: TemplateRef<any> | undefined;
+
+    _sourceHeaderTemplate: TemplateRef<any> | undefined;
+
+    _targetHeaderTemplate: TemplateRef<any> | undefined;
+
+    _sourceFilterTemplate: TemplateRef<any> | undefined;
+
+    _targetFilterTemplate: TemplateRef<any> | undefined;
+
+    _emptyMessageSourceTemplate: TemplateRef<any> | undefined;
+
+    _emptyFilterMessageSourceTemplate: TemplateRef<any> | undefined;
+
+    _emptyMessageTargetTemplate: TemplateRef<any> | undefined;
+
+    _emptyFilterMessageTargetTemplate: TemplateRef<any> | undefined;
+
+    _moveUpIconTemplate: TemplateRef<any> | undefined;
+
+    _moveTopIconTemplate: TemplateRef<any> | undefined;
+
+    _moveDownIconTemplate: TemplateRef<any> | undefined;
+
+    _moveBottomIconTemplate: TemplateRef<any> | undefined;
+
+    _moveToTargetIconTemplate: TemplateRef<any> | undefined;
+
+    _moveAllToTargetIconTemplate: TemplateRef<any> | undefined;
+
+    _moveToSourceIconTemplate: TemplateRef<any> | undefined;
+
+    _moveAllToSourceIconTemplate: TemplateRef<any> | undefined;
+
+    _targetFilterIconTemplate: TemplateRef<any> | undefined;
+
+    _sourceFilterIconTemplate: TemplateRef<any> | undefined;
 
     ngAfterContentInit() {
         (this.templates as QueryList<PrimeTemplate>).forEach((item) => {
             switch (item.getType()) {
                 case 'item':
-                    this.itemTemplate = item.template;
+                    this._itemTemplate = item.template;
                     break;
 
                 case 'option':
-                    this.itemTemplate = item.template;
+                    this._itemTemplate = item.template;
                     break;
 
                 case 'sourceHeader':
-                    this.sourceHeaderTemplate = item.template;
+                    this._sourceHeaderTemplate = item.template;
                     break;
 
                 case 'targetHeader':
-                    this.targetHeaderTemplate = item.template;
+                    this._targetHeaderTemplate = item.template;
                     break;
 
                 case 'sourceFilter':
-                    this.sourceFilterTemplate = item.template;
+                    this._sourceFilterTemplate = item.template;
                     break;
 
                 case 'targetFilter':
-                    this.targetFilterTemplate = item.template;
+                    this._targetFilterTemplate = item.template;
                     break;
 
                 case 'emptymessagesource':
-                    this.emptyMessageSourceTemplate = item.template;
+                    this._emptyMessageSourceTemplate = item.template;
                     break;
 
                 case 'emptyfiltermessagesource':
-                    this.emptyFilterMessageSourceTemplate = item.template;
+                    this._emptyFilterMessageSourceTemplate = item.template;
                     break;
 
                 case 'emptymessagetarget':
-                    this.emptyMessageTargetTemplate = item.template;
+                    this._emptyMessageTargetTemplate = item.template;
                     break;
 
                 case 'emptyfiltermessagetarget':
-                    this.emptyFilterMessageTargetTemplate = item.template;
+                    this._emptyFilterMessageTargetTemplate = item.template;
                     break;
 
                 case 'moveupicon':
-                    this.moveUpIconTemplate = item.template;
+                    this._moveUpIconTemplate = item.template;
                     break;
 
                 case 'movetopicon':
-                    this.moveTopIconTemplate = item.template;
+                    this._moveTopIconTemplate = item.template;
                     break;
 
                 case 'movedownicon':
-                    this.moveDownIconTemplate = item.template;
+                    this._moveDownIconTemplate = item.template;
                     break;
 
                 case 'movebottomicon':
-                    this.moveBottomIconTemplate = item.template;
+                    this._moveBottomIconTemplate = item.template;
                     break;
 
                 case 'movetotargeticon':
-                    this.moveToTargetIconTemplate = item.template;
+                    this._moveToTargetIconTemplate = item.template;
                     break;
 
                 case 'movealltotargeticon':
-                    this.moveAllToTargetIconTemplate = item.template;
+                    this._moveAllToTargetIconTemplate = item.template;
                     break;
 
                 case 'movetosourceicon':
-                    this.moveToSourceIconTemplate = item.template;
+                    this._moveToSourceIconTemplate = item.template;
                     break;
 
                 case 'movealltosourceicon':
-                    this.moveAllToSourceIconTemplate = item.template;
+                    this._moveAllToSourceIconTemplate = item.template;
                     break;
 
                 case 'targetfiltericon':
-                    this.targetFilterIconTemplate = item.template;
+                    this._targetFilterIconTemplate = item.template;
                     break;
 
                 case 'sourcefiltericon':
-                    this.sourceFilterIconTemplate = item.template;
+                    this._sourceFilterIconTemplate = item.template;
                     break;
 
                 default:
-                    this.itemTemplate = item.template;
+                    this._itemTemplate = item.template;
                     break;
             }
         });

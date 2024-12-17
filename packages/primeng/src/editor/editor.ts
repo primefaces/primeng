@@ -1,8 +1,8 @@
 import { CommonModule, isPlatformServer } from '@angular/common';
-import { AfterContentInit, afterNextRender, ChangeDetectionStrategy, Component, ContentChild, EventEmitter, forwardRef, inject, Input, NgModule, Output, TemplateRef, ViewEncapsulation } from '@angular/core';
+import { AfterContentInit, afterNextRender, ChangeDetectionStrategy, Component, ContentChild, ContentChildren, EventEmitter, forwardRef, inject, Input, NgModule, Output, QueryList, TemplateRef, ViewEncapsulation } from '@angular/core';
 import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
 import { findSingle } from '@primeuix/utils';
-import { Header, SharedModule } from 'primeng/api';
+import { Header, PrimeTemplate, SharedModule } from 'primeng/api';
 import { BaseComponent } from 'primeng/basecomponent';
 import { Nullable } from 'primeng/ts-helpers';
 import { EditorInitEvent, EditorSelectionChangeEvent, EditorTextChangeEvent } from './editor.interface';
@@ -23,11 +23,11 @@ export const EDITOR_VALUE_ACCESSOR: any = {
     imports: [CommonModule, SharedModule],
     template: `
         <div [ngClass]="'p-editor-container'" [class]="styleClass">
-            <div class="p-editor-toolbar" *ngIf="toolbar || headerTemplate">
+            <div class="p-editor-toolbar" *ngIf="toolbar || headerTemplate || _headerTemplate">
                 <ng-content select="p-header"></ng-content>
-                <ng-container *ngTemplateOutlet="headerTemplate"></ng-container>
+                <ng-container *ngTemplateOutlet="headerTemplate || _headerTemplate"></ng-container>
             </div>
-            <div class="p-editor-toolbar" *ngIf="!toolbar && !headerTemplate">
+            <div class="p-editor-toolbar" *ngIf="!toolbar && !headerTemplate && !_headerTemplate">
                 <span class="ql-formats">
                     <select class="ql-header">
                         <option value="1">Heading</option>
@@ -78,7 +78,7 @@ export const EDITOR_VALUE_ACCESSOR: any = {
         class: 'p-editor'
     }
 })
-export class Editor extends BaseComponent implements ControlValueAccessor {
+export class Editor extends BaseComponent implements AfterContentInit, ControlValueAccessor {
     /**
      * Inline style of the container.
      * @group Props
@@ -173,7 +173,11 @@ export class Editor extends BaseComponent implements ControlValueAccessor {
      * Custom item template.
      * @group Templates
      */
-    @ContentChild('header') headerTemplate: Nullable<TemplateRef<any>>;
+    @ContentChild('header', { descendants: false }) headerTemplate: Nullable<TemplateRef<any>>;
+
+    @ContentChildren(PrimeTemplate) templates!: QueryList<PrimeTemplate>;
+
+    _headerTemplate: TemplateRef<any> | undefined;
 
     private get isAttachedQuillEditorToDOM(): boolean | undefined {
         return this.quillElements?.editorElement?.isConnected;
@@ -191,6 +195,16 @@ export class Editor extends BaseComponent implements ControlValueAccessor {
         afterNextRender(() => {
             this.initQuillElements();
             this.initQuillEditor();
+        });
+    }
+
+    ngAfterContentInit() {
+        this.templates.forEach((item) => {
+            switch (item.getType()) {
+                case 'header':
+                    this.headerTemplate = item.template;
+                    break;
+            }
         });
     }
 

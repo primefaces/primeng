@@ -237,3 +237,16 @@
         }
     }
 }
+
+
+@keyframes animated-block-1 {
+    to {
+        transform:  translateX(-10px);
+    }
+}
+
+@keyframes animated-block-2 {
+    to {
+        transform:  translateX(10px);
+    }
+}

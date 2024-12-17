@@ -1,7 +1,25 @@
 import { CommonModule, isPlatformBrowser } from '@angular/common';
-import { AfterViewInit, booleanAttribute, ChangeDetectionStrategy, Component, ContentChild, ElementRef, inject, Input, NgModule, numberAttribute, OnDestroy, TemplateRef, ViewChild, ViewEncapsulation } from '@angular/core';
+import {
+    AfterContentInit,
+    AfterViewInit,
+    booleanAttribute,
+    ChangeDetectionStrategy,
+    Component,
+    ContentChild,
+    ContentChildren,
+    ElementRef,
+    inject,
+    Input,
+    NgModule,
+    numberAttribute,
+    OnDestroy,
+    QueryList,
+    TemplateRef,
+    ViewChild,
+    ViewEncapsulation
+} from '@angular/core';
 import { addClass, blockBodyScroll, removeClass, unblockBodyScroll } from '@primeuix/utils';
-import { SharedModule } from 'primeng/api';
+import { PrimeTemplate, SharedModule } from 'primeng/api';
 import { BaseComponent } from 'primeng/basecomponent';
 import { ZIndexUtils } from 'primeng/utils';
 import { BlockUiStyle } from './style/blockuistyle';
@@ -25,14 +43,14 @@ import { BlockUiStyle } from './style/blockuistyle';
             [attr.data-pc-section]="'root'"
         >
             <ng-content></ng-content>
-            <ng-container *ngTemplateOutlet="content"></ng-container>
+            <ng-container *ngTemplateOutlet="contentTemplate || _contentTemplate"></ng-container>
         </div>
     `,
     changeDetection: ChangeDetectionStrategy.OnPush,
     encapsulation: ViewEncapsulation.None,
     providers: [BlockUiStyle]
 })
-export class BlockUI extends BaseComponent implements AfterViewInit, OnDestroy {
+export class BlockUI extends BaseComponent implements AfterViewInit, AfterContentInit, OnDestroy {
     /**
      * Name of the local ng-template variable referring to another component.
      * @group Props
@@ -72,7 +90,7 @@ export class BlockUI extends BaseComponent implements AfterViewInit, OnDestroy {
      * template of the content
      * @group Templates
      */
-    @ContentChild('content') content: TemplateRef<any> | undefined;
+    @ContentChild('content', { descendants: false }) contentTemplate: TemplateRef<any> | undefined;
 
     @ViewChild('mask') mask: ElementRef | undefined;
 
@@ -93,6 +111,24 @@ export class BlockUI extends BaseComponent implements AfterViewInit, OnDestroy {
         if (this.target && !this.target.getBlockableElement) {
             throw 'Target of BlockUI must implement BlockableUI interface';
         }
+    }
+
+    _contentTemplate: TemplateRef<any> | undefined;
+
+    @ContentChildren(PrimeTemplate) templates: QueryList<PrimeTemplate> | undefined;
+
+    ngAfterContentInit() {
+        (this.templates as QueryList<PrimeTemplate>).forEach((item) => {
+            switch (item.getType()) {
+                case 'content':
+                    this.contentTemplate = item.template;
+                    break;
+
+                default:
+                    this.contentTemplate = item.template;
+                    break;
+            }
+        });
     }
 
     block() {
@@ -119,7 +155,7 @@ export class BlockUI extends BaseComponent implements AfterViewInit, OnDestroy {
             // this.animationEndListener = this.renderer.listen(this.mask.nativeElement, 'animationend', this.destroyModal.bind(this));
             // TODO Add animation
             this.destroyModal();
-            addClass(this.mask.nativeElement, 'p-overlay-mask-leave');
+            // addClass(this.mask.nativeElement, 'p-overlay-mask-leave');
         }
     }
 
@@ -127,7 +163,7 @@ export class BlockUI extends BaseComponent implements AfterViewInit, OnDestroy {
         this._blocked = false;
         if (this.mask && isPlatformBrowser(this.platformId)) {
             ZIndexUtils.clear(this.mask.nativeElement);
-            removeClass(this.mask.nativeElement, 'p-overlay-mask-leave');
+            // removeClass(this.mask.nativeElement, 'p-overlay-mask-leave');
             this.renderer.removeChild(this.el.nativeElement, this.mask.nativeElement);
             unblockBodyScroll();
         }
@@ -150,7 +186,7 @@ export class BlockUI extends BaseComponent implements AfterViewInit, OnDestroy {
 }
 
 @NgModule({
-    imports: [BlockUI],
+    imports: [BlockUI, SharedModule],
     exports: [BlockUI, SharedModule]
 })
 export class BlockUIModule {}

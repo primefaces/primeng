@@ -27,7 +27,7 @@ import {
     ViewEncapsulation
 } from '@angular/core';
 import { findSingle, focus, getAttribute, uuid } from '@primeuix/utils';
-import { BlockableUI, Header, SharedModule } from 'primeng/api';
+import { BlockableUI, Header, PrimeTemplate, SharedModule } from 'primeng/api';
 import { BaseComponent } from 'primeng/basecomponent';
 import { ChevronDownIcon, ChevronUpIcon } from 'primeng/icons';
 import { Ripple } from 'primeng/ripple';
@@ -358,18 +358,18 @@ export class AccordionContent extends BaseComponent {
             [attr.id]="getTabHeaderActionId(id)"
             [attr.aria-controls]="getTabContentId(id)"
         >
-            @if (!headerTemplate) {
+            @if (!headerTemplate && !_headerTemplate) {
                 {{ header }}
             } @else {
-                @if (headerTemplate) {
-                    <ng-container *ngTemplateOutlet="headerTemplate"></ng-container>
+                @if (headerTemplate || _headerTemplate) {
+                    <ng-container *ngTemplateOutlet="headerTemplate || _headerTemplate"></ng-container>
                 }
                 @if (headerFacet) {
                     <ng-content select="p-header" />
                 }
             }
-            @if (iconTemplate) {
-                <ng-template *ngTemplateOutlet="iconTemplate; context: { $implicit: selected }"></ng-template>
+            @if (iconTemplate || _iconTemplate) {
+                <ng-template *ngTemplateOutlet="iconTemplate || _iconTemplate; context: { $implicit: selected }"></ng-template>
             } @else {
                 <ng-container *ngIf="selected">
                     <span *ngIf="accordion.collapseIcon" [class]="accordion.collapseIcon" [ngClass]="iconClass" [attr.aria-hidden]="true"></span>
@@ -392,8 +392,8 @@ export class AccordionContent extends BaseComponent {
         >
             <div class="p-accordioncontent-content" [ngClass]="contentStyleClass" [ngStyle]="contentStyle">
                 <ng-content />
-                <ng-container *ngIf="contentTemplate && (cache ? loaded : selected)">
-                    <ng-container *ngTemplateOutlet="contentTemplate"></ng-container>
+                <ng-container *ngIf="(contentTemplate || _contentTemplate) && (cache ? loaded : selected)">
+                    <ng-container *ngTemplateOutlet="contentTemplate || _contentTemplate"></ng-container>
                 </ng-container>
             </div>
         </div>
@@ -539,22 +539,25 @@ export class AccordionTab extends BaseComponent implements AfterContentInit, OnD
      * Content template for the content of the drawer.
      * @group Templates
      */
-    @ContentChild('header') headerTemplate: TemplateRef<any> | undefined;
-    /**
-     * Header template for the header of the drawer.
-     * @group Templates
-     */
-    @ContentChild('footer') footerTemplate: TemplateRef<any> | undefined;
+    @ContentChild('header', { descendants: false }) headerTemplate: TemplateRef<any> | undefined;
     /**
      * Template for the header icon.
      * @group Templates
      */
-    @ContentChild('icon') iconTemplate: TemplateRef<any> | undefined;
+    @ContentChild('icon', { descendants: false }) iconTemplate: TemplateRef<any> | undefined;
     /**
      * Content template for the footer of the drawer.
      * @group Templates
      */
-    @ContentChild('content') contentTemplate: TemplateRef<any> | undefined;
+    @ContentChild('content', { descendants: false }) contentTemplate: TemplateRef<any> | undefined;
+
+    @ContentChildren(PrimeTemplate) templates: QueryList<PrimeTemplate> | undefined;
+
+    _headerTemplate: TemplateRef<any>;
+
+    _iconTemplate: TemplateRef<any>;
+
+    _contentTemplate: TemplateRef<any>;
 
     loaded: boolean = false;
 
@@ -565,6 +568,28 @@ export class AccordionTab extends BaseComponent implements AfterContentInit, OnD
     ngOnInit() {
         super.ngOnInit();
         console.log('AccordionTab is deprecated as of v18, please use the new structure instead.');
+    }
+
+    ngAfterContentInit() {
+        this.templates.forEach((item) => {
+            switch (item.getType()) {
+                case 'content':
+                    this._contentTemplate = item.template;
+                    break;
+
+                case 'header':
+                    this._headerTemplate = item.template;
+                    break;
+
+                case 'icon':
+                    this._iconTemplate = item.template;
+                    break;
+
+                default:
+                    this._contentTemplate = item.template;
+                    break;
+            }
+        });
     }
 
     toggle(event?: MouseEvent | KeyboardEvent) {
@@ -889,7 +914,6 @@ export class Accordion extends BaseComponent implements BlockableUI, AfterConten
     }
 
     ngAfterContentInit() {
-        super.ngAfterContentInit();
         this.initTabs();
 
         this.tabListSubscription = (this.tabList as QueryList<AccordionTab>).changes.subscribe((_) => {

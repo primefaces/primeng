@@ -63,6 +63,7 @@ const hideAnimation = animation([animate('{{transition}}', style({ transform: '{
                 [style.height]="ddconfig.height"
                 [attr.aria-labelledby]="ariaLabelledBy"
                 [attr.aria-modal]="true"
+                [attr.id]="dialogId"
             >
                 <div *ngIf="ddconfig.resizable" [ngClass]="'p-resizable-handle'" style="z-index: 90;" (mousedown)="initResize($event)"></div>
                 <div #titlebar [ngClass]="'p-dialog-header'" (mousedown)="initDrag($event)" *ngIf="ddconfig.showHeader !== false">
@@ -281,6 +282,10 @@ export class DynamicDialogComponent extends BaseComponent implements AfterViewIn
         };
     }
 
+    get dialogId() {
+        return this.attrSelector;
+    }
+
     constructor(
         public renderer: Renderer2,
         public ddconfig: DynamicDialogConfig,
@@ -297,6 +302,7 @@ export class DynamicDialogComponent extends BaseComponent implements AfterViewIn
             this.createStyle();
         }
     }
+
     createStyle() {
         if (isPlatformBrowser(this.platformId)) {
             if (!this.styleElement) {
@@ -307,7 +313,7 @@ export class DynamicDialogComponent extends BaseComponent implements AfterViewIn
                 for (let breakpoint in this.breakpoints) {
                     innerHTML += `
                         @media screen and (max-width: ${breakpoint}) {
-                            .p-dialog[${this.attrSelector}]:not(.p-dialog-maximized) {
+                            .p-dialog[id=${this.dialogId}]:not(.p-dialog-maximized) {
                                 width: ${this.breakpoints[breakpoint]} !important;
                             }
                         }

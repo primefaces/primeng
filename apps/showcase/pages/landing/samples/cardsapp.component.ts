@@ -448,7 +448,6 @@ import { TooltipModule } from 'primeng/tooltip';
         class: 'flex-1 h-full overflow-y-auto overflow-x-clip overflow-hidden border border-surface rounded-2xl p-6'
     },
     providers: [MessageService],
-    encapsulation: ViewEncapsulation.None,
     changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class CardsApp {

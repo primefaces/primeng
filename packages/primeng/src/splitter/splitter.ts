@@ -1,5 +1,5 @@
 import { CommonModule, isPlatformBrowser } from '@angular/common';
-import { ChangeDetectionStrategy, Component, computed, contentChild, ContentChildren, ElementRef, EventEmitter, inject, Input, NgModule, numberAttribute, Output, QueryList, ViewChild, ViewEncapsulation } from '@angular/core';
+import { AfterContentInit, ChangeDetectionStrategy, Component, computed, contentChild, ContentChildren, ElementRef, EventEmitter, inject, Input, NgModule, numberAttribute, Output, QueryList, ViewChild, ViewEncapsulation } from '@angular/core';
 import { addClass, getHeight, getOuterHeight, getOuterWidth, getWidth, hasClass, isRTL, removeClass } from '@primeuix/utils';
 import { PrimeTemplate, SharedModule } from 'primeng/api';
 import { BaseComponent } from 'primeng/basecomponent';
@@ -79,7 +79,7 @@ export class SplitterPanel extends BaseComponent {
     },
     providers: [SplitterStyle]
 })
-export class Splitter extends BaseComponent {
+export class Splitter extends BaseComponent implements AfterContentInit {
     /**
      * Style class of the component.
      * @group Props
@@ -167,6 +167,8 @@ export class Splitter extends BaseComponent {
 
     @ViewChild('container', { static: false }) containerViewChild: Nullable<ElementRef>;
 
+    @ContentChildren(PrimeTemplate) templates!: QueryList<PrimeTemplate>;
+
     nested: boolean = false;
 
     panels: any[] = [];
@@ -210,10 +212,8 @@ export class Splitter extends BaseComponent {
         this.nested = this.isNested();
     }
 
-    @ContentChildren(PrimeTemplate) _templates!: QueryList<PrimeTemplate>;
-
     ngAfterContentInit() {
-        this._templates.forEach((item) => {
+        this.templates.forEach((item) => {
             switch (item.getType()) {
                 case 'panel':
                     this.panels.push(item.template);

@@ -5,6 +5,7 @@ import {
     ChangeDetectionStrategy,
     Component,
     ContentChild,
+    ContentChildren,
     ElementRef,
     EventEmitter,
     forwardRef,
@@ -17,6 +18,7 @@ import {
     OnChanges,
     OnInit,
     Output,
+    QueryList,
     SimpleChanges,
     TemplateRef,
     ViewChild,
@@ -24,10 +26,9 @@ import {
 } from '@angular/core';
 import { ControlValueAccessor, NG_VALUE_ACCESSOR, NgControl } from '@angular/forms';
 import { getSelection } from '@primeuix/utils';
-import { SharedModule } from 'primeng/api';
+import { PrimeTemplate, SharedModule } from 'primeng/api';
 import { AutoFocus } from 'primeng/autofocus';
 import { BaseComponent } from 'primeng/basecomponent';
-import { Button } from 'primeng/button';
 import { AngleDownIcon, AngleUpIcon, TimesIcon } from 'primeng/icons';
 import { InputText } from 'primeng/inputtext';
 import { Nullable } from 'primeng/ts-helpers';
@@ -89,9 +90,9 @@ export const INPUTNUMBER_VALUE_ACCESSOR: any = {
             [fluid]="hasFluid"
         />
         <ng-container *ngIf="buttonLayout != 'vertical' && showClear && value">
-            <TimesIcon *ngIf="!clearicon" [ngClass]="'p-inputnumber-clear-icon'" (click)="clear()" [attr.data-pc-section]="'clearIcon'" />
-            <span *ngIf="clearicon" (click)="clear()" class="p-inputnumber-clear-icon" [attr.data-pc-section]="'clearIcon'">
-                <ng-template *ngTemplateOutlet="clearicon"></ng-template>
+            <TimesIcon *ngIf="!clearIconTemplate && !_clearIconTemplate" [ngClass]="'p-inputnumber-clear-icon'" (click)="clear()" [attr.data-pc-section]="'clearIcon'" />
+            <span *ngIf="clearIconTemplate || _clearIconTemplate" (click)="clear()" class="p-inputnumber-clear-icon" [attr.data-pc-section]="'clearIcon'">
+                <ng-template *ngTemplateOutlet="clearIconTemplate || _clearIconTemplate"></ng-template>
             </span>
         </ng-container>
         <span class="p-inputnumber-button-group" *ngIf="showButtons && buttonLayout === 'stacked'" [attr.data-pc-section]="'buttonGroup'">
@@ -111,8 +112,8 @@ export const INPUTNUMBER_VALUE_ACCESSOR: any = {
             >
                 <span *ngIf="incrementButtonIcon" [ngClass]="incrementButtonIcon" [attr.data-pc-section]="'incrementbuttonicon'"></span>
                 <ng-container *ngIf="!incrementButtonIcon">
-                    <AngleUpIcon *ngIf="!incrementbuttonicon" [attr.data-pc-section]="'incrementbuttonicon'" />
-                    <ng-template *ngTemplateOutlet="incrementbuttonicon"></ng-template>
+                    <AngleUpIcon *ngIf="!incrementButtonIconTemplate && !_incrementButtonIconTemplate" [attr.data-pc-section]="'incrementbuttonicon'" />
+                    <ng-template *ngTemplateOutlet="incrementButtonIconTemplate || _incrementButtonIconTemplate"></ng-template>
                 </ng-container>
             </button>
 
@@ -132,8 +133,8 @@ export const INPUTNUMBER_VALUE_ACCESSOR: any = {
             >
                 <span *ngIf="decrementButtonIcon" [ngClass]="decrementButtonIcon" [attr.data-pc-section]="'decrementbuttonicon'"></span>
                 <ng-container *ngIf="!decrementButtonIcon">
-                    <AngleDownIcon *ngIf="!decrementbuttonicon" [attr.data-pc-section]="'decrementbuttonicon'" />
-                    <ng-template *ngTemplateOutlet="decrementbuttonicon"></ng-template>
+                    <AngleDownIcon *ngIf="!decrementButtonIconTemplate && !_decrementButtonIconTemplate" [attr.data-pc-section]="'decrementbuttonicon'" />
+                    <ng-template *ngTemplateOutlet="decrementButtonIconTemplate || _decrementButtonIconTemplate"></ng-template>
                 </ng-container>
             </button>
         </span>
@@ -154,8 +155,8 @@ export const INPUTNUMBER_VALUE_ACCESSOR: any = {
         >
             <span *ngIf="incrementButtonIcon" [ngClass]="incrementButtonIcon" [attr.data-pc-section]="'incrementbuttonicon'"></span>
             <ng-container *ngIf="!incrementButtonIcon">
-                <AngleUpIcon *ngIf="!incrementbuttonicon" [attr.data-pc-section]="'incrementbuttonicon'" />
-                <ng-template *ngTemplateOutlet="incrementbuttonicon"></ng-template>
+                <AngleUpIcon *ngIf="!incrementButtonIconTemplate && !_incrementButtonIconTemplate" [attr.data-pc-section]="'incrementbuttonicon'" />
+                <ng-template *ngTemplateOutlet="incrementButtonIconTemplate || _incrementButtonIconTemplate"></ng-template>
             </ng-container>
         </button>
         <button
@@ -175,8 +176,8 @@ export const INPUTNUMBER_VALUE_ACCESSOR: any = {
         >
             <span *ngIf="decrementButtonIcon" [ngClass]="decrementButtonIcon" [attr.data-pc-section]="'decrementbuttonicon'"></span>
             <ng-container *ngIf="!decrementButtonIcon">
-                <AngleDownIcon *ngIf="!decrementbuttonicon" [attr.data-pc-section]="'decrementbuttonicon'" />
-                <ng-template *ngTemplateOutlet="decrementbuttonicon"></ng-template>
+                <AngleDownIcon *ngIf="!decrementButtonIconTemplate && !_decrementButtonIconTemplate" [attr.data-pc-section]="'decrementbuttonicon'" />
+                <ng-template *ngTemplateOutlet="decrementButtonIconTemplate || _decrementButtonIconTemplate"></ng-template>
             </ng-container>
         </button>
     `,
@@ -448,20 +449,28 @@ export class InputNumber extends BaseComponent implements OnInit, AfterContentIn
      * Template of the clear icon.
      * @group Templates
      */
-    @ContentChild('clearicon') clearicon: Nullable<TemplateRef<any>>;
+    @ContentChild('clearicon', { descendants: false }) clearIconTemplate: Nullable<TemplateRef<any>>;
     /**
      * Template of the icrement button icon.
      * @group Templates
      */
-    @ContentChild('icrementbuttonicon') incrementbuttonicon: Nullable<TemplateRef<any>>;
+    @ContentChild('icrementbuttonicon', { descendants: false }) incrementButtonIconTemplate: Nullable<TemplateRef<any>>;
 
     /**
      * Template of the decrement button icon.
      * @group Templates
      */
-    @ContentChild('decrementbuttonicon') decrementbuttonicon: Nullable<TemplateRef<any>>;
+    @ContentChild('decrementbuttonicon', { descendants: false }) decrementButtonIconTemplate: Nullable<TemplateRef<any>>;
+
+    @ContentChildren(PrimeTemplate) templates!: QueryList<PrimeTemplate>;
 
     @ViewChild('input') input!: ElementRef<HTMLInputElement>;
+
+    _clearIconTemplate: TemplateRef<any> | undefined;
+
+    _incrementButtonIconTemplate: TemplateRef<any> | undefined;
+
+    _decrementButtonIconTemplate: TemplateRef<any> | undefined;
 
     value: Nullable<number>;
 
@@ -569,15 +578,15 @@ export class InputNumber extends BaseComponent implements OnInit, AfterContentIn
         this.templates.forEach((item) => {
             switch (item.getType()) {
                 case 'clearicon':
-                    this.clearicon = item.template;
+                    this._clearIconTemplate = item.template;
                     break;
 
                 case 'incrementbuttonicon':
-                    this.incrementbuttonicon = item.template;
+                    this._incrementButtonIconTemplate = item.template;
                     break;
 
                 case 'decrementbuttonicon':
-                    this.decrementbuttonicon = item.template;
+                    this._decrementButtonIconTemplate = item.template;
                     break;
             }
         });
