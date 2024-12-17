@@ -7,12 +7,17 @@ export type ThemeType = { preset?: any; options?: any } | 'none' | boolean | und
 
 export type ThemeConfigType = {
     theme?: ThemeType;
+    csp?: {
+        nonce: string | undefined;
+    };
 };
 
 @Injectable({ providedIn: 'root' })
 export class ThemeProvider {
     // @todo define type for theme
     theme = signal<any>(undefined);
+
+    csp = signal<{ nonce: string | undefined }>({ nonce: undefined });
 
     isThemeChanged: boolean = false;
 
@@ -59,7 +64,7 @@ export class ThemeProvider {
         // common
         if (!Theme.isStyleNameLoaded('common')) {
             const { primitive, semantic, global, style } = this.baseStyle.getCommonTheme?.() || {};
-            const styleOptions = { nonce: undefined };
+            const styleOptions = { nonce: this.csp?.()?.nonce };
 
             this.baseStyle.load(primitive?.css, { name: 'primitive-variables', ...styleOptions });
             this.baseStyle.load(semantic?.css, { name: 'semantic-variables', ...styleOptions });
@@ -71,7 +76,8 @@ export class ThemeProvider {
     }
 
     setThemeConfig(config: ThemeConfigType): void {
-        const { theme } = config || {};
+        const { theme, csp } = config || {};
         if (theme) this.theme.set(theme);
+        if (csp) this.csp.set(csp);
     }
 }

@@ -3170,6 +3170,7 @@ export class Table extends BaseComponent implements OnInit, AfterViewInit, After
     }
     `;
                 this.renderer.setProperty(this.responsiveStyleElement, 'innerHTML', innerHTML);
+                DomHandler.setAttribute(this.responsiveStyleElement, 'nonce', this.config?.csp()?.nonce);
             }
         }
     }
