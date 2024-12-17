@@ -21,7 +21,7 @@ interface AutoCompleteCompleteEvent {
         <app-code [code]="code" selector="autocomplete-basic-demo"></app-code>`
 })
 export class BasicDoc {
-    items: any[] | undefined;
+    items: any[] = [];
 
     value: any;
     code: Code = {
@@ -47,7 +47,7 @@ interface AutoCompleteCompleteEvent {
     standalone: true,
 })
 export class AutocompleteBasicDemo {
-    items: any[] | undefined;
+    items: any[] = [];
 
     value: any;
 
