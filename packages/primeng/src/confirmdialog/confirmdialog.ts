@@ -46,13 +46,14 @@ const hideAnimation = animation([animate('{{transition}}', style({ transform: '{
             [(visible)]="visible"
             role="alertdialog"
             [closable]="option('closable')"
-            [styleClass]="cx('root')"
+            [styleClass]="containerClass"
             [modal]="true"
             [header]="option('header')"
             [closeOnEscape]="option('closeOnEscape')"
             [blockScroll]="option('blockScroll')"
             [appendTo]="option('appendTo')"
             [position]="position"
+            [style]="style"
         >
             @if (headlessTemplate || _headlessTemplate) {
                 <ng-template #headless>
@@ -404,6 +405,10 @@ export class ConfirmDialog extends BaseComponent implements OnInit, OnDestroy {
     ariaLabelledBy: string = this.getAriaLabelledBy();
 
     translationSubscription: Subscription | undefined;
+
+    get containerClass(): string {
+        return this.cx('root') + ' ' + this.styleClass || ' ';
+    }
 
     constructor(
         private confirmationService: ConfirmationService,
