@@ -6,7 +6,7 @@ p-inputmask {
     position: relative;
 }
 
-.p-icon-wrapper {
+.p-inputmask-clear-icon {
     position: absolute;
     top: 50%;
     margin-top: -0.5rem;
