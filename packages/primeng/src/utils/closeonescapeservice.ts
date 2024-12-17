@@ -1,4 +1,5 @@
-import { DestroyRef, Injectable, Injector } from '@angular/core';
+import { DOCUMENT } from '@angular/common';
+import { DestroyRef, inject, Injectable, Injector } from '@angular/core';
 
 type ClosableWithEscape = ClosableWithEscapeSingle | ClosableWithEscapeGlobal;
 
@@ -17,6 +18,7 @@ export class CloseOnEscapeService {
     private readonly _targets = new Set<ClosableWithEscape>();
 
     constructor() {
+        const document = inject(DOCUMENT);
         document.addEventListener('keydown', (event) => {
             if (event.key !== 'Escape') {
                 return;
@@ -31,7 +33,13 @@ export class CloseOnEscapeService {
             const globalTargets: ClosableWithEscapeGlobal[] = Array.from(this._targets).filter((target) => target.kind === 'global') as ClosableWithEscapeGlobal[];
             const activeElement = document.activeElement ?? document.body;
             globalTargets
-                .filter((x) => !x.onlyCloseForFocussedElements || activeElement === document.body || x.onlyCloseForFocussedElements().some((x) => x.contains(activeElement)))
+                .filter((x) => {
+                    if (!x.onlyCloseForFocussedElements || activeElement === document.body) {
+                        return true;
+                    }
+                    const onlyCloseFor = x.onlyCloseForFocussedElements();
+                    return onlyCloseFor.some((x) => x?.contains(activeElement));
+                })
                 .forEach((target) => {
                     target.closeOnEscape(event);
                 });

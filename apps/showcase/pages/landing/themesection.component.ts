@@ -25,9 +25,13 @@ import { Tag } from 'primeng/tag';
             <div class="themes-main flex mt-16 justify-center px-8 lg:px-20">
                 <div class="box overflow-hidden z-10 p-8 table-container">
                     <p-multiselect></p-multiselect>
-                    <p-button (onClick)="this.visible.set(true)" label="open" />
+                    <p-button (onClick)="this.visible1.set(true)" label="open1" />
+                    <p-button (onClick)="this.visible2.set(true)" label="open2" />
 
-                    <p-dialog [style]="{ width: '250px', height: '250px', zIndex: 31 }" #dialog [closeOnEscape]="true" [visible]="visible()" (visibleChange)="hide()">
+                    <p-dialog [style]="{ width: '250px', height: '250px' }" #dialog [closeOnEscape]="true" [visible]="visible1()" (visibleChange)="hide1()">
+                        <div [style]="{ width: '100%', height: '100%' }"><p-multiselect> </p-multiselect> <br /><br /></div>
+                    </p-dialog>
+                    <p-dialog [style]="{ width: '250px', height: '250px' }" #dialog [closeOnEscape]="true" [visible]="visible2()" (visibleChange)="hide2()">
                         <div [style]="{ width: '100%', height: '100%' }"><p-multiselect> </p-multiselect> <br /><br /></div>
                     </p-dialog>
                 </div>
@@ -48,10 +52,15 @@ export class ThemeSectionComponent {
 
     customers: Customer[];
 
-    protected readonly visible = signal(true);
+    protected readonly visible1 = signal(true);
 
-    public hide() {
-        this.visible.set(false);
+    public hide1() {
+        this.visible1.set(false);
+    }
+    protected readonly visible2 = signal(true);
+
+    public hide2() {
+        this.visible2.set(false);
     }
 
     selectedCustomers: Customer[];
