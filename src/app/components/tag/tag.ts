@@ -56,7 +56,6 @@ export class Tag {
     /**
      * Icon of the tag to display next to the value.
      * @group Props
-     * @deprecated since 15.4.2. Use 'icon' template.
      */
     @Input() icon: string | undefined;
     /**
