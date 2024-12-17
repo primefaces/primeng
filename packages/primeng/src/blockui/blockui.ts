@@ -75,7 +75,7 @@ export class BlockUI extends BaseComponent implements AfterViewInit, AfterConten
      * Current blocked state as a boolean.
      * @group Props
      */
-    @Input() get blocked(): boolean {
+    @Input({ transform: booleanAttribute }) get blocked(): boolean {
         return this._blocked;
     }
     set blocked(val: boolean) {

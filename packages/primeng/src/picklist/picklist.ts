@@ -1318,8 +1318,9 @@ export class PickList extends BaseComponent implements AfterViewChecked, AfterCo
 
     moveRight() {
         if (this.selectedItemsSource && this.selectedItemsSource.length) {
-            for (let i = 0; i < this.selectedItemsSource.length; i++) {
-                let selectedItem = this.selectedItemsSource[i];
+            let itemsToMove = [...this.selectedItemsSource];
+            for (let i = 0; i < itemsToMove.length; i++) {
+                let selectedItem = itemsToMove[i];
                 if (findIndexInList(selectedItem, this.target) == -1) {
                     this.target?.push(this.source?.splice(findIndexInList(selectedItem, this.source), 1)[0]);
 
@@ -1330,13 +1331,14 @@ export class PickList extends BaseComponent implements AfterViewChecked, AfterCo
             }
 
             this.onMoveToTarget.emit({
-                items: this.selectedItemsSource
+                items: itemsToMove
             });
 
             if (this.keepSelection) {
-                this.selectedItemsTarget = [...this.selectedItemsTarget, ...this.selectedItemsSource];
+                this.selectedItemsTarget = [...this.selectedItemsTarget, ...itemsToMove];
             }
 
+            itemsToMove = [];
             this.selectedItemsSource = [];
 
             if (this.filterValueTarget) {
@@ -1379,8 +1381,9 @@ export class PickList extends BaseComponent implements AfterViewChecked, AfterCo
 
     moveLeft() {
         if (this.selectedItemsTarget && this.selectedItemsTarget.length) {
-            for (let i = 0; i < this.selectedItemsTarget.length; i++) {
-                let selectedItem = this.selectedItemsTarget[i];
+            let itemsToMove = [...this.selectedItemsTarget];
+            for (let i = 0; i < itemsToMove.length; i++) {
+                let selectedItem = itemsToMove[i];
                 if (findIndexInList(selectedItem, this.source) == -1) {
                     this.source?.push(this.target?.splice(findIndexInList(selectedItem, this.target), 1)[0]);
 
@@ -1391,13 +1394,14 @@ export class PickList extends BaseComponent implements AfterViewChecked, AfterCo
             }
 
             this.onMoveToSource.emit({
-                items: this.selectedItemsTarget
+                items: itemsToMove
             });
 
             if (this.keepSelection) {
-                this.selectedItemsSource = [...this.selectedItemsSource, ...this.selectedItemsTarget];
+                this.selectedItemsSource = [...this.selectedItemsSource, itemsToMove];
             }
 
+            itemsToMove = [];
             this.selectedItemsTarget = [];
 
             if (this.filterValueSource) {
