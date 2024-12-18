@@ -39,7 +39,7 @@ export class DynamicDialogConfig<T = any> {
      * Specifies if pressing escape key should hide the dialog.
      * @group Props
      */
-    closeOnEscape?: boolean;
+    closeOnEscape?: boolean = false;
     /**
      * Specifies if autofocus should happen on show.
      * @group Props
@@ -59,17 +59,17 @@ export class DynamicDialogConfig<T = any> {
      * Whether to automatically manage layering.
      * @group Props
      */
-    autoZIndex?: boolean;
+    autoZIndex?: boolean = false;
     /**
      * Specifies if clicking the modal background should hide the dialog.
      * @group Props
      */
-    dismissableMask?: boolean;
+    dismissableMask?: boolean = false;
     /**
      * Inline style of the component.
      * @group Props
      */
-    rtl?: boolean;
+    rtl?: boolean = false;
     /**
      * Inline style of the comopnent.
      * @group Props
@@ -94,17 +94,17 @@ export class DynamicDialogConfig<T = any> {
      * Adds a close icon to the header to hide the dialog.
      * @group Props
      */
-    closable?: boolean;
+    closable?: boolean = false;
     /**
      * Whether to show the header or not.
      * @group Props
      */
-    showHeader?: boolean;
+    showHeader?: boolean = false;
     /**
      * Defines if background should be blocked when dialog is displayed.
      * @group Props
      */
-    modal?: boolean;
+    modal?: boolean = false;
     /**
      * Style class of the mask.
      * @group Props
@@ -114,17 +114,17 @@ export class DynamicDialogConfig<T = any> {
      * Enables resizing of the content.
      * @group Props
      */
-    resizable?: boolean;
+    resizable?: boolean = false;
     /**
      * Enables dragging to change the position using header.
      * @group Props
      */
-    draggable?: boolean;
+    draggable?: boolean = false;
     /**
      * Keeps dialog in the viewport.
      * @group Props
      */
-    keepInViewport?: boolean;
+    keepInViewport?: boolean = false;
     /**
      * Minimum value for the left coordinate of dialog in dragging.
      * @group Props
@@ -139,7 +139,7 @@ export class DynamicDialogConfig<T = any> {
      * Whether the dialog can be displayed full screen.
      * @group Props
      */
-    maximizable?: boolean;
+    maximizable?: boolean = false;
     /**
      * Name of the maximize icon.
      * @group Props
@@ -169,7 +169,7 @@ export class DynamicDialogConfig<T = any> {
      * A boolean to determine if it can be duplicate.
      * @group Props
      */
-    duplicate?: boolean;
+    duplicate?: boolean = false;
     /**
      * Object literal to define widths per screen size.
      * @group Props

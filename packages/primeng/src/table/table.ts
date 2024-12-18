@@ -38,7 +38,7 @@ import { FormsModule } from '@angular/forms';
 import { BlockableUI, FilterMatchMode, FilterMetadata, FilterOperator, FilterService, LazyLoadMeta, OverlayService, PrimeTemplate, ScrollerOptions, SelectItem, SharedModule, SortMeta, TableState, TranslationKeys } from 'primeng/api';
 import { BaseComponent } from 'primeng/basecomponent';
 import { Button, ButtonModule } from 'primeng/button';
-import { CalendarModule } from 'primeng/calendar';
+import { DatePickerModule } from 'primeng/datepicker';
 import { CheckboxModule } from 'primeng/checkbox';
 import { ConnectedOverlayScrollHandler, DomHandler } from 'primeng/dom';
 import { ArrowDownIcon } from 'primeng/icons/arrowdown';
@@ -3633,8 +3633,20 @@ export class SortableColumn implements OnInit, OnDestroy {
     }
 
     updateSortState() {
-        this.sorted = this.dt.isSorted(<string>this.field) as boolean;
-        this.sortOrder = this.sorted ? (this.dt.sortOrder === 1 ? 'ascending' : 'descending') : 'none';
+        let sorted = false;
+        let sortOrder = 0;
+
+        if (this.dt.sortMode === 'single') {
+            sorted = this.dt.isSorted(<string>this.field) as boolean;
+            sortOrder = this.dt.sortOrder;
+        } else if (this.dt.sortMode === 'multiple') {
+            const sortMeta = this.dt.getSortMeta(<string>this.field);
+            sorted = !!sortMeta;
+            sortOrder = sortMeta ? sortMeta.order : 0;
+        }
+
+        this.sorted = sorted;
+        this.sortOrder = sorted ? (sortOrder === 1 ? 'ascending' : 'descending') : 'none';
     }
 
     @HostListener('click', ['$event'])
@@ -6190,7 +6202,7 @@ export class ColumnFilter extends BaseComponent implements AfterContentInit {
                 ></p-inputNumber>
                 <p-checkbox [indeterminate]="true" [binary]="true" *ngSwitchCase="'boolean'" [ngModel]="filterConstraint?.value" (ngModelChange)="onModelChange($event)" />
 
-                <p-calendar [ariaLabel]="ariaLabel" *ngSwitchCase="'date'" [placeholder]="placeholder" [ngModel]="filterConstraint?.value" (ngModelChange)="onModelChange($event)" appendTo="body"></p-calendar>
+                <p-datepicker [ariaLabel]="ariaLabel" *ngSwitchCase="'date'" [placeholder]="placeholder" [ngModel]="filterConstraint?.value" (ngModelChange)="onModelChange($event)" appendTo="body"></p-datepicker>
             </ng-container>
         </ng-template>
     `,
@@ -6277,7 +6289,7 @@ export class ColumnFilterFormElement implements OnInit {
         FormsModule,
         ButtonModule,
         SelectButtonModule,
-        CalendarModule,
+        DatePickerModule,
         InputNumberModule,
         CheckboxModule,
         ScrollerModule,

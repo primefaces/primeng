@@ -672,21 +672,32 @@ export class Dialog extends BaseComponent implements OnInit, AfterContentInit, O
         return totalMilliseconds;
     }
 
-    @ViewChild('container', { static: false }) containerViewChild: ElementRef;
+    _focus(focusParentElement?: HTMLElement): boolean {
+        if (focusParentElement) {
+            const timeoutDuration = this.parseDurationToMilliseconds(this.transitionOptions);
+            let _focusableElements = DomHandler.getFocusableElements(focusParentElement);
+            if (_focusableElements && _focusableElements.length > 0) {
+                this.zone.runOutsideAngular(() => {
+                    setTimeout(() => _focusableElements[0].focus(), timeoutDuration || 5);
+                });
+                return true;
+            }
+        }
 
-    focus(focusParentElement = this.containerViewChild.nativeElement) {
-        const timeoutDuration = this.parseDurationToMilliseconds(this.transitionOptions);
-        let _focusableElements = DomHandler.getFocusableElements(focusParentElement);
+        return false;
+    }
 
-        if (_focusableElements && _focusableElements.length > 0) {
-            setTimeout(() => {
-                _focusableElements[0].focus();
-                console.log(_focusableElements, timeoutDuration);
-            }, timeoutDuration);
-        } else if (this.footerViewChild && this.footerViewChild.nativeElement) {
-            setTimeout(() => {
-                this.footerViewChild.nativeElement.focus();
-            }, timeoutDuration);
+    focus(focusParentElement?: HTMLElement) {
+        let focused = this._focus(focusParentElement);
+
+        if (!focused) {
+            focused = this._focus(this.footerViewChild?.nativeElement);
+            if (!focused) {
+                focused = this._focus(this.headerViewChild?.nativeElement);
+                if (!focused) {
+                    this._focus(this.contentViewChild?.nativeElement);
+                }
+            }
         }
     }
 
@@ -1031,8 +1042,7 @@ export class Dialog extends BaseComponent implements OnInit, AfterContentInit, O
                 // }
 
                 if (this.focusOnShow) {
-                    const el = this.contentViewChild?.nativeElement || this.container;
-                    this.focus(el);
+                    this.focus();
                 }
                 break;
 

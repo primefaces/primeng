@@ -16,7 +16,7 @@ export class UseStyle {
         const { immediate = true, manual = false, name = `style_${++_id}`, id = undefined, media = undefined, nonce = undefined, first = false, props = {} } = options;
 
         if (!this.document) return;
-        styleRef = this.document.querySelector(`style[data-primeng-style-id="${name}"]`) || this.document.getElementById(id) || this.document.createElement('style');
+        styleRef = this.document.querySelector(`style[data-primeng-style-id="${name}"]`) || (id && this.document.getElementById(id)) || this.document.createElement('style');
 
         if (!styleRef.isConnected) {
             cssRef = css;
