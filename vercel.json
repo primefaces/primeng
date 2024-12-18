@@ -4,6 +4,7 @@
         "deploymentEnabled": {
             "master": false,
             "v19": false,
+            "v18": false,
             "v17": false
         }
     }
