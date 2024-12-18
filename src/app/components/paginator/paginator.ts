@@ -322,7 +322,7 @@ export class Paginator implements OnInit, AfterContentInit, OnChanges {
     constructor(
         private cd: ChangeDetectorRef,
         private config: PrimeNGConfig
-    ) { }
+    ) {}
 
     ngOnInit() {
         this.updatePaginatorState();
@@ -550,7 +550,7 @@ export class Paginator implements OnInit, AfterContentInit, OnChanges {
             .replace('{totalPages}', String(this.getPageCount()))
             .replace('{first}', String(this.totalRecords > 0 ? this._first + 1 : 0))
             .replace('{last}', String(Math.min(this._first + (this.rows > 0 ? this.rows : this.totalRecords), this.totalRecords)))
-            .replace('{rows}', String((this.rows > 0 ? this.rows : this.totalRecords)))
+            .replace('{rows}', String(this.rows > 0 ? this.rows : this.totalRecords))
             .replace('{totalRecords}', String(this.totalRecords));
     }
 }
@@ -560,4 +560,4 @@ export class Paginator implements OnInit, AfterContentInit, OnChanges {
     exports: [Paginator, DropdownModule, InputNumberModule, FormsModule, SharedModule],
     declarations: [Paginator]
 })
-export class PaginatorModule { }
+export class PaginatorModule {}
