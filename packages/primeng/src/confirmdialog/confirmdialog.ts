@@ -90,11 +90,11 @@ const hideAnimation = animation([animate('{{transition}}', style({ transform: '{
                 </ng-template>
             }
             <ng-template #footer>
-                @if (footer || footerTemplate || _footerTemplate) {
+                @if (footerTemplate || _footerTemplate) {
                     <ng-content select="p-footer"></ng-content>
                     <ng-container *ngTemplateOutlet="footerTemplate || _footerTemplate"></ng-container>
                 }
-                @if (!footer && !footerTemplate && !_footerTemplate) {
+                @if (!footerTemplate && !_footerTemplate) {
                     <p-button
                         *ngIf="option('rejectVisible')"
                         [label]="rejectButtonLabel"
