@@ -322,7 +322,7 @@ export class Paginator implements OnInit, AfterContentInit, OnChanges {
     constructor(
         private cd: ChangeDetectorRef,
         private config: PrimeNGConfig
-    ) {}
+    ) { }
 
     ngOnInit() {
         this.updatePaginatorState();
@@ -560,4 +560,4 @@ export class Paginator implements OnInit, AfterContentInit, OnChanges {
     exports: [Paginator, DropdownModule, InputNumberModule, FormsModule, SharedModule],
     declarations: [Paginator]
 })
-export class PaginatorModule {}
+export class PaginatorModule { }
