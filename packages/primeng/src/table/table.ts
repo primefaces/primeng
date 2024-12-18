@@ -3627,8 +3627,20 @@ export class SortableColumn implements OnInit, OnDestroy {
     }
 
     updateSortState() {
-        this.sorted = this.dt.isSorted(<string>this.field) as boolean;
-        this.sortOrder = this.sorted ? (this.dt.sortOrder === 1 ? 'ascending' : 'descending') : 'none';
+        let sorted = false;
+        let sortOrder = 0;
+
+        if (this.dt.sortMode === 'single') {
+            sorted = this.dt.isSorted(<string>this.field) as boolean;
+            sortOrder = this.dt.sortOrder;
+        } else if (this.dt.sortMode === 'multiple') {
+            const sortMeta = this.dt.getSortMeta(<string>this.field);
+            sorted = !!sortMeta;
+            sortOrder = sortMeta ? sortMeta.order : 0;
+        }
+
+        this.sorted = sorted;
+        this.sortOrder = sorted ? (sortOrder === 1 ? 'ascending' : 'descending') : 'none';
     }
 
     @HostListener('click', ['$event'])
