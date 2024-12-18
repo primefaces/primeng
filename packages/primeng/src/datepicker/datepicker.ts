@@ -230,7 +230,7 @@ export const DATEPICKER_VALUE_ACCESSOR: any = {
                                     <ChevronRightIcon *ngIf="!decadeTemplate && !_decadeTemplate" />
 
                                     <span *ngIf="nextIconTemplate || !_nextIconTemplate">
-                                        <ng-template *ngTemplateOutlet="nextIconTemplate || !_nextIconTemplate"></ng-template>
+                                        <ng-template *ngTemplateOutlet="nextIconTemplate || _nextIconTemplate"></ng-template>
                                     </span>
                                 </p-button>
                             </div>
