@@ -10,6 +10,7 @@ interface PageEvent {
 
 @Component({
     selector: 'basic-doc',
+    standalone: false,
     template: `
         <app-docsectiontext>
             <p>

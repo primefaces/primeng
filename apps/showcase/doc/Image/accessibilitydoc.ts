@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 
 @Component({
     selector: 'image-accessibility-doc',
+    standalone: false,
     template: ` <app-docsectiontext>
         <h3>Screen Reader</h3>
         <p>The preview button is a native <i>button</i> element with an <i>aria-label</i> that refers to the <i>aria.zoomImage</i> property of the <a href="/configuration/#locale">locale</a> API by default.</p>

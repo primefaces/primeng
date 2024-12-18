@@ -3,6 +3,7 @@ import { Component } from '@angular/core';
 
 @Component({
     selector: 'custom-constraints-doc',
+    standalone: false,
     template: `
         <app-docsectiontext>
             <p>FilterService can be extended by adding new constraints using the <span>register</span> function.</p></app-docsectiontext

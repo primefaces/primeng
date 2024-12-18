@@ -1,4 +1,4 @@
-@import './landing/_light';
-@import './landing/_dark';
-@import './main/_light';
-@import './main/_dark';
+@use 'landing/_light';
+@use 'landing/_dark';
+@use 'main/_light' as light2;
+@use 'main/_dark' as dark2;

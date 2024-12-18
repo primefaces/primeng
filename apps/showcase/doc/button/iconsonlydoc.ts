@@ -3,6 +3,7 @@ import { Component } from '@angular/core';
 
 @Component({
     selector: 'button-icon-only-demo',
+    standalone: false,
     template: `
         <app-docsectiontext>
             <p>Buttons can have icons without labels.</p>

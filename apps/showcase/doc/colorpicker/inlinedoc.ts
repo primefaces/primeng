@@ -3,6 +3,7 @@ import { Component } from '@angular/core';
 
 @Component({
     selector: 'color-picker-inline-demo',
+    standalone: false,
     template: `
         <app-docsectiontext>
             <p>ColorPicker is displayed as a popup by default, add <i>inline</i> property to customize this behavior.</p>

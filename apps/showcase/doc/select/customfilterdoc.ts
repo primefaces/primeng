@@ -9,6 +9,7 @@ interface City {
 
 @Component({
     selector: 'select-custom-filter-demo',
+    standalone: false,
     template: `
         <app-docsectiontext>
             <p>Custom filter can be applied with the <i>filterTemplate</i>.</p>

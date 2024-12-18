@@ -1,6 +1,6 @@
 import { animate, animation, AnimationEvent, style, transition, trigger, useAnimation } from '@angular/animations';
 import { CommonModule, isPlatformBrowser } from '@angular/common';
-import { AfterViewInit, ChangeDetectionStrategy, Component, ComponentRef, ElementRef, inject, NgModule, NgZone, OnDestroy, Optional, Renderer2, SkipSelf, Type, ViewChild, ViewEncapsulation, ViewRef } from '@angular/core';
+import { AfterViewInit, ChangeDetectionStrategy, Component, ComponentRef, ElementRef, inject, NgModule, NgZone, OnDestroy, Optional, Renderer2, SkipSelf, TemplateRef, Type, ViewChild, ViewEncapsulation, ViewRef } from '@angular/core';
 import { addClass, getOuterHeight, getOuterWidth, getViewport, hasClass, removeClass, setAttribute, uuid } from '@primeuix/utils';
 import { SharedModule, TranslationKeys } from 'primeng/api';
 import { BaseComponent } from 'primeng/basecomponent';
@@ -77,10 +77,10 @@ const hideAnimation = animation([animate('{{transition}}', style({ transform: '{
                                     <WindowMinimizeIcon *ngIf="maximized && !minimizeIconTemplate" />
                                 </ng-container>
                                 <ng-container *ngIf="!maximized">
-                                    <ng-template *ngTemplateOutlet="_maximizeIconTemplate"></ng-template>
+                                    <ng-template *ngTemplateOutlet="maximizeIconTemplate"></ng-template>
                                 </ng-container>
                                 <ng-container *ngIf="maximized">
-                                    <ng-template *ngTemplateOutlet="_minimizeIconTemplate"></ng-template>
+                                    <ng-template *ngTemplateOutlet="minimizeIconTemplate"></ng-template>
                                 </ng-container>
                             </p-button>
                             <p-button *ngIf="closable" [styleClass]="'p-dialog-close-button'" [ariaLabel]="closeAriaLabel" (onClick)="hide()" (keydown.enter)="hide()" rounded text severity="secondary">
@@ -261,11 +261,11 @@ export class DynamicDialogComponent extends BaseComponent implements AfterViewIn
         return this.ddconfig?.templates?.content;
     }
 
-    get minimizeIconTemplate() {
+    get minimizeIconTemplate(): any {
         return this.ddconfig?.templates?.minimizeicon;
     }
 
-    get maximizeIconTemplate() {
+    get maximizeIconTemplate(): any {
         return this.ddconfig?.templates?.maximizeicon;
     }
 

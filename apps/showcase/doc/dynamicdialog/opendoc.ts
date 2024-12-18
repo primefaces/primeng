@@ -5,6 +5,7 @@ import { ProductListDemo } from './productlistdemo';
 
 @Component({
     selector: 'open-doc',
+    standalone: false,
     template: `
         <app-docsectiontext>
             <p>The <i>open</i> method of the <i>DialogService</i> is used to open a Dialog. First parameter is the component to load and second one is the configuration object to customize the Dialog.</p>

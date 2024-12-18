@@ -9,6 +9,7 @@ interface City {
 
 @Component({
     selector: 'reactive-forms-doc',
+    standalone: false,
     template: `
         <app-docsectiontext>
             <p>MultiSelect can also be used with reactive forms. In this case, the <i>formControlName</i> property is used to bind the component to a form control.</p>

@@ -3,6 +3,7 @@ import { Component } from '@angular/core';
 
 @Component({
     selector: 'wai-aria-doc',
+    standalone: false,
     template: `
         <app-docsectiontext>
             <p>

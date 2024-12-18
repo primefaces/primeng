@@ -8,6 +8,7 @@ interface City {
 
 @Component({
     selector: 'select-clear-icon-demo',
+    standalone: false,
     template: `
         <app-docsectiontext>
             <p>When <i>showClear</i> is enabled, a clear icon is added to reset the Select.</p>

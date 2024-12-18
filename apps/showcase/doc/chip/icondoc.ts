@@ -3,6 +3,7 @@ import { Component } from '@angular/core';
 
 @Component({
     selector: 'chip-icon-demo',
+    standalone: false,
     template: `
         <app-docsectiontext>
             <p>A font icon next to the label can be displayed with the <i>icon</i> property.</p>

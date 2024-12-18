@@ -5,6 +5,7 @@ import { TreeNode } from 'primeng/api';
 
 @Component({
     selector: 'gridlines-doc',
+    standalone: false,
     template: ` <section class="py-6">
         <app-docsectiontext>
             <p>Enabling <i>showGridlines</i> displays grid lines.</p>

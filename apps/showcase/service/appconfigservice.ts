@@ -1,6 +1,6 @@
+import { AppState } from '@/domain/appstate';
 import { DOCUMENT, isPlatformBrowser } from '@angular/common';
 import { computed, effect, inject, Injectable, PLATFORM_ID, signal } from '@angular/core';
-import { AppState } from '@/domain/appstate';
 @Injectable({
     providedIn: 'root'
 })
@@ -26,19 +26,16 @@ export class AppConfigService {
     constructor() {
         this.appState.set({ ...this.loadAppState() });
 
-        effect(
-            () => {
-                const state = this.appState();
+        effect(() => {
+            const state = this.appState();
 
-                if (!this.initialized || !state) {
-                    this.initialized = true;
-                    return;
-                }
-                this.saveAppState(state);
-                this.handleDarkModeTransition(state);
-            },
-            { allowSignalWrites: true }
-        );
+            if (!this.initialized || !state) {
+                this.initialized = true;
+                return;
+            }
+            this.saveAppState(state);
+            this.handleDarkModeTransition(state);
+        });
     }
 
     private handleDarkModeTransition(state: AppState): void {

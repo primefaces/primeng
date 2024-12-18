@@ -7,6 +7,7 @@ import { Popover } from 'primeng/popover';
 
 @Component({
     selector: 'data-table-doc',
+    standalone: false,
     template: `
         <app-docsectiontext>
             <p>Place the Popover outside of the data iteration components to avoid rendering it multiple times.</p>

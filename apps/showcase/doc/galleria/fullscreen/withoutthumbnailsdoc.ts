@@ -4,6 +4,7 @@ import { Component, OnInit } from '@angular/core';
 
 @Component({
     selector: 'without-thumbnails-doc',
+    standalone: false,
     template: `
         <app-docsectiontext>
             <p>Thumbnails can also be hidden in full screen mode.</p>

@@ -3,6 +3,7 @@ import { Component } from '@angular/core';
 
 @Component({
     selector: 'badge-overlay-demo',
+    standalone: false,
     template: `
         <app-docsectiontext>
             <p>A badge can be added to any element by encapsulating the content with the <i>OverlayBadge</i> component.</p>

@@ -3,6 +3,7 @@ import { Component } from '@angular/core';
 
 @Component({
     selector: 'theme-doc',
+    standalone: false,
     template: `
         <app-docsectiontext>
             <p>The <i>theme</i> property is used to customize the initial theme.</p>
@@ -20,7 +21,7 @@ import Aura from '@primeng/themes/aura';
 export const appConfig: ApplicationConfig = {
     providers: [
         provideAnimationsAsync(),
-        providePrimeNG({ 
+        providePrimeNG({
             theme: {
                 preset: Aura
             }

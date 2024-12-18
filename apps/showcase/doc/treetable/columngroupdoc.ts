@@ -4,6 +4,7 @@ import { TreeNode } from 'primeng/api';
 
 @Component({
     selector: 'column-group-doc',
+    standalone: false,
     template: `
         <div class="card">
             <p-deferred-demo (load)="loadDemoData()">

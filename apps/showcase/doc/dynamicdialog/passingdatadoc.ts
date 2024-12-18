@@ -5,6 +5,7 @@ import { ProductListDemo } from './productlistdemo';
 
 @Component({
     selector: 'passingdata-doc',
+    standalone: false,
     template: `
         <app-docsectiontext>
             <p>

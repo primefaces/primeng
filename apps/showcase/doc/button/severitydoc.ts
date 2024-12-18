@@ -3,6 +3,7 @@ import { Component } from '@angular/core';
 
 @Component({
     selector: 'button-severity-demo',
+    standalone: false,
     template: `
         <app-docsectiontext>
             <p>Severity defines the type of button.</p>

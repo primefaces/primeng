@@ -10,7 +10,7 @@ import { StyleClass } from 'primeng/styleclass';
     standalone: true,
     templateUrl: './app.news.component.html',
     changeDetection: ChangeDetectionStrategy.OnPush,
-    imports: [CommonModule, FormsModule, StyleClass]
+    imports: [CommonModule, FormsModule]
 })
 export class AppNewsComponent {
     storageKey: string = 'primeng';

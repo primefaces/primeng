@@ -10,6 +10,7 @@ interface Column {
 
 @Component({
     selector: 'resize-scrollable-doc',
+    standalone: false,
     template: `
         <app-docsectiontext>
             <p>To utilize the column resize modes with a <i>scrollable</i> TreeTable, a <i>colgroup</i> template must be defined. The default value of scrollHeight is "flex," it can also be set as a string value.</p>

@@ -10,6 +10,7 @@ interface Column {
 
 @Component({
     selector: 'resize-expand-doc',
+    standalone: false,
     template: `
         <app-docsectiontext>
             <p>Setting <i>columnResizeMode</i> as <i>expand</i> changes the table width as well.</p>

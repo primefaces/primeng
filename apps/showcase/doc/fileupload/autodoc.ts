@@ -9,6 +9,7 @@ interface UploadEvent {
 
 @Component({
     selector: 'file-upload-auto-demo',
+    standalone: false,
     template: `
         <app-docsectiontext>
             <p>When <i>auto</i> property is enabled, a file gets uploaded instantly after selection.</p>

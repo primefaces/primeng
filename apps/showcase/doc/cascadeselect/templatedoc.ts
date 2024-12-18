@@ -3,6 +3,7 @@ import { Component } from '@angular/core';
 
 @Component({
     selector: 'cascade-select-template-demo',
+    standalone: false,
     template: `
         <app-docsectiontext>
             <p>

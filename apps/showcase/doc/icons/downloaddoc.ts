@@ -3,6 +3,7 @@ import { Component } from '@angular/core';
 
 @Component({
     selector: 'download-doc',
+    standalone: false,
     template: `
         <app-docsectiontext>
             <p>PrimeIcons is available at npm, run the following command to download it to your project.</p>

@@ -4,6 +4,7 @@ import { Component } from '@angular/core';
 
 @Component({
     selector: 'sizes-doc',
+    standalone: false,
     template: `
         <app-docsectiontext>
             <p>TreeSelect provides <i>small</i> and <i>large</i> sizes as alternatives to the base.</p>

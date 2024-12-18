@@ -3,6 +3,7 @@ import { Component } from '@angular/core';
 
 @Component({
     selector: 'provider-doc',
+    standalone: false,
     template: `
         <app-docsectiontext>
             <p>The initial configuration is defined by the <i>providePrimeNG</i> provider during application startup.</p>

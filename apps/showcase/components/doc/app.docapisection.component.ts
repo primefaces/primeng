@@ -7,6 +7,7 @@ import { AppDocApiTable } from './app.docapitable.component';
 
 @Component({
     selector: 'app-docapisection',
+    standalone: false,
     template: ` <div class="doc-main">
             <div class="doc-intro">
                 <h1>{{ header }} {{ !header.toLowerCase().includes('api') ? 'API' : null }}</h1>

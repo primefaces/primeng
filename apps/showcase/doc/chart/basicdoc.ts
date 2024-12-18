@@ -6,6 +6,7 @@ import { ChangeDetectorRef, Component, effect, inject, OnInit, PLATFORM_ID } fro
 
 @Component({
     selector: 'chart-basic-demo',
+    standalone: false,
     template: `
         <app-docsectiontext>
             <p>

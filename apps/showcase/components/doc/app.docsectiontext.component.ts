@@ -3,6 +3,7 @@ import { Component, ElementRef, Input, numberAttribute } from '@angular/core';
 
 @Component({
     selector: 'app-docsectiontext',
+    standalone: false,
     template: `
         <h2 class="doc-section-label" *ngIf="level === 2">
             {{ title }}

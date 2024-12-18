@@ -1,3 +1,5 @@
+@use "mixins";
+
 .layout-footer {
     padding: 2rem 4rem;
     margin-top: 4rem;
@@ -16,7 +18,7 @@
         outline-color: transparent;
         border-radius: 6px;
 
-        @include focus-visible();
+        @include mixins.focus-visible();
 
         &:hover {
             text-decoration: underline;

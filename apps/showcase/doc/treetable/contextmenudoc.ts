@@ -10,6 +10,7 @@ interface Column {
 
 @Component({
     selector: 'context-menu-doc',
+    standalone: false,
     template: `
         <app-docsectiontext>
             <p>TreeTable has exclusive integration with ContextMenu using the <i>contextMenu</i> event to open a menu on right click alont with <i>contextMenuSelection</i> properties to control the selection via the menu.</p>

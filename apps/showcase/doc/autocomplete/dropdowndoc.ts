@@ -8,6 +8,7 @@ interface AutoCompleteCompleteEvent {
 
 @Component({
     selector: 'dropdown-doc',
+    standalone: false,
     template: ` <app-docsectiontext>
             <p>
                 Enabling <i>dropdown</i> property displays a button next to the input field where click behavior of the button is defined using <i>dropdownMode</i> property that takes <strong>blank</strong> or <strong>current</strong> as possible

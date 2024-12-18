@@ -6,6 +6,7 @@ import { Galleria } from 'primeng/galleria';
 
 @Component({
     selector: 'galleria-advanced-doc',
+    standalone: false,
     template: `
         <app-docsectiontext>
             <p>Galleria can be extended further to implement complex requirements.</p>

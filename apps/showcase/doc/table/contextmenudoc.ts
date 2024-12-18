@@ -6,6 +6,7 @@ import { MenuItem, MessageService } from 'primeng/api';
 
 @Component({
     selector: 'context-menu-doc',
+    standalone: false,
     template: ` <app-docsectiontext>
             <p>
                 Table has exclusive integration with <i>contextmenu</i> component. In order to attach a menu to a table, add <i>pContextMenuRow</i> directive to the rows that can be selected with context menu, define a local template variable for the

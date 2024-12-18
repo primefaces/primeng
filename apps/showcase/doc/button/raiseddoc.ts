@@ -3,6 +3,7 @@ import { Component } from '@angular/core';
 
 @Component({
     selector: 'button-raised-demo',
+    standalone: false,
     template: `
         <app-docsectiontext>
             <p>Raised buttons display a shadow to indicate elevation.</p>

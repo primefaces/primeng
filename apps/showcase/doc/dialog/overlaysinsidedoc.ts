@@ -8,6 +8,7 @@ interface City {
 
 @Component({
     selector: 'dialog-overlays-inside-demo',
+    standalone: false,
     template: `
         <app-docsectiontext>
             <p>

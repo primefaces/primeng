@@ -8,6 +8,7 @@ interface City {
 
 @Component({
     selector: 'floatlabel-doc',
+    standalone: false,
     template: `
         <app-docsectiontext>
             <p>

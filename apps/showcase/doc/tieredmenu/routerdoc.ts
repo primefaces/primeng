@@ -5,6 +5,7 @@ import { MenuItem } from 'primeng/api';
 
 @Component({
     selector: 'router-doc',
+    standalone: false,
     template: `
         <app-docsectiontext>
             <p>Items with navigation are defined with templating to be able to use a router link component, an external link or programmatic navigation.</p>

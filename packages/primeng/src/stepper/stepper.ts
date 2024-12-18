@@ -119,19 +119,13 @@ export class StepItem extends BaseComponent {
 
     constructor() {
         super();
-        effect(
-            () => {
-                this.step().value.set(this.value());
-            },
-            { allowSignalWrites: true }
-        );
+        effect(() => {
+            this.step().value.set(this.value());
+        });
 
-        effect(
-            () => {
-                this.stepPanel().value.set(this.value());
-            },
-            { allowSignalWrites: true }
-        );
+        effect(() => {
+            this.stepPanel().value.set(this.value());
+        });
     }
 }
 

@@ -3,6 +3,7 @@ import { Component } from '@angular/core';
 
 @Component({
     selector: 'input-doc',
+    standalone: false,
     template: `
         <app-docsectiontext>
             <p>Slider is connected to an input field using two-way binding.</p>

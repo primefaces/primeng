@@ -8,6 +8,7 @@ interface City {
 
 @Component({
     selector: 'chips-doc',
+    standalone: false,
     template: `
         <app-docsectiontext>
             <p>Selected values are displayed as a comma separated list by default, setting <i>display</i> as <i>chip</i> displays them as chips.</p>

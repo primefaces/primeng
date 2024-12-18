@@ -4,6 +4,7 @@ import { ConfirmationService, MessageService } from 'primeng/api';
 
 @Component({
     selector: 'confirm-dialog-template-demo',
+    standalone: false,
     template: `
         <app-docsectiontext>
             <p>

@@ -3,6 +3,7 @@ import { Component } from '@angular/core';
 
 @Component({
     selector: 'autoresize-doc',
+    standalone: false,
     template: `
         <app-docsectiontext>
             <p>When <i>autoResize</i> is enabled, textarea grows instead of displaying a scrollbar.</p>

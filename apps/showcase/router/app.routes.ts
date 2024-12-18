@@ -8,7 +8,6 @@ export const routes: Routes = [
         path: '',
         component: AppMainComponent,
         children: [
-            { path: '', redirectTo: 'installation', pathMatch: 'full' },
             { path: 'accessibility', redirectTo: 'guides/accessibility', pathMatch: 'full' },
             { path: 'autocomplete', loadChildren: () => import('@/pages/autocomplete/routes') },
             {

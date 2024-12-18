@@ -10,6 +10,7 @@ interface Column {
 
 @Component({
     selector: 'scroll-vertical-doc',
+    standalone: false,
     template: `
         <app-docsectiontext>
             <p>Adding <i>scrollable</i> property along with a <i>scrollHeight</i> for the data viewport enables vertical scrolling with fixed headers.</p>

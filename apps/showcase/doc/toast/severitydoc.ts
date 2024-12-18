@@ -4,6 +4,7 @@ import { MessageService } from 'primeng/api';
 
 @Component({
     selector: 'severity-doc',
+    standalone: false,
     template: `
         <app-docsectiontext>
             <p>

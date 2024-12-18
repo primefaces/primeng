@@ -3,6 +3,7 @@ import { Component } from '@angular/core';
 
 @Component({
     selector: 'reg-exp-demo',
+    standalone: false,
     template: `
         <app-docsectiontext>
             <p>In addition to the presets, a regular expression can be configured for customization.</p>

@@ -3,6 +3,7 @@ import { Component } from '@angular/core';
 
 @Component({
     selector: 'spin-doc',
+    standalone: false,
     template: `
         <app-docsectiontext>
             <p>Special <i>pi-spin</i> class applies infinite rotation to an icon.</p>

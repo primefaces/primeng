@@ -3,6 +3,7 @@ import { Component } from '@angular/core';
 
 @Component({
     selector: 'steps-only-doc',
+    standalone: false,
     template: `
         <app-docsectiontext>
             <p>Use Stepper with a <i>StepList</i> only for custom requirements where a progress indicator is needed.</p>

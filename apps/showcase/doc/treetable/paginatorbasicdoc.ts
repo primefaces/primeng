@@ -9,6 +9,7 @@ interface Column {
 
 @Component({
     selector: 'paginator-basic-doc',
+    standalone: false,
     template: ` <app-docsectiontext>
             <p>Pagination is enabled by adding <i>paginator</i> property and defining <i>rows</i> per page.</p>
         </app-docsectiontext>

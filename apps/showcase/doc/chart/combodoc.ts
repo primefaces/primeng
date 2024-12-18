@@ -5,6 +5,7 @@ import { isPlatformBrowser } from '@angular/common';
 import { ChangeDetectorRef, Component, effect, inject, OnInit, PLATFORM_ID } from '@angular/core';
 @Component({
     selector: 'chart-combo-demo',
+    standalone: false,
     template: `
         <app-docsectiontext>
             <p>Different chart types can be combined in the same graph using the <i>type</i> option of a dataset.</p>

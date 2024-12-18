@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 
 @Component({
     selector: 'avatarstyle-doc',
+    standalone: false,
     template: `
         <app-docsectiontext>
             <p>Following is the list of structural style classes, for theming classes visit <a routerLink="/theming"> theming</a> page.</p>

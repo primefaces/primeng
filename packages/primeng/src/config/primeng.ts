@@ -201,7 +201,8 @@ export class PrimeNG extends ThemeProvider {
 
         if (theme)
             this.setThemeConfig({
-                theme
+                theme,
+                csp
             } as ThemeConfigType);
     }
 }

@@ -3,6 +3,7 @@ import { Component } from '@angular/core';
 
 @Component({
     selector: 'button-sizes-demo',
+    standalone: false,
     template: `
         <app-docsectiontext>
             <p>Button provides <i>small</i> and <i>large</i> sizes as alternatives to the standard.</p>

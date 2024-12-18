@@ -3,6 +3,7 @@ import { Component } from '@angular/core';
 
 @Component({
     selector: 'icon-doc',
+    standalone: false,
     template: `
         <app-docsectiontext>
             <p>A font icon next to the value can be displayed with the <i>icon</i> property.</p>

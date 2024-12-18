@@ -3,6 +3,7 @@ import { Component } from '@angular/core';
 
 @Component({
     selector: 'integer-only-doc',
+    standalone: false,
     template: `
         <app-docsectiontext>
             <p>When <i>integerOnly</i> is present, only integers can be accepted as input.</p>

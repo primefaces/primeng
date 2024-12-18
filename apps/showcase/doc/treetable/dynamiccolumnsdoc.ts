@@ -10,6 +10,7 @@ interface Column {
 
 @Component({
     selector: 'dynamic-columns-doc',
+    standalone: false,
     template: `
         <app-docsectiontext>
             <p>Columns can be created programmatically.</p>

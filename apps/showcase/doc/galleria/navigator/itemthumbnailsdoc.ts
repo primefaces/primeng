@@ -4,6 +4,7 @@ import { Component, OnInit } from '@angular/core';
 
 @Component({
     selector: 'itemthumbnails-doc',
+    standalone: false,
     template: `
         <app-docsectiontext>
             <p>Add <i>showItemNavigators</i> to display navigator elements and the left and right side.</p>

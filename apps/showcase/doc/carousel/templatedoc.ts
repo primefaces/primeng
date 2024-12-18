@@ -5,6 +5,7 @@ import { ChangeDetectorRef, Component, OnInit } from '@angular/core';
 
 @Component({
     selector: 'carousel-template-demo',
+    standalone: false,
     template: `
         <app-docsectiontext>
             <p>Custom content projection is available using the <i>header</i> and <i>footer</i> templates.</p>

@@ -5,6 +5,7 @@ import { Component, signal } from '@angular/core';
 
 @Component({
     selector: 'data-view-pagination-demo',
+    standalone: false,
     template: `
         <app-docsectiontext>
             <p>Pagination is enabled with the <i>paginator</i> and <i>rows</i> properties. Refer to the <a routerLink="/paginator">Paginator</a> for more information about customizing the paginator.</p>

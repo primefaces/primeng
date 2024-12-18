@@ -3,6 +3,7 @@ import { Component } from '@angular/core';
 
 @Component({
     selector: 'ripple-doc',
+    standalone: false,
     template: `
         <app-docsectiontext>
             <p>Ripple is an optional animation for the supported components such as buttons. It is disabled by default.</p>
@@ -12,7 +13,7 @@ import { Component } from '@angular/core';
 })
 export class RippleDoc {
     code: Code = {
-        typescript: `providePrimeNG({ 
+        typescript: `providePrimeNG({
     ripple: true
 })`
     };

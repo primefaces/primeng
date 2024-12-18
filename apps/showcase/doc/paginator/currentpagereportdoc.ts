@@ -10,6 +10,7 @@ interface PageEvent {
 
 @Component({
     selector: 'current-page-report-doc',
+    standalone: false,
     template: `
         <app-docsectiontext>
             <p>Current page report item in the template displays information about the pagination state. Default value is ({{ '{' }}currentPage{{ '}' }} of {{ '{' }}totalPages{{ '}' }}) whereas available placeholders are the following;</p>

@@ -3,6 +3,7 @@ import { Component, Input } from '@angular/core';
 
 @Component({
     selector: 'cascade-select-accessibility-doc',
+    standalone: false,
     template: ` <app-docsectiontext>
             <h3>Screen Reader</h3>
             <p>

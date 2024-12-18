@@ -5,6 +5,7 @@ import { Router } from '@angular/router';
 
 @Component({
     selector: 'app-docapitable',
+    standalone: false,
     template: ` <ng-container *ngIf="data">
         <div *ngIf="parentId" class="my-4 pt-4">
             <app-docsectiontext [parentId]="parentId" [parentTitle]="parentTitle" [parentDescription]="parentDescription" [level]="2"></app-docsectiontext>

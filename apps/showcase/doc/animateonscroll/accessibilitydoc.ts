@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 
 @Component({
     selector: 'animate-on-scroll-accessibility-doc',
+    standalone: false,
     template: ` <div>
         <app-docsectiontext>
             <h3>Screen Reader</h3>

@@ -9,6 +9,7 @@ interface UploadEvent {
 
 @Component({
     selector: 'file-upload-basic-demo',
+    standalone: false,
     template: `
         <app-docsectiontext>
             <p>FileUpload basic <i>mode</i> provides a simpler UI as an alternative to default advanced mode.</p>

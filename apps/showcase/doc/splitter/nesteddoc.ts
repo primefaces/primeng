@@ -3,6 +3,7 @@ import { Component } from '@angular/core';
 
 @Component({
     selector: 'nested-doc',
+    standalone: false,
     template: `
         <app-docsectiontext>
             <p>Splitters can be combined to create advanced layouts.</p>

@@ -3,6 +3,7 @@ import { Component } from '@angular/core';
 
 @Component({
     selector: 'provider-doc',
+    standalone: false,
     template: `
         <app-docsectiontext>
             <p>Add <i>providePrimeNG</i> and <i>provideAnimationsAsync</i> to the list of providers in your <i>app.config.ts</i> and use the <i>theme</i> property to configure a theme such as Aura.</p>
@@ -20,7 +21,7 @@ import Aura from '@primeng/themes/aura';
 export const appConfig: ApplicationConfig = {
     providers: [
         provideAnimationsAsync(),
-        providePrimeNG({ 
+        providePrimeNG({
             theme: {
                 preset: Aura
             }

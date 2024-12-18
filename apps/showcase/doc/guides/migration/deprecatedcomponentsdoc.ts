@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 
 @Component({
     selector: 'deprecated-doc',
+    standalone: false,
     template: `
         <app-docsectiontext>
             <h4>Deprecated Components</h4>

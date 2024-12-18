@@ -3,6 +3,7 @@ import { Component } from '@angular/core';
 
 @Component({
     selector: 'divider-login-demo',
+    standalone: false,
     template: `
         <app-docsectiontext>
             <p>Sample implementation of a login form using a divider with content.</p>

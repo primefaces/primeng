@@ -3,6 +3,7 @@ import { Component } from '@angular/core';
 
 @Component({
     selector: 'color-doc',
+    standalone: false,
     template: `
         <app-docsectiontext>
             <p>Icon color is defined with the <i>color</i> property which is inherited from parent by default.</p>

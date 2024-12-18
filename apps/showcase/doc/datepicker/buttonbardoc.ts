@@ -3,6 +3,7 @@ import { Component } from '@angular/core';
 
 @Component({
     selector: 'datepicker-buttonbar-demo',
+    standalone: false,
     template: `
         <app-docsectiontext>
             <p>When <i>showButtonBar</i> is present, today and clear buttons are displayed at the footer.</p>

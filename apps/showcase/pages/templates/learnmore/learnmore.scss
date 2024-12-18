@@ -172,12 +172,14 @@
             background: var(--surface-card, #fff);
         }
 
-        display: flex;
-        flex-wrap: wrap;
-        justify-content: center;
-        gap: 1.5rem;
-        margin: 0 auto;
-        width: fit-content;
+        & {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 1.5rem;
+            margin: 0 auto;
+            width: fit-content;
+        }
 
         &-card {
             width: 21.125rem;
@@ -245,7 +247,9 @@
                 padding: 1.5rem 1rem;
             }
 
-            width: 98%;
+            & {
+                width: 98%;
+            }
 
             &-card {
                 width: 100%;
@@ -263,13 +267,15 @@
             background: var(--surface-card, #fff);
         }
 
-        margin: 0 auto;
-        width: 70%;
-        max-width: 52.75rem;
-        display: flex;
-        justify-content: center;
-        flex-wrap: wrap;
-        gap: 1.5rem;
+        & {
+            margin: 0 auto;
+            width: 70%;
+            max-width: 52.75rem;
+            display: flex;
+            justify-content: center;
+            flex-wrap: wrap;
+            gap: 1.5rem;
+        }
 
         &-col {
             display: flex;
@@ -329,10 +335,12 @@
                 border-radius: 1.25rem;
             }
 
-            max-width: 100%;
-            width: 100%;
-            align-items: center;
-            justify-content: center;
+            & {
+                max-width: 100%;
+                width: 100%;
+                align-items: center;
+                justify-content: center;
+            }
 
             &-card {
                 padding: 1rem;
@@ -503,12 +511,14 @@
             background: var(--surface-card, #fff);
         }
 
-        padding: 2rem;
-        border-radius: 1.75rem;
-        border: 1px solid var(--surface-border, #eee);
-        background: var(--surface-0, #fff);
-        width: 49.25rem;
-        margin: 0 auto;
+        & {
+            padding: 2rem;
+            border-radius: 1.75rem;
+            border: 1px solid var(--surface-border, #eee);
+            background: var(--surface-0, #fff);
+            width: 49.25rem;
+            margin: 0 auto;
+        }
 
         &-title {
             font-size: 1.53125rem;
@@ -604,9 +614,11 @@
                 line-height: 1.25rem;
             }
 
-            width: 80%;
-            padding: 1rem;
-            border-radius: 1rem;
+            & {
+                width: 80%;
+                padding: 1rem;
+                border-radius: 1rem;
+            }
 
             &-screen {
                 border-radius: 0.5rem;
@@ -630,7 +642,9 @@
                 padding: 1.5rem 1rem;
             }
 
-            width: 98%;
+            & {
+                width: 98%;
+            }
 
             &-screen {
                 &-bottom {
@@ -669,13 +683,15 @@
             }
         }
 
-        display: flex;
-        gap: 2.5rem;
-        width: fit-content;
-        margin: 0 auto;
-        padding: 1.75rem;
-        border-radius: 1.75rem;
-        border: 1px solid var(--surface-border, #eee);
+        & {
+            display: flex;
+            gap: 2.5rem;
+            width: fit-content;
+            margin: 0 auto;
+            padding: 1.75rem;
+            border-radius: 1.75rem;
+            border: 1px solid var(--surface-border, #eee);
+        }
 
         &-left {
             width: 100%;
@@ -932,11 +948,13 @@
                 }
             }
 
-            flex-direction: column-reverse;
-            gap: 1.31rem;
-            padding: 1rem;
-            border-radius: 1rem;
-            width: 70%;
+            & {
+                flex-direction: column-reverse;
+                gap: 1.31rem;
+                padding: 1rem;
+                border-radius: 1rem;
+                width: 70%;
+            }
 
             &-left {
                 width: 100%;
@@ -975,7 +993,9 @@
                 padding: 1.5rem 1rem;
             }
 
-            width: 98%;
+            & {
+                width: 98%;
+            }
         }
     }
 }

@@ -8,6 +8,7 @@ import { Subscription } from 'rxjs';
 
 @Component({
     selector: 'dock-advanced-demo',
+    standalone: false,
     template: `
         <app-docsectiontext>
             <p>

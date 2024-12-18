@@ -3,6 +3,7 @@ import { Component } from '@angular/core';
 
 @Component({
     selector: 'horizontal-doc',
+    standalone: false,
     template: `
         <app-docsectiontext>
             <p>Splitter requires two SplitterPanel components as children which are displayed horizontally by default.</p>

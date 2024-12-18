@@ -5,6 +5,7 @@ import { MenuItem, MessageService } from 'primeng/api';
 
 @Component({
     selector: 'tooltip-doc',
+    standalone: false,
     template: `
         <app-docsectiontext>
             <p>Items display a tooltip on hover when a standalone <a href="#" [routerLink]="['/tooltip']">Tooltip</a> is present with a target that matches the items.</p>

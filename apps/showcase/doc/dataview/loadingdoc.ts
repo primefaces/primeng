@@ -5,6 +5,7 @@ import { Component, signal } from '@angular/core';
 
 @Component({
     selector: 'data-view-loading-demo',
+    standalone: false,
     template: `
         <app-docsectiontext>
             <p>While data is being loaded. <a routerLink="/skeleton">Skeleton</a> component may be used to indicate the busy state.</p>

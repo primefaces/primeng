@@ -3,6 +3,7 @@ import { Component } from '@angular/core';
 
 @Component({
     selector: 'dynamic-doc',
+    standalone: false,
     template: `
         <app-docsectiontext>
             <p>AccordionPanel can be generated dynamically using the standard <i>&#64;for</i> block.</p>

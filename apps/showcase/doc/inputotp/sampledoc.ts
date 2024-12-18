@@ -3,6 +3,7 @@ import { Component } from '@angular/core';
 
 @Component({
     selector: 'sample-doc',
+    standalone: false,
     template: `
         <app-docsectiontext>
             <p>A sample UI implementation with templating and additional elements.</p>

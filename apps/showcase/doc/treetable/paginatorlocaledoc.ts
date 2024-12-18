@@ -9,6 +9,7 @@ interface Column {
 
 @Component({
     selector: 'paginator-locale-doc',
+    standalone: false,
     template: `
         <app-docsectiontext>
             <p>

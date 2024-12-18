@@ -3,6 +3,7 @@ import { Component } from '@angular/core';
 
 @Component({
     selector: 'basic-doc',
+    standalone: false,
     template: ` <app-docsectiontext>
             <p>Overlay is a container to display content in an overlay window. All the options mentioned above can be used as props for this component.</p>
         </app-docsectiontext>

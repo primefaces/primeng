@@ -3,6 +3,7 @@ import { Component } from '@angular/core';
 
 @Component({
     selector: 'dialog-template-demo',
+    standalone: false,
     template: `
         <app-docsectiontext>
             <p>Dialog can be customized using <i>header</i> and <i>footer</i> templates.</p>

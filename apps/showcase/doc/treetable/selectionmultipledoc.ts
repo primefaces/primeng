@@ -10,6 +10,7 @@ interface Column {
 
 @Component({
     selector: 'selection-multiple-doc',
+    standalone: false,
     template: `
         <app-docsectiontext>
             <p>

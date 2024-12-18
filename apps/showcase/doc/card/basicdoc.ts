@@ -3,6 +3,7 @@ import { Component } from '@angular/core';
 
 @Component({
     selector: 'card-basic-demo',
+    standalone: false,
     template: `
         <app-docsectiontext>
             <p>A simple Card is created with a <i>header</i> property along with the content as children.</p>

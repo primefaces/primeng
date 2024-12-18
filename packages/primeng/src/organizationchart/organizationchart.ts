@@ -173,7 +173,7 @@ export class OrganizationChartNode implements OnDestroy {
 @Component({
     selector: 'p-organizationChart, p-organization-chart, p-organizationchart',
     standalone: true,
-    imports: [CommonModule, OrganizationChartNode, ChevronDownIcon, ChevronUpIcon, SharedModule],
+    imports: [CommonModule, OrganizationChartNode, SharedModule],
     template: `
         <div [ngStyle]="style" [class]="styleClass" [ngClass]="{ 'p-organizationchart p-component': true, 'p-organizationchart-preservespace': preserveSpace }" [attr.data-pc-section]="'root'">
             <table class="p-organizationchart-table" [collapsible]="collapsible" pOrganizationChartNode [node]="root" *ngIf="root"></table>

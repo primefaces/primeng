@@ -6,6 +6,7 @@ import { Table } from 'primeng/table';
 
 @Component({
     selector: 'customers-doc',
+    standalone: false,
     template: ` <app-docsectiontext>
             <p>DataTable with selection, pagination, filtering, sorting and templating.</p>
         </app-docsectiontext>

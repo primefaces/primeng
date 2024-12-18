@@ -3,6 +3,7 @@ import { Component } from '@angular/core';
 
 @Component({
     selector: 'appendto-doc',
+    standalone: false,
     template: ` <app-docsectiontext>
             <p>Overlay can be mounted into its location, body or DOM element instance using this option.</p>
         </app-docsectiontext>

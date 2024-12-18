@@ -3,6 +3,7 @@ import { ChangeDetectorRef, Component } from '@angular/core';
 
 @Component({
     selector: 'block-ui-document-demo',
+    standalone: false,
     template: `
         <app-docsectiontext>
             <p>If the target element is not specified, BlockUI blocks the document by default.</p>

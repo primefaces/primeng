@@ -8,6 +8,7 @@ interface City {
 
 @Component({
     selector: 'select-checkmark-demo',
+    standalone: false,
     template: `
         <app-docsectiontext>
             <p>An alternative way to highlight the selected option is displaying a checkmark instead.</p>

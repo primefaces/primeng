@@ -5,6 +5,7 @@ import { ChangeDetectionStrategy, ChangeDetectorRef, Component } from '@angular/
 
 @Component({
     selector: 'filter-sort-edit-doc',
+    standalone: false,
     template: ` <app-docsectiontext>
             <p>Cell Editing with Sorting and Filter</p>
         </app-docsectiontext>

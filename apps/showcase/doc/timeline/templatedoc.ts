@@ -11,6 +11,7 @@ interface EventItem {
 
 @Component({
     selector: 'template-doc',
+    standalone: false,
     template: `
         <app-docsectiontext>
             <p>Sample implementation with custom content and styled markers.</p>

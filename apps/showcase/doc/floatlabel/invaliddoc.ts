@@ -3,6 +3,7 @@ import { Component } from '@angular/core';
 
 @Component({
     selector: 'invalid-doc',
+    standalone: false,
     template: `
         <app-docsectiontext>
             <p>When the form element is invalid, the label is also highlighted.</p>

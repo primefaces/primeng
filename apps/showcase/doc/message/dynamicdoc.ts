@@ -3,6 +3,7 @@ import { Component, signal } from '@angular/core';
 
 @Component({
     selector: 'dynamic-doc',
+    standalone: false,
     template: `
         <app-docsectiontext>
             <p>Multiple messages can be displayed using the standard <i>for</i> block.</p>

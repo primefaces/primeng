@@ -2,6 +2,7 @@ import { ChangeDetectionStrategy, Component, Input, ViewEncapsulation } from '@a
 
 @Component({
     selector: 'app-docfeaturessection',
+    standalone: false,
     template: ` <div class="doc-main">
             <div class="doc-intro">
                 <h1>{{ header }}</h1>

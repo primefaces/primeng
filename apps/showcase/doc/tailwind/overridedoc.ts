@@ -3,6 +3,7 @@ import { Component } from '@angular/core';
 
 @Component({
     selector: 'override-doc',
+    standalone: false,
     template: `
         <app-docsectiontext>
             <p>In styled mode, Tailwind utilities may not be able to override the default styling due to css specificity, there are two possible solutions.</p>

@@ -5,6 +5,7 @@ import { ChangeDetectorRef, Component, OnInit } from '@angular/core';
 
 @Component({
     selector: 'template-doc',
+    standalone: false,
     template: `
         <app-docsectiontext>
             <p>For custom content support define an <i>option</i> template that gets the item instance as a parameter. In addition <i>header</i> template is provided for further customization.</p>

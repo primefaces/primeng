@@ -7,6 +7,7 @@ import { TableRowCollapseEvent, TableRowExpandEvent } from 'primeng/table';
 
 @Component({
     selector: 'row-expansion-doc',
+    standalone: false,
     template: ` <app-docsectiontext>
             <p>
                 Row expansion allows displaying detailed content for a particular row. To use this feature, add a template named rowexpansion and use the <i>pRowToggler</i> directive whose value is the row data instance on an element of your choice

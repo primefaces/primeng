@@ -3,6 +3,7 @@ import { Component } from '@angular/core';
 
 @Component({
     selector: 'dynamic-doc',
+    standalone: false,
     template: `
         <app-docsectiontext>
             <p>Inject the <i>PrimeNG</i> to your application to update the initial configuration at runtime.</p>

@@ -3,6 +3,7 @@ import { Component } from '@angular/core';
 
 @Component({
     selector: 'list-doc',
+    standalone: false,
     template: `
         <app-docsectiontext>
             <p>Sample List implementation using different Skeleton components and PrimeFlex CSS utilities.</p>

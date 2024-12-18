@@ -5,6 +5,7 @@ import { ChangeDetectionStrategy, ChangeDetectorRef, Component } from '@angular/
 
 @Component({
     selector: 'striped-doc',
+    standalone: false,
     template: ` <app-docsectiontext>
             <p>Alternating rows are displayed when <i>stripedRows</i> property is present.</p>
         </app-docsectiontext>

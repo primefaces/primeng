@@ -4,6 +4,7 @@ import { SharedModule } from 'primeng/api';
 
 @Component({
     selector: 'template-configuration',
+    standalone: false,
     template: `
         <div class="px-6 py-6 sm:px-10 sm:py-5 lg:py-20 lg:px-8 rounded-3xl bg-surface-0 dark:bg-surface-900">
             <div class="p-6 md:p-8 rounded-2xl lg:rounded-3xl border border-surface max-w-3xl w-full mx-auto animate-duration-500">

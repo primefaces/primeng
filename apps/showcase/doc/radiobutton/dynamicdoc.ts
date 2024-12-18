@@ -3,6 +3,7 @@ import { Component, OnInit } from '@angular/core';
 
 @Component({
     selector: 'dynamic-doc',
+    standalone: false,
     template: `
         <app-docsectiontext>
             <p>RadioButtons can be generated using a list of values.</p>

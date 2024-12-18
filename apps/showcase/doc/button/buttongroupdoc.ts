@@ -3,6 +3,7 @@ import { Component } from '@angular/core';
 
 @Component({
     selector: 'button-group-demo',
+    standalone: false,
     template: `
         <app-docsectiontext>
             <p>Multiple buttons are grouped when wrapped inside an element with <i>ButtonGroup</i> component.</p>

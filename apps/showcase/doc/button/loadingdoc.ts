@@ -3,6 +3,7 @@ import { ChangeDetectorRef, Component } from '@angular/core';
 
 @Component({
     selector: 'button-loading-demo',
+    standalone: false,
     template: `
         <app-docsectiontext>
             <p>Busy state is controlled with the <i>loading</i> property.</p>

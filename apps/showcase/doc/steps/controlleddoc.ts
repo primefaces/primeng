@@ -4,6 +4,7 @@ import { MenuItem } from 'primeng/api';
 
 @Component({
     selector: 'controlled-doc',
+    standalone: false,
     template: `
         <app-docsectiontext>
             <p>Steps can be controlled programmatically using <i>activeIndex</i> property.</p>

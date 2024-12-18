@@ -4,6 +4,7 @@ import { MenuItem } from 'primeng/api';
 
 @Component({
     selector: 'context-menu-document-demo',
+    standalone: false,
     template: `
         <app-docsectiontext>
             <p>Setting <i>global</i> property to <i>true</i> attaches the context menu to the document.</p>
