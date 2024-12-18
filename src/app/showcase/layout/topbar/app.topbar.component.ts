@@ -3,10 +3,10 @@ import { Component, ElementRef, EventEmitter, Inject, Input, OnDestroy, Output, 
 import { FormsModule } from '@angular/forms';
 import { Router, RouterModule } from '@angular/router';
 import docsearch from '@docsearch/js';
+import { AppConfigService } from '@service/appconfigservice';
 import { DomHandler } from 'primeng/dom';
 import { StyleClassModule } from 'primeng/styleclass';
 import Versions from '../../data/versions.json';
-import { AppConfigService } from '@service/appconfigservice';
 
 @Component({
     selector: 'app-topbar',
@@ -40,7 +40,7 @@ export class AppTopBarComponent implements OnDestroy {
 
         afterNextRender(() => {
             this.bindScrollListener();
-            this.initDocSearch();
+            //this.initDocSearch();
         });
     }
 
