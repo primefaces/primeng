@@ -11,7 +11,6 @@
         "lint": "ng lint",
         "format": "prettier --write \"**/*.{js,ts,d.ts}\"",
         "build": "ng build",
-        "release": "npm run build:lib && npm publish --tag v17-stable",
         "format:check": "prettier --check \"**/*.{js,ts,d.ts}\"",
         "build:lib": "npm run build:check && npm run build:package",
         "build:package": "BROWSERSLIST_ENV=library ng build primeng-library && gulp build-assets",
