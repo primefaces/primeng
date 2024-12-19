@@ -1,6 +1,28 @@
 # Changelog
 
-## [19.0.0](https://github.com/primefaces/primeng/tree/19.0.0) (2024-11-18)
+## [19.0.1](https://github.com/primefaces/primeng/tree/19.0.1) (2024-12-19)
+
+[Full Changelog](https://github.com/primefaces/primeng/compare/19.0.0...19.0.1)
+
+**Fixed bugs:**
+
+- DatePicker: Styles not working [\#17129](https://github.com/primefaces/primeng/issues/17129)
+- Error when [showButtonBar]="true" is applied to the datepicker component [\#17125](https://github.com/primefaces/primeng/issues/17125)
+- Component: Tree Filter Icon incorrect position [\#17121](https://github.com/primefaces/primeng/issues/17121)
+- [v19]: TreeSelect missing Styles for IconField and InputIcon [\#17105](https://github.com/primefaces/primeng/issues/17105)
+- p-password: @for doesn't work in footer template [\#17055](https://github.com/primefaces/primeng/issues/17055)
+
+## [18.0.2](https://github.com/primefaces/primeng/tree/18.0.2) (2024-12-19)
+
+[Full Changelog](https://github.com/primefaces/primeng/compare/18.0.1...18.0.2)
+
+**Fixed bugs:**
+
+- DatePicker: Styles not working [\#17139](https://github.com/primefaces/primeng/issues/17129)
+- Error when [showButtonBar]="true" is applied to the datepicker component [\#17138](https://github.com/primefaces/primeng/issues/17138)
+- Component: Tree Filter Icon incorrect position [\#17145](https://github.com/primefaces/primeng/issues/17145)
+
+## [19.0.0](https://github.com/primefaces/primeng/tree/19.0.0) (2024-12-18)
 
 [Full Changelog](https://github.com/primefaces/primeng/compare/19.0.0-rc.1...19.0.0)
 
@@ -13,7 +35,7 @@
 - providePrimeNG csp nonce does not solve all csp issues when "theme" property is defined [\#17048](https://github.com/primefaces/primeng/issues/17048)
 - ProvidePrimeng(v19): deprecated APP_INITIALIZER [\#17042](https://github.com/primefaces/primeng/issues/17042)
 
-## [18.0.1](https://github.com/primefaces/primeng/tree/18.0.1) (2024-11-18)
+## [18.0.1](https://github.com/primefaces/primeng/tree/18.0.1) (2024-12-18)
 
 [Full Changelog](https://github.com/primefaces/primeng/compare/18.0.0...18.0.1)
 
