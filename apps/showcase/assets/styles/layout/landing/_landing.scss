@@ -1,10 +1,14 @@
-@use '../_mixins';
-@use '_main';
-@use '_hero';
-@use '_users';
-@use '_getstarted';
-@use '_themes';
-@use '_blocks';
-@use '_templates';
-@use '_features';
-@use '_footer';
+$landingBreakpointMD: 767px;
+$landingBreakpointLG: 991px;
+$landingBreakpointXL: 1199px;
+
+@import '../_mixins';
+@import './_main';
+@import './_hero';
+@import './_users';
+@import './_getstarted';
+@import './_themes';
+@import './_blocks';
+@import './_templates';
+@import './_features';
+@import './_footer';

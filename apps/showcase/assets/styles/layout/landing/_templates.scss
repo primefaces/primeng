@@ -1,5 +1,3 @@
-@use "variables";
-
 .landing-templates {
     overflow: hidden;
 
@@ -195,7 +193,7 @@
         }
     }
 }
-@media screen and (max-width: variables.$landingBreakpointXL) {
+@media screen and (max-width: $landingBreakpointXL) {
     .landing-templates {
         .templates {
             .template-block {
@@ -207,7 +205,7 @@
     }
 }
 
-@media screen and (max-width: variables.$landingBreakpointLG) {
+@media screen and (max-width: $landingBreakpointLG) {
     .landing-templates {
         .templates {
             transform: rotateX(0deg) rotateY(0deg) rotateZ(0deg);
@@ -225,7 +223,7 @@
         }
     }
 }
-@media screen and (max-width: variables.$landingBreakpointMD) {
+@media screen and (max-width: $landingBreakpointMD) {
     .landing-templates {
         .templates {
             transform: rotateX(0deg) rotateY(0deg) rotateZ(0deg);

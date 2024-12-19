@@ -1,5 +1,3 @@
-@use "../mixins";
-
 .landing {
     scroll-behavior: smooth;
     padding-top: 4rem;
@@ -11,7 +9,7 @@
         background-color: var(--card-background);
         position: relative;
         z-index: 0;
-        
+
         &::before,
         &::after {
             content: "";
@@ -27,7 +25,7 @@
             opacity: 0;
             z-index: -1;
         }
-        
+
         &::after {
             animation: clippath 3s infinite -1.5s linear;
         }
@@ -50,9 +48,9 @@
         border-radius: 10px;
         font-weight: 600;
         padding: 1rem 1.5rem;
-        
+
         cursor: pointer;
-        @include mixins.focus-visible();
+        @include focus-visible();
 
         &:hover {
             background: var(--hover-background);
@@ -170,7 +168,7 @@
     100% {
         clip-path: inset(0 0 98% 0);
     }
-    
+
     25% {
         clip-path: inset(0 98% 0 0);
     }

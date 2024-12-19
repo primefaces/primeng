@@ -1,5 +1,3 @@
-@use "mixins";
-
 // TEMPLATE FEATURES ANIMATION
 .template-features-animation-card {
     &:hover &-order {
@@ -22,7 +20,7 @@
 }
 
 .template-features a {
-    @include mixins.doc-link();
+    @include doc-link();
 }
 
 @keyframes p-features-order-animation {
