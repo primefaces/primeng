@@ -11,7 +11,7 @@ import { SelectItemGroup } from 'primeng/api';
         </app-docsectiontext>
         <div class="card flex justify-center">
             <p-select [options]="groupedCities" [(ngModel)]="selectedCity" placeholder="Select a City" [group]="true" class="w-full md:w-56">
-                <ng-template let-group pTemplate="group">
+                <ng-template let-group #group>
                     <div class="flex items-center">
                         <img src="https://primefaces.org/cdn/primeng/images/demo/flag/flag_placeholder.png" [class]="'mr-2 flag flag-' + group.value" style="width: 20px" />
                         <span>{{ group.label }}</span>
@@ -64,7 +64,7 @@ export class GroupDoc {
 
     code: Code = {
         basic: `<p-select [options]="groupedCities" [(ngModel)]="selectedCity" placeholder="Select a City" [group]="true" class="w-full md:w-56">
-    <ng-template let-group pTemplate="group">
+    <ng-template let-group #group>
         <div class="flex items-center">
             <img src="https://primefaces.org/cdn/primeng/images/demo/flag/flag_placeholder.png" [class]="'mr-2 flag flag-' + group.value" style="width: 20px" />
             <span>{{ group.label }}</span>
@@ -74,7 +74,7 @@ export class GroupDoc {
 
         html: `<div class="card flex justify-center">
     <p-select [options]="groupedCities" [(ngModel)]="selectedCity" placeholder="Select a City" [group]="true" class="w-full md:w-56">
-            <ng-template let-group pTemplate="group">
+            <ng-template let-group #group>
                 <div class="flex items-center">
                     <img src="https://primefaces.org/cdn/primeng/images/demo/flag/flag_placeholder.png" [class]="'mr-2 flag flag-' + group.value"  style="width: 20px" />
                     <span>{{ group.label }}</span>
