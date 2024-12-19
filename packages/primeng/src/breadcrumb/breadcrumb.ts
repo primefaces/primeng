@@ -101,7 +101,7 @@ import { BreadCrumbStyle } from './style/breadcrumbstyle';
                                 <ng-container *ngIf="!itemTemplate && !_itemTemplate">
                                     <span *ngIf="menuitem?.icon" class="p-breadcrumb-item-icon" [ngClass]="menuitem?.icon" [ngStyle]="menuitem?.iconStyle"></span>
                                     <ng-container *ngIf="menuitem?.label">
-                                        <span *ngIf="menuitem?.escape !== false; else htmlLabel" class="p-breadcrumb-item-label'">{{ menuitem?.label }}</span>
+                                        <span *ngIf="menuitem?.escape !== false; else htmlLabel" class="p-breadcrumb-item-label">{{ menuitem?.label }}</span>
                                         <ng-template #htmlLabel><span class="p-breadcrumb-item-label'" [innerHTML]="menuitem?.label"></span></ng-template>
                                     </ng-container>
                                 </ng-container>
