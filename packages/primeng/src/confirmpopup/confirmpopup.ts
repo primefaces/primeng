@@ -10,7 +10,6 @@ import {
     ContentChildren,
     ElementRef,
     EventEmitter,
-    HostListener,
     Inject,
     inject,
     Input,
@@ -28,7 +27,7 @@ import { BaseComponent } from 'primeng/basecomponent';
 import { ButtonModule } from 'primeng/button';
 import { ConnectedOverlayScrollHandler } from 'primeng/dom';
 import { Nullable, VoidListener } from 'primeng/ts-helpers';
-import { ZIndexUtils } from 'primeng/utils';
+import { CloseOnEscapeService, ZIndexUtils } from 'primeng/utils';
 import { Subscription } from 'rxjs';
 import { ConfirmPopupStyle } from './style/confirmpopupstyle';
 
@@ -222,6 +221,19 @@ export class ConfirmPopup extends BaseComponent implements AfterContentInit, OnD
         @Inject(DOCUMENT) public document: Document
     ) {
         super();
+        inject(CloseOnEscapeService).closeOnEscape(
+            {
+                closeOnEscape: () => {
+                    if (this.confirmation && this.confirmation.closeOnEscape) {
+                        this.onReject();
+                        return true;
+                    }
+                    return false;
+                },
+                kind: 'single'
+            },
+            this.injector
+        );
         this.window = this.document.defaultView as Window;
         this.subscription = this.confirmationService.requireConfirmation$.subscribe((confirmation) => {
             if (!confirmation) {
@@ -286,13 +298,6 @@ export class ConfirmPopup extends BaseComponent implements AfterContentInit, OnD
         }
 
         return undefined;
-    }
-
-    @HostListener('document:keydown.escape', ['$event'])
-    onEscapeKeydown(event: KeyboardEvent) {
-        if (this.confirmation && this.confirmation.closeOnEscape) {
-            this.onReject();
-        }
     }
 
     onAnimationStart(event: AnimationEvent) {
