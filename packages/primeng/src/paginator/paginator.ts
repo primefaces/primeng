@@ -426,12 +426,18 @@ export class Paginator extends BaseComponent implements OnInit, AfterContentInit
     updateRowsPerPageOptions(): void {
         if (this.rowsPerPageOptions) {
             this.rowsPerPageItems = [];
+            let showAllItem: SelectItem | null = null;
+
             for (let opt of this.rowsPerPageOptions) {
                 if (typeof opt == 'object' && opt['showAll']) {
-                    this.rowsPerPageItems.unshift({ label: opt['showAll'], value: this.totalRecords });
+                    showAllItem = { label: opt['showAll'], value: this.totalRecords };
                 } else {
                     this.rowsPerPageItems.push({ label: String(this.getLocalization(opt)), value: opt });
                 }
+            }
+
+            if (showAllItem) {
+                this.rowsPerPageItems.push(showAllItem);
             }
         }
     }
