@@ -19,7 +19,7 @@ import { ChangeDetectionStrategy, ChangeDetectorRef, Component } from '@angular/
                 </div>
                 <p-dialog header="Header" [resizable]="false" [modal]="true" [maximizable]="true" appendTo="body" [(visible)]="dialogVisible" [style]="{ width: '75vw' }" [contentStyle]="{ height: '300px' }">
                     <p-table [value]="customers" [scrollable]="true" scrollHeight="flex" [tableStyle]="{ 'min-width': '50rem' }">
-                        <ng-template pTemplate="header">
+                        <ng-template #header>
                             <tr>
                                 <th>Name</th>
                                 <th>Country</th>
@@ -27,7 +27,7 @@ import { ChangeDetectionStrategy, ChangeDetectorRef, Component } from '@angular/
                                 <th>Representative</th>
                             </tr>
                         </ng-template>
-                        <ng-template pTemplate="body" let-customer>
+                        <ng-template #body let-customer>
                             <tr>
                                 <td>{{ customer.name }}</td>
                                 <td>{{ customer.country.name }}</td>
@@ -36,7 +36,7 @@ import { ChangeDetectionStrategy, ChangeDetectorRef, Component } from '@angular/
                             </tr>
                         </ng-template>
                     </p-table>
-                    <ng-template pTemplate="footer">
+                    <ng-template #footer>
                         <p-button label="Ok" icon="pi pi-check" (onClick)="dialogVisible = false" />
                     </ng-template>
                 </p-dialog>
@@ -80,7 +80,7 @@ export class FlexibleScrollDoc {
     [contentStyle]="{ height: '300px' }"
 >
     <p-table [value]="customers" [scrollable]="true" scrollHeight="flex" [tableStyle]="{ 'min-width': '50rem' }">
-        <ng-template pTemplate="header">
+        <ng-template #header>
             <tr>
                 <th>Name</th>
                 <th>Country</th>
@@ -88,7 +88,7 @@ export class FlexibleScrollDoc {
                 <th>Representative</th>
             </tr>
         </ng-template>
-        <ng-template pTemplate="body" let-customer>
+        <ng-template #body let-customer>
             <tr>
                 <td>{{ customer.name }}</td>
                 <td>{{ customer.country.name }}</td>
@@ -97,7 +97,7 @@ export class FlexibleScrollDoc {
             </tr>
         </ng-template>
     </p-table>
-    <ng-template pTemplate="footer">
+    <ng-template #footer>
         <p-button label="Ok" icon="pi pi-check" (onClick)="dialogVisible = false" />
     </ng-template>
 </p-dialog>`,
@@ -116,7 +116,7 @@ export class FlexibleScrollDoc {
         [contentStyle]="{ height: '300px' }"
     >
         <p-table [value]="customers" [scrollable]="true" scrollHeight="flex" [tableStyle]="{ 'min-width': '50rem' }">
-            <ng-template pTemplate="header">
+            <ng-template #header>
                 <tr>
                     <th>Name</th>
                     <th>Country</th>
@@ -124,7 +124,7 @@ export class FlexibleScrollDoc {
                     <th>Representative</th>
                 </tr>
             </ng-template>
-            <ng-template pTemplate="body" let-customer>
+            <ng-template #body let-customer>
                 <tr>
                     <td>{{ customer.name }}</td>
                     <td>{{ customer.country.name }}</td>
@@ -133,7 +133,7 @@ export class FlexibleScrollDoc {
                 </tr>
             </ng-template>
         </p-table>
-        <ng-template pTemplate="footer">
+        <ng-template #footer>
             <p-button label="Ok" icon="pi pi-check" (onClick)="dialogVisible = false" />
         </ng-template>
     </p-dialog>
