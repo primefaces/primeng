@@ -18,10 +18,10 @@ import { Subscription } from 'rxjs';
         </app-docsectiontext>
         <div class="card dock-demo">
             <p-menubar [model]="menubarItems">
-                <ng-template pTemplate="start">
+                <ng-template #start>
                     <i class="pi pi-apple px-2"></i>
                 </ng-template>
-                <ng-template pTemplate="end">
+                <ng-template #end>
                     <i class="pi pi-video px-2"></i>
                     <i class="pi pi-wifi px-2"></i>
                     <i class="pi pi-volume-up px-2"></i>
@@ -32,7 +32,7 @@ import { Subscription } from 'rxjs';
             </p-menubar>
             <div class="dock-window">
                 <p-dock [model]="dockItems" position="bottom">
-                    <ng-template pTemplate="item" let-item>
+                    <ng-template #item let-item>
                         <a [pTooltip]="item.label" tooltipPosition="top" class="p-dock-item-link">
                             <img [alt]="item.label" [src]="item.icon" style="width: 100%" />
                         </a>
@@ -61,7 +61,7 @@ import { Subscription } from 'rxjs';
                     [fullScreen]="true"
                     [containerStyle]="{ width: '400px' }"
                 >
-                    <ng-template pTemplate="item" let-item>
+                    <ng-template #item let-item>
                         <img [src]="item.itemImageSrc" style="width: 100%; display: block;" />
                     </ng-template>
                 </p-galleria>
@@ -400,10 +400,10 @@ export class AdvancedDoc implements OnInit, OnDestroy {
 
     code: Code = {
         basic: `<p-menubar [model]="menubarItems">
-    <ng-template pTemplate="start">
+    <ng-template #start>
         <i class="pi pi-apple px-2"></i>
     </ng-template>
-    <ng-template pTemplate="end">
+    <ng-template #end>
         <i class="pi pi-video px-2"></i>
         <i class="pi pi-wifi px-2"></i>
         <i class="pi pi-volume-up px-2"></i>
@@ -414,7 +414,7 @@ export class AdvancedDoc implements OnInit, OnDestroy {
 </p-menubar>
 <div class="dock-window">
     <p-dock [model]="dockItems" position="bottom">
-        <ng-template pTemplate="item" let-item>
+        <ng-template #item let-item>
             <a [pTooltip]="item.label" tooltipPosition="top" class="p-dock-item-link">
                 <img [alt]="item.label" [src]="item.icon" style="width: 100%" />
             </a>
@@ -458,17 +458,17 @@ export class AdvancedDoc implements OnInit, OnDestroy {
         [fullScreen]="true"
         [containerStyle]="{ width: '400px' }"
     >
-        <ng-template pTemplate="item" let-item>
+        <ng-template #item let-item>
             <img [src]="item.itemImageSrc" style="width: 100%; display: block;" />
         </ng-template>
     </p-galleria>`,
 
         html: `<div class="card dock-demo">
    <p-menubar [model]="menubarItems">
-        <ng-template pTemplate="start">
+        <ng-template #start>
             <i class="pi pi-apple px-2"></i>
         </ng-template>
-        <ng-template pTemplate="end">
+        <ng-template #end>
             <i class="pi pi-video px-2"></i>
             <i class="pi pi-wifi px-2"></i>
             <i class="pi pi-volume-up px-2"></i>
@@ -479,7 +479,7 @@ export class AdvancedDoc implements OnInit, OnDestroy {
     </p-menubar>
     <div class="dock-window">
         <p-dock [model]="dockItems" position="bottom">
-            <ng-template pTemplate="item" let-item>
+            <ng-template #item let-item>
                 <a [pTooltip]="item.label" tooltipPosition="top" class="p-dock-item-link">
                     <img [alt]="item.label" [src]="item.icon" style="width: 100%" />
                 </a>
@@ -523,7 +523,7 @@ export class AdvancedDoc implements OnInit, OnDestroy {
             [fullScreen]="true"
             [containerStyle]="{ width: '400px' }"
         >
-            <ng-template pTemplate="item" let-item>
+            <ng-template #item let-item>
                 <img [src]="item.itemImageSrc" style="width: 100%; display: block;" />
             </ng-template>
         </p-galleria>
