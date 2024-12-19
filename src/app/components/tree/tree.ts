@@ -1480,6 +1480,7 @@ export class Tree implements OnInit, AfterContentInit, OnChanges, OnDestroy, Blo
     }
 
     propagateUp(node: TreeNode, select: boolean) {
+        const unfilteredParentNode: TreeNode = this.getNodeWithKey(<string>node.key, <TreeNode<any>[]>this.value);
         if (node.children && node.children.length) {
             let selectedCount: number = 0;
             let childPartialSelected: boolean = false;
@@ -1490,8 +1491,7 @@ export class Tree implements OnInit, AfterContentInit, OnChanges, OnDestroy, Blo
                     childPartialSelected = true;
                 }
             }
-
-            if (select && selectedCount == node.children.length) {
+            if (select && selectedCount == unfilteredParentNode.children.length) {
                 this.selection = [...(this.selection || []), node];
                 node.partialSelected = false;
             } else {
@@ -1502,7 +1502,7 @@ export class Tree implements OnInit, AfterContentInit, OnChanges, OnDestroy, Blo
                     }
                 }
 
-                if (childPartialSelected || (selectedCount > 0 && selectedCount != node.children.length)) node.partialSelected = true;
+                if (childPartialSelected || (selectedCount > 0 && selectedCount != unfilteredParentNode.children.length)) node.partialSelected = true;
                 else node.partialSelected = false;
             }
 
