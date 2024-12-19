@@ -1,6 +1,6 @@
 import { animate, state, style, transition, trigger } from '@angular/animations';
 import { CommonModule } from '@angular/common';
-import { AfterContentInit, booleanAttribute, ChangeDetectionStrategy, Component, ContentChild, ContentChildren, EventEmitter, inject, Input, NgModule, Output, QueryList, TemplateRef, ViewEncapsulation } from '@angular/core';
+import { AfterContentInit, booleanAttribute, ChangeDetectionStrategy, Component, ContentChild, ContentChildren, ElementRef, EventEmitter, inject, Input, NgModule, Output, QueryList, TemplateRef, ViewChild, ViewEncapsulation } from '@angular/core';
 import { uuid } from '@primeuix/utils';
 import { BlockableUI, PrimeTemplate, SharedModule } from 'primeng/api';
 import { BaseComponent } from 'primeng/basecomponent';
@@ -75,7 +75,7 @@ import { FieldsetStyle } from './style/fieldsetstyle';
                 [attr.data-pc-section]="'toggleablecontent'"
                 (@fieldsetContent.done)="onToggleDone()"
             >
-                <div class="p-fieldset-content" [attr.data-pc-section]="'content'">
+                <div class="p-fieldset-content" [attr.data-pc-section]="'content'" #contentWrapper>
                     <ng-content></ng-content>
                     <ng-container *ngTemplateOutlet="contentTemplate || _contentTemplate"></ng-container>
                 </div>
@@ -155,6 +155,8 @@ export class Fieldset extends BaseComponent implements AfterContentInit, Blockab
      */
     @Output() onAfterToggle: EventEmitter<FieldsetAfterToggleEvent> = new EventEmitter<FieldsetAfterToggleEvent>();
 
+    @ViewChild('contentWrapper') contentWrapperViewChild: ElementRef;
+
     get id() {
         return uuid('pn_id_');
     }
@@ -216,15 +218,30 @@ export class Fieldset extends BaseComponent implements AfterContentInit, Blockab
     expand() {
         this.collapsed = false;
         this.collapsedChange.emit(this.collapsed);
+        this.updateTabIndex();
     }
 
     collapse() {
         this.collapsed = true;
         this.collapsedChange.emit(this.collapsed);
+        this.updateTabIndex();
     }
 
     getBlockableElement(): HTMLElement {
         return this.el.nativeElement.children[0];
+    }
+
+    updateTabIndex() {
+        if (this.contentWrapperViewChild) {
+            const focusableElements = this.contentWrapperViewChild.nativeElement.querySelectorAll('input, button, select, a, textarea, [tabindex]:not([tabindex="-1"])');
+            focusableElements.forEach((element: HTMLElement) => {
+                if (this.collapsed) {
+                    element.setAttribute('tabindex', '-1');
+                } else {
+                    element.removeAttribute('tabindex');
+                }
+            });
+        }
     }
 
     onToggleDone() {
