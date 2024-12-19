@@ -1,5 +1,4 @@
 @use "mixins";
-
 .DocSearch-Button {
     border-radius: 6px;
     border: 1px solid var(--border-color);
@@ -9,7 +8,7 @@
     transition: outline-color .2s, border-color .2s;
     outline-color: transparent;
     padding: 0 .5rem;
-    @include mixins.focus-visible();
+    @include focus-visible();
 
     &:hover {
         border-color: var(--primary-color);
@@ -43,6 +42,7 @@
             height: auto;
             width: auto;
             font-family: inherit;
+            box-shadow: none;
 
             &:first-child {
                 font-size: 0.75rem;
@@ -54,7 +54,7 @@
                 align-items: center;
                 font-size: 0.75rem;
                 position: relative;
-                
+
                 &::before {
                     content: "\e90d";
                     display: flex;
@@ -69,7 +69,7 @@
 
                 }
             }
-        }        
+        }
     }
 }
 
