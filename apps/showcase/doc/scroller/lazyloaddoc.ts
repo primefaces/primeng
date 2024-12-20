@@ -19,7 +19,7 @@ interface LazyEvent {
         </app-docsectiontext>
         <div class="card flex justify-center">
             <p-virtualscroller [items]="items" [itemSize]="50" [showLoader]="true" [delay]="250" [loading]="lazyLoading" [lazy]="true" (onLazyLoad)="onLazyLoad($event)" styleClass="border border-surface" [style]="{ width: '200px', height: '200px' }">
-                <ng-template pTemplate="item" let-item let-options="options">
+                <ng-template #item let-item let-options="options">
                     <div class="flex items-center p-2" [ngClass]="{ 'bg-surface-100 dark:bg-surface-700': options.odd }" style="height: 50px;">
                         {{ item }}
                     </div>
@@ -79,12 +79,9 @@ export class LazyLoadDoc {
     (onLazyLoad)="onLazyLoad($event)"
     styleClass="border border-surface"
     [style]="{'width': '200px', 'height': '200px'}">
-        <ng-template pTemplate="item" let-item let-options="options">
-            <div
-                class="flex items-center p-2"
-                [ngClass]="{ 'bg-surface-100 dark:bg-surface-700': options.odd }"
-                style="height: 50px;">
-                    {{ item }}
+        <ng-template #item let-item let-options="options">
+            <div class="flex items-center p-2" [ngClass]="{ 'bg-surface-100 dark:bg-surface-700': options.odd }" style="height: 50px;">
+                {{ item }}
             </div>
         </ng-template>
 </p-virtualscroller>`,
@@ -100,12 +97,9 @@ export class LazyLoadDoc {
         (onLazyLoad)="onLazyLoad($event)"
         styleClass="border border-surface"
         [style]="{'width': '200px', 'height': '200px'}">
-            <ng-template pTemplate="item" let-item let-options="options">
-                <div
-                    class="flex items-center p-2"
-                    [ngClass]="{ 'bg-surface-100 dark:bg-surface-700': options.odd }"
-                    style="height: 50px;">
-                        {{ item }}
+            <ng-template #item let-item let-options="options">
+                <div class="flex items-center p-2" [ngClass]="{ 'bg-surface-100 dark:bg-surface-700': options.odd }" style="height: 50px;">
+                    {{ item }}
                 </div>
             </ng-template>
     </p-virtualscroller>

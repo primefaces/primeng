@@ -23,10 +23,10 @@ import { Component } from '@angular/core';
             <div class="flex-auto">
                 <label class="mb-2 block font-bold" for="horizontal">Horizontal with Step</label>
                 <p-inputnumber [(ngModel)]="value3" [showButtons]="true" buttonLayout="horizontal" inputId="horizontal" spinnerMode="horizontal" [step]="0.25" mode="currency" currency="EUR">
-                    <ng-template pTemplate="incrementbuttonicon">
+                    <ng-template #incrementbuttonicon>
                         <span class="pi pi-plus"></span>
                     </ng-template>
-                    <ng-template pTemplate="decrementbuttonicon">
+                    <ng-template #decrementbuttonicon>
                         <span class="pi pi-minus"></span>
                     </ng-template>
                 </p-inputnumber>
@@ -46,10 +46,10 @@ export class ButtonsDoc {
         basic: `<p-inputnumber [(ngModel)]="value1" [showButtons]="true" inputId="stacked" mode="currency" currency="USD" />
 <p-inputnumber [(ngModel)]="value2" mode="decimal" [showButtons]="true" inputId="minmax-buttons" [min]="0" [max]="100" />
 <p-inputnumber [(ngModel)]="value3" [showButtons]="true" buttonLayout="horizontal" inputId="horizontal" spinnerMode="horizontal" [step]="0.25" mode="currency" currency="EUR">
-    <ng-template pTemplate="incrementbuttonicon">
+    <ng-template #incrementbuttonicon>
         <span class="pi pi-plus"></span>
     </ng-template>
-    <ng-template pTemplate="decrementbuttonicon">
+    <ng-template #decrementbuttonicon>
         <span class="pi pi-minus"></span>
     </ng-template>
 </p-inputnumber>`,
@@ -72,10 +72,10 @@ export class ButtonsDoc {
             Horizontal with Step
         </label>
     <p-inputnumber [(ngModel)]="value3" [showButtons]="true" buttonLayout="horizontal" inputId="horizontal" spinnerMode="horizontal" [step]="0.25" mode="currency" currency="EUR">
-        <ng-template pTemplate="incrementbuttonicon">
+        <ng-template #incrementbuttonicon>
             <span class="pi pi-plus"></span>
         </ng-template>
-        <ng-template pTemplate="decrementbuttonicon">
+        <ng-template #decrementbuttonicon>
             <span class="pi pi-minus"></span>
         </ng-template>
     </p-inputnumber>

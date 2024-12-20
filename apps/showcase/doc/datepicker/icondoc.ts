@@ -22,7 +22,7 @@ import { Component } from '@angular/core';
             <div class="flex-auto">
                 <label for="templatedisplay" class="font-bold block mb-2"> Custom Icon </label>
                 <p-datepicker [(ngModel)]="date3" [iconDisplay]="'input'" [showIcon]="true" [timeOnly]="true" inputId="templatedisplay">
-                    <ng-template pTemplate="inputicon" let-clickCallBack="clickCallBack">
+                    <ng-template #inputicon let-clickCallBack="clickCallBack">
                         <i class="pi pi-clock" (click)="clickCallBack($event)"></i>
                     </ng-template>
                 </p-datepicker>
@@ -44,7 +44,7 @@ export class IconDoc {
 <p-datepicker [(ngModel)]="date2" [iconDisplay]="'input'" [showIcon]="true" inputId="icondisplay" />
 
 <p-datepicker [(ngModel)]="date3" [iconDisplay]="'input'" [showIcon]="true" [timeOnly]="true" inputId="templatedisplay">
-    <ng-template pTemplate="inputicon" let-clickCallBack="clickCallBack">
+    <ng-template #inputicon let-clickCallBack="clickCallBack">
         <i class="pi pi-clock" (click)="clickCallBack($event)"></i>
     </ng-template>
 </p-datepicker>`,
@@ -63,7 +63,7 @@ export class IconDoc {
     <div class="flex-auto">
         <label for="templatedisplay" class="font-bold block mb-2"> Custom Icon </label>
         <p-datepicker [(ngModel)]="date3" [iconDisplay]="'input'" [showIcon]="true" [timeOnly]="true" inputId="templatedisplay">
-            <ng-template pTemplate="inputicon" let-clickCallBack="clickCallBack">
+            <ng-template #inputicon let-clickCallBack="clickCallBack">
                 <i class="pi pi-clock" (click)="clickCallBack($event)"></i>
             </ng-template>
         </p-datepicker>

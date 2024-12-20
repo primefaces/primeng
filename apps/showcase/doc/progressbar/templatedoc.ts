@@ -10,7 +10,7 @@ import { Component } from '@angular/core';
         </app-docsectiontext>
         <div class="card">
             <p-progressbar [value]="50">
-                <ng-template pTemplate="content" let-value>
+                <ng-template #content let-value>
                     <span>{{ value }}/100</span>
                 </ng-template>
             </p-progressbar>
@@ -21,13 +21,13 @@ import { Component } from '@angular/core';
 export class TemplateDoc {
     code: Code = {
         basic: `<p-progressbar [value]="50">
-    <ng-template pTemplate="content" let-value>
+    <ng-template #content let-value>
         <span>{{value}}/100</span>
     </ng-template>
 </p-progressbar>`,
         html: `<div class="card">
      <p-progressbar [value]="50">
-         <ng-template pTemplate="content" let-value>
+         <ng-template #content let-value>
             <span>{{value}}/100</span>
          </ng-template>
      </p-progressbar>

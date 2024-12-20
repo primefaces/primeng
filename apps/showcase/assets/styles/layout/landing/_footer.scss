@@ -1,7 +1,5 @@
-@use "../mixins";
-
 .landing-footer {
     a {
-        @include mixins.focus-visible();
+        @include focus-visible();
     }
 }

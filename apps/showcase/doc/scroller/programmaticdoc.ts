@@ -12,7 +12,7 @@ import { Scroller } from 'primeng/scroller';
         <div class="card flex flex-col items-center gap-4">
             <p-button label="Reset" (click)="reset()" />
             <p-virtualscroller #sc [items]="items" [itemSize]="50" scrollHeight="200px" styleClass="border border-surface" [style]="{ width: '200px', height: '200px' }">
-                <ng-template pTemplate="item" let-item let-options="options">
+                <ng-template #item let-item let-options="options">
                     <div class="flex items-center p-2" [ngClass]="{ 'bg-surface-100 dark:bg-surface-700': options.odd }" style="height: 50px;">
                         {{ item }}
                     </div>
@@ -44,12 +44,9 @@ export class ProgrammaticDoc implements OnInit {
     scrollHeight="200px"
     styleClass="border border-surface"
     [style]="{'width': '200px', 'height': '200px'}">
-        <ng-template pTemplate="item" let-item let-options="options">
-            <div
-                class="flex items-center p-2"
-                [ngClass]="{ 'bg-surface-100 dark:bg-surface-700': options.odd }"
-                style="height: 50px;">
-                    {{ item }}
+        <ng-template #item let-item let-options="options">
+            <div class="flex items-center p-2" [ngClass]="{ 'bg-surface-100 dark:bg-surface-700': options.odd }" style="height: 50px;">
+                {{ item }}
             </div>
         </ng-template>
 </p-virtualscroller>`,
@@ -63,11 +60,8 @@ export class ProgrammaticDoc implements OnInit {
         scrollHeight="200px"
         styleClass="border border-surface"
         [style]="{'width': '200px', 'height': '200px'}">
-            <ng-template pTemplate="item" let-item let-options="options">
-                <div
-                class="flex items-center p-2"
-                [ngClass]="{ 'bg-surface-100 dark:bg-surface-700': options.odd }"
-                style="height: 50px;">
+            <ng-template #item let-item let-options="options">
+                <div class="flex items-center p-2" [ngClass]="{ 'bg-surface-100 dark:bg-surface-700': options.odd }" style="height: 50px;">
                     {{ item }}
                 </div>
             </ng-template>

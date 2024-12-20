@@ -11,7 +11,7 @@ import { ChangeDetectionStrategy, Component } from '@angular/core';
         <div class="card flex flex-wrap justify-center gap-4">
             <div>
                 <p-virtualscroller [items]="items" [itemSize]="50" [showLoader]="true" [delay]="250" styleClass="border border-surface" [style]="{ width: '200px', height: '200px' }">
-                    <ng-template pTemplate="item" let-item let-options="options">
+                    <ng-template #item let-item let-options="options">
                         <div class="flex items-center p-2" [ngClass]="{ 'bg-surface-100 dark:bg-surface-700': options.odd }" style="height: 50px;">
                             {{ item }}
                         </div>
@@ -20,7 +20,7 @@ import { ChangeDetectionStrategy, Component } from '@angular/core';
             </div>
             <div>
                 <p-virtualscroller [items]="items" [itemSize]="50" [showLoader]="true" [delay]="250" styleClass="border border-surface" [style]="{ width: '200px', height: '200px' }">
-                    <ng-template pTemplate="item" let-item let-options="options">
+                    <ng-template #item let-item let-options="options">
                         <div class="flex items-center p-2" [ngClass]="{ 'bg-surface-100 dark:bg-surface-700': options.odd }" style="height: 50px;">
                             {{ item }}
                         </div>
@@ -52,33 +52,37 @@ export class LoaderDoc {
     [delay]="250"
     styleClass="border border-surface"
     [style]="{'width': '200px', 'height': '200px'}">
-        <ng-template pTemplate="item" let-item let-options="options">
-            <div
-                class="flex items-center p-2"
-                [ngClass]="{ 'bg-surface-100 dark:bg-surface-700' : options.odd }"
-                style="height: 50px;">
-                    {{ item }}
+        <ng-template #item let-item let-options="options">
+            <div class="flex items-center p-2" [ngClass]="{ 'bg-surface-100 dark:bg-surface-700' : options.odd }" style="height: 50px;">
+                {{ item }}
             </div>
         </ng-template>
 </p-virtualscroller>`,
 
-        html: `<div class="card flex justify-center">
-    <p-virtualscroller
-        [items]="items"
-        [itemSize]="50"
-        [showLoader]="true"
-        [delay]="250"
-        styleClass="border border-surface"
-        [style]="{'width': '200px', 'height': '200px'}">
-            <ng-template pTemplate="item" let-item let-options="options">
-                <div
-                    class="flex items-center p-2"
-                    [ngClass]="{ 'bg-surface-100 dark:bg-surface-700' : options.odd }"
-                    style="height: 50px;">
-                        {{ item }}
+        html: `<div class="card flex flex-wrap justify-center gap-4">
+    <div>
+        <p-virtualscroller [items]="items" [itemSize]="50" [showLoader]="true" [delay]="250" styleClass="border border-surface" [style]="{ width: '200px', height: '200px' }">
+            <ng-template #item let-item let-options="options">
+                <div class="flex items-center p-2" [ngClass]="{ 'bg-surface-100 dark:bg-surface-700': options.odd }" style="height: 50px;">
+                    {{ item }}
                 </div>
             </ng-template>
-    </p-virtualscroller>
+        </p-virtualscroller>
+    </div>
+    <div>
+        <p-virtualscroller [items]="items" [itemSize]="50" [showLoader]="true" [delay]="250" styleClass="border border-surface" [style]="{ width: '200px', height: '200px' }">
+            <ng-template #item let-item let-options="options">
+                <div class="flex items-center p-2" [ngClass]="{ 'bg-surface-100 dark:bg-surface-700': options.odd }" style="height: 50px;">
+                    {{ item }}
+                </div>
+            </ng-template>
+            <ng-template pTemplate="loader" let-options="options">
+                <div class="flex items-center p-2" [ngClass]="{ 'bg-surface-100 dark:bg-surface-700': options.odd }" style="height: 50px;">
+                    <p-skeleton [width]="options.even ? '60%' : '50%'" height="1.3rem"></p-skeleton>
+                </div>
+            </ng-template>
+        </p-virtualscroller>
+    </div>
 </div>`,
 
         typescript: `import { Component, OnInit } from '@angular/core';

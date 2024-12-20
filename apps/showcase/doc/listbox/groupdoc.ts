@@ -16,7 +16,7 @@ interface Country {
         </app-docsectiontext>
         <div class="card flex justify-center">
             <p-listbox [options]="groupedCities" [group]="true" [(ngModel)]="selectedCountry" class="w-full md:w-56">
-                <ng-template let-group pTemplate="group">
+                <ng-template let-group #group>
                     <div class="flex items-center">
                         <img src="https://primefaces.org/cdn/primeng/images/demo/flag/flag_placeholder.png" [class]="'mr-2 flag flag-' + group.value" style="width: 20px" />
                         <span>{{ group.label }}</span>
@@ -68,37 +68,23 @@ export class GroupDoc {
     }
 
     code: Code = {
-        basic: `<p-listbox
-    [options]="groupedCities"
-    [group]="true"
-    [(ngModel)]="selectedCountry"
-    class="w-full md:w-56">
-        <ng-template let-group pTemplate="group">
-            <div class="flex items-center">
-                <img
-                    src="https://primefaces.org/cdn/primeng/images/demo/flag/flag_placeholder.png"
-                    [class]="'mr-2 flag flag-' + group.value"
-                    style="width: 20px" />
-                <span>{{ group.label }}</span>
-            </div>
-        </ng-template>
+        basic: `<p-listbox [options]="groupedCities" [group]="true" [(ngModel)]="selectedCountry" class="w-full md:w-56">
+    <ng-template let-group #group>
+        <div class="flex items-center">
+            <img src="https://primefaces.org/cdn/primeng/images/demo/flag/flag_placeholder.png" [class]="'mr-2 flag flag-' + group.value" style="width: 20px" />
+            <span>{{ group.label }}</span>
+        </div>
+    </ng-template>
 </p-listbox>`,
 
         html: `<div class="card flex justify-center">
-    <p-listbox
-        [options]="groupedCities"
-        [group]="true"
-        [(ngModel)]="selectedCountry"
-        class="w-full md:w-56">
-            <ng-template let-group pTemplate="group">
-                <div class="flex items-center">
-                    <img
-                        src="https://primefaces.org/cdn/primeng/images/demo/flag/flag_placeholder.png"
-                        [class]="'mr-2 flag flag-' + group.value"
-                        style="width: 20px" />
-                    <span>{{ group.label }}</span>
-                </div>
-            </ng-template>
+    <p-listbox [options]="groupedCities" [group]="true" [(ngModel)]="selectedCountry" class="w-full md:w-56">
+        <ng-template let-group #group>
+            <div class="flex items-center">
+                <img src="https://primefaces.org/cdn/primeng/images/demo/flag/flag_placeholder.png" [class]="'mr-2 flag flag-' + group.value" style="width: 20px" />
+                <span>{{ group.label }}</span>
+            </div>
+        </ng-template>
     </p-listbox>
 </div>`,
 

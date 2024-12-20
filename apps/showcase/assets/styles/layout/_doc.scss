@@ -1,5 +1,3 @@
-@use "mixins";
-
 @mixin mark() {
     border-radius: 6px;
     padding: 2px 6px;
@@ -54,7 +52,7 @@
             border-start-start-radius: 6px;
             white-space: nowrap;
             --p-focus-ring-offset: -1px;
-            @include mixins.focus-visible();
+            @include focus-visible();
 
             &:hover {
                 border-bottom-color: var(--hover-border-color);
@@ -99,13 +97,13 @@
         margin: 0;
 
         a {
-            @include mixins.doc-link();
+            @include doc-link();
         }
     }
 }
 
 .doc-link {
-    @include mixins.doc-link();
+    @include doc-link();
 }
 
 .doc-section-label {
@@ -121,7 +119,7 @@
         transition: outline-color 0.2s, border-color 0.2s, opacity 0.2s;
         outline-color: transparent;
         border-radius: 6px;
-        @include mixins.focus-visible();
+        @include focus-visible();
     }
 
     > .doc-section-label-badge {
@@ -152,7 +150,7 @@
         }
 
         a {
-            @include mixins.doc-link();
+            @include doc-link();
         }
     }
 
@@ -220,7 +218,7 @@
                 cursor: pointer;
                 user-select: none;
                 --p-focus-ring-offset: -1px;
-                @include mixins.focus-visible();
+                @include focus-visible();
             }
 
             &:hover {

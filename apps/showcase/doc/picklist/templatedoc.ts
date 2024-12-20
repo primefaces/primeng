@@ -23,7 +23,7 @@ import { ChangeDetectorRef, Component } from '@angular/core';
                 breakpoint="1400px"
                 scrollHeight="20rem"
             >
-                <ng-template let-option let-selected="selected" pTemplate="option">
+                <ng-template let-option let-selected="selected" #option>
                     <div class="flex flex-wrap p-1 items-center gap-4 w-full">
                         <img class="w-12 shrink-0 rounded" src="https://primefaces.org/cdn/primeng/images/demo/product/{{ option.image }}" [alt]="option.name" />
                         <div class="flex-1 flex flex-col">
@@ -63,7 +63,7 @@ export class TemplateDoc {
     breakpoint="1400px"
     scrollHeight="480px"
 >
-    <ng-template let-option let-selected="selected" pTemplate="option">
+    <ng-template let-option let-selected="selected" #option>
         <div class="flex flex-wrap p-1 items-center gap-4 w-full">
             <img
                 class="w-12 shrink-0 rounded"
@@ -100,7 +100,7 @@ export class TemplateDoc {
         breakpoint="1400px"
         scrollHeight="480px"
     >
-        <ng-template let-option let-selected="selected" pTemplate="option">
+        <ng-template let-option let-selected="selected" #option>
             <div class="flex flex-wrap p-1 items-center gap-4 w-full">
                 <img
                     class="w-12 shrink-0 rounded"

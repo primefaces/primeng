@@ -15,22 +15,22 @@ interface Country {
         </app-docsectiontext>
         <div class="card flex justify-center">
             <p-multiselect [options]="countries" [(ngModel)]="selectedCountries" placeholder="Select Countries" optionLabel="name" styleClass="w-full md:w-80" display="chip">
-                <ng-template let-country pTemplate="item">
+                <ng-template let-country #item>
                     <div class="flex items-center gap-2">
                         <img src="https://primefaces.org/cdn/primeng/images/demo/flag/flag_placeholder.png" [class]="'flag flag-' + country.code.toLowerCase()" style="width: 18px" />
                         <div>{{ country.name }}</div>
                     </div>
                 </ng-template>
-                <ng-template pTemplate="dropdownicon">
+                <ng-template #dropdownicon>
                     <i class="pi pi-map"></i>
                 </ng-template>
-                <ng-template pTemplate="filtericon">
+                <ng-template #filtericon>
                     <i class="pi pi-map-marker"></i>
                 </ng-template>
-                <ng-template pTemplate="header">
+                <ng-template #header>
                     <div class="font-medium px-3 py-2">Available Countries</div>
                 </ng-template>
-                <ng-template pTemplate="footer">
+                <ng-template #footer>
                     <div class="p-3 flex justify-between">
                         <p-button label="Add New" severity="secondary" text size="small" icon="pi pi-plus" />
                         <p-button label="Remove All" severity="danger" text size="small" icon="pi pi-times" />
@@ -62,34 +62,23 @@ export class TemplateDoc implements OnInit {
     }
 
     code: Code = {
-        basic: `<p-multiselect
-    [options]="countries"
-    [(ngModel)]="selectedCountries"
-    placeholder="Select Countries"
-    optionLabel="name"
-    styleClass="w-full md:w-80"
-    display="chip"
->
-    <ng-template let-country pTemplate="item">
+        basic: `<p-multiselect [options]="countries" [(ngModel)]="selectedCountries" placeholder="Select Countries" optionLabel="name" styleClass="w-full md:w-80" display="chip">
+    <ng-template let-country #item>
         <div class="flex items-center gap-2">
-            <img
-                src="https://primefaces.org/cdn/primeng/images/demo/flag/flag_placeholder.png"
-                [class]="'flag flag-' + country.code.toLowerCase()"
-                style="width: 18px"
-            />
+            <img src="https://primefaces.org/cdn/primeng/images/demo/flag/flag_placeholder.png" [class]="'flag flag-' + country.code.toLowerCase()" style="width: 18px" />
             <div>{{ country.name }}</div>
         </div>
     </ng-template>
-    <ng-template pTemplate="dropdownicon">
+    <ng-template #dropdownicon>
         <i class="pi pi-map"></i>
     </ng-template>
-    <ng-template pTemplate="filtericon">
+    <ng-template #filtericon>
         <i class="pi pi-map-marker"></i>
     </ng-template>
-    <ng-template pTemplate="header">
+    <ng-template #header>
         <div class="font-medium px-3 py-2">Available Countries</div>
     </ng-template>
-    <ng-template pTemplate="footer">
+    <ng-template #footer>
         <div class="p-3 flex justify-between">
             <p-button label="Add New" severity="secondary" text size="small" icon="pi pi-plus" />
             <p-button label="Remove All" severity="danger" text size="small" icon="pi pi-times" />
@@ -98,34 +87,23 @@ export class TemplateDoc implements OnInit {
 </p-multiselect>`,
 
         html: `<div class="card flex justify-center">
-    <p-multiselect
-        [options]="countries"
-        [(ngModel)]="selectedCountries"
-        placeholder="Select Countries"
-        optionLabel="name"
-        styleClass="w-full md:w-80"
-        display="chip"
-    >
-        <ng-template let-country pTemplate="item">
+    <p-multiselect [options]="countries" [(ngModel)]="selectedCountries" placeholder="Select Countries" optionLabel="name" styleClass="w-full md:w-80" display="chip">
+        <ng-template let-country #item>
             <div class="flex items-center gap-2">
-                <img
-                    src="https://primefaces.org/cdn/primeng/images/demo/flag/flag_placeholder.png"
-                    [class]="'flag flag-' + country.code.toLowerCase()"
-                    style="width: 18px"
-                />
+                <img src="https://primefaces.org/cdn/primeng/images/demo/flag/flag_placeholder.png" [class]="'flag flag-' + country.code.toLowerCase()" style="width: 18px" />
                 <div>{{ country.name }}</div>
             </div>
         </ng-template>
-        <ng-template pTemplate="dropdownicon">
+        <ng-template #dropdownicon>
             <i class="pi pi-map"></i>
         </ng-template>
-        <ng-template pTemplate="filtericon">
+        <ng-template #filtericon>
             <i class="pi pi-map-marker"></i>
         </ng-template>
-        <ng-template pTemplate="header">
+        <ng-template #header>
             <div class="font-medium px-3 py-2">Available Countries</div>
         </ng-template>
-        <ng-template pTemplate="footer">
+        <ng-template #footer>
             <div class="p-3 flex justify-between">
                 <p-button label="Add New" severity="secondary" text size="small" icon="pi pi-plus" />
                 <p-button label="Remove All" severity="danger" text size="small" icon="pi pi-times" />

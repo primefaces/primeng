@@ -10,7 +10,7 @@ import { ChangeDetectionStrategy, ChangeDetectorRef, Component, OnInit } from '@
         </app-docsectiontext>
         <div class="card flex justify-center">
             <p-virtualscroller [items]="items" [itemSize]="[50, 100]" orientation="both" styleClass="border border-surface" [style]="{ width: '200px', height: '200px' }">
-                <ng-template pTemplate="item" let-item let-options="options">
+                <ng-template #item let-item let-options="options">
                     <div class="flex items-center p-2" [ngClass]="{ 'bg-surface-100 dark:bg-surface-700': options.odd }" style="height: 50px;">
                         <div *ngFor="let el of item" style="width: 100px">{{ el }}</div>
                     </div>
@@ -38,7 +38,7 @@ export class GridDoc implements OnInit {
     orientation="both"
     styleClass="border border-surface"
     [style]="{'width': '200px', 'height': '200px'}">
-        <ng-template pTemplate="item" let-item let-options="options">
+        <ng-template #item let-item let-options="options">
             <div
                 class="flex items-center p-2"
                 [ngClass]="{ 'bg-surface-100 dark:bg-surface-700' : options.odd }"
@@ -57,7 +57,7 @@ export class GridDoc implements OnInit {
         orientation="both"
         styleClass="border border-surface"
         [style]="{'width': '200px', 'height': '200px'}">
-            <ng-template pTemplate="item" let-item let-options="options">
+            <ng-template #item let-item let-options="options">
                 <div
                     class="flex items-center p-2"
                     [ngClass]="{ 'bg-surface-100 dark:bg-surface-700' : options.odd }"
