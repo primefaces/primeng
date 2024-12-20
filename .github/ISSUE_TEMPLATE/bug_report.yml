@@ -56,23 +56,13 @@ body:
         - 17
     validations:
       required: true
-  - type: dropdown
-    id: engine
-    attributes:
-      label: Build / Runtime
-      multiple: false
-      options:
-        - Angular CLI App
-        - TypeScript
-    validations:
-      required: true
   - type: input
     id: node-version
     attributes:
       label: Node version (for AoT issues node --version)
       placeholder: x.x.x
     validations:
-      required: true
+      required: false
   - type: input
     id: browsers
     attributes:
