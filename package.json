@@ -13,7 +13,7 @@
     },
     "scripts": {
         "setup": "pnpm run clean && pnpm run init",
-        "clean": "rm -rf **/node_modules **/dist **/.angular ./pnpm-lock.yaml",
+        "clean": "npx rimraf **/node_modules **/dist **/.angular ./pnpm-lock.yaml",
         "init": "pnpm install && husky",
         "link": "pnpm --filter './packages/*' dev:link",
         "release": "pnpm run build && pnpm recursive publish --filter './packages/*' --no-git-checks --report-summary --tag v18-stable",
