@@ -39,9 +39,7 @@ body:
         ### Reproducer
 
 
-        Provide a clear and concise example that reproduces the issue. This
-        could be a code snippet, a link to a repository, or a step-by-step guide
-        to replicate the problem.
+        Provide a clear and concise executable example that reproduces the issue based on our StackBlitz template.
 
 
         ### PrimeNG Version
@@ -94,8 +92,9 @@ body:
     attributes:
       label: Reason for not contributing a PR
       options:
-        - label: Codebase is complex
-        - label: Lack of time to contribute
+        - label: Lack of time
+        - label: Unsure how to implement the fix/feature
+        - label: Difficulty understanding the codebase
         - label: Other
     validations:
       required: false
@@ -145,28 +144,6 @@ body:
         - v19
         - v18 (LTS Only)
         - v17 (LTS Only)
-    validations:
-      required: true
-  - type: dropdown
-    id: engine
-    attributes:
-      label: Build / Runtime
-      multiple: false
-      options:
-        - Angular CLI App
-        - TypeScript
-    validations:
-      required: true
-  - type: dropdown
-    id: language
-    attributes:
-      label: Language
-      multiple: false
-      options:
-        - TypeScript
-        - ES5
-        - ES6
-        - ALL
     validations:
       required: true
   - type: input
