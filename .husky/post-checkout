@@ -1,14 +1,5 @@
 #!/bin/sh
 
-echo "Warning: This will discard all uncommitted changes and remove untracked files."
-echo "Proceed? (y/n)"
-read -r response
-
-if [ "$response" != "y" ]; then
-  echo "Operation canceled."
-  exit 0
-fi
-
 # Discard all changes and untracked files
 git reset --hard HEAD && git clean -fd
 
