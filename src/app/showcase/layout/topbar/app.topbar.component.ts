@@ -40,7 +40,7 @@ export class AppTopBarComponent implements OnDestroy {
 
         afterNextRender(() => {
             this.bindScrollListener();
-            //this.initDocSearch();
+            this.initDocSearch();
         });
     }
 
@@ -68,9 +68,9 @@ export class AppTopBarComponent implements OnDestroy {
 
     initDocSearch() {
         docsearch({
-            appId: 'XG1L2MUWT9',
-            apiKey: '6057fe1af77fee4e7e41907b0b3ec79d',
-            indexName: 'primeng',
+            appId: 'LIYXHCGZM7',
+            apiKey: '613999de8971de0c46f8ddd72f31dcd5',
+            indexName: 'v17-primeng',
             container: '#docsearch'
         });
     }
