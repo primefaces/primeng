@@ -51,10 +51,15 @@ body:
 
 
         ### Provide a Pull Request
+        We highly encourage contributions from the community! If you have the time and ability, consider submitting a pull request to address this issue. Here's how you can get started:
 
-
-        We encourage users to contribute by providing a PR with a proposed fix.
-        This significantly speeds up the process of addressing the issue.
+        1. Fork the repository.
+        2. Create a new branch (`git checkout -b feature/YourFeatureName`).
+        3. Run "npm run dev" command to deploy the showcase locally using the monorepo.
+        3. Make your changes.
+        4. Commit your changes (`git commit -m 'Add some feature'`).
+        5. Push to the branch (`git push origin feature/YourFeatureName`).
+        6. Open a pull request.
 
 
         ### Reason for No PR
