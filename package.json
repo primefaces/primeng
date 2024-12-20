@@ -3,7 +3,8 @@
     "version": "17.18.15",
     "license": "SEE LICENSE IN LICENSE.md",
     "scripts": {
-        "setup": "npx rimraf ./node_modules ./dist ./.angular ./package-lock.json && npm run init",
+        "setup": "npm run clean && npm run init",
+        "clean": "npx rimraf ./node_modules ./dist ./.angular ./package-lock.json",
         "init": "npm install && husky",
         "ng": "ng",
         "start": "ng serve",
