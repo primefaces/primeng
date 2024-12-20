@@ -215,7 +215,10 @@ export class FilterService {
                 return false;
             }
 
-            return value.toDateString() === filter.toDateString();
+            const valueDate = this.getDate(value);
+            const filterDate = this.getDate(filter);
+
+            return valueDate.toDateString() === filterDate.toDateString();
         },
 
         dateIsNot: (value: any, filter: any): boolean => {
@@ -227,7 +230,14 @@ export class FilterService {
                 return false;
             }
 
-            return value.toDateString() !== filter.toDateString();
+            const valueDate = this.getDate(value);
+            const filterDate = this.getDate(filter);
+
+            if (isNaN(valueDate.getDate()) || isNaN(filterDate.getDate())) {
+                return true;
+            }
+
+            return valueDate.toDateString() !== filterDate.toDateString();
         },
 
         dateBefore: (value: any, filter: any): boolean => {
@@ -239,7 +249,10 @@ export class FilterService {
                 return false;
             }
 
-            return value.getTime() < filter.getTime();
+            const valueDate = this.getDate(value);
+            const filterDate = this.getDate(filter);
+
+            return valueDate.getTime() < filterDate.getTime();
         },
 
         dateAfter: (value: any, filter: any): boolean => {
@@ -250,13 +263,27 @@ export class FilterService {
             if (value === undefined || value === null) {
                 return false;
             }
-            value.setHours(0, 0, 0, 0);
 
-            return value.getTime() > filter.getTime();
+            const valueDate = this.getDate(value);
+            const filterDate = this.getDate(filter);
+
+            valueDate.setHours(0, 0, 0, 0);
+
+            return valueDate.getTime() > filterDate.getTime();
         }
     };
 
     register(rule: string, fn: Function) {
         this.filters[rule] = fn;
+    }
+
+    private getDate(value: any): Date {
+        if (value instanceof Date) {
+            return value;
+        } else {
+            // Prevent creating a date from an integer e.g. from
+            // an age. In this case in invalid date should be returned.
+            return new Date(`${value}`);
+        }
     }
 }
