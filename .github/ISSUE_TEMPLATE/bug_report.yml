@@ -174,11 +174,11 @@ body:
       placeholder: |
         1. Go to '...' 2. Click on '....' 3. Scroll down to '....' 4. See error
     validations:
-      required: false
+      required: true
   - type: textarea
     id: expected-behavior
     attributes:
       label: Expected behavior
       description: A clear and concise description of what you expected to happen.
     validations:
-      required: false
+      required: true
