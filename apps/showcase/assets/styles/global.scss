@@ -1,9 +1,9 @@
 @use './tailwind/main.css';
-@use './layout/layout.scss';
 @use 'primeicons/primeicons.css';
 @use 'quill/dist/quill.snow.css';
 @use './flags.css';
 @use '@docsearch/css/dist/style.css';
+@use './layout/layout.scss';
 
 body {
     visibility: hidden;
