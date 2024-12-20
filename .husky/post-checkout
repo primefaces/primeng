@@ -3,5 +3,5 @@
 # Discard all changes and untracked files
 git reset --hard HEAD && git clean -fd
 
-# Run the setup script
-npm run setup || exit 1
+# Run the clean script
+npm run clean || exit 1
