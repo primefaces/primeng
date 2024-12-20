@@ -9,6 +9,7 @@ body:
       value: >
         ## Overview
 
+
         PrimeNG receives close to 2 million downloads per month. As any other
         popular OSS project, you may understand that the core team does not have
         the bandwidth to review each and every issue in detail in their daily
@@ -16,16 +17,20 @@ body:
         established strict guidelines for issue creation. This will help us
         prioritize and manage our workload efficiently.
 
+
         By adhering to these guidelines, you help us maintain and improve the
         project more effectively. If you'd like to secure our detailed
         attention, you may consider **PrimeNG PRO Support** instead where
         support is provided within 1 business day. Thank you for your
         cooperation and contributions!
 
+
         ## Issue Creation Guidelines
+
 
         To help us assist you better, please follow these mandatory requirements
         when creating an issue:
+
 
         **Important:** Issues that do not follow these guidelines will be
         automatically closed by our bot.
