@@ -153,10 +153,10 @@ body:
   - type: input
     id: node-version
     attributes:
-      label: Node version (for AoT issues node --version)
+      label: Node version
       placeholder: x.x.x
     validations:
-      required: true
+      required: false
   - type: input
     id: browsers
     attributes:
