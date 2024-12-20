@@ -45,7 +45,6 @@ body:
     id: primeng-version
     attributes:
       label: PrimeNG version
-      value: 19
       multiple: false
       options:
         - 19
