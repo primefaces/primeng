@@ -33,12 +33,16 @@ body:
         [PrimeNG Issue Template](https://stackblitz.com/github/primefaces/primeng-issue-template?file=src%2Fapp%2Fapp.component.html)
         and create a case demonstrating your bug report. Issues **without** a StackBlitz example have much less possibility to be reviewed.
     validations:
-      required: false
-  - type: input
-    id: pr-version
+      required: true
+  - type: dropdown
+    id: angular-version
     attributes:
       label: Angular version
-      placeholder: x.x.x
+      multiple: false
+      options:
+        - 19
+        - 18
+        - 17
     validations:
       required: true
   - type: dropdown
@@ -48,6 +52,8 @@ body:
       multiple: false
       options:
         - 19
+        - 18
+        - 17
     validations:
       required: true
   - type: dropdown
@@ -58,18 +64,6 @@ body:
       options:
         - Angular CLI App
         - TypeScript
-    validations:
-      required: true
-  - type: dropdown
-    id: language
-    attributes:
-      label: Language
-      multiple: false
-      options:
-        - TypeScript
-        - ES5
-        - ES6
-        - ALL
     validations:
       required: true
   - type: input
@@ -97,11 +91,11 @@ body:
         3. Scroll down to '....'
         4. See error
     validations:
-      required: false
+      required: true
   - type: textarea
     id: expected-behavior
     attributes:
       label: Expected behavior
       description: A clear and concise description of what you expected to happen.
     validations:
-      required: false
+      required: true
