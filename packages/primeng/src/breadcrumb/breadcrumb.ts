@@ -102,7 +102,7 @@ import { BreadCrumbStyle } from './style/breadcrumbstyle';
                                     <span *ngIf="menuitem?.icon" class="p-breadcrumb-item-icon" [ngClass]="menuitem?.icon" [ngStyle]="menuitem?.iconStyle"></span>
                                     <ng-container *ngIf="menuitem?.label">
                                         <span *ngIf="menuitem?.escape !== false; else htmlLabel" class="p-breadcrumb-item-label">{{ menuitem?.label }}</span>
-                                        <ng-template #htmlLabel><span class="p-breadcrumb-item-label'" [innerHTML]="menuitem?.label"></span></ng-template>
+                                        <ng-template #htmlLabel><span class="p-breadcrumb-item-label" [innerHTML]="menuitem?.label"></span></ng-template>
                                     </ng-container>
                                 </ng-container>
                             </a>
@@ -125,8 +125,8 @@ import { BreadCrumbStyle } from './style/breadcrumbstyle';
                             >
                                 <span *ngIf="menuitem?.icon" class="p-breadcrumb-item-icon" [ngClass]="menuitem?.icon" [ngStyle]="menuitem?.iconStyle"></span>
                                 <ng-container *ngIf="menuitem?.label">
-                                    <span *ngIf="menuitem?.escape !== false; else htmlRouteLabel" class="p-breadcrumb-item-label'">{{ menuitem?.label }}</span>
-                                    <ng-template #htmlRouteLabel><span class="p-breadcrumb-item-label'" [innerHTML]="menuitem?.label"></span></ng-template>
+                                    <span *ngIf="menuitem?.escape !== false; else htmlRouteLabel" class="p-breadcrumb-item-label">{{ menuitem?.label }}</span>
+                                    <ng-template #htmlRouteLabel><span class="p-breadcrumb-item-label" [innerHTML]="menuitem?.label"></span></ng-template>
                                 </ng-container>
                             </a>
                         }
