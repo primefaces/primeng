@@ -4,6 +4,7 @@ import {
     ChangeDetectionStrategy,
     Component,
     ContentChild,
+    ContentChildren,
     ElementRef,
     EventEmitter,
     Inject,
@@ -12,6 +13,7 @@ import {
     OnDestroy,
     OnInit,
     Output,
+    QueryList,
     Renderer2,
     TemplateRef,
     ViewChild,
@@ -23,9 +25,7 @@ import {
     inject,
     input,
     numberAttribute,
-    signal,
-    ContentChildren,
-    QueryList
+    signal
 } from '@angular/core';
 import { RouterModule } from '@angular/router';
 import { absolutePosition, appendChild, findLastIndex, findSingle, focus, isEmpty, isNotEmpty, isPrintableCharacter, isTouchDevice, nestedPosition, relativePosition, resolve, uuid } from '@primeuix/utils';
@@ -36,7 +36,7 @@ import { AngleRightIcon } from 'primeng/icons';
 import { Ripple } from 'primeng/ripple';
 import { TooltipModule } from 'primeng/tooltip';
 import { Nullable, VoidListener } from 'primeng/ts-helpers';
-import { ZIndexUtils } from 'primeng/utils';
+import { CloseOnEscapeService, ZIndexUtils } from 'primeng/utils';
 import { TieredMenuStyle } from './style/tieredmenustyle';
 
 @Component({
@@ -576,6 +576,13 @@ export class TieredMenu extends BaseComponent implements OnInit, OnDestroy {
 
     constructor(public overlayService: OverlayService) {
         super();
+        inject(CloseOnEscapeService).closeOnEscape(
+            {
+                closeOnEscape: () => this.closeWithEscape(),
+                kind: 'single'
+            },
+            this.injector
+        );
         effect(() => {
             const path = this.activeItemPath();
 
@@ -789,10 +796,6 @@ export class TieredMenu extends BaseComponent implements OnInit, OnDestroy {
                 this.onEnterKey(event);
                 break;
 
-            case 'Escape':
-                this.onEscapeKey(event);
-                break;
-
             case 'Tab':
                 this.onTabKey(event);
                 break;
@@ -886,11 +889,10 @@ export class TieredMenu extends BaseComponent implements OnInit, OnDestroy {
         this.onEnterKey(event);
     }
 
-    onEscapeKey(event: KeyboardEvent) {
-        this.hide(event, true);
+    private closeWithEscape() {
+        const didClose = this.hide(undefined, true);
         this.focusedItemInfo().index = this.findFirstFocusedItemIndex();
-
-        event.preventDefault();
+        return didClose;
     }
 
     onTabKey(event: KeyboardEvent) {
@@ -1019,6 +1021,7 @@ export class TieredMenu extends BaseComponent implements OnInit, OnDestroy {
      * @group Method
      */
     hide(event?, isFocus?: boolean) {
+        const isVisible = this.visible;
         if (this.popup) {
             this.onHide.emit({});
             this.visible = false;
@@ -1028,6 +1031,7 @@ export class TieredMenu extends BaseComponent implements OnInit, OnDestroy {
 
         isFocus && focus(this.relatedTarget || this.target || this.rootmenu.sublistViewChild.nativeElement);
         this.dirty = false;
+        return isVisible;
     }
 
     /**

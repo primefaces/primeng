@@ -4544,6 +4544,7 @@ export class EditableColumn implements OnChanges, AfterViewInit, OnDestroy {
             }
 
             event.preventDefault();
+            event.stopPropagation();
         }
     }
 
