@@ -41,11 +41,14 @@ body:
       placeholder: x.x.x
     validations:
       required: true
-  - type: input
+  - type: dropdown
     id: primeng-version
     attributes:
       label: PrimeNG version
-      placeholder: x.x.x
+      value: 19
+      multiple: false
+      options:
+        - 19
     validations:
       required: true
   - type: dropdown
