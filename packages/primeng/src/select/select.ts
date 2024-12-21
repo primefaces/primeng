@@ -2000,19 +2000,7 @@ export class Select extends BaseComponent implements OnInit, AfterViewInit, Afte
         let optionIndex = -1;
         let matched = false;
 
-        if (this.focusedOptionIndex() !== -1) {
-            optionIndex = this.visibleOptions()
-                .slice(this.focusedOptionIndex())
-                .findIndex((option) => this.isOptionMatched(option));
-            optionIndex =
-                optionIndex === -1
-                    ? this.visibleOptions()
-                          .slice(0, this.focusedOptionIndex())
-                          .findIndex((option) => this.isOptionMatched(option))
-                    : optionIndex + this.focusedOptionIndex();
-        } else {
-            optionIndex = this.visibleOptions().findIndex((option) => this.isOptionMatched(option));
-        }
+        optionIndex = this.visibleOptions().findIndex((option) => this.isOptionMatched(option));
 
         if (optionIndex !== -1) {
             matched = true;
