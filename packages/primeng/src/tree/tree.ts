@@ -1295,7 +1295,9 @@ export class Tree extends BaseComponent implements OnInit, AfterContentInit, OnC
                 node.style = '--p-focus-ring-color: none;';
                 return;
             } else {
-                node.style = '--p-focus-ring-color: var(--primary-color)';
+                if (!node.style?.includes('--p-focus-ring-color')) {
+                    node.style = node.style ? `${node.style}--p-focus-ring-color: var(--primary-color)` : '--p-focus-ring-color: var(--primary-color)';
+                }
             }
 
             if (this.hasFilteredNodes()) {
