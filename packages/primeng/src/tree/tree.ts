@@ -30,7 +30,7 @@ import { BlockableUI, PrimeTemplate, ScrollerOptions, SharedModule, TranslationK
 import { BaseComponent } from 'primeng/basecomponent';
 import { Checkbox } from 'primeng/checkbox';
 import { IconField } from 'primeng/iconfield';
-import { CheckIcon, ChevronDownIcon, ChevronRightIcon, MinusIcon, PlusIcon, SearchIcon, SpinnerIcon } from 'primeng/icons';
+import { ChevronDownIcon, ChevronRightIcon, SearchIcon, SpinnerIcon } from 'primeng/icons';
 import { InputIcon } from 'primeng/inputicon';
 import { InputText } from 'primeng/inputtext';
 import { Ripple } from 'primeng/ripple';
@@ -701,7 +701,7 @@ export class UITreeNode extends BaseComponent implements OnInit {
 @Component({
     selector: 'p-tree',
     standalone: true,
-    imports: [CommonModule, Scroller, SharedModule, SearchIcon, SpinnerIcon, InputText, FormsModule, UITreeNode],
+    imports: [CommonModule, Scroller, SharedModule, SearchIcon, SpinnerIcon, InputText, FormsModule, IconField, InputIcon, UITreeNode],
     template: `
         <div [ngClass]="containerClass" [ngStyle]="style" [class]="styleClass" (drop)="onDrop($event)" (dragover)="onDragOver($event)" (dragenter)="onDragEnter()" (dragleave)="onDragLeave($event)">
             <div class="p-tree-mask p-overlay-mask" *ngIf="loading && loadingMode === 'mask'">

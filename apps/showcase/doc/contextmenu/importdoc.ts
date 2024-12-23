@@ -8,6 +8,6 @@ import { Component } from '@angular/core';
 })
 export class ImportDoc {
     code: Code = {
-        typescript: `import { ContextMenu } from 'primeng/contextmenu';`
+        typescript: `import { ContextMenuModule } from 'primeng/contextmenu';`
     };
 }

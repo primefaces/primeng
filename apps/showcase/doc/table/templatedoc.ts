@@ -17,13 +17,13 @@ interface Column {
         <p-deferred-demo (load)="loadDemoData()">
             <div class="card">
                 <p-table [value]="products" [tableStyle]="{ 'min-width': '60rem' }">
-                    <ng-template pTemplate="caption">
+                    <ng-template #caption>
                         <div class="flex items-center justify-between">
                             <span class="text-xl font-bold">Products</span>
                             <p-button icon="pi pi-refresh" rounded raised />
                         </div>
                     </ng-template>
-                    <ng-template pTemplate="header">
+                    <ng-template #header>
                         <tr>
                             <th>Name</th>
                             <th>Image</th>
@@ -33,7 +33,7 @@ interface Column {
                             <th>Status</th>
                         </tr>
                     </ng-template>
-                    <ng-template pTemplate="body" let-product>
+                    <ng-template #body let-product>
                         <tr>
                             <td>{{ product.name }}</td>
                             <td>
@@ -47,7 +47,7 @@ interface Column {
                             </td>
                         </tr>
                     </ng-template>
-                    <ng-template pTemplate="footer"> In total there are {{ products ? products.length : 0 }} products. </ng-template>
+                    <ng-template #footer> In total there are {{ products ? products.length : 0 }} products. </ng-template>
                 </p-table>
             </div>
         </p-deferred-demo>
@@ -91,13 +91,13 @@ export class TemplateDoc {
 
     code: Code = {
         basic: `<p-table [value]="products" [tableStyle]="{ 'min-width': '60rem' }">
-    <ng-template pTemplate="caption">
+    <ng-template #caption>
         <div class="flex items-center justify-between">
             <span class="text-xl font-bold">Products</span>
             <p-button icon="pi pi-refresh" rounded raised />
         </div>
     </ng-template>
-    <ng-template pTemplate="header">
+    <ng-template #header>
         <tr>
             <th>Name</th>
             <th>Image</th>
@@ -107,7 +107,7 @@ export class TemplateDoc {
             <th>Status</th>
         </tr>
     </ng-template>
-    <ng-template pTemplate="body" let-product>
+    <ng-template #body let-product>
         <tr>
             <td>{{ product.name }}</td>
             <td>
@@ -125,17 +125,17 @@ export class TemplateDoc {
             </td>
         </tr>
     </ng-template>
-    <ng-template pTemplate="footer"> In total there are {{ products ? products.length : 0 }} products. </ng-template>
+    <ng-template #footer> In total there are {{ products ? products.length : 0 }} products. </ng-template>
 </p-table>`,
         html: `<div class="card">
     <p-table [value]="products" [tableStyle]="{ 'min-width': '60rem' }">
-        <ng-template pTemplate="caption">
+        <ng-template #caption>
             <div class="flex items-center justify-between">
                 <span class="text-xl font-bold">Products</span>
                 <p-button icon="pi pi-refresh" rounded raised />
             </div>
         </ng-template>
-        <ng-template pTemplate="header">
+        <ng-template #header>
             <tr>
                 <th>Name</th>
                 <th>Image</th>
@@ -145,7 +145,7 @@ export class TemplateDoc {
                 <th>Status</th>
             </tr>
         </ng-template>
-        <ng-template pTemplate="body" let-product>
+        <ng-template #body let-product>
             <tr>
                 <td>{{ product.name }}</td>
                 <td>
@@ -163,7 +163,7 @@ export class TemplateDoc {
                 </td>
             </tr>
         </ng-template>
-        <ng-template pTemplate="footer"> In total there are {{ products ? products.length : 0 }} products. </ng-template>
+        <ng-template #footer> In total there are {{ products ? products.length : 0 }} products. </ng-template>
     </p-table>
 </div>`,
         typescript: `import { Component, OnInit } from '@angular/core';

@@ -1,6 +1,6 @@
 {
     "name": "@primeng/monorepo",
-    "version": "19.0.0-rc.1",
+    "version": "19.0.1",
     "author": "PrimeTek Informatics",
     "homepage": "https://primeng.org/",
     "repository": {
@@ -12,7 +12,8 @@
         "url": "https://github.com/primefaces/primeng/issues"
     },
     "scripts": {
-        "setup": "npx rimraf **/node_modules **/dist **/.angular ./pnpm-lock.yaml && pnpm run init",
+        "setup": "pnpm run clean && pnpm run init",
+        "clean": "npx rimraf **/node_modules **/dist **/.angular ./pnpm-lock.yaml",
         "init": "pnpm install && husky",
         "link": "pnpm --filter './packages/*' dev:link",
         "release": "pnpm run build && pnpm recursive publish --filter './packages/*' --no-git-checks --report-summary",

@@ -10,7 +10,7 @@ import { Component } from '@angular/core';
         </app-docsectiontext>
         <div class="card flex justify-center">
             <p-inputotp [(ngModel)]="value">
-                <ng-template pTemplate="input" let-token let-events="events">
+                <ng-template #input let-token let-events="events">
                     <input class="custom-otp-input" (keydown)="events.keydown($event)" (input)="events.input($event)" type="text" [attr.value]="token" [maxLength]="1" />
                 </ng-template>
             </p-inputotp>
@@ -43,14 +43,14 @@ export class TemplateDoc {
 
     code: Code = {
         basic: `<p-inputotp [(ngModel)]="value">
-    <ng-template pTemplate="input" let-token let-events="events">
+    <ng-template #input let-token let-events="events">
         <input class="custom-otp-input" (input)="events.input($event)" (keydown)="events.keydown($event)" type="text" [attr.value]="token" [maxLength]="1" />
     </ng-template>
 </p-inputotp>`,
 
         html: `<div class="card flex justify-center">
     <p-inputotp [(ngModel)]="value">
-        <ng-template pTemplate="input" let-token let-events="events">
+        <ng-template #input let-token let-events="events">
             <input class="custom-otp-input" (input)="events.input($event)" (keydown)="events.keydown($event)" type="text" [attr.value]="token" [maxLength]="1" />
         </ng-template>
     </p-inputotp>

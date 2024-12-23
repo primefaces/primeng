@@ -1,6 +1,5 @@
 import { Code } from '@/domain/code';
 import { Component } from '@angular/core';
-
 @Component({
     selector: 'float-label-import-doc',
     standalone: false,
@@ -8,6 +7,6 @@ import { Component } from '@angular/core';
 })
 export class ImportDoc {
     code: Code = {
-        typescript: `import { FloatLabel } from 'primeng/floatlabel';`
+        typescript: `import { FloatLabelModule } from 'primeng/floatlabel';`
     };
 }

@@ -18,12 +18,12 @@ interface EventItem {
         </app-docsectiontext>
         <div class="card">
             <p-timeline [value]="events" align="alternate" styleClass="customized-timeline">
-                <ng-template pTemplate="marker" let-event>
+                <ng-template #marker let-event>
                     <span class="flex w-8 h-8 items-center justify-center text-white rounded-full z-10 shadow-sm" [style]="{ 'background-color': event.color }">
                         <i [class]="event.icon"></i>
                     </span>
                 </ng-template>
-                <ng-template pTemplate="content" let-event>
+                <ng-template #content let-event>
                     <p-card [header]="event.status" [subheader]="event.date">
                         <img *ngIf="event.image" [src]="'https://primefaces.org/cdn/primeng/images/demo/product/' + event.image" [alt]="event.name" width="200" class="shadow" />
                         <p>
@@ -52,14 +52,14 @@ export class TemplateDoc {
 
     code: Code = {
         basic: `<p-timeline [value]="events" align="alternate" styleClass="customized-timeline">
-    <ng-template pTemplate="marker" let-event>
+    <ng-template #marker let-event>
         <span
             class="flex w-8 h-8 items-center justify-center text-white rounded-full z-10 shadow-sm"
             [style]="{ 'background-color': event.color }">
                 <i [class]="event.icon"></i>
         </span>
     </ng-template>
-    <ng-template pTemplate="content" let-event>
+    <ng-template #content let-event>
         <p-card [header]="event.status" [subheader]="event.date">
             <img
                 *ngIf="event.image"
@@ -78,14 +78,14 @@ export class TemplateDoc {
 
         html: `<div class="card">
     <p-timeline [value]="events" align="alternate" styleClass="customized-timeline">
-        <ng-template pTemplate="marker" let-event>
+        <ng-template #marker let-event>
             <span
                 class="flex w-8 h-8 items-center justify-center text-white rounded-full z-10 shadow-sm"
                 [style]="{ 'background-color': event.color }">
                     <i [class]="event.icon"></i>
             </span>
         </ng-template>
-        <ng-template pTemplate="content" let-event>
+        <ng-template #content let-event>
             <p-card [header]="event.status" [subheader]="event.date">
                 <img
                     *ngIf="event.image"

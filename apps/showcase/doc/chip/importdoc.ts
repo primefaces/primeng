@@ -8,6 +8,6 @@ import { Component } from '@angular/core';
 })
 export class ImportDoc {
     code: Code = {
-        typescript: `import { Chip } from 'primeng/chip';`
+        typescript: `import { ChipModule } from 'primeng/chip';`
     };
 }

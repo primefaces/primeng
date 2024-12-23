@@ -8,6 +8,6 @@ import { Component } from '@angular/core';
 })
 export class ImportDoc {
     code: Code = {
-        typescript: `import { SplitButton } from 'primeng/splitbutton';`
+        typescript: `import { SplitButtonModule } from 'primeng/splitbutton';`
     };
 }

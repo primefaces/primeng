@@ -8,6 +8,6 @@ import { Component } from '@angular/core';
 })
 export class ImportDoc {
     code: Code = {
-        typescript: `import { FileUpload } from 'primeng/fileupload';`
+        typescript: `import { FileUploadModule } from 'primeng/fileupload';`
     };
 }

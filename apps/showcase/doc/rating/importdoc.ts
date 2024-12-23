@@ -8,6 +8,6 @@ import { Component } from '@angular/core';
 })
 export class ImportDoc {
     code: Code = {
-        typescript: `import { Rating } from 'primeng/rating';`
+        typescript: `import { RatingModule } from 'primeng/rating';`
     };
 }

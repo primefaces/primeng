@@ -27,6 +27,7 @@ import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
 import {
     absolutePosition,
     addClass,
+    addStyle,
     appendChild,
     blockBodyScroll,
     find,
@@ -229,7 +230,7 @@ export const CALENDAR_VALUE_ACCESSOR: any = {
                                     <ChevronRightIcon *ngIf="!decadeTemplate && !_decadeTemplate" />
 
                                     <span *ngIf="nextIconTemplate || !_nextIconTemplate">
-                                        <ng-template *ngTemplateOutlet="nextIconTemplate || !_nextIconTemplate"></ng-template>
+                                        <ng-template *ngTemplateOutlet="nextIconTemplate || _nextIconTemplate"></ng-template>
                                     </span>
                                 </p-button>
                             </div>
@@ -3172,6 +3173,10 @@ export class Calendar extends BaseComponent implements OnInit, AfterContentInit,
                 if (!this.inline) {
                     this.overlay = event.element;
                     this.overlay?.setAttribute(this.attributeSelector as string, '');
+
+                    const styles = !this.inline ? { position: 'absolute', top: '0', left: '0' } : undefined;
+                    addStyle(this.overlay, styles);
+
                     this.appendOverlay();
                     this.updateFocus();
                     if (this.autoZIndex) {

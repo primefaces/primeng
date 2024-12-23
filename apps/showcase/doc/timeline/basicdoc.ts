@@ -13,7 +13,7 @@ import { Component } from '@angular/core';
         </app-docsectiontext>
         <div class="card">
             <p-timeline [value]="events">
-                <ng-template pTemplate="content" let-event>
+                <ng-template #content let-event>
                     {{ event.status }}
                 </ng-template>
             </p-timeline>
@@ -35,14 +35,14 @@ export class BasicDoc {
 
     code: Code = {
         basic: `<p-timeline [value]="events">
-    <ng-template pTemplate="content" let-event>
+    <ng-template #content let-event>
         {{ event.status }}
     </ng-template>
 </p-timeline>`,
 
         html: `<div class="card">
     <p-timeline [value]="events">
-        <ng-template pTemplate="content" let-event>
+        <ng-template #content let-event>
             {{ event.status }}
         </ng-template>
     </p-timeline>

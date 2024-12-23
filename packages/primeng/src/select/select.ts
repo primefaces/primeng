@@ -1367,7 +1367,7 @@ export class Select extends BaseComponent implements OnInit, AfterViewInit, Afte
     }
 
     allowModelChange() {
-        return this.autoDisplayFirst && !this.placeholder() && (this.modelValue() === undefined || this.modelValue() === null) && !this.editable && this.options && this.options.length;
+        return !!this.modelValue() && !this.placeholder() && (this.modelValue() === undefined || this.modelValue() === null) && !this.editable && this.options && this.options.length;
     }
 
     isSelected(option) {

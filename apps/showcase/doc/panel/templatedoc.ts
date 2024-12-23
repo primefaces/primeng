@@ -10,13 +10,13 @@ import { Component, OnInit } from '@angular/core';
         </app-docsectiontext>
         <div class="card">
             <p-panel [toggleable]="true">
-                <ng-template pTemplate="header">
+                <ng-template #header>
                     <div class="flex items-center gap-2">
                         <p-avatar image="https://primefaces.org/cdn/primevue/images/avatar/amyelsner.png" shape="circle" />
                         <span class="font-bold">Amy Elsner</span>
                     </div>
                 </ng-template>
-                <ng-template pTemplate="footer">
+                <ng-template #footer>
                     <div class="flex flex-wrap items-center justify-between gap-4">
                         <div class="flex items-center gap-2">
                             <p-button icon="pi pi-user" rounded text></p-button>
@@ -25,7 +25,7 @@ import { Component, OnInit } from '@angular/core';
                         <span class="text-surface-500 dark:text-surface-400">Updated 2 hours ago</span>
                     </div>
                 </ng-template>
-                <ng-template pTemplate="icons">
+                <ng-template #icons>
                     <p-button icon="pi pi-cog" severity="secondary" rounded text (click)="menu.toggle($event)" />
                     <p-menu #menu id="config_menu" [model]="items" [popup]="true" />
                 </ng-template>
@@ -63,13 +63,13 @@ export class TemplateDoc implements OnInit {
 
     code: Code = {
         basic: `<p-panel [toggleable]="true">
-    <ng-template pTemplate="header">
+    <ng-template #header>
         <div class="flex items-center gap-2">
             <p-avatar image="https://primefaces.org/cdn/primevue/images/avatar/amyelsner.png" shape="circle" />
             <span class="font-bold">Amy Elsner</span>
         </div>
     </ng-template>
-    <ng-template pTemplate="footer">
+    <ng-template #footer>
         <div class="flex flex-wrap items-center justify-between gap-4">
             <div class="flex items-center gap-2">
                 <p-button icon="pi pi-user" rounded text></p-button>
@@ -78,7 +78,7 @@ export class TemplateDoc implements OnInit {
             <span class="text-surface-500 dark:text-surface-400">Updated 2 hours ago</span>
         </div>
     </ng-template>
-    <ng-template pTemplate="icons">
+    <ng-template #icons>
         <p-button icon="pi pi-cog" severity="secondary" rounded text (click)="menu.toggle($event)" />
         <p-menu #menu id="config_menu" [model]="items" [popup]="true" />
     </ng-template>
@@ -92,13 +92,13 @@ export class TemplateDoc implements OnInit {
 
         html: `<div class="card">
     <p-panel [toggleable]="true">
-        <ng-template pTemplate="header">
+        <ng-template #header>
             <div class="flex items-center gap-2">
                 <p-avatar image="https://primefaces.org/cdn/primevue/images/avatar/amyelsner.png" shape="circle" />
                 <span class="font-bold">Amy Elsner</span>
             </div>
         </ng-template>
-        <ng-template pTemplate="footer">
+        <ng-template #footer>
             <div class="flex flex-wrap items-center justify-between gap-4">
                 <div class="flex items-center gap-2">
                     <p-button icon="pi pi-user" rounded text></p-button>
@@ -107,7 +107,7 @@ export class TemplateDoc implements OnInit {
                 <span class="text-surface-500 dark:text-surface-400">Updated 2 hours ago</span>
             </div>
         </ng-template>
-        <ng-template pTemplate="icons">
+        <ng-template #icons>
             <p-button icon="pi pi-cog" severity="secondary" rounded text (click)="menu.toggle($event)" />
             <p-menu #menu id="config_menu" [model]="items" [popup]="true" />
         </ng-template>

@@ -17,7 +17,7 @@ import { Tabs } from './tabs';
     imports: [CommonModule, ChevronLeftIcon, ChevronRightIcon, RippleModule, SharedModule],
     template: `
         @if (showNavigators() && isPrevButtonEnabled()) {
-            <button #prevButton pRipple class="p-tablist-nav-button p-tablist-prev-button" [attr.aria-label]="prevButtonAriaLabel" [attr.tabindex]="tabindex" [attr.data-pc-group-section]="'navigator'" (click)="onPrevButtonClick()">
+            <button type="button" #prevButton pRipple class="p-tablist-nav-button p-tablist-prev-button" [attr.aria-label]="prevButtonAriaLabel" [attr.tabindex]="tabindex" [attr.data-pc-group-section]="'navigator'" (click)="onPrevButtonClick()">
                 @if (prevIconTemplate || _prevIconTemplate) {
                     <ng-container *ngTemplateOutlet="prevIconTemplate || _prevIconTemplate"></ng-container>
                 } @else {
@@ -32,7 +32,7 @@ import { Tabs } from './tabs';
             </div>
         </div>
         @if (showNavigators() && isNextButtonEnabled()) {
-            <button #nextButton pRipple class="p-tablist-nav-button p-tablist-next-button" [attr.aria-label]="nextButtonAriaLabel" [attr.tabindex]="tabindex" [attr.data-pc-group-section]="'navigator'" (click)="onNextButtonClick()">
+            <button type="button" #nextButton pRipple class="p-tablist-nav-button p-tablist-next-button" [attr.aria-label]="nextButtonAriaLabel" [attr.tabindex]="tabindex" [attr.data-pc-group-section]="'navigator'" (click)="onNextButtonClick()">
                 @if (nextIconTemplate || _nextIconTemplate) {
                     <ng-container *ngTemplateOutlet="nextIconTemplate || _nextIconTemplate"></ng-container>
                 } @else {

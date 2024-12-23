@@ -1,6 +1,5 @@
 import { Code } from '@/domain/code';
 import { Component } from '@angular/core';
-
 @Component({
     selector: 'input-number-import-doc',
     standalone: false,
@@ -8,6 +7,6 @@ import { Component } from '@angular/core';
 })
 export class ImportDoc {
     code: Code = {
-        typescript: `import { InputNumber } from 'primeng/inputnumber';`
+        typescript: `import { InputNumberModule } from 'primeng/inputnumber';`
     };
 }

@@ -12,7 +12,7 @@ import { ChangeDetectionStrategy, ChangeDetectorRef, Component } from '@angular/
         <p-deferred-demo (load)="loadDemoData()">
             <div class="card">
                 <p-table [value]="unlockedCustomers" [frozenValue]="lockedCustomers" [scrollable]="true" scrollHeight="400px" [tableStyle]="{ 'min-width': '60rem' }">
-                    <ng-template pTemplate="header">
+                    <ng-template #header>
                         <tr>
                             <th>Name</th>
                             <th>Country</th>
@@ -21,7 +21,7 @@ import { ChangeDetectionStrategy, ChangeDetectorRef, Component } from '@angular/
                             <th style="width:5rem"></th>
                         </tr>
                     </ng-template>
-                    <ng-template pTemplate="frozenbody" let-customer let-index="rowIndex">
+                    <ng-template #frozenbody let-customer let-index="rowIndex">
                         <tr class="font-bold">
                             <td>{{ customer.name }}</td>
                             <td>{{ customer.country.name }}</td>
@@ -32,7 +32,7 @@ import { ChangeDetectionStrategy, ChangeDetectorRef, Component } from '@angular/
                             </td>
                         </tr>
                     </ng-template>
-                    <ng-template pTemplate="body" let-customer let-index="rowIndex">
+                    <ng-template #body let-customer let-index="rowIndex">
                         <tr>
                             <td>{{ customer.name }}</td>
                             <td>{{ customer.country.name }}</td>
@@ -106,7 +106,7 @@ export class FrozenRowsDoc {
     [scrollable]="true"
     scrollHeight="400px"
     [tableStyle]="{'min-width': '60rem'}">
-        <ng-template pTemplate="header">
+        <ng-template #header>
             <tr>
                 <th>Name</th>
                 <th>Country</th>
@@ -115,7 +115,7 @@ export class FrozenRowsDoc {
                 <th style="width:5rem"></th>
             </tr>
         </ng-template>
-        <ng-template pTemplate="frozenbody" let-customer let-index="rowIndex">
+        <ng-template #frozenbody let-customer let-index="rowIndex">
             <tr class="font-bold">
                 <td>{{customer.name}}</td>
                 <td>{{customer.country.name}}</td>
@@ -134,7 +134,7 @@ export class FrozenRowsDoc {
                 </td>
             </tr>
         </ng-template>
-        <ng-template pTemplate="body" let-customer let-index="rowIndex">
+        <ng-template #body let-customer let-index="rowIndex">
             <tr>
                 <td>{{customer.name}}</td>
                 <td>{{customer.country.name}}</td>
@@ -162,7 +162,7 @@ export class FrozenRowsDoc {
         [scrollable]="true"
         scrollHeight="400px"
         [tableStyle]="{'min-width': '60rem'}">
-            <ng-template pTemplate="header">
+            <ng-template #header>
                 <tr>
                     <th>Name</th>
                     <th>Country</th>
@@ -171,7 +171,7 @@ export class FrozenRowsDoc {
                     <th style="width:5rem"></th>
                 </tr>
             </ng-template>
-            <ng-template pTemplate="frozenbody" let-customer let-index="rowIndex">
+            <ng-template #frozenbody let-customer let-index="rowIndex">
                 <tr class="font-bold">
                     <td>{{customer.name}}</td>
                     <td>{{customer.country.name}}</td>
@@ -190,7 +190,7 @@ export class FrozenRowsDoc {
                     </td>
                 </tr>
             </ng-template>
-            <ng-template pTemplate="body" let-customer let-index="rowIndex">
+            <ng-template #body let-customer let-index="rowIndex">
                 <tr>
                     <td>{{customer.name}}</td>
                     <td>{{customer.country.name}}</td>
