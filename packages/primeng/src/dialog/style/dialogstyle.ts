@@ -18,6 +18,7 @@ const theme = ({ dt }) => `
 .p-dialog-content {
     overflow-y: auto;
     padding: ${dt('dialog.content.padding')};
+    flex: 1 1 auto
 }
 
 .p-dialog-header {
