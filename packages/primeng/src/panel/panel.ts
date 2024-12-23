@@ -279,7 +279,7 @@ export class Panel extends BaseComponent implements AfterContentInit, BlockableU
      * ```
      * @group Templates
      */
-    @ContentChild('icon', { descendants: false }) iconTemplate: TemplateRef<any> | undefined;
+    @ContentChild('icons', { descendants: false }) iconTemplate: TemplateRef<any> | undefined;
 
     /**
      * Defines template option for content.
