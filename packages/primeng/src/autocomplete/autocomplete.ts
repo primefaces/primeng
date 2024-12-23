@@ -1411,7 +1411,7 @@ export class AutoComplete extends BaseComponent implements AfterViewChecked, Aft
         }
     }
 
-    hasFluid() {
+    get hasFluid() {
         const nativeElement = this.el.nativeElement;
         const fluidComponent = nativeElement.closest('p-fluid');
         return this.fluid || !!fluidComponent;

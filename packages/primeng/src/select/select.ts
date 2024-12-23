@@ -852,6 +852,12 @@ export class Select extends BaseComponent implements OnInit, AfterViewInit, Afte
 
     @ViewChild('lastHiddenFocusableEl') lastHiddenFocusableElementOnOverlay: Nullable<ElementRef>;
 
+    get hasFluid() {
+        const nativeElement = this.el.nativeElement;
+        const fluidComponent = nativeElement.closest('p-fluid');
+        return this.fluid || !!fluidComponent;
+    }
+
     // @todo to be refactored
     @HostBinding('class') get hostClass() {
         const classes = this._componentStyle.classes
