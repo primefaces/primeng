@@ -773,7 +773,7 @@ export class Listbox extends BaseComponent implements AfterContentInit, OnInit, 
     }
 
     get searchFields() {
-        return this.filterFields || [this.optionLabel];
+        return this.filterBy?.split(',') || this.filterFields || [this.optionLabel];
     }
 
     get toggleAllAriaLabel() {
