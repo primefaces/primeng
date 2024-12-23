@@ -8,6 +8,6 @@ import { Component } from '@angular/core';
 })
 export class ImportDoc {
     code: Code = {
-        typescript: `import { Fieldset } from 'primeng/fieldset';`
+        typescript: `import { FieldsetModule } from 'primeng/fieldset';`
     };
 }

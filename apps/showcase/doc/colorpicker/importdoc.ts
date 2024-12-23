@@ -1,6 +1,5 @@
 import { Code } from '@/domain/code';
 import { Component } from '@angular/core';
-
 @Component({
     selector: 'color-picker-import-doc',
     standalone: false,
@@ -8,6 +7,6 @@ import { Component } from '@angular/core';
 })
 export class ImportDoc {
     code: Code = {
-        typescript: `import { ColorPicker } from 'primeng/colorpicker';`
+        typescript: `import { ColorPickerModule } from 'primeng/colorpicker';`
     };
 }

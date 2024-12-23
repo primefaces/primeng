@@ -8,6 +8,6 @@ import { Component } from '@angular/core';
 })
 export class ImportDoc {
     code: Code = {
-        typescript: `import { ProgressSpinner } from 'primeng/progressspinner';`
+        typescript: `import { ProgressSpinnerModule } from 'primeng/progressspinner';`
     };
 }

@@ -8,6 +8,6 @@ import { Component } from '@angular/core';
 })
 export class ImportDoc {
     code: Code = {
-        typescript: `import { Panel } from 'primeng/panel';`
+        typescript: `import { PanelModule } from 'primeng/panel';`
     };
 }

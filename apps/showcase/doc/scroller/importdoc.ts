@@ -8,6 +8,6 @@ import { Component } from '@angular/core';
 })
 export class ImportDoc {
     code: Code = {
-        typescript: `import { Scroller } from 'primeng/scroller';`
+        typescript: `import { ScrollerModule } from 'primeng/scroller';`
     };
 }

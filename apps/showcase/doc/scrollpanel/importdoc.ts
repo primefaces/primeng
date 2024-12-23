@@ -8,6 +8,6 @@ import { Component } from '@angular/core';
 })
 export class ImportDoc {
     code: Code = {
-        typescript: `import { ScrollPanel } from 'primeng/scrollpanel';`
+        typescript: `import { ScrollPanelModule } from 'primeng/scrollpanel';`
     };
 }

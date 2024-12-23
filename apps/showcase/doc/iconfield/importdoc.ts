@@ -1,6 +1,5 @@
 import { Code } from '@/domain/code';
 import { Component } from '@angular/core';
-
 @Component({
     selector: 'icon-field-import-doc',
     standalone: false,
@@ -8,7 +7,7 @@ import { Component } from '@angular/core';
 })
 export class ImportDoc {
     code: Code = {
-        typescript: `import { IconField } from 'primeng/iconfield';
-import { InputIcon } from 'primeng/inputicon';`
+        typescript: `import { IconFieldModule } from 'primeng/iconfield';
+import { InputIconModule } from 'primeng/inputicon';`
     };
 }
