@@ -23,7 +23,7 @@ import {
 import { find, findSingle, getAttribute, setAttribute, uuid } from '@primeuix/utils';
 import { Footer, Header, PrimeTemplate, SharedModule } from 'primeng/api';
 import { BaseComponent } from 'primeng/basecomponent';
-import { Button, ButtonProps } from 'primeng/button';
+import { Button, ButtonModule, ButtonProps } from 'primeng/button';
 import { ChevronDownIcon, ChevronLeftIcon, ChevronRightIcon, ChevronUpIcon } from 'primeng/icons';
 import { Ripple } from 'primeng/ripple';
 import { CarouselPageEvent, CarouselResponsiveOptions } from './carousel.interface';
@@ -36,7 +36,7 @@ import { CarouselStyle } from './style/carouselstyle';
 @Component({
     selector: 'p-carousel',
     standalone: true,
-    imports: [CommonModule, Ripple, ChevronRightIcon, ChevronLeftIcon, ChevronDownIcon, ChevronUpIcon, Button, SharedModule],
+    imports: [CommonModule, Ripple, ChevronRightIcon, ButtonModule, ChevronLeftIcon, ChevronDownIcon, ChevronUpIcon, SharedModule],
     template: `
         <div [attr.id]="id" [ngClass]="{ 'p-carousel p-component': true, 'p-carousel-vertical': isVertical(), 'p-carousel-horizontal': !isVertical() }" [ngStyle]="style" [class]="styleClass" role="region">
             <div class="p-carousel-header" *ngIf="headerFacet || headerTemplate">
@@ -293,12 +293,20 @@ export class Carousel extends BaseComponent implements AfterContentInit {
      * Used to pass all properties of the ButtonProps to the Button component.
      * @group Props
      */
-    @Input() prevButtonProps: ButtonProps;
+    @Input() prevButtonProps: ButtonProps = {
+        severity: 'secondary',
+        text: true,
+        rounded: true
+    };
     /**
      * Used to pass all properties of the ButtonProps to the Button component.
      * @group Props
      */
-    @Input() nextButtonProps: ButtonProps;
+    @Input() nextButtonProps: ButtonProps = {
+        severity: 'secondary',
+        text: true,
+        rounded: true
+    };
     /**
      * Callback to invoke after scroll.
      * @param {CarouselPageEvent} event - Custom page event.
