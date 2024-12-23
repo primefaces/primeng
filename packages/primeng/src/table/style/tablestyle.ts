@@ -35,7 +35,7 @@ const theme = ({ dt }) => `
     z-index: 1;
 }
 
-.p-datatable-scrollable .p-datatable-frozen-column {
+.p-datatable-scrollable > tr:not(:has(.p-datatable-selectable-row)) >.p-datatable-frozen-column {
     position: sticky;
     background: ${dt('datatable.header.cell.background')};
 }
