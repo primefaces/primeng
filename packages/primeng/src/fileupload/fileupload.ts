@@ -175,7 +175,7 @@ import { FileUploadStyle } from './style/fileuploadstyle';
                         }
                     "
                 ></ng-container>
-                @if (emptyTemplate && _emptyTemplate && !hasFiles() && !hasUploadedFiles()) {
+                @if ((emptyTemplate || _emptyTemplate) && !hasFiles() && !hasUploadedFiles()) {
                     <ng-container *ngTemplateOutlet="emptyTemplate || _emptyTemplate"></ng-container>
                 }
             </div>
