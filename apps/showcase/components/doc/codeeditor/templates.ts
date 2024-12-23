@@ -13,22 +13,22 @@ export interface Props {
 }
 
 const dependencies = {
-    '@angular/animations': '^18.0.1',
-    '@angular/cdk': '~18.0.1',
-    '@angular/cli': '^18.2.1',
-    '@angular/common': '^18.0.1',
-    '@angular/compiler': '^18.0.1',
-    '@angular/core': '^18.0.1',
-    '@angular/forms': '^18.0.1',
-    '@angular/platform-browser': '^18.0.1',
-    '@angular/platform-browser-dynamic': '^18.0.1',
-    '@angular/router': '^18.0.1',
-    '@primeng/themes': '^18.0.0-rc.1',
+    '@angular/animations': '^19.0.1',
+    '@angular/cdk': '~19.0.1',
+    '@angular/cli': '^19.2.1',
+    '@angular/common': '^19.0.1',
+    '@angular/compiler': '^19.0.1',
+    '@angular/core': '^19.0.1',
+    '@angular/forms': '^19.0.1',
+    '@angular/platform-browser': '^19.0.1',
+    '@angular/platform-browser-dynamic': '^19.0.1',
+    '@angular/router': '^19.0.1',
+    '@primeng/themes': '^19.0.0',
     '@types/jasmine': '4.3.1',
     '@types/node': '12.20.55',
     'chart.js': '^3.3.2',
     primeicons: '7.0.0',
-    primeng: '^18.0.0',
+    primeng: '^19.0.0',
     quill: '1.3.7',
     rxjs: '~7.8.1',
     tslib: '^2.5.0',
@@ -36,9 +36,9 @@ const dependencies = {
 };
 
 const devDependencies = {
-    '@angular-devkit/build-angular': '^18.0.2',
-    '@angular/cli': '^18.0.1',
-    '@angular/compiler-cli': '^18.0.1',
+    '@angular-devkit/build-angular': '^19.0.2',
+    '@angular/cli': '^19.0.1',
+    '@angular/compiler-cli': '^19.0.1',
     '@angular/language-service': '~16.2.0',
     '@types/jasmine': '~4.3.1',
     '@types/node': '^16.18.67',
@@ -50,7 +50,7 @@ const devDependencies = {
     'karma-jasmine': '~5.1.0',
     'karma-jasmine-html-reporter': '~2.0.0',
     'ts-node': '~8.3.0',
-    typescript: '~5.4.5'
+    typescript: '~5.5.4'
 };
 
 const getServiceImports = (service: string[]) => {
