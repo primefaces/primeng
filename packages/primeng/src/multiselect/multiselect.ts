@@ -230,7 +230,10 @@ export class MultiSelectItem extends BaseComponent {
                         <ng-container *ngIf="!modelValue() || modelValue().length === 0">{{ placeholder() || defaultLabel || 'empty' }}</ng-container>
                     </ng-container>
                 </ng-container>
-                <ng-container *ngTemplateOutlet="selectedItemsTemplate || _selectedItemsTemplate; context: { $implicit: selectedOptions, removeChip: removeOption.bind(this) }"></ng-container>
+                <ng-container *ngIf="selectedItemsTemplate || _selectedItemsTemplate">
+                    <ng-container *ngTemplateOutlet="selectedItemsTemplate || _selectedItemsTemplate; context: { $implicit: selectedOptions, removeChip: removeOption.bind(this) }"></ng-container>
+                    <ng-container *ngIf="!modelValue() || modelValue().length === 0">{{ placeholder() || defaultLabel || 'empty' }}</ng-container>
+                </ng-container>
             </div>
         </div>
         <ng-container *ngIf="isVisibleClearIcon">
@@ -1086,6 +1089,7 @@ export class MultiSelect extends BaseComponent implements OnInit, AfterViewInit,
                     break;
 
                 case 'selectedItems':
+                case 'selecteditems':
                     this._selectedItemsTemplate = item.template;
                     break;
 
