@@ -61,12 +61,7 @@ export class SizeDoc {
 
     code: Code = {
         basic: `<div class="flex justify-center mb-4">
-    <p-selectbutton
-        [options]="sizes"
-        [(ngModel)]="selectedSize"
-        [multiple]="false"
-        optionLabel="name"
-        optionValue="class" />
+    <p-selectbutton [options]="sizes" [(ngModel)]="selectedSize" [multiple]="false" optionLabel="name" optionValue="class" />
 </div>
 <p-treetable
     [value]="files"
@@ -94,12 +89,7 @@ export class SizeDoc {
 
         html: `<div class="card">
     <div class="flex justify-center mb-4">
-        <p-selectbutton
-            [options]="sizes"
-            [(ngModel)]="selectedSize"
-            [multiple]="false"
-            optionLabel="name"
-            optionValue="class" />
+        <p-selectbutton [options]="sizes" [(ngModel)]="selectedSize" [multiple]="false" optionLabel="name" optionValue="class" />
     </div>
     <p-treetable
         [value]="files"
