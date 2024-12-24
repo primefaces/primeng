@@ -2,10 +2,11 @@ name: Comment on Pull Request
 
 on:
   pull_request:
-    types: [opened, reopened, synchronize]
+    types: [opened, reopened, synchronize, edited]
 
 permissions:
   contents: read
+  issues: write
   pull-requests: write
 
 jobs:
