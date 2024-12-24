@@ -127,6 +127,21 @@ const theme = ({ dt }) => `
     box-shadow: ${dt('megamenu.overlay.shadow')};
 }
 
+.p-megamenu-overlay. {
+    display: none;
+    position: absolute;
+    width: auto;
+    z-index: 1;
+    left: 0;
+    min-width: 100%;
+    padding: ${dt('megamenu.overlay.padding')};
+    background: ${dt('megamenu.overlay.background')};
+    color: ${dt('megamenu.overlay.color')};
+    border: 1px solid ${dt('megamenu.overlay.border.color')};
+    border-radius: ${dt('megamenu.overlay.border.radius')};
+    box-shadow: ${dt('megamenu.overlay.shadow')};
+}
+
 .p-megamenu-root-list > .p-megamenu-item-active > .p-megamenu-overlay {
     display: block;
 }
@@ -164,6 +179,11 @@ const theme = ({ dt }) => `
     gap: ${dt('megamenu.horizontal.orientation.gap')};
 }
 
+.p-megamenu-horizontal.p-megamenu-align-overlay .p-megamenu-root-list .p-megamenu-overlay  {
+    left: unset;
+    min-width: unset;
+}
+
 .p-megamenu-horizontal .p-megamenu-end {
     margin-left: auto;
     align-self: center;
@@ -183,9 +203,17 @@ const theme = ({ dt }) => `
     gap: ${dt('megamenu.vertical.orientation.gap')};
 }
 
+.p-megamenu-vertical.p-megamenu-align-overlay .p-megamenu-root-list > .p-megamenu-item-active.p-megamenu-item {
+    display: grid;
+}
+
 .p-megamenu-vertical .p-megamenu-root-list > .p-megamenu-item-active > .p-megamenu-overlay {
     left: 100%;
     top: 0;
+}
+
+.p-megamenu-vertical.p-megamenu-align-overlay .p-megamenu-root-list > .p-megamenu-item-active > .p-megamenu-overlay {
+    top: unset;
 }
 
 .p-megamenu-vertical .p-megamenu-root-list > .p-megamenu-item-active >.p-megamenu-overlay:dir(rtl) {

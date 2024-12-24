@@ -384,7 +384,8 @@ export class MegaMenuSub extends BaseComponent {
                 'p-megamenu-mobile': queryMatches,
                 'p-megamenu-mobile-active': mobileActive,
                 'p-megamenu-horizontal': orientation == 'horizontal',
-                'p-megamenu-vertical': orientation == 'vertical'
+                'p-megamenu-vertical': orientation == 'vertical',
+                'p-megamenu-align-overlay': alignOverlay
             }"
             [class]="styleClass"
             [style]="{ flexDirection: orientation == 'vertical' && queryMatches ? 'row' : '' }"
@@ -476,6 +477,11 @@ export class MegaMenu extends BaseComponent implements AfterContentInit, OnDestr
      * @group Props
      */
     @Input() orientation: 'horizontal' | 'vertical' | string = 'horizontal';
+    /**
+     * Defines whether or not the MegaMenu's popup overlay is aligned with the launching menu item. If false the popup overlay will have a minimum with equal to the width of the the MegaMenu.
+     * @group Props
+     */
+    @Input() alignOverlay: boolean = false;
     /**
      * Current id state as a string.
      * @group Props
