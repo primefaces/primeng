@@ -1057,7 +1057,7 @@ export class AutoComplete extends BaseComponent implements AfterViewChecked, Aft
 
     handleSuggestionsChange() {
         if (this.loading) {
-            this._suggestions()?.length > 0 ? this.show() : !!this.emptyTemplate ? this.show() : this.hide();
+            this._suggestions()?.length > 0 || this.showEmptyMessage || !!this.emptyTemplate ? this.show() : this.hide();
             const focusedOptionIndex = this.overlayVisible && this.autoOptionFocus ? this.findFirstFocusedOptionIndex() : -1;
             this.focusedOptionIndex.set(focusedOptionIndex);
             this.suggestionsUpdated = true;
