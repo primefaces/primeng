@@ -46,12 +46,12 @@ export class BasicDoc {
 </div>
 <p-fluid>
     <span class="font-bold mb-2 block">Fluid Container</span>
-        <div class="grid grid-cols-2 gap-4">
-            <div><input type="text" pInputText /></div>
-            <div><input type="text" pInputText /></div>
-            <div class="col-span-full"><input type="text" pInputText /></div>
-            <div><input type="text" pInputText [fluid]="false" placeholder="Non-Fluid" /></div>
-        </div>
+    <div class="grid grid-cols-2 gap-4">
+        <div><input type="text" pInputText /></div>
+        <div><input type="text" pInputText /></div>
+        <div class="col-span-full"><input type="text" pInputText /></div>
+        <div><input type="text" pInputText [fluid]="false" placeholder="Non-Fluid" /></div>
+    </div>
 </p-fluid>`,
 
         html: `<div class="card flex flex-col gap-6">
@@ -65,12 +65,12 @@ export class BasicDoc {
     </div>
     <p-fluid>
         <span class="font-bold mb-2 block">Fluid Container</span>
-            <div class="grid grid-cols-2 gap-4">
-                <div><input type="text" pInputText /></div>
-                <div><input type="text" pInputText /></div>
-                <div class="col-span-full"><input type="text" pInputText /></div>
-                <div><input type="text" pInputText [fluid]="false" placeholder="Non-Fluid" /></div>
-            </div>
+        <div class="grid grid-cols-2 gap-4">
+            <div><input type="text" pInputText /></div>
+            <div><input type="text" pInputText /></div>
+            <div class="col-span-full"><input type="text" pInputText /></div>
+            <div><input type="text" pInputText [fluid]="false" placeholder="Non-Fluid" /></div>
+        </div>
     </p-fluid>
 </div>`,
 
