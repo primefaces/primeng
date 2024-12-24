@@ -4,12 +4,17 @@ import { Type } from '@angular/core';
  * Dialogs can be created dynamically with any component as the content using a DialogService.
  * @group Components
  */
-export class DynamicDialogConfig<T = any> {
+export class DynamicDialogConfig<DataType = any, InputValuesType extends  Record<string, any> = {}> {
     /**
      * An object to pass to the component loaded inside the Dialog.
      * @group Props
      */
-    data?: T;
+    data?: DataType;
+    /**
+     * An object to pass to the component loaded inside the Dialog.
+     * @group Props
+     */
+    inputValues?: InputValuesType;
     /**
      * Header text of the dialog.
      * @group Props
