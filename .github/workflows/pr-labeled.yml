@@ -4,11 +4,7 @@ on:
   pull_request:
     types: [opened, reopened, synchronize, edited]
 
-permissions:
-  contents: write
-  actions: write
-  issues: write
-  pull-requests: write
+permissions: write-all
 
 jobs:
   pr-labeled:
