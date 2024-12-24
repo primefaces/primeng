@@ -67,12 +67,7 @@ export class TemplateDoc {
         basic: `<p-organization-chart [value]="data" [collapsible]="true">
     <ng-template let-node pTemplate="default">
         <div class="flex flex-col items-center">
-            <img
-                src="https://primefaces.org/cdn/primeng/images/flag/flag_placeholder.png"
-                [alt]="node.label"
-                [class]="'flag' + ' flag-' + node.data"
-                width="32"
-            />
+            <img src="https://primefaces.org/cdn/primeng/images/flag/flag_placeholder.png" [alt]="node.label" [class]="'flag' + ' flag-' + node.data" width="32" />
             <div class="mt-4 font-medium text-lg">{{ node.label }}</div>
         </div>
     </ng-template>
@@ -82,12 +77,7 @@ export class TemplateDoc {
     <p-organization-chart [value]="data" [collapsible]="true">
         <ng-template let-node pTemplate="default">
             <div class="flex flex-col items-center">
-                <img
-                    src="https://primefaces.org/cdn/primeng/images/flag/flag_placeholder.png"
-                    [alt]="node.label"
-                    [class]="'flag' + ' flag-' + node.data"
-                    width="32"
-                />
+                <img src="https://primefaces.org/cdn/primeng/images/flag/flag_placeholder.png" [alt]="node.label" [class]="'flag' + ' flag-' + node.data" width="32" />
                 <div class="mt-4 font-medium text-lg">{{ node.label }}</div>
             </div>
         </ng-template>
