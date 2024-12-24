@@ -6,12 +6,10 @@ on:
 
 permissions:
   contents: read
+  pull-requests: write
 
 jobs:
   pr-labeled:
-    permissions:
-      issues: write
-      pull-requests: write
     runs-on: ubuntu-latest
     steps:
         - name: Checkout Repository
