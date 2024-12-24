@@ -25,10 +25,10 @@ export class FullScreenDoc {
 
     code: Code = {
         basic: `<p-drawer header="Drawer" [(visible)]="visible" position="full">
-        <p>
-            Lorem ipsum dolor sit amet, consectetur adipiscing elit...
-        </p>
-    </p-drawer>
+    <p>
+        Lorem ipsum dolor sit amet, consectetur adipiscing elit...
+    </p>
+</p-drawer>
 <p-button (click)="visible = true" icon="pi pi-window-maximize" />`,
 
         html: `<div class="card flex justify-center">
