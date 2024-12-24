@@ -722,4 +722,4 @@ export class DynamicDialogComponent extends BaseComponent implements AfterViewIn
     imports: [DynamicDialogComponent, SharedModule],
     exports: [DynamicDialogComponent, SharedModule]
 })
-export class DynamicDialog {}
+export class DynamicDialogModule {}
