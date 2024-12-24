@@ -122,6 +122,7 @@ import {
                         [variant]="tree?.config.inputStyle() === 'filled' ? 'filled' : 'outlined' || tree?.config.inputVariant() === 'filled' ? 'filled' : 'outlined'"
                         [attr.data-p-partialchecked]="node.partialSelected"
                         [tabindex]="-1"
+                        (click)="$event.preventDefault()" 
                     >
                         <ng-container *ngIf="tree.checkboxIconTemplate || tree._checkboxIconTemplate">
                             <ng-template #icon>
@@ -282,7 +283,6 @@ export class UITreeNode extends BaseComponent implements OnInit {
 
     onNodeClick(event: MouseEvent) {
         this.tree.onNodeClick(event, <TreeNode>this.node);
-        event.preventDefault();
     }
 
     onNodeKeydown(event: KeyboardEvent) {
