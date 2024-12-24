@@ -94,7 +94,7 @@ export const AUTOCOMPLETE_VALUE_ACCESSOR: any = {
                 (blur)="onInputBlur($event)"
                 (paste)="onInputPaste($event)"
                 (keyup)="onInputKeyUp($event)"
-                [fluid]="hasFluid()"
+                [fluid]="hasFluid"
             />
             <ng-container *ngIf="filled && !disabled && showClear && !loading">
                 <TimesIcon *ngIf="!clearIconTemplate && !_clearIconTemplate" [styleClass]="'p-autocomplete-clear-icon'" (click)="clear()" [attr.aria-hidden]="true" />
