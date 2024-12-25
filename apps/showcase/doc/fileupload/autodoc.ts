@@ -30,26 +30,10 @@ export class AutoDoc {
     }
 
     code: Code = {
-        basic: `<p-fileupload
-    mode="basic"
-    name="demo[]"
-    chooseIcon="pi pi-upload"
-    url="https://www.primefaces.org/cdn/api/upload.php"
-    accept="image/*" maxFileSize="1000000"
-    (onUpload)="onBasicUploadAuto($event)"
-    [auto]="true"
-    chooseLabel="Browse" />`,
+        basic: `<p-fileupload mode="basic" name="demo[]" chooseIcon="pi pi-upload" url="https://www.primefaces.org/cdn/api/upload.php" accept="image/*" maxFileSize="1000000" (onUpload)="onBasicUploadAuto($event)" [auto]="true" chooseLabel="Browse" />`,
         html: `<div class="card flex justify-center">
     <p-toast />
-    <p-fileupload
-        mode="basic"
-        name="demo[]"
-        chooseIcon="pi pi-upload"
-        url="https://www.primefaces.org/cdn/api/upload.php"
-        accept="image/*" maxFileSize="1000000"
-        (onUpload)="onBasicUploadAuto($event)"
-        [auto]="true"
-        chooseLabel="Browse" />
+    <p-fileupload mode="basic" name="demo[]" chooseIcon="pi pi-upload" url="https://www.primefaces.org/cdn/api/upload.php" accept="image/*" maxFileSize="1000000" (onUpload)="onBasicUploadAuto($event)" [auto]="true" chooseLabel="Browse" />
 </div>`,
 
         typescript: `import { Component } from '@angular/core';

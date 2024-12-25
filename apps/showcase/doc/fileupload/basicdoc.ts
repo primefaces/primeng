@@ -31,31 +31,11 @@ export class BasicDoc {
     }
 
     code: Code = {
-        basic: `<p-fileupload
-    #fu
-    mode="basic"
-    chooseLabel="Choose"
-    chooseIcon="pi pi-upload"
-    name="demo[]"
-    url="https://www.primefaces.org/cdn/api/upload.php"
-    accept="image/*"
-    maxFileSize="1000000"
-    (onUpload)="onUpload($event)"
-/>
+        basic: `<p-fileupload #fu mode="basic" chooseLabel="Choose" chooseIcon="pi pi-upload" name="demo[]" url="https://www.primefaces.org/cdn/api/upload.php" accept="image/*" maxFileSize="1000000" (onUpload)="onUpload($event)" />
 <p-button label="Upload" (onClick)="fu.upload()" severity="secondary" />`,
         html: `<div class="card flex flex-col gap-6 items-center justify-center">
     <p-toast />
-    <p-fileupload
-        #fu
-        mode="basic"
-        chooseLabel="Choose"
-        chooseIcon="pi pi-upload"
-        name="demo[]"
-        url="https://www.primefaces.org/cdn/api/upload.php"
-        accept="image/*"
-        maxFileSize="1000000"
-        (onUpload)="onUpload($event)"
-    />
+    <p-fileupload #fu mode="basic" chooseLabel="Choose" chooseIcon="pi pi-upload" name="demo[]" url="https://www.primefaces.org/cdn/api/upload.php" accept="image/*" maxFileSize="1000000" (onUpload)="onUpload($event)" />
     <p-button label="Upload" (onClick)="fu.upload()" severity="secondary" />
 </div>`,
         typescript: `import { Component } from '@angular/core';
