@@ -453,7 +453,7 @@ export class CascadeSelect extends BaseComponent implements OnInit, AfterContent
      * Property name or getter function to retrieve the items of a group.
      * @group Props
      */
-    @Input() optionGroupChildren: string | undefined;
+    @Input() optionGroupChildren: string[] | string | undefined | null;
     /**
      * Default text to display when no option is selected.
      * @group Props
