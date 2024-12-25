@@ -50,10 +50,26 @@ export class StripedDoc {
     }
 
     code: Code = {
-        basic: `<p-table
-    [value]="products"
-    stripedRows
-    [tableStyle]="{'min-width': '50rem'}">
+        basic: `<p-table [value]="products" stripedRows [tableStyle]="{'min-width': '50rem'}">
+    <ng-template #header>
+        <tr>
+            <th>Code</th>
+            <th>Name</th>
+            <th>Category</th>
+            <th>Quantity</th>
+        </tr>
+    </ng-template>
+    <ng-template #body let-product>
+        <tr>
+            <td>{{product.code}}</td>
+            <td>{{product.name}}</td>
+            <td>{{product.category}}</td>
+            <td>{{product.quantity}}</td>
+        </tr>
+    </ng-template>
+</p-table>`,
+        html: `<div class="card">
+    <p-table [value]="products" stripedRows [tableStyle]="{'min-width': '50rem'}">
         <ng-template #header>
             <tr>
                 <th>Code</th>
@@ -70,28 +86,6 @@ export class StripedDoc {
                 <td>{{product.quantity}}</td>
             </tr>
         </ng-template>
-</p-table>`,
-        html: `<div class="card">
-    <p-table
-        [value]="products"
-        stripedRows
-        [tableStyle]="{'min-width': '50rem'}">
-            <ng-template #header>
-                <tr>
-                    <th>Code</th>
-                    <th>Name</th>
-                    <th>Category</th>
-                    <th>Quantity</th>
-                </tr>
-            </ng-template>
-            <ng-template #body let-product>
-                <tr>
-                    <td>{{product.code}}</td>
-                    <td>{{product.name}}</td>
-                    <td>{{product.category}}</td>
-                    <td>{{product.quantity}}</td>
-                </tr>
-            </ng-template>
     </p-table>
 </div>`,
         typescript: `import { Component } from '@angular/core';
