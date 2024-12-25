@@ -122,7 +122,7 @@ import {
                         [variant]="tree?.config.inputStyle() === 'filled' ? 'filled' : 'outlined' || tree?.config.inputVariant() === 'filled' ? 'filled' : 'outlined'"
                         [attr.data-p-partialchecked]="node.partialSelected"
                         [tabindex]="-1"
-                        (click)="$event.preventDefault()" 
+                        (click)="$event.preventDefault()"
                     >
                         <ng-container *ngIf="tree.checkboxIconTemplate || tree._checkboxIconTemplate">
                             <ng-template #icon>
