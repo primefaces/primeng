@@ -8,7 +8,7 @@ const theme = ({ dt }) => `
     gap:  ${dt('confirmdialog.content.gap')};
 }
 
-.p-confirmdialog-icon {
+.p-confirmdialog .p-confirmdialog-icon {
     color: ${dt('confirmdialog.icon.color')};
     font-size: ${dt('confirmdialog.icon.size')};
     width: ${dt('confirmdialog.icon.size')};
