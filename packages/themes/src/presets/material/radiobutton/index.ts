@@ -49,7 +49,7 @@ export default {
     },
     css: ({ dt }) => `
 .p-radiobutton {
-    border-radius: 50%
+    border-radius: 50%;
     transition: box-shadow ${dt('radiobutton.transition.duration')};
 }
 
