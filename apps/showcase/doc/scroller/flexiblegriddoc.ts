@@ -8,21 +8,21 @@ import { Code } from '@/domain/code';
         <app-docsectiontext>
             <p>You can have flexible cells in grid by passing a function to <i>itemSize</i>. Click on a cell to expand it.</p>
         </app-docsectiontext>
-        <div class="card flex justify-content-center">
-            <p-scroller [items]="items" [itemSize]="getItemSize.bind(this)" orientation="both" styleClass="border-1 surface-border" [style]="{ width: '200px', height: '200px' }">
-                <ng-template pTemplate="item" let-item let-options="options">
-                    <div class="flex" [ngClass]="{ 'surface-ground': options.odd }">
+        <div class="card flex justify-center">
+            <p-virtualscroller [items]="items" [itemSize]="getItemSize.bind(this)" orientation="both" styleClass="border border-surface" [style]="{ width: '200px', height: '200px' }">
+                <ng-template #item let-item let-options="options">
+                    <div class="flex" [ngClass]="{ 'bg-surface-100 dark:bg-surface-700': options.odd }">
                         <div
                             *ngFor="let el of item; let elIndex = index"
                             (click)="handleItemClick(el, options.index, options.firstCrossAxisIndex + elIndex)"
                             [style]="{ width: expandedCols.has(options.firstCrossAxisIndex + elIndex + '') ? '220px' : '100px', height: expandedRows.has(options.index + '') ? '120px' : '50px' }"
-                            class="p-2 cursor-pointer flex align-items-center hover:surface-hover"
+                            class="p-2 cursor-pointer flex items-center hover:bg-surface-200 dark:hover:bg-surface-600"
                         >
                             <span>{{ el }}</span>
                         </div>
                     </div>
                 </ng-template>
-            </p-scroller>
+            </p-virtualscroller>
         </div>
         <app-code [code]="code" selector="scroller-flexible-grid-demo"></app-code>
     `,
@@ -62,46 +62,46 @@ export class FlexibleGridDoc implements OnInit {
     }
 
     code: Code = {
-        basic: `<p-scroller
+        basic: `<p-virtualscroller
     [items]="items"
     [itemSize]="getItemSize.bind(this)"
     orientation="both"
-    styleClass="border-1 surface-border"
-    [style]="{'width': '200px', 'height': '200px'}">
-        <ng-template pTemplate="item" let-item let-options="options">
-            <div class="flex" [ngClass]="{ 'surface-ground': options.odd }">
+    styleClass="border border-surface"
+    [style]="{ width: '200px', height: '200px' }">
+        <ng-template #item let-item let-options="options">
+            <div class="flex" [ngClass]="{ 'bg-surface-100 dark:bg-surface-700': options.odd }">
                 <div
                     *ngFor="let el of item; let elIndex = index"
                     (click)="handleItemClick(el, options.index, options.firstCrossAxisIndex + elIndex)"
                     [style]="{ width: expandedCols.has(options.firstCrossAxisIndex + elIndex + '') ? '220px' : '100px', height: expandedRows.has(options.index + '') ? '120px' : '50px' }"
-                    class="p-2 cursor-pointer flex align-items-center hover:surface-hover"
+                    class="p-2 cursor-pointer flex items-center hover:bg-surface-200 dark:hover:bg-surface-600"
                 >
                     <span>{{ el }}</span>
                 </div>
             </div>
         </ng-template>
-</p-scroller>`,
+</p-virtualscroller>`,
 
-        html: `<div class="card flex justify-content-center">
-    <p-scroller
+        html: `<div class="card flex justify-center">
+    <p-virtualscroller
         [items]="items"
         [itemSize]="getItemSize.bind(this)"
         orientation="both"
-        styleClass="border-1 surface-border"
-        [style]="{'width': '200px', 'height': '200px'}">
-            <ng-template pTemplate="item" let-item let-options="options">
-                <div class="flex" [ngClass]="{ 'surface-ground': options.odd }">
+        styleClass="border border-surface"
+        [style]="{ width: '200px', height: '200px' }">
+            <ng-template #item let-item let-options="options">
+                <div class="flex" [ngClass]="{ 'bg-surface-100 dark:bg-surface-700': options.odd }">
                     <div
                         *ngFor="let el of item; let elIndex = index"
                         (click)="handleItemClick(el, options.index, options.firstCrossAxisIndex + elIndex)"
                         [style]="{ width: expandedCols.has(options.firstCrossAxisIndex + elIndex + '') ? '220px' : '100px', height: expandedRows.has(options.index + '') ? '120px' : '50px' }"
-                        class="p-2 cursor-pointer flex align-items-center hover:surface-hover"
+                        class="p-2 cursor-pointer flex items-center hover:bg-surface-200 dark:hover:bg-surface-600"
                     >
                         <span>{{ el }}</span>
                     </div>
                 </div>
             </ng-template>
-    </p-scroller>
+    </p-virtualscroller>
 </div>`,
         typescript: `import { Component, OnInit } from '@angular/core';
 import { ScrollerModule } from 'primeng/scroller';

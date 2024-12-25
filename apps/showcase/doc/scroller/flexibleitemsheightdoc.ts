@@ -14,14 +14,19 @@ import { Code } from '@/domain/code';
             </p>
             <p>Using the function you are free to set any width/height to the items, or change it if needed. In this example we change it on demand to have expandable rows in our scroller. Click the item to see how it works.</p>
         </app-docsectiontext>
-        <div class="card flex justify-content-center">
-            <p-scroller [items]="items" [itemSize]="getItemSize.bind(this)" scrollHeight="200px" styleClass="border-1 surface-border" [style]="{ width: '200px', height: '200px' }">
-                <ng-template pTemplate="item" let-item let-options="options">
-                    <div class="flex align-items-center p-2 hover:surface-hover cursor-pointer" [ngClass]="{ 'surface-ground': options.odd }" [style]="{ height: expandedRows.has(item) ? '120px' : '50px' }" (click)="handleItemClick(item)">
+        <div class="card flex justify-center">
+            <p-virtualscroller [items]="items" [itemSize]="getItemSize.bind(this)" scrollHeight="200px" styleClass="border border-surface" [style]="{ width: '200px', height: '200px' }">
+                <ng-template #item let-item let-options="options">
+                    <div
+                        class="flex items-center p-2 hover:bg-surface-200 dark:hover:bg-surface-600 cursor-pointer"
+                        [ngClass]="{ 'bg-surface-100 dark:bg-surface-700': options.odd }"
+                        [style]="{ height: expandedRows.has(item) ? '120px' : '50px' }"
+                        (click)="handleItemClick(item)"
+                    >
                         {{ item }}
                     </div>
                 </ng-template>
-            </p-scroller>
+            </p-virtualscroller>
         </div>
         <app-code [code]="code" selector="scroller-flexible-demo"></app-code>
     `,
@@ -45,42 +50,42 @@ export class FlexibleItemsHeightDoc {
     }
 
     code: Code = {
-        basic: `<p-scroller
+        basic: `<p-virtualscroller
     [items]="items"
     [itemSize]="getItemSize.bind(this)"
     scrollHeight="200px"
-    styleClass="border-1 surface-border"
-    [style]="{'width': '200px', 'height': '200px'}">
-        <ng-template pTemplate="item" let-item let-options="options">
+    styleClass="border border-surface"
+    [style]="{ width: '200px', height: '200px' }">
+        <ng-template #item let-item let-options="options">
             <div
-                class="flex align-items-center p-2 hover:surface-hover cursor-pointer"
-                [ngClass]="{ 'surface-ground': options.odd }"
+                class="flex items-center p-2 hover:bg-surface-200 dark:hover:bg-surface-600 cursor-pointer"
+                [ngClass]="{ 'bg-surface-100 dark:bg-surface-700': options.odd }"
                 [style]="{ height: expandedRows.has(item) ? '120px' : '50px' }"
                 (click)="handleItemClick(item)"
             >
                 {{ item }}
             </div>
         </ng-template>
-</p-scroller>`,
+</p-virtualscroller>`,
 
-        html: `<div class="card flex justify-content-center">
-    <p-scroller
+        html: `<div class="card flex justify-center">
+    <p-virtualscroller
         [items]="items"
         [itemSize]="getItemSize.bind(this)"
         scrollHeight="200px"
-        styleClass="border-1 surface-border"
-        [style]="{'width': '200px', 'height': '200px'}">
-            <ng-template pTemplate="item" let-item let-options="options">
+        styleClass="border border-surface"
+        [style]="{ width: '200px', height: '200px' }">
+            <ng-template #item let-item let-options="options">
                 <div
-                    class="flex align-items-center p-2 hover:surface-hover cursor-pointer"
-                    [ngClass]="{ 'surface-ground': options.odd }"
+                    class="flex items-center p-2 hover:bg-surface-200 dark:hover:bg-surface-600 cursor-pointer"
+                    [ngClass]="{ 'bg-surface-100 dark:bg-surface-700': options.odd }"
                     [style]="{ height: expandedRows.has(item) ? '120px' : '50px' }"
                     (click)="handleItemClick(item)"
                 >
                     {{ item }}
                 </div>
             </ng-template>
-    </p-scroller>
+    </p-virtualscroller>
 </div>`,
 
         typescript: `import { Component, OnInit } from '@angular/core';
