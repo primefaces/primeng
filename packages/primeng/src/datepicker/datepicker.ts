@@ -228,7 +228,7 @@ export const DATEPICKER_VALUE_ACCESSOR: any = {
                                     [ngStyle]="{ visibility: i === months.length - 1 ? 'visible' : 'hidden' }"
                                     [attr.aria-label]="nextIconAriaLabel"
                                 >
-                                    <ChevronRightIcon *ngIf="!decadeTemplate && !_decadeTemplate" />
+                                    <ChevronRightIcon *ngIf="!nextIconTemplate && !_nextIconTemplate" />
 
                                     <span *ngIf="nextIconTemplate || !_nextIconTemplate">
                                         <ng-template *ngTemplateOutlet="nextIconTemplate || _nextIconTemplate"></ng-template>
