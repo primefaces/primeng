@@ -126,11 +126,7 @@ export class CommandDoc implements OnInit {
         (contextmenu)="onContextMenu($event, user)"
     >
         <div class="flex flex-1 items-center gap-2">
-            <img
-                class="w-8 h-8"
-                [alt]="user.name"
-                [src]="'https://primefaces.org/cdn/primeng/images/demo/avatar/' + user.image"
-            />
+            <img class="w-8 h-8" [alt]="user.name" [src]="'https://primefaces.org/cdn/primeng/images/demo/avatar/' + user.image" />
             <span class="font-bold">{{ user.name }}</span>
         </div>
         <p-tag [value]="user.role" [severity]="getBadge(user)" />
@@ -149,11 +145,7 @@ export class CommandDoc implements OnInit {
             (contextmenu)="onContextMenu($event, user)"
         >
             <div class="flex flex-1 items-center gap-2">
-                <img
-                    class="w-8 h-8"
-                    [alt]="user.name"
-                    [src]="'https://primefaces.org/cdn/primeng/images/demo/avatar/' + user.image"
-                />
+                <img class="w-8 h-8" [alt]="user.name" [src]="'https://primefaces.org/cdn/primeng/images/demo/avatar/' + user.image" />
                 <span class="font-bold">{{ user.name }}</span>
             </div>
             <p-tag [value]="user.role" [severity]="getBadge(user)" />

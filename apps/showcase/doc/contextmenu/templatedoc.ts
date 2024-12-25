@@ -32,7 +32,7 @@ import { ContextMenu } from 'primeng/contextmenu';
                 </li>
             </ul>
 
-            <p-contextMenu #cm [model]="items" (onHide)="onHide()">
+            <p-contextmenu #cm [model]="items" (onHide)="onHide()">
                 <ng-template #item let-item>
                     <a pRipple class="flex items-center p-contextmenu-item-link">
                         <span [class]="item.icon"></span>
@@ -42,7 +42,7 @@ import { ContextMenu } from 'primeng/contextmenu';
                         <i *ngIf="item.items" class="pi pi-angle-right ml-auto"></i>
                     </a>
                 </ng-template>
-            </p-contextMenu>
+            </p-contextmenu>
         </div>
 
         <app-code [code]="code" selector="context-menu-template-demo"></app-code>
@@ -162,9 +162,7 @@ export class TemplateDoc implements OnInit {
     }
 
     code: Code = {
-        basic: `<ul
-    class="m-0 p-0 list-none border border-surface-200 dark:border-surface-700 rounded p-4 flex flex-col gap-2 w-full md:w-[30rem]"
->
+        basic: `<ul class="m-0 p-0 list-none border border-surface-200 dark:border-surface-700 rounded p-4 flex flex-col gap-2 w-full md:w-[30rem]">
     <li
         *ngFor="let product of data"
         class="p-2 hover:bg-surface-100 dark:hover:bg-surface-800 rounded border border-transparent transition-all transition-duration-200"
@@ -172,11 +170,7 @@ export class TemplateDoc implements OnInit {
         (contextmenu)="onContextMenu($event)"
     >
         <div class="flex flex-wrap p-2 items-center gap-4">
-            <img
-                class="w-16 shrink-0 rounded"
-                src="https://primefaces.org/cdn/primeng/images/demo/product/{{ product.image }}"
-                [alt]="product.name"
-            />
+            <img class="w-16 shrink-0 rounded" src="https://primefaces.org/cdn/primeng/images/demo/product/{{ product.image }}" [alt]="product.name" />
             <div class="flex-1 flex flex-col gap-1">
                 <span class="font-bold">{{ product.name }}</span>
                 <div class="flex items-center gap-2">
@@ -189,26 +183,20 @@ export class TemplateDoc implements OnInit {
     </li>
 </ul>
 
-<p-contextMenu #cm [model]="items" (onHide)="onHide()">
+<p-contextmenu #cm [model]="items" (onHide)="onHide()">
     <ng-template #item let-item>
         <a pRipple class="flex items-center p-contextmenu-item-link">
             <span [class]="item.icon"></span>
             <span class="ml-2">{{ item.label }}</span>
             <p-badge *ngIf="item.badge" class="ml-auto" [value]="item.badge" />
-            <span
-                *ngIf="item.shortcut"
-                class="ml-auto border border-surface rounded bg-emphasis text-muted-color text-xs p-1"
-                >{{ item.shortcut }}</span
-            >
+            <span *ngIf="item.shortcut" class="ml-auto border border-surface rounded bg-emphasis text-muted-color text-xs p-1">{{ item.shortcut }}</span>
             <i *ngIf="item.items" class="pi pi-angle-right ml-auto"></i>
         </a>
     </ng-template>
-</p-contextMenu>`,
+</p-contextmenu>`,
 
         html: `<div class="card flex md:justify-center">
-    <ul
-        class="m-0 p-0 list-none border border-surface-200 dark:border-surface-700 rounded p-4 flex flex-col gap-2 w-full md:w-[30rem]"
-    >
+    <ul class="m-0 p-0 list-none border border-surface-200 dark:border-surface-700 rounded p-4 flex flex-col gap-2 w-full md:w-[30rem]">
             <li
                 *ngFor="let product of data"
                 class="p-2 hover:bg-surface-100 dark:hover:bg-surface-800 rounded border border-transparent transition-all transition-duration-200"
@@ -216,11 +204,7 @@ export class TemplateDoc implements OnInit {
                 (contextmenu)="onContextMenu($event)"
             >
                 <div class="flex flex-wrap p-2 items-center gap-4">
-                    <img
-                        class="w-16 shrink-0 rounded"
-                        src="https://primefaces.org/cdn/primeng/images/demo/product/{{ product.image }}"
-                        [alt]="product.name"
-                    />
+                    <img class="w-16 shrink-0 rounded" src="https://primefaces.org/cdn/primeng/images/demo/product/{{ product.image }}" [alt]="product.name" />
                     <div class="flex-1 flex flex-col gap-1">
                         <span class="font-bold">{{ product.name }}</span>
                         <div class="flex items-center gap-2">
@@ -233,21 +217,17 @@ export class TemplateDoc implements OnInit {
             </li>
         </ul>
 
-    <p-contextMenu #cm [model]="items" (onHide)="onHide()">
+    <p-contextmenu #cm [model]="items" (onHide)="onHide()">
         <ng-template #item let-item>
             <a pRipple class="flex items-center p-contextmenu-item-link">
                 <span [class]="item.icon"></span>
                 <span class="ml-2">{{ item.label }}</span>
                 <p-badge *ngIf="item.badge" class="ml-auto" [value]="item.badge" />
-                <span
-                    *ngIf="item.shortcut"
-                    class="ml-auto border border-surface rounded bg-emphasis text-muted-color text-xs p-1"
-                    >{{ item.shortcut }}</span
-                >
+                <span *ngIf="item.shortcut" class="ml-auto border border-surface rounded bg-emphasis text-muted-color text-xs p-1">{{ item.shortcut }}</span>
                 <i *ngIf="item.items" class="pi pi-angle-right ml-auto"></i>
             </a>
         </ng-template>
-    </p-contextMenu>
+    </p-contextmenu>
 </div>`,
 
         typescript: `import { Component, OnInit, ViewChild } from '@angular/core';
