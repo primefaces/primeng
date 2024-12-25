@@ -79,20 +79,32 @@ export class ExportDoc {
     }
 
     code: Code = {
-        basic: `<p-table
-    #dt
-    [columns]="cols"
-    [value]="products"
-    selectionMode="multiple"
-    [(selection)]="selectedProducts"
-    [exportHeader]="'customExportHeader'"
-    [tableStyle]="{ 'min-width': '50rem' }">
+        basic: `<p-table #dt [columns]="cols" [value]="products" selectionMode="multiple" [(selection)]="selectedProducts" [exportHeader]="'customExportHeader'" [tableStyle]="{ 'min-width': '50rem' }">
+    <ng-template #caption>
+        <div class="text-end pb-4">
+            <p-button icon="pi pi-external-link" label="Export" (click)="dt.exportCSV()" />
+        </div>
+    </ng-template>
+    <ng-template #header let-columns>
+        <tr>
+            <th *ngFor="let col of columns">
+                {{ col.header }}
+            </th>
+        </tr>
+    </ng-template>
+    <ng-template #body let-rowData let-columns="columns">
+        <tr [pSelectableRow]="rowData">
+            <td *ngFor="let col of columns">
+                {{ rowData[col.field] }}
+            </td>
+        </tr>
+    </ng-template>
+</p-table>`,
+        html: `<div class="card">
+    <p-table #dt [columns]="cols" [value]="products" selectionMode="multiple" [(selection)]="selectedProducts" [exportHeader]="'customExportHeader'" [tableStyle]="{ 'min-width': '50rem' }">
         <ng-template #caption>
             <div class="text-end pb-4">
-                <p-button
-                    icon="pi pi-external-link"
-                    label="Export"
-                    (click)="dt.exportCSV()" />
+                <p-button icon="pi pi-external-link" label="Export" (click)="dt.exportCSV()" />
             </div>
         </ng-template>
         <ng-template #header let-columns>
@@ -109,38 +121,6 @@ export class ExportDoc {
                 </td>
             </tr>
         </ng-template>
-</p-table>`,
-        html: `<div class="card">
-    <p-table
-        #dt
-        [columns]="cols"
-        [value]="products"
-        selectionMode="multiple"
-        [(selection)]="selectedProducts"
-        [exportHeader]="'customExportHeader'"
-        [tableStyle]="{ 'min-width': '50rem' }">
-            <ng-template #caption>
-                <div class="text-end pb-4">
-                    <p-button
-                        icon="pi pi-external-link"
-                        label="Export"
-                        (click)="dt.exportCSV()" />
-                </div>
-            </ng-template>
-            <ng-template #header let-columns>
-                <tr>
-                    <th *ngFor="let col of columns">
-                        {{ col.header }}
-                    </th>
-                </tr>
-            </ng-template>
-            <ng-template #body let-rowData let-columns="columns">
-                <tr [pSelectableRow]="rowData">
-                    <td *ngFor="let col of columns">
-                        {{ rowData[col.field] }}
-                    </td>
-                </tr>
-            </ng-template>
     </p-table>
 </div>`,
         typescript: `import { Component, OnInit } from '@angular/core';

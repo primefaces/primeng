@@ -104,13 +104,47 @@ export class RowspanGroupingDoc {
     }
 
     code: Code = {
-        basic: `<p-table
-    [value]="customers"
-    rowGroupMode="rowspan"
-    groupRowsBy="representative.name"
-    sortField="representative.name"
-    sortMode="single"
-    [tableStyle]="{'min-width': '75rem'}">
+        basic: `<p-table [value]="customers" rowGroupMode="rowspan" groupRowsBy="representative.name" sortField="representative.name" sortMode="single" [tableStyle]="{ 'min-width': '75rem' }">
+    <ng-template #header>
+        <tr>
+            <th style="width:3rem">#</th>
+            <th>Representative</th>
+            <th>Name</th>
+            <th>Country</th>
+            <th>Company</th>
+            <th>Status</th>
+            <th>Date</th>
+        </tr>
+    </ng-template>
+    <ng-template #body let-customer let-rowIndex="rowIndex" let-rowgroup="rowgroup" let-rowspan="rowspan">
+        <tr>
+            <td>{{ rowIndex }}</td>
+            <td *ngIf="rowgroup" [attr.rowspan]="rowspan">
+                <div class="flex items-center gap-2">
+                    <img [alt]="customer.representative.name" src="https://primefaces.org/cdn/primeng/images/demo/avatar/{{ customer.representative.image }}" width="32" />
+                    <span>{{ customer.representative.name }}</span>
+                </div>
+            </td>
+            <td>
+                {{ customer.name }}
+            </td>
+            <td>
+                <div class="flex items-center gap-2">
+                    <img src="https://primefaces.org/cdn/primeng/images/demo/flag/flag_placeholder.png" [class]="'flag flag-' + customer.country.code" style="width: 20px" />
+                    <span>{{ customer.country.name }}</span>
+                </div>
+            </td>
+            <td>
+                {{ customer.company }}
+            </td>
+            <td>
+                <p-tag [value]="customer.status" [severity]="getSeverity(customer.status)" />
+            </td>
+        </tr>
+    </ng-template>
+</p-table>`,
+        html: `<div class="card">
+    <p-table [value]="customers" rowGroupMode="rowspan" groupRowsBy="representative.name" sortField="representative.name" sortMode="single" [tableStyle]="{ 'min-width': '75rem' }">
         <ng-template #header>
             <tr>
                 <th style="width:3rem">#</th>
@@ -122,88 +156,32 @@ export class RowspanGroupingDoc {
                 <th>Date</th>
             </tr>
         </ng-template>
-        <ng-template
-            #body
-            let-customer
-            let-rowIndex="rowIndex"
-            let-rowgroup="rowgroup"
-            let-rowspan="rowspan">
-                <tr>
-                    <td>{{rowIndex}}</td>
-                    <td *ngIf="rowgroup" [attr.rowspan]="rowspan">
-                        <div class="flex items-center gap-2">
-                            <img [alt]="customer.representative.name" src="https://primefaces.org/cdn/primeng/images/demo/avatar/{{ customer.representative.image }}" width="32" />
-                            <span>{{ customer.representative.name }}</span>
-                        </div>
-                    </td>
-                    <td>
-                        {{customer.name}}
-                    </td>
-                    <td>
-                        <div class="flex items-center gap-2">
-                            <img src="https://primefaces.org/cdn/primeng/images/demo/flag/flag_placeholder.png" [class]="'flag flag-' + customer.country.code" style="width: 20px" />
-                            <span>{{ customer.country.name }}</span>
-                        </div>
-                    </td>
-                    <td>
-                        {{customer.company}}
-                    </td>
-                    <td>
-                        <p-tag [value]="customer.status" [severity]="getSeverity(customer.status)" />
-                    </td>
-                </tr>
+        <ng-template #body let-customer let-rowIndex="rowIndex" let-rowgroup="rowgroup" let-rowspan="rowspan">
+            <tr>
+                <td>{{ rowIndex }}</td>
+                <td *ngIf="rowgroup" [attr.rowspan]="rowspan">
+                    <div class="flex items-center gap-2">
+                        <img [alt]="customer.representative.name" src="https://primefaces.org/cdn/primeng/images/demo/avatar/{{ customer.representative.image }}" width="32" />
+                        <span>{{ customer.representative.name }}</span>
+                    </div>
+                </td>
+                <td>
+                    {{ customer.name }}
+                </td>
+                <td>
+                    <div class="flex items-center gap-2">
+                        <img src="https://primefaces.org/cdn/primeng/images/demo/flag/flag_placeholder.png" [class]="'flag flag-' + customer.country.code" style="width: 20px" />
+                        <span>{{ customer.country.name }}</span>
+                    </div>
+                </td>
+                <td>
+                    {{ customer.company }}
+                </td>
+                <td>
+                    <p-tag [value]="customer.status" [severity]="getSeverity(customer.status)" />
+                </td>
+            </tr>
         </ng-template>
-</p-table>`,
-        html: `<div class="card">
-    <p-table
-        [value]="customers"
-        rowGroupMode="rowspan"
-        groupRowsBy="representative.name"
-        sortField="representative.name"
-        sortMode="single"
-        [tableStyle]="{'min-width': '75rem'}">
-            <ng-template #header>
-                <tr>
-                    <th style="width:3rem">#</th>
-                    <th>Representative</th>
-                    <th>Name</th>
-                    <th>Country</th>
-                    <th>Company</th>
-                    <th>Status</th>
-                    <th>Date</th>
-                </tr>
-            </ng-template>
-            <ng-template
-                #body
-                let-customer
-                let-rowIndex="rowIndex"
-                let-rowgroup="rowgroup"
-                let-rowspan="rowspan">
-                    <tr>
-                        <td>{{rowIndex}}</td>
-                        <td *ngIf="rowgroup" [attr.rowspan]="rowspan">
-                            <div class="flex items-center gap-2">
-                                <img [alt]="customer.representative.name" src="https://primefaces.org/cdn/primeng/images/demo/avatar/{{ customer.representative.image }}" width="32" />
-                                <span>{{ customer.representative.name }}</span>
-                            </div>
-                        </td>
-                        <td>
-                            {{customer.name}}
-                        </td>
-                        <td>
-                            <div class="flex items-center gap-2">
-                                <img src="https://primefaces.org/cdn/primeng/images/demo/flag/flag_placeholder.png" [class]="'flag flag-' + customer.country.code" style="width: 20px" />
-                                <span>{{ customer.country.name }}</span>
-                            </div>
-                        </td>
-                        <td>
-                            {{customer.company}}
-                        </td>
-                        <td>
-                            <p-tag [value]="customer.status" [severity]="getSeverity(customer.status)" />
-                        </td>
-                    </tr>
-            </ng-template>
     </p-table>
 </div>`,
         typescript: `import { Component, OnInit } from '@angular/core';

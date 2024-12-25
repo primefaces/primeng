@@ -73,11 +73,28 @@ export class ReorderDoc {
     }
 
     code: Code = {
-        basic: `<p-table
-    [value]="products"
-    [columns]="cols"
-    [reorderableColumns]="true"
-    [tableStyle]="{'min-width': '50rem'}">
+        basic: `<p-table [value]="products" [columns]="cols" [reorderableColumns]="true" [tableStyle]="{'min-width': '50rem'}">
+    <ng-template #header let-columns>
+        <tr>
+            <th style="width:3rem"></th>
+            <th *ngFor="let col of columns" pReorderableColumn>
+                {{col.header}}
+            </th>
+        </tr>
+    </ng-template>
+    <ng-template #body let-rowData let-columns="columns" let-index="rowIndex">
+        <tr [pReorderableRow]="index">
+            <td>
+                <span class="pi pi-bars" pReorderableRowHandle></span>
+            </td>
+            <td *ngFor="let col of columns">
+                {{rowData[col.field]}}
+            </td>
+        </tr>
+    </ng-template>
+</p-table>`,
+        html: `<div class="card">
+    <p-table [value]="products" [columns]="cols" [reorderableColumns]="true" [tableStyle]="{'min-width': '50rem'}">
         <ng-template #header let-columns>
             <tr>
                 <th style="width:3rem"></th>
@@ -100,35 +117,6 @@ export class ReorderDoc {
                     </td>
                 </tr>
         </ng-template>
-</p-table>`,
-        html: `<div class="card">
-    <p-table
-        [value]="products"
-        [columns]="cols"
-        [reorderableColumns]="true"
-        [tableStyle]="{'min-width': '50rem'}">
-            <ng-template #header let-columns>
-                <tr>
-                    <th style="width:3rem"></th>
-                    <th *ngFor="let col of columns" pReorderableColumn>
-                        {{col.header}}
-                    </th>
-                </tr>
-            </ng-template>
-            <ng-template
-                #body
-                let-rowData
-                let-columns="columns"
-                let-index="rowIndex">
-                    <tr [pReorderableRow]="index">
-                        <td>
-                            <span class="pi pi-bars" pReorderableRowHandle></span>
-                        </td>
-                        <td *ngFor="let col of columns">
-                            {{rowData[col.field]}}
-                        </td>
-                    </tr>
-            </ng-template>
     </p-table>
 </div>`,
         typescript: `import { Component, OnInit } from '@angular/core';

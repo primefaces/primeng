@@ -79,12 +79,28 @@ export class ContextMenuDoc {
 
     code: Code = {
         basic: `<p-contextmenu #cm [model]="items" (onHide)="selectedProduct = null" />
-<p-table
-    [value]="products"
-    [(contextMenuSelection)]="selectedProduct"
-    [contextMenu]="cm"
-    dataKey="code"
-    [tableStyle]="{'min-width': '50rem'}">
+<p-table [value]="products" [(contextMenuSelection)]="selectedProduct" [contextMenu]="cm" dataKey="code" [tableStyle]="{'min-width': '50rem'}">
+    <ng-template #header>
+        <tr>
+            <th>Code</th>
+            <th>Name</th>
+            <th>Category</th>
+            <th>Price</th>
+        </tr>
+    </ng-template>
+    <ng-template #body let-product>
+        <tr [pContextMenuRow]="product">
+            <td>{{product.code}}</td>
+            <td>{{product.name}}</td>
+            <td>{{product.category}}</td>
+            <td>{{product.price | currency: 'USD'}}</td>
+        </tr>
+    </ng-template>
+</p-table>
+<p-toast />`,
+        html: `<div class="card">
+    <p-contextmenu #cm [model]="items" (onHide)="selectedProduct = null" />
+    <p-table [value]="products" [(contextMenuSelection)]="selectedProduct" [contextMenu]="cm" dataKey="code" [tableStyle]="{'min-width': '50rem'}">
         <ng-template #header>
             <tr>
                 <th>Code</th>
@@ -101,32 +117,6 @@ export class ContextMenuDoc {
                 <td>{{product.price | currency: 'USD'}}</td>
             </tr>
         </ng-template>
-</p-table>
-<p-toast />`,
-        html: `<div class="card">
-    <p-contextmenu #cm [model]="items" (onHide)="selectedProduct = null" />
-    <p-table
-        [value]="products"
-        [(contextMenuSelection)]="selectedProduct"
-        [contextMenu]="cm"
-        dataKey="code"
-        [tableStyle]="{'min-width': '50rem'}">
-            <ng-template #header>
-                <tr>
-                    <th>Code</th>
-                    <th>Name</th>
-                    <th>Category</th>
-                    <th>Price</th>
-                </tr>
-            </ng-template>
-            <ng-template #body let-product>
-                <tr [pContextMenuRow]="product">
-                    <td>{{product.code}}</td>
-                    <td>{{product.name}}</td>
-                    <td>{{product.category}}</td>
-                    <td>{{product.price | currency: 'USD'}}</td>
-                </tr>
-            </ng-template>
     </p-table>
     <p-toast />
 </div>`,
