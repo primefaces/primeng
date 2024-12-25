@@ -57,11 +57,26 @@ export class ResizeExpandDoc {
     }
 
     code: Code = {
-        basic: `<p-treetable
-    [value]="files"
-    [columns]="cols"
-    [resizableColumns]="true"
-    columnResizeMode="expand">
+        basic: `<p-treetable [value]="files" [columns]="cols" [resizableColumns]="true" columnResizeMode="expand">
+    <ng-template pTemplate="header" let-columns>
+        <tr>
+            <th *ngFor="let col of columns" ttResizableColumn>
+                {{ col.header }}
+            </th>
+        </tr>
+    </ng-template>
+    <ng-template pTemplate="body" let-rowNode let-rowData="rowData" let-columns="columns">
+        <tr [ttRow]="rowNode">
+            <td *ngFor="let col of columns; let i = index">
+                <p-treeTableToggler [rowNode]="rowNode" *ngIf="i === 0" />
+                {{ rowData[col.field] }}
+            </td>
+        </tr>
+    </ng-template>
+</p-treetable>`,
+
+        html: `<div class="card">
+    <p-treetable [value]="files" [columns]="cols" [resizableColumns]="true" columnResizeMode="expand">
         <ng-template pTemplate="header" let-columns>
             <tr>
                 <th *ngFor="let col of columns" ttResizableColumn>
@@ -77,29 +92,6 @@ export class ResizeExpandDoc {
                 </td>
             </tr>
         </ng-template>
-</p-treetable>`,
-
-        html: `<div class="card">
-    <p-treetable
-        [value]="files"
-        [columns]="cols"
-        [resizableColumns]="true"
-        columnResizeMode="expand">
-            <ng-template pTemplate="header" let-columns>
-                <tr>
-                    <th *ngFor="let col of columns" ttResizableColumn>
-                        {{ col.header }}
-                    </th>
-                </tr>
-            </ng-template>
-            <ng-template pTemplate="body" let-rowNode let-rowData="rowData" let-columns="columns">
-                <tr [ttRow]="rowNode">
-                    <td *ngFor="let col of columns; let i = index">
-                        <p-treeTableToggler [rowNode]="rowNode" *ngIf="i === 0" />
-                        {{ rowData[col.field] }}
-                    </td>
-                </tr>
-            </ng-template>
     </p-treetable>
 </div>`,
 

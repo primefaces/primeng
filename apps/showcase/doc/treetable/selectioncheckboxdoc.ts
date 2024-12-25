@@ -79,14 +79,27 @@ export class SelectionCheckboxDoc {
     }
 
     code: Code = {
-        basic: `<p-treetable
-    [value]="files"
-    [columns]="cols"
-    selectionMode="checkbox"
-    [(selectionKeys)]="selectionKeys"
-    dataKey="key"
-    [scrollable]="true"
-    [tableStyle]="{ 'min-width': '50rem' }">
+        basic: `<p-treetable [value]="files" [columns]="cols" selectionMode="checkbox" [(selectionKeys)]="selectionKeys" dataKey="key" [scrollable]="true" [tableStyle]="{ 'min-width': '50rem' }">
+    <ng-template pTemplate="header" let-columns>
+        <tr>
+            <th *ngFor="let col of columns">
+                {{ col.header }}
+            </th>
+        </tr>
+    </ng-template>
+    <ng-template pTemplate="body" let-rowNode let-rowData="rowData" let-columns="columns">
+        <tr [ttRow]="rowNode" [ttSelectableRow]="rowNode">
+            <td *ngFor="let col of columns; let i = index">
+                <p-treeTableToggler [rowNode]="rowNode" *ngIf="i === 0" />
+                <p-treetableCheckbox [value]="rowNode" *ngIf="i === 0" />
+                {{ rowData[col.field] }}
+            </td>
+        </tr>
+    </ng-template>
+</p-treetable>`,
+
+        html: `<div class="card">
+    <p-treetable [value]="files" [columns]="cols" selectionMode="checkbox" [(selectionKeys)]="selectionKeys" dataKey="key" [scrollable]="true" [tableStyle]="{ 'min-width': '50rem' }">
         <ng-template pTemplate="header" let-columns>
             <tr>
                 <th *ngFor="let col of columns">
@@ -103,34 +116,8 @@ export class SelectionCheckboxDoc {
                 </td>
             </tr>
         </ng-template>
-</p-treetable>`,
-
-        html: `<div class="card">
-    <p-treetable
-        [value]="files"
-        [columns]="cols"
-        selectionMode="checkbox"
-        [(selectionKeys)]="selectionKeys"
-        dataKey="key"
-        [scrollable]="true"
-        [tableStyle]="{ 'min-width': '50rem' }">
-            <ng-template pTemplate="header" let-columns>
-                <tr>
-                    <th *ngFor="let col of columns">
-                        {{ col.header }}
-                    </th>
-                </tr>
-            </ng-template>
-            <ng-template pTemplate="body" let-rowNode let-rowData="rowData" let-columns="columns">
-                <tr [ttRow]="rowNode" [ttSelectableRow]="rowNode">
-                    <td *ngFor="let col of columns; let i = index">
-                        <p-treeTableToggler [rowNode]="rowNode" *ngIf="i === 0" />
-                        <p-treetableCheckbox [value]="rowNode" *ngIf="i === 0" />
-                        {{ rowData[col.field] }}
-                    </td>
-                </tr>
-            </ng-template>
-</p-treetable>`,
+    </p-treetable>
+</div>`,
 
         typescript: `import { Component, OnInit } from '@angular/core';
 import { TreeNode } from 'primeng/api';
