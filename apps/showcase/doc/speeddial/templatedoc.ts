@@ -71,21 +71,8 @@ export class TemplateDoc implements OnInit {
         basic: `<p-speeddial [model]="items" direction="up" [transitionDelay]="80" style="position: 'absolute'">
     <ng-template #button let-toggleCallback="toggleCallback">
         <p-button outlined styleClass="border" (click)="toggleCallback($event)">
-            <svg
-                width="31"
-                height="33"
-                viewBox="0 0 31 33"
-                fill="none"
-                xmlns="http://www.w3.org/2000/svg"
-            >
-                <path
-                    d="..."
-                    fill="var(--p-primary-color)"
-                />
-                <path
-                    d="..."
-                    fill="var(--ground-background)"
-                />
+            <svg width="31" height="33" viewBox="0 0 31 33" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path d="..." fill="var(--p-primary-color)" />
             </svg>
         </p-button>
     </ng-template>
