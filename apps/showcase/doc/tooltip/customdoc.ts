@@ -58,10 +58,6 @@ export class CustomDoc {
                 d="..."
                 fill="var(--p-primary-color)"
             />
-            <path
-                d="..."
-                fill="var(--ground-background)"
-            />
         </svg>
         <span> <b>PrimeNG</b> rocks! </span>
     </div>
