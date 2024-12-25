@@ -90,24 +90,12 @@ export class FilterDoc {
     code: Code = {
         basic: `<p-selectbutton [options]="filterModes" [(ngModel)]="filterMode" optionLabel="label" optionValue="value" />
 
- <p-treetable
-    #tt
-    [value]="files"
-    [columns]="cols"
-    [filterMode]="filterMode"
-    [scrollable]="true"
-    [tableStyle]="{ 'min-width': '50rem' }"
->
+<p-treetable #tt [value]="files" [columns]="cols" [filterMode]="filterMode" [scrollable]="true" [tableStyle]="{ 'min-width': '50rem' }">
     <ng-template pTemplate="caption">
         <div class="flex justify-end items-center">
             <p-iconfield>
                 <p-inputicon class="pi pi-search" />
-                <input
-                    type="text"
-                    pInputText
-                    placeholder="Global Search"
-                    (input)="tt.filterGlobal($event.target.value, 'contains')"
-                />
+                <input type="text" pInputText placeholder="Global Search" (input)="tt.filterGlobal($event.target.value, 'contains')" />
             </p-iconfield>
         </div>
     </ng-template>
@@ -119,12 +107,7 @@ export class FilterDoc {
         </tr>
         <tr>
             <th *ngFor="let col of cols">
-                <input
-                    pInputText
-                    [placeholder]="'Filter by ' + col.field"
-                    type="text"
-                    (input)="tt.filter($event.target.value, col.field, col.filterMatchMode)"
-                />
+                <input pInputText [placeholder]="'Filter by ' + col.field" type="text" (input)="tt.filter($event.target.value, col.field, col.filterMatchMode)" />
             </th>
         </tr>
     </ng-template>
@@ -147,24 +130,12 @@ export class FilterDoc {
     <div class="flex justify-center mb-6">
         <p-selectbutton [options]="filterModes" [(ngModel)]="filterMode" optionLabel="label" optionValue="value" />
     </div>
-     <p-treetable
-        #tt
-        [value]="files"
-        [columns]="cols"
-        [filterMode]="filterMode"
-        [scrollable]="true"
-        [tableStyle]="{ 'min-width': '50rem' }"
-    >
+     <p-treetable #tt [value]="files" [columns]="cols" [filterMode]="filterMode" [scrollable]="true" [tableStyle]="{ 'min-width': '50rem' }">
         <ng-template pTemplate="caption">
             <div class="flex justify-end items-center">
                 <p-iconfield>
                     <p-inputicon class="pi pi-search" />
-                    <input
-                        type="text"
-                        pInputText
-                        placeholder="Global Search"
-                        (input)="tt.filterGlobal($event.target.value, 'contains')"
-                    />
+                    <input type="text" pInputText placeholder="Global Search" (input)="tt.filterGlobal($event.target.value, 'contains')" />
                 </p-iconfield>
             </div>
         </ng-template>
@@ -176,12 +147,7 @@ export class FilterDoc {
             </tr>
             <tr>
                 <th *ngFor="let col of cols">
-                    <input
-                        pInputText
-                        [placeholder]="'Filter by ' + col.field"
-                        type="text"
-                        (input)="tt.filter($event.target.value, col.field, col.filterMatchMode)"
-                    />
+                    <input pInputText [placeholder]="'Filter by ' + col.field" type="text" (input)="tt.filter($event.target.value, col.field, col.filterMatchMode)" />
                 </th>
             </tr>
         </ng-template>

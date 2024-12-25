@@ -63,11 +63,31 @@ export class SizeDoc {
         basic: `<div class="flex justify-center mb-4">
     <p-selectbutton [options]="sizes" [(ngModel)]="selectedSize" [multiple]="false" optionLabel="name" optionValue="class" />
 </div>
-<p-treetable
-    [value]="files"
-    [scrollable]="true"
-    [tableStyle]="{'min-width':'50rem'}"
-    [styleClass]="selectedSize">
+<p-treetable [value]="files" [scrollable]="true" [tableStyle]="{'min-width':'50rem'}" [styleClass]="selectedSize">
+    <ng-template pTemplate="header">
+        <tr>
+            <th>Name</th>
+            <th>Size</th>
+            <th>Type</th>
+        </tr>
+    </ng-template>
+    <ng-template pTemplate="body" let-rowNode let-rowData="rowData">
+        <tr [ttRow]="rowNode">
+            <td>
+                <p-treeTableToggler [rowNode]="rowNode" />
+                {{ rowData.name }}
+            </td>
+            <td>{{ rowData.size }}</td>
+            <td>{{ rowData.type }}</td>
+        </tr>
+    </ng-template>
+</p-treetable>`,
+
+        html: `<div class="card">
+    <div class="flex justify-center mb-4">
+        <p-selectbutton [options]="sizes" [(ngModel)]="selectedSize" [multiple]="false" optionLabel="name" optionValue="class" />
+    </div>
+    <p-treetable [value]="files" [scrollable]="true" [tableStyle]="{'min-width':'50rem'}" [styleClass]="selectedSize">
         <ng-template pTemplate="header">
             <tr>
                 <th>Name</th>
@@ -85,34 +105,6 @@ export class SizeDoc {
                 <td>{{ rowData.type }}</td>
             </tr>
         </ng-template>
-</p-treetable>`,
-
-        html: `<div class="card">
-    <div class="flex justify-center mb-4">
-        <p-selectbutton [options]="sizes" [(ngModel)]="selectedSize" [multiple]="false" optionLabel="name" optionValue="class" />
-    </div>
-    <p-treetable
-        [value]="files"
-        [scrollable]="true"
-        [tableStyle]="{'min-width':'50rem'}"
-        [styleClass]="selectedSize">
-            <ng-template pTemplate="header">
-                <tr>
-                    <th>Name</th>
-                    <th>Size</th>
-                    <th>Type</th>
-                </tr>
-            </ng-template>
-            <ng-template pTemplate="body" let-rowNode let-rowData="rowData">
-                <tr [ttRow]="rowNode">
-                    <td>
-                        <p-treeTableToggler [rowNode]="rowNode" />
-                        {{ rowData.name }}
-                    </td>
-                    <td>{{ rowData.size }}</td>
-                    <td>{{ rowData.type }}</td>
-                </tr>
-            </ng-template>
     </p-treetable>
 </div>`,
 

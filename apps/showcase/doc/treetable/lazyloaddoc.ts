@@ -148,7 +148,39 @@ export class LazyLoadDoc implements OnInit {
     [loading]="loading"
     (onNodeExpand)="onNodeExpand($event)"
     [scrollable]="true"
-    [tableStyle]="{'min-width':'50rem'}">
+    [tableStyle]="{ 'min-width': '50rem' }"
+>
+    <ng-template pTemplate="header" let-columns>
+        <tr>
+            <th *ngFor="let col of columns">
+                {{ col.header }}
+            </th>
+        </tr>
+    </ng-template>
+    <ng-template pTemplate="body" let-rowNode let-rowData="rowData" let-columns="columns">
+        <tr [ttRow]="rowNode">
+            <td *ngFor="let col of columns; let i = index">
+                <p-treeTableToggler [rowNode]="rowNode" *ngIf="i === 0" />
+                {{ rowData[col.field] }}
+            </td>
+        </tr>
+    </ng-template>
+</p-treetable>`,
+
+        html: `<div class="card">
+    <p-treetable
+        [value]="files"
+        [columns]="cols"
+        [paginator]="true"
+        [rows]="10"
+        [lazy]="true"
+        (onLazyLoad)="loadNodes($event)"
+        [totalRecords]="1000"
+        [loading]="loading"
+        (onNodeExpand)="onNodeExpand($event)"
+        [scrollable]="true"
+        [tableStyle]="{ 'min-width': '50rem' }"
+    >
         <ng-template pTemplate="header" let-columns>
             <tr>
                 <th *ngFor="let col of columns">
@@ -164,36 +196,6 @@ export class LazyLoadDoc implements OnInit {
                 </td>
             </tr>
         </ng-template>
-</p-treetable>`,
-
-        html: `<div class="card">
-    <p-treetable
-        [value]="files"
-        [columns]="cols"
-        [paginator]="true"
-        [rows]="10"
-        [lazy]="true"
-        (onLazyLoad)="loadNodes($event)"
-        [totalRecords]="1000"
-        [loading]="loading"
-        (onNodeExpand)="onNodeExpand($event)"
-        [scrollable]="true"
-        [tableStyle]="{'min-width':'50rem'}">
-            <ng-template pTemplate="header" let-columns>
-                <tr>
-                    <th *ngFor="let col of columns">
-                        {{ col.header }}
-                    </th>
-                </tr>
-            </ng-template>
-            <ng-template pTemplate="body" let-rowNode let-rowData="rowData" let-columns="columns">
-                <tr [ttRow]="rowNode">
-                    <td *ngFor="let col of columns; let i = index">
-                        <p-treeTableToggler [rowNode]="rowNode" *ngIf="i === 0" />
-                        {{ rowData[col.field] }}
-                    </td>
-                </tr>
-            </ng-template>
     </p-treetable>
 </div>`,
 

@@ -65,88 +65,60 @@ export class ScrollFlexibleDoc {
 
     code: Code = {
         basic: `<p-button label="Show" icon="pi pi-external-link" (onClick)="dialogVisible = true" />
-<p-dialog
-    [(visible)]="dialogVisible"
-    header="Flex Scroll"
-    [style]="{ width: '75vw' }"
-    maximizable
-    modal
-    [contentStyle]="{ height: '300px' }">
+<p-dialog [(visible)]="dialogVisible" header="Flex Scroll" [style]="{ width: '75vw' }" maximizable modal [contentStyle]="{ height: '300px' }">
+    <ng-template pTemplate="content">
+        <p-treetable [value]="files" [scrollable]="true" scrollHeight="flex" [tableStyle]="{ 'min-width': '50rem' }">
+            <ng-template pTemplate="header">
+                <tr>
+                    <th>Name</th>
+                    <th>Size</th>
+                    <th>Type</th>
+                </tr>
+            </ng-template>
+            <ng-template pTemplate="body" let-rowNode let-rowData="rowData">
+                <tr [ttRow]="rowNode">
+                    <td>
+                        <p-treeTableToggler [rowNode]="rowNode" />
+                        {{ rowData.name }}
+                    </td>
+                    <td>{{ rowData.size }}</td>
+                    <td>{{ rowData.type }}</td>
+                </tr>
+            </ng-template>
+        </p-treetable>
+    </ng-template>
+    <ng-template pTemplate="footer">
+        <p-button label="Ok" icon="pi pi-check" (onClick)="dialogVisible = false" />
+    </ng-template>
+</p-dialog>`,
+
+        html: `<div class="card">
+    <p-button label="Show" icon="pi pi-external-link" (onClick)="dialogVisible = true" />
+    <p-dialog [(visible)]="dialogVisible" header="Flex Scroll" [style]="{ width: '75vw' }" maximizable modal [contentStyle]="{ height: '300px' }">
         <ng-template pTemplate="content">
-            <p-treetable
-                [value]="files"
-                [scrollable]="true"
-                scrollHeight="flex"
-                [tableStyle]="{ 'min-width': '50rem' }">
-                    <ng-template pTemplate="header">
-                        <tr>
-                            <th>Name</th>
-                            <th>Size</th>
-                            <th>Type</th>
-                        </tr>
-                    </ng-template>
-                    <ng-template pTemplate="body" let-rowNode let-rowData="rowData">
-                        <tr [ttRow]="rowNode">
-                            <td>
-                                <p-treeTableToggler [rowNode]="rowNode" />
-                                {{ rowData.name }}
-                            </td>
-                            <td>
-                                {{ rowData.size }}
-                            </td>
-                            <td>
-                                {{ rowData.type }}
-                            </td>
-                        </tr>
-                    </ng-template>
+            <p-treetable [value]="files" [scrollable]="true" scrollHeight="flex" [tableStyle]="{ 'min-width': '50rem' }">
+                <ng-template pTemplate="header">
+                    <tr>
+                        <th>Name</th>
+                        <th>Size</th>
+                        <th>Type</th>
+                    </tr>
+                </ng-template>
+                <ng-template pTemplate="body" let-rowNode let-rowData="rowData">
+                    <tr [ttRow]="rowNode">
+                        <td>
+                            <p-treeTableToggler [rowNode]="rowNode" />
+                            {{ rowData.name }}
+                        </td>
+                        <td>{{ rowData.size }}</td>
+                        <td>{{ rowData.type }}</td>
+                    </tr>
+                </ng-template>
             </p-treetable>
         </ng-template>
         <ng-template pTemplate="footer">
             <p-button label="Ok" icon="pi pi-check" (onClick)="dialogVisible = false" />
         </ng-template>
-</p-dialog>`,
-
-        html: `<div class="card">
-    <p-button label="Show" icon="pi pi-external-link" (onClick)="dialogVisible = true" />
-    <p-dialog
-        [(visible)]="dialogVisible"
-        header="Flex Scroll"
-        [style]="{ width: '75vw' }"
-        maximizable
-        modal
-        [contentStyle]="{ height: '300px' }">
-            <ng-template pTemplate="content">
-                <p-treetable
-                    [value]="files"
-                    [scrollable]="true"
-                    scrollHeight="flex"
-                    [tableStyle]="{ 'min-width': '50rem' }">
-                        <ng-template pTemplate="header">
-                            <tr>
-                                <th>Name</th>
-                                <th>Size</th>
-                                <th>Type</th>
-                            </tr>
-                        </ng-template>
-                        <ng-template pTemplate="body" let-rowNode let-rowData="rowData">
-                            <tr [ttRow]="rowNode">
-                                <td>
-                                    <p-treeTableToggler [rowNode]="rowNode" />
-                                    {{ rowData.name }}
-                                </td>
-                                <td>
-                                    {{ rowData.size }}
-                                </td>
-                                <td>
-                                    {{ rowData.type }}
-                                </td>
-                            </tr>
-                        </ng-template>
-                </p-treetable>
-            </ng-template>
-            <ng-template pTemplate="footer">
-                <p-button label="Ok" icon="pi pi-check" (onClick)="dialogVisible = false" />
-            </ng-template>
     </p-dialog>
 </div>`,
 
