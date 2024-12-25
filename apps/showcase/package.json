@@ -1,0 +1,60 @@
+{
+    "name": "showcase",
+    "version": "19.0.1",
+    "license": "SEE LICENSE IN LICENSE.md",
+    "scripts": {
+        "ng": "ng",
+        "start": "ng serve --watch",
+        "e2e": "ng e2e",
+        "lint": "ng lint",
+        "build": "ng build",
+        "build:apidoc": "node ./scripts/build-apidoc.ts",
+        "build:themedoc": "node ./scripts/build-themedoc.ts",
+        "build:docs": "npm run build:apidoc && npm run build:themedoc"
+    },
+    "repository": {
+        "type": "git",
+        "url": "https://github.com/primefaces/primeng.git"
+    },
+    "devDependencies": {
+        "@algolia/client-search": "^4.19.1",
+        "@angular/ssr": "catalog:angular19",
+        "@docsearch/css": "^3.3.4",
+        "@docsearch/js": "^3.3.4",
+        "@primeng/themes": "workspace:*",
+        "@primeuix/styled": "catalog:",
+        "@primeuix/utils": "catalog:",
+        "@angular/cdk": "catalog:angular19",
+        "@stackblitz/sdk": "1.9.0",
+        "@types/express": "^4.17.17",
+        "@types/jasmine": "~4.3.1",
+        "@types/jest": "^29.5.14",
+        "@types/node": "^22.9.0",
+        "@types/react": "^18.3.12",
+        "chart.js": "4.4.2",
+        "codelyzer": "^0.0.28",
+        "del": "^7.1.0",
+        "esbuild": "^0.19.8",
+        "express": "^4.19.2",
+        "file-saver": "^2.0.5",
+        "jasmine-core": "~4.6.0",
+        "jspdf": "^2.5.1",
+        "jspdf-autotable": "^3.5.28",
+        "primeicons": "^7.0.0",
+        "primeng": "workspace:*",
+        "prismjs": "^1.29.0",
+        "quill": "2.0.2",
+        "rxjs": "~7.8.1",
+        "ts-node": "~10.9.1",
+        "tslib": "^2.5.0",
+        "typedoc": "0.27.4",
+        "xlsx": "^0.18.5",
+        "zone.js": "catalog:angular19"
+    },
+    "dependencies": {
+        "autoprefixer": "^10.4.20",
+        "postcss": "^8.4.41",
+        "tailwindcss": "^3.4.10",
+        "tailwindcss-primeui": "^0.3.4"
+    }
+}

@@ -7,9 +7,10 @@
 /components
 /resources
 /aot
+dist
 
 # dependencies
-/node_modules
+**/node_modules
 
 # IDEs and editors
 /.idea
@@ -19,9 +20,6 @@
 *.launch
 .settings/
 *.sublime-workspace
-
-# IDE - VSCode
-.vscode
 
 # misc
 /.sass-cache
@@ -39,9 +37,16 @@ testem.log
 
 # System Files
 .DS_Store
+**/.DS_Store
 Thumbs.db
 
 # type doc
 api-generator/typedoc.json
+api-generator/themedoc.json
 .vercel
 .nx
+
+builder/node_modules
+
+# primeng packages
+packages/primeng/src/package.json

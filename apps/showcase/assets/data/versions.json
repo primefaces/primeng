@@ -1,0 +1,17 @@
+[
+    {
+        "version": "v19",
+        "name": "v19",
+        "url": "https://primeng.org"
+    },
+    {
+        "version": "v18",
+        "name": "v18",
+        "url": "https://v18.primeng.org"
+    },
+    {
+        "version": "v17",
+        "name": "v17",
+        "url": "https://v17.primeng.org"
+    }
+]

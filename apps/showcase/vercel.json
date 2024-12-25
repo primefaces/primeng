@@ -1,0 +1,23 @@
+{
+    "version": 2,
+    "public": true,
+    "name": "showcase",
+    "rewrites": [
+        {
+            "source": "/(.*)",
+            "destination": "/api"
+        }
+    ],
+    "functions": {
+        "api/index.mjs": {
+            "includeFiles": "dist/showcase/**"
+        }
+    },
+    "git": {
+        "deploymentEnabled": {
+            "master": false,
+            "v19": false,
+            "v17": false
+        }
+    }
+}

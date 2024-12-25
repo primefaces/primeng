@@ -1,0 +1,31 @@
+packages:
+    - 'packages/*'
+    - 'apps/*'
+
+catalog:
+    '@primeuix/styled': ^0.3.2
+    '@primeuix/utils': ^0.3.2
+
+catalogs:
+    angular19:
+        "@angular-devkit/build-angular": ^19
+        "@angular/animations": ^19
+        "@angular/cdk": ^19
+        "@angular/cli": ^19
+        "@angular/common": ^19
+        "@angular/compiler": ^19
+        "@angular/compiler-cli": ^19
+        "@angular/core": ^19
+        "@angular/forms": ^19
+        "@angular/platform-browser": ^19
+        "@angular/platform-browser-dynamic": ^19
+        "@angular/platform-server": ^19
+        "@angular/router": ^19
+        "@angular/ssr": ^19
+        "@angular-eslint/eslint-plugin": ^19
+        "@angular-eslint/eslint-plugin-template": ^19
+        "@angular-eslint/schematics": ^19
+        "@angular-eslint/template-parser": ^19
+        "zone.js": ~0.15.0
+        "ng-packagr": ^19
+        "typescript": 5.5.4

@@ -1,0 +1,11 @@
+@import './tailwind/main.css';
+@import 'primeicons/primeicons.css';
+@import 'quill/dist/quill.snow.css';
+@import './flags.css';
+@import '@docsearch/css/dist/style.css';
+@import './layout/layout.scss';
+
+body {
+    visibility: hidden;
+    opacity: 0;
+}
