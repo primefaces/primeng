@@ -13,14 +13,14 @@ import { TreeNode } from 'primeng/api';
             <p-button (click)="toggleApplications()" label="Toggle Applications" />
             <p-deferred-demo (load)="loadDemoData()">
                 <p-treetable [value]="files" [scrollable]="true" [tableStyle]="{ 'min-width': '50rem' }" styleClass="mt-6">
-                    <ng-template pTemplate="header">
+                    <ng-template #header>
                         <tr>
                             <th style="width:34%;">Name</th>
                             <th style="width:34%;">Size</th>
                             <th style="width:34%;">Type</th>
                         </tr>
                     </ng-template>
-                    <ng-template pTemplate="body" let-rowNode let-rowData="rowData">
+                    <ng-template #body let-rowNode let-rowData="rowData">
                         <tr [ttRow]="rowNode">
                             <td style="width:34%;">
                                 <p-treeTableToggler [rowNode]="rowNode" />
@@ -62,14 +62,14 @@ export class ControlledDoc {
     code: Code = {
         basic: `<p-button (click)="toggleApplications()" label="Toggle Applications" />
 <p-treetable [value]="files" [scrollable]="true" [tableStyle]="{ 'min-width': '50rem' }" styleClass="mt-6">
-    <ng-template pTemplate="header">
+    <ng-template #header>
         <tr>
             <th>Name</th>
             <th>Size</th>
             <th>Type</th>
         </tr>
     </ng-template>
-    <ng-template pTemplate="body" let-rowNode let-rowData="rowData">
+    <ng-template #body let-rowNode let-rowData="rowData">
         <tr [ttRow]="rowNode">
             <td>
                 <p-treeTableToggler [rowNode]="rowNode" />
@@ -84,14 +84,14 @@ export class ControlledDoc {
         html: `<div class="card">
 <p-button (click)="toggleApplications()" label="Toggle Applications" />
 <p-treetable [value]="files" [scrollable]="true" [tableStyle]="{ 'min-width': '50rem' }" styleClass="mt-6">
-    <ng-template pTemplate="header">
+    <ng-template #header>
         <tr>
             <th>Name</th>
             <th>Size</th>
             <th>Type</th>
         </tr>
     </ng-template>
-    <ng-template pTemplate="body" let-rowNode let-rowData="rowData">
+    <ng-template #body let-rowNode let-rowData="rowData">
         <tr [ttRow]="rowNode">
             <td>
                 <p-treeTableToggler [rowNode]="rowNode" />

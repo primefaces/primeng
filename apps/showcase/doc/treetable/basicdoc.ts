@@ -12,14 +12,14 @@ import { TreeNode } from 'primeng/api';
         <div class="card">
             <p-deferred-demo (load)="loadDemoData()">
                 <p-treetable [value]="files" [scrollable]="true" [tableStyle]="{ 'min-width': '50rem' }">
-                    <ng-template pTemplate="header">
+                    <ng-template #header>
                         <tr>
                             <th>Name</th>
                             <th>Size</th>
                             <th>Type</th>
                         </tr>
                     </ng-template>
-                    <ng-template pTemplate="body" let-rowNode let-rowData="rowData">
+                    <ng-template #body let-rowNode let-rowData="rowData">
                         <tr [ttRow]="rowNode">
                             <td>
                                 <p-treeTableToggler [rowNode]="rowNode" />
@@ -52,14 +52,14 @@ export class BasicDoc {
 
     code: Code = {
         basic: `<p-treetable [value]="files" [scrollable]="true" [tableStyle]="{'min-width':'50rem'}">
-    <ng-template pTemplate="header">
+    <ng-template #header>
         <tr>
             <th>Name</th>
             <th>Size</th>
             <th>Type</th>
         </tr>
     </ng-template>
-    <ng-template pTemplate="body" let-rowNode let-rowData="rowData">
+    <ng-template #body let-rowNode let-rowData="rowData">
         <tr [ttRow]="rowNode">
             <td>
                 <p-treeTableToggler [rowNode]="rowNode" />
@@ -73,14 +73,14 @@ export class BasicDoc {
 
         html: `<div class="card">
     <p-treetable [value]="files" [scrollable]="true" [tableStyle]="{'min-width':'50rem'}">
-        <ng-template pTemplate="header">
+        <ng-template #header>
             <tr>
                 <th>Name</th>
                 <th>Size</th>
                 <th>Type</th>
             </tr>
         </ng-template>
-        <ng-template pTemplate="body" let-rowNode let-rowData="rowData">
+        <ng-template #body let-rowNode let-rowData="rowData">
             <tr [ttRow]="rowNode">
                 <td>
                     <p-treeTableToggler [rowNode]="rowNode" />

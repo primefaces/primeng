@@ -18,14 +18,14 @@ interface Column {
         <div class="card">
             <p-deferred-demo (load)="loadDemoData()">
                 <p-treetable [value]="files" [columns]="cols" [scrollable]="true" [tableStyle]="{ 'min-width': '50rem' }">
-                    <ng-template pTemplate="header" let-columns>
+                    <ng-template #header let-columns>
                         <tr>
                             <th *ngFor="let col of columns">
                                 {{ col.header }}
                             </th>
                         </tr>
                     </ng-template>
-                    <ng-template pTemplate="body" let-rowNode let-rowData="rowData" let-columns="columns">
+                    <ng-template #body let-rowNode let-rowData="rowData" let-columns="columns">
                         <tr [ttRow]="rowNode" [ngClass]="{ 'p-highlight': rowData.size.endsWith('kb') }">
                             <td *ngFor="let col of columns; let i = index" [ngClass]="{ 'font-bold': col.field === 'size' && rowData.size.endsWith('kb') }">
                                 <p-treeTableToggler [rowNode]="rowNode" *ngIf="i === 0" />
@@ -58,14 +58,14 @@ export class ConditionalStyleDoc {
 
     code: Code = {
         basic: `<p-treetable [value]="files" [columns]="cols" [scrollable]="true" [tableStyle]="{ 'min-width': '50rem' }">
-    <ng-template pTemplate="header" let-columns>
+    <ng-template #header let-columns>
         <tr>
             <th *ngFor="let col of columns">
                 {{ col.header }}
             </th>
         </tr>
     </ng-template>
-    <ng-template pTemplate="body" let-rowNode let-rowData="rowData" let-columns="columns">
+    <ng-template #body let-rowNode let-rowData="rowData" let-columns="columns">
         <tr [ttRow]="rowNode" [ngClass]="{ 'p-highlight': rowData.size.endsWith('kb') }">
             <td *ngFor="let col of columns; let i = index" [ngClass]="{ 'font-bold': col.field === 'size' && rowData.size.endsWith('kb') }">
                 <p-treeTableToggler [rowNode]="rowNode" *ngIf="i === 0" />
@@ -77,14 +77,14 @@ export class ConditionalStyleDoc {
 
         html: `<div class="card">
     <p-treetable [value]="files" [columns]="cols" [scrollable]="true" [tableStyle]="{ 'min-width': '50rem' }">
-        <ng-template pTemplate="header" let-columns>
+        <ng-template #header let-columns>
             <tr>
                 <th *ngFor="let col of columns">
                     {{ col.header }}
                 </th>
             </tr>
         </ng-template>
-        <ng-template pTemplate="body" let-rowNode let-rowData="rowData" let-columns="columns">
+        <ng-template #body let-rowNode let-rowData="rowData" let-columns="columns">
             <tr [ttRow]="rowNode" [ngClass]="{ 'p-highlight': rowData.size.endsWith('kb') }">
                 <td *ngFor="let col of columns; let i = index" [ngClass]="{ 'font-bold': col.field === 'size' && rowData.size.endsWith('kb') }">
                     <p-treeTableToggler [rowNode]="rowNode" *ngIf="i === 0" />

@@ -18,19 +18,19 @@ interface Column {
         <div class="card">
             <p-deferred-demo (load)="loadDemoData()">
                 <p-treetable [value]="files" [columns]="selectedColumns" [scrollable]="true" [tableStyle]="{ 'min-width': '50rem' }">
-                    <ng-template pTemplate="caption">
+                    <ng-template #caption>
                         <div style="text-align:left">
                             <p-multiselect [options]="cols" [(ngModel)]="selectedColumns" optionLabel="header" selectedItemsLabel="{0} columns selected" [style]="{ width: '20em' }" placeholder="Choose Columns" display="chip" />
                         </div>
                     </ng-template>
-                    <ng-template pTemplate="header" let-columns>
+                    <ng-template #header let-columns>
                         <tr>
                             <th *ngFor="let col of columns">
                                 {{ col.header }}
                             </th>
                         </tr>
                     </ng-template>
-                    <ng-template pTemplate="body" let-rowNode let-rowData="rowData" let-columns="columns">
+                    <ng-template #body let-rowNode let-rowData="rowData" let-columns="columns">
                         <tr [ttRow]="rowNode">
                             <td *ngFor="let col of columns; let i = index">
                                 <p-treeTableToggler [rowNode]="rowNode" *ngIf="i === 0" />
@@ -68,19 +68,19 @@ export class ColumnToggleDoc {
 
     code: Code = {
         basic: `<p-treetable [value]="files" [columns]="selectedColumns" [scrollable]="true" [tableStyle]="{ 'min-width': '50rem' }">
-    <ng-template pTemplate="caption">
+    <ng-template #caption>
         <div style="text-align:left">
             <p-multiselect [options]="cols" [(ngModel)]="selectedColumns" optionLabel="header" selectedItemsLabel="{0} columns selected" [style]="{ width: '20em' }" placeholder="Choose Columns" display="chip" />
         </div>
     </ng-template>
-    <ng-template pTemplate="header" let-columns>
+    <ng-template #header let-columns>
         <tr>
             <th *ngFor="let col of columns">
                 {{ col.header }}
             </th>
         </tr>
     </ng-template>
-    <ng-template pTemplate="body" let-rowNode let-rowData="rowData" let-columns="columns">
+    <ng-template #body let-rowNode let-rowData="rowData" let-columns="columns">
         <tr [ttRow]="rowNode">
             <td *ngFor="let col of columns; let i = index">
                 <p-treeTableToggler [rowNode]="rowNode" *ngIf="i === 0" />
@@ -92,19 +92,19 @@ export class ColumnToggleDoc {
 
         html: `<div class="card">
     <p-treetable [value]="files" [columns]="selectedColumns" [scrollable]="true" [tableStyle]="{ 'min-width': '50rem' }">
-        <ng-template pTemplate="caption">
+        <ng-template #caption>
             <div style="text-align:left">
                 <p-multiselect [options]="cols" [(ngModel)]="selectedColumns" optionLabel="header" selectedItemsLabel="{0} columns selected" [style]="{ width: '20em' }" placeholder="Choose Columns" display="chip" />
             </div>
         </ng-template>
-        <ng-template pTemplate="header" let-columns>
+        <ng-template #header let-columns>
             <tr>
                 <th *ngFor="let col of columns">
                     {{ col.header }}
                 </th>
             </tr>
         </ng-template>
-        <ng-template pTemplate="body" let-rowNode let-rowData="rowData" let-columns="columns">
+        <ng-template #body let-rowNode let-rowData="rowData" let-columns="columns">
             <tr [ttRow]="rowNode">
                 <td *ngFor="let col of columns; let i = index">
                     <p-treeTableToggler [rowNode]="rowNode" *ngIf="i === 0" />

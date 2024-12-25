@@ -25,14 +25,14 @@ interface Column {
             </div>
             <p-deferred-demo (load)="loadDemoData()">
                 <p-treetable [value]="files" [columns]="cols" selectionMode="multiple" [(selection)]="selectedNodes" dataKey="name" [metaKeySelection]="metaKeySelection" [scrollable]="true" [tableStyle]="{ 'min-width': '50rem' }">
-                    <ng-template pTemplate="header" let-columns>
+                    <ng-template #header let-columns>
                         <tr>
                             <th *ngFor="let col of columns">
                                 {{ col.header }}
                             </th>
                         </tr>
                     </ng-template>
-                    <ng-template pTemplate="body" let-rowNode let-rowData="rowData" let-columns="columns">
+                    <ng-template #body let-rowNode let-rowData="rowData" let-columns="columns">
                         <tr [ttRow]="rowNode" [ttSelectableRow]="rowNode">
                             <td *ngFor="let col of columns; let i = index">
                                 <p-treeTableToggler [rowNode]="rowNode" *ngIf="i === 0" />
@@ -71,14 +71,14 @@ export class SelectionMultipleDoc {
     code: Code = {
         basic: `<p-toggleswitch [(ngModel)]="metaKeySelection" />
 <p-treetable [value]="files" [columns]="cols" selectionMode="multiple" [(selection)]="selectedNodes" dataKey="name" [metaKeySelection]="metaKeySelection" [scrollable]="true" [tableStyle]="{'min-width':'50rem'}">
-    <ng-template pTemplate="header" let-columns>
+    <ng-template #header let-columns>
         <tr>
             <th *ngFor="let col of columns">
                 {{ col.header }}
             </th>
         </tr>
     </ng-template>
-    <ng-template pTemplate="body" let-rowNode let-rowData="rowData" let-columns="columns">
+    <ng-template #body let-rowNode let-rowData="rowData" let-columns="columns">
         <tr [ttRow]="rowNode" [ttSelectableRow]="rowNode">
             <td *ngFor="let col of columns; let i = index">
                 <p-treeTableToggler [rowNode]="rowNode" *ngIf="i === 0" />
@@ -94,14 +94,14 @@ export class SelectionMultipleDoc {
         <span>Metakey</span>
     </div>
     <p-treetable [value]="files" [columns]="cols" selectionMode="multiple" [(selection)]="selectedNodes" dataKey="name" [metaKeySelection]="metaKeySelection" [scrollable]="true" [tableStyle]="{'min-width':'50rem'}">
-        <ng-template pTemplate="header" let-columns>
+        <ng-template #header let-columns>
             <tr>
                 <th *ngFor="let col of columns">
                     {{ col.header }}
                 </th>
             </tr>
         </ng-template>
-        <ng-template pTemplate="body" let-rowNode let-rowData="rowData" let-columns="columns">
+        <ng-template #body let-rowNode let-rowData="rowData" let-columns="columns">
             <tr [ttRow]="rowNode" [ttSelectableRow]="rowNode">
                 <td *ngFor="let col of columns; let i = index">
                     <p-treeTableToggler [rowNode]="rowNode" *ngIf="i === 0" />
