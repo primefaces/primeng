@@ -1510,7 +1510,7 @@ export class Select extends BaseComponent implements OnInit, AfterViewInit, Afte
         !matched && this.focusedOptionIndex.set(-1);
 
         this.onModelChange(value);
-        this.updateModel(value, event);
+        this.updateModel(value || null, event);
         setTimeout(() => {
             this.onChange.emit({ originalEvent: event, value: value });
         }, 1);
