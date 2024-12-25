@@ -19,6 +19,7 @@ import { ScrollOptionsDoc } from './scrolloptionsdoc';
 import { StyleDoc } from './styledoc';
 import { TemplateDoc } from './templatedoc';
 import { FlexibleItemsHeightDoc } from './flexibleitemsheightdoc';
+import { FlexibleGridDoc } from './flexiblegriddoc';
 
 @NgModule({
     imports: [CommonModule, RouterModule, AppCodeModule, AppDocModule, Scroller, Skeleton, ButtonModule],

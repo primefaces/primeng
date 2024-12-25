@@ -1,8 +1,9 @@
 import { ChangeDetectionStrategy, ChangeDetectorRef, Component, OnInit } from '@angular/core';
-import { Code } from '@domain/code';
+import { Code } from '@/domain/code';
 
 @Component({
     selector: 'flexible-grid-doc',
+    standalone: false,
     template: `
         <app-docsectiontext>
             <p>You can have flexible cells in grid by passing a function to <i>itemSize</i>. Click on a cell to expand it.</p>

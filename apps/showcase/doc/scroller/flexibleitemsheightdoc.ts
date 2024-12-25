@@ -1,8 +1,9 @@
 import { ChangeDetectionStrategy, Component } from '@angular/core';
-import { Code } from '@domain/code';
+import { Code } from '@/domain/code';
 
 @Component({
     selector: 'flexible-items-height-doc',
+    standalone: false,
     template: `
         <app-docsectiontext>
             <p>You can pass a function to <i>itemSize</i> if you have items with variable or flexible height and/or width.</p>

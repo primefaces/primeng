@@ -1231,7 +1231,7 @@ export class Scroller extends BaseComponent implements OnInit, AfterContentInit,
                     crossAxisPos = 0;
                 while (++j < childItemLength) {
                     const size = this._getItemSize(this._items[i][j], i, j);
-                    crossAxisPositionsMap[j] = crossAxisPos > (crossAxisPositionsMap[j] ?? 0) ? crossAxisPos : crossAxisPositionsMap[j] ?? 0;
+                    crossAxisPositionsMap[j] = crossAxisPos > (crossAxisPositionsMap[j] ?? 0) ? crossAxisPos : (crossAxisPositionsMap[j] ?? 0);
                     crossAxisPos += size.crossAxis || 0;
                     maxRowHeight = size.mainAxis > maxRowHeight ? size.mainAxis : maxRowHeight;
                 }
