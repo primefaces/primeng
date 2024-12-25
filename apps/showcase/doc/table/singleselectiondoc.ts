@@ -66,29 +66,24 @@ export class SingleSelectionDoc {
 
     code: Code = {
         basic: `<p-toggleswitch [(ngModel)]="metaKey" inputId="input-metakey" />
-    <p-table
-        [value]="products"
-        selectionMode="single"
-        [(selection)]="selectedProduct"
-        [metaKeySelection]="metaKey" dataKey="id"
-        [tableStyle]="{ 'min-width': '50rem' }">
-            <ng-template #header>
-                <tr>
-                    <th>Code</th>
-                    <th>Name</th>
-                    <th>Category</th>
-                    <th>Quantity</th>
-                </tr>
-            </ng-template>
-            <ng-template #body let-product>
-                <tr [pSelectableRow]="product">
-                    <td>{{ product.code }}</td>
-                    <td>{{ product.name }}</td>
-                    <td>{{ product.category }}</td>
-                    <td>{{ product.quantity }}</td>
-                </tr>
-            </ng-template>
-    </p-table>`,
+<p-table [value]="products" selectionMode="single" [(selection)]="selectedProduct" [metaKeySelection]="metaKey" dataKey="id" [tableStyle]="{ 'min-width': '50rem' }">
+    <ng-template #header>
+        <tr>
+            <th>Code</th>
+            <th>Name</th>
+            <th>Category</th>
+            <th>Quantity</th>
+        </tr>
+    </ng-template>
+    <ng-template #body let-product>
+        <tr [pSelectableRow]="product">
+            <td>{{ product.code }}</td>
+            <td>{{ product.name }}</td>
+            <td>{{ product.category }}</td>
+            <td>{{ product.quantity }}</td>
+        </tr>
+    </ng-template>
+</p-table>`,
 
         html: `<div class="card">
     <div class="flex justify-center items-center mb-6 gap-2">
