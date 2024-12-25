@@ -100,12 +100,41 @@ export class FrozenRowsDoc {
     }
 
     code: Code = {
-        basic: `<p-table
-    [value]="unlockedCustomers"
-    [frozenValue]="lockedCustomers"
-    [scrollable]="true"
-    scrollHeight="400px"
-    [tableStyle]="{'min-width': '60rem'}">
+        basic: `<p-table [value]="unlockedCustomers" [frozenValue]="lockedCustomers" [scrollable]="true" scrollHeight="400px" [tableStyle]="{ 'min-width': '60rem' }">
+    <ng-template #header>
+        <tr>
+            <th>Name</th>
+            <th>Country</th>
+            <th>Company</th>
+            <th>Representative</th>
+            <th style="width:5rem"></th>
+        </tr>
+    </ng-template>
+    <ng-template #frozenbody let-customer let-index="rowIndex">
+        <tr class="font-bold">
+            <td>{{ customer.name }}</td>
+            <td>{{ customer.country.name }}</td>
+            <td>{{ customer.company }}</td>
+            <td>{{ customer.representative.name }}</td>
+            <td>
+                <button pButton pRipple type="button" [icon]="'pi pi-lock-open'" (click)="toggleLock(customer, true, index)" size="small" text></button>
+            </td>
+        </tr>
+    </ng-template>
+    <ng-template #body let-customer let-index="rowIndex">
+        <tr>
+            <td>{{ customer.name }}</td>
+            <td>{{ customer.country.name }}</td>
+            <td>{{ customer.company }}</td>
+            <td>{{ customer.representative.name }}</td>
+            <td>
+                <button pButton pRipple type="button" [icon]="'pi pi-lock'" [disabled]="lockedCustomers.length >= 2" (click)="toggleLock(customer, false, index)" size="small" text></button>
+            </td>
+        </tr>
+    </ng-template>
+</p-table>`,
+        html: `<div class="card">
+     <p-table [value]="unlockedCustomers" [frozenValue]="lockedCustomers" [scrollable]="true" scrollHeight="400px" [tableStyle]="{ 'min-width': '60rem' }">
         <ng-template #header>
             <tr>
                 <th>Name</th>
@@ -117,100 +146,27 @@ export class FrozenRowsDoc {
         </ng-template>
         <ng-template #frozenbody let-customer let-index="rowIndex">
             <tr class="font-bold">
-                <td>{{customer.name}}</td>
-                <td>{{customer.country.name}}</td>
-                <td>{{customer.company}}</td>
-                <td>{{customer.representative.name}}</td>
+                <td>{{ customer.name }}</td>
+                <td>{{ customer.country.name }}</td>
+                <td>{{ customer.company }}</td>
+                <td>{{ customer.representative.name }}</td>
                 <td>
-                    <button
-                        pButton
-                        pRipple
-                        type="button"
-                        [icon]="'pi pi-lock-open'"
-                        (click)="toggleLock(customer,true,index)"
-                        size="small"
-                        text>
-                    </button>
+                    <button pButton pRipple type="button" [icon]="'pi pi-lock-open'" (click)="toggleLock(customer, true, index)" size="small" text></button>
                 </td>
             </tr>
         </ng-template>
         <ng-template #body let-customer let-index="rowIndex">
             <tr>
-                <td>{{customer.name}}</td>
-                <td>{{customer.country.name}}</td>
-                <td>{{customer.company}}</td>
-                <td>{{customer.representative.name}}</td>
+                <td>{{ customer.name }}</td>
+                <td>{{ customer.country.name }}</td>
+                <td>{{ customer.company }}</td>
+                <td>{{ customer.representative.name }}</td>
                 <td>
-                    <button
-                        pButton
-                        pRipple
-                        type="button"
-                        [icon]="'pi pi-lock'"
-                        [disabled]="lockedCustomers.length >= 2"
-                        (click)="toggleLock(customer,false,index)"
-                        size="small"
-                        text>
-                    </button>
+                    <button pButton pRipple type="button" [icon]="'pi pi-lock'" [disabled]="lockedCustomers.length >= 2" (click)="toggleLock(customer, false, index)" size="small" text></button>
                 </td>
             </tr>
         </ng-template>
-</p-table>`,
-        html: `<div class="card">
-    <p-table
-        [value]="unlockedCustomers"
-        [frozenValue]="lockedCustomers"
-        [scrollable]="true"
-        scrollHeight="400px"
-        [tableStyle]="{'min-width': '60rem'}">
-            <ng-template #header>
-                <tr>
-                    <th>Name</th>
-                    <th>Country</th>
-                    <th>Company</th>
-                    <th>Representative</th>
-                    <th style="width:5rem"></th>
-                </tr>
-            </ng-template>
-            <ng-template #frozenbody let-customer let-index="rowIndex">
-                <tr class="font-bold">
-                    <td>{{customer.name}}</td>
-                    <td>{{customer.country.name}}</td>
-                    <td>{{customer.company}}</td>
-                    <td>{{customer.representative.name}}</td>
-                    <td>
-                        <button
-                            pButton
-                            pRipple
-                            type="button"
-                            [icon]="'pi pi-lock-open'"
-                            (click)="toggleLock(customer,true,index)"
-                            size="small"
-                            text>
-                        </button>
-                    </td>
-                </tr>
-            </ng-template>
-            <ng-template #body let-customer let-index="rowIndex">
-                <tr>
-                    <td>{{customer.name}}</td>
-                    <td>{{customer.country.name}}</td>
-                    <td>{{customer.company}}</td>
-                    <td>{{customer.representative.name}}</td>
-                    <td>
-                        <button
-                            pButton
-                            pRipple
-                            type="button"
-                            [icon]="'pi pi-lock'"
-                            [disabled]="lockedCustomers.length >= 2"
-                            (click)="toggleLock(customer,false,index)"
-                            size="small"
-                            text>
-                        </button>
-                    </td>
-                </tr>
-            </ng-template>
-        </p-table>
+    </p-table>
 </div>`,
         typescript: `import { Component, OnInit } from '@angular/core';
 import { Customer } from '@/domain/customer';

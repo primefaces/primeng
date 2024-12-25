@@ -65,14 +65,27 @@ export class SelectionEventsDoc {
 
     code: Code = {
         basic: `<p-toast />
-<p-table
-    [value]="products"
-    selectionMode="single"
-    [(selection)]="selectedProduct"
-    dataKey="code"
-    (onRowSelect)="onRowSelect($event)"
-    (onRowUnselect)="onRowUnselect($event)"
-    [tableStyle]="{'min-width': '50rem'}">
+<p-table [value]="products" selectionMode="single" [(selection)]="selectedProduct" dataKey="code" (onRowSelect)="onRowSelect($event)" (onRowUnselect)="onRowUnselect($event)" [tableStyle]="{'min-width': '50rem'}">
+    <ng-template #header>
+        <tr>
+            <th>Code</th>
+            <th>Name</th>
+            <th>Category</th>
+            <th>Quantity</th>
+        </tr>
+    </ng-template>
+    <ng-template #body let-product>
+        <tr [pSelectableRow]="product">
+            <td>{{product.code}}</td>
+            <td>{{product.name}}</td>
+            <td>{{product.category}}</td>
+            <td>{{product.quantity}}</td>
+        </tr>
+    </ng-template>
+</p-table>`,
+        html: `<div class="card">
+    <p-toast />
+    <p-table [value]="products" selectionMode="single" [(selection)]="selectedProduct" dataKey="code" (onRowSelect)="onRowSelect($event)" (onRowUnselect)="onRowUnselect($event)" [tableStyle]="{'min-width': '50rem'}">
         <ng-template #header>
             <tr>
                 <th>Code</th>
@@ -89,33 +102,6 @@ export class SelectionEventsDoc {
                 <td>{{product.quantity}}</td>
             </tr>
         </ng-template>
-</p-table>`,
-        html: `<div class="card">
-    <p-toast />
-    <p-table
-        [value]="products"
-        selectionMode="single"
-        [(selection)]="selectedProduct"
-        dataKey="code"
-        (onRowSelect)="onRowSelect($event)"
-        (onRowUnselect)="onRowUnselect($event)"
-        [tableStyle]="{'min-width': '50rem'}">
-            <ng-template #header>
-                <tr>
-                    <th>Code</th>
-                    <th>Name</th>
-                    <th>Category</th>
-                    <th>Quantity</th>
-                </tr>
-            </ng-template>
-            <ng-template #body let-product>
-                <tr [pSelectableRow]="product">
-                    <td>{{product.code}}</td>
-                    <td>{{product.name}}</td>
-                    <td>{{product.category}}</td>
-                    <td>{{product.quantity}}</td>
-                </tr>
-            </ng-template>
     </p-table>
 </div>`,
         typescript: `import { Component, Input, OnInit } from '@angular/core';

@@ -70,13 +70,7 @@ export class FrozenColumnsDoc {
     }
 
     code: Code = {
-        basic: `<p-togglebutton
-    [(ngModel)]="balanceFrozen"
-    [onIcon]="'pi pi-lock'"
-    offIcon="pi pi-lock-open"
-    [onLabel]="'Balance'"
-    offLabel="Balance" />
-
+        basic: `<p-togglebutton [(ngModel)]="balanceFrozen" [onIcon]="'pi pi-lock'" offIcon="pi pi-lock-open" [onLabel]="'Balance'" offLabel="Balance" />
 <p-table [value]="customers" [scrollable]="true" scrollHeight="400px" styleClass="mt-4">
     <ng-template #header>
         <tr>
@@ -106,13 +100,7 @@ export class FrozenColumnsDoc {
     </ng-template>
 </p-table>`,
         html: `<div class="card">
-    <p-togglebutton
-        [(ngModel)]="balanceFrozen"
-        [onIcon]="'pi pi-lock'"
-        offIcon="pi pi-lock-open"
-        [onLabel]="'Balance'"
-        offLabel="Balance" />
-
+    <p-togglebutton [(ngModel)]="balanceFrozen" [onIcon]="'pi pi-lock'" offIcon="pi pi-lock-open" [onLabel]="'Balance'" offLabel="Balance" />
     <p-table [value]="customers" [scrollable]="true" scrollHeight="400px" styleClass="mt-4">
         <ng-template #header>
             <tr>
