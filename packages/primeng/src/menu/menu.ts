@@ -151,7 +151,7 @@ export class MenuItemContent {
             [ngClass]="{ 'p-menu p-component': true, 'p-menu-overlay': popup }"
             [class]="styleClass"
             [ngStyle]="style"
-            *ngIf="!popup || visible"
+            *ngIf="!popup || visible !== false"
             (click)="onOverlayClick($event)"
             [@overlayAnimation]="{
                 value: 'visible',
@@ -199,14 +199,13 @@ export class MenuItemContent {
                         <ng-container *ngTemplateOutlet="submenuHeaderTemplate ?? _submenuHeaderTemplate; context: { $implicit: submenu }"></ng-container>
                     </li>
                     <ng-template ngFor let-item let-j="index" [ngForOf]="submenu.items">
-                        <li class="p-menu-separator" *ngIf="item.separator" [ngClass]="{ 'p-hidden': item.visible === false || submenu.visible === false }" role="separator"></li>
+                        <li class="p-menu-separator" *ngIf="item.separator && item.visible && submenu.visibile" role="separator"></li>
                         <li
                             class="p-menu-item"
-                            *ngIf="!item.separator"
+                            *ngIf="!item.separator && item.visible !== false && submenu.visible"
                             [pMenuItemContent]="item"
                             [itemTemplate]="itemTemplate ?? _itemTemplate"
                             [ngClass]="{
-                                'p-hidden': item.visible === false || submenu.visible === false,
                                 'p-focus': focusedOptionId() && menuitemId(item, id, i, j) === focusedOptionId(),
                                 'p-disabled': disabled(item.disabled)
                             }"
@@ -226,14 +225,13 @@ export class MenuItemContent {
                     </ng-template>
                 </ng-template>
                 <ng-template ngFor let-item let-i="index" [ngForOf]="model" *ngIf="!hasSubMenu()">
-                    <li class="p-menu-separator" *ngIf="item.separator" [ngClass]="{ 'p-hidden': item.visible === false }" role="separator"></li>
+                    <li class="p-menu-separator" *ngIf="item.separator && item.visible !== false" role="separator"></li>
                     <li
                         class="p-menu-item"
-                        *ngIf="!item.separator"
+                        *ngIf="!item.separator && item.visible !== false"
                         [pMenuItemContent]="item"
                         [itemTemplate]="itemTemplate ?? _itemTemplate"
                         [ngClass]="{
-                            'p-hidden': item.visible === false,
                             'p-focus': focusedOptionId() && menuitemId(item, id, i) === focusedOptionId(),
                             'p-disabled': disabled(item.disabled)
                         }"
