@@ -51,6 +51,8 @@
         "@angular/platform-browser-dynamic": "catalog:angular19",
         "@angular/platform-server": "catalog:angular19",
         "@angular/router": "catalog:angular19",
+        "@commitlint/cli": "^19.6.1",
+        "@commitlint/config-conventional": "^19.6.0",
         "@typescript-eslint/eslint-plugin": "^8.13.0",
         "eslint": "^9.14.0",
         "eslint-config-prettier": "^9.1.0",
