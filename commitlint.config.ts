@@ -5,6 +5,7 @@ export default {
         'subject-case': [2, 'always', ['sentence-case', 'lower-case']],
         'references-empty': [1, 'never']
     },
+    ignores: [(commit: string) => commit.startsWith('Merge')],
     parserPreset: {
         parserOpts: {
             issuePrefixes: ['Fixes #', 'Fixed #']
