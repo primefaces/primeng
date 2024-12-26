@@ -37,62 +37,64 @@ import { DockStyle } from './style/dockstyle';
                     (keydown)="onListKeyDown($event)"
                     (mouseleave)="onListMouseLeave()"
                 >
-                    <li
-                        *ngFor="let item of model; let i = index"
-                        [attr.id]="getItemId(item, i)"
-                        [ngClass]="itemClass(item, i)"
-                        role="menuitem"
-                        [attr.aria-label]="item.label"
-                        [attr.aria-disabled]="disabled(item)"
-                        (click)="onItemClick($event, item)"
-                        (mouseenter)="onItemMouseEnter(i)"
-                        [attr.data-pc-section]="'menuitem'"
-                        [attr.data-p-focused]="isItemActive(getItemId(item, i))"
-                        [attr.data-p-disabled]="disabled(item) || false"
-                    >
-                        <div class="p-dock-item-content" [attr.data-pc-section]="'content'">
-                            <a
-                                *ngIf="isClickableRouterLink(item); else elseBlock"
-                                pRipple
-                                [routerLink]="item.routerLink"
-                                [queryParams]="item.queryParams"
-                                [ngClass]="{ 'p-disabled': item.disabled }"
-                                class="p-dock-item-link"
-                                [routerLinkActiveOptions]="item.routerLinkActiveOptions || { exact: false }"
-                                [target]="item.target"
-                                [attr.tabindex]="item.disabled || readonly ? null : item.tabindex ? item.tabindex : '-1'"
-                                pTooltip
-                                [tooltipOptions]="item.tooltipOptions"
-                                [fragment]="item.fragment"
-                                [queryParamsHandling]="item.queryParamsHandling"
-                                [preserveFragment]="item.preserveFragment"
-                                [skipLocationChange]="item.skipLocationChange"
-                                [replaceUrl]="item.replaceUrl"
-                                [state]="item.state"
-                                [attr.aria-hidden]="true"
-                            >
-                                <span class="p-dock-item-icon" *ngIf="item.icon && !itemTemplate && !_itemTemplate" [ngClass]="item.icon" [ngStyle]="item.iconStyle"></span>
-                                <ng-container *ngTemplateOutlet="itemTemplate || itemTemplate; context: { $implicit: item }"></ng-container>
-                            </a>
-                            <ng-template #elseBlock>
+                    @for (item of model; track item.label; let i = $index) {
+                        <li
+                            *ngIf="item.visible !== false"
+                            [attr.id]="getItemId(item, i)"
+                            [ngClass]="itemClass(item, i)"
+                            role="menuitem"
+                            [attr.aria-label]="item.label"
+                            [attr.aria-disabled]="disabled(item)"
+                            (click)="onItemClick($event, item)"
+                            (mouseenter)="onItemMouseEnter(i)"
+                            [attr.data-pc-section]="'menuitem'"
+                            [attr.data-p-focused]="isItemActive(getItemId(item, i))"
+                            [attr.data-p-disabled]="disabled(item) || false"
+                        >
+                            <div class="p-dock-item-content" [attr.data-pc-section]="'content'">
                                 <a
-                                    [tooltipPosition]="item.tooltipPosition"
-                                    [attr.href]="item.url || null"
-                                    class="p-dock-item-link"
+                                    *ngIf="isClickableRouterLink(item); else elseBlock"
                                     pRipple
+                                    [routerLink]="item.routerLink"
+                                    [queryParams]="item.queryParams"
+                                    [ngClass]="{ 'p-disabled': item.disabled }"
+                                    class="p-dock-item-link"
+                                    [routerLinkActiveOptions]="item.routerLinkActiveOptions || { exact: false }"
+                                    [target]="item.target"
+                                    [attr.tabindex]="item.disabled || readonly ? null : item.tabindex ? item.tabindex : '-1'"
                                     pTooltip
                                     [tooltipOptions]="item.tooltipOptions"
-                                    [ngClass]="{ 'p-disabled': item.disabled }"
-                                    [target]="item.target"
-                                    [attr.tabindex]="item.disabled || (i !== activeIndex && readonly) ? null : item.tabindex ? item.tabindex : '-1'"
+                                    [fragment]="item.fragment"
+                                    [queryParamsHandling]="item.queryParamsHandling"
+                                    [preserveFragment]="item.preserveFragment"
+                                    [skipLocationChange]="item.skipLocationChange"
+                                    [replaceUrl]="item.replaceUrl"
+                                    [state]="item.state"
                                     [attr.aria-hidden]="true"
                                 >
                                     <span class="p-dock-item-icon" *ngIf="item.icon && !itemTemplate && !_itemTemplate" [ngClass]="item.icon" [ngStyle]="item.iconStyle"></span>
-                                    <ng-container *ngTemplateOutlet="itemTemplate || _itemTemplate; context: { $implicit: item }"></ng-container>
+                                    <ng-container *ngTemplateOutlet="itemTemplate || itemTemplate; context: { $implicit: item }"></ng-container>
                                 </a>
-                            </ng-template>
-                        </div>
-                    </li>
+                                <ng-template #elseBlock>
+                                    <a
+                                        [tooltipPosition]="item.tooltipPosition"
+                                        [attr.href]="item.url || null"
+                                        class="p-dock-item-link"
+                                        pRipple
+                                        pTooltip
+                                        [tooltipOptions]="item.tooltipOptions"
+                                        [ngClass]="{ 'p-disabled': item.disabled }"
+                                        [target]="item.target"
+                                        [attr.tabindex]="item.disabled || (i !== activeIndex && readonly) ? null : item.tabindex ? item.tabindex : '-1'"
+                                        [attr.aria-hidden]="true"
+                                    >
+                                        <span class="p-dock-item-icon" *ngIf="item.icon && !itemTemplate && !_itemTemplate" [ngClass]="item.icon" [ngStyle]="item.iconStyle"></span>
+                                        <ng-container *ngTemplateOutlet="itemTemplate || _itemTemplate; context: { $implicit: item }"></ng-container>
+                                    </a>
+                                </ng-template>
+                            </div>
+                        </li>
+                    }
                 </ul>
             </div>
         </div>
