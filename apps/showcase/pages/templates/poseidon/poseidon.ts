@@ -79,8 +79,10 @@ export class PoseidonPage {
             src: 'https://primefaces.org/cdn/primeng/images/templates/poseidon/poseidon-features2-responsive.png'
         },
         {
-            title: 'Lifetime Support',
-            description: 'Apollo has a dedicated forum where lifetime support is delivered by engineers at PrimeTek in a timely manner.',
+            title: 'Support',
+            description: `PrimeTek offers assistance with account management and licensing issues, with the expectation that users have the necessary technical knowledge to use our products, as we do not offer technical support or consulting. Users
+            can seek assistance in our community via our public <a href="https://discord.com/invite/gzKFYnpmCY">Discord</a> and
+            <a href="https://github.com/orgs/primefaces/discussions/categories/primeng-templates" class="doc-link">Forum</a>.`,
             src: 'https://primefaces.org/cdn/primeng/images/templates/apollo/apollo-features2-lifetime.png'
         },
         {
@@ -177,13 +179,13 @@ export class PoseidonPage {
                 title: 'Basic License',
                 price: '$59',
                 discount_price: '$39',
-                included: ['Non Commercial Usage', 'Single End Product, No Multi-Use', 'Lifetime Support', 'Unlimited Updates']
+                included: ['Non Commercial Usage', 'Single End Product, No Multi-Use', '1 Year Free Updates']
             },
             {
                 title: 'Extended License',
                 price: '$590',
                 discount_price: '$390',
-                included: ['Commercial Usage', 'Multiple End Products', 'Lifetime Support', 'Unlimited Updates']
+                included: ['Commercial Usage', 'Multiple End Products', '1 Year Free Updates']
             }
         ]
     };

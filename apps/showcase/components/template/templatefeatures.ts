@@ -1,6 +1,7 @@
 import { AppConfigService } from '@/service/appconfigservice';
 import { CommonModule } from '@angular/common';
 import { ChangeDetectionStrategy, Component, Input, NgModule, ViewEncapsulation } from '@angular/core';
+import { DomSanitizer } from '@angular/platform-browser';
 import { SharedModule } from 'primeng/api';
 
 @Component({
@@ -43,7 +44,7 @@ import { SharedModule } from 'primeng/api';
                                         <img class="w-full h-auto rounded-lg" [src]="isDarkMode ? data.darkSrc || data.src : data.src" [alt]="data.title" />
                                     </div>
                                     <h2 class="mt-5 mb-0 text-lg text-surface-900 dark:text-surface-0 font-semibold">{{ data.title }}</h2>
-                                    <p class="mt-2 mb-0 text-muted-color">{{ data.description }}</p>
+                                    <p class="mt-2 mb-0 text-muted-color" [innerHTML]="sanitizer.bypassSecurityTrustHtml(data.description)"></p>
                                 </div>
                             </ng-container>
                         </div>
@@ -68,7 +69,10 @@ export class TemplateFeatures {
         return this.configService.appState().darkTheme;
     }
 
-    constructor(private configService: AppConfigService) {}
+    constructor(
+        private configService: AppConfigService,
+        public sanitizer: DomSanitizer
+    ) {}
 
     ngOnInit() {
         if (this.featuresData) {
