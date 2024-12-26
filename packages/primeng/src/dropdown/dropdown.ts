@@ -1860,18 +1860,10 @@ export class Dropdown extends BaseComponent implements OnInit, AfterViewInit, Af
         let optionIndex = -1;
         let matched = false;
 
-        if (this.focusedOptionIndex() !== -1) {
-            optionIndex = this.visibleOptions()
-                .slice(this.focusedOptionIndex())
-                .findIndex((option) => this.isOptionMatched(option));
-            optionIndex =
-                optionIndex === -1
-                    ? this.visibleOptions()
-                          .slice(0, this.focusedOptionIndex())
-                          .findIndex((option) => this.isOptionMatched(option))
-                    : optionIndex + this.focusedOptionIndex();
-        } else {
-            optionIndex = this.visibleOptions().findIndex((option) => this.isOptionMatched(option));
+        optionIndex = this.visibleOptions().findIndex((option) => this.isOptionExactMatched(option));
+
+        if (optionIndex === -1) {
+            optionIndex = this.visibleOptions().findIndex((option) => this.isOptionStartsWith(option));
         }
 
         if (optionIndex !== -1) {
@@ -1898,8 +1890,12 @@ export class Dropdown extends BaseComponent implements OnInit, AfterViewInit, Af
         return matched;
     }
 
-    isOptionMatched(option) {
+    isOptionStartsWith(option) {
         return this.isValidOption(option) && this.getOptionLabel(option).toString().toLocaleLowerCase(this.filterLocale).startsWith(this.searchValue.toLocaleLowerCase(this.filterLocale));
+    }
+
+    isOptionExactMatched(option) {
+        return this.isValidOption(option) && this.getOptionLabel(option).toString().toLocaleLowerCase(this.filterLocale) === this.searchValue.toLocaleLowerCase(this.filterLocale);
     }
 
     onFilterInputChange(event: Event | any): void {
