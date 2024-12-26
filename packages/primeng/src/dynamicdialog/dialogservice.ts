@@ -35,7 +35,7 @@ export class DialogService {
 
         this.dialogComponentRefMap.get(dialogRef).instance.childComponentType = componentType;
         this.dialogComponentRefMap.get(dialogRef).instance.inputValues = config.inputValues;
-        
+
         return dialogRef;
     }
     /**
