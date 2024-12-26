@@ -2017,7 +2017,9 @@ export class Select extends BaseComponent implements OnInit, AfterViewInit, Afte
         }
 
         if (optionIndex !== -1) {
-            this.changeFocusedOptionIndex(event, optionIndex);
+            setTimeout(() => {
+                this.changeFocusedOptionIndex(event, optionIndex);
+            });
         }
 
         if (this.searchTimeout) {
