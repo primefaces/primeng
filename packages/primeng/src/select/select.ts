@@ -1302,7 +1302,7 @@ export class Select extends BaseComponent implements OnInit, AfterViewInit, Afte
         }
 
         if (this.selectedOptionUpdated && this.itemsWrapper) {
-            let selectedItem = <any>findSingle(this.overlayViewChild?.overlayViewChild?.nativeElement, 'li.p-highlight');
+            let selectedItem = <any>findSingle(this.overlayViewChild?.overlayViewChild?.nativeElement, 'li.p-select-option-selected');
             if (selectedItem) {
                 scrollInView(this.itemsWrapper, selectedItem);
             }
@@ -1535,7 +1535,7 @@ export class Select extends BaseComponent implements OnInit, AfterViewInit, Afte
 
     onOverlayAnimationStart(event: AnimationEvent) {
         if (event.toState === 'visible') {
-            this.itemsWrapper = <any>findSingle(this.overlayViewChild?.overlayViewChild?.nativeElement, this.virtualScroll ? '.p-scroller' : '.p-dropdown-items-wrapper');
+            this.itemsWrapper = <any>findSingle(this.overlayViewChild?.overlayViewChild?.nativeElement, this.virtualScroll ? '.p-scroller' : '.p-select-list-container');
             this.virtualScroll && this.scroller?.setContentEl(this.itemsViewChild?.nativeElement);
 
             if (this.options && this.options.length) {
@@ -1545,8 +1545,7 @@ export class Select extends BaseComponent implements OnInit, AfterViewInit, Afte
                         this.scroller?.scrollToIndex(selectedIndex);
                     }
                 } else {
-                    let selectedListItem = findSingle(this.itemsWrapper, '.p-dropdown-item.p-highlight');
-
+                    let selectedListItem = findSingle(this.itemsWrapper, '.p-select-option.p-select-option-selected');
                     if (selectedListItem) {
                         selectedListItem.scrollIntoView({ block: 'nearest', inline: 'nearest' });
                     }
@@ -2017,9 +2016,7 @@ export class Select extends BaseComponent implements OnInit, AfterViewInit, Afte
         }
 
         if (optionIndex !== -1) {
-            setTimeout(() => {
-                this.changeFocusedOptionIndex(event, optionIndex);
-            });
+            this.changeFocusedOptionIndex(event, optionIndex);
         }
 
         if (this.searchTimeout) {
