@@ -1,5 +1,46 @@
 # Changelog
 
+## [19.0.2](https://github.com/primefaces/primeng/tree/19.0.2) (2024-12-26)
+
+[Full Changelog](https://github.com/primefaces/primeng/compare/19.0.1...19.0.2)
+
+**Fixed bugs:**
+
+- PrimeNG Select Component - Missing Scroll to Selected Item [\#17218](https://github.com/primefaces/primeng/issues/17218)
+- Component: DynamicDialog not working with zonejs less application [\#16402](https://github.com/primefaces/primeng/issues/16402)
+- Select: Editable Dropdown search not working as expected. [\#17220](https://github.com/primefaces/primeng/issues/17220)
+- Listbox: misaligned header components with [filter]="true" [multiple]="true" [checkbox]="true" [\#17189](https://github.com/primefaces/primeng/issues/17189)
+- p-menu MenuItem visible flag doesn't work on PrimeNG v18 [\#17204](https://github.com/primefaces/primeng/issues/17204)
+- Support for Passing Input Values to DynamicDialog Components [\#17215](https://github.com/primefaces/primeng/issues/17215)
+- Component: Dropdown [\#17112](https://github.com/primefaces/primeng/issues/17112)
+- Tree: onNodeClick event replaces the inline style of the component child nodes [\#17171](https://github.com/primefaces/primeng/issues/17171)
+- On focus in p-inputNumber it marks form dirty even value is unchanged [\#17169](https://github.com/primefaces/primeng/issues/17169)
+- Datepicker: invalid template for next button [\#17206](https://github.com/primefaces/primeng/issues/17206)
+- ToggleButton: Missing ToggleButtonChangeEvent in component [\#17209](https://github.com/primefaces/primeng/issues/17209)
+- v19 DynamicDialog: Rendering problem when displaying Dynamic Dialog content without fix [\#17193](https://github.com/primefaces/primeng/issues/17193)
+- Component: P-dropdown has issue while removing items.Scroll is not happening Properly [\#17130](https://github.com/primefaces/primeng/issues/17130)
+- Component: Autocomplete emptyMessage not shown [\#17143](https://github.com/primefaces/primeng/issues/17143)
+- Component: Tree [\#17132](https://github.com/primefaces/primeng/issues/17132)
+- Component: Paginator. "Show All" option in dropdown always displayed first [\#17068](https://github.com/primefaces/primeng/issues/17068)
+- p-inputOtp does not paste code sent by SMS, only sets the first digit [\#16373](https://github.com/primefaces/primeng/issues/16373)
+- CascadeSelect: Incorrect type for optionGroupChildren in documentation [\#17208](https://github.com/primefaces/primeng/issues/17208)
+- rimraf glob error during project setup with pnpm on windows [\#17186](https://github.com/primefaces/primeng/issues/17186)
+- Component: RadioButton Material Theme CSS Issue [\#17150](https://github.com/primefaces/primeng/issues/17150)
+- Extra apostrophe in breadcrumb component [\#17148](https://github.com/primefaces/primeng/issues/17148)
+- ConfirmDialog: icon has wrong size [\#17087](https://github.com/primefaces/primeng/issues/17087)
+- Component: Select placeholder lost after value change [\#17110](https://github.com/primefaces/primeng/issues/17110)
+- Panel: toggle button is not rounded, missing p-button-rounded class [\#17080](https://github.com/primefaces/primeng/issues/17080)
+- Component: ListBox and PickList search is wrong (V18) [\#17103](https://github.com/primefaces/primeng/issues/17103)
+- Component: Carousel [\#17141](https://github.com/primefaces/primeng/issues/17141)
+- p-popover: Show close icon [\#17176](https://github.com/primefaces/primeng/issues/17176)
+- p-table/Aura: Dark Mode header for Frozen + Sorted Column is transparent [\#16940](https://github.com/primefaces/primeng/issues/16940)
+- p-table: frozen columns do not properly indicate row hover nor row selections [\#16939](https://github.com/primefaces/primeng/issues/16939)
+- Panel | #icons template does not work [\#17192](https://github.com/primefaces/primeng/issues/17192)
+- Fluid: wrapper doesn't work for Select [\#17070](https://github.com/primefaces/primeng/issues/17070)
+- Dropdown/Select: Marked as dirty immediately, if no placeholder is set [\#17178](https://github.com/primefaces/primeng/issues/17178)
+- MultiSelect: pTemplate selectedItems does not work [\#17063](https://github.com/primefaces/primeng/issues/17063)
+- FileUpload: Empty template not working [\#17152](https://github.com/primefaces/primeng/issues/17152)
+
 ## [19.0.1](https://github.com/primefaces/primeng/tree/19.0.1) (2024-12-19)
 
 [Full Changelog](https://github.com/primefaces/primeng/compare/19.0.0...19.0.1)
