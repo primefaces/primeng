@@ -26,15 +26,15 @@ import { Galleria } from 'primeng/galleria';
                 [containerStyle]="{ 'max-width': '640px' }"
                 [containerClass]="galleriaClass()"
             >
-                <ng-template pTemplate="item" let-item>
+                <ng-template #item let-item>
                     <img [src]="item.itemImageSrc" [ngStyle]="{ width: !fullscreen ? '100%' : '', display: !fullscreen ? 'block' : '' }" />
                 </ng-template>
-                <ng-template pTemplate="thumbnail" let-item>
+                <ng-template #thumbnail let-item>
                     <div class="grid gap-4 justify-center">
                         <img [src]="item.thumbnailImageSrc" style="display: block" />
                     </div>
                 </ng-template>
-                <ng-template pTemplate="footer" let-item>
+                <ng-template #footer let-item>
                     <div class="custom-galleria-footer">
                         <button type="button" pButton icon="pi pi-list" (click)="onThumbnailButtonClick()"></button>
                         <span *ngIf="images" class="title-container">
@@ -81,7 +81,10 @@ export class AdvancedDoc implements OnInit, OnDestroy {
     ];
 
     ngOnInit() {
-        this.photoService.getImages().then((images) => (this.images = images));
+        this.photoService.getImages().then((images) => {
+            this.images = images;
+            this.cd.markForCheck();
+        });
         this.bindDocumentListeners();
     }
 
@@ -169,15 +172,15 @@ export class AdvancedDoc implements OnInit, OnDestroy {
 
     code: Code = {
         basic: `<p-galleria #galleria [(value)]="images" [(activeIndex)]="activeIndex" [numVisible]="5" [showThumbnails]="showThumbnails" [showItemNavigators]="true" [showItemNavigatorsOnHover]="true" [circular]="true" [autoPlay]="true" [transitionInterval]="3000" [containerStyle]="{ 'max-width': '640px' }" [containerClass]="galleriaClass()">
-    <ng-template pTemplate="item" let-item>
+    <ng-template #item let-item>
         <img [src]="item.itemImageSrc" [ngStyle]="{ width: !fullscreen ? '100%' : '', display: !fullscreen ? 'block' : '' }" />
     </ng-template>
-    <ng-template pTemplate="thumbnail" let-item>
+    <ng-template #thumbnail let-item>
         <div class="grid gap-4 justify-center">
             <img [src]="item.thumbnailImageSrc" style="display: block" />
         </div>
     </ng-template>
-    <ng-template pTemplate="footer" let-item>
+    <ng-template #footer let-item>
         <div class="custom-galleria-footer">
             <button type="button" pButton icon="pi pi-list" (click)="onThumbnailButtonClick()"></button>
             <span *ngIf="images" class="title-container">
@@ -191,15 +194,15 @@ export class AdvancedDoc implements OnInit, OnDestroy {
 </p-galleria>`,
         html: `<div class="card">
     <p-galleria #galleria [(value)]="images" [(activeIndex)]="activeIndex" [numVisible]="5" [showThumbnails]="showThumbnails" [showItemNavigators]="true" [showItemNavigatorsOnHover]="true" [circular]="true" [autoPlay]="true" [transitionInterval]="3000" [containerStyle]="{ 'max-width': '640px' }" [containerClass]="galleriaClass()">
-        <ng-template pTemplate="item" let-item>
+        <ng-template #item let-item>
             <img [src]="item.itemImageSrc" [ngStyle]="{ width: !fullscreen ? '100%' : '', display: !fullscreen ? 'block' : '' }" />
         </ng-template>
-        <ng-template pTemplate="thumbnail" let-item>
+        <ng-template #thumbnail let-item>
             <div class="grid gap-4 justify-center">
                 <img [src]="item.thumbnailImageSrc" style="display: block" />
             </div>
         </ng-template>
-        <ng-template pTemplate="footer" let-item>
+        <ng-template #footer let-item>
             <div class="custom-galleria-footer">
                 <button type="button" pButton icon="pi pi-list" (click)="onThumbnailButtonClick()"></button>
                 <span *ngIf="images" class="title-container">

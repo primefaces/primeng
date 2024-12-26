@@ -1,6 +1,6 @@
 import { Code } from '@/domain/code';
 import { PhotoService } from '@/service/photoservice';
-import { Component, OnInit } from '@angular/core';
+import { Component, model, OnInit } from '@angular/core';
 
 @Component({
     selector: 'galleria-basic-demo',
@@ -11,10 +11,10 @@ import { Component, OnInit } from '@angular/core';
         </app-docsectiontext>
         <div class="card">
             <p-galleria [(value)]="images" [responsiveOptions]="responsiveOptions" [containerStyle]="{ 'max-width': '640px' }" [numVisible]="5">
-                <ng-template pTemplate="item" let-item>
+                <ng-template #item let-item>
                     <img [src]="item.itemImageSrc" style="width:100%" />
                 </ng-template>
-                <ng-template pTemplate="thumbnail" let-item>
+                <ng-template #thumbnail let-item>
                     <img [src]="item.thumbnailImageSrc" />
                 </ng-template>
             </p-galleria>
@@ -23,34 +23,47 @@ import { Component, OnInit } from '@angular/core';
     `
 })
 export class BasicDoc implements OnInit {
-    images: any[] | undefined;
+    images = model([]);
 
-    responsiveOptions: any[] | undefined;
+    responsiveOptions: any[] = [
+        {
+            breakpoint: '1300px',
+            numVisible: 4
+        },
+        {
+            breakpoint: '575px',
+            numVisible: 1
+        }
+    ];
 
     constructor(private photoService: PhotoService) {}
 
+    ngOnInit() {
+        this.photoService.getImages().then((images) => this.images.set(images));
+    }
+
     code: Code = {
         basic: `<p-galleria [(value)]="images" [responsiveOptions]="responsiveOptions" [containerStyle]="{ 'max-width': '640px' }" [numVisible]="5">
-    <ng-template pTemplate="item" let-item>
+    <ng-template #item let-item>
         <img [src]="item.itemImageSrc" style="width:100%" />
     </ng-template>
-    <ng-template pTemplate="thumbnail" let-item>
+    <ng-template #thumbnail let-item>
         <img [src]="item.thumbnailImageSrc" />
     </ng-template>
 </p-galleria>`,
         html: `<div class="card">
     <p-galleria [(value)]="images" [responsiveOptions]="responsiveOptions" [containerStyle]="{ 'max-width': '640px' }" [numVisible]="5">
-        <ng-template pTemplate="item" let-item>
+        <ng-template #item let-item>
             <img [src]="item.itemImageSrc" style="width:100%" />
         </ng-template>
-        <ng-template pTemplate="thumbnail" let-item>
+        <ng-template #thumbnail let-item>
             <img [src]="item.thumbnailImageSrc" />
         </ng-template>
     </p-galleria>
 </div>`,
-        typescript: `import { Component, OnInit } from '@angular/core';
+        typescript: `import { Code } from '@/domain/code';
 import { PhotoService } from '@/service/photoservice';
-import { GalleriaModule } from 'primeng/galleria';
+import {Component, model, OnInit} from '@angular/core';
 
 @Component({
     selector: 'galleria-basic-demo',
@@ -60,25 +73,25 @@ import { GalleriaModule } from 'primeng/galleria';
     providers: [PhotoService]
 })
 export class GalleriaBasicDemo implements OnInit {
-    images: any[] | undefined;
+    images = model([]);
 
-    responsiveOptions: any[] | undefined;
+    responsiveOptions: any[] = [
+        {
+            breakpoint: '1300px',
+            numVisible: 4
+        },
+        {
+            breakpoint: '575px',
+            numVisible: 1
+        }
+    ];
 
     constructor(private photoService: PhotoService) {}
 
     ngOnInit() {
-        this.photoService.getImages().then((images) => (this.images = images));
-        this.responsiveOptions = [
-            {
-                breakpoint: '1300px',
-                numVisible: 4
-            },
-            {
-                breakpoint: '575px',
-                numVisible: 1
-            }
-        ];
+        this.photoService.getImages().then((images) => this.images.set(images));
     }
+
 }`,
         data: `
 /* PhotoService */
@@ -91,18 +104,4 @@ export class GalleriaBasicDemo implements OnInit {
 ...`,
         service: ['PhotoService']
     };
-
-    ngOnInit() {
-        this.photoService.getImages().then((images) => (this.images = images));
-        this.responsiveOptions = [
-            {
-                breakpoint: '1300px',
-                numVisible: 4
-            },
-            {
-                breakpoint: '575px',
-                numVisible: 1
-            }
-        ];
-    }
 }
