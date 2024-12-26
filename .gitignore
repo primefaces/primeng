@@ -46,7 +46,5 @@ api-generator/themedoc.json
 .vercel
 .nx
 
-builder/node_modules
-
 # primeng packages
 packages/primeng/src/package.json
