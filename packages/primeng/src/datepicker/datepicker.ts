@@ -1471,8 +1471,8 @@ export class DatePicker extends BaseComponent implements OnInit, AfterContentIni
             let m = month + i;
             let y = year;
             if (m > 11) {
-                m = (m % 11) - 1;
-                y = year + 1;
+                m = m % 12;
+                y = year + Math.floor((month + i) / 12);
             }
 
             this.months.push(this.createMonth(m, y));
