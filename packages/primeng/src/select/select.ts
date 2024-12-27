@@ -60,6 +60,7 @@ import { Ripple } from 'primeng/ripple';
 import { Scroller } from 'primeng/scroller';
 import { Tooltip } from 'primeng/tooltip';
 import { Nullable } from 'primeng/ts-helpers';
+import { CloseOnEscapeService } from 'primeng/utils';
 import { SelectChangeEvent, SelectFilterEvent, SelectFilterOptions, SelectLazyLoadEvent } from './select.interface';
 import { SelectStyle } from './style/selectstyle';
 
@@ -1170,6 +1171,13 @@ export class Select extends BaseComponent implements OnInit, AfterViewInit, Afte
         public filterService: FilterService
     ) {
         super();
+        inject(CloseOnEscapeService).closeOnEscape(
+            {
+                closeOnEscape: () => this.hide(),
+                kind: 'single'
+            },
+            this.injector
+        );
         effect(() => {
             const modelValue = this.modelValue();
             const visibleOptions = this.visibleOptions();
@@ -1573,6 +1581,9 @@ export class Select extends BaseComponent implements OnInit, AfterViewInit, Afte
      * @group Method
      */
     public hide(isFocus?) {
+        if (!this.overlayVisible) {
+            return false;
+        }
         this.overlayVisible = false;
         this.focusedOptionIndex.set(-1);
         this.clicked.set(false);
@@ -1593,6 +1604,7 @@ export class Select extends BaseComponent implements OnInit, AfterViewInit, Afte
             }
         }
         this.cd.markForCheck();
+        return true;
     }
 
     onInputFocus(event: Event) {
@@ -1671,11 +1683,6 @@ export class Select extends BaseComponent implements OnInit, AfterViewInit, Afte
                 this.onEnterKey(event);
                 break;
 
-            //escape and tab
-            case 'Escape':
-                this.onEscapeKey(event);
-                break;
-
             case 'Tab':
                 this.onTabKey(event);
                 break;
@@ -1727,10 +1734,6 @@ export class Select extends BaseComponent implements OnInit, AfterViewInit, Afte
             case 'Enter':
             case 'NumpadEnter':
                 this.onEnterKey(event, true);
-                break;
-
-            case 'Escape':
-                this.onEscapeKey(event);
                 break;
 
             case 'Tab':
@@ -1949,11 +1952,6 @@ export class Select extends BaseComponent implements OnInit, AfterViewInit, Afte
             !pressedInInput && this.hide();
         }
 
-        event.preventDefault();
-    }
-
-    onEscapeKey(event: KeyboardEvent) {
-        this.overlayVisible && this.hide(true);
         event.preventDefault();
     }
 
