@@ -9,19 +9,13 @@ import { ProductListDemo } from './productlistdemo';
     template: `
         <app-docsectiontext>
             <p>
-                In case you need to pass data to the component that is dynamically loaded, you can use either the <i>data</i> or the <i>inputValues</i> property depending on your requirements.
+                To pass data to a dynamically loaded component, you can use either the <i>data</i> or <i>inputValues</i> property, depending on your requirements. The <i>data</i> property is ideal for passing generic information that is not directly
+                tied to the component's inputs, while <i>inputValues</i> allows you to set specific input properties on the component in a more structured and type-safe way.
             </p>
-			<ul>
-                <li>
-					The data property can be accessed using the DynamicDialogConfig class and is ideal for passing generic data that is not directly tied to the component’s inputs.
-                </li>
-                <li>
-					The inputValues property, on the other hand, is designed for setting specific input properties on the loaded component in a structured and type-safe way.
-                </li>
-			</ul>
-			<p>
-				Both approaches can be used independently or together, allowing for greater flexibility in how you provide data to dynamically loaded components. In addition, the loaded component can also control the Dialog using the DynamicDialogRef API. Both the DynamicDialogConfig and DynamicDialogRef are injectable using the constructor.
-			</p>
+            <p>
+                Both properties can be used together or independently, offering flexibility to meet different use cases. Additionally, the loaded component can control the dialog using the DynamicDialogRef API, providing complete control over the
+                dialog lifecycle. Both DynamicDialogConfig and DynamicDialogRef are injectable through the constructor.
+            </p>
         </app-docsectiontext>
         <app-code [code]="code" [hideToggleCode]="true"></app-code>
     `,
