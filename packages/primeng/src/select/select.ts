@@ -1385,6 +1385,7 @@ export class Select extends BaseComponent implements OnInit, AfterViewInit, Afte
     }
 
     ngAfterViewInit() {
+        super.ngAfterViewInit();
         if (this.editable) {
             this.updateEditableLabel();
         }
