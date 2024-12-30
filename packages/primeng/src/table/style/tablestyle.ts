@@ -133,7 +133,7 @@ const theme = ({ dt }) => `
     cursor: move;
 }
 
-.p-datatable-mask {
+.p-datatable-mask.p-overlay-mask {
     position: absolute;
     display: flex;
     align-items: center;
