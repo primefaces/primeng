@@ -20,8 +20,8 @@ const theme = ({ dt }) => `
 }
 
 .p-textarea.ng-invalid.ng-dirty {
-    border-color: ${dt('textarea.invalid.border.color')}
-};
+    border-color: ${dt('textarea.invalid.border.color')};
+}
 
 .p-textarea:enabled:hover {
     border-color: ${dt('textarea.hover.border.color')};
