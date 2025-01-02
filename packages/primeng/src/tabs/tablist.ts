@@ -17,9 +17,9 @@ import { Tabs } from './tabs';
     imports: [CommonModule, ChevronLeftIcon, ChevronRightIcon, RippleModule, SharedModule],
     template: `
         @if (showNavigators() && isPrevButtonEnabled()) {
-            <button type="button" #prevButton pRipple class="p-tablist-nav-button p-tablist-prev-button" [attr.aria-label]="prevButtonAriaLabel" [attr.tabindex]="tabindex" [attr.data-pc-group-section]="'navigator'" (click)="onPrevButtonClick()">
+            <button type="button" #prevButton pRipple class="p-tablist-nav-button p-tablist-prev-button" [attr.aria-label]="prevButtonAriaLabel" [attr.tabindex]="tabindex()" [attr.data-pc-group-section]="'navigator'" (click)="onPrevButtonClick()">
                 @if (prevIconTemplate || _prevIconTemplate) {
-                    <ng-container *ngTemplateOutlet="prevIconTemplate || _prevIconTemplate"></ng-container>
+                    <ng-container *ngTemplateOutlet="prevIconTemplate || _prevIconTemplate" />
                 } @else {
                     <ChevronLeftIcon />
                 }
@@ -27,14 +27,14 @@ import { Tabs } from './tabs';
         }
         <div #content class="p-tablist-content" [ngClass]="{ 'p-tablist-viewport': scrollable() }" (scroll)="onScroll($event)">
             <div #tabs class="p-tablist-tab-list" role="tablist">
-                <ng-content></ng-content>
+                <ng-content />
                 <span #inkbar role="presentation" class="p-tablist-active-bar" [attr.data-pc-section]="'inkbar'"></span>
             </div>
         </div>
         @if (showNavigators() && isNextButtonEnabled()) {
-            <button type="button" #nextButton pRipple class="p-tablist-nav-button p-tablist-next-button" [attr.aria-label]="nextButtonAriaLabel" [attr.tabindex]="tabindex" [attr.data-pc-group-section]="'navigator'" (click)="onNextButtonClick()">
+            <button type="button" #nextButton pRipple class="p-tablist-nav-button p-tablist-next-button" [attr.aria-label]="nextButtonAriaLabel" [attr.tabindex]="tabindex()" [attr.data-pc-group-section]="'navigator'" (click)="onNextButtonClick()">
                 @if (nextIconTemplate || _nextIconTemplate) {
-                    <ng-container *ngTemplateOutlet="nextIconTemplate || _nextIconTemplate"></ng-container>
+                    <ng-container *ngTemplateOutlet="nextIconTemplate || _nextIconTemplate" />
                 } @else {
                     <ChevronRightIcon />
                 }
@@ -139,7 +139,7 @@ export class TabList extends BaseComponent implements AfterViewInit, AfterConten
         super.ngOnDestroy();
     }
 
-    onScroll(event) {
+    onScroll(event: Event) {
         this.showNavigators() && this.updateButtonState();
 
         event.preventDefault();
@@ -168,9 +168,9 @@ export class TabList extends BaseComponent implements AfterViewInit, AfterConten
         const _content = this.content?.nativeElement;
         const _list = this.el?.nativeElement;
 
-        const { scrollTop, scrollWidth, scrollHeight, offsetWidth, offsetHeight } = _content;
+        const { scrollWidth, offsetWidth } = _content;
         const scrollLeft = Math.abs(_content.scrollLeft);
-        const [width, height] = [getWidth(_content), getHeight(_content)];
+        const width = getWidth(_content);
 
         this.isPrevButtonEnabled.set(scrollLeft !== 0);
         this.isNextButtonEnabled.set(_list.offsetWidth >= offsetWidth && scrollLeft !== scrollWidth - width);
