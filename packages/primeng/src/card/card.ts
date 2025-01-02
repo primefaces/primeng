@@ -25,7 +25,7 @@ import { CardStyle } from './style/cardstyle';
                     <ng-container *ngTemplateOutlet="titleTemplate || _titleTemplate"></ng-container>
                 </div>
                 <div class="p-card-subtitle" *ngIf="subheader || subtitleTemplate || _subtitleTemplate">
-                    <ng-container *ngIf="subheader && !_subtitleTemplate && subtitleTemplate">{{ subheader }}</ng-container>
+                    <ng-container *ngIf="subheader && !_subtitleTemplate && !subtitleTemplate">{{ subheader }}</ng-container>
                     <ng-container *ngTemplateOutlet="subtitleTemplate || _subtitleTemplate"></ng-container>
                 </div>
                 <div class="p-card-content">
