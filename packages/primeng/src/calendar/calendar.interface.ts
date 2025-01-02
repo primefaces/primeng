@@ -119,6 +119,26 @@ export interface LocaleSettings {
      */
     weekHeader?: string;
 }
+
+/**
+ * Custom date format for a single day for the calendar display
+ * @group Interface
+ */
+export interface CalendarDay {
+    day: number;
+    month: number;
+    year: number;
+    selectable: boolean;
+    today?: boolean;
+    otherMonth?: boolean;
+}
+
+/**
+ * An array of days that contains date values in a custom format
+ * @group Types
+ */
+export type CalendarWeek = CalendarDay[];
+
 /**
  * Month interface.
  * @group Interface
@@ -133,9 +153,9 @@ export interface Month {
      */
     year?: number;
     /**
-     * Array of dates.
+     * Array of weeks, each containing an array of days.
      */
-    dates?: Date[];
+    dates?: CalendarWeek[];
     /**
      * Array of week numbers.
      */
