@@ -71,7 +71,7 @@ const hideAnimation = animation([animate('{{transition}}', style({ transform: '{
                     <ng-container *ngIf="!headerTemplate">
                         <span [ngClass]="'p-dialog-title'" [id]="ariaLabelledBy">{{ ddconfig.header }}</span>
                         <div [ngClass]="'p-dialog-header-actions'">
-                            <p-button *ngIf="ddconfig.maximizable" [styleClass]="'p-dialog-maximize-button'" (onClick)="maximize()" (keydown.enter)="maximize()" [tabindex]="maximizable ? '0' : '-1'">
+                            <p-button *ngIf="ddconfig.maximizable" [styleClass]="'p-dialog-maximize-button'" (onClick)="maximize()" (keydown.enter)="maximize()" rounded text [tabindex]="maximizable ? '0' : '-1'">
                                 <ng-container *ngIf="!maximizeIcon">
                                     <WindowMaximizeIcon *ngIf="!maximized && !maximizeIconTemplate" />
                                     <WindowMinimizeIcon *ngIf="maximized && !minimizeIconTemplate" />
