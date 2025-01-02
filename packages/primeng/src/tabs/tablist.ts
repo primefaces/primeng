@@ -170,7 +170,7 @@ export class TabList extends BaseComponent implements AfterViewInit, AfterConten
 
         const { scrollWidth, offsetWidth } = _content;
         const scrollLeft = Math.abs(_content.scrollLeft);
-        const [width] = [getWidth(_content), getHeight(_content)];
+        const width = getWidth(_content);
 
         this.isPrevButtonEnabled.set(scrollLeft !== 0);
         this.isNextButtonEnabled.set(_list.offsetWidth >= offsetWidth && scrollLeft !== scrollWidth - width);
