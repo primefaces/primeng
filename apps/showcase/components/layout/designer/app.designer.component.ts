@@ -471,7 +471,7 @@ export class AppDesignerComponent {
     }
     download() {
         const basePreset = this.configService.appState().preset;
-        const theme = JSON.stringify(this.preset, null, 4).replace(/"([^"]+)":/g, '$1:');
+        const theme = JSON.stringify(this.preset, null, 4).replace(/"((?!\w+\.\d+)[^"]+)":/g, '$1:');
         const textContent = `import { ApplicationConfig } from '@angular/core';
 import { provideAnimationsAsync } from '@angular/platform-browser/animations/async';
 import { providePrimeNG } from 'primeng/config';
