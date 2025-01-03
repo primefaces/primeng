@@ -207,6 +207,15 @@ p-multiselect.ng-invalid.ng-dirty .p-multiselect-label.p-placeholder {
     padding-inline: ${dt('multiselect.sm.padding.x')};
 }
 
+.p-multiselect-sm .p-multiselect-label .p-chip {
+    padding-top: calc(${dt('multiselect.sm.padding.y')} / 2);
+    padding-bottom: calc(${dt('multiselect.sm.padding.y')} / 2);
+}
+
+.p-multiselect-sm .p-multiselect-label:has(.p-chip) {
+    padding: calc(${dt('multiselect.sm.padding.y')} / 2) calc(${dt('multiselect.sm.padding.x')} / 2);
+}
+
 .p-multiselect-sm .p-multiselect-dropdown .p-icon {
     font-size: ${dt('multiselect.sm.font.size')};
     width: ${dt('multiselect.sm.font.size')};
@@ -217,6 +226,15 @@ p-multiselect.ng-invalid.ng-dirty .p-multiselect-label.p-placeholder {
     font-size: ${dt('multiselect.lg.font.size')};
     padding-block: ${dt('multiselect.lg.padding.y')};
     padding-inline: ${dt('multiselect.lg.padding.x')};
+}
+
+.p-multiselect-lg .p-multiselect-label .p-chip {
+    padding-top: calc(${dt('multiselect.lg.padding.y')} / 2);
+    padding-bottom: calc(${dt('multiselect.lg.padding.y')} / 2);
+}
+
+.p-multiselect-lg .p-multiselect-label:has(.p-chip) {
+    padding: calc(${dt('multiselect.lg.padding.y')} / 2) calc(${dt('multiselect.lg.padding.x')} / 2);
 }
 
 .p-multiselect-lg .p-multiselect-dropdown .p-icon {
