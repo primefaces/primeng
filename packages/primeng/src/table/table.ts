@@ -3692,7 +3692,7 @@ export class SortableColumn implements OnInit, OnDestroy {
     selector: 'p-sortIcon',
     standalone: false,
     template: `
-        <ng-container *ngIf="!(dt.sortIconTemplate && dt._sortIconTemplate)">
+        <ng-container *ngIf="!(dt.sortIconTemplate || dt._sortIconTemplate)">
             <SortAltIcon [styleClass]="'p-sortable-column-icon'" *ngIf="sortOrder === 0" />
             <SortAmountUpAltIcon [styleClass]="'p-sortable-column-icon'" *ngIf="sortOrder === 1" />
             <SortAmountDownIcon [styleClass]="'p-sortable-column-icon'" *ngIf="sortOrder === -1" />
