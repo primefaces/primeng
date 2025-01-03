@@ -50,6 +50,11 @@ const theme = ({ dt }) => `
     color: ${dt('badge.warn.color')};
 }
 
+.p-badge-help {
+    background: ${dt('badge.help.background')};
+    color: ${dt('badge.help.color')};
+}
+
 .p-badge-danger {
     background: ${dt('badge.danger.background')};
     color: ${dt('badge.danger.color')};
