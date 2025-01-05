@@ -343,6 +343,10 @@ export class ButtonDirective extends BaseComponent implements AfterViewInit, OnD
 
     createLabel() {
         const created = findSingle(this.htmlElement, '.p-button-label');
+        // label presence decides some styles for loading
+        if (!this.label && created) {
+            this.label = created.innerHTML;
+        }
         if (!created && this.label) {
             let labelElement = this.document.createElement('span');
             if (this.icon && !this.label) {
