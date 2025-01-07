@@ -30,6 +30,7 @@ const theme = ({ dt }) => `
     font-size: ${dt('avatar.icon.size')};
     width: ${dt('avatar.icon.size')};
     height: ${dt('avatar.icon.size')};
+    display: contents;
 }
 
 .p-avatar img {
