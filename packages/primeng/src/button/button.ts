@@ -436,7 +436,6 @@ export class ButtonDirective extends BaseComponent implements AfterViewInit, OnD
             [attr.type]="type"
             [attr.aria-label]="ariaLabel"
             [ngStyle]="style"
-            style="height:100%"
             [disabled]="disabled || loading"
             [ngClass]="buttonClass"
             (click)="onClick.emit($event)"
@@ -461,7 +460,7 @@ export class ButtonDirective extends BaseComponent implements AfterViewInit, OnD
                 <span *ngIf="icon && !iconTemplate && !_iconTemplate" [class]="icon" [ngClass]="iconClass()" [attr.data-pc-section]="'icon'"></span>
                 <ng-template [ngIf]="!icon && (iconTemplate || _iconTemplate)" *ngTemplateOutlet="iconTemplate || _iconTemplate; context: { class: iconClass() }"></ng-template>
             </ng-container>
-            <span class="p-button-label" [attr.aria-hidden]="icon && !label" *ngIf="!contentTemplate && !_contentTemplate && label" [attr.data-pc-section]="'label'">{{ label }}</span>
+            <span class="p-button-label" [attr.aria-hidden]="icon && !label" *ngIf="!contentTemplate && !_contentTemplate" [attr.data-pc-section]="'label'">{{ label || 'nbsp;' }}</span>
             <p-badge *ngIf="!contentTemplate && !_contentTemplate && badge" [value]="badge" [severity]="badgeSeverity"></p-badge>
         </button>
     `,
