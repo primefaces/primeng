@@ -1,5 +1,18 @@
 # Changelog
 
+## [19.0.3](https://github.com/primefaces/primeng/tree/19.0.3) (2024-01-08)
+
+[Full Changelog](https://github.com/primefaces/primeng/compare/19.0.2...19.0.3)
+
+**Implemented New Features and Enhancements:**
+
+- Improve presets' type definitions in Theme [\#17316](https://github.com/primefaces/primeng/issues/17316)
+
+**Fixed bugs:**
+
+- By upgrade from primeng@19.0.1 -> 19.0.2 expand/collapse table stopped working [\#17319](https://github.com/primefaces/primeng/issues/17319)
+- Button | height issue in icon only [\#17328](https://github.com/primefaces/primeng/issues/17328)
+
 ## [19.0.2](https://github.com/primefaces/primeng/tree/19.0.2) (2024-12-26)
 
 [Full Changelog](https://github.com/primefaces/primeng/compare/19.0.1...19.0.2)
