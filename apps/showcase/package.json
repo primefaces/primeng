@@ -2,6 +2,7 @@
     "name": "showcase",
     "version": "19.0.3",
     "license": "SEE LICENSE IN LICENSE.md",
+    "type": "module",
     "scripts": {
         "ng": "ng",
         "start": "ng serve --watch",
