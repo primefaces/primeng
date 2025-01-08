@@ -436,6 +436,7 @@ export class ButtonDirective extends BaseComponent implements AfterViewInit, OnD
             [attr.type]="type"
             [attr.aria-label]="ariaLabel"
             [ngStyle]="style"
+            style="height:100%"
             [disabled]="disabled || loading"
             [ngClass]="buttonClass"
             (click)="onClick.emit($event)"
