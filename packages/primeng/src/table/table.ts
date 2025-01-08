@@ -1068,7 +1068,7 @@ export class Table extends BaseComponent implements OnInit, AfterViewInit, After
     @ContentChild('colgroup', { descendants: false }) _colGroupTemplate: TemplateRef<any>;
     colGroupTemplate: Nullable<TemplateRef<any>>;
 
-    @ContentChild('rowexpansion', { descendants: false }) _expandedRowTemplate: TemplateRef<any>;
+    @ContentChild('expandedrow', { descendants: false }) _expandedRowTemplate: TemplateRef<any>;
     expandedRowTemplate: Nullable<TemplateRef<any>>;
 
     @ContentChild('groupheader', { descendants: false }) _groupHeaderTemplate: TemplateRef<any>;
@@ -1283,7 +1283,7 @@ export class Table extends BaseComponent implements OnInit, AfterViewInit, After
                     this.colGroupTemplate = item.template;
                     break;
 
-                case 'rowexpansion':
+                case 'expandedrow':
                     this.expandedRowTemplate = item.template;
                     break;
 
