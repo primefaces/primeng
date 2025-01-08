@@ -2142,6 +2142,10 @@ export class DatePicker extends BaseComponent implements OnInit, AfterContentIni
     }
 
     onButtonClick(event: Event, inputfield: any = this.inputfieldViewChild?.nativeElement) {
+        if (this.disabled) {
+            return;
+        }
+
         if (!this.overlayVisible) {
             inputfield.focus();
             this.showOverlay();
