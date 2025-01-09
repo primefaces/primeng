@@ -447,22 +447,21 @@ export class ButtonDirective extends BaseComponent implements AfterViewInit, OnD
             [attr.tabindex]="tabindex"
             [pAutoFocus]="autofocus"
         >
-            <ng-content>
-                <ng-container *ngTemplateOutlet="contentTemplate || _contentTemplate"></ng-container>
-                <ng-container *ngIf="loading">
-                    <ng-container *ngIf="!loadingIconTemplate && !_loadingIconTemplate">
-                        <span *ngIf="loadingIcon" [ngClass]="iconClass()" [attr.aria-hidden]="true" [attr.data-pc-section]="'loadingicon'"></span>
-                        <SpinnerIcon *ngIf="!loadingIcon" [styleClass]="spinnerIconClass()" [spin]="true" [attr.aria-hidden]="true" [attr.data-pc-section]="'loadingicon'" />
-                    </ng-container>
-                    <ng-template [ngIf]="loadingIconTemplate || _loadingIconTemplate" *ngTemplateOutlet="loadingIconTemplate || _loadingIconTemplate; context: { class: iconClass() }"></ng-template>
+            <ng-content></ng-content>
+            <ng-container *ngTemplateOutlet="contentTemplate || _contentTemplate"></ng-container>
+            <ng-container *ngIf="loading">
+                <ng-container *ngIf="!loadingIconTemplate && !_loadingIconTemplate">
+                    <span *ngIf="loadingIcon" [ngClass]="iconClass()" [attr.aria-hidden]="true" [attr.data-pc-section]="'loadingicon'"></span>
+                    <SpinnerIcon *ngIf="!loadingIcon" [styleClass]="spinnerIconClass()" [spin]="true" [attr.aria-hidden]="true" [attr.data-pc-section]="'loadingicon'" />
                 </ng-container>
-                <ng-container *ngIf="!loading">
-                    <span *ngIf="icon && !iconTemplate && !_iconTemplate" [class]="icon" [ngClass]="iconClass()" [attr.data-pc-section]="'icon'"></span>
-                    <ng-template [ngIf]="!icon && (iconTemplate || _iconTemplate)" *ngTemplateOutlet="iconTemplate || _iconTemplate; context: { class: iconClass() }"></ng-template>
-                </ng-container>
-                <span class="p-button-label" [attr.aria-hidden]="icon && !label" *ngIf="!contentTemplate && !_contentTemplate" [attr.data-pc-section]="'label'">{{ label || '&nbsp;' }}</span>
-                <p-badge *ngIf="!contentTemplate && !_contentTemplate && badge" [value]="badge" [severity]="badgeSeverity"></p-badge>
-            </ng-content>
+                <ng-template [ngIf]="loadingIconTemplate || _loadingIconTemplate" *ngTemplateOutlet="loadingIconTemplate || _loadingIconTemplate; context: { class: iconClass() }"></ng-template>
+            </ng-container>
+            <ng-container *ngIf="!loading">
+                <span *ngIf="icon && !iconTemplate && !_iconTemplate" [class]="icon" [ngClass]="iconClass()" [attr.data-pc-section]="'icon'"></span>
+                <ng-template [ngIf]="!icon && (iconTemplate || _iconTemplate)" *ngTemplateOutlet="iconTemplate || _iconTemplate; context: { class: iconClass() }"></ng-template>
+            </ng-container>
+            <span class="p-button-label" [attr.aria-hidden]="icon && !label" *ngIf="!contentTemplate && !_contentTemplate" [attr.data-pc-section]="'label'">{{ label || '&nbsp;' }}</span>
+            <p-badge *ngIf="!contentTemplate && !_contentTemplate && badge" [value]="badge" [severity]="badgeSeverity"></p-badge>
         </button>
     `,
     changeDetection: ChangeDetectionStrategy.OnPush,
