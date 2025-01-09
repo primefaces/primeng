@@ -25,6 +25,12 @@ const theme = ({ dt }) => `
     gap: ${dt('button.gap')};
 }
 
+.p-button-icon,
+.p-button-icon:before,
+.p-button-icon:after {
+    line-height: inherit;
+}
+
 .p-button:disabled {
     cursor: default;
 }
