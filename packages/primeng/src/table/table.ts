@@ -273,7 +273,7 @@ export class TableService {
                             [style]="'height: calc(' + scrollerOptions.spacerStyle.height + ' - ' + scrollerOptions.rows.length * scrollerOptions.itemSize + 'px);'"
                             [ngClass]="cx('virtualScrollerSpacer')"
                         ></tbody>
-                        <tfoot role="rowgroup" *ngIf="footerGroupedTemplate || footerTemplate || _footerTemplate || _footerGroupedTemplate" #tfoot [ngClass]="cx('footer')">
+                        <tfoot role="rowgroup" *ngIf="footerGroupedTemplate || footerTemplate || _footerTemplate || _footerGroupedTemplate" #tfoot [ngClass]="cx('footer')" [ngStyle]="sx('tfoot')">
                             <ng-container
                                 *ngTemplateOutlet="
                                     footerGroupedTemplate || footerTemplate || _footerTemplate || _footerGroupedTemplate;
