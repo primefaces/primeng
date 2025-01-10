@@ -512,13 +512,9 @@ p-datatable-gridlines .p-datatable-tbody > tr:last-child > td {
     border-width: 0 1px 0 1px;
 }
 
-.p-datatable.p-datatable-striped .p-datatable-tbody > tr:nth-child(odd) {
+.p-datatable.p-datatable-striped:not(.p-datatable-hoverable) .p-datatable-tbody > tr:nth-child(odd):not(.p-datatable-row-selected),
+.p-datatable.p-datatable-striped.p-datatable-hoverable .p-datatable-tbody > tr:nth-child(odd):not(.p-datatable-row-selected):not(:hover) {
     background: ${dt('datatable.row.striped.background')};
-}
-
-.p-datatable.p-datatable-striped .p-datatable-tbody > tr:nth-child(odd).p-datatable-row-selected {
-    background: ${dt('datatable.row.selected.background')};
-    color: ${dt('datatable.row.selected.color')};
 }
 
 .p-datatable.p-datatable-sm .p-datatable-header {
