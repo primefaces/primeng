@@ -13,7 +13,7 @@ import { Car } from '../domain/car';
     template: ` <app-doc
         docTitle="Angular Defer Component"
         header="Defer"
-        description="Defer postpones the loading the content that is initially not in the viewport until it becomes visible on scroll."
+        description="Defer postpones the loading of the content that is initially not in the viewport until it becomes visible on scroll."
         [docs]="docs"
         [apiDocs]="['Defer']"
     ></app-doc>`,
