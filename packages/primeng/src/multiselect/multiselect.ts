@@ -1261,14 +1261,16 @@ export class MultiSelect extends BaseComponent implements OnInit, AfterViewInit,
 
     visibleOptions = computed(() => {
         const options = this.getAllVisibleAndNonVisibleOptions();
-        const isArrayOfObjects = isArray(options) && isObject(options[0]);
+        const isArrayOfObjects = isArray(options) && this._isObject(options[0]);
 
         if (this._filterValue()) {
             let filteredOptions;
 
             if (isArrayOfObjects) {
+                console.log('into obj filtering');
                 filteredOptions = this.filterService.filter(options, this.searchFields(), this._filterValue(), this.filterMatchMode, this.filterLocale);
             } else {
+                console.log('into string filtering');
                 filteredOptions = options.filter((option) => option.toString().toLocaleLowerCase().includes(this._filterValue().toLocaleLowerCase()));
             }
 
@@ -2305,6 +2307,10 @@ export class MultiSelect extends BaseComponent implements OnInit, AfterViewInit,
 
     hasFilter() {
         return this._filterValue() && this._filterValue().trim().length > 0;
+    }
+
+   private _isObject(value, empty = true) {
+        return typeof value === 'object' && !Array.isArray(value) && value != null && (empty || Object.keys(value).length !== 0);
     }
 }
 
