@@ -1,5 +1,4 @@
 import { Code, ExtFile, RouteFile } from '@/domain/code';
-import pkg from 'package.json';
 import { services } from './services';
 
 export interface Props {
@@ -387,7 +386,7 @@ const getAngularApp = (props: Props = {}) => {
     import { DrawerModule } from 'primeng/drawer';
     import { DragDropModule } from 'primeng/dragdrop';
     import { Select } from 'primeng/select';
-    import { DynamicDialog } from 'primeng/dynamicdialog';
+    import { DynamicDialogModule } from 'primeng/dynamicdialog';
     import { DeferModule } from 'primeng/defer';
     import { EditorModule } from 'primeng/editor';
     import { FieldsetModule } from 'primeng/fieldset';
@@ -500,7 +499,7 @@ const getAngularApp = (props: Props = {}) => {
         DockModule,
         DragDropModule,
         Select,
-        DynamicDialog,
+        DynamicDialogModule,
         DeferModule,
         EditorModule,
         FieldsetModule,
@@ -606,7 +605,7 @@ const getAngularApp = (props: Props = {}) => {
         DockModule,
         DragDropModule,
         Select,
-        DynamicDialog,
+        DynamicDialogModule,
         EditorModule,
         FieldsetModule,
         FileUpload,
