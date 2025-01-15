@@ -3206,7 +3206,7 @@ export class Table extends BaseComponent implements OnInit, AfterViewInit, After
     template: `
         <ng-container *ngIf="!dt.expandedRowTemplate && !dt._expandedRowTemplate">
             <ng-template ngFor let-rowData let-rowIndex="index" [ngForOf]="value" [ngForTrackBy]="dt.rowTrackBy">
-                <ng-container *ngIf="(dt.groupHeaderTemplate || dt._groupHeaderTemplate) && !dt.virtualScroll && dt.rowGroupMode === 'subheader' && shouldRenderRowGroupHeader(value, rowData, rowIndex)" role="row">
+                <ng-container *ngIf="(dt.groupHeaderTemplate || dt._groupHeaderTemplate) && !dt.virtualScroll && dt.rowGroupMode === 'subheader' && shouldRenderRowGroupHeader(value, rowData, getRowIndex(rowIndex))" role="row">
                     <ng-container
                         *ngTemplateOutlet="
                             dt.groupHeaderTemplate || dt._groupHeaderTemplate;
@@ -3250,7 +3250,7 @@ export class Table extends BaseComponent implements OnInit, AfterViewInit, After
                         "
                     ></ng-container>
                 </ng-container>
-                <ng-container *ngIf="(dt.groupFooterTemplate || dt._groupFooterTemplate) && !dt.virtualScroll && dt.rowGroupMode === 'subheader' && shouldRenderRowGroupFooter(value, rowData, rowIndex)" role="row">
+                <ng-container *ngIf="(dt.groupFooterTemplate || dt._groupFooterTemplate) && !dt.virtualScroll && dt.rowGroupMode === 'subheader' && shouldRenderRowGroupFooter(value, rowData, getRowIndex(rowIndex))" role="row">
                     <ng-container
                         *ngTemplateOutlet="
                             dt.groupFooterTemplate || dt._groupFooterTemplate;
@@ -3422,7 +3422,7 @@ export class TableBody implements AfterViewInit, OnDestroy {
 
     shouldRenderRowGroupHeader(value: any, rowData: any, i: number) {
         let currentRowFieldData = ObjectUtils.resolveFieldData(rowData, this.dt.groupRowsBy);
-        let prevRowData = value[i - (1 + this.dt._first)];
+        let prevRowData = value[i - this.dt._first - 1];
         if (prevRowData) {
             let previousRowFieldData = ObjectUtils.resolveFieldData(prevRowData, this.dt.groupRowsBy);
             return currentRowFieldData !== previousRowFieldData;
@@ -3433,7 +3433,7 @@ export class TableBody implements AfterViewInit, OnDestroy {
 
     shouldRenderRowGroupFooter(value: any, rowData: any, i: number) {
         let currentRowFieldData = ObjectUtils.resolveFieldData(rowData, this.dt.groupRowsBy);
-        let nextRowData = value[i + (1 + this.dt._first)];
+        let nextRowData = value[i - this.dt._first + 1];
         if (nextRowData) {
             let nextRowFieldData = ObjectUtils.resolveFieldData(nextRowData, this.dt.groupRowsBy);
             return currentRowFieldData !== nextRowFieldData;
