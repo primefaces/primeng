@@ -238,12 +238,14 @@ export class Rating extends BaseComponent implements OnInit, ControlValueAccesso
     }
 
     onOptionSelect(event, value) {
-        if (this.focusedOptionIndex === value || value === this.value) {
-            this.focusedOptionIndex.set(-1);
-            this.updateModel(event, null);
-        } else {
-            this.focusedOptionIndex.set(value);
-            this.updateModel(event, value || null);
+        if (!this.readonly && !this.disabled) {
+            if (this.focusedOptionIndex() === value || value === this.value) {
+                this.focusedOptionIndex.set(-1);
+                this.updateModel(event, null);
+            } else {
+                this.focusedOptionIndex.set(value);
+                this.updateModel(event, value || null);
+            }
         }
     }
 
@@ -258,8 +260,10 @@ export class Rating extends BaseComponent implements OnInit, ControlValueAccesso
     }
 
     onInputFocus(event, value) {
-        this.focusedOptionIndex.set(value);
-        this.onFocus.emit(event);
+        if (!this.readonly && !this.disabled) {
+            this.focusedOptionIndex.set(value);
+            this.onFocus.emit(event);
+        }
     }
 
     updateModel(event, value) {
