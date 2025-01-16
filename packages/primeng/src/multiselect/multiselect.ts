@@ -1267,10 +1267,8 @@ export class MultiSelect extends BaseComponent implements OnInit, AfterViewInit,
             let filteredOptions;
 
             if (isArrayOfObjects) {
-                console.log('into obj filtering');
                 filteredOptions = this.filterService.filter(options, this.searchFields(), this._filterValue(), this.filterMatchMode, this.filterLocale);
             } else {
-                console.log('into string filtering');
                 filteredOptions = options.filter((option) => option.toString().toLocaleLowerCase().includes(this._filterValue().toLocaleLowerCase()));
             }
 
