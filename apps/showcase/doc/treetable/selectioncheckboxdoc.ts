@@ -34,7 +34,7 @@ interface Column {
                         <tr [ttRow]="rowNode" [ttSelectableRow]="rowNode">
                             <td *ngFor="let col of columns; let i = index">
                                 <p-treeTableToggler [rowNode]="rowNode" *ngIf="i === 0" />
-                                <p-treetableCheckbox [value]="rowNode" *ngIf="i === 0" />
+                                <p-treeTableCheckbox [value]="rowNode" *ngIf="i === 0" />
                                 {{ rowData[col.field] }}
                             </td>
                         </tr>
@@ -71,8 +71,20 @@ export class SelectionCheckboxDoc {
         ];
 
         this.selectionKeys = {
+            '0': {
+                partialChecked: true
+            },
             '0-0': {
                 partialChecked: false,
+                checked: true
+            },
+            '0-0-0': {
+                checked: true
+            },
+            '0-0-1': {
+                checked: true
+            },
+            '0-0-2': {
                 checked: true
             }
         };
@@ -91,7 +103,7 @@ export class SelectionCheckboxDoc {
         <tr [ttRow]="rowNode" [ttSelectableRow]="rowNode">
             <td *ngFor="let col of columns; let i = index">
                 <p-treeTableToggler [rowNode]="rowNode" *ngIf="i === 0" />
-                <p-treetableCheckbox [value]="rowNode" *ngIf="i === 0" />
+                <p-treeTableCheckbox [value]="rowNode" *ngIf="i === 0" />
                 {{ rowData[col.field] }}
             </td>
         </tr>
@@ -111,7 +123,7 @@ export class SelectionCheckboxDoc {
             <tr [ttRow]="rowNode" [ttSelectableRow]="rowNode">
                 <td *ngFor="let col of columns; let i = index">
                     <p-treeTableToggler [rowNode]="rowNode" *ngIf="i === 0" />
-                    <p-treetableCheckbox [value]="rowNode" *ngIf="i === 0" />
+                    <p-treeTableCheckbox [value]="rowNode" *ngIf="i === 0" />
                     {{ rowData[col.field] }}
                 </td>
             </tr>
@@ -156,8 +168,20 @@ export class TreeTableSelectionCheckboxDemo implements OnInit {
         ];
 
         this.selectionKeys = {
+            '0': {
+                partialChecked: true
+            },
             '0-0': {
                 partialChecked: false,
+                checked: true
+            },
+            '0-0-0': {
+                checked: true
+            },
+            '0-0-1': {
+                checked: true
+            },
+            '0-0-2': {
                 checked: true
             }
         };
@@ -169,8 +193,20 @@ export class TreeTableSelectionCheckboxDemo implements OnInit {
 
     code2: Code = {
         typescript: `{
+    '0': {
+        partialChecked: true
+    },
     '0-0': {
         partialChecked: false,
+        checked: true
+    },
+    '0-0-0': {
+        checked: true
+    },
+    '0-0-1': {
+        checked: true
+    },
+    '0-0-2': {
         checked: true
     }
 }`

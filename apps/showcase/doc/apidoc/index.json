@@ -32219,6 +32219,10 @@
                         "description": "Class name of the inkbar element"
                     },
                     {
+                        "class": "p-tab-active",
+                        "description": "Class name of the active tab element"
+                    },
+                    {
                         "class": "p-tablist-nav-button",
                         "description": "Class name of the navigation buttons"
                     },
@@ -34573,6 +34577,16 @@
                             "description": "Callback to invoke when a node is selected with right click."
                         },
                         {
+                            "name": "onNodeDoubleClick",
+                            "parameters": [
+                                {
+                                    "name": "event",
+                                    "type": "TreeNodeDoubleClickEvent"
+                                }
+                            ],
+                            "description": "Callback to invoke when a node is double clicked."
+                        },
+                        {
                             "name": "onNodeDrop",
                             "parameters": [
                                 {
@@ -34867,6 +34881,26 @@
                     {
                         "name": "TreeNodeContextMenuSelectEvent",
                         "description": "Custom context menu select event.",
+                        "props": [
+                            {
+                                "name": "originalEvent",
+                                "optional": false,
+                                "readonly": false,
+                                "type": "Event",
+                                "description": "Browser event"
+                            },
+                            {
+                                "name": "node",
+                                "optional": false,
+                                "readonly": false,
+                                "type": "TreeNode<any>",
+                                "description": "Node instance."
+                            }
+                        ]
+                    },
+                    {
+                        "name": "TreeNodeDoubleClickEvent",
+                        "description": "Custom node double click event.",
                         "props": [
                             {
                                 "name": "originalEvent",

@@ -39,7 +39,7 @@ export default {
     },
     css: ({ dt }) => `
 .p-inputnumber-stacked .p-inputnumber-button-group {
-    top: 2px
+    top: 2px;
     right: 2px;
     height: calc(100% - 4px);
 }
