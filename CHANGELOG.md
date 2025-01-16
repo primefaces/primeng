@@ -1,6 +1,22 @@
 # Changelog
 
-## [19.0.3](https://github.com/primefaces/primeng/tree/19.0.3) (2024-01-08)
+## [19.0.5](https://github.com/primefaces/primeng/tree/19.0.5) (2025-01-15)
+
+[Full Changelog](https://github.com/primefaces/primeng/compare/19.0.4...19.0.5)
+
+**Fixed bugs:**
+
+- Button icon only regression [\#17338](https://github.com/primefaces/primeng/issues/17338)
+
+## [19.0.4](https://github.com/primefaces/primeng/tree/19.0.4) (2025-01-08)
+
+[Full Changelog](https://github.com/primefaces/primeng/compare/19.0.3...19.0.4)
+
+**Fixed bugs:**
+
+- Button displays nbsp when templating is used. [\#17334](https://github.com/primefaces/primeng/issues/17334)
+
+## [19.0.3](https://github.com/primefaces/primeng/tree/19.0.3) (2025-01-08)
 
 [Full Changelog](https://github.com/primefaces/primeng/compare/19.0.2...19.0.3)
 
