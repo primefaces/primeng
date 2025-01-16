@@ -1,6 +1,6 @@
 # Changelog
 
-## [19.0.6](https://github.com/primefaces/primeng/tree/19.0.5) (2025-01-16)
+## [19.0.6](https://github.com/primefaces/primeng/tree/19.0.6) (2025-01-16)
 
 [Full Changelog](https://github.com/primefaces/primeng/compare/19.0.5...19.0.6)
 
