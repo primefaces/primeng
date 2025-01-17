@@ -1362,7 +1362,7 @@ export class MultiSelect extends BaseComponent implements OnInit, AfterViewInit,
     }
 
     ngAfterViewInit() {
-        super.ngOnInit();
+        super.ngAfterViewInit();
         if (this.overlayVisible) {
             this.show();
         }
