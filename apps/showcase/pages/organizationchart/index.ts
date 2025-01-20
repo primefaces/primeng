@@ -6,6 +6,7 @@ import { OrganizationChartDocModule } from '@/doc/organizationchart/organization
 import { SelectionDoc } from '@/doc/organizationchart/selectiondoc';
 import { TemplateDoc } from '@/doc/organizationchart/templatedoc';
 import { Component } from '@angular/core';
+import { PreserveSpaceDoc } from '@/doc/organizationchart/preservespacedoc';
 
 @Component({
     template: ` <app-doc docTitle="Angular Organization Chart Component" header="OrganizationChart" description="OrganizationChart visualizes hierarchical organization data." [docs]="docs" [apiDocs]="['OrganizationChart']"></app-doc>`,
@@ -26,6 +27,11 @@ export class OrganizationChartDemo {
             component: BasicDoc
         },
         {
+            id: 'preserve-space',
+            label: 'Preserve Space',
+            component: PreserveSpaceDoc
+        },
+        {
             id: 'template',
             label: 'Template',
             component: TemplateDoc
@@ -40,7 +46,6 @@ export class OrganizationChartDemo {
             label: 'Colored',
             component: ColoredDoc
         },
-
         {
             id: 'accessibility',
             label: 'Accessibility',
