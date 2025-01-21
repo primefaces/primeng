@@ -4,6 +4,7 @@ import { MenuItem, MessageService } from 'primeng/api';
 
 @Component({
     selector: 'disabled-doc',
+    standalone: false,
     template: `
         <app-docsectiontext>
             <p>

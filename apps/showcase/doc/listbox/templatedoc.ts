@@ -8,13 +8,14 @@ interface Country {
 
 @Component({
     selector: 'template-doc',
+    standalone: false,
     template: `
         <app-docsectiontext>
             <p>Custom content for an option is displayed with the <i>pTemplate</i> property that takes an option as a parameter.</p>
         </app-docsectiontext>
         <div class="card flex justify-center">
             <p-listbox [options]="countries" [(ngModel)]="selectedCountry" optionLabel="name" class="w-full md:w-56">
-                <ng-template let-country pTemplate="item">
+                <ng-template let-country #item>
                     <div class="flex items-center gap-2">
                         <img src="https://primefaces.org/cdn/primeng/images/demo/flag/flag_placeholder.png" [class]="'flag flag-' + country.code.toLowerCase()" style="width: 18px" />
                         <div>{{ country.name }}</div>
@@ -46,37 +47,23 @@ export class TemplateDoc implements OnInit {
     }
 
     code: Code = {
-        basic: `<p-listbox
-    [options]="countries"
-    [(ngModel)]="selectedCountry"
-    optionLabel="name"
-    class="w-full md:w-56">
-        <ng-template let-country pTemplate="item">
-            <div class="flex items-center gap-2">
-                <img
-                    src="https://primefaces.org/cdn/primeng/images/demo/flag/flag_placeholder.png"
-                    [class]="'flag flag-' + country.code.toLowerCase()"
-                    style="width: 18px" />
-                <div>{{ country.name }}</div>
-            </div>
-        </ng-template>
+        basic: `<p-listbox [options]="countries" [(ngModel)]="selectedCountry" optionLabel="name" class="w-full md:w-56">
+    <ng-template let-country #item>
+        <div class="flex items-center gap-2">
+            <img src="https://primefaces.org/cdn/primeng/images/demo/flag/flag_placeholder.png" [class]="'flag flag-' + country.code.toLowerCase()" style="width: 18px" />
+            <div>{{ country.name }}</div>
+        </div>
+    </ng-template>
 </p-listbox>`,
 
         html: `<div class="card flex justify-center">
-    <p-listbox
-        [options]="countries"
-        [(ngModel)]="selectedCountry"
-        optionLabel="name"
-        class="w-full md:w-56">
-            <ng-template let-country pTemplate="item">
-                <div class="flex items-center gap-2">
-                    <img
-                        src="https://primefaces.org/cdn/primeng/images/demo/flag/flag_placeholder.png"
-                        [class]="'flag flag-' + country.code.toLowerCase()"
-                        style="width: 18px" />
-                    <div>{{ country.name }}</div>
-                </div>
-            </ng-template>
+    <p-listbox [options]="countries" [(ngModel)]="selectedCountry" optionLabel="name" class="w-full md:w-56">
+        <ng-template let-country #item>
+            <div class="flex items-center gap-2">
+                <img src="https://primefaces.org/cdn/primeng/images/demo/flag/flag_placeholder.png" [class]="'flag flag-' + country.code.toLowerCase()" style="width: 18px" />
+                <div>{{ country.name }}</div>
+            </div>
+        </ng-template>
     </p-listbox>
 </div>`,
 

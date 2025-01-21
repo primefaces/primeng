@@ -3,6 +3,7 @@ import { Component } from '@angular/core';
 
 @Component({
     selector: 'overlay-template-demo',
+    standalone: false,
     template: ` <app-docsectiontext>
             <p>Content can be customized with the <i>content</i> template.</p>
         </app-docsectiontext>

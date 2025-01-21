@@ -4,6 +4,7 @@ import { MegaMenuItem } from 'primeng/api';
 
 @Component({
     selector: 'template-doc',
+    standalone: false,
     template: `
         <app-docsectiontext>
             <p>Custom content can be placed between p-megamenu tags. Megamenu should be <i>horizontal</i> for custom content.</p>

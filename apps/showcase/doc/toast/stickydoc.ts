@@ -4,6 +4,7 @@ import { MessageService } from 'primeng/api';
 
 @Component({
     selector: 'sticky-doc',
+    standalone: false,
     template: `
         <app-docsectiontext>
             <p>A toast disappears after the time defined by the <i>life</i> option, set <i>sticky</i> option <i>true</i> on the message to override this and not hide the toast automatically.</p>

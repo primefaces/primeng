@@ -4,6 +4,7 @@ import { Component } from '@angular/core';
 
 @Component({
     selector: 'drag-drop-drop-indicator-demo',
+    standalone: false,
     template: `
         <app-docsectiontext>
             <p>When a suitable draggable enters a droppable area, the area gets <i>p-draggable-enter</i> class that can be used to style the droppable section.</p>

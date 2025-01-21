@@ -3,6 +3,7 @@ import { Component } from '@angular/core';
 
 @Component({
     selector: 'basic-doc',
+    standalone: false,
     template: `
         <app-docsectiontext>
             <p>Label of the tag is defined with the <i>value</i> property.</p>

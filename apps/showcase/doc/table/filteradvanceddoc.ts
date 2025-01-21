@@ -6,6 +6,7 @@ import { Table } from 'primeng/table';
 
 @Component({
     selector: 'filter-advanced-doc',
+    standalone: false,
     template: ` <app-docsectiontext>
             <p>Filters are displayed in an overlay.</p>
         </app-docsectiontext>

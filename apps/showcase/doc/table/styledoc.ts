@@ -5,13 +5,14 @@ import { ChangeDetectionStrategy, ChangeDetectorRef, Component } from '@angular/
 
 @Component({
     selector: 'table-style-doc',
+    standalone: false,
     template: ` <app-docsectiontext>
             <p>Certain rows or cells can easily be styled based on conditions.</p>
         </app-docsectiontext>
         <p-deferred-demo (load)="loadDemoData()">
             <div class="card">
                 <p-table [value]="products" [tableStyle]="{ 'min-width': '50rem' }">
-                    <ng-template pTemplate="header">
+                    <ng-template #header>
                         <tr>
                             <th>Code</th>
                             <th>Name</th>
@@ -19,7 +20,7 @@ import { ChangeDetectionStrategy, ChangeDetectorRef, Component } from '@angular/
                             <th>Quantity</th>
                         </tr>
                     </ng-template>
-                    <ng-template pTemplate="body" let-product>
+                    <ng-template #body let-product>
                         <tr [ngClass]="rowClass(product)" [ngStyle]="rowStyle(product)">
                             <td>{{ product.code }}</td>
                             <td>{{ product.name }}</td>
@@ -45,7 +46,7 @@ export class StyleDoc {
 
     code: Code = {
         basic: `<p-table [value]="products" [tableStyle]="{ 'min-width': '50rem' }">
-    <ng-template pTemplate="header">
+    <ng-template #header>
         <tr>
             <th>Code</th>
             <th>Name</th>
@@ -53,7 +54,7 @@ export class StyleDoc {
             <th>Quantity</th>
         </tr>
     </ng-template>
-    <ng-template pTemplate="body" let-product>
+    <ng-template #body let-product>
         <tr [ngClass]="rowClass(product)" [ngStyle]="rowStyle(product)">
             <td>{{ product.code }}</td>
             <td>{{ product.name }}</td>
@@ -66,7 +67,7 @@ export class StyleDoc {
 </p-table>`,
         html: `<div class="card">
     <p-table [value]="products" [tableStyle]="{ 'min-width': '50rem' }">
-        <ng-template pTemplate="header">
+        <ng-template #header>
             <tr>
                 <th>Code</th>
                 <th>Name</th>
@@ -74,7 +75,7 @@ export class StyleDoc {
                 <th>Quantity</th>
             </tr>
         </ng-template>
-        <ng-template pTemplate="body" let-product>
+        <ng-template #body let-product>
             <tr [ngClass]="rowClass(product)" [ngStyle]="rowStyle(product)">
                 <td>{{ product.code }}</td>
                 <td>{{ product.name }}</td>

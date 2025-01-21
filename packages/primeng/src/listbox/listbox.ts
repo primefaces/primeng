@@ -79,7 +79,7 @@ export const LISTBOX_VALUE_ACCESSOR: any = {
                         [ngModel]="allSelected()"
                         [disabled]="disabled"
                         [tabindex]="-1"
-                        [variant]="config.inputStyle() === 'filled' ? 'filled' : 'outlined' || config.inputVariant() === 'filled' ? 'filled' : 'outlined'"
+                        [variant]="config.inputStyle() === 'filled' || config.inputVariant() === 'filled' ? 'filled' : 'outlined'"
                         [binary]="true"
                     >
                         <ng-container *ngIf="checkIconTemplate || _checkIconTemplate">
@@ -202,9 +202,10 @@ export const LISTBOX_VALUE_ACCESSOR: any = {
                                         *ngIf="checkbox && multiple"
                                         styleClass="p-listbox-option-check-icon"
                                         [ngModel]="isSelected(option)"
+                                        [readonly]="true"
                                         [disabled]="disabled || isOptionDisabled(option)"
                                         [tabindex]="-1"
-                                        [variant]="config.inputStyle() === 'filled' ? 'filled' : 'outlined' || config.inputVariant() === 'filled' ? 'filled' : 'outlined'"
+                                        [variant]="config.inputStyle() === 'filled' || config.inputVariant() === 'filled' ? 'filled' : 'outlined'"
                                         [binary]="true"
                                     >
                                         <ng-container *ngIf="checkIconTemplate || _checkIconTemplate">
@@ -773,7 +774,7 @@ export class Listbox extends BaseComponent implements AfterContentInit, OnInit, 
     }
 
     get searchFields() {
-        return this.filterFields || [this.optionLabel];
+        return this.filterBy?.split(',') || this.filterFields || [this.optionLabel];
     }
 
     get toggleAllAriaLabel() {

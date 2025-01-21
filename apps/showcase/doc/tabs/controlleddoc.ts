@@ -3,6 +3,7 @@ import { Component } from '@angular/core';
 
 @Component({
     selector: 'controlled-doc',
+    standalone: false,
     template: `
         <app-docsectiontext>
             <p>Tabs can be controlled programmatically using <i>value</i> property as a model.</p>

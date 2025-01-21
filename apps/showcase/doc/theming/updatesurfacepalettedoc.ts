@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 
 @Component({
     selector: 'update-surface-palette-doc',
+    standalone: false,
     template: `
         <app-docsectiontext>
             <p>Updates the surface colors, this is a shorthand to do the same update using <i>updatePreset</i>.</p>

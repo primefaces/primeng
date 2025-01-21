@@ -38,7 +38,7 @@ import { FormsModule } from '@angular/forms';
 import { BlockableUI, FilterMatchMode, FilterMetadata, FilterOperator, FilterService, LazyLoadMeta, OverlayService, PrimeTemplate, ScrollerOptions, SelectItem, SharedModule, SortMeta, TableState, TranslationKeys } from 'primeng/api';
 import { BaseComponent } from 'primeng/basecomponent';
 import { Button, ButtonModule } from 'primeng/button';
-import { CalendarModule } from 'primeng/calendar';
+import { DatePickerModule } from 'primeng/datepicker';
 import { CheckboxModule } from 'primeng/checkbox';
 import { ConnectedOverlayScrollHandler, DomHandler } from 'primeng/dom';
 import { ArrowDownIcon } from 'primeng/icons/arrowdown';
@@ -130,6 +130,7 @@ export class TableService {
  */
 @Component({
     selector: 'p-table',
+    standalone: false,
     template: `
         <div #container [ngStyle]="style" [class]="styleClass" [ngClass]="cx('root')" [attr.id]="id">
             <div [ngClass]="cx('mask')" *ngIf="loading && showLoader">
@@ -153,8 +154,8 @@ export class TableService {
                 (onPageChange)="onPageChange($event)"
                 [rowsPerPageOptions]="rowsPerPageOptions"
                 *ngIf="paginator && (paginatorPosition === 'top' || paginatorPosition == 'both')"
-                [templateLeft]="paginatorLeftTemplate"
-                [templateRight]="paginatorRightTemplate"
+                [templateLeft]="paginatorLeftTemplate || _paginatorLeftTemplate"
+                [templateRight]="paginatorRightTemplate || _paginatorRightTemplate"
                 [dropdownAppendTo]="paginatorDropdownAppendTo"
                 [dropdownScrollHeight]="paginatorDropdownScrollHeight"
                 [currentPageReportTemplate]="currentPageReportTemplate"
@@ -272,7 +273,7 @@ export class TableService {
                             [style]="'height: calc(' + scrollerOptions.spacerStyle.height + ' - ' + scrollerOptions.rows.length * scrollerOptions.itemSize + 'px);'"
                             [ngClass]="cx('virtualScrollerSpacer')"
                         ></tbody>
-                        <tfoot role="rowgroup" *ngIf="footerGroupedTemplate || footerTemplate || _footerTemplate || _footerGroupedTemplate" #tfoot [ngClass]="cx('footer')">
+                        <tfoot role="rowgroup" *ngIf="footerGroupedTemplate || footerTemplate || _footerTemplate || _footerGroupedTemplate" #tfoot [ngClass]="cx('footer')" [ngStyle]="sx('tfoot')">
                             <ng-container
                                 *ngTemplateOutlet="
                                     footerGroupedTemplate || footerTemplate || _footerTemplate || _footerGroupedTemplate;
@@ -1282,7 +1283,7 @@ export class Table extends BaseComponent implements OnInit, AfterViewInit, After
                     this.colGroupTemplate = item.template;
                     break;
 
-                case 'rowexpansion':
+                case 'expandedrow':
                     this.expandedRowTemplate = item.template;
                     break;
 
@@ -3169,6 +3170,7 @@ export class Table extends BaseComponent implements OnInit, AfterViewInit, After
     }
     `;
                 this.renderer.setProperty(this.responsiveStyleElement, 'innerHTML', innerHTML);
+                DomHandler.setAttribute(this.responsiveStyleElement, 'nonce', this.config?.csp()?.nonce);
             }
         }
     }
@@ -3200,10 +3202,11 @@ export class Table extends BaseComponent implements OnInit, AfterViewInit, After
 
 @Component({
     selector: '[pTableBody]',
+    standalone: false,
     template: `
         <ng-container *ngIf="!dt.expandedRowTemplate && !dt._expandedRowTemplate">
             <ng-template ngFor let-rowData let-rowIndex="index" [ngForOf]="value" [ngForTrackBy]="dt.rowTrackBy">
-                <ng-container *ngIf="(dt.groupHeaderTemplate || dt._groupHeaderTemplate) && !dt.virtualScroll && dt.rowGroupMode === 'subheader' && shouldRenderRowGroupHeader(value, rowData, rowIndex)" role="row">
+                <ng-container *ngIf="(dt.groupHeaderTemplate || dt._groupHeaderTemplate) && !dt.virtualScroll && dt.rowGroupMode === 'subheader' && shouldRenderRowGroupHeader(value, rowData, getRowIndex(rowIndex))" role="row">
                     <ng-container
                         *ngTemplateOutlet="
                             dt.groupHeaderTemplate || dt._groupHeaderTemplate;
@@ -3247,7 +3250,7 @@ export class Table extends BaseComponent implements OnInit, AfterViewInit, After
                         "
                     ></ng-container>
                 </ng-container>
-                <ng-container *ngIf="(dt.groupFooterTemplate || dt._groupFooterTemplate) && !dt.virtualScroll && dt.rowGroupMode === 'subheader' && shouldRenderRowGroupFooter(value, rowData, rowIndex)" role="row">
+                <ng-container *ngIf="(dt.groupFooterTemplate || dt._groupFooterTemplate) && !dt.virtualScroll && dt.rowGroupMode === 'subheader' && shouldRenderRowGroupFooter(value, rowData, getRowIndex(rowIndex))" role="row">
                     <ng-container
                         *ngTemplateOutlet="
                             dt.groupFooterTemplate || dt._groupFooterTemplate;
@@ -3419,7 +3422,7 @@ export class TableBody implements AfterViewInit, OnDestroy {
 
     shouldRenderRowGroupHeader(value: any, rowData: any, i: number) {
         let currentRowFieldData = ObjectUtils.resolveFieldData(rowData, this.dt.groupRowsBy);
-        let prevRowData = value[i - (1 + this.dt._first)];
+        let prevRowData = value[i - this.dt._first - 1];
         if (prevRowData) {
             let previousRowFieldData = ObjectUtils.resolveFieldData(prevRowData, this.dt.groupRowsBy);
             return currentRowFieldData !== previousRowFieldData;
@@ -3430,7 +3433,7 @@ export class TableBody implements AfterViewInit, OnDestroy {
 
     shouldRenderRowGroupFooter(value: any, rowData: any, i: number) {
         let currentRowFieldData = ObjectUtils.resolveFieldData(rowData, this.dt.groupRowsBy);
-        let nextRowData = value[i + (1 + this.dt._first)];
+        let nextRowData = value[i - this.dt._first + 1];
         if (nextRowData) {
             let nextRowFieldData = ObjectUtils.resolveFieldData(nextRowData, this.dt.groupRowsBy);
             return currentRowFieldData !== nextRowFieldData;
@@ -3503,6 +3506,7 @@ export class TableBody implements AfterViewInit, OnDestroy {
 
 @Directive({
     selector: '[pRowGroupHeader]',
+    standalone: false,
     host: {
         class: 'p-datatable-row-group-header',
         '[style.top]': 'getFrozenRowGroupHeaderStickyPosition'
@@ -3518,6 +3522,7 @@ export class RowGroupHeader {
 
 @Directive({
     selector: '[pFrozenColumn]',
+    standalone: false,
     host: {
         '[class.p-datatable-frozen-column]': 'frozen',
         '[class.p-datatable-frozen-column-left]': 'alignFrozen === "left"'
@@ -3593,6 +3598,7 @@ export class FrozenColumn implements AfterViewInit {
 }
 @Directive({
     selector: '[pSortableColumn]',
+    standalone: false,
     host: {
         '[class.p-datatable-sortable-column]': 'isEnabled()',
         '[class.p-datatable-column-sorted]': 'sorted',
@@ -3627,8 +3633,20 @@ export class SortableColumn implements OnInit, OnDestroy {
     }
 
     updateSortState() {
-        this.sorted = this.dt.isSorted(<string>this.field) as boolean;
-        this.sortOrder = this.sorted ? (this.dt.sortOrder === 1 ? 'ascending' : 'descending') : 'none';
+        let sorted = false;
+        let sortOrder = 0;
+
+        if (this.dt.sortMode === 'single') {
+            sorted = this.dt.isSorted(<string>this.field) as boolean;
+            sortOrder = this.dt.sortOrder;
+        } else if (this.dt.sortMode === 'multiple') {
+            const sortMeta = this.dt.getSortMeta(<string>this.field);
+            sorted = !!sortMeta;
+            sortOrder = sortMeta ? sortMeta.order : 0;
+        }
+
+        this.sorted = sorted;
+        this.sortOrder = sorted ? (sortOrder === 1 ? 'ascending' : 'descending') : 'none';
     }
 
     @HostListener('click', ['$event'])
@@ -3672,8 +3690,9 @@ export class SortableColumn implements OnInit, OnDestroy {
 
 @Component({
     selector: 'p-sortIcon',
+    standalone: false,
     template: `
-        <ng-container *ngIf="!(dt.sortIconTemplate && dt._sortIconTemplate)">
+        <ng-container *ngIf="!(dt.sortIconTemplate || dt._sortIconTemplate)">
             <SortAltIcon [styleClass]="'p-sortable-column-icon'" *ngIf="sortOrder === 0" />
             <SortAmountUpAltIcon [styleClass]="'p-sortable-column-icon'" *ngIf="sortOrder === 1" />
             <SortAmountDownIcon [styleClass]="'p-sortable-column-icon'" *ngIf="sortOrder === -1" />
@@ -3757,6 +3776,7 @@ export class SortIcon implements OnInit, OnDestroy {
 
 @Directive({
     selector: '[pSelectableRow]',
+    standalone: false,
     host: {
         '[class.p-datatable-selectable-row]': 'isEnabled()',
         '[class.p-datatable-row-selected]': 'selected',
@@ -4010,6 +4030,7 @@ export class SelectableRow implements OnInit, OnDestroy {
 
 @Directive({
     selector: '[pSelectableRowDblClick]',
+    standalone: false,
     host: {
         '[class.p-selectable-row]': 'isEnabled()',
         '[class.p-highlight]': 'selected'
@@ -4067,6 +4088,7 @@ export class SelectableRowDblClick implements OnInit, OnDestroy {
 
 @Directive({
     selector: '[pContextMenuRow]',
+    standalone: false,
     host: {
         '[class.p-highlight-contextmenu]': 'selected',
         '[attr.tabindex]': 'isEnabled() ? 0 : undefined'
@@ -4121,7 +4143,8 @@ export class ContextMenuRow {
 }
 
 @Directive({
-    selector: '[pRowToggler]'
+    selector: '[pRowToggler]',
+    standalone: false
 })
 export class RowToggler {
     @Input('pRowToggler') data: any;
@@ -4145,6 +4168,7 @@ export class RowToggler {
 
 @Directive({
     selector: '[pResizableColumn]',
+    standalone: false,
     host: {
         class: 'p-datatable-resizable-column'
     }
@@ -4264,6 +4288,7 @@ export class ResizableColumn implements AfterViewInit, OnDestroy {
 
 @Directive({
     selector: '[pReorderableColumn]',
+    standalone: false,
     host: {
         class: 'p-datatable-reorderable-column'
     }
@@ -4376,7 +4401,8 @@ export class ReorderableColumn implements AfterViewInit, OnDestroy {
 }
 
 @Directive({
-    selector: '[pEditableColumn]'
+    selector: '[pEditableColumn]',
+    standalone: false
 })
 export class EditableColumn implements OnChanges, AfterViewInit, OnDestroy {
     @Input('pEditableColumn') data: any;
@@ -4722,7 +4748,8 @@ export class EditableColumn implements OnChanges, AfterViewInit, OnDestroy {
 }
 
 @Directive({
-    selector: '[pEditableRow]'
+    selector: '[pEditableRow]',
+    standalone: false
 })
 export class EditableRow {
     @Input('pEditableRow') data: any;
@@ -4738,6 +4765,7 @@ export class EditableRow {
 
 @Directive({
     selector: '[pInitEditableRow]',
+    standalone: false,
     host: {
         class: 'p-datatable-row-editor-init'
     }
@@ -4757,6 +4785,7 @@ export class InitEditableRow {
 
 @Directive({
     selector: '[pSaveEditableRow]',
+    standalone: false,
     host: {
         class: 'p-datatable-row-editor-save'
     }
@@ -4776,6 +4805,7 @@ export class SaveEditableRow {
 
 @Directive({
     selector: '[pCancelEditableRow]',
+    standalone: false,
     host: {
         class: 'p-datatable-row-editor-cancel'
     }
@@ -4795,6 +4825,7 @@ export class CancelEditableRow {
 
 @Component({
     selector: 'p-cellEditor',
+    standalone: false,
     template: `
         <ng-container *ngIf="editing">
             <ng-container *ngTemplateOutlet="inputTemplate || _inputTemplate"></ng-container>
@@ -4843,6 +4874,7 @@ export class CellEditor implements AfterContentInit {
 
 @Component({
     selector: 'p-tableRadioButton',
+    standalone: false,
     template: ` <p-radioButton #rb [(ngModel)]="checked" [disabled]="disabled" [inputId]="inputId" [name]="name" [ariaLabel]="ariaLabel" [binary]="true" [value]="value" (onClick)="onClick($event)" /> `,
     changeDetection: ChangeDetectionStrategy.OnPush,
     encapsulation: ViewEncapsulation.None
@@ -4908,6 +4940,7 @@ export class TableRadioButton {
 
 @Component({
     selector: 'p-tableCheckbox',
+    standalone: false,
     template: `
         <p-checkbox [(ngModel)]="checked" [binary]="true" (onChange)="onClick($event)" [disabled]="disabled" [ariaLabel]="ariaLabel">
             <ng-container *ngIf="dt.checkboxIconTemplate || dt._checkboxIconTemplate">
@@ -4987,6 +5020,7 @@ export class TableCheckbox {
 
 @Component({
     selector: 'p-tableHeaderCheckbox',
+    standalone: false,
     template: `
         <p-checkbox [(ngModel)]="checked" (onChange)="onClick($event)" [binary]="true" [disabled]="isDisabled()" [ariaLabel]="ariaLabel">
             <ng-container *ngIf="dt.headerCheckboxIconTemplate || dt._headerCheckboxIconTemplate">
@@ -5084,6 +5118,7 @@ export class TableHeaderCheckbox {
 
 @Directive({
     selector: '[pReorderableRowHandle]',
+    standalone: false,
     host: {
         class: 'p-datatable-reorderable-row-handle'
     }
@@ -5097,7 +5132,8 @@ export class ReorderableRowHandle implements AfterViewInit {
 }
 
 @Directive({
-    selector: '[pReorderableRow]'
+    selector: '[pReorderableRow]',
+    standalone: false
 })
 export class ReorderableRow implements AfterViewInit {
     @Input('pReorderableRow') index: number | undefined;
@@ -5227,6 +5263,7 @@ export class ReorderableRow implements AfterViewInit {
 
 @Component({
     selector: 'p-columnFilter',
+    standalone: false,
     template: `
         <div [ngClass]="cx('filter')">
             <p-columnFilterFormElement
@@ -6106,6 +6143,7 @@ export class ColumnFilter extends BaseComponent implements AfterContentInit {
 
 @Component({
     selector: 'p-columnFilterFormElement',
+    standalone: false,
     template: `
         <ng-container *ngIf="filterTemplate; else builtInElement">
             <ng-container
@@ -6165,7 +6203,7 @@ export class ColumnFilter extends BaseComponent implements AfterContentInit {
                 ></p-inputNumber>
                 <p-checkbox [indeterminate]="true" [binary]="true" *ngSwitchCase="'boolean'" [ngModel]="filterConstraint?.value" (ngModelChange)="onModelChange($event)" />
 
-                <p-calendar [ariaLabel]="ariaLabel" *ngSwitchCase="'date'" [placeholder]="placeholder" [ngModel]="filterConstraint?.value" (ngModelChange)="onModelChange($event)" appendTo="body"></p-calendar>
+                <p-datepicker [ariaLabel]="ariaLabel" *ngSwitchCase="'date'" [placeholder]="placeholder" [ngModel]="filterConstraint?.value" (ngModelChange)="onModelChange($event)" appendTo="body"></p-datepicker>
             </ng-container>
         </ng-template>
     `,
@@ -6252,7 +6290,7 @@ export class ColumnFilterFormElement implements OnInit {
         FormsModule,
         ButtonModule,
         SelectButtonModule,
-        CalendarModule,
+        DatePickerModule,
         InputNumberModule,
         CheckboxModule,
         ScrollerModule,

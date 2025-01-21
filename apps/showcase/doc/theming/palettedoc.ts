@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 
 @Component({
     selector: 'palette-doc',
+    standalone: false,
     template: `
         <app-docsectiontext>
             <p>Returns shades and tints of a given color from 50 to 950 as an array.</p>

@@ -6,6 +6,7 @@ import { MessageService, SelectItem } from 'primeng/api';
 
 @Component({
     selector: 'row-edit-doc',
+    standalone: false,
     template: ` <app-docsectiontext>
             <p>
                 Row editing toggles the visibility of all the editors in the row at once and provides additional options to save and cancel editing. Row editing functionality is enabled by setting the <i>editMode</i> to "row" on table, defining a
@@ -25,7 +26,7 @@ import { MessageService, SelectItem } from 'primeng/api';
             <div class="card">
                 <p-toast />
                 <p-table [value]="products" dataKey="id" editMode="row" [tableStyle]="{ 'min-width': '50rem' }">
-                    <ng-template pTemplate="header">
+                    <ng-template #header>
                         <tr>
                             <th style="width:20%">Code</th>
                             <th style="width:20%">Name</th>
@@ -34,44 +35,44 @@ import { MessageService, SelectItem } from 'primeng/api';
                             <th style="width:20%"></th>
                         </tr>
                     </ng-template>
-                    <ng-template pTemplate="body" let-product let-editing="editing" let-ri="rowIndex">
+                    <ng-template #body let-product let-editing="editing" let-ri="rowIndex">
                         <tr [pEditableRow]="product">
                             <td>
                                 <p-cellEditor>
-                                    <ng-template pTemplate="input">
+                                    <ng-template #input>
                                         <input pInputText type="text" [(ngModel)]="product.code" />
                                     </ng-template>
-                                    <ng-template pTemplate="output">
+                                    <ng-template #output>
                                         {{ product.code }}
                                     </ng-template>
                                 </p-cellEditor>
                             </td>
                             <td>
                                 <p-cellEditor>
-                                    <ng-template pTemplate="input">
+                                    <ng-template #input>
                                         <input pInputText type="text" [(ngModel)]="product.name" required />
                                     </ng-template>
-                                    <ng-template pTemplate="output">
+                                    <ng-template #output>
                                         {{ product.name }}
                                     </ng-template>
                                 </p-cellEditor>
                             </td>
                             <td>
                                 <p-cellEditor>
-                                    <ng-template pTemplate="input">
+                                    <ng-template #input>
                                         <p-select [options]="statuses" appendTo="body" [(ngModel)]="product.inventoryStatus" [style]="{ width: '100%' }" />
                                     </ng-template>
-                                    <ng-template pTemplate="output">
+                                    <ng-template #output>
                                         <p-tag [value]="product.inventoryStatus" [severity]="getSeverity(product.inventoryStatus)" />
                                     </ng-template>
                                 </p-cellEditor>
                             </td>
                             <td>
                                 <p-cellEditor>
-                                    <ng-template pTemplate="input">
+                                    <ng-template #input>
                                         <input pInputText type="text" [(ngModel)]="product.price" />
                                     </ng-template>
-                                    <ng-template pTemplate="output">
+                                    <ng-template #output>
                                         {{ product.price | currency: 'USD' }}
                                     </ng-template>
                                 </p-cellEditor>
@@ -151,40 +152,40 @@ export class RowEditDoc {
         <tr [pEditableRow]="product">
             <td>
                 <p-cellEditor>
-                    <ng-template pTemplate="input">
+                    <ng-template #input>
                         <input
                             pInputText
                             type="text"
                             [(ngModel)]="product.code" />
                     </ng-template>
-                    <ng-template pTemplate="output">
+                    <ng-template #output>
                         {{product.code}}
                     </ng-template>
                 </p-cellEditor>
             </td>
             <td>
                 <p-cellEditor>
-                    <ng-template pTemplate="input">
+                    <ng-template #input>
                         <input
                             pInputText type="text"
                             [(ngModel)]="product.name"
                             required />
                     </ng-template>
-                    <ng-template pTemplate="output">
+                    <ng-template #output>
                         {{product.name}}
                     </ng-template>
                 </p-cellEditor>
             </td>
             <td>
                 <p-cellEditor>
-                    <ng-template pTemplate="input">
+                    <ng-template #input>
                         <p-select
                             [options]="statuses"
                             appendTo="body"
                             [(ngModel)]="product.inventoryStatus"
                             [style]="{'width':'100%'}" />
                     </ng-template>
-                    <ng-template pTemplate="output">
+                    <ng-template #output>
                         <p-tag
                             [value]="product.inventoryStatus"
                             [severity]="getSeverity(product.inventoryStatus)" />
@@ -193,13 +194,13 @@ export class RowEditDoc {
             </td>
             <td>
                 <p-cellEditor>
-                    <ng-template pTemplate="input">
+                    <ng-template #input>
                         <input
                             pInputText
                             type="text"
                             [(ngModel)]="product.price" />
                     </ng-template>
-                    <ng-template pTemplate="output">
+                    <ng-template #output>
                         {{product.price | currency: 'USD'}}
                     </ng-template>
                 </p-cellEditor>
@@ -263,39 +264,39 @@ export class RowEditDoc {
             <tr [pEditableRow]="product">
                 <td>
                     <p-cellEditor>
-                        <ng-template pTemplate="input">
+                        <ng-template #input>
                             <input
                                 pInputText type="text"
                                 [(ngModel)]="product.code" />
                         </ng-template>
-                        <ng-template pTemplate="output">
+                        <ng-template #output>
                             {{product.code}}
                         </ng-template>
                     </p-cellEditor>
                 </td>
                 <td>
                     <p-cellEditor>
-                        <ng-template pTemplate="input">
+                        <ng-template #input>
                             <input
                                 pInputText type="text"
                                 [(ngModel)]="product.name"
                                 required />
                         </ng-template>
-                        <ng-template pTemplate="output">
+                        <ng-template #output>
                             {{product.name}}
                         </ng-template>
                     </p-cellEditor>
                 </td>
                 <td>
                     <p-cellEditor>
-                        <ng-template pTemplate="input">
+                        <ng-template #input>
                             <p-select
                                 [options]="statuses"
                                 appendTo="body"
                                 [(ngModel)]="product.inventoryStatus"
                                 [style]="{'width':'100%'}" />
                         </ng-template>
-                        <ng-template pTemplate="output">
+                        <ng-template #output>
                             <p-tag
                                 [value]="product.inventoryStatus"
                                 [severity]="getSeverity(product.inventoryStatus)" />
@@ -304,12 +305,12 @@ export class RowEditDoc {
                 </td>
                 <td>
                     <p-cellEditor>
-                        <ng-template pTemplate="input">
+                        <ng-template #input>
                             <input
                                 pInputText type="text"
                                 [(ngModel)]="product.price" />
                         </ng-template>
-                        <ng-template pTemplate="output">
+                        <ng-template #output>
                             {{product.price | currency: 'USD'}}
                         </ng-template>
                     </p-cellEditor>

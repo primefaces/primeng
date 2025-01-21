@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 
 @Component({
     selector: 'color-palette-doc',
+    standalone: false,
     template: `
         <app-docsectiontext> <p>PrimeNG color palette as utility classes.</p></app-docsectiontext>
         <div class="card">

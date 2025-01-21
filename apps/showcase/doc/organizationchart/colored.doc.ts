@@ -4,6 +4,7 @@ import { TreeNode } from 'primeng/api';
 
 @Component({
     selector: 'organization-chart-colored-demo',
+    standalone: false,
     template: `
         <app-docsectiontext>
             <p>Styling a specific node is configured with <i>class</i> and <i>style</i> options of a TreeNode.</p></app-docsectiontext

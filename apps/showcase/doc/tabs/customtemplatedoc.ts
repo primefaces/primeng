@@ -3,6 +3,7 @@ import { Component } from '@angular/core';
 
 @Component({
     selector: 'template-doc',
+    standalone: false,
     template: `
         <app-docsectiontext>
             <p>Custom content for a tab is defined with the default ng-content.</p>

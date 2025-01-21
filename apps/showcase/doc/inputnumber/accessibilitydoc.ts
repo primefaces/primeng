@@ -3,6 +3,7 @@ import { Component } from '@angular/core';
 
 @Component({
     selector: 'input-number-accessibility-doc',
+    standalone: false,
     template: ` <div>
         <app-docsectiontext>
             <h3>Screen Reader</h3>

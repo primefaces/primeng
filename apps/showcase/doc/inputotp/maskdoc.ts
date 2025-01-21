@@ -3,6 +3,7 @@ import { Component } from '@angular/core';
 
 @Component({
     selector: 'mask-doc',
+    standalone: false,
     template: `
         <app-docsectiontext>
             <p>Enable the <i>mask</i> option to hide the values in the input fields.</p>

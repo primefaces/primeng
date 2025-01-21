@@ -18,6 +18,7 @@ interface ExportColumn {
 
 @Component({
     selector: 'products-doc',
+    standalone: false,
     template: ` <app-docsectiontext>
             <p>CRUD implementation example with a Dialog.</p>
         </app-docsectiontext>

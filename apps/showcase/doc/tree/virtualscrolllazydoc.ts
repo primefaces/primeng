@@ -5,6 +5,7 @@ import { TreeNode } from 'primeng/api';
 
 @Component({
     selector: 'lazy-virtual-scroll-doc',
+    standalone: false,
     template: `
         <app-docsectiontext>
             <p>VirtualScroller is a performance-approach to handle huge data efficiently. Setting <i>virtualScroll</i> property as true and providing a <i>virtualScrollItemSize</i> in pixels would be enough to enable this functionality.</p>

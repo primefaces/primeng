@@ -3,6 +3,7 @@ import { Component } from '@angular/core';
 
 @Component({
     selector: 'filter-mode-doc',
+    standalone: false,
     template: `
         <app-docsectiontext>
             <p>Default filter modes to display on DataTable filter menus.</p>

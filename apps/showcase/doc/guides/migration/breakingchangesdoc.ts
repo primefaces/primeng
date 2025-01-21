@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 
 @Component({
     selector: 'breaking-doc',
+    standalone: false,
     template: `
         <app-docsectiontext>
             <h4>Configuration</h4>

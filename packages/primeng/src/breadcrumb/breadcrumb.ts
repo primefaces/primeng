@@ -24,7 +24,7 @@ import { BreadCrumbStyle } from './style/breadcrumbstyle';
                     [attr.id]="home.id"
                     [ngClass]="{ 'p-breadcrumb-home-item': true, 'p-disabled': home.disabled }"
                     [ngStyle]="home.style"
-                    *ngIf="home"
+                    *ngIf="home && home.visible !== false"
                     pTooltip
                     [tooltipOptions]="home.tooltipOptions"
                     [attr.data-pc-section]="'home'"
@@ -78,6 +78,7 @@ import { BreadCrumbStyle } from './style/breadcrumbstyle';
                 </li>
                 <ng-template ngFor let-menuitem let-end="last" [ngForOf]="model">
                     <li
+                        *ngIf="menuitem.visible !== false"
                         [class]="menuitem.styleClass"
                         [attr.id]="menuitem.id"
                         [ngStyle]="menuitem.style"
@@ -101,8 +102,8 @@ import { BreadCrumbStyle } from './style/breadcrumbstyle';
                                 <ng-container *ngIf="!itemTemplate && !_itemTemplate">
                                     <span *ngIf="menuitem?.icon" class="p-breadcrumb-item-icon" [ngClass]="menuitem?.icon" [ngStyle]="menuitem?.iconStyle"></span>
                                     <ng-container *ngIf="menuitem?.label">
-                                        <span *ngIf="menuitem?.escape !== false; else htmlLabel" class="p-breadcrumb-item-label'">{{ menuitem?.label }}</span>
-                                        <ng-template #htmlLabel><span class="p-breadcrumb-item-label'" [innerHTML]="menuitem?.label"></span></ng-template>
+                                        <span *ngIf="menuitem?.escape !== false; else htmlLabel" class="p-breadcrumb-item-label">{{ menuitem?.label }}</span>
+                                        <ng-template #htmlLabel><span class="p-breadcrumb-item-label" [innerHTML]="menuitem?.label"></span></ng-template>
                                     </ng-container>
                                 </ng-container>
                             </a>
@@ -125,13 +126,13 @@ import { BreadCrumbStyle } from './style/breadcrumbstyle';
                             >
                                 <span *ngIf="menuitem?.icon" class="p-breadcrumb-item-icon" [ngClass]="menuitem?.icon" [ngStyle]="menuitem?.iconStyle"></span>
                                 <ng-container *ngIf="menuitem?.label">
-                                    <span *ngIf="menuitem?.escape !== false; else htmlRouteLabel" class="p-breadcrumb-item-label'">{{ menuitem?.label }}</span>
-                                    <ng-template #htmlRouteLabel><span class="p-breadcrumb-item-label'" [innerHTML]="menuitem?.label"></span></ng-template>
+                                    <span *ngIf="menuitem?.escape !== false; else htmlRouteLabel" class="p-breadcrumb-item-label">{{ menuitem?.label }}</span>
+                                    <ng-template #htmlRouteLabel><span class="p-breadcrumb-item-label" [innerHTML]="menuitem?.label"></span></ng-template>
                                 </ng-container>
                             </a>
                         }
                     </li>
-                    <li *ngIf="!end" class="p-breadcrumb-separator" [attr.data-pc-section]="'separator'">
+                    <li *ngIf="!end && menuitem.visible !== false" class="p-breadcrumb-separator" [attr.data-pc-section]="'separator'">
                         <ChevronRightIcon *ngIf="!separatorTemplate && !_separatorTemplate" />
                         <ng-template *ngTemplateOutlet="separatorTemplate || _separatorTemplate"></ng-template>
                     </li>

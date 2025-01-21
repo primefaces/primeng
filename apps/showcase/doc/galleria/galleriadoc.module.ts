@@ -14,7 +14,7 @@ import { AutoPlayDoc } from './autoplaydoc';
 import { BasicDoc } from './basicdoc';
 import { CaptionDoc } from './captiondoc';
 import { ControlledDoc } from './controlleddoc';
-import { FullScreenTemplateDoc } from './fullscreen/customcontentdoc';
+import { CustomContentDoc } from './fullscreen/customcontentdoc';
 import { WithoutThumbnailsDoc } from './fullscreen/withoutthumbnailsdoc';
 import { WithThumbnailsDoc } from './fullscreen/withthumbnailsdoc';
 import { ImportDoc } from './importdoc';
@@ -38,7 +38,6 @@ import { ThumbnailDoc } from './thumbnaildoc';
         BasicDoc,
         CaptionDoc,
         ControlledDoc,
-        FullScreenTemplateDoc,
         WithoutThumbnailsDoc,
         WithThumbnailsDoc,
         ImportDoc,
@@ -51,6 +50,7 @@ import { ThumbnailDoc } from './thumbnaildoc';
         ItemThumbnailsDoc,
         ItemWithoutThumbnailsDoc,
         ResponsiveDoc,
+        CustomContentDoc,
         StyleDoc,
         ThumbnailDoc,
         AccessibilityDoc

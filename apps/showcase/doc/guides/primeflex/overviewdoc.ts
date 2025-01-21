@@ -2,7 +2,7 @@ import { Component } from '@angular/core';
 
 @Component({
     selector: 'overview-doc',
-
+    standalone: false,
     template: `
         <app-docsectiontext>
             <p>

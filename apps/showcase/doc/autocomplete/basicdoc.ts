@@ -8,6 +8,7 @@ interface AutoCompleteCompleteEvent {
 
 @Component({
     selector: 'basic-doc',
+    standalone: false,
     template: ` <app-docsectiontext>
             <p>
                 AutoComplete uses <i>ngModel</i> for two-way binding, requires a list of suggestions and a <i>completeMethod</i> to query for the results. The completeMethod gets the query text as <i>event.query</i> property and should update the
@@ -20,7 +21,7 @@ interface AutoCompleteCompleteEvent {
         <app-code [code]="code" selector="autocomplete-basic-demo"></app-code>`
 })
 export class BasicDoc {
-    items: any[] | undefined;
+    items: any[] = [];
 
     value: any;
     code: Code = {
@@ -46,7 +47,7 @@ interface AutoCompleteCompleteEvent {
     standalone: true,
 })
 export class AutocompleteBasicDemo {
-    items: any[] | undefined;
+    items: any[] = [];
 
     value: any;
 

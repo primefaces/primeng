@@ -3,6 +3,7 @@ import { Component } from '@angular/core';
 
 @Component({
     selector: 'responsive-doc',
+    standalone: false,
     template: `
         <app-docsectiontext>
             <p>Apply responsive styles to the container element to optimize display per screen size.</p>

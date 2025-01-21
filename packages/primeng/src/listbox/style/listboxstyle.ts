@@ -32,6 +32,16 @@ const theme = ({ dt }) => `
 
 .p-listbox-header {
     padding: ${dt('listbox.list.header.padding')};
+    display: flex;
+    align-items: center;
+}
+
+.p-listbox-header > * {
+    flex: 1 1 auto;
+}
+
+.p-listbox-header > .p-checkbox {
+    flex: 0 0 auto;
 }
 
 .p-listbox-filter {

@@ -7,6 +7,7 @@ import { AppDocService } from './app.doc.service';
 
 @Component({
     selector: 'app-doc',
+    standalone: false,
     template: ` <div class="doc-component">
         <ul class="doc-tabmenu">
             @if (docs && apiDocs) {

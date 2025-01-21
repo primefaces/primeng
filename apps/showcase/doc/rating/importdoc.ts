@@ -3,10 +3,11 @@ import { Component } from '@angular/core';
 
 @Component({
     selector: 'rating-import-doc',
+    standalone: false,
     template: ` <app-code [code]="code" [hideToggleCode]="true"></app-code> `
 })
 export class ImportDoc {
     code: Code = {
-        typescript: `import { Rating } from 'primeng/rating';`
+        typescript: `import { RatingModule } from 'primeng/rating';`
     };
 }

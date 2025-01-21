@@ -3,6 +3,7 @@ import { Component } from '@angular/core';
 
 @Component({
     selector: 'preselection-doc',
+    standalone: false,
     template: `
         <app-docsectiontext>
             <p>Enabling <i>ngModel</i> property displays the component as active initially.</p>

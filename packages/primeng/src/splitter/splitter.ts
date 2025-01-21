@@ -169,6 +169,8 @@ export class Splitter extends BaseComponent implements AfterContentInit {
 
     @ContentChildren(PrimeTemplate) templates!: QueryList<PrimeTemplate>;
 
+    @ContentChildren('panel', { descendants: false }) panelChildren!: QueryList<ElementRef>;
+
     nested: boolean = false;
 
     panels: any[] = [];
@@ -213,16 +215,23 @@ export class Splitter extends BaseComponent implements AfterContentInit {
     }
 
     ngAfterContentInit() {
-        this.templates.forEach((item) => {
-            switch (item.getType()) {
-                case 'panel':
-                    this.panels.push(item.template);
-                    break;
-                default:
-                    this.panels.push(item.template);
-                    break;
-            }
-        });
+        if (this.templates && this.templates.toArray().length > 0) {
+            this.templates.forEach((item) => {
+                switch (item.getType()) {
+                    case 'panel':
+                        this.panels.push(item.template);
+                        break;
+                    default:
+                        this.panels.push(item.template);
+                        break;
+                }
+            });
+        }
+        if (this.panelChildren && this.panelChildren.toArray().length > 0) {
+            this.panelChildren.forEach((item) => {
+                this.panels.push(item);
+            });
+        }
     }
 
     ngAfterViewInit() {

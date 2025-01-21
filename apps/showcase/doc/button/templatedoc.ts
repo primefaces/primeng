@@ -3,6 +3,7 @@ import { Component } from '@angular/core';
 
 @Component({
     selector: 'button-template-demo',
+    standalone: false,
     template: `
         <app-docsectiontext>
             <p>Custom content inside a button is defined as children.</p>

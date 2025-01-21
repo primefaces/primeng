@@ -6,6 +6,7 @@ import { Subscription } from 'rxjs';
 
 @Component({
     selector: 'routing-doc',
+    standalone: false,
     template: `
         <app-docsectiontext>
             <p>Example below uses nested routes with Steps.</p>

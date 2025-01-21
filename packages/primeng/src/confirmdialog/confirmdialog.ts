@@ -25,8 +25,6 @@ import { Confirmation, ConfirmationService, ConfirmEventType, Footer, PrimeTempl
 import { BaseComponent } from 'primeng/basecomponent';
 import { Button } from 'primeng/button';
 import { Dialog } from 'primeng/dialog';
-import { CheckIcon, TimesIcon } from 'primeng/icons';
-import { Ripple } from 'primeng/ripple';
 import { Nullable } from 'primeng/ts-helpers';
 import { Subscription } from 'rxjs';
 import { ConfirmDialogStyle } from './style/confirmdialogstyle';
@@ -41,20 +39,21 @@ const hideAnimation = animation([animate('{{transition}}', style({ transform: '{
 @Component({
     selector: 'p-confirmDialog, p-confirmdialog, p-confirm-dialog',
     standalone: true,
-    imports: [CommonModule, Button, Ripple, TimesIcon, CheckIcon, Dialog, SharedModule],
+    imports: [CommonModule, Button, Dialog, SharedModule],
     template: `
         <p-dialog
             #dialog
             [(visible)]="visible"
             role="alertdialog"
             [closable]="option('closable')"
-            [styleClass]="cx('root')"
+            [styleClass]="containerClass"
             [modal]="true"
             [header]="option('header')"
             [closeOnEscape]="option('closeOnEscape')"
             [blockScroll]="option('blockScroll')"
             [appendTo]="option('appendTo')"
             [position]="position"
+            [style]="style"
         >
             @if (headlessTemplate || _headlessTemplate) {
                 <ng-template #headless>
@@ -90,11 +89,11 @@ const hideAnimation = animation([animate('{{transition}}', style({ transform: '{
                 </ng-template>
             }
             <ng-template #footer>
-                @if (footer || footerTemplate || _footerTemplate) {
+                @if (footerTemplate || _footerTemplate) {
                     <ng-content select="p-footer"></ng-content>
                     <ng-container *ngTemplateOutlet="footerTemplate || _footerTemplate"></ng-container>
                 }
-                @if (!footer && !footerTemplate && !_footerTemplate) {
+                @if (!footerTemplate && !_footerTemplate) {
                     <p-button
                         *ngIf="option('rejectVisible')"
                         [label]="rejectButtonLabel"
@@ -406,6 +405,10 @@ export class ConfirmDialog extends BaseComponent implements OnInit, OnDestroy {
     ariaLabelledBy: string = this.getAriaLabelledBy();
 
     translationSubscription: Subscription | undefined;
+
+    get containerClass(): string {
+        return this.cx('root') + ' ' + this.styleClass || ' ';
+    }
 
     constructor(
         private confirmationService: ConfirmationService,

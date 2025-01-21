@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 
 @Component({
     selector: 'use-preset-doc',
+    standalone: false,
     template: `
         <app-docsectiontext>
             <p>Replaces the current presets entirely, common use case is changing the preset dynamically at runtime.</p>

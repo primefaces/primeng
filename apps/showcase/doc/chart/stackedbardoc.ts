@@ -5,6 +5,7 @@ import { isPlatformBrowser } from '@angular/common';
 import { ChangeDetectorRef, Component, effect, inject, OnInit, PLATFORM_ID } from '@angular/core';
 @Component({
     selector: 'chart-stacked-bar-demo',
+    standalone: false,
     template: `
         <app-docsectiontext>
             <p>Bars can be stacked on top of each other when <i>stacked</i> option of a scale is enabled.</p>

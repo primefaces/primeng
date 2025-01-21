@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 
 @Component({
     selector: 'renamed-doc',
+    standalone: false,
     template: `
         <app-docsectiontext>
             <h4>Renamed Components</h4>

@@ -3,6 +3,7 @@ import { Component } from '@angular/core';
 
 @Component({
     selector: 'image-compare-accessibility-doc',
+    standalone: false,
     template: ` <div>
         <app-docsectiontext id="accessibility" label="Accessibility">
             <h3>Screen Reader</h3>

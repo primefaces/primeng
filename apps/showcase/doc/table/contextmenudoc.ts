@@ -6,6 +6,7 @@ import { MenuItem, MessageService } from 'primeng/api';
 
 @Component({
     selector: 'context-menu-doc',
+    standalone: false,
     template: ` <app-docsectiontext>
             <p>
                 Table has exclusive integration with <i>contextmenu</i> component. In order to attach a menu to a table, add <i>pContextMenuRow</i> directive to the rows that can be selected with context menu, define a local template variable for the
@@ -78,12 +79,28 @@ export class ContextMenuDoc {
 
     code: Code = {
         basic: `<p-contextmenu #cm [model]="items" (onHide)="selectedProduct = null" />
-<p-table
-    [value]="products"
-    [(contextMenuSelection)]="selectedProduct"
-    [contextMenu]="cm"
-    dataKey="code"
-    [tableStyle]="{'min-width': '50rem'}">
+<p-table [value]="products" [(contextMenuSelection)]="selectedProduct" [contextMenu]="cm" dataKey="code" [tableStyle]="{'min-width': '50rem'}">
+    <ng-template #header>
+        <tr>
+            <th>Code</th>
+            <th>Name</th>
+            <th>Category</th>
+            <th>Price</th>
+        </tr>
+    </ng-template>
+    <ng-template #body let-product>
+        <tr [pContextMenuRow]="product">
+            <td>{{product.code}}</td>
+            <td>{{product.name}}</td>
+            <td>{{product.category}}</td>
+            <td>{{product.price | currency: 'USD'}}</td>
+        </tr>
+    </ng-template>
+</p-table>
+<p-toast />`,
+        html: `<div class="card">
+    <p-contextmenu #cm [model]="items" (onHide)="selectedProduct = null" />
+    <p-table [value]="products" [(contextMenuSelection)]="selectedProduct" [contextMenu]="cm" dataKey="code" [tableStyle]="{'min-width': '50rem'}">
         <ng-template #header>
             <tr>
                 <th>Code</th>
@@ -100,32 +117,6 @@ export class ContextMenuDoc {
                 <td>{{product.price | currency: 'USD'}}</td>
             </tr>
         </ng-template>
-</p-table>
-<p-toast />`,
-        html: `<div class="card">
-    <p-contextmenu #cm [model]="items" (onHide)="selectedProduct = null" />
-    <p-table
-        [value]="products"
-        [(contextMenuSelection)]="selectedProduct"
-        [contextMenu]="cm"
-        dataKey="code"
-        [tableStyle]="{'min-width': '50rem'}">
-            <ng-template #header>
-                <tr>
-                    <th>Code</th>
-                    <th>Name</th>
-                    <th>Category</th>
-                    <th>Price</th>
-                </tr>
-            </ng-template>
-            <ng-template #body let-product>
-                <tr [pContextMenuRow]="product">
-                    <td>{{product.code}}</td>
-                    <td>{{product.name}}</td>
-                    <td>{{product.category}}</td>
-                    <td>{{product.price | currency: 'USD'}}</td>
-                </tr>
-            </ng-template>
     </p-table>
     <p-toast />
 </div>`,

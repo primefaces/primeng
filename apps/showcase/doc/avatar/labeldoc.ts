@@ -3,6 +3,7 @@ import { Component } from '@angular/core';
 
 @Component({
     selector: 'avatar-label-demo',
+    standalone: false,
     template: `
         <app-docsectiontext>
             <p>A letter Avatar is defined with the <i>label</i> property.</p>

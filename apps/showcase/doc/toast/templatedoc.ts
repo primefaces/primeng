@@ -4,6 +4,7 @@ import { MessageService } from 'primeng/api';
 
 @Component({
     selector: 'template-doc',
+    standalone: false,
     template: `
         <app-docsectiontext>
             <p>Templating allows customizing the content where the message instance is available as the implicit variable.</p>
@@ -33,51 +34,31 @@ export class TemplateDoc {
     visible: boolean = false;
 
     code: Code = {
-        basic: `<p-toast
-    position="bottom-center"
-    key="confirm"
-    (onClose)="onReject()"
-    [baseZIndex]="5000">
-        <ng-template let-message #message>
-            <div class="flex flex-col items-start flex-auto">
-                <div class="flex items-center gap-2">
-                    <p-avatar
-                        image="https://primefaces.org/cdn/primeng/images/demo/avatar/amyelsner.png"
-                        shape="circle" />
-                    <span class="font-bold">
-                        Amy Elsner
-                    </span>
-                </div>
-                <div class="font-medium text-lg my-4">
-                    {{ message.summary }}
-                </div>
-                <p-button severity="success" size="small" label="Reply" (click)="onConfirm()" />
+        basic: `<p-toast position="bottom-center" key="confirm" (onClose)="onReject()" [baseZIndex]="5000">
+    <ng-template let-message #message>
+        <div class="flex flex-col items-start flex-auto">
+            <div class="flex items-center gap-2">
+                <p-avatar image="https://primefaces.org/cdn/primeng/images/demo/avatar/amyelsner.png" shape="circle" />
+                <span class="font-bold">Amy Elsner</span>
             </div>
-        </ng-template>
+            <div class="font-medium text-lg my-4">{{ message.summary }}</div>
+            <p-button severity="success" size="small" label="Reply" (click)="onConfirm()" />
+        </div>
+    </ng-template>
 </p-toast>
 <p-button (click)="showConfirm()" label="View" />`,
         html: `<div class="card flex justify-center">
-    <p-toast
-        position="bottom-center"
-        key="confirm"
-        (onClose)="onReject()"
-        [baseZIndex]="5000">
-            <ng-template let-message #message>
-                <div class="flex flex-col items-start flex-auto">
-                    <div class="flex items-center gap-2">
-                        <p-avatar
-                            image="https://primefaces.org/cdn/primeng/images/demo/avatar/amyelsner.png"
-                            shape="circle" />
-                        <span class="font-bold">
-                            Amy Elsner
-                        </span>
-                    </div>
-                    <div class="font-medium text-lg my-4">
-                        {{ message.summary }}
-                    </div>
-                    <p-button severity="success" size="small" label="Reply" (click)="onConfirm()" />
+    <p-toast position="bottom-center" key="confirm" (onClose)="onReject()" [baseZIndex]="5000">
+        <ng-template let-message #message>
+            <div class="flex flex-col items-start flex-auto">
+                <div class="flex items-center gap-2">
+                    <p-avatar image="https://primefaces.org/cdn/primeng/images/demo/avatar/amyelsner.png" shape="circle" />
+                    <span class="font-bold">Amy Elsner</span>
                 </div>
-            </ng-template>
+                <div class="font-medium text-lg my-4">{{ message.summary }}</div>
+                <p-button severity="success" size="small" label="Reply" (click)="onConfirm()" />
+            </div>
+        </ng-template>
     </p-toast>
     <p-button (click)="showConfirm()" label="View" />
 </div>`,

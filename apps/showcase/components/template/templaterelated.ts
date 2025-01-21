@@ -5,6 +5,7 @@ import { SharedModule } from 'primeng/api';
 
 @Component({
     selector: 'template-related',
+    standalone: false,
     template: `
         <div class="template-related-wrapper">
             <div class="template-related">

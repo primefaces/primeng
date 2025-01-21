@@ -5,6 +5,7 @@ import { MenuItem } from 'primeng/api';
 
 @Component({
     selector: 'router-doc',
+    standalone: false,
     template: `
         <app-docsectiontext>
             <p>Items with navigation are defined with templating to be able to use a router link component, an external link or programmatic navigation.</p>
@@ -87,30 +88,30 @@ export class RouterDoc implements OnInit {
 
     code: Code = {
         basic: `<p-tieredMenu [model]="items">
-        <ng-template #item let-item let-hasSubmenu="hasSubmenu">
-            <ng-container *ngIf="item.route; else withoutRoute">
-                <a [routerLink]="item.route" [href]="item.href" class="p-tieredmenu-item-link">
-                    <span class="item.icon"></span>
+    <ng-template #item let-item let-hasSubmenu="hasSubmenu">
+        <ng-container *ngIf="item.route; else withoutRoute">
+            <a [routerLink]="item.route" [href]="item.href" class="p-tieredmenu-item-link">
+                <span class="item.icon"></span>
+                <span class="ml-2">{{ item.label }}</span>
+            </a>
+        </ng-container>
+        <ng-template #withoutRoute>
+            <ng-container *ngIf="item.url; else withoutUrl">
+                <a [href]="item.url" [target]="item.target" class="p-tieredmenu-item-link">
+                    <span [class]="item.icon"></span>
                     <span class="ml-2">{{ item.label }}</span>
+                    <span *ngIf="hasSubmenu" class="pi pi-angle-right ml-auto"></span>
                 </a>
             </ng-container>
-            <ng-template #withoutRoute>
-                <ng-container *ngIf="item.url; else withoutUrl">
-                    <a [href]="item.url" [target]="item.target" class="p-tieredmenu-item-link">
-                        <span [class]="item.icon"></span>
-                        <span class="ml-2">{{ item.label }}</span>
-                        <span *ngIf="hasSubmenu" class="pi pi-angle-right ml-auto"></span>
-                    </a>
-                </ng-container>
-                <ng-template #withoutUrl>
-                    <a class="p-tieredmenu-item-link">
-                        <span [class]="item.icon"></span>
-                        <span class="ml-2">{{ item.label }}</span>
-                        <span *ngIf="hasSubmenu" class="pi pi-angle-right ml-auto"></span>
-                    </a>
-                </ng-template>
+            <ng-template #withoutUrl>
+                <a class="p-tieredmenu-item-link">
+                    <span [class]="item.icon"></span>
+                    <span class="ml-2">{{ item.label }}</span>
+                    <span *ngIf="hasSubmenu" class="pi pi-angle-right ml-auto"></span>
+                </a>
             </ng-template>
         </ng-template>
+    </ng-template>
 </p-tieredMenu>`,
 
         html: `<div class="card flex justify-center">

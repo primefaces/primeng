@@ -30,7 +30,7 @@ import { BlockableUI, PrimeTemplate, ScrollerOptions, SharedModule, TranslationK
 import { BaseComponent } from 'primeng/basecomponent';
 import { Checkbox } from 'primeng/checkbox';
 import { IconField } from 'primeng/iconfield';
-import { CheckIcon, ChevronDownIcon, ChevronRightIcon, MinusIcon, PlusIcon, SearchIcon, SpinnerIcon } from 'primeng/icons';
+import { ChevronDownIcon, ChevronRightIcon, SearchIcon, SpinnerIcon } from 'primeng/icons';
 import { InputIcon } from 'primeng/inputicon';
 import { InputText } from 'primeng/inputtext';
 import { Ripple } from 'primeng/ripple';
@@ -43,6 +43,7 @@ import {
     TreeLazyLoadEvent,
     TreeNodeCollapseEvent,
     TreeNodeContextMenuSelectEvent,
+    TreeNodeDoubleClickEvent,
     TreeNodeDropEvent,
     TreeNodeExpandEvent,
     TreeNodeSelectEvent,
@@ -88,6 +89,7 @@ import {
                     [style.paddingLeft]="level * indentation + 'rem'"
                     (click)="onNodeClick($event)"
                     (contextmenu)="onNodeRightClick($event)"
+                    (dblclick)="onNodeDblClick($event)"
                     (touchend)="onNodeTouchEnd()"
                     (drop)="onDropNode($event)"
                     (dragover)="onDropNodeDragOver($event)"
@@ -119,9 +121,10 @@ import {
                         [indeterminate]="node.partialSelected"
                         *ngIf="tree.selectionMode == 'checkbox'"
                         [disabled]="node.selectable === false"
-                        [variant]="tree?.config.inputStyle() === 'filled' ? 'filled' : 'outlined' || tree?.config.inputVariant() === 'filled' ? 'filled' : 'outlined'"
+                        [variant]="tree?.config.inputStyle() === 'filled' || tree?.config.inputVariant() === 'filled' ? 'filled' : 'outlined'"
                         [attr.data-p-partialchecked]="node.partialSelected"
                         [tabindex]="-1"
+                        (click)="$event.preventDefault()"
                     >
                         <ng-container *ngIf="tree.checkboxIconTemplate || tree._checkboxIconTemplate">
                             <ng-template #icon>
@@ -282,7 +285,6 @@ export class UITreeNode extends BaseComponent implements OnInit {
 
     onNodeClick(event: MouseEvent) {
         this.tree.onNodeClick(event, <TreeNode>this.node);
-        event.preventDefault();
     }
 
     onNodeKeydown(event: KeyboardEvent) {
@@ -297,6 +299,10 @@ export class UITreeNode extends BaseComponent implements OnInit {
 
     onNodeRightClick(event: MouseEvent) {
         this.tree.onNodeRightClick(event, <TreeNode>this.node);
+    }
+
+    onNodeDblClick(event: MouseEvent) {
+        this.tree.onNodeDblClick(event, <TreeNode>this.node);
     }
 
     isSelected() {
@@ -701,7 +707,7 @@ export class UITreeNode extends BaseComponent implements OnInit {
 @Component({
     selector: 'p-tree',
     standalone: true,
-    imports: [CommonModule, Scroller, SharedModule, SearchIcon, SpinnerIcon, InputText, FormsModule, UITreeNode],
+    imports: [CommonModule, Scroller, SharedModule, SearchIcon, SpinnerIcon, InputText, FormsModule, IconField, InputIcon, UITreeNode],
     template: `
         <div [ngClass]="containerClass" [ngStyle]="style" [class]="styleClass" (drop)="onDrop($event)" (dragover)="onDragOver($event)" (dragenter)="onDragEnter()" (dragleave)="onDragLeave($event)">
             <div class="p-tree-mask p-overlay-mask" *ngIf="loading && loadingMode === 'mask'">
@@ -1034,6 +1040,12 @@ export class Tree extends BaseComponent implements OnInit, AfterContentInit, OnC
      */
     @Output() onNodeContextMenuSelect: EventEmitter<TreeNodeContextMenuSelectEvent> = new EventEmitter<TreeNodeContextMenuSelectEvent>();
     /**
+     * Callback to invoke when a node is double clicked.
+     * @param {TreeNodeDoubleClickEvent} event - Node double click event.
+     * @group Emits
+     */
+    @Output() onNodeDoubleClick: EventEmitter<TreeNodeDoubleClickEvent> = new EventEmitter<TreeNodeDoubleClickEvent>();
+    /**
      * Callback to invoke when a node is dropped.
      * @param {TreeNodeDropEvent} event - Node drop event.
      * @group Emits
@@ -1295,7 +1307,9 @@ export class Tree extends BaseComponent implements OnInit, AfterContentInit, OnC
                 node.style = '--p-focus-ring-color: none;';
                 return;
             } else {
-                node.style = '--p-focus-ring-color: var(--primary-color)';
+                if (!node.style?.includes('--p-focus-ring-color')) {
+                    node.style = node.style ? `${node.style}--p-focus-ring-color: var(--primary-color)` : '--p-focus-ring-color: var(--primary-color)';
+                }
             }
 
             if (this.hasFilteredNodes()) {
@@ -1410,6 +1424,10 @@ export class Tree extends BaseComponent implements OnInit, AfterContentInit, OnC
                 this.onNodeContextMenuSelect.emit({ originalEvent: event, node: node });
             }
         }
+    }
+
+    onNodeDblClick(event: MouseEvent, node: TreeNode<any>) {
+        this.onNodeDoubleClick.emit({ originalEvent: event, node: node });
     }
 
     findIndexInSelection(node: TreeNode) {

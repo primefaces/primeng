@@ -3,6 +3,7 @@ import { Component } from '@angular/core';
 
 @Component({
     selector: 'fieldset-template-demo',
+    standalone: false,
     template: `
         <app-docsectiontext>
             <p>Header section can also be defined with custom content instead of primitive values.</p>

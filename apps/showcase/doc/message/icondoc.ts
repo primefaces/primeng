@@ -3,6 +3,7 @@ import { Component, OnInit } from '@angular/core';
 
 @Component({
     selector: 'icon-doc',
+    standalone: false,
     template: `
         <app-docsectiontext>
             <p>The <i>severity</i> option specifies the type of the message.</p>
@@ -10,7 +11,7 @@ import { Component, OnInit } from '@angular/core';
         <div class="card flex justify-center align-center gap-4">
             <p-message severity="info" icon="pi pi-send" text="Info Message" styleClass="h-full" />
             <p-message severity="success">
-                <ng-template pTemplate="icon">
+                <ng-template #icon>
                     <p-avatar image="https://primefaces.org/cdn/primeng/images/demo/avatar/amyelsner.png" shape="circle" />
                 </ng-template>
                 <span class="ml-2">How may I help you?</span>
@@ -25,7 +26,7 @@ export class IconDoc implements OnInit {
     code: Code = {
         basic: `<p-message severity="info" icon="pi pi-send" text="Info Message" styleClass="h-full" />
 <p-message severity="success">
-    <ng-template pTemplate="icon">
+    <ng-template #icon>
         <p-avatar image="https://primefaces.org/cdn/primeng/images/demo/avatar/amyelsner.png" shape="circle" />
     </ng-template>
     <span class="ml-2">How may I help you?</span>
@@ -33,7 +34,7 @@ export class IconDoc implements OnInit {
         html: `<div class="card flex justify-center align-center gap-4">
     <p-message severity="info" icon="pi pi-send" text="Info Message" styleClass="h-full" />
     <p-message severity="success">
-        <ng-template pTemplate="icon">
+        <ng-template #icon>
             <p-avatar image="https://primefaces.org/cdn/primeng/images/demo/avatar/amyelsner.png" shape="circle" />
         </ng-template>
         <span class="ml-2">How may I help you?</span>

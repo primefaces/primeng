@@ -4,6 +4,7 @@ import { Drawer } from 'primeng/drawer';
 
 @Component({
     selector: 'headless-doc',
+    standalone: false,
     template: `
         <app-docsectiontext>
             <p><i>Headless</i> mode allows you to customize the entire user interface instead of the default elements.</p>
@@ -230,18 +231,9 @@ export class HeadlessDoc {
         <div class="flex flex-col h-full">
             <div class="flex items-center justify-between px-6 pt-4 shrink-0">
                 <span class="inline-flex items-center gap-2">
-                        <svg
-                            width="31"
-                            height="33"
-                            viewBox="0 0 31 33"
-                            fill="none"
-                            xmlns="http://www.w3.org/2000/svg"
-                        >
-                            <path
-                                d="..."
-                                fill="var(--p-primary-color)"
-                            />
-                        </svg>
+                    <svg width="31" height="33" viewBox="0 0 31 33" fill="none" xmlns="http://www.w3.org/2000/svg" class="block mx-auto">
+                        <path d="..." />
+                    </svg>
                     <span class="font-semibold text-2xl text-primary">Your Logo</span>
                 </span>
                 <span>
@@ -307,13 +299,19 @@ export class HeadlessDoc {
                                         </a>
                                         <ul class="list-none py-0 pl-4 pr-0 m-0 hidden overflow-y-hidden transition-all duration-[400ms] ease-in-out">
                                             <li>
-                                                <a pRipple class="flex items-center cursor-pointer p-4 rounded-border text-surface-700 dark:text-surface-100 hover:bg-surface-100 dark:hover:bg-surface-700 duration-150 transition-colors p-ripple">
+                                                <a
+                                                    pRipple
+                                                    class="flex items-center cursor-pointer p-4 rounded-border text-surface-700 dark:text-surface-100 hover:bg-surface-100 dark:hover:bg-surface-700 duration-150 transition-colors p-ripple"
+                                                >
                                                     <i class="pi pi-table mr-2"></i>
                                                     <span class="font-medium">View</span>
                                                 </a>
                                             </li>
                                             <li>
-                                                <a pRipple class="flex items-center cursor-pointer p-4 rounded-border text-surface-700 dark:text-surface-100 hover:bg-surface-100 dark:hover:bg-surface-700 duration-150 transition-colors p-ripple">
+                                                <a
+                                                    pRipple
+                                                    class="flex items-center cursor-pointer p-4 rounded-border text-surface-700 dark:text-surface-100 hover:bg-surface-100 dark:hover:bg-surface-700 duration-150 transition-colors p-ripple"
+                                                >
                                                     <i class="pi pi-search mr-2"></i>
                                                     <span class="font-medium">Search</span>
                                                 </a>

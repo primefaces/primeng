@@ -3,6 +3,7 @@ import { Component } from '@angular/core';
 
 @Component({
     selector: 'button-raisedtext-demo',
+    standalone: false,
     template: `
         <app-docsectiontext>
             <p>Text buttons can be displayed as raised for elevation.</p>

@@ -10,6 +10,7 @@ interface Column {
 
 @Component({
     selector: 'edit-doc',
+    standalone: false,
     template: `
         <app-docsectiontext>
             <p>Incell editing is enabled by defining input elements with <i>treeTableCellEditor</i>.</p>

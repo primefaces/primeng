@@ -5,6 +5,7 @@ import { ChangeDetectorRef, Component, OnInit } from '@angular/core';
 
 @Component({
     selector: 'carousel-circular-demo',
+    standalone: false,
     template: `
         <app-docsectiontext>
             <p>When <i>autoplayInterval</i> is defined in milliseconds, items are scrolled automatically. In addition, for infinite scrolling <i>circular</i> property needs to be added which is enabled automatically in auto play mode.</p>
@@ -86,82 +87,46 @@ export class CircularDoc implements OnInit {
     }
 
     code: Code = {
-        basic: `<p-carousel
-    [value]="products"
-    [numVisible]="3"
-    [numScroll]="3"
-    [circular]="true"
-    [responsiveOptions]="responsiveOptions"
-    autoplayInterval="3000">
-        <ng-template let-product #item>
-                <div class="border border-surface-200 dark:border-surface-700 rounded m-2 p-4">
-                    <div class="mb-4">
-                        <div class="relative mx-auto">
-                            <img
-                                src="https://primefaces.org/cdn/primeng/images/demo/product/{{ product.image }}"
-                                [alt]="product.name"
-                                class="w-full rounded-border" />
-                            <p-tag
-                                [value]="product.inventoryStatus"
-                                [severity]="getSeverity(product.inventoryStatus)"
-                                class="absolute"
-                                styleClass="dark:!bg-surface-900"
-                                [ngStyle]="{ 'left.px': 5, 'top.px': 5 }" />
-                        </div>
-                    </div>
-                    <div class="mb-4 font-medium">
-                        {{ product.name }}
-                    </div>
-                    <div class="flex justify-between items-center">
-                    <div class="mt-0 font-semibold text-xl">
-                        {{ '$' + product.price }}
-                    </div>
-                        <span>
-                            <p-button icon="pi pi-heart" severity="secondary" [outlined]="true" />
-                            <p-button icon="pi pi-shopping-cart" styleClass="ml-2" />
-                        </span>
-                    </div>
+        basic: `<p-carousel [value]="products" [numVisible]="3" [numScroll]="3" [circular]="true" [responsiveOptions]="responsiveOptions" autoplayInterval="3000">
+    <ng-template let-product #item>
+        <div class="border border-surface-200 dark:border-surface-700 rounded m-2 p-4">
+            <div class="mb-4">
+                <div class="relative mx-auto">
+                    <img src="https://primefaces.org/cdn/primeng/images/demo/product/{{ product.image }}" [alt]="product.name" class="w-full rounded-border" />
+                    <p-tag [value]="product.inventoryStatus" [severity]="getSeverity(product.inventoryStatus)" class="absolute" styleClass="dark:!bg-surface-900" [ngStyle]="{ 'left.px': 5, 'top.px': 5 }" />
                 </div>
-        </ng-template>
+            </div>
+            <div class="mb-4 font-medium">{{ product.name }}</div>
+            <div class="flex justify-between items-center">
+                <div class="mt-0 font-semibold text-xl">{{ '$' + product.price }}</div>
+                <span>
+                    <p-button icon="pi pi-heart" severity="secondary" [outlined]="true" />
+                    <p-button icon="pi pi-shopping-cart" styleClass="ml-2" />
+                </span>
+            </div>
+        </div>
+    </ng-template>
 </p-carousel>`,
         html: `<div class="card">
-    <p-carousel
-        [value]="products"
-        [numVisible]="3"
-        [numScroll]="3"
-        [circular]="true"
-        [responsiveOptions]="responsiveOptions"
-        autoplayInterval="3000">
+      <p-carousel [value]="products" [numVisible]="3" [numScroll]="3" [circular]="true" [responsiveOptions]="responsiveOptions" autoplayInterval="3000">
         <ng-template let-product #item>
-                <div class="border border-surface-200 dark:border-surface-700 rounded m-2 p-4">
-                    <div class="mb-4">
-                        <div class="relative mx-auto">
-                            <img
-                                src="https://primefaces.org/cdn/primeng/images/demo/product/{{ product.image }}"
-                                [alt]="product.name"
-                                class="w-full rounded-border" />
-                            <p-tag
-                                [value]="product.inventoryStatus"
-                                [severity]="getSeverity(product.inventoryStatus)"
-                                class="absolute"
-                                styleClass="dark:!bg-surface-900"
-                                [ngStyle]="{ 'left.px': 5, 'top.px': 5 }" />
-                        </div>
-                    </div>
-                    <div class="mb-4 font-medium">
-                        {{ product.name }}
-                    </div>
-                    <div class="flex justify-between items-center">
-                    <div class="mt-0 font-semibold text-xl">
-                        {{ '$' + product.price }}
-                    </div>
-                        <span>
-                            <p-button icon="pi pi-heart" severity="secondary" [outlined]="true" />
-                            <p-button icon="pi pi-shopping-cart" styleClass="ml-2" />
-                        </span>
+            <div class="border border-surface-200 dark:border-surface-700 rounded m-2 p-4">
+                <div class="mb-4">
+                    <div class="relative mx-auto">
+                        <img src="https://primefaces.org/cdn/primeng/images/demo/product/{{ product.image }}" [alt]="product.name" class="w-full rounded-border" />
+                        <p-tag [value]="product.inventoryStatus" [severity]="getSeverity(product.inventoryStatus)" class="absolute" styleClass="dark:!bg-surface-900" [ngStyle]="{ 'left.px': 5, 'top.px': 5 }" />
                     </div>
                 </div>
-            </ng-template>
+                <div class="mb-4 font-medium">{{ product.name }}</div>
+                <div class="flex justify-between items-center">
+                    <div class="mt-0 font-semibold text-xl">{{ '$' + product.price }}</div>
+                    <span>
+                        <p-button icon="pi pi-heart" severity="secondary" [outlined]="true" />
+                        <p-button icon="pi pi-shopping-cart" styleClass="ml-2" />
+                    </span>
+                </div>
+            </div>
+        </ng-template>
     </p-carousel>
 </div>`,
         typescript: `import { Component, OnInit } from '@angular/core';

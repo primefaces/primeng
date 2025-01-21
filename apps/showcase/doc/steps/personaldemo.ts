@@ -1,8 +1,9 @@
-import { Component, OnInit } from '@angular/core';
 import { TicketService } from '@/service/ticketservice';
+import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 
 @Component({
+    standalone: false,
     template: `
         <div class="stepsdemo-content">
             <p-card>

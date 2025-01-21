@@ -5,6 +5,7 @@ import { ProductListDemo } from './productlistdemo';
 
 @Component({
     selector: 'customization-doc',
+    standalone: false,
     template: `
         <app-docsectiontext>
             <p>DynamicDialog uses the Dialog component internally, visit <a [routerLink]="'/dialog'">dialog</a> for more information about the available props.</p>

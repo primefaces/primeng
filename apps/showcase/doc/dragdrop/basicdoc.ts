@@ -4,6 +4,7 @@ import { Component, OnInit } from '@angular/core';
 
 @Component({
     selector: 'drag-drop-basic-demo',
+    standalone: false,
     template: `
         <app-docsectiontext>
             <p>

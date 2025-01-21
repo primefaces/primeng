@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 
 @Component({
     selector: 'autocomplete-style-doc',
+    standalone: false,
     template: ` <app-docsectiontext>
             <p>Following is the list of structural style classes, for theming classes visit <i>theming page.</i></p>
         </app-docsectiontext>

@@ -10,6 +10,7 @@ interface Column {
 
 @Component({
     selector: 'virtual-scroll-doc',
+    standalone: false,
     template: ` <app-docsectiontext>
             <p>
                 VirtualScroller is a performance-approach to handle huge data efficiently. Setting <i>virtualScroll</i> property as true and providing a <i>virtualScrollItemSize</i> in pixels would be enough to enable this functionality. It is also
@@ -62,13 +63,24 @@ export class VirtualScrollDoc {
     }
 
     code: Code = {
-        basic: `<p-table
-    [columns]="cols"
-    [value]="cars"
-    [scrollable]="true"
-    scrollHeight="400px"
-    [virtualScroll]="true"
-    [virtualScrollItemSize]="46">
+        basic: `<p-table [columns]="cols" [value]="cars" [scrollable]="true" scrollHeight="400px" [virtualScroll]="true" [virtualScrollItemSize]="46">
+    <ng-template #header let-columns>
+        <tr>
+            <th *ngFor="let col of columns" style="width: 20%;">
+                {{ col.header }}
+            </th>
+        </tr>
+    </ng-template>
+    <ng-template #body let-rowData let-rowIndex="rowIndex" let-columns="columns">
+        <tr style="height:46px">
+            <td *ngFor="let col of columns">
+                {{ rowData[col.field] }}
+            </td>
+        </tr>
+    </ng-template>
+</p-table>`,
+        html: `<div class="card">
+    <p-table [columns]="cols" [value]="cars" [scrollable]="true" scrollHeight="400px" [virtualScroll]="true" [virtualScrollItemSize]="46">
         <ng-template #header let-columns>
             <tr>
                 <th *ngFor="let col of columns" style="width: 20%;">
@@ -83,29 +95,6 @@ export class VirtualScrollDoc {
                 </td>
             </tr>
         </ng-template>
-</p-table>`,
-        html: `<div class="card">
-    <p-table
-        [columns]="cols"
-        [value]="cars"
-        [scrollable]="true"
-        scrollHeight="400px"
-        [virtualScroll]="true"
-        [virtualScrollItemSize]="46">
-            <ng-template #header let-columns>
-                <tr>
-                    <th *ngFor="let col of columns" style="width: 20%;">
-                        {{ col.header }}
-                    </th>
-                </tr>
-            </ng-template>
-            <ng-template #body let-rowData let-rowIndex="rowIndex" let-columns="columns">
-                <tr style="height:46px">
-                    <td *ngFor="let col of columns">
-                        {{ rowData[col.field] }}
-                    </td>
-                </tr>
-            </ng-template>
     </p-table>
 </div>`,
         typescript: `import { Component, OnInit } from '@angular/core';

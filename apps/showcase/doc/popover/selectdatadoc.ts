@@ -4,6 +4,7 @@ import { Popover } from 'primeng/popover';
 
 @Component({
     selector: 'basic-doc',
+    standalone: false,
     template: `
         <app-docsectiontext>
             <p>In this sample, data is retrieved from the content inside the popover.</p>

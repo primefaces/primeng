@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 
 @Component({
     selector: 'options-doc',
+    standalone: false,
     template: `
         <app-docsectiontext>
             <p>The <i>options</i> property defines the how the CSS would be generated from the design tokens of the preset.</p>

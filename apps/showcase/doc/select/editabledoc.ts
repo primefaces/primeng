@@ -8,6 +8,7 @@ interface City {
 
 @Component({
     selector: 'select-editable-demo',
+    standalone: false,
     template: `
         <app-docsectiontext>
             <p>When <i>editable</i> is present, the input can also be entered with typing.</p>

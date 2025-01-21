@@ -3,13 +3,14 @@ import { Component } from '@angular/core';
 
 @Component({
     selector: 'datepicker-datetemplate-demo',
+    standalone: false,
     template: `
         <app-docsectiontext>
             <p>Custom content can be placed inside date cells with the <i>ng-template</i> property that takes a Date as a parameter.</p>
         </app-docsectiontext>
         <div class="card flex justify-center">
             <p-datepicker [(ngModel)]="date">
-                <ng-template pTemplate="date" let-date>
+                <ng-template #date let-date>
                     <strong *ngIf="date.day > 10 && date.day < 15; else elseBlock" style="text-decoration: line-through">{{ date.day }}</strong>
                     <ng-template #elseBlock>{{ date.day }}</ng-template>
                 </ng-template>
@@ -23,7 +24,7 @@ export class DateTemplateDoc {
 
     code: Code = {
         basic: `<p-datepicker [(ngModel)]="date">
-    <ng-template pTemplate="date" let-date>
+    <ng-template #date let-date>
         <strong *ngIf="date.day > 10 && date.day < 15; else elseBlock" style="text-decoration: line-through">{{ date.day }}</strong>
         <ng-template #elseBlock>{{ date.day }}</ng-template>
     </ng-template>
@@ -31,7 +32,7 @@ export class DateTemplateDoc {
 
         html: `<div class="card flex justify-center">
    <p-datepicker [(ngModel)]="date">
-        <ng-template pTemplate="date" let-date>
+        <ng-template #date let-date>
             <strong *ngIf="date.day > 10 && date.day < 15; else elseBlock" style="text-decoration: line-through">{{ date.day }}</strong>
             <ng-template #elseBlock>{{ date.day }}</ng-template>
         </ng-template>

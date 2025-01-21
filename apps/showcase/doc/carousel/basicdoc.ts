@@ -5,6 +5,7 @@ import { ChangeDetectorRef, Component, OnInit } from '@angular/core';
 
 @Component({
     selector: 'carousel-basic-demo',
+    standalone: false,
     template: `
         <app-docsectiontext>
             <p>Carousel requires a collection of items as its value along with a template to render each item.</p>
@@ -16,7 +17,7 @@ import { ChangeDetectorRef, Component, OnInit } from '@angular/core';
                         <div class="mb-4">
                             <div class="relative mx-auto">
                                 <img src="https://primefaces.org/cdn/primeng/images/demo/product/{{ product.image }}" [alt]="product.name" class="w-full rounded-border" />
-                                <p-tag [value]="product.inventoryStatus" [severity]="getSeverity(product.inventoryStatus)" class="absolute" styleClass="dark:!bg-surface-900" [ngStyle]="{ 'left.px': 5, 'top.px': 5 }" />
+                                <p-tag [value]="product.inventoryStatus" [severity]="getSeverity(product.inventoryStatus)" class="absolute" [ngStyle]="{ 'left.px': 5, 'top.px': 5 }" />
                             </div>
                         </div>
                         <div class="mb-4 font-medium">{{ product.name }}</div>
@@ -40,35 +41,39 @@ export class BasicDoc implements OnInit {
     responsiveOptions: any[] | undefined;
 
     code: Code = {
-        basic: `<p-carousel
-    [value]="products"
-    [numVisible]="3"
-    [numScroll]="3"
-    [circular]="false"
-    [responsiveOptions]="responsiveOptions">
+        basic: `<p-carousel [value]="products" [numVisible]="3" [numScroll]="3" [circular]="false" [responsiveOptions]="responsiveOptions">
+    <ng-template let-product #item>
+        <div class="border border-surface rounded-border m-2 p-4">
+            <div class="mb-4">
+                <div class="relative mx-auto">
+                    <img src="https://primefaces.org/cdn/primeng/images/demo/product/{{ product.image }}" [alt]="product.name" class="w-full rounded-border" />
+                    <p-tag [value]="product.inventoryStatus" [severity]="getSeverity(product.inventoryStatus)" class="absolute" [ngStyle]="{ 'left.px': 5, 'top.px': 5 }" />
+                </div>
+            </div>
+            <div class="mb-4 font-medium">{{ product.name }}</div>
+            <div class="flex justify-between items-center">
+                <div class="mt-0 font-semibold text-xl">{{ '$' + product.price }}</div>
+                <span>
+                    <p-button icon="pi pi-heart" severity="secondary" [outlined]="true" />
+                    <p-button icon="pi pi-shopping-cart" styleClass="ml-2" />
+                </span>
+            </div>
+        </div>
+    </ng-template>
+</p-carousel>`,
+        html: `<div class="card">
+    <p-carousel [value]="products" [numVisible]="3" [numScroll]="3" [circular]="false" [responsiveOptions]="responsiveOptions">
         <ng-template let-product #item>
             <div class="border border-surface rounded-border m-2 p-4">
                 <div class="mb-4">
                     <div class="relative mx-auto">
-                        <img
-                            src="https://primefaces.org/cdn/primeng/images/demo/product/{{ product.image }}"
-                            [alt]="product.name"
-                            class="w-full rounded-border" />
-                        <p-tag
-                            [value]="product.inventoryStatus"
-                            [severity]="getSeverity(product.inventoryStatus)"
-                            class="absolute"
-                            styleClass="dark:!bg-surface-900"
-                            [ngStyle]="{ 'left.px': 5, 'top.px': 5 }" />
+                        <img src="https://primefaces.org/cdn/primeng/images/demo/product/{{ product.image }}" [alt]="product.name" class="w-full rounded-border" />
+                        <p-tag [value]="product.inventoryStatus" [severity]="getSeverity(product.inventoryStatus)" class="absolute" [ngStyle]="{ 'left.px': 5, 'top.px': 5 }" />
                     </div>
                 </div>
-                <div class="mb-4 font-medium">
-                    {{ product.name }}
-                </div>
+                <div class="mb-4 font-medium">{{ product.name }}</div>
                 <div class="flex justify-between items-center">
-                <div class="mt-0 font-semibold text-xl">
-                    {{ '$' + product.price }}
-                </div>
+                    <div class="mt-0 font-semibold text-xl">{{ '$' + product.price }}</div>
                     <span>
                         <p-button icon="pi pi-heart" severity="secondary" [outlined]="true" />
                         <p-button icon="pi pi-shopping-cart" styleClass="ml-2" />
@@ -76,44 +81,6 @@ export class BasicDoc implements OnInit {
                 </div>
             </div>
         </ng-template>
-</p-carousel>`,
-        html: `<div class="card">
-    <p-carousel
-        [value]="products"
-        [numVisible]="3"
-        [numScroll]="3"
-        [circular]="false"
-        [responsiveOptions]="responsiveOptions">
-            <ng-template let-product #item>
-                <div class="border border-surface rounded-border m-2 p-4">
-                    <div class="mb-4">
-                        <div class="relative mx-auto">
-                            <img
-                                src="https://primefaces.org/cdn/primeng/images/demo/product/{{ product.image }}"
-                                [alt]="product.name"
-                                class="w-full rounded-border" />
-                            <p-tag
-                                [value]="product.inventoryStatus"
-                                [severity]="getSeverity(product.inventoryStatus)"
-                                class="absolute"
-                                styleClass="dark:!bg-surface-900"
-                                [ngStyle]="{ 'left.px': 5, 'top.px': 5 }" />
-                        </div>
-                    </div>
-                    <div class="mb-4 font-medium">
-                        {{ product.name }}
-                    </div>
-                    <div class="flex justify-between items-center">
-                    <div class="mt-0 font-semibold text-xl">
-                        {{ '$' + product.price }}
-                    </div>
-                        <span>
-                            <p-button icon="pi pi-heart" severity="secondary" [outlined]="true" />
-                            <p-button icon="pi pi-shopping-cart" styleClass="ml-2" />
-                        </span>
-                    </div>
-                </div>
-            </ng-template>
     </p-carousel>
 </div>`,
         typescript: `import { Component, OnInit } from '@angular/core';

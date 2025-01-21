@@ -12,6 +12,7 @@ interface Users {
 
 @Component({
     selector: 'context-menu-command-demo',
+    standalone: false,
     template: `
         <app-docsectiontext>
             <p>The function to invoke when an item is clicked is defined using the <i>command</i> property.</p>
@@ -117,26 +118,22 @@ export class CommandDoc implements OnInit {
 
     code: Code = {
         basic: `<p-toast />
-    <ul class="m-0 list-none border border-surface rounded p-4 flex flex-col gap-2 w-full sm:w-96">
-        <li
-            *ngFor="let user of users"
-            class="p-2 hover:bg-emphasis rounded border border-transparent transition-all duration-200 flex items-center justify-content-between"
-            [ngClass]="{ 'border-primary': selectedId === user.id }"
-            (contextmenu)="onContextMenu($event, user)"
-        >
-            <div class="flex flex-1 items-center gap-2">
-                <img
-                    class="w-8 h-8"
-                    [alt]="user.name"
-                    [src]="'https://primefaces.org/cdn/primeng/images/demo/avatar/' + user.image"
-                />
-                <span class="font-bold">{{ user.name }}</span>
-            </div>
-            <p-tag [value]="user.role" [severity]="getBadge(user)" />
-        </li>
-    </ul>
+<ul class="m-0 list-none border border-surface rounded p-4 flex flex-col gap-2 w-full sm:w-96">
+    <li
+        *ngFor="let user of users"
+        class="p-2 hover:bg-emphasis rounded border border-transparent transition-all duration-200 flex items-center justify-content-between"
+        [ngClass]="{ 'border-primary': selectedId === user.id }"
+        (contextmenu)="onContextMenu($event, user)"
+    >
+        <div class="flex flex-1 items-center gap-2">
+            <img class="w-8 h-8" [alt]="user.name" [src]="'https://primefaces.org/cdn/primeng/images/demo/avatar/' + user.image" />
+            <span class="font-bold">{{ user.name }}</span>
+        </div>
+        <p-tag [value]="user.role" [severity]="getBadge(user)" />
+    </li>
+</ul>
 
-    <p-contextmenu #cm [model]="items" (onHide)="onHide()" />`,
+<p-contextmenu #cm [model]="items" (onHide)="onHide()" />`,
 
         html: `<div class="card flex sm:justify-center">
     <p-toast />
@@ -148,11 +145,7 @@ export class CommandDoc implements OnInit {
             (contextmenu)="onContextMenu($event, user)"
         >
             <div class="flex flex-1 items-center gap-2">
-                <img
-                    class="w-8 h-8"
-                    [alt]="user.name"
-                    [src]="'https://primefaces.org/cdn/primeng/images/demo/avatar/' + user.image"
-                />
+                <img class="w-8 h-8" [alt]="user.name" [src]="'https://primefaces.org/cdn/primeng/images/demo/avatar/' + user.image" />
                 <span class="font-bold">{{ user.name }}</span>
             </div>
             <p-tag [value]="user.role" [severity]="getBadge(user)" />

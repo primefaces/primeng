@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 
 @Component({
     selector: 'confirmationapi-doc',
+    standalone: false,
     template: `
         <div class="doc-tablewrapper">
             <table class="doc-table">

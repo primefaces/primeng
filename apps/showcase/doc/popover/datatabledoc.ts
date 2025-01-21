@@ -7,13 +7,14 @@ import { Popover } from 'primeng/popover';
 
 @Component({
     selector: 'data-table-doc',
+    standalone: false,
     template: `
         <app-docsectiontext>
             <p>Place the Popover outside of the data iteration components to avoid rendering it multiple times.</p>
         </app-docsectiontext>
         <div class="card">
             <p-table [value]="products" [tableStyle]="{ 'min-width': '50rem' }" [paginator]="true" [rows]="5">
-                <ng-template pTemplate="header">
+                <ng-template #header>
                     <tr>
                         <th class="w-1/6">Id</th>
                         <th class="w-1/6">Code</th>
@@ -23,7 +24,7 @@ import { Popover } from 'primeng/popover';
                         <th class="w-1/6">Details</th>
                     </tr>
                 </ng-template>
-                <ng-template pTemplate="body" let-product>
+                <ng-template #body let-product>
                     <tr>
                         <td>{{ product.id }}</td>
                         <td>{{ product.code }}</td>
@@ -39,7 +40,7 @@ import { Popover } from 'primeng/popover';
                 </ng-template>
             </p-table>
             <p-popover #op (onHide)="selectedProduct = null">
-                <ng-template pTemplate="content">
+                <ng-template #content>
                     <div *ngIf="selectedProduct" class="rounded flex flex-col">
                         <div class="flex justify-center rounded">
                             <div class="relative mx-auto">
@@ -100,7 +101,7 @@ export class DataTableDoc implements OnInit {
     }
     code: Code = {
         basic: `<p-table [value]="products" [tableStyle]="{ 'min-width': '50rem' }" [paginator]="true" [rows]="5">
-    <ng-template pTemplate="header">
+    <ng-template #header>
         <tr>
             <th class="w-1/6">Id</th>
             <th class="w-1/6">Code</th>
@@ -110,7 +111,7 @@ export class DataTableDoc implements OnInit {
             <th class="w-1/6">Details</th>
         </tr>
     </ng-template>
-    <ng-template pTemplate="body" let-product>
+    <ng-template #body let-product>
         <tr>
             <td>{{ product.id }}</td>
             <td>{{ product.code }}</td>
@@ -130,7 +131,7 @@ export class DataTableDoc implements OnInit {
     </ng-template>
 </p-table>
 <p-popover #op (onHide)="selectedProduct = null">
-    <ng-template pTemplate="content">
+    <ng-template #content>
         <div *ngIf="selectedProduct" class="rounded flex flex-col">
             <div class="flex justify-center rounded">
                 <div class="relative mx-auto">
@@ -185,7 +186,7 @@ export class DataTableDoc implements OnInit {
 
         html: `<div class="card">
     <p-table [value]="products" [tableStyle]="{ 'min-width': '50rem' }" [paginator]="true" [rows]="5">
-        <ng-template pTemplate="header">
+        <ng-template #header>
             <tr>
                 <th class="w-1/6">Id</th>
                 <th class="w-1/6">Code</th>
@@ -195,7 +196,7 @@ export class DataTableDoc implements OnInit {
                 <th class="w-1/6">Details</th>
             </tr>
         </ng-template>
-        <ng-template pTemplate="body" let-product>
+        <ng-template #body let-product>
             <tr>
                 <td>{{ product.id }}</td>
                 <td>{{ product.code }}</td>
@@ -215,7 +216,7 @@ export class DataTableDoc implements OnInit {
         </ng-template>
     </p-table>
     <p-popover #op (onHide)="selectedProduct = null">
-        <ng-template pTemplate="content">
+        <ng-template #content>
             <div *ngIf="selectedProduct" class="rounded flex flex-col">
                 <div class="flex justify-center rounded">
                     <div class="relative mx-auto">

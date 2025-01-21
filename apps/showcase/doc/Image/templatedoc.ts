@@ -3,19 +3,20 @@ import { Component } from '@angular/core';
 
 @Component({
     selector: 'template-doc',
+    standalone: false,
     template: `
         <app-docsectiontext>
             <p>An eye icon is displayed by default when the image is hovered in preview mode. Use the <i>indicator</i> template for custom content.</p>
         </app-docsectiontext>
         <div class="card flex justify-center">
             <p-image src="https://primefaces.org/cdn/primeng/images/galleria/galleria11.jpg" [preview]="true" alt="Image" width="250">
-                <ng-template pTemplate="indicator">
+                <ng-template #indicator>
                     <i class="pi pi-search"></i>
                 </ng-template>
-                <ng-template pTemplate="image">
+                <ng-template #image>
                     <img src="https://primefaces.org/cdn/primeng/images/galleria/galleria11.jpg" alt="image" width="250" />
                 </ng-template>
-                <ng-template pTemplate="preview" let-style="style" let-previewCallback="previewCallback">
+                <ng-template #preview let-style="style" let-previewCallback="previewCallback">
                     <img src="https://primefaces.org/cdn/primeng/images/galleria/galleria11.jpg" alt="image" [style]="style" (click)="previewCallback()" />
                 </ng-template>
             </p-image>
@@ -26,26 +27,26 @@ import { Component } from '@angular/core';
 export class TemplateDoc {
     code: Code = {
         basic: `<p-image src="https://primefaces.org/cdn/primeng/images/galleria/galleria11.jpg" [preview]="true" alt="Image" width="250">
-    <ng-template pTemplate="indicator">
+    <ng-template #indicator>
         <i class="pi pi-search"></i>
     </ng-template>
-    <ng-template pTemplate="image">
+    <ng-template #image>
         <img src="https://primefaces.org/cdn/primeng/images/galleria/galleria11.jpg" alt="image" width="250" />
     </ng-template>
-    <ng-template pTemplate="preview" let-style="style" let-previewCallback="previewCallback">
+    <ng-template #preview let-style="style" let-previewCallback="previewCallback">
         <img src="https://primefaces.org/cdn/primeng/images/galleria/galleria11.jpg" alt="image" [style]="style" (click)="previewCallback()" />
     </ng-template>
 </p-image>`,
 
         html: `<div class="card flex justify-center">
     <p-image src="https://primefaces.org/cdn/primeng/images/galleria/galleria11.jpg" [preview]="true" alt="Image" width="250">
-        <ng-template pTemplate="indicator">
+        <ng-template #indicator>
             <i class="pi pi-search"></i>
         </ng-template>
-        <ng-template pTemplate="image">
+        <ng-template #image>
             <img src="https://primefaces.org/cdn/primeng/images/galleria/galleria11.jpg" alt="image" width="250" />
         </ng-template>
-        <ng-template pTemplate="preview" let-style="style" let-previewCallback="previewCallback">
+        <ng-template #preview let-style="style" let-previewCallback="previewCallback">
             <img src="https://primefaces.org/cdn/primeng/images/galleria/galleria11.jpg" alt="image" [style]="style" (click)="previewCallback()" />
         </ng-template>
     </p-image>

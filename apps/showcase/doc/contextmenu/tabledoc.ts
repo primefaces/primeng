@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 
 @Component({
     selector: 'context-menu-table-demo',
+    standalone: false,
     template: `
         <app-docsectiontext>
             <p>

@@ -3,6 +3,7 @@ import { Component } from '@angular/core';
 
 @Component({
     selector: 'form-doc',
+    standalone: false,
     template: `
         <app-docsectiontext>
             <p>Using Tailwind utilities for the responsive layout of a form with PrimeNG components.</p>

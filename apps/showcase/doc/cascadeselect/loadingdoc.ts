@@ -3,6 +3,7 @@ import { Component } from '@angular/core';
 
 @Component({
     selector: 'cascade-select-loading-demo',
+    standalone: false,
     template: `
         <app-docsectiontext>
             <p>Loading state can be used <i>loading</i> property.</p>

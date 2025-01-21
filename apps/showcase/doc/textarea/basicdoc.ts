@@ -3,6 +3,7 @@ import { Component } from '@angular/core';
 
 @Component({
     selector: 'basic-doc',
+    standalone: false,
     template: `
         <app-docsectiontext>
             <p>Textarea is applied to an input field with <i>pTextarea</i> directive.</p>

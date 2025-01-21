@@ -3,6 +3,7 @@ import { Component } from '@angular/core';
 
 @Component({
     selector: 'cascade-select-float-label-demo',
+    standalone: false,
     template: `
         <app-docsectiontext>
             <p>

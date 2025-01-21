@@ -3,6 +3,7 @@ import { Component } from '@angular/core';
 
 @Component({
     selector: 'size-doc',
+    standalone: false,
     template: `
         <app-docsectiontext>
             <p>Size of an icon is controlled with the font-size property of the element.</p>

@@ -1,16 +1,17 @@
 import { Code } from '@/domain/code';
 import { PhotoService } from '@/service/photoservice';
-import { Component, OnInit } from '@angular/core';
+import { Component, model, OnInit } from '@angular/core';
 
 @Component({
-    selector: 'template-doc',
+    selector: 'custom-content-doc',
+    standalone: false,
     template: `
         <app-docsectiontext>
             <p>Using <i>activeIndex</i>, Galleria is displayed with a specific initial image.</p>
         </app-docsectiontext>
         <div class="card flex justify-center">
-            <div *ngIf="images" class="grid grid-cols-12 gap-4" style="max-width: 800px;">
-                <div *ngFor="let image of images; let index = index" class="col-span-4" key="index">
+            <div *ngIf="images() && images().length > 0" class="grid grid-cols-12 gap-4" style="max-width: 800px;">
+                <div *ngFor="let image of images(); let index = index" class="col-span-4" key="index">
                     <img [src]="image.thumbnailImageSrc" [alt]="image.alt" style="cursor: pointer" (click)="imageClick(index)" />
                 </div>
             </div>
@@ -26,7 +27,7 @@ import { Component, OnInit } from '@angular/core';
                 [showItemNavigators]="true"
                 [showThumbnails]="false"
             >
-                <ng-template pTemplate="item" let-item>
+                <ng-template #item let-item>
                     <img [src]="item.itemImageSrc" style="width: 100%; display: block;" />
                 </ng-template>
             </p-galleria>
@@ -34,12 +35,12 @@ import { Component, OnInit } from '@angular/core';
         <app-code [code]="code" selector="galleria-full-screen-template-demo"></app-code>
     `
 })
-export class FullScreenTemplateDoc implements OnInit {
+export class CustomContentDoc implements OnInit {
     displayCustom: boolean | undefined;
 
     activeIndex: number = 0;
 
-    images: any[] | undefined;
+    images = model([]);
 
     responsiveOptions: any[] = [
         {
@@ -59,7 +60,7 @@ export class FullScreenTemplateDoc implements OnInit {
     constructor(private photoService: PhotoService) {}
 
     ngOnInit() {
-        this.photoService.getImages().then((images) => (this.images = images));
+        this.photoService.getImages().then((images) => this.images.set(images));
     }
 
     imageClick(index: number) {
@@ -69,41 +70,52 @@ export class FullScreenTemplateDoc implements OnInit {
 
     code: Code = {
         basic: `<p-galleria [(value)]="images" [(visible)]="displayCustom" [(activeIndex)]="activeIndex" [responsiveOptions]="responsiveOptions" [containerStyle]="{ 'max-width': '850px' }" [numVisible]="7" [circular]="true" [fullScreen]="true" [showItemNavigators]="true" [showThumbnails]="false">
-    <ng-template pTemplate="item" let-item>
+    <ng-template #item let-item>
         <img [src]="item.itemImageSrc" style="width: 100%; display: block;" />
     </ng-template>
 </p-galleria>`,
         html: `<div class="card flex justify-center">
-    <div *ngIf="images" class="grid grid-cols-12 gap-4" style="max-width: 800px;">
-        <div *ngFor="let image of images; let index = index" class="col-span-4" key="index">
+    <div *ngIf="images() && images().length > 0" class="grid grid-cols-12 gap-4" style="max-width: 800px;">
+        <div *ngFor="let image of images(); let index = index" class="col-span-4" key="index">
             <img [src]="image.thumbnailImageSrc" [alt]="image.alt" style="cursor: pointer" (click)="imageClick(index)" />
         </div>
     </div>
-    <p-galleria [(value)]="images" [(visible)]="displayCustom" [(activeIndex)]="activeIndex" [responsiveOptions]="responsiveOptions" [containerStyle]="{ 'max-width': '850px' }" [numVisible]="7" [circular]="true" [fullScreen]="true" [showItemNavigators]="true" [showThumbnails]="false">
-        <ng-template pTemplate="item" let-item>
+    <p-galleria
+        [(value)]="images"
+        [(visible)]="displayCustom"
+        [(activeIndex)]="activeIndex"
+        [responsiveOptions]="responsiveOptions"
+        [containerStyle]="{ 'max-width': '850px' }"
+        [numVisible]="7"
+        [circular]="true"
+        [fullScreen]="true"
+        [showItemNavigators]="true"
+        [showThumbnails]="false"
+    >
+        <ng-template #item let-item>
             <img [src]="item.itemImageSrc" style="width: 100%; display: block;" />
         </ng-template>
     </p-galleria>
 </div>`,
-        typescript: `import { Component, OnInit } from '@angular/core';
+        typescript: `import { Component, OnInit, model } from '@angular/core';
 import { PhotoService } from '@/service/photoservice';
 import { PhotoService } from '@/service/photoservice';
 import { GalleriaModule } from 'primeng/galleria';
 import { CommonModule } from '@angular/common';
 
 @Component({
-    selector: 'galleria-full-screen-template-demo',
-    templateUrl: './galleria-full-screen-template-demo.html',
+    selector: 'galleria-custom-content-demo',
+    templateUrl: './galleria-custom-content-demo.html',
     standalone: true,
     imports: [GalleriaModule, CommonModule],
     providers: [PhotoService]
 })
-export class GalleriaFullScreenTemplateDemo implements OnInit {
+export class GalleriaCustomContentDemo implements OnInit {
     displayCustom: boolean | undefined;
 
     activeIndex: number = 0;
 
-    images: any[] | undefined;
+    images = model([]);
 
     responsiveOptions: any[] = [
         {
@@ -123,7 +135,7 @@ export class GalleriaFullScreenTemplateDemo implements OnInit {
     constructor(private photoService: PhotoService) {}
 
     ngOnInit() {
-        this.photoService.getImages().then((images) => (this.images = images));
+        this.photoService.getImages().then((images) => this.images.set(images));
     }
 
     imageClick(index: number) {

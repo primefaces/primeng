@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 
 @Component({
     selector: 'password-style-doc',
+    standalone: false,
     template: `
         <app-docsectiontext>
             <p>

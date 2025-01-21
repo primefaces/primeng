@@ -3,6 +3,7 @@ import { Component } from '@angular/core';
 
 @Component({
     selector: 'datepicker-float-label-demo',
+    standalone: false,
     template: `
         <app-docsectiontext>
             <p>

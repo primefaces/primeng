@@ -95,7 +95,7 @@ export const AUTOCOMPLETE_VALUE_ACCESSOR: any = {
                 (blur)="onInputBlur($event)"
                 (paste)="onInputPaste($event)"
                 (keyup)="onInputKeyUp($event)"
-                [fluid]="hasFluid()"
+                [fluid]="hasFluid"
             />
             <ng-container *ngIf="filled && !disabled && showClear && !loading">
                 <TimesIcon *ngIf="!clearIconTemplate && !_clearIconTemplate" [styleClass]="'p-autocomplete-clear-icon'" (click)="clear()" [attr.aria-hidden]="true" />
@@ -1065,7 +1065,7 @@ export class AutoComplete extends BaseComponent implements AfterViewChecked, Aft
 
     handleSuggestionsChange() {
         if (this.loading) {
-            this._suggestions()?.length > 0 ? this.show() : !!this.emptyTemplate ? this.show() : this.hide();
+            this._suggestions()?.length > 0 || this.showEmptyMessage || !!this.emptyTemplate ? this.show() : this.hide();
             const focusedOptionIndex = this.overlayVisible && this.autoOptionFocus ? this.findFirstFocusedOptionIndex() : -1;
             this.focusedOptionIndex.set(focusedOptionIndex);
             this.suggestionsUpdated = true;
@@ -1415,7 +1415,7 @@ export class AutoComplete extends BaseComponent implements AfterViewChecked, Aft
         }
     }
 
-    hasFluid() {
+    get hasFluid() {
         const nativeElement = this.el.nativeElement;
         const fluidComponent = nativeElement.closest('p-fluid');
         return this.fluid || !!fluidComponent;

@@ -1,9 +1,10 @@
 import { Code } from '@/domain/code';
 import { PhotoService } from '@/service/photoservice';
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, model } from '@angular/core';
 
 @Component({
     selector: 'positioned-doc',
+    standalone: false,
     template: `
         <app-docsectiontext>
             <p>
@@ -14,7 +15,7 @@ import { Component, OnInit } from '@angular/core';
         <div class="card">
             <div class="flex flex-wrap gap-4 mb-8">
                 <div *ngFor="let option of positionOptions" class="flex items-center">
-                    <p-radiobutton [name]="option.label" [value]="option.value" [label]="option.label" [(ngModel)]="position" [inputId]="label" />
+                    <p-radiobutton [name]="option.label" [value]="option.value" [label]="option.label" [(ngModel)]="position" [inputId]="option.label" />
                     <label [for]="option.label" class="ml-2"> {{ option.label }} </label>
                 </div>
             </div>
@@ -23,7 +24,7 @@ import { Component, OnInit } from '@angular/core';
                 <label for="inside_cbox" class="ml-2"> Inside </label>
             </div>
             <p-galleria [(value)]="images" [indicatorsPosition]="position" [showIndicators]="true" [showThumbnails]="false" [showIndicatorsOnItem]="showIndicatorsOnItem" [containerStyle]="{ 'max-width': '640px', 'margin-top': '2em' }">
-                <ng-template pTemplate="item" let-item>
+                <ng-template #item let-item>
                     <img [src]="item.itemImageSrc" style="width: 100%; display: block;" />
                 </ng-template>
             </p-galleria>
@@ -32,7 +33,7 @@ import { Component, OnInit } from '@angular/core';
     `
 })
 export class PositionedDoc implements OnInit {
-    images: any[] | undefined;
+    images = model([]);
 
     position: string = 'bottom';
 
@@ -60,9 +61,7 @@ export class PositionedDoc implements OnInit {
     constructor(private photoService: PhotoService) {}
 
     ngOnInit() {
-        this.photoService.getImages().then((images) => {
-            this.images = images;
-        });
+        this.photoService.getImages().then((images) => this.images.set(images));
     }
 
     code: Code = {
@@ -73,7 +72,7 @@ export class PositionedDoc implements OnInit {
 </p-galleria>`,
         html: `<div class="card">
     <div class="flex flex-wrap gap-4 mb-8">
-        <p-radiobutton *ngFor="let option of positionOptions;" [name]="option.label" [value]="option.value" [label]="option.label" [(ngModel)]="position" [inputId]="label" />
+        <p-radiobutton [name]="option.label" [value]="option.value" [label]="option.label" [(ngModel)]="position" [inputId]="option.label" />
     </div>
     <div class="flex items-center">
         <p-checkbox [(ngModel)]="showIndicatorsOnItem" [binary]="true" inputId="binary" label="Inside" ngClass="mt-4" />
@@ -84,7 +83,7 @@ export class PositionedDoc implements OnInit {
         </ng-template>
     </p-galleria>
 </div>`,
-        typescript: `import { Component, OnInit } from '@angular/core';
+        typescript: `import { Component, OnInit, model } from '@angular/core';
 import { PhotoService } from '@/service/photoservice';
 import { GalleriaModule } from 'primeng/galleria';
 import { RadioButton } from 'primeng/radiobutton';
@@ -99,7 +98,7 @@ import { FormsModule } from '@angular/forms';
     providers: [PhotoService]
 })
 export class GalleriaIndicatorPositionedDemo implements OnInit {
-    images: any[] | undefined;
+    images = model([]);
 
     position: string = 'bottom';
 
@@ -127,9 +126,7 @@ export class GalleriaIndicatorPositionedDemo implements OnInit {
     constructor(private photoService: PhotoService) {}
 
     ngOnInit() {
-        this.photoService.getImages().then((images) => {
-            this.images = images;
-        });
+        this.photoService.getImages().then((images) => this.images.set(images));
     }
 }`,
         data: `

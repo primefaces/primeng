@@ -3,6 +3,7 @@ import { Component } from '@angular/core';
 
 @Component({
     selector: 'togglemask-doc',
+    standalone: false,
     template: `
         <app-docsectiontext>
             <p>When <i>toggleMask</i> is present, an icon is displayed to show the value as plain text.</p>

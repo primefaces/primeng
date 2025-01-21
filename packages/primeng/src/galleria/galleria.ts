@@ -7,10 +7,12 @@ import {
     ChangeDetectionStrategy,
     ChangeDetectorRef,
     Component,
+    ContentChild,
     ContentChildren,
     DoCheck,
     ElementRef,
     EventEmitter,
+    forwardRef,
     HostListener,
     Inject,
     inject,
@@ -256,23 +258,38 @@ export class Galleria extends BaseComponent implements OnChanges, OnDestroy {
 
     _activeIndex: number = 0;
 
+    @ContentChild('header', { descendants: false }) headerTemplate: TemplateRef<any> | undefined;
     headerFacet: any;
 
+    @ContentChild('footer', { descendants: false, static: false }) footerTemplate: TemplateRef<any> | undefined;
     footerFacet: any;
 
+    @ContentChild('indicator', { descendants: false }) indicatorTemplate: TemplateRef<any> | undefined;
     indicatorFacet: any;
 
+    @ContentChild('caption', { descendants: false }) captionTemplate: TemplateRef<any> | undefined;
     captionFacet: any;
 
+    @ContentChild('closeicon', { descendants: false }) _closeIconTemplate: TemplateRef<any> | undefined;
     closeIconTemplate: TemplateRef<any> | undefined;
 
+    @ContentChild('previousthumbnailicon', { descendants: false }) _previousThumbnailIconTemplate: TemplateRef<any> | undefined;
     previousThumbnailIconTemplate: TemplateRef<any> | undefined;
 
+    @ContentChild('nextthumbnailicon', { descendants: false }) _nextThumbnailIconTemplate: TemplateRef<any> | undefined;
     nextThumbnailIconTemplate: TemplateRef<any> | undefined;
 
+    @ContentChild('itempreviousicon', { descendants: false }) _itemPreviousIconTemplate: TemplateRef<any> | undefined;
     itemPreviousIconTemplate: TemplateRef<any> | undefined;
 
+    @ContentChild('itemnexticon', { descendants: false }) _itemNextIconTemplate: TemplateRef<any> | undefined;
     itemNextIconTemplate: TemplateRef<any> | undefined;
+
+    @ContentChild('item', { descendants: false }) _itemTemplate: TemplateRef<any> | undefined;
+    itemTemplate: TemplateRef<any> | undefined;
+
+    @ContentChild('thumbnail', { descendants: false, static: false }) _thumbnailTemplate: TemplateRef<any> | undefined;
+    thumbnailTemplate: TemplateRef<any> | undefined;
 
     maskVisible: boolean = false;
 
@@ -327,6 +344,14 @@ export class Galleria extends BaseComponent implements OnChanges, OnDestroy {
 
                 case 'caption':
                     this.captionFacet = item.template;
+                    break;
+
+                case 'item':
+                    this.itemTemplate = item.template;
+                    break;
+
+                case 'thumbnail':
+                    this.thumbnailTemplate = item.template;
                     break;
             }
         });
@@ -426,10 +451,10 @@ export class Galleria extends BaseComponent implements OnChanges, OnDestroy {
             [pFocusTrapDisabled]="!fullScreen"
         >
             <button *ngIf="galleria.fullScreen" type="button" class="p-galleria-close-button" (click)="maskHide.emit()" [attr.aria-label]="closeAriaLabel()" [attr.data-pc-section]="'closebutton'">
-                <TimesIcon *ngIf="!galleria.closeIconTemplate" [styleClass]="'p-galleria-close-icon'" />
-                <ng-template *ngTemplateOutlet="galleria.closeIconTemplate"></ng-template>
+                <TimesIcon *ngIf="!galleria.closeIconTemplate && !galleria._closeIconTemplate" [styleClass]="'p-galleria-close-icon'" />
+                <ng-template *ngTemplateOutlet="galleria.closeIconTemplate || galleria._closeIconTemplate"></ng-template>
             </button>
-            <div *ngIf="galleria.templates && galleria.headerFacet" class="p-galleria-header">
+            <div *ngIf="galleria.templates && (galleria.headerFacet || galleria.headerTemplate)" class="p-galleria-header">
                 <p-galleriaItemSlot type="header" [templates]="galleria.templates"></p-galleriaItemSlot>
             </div>
             <div class="p-galleria-content" [attr.aria-live]="galleria.autoPlay ? 'polite' : 'off'">
@@ -468,7 +493,7 @@ export class Galleria extends BaseComponent implements OnChanges, OnDestroy {
                     (stopSlideShow)="stopSlideShow()"
                 ></p-galleriaThumbnails>
             </div>
-            <div *ngIf="galleria.templates && galleria.footerFacet" class="p-galleria-footer">
+            <div *ngIf="shouldRenderFooter()" class="p-galleria-footer">
                 <p-galleriaItemSlot type="footer" [templates]="galleria.templates"></p-galleriaItemSlot>
             </div>
         </div>
@@ -541,6 +566,10 @@ export class GalleriaContent extends BaseComponent implements DoCheck {
         }
     }
 
+    shouldRenderFooter() {
+        return (this.galleria.footerFacet && this.galleria.templates.toArray().length > 0) || this.galleria.footerTemplate;
+    }
+
     galleriaClass() {
         const thumbnailsPosClass = this.galleria.showThumbnails && this.getPositionClass('p-galleria-thumbnails', this.galleria.thumbnailsPosition as string);
         const indicatorPosClass = this.galleria.showIndicators && this.getPositionClass('p-galleria-indicators', this.galleria.indicatorsPosition as string);
@@ -599,7 +628,7 @@ export class GalleriaContent extends BaseComponent implements DoCheck {
     selector: 'p-galleriaItemSlot',
     standalone: false,
     template: `
-        <ng-container *ngIf="contentTemplate">
+        <ng-container *ngIf="shouldRender()">
             <ng-container *ngTemplateOutlet="contentTemplate; context: context"></ng-container>
         </ng-container>
     `,
@@ -614,9 +643,25 @@ export class GalleriaItemSlot {
         return this._item;
     }
 
+    shouldRender() {
+        return (
+            this.contentTemplate ||
+            this.galleria._itemTemplate ||
+            this.galleria.itemTemplate ||
+            this.galleria.captionTemplate ||
+            this.galleria.captionTemplate ||
+            this.galleria.captionFacet ||
+            this.galleria.thumbnailTemplate ||
+            this.galleria._thumbnailTemplate ||
+            this.galleria.footerTemplate
+        );
+    }
+
+    galleria: Galleria = inject(Galleria);
+
     set item(item: any) {
         this._item = item;
-        if (this.templates) {
+        if (this.templates && this.templates?.toArray().length > 0) {
             this.templates.forEach((item) => {
                 if (item.getType() === this.type) {
                     switch (this.type) {
@@ -626,9 +671,43 @@ export class GalleriaItemSlot {
                             this.context = { $implicit: this.item };
                             this.contentTemplate = item.template;
                             break;
+                        case 'footer':
+                            this.context = { $implicit: this.item };
+                            this.contentTemplate = item.template;
+                            break;
                     }
                 }
             });
+        } else {
+            this.getContentTemplate();
+        }
+    }
+
+    getContentTemplate() {
+        switch (this.type) {
+            case 'item':
+                this.context = { $implicit: this.item };
+                this.contentTemplate = this.galleria._itemTemplate || this.galleria.itemTemplate;
+                break;
+            case 'caption':
+                this.context = { $implicit: this.item };
+                this.contentTemplate = this.galleria.captionTemplate || this.galleria.captionFacet;
+                break;
+            case 'thumbnail':
+                this.context = { $implicit: this.item };
+                this.contentTemplate = this.galleria.thumbnailTemplate || this.galleria._thumbnailTemplate;
+                break;
+            case 'indicator':
+                this.context = { $implicit: this.index };
+                this.contentTemplate = this.galleria.indicatorTemplate || this.galleria.indicatorFacet;
+                break;
+            case 'footer':
+                this.context = { $implicit: this.item };
+                this.contentTemplate = this.galleria.footerTemplate || this.galleria.footerFacet;
+                break;
+            default:
+                this.context = { $implicit: this.item };
+                this.contentTemplate = this.galleria._itemTemplate || this.galleria.itemTemplate;
         }
     }
 
@@ -641,28 +720,37 @@ export class GalleriaItemSlot {
     _item: any;
 
     ngAfterContentInit() {
-        this.templates?.forEach((item) => {
-            if (item.getType() === this.type) {
-                switch (this.type) {
-                    case 'item':
-                    case 'caption':
-                    case 'thumbnail':
-                        this.context = { $implicit: this.item };
-                        this.contentTemplate = item.template;
-                        break;
+        if (this.templates && this.templates.toArray().length > 0) {
+            this.templates?.forEach((item) => {
+                if (item.getType() === this.type) {
+                    switch (this.type) {
+                        case 'item':
+                        case 'caption':
+                        case 'thumbnail':
+                            this.context = { $implicit: this.item };
+                            this.contentTemplate = item.template;
+                            break;
 
-                    case 'indicator':
-                        this.context = { $implicit: this.index };
-                        this.contentTemplate = item.template;
-                        break;
+                        case 'indicator':
+                            this.context = { $implicit: this.index };
+                            this.contentTemplate = item.template;
+                            break;
 
-                    default:
-                        this.context = {};
-                        this.contentTemplate = item.template;
-                        break;
+                        case 'footer':
+                            this.context = { $implicit: this.item };
+                            this.contentTemplate = item.template;
+                            break;
+
+                        default:
+                            this.context = { $implicit: this.item };
+                            this.contentTemplate = item.template;
+                            break;
+                    }
                 }
-            }
-        });
+            });
+        } else {
+            this.getContentTemplate();
+        }
     }
 }
 
@@ -681,8 +769,8 @@ export class GalleriaItemSlot {
                 (focus)="onButtonFocus('left')"
                 (blur)="onButtonBlur('left')"
             >
-                <ChevronLeftIcon *ngIf="!galleria.itemPreviousIconTemplate" [styleClass]="'p-galleria-prev-icon'" />
-                <ng-template *ngTemplateOutlet="galleria.itemPreviousIconTemplate"></ng-template>
+                <ChevronLeftIcon *ngIf="!galleria.itemPreviousIconTemplate && !galleria._itemPreviousIconTemplate" [styleClass]="'p-galleria-prev-icon'" />
+                <ng-template *ngTemplateOutlet="galleria.itemPreviousIconTemplate || galleria._itemPreviousIconTemplate"></ng-template>
             </button>
             <div [id]="id + '_item_' + activeIndex" role="group" class="p-galleria-item" [attr.aria-label]="ariaSlideNumber(activeIndex + 1)" [attr.aria-roledescription]="ariaSlideLabel()">
                 <p-galleriaItemSlot type="item" [item]="activeItem" [templates]="templates" class="p-galleria-item"></p-galleriaItemSlot>
@@ -697,10 +785,10 @@ export class GalleriaItemSlot {
                 (focus)="onButtonFocus('right')"
                 (blur)="onButtonBlur('right')"
             >
-                <ChevronRightIcon *ngIf="!galleria.itemNextIconTemplate" [styleClass]="'p-galleria-next-icon'" />
-                <ng-template *ngTemplateOutlet="galleria.itemNextIconTemplate"></ng-template>
+                <ChevronRightIcon *ngIf="!galleria.itemNextIconTemplate && !galleria._itemNextIconTemplate" [styleClass]="'p-galleria-next-icon'" />
+                <ng-template *ngTemplateOutlet="galleria.itemNextIconTemplate || galleria._itemNextIconTemplate"></ng-template>
             </button>
-            <div class="p-galleria-caption" *ngIf="captionFacet">
+            <div class="p-galleria-caption" *ngIf="captionFacet || galleria.captionTemplate">
                 <p-galleriaItemSlot type="caption" [item]="activeItem" [templates]="templates"></p-galleriaItemSlot>
             </div>
         </div>
@@ -716,7 +804,7 @@ export class GalleriaItemSlot {
                 [attr.aria-selected]="activeIndex === index"
                 [attr.aria-controls]="id + '_item_' + index"
             >
-                <button type="button" tabIndex="-1" class="p-galleria-indicator-button" *ngIf="!indicatorFacet"></button>
+                <button type="button" tabIndex="-1" class="p-galleria-indicator-button" *ngIf="!indicatorFacet && !galleria.indicatorTemplate"></button>
                 <p-galleriaItemSlot type="indicator" [index]="index" [templates]="templates"></p-galleriaItemSlot>
             </li>
         </ul>
@@ -907,11 +995,11 @@ export class GalleriaItem implements OnChanges {
                     pRipple
                     [attr.aria-label]="ariaPrevButtonLabel()"
                 >
-                    <ng-container *ngIf="!galleria.previousThumbnailIconTemplate">
+                    <ng-container *ngIf="!galleria.previousThumbnailIconTemplate && !galleria._previousThumbnailIconTemplate">
                         <ChevronLeftIcon *ngIf="!isVertical" [styleClass]="'p-galleria-thumbnail-prev-icon'" />
                         <ChevronUpIcon *ngIf="isVertical" [styleClass]="'p-galleria-thumbnail-prev-icon'" />
                     </ng-container>
-                    <ng-template *ngTemplateOutlet="galleria.previousThumbnailIconTemplate"></ng-template>
+                    <ng-template *ngTemplateOutlet="galleria.previousThumbnailIconTemplate || galleria._previousThumbnailIconTemplate"></ng-template>
                 </button>
                 <div class="p-galleria-thumbnails-viewport" [ngStyle]="{ height: isVertical ? contentHeight : '' }">
                     <div #itemsContainer class="p-galleria-thumbnail-items" (transitionend)="onTransitionEnd()" (touchstart)="onTouchStart($event)" (touchmove)="onTouchMove($event)" role="tablist">
@@ -956,11 +1044,11 @@ export class GalleriaItem implements OnChanges {
                     pRipple
                     [attr.aria-label]="ariaNextButtonLabel()"
                 >
-                    <ng-container *ngIf="!galleria.nextThumbnailIconTemplate">
+                    <ng-container *ngIf="!galleria.nextThumbnailIconTemplate && !galleria._nextThumbnailIconTemplate">
                         <ChevronRightIcon *ngIf="!isVertical" [ngClass]="'p-galleria-thumbnail-next-icon'" />
                         <ChevronDownIcon *ngIf="isVertical" [ngClass]="'p-galleria-thumbnail-next-icon'" />
                     </ng-container>
-                    <ng-template *ngTemplateOutlet="galleria.nextThumbnailIconTemplate"></ng-template>
+                    <ng-template *ngTemplateOutlet="galleria.nextThumbnailIconTemplate || galleria._nextThumbnailIconTemplate"></ng-template>
                 </button>
             </div>
         </div>

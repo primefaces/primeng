@@ -3,6 +3,7 @@ import { Component } from '@angular/core';
 
 @Component({
     selector: 'button-link-demo',
+    standalone: false,
     template: `
         <app-docsectiontext>
             <p>A button can be rendered as a link as well.</p>

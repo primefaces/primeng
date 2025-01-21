@@ -3,6 +3,7 @@ import { Component } from '@angular/core';
 
 @Component({
     selector: 'avatar-template-demo',
+    standalone: false,
     template: `
         <app-docsectiontext>
             <p>Content can easily be customized with the dynamic content instead of using the built-in modes.</p>

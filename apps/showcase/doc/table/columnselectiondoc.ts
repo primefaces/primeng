@@ -6,6 +6,7 @@ import { MessageService } from 'primeng/api';
 
 @Component({
     selector: 'column-selection-doc',
+    standalone: false,
     template: ` <app-docsectiontext>
             <p>Row selection with an element inside a column is implemented with templating.</p>
         </app-docsectiontext>
@@ -13,7 +14,7 @@ import { MessageService } from 'primeng/api';
             <div class="card">
                 <p-toast />
                 <p-table [value]="products" [tableStyle]="{ 'min-width': '50rem' }">
-                    <ng-template pTemplate="header">
+                    <ng-template #header>
                         <tr>
                             <th>Code</th>
                             <th>Name</th>
@@ -22,7 +23,7 @@ import { MessageService } from 'primeng/api';
                             <th style="width: 5rem"></th>
                         </tr>
                     </ng-template>
-                    <ng-template pTemplate="body" let-product>
+                    <ng-template #body let-product>
                         <tr>
                             <td>{{ product.code }}</td>
                             <td>{{ product.name }}</td>
@@ -65,7 +66,7 @@ export class ColumnSelectionDoc {
     code: Code = {
         basic: `<p-toast />
 <p-table [value]="products" [tableStyle]="{ 'min-width': '50rem' }">
-    <ng-template pTemplate="header">
+    <ng-template #header>
         <tr>
             <th>Code</th>
             <th>Name</th>
@@ -74,7 +75,7 @@ export class ColumnSelectionDoc {
             <th style="width: 5rem"></th>
         </tr>
     </ng-template>
-    <ng-template pTemplate="body" let-product>
+    <ng-template #body let-product>
         <tr>
             <td>{{ product.code }}</td>
             <td>{{ product.name }}</td>
@@ -89,7 +90,7 @@ export class ColumnSelectionDoc {
         html: `<div class="card">
     <p-toast />
     <p-table [value]="products" [tableStyle]="{ 'min-width': '50rem' }">
-        <ng-template pTemplate="header">
+        <ng-template #header>
             <tr>
                 <th>Code</th>
                 <th>Name</th>
@@ -98,7 +99,7 @@ export class ColumnSelectionDoc {
                 <th style="width: 5rem"></th>
             </tr>
         </ng-template>
-        <ng-template pTemplate="body" let-product>
+        <ng-template #body let-product>
             <tr>
                 <td>{{ product.code }}</td>
                 <td>{{ product.name }}</td>

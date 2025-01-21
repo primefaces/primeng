@@ -3,10 +3,11 @@ import { Component } from '@angular/core';
 
 @Component({
     selector: 'speed-dial-import-doc',
+    standalone: false,
     template: ` <app-code [code]="code" [hideToggleCode]="true"></app-code> `
 })
 export class ImportDoc {
     code: Code = {
-        typescript: `import { SpeedDial } from 'primeng/speeddial';`
+        typescript: `import { SpeedDialModule } from 'primeng/speeddial';`
     };
 }

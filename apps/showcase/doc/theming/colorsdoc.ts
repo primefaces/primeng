@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 
 @Component({
     selector: 'colors-doc',
+    standalone: false,
     template: `
         <app-docsectiontext>
             <p>Color palette of a preset is defined by the <i>primitive</i> design token group. You can access colors using CSS variables or the <i>$dt</i> utility.</p>

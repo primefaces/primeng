@@ -3,6 +3,7 @@ import { Component } from '@angular/core';
 
 @Component({
     selector: 'router-doc',
+    standalone: false,
     template: `
         <app-docsectiontext>
             <p>Items with navigation are defined with templating to be able to use a routerLink directive, an external link or programmatic navigation.</p>

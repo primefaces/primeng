@@ -1,22 +1,23 @@
 import { Code } from '@/domain/code';
 import { PhotoService } from '@/service/photoservice';
-import { Component, OnInit } from '@angular/core';
+import { Component, model, OnInit } from '@angular/core';
 
 @Component({
     selector: 'galleria-caption-demo',
+    standalone: false,
     template: `
         <app-docsectiontext>
             <p>Description of an image is specified with the <i>caption</i> template.</p>
         </app-docsectiontext>
         <div class="card">
             <p-galleria [(value)]="images" [responsiveOptions]="responsiveOptions" [containerStyle]="{ 'max-width': '640px' }" [numVisible]="5">
-                <ng-template pTemplate="item" let-item>
+                <ng-template #item let-item>
                     <img [src]="item.itemImageSrc" style="width: 100%; display: block;" />
                 </ng-template>
-                <ng-template pTemplate="thumbnail" let-item>
+                <ng-template #thumbnail let-item>
                     <img [src]="item.thumbnailImageSrc" style="display: block;" />
                 </ng-template>
-                <ng-template pTemplate="caption" let-item>
+                <ng-template #caption let-item>
                     <div class="text-xl mb-2 font-bold">{{ item.title }}</div>
                     <p class="text-white">{{ item.alt }}</p>
                 </ng-template>
@@ -26,7 +27,7 @@ import { Component, OnInit } from '@angular/core';
     `
 })
 export class CaptionDoc implements OnInit {
-    images: any[] | undefined;
+    images = model([]);
 
     responsiveOptions: any[] = [
         {
@@ -42,37 +43,37 @@ export class CaptionDoc implements OnInit {
     constructor(private photoService: PhotoService) {}
 
     ngOnInit() {
-        this.photoService.getImages().then((images) => (this.images = images));
+        this.photoService.getImages().then((images) => this.images.set(images));
     }
 
     code: Code = {
         basic: `<p-galleria [(value)]="images" [responsiveOptions]="responsiveOptions" [containerStyle]="{ 'max-width': '640px' }" [numVisible]="5">
-    <ng-template pTemplate="item" let-item>
+    <ng-template #item let-item>
         <img [src]="item.itemImageSrc" style="width: 100%; display: block;" />
     </ng-template>
-    <ng-template pTemplate="thumbnail" let-item>
+    <ng-template #thumbnail let-item>
         <img [src]="item.thumbnailImageSrc" style="display: block;" />
     </ng-template>
-    <ng-template pTemplate="caption" let-item>
+    <ng-template #caption let-item>
         <div class="text-xl mb-2 font-bold">{{ item.title }}</div>
         <p class="text-white">{{ item.alt }}</p>
     </ng-template>
 </p-galleria>`,
         html: `<div class="card">
     <p-galleria [(value)]="images" [responsiveOptions]="responsiveOptions" [containerStyle]="{ 'max-width': '640px' }" [numVisible]="5">
-        <ng-template pTemplate="item" let-item>
+        <ng-template #item let-item>
             <img [src]="item.itemImageSrc" style="width: 100%; display: block;"  />
         </ng-template>
-        <ng-template pTemplate="thumbnail" let-item>
+        <ng-template #thumbnail let-item>
             <img [src]="item.thumbnailImageSrc" style="display: block;" />
         </ng-template>
-        <ng-template pTemplate="caption" let-item>
+        <ng-template #caption let-item>
             <div class="text-xl mb-2 font-bold">{{ item.title }}</div>
             <p class="text-white">{{ item.alt }}</p>
         </ng-template>
     </p-galleria>
 </div>`,
-        typescript: `import { Component, OnInit } from '@angular/core';
+        typescript: `import { Component, OnInit, model } from '@angular/core';
 import { PhotoService } from '@/service/photoservice';
 import { GalleriaModule } from 'primeng/galleria';
 
@@ -84,7 +85,7 @@ import { GalleriaModule } from 'primeng/galleria';
     providers: [PhotoService]
 })
 export class GalleriaCaptionDemo implements OnInit {
-    images: any[] | undefined;
+    images = model([]);
 
     responsiveOptions: any[] = [
         {
@@ -100,8 +101,9 @@ export class GalleriaCaptionDemo implements OnInit {
     constructor(private photoService: PhotoService) {}
 
     ngOnInit() {
-        this.photoService.getImages().then((images) => (this.images = images));
+        this.photoService.getImages().then((images) => this.images.set(images));
     }
+
 }`,
         data: `
 /* PhotoService */

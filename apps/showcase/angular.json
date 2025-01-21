@@ -28,6 +28,11 @@
                         "assets": [
                             "assets"
                         ],
+                        "stylePreprocessorOptions": {
+                            "sass": {
+                                "silenceDeprecations": ["import"]
+                            }
+                        },
                         "styles": ["assets/styles/global.scss"],
                         "scripts": [
                             "./node_modules/prismjs/prism.js",

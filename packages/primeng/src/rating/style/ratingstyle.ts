@@ -61,7 +61,7 @@ const classes = {
         'p-rating-option',
         {
             'p-rating-option-active': value <= props.modelValue,
-            'p-focus-visible': value === instance.focusedOptionIndex && instance.isFocusVisibleItem
+            'p-focus-visible': value === instance.focusedOptionIndex() && instance.isFocusVisibleItem
         }
     ],
     onIcon: 'p-rating-icon p-rating-on-icon',

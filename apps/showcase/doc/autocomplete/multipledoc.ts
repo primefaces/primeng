@@ -8,6 +8,7 @@ interface AutoCompleteCompleteEvent {
 
 @Component({
     selector: 'autocomplete-multiple-demo',
+    standalone: false,
     template: ` <app-docsectiontext>
             <p>Multiple mode is enabled using <i>multiple</i> property used to select more than one value from the autocomplete. In this case, value reference should be an array.</p>
         </app-docsectiontext>

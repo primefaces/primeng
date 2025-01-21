@@ -3,6 +3,7 @@ import { Component } from '@angular/core';
 
 @Component({
     selector: 'avatar-group-demo',
+    standalone: false,
     template: `
         <app-docsectiontext>
             <p>Grouping is available by wrapping multiple Avatar components inside an <i>AvatarGroup</i>.</p>

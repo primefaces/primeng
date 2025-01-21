@@ -274,7 +274,7 @@ export class PanelMenuSub extends BaseComponent {
 
 @Component({
     selector: 'p-panelMenuList, p-panel-menu-list',
-    imports: [CommonModule, PanelMenuSub, RouterModule, TooltipModule, AngleDownIcon, AngleRightIcon, ChevronDownIcon, ChevronRightIcon, SharedModule],
+    imports: [CommonModule, PanelMenuSub, RouterModule, TooltipModule, SharedModule],
     standalone: true,
     template: `
         <p-panelmenu-sub

@@ -5,6 +5,7 @@ import { ChangeDetectionStrategy, ChangeDetectorRef, Component } from '@angular/
 
 @Component({
     selector: 'multiple-selection-doc',
+    standalone: false,
     template: ` <app-docsectiontext>
             <p>
                 More than one row is selectable by setting <i>selectionMode</i> to <i>multiple</i>. By default in multiple selection mode, metaKey press (e.g. <i>⌘</i>) is not necessary to add to existing selections. When the optional
@@ -65,13 +66,30 @@ export class MultipleSelectionDoc {
     <p-toggleswitch [(ngModel)]="metaKey" inputId="input-metakey" />
     <label for="input-metakey">MetaKey</label>
 </div>
-<p-table
-    [value]="products"
-    selectionMode="multiple"
-    [(selection)]="selectedProducts"
-    [metaKeySelection]="metaKey"
-    dataKey="code"
-    [tableStyle]="{ 'min-width': '50rem' }">
+<p-table [value]="products" selectionMode="multiple" [(selection)]="selectedProducts" [metaKeySelection]="metaKey" dataKey="code" [tableStyle]="{ 'min-width': '50rem' }">
+    <ng-template #header>
+        <tr>
+            <th>Code</th>
+            <th>Name</th>
+            <th>Category</th>
+            <th>Quantity</th>
+        </tr>
+    </ng-template>
+    <ng-template #body let-product let-rowIndex="rowIndex">
+        <tr [pSelectableRow]="product" [pSelectableRowIndex]="rowIndex">
+            <td>{{ product.code }}</td>
+            <td>{{ product.name }}</td>
+            <td>{{ product.category }}</td>
+            <td>{{ product.quantity }}</td>
+        </tr>
+    </ng-template>
+</p-table>`,
+        html: `<div class="card">
+    <div class="flex justify-center items-center mb-6 gap-2">
+        <p-toggleswitch [(ngModel)]="metaKey" inputId="input-metakey" />
+        <label for="input-metakey">MetaKey</label>
+    </div>
+    <p-table [value]="products" selectionMode="multiple" [(selection)]="selectedProducts" [metaKeySelection]="metaKey" dataKey="code" [tableStyle]="{ 'min-width': '50rem' }">
         <ng-template #header>
             <tr>
                 <th>Code</th>
@@ -88,35 +106,6 @@ export class MultipleSelectionDoc {
                 <td>{{ product.quantity }}</td>
             </tr>
         </ng-template>
-</p-table>`,
-        html: `<div class="card">
-    <div class="flex justify-center items-center mb-6 gap-2">
-        <p-toggleswitch [(ngModel)]="metaKey" inputId="input-metakey" />
-        <label for="input-metakey">MetaKey</label>
-    </div>
-    <p-table
-        [value]="products"
-        selectionMode="multiple"
-        [(selection)]="selectedProducts"
-        [metaKeySelection]="metaKey"
-        dataKey="code"
-        [tableStyle]="{ 'min-width': '50rem' }">
-            <ng-template #header>
-                <tr>
-                    <th>Code</th>
-                    <th>Name</th>
-                    <th>Category</th>
-                    <th>Quantity</th>
-                </tr>
-            </ng-template>
-            <ng-template #body let-product let-rowIndex="rowIndex">
-                <tr [pSelectableRow]="product" [pSelectableRowIndex]="rowIndex">
-                    <td>{{ product.code }}</td>
-                    <td>{{ product.name }}</td>
-                    <td>{{ product.category }}</td>
-                    <td>{{ product.quantity }}</td>
-                </tr>
-            </ng-template>
     </p-table>
 </div>`,
         typescript: `import { Component, OnInit } from '@angular/core';

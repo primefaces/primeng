@@ -8,7 +8,6 @@ import { AppFooterComponent } from './footer/app.footer.component';
 import { AppMenuComponent } from './menu/app.menu.component';
 import { AppNewsComponent } from './news/app.news.component';
 import { AppTopBarComponent } from './topbar/app.topbar.component';
-import { AppDesignerComponent } from '@/components/layout/designer/app.designer.component';
 
 @Component({
     selector: 'app-main',

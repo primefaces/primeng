@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 
 @Component({
     selector: 'focusring-doc',
+    standalone: false,
     template: `
         <app-docsectiontext>
             <p>Focus ring defines the outline width, style, color and offset. Let's use a thicker ring with the primary color for the outline.</p>

@@ -6,6 +6,7 @@ import { ChangeDetectorRef, Component, effect, inject, OnInit, PLATFORM_ID } fro
 
 @Component({
     selector: 'chart-line-demo',
+    standalone: false,
     template: `
         <app-docsectiontext>
             <p>A line chart or line graph is a type of chart which displays information as a series of data points called 'markers' connected by straight line segments.</p>

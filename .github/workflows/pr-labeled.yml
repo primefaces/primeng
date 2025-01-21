@@ -1,0 +1,28 @@
+name: Comment on Pull Request
+
+on:
+  pull_request:
+    types: [opened, reopened, synchronize, edited]
+
+permissions: write-all
+
+jobs:
+  pr-labeled:
+    runs-on: ubuntu-latest
+    steps:
+        - name: Checkout Repository
+          uses: actions/checkout@v3
+
+        - name: Add Comment to PR
+          uses: actions/github-script@v6
+          with:
+            github-token: ${{ secrets.GITHUB_TOKEN }}
+            script: |
+                const prNumber = context.payload.pull_request.number;
+                const comment = "Thank you for your contribution! We will review your PR shortly. Please make sure to [manually link it to an issue](https://docs.github.com/en/issues/tracking-your-work-with-issues/linking-a-pull-request-to-an-issue#manually-linking-a-pull-request-or-branch-to-an-issue-using-the-issue-sidebar) for proper tracking.";
+                await github.rest.issues.createComment({
+                    owner: context.repo.owner,
+                    repo: context.repo.repo,
+                    issue_number: prNumber,
+                    body: comment,
+                });

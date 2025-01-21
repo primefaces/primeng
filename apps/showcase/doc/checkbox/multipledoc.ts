@@ -3,6 +3,7 @@ import { Component } from '@angular/core';
 
 @Component({
     selector: 'checkbox-multiple-demo',
+    standalone: false,
     template: `
         <app-docsectiontext>
             <p>Multiple checkboxes can be grouped together.</p>

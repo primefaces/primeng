@@ -5,6 +5,7 @@ import { Component } from '@angular/core';
 
 @Component({
     selector: 'lazy-doc',
+    standalone: false,
     template: `
         <app-docsectiontext>
             <p>Using the <i>onActivate</i> event, data can be loaded in a lazy manner before displaying it in a table.</p>
@@ -16,7 +17,7 @@ import { Component } from '@angular/core';
                 </ng-template>
                 <ng-template #content>
                     <p-table [value]="products" responsiveLayout="scroll">
-                        <ng-template pTemplate="header">
+                        <ng-template #header>
                             <tr>
                                 <th>Code</th>
                                 <th>Name</th>
@@ -24,7 +25,7 @@ import { Component } from '@angular/core';
                                 <th>Quantity</th>
                             </tr>
                         </ng-template>
-                        <ng-template pTemplate="body" let-product>
+                        <ng-template #body let-product>
                             <tr>
                                 <td>{{ product.code }}</td>
                                 <td>{{ product.name }}</td>
@@ -51,7 +52,7 @@ export class LazyDoc {
     </ng-template>
     <ng-template #content>
         <p-table [value]="products" responsiveLayout="scroll">
-            <ng-template pTemplate="header">
+            <ng-template #header>
                 <tr>
                     <th>Code</th>
                     <th>Name</th>
@@ -59,7 +60,7 @@ export class LazyDoc {
                     <th>Quantity</th>
                 </tr>
             </ng-template>
-            <ng-template pTemplate="body" let-product>
+            <ng-template #body let-product>
                 <tr>
                     <td>{{ product.code }}</td>
                     <td>{{ product.name }}</td>
@@ -77,7 +78,7 @@ export class LazyDoc {
         </ng-template>
         <ng-template #content>
             <p-table [value]="products" responsiveLayout="scroll">
-                <ng-template pTemplate="header">
+                <ng-template #header>
                     <tr>
                         <th>Code</th>
                         <th>Name</th>
@@ -85,7 +86,7 @@ export class LazyDoc {
                         <th>Quantity</th>
                     </tr>
                 </ng-template>
-                <ng-template pTemplate="body" let-product>
+                <ng-template #body let-product>
                     <tr>
                         <td>{{ product.code }}</td>
                         <td>{{ product.name }}</td>

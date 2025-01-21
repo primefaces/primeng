@@ -853,6 +853,12 @@ export class Select extends BaseComponent implements OnInit, AfterViewInit, Afte
 
     @ViewChild('lastHiddenFocusableEl') lastHiddenFocusableElementOnOverlay: Nullable<ElementRef>;
 
+    get hasFluid() {
+        const nativeElement = this.el.nativeElement;
+        const fluidComponent = nativeElement.closest('p-fluid');
+        return this.fluid || !!fluidComponent;
+    }
+
     // @todo to be refactored
     @HostBinding('class') get hostClass() {
         const classes = this._componentStyle.classes
@@ -1304,7 +1310,7 @@ export class Select extends BaseComponent implements OnInit, AfterViewInit, Afte
         }
 
         if (this.selectedOptionUpdated && this.itemsWrapper) {
-            let selectedItem = <any>findSingle(this.overlayViewChild?.overlayViewChild?.nativeElement, 'li.p-highlight');
+            let selectedItem = <any>findSingle(this.overlayViewChild?.overlayViewChild?.nativeElement, 'li.p-select-option-selected');
             if (selectedItem) {
                 scrollInView(this.itemsWrapper, selectedItem);
             }
@@ -1375,7 +1381,7 @@ export class Select extends BaseComponent implements OnInit, AfterViewInit, Afte
     }
 
     allowModelChange() {
-        return this.autoDisplayFirst && !this.placeholder() && (this.modelValue() === undefined || this.modelValue() === null) && !this.editable && this.options && this.options.length;
+        return !!this.modelValue() && !this.placeholder() && (this.modelValue() === undefined || this.modelValue() === null) && !this.editable && this.options && this.options.length;
     }
 
     isSelected(option) {
@@ -1512,7 +1518,7 @@ export class Select extends BaseComponent implements OnInit, AfterViewInit, Afte
         !matched && this.focusedOptionIndex.set(-1);
 
         this.onModelChange(value);
-        this.updateModel(value, event);
+        this.updateModel(value || null, event);
         setTimeout(() => {
             this.onChange.emit({ originalEvent: event, value: value });
         }, 1);
@@ -1537,7 +1543,7 @@ export class Select extends BaseComponent implements OnInit, AfterViewInit, Afte
 
     onOverlayAnimationStart(event: AnimationEvent) {
         if (event.toState === 'visible') {
-            this.itemsWrapper = <any>findSingle(this.overlayViewChild?.overlayViewChild?.nativeElement, this.virtualScroll ? '.p-scroller' : '.p-dropdown-items-wrapper');
+            this.itemsWrapper = <any>findSingle(this.overlayViewChild?.overlayViewChild?.nativeElement, this.virtualScroll ? '.p-scroller' : '.p-select-list-container');
             this.virtualScroll && this.scroller?.setContentEl(this.itemsViewChild?.nativeElement);
 
             if (this.options && this.options.length) {
@@ -1547,8 +1553,7 @@ export class Select extends BaseComponent implements OnInit, AfterViewInit, Afte
                         this.scroller?.scrollToIndex(selectedIndex);
                     }
                 } else {
-                    let selectedListItem = findSingle(this.itemsWrapper, '.p-dropdown-item.p-highlight');
-
+                    let selectedListItem = findSingle(this.itemsWrapper, '.p-select-option.p-select-option-selected');
                     if (selectedListItem) {
                         selectedListItem.scrollIntoView({ block: 'nearest', inline: 'nearest' });
                     }
@@ -1998,19 +2003,7 @@ export class Select extends BaseComponent implements OnInit, AfterViewInit, Afte
         let optionIndex = -1;
         let matched = false;
 
-        if (this.focusedOptionIndex() !== -1) {
-            optionIndex = this.visibleOptions()
-                .slice(this.focusedOptionIndex())
-                .findIndex((option) => this.isOptionMatched(option));
-            optionIndex =
-                optionIndex === -1
-                    ? this.visibleOptions()
-                          .slice(0, this.focusedOptionIndex())
-                          .findIndex((option) => this.isOptionMatched(option))
-                    : optionIndex + this.focusedOptionIndex();
-        } else {
-            optionIndex = this.visibleOptions().findIndex((option) => this.isOptionMatched(option));
-        }
+        optionIndex = this.visibleOptions().findIndex((option) => this.isOptionMatched(option));
 
         if (optionIndex !== -1) {
             matched = true;
@@ -2021,7 +2014,9 @@ export class Select extends BaseComponent implements OnInit, AfterViewInit, Afte
         }
 
         if (optionIndex !== -1) {
-            this.changeFocusedOptionIndex(event, optionIndex);
+            setTimeout(() => {
+                this.changeFocusedOptionIndex(event, optionIndex);
+            });
         }
 
         if (this.searchTimeout) {

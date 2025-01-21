@@ -3,6 +3,7 @@ import { Component } from '@angular/core';
 
 @Component({
     selector: 'card-accessibility-doc',
+    standalone: false,
     template: ` <app-docsectiontext>
         <div class="doc-section-description">
             <h3>Screen Reader</h3>

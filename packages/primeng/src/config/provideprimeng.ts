@@ -1,4 +1,4 @@
-import { APP_INITIALIZER, EnvironmentProviders, InjectionToken, makeEnvironmentProviders } from '@angular/core';
+import { EnvironmentProviders, inject, InjectionToken, makeEnvironmentProviders, provideAppInitializer } from '@angular/core';
 import { PrimeNG, PrimeNGConfigType } from './primeng';
 
 export const PRIME_NG_CONFIG = new InjectionToken<PrimeNGConfigType>('PRIME_NG_CONFIG');
@@ -10,13 +10,11 @@ export function providePrimeNG(...features: PrimeNGConfigType[]): EnvironmentPro
         multi: false
     }));
 
-    // @todo: use provideAppInitializer in v19
-    const initializer = {
-        provide: APP_INITIALIZER,
-        useFactory: (PrimeNGConfig: PrimeNG) => () => features?.forEach((feature) => PrimeNGConfig.setConfig(feature)),
-        deps: [PrimeNG],
-        multi: true
-    };
+    const initializer = provideAppInitializer(() => {
+        const PrimeNGConfig = inject(PrimeNG);
+        features?.forEach((feature) => PrimeNGConfig.setConfig(feature));
+        return;
+    });
 
     return makeEnvironmentProviders([...providers, initializer]);
 }

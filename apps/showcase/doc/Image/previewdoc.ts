@@ -3,6 +3,7 @@ import { Component } from '@angular/core';
 
 @Component({
     selector: 'image-preview-demo',
+    standalone: false,
     template: `
         <app-docsectiontext>
             <p>Preview mode displays a modal layer when the image is clicked that provides transformation options such as rotating and zooming.</p>

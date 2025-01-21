@@ -4,6 +4,7 @@ import { ConfirmationService, MessageService } from 'primeng/api';
 
 @Component({
     selector: 'confirm-popup-headless-demo',
+    standalone: false,
     template: `
         <app-docsectiontext>
             <p><i>Headless</i> mode allows you to customize the entire user interface instead of the default elements.</p>
@@ -11,7 +12,7 @@ import { ConfirmationService, MessageService } from 'primeng/api';
         <div class="card flex justify-center">
             <p-toast />
             <p-confirmpopup #cp>
-                <ng-template pTemplate="headless" let-message>
+                <ng-template #headless let-message>
                     <div class="rounded p-4">
                         <span>{{ message.message }}</span>
                         <div class="flex items-center gap-2 mt-4">
@@ -49,7 +50,7 @@ export class HeadlessDoc {
     code: Code = {
         basic: `<p-toast />
 <p-confirmpopup #cp>
-    <ng-template pTemplate="headless" let-message>
+    <ng-template #headless let-message>
         <div class="rounded p-4">
             <span>{{ message.message }}</span>
             <div class="flex items-center gap-2 mt-4">
@@ -64,7 +65,7 @@ export class HeadlessDoc {
         html: `<div class="card flex justify-center gap-2">
     <p-toast />
     <p-confirmpopup #cp>
-        <ng-template pTemplate="headless" let-message>
+        <ng-template #headless let-message>
             <div class="rounded p-4">
                 <span>{{ message.message }}</span>
                 <div class="flex items-center gap-2 mt-4">

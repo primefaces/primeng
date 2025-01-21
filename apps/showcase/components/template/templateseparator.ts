@@ -5,6 +5,7 @@ import { DividerModule } from 'primeng/divider';
 
 @Component({
     selector: 'template-separator',
+    standalone: false,
     template: `
         <div class="flex items-center w-full gap-6">
             <p-divider class="flex-1" />

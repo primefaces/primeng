@@ -10,6 +10,7 @@ interface Column {
 
 @Component({
     selector: 'column-toggle-doc',
+    standalone: false,
     template: ` <app-docsectiontext>
             <p>This demo uses a multiselect component to implement toggleable columns.</p>
         </app-docsectiontext>
@@ -69,68 +70,48 @@ export class ColumnToggleDoc {
     }
 
     code: Code = {
-        basic: `<p-table
-    [columns]="selectedColumns"
-    [value]="products"
-    [tableStyle]="{'min-width': '50rem'}">
+        basic: `<p-table [columns]="selectedColumns" [value]="products" [tableStyle]="{ 'min-width': '50rem' }">
+    <ng-template #caption>
+        <p-multiselect display="chip" [options]="cols" [(ngModel)]="selectedColumns" optionLabel="header" selectedItemsLabel="{0} columns selected" [style]="{ 'min-width': '200px' }" placeholder="Choose Columns" />
+    </ng-template>
+    <ng-template #header let-columns>
+        <tr>
+            <th>Code</th>
+            <th *ngFor="let col of columns">
+                {{ col.header }}
+            </th>
+        </tr>
+    </ng-template>
+    <ng-template #body let-product let-columns="columns">
+        <tr>
+            <td>{{ product.code }}</td>
+            <td *ngFor="let col of columns">
+                {{ product[col.field] }}
+            </td>
+        </tr>
+    </ng-template>
+</p-table>`,
+        html: `<div class="card">
+    <p-table [columns]="selectedColumns" [value]="products" [tableStyle]="{ 'min-width': '50rem' }">
         <ng-template #caption>
-            <p-multiselect
-                display="chip"
-                [options]="cols"
-                [(ngModel)]="selectedColumns"
-                optionLabel="header"
-                selectedItemsLabel="{0} columns selected"
-                [style]="{'min-width': '200px'}"
-                placeholder="Choose Columns" />
+            <p-multiselect display="chip" [options]="cols" [(ngModel)]="selectedColumns" optionLabel="header" selectedItemsLabel="{0} columns selected" [style]="{ 'min-width': '200px' }" placeholder="Choose Columns" />
         </ng-template>
         <ng-template #header let-columns>
             <tr>
                 <th>Code</th>
                 <th *ngFor="let col of columns">
-                    {{col.header}}
+                    {{ col.header }}
                 </th>
             </tr>
         </ng-template>
         <ng-template #body let-product let-columns="columns">
             <tr>
-                <td>{{product.code}}</td>
+                <td>{{ product.code }}</td>
                 <td *ngFor="let col of columns">
-                    {{product[col.field]}}
+                    {{ product[col.field] }}
                 </td>
             </tr>
         </ng-template>
-</p-table>`,
-        html: `<div class="card">
-    <p-table
-        [columns]="selectedColumns"
-        [value]="products"
-        [tableStyle]="{'min-width': '50rem'}">
-            <ng-template #caption>
-                <p-multiselect
-                    display="chip"
-                    [options]="cols"
-                    [(ngModel)]="selectedColumns"
-                    optionLabel="header"
-                    selectedItemsLabel="{0} columns selected"
-                    [style]="{'min-width': '200px'}"
-                    placeholder="Choose Columns" />
-            </ng-template>
-            <ng-template #header let-columns>
-                <tr>
-                    <th>Code</th>
-                    <th *ngFor="let col of columns">
-                        {{col.header}}
-                    </th>
-                </tr>
-            </ng-template>
-            <ng-template #body let-product let-columns="columns">
-                <tr>
-                    <td>{{product.code}}</td>
-                    <td *ngFor="let col of columns">
-                        {{product[col.field]}}
-                    </td>
-                </tr>
-            </ng-template>
     </p-table>
 </div>`,
         typescript: `import { Component, OnInit, ChangeDetectorRef} from '@angular/core';

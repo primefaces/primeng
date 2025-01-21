@@ -3,6 +3,7 @@ import { Component } from '@angular/core';
 
 @Component({
     selector: 'tag-template-demo',
+    standalone: false,
     template: `
         <app-docsectiontext>
             <p>Children of the component are passed as the content for templating.</p>

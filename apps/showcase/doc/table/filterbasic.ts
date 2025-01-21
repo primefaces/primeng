@@ -6,6 +6,7 @@ import { Table } from 'primeng/table';
 
 @Component({
     selector: 'filter-basic-doc',
+    standalone: false,
     template: ` <app-docsectiontext>
             <p>
                 Data filtering is enabled by defining the <i>filters</i> property referring to a <i>DataTableFilterMeta</i> instance. Each column to filter also requires <i>filter</i> to be enabled. Built-in filter element is a input field and using
@@ -26,7 +27,7 @@ import { Table } from 'primeng/table';
                     [globalFilterFields]="['name', 'country.name', 'representative.name', 'status']"
                     [tableStyle]="{ 'min-width': '75rem' }"
                 >
-                    <ng-template pTemplate="caption">
+                    <ng-template #caption>
                         <div class="flex">
                             <p-iconfield iconPosition="left" class="ml-auto">
                                 <p-inputicon>
@@ -36,7 +37,7 @@ import { Table } from 'primeng/table';
                             </p-iconfield>
                         </div>
                     </ng-template>
-                    <ng-template pTemplate="header">
+                    <ng-template #header>
                         <tr>
                             <th style="width:22%">Name</th>
                             <th style="width:22%">Country</th>
@@ -53,9 +54,9 @@ import { Table } from 'primeng/table';
                             </th>
                             <th>
                                 <p-columnFilter field="representative" matchMode="in" [showMenu]="false">
-                                    <ng-template pTemplate="filter" let-value let-filter="filterCallback">
+                                    <ng-template #filter let-value let-filter="filterCallback">
                                         <p-multiselect [(ngModel)]="value" [options]="representatives" placeholder="Any" (onChange)="filter($event.value)" optionLabel="name" style="min-width: 14rem">
-                                            <ng-template let-option pTemplate="item">
+                                            <ng-template let-option #item>
                                                 <div class="inline-block align-middle">
                                                     <img [alt]="option.label" src="https://primefaces.org/cdn/primeng/images/demo/avatar/{{ option.image }}" width="24" class="align-middle" />
                                                     <span class="ml-1 mt-1">{{ option.name }}</span>
@@ -67,9 +68,9 @@ import { Table } from 'primeng/table';
                             </th>
                             <th>
                                 <p-columnFilter field="status" matchMode="equals" [showMenu]="false">
-                                    <ng-template pTemplate="filter" let-value let-filter="filterCallback">
+                                    <ng-template #filter let-value let-filter="filterCallback">
                                         <p-select [(ngModel)]="value" [options]="statuses" (onChange)="filter($event.value)" placeholder="Select One" [showClear]="true" style="min-width: 12rem">
-                                            <ng-template let-option pTemplate="item">
+                                            <ng-template let-option #item>
                                                 <p-tag [value]="option.value" [severity]="getSeverity(option.value)" />
                                             </ng-template>
                                         </p-select>
@@ -81,7 +82,7 @@ import { Table } from 'primeng/table';
                             </th>
                         </tr>
                     </ng-template>
-                    <ng-template pTemplate="body" let-customer>
+                    <ng-template #body let-customer>
                         <tr>
                             <td>
                                 {{ customer.name }}
@@ -112,7 +113,7 @@ import { Table } from 'primeng/table';
                             </td>
                         </tr>
                     </ng-template>
-                    <ng-template pTemplate="emptymessage">
+                    <ng-template #emptymessage>
                         <tr>
                             <td colspan="5">No customers found.</td>
                         </tr>
@@ -188,7 +189,7 @@ export class FilterBasicDoc {
     [globalFilterFields]="['name', 'country.name', 'representative.name', 'status']"
     [tableStyle]="{ 'min-width': '75rem' }"
 >
-    <ng-template pTemplate="caption">
+    <ng-template #caption>
         <div class="flex">
             <p-iconfield iconPosition="left" class="ml-auto">
                 <p-inputicon>
@@ -203,7 +204,7 @@ export class FilterBasicDoc {
             </p-iconfield>
         </div>
     </ng-template>
-    <ng-template pTemplate="header">
+    <ng-template #header>
         <tr>
             <th style="width:22%">Name</th>
             <th style="width:22%">Country</th>
@@ -230,7 +231,7 @@ export class FilterBasicDoc {
             </th>
             <th>
                 <p-columnFilter field="representative" matchMode="in" [showMenu]="false">
-                    <ng-template pTemplate="filter" let-value let-filter="filterCallback">
+                    <ng-template #filter let-value let-filter="filterCallback">
                         <p-multiselect
                             [(ngModel)]="value"
                             [options]="representatives"
@@ -239,7 +240,7 @@ export class FilterBasicDoc {
                             optionLabel="name"
                             style="min-width: 14rem"
                         >
-                            <ng-template let-option pTemplate="item">
+                            <ng-template let-option #item>
                                 <div class="inline-block align-middle">
                                     <img
                                         [alt]="option.label"
@@ -256,7 +257,7 @@ export class FilterBasicDoc {
             </th>
             <th>
                 <p-columnFilter field="status" matchMode="equals" [showMenu]="false">
-                    <ng-template pTemplate="filter" let-value let-filter="filterCallback">
+                    <ng-template #filter let-value let-filter="filterCallback">
                         <p-select
                             [(ngModel)]="value"
                             [options]="statuses"
@@ -265,7 +266,7 @@ export class FilterBasicDoc {
                             [showClear]="true"
                             style="min-width: 12rem"
                         >
-                            <ng-template let-option pTemplate="item">
+                            <ng-template let-option #item>
                                 <p-tag [value]="option.value" [severity]="getSeverity(option.value)" />
                             </ng-template>
                         </p-select>
@@ -277,7 +278,7 @@ export class FilterBasicDoc {
             </th>
         </tr>
     </ng-template>
-    <ng-template pTemplate="body" let-customer>
+    <ng-template #body let-customer>
         <tr>
             <td>
                 {{ customer.name }}
@@ -308,7 +309,7 @@ export class FilterBasicDoc {
             </td>
         </tr>
     </ng-template>
-    <ng-template pTemplate="emptymessage">
+    <ng-template #emptymessage>
         <tr>
             <td colspan="5">No customers found.</td>
         </tr>
@@ -326,7 +327,7 @@ export class FilterBasicDoc {
     [globalFilterFields]="['name', 'country.name', 'representative.name', 'status']"
     [tableStyle]="{ 'min-width': '75rem' }"
 >
-    <ng-template pTemplate="caption">
+    <ng-template #caption>
         <div class="flex">
             <p-iconfield iconPosition="left" class="ml-auto">
                 <p-inputicon>
@@ -341,7 +342,7 @@ export class FilterBasicDoc {
             </p-iconfield>
         </div>
     </ng-template>
-    <ng-template pTemplate="header">
+    <ng-template #header>
         <tr>
             <th style="width:22%">Name</th>
             <th style="width:22%">Country</th>
@@ -368,7 +369,7 @@ export class FilterBasicDoc {
             </th>
             <th>
                 <p-columnFilter field="representative" matchMode="in" [showMenu]="false">
-                    <ng-template pTemplate="filter" let-value let-filter="filterCallback">
+                    <ng-template #filter let-value let-filter="filterCallback">
                         <p-multiselect
                             [(ngModel)]="value"
                             [options]="representatives"
@@ -377,7 +378,7 @@ export class FilterBasicDoc {
                             optionLabel="name"
                             style="min-width: 14rem"
                         >
-                            <ng-template let-option pTemplate="item">
+                            <ng-template let-option #item>
                                 <div class="inline-block align-middle">
                                     <img
                                         [alt]="option.label"
@@ -394,7 +395,7 @@ export class FilterBasicDoc {
             </th>
             <th>
                 <p-columnFilter field="status" matchMode="equals" [showMenu]="false">
-                    <ng-template pTemplate="filter" let-value let-filter="filterCallback">
+                    <ng-template #filter let-value let-filter="filterCallback">
                         <p-select
                             [(ngModel)]="value"
                             [options]="statuses"
@@ -403,7 +404,7 @@ export class FilterBasicDoc {
                             [showClear]="true"
                             style="min-width: 12rem"
                         >
-                            <ng-template let-option pTemplate="item">
+                            <ng-template let-option #item>
                                 <p-tag [value]="option.value" [severity]="getSeverity(option.value)" />
                             </ng-template>
                         </p-select>
@@ -415,7 +416,7 @@ export class FilterBasicDoc {
             </th>
         </tr>
     </ng-template>
-    <ng-template pTemplate="body" let-customer>
+    <ng-template #body let-customer>
         <tr>
             <td>
                 {{ customer.name }}
@@ -446,7 +447,7 @@ export class FilterBasicDoc {
             </td>
         </tr>
     </ng-template>
-    <ng-template pTemplate="emptymessage">
+    <ng-template #emptymessage>
         <tr>
             <td colspan="5">No customers found.</td>
         </tr>

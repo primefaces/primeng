@@ -451,10 +451,10 @@ export class InputNumber extends BaseComponent implements OnInit, AfterContentIn
      */
     @ContentChild('clearicon', { descendants: false }) clearIconTemplate: Nullable<TemplateRef<any>>;
     /**
-     * Template of the icrement button icon.
+     * Template of the increment button icon.
      * @group Templates
      */
-    @ContentChild('icrementbuttonicon', { descendants: false }) incrementButtonIconTemplate: Nullable<TemplateRef<any>>;
+    @ContentChild('incrementbuttonicon', { descendants: false }) incrementButtonIconTemplate: Nullable<TemplateRef<any>>;
 
     /**
      * Template of the decrement button icon.
@@ -1508,7 +1508,7 @@ export class InputNumber extends BaseComponent implements OnInit, AfterContentIn
     }
 
     writeValue(value: any): void {
-        this.value = value;
+        this.value = value ? Number(value) : value;
         this.cd.markForCheck();
     }
 

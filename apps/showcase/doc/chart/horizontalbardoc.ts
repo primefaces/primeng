@@ -6,6 +6,7 @@ import { ChangeDetectorRef, Component, effect, inject, OnInit, PLATFORM_ID } fro
 
 @Component({
     selector: 'chart-horizontal-bar-demo',
+    standalone: false,
     template: `
         <app-docsectiontext>
             <p>A bar chart is rendered horizontally when <i>indexAxis</i> option is set as <i>y</i>.</p>

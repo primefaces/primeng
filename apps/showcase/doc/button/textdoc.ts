@@ -3,6 +3,7 @@ import { Component } from '@angular/core';
 
 @Component({
     selector: 'button-text-demo',
+    standalone: false,
     template: `
         <app-docsectiontext>
             <p>Text buttons are displayed as textual elements.</p>

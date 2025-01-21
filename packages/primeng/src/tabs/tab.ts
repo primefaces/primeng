@@ -14,7 +14,7 @@ import { Tabs } from './tabs';
 @Component({
     selector: 'p-tab',
     standalone: true,
-    imports: [CommonModule, Ripple, SharedModule],
+    imports: [CommonModule, SharedModule],
     template: ` <ng-content></ng-content>`,
     changeDetection: ChangeDetectionStrategy.OnPush,
     encapsulation: ViewEncapsulation.None,

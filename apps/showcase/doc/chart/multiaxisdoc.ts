@@ -6,6 +6,7 @@ import { ChangeDetectorRef, Component, effect, inject, OnInit, PLATFORM_ID } fro
 
 @Component({
     selector: 'chart-multi-axis-demo',
+    standalone: false,
     template: `
         <app-docsectiontext>
             <p>Multiple axes can be added using the <i>scales</i> option.</p>

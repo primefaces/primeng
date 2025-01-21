@@ -3,6 +3,7 @@ import { Component } from '@angular/core';
 
 @Component({
     selector: 'avatar-icon-demo',
+    standalone: false,
     template: `
         <app-docsectiontext>
             <p>A font icon is displayed as an Avatar with the <i>icon</i> property.</p>

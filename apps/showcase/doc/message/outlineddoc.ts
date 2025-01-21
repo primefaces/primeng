@@ -3,6 +3,7 @@ import { Component } from '@angular/core';
 
 @Component({
     selector: 'outlined-doc',
+    standalone: false,
     template: `
         <app-docsectiontext>
             <p>Configure the <i>variant</i> value as <i>outlined</i> for messages with borders and no background.</p>

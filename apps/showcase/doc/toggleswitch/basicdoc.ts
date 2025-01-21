@@ -3,6 +3,7 @@ import { Component } from '@angular/core';
 
 @Component({
     selector: 'basic-doc',
+    standalone: false,
     template: `
         <app-docsectiontext>
             <p>Two-way value binding is defined using <i>ngModel</i>.</p>

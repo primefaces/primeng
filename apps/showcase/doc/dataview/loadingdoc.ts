@@ -5,6 +5,7 @@ import { Component, signal } from '@angular/core';
 
 @Component({
     selector: 'data-view-loading-demo',
+    standalone: false,
     template: `
         <app-docsectiontext>
             <p>While data is being loaded. <a routerLink="/skeleton">Skeleton</a> component may be used to indicate the busy state.</p>
@@ -80,7 +81,7 @@ export class LoadingDoc {
     constructor(private productService: ProductService) {}
     code: Code = {
         basic: `<p-dataview #dv [value]="products()" [layout]="layout">
-    <ng-template pTemplate="header">
+    <ng-template #header>
         <div class="flex justify-end">
             <p-selectbutton [(ngModel)]="layout" [options]="options" [allowEmpty]="false">
                 <ng-template #item let-option>
@@ -89,7 +90,7 @@ export class LoadingDoc {
             </p-selectbutton>
         </div>
     </ng-template>
-    <ng-template pTemplate="list" let-items>
+    <ng-template #list let-items>
         <div class="flex flex-col">
             <div *ngFor="let i of counterArray(6); let first = first">
                 <div
@@ -148,16 +149,16 @@ export class LoadingDoc {
 
         html: `<div class="card">
     <p-dataview #dv [value]="products" [layout]="layout">
-        <ng-template pTemplate="header">
+        <ng-template #header>
             <div class="flex justify-end">
                 <p-selectbutton [(ngModel)]="layout" [options]="options" [allowEmpty]="false">
-                    <ng-template pTemplate="item" let-option>
+                    <ng-template #item let-option>
                         <i [class]="option === 'list' ? 'pi pi-bars' : 'pi pi-table'"></i>
                     </ng-template>
                 </p-selectbutton>
             </div>
         </ng-template>
-        <ng-template pTemplate="list" let-products>
+        <ng-template #list let-products>
             <div class="flex flex-col">
                 <div *ngFor="let i of counterArray(6); let first = first">
                     <div

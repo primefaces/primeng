@@ -1,9 +1,10 @@
 import { Code } from '@/domain/code';
 import { PhotoService } from '@/service/photoservice';
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, model } from '@angular/core';
 
 @Component({
     selector: 'itemwithoutthumbnails-doc',
+    standalone: false,
     template: `
         <app-docsectiontext>
             <p>Simple example with indicators only.</p>
@@ -20,7 +21,7 @@ import { Component, OnInit } from '@angular/core';
     providers: [PhotoService]
 })
 export class ItemWithoutThumbnailsDoc implements OnInit {
-    images: any[] | undefined;
+    images = model([]);
 
     responsiveOptions: any[] = [
         {
@@ -40,25 +41,23 @@ export class ItemWithoutThumbnailsDoc implements OnInit {
     constructor(private photoService: PhotoService) {}
 
     ngOnInit() {
-        this.photoService.getImages().then((images) => {
-            this.images = images;
-        });
+        this.photoService.getImages().then((images) => this.images.set(images));
     }
 
     code: Code = {
         basic: `<p-galleria [(value)]="images" [numVisible]="5" [circular]="true" [showItemNavigators]="true" [showThumbnails]="false" [responsiveOptions]="responsiveOptions" [containerStyle]="{ 'max-width': '640px' }">
-    <ng-template pTemplate="item" let-item>
+    <ng-template #item let-item>
         <img [src]="item.itemImageSrc" style="width: 100%; display: block;" />
     </ng-template>
 </p-galleria>`,
         html: `<div class="card">
     <p-galleria [(value)]="images" [numVisible]="5" [circular]="true" [showItemNavigators]="true" [showThumbnails]="false" [responsiveOptions]="responsiveOptions" [containerStyle]="{ 'max-width': '640px' }">
-        <ng-template pTemplate="item" let-item>
+        <ng-template #item let-item>
             <img [src]="item.itemImageSrc" style="width: 100%; display: block;" />
         </ng-template>
     </p-galleria>
 </div>`,
-        typescript: `import { Component, OnInit } from '@angular/core';
+        typescript: `import { Component, OnInit, model } from '@angular/core';
 import { PhotoService } from '@/service/photoservice';
 import { GalleriaModule } from 'primeng/galleria';
 
@@ -70,7 +69,7 @@ import { GalleriaModule } from 'primeng/galleria';
     providers: [PhotoService]
 })
 export class GalleriaItemWithoutThumbnailsDemo implements OnInit {
-    images: any[] | undefined;
+    images = model([]);
 
     responsiveOptions: any[] = [
         {
@@ -90,9 +89,7 @@ export class GalleriaItemWithoutThumbnailsDemo implements OnInit {
     constructor(private photoService: PhotoService) {}
 
     ngOnInit() {
-        this.photoService.getImages().then((images) => {
-            this.images = images;
-        });
+        this.photoService.getImages().then((images) => this.images.set(images));
     }
 }`,
         data: `

@@ -4,6 +4,7 @@ import { MessageService } from 'primeng/api';
 
 @Component({
     selector: 'animation-doc',
+    standalone: false,
     template: `
         <app-docsectiontext>
             <p>Transition of the animations can be customized using the <i>showTransitionOptions</i>, <i>hideTransitionOptions</i>, <i>showTransformOptions</i> and <i>hideTransformOptions</i> properties.</p>

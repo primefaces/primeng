@@ -5,6 +5,7 @@ import { MenuItem, MessageService } from 'primeng/api';
 
 @Component({
     selector: 'template-doc',
+    standalone: false,
     template: `
         <app-docsectiontext>
             <p>
@@ -16,7 +17,7 @@ import { MenuItem, MessageService } from 'primeng/api';
             <div class="flex items-end justify-center" style="position: 'relative'; height: '400px'">
                 <p-toast />
                 <p-speeddial [model]="items" direction="up" [transitionDelay]="80" style="position: 'absolute'">
-                    <ng-template pTemplate="button" let-toggleCallback="toggleCallback">
+                    <ng-template #button let-toggleCallback="toggleCallback">
                         <p-button outlined styleClass="border" (click)="toggleCallback($event)">
                             <svg width="31" height="33" viewBox="0 0 31 33" fill="none" xmlns="http://www.w3.org/2000/svg">
                                 <path d="M15.1934 0V0V0L0.0391235 5.38288L2.35052 25.3417L15.1934 32.427V32.427V32.427L28.0364 25.3417L30.3478 5.38288L15.1934 0Z" fill="var(--p-primary-color)" />
@@ -49,7 +50,7 @@ import { MenuItem, MessageService } from 'primeng/api';
                             </svg>
                         </p-button>
                     </ng-template>
-                    <ng-template pTemplate="item" let-item let-toggleCallback="toggleCallback">
+                    <ng-template #item let-item let-toggleCallback="toggleCallback">
                         <div class="flex flex-col items-center justify-between gap-2 p-2 border rounded border-surface-200 dark:border-surface-700 w-20 cursor-pointer" (click)="toggleCallback($event, item)">
                             <span [class]="item.icon"></span>
                             <span>
@@ -68,27 +69,14 @@ export class TemplateDoc implements OnInit {
     items: MenuItem[] | undefined;
     code: Code = {
         basic: `<p-speeddial [model]="items" direction="up" [transitionDelay]="80" style="position: 'absolute'">
-    <ng-template pTemplate="button" let-toggleCallback="toggleCallback">
+    <ng-template #button let-toggleCallback="toggleCallback">
         <p-button outlined styleClass="border" (click)="toggleCallback($event)">
-            <svg
-                width="31"
-                height="33"
-                viewBox="0 0 31 33"
-                fill="none"
-                xmlns="http://www.w3.org/2000/svg"
-            >
-                <path
-                    d="..."
-                    fill="var(--p-primary-color)"
-                />
-                <path
-                    d="..."
-                    fill="var(--ground-background)"
-                />
+            <svg width="31" height="33" viewBox="0 0 31 33" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path d="..." fill="var(--p-primary-color)" />
             </svg>
         </p-button>
     </ng-template>
-    <ng-template pTemplate="item" let-item let-toggleCallback="toggleCallback">
+    <ng-template #item let-item let-toggleCallback="toggleCallback">
         <div
             class="flex flex-col items-center justify-between gap-2 p-2 border rounded border-surface-200 dark:border-surface-700 w-20 cursor-pointer"
             (click)="toggleCallback($event, item)"
@@ -105,7 +93,7 @@ export class TemplateDoc implements OnInit {
     <div class="flex items-end justify-center" style="position: 'relative'; height: '400px'">
         <p-toast />
         <p-speeddial [model]="items" direction="up" [transitionDelay]="80" style="position: 'absolute'">
-            <ng-template pTemplate="button" let-toggleCallback="toggleCallback">
+            <ng-template #button let-toggleCallback="toggleCallback">
                 <p-button outlined styleClass="border" (click)="toggleCallback($event)">
                     <svg
                         width="31"
@@ -187,7 +175,7 @@ export class TemplateDoc implements OnInit {
                     </svg>
                 </p-button>
             </ng-template>
-            <ng-template pTemplate="item" let-item let-toggleCallback="toggleCallback">
+            <ng-template #item let-item let-toggleCallback="toggleCallback">
                 <div
                     class="flex flex-col items-center justify-between gap-2 p-2 border rounded border-surface-200 dark:border-surface-700 w-20 cursor-pointer"
                     (click)="toggleCallback($event, item)"

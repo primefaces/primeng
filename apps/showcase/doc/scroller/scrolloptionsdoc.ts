@@ -3,6 +3,7 @@ import { Component } from '@angular/core';
 
 @Component({
     selector: 'options-doc',
+    standalone: false,
     template: `
         <app-docsectiontext>
             <p>The properties of scroller component can be used like an object in it.</p>

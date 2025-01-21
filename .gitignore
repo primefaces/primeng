@@ -20,6 +20,7 @@ dist
 *.launch
 .settings/
 *.sublime-workspace
+/.vscode
 
 # misc
 /.sass-cache
@@ -45,8 +46,6 @@ api-generator/typedoc.json
 api-generator/themedoc.json
 .vercel
 .nx
-
-builder/node_modules
 
 # primeng packages
 packages/primeng/src/package.json

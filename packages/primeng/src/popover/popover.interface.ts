@@ -7,8 +7,9 @@ import { TemplateRef } from '@angular/core';
 export interface PopoverTemplates {
     /**
      * Custom template of content.
+     * @param {Object} context - closeCallback.
      */
-    content(): TemplateRef<any>;
+    content(context: { closeCallback: VoidFunction }): TemplateRef<{ closeCallback: VoidFunction }>;
     /**
      * Custom template of closeicon.
      */

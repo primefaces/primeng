@@ -1,9 +1,10 @@
 import { Code } from '@/domain/code';
 import { PhotoService } from '@/service/photoservice';
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, model } from '@angular/core';
 
 @Component({
     selector: 'galleria-controlled-demo',
+    standalone: false,
     template: `
         <app-docsectiontext>
             <p>Galleria can be controlled programmatically using the <i>activeIndex</i> property.</p>
@@ -14,10 +15,10 @@ import { Component, OnInit } from '@angular/core';
                 <p-button type="button" icon="pi pi-plus" (click)="next()" severity="secondary" styleClass="ml-2" />
             </div>
             <p-galleria [(value)]="images" [responsiveOptions]="responsiveOptions" [containerStyle]="{ 'max-width': '640px' }" [numVisible]="5" [(activeIndex)]="activeIndex">
-                <ng-template pTemplate="item" let-item>
+                <ng-template #item let-item>
                     <img [src]="item.itemImageSrc" style="width: 100%;" />
                 </ng-template>
-                <ng-template pTemplate="thumbnail" let-item>
+                <ng-template #thumbnail let-item>
                     <img [src]="item.thumbnailImageSrc" />
                 </ng-template>
             </p-galleria>
@@ -26,7 +27,7 @@ import { Component, OnInit } from '@angular/core';
     `
 })
 export class ControlledDoc implements OnInit {
-    images: any[] | undefined;
+    images = model([]);
 
     get activeIndex(): number {
         return this._activeIndex;
@@ -54,7 +55,7 @@ export class ControlledDoc implements OnInit {
     constructor(private photoService: PhotoService) {}
 
     ngOnInit() {
-        this.photoService.getImages().then((images) => (this.images = images));
+        this.photoService.getImages().then((images) => this.images.set(images));
     }
 
     next() {
@@ -71,10 +72,10 @@ export class ControlledDoc implements OnInit {
     <p-button type="button" icon="pi pi-plus" (click)="next()" severity="secondary" styleClass="ml-2" />
 </div>
 <p-galleria [(value)]="images" [responsiveOptions]="responsiveOptions" [containerStyle]="{ 'max-width': '640px' }" [numVisible]="5" [(activeIndex)]="activeIndex">
-    <ng-template pTemplate="item" let-item>
+    <ng-template #item let-item>
         <img [src]="item.itemImageSrc" style="width: 100%;" />
     </ng-template>
-    <ng-template pTemplate="thumbnail" let-item>
+    <ng-template #thumbnail let-item>
         <img [src]="item.thumbnailImageSrc" />
     </ng-template>
 </p-galleria>`,
@@ -84,15 +85,15 @@ export class ControlledDoc implements OnInit {
         <p-button type="button" icon="pi pi-plus" (click)="next()" severity="secondary" styleClass="ml-2" />
     </div>
     <p-galleria [(value)]="images" [responsiveOptions]="responsiveOptions" [containerStyle]="{ 'max-width': '640px' }" [numVisible]="5" [(activeIndex)]="activeIndex">
-        <ng-template pTemplate="item" let-item>
+        <ng-template #item let-item>
             <img [src]="item.itemImageSrc" style="width: 100%;" />
         </ng-template>
-        <ng-template pTemplate="thumbnail" let-item>
+        <ng-template #thumbnail let-item>
             <img [src]="item.thumbnailImageSrc" />
         </ng-template>
     </p-galleria>
 </div>`,
-        typescript: `import { Component, OnInit } from '@angular/core';
+        typescript: `import { Component, OnInit, model } from '@angular/core';
 import { PhotoService } from '@/service/photoservice';
 import { GalleriaModule } from 'primeng/galleria';
 import { ButtonModule } from 'primeng/button';
@@ -105,7 +106,7 @@ import { ButtonModule } from 'primeng/button';
     providers: [PhotoService]
 })
 export class GalleriaControlledDemo implements OnInit {
-    images: any[] | undefined;
+    images = model([])
 
     get activeIndex(): number {
         return this._activeIndex;
@@ -128,12 +129,12 @@ export class GalleriaControlledDemo implements OnInit {
             breakpoint: '575px',
             numVisible: 1
         }
-        ];
+    ];
 
     constructor(private photoService: PhotoService) {}
 
     ngOnInit() {
-        this.photoService.getImages().then((images) => (this.images = images));
+        this.photoService.getImages().then((images) => (this.images.set(images)));
     }
 
     next() {

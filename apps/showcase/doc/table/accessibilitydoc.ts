@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 
 @Component({
     selector: 'table-accessibility-doc',
+    standalone: false,
     template: ` <app-docsectiontext>
         <h3>Screen Reader</h3>
         <p>

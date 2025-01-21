@@ -3,6 +3,7 @@ import { Component } from '@angular/core';
 
 @Component({
     selector: 'cascade-select-template-demo',
+    standalone: false,
     template: `
         <app-docsectiontext>
             <p>
@@ -123,12 +124,7 @@ export class TemplateDoc {
         basic: `<p-cascadeselect [(ngModel)]="selectedCity" [options]="countries" optionLabel="cname" optionGroupLabel="name" [optionGroupChildren]="['states', 'cities']" [style]="{ minWidth: '14rem' }" placeholder="Select a City">
     <ng-template #option let-option>
         <div class="flex items-center">
-            <img
-                *ngIf="option.states"
-                src="https://primefaces.org/cdn/primeng/images/demo/flag/flag_placeholder.png"
-                [class]="'mr-2 flag flag-' + option.code.toLowerCase()"
-                style="width: 18px"
-            />
+            <img *ngIf="option.states" src="https://primefaces.org/cdn/primeng/images/demo/flag/flag_placeholder.png" [class]="'mr-2 flag flag-' + option.code.toLowerCase()" style="width: 18px" />
             <i class="pi pi-compass mr-2" *ngIf="option.cities"></i>
             <i class="pi pi-map-marker mr-2" *ngIf="option.cname"></i>
             <span>{{ option.cname || option.name }}</span>
@@ -137,7 +133,6 @@ export class TemplateDoc {
     <ng-template #triggericon>
         <i class="pi pi-map"></i>
     </ng-template>
-
     <ng-template #header>
         <div class="font-medium px-3 py-2">Available Countries</div>
     </ng-template>
@@ -152,12 +147,7 @@ export class TemplateDoc {
     <p-cascadeselect [(ngModel)]="selectedCity" [options]="countries" optionLabel="cname" optionGroupLabel="name" [optionGroupChildren]="['states', 'cities']" [style]="{ minWidth: '14rem' }" placeholder="Select a City">
         <ng-template #option let-option>
             <div class="flex items-center">
-                <img
-                    *ngIf="option.states"
-                    src="https://primefaces.org/cdn/primeng/images/demo/flag/flag_placeholder.png"
-                    [class]="'mr-2 flag flag-' + option.code.toLowerCase()"
-                    style="width: 18px"
-                />
+                <img *ngIf="option.states" src="https://primefaces.org/cdn/primeng/images/demo/flag/flag_placeholder.png" [class]="'mr-2 flag flag-' + option.code.toLowerCase()" style="width: 18px" />
                 <i class="pi pi-compass mr-2" *ngIf="option.cities"></i>
                 <i class="pi pi-map-marker mr-2" *ngIf="option.cname"></i>
                 <span>{{ option.cname || option.name }}</span>
@@ -166,7 +156,6 @@ export class TemplateDoc {
         <ng-template #triggericon>
             <i class="pi pi-map"></i>
         </ng-template>
-
         <ng-template #header>
             <div class="font-medium px-3 py-2">Available Countries</div>
         </ng-template>

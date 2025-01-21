@@ -4,6 +4,7 @@ import { MenuItem } from 'primeng/api';
 
 @Component({
     selector: 'basic-doc',
+    standalone: false,
     template: `
         <app-docsectiontext>
             <p>Menubar requires nested menuitems as its model.</p>

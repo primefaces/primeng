@@ -11,25 +11,26 @@ interface EventItem {
 
 @Component({
     selector: 'alignment-doc',
+    standalone: false,
     template: `
         <app-docsectiontext>
             <p>Content location relative the line is defined with the <i>align</i> property.</p>
         </app-docsectiontext>
         <div class="card flex flex-wrap gap-12">
             <p-timeline [value]="events" class="w-full md:w-80">
-                <ng-template pTemplate="content" let-event>
+                <ng-template #content let-event>
                     {{ event.status }}
                 </ng-template>
             </p-timeline>
 
             <p-timeline [value]="events" class="w-full md:w-80" align="right">
-                <ng-template pTemplate="content" let-event>
+                <ng-template #content let-event>
                     {{ event.status }}
                 </ng-template>
             </p-timeline>
 
             <p-timeline [value]="events" class="w-full md:w-80" align="alternate">
-                <ng-template pTemplate="content" let-event>
+                <ng-template #content let-event>
                     {{ event.status }}
                 </ng-template>
             </p-timeline>
@@ -51,36 +52,36 @@ export class AlignmentDoc {
 
     code: Code = {
         basic: `<p-timeline [value]="events" class="w-full md:w-80">
-    <ng-template pTemplate="content" let-event>
+    <ng-template #content let-event>
         {{ event.status }}
     </ng-template>
 </p-timeline>
 
 <p-timeline [value]="events" class="w-full md:w-80" align="right">
-    <ng-template pTemplate="content" let-event>
+    <ng-template #content let-event>
         {{ event.status }}
     </ng-template>
 </p-timeline>
 
 <p-timeline [value]="events" class="w-full md:w-80" align="alternate">
-    <ng-template pTemplate="content" let-event>
+    <ng-template #content let-event>
         {{ event.status }}
     </ng-template>
 </p-timeline>`,
 
         html: `<div class="card flex flex-wrap gap-12">
     <p-timeline [value]="events" class="w-full md:w-80">
-        <ng-template pTemplate="content" let-event>
+        <ng-template #content let-event>
             {{ event.status }}
         </ng-template>
     </p-timeline>
     <p-timeline [value]="events" class="w-full md:w-80" align="right">
-        <ng-template pTemplate="content" let-event>
+        <ng-template #content let-event>
             {{ event.status }}
         </ng-template>
     </p-timeline>
     <p-timeline [value]="events" class="w-full md:w-80" align="alternate">
-        <ng-template pTemplate="content" let-event>
+        <ng-template #content let-event>
             {{ event.status }}
         </ng-template>
     </p-timeline>

@@ -5,6 +5,7 @@ import { ChangeDetectionStrategy, ChangeDetectorRef, Component } from '@angular/
 
 @Component({
     selector: 'column-resize-expand-mode-doc',
+    standalone: false,
     template: ` <app-docsectiontext>
             <p>Setting <i>columnResizeMode</i> as <i>expand</i> changes the table width as well.</p>
         </app-docsectiontext>
@@ -49,12 +50,26 @@ export class ColumnResizeExpandModeDoc {
     }
 
     code: Code = {
-        basic: `<p-table
-    [value]="products"
-    [resizableColumns]="true"
-    columnResizeMode="expand"
-    styleClass="p-datatable-gridlines"
-    [tableStyle]="{'min-width': '50rem'}">
+        basic: `<p-table [value]="products" [resizableColumns]="true" columnResizeMode="expand" styleClass="p-datatable-gridlines" [tableStyle]="{'min-width': '50rem'}">
+    <ng-template #header>
+        <tr>
+            <th pResizableColumn>Code</th>
+            <th pResizableColumn>Name</th>
+            <th pResizableColumn>Category</th>
+            <th pResizableColumn>Quantity</th>
+        </tr>
+    </ng-template>
+    <ng-template #body let-product>
+        <tr>
+            <td>{{product.code}}</td>
+            <td>{{product.name}}</td>
+            <td>{{product.category}}</td>
+            <td>{{product.quantity}}</td>
+        </tr>
+    </ng-template>
+</p-table>`,
+        html: `<div class="card">
+    <p-table [value]="products" [resizableColumns]="true" columnResizeMode="expand" styleClass="p-datatable-gridlines" [tableStyle]="{'min-width': '50rem'}">
         <ng-template #header>
             <tr>
                 <th pResizableColumn>Code</th>
@@ -71,30 +86,6 @@ export class ColumnResizeExpandModeDoc {
                 <td>{{product.quantity}}</td>
             </tr>
         </ng-template>
-</p-table>`,
-        html: `<div class="card">
-    <p-table
-        [value]="products"
-        [resizableColumns]="true"
-        columnResizeMode="expand"
-        styleClass="p-datatable-gridlines"
-        [tableStyle]="{'min-width': '50rem'}">
-            <ng-template #header>
-                <tr>
-                    <th pResizableColumn>Code</th>
-                    <th pResizableColumn>Name</th>
-                    <th pResizableColumn>Category</th>
-                    <th pResizableColumn>Quantity</th>
-                </tr>
-            </ng-template>
-            <ng-template #body let-product>
-                <tr>
-                    <td>{{product.code}}</td>
-                    <td>{{product.name}}</td>
-                    <td>{{product.category}}</td>
-                    <td>{{product.quantity}}</td>
-                </tr>
-            </ng-template>
     </p-table>
 </div>`,
         typescript: `import { Component, OnInit } from '@angular/core';

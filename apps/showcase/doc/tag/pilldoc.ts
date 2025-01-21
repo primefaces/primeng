@@ -3,6 +3,7 @@ import { Component } from '@angular/core';
 
 @Component({
     selector: 'pill-doc',
+    standalone: false,
     template: `
         <app-docsectiontext>
             <p>Enabling <i>rounded</i>, displays a tag as a pill.</p>

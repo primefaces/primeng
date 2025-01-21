@@ -3,6 +3,7 @@ import { Component } from '@angular/core';
 
 @Component({
     selector: 'currency-doc',
+    standalone: false,
     template: `
         <app-docsectiontext>
             <p>

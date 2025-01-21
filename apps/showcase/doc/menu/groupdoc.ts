@@ -4,6 +4,7 @@ import { MenuItem, MessageService } from 'primeng/api';
 
 @Component({
     selector: 'menu-group-demo',
+    standalone: false,
     template: `
         <app-docsectiontext>
             <p>Menu supports one level of nesting by defining children with <i>items</i> property.</p>

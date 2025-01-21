@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 
 @Component({
     selector: 'timeline-style-doc',
+    standalone: false,
     template: `
         <app-docsectiontext>
             <p>

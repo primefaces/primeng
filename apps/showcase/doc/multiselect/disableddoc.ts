@@ -8,6 +8,7 @@ interface City {
 
 @Component({
     selector: 'disabled-doc',
+    standalone: false,
     template: `
         <app-docsectiontext>
             <p>When <i>disabled</i> is present, the element cannot be edited and focused.</p>

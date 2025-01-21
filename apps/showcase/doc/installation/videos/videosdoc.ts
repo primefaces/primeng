@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 
 @Component({
     selector: 'videos-doc',
+    standalone: false,
     template: `
         <app-docsectiontext>
             <p><a href="https://angular.io/cli">Angular CLI</a> is the recommended way to build Angular applications with PrimeNG.</p>

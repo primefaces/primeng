@@ -5,6 +5,7 @@ import { ChangeDetectorRef, Component, OnInit } from '@angular/core';
 
 @Component({
     selector: 'template-doc',
+    standalone: false,
     template: `
         <app-docsectiontext>
             <p>For custom content support define an <i>option</i> template that gets the item instance as a parameter. In addition <i>header</i> template is provided for further customization.</p>
@@ -41,7 +42,7 @@ export class TemplateDoc implements OnInit {
     [value]="products"
     dataKey="id"
     breakpoint="575px"
-    scrollHeight="20rem"
+    scrollHeight="20rem"f
 >
     <ng-template let-option let-selected="selected" #item>
         <div class="flex flex-wrap p-1 items-center gap-4 w-full">

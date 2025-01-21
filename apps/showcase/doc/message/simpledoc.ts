@@ -3,6 +3,7 @@ import { Component } from '@angular/core';
 
 @Component({
     selector: 'simple-doc',
+    standalone: false,
     template: `
         <app-docsectiontext>
             <p>Configure the <i>variant</i> value as <i>simple</i> for messages without borders and backgrounds.</p>

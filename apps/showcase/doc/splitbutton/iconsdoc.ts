@@ -4,6 +4,7 @@ import { MenuItem, MessageService } from 'primeng/api';
 
 @Component({
     selector: 'icons-doc',
+    standalone: false,
     template: `
         <app-docsectiontext>
             <p>The buttons and menuitems have support to display icons.</p>

@@ -28,6 +28,7 @@ import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
 import {
     absolutePosition,
     addClass,
+    addStyle,
     appendChild,
     blockBodyScroll,
     find,
@@ -77,6 +78,7 @@ export const DATEPICKER_VALUE_ACCESSOR: any = {
                 <input
                     #inputfield
                     pInputText
+                    [pSize]="size"
                     type="text"
                     role="combobox"
                     [attr.id]="inputId"
@@ -213,7 +215,7 @@ export const DATEPICKER_VALUE_ACCESSOR: any = {
                                         {{ getYear(month) }}
                                     </button>
                                     <span class="p-datepicker-decade" *ngIf="currentView === 'year'">
-                                        <ng-container *ngIf="!decadeTemplate && _decadeTemplate">{{ yearPickerValues()[0] }} - {{ yearPickerValues()[yearPickerValues().length - 1] }}</ng-container>
+                                        <ng-container *ngIf="!decadeTemplate && !_decadeTemplate">{{ yearPickerValues()[0] }} - {{ yearPickerValues()[yearPickerValues().length - 1] }}</ng-container>
                                         <ng-container *ngTemplateOutlet="decadeTemplate || _decadeTemplate; context: { $implicit: yearPickerValues }"></ng-container>
                                     </span>
                                 </div>
@@ -227,10 +229,10 @@ export const DATEPICKER_VALUE_ACCESSOR: any = {
                                     [ngStyle]="{ visibility: i === months.length - 1 ? 'visible' : 'hidden' }"
                                     [attr.aria-label]="nextIconAriaLabel"
                                 >
-                                    <ChevronRightIcon *ngIf="!decadeTemplate && !_decadeTemplate" />
+                                    <ChevronRightIcon *ngIf="!nextIconTemplate && !_nextIconTemplate" />
 
                                     <span *ngIf="nextIconTemplate || !_nextIconTemplate">
-                                        <ng-template *ngTemplateOutlet="nextIconTemplate || !_nextIconTemplate"></ng-template>
+                                        <ng-template *ngTemplateOutlet="nextIconTemplate || _nextIconTemplate"></ng-template>
                                     </span>
                                 </p-button>
                             </div>
@@ -490,8 +492,8 @@ export const DATEPICKER_VALUE_ACCESSOR: any = {
                     </div>
                 </div>
                 <div class="p-datepicker-buttonbar" *ngIf="showButtonBar">
-                    <p-button size="small" styleClass="p-datepicker-today-button" [label]="getTranslation('today')" (keydown)="onContainerButtonKeydown($event)" (onClick)="onTodayButtonClick($event)" [ngClass]="[todayButtonStyleClass]" />
-                    <p-button size="small" styleClass="p-datepicker-clear-button" [label]="getTranslation('clear')" (keydown)="onContainerButtonKeydown($event)" (onClick)="onClearButtonClick($event)" [ngClass]="[clearButtonStyleClass]" />
+                    <p-button size="small" styleClass="p-datepicker-today-button" [label]="getTranslation('today')" (keydown)="onContainerButtonKeydown($event)" (onClick)="onTodayButtonClick($event)" [ngClass]="todayButtonStyleClass" />
+                    <p-button size="small" styleClass="p-datepicker-clear-button" [label]="getTranslation('clear')" (keydown)="onContainerButtonKeydown($event)" (onClick)="onClearButtonClick($event)" [ngClass]="clearButtonStyleClass" />
                 </div>
                 <ng-content select="p-footer"></ng-content>
                 <ng-container *ngTemplateOutlet="footerTemplate || _footerTemplate"></ng-container>
@@ -1470,8 +1472,8 @@ export class DatePicker extends BaseComponent implements OnInit, AfterContentIni
             let m = month + i;
             let y = year;
             if (m > 11) {
-                m = (m % 11) - 1;
-                y = year + 1;
+                m = m % 12;
+                y = year + Math.floor((month + i) / 12);
             }
 
             this.months.push(this.createMonth(m, y));
@@ -1704,7 +1706,7 @@ export class DatePicker extends BaseComponent implements OnInit, AfterContentIni
             }
         }
 
-        if ((this.isSingleSelection() && this.hideOnDateTimeSelect) || (this.isRangeSelection() && this.value[1])) {
+        if (this.hideOnDateTimeSelect && (this.isSingleSelection() || (this.isRangeSelection() && this.value[1]))) {
             setTimeout(() => {
                 event.preventDefault();
                 this.hideOverlay();
@@ -2141,6 +2143,10 @@ export class DatePicker extends BaseComponent implements OnInit, AfterContentIni
     }
 
     onButtonClick(event: Event, inputfield: any = this.inputfieldViewChild?.nativeElement) {
+        if (this.disabled) {
+            return;
+        }
+
         if (!this.overlayVisible) {
             inputfield.focus();
             this.showOverlay();
@@ -3178,6 +3184,10 @@ export class DatePicker extends BaseComponent implements OnInit, AfterContentIni
                 if (!this.inline) {
                     this.overlay = event.element;
                     this.overlay?.setAttribute(this.attributeSelector as string, '');
+
+                    const styles = !this.inline ? { position: 'absolute', top: '0', left: '0' } : undefined;
+                    addStyle(this.overlay, styles);
+
                     this.appendOverlay();
                     this.updateFocus();
                     if (this.autoZIndex) {

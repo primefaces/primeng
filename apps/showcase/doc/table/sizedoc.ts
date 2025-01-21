@@ -5,6 +5,7 @@ import { ChangeDetectionStrategy, ChangeDetectorRef, Component } from '@angular/
 
 @Component({
     selector: 'size-doc',
+    standalone: false,
     template: ` <app-docsectiontext>
             <p>In addition to a regular table, alternatives with alternative sizes are available.</p>
         </app-docsectiontext>
@@ -63,14 +64,9 @@ export class SizeDoc {
 
     code: Code = {
         basic: `<div class="flex justify-center mb-4">
-    <p-selectbutton
-        [options]="sizes"
-        [(ngModel)]="selectedSize"
-        [multiple]="false"
-        optionLabel="name"
-        optionValue="class" />
+    <p-selectbutton [options]="sizes" [(ngModel)]="selectedSize" [multiple]="false" optionLabel="name" optionValue="value" />
 </div>
-<p-table [value]="products" [tableStyle]="{ 'min-width': '50rem' }" [styleClass]="selectedSize.class">
+<p-table [value]="products" [tableStyle]="{ 'min-width': '50rem' }" [size]="selectedSize">
     <ng-template #header>
         <tr>
             <th>Code</th>
@@ -88,34 +84,27 @@ export class SizeDoc {
         </tr>
     </ng-template>
 </p-table>`,
-        html: `<div class="card">
-    <div class="flex justify-center mb-4">
-        <p-selectbutton
-            [options]="sizes"
-            [(ngModel)]="selectedSize"
-            [multiple]="false"
-            optionLabel="name"
-            optionValue="class" />
-    </div>
-    <p-table [value]="products" [tableStyle]="{ 'min-width': '50rem' }" [styleClass]="selectedSize.class">
-        <ng-template #header>
-            <tr>
-                <th>Code</th>
-                <th>Name</th>
-                <th>Category</th>
-                <th>Quantity</th>
-            </tr>
-        </ng-template>
-        <ng-template #body let-product>
-            <tr>
-                <td>{{ product.code }}</td>
-                <td>{{ product.name }}</td>
-                <td>{{ product.category }}</td>
-                <td>{{ product.quantity }}</td>
-            </tr>
-        </ng-template>
-    </p-table>
-</div>`,
+        html: `<div class="flex justify-center mb-4">
+    <p-selectbutton [options]="sizes" [(ngModel)]="selectedSize" [multiple]="false" optionLabel="name" optionValue="value" />
+</div>
+<p-table [value]="products" [tableStyle]="{ 'min-width': '50rem' }" [size]="selectedSize">
+    <ng-template #header>
+        <tr>
+            <th>Code</th>
+            <th>Name</th>
+            <th>Category</th>
+            <th>Quantity</th>
+        </tr>
+    </ng-template>
+    <ng-template #body let-product>
+        <tr>
+            <td>{{ product.code }}</td>
+            <td>{{ product.name }}</td>
+            <td>{{ product.category }}</td>
+            <td>{{ product.quantity }}</td>
+        </tr>
+    </ng-template>
+</p-table>`,
         typescript: `import { Component } from '@angular/core';
 import { Product } from '@/domain/product';
 import { ProductService } from '@/service/productservice';
@@ -135,7 +124,7 @@ export class TableSizeDemo {
 
     sizes!: any[];
 
-    selectedSize: any = '';
+    selectedSize: any = undefined;
 
     constructor(private productService: ProductService) {}
 
@@ -145,9 +134,9 @@ export class TableSizeDemo {
         });
 
         this.sizes = [
-            { name: 'Small', class: 'p-datatable-sm' },
-            { name: 'Normal', class: '' },
-            { name: 'Large',  class: 'p-datatable-lg' }
+            { name: 'Small', value: 'small' },
+            { name: 'Normal', value: undefined },
+            { name: 'Large', value: 'large' }
         ];
     }
 }`,

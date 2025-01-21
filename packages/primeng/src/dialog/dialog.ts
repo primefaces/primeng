@@ -681,24 +681,32 @@ export class Dialog extends BaseComponent implements OnInit, AfterContentInit, O
         return totalMilliseconds;
     }
 
-    focus(focusParentElement = this.contentViewChild.nativeElement) {
-        const timeoutDuration = this.parseDurationToMilliseconds(this.transitionOptions);
-        let focusable = DomHandler.getFocusableElement(focusParentElement, '[autofocus]');
-
-        if (focusable) {
-            this.zone.runOutsideAngular(() => {
-                setTimeout(() => focusable.focus(), timeoutDuration || 5);
-            });
-            return;
+    _focus(focusParentElement?: HTMLElement): boolean {
+        if (focusParentElement) {
+            const timeoutDuration = this.parseDurationToMilliseconds(this.transitionOptions);
+            let _focusableElements = DomHandler.getFocusableElements(focusParentElement);
+            if (_focusableElements && _focusableElements.length > 0) {
+                this.zone.runOutsideAngular(() => {
+                    setTimeout(() => _focusableElements[0].focus(), timeoutDuration || 5);
+                });
+                return true;
+            }
         }
-        const focusableElement = DomHandler.getFocusableElement(focusParentElement);
-        if (focusableElement) {
-            this.zone.runOutsideAngular(() => {
-                setTimeout(() => focusableElement.focus(), timeoutDuration || 5);
-            });
-        } else if (this.footerViewChild) {
-            // If the content section is empty try to focus on footer
-            this.focus(this.footerViewChild.nativeElement);
+
+        return false;
+    }
+
+    focus(focusParentElement?: HTMLElement) {
+        let focused = this._focus(focusParentElement);
+
+        if (!focused) {
+            focused = this._focus(this.footerViewChild?.nativeElement);
+            if (!focused) {
+                focused = this._focus(this.headerViewChild?.nativeElement);
+                if (!focused) {
+                    this._focus(this.contentViewChild?.nativeElement);
+                }
+            }
         }
     }
 
@@ -1028,8 +1036,7 @@ export class Dialog extends BaseComponent implements OnInit, AfterContentInit, O
                 // }
 
                 if (this.focusOnShow) {
-                    const el = this.contentViewChild?.nativeElement || this.container;
-                    this.focus(el);
+                    this.focus();
                 }
                 break;
 

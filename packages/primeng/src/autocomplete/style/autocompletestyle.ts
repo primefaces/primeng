@@ -304,7 +304,7 @@ const classes = {
         'p-autocomplete-open': instance.overlayVisible,
         'p-autocomplete-clearable': instance.showClear && !instance.disabled,
         // 'p-invalid': instance.invalid,
-        'p-autocomplete-fluid': instance.hasFluid()
+        'p-autocomplete-fluid': instance.hasFluid
     }),
     pcInput: 'p-autocomplete-input',
     inputMultiple: ({ instance }) => ({

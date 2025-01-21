@@ -3,6 +3,7 @@ import { Component } from '@angular/core';
 
 @Component({
     selector: 'custom-doc',
+    standalone: false,
     template: `
         <app-docsectiontext>
             <p>Tooltip can use either a <i>string</i> or a <i>TemplateRef</i>.</p>
@@ -56,10 +57,6 @@ export class CustomDoc {
             <path
                 d="..."
                 fill="var(--p-primary-color)"
-            />
-            <path
-                d="..."
-                fill="var(--ground-background)"
             />
         </svg>
         <span> <b>PrimeNG</b> rocks! </span>

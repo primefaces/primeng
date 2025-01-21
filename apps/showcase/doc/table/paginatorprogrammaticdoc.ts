@@ -5,6 +5,7 @@ import { ChangeDetectionStrategy, ChangeDetectorRef, Component } from '@angular/
 
 @Component({
     selector: 'paginator-programmatic-doc',
+    standalone: false,
     template: `
         <app-docsectiontext>
             <p>Paginator can also be controlled via model using a binding to the <i>first</i> property where changes trigger a pagination.</p>

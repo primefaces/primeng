@@ -3,6 +3,7 @@ import { Component } from '@angular/core';
 
 @Component({
     selector: 'svg-doc',
+    standalone: false,
     template: `
         <app-docsectiontext>
             <p>Inline SVGs are embedded inside the dom.</p>

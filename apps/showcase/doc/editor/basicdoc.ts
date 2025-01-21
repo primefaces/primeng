@@ -3,6 +3,7 @@ import { Component } from '@angular/core';
 
 @Component({
     selector: 'editor-basic-demo',
+    standalone: false,
     template: `
         <app-docsectiontext>
             <p>A model can be bound using the standard <i>ngModel</i> directive.</p>

@@ -10,6 +10,7 @@ interface Column {
 
 @Component({
     selector: 'resize-scrollable-doc',
+    standalone: false,
     template: `
         <app-docsectiontext>
             <p>To utilize the column resize modes with a <i>scrollable</i> TreeTable, a <i>colgroup</i> template must be defined. The default value of scrollHeight is "flex," it can also be set as a string value.</p>
@@ -17,19 +18,19 @@ interface Column {
         <div class="card">
             <p-deferred-demo (load)="loadDemoData()">
                 <p-treetable [value]="files" [columns]="cols" [resizableColumns]="true" [scrollable]="true" scrollHeight="200px" [tableStyle]="{ 'min-width': '50rem' }">
-                    <ng-template pTemplate="colgroup" let-columns>
+                    <ng-template #colgroup let-columns>
                         <colgroup>
                             <col *ngFor="let col of columns" />
                         </colgroup>
                     </ng-template>
-                    <ng-template pTemplate="header" let-columns>
+                    <ng-template #header let-columns>
                         <tr>
                             <th *ngFor="let col of columns" ttResizableColumn>
                                 {{ col.header }}
                             </th>
                         </tr>
                     </ng-template>
-                    <ng-template pTemplate="body" let-rowNode let-rowData="rowData" let-columns="columns">
+                    <ng-template #body let-rowNode let-rowData="rowData" let-columns="columns">
                         <tr [ttRow]="rowNode">
                             <td *ngFor="let col of columns; let i = index">
                                 <p-treeTableToggler [rowNode]="rowNode" *ngIf="i === 0" />
@@ -61,25 +62,44 @@ export class ResizeScrollableDoc {
     }
 
     code: Code = {
-        basic: `<p-treetable
-    [value]="files"
-    [columns]="cols"
-    [resizableColumns]="true"
-    [scrollable]="true"
-    scrollHeight="200px">
-        <ng-template pTemplate="colgroup" let-columns>
+        basic: `<p-treetable [value]="files" [columns]="cols" [resizableColumns]="true" [scrollable]="true" scrollHeight="200px">
+    <ng-template #colgroup let-columns>
+        <colgroup>
+            <col *ngFor="let col of columns">
+        </colgroup>
+    </ng-template>
+    <ng-template #header let-columns>
+        <tr>
+            <th *ngFor="let col of columns" ttResizableColumn>
+                {{ col.header }}
+            </th>
+        </tr>
+    </ng-template>
+    <ng-template #body let-rowNode let-rowData="rowData" let-columns="columns">
+        <tr [ttRow]="rowNode">
+            <td *ngFor="let col of columns; let i = index">
+                <p-treeTableToggler [rowNode]="rowNode" *ngIf="i === 0" />
+                {{ rowData[col.field] }}
+            </td>
+        </tr>
+    </ng-template>
+</p-treetable>`,
+
+        html: `<div class="card">
+    <p-treetable [value]="files" [columns]="cols" [resizableColumns]="true" [scrollable]="true" scrollHeight="200px">
+        <ng-template #colgroup let-columns>
             <colgroup>
                 <col *ngFor="let col of columns">
             </colgroup>
         </ng-template>
-        <ng-template pTemplate="header" let-columns>
+        <ng-template #header let-columns>
             <tr>
                 <th *ngFor="let col of columns" ttResizableColumn>
                     {{ col.header }}
                 </th>
             </tr>
         </ng-template>
-        <ng-template pTemplate="body" let-rowNode let-rowData="rowData" let-columns="columns">
+        <ng-template #body let-rowNode let-rowData="rowData" let-columns="columns">
             <tr [ttRow]="rowNode">
                 <td *ngFor="let col of columns; let i = index">
                     <p-treeTableToggler [rowNode]="rowNode" *ngIf="i === 0" />
@@ -87,35 +107,6 @@ export class ResizeScrollableDoc {
                 </td>
             </tr>
         </ng-template>
-</p-treetable>`,
-
-        html: `<div class="card">
-    <p-treetable
-        [value]="files"
-        [columns]="cols"
-        [resizableColumns]="true"
-        [scrollable]="true"
-        scrollHeight="200px">
-            <ng-template pTemplate="colgroup" let-columns>
-                <colgroup>
-                    <col *ngFor="let col of columns">
-                </colgroup>
-            </ng-template>
-            <ng-template pTemplate="header" let-columns>
-                <tr>
-                    <th *ngFor="let col of columns" ttResizableColumn>
-                        {{ col.header }}
-                    </th>
-                </tr>
-            </ng-template>
-            <ng-template pTemplate="body" let-rowNode let-rowData="rowData" let-columns="columns">
-                <tr [ttRow]="rowNode">
-                    <td *ngFor="let col of columns; let i = index">
-                        <p-treeTableToggler [rowNode]="rowNode" *ngIf="i === 0" />
-                        {{ rowData[col.field] }}
-                    </td>
-                </tr>
-            </ng-template>
     </p-treetable>
 </div>`,
 

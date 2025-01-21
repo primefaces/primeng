@@ -4,6 +4,7 @@ import { MultiSelect } from 'primeng/multiselect';
 
 @Component({
     selector: 'virtual-scroll-doc',
+    standalone: false,
     template: `
         <app-docsectiontext>
             <p>

@@ -3,6 +3,7 @@ import { Component } from '@angular/core';
 
 @Component({
     selector: 'input-doc',
+    standalone: false,
     template: `
         <app-docsectiontext>
             <p>
@@ -12,10 +13,10 @@ import { Component } from '@angular/core';
         </app-docsectiontext>
         <div class="card">
             <p-inplace>
-                <ng-template pTemplate="display">
+                <ng-template #display>
                     <span>Click to Edit</span>
                 </ng-template>
-                <ng-template pTemplate="content" let-closeCallback="closeCallback">
+                <ng-template #content let-closeCallback="closeCallback">
                     <span class="inline-flex items-center gap-2">
                         <input type="text" pInputText [pAutoFocus]="true" />
                         <button (click)="closeCallback($event)" pButton icon="pi pi-times" text severity="danger"></button>
@@ -29,10 +30,10 @@ import { Component } from '@angular/core';
 export class InputDoc {
     code: Code = {
         basic: `<p-inplace>
-    <ng-template pTemplate="display">
+    <ng-template #display>
         <span>Click to Edit</span>
     </ng-template>
-    <ng-template pTemplate="content" let-closeCallback="closeCallback">
+    <ng-template #content let-closeCallback="closeCallback">
         <span class="inline-flex items-center gap-2">
             <input type="text" pInputText autofocus />
             <button (click)="closeCallback($event)" pButton icon="pi pi-times" text severity="danger"></button>
@@ -41,10 +42,10 @@ export class InputDoc {
 </p-inplace>`,
         html: `<div class="card">
     <p-inplace>
-        <ng-template pTemplate="display">
+        <ng-template #display>
             <span>Click to Edit</span>
         </ng-template>
-        <ng-template pTemplate="content" let-closeCallback="closeCallback">
+        <ng-template #content let-closeCallback="closeCallback">
             <span class="inline-flex items-center gap-2">
                 <input type="text" pInputText autofocus />
                 <button (click)="closeCallback($event)" pButton icon="pi pi-times" text severity="danger"></button>

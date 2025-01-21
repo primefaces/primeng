@@ -1,0 +1,9 @@
+#!/bin/sh
+
+# Discard all changes and untracked files
+#git reset --hard HEAD && git clean -fd
+
+# Run the clean script
+#npm run clean || exit 1
+
+#echo "\033[1;33mPlease make sure to run 'npm run setup' to configure all necessary settings.\033[0m"

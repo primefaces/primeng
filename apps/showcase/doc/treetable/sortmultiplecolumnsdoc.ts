@@ -10,6 +10,7 @@ interface Column {
 
 @Component({
     selector: 'sort-multiple-columns-doc',
+    standalone: false,
     template: `
         <app-docsectiontext>
             <p>Multiple columns can be sorted by defining <i>sortMode</i> as <i>multiple</i>. This mode requires metaKey (e.g. <i>⌘</i>) to be pressed when clicking a header.</p>
@@ -17,7 +18,7 @@ interface Column {
         <div class="card">
             <p-deferred-demo (load)="loadDemoData()">
                 <p-treetable [value]="files" [columns]="cols" sortMode="multiple" [scrollable]="true" [tableStyle]="{ 'min-width': '50rem' }">
-                    <ng-template pTemplate="header" let-columns>
+                    <ng-template #header let-columns>
                         <tr>
                             <th *ngFor="let col of columns" [ttSortableColumn]="col.field">
                                 {{ col.header }}
@@ -25,7 +26,7 @@ interface Column {
                             </th>
                         </tr>
                     </ng-template>
-                    <ng-template pTemplate="body" let-rowNode let-rowData="rowData" let-columns="columns">
+                    <ng-template #body let-rowNode let-rowData="rowData" let-columns="columns">
                         <tr [ttRow]="rowNode">
                             <td *ngFor="let col of columns; let i = index">
                                 <p-treeTableToggler [rowNode]="rowNode" *ngIf="i === 0" />
@@ -58,13 +59,28 @@ export class SortMultipleColumnsDoc {
     }
 
     code: Code = {
-        basic: `<p-treetable
-    [value]="files"
-    [columns]="cols"
-    sortMode="multiple"
-    [scrollable]="true"
-    [tableStyle]="{'min-width':'50rem'}">
-        <ng-template pTemplate="header" let-columns>
+        basic: `<p-treetable [value]="files" [columns]="cols" sortMode="multiple" [scrollable]="true" [tableStyle]="{'min-width':'50rem'}">
+    <ng-template #header let-columns>
+        <tr>
+            <th *ngFor="let col of columns" [ttSortableColumn]="col.field">
+                {{ col.header }}
+                <p-treetableSortIcon [field]="col.field" />
+            </th>
+        </tr>
+    </ng-template>
+    <ng-template #body let-rowNode let-rowData="rowData" let-columns="columns">
+        <tr [ttRow]="rowNode">
+            <td *ngFor="let col of columns; let i = index">
+                <p-treeTableToggler [rowNode]="rowNode" *ngIf="i === 0" />
+                {{ rowData[col.field] }}
+            </td>
+        </tr>
+    </ng-template>
+</p-treetable>`,
+
+        html: `<div class="card">
+    <p-treetable [value]="files" [columns]="cols" sortMode="multiple" [scrollable]="true" [tableStyle]="{'min-width':'50rem'}">
+        <ng-template #header let-columns>
             <tr>
                 <th *ngFor="let col of columns" [ttSortableColumn]="col.field">
                     {{ col.header }}
@@ -72,7 +88,7 @@ export class SortMultipleColumnsDoc {
                 </th>
             </tr>
         </ng-template>
-        <ng-template pTemplate="body" let-rowNode let-rowData="rowData" let-columns="columns">
+        <ng-template #body let-rowNode let-rowData="rowData" let-columns="columns">
             <tr [ttRow]="rowNode">
                 <td *ngFor="let col of columns; let i = index">
                     <p-treeTableToggler [rowNode]="rowNode" *ngIf="i === 0" />
@@ -80,31 +96,6 @@ export class SortMultipleColumnsDoc {
                 </td>
             </tr>
         </ng-template>
-</p-treetable>`,
-
-        html: `<div class="card">
-    <p-treetable
-        [value]="files"
-        [columns]="cols"
-        sortMode="multiple"
-        [scrollable]="true"
-        [tableStyle]="{'min-width':'50rem'}">
-            <ng-template pTemplate="header" let-columns>
-                <tr>
-                    <th *ngFor="let col of columns" [ttSortableColumn]="col.field">
-                        {{ col.header }}
-                        <p-treetableSortIcon [field]="col.field" />
-                    </th>
-                </tr>
-            </ng-template>
-            <ng-template pTemplate="body" let-rowNode let-rowData="rowData" let-columns="columns">
-                <tr [ttRow]="rowNode">
-                    <td *ngFor="let col of columns; let i = index">
-                        <p-treeTableToggler [rowNode]="rowNode" *ngIf="i === 0" />
-                        {{ rowData[col.field] }}
-                    </td>
-                </tr>
-            </ng-template>
     </p-treetable>
 </div>`,
 

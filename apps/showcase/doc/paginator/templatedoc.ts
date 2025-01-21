@@ -10,6 +10,7 @@ interface PageEvent {
 
 @Component({
     selector: 'template-doc',
+    standalone: false,
     template: `
         <app-docsectiontext>
             <p>Templating allows overriding the default content of the UI elements by defining callbacks using the element name.</p>

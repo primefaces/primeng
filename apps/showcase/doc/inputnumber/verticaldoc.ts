@@ -3,16 +3,17 @@ import { Component } from '@angular/core';
 
 @Component({
     selector: 'vertical-doc',
+    standalone: false,
     template: `
         <app-docsectiontext>
             <p>Buttons can also placed vertically by setting <i>buttonLayout</i> as <i>vertical</i>.</p>
         </app-docsectiontext>
         <div class="card flex justify-center">
             <p-inputnumber [(ngModel)]="value1" [showButtons]="true" buttonLayout="vertical" spinnerMode="vertical" inputId="vertical" [inputStyle]="{ width: '3rem' }">
-                <ng-template pTemplate="incrementbuttonicon">
+                <ng-template #incrementbuttonicon>
                     <span class="pi pi-plus"></span>
                 </ng-template>
-                <ng-template pTemplate="decrementbuttonicon">
+                <ng-template #decrementbuttonicon>
                     <span class="pi pi-minus"></span>
                 </ng-template>
             </p-inputnumber>
@@ -25,20 +26,20 @@ export class VerticalDoc {
 
     code: Code = {
         basic: `<p-inputnumber [(ngModel)]="value1" [showButtons]="true" buttonLayout="vertical" spinnerMode="vertical" inputId="vertical" [inputStyle]="{ width: '3rem' }">
-    <ng-template pTemplate="incrementbuttonicon">
+    <ng-template #incrementbuttonicon>
         <span class="pi pi-plus"></span>
     </ng-template>
-    <ng-template pTemplate="decrementbuttonicon">
+    <ng-template #decrementbuttonicon>
         <span class="pi pi-minus"></span>
     </ng-template>
 </p-inputnumber>`,
 
         html: `<div class="card flex justify-center">
     <p-inputnumber [(ngModel)]="value1" [showButtons]="true" buttonLayout="vertical" spinnerMode="vertical" inputId="vertical" [inputStyle]="{ width: '3rem' }">
-        <ng-template pTemplate="incrementbuttonicon">
+        <ng-template #incrementbuttonicon>
             <span class="pi pi-plus"></span>
         </ng-template>
-        <ng-template pTemplate="decrementbuttonicon">
+        <ng-template #decrementbuttonicon>
             <span class="pi pi-minus"></span>
         </ng-template>
     </p-inputnumber>

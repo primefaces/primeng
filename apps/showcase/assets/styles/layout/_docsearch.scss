@@ -41,6 +41,7 @@
             height: auto;
             width: auto;
             font-family: inherit;
+            box-shadow: none;
 
             &:first-child {
                 font-size: 0.75rem;
@@ -52,7 +53,7 @@
                 align-items: center;
                 font-size: 0.75rem;
                 position: relative;
-                
+
                 &::before {
                     content: "\e90d";
                     display: flex;
@@ -67,7 +68,7 @@
 
                 }
             }
-        }        
+        }
     }
 }
 

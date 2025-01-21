@@ -3,6 +3,7 @@ import { Component } from '@angular/core';
 
 @Component({
     selector: 'pick-list-accessibility-doc',
+    standalone: false,
     template: ` <app-docsectiontext>
         <h3>Screen Reader</h3>
         <p>

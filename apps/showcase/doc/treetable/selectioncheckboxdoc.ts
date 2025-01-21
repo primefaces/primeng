@@ -10,6 +10,7 @@ interface Column {
 
 @Component({
     selector: 'selection-checkbox-doc',
+    standalone: false,
     template: `
         <app-docsectiontext>
             <p>Selection of multiple nodes via checkboxes is enabled by configuring <i>selectionMode</i> as <i>checkbox</i>.</p>
@@ -22,18 +23,18 @@ interface Column {
         <div class="card mt-4">
             <p-deferred-demo (load)="loadDemoData()">
                 <p-treetable [value]="files" [columns]="cols" selectionMode="checkbox" [(selectionKeys)]="selectionKeys" dataKey="key" [scrollable]="true" [tableStyle]="{ 'min-width': '50rem' }">
-                    <ng-template pTemplate="header" let-columns>
+                    <ng-template #header let-columns>
                         <tr>
                             <th *ngFor="let col of columns">
                                 {{ col.header }}
                             </th>
                         </tr>
                     </ng-template>
-                    <ng-template pTemplate="body" let-rowNode let-rowData="rowData" let-columns="columns">
+                    <ng-template #body let-rowNode let-rowData="rowData" let-columns="columns">
                         <tr [ttRow]="rowNode" [ttSelectableRow]="rowNode">
                             <td *ngFor="let col of columns; let i = index">
                                 <p-treeTableToggler [rowNode]="rowNode" *ngIf="i === 0" />
-                                <p-treetableCheckbox [value]="rowNode" *ngIf="i === 0" />
+                                <p-treeTableCheckbox [value]="rowNode" *ngIf="i === 0" />
                                 {{ rowData[col.field] }}
                             </td>
                         </tr>
@@ -70,66 +71,65 @@ export class SelectionCheckboxDoc {
         ];
 
         this.selectionKeys = {
+            '0': {
+                partialChecked: true
+            },
             '0-0': {
                 partialChecked: false,
+                checked: true
+            },
+            '0-0-0': {
+                checked: true
+            },
+            '0-0-1': {
+                checked: true
+            },
+            '0-0-2': {
                 checked: true
             }
         };
     }
 
     code: Code = {
-        basic: `<p-treetable
-    [value]="files"
-    [columns]="cols"
-    selectionMode="checkbox"
-    [(selectionKeys)]="selectionKeys"
-    dataKey="key"
-    [scrollable]="true"
-    [tableStyle]="{ 'min-width': '50rem' }">
-        <ng-template pTemplate="header" let-columns>
+        basic: `<p-treetable [value]="files" [columns]="cols" selectionMode="checkbox" [(selectionKeys)]="selectionKeys" dataKey="key" [scrollable]="true" [tableStyle]="{ 'min-width': '50rem' }">
+    <ng-template #header let-columns>
+        <tr>
+            <th *ngFor="let col of columns">
+                {{ col.header }}
+            </th>
+        </tr>
+    </ng-template>
+    <ng-template #body let-rowNode let-rowData="rowData" let-columns="columns">
+        <tr [ttRow]="rowNode" [ttSelectableRow]="rowNode">
+            <td *ngFor="let col of columns; let i = index">
+                <p-treeTableToggler [rowNode]="rowNode" *ngIf="i === 0" />
+                <p-treeTableCheckbox [value]="rowNode" *ngIf="i === 0" />
+                {{ rowData[col.field] }}
+            </td>
+        </tr>
+    </ng-template>
+</p-treetable>`,
+
+        html: `<div class="card">
+    <p-treetable [value]="files" [columns]="cols" selectionMode="checkbox" [(selectionKeys)]="selectionKeys" dataKey="key" [scrollable]="true" [tableStyle]="{ 'min-width': '50rem' }">
+        <ng-template #header let-columns>
             <tr>
                 <th *ngFor="let col of columns">
                     {{ col.header }}
                 </th>
             </tr>
         </ng-template>
-        <ng-template pTemplate="body" let-rowNode let-rowData="rowData" let-columns="columns">
+        <ng-template #body let-rowNode let-rowData="rowData" let-columns="columns">
             <tr [ttRow]="rowNode" [ttSelectableRow]="rowNode">
                 <td *ngFor="let col of columns; let i = index">
                     <p-treeTableToggler [rowNode]="rowNode" *ngIf="i === 0" />
-                    <p-treetableCheckbox [value]="rowNode" *ngIf="i === 0" />
+                    <p-treeTableCheckbox [value]="rowNode" *ngIf="i === 0" />
                     {{ rowData[col.field] }}
                 </td>
             </tr>
         </ng-template>
-</p-treetable>`,
-
-        html: `<div class="card">
-    <p-treetable
-        [value]="files"
-        [columns]="cols"
-        selectionMode="checkbox"
-        [(selectionKeys)]="selectionKeys"
-        dataKey="key"
-        [scrollable]="true"
-        [tableStyle]="{ 'min-width': '50rem' }">
-            <ng-template pTemplate="header" let-columns>
-                <tr>
-                    <th *ngFor="let col of columns">
-                        {{ col.header }}
-                    </th>
-                </tr>
-            </ng-template>
-            <ng-template pTemplate="body" let-rowNode let-rowData="rowData" let-columns="columns">
-                <tr [ttRow]="rowNode" [ttSelectableRow]="rowNode">
-                    <td *ngFor="let col of columns; let i = index">
-                        <p-treeTableToggler [rowNode]="rowNode" *ngIf="i === 0" />
-                        <p-treetableCheckbox [value]="rowNode" *ngIf="i === 0" />
-                        {{ rowData[col.field] }}
-                    </td>
-                </tr>
-            </ng-template>
-</p-treetable>`,
+    </p-treetable>
+</div>`,
 
         typescript: `import { Component, OnInit } from '@angular/core';
 import { TreeNode } from 'primeng/api';
@@ -168,8 +168,20 @@ export class TreeTableSelectionCheckboxDemo implements OnInit {
         ];
 
         this.selectionKeys = {
+            '0': {
+                partialChecked: true
+            },
             '0-0': {
                 partialChecked: false,
+                checked: true
+            },
+            '0-0-0': {
+                checked: true
+            },
+            '0-0-1': {
+                checked: true
+            },
+            '0-0-2': {
                 checked: true
             }
         };
@@ -181,8 +193,20 @@ export class TreeTableSelectionCheckboxDemo implements OnInit {
 
     code2: Code = {
         typescript: `{
+    '0': {
+        partialChecked: true
+    },
     '0-0': {
         partialChecked: false,
+        checked: true
+    },
+    '0-0-0': {
+        checked: true
+    },
+    '0-0-1': {
+        checked: true
+    },
+    '0-0-2': {
         checked: true
     }
 }`

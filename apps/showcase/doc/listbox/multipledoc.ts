@@ -8,6 +8,7 @@ interface City {
 
 @Component({
     selector: 'multiple-doc',
+    standalone: false,
     template: `
         <app-docsectiontext>
             <p>

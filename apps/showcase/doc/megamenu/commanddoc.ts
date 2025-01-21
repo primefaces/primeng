@@ -3,6 +3,7 @@ import { Component } from '@angular/core';
 
 @Component({
     selector: 'command-doc',
+    standalone: false,
     template: `
         <app-docsectiontext>
             <p>The <i>command</i> property of a menuitem defines the callback to run when an item is activated by click or a key event.</p>

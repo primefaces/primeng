@@ -3,13 +3,14 @@ import { Component } from '@angular/core';
 
 @Component({
     selector: 'template-doc',
+    standalone: false,
     template: `
         <app-docsectiontext>
             <p><i>content</i> template allows displaying custom content inside the progressbar.</p>
         </app-docsectiontext>
         <div class="card">
             <p-progressbar [value]="50">
-                <ng-template pTemplate="content" let-value>
+                <ng-template #content let-value>
                     <span>{{ value }}/100</span>
                 </ng-template>
             </p-progressbar>
@@ -20,13 +21,13 @@ import { Component } from '@angular/core';
 export class TemplateDoc {
     code: Code = {
         basic: `<p-progressbar [value]="50">
-    <ng-template pTemplate="content" let-value>
+    <ng-template #content let-value>
         <span>{{value}}/100</span>
     </ng-template>
 </p-progressbar>`,
         html: `<div class="card">
      <p-progressbar [value]="50">
-         <ng-template pTemplate="content" let-value>
+         <ng-template #content let-value>
             <span>{{value}}/100</span>
          </ng-template>
      </p-progressbar>

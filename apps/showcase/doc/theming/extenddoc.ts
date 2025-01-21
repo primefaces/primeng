@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 
 @Component({
     selector: 'extend-doc',
+    standalone: false,
     template: `
         <app-docsectiontext>
             <p>
@@ -42,7 +43,7 @@ export class ExtendDoc {
                 normal: '0.5s'
                 fast: '0.25s'
             },
-            imageDisplay: 'block' 
+            imageDisplay: 'block'
         }
     },
     css: ({ dt }) => \`

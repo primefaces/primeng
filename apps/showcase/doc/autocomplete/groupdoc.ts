@@ -9,6 +9,7 @@ interface AutoCompleteCompleteEvent {
 
 @Component({
     selector: 'grouped-doc',
+    standalone: false,
     template: ` <app-docsectiontext>
             <p>Option grouping is enabled when <i>group</i> property is set to <i>true</i>. <i>group</i> template is available to customize the option groups. All templates get the option instance as the default local template variable.</p>
         </app-docsectiontext>
@@ -87,39 +88,23 @@ export class GroupDoc implements OnInit {
     }
 
     code: Code = {
-        basic: `<p-autocomplete
-    [(ngModel)]="selectedCity"
-    [group]="true"
-    [suggestions]="filteredGroups"
-    (completeMethod)="filterGroupedCity($event)"
-    placeholder="Hint: type 'a'">
-        <ng-template let-group #group>
-            <div class="flex items-center">
-                <img
-                    src="https://primefaces.org/cdn/primeng/images/demo/flag/flag_placeholder.png"
-                    [class]="'mr-2 flag flag-' + group.value"
-                    style="width: 20px" />
-                <span>{{ group.label }}</span>
-            </div>
-        </ng-template>
+        basic: `<p-autocomplete [(ngModel)]="selectedCity" [group]="true" [suggestions]="filteredGroups" (completeMethod)="filterGroupedCity($event)" placeholder="Hint: type 'a'">
+    <ng-template let-group #group>
+        <div class="flex items-center">
+            <img src="https://primefaces.org/cdn/primeng/images/demo/flag/flag_placeholder.png" [class]="'mr-2 flag flag-' + group.value" style="width: 20px" />
+            <span>{{ group.label }}</span>
+        </div>
+    </ng-template>
 </p-autocomplete>`,
 
         html: `<div class="card flex justify-center">
-    <p-autocomplete
-        [(ngModel)]="selectedCity"
-        [group]="true"
-        [suggestions]="filteredGroups"
-        (completeMethod)="filterGroupedCity($event)"
-        placeholder="Hint: type 'a'">
-            <ng-template let-group #group>
-                <div class="flex items-center">
-                    <img
-                        src="https://primefaces.org/cdn/primeng/images/demo/flag/flag_placeholder.png"
-                        [class]="'mr-2 flag flag-' + group.value"
-                        style="width: 20px" />
-                    <span>{{ group.label }}</span>
-                </div>
-            </ng-template>
+    <p-autocomplete [(ngModel)]="selectedCity" [group]="true" [suggestions]="filteredGroups" (completeMethod)="filterGroupedCity($event)" placeholder="Hint: type 'a'">
+        <ng-template let-group #group>
+            <div class="flex items-center">
+                <img src="https://primefaces.org/cdn/primeng/images/demo/flag/flag_placeholder.png" [class]="'mr-2 flag flag-' + group.value" style="width: 20px" />
+                <span>{{ group.label }}</span>
+            </div>
+        </ng-template>
     </p-autocomplete>
 </div>`,
 

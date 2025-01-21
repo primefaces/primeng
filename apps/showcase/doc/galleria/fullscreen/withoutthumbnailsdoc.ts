@@ -1,9 +1,10 @@
 import { Code } from '@/domain/code';
 import { PhotoService } from '@/service/photoservice';
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, model } from '@angular/core';
 
 @Component({
     selector: 'without-thumbnails-doc',
+    standalone: false,
     template: `
         <app-docsectiontext>
             <p>Thumbnails can also be hidden in full screen mode.</p>
@@ -21,7 +22,7 @@ import { Component, OnInit } from '@angular/core';
                 [showThumbnails]="false"
                 [showItemNavigators]="true"
             >
-                <ng-template pTemplate="item" let-item>
+                <ng-template #item let-item>
                     <img [src]="item.itemImageSrc" style="width: 100%; display: block;" />
                 </ng-template>
             </p-galleria>
@@ -32,7 +33,7 @@ import { Component, OnInit } from '@angular/core';
 export class WithoutThumbnailsDoc implements OnInit {
     displayBasic: boolean | undefined;
 
-    images: any[] | undefined;
+    images = model([]);
 
     responsiveOptions: any[] = [
         {
@@ -56,26 +57,26 @@ export class WithoutThumbnailsDoc implements OnInit {
     constructor(private photoService: PhotoService) {}
 
     ngOnInit() {
-        this.photoService.getImages().then((images) => (this.images = images));
+        this.photoService.getImages().then((images) => this.images.set(images));
     }
 
     code: Code = {
         basic: `<p-galleria [(value)]="images" [(visible)]="displayBasic" [responsiveOptions]="responsiveOptions" [containerStyle]="{ 'max-width': '850px' }" [numVisible]="7" [circular]="true" [fullScreen]="true" [showItemNavigators]="true" [showThumbnails]="false">
-    <ng-template pTemplate="item" let-item>
+    <ng-template #item let-item>
         <img [src]="item.itemImageSrc" style="width: 100%; display: block;" />
     </ng-template>
 </p-galleria>`,
         html: `<div class="card flex justify-center">
     <p-button icon="pi pi-external-link" label="Show" (click)="displayBasic = true" />
         <p-galleria [(value)]="images" [(visible)]="displayBasic" [responsiveOptions]="responsiveOptions" [containerStyle]="{ 'max-width': '850px' }" [numVisible]="7" [circular]="true" [fullScreen]="true" [showItemNavigators]="true" [showThumbnails]="false">
-                <ng-template pTemplate="item" let-item>
-                    <img
-                        [src]="item.itemImageSrc"
-                        style="width: 100%; display: block;" />
-                </ng-template>
+            <ng-template #item let-item>
+                <img
+                    [src]="item.itemImageSrc"
+                    style="width: 100%; display: block;" />
+            </ng-template>
         </p-galleria>
 </div>`,
-        typescript: `import { Component, OnInit } from '@angular/core';
+        typescript: `import { Component, OnInit, model } from '@angular/core';
 import { PhotoService } from '@/service/photoservice';
 import { GalleriaModule } from 'primeng/galleria';
 import { ButtonModule } from 'primeng/button';
@@ -90,7 +91,7 @@ import { ButtonModule } from 'primeng/button';
 export class GalleriaFullScreenWithoutThumbnailsDemo implements OnInit {
     displayBasic: boolean | undefined;
 
-    images: any[] | undefined;
+    images = model([]);
 
     responsiveOptions: any[] = [
         {
@@ -114,8 +115,9 @@ export class GalleriaFullScreenWithoutThumbnailsDemo implements OnInit {
     constructor(private photoService: PhotoService) {}
 
     ngOnInit() {
-        this.photoService.getImages().then((images) => (this.images = images));
+        this.photoService.getImages().then((images) => this.images.set(images));
     }
+
 }`,
         data: `
 /* PhotoService */

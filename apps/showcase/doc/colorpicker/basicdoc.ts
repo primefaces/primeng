@@ -3,6 +3,7 @@ import { Component } from '@angular/core';
 
 @Component({
     selector: 'color-picker-basic-demo',
+    standalone: false,
     template: `
         <app-docsectiontext>
             <p>ColorPicker is used as a controlled input with <i>ngModel</i> property.</p>

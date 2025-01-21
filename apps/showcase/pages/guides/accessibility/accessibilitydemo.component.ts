@@ -8,6 +8,7 @@ import { Component } from '@angular/core';
 
 @Component({
     selector: 'accessibility',
+    standalone: false,
     templateUrl: './accessibilitydemo.component.html'
 })
 export class AccessibilityDemoComponent {

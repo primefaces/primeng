@@ -6,6 +6,7 @@ import { SelectItem } from 'primeng/api';
 
 @Component({
     selector: 'data-view-sorting-demo',
+    standalone: false,
     template: `
         <app-docsectiontext>
             <p>Built-in sorting is controlled by bindings <i>sortField</i> and <i>sortOrder</i> properties from a custom UI.</p>

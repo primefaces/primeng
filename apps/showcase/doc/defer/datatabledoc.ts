@@ -6,6 +6,7 @@ import { MessageService } from 'primeng/api';
 
 @Component({
     selector: 'datatable-doc',
+    standalone: false,
     template: `
         <app-docsectiontext>
             <p>Defer is applied to a container element with pDefer directive where content needs to be placed inside an ng-template.</p>

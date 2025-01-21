@@ -58,7 +58,7 @@ import { PopoverStyle } from './style/popoverstyle';
         >
             <div class="p-popover-content" (click)="onContentClick($event)" (mousedown)="onContentClick($event)">
                 <ng-content></ng-content>
-                <ng-container *ngTemplateOutlet="contentTemplate || _contentTemplate"></ng-container>
+                <ng-template *ngTemplateOutlet="contentTemplate || _contentTemplate; context: { closeCallback: onCloseClick.bind(this) }"></ng-template>
             </div>
         </div>
     `,
@@ -108,11 +108,6 @@ export class Popover extends BaseComponent implements AfterContentInit, OnDestro
      * @group Props
      */
     @Input({ transform: booleanAttribute }) dismissable: boolean = true;
-    /**
-     * When enabled, displays a close icon at top right corner.
-     * @group Props
-     */
-    @Input({ transform: booleanAttribute }) showCloseIcon: boolean | undefined;
     /**
      * Inline style of the component.
      * @group Props
@@ -353,10 +348,6 @@ export class Popover extends BaseComponent implements AfterContentInit, OnDestro
 
         if (containerOffset.top < targetOffset.top) {
             addClass(this.container, 'p-popover-flipped');
-
-            if (this.showCloseIcon) {
-                this.renderer.setStyle(this.container, 'margin-top', '-30px');
-            }
         }
     }
 

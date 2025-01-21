@@ -5,6 +5,7 @@ import { ChangeDetectionStrategy, ChangeDetectorRef, Component } from '@angular/
 
 @Component({
     selector: 'cell-edit-doc',
+    standalone: false,
     template: ` <app-docsectiontext>
             <p>In-cell editing is enabled by adding <i>pEditableColumn</i> directive to an editable cell that has a <i>p-cellEditor</i> helper component to define the input-output templates for the edit and view modes respectively.</p>
         </app-docsectiontext>
@@ -85,9 +86,81 @@ export class CellEditDoc {
     }
 
     code: Code = {
-        basic: `<p-table
-    [value]="products" dataKey="id"
-    [tableStyle]="{ 'min-width': '50rem' }">
+        basic: `<p-table [value]="products" dataKey="id" [tableStyle]="{ 'min-width': '50rem' }">
+    <ng-template #header>
+        <tr>
+            <th style="width:25%">
+                Code
+            </th>
+            <th style="width:25%">
+                Name
+            </th>
+            <th style="width:25%">
+                Inventory Status
+            </th>
+            <th style="width:25%">
+                Price
+            </th>
+        </tr>
+    </ng-template>
+    <ng-template #body let-product let-editing="editing">
+        <tr>
+            <td [pEditableColumn]="product.code" pEditableColumnField="code">
+                <p-cellEditor>
+                    <ng-template #input>
+                        <input
+                            pInputText
+                            type="text"
+                            [(ngModel)]="product.code" />
+                    </ng-template>
+                    <ng-template #output>
+                        {{ product.code }}
+                    </ng-template>
+                </p-cellEditor>
+            </td>
+            <td [pEditableColumn]="product.name" pEditableColumnField="name">
+                <p-cellEditor>
+                    <ng-template #input>
+                        <input
+                            pInputText
+                            type="text"
+                            [(ngModel)]="product.name"
+                            required />
+                    </ng-template>
+                    <ng-template #output>
+                        {{ product.name }}
+                    </ng-template>
+                </p-cellEditor>
+            </td>
+            <td [pEditableColumn]="product.inventoryStatus" pEditableColumnField="inventoryStatus">
+                <p-cellEditor>
+                    <ng-template #input>
+                        <input
+                            pInputText
+                            [(ngModel)]="product.inventoryStatus" />
+                    </ng-template>
+                    <ng-template #output>
+                        {{ product.inventoryStatus }}
+                    </ng-template>
+                </p-cellEditor>
+            </td>
+            <td [pEditableColumn]="product.price" pEditableColumnField="price">
+                <p-cellEditor>
+                    <ng-template #input>
+                        <input
+                            pInputText type="text"
+                            [(ngModel)]="product.price" />
+                    </ng-template>
+                    <ng-template #output>
+                        {{ product.price | currency: 'USD' }}
+                    </ng-template>
+                </p-cellEditor>
+            </td>
+        </tr>
+    </ng-template>
+</p-table>`,
+        html: `<div class="card">
+    <p-table [value]="products" dataKey="id" [tableStyle]="{ 'min-width': '50rem' }">
         <ng-template #header>
             <tr>
                 <th style="width:25%">
@@ -159,82 +232,6 @@ export class CellEditDoc {
                 </td>
             </tr>
         </ng-template>
-</p-table>`,
-        html: `<div class="card">
-    <p-table
-        [value]="products" dataKey="id"
-        [tableStyle]="{ 'min-width': '50rem' }">
-            <ng-template #header>
-                <tr>
-                    <th style="width:25%">
-                        Code
-                    </th>
-                    <th style="width:25%">
-                        Name
-                    </th>
-                    <th style="width:25%">
-                        Inventory Status
-                    </th>
-                    <th style="width:25%">
-                        Price
-                    </th>
-                </tr>
-            </ng-template>
-            <ng-template #body let-product let-editing="editing">
-                <tr>
-                    <td [pEditableColumn]="product.code" pEditableColumnField="code">
-                        <p-cellEditor>
-                            <ng-template #input>
-                                <input
-                                    pInputText
-                                    type="text"
-                                    [(ngModel)]="product.code" />
-                            </ng-template>
-                            <ng-template #output>
-                                {{ product.code }}
-                            </ng-template>
-                        </p-cellEditor>
-                    </td>
-                    <td [pEditableColumn]="product.name" pEditableColumnField="name">
-                        <p-cellEditor>
-                            <ng-template #input>
-                                <input
-                                    pInputText
-                                    type="text"
-                                    [(ngModel)]="product.name"
-                                    required />
-                            </ng-template>
-                            <ng-template #output>
-                                {{ product.name }}
-                            </ng-template>
-                        </p-cellEditor>
-                    </td>
-                    <td [pEditableColumn]="product.inventoryStatus" pEditableColumnField="inventoryStatus">
-                        <p-cellEditor>
-                            <ng-template #input>
-                                <input
-                                    pInputText
-                                    [(ngModel)]="product.inventoryStatus" />
-                            </ng-template>
-                            <ng-template #output>
-                                {{ product.inventoryStatus }}
-                            </ng-template>
-                        </p-cellEditor>
-                    </td>
-                    <td [pEditableColumn]="product.price" pEditableColumnField="price">
-                        <p-cellEditor>
-                            <ng-template #input>
-                                <input
-                                    pInputText type="text"
-                                    [(ngModel)]="product.price" />
-                            </ng-template>
-                            <ng-template #output>
-                                {{ product.price | currency: 'USD' }}
-                            </ng-template>
-                        </p-cellEditor>
-                    </td>
-                </tr>
-            </ng-template>
     </p-table>
 </div>`,
         typescript: `import { Component, OnInit } from '@angular/core';

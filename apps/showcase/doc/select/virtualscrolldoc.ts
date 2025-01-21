@@ -4,6 +4,7 @@ import { SelectItem } from 'primeng/api';
 
 @Component({
     selector: 'select-virtualscroll-demo',
+    standalone: false,
     template: `
         <app-docsectiontext>
             <p>

@@ -3,6 +3,7 @@ import { Component } from '@angular/core';
 
 @Component({
     selector: 'button-outlined-demo',
+    standalone: false,
     template: `
         <app-docsectiontext>
             <p>Outlined buttons display a border without a background initially.</p>

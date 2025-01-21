@@ -500,64 +500,17 @@ export class Tooltip extends BaseComponent implements AfterViewInit, OnDestroy {
     align() {
         let position = this.getOption('tooltipPosition');
 
-        switch (position) {
-            case 'top':
-                this.alignTop();
-                if (this.isOutOfBounds()) {
-                    this.alignBottom();
-                    if (this.isOutOfBounds()) {
-                        this.alignRight();
+        const positionPriority = {
+            top: [this.alignTop, this.alignBottom, this.alignRight, this.alignLeft],
+            bottom: [this.alignBottom, this.alignTop, this.alignRight, this.alignLeft],
+            left: [this.alignLeft, this.alignRight, this.alignTop, this.alignBottom],
+            right: [this.alignRight, this.alignLeft, this.alignTop, this.alignBottom]
+        };
 
-                        if (this.isOutOfBounds()) {
-                            this.alignLeft();
-                        }
-                    }
-                }
-                break;
-
-            case 'bottom':
-                this.alignBottom();
-                if (this.isOutOfBounds()) {
-                    this.alignTop();
-                    if (this.isOutOfBounds()) {
-                        this.alignRight();
-
-                        if (this.isOutOfBounds()) {
-                            this.alignLeft();
-                        }
-                    }
-                }
-                break;
-
-            case 'left':
-                this.alignLeft();
-                if (this.isOutOfBounds()) {
-                    this.alignRight();
-
-                    if (this.isOutOfBounds()) {
-                        this.alignTop();
-
-                        if (this.isOutOfBounds()) {
-                            this.alignBottom();
-                        }
-                    }
-                }
-                break;
-
-            case 'right':
-                this.alignRight();
-                if (this.isOutOfBounds()) {
-                    this.alignLeft();
-
-                    if (this.isOutOfBounds()) {
-                        this.alignTop();
-
-                        if (this.isOutOfBounds()) {
-                            this.alignBottom();
-                        }
-                    }
-                }
-                break;
+        for (let [index, alignmentFn] of positionPriority[position].entries()) {
+            if (index === 0) alignmentFn.call(this);
+            else if (this.isOutOfBounds()) alignmentFn.call(this);
+            else break;
         }
     }
 
@@ -573,44 +526,43 @@ export class Tooltip extends BaseComponent implements AfterViewInit, OnDestroy {
         }
     }
 
-    alignRight() {
-        this.preAlign('right');
-        const el = this.activeElement;
-
-        const hostOffset = this.getHostOffset();
-        const left = hostOffset.left + getOuterWidth(el);
-        const top = hostOffset.top + (getOuterHeight(el) - getOuterHeight(this.container)) / 2;
-        this.container.style.left = left + this.getOption('positionLeft') + 'px';
-        this.container.style.top = top + this.getOption('positionTop') + 'px';
-    }
-
     private get activeElement(): HTMLElement {
         return this.el.nativeElement.nodeName.includes('P-') ? findSingle(this.el.nativeElement, '.p-component') : this.el.nativeElement;
     }
 
+    alignRight() {
+        this.preAlign('right');
+        const el = this.activeElement;
+        const offsetLeft = getOuterWidth(el);
+        const offsetTop = (getOuterHeight(el) - getOuterHeight(this.container)) / 2;
+        this.alignTooltip(offsetLeft, offsetTop);
+    }
+
     alignLeft() {
         this.preAlign('left');
-        let hostOffset = this.getHostOffset();
-        let left = hostOffset.left - getOuterWidth(this.container);
-        let top = hostOffset.top + (getOuterHeight(this.el.nativeElement) - getOuterHeight(this.container)) / 2;
-        this.container.style.left = left + this.getOption('positionLeft') + 'px';
-        this.container.style.top = top + this.getOption('positionTop') + 'px';
+        let offsetLeft = getOuterWidth(this.container);
+        let offsetTop = (getOuterHeight(this.el.nativeElement) - getOuterHeight(this.container)) / 2;
+        this.alignTooltip(-offsetLeft, offsetTop);
     }
 
     alignTop() {
         this.preAlign('top');
-        let hostOffset = this.getHostOffset();
-        let left = hostOffset.left + (getOuterWidth(this.el.nativeElement) - getOuterWidth(this.container)) / 2;
-        let top = hostOffset.top - getOuterHeight(this.container);
-        this.container.style.left = left + this.getOption('positionLeft') + 'px';
-        this.container.style.top = top + this.getOption('positionTop') + 'px';
+        let offsetLeft = (getOuterWidth(this.el.nativeElement) - getOuterWidth(this.container)) / 2;
+        let offsetTop = getOuterHeight(this.container);
+        this.alignTooltip(offsetLeft, -offsetTop);
     }
 
     alignBottom() {
         this.preAlign('bottom');
+        let offsetLeft = (getOuterWidth(this.el.nativeElement) - getOuterWidth(this.container)) / 2;
+        let offsetTop = getOuterHeight(this.el.nativeElement);
+        this.alignTooltip(offsetLeft, offsetTop);
+    }
+
+    alignTooltip(offsetLeft, offsetTop) {
         let hostOffset = this.getHostOffset();
-        let left = hostOffset.left + (getOuterWidth(this.el.nativeElement) - getOuterWidth(this.container)) / 2;
-        let top = hostOffset.top + getOuterHeight(this.el.nativeElement);
+        let left = hostOffset.left + offsetLeft;
+        let top = hostOffset.top + offsetTop;
         this.container.style.left = left + this.getOption('positionLeft') + 'px';
         this.container.style.top = top + this.getOption('positionTop') + 'px';
     }
@@ -707,7 +659,7 @@ export class Tooltip extends BaseComponent implements AfterViewInit, OnDestroy {
         if (this.container && this.container.parentElement) {
             if (this.getOption('appendTo') === 'body') document.body.removeChild(this.container);
             else if (this.getOption('appendTo') === 'target') this.el.nativeElement.removeChild(this.container);
-            else removeChild(this.container, this.getOption('appendTo'));
+            else removeChild(this.getOption('appendTo'), this.container);
         }
 
         this.unbindDocumentResizeListener();

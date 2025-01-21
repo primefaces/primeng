@@ -11,16 +11,17 @@ interface EventItem {
 
 @Component({
     selector: 'opposite-doc',
+    standalone: false,
     template: `
         <app-docsectiontext>
             <p>Additional content at the other side of the line can be provided with the <i>opposite</i> property.</p>
         </app-docsectiontext>
         <div class="card">
             <p-timeline [value]="events">
-                <ng-template pTemplate="opposite" let-event>
+                <ng-template #opposite let-event>
                     <small class="text-surface-500 dark:text-surface-400">{{ event.date }}</small>
                 </ng-template>
-                <ng-template pTemplate="content" let-event>
+                <ng-template #content let-event>
                     {{ event.status }}
                 </ng-template>
             </p-timeline>
@@ -42,20 +43,20 @@ export class OppositeDoc {
 
     code: Code = {
         basic: `<p-timeline [value]="events">
-    <ng-template pTemplate="opposite" let-event>
+    <ng-template #opposite let-event>
         <small class="text-surface-500 dark:text-surface-400">{{ event.date }}</small>
     </ng-template>
-    <ng-template pTemplate="content" let-event>
+    <ng-template #content let-event>
         {{ event.status }}
     </ng-template>
 </p-timeline>`,
 
         html: `<div class="card">
     <p-timeline [value]="events">
-         <ng-template pTemplate="opposite" let-event>
+         <ng-template #opposite let-event>
             <small class="text-surface-500 dark:text-surface-400">{{ event.date }}</small>
         </ng-template>
-        <ng-template pTemplate="content" let-event>
+        <ng-template #content let-event>
             {{ event.status }}
         </ng-template>
     </p-timeline>

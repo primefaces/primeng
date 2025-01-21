@@ -5,6 +5,7 @@ import { TreeNode } from 'primeng/api';
 
 @Component({
     selector: 'controlled-doc',
+    standalone: false,
     template: `
         <app-docsectiontext>
             <p>Tree requires a collection of <i>TreeNode</i> instances as a <i>value</i>.</p>

@@ -3,6 +3,7 @@ import { Component } from '@angular/core';
 
 @Component({
     selector: 'size-doc',
+    standalone: false,
     template: `
         <app-docsectiontext>
             <p>Drawer dimension can be defined with <i>style</i> or <i>class</i> properties, this responsive example utilizes Tailwind.</p>

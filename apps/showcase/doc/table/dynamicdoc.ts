@@ -10,6 +10,7 @@ interface Column {
 
 @Component({
     selector: 'dynamic-doc',
+    standalone: false,
     template: ` <app-docsectiontext>
             <p>Columns can be defined dynamically using the <i>*ngFor</i> directive.</p>
         </app-docsectiontext>

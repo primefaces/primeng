@@ -5,6 +5,7 @@ import { ChangeDetectionStrategy, ChangeDetectorRef, Component } from '@angular/
 
 @Component({
     selector: 'vertical-scroll-doc',
+    standalone: false,
     template: ` <app-docsectiontext>
             <p>Adding <i>scrollable</i> property along with a <i>scrollHeight</i> for the data viewport enables vertical scrolling with fixed headers.</p></app-docsectiontext
         >
@@ -49,11 +50,26 @@ export class VerticalScrollDoc {
     }
 
     code: Code = {
-        basic: `<p-table
-    [value]="customers"
-    [scrollable]="true"
-    scrollHeight="400px"
-    [tableStyle]="{'min-width': '50rem'}">
+        basic: `<p-table [value]="customers" [scrollable]="true" scrollHeight="400px" [tableStyle]="{'min-width': '50rem'}">
+    <ng-template #header>
+        <tr>
+            <th>Name</th>
+            <th>Country</th>
+            <th>Company</th>
+            <th>Representative</th>
+        </tr>
+    </ng-template>
+    <ng-template #body let-customer>
+        <tr>
+            <td>{{customer.name}}</td>
+            <td>{{customer.country.name}}</td>
+            <td>{{customer.company}}</td>
+            <td>{{customer.representative.name}}</td>
+        </tr>
+    </ng-template>
+</p-table>`,
+        html: `<div class="card">
+    <p-table [value]="customers" [scrollable]="true" scrollHeight="400px" [tableStyle]="{'min-width': '50rem'}">
         <ng-template #header>
             <tr>
                 <th>Name</th>
@@ -70,29 +86,6 @@ export class VerticalScrollDoc {
                 <td>{{customer.representative.name}}</td>
             </tr>
         </ng-template>
-</p-table>`,
-        html: `<div class="card">
-    <p-table
-        [value]="customers"
-        [scrollable]="true"
-        scrollHeight="400px"
-        [tableStyle]="{'min-width': '50rem'}">
-            <ng-template #header>
-                <tr>
-                    <th>Name</th>
-                    <th>Country</th>
-                    <th>Company</th>
-                    <th>Representative</th>
-                </tr>
-            </ng-template>
-            <ng-template #body let-customer>
-                <tr>
-                    <td>{{customer.name}}</td>
-                    <td>{{customer.country.name}}</td>
-                    <td>{{customer.company}}</td>
-                    <td>{{customer.representative.name}}</td>
-                </tr>
-            </ng-template>
     </p-table>
 </div>`,
         typescript: `import { Component, OnInit } from '@angular/core';

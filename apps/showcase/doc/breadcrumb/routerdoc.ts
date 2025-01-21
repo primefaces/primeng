@@ -4,6 +4,7 @@ import { MenuItem } from 'primeng/api';
 
 @Component({
     selector: 'breadcrumb-router-demo',
+    standalone: false,
     template: `
         <app-docsectiontext>
             <p>Items with navigation are defined with templating to be able to use a routerLink directive, an external link or programmatic navigation.</p>

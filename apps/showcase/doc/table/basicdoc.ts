@@ -5,6 +5,7 @@ import { ChangeDetectionStrategy, ChangeDetectorRef, Component } from '@angular/
 
 @Component({
     selector: 'basic-doc',
+    standalone: false,
     template: ` <app-docsectiontext>
             <p>DataTable requires a collection to display along with column components for the representation of the data.</p>
         </app-docsectiontext>

@@ -3,13 +3,14 @@ import { Component, OnInit } from '@angular/core';
 
 @Component({
     selector: 'datatable-doc',
+    standalone: false,
     template: `
         <app-docsectiontext>
             <p>Sample DataTable implementation using different Skeleton components and PrimeFlex CSS utilities.</p>
         </app-docsectiontext>
         <div class="card">
             <p-table [value]="products" [tableStyle]="{ 'min-width': '50rem' }">
-                <ng-template pTemplate="header">
+                <ng-template #header>
                     <tr>
                         <th>Code</th>
                         <th>Name</th>
@@ -17,7 +18,7 @@ import { Component, OnInit } from '@angular/core';
                         <th>Quantity</th>
                     </tr>
                 </ng-template>
-                <ng-template pTemplate="body" let-product>
+                <ng-template #body let-product>
                     <tr>
                         <td><p-skeleton /></td>
                         <td><p-skeleton /></td>
@@ -39,7 +40,7 @@ export class DataTableDoc implements OnInit {
 
     code: Code = {
         basic: `<p-table [value]="products" [tableStyle]="{ 'min-width': '50rem' }">
-    <ng-template pTemplate="header">
+    <ng-template #header>
         <tr>
             <th>Code</th>
             <th>Name</th>
@@ -47,7 +48,7 @@ export class DataTableDoc implements OnInit {
             <th>Quantity</th>
         </tr>
     </ng-template>
-    <ng-template pTemplate="body" let-product>
+    <ng-template #body let-product>
         <tr>
             <td><p-skeleton /></td>
             <td><p-skeleton /></td>
@@ -58,7 +59,7 @@ export class DataTableDoc implements OnInit {
 </p-table>`,
         html: `<div class="card">
     <p-table [value]="products" responsiveLayout="scroll">
-        <ng-template pTemplate="header">
+        <ng-template #header>
             <tr>
                 <th>Code</th>
                 <th>Name</th>
@@ -66,7 +67,7 @@ export class DataTableDoc implements OnInit {
                 <th>Quantity</th>
             </tr>
         </ng-template>
-        <ng-template pTemplate="body" let-product>
+        <ng-template #body let-product>
             <tr>
                 <td><p-skeleton /></td>
                 <td><p-skeleton /></td>
