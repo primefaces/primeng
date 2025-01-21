@@ -1238,7 +1238,7 @@ export class MultiSelect extends BaseComponent implements OnInit, AfterViewInit,
     }
 
     get toggleAllAriaLabel() {
-        return this.config.translation.aria ? this.config.translation.aria[this.allSelected() ? 'selectAll' : 'unselectAll'] : 'undefined';
+        return this.config.translation.aria ? this.config.translation.aria[this.allSelected() ? 'selectAll' : 'unselectAll'] : undefined;
     }
 
     get closeAriaLabel() {
