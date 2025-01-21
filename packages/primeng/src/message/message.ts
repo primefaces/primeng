@@ -54,7 +54,7 @@ import { MessageStyle } from './style/messagestyle';
                         </span>
                     }
                     @if (closable) {
-                        <button pRipple type="button" class="p-message-close-button" (click)="close($event)">
+                        <button pRipple type="button" class="p-message-close-button" (click)="close($event)" [attr.aria-label]="closeAriaLabel">
                             @if (closeIcon) {
                                 <i class="p-message-close-icon" [ngClass]="closeIcon"></i>
                             }
@@ -171,6 +171,10 @@ export class Message extends BaseComponent implements AfterContentInit {
      * @group Emits
      */
     @Output() onClose: EventEmitter<{ originalEvent: Event }> = new EventEmitter<{ originalEvent: Event }>();
+
+    get closeAriaLabel() {
+        return this.config.translation.aria ? this.config.translation.aria.close : undefined;
+    }
 
     get containerClass(): string {
         const variantClass = this.variant === 'outlined' ? 'p-message-outlined' : this.variant === 'simple' ? 'p-message-simple' : '';

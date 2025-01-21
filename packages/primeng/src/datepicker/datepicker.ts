@@ -182,7 +182,7 @@ export const DATEPICKER_VALUE_ACCESSOR: any = {
                                     (onClick)="onPrevButtonClick($event)"
                                     [ngStyle]="{ visibility: i === 0 ? 'visible' : 'hidden' }"
                                     type="button"
-                                    [attr.aria-label]="prevIconAriaLabel"
+                                    [ariaLabel]="prevIconAriaLabel"
                                 >
                                     <ChevronLeftIcon *ngIf="!previousIconTemplate && !_previousIconTemplate" />
                                     <span *ngIf="previousIconTemplate || !_previousIconTemplate">
@@ -227,7 +227,7 @@ export const DATEPICKER_VALUE_ACCESSOR: any = {
                                     styleClass="p-datepicker-next-button p-button-icon-only"
                                     (onClick)="onNextButtonClick($event)"
                                     [ngStyle]="{ visibility: i === months.length - 1 ? 'visible' : 'hidden' }"
-                                    [attr.aria-label]="nextIconAriaLabel"
+                                    [ariaLabel]="nextIconAriaLabel"
                                 >
                                     <ChevronRightIcon *ngIf="!nextIconTemplate && !_nextIconTemplate" />
 
