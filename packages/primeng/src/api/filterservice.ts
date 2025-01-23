@@ -253,6 +253,13 @@ export class FilterService {
             value.setHours(0, 0, 0, 0);
 
             return value.getTime() > filter.getTime();
+        },
+
+        /**
+         * can be used to bypass the filter to apply filter externally
+         */
+        bypass: (): boolean => {
+            return true;
         }
     };
 

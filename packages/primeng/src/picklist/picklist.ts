@@ -26,7 +26,7 @@ import { FilterService, PrimeTemplate, SharedModule } from 'primeng/api';
 import { BaseComponent } from 'primeng/basecomponent';
 import { ButtonDirective, ButtonProps } from 'primeng/button';
 import { AngleDoubleDownIcon, AngleDoubleLeftIcon, AngleDoubleRightIcon, AngleDoubleUpIcon, AngleDownIcon, AngleLeftIcon, AngleRightIcon, AngleUpIcon } from 'primeng/icons';
-import { Listbox } from 'primeng/listbox';
+import { Listbox, ListboxFilterEvent } from 'primeng/listbox';
 import { Ripple } from 'primeng/ripple';
 import { Nullable, VoidListener } from 'primeng/ts-helpers';
 import {
@@ -131,6 +131,7 @@ import { PickListStyle } from './style/pickliststyle';
                     (onBlur)="onListBlur($event, SOURCE_LIST)"
                     (keydown)="onItemKeyDown($event, selectedItemsSource, onSourceSelect, SOURCE_LIST)"
                     (onDblClick)="onSourceItemDblClick()"
+                    (onFilter)="sourceFilter($event)"
                     [disabled]="disabled"
                     [optionDisabled]="sourceOptionDisabled"
                     [metaKeySelection]="metaKeySelection"
@@ -175,6 +176,7 @@ import { PickListStyle } from './style/pickliststyle';
                         </ng-template>
                     </ng-container>
                 </p-listbox>
+                <ng-content select="[below-source-list]"></ng-content>
             </div>
             <div class="p-picklist-controls p-picklist-transfer-controls" [attr.data-pc-section]="'buttons'" [attr.data-pc-group-section]="'controls'">
                 <button
@@ -265,6 +267,7 @@ import { PickListStyle } from './style/pickliststyle';
                     (onBlur)="onListBlur($event, TARGET_LIST)"
                     (keydown)="onItemKeyDown($event, selectedItemsTarget, onTargetSelect, TARGET_LIST)"
                     (onDblClick)="onTargetItemDblClick()"
+                    (onFilter)="targetFilter($event)"
                     [disabled]="disabled"
                     [optionDisabled]="targetOptionDisabled"
                     [metaKeySelection]="metaKeySelection"
@@ -309,6 +312,7 @@ import { PickListStyle } from './style/pickliststyle';
                         </ng-template>
                     </ng-container>
                 </p-listbox>
+                <ng-content select="[below-target-list]"></ng-content>
             </div>
             <div class="p-picklist-controls p-picklist-target-controls" *ngIf="showTargetControls" [attr.data-pc-section]="'targetControls'" [attr.data-pc-group-section]="'controls'">
                 <button
@@ -566,7 +570,7 @@ export class PickList extends BaseComponent implements AfterViewChecked, AfterCo
      * Defines how the items are filtered.
      * @group Props
      */
-    @Input() filterMatchMode: 'contains' | 'startsWith' | 'endsWith' | 'equals' | 'notEquals' | 'in' | 'lt' | 'lte' | 'gt' | 'gte' | string = 'contains';
+    @Input() filterMatchMode: 'contains' | 'startsWith' | 'endsWith' | 'equals' | 'notEquals' | 'in' | 'lt' | 'lte' | 'gt' | 'gte' | 'bypass' | string = 'contains';
     /**
      * Whether to displays rows with alternating colors.
      * @group Props
@@ -1891,6 +1895,22 @@ export class PickList extends BaseComponent implements AfterViewChecked, AfterCo
         this.destroyStyle();
         this.destroyMedia();
         super.ngOnDestroy();
+    }
+
+    sourceFilter($event: ListboxFilterEvent) {
+        const query = $event.filter as string;
+        this.onSourceFilter.emit({
+            query,
+            value: []
+        })
+    }
+
+    targetFilter($event: ListboxFilterEvent) {
+        const query = $event.filter as string;
+        this.onTargetFilter.emit({
+            query,
+            value: []
+        })
     }
 }
 
