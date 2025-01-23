@@ -126,6 +126,11 @@ export class Splitter extends BaseComponent implements AfterContentInit {
      */
     @Input({ transform: numberAttribute }) step: number = 5;
     /**
+     * Maximum size of the elements relative to 100%.
+     * @group Props
+     */
+    @Input() maxSizes: number[] = [];
+    /**
      * Minimum size of the elements relative to 100%.
      * @group Props
      */
@@ -431,12 +436,32 @@ export class Splitter extends BaseComponent implements AfterContentInit {
     }
 
     validateResize(newPrevPanelSize: number, newNextPanelSize: number) {
-        if (this.minSizes.length >= 1 && this.minSizes[0] && this.minSizes[0] > newPrevPanelSize) {
-            return false;
+        if (this.minSizes.length === this.panels.length) {
+            if (this.minSizes[this.prevPanelIndex] > newPrevPanelSize || this.minSizes[this.prevPanelIndex + 1] > newNextPanelSize) {
+                return false;
+            }
+        } else {
+            if (this.minSizes.length >= 1 && this.minSizes[0] && this.minSizes[0] > newPrevPanelSize) {
+                return false;
+            }
+
+            if (this.minSizes.length > 1 && this.minSizes[1] && this.minSizes[1] > newNextPanelSize) {
+                return false;
+            }
         }
 
-        if (this.minSizes.length > 1 && this.minSizes[1] && this.minSizes[1] > newNextPanelSize) {
-            return false;
+        if (this.maxSizes.length === this.panels.length) {
+            if (this.maxSizes[this.prevPanelIndex] < newPrevPanelSize || this.maxSizes[this.prevPanelIndex + 1] < newNextPanelSize) {
+                return false;
+            }
+        } else {
+            if (this.maxSizes.length >= 1 && this.maxSizes[0] && this.maxSizes[0] < newPrevPanelSize) {
+                return false;
+            }
+
+            if (this.maxSizes.length > 1 && this.maxSizes[1] && this.maxSizes[1] < newNextPanelSize) {
+                return false;
+            }
         }
 
         return true;
