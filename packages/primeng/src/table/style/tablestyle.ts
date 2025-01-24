@@ -42,6 +42,13 @@ const theme = ({ dt }) => `
 
 .p-datatable-scrollable th.p-datatable-frozen-column {
     z-index: 1;
+    position: sticky;
+    background: ${dt('datatable.header.cell.background')};
+}
+.p-datatable-scrollable td.p-datatable-frozen-column {
+    z-index: 1;
+    position: sticky;
+    background: ${dt('datatable.header.cell.background')};
 }
 
 .p-datatable-scrollable > .p-datatable-table-container > .p-datatable-table > .p-datatable-thead,
