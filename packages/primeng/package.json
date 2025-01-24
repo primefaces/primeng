@@ -1,6 +1,6 @@
 {
     "name": "primeng",
-    "version": "19.0.5",
+    "version": "19.0.6",
     "author": "PrimeTek Informatics",
     "description": "PrimeNG is an open source UI library for Angular featuring a rich set of 80+ components, a theme designer, various theme alternatives such as Material, Bootstrap, Tailwind, premium templates and professional support. In addition, it integrates with PrimeBlock, which has 370+ ready to use UI blocks to build spectacular applications in no time.",
     "homepage": "https://primeng.org/",
@@ -44,7 +44,7 @@
         "karma-chrome-launcher": "~3.2.0",
         "karma-coverage": "~2.2.0",
         "karma-jasmine": "~5.1.0",
-        "karma-jasmine-html-reporter": "~2.0.0",
+        "karma-jasmine-html-reporter": "~2.1.0",
         "tslib": "^2.5.0"
     },
     "peerDependencies": {

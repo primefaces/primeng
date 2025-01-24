@@ -1,6 +1,57 @@
 # Changelog
 
-## [19.0.3](https://github.com/primefaces/primeng/tree/19.0.3) (2024-01-08)
+## [19.0.6](https://github.com/primefaces/primeng/tree/19.0.6) (2025-01-16)
+
+[Full Changelog](https://github.com/primefaces/primeng/compare/19.0.5...19.0.6)
+
+**Fixed bugs:**
+
+- v19 TabModule throws an error NG0300 [\#17407](https://github.com/primefaces/primeng/issues/17407)
+- Component: Table sorticon template [\#17402](https://github.com/primefaces/primeng/issues/17402)
+- Missing documentation in Tab component [\#17294](https://github.com/primefaces/primeng/issues/17294)
+- Add onNodeDoubleClick event emitter to Tree component [\#17401](https://github.com/primefaces/primeng/issues/17401)
+- Datepicker size not working [\#17199](https://github.com/primefaces/primeng/issues/17199)
+- Listbox: checkboxes have filled style applied even with global inputStyle and inputVariant set as outlined [\#17230](https://github.com/primefaces/primeng/issues/17230)
+- Update DynamicDialog documentation to include inputValues usage [\#17237](https://github.com/primefaces/primeng/issues/17237)
+- CalendarModule: problem to order more than 11 months [\#17146](https://github.com/primefaces/primeng/issues/17146)
+- InputNumber: Material Theme increment/decrement buttons misaligned; missing semi-colon [\#17256](https://github.com/primefaces/primeng/issues/17256)
+- Textarea: hover border style not working because of misplaced semi-colon in CSS [\#17258](https://github.com/primefaces/primeng/issues/17258)
+- Tooltip: appendTo not working when targeting elements besides body [\#17243](https://github.com/primefaces/primeng/issues/17243)
+- Drawer: Overlay of second drawer appears below first drawer when opened [\#17242](https://github.com/primefaces/primeng/issues/17242)
+- TabList: Tabindex of Navigation Buttons (Next/Previous) not set [\#17270](https://github.com/primefaces/primeng/issues/17270)
+- dynamicDialog: UI issue with maximizable true [\#17275](https://github.com/primefaces/primeng/issues/17275)
+- Card: the subheader property does not display in the template when it is provided [\#17264](https://github.com/primefaces/primeng/issues/17264)
+- Theme designer incorrectly formats keys for progress spinner color design tokens [\#17285](https://github.com/primefaces/primeng/issues/17285)
+- Multiselect: fails to automatically scroll to the first selected item [\#17321](https://github.com/primefaces/primeng/issues/17321)
+- DatePicker fails to show "decade" title [\#17326](https://github.com/primefaces/primeng/issues/17326)
+- DatePicker: When it's disabled and click the icon open the calendar [\#17330](https://github.com/primefaces/primeng/issues/17330)
+- Table: Header and frozen columns hidden behind scrolled content if table has footer; footer not fixed [\#17339](https://github.com/primefaces/primeng/issues/17339)
+- Rating: keyboard navigation is broken [\#17315](https://github.com/primefaces/primeng/issues/17315)
+- Wrong DynamicDialog import on stackblitz examples [\#17362](https://github.com/primefaces/primeng/issues/17362)
+- Table row group footer is rendered multiple times when using pagination [\#17369](https://github.com/primefaces/primeng/issues/17369)
+- p-inputnumber doesn't initialize its value correctly [\#17314](https://github.com/primefaces/primeng/issues/17314)
+- Top pagination does not use the paginatorleft or paginatorright templates when using p-table [\#17380](https://github.com/primefaces/primeng/issues/17380)
+- PrimeNG v18, p-datePicker with 'range' mode, doesn't work the property 'hideOnDateTimeSelect' [\#17222](https://github.com/primefaces/primeng/issues/17222)
+- InputOtp keydown bug for integerOnly [\#17392](https://github.com/primefaces/primeng/issues/17392)
+- Improve commit message for development [\#17216](https://github.com/primefaces/primeng/issues/17216)
+
+## [19.0.5](https://github.com/primefaces/primeng/tree/19.0.5) (2025-01-15)
+
+[Full Changelog](https://github.com/primefaces/primeng/compare/19.0.4...19.0.5)
+
+**Fixed bugs:**
+
+- Button icon only regression [\#17338](https://github.com/primefaces/primeng/issues/17338)
+
+## [19.0.4](https://github.com/primefaces/primeng/tree/19.0.4) (2025-01-08)
+
+[Full Changelog](https://github.com/primefaces/primeng/compare/19.0.3...19.0.4)
+
+**Fixed bugs:**
+
+- Button displays nbsp when templating is used. [\#17334](https://github.com/primefaces/primeng/issues/17334)
+
+## [19.0.3](https://github.com/primefaces/primeng/tree/19.0.3) (2025-01-08)
 
 [Full Changelog](https://github.com/primefaces/primeng/compare/19.0.2...19.0.3)
 

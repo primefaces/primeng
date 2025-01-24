@@ -26,7 +26,7 @@ const theme = ({ dt }) => `
     z-index: 2;
 }
 /* For PrimeNG */
-.p-datatable-scrollable-table > .p-datatable-frozen-tbody:last-child {
+.p-datatable-scrollable-table > .p-datatable-frozen-tbody + .p-datatable-frozen-tbody {
     z-index: 1;
 }
 
@@ -367,12 +367,16 @@ const theme = ({ dt }) => `
     outline-offset: ${dt('datatable.row.focus.ring.offset')};
 }
 
+.p-datatable-tbody:has(+ .p-datatable-tfoot) > tr:last-child > td {
+    border-width: 0;
+}
+
 .p-datatable-tfoot > tr > td {
     text-align: start;
     padding: ${dt('datatable.footer.cell.padding')};
     border-color: ${dt('datatable.footer.cell.border.color')};
     border-style: solid;
-    border-width: 0 0 1px 0;
+    border-width: 1px 0 1px 0;
     color: ${dt('datatable.footer.cell.color')};
     background: ${dt('datatable.footer.cell.background')};
 }

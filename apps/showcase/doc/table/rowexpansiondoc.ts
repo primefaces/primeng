@@ -219,7 +219,7 @@ export class RowExpansionDoc {
             </td>
         </tr>
     </ng-template>
-    <ng-template #expandedrow let-product>
+    <ng-template #rowexpansion let-product>
         <tr>
             <td colspan="7">
                 <div class="p-4">

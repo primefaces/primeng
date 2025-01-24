@@ -78,6 +78,7 @@ export const DATEPICKER_VALUE_ACCESSOR: any = {
                 <input
                     #inputfield
                     pInputText
+                    [pSize]="size"
                     type="text"
                     role="combobox"
                     [attr.id]="inputId"
@@ -214,7 +215,7 @@ export const DATEPICKER_VALUE_ACCESSOR: any = {
                                         {{ getYear(month) }}
                                     </button>
                                     <span class="p-datepicker-decade" *ngIf="currentView === 'year'">
-                                        <ng-container *ngIf="!decadeTemplate && _decadeTemplate">{{ yearPickerValues()[0] }} - {{ yearPickerValues()[yearPickerValues().length - 1] }}</ng-container>
+                                        <ng-container *ngIf="!decadeTemplate && !_decadeTemplate">{{ yearPickerValues()[0] }} - {{ yearPickerValues()[yearPickerValues().length - 1] }}</ng-container>
                                         <ng-container *ngTemplateOutlet="decadeTemplate || _decadeTemplate; context: { $implicit: yearPickerValues }"></ng-container>
                                     </span>
                                 </div>
@@ -1471,8 +1472,8 @@ export class DatePicker extends BaseComponent implements OnInit, AfterContentIni
             let m = month + i;
             let y = year;
             if (m > 11) {
-                m = (m % 11) - 1;
-                y = year + 1;
+                m = m % 12;
+                y = year + Math.floor((month + i) / 12);
             }
 
             this.months.push(this.createMonth(m, y));
@@ -2142,6 +2143,10 @@ export class DatePicker extends BaseComponent implements OnInit, AfterContentIni
     }
 
     onButtonClick(event: Event, inputfield: any = this.inputfieldViewChild?.nativeElement) {
+        if (this.disabled) {
+            return;
+        }
+
         if (!this.overlayVisible) {
             inputfield.focus();
             this.showOverlay();

@@ -2111,7 +2111,7 @@ export class MultiSelect extends BaseComponent implements OnInit, AfterViewInit,
     onOverlayAnimationStart(event: AnimationEvent) {
         switch (event.toState) {
             case 'visible':
-                this.itemsWrapper = findSingle(this.overlayViewChild?.overlayViewChild?.nativeElement, this.virtualScroll ? '.p-scroller' : '.p-multiselect-items-wrapper');
+                this.itemsWrapper = findSingle(this.overlayViewChild?.overlayViewChild?.nativeElement, this.virtualScroll ? '.p-scroller' : '.p-multiselect-list-container');
                 this.virtualScroll && this.scroller?.setContentEl(this.itemsViewChild?.nativeElement);
 
                 if (this._options() && this._options().length) {
