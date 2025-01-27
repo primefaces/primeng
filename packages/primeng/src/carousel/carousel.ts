@@ -23,9 +23,8 @@ import {
 import { find, findSingle, getAttribute, setAttribute, uuid } from '@primeuix/utils';
 import { Footer, Header, PrimeTemplate, SharedModule } from 'primeng/api';
 import { BaseComponent } from 'primeng/basecomponent';
-import { Button, ButtonModule, ButtonProps } from 'primeng/button';
+import { ButtonModule, ButtonProps } from 'primeng/button';
 import { ChevronDownIcon, ChevronLeftIcon, ChevronRightIcon, ChevronUpIcon } from 'primeng/icons';
-import { Ripple } from 'primeng/ripple';
 import { CarouselPageEvent, CarouselResponsiveOptions } from './carousel.interface';
 import { CarouselStyle } from './style/carouselstyle';
 
@@ -36,7 +35,7 @@ import { CarouselStyle } from './style/carouselstyle';
 @Component({
     selector: 'p-carousel',
     standalone: true,
-    imports: [CommonModule, Ripple, ChevronRightIcon, ButtonModule, ChevronLeftIcon, ChevronDownIcon, ChevronUpIcon, SharedModule],
+    imports: [CommonModule, ChevronRightIcon, ButtonModule, ChevronLeftIcon, ChevronDownIcon, ChevronUpIcon, SharedModule],
     template: `
         <div [attr.id]="id" [ngClass]="{ 'p-carousel p-component': true, 'p-carousel-vertical': isVertical(), 'p-carousel-horizontal': !isVertical() }" [ngStyle]="style" [class]="styleClass" role="region">
             <div class="p-carousel-header" *ngIf="headerFacet || headerTemplate">
@@ -113,18 +112,19 @@ import { CarouselStyle } from './style/carouselstyle';
                         [ngClass]="{ 'p-carousel-next-button': true, 'p-disabled': isForwardNavDisabled() }"
                         [disabled]="isForwardNavDisabled()"
                         (click)="navForward($event)"
-                        pRipple
                         [attr.aria-label]="ariaNextButtonLabel()"
                         [buttonProps]="nextButtonProps"
                         [text]="true"
                     >
-                        <ng-container *ngIf="!nextIconTemplate && !_nextIconTemplate && !nextButtonProps?.icon">
-                            <ChevronRightIcon *ngIf="!isVertical()" [styleClass]="'carousel-prev-icon'" />
-                            <ChevronDownIcon *ngIf="isVertical()" [styleClass]="'carousel-prev-icon'" />
-                        </ng-container>
-                        <span *ngIf="nextIconTemplate || (_nextIconTemplate && !nextButtonProps?.icon)" class="p-carousel-prev-icon">
-                            <ng-template *ngTemplateOutlet="nextIconTemplate || _nextIconTemplate"></ng-template>
-                        </span>
+                        <ng-template #icon>
+                            <ng-container *ngIf="!nextIconTemplate && !_nextIconTemplate && !nextButtonProps?.icon">
+                                <ChevronRightIcon *ngIf="!isVertical()" [styleClass]="'carousel-next-icon'" />
+                                <ChevronDownIcon *ngIf="isVertical()" [styleClass]="'carousel-next-icon'" />
+                            </ng-container>
+                            <span *ngIf="nextIconTemplate || (_nextIconTemplate && !nextButtonProps?.icon)" class="next">
+                                <ng-template *ngTemplateOutlet="nextIconTemplate || _nextIconTemplate"></ng-template>
+                            </span>
+                        </ng-template>
                     </p-button>
                 </div>
                 <ul #indicatorContent [ngClass]="'p-carousel-indicator-list'" [class]="indicatorsContentClass" [ngStyle]="indicatorsContentStyle" *ngIf="showIndicators" (keydown)="onIndicatorKeydown($event)">
