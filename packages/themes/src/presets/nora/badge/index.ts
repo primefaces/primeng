@@ -49,6 +49,10 @@ export default {
                 background: '{orange.600}',
                 color: '{surface.0}'
             },
+            help: {
+                background: '{purple.600}',
+                color: '{surface.0}'
+            },
             danger: {
                 background: '{red.600}',
                 color: '{surface.0}'
@@ -78,6 +82,10 @@ export default {
             warn: {
                 background: '{orange.500}',
                 color: '{orange.950}'
+            },
+            help: {
+                background: '{purple.500}',
+                color: '{purple.950}'
             },
             danger: {
                 background: '{red.500}',
