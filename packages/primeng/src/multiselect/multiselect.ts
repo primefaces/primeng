@@ -99,7 +99,7 @@ export const MULTISELECT_VALUE_ACCESSOR: any = {
             (click)="onOptionClick($event)"
             (mouseenter)="onOptionMouseEnter($event)"
         >
-            <p-checkbox [ngModel]="selected" [binary]="true" [tabindex]="-1" [variant]="variant">
+            <p-checkbox [ngModel]="selected" [binary]="true" [tabindex]="-1" [variant]="variant" [ariaLabel]="label">
                 <ng-container *ngIf="itemCheckboxIconTemplate">
                     <ng-template #icon let-klass="class">
                         <ng-template *ngTemplateOutlet="itemCheckboxIconTemplate; context: { checked: selected, class: klass }"></ng-template>
@@ -294,7 +294,7 @@ export class MultiSelectItem extends BaseComponent {
                             <ng-container *ngTemplateOutlet="filterTemplate || _filterTemplate; context: { options: filterOptions }"></ng-container>
                         </ng-container>
                         <ng-template #builtInFilterElement>
-                            <p-checkbox [ngModel]="allSelected()" [binary]="true" (onChange)="onToggleAll($event)" *ngIf="showToggleAll && !selectionLimit" [variant]="variant" [disabled]="disabled" #headerCheckbox>
+                            <p-checkbox [ngModel]="allSelected()" [ariaLabel]="toggleAllAriaLabel" [binary]="true" (onChange)="onToggleAll($event)" *ngIf="showToggleAll && !selectionLimit" [variant]="variant" [disabled]="disabled" #headerCheckbox>
                                 <ng-template #checkboxicon let-klass="class">
                                     <CheckIcon *ngIf="!headerCheckboxIconTemplate && !_headerCheckboxIconTemplate && allSelected()" [styleClass]="klass" [attr.data-pc-section]="'icon'" />
                                     <ng-template
