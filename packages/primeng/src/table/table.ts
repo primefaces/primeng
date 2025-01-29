@@ -38,8 +38,8 @@ import { FormsModule } from '@angular/forms';
 import { BlockableUI, FilterMatchMode, FilterMetadata, FilterOperator, FilterService, LazyLoadMeta, OverlayService, PrimeTemplate, ScrollerOptions, SelectItem, SharedModule, SortMeta, TableState, TranslationKeys } from 'primeng/api';
 import { BaseComponent } from 'primeng/basecomponent';
 import { Button, ButtonModule } from 'primeng/button';
-import { DatePickerModule } from 'primeng/datepicker';
 import { CheckboxModule } from 'primeng/checkbox';
+import { DatePickerModule } from 'primeng/datepicker';
 import { ConnectedOverlayScrollHandler, DomHandler } from 'primeng/dom';
 import { ArrowDownIcon } from 'primeng/icons/arrowdown';
 import { ArrowUpIcon } from 'primeng/icons/arrowup';
@@ -1311,7 +1311,7 @@ export class Table extends BaseComponent implements OnInit, AfterViewInit, After
                     this.frozenColGroupTemplate = item.template;
                     break;
 
-                case 'frozenrowexpansion':
+                case 'frozenexpandedrow':
                     this.frozenExpandedRowTemplate = item.template;
                     break;
 
