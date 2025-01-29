@@ -68,7 +68,9 @@ export interface StepPanelContentTemplateContext {
         '[class.p-component]': 'true'
     }
 })
-export class StepList extends BaseComponent {}
+export class StepList extends BaseComponent {
+    steps = contentChildren(Step);
+}
 
 @Component({
     selector: 'p-stepper-separator',
@@ -198,9 +200,12 @@ export class Step extends BaseComponent implements AfterContentInit {
 
     isSeparatorVisible = computed(() => {
         if (this.pcStepper.stepList()) {
-            const index = findIndexInList(this.el.nativeElement, this.pcStepper.stepList().el.nativeElement.children);
-            const stepLen = find(this.pcStepper.stepList().el.nativeElement, '[data-pc-name="step"]').length;
+            const steps = this.pcStepper.stepList().steps();
+            const index = steps.indexOf(this);
+            const stepLen = steps.length;
             return index !== stepLen - 1;
+        } else {
+            return false;
         }
     });
     /**
