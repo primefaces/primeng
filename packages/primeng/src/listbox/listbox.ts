@@ -55,16 +55,7 @@ export const LISTBOX_VALUE_ACCESSOR: any = {
     imports: [CommonModule, Ripple, Scroller, InputIcon, SearchIcon, Checkbox, CheckIcon, IconField, InputText, BlankIcon, FormsModule, SharedModule, DragDropModule],
     template: `
         <div [attr.id]="id" [ngClass]="containerClass" [ngStyle]="style" [class]="styleClass" (focusout)="onFocusout($event)">
-            <span
-                #firstHiddenFocusableElement
-                role="presentation"
-                [attr.aria-hidden]="true"
-                class="p-hidden-accessible p-hidden-focusable"
-                [tabindex]="!disabled ? tabindex : -1"
-                (focus)="onFirstHiddenFocus($event)"
-                [attr.data-p-hidden-focusable]="true"
-            >
-            </span>
+            <span #firstHiddenFocusableElement role="presentation" class="p-hidden-accessible p-hidden-focusable" [tabindex]="!disabled ? tabindex : -1" (focus)="onFirstHiddenFocus($event)" [attr.data-p-hidden-focusable]="true"> </span>
             <div class="p-listbox-header" *ngIf="headerFacet || headerTemplate || _headerTemplate">
                 <ng-content select="p-header"></ng-content>
                 <ng-container *ngTemplateOutlet="headerTemplate || _headerTemplate; context: { $implicit: modelValue(), options: visibleOptions() }"></ng-container>
@@ -277,16 +268,7 @@ export const LISTBOX_VALUE_ACCESSOR: any = {
             <span role="status" aria-live="polite" class="p-hidden-accessible">
                 {{ selectedMessageText }}
             </span>
-            <span
-                #lastHiddenFocusableElement
-                role="presentation"
-                [attr.aria-hidden]="true"
-                class="p-hidden-accessible p-hidden-focusable"
-                [tabindex]="!disabled ? tabindex : -1"
-                (focus)="onLastHiddenFocus($event)"
-                [attr.data-p-hidden-focusable]="true"
-            >
-            </span>
+            <span #lastHiddenFocusableElement role="presentation" class="p-hidden-accessible p-hidden-focusable" [tabindex]="!disabled ? tabindex : -1" (focus)="onLastHiddenFocus($event)" [attr.data-p-hidden-focusable]="true"> </span>
         </div>
     `,
     providers: [
