@@ -202,11 +202,10 @@ export class MenuItemContent {
                         <li class="p-menu-separator" *ngIf="item.separator && (item.visible !== false || submenu.visible !== false)" role="separator"></li>
                         <li
                             class="p-menu-item"
-                            *ngIf="!item.separator && (item.visible !== false || submenu.visible !== false)"
+                            *ngIf="!item.separator && item.visible !== false && (item.visible !== undefined || submenu.visible !== false)"
                             [pMenuItemContent]="item"
                             [itemTemplate]="itemTemplate ?? _itemTemplate"
                             [ngClass]="{
-                                'p-hidden': item.visible === false || submenu.visible === false,
                                 'p-focus': focusedOptionId() && menuitemId(item, id, i, j) === focusedOptionId(),
                                 'p-disabled': disabled(item.disabled)
                             }"
@@ -840,14 +839,7 @@ export class Menu extends BaseComponent implements AfterContentInit, OnDestroy {
     }
 
     hasSubMenu(): boolean {
-        if (this.model) {
-            for (var item of this.model) {
-                if (item.items) {
-                    return true;
-                }
-            }
-        }
-        return false;
+        return this.model?.some((item) => item.items) ?? false;
     }
 
     isItemHidden(item: any): boolean {
