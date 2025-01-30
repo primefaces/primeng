@@ -76,6 +76,10 @@ const theme = ({ dt }) => `
             box-shadow ${dt('listbox.transition.duration')}, outline-color ${dt('listbox.transition.duration')};
 }
 
+.p-listbox-option:not(.cdk-drag-disabled) {
+    cursor: move;
+}
+
 .p-listbox-striped li:nth-child(even of .p-listbox-option) {
     background: ${dt('listbox.option.striped.background')};
 }
