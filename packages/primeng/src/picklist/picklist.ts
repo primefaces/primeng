@@ -132,6 +132,7 @@ import { PickListStyle } from './style/pickliststyle';
                     (keydown)="onItemKeyDown($event, selectedItemsSource, onSourceSelect, SOURCE_LIST)"
                     (onDblClick)="onSourceItemDblClick()"
                     [disabled]="disabled"
+                    [optionDisabled]="sourceOptionDisabled"
                     [metaKeySelection]="metaKeySelection"
                     [scrollHeight]="scrollHeight"
                     [autoOptionFocus]="autoOptionFocus"
@@ -254,6 +255,7 @@ import { PickListStyle } from './style/pickliststyle';
                     (keydown)="onItemKeyDown($event, selectedItemsTarget, onTargetSelect, TARGET_LIST)"
                     (onDblClick)="onTargetItemDblClick()"
                     [disabled]="disabled"
+                    [optionDisabled]="targetOptionDisabled"
                     [metaKeySelection]="metaKeySelection"
                     [scrollHeight]="scrollHeight"
                     [autoOptionFocus]="autoOptionFocus"
@@ -515,6 +517,19 @@ export class PickList extends BaseComponent implements AfterViewChecked, AfterCo
      * @group Props
      */
     @Input({ transform: booleanAttribute }) disabled: boolean = false;
+
+    /**
+     * Name of the disabled field of a target option or function to determine disabled state.
+     * @group Props
+     */
+    @Input() sourceOptionDisabled: string | ((item: any) => boolean) | undefined;
+
+    /**
+     * Name of the disabled field of a target option or function to determine disabled state.
+     * @group Props
+     */
+    @Input() targetOptionDisabled: string | ((item: any) => boolean) | undefined;
+
     /**
      * Defines a string that labels the filter input of source list.
      * @group Props
