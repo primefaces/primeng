@@ -31723,7 +31723,7 @@
                     },
                     {
                         "parent": "table",
-                        "name": "rowexpansion",
+                        "name": "expandedrow",
                         "parameters": [
                             {
                                 "name": "context",
@@ -31789,7 +31789,7 @@
                     },
                     {
                         "parent": "table",
-                        "name": "frozenrowexpansion",
+                        "name": "frozenexpandedrow",
                         "parameters": [
                             {
                                 "name": "context",
