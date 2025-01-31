@@ -13,6 +13,7 @@ import { BasicDoc } from './basicdoc';
 import { ControlledDoc } from './controlleddoc';
 import { DisabledDoc } from './disableddoc';
 import { DynamicDoc } from './dynamicdoc';
+import { IconposDoc } from './iconposdoc';
 import { ImportDoc } from './importdoc';
 import { MultipleDoc } from './multipledoc';
 import { StyleDoc } from './styledoc';
@@ -21,6 +22,6 @@ import { TemplateDoc } from './templatedoc';
 @NgModule({
     imports: [CommonModule, AppCodeModule, AppDocModule, AccordionModule, ButtonModule, RouterModule, AvatarModule, BadgeModule, FormsModule],
     exports: [AppDocModule],
-    declarations: [ImportDoc, BasicDoc, DynamicDoc, MultipleDoc, DisabledDoc, ControlledDoc, TemplateDoc, StyleDoc, AccessibilityDoc]
+    declarations: [ImportDoc, BasicDoc, IconposDoc, DynamicDoc, MultipleDoc, DisabledDoc, ControlledDoc, TemplateDoc, StyleDoc, AccessibilityDoc]
 })
 export class AccordionDocModule {}
