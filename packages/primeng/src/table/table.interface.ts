@@ -426,7 +426,7 @@ export interface TableTemplates {
      * Custom expanded row template.
      * @param {Object} context - expanded row data.
      */
-    rowexpansion(context: {
+    expandedrow(context: {
         /**
          * Row span.
          */
@@ -537,7 +537,7 @@ export interface TableTemplates {
      * Custom frozen expanded row template.
      * @param {Object} context - row data.
      */
-    frozenrowexpansion(context: {
+    frozenexpandedrow(context: {
         /**
          * Row span.
          */
