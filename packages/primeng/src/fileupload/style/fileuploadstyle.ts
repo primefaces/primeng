@@ -27,6 +27,7 @@ const theme = ({ dt }) => `
 }
 
 .p-fileupload-content {
+    position: relative;
     border: 1px solid transparent;
     display: flex;
     flex-direction: column;
