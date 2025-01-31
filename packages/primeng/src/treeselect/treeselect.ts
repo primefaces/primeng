@@ -149,6 +149,7 @@ export const TREESELECT_VALUE_ACCESSOR: any = {
                                 [virtualScrollOptions]="virtualScrollOptions"
                                 [_templateMap]="templateMap"
                                 [loading]="loading"
+                                [togglerAriaLabel]="togglerAriaLabel"
                             >
                                 <ng-container *ngIf="emptyTemplate || _emptyTemplate">
                                     <ng-template #empty>
@@ -236,6 +237,11 @@ export class TreeSelect extends BaseComponent implements AfterContentInit {
      * @group Props
      */
     @Input() ariaLabelledBy: string | undefined;
+    /**
+     * Defines a string that labels the toggler icon for accessibility.
+     * @group Props
+     */
+    @Input() togglerAriaLabel: string | undefined;
     /**
      * Label to display when there are no selections.
      * @group Props
