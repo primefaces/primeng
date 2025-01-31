@@ -44,6 +44,7 @@ import { SpeedDialStyle } from './style/speeddialstyle';
         <div #container [ngClass]="containerClass()" [class]="className" [style]="style" [ngStyle]="rootStyles" [attr.data-pc-name]="'speeddial'" [attr.data-pc-section]="'root'">
             <ng-container *ngIf="!buttonTemplate && !_buttonTemplate">
                 <button
+                    type="button"
                     pButton
                     pRipple
                     [style]="buttonStyle"
@@ -97,6 +98,7 @@ import { SpeedDialStyle } from './style/speeddialstyle';
                     </ng-container>
                     <ng-container *ngIf="!itemTemplate && !_itemTemplate">
                         <button
+                            type="button"
                             pButton
                             pRipple
                             class="p-speeddial-action"
