@@ -248,7 +248,7 @@ export class BadgeDirective extends BaseComponent implements OnChanges, AfterVie
     providers: [BadgeStyle],
     host: {
         '[class]': 'containerClass()',
-        '[style.display]': 'badgeDisabled() && "none"',
+        '[style.display]': 'badgeDisabled() ? "none" : null',
         '[style]': 'style()'
     }
 })
