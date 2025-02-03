@@ -1085,13 +1085,16 @@ export class PickList extends BaseComponent implements AfterViewChecked, AfterCo
 
     ngAfterViewChecked() {
         if (this.movedUp || this.movedDown) {
-            let listItems = find(this.reorderedListElement, 'li.p-highlight');
+            let listItems = find(this.reorderedListElement?.el.nativeElement, 'li.p-listbox-option-selected');
+
             let listItem;
 
-            if (this.movedUp) listItem = listItems[0];
-            else listItem = listItems[listItems.length - 1];
+            if (listItems.length > 0) {
+                if (this.movedUp) listItem = listItems[0];
+                else listItem = listItems[listItems.length - 1];
 
-            scrollInView(this.reorderedListElement, listItem);
+                scrollInView(this.reorderedListElement?.el.nativeElement, listItem);
+            }
             this.movedUp = false;
             this.movedDown = false;
             this.reorderedListElement = null;
