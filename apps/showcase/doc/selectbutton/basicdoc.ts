@@ -17,7 +17,7 @@ import { Component } from '@angular/core';
                 </ng-template>
             </p-selectbutton>
 
-            <p-selectbutton [options]="stateOptions" [(ngModel)]="value" optionLabel="label" optionValue="value" aria-labelledby="basic" />
+            <p-selectbutton [options]="options" [(ngModel)]="value" optionLabel="label" optionValue="value" aria-labelledby="basic" />
         </div>
         <app-code [code]="code" selector="select-button-basic-demo"></app-code>
     `
@@ -29,7 +29,7 @@ export class BasicDoc {
         { label: 'Right', icon: 'pi pi-caret-right', value: '3' }
     ];
     selection: (typeof this.options)[number] | undefined;
-
+    value: string = '2';
     code: Code = {
         basic: `<p-selectbutton [options]="stateOptions" [(ngModel)]="value" optionLabel="label" optionValue="value" aria-labelledby="basic" />`,
 
