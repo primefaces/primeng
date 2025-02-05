@@ -17,7 +17,7 @@ import { Component } from '@angular/core';
                 </ng-template>
             </p-selectbutton>
 
-            <p-selectbutton [options]="stateOptions" [(ngModel)]="value" optionLabel="label" optionValue="value" aria-labelledby="basic" />
+            <p-selectbutton [options]="options" [(ngModel)]="selection" optionLabel="label" optionValue="value" aria-labelledby="basic" />
         </div>
         <app-code [code]="code" selector="select-button-basic-demo"></app-code>
     `
@@ -31,12 +31,19 @@ export class BasicDoc {
     selection: (typeof this.options)[number] | undefined;
 
     code: Code = {
-        basic: `<p-selectbutton [options]="stateOptions" [(ngModel)]="value" optionLabel="label" optionValue="value" aria-labelledby="basic" />`,
+        basic: `<p-selectbutton [options]="options" [(ngModel)]="selection" optionLabel="label" optionValue="value" aria-labelledby="basic" />`,
 
-        html: `<div class="card flex justify-center">
-    <p-selectbutton [options]="stateOptions" [(ngModel)]="value" optionLabel="label" optionValue="value" aria-labelledby="basic" />
-</div>`,
-
+        html: `
+<div class="card flex justify-center">
+    <p-selectbutton [options]="options" [(ngModel)]="selection"></p-selectbutton>
+    <p-selectbutton [options]="options" [(ngModel)]="selection">
+        <ng-template #item let-item>
+        <i [class]="item.icon"></i>
+        </ng-template>
+    </p-selectbutton>
+    <p-selectbutton [options]="options" [(ngModel)]="selection" optionLabel="label" optionValue="value" aria-labelledby="basic"></p-selectbutton>
+</div>
+`,
         typescript: `import { Component } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { SelectButton } from 'primeng/selectbutton';
@@ -48,9 +55,13 @@ import { SelectButton } from 'primeng/selectbutton';
     imports: [FormsModule, SelectButton]
 })
 export class SelectButtonBasicDemo {
-    stateOptions: any[] = [{ label: 'One-Way', value: 'one-way' },{ label: 'Return', value: 'return' }];
+    readonly options = [
+        { label: 'Left', icon: 'pi pi-caret-left', value: '1' },
+        { label: 'Down', icon: 'pi pi-caret-down', value: '2' },
+        { label: 'Right', icon: 'pi pi-caret-right', value: '3' }
+    ];
 
-    value: string = 'off';
+    selection: (typeof this.options)[number] | undefined;
 }`
     };
 }
