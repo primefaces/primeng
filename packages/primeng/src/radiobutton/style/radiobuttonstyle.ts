@@ -90,7 +90,7 @@ const theme = ({ dt }) => `
     border-color: ${dt('radiobutton.checked.focus.border.color')};
 }
 
-.p-radiobutton.ng-invalid.ng-dirty > .p-radiobutton-box {
+p-radiobutton.ng-invalid.ng-dirty .p-radiobutton-box {
     border-color: ${dt('radiobutton.invalid.border.color')};
 }
 
