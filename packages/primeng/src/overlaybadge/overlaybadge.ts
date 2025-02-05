@@ -43,7 +43,7 @@ export class OverlayBadge extends BaseComponent {
      * Severity type of the badge.
      * @group Props
      */
-    @Input() severity: 'success' | 'info' | 'danger' | 'help' | 'primary' | 'secondary' | 'contrast' | 'warn' | null | undefined;
+    @Input() severity: 'secondary' | 'info' | 'success' | 'warn' | 'danger' | 'contrast' | null | undefined;
     /**
      * Value to display inside the badge.
      * @group Props
