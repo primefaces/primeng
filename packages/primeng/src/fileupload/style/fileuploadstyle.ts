@@ -37,9 +37,6 @@ const theme = ({ dt }) => `
 
 .p-fileupload-content .p-progressbar {
     width: 100%;
-    position: absolute;
-    top: 0;
-    left: 0;
     height: ${dt('fileupload.progressbar.height')};
 }
 
