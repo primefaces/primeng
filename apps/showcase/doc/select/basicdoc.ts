@@ -33,7 +33,11 @@ export class BasicDoc implements OnInit {
             { name: 'Rome', code: 'RM' },
             { name: 'London', code: 'LDN' },
             { name: 'Istanbul', code: 'IST' },
-            { name: 'Paris', code: 'PRS' }
+            { name: 'Paris', code: 'PRS' },
+            {
+                name: '1234567898765432112345678987654321',
+                code: '1234567898765432112345678987654321'
+            }
         ];
     }
 
