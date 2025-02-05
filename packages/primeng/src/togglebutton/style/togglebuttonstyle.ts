@@ -2,6 +2,10 @@ import { Injectable } from '@angular/core';
 import { BaseStyle } from 'primeng/base';
 
 const theme = ({ dt }) => `
+p-togglebutton {
+    display: inline-flex;
+}
+
 .p-togglebutton {
     display: inline-flex;
     cursor: pointer;
