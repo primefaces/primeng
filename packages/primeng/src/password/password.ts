@@ -102,7 +102,7 @@ export class PasswordDirective extends BaseComponent implements OnDestroy, DoChe
      * Specifies the input variant of the component.
      * @group Props
      */
-    @Input() variant: 'filled' | 'outlined' = 'outlined';
+    @Input() variant: 'filled' | 'outlined';
     /**
      * Spans 100% width of the container when enabled.
      * @group Props
@@ -623,7 +623,7 @@ export class Password extends BaseComponent implements OnInit, AfterContentInit 
      * Specifies the input variant of the component.
      * @group Props
      */
-    @Input() variant: 'filled' | 'outlined' = 'outlined';
+    @Input() variant: 'filled' | 'outlined';
     /**
      * Callback to invoke when the component receives focus.
      * @param {Event} event - Browser event.

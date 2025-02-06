@@ -114,6 +114,7 @@ const classes = {
     root: ({ instance }) => ({
         'p-password p-component p-inputwrapper': true,
         'p-inputwrapper-filled': instance.filled(),
+        'p-variant-filled': 'instance.variant === "filled" || instance.config.inputVariant() === "filled" || instance.config.inputStyle() === "filled"',
         'p-inputwrapper-focus': instance.focused,
         'p-password-fluid': instance.hasFluid
     }),
