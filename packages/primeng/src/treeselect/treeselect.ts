@@ -210,7 +210,7 @@ export class TreeSelect extends BaseComponent implements AfterContentInit {
      * Specifies the input variant of the component.
      * @group Props
      */
-    @Input() variant: 'filled' | 'outlined' = 'outlined';
+    @Input() variant: 'filled' | 'outlined';
     /**
      * Defines how the selected items are displayed.
      * @group Props

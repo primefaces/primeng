@@ -66,7 +66,7 @@ export const SELECTBUTTON_VALUE_ACCESSOR: any = {
         '[class.p-selectbutton]': 'true',
         '[class.p-component]': 'true',
         '[style]': 'style',
-        '[attr.role]': 'group',
+        '[attr.role]': '"group"',
         '[attr.aria-labelledby]': 'ariaLabelledBy',
         '[attr.data-pc-section]': "'root'",
         '[attr.data-pc-name]': "'selectbutton'"
