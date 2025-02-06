@@ -309,7 +309,7 @@ const classes = {
     pcInput: 'p-autocomplete-input',
     inputMultiple: ({ instance }) => ({
         'p-autocomplete-input-multiple': true,
-        'p-variant-filled': instance.variant ? instance.variant === 'filled' : instance.config.inputStyle() === 'filled'
+        'p-variant-filled': (instance.variant ?? (instance.config.inputStyle() || instance.config.inputVariant())) === 'filled'
     }),
     chipItem: ({ instance, i }) => [
         'p-autocomplete-chip-item',
