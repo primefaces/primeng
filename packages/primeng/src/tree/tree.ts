@@ -70,6 +70,7 @@ import {
             ></li>
             <li
                 [ngClass]="nodeClass"
+                [class]="node.styleClass"
                 [ngStyle]="{ height: itemSize + 'px' }"
                 [style]="node.style"
                 [attr.aria-label]="node.label"
