@@ -3,29 +3,29 @@ import { CommonModule, isPlatformBrowser } from '@angular/common';
 import {
     AfterContentInit,
     AfterViewChecked,
-    booleanAttribute,
     ChangeDetectionStrategy,
     Component,
     ContentChild,
     ContentChildren,
     ElementRef,
     EventEmitter,
-    inject,
     Input,
     NgModule,
-    numberAttribute,
     Output,
     QueryList,
     TemplateRef,
     ViewChild,
-    ViewEncapsulation
+    ViewEncapsulation,
+    booleanAttribute,
+    inject,
+    numberAttribute
 } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { find, findIndexInList, findSingle, isEmpty, scrollInView, setAttribute, uuid } from '@primeuix/utils';
 import { FilterService, PrimeTemplate, SharedModule } from 'primeng/api';
 import { BaseComponent } from 'primeng/basecomponent';
 import { ButtonDirective, ButtonProps } from 'primeng/button';
-import { AngleDoubleDownIcon, AngleDoubleLeftIcon, AngleDoubleRightIcon, AngleDoubleUpIcon, AngleDownIcon, AngleLeftIcon, AngleRightIcon, AngleUpIcon, SearchIcon } from 'primeng/icons';
+import { AngleDoubleDownIcon, AngleDoubleLeftIcon, AngleDoubleRightIcon, AngleDoubleUpIcon, AngleDownIcon, AngleLeftIcon, AngleRightIcon, AngleUpIcon } from 'primeng/icons';
 import { Listbox } from 'primeng/listbox';
 import { Ripple } from 'primeng/ripple';
 import { Nullable, VoidListener } from 'primeng/ts-helpers';
@@ -139,6 +139,8 @@ import { PickListStyle } from './style/pickliststyle';
                     [filterBy]="filterBy"
                     [filterLocale]="filterLocale"
                     [filterPlaceHolder]="sourceFilterPlaceholder"
+                    [dragdrop]="dragdrop"
+                    (onDrop)="onDrop($event, SOURCE_LIST)"
                 >
                     <ng-container *ngIf="sourceHeaderTemplate || _sourceHeaderTemplate">
                         <ng-template #header>
@@ -259,6 +261,8 @@ import { PickListStyle } from './style/pickliststyle';
                     [filterBy]="filterBy"
                     [filterLocale]="filterLocale"
                     [filterPlaceHolder]="targetFilterPlaceholder"
+                    [dragdrop]="dragdrop"
+                    (onDrop)="onDrop($event, TARGET_LIST)"
                 >
                     <ng-container *ngIf="targetHeaderTemplate || _targetHeaderTemplate">
                         <ng-template #header>

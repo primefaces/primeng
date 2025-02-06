@@ -42,6 +42,10 @@ const theme = ({ dt }) => `
 .p-inputtext.p-variant-filled {
     background: ${dt('inputtext.filled.background')};
 }
+    
+.p-inputtext.p-variant-filled:enabled:hover {
+    background: ${dt('inputtext.filled.hover.background')};
+}
 
 .p-inputtext.p-variant-filled:enabled:focus {
     background: ${dt('inputtext.filled.focus.background')};
