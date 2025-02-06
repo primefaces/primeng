@@ -148,7 +148,9 @@ import { PickListStyle } from './style/pickliststyle';
                         </ng-template>
                     </ng-container>
                     <ng-container *ngIf="sourceFilterTemplate || _sourceFilterTemplate">
-                        <ng-container *ngTemplateOutlet="sourceFilterTemplate || _sourceFilterTemplate; context: { options: sourceFilterOptions }"></ng-container>
+                        <ng-template #filter>
+                            <ng-template *ngTemplateOutlet="sourceFilterTemplate || _sourceFilterTemplate; context: { options: sourceFilterOptions }"></ng-template>
+                        </ng-template>
                     </ng-container>
                     <ng-container *ngIf="sourceFilterIconTemplate || _sourceFilterIconTemplate">
                         <ng-container *ngTemplateOutlet="sourceFilterIconTemplate || _sourceFilterIconTemplate"></ng-container>
@@ -270,7 +272,9 @@ import { PickListStyle } from './style/pickliststyle';
                         </ng-template>
                     </ng-container>
                     <ng-container *ngIf="targetFilterTemplate || _targetFilterTemplate">
-                        <ng-container *ngTemplateOutlet="targetFilterTemplate || _targetFilterTemplate; context: { options: targetFilterOptions }"></ng-container>
+                        <ng-template #filter>
+                            <ng-template *ngTemplateOutlet="targetFilterTemplate || _targetFilterTemplate; context: { options: targetFilterOptions }"></ng-template>
+                        </ng-template>
                     </ng-container>
                     <ng-container *ngIf="targetFilterIconTemplate || _targetFilterIconTemplate">
                         <ng-container *ngTemplateOutlet="targetFilterIconTemplate || _targetFilterIconTemplate"></ng-container>
