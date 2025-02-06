@@ -301,6 +301,10 @@ export class ConfirmDialog extends BaseComponent implements OnInit, OnDestroy {
             this.maskVisible = true;
         }
 
+        if (!this._visible && this.confirmation?.rejectOnClose) {
+            this._rejectOnClose();
+        }
+
         this.cd.markForCheck();
     }
     /**
@@ -555,13 +559,10 @@ export class ConfirmDialog extends BaseComponent implements OnInit, OnDestroy {
         }
     }
 
-    close(event: Event) {
+    _rejectOnClose() {
         if (this.confirmation?.rejectEvent) {
             this.confirmation.rejectEvent.emit(ConfirmEventType.CANCEL);
         }
-
-        this.hide(ConfirmEventType.CANCEL);
-        event.preventDefault();
     }
 
     hide(type?: ConfirmEventType) {

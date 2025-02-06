@@ -62,6 +62,13 @@ export interface Confirmation {
      */
     closeOnEscape?: boolean;
     /**
+     * Determines wheter the rejection event should be triggered
+     * when the confirmation dialog is closed programmatically using the `close` method
+     * - `true`: the `reject` event will be emitted when the dialog is closed
+     * - `false` (default): The dialog will close without triggering the `reject` event.
+     */
+    rejectOnClose?: boolean;
+    /**
      * Specifies whether clicking outside the confirmation dialog should dismiss it.
      */
     dismissableMask?: boolean;
