@@ -24,8 +24,8 @@ import { find, findIndexInList, findSingle, hasClass, insertIntoOrderedArray, is
 import { FilterService, PrimeTemplate, SharedModule } from 'primeng/api';
 import { BaseComponent } from 'primeng/basecomponent';
 import { ButtonDirective, ButtonProps } from 'primeng/button';
-import { AngleDoubleDownIcon, AngleDoubleUpIcon, AngleDownIcon, AngleUpIcon, SearchIcon } from 'primeng/icons';
-import { Listbox } from 'primeng/listbox';
+import { AngleDoubleDownIcon, AngleDoubleUpIcon, AngleDownIcon, AngleUpIcon } from 'primeng/icons';
+import { Listbox, ListboxClickEvent, ListboxFilterEvent } from 'primeng/listbox';
 import { Ripple } from 'primeng/ripple';
 import { Nullable } from 'primeng/ts-helpers';
 import { OrderListFilterEvent, OrderListFilterOptions, OrderListSelectionChangeEvent } from './orderlist.interface';
@@ -80,9 +80,12 @@ import { OrderListStyle } from './style/orderliststyle';
                 </button>
             </div>
             <div class="p-orderlist-list-container" [attr.data-pc-section]="'container'">
+                <!-- ppl: bind to multiple input opt -->
+                <!-- ppl: list item click callback -->
+                <!-- ppl: list onFilter callback -->
                 <p-listbox
                     #listelement
-                    [multiple]="true"
+                    [multiple]="multiple"
                     [options]="value"
                     [(ngModel)]="d_selection"
                     optionLabel="name"
@@ -92,6 +95,7 @@ import { OrderListStyle } from './style/orderliststyle';
                     [tabindex]="tabindex"
                     (onFocus)="onListFocus($event)"
                     (onBlur)="onListBlur($event)"
+                    (onClick)="onListItemClick($event)"
                     (keydown)="onItemKeydown($event)"
                     [ariaLabel]="ariaLabel"
                     [disabled]="disabled"
@@ -102,6 +106,7 @@ import { OrderListStyle } from './style/orderliststyle';
                     [filterBy]="filterBy"
                     [filterLocale]="filterLocale"
                     [filterPlaceHolder]="filterPlaceholder"
+                    (onFilter)="onListFilter($event)"
                 >
                     <ng-container *ngIf="headerTemplate || _headerTemplate">
                         <ng-template #header>
@@ -122,6 +127,13 @@ import { OrderListStyle } from './style/orderliststyle';
     providers: [OrderListStyle]
 })
 export class OrderList extends BaseComponent implements AfterContentInit {
+    // ppl: create an input for multiple selection
+    /**
+     * Define if multiple items can be selected, true by default.
+     * @group Props
+     */
+    @Input() multiple: boolean = true;
+
     /**
      * Text for the caption.
      * @group Props
@@ -798,6 +810,16 @@ export class OrderList extends BaseComponent implements AfterContentInit {
         this.focusedOption = null;
         this.focusedOptionIndex = -1;
         this.onBlur.emit(event);
+    }
+
+    // ppl: callback for list component
+    onListItemClick(e: ListboxClickEvent): void {
+        this.onItemClick(e.originalEvent, e.option);
+    }
+
+    // ppl: callback for list onFilter event
+    onListFilter(e: ListboxFilterEvent): void {
+        this.onFilterEvent.emit({ originalEvent: e.originalEvent, value: e.filter });
     }
 
     onItemKeydown(event: KeyboardEvent) {
