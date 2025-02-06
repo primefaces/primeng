@@ -20,6 +20,8 @@ export type PrimeNGConfigType = {
     };
     overlayOptions?: OverlayOptions;
     translation?: Translation;
+    zIndex?: ZIndex;
+    filterMatchModeOptions?: any;
 } & ThemeConfigType;
 
 @Injectable({ providedIn: 'root' })
