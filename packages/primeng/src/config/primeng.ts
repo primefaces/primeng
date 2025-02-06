@@ -14,6 +14,7 @@ export type ZIndex = {
 export type PrimeNGConfigType = {
     ripple?: boolean;
     inputStyle?: 'outlined' | 'filled';
+    inputVariant?: 'outlined' | 'filled';
     csp?: {
         nonce: string | undefined;
     };
