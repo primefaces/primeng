@@ -174,7 +174,20 @@ export class Droppable implements AfterViewInit, OnDestroy {
      * Whether the element is droppable, useful for conditional cases.
      * @group Props
      */
-    @Input({ transform: booleanAttribute }) pDroppableDisabled: boolean = false;
+    _pDroppableDisabled: boolean = false;
+
+    @Input() get pDroppableDisabled(): boolean {
+        return this._pDroppableDisabled;
+    }
+    set pDroppableDisabled(_pDroppableDisabled: boolean) {
+        this._pDroppableDisabled = _pDroppableDisabled;
+
+        if (this._pDroppableDisabled) {
+            this.unbindDragOverListener();
+        } else {
+            this.bindDragOverListener();
+        }
+    }
     /**
      * Defines the cursor style, valid values are none, copy, move, link, copyMove, copyLink, linkMove and all.
      * @group Props
