@@ -182,5 +182,10 @@ export default {
     border-color: ${dt('datepicker.dropdown.hover.border.color')};
     color: ${dt('datepicker.dropdown.hover.color')};
 }
+
+.p-datepicker:has(.p-variant-filled) .p-datepicker-dropdown {
+    border-top-color: transparent;
+    border-right-color: transparent;
+}
 `
 } as DatePickerDesignTokens;

@@ -40,8 +40,8 @@ export default {
     },
     css: ({ dt }) => `
 .p-inputtext.p-variant-filled {
-    border-end-start-radius: 0
-    border-end-end-radius: 0;
+    border-bottom-left-radius: 0;
+    border-bottom-right-radius: 0;
     border: 1px solid transparent;
     background: ${dt('inputtext.filled.background')} no-repeat;
     background-image: linear-gradient(to bottom, ${dt('inputtext.focus.border.color')}, ${dt('inputtext.focus.border.color')}), linear-gradient(to bottom, ${dt('inputtext.border.color')}, ${dt('inputtext.border.color')});
