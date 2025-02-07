@@ -113,6 +113,7 @@ input.p-select-label {
 }
 
 .p-select-overlay {
+    cursor: default;
     background: ${dt('select.overlay.background')};
     color: ${dt('select.overlay.color')};
     border: 1px solid ${dt('select.overlay.border.color')};
