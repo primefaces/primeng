@@ -54,6 +54,7 @@ const hideAnimation = animation([animate('{{transition}}', style({ transform: '{
             [appendTo]="option('appendTo')"
             [position]="position"
             [style]="style"
+            [dismissableMask]="dismissableMask"
         >
             @if (headlessTemplate || _headlessTemplate) {
                 <ng-template #headless>
