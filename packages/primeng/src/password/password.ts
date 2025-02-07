@@ -652,7 +652,7 @@ export class Password extends BaseComponent implements OnInit, AfterContentInit 
 
     @ContentChild('clearicon', { descendants: false }) clearIconTemplate: Nullable<TemplateRef<any>>;
 
-    @ContentChild('headericon', { descendants: false }) hideIconTemplate: Nullable<TemplateRef<any>>;
+    @ContentChild('hideicon', { descendants: false }) hideIconTemplate: Nullable<TemplateRef<any>>;
 
     @ContentChild('showicon', { descendants: false }) showIconTemplate: Nullable<TemplateRef<any>>;
 
