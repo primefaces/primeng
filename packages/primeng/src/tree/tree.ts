@@ -99,7 +99,7 @@ import {
                     (dragstart)="onDragStart($event)"
                     (dragend)="onDragStop($event)"
                 >
-                    <button type="button" [attr.data-pc-section]="'toggler'" class="p-tree-node-toggle-button" (click)="toggle($event)" pRipple tabindex="-1">
+                    <button type="button" [attr.aria-label]="togglerAriaLabel" [attr.data-pc-section]="'toggler'" class="p-tree-node-toggle-button" (click)="toggle($event)" pRipple tabindex="-1">
                         <ng-container *ngIf="!tree.togglerIconTemplate && !tree._togglerIconTemplate">
                             <ng-container *ngIf="!node.loading">
                                 <ChevronRightIcon *ngIf="!node.expanded" [styleClass]="'p-tree-node-toggle-icon'" />
@@ -161,6 +161,7 @@ import {
                         [itemSize]="itemSize"
                         [level]="level + 1"
                         [loadingMode]="loadingMode"
+                        [togglerAriaLabel]="togglerAriaLabel"
                     ></p-treeNode>
                 </ul>
             </li>
@@ -203,6 +204,8 @@ export class UITreeNode extends BaseComponent implements OnInit {
     @Input({ transform: numberAttribute }) itemSize: number | undefined;
 
     @Input() loadingMode: string;
+
+    @Input() togglerAriaLabel: string;
 
     tree: Tree = inject(forwardRef(() => Tree));
 
@@ -765,6 +768,7 @@ export class UITreeNode extends BaseComponent implements OnInit {
                                 [itemSize]="scrollerOptions.itemSize"
                                 [indentation]="indentation"
                                 [loadingMode]="loadingMode"
+                                [togglerAriaLabel]="togglerAriaLabel"
                             ></p-treeNode>
                         </ul>
                     </ng-template>
@@ -785,6 +789,7 @@ export class UITreeNode extends BaseComponent implements OnInit {
                                 [index]="index"
                                 [level]="0"
                                 [loadingMode]="loadingMode"
+                                [togglerAriaLabel]="togglerAriaLabel"
                             ></p-treeNode>
                         </ul>
                     </div>
