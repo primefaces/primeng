@@ -54,6 +54,7 @@ const hideAnimation = animation([animate('{{transition}}', style({ transform: '{
             [appendTo]="option('appendTo')"
             [position]="position"
             [style]="style"
+            (visibleChange)="_rejectOnClose($event)"
         >
             @if (headlessTemplate || _headlessTemplate) {
                 <ng-template #headless>
@@ -555,13 +556,10 @@ export class ConfirmDialog extends BaseComponent implements OnInit, OnDestroy {
         }
     }
 
-    close(event: Event) {
-        if (this.confirmation?.rejectEvent) {
+    _rejectOnClose(visible: boolean) {
+        if (this.confirmation?.rejectEvent && this.confirmation?.rejectOnClose && !visible) {
             this.confirmation.rejectEvent.emit(ConfirmEventType.CANCEL);
         }
-
-        this.hide(ConfirmEventType.CANCEL);
-        event.preventDefault();
     }
 
     hide(type?: ConfirmEventType) {
