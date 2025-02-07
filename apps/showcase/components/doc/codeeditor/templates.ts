@@ -278,7 +278,6 @@ const angular_json = `{
               "scripts": [],
               "allowedCommonJsDependencies": [
                 "chart.js",
-                "xlsx",
                 "jspdf-autotable",
                 "file-saver",
                 "jspdf",
