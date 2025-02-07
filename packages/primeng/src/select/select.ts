@@ -473,7 +473,7 @@ export class Select extends BaseComponent implements OnInit, AfterViewInit, Afte
      * Specifies the input variant of the component.
      * @group Props
      */
-    @Input() variant: 'filled' | 'outlined' = 'outlined';
+    @Input() variant: 'filled' | 'outlined';
     /**
      * Identifier of the accessible input element.
      * @group Props

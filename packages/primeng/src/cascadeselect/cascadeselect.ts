@@ -550,7 +550,7 @@ export class CascadeSelect extends BaseComponent implements OnInit, AfterContent
      * Specifies the input variant of the component.
      * @group Props
      */
-    @Input() variant: 'filled' | 'outlined' = 'outlined';
+    @Input() variant: 'filled' | 'outlined';
     /**
      * Whether the dropdown is in loading state.
      * @group Props

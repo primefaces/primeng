@@ -438,7 +438,8 @@ export class MultiSelectItem extends BaseComponent {
     host: {
         '[attr.id]': 'id',
         '[style]': 'style',
-        '(click)': 'onContainerClick($event)'
+        '(click)': 'onContainerClick($event)',
+        '[class.p-variant-filled]': 'variant === "filled" || config.inputVariant() === "filled" || config.inputStyle() === "filled" '
     }
 })
 export class MultiSelect extends BaseComponent implements OnInit, AfterViewInit, AfterContentInit, AfterViewChecked, ControlValueAccessor {
@@ -526,7 +527,7 @@ export class MultiSelect extends BaseComponent implements OnInit, AfterViewInit,
      * Specifies the input variant of the component.
      * @group Props
      */
-    @Input() variant: 'filled' | 'outlined' = 'outlined';
+    @Input() variant: 'filled' | 'outlined';
     /**
      * Target element to attach the overlay, valid values are "body" or a local ng-template variable of another element (note: use binding with brackets for template variables, e.g. [appendTo]="mydiv" for a div element having #mydiv as variable name).
      * @group Props

@@ -418,6 +418,7 @@ const classes = {
         'p-datepicker p-component p-inputwrapper': true,
         'p-datepicker-fluid': instance.hasFluid,
         'p-inputwrapper-filled': instance.filled,
+        'p-variant-filled': instance.variant === 'filled' || instance.config.inputVariant() === 'filled' || instance.config.inputStyle() === 'filled',
         'p-inputwrapper-focus': instance.focus,
         'p-focus': instance.focus || instance.overlayVisible
     }),
