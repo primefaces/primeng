@@ -4,9 +4,12 @@ import { minifyCSS, resolve } from '@primeuix/utils';
 import { UseStyle } from 'primeng/usestyle';
 
 const theme = ({ dt }) => `
-*,
-::before,
-::after {
+*[class^="p-"],
+*[class*=" p-"],
+*[class^="p-"]::before,
+*[class*=" p-"]::before
+*[class^="p-"]::after,
+*[class*=" p-"]::after {
     box-sizing: border-box;
 }
 
