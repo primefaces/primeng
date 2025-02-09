@@ -64,6 +64,7 @@ import { Ripple } from 'primeng/ripple';
 import { Scroller } from 'primeng/scroller';
 import { Tooltip } from 'primeng/tooltip';
 import { Nullable } from 'primeng/ts-helpers';
+import { CloseOnEscapeService } from 'primeng/utils';
 import { MultiSelectBlurEvent, MultiSelectChangeEvent, MultiSelectFilterEvent, MultiSelectFilterOptions, MultiSelectFocusEvent, MultiSelectLazyLoadEvent, MultiSelectRemoveEvent, MultiSelectSelectAllChangeEvent } from './multiselect.interface';
 import { MultiSelectStyle } from './style/multiselectstyle';
 
@@ -1330,6 +1331,13 @@ export class MultiSelect extends BaseComponent implements OnInit, AfterViewInit,
         public overlayService: OverlayService
     ) {
         super();
+        inject(CloseOnEscapeService).closeOnEscape(
+            {
+                closeOnEscape: () => this.hide(),
+                kind: 'single'
+            },
+            this.injector
+        );
         effect(() => {
             const modelValue = this.modelValue();
 
@@ -1644,10 +1652,6 @@ export class MultiSelect extends BaseComponent implements OnInit, AfterViewInit,
                 this.onEnterKey(event);
                 break;
 
-            case 'Escape':
-                this.onEscapeKey(event);
-                break;
-
             case 'Tab':
                 this.onTabKey(event);
                 break;
@@ -1705,10 +1709,6 @@ export class MultiSelect extends BaseComponent implements OnInit, AfterViewInit,
             case 'Enter':
             case 'NumpadEnter':
                 this.onEnterKey(event);
-                break;
-
-            case 'Escape':
-                this.onEscapeKey(event);
                 break;
 
             case 'Tab':
@@ -1830,11 +1830,6 @@ export class MultiSelect extends BaseComponent implements OnInit, AfterViewInit,
             }
         }
 
-        event.preventDefault();
-    }
-
-    onEscapeKey(event) {
-        this.overlayVisible && this.hide(true);
         event.preventDefault();
     }
 
@@ -2094,6 +2089,9 @@ export class MultiSelect extends BaseComponent implements OnInit, AfterViewInit,
      * @group Method
      */
     public hide(isFocus?) {
+        if (!this.overlayVisible) {
+            return false;
+        }
         this.overlayVisible = false;
         this.focusedOptionIndex.set(-1);
 
@@ -2107,6 +2105,7 @@ export class MultiSelect extends BaseComponent implements OnInit, AfterViewInit,
         isFocus && focus(this.focusInputViewChild?.nativeElement);
         this.onPanelHide.emit();
         this.cd.markForCheck();
+        return true;
     }
 
     onOverlayAnimationStart(event: AnimationEvent) {

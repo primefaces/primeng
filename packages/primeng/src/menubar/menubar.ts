@@ -36,7 +36,7 @@ import { AngleDownIcon, AngleRightIcon, BarsIcon } from 'primeng/icons';
 import { Ripple } from 'primeng/ripple';
 import { TooltipModule } from 'primeng/tooltip';
 import { VoidListener } from 'primeng/ts-helpers';
-import { ZIndexUtils } from 'primeng/utils';
+import { CloseOnEscapeService, ZIndexUtils } from 'primeng/utils';
 import { interval, Subject, Subscription } from 'rxjs';
 import { debounce, filter } from 'rxjs/operators';
 import { MenuBarStyle } from './style/menubarstyle';
@@ -562,6 +562,13 @@ export class Menubar extends BaseComponent implements AfterContentInit, OnDestro
         private menubarService: MenubarService
     ) {
         super();
+        inject(CloseOnEscapeService).closeOnEscape(
+            {
+                closeOnEscape: () => this.closeWithEscape(),
+                kind: 'single'
+            },
+            this.injector
+        );
         effect(() => {
             const path = this.activeItemPath();
 
@@ -803,6 +810,7 @@ export class Menubar extends BaseComponent implements AfterContentInit, OnDestro
     }
 
     hide(event?, isFocus?: boolean) {
+        const isVisible = this.activeItemPath().length > 0;
         if (this.mobileActive) {
             setTimeout(() => {
                 focus(this.menubutton.nativeElement);
@@ -814,6 +822,7 @@ export class Menubar extends BaseComponent implements AfterContentInit, OnDestro
 
         isFocus && focus(this.rootmenu?.menubarViewChild.nativeElement);
         this.dirty = false;
+        return isVisible;
     }
 
     show() {
@@ -873,10 +882,6 @@ export class Menubar extends BaseComponent implements AfterContentInit, OnDestro
 
             case 'Enter':
                 this.onEnterKey(event);
-                break;
-
-            case 'Escape':
-                this.onEscapeKey(event);
                 break;
 
             case 'Tab':
@@ -1097,11 +1102,10 @@ export class Menubar extends BaseComponent implements AfterContentInit, OnDestro
         this.onEnterKey(event);
     }
 
-    onEscapeKey(event: KeyboardEvent) {
-        this.hide(event, true);
+    private closeWithEscape() {
+        const didHide = this.hide(undefined, true);
         this.focusedItemInfo().index = this.findFirstFocusedItemIndex();
-
-        event.preventDefault();
+        return didHide;
     }
 
     onTabKey(event: KeyboardEvent) {
