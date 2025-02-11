@@ -35,10 +35,10 @@ export class LoadingStateDoc implements OnInit {
     }
 
     code: Code = {
-        basic: `<p-select [options]="cities" [(ngModel)]="selectedCity" [loading]="true" optionLabel="name" placeholder="Select a City" class="w-full md:w-56" />`,
+        basic: `<p-select [options]="cities" [(ngModel)]="selectedCity" [loading]="true" optionLabel="name" placeholder="Loading..." class="w-full md:w-56" />`,
 
         html: `<div class="card flex justify-center">
-    <p-select [options]="cities" [(ngModel)]="selectedCity" [loading]="true" optionLabel="name" placeholder="Select a City" class="w-full md:w-56" />
+    <p-select [options]="cities" [(ngModel)]="selectedCity" [loading]="true" optionLabel="name" placeholder="Loading..." class="w-full md:w-56" />
 </div>`,
 
         typescript: `import { Component, OnInit } from '@angular/core';
