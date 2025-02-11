@@ -26,7 +26,7 @@ import { FilterService, PrimeTemplate, SharedModule } from 'primeng/api';
 import { BaseComponent } from 'primeng/basecomponent';
 import { ButtonDirective, ButtonProps } from 'primeng/button';
 import { AngleDoubleDownIcon, AngleDoubleLeftIcon, AngleDoubleRightIcon, AngleDoubleUpIcon, AngleDownIcon, AngleLeftIcon, AngleRightIcon, AngleUpIcon } from 'primeng/icons';
-import { Listbox } from 'primeng/listbox';
+import { Listbox, ListboxChangeEvent } from 'primeng/listbox';
 import { Ripple } from 'primeng/ripple';
 import { Nullable, VoidListener } from 'primeng/ts-helpers';
 import {
@@ -129,8 +129,8 @@ import { PickListStyle } from './style/pickliststyle';
                     [tabindex]="tabindex"
                     (onFocus)="onListFocus($event, SOURCE_LIST)"
                     (onBlur)="onListBlur($event, SOURCE_LIST)"
-                    (keydown)="onItemKeyDown($event, selectedItemsSource, onSourceSelect, SOURCE_LIST)"
                     (onDblClick)="onSourceItemDblClick()"
+                    (onChange)="onListSelectionChange($event, SOURCE_LIST)"
                     [disabled]="disabled"
                     [metaKeySelection]="metaKeySelection"
                     [scrollHeight]="scrollHeight"
@@ -251,8 +251,8 @@ import { PickListStyle } from './style/pickliststyle';
                     [tabindex]="tabindex"
                     (onFocus)="onListFocus($event, TARGET_LIST)"
                     (onBlur)="onListBlur($event, TARGET_LIST)"
-                    (keydown)="onItemKeyDown($event, selectedItemsTarget, onTargetSelect, TARGET_LIST)"
                     (onDblClick)="onTargetItemDblClick()"
+                    (onChange)="onListSelectionChange($event, TARGET_LIST)"
                     [disabled]="disabled"
                     [metaKeySelection]="metaKeySelection"
                     [scrollHeight]="scrollHeight"
@@ -758,10 +758,6 @@ export class PickList extends BaseComponent implements AfterViewChecked, AfterCo
         return this.id + '_target';
     }
 
-    get focusedOptionId() {
-        return this.focusedOptionIndex !== -1 ? this.focusedOptionIndex : null;
-    }
-
     _breakpoint: string = '960px';
 
     public visibleOptionsSource: any[] | undefined | null;
@@ -778,8 +774,6 @@ export class PickList extends BaseComponent implements AfterViewChecked, AfterCo
 
     movedDown: Nullable<boolean>;
 
-    itemTouched: Nullable<boolean>;
-
     styleElement: any;
 
     id: string = uuid('pn_id_');
@@ -787,8 +781,6 @@ export class PickList extends BaseComponent implements AfterViewChecked, AfterCo
     filterValueSource: Nullable<string>;
 
     filterValueTarget: Nullable<string>;
-
-    fromListType: Nullable<number>;
 
     sourceFilterOptions: Nullable<PickListFilterOptions>;
 
@@ -803,15 +795,6 @@ export class PickList extends BaseComponent implements AfterViewChecked, AfterCo
     media: MediaQueryList | null | undefined;
 
     viewChanged: boolean | undefined;
-
-    focusedOptionIndex: any = -1;
-
-    focusedOption: any | undefined;
-
-    focused: any = {
-        sourceList: false,
-        targetList: false
-    };
 
     _componentStyle = inject(PickListStyle);
 
@@ -1098,45 +1081,6 @@ export class PickList extends BaseComponent implements AfterViewChecked, AfterCo
         }
     }
 
-    onItemClick(event: Event | any, item: any, selectedItems: any[], listType: number, callback: EventEmitter<any>, itemId?: string) {
-        if (this.disabled) {
-            return;
-        }
-
-        let index = this.findIndexInList(item, selectedItems);
-        if (itemId) this.focusedOptionIndex = itemId;
-        let selected = index != -1;
-        let metaSelection = this.itemTouched ? false : this.metaKeySelection;
-
-        if (metaSelection) {
-            let metaKey = (<KeyboardEvent>event).metaKey || (<KeyboardEvent>event).ctrlKey || (<KeyboardEvent>event).shiftKey;
-
-            if (selected && metaKey) {
-                selectedItems = selectedItems.filter((_, i) => i !== index);
-            } else {
-                if (!metaKey) {
-                    selectedItems = [];
-                }
-                selectedItems.push(item);
-            }
-        } else {
-            if (selected) {
-                selectedItems = selectedItems.filter((_, i) => i !== index); // Creating a new array without the selected item
-            } else {
-                selectedItems.push(item);
-            }
-        }
-        this.setSelectionList(listType, selectedItems);
-        callback.emit({ originalEvent: event, items: selectedItems });
-
-        this.itemTouched = false;
-    }
-
-    onOptionMouseDown(index, listType: number) {
-        this.focused[listType === this.SOURCE_LIST ? 'sourceList' : 'targetList'] = true;
-        this.focusedOptionIndex = index;
-    }
-
     onSourceItemDblClick() {
         if (this.disabled) {
             return;
@@ -1203,14 +1147,6 @@ export class PickList extends BaseComponent implements AfterViewChecked, AfterCo
         } else {
             return true;
         }
-    }
-
-    onItemTouchEnd() {
-        if (this.disabled) {
-            return;
-        }
-
-        this.itemTouched = true;
     }
 
     private sortByIndexInList(items: any[], list: any) {
@@ -1511,11 +1447,11 @@ export class PickList extends BaseComponent implements AfterViewChecked, AfterCo
         }
     }
 
-    onListFocus(event, listType) {
+    onListFocus(event: FocusEvent, listType) {
         this.onFocus.emit(event);
     }
 
-    onListBlur(event, listType) {
+    onListBlur(event: FocusEvent, listType) {
         this.onBlur.emit(event);
     }
 
@@ -1523,196 +1459,12 @@ export class PickList extends BaseComponent implements AfterViewChecked, AfterCo
         return listType === this.SOURCE_LIST ? this.listViewSourceChild?.el.nativeElement : this.listViewTargetChild?.el.nativeElement;
     }
 
-    getListItems(listType: number) {
-        let listElemet = this.getListElement(listType);
-
-        return find(listElemet, 'li.p-picklist-item');
-    }
-
-    getLatestSelectedVisibleOptionIndex(visibleList: any[], selectedItems: any[]): number {
-        const latestSelectedItem = [...selectedItems].reverse().find((item) => visibleList.includes(item));
-        return latestSelectedItem !== undefined ? visibleList.indexOf(latestSelectedItem) : -1;
-    }
-
-    getVisibleList(listType: number) {
+    onListSelectionChange(event: ListboxChangeEvent, listType: number) {
         if (listType === this.SOURCE_LIST) {
-            return this.visibleOptionsSource && this.visibleOptionsSource.length > 0 ? this.visibleOptionsSource : this.source && this.source.length > 0 ? this.source : null;
-        }
-
-        return this.visibleOptionsTarget && this.visibleOptionsTarget.length > 0 ? this.visibleOptionsTarget : this.target && this.target.length > 0 ? this.target : null;
-    }
-
-    setSelectionList(listType: number, selectedItems: any[]) {
-        if (listType === this.SOURCE_LIST) {
-            this.selectedItemsSource = selectedItems;
+            this.onSourceSelect.emit({originalEvent: event.originalEvent, items: event.value})
         } else {
-            this.selectedItemsTarget = selectedItems;
+            this.onTargetSelect.emit({originalEvent: event.originalEvent, items: event.value})
         }
-    }
-
-    findNextOptionIndex(index: number, listType: number) {
-        const items = this.getListItems(listType);
-
-        const matchedOptionIndex = [...items].findIndex((link: any) => link.id === index);
-
-        return matchedOptionIndex > -1 ? matchedOptionIndex + 1 : 0;
-    }
-
-    findPrevOptionIndex(index: number, listType: number) {
-        const items = this.getListItems(listType);
-        const matchedOptionIndex = [...items].findIndex((link: any) => link.id === index);
-
-        return matchedOptionIndex > -1 ? matchedOptionIndex - 1 : 0;
-    }
-
-    onItemKeyDown(event: Event | any, selectedItems: any[], callback: EventEmitter<any>, listType: number) {
-        switch (event.code) {
-            case 'ArrowDown':
-                this.onArrowDownKey(event, selectedItems, callback, listType);
-                break;
-
-            case 'ArrowUp':
-                this.onArrowUpKey(event, selectedItems, callback, listType);
-                break;
-
-            case 'Home':
-                this.onHomeKey(event, selectedItems, callback, listType);
-                break;
-
-            case 'End':
-                this.onEndKey(event, selectedItems, callback, listType);
-                break;
-
-            case 'Enter':
-                this.onEnterKey(event, selectedItems, callback, listType);
-                break;
-
-            case 'Space':
-                this.onSpaceKey(event, selectedItems, callback, listType);
-                break;
-
-            case 'KeyA':
-                if (event.ctrlKey) {
-                    this.setSelectionList(listType, this.getVisibleList(listType));
-                    callback.emit({ items: selectedItems });
-                    event.preventDefault();
-                }
-
-            default:
-                break;
-        }
-    }
-
-    getFocusedOption(index: number, listType: number) {
-        if (index === -1) return null;
-
-        if (listType === this.SOURCE_LIST) {
-            return this.visibleOptionsSource && this.visibleOptionsSource.length ? this.visibleOptionsSource[index] : this.source && this.source.length ? this.source[index] : null;
-        }
-
-        return this.visibleOptionsTarget && this.visibleOptionsTarget.length ? this.visibleOptionsTarget[index] : this.target && this.target.length ? this.target[index] : null;
-    }
-
-    changeFocusedOptionIndex(index, listType) {
-        const items = this.getListItems(listType);
-        if (items?.length > 0) {
-            let order = index >= items.length ? items.length - 1 : index < 0 ? 0 : index;
-
-            this.focusedOptionIndex = items[order].getAttribute('id');
-            this.focusedOption = this.getFocusedOption(order, listType);
-            this.scrollInView(items[order].getAttribute('id'), listType);
-        }
-    }
-
-    scrollInView(id, listType) {
-        const element = findSingle(this.getListElement(listType), `li[id="${id}"]`);
-
-        if (element) {
-            element.scrollIntoView && element.scrollIntoView({ block: 'nearest', inline: 'start' });
-        }
-    }
-
-    onArrowDownKey(event: Event | any, selectedItems: any[], callback: EventEmitter<any>, listType: number) {
-        const optionIndex = this.findNextOptionIndex(this.focusedOptionIndex, listType);
-
-        this.changeFocusedOptionIndex(optionIndex, listType);
-
-        if (event.shiftKey) {
-            this.onEnterKey(event, selectedItems, callback, listType);
-        }
-
-        event.preventDefault();
-    }
-
-    onArrowUpKey(event: Event | any, selectedItems: any[], callback: EventEmitter<any>, listType: number) {
-        const optionIndex = this.findPrevOptionIndex(this.focusedOptionIndex, listType);
-
-        this.changeFocusedOptionIndex(optionIndex, listType);
-
-        if (event.shiftKey) {
-            this.onEnterKey(event, selectedItems, callback, listType);
-        }
-
-        event.preventDefault();
-    }
-
-    onEnterKey(event: Event | any, selectedItems: any[], callback: EventEmitter<any>, listType: number) {
-        this.onItemClick(event, this.focusedOption, selectedItems, listType, callback);
-        event.preventDefault();
-    }
-
-    onSpaceKey(event: Event | any, selectedItems: any[], callback: EventEmitter<any>, listType: number) {
-        event.preventDefault();
-
-        if (event.shiftKey && selectedItems && selectedItems.length > 0) {
-            let visibleList = this.getVisibleList(listType);
-            let lastSelectedIndex = this.getLatestSelectedVisibleOptionIndex(visibleList, selectedItems);
-
-            if (lastSelectedIndex !== -1) {
-                let focusedIndex = findIndexInList(this.focusedOption, visibleList);
-
-                selectedItems = [...visibleList.slice(Math.min(lastSelectedIndex, focusedIndex), Math.max(lastSelectedIndex, focusedIndex) + 1)];
-                this.setSelectionList(listType, selectedItems);
-
-                callback.emit({ items: selectedItems });
-                return;
-            }
-        }
-
-        this.onEnterKey(event, selectedItems, callback, listType);
-    }
-
-    onHomeKey(event: Event | any, selectedItems: any[], callback: EventEmitter<any>, listType: number) {
-        if (event.ctrlKey && event.shiftKey) {
-            let visibleList = this.getVisibleList(listType);
-            let focusedIndex = findIndexInList(this.focusedOption, visibleList);
-
-            selectedItems = [...visibleList.slice(0, focusedIndex + 1)];
-            this.setSelectionList(listType, selectedItems);
-            callback.emit({ items: selectedItems });
-        } else {
-            this.changeFocusedOptionIndex(0, listType);
-        }
-
-        event.preventDefault();
-    }
-
-    onEndKey(event: Event | any, selectedItems: any[], callback: EventEmitter<any>, listType: number) {
-        let visibleList = this.getVisibleList(listType);
-        let lastIndex = visibleList && visibleList.length > 0 ? visibleList.length - 1 : null;
-        if (lastIndex === null) return;
-
-        if (event.ctrlKey && event.shiftKey) {
-            let focusedIndex = findIndexInList(this.focusedOption, visibleList);
-            selectedItems = [...visibleList.slice(focusedIndex, lastIndex)];
-
-            this.setSelectionList(listType, selectedItems);
-            callback.emit({ items: selectedItems });
-        } else {
-            this.changeFocusedOptionIndex(lastIndex, listType);
-        }
-
-        event.preventDefault();
     }
 
     getDropIndexes(fromIndex: number, toIndex: number, droppedList: number, isTransfer: boolean, data: any[] | any) {
