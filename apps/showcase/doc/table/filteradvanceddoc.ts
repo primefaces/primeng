@@ -606,7 +606,7 @@ export class TableFilterAdvancedDemo implements OnInit {
                 return 'info';
 
             case 'negotiation':
-                return 'warning';
+                return 'warn';
 
             case 'renewal':
                 return null;
@@ -658,7 +658,7 @@ export class TableFilterAdvancedDemo implements OnInit {
                 return 'info';
 
             case 'negotiation':
-                return 'warning';
+                return 'warn';
 
             case 'renewal':
                 return null;
