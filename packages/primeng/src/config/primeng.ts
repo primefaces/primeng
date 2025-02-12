@@ -194,7 +194,7 @@ export class PrimeNG extends ThemeProvider {
     }
 
     setConfig(config: PrimeNGConfigType): void {
-        const { csp, ripple, inputStyle, inputVariant, theme, overlayOptions, translation } = config || {};
+        const { csp, ripple, inputStyle, inputVariant, theme, overlayOptions, translation, filterMatchModeOptions } = config || {};
 
         if (csp) this.csp.set(csp);
         if (ripple) this.ripple.set(ripple);
@@ -202,6 +202,7 @@ export class PrimeNG extends ThemeProvider {
         if (inputVariant) this.inputVariant.set(inputVariant);
         if (overlayOptions) this.overlayOptions = overlayOptions;
         if (translation) this.setTranslation(translation);
+        if (filterMatchModeOptions) this.filterMatchModeOptions = filterMatchModeOptions;
 
         if (theme)
             this.setThemeConfig({
