@@ -1985,8 +1985,10 @@ export class DatePicker extends BaseComponent implements OnInit, AfterContentIni
     isMonthSelected(month: number) {
         if (this.isComparable() && !this.isMultipleSelection()) {
             const [start, end] = this.isRangeSelection() ? this.value : [this.value, this.value];
-            const selected = new Date(this.currentYear, month, 1);
-            return selected >= start && selected <= (end ?? start);
+
+            const isSameMonth = (date: Date, month: number) => date.getFullYear() === this.currentYear && date.getMonth() === month;
+
+            return isSameMonth(start, month) || isSameMonth(end ?? start, month);
         }
         return false;
     }
