@@ -46,6 +46,8 @@ export class BaseComponent {
 
     attrSelector = uuid('pc');
 
+    private themeChangeListeners: Function[] = [];
+
     _getHostInstance(instance) {
         if (instance) {
             return instance ? (this['hostName'] ? (instance['name'] === this['hostName'] ? instance : this._getHostInstance(instance.parentInstance)) : instance.parentInstance) : undefined;
@@ -81,6 +83,7 @@ export class BaseComponent {
 
     ngOnDestroy() {
         this._unloadScopedThemeStyles();
+        this.themeChangeListeners.forEach((callback) => ThemeService.off('theme:change', callback));
     }
 
     _loadStyles() {
@@ -160,6 +163,7 @@ export class BaseComponent {
     _themeChangeListener(callback = () => {}) {
         Base.clearLoadedStyleNames();
         ThemeService.on('theme:change', callback);
+        this.themeChangeListeners.push(callback);
     }
 
     cx(arg: string, rest?: string): string {
