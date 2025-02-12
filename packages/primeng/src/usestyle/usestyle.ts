@@ -7,6 +7,14 @@ let _id = 0;
 @Injectable({ providedIn: 'root' })
 export class UseStyle {
     document: Document = inject(DOCUMENT);
+    findInsertionPoint(element: Element) {
+        if (!element) return undefined;
+        if (element.shadowRoot) return element.shadowRoot;
+        if (element.getRootNode?.().constructor.name === 'ShadowRoot') {
+            return element.getRootNode() as Document;
+        }
+        return undefined;
+    }
 
     use(css, options: any = {}) {
         let isLoaded = false;
@@ -15,8 +23,11 @@ export class UseStyle {
 
         const { immediate = true, manual = false, name = `style_${++_id}`, id = undefined, media = undefined, nonce = undefined, first = false, props = {} } = options;
 
-        if (!this.document) return;
-        styleRef = this.document.querySelector(`style[data-primeng-style-id="${name}"]`) || (id && this.document.getElementById(id)) || this.document.createElement('style');
+        const shadowDomElement = this.findInsertionPoint(options.element?.nativeElement);
+        const insertionPoint = name.endsWith('-variables') ? this.document : shadowDomElement || this.document;
+
+        if (!insertionPoint) return;
+        styleRef = insertionPoint.querySelector(`style[data-primeng-style-id="${name}"]`) || (id && insertionPoint.getElementById(id)) || this.document.createElement('style');
 
         if (!styleRef.isConnected) {
             cssRef = css;
@@ -26,7 +37,7 @@ export class UseStyle {
                 nonce
             });
 
-            const HEAD = this.document.head;
+            const HEAD = shadowDomElement ? insertionPoint : this.document.head;
 
             first && HEAD.firstChild ? HEAD.insertBefore(styleRef, HEAD.firstChild) : HEAD.appendChild(styleRef);
             setAttribute(styleRef, 'data-primeng-style-id', name);
