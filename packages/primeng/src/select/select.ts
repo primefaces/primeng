@@ -1645,7 +1645,6 @@ export class Select extends BaseComponent implements OnInit, AfterViewInit, Afte
                 break;
 
             case 'Home':
-            case 'KeyH':
                 this.onHomeKey(event, this.editable);
                 break;
 
