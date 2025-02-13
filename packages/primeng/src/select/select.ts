@@ -1645,6 +1645,7 @@ export class Select extends BaseComponent implements OnInit, AfterViewInit, Afte
                 break;
 
             case 'Home':
+            case 'KeyH':
                 this.onHomeKey(event, this.editable);
                 break;
 
@@ -1955,6 +1956,7 @@ export class Select extends BaseComponent implements OnInit, AfterViewInit, Afte
     onEscapeKey(event: KeyboardEvent) {
         this.overlayVisible && this.hide(true);
         event.preventDefault();
+        event.stopPropagation();
     }
 
     onTabKey(event, pressedInInputText = false) {
