@@ -105,6 +105,7 @@ export class BadgeDirective extends BaseComponent implements OnChanges, AfterVie
     }
 
     public ngAfterViewInit(): void {
+        super.ngAfterViewInit();
         this.id = uuid('pn_id_') + '_badge';
         this.renderBadgeContent();
     }
