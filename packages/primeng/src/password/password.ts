@@ -408,6 +408,7 @@ export const Password_VALUE_ACCESSOR: any = {
                 [attr.aria-label]="ariaLabel"
                 [attr.aria-labelledBy]="ariaLabelledBy"
                 [attr.id]="inputId"
+                [attr.tabindex]="tabindex"
                 pInputText
                 [disabled]="disabled"
                 [pSize]="size"
@@ -624,6 +625,11 @@ export class Password extends BaseComponent implements OnInit, AfterContentInit 
      * @group Props
      */
     @Input() variant: 'filled' | 'outlined';
+    /**
+     * Index of the element in tabbing order.
+     * @group Props
+     */
+    @Input({ transform: numberAttribute }) tabindex?: number;
     /**
      * Callback to invoke when the component receives focus.
      * @param {Event} event - Browser event.
