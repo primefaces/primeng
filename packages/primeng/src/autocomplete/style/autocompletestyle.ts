@@ -179,6 +179,10 @@ const theme = ({ dt }) => `
     background: ${dt('autocomplete.filled.focus.background')};
 }
 
+.p-autocomplete.p-disabled {
+    opacity: 1;
+}
+
 .p-autocomplete.p-disabled .p-autocomplete-input-multiple {
     opacity: 1;
     background: ${dt('autocomplete.disabled.background')};
