@@ -80,9 +80,6 @@ import { OrderListStyle } from './style/orderliststyle';
                 </button>
             </div>
             <div class="p-orderlist-list-container" [attr.data-pc-section]="'container'">
-                <!-- ppl: bind to multiple input opt -->
-                <!-- ppl: list item click callback -->
-                <!-- ppl: list onFilter callback -->
                 <p-listbox
                     #listelement
                     [multiple]="multiple"
@@ -127,7 +124,6 @@ import { OrderListStyle } from './style/orderliststyle';
     providers: [OrderListStyle]
 })
 export class OrderList extends BaseComponent implements AfterContentInit {
-    // ppl: create an input for multiple selection
     /**
      * Define if multiple items can be selected, true by default.
      * @group Props
@@ -812,12 +808,10 @@ export class OrderList extends BaseComponent implements AfterContentInit {
         this.onBlur.emit(event);
     }
 
-    // ppl: callback for list component
     onListItemClick(e: ListboxClickEvent): void {
         this.onItemClick(e.originalEvent, e.option);
     }
 
-    // ppl: callback for list onFilter event
     onListFilter(e: ListboxFilterEvent): void {
         this.onFilterEvent.emit({ originalEvent: e.originalEvent, value: e.filter });
     }
