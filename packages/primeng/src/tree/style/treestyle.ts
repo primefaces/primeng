@@ -64,7 +64,7 @@ const theme = ({ dt }) => `
 }
 
 .p-tree-node-content.p-tree-node-selected .p-tree-node-toggle-button {
-    color: inherit;
+    color: ${dt('tree.node.toggle.button.selected.color')};
 }
 
 .p-tree-node-toggle-button {

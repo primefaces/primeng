@@ -203,6 +203,12 @@ export interface TreeDesignTokens extends DesignTokens<TreeDesignTokens> {
          */
         hoverColor?: string;
         /**
+         * Selected color of node toggle button
+         *
+         * @designToken tree.node.toggle.button.selected.color
+         */
+        selectedColor?: string;
+        /**
          * Selected hover color of node toggle button
          *
          * @designToken tree.node.toggle.button.selected.hover.color
