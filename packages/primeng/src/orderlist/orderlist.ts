@@ -24,7 +24,7 @@ import { find, findIndexInList, findSingle, hasClass, insertIntoOrderedArray, is
 import { FilterService, PrimeTemplate, SharedModule } from 'primeng/api';
 import { BaseComponent } from 'primeng/basecomponent';
 import { ButtonDirective, ButtonProps } from 'primeng/button';
-import { AngleDoubleDownIcon, AngleDoubleUpIcon, AngleDownIcon, AngleUpIcon, SearchIcon } from 'primeng/icons';
+import { AngleDoubleDownIcon, AngleDoubleUpIcon, AngleDownIcon, AngleUpIcon } from 'primeng/icons';
 import { Listbox } from 'primeng/listbox';
 import { Ripple } from 'primeng/ripple';
 import { Nullable } from 'primeng/ts-helpers';
@@ -102,6 +102,8 @@ import { OrderListStyle } from './style/orderliststyle';
                     [filterBy]="filterBy"
                     [filterLocale]="filterLocale"
                     [filterPlaceHolder]="filterPlaceholder"
+                    [dragdrop]="dragdrop"
+                    (onDrop)="onDrop($event)"
                 >
                     <ng-container *ngIf="headerTemplate || _headerTemplate">
                         <ng-template #header>
