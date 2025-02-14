@@ -272,21 +272,21 @@ const theme = ({ dt }) => `
     right: calc(${dt('autocomplete.padding.x')} + ${dt('autocomplete.dropdown.width')});
 }
 
-p-autocomplete.ng-invalid.ng-dirty .p-autocomplete-input,
-p-autocomplete.ng-invalid.ng-dirty .p-autocomplete-input-multiple {
+.p-autocomplete.ng-invalid.ng-dirty .p-autocomplete-input,
+.p-autocomplete.ng-invalid.ng-dirty .p-autocomplete-input-multiple {
     border-color: ${dt('autocomplete.invalid.border.color')};
 }
 
-p-autocomplete.ng-invalid.ng-dirty .p-autocomplete-input:enabled:focus,
-p-autocomplete.ng-invalid.ng-dirty:not(.p-disabled).p-focus .p-autocomplete-input-multiple {
+.p-autocomplete.ng-invalid.ng-dirty .p-autocomplete-input:enabled:focus,
+.p-autocomplete.ng-invalid.ng-dirty:not(.p-disabled).p-focus .p-autocomplete-input-multiple {
     border-color: ${dt('autocomplete.focus.border.color')};
 }
 
-p-autocomplete.ng-invalid.ng-dirty .p-autocomplete-input-chip input::placeholder {
+.p-autocomplete.ng-invalid.ng-dirty .p-autocomplete-input-chip input::placeholder {
     color: ${dt('autocomplete.invalid.placeholder.color')};
 }
 
-p-autocomplete.ng-invalid.ng-dirty .p-autocomplete-input::placeholder {
+.p-autocomplete.ng-invalid.ng-dirty .p-autocomplete-input::placeholder {
     color: ${dt('autocomplete.invalid.placeholder.color')};
 }`;
 
