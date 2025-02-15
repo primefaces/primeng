@@ -81,7 +81,7 @@ const theme = ({ dt }) => `
     width: 1%;
 }
 
-.p-datepicker .p-datepicker-panel {
+.p-datepicker .p-datepicker-panel: not(.p-datepicker-touchui) {
     min-width: 100%;
 }
 
@@ -254,6 +254,14 @@ const theme = ({ dt }) => `
     color: ${dt('datepicker.date.range.selected.color')};
 }
 
+.p-datepicker-touchui {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    min-width: 80vw;
+    transform: translate(-50%, -50%);
+}
+
 .p-datepicker-weeknumber {
     text-align: center
 }
@@ -409,9 +417,7 @@ p-datepicker.ng-invalid.ng-dirty .p-datepicker.p-inputwrapper .p-inputtext{
 }
 `;
 
-const inlineStyles = {
-    root: ({ props }) => ({ position: props.appendTo === 'self' ? 'relative' : undefined })
-};
+const inlineStyles = { root: ({ props }) => ({ position: props.appendTo === 'self' ? 'relative' : undefined }) };
 
 const classes = {
     root: ({ instance }) => ({
@@ -426,12 +432,7 @@ const classes = {
     dropdown: 'p-datepicker-dropdown',
     inputIconContainer: 'p-datepicker-input-icon-container',
     inputIcon: 'p-datepicker-input-icon',
-    panel: ({ instance }) => ({
-        'p-datepicker-panel p-component': true,
-        'p-datepicker-panel-inline': instance.inline,
-        'p-disabled': instance.disabled,
-        'p-datepicker-timeonly': instance.timeOnly
-    }),
+    panel: ({ instance }) => ({ 'p-datepicker-panel p-component': true, 'p-datepicker-panel-inline': instance.inline, 'p-disabled': instance.disabled, 'p-datepicker-timeonly': instance.timeOnly, 'p-datepicker-touchui': instance.touchUI }),
     calendarContainer: 'p-datepicker-calendar-container',
     calendar: 'p-datepicker-calendar',
     header: 'p-datepicker-header',
@@ -447,13 +448,7 @@ const classes = {
     weekLabelContainer: 'p-datepicker-weeklabel-container p-disabled',
     weekDayCell: 'p-datepicker-weekday-cell',
     weekDay: 'p-datepicker-weekday',
-    dayCell: ({ date }) => [
-        'p-datepicker-day-cell',
-        {
-            'p-datepicker-other-month': date.otherMonth,
-            'p-datepicker-today': date.today
-        }
-    ],
+    dayCell: ({ date }) => ['p-datepicker-day-cell', { 'p-datepicker-other-month': date.otherMonth, 'p-datepicker-today': date.today }],
     day: ({ instance, date }) => {
         let selectedDayClass = '';
 
@@ -461,29 +456,12 @@ const classes = {
             selectedDayClass = date.day === instance.value[0].getDate() || date.day === instance.value[1].getDate() ? 'p-datepicker-day-selected' : 'p-datepicker-day-selected-range';
         }
 
-        return {
-            'p-datepicker-day': true,
-            'p-datepicker-day-selected': !instance.isRangeSelection() && instance.isSelected(date) && date.selectable,
-            'p-disabled': instance.disabled || !date.selectable,
-            [selectedDayClass]: true
-        };
+        return { 'p-datepicker-day': true, 'p-datepicker-day-selected': !instance.isRangeSelection() && instance.isSelected(date) && date.selectable, 'p-disabled': instance.disabled || !date.selectable, [selectedDayClass]: true };
     },
     monthView: 'p-datepicker-month-view',
-    month: ({ instance, props, month, index }) => [
-        'p-datepicker-month',
-        {
-            'p-datepicker-month-selected': instance.isMonthSelected(index),
-            'p-disabled': props.disabled || !month.selectable
-        }
-    ],
+    month: ({ instance, props, month, index }) => ['p-datepicker-month', { 'p-datepicker-month-selected': instance.isMonthSelected(index), 'p-disabled': props.disabled || !month.selectable }],
     yearView: 'p-datepicker-year-view',
-    year: ({ instance, props, year }) => [
-        'p-datepicker-year',
-        {
-            'p-datepicker-year-selected': instance.isYearSelected(year.value),
-            'p-disabled': props.disabled || !year.selectable
-        }
-    ],
+    year: ({ instance, props, year }) => ['p-datepicker-year', { 'p-datepicker-year-selected': instance.isYearSelected(year.value), 'p-disabled': props.disabled || !year.selectable }],
     timePicker: 'p-datepicker-time-picker',
     hourPicker: 'p-datepicker-hour-picker',
     pcIncrementButton: 'p-datepicker-increment-button',

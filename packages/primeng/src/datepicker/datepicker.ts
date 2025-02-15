@@ -59,11 +59,7 @@ import { Subscription } from 'rxjs';
 import { DatePickerMonthChangeEvent, DatePickerResponsiveOptions, DatePickerTypeView, DatePickerYearChangeEvent, LocaleSettings, Month, NavigationState } from './datepicker.interface';
 import { DatePickerStyle } from './style/datepickerstyle';
 
-export const DATEPICKER_VALUE_ACCESSOR: any = {
-    provide: NG_VALUE_ACCESSOR,
-    useExisting: forwardRef(() => DatePicker),
-    multi: true
-};
+export const DATEPICKER_VALUE_ACCESSOR: any = { provide: NG_VALUE_ACCESSOR, useExisting: forwardRef(() => DatePicker), multi: true };
 /**
  * DatePicker is a form component to work with dates.
  * @group Components
@@ -136,13 +132,7 @@ export const DATEPICKER_VALUE_ACCESSOR: any = {
                 </button>
                 <ng-container *ngIf="iconDisplay === 'input' && showIcon">
                     <span class="p-datepicker-input-icon-container">
-                        <CalendarIcon
-                            (click)="onButtonClick($event)"
-                            *ngIf="!inputIconTemplate && !_inputIconTemplate"
-                            [ngClass]="{
-                                'p-datepicker-input-icon': showOnFocus
-                            }"
-                        />
+                        <CalendarIcon (click)="onButtonClick($event)" *ngIf="!inputIconTemplate && !_inputIconTemplate" [ngClass]="{ 'p-datepicker-input-icon': showOnFocus }" />
 
                         <ng-container *ngTemplateOutlet="inputIconTemplate || _inputIconTemplate; context: { clickCallBack: onButtonClick.bind(this) }"></ng-container>
                     </span>
@@ -154,10 +144,7 @@ export const DATEPICKER_VALUE_ACCESSOR: any = {
                 [class]="panelStyleClass"
                 [ngStyle]="panelStyle"
                 [ngClass]="panelClass"
-                [@overlayAnimation]="{
-                    value: 'visible',
-                    params: { showTransitionParams: showTransitionOptions, hideTransitionParams: hideTransitionOptions }
-                }"
+                [@overlayAnimation]="{ value: 'visible', params: { showTransitionParams: showTransitionOptions, hideTransitionParams: hideTransitionOptions } }"
                 [attr.aria-label]="getTranslation('chooseDate')"
                 [attr.role]="inline ? null : 'dialog'"
                 [attr.aria-modal]="inline ? null : 'true'"
@@ -254,15 +241,7 @@ export const DATEPICKER_VALUE_ACCESSOR: any = {
                                                 {{ month.weekNumbers[j] }}
                                             </span>
                                         </td>
-                                        <td
-                                            *ngFor="let date of week"
-                                            [attr.aria-label]="date.day"
-                                            [ngClass]="{
-                                                'p-datepicker-day-cell': true,
-                                                'p-datepicker-other-month': date.otherMonth,
-                                                'p-datepicker-today': date.today
-                                            }"
-                                        >
+                                        <td *ngFor="let date of week" [attr.aria-label]="date.day" [ngClass]="{ 'p-datepicker-day-cell': true, 'p-datepicker-other-month': date.otherMonth, 'p-datepicker-today': date.today }">
                                             <ng-container *ngIf="date.otherMonth ? showOtherMonths : true">
                                                 <span
                                                     [ngClass]="dayClass(date)"
@@ -295,11 +274,7 @@ export const DATEPICKER_VALUE_ACCESSOR: any = {
                             *ngFor="let m of monthPickerValues(); let i = index"
                             (click)="onMonthSelect($event, i)"
                             (keydown)="onMonthCellKeydown($event, i)"
-                            [ngClass]="{
-                                'p-datepicker-month': true,
-                                'p-datepicker-month-selected': isMonthSelected(i),
-                                'p-disabled': isMonthDisabled(i)
-                            }"
+                            [ngClass]="{ 'p-datepicker-month': true, 'p-datepicker-month-selected': isMonthSelected(i), 'p-disabled': isMonthDisabled(i) }"
                             pRipple
                         >
                             {{ m }}
@@ -313,11 +288,7 @@ export const DATEPICKER_VALUE_ACCESSOR: any = {
                             *ngFor="let y of yearPickerValues()"
                             (click)="onYearSelect($event, y)"
                             (keydown)="onYearCellKeydown($event, y)"
-                            [ngClass]="{
-                                'p-datepicker-year': true,
-                                'p-datepicker-year-selected': isYearSelected(y),
-                                'p-disabled': isYearDisabled(y)
-                            }"
+                            [ngClass]="{ 'p-datepicker-year': true, 'p-datepicker-year-selected': isYearSelected(y), 'p-disabled': isYearDisabled(y) }"
                             pRipple
                         >
                             {{ y }}
@@ -502,25 +473,11 @@ export const DATEPICKER_VALUE_ACCESSOR: any = {
     `,
     animations: [
         trigger('overlayAnimation', [
-            state(
-                'visibleTouchUI',
-                style({
-                    transform: 'translate(-50%,-50%)',
-                    opacity: 1
-                })
-            ),
+            state('visibleTouchUI', style({ transform: 'translate(-50%,-50%)', opacity: 1 })),
             transition('void => visible', [style({ opacity: 0, transform: 'scaleY(0.8)' }), animate('{{showTransitionParams}}', style({ opacity: 1, transform: '*' }))]),
             transition('visible => void', [animate('{{hideTransitionParams}}', style({ opacity: 0 }))]),
             transition('void => visibleTouchUI', [style({ opacity: 0, transform: 'translate3d(-50%, -40%, 0) scale(0.9)' }), animate('{{showTransitionParams}}')]),
-            transition('visibleTouchUI => void', [
-                animate(
-                    '{{hideTransitionParams}}',
-                    style({
-                        opacity: 0,
-                        transform: 'translate3d(-50%, -40%, 0) scale(0.9)'
-                    })
-                )
-            ])
+            transition('visibleTouchUI => void', [animate('{{hideTransitionParams}}', style({ opacity: 0, transform: 'translate3d(-50%, -40%, 0) scale(0.9)' }))])
         ])
     ],
     providers: [DATEPICKER_VALUE_ACCESSOR, DatePickerStyle],
@@ -1510,25 +1467,12 @@ export class DatePicker extends BaseComponent implements OnInit, AfterContentIni
             if (i == 0) {
                 for (let j = prevMonthDaysLength - firstDay + 1; j <= prevMonthDaysLength; j++) {
                     let prev = this.getPreviousMonthAndYear(month, year);
-                    week.push({
-                        day: j,
-                        month: prev.month,
-                        year: prev.year,
-                        otherMonth: true,
-                        today: this.isToday(today, j, prev.month, prev.year),
-                        selectable: this.isSelectable(j, prev.month, prev.year, true)
-                    });
+                    week.push({ day: j, month: prev.month, year: prev.year, otherMonth: true, today: this.isToday(today, j, prev.month, prev.year), selectable: this.isSelectable(j, prev.month, prev.year, true) });
                 }
 
                 let remainingDaysLength = 7 - week.length;
                 for (let j = 0; j < remainingDaysLength; j++) {
-                    week.push({
-                        day: dayNo,
-                        month: month,
-                        year: year,
-                        today: this.isToday(today, dayNo, month, year),
-                        selectable: this.isSelectable(dayNo, month, year, false)
-                    });
+                    week.push({ day: dayNo, month: month, year: year, today: this.isToday(today, dayNo, month, year), selectable: this.isSelectable(dayNo, month, year, false) });
                     dayNo++;
                 }
             } else {
@@ -1544,13 +1488,7 @@ export class DatePicker extends BaseComponent implements OnInit, AfterContentIni
                             selectable: this.isSelectable(dayNo - daysLength, next.month, next.year, true)
                         });
                     } else {
-                        week.push({
-                            day: dayNo,
-                            month: month,
-                            year: year,
-                            today: this.isToday(today, dayNo, month, year),
-                            selectable: this.isSelectable(dayNo, month, year, false)
-                        });
+                        week.push({ day: dayNo, month: month, year: year, today: this.isToday(today, dayNo, month, year), selectable: this.isSelectable(dayNo, month, year, false) });
                     }
 
                     dayNo++;
@@ -1564,12 +1502,7 @@ export class DatePicker extends BaseComponent implements OnInit, AfterContentIni
             dates.push(week);
         }
 
-        return {
-            month: month,
-            year: year,
-            dates: <any>dates,
-            weekNumbers: weekNumbers
-        };
+        return { month: month, year: year, dates: <any>dates, weekNumbers: weekNumbers };
     }
 
     initTime(date: Date) {
@@ -2163,10 +2096,7 @@ export class DatePicker extends BaseComponent implements OnInit, AfterContentIni
     }
 
     onOverlayClick(event: Event) {
-        this.overlayService.add({
-            originalEvent: event,
-            target: this.el.nativeElement
-        });
+        this.overlayService.add({ originalEvent: event, target: this.el.nativeElement });
     }
 
     getMonthName(index: number) {
@@ -3185,8 +3115,10 @@ export class DatePicker extends BaseComponent implements OnInit, AfterContentIni
                     this.overlay = event.element;
                     this.overlay?.setAttribute(this.attributeSelector as string, '');
 
-                    const styles = !this.inline ? { position: 'absolute', top: '0', left: '0' } : undefined;
-                    addStyle(this.overlay, styles);
+                    if (!this.touchUI) {
+                        const styles = !this.inline ? { position: 'absolute', top: '0', left: '0' } : undefined;
+                        addStyle(this.overlay, styles);
+                    }
 
                     this.appendOverlay();
                     this.updateFocus();
@@ -3698,14 +3630,7 @@ export class DatePicker extends BaseComponent implements OnInit, AfterContentIni
 
     onTodayButtonClick(event: any) {
         const date: Date = new Date();
-        const dateMeta = {
-            day: date.getDate(),
-            month: date.getMonth(),
-            year: date.getFullYear(),
-            otherMonth: date.getMonth() !== this.currentMonth || date.getFullYear() !== this.currentYear,
-            today: true,
-            selectable: true
-        };
+        const dateMeta = { day: date.getDate(), month: date.getMonth(), year: date.getFullYear(), otherMonth: date.getMonth() !== this.currentMonth || date.getFullYear() !== this.currentYear, today: true, selectable: true };
 
         this.createMonths(date.getMonth(), date.getFullYear());
         this.onDateSelect(event, dateMeta);
@@ -3874,8 +3799,5 @@ export class DatePicker extends BaseComponent implements OnInit, AfterContentIni
     }
 }
 
-@NgModule({
-    imports: [DatePicker, SharedModule],
-    exports: [DatePicker, SharedModule]
-})
+@NgModule({ imports: [DatePicker, SharedModule], exports: [DatePicker, SharedModule] })
 export class DatePickerModule {}
