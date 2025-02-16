@@ -720,6 +720,20 @@ export class Accordion extends BaseComponent implements BlockableUI, AfterConten
      */
     @Input() collapseIcon: string | undefined;
     /**
+     * Position of the icon. The default value is 'end'.
+     * @defaultValue 'end'
+     * @group Props
+     */
+    @Input() iconPos: 'end' | 'start' = 'end';
+
+    get iconClass() {
+        if (this.iconPos === 'end') {
+            return 'p-accordionheader-toggle-icon icon-end';
+        } else {
+            return 'p-accordionheader-toggle-icon icon-start';
+        }
+    }
+    /**
      * When enabled, the focused tab is activated.
      * @defaultValue false
      * @group Props
