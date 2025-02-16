@@ -7,6 +7,6 @@ import { Component } from '@angular/core';
 })
 export class ImportDoc {
     code: Code = {
-        typescript: `import { InputOtp } from 'primeng/inputotp';`
+        typescript: `import { InputOtpModule } from 'primeng/inputotp';`
     };
 }

@@ -7,6 +7,6 @@ import { Component } from '@angular/core';
 })
 export class ImportDoc {
     code: Code = {
-        typescript: `import { AutoFocus } from 'primeng/autofocus';`
+        typescript: `import { AutoFocusModule } from 'primeng/autofocus';`
     };
 }

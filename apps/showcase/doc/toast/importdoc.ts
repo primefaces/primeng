@@ -7,6 +7,6 @@ import { Component } from '@angular/core';
 })
 export class ImportDoc {
     code: Code = {
-        typescript: `import { Toast } from 'primeng/toast';`
+        typescript: `import { ToastModule } from 'primeng/toast';`
     };
 }

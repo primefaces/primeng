@@ -7,6 +7,6 @@ import { Component } from '@angular/core';
 })
 export class ImportDoc {
     code: Code = {
-        typescript: `import { DynamicDialog } from 'primeng/dynamicdialog';`
+        typescript: `import { DynamicDialogModule } from 'primeng/dynamicdialog';`
     };
 }

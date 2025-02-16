@@ -7,6 +7,6 @@ import { Component } from '@angular/core';
 })
 export class ImportDoc {
     code: Code = {
-        typescript: `import { ScrollTop } from 'primeng/scrolltop';`
+        typescript: `import { ScrollTopModule } from 'primeng/scrolltop';`
     };
 }

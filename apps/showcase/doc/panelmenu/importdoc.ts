@@ -7,6 +7,6 @@ import { Component } from '@angular/core';
 })
 export class ImportDoc {
     code: Code = {
-        typescript: `import { PanelMenu } from 'primeng/panelmenu';`
+        typescript: `import { PanelMenuModule } from 'primeng/panelmenu';`
     };
 }

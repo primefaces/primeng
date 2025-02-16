@@ -7,6 +7,6 @@ import { Component } from '@angular/core';
 })
 export class ImportDoc {
     code: Code = {
-        typescript: `import { Toolbar } from 'primeng/toolbar';`
+        typescript: `import { ToolbarModule } from 'primeng/toolbar';`
     };
 }

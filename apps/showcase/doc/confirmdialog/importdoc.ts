@@ -7,6 +7,6 @@ import { Component } from '@angular/core';
 })
 export class ImportDoc {
     code: Code = {
-        typescript: `import { ConfirmDialog } from 'primeng/confirmdialog';`
+        typescript: `import { ConfirmDialogModule } from 'primeng/confirmdialog';`
     };
 }

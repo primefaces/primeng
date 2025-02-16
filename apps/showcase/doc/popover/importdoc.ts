@@ -7,6 +7,6 @@ import { Component } from '@angular/core';
 })
 export class ImportDoc {
     code: Code = {
-        typescript: `import { Popover } from 'primeng/popover';`
+        typescript: `import { PopoverModule } from 'primeng/popover';`
     };
 }
