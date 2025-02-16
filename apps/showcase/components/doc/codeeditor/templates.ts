@@ -31,7 +31,7 @@ const dependencies = {
     quill: '1.3.7',
     rxjs: '~7.8.1',
     tslib: '^2.5.0',
-    'zone.js': '~0.14.2'
+    'zone.js': '~0.15.0'
 };
 
 const devDependencies = {
@@ -278,7 +278,6 @@ const angular_json = `{
               "scripts": [],
               "allowedCommonJsDependencies": [
                 "chart.js",
-                "xlsx",
                 "jspdf-autotable",
                 "file-saver",
                 "jspdf",

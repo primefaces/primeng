@@ -469,7 +469,7 @@ export class Dropdown extends BaseComponent implements OnInit, AfterViewInit, Af
      * Specifies the input variant of the component.
      * @group Props
      */
-    @Input() variant: 'filled' | 'outlined' = 'outlined';
+    @Input() variant: 'filled' | 'outlined';
     /**
      * Identifier of the accessible input element.
      * @group Props

@@ -6,6 +6,7 @@ import { RouterModule } from '@angular/router';
 import { CspDoc } from './cspdoc';
 import { DynamicDoc } from './dynamicdoc';
 import { FilterModeDoc } from './filtermodedoc';
+import { InputVariantDoc } from './inputvariantdoc';
 import { ApiDoc } from './locale/apidoc';
 import { RepositoryDoc } from './locale/repositorydoc';
 import { RuntimeDoc } from './locale/runtimedoc';
@@ -18,6 +19,6 @@ import { ZIndexDoc } from './zindexdoc';
 @NgModule({
     imports: [CommonModule, AppCodeModule, AppDocModule, RouterModule],
     exports: [AppDocModule],
-    declarations: [FilterModeDoc, ProviderDoc, DynamicDoc, CspDoc, RippleDoc, ZIndexDoc, RuntimeDoc, ApiDoc, RepositoryDoc, TranslationDoc, ThemeDoc]
+    declarations: [FilterModeDoc, ProviderDoc, DynamicDoc, InputVariantDoc, CspDoc, RippleDoc, ZIndexDoc, RuntimeDoc, ApiDoc, RepositoryDoc, TranslationDoc, ThemeDoc]
 })
 export class ConfigurationDocModule {}

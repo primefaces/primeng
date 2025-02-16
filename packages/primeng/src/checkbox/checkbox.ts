@@ -55,7 +55,7 @@ export const CHECKBOX_VALUE_ACCESSOR: any = {
                 [attr.tabindex]="tabindex"
                 [disabled]="disabled"
                 [readonly]="readonly"
-                [attr.required]="required"
+                [attr.required]="required ? true : null"
                 [attr.aria-labelledby]="ariaLabelledBy"
                 [attr.aria-label]="ariaLabel"
                 [style]="inputStyle"
@@ -191,7 +191,7 @@ export class Checkbox extends BaseComponent implements AfterContentInit, Control
      * Specifies the input variant of the component.
      * @group Props
      */
-    @Input() variant: 'filled' | 'outlined' = 'outlined';
+    @Input() variant: 'filled' | 'outlined';
     /**
      * Callback to invoke on value change.
      * @param {CheckboxChangeEvent} event - Custom value change event.

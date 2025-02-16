@@ -23,11 +23,11 @@ import { Component } from '@angular/core';
     `
 })
 export class BasicDoc {
-    readonly options = [
-        { label: 'Left', icon: 'pi pi-caret-left', value: '1' },
-        { label: 'Down', icon: 'pi pi-caret-down', value: '2' },
-        { label: 'Right', icon: 'pi pi-caret-right', value: '3' }
+    stateOptions: any[] = [
+        { label: 'One-Way', value: 'one-way' },
+        { label: 'Return', value: 'return' }
     ];
+
     selection: (typeof this.options)[number] | undefined;
     value: string = '2';
     code: Code = {
