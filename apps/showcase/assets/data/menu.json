@@ -511,7 +511,7 @@
                     "routerLink": "/guides/accessibility"
                 },
                 {
-                    "name": "Migration to V18",
+                    "name": "Migration to v18+",
                     "routerLink": "/guides/migration"
                 },
                 {
