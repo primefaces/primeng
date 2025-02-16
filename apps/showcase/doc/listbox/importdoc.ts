@@ -7,6 +7,6 @@ import { Component } from '@angular/core';
 })
 export class ImportDoc {
     code: Code = {
-        typescript: `import { Listbox } from 'primeng/listbox';`
+        typescript: `import { ListboxModule } from 'primeng/listbox';`
     };
 }

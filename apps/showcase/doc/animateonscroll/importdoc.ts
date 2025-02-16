@@ -7,6 +7,6 @@ import { Component } from '@angular/core';
 })
 export class ImportDoc {
     code: Code = {
-        typescript: `import { AnimateOnScroll } from 'primeng/animateonscroll';`
+        typescript: `import { AnimateOnScrollModule } from 'primeng/animateonscroll';`
     };
 }

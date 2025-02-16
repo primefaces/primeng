@@ -471,7 +471,7 @@
         {
             "name": "Tailwind CSS",
             "icon": "pi pi-heart",
-            "routerLink": "/tailwind"
+            "href": "https://primeng.org/tailwind"
         },
         {
             "name": "Icons",
@@ -490,12 +490,12 @@
         {
             "name": "Figma UI Kit",
             "icon": "pi pi-pencil",
-            "routerLink": "/uikit"
+            "href": "https://primeng.org/uikit"
         },
         {
             "name": "Templates",
             "icon": "pi pi-star",
-            "routerLink": "/templates"
+            "href": "https://primeng.org/templates"
         },
         {
             "name": "PrimeBlocks",
@@ -511,12 +511,12 @@
                     "routerLink": "/guides/accessibility"
                 },
                 {
-                    "name": "Migration to V18",
-                    "routerLink": "/guides/migration"
+                    "name": "Migration to V18+",
+                    "href": "https://primeng.org/guides/migration"
                 },
                 {
                     "name": "PrimeFlex",
-                    "routerLink": "/guides/primeflex"
+                    "href": "https://primeng.org/guides/primeflex"
                 },
                 {
                     "name": "PrimeTV",
@@ -546,19 +546,18 @@
                 }
             ]
         },
-        {
-            "name": "Contribution",
-            "routerLink": "/contribution",
-            "icon": "pi pi-users",
-            "badge": "NEW"
-        },
+        
         {
             "name": "Discover",
             "icon": "pi pi-search",
             "children": [
                 {
                     "name": "About Us",
-                    "routerLink": "/team"
+                    "href": "https://primeng.org/team"
+                },
+                {
+                    "name": "Roadmap",
+                    "href": "https://primeng.org/roadmap"
                 },
                 {
                     "name": "Source Code",
@@ -567,6 +566,10 @@
                 {
                     "name": "Changelog",
                     "href": "https://github.com/primefaces/primeng/blob/master/CHANGELOG.md"
+                },
+                {
+                    "name": "Contribution",
+                    "href": "https://primeng.org/contribution"
                 },
                 {
                     "name": "Store",

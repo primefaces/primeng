@@ -7,6 +7,6 @@ import { Component } from '@angular/core';
 })
 export class ImportDoc {
     code: Code = {
-        typescript: `import { MegaMenu } from 'primeng/megamenu';`
+        typescript: `import { MegaMenuModule } from 'primeng/megamenu';`
     };
 }

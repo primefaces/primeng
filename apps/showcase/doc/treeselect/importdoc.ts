@@ -7,6 +7,6 @@ import { Component } from '@angular/core';
 })
 export class ImportDoc {
     code: Code = {
-        typescript: `import { TreeSelect } from 'primeng/treeselect';`
+        typescript: `import { TreeSelectModule } from 'primeng/treeselect';`
     };
 }

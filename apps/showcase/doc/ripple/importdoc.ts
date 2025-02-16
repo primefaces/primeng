@@ -7,6 +7,6 @@ import { Component } from '@angular/core';
 })
 export class ImportDoc {
     code: Code = {
-        typescript: `import { Ripple } from 'primeng/ripple';`
+        typescript: `import { RippleModule } from 'primeng/ripple';`
     };
 }

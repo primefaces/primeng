@@ -7,6 +7,6 @@ import { Component } from '@angular/core';
 })
 export class ImportDoc {
     code: Code = {
-        typescript: `import { OrderList } from 'primeng/orderlist';`
+        typescript: `import { OrderListModule } from 'primeng/orderlist';`
     };
 }

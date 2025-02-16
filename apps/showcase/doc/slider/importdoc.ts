@@ -7,6 +7,6 @@ import { Component } from '@angular/core';
 })
 export class ImportDoc {
     code: Code = {
-        typescript: `import { Slider } from 'primeng/slider';`
+        typescript: `import { SliderModule } from 'primeng/slider';`
     };
 }

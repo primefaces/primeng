@@ -7,6 +7,6 @@ import { Component } from '@angular/core';
 })
 export class ImportDoc {
     code: Code = {
-        typescript: `import { Editor } from 'primeng/editor';`
+        typescript: `import { EditorModule } from 'primeng/editor';`
     };
 }

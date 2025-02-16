@@ -7,6 +7,6 @@ import { Component } from '@angular/core';
 })
 export class ImportDoc {
     code: Code = {
-        typescript: `import { Message } from 'primeng/message';`
+        typescript: `import { MessageModule } from 'primeng/message';`
     };
 }

@@ -7,6 +7,6 @@ import { Component } from '@angular/core';
 })
 export class ImportDoc {
     code: Code = {
-        typescript: `import { Tooltip } from 'primeng/tooltip';`
+        typescript: `import { TooltipModule } from 'primeng/tooltip';`
     };
 }

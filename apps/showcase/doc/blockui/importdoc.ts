@@ -7,6 +7,6 @@ import { Component } from '@angular/core';
 })
 export class ImportDoc {
     code: Code = {
-        typescript: `import { BlockUI } from 'primeng/blockui';`
+        typescript: `import { BlockUIModule } from 'primeng/blockui';`
     };
 }

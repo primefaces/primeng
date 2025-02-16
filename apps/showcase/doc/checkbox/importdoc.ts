@@ -7,6 +7,6 @@ import { Component } from '@angular/core';
 })
 export class ImportDoc {
     code: Code = {
-        typescript: `import { Checkbox } from 'primeng/checkbox';`
+        typescript: `import { CheckboxModule } from 'primeng/checkbox';`
     };
 }

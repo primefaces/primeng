@@ -7,6 +7,6 @@ import { Component } from '@angular/core';
 })
 export class ImportDoc {
     code: Code = {
-        typescript: `import { Card } from 'primeng/card';`
+        typescript: `import { CardModule } from 'primeng/card';`
     };
 }

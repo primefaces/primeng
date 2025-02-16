@@ -7,6 +7,6 @@ import { Component } from '@angular/core';
 })
 export class ImportDoc {
     code: Code = {
-        typescript: `import { MeterGroup } from 'primeng/metergroup';`
+        typescript: `import { MeterGroupModule } from 'primeng/metergroup';`
     };
 }

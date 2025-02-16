@@ -7,6 +7,6 @@ import { Component } from '@angular/core';
 })
 export class ImportDoc {
     code: Code = {
-        typescript: `import { StyleClass } from 'primeng/styleclass';`
+        typescript: `import { StyleClassModule } from 'primeng/styleclass';`
     };
 }

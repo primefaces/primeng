@@ -7,8 +7,6 @@ import { Component } from '@angular/core';
 })
 export class ImportDoc {
     code: Code = {
-        typescript: `import { ProgressBar } from 'primeng/progressbar';
-// For dynamic progressbar demo
-import { ToastModule } from 'primeng/toast';`
+        typescript: `import { ProgressBarModule } from 'primeng/progressbar';`
     };
 }
