@@ -23,6 +23,7 @@ import { SizesDoc } from '@/doc/datepicker/sizesdoc';
 import { TimeDoc } from '@/doc/datepicker/timedoc';
 import { YearDoc } from '@/doc/datepicker/yeardoc';
 import { Component } from '@angular/core';
+import { TouchUIDoc } from '../../doc/datepicker/touchuidoc';
 
 @Component({
     standalone: true,
@@ -31,121 +32,30 @@ import { Component } from '@angular/core';
 })
 export class DatePickerDemo {
     docs = [
-        {
-            id: 'import',
-            label: 'Import',
-            component: ImportDoc
-        },
-        {
-            id: 'basic',
-            label: 'Basic',
-            component: BasicDoc
-        },
-        {
-            id: 'reactive-forms',
-            label: 'Reactive Forms',
-            component: ReactiveFormsDoc
-        },
-        {
-            id: 'format',
-            label: 'Format',
-            component: FormatDoc
-        },
-        {
-            id: 'locale',
-            label: 'Locale',
-            component: LocaleDoc
-        },
-        {
-            id: 'icon',
-            label: 'Icon',
-            component: IconDoc
-        },
-        {
-            id: 'minmax',
-            label: 'Min / Max',
-            component: MinMaxDoc
-        },
-        {
-            id: 'multiple',
-            label: 'Multiple',
-            component: MultipleDoc
-        },
-        {
-            id: 'range',
-            label: 'Range',
-            component: RangeDoc
-        },
-        {
-            id: 'buttonbar',
-            label: 'Button Bar',
-            component: ButtonBarDoc
-        },
-        {
-            id: 'time',
-            label: 'Time',
-            component: TimeDoc
-        },
-        {
-            id: 'monthpicker',
-            label: 'Month Picker',
-            component: MonthDoc
-        },
-        {
-            id: 'yearpicker',
-            label: 'Year Picker',
-            component: YearDoc
-        },
-        {
-            id: 'multiplemonths',
-            label: 'Multiple Months',
-            component: MultipleMonthDoc
-        },
-        {
-            id: 'datetemplate',
-            label: 'Date Template',
-            component: DateTemplateDoc
-        },
-        {
-            id: 'inline',
-            label: 'Inline',
-            component: InlineDoc
-        },
-        {
-            id: 'floatlabel',
-            label: 'Float Label',
-            component: FloatLabelDoc
-        },
-        {
-            id: 'iftalabel',
-            label: 'Ifta Label',
-            component: IftaLabelDoc
-        },
-        {
-            id: 'sizes',
-            label: 'Sizes',
-            component: SizesDoc
-        },
-        {
-            id: 'filled',
-            label: 'Filled',
-            component: FilledDoc
-        },
-        {
-            id: 'invalid',
-            label: 'Invalid',
-            component: InvalidDoc
-        },
-        {
-            id: 'disabled',
-            label: 'Disabled',
-            component: DisabledDoc
-        },
+        { id: 'import', label: 'Import', component: ImportDoc },
+        { id: 'basic', label: 'Basic', component: BasicDoc },
+        { id: 'reactive-forms', label: 'Reactive Forms', component: ReactiveFormsDoc },
+        { id: 'format', label: 'Format', component: FormatDoc },
+        { id: 'locale', label: 'Locale', component: LocaleDoc },
+        { id: 'icon', label: 'Icon', component: IconDoc },
+        { id: 'minmax', label: 'Min / Max', component: MinMaxDoc },
+        { id: 'multiple', label: 'Multiple', component: MultipleDoc },
+        { id: 'range', label: 'Range', component: RangeDoc },
+        { id: 'buttonbar', label: 'Button Bar', component: ButtonBarDoc },
+        { id: 'time', label: 'Time', component: TimeDoc },
+        { id: 'monthpicker', label: 'Month Picker', component: MonthDoc },
+        { id: 'yearpicker', label: 'Year Picker', component: YearDoc },
+        { id: 'multiplemonths', label: 'Multiple Months', component: MultipleMonthDoc },
+        { id: 'datetemplate', label: 'Date Template', component: DateTemplateDoc },
+        { id: 'inline', label: 'Inline', component: InlineDoc },
+        { id: 'floatlabel', label: 'Float Label', component: FloatLabelDoc },
+        { id: 'iftalabel', label: 'Ifta Label', component: IftaLabelDoc },
+        { id: 'sizes', label: 'Sizes', component: SizesDoc },
+        { id: 'touchui', label: 'TouchUI', component: TouchUIDoc },
+        { id: 'filled', label: 'Filled', component: FilledDoc },
+        { id: 'invalid', label: 'Invalid', component: InvalidDoc },
+        { id: 'disabled', label: 'Disabled', component: DisabledDoc },
 
-        {
-            id: 'accessibility',
-            label: 'Accessibility',
-            component: AccessibilityDoc
-        }
+        { id: 'accessibility', label: 'Accessibility', component: AccessibilityDoc }
     ];
 }
