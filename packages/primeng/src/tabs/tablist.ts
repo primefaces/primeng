@@ -5,6 +5,7 @@ import { PrimeTemplate, SharedModule } from 'primeng/api';
 import { BaseComponent } from 'primeng/basecomponent';
 import { ChevronLeftIcon, ChevronRightIcon } from 'primeng/icons';
 import { RippleModule } from 'primeng/ripple';
+import { Tab } from './tab';
 import { Tabs } from './tabs';
 
 /**
@@ -89,10 +90,15 @@ export class TabList extends BaseComponent implements AfterViewInit, AfterConten
 
     scrollable = computed(() => this.pcTabs.scrollable());
 
+    @ContentChildren(Tab, { descendants: true }) tab: QueryList<Tab>;
+
+    tabCount = signal<number>(0);
+
     constructor() {
         super();
         effect(() => {
             this.pcTabs.value();
+            this.tabCount();
             if (isPlatformBrowser(this.platformId)) {
                 setTimeout(() => {
                     this.updateInkBar();
@@ -122,6 +128,9 @@ export class TabList extends BaseComponent implements AfterViewInit, AfterConten
     _nextIconTemplate: TemplateRef<any> | undefined;
 
     ngAfterContentInit() {
+        this.tab.changes.subscribe(() => {
+            this.tabCount.update(() => this.tab.length);
+        });
         this.templates.forEach((t) => {
             switch (t.getType()) {
                 case 'previcon':
