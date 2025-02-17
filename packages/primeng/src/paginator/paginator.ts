@@ -400,7 +400,6 @@ export class Paginator extends BaseComponent implements OnInit, AfterContentInit
             this.updatePageLinks();
             this.updatePaginatorState();
             this.updateFirst();
-            this.updateRowsPerPageOptions();
         }
 
         if (simpleChange.first) {
@@ -430,7 +429,7 @@ export class Paginator extends BaseComponent implements OnInit, AfterContentInit
 
             for (let opt of this.rowsPerPageOptions) {
                 if (typeof opt == 'object' && opt['showAll']) {
-                    showAllItem = { label: opt['showAll'], value: this.totalRecords };
+                    showAllItem = { label: opt['showAll'], value: -1 };
                 } else {
                     this.rowsPerPageItems.push({ label: String(this.getLocalization(opt)), value: opt });
                 }
@@ -451,7 +450,7 @@ export class Paginator extends BaseComponent implements OnInit, AfterContentInit
     }
 
     getPageCount(): number {
-        return Math.ceil(this.totalRecords / this.rows);
+        return this.rows > 0 ? Math.ceil(this.totalRecords / this.rows) : 1;
     }
 
     calculatePageLinkBoundaries(): [number, number] {
@@ -491,7 +490,7 @@ export class Paginator extends BaseComponent implements OnInit, AfterContentInit
         var pc = this.getPageCount();
 
         if (p >= 0 && p < pc) {
-            this._first = this.rows * p;
+            this._first = this.rows > 0 ? this.rows * p : 0;
             var state = {
                 page: p,
                 first: this.first,
@@ -513,7 +512,7 @@ export class Paginator extends BaseComponent implements OnInit, AfterContentInit
     }
 
     getPage(): number {
-        return Math.floor(this.first / this.rows);
+        return this.rows > 0 ? Math.floor(this.first / this.rows) : 0;
     }
 
     changePageToFirst(event: Event): void {
@@ -578,8 +577,8 @@ export class Paginator extends BaseComponent implements OnInit, AfterContentInit
             .replace('{currentPage}', String(this.currentPage()))
             .replace('{totalPages}', String(this.getPageCount()))
             .replace('{first}', String(this.totalRecords > 0 ? this._first + 1 : 0))
-            .replace('{last}', String(Math.min(this._first + this.rows, this.totalRecords)))
-            .replace('{rows}', String(this.rows))
+            .replace('{last}', String(Math.min(this._first + (this.rows > 0 ? this.rows : this.totalRecords), this.totalRecords)))
+            .replace('{rows}', String(this.rows > 0 ? this.rows : this.totalRecords))
             .replace('{totalRecords}', String(this.totalRecords));
     }
 }
