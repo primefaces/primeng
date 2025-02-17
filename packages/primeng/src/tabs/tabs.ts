@@ -26,7 +26,7 @@ import { TabPanels } from './tabpanels';
         '[class.p-tabs-scrollable]': 'scrollable()',
         '[class.p-component]': 'true',
         '[attr.data-pc-name]': '"tabs"',
-        '[attr.id]': 'id'
+        '[attr.id]': 'id()'
     }
 })
 export class Tabs extends BaseComponent {
