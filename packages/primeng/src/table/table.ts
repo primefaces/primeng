@@ -35,12 +35,13 @@ import {
     ViewChild,
     ViewEncapsulation
 } from '@angular/core';
+import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { FormsModule } from '@angular/forms';
 import { BlockableUI, FilterMatchMode, FilterMetadata, FilterOperator, FilterService, LazyLoadMeta, OverlayService, PrimeTemplate, ScrollerOptions, SelectItem, SharedModule, SortMeta, TableState, TranslationKeys } from 'primeng/api';
 import { BaseComponent } from 'primeng/basecomponent';
 import { Button, ButtonModule } from 'primeng/button';
-import { DatePickerModule } from 'primeng/datepicker';
 import { CheckboxModule } from 'primeng/checkbox';
+import { DatePickerModule } from 'primeng/datepicker';
 import { ConnectedOverlayScrollHandler, DomHandler } from 'primeng/dom';
 import { ArrowDownIcon } from 'primeng/icons/arrowdown';
 import { ArrowUpIcon } from 'primeng/icons/arrowup';
@@ -62,7 +63,7 @@ import { SelectModule } from 'primeng/select';
 import { SelectButtonModule } from 'primeng/selectbutton';
 import { Nullable, VoidListener } from 'primeng/ts-helpers';
 import { ObjectUtils, UniqueComponentId, ZIndexUtils } from 'primeng/utils';
-import { debounceTime, fromEvent, Subject, Subscription, takeUntilDestroyed } from 'rxjs';
+import { debounceTime, fromEvent, Subject, Subscription } from 'rxjs';
 import { TableStyle } from './style/tablestyle';
 import {
     ExportCSVOptions,
@@ -3545,15 +3546,14 @@ export class FrozenColumn implements OnInit, AfterViewInit {
         private el: ElementRef,
         private zone: NgZone,
         private destroyRef: DestroyRef
-    ) { }
-    
+    ) {}
+
     ngOnInit() {
-        fromEvent(window, 'resize').pipe(
-            debounceTime(300),
-            takeUntilDestroyed(this.destroyRef)
-        ).subscribe(() => {
-            this.recalculateColumns();
-        })
+        fromEvent(window, 'resize')
+            .pipe(debounceTime(300), takeUntilDestroyed(this.destroyRef))
+            .subscribe(() => {
+                this.recalculateColumns();
+            });
     }
 
     ngAfterViewInit() {
