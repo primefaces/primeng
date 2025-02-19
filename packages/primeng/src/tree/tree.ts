@@ -72,6 +72,7 @@ import {
                 [ngClass]="nodeClass"
                 [class]="node.styleClass"
                 [ngStyle]="{ height: itemSize + 'px' }"
+                [class]="node.styleClass"
                 [style]="node.style"
                 [attr.aria-label]="node.label"
                 [attr.aria-checked]="checked"
