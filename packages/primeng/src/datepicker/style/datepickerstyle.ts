@@ -458,7 +458,13 @@ const classes = {
         let selectedDayClass = '';
 
         if (instance.isRangeSelection() && instance.isSelected(date) && date.selectable) {
-            selectedDayClass = date.day === instance.value[0].getDate() || date.day === instance.value[1].getDate() ? 'p-datepicker-day-selected' : 'p-datepicker-day-selected-range';
+            const startDate = instance.value[0];
+            const endDate = instance.value[1];
+            
+            const isStart = startDate && date.year === startDate.getFullYear() && date.month === startDate.getMonth() && date.day === startDate.getDate();
+            const isEnd = endDate && date.year === endDate.getFullYear() && date.month === endDate.getMonth() && date.day === endDate.getDate();
+            
+            selectedDayClass = isStart || isEnd ? 'p-datepicker-day-selected' : 'p-datepicker-day-selected-range';
         }
 
         return {
