@@ -1,5 +1,5 @@
-import { CommonModule } from '@angular/common';
-import { ChangeDetectionStrategy, Component, computed, forwardRef, inject, model, ViewEncapsulation } from '@angular/core';
+import { NgTemplateOutlet } from '@angular/common';
+import { ChangeDetectionStrategy, Component, computed, contentChild, forwardRef, inject, model, TemplateRef, ViewEncapsulation } from '@angular/core';
 import { equals } from '@primeuix/utils';
 import { BaseComponent } from 'primeng/basecomponent';
 import { Tabs } from './tabs';
@@ -11,10 +11,15 @@ import { Tabs } from './tabs';
 @Component({
     selector: 'p-tabpanel',
     standalone: true,
-    imports: [CommonModule],
-    template: `@if (active()) {
-        <ng-content></ng-content>
-    }`,
+    imports: [NgTemplateOutlet],
+    template: `
+        @if (initialized()) {
+            <ng-container *ngTemplateOutlet="lazyContent() ? lazyContent() : staticContent" />
+            <ng-template #staticContent>
+                <ng-content />
+            </ng-template>
+        }
+    `,
     changeDetection: ChangeDetectionStrategy.OnPush,
     encapsulation: ViewEncapsulation.None,
     host: {
@@ -24,7 +29,8 @@ import { Tabs } from './tabs';
         '[attr.id]': 'id()',
         '[attr.role]': '"tabpanel"',
         '[attr.aria-labelledby]': 'ariaLabelledby()',
-        '[attr.data-p-active]': 'active()'
+        '[attr.data-p-active]': 'active()',
+        '[hidden]': '!active()'
     }
 })
 export class TabPanel extends BaseComponent {
@@ -36,9 +42,26 @@ export class TabPanel extends BaseComponent {
      */
     value = model<string | number | undefined>(undefined);
 
+    lazyContent = contentChild(TemplateRef);
+
     id = computed(() => `${this.pcTabs.id()}_tabpanel_${this.value()}`);
 
     ariaLabelledby = computed(() => `${this.pcTabs.id()}_tab_${this.value()}`);
 
     active = computed(() => equals(this.pcTabs.value(), this.value()));
+
+    private _initialized = false;
+
+    initialized = computed(() => {
+        if (this._initialized) {
+            return true;
+        }
+
+        if (!this.active()) {
+            return false;
+        }
+
+        this._initialized = true;
+        return true;
+    });
 }
