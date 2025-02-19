@@ -1,5 +1,5 @@
 # Changelog
-## ![LTS](https://www.primefaces.org/wp-content/uploads/2020/01/lts-icon-24.png "PrimeNG LTS") [18.0.5-lts](https://www.npmjs.com/package/primeng/v/18.0.5-lts) (2025-02-19)
+## ![LTS](https://www.primefaces.org/wp-content/uploads/2020/01/lts-icon-24.png "PrimeNG LTS") [18.0.4-lts](https://www.npmjs.com/package/primeng/v/18.0.4-lts) (2025-02-19)
 
 **Fixed bugs:**
 - Verification is broken in LTS 18  [\#17711](https://github.com/primefaces/primeng/issues/17711)
