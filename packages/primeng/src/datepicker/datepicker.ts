@@ -3466,7 +3466,7 @@ export class DatePicker extends BaseComponent implements OnInit, AfterContentIni
         }
 
         if (this.hourFormat == '12') {
-            output += date.getHours() > 11 ? ' ' + this.getTranslation('pm') : ' ' + this.getTranslation('am');
+            output += ` ${this.getTranslation(date.getHours() > 11 ? 'pm' : 'am')}`;
         }
 
         return output;
