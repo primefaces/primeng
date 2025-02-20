@@ -43,7 +43,7 @@ const hideAnimation = animation([animate('{{transition}}', style({ transform: '{
             <div
                 *ngIf="visible"
                 #container
-                [ngClass]="{ 'p-dialog p-component': true, 'p-dialog-maximized': maximizable && maximized }"
+                [ngClass]="{ 'p-dialog p-component': true, 'p-dialog-maximized': maximized }"
                 [ngStyle]="{ display: 'flex', 'flex-direction': 'column', 'pointer-events': 'auto' }"
                 [style]="ddconfig.style"
                 [class]="ddconfig.styleClass"
