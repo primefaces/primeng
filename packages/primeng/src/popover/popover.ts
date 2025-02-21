@@ -26,8 +26,6 @@ import { absolutePosition, addClass, appendChild, findSingle, getOffset, isIOS, 
 import { OverlayService, PrimeTemplate, SharedModule } from 'primeng/api';
 import { BaseComponent } from 'primeng/basecomponent';
 import { ConnectedOverlayScrollHandler } from 'primeng/dom';
-import { TimesIcon } from 'primeng/icons';
-import { Ripple } from 'primeng/ripple';
 import { Nullable, VoidListener } from 'primeng/ts-helpers';
 import { ZIndexUtils } from 'primeng/utils';
 import { Subscription } from 'rxjs';
@@ -330,13 +328,12 @@ export class Popover extends BaseComponent implements AfterContentInit, OnDestro
 
         const containerOffset = <any>getOffset(this.container);
         const targetOffset = <any>getOffset(this.target);
-        const borderRadius = this.document.defaultView?.getComputedStyle(this.container!).getPropertyValue('border-radius');
-        let arrowLeft = 0;
 
         if (containerOffset.left < targetOffset.left) {
-            arrowLeft = targetOffset.left - containerOffset.left - parseFloat(borderRadius!) * 2;
+            const popoverArrowOffset = this.document.defaultView?.getComputedStyle(this.container!).getPropertyValue('--p-popover-arrow-offset');
+            const arrowLeft = targetOffset.left - containerOffset.left;
+            this.container?.style.setProperty('--p-popover-arrow-offset', `calc(${popoverArrowOffset} + ${arrowLeft}px)`);
         }
-        this.container?.style.setProperty('--overlayArrowLeft', `${arrowLeft}px`);
 
         if (containerOffset.top < targetOffset.top) {
             addClass(this.container, 'p-popover-flipped');
