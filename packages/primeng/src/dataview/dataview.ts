@@ -359,7 +359,7 @@ export class DataView extends BaseComponent implements OnInit, OnDestroy, Blocka
      * Template for loading icon.
      * @group Templates
      */
-    @ContentChild('loadingIcon') loadingicon: TemplateRef<any>;
+    @ContentChild('loadingicon') loadingicon: TemplateRef<any>;
     /**
      * Template for list icon.
      * @group Templates
