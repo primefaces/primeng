@@ -435,15 +435,20 @@ export class ScrollPanel extends BaseComponent implements AfterViewInit, AfterCo
             (this.contentViewChild as ElementRef).nativeElement.scrollTop += deltaY / (this.scrollYRatio as number);
         });
     }
+
     /**
      * Scrolls the top location to the given value.
      * @param scrollTop
+     * @param scrollBehavior
      * @group Method
      */
-    scrollTop(scrollTop: number) {
+    scrollTop(scrollTop: number, scrollBehavior: 'auto' | 'smooth' = 'smooth') {
         let scrollableHeight = (this.contentViewChild as ElementRef).nativeElement.scrollHeight - (this.contentViewChild as ElementRef).nativeElement.clientHeight;
         scrollTop = scrollTop > scrollableHeight ? scrollableHeight : scrollTop > 0 ? scrollTop : 0;
-        (this.contentViewChild as ElementRef).nativeElement.scrollTop = scrollTop;
+        (this.contentViewChild as ElementRef).nativeElement.scroll({
+                top: scrollTop,
+                behavior: scrollBehavior,
+            });
     }
 
     onFocus(event) {
