@@ -24,7 +24,7 @@ import { findSingle, setAttribute, uuid } from '@primeuix/utils';
 import { Confirmation, ConfirmationService, ConfirmEventType, Footer, PrimeTemplate, SharedModule, TranslationKeys } from 'primeng/api';
 import { BaseComponent } from 'primeng/basecomponent';
 import { Button } from 'primeng/button';
-import { Dialog } from 'primeng/dialog';
+import { Dialog, DialogPosition } from 'primeng/dialog';
 import { Nullable } from 'primeng/ts-helpers';
 import { Subscription } from 'rxjs';
 import { ConfirmDialogStyle } from './style/confirmdialogstyle';
@@ -53,6 +53,7 @@ const hideAnimation = animation([animate('{{transition}}', style({ transform: '{
             [blockScroll]="option('blockScroll')"
             [appendTo]="option('appendTo')"
             [position]="position"
+            [breakpoints]="breakpoints"
             [style]="style"
             [dismissableMask]="dismissableMask"
         >
@@ -308,10 +309,10 @@ export class ConfirmDialog extends BaseComponent implements OnInit, OnDestroy {
      *  Allows getting the position of the component.
      * @group Props
      */
-    @Input() get position(): string {
+    @Input() get position(): DialogPosition {
         return this._position;
     }
-    set position(value: string) {
+    set position(value: DialogPosition) {
         this._position = value;
 
         switch (value) {
@@ -395,7 +396,7 @@ export class ConfirmDialog extends BaseComponent implements OnInit, OnDestroy {
 
     preWidth: number | undefined;
 
-    _position: string = 'center';
+    _position: DialogPosition = 'center';
 
     transformOptions: any = 'scale(0.7)';
 
@@ -447,9 +448,6 @@ export class ConfirmDialog extends BaseComponent implements OnInit, OnDestroy {
 
     ngOnInit() {
         super.ngOnInit();
-        if (this.breakpoints) {
-            this.createStyle();
-        }
 
         this.translationSubscription = this.config.translationObserver.subscribe(() => {
             if (this.visible) {
@@ -532,27 +530,6 @@ export class ConfirmDialog extends BaseComponent implements OnInit, OnDestroy {
             //backward compatibility
             default:
                 return findSingle(this.dialog.el.nativeElement, '.p-confirm-dialog-accept');
-        }
-    }
-
-    createStyle() {
-        if (!this.styleElement) {
-            this.styleElement = this.document.createElement('style');
-            this.styleElement.type = 'text/css';
-            this.document.head.appendChild(this.styleElement);
-            let innerHTML = '';
-            for (let breakpoint in this.breakpoints) {
-                innerHTML += `
-                    @media screen and (max-width: ${breakpoint}) {
-                        .p-dialog[${this.id}] {
-                            width: ${this.breakpoints[breakpoint]} !important;
-                        }
-                    }
-                `;
-            }
-
-            this.styleElement.innerHTML = innerHTML;
-            setAttribute(this.styleElement, 'nonce', this.config?.csp()?.nonce);
         }
     }
 
