@@ -43,7 +43,8 @@ const hideAnimation = animation([animate('{{transition}}', style({ transform: '{
     template: `
         <p-dialog
             #dialog
-            [(visible)]="visible"
+            [visible]="visible"
+            (visibleChange)="onVisibleChange($event)"
             role="alertdialog"
             [closable]="option('closable')"
             [styleClass]="containerClass"
@@ -556,13 +557,12 @@ export class ConfirmDialog extends BaseComponent implements OnInit, OnDestroy {
         }
     }
 
-    close(event: Event) {
+    close() {
         if (this.confirmation?.rejectEvent) {
             this.confirmation.rejectEvent.emit(ConfirmEventType.CANCEL);
         }
 
         this.hide(ConfirmEventType.CANCEL);
-        event.preventDefault();
     }
 
     hide(type?: ConfirmEventType) {
@@ -587,6 +587,14 @@ export class ConfirmDialog extends BaseComponent implements OnInit, OnDestroy {
 
         this.destroyStyle();
         super.ngOnDestroy();
+    }
+
+    onVisibleChange(value: boolean) {
+        if (!value) {
+            this.close();
+        } else {
+            this.visible = value;
+        }
     }
 
     onAccept() {
