@@ -2625,9 +2625,9 @@ export class DatePicker extends BaseComponent implements OnInit, AfterContentIni
                     let cells;
 
                     if (this.currentView === 'month') {
-                        cells = find(this.contentViewChild.nativeElement, '.p-monthpicker .p-monthpicker-month:not(.p-disabled)');
+                        cells = find(this.contentViewChild.nativeElement, '.p-datepicker-month-view .p-datepicker-month:not(.p-disabled)');
                     } else if (this.currentView === 'year') {
-                        cells = find(this.contentViewChild.nativeElement, '.p-yearpicker .p-yearpicker-year:not(.p-disabled)');
+                        cells = find(this.contentViewChild.nativeElement, '.p-datepicker-year-view .p-datepicker-year:not(.p-disabled)');
                     } else {
                         cells = find(this.contentViewChild.nativeElement, this._focusKey || '.p-datepicker-calendar td span:not(.p-disabled):not(.p-ink)');
                     }
@@ -2637,9 +2637,9 @@ export class DatePicker extends BaseComponent implements OnInit, AfterContentIni
                     }
                 } else {
                     if (this.currentView === 'month') {
-                        cell = findSingle(this.contentViewChild.nativeElement, '.p-monthpicker .p-monthpicker-month:not(.p-disabled)');
+                        cell = findSingle(this.contentViewChild.nativeElement, '.p-datepicker-month-view .p-datepicker-month:not(.p-disabled)');
                     } else if (this.currentView === 'year') {
-                        cell = findSingle(this.contentViewChild.nativeElement, '.p-yearpicker .p-yearpicker-year:not(.p-disabled)');
+                        cell = findSingle(this.contentViewChild.nativeElement, '.p-datepicker-year-view .p-datepicker-year:not(.p-disabled)');
                     } else {
                         cell = findSingle(this.contentViewChild.nativeElement, this._focusKey || '.p-datepicker-calendar td span:not(.p-disabled):not(.p-ink)');
                     }
@@ -2663,23 +2663,23 @@ export class DatePicker extends BaseComponent implements OnInit, AfterContentIni
         let cell!: any;
 
         if (this.currentView === 'month') {
-            let cells = find(contentEl, '.p-monthpicker .p-monthpicker-month:not(.p-disabled)');
-            let selectedCell = <any>findSingle(contentEl, '.p-monthpicker .p-monthpicker-month.p-highlight');
+            let cells = find(contentEl, '.p-datepicker-month-view .p-datepicker-month:not(.p-disabled)');
+            let selectedCell = <any>findSingle(contentEl, '.p-datepicker-month-view .p-datepicker-month.p-highlight');
             cells.forEach((cell: any) => (cell.tabIndex = -1));
             cell = selectedCell || cells[0];
 
             if (cells.length === 0) {
-                let disabledCells = find(contentEl, '.p-monthpicker .p-monthpicker-month.p-disabled[tabindex = "0"]');
+                let disabledCells = find(contentEl, '.p-datepicker-month-view .p-datepicker-month.p-disabled[tabindex = "0"]');
                 disabledCells.forEach((cell: any) => (cell.tabIndex = -1));
             }
         } else if (this.currentView === 'year') {
-            let cells = find(contentEl, '.p-yearpicker .p-yearpicker-year:not(.p-disabled)');
-            let selectedCell = findSingle(contentEl, '.p-yearpicker .p-yearpicker-year.p-highlight');
+            let cells = find(contentEl, '.p-datepicker-year-view .p-datepicker-year:not(.p-disabled)');
+            let selectedCell = findSingle(contentEl, '.p-datepicker-year-view .p-datepicker-year.p-highlight');
             cells.forEach((cell: any) => (cell.tabIndex = -1));
             cell = selectedCell || cells[0];
 
             if (cells.length === 0) {
-                let disabledCells = find(contentEl, '.p-yearpicker .p-yearpicker-year.p-disabled[tabindex = "0"]');
+                let disabledCells = find(contentEl, '.p-datepicker-year-view .p-datepicker-year.p-disabled[tabindex = "0"]');
                 disabledCells.forEach((cell: any) => (cell.tabIndex = -1));
             }
         } else {
