@@ -33,7 +33,7 @@ export class BaseComponent {
     @Input() dt: Object | undefined;
 
     get styleOptions() {
-        return { nonce: this.config?.csp().nonce };
+        return { nonce: this.config?.csp().nonce, element: this.el };
     }
 
     get _name() {
