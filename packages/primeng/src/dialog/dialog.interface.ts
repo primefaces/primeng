@@ -1,5 +1,6 @@
 import { TemplateRef } from '@angular/core';
 
+export type DialogPosition = 'center' | 'top' | 'bottom' | 'left' | 'right' | 'topleft' | 'topright' | 'bottomleft' | 'bottomright';
 /**
  * Defines valid templates in Dialog.
  * @group Templates
