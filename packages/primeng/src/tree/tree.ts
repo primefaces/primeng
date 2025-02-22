@@ -794,10 +794,11 @@ export class UITreeNode extends BaseComponent implements OnInit {
             </ng-container>
 
             <div class="p-tree-empty-message" *ngIf="!loading && (getRootNode() == null || getRootNode().length === 0)">
-                <ng-container *ngIf="!emptyMessageTemplate && !_emptyMessageTemplate; else emptyFilter">
+                @if (!emptyMessageTemplate && !_emptyMessageTemplate) {
                     {{ emptyMessageLabel }}
-                </ng-container>
-                <ng-template #emptyFilter *ngTemplateOutlet="emptyMessageTemplate || _emptyMessageTemplate"></ng-template>
+                } @else {
+                    <ng-template #emptyFilter *ngTemplateOutlet="emptyMessageTemplate ?? _emptyMessageTemplate" />
+                }
             </div>
             <ng-container *ngTemplateOutlet="footerTemplate || _footerTemplate"></ng-container>
         </div>
