@@ -1239,6 +1239,7 @@ export class Dropdown extends BaseComponent implements OnInit, AfterViewInit, Af
     }
 
     ngAfterViewInit() {
+        super.ngAfterViewInit();
         if (this.editable) {
             this.updateEditableLabel();
         }

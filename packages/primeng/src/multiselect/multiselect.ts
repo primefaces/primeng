@@ -1333,10 +1333,10 @@ export class MultiSelect extends BaseComponent implements OnInit, AfterViewInit,
         effect(() => {
             const modelValue = this.modelValue();
 
-            const visibleOptions = this.visibleOptions();
-            if (visibleOptions && isNotEmpty(visibleOptions)) {
+            const allVisibleAndNonVisibleOptions = this.getAllVisibleAndNonVisibleOptions();
+            if (allVisibleAndNonVisibleOptions && isNotEmpty(allVisibleAndNonVisibleOptions)) {
                 if (this.optionValue && this.optionLabel && modelValue) {
-                    this.selectedOptions = visibleOptions.filter((option) => modelValue.includes(option[this.optionLabel]) || modelValue.includes(option[this.optionValue]));
+                    this.selectedOptions = allVisibleAndNonVisibleOptions.filter((option) => modelValue.includes(option[this.optionLabel]) || modelValue.includes(option[this.optionValue]));
                 } else {
                     this.selectedOptions = modelValue;
                 }

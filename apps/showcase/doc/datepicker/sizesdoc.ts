@@ -39,12 +39,12 @@ import { DatePicker } from 'primeng/datepicker';
 import { FormsModule } from '@angular/forms';
 
 @Component({
-    selector: 'datepicker-basic-demo',
-    templateUrl: './datepicker-basic-demo.html',
+    selector: 'datepicker-sizes-demo',
+    templateUrl: './datepicker-sizes-demo.html',
     standalone: true,
     imports: [FormsModule, DatePicker]
 })
-export class DatePickerBasicDemo {
+export class DatePickerSizesDemo {
     value1: Date | undefined;
 
     value2: Date | undefined;

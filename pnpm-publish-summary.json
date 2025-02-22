@@ -2,11 +2,11 @@
 	"publishedPackages": [
 		{
 			"name": "primeng",
-			"version": "19.0.6"
+			"version": "19.0.7"
 		},
 		{
 			"name": "@primeng/themes",
-			"version": "19.0.6"
+			"version": "19.0.7"
 		}
 	]
 }
