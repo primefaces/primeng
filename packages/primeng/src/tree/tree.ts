@@ -592,7 +592,7 @@ export class UITreeNode extends BaseComponent implements OnInit {
         event.preventDefault();
     }
 
-    onArrowLeft(event: KeyboardEvent) {
+    onArrowLeft(event: KeyboardEvent): boolean | undefined {
         const nodeElement = (<HTMLDivElement>event.target).getAttribute('data-pc-section') === 'toggler' ? (<HTMLDivElement>event.target).closest('[role="treeitem"]') : <HTMLDivElement>event.target;
 
         if (this.level === 0 && !this.node?.expanded) {
@@ -601,7 +601,7 @@ export class UITreeNode extends BaseComponent implements OnInit {
 
         if (this.node?.expanded) {
             this.collapse(event);
-            return;
+            return undefined;
         }
 
         let parentNodeElement = this.getParentNodeElement(nodeElement.parentElement);
@@ -611,6 +611,7 @@ export class UITreeNode extends BaseComponent implements OnInit {
         }
 
         event.preventDefault();
+        return undefined;
     }
 
     onEnter(event: KeyboardEvent) {
@@ -1481,6 +1482,7 @@ export class Tree extends BaseComponent implements OnInit, AfterContentInit, OnC
                 }
             }
         }
+        return undefined;
     }
 
     propagateUp(node: TreeNode, select: boolean) {
@@ -1749,7 +1751,7 @@ export class Tree extends BaseComponent implements OnInit, AfterContentInit, OnC
         }
     }
 
-    findFilteredNodes(node: TreeNode, paramsWithoutNode: any) {
+    findFilteredNodes(node: TreeNode, paramsWithoutNode: any): boolean | undefined {
         if (node) {
             let matched = false;
             if (node.children) {
@@ -1769,6 +1771,7 @@ export class Tree extends BaseComponent implements OnInit, AfterContentInit, OnC
                 return true;
             }
         }
+        return undefined;
     }
 
     isFilterMatched(node: TreeNode, params: any) {

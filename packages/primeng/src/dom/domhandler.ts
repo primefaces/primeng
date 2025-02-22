@@ -445,10 +445,11 @@ export class DomHandler {
         return parentNode.replaceChild(replacementElement, element);
     }
 
-    public static getUserAgent(): string {
+    public static getUserAgent(): string | undefined {
         if (navigator && this.isClient()) {
             return navigator.userAgent;
         }
+        return undefined;
     }
 
     public static isIE() {

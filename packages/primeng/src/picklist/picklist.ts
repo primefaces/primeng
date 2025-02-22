@@ -1218,6 +1218,7 @@ export class PickList extends BaseComponent implements AfterViewChecked, AfterCo
                     return true;
                 }
             }
+            return undefined;
         } else {
             return true;
         }
@@ -1828,16 +1829,18 @@ export class PickList extends BaseComponent implements AfterViewChecked, AfterCo
         }
     }
 
-    sourceMoveDisabled() {
+    sourceMoveDisabled(): boolean | undefined {
         if (this.disabled || !this.selectedItemsSource.length) {
             return true;
         }
+        return undefined;
     }
 
-    targetMoveDisabled() {
+    targetMoveDisabled(): boolean | undefined {
         if (this.disabled || !this.selectedItemsTarget.length) {
             return true;
         }
+        return undefined;
     }
 
     moveRightDisabled() {

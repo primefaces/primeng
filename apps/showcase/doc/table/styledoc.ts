@@ -151,6 +151,7 @@ export class TableStyleDemo implements OnInit{
         if (product.quantity === 0) {
             return { fontWeight: 'bold', fontStyle: 'italic' };
         }
+        return undefined;
     }
 
     stockSeverity(product: Product) {

@@ -445,7 +445,7 @@ export class InputMask extends BaseComponent implements OnInit, AfterContentInit
         let range, begin, end;
 
         if (!this.inputViewChild?.nativeElement.offsetParent || this.inputViewChild.nativeElement !== this.inputViewChild.nativeElement.ownerDocument.activeElement) {
-            return;
+            return undefined;
         }
 
         if (typeof first == 'number') {
@@ -460,6 +460,7 @@ export class InputMask extends BaseComponent implements OnInit, AfterContentInit
                 range.moveStart('character', begin);
                 range.select();
             }
+            return { begin, end };
         } else {
             if (this.inputViewChild.nativeElement.setSelectionRange) {
                 begin = this.inputViewChild.nativeElement.selectionStart;
@@ -470,7 +471,7 @@ export class InputMask extends BaseComponent implements OnInit, AfterContentInit
                 end = begin + range.text.length;
             }
 
-            return { begin: begin, end: end };
+            return { begin, end };
         }
     }
 

@@ -769,6 +769,8 @@ export class TableCustomersDemo implements OnInit{
 
             case 'renewal':
                 return null;
+            default:
+                return null;
         }
     }
 

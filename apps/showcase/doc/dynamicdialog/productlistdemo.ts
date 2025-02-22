@@ -73,6 +73,8 @@ export class ProductListDemo implements OnInit {
                 return 'warning';
             case 'OUTOFSTOCK':
                 return 'danger';
+            default:
+                return undefined;
         }
     }
 }

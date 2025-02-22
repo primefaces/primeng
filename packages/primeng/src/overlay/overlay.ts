@@ -369,10 +369,11 @@ export class Overlay extends BaseComponent implements AfterContentInit, OnDestro
         'right-end': 'translate3d(100%, 0px, 0px)'
     };
 
-    get modal() {
+    get modal(): boolean | undefined {
         if (isPlatformBrowser(this.platformId)) {
             return this.mode === 'modal' || (this.overlayResponsiveOptions && this.document.defaultView?.matchMedia(this.overlayResponsiveOptions.media?.replace('@media', '') || `(max-width: ${this.overlayResponsiveOptions.breakpoint})`).matches);
         }
+        return undefined;
     }
 
     get overlayMode() {

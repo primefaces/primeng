@@ -190,6 +190,8 @@ export interface Product {
                 return 'warning';
             case 'OUTOFSTOCK':
                 return 'danger';
+            default:
+                return undefined;
         }
     }
 }

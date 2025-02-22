@@ -649,6 +649,7 @@ export class OrderList extends BaseComponent implements AfterContentInit {
                     return true;
                 }
             }
+            return undefined;
         } else {
             return true;
         }
@@ -979,6 +980,7 @@ export class OrderList extends BaseComponent implements AfterContentInit {
         if (this.disabled || !this.selection.length) {
             return true;
         }
+        return undefined;
     }
 
     focusedOptionId() {

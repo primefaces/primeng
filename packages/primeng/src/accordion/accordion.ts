@@ -592,7 +592,7 @@ export class AccordionTab extends BaseComponent implements AfterContentInit, OnD
         });
     }
 
-    toggle(event?: MouseEvent | KeyboardEvent) {
+    toggle(event?: MouseEvent | KeyboardEvent): boolean | undefined {
         if (this.disabled) {
             return false;
         }
@@ -623,6 +623,7 @@ export class AccordionTab extends BaseComponent implements AfterContentInit, OnD
         this.cd.markForCheck();
 
         event?.preventDefault();
+        return undefined;
     }
 
     findTabIndex() {

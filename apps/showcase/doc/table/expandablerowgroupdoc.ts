@@ -109,6 +109,8 @@ export class ExpandableRowGroupDoc {
 
             case 'renewal':
                 return null;
+            default:
+                return null;
         }
     }
 

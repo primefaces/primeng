@@ -166,6 +166,8 @@ export class RowExpansionDoc {
                 return 'warn';
             case 'OUTOFSTOCK':
                 return 'danger';
+            default:
+                return undefined;
         }
     }
 
@@ -177,6 +179,8 @@ export class RowExpansionDoc {
                 return 'success';
             case 'CANCELLED':
                 return 'danger';
+            default:
+                return undefined;
         }
     }
 
