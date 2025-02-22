@@ -177,8 +177,21 @@ export class AccordionHeader extends BaseComponent {
      */
     @ContentChild('toggleicon') toggleicon: TemplateRef<AccordionToggleIconTemplateContext> | undefined;
 
-    @HostListener('click', ['$event']) onClick() {
+    @HostListener('click', ['$event']) onClick(event?: MouseEvent | KeyboardEvent) {
+        const wasActive = this.active();
+
         this.changeActiveValue();
+
+        const isActive = this.active();
+
+        const panels = this.pcAccordion.panelList ? this.pcAccordion.panelList.toArray() : [];
+        const index = panels.findIndex((panel) => panel === this.pcAccordionPanel);
+
+        if (!wasActive && isActive) {
+            this.pcAccordion.onOpen.emit({ originalEvent: event, index });
+        } else if (wasActive && !isActive) {
+            this.pcAccordion.onClose.emit({ originalEvent: event, index });
+        }
     }
 
     @HostListener('focus', ['$event']) onFocus() {
