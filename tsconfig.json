@@ -98,7 +98,7 @@
         // "noImplicitOverride": true,                       /* Ensure overriding members in derived classes are marked with an override modifier. */
         // "noPropertyAccessFromIndexSignature": true,       /* Enforces using indexed accessors for keys declared using an indexed type. */
         // "allowUnusedLabels": true,                        /* Disable error reporting for unused labels. */
-        // "allowUnreachableCode": true,                     /* Disable error reporting for unreachable code. */
+        "allowUnreachableCode": false,                     /* Disable error reporting for unreachable code. */
 
         /* Completeness */
         // "skipDefaultLibCheck": true,                      /* Skip type checking .d.ts files that are included with TypeScript. */
