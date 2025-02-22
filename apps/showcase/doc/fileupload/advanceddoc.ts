@@ -1,11 +1,7 @@
 import { Code } from '@/domain/code';
 import { Component } from '@angular/core';
 import { MessageService } from 'primeng/api';
-
-interface UploadEvent {
-    originalEvent: Event;
-    files: File[];
-}
+import { FileUploadEvent } from 'primeng/fileupload';
 
 @Component({
     selector: 'file-upload-advanced-demo',
@@ -36,7 +32,7 @@ export class AdvancedDoc {
 
     constructor(private messageService: MessageService) {}
 
-    onUpload(event: UploadEvent) {
+    onUpload(event: FileUploadEvent) {
         for (let file of event.files) {
             this.uploadedFiles.push(file);
         }
@@ -70,14 +66,10 @@ export class AdvancedDoc {
 </div>`,
         typescript: `import { Component } from '@angular/core';
 import { MessageService } from 'primeng/api';
-import { FileUpload } from 'primeng/fileupload';
+import { FileUpload, FileUploadEvent } from 'primeng/fileupload';
 import { ToastModule } from 'primeng/toast';
 import { CommonModule } from '@angular/common';
 
-interface UploadEvent {
-    originalEvent: Event;
-    files: File[];
-}
 
 @Component({
     selector: 'file-upload-advanced-demo',
@@ -91,8 +83,8 @@ export class FileUploadAdvancedDemo {
 
     constructor(private messageService: MessageService) {}
 
-    onUpload(event:UploadEvent) {
-        for(let file of event.files) {
+    onUpload(event: FileUploadEvent) {
+        for (let file of event.files) {
             this.uploadedFiles.push(file);
         }
 

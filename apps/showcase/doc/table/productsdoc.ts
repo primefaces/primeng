@@ -33,7 +33,7 @@ interface ExportColumn {
 
                     <ng-template #end>
                         <p-fileUpload mode="basic" accept="image/*" [maxFileSize]="1000000" label="Import" chooseLabel="Import" auto customUpload class="mr-2 inline-block" [chooseButtonProps]="{ severity: 'secondary' }" />
-                        <p-button label="Export" icon="pi pi-upload" severity="secondary" (onClick)="exportCSV($event)" />
+                        <p-button label="Export" icon="pi pi-upload" severity="secondary" (onClick)="exportCSV()" />
                     </ng-template>
                 </p-toolbar>
 
@@ -196,7 +196,7 @@ export class ProductsDoc {
 
     <ng-template #end>
         <p-fileUpload mode="basic" accept="image/*" [maxFileSize]="1000000" label="Import" chooseLabel="Import" auto customUpload class="mr-2 inline-block" [chooseButtonProps]="{ severity: 'secondary' }" />
-        <p-button label="Export" icon="pi pi-upload" severity="secondary" (onClick)="exportCSV($event)" />
+        <p-button label="Export" icon="pi pi-upload" severity="secondary" (onClick)="exportCSV()" />
     </ng-template>
 </p-toolbar>
 
@@ -889,7 +889,7 @@ export interface Product {
             case 'INSTOCK':
                 return 'success';
             case 'LOWSTOCK':
-                return 'warning';
+                return 'warn';
             case 'OUTOFSTOCK':
                 return 'danger';
             default:

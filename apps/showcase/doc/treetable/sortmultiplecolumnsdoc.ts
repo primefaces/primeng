@@ -22,7 +22,7 @@ interface Column {
                         <tr>
                             <th *ngFor="let col of columns" [ttSortableColumn]="col.field">
                                 {{ col.header }}
-                                <p-treetableSortIcon [field]="col.field" />
+                                <p-treeTableSortIcon [field]="col.field" />
                             </th>
                         </tr>
                     </ng-template>
@@ -64,7 +64,7 @@ export class SortMultipleColumnsDoc {
         <tr>
             <th *ngFor="let col of columns" [ttSortableColumn]="col.field">
                 {{ col.header }}
-                <p-treetableSortIcon [field]="col.field" />
+                <p-treeTableSortIcon [field]="col.field" />
             </th>
         </tr>
     </ng-template>
@@ -84,7 +84,7 @@ export class SortMultipleColumnsDoc {
             <tr>
                 <th *ngFor="let col of columns" [ttSortableColumn]="col.field">
                     {{ col.header }}
-                    <p-treetableSortIcon [field]="col.field" />
+                    <p-treeTableSortIcon [field]="col.field" />
                 </th>
             </tr>
         </ng-template>

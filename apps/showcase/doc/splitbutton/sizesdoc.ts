@@ -11,9 +11,9 @@ import { MenuItem, MessageService } from 'primeng/api';
         </app-docsectiontext>
         <div class="card flex flex-wrap justify-center gap-4">
             <p-toast />
-            <p-splitbutton label="Small" [model]="items" (onClick)="save('info')" size="sm" />
+            <p-splitbutton label="Small" [model]="items" (onClick)="save('info')" size="small" />
             <p-splitbutton label="Normal" [model]="items" (onClick)="save('info')" />
-            <p-splitbutton label="Large" [model]="items" (onClick)="save('info')" size="lg" />
+            <p-splitbutton label="Large" [model]="items" (onClick)="save('info')" size="large" />
         </div>
         <app-code [code]="code" selector="split-button-sizes-demo"></app-code>
     `,
@@ -61,9 +61,9 @@ export class SizesDoc {
 
         html: `<div class="card flex flex-wrap gap-4 justify-center">
     <p-toast />
-    <p-splitbutton label="Small" [model]="items" (onClick)="save('info')" size="sm" />
+    <p-splitbutton label="Small" [model]="items" (onClick)="save('info')" size="small" />
     <p-splitbutton label="Normal" [model]="items" (onClick)="save('info')" />
-    <p-splitbutton label="Large" [model]="items" (onClick)="save('info')" size="lg" />
+    <p-splitbutton label="Large" [model]="items" (onClick)="save('info')" size="large" />
 </div>`,
 
         typescript: `import { Component } from '@angular/core';
