@@ -14,11 +14,14 @@ export type ZIndex = {
 export type PrimeNGConfigType = {
     ripple?: boolean;
     inputStyle?: 'outlined' | 'filled';
+    inputVariant?: 'outlined' | 'filled';
     csp?: {
         nonce: string | undefined;
     };
     overlayOptions?: OverlayOptions;
     translation?: Translation;
+    zIndex?: ZIndex;
+    filterMatchModeOptions?: any;
 } & ThemeConfigType;
 
 @Injectable({ providedIn: 'root' })
@@ -27,9 +30,9 @@ export class PrimeNG extends ThemeProvider {
 
     public platformId: any = inject(PLATFORM_ID);
 
-    inputStyle = signal<'outlined' | 'filled'>('outlined');
+    inputStyle = signal<'outlined' | 'filled'>(null);
 
-    inputVariant = signal<'outlined' | 'filled'>('outlined');
+    inputVariant = signal<'outlined' | 'filled'>(null);
 
     overlayOptions: OverlayOptions = {};
 
@@ -191,11 +194,12 @@ export class PrimeNG extends ThemeProvider {
     }
 
     setConfig(config: PrimeNGConfigType): void {
-        const { csp, ripple, inputStyle, theme, overlayOptions, translation } = config || {};
+        const { csp, ripple, inputStyle, inputVariant, theme, overlayOptions, translation } = config || {};
 
         if (csp) this.csp.set(csp);
         if (ripple) this.ripple.set(ripple);
         if (inputStyle) this.inputStyle.set(inputStyle);
+        if (inputVariant) this.inputVariant.set(inputVariant);
         if (overlayOptions) this.overlayOptions = overlayOptions;
         if (translation) this.setTranslation(translation);
 

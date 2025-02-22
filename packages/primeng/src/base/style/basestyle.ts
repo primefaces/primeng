@@ -195,9 +195,9 @@ export class BaseStyle {
 
     useStyle: UseStyle = inject(UseStyle);
 
-    theme = theme;
+    theme = undefined;
 
-    css = css;
+    css = undefined;
 
     classes = {};
 
@@ -214,6 +214,14 @@ export class BaseStyle {
 
     loadTheme = (options: any = {}, style: string = '') => {
         return this.load(this.theme, options, (computedStyle = '') => Theme.transformCSS(options.name || this.name, `${computedStyle}${style}`));
+    };
+
+    loadGlobalCSS = (options = {}) => {
+        return this.load(css, options);
+    };
+
+    loadGlobalTheme = (options: any = {}, style: string = '') => {
+        return this.load(theme, options, (computedStyle = '') => Theme.transformCSS(options.name || this.name, `${computedStyle}${style}`));
     };
 
     getCommonTheme = (params?) => {

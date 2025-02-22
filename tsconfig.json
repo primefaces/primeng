@@ -32,7 +32,7 @@
         "paths": {                                           /* (UPDATED) Specify a set of entries that re-map imports to additional lookup locations. */
             "primeng/*": ["./packages/primeng/src/*/public_api"],
             "@primeng/themes/*": ["./packages/themes/src/presets/*/index"],
-            "@primeng/themes": ["./packages/themes/src/index"],
+            "@primeng/themes": ["./packages/themes/src/index"]
         },
         // "rootDirs": [],                                   /* Allow multiple folders to be treated as one when resolving modules. */
         // "typeRoots": [],                                  /* Specify multiple folders that act like './node_modules/@types'. */

@@ -1,7 +1,8 @@
 {
     "name": "showcase",
-    "version": "19.0.2",
+    "version": "19.0.6",
     "license": "SEE LICENSE IN LICENSE.md",
+    "type": "module",
     "scripts": {
         "ng": "ng",
         "start": "ng serve --watch",
@@ -48,7 +49,6 @@
         "ts-node": "~10.9.1",
         "tslib": "^2.5.0",
         "typedoc": "0.27.4",
-        "xlsx": "^0.18.5",
         "zone.js": "catalog:angular19"
     },
     "dependencies": {

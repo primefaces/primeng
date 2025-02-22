@@ -6,7 +6,7 @@ import { Component } from '@angular/core';
     standalone: false,
     template: `
         <app-docsectiontext>
-            <p>Animation classes are defined with the <i>enterClass</i> and <i>leaveClass</i> properties. This example utilizes PrimeFlex animations however any valid CSS animation is supported.</p>
+            <p>Animation classes are defined with the <i>enterClass</i> and <i>leaveClass</i> properties. This example utilizes tailwindcss-primeui plugin animations however any valid CSS animation is supported.</p>
         </app-docsectiontext>
         <div class="card flex flex-col items-center overflow-hidden">
             <div class="flex flex-col items-center gap-2">

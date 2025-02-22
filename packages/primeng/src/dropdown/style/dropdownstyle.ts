@@ -218,7 +218,7 @@ const classes = {
         'p-dropdown p-select p-component p-inputwrapper',
         {
             'p-disabled': instance.disabled,
-            'p-variant-filled': instance.variant ? instance.variant === 'filled' : instance.config.inputStyle() === 'filled',
+            'p-variant-filled': instance.variant === 'filled' || instance.config.inputVariant() === 'filled' || instance.config.inputStyle() === 'filled',
             'p-focus': instance.focused,
             'p-inputwrapper-filled': instance.modelValue() !== undefined && instance.modelValue() !== null && !instance.modelValue().length,
             'p-inputwrapper-focus': instance.focused || instance.overlayVisible,

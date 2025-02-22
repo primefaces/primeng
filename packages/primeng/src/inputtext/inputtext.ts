@@ -15,7 +15,7 @@ import { InputTextStyle } from './style/inputtextstyle';
     host: {
         class: 'p-inputtext p-component',
         '[class.p-filled]': 'filled',
-        '[class.p-variant-filled]': 'variant === "filled" || config.inputStyle() === "filled" || config.inputVariant() === "filled"',
+        '[class.p-variant-filled]': '(variant ?? (config.inputStyle() || config.inputVariant())) === "filled"',
         '[class.p-inputtext-fluid]': 'hasFluid',
         '[class.p-inputtext-sm]': 'pSize === "small"',
         '[class.p-inputfield-sm]': 'pSize === "small"',
@@ -29,7 +29,7 @@ export class InputText extends BaseComponent implements DoCheck, AfterViewInit {
      * Specifies the input variant of the component.
      * @group Props
      */
-    @Input() variant: 'filled' | 'outlined' = 'outlined';
+    @Input() variant: 'filled' | 'outlined';
     /**
      * Spans 100% width of the container when enabled.
      * @group Props

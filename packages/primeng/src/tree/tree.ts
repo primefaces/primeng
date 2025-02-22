@@ -43,6 +43,7 @@ import {
     TreeLazyLoadEvent,
     TreeNodeCollapseEvent,
     TreeNodeContextMenuSelectEvent,
+    TreeNodeDoubleClickEvent,
     TreeNodeDropEvent,
     TreeNodeExpandEvent,
     TreeNodeSelectEvent,
@@ -69,6 +70,7 @@ import {
             ></li>
             <li
                 [ngClass]="nodeClass"
+                [class]="node.styleClass"
                 [ngStyle]="{ height: itemSize + 'px' }"
                 [style]="node.style"
                 [attr.aria-label]="node.label"
@@ -88,6 +90,7 @@ import {
                     [style.paddingLeft]="level * indentation + 'rem'"
                     (click)="onNodeClick($event)"
                     (contextmenu)="onNodeRightClick($event)"
+                    (dblclick)="onNodeDblClick($event)"
                     (touchend)="onNodeTouchEnd()"
                     (drop)="onDropNode($event)"
                     (dragover)="onDropNodeDragOver($event)"
@@ -119,7 +122,7 @@ import {
                         [indeterminate]="node.partialSelected"
                         *ngIf="tree.selectionMode == 'checkbox'"
                         [disabled]="node.selectable === false"
-                        [variant]="tree?.config.inputStyle() === 'filled' ? 'filled' : 'outlined' || tree?.config.inputVariant() === 'filled' ? 'filled' : 'outlined'"
+                        [variant]="tree?.config.inputStyle() === 'filled' || tree?.config.inputVariant() === 'filled' ? 'filled' : 'outlined'"
                         [attr.data-p-partialchecked]="node.partialSelected"
                         [tabindex]="-1"
                         (click)="$event.preventDefault()"
@@ -297,6 +300,10 @@ export class UITreeNode extends BaseComponent implements OnInit {
 
     onNodeRightClick(event: MouseEvent) {
         this.tree.onNodeRightClick(event, <TreeNode>this.node);
+    }
+
+    onNodeDblClick(event: MouseEvent) {
+        this.tree.onNodeDblClick(event, <TreeNode>this.node);
     }
 
     isSelected() {
@@ -1034,6 +1041,12 @@ export class Tree extends BaseComponent implements OnInit, AfterContentInit, OnC
      */
     @Output() onNodeContextMenuSelect: EventEmitter<TreeNodeContextMenuSelectEvent> = new EventEmitter<TreeNodeContextMenuSelectEvent>();
     /**
+     * Callback to invoke when a node is double clicked.
+     * @param {TreeNodeDoubleClickEvent} event - Node double click event.
+     * @group Emits
+     */
+    @Output() onNodeDoubleClick: EventEmitter<TreeNodeDoubleClickEvent> = new EventEmitter<TreeNodeDoubleClickEvent>();
+    /**
      * Callback to invoke when a node is dropped.
      * @param {TreeNodeDropEvent} event - Node drop event.
      * @group Emits
@@ -1412,6 +1425,10 @@ export class Tree extends BaseComponent implements OnInit, AfterContentInit, OnC
                 this.onNodeContextMenuSelect.emit({ originalEvent: event, node: node });
             }
         }
+    }
+
+    onNodeDblClick(event: MouseEvent, node: TreeNode<any>) {
+        this.onNodeDoubleClick.emit({ originalEvent: event, node: node });
     }
 
     findIndexInSelection(node: TreeNode) {

@@ -3,29 +3,29 @@ import { CommonModule, isPlatformBrowser } from '@angular/common';
 import {
     AfterContentInit,
     AfterViewChecked,
-    booleanAttribute,
     ChangeDetectionStrategy,
     Component,
     ContentChild,
     ContentChildren,
     ElementRef,
     EventEmitter,
-    inject,
     Input,
     NgModule,
-    numberAttribute,
     Output,
     QueryList,
     TemplateRef,
     ViewChild,
-    ViewEncapsulation
+    ViewEncapsulation,
+    booleanAttribute,
+    inject,
+    numberAttribute
 } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { find, findIndexInList, findSingle, isEmpty, scrollInView, setAttribute, uuid } from '@primeuix/utils';
 import { FilterService, PrimeTemplate, SharedModule } from 'primeng/api';
 import { BaseComponent } from 'primeng/basecomponent';
 import { ButtonDirective, ButtonProps } from 'primeng/button';
-import { AngleDoubleDownIcon, AngleDoubleLeftIcon, AngleDoubleRightIcon, AngleDoubleUpIcon, AngleDownIcon, AngleLeftIcon, AngleRightIcon, AngleUpIcon, SearchIcon } from 'primeng/icons';
+import { AngleDoubleDownIcon, AngleDoubleLeftIcon, AngleDoubleRightIcon, AngleDoubleUpIcon, AngleDownIcon, AngleLeftIcon, AngleRightIcon, AngleUpIcon } from 'primeng/icons';
 import { Listbox } from 'primeng/listbox';
 import { Ripple } from 'primeng/ripple';
 import { Nullable, VoidListener } from 'primeng/ts-helpers';
@@ -132,6 +132,7 @@ import { PickListStyle } from './style/pickliststyle';
                     (keydown)="onItemKeyDown($event, selectedItemsSource, onSourceSelect, SOURCE_LIST)"
                     (onDblClick)="onSourceItemDblClick()"
                     [disabled]="disabled"
+                    [optionDisabled]="sourceOptionDisabled"
                     [metaKeySelection]="metaKeySelection"
                     [scrollHeight]="scrollHeight"
                     [autoOptionFocus]="autoOptionFocus"
@@ -139,6 +140,8 @@ import { PickListStyle } from './style/pickliststyle';
                     [filterBy]="filterBy"
                     [filterLocale]="filterLocale"
                     [filterPlaceHolder]="sourceFilterPlaceholder"
+                    [dragdrop]="dragdrop"
+                    (onDrop)="onDrop($event, SOURCE_LIST)"
                 >
                     <ng-container *ngIf="sourceHeaderTemplate || _sourceHeaderTemplate">
                         <ng-template #header>
@@ -252,6 +255,7 @@ import { PickListStyle } from './style/pickliststyle';
                     (keydown)="onItemKeyDown($event, selectedItemsTarget, onTargetSelect, TARGET_LIST)"
                     (onDblClick)="onTargetItemDblClick()"
                     [disabled]="disabled"
+                    [optionDisabled]="targetOptionDisabled"
                     [metaKeySelection]="metaKeySelection"
                     [scrollHeight]="scrollHeight"
                     [autoOptionFocus]="autoOptionFocus"
@@ -259,6 +263,8 @@ import { PickListStyle } from './style/pickliststyle';
                     [filterBy]="filterBy"
                     [filterLocale]="filterLocale"
                     [filterPlaceHolder]="targetFilterPlaceholder"
+                    [dragdrop]="dragdrop"
+                    (onDrop)="onDrop($event, TARGET_LIST)"
                 >
                     <ng-container *ngIf="targetHeaderTemplate || _targetHeaderTemplate">
                         <ng-template #header>
@@ -511,6 +517,19 @@ export class PickList extends BaseComponent implements AfterViewChecked, AfterCo
      * @group Props
      */
     @Input({ transform: booleanAttribute }) disabled: boolean = false;
+
+    /**
+     * Name of the disabled field of a target option or function to determine disabled state.
+     * @group Props
+     */
+    @Input() sourceOptionDisabled: string | ((item: any) => boolean) | undefined;
+
+    /**
+     * Name of the disabled field of a target option or function to determine disabled state.
+     * @group Props
+     */
+    @Input() targetOptionDisabled: string | ((item: any) => boolean) | undefined;
+
     /**
      * Defines a string that labels the filter input of source list.
      * @group Props
@@ -1081,13 +1100,16 @@ export class PickList extends BaseComponent implements AfterViewChecked, AfterCo
 
     ngAfterViewChecked() {
         if (this.movedUp || this.movedDown) {
-            let listItems = find(this.reorderedListElement, 'li.p-highlight');
+            let listItems = find(this.reorderedListElement?.el.nativeElement, 'li.p-listbox-option-selected');
+
             let listItem;
 
-            if (this.movedUp) listItem = listItems[0];
-            else listItem = listItems[listItems.length - 1];
+            if (listItems.length > 0) {
+                if (this.movedUp) listItem = listItems[0];
+                else listItem = listItems[listItems.length - 1];
 
-            scrollInView(this.reorderedListElement, listItem);
+                scrollInView(this.reorderedListElement?.el.nativeElement, listItem);
+            }
             this.movedUp = false;
             this.movedDown = false;
             this.reorderedListElement = null;

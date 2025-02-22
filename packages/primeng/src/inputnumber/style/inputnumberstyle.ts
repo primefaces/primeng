@@ -38,7 +38,7 @@ const theme = ({ dt }) => `
     display: flex;
     flex-direction: column;
     position: absolute;
-    top: 1px;
+    inset-block-start: 1px;
     inset-inline-end: 1px;
     height: calc(100% - 2px);
     z-index: 1;
@@ -46,7 +46,7 @@ const theme = ({ dt }) => `
 
 .p-inputnumber-stacked .p-inputnumber-increment-button {
     padding: 0;
-    border-end-start-radius: calc(${dt('inputnumber.button.border.radius')} - 1px);
+    border-start-end-radius: calc(${dt('inputnumber.button.border.radius')} - 1px);
 }
 
 .p-inputnumber-stacked .p-inputnumber-decrement-button {

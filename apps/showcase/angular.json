@@ -42,7 +42,6 @@
                         ],
                         "allowedCommonJsDependencies": [
                             "chart.js",
-                            "xlsx",
                             "jspdf-autotable",
                             "file-saver",
                             "jspdf",

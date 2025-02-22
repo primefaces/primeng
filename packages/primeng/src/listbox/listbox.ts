@@ -1,30 +1,31 @@
+import { CDK_DRAG_CONFIG, CdkDragDrop, DragDropModule } from '@angular/cdk/drag-drop';
 import { CommonModule } from '@angular/common';
 import {
     AfterContentInit,
-    booleanAttribute,
     ChangeDetectionStrategy,
     Component,
-    computed,
     ContentChild,
     ContentChildren,
     ElementRef,
     EventEmitter,
-    forwardRef,
-    inject,
     Input,
     NgModule,
-    numberAttribute,
     OnDestroy,
     OnInit,
     Output,
     QueryList,
-    signal,
     TemplateRef,
     ViewChild,
-    ViewEncapsulation
+    ViewEncapsulation,
+    booleanAttribute,
+    computed,
+    forwardRef,
+    inject,
+    numberAttribute,
+    signal
 } from '@angular/core';
 import { ControlValueAccessor, FormsModule, NG_VALUE_ACCESSOR } from '@angular/forms';
-import { equals, findLastIndex, findSingle, focus, getFirstFocusableElement, isEmpty, isNotEmpty, isPrintableCharacter, resolveFieldData, uuid } from '@primeuix/utils';
+import { equals, findLastIndex, findSingle, focus, getFirstFocusableElement, isEmpty, isFunction, isNotEmpty, isPrintableCharacter, resolveFieldData, uuid } from '@primeuix/utils';
 import { FilterService, Footer, Header, PrimeTemplate, ScrollerOptions, SharedModule } from 'primeng/api';
 import { BaseComponent } from 'primeng/basecomponent';
 import { Checkbox } from 'primeng/checkbox';
@@ -51,19 +52,10 @@ export const LISTBOX_VALUE_ACCESSOR: any = {
 @Component({
     selector: 'p-listbox, p-listBox, p-list-box',
     standalone: true,
-    imports: [CommonModule, Ripple, Scroller, InputIcon, SearchIcon, Checkbox, CheckIcon, IconField, InputText, BlankIcon, FormsModule, SharedModule],
+    imports: [CommonModule, Ripple, Scroller, InputIcon, SearchIcon, Checkbox, CheckIcon, IconField, InputText, BlankIcon, FormsModule, SharedModule, DragDropModule],
     template: `
         <div [attr.id]="id" [ngClass]="containerClass" [ngStyle]="style" [class]="styleClass" (focusout)="onFocusout($event)">
-            <span
-                #firstHiddenFocusableElement
-                role="presentation"
-                [attr.aria-hidden]="true"
-                class="p-hidden-accessible p-hidden-focusable"
-                [tabindex]="!disabled ? tabindex : -1"
-                (focus)="onFirstHiddenFocus($event)"
-                [attr.data-p-hidden-focusable]="true"
-            >
-            </span>
+            <span #firstHiddenFocusableElement role="presentation" class="p-hidden-accessible p-hidden-focusable" [tabindex]="!disabled ? tabindex : -1" (focus)="onFirstHiddenFocus($event)" [attr.data-p-hidden-focusable]="true"> </span>
             <div class="p-listbox-header" *ngIf="headerFacet || headerTemplate || _headerTemplate">
                 <ng-content select="p-header"></ng-content>
                 <ng-container *ngTemplateOutlet="headerTemplate || _headerTemplate; context: { $implicit: modelValue(), options: visibleOptions() }"></ng-container>
@@ -79,7 +71,7 @@ export const LISTBOX_VALUE_ACCESSOR: any = {
                         [ngModel]="allSelected()"
                         [disabled]="disabled"
                         [tabindex]="-1"
-                        [variant]="config.inputStyle() === 'filled' ? 'filled' : 'outlined' || config.inputVariant() === 'filled' ? 'filled' : 'outlined'"
+                        [variant]="config.inputStyle() === 'filled' || config.inputVariant() === 'filled' ? 'filled' : 'outlined'"
                         [binary]="true"
                     >
                         <ng-container *ngIf="checkIconTemplate || _checkIconTemplate">
@@ -167,10 +159,21 @@ export const LISTBOX_VALUE_ACCESSOR: any = {
                         (focus)="onListFocus($event)"
                         (blur)="onListBlur($event)"
                         (keydown)="onListKeyDown($event)"
+                        cdkDropList
+                        [cdkDropListData]="items"
+                        (cdkDropListDropped)="drop($event)"
                     >
                         <ng-template ngFor let-option [ngForOf]="items" let-i="index">
                             <ng-container *ngIf="isOptionGroup(option)">
-                                <li [attr.id]="id + '_' + getOptionIndex(i, scrollerOptions)" class="p-listbox-option-group" [ngStyle]="{ height: scrollerOptions.itemSize + 'px' }" role="option">
+                                <li
+                                    [attr.id]="id + '_' + getOptionIndex(i, scrollerOptions)"
+                                    class="p-listbox-option-group"
+                                    [ngStyle]="{ height: scrollerOptions.itemSize + 'px' }"
+                                    role="option"
+                                    cdkDrag
+                                    [cdkDragData]="option"
+                                    [cdkDragDisabled]="!dragdrop"
+                                >
                                     <span *ngIf="!groupTemplate && !_groupTemplate">{{ getOptionGroupLabel(option.optionGroup) }}</span>
                                     <ng-container *ngTemplateOutlet="groupTemplate || _groupTemplate; context: { $implicit: option.optionGroup }"></ng-container>
                                 </li>
@@ -197,6 +200,9 @@ export const LISTBOX_VALUE_ACCESSOR: any = {
                                     (mousedown)="onOptionMouseDown($event, getOptionIndex(i, scrollerOptions))"
                                     (mouseenter)="onOptionMouseEnter($event, getOptionIndex(i, scrollerOptions))"
                                     (touchend)="onOptionTouchEnd()"
+                                    cdkDrag
+                                    [cdkDragData]="option"
+                                    [cdkDragDisabled]="!dragdrop"
                                 >
                                     <p-checkbox
                                         *ngIf="checkbox && multiple"
@@ -205,7 +211,7 @@ export const LISTBOX_VALUE_ACCESSOR: any = {
                                         [readonly]="true"
                                         [disabled]="disabled || isOptionDisabled(option)"
                                         [tabindex]="-1"
-                                        [variant]="config.inputStyle() === 'filled' ? 'filled' : 'outlined' || config.inputVariant() === 'filled' ? 'filled' : 'outlined'"
+                                        [variant]="config.inputStyle() === 'filled' || config.inputVariant() === 'filled' ? 'filled' : 'outlined'"
                                         [binary]="true"
                                     >
                                         <ng-container *ngIf="checkIconTemplate || _checkIconTemplate">
@@ -262,19 +268,19 @@ export const LISTBOX_VALUE_ACCESSOR: any = {
             <span role="status" aria-live="polite" class="p-hidden-accessible">
                 {{ selectedMessageText }}
             </span>
-            <span
-                #lastHiddenFocusableElement
-                role="presentation"
-                [attr.aria-hidden]="true"
-                class="p-hidden-accessible p-hidden-focusable"
-                [tabindex]="!disabled ? tabindex : -1"
-                (focus)="onLastHiddenFocus($event)"
-                [attr.data-p-hidden-focusable]="true"
-            >
-            </span>
+            <span #lastHiddenFocusableElement role="presentation" class="p-hidden-accessible p-hidden-focusable" [tabindex]="!disabled ? tabindex : -1" (focus)="onLastHiddenFocus($event)" [attr.data-p-hidden-focusable]="true"> </span>
         </div>
     `,
-    providers: [LISTBOX_VALUE_ACCESSOR, ListBoxStyle],
+    providers: [
+        LISTBOX_VALUE_ACCESSOR,
+        ListBoxStyle,
+        {
+            provide: CDK_DRAG_CONFIG,
+            useValue: {
+                zIndex: 1200
+            }
+        }
+    ],
     changeDetection: ChangeDetectionStrategy.OnPush,
     encapsulation: ViewEncapsulation.None
 })
@@ -463,10 +469,10 @@ export class Listbox extends BaseComponent implements AfterContentInit, OnInit, 
      */
     @Input() optionGroupLabel: string | undefined = 'label';
     /**
-     * Name of the disabled field of an option.
+     * Name of the disabled field of an option or function to determine disabled state.
      * @group Props
      */
-    @Input() optionDisabled: string | undefined;
+    @Input() optionDisabled: string | ((item: any) => boolean) | undefined;
     /**
      * Defines a string that labels the filter input.
      * @group Props
@@ -541,10 +547,16 @@ export class Listbox extends BaseComponent implements AfterContentInit, OnInit, 
      */
     @Input({ transform: booleanAttribute }) checkmark: boolean = false;
     /**
+     * Whether to enable dragdrop based reordering.
+     * @group Props
+     */
+    @Input({ transform: booleanAttribute }) dragdrop: boolean = false;
+    /**
      * Callback to invoke on value change.
      * @param {ListboxChangeEvent} event - Custom change event.
      * @group Emits
      */
+
     @Output() onChange: EventEmitter<ListboxChangeEvent> = new EventEmitter<ListboxChangeEvent>();
     /**
      * Callback to invoke when option is clicked.
@@ -588,6 +600,12 @@ export class Listbox extends BaseComponent implements AfterContentInit, OnInit, 
      * @group Emits
      */
     @Output() onLazyLoad: EventEmitter<ScrollerLazyLoadEvent> = new EventEmitter<ScrollerLazyLoadEvent>();
+    /**
+     * Emits on item is dropped.
+     * @param {CdkDragDrop<string[]>} event - Scroller lazy load event.
+     * @group Emits
+     */
+    @Output() onDrop: EventEmitter<CdkDragDrop<string[]>> = new EventEmitter<CdkDragDrop<string[]>>();
 
     @ViewChild('headerchkbox') headerCheckboxViewChild: Nullable<ElementRef>;
 
@@ -1556,6 +1574,9 @@ export class Listbox extends BaseComponent implements AfterContentInit, OnInit, 
     }
 
     isOptionDisabled(option: any) {
+        if (isFunction(this.optionDisabled)) {
+            return this.optionDisabled(option);
+        }
         return this.optionDisabled ? resolveFieldData(option, this.optionDisabled) : false;
     }
 
@@ -1584,6 +1605,12 @@ export class Listbox extends BaseComponent implements AfterContentInit, OnInit, 
         }
 
         this._filterValue.set(null);
+    }
+
+    drop(event: CdkDragDrop<string[]>) {
+        if (event) {
+            this.onDrop.emit(event);
+        }
     }
 
     ngOnDestroy() {

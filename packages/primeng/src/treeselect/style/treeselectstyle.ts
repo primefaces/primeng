@@ -186,7 +186,7 @@ const classes = {
         'p-disabled': instance.disabled,
         'p-invalid': instance.invalid,
         'p-focus': instance.focused,
-        'p-variant-filled': instance.variant ? instance.variant === 'filled' : instance.config.inputStyle() === 'filled',
+        'p-variant-filled': instance.variant === 'filled' || instance.config.inputVariant() === 'filled' || instance.config.inputStyle() === 'filled',
         'p-inputwrapper-filled': !instance.emptyValue,
         'p-inputwrapper-focus': instance.focused || instance.overlayVisible,
         'p-treeselect-open': instance.overlayVisible,

@@ -119,7 +119,7 @@ export class InputOtp extends BaseComponent implements AfterContentInit {
      * Specifies the input variant of the component.
      * @group Props
      */
-    @Input() variant: 'filled' | 'outlined' = 'outlined';
+    @Input() variant: 'filled' | 'outlined';
     /**
      * Index of the element in tabbing order.
      * @group Props
@@ -378,7 +378,7 @@ export class InputOtp extends BaseComponent implements AfterContentInit {
                 break;
 
             default:
-                if ((this.integerOnly && !((event.code.startsWith('Digit') || event.code.startsWith('Numpad')) && Number(event.key) >= 0 && Number(event.key) <= 9)) || (this.tokens.join('').length >= this.length && event.code !== 'Delete')) {
+                if ((this.integerOnly && !(Number(event.key) >= 0 && Number(event.key) <= 9)) || (this.tokens.join('').length >= this.length && event.code !== 'Delete')) {
                     event.preventDefault();
                 }
 
