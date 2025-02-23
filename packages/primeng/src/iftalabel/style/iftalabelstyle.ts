@@ -21,7 +21,7 @@ const theme = ({ dt }) => `
     transition-duration: ${dt('iftalabel.transition.duration')};
 }
 
-.p-iftalabel .p-inputtext,
+.p-iftalabel > .p-inputtext,
 .p-iftalabel .p-textarea,
 .p-iftalabel .p-select-label,
 .p-iftalabel .p-multiselect-label-container,
@@ -42,7 +42,7 @@ const theme = ({ dt }) => `
     color: ${dt('iftalabel.focus.color')};
 }
 
-.p-iftalabel .p-inputicon {
+.p-iftalabel > .p-inputicon {
     top: ${dt('iftalabel.input.padding.top')};
     transform: translateY(25%);
     margin-top: 0;
