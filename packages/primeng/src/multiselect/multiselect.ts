@@ -43,7 +43,6 @@ import {
     isArray,
     isHidden,
     isNotEmpty,
-    isObject,
     isPrintableCharacter,
     resolveFieldData,
     unblockBodyScroll,
@@ -66,6 +65,7 @@ import { Tooltip } from 'primeng/tooltip';
 import { Nullable } from 'primeng/ts-helpers';
 import { MultiSelectBlurEvent, MultiSelectChangeEvent, MultiSelectFilterEvent, MultiSelectFilterOptions, MultiSelectFocusEvent, MultiSelectLazyLoadEvent, MultiSelectRemoveEvent, MultiSelectSelectAllChangeEvent } from './multiselect.interface';
 import { MultiSelectStyle } from './style/multiselectstyle';
+import { ObjectUtils } from 'primeng/utils';
 
 export const MULTISELECT_VALUE_ACCESSOR: any = {
     provide: NG_VALUE_ACCESSOR,
@@ -1263,7 +1263,7 @@ export class MultiSelect extends BaseComponent implements OnInit, AfterViewInit,
 
     visibleOptions = computed(() => {
         const options = this.getAllVisibleAndNonVisibleOptions();
-        const isArrayOfObjects = isArray(options) && isObject(options[0]);
+        const isArrayOfObjects = isArray(options) && ObjectUtils.isObject(options[0]);
 
         if (this._filterValue()) {
             let filteredOptions;
