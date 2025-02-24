@@ -20828,7 +20828,7 @@
                             "parameters": [
                                 {
                                     "name": "value",
-                                    "type": "void"
+                                    "type": "AnimationEvent"
                                 }
                             ],
                             "description": "Callback to invoke when overlay panel becomes visible."
@@ -20838,7 +20838,7 @@
                             "parameters": [
                                 {
                                     "name": "value",
-                                    "type": "void"
+                                    "type": "AnimationEvent"
                                 }
                             ],
                             "description": "Callback to invoke when overlay panel becomes hidden."

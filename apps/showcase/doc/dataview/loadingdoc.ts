@@ -72,7 +72,7 @@ import { Component, signal } from '@angular/core';
     `
 })
 export class LoadingDoc {
-    layout: string = 'grid';
+    layout: 'grid' | 'list' = 'grid';
 
     products = signal<any>([]);
 
@@ -233,7 +233,7 @@ import { signal } from '@angular/core';
     providers: [ProductService]
 })
 export class DataViewLoadingDemo {
-    layout: string = 'grid';
+    layout: 'grid' | 'list' = 'grid';
 
     products = signal<any>([]);
 
