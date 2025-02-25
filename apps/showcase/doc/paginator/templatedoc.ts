@@ -79,18 +79,18 @@ export class TemplateDoc {
     ];
 
     onPageChange1(event: PaginatorState) {
-        this.first1 = event.first;
-        this.rows1 = event.rows;
+        this.first1 = event.first ?? 0;
+        this.rows1 = event.rows ?? 10;
     }
 
     onPageChange2(event: PaginatorState) {
-        this.first2 = event.first;
-        this.rows2 = event.rows;
+        this.first2 = event.first ?? 0;
+        this.rows2 = event.rows ?? 10;
     }
 
     onPageChange3(event: PaginatorState) {
-        this.first3 = event.first;
-        this.rows3 = event.rows;
+        this.first3 = event.first ?? 0;
+        this.rows3 = event.rows ?? 10;
     }
 
     code: Code = {
@@ -188,18 +188,18 @@ export class PaginatorTemplateDemo {
     ];
 
     onPageChange1(event: PaginatorState) {
-        this.first1 = event.first;
-        this.rows1 = event.rows;
+        this.first1 = event.first ?? 0;
+        this.rows1 = event.rows ?? 10;
     }
 
     onPageChange2(event: PaginatorState) {
-        this.first2 = event.first;
-        this.rows2 = event.rows;
+        this.first2 = event.first ?? 0;
+        this.rows2 = event.rows ?? 10;
     }
 
     onPageChange3(event: PaginatorState) {
-        this.first3 = event.first;
-        this.rows3 = event.rows;
+        this.first3 = event.first ?? 0;
+        this.rows3 = event.rows ?? 10;
     }
 }`
     };
