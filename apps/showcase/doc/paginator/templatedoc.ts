@@ -1,12 +1,6 @@
 import { Code } from '@/domain/code';
 import { Component } from '@angular/core';
-
-interface PageEvent {
-    first: number;
-    rows: number;
-    page: number;
-    pageCount: number;
-}
+import { PaginatorState } from 'primeng/paginator';
 
 @Component({
     selector: 'template-doc',
@@ -84,17 +78,17 @@ export class TemplateDoc {
         { label: 120, value: 120 }
     ];
 
-    onPageChange1(event: PageEvent) {
+    onPageChange1(event: PaginatorState) {
         this.first1 = event.first;
         this.rows1 = event.rows;
     }
 
-    onPageChange2(event: PageEvent) {
+    onPageChange2(event: PaginatorState) {
         this.first2 = event.first;
         this.rows2 = event.rows;
     }
 
-    onPageChange3(event: PageEvent) {
+    onPageChange3(event: PaginatorState) {
         this.first3 = event.first;
         this.rows3 = event.rows;
     }
@@ -159,18 +153,11 @@ export class TemplateDoc {
 </div>`,
 
         typescript: `import { Component } from '@angular/core';
-import { PaginatorModule } from 'primeng/paginator';
+import { PaginatorModule, PaginatorState } from 'primeng/paginator';
 import { ButtonModule } from 'primeng/button';
 import { DividerModule } from 'primeng/divider';
 import { Slider } from 'primeng/slider';
 import { FormsModule } from '@angular/forms';
-
-interface PageEvent {
-    first: number;
-    rows: number;
-    page: number;
-    pageCount: number;
-}
 
 @Component({
     selector: 'paginator-template-demo',
@@ -200,17 +187,17 @@ export class PaginatorTemplateDemo {
         { label: 120, value: 120 }
     ];
 
-    onPageChange1(event: PageEvent) {
+    onPageChange1(event: PaginatorState) {
         this.first1 = event.first;
         this.rows1 = event.rows;
     }
 
-    onPageChange2(event: PageEvent) {
+    onPageChange2(event: PaginatorState) {
         this.first2 = event.first;
         this.rows2 = event.rows;
     }
 
-    onPageChange3(event: PageEvent) {
+    onPageChange3(event: PaginatorState) {
         this.first3 = event.first;
         this.rows3 = event.rows;
     }
