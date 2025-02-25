@@ -25,9 +25,10 @@ export class PluginDoc {
     };
     code2: Code = {
         basic: `// tailwind.config.js
-module.exports = {
+import PrimeUI from 'tailwindcss-primeui';
+export default {
     // ...
-    plugins: [require('tailwindcss-primeui')]
+    plugins: [PrimeUI]
 };`
     };
 }
