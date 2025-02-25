@@ -24,8 +24,8 @@ export class BasicDoc {
     rows: number = 10;
 
     onPageChange(event: PaginatorState) {
-        this.first = event.first;
-        this.rows = event.rows;
+        this.first = event.first ?? 0;
+        this.rows = event.rows ?? 10;
     }
 
     code: Code = {
@@ -50,8 +50,8 @@ export class PaginatorBasicDemo {
     rows: number = 10;
 
     onPageChange(event: PaginatorState) {
-        this.first = event.first;
-        this.rows = event.rows;
+        this.first = event.first ?? 0;
+        this.rows = event.rows ?? 10;
     }
 }`
     };
