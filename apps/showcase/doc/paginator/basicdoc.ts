@@ -1,12 +1,6 @@
 import { Code } from '@/domain/code';
 import { Component } from '@angular/core';
-
-interface PageEvent {
-    first: number;
-    rows: number;
-    page: number;
-    pageCount: number;
-}
+import { PaginatorState } from 'primeng/paginator';
 
 @Component({
     selector: 'basic-doc',
@@ -29,7 +23,7 @@ export class BasicDoc {
 
     rows: number = 10;
 
-    onPageChange(event: PageEvent) {
+    onPageChange(event: PaginatorState) {
         this.first = event.first;
         this.rows = event.rows;
     }
@@ -42,14 +36,7 @@ export class BasicDoc {
 </div>`,
 
         typescript: `import { Component } from '@angular/core';
-import { PaginatorModule } from 'primeng/paginator';
-
-interface PageEvent {
-    first: number;
-    rows: number;
-    page: number;
-    pageCount: number;
-}
+import { PaginatorModule, PaginatorState } from 'primeng/paginator';
 
 @Component({
     selector: 'paginator-basic-demo',
@@ -62,7 +49,7 @@ export class PaginatorBasicDemo {
 
     rows: number = 10;
 
-    onPageChange(event: PageEvent) {
+    onPageChange(event: PaginatorState) {
         this.first = event.first;
         this.rows = event.rows;
     }
