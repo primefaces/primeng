@@ -199,8 +199,8 @@ importers:
         specifier: ^3.4.10
         version: 3.4.17(ts-node@10.9.2(@types/node@22.13.5)(typescript@5.5.4))
       tailwindcss-primeui:
-        specifier: ^0.3.4
-        version: 0.3.4(tailwindcss@3.4.17(ts-node@10.9.2(@types/node@22.13.5)(typescript@5.5.4)))
+        specifier: ^0.5.0
+        version: 0.5.0(tailwindcss@3.4.17(ts-node@10.9.2(@types/node@22.13.5)(typescript@5.5.4)))
     devDependencies:
       '@algolia/client-search':
         specifier: ^4.19.1
@@ -6057,8 +6057,8 @@ packages:
     resolution: {integrity: sha512-vrozgXDQwYO72vHjUb/HnFbQx1exDjoKzqx23aXEg2a9VIg2TSFZ8FmeZpTjUCFMYw7mpX4BE2SFu8wI7asYsw==}
     engines: {node: ^14.18.0 || >=16.0.0}
 
-  tailwindcss-primeui@0.3.4:
-    resolution: {integrity: sha512-5+Qfoe5Kpq2Iwrd6umBUb3rQH6b7+pL4jxJUId0Su5agUM6TwCyH5Pyl9R0y3QQB3IRuTxBNmeS11B41f+30zw==}
+  tailwindcss-primeui@0.5.0:
+    resolution: {integrity: sha512-NNKWfOsOH3zfUYNxqLL/p/w+a4QWEwQ0oqWoIIh6j2IzL573jdOT+CE+5fNzdaL/IAt4hXEae5kbn3euFiJ4ig==}
     peerDependencies:
       tailwindcss: '>=3.1.0'
 
@@ -12933,7 +12933,7 @@ snapshots:
       '@pkgr/core': 0.1.1
       tslib: 2.8.1
 
-  tailwindcss-primeui@0.3.4(tailwindcss@3.4.17(ts-node@10.9.2(@types/node@22.13.5)(typescript@5.5.4))):
+  tailwindcss-primeui@0.5.0(tailwindcss@3.4.17(ts-node@10.9.2(@types/node@22.13.5)(typescript@5.5.4))):
     dependencies:
       tailwindcss: 3.4.17(ts-node@10.9.2(@types/node@22.13.5)(typescript@5.5.4))
 

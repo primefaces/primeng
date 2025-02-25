@@ -5,7 +5,7 @@
     "type": "module",
     "scripts": {
         "ng": "ng",
-        "start": "ng serve --watch",
+        "start": "ng serve --no-hmr",
         "e2e": "ng e2e",
         "lint": "ng lint",
         "build": "ng build",
@@ -55,6 +55,6 @@
         "autoprefixer": "^10.4.20",
         "postcss": "^8.4.41",
         "tailwindcss": "^3.4.10",
-        "tailwindcss-primeui": "^0.3.4"
+        "tailwindcss-primeui": "^0.5.0"
     }
 }
