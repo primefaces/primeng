@@ -5273,7 +5273,7 @@ export class ReorderableRow implements AfterViewInit {
                 [field]="field"
                 [ariaLabel]="ariaLabel"
                 [filterConstraint]="dt.filters[field]"
-                [filterTemplate]="filterTemplate"
+                [filterTemplate]="filterTemplate || _filterTemplate"
                 [placeholder]="placeholder"
                 [minFractionDigits]="minFractionDigits"
                 [maxFractionDigits]="maxFractionDigits"
