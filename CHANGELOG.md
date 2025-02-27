@@ -1,8 +1,15 @@
 # Changelog
+## [19.0.9](https://github.com/primefaces/primeng/tree/19.0.9) (2025-02-27)
+[Full Changelog](https://github.com/primefaces/primeng/compare/19.0.8...19.0.9)
+
+**Fixed bugs:**
+- Table - filtertemplate doesn't work. [\#17775](https://github.com/primefaces/primeng/issues/17775)
 
 ## [19.0.8](https://github.com/primefaces/primeng/tree/19.0.8) (2025-02-25)
 [Full Changelog](https://github.com/primefaces/primeng/compare/19.0.7...19.0.8)
+
 **Fixed bugs:**
+
 - Progress bar a11y issue [\#17606](https://github.com/primefaces/primeng/issues/17606)
 - BaseComponent is causing memory leaks [\#17645](https://github.com/primefaces/primeng/issues/17645)
 - MultiSelect filter don't work when the options are created with custom class [\#17530](https://github.com/primefaces/primeng/issues/17530)
