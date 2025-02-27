@@ -8,7 +8,7 @@ import { Table } from './table';
  * @extends {LazyLoadMeta}
  * @group Events
  */
-export interface TableRowSelectEvent {
+export interface TableRowSelectEvent<RowData = any> {
     /**
      * Browser event.
      */
@@ -16,7 +16,7 @@ export interface TableRowSelectEvent {
     /**
      * Row data.
      */
-    data?: any;
+    data?: RowData | RowData[];
     /**
      * Selection type.
      */
@@ -32,7 +32,7 @@ export interface TableRowSelectEvent {
  * @extends {TableRowSelectEvent}
  * @group Events
  */
-export interface TableRowUnSelectEvent extends TableRowSelectEvent {}
+export interface TableRowUnSelectEvent<RowData> extends TableRowSelectEvent<RowData> {}
 /**
  * Custom page event.
  * @see {@link Table.onPage}
@@ -83,7 +83,7 @@ export interface TableLazyLoadEvent extends LazyLoadMeta {
  * @see {@link Table.onRowExpand}
  * @group Events
  */
-export interface TableRowExpandEvent {
+export interface TableRowExpandEvent<RowData = any> {
     /**
      * Browser event.
      */
@@ -91,7 +91,7 @@ export interface TableRowExpandEvent {
     /**
      * Row data.
      */
-    data: any;
+    data: RowData;
 }
 /**
  * Custom row collapse event.
@@ -105,7 +105,7 @@ export interface TableRowCollapseEvent extends TableRowExpandEvent {}
  * @see {@link Table.onContextMenuSelect}
  * @group Events
  */
-export interface TableContextMenuSelectEvent {
+export interface TableContextMenuSelectEvent<RowData = any> {
     /**
      * Browser event.
      */
@@ -113,7 +113,7 @@ export interface TableContextMenuSelectEvent {
     /**
      * Row data.
      */
-    data: any;
+    data: RowData;
     /**
      * Row index.
      */
@@ -124,11 +124,11 @@ export interface TableContextMenuSelectEvent {
  * @see {@link Table.contextMenuSelectionChange}
  * @group Events
  */
-export interface TableContextMenuSelectionChangeEvent {
+export interface TableContextMenuSelectionChangeEvent<RowData = any> {
     /**
      * Row data.
      */
-    data: any;
+    data: RowData;
 }
 /**
  * Custom column resize event.
@@ -183,7 +183,7 @@ export interface TableRowReorderEvent {
  * Custom edit event.
  * @group Events
  */
-export interface TableEditEvent {
+export interface TableEditEvent<RowData = any> {
     /**
      * Field to be edited.
      */
@@ -191,7 +191,7 @@ export interface TableEditEvent {
     /**
      * New value.
      */
-    data?: any;
+    data?: RowData;
 }
 /**
  * Custom edit init event.

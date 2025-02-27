@@ -350,7 +350,7 @@ export class TableService {
     changeDetection: ChangeDetectionStrategy.Default,
     encapsulation: ViewEncapsulation.None
 })
-export class Table extends BaseComponent implements OnInit, AfterViewInit, AfterContentInit, BlockableUI, OnChanges {
+export class Table<RowData = any> extends BaseComponent implements OnInit, AfterViewInit, AfterContentInit, BlockableUI, OnChanges {
     /**
      * An array of objects to represent dynamic columns that are frozen.
      * @group Props
@@ -755,10 +755,10 @@ export class Table extends BaseComponent implements OnInit, AfterViewInit, After
      * An array of objects to display.
      * @group Props
      */
-    @Input() get value(): any[] {
+    @Input() get value(): RowData[] {
         return this._value;
     }
-    set value(val: any[]) {
+    set value(val: RowData[]) {
         this._value = val;
     }
     /**
@@ -881,13 +881,13 @@ export class Table extends BaseComponent implements OnInit, AfterViewInit, After
      * @param {TableRowSelectEvent} event - custom select event.
      * @group Emits
      */
-    @Output() onRowSelect: EventEmitter<TableRowSelectEvent> = new EventEmitter<TableRowSelectEvent>();
+    @Output() onRowSelect: EventEmitter<TableRowSelectEvent<RowData>> = new EventEmitter<TableRowSelectEvent<RowData>>();
     /**
      * Callback to invoke when a row is unselected.
      * @param {TableRowUnSelectEvent} event - custom unselect event.
      * @group Emits
      */
-    @Output() onRowUnselect: EventEmitter<TableRowUnSelectEvent> = new EventEmitter<TableRowUnSelectEvent>();
+    @Output() onRowUnselect: EventEmitter<TableRowUnSelectEvent<RowData>> = new EventEmitter<TableRowUnSelectEvent<RowData>>();
     /**
      * Callback to invoke when pagination occurs.
      * @param {TablePageEvent} event - custom pagination event.
@@ -917,7 +917,7 @@ export class Table extends BaseComponent implements OnInit, AfterViewInit, After
      * @param {TableRowExpandEvent} event - custom row expand event.
      * @group Emits
      */
-    @Output() onRowExpand: EventEmitter<TableRowExpandEvent> = new EventEmitter<TableRowExpandEvent>();
+    @Output() onRowExpand: EventEmitter<TableRowExpandEvent<RowData>> = new EventEmitter<TableRowExpandEvent<RowData>>();
     /**
      * Callback to invoke when a row is collapsed.
      * @param {TableRowCollapseEvent} event - custom row collapse event.
@@ -929,7 +929,7 @@ export class Table extends BaseComponent implements OnInit, AfterViewInit, After
      * @param {TableContextMenuSelectEvent} event - custom context menu select event.
      * @group Emits
      */
-    @Output() onContextMenuSelect: EventEmitter<TableContextMenuSelectEvent> = new EventEmitter<TableContextMenuSelectEvent>();
+    @Output() onContextMenuSelect: EventEmitter<TableContextMenuSelectEvent<RowData>> = new EventEmitter<TableContextMenuSelectEvent<RowData>>();
     /**
      * Callback to invoke when a column is resized.
      * @param {TableColResizeEvent} event - custom column resize event.
@@ -1028,7 +1028,7 @@ export class Table extends BaseComponent implements OnInit, AfterViewInit, After
 
     _virtualRowHeight: number = 28;
 
-    _value: any[] = [];
+    _value: RowData[] = [];
 
     _columns: any[] | undefined;
 
@@ -1983,7 +1983,7 @@ export class Table extends BaseComponent implements OnInit, AfterViewInit, After
             (rangeEnd as number) -= <number>this.first;
         }
 
-        let rangeRowsData = [];
+        let rangeRowsData: RowData[] = [];
         for (let i = <number>rangeStart; i <= <number>rangeEnd; i++) {
             let rangeRowData = this.filteredValue ? this.filteredValue[i] : this.value[i];
             if (!this.isSelected(rangeRowData)) {
