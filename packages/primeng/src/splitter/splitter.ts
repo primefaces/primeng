@@ -1,5 +1,23 @@
 import { CommonModule, isPlatformBrowser } from '@angular/common';
-import { AfterContentInit, ChangeDetectionStrategy, Component, computed, contentChild, ContentChildren, ElementRef, EventEmitter, inject, Input, NgModule, numberAttribute, Output, QueryList, ViewChild, ViewEncapsulation } from '@angular/core';
+import {
+    AfterContentInit,
+    ChangeDetectionStrategy,
+    Component,
+    computed,
+    contentChild,
+    ContentChildren,
+    ElementRef,
+    EventEmitter,
+    forwardRef,
+    inject,
+    Input,
+    NgModule,
+    numberAttribute,
+    Output,
+    QueryList,
+    ViewChild,
+    ViewEncapsulation
+} from '@angular/core';
 import { addClass, getHeight, getOuterHeight, getOuterWidth, getWidth, hasClass, isRTL, removeClass } from '@primeuix/utils';
 import { PrimeTemplate, SharedModule } from 'primeng/api';
 import { BaseComponent } from 'primeng/basecomponent';
@@ -18,7 +36,7 @@ import { SplitterStyle } from './style/splitterstyle';
     }
 })
 export class SplitterPanel extends BaseComponent {
-    splitter = contentChild(Splitter);
+    splitter = contentChild(forwardRef(() => Splitter));
 
     nestedState = computed(() => this.splitter());
 }

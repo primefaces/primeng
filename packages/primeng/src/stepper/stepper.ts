@@ -69,7 +69,7 @@ export interface StepPanelContentTemplateContext {
     }
 })
 export class StepList extends BaseComponent {
-    steps = contentChildren(Step);
+    steps = contentChildren(forwardRef(() => Step));
 }
 
 @Component({
@@ -115,9 +115,9 @@ export class StepItem extends BaseComponent {
 
     isActive = computed(() => this.pcStepper.value() === this.value());
 
-    step = contentChild(Step);
+    step = contentChild(forwardRef(() => Step));
 
-    stepPanel = contentChild(StepPanel);
+    stepPanel = contentChild(forwardRef(() => StepPanel));
 
     constructor() {
         super();
