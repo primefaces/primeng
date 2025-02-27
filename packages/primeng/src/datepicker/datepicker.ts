@@ -1,49 +1,49 @@
 import { animate, AnimationEvent, state, style, transition, trigger } from '@angular/animations';
 import { CommonModule } from '@angular/common';
 import {
-    AfterContentInit,
-    AfterViewInit,
-    booleanAttribute,
-    ChangeDetectionStrategy,
-    Component,
-    ContentChild,
-    ContentChildren,
-    ElementRef,
-    EventEmitter,
-    forwardRef,
-    inject,
-    Input,
-    NgModule,
-    NgZone,
-    numberAttribute,
-    OnDestroy,
-    OnInit,
-    Output,
-    QueryList,
-    TemplateRef,
-    ViewChild,
-    ViewEncapsulation
+  AfterContentInit,
+  AfterViewInit,
+  booleanAttribute,
+  ChangeDetectionStrategy,
+  Component,
+  ContentChild,
+  ContentChildren,
+  ElementRef,
+  EventEmitter,
+  forwardRef,
+  inject,
+  Input,
+  NgModule,
+  NgZone,
+  numberAttribute,
+  OnDestroy,
+  OnInit,
+  Output,
+  QueryList,
+  TemplateRef,
+  ViewChild,
+  ViewEncapsulation
 } from '@angular/core';
 import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
 import {
-    absolutePosition,
-    addClass,
-    addStyle,
-    appendChild,
-    blockBodyScroll,
-    find,
-    findSingle,
-    getFocusableElements,
-    getIndex,
-    getOuterWidth,
-    hasClass,
-    isDate,
-    isNotEmpty,
-    isTouchDevice,
-    relativePosition,
-    setAttribute,
-    unblockBodyScroll,
-    uuid
+  absolutePosition,
+  addClass,
+  addStyle,
+  appendChild,
+  blockBodyScroll,
+  find,
+  findSingle,
+  getFocusableElements,
+  getIndex,
+  getOuterWidth,
+  hasClass,
+  isDate,
+  isNotEmpty,
+  isTouchDevice,
+  relativePosition,
+  setAttribute,
+  unblockBodyScroll,
+  uuid
 } from '@primeuix/utils';
 import { OverlayService, PrimeTemplate, SharedModule, TranslationKeys } from 'primeng/api';
 import { AutoFocus } from 'primeng/autofocus';
@@ -2869,7 +2869,7 @@ export class DatePicker extends BaseComponent implements OnInit, AfterContentIni
     }
 
     toggleAMPMIfNotMinDate(newPM: boolean) {
-        let value = this.value;
+        let value = Array.isArray(this.value) ? this.value[0] : this.value;
         const valueDateString = value ? value.toDateString() : null;
         let isMinDate = this.minDate && valueDateString && this.minDate.toDateString() === valueDateString;
         if (isMinDate && this.minDate.getHours() >= 12) {
