@@ -103,6 +103,8 @@ export class DataTableDoc implements OnInit {
                 return 'warn';
             case 'OUTOFSTOCK':
                 return 'danger';
+            default:
+                return undefined;
         }
     }
 

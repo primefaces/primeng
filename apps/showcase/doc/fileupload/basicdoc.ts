@@ -1,11 +1,7 @@
 import { Code } from '@/domain/code';
 import { Component } from '@angular/core';
 import { MessageService } from 'primeng/api';
-
-interface UploadEvent {
-    originalEvent: Event;
-    files: File[];
-}
+import { FileUploadEvent } from 'primeng/fileupload';
 
 @Component({
     selector: 'file-upload-basic-demo',
@@ -26,7 +22,7 @@ interface UploadEvent {
 export class BasicDoc {
     constructor(private messageService: MessageService) {}
 
-    onUpload(event: UploadEvent) {
+    onUpload(event: FileUploadEvent) {
         this.messageService.add({ severity: 'info', summary: 'Success', detail: 'File Uploaded with Basic Mode' });
     }
 
@@ -43,11 +39,8 @@ import { MessageService } from 'primeng/api';
 import { FileUpload } from 'primeng/fileupload';
 import { ToastModule } from 'primeng/toast';
 import { ButtonModule } from 'primeng/button';
+import { FileUploadEvent } from 'primeng/fileupload';
 
-interface UploadEvent {
-    originalEvent: Event;
-    files: File[];
-}
 
 @Component({
     selector: 'file-upload-basic-demo',
@@ -59,7 +52,7 @@ interface UploadEvent {
 export class FileUploadBasicDemo {
     constructor(private messageService: MessageService) {}
 
-    onUpload(event: UploadEvent) {
+    onUpload(event: FileUploadEvent) {
         this.messageService.add({ severity: 'info', summary: 'Success', detail: 'File Uploaded with Basic Mode' });
     }
 }`

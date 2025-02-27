@@ -768,10 +768,11 @@ export class FileUpload extends BaseComponent implements AfterViewInit, AfterCon
         return false;
     }
 
-    isIE11() {
+    isIE11(): boolean | undefined {
         if (isPlatformBrowser(this.platformId)) {
             return !!(this.document.defaultView as any)['MSInputMethodContext'] && !!(this.document as any)['documentMode'];
         }
+        return undefined;
     }
 
     validate(file: File): boolean {

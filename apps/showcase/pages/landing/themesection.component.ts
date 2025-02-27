@@ -182,6 +182,8 @@ export class ThemeSectionComponent {
 
             case 'renewal':
                 return null;
+            default:
+                return null;
         }
     }
 }

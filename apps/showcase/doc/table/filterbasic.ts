@@ -571,6 +571,8 @@ export class TableFilterBasicDemo implements OnInit {
 
             case 'renewal':
                 return null;
+            default:
+                return null;
         }
     }
 

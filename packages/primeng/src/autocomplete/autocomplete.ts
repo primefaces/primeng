@@ -267,10 +267,11 @@ export const AUTOCOMPLETE_VALUE_ACCESSOR: any = {
                                     </ng-container>
                                 </ng-template>
                                 <li *ngIf="!items || (items && items.length === 0 && showEmptyMessage)" class="p-autocomplete-empty-message" [ngStyle]="{ height: scrollerOptions.itemSize + 'px' }" role="option">
-                                    <ng-container *ngIf="!emptyTemplate && !_emptyTemplate; else empty">
+                                    @if (!emptyTemplate && !_emptyTemplate) {
                                         {{ searchResultMessageText }}
-                                    </ng-container>
-                                    <ng-container #empty *ngTemplateOutlet="emptyTemplate || _emptyTemplate"></ng-container>
+                                    } @else {
+                                        <ng-container *ngTemplateOutlet="emptyTemplate ?? _emptyTemplate" />
+                                    }
                                 </li>
                             </ul>
                         </ng-template>

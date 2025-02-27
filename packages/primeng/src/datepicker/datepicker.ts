@@ -1973,6 +1973,7 @@ export class DatePicker extends BaseComponent implements OnInit, AfterContentIni
                 if (this.value[1]) return this.isDateEquals(this.value[0], dateMeta) || this.isDateEquals(this.value[1], dateMeta) || this.isDateBetween(this.value[0], this.value[1], dateMeta);
                 else return this.isDateEquals(this.value[0], dateMeta);
             }
+            return undefined;
         } else {
             return false;
         }

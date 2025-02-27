@@ -148,6 +148,7 @@ export class AppCodeComponent {
         if (this.code) {
             return Object.keys(this.code)[0];
         }
+        return undefined;
     }
 
     async copyCode() {

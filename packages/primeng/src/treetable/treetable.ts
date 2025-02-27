@@ -1348,7 +1348,7 @@ export class TreeTable extends BaseComponent implements AfterContentInit, OnInit
         return null;
     }
 
-    isSorted(field: string) {
+    isSorted(field: string): boolean | undefined {
         if (this.sortMode === 'single') {
             return this.sortField && this.sortField === field;
         } else if (this.sortMode === 'multiple') {
@@ -1363,6 +1363,7 @@ export class TreeTable extends BaseComponent implements AfterContentInit, OnInit
             }
             return sorted;
         }
+        return undefined;
     }
 
     createLazyLoadMetadata(): any {
@@ -2203,7 +2204,7 @@ export class TreeTable extends BaseComponent implements AfterContentInit, OnInit
         }
     }
 
-    findFilteredNodes(node: TreeTableNode, paramsWithoutNode: any) {
+    findFilteredNodes(node: TreeTableNode, paramsWithoutNode: any): boolean | undefined {
         if (node) {
             let matched = false;
             if (node.children) {
@@ -2222,6 +2223,7 @@ export class TreeTable extends BaseComponent implements AfterContentInit, OnInit
                 return true;
             }
         }
+        return undefined;
     }
 
     isFilterMatched(node: TreeTableNode, filterOptions: TreeTableFilterOptions) {

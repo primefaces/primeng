@@ -58,6 +58,8 @@ export class FilterDoc implements OnInit {
                 return 'warning';
             case 'OUTOFSTOCK':
                 return 'danger';
+            default:
+                return undefined;
         }
     }
 

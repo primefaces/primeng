@@ -10,8 +10,8 @@ import { SharedModule } from 'primeng/api';
             <div class="hidden sm:flex items-center gap-0.5 xl:gap-1 rounded-full border border-surface p-1 w-[90%] bg-surface-0 dark:bg-surface-900">
                 <button
                     *ngFor="let data of inlineFeaturesData; let i = index"
-                    (mouseenter)="enterCardArea(data.id)"
-                    (mouseleave)="leaveCardArea(data.id)"
+                    (mouseenter)="enterCardArea()"
+                    (mouseleave)="leaveCardArea()"
                     (click)="handleBtnClick(data.id)"
                     [ngClass]="{
                         'flex-1 py-1 px-1 lg:px-2 rounded-full text-surface-900 dark:text-surface-0 border-none outline-none text-xs font-medium transition-all hover:bg-surface-200 dark:hover:bg-surface-700 cursor-pointer': true,

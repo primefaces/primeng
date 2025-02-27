@@ -17,8 +17,8 @@ import { TemplateFeaturesAnimationInlineModule } from './templatefeaturesanimati
                 <div class="flex flex-col gap-4 flex-1">
                     <div
                         *ngFor="let data of featuresData; let i = index"
-                        (mouseenter)="enterCardArea(data.id)"
-                        (mouseleave)="leaveCardArea(data.id)"
+                        (mouseenter)="enterCardArea()"
+                        (mouseleave)="leaveCardArea()"
                         class="template-features-animation-card group template-features-animation-left-card p-4 flex items-start gap-2 md:gap-4 xl:gap-6 cursor-pointer rounded-xl transition-all hover:!bg-primary-50 dark:hover:!bg-primary/15"
                         [ngClass]="{
                             'template-features-animation-card-active rounded-xl bg-primary-50 dark:bg-primary/15 transition-all': selectedID === data.id

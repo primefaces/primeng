@@ -29,12 +29,12 @@ interface Column {
                         <tr [ttRow]="rowNode">
                             <td *ngFor="let col of columns; let i = index" ttEditableColumn [ttEditableColumnDisabled]="i == 0" [ngClass]="{ 'p-toggler-column': i === 0 }">
                                 <p-treeTableToggler [rowNode]="rowNode" *ngIf="i === 0" />
-                                <p-treetableCellEditor>
+                                <p-treeTableCellEditor>
                                     <ng-template pTemplate="input">
                                         <input pInputText type="text" [(ngModel)]="rowData[col.field]" />
                                     </ng-template>
                                     <ng-template pTemplate="output">{{ rowData[col.field] }}</ng-template>
-                                </p-treetableCellEditor>
+                                </p-treeTableCellEditor>
                             </td>
                         </tr>
                     </ng-template>
@@ -78,14 +78,14 @@ export class EditDoc {
             <tr [ttRow]="rowNode">
                 <td *ngFor="let col of columns; let i = index" ttEditableColumn [ttEditableColumnDisabled]="i == 0" [ngClass]="{ 'p-toggler-column': i === 0 }">
                     <p-treeTableToggler [rowNode]="rowNode" *ngIf="i === 0" />
-                    <p-treetableCellEditor>
+                    <p-treeTableCellEditor>
                         <ng-template pTemplate="input">
                             <input pInputText type="text" [(ngModel)]="rowData[col.field]" />
                         </ng-template>
                         <ng-template pTemplate="output">
                             {{ rowData[col.field] }}
                         </ng-template>
-                    </p-treetableCellEditor>
+                    </p-treeTableCellEditor>
                 </td>
             </tr>
         </ng-template>
@@ -108,14 +108,14 @@ export class EditDoc {
                 <tr [ttRow]="rowNode">
                     <td *ngFor="let col of columns; let i = index" ttEditableColumn [ttEditableColumnDisabled]="i == 0" [ngClass]="{ 'p-toggler-column': i === 0 }">
                         <p-treeTableToggler [rowNode]="rowNode" *ngIf="i === 0" />
-                        <p-treetableCellEditor>
+                        <p-treeTableCellEditor>
                             <ng-template pTemplate="input">
                                 <input pInputText type="text" [(ngModel)]="rowData[col.field]" />
                             </ng-template>
                             <ng-template pTemplate="output">
                                 {{ rowData[col.field] }}
                             </ng-template>
-                        </p-treetableCellEditor>
+                        </p-treeTableCellEditor>
                     </td>
                 </tr>
         </ng-template>

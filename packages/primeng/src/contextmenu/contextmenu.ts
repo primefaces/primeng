@@ -310,10 +310,11 @@ export class ContextMenuSub extends BaseComponent {
         return this.getItemProp(processedItem, 'visible') !== false;
     }
 
-    isItemActive(processedItem: any): boolean {
+    isItemActive(processedItem: any): boolean | undefined {
         if (this.activeItemPath) {
             return this.activeItemPath.some((path) => path.key === processedItem.key);
         }
+        return undefined;
     }
 
     isItemDisabled(processedItem: any): boolean {

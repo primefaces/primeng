@@ -97,10 +97,11 @@ import { DataViewStyle } from './style/dataviewstyle';
                 }
                 <div *ngIf="isEmpty() && !loading">
                     <div class="p-dataview-emptymessage">
-                        <ng-container *ngIf="!emptymessageTemplate; else empty">
+                        @if (!emptymessageTemplate) {
                             {{ emptyMessageLabel }}
-                        </ng-container>
-                        <ng-container #empty *ngTemplateOutlet="emptymessageTemplate"></ng-container>
+                        } @else {
+                            <ng-container *ngTemplateOutlet="emptymessageTemplate" />
+                        }
                     </div>
                 </div>
             </div>

@@ -222,11 +222,12 @@ export class DynamicDialogComponent extends BaseComponent implements AfterViewIn
         }
     }
 
-    get parent() {
+    get parent(): Element | undefined {
         const domElements = Array.from(this.document.getElementsByClassName('p-dialog'));
         if (domElements.length > 1) {
             return domElements.pop();
         }
+        return undefined;
     }
 
     get parentContent() {

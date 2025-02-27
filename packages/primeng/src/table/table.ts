@@ -1737,7 +1737,7 @@ export class Table extends BaseComponent implements OnInit, AfterViewInit, After
         return null;
     }
 
-    isSorted(field: string) {
+    isSorted(field: string): boolean | undefined {
         if (this.sortMode === 'single') {
             return this.sortField && this.sortField === field;
         } else if (this.sortMode === 'multiple') {
@@ -1752,6 +1752,7 @@ export class Table extends BaseComponent implements OnInit, AfterViewInit, After
             }
             return sorted;
         }
+        return undefined;
     }
 
     handleRowClick(event: any) {
@@ -3808,10 +3809,11 @@ export class SelectableRow implements OnInit, OnDestroy {
         }
     }
 
-    setRowTabIndex() {
+    setRowTabIndex(): -1 | 0 | undefined {
         if (this.dt.selectionMode === 'single' || this.dt.selectionMode === 'multiple') {
             return !this.dt.selection ? 0 : this.dt.anchorRowIndex === this.index ? 0 : -1;
         }
+        return undefined;
     }
 
     ngOnInit() {

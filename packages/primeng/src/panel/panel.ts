@@ -347,7 +347,7 @@ export class Panel extends BaseComponent implements AfterContentInit, BlockableU
         }
     }
 
-    toggle(event: MouseEvent) {
+    toggle(event: MouseEvent): boolean | undefined {
         if (this.animating) {
             return false;
         }
@@ -362,6 +362,7 @@ export class Panel extends BaseComponent implements AfterContentInit, BlockableU
 
         this.cd.markForCheck();
         event.preventDefault();
+        return undefined;
     }
 
     expand() {
