@@ -7,6 +7,7 @@ import { Component } from '@angular/core';
     template: `
         <app-docsectiontext>
             <p>When <i>touchUI</i> is enabled, overlay is displayed as optimized for touch devices.</p>
+            <p>To use the <i>touchUI</i> inside of a <i>p-dialog</i> component, you need to set the <i>appendTo</i> property to <i>body</i>.</p>
         </app-docsectiontext>
         <div class="card flex justify-center">
             <p-datepicker [(ngModel)]="date" [touchUI]="true" [readonlyInput]="true" />
