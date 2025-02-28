@@ -9,8 +9,8 @@
         "e2e": "ng e2e",
         "lint": "ng lint",
         "build": "ng build",
-        "build:apidoc": "node ./scripts/build-apidoc.ts",
-        "build:themedoc": "node ./scripts/build-themedoc.ts",
+        "build:apidoc": "tsx ./scripts/build-apidoc.ts",
+        "build:themedoc": "tsx ./scripts/build-themedoc.ts",
         "build:docs": "npm run build:apidoc && npm run build:themedoc"
     },
     "repository": {
@@ -46,7 +46,7 @@
         "prismjs": "^1.29.0",
         "quill": "2.0.2",
         "rxjs": "~7.8.1",
-        "ts-node": "~10.9.1",
+        "tsx": "~4.19.2",
         "tslib": "^2.5.0",
         "typedoc": "0.27.4",
         "zone.js": "catalog:angular19"
