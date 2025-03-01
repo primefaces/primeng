@@ -516,7 +516,7 @@ export class Tooltip extends BaseComponent implements AfterViewInit, OnDestroy {
 
     getHostOffset() {
         if (this.getOption('appendTo') === 'body' || this.getOption('appendTo') === 'target') {
-            let offset = this.el.nativeElement.getBoundingClientRect();
+            let offset = this.activeElement.getBoundingClientRect();
             let targetLeft = offset.left + getWindowScrollLeft();
             let targetTop = offset.top + getWindowScrollTop();
 
@@ -540,22 +540,25 @@ export class Tooltip extends BaseComponent implements AfterViewInit, OnDestroy {
 
     alignLeft() {
         this.preAlign('left');
+        const el = this.activeElement;
         let offsetLeft = getOuterWidth(this.container);
-        let offsetTop = (getOuterHeight(this.el.nativeElement) - getOuterHeight(this.container)) / 2;
+        let offsetTop = (getOuterHeight(el) - getOuterHeight(this.container)) / 2;
         this.alignTooltip(-offsetLeft, offsetTop);
     }
 
     alignTop() {
         this.preAlign('top');
-        let offsetLeft = (getOuterWidth(this.el.nativeElement) - getOuterWidth(this.container)) / 2;
+        const el = this.activeElement;
+        let offsetLeft = (getOuterWidth(el) - getOuterWidth(this.container)) / 2;
         let offsetTop = getOuterHeight(this.container);
         this.alignTooltip(offsetLeft, -offsetTop);
     }
 
     alignBottom() {
         this.preAlign('bottom');
-        let offsetLeft = (getOuterWidth(this.el.nativeElement) - getOuterWidth(this.container)) / 2;
-        let offsetTop = getOuterHeight(this.el.nativeElement);
+        const el = this.activeElement;
+        let offsetLeft = (getOuterWidth(el) - getOuterWidth(this.container)) / 2;
+        let offsetTop = getOuterHeight(el);
         this.alignTooltip(offsetLeft, offsetTop);
     }
 
