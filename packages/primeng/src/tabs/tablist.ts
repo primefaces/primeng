@@ -1,6 +1,6 @@
 import { CommonModule, isPlatformBrowser } from '@angular/common';
 import { AfterContentInit, AfterViewInit, ChangeDetectionStrategy, Component, computed, ContentChild, ContentChildren, effect, ElementRef, forwardRef, inject, QueryList, signal, TemplateRef, ViewChild, ViewEncapsulation } from '@angular/core';
-import { findSingle, getHeight, getOffset, getOuterWidth, getWidth, isRTL } from '@primeuix/utils';
+import { findSingle, getOffset, getOuterWidth, getWidth, isRTL } from '@primeuix/utils';
 import { PrimeTemplate, SharedModule } from 'primeng/api';
 import { BaseComponent } from 'primeng/basecomponent';
 import { ChevronLeftIcon, ChevronRightIcon } from 'primeng/icons';
@@ -168,12 +168,17 @@ export class TabList extends BaseComponent implements AfterViewInit, AfterConten
         const _content = this.content?.nativeElement;
         const _list = this.el?.nativeElement;
 
-        const { scrollWidth, offsetWidth } = _content;
-        const scrollLeft = Math.abs(_content.scrollLeft);
-        const width = getWidth(_content);
+        if (_content && _list) {
+            const scrollWidth = _content.scrollWidth;
+            const scrollLeft = Math.round(_content.scrollLeft);
+            const offsetWidth = _list.offsetWidth;
 
-        this.isPrevButtonEnabled.set(scrollLeft !== 0);
-        this.isNextButtonEnabled.set(_list.offsetWidth >= offsetWidth && scrollLeft !== scrollWidth - width);
+            const isAtStart = scrollLeft === 0;
+            const isAtEnd = scrollLeft + offsetWidth >= scrollWidth;
+
+            this.isPrevButtonEnabled.set(!isAtStart);
+            this.isNextButtonEnabled.set(!isAtEnd);
+        }
     }
 
     updateInkBar() {
