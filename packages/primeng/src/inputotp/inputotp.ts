@@ -240,9 +240,7 @@ export class InputOtp extends BaseComponent implements AfterContentInit {
         this.tokens[index] = value;
         this.updateModel(event);
 
-        if (event.inputType === 'deleteContentBackward') {
-            this.moveToPrev(event);
-        } else if (event.inputType === 'insertText' || event.inputType === 'deleteContentForward') {
+        if (event.inputType === 'insertText' || event.inputType === 'deleteContentForward') {
             this.moveToNext(event);
         }
     }
