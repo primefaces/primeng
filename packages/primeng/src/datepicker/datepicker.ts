@@ -327,7 +327,9 @@ const DATEPICKER_INSTANCE = new InjectionToken<DatePicker>('DATEPICKER_INSTANCE'
                                 <ng-template *ngTemplateOutlet="incrementIconTemplate || _incrementIconTemplate"></ng-template>
                             </ng-template>
                         </p-button>
-                        <span [pBind]="ptm('hour')"><ng-container *ngIf="currentHour < 10">0</ng-container>{{ currentHour }}</span>
+                        <input pInputText type="number" class="p-datepicker-time-input"
+                               [pBind]="ptm('hour')" [value]="currentHour < 10 ? '0' + currentHour : currentHour"
+                               (input)="onHourChange($event)" min="0" max="24" />
                         <p-button
                             rounded
                             variant="text"
@@ -377,7 +379,9 @@ const DATEPICKER_INSTANCE = new InjectionToken<DatePicker>('DATEPICKER_INSTANCE'
                                 <ng-template *ngTemplateOutlet="incrementIconTemplate || _incrementIconTemplate"></ng-template>
                             </ng-template>
                         </p-button>
-                        <span [pBind]="ptm('minute')"><ng-container *ngIf="currentMinute < 10">0</ng-container>{{ currentMinute }}</span>
+                        <input pInputText class="p-datepicker-time-input" type="number" (input)="onMinuteChange($event)"
+                               [pBind]="ptm('minute')" [value]="currentMinute < 10 ? '0' + currentMinute : currentMinute" min="0"
+                               max="60" />
                         <p-button
                             rounded
                             variant="text"
@@ -427,7 +431,9 @@ const DATEPICKER_INSTANCE = new InjectionToken<DatePicker>('DATEPICKER_INSTANCE'
                                 <ng-template *ngTemplateOutlet="incrementIconTemplate || _incrementIconTemplate"></ng-template>
                             </ng-template>
                         </p-button>
-                        <span [pBind]="ptm('second')"><ng-container *ngIf="currentSecond < 10">0</ng-container>{{ currentSecond }}</span>
+                        <input pInputText class="p-datepicker-time-input" type="number" (input)="onSecondChange($event)"
+                               [pBind]="ptm('second')" [value]="currentSecond < 10 ? '0' + currentSecond : currentSecond" min="0"
+                               max="60" />
                         <p-button
                             rounded
                             variant="text"
@@ -1017,6 +1023,12 @@ export class DatePicker extends BaseInput<DatePickerPassThrough> {
      */
     @Output() onYearChange: EventEmitter<DatePickerYearChangeEvent> = new EventEmitter<DatePickerYearChangeEvent>();
     /**
+     * Callback to invoke when time changed using the timepicker.
+     * @param {DatePickerTimeChangeEvent} event - custom time change event.
+     * @group Emits
+     */
+    @Output() onTimeChange: EventEmitter<DatePickerTimeChangeEvent> = new EventEmitter<DatePickerTimeChangeEvent>();
+    /**
      * Callback to invoke when clicked outside of the date panel.
      * @group Emits
      */
@@ -1066,7 +1078,7 @@ export class DatePicker extends BaseInput<DatePickerPassThrough> {
     currentMinute: Nullable<number>;
 
     currentSecond: Nullable<number>;
-    p;
+
     pm: Nullable<boolean>;
 
     mask: Nullable<HTMLDivElement>;
@@ -1728,6 +1740,47 @@ export class DatePicker extends BaseInput<DatePickerPassThrough> {
         }
     }
 
+    onHourChange(event: Event) {
+        const hourInput = event.target as HTMLInputElement;
+
+        if (hourInput.value) {
+            if (hourInput.value.length > 2) {
+                hourInput.value = hourInput.value.slice(1, hourInput.value.length);
+            }
+            this.setCurrentHourPM(isNaN(hourInput.valueAsNumber) ? this._defaultDate.getHours() : hourInput.valueAsNumber);
+        }
+
+        this.updateTime();
+        this.onTimeChange.emit({ hour: this.currentHour, minute: this.currentMinute, second: this.currentSecond });
+    }
+
+    onMinuteChange(event: Event) {
+        const minuteInput = event.target as HTMLInputElement;
+
+        if (minuteInput.value) {
+            if (minuteInput.value.length > 2) {
+                minuteInput.value = minuteInput.value.slice(1, minuteInput.value.length);
+            }
+
+            this.currentMinute = isNaN(minuteInput.valueAsNumber) ? this._defaultDate.getMinutes() : minuteInput.valueAsNumber;
+        }
+
+        this.updateTime();
+        this.onTimeChange.emit({ hour: this.currentHour, minute: this.currentMinute, second: this.currentSecond });
+    }
+
+    onSecondChange(event: Event) {
+        const secondInput = event.target as HTMLInputElement;
+
+        if (secondInput.value.length > 2) {
+            secondInput.value = secondInput.value.slice(1, secondInput.value.length);
+        }
+
+        this.currentSecond = isNaN(secondInput.valueAsNumber) ? this._defaultDate.getSeconds() : secondInput.valueAsNumber;
+        this.updateTime();
+        this.onTimeChange.emit({ hour: this.currentHour, minute: this.currentMinute, second: this.currentSecond });
+    }
+
     updateInputfield() {
         let formattedValue = '';
 
@@ -1803,7 +1856,7 @@ export class DatePicker extends BaseInput<DatePickerPassThrough> {
                 this.currentHour = hours == 0 ? 12 : hours;
             }
         } else {
-            this.currentHour = hours;
+            this.currentHour = hours >= 24 ? 0 : hours;
         }
     }
 
