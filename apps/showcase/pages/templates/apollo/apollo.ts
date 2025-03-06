@@ -53,56 +53,41 @@ export class ApolloPage {
         pattern: 'https://primefaces.org/cdn/primeng/images/templates/apollo/apollo-hero-pattern.png',
         dashboard1: 'https://primefaces.org/cdn/primeng/images/templates/apollo/apollo-hero-dashboard1.png',
         dashboard2: 'https://primefaces.org/cdn/primeng/images/templates/apollo/apollo-hero-dashboard2.png',
-        description: 'An amazing Angular CLI application template with light-dim-dark modes, four menu layouts, various menu themes, sample apps, ready to use template pages and 24 PrimeNG themes.',
+        description: 'A spectacular application template for Angular based on CLI featuring light-dark modes with 8 surface colors, 7 menu layouts, various menu themes, sample apps, ready to use template pages and 3 presets.',
         liveHref: 'https://apollo.primeng.org',
         docHref: 'https://apollo.primeng.org/documentation'
     };
 
-    apolloRelatedData = [
-        {
-            src: 'https://primefaces.org/cdn/primeng/images/layouts/diamond-ng.jpg',
-            href: '/templates/diamond'
-        },
-        {
-            src: 'https://primefaces.org/cdn/primeng/images/layouts/avalon-ng.jpg',
-            href: '/templates/avalon'
-        },
-        {
-            src: 'https://primefaces.org/cdn/primeng/images/layouts/freya-ng.jpg',
-            href: '/templates/freya'
-        }
-    ];
-
     apolloFeatures2Data = [
         {
             title: 'Fully Responsive',
-            description: 'Apollo is crafted to provide optimal viewing and interaction experience for a wide range of devices.',
-            src: 'https://primefaces.org/cdn/primeng/images/templates/apollo/apollo-features2-responsive.png'
+            description: 'Crafted to provide optimal viewing and interaction experience for a wide range of devices.',
+            src: 'https://primefaces.org/cdn/primeng/images/templates/diamond/diamond-remastered-features-responsive.png'
         },
         {
             title: 'Support',
             description: `PrimeTek offers assistance with account management and licensing issues, with the expectation that users have the necessary technical knowledge to use our products, as we do not offer technical support or consulting. Users
             can seek assistance in our community via our public <a href="https://discord.com/invite/gzKFYnpmCY">Discord</a> and
             <a href="https://github.com/orgs/primefaces/discussions/categories/primeng-templates" class="doc-link">Forum</a>.`,
-            src: 'https://primefaces.org/cdn/primeng/images/templates/apollo/apollo-features2-lifetime.png'
+            src: 'https://primefaces.org/cdn/primeng/images/templates/common/support.png'
         },
         {
             title: 'Top Notch Quality',
             description: 'Superior standards with 100% compatibility for strict mode and linting tools.',
-            src: 'https://primefaces.org/cdn/primeng/images/templates/apollo/apollo-features2-quality.png',
-            darkSrc: 'https://primefaces.org/cdn/primeng/images/templates/apollo/apollo-features2-quality-dark.png'
+            src: 'https://primefaces.org/cdn/primeng/images/templates/common/quality.png',
+            darkSrc: 'https://primefaces.org/cdn/primeng/images/templates/common/quality-dark.png'
         },
         {
             title: 'Cross Browser Compatible',
             description: 'First class support for Firefox, Safari, Chrome and Edge.',
-            src: 'https://primefaces.org/cdn/primeng/images/compatible-ng.png',
-            darkSrc: 'https://primefaces.org/cdn/primeng/images/compatible-ng-dark.png'
+            src: 'https://primefaces.org/cdn/primeng/images/templates/common/cross-browser.png',
+            darkSrc: 'https://primefaces.org/cdn/primeng/images/templates/common/cross-browser-dark.png'
         },
         {
             title: 'Customizable Design',
             description: 'Fully customizable with a mixture of Sass and CSS variables.',
-            src: 'https://primefaces.org/cdn/primeng/images/templates/apollo/apollo-features2-customizable.png',
-            darkSrc: 'https://primefaces.org/cdn/primeng/images/templates/apollo/apollo-features2-customizable-dark.png'
+            src: 'https://primefaces.org/cdn/primeng/images/templates/common/customizable.png',
+            darkSrc: 'https://primefaces.org/cdn/primeng/images/templates/common/customizable-dark.png'
         },
         {
             title: 'Mobile Experience',
@@ -114,27 +99,21 @@ export class ApolloPage {
     animationFeaturesData1 = [
         {
             id: 1,
-            title: 'PrimeFlex CSS Utilities',
-            width: 1440,
-            height: 1789,
-            description: 'PrimeFlex is a CSS utility library featuring various helpers such as a grid grid-cols-12 gap-4 system, flexbox, spacing, elevation and more.',
-            src: 'https://primefaces.org/cdn/primeng/images/templates/apollo/features-animation-utilities.png'
+            title: 'Tailwind CSS',
+            description: 'The demo content is built with TailwindCSS, while the application shell uses custom CSS, offering flexibility and efficiency for responsive design.',
+            src: 'https://primefaces.org/cdn/primeng/images/templates/common/tailwind.png'
         },
         {
             id: 2,
             title: 'PrimeBlocks',
-            width: 1440,
-            height: 1789,
-            description: 'Fully compatible with PrimeBlocks, choose from the wide range of blocks and customize the way you like. Note that PrimeBlocks is not included in the template and requires a separate purchase.',
-            src: 'https://primefaces.org/cdn/primeng/images/templates/apollo/features-animation-blocks.png'
+            description: `Designed to be fully compatible with upcoming next-gen PrimeBlocks, choose from the extensive range of blocks and customize the way you like.`,
+            src: 'https://primefaces.org/cdn/primeng/images/templates/common/primeblocks.png'
         },
         {
             id: 3,
             title: 'PrimeIcons',
-            width: 1440,
-            height: 1789,
-            description: 'Apollo ships with PrimeIcons, PrimeTek’s modern icon library including a wide range of icons for your applications.',
-            src: 'https://primefaces.org/cdn/primeng/images/templates/apollo/features-animation-icons.png'
+            description: 'Ships with PrimeIcons, PrimeTek’s modern icon library including a wide range of icons for your applications.',
+            src: 'https://primefaces.org/cdn/primeng/images/templates/common/primeicons.png'
         },
         {
             id: 4,
@@ -142,40 +121,16 @@ export class ApolloPage {
             width: 1440,
             height: 1788,
             description:
-                'Apollo uses Figma as the design tool. It will be possible to download the Figma file after your purchase. You can preview the Figma file before the purchase. Note that PrimeNG UI components are excluded from the Apollo Figma file as they are available in PrimeOne for Figma only.',
+                'Powered by Figma as the design tool. It will be possible to download the Figma file after your purchase. Note that PrimeNG UI components are excluded from the template Figma file as they are available in PrimeOne for Figma only.',
             src: 'https://primefaces.org/cdn/primeng/images/templates/apollo/features-animation-figma.png'
-        }
-    ];
-
-    apolloFeatures1Data = [
-        {
-            height: 940,
-            width: 960,
-            src: 'https://primefaces.org/cdn/primeng/images/templates/apollo/apollo-features1-feature1.png',
-            title: 'Ready to Use Applications',
-            description: 'Mail, File System, Tasks, Calendar, Blog and Chat are the sample applications to get started with ease.'
-        },
-        {
-            height: 940,
-            width: 960,
-            src: 'https://primefaces.org/cdn/primeng/images/templates/apollo/apollo-features1-feature2.png',
-            title: 'E-Commerce Pages',
-            description: 'Apollo offers E-commerce pages to kickstart your e-commerce project powered by PrimeBlocks.'
-        },
-        {
-            height: 940,
-            width: 960,
-            src: 'https://primefaces.org/cdn/primeng/images/templates/apollo/apollo-features1-feature3.png',
-            title: 'Ready to Use Pages',
-            description: 'Landing, login, invoice, help, user management and error pages are provided as template pages to get started with building your app.'
         }
     ];
 
     animationFeaturesData2 = [
         {
             id: 1,
-            title: 'Light / Dark / Dim Modes',
-            description: 'Apollo has 3 display modes to choose from; Light, Dim and Dark.',
+            title: 'Light and Dark Modes',
+            description: '2 color schemes with 8 surface color alternatives for each.',
             height: 940,
             width: 960,
             src: 'https://primefaces.org/cdn/primeng/images/templates/apollo/features-animation-darkmode.png'
@@ -183,7 +138,7 @@ export class ApolloPage {
         {
             id: 2,
             title: 'Component Themes',
-            description: 'Apollo offers 24 built-in component themes and creating your own theme is a matter of defining couple of sass variables.',
+            description: '17 built-in theme colors with the power of 3 presets: Aura, Lara and Nora.',
             width: 940,
             height: 960,
             src: 'https://primefaces.org/cdn/primeng/images/templates/apollo/features-animation-component-themes.png'
@@ -248,7 +203,7 @@ export class ApolloPage {
         {
             id: 4,
             title: 'Menu Themes',
-            description: 'Stunning theming for the main menu with 3 alternatives; Color Scheme, Primary Color and Transparent.',
+            description: 'Appealing theming for the main menu with 3 alternatives; Color Scheme, Primary Color and Transparent.',
             width: 960,
             height: 940,
             src: 'https://primefaces.org/cdn/primeng/images/templates/apollo/features-animation-menu-themes.png'

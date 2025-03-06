@@ -51,69 +51,37 @@ export class VeronaPage {
 
     templateHeroData = {
         pattern: 'https://primefaces.org/cdn/primeng/images/templates/verona/verona-hero-pattern.png',
-        description: 'Prepare to be amazed by the remastered Verona for PrimeNG featuring a new gorgeous dark mode for the entire layout, 2 menu modes, reusable css widgets, utilities, modern icons and many more.',
+        description: 'Prepare to be amazed by the remastered Verona for PrimeNG featuring a gorgeous dark mode for the entire layout, 4 menu modes, reusable css widgets, utilities, modern icons and many more.',
         dashboard1: 'https://primefaces.org/cdn/primeng/images/templates/verona/verona-hero-dashboard1.png',
         dashboard2: 'https://primefaces.org/cdn/primeng/images/templates/verona/verona-hero-dashboard2.png',
         liveHref: 'https://verona.primeng.org/',
         docHref: 'https://verona.primeng.org/documentation'
     };
 
-    relatedData = [
-        {
-            src: 'https://primefaces.org/cdn/primeng/images/layouts/freya-ng.jpg',
-            href: '/templates/freya'
-        },
-        {
-            src: 'https://primefaces.org/cdn/primeng/images/layouts/apollo-ng.jpg',
-            href: '/templates/apollo'
-        },
-        {
-            src: 'https://primefaces.org/cdn/primeng/images/layouts/atlantis-ng.jpg',
-            href: '/templates/atlantis'
-        }
-    ];
-
-    features1Data = [
-        {
-            src: 'https://primefaces.org/cdn/primeng/images/templates/avalon/avalon-features1-feature1.png',
-            title: 'Ready to Use Applications',
-            description: 'Mail, File System, Tasks, Calendar, Blog and Chat are the sample applications to get started with ease.'
-        },
-        {
-            src: 'https://primefaces.org/cdn/primeng/images/templates/avalon/avalon-features1-feature2.png',
-            title: 'E-Commerce Pages',
-            description: 'Avalon offers E-commerce pages to kickstart your e-commerce project powered by PrimeBlocks.'
-        },
-        {
-            src: 'https://primefaces.org/cdn/primeng/images/templates/avalon/avalon-features1-feature3.png',
-            title: 'Ready to Use Pages',
-            description: 'Landing, login, invoice, help, user management and error pages are provided as template pages to get started with building your app.'
-        }
-    ];
     features2Data = [
         {
             title: 'Fully Responsive',
-            description: 'Verona is crafted to provide optimal viewing and interaction experience for a wide range of devices.',
+            description: 'Crafted to provide optimal viewing and interaction experience for a wide range of devices.',
             src: 'https://primefaces.org/cdn/primeng/images/templates/verona/verona-features2-responsive.png'
         },
         {
             title: 'Cross Browser Compatible',
             description: 'First class support for Firefox, Safari, Chrome and Edge.',
-            src: 'https://primefaces.org/cdn/primeng/images/compatible-ng.png',
-            darkSrc: 'https://primefaces.org/cdn/primeng/images/compatible-ng-dark.png'
+            src: 'https://primefaces.org/cdn/primeng/images/templates/common/cross-browser.png',
+            darkSrc: 'https://primefaces.org/cdn/primeng/images/templates/common/cross-browser-dark.png'
         },
         {
             title: 'Support',
             description: `PrimeTek offers assistance with account management and licensing issues, with the expectation that users have the necessary technical knowledge to use our products, as we do not offer technical support or consulting. Users
             can seek assistance in our community via our public <a href="https://discord.com/invite/gzKFYnpmCY">Discord</a> and
             <a href="https://github.com/orgs/primefaces/discussions/categories/primeng-templates" class="doc-link">Forum</a>.`,
-            src: 'https://primefaces.org/cdn/primeng/images/templates/apollo/apollo-features2-lifetime.png'
+            src: 'https://primefaces.org/cdn/primeng/images/templates/common/support.png'
         },
         {
             title: 'Customizable Design',
             description: 'Fully customizable with a mixture of Sass and CSS variables.',
-            src: 'https://primefaces.org/cdn/primeng/images/templates/apollo/apollo-features2-customizable.png',
-            darkSrc: 'https://primefaces.org/cdn/primeng/images/templates/apollo/apollo-features2-customizable-dark.png'
+            src: 'https://primefaces.org/cdn/primeng/images/templates/common/customizable.png',
+            darkSrc: 'https://primefaces.org/cdn/primeng/images/templates/common/customizable-dark.png'
         },
         {
             title: 'Ready to Use Pages',
@@ -130,27 +98,27 @@ export class VeronaPage {
     animationFeaturesData1 = [
         {
             id: 1,
-            title: 'PrimeFlex CSS Utilities',
-            description: 'PrimeFlex is a CSS utility library featuring various helpers such as a grid grid-cols-12 gap-4 system, flexbox, spacing, elevation and more.',
-            src: 'https://primefaces.org/cdn/primeng/images/templates/apollo/features-animation-utilities.png'
+            title: 'Tailwind CSS',
+            description: 'The demo content is built with TailwindCSS, while the application shell uses custom CSS, offering flexibility and efficiency for responsive design.',
+            src: 'https://primefaces.org/cdn/primeng/images/templates/common/tailwind.png'
         },
         {
             id: 2,
             title: 'PrimeBlocks',
-            description: 'Fully compatible with PrimeBlocks, choose from the wide range of blocks and customize the way you like. Note that PrimeBlocks is not included in the template and requires a separate purchase.',
-            src: 'https://primefaces.org/cdn/primeng/images/templates/apollo/features-animation-blocks.png'
+            description: `Designed to be fully compatible with upcoming next-gen PrimeBlocks, choose from the extensive range of blocks and customize the way you like.`,
+            src: 'https://primefaces.org/cdn/primeng/images/templates/common/primeblocks.png'
         },
         {
             id: 3,
             title: 'PrimeIcons',
-            description: 'Verona ships with PrimeIcons, PrimeTek’s modern icon library including a wide range of icons for your applications.',
-            src: 'https://primefaces.org/cdn/primeng/images/templates/apollo/features-animation-icons.png'
+            description: 'Ships with PrimeIcons, PrimeTek’s modern icon library including a wide range of icons for your applications.',
+            src: 'https://primefaces.org/cdn/primeng/images/templates/common/primeicons.png'
         },
         {
             id: 4,
             title: 'Figma File',
             description:
-                'Verona uses Figma as the design tool. It will be possible to download the Figma file after your purchase. You can preview the Figma file before the purchase. Note that PrimeNG UI components are excluded from the Verona Figma file as they are available in PrimeOne for Figma only.',
+                'Powered by Figma as the design tool. It will be possible to download the Figma file after your purchase. Note that PrimeNG UI components are excluded from the template Figma file as they are available in PrimeOne for Figma only.',
             src: 'https://primefaces.org/cdn/primeng/images/templates/verona/features-animation-figma.png'
         }
     ];
@@ -159,13 +127,13 @@ export class VeronaPage {
         {
             id: 1,
             title: 'Light and Dark Modes',
-            description: 'The stunning dark and light modes will impress your users.',
+            description: '2 color schemes with 8 surface color alternatives for each.',
             src: 'https://primefaces.org/cdn/primeng/images/templates/verona/features-animation-darkmode.png'
         },
         {
             id: 2,
             title: 'Component Themes',
-            description: 'Verona offers 10 built-in component themes with dark and light options. You are also free to create you own theme by defining couple SASS variables.',
+            description: '17 built-in theme colors with the power of 3 presets: Aura, Lara and Nora.',
             src: 'https://primefaces.org/cdn/primeng/images/templates/verona/features-animation-component-themes.png'
         },
         {
