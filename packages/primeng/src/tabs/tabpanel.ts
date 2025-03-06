@@ -12,9 +12,15 @@ import { Tabs } from './tabs';
     selector: 'p-tabpanel',
     standalone: true,
     imports: [CommonModule],
-    template: `@if (active()) {
-        <ng-content></ng-content>
-    }`,
+    template: `
+        <ng-template #content>
+            <ng-content></ng-content>
+        </ng-template>
+
+        @if (!lazy() || active()) {
+            <ng-container *ngTemplateOutlet="content"></ng-container>
+        }
+    `,
     changeDetection: ChangeDetectionStrategy.OnPush,
     encapsulation: ViewEncapsulation.None,
     host: {
@@ -24,11 +30,12 @@ import { Tabs } from './tabs';
         '[attr.id]': 'id()',
         '[attr.role]': '"tabpanel"',
         '[attr.aria-labelledby]': 'ariaLabelledby()',
-        '[attr.data-p-active]': 'active()'
+        '[attr.data-p-active]': 'active()',
+        '[hidden]': '!active()'
     }
 })
 export class TabPanel extends BaseComponent {
-    pcTabs = inject(forwardRef(() => Tabs));
+    pcTabs: Tabs = inject(forwardRef(() => Tabs));
     /**
      * Value of the active tab.
      * @defaultValue undefined
@@ -41,4 +48,6 @@ export class TabPanel extends BaseComponent {
     ariaLabelledby = computed(() => `${this.pcTabs.id()}_tab_${this.value()}`);
 
     active = computed(() => equals(this.pcTabs.value(), this.value()));
+
+    lazy = computed(() => this.pcTabs.lazy());
 }
