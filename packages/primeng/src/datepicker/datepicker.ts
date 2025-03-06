@@ -50,20 +50,38 @@ import { AutoFocus } from 'primeng/autofocus';
 import { BaseComponent } from 'primeng/basecomponent';
 import { Button } from 'primeng/button';
 import { ConnectedOverlayScrollHandler } from 'primeng/dom';
-import { CalendarIcon, ChevronDownIcon, ChevronLeftIcon, ChevronRightIcon, ChevronUpIcon, TimesIcon } from 'primeng/icons';
+import {
+    CalendarIcon,
+    ChevronDownIcon,
+    ChevronLeftIcon,
+    ChevronRightIcon,
+    ChevronUpIcon,
+    TimesIcon
+} from 'primeng/icons';
 import { InputText } from 'primeng/inputtext';
 import { Ripple } from 'primeng/ripple';
 import { Nullable, VoidListener } from 'primeng/ts-helpers';
 import { ZIndexUtils } from 'primeng/utils';
 import { Subscription } from 'rxjs';
-import { DatePickerMonthChangeEvent, DatePickerResponsiveOptions, DatePickerTypeView, DatePickerYearChangeEvent, LocaleSettings, Month, NavigationState } from './datepicker.interface';
+import {
+    DatePickerMonthChangeEvent,
+    DatePickerResponsiveOptions,
+    DatePickerTimeChangeEvent,
+    DatePickerTypeView,
+    DatePickerYearChangeEvent,
+    LocaleSettings,
+    Month,
+    NavigationState
+} from './datepicker.interface';
 import { DatePickerStyle } from './style/datepickerstyle';
+
 
 export const DATEPICKER_VALUE_ACCESSOR: any = {
     provide: NG_VALUE_ACCESSOR,
     useExisting: forwardRef(() => DatePicker),
     multi: true
 };
+
 /**
  * DatePicker is a form component to work with dates.
  * @group Components
@@ -111,8 +129,10 @@ export const DATEPICKER_VALUE_ACCESSOR: any = {
                     [fluid]="hasFluid"
                 />
                 <ng-container *ngIf="showClear && !disabled && value != null">
-                    <TimesIcon *ngIf="!clearIconTemplate && !_clearIconTemplate" [class]="'p-datepicker-clear-icon'" (click)="clear()" />
-                    <span *ngIf="clearIconTemplate || _clearIconTemplate" class="p-datepicker-clear-icon" (click)="clear()">
+                    <TimesIcon *ngIf="!clearIconTemplate && !_clearIconTemplate" [class]="'p-datepicker-clear-icon'"
+                               (click)="clear()" />
+                    <span *ngIf="clearIconTemplate || _clearIconTemplate" class="p-datepicker-clear-icon"
+                          (click)="clear()">
                         <ng-template *ngTemplateOutlet="clearIconTemplate || _clearIconTemplate"></ng-template>
                     </span>
                 </ng-container>
@@ -144,7 +164,8 @@ export const DATEPICKER_VALUE_ACCESSOR: any = {
                             }"
                         />
 
-                        <ng-container *ngTemplateOutlet="inputIconTemplate || _inputIconTemplate; context: { clickCallBack: onButtonClick.bind(this) }"></ng-container>
+                        <ng-container
+                            *ngTemplateOutlet="inputIconTemplate || _inputIconTemplate; context: { clickCallBack: onButtonClick.bind(this) }"></ng-container>
                     </span>
                 </ng-container>
             </ng-template>
@@ -186,7 +207,8 @@ export const DATEPICKER_VALUE_ACCESSOR: any = {
                                 >
                                     <ChevronLeftIcon *ngIf="!previousIconTemplate && !_previousIconTemplate" />
                                     <span *ngIf="previousIconTemplate || !_previousIconTemplate">
-                                        <ng-template *ngTemplateOutlet="previousIconTemplate || _previousIconTemplate"></ng-template>
+                                        <ng-template
+                                            *ngTemplateOutlet="previousIconTemplate || _previousIconTemplate"></ng-template>
                                     </span>
                                 </p-button>
                                 <div class="p-datepicker-title">
@@ -215,8 +237,11 @@ export const DATEPICKER_VALUE_ACCESSOR: any = {
                                         {{ getYear(month) }}
                                     </button>
                                     <span class="p-datepicker-decade" *ngIf="currentView === 'year'">
-                                        <ng-container *ngIf="!decadeTemplate && !_decadeTemplate">{{ yearPickerValues()[0] }} - {{ yearPickerValues()[yearPickerValues().length - 1] }}</ng-container>
-                                        <ng-container *ngTemplateOutlet="decadeTemplate || _decadeTemplate; context: { $implicit: yearPickerValues }"></ng-container>
+                                        <ng-container
+                                            *ngIf="!decadeTemplate && !_decadeTemplate">{{ yearPickerValues()[0] }}
+                                            - {{ yearPickerValues()[yearPickerValues().length - 1] }}</ng-container>
+                                        <ng-container
+                                            *ngTemplateOutlet="decadeTemplate || _decadeTemplate; context: { $implicit: yearPickerValues }"></ng-container>
                                     </span>
                                 </div>
                                 <p-button
@@ -232,7 +257,8 @@ export const DATEPICKER_VALUE_ACCESSOR: any = {
                                     <ChevronRightIcon *ngIf="!nextIconTemplate && !_nextIconTemplate" />
 
                                     <span *ngIf="nextIconTemplate || !_nextIconTemplate">
-                                        <ng-template *ngTemplateOutlet="nextIconTemplate || _nextIconTemplate"></ng-template>
+                                        <ng-template
+                                            *ngTemplateOutlet="nextIconTemplate || _nextIconTemplate"></ng-template>
                                     </span>
                                 </p-button>
                             </div>
@@ -242,7 +268,8 @@ export const DATEPICKER_VALUE_ACCESSOR: any = {
                                         <th *ngIf="showWeek" class="p-datepicker-weekheader p-disabled">
                                             <span>{{ getTranslation('weekHeader') }}</span>
                                         </th>
-                                        <th class="p-datepicker-weekday-cell" scope="col" *ngFor="let weekDay of weekDays; let begin = first; let end = last">
+                                        <th class="p-datepicker-weekday-cell" scope="col"
+                                            *ngFor="let weekDay of weekDays; let begin = first; let end = last">
                                             <span class="p-datepicker-weekday">{{ weekDay }}</span>
                                         </th>
                                     </tr>
@@ -272,15 +299,20 @@ export const DATEPICKER_VALUE_ACCESSOR: any = {
                                                     (keydown)="onDateCellKeydown($event, date, i)"
                                                     pRipple
                                                 >
-                                                    <ng-container *ngIf="!dateTemplate && !_dateTemplate && (date.selectable || (!disabledDateTemplate && !_disabledDateTemplate))">{{ date.day }}</ng-container>
-                                                    <ng-container *ngIf="date.selectable || (!disabledDateTemplate && !_disabledDateTemplate)">
-                                                        <ng-container *ngTemplateOutlet="dateTemplate || _dateTemplate; context: { $implicit: date }"></ng-container>
+                                                    <ng-container
+                                                        *ngIf="!dateTemplate && !_dateTemplate && (date.selectable || (!disabledDateTemplate && !_disabledDateTemplate))">{{ date.day }}</ng-container>
+                                                    <ng-container
+                                                        *ngIf="date.selectable || (!disabledDateTemplate && !_disabledDateTemplate)">
+                                                        <ng-container
+                                                            *ngTemplateOutlet="dateTemplate || _dateTemplate; context: { $implicit: date }"></ng-container>
                                                     </ng-container>
                                                     <ng-container *ngIf="!date.selectable">
-                                                        <ng-container *ngTemplateOutlet="disabledDateTemplate || _disabledDateTemplate; context: { $implicit: date }"></ng-container>
+                                                        <ng-container
+                                                            *ngTemplateOutlet="disabledDateTemplate || _disabledDateTemplate; context: { $implicit: date }"></ng-container>
                                                     </ng-container>
                                                 </span>
-                                                <div *ngIf="isSelected(date)" class="p-hidden-accessible" aria-live="polite">
+                                                <div *ngIf="isSelected(date)" class="p-hidden-accessible"
+                                                     aria-live="polite">
                                                     {{ date.day }}
                                                 </div>
                                             </ng-container>
@@ -346,9 +378,12 @@ export const DATEPICKER_VALUE_ACCESSOR: any = {
                         >
                             <ChevronUpIcon *ngIf="!incrementIconTemplate && !_incrementIconTemplate" />
 
-                            <ng-template *ngTemplateOutlet="incrementIconTemplate || _incrementIconTemplate"></ng-template>
+                            <ng-template
+                                *ngTemplateOutlet="incrementIconTemplate || _incrementIconTemplate"></ng-template>
                         </p-button>
-                        <span><ng-container *ngIf="currentHour < 10">0</ng-container>{{ currentHour }}</span>
+                        <input pInputText type="number" class="p-datepicker-time-input"
+                               [value]="currentHour < 10 ? '0' + currentHour : currentHour"
+                               (input)="onHourChange($event)" min="0" max="24" />
                         <p-button
                             rounded
                             text
@@ -366,7 +401,8 @@ export const DATEPICKER_VALUE_ACCESSOR: any = {
                         >
                             <ChevronDownIcon *ngIf="!decrementIconTemplate && !_decrementIconTemplate" />
 
-                            <ng-template *ngTemplateOutlet="decrementIconTemplate || _decrementIconTemplate"></ng-template>
+                            <ng-template
+                                *ngTemplateOutlet="decrementIconTemplate || _decrementIconTemplate"></ng-template>
                         </p-button>
                     </div>
                     <div class="p-datepicker-separator">
@@ -390,9 +426,12 @@ export const DATEPICKER_VALUE_ACCESSOR: any = {
                         >
                             <ChevronUpIcon *ngIf="!incrementIconTemplate && !_incrementIconTemplate" />
 
-                            <ng-template *ngTemplateOutlet="incrementIconTemplate || _incrementIconTemplate"></ng-template>
+                            <ng-template
+                                *ngTemplateOutlet="incrementIconTemplate || _incrementIconTemplate"></ng-template>
                         </p-button>
-                        <span><ng-container *ngIf="currentMinute < 10">0</ng-container>{{ currentMinute }}</span>
+                        <input pInputText class="p-datepicker-time-input" type="number" (input)="onMinuteChange($event)"
+                               [value]="currentMinute < 10 ? '0' + currentMinute : currentMinute" min="0"
+                               max="60" />
                         <p-button
                             rounded
                             text
@@ -410,7 +449,8 @@ export const DATEPICKER_VALUE_ACCESSOR: any = {
                         >
                             <ChevronDownIcon *ngIf="!decrementIconTemplate && !_decrementIconTemplate" />
                             <ng-container *ngIf="decrementIconTemplate || _decrementIconTemplate">
-                                <ng-template *ngTemplateOutlet="decrementIconTemplate || _decrementIconTemplate"></ng-template>
+                                <ng-template
+                                    *ngTemplateOutlet="decrementIconTemplate || _decrementIconTemplate"></ng-template>
                             </ng-container>
                         </p-button>
                     </div>
@@ -435,9 +475,12 @@ export const DATEPICKER_VALUE_ACCESSOR: any = {
                         >
                             <ChevronUpIcon *ngIf="!incrementIconTemplate && !_incrementIconTemplate" />
 
-                            <ng-template *ngTemplateOutlet="incrementIconTemplate || _incrementIconTemplate"></ng-template>
+                            <ng-template
+                                *ngTemplateOutlet="incrementIconTemplate || _incrementIconTemplate"></ng-template>
                         </p-button>
-                        <span><ng-container *ngIf="currentSecond < 10">0</ng-container>{{ currentSecond }}</span>
+                        <input pInputText class="p-datepicker-time-input" type="number" (input)="onSecondChange($event)"
+                               [value]="currentSecond < 10 ? '0' + currentSecond : currentSecond" min="0"
+                               max="60" />
                         <p-button
                             rounded
                             text
@@ -455,7 +498,8 @@ export const DATEPICKER_VALUE_ACCESSOR: any = {
                         >
                             <ChevronDownIcon *ngIf="!decrementIconTemplate && !_decrementIconTemplate" />
 
-                            <ng-template *ngTemplateOutlet="decrementIconTemplate || _decrementIconTemplate"></ng-template>
+                            <ng-template
+                                *ngTemplateOutlet="decrementIconTemplate || _decrementIconTemplate"></ng-template>
                         </p-button>
                     </div>
                     <div class="p-datepicker-separator" *ngIf="hourFormat == '12'">
@@ -473,9 +517,10 @@ export const DATEPICKER_VALUE_ACCESSOR: any = {
                             [attr.aria-label]="getTranslation('am')"
                         >
                             <ChevronUpIcon *ngIf="!incrementIconTemplate && !_incrementIconTemplate" />
-                            <ng-template *ngTemplateOutlet="incrementIconTemplate || _incrementIconTemplate"></ng-template>
+                            <ng-template
+                                *ngTemplateOutlet="incrementIconTemplate || _incrementIconTemplate"></ng-template>
                         </p-button>
-                        <span>{{ pm ? 'PM' : 'AM' }}</span>
+                        <span class="p-datepicker-ampm-content">{{ pm ? 'PM' : 'AM' }}</span>
                         <p-button
                             size="small"
                             text
@@ -487,13 +532,18 @@ export const DATEPICKER_VALUE_ACCESSOR: any = {
                             [attr.aria-label]="getTranslation('pm')"
                         >
                             <ChevronDownIcon *ngIf="!decrementIconTemplate && !_decrementIconTemplate" />
-                            <ng-template *ngTemplateOutlet="decrementIconTemplate || _decrementIconTemplate"></ng-template>
+                            <ng-template
+                                *ngTemplateOutlet="decrementIconTemplate || _decrementIconTemplate"></ng-template>
                         </p-button>
                     </div>
                 </div>
                 <div class="p-datepicker-buttonbar" *ngIf="showButtonBar">
-                    <p-button size="small" styleClass="p-datepicker-today-button" [label]="getTranslation('today')" (keydown)="onContainerButtonKeydown($event)" (onClick)="onTodayButtonClick($event)" [ngClass]="todayButtonStyleClass" />
-                    <p-button size="small" styleClass="p-datepicker-clear-button" [label]="getTranslation('clear')" (keydown)="onContainerButtonKeydown($event)" (onClick)="onClearButtonClick($event)" [ngClass]="clearButtonStyleClass" />
+                    <p-button size="small" styleClass="p-datepicker-today-button" [label]="getTranslation('today')"
+                              (keydown)="onContainerButtonKeydown($event)" (onClick)="onTodayButtonClick($event)"
+                              [ngClass]="todayButtonStyleClass" />
+                    <p-button size="small" styleClass="p-datepicker-clear-button" [label]="getTranslation('clear')"
+                              (keydown)="onContainerButtonKeydown($event)" (onClick)="onClearButtonClick($event)"
+                              [ngClass]="clearButtonStyleClass" />
                 </div>
                 <ng-content select="p-footer"></ng-content>
                 <ng-container *ngTemplateOutlet="footerTemplate || _footerTemplate"></ng-container>
@@ -509,9 +559,15 @@ export const DATEPICKER_VALUE_ACCESSOR: any = {
                     opacity: 1
                 })
             ),
-            transition('void => visible', [style({ opacity: 0, transform: 'scaleY(0.8)' }), animate('{{showTransitionParams}}', style({ opacity: 1, transform: '*' }))]),
+            transition('void => visible', [style({
+                opacity: 0,
+                transform: 'scaleY(0.8)'
+            }), animate('{{showTransitionParams}}', style({ opacity: 1, transform: '*' }))]),
             transition('visible => void', [animate('{{hideTransitionParams}}', style({ opacity: 0 }))]),
-            transition('void => visibleTouchUI', [style({ opacity: 0, transform: 'translate3d(-50%, -40%, 0) scale(0.9)' }), animate('{{showTransitionParams}}')]),
+            transition('void => visibleTouchUI', [style({
+                opacity: 0,
+                transform: 'translate3d(-50%, -40%, 0) scale(0.9)'
+            }), animate('{{showTransitionParams}}')]),
             transition('visibleTouchUI => void', [
                 animate(
                     '{{hideTransitionParams}}',
@@ -817,6 +873,7 @@ export class DatePicker extends BaseComponent implements OnInit, AfterContentIni
      * @group Props
      */
     @Input() size: 'large' | 'small';
+
     /**
      * The minimum selectable date.
      * @group Props
@@ -824,6 +881,7 @@ export class DatePicker extends BaseComponent implements OnInit, AfterContentIni
     @Input() get minDate(): Date | undefined | null {
         return this._minDate;
     }
+
     set minDate(date: Date | undefined | null) {
         this._minDate = date;
 
@@ -831,6 +889,7 @@ export class DatePicker extends BaseComponent implements OnInit, AfterContentIni
             this.createMonths(this.currentMonth, this.currentYear);
         }
     }
+
     /**
      * The maximum selectable date.
      * @group Props
@@ -838,6 +897,7 @@ export class DatePicker extends BaseComponent implements OnInit, AfterContentIni
     @Input() get maxDate(): Date | undefined | null {
         return this._maxDate;
     }
+
     set maxDate(date: Date | undefined | null) {
         this._maxDate = date;
 
@@ -845,6 +905,7 @@ export class DatePicker extends BaseComponent implements OnInit, AfterContentIni
             this.createMonths(this.currentMonth, this.currentYear);
         }
     }
+
     /**
      * Array with dates that should be disabled (not selectable).
      * @group Props
@@ -852,12 +913,14 @@ export class DatePicker extends BaseComponent implements OnInit, AfterContentIni
     @Input() get disabledDates(): Date[] {
         return this._disabledDates;
     }
+
     set disabledDates(disabledDates: Date[]) {
         this._disabledDates = disabledDates;
         if (this.currentMonth != undefined && this.currentMonth != null && this.currentYear) {
             this.createMonths(this.currentMonth, this.currentYear);
         }
     }
+
     /**
      * Array with weekday numbers that should be disabled (not selectable).
      * @group Props
@@ -865,6 +928,7 @@ export class DatePicker extends BaseComponent implements OnInit, AfterContentIni
     @Input() get disabledDays(): number[] {
         return this._disabledDays;
     }
+
     set disabledDays(disabledDays: number[]) {
         this._disabledDays = disabledDays;
 
@@ -872,6 +936,7 @@ export class DatePicker extends BaseComponent implements OnInit, AfterContentIni
             this.createMonths(this.currentMonth, this.currentYear);
         }
     }
+
     /**
      * The range of years displayed in the year drop-down in (nnnn:nnnn) format such as (2000:2020).
      * @group Props
@@ -880,6 +945,7 @@ export class DatePicker extends BaseComponent implements OnInit, AfterContentIni
     @Input() get yearRange(): string {
         return this._yearRange;
     }
+
     set yearRange(yearRange: string) {
         this._yearRange = yearRange;
 
@@ -891,6 +957,7 @@ export class DatePicker extends BaseComponent implements OnInit, AfterContentIni
             this.populateYearOptions(yearStart, yearEnd);
         }
     }
+
     /**
      * Whether to display timepicker.
      * @group Props
@@ -898,6 +965,7 @@ export class DatePicker extends BaseComponent implements OnInit, AfterContentIni
     @Input() get showTime(): boolean {
         return this._showTime;
     }
+
     set showTime(showTime: boolean) {
         this._showTime = showTime;
 
@@ -906,6 +974,7 @@ export class DatePicker extends BaseComponent implements OnInit, AfterContentIni
         }
         this.updateInputfield();
     }
+
     /**
      * An array of options for responsive design.
      * @group Props
@@ -913,12 +982,14 @@ export class DatePicker extends BaseComponent implements OnInit, AfterContentIni
     @Input() get responsiveOptions(): DatePickerResponsiveOptions[] {
         return this._responsiveOptions;
     }
+
     set responsiveOptions(responsiveOptions: DatePickerResponsiveOptions[]) {
         this._responsiveOptions = responsiveOptions;
 
         this.destroyResponsiveStyleElement();
         this.createResponsiveStyle();
     }
+
     /**
      * Number of months to display.
      * @group Props
@@ -926,12 +997,14 @@ export class DatePicker extends BaseComponent implements OnInit, AfterContentIni
     @Input() get numberOfMonths(): number {
         return this._numberOfMonths;
     }
+
     set numberOfMonths(numberOfMonths: number) {
         this._numberOfMonths = numberOfMonths;
 
         this.destroyResponsiveStyleElement();
         this.createResponsiveStyle();
     }
+
     /**
      * Defines the first of the week for various date calculations.
      * @group Props
@@ -939,11 +1012,13 @@ export class DatePicker extends BaseComponent implements OnInit, AfterContentIni
     @Input() get firstDayOfWeek(): number {
         return this._firstDayOfWeek;
     }
+
     set firstDayOfWeek(firstDayOfWeek: number) {
         this._firstDayOfWeek = firstDayOfWeek;
 
         this.createWeekDays();
     }
+
     /**
      * Option to set datepicker locale.
      * @group Props
@@ -952,6 +1027,7 @@ export class DatePicker extends BaseComponent implements OnInit, AfterContentIni
     @Input() set locale(newLocale: LocaleSettings) {
         console.log('Locale property has no effect, use new i18n API instead.');
     }
+
     /**
      * Type of view to display, valid values are "date" for datepicker and "month" for month picker.
      * @group Props
@@ -959,10 +1035,12 @@ export class DatePicker extends BaseComponent implements OnInit, AfterContentIni
     @Input() get view(): DatePickerTypeView {
         return this._view;
     }
+
     set view(view: DatePickerTypeView) {
         this._view = view;
         this.currentView = this._view;
     }
+
     /**
      * Set the date to highlight on first opening if the field is blank.
      * @group Props
@@ -970,6 +1048,7 @@ export class DatePicker extends BaseComponent implements OnInit, AfterContentIni
     @Input() get defaultDate(): Date {
         return this._defaultDate;
     }
+
     set defaultDate(defaultDate: Date) {
         this._defaultDate = defaultDate;
 
@@ -1042,6 +1121,10 @@ export class DatePicker extends BaseComponent implements OnInit, AfterContentIni
      */
     @Output() onYearChange: EventEmitter<DatePickerYearChangeEvent> = new EventEmitter<DatePickerYearChangeEvent>();
     /**
+     * Callback to invoke when time changed using the timepicker.
+     */
+    @Output() onTimeChange: EventEmitter<DatePickerTimeChangeEvent> = new EventEmitter<DatePickerTimeChangeEvent>();
+    /**
      * Callback to invoke when clicked outside of the date panel.
      * @group Emits
      */
@@ -1105,9 +1188,11 @@ export class DatePicker extends BaseComponent implements OnInit, AfterContentIni
 
     overlayVisible: Nullable<boolean>;
 
-    onModelChange: Function = () => {};
+    onModelChange: Function = () => {
+    };
 
-    onModelTouched: Function = () => {};
+    onModelTouched: Function = () => {
+    };
 
     calendarElement: Nullable<HTMLElement | ElementRef>;
 
@@ -1749,6 +1834,47 @@ export class DatePicker extends BaseComponent implements OnInit, AfterContentIni
         }
     }
 
+    onHourChange(event: Event) {
+        const hourInput = event.target as HTMLInputElement;
+
+        if (hourInput.value) {
+            if (hourInput.value.length > 2) {
+                hourInput.value = hourInput.value.slice(1, hourInput.value.length);
+            }
+            this.setCurrentHourPM(isNaN(hourInput.valueAsNumber) ? this._defaultDate.getHours() : hourInput.valueAsNumber);
+        }
+
+        this.updateTime();
+        this.onTimeChange.emit({ hour: this.currentHour, minute: this.currentMinute, second: this.currentSecond });
+    }
+
+    onMinuteChange(event: Event) {
+        const minuteInput = event.target as HTMLInputElement;
+
+        if (minuteInput.value) {
+            if (minuteInput.value.length > 2) {
+                minuteInput.value = minuteInput.value.slice(1, minuteInput.value.length);
+            }
+
+            this.currentMinute = isNaN(minuteInput.valueAsNumber) ? this._defaultDate.getMinutes() : minuteInput.valueAsNumber;
+        }
+
+        this.updateTime();
+        this.onTimeChange.emit({ hour: this.currentHour, minute: this.currentMinute, second: this.currentSecond });
+    }
+
+    onSecondChange(event: Event) {
+        const secondInput = event.target as HTMLInputElement;
+
+        if (secondInput.value.length > 2) {
+            secondInput.value = secondInput.value.slice(1, secondInput.value.length);
+        }
+
+        this.currentSecond = isNaN(secondInput.valueAsNumber) ? this._defaultDate.getSeconds() : secondInput.valueAsNumber;
+        this.updateTime();
+        this.onTimeChange.emit({ hour: this.currentHour, minute: this.currentMinute, second: this.currentSecond });
+    }
+
     updateInputfield() {
         let formattedValue = '';
 
@@ -1820,7 +1946,7 @@ export class DatePicker extends BaseComponent implements OnInit, AfterContentIni
                 this.currentHour = hours == 0 ? 12 : hours;
             }
         } else {
-            this.currentHour = hours;
+            this.currentHour = hours >= 24 ? 0 : hours;
         }
     }
 
@@ -2807,7 +2933,7 @@ export class DatePicker extends BaseComponent implements OnInit, AfterContentIni
 
         switch (
             true // intentional fall through
-        ) {
+            ) {
             case isMinDate && minHoursExceeds12 && this.minDate.getHours() === 12 && this.minDate.getHours() > convertedHour:
                 returnTimeTriple[0] = 11;
             case isMinDate && this.minDate.getHours() === convertedHour && this.minDate.getMinutes() > minute:
@@ -3396,7 +3522,7 @@ export class DatePicker extends BaseComponent implements OnInit, AfterContentIni
         if (date) {
             for (iFormat = 0; iFormat < format.length; iFormat++) {
                 if (literal) {
-                    if (format.charAt(iFormat) === "'" && !lookAhead("'")) {
+                    if (format.charAt(iFormat) === '\'' && !lookAhead('\'')) {
                         literal = false;
                     } else {
                         output += format.charAt(iFormat);
@@ -3427,9 +3553,9 @@ export class DatePicker extends BaseComponent implements OnInit, AfterContentIni
                         case '!':
                             output += date.getTime() * 10000 + <number>this.ticksTo1970;
                             break;
-                        case "'":
-                            if (lookAhead("'")) {
-                                output += "'";
+                        case '\'':
+                            if (lookAhead('\'')) {
+                                output += '\'';
                             } else {
                                 literal = true;
                             }
@@ -3585,7 +3711,7 @@ export class DatePicker extends BaseComponent implements OnInit, AfterContentIni
 
         for (iFormat = 0; iFormat < format.length; iFormat++) {
             if (literal) {
-                if (format.charAt(iFormat) === "'" && !lookAhead("'")) {
+                if (format.charAt(iFormat) === '\'' && !lookAhead('\'')) {
                     literal = false;
                 } else {
                     checkLiteral();
@@ -3622,8 +3748,8 @@ export class DatePicker extends BaseComponent implements OnInit, AfterContentIni
                         month = date.getMonth() + 1;
                         day = date.getDate();
                         break;
-                    case "'":
-                        if (lookAhead("'")) {
+                    case '\'':
+                        if (lookAhead('\'')) {
                             checkLiteral();
                         } else {
                             literal = true;
@@ -3878,4 +4004,5 @@ export class DatePicker extends BaseComponent implements OnInit, AfterContentIni
     imports: [DatePicker, SharedModule],
     exports: [DatePicker, SharedModule]
 })
-export class DatePickerModule {}
+export class DatePickerModule {
+}

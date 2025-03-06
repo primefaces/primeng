@@ -352,6 +352,29 @@ const theme = ({ dt }) => `
     padding: 0;
     gap: ${dt('datepicker.time.picker.gap')};
 }
+.p-datepicker-time-picker input {
+width: 40px;
+}
+
+.p-datepicker-time-picker input::-webkit-outer-spin-button,
+.p-datepicker-time-picker input::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+.p-datepicker-time-picker input[type=number] {
+ -moz-appearance: textfield
+}
+
+.p-datepicker-time-picker button {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    overflow: hidden;
+    position: relative;
+    text-align: center;
+}
 
 .p-datepicker-calendar-container + .p-datepicker-time-picker {
     padding: ${dt('datepicker.time.picker.padding')};
@@ -361,11 +384,16 @@ const theme = ({ dt }) => `
     display: flex;
     align-items: center;
     flex-direction: column;
+    justify-content: center;
     gap: ${dt('datepicker.time.picker.button.gap')};
 }
 
 .p-datepicker-time-picker span {
     font-size: 1rem;
+}
+
+.p-datepicker-ampm-content {
+    line-height: 33px;
 }
 
 .p-datepicker-timeonly .p-datepicker-time-picker {
@@ -485,6 +513,7 @@ const classes = {
         }
     ],
     timePicker: 'p-datepicker-time-picker',
+    timeInput: 'p-datepicker-time-input',
     hourPicker: 'p-datepicker-hour-picker',
     pcIncrementButton: 'p-datepicker-increment-button',
     pcDecrementButton: 'p-datepicker-decrement-button',
@@ -654,6 +683,10 @@ export enum DatePickerClasses {
      * Class name of the second picker element
      */
     secondPicker = 'p-datepicker-second-picker',
+    /**
+     * Class name of the input number element
+     */
+    timeInput = 'p-datepicker-time-input',
     /**
      * Class name of the ampm picker element
      */
