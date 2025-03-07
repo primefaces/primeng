@@ -196,3 +196,23 @@ export interface DatePickerMonthChangeEvent {
      */
     year?: number;
 }
+
+/**
+ * Custom DatePicker time change event.
+ * @see {@link DatePicker.onTimeChange}
+ * @group Events
+ */
+export interface DatePickerTimeChangeEvent {
+    /**
+     * New hour.
+     */
+    hour?: number;
+    /**
+     * New minute.
+     */
+    minute?: number;
+    /**
+     * New second.
+     */
+    second?: number;
+}
