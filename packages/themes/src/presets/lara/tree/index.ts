@@ -38,6 +38,7 @@ export default {
         selectedHoverBackground: '{content.background}',
         color: '{text.muted.color}',
         hoverColor: '{text.hover.muted.color}',
+        selectedColor: '{highlight.color}',
         selectedHoverColor: '{primary.color}',
         focusRing: {
             width: '{focus.ring.width}',
