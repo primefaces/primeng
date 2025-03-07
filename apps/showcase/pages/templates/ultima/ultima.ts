@@ -39,6 +39,7 @@ import { UltimaSeparator } from './ultimaseparator';
         <template-configuration
             title="Angular with CLI"
             description="Ultima is powered by Angular CLI to get started in no time following the best practices like service based component interaction modular design and strict mode support"
+            appName="ultima"
         ></template-configuration>
         <ultima-separator></ultima-separator>
         <template-features-animation [featuresData]="animationFeaturesData1"></template-features-animation>
@@ -51,6 +52,7 @@ export class UltimaPage {
 
     templateHeroData = {
         pattern: 'https://primefaces.org/cdn/primeng/images/templates/ultima/ultima-hero-pattern.png',
+        patternClass: 'select-none absolute z-[6] opacity-75 w-[80rem] h-auto bottom-8 -left-64 md:-bottom-[26rem] md:-left-[22rem]',
         description: 'A highly customizable premium application template featuring 7 menu modes, various themes, light and dark modes based on Material Design',
         dashboard1: 'https://primefaces.org/cdn/primeng/images/templates/ultima/ultima-hero-dashboard1.png',
         dashboard2: 'https://primefaces.org/cdn/primeng/images/templates/ultima/ultima-hero-dashboard2.png',

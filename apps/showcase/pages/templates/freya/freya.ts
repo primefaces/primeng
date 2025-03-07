@@ -38,6 +38,7 @@ import { FreyaSeparator } from './freyaseparator';
         <template-configuration
             title="Angular with CLI"
             description="Freya is powered by Angular CLI to get started in no time following the best practices like service based component interaction modular design and strict mode support"
+            appName="freya"
         ></template-configuration>
         <freya-separator></freya-separator>
         <template-features [featuresData]="features2Data" displayType="vertical"></template-features>
@@ -50,6 +51,7 @@ export class FreyaPage {
 
     templateHeroData = {
         pattern: 'https://primefaces.org/cdn/primeng/images/templates/freya/freya-hero-pattern.png',
+        patternClass: 'select-none absolute z-[6] w-[58rem] md:w-[50rem] h-auto top-12 md:top-32 -left-24 md:-left-12 opacity-75',
         dashboard1: 'https://primefaces.org/cdn/primeng/images/templates/freya/freya-hero-dashboard1.png',
         dashboard2: 'https://primefaces.org/cdn/primeng/images/templates/freya/freya-hero-dashboard2.png',
         description: 'Freya is a modern and clean application template for PrimeNG featuring a dark mode, attractive themes, customizable menu orientations, widgets, apps and template pages.',

@@ -35,6 +35,7 @@ import { AvalonSeparator } from './avalonseparator';
         <template-configuration
             title="Angular with CLI"
             description="Avalon is powered by Angular CLI to get started in no time following the best practices like service based component interaction modular design and strict mode support"
+            appName="avalon"
         ></template-configuration>
         <avalon-separator></avalon-separator>
         <template-features-animation [featuresData]="animationFeaturesData1"></template-features-animation>
@@ -46,6 +47,7 @@ export class AvalonPage {
     avalonLogo = AvalonLogo;
     templateHeroData = {
         pattern: 'https://primefaces.org/cdn/primeng/images/templates/avalon/avalon-hero-pattern.png',
+        patternClass: 'select-none absolute md:w-[60rem] h-auto md:bottom-0 bottom-40 -left-32 xl:-left-12 md:-left-32 z-[6] opacity-75',
         light: true,
         rectangle: true,
         dashboard1: 'https://primefaces.org/cdn/primeng/images/templates/avalon/avalon-hero-dashboard1.png',

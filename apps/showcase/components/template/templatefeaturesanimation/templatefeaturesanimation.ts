@@ -2,7 +2,8 @@ import { CommonModule, NgOptimizedImage, isPlatformBrowser } from '@angular/comm
 import { ChangeDetectionStrategy, ChangeDetectorRef, Component, ElementRef, Inject, Input, NgModule, PLATFORM_ID, ViewEncapsulation } from '@angular/core';
 import { SharedModule } from 'primeng/api';
 import { TemplateFeaturesAnimationInlineModule } from './templatefeaturesanimationinline';
-
+import { AnimateOnScrollModule } from 'primeng/animateonscroll';
+import { DomSanitizer, SafeHtml } from '@angular/platform-browser';
 @Component({
     selector: 'template-features-animation',
     standalone: false,
@@ -13,7 +14,7 @@ import { TemplateFeaturesAnimationInlineModule } from './templatefeaturesanimati
                     {{ title }}
                 </h2>
             </ng-container>
-            <div class="flex flex-col-reverse lg:flex-row items-start gap-10 w-full max-w-2xl lg:max-w-6xl mx-auto p-4 lg:p-7 rounded-3xl border border-surface animate-duration-500">
+            <div pAnimateOnScroll enterClass="animate-fadein" class="flex flex-col-reverse lg:flex-row items-start gap-10 w-full max-w-2xl lg:max-w-6xl mx-auto p-4 lg:p-7 rounded-3xl border border-surface animate-duration-500">
                 <div class="flex flex-col gap-4 flex-1">
                     <div
                         *ngFor="let data of featuresData; let i = index"
@@ -41,9 +42,7 @@ import { TemplateFeaturesAnimationInlineModule } from './templatefeaturesanimati
                         </div>
                         <div class="flex-1">
                             <h5 class="text-lg lg:text-xl font-semibold m-0">{{ data.title }}</h5>
-                            <p class="text-sm lg:text-base text-muted-color mt-1 mb-0 [&>a]:text-primary [&>a]:hover:underline">
-                                {{ data.description }}
-                            </p>
+                            <p class="text-sm lg:text-base text-muted-color mt-1 mb-0 [&>a]:text-primary [&>a]:hover:underline" [innerHTML]="getSanitizedDescription(data.description)"></p>
                         </div>
                     </div>
                 </div>
@@ -89,8 +88,13 @@ export class TemplateFeaturesAnimation {
     constructor(
         private cd: ChangeDetectorRef,
         public el: ElementRef,
-        @Inject(PLATFORM_ID) private platformId: any
+        @Inject(PLATFORM_ID) private platformId: any,
+        private sanitizer: DomSanitizer
     ) {}
+
+    getSanitizedDescription(description: string): SafeHtml {
+        return this.sanitizer.bypassSecurityTrustHtml(description);
+    }
 
     startInterval() {
         this.intervalId = setInterval(() => {
@@ -142,7 +146,7 @@ export class TemplateFeaturesAnimation {
 }
 
 @NgModule({
-    imports: [CommonModule, SharedModule, TemplateFeaturesAnimationInlineModule, NgOptimizedImage],
+    imports: [CommonModule, SharedModule, TemplateFeaturesAnimationInlineModule, NgOptimizedImage, AnimateOnScrollModule],
     exports: [TemplateFeaturesAnimation, SharedModule],
     declarations: [TemplateFeaturesAnimation]
 })

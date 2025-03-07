@@ -38,6 +38,7 @@ import { AtlantisSeparator } from './atlantisseparator';
         <template-configuration
             title="Angular with CLI"
             description="Atlantis is powered by Angular CLI to get started in no time following the best practices like service based component interaction modular design and strict mode support"
+            appName="atlantis"
         ></template-configuration>
         <atlantis-separator></atlantis-separator>
         <template-features-animation [featuresData]="animationFeaturesData1"></template-features-animation>
@@ -50,6 +51,7 @@ export class AtlantisPage {
 
     templateHeroData = {
         pattern: 'https://primefaces.org/cdn/primeng/images/templates/atlantis/atlantis-hero-pattern.png',
+        patternClass: 'select-none absolute md:-bottom-28 bottom-36 -left-20 md:-left-28 z-[6] md:w-[50rem] h-auto w-[60rem] opacity-75',
         dashboard1: 'https://primefaces.org/cdn/primeng/images/templates/atlantis/atlantis-hero-dashboard1.png',
         dashboard2: 'https://primefaces.org/cdn/primeng/images/templates/atlantis/atlantis-hero-dashboard2.png',
         description: 'A spectacular application template for Angular based on CLI featuring light-dark modes with 8 surface colors, 7 menu layouts, various menu themes, sample apps, ready to use template pages and 3 presets.',
