@@ -43,7 +43,7 @@ const theme = ({ dt }) => `
     font-size: ${dt('toast.detail.font.size')};
 }
 
-.p-toast-close-button {
+.p-button.p-toast-close-button {
     display: flex;
     align-items: center;
     justify-content: center;
@@ -110,7 +110,8 @@ const theme = ({ dt }) => `
     box-shadow: ${dt('toast.info.close.button.focus.ring.shadow')};
 }
 
-.p-toast-message-info .p-toast-close-button:hover {
+.p-toast-message-info .p-button.p-toast-close-button:hover {
+    color: inherit;
     background: ${dt('toast.info.close.button.hover.background')};
 }
 
@@ -130,7 +131,8 @@ const theme = ({ dt }) => `
     box-shadow: ${dt('toast.success.close.button.focus.ring.shadow')};
 }
 
-.p-toast-message-success .p-toast-close-button:hover {
+.p-toast-message-success .p-button.p-toast-close-button:hover {
+    color: inherit;
     background: ${dt('toast.success.close.button.hover.background')};
 }
 
@@ -150,7 +152,8 @@ const theme = ({ dt }) => `
     box-shadow: ${dt('toast.warn.close.button.focus.ring.shadow')};
 }
 
-.p-toast-message-warn .p-toast-close-button:hover {
+.p-toast-message-warn .p-button.p-toast-close-button:hover {
+    color: inherit;
     background: ${dt('toast.warn.close.button.hover.background')};
 }
 
@@ -170,7 +173,8 @@ const theme = ({ dt }) => `
     box-shadow: ${dt('toast.error.close.button.focus.ring.shadow')};
 }
 
-.p-toast-message-error .p-toast-close-button:hover {
+.p-toast-message-error .p-button.p-toast-close-button:hover {
+    color: inherit;
     background: ${dt('toast.error.close.button.hover.background')};
 }
 
@@ -190,7 +194,8 @@ const theme = ({ dt }) => `
     box-shadow: ${dt('toast.secondary.close.button.focus.ring.shadow')};
 }
 
-.p-toast-message-secondary .p-toast-close-button:hover {
+.p-toast-message-secondary .p-button.p-toast-close-button:hover {
+    color: inherit;
     background: ${dt('toast.secondary.close.button.hover.background')};
 }
 
@@ -210,7 +215,8 @@ const theme = ({ dt }) => `
     box-shadow: ${dt('toast.contrast.close.button.focus.ring.shadow')};
 }
 
-.p-toast-message-contrast .p-toast-close-button:hover {
+.p-toast-message-contrast .p-button.p-toast-close-button:hover {
+    color: inherit;
     background: ${dt('toast.contrast.close.button.hover.background')};
 }
 
