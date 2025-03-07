@@ -44,7 +44,7 @@ import { TemplateHeroRectangleModule } from './templateherorectangle';
                             <i class="pi pi-github " style="font-size: 1rem;"></i>
                             <span class="hover:underline">{{ templateHeroData?.free ? 'Open Issues' : 'Community' }}</span>
                         </a>
-                        <a class="flex items-center gap-2 text-primary-contrast lg:text-base text-sm" [href]="templateHeroData?.docHref" target="_blank">
+                        <a *ngIf="templateHeroData?.docHref" class="flex items-center gap-2 text-primary-contrast lg:text-base text-sm" [href]="templateHeroData?.docHref" target="_blank">
                             <i class="pi pi-book " style="font-size: 1rem;"></i>
                             <span class="hover:underline">Documentation</span>
                         </a>

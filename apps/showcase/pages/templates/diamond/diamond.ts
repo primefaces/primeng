@@ -118,7 +118,7 @@ export class DiamondPage {
             id: 4,
             title: 'Figma File',
             description:
-                'Diamond uses Figma as the design tool. It will be possible to download the Figma file after your purchase. Note that PrimeNG UI components are excluded from the Diamond Figma file as they are available in PrimeOne for Figma only.',
+                'Powered by Figma as the design tool. It will be possible to download the Figma file after your purchase. Note that PrimeNG UI components are excluded from the template Figma file as they are available in PrimeOne for Figma only.',
             src: 'https://primefaces.org/cdn/primeng/images/templates/diamond/features-remastered-animation-figma.png'
         }
     ];

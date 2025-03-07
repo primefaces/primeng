@@ -16,8 +16,7 @@ import { SharedModule } from 'primeng/api';
                     </div>
                     <div class="p-6 bg-surface-900 dark:bg-surface-800 flex flex-col gap-4 relative">
                         <p class="m-0 text-surface-0 text-xs sm:text-sm">&gt; npm install -g angular-cli</p>
-                        <p class="m-0 text-surface-0 text-xs sm:text-sm">&gt; ng new my-apollo-app</p>
-                        <p class="m-0 text-surface-0 text-xs sm:text-sm">&gt; cd my-apollo-app</p>
+                        <p class="m-0 text-surface-0 text-xs sm:text-sm">&gt; cd primeng-template</p>
                         <p class="m-0 text-surface-0 text-xs sm:text-sm">&gt; ng serve</p>
                         <img class="w-28 lg:w-32 h-28 lg:h-32 absolute right-6 bottom-4" src="https://primefaces.org/cdn/primeng/images/templates/angular-3d-logo.png" alt="Angular 3D Logo" />
                     </div>
