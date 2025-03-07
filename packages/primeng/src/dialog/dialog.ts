@@ -707,7 +707,7 @@ export class Dialog extends BaseComponent implements OnInit, AfterContentInit, O
     }
 
     enableModality() {
-        if (this.closable && this.dismissableMask) {
+        if (this.dismissableMask) {
             this.maskClickListener = this.renderer.listen(this.wrapper, 'mousedown', (event: any) => {
                 if (this.wrapper && this.wrapper.isSameNode(event.target)) {
                     this.close(event);

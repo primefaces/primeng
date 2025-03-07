@@ -434,7 +434,7 @@ export class DynamicDialogComponent extends BaseComponent implements AfterViewIn
     }
 
     enableModality() {
-        if (this.ddconfig.closable && this.ddconfig.dismissableMask) {
+        if (this.ddconfig.dismissableMask) {
             this.maskClickListener = this.renderer.listen(this.wrapper, 'mousedown', (event: any) => {
                 if (this.wrapper && this.wrapper.isSameNode(event.target)) {
                     this.hide();
