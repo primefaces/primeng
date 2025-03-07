@@ -721,21 +721,17 @@ export class Dialog extends BaseComponent implements OnInit, AfterContentInit, O
     }
 
     disableModality() {
-        if (this.wrapper) {
-            if (this.dismissableMask) {
-                this.unbindMaskClickListener();
-            }
+        this.unbindMaskClickListener();
 
-            // for nested dialogs w/modal
-            const scrollBlockers = document.querySelectorAll('.p-dialog-mask-scrollblocker');
+        // for nested dialogs w/modal
+        const scrollBlockers = document.querySelectorAll('.p-dialog-mask-scrollblocker');
 
-            if (this.modal && scrollBlockers && scrollBlockers.length == 1) {
-                unblockBodyScroll();
-            }
+        if (this.modal && scrollBlockers && scrollBlockers.length == 1) {
+            unblockBodyScroll();
+        }
 
-            if (!(this.cd as ViewRef).destroyed) {
-                this.cd.detectChanges();
-            }
+        if (!(this.cd as ViewRef).destroyed) {
+            this.cd.detectChanges();
         }
     }
 
@@ -1032,10 +1028,7 @@ export class Dialog extends BaseComponent implements OnInit, AfterContentInit, O
                 this.moveOnTop();
                 this.bindGlobalListeners();
                 this.container?.setAttribute(this.id, '');
-
-                if (this.modal) {
-                    this.enableModality();
-                }
+                this.enableModality();
 
                 // if (!this.modal && this.blockScroll) {
                 //     addClass(this.document.body, 'p-overflow-hidden');
@@ -1079,9 +1072,7 @@ export class Dialog extends BaseComponent implements OnInit, AfterContentInit, O
             this.maximized = false;
         }
 
-        if (this.modal) {
-            this.disableModality();
-        }
+        this.disableModality();
 
         // if (this.blockScroll) {
         //      removeClass(this.document.body, 'p-overflow-hidden');

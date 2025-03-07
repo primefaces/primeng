@@ -383,9 +383,7 @@ export class DynamicDialogComponent extends BaseComponent implements AfterViewIn
                 this.bindGlobalListeners();
                 this.container?.setAttribute(this.id, '');
 
-                if (this.ddconfig.modal !== false) {
-                    this.enableModality();
-                }
+                this.enableModality();
 
                 if (this.ddconfig.focusOnShow !== false) {
                     this.focus();
@@ -420,9 +418,7 @@ export class DynamicDialogComponent extends BaseComponent implements AfterViewIn
             ZIndexUtils.revertZIndex(this.zIndexForLayering);
         }
 
-        if (this.ddconfig.modal !== false) {
-            this.disableModality();
-        }
+        this.disableModality();
         this.container = null;
     }
 
@@ -452,18 +448,14 @@ export class DynamicDialogComponent extends BaseComponent implements AfterViewIn
     }
 
     disableModality() {
-        if (this.wrapper) {
-            if (this.ddconfig.dismissableMask) {
-                this.unbindMaskClickListener();
-            }
+        this.unbindMaskClickListener();
 
-            if (this.ddconfig.modal !== false) {
-                removeClass(this.document.body, 'p-overflow-hidden');
-            }
+        if (this.ddconfig.modal !== false) {
+            removeClass(this.document.body, 'p-overflow-hidden');
+        }
 
-            if (!(this.cd as ViewRef).destroyed) {
-                this.cd.detectChanges();
-            }
+        if (!(this.cd as ViewRef).destroyed) {
+            this.cd.detectChanges();
         }
     }
 
