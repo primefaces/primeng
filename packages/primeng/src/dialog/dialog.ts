@@ -1060,6 +1060,10 @@ export class Dialog extends BaseComponent implements OnInit, AfterContentInit, O
                 this.onContainerDestroy();
                 this.onHide.emit({});
                 this.cd.markForCheck();
+
+                if (this.maskVisible !== this.visible) {
+                    this.maskVisible = this.visible;
+                }
                 break;
             case 'visible':
                 this.onShow.emit({});
