@@ -43,7 +43,7 @@
         "jspdf-autotable": "^3.5.28",
         "primeicons": "^7.0.0",
         "primeng": "workspace:*",
-        "prismjs": "^1.29.0",
+        "prismjs": "^1.30.0",
         "quill": "2.0.2",
         "rxjs": "~7.8.1",
         "ts-node": "~10.9.1",
