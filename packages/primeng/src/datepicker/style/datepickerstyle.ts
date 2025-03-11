@@ -75,7 +75,7 @@ const theme = ({ dt }) => `
 
 .p-datepicker:has(.p-datepicker-dropdown) .p-datepicker-clear-icon,
 .p-datepicker:has(.p-datepicker-input-icon-container) .p-datepicker-clear-icon {
-    inset-inline-end: calc(${dt('datepicker.date.width')} + ${dt('form.field.padding.x')});
+    inset-inline-end: calc(${dt('datepicker.dropdown.width')} + ${dt('form.field.padding.x')});
 }
 
 .p-datepicker-clear-icon {
