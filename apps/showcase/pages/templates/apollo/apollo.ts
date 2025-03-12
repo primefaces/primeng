@@ -64,7 +64,7 @@ export class ApolloPage {
         {
             title: 'Fully Responsive',
             description: 'Crafted to provide optimal viewing and interaction experience for a wide range of devices.',
-            src: 'https://primefaces.org/cdn/primeng/images/templates/diamond/diamond-remastered-features-responsive.png'
+            src: 'https://primefaces.org/cdn/primeng/images/templates/apollo/apollo-features2-responsive.png'
         },
         {
             title: 'Support',

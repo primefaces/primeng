@@ -64,7 +64,7 @@ export class UltimaPage {
         {
             title: 'Fully Responsive',
             description: 'Crafted to provide optimal viewing and interaction experience for a wide range of devices.',
-            src: 'https://primefaces.org/cdn/primeng/images/templates/freya/freya-features2-responsive.png'
+            src: 'https://primefaces.org/cdn/primeng/images/templates/ultima/ultima-features2-responsive.png'
         },
         {
             title: 'Cross Browser Compatible',
