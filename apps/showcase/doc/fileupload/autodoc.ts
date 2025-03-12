@@ -1,11 +1,7 @@
 import { Code } from '@/domain/code';
 import { Component } from '@angular/core';
 import { MessageService } from 'primeng/api';
-
-interface UploadEvent {
-    originalEvent: Event;
-    files: File[];
-}
+import { FileUploadEvent } from 'primeng/fileupload';
 
 @Component({
     selector: 'file-upload-auto-demo',
@@ -25,7 +21,7 @@ interface UploadEvent {
 export class AutoDoc {
     constructor(private messageService: MessageService) {}
 
-    onBasicUploadAuto(event: UploadEvent) {
+    onBasicUploadAuto(event: FileUploadEvent) {
         this.messageService.add({ severity: 'info', summary: 'Success', detail: 'File Uploaded with Auto Mode' });
     }
 
@@ -36,15 +32,10 @@ export class AutoDoc {
     <p-fileupload mode="basic" name="demo[]" chooseIcon="pi pi-upload" url="https://www.primefaces.org/cdn/api/upload.php" accept="image/*" maxFileSize="1000000" (onUpload)="onBasicUploadAuto($event)" [auto]="true" chooseLabel="Browse" />
 </div>`,
 
-        typescript: `import { Component } from '@angular/core';
+        typescript: `import { Code } from '@/domain/code';
+import { Component } from '@angular/core';
 import { MessageService } from 'primeng/api';
-import { FileUpload } from 'primeng/fileupload';
-import { ToastModule } from 'primeng/toast';
-
-interface UploadEvent {
-    originalEvent: Event;
-    files: File[];
-}
+import { FileUploadEvent } from 'primeng/fileupload';
 
 @Component({
     selector: 'file-upload-auto-demo',
@@ -56,7 +47,7 @@ interface UploadEvent {
 export class FileUploadAutoDemo {
     constructor(private messageService: MessageService) { }
 
-    onBasicUploadAuto(event: UploadEvent) {
+    onBasicUploadAuto(event: FileUploadEvent) {
         this.messageService.add({ severity: 'info', summary: 'Success', detail: 'File Uploaded with Auto Mode' });
     }
 }`

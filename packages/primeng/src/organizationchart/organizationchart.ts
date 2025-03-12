@@ -132,12 +132,14 @@ export class OrganizationChartNode implements OnDestroy {
         if (this.node) {
             return this.node.leaf == false ? false : !(this.node.children && this.node.children.length);
         }
+        return undefined;
     }
 
-    get colspan() {
+    get colspan(): number | null | undefined {
         if (this.node) {
             return this.node.children && this.node.children.length ? this.node.children.length * 2 : null;
         }
+        return undefined;
     }
 
     getChildStyle(node: TreeNode<any>) {

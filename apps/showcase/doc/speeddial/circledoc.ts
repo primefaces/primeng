@@ -12,7 +12,7 @@ import { MenuItem, MessageService } from 'primeng/api';
         <div class="card">
             <div style="position:relative; height: 500px;" class="flex items-center justify-center">
                 <p-toast />
-                <p-speeddial [model]="items" [radius]="80" type="circle" [style]="{ position: 'absolute' }" [buttonProps]="{ severity: 'warn', rounded: true }" />
+                <p-speeddial [model]="items" [radius]="80" type="circle" [style]="{ position: 'absolute' }" [buttonProps]="{ severity: 'warning', rounded: true }" />
             </div>
         </div>
         <app-code [code]="code" selector="speed-dial-circle-demo"></app-code>
@@ -62,7 +62,7 @@ export class CircleDoc implements OnInit {
         html: `<div class="card">
     <div style="position:relative; height: 500px;" class="flex items-center justify-center">
         <p-toast />
-        <p-speeddial [model]="items" [radius]="80" type="circle" [style]="{ position: 'absolute' }" [buttonProps]="{ severity: 'warn', rounded: true }" />
+        <p-speeddial [model]="items" [radius]="80" type="circle" [style]="{ position: 'absolute' }" [buttonProps]="{ severity: 'warning', rounded: true }" />
     </div>
 </div>`,
 

@@ -313,6 +313,7 @@ export class StepPanel extends BaseComponent implements AfterContentInit {
 
             return index !== stepLen - 1;
         }
+        return undefined;
     });
     /**
      * Content template.

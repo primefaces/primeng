@@ -182,6 +182,8 @@ export class CarouselResponsiveDemo {
                 return 'warn';
             case 'OUTOFSTOCK':
                 return 'danger';
+            default:
+                return undefined;
         }
     }
 

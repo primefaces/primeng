@@ -100,6 +100,8 @@ export class RowspanGroupingDoc {
 
             case 'renewal':
                 return null;
+            default:
+                return null;
         }
     }
 

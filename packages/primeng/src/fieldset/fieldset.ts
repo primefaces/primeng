@@ -191,7 +191,7 @@ export class Fieldset extends BaseComponent implements AfterContentInit, Blockab
      */
     @ContentChild('content', { descendants: false }) contentTemplate: TemplateRef<any> | undefined;
 
-    toggle(event: MouseEvent) {
+    toggle(event: MouseEvent): boolean | undefined {
         if (this.animating) {
             return false;
         }
@@ -204,6 +204,7 @@ export class Fieldset extends BaseComponent implements AfterContentInit, Blockab
 
         this.onAfterToggle.emit({ originalEvent: event, collapsed: this.collapsed });
         event.preventDefault();
+        return undefined;
     }
 
     onKeyDown(event) {

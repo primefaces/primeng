@@ -112,6 +112,8 @@ export class SubheaderGroupingDoc {
 
             case 'renewal':
                 return null;
+            default:
+                return null;
         }
     }
 

@@ -4,7 +4,6 @@
         "node_modules"
     ],
     "angularCompilerOptions": {
-        "disableTypeScriptVersionCheck": true,
         "fullTemplateTypeCheck": false,
         "annotateForClosureCompiler": false,
         "strictTemplates": false,

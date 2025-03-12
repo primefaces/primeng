@@ -395,6 +395,8 @@ export class TableStatefulDemo implements OnInit{
 
             case 'renewal':
                 return null;
+            default:
+                return null;
         }
     }
 
