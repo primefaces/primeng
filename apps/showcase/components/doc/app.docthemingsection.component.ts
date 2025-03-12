@@ -17,6 +17,7 @@ import ThemeDoc from '@/doc/apidoc/themedoc.json';
             @if (tokensDoc()) {
                 <app-docapitable [id]="header + 'DesignTokens'" [label]="header + ' Design Tokens'" description="List of design tokens used in a preset." [data]="tokensDoc().tokens" />
             }
+            <app-docstyledpreset [data]="componentName.toLowerCase()"></app-docstyledpreset>
         </div>
         <app-docsection-nav [docs]="navItems()" />
     `,
@@ -26,6 +27,8 @@ export class AppDocThemingSectionComponent {
     @Input() header!: string;
 
     @Input() docs: string;
+
+    @Input() componentName: string;
 
     tokensDoc = signal<any>([]);
 
