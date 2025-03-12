@@ -35,7 +35,7 @@
         "chart.js": "4.4.2",
         "codelyzer": "^0.0.28",
         "del": "^7.1.0",
-        "esbuild": "^0.19.8",
+        "esbuild": "^0.25.0",
         "express": "^4.19.2",
         "file-saver": "^2.0.5",
         "jasmine-core": "~4.6.0",
