@@ -3,7 +3,7 @@ import { Component, Input } from '@angular/core';
 @Component({
     selector: 'app-docstyledpreset',
     standalone: false,
-    template: `<app-docsectiontext>
+    template: `<app-docsectiontext title="Built-in Presets" id="built-in-presets" [level]="3">
         <p>PrimeNG offers various preset options that allow you to customize the component's styling to match your application's design system. Below you'll find links to the implementation and type definitions for each preset.</p>
         <div class="doc-tablewrapper mt-4">
             <table class="doc-preset-table">
