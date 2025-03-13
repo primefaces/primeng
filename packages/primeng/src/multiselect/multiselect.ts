@@ -101,7 +101,7 @@ export const MULTISELECT_VALUE_ACCESSOR: any = {
         >
             <p-checkbox [ngModel]="selected" [binary]="true" [tabindex]="-1" [variant]="variant" [ariaLabel]="label">
                 <ng-container *ngIf="itemCheckboxIconTemplate">
-                    <ng-template #icon let-klass="class">
+                    <ng-template #checkboxicon let-klass="class">
                         <ng-template *ngTemplateOutlet="itemCheckboxIconTemplate; context: { checked: selected, class: klass }"></ng-template>
                     </ng-template>
                 </ng-container>
@@ -209,10 +209,10 @@ export class MultiSelectItem extends BaseComponent {
                     <ng-container *ngIf="display === 'comma'">{{ label() || 'empty' }}</ng-container>
                     <ng-container *ngIf="display === 'chip'">
                         <div #token *ngFor="let item of chipSelectedItems(); let i = index" class="p-multiselect-chip-item">
-                            <p-chip styleClass="p-multiselect-chip" [label]="getLabelByValue(item)" [removable]="true" (onRemove)="removeOption(item, $event)" [removeIcon]="chipIcon">
+                            <p-chip styleClass="p-multiselect-chip" [label]="getLabelByValue(item)" [removable]="!disabled && !readonly" (onRemove)="removeOption(item, $event)" [removeIcon]="chipIcon">
                                 <ng-container *ngIf="chipIconTemplate || _chipIconTemplate || removeTokenIconTemplate || _removeTokenIconTemplate">
                                     <ng-template #removeicon>
-                                        <ng-container *ngIf="!disabled">
+                                        <ng-container *ngIf="!disabled && !readonly">
                                             <span
                                                 class="p-multiselect-chip-icon"
                                                 *ngIf="chipIconTemplate || _chipIconTemplate || removeTokenIconTemplate || _removeTokenIconTemplate"
@@ -1236,7 +1236,7 @@ export class MultiSelect extends BaseComponent implements OnInit, AfterViewInit,
     }
 
     get isVisibleClearIcon(): boolean | undefined {
-        return this.modelValue() != null && this.modelValue() !== '' && isNotEmpty(this.modelValue()) && this.showClear && !this.disabled && this.filled;
+        return this.modelValue() != null && this.modelValue() !== '' && isNotEmpty(this.modelValue()) && this.showClear && !this.disabled && !this.readonly && this.filled;
     }
 
     get toggleAllAriaLabel() {
