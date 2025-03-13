@@ -183,9 +183,7 @@ export class AccordionHeader extends BaseComponent {
         this.changeActiveValue();
 
         const isActive = this.active();
-
-        const panels = this.pcAccordion.panelList ? this.pcAccordion.panelList.toArray() : [];
-        const index = panels.findIndex((panel) => panel === this.pcAccordionPanel);
+        const index = this.pcAccordionPanel.value();
 
         if (!wasActive && isActive) {
             this.pcAccordion.onOpen.emit({ originalEvent: event, index });
