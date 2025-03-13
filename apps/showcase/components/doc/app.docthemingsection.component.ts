@@ -49,7 +49,8 @@ export class AppDocThemingSectionComponent {
                 {
                     id: this.header + 'DesignTokens',
                     label: 'Design Tokens'
-                }
+                },
+                { id: 'built-in-presets', label: 'Built-in Presets' }
             ]);
         }
         if (APIDoc[docName]) {
