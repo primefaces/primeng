@@ -53,7 +53,7 @@ const devDependencies = {
 };
 
 const getServiceImports = (service: string[]) => {
-    return service.map((s) => `import { ${s} } from 'service/${s.toLowerCase()}';`).join('');
+    return service.map((s) => `import { ${s} } from '@/service/${s.toLowerCase()}';`).join('');
 };
 
 const getComponentName = (selector: string) => {
@@ -325,7 +325,7 @@ const tsconfig_json = `{
       ],
       "paths": {
         "@/domain/*": ["src/domain/*"],
-        "@service/*": ["src/service/*"]
+        "@/service/*": ["src/service/*"]
       }
     }
 }`;
