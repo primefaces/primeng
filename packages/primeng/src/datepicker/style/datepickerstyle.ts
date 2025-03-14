@@ -73,6 +73,20 @@ const theme = ({ dt }) => `
     line-height: 1;
 }
 
+.p-datepicker:has(.p-datepicker-dropdown) .p-datepicker-clear-icon,
+.p-datepicker:has(.p-datepicker-input-icon-container) .p-datepicker-clear-icon {
+    inset-inline-end: calc(${dt('datepicker.dropdown.width')} + ${dt('form.field.padding.x')});
+}
+
+.p-datepicker-clear-icon {
+    position: absolute;
+    top: 50%;
+    margin-top: -0.5rem;
+    cursor: pointer;
+    color: ${dt('form.field.icon.color')};
+    inset-inline-end: ${dt('form.field.padding.x')};
+}
+
 .p-datepicker-fluid {
     display: flex;
 }
