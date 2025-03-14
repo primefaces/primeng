@@ -1680,6 +1680,7 @@ export class PickList extends BaseComponent implements AfterViewChecked, AfterCo
     }
 
     onSpaceKey(event: Event | any, selectedItems: any[], callback: EventEmitter<any>, listType: number) {
+        if (event.target.tagName === 'INPUT') return;
         event.preventDefault();
 
         if (event.shiftKey && selectedItems && selectedItems.length > 0) {
