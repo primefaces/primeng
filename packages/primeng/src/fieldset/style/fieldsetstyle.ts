@@ -17,6 +17,7 @@ const theme = ({ dt }) => `
     border-width: ${dt('fieldset.legend.border.width')};
     border-style: solid;
     border-color: ${dt('fieldset.legend.border.color')};
+    color: ${dt('fieldset.legend.color')};
     padding: ${dt('fieldset.legend.padding')};
     transition: background ${dt('fieldset.transition.duration')}, color ${dt('fieldset.transition.duration')}, outline-color ${dt('fieldset.transition.duration')}, box-shadow ${dt('fieldset.transition.duration')};
 }

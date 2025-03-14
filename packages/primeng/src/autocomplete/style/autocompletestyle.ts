@@ -179,6 +179,10 @@ const theme = ({ dt }) => `
     background: ${dt('autocomplete.filled.focus.background')};
 }
 
+.p-autocomplete.p-disabled {
+    opacity: 1;
+}
+
 .p-autocomplete.p-disabled .p-autocomplete-input-multiple {
     opacity: 1;
     background: ${dt('autocomplete.disabled.background')};
@@ -271,22 +275,31 @@ const theme = ({ dt }) => `
 .p-autocomplete:has(.p-autocomplete-dropdown) .p-autocomplete-clear-icon {
     right: calc(${dt('autocomplete.padding.x')} + ${dt('autocomplete.dropdown.width')});
 }
-
-.p-autocomplete.ng-invalid.ng-dirty .p-autocomplete-input,
-.p-autocomplete.ng-invalid.ng-dirty .p-autocomplete-input-multiple {
+p-autoComplete.ng-invalid.ng-dirty .p-autocomplete-input,
+p-autoComplete.ng-invalid.ng-dirty .p-autocomplete-input-multiple,
+p-auto-complete.ng-invalid.ng-dirty .p-autocomplete-input,
+p-auto-complete.ng-invalid.ng-dirty .p-autocomplete-input-multiple
+p-autocomplete.ng-invalid.ng-dirty .p-autocomplete-input,
+p-autocomplete.ng-invalid.ng-dirty .p-autocomplete-input-multiple {
     border-color: ${dt('autocomplete.invalid.border.color')};
 }
-
-.p-autocomplete.ng-invalid.ng-dirty .p-autocomplete-input:enabled:focus,
-.p-autocomplete.ng-invalid.ng-dirty:not(.p-disabled).p-focus .p-autocomplete-input-multiple {
+p-autoComplete.ng-invalid.ng-dirty .p-autocomplete-input:enabled:focus,
+p-autoComplete.ng-invalid.ng-dirty:not(.p-disabled).p-focus .p-autocomplete-input-multiple,
+p-auto-complete.ng-invalid.ng-dirty .p-autocomplete-input:enabled:focus,
+p-auto-complete.ng-invalid.ng-dirty:not(.p-disabled).p-focus .p-autocomplete-input-multiple,
+p-autocomplete.ng-invalid.ng-dirty .p-autocomplete-input:enabled:focus,
+p-autocomplete.ng-invalid.ng-dirty:not(.p-disabled).p-focus .p-autocomplete-input-multiple {
     border-color: ${dt('autocomplete.focus.border.color')};
 }
-
-.p-autocomplete.ng-invalid.ng-dirty .p-autocomplete-input-chip input::placeholder {
+p-autoComplete.ng-invalid.ng-dirty .p-autocomplete-input-chip input::placeholder,
+p-auto-complete.ng-invalid.ng-dirty .p-autocomplete-input-chip input::placeholder,
+p-autocomplete.ng-invalid.ng-dirty .p-autocomplete-input-chip input::placeholder {
     color: ${dt('autocomplete.invalid.placeholder.color')};
 }
 
-.p-autocomplete.ng-invalid.ng-dirty .p-autocomplete-input::placeholder {
+p-autoComplete.ng-invalid.ng-dirty .p-autocomplete-input::placeholder,
+p-auto-complete.ng-invalid.ng-dirty .p-autocomplete-input::placeholder,
+p-autocomplete.ng-invalid.ng-dirty .p-autocomplete-input::placeholder {
     color: ${dt('autocomplete.invalid.placeholder.color')};
 }`;
 
