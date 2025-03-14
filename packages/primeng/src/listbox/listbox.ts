@@ -234,7 +234,8 @@ export const LISTBOX_VALUE_ACCESSOR: any = {
                                             context: {
                                                 $implicit: option,
                                                 index: getOptionIndex(i, scrollerOptions),
-                                                selected: isSelected(option)
+                                                selected: isSelected(option),
+                                                disabled: isOptionDisabled(option)
                                             }
                                         "
                                     ></ng-container>
