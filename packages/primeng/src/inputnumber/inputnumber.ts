@@ -67,6 +67,7 @@ export const INPUTNUMBER_VALUE_ACCESSOR: any = {
             [attr.placeholder]="placeholder"
             [attr.aria-label]="ariaLabel"
             [attr.aria-labelledby]="ariaLabelledBy"
+            [attr.aria-describedby]="ariaDescribedBy"
             [attr.title]="title"
             [pSize]="size"
             [attr.name]="name"
@@ -251,6 +252,11 @@ export class InputNumber extends BaseComponent implements OnInit, AfterContentIn
      * @group Props
      */
     @Input() ariaLabelledBy: string | undefined;
+    /**
+     * Specifies one or more IDs in the DOM that describes the input field.
+     * @group Props
+     */
+    @Input() ariaDescribedBy: string | undefined;
     /**
      * Used to define a string that labels the input element.
      * @group Props
