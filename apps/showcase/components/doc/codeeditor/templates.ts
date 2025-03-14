@@ -92,7 +92,7 @@ const staticStyles = {
     global: `@tailwind base;
 @tailwind components;
 @tailwind utilities;
-
+@import "primeicons/primeicons.css";
 
 :root {
   --body-bg: var(--p-surface-50);
