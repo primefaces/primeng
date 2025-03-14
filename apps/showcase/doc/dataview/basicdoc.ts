@@ -184,14 +184,14 @@ export class BasicDoc {
     </p-dataview>
 </div>`,
 
-        typescript: `import { Component } from '@angular/core';
+        typescript: `import { Component, inject, signal } from '@angular/core';
 import { Product } from '@/domain/product';
 import { ProductService } from '@/service/productservice';
 import { DataView } from 'primeng/dataview';
 import { ButtonModule } from 'primeng/button';
 import { Tag } from 'primeng/tag';
 import { CommonModule } from '@angular/common';
-import { signal } from '@angular/core';
+
 
 @Component({
     selector: 'data-view-basic-demo',
@@ -204,6 +204,7 @@ export class DataViewBasicDemo {
     products = signal<any>([]);
 
     productService = inject(ProductService);
+    
     ngOnInit() {
         this.productService.getProducts().then((data) => {
             const d = data.slice(0, 5);
