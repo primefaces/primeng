@@ -185,6 +185,11 @@ export class DynamicDialogConfig<DataType = any, InputValuesType extends Record<
      * @group Props
      */
     templates?: DynamicDialogTemplates;
+    /**
+     * A boolean to determine if it should focus on first element in parent component when closing the dialog.
+     * @group Props
+     */
+    focusFirstElementOnClose?: boolean = false;
 }
 
 /**
