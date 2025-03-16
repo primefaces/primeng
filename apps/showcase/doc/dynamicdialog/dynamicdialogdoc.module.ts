@@ -11,6 +11,8 @@ import { Tag } from 'primeng/tag';
 import { ToastModule } from 'primeng/toast';
 import { CloseDoc } from './closedoc';
 import { CustomizationDoc } from './customizationdoc';
+import { CustomProvidersDemo } from './customprovidersdemo';
+import { CustomProvidersDoc } from './customprovidersdoc';
 import { ExampleDoc } from './exampledoc';
 import { Footer } from './footer';
 import { ImportDoc } from './importdoc';
@@ -23,7 +25,7 @@ import { UsageDoc } from './usagedoc';
 
 @NgModule({
     imports: [CommonModule, AppCodeModule, RouterModule, FormsModule, Tag, Dialog, ButtonModule, AppDocModule, ToastModule, TableModule],
-    declarations: [OpenDoc, Footer, ImportDoc, StyleDoc, ExampleDoc, ProductListDemo, UsageDoc, PassingDataDoc, CloseDoc, StyleDoc, InfoDemo, CustomizationDoc],
+    declarations: [OpenDoc, Footer, ImportDoc, StyleDoc, ExampleDoc, ProductListDemo, UsageDoc, PassingDataDoc, CloseDoc, StyleDoc, InfoDemo, CustomizationDoc, CustomProvidersDoc, CustomProvidersDemo],
     exports: [AppDocModule]
 })
 export class DynamicDialogDocModule {}
