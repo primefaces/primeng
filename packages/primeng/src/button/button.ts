@@ -672,19 +672,19 @@ export class Button extends BaseComponent implements AfterContentInit {
         this.templates?.forEach((item) => {
             switch (item.getType()) {
                 case 'content':
-                    this.contentTemplate = item.template;
+                    this._contentTemplate = item.template;
                     break;
 
                 case 'icon':
-                    this.iconTemplate = item.template;
+                    this._iconTemplate = item.template;
                     break;
 
                 case 'loadingicon':
-                    this.loadingIconTemplate = item.template;
+                    this._loadingIconTemplate = item.template;
                     break;
 
                 default:
-                    this.contentTemplate = item.template;
+                    this._contentTemplate = item.template;
                     break;
             }
         });
@@ -723,7 +723,7 @@ export class Button extends BaseComponent implements AfterContentInit {
     get buttonClass() {
         return {
             'p-button p-component': true,
-            'p-button-icon-only': (this.icon || this.iconTemplate || this.loadingIcon || this.loadingIconTemplate || this._loadingIconTemplate) && !this.label,
+            'p-button-icon-only': (this.icon || this.iconTemplate || this._iconTemplate || this.loadingIcon || this.loadingIconTemplate || this._loadingIconTemplate) && !this.label,
             'p-button-vertical': (this.iconPos === 'top' || this.iconPos === 'bottom') && this.label,
             'p-button-loading': this.loading,
             'p-button-loading-label-only': this.loading && !this.icon && this.label && !this.loadingIcon && this.iconPos === 'left',
