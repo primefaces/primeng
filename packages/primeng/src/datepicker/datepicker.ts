@@ -1982,13 +1982,24 @@ export class DatePicker extends BaseComponent implements OnInit, AfterContentIni
         return this.value != null && typeof this.value !== 'string';
     }
 
-    isMonthSelected(month: number) {
-        if (this.isComparable() && !this.isMultipleSelection()) {
-            const [start, end] = this.isRangeSelection() ? this.value : [this.value, this.value];
-            const selected = new Date(this.currentYear, month, 1);
-            return selected >= start && selected <= (end ?? start);
+    isMonthSelected(month) {
+        if (!this.isComparable()) return false;
+
+        if (this.isMultipleSelection()) {
+            return this.value.some((currentValue) => currentValue.getMonth() === month && currentValue.getFullYear() === this.currentYear);
+        } else if (this.isRangeSelection()) {
+            if (!this.value[1]) {
+                return this.value[0]?.getFullYear() === this.currentYear && this.value[0]?.getMonth() === month;
+            } else {
+                const currentDate = new Date(this.currentYear, month, 1);
+                const startDate = new Date(this.value[0].getFullYear(), this.value[0].getMonth(), 1);
+                const endDate = new Date(this.value[1].getFullYear(), this.value[1].getMonth(), 1);
+
+                return currentDate >= startDate && currentDate <= endDate;
+            }
+        } else {
+            return this.value.getMonth() === month && this.value.getFullYear() === this.currentYear;
         }
-        return false;
     }
 
     isMonthDisabled(month: number, year?: number) {
