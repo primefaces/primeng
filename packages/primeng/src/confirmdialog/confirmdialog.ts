@@ -72,9 +72,11 @@ const hideAnimation = animation([animate('{{transition}}', style({ transform: '{
                 </ng-template>
             } @else {
                 @if (headerTemplate || _headerTemplate) {
-                    <div [ngClass]="cx('header')">
-                        <ng-container *ngTemplateOutlet="headerTemplate || _headerTemplate"></ng-container>
-                    </div>
+                    <ng-template #header>
+                        <div [ngClass]="cx('header')">
+                            <ng-container *ngTemplateOutlet="headerTemplate || _headerTemplate"></ng-container>
+                        </div>
+                    </ng-template>
                 }
 
                 <ng-template #content>
