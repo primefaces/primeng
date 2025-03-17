@@ -5,7 +5,7 @@
     "type": "module",
     "scripts": {
         "ng": "ng",
-        "start": "ng serve --no-hmr",
+        "start": "ng serve",
         "e2e": "ng e2e",
         "lint": "ng lint",
         "build": "ng build",
