@@ -1,4 +1,4 @@
-import { CommonModule } from '@angular/common';
+import { CommonModule, isPlatformBrowser } from '@angular/common';
 import { AfterViewInit, booleanAttribute, ChangeDetectionStrategy, Component, computed, ElementRef, forwardRef, HostListener, inject, input, model, OnDestroy, ViewEncapsulation } from '@angular/core';
 import { equals, focus, getAttribute } from '@primeuix/utils';
 import { SharedModule } from 'primeng/api';
@@ -194,22 +194,26 @@ export class Tab extends BaseComponent implements AfterViewInit, OnDestroy {
     }
 
     bindMutationObserver() {
-        this.mutationObserver = new MutationObserver((mutations) => {
-            mutations.forEach(() => {
-                if (this.active()) {
-                    this.pcTabList?.updateInkBar();
-                }
+        if (isPlatformBrowser(this.platformId)) {
+            this.mutationObserver = new MutationObserver((mutations) => {
+                mutations.forEach(() => {
+                    if (this.active()) {
+                        this.pcTabList?.updateInkBar();
+                    }
+                });
             });
-        });
-        this.mutationObserver?.observe(this.el.nativeElement, { childList: true, characterData: true, subtree: true });
+            this.mutationObserver.observe(this.el.nativeElement, { childList: true, characterData: true, subtree: true });
+        }
     }
 
     unbindMutationObserver() {
-        this.mutationObserver?.disconnect();
+        this.mutationObserver.disconnect();
     }
 
     ngOnDestroy() {
-        this.unbindMutationObserver();
+        if (this.mutationObserver) {
+            this.unbindMutationObserver();
+        }
         super.ngOnDestroy();
     }
 }
