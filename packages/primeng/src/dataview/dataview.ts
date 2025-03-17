@@ -413,6 +413,9 @@ export class DataView extends BaseComponent implements OnInit, OnDestroy, Blocka
 
     ngOnChanges(simpleChanges: SimpleChanges) {
         super.ngOnChanges(simpleChanges);
+        if (simpleChanges.layout && !simpleChanges.layout.firstChange) {
+            this.onChangeLayout.emit(simpleChanges.layout.currentValue);
+        }
         if (simpleChanges.value) {
             this._value = simpleChanges.value.currentValue;
             this.updateTotalRecords();
