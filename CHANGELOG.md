@@ -1,4 +1,33 @@
 # Changelog
+## [19.0.10](https://github.com/primefaces/primeng/tree/19.0.10) (2025-03-18)
+[Full Changelog](https://github.com/primefaces/primeng/compare/19.0.9...19.0.10)
+
+**Fixed bugs:**
+- DatePicker (v19) The showClear button is not displayed correctly [\#17355](https://github.com/primefaces/primeng/issues/17355)
+- Datepicker: clear Icon and touchUI styles are broken [\#17842](https://github.com/primefaces/primeng/issues/17842)
+- Current selected day value in DatePicker not indicated in Month view [\#17871](https://github.com/primefaces/primeng/issues/17871)
+- onChangeLayout event for DataView is not emitted [\#17617](https://github.com/primefaces/primeng/issues/17617)
+- p-confirmdialog: header template is rendered in dialog content [\#17881](https://github.com/primefaces/primeng/issues/17881)
+- Button: Conditional template icon disappears on click [\#17848](https://github.com/primefaces/primeng/issues/17848)
+- DatePicker : IftaLabel styles are broken [\#17841](https://github.com/primefaces/primeng/issues/17841)
+- docs: Add ThemeSwitcher to StackBlitz examples [\#17884](https://github.com/primefaces/primeng/issues/17884)
+- Tree: No gap between nodes (except root nodes) [\#17681](https://github.com/primefaces/primeng/issues/17681)
+- Component: AutoComplete - incorrect opacity when disabled [\#17108](https://github.com/primefaces/primeng/issues/17108)
+- Table: Untyped value input [\#17761](https://github.com/primefaces/primeng/issues/17761)
+- dialog component [\#17245](https://github.com/primefaces/primeng/issues/17245)
+- Dialog not visible after quickly hiding and showing again [\#17301](https://github.com/primefaces/primeng/issues/17301)
+- Multiple Components v19 | ReferenceError: Cannot access 'Splitter' before initialization [\#17759](https://github.com/primefaces/primeng/issues/17759)
+- Tabs: invalid ink bar after data update for generated dynamically [\#17360](https://github.com/primefaces/primeng/issues/17360)
+- autocomplete: invalid styles are not displayed [\#17800](https://github.com/primefaces/primeng/issues/17800)
+- Scoped Tokens Not Working in Drawer Component [\#17840](https://github.com/primefaces/primeng/issues/17840)
+- Design token fieldset.legend.color never used in code [\#17852](https://github.com/primefaces/primeng/issues/17852)
+- InputNumber : Clear Icon outside input [\#17846](https://github.com/primefaces/primeng/issues/17846)
+- Password: showClear and toggleMask properties together break styles [\#17844](https://github.com/primefaces/primeng/issues/17844)
+- Multiselect: readonly doesn't disallow clear [\#17801](https://github.com/primefaces/primeng/issues/17801)
+- Accordion: onOpen and onClose events emit wrong index value [\#17866](https://github.com/primefaces/primeng/issues/17866)
+- MultiSelect - v19, itemcheckboxicon template not being picked up [\#17390](https://github.com/primefaces/primeng/issues/17390)
+- Table - filtertemplate doesn't work. [\#17775](https://github.com/primefaces/primeng/issues/17775)
+
 ## [19.0.9](https://github.com/primefaces/primeng/tree/19.0.9) (2025-02-27)
 [Full Changelog](https://github.com/primefaces/primeng/compare/19.0.8...19.0.9)
 
