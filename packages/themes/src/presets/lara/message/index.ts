@@ -48,10 +48,10 @@ export default {
     closeIcon: {
         size: '1rem',
         sm: {
-            fontSize: '0.875rem'
+            size: '0.875rem'
         },
         lg: {
-            fontSize: '1.125rem'
+            size: '1.125rem'
         }
     },
     outlined: {
