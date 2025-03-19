@@ -1,4 +1,4 @@
-import { Type } from '@angular/core';
+import { StaticProvider, Type } from '@angular/core';
 
 /**
  * Dialogs can be created dynamically with any component as the content using a DialogService.
@@ -185,6 +185,11 @@ export class DynamicDialogConfig<DataType = any, InputValuesType extends Record<
      * @group Props
      */
     templates?: DynamicDialogTemplates;
+    /**
+     * Providers that will be exposed to the contents of the dialog.
+     * @group Props
+     */
+    providers?: StaticProvider[];
 }
 
 /**
