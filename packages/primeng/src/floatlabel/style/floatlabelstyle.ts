@@ -7,6 +7,24 @@ const theme = ({ dt }) => `
     position: relative;
 }
 
+.p-floatlabel .p-component::placeholder,
+.p-floatlabel .p-placeholder {
+    opacity: 0;
+    transition-property: all;
+    transition-timing-function: ease;
+    transition-duration: 0.2s;
+}
+
+.p-floatlabel:has(input:focus) input::placeholder,
+.p-floatlabel:has(input:-webkit-autofill) input::placeholder,
+.p-floatlabel:has(textarea:focus) .p-component::placeholder,
+.p-floatlabel:has(.p-inputwrapper-focus) .p-placeholder {
+    opacity: 1;
+    transition-property: all;
+    transition-timing-function: ease;
+    transition-duration: 0.2s;
+}
+
 .p-floatlabel label {
     position: absolute;
     pointer-events: none;
