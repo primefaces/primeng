@@ -56,6 +56,7 @@ const hideAnimation = animation([animate('{{transition}}', style({ transform: '{
             [position]="position"
             [style]="style"
             [dismissableMask]="dismissableMask"
+            [draggable]="draggable"
         >
             @if (headlessTemplate || _headlessTemplate) {
                 <ng-template #headless>
@@ -339,6 +340,11 @@ export class ConfirmDialog extends BaseComponent implements OnInit, OnDestroy {
                 break;
         }
     }
+    /**
+     * Enables dragging to change the position using header.
+     * @group Props
+     */
+    @Input({ transform: booleanAttribute }) draggable: boolean = true;
     /**
      * Callback to invoke when dialog is hidden.
      * @param {ConfirmEventType} enum - Custom confirm event.
