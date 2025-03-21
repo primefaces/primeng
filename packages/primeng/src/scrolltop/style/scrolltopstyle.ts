@@ -6,6 +6,7 @@ const theme = ({ dt }) => `
     position: fixed;
     bottom: 20px;
     inset-inline-end: 20px;
+    z-index: 1002;
 }
 
 .p-scrolltop-sticky.p-button {
