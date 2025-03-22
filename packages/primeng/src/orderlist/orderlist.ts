@@ -115,6 +115,16 @@ import { OrderListStyle } from './style/orderliststyle';
                             <ng-template *ngTemplateOutlet="itemTemplate || _itemTemplate; context: { $implicit: option, selected: selected, index: index }"></ng-template>
                         </ng-template>
                     </ng-container>
+                    <ng-container *ngIf="emptyMessageTemplate || _emptyMessageTemplate">
+                        <ng-template #empty>
+                            <ng-template *ngTemplateOutlet="emptyMessageTemplate || _emptyMessageTemplate"></ng-template>
+                        </ng-template>
+                    </ng-container>
+                    <ng-container *ngIf="emptyFilterMessageTemplate || _emptyFilterMessageTemplate">
+                        <ng-template #emptyfilter>
+                            <ng-template *ngTemplateOutlet="emptyFilterMessageTemplate || _emptyFilterMessageTemplate"></ng-template>
+                        </ng-template>
+                    </ng-container>
                 </p-listbox>
             </div>
         </div>
