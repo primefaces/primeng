@@ -1069,6 +1069,7 @@ const getAngularApp = (props: Props = {}) => {
     import { InputGroupAddonModule } from 'primeng/inputgroupaddon';
     import { InputOtpModule } from 'primeng/inputotp';
     import { ImageModule } from 'primeng/image';
+    import { ImageCompareModule } from 'primeng/imagecompare';
     import { KnobModule } from 'primeng/knob';
     import { ListboxModule } from 'primeng/listbox';
     import { MegaMenuModule } from 'primeng/megamenu';
@@ -1178,6 +1179,7 @@ const getAngularApp = (props: Props = {}) => {
             InputGroupAddonModule,
             InputOtpModule,
             ImageModule,
+            ImageCompareModule,
             KnobModule,
             ListboxModule,
             MegaMenuModule,
@@ -1284,6 +1286,7 @@ const getAngularApp = (props: Props = {}) => {
             InputGroupAddonModule,
             InputOtpModule,
             ImageModule,
+            ImageCompareModule,
             KnobModule,
             ListboxModule,
             MegaMenuModule,
