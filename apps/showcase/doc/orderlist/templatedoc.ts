@@ -42,7 +42,7 @@ export class TemplateDoc implements OnInit {
     [value]="products"
     dataKey="id"
     breakpoint="575px"
-    scrollHeight="20rem"f
+    scrollHeight="20rem"
 >
     <ng-template let-option let-selected="selected" #item>
         <div class="flex flex-wrap p-1 items-center gap-4 w-full">
