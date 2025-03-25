@@ -14,7 +14,8 @@ import { TemplatesComponent } from './templates.component';
             { path: 'poseidon', loadComponent: () => import('./poseidon/poseidon').then((m) => m.PoseidonPage) },
             { path: 'sakai', loadComponent: () => import('./sakai/sakai').then((m) => m.SakaiPage) },
             { path: 'ultima', loadComponent: () => import('./ultima/ultima').then((m) => m.UltimaPage) },
-            { path: 'verona', loadComponent: () => import('./verona/verona').then((m) => m.VeronaPage) }
+            { path: 'verona', loadComponent: () => import('./verona/verona').then((m) => m.VeronaPage) },
+            { path: 'genesis', loadComponent: () => import('./genesis/genesis').then((m) => m.GenesisPage) }
         ])
     ],
     exports: [RouterModule]

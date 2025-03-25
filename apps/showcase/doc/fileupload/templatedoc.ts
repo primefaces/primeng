@@ -40,7 +40,7 @@ import { PrimeNG } from 'primeng/config';
                                     </div>
                                     <span class="font-semibold text-ellipsis max-w-60 whitespace-nowrap overflow-hidden">{{ file.name }}</span>
                                     <div>{{ formatSize(file.size) }}</div>
-                                    <p-badge value="Pending" severity="warning" />
+                                    <p-badge value="Pending" severity="warn" />
                                     <p-button icon="pi pi-times" (click)="onRemoveTemplatingFile($event, file, removeFileCallback, index)" [outlined]="true" [rounded]="true" severity="danger" />
                                 </div>
                             </div>
@@ -158,7 +158,7 @@ export class TemplateDoc {
                         </div>
                         <span class="font-semibold text-ellipsis max-w-60 whitespace-nowrap overflow-hidden">{{ file.name }}</span>
                         <div>{{ formatSize(file.size) }}</div>
-                        <p-badge value="Pending" severity="warning" />
+                        <p-badge value="Pending" severity="warn" />
                         <p-button icon="pi pi-times" (click)="onRemoveTemplatingFile($event, file, removeFileCallback, index)" [outlined]="true" [rounded]="true" severity="danger" />
                     </div>
                 </div>
@@ -213,7 +213,7 @@ export class TemplateDoc {
                             </div>
                             <span class="font-semibold text-ellipsis max-w-60 whitespace-nowrap overflow-hidden">{{ file.name }}</span>
                             <div>{{ formatSize(file.size) }}</div>
-                            <p-badge value="Pending" severity="warning" />
+                            <p-badge value="Pending" severity="warn" />
                             <p-button icon="pi pi-times" (click)="onRemoveTemplatingFile($event, file, removeFileCallback, index)" [outlined]="true" [rounded]="true" severity="danger" />
                         </div>
                     </div>

@@ -2768,7 +2768,7 @@ export class TTSortableColumn implements OnInit, OnDestroy {
 }
 
 @Component({
-    selector: 'p-treeTableSortIcon',
+    selector: 'p-treeTableSortIcon, p-treetable-sort-icon, p-tree-table-sort-icon',
     standalone: false,
     template: ` <ng-container *ngIf="!tt.sortIconTemplate && !tt._sortIconTemplate">
             <SortAltIcon [styleClass]="'p-sortable-column-icon'" *ngIf="sortOrder === 0" />
@@ -3213,7 +3213,7 @@ export class TTContextMenuRow {
 }
 
 @Component({
-    selector: 'p-treeTableCheckbox',
+    selector: 'p-treeTableCheckbox, p-treetable-checkbox, p-tree-table-checkbox',
     standalone: false,
     template: `
         <p-checkbox [ngModel]="checked" (onChange)="onClick($event)" [binary]="true" [disabled]="disabled" [indeterminate]="partialChecked" styleClass="p-treetable-node-checkbox" [tabIndex]="-1">

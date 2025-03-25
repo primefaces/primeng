@@ -7,9 +7,10 @@ import { AnimateOnScroll } from 'primeng/animateonscroll';
 import { AccessibilityDoc } from './accessibilitydoc';
 import { BasicDoc } from './basicdoc';
 import { ImportDoc } from './importdoc';
+import { AvatarModule } from 'primeng/avatar';
 
 @NgModule({
-    imports: [CommonModule, RouterModule, AppCodeModule, AppDocModule, AnimateOnScroll],
+    imports: [CommonModule, RouterModule, AppCodeModule, AppDocModule, AnimateOnScroll, AvatarModule],
     declarations: [ImportDoc, BasicDoc, AccessibilityDoc],
     exports: [AppDocModule]
 })

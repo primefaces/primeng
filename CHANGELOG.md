@@ -1,4 +1,86 @@
 # Changelog
+## [19.0.10](https://github.com/primefaces/primeng/tree/19.0.10) (2025-03-18)
+[Full Changelog](https://github.com/primefaces/primeng/compare/19.0.9...19.0.10)
+
+**Fixed bugs:**
+- DatePicker (v19) The showClear button is not displayed correctly [\#17355](https://github.com/primefaces/primeng/issues/17355)
+- Datepicker: clear Icon and touchUI styles are broken [\#17842](https://github.com/primefaces/primeng/issues/17842)
+- Current selected day value in DatePicker not indicated in Month view [\#17871](https://github.com/primefaces/primeng/issues/17871)
+- onChangeLayout event for DataView is not emitted [\#17617](https://github.com/primefaces/primeng/issues/17617)
+- p-confirmdialog: header template is rendered in dialog content [\#17881](https://github.com/primefaces/primeng/issues/17881)
+- Button: Conditional template icon disappears on click [\#17848](https://github.com/primefaces/primeng/issues/17848)
+- DatePicker : IftaLabel styles are broken [\#17841](https://github.com/primefaces/primeng/issues/17841)
+- docs: Add ThemeSwitcher to StackBlitz examples [\#17884](https://github.com/primefaces/primeng/issues/17884)
+- Tree: No gap between nodes (except root nodes) [\#17681](https://github.com/primefaces/primeng/issues/17681)
+- Component: AutoComplete - incorrect opacity when disabled [\#17108](https://github.com/primefaces/primeng/issues/17108)
+- Table: Untyped value input [\#17761](https://github.com/primefaces/primeng/issues/17761)
+- dialog component [\#17245](https://github.com/primefaces/primeng/issues/17245)
+- Dialog not visible after quickly hiding and showing again [\#17301](https://github.com/primefaces/primeng/issues/17301)
+- Multiple Components v19 | ReferenceError: Cannot access 'Splitter' before initialization [\#17759](https://github.com/primefaces/primeng/issues/17759)
+- Tabs: invalid ink bar after data update for generated dynamically [\#17360](https://github.com/primefaces/primeng/issues/17360)
+- autocomplete: invalid styles are not displayed [\#17800](https://github.com/primefaces/primeng/issues/17800)
+- Scoped Tokens Not Working in Drawer Component [\#17840](https://github.com/primefaces/primeng/issues/17840)
+- Design token fieldset.legend.color never used in code [\#17852](https://github.com/primefaces/primeng/issues/17852)
+- InputNumber : Clear Icon outside input [\#17846](https://github.com/primefaces/primeng/issues/17846)
+- Password: showClear and toggleMask properties together break styles [\#17844](https://github.com/primefaces/primeng/issues/17844)
+- Multiselect: readonly doesn't disallow clear [\#17801](https://github.com/primefaces/primeng/issues/17801)
+- Accordion: onOpen and onClose events emit wrong index value [\#17866](https://github.com/primefaces/primeng/issues/17866)
+- MultiSelect - v19, itemcheckboxicon template not being picked up [\#17390](https://github.com/primefaces/primeng/issues/17390)
+- Table - filtertemplate doesn't work. [\#17775](https://github.com/primefaces/primeng/issues/17775)
+
+## [19.0.9](https://github.com/primefaces/primeng/tree/19.0.9) (2025-02-27)
+[Full Changelog](https://github.com/primefaces/primeng/compare/19.0.8...19.0.9)
+
+**Fixed bugs:**
+- Table - filtertemplate doesn't work. [\#17775](https://github.com/primefaces/primeng/issues/17775)
+
+## [19.0.8](https://github.com/primefaces/primeng/tree/19.0.8) (2025-02-25)
+[Full Changelog](https://github.com/primefaces/primeng/compare/19.0.7...19.0.8)
+
+**Fixed bugs:**
+
+- Progress bar a11y issue [\#17606](https://github.com/primefaces/primeng/issues/17606)
+- BaseComponent is causing memory leaks [\#17645](https://github.com/primefaces/primeng/issues/17645)
+- MultiSelect filter don't work when the options are created with custom class [\#17530](https://github.com/primefaces/primeng/issues/17530)
+- Pressing escape key while modal is open should only close select panel and not the modal [\#17670](https://github.com/primefaces/primeng/issues/17670)
+- Calendar: locale am & pm is not work on time picker [\#17653](https://github.com/primefaces/primeng/issues/17653)
+- ConfirmDialog: No way to distinguish reject and close button action being fired [\#17512](https://github.com/primefaces/primeng/issues/17512)
+- Accordion onOpen and onClose emitter won't trigger any events with the new components for accordion [\#17447](https://github.com/primefaces/primeng/issues/17447)
+- Select filter field with bug when using iftalabel [\#17751](https://github.com/primefaces/primeng/issues/17751)
+- Wrong default icon on p-messages [\#17757](https://github.com/primefaces/primeng/issues/17757)
+- Messages | Icon Only gap issue [\#17648](https://github.com/primefaces/primeng/issues/17648)
+- Popover | incostent overlay positioning [\#17614](https://github.com/primefaces/primeng/issues/17614)
+- 
+## [19.0.7](https://github.com/primefaces/primeng/tree/19.0.7) (2025-02-21)
+
+[Full Changelog](https://github.com/primefaces/primeng/compare/19.0.6...19.0.7)
+
+**Fixed bugs:**
+
+- PrimeNG not working after upgrade to Angular 19.1.7 [\#17730](https://github.com/primefaces/primeng/issues/17730)
+- [vite] Internal server error: fn is not a function [\#17716](https://github.com/primefaces/primeng/issues/17716)
+- OrderList: The drag and drop functionality not implemented in V18 [\#16633](https://github.com/primefaces/primeng/issues/16633)
+- "Select component with filter: ""No results found"" entry should not be enabled or clickable [\#17382](https://github.com/primefaces/primeng/issues/17382)"
+- Accessibility and Templating Issues in p-confirmdialog and p-dialog (PrimeNG v19) [\#17404](https://github.com/primefaces/primeng/issues/17404)
+- Picklist does not support disabled options [\#17533](https://github.com/primefaces/primeng/issues/17533)
+- p-checkbox has invalid markup when required=""false" [\#17528](https://github.com/primefaces/primeng/issues/17528)"
+- SpeedDial Buttons Missing type="button" Causes Unintended Form Submission [\#17552](https://github.com/primefaces/primeng/issues/17552)"
+- Badge disable does not work correctly [\#17559](https://github.com/primefaces/primeng/issues/17559)
+- p-auto-complete behaves differently than p-autocomplete [\#17535](https://github.com/primefaces/primeng/issues/17535)
+- PickList - reorder items call scrollInView with incorrect parameters [\#17564](https://github.com/primefaces/primeng/issues/17564)
+- Tree: styleClass of nodes is ignored [\#17579](https://github.com/primefaces/primeng/issues/17579)
+- Change of pDroppableDisabled property after ngAfterViewInit doesn't change element's behavior [\#17598](https://github.com/primefaces/primeng/issues/17598)
+- p-confirmdialog - dismissableMask not working [\#17574](https://github.com/primefaces/primeng/issues/17574)
+- Duplicate class attribute in example of DataView [\#17621](https://github.com/primefaces/primeng/issues/17621)
+- Docs: Select (previously dropdown) component, loading section wrong code example [\#17626](https://github.com/primefaces/primeng/issues/17626)"
+- Updates Loading Icon template reference variable [\#17736](https://github.com/primefaces/primeng/pull/17736)
+- Update DataView interface to reflect current configuration [\#17735](https://github.com/primefaces/primeng/pull/17735)
+- Multiselect should use all options for selectedOptions not just visible [\#17732](https://github.com/primefaces/primeng/issues/17732)
+- Binding [dt] on Select component has no effect [\#17540](https://github.com/primefaces/primeng/issues/17540)
+- p-fileUpload selecting file when fileLimit set to undefined causes js errors [\#17721](https://github.com/primefaces/primeng/issues/17721)
+- Popover basicdoc.ts uses deprecated *ngFor directive [\#17707](https://github.com/primefaces/primeng/issues/17707)
+- DatePicker: Cannot escape header with keyboard [\#17663](https://github.com/primefaces/primeng/issues/17663)
+- [v19] showcase for datepicker-sizes-demo has wrong ts [\#17690](https://github.com/primefaces/primeng/issues/17690)
 
 ## [19.0.6](https://github.com/primefaces/primeng/tree/19.0.6) (2025-02-06)
 

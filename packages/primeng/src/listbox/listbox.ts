@@ -25,7 +25,7 @@ import {
     signal
 } from '@angular/core';
 import { ControlValueAccessor, FormsModule, NG_VALUE_ACCESSOR } from '@angular/forms';
-import { equals, findLastIndex, findSingle, focus, getFirstFocusableElement, isEmpty, isNotEmpty, isPrintableCharacter, resolveFieldData, uuid } from '@primeuix/utils';
+import { equals, findLastIndex, findSingle, focus, getFirstFocusableElement, isEmpty, isFunction, isNotEmpty, isPrintableCharacter, resolveFieldData, uuid } from '@primeuix/utils';
 import { FilterService, Footer, Header, PrimeTemplate, ScrollerOptions, SharedModule } from 'primeng/api';
 import { BaseComponent } from 'primeng/basecomponent';
 import { Checkbox } from 'primeng/checkbox';
@@ -469,10 +469,10 @@ export class Listbox extends BaseComponent implements AfterContentInit, OnInit, 
      */
     @Input() optionGroupLabel: string | undefined = 'label';
     /**
-     * Name of the disabled field of an option.
+     * Name of the disabled field of an option or function to determine disabled state.
      * @group Props
      */
-    @Input() optionDisabled: string | undefined;
+    @Input() optionDisabled: string | ((item: any) => boolean) | undefined;
     /**
      * Defines a string that labels the filter input.
      * @group Props
@@ -1574,6 +1574,9 @@ export class Listbox extends BaseComponent implements AfterContentInit, OnInit, 
     }
 
     isOptionDisabled(option: any) {
+        if (isFunction(this.optionDisabled)) {
+            return this.optionDisabled(option);
+        }
         return this.optionDisabled ? resolveFieldData(option, this.optionDisabled) : false;
     }
 

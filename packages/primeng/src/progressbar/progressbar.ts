@@ -27,6 +27,7 @@ import { ProgressBarStyle } from './style/progressbarstyle';
                 'p-progressbar-determinate': mode === 'determinate',
                 'p-progressbar-indeterminate': mode === 'indeterminate'
             }"
+            [attr.aria-label]="value + unit"
         >
             <div *ngIf="mode === 'determinate'" [ngClass]="'p-progressbar-value p-progressbar-value-animate'" [class]="valueStyleClass" [style.width]="value + '%'" style="display:flex" [style.background]="color" [attr.data-pc-section]="'value'">
                 <div class="p-progressbar-label">

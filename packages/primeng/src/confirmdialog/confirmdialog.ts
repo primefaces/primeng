@@ -43,7 +43,8 @@ const hideAnimation = animation([animate('{{transition}}', style({ transform: '{
     template: `
         <p-dialog
             #dialog
-            [(visible)]="visible"
+            [visible]="visible"
+            (visibleChange)="onVisibleChange($event)"
             role="alertdialog"
             [closable]="option('closable')"
             [styleClass]="containerClass"
@@ -54,6 +55,7 @@ const hideAnimation = animation([animate('{{transition}}', style({ transform: '{
             [appendTo]="option('appendTo')"
             [position]="position"
             [style]="style"
+            [dismissableMask]="dismissableMask"
         >
             @if (headlessTemplate || _headlessTemplate) {
                 <ng-template #headless>
@@ -70,9 +72,11 @@ const hideAnimation = animation([animate('{{transition}}', style({ transform: '{
                 </ng-template>
             } @else {
                 @if (headerTemplate || _headerTemplate) {
-                    <div [ngClass]="cx('header')">
-                        <ng-container *ngTemplateOutlet="headerTemplate || _headerTemplate"></ng-container>
-                    </div>
+                    <ng-template #header>
+                        <div [ngClass]="cx('header')">
+                            <ng-container *ngTemplateOutlet="headerTemplate || _headerTemplate"></ng-container>
+                        </div>
+                    </ng-template>
                 }
 
                 <ng-template #content>
@@ -555,13 +559,12 @@ export class ConfirmDialog extends BaseComponent implements OnInit, OnDestroy {
         }
     }
 
-    close(event: Event) {
+    close() {
         if (this.confirmation?.rejectEvent) {
             this.confirmation.rejectEvent.emit(ConfirmEventType.CANCEL);
         }
 
         this.hide(ConfirmEventType.CANCEL);
-        event.preventDefault();
     }
 
     hide(type?: ConfirmEventType) {
@@ -586,6 +589,14 @@ export class ConfirmDialog extends BaseComponent implements OnInit, OnDestroy {
 
         this.destroyStyle();
         super.ngOnDestroy();
+    }
+
+    onVisibleChange(value: boolean) {
+        if (!value) {
+            this.close();
+        } else {
+            this.visible = value;
+        }
     }
 
     onAccept() {

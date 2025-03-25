@@ -511,7 +511,7 @@
                     "routerLink": "/guides/accessibility"
                 },
                 {
-                    "name": "Migration to V18",
+                    "name": "Migration to v18+",
                     "routerLink": "/guides/migration"
                 },
                 {
@@ -547,12 +547,6 @@
             ]
         },
         {
-            "name": "Contribution",
-            "routerLink": "/contribution",
-            "icon": "pi pi-users",
-            "badge": "NEW"
-        },
-        {
             "name": "Discover",
             "icon": "pi pi-search",
             "children": [
@@ -561,12 +555,22 @@
                     "routerLink": "/team"
                 },
                 {
+                    "name": "Roadmap",
+                    "routerLink": "/roadmap"
+                },
+                {
                     "name": "Source Code",
                     "href": "https://github.com/primefaces/primeng"
                 },
                 {
                     "name": "Changelog",
                     "href": "https://github.com/primefaces/primeng/blob/master/CHANGELOG.md"
+                },
+                {
+                    "name": "Contribution",
+                    "routerLink": "/contribution",
+                    "icon": "pi pi-users",
+                    "badge": "NEW"
                 },
                 {
                     "name": "Store",

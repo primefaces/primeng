@@ -28,7 +28,7 @@ import { TreeNode } from 'primeng/api';
                     <ng-template #body let-rowNode let-rowData="rowData">
                         <tr [ttRow]="rowNode">
                             <td>
-                                <p-treeTableToggler [rowNode]="rowNode" />
+                                <p-treetable-toggler [rowNode]="rowNode" />
                                 {{ rowData.brand }}
                             </td>
                             <td>{{ rowData.lastYearSale }}</td>
@@ -329,7 +329,7 @@ export class ColumnGroupDoc {
     <ng-template #body let-rowNode let-rowData="rowData">
         <tr>
             <td>
-                <p-treeTableToggler [rowNode]="rowNode" />
+                <p-treetable-toggler [rowNode]="rowNode" />
                 {{ rowData.brand }}
             </td>
             <td>{{ rowData.lastYearSale }}</td>
@@ -368,7 +368,7 @@ export class ColumnGroupDoc {
         <ng-template #body let-rowNode let-rowData="rowData">
             <tr [ttRow]="rowNode">
                 <td>
-                    <p-treeTableToggler [rowNode]="rowNode" />
+                    <p-treetable-toggler [rowNode]="rowNode" />
                     {{ rowData.brand }}
                 </td>
                 <td>{{ rowData.lastYearSale }}</td>

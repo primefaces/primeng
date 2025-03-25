@@ -21,13 +21,19 @@ const theme = ({ dt }) => `
     transition-duration: ${dt('iftalabel.transition.duration')};
 }
 
-.p-iftalabel .p-inputtext,
+.p-iftalabel > .p-inputtext,
 .p-iftalabel .p-textarea,
 .p-iftalabel .p-select-label,
 .p-iftalabel .p-multiselect-label-container,
 .p-iftalabel .p-autocomplete-input-multiple,
 .p-iftalabel .p-cascadeselect-label,
-.p-iftalabel .p-treeselect-label {
+.p-iftalabel .p-treeselect-label,
+.p-iftalabel .p-datepicker-input,
+.p-iftalabel .p-inputmask,
+.p-iftalabel .p-autocomplete .p-inputtext,
+.p-iftalabel .p-inputnumber .p-inputtext,
+.p-iftalabel .p-password .p-inputtext,
+.p-iftalabel > .p-iconfield .p-inputtext {
     padding-top: ${dt('iftalabel.input.padding.top')};
 }
 
@@ -42,7 +48,7 @@ const theme = ({ dt }) => `
     color: ${dt('iftalabel.focus.color')};
 }
 
-.p-iftalabel .p-inputicon {
+.p-iftalabel > .p-iconfield .p-inputicon {
     top: ${dt('iftalabel.input.padding.top')};
     transform: translateY(25%);
     margin-top: 0;

@@ -32,6 +32,7 @@ import { Nullable, VoidListener } from 'primeng/ts-helpers';
 import { ZIndexUtils } from 'primeng/utils';
 import { Subscription } from 'rxjs';
 import { PopoverStyle } from './style/popoverstyle';
+import { $dt } from '@primeuix/styled';
 
 /**
  * OverlayPanel is a container component positioned as connected to its target.
@@ -349,9 +350,10 @@ export class OverlayPanel extends BaseComponent implements AfterContentInit, OnD
         if (containerOffset.left < targetOffset.left) {
             arrowLeft = targetOffset.left - containerOffset.left - parseFloat(borderRadius!) * 2;
         }
-        this.container?.style.setProperty('--overlayArrowLeft', `${arrowLeft}px`);
+        this.container?.style.setProperty($dt('popover.arrow.left').name, `${arrowLeft}px`);
 
         if (containerOffset.top < targetOffset.top) {
+            this.container.setAttribute('data-p-popover-flipped', 'true');
             addClass(this.container, 'p-popover-flipped');
 
             if (this.showCloseIcon) {

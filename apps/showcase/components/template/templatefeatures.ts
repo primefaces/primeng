@@ -3,7 +3,7 @@ import { CommonModule } from '@angular/common';
 import { ChangeDetectionStrategy, Component, Input, NgModule, ViewEncapsulation } from '@angular/core';
 import { DomSanitizer } from '@angular/platform-browser';
 import { SharedModule } from 'primeng/api';
-
+import { AnimateOnScrollModule } from 'primeng/animateonscroll';
 @Component({
     selector: 'template-features',
     standalone: false,
@@ -13,7 +13,7 @@ import { SharedModule } from 'primeng/api';
                 <div class="px-6 py-6 sm:px-10 sm:py-10 lg:py-20 rounded-3xl bg-surface-0 dark:bg-surface-900">
                     <div class="flex flex-wrap justify-center gap-6 mx-auto w-full max-w-5xl">
                         <ng-container *ngFor="let feature of featuresData">
-                            <div class="p-5 rounded-2xl border border-surface flex-1 min-w-80 max-w-96 animate-duration-500">
+                            <div pAnimateOnScroll enterClass="animate-fadein" class="p-5 rounded-2xl border border-surface flex-1 min-w-80 max-w-96 animate-duration-500">
                                 <div class="flex w-full mb-5 bg-surface-100 dark:bg-surface-800 overflow-hidden rounded-lg">
                                     <img class="w-full" [src]="isDarkMode ? feature.darkSrc || feature.src : feature.src" [alt]="feature.title" />
                                 </div>
@@ -39,7 +39,7 @@ import { SharedModule } from 'primeng/api';
                             }"
                         >
                             <ng-container *ngFor="let data of i === 0 ? firstColumnData : secondColumnData; let j = index">
-                                <div class="w-full p-4 md:p-5 rounded-2xl border border-surface animate-duration-500">
+                                <div pAnimateOnScroll enterClass="animate-fadein" class="w-full p-4 md:p-5 rounded-2xl border border-surface animate-duration-500">
                                     <div class="w-full bg-surface-100 dark:bg-surface-800 rounded-lg overflow-hidden flex">
                                         <img class="w-full h-auto rounded-lg" [src]="isDarkMode ? data.darkSrc || data.src : data.src" [alt]="data.title" />
                                     </div>
@@ -83,7 +83,7 @@ export class TemplateFeatures {
 }
 
 @NgModule({
-    imports: [CommonModule, SharedModule],
+    imports: [CommonModule, SharedModule, AnimateOnScrollModule],
     exports: [TemplateFeatures, SharedModule],
     declarations: [TemplateFeatures]
 })

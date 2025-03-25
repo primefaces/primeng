@@ -83,7 +83,7 @@ const hideAnimation = animation([animate('{{transition}}', style({ transform: '{
                                     <ng-template *ngTemplateOutlet="minimizeIconTemplate"></ng-template>
                                 </ng-container>
                             </p-button>
-                            <p-button *ngIf="closable" [styleClass]="'p-dialog-close-button'" [ariaLabel]="closeAriaLabel" (onClick)="hide()" (keydown.enter)="hide()" rounded text severity="secondary">
+                            <p-button *ngIf="closable" [styleClass]="'p-dialog-close-button'" [ariaLabel]="ddconfig.closeAriaLabel || defaultCloseAriaLabel" (onClick)="hide()" (keydown.enter)="hide()" rounded text severity="secondary">
                                 <ng-container *ngIf="!closeIconTemplate">
                                     <TimesIcon />
                                 </ng-container>
@@ -211,7 +211,7 @@ export class DynamicDialogComponent extends BaseComponent implements AfterViewIn
         return this.ddconfig.position!;
     }
 
-    get closeAriaLabel(): string {
+    get defaultCloseAriaLabel(): string {
         return this.config.getTranslation(TranslationKeys.ARIA)['close'];
     }
 

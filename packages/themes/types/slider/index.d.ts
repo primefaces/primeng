@@ -100,6 +100,12 @@ export interface SliderDesignTokens extends DesignTokens<SliderDesignTokens> {
              */
             borderRadius?: string;
             /**
+             * Background of handle
+             *
+             * @designToken slider.handle.content.background
+             */
+            background?: string;
+            /**
              * Content hover background of handle
              *
              * @designToken slider.handle.content.hover.background
@@ -159,11 +165,5 @@ export interface SliderDesignTokens extends DesignTokens<SliderDesignTokens> {
              */
             shadow?: string;
         };
-        /**
-         * Content background of handle
-         *
-         * @designToken slider.handle.content.background
-         */
-        contentBackground?: string;
     };
 }

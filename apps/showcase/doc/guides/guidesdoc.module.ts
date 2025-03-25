@@ -21,6 +21,7 @@ import { BreakingChangesDoc } from './migration/breakingchangesdoc';
 import { DeprecatedComponentsDoc } from './migration/deprecatedcomponentsdoc';
 import { MigrationOverviewDoc } from './migration/migrationoverviewdoc';
 import { RenamedComponentsDoc } from './migration/renamedcomponentsdoc';
+import { CompatibilityDoc } from './primeflex/compatibilitydoc';
 import { MigrationDoc } from './primeflex/migrationdoc';
 import { OverviewDoc } from './primeflex/overviewdoc';
 import { TailwindCSSDoc } from './primeflex/tailwindcssdoc';
@@ -41,6 +42,7 @@ import { TailwindCSSDoc } from './primeflex/tailwindcssdoc';
         BootstrapDoc,
         NormalizeDoc,
         OverviewDoc,
+        CompatibilityDoc,
         TailwindCSSDoc,
         MigrationDoc,
         BreakingChangesDoc,

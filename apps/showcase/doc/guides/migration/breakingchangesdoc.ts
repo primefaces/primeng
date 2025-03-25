@@ -42,8 +42,8 @@ import { Component } from '@angular/core';
                 <li><i class="mark">.p-highlight</i>, each component have its own class such as <i class="mark">.p-select-option-selected</i>.</li>
                 <li><i class="mark">.p-fluid</i>, use the new built-in <i class="mark">fluid</i> property of the supported components or the <i class="mark">Fluid</i> component.</li>
             </ul>
-            <h4>Premium Templates</h4>
-            <p>Application templates like Apollo do not support PrimeNG v18 yet, all templates will be updated to PrimeNG v18 by the end of the 2024.</p>
+            <h4>PrimeFlex CSS</h4>
+            <p>In case you are using PrimeFlex CSS library, upgrade to PrimeFlex v4 since PrimeFlex v3 is not compatible with PrimeNG v18+</p>
         </app-docsectiontext>
     `
 })

@@ -105,6 +105,7 @@ export class BadgeDirective extends BaseComponent implements OnChanges, AfterVie
     }
 
     public ngAfterViewInit(): void {
+        super.ngAfterViewInit();
         this.id = uuid('pn_id_') + '_badge';
         this.renderBadgeContent();
     }
@@ -248,7 +249,7 @@ export class BadgeDirective extends BaseComponent implements OnChanges, AfterVie
     providers: [BadgeStyle],
     host: {
         '[class]': 'containerClass()',
-        '[style.display]': 'badgeDisabled() && "none"',
+        '[style.display]': 'badgeDisabled() ? "none" : null',
         '[style]': 'style()'
     }
 })

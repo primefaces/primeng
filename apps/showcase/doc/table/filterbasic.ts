@@ -55,11 +55,11 @@ import { Table } from 'primeng/table';
                             <th>
                                 <p-columnFilter field="representative" matchMode="in" [showMenu]="false">
                                     <ng-template #filter let-value let-filter="filterCallback">
-                                        <p-multiselect [(ngModel)]="value" [options]="representatives" placeholder="Any" (onChange)="filter($event.value)" optionLabel="name" style="min-width: 14rem">
+                                        <p-multiselect [(ngModel)]="value" [options]="representatives" placeholder="Any" (onChange)="filter($event.value)" optionLabel="name" style="min-width: 14rem" [panelStyle]="{ minWidth: '16rem' }">
                                             <ng-template let-option #item>
-                                                <div class="inline-block align-middle">
-                                                    <img [alt]="option.label" src="https://primefaces.org/cdn/primeng/images/demo/avatar/{{ option.image }}" width="24" class="align-middle" />
-                                                    <span class="ml-1 mt-1">{{ option.name }}</span>
+                                                <div class="flex items-center gap-2">
+                                                    <img [alt]="option.label" src="https://primefaces.org/cdn/primeng/images/demo/avatar/{{ option.image }}" style="width: 32px" />
+                                                    <span>{{ option.name }}</span>
                                                 </div>
                                             </ng-template>
                                         </p-multiselect>
@@ -232,23 +232,11 @@ export class FilterBasicDoc {
             <th>
                 <p-columnFilter field="representative" matchMode="in" [showMenu]="false">
                     <ng-template #filter let-value let-filter="filterCallback">
-                        <p-multiselect
-                            [(ngModel)]="value"
-                            [options]="representatives"
-                            placeholder="Any"
-                            (onChange)="filter($event.value)"
-                            optionLabel="name"
-                            style="min-width: 14rem"
-                        >
+                        <p-multiselect [(ngModel)]="value" [options]="representatives" placeholder="Any" (onChange)="filter($event.value)" optionLabel="name" style="min-width: 14rem" [panelStyle]="{ minWidth: '16rem' }">
                             <ng-template let-option #item>
-                                <div class="inline-block align-middle">
-                                    <img
-                                        [alt]="option.label"
-                                        src="https://primefaces.org/cdn/primeng/images/demo/avatar/{{ option.image }}"
-                                        width="24"
-                                        class="align-middle"
-                                    />
-                                    <span class="ml-1 mt-1">{{ option.name }}</span>
+                                <div class="flex items-center gap-2">
+                                    <img [alt]="option.label" src="https://primefaces.org/cdn/primeng/images/demo/avatar/{{ option.image }}" style="width: 32px" />
+                                    <span>{{ option.name }}</span>
                                 </div>
                             </ng-template>
                         </p-multiselect>
@@ -378,16 +366,15 @@ export class FilterBasicDoc {
                             optionLabel="name"
                             style="min-width: 14rem"
                         >
-                            <ng-template let-option #item>
-                                <div class="inline-block align-middle">
-                                    <img
-                                        [alt]="option.label"
-                                        src="https://primefaces.org/cdn/primeng/images/demo/avatar/{{ option.image }}"
-                                        width="24"
-                                        class="align-middle"
-                                    />
-                                    <span class="ml-1 mt-1">{{ option.name }}</span>
-                                </div>
+                            <ng-template #filter let-value let-filter="filterCallback">
+                                <p-multiselect [(ngModel)]="value" [options]="representatives" placeholder="Any" (onChange)="filter($event.value)" optionLabel="name" style="min-width: 14rem" [panelStyle]="{ minWidth: '16rem' }">
+                                    <ng-template let-option #item>
+                                        <div class="flex items-center gap-2">
+                                            <img [alt]="option.label" src="https://primefaces.org/cdn/primeng/images/demo/avatar/{{ option.image }}" style="width: 32px" />
+                                            <span>{{ option.name }}</span>
+                                        </div>
+                                    </ng-template>
+                                </p-multiselect>
                             </ng-template>
                         </p-multiselect>
                     </ng-template>

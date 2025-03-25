@@ -42,7 +42,7 @@ import { MessagesStyle } from './style/messagesstyle';
                             <span [ngClass]="cx('icon')" [class]="'pi ' + msg.icon" [attr.data-pc-section]="'icon'"> </span>
                         } @else {
                             <span [ngClass]="cx('icon')">
-                                @switch (msg.icon) {
+                                @switch (msg.severity) {
                                     @case ('success') {
                                         <CheckIcon [attr.data-pc-section]="'icon'" />
                                     }

@@ -26,7 +26,7 @@ import { TreeNode } from 'primeng/api';
                     <ng-template #body let-rowNode let-rowData="rowData">
                         <tr [ttRow]="rowNode">
                             <td>
-                                <p-treeTableToggler [rowNode]="rowNode" />
+                                <p-treetable-toggler [rowNode]="rowNode" />
                                 {{ rowData.name }}
                             </td>
                             <td>{{ rowData.size }}</td>
@@ -74,7 +74,7 @@ export class SizeDoc {
     <ng-template #body let-rowNode let-rowData="rowData">
         <tr [ttRow]="rowNode">
             <td>
-                <p-treeTableToggler [rowNode]="rowNode" />
+                <p-treetable-toggler [rowNode]="rowNode" />
                 {{ rowData.name }}
             </td>
             <td>{{ rowData.size }}</td>
@@ -98,7 +98,7 @@ export class SizeDoc {
         <ng-template #body let-rowNode let-rowData="rowData">
             <tr [ttRow]="rowNode">
                 <td>
-                    <p-treeTableToggler [rowNode]="rowNode" />
+                    <p-treetable-toggler [rowNode]="rowNode" />
                     {{ rowData.name }}
                 </td>
                 <td>{{ rowData.size }}</td>

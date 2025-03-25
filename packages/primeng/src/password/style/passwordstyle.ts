@@ -75,6 +75,7 @@ const theme = ({ dt }) => `
     height: ${dt('icon.size')};
 }
 
+.p-password:has(.p-password-toggle-mask-icon) .p-password-clear-icon,
 .p-password:has(.p-password-toggle-mask-icon) .p-password-input {
     padding-inline-end: calc((${dt('form.field.padding.x')} * 2) + ${dt('icon.size')});
 }

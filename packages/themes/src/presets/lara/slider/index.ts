@@ -36,12 +36,16 @@ export default {
     colorScheme: {
         light: {
             handle: {
-                contentBackground: '{surface.0}'
+                content: {
+                    background: '{surface.0}'
+                }
             }
         },
         dark: {
             handle: {
-                contentBackground: '{surface.950}'
+                content: {
+                    background: '{surface.950}'
+                }
             }
         }
     }

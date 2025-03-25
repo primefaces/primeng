@@ -276,6 +276,7 @@ export class TabMenu extends BaseComponent implements AfterViewInit, AfterConten
     }
 
     ngAfterViewInit(): void {
+        super.ngAfterViewInit();
         if (isPlatformBrowser(this.platformId)) {
             this.updateInkBar();
             this.initAutoScrollForActiveItem();

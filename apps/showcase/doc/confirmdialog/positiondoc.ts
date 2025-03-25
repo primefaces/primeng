@@ -32,14 +32,14 @@ import { ConfirmationService, MessageService } from 'primeng/api';
     providers: [ConfirmationService, MessageService]
 })
 export class PositionDoc {
-    position: string = 'center';
+    position: 'left' | 'right' | 'top' | 'bottom' | 'center' | 'topleft' | 'topright' | 'bottomleft' | 'bottomright' = 'center';
 
     constructor(
         private confirmationService: ConfirmationService,
         private messageService: MessageService
     ) {}
 
-    confirmPosition(position: string) {
+    confirmPosition(position: 'left' | 'right' | 'top' | 'bottom' | 'center' | 'topleft' | 'topright' | 'bottomleft' | 'bottomright') {
         this.position = position;
 
         this.confirmationService.confirm({
@@ -122,11 +122,11 @@ import { ToastModule } from 'primeng/toast';
     providers: [ConfirmationService, MessageService]
 })
 export class ConfirmDialogPositionDemo {
-    position: string = 'center';
+    position: 'left' | 'right' | 'top' | 'bottom' | 'center' | 'topleft' | 'topright' | 'bottomleft' | 'bottomright' = 'center';
 
     constructor(private confirmationService: ConfirmationService, private messageService: MessageService) {}
 
-    confirmPosition(position: string) {
+    confirmPosition(position: 'left' | 'right' | 'top' | 'bottom' | 'center' | 'topleft' | 'topright' | 'bottomleft' | 'bottomright') {
         this.position = position;
 
         this.confirmationService.confirm({

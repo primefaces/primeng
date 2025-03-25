@@ -59,17 +59,17 @@ const theme = ({ dt }) => `
 @keyframes p-progressspinner-color {
     100%,
     0% {
-        stroke: ${dt('progressspinner.color.1')};
+        stroke: ${dt('progressspinner.color.one')};
     }
     40% {
-        stroke: ${dt('progressspinner.color.2')};
+        stroke: ${dt('progressspinner.color.two')};
     }
     66% {
-        stroke: ${dt('progressspinner.color.3')};
+        stroke: ${dt('progressspinner.color.three')};
     }
     80%,
     90% {
-        stroke: ${dt('progressspinner.color.4')};
+        stroke: ${dt('progressspinner.color.four')};
     }
 }
 `;

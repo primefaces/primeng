@@ -19,6 +19,15 @@ const theme = ({ dt }) => `
     transition: background ${dt('inputnumber.transition.duration')}, color ${dt('inputnumber.transition.duration')}, border-color ${dt('inputnumber.transition.duration')}, outline-color ${dt('inputnumber.transition.duration')};
 }
 
+.p-inputnumber-clear-icon {
+    position: absolute;
+    top: 50%;
+    margin-top: -0.5rem;
+    cursor: pointer;
+    right: 0.75rem;
+    color: ${dt('inputnumber.button.color')};
+}
+
 .p-inputnumber-button:hover {
     background: ${dt('inputnumber.button.hover.background')};
     color: ${dt('inputnumber.button.hover.color')};

@@ -11,7 +11,6 @@ import { ToggleSwitch } from 'primeng/toggleswitch';
 import { ReversedKeysDoc } from '../splitbutton/reversedkeysdoc';
 import { ArchitectureDoc } from './architecturedoc';
 import { BootstrapDoc } from './bootstrapdoc';
-import { CaseDoc } from './casedoc';
 import { ColorsDoc } from './colorsdoc';
 import { ComponentDoc } from './componentdoc';
 import { DarkModeDoc } from './darkmodedoc';
@@ -44,7 +43,6 @@ import { UsePresetDoc } from './usepresetdoc';
     declarations: [
         ArchitectureDoc,
         BootstrapDoc,
-        CaseDoc,
         ColorsDoc,
         ComponentDoc,
         ExtendDoc,
@@ -77,7 +75,6 @@ import { UsePresetDoc } from './usepresetdoc';
         AppDocModule,
         ArchitectureDoc,
         BootstrapDoc,
-        CaseDoc,
         ColorsDoc,
         ComponentDoc,
         ExtendDoc,

@@ -6,7 +6,7 @@ import { Component } from '@angular/core';
     standalone: false,
     template: `
         <app-docsectiontext>
-            <p>Sample Card implementation using different Skeleton components and PrimeFlex CSS utilities.</p>
+            <p>Sample Card implementation using different Skeleton components and Tailwind CSS utilities.</p>
         </app-docsectiontext>
         <div class="card">
             <div class="rounded border border-surface-200 dark:border-surface-700 p-6 bg-surface-0 dark:bg-surface-900">

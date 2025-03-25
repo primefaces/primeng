@@ -1,5 +1,5 @@
-import { CommonModule } from '@angular/common';
-import { booleanAttribute, ChangeDetectionStrategy, Component, computed, forwardRef, HostListener, inject, input, model, ViewEncapsulation } from '@angular/core';
+import { CommonModule, isPlatformBrowser } from '@angular/common';
+import { AfterViewInit, booleanAttribute, ChangeDetectionStrategy, Component, computed, ElementRef, forwardRef, HostListener, inject, input, model, OnDestroy, ViewEncapsulation } from '@angular/core';
 import { equals, focus, getAttribute } from '@primeuix/utils';
 import { SharedModule } from 'primeng/api';
 import { BaseComponent } from 'primeng/basecomponent';
@@ -34,7 +34,7 @@ import { Tabs } from './tabs';
     },
     hostDirectives: [Ripple]
 })
-export class Tab extends BaseComponent {
+export class Tab extends BaseComponent implements AfterViewInit, OnDestroy {
     /**
      * Value of tab.
      * @defaultValue undefined
@@ -52,6 +52,8 @@ export class Tab extends BaseComponent {
 
     pcTabList = inject(forwardRef(() => TabList));
 
+    el = inject(ElementRef);
+
     ripple = computed(() => this.config.ripple());
 
     id = computed(() => `${this.pcTabs.id()}_tab_${this.value()}`);
@@ -61,6 +63,8 @@ export class Tab extends BaseComponent {
     active = computed(() => equals(this.pcTabs.value(), this.value()));
 
     tabindex = computed(() => (this.active() ? this.pcTabs.tabindex() : -1));
+
+    mutationObserver: MutationObserver | undefined;
 
     @HostListener('focus', ['$event']) onFocus(event: FocusEvent) {
         this.pcTabs.selectOnFocus() && this.changeActiveValue();
@@ -107,6 +111,11 @@ export class Tab extends BaseComponent {
         }
 
         event.stopPropagation();
+    }
+
+    ngAfterViewInit(): void {
+        super.ngAfterViewInit();
+        this.bindMutationObserver();
     }
 
     onArrowRightKey(event) {
@@ -182,5 +191,29 @@ export class Tab extends BaseComponent {
 
     scrollInView(element) {
         element?.scrollIntoView?.({ block: 'nearest' });
+    }
+
+    bindMutationObserver() {
+        if (isPlatformBrowser(this.platformId)) {
+            this.mutationObserver = new MutationObserver((mutations) => {
+                mutations.forEach(() => {
+                    if (this.active()) {
+                        this.pcTabList?.updateInkBar();
+                    }
+                });
+            });
+            this.mutationObserver.observe(this.el.nativeElement, { childList: true, characterData: true, subtree: true });
+        }
+    }
+
+    unbindMutationObserver() {
+        this.mutationObserver.disconnect();
+    }
+
+    ngOnDestroy() {
+        if (this.mutationObserver) {
+            this.unbindMutationObserver();
+        }
+        super.ngOnDestroy();
     }
 }

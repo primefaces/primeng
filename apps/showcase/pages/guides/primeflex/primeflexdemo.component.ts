@@ -1,3 +1,4 @@
+import { CompatibilityDoc } from '@/doc/guides/primeflex/compatibilitydoc';
 import { MigrationDoc } from '@/doc/guides/primeflex/migrationdoc';
 import { OverviewDoc } from '@/doc/guides/primeflex/overviewdoc';
 import { TailwindCSSDoc } from '@/doc/guides/primeflex/tailwindcssdoc';
@@ -14,6 +15,11 @@ export class PrimeFlexDemoComponent {
             id: 'overview',
             label: 'Overview',
             component: OverviewDoc
+        },
+        {
+            id: 'compatibility',
+            label: 'Compatibility',
+            component: CompatibilityDoc
         },
         {
             id: 'tailwindcss',

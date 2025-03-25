@@ -964,7 +964,7 @@ export class FileUpload extends BaseComponent implements AfterViewInit, AfterCon
 
     checkFileLimit(files: File[]) {
         this.msgs ??= [];
-        const hasExistingValidationMessages = this.msgs.length > 0 && this.fileLimit < files.length;
+        const hasExistingValidationMessages = this.msgs.length > 0 && this.fileLimit && this.fileLimit < files.length;
         if (this.isFileLimitExceeded() || hasExistingValidationMessages) {
             const text = `${this.invalidFileLimitMessageSummary.replace('{0}', (this.fileLimit as number).toString())} ${this.invalidFileLimitMessageDetail.replace('{0}', (this.fileLimit as number).toString())}`;
             this.msgs.push({
