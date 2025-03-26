@@ -87,7 +87,7 @@ import { CarouselStyle } from './style/carouselstyle';
                                     'p-carousel-item-start': firstIndex() === index,
                                     'p-carousel-item-end': lastIndex() === index
                                 }"
-                                [attr.aria-hidden]="!(totalShiftedItems * -1 === value.length)"
+                                [attr.aria-hidden]="!(firstIndex() <= index && lastIndex() >= index)"
                                 [attr.aria-label]="ariaSlideNumber(index)"
                                 [attr.aria-roledescription]="ariaSlideLabel()"
                             >
