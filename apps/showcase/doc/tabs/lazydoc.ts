@@ -7,8 +7,9 @@ import { Component } from '@angular/core';
     template: `
         <app-docsectiontext>
             <p>
-                By default, projected content in <i>TabPanel</i> component is initialized, even if tab is not active. You can get around this rule by encapsulating the projected content in an <i>ng-template</i>. Lazy content will not be initialized
-                again upon reselection.
+                By default, all projected tab contents are rendered, even for inactive tabs. To override this behavior, you can wrap the content in an <i>ng-template</i>, enabling lazy loading — the content will only be rendered when the tab becomes
+                active. Once lazy-loaded content is rendered, it remains in the DOM even if the tab becomes inactive. You can change this behavior by setting the <i>cache</i> property to <i>false</i>, which will cause the lazy content to be recreated
+                on each activation.
             </p>
         </app-docsectiontext>
         <div class="card">
