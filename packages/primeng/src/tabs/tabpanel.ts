@@ -1,5 +1,5 @@
 import { NgTemplateOutlet } from '@angular/common';
-import { ChangeDetectionStrategy, Component, computed, contentChild, forwardRef, inject, model, TemplateRef, ViewEncapsulation } from '@angular/core';
+import { booleanAttribute, ChangeDetectionStrategy, Component, computed, contentChild, forwardRef, inject, input, model, TemplateRef, ViewEncapsulation } from '@angular/core';
 import { equals } from '@primeuix/utils';
 import { BaseComponent } from 'primeng/basecomponent';
 import { TabPanelStyle } from './style/tabpanelstyle';
@@ -41,6 +41,13 @@ export class TabPanel extends BaseComponent {
      * @group Props
      */
     value = model<string | number | undefined>(undefined);
+    /**
+     * Defining if the lazy loaded content should remains in the DOM even after tab deactivation.
+     * @type boolean
+     * @defaultValue true
+     * @group Props
+     */
+    cache = input(true, { transform: booleanAttribute });
 
     id = computed(() => `${this.pcTabs.id()}_tabpanel_${this.value()}`);
 
@@ -55,15 +62,14 @@ export class TabPanel extends BaseComponent {
     private _initialized = false;
 
     initialized = computed(() => {
-        if (this._initialized) {
-            return true;
+        if (!this.cache()) {
+            return this.active();
         }
 
-        if (!this.active()) {
-            return false;
+        if (!this._initialized && this.active()) {
+            this._initialized = true;
         }
 
-        this._initialized = true;
-        return true;
+        return this._initialized;
     });
 }
