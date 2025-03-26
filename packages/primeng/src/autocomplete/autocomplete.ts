@@ -614,7 +614,7 @@ export class AutoComplete extends BaseComponent implements AfterViewChecked, Aft
      * Property name or getter function to use as the disabled flag of an option, defaults to false when not defined.
      * @group Props
      */
-    @Input() optionDisabled: string | undefined;
+    @Input() optionDisabled: string | ((item: any) => string) | undefined;
     /**
      * When enabled, the hovered option will be focused.
      * @group Props
