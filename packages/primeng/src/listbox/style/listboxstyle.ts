@@ -125,6 +125,8 @@ const theme = ({ dt }) => `
 
 /* For PrimeNG */
 
+p-listBox.ng-invalid.ng-dirty > .p-listbox.p-component,
+p-list-box.ng-invalid.ng-dirty > .p-listbox.p-component,
 p-listbox.ng-invalid.ng-dirty > .p-listbox.p-component {
     border-color: ${dt('listbox.invalid.border.color')};
 }
