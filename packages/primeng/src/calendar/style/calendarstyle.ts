@@ -377,7 +377,9 @@ p-calendar.ng-invalid.ng-dirty .p-datepicker.p-inputwrapper .p-inputtext{
     border-color: ${dt('inputtext.invalid.border.color')};
 }
 
-p-datepicker.ng-invalid.ng-dirty .p-datepicker.p-inputwrapper .p-inputtext{
+p-datePicker.ng-invalid.ng-dirty .p-datepicker.p-inputwrapper .p-inputtext,
+p-date-picker.ng-invalid.ng-dirty .p-datepicker.p-inputwrapper .p-inputtext,
+p-datepicker.ng-invalid.ng-dirty .p-datepicker.p-inputwrapper .p-inputtext {
     border-color: ${dt('inputtext.invalid.border.color')};
 }
 `;

@@ -17,10 +17,14 @@ const theme = ({ dt }) => `
     box-shadow: ${dt('cascadeselect.shadow')};
 }
 
+p-cascadeSelect.ng-invalid.ng-dirty .p-cascadeselect,
+p-cascade-select.ng-invalid.ng-dirty .p-cascadeselect,
 p-cascadeselect.ng-invalid.ng-dirty .p-cascadeselect {
     border-color: ${dt('cascadeselect.invalid.border.color')};
 }
 
+p-cascadeSelect.ng-invalid.ng-dirty .p-cascadeselect.p-focus,
+p-cascade-select.ng-invalid.ng-dirty .p-cascadeselect.p-focus,
 p-cascadeselect.ng-invalid.ng-dirty .p-cascadeselect.p-focus {
     border-color: ${dt('cascadeselect.focus.border.color')};
 }

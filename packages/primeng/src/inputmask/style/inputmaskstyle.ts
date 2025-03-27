@@ -15,14 +15,20 @@ p-inputmask {
     color: ${dt('form.field.icon.color')};
 }
 
+p-inputMask.ng-invalid.ng-dirty > .p-inputtext,
+p-input-mask.ng-invalid.ng-dirty > .p-inputtext,
 p-inputmask.ng-invalid.ng-dirty > .p-inputtext {
     border-color: ${dt('inputtext.invalid.border.color')};
 }
 
+p-inputMask.ng-invalid.ng-dirty > .p-inputtext:enabled:focus,
+p-input-mask.ng-invalid.ng-dirty > .p-inputtext:enabled:focus,
 p-inputmask.ng-invalid.ng-dirty > .p-inputtext:enabled:focus {
     border-color: ${dt('inputtext.focus.border.color')};
 }
 
+p-inputMask.ng-invalid.ng-dirty > .p-inputtext::placeholder,
+p-input-mask.ng-invalid.ng-dirty > .p-inputtext::placeholder,
 p-inputmask.ng-invalid.ng-dirty > .p-inputtext::placeholder {
     color: ${dt('inputtext.invalid.placeholder.color')};
 }

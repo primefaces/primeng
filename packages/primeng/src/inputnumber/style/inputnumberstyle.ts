@@ -171,14 +171,20 @@ const theme = ({ dt }) => `
     height: ${dt('form.field.lg.font.size')};
 }
 
+p-inputNumber.ng-invalid.ng-dirty > .p-inputtext,
+p-input-number.ng-invalid.ng-dirty > .p-inputtext,
 p-inputnumber.ng-invalid.ng-dirty > .p-inputtext {
     border-color: ${dt('inputtext.invalid.border.color')};
 }
 
+p-inputNumber.ng-invalid.ng-dirty > .p-inputtext:enabled:focus,
+p-input-number.ng-invalid.ng-dirty > .p-inputtext:enabled:focus,
 p-inputnumber.ng-invalid.ng-dirty > .p-inputtext:enabled:focus {
     border-color: ${dt('inputtext.focus.border.color')};
 }
 
+p-inputNumber.ng-invalid.ng-dirty > .p-inputtext::placeholder,
+p-input-number.ng-invalid.ng-dirty > .p-inputtext::placeholder,
 p-inputnumber.ng-invalid.ng-dirty > .p-inputtext::placeholder {
     color: ${dt('inputtext.invalid.placeholder.color')};
 }
