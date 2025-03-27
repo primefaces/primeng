@@ -46,7 +46,7 @@ interface AutoCompleteCompleteEvent {
     standalone:true,
     imports: [FormsModule, AutoCompleteModule]
 })
-export class AutocompleteDropdownDemo implements OnInit {
+export class AutocompleteDropdownDemo {
     items: any[] | undefined;
 
     value: any;
