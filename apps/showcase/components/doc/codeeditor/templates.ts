@@ -1059,6 +1059,7 @@ const getAngularApp = (props: Props = {}) => {
     import { FileUploadModule } from 'primeng/fileupload';
     import { FocusTrapModule } from 'primeng/focustrap';
     import { GalleriaModule } from 'primeng/galleria';
+    import { IftaLabelModule } from 'primeng/iftalabel';
     import { InplaceModule } from 'primeng/inplace';
     import { InputMaskModule } from 'primeng/inputmask';
     import { InputSwitchModule } from 'primeng/inputswitch';
@@ -1169,6 +1170,7 @@ const getAngularApp = (props: Props = {}) => {
             FileUploadModule,
             FocusTrapModule,
             GalleriaModule,
+            IftaLabelModule,
             InplaceModule,
             InputMaskModule,
             InputSwitchModule,
@@ -1276,6 +1278,7 @@ const getAngularApp = (props: Props = {}) => {
             FileUploadModule,
             FocusTrapModule,
             GalleriaModule,
+            IftaLabelModule,
             InplaceModule,
             InputMaskModule,
             InputSwitchModule,
