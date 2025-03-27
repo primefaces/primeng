@@ -112,6 +112,8 @@ const theme = ({ dt }) => `
 
 /* For PrimeNG */
 
+p-toggleSwitch.ng-invalid.ng-dirty > .p-toggleswitch > .p-toggleswitch-slider,
+p-toggle-switch.ng-invalid.ng-dirty > .p-toggleswitch > .p-toggleswitch-slider,
 p-toggleswitch.ng-invalid.ng-dirty > .p-toggleswitch > .p-toggleswitch-slider {
     border-color: ${dt('toggleswitch.invalid.border.color')};
 }`;

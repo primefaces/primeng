@@ -83,6 +83,8 @@ const theme = ({ dt }) => `
     color: ${dt('multiselect.placeholder.color')};
 }
 
+p-multiSelect.ng-invalid.ng-dirty .p-multiselect-label.p-placeholder,
+p-multi-select.ng-invalid.ng-dirty .p-multiselect-label.p-placeholder,
 p-multiselect.ng-invalid.ng-dirty .p-multiselect-label.p-placeholder {
     color: ${dt('multiselect.invalid.placeholder.color')};
 }

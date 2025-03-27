@@ -527,7 +527,7 @@ export class Tooltip extends BaseComponent implements AfterViewInit, OnDestroy {
     }
 
     private get activeElement(): HTMLElement {
-        return this.el.nativeElement.nodeName.includes('P-') ? findSingle(this.el.nativeElement, '.p-component') : this.el.nativeElement;
+        return this.el.nativeElement.nodeName.startsWith('P-') ? findSingle(this.el.nativeElement, '.p-component') : this.el.nativeElement;
     }
 
     alignRight() {

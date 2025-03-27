@@ -127,7 +127,7 @@ export interface MultiSelectTemplates {
      * Custom selected item template.
      * @param {Object} context - selected items data.
      */
-    selectedItems(context: {
+    selecteditems(context: {
         /**
          * Selected option value.
          */
