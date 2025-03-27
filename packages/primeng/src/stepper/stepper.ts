@@ -141,7 +141,7 @@ export class StepItem extends BaseComponent {
     imports: [CommonModule, StepperSeparator, SharedModule],
     template: `
         @if (!content && !_contentTemplate) {
-            <button [attr.id]="id()" class="p-step-header" [attr.role]="'tab'" [tabindex]="isStepDisabled() ? -1 : undefined" [attr.aria-controls]="ariaControls()" [disabled]="isStepDisabled()" (click)="onStepClick()">
+            <button [attr.id]="id()" class="p-step-header" [attr.role]="'tab'" [tabindex]="isStepDisabled() ? -1 : undefined" [attr.aria-controls]="ariaControls()" [disabled]="isStepDisabled()" (click)="onStepClick()" type="button">
                 <span class="p-step-number">{{ value() }}</span>
                 <span class="p-step-title">
                     <ng-content></ng-content>
