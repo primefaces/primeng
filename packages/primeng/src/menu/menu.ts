@@ -803,6 +803,7 @@ export class Menu extends BaseComponent implements AfterContentInit, OnDestroy {
     unbindScrollListener() {
         if (this.scrollHandler) {
             this.scrollHandler.unbindScrollListener();
+            this.scrollHandler = null;
         }
     }
 
