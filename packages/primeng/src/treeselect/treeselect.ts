@@ -149,6 +149,7 @@ export const TREESELECT_VALUE_ACCESSOR: any = {
                                 [virtualScrollOptions]="virtualScrollOptions"
                                 [_templateMap]="templateMap"
                                 [loading]="loading"
+                                [filterInputAutoFocus]="filterInputAutoFocus"
                             >
                                 <ng-container *ngIf="emptyTemplate || _emptyTemplate">
                                     <ng-template #empty>

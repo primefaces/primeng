@@ -51,6 +51,7 @@ import {
     TreeScrollEvent,
     TreeScrollIndexChangeEvent
 } from './tree.interface';
+import { AutoFocusModule } from 'primeng/autofocus';
 
 @Component({
     selector: 'p-treeNode',
@@ -708,7 +709,7 @@ export class UITreeNode extends BaseComponent implements OnInit {
 @Component({
     selector: 'p-tree',
     standalone: true,
-    imports: [CommonModule, Scroller, SharedModule, SearchIcon, SpinnerIcon, InputText, FormsModule, IconField, InputIcon, UITreeNode],
+    imports: [CommonModule, Scroller, SharedModule, SearchIcon, SpinnerIcon, InputText, FormsModule, IconField, InputIcon, UITreeNode, AutoFocusModule],
     template: `
         <div [ngClass]="containerClass" [ngStyle]="style" [class]="styleClass" (drop)="onDrop($event)" (dragover)="onDragOver($event)" (dragenter)="onDragEnter()" (dragleave)="onDragLeave($event)">
             <div class="p-tree-mask p-overlay-mask" *ngIf="loading && loadingMode === 'mask'">
@@ -725,7 +726,17 @@ export class UITreeNode extends BaseComponent implements OnInit {
                 <ng-container *ngTemplateOutlet="filterTemplate || _filterTemplate; context: { $implicit: filterOptions }"></ng-container>
             } @else {
                 <p-iconField *ngIf="filter">
-                    <input #filter pInputText type="search" autocomplete="off" class="p-tree-filter-input" [attr.placeholder]="filterPlaceholder" (keydown.enter)="$event.preventDefault()" (input)="_filter($event.target.value)" />
+                    <input
+                        #filter
+                        [pAutoFocus]="filterInputAutoFocus"
+                        pInputText
+                        type="search"
+                        autocomplete="off"
+                        class="p-tree-filter-input"
+                        [attr.placeholder]="filterPlaceholder"
+                        (keydown.enter)="$event.preventDefault()"
+                        (input)="_filter($event.target.value)"
+                    />
                     <p-inputIcon>
                         <SearchIcon *ngIf="!filterIconTemplate && !_filterIconTemplate" class="p-tree-filter-icon" />
                         <span *ngIf="filterIconTemplate || _filterIconTemplate">
@@ -916,6 +927,11 @@ export class Tree extends BaseComponent implements OnInit, AfterContentInit, OnC
      * @group Props
      */
     @Input({ transform: booleanAttribute }) filter: boolean | undefined;
+    /**
+     * Determines whether the filter input should be automatically focused when the component is rendered.
+     * @group Props
+     */
+    @Input({ transform: booleanAttribute }) filterInputAutoFocus: boolean = false;
     /**
      * When filtering is enabled, filterBy decides which field or fields (comma separated) to search against.
      * @group Props
