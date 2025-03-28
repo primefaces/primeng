@@ -73,6 +73,13 @@ import { TabsModule } from 'primeng/tabs';
     standalone: true,
     imports: [TabsModule, RouterModule, CommonModule]
 })
-export class TabsTabmenuDemo {}`
+export class TabsTabmenuDemo {
+    tabs = [
+        { route: 'dashboard', label: 'Dashboard', icon: 'pi pi-home' },
+        { route: 'transactions', label: 'Transactions', icon: 'pi pi-chart-line' },
+        { route: 'products', label: 'Products', icon: 'pi pi-list' },
+        { route: 'messages', label: 'Messages', icon: 'pi pi-inbox' }
+    ];
+}`
     };
 }
