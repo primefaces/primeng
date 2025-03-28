@@ -15,7 +15,7 @@ import { Component } from '@angular/core';
             <p-tabs value="dashboard">
                 <p-tablist>
                     @for (tab of tabs; track tab.route) {
-                        <p-tab [value]="tab.route">
+                        <p-tab [value]="tab.route" class="flex items-center !gap-2 text-inherit">
                             <i [class]="tab.icon"></i>
                             <span>{{ tab.label }}</span>
                         </p-tab>
@@ -39,7 +39,7 @@ export class TabmenuDoc {
         basic: `<p-tabs value="/dashboard">
     <p-tablist>
         @for(tab of tabs; track tab.route){
-            <p-tab [value]="tab.route" [routerLink]="tab.route">
+            <p-tab [value]="tab.route" [routerLink]="tab.route" class="flex items-center !gap-2 text-inherit">
                 <i [class]="tab.icon"></i>
                 <span>{{ tab.label }}</span>
             </p-tab>
@@ -52,7 +52,7 @@ export class TabmenuDoc {
     <p-tabs value="/dashboard">
         <p-tablist>
             @for(tab of tabs; track tab.route){
-                <p-tab [value]="tab.route" [routerLink]="tab.route">
+                <p-tab [value]="tab.route" [routerLink]="tab.route" class="flex items-center !gap-2 text-inherit">
                     <i [class]="tab.icon"></i>
                     <span>{{ tab.label }}</span>
                 </p-tab>
