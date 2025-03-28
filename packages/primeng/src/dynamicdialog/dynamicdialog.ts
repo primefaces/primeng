@@ -402,7 +402,7 @@ export class DynamicDialogComponent extends BaseComponent implements AfterViewIn
 
     onAnimationEnd(event: AnimationEvent) {
         if (event.toState === 'void') {
-            if (this.parentContent) {
+            if (this.parentContent && this.ddconfig.focusFirstElementOnClose) {
                 this.focus(this.parentContent);
             }
             this.onContainerDestroy();
