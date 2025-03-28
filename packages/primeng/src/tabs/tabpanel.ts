@@ -1,5 +1,5 @@
-import { CommonModule } from '@angular/common';
-import { ChangeDetectionStrategy, Component, computed, forwardRef, inject, model, ViewEncapsulation } from '@angular/core';
+import { NgTemplateOutlet } from '@angular/common';
+import { booleanAttribute, ChangeDetectionStrategy, Component, computed, contentChild, forwardRef, inject, input, model, TemplateRef, ViewEncapsulation } from '@angular/core';
 import { equals } from '@primeuix/utils';
 import { BaseComponent } from 'primeng/basecomponent';
 import { Tabs } from './tabs';
@@ -11,10 +11,14 @@ import { Tabs } from './tabs';
 @Component({
     selector: 'p-tabpanel',
     standalone: true,
-    imports: [CommonModule],
-    template: `@if (active()) {
-        <ng-content></ng-content>
-    }`,
+    imports: [NgTemplateOutlet],
+    template: `
+        @if (lazyContent() && initialized()) {
+            <ng-container *ngTemplateOutlet="lazyContent()" />
+        } @else {
+            <ng-content />
+        }
+    `,
     changeDetection: ChangeDetectionStrategy.OnPush,
     encapsulation: ViewEncapsulation.None,
     host: {
@@ -24,21 +28,45 @@ import { Tabs } from './tabs';
         '[attr.id]': 'id()',
         '[attr.role]': '"tabpanel"',
         '[attr.aria-labelledby]': 'ariaLabelledby()',
-        '[attr.data-p-active]': 'active()'
+        '[attr.data-p-active]': 'active()',
+        '[hidden]': '!active()'
     }
 })
 export class TabPanel extends BaseComponent {
-    pcTabs = inject(forwardRef(() => Tabs));
+    pcTabs = inject<Tabs>(forwardRef(() => Tabs));
     /**
      * Value of the active tab.
      * @defaultValue undefined
      * @group Props
      */
     value = model<string | number | undefined>(undefined);
+    /**
+     * Defining if the lazy loaded content should remains in the DOM even after tab deactivation.
+     * @type boolean
+     * @defaultValue true
+     * @group Props
+     */
+    cache = input(true, { transform: booleanAttribute });
 
     id = computed(() => `${this.pcTabs.id()}_tabpanel_${this.value()}`);
+
+    lazyContent = contentChild(TemplateRef);
 
     ariaLabelledby = computed(() => `${this.pcTabs.id()}_tab_${this.value()}`);
 
     active = computed(() => equals(this.pcTabs.value(), this.value()));
+
+    private _initialized = false;
+
+    initialized = computed(() => {
+        if (!this.cache()) {
+            return this.active();
+        }
+
+        if (!this._initialized && this.active()) {
+            this._initialized = true;
+        }
+
+        return this._initialized;
+    });
 }
