@@ -139,6 +139,7 @@ import { PickListStyle } from './style/pickliststyle';
                     [filter]="filterBy"
                     [filterBy]="filterBy"
                     [filterLocale]="filterLocale"
+                    [filterMatchMode]="filterMatchMode"
                     [filterPlaceHolder]="sourceFilterPlaceholder"
                     [dragdrop]="dragdrop"
                     (onDrop)="onDrop($event, SOURCE_LIST)"
@@ -262,6 +263,7 @@ import { PickListStyle } from './style/pickliststyle';
                     [filter]="filterBy"
                     [filterBy]="filterBy"
                     [filterLocale]="filterLocale"
+                    [filterMatchMode]="filterMatchMode"
                     [filterPlaceHolder]="targetFilterPlaceholder"
                     [dragdrop]="dragdrop"
                     (onDrop)="onDrop($event, TARGET_LIST)"
@@ -544,7 +546,7 @@ export class PickList extends BaseComponent implements AfterViewChecked, AfterCo
      * Defines how the items are filtered.
      * @group Props
      */
-    @Input() filterMatchMode: 'contains' | 'startsWith' | 'endsWith' | 'equals' | 'notEquals' | 'in' | 'lt' | 'lte' | 'gt' | 'gte' = 'contains';
+    @Input() filterMatchMode: 'contains' | 'startsWith' | 'endsWith' | 'equals' | 'notEquals' | 'in' | 'lt' | 'lte' | 'gt' | 'gte' | string = 'contains';
     /**
      * Whether to displays rows with alternating colors.
      * @group Props
