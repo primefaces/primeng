@@ -177,14 +177,15 @@ export class TabList extends BaseComponent implements AfterViewInit, AfterConten
     }
 
     updateInkBar() {
-        const _content = this.content.nativeElement;
-        const _inkbar = this.inkbar.nativeElement;
-        const _tabs = this.tabs.nativeElement;
+        const _content = this.content?.nativeElement;
+        const _inkbar = this.inkbar?.nativeElement;
+        const _tabs = this.tabs?.nativeElement;
 
         const activeTab = findSingle(_content, '[data-pc-name="tab"][data-p-active="true"]');
-
-        _inkbar.style.width = getOuterWidth(activeTab) + 'px';
-        _inkbar.style.left = <any>getOffset(activeTab).left - <any>getOffset(_tabs).left + 'px';
+        if (_inkbar) {
+            _inkbar.style.width = getOuterWidth(activeTab) + 'px';
+            _inkbar.style.left = <any>getOffset(activeTab).left - <any>getOffset(_tabs).left + 'px';
+        }
     }
 
     getVisibleButtonWidths() {

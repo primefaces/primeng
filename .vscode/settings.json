@@ -15,5 +15,13 @@
     "[typescript]": {
         "editor.defaultFormatter": "esbenp.prettier-vscode",
         "editor.formatOnSave": true
+    },
+    "workbench.colorCustomizations": {
+        "commandCenter.border": "#15202b99",
+        "sash.hoverBorder": "#d0b79e",
+        "titleBar.activeBackground": "#c09d7b",
+        "titleBar.activeForeground": "#15202b",
+        "titleBar.inactiveBackground": "#c09d7b99",
+        "titleBar.inactiveForeground": "#15202b99"
     }
 }

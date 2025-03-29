@@ -47,6 +47,7 @@
         "@angular/compiler-cli": "catalog:angular19",
         "@angular/core": "catalog:angular19",
         "@angular/forms": "catalog:angular19",
+        "@angular/cdk": "catalog:angular19",
         "@angular/platform-browser": "catalog:angular19",
         "@angular/platform-browser-dynamic": "catalog:angular19",
         "@angular/platform-server": "catalog:angular19",
