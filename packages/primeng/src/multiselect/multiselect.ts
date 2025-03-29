@@ -80,10 +80,11 @@ export const MULTISELECT_VALUE_ACCESSOR: any = {
     template: `
         <li
             pRipple
+            class="p-multiselect-option"
             role="option"
             [ngStyle]="{ height: itemSize + 'px' }"
             [ngClass]="{
-                'p-multiselect-option': true,
+                'p-multiselect-option-selected': selected && highlightOnSelect,
                 'p-disabled': disabled,
                 'p-focus': focused
             }"
@@ -138,6 +139,8 @@ export class MultiSelectItem extends BaseComponent {
     @Input() checkIconTemplate: TemplateRef<any> | undefined;
 
     @Input() itemCheckboxIconTemplate: TemplateRef<any> | undefined;
+
+    @Input({ transform: booleanAttribute }) highlightOnSelect: boolean | undefined;
 
     @Output() onClick: EventEmitter<any> = new EventEmitter();
 
@@ -391,6 +394,7 @@ export class MultiSelectItem extends BaseComponent {
                                             [ariaPosInset]="getAriaPosInset(getOptionIndex(i, scrollerOptions))"
                                             [ariaSetSize]="ariaSetSize"
                                             [variant]="variant"
+                                            [highlightOnSelect]="highlightOnSelect"
                                             (onClick)="onOptionSelect($event, false, getOptionIndex(i, scrollerOptions))"
                                             (onMouseEnter)="onOptionMouseEnter($event, getOptionIndex(i, scrollerOptions))"
                                         ></p-multiselect-item>
@@ -879,6 +883,11 @@ export class MultiSelect extends BaseComponent implements OnInit, AfterViewInit,
      * @group Props
      */
     @Input({ transform: booleanAttribute }) autoOptionFocus: boolean = false;
+    /**
+     * Whether the selected option will be add highlight class.
+     * @group Props
+     */
+    @Input({ transform: booleanAttribute }) highlightOnSelect: boolean = true;
     /**
      * Callback to invoke when value changes.
      * @param {MultiSelectChangeEvent} event - Custom change event.
