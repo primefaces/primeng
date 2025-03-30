@@ -1,4 +1,4 @@
-import { Component, computed, effect, inject, OnDestroy, OnInit, signal } from '@angular/core';
+import { Component, computed, effect, inject, model, OnDestroy, OnInit, signal } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { TabsModule } from 'primeng/tabs';
 import { DesignBorderRadius } from './primitive/designborderradius';
@@ -50,90 +50,80 @@ import { Subscription } from 'rxjs';
         DesignCustomTokens,
         DesignSettings
     ],
-    template: ` <p-tabs [value]="activeTab()">
+    template: ` <p-tabs [(value)]="activeTab" [lazy]="true">
         <p-tablist>
-            <p-tab value="0"> Primitive </p-tab>
-            <p-tab value="1"> Semantic </p-tab>
-            <p-tab value="2" [disabled]="!isComponentRoute()">Component</p-tab>
-            <p-tab value="3">Custom</p-tab>
-            <p-tab value="4" class="!ml-auto">Settings</p-tab>
+            <p-tab [value]="0"> Primitive </p-tab>
+            <p-tab [value]="1"> Semantic </p-tab>
+            <p-tab [value]="2" [disabled]="!isComponentRoute()">Component</p-tab>
+            <p-tab [value]="3">Custom</p-tab>
+            <p-tab [value]="4" class="!ml-auto">Settings</p-tab>
         </p-tablist>
         <p-tabpanels>
-            @defer (when activeTab() ==='0') {
-                <p-tabpanel value="0">
-                    <div>
-                        <form (keydown)="onKeyDown($event)" class="flex flex-col gap-3">
-                            <design-border-radius />
-                            <design-colors />
-                        </form>
-                    </div>
-                </p-tabpanel>
-            }
-
-            @defer (when activeTab() ==='1') {
-                <p-tabpanel value="1">
-                    <p-accordion [value]="['0', '1']" [multiple]="true">
-                        <p-accordion-panel value="0">
-                            <p-accordion-header>Common</p-accordion-header>
-                            <p-accordion-content>
-                                <div>
-                                    <form (keydown)="onKeyDown($event)" class="flex flex-col gap-3">
-                                        <design-general />
-                                        <design-form-field />
-                                        <design-list />
-                                        <design-navigation />
-                                        <design-overlay />
-                                    </form>
-                                </div>
-                            </p-accordion-content>
-                        </p-accordion-panel>
-
-                        <p-accordion-panel value="1">
-                            <p-accordion-header>Color Scheme</p-accordion-header>
-                            <p-accordion-content>
-                                <p-tabs value="cs-0">
-                                    <p-tablist>
-                                        <p-tab value="cs-0">Light</p-tab>
-                                        <p-tab value="cs-1">Dark</p-tab>
-                                    </p-tablist>
-                                    <p-tabpanels class="!px-0">
-                                        <p-tabpanel value="cs-0">
-                                            <form (keydown)="onKeyDown($event)">
-                                                <design-cs [value]="designerService.designer().theme.preset?.semantic.colorScheme.light" />
-                                            </form>
-                                        </p-tabpanel>
-                                        <p-tabpanel value="cs-1">
-                                            <form (keydown)="onKeyDown($event)">
-                                                <design-cs [value]="designerService.designer().theme.preset?.semantic.colorScheme.dark" />
-                                            </form>
-                                        </p-tabpanel>
-                                    </p-tabpanels>
-                                </p-tabs>
-                            </p-accordion-content>
-                        </p-accordion-panel>
-                    </p-accordion>
-                </p-tabpanel>
-            }
-
-            @defer (when activeTab() ==='2') {
-                <p-tabpanel value="2">
-                    <form *ngIf="isComponentRoute()" (keydown)="onKeyDown($event)">
-                        <design-component />
+            <p-tabpanel [value]="0">
+                <div>
+                    <form (keydown)="onKeyDown($event)" class="flex flex-col gap-3">
+                        <design-border-radius />
+                        <design-colors />
                     </form>
-                </p-tabpanel>
-            }
+                </div>
+            </p-tabpanel>
 
-            @defer (when activeTab() ==='3') {
-                <p-tabpanel value="3">
-                    <design-custom-tokens />
-                </p-tabpanel>
-            }
+            <p-tabpanel [value]="1">
+                <p-accordion [value]="['0', '1']" [multiple]="true">
+                    <p-accordion-panel value="0">
+                        <p-accordion-header>Common</p-accordion-header>
+                        <p-accordion-content>
+                            <div>
+                                <form (keydown)="onKeyDown($event)" class="flex flex-col gap-3">
+                                    <design-general />
+                                    <design-form-field />
+                                    <design-list />
+                                    <design-navigation />
+                                    <design-overlay />
+                                </form>
+                            </div>
+                        </p-accordion-content>
+                    </p-accordion-panel>
 
-            @defer (when activeTab() ==='4') {
-                <p-tabpanel value="4">
-                    <design-settings />
-                </p-tabpanel>
-            }
+                    <p-accordion-panel value="1">
+                        <p-accordion-header>Color Scheme</p-accordion-header>
+                        <p-accordion-content>
+                            <p-tabs value="cs-0">
+                                <p-tablist>
+                                    <p-tab value="cs-0">Light</p-tab>
+                                    <p-tab value="cs-1">Dark</p-tab>
+                                </p-tablist>
+                                <p-tabpanels class="!px-0">
+                                    <p-tabpanel value="cs-0">
+                                        <form (keydown)="onKeyDown($event)">
+                                            <design-cs [value]="designerService.designer().theme.preset?.semantic.colorScheme.light" />
+                                        </form>
+                                    </p-tabpanel>
+                                    <p-tabpanel value="cs-1">
+                                        <form (keydown)="onKeyDown($event)">
+                                            <design-cs [value]="designerService.designer().theme.preset?.semantic.colorScheme.dark" />
+                                        </form>
+                                    </p-tabpanel>
+                                </p-tabpanels>
+                            </p-tabs>
+                        </p-accordion-content>
+                    </p-accordion-panel>
+                </p-accordion>
+            </p-tabpanel>
+
+            <p-tabpanel [value]="2">
+                <form *ngIf="isComponentRoute()" (keydown)="onKeyDown($event)">
+                    <design-component />
+                </form>
+            </p-tabpanel>
+
+            <p-tabpanel [value]="3">
+                <design-custom-tokens />
+            </p-tabpanel>
+
+            <p-tabpanel [value]="4">
+                <design-settings />
+            </p-tabpanel>
         </p-tabpanels>
     </p-tabs>`
 })
@@ -146,7 +136,13 @@ export class DesignEditor implements OnInit, OnDestroy {
 
     router: Router = inject(Router);
 
-    activeTab = computed(() => this.designerService.designer().activeTab);
+    get activeTab() {
+        return this.designerService.designer().activeTab;
+    }
+
+    set activeTab(value: number) {
+        this.designerService.designer.update((prev) => ({ ...prev, activeTab: value }));
+    }
 
     isComponentRoute = computed(() => this.designerService.designer().theme.preset?.components[this.currentPath()] !== undefined);
 

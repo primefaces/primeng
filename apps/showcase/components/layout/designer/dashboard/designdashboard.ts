@@ -32,10 +32,11 @@ import { ConfirmPopupModule } from 'primeng/confirmpopup';
             <span class="block leading-6 mb-4">Sign-in at <a href="https://primefaces.org/store/designer.xhtml" class="doc-link" rel="noopener noreferrer">PrimeStore</a> to retrieve your license key along with the pass key.</span>
         </div>
         <div *ngIf="!verified()" class="flex gap-4">
-            <input [(ngModel)]="licenseKey" type="password" autocomplete="off" class="px-3 py-2 rounded-md border border-surface-300 dark:border-surface-700 flex-1" placeholder="License Key" />
+            <input [(ngModel)]="licenseKey" type="password" [attr.autocomplete]="'off'" class="px-3 py-2 rounded-md border border-surface-300 dark:border-surface-700 flex-1" placeholder="License Key" />
             <input [(ngModel)]="otp" autocomplete="off" class="px-3 py-2 rounded-md border border-surface-300 dark:border-surface-700" placeholder="Pass Key" />
             <button type="button" (click)="activate()" class="btn-design">Activate</button>
         </div>
+
         <div *ngIf="verified()" class="flex gap-4">
             <input value="***********************************************************" type="password" autocomplete="off" class="px-3 py-2 rounded-md border border-surface-300 dark:border-surface-700 flex-1" placeholder="License Key" disabled />
             <button type="button" (click)="signOut()" class="btn-design">Sign Out</button>

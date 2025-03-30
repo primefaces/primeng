@@ -7,8 +7,7 @@ import { FormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
 import { DividerModule } from 'primeng/divider';
 import { FileUploadModule } from 'primeng/fileupload';
-import { HttpClient, HttpHeaders } from '@angular/common/http';
-import { usePreset } from '@primeuix/styled';
+import { MessageService } from 'primeng/api';
 
 const presets = {
     Aura,
@@ -39,7 +38,7 @@ const presets = {
                             <button
                                 *ngFor="let presetOption of presetOptions"
                                 type="button"
-                                (click)="updateBasePreset(presetOption.value)"
+                                (click)="updateBasePreset(presetOption)"
                                 class="border border-surface-200 dark:border-surface-700 px-3 py-2 border-r-0 last:border-r first:rounded-l-md last:rounded-r-md transition-colors duration-200"
                                 [ngClass]="{
                                     'bg-zinc-950 text-white dark:bg-white dark:text-black': presetOption.value === basePreset,
@@ -69,7 +68,7 @@ const presets = {
                     </div>
                     <span class="text-muted-color leading-6">Export the token.json file from Figma Token Studio and import to the Visual Editor.</span>
                     <div class="flex justify-between">
-                        <p-fileUpload mode="basic"></p-fileUpload>
+                        <p-fileUpload mode="basic" (onSelect)="onFileSelect($event)"></p-fileUpload>
                         <button type="button" (click)="createThemeFromFigma()" class="btn-design">Create</button>
                     </div>
                 </div>
@@ -79,11 +78,13 @@ const presets = {
 export class DesignCreateTheme {
     designerService: DesignerService = inject(DesignerService);
 
+    messageService: MessageService = inject(MessageService);
+
     themeName: string;
 
     basePreset: string = 'Aura';
 
-    figmaData: null;
+    figmaData: any;
 
     presetOptions = [
         { label: 'Aura', value: 'Aura' },
@@ -91,66 +92,51 @@ export class DesignCreateTheme {
         { label: 'Nora', value: 'Nora' }
     ];
 
-    baseUrl = 'http://localhost:4000';
-
-    http: HttpClient = inject(HttpClient);
-
     async createThemeFromPreset() {
         if (!this.themeName || this.themeName.trim().length === 0) {
-            // add error message
+            this.messageService.add({ key: 'designer', severity: 'error', summary: 'Error', detail: 'Name is required', life: 3000 });
         } else {
             const newPreset = structuredClone(presets[this.basePreset]);
+            this.designerService.themeName.set(this.themeName);
+            this.designerService.basePreset.set(this.basePreset);
+            this.designerService.newPreset.set(newPreset);
+            await this.designerService.createThemeFromPreset();
+        }
+    }
 
-            if (this.designerService.designer().verified) {
-                const url = `${this.baseUrl}/theme/create`;
-                const body = {
-                    name: this.themeName,
-                    preset: newPreset,
-                    project: 'primeng',
-                    base: this.basePreset,
-                    config: {
-                        font_size: '14px',
-                        font_family: 'Inter var'
-                    }
-                };
+    async createThemeFromFigma() {
+        if (!this.themeName || this.themeName.trim().length === 0) {
+            this.messageService.add({ key: 'designer', severity: 'error', summary: 'Error', detail: 'Name is required', life: 3000 });
+        } else {
+            if (this.figmaData) {
+                this.designerService.figmaData.set(this.figmaData);
+                this.designerService.themeName.set(this.themeName);
 
-                this.http.post(`${url}`, body, { withCredentials: true, headers: { 'X-CSRF-Token': this.designerService.designer().csrfToken } }).subscribe({
-                    next: (res: any) => {
-                        this.loadThemeEditor(res.data.t_key, newPreset);
-                    },
-                    error: (err: any) => {
-                        // add toast message
-                    }
-                });
+                await this.designerService.createThemeFromFigma();
             } else {
-                this.loadThemeEditor('trial', newPreset);
+                this.messageService.add({ key: 'designer', severity: 'error', summary: 'Error', detail: 'File is required', life: 3000 });
             }
         }
     }
 
-    async createThemeFromFigma() {}
+    onFileSelect(event: any) {
+        const file = event.files[0];
 
-    onFileSelect(event: any) {}
+        if (!file) {
+            return;
+        }
 
-    loadThemeEditor(t_key: string, preset: any) {
-        this.designerService.designer.update((prev) => ({
-            ...prev,
-            theme: {
-                name: this.themeName,
-                key: t_key,
-                preset: preset,
-                config: {
-                    font_size: '14px',
-                    font_family: 'Inter var'
-                }
-            }
-        }));
+        const reader = new FileReader();
 
-        this.designerService.applyFont('Inter var');
-        document.documentElement.style.fontSize = '14px';
-        usePreset(preset);
-        this.designerService.refreshACTokens();
-        this.designerService.designer.update((prev) => ({ ...prev, activeTab: '0', activeView: 'editor' }));
+        reader.onload = (e) => {
+            this.figmaData = e.target.result;
+        };
+
+        reader.onerror = (e) => {
+            this.messageService.add({ key: 'designer', severity: 'error', summary: 'Error', detail: 'Unable to read file', life: 3000 });
+        };
+
+        reader.readAsText(file);
     }
 
     updateBasePreset(preset: any) {

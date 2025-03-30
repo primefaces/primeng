@@ -17,7 +17,7 @@ export interface Designer {
     themeLimit: number;
     active: boolean;
     activeView: string;
-    activeTab: string;
+    activeTab: number;
     theme: Theme;
     ticket: any;
     acTokens: any;
@@ -38,7 +38,7 @@ export class DesignerService {
         active: false,
         activeView: 'dashboard',
         ticket: null,
-        activeTab: '0',
+        activeTab: 0,
         theme: {
             key: null,
             name: null,
@@ -64,6 +64,14 @@ export class DesignerService {
     loading = signal<boolean>(false);
 
     currentTheme = signal<any>(null);
+
+    themeName = signal<string | undefined>(undefined);
+
+    basePreset = signal<any>(null);
+
+    newPreset = signal<any>(null);
+
+    figmaData = signal<any>(null);
 
     openDashboard() {
         this.designer.update((prev) => ({ ...prev, activeView: 'dashboard' }));
@@ -149,7 +157,7 @@ export class DesignerService {
                         csrfToken: null,
                         active: true,
                         activeView: 'dashboard',
-                        activeTab: '0',
+                        activeTab: 0,
                         theme: {
                             key: null,
                             name: null,
@@ -372,6 +380,90 @@ export class DesignerService {
         }
     }
 
+    async createThemeFromPreset() {
+        if (this.designer().verified) {
+            const url = `${this.baseUrl}/theme/create`;
+            const body = {
+                name: this.themeName(),
+                preset: this.newPreset(),
+                project: 'primeng',
+                base: this.basePreset(),
+                config: {
+                    font_size: '14px',
+                    font_family: 'Inter var'
+                }
+            };
+
+            this.http.post(`${url}`, body, { withCredentials: true, headers: { 'X-CSRF-Token': this.designer().csrfToken } }).subscribe({
+                next: (res: any) => {
+                    this.loadThemeEditor(res.data.t_key, this.newPreset());
+                },
+                error: (err: any) => {
+                    this.messageService.add({ key: 'designer', severity: 'error', summary: 'An error occurred', detail: err.message, life: 3000 });
+                }
+            });
+        } else {
+            await this.loadThemeEditor('trial', this.newPreset());
+        }
+    }
+
+    async loadThemeEditor(t_key: string, preset: any) {
+        this.designer.update((prev) => ({
+            ...prev,
+            theme: {
+                name: this.themeName(),
+                key: t_key,
+                preset: preset,
+                config: {
+                    font_size: '14px',
+                    font_family: 'Inter var'
+                }
+            }
+        }));
+
+        await this.applyFont('Inter var');
+        document.documentElement.style.fontSize = '14px';
+        usePreset(preset);
+        this.refreshACTokens();
+        this.designer.update((prev) => ({ ...prev, activeTab: 0, activeView: 'editor' }));
+
+        this.themeName.set(null);
+        this.basePreset.set(null);
+        this.newPreset.set(null);
+    }
+
+    async createThemeFromFigma() {
+        if (this.designer().verified) {
+            const url = `${this.baseUrl}/theme/figma`;
+            const body = {
+                name: this.themeName(),
+                figma_tokens: this.figmaData(),
+                project: 'primeng',
+                base: 'Figma',
+                config: {
+                    font_size: '14px',
+                    font_family: 'Inter var'
+                }
+            };
+            this.http.post(`${url}`, body, { withCredentials: true, headers: { 'X-CSRF-Token': this.designer().csrfToken } }).subscribe({
+                next: (res: any) => {
+                    const data = res.data;
+                    if (data.lostAndFound?.length) {
+                        this.messageService.add({ key: 'designer', severity: 'warn', summary: 'Warning', detail: 'There are missing tokens. An update is recommended using the "Migration Assistant" in the settings section.', life: 3000 });
+                    }
+                },
+                error: (err: any) => {
+                    this.messageService.add({ key: 'designer', severity: 'error', summary: 'An error occurred', detail: err.message, life: 3000 });
+                }
+            });
+
+            this.themeName.set(null);
+            this.figmaData.set(null);
+        } else {
+            this.messageService.add({ key: 'designer', severity: 'error', summary: 'An error occurred', detail: 'A valid license required.', life: 3000 });
+        }
+    }
+
     activateTheme(data: any) {
         this.designer.update((prev) => ({ ...prev, active: true, theme: { key: data.t_key, name: data.t_name, preset: JSON.parse(data.t_preset), config: JSON.parse(data.t_config) } }));
 
@@ -379,5 +471,7 @@ export class DesignerService {
         this.applyFont(this.designer().theme.config.fontFamily);
         document.documentElement.style.setProperty('font-size', this.designer().theme.config.font_size);
         this.refreshACTokens();
+
+        this.designer.update((prev) => ({ ...prev, activeTab: 0, activeView: 'editor' }));
     }
 }
