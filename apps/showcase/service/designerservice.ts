@@ -3,6 +3,7 @@ import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
 import { $dt, usePreset } from '@primeuix/styled';
 import { MessageService } from 'primeng/api';
 import Aura from '@primeng/themes/aura/index';
+import { environment } from '@/environments/environment';
 
 export interface Theme {
     key: string;
@@ -25,7 +26,7 @@ export interface Designer {
 }
 @Injectable()
 export class DesignerService {
-    baseUrl = 'http://localhost:4000';
+    baseUrl = environment.baseUrl;
 
     http: HttpClient = inject(HttpClient);
 
