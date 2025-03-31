@@ -5,6 +5,7 @@ const theme = ({ dt }) => `
 .p-knob-range {
     fill: none;
     transition: stroke 0.1s ease-in;
+    cursor: pointer;
 }
 
 .p-knob-value {
