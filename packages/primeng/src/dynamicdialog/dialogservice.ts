@@ -3,7 +3,6 @@ import { ApplicationRef, ComponentRef, EmbeddedViewRef, Inject, Injectable, Inje
 import { appendChild } from '@primeuix/utils';
 import { DynamicDialogComponent } from './dynamicdialog';
 import { DynamicDialogConfig } from './dynamicdialog-config';
-import { DynamicDialogInjector } from './dynamicdialog-injector';
 import { DynamicDialogRef } from './dynamicdialog-ref';
 
 /**
@@ -48,11 +47,7 @@ export class DialogService {
     }
 
     private appendDialogComponentToBody<T>(config: DynamicDialogConfig, componentType: Type<T>): DynamicDialogRef<T> {
-        const map = new WeakMap();
-        map.set(DynamicDialogConfig, config);
-
         const dialogRef = new DynamicDialogRef<T>();
-        map.set(DynamicDialogRef, dialogRef);
 
         const sub = dialogRef.onClose.subscribe(() => {
             this.dialogComponentRefMap.get(dialogRef).instance.close();
@@ -66,7 +61,20 @@ export class DialogService {
 
         const componentRef = createComponent(DynamicDialogComponent, {
             environmentInjector: this.appRef.injector,
-            elementInjector: new DynamicDialogInjector(this.injector, map)
+            elementInjector: Injector.create({
+                providers: [
+                    {
+                        provide: DynamicDialogConfig,
+                        useValue: config
+                    },
+                    {
+                        provide: DynamicDialogRef,
+                        useValue: dialogRef
+                    },
+                    ...(config.providers ?? [])
+                ],
+                parent: this.injector
+            })
         });
 
         this.appRef.attachView(componentRef.hostView);
