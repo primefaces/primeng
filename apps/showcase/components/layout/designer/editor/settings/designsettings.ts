@@ -1,6 +1,6 @@
 import { DesignerService } from '@/service/designerservice';
 import { CommonModule } from '@angular/common';
-import { Component, computed, inject, signal } from '@angular/core';
+import { Component, computed, inject } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { ConfirmationService } from 'primeng/api';
 import { ConfirmPopupModule } from 'primeng/confirmpopup';
@@ -70,12 +70,9 @@ export class DesignSettings {
 
     confirmationService: ConfirmationService = inject(ConfirmationService);
 
-    // missingTokens = computed(() => this.designerService.missingTokens());
-    status = signal<any>('preview');
+    missingTokens = computed(() => this.designerService.missingTokens());
 
-    missingTokens = signal<any>(['a']);
-
-    // status = computed(() => this.designerService.status());
+    status = computed(() => this.designerService.status());
 
     fontSizes: string[] = ['12px', '13px', '14px', '15px', '16px'];
 
