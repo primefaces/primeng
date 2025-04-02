@@ -498,6 +498,21 @@
             "routerLink": "/templates"
         },
         {
+            "name": "Theme Designer",
+            "icon": "pi pi-sparkles",
+            "children": [
+                {
+                    "name": "Overview",
+                    "routerLink": "/designer"
+                },
+                {
+                    "name": "Guide",
+                    "routerLink": "/designer/guide"
+                }
+            ]
+
+        },
+        {
             "name": "PrimeBlocks",
             "icon": "pi pi-server",
             "href": "https://blocks.primeng.org"
