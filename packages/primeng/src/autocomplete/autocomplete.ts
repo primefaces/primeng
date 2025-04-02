@@ -1578,17 +1578,14 @@ export class AutoComplete extends BaseComponent implements AfterViewChecked, Aft
     }
 
     handleKeydown(event: KeyboardEvent, index: number): void {
-        console.log("object");
         if (event.key === 'Enter') {
             this.removeOption(event, index);
-            event.preventDefault(); // Prevents default behavior, if necessary
+            event.preventDefault();
         }
     }
 
     removeOption(event, index) {
         event.stopPropagation();
-
-        console.log(event);
 
         const removedOption = this.modelValue()[index];
         const value = this.modelValue()
