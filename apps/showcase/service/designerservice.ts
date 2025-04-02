@@ -26,8 +26,7 @@ export interface Designer {
 }
 @Injectable()
 export class DesignerService {
-    // baseUrl = environment.baseUrl;
-    baseUrl = 'http://localhost:4000';
+    baseUrl = environment.baseUrl;
 
     http: HttpClient = inject(HttpClient);
 
