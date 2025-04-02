@@ -154,14 +154,21 @@ import { PickListStyle } from './style/pickliststyle';
                     <ng-container *ngIf="sourceFilterIconTemplate || _sourceFilterIconTemplate">
                         <ng-container *ngTemplateOutlet="sourceFilterIconTemplate || _sourceFilterIconTemplate"></ng-container>
                     </ng-container>
-                    <div class="p-picklist-title" *ngIf="!sourceHeaderTemplate && !_sourceHeaderTemplate">{{ sourceHeader }}</div>
+                    <p-header class="p-picklist-title" *ngIf="!sourceHeaderTemplate && !_sourceHeaderTemplate">{{ sourceHeader }}</p-header>
                     <ng-container *ngIf="itemTemplate || _itemTemplate">
                         <ng-template #item let-item let-index="index" let-selected="selected">
                             <ng-container *ngTemplateOutlet="itemTemplate || _itemTemplate; context: { $implicit: item, index: index, selected: selected }"></ng-container>
                         </ng-template>
                     </ng-container>
-                    <ng-container *ngIf="emptyFilterMessageSourceTemplate || _emptyFilterMessageSourceTemplate || emptyMessageSourceTemplate || _emptyMessageSourceTemplate">
-                        <ng-container *ngTemplateOutlet="emptyFilterMessageSourceTemplate || _emptyFilterMessageSourceTemplate || emptyMessageSourceTemplate || _emptyMessageSourceTemplate"></ng-container>
+                    <ng-container *ngIf="emptyMessageSourceTemplate || _emptyMessageSourceTemplate">
+                        <ng-template #empty>
+                            <ng-container *ngTemplateOutlet="emptyMessageSourceTemplate || _emptyMessageSourceTemplate"></ng-container>
+                        </ng-template>
+                    </ng-container>
+                    <ng-container *ngIf="emptyFilterMessageSourceTemplate || _emptyFilterMessageSourceTemplate">
+                        <ng-template #emptyfilter>
+                            <ng-container *ngTemplateOutlet="emptyFilterMessageSourceTemplate || _emptyFilterMessageSourceTemplate"></ng-container>
+                        </ng-template>
                     </ng-container>
                 </p-listbox>
             </div>
@@ -277,14 +284,21 @@ import { PickListStyle } from './style/pickliststyle';
                     <ng-container *ngIf="targetFilterIconTemplate || _targetFilterIconTemplate">
                         <ng-container *ngTemplateOutlet="targetFilterIconTemplate || _targetFilterIconTemplate"></ng-container>
                     </ng-container>
-                    <div class="p-picklist-title" *ngIf="!targetHeaderTemplate && !_targetHeaderTemplate">{{ targetHeader }}</div>
+                    <p-header class="p-picklist-title" *ngIf="!targetHeaderTemplate && !_targetHeaderTemplate">{{ targetHeader }}</p-header>
                     <ng-container *ngIf="itemTemplate || _itemTemplate">
                         <ng-template #item let-item let-index="index" let-selected="selected">
                             <ng-container *ngTemplateOutlet="itemTemplate || _itemTemplate; context: { $implicit: item, index: index, selected: selected }"></ng-container>
                         </ng-template>
                     </ng-container>
-                    <ng-container *ngIf="emptyFilterMessageTargetTemplate || _emptyFilterMessageTargetTemplate || emptyMessageTargetTemplate || _emptyMessageTargetTemplate">
-                        <ng-container *ngTemplateOutlet="emptyFilterMessageTargetTemplate || _emptyFilterMessageTargetTemplate || emptyMessageTargetTemplate || _emptyMessageTargetTemplate"></ng-container>
+                    <ng-container *ngIf="emptyMessageTargetTemplate || _emptyMessageTargetTemplate">
+                        <ng-template #empty>
+                            <ng-container *ngTemplateOutlet="emptyMessageTargetTemplate || _emptyMessageTargetTemplate"></ng-container>
+                        </ng-template>
+                    </ng-container>
+                    <ng-container *ngIf="emptyFilterMessageTargetTemplate || _emptyFilterMessageTargetTemplate">
+                        <ng-template #emptyfilter>
+                            <ng-container *ngTemplateOutlet="emptyFilterMessageTargetTemplate || _emptyFilterMessageTargetTemplate"></ng-container>
+                        </ng-template>
                     </ng-container>
                 </p-listbox>
             </div>
