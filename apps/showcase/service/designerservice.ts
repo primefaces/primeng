@@ -1,5 +1,5 @@
-import { inject, Injectable, model, signal } from '@angular/core';
-import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
+import { inject, Injectable, signal } from '@angular/core';
+import { HttpClient } from '@angular/common/http';
 import { $dt, usePreset } from '@primeuix/styled';
 import { MessageService } from 'primeng/api';
 import Aura from '@primeng/themes/aura/index';
@@ -369,13 +369,13 @@ export class DesignerService {
             const url = `${this.baseUrl}/theme/rename/${theme.t_key}`;
             const options = {
                 withCredentials: true,
-                headers: { 'X-CSRF-Token': this.designer().csrfToken },
-                body: {
-                    name: theme.t_name
-                }
+                headers: { 'X-CSRF-Token': this.designer().csrfToken }
+            };
+            const body = {
+                name: theme.t_name
             };
 
-            this.http.patch(url, options).subscribe({
+            this.http.patch(url, body, options).subscribe({
                 next: (res: any) => {
                     if (res.error) {
                         this.messageService.add({ key: 'designer', severity: 'error', summary: 'An Error Occurred', detail: res.error.message, life: 3000 });
