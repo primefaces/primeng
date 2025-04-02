@@ -26,7 +26,8 @@ export interface Designer {
 }
 @Injectable()
 export class DesignerService {
-    baseUrl = environment.baseUrl;
+    // baseUrl = environment.baseUrl;
+    baseUrl = 'http://localhost:4000';
 
     http: HttpClient = inject(HttpClient);
 
@@ -126,7 +127,6 @@ export class DesignerService {
             withCredentials: true,
             params: { passkey: this.otp() }
         };
-
         this.http.get(url, options).subscribe({
             next: (res: any) => {
                 const data = res.data;
@@ -190,7 +190,7 @@ export class DesignerService {
             },
             error: (err: any) => {
                 this.loading.set(false);
-                // TODO: add toast message
+                this.messageService.add({ key: 'designer', severity: 'error', summary: 'An Error Occurred', detail: err.message, life: 3000 });
             }
         });
     }
@@ -217,10 +217,13 @@ export class DesignerService {
     async deleteTheme(theme: any) {
         this.http.delete(`${this.baseUrl}/theme/delete/${theme.t_key}`, { withCredentials: true, headers: { 'X-CSRF-Token': this.designer().csrfToken } }).subscribe({
             next: (res: any) => {
+                if (res.error) {
+                    this.messageService.add({ key: 'designer', severity: 'error', summary: 'An Error Occurred', detail: res.error.message, life: 3000 });
+                }
                 this.loadThemes();
             },
             error: (err: any) => {
-                this.messageService.add({ severity: 'error', summary: 'An Error Occurred', detail: err.message, life: 3000 });
+                this.messageService.add({ key: 'designer', severity: 'error', summary: 'An Error Occurred', detail: err.message, life: 3000 });
             }
         });
     }
@@ -228,10 +231,13 @@ export class DesignerService {
     async duplicateTheme(theme: any) {
         this.http.post(`${this.baseUrl}/theme/duplicate/${theme.t_key}`, { withCredentials: true, headers: { 'X-CSRF-Token': this.designer().csrfToken } }).subscribe({
             next: (res: any) => {
+                if (res.error) {
+                    this.messageService.add({ key: 'designer', severity: 'error', summary: 'An Error Occurred', detail: res.error.message, life: 3000 });
+                }
                 this.loadThemes();
             },
             error: (err: any) => {
-                this.messageService.add({ severity: 'error', summary: 'An Error Occurred', detail: err.message, life: 3000 });
+                this.messageService.add({ key: 'designer', severity: 'error', summary: 'An Error Occurred', detail: err.message, life: 3000 });
             }
         });
     }
@@ -370,12 +376,18 @@ export class DesignerService {
                 }
             };
 
-            this.http.post(url, options).subscribe({
+            this.http.patch(url, options).subscribe({
                 next: (res: any) => {
+                    if (res.error) {
+                        this.messageService.add({ key: 'designer', severity: 'error', summary: 'An Error Occurred', detail: res.error.message, life: 3000 });
+                    }
                     const data = res.data;
-                    if (data.valid) {
+                    if (data && data.valid) {
                         theme.t_name = data.name;
                     }
+                },
+                error: (err: any) => {
+                    this.messageService.add({ key: 'designer', severity: 'error', summary: 'An Error Occurred', detail: err.message, life: 3000 });
                 }
             });
         }
@@ -448,9 +460,14 @@ export class DesignerService {
             };
             this.http.post(`${url}`, body, { withCredentials: true, headers: { 'X-CSRF-Token': this.designer().csrfToken } }).subscribe({
                 next: (res: any) => {
-                    const data = res.data;
-                    if (data.lostAndFound?.length) {
-                        this.messageService.add({ key: 'designer', severity: 'warn', summary: 'Warning', detail: 'There are missing tokens. An update is recommended using the "Migration Assistant" in the settings section.', life: 3000 });
+                    if (res.error) {
+                        this.messageService.add({ key: 'designer', severity: 'error', summary: 'An error occurred', detail: res.error.message, life: 3000 });
+                    } else {
+                        const data = res.data;
+                        if (data.lostAndFound?.length) {
+                            this.messageService.add({ key: 'designer', severity: 'warn', summary: 'Warning', detail: 'There are missing tokens. An update is recommended using the "Migration Assistant" in the settings section.', life: 3000 });
+                        }
+                        this.designer.update((prev) => ({ ...prev, activeTab: 0, activeView: 'dashboard' }));
                     }
                 },
                 error: (err: any) => {
