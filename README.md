@@ -7,4 +7,5 @@
 [![PrimeNG Hero](https://www.primefaces.org/static/social/primeng-preview.jpg)](https://primeng.org)
 
 ### PrimeNG Website
+
 PrimeNG is a rich set of open source UI Components for Angular. Visit the [PrimeNG website](https://primeng.org/) for interactive demos, comprehensive documentation and additional resources.
