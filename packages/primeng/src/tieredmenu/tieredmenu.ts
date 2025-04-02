@@ -28,7 +28,7 @@ import {
     QueryList
 } from '@angular/core';
 import { RouterModule } from '@angular/router';
-import { absolutePosition, appendChild, findLastIndex, findSingle, focus, isEmpty, isNotEmpty, isPrintableCharacter, isTouchDevice, nestedPosition, relativePosition, resolve, uuid } from '@primeuix/utils';
+import { absolutePosition, appendChild, findLastIndex, findSingle, focus, isEmpty, isNotEmpty, isPrintableCharacter, isTouchDevice, nestedPosition, resolve, uuid, addStyle, getOuterWidth } from '@primeuix/utils';
 import { MenuItem, OverlayService, PrimeTemplate, SharedModule } from 'primeng/api';
 import { BaseComponent } from 'primeng/basecomponent';
 import { ConnectedOverlayScrollHandler } from 'primeng/dom';
@@ -241,12 +241,6 @@ export class TieredMenuSub extends BaseComponent {
         @Inject(forwardRef(() => TieredMenu)) public tieredMenu: TieredMenu
     ) {
         super();
-        effect(() => {
-            const path = this.activeItemPath();
-            if (isNotEmpty(path)) {
-                this.positionSubmenu();
-            }
-        });
     }
 
     positionSubmenu() {
@@ -313,6 +307,7 @@ export class TieredMenuSub extends BaseComponent {
 
     isItemActive(processedItem: any): boolean {
         if (this.activeItemPath()) {
+            this.positionSubmenu();
             return this.activeItemPath().some((path) => path.key === processedItem.key);
         }
     }
@@ -965,11 +960,13 @@ export class TieredMenu extends BaseComponent implements OnInit, OnDestroy {
                     this.container = event.element;
                     this.moveOnTop();
                     this.onShow.emit({});
+                    addStyle(this.containerViewChild.nativeElement, { position: 'absolute', top: 0 });
                     this.appendOverlay();
                     this.alignOverlay();
                     this.bindOutsideClickListener();
                     this.bindResizeListener();
                     this.bindScrollListener();
+
                     focus(this.rootmenu.sublistViewChild.nativeElement);
                     this.scrollInView();
                 }
@@ -983,8 +980,12 @@ export class TieredMenu extends BaseComponent implements OnInit, OnDestroy {
     }
 
     alignOverlay() {
-        if (this.relativeAlign) relativePosition(this.container, this.target);
-        else absolutePosition(this.container, this.target);
+        absolutePosition(this.container, this.target);
+        const targetWidth = getOuterWidth(this.target);
+
+        if (targetWidth > getOuterWidth(this.container)) {
+            this.container.style.minWidth = getOuterWidth(this.target) + 'px';
+        }
     }
 
     onOverlayAnimationEnd(event: AnimationEvent) {
