@@ -139,19 +139,19 @@ export class DesignDashboard implements OnInit {
                     rejectButtonProps: {
                         severity: 'secondary'
                     },
-                    accept: () => this.deleteTheme(this.currentTheme)
+                    accept: () => this.deleteTheme(this.currentTheme())
                 });
             }
         },
         {
             label: 'Duplicate',
             icon: 'pi pi-copy',
-            command: () => this.duplicateTheme(this.currentTheme)
+            command: () => this.duplicateTheme(this.currentTheme())
         },
         {
             label: 'Download',
             icon: 'pi pi-download',
-            command: () => this.downloadTheme(this.currentTheme)
+            command: () => this.downloadTheme(this.currentTheme())
         }
     ];
 
