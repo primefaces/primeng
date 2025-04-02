@@ -1,6 +1,6 @@
-import { Component, computed, inject, OnInit, ViewChild } from '@angular/core';
+import { Component, computed, inject, OnInit, PLATFORM_ID, ViewChild } from '@angular/core';
 import { Drawer, DrawerModule } from 'primeng/drawer';
-import { CommonModule } from '@angular/common';
+import { CommonModule, isPlatformBrowser } from '@angular/common';
 import { DesignerService } from '@/service/designerservice';
 import { AppConfigService } from '@/service/appconfigservice';
 import { ToastModule } from 'primeng/toast';
@@ -52,6 +52,8 @@ import { ConfirmPopupModule } from 'primeng/confirmpopup';
 export class AppDesigner implements OnInit {
     @ViewChild('drawer') drawer: Drawer;
 
+    public platformId: any = inject(PLATFORM_ID);
+
     designerService = inject(DesignerService);
 
     configService = inject(AppConfigService);
@@ -93,6 +95,8 @@ export class AppDesigner implements OnInit {
     }
 
     async ngOnInit() {
-        await this.designerService.restore();
+        if (isPlatformBrowser(this.platformId)) {
+            await this.designerService.restore();
+        }
     }
 }
