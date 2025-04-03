@@ -1,4 +1,4 @@
-import { Component, computed, inject, OnDestroy, OnInit, signal } from '@angular/core';
+import { ChangeDetectionStrategy, Component, computed, inject, OnDestroy, OnInit, signal } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { TabsModule } from 'primeng/tabs';
 import { DesignBorderRadius } from './primitive/designborderradius';
@@ -125,7 +125,8 @@ import { Subscription } from 'rxjs';
                 <design-settings />
             </p-tabpanel>
         </p-tabpanels>
-    </p-tabs>`
+    </p-tabs>`,
+    changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class DesignEditor implements OnInit, OnDestroy {
     designerService: DesignerService = inject(DesignerService);

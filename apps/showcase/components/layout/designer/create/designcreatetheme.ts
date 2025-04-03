@@ -1,4 +1,4 @@
-import { Component, inject } from '@angular/core';
+import { ChangeDetectionStrategy, Component, inject } from '@angular/core';
 import Aura from '@primeng/themes/aura';
 import Nora from '@primeng/themes/nora';
 import Lara from '@primeng/themes/lara';
@@ -73,7 +73,8 @@ const presets = {
                     </div>
                 </div>
             </div>
-        </section> `
+        </section> `,
+    changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class DesignCreateTheme {
     designerService: DesignerService = inject(DesignerService);

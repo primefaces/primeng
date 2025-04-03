@@ -1,4 +1,4 @@
-import { Component, computed, inject, OnInit, signal } from '@angular/core';
+import { ChangeDetectionStrategy, Component, computed, inject, OnInit, signal } from '@angular/core';
 import { TabsModule } from 'primeng/tabs';
 import { FieldsetModule } from 'primeng/fieldset';
 import { CommonModule } from '@angular/common';
@@ -54,7 +54,8 @@ import { DesignComponentSection } from '@/components/layout/designer/editor/comp
                 <span class="block py-3">There are no design tokens defined per color scheme.</span>
             }
         </p-fieldset>
-    </section>`
+    </section>`,
+    changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class DesignComponent implements OnInit {
     designerService: DesignerService = inject(DesignerService);

@@ -1,4 +1,4 @@
-import { Component, inject } from '@angular/core';
+import { ChangeDetectionStrategy, Component, inject } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { DesignTokenField } from '@/components/layout/designer/editor/designtokenfield';
 import { FieldsetModule } from 'primeng/fieldset';
@@ -43,7 +43,8 @@ import { DesignerService } from '@/service/designerservice';
                 <design-token-field [(modelValue)]="designerService.designer().theme.preset.semantic.list.optionGroup.fontWeight" label="Font Weight" />
             </div>
         </section>
-    </p-fieldset>`
+    </p-fieldset>`,
+    changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class DesignList {
     designerService: DesignerService = inject(DesignerService);

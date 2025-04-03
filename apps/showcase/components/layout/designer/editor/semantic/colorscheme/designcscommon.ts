@@ -1,4 +1,4 @@
-import { Component, Input } from '@angular/core';
+import { ChangeDetectionStrategy, Component, Input } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { DesignTokenField } from '@/components/layout/designer/editor/designtokenfield';
 import { FieldsetModule } from 'primeng/fieldset';
@@ -86,7 +86,8 @@ import { DesignColorPalette } from '@/components/layout/designer/editor/designco
                 <design-token-field [(modelValue)]="colorScheme.highlight.focusColor" label="Highlight Focus Color" [type]="'color'" />
             </div>
         </section>
-    </p-fieldset>`
+    </p-fieldset>`,
+    changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class DesignCSCommon {
     @Input() colorScheme: any;

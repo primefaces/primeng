@@ -1,4 +1,4 @@
-import { Component, inject } from '@angular/core';
+import { ChangeDetectionStrategy, Component, inject } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { DesignTokenField } from '@/components/layout/designer/editor/designtokenfield';
 import { FieldsetModule } from 'primeng/fieldset';
@@ -57,7 +57,8 @@ import { DesignColorPalette } from '@/components/layout/designer/editor/designco
                 <design-token-field [(modelValue)]="designerService.designer().theme.preset.semantic.focusRing.offset" label="Offset" />
             </div>
         </section>
-    </p-fieldset>`
+    </p-fieldset>`,
+    changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class DesignGeneral {
     designerService: DesignerService = inject(DesignerService);

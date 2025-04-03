@@ -1,12 +1,11 @@
-import { Component, computed, inject, model, OnInit, Renderer2, ViewChild } from '@angular/core';
+import { ChangeDetectionStrategy, Component, computed, inject, model, OnInit, Renderer2, ViewChild } from '@angular/core';
 import { RouterModule } from '@angular/router';
 import { AppConfigService } from '@/service/appconfigservice';
 import { DesignerService } from '@/service/designerservice';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
-import { HttpClient } from '@angular/common/http';
 import { ToastModule } from 'primeng/toast';
-import { ConfirmationService, MessageService } from 'primeng/api';
+import { ConfirmationService } from 'primeng/api';
 import { Menu, MenuModule } from 'primeng/menu';
 import { ConfirmPopupModule } from 'primeng/confirmpopup';
 
@@ -89,7 +88,8 @@ import { ConfirmPopupModule } from 'primeng/confirmpopup';
                 </button>
             </div>
         </div>
-        <p-menu #menu [model]="themeOptions" [popup]="true" appendTo="body" (onShow)="onMenuShow()" (onHide)="onMenuHide()" />`
+        <p-menu #menu [model]="themeOptions" [popup]="true" appendTo="body" (onShow)="onMenuShow()" (onHide)="onMenuHide()" />`,
+    changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class DesignDashboard implements OnInit {
     @ViewChild('menu') menu!: Menu;

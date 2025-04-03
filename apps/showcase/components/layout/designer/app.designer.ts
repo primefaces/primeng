@@ -1,4 +1,4 @@
-import { Component, computed, inject, OnInit, PLATFORM_ID, ViewChild } from '@angular/core';
+import { ChangeDetectionStrategy, Component, computed, inject, OnInit, PLATFORM_ID, ViewChild } from '@angular/core';
 import { Drawer, DrawerModule } from 'primeng/drawer';
 import { CommonModule, isPlatformBrowser } from '@angular/common';
 import { DesignerService } from '@/service/designerservice';
@@ -47,7 +47,8 @@ import { ConfirmPopupModule } from 'primeng/confirmpopup';
             </ng-template>
         </p-drawer>
         <p-toast key="designer" />
-        <p-confirm-popup key="designer" />`
+        <p-confirm-popup key="designer" />`,
+    changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class AppDesigner implements OnInit {
     @ViewChild('drawer') drawer: Drawer;
