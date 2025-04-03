@@ -4,6 +4,7 @@ import { BasicDoc } from '@/doc/accordion/basicdoc';
 import { ControlledDoc } from '@/doc/accordion/controlleddoc';
 import { DisabledDoc } from '@/doc/accordion/disableddoc';
 import { DynamicDoc } from '@/doc/accordion/dynamicdoc';
+import { IconposDoc } from '@/doc/accordion/iconposdoc';
 import { ImportDoc } from '@/doc/accordion/importdoc';
 import { MultipleDoc } from '@/doc/accordion/multipledoc';
 import { TemplateDoc } from '@/doc/accordion/templatedoc';
@@ -32,6 +33,11 @@ export class AccordionDemo {
             id: 'basic',
             label: 'Basic',
             component: BasicDoc
+        },
+        {
+            id: 'iconPos',
+            label: 'Icon Position',
+            component: IconposDoc
         },
         {
             id: 'dynamic',
