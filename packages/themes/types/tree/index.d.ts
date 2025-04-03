@@ -255,4 +255,15 @@ export interface TreeDesignTokens extends DesignTokens<TreeDesignTokens> {
          */
         size?: string;
     };
+    /**
+     * Used to pass tokens of the filter section
+     */
+    filter?: {
+        /**
+         * Margin of filter
+         *
+         * @designToken tree.filter.margin
+         */
+        margin?: string;
+    };
 }

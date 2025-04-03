@@ -172,38 +172,7 @@ export interface ToastDesignTokens extends DesignTokens<ToastDesignTokens> {
     /**
      * Used to pass tokens of the blur section
      */
-    blur?: {
-        /**
-         * 0 of blur
-         *
-         * @designToken toast.blur.0
-         */
-        0?: string;
-        /**
-         * 1 of blur
-         *
-         * @designToken toast.blur.1
-         */
-        1?: string;
-        /**
-         * 2 of blur
-         *
-         * @designToken toast.blur.2
-         */
-        2?: string;
-        /**
-         * 3 of blur
-         *
-         * @designToken toast.blur.3
-         */
-        3?: string;
-        /**
-         * 4 of blur
-         *
-         * @designToken toast.blur.4
-         */
-        4?: string;
-    };
+    blur?: string;
     /**
      * Used to pass tokens of the info section
      */

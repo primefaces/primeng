@@ -11,31 +11,36 @@ import { DesignTokens } from '..';
 
 export interface VirtualScrollerDesignTokens extends DesignTokens<VirtualScrollerDesignTokens> {
     /**
-     * Used to pass tokens of the mask section
+     * Used to pass tokens of the loader section
      */
-    loaderMask?: {
+    loader?: {
         /**
-         * Background of loader mask
-         *
-         * @designToken virtualscroller.loader.mask.background
+         * Used to pass tokens of the mask section
          */
-        background?: string;
+        mask?: {
+            /**
+             * Background of loader mask
+             *
+             * @designToken virtualscroller.loader.mask.background
+             */
+            background?: string;
+            /**
+             * Color of loader mask
+             *
+             * @designToken virtualscroller.loader.mask.color
+             */
+            color?: string;
+        };
         /**
-         * Color of loader mask
-         *
-         * @designToken virtualscroller.loader.mask.color
+         * Used to pass tokens of the loader icon section
          */
-        color?: string;
-    };
-    /**
-     * Used to pass tokens of the loader icon section
-     */
-    loaderIcon?: {
-        /**
-         * Size of the loader icon
-         *
-         * @designToken virtualscroller.loader.icon.size
-         */
-        size?: string;
+        icon?: {
+            /**
+             * Size of the loader icon
+             *
+             * @designToken virtualscroller.loader.icon.size
+             */
+            size?: string;
+        };
     };
 }

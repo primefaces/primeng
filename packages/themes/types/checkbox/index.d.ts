@@ -157,6 +157,40 @@ export interface CheckboxDesignTokens extends DesignTokens<CheckboxDesignTokens>
          * @designToken checkbox.transition.duration
          */
         transitionDuration?: string;
+        /**
+         * Sm of root
+         */
+        sm?: {
+            /**
+             * Sm width of root
+             *
+             * @designToken checkbox.sm.width
+             */
+            width?: string;
+            /**
+             * Sm height of root
+             *
+             * @designToken checkbox.sm.height
+             */
+            height?: string;
+        };
+        /**
+         * Lg of root
+         */
+        lg?: {
+            /**
+             * Lg width of root
+             *
+             * @designToken checkbox.lg.width
+             */
+            width?: string;
+            /**
+             * Lg height of root
+             *
+             * @designToken checkbox.lg.height
+             */
+            height?: string;
+        };
     };
     /**
      * Used to pass tokens of the icon section
@@ -192,5 +226,27 @@ export interface CheckboxDesignTokens extends DesignTokens<CheckboxDesignTokens>
          * @designToken checkbox.icon.disabled.color
          */
         disabledColor?: string;
+        /**
+         * Sm of icon
+         */
+        sm?: {
+            /**
+             * Sm size of icon
+             *
+             * @designToken checkbox.icon.sm.size
+             */
+            size?: string;
+        };
+        /**
+         * Lg of icon
+         */
+        lg?: {
+            /**
+             * Lg size of icon
+             *
+             * @designToken checkbox.icon.lg.size
+             */
+            size?: string;
+        };
     };
 }

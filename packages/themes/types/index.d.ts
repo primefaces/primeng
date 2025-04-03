@@ -214,9 +214,11 @@ export interface ComponentsDesignTokens {
     [key: string]: any;
 }
 
-export type Preset<T extends object> = {
+export type Preset<T = object> = {
     // base tokens
     [K in keyof T]?: T[K];
 } & {
     components?: ComponentsDesignTokens;
+    extend?: Record<string, object | string | number>;
+    css?: string | ((options: { dt?: any }) => string);
 };

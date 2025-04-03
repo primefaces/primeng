@@ -49,6 +49,28 @@ export interface MessageDesignTokens extends DesignTokens<MessageDesignTokens> {
          * @designToken message.content.gap
          */
         gap?: string;
+        /**
+         * Sm of content
+         */
+        sm?: {
+            /**
+             * Sm padding of content
+             *
+             * @designToken message.content.sm.padding
+             */
+            padding?: string;
+        };
+        /**
+         * Lg of content
+         */
+        lg?: {
+            /**
+             * Lg padding of content
+             *
+             * @designToken message.content.lg.padding
+             */
+            padding?: string;
+        };
     };
     /**
      * Used to pass tokens of the text section
@@ -66,6 +88,28 @@ export interface MessageDesignTokens extends DesignTokens<MessageDesignTokens> {
          * @designToken message.text.font.weight
          */
         fontWeight?: string;
+        /**
+         * Sm of text
+         */
+        sm?: {
+            /**
+             * Sm font size of text
+             *
+             * @designToken message.text.sm.font.size
+             */
+            fontSize?: string;
+        };
+        /**
+         * Lg of text
+         */
+        lg?: {
+            /**
+             * Lg font size of text
+             *
+             * @designToken message.text.lg.font.size
+             */
+            fontSize?: string;
+        };
     };
     /**
      * Used to pass tokens of the icon section
@@ -77,6 +121,28 @@ export interface MessageDesignTokens extends DesignTokens<MessageDesignTokens> {
          * @designToken message.icon.size
          */
         size?: string;
+        /**
+         * Sm of icon
+         */
+        sm?: {
+            /**
+             * Sm size of icon
+             *
+             * @designToken message.icon.sm.size
+             */
+            size?: string;
+        };
+        /**
+         * Lg of icon
+         */
+        lg?: {
+            /**
+             * Lg size of icon
+             *
+             * @designToken message.icon.lg.size
+             */
+            size?: string;
+        };
     };
     /**
      * Used to pass tokens of the close button section
@@ -134,6 +200,60 @@ export interface MessageDesignTokens extends DesignTokens<MessageDesignTokens> {
          * @designToken message.close.icon.size
          */
         size?: string;
+        /**
+         * Sm of close icon
+         */
+        sm?: {
+            /**
+             * Sm size of close icon
+             *
+             * @designToken message.close.icon.sm.size
+             */
+            size?: string;
+        };
+        /**
+         * Lg of close icon
+         */
+        lg?: {
+            /**
+             * Lg size of close icon
+             *
+             * @designToken message.close.icon.lg.size
+             */
+            size?: string;
+        };
+    };
+    /**
+     * Used to pass tokens of the outlined section
+     */
+    outlined?: {
+        /**
+         * Root of outlined
+         */
+        root?: {
+            /**
+             * Root border width of outlined
+             *
+             * @designToken message.outlined.border.width
+             */
+            borderWidth?: string;
+        };
+    };
+    /**
+     * Used to pass tokens of the simple section
+     */
+    simple?: {
+        /**
+         * Content of simple
+         */
+        content?: {
+            /**
+             * Content padding of simple
+             *
+             * @designToken message.simple.content.padding
+             */
+            padding?: string;
+        };
     };
     /**
      * Used to pass tokens of the info section
@@ -190,6 +310,34 @@ export interface MessageDesignTokens extends DesignTokens<MessageDesignTokens> {
                  */
                 shadow?: string;
             };
+        };
+        /**
+         * Outlined of info
+         */
+        outlined?: {
+            /**
+             * Outlined color of info
+             *
+             * @designToken message.info.outlined.color
+             */
+            color?: string;
+            /**
+             * Outlined border color of info
+             *
+             * @designToken message.info.outlined.border.color
+             */
+            borderColor?: string;
+        };
+        /**
+         * Simple of info
+         */
+        simple?: {
+            /**
+             * Simple color of info
+             *
+             * @designToken message.info.simple.color
+             */
+            color?: string;
         };
     };
     /**
@@ -248,6 +396,34 @@ export interface MessageDesignTokens extends DesignTokens<MessageDesignTokens> {
                 shadow?: string;
             };
         };
+        /**
+         * Outlined of success
+         */
+        outlined?: {
+            /**
+             * Outlined color of success
+             *
+             * @designToken message.success.outlined.color
+             */
+            color?: string;
+            /**
+             * Outlined border color of success
+             *
+             * @designToken message.success.outlined.border.color
+             */
+            borderColor?: string;
+        };
+        /**
+         * Simple of success
+         */
+        simple?: {
+            /**
+             * Simple color of success
+             *
+             * @designToken message.success.simple.color
+             */
+            color?: string;
+        };
     };
     /**
      * Used to pass tokens of the warn section
@@ -304,6 +480,34 @@ export interface MessageDesignTokens extends DesignTokens<MessageDesignTokens> {
                  */
                 shadow?: string;
             };
+        };
+        /**
+         * Outlined of warn
+         */
+        outlined?: {
+            /**
+             * Outlined color of warn
+             *
+             * @designToken message.warn.outlined.color
+             */
+            color?: string;
+            /**
+             * Outlined border color of warn
+             *
+             * @designToken message.warn.outlined.border.color
+             */
+            borderColor?: string;
+        };
+        /**
+         * Simple of warn
+         */
+        simple?: {
+            /**
+             * Simple color of warn
+             *
+             * @designToken message.warn.simple.color
+             */
+            color?: string;
         };
     };
     /**
@@ -362,6 +566,34 @@ export interface MessageDesignTokens extends DesignTokens<MessageDesignTokens> {
                 shadow?: string;
             };
         };
+        /**
+         * Outlined of error
+         */
+        outlined?: {
+            /**
+             * Outlined color of error
+             *
+             * @designToken message.error.outlined.color
+             */
+            color?: string;
+            /**
+             * Outlined border color of error
+             *
+             * @designToken message.error.outlined.border.color
+             */
+            borderColor?: string;
+        };
+        /**
+         * Simple of error
+         */
+        simple?: {
+            /**
+             * Simple color of error
+             *
+             * @designToken message.error.simple.color
+             */
+            color?: string;
+        };
     };
     /**
      * Used to pass tokens of the secondary section
@@ -419,6 +651,34 @@ export interface MessageDesignTokens extends DesignTokens<MessageDesignTokens> {
                 shadow?: string;
             };
         };
+        /**
+         * Outlined of secondary
+         */
+        outlined?: {
+            /**
+             * Outlined color of secondary
+             *
+             * @designToken message.secondary.outlined.color
+             */
+            color?: string;
+            /**
+             * Outlined border color of secondary
+             *
+             * @designToken message.secondary.outlined.border.color
+             */
+            borderColor?: string;
+        };
+        /**
+         * Simple of secondary
+         */
+        simple?: {
+            /**
+             * Simple color of secondary
+             *
+             * @designToken message.secondary.simple.color
+             */
+            color?: string;
+        };
     };
     /**
      * Used to pass tokens of the contrast section
@@ -475,6 +735,34 @@ export interface MessageDesignTokens extends DesignTokens<MessageDesignTokens> {
                  */
                 shadow?: string;
             };
+        };
+        /**
+         * Outlined of contrast
+         */
+        outlined?: {
+            /**
+             * Outlined color of contrast
+             *
+             * @designToken message.contrast.outlined.color
+             */
+            color?: string;
+            /**
+             * Outlined border color of contrast
+             *
+             * @designToken message.contrast.outlined.border.color
+             */
+            borderColor?: string;
+        };
+        /**
+         * Simple of contrast
+         */
+        simple?: {
+            /**
+             * Simple color of contrast
+             *
+             * @designToken message.contrast.simple.color
+             */
+            color?: string;
         };
     };
 }

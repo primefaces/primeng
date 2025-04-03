@@ -84,4 +84,15 @@ export interface DrawerDesignTokens extends DesignTokens<DrawerDesignTokens> {
          */
         padding?: string;
     };
+    /**
+     * Used to pass tokens of the footer section
+     */
+    footer?: {
+        /**
+         * Padding of footer
+         *
+         * @designToken drawer.footer.padding
+         */
+        padding?: string;
+    };
 }

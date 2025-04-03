@@ -1201,6 +1201,29 @@ export interface ButtonDesignTokens extends DesignTokens<ButtonDesignTokens> {
             color?: string;
         };
         /**
+         * Contrast of text
+         */
+        contrast?: {
+            /**
+             * Contrast hover background of text
+             *
+             * @designToken button.text.contrast.hover.background
+             */
+            hoverBackground?: string;
+            /**
+             * Contrast active background of text
+             *
+             * @designToken button.text.contrast.active.background
+             */
+            activeBackground?: string;
+            /**
+             * Contrast color of text
+             *
+             * @designToken button.text.contrast.color
+             */
+            color?: string;
+        };
+        /**
          * Plain of text
          */
         plain?: {
