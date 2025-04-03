@@ -61,7 +61,7 @@ const theme = ({ dt }) => `
     border-color: ${dt('togglebutton.invalid.border.color')};
 }
 
-.p-togglebutton:disabled {
+.p-togglebutton:disabled:not(.p-togglebutton-checked) {
     opacity: 1;
     cursor: default;
     background: ${dt('togglebutton.disabled.background')};
