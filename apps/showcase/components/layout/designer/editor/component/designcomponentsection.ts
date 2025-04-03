@@ -24,7 +24,7 @@ import { DesignTokenField } from '../designtokenfield';
         </div>
         @if (hasNestedTokens()) {
             @for (entry of nestedTokens() | keyvalue; track entry.key) {
-                <design-component-section [componentKey]="componentKey()" [path]="path() + '.' + entry.key" class="mt-3" />
+                <design-component-section [componentKey]="componentKey()" [path]="path() + '.' + entry.key" class="block mt-3" />
             }
         }
     </section>`,
