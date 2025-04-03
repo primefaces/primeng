@@ -320,7 +320,7 @@ export class DesignerService {
     }
 
     async preview() {
-        this.http.patch(`${this.baseUrl}/theme/preview`, { key: this.designer().theme.key }, { withCredentials: true, headers: { 'X-CSRF-Token': this.designer().csrfToken } }).subscribe({
+        this.http.patch(`${this.baseUrl}/theme/migrate/preview/${this.designer().theme.key}`, null, { withCredentials: true, headers: { 'X-CSRF-Token': this.designer().csrfToken } }).subscribe({
             next: (res: any) => {
                 this.status.set('updated');
                 this.missingTokens.set([]);
@@ -334,7 +334,7 @@ export class DesignerService {
     }
 
     async migrate() {
-        this.http.patch(`${this.baseUrl}/theme/migrate/execute`, { key: this.designer().theme.key }, { withCredentials: true, headers: { 'X-CSRF-Token': this.designer().csrfToken } }).subscribe({
+        this.http.patch(`${this.baseUrl}/theme/migrate/execute/${this.designer().theme.key}`, null, { withCredentials: true, headers: { 'X-CSRF-Token': this.designer().csrfToken } }).subscribe({
             next: (res: any) => {
                 this.status.set('updated');
                 this.missingTokens.set([]);
