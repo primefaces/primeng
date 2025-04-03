@@ -228,7 +228,7 @@ export class DesignerService {
     }
 
     async duplicateTheme(theme: any) {
-        this.http.post(`${this.baseUrl}/theme/duplicate/${theme.t_key}`, { withCredentials: true, headers: { 'X-CSRF-Token': this.designer().csrfToken } }).subscribe({
+        this.http.post(`${this.baseUrl}/theme/duplicate/${theme.t_key}`, null, { withCredentials: true, headers: { 'X-CSRF-Token': this.designer().csrfToken } }).subscribe({
             next: (res: any) => {
                 if (res.error) {
                     this.messageService.add({ key: 'designer', severity: 'error', summary: 'An Error Occurred', detail: res.error.message, life: 3000 });
