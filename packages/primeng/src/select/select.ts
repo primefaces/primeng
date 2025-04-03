@@ -177,9 +177,9 @@ export class SelectItem extends BaseComponent {
             [attr.required]="required"
         >
             <ng-container *ngIf="!selectedItemTemplate && !_selectedItemTemplate; else defaultPlaceholder">{{ label() === 'p-emptylabel' ? '&nbsp;' : label() }}</ng-container>
-            <ng-container *ngIf="(selectedItemTemplate || _selectedItemTemplate) && selectedOption" [ngTemplateOutlet]="selectedItemTemplate || _selectedItemTemplate" [ngTemplateOutletContext]="{ $implicit: selectedOption }"></ng-container>
+            <ng-container *ngIf="(selectedItemTemplate || _selectedItemTemplate) && !isSelectedOptionEmpty()" [ngTemplateOutlet]="selectedItemTemplate || _selectedItemTemplate" [ngTemplateOutletContext]="{ $implicit: selectedOption }"></ng-container>
             <ng-template #defaultPlaceholder>
-                <span *ngIf="!selectedOption">{{ label() === 'p-emptylabel' ? '&nbsp;' : label() }}</span>
+                <span *ngIf="isSelectedOptionEmpty()">{{ label() === 'p-emptylabel' ? '&nbsp;' : label() }}</span>
             </ng-template>
         </span>
         <input
@@ -1425,6 +1425,10 @@ export class Select extends BaseComponent implements OnInit, AfterViewInit, Afte
 
     getOptionValue(option: any) {
         return this.optionValue && this.optionValue !== null ? resolveFieldData(option, this.optionValue) : !this.optionLabel && option && option.value !== undefined ? option.value : option;
+    }
+
+    isSelectedOptionEmpty() {
+        return isEmpty(this.selectedOption);
     }
 
     isOptionDisabled(option: any) {
