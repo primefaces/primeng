@@ -11,7 +11,7 @@ import { DesignColorPalette } from '@/components/layout/designer/editor/designco
     standalone: true,
     imports: [CommonModule, DesignColorPalette, DesignTokenField, FormsModule, FieldsetModule],
     template: ` <p-fieldset legend="Common" [toggleable]="true">
-        <section class="flex justify-between items-center mb-4">
+        <section class="flex justify-between items-center mb-4 gap-8">
             <div class="flex gap-2 items-center">
                 <span class="text-sm">Surface</span>
                 <input [value]="colorScheme.surface['500']" (input)="onSurfaceColorChange($event)" [type]="'color'" />

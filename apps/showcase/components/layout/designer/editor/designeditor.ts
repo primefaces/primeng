@@ -1,4 +1,4 @@
-import { Component, computed, effect, inject, model, OnDestroy, OnInit, signal } from '@angular/core';
+import { Component, computed, inject, OnDestroy, OnInit, signal } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { TabsModule } from 'primeng/tabs';
 import { DesignBorderRadius } from './primitive/designborderradius';
