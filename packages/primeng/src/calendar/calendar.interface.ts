@@ -133,9 +133,9 @@ export interface Month {
      */
     year?: number;
     /**
-     * Array of dates.
+     * Array of weeks, which are arrays of dates
      */
-    dates?: Date[];
+    dates?: CalendarDate[][];
     /**
      * Array of week numbers.
      */
@@ -155,6 +155,20 @@ export interface CalendarResponsiveOptions {
      */
     numMonths?: number;
 }
+
+/**
+ * Custom Date object for Calendar display
+ * @group Interface
+ */
+export interface CalendarDate {
+    day: number;
+    month: number;
+    year: number;
+    selectable: boolean;
+    today?: boolean;
+    otherMonth?: boolean;
+}
+
 /**
  * Custom type for the calendar views.
  * @group Types
