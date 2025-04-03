@@ -316,8 +316,8 @@ import { LicenseManager } from 'primeng/api';
 })
 export class AppComponent {
 
-    constructor() {
-        LicenseManager.verify('LICENSE_KEY', 'PASS_KEY');    
+    constructor(private licenseManager: LicenseManager) {
+        this.licenseManager.verify('LICENSE_KEY', 'PASS_KEY');    
     }    
 }`
     };
