@@ -1,4 +1,4 @@
-import { Component, EventEmitter, inject, Input, OnInit, Output, ViewEncapsulation } from '@angular/core';
+import { Component, EventEmitter, inject, Input, OnInit, Output } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { DesignerService } from '@/service/designerservice';
 import { AutoCompleteModule } from 'primeng/autocomplete';
@@ -29,6 +29,7 @@ import { UniqueComponentId } from 'primeng/utils';
                 [showEmptyMessage]="false"
                 (completeMethod)="search($event)"
                 (onKeyUp)="onInput($event)"
+                inputStyleClass="!text-xs"
             >
                 <ng-template #item let-option>
                     <div [pTooltip]="getTooltipData(option)" tooltipPosition="left" class="w-full flex items-center justify-between gap-4 px-2">
