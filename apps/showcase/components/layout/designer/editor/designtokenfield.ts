@@ -25,7 +25,7 @@ import { UniqueComponentId } from 'primeng/utils';
                 [inputId]="inputId"
                 [suggestions]="items"
                 (onSelect)="onOptionSelect($event)"
-                optionLabel="label"
+                optionLabel="name"
                 [showEmptyMessage]="false"
                 (completeMethod)="search($event)"
                 (onKeyUp)="onInput($event)"
@@ -33,7 +33,7 @@ import { UniqueComponentId } from 'primeng/utils';
             >
                 <ng-template #item let-option>
                     <div [pTooltip]="getTooltipData(option)" tooltipPosition="left" class="w-full flex items-center justify-between gap-4 px-2">
-                        <span>{{ option.token }}</span>
+                        <span>{{ option.name }}</span>
                         @if (getIsColor(option)) {
                             <div class="border border-surface-200 dark:border-surface-700 w-4 h-4 rounded-full" [style]="{ backgroundColor: option.variable }"></div>
                         } @else {
@@ -87,12 +87,12 @@ export class DesignTokenField implements OnInit {
     }
 
     get previewColor() {
-        const tokenValue = typeof this.modelValue === 'object' ? this.modelValue.label : this.modelValue;
+        const tokenValue = typeof this.modelValue === 'object' ? this.modelValue.name : this.modelValue;
         return tokenValue && tokenValue.trim().length && tokenValue.startsWith('{') && tokenValue.endsWith('}') ? $dt(tokenValue).variable : tokenValue;
     }
 
     onOptionSelect(event) {
-        this.modelValue = event.value.label;
+        this.modelValue = event.value.name;
         this.modelValueChange.emit(this.modelValue);
         event.originalEvent.stopPropagation();
     }
@@ -106,7 +106,7 @@ export class DesignTokenField implements OnInit {
         const query = event.query;
 
         if (query.startsWith('{')) {
-            this.items = this.designerService.acTokens().filter((t) => t.label.startsWith(query));
+            this.items = this.designerService.acTokens().filter((t) => t.name.startsWith(query.replace('{', '').replace('}', '')));
         } else {
             this.items = [];
         }

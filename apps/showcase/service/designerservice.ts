@@ -1,4 +1,4 @@
-import { inject, Injectable, signal } from '@angular/core';
+import { computed, inject, Injectable, signal } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { $dt, usePreset } from '@primeuix/styled';
 import { MessageService } from 'primeng/api';
@@ -52,7 +52,7 @@ export class DesignerService {
 
     preset = signal({ primitive: null, semantic: null });
 
-    acTokens = signal([]);
+    acTokens = computed(() => this.designer().acTokens);
 
     missingTokens = signal<any[]>([]);
 
