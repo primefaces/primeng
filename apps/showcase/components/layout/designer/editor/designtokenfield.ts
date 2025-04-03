@@ -1,4 +1,4 @@
-import { Component, EventEmitter, inject, Input, OnInit, Output } from '@angular/core';
+import { ChangeDetectionStrategy, Component, EventEmitter, inject, Input, OnInit, Output } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { DesignerService } from '@/service/designerservice';
 import { AutoCompleteModule } from 'primeng/autocomplete';
@@ -46,7 +46,8 @@ import { UniqueComponentId } from 'primeng/utils';
             </p-autocomplete>
             <div *ngIf="type === 'color'" class="absolute right-[4px] top-1/2 -mt-3 w-6 h-6 rounded-md border border-surface-300 dark:border-surface-600" [style]="{ backgroundColor: previewColor }"></div>
         </div>
-    </div>`
+    </div>`,
+    changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class DesignTokenField implements OnInit {
     private designerService: DesignerService = inject(DesignerService);

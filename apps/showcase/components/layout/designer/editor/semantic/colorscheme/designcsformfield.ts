@@ -1,4 +1,4 @@
-import { Component, Input } from '@angular/core';
+import { ChangeDetectionStrategy, Component, Input } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { DesignTokenField } from '@/components/layout/designer/editor/designtokenfield';
 import { FieldsetModule } from 'primeng/fieldset';
@@ -73,7 +73,8 @@ import { FormsModule } from '@angular/forms';
                 <design-token-field [(modelValue)]="colorScheme.formField.floatLabelInvalidColor" label="Invalid Color" [type]="'color'" />
             </div>
         </section>
-    </p-fieldset>`
+    </p-fieldset>`,
+    changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class DesignCSFormField {
     @Input() colorScheme: any;

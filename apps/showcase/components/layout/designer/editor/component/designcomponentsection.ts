@@ -1,4 +1,4 @@
-import { Component, computed, effect, inject, input } from '@angular/core';
+import { ChangeDetectionStrategy, Component, computed, inject, input } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { DesignerService } from '@/service/designerservice';
 import { DesignTokenField } from '../designtokenfield';
@@ -27,7 +27,8 @@ import { DesignTokenField } from '../designtokenfield';
                 <design-component-section [componentKey]="componentKey()" [path]="path() + '.' + entry.key" class="mt-3" />
             }
         }
-    </section>`
+    </section>`,
+    changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class DesignComponentSection {
     designerService: DesignerService = inject(DesignerService);

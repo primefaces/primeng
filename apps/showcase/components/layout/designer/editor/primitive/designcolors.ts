@@ -1,4 +1,4 @@
-import { Component, computed, inject, model } from '@angular/core';
+import { ChangeDetectionStrategy, Component, inject } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FieldsetModule } from 'primeng/fieldset';
 import { FormsModule } from '@angular/forms';
@@ -20,7 +20,8 @@ import { DesignColorPalette } from '@/components/layout/designer/editor/designco
                 <design-color-palette [value]="designerService.designer().theme?.preset?.primitive[key]" />
             </section>
         </ng-container>
-    </p-fieldset>`
+    </p-fieldset>`,
+    changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class DesignColors {
     designerService: DesignerService = inject(DesignerService);

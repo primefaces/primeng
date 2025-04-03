@@ -1,4 +1,4 @@
-import { Component, inject } from '@angular/core';
+import { ChangeDetectionStrategy, Component, inject } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FieldsetModule } from 'primeng/fieldset';
 import { FormsModule } from '@angular/forms';
@@ -30,7 +30,8 @@ import { DesignTokenField } from '@/components/layout/designer/editor/designtoke
                 <design-token-field [(modelValue)]="designerService.designer().theme.preset?.primitive.borderRadius.xl" label="Extra Large" />
             </div>
         </section>
-    </p-fieldset>`
+    </p-fieldset>`,
+    changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class DesignBorderRadius {
     designerService = inject(DesignerService);

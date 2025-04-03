@@ -1,4 +1,4 @@
-import { Component, inject, OnInit } from '@angular/core';
+import { ChangeDetectionStrategy, Component, inject, OnInit } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
 import { DesignerService } from '@/service/designerservice';
@@ -37,7 +37,8 @@ import { MessageService } from 'primeng/api';
         <div class="flex justify-between">
             <button type="button" (click)="addToken()" class="btn-design-outlined">Add New</button>
             <button type="button" (click)="save()" class="btn-design">Save</button>
-        </div>`
+        </div>`,
+    changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class DesignCustomTokens implements OnInit {
     designerService: DesignerService = inject(DesignerService);

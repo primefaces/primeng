@@ -1,4 +1,4 @@
-import { Component, inject } from '@angular/core';
+import { ChangeDetectionStrategy, Component, inject } from '@angular/core';
 import { DesignerService } from '@/service/designerservice';
 import { CommonModule } from '@angular/common';
 
@@ -9,7 +9,8 @@ import { CommonModule } from '@angular/common';
     template: `<div class="flex justify-end gap-2">
         <button type="button" (click)="download()" class="btn-design-outlined">Download</button>
         <button type="button" (click)="apply()" class="btn-design">Apply</button>
-    </div>`
+    </div>`,
+    changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class DesignEditorFooter {
     designerService: DesignerService = inject(DesignerService);

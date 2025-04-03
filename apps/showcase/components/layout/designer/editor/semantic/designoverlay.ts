@@ -1,4 +1,4 @@
-import { Component, inject } from '@angular/core';
+import { ChangeDetectionStrategy, Component, inject } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { DesignTokenField } from '@/components/layout/designer/editor/designtokenfield';
 import { FieldsetModule } from 'primeng/fieldset';
@@ -59,7 +59,8 @@ import { DesignerService } from '@/service/designerservice';
             <div class="flex flex-col gap-1"></div>
             <div class="flex flex-col gap-1"></div>
         </section>
-    </p-fieldset>`
+    </p-fieldset>`,
+    changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class DesignOverlay {
     designerService: DesignerService = inject(DesignerService);

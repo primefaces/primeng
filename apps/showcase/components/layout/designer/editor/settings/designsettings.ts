@@ -1,6 +1,6 @@
 import { DesignerService } from '@/service/designerservice';
 import { CommonModule } from '@angular/common';
-import { Component, computed, inject } from '@angular/core';
+import { ChangeDetectionStrategy, Component, computed, inject } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { ConfirmationService } from 'primeng/api';
 import { ConfirmPopupModule } from 'primeng/confirmpopup';
@@ -63,7 +63,8 @@ import { ConfirmPopupModule } from 'primeng/confirmpopup';
                 </div>
             }
         </section>
-        <p-confirm-popup />`
+        <p-confirm-popup />`,
+    changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class DesignSettings {
     designerService: DesignerService = inject(DesignerService);
