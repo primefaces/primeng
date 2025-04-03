@@ -5300,7 +5300,7 @@ export class ReorderableRow implements AfterViewInit {
                 <ng-template #icon>
                     <FilterIcon *ngIf="!filterIconTemplate && !_filterIconTemplate" />
                     <span class="pi-filter-icon" *ngIf="filterIconTemplate || _filterIconTemplate">
-                        <ng-template *ngTemplateOutlet="filterIconTemplate || _filterIconTemplate"></ng-template>
+                        <ng-template *ngTemplateOutlet="filterIconTemplate || _filterIconTemplate; context: { hasFilter: hasFilter }"></ng-template>
                     </span>
                 </ng-template>
             </p-button>
