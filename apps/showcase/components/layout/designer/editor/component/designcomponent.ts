@@ -1,4 +1,4 @@
-import { Component, computed, effect, inject, input, OnInit, signal } from '@angular/core';
+import { Component, computed, inject, OnInit, signal } from '@angular/core';
 import { TabsModule } from 'primeng/tabs';
 import { FieldsetModule } from 'primeng/fieldset';
 import { CommonModule } from '@angular/common';
@@ -11,7 +11,7 @@ import { DesignComponentSection } from '@/components/layout/designer/editor/comp
     selector: 'design-component',
     standalone: true,
     imports: [CommonModule, FieldsetModule, TabsModule, DesignComponentSection],
-    template: `<section>
+    template: `<section class="flex flex-col gap-3">
         <div class="text-lg font-semibold capitalize mb-2">{{ componentKey() }}</div>
         <p-fieldset legend="Common" [toggleable]="true">
             <div class="flex flex-col gap-3">
