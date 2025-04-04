@@ -598,7 +598,7 @@ export class HeroSectionComponent implements OnInit, OnDestroy {
             {
                 title: 'Freya',
                 link: 'https://freya.primeng.org/',
-                image: 'https://primefaces.org/cdn/primeng/images/layouts/freya-ng.png',
+                image: 'https://primefaces.org/cdn/primeng/images/layouts/freya-ng.jpg',
                 text: "Give your application a sleek, updated look with Freya's chic and modern premium template."
             }
         ];
