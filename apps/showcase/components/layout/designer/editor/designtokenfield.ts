@@ -11,11 +11,11 @@ import { UniqueComponentId } from 'primeng/utils';
     selector: 'design-token-field',
     standalone: true,
     imports: [CommonModule, AutoCompleteModule, FormsModule, TooltipModule],
-    template: `<div>
-        <div class="flex justify-between justify-items-center">
+    template: `<div class="group">
+        <div class="flex justify-between items-center">
             <label for="inputId" class="text-xs text-zinc-700 dark:text-white/70 block capitalize text-ellipsis overflow-hidden w-full whitespace-nowrap mb-px" title="label">{{ label }}</label>
-            <button *ngIf="switchable" type="button" (click)="transfer($event)" tabindex="-1">
-                <i class="pi pi-sort-alt !text-xs text-zinc-500 dark:text-white/50 hidden group-hover:block animate-fadein" title="Transfer between color scheme and common"></i>
+            <button *ngIf="switchable" type="button" (click)="transfer($event)" tabindex="-1" style="line-height:14px;">
+                <i class="pi pi-sort-alt text-zinc-500 dark:text-white/50 !hidden group-hover:!inline-block animate-fadein" title="Transfer between color scheme and common" style="font-size: .75rem !important; line-height: 14px;"></i>
             </button>
         </div>
         <div [id]="id" class="relative">
