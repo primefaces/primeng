@@ -96,12 +96,12 @@ import { Subscription } from 'rxjs';
                                 <p-tabpanels class="!px-0">
                                     <p-tabpanel value="cs-0">
                                         <form (keydown)="onKeyDown($event)">
-                                            <design-cs [value]="designerService.designer().theme.preset?.semantic.colorScheme.light" />
+                                            <design-cs [value]="colorScheme()?.light" />
                                         </form>
                                     </p-tabpanel>
                                     <p-tabpanel value="cs-1">
                                         <form (keydown)="onKeyDown($event)">
-                                            <design-cs [value]="designerService.designer().theme.preset?.semantic.colorScheme.dark" />
+                                            <design-cs [value]="colorScheme()?.dark" />
                                         </form>
                                     </p-tabpanel>
                                 </p-tabpanels>
@@ -129,6 +129,7 @@ import { Subscription } from 'rxjs';
     changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class DesignEditor implements OnInit, OnDestroy {
+    colorScheme = computed(() => this.designerService.designer().theme.preset?.semantic.colorScheme);
     designerService: DesignerService = inject(DesignerService);
 
     configService: AppConfigService = inject(AppConfigService);

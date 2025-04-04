@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy, Component, inject } from '@angular/core';
+import { ChangeDetectionStrategy, Component, computed, effect, inject } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { DesignTokenField } from '@/components/layout/designer/editor/designtokenfield';
 import { FieldsetModule } from 'primeng/fieldset';
@@ -17,7 +17,7 @@ import { DesignColorPalette } from '@/components/layout/designer/editor/designco
                 <span class="text-sm">Primary</span>
                 <input [value]="designerService.resolveColor(designerService.designer().theme.preset.semantic.primary['500'])" (input)="onPrimaryColorChange($event)" type="color" />
             </div>
-            <design-color-palette [value]="designerService.designer().theme.preset.semantic.primary" />
+            <design-color-palette [value]="semantic()?.primary" />
         </section>
         <section class="grid grid-cols-4 mb-3 gap-2">
             <div class="flex flex-col gap-1">
@@ -61,8 +61,13 @@ import { DesignColorPalette } from '@/components/layout/designer/editor/designco
     changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class DesignGeneral {
-    designerService: DesignerService = inject(DesignerService);
+    semantic = computed(() => this.designerService.designer().theme.preset.semantic);
+    // designerService.designer().theme.preset.semantic.primary
 
+    designerService: DesignerService = inject(DesignerService);
+    semanticEffect = effect(() => {
+        console.log(this.semantic());
+    });
     onPrimaryColorChange(event) {
         this.designerService.designer.update((prev) => ({ ...prev, theme: { ...prev.theme, preset: { ...prev.theme.preset, semantic: { ...prev.theme.preset.semantic, primary: palette(event.target.value) } } } }));
     }
