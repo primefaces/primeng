@@ -68,7 +68,6 @@ import { FileUploadStyle } from './style/fileuploadstyle';
                         (blur)="onBlur()"
                         (onClick)="choose()"
                         (keydown.enter)="choose()"
-                        tabindex="0"
                         [attr.data-pc-section]="'choosebutton'"
                         [buttonProps]="chooseButtonProps"
                     >
@@ -192,7 +191,6 @@ import { FileUploadStyle } from './style/fileuploadstyle';
                 [style]="style"
                 (onClick)="onBasicUploaderClick()"
                 (keydown)="onBasicKeydown($event)"
-                tabindex="0"
                 [buttonProps]="chooseButtonProps"
             >
                 <ng-template #icon>
