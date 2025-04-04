@@ -496,8 +496,8 @@ export class Overlay extends BaseComponent implements AfterContentInit, OnDestro
             case 'visible':
                 if (this.visible) {
                     this.show(container, true);
+                    this.bindListeners();
                 }
-                this.bindListeners();
 
                 break;
 
