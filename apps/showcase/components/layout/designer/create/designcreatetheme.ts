@@ -68,7 +68,7 @@ const presets = {
                     </div>
                     <span class="text-muted-color leading-6">Export the token.json file from Figma Token Studio and import to the Visual Editor.</span>
                     <div class="flex justify-between">
-                        <p-fileUpload mode="basic" (onSelect)="onFileSelect($event)" [chooseButtonProps]="{ styleClass: 'btn-design-outlined' }"></p-fileUpload>
+                        <p-fileUpload mode="basic" (onSelect)="onFileSelect($event)" [chooseButtonProps]="{ styleClass: 'btn-design' }"></p-fileUpload>
                         <button type="button" (click)="createThemeFromFigma()" class="btn-design">Create</button>
                     </div>
                 </div>
