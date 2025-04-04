@@ -1,6 +1,6 @@
 import { DesignerService } from '@/service/designerservice';
 import { CommonModule } from '@angular/common';
-import { ChangeDetectionStrategy, Component, inject, input } from '@angular/core';
+import { Component, inject, input } from '@angular/core';
 
 @Component({
     selector: 'design-color-palette',
@@ -11,8 +11,7 @@ import { ChangeDetectionStrategy, Component, inject, input } from '@angular/core
     }`,
     host: {
         class: 'flex w-full border border-surface rounded-l-lg rounded-r-lg overflow-hidden'
-    },
-    changeDetection: ChangeDetectionStrategy.OnPush
+    }
 })
 export class DesignColorPalette {
     designerService: DesignerService = inject(DesignerService);
