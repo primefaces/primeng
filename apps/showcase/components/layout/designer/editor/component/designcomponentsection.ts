@@ -18,7 +18,7 @@ import { DesignTokenField } from '../designtokenfield';
                     [componentKey]="componentKey()"
                     [path]="path() + '.' + entry.key"
                     [type]="isColor(entry.key) ? 'color' : null"
-                    switchable
+                    [switchable]="true"
                 />
             }
         </div>
