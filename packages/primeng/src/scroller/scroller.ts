@@ -8,6 +8,7 @@ import {
     ContentChildren,
     ElementRef,
     EventEmitter,
+    HostBinding,
     inject,
     Input,
     NgModule,
@@ -380,6 +381,8 @@ export class Scroller extends BaseComponent implements OnInit, AfterContentInit,
 
     @ViewChild('content') contentViewChild: Nullable<ElementRef>;
 
+    @HostBinding('style.height') height: string;
+
     _id: string | undefined;
 
     _style: { [klass: string]: any } | null | undefined;
@@ -553,7 +556,9 @@ export class Scroller extends BaseComponent implements OnInit, AfterContentInit,
     ngOnChanges(simpleChanges: SimpleChanges) {
         super.ngOnChanges(simpleChanges);
         let isLoadingChanged = false;
-
+        if (this.scrollHeight == '100%') {
+            this.height = '100%';
+        }
         if (simpleChanges.loading) {
             const { previousValue, currentValue } = simpleChanges.loading;
 
