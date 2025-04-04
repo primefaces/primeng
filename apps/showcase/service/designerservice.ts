@@ -110,7 +110,7 @@ export class DesignerService {
                     const tokenValue = obj[key];
                     const isColor = tokenName.includes('color') || tokenName.includes('background') || regex.test(tokenName);
 
-                    this.designer.update((prev) => ({ ...prev, acTokens: [...prev.acTokens, { name: tokenName, value: isColor ? this.resolveColor(tokenValue) : tokenValue }] }));
+                    this.designer.update((prev) => ({ ...prev, acTokens: [...prev.acTokens, { name: tokenName, label: '{' + tokenName + '}', variable: $dt(tokenName).variable, value: tokenValue, isColor: isColor }] }));
                 }
             }
         }

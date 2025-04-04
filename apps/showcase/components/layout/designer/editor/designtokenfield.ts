@@ -25,7 +25,7 @@ import { UniqueComponentId } from 'primeng/utils';
                 [inputId]="inputId"
                 [suggestions]="items"
                 (onSelect)="onOptionSelect($event)"
-                optionLabel="name"
+                optionLabel="label"
                 [showEmptyMessage]="false"
                 (completeMethod)="search($event)"
                 (onKeyUp)="onInput($event)"
@@ -33,9 +33,9 @@ import { UniqueComponentId } from 'primeng/utils';
             >
                 <ng-template #item let-option>
                     <div [pTooltip]="getTooltipData(option)" tooltipPosition="left" class="w-full flex items-center justify-between gap-4 px-2">
-                        <span>{{ option.name }}</span>
+                        <span>{{ option.label }}</span>
                         @if (getIsColor(option)) {
-                            <div class="border border-surface-200 dark:border-surface-700 w-4 h-4 rounded-full" [style]="{ backgroundColor: option.variable }"></div>
+                            <div *ngIf="option.isColor" class="border border-surface-200 dark:border-surface-700 w-4 h-4 rounded-full" [style]="{ backgroundColor: resolveColor(option.value) }"></div>
                         } @else {
                             <div class="text-xs max-w-16 text-ellipsis whitespace-nowrap overflow-hidden">
                                 {{ option.value }}
@@ -74,6 +74,10 @@ export class DesignTokenField implements OnInit {
         this.id = 'dt_field_' + UniqueComponentId();
     }
 
+    resolveColor(value: any) {
+        return this.designerService.resolveColor(value);
+    }
+
     getTooltipData(option) {
         return typeof option !== 'object' && option.value;
     }
@@ -92,7 +96,7 @@ export class DesignTokenField implements OnInit {
     }
 
     onOptionSelect(event) {
-        this.modelValue = event.value.name;
+        this.modelValue = event.value.label;
         this.modelValueChange.emit(this.modelValue);
         event.originalEvent.stopPropagation();
     }
@@ -106,7 +110,7 @@ export class DesignTokenField implements OnInit {
         const query = event.query;
 
         if (query.startsWith('{')) {
-            this.items = this.designerService.acTokens().filter((t) => t.name.startsWith(query.replace('{', '').replace('}', '')));
+            this.items = this.designerService.acTokens().filter((t) => t.label.startsWith(query));
         } else {
             this.items = [];
         }
