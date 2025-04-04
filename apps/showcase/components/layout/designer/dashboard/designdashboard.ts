@@ -79,7 +79,7 @@ import { ConfirmPopupModule } from 'primeng/confirmpopup';
                             (keydown.enter)="onThemeNameEnterKey($event)"
                             (keydown.escape)="onThemeNameEscape($event)"
                         />
-                        <i class="hidden group-hover:block pi pi-pencil !text-xs absolute top-50 text-muted-color" style="right: 2px"></i>
+                        <i class="!hidden group-hover:!block pi pi-pencil !text-xs absolute top-50 text-muted-color" style="right: 2px"></i>
                     </div>
                     <span class="text-muted-color text-xs">{{ formatTimestamp(theme.t_last_updated) }}</span>
                 </div>
