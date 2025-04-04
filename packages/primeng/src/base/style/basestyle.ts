@@ -90,6 +90,10 @@ const theme = ({ dt }) => `
     height: ${dt('icon.size')};
 }
 
+.p-unselectable-text {
+    user-select: none;
+}
+
 .p-overlay-mask {
     background: ${dt('mask.background')};
     color: ${dt('mask.color')};
