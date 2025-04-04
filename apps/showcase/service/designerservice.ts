@@ -317,6 +317,7 @@ export class DesignerService {
         }
 
         usePreset(theme.preset);
+        this.messageService.add({ key: 'designer', severity: 'success', summary: 'Success', detail: 'Theme saved.', life: 3000 });
     }
 
     async preview() {
