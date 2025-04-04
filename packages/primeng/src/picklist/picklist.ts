@@ -142,6 +142,7 @@ import { PickListStyle } from './style/pickliststyle';
                     [filterPlaceHolder]="sourceFilterPlaceholder"
                     [dragdrop]="dragdrop"
                     (onDrop)="onDrop($event, SOURCE_LIST)"
+                    (onFilter)="onSourceFilter.emit($event)"
                 >
                     <ng-container *ngIf="sourceHeaderTemplate || _sourceHeaderTemplate">
                         <ng-template #header>
@@ -272,6 +273,7 @@ import { PickListStyle } from './style/pickliststyle';
                     [filterPlaceHolder]="targetFilterPlaceholder"
                     [dragdrop]="dragdrop"
                     (onDrop)="onDrop($event, TARGET_LIST)"
+                    (onFilter)="onTargetFilter.emit($event)"
                 >
                     <ng-container *ngIf="targetHeaderTemplate || _targetHeaderTemplate">
                         <ng-template #header>
