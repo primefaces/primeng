@@ -22,7 +22,7 @@ import {
 } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { find, findIndexInList, findSingle, isEmpty, scrollInView, setAttribute, uuid } from '@primeuix/utils';
-import { FilterService, PrimeTemplate, SharedModule } from 'primeng/api';
+import { FilterService, PrimeTemplate, ScrollerOptions, SharedModule } from 'primeng/api';
 import { BaseComponent } from 'primeng/basecomponent';
 import { ButtonDirective, ButtonProps } from 'primeng/button';
 import { AngleDoubleDownIcon, AngleDoubleLeftIcon, AngleDoubleRightIcon, AngleDoubleUpIcon, AngleDownIcon, AngleLeftIcon, AngleRightIcon, AngleUpIcon } from 'primeng/icons';
@@ -121,6 +121,9 @@ import { PickListStyle } from './style/pickliststyle';
                     #sourcelist
                     [multiple]="true"
                     [options]="source"
+                    [virtualScroll]="virtualScroll"
+                    [virtualScrollItemSize]="virtualScrollItemSize"
+                    [virtualScrollOptions]="virtualScrollOptions"
                     [(ngModel)]="selectedItemsSource"
                     optionLabel="name"
                     [id]="idSource + '_list'"
@@ -252,6 +255,9 @@ import { PickListStyle } from './style/pickliststyle';
                     #targetlist
                     [multiple]="true"
                     [options]="target"
+                    [virtualScroll]="virtualScroll"
+                    [virtualScrollItemSize]="virtualScrollItemSize"
+                    [virtualScrollOptions]="virtualScrollOptions"
                     [(ngModel)]="selectedItemsTarget"
                     optionLabel="name"
                     [id]="idTarget + '_list'"
@@ -643,6 +649,23 @@ export class PickList extends BaseComponent implements AfterViewChecked, AfterCo
             }
         }
     }
+
+    /**
+     * Whether the data should be loaded on demand during scroll.
+     * @group Props
+     */
+    @Input({ transform: booleanAttribute }) virtualScroll: boolean | undefined;
+    /**
+     * Height of an item in the list for VirtualScrolling.
+     * @group Props
+     */
+    @Input({ transform: numberAttribute }) virtualScrollItemSize: number | undefined;
+    /**
+     * Whether to use the scroller feature. The properties of scroller component can be used like an object in it.
+     * @group Props
+     */
+    @Input() virtualScrollOptions: ScrollerOptions | undefined;
+
     /**
      * Callback to invoke when items are moved from target to source.
      * @param {PickListMoveToSourceEvent} event - Custom move to source event.
