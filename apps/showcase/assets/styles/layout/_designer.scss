@@ -65,6 +65,11 @@
 
         .p-fieldset-legend-label {
             font-weight: 600;
+            color: var(--text-color);
+        }
+
+        .p-fieldset-toggler {
+            color: var(--text-color);
         }
 
         .p-fieldset-toggle-button {
