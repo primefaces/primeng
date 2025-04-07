@@ -150,7 +150,7 @@ export class DesignTokenField implements OnInit {
         }
 
         this.removeEmptyProps(tokens);
-
+        this.designerService.designer.update((prev) => ({ ...prev, theme: { ...prev.theme, preset: { ...prev.theme.preset, components: { ...prev.theme.preset.components, [this.componentKey]: { ...tokens } } } } }));
         event.preventDefault();
     }
 
