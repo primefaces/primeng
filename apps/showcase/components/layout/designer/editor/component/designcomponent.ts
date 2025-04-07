@@ -36,15 +36,15 @@ import { DesignComponentSection } from '@/components/layout/designer/editor/comp
                     <p-tabpanels>
                         <p-tabpanel value="cs-0">
                             <div class="flex flex-col gap-3">
-                                @for (entry of lightTokens() | keyvalue; track entry.key) {
-                                    <design-component-section [componentKey]="componentKey()" [path]="'colorScheme.light.' + entry.key" />
+                                @for (entry of objectKeys(lightTokens()); track entry) {
+                                    <design-component-section [componentKey]="componentKey()" [path]="'colorScheme.light.' + entry" />
                                 }
                             </div>
                         </p-tabpanel>
                         <p-tabpanel value="cs-1">
                             <div class="flex flex-col gap-3">
-                                @for (entry of darkTokens() | keyvalue; track entry.key) {
-                                    <design-component-section [componentKey]="componentKey()" [path]="'colorScheme.dark.' + entry.key" />
+                                @for (entry of objectKeys(darkTokens()); track entry) {
+                                    <design-component-section [componentKey]="componentKey()" [path]="'colorScheme.dark.' + entry" />
                                 }
                             </div>
                         </p-tabpanel>
