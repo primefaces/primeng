@@ -491,5 +491,6 @@ export class DesignerService {
         this.refreshACTokens();
 
         this.designer.update((prev) => ({ ...prev, activeTab: 0, activeView: 'editor' }));
+        this.status.set(null);
     }
 }
