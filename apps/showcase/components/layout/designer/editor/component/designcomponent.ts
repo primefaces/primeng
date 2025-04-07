@@ -16,9 +16,9 @@ import { DesignComponentSection } from '@/components/layout/designer/editor/comp
         <p-fieldset legend="Common" [toggleable]="true">
             <div class="flex flex-col gap-3">
                 @if (hasCommonTokens()) {
-                    @for (entry of tokens() | keyvalue; track entry.key) {
-                        @if (entry.key !== 'colorScheme' && entry.key !== 'css') {
-                            <design-component-section [componentKey]="componentKey()" [path]="entry.key" />
+                    @for (entry of objectKeys(this.tokens()); track entry) {
+                        @if (entry !== 'colorScheme' && entry !== 'css') {
+                            <design-component-section [componentKey]="componentKey()" [path]="entry" />
                         }
                     }
                 } @else {
@@ -58,6 +58,8 @@ import { DesignComponentSection } from '@/components/layout/designer/editor/comp
     changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class DesignComponent implements OnInit {
+    objectKeys = Object.keys;
+
     designerService: DesignerService = inject(DesignerService);
 
     router: Router = inject(Router);
