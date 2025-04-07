@@ -18,7 +18,9 @@ import {
     Output,
     QueryList,
     TemplateRef,
-    ViewEncapsulation
+    ViewChild,
+    ViewEncapsulation,
+    type AfterViewInit
 } from '@angular/core';
 import { findSingle, setAttribute, uuid } from '@primeuix/utils';
 import { Confirmation, ConfirmationService, ConfirmEventType, Footer, PrimeTemplate, SharedModule, TranslationKeys } from 'primeng/api';
@@ -26,7 +28,7 @@ import { BaseComponent } from 'primeng/basecomponent';
 import { Button } from 'primeng/button';
 import { Dialog } from 'primeng/dialog';
 import { Nullable } from 'primeng/ts-helpers';
-import { Subscription } from 'rxjs';
+import { first, Subscription } from 'rxjs';
 import { ConfirmDialogStyle } from './style/confirmdialogstyle';
 
 const showAnimation = animation([style({ transform: '{{transform}}', opacity: 0 }), animate('{{transition}}', style({ transform: 'none', opacity: 1 }))]);
@@ -133,7 +135,7 @@ const hideAnimation = animation([animate('{{transition}}', style({ transform: '{
     encapsulation: ViewEncapsulation.None,
     providers: [ConfirmDialogStyle]
 })
-export class ConfirmDialog extends BaseComponent implements OnInit, OnDestroy {
+export class ConfirmDialog extends BaseComponent implements OnInit, AfterViewInit, OnDestroy {
     /**
      * Title text of the dialog.
      * @group Props
@@ -366,6 +368,8 @@ export class ConfirmDialog extends BaseComponent implements OnInit, OnDestroy {
 
     @ContentChildren(PrimeTemplate) templates: QueryList<PrimeTemplate> | undefined;
 
+    @ViewChild('dialog') dialog: Nullable<Dialog>;
+
     _headerTemplate: TemplateRef<any> | undefined;
 
     _footerTemplate: TemplateRef<any> | undefined;
@@ -387,8 +391,6 @@ export class ConfirmDialog extends BaseComponent implements OnInit, OnDestroy {
     _style: { [klass: string]: any } | null | undefined;
 
     maskVisible: boolean | undefined;
-
-    dialog: Nullable<Dialog>;
 
     wrapper: Nullable<HTMLElement>;
 
@@ -495,6 +497,20 @@ export class ConfirmDialog extends BaseComponent implements OnInit, OnDestroy {
         });
     }
 
+    ngAfterViewInit(): void {
+        if (this.option('focusTrap')) {
+            this.dialog.onShow.pipe(first()).subscribe(() => {
+                this.contentContainer = this.dialog.container;
+                console.log(this.contentContainer);
+                const element = this.getElementToFocus();
+                console.log(element);
+                if (element) {
+                    element.focus();
+                }
+            });
+        }
+    }
+
     getAriaLabelledBy() {
         return this.header !== null ? uuid('pn_id_') + '_header' : null;
     }
@@ -521,20 +537,20 @@ export class ConfirmDialog extends BaseComponent implements OnInit, OnDestroy {
     getElementToFocus() {
         switch (this.option('defaultFocus')) {
             case 'accept':
-                return findSingle(this.dialog.el.nativeElement, '.p-confirm-dialog-accept');
+                return <HTMLElement>findSingle(this.contentContainer, '.p-confirmdialog-accept-button');
 
             case 'reject':
-                return findSingle(this.dialog.el.nativeElement, '.p-confirm-dialog-reject');
+                return <HTMLElement>findSingle(this.contentContainer, '.p-confirmdialog-reject-button');
 
             case 'close':
-                return findSingle(this.dialog.el.nativeElement, '.p-dialog-header-close');
+                return <HTMLElement>findSingle(this.contentContainer, '.p-dialog-close-button');
 
             case 'none':
                 return null;
 
             //backward compatibility
             default:
-                return findSingle(this.dialog.el.nativeElement, '.p-confirm-dialog-accept');
+                return <HTMLElement>findSingle(this.dialog.el.nativeElement, '.p-confirm-dialog-accept');
         }
     }
 
