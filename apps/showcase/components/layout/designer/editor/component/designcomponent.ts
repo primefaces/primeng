@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy, Component, computed, inject, OnInit, signal } from '@angular/core';
+import { Component, computed, inject, OnInit, signal } from '@angular/core';
 import { TabsModule } from 'primeng/tabs';
 import { FieldsetModule } from 'primeng/fieldset';
 import { CommonModule } from '@angular/common';
@@ -36,8 +36,8 @@ import { DesignComponentSection } from '@/components/layout/designer/editor/comp
                     <p-tabpanels>
                         <p-tabpanel value="cs-0">
                             <div class="flex flex-col gap-3">
-                                @for (entry of objectKeys(lightTokens()); track entry) {
-                                    <design-component-section [componentKey]="componentKey()" [path]="'colorScheme.light.' + entry" />
+                                @for (entry of lightTokens() | keyvalue; track entry.key) {
+                                    <design-component-section [componentKey]="componentKey()" [path]="'colorScheme.light.' + entry.key" />
                                 }
                             </div>
                         </p-tabpanel>
@@ -54,8 +54,7 @@ import { DesignComponentSection } from '@/components/layout/designer/editor/comp
                 <span class="block py-3">There are no design tokens defined per color scheme.</span>
             }
         </p-fieldset>
-    </section>`,
-    changeDetection: ChangeDetectionStrategy.OnPush
+    </section>`
 })
 export class DesignComponent implements OnInit {
     objectKeys = Object.keys;
@@ -68,7 +67,10 @@ export class DesignComponent implements OnInit {
 
     componentKey = signal<string>('');
 
-    lightTokens = computed(() => this.tokens().colorScheme?.light);
+    lightTokens = computed(() => {
+        const designer = this.designerService.designer();
+        return designer.theme.preset.components[this.componentKey()].colorScheme?.light;
+    });
 
     darkTokens = computed(() => this.tokens().colorScheme?.dark);
 

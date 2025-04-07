@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy, Component, computed, inject, input } from '@angular/core';
+import { Component, computed, inject, input } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { DesignerService } from '@/service/designerservice';
 import { DesignTokenField } from '../designtokenfield';
@@ -10,27 +10,28 @@ import { DesignTokenField } from '../designtokenfield';
     template: `<section>
         <div class="text-sm mb-1 font-semibold text-surface-950 dark:text-surface-0 capitalize">{{ sectionName() }}</div>
         <div class="grid grid-cols-4 gap-x-2 gap-y-3">
-            @for (entry of tokens() | keyvalue; track entry.key) {
+            @for (entry of objectKeys(tokens()); track entry) {
                 <design-token-field
-                    *ngIf="!isObject(entry.value)"
-                    [(modelValue)]="tokens()[entry.key]"
-                    [label]="camelCaseToSpaces(entry.key)"
+                    *ngIf="!isObject(tokens()[entry])"
+                    [(modelValue)]="tokens()[entry]"
+                    [label]="camelCaseToSpaces(entry)"
                     [componentKey]="componentKey()"
-                    [path]="path() + '.' + entry.key"
-                    [type]="isColor(entry.key) ? 'color' : null"
+                    [path]="path() + '.' + entry"
+                    [type]="isColor(entry) ? 'color' : null"
                     [switchable]="true"
                 />
             }
         </div>
         @if (hasNestedTokens()) {
-            @for (entry of nestedTokens() | keyvalue; track entry.key) {
-                <design-component-section [componentKey]="componentKey()" [path]="path() + '.' + entry.key" class="block mt-3" />
+            @for (entry of objectKeys(nestedTokens()); track entry) {
+                <design-component-section [componentKey]="componentKey()" [path]="path() + '.' + entry" class="block mt-3" />
             }
         }
-    </section>`,
-    changeDetection: ChangeDetectionStrategy.OnPush
+    </section>`
 })
 export class DesignComponentSection {
+    objectKeys = Object.keys;
+
     designerService: DesignerService = inject(DesignerService);
 
     componentKey = input<string>();
@@ -47,7 +48,8 @@ export class DesignComponentSection {
     });
 
     tokens = computed(() => {
-        const source = this.designerService.designer().theme.preset.components[this.componentKey()];
+        const designer = this.designerService.designer();
+        const source = designer.theme.preset.components[this.componentKey()];
         return this.getObjectProperty(source, this.path());
     });
 
