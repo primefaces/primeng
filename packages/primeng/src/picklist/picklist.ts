@@ -144,8 +144,9 @@ import { PickListStyle } from './style/pickliststyle';
                     (onDrop)="onDrop($event, SOURCE_LIST)"
                     (onFilter)="onSourceFilter.emit($event)"
                 >
-                    <ng-container *ngIf="sourceHeaderTemplate || _sourceHeaderTemplate">
+                    <ng-container *ngIf="sourceHeaderTemplate || _sourceHeaderTemplate || sourceHeader">
                         <ng-template #header>
+                            <div class="p-picklist-title" *ngIf="!sourceHeaderTemplate && !_sourceHeaderTemplate">{{ sourceHeader }}</div>
                             <ng-template *ngTemplateOutlet="sourceHeaderTemplate || _sourceHeaderTemplate"></ng-template>
                         </ng-template>
                     </ng-container>
@@ -155,7 +156,6 @@ import { PickListStyle } from './style/pickliststyle';
                     <ng-container *ngIf="sourceFilterIconTemplate || _sourceFilterIconTemplate">
                         <ng-container *ngTemplateOutlet="sourceFilterIconTemplate || _sourceFilterIconTemplate"></ng-container>
                     </ng-container>
-                    <p-header class="p-picklist-title" *ngIf="!sourceHeaderTemplate && !_sourceHeaderTemplate">{{ sourceHeader }}</p-header>
                     <ng-container *ngIf="itemTemplate || _itemTemplate">
                         <ng-template #item let-item let-index="index" let-selected="selected">
                             <ng-container *ngTemplateOutlet="itemTemplate || _itemTemplate; context: { $implicit: item, index: index, selected: selected }"></ng-container>
@@ -275,8 +275,9 @@ import { PickListStyle } from './style/pickliststyle';
                     (onDrop)="onDrop($event, TARGET_LIST)"
                     (onFilter)="onTargetFilter.emit($event)"
                 >
-                    <ng-container *ngIf="targetHeaderTemplate || _targetHeaderTemplate">
+                    <ng-container *ngIf="targetHeaderTemplate || _targetHeaderTemplate || targetHeader">
                         <ng-template #header>
+                            <div class="p-picklist-title" *ngIf="!targetHeaderTemplate && !_targetHeaderTemplate">{{ targetHeader }}</div>
                             <ng-template *ngTemplateOutlet="targetHeaderTemplate || _targetHeaderTemplate"></ng-template>
                         </ng-template>
                     </ng-container>
@@ -286,7 +287,6 @@ import { PickListStyle } from './style/pickliststyle';
                     <ng-container *ngIf="targetFilterIconTemplate || _targetFilterIconTemplate">
                         <ng-container *ngTemplateOutlet="targetFilterIconTemplate || _targetFilterIconTemplate"></ng-container>
                     </ng-container>
-                    <p-header class="p-picklist-title" *ngIf="!targetHeaderTemplate && !_targetHeaderTemplate">{{ targetHeader }}</p-header>
                     <ng-container *ngIf="itemTemplate || _itemTemplate">
                         <ng-template #item let-item let-index="index" let-selected="selected">
                             <ng-container *ngTemplateOutlet="itemTemplate || _itemTemplate; context: { $implicit: item, index: index, selected: selected }"></ng-container>
