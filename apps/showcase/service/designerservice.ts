@@ -245,7 +245,7 @@ export class DesignerService {
         if (!this.designer().verified) {
             this.messageService.add({ key: 'designer', severity: 'error', summary: 'Not Available', detail: 'A license is required for download.', life: 3000 });
         } else {
-            this.http.get(`${this.baseUrl}/theme/download/${theme.t_key}`, { withCredentials: true, responseType: 'blob', params: { library: 'primeng' } }).subscribe({
+            this.http.get(`${this.baseUrl}/theme/download/${theme.t_key}`, { withCredentials: true, responseType: 'blob', headers: { 'X-CSRF-Token': this.designer().csrfToken }, params: { library: 'primeng' } }).subscribe({
                 next: (res: any) => {
                     const blobUrl = window.URL.createObjectURL(res);
                     const link = document.createElement('a');
