@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy, Component, EventEmitter, inject, Input, OnInit, Output } from '@angular/core';
+import { ChangeDetectionStrategy, Component, computed, EventEmitter, inject, input, Input, OnInit, Output } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { DesignerService } from '@/service/designerservice';
 import { AutoCompleteModule } from 'primeng/autocomplete';
@@ -29,7 +29,7 @@ import { UniqueComponentId } from 'primeng/utils';
                 [showEmptyMessage]="false"
                 (completeMethod)="search($event)"
                 (onKeyUp)="onInput($event)"
-                inputStyleClass="!text-xs"
+                [inputStyleClass]="inputStyleClass()"
             >
                 <ng-template #item let-option>
                     <div [pTooltip]="getTooltipData(option)" tooltipPosition="left" class="w-full flex items-center justify-between gap-4 px-2">
@@ -44,7 +44,7 @@ import { UniqueComponentId } from 'primeng/utils';
                     </div>
                 </ng-template>
             </p-autocomplete>
-            <div *ngIf="type === 'color'" class="absolute right-[4px] top-1/2 -mt-3 w-6 h-6 rounded-md border border-surface-300 dark:border-surface-600" [style]="{ backgroundColor: previewColor }"></div>
+            <div *ngIf="type() === 'color'" class="absolute right-[4px] top-1/2 -mt-3 w-6 h-6 rounded-md border border-surface-300 dark:border-surface-600" [style]="{ backgroundColor: previewColor }"></div>
         </div>
     </div>`,
     changeDetection: ChangeDetectionStrategy.OnPush
@@ -54,7 +54,7 @@ export class DesignTokenField implements OnInit {
 
     @Input() label: string | undefined;
 
-    @Input() type: string | undefined;
+    type = input<string>();
 
     @Input() modelValue: any;
 
@@ -69,6 +69,10 @@ export class DesignTokenField implements OnInit {
     id: string | undefined;
 
     items: any;
+
+    inputStyleClass = computed(() => {
+        return this.type() === 'color' ? '!text-xs !pr-8' : '!text-xs';
+    });
 
     ngOnInit() {
         this.id = 'dt_field_' + UniqueComponentId();
