@@ -127,7 +127,7 @@ export const AUTOCOMPLETE_VALUE_ACCESSOR: any = {
                     [attr.aria-selected]="true"
                 >
                     <ng-container *ngTemplateOutlet="selectedItemTemplate || _selectedItemTemplate; context: { $implicit: option }"></ng-container>
-                    <p-chip styleClass="p-autocomplete-chip" *ngIf="!selectedItemTemplate && !_selectedItemTemplate" [label]="getOptionLabel(option)" [removable]="true">
+                    <p-chip styleClass="p-autocomplete-chip" *ngIf="!selectedItemTemplate && !_selectedItemTemplate" [label]="getOptionLabel(option)" [removable]="true" (onRemove)="!readonly ? removeOption($event, i) : ''">
                         <ng-container *ngIf="!removeIconTemplate && !_removeIconTemplate">
                             <ng-template #removeicon>
                                 <span class="p-autocomplete-chip-icon" (click)="!readonly ? removeOption($event, i) : ''">
