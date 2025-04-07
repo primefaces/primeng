@@ -359,6 +359,7 @@ export class DesignerService {
     async loadTheme(theme: any) {
         this.http.get(`${this.baseUrl}/theme/load/${theme.t_key}`, { withCredentials: true, headers: { 'X-CSRF-Token': this.designer().csrfToken } }).subscribe({
             next: (res: any) => {
+                this.status.set(null);
                 const data = res.data;
                 this.activateTheme(data);
             },
