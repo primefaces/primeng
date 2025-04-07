@@ -34,7 +34,7 @@ export class DarkModeDoc {
 
     code2 = {
         basic: `@import "tailwindcss";
-@import "tailwindcss-primeui";
+@plugin "tailwindcss-primeui";
 @custom-variant dark (&:where(.my-app-dark, .my-app-dark *));     //dark mode configuration`
     };
 
