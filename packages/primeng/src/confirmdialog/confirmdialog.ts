@@ -500,7 +500,7 @@ export class ConfirmDialog extends BaseComponent implements OnInit, OnDestroy {
     }
 
     option(name: string, k?: string) {
-        const source: { [key: string]: any } = this || this;
+        const source: { [key: string]: any } = this;
         if (source.hasOwnProperty(name)) {
             if (k) {
                 return source[k];
