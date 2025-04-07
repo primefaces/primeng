@@ -323,10 +323,13 @@ export class DesignerService {
     async preview() {
         this.http.patch(`${this.baseUrl}/theme/migrate/preview/${this.designer().theme.key}`, null, { withCredentials: true, headers: { 'X-CSRF-Token': this.designer().csrfToken } }).subscribe({
             next: (res: any) => {
-                this.status.set('updated');
-                this.missingTokens.set([]);
-
-                this.activateTheme(res.data);
+                if (res.data) {
+                    this.status.set('preview');
+                    this.missingTokens.set(res.data);
+                }
+                if (res.error) {
+                    this.messageService.add({ key: 'designer', severity: 'error', summary: 'An Error Occurred', detail: res.error.message, life: 3000 });
+                }
             },
             error: (err: any) => {
                 this.messageService.add({ key: 'designer', severity: 'error', summary: 'An Error Occurred', detail: err.message, life: 3000 });

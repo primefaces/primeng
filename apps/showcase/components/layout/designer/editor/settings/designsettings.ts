@@ -39,7 +39,7 @@ import { ConfirmPopupModule } from 'primeng/confirmpopup';
             </div>
             @if (status() === 'preview') {
                 <div>
-                    @if (missingTokens().length) {
+                    @if (missingTokens().length > 0) {
                         <div class="p-3 bg-yellow-100 text-yellow-950 dark:bg-yellow-500/30 dark:text-yellow-100 font-medium mt-4 rounded-md leading-normal">
                             There are missing tokens, you may add them automatically using the migrate option with placeholder values. After migration, visit the corresponding section to define the actual values for your theme.
                         </div>
@@ -47,7 +47,7 @@ import { ConfirmPopupModule } from 'primeng/confirmpopup';
                         <div class="p-3 bg-green-100 text-green-950 dark:bg-green-500/30 dark:text-white font-medium mt-4 rounded-md leading-normal">Your theme is up to date.</div>
                     }
                 </div>
-            } @else if (status() === 'updated') {
+            } @else if (status() === 'updated' && missingTokens().length == 0) {
                 <div>
                     <div class="p-3 bg-green-100 text-green-950 dark:bg-green-500/30 dark:text-white font-medium mt-4 rounded-md leading-normal">Your theme is successfully updated.</div>
                 </div>
@@ -119,7 +119,7 @@ export class DesignSettings {
     confirmMigration(event: any) {
         this.confirmationService.confirm({
             key: 'designer',
-            target: event.originalEvent.target as EventTarget,
+            target: event.target as EventTarget,
             message: 'Are you sure you want to migrate?',
             header: 'Confirmation',
             icon: 'pi pi-exclamation-triangle',
