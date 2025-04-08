@@ -12,7 +12,8 @@ import { Code } from '@domain/code';
             <p-messages [(value)]="messages" [enableService]="false" />
         </div>
         <app-code [code]="code" selector="messages-severity-demo"></app-code>
-    `
+    `,
+    standalone: false
 })
 export class SeverityDoc implements OnInit {
     messages: Message[] | undefined;

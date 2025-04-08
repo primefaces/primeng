@@ -13,7 +13,8 @@ import { SlotCharDoc } from '@doc/inputmask/slotchardoc';
 import { StyleDoc } from '@doc/inputmask/styledoc';
 
 @Component({
-    templateUrl: './inputmaskdemo.html'
+    templateUrl: './inputmaskdemo.html',
+    standalone: false
 })
 export class InputMaskDemo {
     docs = [

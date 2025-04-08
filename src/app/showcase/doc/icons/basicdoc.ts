@@ -14,7 +14,8 @@ import { Code } from '@domain/code';
             <span class="pi pi-user"></span>
         </div>
         <app-code [code]="code" [hideToggleCode]="true"></app-code>
-    `
+    `,
+    standalone: false
 })
 export class BasicDoc {
     code: Code = {

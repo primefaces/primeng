@@ -17,7 +17,8 @@ import { Code } from '@domain/code';
             <p-tag severity="contrast" value="Contrast" />
         </div>
         <app-code [code]="code" selector="tag-severity-demo"></app-code>
-    `
+    `,
+    standalone: false
 })
 export class SeverityDoc {
     code: Code = {

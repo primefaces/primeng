@@ -11,7 +11,6 @@ import { DiamondLogo } from './diamondlogo';
 import { DiamondSeparator } from './diamondseparator';
 
 @Component({
-    standalone: true,
     selector: 'diamond-page',
     imports: [
         TemplateHeroModule,

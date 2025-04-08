@@ -10,7 +10,8 @@ import { Code } from '@domain/code';
         </app-docsectiontext>
         <app-code [code]="code" [hideToggleCode]="true"></app-code>
     `,
-    providers: [DialogService]
+    providers: [DialogService],
+    standalone: false
 })
 export class UsageDoc {
     ref: DynamicDialogRef | undefined;

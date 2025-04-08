@@ -16,7 +16,8 @@ import { Code } from '@domain/code';
             </div>
         </div>
         <app-code [code]="code" selector="radio-button-dynamic-demo"></app-code>
-    `
+    `,
+    standalone: false
 })
 export class DynamicDoc implements OnInit {
     selectedCategory: any = null;

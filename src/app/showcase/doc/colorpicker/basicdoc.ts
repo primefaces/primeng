@@ -11,7 +11,8 @@ import { Code } from '@domain/code';
             <p-colorPicker [(ngModel)]="color" />
         </div>
         <app-code [code]="code" selector="color-picker-basic-demo"></app-code>
-    `
+    `,
+    standalone: false
 })
 export class BasicDoc {
     color: string | undefined;

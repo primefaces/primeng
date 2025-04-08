@@ -11,7 +11,8 @@ import { Code } from '@domain/code';
             <p-triStateCheckbox [(ngModel)]="value" variant="filled" inputId="tricheckbox" />
         </div>
         <app-code [code]="code" selector="tri-state-checkbox-filled-demo"></app-code>
-    `
+    `,
+    standalone: false
 })
 export class FilledDoc {
     value: boolean | null = null;

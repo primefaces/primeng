@@ -14,7 +14,8 @@ import { Code } from '@domain/code';
             </p-floatLabel>
         </div>
         <app-code [code]="code" selector="float-label-basic-demo"></app-code>
-    `
+    `,
+    standalone: false
 })
 export class BasicDoc {
     value: string | undefined;

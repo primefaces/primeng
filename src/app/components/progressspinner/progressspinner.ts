@@ -18,7 +18,8 @@ import { ChangeDetectionStrategy, Component, Input, NgModule, ViewEncapsulation 
     styleUrls: ['./progressspinner.css'],
     host: {
         class: 'p-element'
-    }
+    },
+    standalone: false
 })
 export class ProgressSpinner {
     /**

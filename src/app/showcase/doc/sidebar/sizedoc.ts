@@ -20,7 +20,8 @@ import { Code } from '@domain/code';
             <p-button (onClick)="sidebarVisible = true" icon="pi pi-arrow-right" />
         </div>
         <app-code [code]="code" selector="sidebar-size-demo"></app-code>
-    `
+    `,
+    standalone: false
 })
 export class SizeDoc {
     sidebarVisible: boolean = false;

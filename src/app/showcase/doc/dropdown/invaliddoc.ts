@@ -16,7 +16,8 @@ interface City {
             <p-dropdown [options]="cities" [(ngModel)]="selectedCity" optionLabel="name" [showClear]="true" placeholder="Select a City" class="ng-dirty ng-invalid" />
         </div>
         <app-code [code]="code" selector="dropdown-invalid-demo"></app-code>
-    `
+    `,
+    standalone: false
 })
 export class InvalidDoc implements OnInit {
     cities: City[];

@@ -21,7 +21,8 @@ import { Code } from '@domain/code';
             </p-inputGroup>
         </div>
         <app-code [code]="code" selector="input-group-multiple-demo"></app-code>
-    `
+    `,
+    standalone: false
 })
 export class MultipleDoc {
     code: Code = {

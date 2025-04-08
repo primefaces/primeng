@@ -212,7 +212,8 @@ import { FileBeforeUploadEvent, FileProgressEvent, FileRemoveEvent, FileSelectEv
     styleUrls: ['./fileupload.css'],
     host: {
         class: 'p-element'
-    }
+    },
+    standalone: false
 })
 export class FileUpload implements AfterViewInit, AfterContentInit, OnInit, OnDestroy, BlockableUI {
     /**

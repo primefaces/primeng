@@ -11,7 +11,8 @@ import { Code } from '@domain/code';
             <p-chips [(ngModel)]="values" />
         </div>
         <app-code [code]="code" selector="chips-basic-demo"></app-code>
-    `
+    `,
+    standalone: false
 })
 export class BasicDoc {
     values: string[] | undefined;

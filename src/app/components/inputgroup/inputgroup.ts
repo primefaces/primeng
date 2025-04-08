@@ -14,7 +14,8 @@ import { SharedModule } from 'primeng/api';
     `,
     host: {
         class: 'p-element p-inputgroup'
-    }
+    },
+    standalone: false
 })
 export class InputGroup {
     /**

@@ -3,7 +3,8 @@ import { Meta, Title } from '@angular/platform-browser';
 import { Code } from '@domain/code';
 
 @Component({
-    templateUrl: './lts.component.html'
+    templateUrl: './lts.component.html',
+    standalone: false
 })
 export class LTSComponent {
     constructor(

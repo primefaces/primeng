@@ -21,7 +21,8 @@ import { Code } from '@domain/code';
             </div>
         </div>
         <app-code [code]="code" selector="style-class-animation-demo"></app-code>
-    `
+    `,
+    standalone: false
 })
 export class AnimationDoc {
     code: Code = {

@@ -40,6 +40,7 @@
                 ],
                 "@angular-eslint/no-host-metadata-property": "off",
                 "@angular-eslint/no-output-on-prefix": "off",
+                "@angular-eslint/prefer-standalone": "off",
                 "@typescript-eslint/ban-types": "off",
                 "@typescript-eslint/no-explicit-any": "off",
                 "@typescript-eslint/no-inferrable-types": "off",

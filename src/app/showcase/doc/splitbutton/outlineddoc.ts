@@ -20,7 +20,8 @@ import { Code } from '@domain/code';
         </div>
         <app-code [code]="code" selector="split-button-outlined-demo"></app-code>
     `,
-    providers: [MessageService]
+    providers: [MessageService],
+    standalone: false
 })
 export class OutlinedDoc {
     items: MenuItem[];

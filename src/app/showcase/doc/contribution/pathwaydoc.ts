@@ -14,6 +14,7 @@ import { Component } from '@angular/core';
             <h3>Employment</h3>
             <p>PrimeTek prefers to hire team members from open source committers, so you may be offered a full-time position when a position becomes available.</p>
         </app-docsectiontext>
-    `
+    `,
+    standalone: false
 })
 export class PathwayDoc {}

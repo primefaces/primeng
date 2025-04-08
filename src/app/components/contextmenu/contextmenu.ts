@@ -190,7 +190,8 @@ import { ObjectUtils, UniqueComponentId, ZIndexUtils } from 'primeng/utils';
     encapsulation: ViewEncapsulation.None,
     host: {
         class: 'p-element'
-    }
+    },
+    standalone: false
 })
 export class ContextMenuSub {
     @Input({ transform: booleanAttribute }) visible: boolean = false;
@@ -387,7 +388,8 @@ export class ContextMenuSub {
     styleUrls: ['./contextmenu.css'],
     host: {
         class: 'p-element'
-    }
+    },
+    standalone: false
 })
 export class ContextMenu implements OnInit, AfterContentInit, OnDestroy {
     /**

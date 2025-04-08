@@ -37,7 +37,8 @@ import { Code } from '@domain/code';
             </p-panel>
         </div>
         <app-code [code]="code" selector="panel-template-demo"></app-code>
-    `
+    `,
+    standalone: false
 })
 export class TemplateDoc implements OnInit {
     items: { label?: string; icon?: string; separator?: boolean }[] = [];

@@ -58,7 +58,8 @@ import { ProductService } from '@service/productservice';
                 background-color: rgba(0, 0, 0, 0.15) !important;
             }
         `
-    ]
+    ],
+    standalone: false
 })
 export class StyleDoc {
     products!: Product[];

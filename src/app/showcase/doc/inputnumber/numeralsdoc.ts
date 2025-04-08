@@ -26,7 +26,8 @@ import { Code } from '@domain/code';
             </div>
         </div>
         <app-code [code]="code" selector="input-number-numerals-demo"></app-code>
-    `
+    `,
+    standalone: false
 })
 export class NumeralsDoc {
     value1: number = 42723;

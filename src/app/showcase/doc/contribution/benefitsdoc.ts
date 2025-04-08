@@ -10,6 +10,7 @@ import { Component } from '@angular/core';
             </p>
             <p>You'll be invited to a private communication channel at Discord to get in touch with PrimeTek. In addition, contributors have access to all PrimeNG add-ons like Premium Templates, Blocks, and UI Kit free of charge.</p>
         </app-docsectiontext>
-    `
+    `,
+    standalone: false
 })
 export class BenefitsDoc {}

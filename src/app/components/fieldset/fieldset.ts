@@ -67,18 +67,12 @@ import { FieldsetAfterToggleEvent, FieldsetBeforeToggleEvent } from './fieldset.
     `,
     animations: [
         trigger('fieldsetContent', [
-            state(
-                'hidden',
-                style({
-                    height: '0'
-                })
-            ),
-            state(
-                'visible',
-                style({
-                    height: '*'
-                })
-            ),
+            state('hidden', style({
+                height: '0'
+            })),
+            state('visible', style({
+                height: '*'
+            })),
             transition('visible <=> hidden', [animate('{{transitionParams}}')]),
             transition('void => *', animate(0))
         ])
@@ -88,7 +82,8 @@ import { FieldsetAfterToggleEvent, FieldsetBeforeToggleEvent } from './fieldset.
     styleUrls: ['./fieldset.css'],
     host: {
         class: 'p-element'
-    }
+    },
+    standalone: false
 })
 export class Fieldset implements AfterContentInit, BlockableUI {
     /**

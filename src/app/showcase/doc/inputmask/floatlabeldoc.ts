@@ -14,7 +14,8 @@ import { Code } from '@domain/code';
             </p-floatLabel>
         </div>
         <app-code [code]="code" selector="input-mask-floatlabel-demo"></app-code>
-    `
+    `,
+    standalone: false
 })
 export class FloatlabelDoc {
     value: string | undefined;

@@ -44,7 +44,8 @@ import { Code } from '@domain/code';
             </div>
         </div>
         <app-code [code]="code" selector="skeleton-shapes-demo"></app-code>
-    `
+    `,
+    standalone: false
 })
 export class ShapesDoc {
     code: Code = {

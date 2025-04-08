@@ -11,7 +11,8 @@ import { Code } from '@domain/code';
             <p-inputNumber inputId="integeronly" [disabled]="true" prefix="%" [(ngModel)]="value1" />
         </div>
         <app-code [code]="code" selector="input-number-disabled-demo"></app-code>
-    `
+    `,
+    standalone: false
 })
 export class DisabledDoc {
     value1: number = 50;

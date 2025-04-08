@@ -19,7 +19,8 @@ import { Code } from '@domain/code';
             </p-tabMenu>
         </div>
         <app-code [code]="code" selector="tab-menu-template-demo"></app-code>
-    `
+    `,
+    standalone: false
 })
 export class TemplateDoc implements OnInit {
     items: MenuItem[] | undefined;

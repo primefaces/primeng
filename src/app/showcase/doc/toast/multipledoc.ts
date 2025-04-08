@@ -14,7 +14,8 @@ import { Code } from '@domain/code';
         </div>
         <app-code [code]="code" selector="toast-multiple-demo"></app-code>
     `,
-    providers: [MessageService]
+    providers: [MessageService],
+    standalone: false
 })
 export class MultipleDoc {
     constructor(private messageService: MessageService) {}

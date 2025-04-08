@@ -272,7 +272,8 @@ import { MinusIcon } from 'primeng/icons/minus';
                 </tr>
             </ng-template>
         </p-treeTable>
-    `
+    `,
+    standalone: false
 })
 class TestTreeTableComponent {
     ngOnInit() {

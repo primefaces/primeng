@@ -21,7 +21,8 @@ import { PhotoService } from '@service/photoservice';
             </p-galleria>
         </div>
         <app-code [code]="code" selector="galleria-autoplay-demo"></app-code>
-    `
+    `,
+    standalone: false
 })
 export class AutoPlayDoc implements OnInit {
     images: any[] | undefined;

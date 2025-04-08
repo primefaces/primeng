@@ -11,7 +11,8 @@ import { Code } from '@domain/code';
             <p-radioButton class="ng-invalid ng-dirty" [(ngModel)]="checked" />
         </div>
         <app-code [code]="code" selector="radio-button-invalid-demo"></app-code>
-    `
+    `,
+    standalone: false
 })
 export class InvalidDoc {
     checked: any;

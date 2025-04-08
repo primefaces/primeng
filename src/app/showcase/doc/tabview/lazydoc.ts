@@ -22,7 +22,8 @@ import { Code } from '@domain/code';
             </p-tabView>
         </div>
         <app-code [code]="code" selector="tab-view-lazy-demo"></app-code>
-    `
+    `,
+    standalone: false
 })
 export class LazyDoc {
     code: Code = {

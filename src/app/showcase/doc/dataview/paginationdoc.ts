@@ -47,7 +47,8 @@ import { ProductService } from '@service/productservice';
             </p-dataView>
         </div>
         <app-code [code]="code" selector="data-view-pagination-demo" [extFiles]="extFiles"></app-code>
-    `
+    `,
+    standalone: false
 })
 export class PaginationDoc {
     products!: Product[];

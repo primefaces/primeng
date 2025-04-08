@@ -13,7 +13,8 @@ import { AccessibilityDoc } from '@doc/tabview/accessibilitydoc';
 
 @Component({
     templateUrl: './tabviewdemo.html',
-    styleUrls: ['./tabviewdemo.scss']
+    styleUrls: ['./tabviewdemo.scss'],
+    standalone: false
 })
 export class TabViewDemo {
     docs = [

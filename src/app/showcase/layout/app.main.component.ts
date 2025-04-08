@@ -26,7 +26,6 @@ import { AppTopBarComponent } from './topbar/app.topbar.component';
             <app-footer></app-footer>
         </div>
     `,
-    standalone: true,
     imports: [RouterOutlet, AppFooterComponent, CommonModule, AppNewsComponent, AppMenuComponent, AppConfigComponent, AppTopBarComponent]
 })
 export class AppMainComponent {

@@ -10,7 +10,8 @@ import { TemplateDoc } from '@doc/metergroup/templatedoc';
 import { StyleDoc } from '@doc/metergroup/styledoc';
 import { AccessibilityDoc } from '@doc/metergroup/accessibilitydoc';
 @Component({
-    templateUrl: './metergroupdemo.html'
+    templateUrl: './metergroupdemo.html',
+    standalone: false
 })
 export class MeterGroupDemo {
     docs = [

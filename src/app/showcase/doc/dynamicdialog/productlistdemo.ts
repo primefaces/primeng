@@ -32,7 +32,8 @@ import { InfoDemo } from './infodemo';
                     </td>
                 </tr>
             </ng-template>
-        </p-table>`
+        </p-table>`,
+    standalone: false
 })
 export class ProductListDemo implements OnInit {
     products: Product[];

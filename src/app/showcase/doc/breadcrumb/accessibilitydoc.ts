@@ -11,6 +11,7 @@ import { Component } from '@angular/core';
 
         <h3>Keyboard Support</h3>
         <p>No special keyboard interaction is needed, all menuitems are focusable based on the page tab sequence.</p>
-    </app-docsectiontext>`
+    </app-docsectiontext>`,
+    standalone: false
 })
 export class AccessibilityDoc {}

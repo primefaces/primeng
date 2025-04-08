@@ -136,7 +136,8 @@ export const SLIDER_VALUE_ACCESSOR: any = {
     styleUrls: ['./slider.css'],
     host: {
         class: 'p-element'
-    }
+    },
+    standalone: false
 })
 export class Slider implements OnDestroy, ControlValueAccessor {
     /**

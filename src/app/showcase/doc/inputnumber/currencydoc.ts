@@ -29,7 +29,8 @@ import { Code } from '@domain/code';
             </div>
         </div>
         <app-code [code]="code" selector="input-number-currency-demo"></app-code>
-    `
+    `,
+    standalone: false
 })
 export class CurrencyDoc {
     value1: number = 1500;

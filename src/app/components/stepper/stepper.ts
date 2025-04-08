@@ -34,7 +34,8 @@ import { animate, state, style, transition, trigger } from '@angular/animations'
     `,
     host: {
         class: 'p-element'
-    }
+    },
+    standalone: false
 })
 export class StepperHeader {
     @Input() id: string | undefined;
@@ -70,7 +71,8 @@ export class StepperHeader {
     `,
     host: {
         class: 'p-stepper-separator'
-    }
+    },
+    standalone: false
 })
 export class StepperSeparator {
     @Input() template: TemplateRef<any> | undefined;
@@ -98,12 +100,12 @@ export class StepperSeparator {
             </ng-container>
         </ng-template>
     </div>`,
-
     host: {
         '[class.p-stepper-content]': 'true',
         '[class.p-element]': 'true',
         '[class.p-toggleable-content]': "orientation === 'vertical'"
-    }
+    },
+    standalone: false
 })
 export class StepperContent {
     @Input() id: string | undefined;
@@ -134,7 +136,8 @@ export class StepperContent {
     template: ` <ng-content></ng-content> `,
     host: {
         class: 'p-element'
-    }
+    },
+    standalone: false
 })
 export class StepperPanel {
     @Input() header: string | undefined;
@@ -310,24 +313,19 @@ export class StepperPanel {
     },
     animations: [
         trigger('tabContent', [
-            state(
-                'hidden',
-                style({
-                    height: '0',
-                    visibility: 'hidden'
-                })
-            ),
-            state(
-                'visible',
-                style({
-                    height: '*',
-                    visibility: 'visible'
-                })
-            ),
+            state('hidden', style({
+                height: '0',
+                visibility: 'hidden'
+            })),
+            state('visible', style({
+                height: '*',
+                visibility: 'visible'
+            })),
             transition('visible <=> hidden', [animate('250ms cubic-bezier(0.86, 0, 0.07, 1)')]),
             transition('void => *', animate(0))
         ])
-    ]
+    ],
+    standalone: false
 })
 export class Stepper implements AfterContentInit {
     /**

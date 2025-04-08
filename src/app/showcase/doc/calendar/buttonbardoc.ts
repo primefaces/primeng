@@ -11,7 +11,8 @@ import { Code } from '@domain/code';
             <p-calendar [(ngModel)]="date" [showButtonBar]="true" />
         </div>
         <app-code [code]="code" selector="calendar-buttonbar-demo"></app-code>
-    `
+    `,
+    standalone: false
 })
 export class ButtonBarDoc {
     date: Date[] | undefined;

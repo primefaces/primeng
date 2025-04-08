@@ -9,7 +9,8 @@ import { Nullable } from 'primeng/ts-helpers';
     selector: '[pDefer]',
     host: {
         class: 'p-element'
-    }
+    },
+    standalone: false
 })
 export class DeferredLoader implements AfterViewInit, OnDestroy {
     /**

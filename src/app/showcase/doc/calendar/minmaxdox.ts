@@ -11,7 +11,8 @@ import { Code } from '@domain/code';
             <p-calendar [(ngModel)]="date" [minDate]="minDate" [maxDate]="maxDate" [readonlyInput]="true" />
         </div>
         <app-code [code]="code" selector="calendar-minmax-demo"></app-code>
-    `
+    `,
+    standalone: false
 })
 export class MinMaxDoc {
     date: Date | undefined;

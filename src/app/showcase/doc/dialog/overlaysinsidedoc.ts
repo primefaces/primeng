@@ -24,7 +24,8 @@ interface City {
             </p-dialog>
         </div>
         <app-code [code]="code" selector="dialog-overlays-inside-demo"></app-code>
-    `
+    `,
+    standalone: false
 })
 export class OverlaysInsideDoc implements OnInit {
     cities: City[] | undefined;

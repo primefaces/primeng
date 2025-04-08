@@ -21,7 +21,8 @@ import { Code } from '@domain/code';
             </p-inplace>
         </div>
         <app-code [code]="code" selector="inplace-basic-demo"></app-code>
-    `
+    `,
+    standalone: false
 })
 export class BasicDoc {
     code: Code = {

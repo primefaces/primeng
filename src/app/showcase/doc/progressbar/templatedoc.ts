@@ -15,7 +15,8 @@ import { Code } from '@domain/code';
             </p-progressBar>
         </div>
         <app-code [code]="code" selector="progress-bar-template-demo"></app-code>
-    `
+    `,
+    standalone: false
 })
 export class TemplateDoc {
     code: Code = {

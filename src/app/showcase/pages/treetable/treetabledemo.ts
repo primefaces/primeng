@@ -35,7 +35,8 @@ import { ScrollFlexibleDoc } from '@doc/treetable/flexiblescrolldoc';
 import { SortRemovableDoc } from '@doc/treetable/sortremovabledoc';
 
 @Component({
-    templateUrl: './treetabledemo.html'
+    templateUrl: './treetabledemo.html',
+    standalone: false
 })
 export class TreeTableDemo {
     docs = [

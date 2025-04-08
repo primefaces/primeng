@@ -111,7 +111,8 @@ export const CHECKBOX_VALUE_ACCESSOR: any = {
     styleUrls: ['./checkbox.css'],
     host: {
         class: 'p-element'
-    }
+    },
+    standalone: false
 })
 export class Checkbox implements ControlValueAccessor {
     /**

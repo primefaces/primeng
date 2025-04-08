@@ -31,7 +31,8 @@ import { Router } from '@angular/router';
             </p-menu>
         </div>
         <app-code [code]="code" selector="menu-router-demo"></app-code>
-    `
+    `,
+    standalone: false
 })
 export class RouterDoc implements OnInit {
     items: MenuItem[] | undefined;

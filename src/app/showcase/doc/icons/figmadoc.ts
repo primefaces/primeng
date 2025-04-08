@@ -9,6 +9,7 @@ import { Component } from '@angular/core';
                 icons in your designs.
             </p>
         </app-docsectiontext>
-    `
+    `,
+    standalone: false
 })
 export class FigmaDoc {}

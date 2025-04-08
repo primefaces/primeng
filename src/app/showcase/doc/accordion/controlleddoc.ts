@@ -35,7 +35,8 @@ import { Code } from '@domain/code';
             </p-accordion>
         </div>
         <app-code [code]="code" selector="accordion-controlled-demo"></app-code>
-    `
+    `,
+    standalone: false
 })
 export class ControlledDoc {
     activeIndex: number | undefined = 0;

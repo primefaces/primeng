@@ -11,7 +11,8 @@ import { Code } from '@domain/code';
             <p-checkbox [(ngModel)]="checked" [binary]="true" inputId="binary" />
         </div>
         <app-code [code]="code" selector="checkbox-basic-demo"></app-code>
-    `
+    `,
+    standalone: false
 })
 export class BasicDoc {
     checked: boolean = false;

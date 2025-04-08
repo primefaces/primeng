@@ -14,7 +14,8 @@ interface AutoCompleteCompleteEvent {
         <div class="card flex justify-content-center">
             <p-autoComplete [(ngModel)]="selectedItem" [suggestions]="suggestions" placeholder="Search" (completeMethod)="search($event)" [disabled]="true" />
         </div>
-        <app-code [code]="code" selector="autocomplete-disabled-demo"></app-code>`
+        <app-code [code]="code" selector="autocomplete-disabled-demo"></app-code>`,
+    standalone: false
 })
 export class DisabledDoc {
     items: any[] | undefined;

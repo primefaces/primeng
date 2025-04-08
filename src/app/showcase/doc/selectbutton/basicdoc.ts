@@ -11,7 +11,8 @@ import { Code } from '@domain/code';
             <p-selectButton [options]="stateOptions" [(ngModel)]="value" optionLabel="label" optionValue="value" />
         </div>
         <app-code [code]="code" selector="select-button-basic-demo"></app-code>
-    `
+    `,
+    standalone: false
 })
 export class BasicDoc {
     stateOptions: any[] = [

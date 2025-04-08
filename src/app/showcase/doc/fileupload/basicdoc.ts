@@ -19,7 +19,8 @@ interface UploadEvent {
         </div>
         <app-code [code]="code" selector="file-upload-basic-demo"></app-code>
     `,
-    providers: [MessageService]
+    providers: [MessageService],
+    standalone: false
 })
 export class BasicDoc {
     constructor(private messageService: MessageService) {}

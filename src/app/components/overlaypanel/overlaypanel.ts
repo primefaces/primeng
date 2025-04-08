@@ -66,26 +66,17 @@ import { Subscription } from 'rxjs';
     `,
     animations: [
         trigger('animation', [
-            state(
-                'void',
-                style({
-                    transform: 'scaleY(0.8)',
-                    opacity: 0
-                })
-            ),
-            state(
-                'close',
-                style({
-                    opacity: 0
-                })
-            ),
-            state(
-                'open',
-                style({
-                    transform: 'translateY(0)',
-                    opacity: 1
-                })
-            ),
+            state('void', style({
+                transform: 'scaleY(0.8)',
+                opacity: 0
+            })),
+            state('close', style({
+                opacity: 0
+            })),
+            state('open', style({
+                transform: 'translateY(0)',
+                opacity: 1
+            })),
             transition('void => open', animate('{{showTransitionParams}}')),
             transition('open => close', animate('{{hideTransitionParams}}'))
         ])
@@ -95,7 +86,8 @@ import { Subscription } from 'rxjs';
     styleUrls: ['./overlaypanel.css'],
     host: {
         class: 'p-element'
-    }
+    },
+    standalone: false
 })
 export class OverlayPanel implements AfterContentInit, OnDestroy {
     /**

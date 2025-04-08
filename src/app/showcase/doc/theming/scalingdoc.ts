@@ -11,7 +11,8 @@ import { Code } from '@domain/code';
             </p>
         </app-docsectiontext>
         <app-code [code]="code" [hideToggleCode]="true"></app-code>
-    `
+    `,
+    standalone: false
 })
 export class ScalingDoc {
     code: Code = {

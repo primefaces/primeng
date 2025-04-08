@@ -14,7 +14,8 @@ import { PrimeNGConfig } from 'primeng/api';
         class: 'p-inputtext p-component p-element',
         '[class.p-filled]': 'filled',
         '[class.p-variant-filled]': 'variant === "filled" || config.inputStyle() === "filled"'
-    }
+    },
+    standalone: false
 })
 export class InputText implements DoCheck, AfterViewInit {
     /**

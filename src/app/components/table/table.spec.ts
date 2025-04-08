@@ -324,7 +324,8 @@ import type { Paginator } from '../paginator/paginator';
                 </tr>
             </ng-template>
         </p-table>
-    `
+    `,
+    standalone: false
 })
 class TestBasicTableComponent {
     items = [

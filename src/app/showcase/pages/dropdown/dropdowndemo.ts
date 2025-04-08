@@ -21,7 +21,8 @@ import { FilledDoc } from '@doc/dropdown/filleddoc';
 
 @Component({
     templateUrl: './dropdowndemo.html',
-    styleUrls: ['./dropdowndemo.scss']
+    styleUrls: ['./dropdowndemo.scss'],
+    standalone: false
 })
 export class DropdownDemo {
     docs = [

@@ -18,7 +18,8 @@ import { Code } from '@domain/code';
             <p-button label="Plain" [text]="true" [plain]="true" />
         </div>
         <app-code [code]="code" selector="button-text-demo"></app-code>
-    `
+    `,
+    standalone: false
 })
 export class TextDoc {
     code: Code = {

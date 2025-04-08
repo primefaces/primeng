@@ -11,7 +11,8 @@ import { Code } from '@domain/code';
             <p-knob [(ngModel)]="value" [readonly]="true" />
         </div>
         <app-code [code]="code" selector="knob-readonly-demo"></app-code>
-    `
+    `,
+    standalone: false
 })
 export class ReadonlyDoc {
     value: number = 50;

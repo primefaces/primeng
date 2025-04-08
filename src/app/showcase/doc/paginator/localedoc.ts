@@ -29,7 +29,8 @@ interface PageEvent {
             </div>
         </div>
         <app-code [code]="code" selector="paginator-locale-demo"></app-code>
-    `
+    `,
+    standalone: false
 })
 export class LocaleDoc {
     first: number = 0;

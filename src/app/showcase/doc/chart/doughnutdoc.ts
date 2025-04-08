@@ -13,7 +13,8 @@ import { AppConfigService } from '@service/appconfigservice';
             <p-chart type="doughnut" [data]="data" [options]="options" />
         </div>
         <app-code [code]="code" selector="chart-doughnut-demo"></app-code>
-    `
+    `,
+    standalone: false
 })
 export class DoughnutDoc implements OnInit {
     data: any;

@@ -12,7 +12,8 @@ import { Code } from '@domain/code';
             <p-panelMenu [model]="items" styleClass="w-full md:w-20rem" />
         </div>
         <app-code [code]="code" selector="panel-menu-basic-demo"></app-code>
-    `
+    `,
+    standalone: false
 })
 export class BasicDoc implements OnInit {
     items: MenuItem[];

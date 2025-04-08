@@ -17,7 +17,8 @@ import { ButtonModule } from '../button/button';
             <button type="button" icon="pi pi-calendar" class="p-button-success"></button>
             <button type="button" icon="pi pi-times" class="p-button-danger"></button>
         </div>
-    </p-toolbar>`
+    </p-toolbar>`,
+    standalone: false
 })
 class TestToolbarComponent {}
 

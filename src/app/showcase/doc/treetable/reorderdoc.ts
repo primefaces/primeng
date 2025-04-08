@@ -37,7 +37,8 @@ interface Column {
             <app-code [code]="code" selector="tree-table-reorder-demo"></app-code>
         </div>
     `,
-    changeDetection: ChangeDetectionStrategy.OnPush
+    changeDetection: ChangeDetectionStrategy.OnPush,
+    standalone: false
 })
 export class ReorderDoc {
     files!: TreeNode[];

@@ -10,7 +10,6 @@ import { TemplateYoutubeModule } from 'src/app/showcase/layout/templates/templat
 import { FreyaLogo } from './freyalogo';
 import { FreyaSeparator } from './freyaseparator';
 @Component({
-    standalone: true,
     selector: 'freya-page',
     imports: [
         TemplateHeroModule,

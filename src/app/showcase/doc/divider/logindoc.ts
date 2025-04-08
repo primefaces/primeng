@@ -30,7 +30,8 @@ import { Code } from '@domain/code';
             </div>
         </div>
         <app-code [code]="code" selector="divider-login-demo"></app-code>
-    `
+    `,
+    standalone: false
 })
 export class LoginDoc {
     code: Code = {

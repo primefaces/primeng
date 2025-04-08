@@ -16,7 +16,8 @@ interface AnimateOnScrollOptions {
     selector: '[pAnimateOnScroll]',
     host: {
         '[class.p-animateonscroll]': 'true'
-    }
+    },
+    standalone: false
 })
 export class AnimateOnScroll implements OnInit, AfterViewInit {
     /**

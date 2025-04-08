@@ -45,7 +45,8 @@ import { Code } from '@domain/code';
                 </tbody>
             </table>
         </div>
-    `
+    `,
+    standalone: false
 })
 export class AccessibilityDoc {
     code: Code = {

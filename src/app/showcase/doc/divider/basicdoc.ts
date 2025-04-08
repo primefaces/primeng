@@ -35,7 +35,8 @@ import { Code } from '@domain/code';
             </p>
         </div>
         <app-code [code]="code" selector="divider-basic-demo"></app-code>
-    `
+    `,
+    standalone: false
 })
 export class BasicDoc {
     code: Code = {

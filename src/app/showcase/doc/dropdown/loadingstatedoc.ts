@@ -16,7 +16,8 @@ interface City {
             <p-dropdown [options]="cities" [(ngModel)]="selectedCity" [loading]="true" optionLabel="name" placeholder="Loading..." />
         </div>
         <app-code [code]="code" selector="dropdown-loading-state-demo"></app-code>
-    `
+    `,
+    standalone: false
 })
 export class LoadingStateDoc implements OnInit {
     cities: City[];

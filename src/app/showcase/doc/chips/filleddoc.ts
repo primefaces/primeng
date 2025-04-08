@@ -11,7 +11,8 @@ import { Code } from '@domain/code';
             <p-chips [(ngModel)]="value" variant="filled" />
         </div>
         <app-code [code]="code" selector="chips-filled-demo"></app-code>
-    `
+    `,
+    standalone: false
 })
 export class FilledDoc {
     value: string[] | undefined;

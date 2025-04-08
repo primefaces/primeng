@@ -11,7 +11,8 @@ import { Code } from '@domain/code';
             <input pInputText pKeyFilter="int" placeholder="Integers" [(ngModel)]="value" />
         </div>
         <app-code [code]="code" selector="inputtext-key-filter-demo"></app-code>
-    `
+    `,
+    standalone: false
 })
 export class KeyFilterDoc {
     value: number | undefined;

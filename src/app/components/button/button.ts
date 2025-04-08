@@ -310,7 +310,6 @@ export class ButtonDirective implements AfterViewInit, OnDestroy {
  */
 @Component({
     selector: 'p-button',
-    standalone: true,
     imports: [NgIf, NgTemplateOutlet, NgStyle, NgClass, Ripple, AutoFocus, SpinnerIcon],
     template: `
         <button

@@ -42,7 +42,8 @@ interface Column {
         </div>
         <app-code [code]="code" selector="tree-table-column-toggle-demo"></app-code>
     `,
-    changeDetection: ChangeDetectionStrategy.OnPush
+    changeDetection: ChangeDetectionStrategy.OnPush,
+    standalone: false
 })
 export class ColumnToggleDoc {
     files!: TreeNode[];

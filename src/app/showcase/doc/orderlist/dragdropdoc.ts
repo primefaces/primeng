@@ -27,7 +27,8 @@ import { ProductService } from '@service/productservice';
             </p-orderList>
         </div>
         <app-code [code]="code" selector="orderlist-drag-drop-demo" [extFiles]="extFiles"></app-code>
-    `
+    `,
+    standalone: false
 })
 export class DragDropDoc implements OnInit {
     products!: Product[];

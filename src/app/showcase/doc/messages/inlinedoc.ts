@@ -32,7 +32,8 @@ import { Code } from '@domain/code';
             </div>
         </div>
         <app-code [code]="code" selector="messages-inline-demo"></app-code>
-    `
+    `,
+    standalone: false
 })
 export class InlineDoc {
     code: Code = {

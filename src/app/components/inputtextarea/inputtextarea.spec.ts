@@ -5,7 +5,8 @@ import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 import { Component, DebugElement } from '@angular/core';
 
 @Component({
-    template: `<textarea rows="1" cols="1" (onResize)="onResize($event)" [autoResize]="autoResize" pInputTextarea></textarea> `
+    template: `<textarea rows="1" cols="1" (onResize)="onResize($event)" [autoResize]="autoResize" pInputTextarea></textarea> `,
+    standalone: false
 })
 class TestInputTextArea {
     autoResize: boolean;

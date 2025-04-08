@@ -7,7 +7,8 @@ import { TailwindDoc } from 'src/app/showcase/doc/guides/csslayer/tailwinddoc';
 
 @Component({
     selector: 'css-layer',
-    templateUrl: './csslayerdemo.component.html'
+    templateUrl: './csslayerdemo.component.html',
+    standalone: false
 })
 export class CssLayerDemoComponent {
     docs = [

@@ -10,7 +10,8 @@ import { VoidListener } from 'primeng/ts-helpers';
     selector: '[pDraggable]',
     host: {
         class: 'p-element'
-    }
+    },
+    standalone: false
 })
 export class Draggable implements AfterViewInit, OnDestroy {
     @Input('pDraggable') scope: string | undefined;
@@ -169,7 +170,8 @@ export class Draggable implements AfterViewInit, OnDestroy {
     selector: '[pDroppable]',
     host: {
         class: 'p-element'
-    }
+    },
+    standalone: false
 })
 export class Droppable implements AfterViewInit, OnDestroy {
     @Input('pDroppable') scope: string | string[] | undefined;

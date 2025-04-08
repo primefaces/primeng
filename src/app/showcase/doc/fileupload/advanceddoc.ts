@@ -26,7 +26,8 @@ interface UploadEvent {
         </div>
         <app-code [code]="code" selector="file-upload-advanced-demo"></app-code>
     `,
-    providers: [MessageService]
+    providers: [MessageService],
+    standalone: false
 })
 export class AdvancedDoc {
     uploadedFiles: any[] = [];

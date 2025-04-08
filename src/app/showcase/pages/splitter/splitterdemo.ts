@@ -8,7 +8,8 @@ import { StyleDoc } from '@doc/splitter/styledoc';
 import { AccessibilityDoc } from '@doc/splitter/accessibilitydoc';
 
 @Component({
-    templateUrl: './splitterdemo.html'
+    templateUrl: './splitterdemo.html',
+    standalone: false
 })
 export class SplitterDemo {
     docs = [

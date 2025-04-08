@@ -43,7 +43,8 @@ interface Column {
             </div>
         </p-deferred-demo>
         <app-code [code]="code" selector="table-responsive-stack-demo" [extFiles]="extFiles"></app-code>`,
-    changeDetection: ChangeDetectionStrategy.OnPush
+    changeDetection: ChangeDetectionStrategy.OnPush,
+    standalone: false
 })
 export class ResponsiveStackDoc {
     products!: Product[];

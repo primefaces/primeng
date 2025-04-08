@@ -12,7 +12,8 @@ import { Code } from '@domain/code';
             <p-organizationChart [value]="data" />
         </div>
         <app-code [code]="code" selector="organization-chart-basic-doc"></app-code>
-    `
+    `,
+    standalone: false
 })
 export class BasicDoc {
     data: TreeNode[] = [

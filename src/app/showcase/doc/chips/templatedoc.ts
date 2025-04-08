@@ -13,7 +13,8 @@ import { Code } from '@domain/code';
             </p-chips>
         </div>
         <app-code [code]="code" selector="chips-template-demo"></app-code>
-    `
+    `,
+    standalone: false
 })
 export class TemplateDoc {
     values: string[] | undefined;

@@ -16,7 +16,8 @@ import { TemplateDoc } from '@doc/toast/templatedoc';
 import { HeadlessDoc } from '@doc/toast/headlessdoc';
 
 @Component({
-    templateUrl: './toastdemo.html'
+    templateUrl: './toastdemo.html',
+    standalone: false
 })
 export class ToastDemo {
     docs = [

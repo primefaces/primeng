@@ -38,6 +38,7 @@ import { Component } from '@angular/core';
                 </tbody>
             </table>
         </div>
-    `
+    `,
+    standalone: false
 })
 export class StyleDoc {}

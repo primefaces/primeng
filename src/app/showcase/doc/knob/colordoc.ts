@@ -11,7 +11,8 @@ import { Code } from '@domain/code';
             <p-knob [(ngModel)]="value" valueColor="SlateGray" rangeColor="MediumTurquoise" />
         </div>
         <app-code [code]="code" selector="knob-color-demo"></app-code>
-    `
+    `,
+    standalone: false
 })
 export class ColorDoc {
     value: number = 50;

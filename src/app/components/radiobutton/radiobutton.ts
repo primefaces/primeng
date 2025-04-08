@@ -103,7 +103,8 @@ export class RadioControlRegistry {
     changeDetection: ChangeDetectionStrategy.OnPush,
     host: {
         class: 'p-element'
-    }
+    },
+    standalone: false
 })
 export class RadioButton implements ControlValueAccessor, OnInit, OnDestroy {
     /**

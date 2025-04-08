@@ -15,7 +15,8 @@ import { StyleDoc } from '@doc/knob/styledoc';
 import { TemplateDoc } from '@doc/knob/templatedoc';
 
 @Component({
-    templateUrl: './knobdemo.html'
+    templateUrl: './knobdemo.html',
+    standalone: false
 })
 export class KnobDemo {
     docs = [

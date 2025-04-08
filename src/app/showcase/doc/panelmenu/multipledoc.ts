@@ -12,7 +12,8 @@ import { Code } from '@domain/code';
             <p-panelMenu [model]="items" styleClass="w-full md:w-20rem" [multiple]="true" />
         </div>
         <app-code [code]="code" selector="panel-menu-multiple-demo"></app-code>
-    `
+    `,
+    standalone: false
 })
 export class MultipleDoc implements OnInit {
     items: MenuItem[];

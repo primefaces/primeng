@@ -11,7 +11,8 @@ import { Code } from '@domain/code';
             <i class="pi pi-bell text-3xl" pBadge value="2"></i>
         </div>
         <app-code [code]="code" selector="badge-directive-demo"></app-code>
-    `
+    `,
+    standalone: false
 })
 export class DirectiveDoc {
     code: Code = {

@@ -17,7 +17,8 @@ import { Subscription, debounceTime } from 'rxjs';
             <p-chart type="bar" [data]="basicData" [options]="basicOptions" />
         </div>
         <app-code [code]="code" selector="chart-basic-demo"></app-code>
-    `
+    `,
+    standalone: false
 })
 export class BasicDoc implements OnInit {
     basicData: any;

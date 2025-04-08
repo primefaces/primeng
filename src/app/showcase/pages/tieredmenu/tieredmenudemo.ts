@@ -9,7 +9,8 @@ import { StyleDoc } from '@doc/tieredmenu/styledoc';
 import { AccessibilityDoc } from '@doc/tieredmenu/accessibilitydoc';
 
 @Component({
-    templateUrl: './tieredmenudemo.html'
+    templateUrl: './tieredmenudemo.html',
+    standalone: false
 })
 export class TieredMenuDemo {
     docs = [

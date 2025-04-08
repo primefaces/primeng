@@ -30,7 +30,8 @@ import { Code } from 'src/app/showcase/domain/code';
         .my-inputswitch .p-inputswitch-slider:before {
             border-radius: 0;
         }
-    `
+    `,
+    standalone: false
 })
 export class SpecificityDoc {
     checked: boolean = false;

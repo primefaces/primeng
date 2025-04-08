@@ -4,7 +4,6 @@ import { AppConfigService } from '@service/appconfigservice';
 
 @Component({
     selector: 'templates-section',
-    standalone: true,
     imports: [CommonModule],
     template: `
         <section class="landing-templates theme-dark py-8">

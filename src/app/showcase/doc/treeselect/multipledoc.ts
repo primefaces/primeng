@@ -17,7 +17,8 @@ import { NodeService } from '@service/nodeservice';
             <p-treeSelect class="w-full md:w-20rem" containerStyleClass="w-full" [(ngModel)]="selectedNodes" [options]="nodes" [metaKeySelection]="false" selectionMode="multiple" placeholder="Select Item" />
         </div>
         <app-code [code]="code" selector="tree-select-multiple-demo"></app-code>
-    `
+    `,
+    standalone: false
 })
 export class MultipleDoc {
     nodes!: any[];

@@ -212,7 +212,8 @@ export const TREESELECT_VALUE_ACCESSOR: any = {
     },
     changeDetection: ChangeDetectionStrategy.OnPush,
     providers: [TREESELECT_VALUE_ACCESSOR],
-    encapsulation: ViewEncapsulation.None
+    encapsulation: ViewEncapsulation.None,
+    standalone: false
 })
 export class TreeSelect implements AfterContentInit {
     /**

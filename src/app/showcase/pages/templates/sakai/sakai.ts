@@ -10,7 +10,6 @@ import { TemplateYoutubeModule } from 'src/app/showcase/layout/templates/templat
 import { SakaiLogo } from './sakailogo';
 import { SakaiSeparator } from './sakaiseparator';
 @Component({
-    standalone: true,
     selector: 'sakai-page',
     imports: [
         TemplateHeroModule,

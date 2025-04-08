@@ -9,6 +9,7 @@ import { Component } from '@angular/core';
                 can discuss the areas you want to contribute to and receive feedback. This channel is open to everyone who'd like to contribute.
             </p>
         </app-docsectiontext>
-    `
+    `,
+    standalone: false
 })
 export class CommunicationDoc {}

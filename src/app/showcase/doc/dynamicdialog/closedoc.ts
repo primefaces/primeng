@@ -16,7 +16,8 @@ import { ProductListDemo } from './productlistdemo';
         </app-docsectiontext>
         <app-code [code]="code" [hideToggleCode]="true"></app-code>
     `,
-    providers: [DialogService, MessageService]
+    providers: [DialogService, MessageService],
+    standalone: false
 })
 export class CloseDoc {
     constructor(

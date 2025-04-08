@@ -17,7 +17,8 @@ import { Code } from '@domain/code';
             <p-badge value="5" severity="contrast" />
         </div>
         <app-code [code]="code" selector="badge-severity-demo"></app-code>
-    `
+    `,
+    standalone: false
 })
 export class SeverityDoc {
     code: Code = {

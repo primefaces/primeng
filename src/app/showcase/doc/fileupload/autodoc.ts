@@ -19,7 +19,8 @@ interface UploadEvent {
         </div>
         <app-code [code]="code" selector="file-upload-auto-demo"></app-code>
     `,
-    providers: [MessageService]
+    providers: [MessageService],
+    standalone: false
 })
 export class AutoDoc {
     constructor(private messageService: MessageService) {}

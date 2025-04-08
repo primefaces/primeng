@@ -25,7 +25,8 @@ import { Code } from '@domain/code';
             </p-card>
         </div>
         <app-code [code]="code" selector="card-advanced-demo"></app-code>
-    `
+    `,
+    standalone: false
 })
 export class AdvancedDoc {
     code: Code = {

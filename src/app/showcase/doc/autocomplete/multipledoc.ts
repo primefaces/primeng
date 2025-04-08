@@ -16,7 +16,8 @@ interface AutoCompleteCompleteEvent {
                 <p-autoComplete [(ngModel)]="selectedItems" [suggestions]="items" (completeMethod)="search($event)" [multiple]="true" />
             </span>
         </div>
-        <app-code [code]="code" selector="autocomplete-multiple-demo"></app-code>`
+        <app-code [code]="code" selector="autocomplete-multiple-demo"></app-code>`,
+    standalone: false
 })
 export class MultipleDoc {
     selectedItems: any[] | undefined;

@@ -79,7 +79,8 @@ import { useCodeSandbox, useStackBlitz } from './codeeditor';
 
 </code></pre>
         </div>
-    `
+    `,
+    standalone: false
 })
 export class AppCodeComponent {
     @Input() code!: Code;

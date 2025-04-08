@@ -91,7 +91,8 @@ export const EDITOR_VALUE_ACCESSOR: any = {
     encapsulation: ViewEncapsulation.None,
     host: {
         class: 'p-element'
-    }
+    },
+    standalone: false
 })
 export class Editor implements AfterContentInit, ControlValueAccessor {
     /**

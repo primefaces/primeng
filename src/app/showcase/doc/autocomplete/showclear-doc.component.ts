@@ -19,7 +19,8 @@ interface AutoCompleteCompleteEvent {
             <p-autoComplete formControlName="country" [dropdown]="true" [showClear]="true" placeholder="Search" [suggestions]="filteredCountries" (completeMethod)="filterCountry($event)" optionLabel="name" />
         </div>
         <app-code [code]="code" selector="autocomplete-show-clear-demo"></app-code>
-    `
+    `,
+    standalone: false
 })
 export class ShowClearDoc implements OnInit {
     countries: any[] | undefined;

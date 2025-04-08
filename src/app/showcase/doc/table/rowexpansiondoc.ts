@@ -92,7 +92,8 @@ import { TableRowCollapseEvent, TableRowExpandEvent } from 'primeng/table';
         </p-deferred-demo>
         <app-code [code]="code" selector="table-row-expansion-demo" [extFiles]="extFiles"></app-code>`,
     changeDetection: ChangeDetectionStrategy.OnPush,
-    providers: [MessageService]
+    providers: [MessageService],
+    standalone: false
 })
 export class RowExpansionDoc {
     products!: Product[];

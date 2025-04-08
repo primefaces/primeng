@@ -6,7 +6,8 @@ import { ImportDoc } from '@doc/card/importdoc';
 import { StyleDoc } from '@doc/card/styledoc';
 
 @Component({
-    templateUrl: './carddemo.html'
+    templateUrl: './carddemo.html',
+    standalone: false
 })
 export class CardDemo {
     docs = [

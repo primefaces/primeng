@@ -18,7 +18,8 @@ import { Code } from '@domain/code';
             </p-timeline>
         </div>
         <app-code [code]="code" selector="timeline-basic-demo"></app-code>
-    `
+    `,
+    standalone: false
 })
 export class BasicDoc {
     events: any[];

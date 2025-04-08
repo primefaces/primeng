@@ -17,7 +17,8 @@ import { Code } from '@domain/code';
             </p-accordion>
         </div>
         <app-code [code]="code" selector="accordion-dynamic-demo"></app-code>
-    `
+    `,
+    standalone: false
 })
 export class DynamicDoc {
     tabs = [

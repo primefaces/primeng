@@ -4,7 +4,8 @@ import { BasicDoc } from '@doc/autofocus/basicdoc';
 
 @Component({
     selector: 'autofocusdemo',
-    templateUrl: './autofocusdemo.html'
+    templateUrl: './autofocusdemo.html',
+    standalone: false
 })
 export class AutoFocusDemo {
     docs = [

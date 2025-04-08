@@ -94,7 +94,8 @@ import { FocusTrapModule } from 'primeng/focustrap';
     styleUrls: ['./image.css'],
     host: {
         class: 'p-element'
-    }
+    },
+    standalone: false
 })
 export class Image implements AfterContentInit {
     /**

@@ -18,7 +18,8 @@ import { default as IconData } from 'src/assets/showcase/data/icons.json';
                 </div>
             </div>
         </div>
-    `
+    `,
+    standalone: false
 })
 export class ListDoc {
     icons: any;

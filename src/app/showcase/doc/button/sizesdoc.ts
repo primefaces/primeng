@@ -13,7 +13,8 @@ import { Code } from '@domain/code';
             <p-button label="Large" icon="pi pi-check" size="large" />
         </div>
         <app-code [code]="code" selector="button-sizes-demo"></app-code>
-    `
+    `,
+    standalone: false
 })
 export class SizesDoc {
     code: Code = {

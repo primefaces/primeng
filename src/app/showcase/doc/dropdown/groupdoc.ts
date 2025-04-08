@@ -19,7 +19,8 @@ import { Code } from '@domain/code';
             </p-dropdown>
         </div>
         <app-code [code]="code" selector="dropdown-group-demo"></app-code>
-    `
+    `,
+    standalone: false
 })
 export class GroupDoc {
     groupedCities: SelectItemGroup[];

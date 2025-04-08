@@ -8,7 +8,8 @@ import { TargetDoc } from '@doc/overlaypanel/targetdoc';
 import { AccessibilityDoc } from '@doc/overlaypanel/accessibilitydoc';
 
 @Component({
-    templateUrl: './overlaypaneldemo.html'
+    templateUrl: './overlaypaneldemo.html',
+    standalone: false
 })
 export class OverlayPanelDemo {
     docs = [

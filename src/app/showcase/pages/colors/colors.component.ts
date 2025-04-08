@@ -4,7 +4,8 @@ import { PaletteDoc } from '@doc/colors/palettedoc';
 import { SurfacesDoc } from '@doc/colors/surfacesdoc';
 
 @Component({
-    templateUrl: './colors.component.html'
+    templateUrl: './colors.component.html',
+    standalone: false
 })
 export class ColorsDemoComponent {
     docs = [

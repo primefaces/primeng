@@ -49,7 +49,8 @@ interface Users {
 
         <app-code [code]="code" selector="context-menu-command-demo"></app-code>
     `,
-    providers: [MessageService]
+    providers: [MessageService],
+    standalone: false
 })
 export class CommandDoc implements OnInit {
     items: MenuItem[] | undefined;

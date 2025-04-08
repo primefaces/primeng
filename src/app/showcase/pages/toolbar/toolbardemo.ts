@@ -6,7 +6,8 @@ import { TemplateDoc } from '@doc/toolbar/templatedoc';
 import { AccessibilityDoc } from '@doc/toolbar/accessibilitydoc';
 
 @Component({
-    templateUrl: './toolbardemo.html'
+    templateUrl: './toolbardemo.html',
+    standalone: false
 })
 export class ToolbarDemo {
     docs = [

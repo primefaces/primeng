@@ -28,7 +28,8 @@ import { Router } from '@angular/router';
             </p-tabMenu>
         </div>
         <app-code [code]="code" selector="tab-menu-router-demo"></app-code>
-    `
+    `,
+    standalone: false
 })
 export class RouterDoc implements OnInit {
     items: MenuItem[] | undefined;

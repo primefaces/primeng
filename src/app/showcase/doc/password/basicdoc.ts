@@ -11,7 +11,8 @@ import { Code } from '@domain/code';
             <p-password [(ngModel)]="value" [feedback]="false" />
         </div>
         <app-code [code]="code" selector="password-basic-demo"></app-code>
-    `
+    `,
+    standalone: false
 })
 export class BasicDoc {
     value!: string;

@@ -17,7 +17,8 @@ import { Code } from '@domain/code';
             </p-scroller>
         </div>
         <app-code [code]="code" selector="scroller-programmatic-demo"></app-code>
-    `
+    `,
+    standalone: false
 })
 export class ProgrammaticDoc implements OnInit {
     @ViewChild('sc') sc!: Scroller;

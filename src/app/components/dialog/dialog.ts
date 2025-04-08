@@ -158,7 +158,8 @@ const hideAnimation = animation([animate('{{transition}}', style({ transform: '{
     styleUrls: ['../dialog/dialog.css'],
     host: {
         class: 'p-element'
-    }
+    },
+    standalone: false
 })
 export class Dialog implements AfterContentInit, OnInit, OnDestroy {
     /**

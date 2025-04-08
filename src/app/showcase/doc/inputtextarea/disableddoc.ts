@@ -11,7 +11,8 @@ import { Code } from '@domain/code';
             <textarea rows="5" cols="30" pInputTextarea [disabled]="true"></textarea>
         </div>
         <app-code [code]="code" selector="input-textarea-disabled-demo"></app-code>
-    `
+    `,
+    standalone: false
 })
 export class DisabledDoc {
     code: Code = {

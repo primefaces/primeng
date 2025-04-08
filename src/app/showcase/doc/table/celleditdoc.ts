@@ -67,7 +67,8 @@ import { ProductService } from '@service/productservice';
             </div>
         </p-deferred-demo>
         <app-code [code]="code" selector="table-cell-edit-demo" [extFiles]="extFiles"></app-code>`,
-    changeDetection: ChangeDetectionStrategy.OnPush
+    changeDetection: ChangeDetectionStrategy.OnPush,
+    standalone: false
 })
 export class CellEditDoc {
     products!: Product[];

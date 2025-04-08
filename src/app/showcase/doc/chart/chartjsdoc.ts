@@ -8,7 +8,8 @@ import { Code } from '@domain/code';
             <p>To begin with, first you must install the charts.js package using npm and then include it in your project. An example with CLI would be;</p>
         </app-docsectiontext>
         <app-code [code]="code" [hideToggleCode]="true"></app-code>
-    `
+    `,
+    standalone: false
 })
 export class ChartjsDoc {
     code: Code = {

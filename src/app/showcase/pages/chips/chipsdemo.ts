@@ -13,7 +13,8 @@ import { InvalidDoc } from '@doc/chips/invaliddoc';
 import { DisabledDoc } from '@doc/chips/disableddoc';
 
 @Component({
-    templateUrl: './chipsdemo.html'
+    templateUrl: './chipsdemo.html',
+    standalone: false
 })
 export class ChipsDemo {
     docs = [

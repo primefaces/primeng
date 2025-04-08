@@ -26,7 +26,8 @@ import { Code } from '@domain/code';
             </div>
         </div>
         <app-code [code]="code" selector="avatar-icon-demo"></app-code>
-    `
+    `,
+    standalone: false
 })
 export class IconDoc {
     code: Code = {

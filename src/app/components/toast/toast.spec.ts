@@ -10,7 +10,8 @@ import { TimesIcon } from 'primeng/icons/times';
 
 @Component({
     template: ` <p-toast></p-toast> `,
-    providers: [MessageService]
+    providers: [MessageService],
+    standalone: false
 })
 class TestToastComponent {
     constructor(private messageService: MessageService) {}

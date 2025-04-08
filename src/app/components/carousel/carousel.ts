@@ -146,7 +146,8 @@ import { DomHandler } from 'primeng/dom';
     styleUrls: ['./carousel.css'],
     host: {
         class: 'p-element'
-    }
+    },
+    standalone: false
 })
 export class Carousel implements AfterContentInit {
     private updateSlideAccessibility(slide: HTMLElement, isActive: boolean): void {

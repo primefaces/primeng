@@ -149,18 +149,12 @@ import { ObjectUtils, UniqueComponentId } from 'primeng/utils';
     `,
     animations: [
         trigger('submenu', [
-            state(
-                'hidden',
-                style({
-                    height: '0'
-                })
-            ),
-            state(
-                'visible',
-                style({
-                    height: '*'
-                })
-            ),
+            state('hidden', style({
+                height: '0'
+            })),
+            state('visible', style({
+                height: '*'
+            })),
             transition('visible <=> hidden', [animate('{{transitionParams}}')]),
             transition('void => *', animate(0))
         ])
@@ -168,7 +162,8 @@ import { ObjectUtils, UniqueComponentId } from 'primeng/utils';
     encapsulation: ViewEncapsulation.None,
     host: {
         class: 'p-element'
-    }
+    },
+    standalone: false
 })
 export class PanelMenuSub {
     @Input() panelId: string | undefined;
@@ -310,7 +305,8 @@ export class PanelMenuSub {
     styleUrls: ['./panelmenu.css'],
     host: {
         class: 'p-element'
-    }
+    },
+    standalone: false
 })
 export class PanelMenuList implements OnChanges {
     @Input() panelId: string | undefined;
@@ -848,18 +844,12 @@ export class PanelMenuList implements OnChanges {
     `,
     animations: [
         trigger('rootItem', [
-            state(
-                'hidden',
-                style({
-                    height: '0'
-                })
-            ),
-            state(
-                'visible',
-                style({
-                    height: '*'
-                })
-            ),
+            state('hidden', style({
+                height: '0'
+            })),
+            state('visible', style({
+                height: '*'
+            })),
             transition('visible <=> hidden', [animate('{{transitionParams}}')]),
             transition('void => *', animate(0))
         ])
@@ -869,7 +859,8 @@ export class PanelMenuList implements OnChanges {
     styleUrls: ['./panelmenu.css'],
     host: {
         class: 'p-element'
-    }
+    },
+    standalone: false
 })
 export class PanelMenu implements AfterContentInit {
     /**

@@ -16,7 +16,8 @@ import { Code } from '@domain/code';
             </p-fieldset>
         </div>
         <app-code [code]="code" selector="fieldset-toggleable-demo"></app-code>
-    `
+    `,
+    standalone: false
 })
 export class ToggleableDoc {
     code: Code = {

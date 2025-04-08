@@ -80,25 +80,15 @@ import { PanelAfterToggleEvent, PanelBeforeToggleEvent } from './panel.interface
     `,
     animations: [
         trigger('panelContent', [
-            state(
-                'hidden',
-                style({
-                    height: '0'
-                })
-            ),
-            state(
-                'void',
-                style({
-                    height: '{{height}}'
-                }),
-                { params: { height: '0' } }
-            ),
-            state(
-                'visible',
-                style({
-                    height: '*'
-                })
-            ),
+            state('hidden', style({
+                height: '0'
+            })),
+            state('void', style({
+                height: '{{height}}'
+            }), { params: { height: '0' } }),
+            state('visible', style({
+                height: '*'
+            })),
             transition('visible <=> hidden', [animate('{{transitionParams}}')]),
             transition('void => hidden', animate('{{transitionParams}}')),
             transition('void => visible', animate('{{transitionParams}}'))
@@ -109,7 +99,8 @@ import { PanelAfterToggleEvent, PanelBeforeToggleEvent } from './panel.interface
     styleUrls: ['./panel.css'],
     host: {
         class: 'p-element'
-    }
+    },
+    standalone: false
 })
 export class Panel implements AfterContentInit, BlockableUI {
     /**

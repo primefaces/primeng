@@ -14,7 +14,8 @@ import { Code } from '@domain/code';
             </p-chip>
         </div>
         <app-code [code]="code" selector="chip-template-demo"></app-code>
-    `
+    `,
+    standalone: false
 })
 export class TemplateDoc {
     code: Code = {

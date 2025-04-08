@@ -11,7 +11,8 @@ import { Code } from '@domain/code';
             <p-cascadeSelect [loading]="true" [style]="{ minWidth: '14rem' }" placeholder="Loading..." />
         </div>
         <app-code [code]="code" selector="cascade-select-loading-demo"></app-code>
-    `
+    `,
+    standalone: false
 })
 export class LoadingDoc {
     code: Code = {

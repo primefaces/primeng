@@ -25,7 +25,8 @@ import { ConfirmPopup } from 'primeng/confirmpopup';
         </div>
         <app-code [code]="code" selector="confirm-popup-headless-demo"></app-code>
     `,
-    providers: [ConfirmationService, MessageService]
+    providers: [ConfirmationService, MessageService],
+    standalone: false
 })
 export class HeadlessDoc {
     constructor(

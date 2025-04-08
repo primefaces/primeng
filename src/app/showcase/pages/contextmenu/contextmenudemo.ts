@@ -10,7 +10,8 @@ import { TableDoc } from '@doc/contextmenu/tabledoc';
 import { TemplateDoc } from '@doc/contextmenu/templatedoc';
 
 @Component({
-    templateUrl: './contextmenudemo.html'
+    templateUrl: './contextmenudemo.html',
+    standalone: false
 })
 export class ContextMenuDemo {
     docs = [

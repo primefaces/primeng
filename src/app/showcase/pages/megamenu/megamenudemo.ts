@@ -18,7 +18,8 @@ import { RouterDoc } from '@doc/megamenu/routerdoc';
                 }
             }
         `
-    ]
+    ],
+    standalone: false
 })
 export class MegaMenuDemo {
     docs = [

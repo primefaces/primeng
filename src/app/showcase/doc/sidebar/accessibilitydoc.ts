@@ -63,7 +63,8 @@ import { Code } from '@domain/code';
                 </table>
             </div>
         </app-docsectiontext>
-    `
+    `,
+    standalone: false
 })
 export class AccessibilityDoc {
     code: Code = {

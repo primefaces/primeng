@@ -12,7 +12,8 @@ import { SharedModule } from 'primeng/api';
     template: ` <span class="p-icon-field" [ngClass]="containerClass"><ng-content></ng-content> </span>`,
     styleUrl: './iconfield.css',
     encapsulation: ViewEncapsulation.None,
-    changeDetection: ChangeDetectionStrategy.OnPush
+    changeDetection: ChangeDetectionStrategy.OnPush,
+    standalone: false
 })
 export class IconField {
     /**

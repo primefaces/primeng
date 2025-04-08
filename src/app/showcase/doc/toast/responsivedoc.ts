@@ -17,7 +17,8 @@ import { Code } from '@domain/code';
         </div>
         <app-code [code]="code" selector="toast-responsive-demo"></app-code>
     `,
-    providers: [MessageService]
+    providers: [MessageService],
+    standalone: false
 })
 export class ResponsiveDoc {
     constructor(private messageService: MessageService) {}

@@ -11,7 +11,8 @@ import { Code } from '@domain/code';
             <p-progressSpinner styleClass="w-4rem h-4rem" strokeWidth="8" fill="var(--surface-ground)" animationDuration=".5s" />
         </div>
         <app-code [code]="code" selector="progress-spinner-custom-demo"></app-code>
-    `
+    `,
+    standalone: false
 })
 export class CustomDoc {
     @Input() id: string;

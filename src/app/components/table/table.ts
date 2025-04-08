@@ -355,7 +355,8 @@ export class TableService {
     styleUrls: ['./table.css'],
     host: {
         class: 'p-element'
-    }
+    },
+    standalone: false
 })
 export class Table implements OnInit, AfterViewInit, AfterContentInit, BlockableUI, OnChanges {
     /**
@@ -3179,7 +3180,8 @@ export class Table implements OnInit, AfterViewInit, AfterContentInit, Blockable
     encapsulation: ViewEncapsulation.None,
     host: {
         class: 'p-element'
-    }
+    },
+    standalone: false
 })
 export class TableBody implements AfterViewInit, OnDestroy {
     @Input('pTableBody') columns: any[] | undefined;
@@ -3322,7 +3324,8 @@ export class TableBody implements AfterViewInit, OnDestroy {
     host: {
         class: 'p-rowgroup-header p-element',
         '[style.top]': 'getFrozenRowGroupHeaderStickyPosition'
-    }
+    },
+    standalone: false
 })
 export class RowGroupHeader {
     constructor(public dt: Table) {}
@@ -3337,7 +3340,8 @@ export class RowGroupHeader {
     host: {
         class: 'p-element',
         '[class.p-frozen-column]': 'frozen'
-    }
+    },
+    standalone: false
 })
 export class FrozenColumn implements AfterViewChecked {
     @Input() get frozen(): boolean {
@@ -3408,7 +3412,8 @@ export class FrozenColumn implements AfterViewChecked {
         '[attr.tabindex]': 'isEnabled() ? "0" : null',
         '[attr.role]': '"columnheader"',
         '[attr.aria-sort]': 'sortOrder'
-    }
+    },
+    standalone: false
 })
 export class SortableColumn implements OnInit, OnDestroy {
     @Input('pSortableColumn') field: string | undefined;
@@ -3496,7 +3501,8 @@ export class SortableColumn implements OnInit, OnDestroy {
     encapsulation: ViewEncapsulation.None,
     host: {
         class: 'p-element'
-    }
+    },
+    standalone: false
 })
 export class SortIcon implements OnInit, OnDestroy {
     @Input() field: string | undefined;
@@ -3576,7 +3582,8 @@ export class SortIcon implements OnInit, OnDestroy {
         '[attr.tabindex]': 'setRowTabIndex()',
         '[attr.data-p-highlight]': 'selected',
         '[attr.data-p-selectable-row]': 'true'
-    }
+    },
+    standalone: false
 })
 export class SelectableRow implements OnInit, OnDestroy {
     @Input('pSelectableRow') data: any;
@@ -3828,7 +3835,8 @@ export class SelectableRow implements OnInit, OnDestroy {
         class: 'p-element',
         '[class.p-selectable-row]': 'isEnabled()',
         '[class.p-highlight]': 'selected'
-    }
+    },
+    standalone: false
 })
 export class SelectableRowDblClick implements OnInit, OnDestroy {
     @Input('pSelectableRowDblClick') data: any;
@@ -3886,7 +3894,8 @@ export class SelectableRowDblClick implements OnInit, OnDestroy {
         class: 'p-element',
         '[class.p-highlight-contextmenu]': 'selected',
         '[attr.tabindex]': 'isEnabled() ? 0 : undefined'
-    }
+    },
+    standalone: false
 })
 export class ContextMenuRow {
     @Input('pContextMenuRow') data: any;
@@ -3940,7 +3949,8 @@ export class ContextMenuRow {
     selector: '[pRowToggler]',
     host: {
         class: 'p-element'
-    }
+    },
+    standalone: false
 })
 export class RowToggler {
     @Input('pRowToggler') data: any;
@@ -3966,7 +3976,8 @@ export class RowToggler {
     selector: '[pResizableColumn]',
     host: {
         class: 'p-element'
-    }
+    },
+    standalone: false
 })
 export class ResizableColumn implements AfterViewInit, OnDestroy {
     @Input({ transform: booleanAttribute }) pResizableColumnDisabled: boolean | undefined;
@@ -4086,7 +4097,8 @@ export class ResizableColumn implements AfterViewInit, OnDestroy {
     host: {
         class: 'p-element',
         '[style.cursor]': 'isEnabled() ? "move" : "default"'
-    }
+    },
+    standalone: false
 })
 export class ReorderableColumn implements AfterViewInit, OnDestroy {
     @Input({ transform: booleanAttribute }) pReorderableColumnDisabled: boolean | undefined;
@@ -4199,7 +4211,8 @@ export class ReorderableColumn implements AfterViewInit, OnDestroy {
     selector: '[pEditableColumn]',
     host: {
         class: 'p-element'
-    }
+    },
+    standalone: false
 })
 export class EditableColumn implements OnChanges, AfterViewInit, OnDestroy {
     @Input('pEditableColumn') data: any;
@@ -4540,7 +4553,8 @@ export class EditableColumn implements OnChanges, AfterViewInit, OnDestroy {
     selector: '[pEditableRow]',
     host: {
         class: 'p-element'
-    }
+    },
+    standalone: false
 })
 export class EditableRow {
     @Input('pEditableRow') data: any;
@@ -4558,7 +4572,8 @@ export class EditableRow {
     selector: '[pInitEditableRow]',
     host: {
         class: 'p-element'
-    }
+    },
+    standalone: false
 })
 export class InitEditableRow {
     constructor(
@@ -4577,7 +4592,8 @@ export class InitEditableRow {
     selector: '[pSaveEditableRow]',
     host: {
         class: 'p-element'
-    }
+    },
+    standalone: false
 })
 export class SaveEditableRow {
     constructor(
@@ -4596,7 +4612,8 @@ export class SaveEditableRow {
     selector: '[pCancelEditableRow]',
     host: {
         class: 'p-element'
-    }
+    },
+    standalone: false
 })
 export class CancelEditableRow {
     constructor(
@@ -4624,7 +4641,8 @@ export class CancelEditableRow {
     encapsulation: ViewEncapsulation.None,
     host: {
         class: 'p-element'
-    }
+    },
+    standalone: false
 })
 export class CellEditor implements AfterContentInit {
     @ContentChildren(PrimeTemplate) templates: Nullable<QueryList<PrimeTemplate>>;
@@ -4674,7 +4692,8 @@ export class CellEditor implements AfterContentInit {
     encapsulation: ViewEncapsulation.None,
     host: {
         class: 'p-element'
-    }
+    },
+    standalone: false
 })
 export class TableRadioButton {
     @Input({ transform: booleanAttribute }) disabled: boolean | undefined;
@@ -4774,7 +4793,8 @@ export class TableRadioButton {
     encapsulation: ViewEncapsulation.None,
     host: {
         class: 'p-element'
-    }
+    },
+    standalone: false
 })
 export class TableCheckbox {
     @Input({ transform: booleanAttribute }) disabled: boolean | undefined;
@@ -4878,7 +4898,8 @@ export class TableCheckbox {
     encapsulation: ViewEncapsulation.None,
     host: {
         class: 'p-element'
-    }
+    },
+    standalone: false
 })
 export class TableHeaderCheckbox {
     @Input({ transform: booleanAttribute }) disabled: boolean | undefined;
@@ -4970,7 +4991,8 @@ export class TableHeaderCheckbox {
     selector: '[pReorderableRowHandle]',
     host: {
         class: 'p-element'
-    }
+    },
+    standalone: false
 })
 export class ReorderableRowHandle implements AfterViewInit {
     constructor(public el: ElementRef) {}
@@ -4984,7 +5006,8 @@ export class ReorderableRowHandle implements AfterViewInit {
     selector: '[pReorderableRow]',
     host: {
         class: 'p-element'
-    }
+    },
+    standalone: false
 })
 export class ReorderableRow implements AfterViewInit {
     @Input('pReorderableRow') index: number | undefined;
@@ -5251,7 +5274,8 @@ export class ReorderableRow implements AfterViewInit {
     encapsulation: ViewEncapsulation.None,
     host: {
         class: 'p-element'
-    }
+    },
+    standalone: false
 })
 export class ColumnFilter implements AfterContentInit {
     /**
@@ -5986,7 +6010,8 @@ export class ColumnFilter implements AfterContentInit {
     encapsulation: ViewEncapsulation.None,
     host: {
         class: 'p-element'
-    }
+    },
+    standalone: false
 })
 export class ColumnFilterFormElement implements OnInit {
     @Input() field: string | undefined;

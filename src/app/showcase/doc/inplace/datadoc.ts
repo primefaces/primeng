@@ -37,7 +37,8 @@ import { CarService } from '@service/carservice';
             </p-inplace>
         </div>
         <app-code [code]="code" selector="inplace-data-demo" [extFiles]="extFiles"></app-code>
-    `
+    `,
+    standalone: false
 })
 export class DataDoc {
     cars: Car[] | undefined;

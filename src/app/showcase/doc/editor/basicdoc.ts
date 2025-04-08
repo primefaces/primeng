@@ -11,7 +11,8 @@ import { Code } from '@domain/code';
             <p-editor [(ngModel)]="text" [style]="{ height: '320px' }" />
         </div>
         <app-code [code]="code" selector="editor-basic-demo"></app-code>
-    `
+    `,
+    standalone: false
 })
 export class BasicDoc {
     text: string | undefined;

@@ -209,7 +209,8 @@ export const INPUTNUMBER_VALUE_ACCESSOR: any = {
         '[class.p-inputwrapper-filled]': 'filled',
         '[class.p-inputwrapper-focus]': 'focused',
         '[class.p-inputnumber-clearable]': 'showClear && buttonLayout != "vertical"'
-    }
+    },
+    standalone: false
 })
 export class InputNumber implements OnInit, AfterContentInit, OnChanges, ControlValueAccessor {
     /**

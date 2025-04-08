@@ -16,7 +16,8 @@ interface City {
             <p-listbox [options]="cities" [(ngModel)]="selectedCity" optionLabel="name" class="ng-invalid ng-dirty" [style]="{ width: '15rem' }" [listStyle]="{ 'max-height': '220px' }" />
         </div>
         <app-code [code]="code" selector="listbox-invalid-demo"></app-code>
-    `
+    `,
+    standalone: false
 })
 export class InvalidDoc implements OnInit {
     cities!: City[];

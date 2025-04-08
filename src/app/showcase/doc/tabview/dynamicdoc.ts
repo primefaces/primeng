@@ -17,7 +17,8 @@ import { Code } from '@domain/code';
             </p-tabView>
         </div>
         <app-code [code]="code" selector="tab-view-dynamic-demo"></app-code>
-    `
+    `,
+    standalone: false
 })
 export class DynamicDoc implements OnInit {
     tabs: { title: string; content: string }[] = [];

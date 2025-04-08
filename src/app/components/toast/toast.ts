@@ -93,13 +93,10 @@ import { DomHandler } from 'primeng/dom';
     `,
     animations: [
         trigger('messageState', [
-            state(
-                'visible',
-                style({
-                    transform: 'translateY(0)',
-                    opacity: 1
-                })
-            ),
+            state('visible', style({
+                transform: 'translateY(0)',
+                opacity: 1
+            })),
             transition('void => *', [
                 style({
                     transform: '{{showTransformParams}}',
@@ -108,14 +105,11 @@ import { DomHandler } from 'primeng/dom';
                 animate('{{showTransitionParams}}')
             ]),
             transition('* => void', [
-                animate(
-                    '{{hideTransitionParams}}',
-                    style({
-                        height: 0,
-                        opacity: 0,
-                        transform: '{{hideTransformParams}}'
-                    })
-                )
+                animate('{{hideTransitionParams}}', style({
+                    height: 0,
+                    opacity: 0,
+                    transform: '{{hideTransformParams}}'
+                }))
             ])
         ])
     ],
@@ -123,7 +117,8 @@ import { DomHandler } from 'primeng/dom';
     changeDetection: ChangeDetectionStrategy.OnPush,
     host: {
         class: 'p-element'
-    }
+    },
+    standalone: false
 })
 export class ToastItem implements AfterViewInit, OnDestroy {
     @Input() message: Message | null | undefined;
@@ -242,7 +237,8 @@ export class ToastItem implements AfterViewInit, OnDestroy {
     styleUrls: ['./toast.css'],
     host: {
         class: 'p-element'
-    }
+    },
+    standalone: false
 })
 export class Toast implements OnInit, AfterContentInit, OnDestroy {
     /**

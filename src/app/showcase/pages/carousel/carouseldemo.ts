@@ -11,7 +11,8 @@ import { AccessibilityDoc } from '@doc/carousel/accessibilitydoc';
 
 @Component({
     templateUrl: './carouseldemo.html',
-    styleUrls: ['./carouseldemo.scss']
+    styleUrls: ['./carouseldemo.scss'],
+    standalone: false
 })
 export class CarouselDemo {
     docs = [

@@ -11,7 +11,8 @@ import { Code } from '@domain/code';
             <p-badge [value]="2" />
         </div>
         <app-code [code]="code" selector="badge-basic-demo"></app-code>
-    `
+    `,
+    standalone: false
 })
 export class BasicDoc {
     code: Code = {

@@ -8,6 +8,7 @@ import { Component } from '@angular/core';
 
         <h3>Keyboard Support</h3>
         <p>Components does not include any interactive elements.</p>
-    </app-docsectiontext>`
+    </app-docsectiontext>`,
+    standalone: false
 })
 export class AccessibilityDoc {}

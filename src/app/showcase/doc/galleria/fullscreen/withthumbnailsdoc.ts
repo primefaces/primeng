@@ -22,7 +22,8 @@ import { PhotoService } from '@service/photoservice';
             </p-galleria>
         </div>
         <app-code [code]="code" selector="galleria-full-screen-with-thumbnails-demo"></app-code>
-    `
+    `,
+    standalone: false
 })
 export class WithThumbnailsDoc implements OnInit {
     displayBasic: boolean | undefined;

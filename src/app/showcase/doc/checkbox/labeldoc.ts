@@ -12,7 +12,8 @@ import { Code } from '@domain/code';
             <p-checkbox name="groupname" value="val2" label="Value 2" [(ngModel)]="selectedValues"></p-checkbox>
         </div>
         <app-code [code]="code" selector="checkbox-label-demo"></app-code>
-    `
+    `,
+    standalone: false
 })
 export class LabelDoc {
     selectedValues: string[] = [];

@@ -175,7 +175,8 @@ import { Table } from 'primeng/table';
             </div>
         </p-deferred-demo>
         <app-code [code]="code" selector="table-customers-demo" [extFiles]="extFiles"></app-code>`,
-    changeDetection: ChangeDetectionStrategy.OnPush
+    changeDetection: ChangeDetectionStrategy.OnPush,
+    standalone: false
 })
 export class CustomersDoc {
     customers!: Customer[];

@@ -13,7 +13,8 @@ import { AppConfigService } from '@service/appconfigservice';
             <p-chart type="bar" [data]="data" [options]="options" />
         </div>
         <app-code [code]="code" selector="chart-vertical-bar-demo"></app-code>
-    `
+    `,
+    standalone: false
 })
 export class VerticalBarDoc implements OnInit {
     data: any;

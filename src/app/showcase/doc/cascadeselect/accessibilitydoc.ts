@@ -114,7 +114,8 @@ import { Code } from '@domain/code';
                     </tr>
                 </tbody>
             </table>
-        </div>`
+        </div>`,
+    standalone: false
 })
 export class AccessibilityDoc {
     @Input() id: string;

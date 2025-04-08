@@ -13,6 +13,7 @@ import { Component } from '@angular/core';
                 <a href="https://digital-strategy.ec.europa.eu/en/policies/web-accessibility">Web Accessibility Directive</a> of the European Union.
             </p>
         </app-docsectiontext>
-    `
+    `,
+    standalone: false
 })
 export class WCAGDoc {}

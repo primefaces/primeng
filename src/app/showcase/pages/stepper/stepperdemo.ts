@@ -6,7 +6,8 @@ import { LinearDoc } from '@doc/stepper/lineardoc';
 import { TemplateDoc } from '@doc/stepper/templatedoc';
 import { AccessibilityDoc } from '@doc/stepper/accessibilitydoc';
 @Component({
-    templateUrl: './stepperdemo.html'
+    templateUrl: './stepperdemo.html',
+    standalone: false
 })
 export class StepperDemo {
     docs = [

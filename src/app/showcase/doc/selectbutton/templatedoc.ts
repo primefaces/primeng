@@ -15,7 +15,8 @@ import { Code } from '@domain/code';
             </p-selectButton>
         </div>
         <app-code [code]="code" selector="select-button-template-demo"></app-code>
-    `
+    `,
+    standalone: false
 })
 export class TemplateDoc {
     value: any;

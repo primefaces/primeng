@@ -7,7 +7,8 @@ import { CheckboxDoc } from '@doc/inputgroup/checkboxdoc';
 import { AccessibilityDoc } from '@doc/inputgroup/accessibilitydoc';
 
 @Component({
-    templateUrl: './inputgroupdemo.html'
+    templateUrl: './inputgroupdemo.html',
+    standalone: false
 })
 export class InputGroupDemo {
     docs = [

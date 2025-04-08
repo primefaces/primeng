@@ -96,7 +96,8 @@ import { CustomerService } from '@service/customerservice';
             </div>
         </p-deferred-demo>
         <app-code [code]="code" selector="table-stateful-demo" [extFiles]="extFiles"></app-code>`,
-    changeDetection: ChangeDetectionStrategy.OnPush
+    changeDetection: ChangeDetectionStrategy.OnPush,
+    standalone: false
 })
 export class StatefulDoc {
     customers!: Customer[];

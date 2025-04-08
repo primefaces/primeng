@@ -8,7 +8,8 @@ import { Code } from '@domain/code';
             <p><i>FilterService</i> needs to be injected into your component. Filters are accessed with <i>FilterService.filters</i>.</p>
         </app-docsectiontext>
         <app-code [code]="code" [hideToggleCode]="true"></app-code>
-    `
+    `,
+    standalone: false
 })
 export class UsageDoc {
     code: Code = {

@@ -42,7 +42,8 @@ interface Column {
             </div>
         </p-deferred-demo>
         <app-code [code]="code" selector="table-reorder-demo" [extFiles]="extFiles"></app-code>`,
-    changeDetection: ChangeDetectionStrategy.OnPush
+    changeDetection: ChangeDetectionStrategy.OnPush,
+    standalone: false
 })
 export class ReorderDoc {
     products!: Product[];

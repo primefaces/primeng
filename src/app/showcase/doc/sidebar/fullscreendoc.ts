@@ -20,7 +20,8 @@ import { Code } from '@domain/code';
             <p-button (onClick)="sidebarVisible = true" icon="pi pi-window-maximize" />
         </div>
         <app-code [code]="code" selector="sidebar-full-screen-demo"></app-code>
-    `
+    `,
+    standalone: false
 })
 export class FullScreenDoc {
     sidebarVisible: boolean = false;

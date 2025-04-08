@@ -7,7 +7,8 @@ import { FormsModule } from '@angular/forms';
 import { InputText } from 'primeng/inputtext';
 
 @Component({
-    template: `<input type="text" [pValidateOnly]="validateOnly" [(ngModel)]="cc" pKeyFilter="int" pInputText placeholder="Integers" />`
+    template: `<input type="text" [pValidateOnly]="validateOnly" [(ngModel)]="cc" pKeyFilter="int" pInputText placeholder="Integers" />`,
+    standalone: false
 })
 class TestKeyFilterComponent {
     type: string = 'int';

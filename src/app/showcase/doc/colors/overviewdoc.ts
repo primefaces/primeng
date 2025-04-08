@@ -68,7 +68,8 @@ import { Code } from '@domain/code';
             <div [ngStyle]="{ backgroundColor: 'var(--primary-color)', color: 'var(--primary-color-text)', borderRadius: 'var(--border-radius)', padding: '3rem' }">Primary Color</div>
         </div>
         <app-code [code]="code" [hideToggleCode]="true"></app-code>
-    `
+    `,
+    standalone: false
 })
 export class OverviewDoc {
     code: Code = {

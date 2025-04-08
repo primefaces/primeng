@@ -14,7 +14,8 @@ import { ObjectUtils } from 'primeng/utils';
             </div>
             <app-docsection [apiDocs]="_docs"></app-docsection>
         </div>
-        <app-docsection-nav [docs]="_docs"></app-docsection-nav>`
+        <app-docsection-nav [docs]="_docs"></app-docsection-nav>`,
+    standalone: false
 })
 export class AppDocApiSection {
     @Input() header!: string;

@@ -13,7 +13,8 @@ import { TemplateDoc } from '@doc/listbox/templatedoc';
 import { VirtualScrollDoc } from '@doc/listbox/virtualscrolldoc';
 
 @Component({
-    templateUrl: './listboxdemo.html'
+    templateUrl: './listboxdemo.html',
+    standalone: false
 })
 export class ListboxDemo {
     docs = [

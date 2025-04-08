@@ -29,7 +29,8 @@ import { Code } from '@domain/code';
         </div>
         <app-code [code]="code" selector="confirm-dialog-headless-demo"></app-code>
     `,
-    providers: [ConfirmationService, MessageService]
+    providers: [ConfirmationService, MessageService],
+    standalone: false
 })
 export class HeadlessDoc {
     constructor(

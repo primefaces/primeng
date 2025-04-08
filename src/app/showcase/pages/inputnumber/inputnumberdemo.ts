@@ -16,7 +16,8 @@ import { FilledDoc } from '@doc/inputnumber/filleddoc';
 
 @Component({
     templateUrl: './inputnumberdemo.html',
-    encapsulation: ViewEncapsulation.None
+    encapsulation: ViewEncapsulation.None,
+    standalone: false
 })
 export class InputNumberDemo {
     docs = [

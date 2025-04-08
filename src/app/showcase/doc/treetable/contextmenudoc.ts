@@ -40,7 +40,8 @@ interface Column {
         <app-code [code]="code" selector="tree-table-context-menu-demo"></app-code>
     `,
     providers: [MessageService],
-    changeDetection: ChangeDetectionStrategy.OnPush
+    changeDetection: ChangeDetectionStrategy.OnPush,
+    standalone: false
 })
 export class ContextMenuDoc {
     files!: TreeNode[];

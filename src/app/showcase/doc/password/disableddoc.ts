@@ -11,7 +11,8 @@ import { Code } from '@domain/code';
             <p-password [(ngModel)]="value" [disabled]="true" placeholder="Disabled" />
         </div>
         <app-code [code]="code" selector="password-disabled-demo"></app-code>
-    `
+    `,
+    standalone: false
 })
 export class DisabledDoc {
     value!: string;

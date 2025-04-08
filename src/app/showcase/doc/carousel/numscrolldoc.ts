@@ -32,7 +32,8 @@ import { ProductService } from '@service/productservice';
             </p-carousel>
         </div>
         <app-code [code]="code" selector="carousel-num-scroll-demo" [extFiles]="extFiles"></app-code>
-    `
+    `,
+    standalone: false
 })
 export class NumScrollDoc implements OnInit {
     products: Product[] | undefined;

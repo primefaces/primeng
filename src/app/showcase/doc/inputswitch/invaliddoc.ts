@@ -11,7 +11,8 @@ import { Code } from '@domain/code';
             <p-inputSwitch [(ngModel)]="checked" class="ng-dirty ng-invalid" />
         </div>
         <app-code [code]="code" selector="input-switch-invalid-demo"></app-code>
-    `
+    `,
+    standalone: false
 })
 export class InvalidDoc {
     checked: boolean = false;

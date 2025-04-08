@@ -5,7 +5,8 @@ import { MaterialDoc } from '@doc/customicons/materialdoc';
 import { SVGDoc } from '@doc/customicons/svgdoc';
 
 @Component({
-    templateUrl: './customiconsdemo.component.html'
+    templateUrl: './customiconsdemo.component.html',
+    standalone: false
 })
 export class CustomIconsDemoComponent {
     docs = [

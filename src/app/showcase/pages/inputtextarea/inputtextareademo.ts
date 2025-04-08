@@ -12,7 +12,8 @@ import { StyleDoc } from '@doc/inputtextarea/styledoc';
 import { FilledDoc } from '@doc/inputtextarea/filleddoc';
 
 @Component({
-    templateUrl: './inputtextareademo.html'
+    templateUrl: './inputtextareademo.html',
+    standalone: false
 })
 export class InputTextareaDemo {
     docs = [

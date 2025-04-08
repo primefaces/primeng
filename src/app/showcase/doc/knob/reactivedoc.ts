@@ -15,7 +15,8 @@ import { Code } from '@domain/code';
             </div>
         </div>
         <app-code [code]="code" selector="knob-reactive-demo"></app-code>
-    `
+    `,
+    standalone: false
 })
 export class ReactiveDoc {
     value: number = 0;

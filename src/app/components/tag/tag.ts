@@ -24,7 +24,8 @@ import { PrimeTemplate, SharedModule } from 'primeng/api';
     styleUrls: ['./tag.css'],
     host: {
         class: 'p-element'
-    }
+    },
+    standalone: false
 })
 export class Tag {
     /**

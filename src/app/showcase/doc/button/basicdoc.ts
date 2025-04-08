@@ -11,7 +11,8 @@ import { Code } from '@domain/code';
             <p-button label="Submit" />
         </div>
         <app-code [code]="code" selector="button-basic-demo"></app-code>
-    `
+    `,
+    standalone: false
 })
 export class BasicDoc {
     code: Code = {

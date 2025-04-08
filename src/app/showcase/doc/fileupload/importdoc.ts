@@ -3,7 +3,8 @@ import { Code } from '@domain/code';
 
 @Component({
     selector: 'file-upload-import-doc',
-    template: ` <app-code [code]="code" [hideToggleCode]="true"></app-code> `
+    template: ` <app-code [code]="code" [hideToggleCode]="true"></app-code> `,
+    standalone: false
 })
 export class ImportDoc {
     code: Code = {

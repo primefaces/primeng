@@ -6,7 +6,8 @@ import { PresetsDoc } from '@doc/keyfilter/presetsdoc';
 import { RegexDoc } from '@doc/keyfilter/regexdoc';
 
 @Component({
-    templateUrl: './keyfilterdemo.html'
+    templateUrl: './keyfilterdemo.html',
+    standalone: false
 })
 export class KeyFilterDemo {
     docs = [

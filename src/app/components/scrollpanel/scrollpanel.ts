@@ -75,7 +75,8 @@ import { UniqueComponentId } from 'primeng/utils';
     styleUrls: ['./scrollpanel.css'],
     host: {
         class: 'p-element'
-    }
+    },
+    standalone: false
 })
 export class ScrollPanel implements AfterViewInit, AfterContentInit, OnDestroy {
     /**

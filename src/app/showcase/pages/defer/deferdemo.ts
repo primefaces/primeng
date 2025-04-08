@@ -8,7 +8,8 @@ import { Car } from '../domain/car';
 
 @Component({
     templateUrl: './deferdemo.html',
-    providers: [MessageService]
+    providers: [MessageService],
+    standalone: false
 })
 export class DeferDemo {
     cars: Car[];

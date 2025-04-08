@@ -7,7 +7,8 @@ import { UsageDoc } from '@doc/installation/usagedoc';
 import { VideosDoc } from '@doc/installation/videos/videosdoc';
 
 @Component({
-    templateUrl: './installation.html'
+    templateUrl: './installation.html',
+    standalone: false
 })
 export class InstallationComponent {
     docs = [

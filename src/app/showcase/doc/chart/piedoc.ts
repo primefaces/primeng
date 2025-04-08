@@ -14,7 +14,8 @@ import { AppConfigService } from '@service/appconfigservice';
             <p-chart type="pie" [data]="data" [options]="options" />
         </div>
         <app-code [code]="code" selector="chart-pie-demo"></app-code>
-    `
+    `,
+    standalone: false
 })
 export class PieDoc implements OnInit {
     data: any;

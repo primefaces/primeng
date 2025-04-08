@@ -3,7 +3,6 @@ import { Code } from 'src/app/showcase/domain/code';
 
 @Component({
     selector: 'tailwind-doc',
-
     template: `
         <app-docsectiontext>
             <p>
@@ -12,7 +11,8 @@ import { Code } from 'src/app/showcase/domain/code';
             </p>
             <app-code [code]="code" selector="tailwind-demo" [hideToggleCode]="true" [hideCodeSandbox]="true" [hideStackBlitz]="true"></app-code>
         </app-docsectiontext>
-    `
+    `,
+    standalone: false
 })
 export class TailwindDoc {
     code: Code = {

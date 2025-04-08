@@ -12,7 +12,8 @@ import { NodeService } from '@service/nodeservice';
             <p-treeSelect class="md:w-20rem w-full" containerStyleClass="w-full" [(ngModel)]="selectedNodes" variant="filled" [options]="nodes" placeholder="Select Item" />
         </div>
         <app-code [code]="code" selector="tree-select-filled-demo"></app-code>
-    `
+    `,
+    standalone: false
 })
 export class FilledDoc {
     nodes!: any[];

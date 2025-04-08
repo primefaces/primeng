@@ -90,20 +90,14 @@ import { UniqueComponentId } from 'primeng/utils';
     `,
     animations: [
         trigger('tabContent', [
-            state(
-                'hidden',
-                style({
-                    height: '0',
-                    visibility: 'hidden'
-                })
-            ),
-            state(
-                'visible',
-                style({
-                    height: '*',
-                    visibility: 'visible'
-                })
-            ),
+            state('hidden', style({
+                height: '0',
+                visibility: 'hidden'
+            })),
+            state('visible', style({
+                height: '*',
+                visibility: 'visible'
+            })),
             transition('visible <=> hidden', [animate('{{transitionParams}}')]),
             transition('void => *', animate(0))
         ])
@@ -113,7 +107,8 @@ import { UniqueComponentId } from 'primeng/utils';
     styleUrls: ['./accordion.css'],
     host: {
         class: 'p-element'
-    }
+    },
+    standalone: false
 })
 export class AccordionTab implements AfterContentInit, OnDestroy {
     /**
@@ -348,7 +343,8 @@ export class AccordionTab implements AfterContentInit, OnDestroy {
     changeDetection: ChangeDetectionStrategy.OnPush,
     host: {
         class: 'p-element'
-    }
+    },
+    standalone: false
 })
 export class Accordion implements BlockableUI, AfterContentInit, OnDestroy {
     /**

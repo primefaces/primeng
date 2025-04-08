@@ -50,7 +50,8 @@ import { ProductService } from '@service/productservice';
             </div>
         </div>
         <app-code [code]="code" selector="drag-drop-data-table-demo" [extFiles]="extFiles"></app-code>
-    `
+    `,
+    standalone: false
 })
 export class DataTableDoc implements OnInit {
     availableProducts: Product[] | undefined;

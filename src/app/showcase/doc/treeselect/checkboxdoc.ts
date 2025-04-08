@@ -12,7 +12,8 @@ import { NodeService } from '@service/nodeservice';
             <p-treeSelect class="w-full md:w-20rem" containerStyleClass="w-full" [(ngModel)]="selectedNodes" [options]="nodes" display="chip" [metaKeySelection]="false" selectionMode="checkbox" placeholder="Select Item" />
         </div>
         <app-code [code]="code" selector="tree-select-checkbox-demo"></app-code>
-    `
+    `,
+    standalone: false
 })
 export class CheckboxDoc {
     nodes!: any[];

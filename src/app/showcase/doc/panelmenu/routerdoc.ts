@@ -36,7 +36,8 @@ import { Router } from '@angular/router';
         </div>
         <app-code [code]="code" selector="panel-menu-router-demo"></app-code>
     `,
-    providers: [MessageService]
+    providers: [MessageService],
+    standalone: false
 })
 export class RouterDoc implements OnInit {
     items: MenuItem[];

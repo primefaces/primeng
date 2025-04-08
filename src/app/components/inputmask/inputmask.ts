@@ -117,7 +117,8 @@ export const INPUTMASK_VALUE_ACCESSOR: any = {
     providers: [INPUTMASK_VALUE_ACCESSOR],
     changeDetection: ChangeDetectionStrategy.OnPush,
     encapsulation: ViewEncapsulation.None,
-    styleUrls: ['./inputmask.css']
+    styleUrls: ['./inputmask.css'],
+    standalone: false
 })
 export class InputMask implements OnInit, ControlValueAccessor {
     /**

@@ -22,7 +22,8 @@ import { Code } from '@domain/code';
             </p>
             <app-code [code]="code3" [hideToggleCode]="true"></app-code>
         </app-docsectiontext>
-    `
+    `,
+    standalone: false
 })
 export class StylesDoc {
     code1: Code = {

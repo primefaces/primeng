@@ -7,7 +7,8 @@ import { AccessibilityDoc } from '@doc/scrolltop/accessibilitydoc';
 
 @Component({
     templateUrl: './scrolltopdemo.html',
-    styleUrls: ['./scrolltopdemo.scss']
+    styleUrls: ['./scrolltopdemo.scss'],
+    standalone: false
 })
 export class ScrollTopDemo {
     docs = [

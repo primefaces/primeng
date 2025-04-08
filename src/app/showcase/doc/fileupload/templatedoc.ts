@@ -68,7 +68,8 @@ import { MessageService, PrimeNGConfig } from 'primeng/api';
         </div>
         <app-code [code]="code" selector="file-upload-template-demo"></app-code>
     `,
-    providers: [MessageService]
+    providers: [MessageService],
+    standalone: false
 })
 export class TemplateDoc {
     files = [];

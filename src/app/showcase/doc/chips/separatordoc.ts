@@ -9,7 +9,8 @@ import { Code } from '@domain/code';
         <div class="card p-fluid">
             <p-chips [(ngModel)]="values" separator="," />
         </div>
-        <app-code [code]="code" selector="chips-separator-demo"></app-code>`
+        <app-code [code]="code" selector="chips-separator-demo"></app-code>`,
+    standalone: false
 })
 export class SeparatorDoc {
     values: string[] | undefined;

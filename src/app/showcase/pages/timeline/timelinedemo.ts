@@ -10,7 +10,8 @@ import { AccessibilityDoc } from '@doc/timeline/accessibilitydoc';
 
 @Component({
     templateUrl: './timelinedemo.html',
-    styleUrls: ['./timelinedemo.scss']
+    styleUrls: ['./timelinedemo.scss'],
+    standalone: false
 })
 export class TimelineDemo {
     docs = [

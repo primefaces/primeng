@@ -63,7 +63,8 @@ import { ProductService } from '@service/productservice';
             </p-dataView>
         </div>
         <app-code [code]="code" selector="data-view-loading-demo" [extFiles]="extFiles"></app-code>
-    `
+    `,
+    standalone: false
 })
 export class LoadingDoc {
     layout: string = 'list';

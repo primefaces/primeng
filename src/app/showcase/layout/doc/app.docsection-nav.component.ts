@@ -27,7 +27,8 @@ import { Doc } from 'src/app/showcase/domain/doc';
                 </ng-container>
             </ng-container>
         </li>
-    </ul>`
+    </ul>`,
+    standalone: false
 })
 export class AppDocSectionNavComponent implements OnInit, OnDestroy {
     @Input() docs!: Doc[];

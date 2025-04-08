@@ -33,7 +33,8 @@ import { PhotoService } from '@service/photoservice';
             </p-galleria>
         </div>
         <app-code [code]="code" selector="galleria-indicator-positioned-demo"></app-code>
-    `
+    `,
+    standalone: false
 })
 export class PositionedDoc implements OnInit {
     images: any[] | undefined;

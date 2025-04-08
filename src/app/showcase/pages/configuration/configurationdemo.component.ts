@@ -11,7 +11,8 @@ import { ZIndexDoc } from '@doc/configuration/zindexdoc';
 
 @Component({
     selector: 'configuration',
-    templateUrl: './configurationdemo.component.html'
+    templateUrl: './configurationdemo.component.html',
+    standalone: false
 })
 export class ConfigurationDemoComponent {
     docs = [

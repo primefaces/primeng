@@ -22,7 +22,8 @@ import { Code } from '@domain/code';
             </div>
         </div>
         <app-code [code]="code" selector="checkbox-multiple-demo"></app-code>
-    `
+    `,
+    standalone: false
 })
 export class MultipleDoc {
     pizza: string[] = [];

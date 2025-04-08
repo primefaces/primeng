@@ -275,7 +275,8 @@ export const AUTOCOMPLETE_VALUE_ACCESSOR: any = {
     providers: [AUTOCOMPLETE_VALUE_ACCESSOR],
     changeDetection: ChangeDetectionStrategy.OnPush,
     encapsulation: ViewEncapsulation.None,
-    styleUrls: ['./autocomplete.css']
+    styleUrls: ['./autocomplete.css'],
+    standalone: false
 })
 export class AutoComplete implements AfterViewChecked, AfterContentInit, OnDestroy, ControlValueAccessor {
     /**

@@ -90,7 +90,8 @@ import { ProductService } from '@service/productservice';
             </p-dataView>
         </div>
         <app-code [code]="code" selector="data-view-layout-demo" [extFiles]="extFiles"></app-code>
-    `
+    `,
+    standalone: false
 })
 export class LayoutDoc {
     layout: string = 'list';

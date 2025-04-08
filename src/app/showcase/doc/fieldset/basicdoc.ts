@@ -16,7 +16,8 @@ import { Code } from '@domain/code';
             </p-fieldset>
         </div>
         <app-code [code]="code" selector="fieldset-basic-demo"></app-code>
-    `
+    `,
+    standalone: false
 })
 export class BasicDoc {
     code: Code = {

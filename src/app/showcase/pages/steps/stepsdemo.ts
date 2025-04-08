@@ -9,7 +9,8 @@ import { ControlledDoc } from '@doc/steps/controlleddoc';
 
 @Component({
     templateUrl: './stepsdemo.html',
-    styleUrls: ['stepsdemo.scss']
+    styleUrls: ['stepsdemo.scss'],
+    standalone: false
 })
 export class StepsDemo {
     docs = [

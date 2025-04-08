@@ -13,7 +13,8 @@ import { AppConfigService } from '@service/appconfigservice';
             <p-chart type="line" [data]="data" [options]="options" />
         </div>
         <app-code [code]="code" selector="chart-combo-demo"></app-code>
-    `
+    `,
+    standalone: false
 })
 export class ComboDoc implements OnInit {
     data: any;

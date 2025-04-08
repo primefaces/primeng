@@ -15,7 +15,8 @@ import { FilledDoc } from '@doc/inputtext/filleddoc';
 
 @Component({
     templateUrl: './inputtextdemo.html',
-    styleUrls: ['./inputtextdemo.scss']
+    styleUrls: ['./inputtextdemo.scss'],
+    standalone: false
 })
 export class InputTextDemo {
     docs = [

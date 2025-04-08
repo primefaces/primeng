@@ -21,7 +21,8 @@ import { Code } from '@domain/code';
             <p class="doc-section-description">Form components must be related to another element that describes what the form element is used for. This is usually achieved with the <i>label</i> element.</p>
             <app-code [code]="code4" [hideToggleCode]="true"></app-code>
         </app-docsectiontext>
-    `
+    `,
+    standalone: false
 })
 export class FormControlsDoc {
     code1: Code = {

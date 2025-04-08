@@ -11,7 +11,8 @@ import { Code } from '@domain/code';
             <p-radioButton [disabled]="true" [(ngModel)]="checked" />
         </div>
         <app-code [code]="code" selector="radio-button-disabled-demo"></app-code>
-    `
+    `,
+    standalone: false
 })
 export class DisabledDoc {
     checked: any;

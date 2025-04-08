@@ -17,7 +17,8 @@ import { Code } from '@domain/code';
             <p-button styleClass="p-button-help" label="Button 3"></p-button>
         </div>
         <app-code [code]="code1" [hideToggleCode]="true"></app-code>
-    `
+    `,
+    standalone: false
 })
 export class PrimeFlexDoc {
     code1: Code = {

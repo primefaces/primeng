@@ -27,7 +27,8 @@ import { PhotoService } from '@service/photoservice';
             </p-galleria>
         </div>
         <app-code [code]="code" selector="galleria-full-screen-without-thumbnails-demo"></app-code>
-    `
+    `,
+    standalone: false
 })
 export class WithoutThumbnailsDoc implements OnInit {
     displayBasic: boolean | undefined;

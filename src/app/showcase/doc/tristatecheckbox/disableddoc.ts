@@ -12,7 +12,8 @@ import { Code } from '@domain/code';
             <label>{{ value === null ? 'null' : value }}</label>
         </div>
         <app-code [code]="code" selector="tri-state-checkbox-disabled-demo"></app-code>
-    `
+    `,
+    standalone: false
 })
 export class DisabledDoc {
     value!: string;

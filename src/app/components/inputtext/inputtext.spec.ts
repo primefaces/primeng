@@ -5,7 +5,8 @@ import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 import { Component } from '@angular/core';
 
 @Component({
-    template: `<input id="input" type="text" pInputText /> `
+    template: `<input id="input" type="text" pInputText /> `,
+    standalone: false
 })
 class TestInputTextComponent {}
 

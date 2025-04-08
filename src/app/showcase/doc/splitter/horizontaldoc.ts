@@ -18,7 +18,8 @@ import { Code } from '@domain/code';
             </p-splitter>
         </div>
         <app-code [code]="code" selector="splitter-horizontal-demo"></app-code>
-    `
+    `,
+    standalone: false
 })
 export class HorizontalDoc {
     code: Code = {

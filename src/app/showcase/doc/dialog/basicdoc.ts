@@ -27,7 +27,8 @@ import { Code } from '@domain/code';
             </p-dialog>
         </div>
         <app-code [code]="code" selector="dialog-basic-demo"></app-code>
-    `
+    `,
+    standalone: false
 })
 export class BasicDoc {
     visible: boolean = false;

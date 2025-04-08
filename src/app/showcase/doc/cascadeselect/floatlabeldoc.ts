@@ -23,7 +23,8 @@ import { Code } from '@domain/code';
             </p-floatLabel>
         </div>
         <app-code [code]="code" selector="cascade-select-float-label-demo"></app-code>
-    `
+    `,
+    standalone: false
 })
 export class FloatLabelDoc {
     countries: any[] | undefined;

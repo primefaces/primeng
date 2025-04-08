@@ -11,7 +11,8 @@ import { Code } from '@domain/code';
             <input type="text" pInputText pTooltip="Enter your username" [tooltipOptions]="tooltipOptions" placeholder="hover to display tooltip" />
         </div>
         <app-code [code]="code" selector="tooltip-options-demo"></app-code>
-    `
+    `,
+    standalone: false
 })
 export class OptionsDoc {
     tooltipOptions = {

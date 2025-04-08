@@ -49,7 +49,8 @@ import { Nullable } from 'primeng/ts-helpers';
     styleUrls: ['./timeline.css'],
     host: {
         class: 'p-element'
-    }
+    },
+    standalone: false
 })
 export class Timeline implements AfterContentInit, BlockableUI {
     /**

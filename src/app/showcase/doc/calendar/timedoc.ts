@@ -22,7 +22,8 @@ import { Code } from '@domain/code';
             </div>
         </div>
         <app-code [code]="code" selector="calendar-time-demo"></app-code>
-    `
+    `,
+    standalone: false
 })
 export class TimeDoc {
     datetime12h: Date[] | undefined;

@@ -20,7 +20,8 @@ import { Code } from '@domain/code';
             </p-overlayPanel>
         </div>
         <app-code [code]="code" selector="overlay-panel-target-demo"></app-code>
-    `
+    `,
+    standalone: false
 })
 export class TargetDoc {
     code: Code = {

@@ -46,7 +46,8 @@ interface Column {
         </div>
         <app-code [code]="code" selector="tree-table-paginator-template-demo"></app-code>
     `,
-    changeDetection: ChangeDetectionStrategy.OnPush
+    changeDetection: ChangeDetectionStrategy.OnPush,
+    standalone: false
 })
 export class PaginatorTemplateDoc {
     files!: TreeNode[];

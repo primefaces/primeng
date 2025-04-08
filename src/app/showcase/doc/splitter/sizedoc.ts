@@ -18,7 +18,8 @@ import { Code } from '@domain/code';
             </p-splitter>
         </div>
         <app-code [code]="code" selector="splitter-size-demo"></app-code>
-    `
+    `,
+    standalone: false
 })
 export class SizeDoc {
     code: Code = {

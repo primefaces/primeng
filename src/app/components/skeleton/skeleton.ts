@@ -12,7 +12,8 @@ import { ChangeDetectionStrategy, Component, Input, NgModule, ViewEncapsulation 
     styleUrls: ['./skeleton.css'],
     host: {
         class: 'p-element'
-    }
+    },
+    standalone: false
 })
 export class Skeleton {
     /**

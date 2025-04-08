@@ -16,7 +16,8 @@ import { NodeService } from '@service/nodeservice';
             <p-treeSelect class="md:w-20rem w-full" containerStyleClass="w-full" [(ngModel)]="selectedNodes" [options]="nodes" placeholder="Select Item" [filter]="true" [filterInputAutoFocus]="true" />
         </div>
         <app-code [code]="code" selector="tree-select-filter-demo"></app-code>
-    `
+    `,
+    standalone: false
 })
 export class FilterDoc {
     nodes!: any[];

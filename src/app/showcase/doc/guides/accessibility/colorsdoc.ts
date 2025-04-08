@@ -40,6 +40,7 @@ import { Component } from '@angular/core';
                 </div>
             </div>
         </app-docsectiontext>
-    `
+    `,
+    standalone: false
 })
 export class ColorsDoc {}

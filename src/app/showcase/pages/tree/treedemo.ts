@@ -17,7 +17,8 @@ import { VirtualScrollDoc } from '@doc/tree/virtualscrolldoc';
 import { LazyVirtualScrollDoc } from '@doc/tree/virtualscrolllazydoc';
 
 @Component({
-    templateUrl: './treedemo.html'
+    templateUrl: './treedemo.html',
+    standalone: false
 })
 export class TreeDemo {
     docs = [

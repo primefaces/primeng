@@ -50,7 +50,8 @@ import { Code } from '@domain/code';
             </div>
         </div>
         <app-code [code]="code" selector="skeleton-list-demo"></app-code>
-    `
+    `,
+    standalone: false
 })
 export class ListDoc {
     code: Code = {

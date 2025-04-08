@@ -14,7 +14,8 @@ import { MessageService } from 'primeng/api';
             <p-tieredMenu [model]="items" />
         </div>
         <app-code [code]="code" selector="tiered-menu-command-demo"></app-code>
-    `
+    `,
+    standalone: false
 })
 export class CommandDoc implements OnInit {
     items: MenuItem[] | undefined;

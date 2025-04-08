@@ -40,7 +40,8 @@ import { ContextMenu } from 'primeng/contextmenu';
         </div>
 
         <app-code [code]="code" selector="context-menu-template-demo"></app-code>
-    `
+    `,
+    standalone: false
 })
 export class TemplateDoc implements OnInit {
     items: MenuItem[] | undefined;

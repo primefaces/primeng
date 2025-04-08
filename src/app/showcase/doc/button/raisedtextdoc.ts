@@ -18,7 +18,8 @@ import { Code } from '@domain/code';
             <p-button label="Plain" [text]="true" [raised]="true" [plain]="true" />
         </div>
         <app-code [code]="code" selector="button-raisedtext-demo"></app-code>
-    `
+    `,
+    standalone: false
 })
 export class RaisedTextDoc {
     code: Code = {

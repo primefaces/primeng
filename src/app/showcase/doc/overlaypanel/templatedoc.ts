@@ -16,7 +16,8 @@ import { Code } from '@domain/code';
             <p-button (onClick)="op.toggle($event)" icon="pi pi-image" label="Show"></p-button>
         </div>
         <app-code [code]="code" selector="overlay-panel-template-demo"></app-code>
-    `
+    `,
+    standalone: false
 })
 export class TemplateDoc {
     code: Code = {

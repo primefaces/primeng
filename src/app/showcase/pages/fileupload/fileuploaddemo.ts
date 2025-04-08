@@ -8,7 +8,8 @@ import { TemplateDoc } from '@doc/fileupload/templatedoc';
 import { AccessibilityDoc } from '@doc/fileupload/accessibilitydoc';
 
 @Component({
-    templateUrl: './fileuploaddemo.html'
+    templateUrl: './fileuploaddemo.html',
+    standalone: false
 })
 export class FileUploadDemo {
     docs = [

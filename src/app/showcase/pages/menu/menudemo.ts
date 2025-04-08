@@ -10,7 +10,8 @@ import { StyleDoc } from '@doc/menu/styledoc';
 import { AccessibilityDoc } from '@doc/menu/accessibilitydoc';
 
 @Component({
-    templateUrl: './menudemo.html'
+    templateUrl: './menudemo.html',
+    standalone: false
 })
 export class MenuDemo {
     docs = [

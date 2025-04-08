@@ -19,7 +19,8 @@ interface AutoCompleteCompleteEvent {
         <div class="card flex justify-content-center">
             <p-autoComplete [(ngModel)]="selectedCountry" [dropdown]="true" placeholder="Search" [suggestions]="filteredCountries" (completeMethod)="filterCountry($event)" optionLabel="name" />
         </div>
-        <app-code [code]="code" selector="autocomplete-dropdown-demo"></app-code>`
+        <app-code [code]="code" selector="autocomplete-dropdown-demo"></app-code>`,
+    standalone: false
 })
 export class DropdownDoc implements OnInit {
     countries: any[] | undefined;

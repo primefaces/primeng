@@ -17,7 +17,8 @@ import { ScrollPanel } from './scrollpanel';
                 </div>
             </p-scrollPanel>
         </div>
-    `
+    `,
+    standalone: false
 })
 class TestScrollPanelComponent {}
 

@@ -18,7 +18,8 @@ import { Card } from './card';
             <button type="button" label="Save" icon="pi pi-check" style="margin-right: .25em"></button>
             <button type="button" label="Cancel" icon="pi pi-times" class="ui-button-secondary"></button>
         </p-footer>
-    </p-card>`
+    </p-card>`,
+    standalone: false
 })
 class TestCardComponent {
     header: string;

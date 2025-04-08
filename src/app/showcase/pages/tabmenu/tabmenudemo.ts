@@ -9,7 +9,8 @@ import { CommandDoc } from '@doc/tabmenu/commanddoc';
 import { RouterDoc } from '@doc/tabmenu/routerdoc';
 
 @Component({
-    templateUrl: './tabmenudemo.html'
+    templateUrl: './tabmenudemo.html',
+    standalone: false
 })
 export class TabMenuDemo {
     docs = [

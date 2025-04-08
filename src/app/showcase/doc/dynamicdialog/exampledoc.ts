@@ -20,7 +20,8 @@ import { Footer } from './footer';
         </div>
         <app-code [code]="code" selector="dynamic-dialog-example-demo" [extFiles]="extFiles" [routeFiles]="routeFiles"></app-code>
     `,
-    providers: [DialogService, MessageService]
+    providers: [DialogService, MessageService],
+    standalone: false
 })
 export class ExampleDoc implements OnDestroy {
     constructor(

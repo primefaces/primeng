@@ -12,7 +12,6 @@ import { Subscription } from 'rxjs';
 
 @Component({
     selector: 'theme-section',
-    standalone: true,
     imports: [CommonModule, TableModule, ButtonModule, TagModule, ProgressBarModule],
     template: `
         <section class="landing-themes py-8">

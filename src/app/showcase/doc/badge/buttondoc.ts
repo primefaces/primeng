@@ -14,7 +14,8 @@ import { Code } from '@domain/code';
         </div>
 
         <app-code [code]="code" selector="badge-button-demo"></app-code>
-    `
+    `,
+    standalone: false
 })
 export class ButtonDoc {
     code: Code = {

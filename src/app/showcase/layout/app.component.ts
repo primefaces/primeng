@@ -22,7 +22,6 @@ import { AppTopBarComponent } from './topbar/app.topbar.component';
 @Component({
     selector: 'app-root',
     templateUrl: './app.component.html',
-    standalone: true,
     imports: [RouterOutlet, FormsModule, ReactiveFormsModule, HttpClientModule, AppMainComponent, LandingComponent, AppNewsComponent, AppConfigComponent, AppTopBarComponent, AppMenuComponent],
     providers: [
         CarService,

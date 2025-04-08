@@ -11,7 +11,8 @@ import { ContextMenuService } from 'primeng/api';
         <p-contextMenu [global]="true" [model]="items1"></p-contextMenu>
         <p-contextMenu [target]="p" [model]="items1" [appendTo]="p"></p-contextMenu>
         <p #p>PrimeNG ROCKS!</p>
-    `
+    `,
+    standalone: false
 })
 class TestContextMenuTest {
     items1 = [

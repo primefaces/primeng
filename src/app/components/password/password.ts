@@ -56,7 +56,8 @@ type Meter = {
         class: 'p-inputtext p-component p-element',
         '[class.p-filled]': 'filled',
         '[class.p-variant-filled]': 'variant === "filled" || config.inputStyle() === "filled"'
-    }
+    },
+    standalone: false
 })
 export class PasswordDirective implements OnDestroy, DoCheck {
     /**
@@ -324,7 +325,8 @@ type Mapper<T, G> = (item: T, ...args: any[]) => G;
 
 @Pipe({
     name: 'mapper',
-    pure: true
+    pure: true,
+    standalone: false
 })
 export class MapperPipe implements PipeTransform {
     public transform<T, G>(value: T, mapper: Mapper<T, G>, ...args: unknown[]): G {
@@ -427,7 +429,8 @@ export const Password_VALUE_ACCESSOR: any = {
     providers: [Password_VALUE_ACCESSOR],
     styleUrls: ['./password.css'],
     changeDetection: ChangeDetectionStrategy.OnPush,
-    encapsulation: ViewEncapsulation.None
+    encapsulation: ViewEncapsulation.None,
+    standalone: false
 })
 export class Password implements AfterContentInit, OnInit {
     /**

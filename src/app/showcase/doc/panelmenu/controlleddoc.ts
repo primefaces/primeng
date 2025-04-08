@@ -13,7 +13,8 @@ import { Code } from '@domain/code';
             <p-panelMenu [model]="items" styleClass="w-full md:w-20rem" />
         </div>
         <app-code [code]="code" selector="panel-menu-controlled-demo"></app-code>
-    `
+    `,
+    standalone: false
 })
 export class ControlledDoc implements OnInit {
     items: MenuItem[];

@@ -120,7 +120,8 @@ import { DataViewLayoutChangeEvent, DataViewLazyLoadEvent, DataViewPageEvent, Da
     styleUrls: ['./dataview.css'],
     host: {
         class: 'p-element'
-    }
+    },
+    standalone: false
 })
 export class DataView implements OnInit, AfterContentInit, OnDestroy, BlockableUI, OnChanges {
     /**
@@ -584,7 +585,8 @@ export class DataView implements OnInit, AfterContentInit, OnDestroy, BlockableU
     encapsulation: ViewEncapsulation.None,
     host: {
         class: 'p-element'
-    }
+    },
+    standalone: false
 })
 export class DataViewLayoutOptions {
     @Input() style: { [klass: string]: any } | null | undefined;

@@ -16,7 +16,8 @@ interface City {
             <p-dropdown [options]="cities" [(ngModel)]="selectedCity" variant="filled" optionLabel="name" placeholder="Select a City" />
         </div>
         <app-code [code]="code" selector="dropdown-filled-demo"></app-code>
-    `
+    `,
+    standalone: false
 })
 export class FilledDoc implements OnInit {
     cities: City[];

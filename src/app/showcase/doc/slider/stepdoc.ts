@@ -11,7 +11,8 @@ import { Code } from '@domain/code';
             <p-slider [(ngModel)]="value" [step]="20" styleClass="w-14rem" />
         </div>
         <app-code [code]="code" selector="slider-step-demo"></app-code>
-    `
+    `,
+    standalone: false
 })
 export class StepDoc {
     value!: number;

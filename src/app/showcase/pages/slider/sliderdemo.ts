@@ -11,7 +11,8 @@ import { VerticalDoc } from '@doc/slider/verticaldoc';
 
 @Component({
     templateUrl: './sliderdemo.html',
-    styleUrls: ['./sliderdemo.scss']
+    styleUrls: ['./sliderdemo.scss'],
+    standalone: false
 })
 export class SliderDemo {
     docs = [

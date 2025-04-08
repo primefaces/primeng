@@ -13,7 +13,8 @@ import { Code } from '@domain/code';
             <p-tieredMenu #menu [model]="items" [popup]="true" />
         </div>
         <app-code [code]="code" selector="tiered-menu-popup-demo"></app-code>
-    `
+    `,
+    standalone: false
 })
 export class PopupDoc implements OnInit {
     items: MenuItem[] | undefined;

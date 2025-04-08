@@ -12,7 +12,8 @@ import { Component } from '@angular/core';
                 <div style="font-size:14px;float:right;margin:15px 5px 0 0">{{ car.brand }} - {{ car.year }} - {{ car.color }}</div>
             </div>
         </ng-template>
-    </p-orderList>`
+    </p-orderList>`,
+    standalone: false
 })
 class TestOrderListComponent {
     cars: any[];

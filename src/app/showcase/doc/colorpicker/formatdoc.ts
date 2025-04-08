@@ -25,7 +25,8 @@ import { Code } from '@domain/code';
             </div>
         </div>
         <app-code [code]="code" selector="color-picker-format-demo"></app-code>
-    `
+    `,
+    standalone: false
 })
 export class FormatDoc {
     color: string = '#6466f1';

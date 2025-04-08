@@ -8,7 +8,8 @@ import { AccessibilityDoc } from '@doc/orderlist/accessibilitydoc';
 
 @Component({
     templateUrl: './orderlistdemo.html',
-    styleUrls: ['./orderlistdemo.scss']
+    styleUrls: ['./orderlistdemo.scss'],
+    standalone: false
 })
 export class OrderListDemo {
     docs = [

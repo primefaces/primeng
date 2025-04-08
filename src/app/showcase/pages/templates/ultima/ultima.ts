@@ -11,7 +11,6 @@ import { UltimaLogo } from './ultimalogo';
 import { UltimaSeparator } from './ultimaseparator';
 
 @Component({
-    standalone: true,
     selector: 'ultima-page',
     imports: [
         TemplateHeroModule,

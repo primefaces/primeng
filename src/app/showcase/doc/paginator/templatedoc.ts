@@ -59,7 +59,8 @@ interface PageEvent {
             </div>
         </div>
         <app-code [code]="code" selector="paginator-template-demo"></app-code>
-    `
+    `,
+    standalone: false
 })
 export class TemplateDoc {
     first1: number = 0;

@@ -7,7 +7,8 @@ import { StyleDoc } from '@doc/panel/styledoc';
 import { AccessibilityDoc } from '@doc/panel/accessibilitydoc';
 
 @Component({
-    templateUrl: './paneldemo.html'
+    templateUrl: './paneldemo.html',
+    standalone: false
 })
 export class PanelDemo {
     docs = [

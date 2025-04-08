@@ -14,7 +14,8 @@ import { Code } from '@domain/code';
             <input type="text" pInputText pTooltip="Enter your username" tooltipPosition="bottom" placeholder="Bottom" />
         </div>
         <app-code [code]="code" selector="tooltip-position-demo"></app-code>
-    `
+    `,
+    standalone: false
 })
 export class PositionDoc {
     code: Code = {

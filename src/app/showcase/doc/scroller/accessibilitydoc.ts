@@ -7,6 +7,7 @@ import { Component } from '@angular/core';
         <p>Scroller uses a semantic list element to list the items. No specific role is enforced, still you may use any aria role and attributes as any valid attribute is passed to the container element.</p>
         <h4>Keyboard Support</h4>
         <p>Component does not include any built-in interactive elements.</p>
-    </app-docsectiontext>`
+    </app-docsectiontext>`,
+    standalone: false
 })
 export class AccessibilityDoc {}

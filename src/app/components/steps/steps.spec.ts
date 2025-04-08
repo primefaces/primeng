@@ -8,7 +8,8 @@ import { RouterTestingModule } from '@angular/router/testing';
 import { MenuItem } from 'primeng/api';
 
 @Component({
-    template: `<p-steps [model]="items"></p-steps> `
+    template: `<p-steps [model]="items"></p-steps> `,
+    standalone: false
 })
 class TestStepsComponent {
     items: MenuItem[];

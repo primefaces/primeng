@@ -9,7 +9,8 @@ import { AccessibilityDoc } from '@doc/colorpicker/accessibilitydoc';
 import { ReactiveFormsDoc } from '@doc/colorpicker/reactiveformsdoc';
 
 @Component({
-    templateUrl: './colorpickerdemo.html'
+    templateUrl: './colorpickerdemo.html',
+    standalone: false
 })
 export class ColorPickerDemo {
     docs = [

@@ -17,7 +17,8 @@ import { Code } from '@domain/code';
             <p-steps [activeIndex]="active" [model]="items" />
         </div>
         <app-code [code]="code" selector="steps-controlled-demo"></app-code>
-    `
+    `,
+    standalone: false
 })
 export class ControlledDoc implements OnInit {
     items: MenuItem[] | undefined;

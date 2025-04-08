@@ -6,6 +6,7 @@ import { Component } from '@angular/core';
         <app-docsectiontext>
             <p>Locale for different languages and formats is defined globally, refer to the <a href="/configuration/#locale">PrimeNG Locale</a> configuration for more information.</p>
         </app-docsectiontext>
-    `
+    `,
+    standalone: false
 })
 export class LocaleDoc {}

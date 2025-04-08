@@ -8,7 +8,8 @@ import { Code } from '@domain/code';
             <p>FilterService can be extended by adding new constraints using the <span>register</span> function.</p></app-docsectiontext
         >
         <app-code [code]="code" [hideToggleCode]="true"></app-code>
-    `
+    `,
+    standalone: false
 })
 export class CustomConstraintsDoc {
     code: Code = {

@@ -2,7 +2,8 @@ import { Component } from '@angular/core';
 import { Meta, Title } from '@angular/platform-browser';
 
 @Component({
-    templateUrl: './roadmap.component.html'
+    templateUrl: './roadmap.component.html',
+    standalone: false
 })
 export class RoadmapComponent {
     constructor(

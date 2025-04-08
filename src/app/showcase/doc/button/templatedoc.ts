@@ -36,7 +36,8 @@ import { Code } from '@domain/code';
             </p-button>
         </div>
         <app-code [code]="code" selector="button-template-demo"></app-code>
-    `
+    `,
+    standalone: false
 })
 export class TemplateDoc {
     code: Code = {

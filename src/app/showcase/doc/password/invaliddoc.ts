@@ -11,7 +11,8 @@ import { Code } from '@domain/code';
             <p-password [(ngModel)]="value" class="ng-invalid ng-dirty" />
         </div>
         <app-code [code]="code" selector="password-invalid-demo"></app-code>
-    `
+    `,
+    standalone: false
 })
 export class InvalidDoc {
     value!: string;

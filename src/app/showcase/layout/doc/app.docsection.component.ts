@@ -34,7 +34,8 @@ import { Doc } from 'src/app/showcase/domain/doc';
             </section>
         </ng-container>
     `,
-    changeDetection: ChangeDetectionStrategy.OnPush
+    changeDetection: ChangeDetectionStrategy.OnPush,
+    standalone: false
 })
 export class AppDocSectionsComponent {
     @Input() docs!: Doc[];

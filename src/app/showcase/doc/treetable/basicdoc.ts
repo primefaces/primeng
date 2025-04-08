@@ -32,7 +32,8 @@ import { NodeService } from '@service/nodeservice';
             </p-deferred-demo>
         </div>
         <app-code [code]="code" selector="tree-table-basic-demo"></app-code>`,
-    changeDetection: ChangeDetectionStrategy.OnPush
+    changeDetection: ChangeDetectionStrategy.OnPush,
+    standalone: false
 })
 export class BasicDoc {
     files!: TreeNode[];

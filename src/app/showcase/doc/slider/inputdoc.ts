@@ -14,7 +14,8 @@ import { Code } from '@domain/code';
             </div>
         </div>
         <app-code [code]="code" selector="slider-input-demo"></app-code>
-    `
+    `,
+    standalone: false
 })
 export class InputDoc {
     value: number = 50;

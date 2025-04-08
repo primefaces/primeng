@@ -59,7 +59,8 @@ import { QueryList } from '@angular/core';
     styleUrls: ['./progressbar.css'],
     host: {
         class: 'p-element'
-    }
+    },
+    standalone: false
 })
 export class ProgressBar {
     /**

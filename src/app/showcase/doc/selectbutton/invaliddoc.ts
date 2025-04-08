@@ -11,7 +11,8 @@ import { Code } from '@domain/code';
             <p-selectButton [options]="stateOptions" [(ngModel)]="value" optionLabel="label" optionValue="value" class="ng-invalid ng-dirty" />
         </div>
         <app-code [code]="code" selector="select-button-invalid-demo"></app-code>
-    `
+    `,
+    standalone: false
 })
 export class InvalidDoc {
     stateOptions: any[] = [

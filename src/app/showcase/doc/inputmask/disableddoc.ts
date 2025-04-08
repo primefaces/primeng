@@ -11,7 +11,8 @@ import { Code } from '@domain/code';
             <p-inputMask mask="999-99-9999" [(ngModel)]="value" [disabled]="true" />
         </div>
         <app-code [code]="code" selector="input-mask-disabled-demo"></app-code>
-    `
+    `,
+    standalone: false
 })
 export class DisabledDoc {
     value: string | undefined;

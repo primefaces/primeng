@@ -19,7 +19,8 @@ import { Code } from '@domain/code';
         </div>
         <app-code [code]="code" selector="toast-position-demo"></app-code>
     `,
-    providers: [MessageService]
+    providers: [MessageService],
+    standalone: false
 })
 export class PositionDoc {
     constructor(private messageService: MessageService) {}

@@ -9,6 +9,7 @@ import { Component } from '@angular/core';
                 and share it with the rest of the community.
             </p>
         </app-docsectiontext>
-    `
+    `,
+    standalone: false
 })
 export class RepositoryDoc {}

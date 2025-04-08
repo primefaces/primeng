@@ -90,20 +90,14 @@ import { Subscription } from 'rxjs';
     `,
     animations: [
         trigger('animation', [
-            state(
-                'void',
-                style({
-                    transform: 'scaleY(0.8)',
-                    opacity: 0
-                })
-            ),
-            state(
-                'open',
-                style({
-                    transform: 'translateY(0)',
-                    opacity: 1
-                })
-            ),
+            state('void', style({
+                transform: 'scaleY(0.8)',
+                opacity: 0
+            })),
+            state('open', style({
+                transform: 'translateY(0)',
+                opacity: 1
+            })),
             transition('void => open', animate('{{showTransitionParams}}')),
             transition('open => void', animate('{{hideTransitionParams}}'))
         ])
@@ -113,7 +107,8 @@ import { Subscription } from 'rxjs';
     styleUrls: ['./confirmpopup.css'],
     host: {
         class: 'p-element'
-    }
+    },
+    standalone: false
 })
 export class ConfirmPopup implements AfterContentInit, OnDestroy {
     /**

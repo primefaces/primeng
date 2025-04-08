@@ -23,7 +23,8 @@ import { ThumbnailDoc } from '@doc/galleria/thumbnaildoc';
 
 @Component({
     templateUrl: './galleriademo.html',
-    styleUrls: ['./galleriademo.scss']
+    styleUrls: ['./galleriademo.scss'],
+    standalone: false
 })
 export class GalleriaDemo {
     docs = [
