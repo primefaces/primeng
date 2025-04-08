@@ -90,14 +90,20 @@ import { UniqueComponentId } from 'primeng/utils';
     `,
     animations: [
         trigger('tabContent', [
-            state('hidden', style({
-                height: '0',
-                visibility: 'hidden'
-            })),
-            state('visible', style({
-                height: '*',
-                visibility: 'visible'
-            })),
+            state(
+                'hidden',
+                style({
+                    height: '0',
+                    visibility: 'hidden'
+                })
+            ),
+            state(
+                'visible',
+                style({
+                    height: '*',
+                    visibility: 'visible'
+                })
+            ),
             transition('visible <=> hidden', [animate('{{transitionParams}}')]),
             transition('void => *', animate(0))
         ])

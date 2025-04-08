@@ -36,12 +36,18 @@ import { ZIndexUtils } from 'primeng/utils';
     styleUrls: ['./scrolltop.css'],
     animations: [
         trigger('animation', [
-            state('void', style({
-                opacity: 0
-            })),
-            state('open', style({
-                opacity: 1
-            })),
+            state(
+                'void',
+                style({
+                    opacity: 0
+                })
+            ),
+            state(
+                'open',
+                style({
+                    opacity: 1
+                })
+            ),
             transition('void => open', animate('{{showTransitionParams}}')),
             transition('open => void', animate('{{hideTransitionParams}}'))
         ])

@@ -67,12 +67,18 @@ import { FieldsetAfterToggleEvent, FieldsetBeforeToggleEvent } from './fieldset.
     `,
     animations: [
         trigger('fieldsetContent', [
-            state('hidden', style({
-                height: '0'
-            })),
-            state('visible', style({
-                height: '*'
-            })),
+            state(
+                'hidden',
+                style({
+                    height: '0'
+                })
+            ),
+            state(
+                'visible',
+                style({
+                    height: '*'
+                })
+            ),
             transition('visible <=> hidden', [animate('{{transitionParams}}')]),
             transition('void => *', animate(0))
         ])
