@@ -3571,22 +3571,23 @@ export class FrozenColumn implements AfterViewInit {
         if (this._frozen) {
             if (this.alignFrozen === 'right') {
                 let right = 0;
-                let next = this.el.nativeElement.nextElementSibling;
-                if (next) {
-                    right = DomHandler.getOuterWidth(next) + (parseFloat(next.style.right) || 0);
+                let sibling = this.el.nativeElement.nextElementSibling;
+                while (sibling) {
+                    right += DomHandler.getOuterWidth(sibling);
+                    sibling = sibling.nextElementSibling;
                 }
                 this.el.nativeElement.style.right = right + 'px';
             } else {
                 let left = 0;
-                let prev = this.el.nativeElement.previousElementSibling;
-                if (prev) {
-                    left = DomHandler.getOuterWidth(prev) + (parseFloat(prev.style.left) || 0);
+                let sibling = this.el.nativeElement.previousElementSibling;
+                while (sibling) {
+                    left += DomHandler.getOuterWidth(sibling);
+                    sibling = sibling.previousElementSibling;
                 }
                 this.el.nativeElement.style.left = left + 'px';
             }
 
             const filterRow = this.el.nativeElement?.parentElement?.nextElementSibling;
-
             if (filterRow) {
                 let index = DomHandler.index(this.el.nativeElement);
                 if (filterRow.children && filterRow.children[index]) {
