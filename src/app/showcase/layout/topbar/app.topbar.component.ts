@@ -10,7 +10,6 @@ import Versions from '../../data/versions.json';
 
 @Component({
     selector: 'app-topbar',
-    standalone: true,
     templateUrl: './app.topbar.component.html',
     imports: [CommonModule, FormsModule, StyleClassModule, RouterModule]
 })

@@ -30,7 +30,6 @@ export interface MenuItem {
         class: 'layout-sidebar',
         '[class.active]': 'isActive'
     },
-    standalone: true,
     imports: [CommonModule, StyleClassModule, RouterModule, AutoCompleteModule, AppMenuItemComponent]
 })
 export class AppMenuComponent implements OnDestroy {

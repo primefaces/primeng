@@ -6,6 +6,7 @@ import { Component } from '@angular/core';
         <app-docsectiontext>
             <p>Table has built-in support for ContextMenu, see the <a [routerLink]="['/table']" fragment="context-menu">ContextMenu</a> demo for an example.</p>
         </app-docsectiontext>
-    `
+    `,
+    standalone: false
 })
 export class TableDoc {}

@@ -95,7 +95,8 @@ import { Subscription } from 'rxjs';
     styleUrls: ['./overlaypanel.css'],
     host: {
         class: 'p-element'
-    }
+    },
+    standalone: false
 })
 export class OverlayPanel implements AfterContentInit, OnDestroy {
     /**

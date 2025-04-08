@@ -8,7 +8,8 @@ import { ButtonModule } from '../button/button';
 
 @Component({
     template: `<p-menu #menu></p-menu>
-        <button type="button" pButton icon="pi pi-bars" label="Show" (click)="menu.toggle($event)"></button> `
+        <button type="button" pButton icon="pi pi-bars" label="Show" (click)="menu.toggle($event)"></button> `,
+    standalone: false
 })
 class TestMenuComponent {}
 

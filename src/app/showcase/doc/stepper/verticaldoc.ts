@@ -40,7 +40,8 @@ import { Code } from '@domain/code';
             </p-stepper>
         </div>
         <app-code [code]="code" selector="stepper-vertical-demo"></app-code>
-    `
+    `,
+    standalone: false
 })
 export class VerticalDoc {
     code: Code = {

@@ -15,7 +15,8 @@ import { Code } from '@domain/code';
             <input type="text" pInputText class="block mt-3" />
         </div>
         <app-code [code]="code" selector="style-class-toggle-class-demo"></app-code>
-    `
+    `,
+    standalone: false
 })
 export class ToggleClassDoc {
     code: Code = {

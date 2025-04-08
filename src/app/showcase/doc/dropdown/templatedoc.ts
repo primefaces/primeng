@@ -27,7 +27,8 @@ import { Code } from '@domain/code';
             </p-dropdown>
         </div>
         <app-code [code]="code" selector="dropdown-template-demo"></app-code>
-    `
+    `,
+    standalone: false
 })
 export class TemplateDoc implements OnInit {
     countries: any[] | undefined;

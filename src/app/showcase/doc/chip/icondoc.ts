@@ -14,7 +14,8 @@ import { Code } from '@domain/code';
             <p-chip label="Microsoft" icon="pi pi-microsoft" [removable]="true" />
         </div>
         <app-code [code]="code" selector="chip-icon-demo"></app-code>
-    `
+    `,
+    standalone: false
 })
 export class IconDoc {
     code: Code = {

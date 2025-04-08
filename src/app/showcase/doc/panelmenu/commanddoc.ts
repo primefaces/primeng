@@ -14,7 +14,8 @@ import { Code } from '@domain/code';
         </div>
         <app-code [code]="code" selector="panel-menu-command-demo"></app-code>
     `,
-    providers: [MessageService]
+    providers: [MessageService],
+    standalone: false
 })
 export class CommandDoc implements OnInit {
     items: MenuItem[];

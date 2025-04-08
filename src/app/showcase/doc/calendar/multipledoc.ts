@@ -11,7 +11,8 @@ import { Code } from '@domain/code';
             <p-calendar [(ngModel)]="dates" selectionMode="multiple" [readonlyInput]="true" />
         </div>
         <app-code [code]="code" selector="calendar-multiple-demo"></app-code>
-    `
+    `,
+    standalone: false
 })
 export class MultipleDoc {
     dates: Date[] | undefined;

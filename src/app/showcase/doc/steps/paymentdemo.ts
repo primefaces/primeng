@@ -40,7 +40,8 @@ import { Router } from '@angular/router';
                 </ng-template>
             </p-card>
         </div>
-    `
+    `,
+    standalone: false
 })
 export class PaymentDemo implements OnInit {
     paymentInformation: any;

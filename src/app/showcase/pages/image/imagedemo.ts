@@ -8,7 +8,8 @@ import { StyleDoc } from '@doc/Image/styledoc';
 import { TemplateDoc } from '@doc/Image/templatedoc';
 
 @Component({
-    templateUrl: './imagedemo.html'
+    templateUrl: './imagedemo.html',
+    standalone: false
 })
 export class ImageDemo {
     docs = [

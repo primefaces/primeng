@@ -66,7 +66,8 @@ import { PhotoService } from '@service/photoservice';
         </div>
         <app-code [code]="code" selector="dock-advanced-demo"></app-code>
     `,
-    providers: [MessageService, TerminalService, PhotoService, NodeService]
+    providers: [MessageService, TerminalService, PhotoService, NodeService],
+    standalone: false
 })
 export class AdvancedDoc implements OnInit, OnDestroy {
     displayTerminal: boolean | undefined;

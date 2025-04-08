@@ -11,7 +11,8 @@ import { Code } from '@domain/code';
             <p-calendar [(ngModel)]="date" variant="filled" />
         </div>
         <app-code [code]="code" selector="calendar-filled-demo"></app-code>
-    `
+    `,
+    standalone: false
 })
 export class FilledDoc {
     date: Date[] | undefined;

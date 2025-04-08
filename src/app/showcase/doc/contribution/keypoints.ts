@@ -9,6 +9,7 @@ import { Component } from '@angular/core';
                 the core team to ensure consistency and compatibility.
             </p>
         </app-docsectiontext>
-    `
+    `,
+    standalone: false
 })
 export class KeyPointsDoc {}

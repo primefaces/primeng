@@ -26,7 +26,8 @@ import { TabPanel, TabView } from './tabview';
                 Corleone, now divorced from his wife Kay has nearly succeeded in keeping his promise that his family would one day be completely legitimate.
             </ng-template>
         </p-tabPanel>
-    </p-tabView>`
+    </p-tabView>`,
+    standalone: false
 })
 class TestTabViewComponent {}
 

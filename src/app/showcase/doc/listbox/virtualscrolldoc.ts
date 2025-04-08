@@ -27,7 +27,8 @@ import { Code } from '@domain/code';
             />
         </div>
         <app-code [code]="code" selector="listbox-virtual-scroll-demo"></app-code>
-    `
+    `,
+    standalone: false
 })
 export class VirtualScrollDoc {
     items = Array.from({ length: 100000 }, (_, i) => ({ label: `Item #${i}`, value: i }));

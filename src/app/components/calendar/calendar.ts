@@ -468,7 +468,8 @@ export const CALENDAR_VALUE_ACCESSOR: any = {
     providers: [CALENDAR_VALUE_ACCESSOR],
     changeDetection: ChangeDetectionStrategy.OnPush,
     encapsulation: ViewEncapsulation.None,
-    styleUrls: ['./calendar.css']
+    styleUrls: ['./calendar.css'],
+    standalone: false
 })
 export class Calendar implements OnInit, OnDestroy, ControlValueAccessor {
     @Input() iconDisplay: 'input' | 'button' = 'button';

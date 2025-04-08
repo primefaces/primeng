@@ -65,7 +65,8 @@ import { Code } from '@domain/code';
                 border-color: var(--surface-400);
             }
         `
-    ]
+    ],
+    standalone: false
 })
 export class SampleDoc {
     value: any;

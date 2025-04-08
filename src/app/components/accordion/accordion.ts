@@ -113,7 +113,8 @@ import { UniqueComponentId } from 'primeng/utils';
     styleUrls: ['./accordion.css'],
     host: {
         class: 'p-element'
-    }
+    },
+    standalone: false
 })
 export class AccordionTab implements AfterContentInit, OnDestroy {
     /**
@@ -348,7 +349,8 @@ export class AccordionTab implements AfterContentInit, OnDestroy {
     changeDetection: ChangeDetectionStrategy.OnPush,
     host: {
         class: 'p-element'
-    }
+    },
+    standalone: false
 })
 export class Accordion implements BlockableUI, AfterContentInit, OnDestroy {
     /**

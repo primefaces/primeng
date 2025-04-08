@@ -13,7 +13,8 @@ import { AppConfigService } from '@service/appconfigservice';
             <p-chart type="line" [data]="data" [options]="options" />
         </div>
         <app-code [code]="code" selector="chart-line-demo"></app-code>
-    `
+    `,
+    standalone: false
 })
 export class LineDoc implements OnInit {
     data: any;

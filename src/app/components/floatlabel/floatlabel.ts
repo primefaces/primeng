@@ -15,7 +15,8 @@ import { RouterModule } from '@angular/router';
         </span>
     `,
     changeDetection: ChangeDetectionStrategy.OnPush,
-    encapsulation: ViewEncapsulation.None
+    encapsulation: ViewEncapsulation.None,
+    standalone: false
 })
 export class FloatLabel {}
 

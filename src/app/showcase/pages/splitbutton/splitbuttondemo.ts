@@ -15,7 +15,8 @@ import { StyleDoc } from '@doc/splitbutton/styledoc';
 import { AccessibilityDoc } from '@doc/splitbutton/accessibilitydoc';
 
 @Component({
-    templateUrl: './splitbuttondemo.html'
+    templateUrl: './splitbuttondemo.html',
+    standalone: false
 })
 export class SplitButtonDemo {
     docs = [

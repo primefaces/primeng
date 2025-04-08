@@ -11,7 +11,8 @@ import { Code } from '@domain/code';
             <p-calendar [(ngModel)]="date" [touchUI]="true" [readonlyInput]="true" />
         </div>
         <app-code [code]="code" selector="calendar-touchui-demo"></app-code>
-    `
+    `,
+    standalone: false
 })
 export class TouchUIDoc {
     date: Date[] | undefined;

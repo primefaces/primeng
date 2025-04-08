@@ -16,7 +16,8 @@ import { NodeService } from '@service/nodeservice';
         </div>
         <app-code [code]="code" selector="tree-context-menu-demo"></app-code>
     `,
-    providers: [MessageService]
+    providers: [MessageService],
+    standalone: false
 })
 export class ContextMenuDoc implements OnInit {
     files!: TreeNode[];

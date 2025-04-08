@@ -89,7 +89,8 @@ import { ProductService } from '@service/productservice';
                 padding-bottom: 0 !important;
             }
         `
-    ]
+    ],
+    standalone: false
 })
 export class FilterSortEditDoc {
     products!: Product[];

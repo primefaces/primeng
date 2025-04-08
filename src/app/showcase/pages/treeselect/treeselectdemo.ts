@@ -15,7 +15,8 @@ import { FilledDoc } from '@doc/treeselect/filleddoc';
 import { LazyDoc } from '@doc/treeselect/lazydoc';
 
 @Component({
-    templateUrl: './treeselectdemo.html'
+    templateUrl: './treeselectdemo.html',
+    standalone: false
 })
 export class TreeSelectDemo {
     docs = [

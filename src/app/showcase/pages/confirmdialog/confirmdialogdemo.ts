@@ -8,7 +8,8 @@ import { HeadlessDoc } from '@doc/confirmdialog/headlessdoc';
 import { AccessibilityDoc } from '@doc/confirmdialog/accessibilitydoc';
 
 @Component({
-    templateUrl: './confirmdialogdemo.html'
+    templateUrl: './confirmdialogdemo.html',
+    standalone: false
 })
 export class ConfirmDialogDemo {
     docs = [

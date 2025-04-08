@@ -5,7 +5,8 @@ import { ImportDoc } from '@doc/terminal/importdoc';
 import { AccessibilityDoc } from '@doc/terminal/accessibilitydoc';
 
 @Component({
-    templateUrl: './terminaldemo.html'
+    templateUrl: './terminaldemo.html',
+    standalone: false
 })
 export class TerminalDemo {
     docs = [

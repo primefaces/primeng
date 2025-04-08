@@ -11,7 +11,8 @@ import { Code } from '@domain/code';
             <p-password [(ngModel)]="value" [toggleMask]="true" />
         </div>
         <app-code [code]="code" selector="password-toggle-mask-demo"></app-code>
-    `
+    `,
+    standalone: false
 })
 export class ToggleMaskDoc {
     value!: string;

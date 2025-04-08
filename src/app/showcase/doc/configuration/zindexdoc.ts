@@ -13,7 +13,8 @@ import { Code } from '@domain/code';
             <p class="doc-section-description">The ZIndex of all components is increased according to their groups in harmony with each other. When <i>autoZIndex</i> is false, each group increments its zIndex within itself.</p>
         </app-docsectiontext>
         <app-code [code]="code" [hideToggleCode]="true"></app-code>
-    `
+    `,
+    standalone: false
 })
 export class ZIndexDoc {
     code: Code = {

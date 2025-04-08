@@ -13,7 +13,8 @@ import { Code } from '@domain/code';
             <p class="doc-section-description mt-3">Same layout can be achieved using the semantic elements with screen reader support built-in.</p>
             <app-code [code]="code2" [hideToggleCode]="true"></app-code>
         </app-docsectiontext>
-    `
+    `,
+    standalone: false
 })
 export class SemanticHTMLDoc {
     code1: Code = {

@@ -24,7 +24,8 @@ interface City {
             </p-multiSelect>
         </div>
         <app-code [code]="code" selector="multi-select-group-demo"></app-code>
-    `
+    `,
+    standalone: false
 })
 export class GroupDoc {
     groupedCities!: SelectItemGroup[];

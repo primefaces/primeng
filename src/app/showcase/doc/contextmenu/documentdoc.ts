@@ -13,7 +13,8 @@ import { Code } from '@domain/code';
             <p-contextMenu [model]="items" [global]="true" />
         </div>
         <app-code [code]="code" selector="context-menu-document-demo"></app-code>
-    `
+    `,
+    standalone: false
 })
 export class DocumentDoc implements OnInit {
     items: MenuItem[] | undefined;

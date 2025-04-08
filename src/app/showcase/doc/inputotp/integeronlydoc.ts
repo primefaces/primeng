@@ -11,7 +11,8 @@ import { Code } from '@domain/code';
             <p-inputOtp [(ngModel)]="value" [integerOnly]="true" />
         </div>
         <app-code [code]="code" selector="input-otp-integer-only-demo"></app-code>
-    `
+    `,
+    standalone: false
 })
 export class IntegerOnlyDoc {
     value: any;

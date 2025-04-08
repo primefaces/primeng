@@ -10,7 +10,8 @@ import { Directive, ElementRef, Input, NgModule, inject, booleanAttribute, PLATF
     selector: '[pFocusTrap]',
     host: {
         class: 'p-element'
-    }
+    },
+    standalone: false
 })
 export class FocusTrap {
     /**

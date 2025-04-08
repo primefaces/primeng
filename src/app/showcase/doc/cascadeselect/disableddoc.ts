@@ -11,7 +11,8 @@ import { Code } from '@domain/code';
             <p-cascadeSelect [disabled]="true" placeholder="Disabled" [style]="{ minWidth: '14rem' }" />
         </div>
         <app-code [code]="code" selector="cascade-select-disabled-demo"></app-code>
-    `
+    `,
+    standalone: false
 })
 export class DisabledDoc {
     code: Code = {

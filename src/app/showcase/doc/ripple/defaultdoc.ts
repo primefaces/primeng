@@ -11,7 +11,8 @@ import { Code } from '@domain/code';
             <div pRipple class="card text-primary bg-primary flex select-none justify-content-center align-items-center shadow-2">Default</div>
         </div>
         <app-code [code]="code" selector="ripple-default-demo"></app-code>
-    `
+    `,
+    standalone: false
 })
 export class DefaultDoc {
     code: Code = {

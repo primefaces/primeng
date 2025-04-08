@@ -47,7 +47,8 @@ export const KNOB_VALUE_ACCESSOR: any = {
     styleUrls: ['./knob.css'],
     host: {
         class: 'p-element'
-    }
+    },
+    standalone: false
 })
 export class Knob {
     /**

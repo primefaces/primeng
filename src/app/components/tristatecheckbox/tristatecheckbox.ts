@@ -76,7 +76,8 @@ export const TRISTATECHECKBOX_VALUE_ACCESSOR: any = {
     encapsulation: ViewEncapsulation.None,
     host: {
         class: 'p-element'
-    }
+    },
+    standalone: false
 })
 export class TriStateCheckbox implements ControlValueAccessor {
     constructor(

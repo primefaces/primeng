@@ -11,7 +11,8 @@ import { Code } from '@domain/code';
             <p-calendar [(ngModel)]="date" [disabled]="true" />
         </div>
         <app-code [code]="code" selector="calendar-disabled-demo"></app-code>
-    `
+    `,
+    standalone: false
 })
 export class DisabledDoc {
     date: Date | undefined;

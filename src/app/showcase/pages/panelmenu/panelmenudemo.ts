@@ -10,7 +10,8 @@ import { CommandDoc } from '@doc/panelmenu/commanddoc';
 import { RouterDoc } from '@doc/panelmenu/routerdoc';
 
 @Component({
-    templateUrl: './panelmenudemo.html'
+    templateUrl: './panelmenudemo.html',
+    standalone: false
 })
 export class PanelMenuDemo {
     docs = [

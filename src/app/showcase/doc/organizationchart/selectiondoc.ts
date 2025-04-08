@@ -22,7 +22,8 @@ import { Code } from '@domain/code';
             </p-organizationChart>
         </div>
         <app-code [code]="code" selector="organization-chart-selection-demo"></app-code>
-    `
+    `,
+    standalone: false
 })
 export class SelectionDoc {
     selectedNodes!: TreeNode[];

@@ -11,7 +11,8 @@ import { Code } from '@domain/code';
             <p-meterGroup [value]="value" />
         </div>
         <app-code [code]="code" selector="meter-group-multiple-demo"></app-code>
-    `
+    `,
+    standalone: false
 })
 export class MultipleDoc {
     value = [

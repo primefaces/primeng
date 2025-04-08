@@ -54,7 +54,8 @@ import { Router } from '@angular/router';
                 </ng-template>
             </p-card>
         </div>
-    `
+    `,
+    standalone: false
 })
 export class ConfirmationDemo implements OnInit {
     ticketInformation: any;

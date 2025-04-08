@@ -53,7 +53,8 @@ import { VirtualScrollerLazyLoadEvent } from './virtualscroller.interface';
     encapsulation: ViewEncapsulation.None,
     host: {
         class: 'p-element'
-    }
+    },
+    standalone: false
 })
 export class VirtualScroller implements AfterContentInit, BlockableUI {
     /**

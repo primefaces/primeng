@@ -36,7 +36,6 @@ import { TagModule } from 'primeng/tag';
             </ol>
         </div>
     `,
-    standalone: true,
     imports: [CommonModule, StyleClassModule, RouterModule, TagModule]
 })
 export class AppMenuItemComponent {

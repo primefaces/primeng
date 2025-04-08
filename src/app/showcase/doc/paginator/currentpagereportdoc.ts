@@ -35,7 +35,8 @@ interface PageEvent {
             />
         </div>
         <app-code [code]="code" selector="paginator-current-page-report-demo"></app-code>
-    `
+    `,
+    standalone: false
 })
 export class CurrentPageReportDoc {
     first: number = 0;

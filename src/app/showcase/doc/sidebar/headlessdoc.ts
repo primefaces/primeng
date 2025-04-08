@@ -207,7 +207,8 @@ import { Sidebar } from 'primeng/sidebar';
             <p-button (onClick)="sidebarVisible = true" icon="pi pi-arrow-right"></p-button>
         </div>
         <app-code [code]="code" selector="sidebar-headless-demo"></app-code>
-    `
+    `,
+    standalone: false
 })
 export class HeadlessDoc {
     @ViewChild('sidebarRef') sidebarRef!: Sidebar;

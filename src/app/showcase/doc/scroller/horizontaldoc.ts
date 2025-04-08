@@ -16,7 +16,8 @@ import { Code } from '@domain/code';
         </div>
         <app-code [code]="code" selector="scroller-horizontal-demo"></app-code>
     `,
-    changeDetection: ChangeDetectionStrategy.OnPush
+    changeDetection: ChangeDetectionStrategy.OnPush,
+    standalone: false
 })
 export class HorizontalDoc {
     items!: string[];

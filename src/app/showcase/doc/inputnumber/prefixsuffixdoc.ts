@@ -26,7 +26,8 @@ import { Code } from '@domain/code';
             </div>
         </div>
         <app-code [code]="code" selector="input-number-prefix-suffix-demo"></app-code>
-    `
+    `,
+    standalone: false
 })
 export class PrefixSuffixDoc {
     value1: number = 20;

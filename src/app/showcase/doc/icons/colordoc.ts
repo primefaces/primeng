@@ -14,7 +14,8 @@ import { Code } from '@domain/code';
             <i class="pi pi-user" style="color: #708090"></i>
         </div>
         <app-code [code]="code" [hideToggleCode]="true"></app-code>
-    `
+    `,
+    standalone: false
 })
 export class ColorDoc {
     code: Code = {

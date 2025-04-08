@@ -131,7 +131,8 @@ export const CHIPS_VALUE_ACCESSOR: any = {
     providers: [CHIPS_VALUE_ACCESSOR],
     changeDetection: ChangeDetectionStrategy.OnPush,
     encapsulation: ViewEncapsulation.None,
-    styleUrls: ['./chips.css']
+    styleUrls: ['./chips.css'],
+    standalone: false
 })
 export class Chips implements AfterContentInit, ControlValueAccessor {
     /**

@@ -25,7 +25,8 @@ import { NodeService } from '@service/nodeservice';
                 [virtualScrollOptions]="{ scrollHeight: '200px' }"
             ></p-treeSelect>
         </div>
-        <app-code [code]="code" selector="tree-select-virtual-scroll-demo"></app-code>`
+        <app-code [code]="code" selector="tree-select-virtual-scroll-demo"></app-code>`,
+    standalone: false
 })
 export class VirtualScrollDoc {
     nodes!: any[];

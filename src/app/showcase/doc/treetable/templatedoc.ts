@@ -47,7 +47,8 @@ interface Column {
         </div>
         <app-code [code]="code" selector="tree-table-template-demo"></app-code>
     `,
-    changeDetection: ChangeDetectionStrategy.OnPush
+    changeDetection: ChangeDetectionStrategy.OnPush,
+    standalone: false
 })
 export class TemplateDoc {
     files!: TreeNode[];

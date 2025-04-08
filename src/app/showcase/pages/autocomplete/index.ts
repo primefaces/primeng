@@ -20,7 +20,6 @@ import { ShowClearDoc } from '@doc/autocomplete/showclear-doc.component';
 
 @Component({
     template: `<app-doc docTitle="Angular AutoComplete Component" header="AutoComplete" description="AutoComplete is an input component that provides real-time suggestions when being typed." [docs]="docs" [apiDocs]="['AutoComplete']"></app-doc>`,
-    standalone: true,
     imports: [AutoCompleteDocModule],
     changeDetection: ChangeDetectionStrategy.OnPush
 })

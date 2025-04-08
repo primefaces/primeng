@@ -14,7 +14,8 @@ import { Code } from '@domain/code';
             </p-floatLabel>
         </div>
         <app-code [code]="code" selector="chips-float-label-demo"></app-code>
-    `
+    `,
+    standalone: false
 })
 export class FloatLabelDoc {
     values: string[] | undefined;

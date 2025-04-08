@@ -12,7 +12,8 @@ import { Code } from '@domain/code';
         <div class="mt-3">
             <app-code [code]="code2" [hideToggleCode]="true"></app-code>
         </div>
-    `
+    `,
+    standalone: false
 })
 export class QuillDoc {
     code: Code = {

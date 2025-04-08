@@ -11,7 +11,8 @@ import { Code } from '@domain/code';
             <p-password [(ngModel)]="value" />
         </div>
         <app-code [code]="code" selector="password-meter-demo"></app-code>
-    `
+    `,
+    standalone: false
 })
 export class MeterDoc {
     value!: string;

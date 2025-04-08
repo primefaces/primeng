@@ -13,7 +13,8 @@ import { TemplateDoc } from '@doc/avatar/templatedoc';
 import { AccessibilityDoc } from '@doc/avatar/accessibilitydoc';
 
 @Component({
-    templateUrl: './avatardemo.html'
+    templateUrl: './avatardemo.html',
+    standalone: false
 })
 export class AvatarDemo {
     docs = [

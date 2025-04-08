@@ -70,7 +70,8 @@ import { Code } from '@domain/code';
             </p-menu>
         </div>
         <app-code [code]="code" selector="menu-template-demo"></app-code>
-    `
+    `,
+    standalone: false
 })
 export class TemplateDoc implements OnInit {
     items: MenuItem[] | undefined;

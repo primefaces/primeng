@@ -15,7 +15,8 @@ import { Code } from '@domain/code';
             <p-tag icon="pi pi-times" severity="danger" value="Danger" />
         </div>
         <app-code [code]="code" selector="tag-icon-demo"></app-code>
-    `
+    `,
+    standalone: false
 })
 export class IconDoc {
     code: Code = {

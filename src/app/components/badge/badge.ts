@@ -11,7 +11,8 @@ import { UniqueComponentId } from 'primeng/utils';
     selector: '[pBadge]',
     host: {
         class: 'p-element'
-    }
+    },
+    standalone: false
 })
 export class BadgeDirective implements OnChanges, AfterViewInit {
     /**
@@ -244,7 +245,8 @@ export class BadgeDirective implements OnChanges, AfterViewInit {
     styleUrls: ['./badge.css'],
     host: {
         class: 'p-element'
-    }
+    },
+    standalone: false
 })
 export class Badge {
     /**

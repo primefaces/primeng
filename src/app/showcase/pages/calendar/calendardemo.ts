@@ -23,7 +23,8 @@ import { InvalidDoc } from '@doc/calendar/invaliddoc';
 import { DisabledDoc } from '@doc/calendar/disableddoc';
 import { FilledDoc } from '@doc/calendar/filleddoc';
 @Component({
-    templateUrl: './calendardemo.html'
+    templateUrl: './calendardemo.html',
+    standalone: false
 })
 export class CalendarDemo {
     docs = [

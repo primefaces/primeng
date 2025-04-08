@@ -11,7 +11,8 @@ import { Code } from '@domain/code';
             <p-button label="Check" icon="pi pi-check"></p-button>
         </div>
         <app-code [code]="code" [hideStackBlitz]="true" [hideCodeSandbox]="true"></app-code>
-    `
+    `,
+    standalone: false
 })
 export class UsageDoc {
     code: Code = {

@@ -14,7 +14,8 @@ import { AccessibilityDoc } from '@doc/scroller/accessibilitydoc';
 
 @Component({
     templateUrl: './scrollerdemo.html',
-    styleUrls: ['./scrollerdemo.scss']
+    styleUrls: ['./scrollerdemo.scss'],
+    standalone: false
 })
 export class ScrollerDemo {
     docs = [

@@ -35,7 +35,8 @@ interface EventItem {
             </p-timeline>
         </div>
         <app-code [code]="code" selector="timeline-template-demo"></app-code>
-    `
+    `,
+    standalone: false
 })
 export class TemplateDoc {
     events: EventItem[];

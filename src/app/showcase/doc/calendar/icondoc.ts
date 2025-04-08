@@ -28,7 +28,8 @@ import { Code } from '@domain/code';
             </div>
         </div>
         <app-code [code]="code" selector="calendar-icon-demo"></app-code>
-    `
+    `,
+    standalone: false
 })
 export class IconDoc {
     date1: Date | undefined;

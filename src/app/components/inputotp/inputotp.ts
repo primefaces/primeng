@@ -54,7 +54,8 @@ export const INPUT_OTP_VALUE_ACCESSOR: any = {
     host: {
         class: 'p-inputotp p-component'
     },
-    providers: [INPUT_OTP_VALUE_ACCESSOR]
+    providers: [INPUT_OTP_VALUE_ACCESSOR],
+    standalone: false
 })
 export class InputOtp implements AfterContentInit {
     /**

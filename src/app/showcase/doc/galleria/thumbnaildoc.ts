@@ -24,7 +24,8 @@ import { PhotoService } from '@service/photoservice';
             </p-galleria>
         </div>
         <app-code [code]="code" selector="galleria-thumbnail-demo"></app-code>
-    `
+    `,
+    standalone: false
 })
 export class ThumbnailDoc implements OnInit {
     images: any[] | undefined;

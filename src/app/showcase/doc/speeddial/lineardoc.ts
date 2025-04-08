@@ -19,7 +19,8 @@ import { Code } from '@domain/code';
         </div>
         <app-code [code]="code" selector="speed-dial-linear-demo"></app-code>
     `,
-    providers: [MessageService]
+    providers: [MessageService],
+    standalone: false
 })
 export class LinearDoc implements OnInit {
     items: MenuItem[] | undefined;

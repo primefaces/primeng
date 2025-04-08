@@ -7,7 +7,8 @@ import { AccessibilityDoc } from '@doc/dock/accessibilitydoc';
 
 @Component({
     templateUrl: './dockdemo.html',
-    styleUrls: ['./dockdemo.scss']
+    styleUrls: ['./dockdemo.scss'],
+    standalone: false
 })
 export class DockDemo {
     docs = [

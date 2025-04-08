@@ -11,7 +11,8 @@ import { Code } from '@domain/code';
             <p-calendar [(ngModel)]="rangeDates" selectionMode="range" [readonlyInput]="true" />
         </div>
         <app-code [code]="code" selector="calendar-range-demo"></app-code>
-    `
+    `,
+    standalone: false
 })
 export class RangeDoc {
     rangeDates: Date[] | undefined;

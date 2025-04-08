@@ -88,7 +88,8 @@ import { FieldsetAfterToggleEvent, FieldsetBeforeToggleEvent } from './fieldset.
     styleUrls: ['./fieldset.css'],
     host: {
         class: 'p-element'
-    }
+    },
+    standalone: false
 })
 export class Fieldset implements AfterContentInit, BlockableUI {
     /**

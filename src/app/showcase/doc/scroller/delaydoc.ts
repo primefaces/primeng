@@ -34,7 +34,8 @@ import { Code } from '@domain/code';
             </div>
         </div>
         <app-code [code]="code" selector="scroller-delay-demo"></app-code>
-    `
+    `,
+    standalone: false
 })
 export class DelayDoc {
     items!: string[];

@@ -10,7 +10,8 @@ import { Tooltip, TooltipModule } from './tooltip';
         <div style="margin:50px;">
             <input type="text" pInputText pTooltip="Enter your username" [positionStyle]="positionStyle" [appendTo]="appendTo" [tooltipDisabled]="disabled" [tooltipEvent]="event" [tooltipPosition]="position" />
         </div>
-    `
+    `,
+    standalone: false
 })
 class TestTooltipComponent {
     position: string = 'right';

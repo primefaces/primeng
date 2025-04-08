@@ -25,7 +25,8 @@ import { Code } from '@domain/code';
             </div>
         </div>
         <app-code [code]="code" selector="input-mask-mask-demo"></app-code>
-    `
+    `,
+    standalone: false
 })
 export class MaskDoc {
     value1: string | undefined;

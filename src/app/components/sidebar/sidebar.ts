@@ -101,7 +101,8 @@ const hideAnimation = animation([animate('{{transition}}', style({ transform: '{
     styleUrls: ['./sidebar.css'],
     host: {
         class: 'p-element'
-    }
+    },
+    standalone: false
 })
 export class Sidebar implements AfterViewInit, AfterContentInit, OnDestroy {
     /**

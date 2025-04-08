@@ -50,7 +50,8 @@ import { Code } from '@domain/code';
                 flex-basis: 50rem;
             }
         `
-    ]
+    ],
+    standalone: false
 })
 export class BasicDoc {
     code: Code = {

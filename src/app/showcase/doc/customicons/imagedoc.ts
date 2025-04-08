@@ -8,7 +8,8 @@ import { Code } from '@domain/code';
             <p>Any type of image can be used as an icon.</p>
         </app-docsectiontext>
         <app-code [code]="code" [hideToggleCode]="true"></app-code>
-    `
+    `,
+    standalone: false
 })
 export class ImageDoc {
     code: Code = {

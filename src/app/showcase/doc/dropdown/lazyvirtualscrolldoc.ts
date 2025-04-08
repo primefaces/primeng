@@ -9,7 +9,8 @@ import { Code } from '@domain/code';
             <p-dropdown [options]="items" [(ngModel)]="selectedItem" placeholder="Select Item" [virtualScroll]="true" [virtualScrollItemSize]="38" [virtualScrollOptions]="options" />
         </div>
         <app-code [code]="code" selector="dropdown-lazy-virtualscroll-demo"></app-code>
-    `
+    `,
+    standalone: false
 })
 export class LazyVirtualScrollDoc {
     items: SelectItem[];

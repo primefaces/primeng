@@ -12,7 +12,8 @@ import { Component, NO_ERRORS_SCHEMA } from '@angular/core';
             <img src="https://primefaces.org/cdn/primeng/images/demo/galleria/galleria1.jpg" alt="Galleria 1" />
         </p-overlayPanel>
         <a (click)="outSideClick()" class="outside-anchor"></a>
-    `
+    `,
+    standalone: false
 })
 class TestOverlayPanelComponent {
     outSideClick() {}

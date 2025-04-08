@@ -17,7 +17,8 @@ import { Code } from '@domain/code';
             </p-dialog>
         </div>
         <app-code [code]="code" selector="dialog-maximizable-demo"></app-code>
-    `
+    `,
+    standalone: false
 })
 export class MaximizableDoc {
     visible: boolean = false;

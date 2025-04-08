@@ -9,7 +9,8 @@ import { AccessibilityDoc } from '@doc/inputotp/accessibilitydoc';
 
 @Component({
     templateUrl: './inputotp.html',
-    encapsulation: ViewEncapsulation.None
+    encapsulation: ViewEncapsulation.None,
+    standalone: false
 })
 export class InputOtpDemo {
     docs = [

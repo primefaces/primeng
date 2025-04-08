@@ -9,7 +9,8 @@ import { Code } from '@domain/code';
         <div class="card p-fluid">
             <p-chips [(ngModel)]="values" [separator]="separatorExp" placeholder="Hint: a, b c"></p-chips>
         </div>
-        <app-code [code]="code" selector="chips-reg-exp-separator-demo"></app-code>`
+        <app-code [code]="code" selector="chips-reg-exp-separator-demo"></app-code>`,
+    standalone: false
 })
 export class RegexpSeparatorDoc {
     separatorExp: RegExp = /,| /;

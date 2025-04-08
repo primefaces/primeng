@@ -95,7 +95,8 @@ export const MULTISELECT_VALUE_ACCESSOR: any = {
     encapsulation: ViewEncapsulation.None,
     host: {
         class: 'p-element'
-    }
+    },
+    standalone: false
 })
 export class MultiSelectItem {
     @Input() id: string | undefined;
@@ -452,7 +453,8 @@ export class MultiSelectItem {
     providers: [MULTISELECT_VALUE_ACCESSOR],
     changeDetection: ChangeDetectionStrategy.OnPush,
     encapsulation: ViewEncapsulation.None,
-    styleUrls: ['./multiselect.css']
+    styleUrls: ['./multiselect.css'],
+    standalone: false
 })
 export class MultiSelect implements OnInit, AfterViewInit, AfterContentInit, AfterViewChecked, ControlValueAccessor {
     /**

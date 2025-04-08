@@ -14,7 +14,8 @@ import { Code } from '@domain/code';
             <i class="pi pi-user" style="font-size: 2.5rem"></i>
         </div>
         <app-code [code]="code" [hideToggleCode]="true"></app-code>
-    `
+    `,
+    standalone: false
 })
 export class SizeDoc {
     code: Code = {

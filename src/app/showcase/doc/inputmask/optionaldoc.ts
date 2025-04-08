@@ -11,7 +11,8 @@ import { Code } from '@domain/code';
             <p-inputMask mask="(999) 999-9999? x99999" [(ngModel)]="value" placeholder="(999) 999-9999? x99999" />
         </div>
         <app-code [code]="code" selector="input-mask-optional-demo"></app-code>
-    `
+    `,
+    standalone: false
 })
 export class OptionalDoc {
     value: string | undefined;

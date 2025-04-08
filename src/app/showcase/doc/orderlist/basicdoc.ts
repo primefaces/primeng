@@ -27,7 +27,8 @@ import { ProductService } from '@service/productservice';
             </p-orderList>
         </div>
         <app-code [code]="code" selector="orderlist-basic-demo" [extFiles]="extFiles"></app-code>
-    `
+    `,
+    standalone: false
 })
 export class BasicDoc implements OnInit {
     products!: Product[];

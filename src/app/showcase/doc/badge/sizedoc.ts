@@ -13,7 +13,8 @@ import { Code } from '@domain/code';
             <p-badge value="6" badgeSize="xlarge" severity="success" />
         </div>
         <app-code [code]="code" selector="badge-size-demo"></app-code>
-    `
+    `,
+    standalone: false
 })
 export class SizeDoc {
     code: Code = {

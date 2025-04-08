@@ -29,7 +29,8 @@ import { Title, Meta } from '@angular/platform-browser';
                 <app-docapisection [docs]="apiDocs" [header]="header" class="doc-tabpanel"></app-docapisection>
             </div>
         </div>
-    </div>`
+    </div>`,
+    standalone: false
 })
 export class AppDoc implements OnInit, OnChanges {
     @Input() docTitle!: string;

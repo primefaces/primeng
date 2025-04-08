@@ -19,7 +19,8 @@ import { Code } from '@domain/code';
             </span>
         </div>
         <app-code [code]="code" selector="input-text-icons-demo"></app-code>
-    `
+    `,
+    standalone: false
 })
 export class IconsDoc {
     value: string | undefined;

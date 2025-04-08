@@ -18,7 +18,8 @@ import { Code } from '@domain/code';
             <p-button label="Contrast" [outlined]="true" severity="contrast" />
         </div>
         <app-code [code]="code" selector="button-outlined-demo"></app-code>
-    `
+    `,
+    standalone: false
 })
 export class OutlinedDoc {
     code: Code = {

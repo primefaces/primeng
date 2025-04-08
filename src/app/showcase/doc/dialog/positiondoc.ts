@@ -39,7 +39,8 @@ import { Code } from '@domain/code';
             </p-dialog>
         </div>
         <app-code [code]="code" selector="dialog-position-demo"></app-code>
-    `
+    `,
+    standalone: false
 })
 export class PositionDoc {
     visible: boolean = false;

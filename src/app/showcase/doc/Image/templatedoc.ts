@@ -15,7 +15,8 @@ import { Code } from '@domain/code';
             </p-image>
         </div>
         <app-code [code]="code" selector="image-template-demo"></app-code>
-    `
+    `,
+    standalone: false
 })
 export class TemplateDoc {
     code: Code = {

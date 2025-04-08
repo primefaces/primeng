@@ -17,7 +17,8 @@ import { FilledDoc } from '@doc/multiselect/filleddoc';
 
 @Component({
     templateUrl: './multiselectdemo.html',
-    styleUrls: ['./multiselectdemo.scss']
+    styleUrls: ['./multiselectdemo.scss'],
+    standalone: false
 })
 export class MultiSelectDemo {
     docs = [

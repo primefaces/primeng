@@ -8,7 +8,8 @@ import { CommandDoc } from '@doc/menubar/commanddoc';
 import { RouterDoc } from '@doc/menubar/routerdoc';
 
 @Component({
-    templateUrl: './menubardemo.html'
+    templateUrl: './menubardemo.html',
+    standalone: false
 })
 export class MenubarDemo {
     docs = [

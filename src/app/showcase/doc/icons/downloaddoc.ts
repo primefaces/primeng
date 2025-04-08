@@ -8,7 +8,8 @@ import { Code } from '@domain/code';
             <p>PrimeIcons is available at npm, run the following command to download it to your project.</p>
         </app-docsectiontext>
         <app-code [code]="code" [hideToggleCode]="true"></app-code>
-    `
+    `,
+    standalone: false
 })
 export class DownloadDoc {
     code: Code = {

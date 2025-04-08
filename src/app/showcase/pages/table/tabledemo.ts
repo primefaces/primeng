@@ -54,7 +54,8 @@ import { FilterAdvancedDoc } from '@doc/table/filteradvanceddoc';
 
 @Component({
     templateUrl: './tabledemo.html',
-    styleUrls: ['./tabledemo.scss']
+    styleUrls: ['./tabledemo.scss'],
+    standalone: false
 })
 export class TableDemo {
     docs = [

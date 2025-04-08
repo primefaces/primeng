@@ -13,7 +13,8 @@ import { Code } from '@domain/code';
             <a routerLink="/" class="p-button font-bold">Router</a>
         </div>
         <app-code [code]="code" selector="button-link-demo"></app-code>
-    `
+    `,
+    standalone: false
 })
 export class LinkDoc {
     code: Code = {

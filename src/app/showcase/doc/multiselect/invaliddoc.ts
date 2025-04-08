@@ -16,7 +16,8 @@ interface City {
             <p-multiSelect [options]="cities" [(ngModel)]="selectedCities" class="ng-dirty ng-invalid" optionLabel="name" placeholder="Select Cities" />
         </div>
         <app-code [code]="code" selector="multi-select-invalid-demo"></app-code>
-    `
+    `,
+    standalone: false
 })
 export class InvalidDoc implements OnInit {
     cities!: City[];

@@ -37,7 +37,8 @@ interface Column {
         </div>
         <app-code [code]="code" selector="tree-table-conditional-style-demo"></app-code>
     `,
-    changeDetection: ChangeDetectionStrategy.OnPush
+    changeDetection: ChangeDetectionStrategy.OnPush,
+    standalone: false
 })
 export class ConditionalStyleDoc {
     files!: TreeNode[];

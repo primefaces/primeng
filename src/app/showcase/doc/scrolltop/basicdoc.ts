@@ -13,7 +13,8 @@ import { Code } from '@domain/code';
             <p-scrollTop />
         </div>
         <app-code [code]="code" selector="scroll-top-basic-demo"></app-code>
-    `
+    `,
+    standalone: false
 })
 export class BasicDoc {
     code: Code = {

@@ -21,7 +21,8 @@ interface PageEvent {
             <p-paginator (onPageChange)="onPageChange($event)" [first]="first" [rows]="rows" [totalRecords]="120" [rowsPerPageOptions]="[10, 20, 30]" />
         </div>
         <app-code [code]="code" selector="paginator-basic-demo"></app-code>
-    `
+    `,
+    standalone: false
 })
 export class BasicDoc {
     first: number = 0;

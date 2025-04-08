@@ -18,7 +18,8 @@ import { Code } from '@domain/code';
             <p-button (onClick)="sidebarVisible = true" icon="pi pi-arrow-right" />
         </div>
         <app-code [code]="code" selector="sidebar-basic-demo"></app-code>
-    `
+    `,
+    standalone: false
 })
 export class BasicDoc {
     sidebarVisible: boolean = false;

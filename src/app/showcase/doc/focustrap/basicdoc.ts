@@ -37,7 +37,8 @@ import { Code } from '@domain/code';
             </div>
         </div>
         <app-code [code]="code" selector="focus-trap-basic-demo"></app-code>
-    `
+    `,
+    standalone: false
 })
 export class BasicDoc {
     selectedCity: string | undefined;

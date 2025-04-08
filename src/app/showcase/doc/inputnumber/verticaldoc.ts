@@ -22,7 +22,8 @@ import { Code } from '@domain/code';
             />
         </div>
         <app-code [code]="code" selector="input-number-vertical-demo"></app-code>
-    `
+    `,
+    standalone: false
 })
 export class VerticalDoc {
     value1: number = 50;

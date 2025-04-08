@@ -15,7 +15,8 @@ import { Code } from '@domain/code';
             </form>
         </div>
         <app-code [code]="code" selector="tri-state-checkbox-reactive-forms-demo"></app-code>
-    `
+    `,
+    standalone: false
 })
 export class ReactiveFormsDoc implements OnInit {
     formGroup!: FormGroup;

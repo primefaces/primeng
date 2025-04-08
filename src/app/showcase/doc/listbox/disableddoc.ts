@@ -16,7 +16,8 @@ interface City {
             <p-listbox [options]="cities" [(ngModel)]="selectedCity" optionLabel="name" [disabled]="true" [style]="{ width: '15rem' }" [listStyle]="{ 'max-height': '220px' }" />
         </div>
         <app-code [code]="code" selector="listbox-disabled-demo"></app-code>
-    `
+    `,
+    standalone: false
 })
 export class DisabledDoc implements OnInit {
     cities!: City[];

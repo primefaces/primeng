@@ -11,7 +11,8 @@ import { Code } from '@domain/code';
             <p-calendar [(ngModel)]="date" class="ng-invalid ng-dirty" />
         </div>
         <app-code [code]="code" selector="calendar-invalid-demo"></app-code>
-    `
+    `,
+    standalone: false
 })
 export class InvalidDoc {
     date: Date | undefined;

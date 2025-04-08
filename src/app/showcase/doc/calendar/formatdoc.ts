@@ -30,7 +30,8 @@ import { Code } from '@domain/code';
             <p-calendar [(ngModel)]="date" dateFormat="dd.mm.yy" />
         </div>
         <app-code [code]="code" selector="calendar-format-demo"></app-code>
-    `
+    `,
+    standalone: false
 })
 export class FormatDoc {
     date: Date | undefined;

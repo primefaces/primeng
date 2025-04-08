@@ -13,7 +13,8 @@ import { UniqueComponentId, ZIndexUtils } from 'primeng/utils';
     selector: '[pTooltip]',
     host: {
         class: 'p-element'
-    }
+    },
+    standalone: false
 })
 export class Tooltip implements AfterViewInit, OnDestroy {
     /**

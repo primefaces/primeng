@@ -17,7 +17,8 @@ import { PhotoService } from '@service/photoservice';
         </div>
         <app-code [code]="code" selector="galleria-item-without-thumbnails-demo"></app-code>
     `,
-    providers: [PhotoService]
+    providers: [PhotoService],
+    standalone: false
 })
 export class ItemWithoutThumbnailsDoc implements OnInit {
     images: any[] | undefined;

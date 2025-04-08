@@ -11,7 +11,8 @@ import { SharedModule } from 'primeng/api';
     template: `<span class="p-input-icon" [ngClass]="styleClass"><ng-content></ng-content></span>`,
     styleUrl: './inputicon.css',
     encapsulation: ViewEncapsulation.None,
-    changeDetection: ChangeDetectionStrategy.OnPush
+    changeDetection: ChangeDetectionStrategy.OnPush,
+    standalone: false
 })
 export class InputIcon {
     /**

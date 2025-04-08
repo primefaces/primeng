@@ -15,7 +15,8 @@ import { Code } from '@domain/code';
             <p-dropdown [options]="items" [(ngModel)]="selectedItem" placeholder="Select Item" [virtualScroll]="true" [virtualScrollItemSize]="38" />
         </div>
         <app-code [code]="code" selector="dropdown-virtualscroll-demo"></app-code>
-    `
+    `,
+    standalone: false
 })
 export class VirtualScrollDoc {
     items: SelectItem[];

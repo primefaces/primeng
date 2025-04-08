@@ -12,7 +12,8 @@ import { Code } from '@domain/code';
             <p-chips [formControl]="values" [max]="2" placeholder="Maximum 2 items" />
         </div>
         <app-code [code]="code" selector="chips-max-values-demo"></app-code>
-    `
+    `,
+    standalone: false
 })
 export class MaxValuesDoc {
     values = new FormControl<string[] | null>(null);

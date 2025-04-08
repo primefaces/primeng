@@ -51,7 +51,8 @@ import { DomSanitizer, SafeResourceUrl } from '@angular/platform-browser';
         </div>
     `,
     changeDetection: ChangeDetectionStrategy.OnPush,
-    encapsulation: ViewEncapsulation.None
+    encapsulation: ViewEncapsulation.None,
+    standalone: false
 })
 export class TemplateYoutube {
     @Input() imgSrc: string;

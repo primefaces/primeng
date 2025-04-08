@@ -8,7 +8,8 @@ import { RouterTestingModule } from '@angular/router/testing';
 import { MenuItem } from 'primeng/api';
 
 @Component({
-    template: `<p-steps [model]="items"></p-steps> `
+    template: `<p-steps [model]="items"></p-steps> `,
+    standalone: false
 })
 class TestStepsComponent {
     items: MenuItem[];
@@ -102,7 +103,7 @@ describe('Steps', () => {
 
         const items = fixture.debugElement.children[0].queryAll(By.css('li'));
         for (let x = 0; x < testComponent.items.length; x++) {
-            expect(items[x].query(By.css('.p-steps-number')).nativeElement.textContent).toEqual((x + 1).toString());
+            expect(items[x].query(By.css('.p-steps-number')).nativeElement.textContent).toEqual(`${(x + 1).toString()} `);
         }
     });
 

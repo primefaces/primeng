@@ -16,7 +16,8 @@ import { Code } from '@domain/code';
         </div>
         <app-code [code]="code" selector="toast-target-demo"></app-code>
     `,
-    providers: [MessageService]
+    providers: [MessageService],
+    standalone: false
 })
 export class TargetDoc {
     constructor(private messageService: MessageService) {}

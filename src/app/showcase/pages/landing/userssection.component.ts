@@ -4,7 +4,6 @@ import { AppConfigService } from '@service/appconfigservice';
 
 @Component({
     selector: 'users-section',
-    standalone: true,
     imports: [CommonModule],
     template: `
         <section class="landing-users py-8 px-3 lg:px-8">

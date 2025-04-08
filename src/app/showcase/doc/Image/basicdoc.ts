@@ -11,7 +11,8 @@ import { Code } from '@domain/code';
             <p-image src="https://primefaces.org/cdn/primeng/images/galleria/galleria10.jpg" alt="Image" width="250" />
         </div>
         <app-code [code]="code" selector="image-basic-demo"></app-code>
-    `
+    `,
+    standalone: false
 })
 export class BasicDoc {
     code: Code = {

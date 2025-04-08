@@ -8,7 +8,8 @@ import { Code } from '@domain/code';
             <p>The <i>command</i> property of a menuitem defines the callback to run when an item is activated by click or a key event.</p>
         </app-docsectiontext>
         <app-code [code]="code" [hideToggleCode]="true" [hideStackBlitz]="true"></app-code>
-    `
+    `,
+    standalone: false
 })
 export class CommandDoc {
     code: Code = {

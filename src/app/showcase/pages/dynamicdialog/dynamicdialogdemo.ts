@@ -9,7 +9,8 @@ import { CloseDoc } from '@doc/dynamicdialog/closedoc';
 import { CustomizationDoc } from '@doc/dynamicdialog/customizationdoc';
 
 @Component({
-    templateUrl: './dynamicdialogdemo.html'
+    templateUrl: './dynamicdialogdemo.html',
+    standalone: false
 })
 export class DynamicDialogDemo {
     docs = [

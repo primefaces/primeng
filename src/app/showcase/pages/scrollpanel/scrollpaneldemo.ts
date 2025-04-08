@@ -8,7 +8,8 @@ import { AccessibilityDoc } from '@doc/scrollpanel/accessibilitydoc';
 @Component({
     templateUrl: './scrollpaneldemo.html',
     styleUrls: ['./scrollpaneldemo.scss'],
-    encapsulation: ViewEncapsulation.None
+    encapsulation: ViewEncapsulation.None,
+    standalone: false
 })
 export class ScrollPanelDemo {
     docs = [

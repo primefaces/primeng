@@ -8,7 +8,8 @@ import { Code } from '@domain/code';
             <p>i18n API can easily be integrated with 3rd party libraries such as ngx-translate that even allows dynamically changing the language in the application.</p>
         </app-docsectiontext>
         <app-code [code]="code" [hideToggleCode]="true"></app-code>
-    `
+    `,
+    standalone: false
 })
 export class NgxTranslateDoc {
     code: Code = {

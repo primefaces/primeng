@@ -11,7 +11,8 @@ import { ReactiveFormsDoc } from '@doc/checkbox/reactiveformsdoc';
 import { FilledDoc } from '@doc/checkbox/filleddoc';
 
 @Component({
-    templateUrl: './checkboxdemo.html'
+    templateUrl: './checkboxdemo.html',
+    standalone: false
 })
 export class CheckboxDemo {
     docs = [

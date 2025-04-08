@@ -10,7 +10,8 @@ import { CurrentPageReportDoc } from '@doc/paginator/currentpagereportdoc';
 
 @Component({
     templateUrl: './paginatordemo.html',
-    styleUrls: ['./paginatordemo.scss']
+    styleUrls: ['./paginatordemo.scss'],
+    standalone: false
 })
 export class PaginatorDemo {
     docs = [

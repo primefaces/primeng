@@ -37,7 +37,8 @@ import { Code } from '@domain/code';
                 border-bottom-color: var(--primary-color);
             }
         `
-    ]
+    ],
+    standalone: false
 })
 export class TemplateDoc {
     value: any;

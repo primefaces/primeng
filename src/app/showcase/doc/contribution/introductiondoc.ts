@@ -18,7 +18,8 @@ import { Code } from '@domain/code';
             <p>PrimeNG's project structure is organized as follows:</p>
             <app-code [code]="code3" [hideToggleCode]="true" [hideStackBlitz]="true"></app-code>
         </app-docsectiontext>
-    `
+    `,
+    standalone: false
 })
 export class IntroductionDoc {
     code1: Code = {

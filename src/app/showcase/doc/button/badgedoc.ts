@@ -12,7 +12,8 @@ import { Code } from '@domain/code';
             <p-button label="Messages" icon="pi pi-users" badge="2" badgeClass="p-badge-contrast" styleClass="m-0" outlined="true" />
         </div>
         <app-code [code]="code" selector="button-badge-demo"></app-code>
-    `
+    `,
+    standalone: false
 })
 export class BadgeDoc {
     code: Code = {

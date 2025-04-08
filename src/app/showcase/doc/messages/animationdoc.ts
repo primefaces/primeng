@@ -12,7 +12,8 @@ import { Code } from '@domain/code';
             <p-messages [(value)]="messages" [showTransitionOptions]="'500ms'" [hideTransitionOptions]="'500ms'" [enableService]="false" />
         </div>
         <app-code [code]="code" selector="messages-animation-demo"></app-code>
-    `
+    `,
+    standalone: false
 })
 export class AnimationDoc implements OnInit {
     messages: Message[] | undefined;

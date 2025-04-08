@@ -11,7 +11,8 @@ import { Code } from '@domain/code';
             <p-chips [(ngModel)]="values" [disabled]="true" />
         </div>
         <app-code [code]="code" selector="chips-disabled-demo"></app-code>
-    `
+    `,
+    standalone: false
 })
 export class DisabledDoc {
     values: string[] | undefined;

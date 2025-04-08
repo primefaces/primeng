@@ -17,7 +17,8 @@ import { Code } from '@domain/code';
         </div>
         <app-code [code]="code" selector="split-button-disabled-demo"></app-code>
     `,
-    providers: [MessageService]
+    providers: [MessageService],
+    standalone: false
 })
 export class DisabledDoc {
     constructor(private messageService: MessageService) {

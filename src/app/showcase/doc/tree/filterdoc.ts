@@ -18,7 +18,8 @@ import { NodeService } from '@service/nodeservice';
             <p-tree [value]="files" class="w-full md:w-30rem" [filter]="true" filterMode="strict" filterPlaceholder="Strict Filter" />
         </div>
         <app-code [code]="code" selector="tree-filter-demo"></app-code>
-    `
+    `,
+    standalone: false
 })
 export class FilterDoc implements OnInit {
     files!: TreeNode[];

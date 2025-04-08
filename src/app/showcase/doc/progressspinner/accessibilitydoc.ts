@@ -13,7 +13,8 @@ import { Code } from '@domain/code';
 
         <h3>Keyboard Support</h3>
         <p>Component does not include any interactive elements.</p>
-    </div>`
+    </div>`,
+    standalone: false
 })
 export class AccessibilityDoc {
     code: Code = {

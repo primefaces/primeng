@@ -11,7 +11,8 @@ import { Code } from '@domain/code';
             <p-toggleButton [(ngModel)]="checked" onLabel="On" offLabel="Off" styleClass="w-6rem" />
         </div>
         <app-code [code]="code" selector="toggle-button-basic-demo"></app-code>
-    `
+    `,
+    standalone: false
 })
 export class BasicDoc {
     checked: boolean = false;

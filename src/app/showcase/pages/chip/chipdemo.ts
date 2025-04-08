@@ -9,7 +9,8 @@ import { AccessibilityDoc } from '@doc/chip/accessibilitydoc';
 
 @Component({
     templateUrl: './chipdemo.html',
-    styleUrls: ['chipdemo.scss']
+    styleUrls: ['chipdemo.scss'],
+    standalone: false
 })
 export class ChipDemo {
     docs = [

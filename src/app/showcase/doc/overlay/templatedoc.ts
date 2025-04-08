@@ -12,7 +12,8 @@ import { Code } from '@domain/code';
                 <ng-template pTemplate="content" let-option> Content - {{ option.mode }} </ng-template>
             </p-overlay>
         </div>
-        <app-code [code]="code" selector="overlay-template-demo"></app-code>`
+        <app-code [code]="code" selector="overlay-template-demo"></app-code>`,
+    standalone: false
 })
 export class OverlayTemplateDemo {
     overlayVisible: boolean = false;

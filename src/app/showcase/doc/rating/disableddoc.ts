@@ -11,7 +11,8 @@ import { Code } from '@domain/code';
             <p-rating [(ngModel)]="value" [disabled]="true" />
         </div>
         <app-code [code]="code" selector="rating-disabled-demo"></app-code>
-    `
+    `,
+    standalone: false
 })
 export class DisabledDoc {
     value: number = 5;

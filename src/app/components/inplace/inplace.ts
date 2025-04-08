@@ -9,7 +9,8 @@ import { TimesIcon } from 'primeng/icons/times';
     template: '<ng-content></ng-content>',
     host: {
         class: 'p-element'
-    }
+    },
+    standalone: false
 })
 export class InplaceDisplay {}
 
@@ -18,7 +19,8 @@ export class InplaceDisplay {}
     template: '<ng-content></ng-content>',
     host: {
         class: 'p-element'
-    }
+    },
+    standalone: false
 })
 export class InplaceContent {}
 /**
@@ -52,7 +54,8 @@ export class InplaceContent {}
     styleUrls: ['./inplace.css'],
     host: {
         class: 'p-element'
-    }
+    },
+    standalone: false
 })
 export class Inplace implements AfterContentInit {
     /**

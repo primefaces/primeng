@@ -10,7 +10,8 @@ import { StyleDoc } from '@doc/badge/styledoc';
 import { AccessibilityDoc } from '@doc/badge/accessibilitydoc';
 
 @Component({
-    templateUrl: './badgedemo.html'
+    templateUrl: './badgedemo.html',
+    standalone: false
 })
 export class BadgeDemo {
     docs = [

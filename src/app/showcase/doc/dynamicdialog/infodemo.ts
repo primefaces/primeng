@@ -11,7 +11,8 @@ import { DialogService, DynamicDialogComponent, DynamicDialogRef } from 'primeng
                 <p-button type="button" label="Close" (onClick)="close()"></p-button>
             </div>
         </div>
-    `
+    `,
+    standalone: false
 })
 export class InfoDemo implements OnInit {
     totalProducts: number = 0;

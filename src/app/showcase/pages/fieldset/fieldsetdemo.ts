@@ -7,7 +7,8 @@ import { StyleDoc } from '@doc/fieldset/styledoc';
 import { AccessibilityDoc } from '@doc/fieldset/accessibilitydoc';
 
 @Component({
-    templateUrl: './fieldsetdemo.html'
+    templateUrl: './fieldsetdemo.html',
+    standalone: false
 })
 export class FieldsetDemo {
     docs = [

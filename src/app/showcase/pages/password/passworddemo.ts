@@ -14,7 +14,8 @@ import { ToggleMaskDoc } from '@doc/password/togglemaskdoc';
 import { FilledDoc } from '@doc/password/filleddoc';
 
 @Component({
-    templateUrl: './passworddemo.html'
+    templateUrl: './passworddemo.html',
+    standalone: false
 })
 export class PasswordDemo {
     docs = [

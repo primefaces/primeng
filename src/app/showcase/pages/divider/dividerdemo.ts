@@ -9,7 +9,8 @@ import { TypeDoc } from '@doc/divider/typedoc';
 import { VerticalDoc } from '@doc/divider/verticaldoc';
 
 @Component({
-    templateUrl: './dividerdemo.html'
+    templateUrl: './dividerdemo.html',
+    standalone: false
 })
 export class DividerDemo {
     docs = [

@@ -15,7 +15,8 @@ interface AutoCompleteCompleteEvent {
         <div class="card flex justify-content-center">
             <p-autoComplete [(ngModel)]="selectedCountry" [forceSelection]="true" [suggestions]="filteredCountries" (completeMethod)="filterCountry($event)" optionLabel="name" />
         </div>
-        <app-code [code]="code" selector="autocomplete-force-selection-demo"></app-code>`
+        <app-code [code]="code" selector="autocomplete-force-selection-demo"></app-code>`,
+    standalone: false
 })
 export class ForceSelectionDoc implements OnInit {
     @Input() id: string;

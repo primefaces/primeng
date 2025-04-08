@@ -11,7 +11,8 @@ import { Code } from '@domain/code';
             <p-knob [(ngModel)]="value" />
         </div>
         <app-code [code]="code" selector="knob-basic-demo"></app-code>
-    `
+    `,
+    standalone: false
 })
 export class BasicDoc {
     value!: number;

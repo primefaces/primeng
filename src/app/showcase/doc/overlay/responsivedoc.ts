@@ -26,7 +26,8 @@ import { AppDocSectionTextComponent } from '@layout/doc/app.docsectiontext.compo
                 <li>right-start</li>
                 <li>right-end</li>
             </ul>
-        </div>`
+        </div>`,
+    standalone: false
 })
 export class ResponsiveDoc {
     @Input() id: string;

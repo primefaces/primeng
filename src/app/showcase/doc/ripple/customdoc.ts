@@ -13,7 +13,8 @@ import { Code } from '@domain/code';
             <div pRipple class="card styled-box-purple shadow-2">Purple</div>
         </div>
         <app-code [code]="code" selector="ripple-custom-demo"></app-code>
-    `
+    `,
+    standalone: false
 })
 export class CustomDoc {
     code: Code = {

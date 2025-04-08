@@ -11,7 +11,6 @@ import { PrimeNGConfig } from 'primeng/api';
 
 @Component({
     selector: 'app-config',
-    standalone: true,
     templateUrl: './app.config.component.html',
     imports: [CommonModule, FormsModule, SidebarModule, InputSwitchModule, ButtonModule, RadioButtonModule, SelectButtonModule]
 })

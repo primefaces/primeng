@@ -45,7 +45,8 @@ import { Code } from '@domain/code';
             </p-dialog>
         </div>
         <app-code [code]="code" selector="dialog-long-content-demo"></app-code>
-    `
+    `,
+    standalone: false
 })
 export class LongContentDoc {
     visible: boolean = false;

@@ -22,7 +22,8 @@ interface AutoCompleteCompleteEvent {
                 </ng-template>
             </p-autoComplete>
         </div>
-        <app-code [code]="code" selector="autocomplete-grouped-demo"></app-code>`
+        <app-code [code]="code" selector="autocomplete-grouped-demo"></app-code>`,
+    standalone: false
 })
 export class GroupDoc implements OnInit {
     selectedCity: any;

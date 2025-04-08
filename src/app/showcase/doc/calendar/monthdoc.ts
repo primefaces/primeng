@@ -11,7 +11,8 @@ import { Code } from '@domain/code';
             <p-calendar [(ngModel)]="date" view="month" dateFormat="mm/yy" [readonlyInput]="true" />
         </div>
         <app-code [code]="code" selector="calendar-month-demo"></app-code>
-    `
+    `,
+    standalone: false
 })
 export class MonthDoc {
     date: Date[] | undefined;

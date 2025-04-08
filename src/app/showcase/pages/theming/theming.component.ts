@@ -11,7 +11,8 @@ import { UtilsDoc } from '@doc/theming/utilsdoc';
 
 @Component({
     templateUrl: './theming.component.html',
-    styleUrls: ['./theming.component.scss']
+    styleUrls: ['./theming.component.scss'],
+    standalone: false
 })
 export class ThemingComponent {
     docs = [

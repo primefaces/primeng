@@ -10,7 +10,8 @@ import { AccessibilityDoc } from '@doc/tooltip/accessibilitydoc';
 import { CustomDoc } from '@doc/tooltip/customdoc';
 
 @Component({
-    templateUrl: './tooltipdemo.html'
+    templateUrl: './tooltipdemo.html',
+    standalone: false
 })
 export class TooltipDemo {
     docs = [

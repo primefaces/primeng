@@ -123,7 +123,8 @@ import { Code } from '@domain/code';
                 flex-basis: 40rem;
             }
         `
-    ]
+    ],
+    standalone: false
 })
 export class TemplateDoc {
     active: number | undefined = 0;

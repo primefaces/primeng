@@ -31,7 +31,8 @@ import Chart from 'chart.js/auto';
     encapsulation: ViewEncapsulation.None,
     host: {
         class: 'p-element'
-    }
+    },
+    standalone: false
 })
 export class UIChart implements AfterViewInit, OnDestroy {
     /**

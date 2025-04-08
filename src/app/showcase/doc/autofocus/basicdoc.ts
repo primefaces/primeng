@@ -11,7 +11,8 @@ import { Code } from '@domain/code';
             <input type="text" pInputText pAutoFocus [autofocus]="true" placeholder="Automatically focused" />
         </div>
         <app-code [code]="code" selector="auto-focus-basic-demo"></app-code>
-    `
+    `,
+    standalone: false
 })
 export class BasicDoc {
     code: Code = {

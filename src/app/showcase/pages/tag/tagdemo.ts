@@ -9,7 +9,8 @@ import { TemplateDoc } from '@doc/tag/templatedoc';
 import { AccessibilityDoc } from '@doc/tag/accessibilitydoc';
 
 @Component({
-    templateUrl: './tagdemo.html'
+    templateUrl: './tagdemo.html',
+    standalone: false
 })
 export class TagDemo {
     docs = [

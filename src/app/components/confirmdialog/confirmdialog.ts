@@ -137,7 +137,8 @@ const hideAnimation = animation([animate('{{transition}}', style({ transform: '{
     styleUrls: ['../dialog/dialog.css'],
     host: {
         class: 'p-element'
-    }
+    },
+    standalone: false
 })
 export class ConfirmDialog implements AfterContentInit, OnInit, OnDestroy {
     /**

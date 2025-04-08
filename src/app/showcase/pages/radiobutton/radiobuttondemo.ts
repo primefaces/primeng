@@ -10,7 +10,8 @@ import { StyleDoc } from '@doc/radiobutton/styledoc';
 import { FilledDoc } from '@doc/radiobutton/filleddoc';
 
 @Component({
-    templateUrl: './radiobuttondemo.html'
+    templateUrl: './radiobuttondemo.html',
+    standalone: false
 })
 export class RadioButtonDemo {
     docs = [

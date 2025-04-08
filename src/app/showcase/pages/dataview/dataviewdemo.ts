@@ -10,7 +10,8 @@ import { LoadingDoc } from '@doc/dataview/loadingdoc';
 
 @Component({
     templateUrl: './dataviewdemo.html',
-    styleUrls: ['./dataviewdemo.scss']
+    styleUrls: ['./dataviewdemo.scss'],
+    standalone: false
 })
 export class DataViewDemo {
     docs = [

@@ -47,7 +47,8 @@ import { Code } from '@domain/code';
             </p-overlayPanel>
         </div>
         <app-code [code]="code" selector="overlay-panel-basic-demo"></app-code>
-    `
+    `,
+    standalone: false
 })
 export class BasicDoc {
     members = [

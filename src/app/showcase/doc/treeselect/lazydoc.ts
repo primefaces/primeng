@@ -25,7 +25,8 @@ import { TreeNode } from 'primeng/api';
             />
         </div>
         <app-code [code]="code" selector="tree-select-basic-demo"></app-code>
-    `
+    `,
+    standalone: false
 })
 export class LazyDoc {
     selectedNodes: TreeNode[] = [];

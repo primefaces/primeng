@@ -6,7 +6,8 @@ import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 import { RadioButton, RadioButtonModule } from './radiobutton';
 
 @Component({
-    template: ` <p-radioButton [(ngModel)]="city"></p-radioButton> `
+    template: ` <p-radioButton [(ngModel)]="city"></p-radioButton> `,
+    standalone: false
 })
 class TestRadioButtonComponent {
     city: string;

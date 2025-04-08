@@ -3,7 +3,6 @@ import { Component } from '@angular/core';
 
 @Component({
     selector: 'block-section',
-    standalone: true,
     imports: [CommonModule],
     template: `
         <section id="blocks-section" class="landing-blocks pt-8 overflow-hidden">

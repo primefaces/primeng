@@ -11,7 +11,8 @@ import { Code } from '@domain/code';
             <p-meterGroup [value]="value" [max]="200" />
         </div>
         <app-code [code]="code" selector="meter-group-min-max-demo"></app-code>
-    `
+    `,
+    standalone: false
 })
 export class MinMaxDoc {
     value = [

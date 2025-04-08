@@ -19,7 +19,8 @@ import { Code } from '@domain/code';
         </div>
         <app-code [code]="code" selector="speed-dial-semi-circle-demo"></app-code>
     `,
-    providers: [MessageService]
+    providers: [MessageService],
+    standalone: false
 })
 export class SemiCircleDoc implements OnInit {
     items: MenuItem[] | undefined;

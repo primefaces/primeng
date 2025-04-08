@@ -12,7 +12,8 @@ import { Component, EventEmitter } from '@angular/core';
                 <div style="font-size:14px;float:right;margin:15px 5px 0 0">{{ car.brand }} - {{ car.year }} - {{ car.color }}</div>
             </div>
         </ng-template>
-    </p-pickList>`
+    </p-pickList>`,
+    standalone: false
 })
 class TestPickListComponent {
     sourceCars: any[];

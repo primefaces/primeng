@@ -12,7 +12,8 @@ import { Code } from '@domain/code';
             <p-tabMenu [model]="items" />
         </div>
         <app-code [code]="code" selector="tab-menu-basic-demo"></app-code>
-    `
+    `,
+    standalone: false
 })
 export class BasicDoc implements OnInit {
     items: MenuItem[] | undefined;

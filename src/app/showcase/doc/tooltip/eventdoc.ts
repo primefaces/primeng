@@ -11,7 +11,8 @@ import { Code } from '@domain/code';
             <input type="text" pInputText pTooltip="Enter your username" tooltipEvent="focus" placeholder="focus to display tooltip" />
         </div>
         <app-code [code]="code" selector="tooltip-event-demo"></app-code>
-    `
+    `,
+    standalone: false
 })
 export class EventDoc {
     code: Code = {

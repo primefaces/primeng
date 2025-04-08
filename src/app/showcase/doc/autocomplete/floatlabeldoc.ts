@@ -17,7 +17,8 @@ interface AutoCompleteCompleteEvent {
                 <label for="float-label">Float Label</label>
             </p-floatLabel>
         </div>
-        <app-code [code]="code" selector="autocomplete-float-label-demo"></app-code>`
+        <app-code [code]="code" selector="autocomplete-float-label-demo"></app-code>`,
+    standalone: false
 })
 export class FloatLabelDoc {
     items: any[] | undefined;

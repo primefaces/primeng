@@ -13,7 +13,8 @@ import { NodeService } from '@service/nodeservice';
             <p-tree class="w-full md:w-30rem" scrollHeight="250px" [virtualScroll]="true" [lazy]="true" [virtualScrollItemSize]="46" [value]="files" (onNodeExpand)="nodeExpand($event)" [loading]="loading" />
         </div>
         <app-code [code]="code" selector="tree-virtual-scroll-lazy-demo"></app-code>
-    `
+    `,
+    standalone: false
 })
 export class LazyVirtualScrollDoc implements OnInit {
     loading: boolean = false;

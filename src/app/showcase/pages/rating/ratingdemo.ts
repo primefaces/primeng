@@ -11,7 +11,8 @@ import { AccessibilityDoc } from '@doc/rating/accessibilitydoc';
 import { ReactiveFormsDoc } from '@doc/rating/reactiveformsdoc';
 
 @Component({
-    templateUrl: './ratingdemo.html'
+    templateUrl: './ratingdemo.html',
+    standalone: false
 })
 export class RatingDemo {
     docs = [

@@ -11,7 +11,8 @@ import { Code } from '@domain/code';
             <p-slider [(ngModel)]="value" styleClass="w-14rem" />
         </div>
         <app-code [code]="code" selector="slider-basic-demo"></app-code>
-    `
+    `,
+    standalone: false
 })
 export class BasicDoc {
     value!: number;

@@ -61,6 +61,7 @@ import { Component } from '@angular/core';
                 </tbody>
             </table>
         </div>
-    </app-docsectiontext>`
+    </app-docsectiontext>`,
+    standalone: false
 })
 export class AccessibilityDoc {}

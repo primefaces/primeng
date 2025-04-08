@@ -30,7 +30,8 @@ import { Code } from '@domain/code';
             <p-button type="button" class="mr-2" (onClick)="sidebarVisible4 = true" icon="pi pi-arrow-up" />
         </div>
         <app-code [code]="code" selector="sidebar-position-demo"></app-code>
-    `
+    `,
+    standalone: false
 })
 export class PositionDoc {
     sidebarVisible1: boolean = false;

@@ -109,7 +109,8 @@ const hideAnimation = animation([animate('{{transition}}', style({ transform: '{
     styleUrls: ['../dialog/dialog.css'],
     host: {
         class: 'p-element'
-    }
+    },
+    standalone: false
 })
 export class DynamicDialogComponent implements AfterViewInit, OnDestroy {
     visible: boolean = true;

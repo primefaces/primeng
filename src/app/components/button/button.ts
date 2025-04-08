@@ -310,7 +310,6 @@ export class ButtonDirective implements AfterViewInit, OnDestroy {
  */
 @Component({
     selector: 'p-button',
-    standalone: true,
     imports: [NgIf, NgTemplateOutlet, NgStyle, NgClass, Ripple, AutoFocus, SpinnerIcon],
     template: `
         <button
@@ -350,6 +349,7 @@ export class ButtonDirective implements AfterViewInit, OnDestroy {
     encapsulation: ViewEncapsulation.None,
     host: {
         class: 'p-element',
+        // @ts-ignore: Incorrect "expression is always truthy" error.
         '[class.p-disabled]': 'disabled' || 'loading'
     }
 })

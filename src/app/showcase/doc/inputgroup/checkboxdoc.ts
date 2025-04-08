@@ -25,7 +25,8 @@ import { Code } from '@domain/code';
             </p-inputGroup>
         </div>
         <app-code [code]="code" selector="input-group-checkbox-demo"></app-code>
-    `
+    `,
+    standalone: false
 })
 export class CheckboxDoc {
     radioValue1: boolean = false;

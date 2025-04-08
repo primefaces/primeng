@@ -11,7 +11,8 @@ import { Code } from '@domain/code';
             <p-cascadeSelect [(ngModel)]="selectedCity" variant="filled" [options]="countries" optionLabel="cname" optionGroupLabel="name" [optionGroupChildren]="['states', 'cities']" [style]="{ minWidth: '14rem' }" placeholder="Select a City" />
         </div>
         <app-code [code]="code" selector="cascade-select-filled-demo"></app-code>
-    `
+    `,
+    standalone: false
 })
 export class FilledDoc {
     countries: any[] | undefined;

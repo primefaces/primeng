@@ -75,7 +75,8 @@ import { Code } from '@domain/code';
                 }
             }
         `
-    ]
+    ],
+    standalone: false
 })
 export class BasicDoc {
     code: Code = {

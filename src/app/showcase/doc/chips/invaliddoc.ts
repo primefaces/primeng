@@ -11,7 +11,8 @@ import { Code } from '@domain/code';
             <p-chips [(ngModel)]="values" class="ng-invalid ng-dirty" />
         </div>
         <app-code [code]="code" selector="chips-invalid-demo"></app-code>
-    `
+    `,
+    standalone: false
 })
 export class InvalidDoc {
     values: string[] | undefined;

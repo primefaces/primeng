@@ -22,6 +22,7 @@ import { Component } from '@angular/core';
                 <a href="https://discord.com/invite/gzKFYnpmCY" target="_blank" rel="noopener noreferrer">PrimeLand Discord</a> server. Your expertise can help others solve problems and improve their experience with PrimeNG.
             </p>
         </app-docsectiontext>
-    `
+    `,
+    standalone: false
 })
 export class HelpNeededDoc {}

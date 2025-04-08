@@ -26,7 +26,8 @@ interface EventItem {
             </p-timeline>
         </div>
         <app-code [code]="code" selector="timeline-opposite-demo"></app-code>
-    `
+    `,
+    standalone: false
 })
 export class OppositeDoc {
     events: EventItem[];

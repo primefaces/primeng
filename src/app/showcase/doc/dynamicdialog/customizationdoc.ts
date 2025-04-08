@@ -11,7 +11,8 @@ import { ProductListDemo } from './productlistdemo';
         </app-docsectiontext>
         <app-code [code]="code" [hideToggleCode]="true"></app-code>
     `,
-    providers: [DialogService]
+    providers: [DialogService],
+    standalone: false
 })
 export class CustomizationDoc {
     ref: DynamicDialogRef | undefined;

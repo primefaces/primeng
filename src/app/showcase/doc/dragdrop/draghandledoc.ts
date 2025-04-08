@@ -13,7 +13,8 @@ import { Code } from '@domain/code';
             </div>
         </div>
         <app-code [code]="code" selector="drag-drop-drag-handle-demo" [extFiles]="extFiles"></app-code>
-    `
+    `,
+    standalone: false
 })
 export class DragHandleDoc {
     code: Code = {

@@ -9,7 +9,8 @@ import { ReadOnlyDoc } from '@doc/editor/readonlydoc';
 import { StyleDoc } from '@doc/editor/styledoc';
 
 @Component({
-    templateUrl: './editordemo.html'
+    templateUrl: './editordemo.html',
+    standalone: false
 })
 export class EditorDemo {
     docs = [

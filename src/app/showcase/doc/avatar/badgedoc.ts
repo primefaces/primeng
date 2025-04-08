@@ -11,7 +11,8 @@ import { Code } from '@domain/code';
             <p-avatar image="https://primefaces.org/cdn/primeng/images/demo/avatar/amyelsner.png" pBadge value="4" severity="danger" />
         </div>
         <app-code [code]="code" selector="avatar-badge-demo"></app-code>
-    `
+    `,
+    standalone: false
 })
 export class BadgeDoc {
     code: Code = {

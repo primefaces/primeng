@@ -73,7 +73,8 @@ export const SPINNER_VALUE_ACCESSOR: any = {
     providers: [SPINNER_VALUE_ACCESSOR],
     changeDetection: ChangeDetectionStrategy.OnPush,
     encapsulation: ViewEncapsulation.None,
-    styleUrls: ['./spinner.css']
+    styleUrls: ['./spinner.css'],
+    standalone: false
 })
 export class Spinner implements OnInit, ControlValueAccessor {
     @Output() onChange: EventEmitter<any> = new EventEmitter();

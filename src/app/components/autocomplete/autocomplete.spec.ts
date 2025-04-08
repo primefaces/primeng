@@ -13,7 +13,8 @@ import { AutoComplete } from './autocomplete';
 @Component({
     template: `<p-autoComplete [(ngModel)]="brand" [suggestions]="filteredBrands" (completeMethod)="filterBrands($event)"></p-autoComplete>
         <a (click)="deleteLastEl()"></a>
-        <p-autoComplete [(ngModel)]="car" [suggestions]="filteredCars" (completeMethod)="filterBrandsWithField($event)"></p-autoComplete> `
+        <p-autoComplete [(ngModel)]="car" [suggestions]="filteredCars" (completeMethod)="filterBrandsWithField($event)"></p-autoComplete> `,
+    standalone: false
 })
 class TestAutocompleteComponent {
     brands: string[] = ['Audi', 'BMW', 'Fiat', 'Ford', 'Honda', 'Jaguar', 'Mercedes', 'Renault', 'Volvo', 'VW'];

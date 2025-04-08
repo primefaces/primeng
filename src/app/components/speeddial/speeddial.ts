@@ -143,7 +143,8 @@ import { asapScheduler } from 'rxjs';
     styleUrls: ['./speeddial.css'],
     host: {
         class: 'p-element'
-    }
+    },
+    standalone: false
 })
 export class SpeedDial implements AfterViewInit, AfterContentInit, OnDestroy {
     /**

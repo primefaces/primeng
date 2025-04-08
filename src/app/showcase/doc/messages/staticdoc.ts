@@ -16,7 +16,8 @@ import { Code } from '@domain/code';
             </p-messages>
         </div>
         <app-code [code]="code" selector="messages-static-demo"></app-code>
-    `
+    `,
+    standalone: false
 })
 export class StaticDoc {
     code: Code = {

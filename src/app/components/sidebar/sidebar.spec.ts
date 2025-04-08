@@ -10,7 +10,8 @@ import { Sidebar } from './sidebar';
             <button type="button" (click)="visibleSidebar1 = false" label="Save"></button>
             <button type="button" (click)="visibleSidebar1 = false" label="Cancel"></button>
         </p-sidebar>
-        <button type="button" (click)="visibleSidebar1 = true"></button>`
+        <button type="button" (click)="visibleSidebar1 = true"></button>`,
+    standalone: false
 })
 class TestSideBarComponent {
     visibleSidebar1;

@@ -17,7 +17,8 @@ import { MeterItem } from './metergroup.interface';
                 <span class="p-metergroup-label-text">{{ labelItem.label }} ({{ parentInstance?.percentValue(labelItem.value) }})</span>
             </li>
         </ol>
-    `
+    `,
+    standalone: false
 })
 export class MeterGroupLabel {
     @Input() value: any[] = null;
@@ -74,7 +75,8 @@ export class MeterGroupLabel {
         </div>
     `,
     changeDetection: ChangeDetectionStrategy.OnPush,
-    encapsulation: ViewEncapsulation.None
+    encapsulation: ViewEncapsulation.None,
+    standalone: false
 })
 export class MeterGroup implements AfterContentInit {
     /**

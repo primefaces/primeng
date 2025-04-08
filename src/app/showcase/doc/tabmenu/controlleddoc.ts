@@ -17,7 +17,8 @@ import { Code } from '@domain/code';
             <p-tabMenu [model]="items" [activeItem]="activeItem" (activeItemChange)="onActiveItemChange($event)" />
         </div>
         <app-code [code]="code" selector="tab-menu-controlled-demo"></app-code>
-    `
+    `,
+    standalone: false
 })
 export class ControlledDoc implements OnInit {
     items: MenuItem[] | undefined;

@@ -23,7 +23,8 @@ import { Code } from '@domain/code';
             </p-inputGroup>
         </div>
         <app-code [code]="code" selector="input-group-button-demo"></app-code>
-    `
+    `,
+    standalone: false
 })
 export class ButtonDoc {
     code: Code = {

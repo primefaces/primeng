@@ -70,7 +70,8 @@ const SAFARI_KEYS: SafariKeys = {
     providers: [KEYFILTER_VALIDATOR],
     host: {
         class: 'p-element'
-    }
+    },
+    standalone: false
 })
 export class KeyFilter implements Validator {
     /**

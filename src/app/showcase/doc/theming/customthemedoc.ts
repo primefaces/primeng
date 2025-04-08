@@ -38,7 +38,8 @@ import { Code } from '@domain/code';
                 <i>styles.scss</i>, import the <i>theme.scss</i> from <i>assets/themes/mytheme</i>. That would be it, during build time, your project will compile the sass and import the theme. Any changes to your theme will be reflected instantly.
             </p>
         </app-docsectiontext>
-    `
+    `,
+    standalone: false
 })
 export class CustomThemeDoc {
     code1: Code = {

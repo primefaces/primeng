@@ -19,7 +19,8 @@ import { Code } from '@domain/code';
         </div>
         <app-code [code]="code" selector="scroller-basic-demo"></app-code>
     `,
-    changeDetection: ChangeDetectionStrategy.OnPush
+    changeDetection: ChangeDetectionStrategy.OnPush,
+    standalone: false
 })
 export class BasicDoc {
     items!: string[];

@@ -6,7 +6,8 @@ import { Checkbox } from './checkbox';
 import { CheckIcon } from 'primeng/icons/check';
 
 @Component({
-    template: ` <p-checkbox [(ngModel)]="checked"> </p-checkbox> `
+    template: ` <p-checkbox [(ngModel)]="checked"> </p-checkbox> `,
+    standalone: false
 })
 class TestCheckboxComponent {
     checked: boolean = false;

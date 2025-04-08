@@ -48,7 +48,8 @@ import { SplitterResizeEndEvent, SplitterResizeStartEvent } from './splitter.int
     host: {
         class: 'p-element',
         '[class.p-splitter-panel-nested]': 'nested'
-    }
+    },
+    standalone: false
 })
 export class Splitter {
     /**

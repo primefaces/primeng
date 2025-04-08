@@ -9,7 +9,8 @@ import { Code } from '@domain/code';
                 dialog component.
             </p>
         </app-docsectiontext>
-        <app-code [code]="code" [hideToggleCode]="true"></app-code>`
+        <app-code [code]="code" [hideToggleCode]="true"></app-code>`,
+    standalone: false
 })
 export class ModeDoc {
     code: Code = {

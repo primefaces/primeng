@@ -17,7 +17,8 @@ import { Component } from '@angular/core';
                 </h4>
             </div>
         </div>
-    `
+    `,
+    standalone: false
 })
 class TestDragDropComponent {
     availableCars: any[] = [

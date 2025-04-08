@@ -25,7 +25,8 @@ import { Code } from '@domain/code';
             </p-password>
         </div>
         <app-code [code]="code" selector="password-template-demo"></app-code>
-    `
+    `,
+    standalone: false
 })
 export class TemplateDoc {
     value!: string;

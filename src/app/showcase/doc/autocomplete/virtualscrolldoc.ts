@@ -17,7 +17,8 @@ interface AutoCompleteCompleteEvent {
         <div class="card flex justify-content-center">
             <p-autoComplete [(ngModel)]="selectedItem" [virtualScroll]="true" [suggestions]="filteredItems" [virtualScrollItemSize]="34" (completeMethod)="filterItems($event)" optionLabel="label" [dropdown]="true" />
         </div>
-        <app-code [code]="code" selector="autocomplete-virtual-scroll-demo"></app-code>`
+        <app-code [code]="code" selector="autocomplete-virtual-scroll-demo"></app-code>`,
+    standalone: false
 })
 export class VirtualScrollDoc {
     selectedItem: any;

@@ -12,7 +12,8 @@ import { NodeService } from '@service/nodeservice';
             <p-treeSelect class="md:w-20rem w-full" containerStyleClass="w-full" [(ngModel)]="selectedNodes" [options]="nodes" [disabled]="true" placeholder="TreeSelect" />
         </div>
         <app-code [code]="code" selector="tree-select-disabled-demo"></app-code>
-    `
+    `,
+    standalone: false
 })
 export class DisabledDoc {
     nodes!: any[];

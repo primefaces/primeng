@@ -7,7 +7,8 @@ import { AccessibilityDoc } from '@doc/iconfield/accessibilitydoc';
 
 @Component({
     templateUrl: './iconfielddemo.html',
-    styleUrls: ['./iconfielddemo.scss']
+    styleUrls: ['./iconfielddemo.scss'],
+    standalone: false
 })
 export class IconFieldDemo {
     docs = [

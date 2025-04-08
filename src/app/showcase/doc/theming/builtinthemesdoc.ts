@@ -13,7 +13,8 @@ import { Code } from '@domain/code';
         <div class="h-20rem overflow-auto">
             <app-code [code]="code" [hideToggleCode]="true"></app-code>
         </div>
-    `
+    `,
+    standalone: false
 })
 export class BuiltInThemesDoc {
     code: Code = {

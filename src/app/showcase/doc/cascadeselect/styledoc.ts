@@ -46,6 +46,7 @@ import { Component } from '@angular/core';
                 </table>
             </div>
         </app-docsectiontext>
-    `
+    `,
+    standalone: false
 })
 export class StyleDoc {}

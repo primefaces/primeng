@@ -17,7 +17,8 @@ import { TicketService } from '@service/ticketservice';
         <router-outlet></router-outlet>
         <app-code [code]="code" selector="steps-routing-demo" [routeFiles]="routeFiles"></app-code>
     `,
-    providers: [MessageService]
+    providers: [MessageService],
+    standalone: false
 })
 export class RoutingDoc implements OnInit {
     items: MenuItem[];

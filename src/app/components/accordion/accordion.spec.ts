@@ -1,4 +1,4 @@
-import { TestBed, ComponentFixture, async, fakeAsync, tick } from '@angular/core/testing';
+import { TestBed, ComponentFixture, waitForAsync, fakeAsync, tick } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
 import { Accordion } from './accordion';
 import { AccordionTab } from './accordion';
@@ -17,7 +17,8 @@ import { Component, NO_ERRORS_SCHEMA } from '@angular/core';
             Michael's life the nature of the family business becomes clear. The business of the family is just like the head of the family, kind and benevolent to those who give respect, but given to ruthless violence whenever anything stands against
             the good of the family.
         </p-accordionTab>
-    </p-accordion>`
+    </p-accordion>`,
+    standalone: false
 })
 class TestAccordionComponent {
     header1: string = 'Godfather I';
@@ -39,7 +40,7 @@ describe('Accordion', () => {
     let secondAccordionTab: AccordionTab;
     let fixture: ComponentFixture<TestAccordionComponent>;
 
-    beforeEach(async(() => {
+    beforeEach(waitForAsync(() => {
         TestBed.configureTestingModule({
             schemas: [NO_ERRORS_SCHEMA],
             imports: [NoopAnimationsModule],

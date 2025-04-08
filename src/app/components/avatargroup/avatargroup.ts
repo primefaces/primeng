@@ -16,7 +16,8 @@ import { CommonModule } from '@angular/common';
     styleUrls: ['./avatargroup.css'],
     host: {
         class: 'p-element'
-    }
+    },
+    standalone: false
 })
 export class AvatarGroup {
     /**

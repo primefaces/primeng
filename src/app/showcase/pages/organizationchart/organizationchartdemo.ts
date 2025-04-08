@@ -9,7 +9,8 @@ import { AccessibilityDoc } from '@doc/organizationchart/accessibilitydoc';
 
 @Component({
     templateUrl: './organizationchartdemo.html',
-    styleUrls: ['./organizationchartdemo.scss']
+    styleUrls: ['./organizationchartdemo.scss'],
+    standalone: false
 })
 export class OrganizationChartDemo {
     docs = [

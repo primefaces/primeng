@@ -32,7 +32,8 @@ import { PhotoService } from '@service/photoservice';
             </p-galleria>
         </div>
         <app-code [code]="code" selector="galleria-full-screen-template-demo"></app-code>
-    `
+    `,
+    standalone: false
 })
 export class FullScreenTemplateDoc implements OnInit {
     displayCustom: boolean | undefined;

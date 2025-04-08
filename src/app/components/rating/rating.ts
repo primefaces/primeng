@@ -90,7 +90,8 @@ export const RATING_VALUE_ACCESSOR: any = {
     styleUrls: ['./rating.css'],
     host: {
         class: 'p-element'
-    }
+    },
+    standalone: false
 })
 export class Rating implements OnInit, ControlValueAccessor {
     /**

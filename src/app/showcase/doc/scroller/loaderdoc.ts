@@ -30,7 +30,8 @@ import { Code } from '@domain/code';
         </div>
         <app-code [code]="code" selector="scroller-loader-demo"></app-code>
     `,
-    changeDetection: ChangeDetectionStrategy.OnPush
+    changeDetection: ChangeDetectionStrategy.OnPush,
+    standalone: false
 })
 export class LoaderDoc {
     items!: string[];

@@ -19,7 +19,8 @@ interface City {
             </form>
         </div>
         <app-code [code]="code" selector="listbox-reactive-forms-demo"></app-code>
-    `
+    `,
+    standalone: false
 })
 export class ReactiveFormsDoc implements OnInit {
     cities!: City[];

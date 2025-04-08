@@ -9,7 +9,8 @@ import { ReactiveFormsDoc } from '@doc/tristatecheckbox/reactiveformsdoc';
 import { FilledDoc } from '@doc/tristatecheckbox/filleddoc';
 
 @Component({
-    templateUrl: './tristatecheckboxdemo.html'
+    templateUrl: './tristatecheckboxdemo.html',
+    standalone: false
 })
 export class TriStateCheckboxDemo {
     docs = [

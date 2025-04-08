@@ -8,7 +8,8 @@ import { AccessibilityDoc } from '@doc/inputswitch/accessibilitydoc';
 import { ReactiveFormsDoc } from '@doc/inputswitch/reactiveformsdoc';
 import { InvalidDoc } from '@doc/inputswitch/invaliddoc';
 @Component({
-    templateUrl: './inputswitchdemo.html'
+    templateUrl: './inputswitchdemo.html',
+    standalone: false
 })
 export class InputSwitchDemo {
     docs = [

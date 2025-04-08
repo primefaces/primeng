@@ -70,7 +70,8 @@ import { Component } from '@angular/core';
                 width: 375px;
             }
         `
-    ]
+    ],
+    standalone: false
 })
 export class SurfacesDoc {
     colors: string[] = ['blue', 'green', 'yellow', 'cyan', 'pink', 'indigo', 'red', 'teal', 'orange', 'bluegray', 'purple', 'gray', 'primary'];

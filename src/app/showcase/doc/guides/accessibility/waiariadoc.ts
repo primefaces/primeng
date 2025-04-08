@@ -36,7 +36,8 @@ import { Code } from '@domain/code';
                 <p-checkbox inputId="binary" [binary]="true"></p-checkbox>
             </div>
         </app-docsectiontext>
-    `
+    `,
+    standalone: false
 })
 export class WAIARIADoc {
     code1: Code = {

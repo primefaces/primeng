@@ -8,7 +8,8 @@ import { Code } from '@domain/code';
             <p>Default filter modes to display on DataTable filter menus.</p>
         </app-docsectiontext>
         <app-code [code]="code" [hideToggleCode]="true"></app-code>
-    `
+    `,
+    standalone: false
 })
 export class FilterModeDoc {
     code: Code = {

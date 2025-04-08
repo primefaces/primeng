@@ -12,7 +12,8 @@ import { Code } from '@domain/code';
             <p-tabMenu [scrollable]="true" [model]="items" [activeItem]="activeItem"></p-tabMenu>
         </div>
         <app-code [code]="code" selector="tab-menu-scrollable-demo"></app-code>
-    `
+    `,
+    standalone: false
 })
 export class ScrollableDoc implements OnInit {
     items: MenuItem[] | undefined;

@@ -47,7 +47,8 @@ import { ZIndexUtils } from 'primeng/utils';
     styleUrls: ['./blockui.css'],
     host: {
         class: 'p-element'
-    }
+    },
+    standalone: false
 })
 export class BlockUI implements AfterViewInit, OnDestroy {
     /**

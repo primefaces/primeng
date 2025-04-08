@@ -11,7 +11,6 @@ import { ApolloLogo } from './apollologo';
 import { ApolloSeparator } from './apolloseparator';
 
 @Component({
-    standalone: true,
     selector: 'apollo-page',
     imports: [
         TemplateHeroModule,

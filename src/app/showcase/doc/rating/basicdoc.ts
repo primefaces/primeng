@@ -11,7 +11,8 @@ import { Code } from '@domain/code';
             <p-rating [(ngModel)]="value" />
         </div>
         <app-code [code]="code" selector="rating-basic-demo"></app-code>
-    `
+    `,
+    standalone: false
 })
 export class BasicDoc {
     value!: number;

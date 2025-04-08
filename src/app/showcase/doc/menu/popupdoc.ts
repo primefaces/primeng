@@ -14,7 +14,8 @@ import { Code } from '@domain/code';
         </div>
         <app-code [code]="code" selector="menu-popup-demo"></app-code>
     `,
-    providers: [MessageService]
+    providers: [MessageService],
+    standalone: false
 })
 export class PopupDoc implements OnInit {
     items: MenuItem[] | undefined;

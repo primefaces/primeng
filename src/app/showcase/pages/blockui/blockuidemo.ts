@@ -39,7 +39,8 @@ import { StyleDoc } from '@doc/blockui/styledoc';
                 }
             }
         `
-    ]
+    ],
+    standalone: false
 })
 export class BlockUIDemo {
     blockedPanel: boolean = false;

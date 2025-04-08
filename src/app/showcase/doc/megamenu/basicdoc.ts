@@ -12,7 +12,8 @@ import { Code } from '@domain/code';
             <p-megaMenu [model]="items" />
         </div>
         <app-code [code]="code" selector="mega-menu-basic-demo"></app-code>
-    `
+    `,
+    standalone: false
 })
 export class BasicDoc implements OnInit {
     items: MegaMenuItem[] | undefined;

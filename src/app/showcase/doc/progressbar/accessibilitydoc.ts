@@ -16,7 +16,8 @@ import { Code } from '@domain/code';
 
         <h3>Keyboard Support</h3>
         <p>Not applicable.</p>
-    </div>`
+    </div>`,
+    standalone: false
 })
 export class AccessibilityDoc {
     code: Code = {

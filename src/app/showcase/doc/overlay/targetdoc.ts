@@ -15,7 +15,8 @@ import { Code } from '@domain/code';
                 <li>Use <em>CSS selector</em></li>
                 <li>Use <em>() =&gt; HTMLElement</em></li>
             </ul>
-        </div>`
+        </div>`,
+    standalone: false
 })
 export class TargetDoc {
     code: Code = {

@@ -49,7 +49,8 @@ import { Code } from '@domain/code';
             </p-tabView>
         </div>
         <app-code [code]="code" selector="tab-view-template-demo"></app-code>
-    `
+    `,
+    standalone: false
 })
 export class TemplateDoc {
     code: Code = {

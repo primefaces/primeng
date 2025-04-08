@@ -98,7 +98,7 @@ describe('FileUpload', () => {
         expect(fileNameEl).toBeTruthy();
         expect(removeButtonEl).toBeTruthy();
         expect(fileNameEl.nativeElement.textContent).toEqual('primeng.txt');
-        expect(fileSizeEl.nativeElement.textContent).toEqual('179.000 B');
+        expect(fileSizeEl.nativeElement.textContent).toEqual('179 B');
         expect(fileupload.hasFiles()).toEqual(true);
         expect(uploadButton.nativeElement.disabled).toEqual(false);
         expect(cancelButton.nativeElement.disabled).toEqual(false);

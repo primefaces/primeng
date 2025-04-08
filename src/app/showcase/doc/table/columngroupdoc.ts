@@ -45,7 +45,8 @@ import { Code } from '@domain/code';
             </div>
         </p-deferred-demo>
         <app-code [code]="code" selector="table-column-group-demo"></app-code>`,
-    changeDetection: ChangeDetectionStrategy.OnPush
+    changeDetection: ChangeDetectionStrategy.OnPush,
+    standalone: false
 })
 export class ColumnGroupDoc {
     sales!: any[];

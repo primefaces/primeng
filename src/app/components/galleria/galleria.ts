@@ -88,7 +88,8 @@ import { FocusTrapModule } from 'primeng/focustrap';
     styleUrls: ['./galleria.css'],
     host: {
         class: 'p-element'
-    }
+    },
+    standalone: false
 })
 export class Galleria implements OnChanges, OnDestroy {
     /**
@@ -475,7 +476,8 @@ export class Galleria implements OnChanges, OnDestroy {
             </div>
         </div>
     `,
-    changeDetection: ChangeDetectionStrategy.OnPush
+    changeDetection: ChangeDetectionStrategy.OnPush,
+    standalone: false
 })
 export class GalleriaContent implements DoCheck {
     @Input() get activeIndex(): number {
@@ -604,7 +606,8 @@ export class GalleriaContent implements DoCheck {
             <ng-container *ngTemplateOutlet="contentTemplate; context: context"></ng-container>
         </ng-container>
     `,
-    changeDetection: ChangeDetectionStrategy.OnPush
+    changeDetection: ChangeDetectionStrategy.OnPush,
+    standalone: false
 })
 export class GalleriaItemSlot {
     @Input() templates: QueryList<PrimeTemplate> | undefined;
@@ -725,7 +728,8 @@ export class GalleriaItemSlot {
             </ul>
         </div>
     `,
-    changeDetection: ChangeDetectionStrategy.OnPush
+    changeDetection: ChangeDetectionStrategy.OnPush,
+    standalone: false
 })
 export class GalleriaItem implements OnChanges {
     @Input() id: string | undefined;
@@ -967,7 +971,8 @@ export class GalleriaItem implements OnChanges {
             </div>
         </div>
     `,
-    changeDetection: ChangeDetectionStrategy.OnPush
+    changeDetection: ChangeDetectionStrategy.OnPush,
+    standalone: false
 })
 export class GalleriaThumbnails implements OnInit, AfterContentChecked, AfterViewInit, OnDestroy {
     @Input() containerId: string | undefined;

@@ -8,7 +8,8 @@ import { Code } from '@domain/code';
             <p>Inline SVGs are embedded inside the dom.</p>
         </app-docsectiontext>
         <app-code [code]="code" [hideToggleCode]="true"></app-code>
-    `
+    `,
+    standalone: false
 })
 export class SVGDoc {
     code: Code = {

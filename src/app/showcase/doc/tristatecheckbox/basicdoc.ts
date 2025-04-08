@@ -12,7 +12,8 @@ import { Code } from '@domain/code';
             <label for="tricheckbox">{{ value === null ? 'null' : value }}</label>
         </div>
         <app-code [code]="code" selector="tri-state-checkbox-basic-demo"></app-code>
-    `
+    `,
+    standalone: false
 })
 export class BasicDoc {
     value: boolean | null = null;

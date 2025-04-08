@@ -11,7 +11,8 @@ import { Code } from '@domain/code';
             <p-slider [(ngModel)]="rangeValues" [range]="true" styleClass="w-14rem" />
         </div>
         <app-code [code]="code" selector="slider-range-demo"></app-code>
-    `
+    `,
+    standalone: false
 })
 export class RangeDoc {
     rangeValues: number[] = [20, 80];

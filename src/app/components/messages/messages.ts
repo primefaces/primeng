@@ -86,7 +86,8 @@ import { Subscription, timer } from 'rxjs';
     styleUrls: ['./messages.css'],
     host: {
         class: 'p-element'
-    }
+    },
+    standalone: false
 })
 export class Messages implements AfterContentInit, OnDestroy {
     /**

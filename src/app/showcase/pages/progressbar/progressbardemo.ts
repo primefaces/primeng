@@ -8,7 +8,8 @@ import { DynamicDoc } from '@doc/progressbar/dynamicdoc';
 import { AccessibilityDoc } from '@doc/progressbar/accessibilitydoc';
 
 @Component({
-    templateUrl: './progressbardemo.html'
+    templateUrl: './progressbardemo.html',
+    standalone: false
 })
 export class ProgressBarDemo {
     docs = [

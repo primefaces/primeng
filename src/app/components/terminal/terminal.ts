@@ -31,7 +31,8 @@ import { Subscription } from 'rxjs';
     styleUrls: ['./terminal.css'],
     host: {
         class: 'p-element'
-    }
+    },
+    standalone: false
 })
 export class Terminal implements AfterViewInit, AfterViewChecked, OnDestroy {
     /**

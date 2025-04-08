@@ -11,7 +11,8 @@ import { Code } from '@domain/code';
             <p-button label="Submit" [disabled]="true" />
         </div>
         <app-code [code]="code" selector="button-disabled-demo"></app-code>
-    `
+    `,
+    standalone: false
 })
 export class DisabledDoc {
     code: Code = {

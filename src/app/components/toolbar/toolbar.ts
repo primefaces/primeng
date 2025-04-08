@@ -26,7 +26,8 @@ import { BlockableUI, PrimeTemplate, SharedModule } from 'primeng/api';
     styleUrls: ['./toolbar.css'],
     host: {
         class: 'p-element'
-    }
+    },
+    standalone: false
 })
 export class Toolbar implements AfterContentInit, BlockableUI {
     /**

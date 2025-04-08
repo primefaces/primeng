@@ -16,7 +16,8 @@ import { Code } from '@domain/code';
         </div>
         <app-code [code]="code" selector="speed-dial-custom-demo"></app-code>
     `,
-    providers: [MessageService]
+    providers: [MessageService],
+    standalone: false
 })
 export class CustomDoc implements OnInit {
     items: MenuItem[] | undefined;

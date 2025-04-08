@@ -11,7 +11,8 @@ import { Code } from '@domain/code';
             <p-inputNumber inputId="integeronly" class="ng-invalid ng-dirty" [(ngModel)]="value1" />
         </div>
         <app-code [code]="code" selector="input-number-invalid-demo"></app-code>
-    `
+    `,
+    standalone: false
 })
 export class InvalidDoc {
     value1!: number;

@@ -14,7 +14,8 @@ import { Code } from '@domain/code';
             </p-floatLabel>
         </div>
         <app-code [code]="code" selector="input-textarea-floatlabel-demo"></app-code>
-    `
+    `,
+    standalone: false
 })
 export class FloatlabelDoc {
     code: Code = {

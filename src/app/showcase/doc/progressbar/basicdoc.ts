@@ -11,7 +11,8 @@ import { Code } from '@domain/code';
             <p-progressBar [value]="50" />
         </div>
         <app-code [code]="code" selector="progress-bar-basic-demo"></app-code>
-    `
+    `,
+    standalone: false
 })
 export class BasicDoc {
     code: Code = {

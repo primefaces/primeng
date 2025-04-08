@@ -7,7 +7,8 @@ import { UsageDoc } from '@doc/filterservice/usagedoc';
 import { TableIntegrationDoc } from '@doc/filterservice/tableintegrationdoc';
 
 @Component({
-    templateUrl: './filterservicedemo.html'
+    templateUrl: './filterservicedemo.html',
+    standalone: false
 })
 export class FilterServiceDemo {
     docs = [

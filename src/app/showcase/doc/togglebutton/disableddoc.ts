@@ -11,7 +11,8 @@ import { Code } from '@domain/code';
             <p-toggleButton disabled="true" onIcon="pi pi-check" offIcon="pi pi-times" [(ngModel)]="checked" onLabel="Yes" offLabel="No" styleClass="w-full sm:w-10rem" ariaLabel="Confirmation" />
         </div>
         <app-code [code]="code" selector="toggle-button-disabled-demo"></app-code>
-    `
+    `,
+    standalone: false
 })
 export class DisabledDoc {
     checked: boolean = false;

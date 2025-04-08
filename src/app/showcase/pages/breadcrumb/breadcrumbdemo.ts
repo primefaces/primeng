@@ -7,7 +7,8 @@ import { TemplateDoc } from '@doc/breadcrumb/templatedoc';
 import { RouterDoc } from '@doc/breadcrumb/routerdoc';
 
 @Component({
-    templateUrl: './breadcrumbdemo.html'
+    templateUrl: './breadcrumbdemo.html',
+    standalone: false
 })
 export class BreadcrumbDemo {
     docs = [

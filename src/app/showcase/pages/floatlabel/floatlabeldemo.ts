@@ -4,7 +4,8 @@ import { BasicDoc } from '@doc/floatlabel/basicdoc';
 import { StyleDoc } from '@doc/floatlabel/styledoc';
 import { AccessibilityDoc } from '@doc/floatlabel/accessibilitydoc';
 @Component({
-    templateUrl: './floatlabeldemo.html'
+    templateUrl: './floatlabeldemo.html',
+    standalone: false
 })
 export class FloatLabelDemo {
     docs = [

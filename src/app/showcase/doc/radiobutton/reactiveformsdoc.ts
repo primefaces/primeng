@@ -17,7 +17,8 @@ import { Code } from '@domain/code';
             </form>
         </div>
         <app-code [code]="code" selector="radio-button-reactive-forms-demo"></app-code>
-    `
+    `,
+    standalone: false
 })
 export class ReactiveFormsDoc implements OnInit {
     formGroup!: FormGroup;

@@ -54,7 +54,8 @@ interface TableRowSelectEvent {
         </div>
         <app-code [code]="code" selector="overlay-panel-data-table-demo" [extFiles]="extFiles"></app-code>
     `,
-    providers: [MessageService]
+    providers: [MessageService],
+    standalone: false
 })
 export class DataTableDoc implements OnInit {
     constructor(

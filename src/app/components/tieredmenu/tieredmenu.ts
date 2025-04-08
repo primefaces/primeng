@@ -187,7 +187,8 @@ import { ObjectUtils, UniqueComponentId, ZIndexUtils } from 'primeng/utils';
     encapsulation: ViewEncapsulation.None,
     host: {
         class: 'p-element'
-    }
+    },
+    standalone: false
 })
 export class TieredMenuSub {
     @Input() items: any[];
@@ -397,7 +398,8 @@ export class TieredMenuSub {
     styleUrls: ['./tieredmenu.css'],
     host: {
         class: 'p-element'
-    }
+    },
+    standalone: false
 })
 export class TieredMenu implements OnInit, AfterContentInit, OnDestroy {
     /**

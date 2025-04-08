@@ -28,7 +28,8 @@ import { Code } from '@domain/code';
             </p-toolbar>
         </div>
         <app-code [code]="code" selector="toolbar-template-demo"></app-code>
-    `
+    `,
+    standalone: false
 })
 export class TemplateDoc {
     code: Code = {

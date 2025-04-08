@@ -9,7 +9,8 @@ import { MultipleDoc } from '@doc/selectbutton/multipledoc';
 import { TemplateDoc } from '@doc/selectbutton/templatedoc';
 
 @Component({
-    templateUrl: './selectbuttondemo.html'
+    templateUrl: './selectbuttondemo.html',
+    standalone: false
 })
 export class SelectButtonDemo {
     docs = [

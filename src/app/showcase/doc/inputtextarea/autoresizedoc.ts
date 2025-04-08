@@ -11,7 +11,8 @@ import { Code } from '@domain/code';
             <textarea rows="5" cols="30" pInputTextarea [autoResize]="true"></textarea>
         </div>
         <app-code [code]="code" selector="input-textarea-auto-resize-demo"></app-code>
-    `
+    `,
+    standalone: false
 })
 export class AutoResizeDoc {
     code: Code = {

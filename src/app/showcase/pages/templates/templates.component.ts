@@ -3,7 +3,8 @@ import { Meta, Title } from '@angular/platform-browser';
 
 @Component({
     selector: 'templates',
-    templateUrl: './templates.component.html'
+    templateUrl: './templates.component.html',
+    standalone: false
 })
 export class TemplatesComponent {
     constructor(

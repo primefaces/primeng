@@ -6,7 +6,8 @@ import { StyleDoc } from '@doc/confirmpopup/styledoc';
 import { AccessibilityDoc } from '@doc/confirmpopup/accessibilitydoc';
 import { HeadlessDoc } from '@doc/confirmpopup/headlessdoc';
 @Component({
-    templateUrl: './confirmpopupdemo.html'
+    templateUrl: './confirmpopupdemo.html',
+    standalone: false
 })
 export class ConfirmPopupDemo {
     docs = [

@@ -11,7 +11,8 @@ import { Code } from '@domain/code';
             <p-inputOtp [(ngModel)]="value" />
         </div>
         <app-code [code]="code" selector="input-otp-basic-demo"></app-code>
-    `
+    `,
+    standalone: false
 })
 export class BasicDoc {
     value: any;

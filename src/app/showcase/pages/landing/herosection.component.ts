@@ -19,7 +19,6 @@ import { AppConfigService } from '@service/appconfigservice';
 
 @Component({
     selector: 'hero-section',
-    standalone: true,
     imports: [CommonModule, RouterModule, InputNumberModule, DropdownModule, RadioButtonModule, CalendarModule, ChartModule, ChipModule, InputSwitchModule, SelectButtonModule, SliderModule, BadgeModule, TabMenuModule, FormsModule],
     template: `
         <section class="landing-hero py-8 px-5 lg:px-8">

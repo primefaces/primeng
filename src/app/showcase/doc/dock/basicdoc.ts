@@ -24,7 +24,8 @@ import { Code } from '@domain/code';
             </div>
         </div>
         <app-code [code]="code" selector="dock-basic-demo"></app-code>
-    `
+    `,
+    standalone: false
 })
 export class BasicDoc implements OnInit {
     items: MenuItem[] | undefined;

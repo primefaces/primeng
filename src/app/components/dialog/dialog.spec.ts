@@ -19,7 +19,8 @@ import { Dialog } from './dialog';
             </p-footer>
         </p-dialog>
         <button type="button" (click)="showDialog()" pButton icon="pi pi-info-circle" label="Show"></button>
-    `
+    `,
+    standalone: false
 })
 class TestDialogComponent {
     display: boolean = false;

@@ -5,7 +5,8 @@ import { AppConfigService } from '@service/appconfigservice';
 
 @Component({
     templateUrl: './uikit.component.html',
-    styleUrls: ['uikit.component.scss']
+    styleUrls: ['uikit.component.scss'],
+    standalone: false
 })
 export class UIKitComponent {
     subscription: Subscription;

@@ -11,7 +11,8 @@ import { Code } from '@domain/code';
             <p-progressSpinner ariaLabel="loading" />
         </div>
         <app-code [code]="code" selector="progress-spinner-basic-demo"></app-code>
-    `
+    `,
+    standalone: false
 })
 export class BasicDoc {
     code: Code = {

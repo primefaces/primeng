@@ -12,7 +12,8 @@ import { Code } from '@domain/code';
             <p-avatar label="T" size="xlarge" />
         </div>
         <app-code [code]="code" selector="avatar-size-demo"></app-code>
-    `
+    `,
+    standalone: false
 })
 export class SizeDoc {
     code: Code = {

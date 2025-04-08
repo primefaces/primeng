@@ -15,7 +15,8 @@ import { Code } from '@domain/code';
             </p-calendar>
         </div>
         <app-code [code]="code" selector="calendar-datetemplate-demo"></app-code>
-    `
+    `,
+    standalone: false
 })
 export class DateTemplateDoc {
     date: Date[] | undefined;

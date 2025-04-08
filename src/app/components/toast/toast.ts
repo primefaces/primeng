@@ -123,7 +123,8 @@ import { DomHandler } from 'primeng/dom';
     changeDetection: ChangeDetectionStrategy.OnPush,
     host: {
         class: 'p-element'
-    }
+    },
+    standalone: false
 })
 export class ToastItem implements AfterViewInit, OnDestroy {
     @Input() message: Message | null | undefined;
@@ -242,7 +243,8 @@ export class ToastItem implements AfterViewInit, OnDestroy {
     styleUrls: ['./toast.css'],
     host: {
         class: 'p-element'
-    }
+    },
+    standalone: false
 })
 export class Toast implements OnInit, AfterContentInit, OnDestroy {
     /**

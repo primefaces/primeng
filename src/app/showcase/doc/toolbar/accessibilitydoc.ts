@@ -14,7 +14,8 @@ import { Code } from '@domain/code';
             <h3>Keyboard Support</h3>
             <p>Component does not include any interactive elements. Arbitrary content can be placed with templating and elements like buttons inside should follow the page tab sequence.</p>
         </app-docsectiontext>
-    </div>`
+    </div>`,
+    standalone: false
 })
 export class AccessibilityDoc {
     code: Code = {

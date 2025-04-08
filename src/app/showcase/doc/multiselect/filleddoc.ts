@@ -16,7 +16,8 @@ interface City {
             <p-multiSelect [options]="cities" [(ngModel)]="selectedCities" variant="filled" optionLabel="name" placeholder="Select Cities" />
         </div>
         <app-code [code]="code" selector="multi-select-filled-demo"></app-code>
-    `
+    `,
+    standalone: false
 })
 export class FilledDoc implements OnInit {
     cities!: City[];

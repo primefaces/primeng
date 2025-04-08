@@ -4,7 +4,8 @@ import { AnimationDoc } from '@doc/styleclass/animationdoc';
 import { ToggleClassDoc } from '@doc/styleclass/toggleclassdoc';
 
 @Component({
-    templateUrl: './styleclassdemo.html'
+    templateUrl: './styleclassdemo.html',
+    standalone: false
 })
 export class StyleClassDemo {
     docs = [

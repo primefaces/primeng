@@ -22,7 +22,8 @@ import { Code } from '@domain/code';
             </p-dropdown>
         </div>
         <app-code [code]="code" selector="dropdown-filter-demo"></app-code>
-    `
+    `,
+    standalone: false
 })
 export class FilterDoc implements OnInit {
     countries: any[] | undefined;

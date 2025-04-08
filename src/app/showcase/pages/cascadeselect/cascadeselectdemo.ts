@@ -12,7 +12,8 @@ import { FilledDoc } from '@doc/cascadeselect/filleddoc';
 import { LoadingDoc } from '@doc/cascadeselect/loadingdoc';
 
 @Component({
-    templateUrl: './cascadeselectdemo.html'
+    templateUrl: './cascadeselectdemo.html',
+    standalone: false
 })
 export class CascadeSelectDemo {
     docs = [

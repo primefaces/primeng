@@ -54,7 +54,8 @@ import { ZIndexUtils } from 'primeng/utils';
     ],
     host: {
         class: 'p-element'
-    }
+    },
+    standalone: false
 })
 export class ScrollTop implements OnInit, OnDestroy {
     /**

@@ -14,7 +14,8 @@ import { NodeService } from '@service/nodeservice';
         </div>
         <app-code [code]="code" selector="tree-drag-drop-demo"></app-code>
     `,
-    providers: [TreeDragDropService]
+    providers: [TreeDragDropService],
+    standalone: false
 })
 export class DragDropDoc implements OnInit {
     files!: TreeNode[];

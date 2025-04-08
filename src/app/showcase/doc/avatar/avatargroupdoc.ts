@@ -18,7 +18,8 @@ import { Code } from '@domain/code';
             </p-avatarGroup>
         </div>
         <app-code [code]="code" selector="avatar-group-demo"></app-code>
-    `
+    `,
+    standalone: false
 })
 export class GroupDoc {
     code: Code = {

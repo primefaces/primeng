@@ -97,7 +97,8 @@ export const COLORPICKER_VALUE_ACCESSOR: any = {
     styleUrls: ['./colorpicker.css'],
     host: {
         class: 'p-element'
-    }
+    },
+    standalone: false
 })
 export class ColorPicker implements ControlValueAccessor, OnDestroy {
     /**

@@ -15,7 +15,8 @@ import { Code } from '@domain/code';
             </p-buttonGroup>
         </div>
         <app-code [code]="code" selector="button-group-demo"></app-code>
-    `
+    `,
+    standalone: false
 })
 export class ButtonGroupDoc {
     code: Code = {

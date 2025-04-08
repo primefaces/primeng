@@ -9,7 +9,8 @@ import { AccessibilityDoc } from '@doc/skeleton/accessibilitydoc';
 
 @Component({
     templateUrl: './skeletondemo.html',
-    styleUrls: ['./skeletondemo.scss']
+    styleUrls: ['./skeletondemo.scss'],
+    standalone: false
 })
 export class SkeletonDemo {
     docs = [

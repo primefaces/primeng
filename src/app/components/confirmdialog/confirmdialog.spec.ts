@@ -8,7 +8,8 @@ import { ConfirmDialog } from './confirmdialog';
 @Component({
     template: `<p-confirmDialog></p-confirmDialog>
 
-        <button type="button" (click)="confirm1()" pButton icon="pi pi-check" label="Confirm"></button>`
+        <button type="button" (click)="confirm1()" pButton icon="pi pi-check" label="Confirm"></button>`,
+    standalone: false
 })
 class TestConfirmDialogComponent {
     constructor(private confirmationService: ConfirmationService) {}

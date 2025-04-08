@@ -38,7 +38,8 @@ import { Code } from '@domain/code';
             </div>
         </div>
         <app-code [code]="code" selector="key-filter-presets-demo"></app-code>
-    `
+    `,
+    standalone: false
 })
 export class PresetsDoc {
     code: Code = {

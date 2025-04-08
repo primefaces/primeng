@@ -13,7 +13,8 @@ import { Code } from '@domain/code';
             </p-avatar>
         </div>
         <app-code [code]="code" selector="avatar-template-demo"></app-code>
-    `
+    `,
+    standalone: false
 })
 export class TemplateDoc {
     code: Code = {

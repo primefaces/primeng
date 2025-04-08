@@ -12,7 +12,8 @@ import { TooltipDoc } from '@doc/speeddial/tooltipdoc';
 
 @Component({
     templateUrl: './speeddialdemo.html',
-    styleUrls: ['./speeddialdemo.scss']
+    styleUrls: ['./speeddialdemo.scss'],
+    standalone: false
 })
 export class SpeedDialDemo {
     docs = [

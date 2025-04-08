@@ -25,7 +25,8 @@ import { Code } from '@domain/code';
             </div>
         </div>
         <app-code [code]="code" selector="skeleton-card-demo"></app-code>
-    `
+    `,
+    standalone: false
 })
 export class CardDoc {
     code: Code = {

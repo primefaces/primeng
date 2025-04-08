@@ -12,7 +12,8 @@ import { AccessibilityDoc } from '@doc/messages/accessibilitydoc';
 import { ServiceDoc } from '@doc/messages/servicedoc';
 
 @Component({
-    templateUrl: './messagesdemo.html'
+    templateUrl: './messagesdemo.html',
+    standalone: false
 })
 export class MessagesDemo {
     docs = [

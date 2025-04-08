@@ -11,7 +11,8 @@ import { Code } from '@domain/code';
             <p-inputSwitch [(ngModel)]="checked" />
         </div>
         <app-code [code]="code" selector="input-switch-basic-demo"></app-code>
-    `
+    `,
+    standalone: false
 })
 export class BasicDoc {
     checked: boolean = false;

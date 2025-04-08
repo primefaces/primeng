@@ -8,7 +8,8 @@ import { Code } from '@domain/code';
             <p>The properties of scroller component can be used like an object in it.</p>
         </app-docsectiontext>
         <app-code [code]="code" [hideToggleCode]="true"></app-code>
-    `
+    `,
+    standalone: false
 })
 export class ScrollOptionsDoc {
     code: Code = {

@@ -12,7 +12,8 @@ import { Code } from '@domain/code';
             <p-steps [model]="items" [readonly]="true" />
         </div>
         <app-code [code]="code" selector="steps-basic-demo"></app-code>
-    `
+    `,
+    standalone: false
 })
 export class BasicDoc implements OnInit {
     items: MenuItem[] | undefined;

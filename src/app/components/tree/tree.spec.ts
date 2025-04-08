@@ -14,7 +14,8 @@ import { ContextMenuService, TreeDragDropService } from 'primeng/api';
         <p-tree class="files" [value]="filesTree7" draggableNodes="true" droppableNodes="true" droppableScope="files" draggableScope="server2"></p-tree>
         <p-tree class="server1" [value]="filesTree8" draggableNodes="true" droppableNodes="true" droppableScope="server1" draggableScope="files"></p-tree>
         <p-tree class="server2" [value]="filesTree9" draggableNodes="true" droppableNodes="true" droppableScope="server2" draggableScope="server1"></p-tree>
-    `
+    `,
+    standalone: false
 })
 class TestTreeComponent implements OnInit {
     @ViewChild('cm') cm: ElementRef;

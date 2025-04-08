@@ -7,7 +7,8 @@ import { AccessibilityDoc } from '@doc/progressspinner/accessibilitydoc';
 
 @Component({
     templateUrl: './progressspinnerdemo.html',
-    styleUrls: ['./progressspinnerdemo.css']
+    styleUrls: ['./progressspinnerdemo.css'],
+    standalone: false
 })
 export class ProgressSpinnerDemo {
     docs = [

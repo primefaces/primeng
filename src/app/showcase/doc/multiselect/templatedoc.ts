@@ -38,7 +38,8 @@ interface Country {
             </p-multiSelect>
         </div>
         <app-code [code]="code" selector="multi-select-template-demo"></app-code>
-    `
+    `,
+    standalone: false
 })
 export class TemplateDoc implements OnInit {
     countries!: Country[];

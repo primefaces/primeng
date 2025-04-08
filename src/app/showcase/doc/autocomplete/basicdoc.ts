@@ -17,7 +17,8 @@ interface AutoCompleteCompleteEvent {
         <div class="card flex justify-content-center">
             <p-autoComplete [(ngModel)]="selectedItem" [suggestions]="suggestions" (completeMethod)="search($event)" placeholder="Search" />
         </div>
-        <app-code [code]="code" selector="autocomplete-basic-demo"></app-code>`
+        <app-code [code]="code" selector="autocomplete-basic-demo"></app-code>`,
+    standalone: false
 })
 export class BasicDoc {
     items: any[] | undefined;

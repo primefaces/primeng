@@ -11,7 +11,8 @@ import { Code } from '@domain/code';
             <p-calendar [(ngModel)]="date" [numberOfMonths]="2" />
         </div>
         <app-code [code]="code" selector="calendar-multiplemonths-demo"></app-code>
-    `
+    `,
+    standalone: false
 })
 export class MultipleMonthDoc {
     date: Date[] | undefined;

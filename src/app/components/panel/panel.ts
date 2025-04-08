@@ -109,7 +109,8 @@ import { PanelAfterToggleEvent, PanelBeforeToggleEvent } from './panel.interface
     styleUrls: ['./panel.css'],
     host: {
         class: 'p-element'
-    }
+    },
+    standalone: false
 })
 export class Panel implements AfterContentInit, BlockableUI {
     /**

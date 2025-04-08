@@ -91,7 +91,8 @@ const hideOverlayContentAnimation = animation([animate('{{hideTransitionParams}}
     styleUrls: ['./overlay.css'],
     host: {
         class: 'p-element'
-    }
+    },
+    standalone: false
 })
 export class Overlay implements AfterContentInit, OnDestroy {
     /**

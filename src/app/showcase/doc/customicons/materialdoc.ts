@@ -8,7 +8,8 @@ import { Code } from '@domain/code';
             <p><a href="https://fonts.google.com/icons">Material icons</a> is the official icon library based on Google Material Design.</p>
         </app-docsectiontext>
         <app-code [code]="code" [hideToggleCode]="true"></app-code>
-    `
+    `,
+    standalone: false
 })
 export class MaterialDoc {
     code: Code = {

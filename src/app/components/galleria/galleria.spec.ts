@@ -1,4 +1,4 @@
-import { TestBed, ComponentFixture, fakeAsync, tick, async } from '@angular/core/testing';
+import { TestBed, ComponentFixture } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
 import { Galleria, GalleriaModule } from './galleria';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';

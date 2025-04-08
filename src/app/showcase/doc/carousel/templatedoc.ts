@@ -38,7 +38,8 @@ import { ProductService } from '@service/productservice';
             </p-carousel>
         </div>
         <app-code [code]="code" selector="carousel-template-demo" [extFiles]="extFiles"></app-code>
-    `
+    `,
+    standalone: false
 })
 export class TemplateDoc implements OnInit {
     products: Product[] | undefined;

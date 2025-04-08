@@ -18,7 +18,8 @@ import { MethodsDoc } from '@doc/chart/methodsdoc';
 import { AccessibilityDoc } from '@doc/chart/accessibilitydoc';
 
 @Component({
-    templateUrl: './chartdemo.html'
+    templateUrl: './chartdemo.html',
+    standalone: false
 })
 export class ChartDemo {
     docs = [

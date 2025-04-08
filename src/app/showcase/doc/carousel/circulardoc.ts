@@ -32,7 +32,8 @@ import { ProductService } from '@service/productservice';
             </p-carousel>
         </div>
         <app-code [code]="code" selector="carousel-circular-demo" [extFiles]="extFiles"></app-code>
-    `
+    `,
+    standalone: false
 })
 export class CircularDoc implements OnInit {
     products: Product[] | undefined;

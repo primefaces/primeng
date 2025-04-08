@@ -17,7 +17,8 @@ import { Code } from '@domain/code';
             <p-tag severity="contrast" value="Contrast" [rounded]="true" />
         </div>
         <app-code [code]="code" selector="tag-pill-demo"></app-code>
-    `
+    `,
+    standalone: false
 })
 export class PillDoc {
     code: Code = {

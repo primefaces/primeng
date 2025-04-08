@@ -16,7 +16,8 @@ interface City {
             <p-multiSelect [options]="cities" [(ngModel)]="selectedCities" [disabled]="true" optionLabel="name" placeholder="Select Cities" />
         </div>
         <app-code [code]="code" selector="multi-select-disabled-demo"></app-code>
-    `
+    `,
+    standalone: false
 })
 export class DisabledDoc implements OnInit {
     cities!: City[];

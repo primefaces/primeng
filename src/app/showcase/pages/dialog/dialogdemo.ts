@@ -14,7 +14,8 @@ import { AccessibilityDoc } from '@doc/dialog/accessibilitydoc';
 import { WithoutModalDoc } from '@doc/dialog/withoutmodaldoc';
 
 @Component({
-    templateUrl: './dialogdemo.html'
+    templateUrl: './dialogdemo.html',
+    standalone: false
 })
 export class DialogDemo {
     docs = [

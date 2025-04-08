@@ -21,7 +21,8 @@ import { TimesIcon } from 'primeng/icons/times';
         <p-dropdown [(ngModel)]="selectedCity"></p-dropdown>
         <button (click)="setValue()"></button>
         <p-dropdown [(ngModel)]="selectedCity" [options]="groupedCarsAlternate" optionGroupChildren="children" [group]="true"></p-dropdown>
-    `
+    `,
+    standalone: false
 })
 class TestDropdownComponent {
     selectedCity: any;

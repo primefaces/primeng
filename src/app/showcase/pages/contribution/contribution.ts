@@ -8,7 +8,8 @@ import { KeyPointsDoc } from '@doc/contribution/keypoints';
 import { PathwayDoc } from '@doc/contribution/pathwaydoc';
 
 @Component({
-    templateUrl: './contribution.component.html'
+    templateUrl: './contribution.component.html',
+    standalone: false
 })
 export class ContributionComponent {
     docs = [

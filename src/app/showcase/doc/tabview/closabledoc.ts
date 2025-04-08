@@ -30,7 +30,8 @@ import { Code } from '@domain/code';
             </p-tabView>
         </div>
         <app-code [code]="code" selector="tab-view-closable-demo"></app-code>
-    `
+    `,
+    standalone: false
 })
 export class ClosableDoc {
     code: Code = {

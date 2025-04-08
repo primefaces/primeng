@@ -23,7 +23,8 @@ import { Code } from '@domain/code';
             </p-cascadeSelect>
         </div>
         <app-code [code]="code" selector="cascade-select-template-demo"></app-code>
-    `
+    `,
+    standalone: false
 })
 export class TemplateDoc {
     countries: any[] | undefined;

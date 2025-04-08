@@ -9,7 +9,8 @@ import { AccessibilityDoc } from '@doc/inplace/accessibilitydoc';
 import { LazyDoc } from '@doc/inplace/lazydoc';
 
 @Component({
-    templateUrl: './inplacedemo.html'
+    templateUrl: './inplacedemo.html',
+    standalone: false
 })
 export class InplaceDemo {
     docs = [

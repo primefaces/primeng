@@ -46,7 +46,8 @@ import { Code } from '@domain/code';
             </div>
         </div>
         <app-code [code]="code" selector="scroll-panel-custom-demo"></app-code>
-    `
+    `,
+    standalone: false
 })
 export class CusstomDoc {
     code: Code = {

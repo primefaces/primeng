@@ -11,7 +11,8 @@ import { Code } from '@domain/code';
             <button pButton pRipple label="Submit" class="p-button-success"></button>
         </div>
         <app-code [code]="code" selector="button-directive-demo"></app-code>
-    `
+    `,
+    standalone: false
 })
 export class DirectiveDoc {
     code: Code = {

@@ -18,7 +18,8 @@ import { Code } from '@domain/code';
             </p-inplace>
         </div>
         <app-code [code]="code" selector="inplace-input-demo"></app-code>
-    `
+    `,
+    standalone: false
 })
 export class InputDoc {
     code: Code = {

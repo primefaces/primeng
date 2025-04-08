@@ -11,7 +11,8 @@ import { Code } from '@domain/code';
             <p-editor [(ngModel)]="text" [readonly]="true" [style]="{ height: '320px' }" />
         </div>
         <app-code [code]="code" selector="editor-readonly-demo"></app-code>
-    `
+    `,
+    standalone: false
 })
 export class ReadOnlyDoc {
     text: string = 'Always bet on Prime!';

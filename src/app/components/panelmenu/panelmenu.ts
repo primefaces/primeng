@@ -168,7 +168,8 @@ import { ObjectUtils, UniqueComponentId } from 'primeng/utils';
     encapsulation: ViewEncapsulation.None,
     host: {
         class: 'p-element'
-    }
+    },
+    standalone: false
 })
 export class PanelMenuSub {
     @Input() panelId: string | undefined;
@@ -310,7 +311,8 @@ export class PanelMenuSub {
     styleUrls: ['./panelmenu.css'],
     host: {
         class: 'p-element'
-    }
+    },
+    standalone: false
 })
 export class PanelMenuList implements OnChanges {
     @Input() panelId: string | undefined;
@@ -869,7 +871,8 @@ export class PanelMenuList implements OnChanges {
     styleUrls: ['./panelmenu.css'],
     host: {
         class: 'p-element'
-    }
+    },
+    standalone: false
 })
 export class PanelMenu implements AfterContentInit {
     /**

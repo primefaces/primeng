@@ -10,7 +10,8 @@ import { HeadlessDoc } from '@doc/sidebar/headlessdoc';
 import { AccessibilityDoc } from '@doc/sidebar/accessibilitydoc';
 
 @Component({
-    templateUrl: './sidebardemo.html'
+    templateUrl: './sidebardemo.html',
+    standalone: false
 })
 export class SidebarDemo {
     docs = [
