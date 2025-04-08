@@ -1,4 +1,4 @@
-import { TestBed, ComponentFixture, fakeAsync, tick, async } from '@angular/core/testing';
+import { TestBed, ComponentFixture, waitForAsync } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
 import { TreeTable, TreeTableModule, TTScrollableView } from './treetable';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
@@ -289,8 +289,8 @@ class TestTreeTableComponent {
         { field: 'type', header: 'Type' }
     ];
     items = [
-        { label: 'View', icon: 'pi pi-search', command: (event) => {} },
-        { label: 'Toggle', icon: 'pi pi-sort', command: (event) => {} }
+        { label: 'View', icon: 'pi pi-search', command: (event) => { } },
+        { label: 'Toggle', icon: 'pi pi-sort', command: (event) => { } }
     ];
 
     loadNodes(event) {
@@ -316,7 +316,7 @@ class TestTreeTableComponent {
             this.virtualFiles.push(node);
         }
     }
-    onNodeExpand(event) {}
+    onNodeExpand(event) { }
     totalRecords: number;
     virtualFiles: any[];
     showLoader: boolean;
@@ -1104,13 +1104,13 @@ describe('TreeTable', () => {
         fixture.detectChanges();
 
         editableColumns = editableTreeTableEl.queryAll(By.css('td'));
-        editableColumns[1].triggerEventHandler('keydown', { target: editableColumns[1].nativeElement, code: 'Tab', preventDefault() {} });
+        editableColumns[1].triggerEventHandler('keydown', { target: editableColumns[1].nativeElement, code: 'Tab', preventDefault() { } });
         fixture.detectChanges();
 
         editableColumns = editableTreeTableEl.queryAll(By.css('td'));
         expect(editableColumns[1].nativeElement.className).not.toContain('p-cell-editing');
         expect(editableColumns[2].nativeElement.className).toContain('p-cell-editing');
-        editableColumns[2].triggerEventHandler('keydown', { target: editableColumns[2].nativeElement, code: 'Tab', preventDefault() {} });
+        editableColumns[2].triggerEventHandler('keydown', { target: editableColumns[2].nativeElement, code: 'Tab', preventDefault() { } });
         fixture.detectChanges();
 
         editableColumns = editableTreeTableEl.queryAll(By.css('td'));
@@ -1118,18 +1118,18 @@ describe('TreeTable', () => {
         expect(editableColumns[3].nativeElement.className).toContain('p-cell-editing');
 
         editableColumns = editableTreeTableEl.queryAll(By.css('td'));
-        editableColumns[3].triggerEventHandler('keydown', { target: editableColumns[3].nativeElement, shiftKey: true, code: 'Tab', preventDefault() {} });
+        editableColumns[3].triggerEventHandler('keydown', { target: editableColumns[3].nativeElement, shiftKey: true, code: 'Tab', preventDefault() { } });
         fixture.detectChanges();
 
         expect(editableColumns[3].nativeElement.className).not.toContain('p-cell-editing');
         expect(editableColumns[2].nativeElement.className).toContain('p-cell-editing');
         editableColumns = editableTreeTableEl.queryAll(By.css('td'));
-        editableColumns[2].triggerEventHandler('keydown', { target: editableColumns[2].nativeElement, shiftKey: true, code: 'Tab', preventDefault() {} });
+        editableColumns[2].triggerEventHandler('keydown', { target: editableColumns[2].nativeElement, shiftKey: true, code: 'Tab', preventDefault() { } });
         fixture.detectChanges();
 
         expect(editableColumns[1].nativeElement.className).toContain('p-cell-editing');
         editableColumns = editableTreeTableEl.queryAll(By.css('td'));
-        editableColumns[1].triggerEventHandler('keydown', { target: editableColumns[1].nativeElement, shiftKey: true, code: 'Escape', preventDefault() {} });
+        editableColumns[1].triggerEventHandler('keydown', { target: editableColumns[1].nativeElement, shiftKey: true, code: 'Escape', preventDefault() { } });
         fixture.detectChanges();
 
         expect(editableColumns[1].nativeElement.className).not.toContain('p-cell-editing');
@@ -1139,7 +1139,7 @@ describe('TreeTable', () => {
 
         expect(editableColumns[1].nativeElement.className).toContain('p-cell-editing');
         editableColumns = editableTreeTableEl.queryAll(By.css('td'));
-        editableColumns[1].triggerEventHandler('keydown', { target: editableColumns[1].nativeElement, shiftKey: false, code: 'Enter', preventDefault() {} });
+        editableColumns[1].triggerEventHandler('keydown', { target: editableColumns[1].nativeElement, shiftKey: false, code: 'Enter', preventDefault() { } });
         fixture.detectChanges();
 
         expect(editableColumns[1].nativeElement.className).not.toContain('p-cell-editing');
@@ -1274,7 +1274,7 @@ describe('TreeTable', () => {
         const onColumnDragStartSpy = spyOn(reorderableTreeTable, 'onColumnDragStart').and.callThrough();
         const dragEvent: any = document.createEvent('CustomEvent');
         dragEvent.initEvent('dragstart', true, true);
-        dragEvent.dataTransfer = { setData(val1, val2) {} };
+        dragEvent.dataTransfer = { setData(val1, val2) { } };
         reorableHeaderEls[0].nativeElement.dispatchEvent(dragEvent);
         fixture.detectChanges();
 
@@ -1317,7 +1317,7 @@ describe('TreeTable', () => {
         const onColumnDragStartSpy = spyOn(reorderableTreeTable, 'onColumnDragStart').and.callThrough();
         const dragEvent: any = document.createEvent('CustomEvent');
         dragEvent.initEvent('dragstart', true, true);
-        dragEvent.dataTransfer = { setData(val1, val2) {} };
+        dragEvent.dataTransfer = { setData(val1, val2) { } };
         reorableHeaderEls[0].nativeElement.dispatchEvent(dragEvent);
         fixture.detectChanges();
 
@@ -1393,7 +1393,7 @@ describe('TreeTable', () => {
         expect(contextMenuTreeTable.selection[0].data.name).toEqual('Applications');
     });
 
-    it('should filter global and show 6 item ', async(() => {
+    it('should filter global and show 6 item ', waitForAsync(() => {
         fixture.detectChanges();
 
         const globalFilter = fixture.debugElement.query(By.css('.globalFilter'));
@@ -1408,7 +1408,7 @@ describe('TreeTable', () => {
         });
     }));
 
-    it('should filter and show 1 item (contains)', async(() => {
+    it('should filter and show 1 item (contains)', waitForAsync(() => {
         fixture.detectChanges();
 
         const filterEls = fixture.debugElement.queryAll(By.css('.filterInput'));
@@ -1431,7 +1431,7 @@ describe('TreeTable', () => {
         });
     }));
 
-    it('should filter and show 1 item (endsWith)', async(() => {
+    it('should filter and show 1 item (endsWith)', waitForAsync(() => {
         testcomponent.filterMode = 'endsWith';
         fixture.detectChanges();
 
@@ -1447,7 +1447,7 @@ describe('TreeTable', () => {
         });
     }));
 
-    it('should filter and show 1 item (equals)', async(() => {
+    it('should filter and show 1 item (equals)', waitForAsync(() => {
         testcomponent.filterMode = 'equals';
         fixture.detectChanges();
 
