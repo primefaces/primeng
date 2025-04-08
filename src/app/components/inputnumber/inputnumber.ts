@@ -352,12 +352,12 @@ export class InputNumber implements OnInit, AfterContentInit, OnChanges, Control
      * The locale matching algorithm to use. Possible values are "lookup" and "best fit"; the default is "best fit". See Locale Negotiation for details.
      * @group Props
      */
-    @Input() localeMatcher: string | undefined;
+    @Input() localeMatcher: 'lookup' | 'best fit' | undefined;
     /**
      * Defines the behavior of the component, valid values are "decimal" and "currency".
      * @group Props
      */
-    @Input() mode: string = 'decimal';
+    @Input() mode: Intl.NumberFormatOptionsStyle = 'decimal';
     /**
      * The currency to use in currency formatting. Possible values are the ISO 4217 currency codes, such as "USD" for the US dollar, "EUR" for the euro, or "CNY" for the Chinese RMB. There is no default value; if the style is "currency", the currency property must be provided.
      * @group Props
@@ -367,7 +367,7 @@ export class InputNumber implements OnInit, AfterContentInit, OnChanges, Control
      * How to display the currency in currency formatting. Possible values are "symbol" to use a localized currency symbol such as €, ü"code" to use the ISO currency code, "name" to use a localized currency name such as "dollar"; the default is "symbol".
      * @group Props
      */
-    @Input() currencyDisplay: string | undefined;
+    @Input() currencyDisplay: Intl.NumberFormatOptionsCurrencyDisplay;
     /**
      * Whether to use grouping separators, such as thousands separators or thousand/lakh/crore separators.
      * @group Props
@@ -474,9 +474,9 @@ export class InputNumber implements OnInit, AfterContentInit, OnChanges, Control
 
     value: Nullable<number>;
 
-    onModelChange: Function = () => {};
+    onModelChange: Function = () => { };
 
-    onModelTouched: Function = () => {};
+    onModelTouched: Function = () => { };
 
     focused: Nullable<boolean>;
 
@@ -524,7 +524,7 @@ export class InputNumber implements OnInit, AfterContentInit, OnChanges, Control
         private cd: ChangeDetectorRef,
         private readonly injector: Injector,
         public config: PrimeNGConfig
-    ) {}
+    ) { }
 
     ngOnChanges(simpleChange: SimpleChanges) {
         const props = ['locale', 'localeMatcher', 'mode', 'currency', 'currencyDisplay', 'useGrouping', 'minFractionDigits', 'maxFractionDigits', 'prefix', 'suffix'];
@@ -1495,4 +1495,4 @@ export class InputNumber implements OnInit, AfterContentInit, OnChanges, Control
     exports: [InputNumber, SharedModule],
     declarations: [InputNumber]
 })
-export class InputNumberModule {}
+export class InputNumberModule { }
