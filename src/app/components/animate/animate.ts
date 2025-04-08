@@ -9,7 +9,8 @@ import { DomHandler } from 'primeng/dom';
     selector: '[pAnimate]',
     host: {
         '[class.p-animate]': 'true'
-    }
+    },
+    standalone: false
 })
 export class Animate implements OnInit, AfterViewInit {
     /**
