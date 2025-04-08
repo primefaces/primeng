@@ -158,7 +158,7 @@ export class ButtonDirective implements AfterViewInit, OnDestroy {
     constructor(
         public el: ElementRef,
         @Inject(DOCUMENT) private document: Document
-    ) {}
+    ) { }
 
     ngAfterViewInit() {
         DomHandler.addMultipleClasses(this.htmlElement, this.getStyleClass().join(' '));
@@ -349,6 +349,7 @@ export class ButtonDirective implements AfterViewInit, OnDestroy {
     encapsulation: ViewEncapsulation.None,
     host: {
         class: 'p-element',
+        // @ts-ignore: Incorrect "expression is always truthy" error.
         '[class.p-disabled]': 'disabled' || 'loading'
     }
 })
@@ -493,7 +494,7 @@ export class Button implements AfterContentInit {
 
     @ContentChildren(PrimeTemplate) templates: QueryList<PrimeTemplate> | undefined;
 
-    constructor(public el: ElementRef) {}
+    constructor(public el: ElementRef) { }
 
     spinnerIconClass(): string {
         return Object.entries(this.iconClass())
@@ -581,4 +582,4 @@ export class Button implements AfterContentInit {
     imports: [ButtonDirective, Button],
     exports: [ButtonDirective, Button, SharedModule]
 })
-export class ButtonModule {}
+export class ButtonModule { }
