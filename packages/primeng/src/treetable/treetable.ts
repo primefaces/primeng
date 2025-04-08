@@ -3825,7 +3825,7 @@ export class TTRow {
             tabindex="-1"
             pRipple
             [style.visibility]="rowNode.node.leaf === false || (rowNode.node.children && rowNode.node.children.length) ? 'visible' : 'hidden'"
-            [style.marginLeft]="rowNode.level * 16 + 'px'"
+            [style.marginInlineStart]="rowNode.level * 16 + 'px'"
             [attr.data-pc-section]="'rowtoggler'"
             [attr.data-pc-group-section]="'rowactionbutton'"
             [attr.aria-label]="toggleButtonAriaLabel"
