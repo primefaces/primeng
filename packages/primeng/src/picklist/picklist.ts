@@ -157,8 +157,8 @@ import { PickListStyle } from './style/pickliststyle';
                         <ng-container *ngTemplateOutlet="sourceFilterIconTemplate || _sourceFilterIconTemplate"></ng-container>
                     </ng-container>
                     <ng-container *ngIf="itemTemplate || _itemTemplate">
-                        <ng-template #item let-item let-index="index" let-selected="selected">
-                            <ng-container *ngTemplateOutlet="itemTemplate || _itemTemplate; context: { $implicit: item, index: index, selected: selected }"></ng-container>
+                        <ng-template #item let-item let-index="index" let-selected="selected" let-disabled="disabled">
+                            <ng-container *ngTemplateOutlet="itemTemplate || _itemTemplate; context: { $implicit: item, index: index, selected: selected, disabled: disabled }"></ng-container>
                         </ng-template>
                     </ng-container>
                     <ng-container *ngIf="emptyMessageSourceTemplate || _emptyMessageSourceTemplate">
@@ -288,8 +288,8 @@ import { PickListStyle } from './style/pickliststyle';
                         <ng-container *ngTemplateOutlet="targetFilterIconTemplate || _targetFilterIconTemplate"></ng-container>
                     </ng-container>
                     <ng-container *ngIf="itemTemplate || _itemTemplate">
-                        <ng-template #item let-item let-index="index" let-selected="selected">
-                            <ng-container *ngTemplateOutlet="itemTemplate || _itemTemplate; context: { $implicit: item, index: index, selected: selected }"></ng-container>
+                        <ng-template #item let-item let-index="index" let-selected="selected" let-disabled="disabled">
+                            <ng-container *ngTemplateOutlet="itemTemplate || _itemTemplate; context: { $implicit: item, index: index, selected: selected, disabled: disabled }"></ng-container>
                         </ng-template>
                     </ng-container>
                     <ng-container *ngIf="emptyMessageTargetTemplate || _emptyMessageTargetTemplate">
