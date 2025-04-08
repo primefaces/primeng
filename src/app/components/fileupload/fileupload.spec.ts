@@ -98,7 +98,7 @@ describe('FileUpload', () => {
         expect(fileNameEl).toBeTruthy();
         expect(removeButtonEl).toBeTruthy();
         expect(fileNameEl.nativeElement.textContent).toEqual('primeng.txt');
-        expect(fileSizeEl.nativeElement.textContent).toEqual('179.000 B');
+        expect(fileSizeEl.nativeElement.textContent).toEqual('179 B');
         expect(fileupload.hasFiles()).toEqual(true);
         expect(uploadButton.nativeElement.disabled).toEqual(false);
         expect(cancelButton.nativeElement.disabled).toEqual(false);
@@ -127,8 +127,8 @@ describe('FileUpload', () => {
         let blobFile = new File([blob], 'primeng.txt');
         event = {
             target: { files: [blobFile] },
-            stopPropagation() {},
-            preventDefault() {}
+            stopPropagation() { },
+            preventDefault() { }
         };
         const uploadSpy = spyOn(fileupload, 'upload').and.callThrough();
         fileupload.onFileSelect(event);
@@ -160,8 +160,8 @@ describe('FileUpload', () => {
         let blobFile = new File([blob], 'primeng.txt');
         event = {
             target: { files: [blobFile] },
-            stopPropagation() {},
-            preventDefault() {}
+            stopPropagation() { },
+            preventDefault() { }
         };
         fileupload.onFileSelect(event);
         fixture.detectChanges();
@@ -205,8 +205,8 @@ describe('FileUpload', () => {
         let blobFile2 = new File([blob], 'primeng2.txt');
         event = {
             target: { files: [blobFile, blobFile2] },
-            stopPropagation() {},
-            preventDefault() {}
+            stopPropagation() { },
+            preventDefault() { }
         };
         const uploadSpy = spyOn(fileupload, 'upload').and.callThrough();
         fileupload.onFileSelect(event);
@@ -262,8 +262,8 @@ describe('FileUpload', () => {
                     }
                 ]
             },
-            stopPropagation() {},
-            preventDefault() {}
+            stopPropagation() { },
+            preventDefault() { }
         };
         let event2;
         event2 = {
@@ -277,8 +277,8 @@ describe('FileUpload', () => {
                     }
                 ]
             },
-            stopPropagation() {},
-            preventDefault() {}
+            stopPropagation() { },
+            preventDefault() { }
         };
         fileupload.onFileSelect(event);
         fixture.detectChanges();
@@ -325,8 +325,8 @@ describe('FileUpload', () => {
                     }
                 ]
             },
-            stopPropagation() {},
-            preventDefault() {}
+            stopPropagation() { },
+            preventDefault() { }
         };
         let event2;
         event2 = {
@@ -340,8 +340,8 @@ describe('FileUpload', () => {
                     }
                 ]
             },
-            stopPropagation() {},
-            preventDefault() {}
+            stopPropagation() { },
+            preventDefault() { }
         };
         const removeSpy = spyOn(fileupload, 'remove').and.callThrough();
         const clearSpy = spyOn(fileupload, 'clear').and.callThrough();
@@ -390,8 +390,8 @@ describe('FileUpload', () => {
         let blobFile = new File([blob], 'primeng.txt');
         event = {
             target: { files: [blobFile] },
-            stopPropagation() {},
-            preventDefault() {}
+            stopPropagation() { },
+            preventDefault() { }
         };
         const uploadSpy = spyOn(fileupload, 'upload').and.callThrough();
         const onBasicUploaderClickkSpy = spyOn(fileupload, 'onBasicUploaderClick').and.callThrough();

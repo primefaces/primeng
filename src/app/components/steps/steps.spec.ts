@@ -16,7 +16,7 @@ class TestStepsComponent {
 
     activeIndex: number = 1;
 
-    constructor() {}
+    constructor() { }
 
     ngOnInit() {
         this.items = [
@@ -103,7 +103,7 @@ describe('Steps', () => {
 
         const items = fixture.debugElement.children[0].queryAll(By.css('li'));
         for (let x = 0; x < testComponent.items.length; x++) {
-            expect(items[x].query(By.css('.p-steps-number')).nativeElement.textContent).toEqual((x + 1).toString());
+            expect(items[x].query(By.css('.p-steps-number')).nativeElement.textContent).toEqual(`${(x + 1).toString()} `);
         }
     });
 

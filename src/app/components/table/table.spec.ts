@@ -329,8 +329,8 @@ import type { Paginator } from '../paginator/paginator';
 })
 class TestBasicTableComponent {
     items = [
-        { label: 'View', icon: 'pi pi-search', command: (event) => {} },
-        { label: 'Delete', icon: 'pi pi-times', command: (event) => {} }
+        { label: 'View', icon: 'pi pi-search', command: (event) => { } },
+        { label: 'Delete', icon: 'pi pi-times', command: (event) => { } }
     ];
     cols = [
         { field: 'brand', header: 'Brand' },
@@ -1292,7 +1292,7 @@ describe('Table', () => {
         const onColumnDragStartSpy = spyOn(reorderableTable, 'onColumnDragStart').and.callThrough();
         const dragEvent: any = document.createEvent('CustomEvent');
         dragEvent.initEvent('dragstart', true, true);
-        dragEvent.dataTransfer = { setData(val1, val2) {} };
+        dragEvent.dataTransfer = { setData(val1, val2) { } };
         reorableHeaderEls[1].nativeElement.dispatchEvent(dragEvent);
         fixture.detectChanges();
 
@@ -1335,7 +1335,7 @@ describe('Table', () => {
         const onColumnDragStartSpy = spyOn(reorderableTable, 'onColumnDragStart').and.callThrough();
         const dragEvent: any = document.createEvent('CustomEvent');
         dragEvent.initEvent('dragstart', true, true);
-        dragEvent.dataTransfer = { setData(val1, val2) {} };
+        dragEvent.dataTransfer = { setData(val1, val2) { } };
         reorableHeaderEls[1].nativeElement.dispatchEvent(dragEvent);
         fixture.detectChanges();
 
@@ -1373,7 +1373,7 @@ describe('Table', () => {
         const onRowDragStartSpy = spyOn(reorderableTable, 'onRowDragStart').and.callThrough();
         const dragEvent: any = document.createEvent('CustomEvent');
         dragEvent.initEvent('dragstart', true, true);
-        dragEvent.dataTransfer = { setData(val1, val2) {} };
+        dragEvent.dataTransfer = { setData(val1, val2) { } };
         reorderableRowEls[1].nativeElement.dispatchEvent(dragEvent);
         fixture.detectChanges();
 

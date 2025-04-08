@@ -16,7 +16,7 @@ export class TestComponent {
     constructor(
         public ref: DynamicDialogRef,
         public config: DynamicDialogConfig
-    ) {}
+    ) { }
 }
 
 @Component({
@@ -24,7 +24,7 @@ export class TestComponent {
     standalone: false
 })
 export class TestDynamicDialogComponent {
-    constructor(public dialogService: DialogService) {}
+    constructor(public dialogService: DialogService) { }
 
     show() {
         this.dialogService.open(TestComponent, {
@@ -41,7 +41,7 @@ export class TestDynamicDialogComponent {
     standalone: false
 })
 export class TestDynamicDialogWithClosableFalseComponent {
-    constructor(public dialogService: DialogService) {}
+    constructor(public dialogService: DialogService) { }
 
     show() {
         this.dialogService.open(TestComponent, {
@@ -60,7 +60,7 @@ export class TestDynamicDialogWithClosableFalseComponent {
     exports: [TestComponent],
     providers: [DialogService]
 })
-export class FakeTestDialogModule {}
+export class FakeTestDialogModule { }
 
 describe('DynamicDialog', () => {
     beforeEach(() => {
