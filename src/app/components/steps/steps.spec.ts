@@ -16,7 +16,7 @@ class TestStepsComponent {
 
     activeIndex: number = 1;
 
-    constructor() { }
+    constructor() {}
 
     ngOnInit() {
         this.items = [

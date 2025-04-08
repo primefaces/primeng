@@ -474,9 +474,9 @@ export class InputNumber implements OnInit, AfterContentInit, OnChanges, Control
 
     value: Nullable<number>;
 
-    onModelChange: Function = () => { };
+    onModelChange: Function = () => {};
 
-    onModelTouched: Function = () => { };
+    onModelTouched: Function = () => {};
 
     focused: Nullable<boolean>;
 
@@ -524,7 +524,7 @@ export class InputNumber implements OnInit, AfterContentInit, OnChanges, Control
         private cd: ChangeDetectorRef,
         private readonly injector: Injector,
         public config: PrimeNGConfig
-    ) { }
+    ) {}
 
     ngOnChanges(simpleChange: SimpleChanges) {
         const props = ['locale', 'localeMatcher', 'mode', 'currency', 'currencyDisplay', 'useGrouping', 'minFractionDigits', 'maxFractionDigits', 'prefix', 'suffix'];
@@ -1495,4 +1495,4 @@ export class InputNumber implements OnInit, AfterContentInit, OnChanges, Control
     exports: [InputNumber, SharedModule],
     declarations: [InputNumber]
 })
-export class InputNumberModule { }
+export class InputNumberModule {}
