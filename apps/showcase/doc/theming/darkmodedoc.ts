@@ -22,7 +22,9 @@ import { Component } from '@angular/core';
             </div>
             <div class="mb-4">
                 <app-code [code]="code3" selector="darkmode-demo3" [hideToggleCode]="true"></app-code>
+
             </div>
+            <p class="mt-4">Warning, to ensure the dark mode is activated, it's important to specify the <i>darkModeSelector</i> on the <i>html</i> tag</p>
             <p>In case you prefer to use dark mode all the time, apply the <i>darkModeSelector</i> initially and never change it.</p>
             <div class="mb-4">
                 <app-code [code]="code4" selector="darkmode-demo4" [hideToggleCode]="true"></app-code>
