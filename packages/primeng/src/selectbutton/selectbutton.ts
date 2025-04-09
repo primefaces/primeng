@@ -97,7 +97,17 @@ export class SelectButton extends BaseComponent implements AfterContentInit, Con
      * Whether selection can be cleared.
      * @group Props
      */
-    @Input({ transform: booleanAttribute }) unselectable: boolean = false;
+    get unselectable(): boolean {
+        return this._unselectable;
+    }
+    private _unselectable: boolean = false;
+
+    @Input({ transform: booleanAttribute })
+    set unselectable(value: boolean) {
+        this._unselectable = value;
+        this.allowEmpty = !value;
+    }
+
     /**
      * Index of the element in tabbing order.
      * @group Props
