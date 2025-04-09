@@ -31,6 +31,7 @@ import { SpinnerIcon } from 'primeng/icons';
 import { Ripple } from 'primeng/ripple';
 import { ButtonProps } from './button.interface';
 import { ButtonStyle } from './style/buttonstyle';
+import { ButtonSeverity } from './button.interface';
 
 type ButtonIconPosition = 'left' | 'right' | 'top' | 'bottom';
 
@@ -142,11 +143,23 @@ export class ButtonDirective extends BaseComponent implements AfterViewInit, OnD
             Object.entries(val).forEach(([k, v]) => this[`_${k}`] !== v && (this[`_${k}`] = v));
         }
     }
+    private _severity: ButtonSeverity;
     /**
      * Defines the style of the button.
      * @group Props
      */
-    @Input() severity: 'success' | 'info' | 'warn' | 'danger' | 'help' | 'primary' | 'secondary' | 'contrast' | null | undefined;
+    @Input()
+    get severity(): ButtonSeverity {
+        return this._severity;
+    }
+
+    set severity(value: ButtonSeverity) {
+        this._severity = value;
+
+        if (this.initialized) {
+            this.setStyleClass();
+        }
+    }
     /**
      * Add a shadow to indicate elevation.
      * @group Props
@@ -337,8 +350,19 @@ export class ButtonDirective extends BaseComponent implements AfterViewInit, OnD
 
     setStyleClass() {
         const styleClass = this.getStyleClass();
+        this.removeExistingSeverityClass();
+
         this.htmlElement.classList.remove(...this._internalClasses);
         this.htmlElement.classList.add(...styleClass);
+    }
+
+    removeExistingSeverityClass() {
+        const severityArray = ['success', 'info', 'warn', 'danger', 'help', 'primary', 'secondary', 'contrast'];
+        const existingSeverityClass = this.htmlElement.classList.value.split(' ').find((cls) => severityArray.some((severity) => cls === `p-button-${severity}`));
+
+        if (existingSeverityClass) {
+            this.htmlElement.classList.remove(existingSeverityClass);
+        }
     }
 
     createLabel() {
@@ -534,7 +558,7 @@ export class Button extends BaseComponent implements AfterContentInit {
      * Defines the style of the button.
      * @group Props
      */
-    @Input() severity: 'success' | 'info' | 'warn' | 'danger' | 'help' | 'primary' | 'secondary' | 'contrast' | null | undefined;
+    @Input() severity: ButtonSeverity;
     /**
      * Add a border class without a background initially.
      * @group Props
