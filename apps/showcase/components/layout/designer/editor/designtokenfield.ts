@@ -20,7 +20,11 @@ import { UniqueComponentId } from 'primeng/utils';
         </div>
         <div [id]="id" class="relative">
             <p-autocomplete
-                [ngClass]="{ 'ng-invalid ng-dirty': isInvalid }"
+                [class.ng-invalid]="isInvalid"
+                [class.ng-dirty]="isInvalid"
+                [class.ng-pristine]="!isInvalid"
+                [class.ng-untouched]="!isInvalid"
+                [class.ng-valid]="!isInvalid"
                 [(ngModel)]="modelValue"
                 [inputId]="inputId"
                 [suggestions]="items"
@@ -95,7 +99,7 @@ export class DesignTokenField implements OnInit {
     }
 
     get isInvalid() {
-        return this.modelValue == null || this.modelValue.trim().length === 0 || this.modelValue.startsWith(this.componentKey) || $dt(this.modelValue).value == undefined;
+        return this.modelValue == null || this.modelValue.trim().length === 0 || this.modelValue.startsWith(this.componentKey) || (this.modelValue.isColor && $dt(this.modelValue).value == undefined);
     }
 
     get previewColor() {
