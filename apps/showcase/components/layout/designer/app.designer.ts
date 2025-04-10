@@ -47,7 +47,7 @@ import { ConfirmPopupModule } from 'primeng/confirmpopup';
             </ng-template>
         </p-drawer>
         <p-toast key="designer" />
-        <p-confirm-popup key="designer" />`,
+        <p-confirm-dialog key="designer" />`,
     changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class AppDesigner implements OnInit {
