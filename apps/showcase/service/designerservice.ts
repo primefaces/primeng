@@ -360,6 +360,7 @@ export class DesignerService {
         this.http.get(`${this.baseUrl}/theme/load/${theme.t_key}`, { withCredentials: true, headers: { 'X-CSRF-Token': this.designer().csrfToken } }).subscribe({
             next: (res: any) => {
                 this.status.set(null);
+                this.missingTokens.set([]);
                 const data = res.data;
                 this.activateTheme(data);
             },
