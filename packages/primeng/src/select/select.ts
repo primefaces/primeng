@@ -1976,7 +1976,6 @@ export class Select extends BaseComponent implements OnInit, AfterViewInit, Afte
                 this.overlayVisible && this.hide(this.filter);
             }
         }
-        event.stopPropagation();
     }
 
     onFirstHiddenFocus(event) {
