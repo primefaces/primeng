@@ -1,0 +1,47 @@
+name: NodeJS CI
+
+on:
+  push:
+    branches: [ master ]
+
+permissions:
+  contents: read
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    strategy:
+      matrix:
+        node-version: [18.x, 20.x]
+
+    steps:
+    - uses: actions/checkout@v4
+    - uses: pnpm/action-setup@v4
+      with:
+         run_install: false
+
+    - name: Use Node.js ${{ matrix.node-version }}
+      uses: actions/setup-node@v4
+      with:
+        node-version: ${{ matrix.node-version }}
+        cache: 'pnpm'
+
+    - name: Build
+      run: |
+        pnpm install
+
+    - name: Code Format
+      if: ${{ success() }}
+      run: |
+        pnpm run format:check
+
+    - name: Security Check
+      if: ${{ success() }}
+      run: |
+        pnpm run security:check
+
+    #- name: Test
+    #  if: ${{ success() }}
+    #  run: |
+    #    pnpm run test:headless

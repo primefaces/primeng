@@ -1,0 +1,19 @@
+.landing-hero {
+    .p-tabmenu .p-tabmenu-nav .p-tabmenuitem .p-menuitem-link {
+        background: transparent;
+    }
+
+    .box {
+        box-shadow: var(--home-card-shadow);
+    }
+
+  
+}
+
+@media screen and (min-width: 1660px) {
+    .landing-hero {
+        width: 1504px !important;
+        margin-left: auto !important;
+        margin-right: auto !important;
+    }
+}

@@ -1,0 +1,35 @@
+name: Stale Issues and PRs
+on:
+  schedule:
+    - cron: '0 0 * * *'
+  workflow_dispatch: {}
+permissions:
+  contents: read
+
+jobs:
+  stale:
+    runs-on: ubuntu-latest
+    permissions:
+      issues: write
+      pull-requests: write
+    steps:
+      - uses: actions/stale@v8
+        with:
+          repo-token: ${{ secrets.GITHUB_TOKEN }}
+          stale-issue-label: 'Resolution: Stale'
+          stale-pr-label: 'Resolution: Stale'
+          exempt-issue-labels: 'Core Team,PRO Support,Resolution: Help Wanted,Status: Discussion,Type: Enhancement,Type: New Feature,Resolution: Stale'
+          exempt-pr-labels: 'Core Team,Resolution: Help Wanted,Status: Discussion,Status: Pending Review,Resolution: Stale'
+          exempt-all-milestones: true
+          operations-per-run: 100
+          days-before-stale: 180
+          days-before-close: 7
+          close-issue-reason: 'not_planned'
+          stale-issue-message: |
+            This issue has been automatically marked as stale due to a lack of activity. **If this issue is still relevant to you, please leave a comment** so we can keep it open. We apologize for not being able to prioritize it sooner. If you have any new information or questions, please share them in your comment!
+          close-issue-message: |
+            This issue will be closed due to prolonged inactivity. If it’s still relevant in the latest release, please open a new issue ticket with up-to-date information. We appreciate your understanding!
+          stale-pr-message: |
+            This pull request has been automatically marked as stale due to a lack of recent updates. **If this pull request is still relevant, please leave a comment** so we can keep it open. We apologize for not reviewing it sooner. Your contribution is valuable to us.
+          close-pr-message: |
+            This pull request will be closed due to prolonged inactivity. Please let us know if it’s still relevant in the latest release so we can consider reopening it. We appreciate your patience!

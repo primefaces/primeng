@@ -1,0 +1,52 @@
+# See http://help.github.com/ignore-files/ for more about ignoring files.
+
+# compiled output
+/dist
+/tmp
+/out-tsc
+/components
+/resources
+/aot
+dist
+
+# dependencies
+**/node_modules
+
+# IDEs and editors
+/.idea
+.project
+.classpath
+.c9/
+*.launch
+.settings/
+*.sublime-workspace
+
+# misc
+/.sass-cache
+/connect.lock
+/coverage
+/libpeerconnection.log
+npm-debug.log
+testem.log
+/typings
+.angular
+
+# e2e
+/e2e/*.js
+/e2e/*.map
+
+# System Files
+.DS_Store
+**/.DS_Store
+Thumbs.db
+
+# type doc
+api-generator/typedoc.json
+api-generator/themedoc.json
+.vercel
+.nx
+
+builder/node_modules
+
+# primeng packages
+packages/primeng/src/package.json

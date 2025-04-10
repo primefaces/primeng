@@ -1,0 +1,16 @@
+:host ::ng-deep {
+    .p-scroller-viewport {
+        flex: none;
+    }
+
+    .p-horizontal-scroll {
+        .p-scroller-content {
+            display: flex;
+            flex-direction: row;
+        }
+    }
+
+    p-skeleton {
+        width: 100%;
+    }
+}

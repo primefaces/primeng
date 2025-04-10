@@ -1,0 +1,40 @@
+:host ::ng-deep .card-container {
+    .card {
+        width: 75px;
+        height: 75px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        margin-right: 1rem;
+        user-select: none;
+        padding: 0;
+
+        &.primary-box {
+            background-color: var(--primary-color);
+            padding: 0;
+            color: var(--primary-color-text);
+        }
+
+        &.styled-box-green {
+            .p-ink {
+                background: rgba(#4baf50, 0.3);
+            }
+        }
+
+        &.styled-box-orange {
+            .p-ink {
+                background: rgba(#ffc106, 0.3);
+            }
+        }
+
+        &.styled-box-purple {
+            .p-ink {
+                background: rgba(#9c27b0, 0.3);
+            }
+        }
+
+        &:last-child {
+            margin-right: 0;
+        }
+    }
+}

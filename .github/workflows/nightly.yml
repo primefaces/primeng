@@ -1,0 +1,35 @@
+name: Daily Build
+
+on:
+  schedule:
+    - cron: '0 6 * * *'
+
+permissions:
+  contents: read
+
+jobs:
+  nightly:
+    if: github.repository == 'primefaces/primeng' && github.ref == 'refs/heads/master'
+    runs-on: ubuntu-latest
+    name: Node ${{ matrix.node-version }}
+
+    strategy:
+      matrix:
+        node-version: [18.x, 20.x]
+
+    steps:
+    - uses: actions/checkout@v4
+    - uses: pnpm/action-setup@v4
+      with:
+         run_install: false
+
+    - name: Use Node.js ${{ matrix.node-version }}
+      uses: actions/setup-node@v4
+      with:
+        node-version: ${{ matrix.node-version }}
+        cache: 'pnpm'
+
+    - name: Build
+      run: |
+        pnpm install
+        pnpm run build

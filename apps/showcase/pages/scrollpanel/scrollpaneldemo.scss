@@ -1,0 +1,13 @@
+.p-scrollpanel {
+    p {
+        padding: 0.5rem;
+        line-height: 1.5;
+        margin: 0;
+    }
+
+    &.custombar {
+        .p-scrollpanel-bar {
+            background-color: var(--p-scrollpanel-bar-background),
+        }
+    }   
+}
