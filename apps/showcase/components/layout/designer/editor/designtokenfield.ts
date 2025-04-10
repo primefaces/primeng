@@ -2,7 +2,7 @@ import { ChangeDetectionStrategy, Component, computed, EventEmitter, inject, inp
 import { CommonModule } from '@angular/common';
 import { DesignerService } from '@/service/designerservice';
 import { AutoCompleteModule } from 'primeng/autocomplete';
-import { FormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { TooltipModule } from 'primeng/tooltip';
 import { $dt } from '@primeng/themes';
 import { UniqueComponentId } from 'primeng/utils';
@@ -10,7 +10,7 @@ import { UniqueComponentId } from 'primeng/utils';
 @Component({
     selector: 'design-token-field',
     standalone: true,
-    imports: [CommonModule, AutoCompleteModule, FormsModule, TooltipModule],
+    imports: [CommonModule, AutoCompleteModule, FormsModule, TooltipModule, ReactiveFormsModule],
     template: `<div class="group">
         <div class="flex justify-between items-center">
             <label for="inputId" class="text-xs text-zinc-700 dark:text-white/70 block capitalize text-ellipsis overflow-hidden w-full whitespace-nowrap mb-px" title="label">{{ label }}</label>
@@ -20,7 +20,7 @@ import { UniqueComponentId } from 'primeng/utils';
         </div>
         <div [id]="id" class="relative">
             <p-autocomplete
-                [ngClass]="{ 'ng-invalid': !modelValue }"
+                [ngClass]="{ 'ng-invalid ng-dirty': isInvalid }"
                 [(ngModel)]="modelValue"
                 [inputId]="inputId"
                 [suggestions]="items"
@@ -92,6 +92,10 @@ export class DesignTokenField implements OnInit {
 
     getIsColor(option) {
         return option.isColor;
+    }
+
+    get isInvalid() {
+        return this.modelValue == null || this.modelValue.trim().length === 0 || this.modelValue.startsWith(this.componentKey) || $dt(this.modelValue).value == undefined;
     }
 
     get previewColor() {
