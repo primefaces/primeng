@@ -23,6 +23,7 @@ export default {
         padding: '1rem 1.25rem',
         fontWeight: '700',
         margin: '0',
+        gap: '0.5rem',
         focusRing: {
             width: '{focus.ring.width}',
             style: '{focus.ring.style}',

@@ -38,6 +38,12 @@ export interface ToastDesignTokens extends DesignTokens<ToastDesignTokens> {
          * @designToken toast.transition.duration
          */
         transitionDuration?: string;
+        /**
+         * Blur of root
+         *
+         * @designToken toast.blur
+         */
+        blur?: string;
     };
     /**
      * Used to pass tokens of the icon section
@@ -169,10 +175,6 @@ export interface ToastDesignTokens extends DesignTokens<ToastDesignTokens> {
          */
         size?: string;
     };
-    /**
-     * Used to pass tokens of the blur section
-     */
-    blur?: string;
     /**
      * Used to pass tokens of the info section
      */
