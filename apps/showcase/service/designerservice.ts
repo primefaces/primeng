@@ -486,11 +486,11 @@ export class DesignerService {
         }
     }
 
-    activateTheme(data: any) {
+    async activateTheme(data: any) {
         this.designer.update((prev) => ({ ...prev, active: true, theme: { key: data.t_key, name: data.t_name, preset: JSON.parse(data.t_preset), config: JSON.parse(data.t_config) } }));
 
         usePreset(this.designer().theme.preset);
-        this.applyFont(this.designer().theme.config.fontFamily);
+        await this.applyFont(this.designer().theme.config.fontFamily);
         document.documentElement.style.setProperty('font-size', this.designer().theme.config.font_size);
         this.refreshACTokens();
 
