@@ -438,7 +438,8 @@ export class DesignerService {
                 }
             }
         }));
-
+        this.missingTokens.set([]);
+        this.status.set(null);
         await this.applyFont('Inter var');
         document.documentElement.style.fontSize = '14px';
         usePreset(preset);
