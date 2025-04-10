@@ -226,29 +226,7 @@
         }
     }
 
-    .p-fileupload-choose-button {
-        padding: 0.5rem 0.75rem;
-        background: var(--designer-primary-color);
-        border-color: var(--designer-primary-color);
-        color: var(--designer-primary-contrast-color);
-        cursor: pointer;
-        font-weight: medium;
-        border-radius: 4px;
-        transition: background-color 0.2s;
 
-        &:enabled:hover,
-        &:enabled:active {
-            background: var(--designer-primary-emphasis-color);
-            border-color: var(--designer-primary-emphasis-color);
-        }
-
-        &:enabled:active,
-        &:enabled:focus-visible {
-            outline: 1px solid var(--designer-primary-color);
-            outline-offset: 2px;
-            box-shadow: none;
-        }
-    }
 
     .p-autocomplete > input {
         @apply border border-surface-300 dark:border-surface-600 rounded-lg py-2 px-2 w-full;
@@ -273,4 +251,31 @@
     .p-autocomplete ul > li {
         @apply cursor-pointer py-1 text-sm text-surface-700 dark:text-white/80 data-[p-focus=true]:bg-surface-100 data-[p-focus=true]:dark:bg-surface-800 rounded-md px-0;
     }
+
+    .btn-design.choose-btn {
+        padding: 0.5rem 0.75rem;
+        background: var(--designer-primary-color) !important;
+        border-color: var(--designer-primary-color) !important;
+        color: var(--designer-primary-contrast-color) !important;
+        cursor: pointer;
+        font-weight: medium;
+        border-radius: 4px;
+        transition: background-color 0.2s;
+
+        &:enabled:hover,
+        &:enabled:active {
+            background: var(--designer-primary-emphasis-color) !important;
+            border-color: var(--designer-primary-emphasis-color) !important;
+        }
+
+        &:enabled:active,
+        &:enabled:focus-visible {
+            outline: 1px solid var(--designer-primary-color) !important;
+            outline-offset: 2px;
+            box-shadow: none;
+        }
+    }
 }
+
+
+
