@@ -226,8 +226,6 @@
         }
     }
 
-
-
     .p-autocomplete > input {
         @apply border border-surface-300 dark:border-surface-600 rounded-lg py-2 px-2 w-full;
     }
@@ -274,6 +272,10 @@
             outline-offset: 2px;
             box-shadow: none;
         }
+    }
+
+    .p-divider-horizontal::before {
+        border-block-start: 1px solid var(--designer-divider-color);
     }
 }
 
