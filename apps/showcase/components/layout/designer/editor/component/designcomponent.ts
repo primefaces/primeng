@@ -6,6 +6,7 @@ import { DesignerService } from '@/service/designerservice';
 import { NavigationEnd, Router } from '@angular/router';
 import { Subscription } from 'rxjs';
 import { DesignComponentSection } from '@/components/layout/designer/editor/component/designcomponentsection';
+import { AppConfigService } from '@/service/appconfigservice';
 
 @Component({
     selector: 'design-component',
@@ -28,7 +29,7 @@ import { DesignComponentSection } from '@/components/layout/designer/editor/comp
         </p-fieldset>
         <p-fieldset legend="Color Scheme" [toggleable]="true">
             @if (hasColorScheme()) {
-                <p-tabs value="cs-0">
+                <p-tabs value="cs-0" (valueChange)="tabValueChange($event)">
                     <p-tablist>
                         <p-tab value="cs-0">Light</p-tab>
                         <p-tab value="cs-1">Dark</p-tab>
@@ -36,8 +37,8 @@ import { DesignComponentSection } from '@/components/layout/designer/editor/comp
                     <p-tabpanels>
                         <p-tabpanel value="cs-0">
                             <div class="flex flex-col gap-3">
-                                @for (entry of lightTokens() | keyvalue; track entry.key) {
-                                    <design-component-section [componentKey]="componentKey()" [path]="'colorScheme.light.' + entry.key" />
+                                @for (entry of objectKeys(lightTokens()); track entry) {
+                                    <design-component-section [componentKey]="componentKey()" [path]="'colorScheme.light.' + entry" />
                                 }
                             </div>
                         </p-tabpanel>
@@ -58,6 +59,8 @@ import { DesignComponentSection } from '@/components/layout/designer/editor/comp
 })
 export class DesignComponent implements OnInit {
     objectKeys = Object.keys;
+
+    configService: AppConfigService = inject(AppConfigService);
 
     designerService: DesignerService = inject(DesignerService);
 
@@ -97,6 +100,15 @@ export class DesignComponent implements OnInit {
     ngOnInit() {
         if (!this.componentKey()) {
             this.componentKey.set(this.router.routerState.snapshot.url.split('/')[1]);
+        }
+    }
+
+    tabValueChange(event: string) {
+        if (event === 'cs-1') {
+            this.configService.appState.update((state) => ({ ...state, darkTheme: true }));
+        }
+        if (event === 'cs-0') {
+            this.configService.appState.update((state) => ({ ...state, darkTheme: false }));
         }
     }
 }
