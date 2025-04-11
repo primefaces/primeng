@@ -45,6 +45,7 @@ const hideAnimation = animation([animate('{{transition}}', style({ transform: '{
             #dialog
             [visible]="visible"
             (visibleChange)="onVisibleChange($event)"
+            (onShow)="onDialogShow()"
             role="alertdialog"
             [closable]="option('closable')"
             [styleClass]="containerClass"
@@ -56,6 +57,7 @@ const hideAnimation = animation([animate('{{transition}}', style({ transform: '{
             [position]="position"
             [style]="style"
             [dismissableMask]="dismissableMask"
+            [focusOnShow]="false"
         >
             @if (headlessTemplate || _headlessTemplate) {
                 <ng-template #headless>
@@ -100,6 +102,7 @@ const hideAnimation = animation([animate('{{transition}}', style({ transform: '{
                 @if (!footerTemplate && !_footerTemplate) {
                     <p-button
                         *ngIf="option('rejectVisible')"
+                        [autofocus]="autoFocusReject"
                         [label]="rejectButtonLabel"
                         (onClick)="onReject()"
                         [styleClass]="getButtonStyleClass('pcRejectButton', 'rejectButtonStyleClass')"
@@ -113,6 +116,7 @@ const hideAnimation = animation([animate('{{transition}}', style({ transform: '{
                     </p-button>
                     <p-button
                         [label]="acceptButtonLabel"
+                        [autofocus]="autoFocusAccept"
                         (onClick)="onAccept()"
                         [styleClass]="getButtonStyleClass('pcAcceptButton', 'acceptButtonStyleClass')"
                         *ngIf="option('acceptVisible')"
@@ -518,23 +522,21 @@ export class ConfirmDialog extends BaseComponent implements OnInit, OnDestroy {
         return [cxClass, optionClass].filter(Boolean).join(' ');
     }
 
-    getElementToFocus() {
-        switch (this.option('defaultFocus')) {
-            case 'accept':
-                return findSingle(this.dialog.el.nativeElement, '.p-confirm-dialog-accept');
+    get autoFocusAccept() {
+        return this.defaultFocus == 'accept';
+    }
 
-            case 'reject':
-                return findSingle(this.dialog.el.nativeElement, '.p-confirm-dialog-reject');
+    get autoFocusReject() {
+        return this.defaultFocus == 'reject';
+    }
 
-            case 'close':
-                return findSingle(this.dialog.el.nativeElement, '.p-dialog-header-close');
+    onDialogShow() {
+        if (this.defaultFocus == 'close') {
+            const closeButton = document.body.querySelector('.p-dialog-close-button');
 
-            case 'none':
-                return null;
-
-            //backward compatibility
-            default:
-                return findSingle(this.dialog.el.nativeElement, '.p-confirm-dialog-accept');
+            if (closeButton instanceof HTMLElement) {
+                closeButton.focus();
+            }
         }
     }
 

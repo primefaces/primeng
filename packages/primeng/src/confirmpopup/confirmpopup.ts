@@ -31,6 +31,7 @@ import { Nullable, VoidListener } from 'primeng/ts-helpers';
 import { ZIndexUtils } from 'primeng/utils';
 import { Subscription } from 'rxjs';
 import { ConfirmPopupStyle } from './style/confirmpopupstyle';
+import { FocusTrapModule } from 'primeng/focustrap';
 
 /**
  * ConfirmPopup displays a confirmation overlay displayed relatively to its target.
@@ -39,7 +40,7 @@ import { ConfirmPopupStyle } from './style/confirmpopupstyle';
 @Component({
     selector: 'p-confirmPopup, p-confirmpopup, p-confirm-popup',
     standalone: true,
-    imports: [CommonModule, SharedModule, ButtonModule],
+    imports: [CommonModule, SharedModule, ButtonModule, FocusTrapModule],
     template: `
         <div
             *ngIf="visible"
@@ -54,6 +55,7 @@ import { ConfirmPopupStyle } from './style/confirmpopupstyle';
             }"
             (@animation.start)="onAnimationStart($event)"
             (@animation.done)="onAnimationEnd($event)"
+            pFocusTrap
         >
             <ng-container *ngIf="headlessTemplate || _headlessTemplate; else notHeadless">
                 <ng-container *ngTemplateOutlet="headlessTemplate || _headlessTemplate; context: { $implicit: confirmation }"></ng-container>
@@ -71,6 +73,7 @@ import { ConfirmPopupStyle } from './style/confirmpopupstyle';
                 <div class="p-confirmpopup-footer">
                     <p-button
                         type="button"
+                        [autofocus]="autoFocusReject"
                         [label]="rejectButtonLabel"
                         (onClick)="onReject()"
                         [ngClass]="'p-confirmpopup-reject-button'"
@@ -86,6 +89,7 @@ import { ConfirmPopupStyle } from './style/confirmpopupstyle';
                     </p-button>
                     <p-button
                         type="button"
+                        [autofocus]="autoFocusAccept"
                         [label]="acceptButtonLabel"
                         (onClick)="onAccept()"
                         [ngClass]="'p-confirmpopup-accept-button'"
@@ -213,6 +217,10 @@ export class ConfirmPopup extends BaseComponent implements AfterContentInit, OnD
 
     _componentStyle = inject(ConfirmPopupStyle);
 
+    autoFocusAccept: boolean = false;
+
+    autoFocusReject: boolean = false;
+
     constructor(
         public el: ElementRef,
         private confirmationService: ConfirmationService,
@@ -302,10 +310,8 @@ export class ConfirmPopup extends BaseComponent implements AfterContentInit, OnD
             this.align();
             this.bindListeners();
 
-            const element = this.getElementToFocus();
-            if (element) {
-                element.focus();
-            }
+            this.autoFocusAccept = this.defaultFocus == 'accept';
+            this.autoFocusReject = this.defaultFocus == 'reject';
         }
     }
 
@@ -323,19 +329,6 @@ export class ConfirmPopup extends BaseComponent implements AfterContentInit, OnD
 
     getRejectButtonProps() {
         return this.option('rejectButtonProps');
-    }
-
-    getElementToFocus() {
-        switch (this.defaultFocus) {
-            case 'accept':
-                return <any>findSingle(this.container, '.p-confirm-popup-accept');
-
-            case 'reject':
-                return <any>findSingle(this.container, '.p-confirm-popup-reject');
-
-            case 'none':
-                return null;
-        }
     }
 
     align() {
@@ -358,7 +351,7 @@ export class ConfirmPopup extends BaseComponent implements AfterContentInit, OnD
         (this.container as HTMLDivElement).style.setProperty('--overlayArrowLeft', `${arrowLeft}px`);
 
         if (containerOffset.top < targetOffset.top) {
-            addClass(this.container, 'p-confirm-popup-flipped');
+            addClass(this.container, 'p-confirmpopup-flipped');
         }
     }
 
