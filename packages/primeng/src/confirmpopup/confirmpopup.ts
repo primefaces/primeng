@@ -358,7 +358,7 @@ export class ConfirmPopup extends BaseComponent implements AfterContentInit, OnD
         (this.container as HTMLDivElement).style.setProperty('--overlayArrowLeft', `${arrowLeft}px`);
 
         if (containerOffset.top < targetOffset.top) {
-            addClass(this.container, 'p-confirm-popup-flipped');
+            addClass(this.container, 'p-confirmpopup-flipped');
         }
     }
 
