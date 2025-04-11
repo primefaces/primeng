@@ -428,7 +428,7 @@ export class Listbox extends BaseComponent implements AfterContentInit, OnInit, 
      * Defines how the items are filtered.
      * @group Props
      */
-    @Input() filterMatchMode: 'contains' | 'startsWith' | 'endsWith' | 'equals' | 'notEquals' | 'in' | 'lt' | 'lte' | 'gt' | 'gte' = 'contains';
+    @Input() filterMatchMode: 'contains' | 'startsWith' | 'endsWith' | 'equals' | 'notEquals' | 'in' | 'lt' | 'lte' | 'gt' | 'gte' | string = 'contains';
     /**
      * Locale to use in filtering. The default locale is the host environment's current locale.
      * @group Props
