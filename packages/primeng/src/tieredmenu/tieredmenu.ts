@@ -4,6 +4,7 @@ import {
     ChangeDetectionStrategy,
     Component,
     ContentChild,
+    ContentChildren,
     ElementRef,
     EventEmitter,
     Inject,
@@ -12,6 +13,7 @@ import {
     OnDestroy,
     OnInit,
     Output,
+    QueryList,
     Renderer2,
     TemplateRef,
     ViewChild,
@@ -23,9 +25,7 @@ import {
     inject,
     input,
     numberAttribute,
-    signal,
-    ContentChildren,
-    QueryList
+    signal
 } from '@angular/core';
 import { RouterModule } from '@angular/router';
 import { absolutePosition, appendChild, findLastIndex, findSingle, focus, isEmpty, isNotEmpty, isPrintableCharacter, isTouchDevice, nestedPosition, resolve, uuid, addStyle, getOuterWidth } from '@primeuix/utils';
@@ -199,7 +199,7 @@ export class TieredMenuSub extends BaseComponent {
 
     @Input({ transform: booleanAttribute }) root: boolean | undefined = false;
 
-    @Input({ transform: booleanAttribute }) autoDisplay: boolean | undefined;
+    @Input({ transform: booleanAttribute }) autoDisplay: boolean | undefined = true;
 
     @Input({ transform: booleanAttribute }) autoZIndex: boolean = true;
 
@@ -740,6 +740,10 @@ export class TieredMenu extends BaseComponent implements OnInit, OnDestroy {
 
     onItemMouseEnter(event: any) {
         if (!isTouchDevice()) {
+            if (this.autoDisplay) {
+                this.dirty = true;
+            }
+
             if (this.dirty) {
                 this.onItemChange(event, 'hover');
             }
