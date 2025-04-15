@@ -72,8 +72,8 @@ import { ConfirmPopupModule } from 'primeng/confirmpopup';
                         <input
                             [(ngModel)]="theme.t_name"
                             type="text"
-                            class="w-24 text-sm px-2 text-center pr-4 bg-transparent"
-                            [ngClass]="{ 'bg-red-50 dark:bg-red-500/30': !theme.t_name }"
+                            class="w-24 text-sm px-2 text-center pr-4t bg-transparent"
+                            [ngClass]="{ 'bg-red-50 dark:bg-red-500/30': !theme.t_name, 'bg-transparent': theme.t_name }"
                             maxlength="100"
                             (blur)="renameTheme(theme)"
                             (keydown.enter)="onThemeNameEnterKey($event)"
