@@ -195,24 +195,26 @@ export class DesignerService {
     }
 
     async saveTheme(theme: any) {
-        const url = `${this.baseUrl}/theme/update`;
+        if (this.designer().verified) {
+            const url = `${this.baseUrl}/theme/update`;
 
-        const body = {
-            key: theme.key,
-            preset: theme.preset,
-            config: theme.config
-        };
+            const body = {
+                key: theme.key,
+                preset: theme.preset,
+                config: theme.config
+            };
 
-        const options = {
-            withCredentials: true,
-            headers: { 'X-CSRF-Token': this.designer().csrfToken }
-        };
+            const options = {
+                withCredentials: true,
+                headers: { 'X-CSRF-Token': this.designer().csrfToken }
+            };
 
-        this.http.patch(url, body, options).subscribe({
-            error: (err: any) => {
-                this.messageService.add({ key: 'designer', severity: 'error', summary: 'An Error Occurred', detail: err.message, life: 3000 });
-            }
-        });
+            this.http.patch(url, body, options).subscribe({
+                error: (err: any) => {
+                    this.messageService.add({ key: 'designer', severity: 'error', summary: 'An Error Occurred', detail: err.message, life: 3000 });
+                }
+            });
+        }
     }
 
     async deleteTheme(theme: any) {
