@@ -18,11 +18,11 @@ import { MessageService } from 'primeng/api';
                 <div class="flex items-center gap-4">
                     <label class="flex items-center gap-2 flex-auto">
                         <span class="text-sm">Name</span>
-                        <input [(ngModel)]="token['name']" type="text" class="border border-surface-300 dark:border-surface-600 rounded-lg py-2 px-2 w-full" placeholder="custom.token.name" />
+                        <input [(ngModel)]="token['name']" type="text" class="border border-surface-300 dark:border-surface-600 rounded-lg py-2 px-2 w-full" placeholder="custom.token.name" maxlength="100" />
                     </label>
                     <label class="flex items-center gap-2 flex-auto">
                         <span class="text-sm">Value</span>
-                        <input [(ngModel)]="token['value']" type="text" class="border border-surface-300 dark:border-surface-600 rounded-lg py-2 px-2 w-full" placeholder="token value" />
+                        <input [(ngModel)]="token['value']" type="text" class="border border-surface-300 dark:border-surface-600 rounded-lg py-2 px-2 w-full" placeholder="token value" maxlength="100" />
                     </label>
                     <button
                         type="button"

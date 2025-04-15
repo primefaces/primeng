@@ -34,6 +34,7 @@ import { UniqueComponentId } from 'primeng/utils';
                 (completeMethod)="search($event)"
                 (onKeyUp)="onInput($event)"
                 [inputStyleClass]="inputStyleClass()"
+                [maxlength]="100"
             >
                 <ng-template #item let-option>
                     <div [pTooltip]="getTooltipData(option)" tooltipPosition="left" class="w-full flex items-center justify-between gap-4 px-2">
