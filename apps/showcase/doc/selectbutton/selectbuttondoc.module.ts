@@ -13,9 +13,10 @@ import { MultipleDoc } from './multipledoc';
 import { ReactiveFormsDoc } from './reactiveformsdoc';
 import { SizesDoc } from './sizesdoc';
 import { TemplateDoc } from './templatedoc';
+import { PrimeTemplate } from 'primeng/api';
 
 @NgModule({
-    imports: [CommonModule, AppCodeModule, AppDocModule, SelectButton, FormsModule, ReactiveFormsModule],
+    imports: [CommonModule, AppCodeModule, AppDocModule, SelectButton, FormsModule, ReactiveFormsModule, PrimeTemplate],
     exports: [AppDocModule],
     declarations: [ImportDoc, BasicDoc, MultipleDoc, TemplateDoc, InvalidDoc, SizesDoc, DisabledDoc, AccessibilityDoc, ReactiveFormsDoc]
 })
