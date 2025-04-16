@@ -33,6 +33,9 @@ export default {
         fontSize: '2rem',
         icon: {
             size: '2rem'
+        },
+        group: {
+            offset: '-1.5rem'
         }
     }
 } as AvatarDesignTokens;

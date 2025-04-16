@@ -40,7 +40,9 @@ export default {
     },
     colorScheme: {
         light: {
-            blur: '0',
+            root: {
+                blur: '0'
+            },
             info: {
                 background: '{blue.50}',
                 borderColor: '{blue.200}',
@@ -127,7 +129,9 @@ export default {
             }
         },
         dark: {
-            blur: '10px',
+            root: {
+                blur: '10px'
+            },
             info: {
                 background: 'color-mix(in srgb, {blue.500}, transparent 36%)',
                 borderColor: 'color-mix(in srgb, {blue.700}, transparent 64%)',
