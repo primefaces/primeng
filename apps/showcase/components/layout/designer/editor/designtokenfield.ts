@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy, Component, computed, EventEmitter, inject, input, Input, OnInit, Output } from '@angular/core';
+import { ChangeDetectionStrategy, Component, computed, EventEmitter, inject, input, Input, model, OnInit, Output } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { DesignerService } from '@/service/designerservice';
 import { AutoCompleteModule } from 'primeng/autocomplete';
@@ -20,11 +20,11 @@ import { UniqueComponentId } from 'primeng/utils';
         </div>
         <div [id]="id" class="relative">
             <p-autocomplete
-                [class.ng-invalid]="isInvalid"
-                [class.ng-dirty]="isInvalid"
-                [class.ng-pristine]="!isInvalid"
-                [class.ng-untouched]="!isInvalid"
-                [class.ng-valid]="!isInvalid"
+                [class.ng-invalid]="isInvalid()"
+                [class.ng-dirty]="isInvalid()"
+                [class.ng-pristine]="!isInvalid()"
+                [class.ng-untouched]="!isInvalid()"
+                [class.ng-valid]="!isInvalid()"
                 [(ngModel)]="modelValue"
                 [inputId]="inputId"
                 [suggestions]="items"
@@ -49,7 +49,7 @@ import { UniqueComponentId } from 'primeng/utils';
                     </div>
                 </ng-template>
             </p-autocomplete>
-            <div *ngIf="type() === 'color'" class="absolute right-[4px] top-1/2 -mt-3 w-6 h-6 rounded-md border border-surface-300 dark:border-surface-600" [style]="{ backgroundColor: previewColor }"></div>
+            <div *ngIf="type() === 'color'" class="absolute right-[4px] top-1/2 -mt-3 w-6 h-6 rounded-md border border-surface-300 dark:border-surface-600" [style]="{ backgroundColor: previewColor() }"></div>
         </div>
     </div>`,
     changeDetection: ChangeDetectionStrategy.OnPush
@@ -61,7 +61,7 @@ export class DesignTokenField implements OnInit {
 
     type = input<string>();
 
-    @Input() modelValue: any;
+    modelValue = model<any>();
 
     @Input() switchable: boolean = false;
 
@@ -76,7 +76,17 @@ export class DesignTokenField implements OnInit {
     items: any;
 
     inputStyleClass = computed(() => {
-        return this.type() === 'color' ? '!text-xs !pr-8' : '!text-xs';
+        const styleClass = this.isInvalid() ? 'border-red-500 dark:border-red-400 bg-red-50 dark:bg-red-500/30' : 'border-surface-300 dark:border-surface-600';
+        return this.type() === 'color' ? `!text-xs !pr-8 ${styleClass}` : `!text-xs ${styleClass}`;
+    });
+
+    isInvalid = computed(() => {
+        return this.modelValue() == null || this.modelValue().trim().length === 0 || this.modelValue().startsWith(this.componentKey) || (this.modelValue().isColor && $dt(this.modelValue()).value == undefined);
+    });
+
+    previewColor = computed(() => {
+        const tokenValue = typeof this.modelValue() === 'object' ? this.modelValue().name : this.modelValue();
+        return tokenValue && tokenValue.trim().length && tokenValue.startsWith('{') && tokenValue.endsWith('}') ? $dt(tokenValue).variable : tokenValue;
     });
 
     ngOnInit() {
@@ -99,24 +109,15 @@ export class DesignTokenField implements OnInit {
         return option.isColor;
     }
 
-    get isInvalid() {
-        return this.modelValue == null || this.modelValue.trim().length === 0 || this.modelValue.startsWith(this.componentKey) || (this.modelValue.isColor && $dt(this.modelValue).value == undefined);
-    }
-
-    get previewColor() {
-        const tokenValue = typeof this.modelValue === 'object' ? this.modelValue.name : this.modelValue;
-        return tokenValue && tokenValue.trim().length && tokenValue.startsWith('{') && tokenValue.endsWith('}') ? $dt(tokenValue).variable : tokenValue;
-    }
-
     onOptionSelect(event) {
-        this.modelValue = event.value.label;
-        this.modelValueChange.emit(this.modelValue);
+        this.modelValue.set(event.value.label);
+        this.modelValueChange.emit(this.modelValue());
         event.originalEvent.stopPropagation();
     }
 
     onInput(event) {
-        this.modelValue = event.target.value;
-        this.modelValueChange.emit(this.modelValue);
+        this.modelValue.set(event.target.value);
+        this.modelValueChange.emit(this.modelValue());
     }
 
     search(event) {
@@ -149,12 +150,12 @@ export class DesignTokenField implements OnInit {
         if (this.path.startsWith(colorSchemePrefix)) {
             let tokenPath = this.getPathFromColorScheme(this.path.slice(colorSchemePrefix.length));
 
-            this.set(tokens, tokenPath, this.modelValue);
+            this.set(tokens, tokenPath, this.modelValue());
             this.unset(tokens, 'colorScheme.light.' + tokenPath);
             this.unset(tokens, 'colorScheme.dark.' + tokenPath);
         } else {
-            this.set(tokens, 'colorScheme.light.' + this.path, this.modelValue);
-            this.set(tokens, 'colorScheme.dark.' + this.path, this.modelValue);
+            this.set(tokens, 'colorScheme.light.' + this.path, this.modelValue());
+            this.set(tokens, 'colorScheme.dark.' + this.path, this.modelValue());
             this.unset(tokens, this.path);
         }
 

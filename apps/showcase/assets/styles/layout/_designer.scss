@@ -226,7 +226,8 @@
         }
     }
 
-    .p-autocomplete > input {
+    .p-autocomplete > .p-inputtext {
+        background: transparent;
         @apply border border-surface-300 dark:border-surface-600 rounded-lg py-2 px-2 w-full;
     }
 
