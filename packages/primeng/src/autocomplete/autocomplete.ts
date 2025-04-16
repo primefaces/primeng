@@ -1580,9 +1580,7 @@ export class AutoComplete extends BaseComponent implements AfterViewChecked, Aft
         event.stopPropagation();
 
         const removedOption = this.modelValue()[index];
-        const value = this.modelValue()
-            .filter((_, i) => i !== index)
-            .map((option) => this.getOptionValue(option));
+        const value = this.modelValue().filter((_, i) => i !== index);
 
         this.updateModel(value);
         this.onUnselect.emit({ originalEvent: event, value: removedOption });
