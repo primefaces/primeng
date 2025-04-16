@@ -134,7 +134,7 @@ import { DialogModule } from 'primeng/dialog';
             <div class="font-bold text-5xl mb-6 text-center">Pricing</div>
             <div class="mb-2 text-center leading-normal text-lg">Choose the right plan for your business. Whether you are an individual or a member of a team, Designer is available for affordable prices.</div>
             <div class="text-center mb-8">
-                <p-button [link]="true" styleClass="doc-link" (onClick)="showLicense()" label="View License Details" />
+                <p-button [link]="true" styleClass="doc-link" (onClick)="showLicense()" label="View Terms and Conditions" />
             </div>
 
             <div class="grid grid-cols-12 gap-4">
