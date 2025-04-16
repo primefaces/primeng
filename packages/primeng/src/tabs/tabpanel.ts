@@ -12,12 +12,13 @@ import { Tabs } from './tabs';
     selector: 'p-tabpanel',
     standalone: true,
     imports: [CommonModule],
-    template: `@if (active()) {
+    template: `
         <ng-content></ng-content>
-    }`,
+    `,
     changeDetection: ChangeDetectionStrategy.OnPush,
     encapsulation: ViewEncapsulation.None,
     host: {
+        '[class.hidden]': '!active()',
         '[class.p-tabpanel]': 'true',
         '[class.p-component]': 'true',
         '[attr.data-pc-name]': '"tabpanel"',
