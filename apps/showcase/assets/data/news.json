@@ -1,6 +1,6 @@
 {
-    "id": 91,
-    "content": "Remastered Poseidon Template is Here! 🚀",
-    "linkText": "View Demo",
-    "linkHref": "https://poseidon.primeng.org"
+    "id": 92,
+    "content": "Introducing the all-new Theme Designer! 🚀",
+    "linkText": "Learn More",
+    "routerLink": "/designer"
 }
