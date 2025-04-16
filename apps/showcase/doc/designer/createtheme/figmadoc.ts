@@ -1,7 +1,7 @@
-import { Component } from '@angular/core';
-import { CommonModule } from '@angular/common';
 import { AppCodeModule } from '@/components/doc/app.code.component';
 import { AppDocModule } from '@/components/doc/app.doc.module';
+import { CommonModule } from '@angular/common';
+import { Component } from '@angular/core';
 import { RouterModule } from '@angular/router';
 
 @Component({
@@ -20,6 +20,7 @@ import { RouterModule } from '@angular/router';
             Open the <a routerLink="/uikit">PrimeOne UI Kit</a> in which you've modified tokens. In the Tokens Studio plugin, navigate to the <i>Tools</i> menu and select <i>Export to file/folder.</i> When the Export tokens modal appears, make sure
             the <i>Single file</i> tab is selected. Check the <i>All tokens sets</i> option, then click <i>Export</i>.
         </p>
+        <p>In case you utilize custom tokens, create a new token set named <i>custom</i> and define your tokens under this set to make sure they are also exported to the theme code.</p>
         <div class="pl-8 pr-4 pt-4 bg-surface-0 dark:bg-surface-900 rounded-2xl border border-surface mb-4" style="max-width: 48rem">
             <img alt="Designer Dashboard" src="https://primefaces.org/cdn/designer/tokens-studio.png" class="w-full" />
         </div>
@@ -29,7 +30,10 @@ import { RouterModule } from '@angular/router';
             <img alt="Designer Dashboard" src="https://primefaces.org/cdn/designer/guide-create.png" class="w-full" />
         </div>
         <b class="mb-4 block">Video Tutorial</b>
-        <p>A tutorial is available demonstrating how the handoff process can be automated between the design team and the development team.</p>
+        <p>
+            A tutorial is available demonstrating how the handoff process can be automated between the design team and the development team. The video demonstrates the feature from the PrimeVue version, which is exactly same as the PrimeNG
+            implementation.
+        </p>
         <div class="video-container">
             <iframe width="560" height="315" src="https://www.youtube.com/embed/Ktocmi2dLLM?si=lG7JwkUfLTQFlfeX" frameborder="0" allowfullscreen></iframe>
         </div>
