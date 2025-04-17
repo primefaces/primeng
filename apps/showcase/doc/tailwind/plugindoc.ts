@@ -32,7 +32,7 @@ export class PluginDoc {
 
     code2 = {
         basic: `@import "tailwindcss";
-@import "tailwindcss-primeui";`
+@plugin "tailwindcss-primeui";`
     };
 
     code3 = {

@@ -57,7 +57,7 @@ export class OverrideDoc {
 
     code4 = {
         basic: `@import "tailwindcss";
-@import "tailwindcss-primeui";`
+@plugin "tailwindcss-primeui";`
     };
 
     code5 = {
