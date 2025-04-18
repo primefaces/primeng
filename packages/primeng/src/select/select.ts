@@ -1377,7 +1377,7 @@ export class Select extends BaseComponent implements OnInit, AfterViewInit, Afte
     }
 
     isSelected(option) {
-        return this.isValidOption(option) && this.isOptionValueEqualsModelValue(option);
+        return this.isOptionValueEqualsModelValue(option);
     }
 
     private isOptionValueEqualsModelValue(option: any) {
