@@ -63,9 +63,9 @@ import { Ripple } from 'primeng/ripple';
 import { Scroller } from 'primeng/scroller';
 import { Tooltip } from 'primeng/tooltip';
 import { Nullable } from 'primeng/ts-helpers';
+import { ObjectUtils } from 'primeng/utils';
 import { MultiSelectBlurEvent, MultiSelectChangeEvent, MultiSelectFilterEvent, MultiSelectFilterOptions, MultiSelectFocusEvent, MultiSelectLazyLoadEvent, MultiSelectRemoveEvent, MultiSelectSelectAllChangeEvent } from './multiselect.interface';
 import { MultiSelectStyle } from './style/multiselectstyle';
-import { ObjectUtils } from 'primeng/utils';
 
 export const MULTISELECT_VALUE_ACCESSOR: any = {
     provide: NG_VALUE_ACCESSOR,
@@ -863,6 +863,12 @@ export class MultiSelect extends BaseComponent implements OnInit, AfterViewInit,
     set selectAll(value: boolean | undefined | null) {
         this._selectAll = value;
     }
+    /**
+     * Determine, if select All will append options to the previously selected values or if the current selection will be overwritten.
+     * This can be usefule when a user filters the options and want to append all results to the current selection.
+     * @group Props
+     */
+    @Input({ transform: booleanAttribute }) appendPreviouslySelected: boolean = false;
     /**
      * Indicates whether to focus on options when hovering over them, defaults to optionLabel.
      * @group Props
@@ -1996,11 +2002,16 @@ export class MultiSelect extends BaseComponent implements OnInit, AfterViewInit,
                 (option) => this.isSelected(option) && (this.optionDisabled ? resolveFieldData(option, this.optionDisabled) : option && option.disabled !== undefined ? option.disabled : false)
             );
 
+            let selectedOptions: any[] = [];
+            if (this.appendPreviouslySelected && this._filterValue()) {
+                selectedOptions = this.getAllVisibleAndNonVisibleOptions().filter((option) => this.isSelected(option) && this.isValidOption(option));
+            }
+
             const visibleOptions = this.allSelected()
                 ? this.visibleOptions().filter((option) => !this.isValidOption(option) && this.isSelected(option))
                 : this.visibleOptions().filter((option) => this.isSelected(option) || this.isValidOption(option));
 
-            const optionValues = [...selectedDisabledOptions, ...visibleOptions].map((option) => this.getOptionValue(option));
+            const optionValues = [...selectedDisabledOptions, ...visibleOptions, ...selectedOptions].map((option) => this.getOptionValue(option));
             const value = [...new Set(optionValues)];
 
             this.updateModel(value, event);
