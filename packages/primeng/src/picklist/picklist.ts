@@ -144,6 +144,7 @@ import { PickListStyle } from './style/pickliststyle';
                     [dragdrop]="dragdrop"
                     (onDrop)="onDrop($event, SOURCE_LIST)"
                     (onFilter)="onSourceFilter.emit($event)"
+                    [emptyFilterMessage]="emptyFilterMessage"
                 >
                     <ng-container *ngIf="sourceHeaderTemplate || _sourceHeaderTemplate || sourceHeader">
                         <ng-template #header>
@@ -632,7 +633,11 @@ export class PickList extends BaseComponent implements AfterViewChecked, AfterCo
      * @group Props
      */
     @Input() moveAllToSourceProps: ButtonProps;
-
+    /**
+     * Text to display when filtering does not return any results.
+     * @group Props
+     */
+    @Input() emptyFilterMessage: string | undefined;
     /**
      * Indicates the width of the screen at which the component should change its behavior.
      * @group Props
