@@ -2000,7 +2000,9 @@ export class MultiSelect extends BaseComponent implements OnInit, AfterViewInit,
                 ? this.visibleOptions().filter((option) => !this.isValidOption(option) && this.isSelected(option))
                 : this.visibleOptions().filter((option) => this.isSelected(option) || this.isValidOption(option));
 
-            const optionValues = [...selectedDisabledOptions, ...visibleOptions].map((option) => this.getOptionValue(option));
+            const selectedOptionsBeforeSearch = this.filter ? this.getAllVisibleAndNonVisibleOptions().filter((option) => this.isSelected(option) && this.isValidOption(option)) : [];
+
+            const optionValues = [...(!this.allSelected() ? selectedOptionsBeforeSearch : []), ...selectedDisabledOptions, ...visibleOptions].map((option) => this.getOptionValue(option));
             const value = [...new Set(optionValues)];
 
             this.updateModel(value, event);
