@@ -1151,7 +1151,7 @@ export class Select extends BaseComponent implements OnInit, AfterViewInit, Afte
         // this will find the selected option whether or not the user is currently filtering  because the filtered (i.e. visible) options, are a subset of all the options
         const options = this.getAllVisibleAndNonVisibleOptions();
         // use isOptionEqualsModelValue for the use case where the dropdown is initalized with a disabled option
-        const selectedOptionIndex = options.findIndex((option) => this.isValidOption(option) && this.isOptionValueEqualsModelValue(option));
+        const selectedOptionIndex = options.findIndex((option) => this.isOptionValueEqualsModelValue(option));
 
         return selectedOptionIndex !== -1 ? this.getOptionLabel(options[selectedOptionIndex]) : this.placeholder() || 'p-emptylabel';
     });
@@ -1381,7 +1381,7 @@ export class Select extends BaseComponent implements OnInit, AfterViewInit, Afte
     }
 
     private isOptionValueEqualsModelValue(option: any) {
-        return equals(this.modelValue(), this.getOptionValue(option), this.equalityKey());
+        return this.isValidOption(option) && equals(this.modelValue(), this.getOptionValue(option), this.equalityKey());
     }
 
     ngAfterViewInit() {
