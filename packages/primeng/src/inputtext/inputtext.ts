@@ -39,7 +39,7 @@ export class InputText extends BaseComponent implements DoCheck, AfterViewInit {
      * Defines the size of the component.
      * @group Props
      */
-    @Input('pSize') pSize: 'large' | 'small';
+    @Input('pSize') pSize: 'large' | 'normal' | 'small';
 
     filled: Nullable<boolean>;
 
