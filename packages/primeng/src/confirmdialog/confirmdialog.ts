@@ -312,10 +312,10 @@ export class ConfirmDialog extends BaseComponent implements OnInit, OnDestroy {
      *  Allows getting the position of the component.
      * @group Props
      */
-    @Input() get position(): string {
+    @Input() get position() {
         return this._position;
     }
-    set position(value: string) {
+    set position(value: 'center' | 'top' | 'bottom' | 'left' | 'right' | 'topleft' | 'topright' | 'bottomleft' | 'bottomright') {
         this._position = value;
 
         switch (value) {
@@ -404,7 +404,7 @@ export class ConfirmDialog extends BaseComponent implements OnInit, OnDestroy {
 
     preWidth: number | undefined;
 
-    _position: string = 'center';
+    _position: 'center' | 'top' | 'bottom' | 'left' | 'right' | 'topleft' | 'topright' | 'bottomleft' | 'bottomright' = 'center';
 
     transformOptions: any = 'scale(0.7)';
 
@@ -506,7 +506,7 @@ export class ConfirmDialog extends BaseComponent implements OnInit, OnDestroy {
     }
 
     option(name: string, k?: string) {
-        const source: { [key: string]: any } = this || this;
+        const source: { [key: string]: any } = this;
         if (source.hasOwnProperty(name)) {
             if (k) {
                 return source[k];
