@@ -47,6 +47,16 @@ const theme = ({ dt }) => `
     font-weight: ${dt('floatlabel.label.active.font.weight')};
 }
 
+.p-floatlabel:not(:has(input:focus)) input::placeholder,
+.p-floatlabel:not(:has(input.p-filled)) input::placeholder,
+.p-floatlabel:not(:has(input:-webkit-autofill)) input::placeholder,
+.p-floatlabel:not(:has(textarea:focus)) textarea::placeholder,
+.p-floatlabel:not(:has(textarea.p-filled)) textarea::placeholder,
+.p-floatlabel:not(:has(.p-inputwrapper-focus)) input::placeholder,
+.p-floatlabel:not(:has(.p-inputwrapper-filled)) input::placeholder {
+    visibility: hidden;
+}
+
 .p-floatlabel:has(input.p-filled) label,
 .p-floatlabel:has(textarea.p-filled) label,
 .p-floatlabel:has(.p-inputwrapper-filled) label {
@@ -58,6 +68,13 @@ const theme = ({ dt }) => `
 .p-floatlabel:has(textarea:focus) label,
 .p-floatlabel:has(.p-inputwrapper-focus) label {
     color: ${dt('floatlabel.focus.color')};
+}
+
+.p-floatlabel:has(input:focus) input::placeholder,
+.p-floatlabel:has(input:-webkit-autofill) input::placeholder,
+.p-floatlabel:has(textarea:focus) input::placeholder,
+.p-floatlabel:has(.p-inputwrapper-focus) input::placeholder {
+    visibility: visible;
 }
 
 .p-floatlabel-in .p-inputtext,
