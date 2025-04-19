@@ -1,5 +1,5 @@
 import { isPlatformBrowser } from '@angular/common';
-import { AfterViewInit, booleanAttribute, Directive, ElementRef, inject, Input, NgModule, NgZone, numberAttribute, OnDestroy, SimpleChanges, TemplateRef, ViewContainerRef } from '@angular/core';
+import { AfterViewInit, booleanAttribute, Directive, ElementRef, inject, Input, NgModule, NgZone, numberAttribute, OnDestroy, signal, SimpleChanges, TemplateRef, ViewContainerRef } from '@angular/core';
 import { appendChild, fadeIn, findSingle, getOuterHeight, getOuterWidth, getViewport, getWindowScrollLeft, getWindowScrollTop, hasClass, removeChild, uuid } from '@primeuix/utils';
 import { TooltipOptions } from 'primeng/api';
 import { BaseComponent } from 'primeng/basecomponent';
@@ -172,6 +172,8 @@ export class Tooltip extends BaseComponent implements AfterViewInit, OnDestroy {
 
     interactionInProgress = false;
 
+    _isFocused = signal(false);
+
     constructor(
         public zone: NgZone,
         private viewContainer: ViewContainerRef
@@ -328,10 +330,12 @@ export class Tooltip extends BaseComponent implements AfterViewInit, OnDestroy {
     }
 
     onFocus(e: Event) {
+        this._isFocused.set(true);
         this.activate();
     }
 
     onBlur(e: Event) {
+        this._isFocused.set(false);
         this.deactivate();
     }
 
@@ -368,6 +372,10 @@ export class Tooltip extends BaseComponent implements AfterViewInit, OnDestroy {
     }
 
     deactivate() {
+        if (!this.canDeactivate()) {
+            return;
+        }
+
         this.interactionInProgress = false;
         this.active = false;
         this.clearShowTimeout();
@@ -707,6 +715,14 @@ export class Tooltip extends BaseComponent implements AfterViewInit, OnDestroy {
         if (this.documentEscapeListener) {
             this.documentEscapeListener();
         }
+    }
+
+    canDeactivate(): boolean {
+        if (this._isFocused()) {
+            return false;
+        }
+
+        return true;
     }
 }
 
