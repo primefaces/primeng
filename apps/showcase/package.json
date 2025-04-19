@@ -39,7 +39,7 @@
         "express": "^4.19.2",
         "file-saver": "^2.0.5",
         "jasmine-core": "~4.6.0",
-        "jspdf": "^2.5.1",
+        "jspdf": "^3.0.1",
         "jspdf-autotable": "^3.5.28",
         "primeicons": "^7.0.0",
         "primeng": "workspace:*",
