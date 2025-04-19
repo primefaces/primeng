@@ -130,7 +130,8 @@ export const AUTOCOMPLETE_VALUE_ACCESSOR: any = {
                     <p-chip styleClass="p-autocomplete-chip" *ngIf="!selectedItemTemplate && !_selectedItemTemplate" [label]="getOptionLabel(option)" [removable]="true" (onRemove)="!readonly ? removeOption($event, i) : ''">
                         <ng-container *ngIf="!removeIconTemplate && !_removeIconTemplate">
                             <ng-template #removeicon>
-                                <span class="p-autocomplete-chip-icon" (click)="!readonly ? removeOption($event, i) : ''">
+                                <span class="p-autocomplete-chip-icon" (click)="!readonly ? removeOption($event, i) : ''" (keydown)="handleKeydown($event, i)" tabindex="0"
+                                >
                                     <TimesCircleIcon [styleClass]="'p-autocomplete-chip-icon'" [attr.aria-hidden]="true" />
                                 </span>
                             </ng-template>
@@ -1574,6 +1575,13 @@ export class AutoComplete extends BaseComponent implements AfterViewChecked, Aft
         }
         this.loading = true;
         this.completeMethod.emit({ originalEvent: event, query });
+    }
+
+    handleKeydown(event: KeyboardEvent, index: number): void {
+        if (event.key === 'Enter') {
+            this.removeOption(event, index);
+            event.preventDefault();
+        }
     }
 
     removeOption(event, index) {
