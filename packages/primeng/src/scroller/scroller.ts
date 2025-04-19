@@ -654,11 +654,11 @@ export class Scroller extends BaseComponent implements OnInit, AfterContentInit,
     private toMainCrossAxises(y: number, x: number) {
         return {
             main: this.horizontal ? x : y,
-            cross: this.horizontal ? 0 : x
+            cross: this.horizontal ? y : x
         };
     }
     private toTopLeft({ main, cross }: GridItem) {
-        return { top: this.horizontal ? 0 : main, left: this.horizontal ? main : cross };
+        return { top: this.horizontal ? cross : main, left: this.horizontal ? main : cross };
     }
 
     init() {
@@ -1330,7 +1330,7 @@ export const initGridPositions = <T>({
 
     const _shouldRecalculate = (calculatedIdxs: boolean[], firstRendered: { pos: number; idx: number }, firstInViewport: { pos: number; idx: number }, triggerDistance: number) => {
         const thresholdDistance = firstInViewport.pos - firstRendered.pos;
-        return !calculatedIdxs[firstInViewport.idx] || thresholdDistance < triggerDistance || thresholdDistance > triggerDistance * 3;
+        return !calculatedIdxs[firstInViewport.idx] || (calculatedIdxs.some((x) => !x) && (thresholdDistance < triggerDistance || thresholdDistance > triggerDistance * 3));
     };
 
     const getRange = (first: GridItem) => {

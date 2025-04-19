@@ -9,9 +9,13 @@ import { debounceTime, first, fromEvent, lastValueFrom, tap } from 'rxjs';
 fdescribe('mytest', () => {
     @Component({
         template: `
-            <p-virtualscroller [items]="items" [itemSize]="itemSize" scrollHeight="200px" styleClass="border border-surface" [style]="{ width: '200px', height: '200px' }">
+            <p-virtualscroller [items]="items" [itemSize]="itemSize" [orientation]="orientation" scrollHeight="200px" styleClass="border border-surface" [style]="{ width: '200px', height: '200px' }">
                 <ng-template #item let-item let-options="options">
-                    <div class="flex items-center p-2" [ngClass]="{ 'bg-surface-100 dark:bg-surface-700': options.odd }" style="height: {{ itemSize }}px; overflow: hidden;">
+                    <div
+                        class="flex items-center p-2"
+                        [ngClass]="{ 'bg-surface-100 dark:bg-surface-700': options.odd }"
+                        [style]="{ overflow: 'hidden', width: orientation === 'horizontal' ? itemSize + 'px' : 'auto', height: orientation === 'vertical' ? itemSize + 'px' : 'auto' }"
+                    >
                         {{ item }}
                     </div>
                 </ng-template>
@@ -22,6 +26,7 @@ fdescribe('mytest', () => {
     class BasicScrollerWrapper {
         items = Array.from({ length: 1000 }).map((_, i) => `Item #${i}`);
         itemSize = 50;
+        orientation: 'vertical' | 'horizontal' = 'vertical';
     }
 
     const getRenderedItems = <T>(fixture: ComponentFixture<T>) =>
@@ -42,6 +47,9 @@ fdescribe('mytest', () => {
     const getFirstInViewport = <T>(fixture: ComponentFixture<T>, scrollerDiv: HTMLDivElement) =>
         findByBoundingClientRect(getRenderedItems(fixture), scrollerDiv, (itemRect, viewportRect) => itemRect.top <= viewportRect.top && itemRect.bottom > viewportRect.top);
 
+    const getFirstInHorizontalViewport = <T>(fixture: ComponentFixture<T>, scrollerDiv: HTMLDivElement) =>
+        findByBoundingClientRect(getRenderedItems(fixture), scrollerDiv, (itemRect, viewportRect) => itemRect.left <= viewportRect.left && itemRect.right > viewportRect.left);
+
     const getFirstInViewportGrid = <T>(fixture: ComponentFixture<T>, scrollerDiv: HTMLDivElement) =>
         findByBoundingClientRect(getRenderedItemsGrid(fixture), scrollerDiv, (itemRect, viewportRect) => {
             return itemRect.top <= viewportRect.top && itemRect.bottom > viewportRect.top && itemRect.left <= viewportRect.left && itemRect.right > viewportRect.left;
@@ -49,6 +57,9 @@ fdescribe('mytest', () => {
 
     const getLastInViewport = <T>(fixture: ComponentFixture<T>, scrollerDiv: HTMLDivElement) =>
         findByBoundingClientRect(getRenderedItems(fixture), scrollerDiv, (itemRect, viewportRect) => itemRect.top <= viewportRect.bottom && itemRect.bottom >= viewportRect.bottom);
+
+    const getLastInHorizontalViewport = <T>(fixture: ComponentFixture<T>, scrollerDiv: HTMLDivElement) =>
+        findByBoundingClientRect(getRenderedItems(fixture), scrollerDiv, (itemRect, viewportRect) => itemRect.left <= viewportRect.right && itemRect.right >= viewportRect.right);
 
     const getLastInViewportGrid = <T>(fixture: ComponentFixture<T>, scrollerDiv: HTMLDivElement) =>
         findByBoundingClientRect(getRenderedItemsGrid(fixture), scrollerDiv, (itemRect, viewportRect) => {
@@ -62,6 +73,11 @@ fdescribe('mytest', () => {
     const getBoundaryViewportItems = <T>(fixture: ComponentFixture<T>, scrollerDiv: HTMLDivElement) => ({ lastInViewport: getLastInViewport(fixture, scrollerDiv), firstInViewport: getFirstInViewport(fixture, scrollerDiv) });
 
     const getBoundaryViewportItemsGrid = <T>(fixture: ComponentFixture<T>, scrollerDiv: HTMLDivElement) => ({ lastInViewport: getLastInViewportGrid(fixture, scrollerDiv), firstInViewport: getFirstInViewportGrid(fixture, scrollerDiv) });
+
+    const getBoundaryViewportItemsHorizontal = <T>(fixture: ComponentFixture<T>, scrollerDiv: HTMLDivElement) => ({
+        lastInViewport: getLastInHorizontalViewport(fixture, scrollerDiv),
+        firstInViewport: getFirstInHorizontalViewport(fixture, scrollerDiv)
+    });
 
     const expandInViewport = <T>(num: number, fixture: ComponentFixture<T>) => {
         getRenderedItems(fixture)
@@ -153,6 +169,66 @@ fdescribe('mytest', () => {
             expect(scroller.first).not.toBe(0);
             expect(firstInViewport).toBeTruthy();
             expect(lastInViewport).toBeTruthy();
+        });
+    });
+    @Component({
+        template: `
+            <p-virtualscroller [items]="items" [itemSize]="itemSize" orientation="horizontal" scrollHeight="200px" styleClass="border border-surface" [style]="{ width: '200px', height: '200px' }">
+                <ng-template #item let-item let-options="options">
+                    <div class="flex items-center p-2" [ngClass]="{ 'bg-surface-100 dark:bg-surface-700': options.odd }" [style]="{ overflow: 'hidden', width: itemSize + 'px' }">
+                        {{ item }}
+                    </div>
+                </ng-template>
+            </p-virtualscroller>
+        `,
+        imports: [Scroller, CommonModule]
+    })
+    class HorizontalScrollerWrapper {
+        items = Array.from({ length: 1000 }).map((_, i) => `Item #${i}`);
+        itemSize = 50;
+    }
+    describe('HorizontalScroller', () => {
+        let fixture: ComponentFixture<HorizontalScrollerWrapper>;
+        let component: HorizontalScrollerWrapper;
+        let scroller: Scroller;
+        let scrollerDiv: HTMLDivElement;
+        beforeEach(async () => {
+            await TestBed.configureTestingModule({ imports: [HorizontalScrollerWrapper] }).compileComponents();
+            fixture = TestBed.createComponent(HorizontalScrollerWrapper);
+            component = fixture.componentInstance;
+            fixture.autoDetectChanges();
+            scroller = fixture.debugElement.query(By.directive(Scroller)).componentInstance;
+            scrollerDiv = scroller.elementViewChild.nativeElement;
+        });
+
+        it('should not jump during scrolling forward in horizontal orientation', () => {
+            scroller.scrollTo({ left: 300 });
+            scrollerDiv.dispatchEvent(new Event('scroll'));
+
+            const { firstInViewport } = getBoundaryViewportItemsHorizontal(fixture, scrollerDiv);
+            const leftBefore = firstInViewport.getBoundingClientRect().left;
+
+            scroller.scrollTo({ left: 301 });
+            scrollerDiv.dispatchEvent(new Event('scroll'));
+
+            const leftAfter = firstInViewport.getBoundingClientRect().left;
+
+            expect(leftBefore - leftAfter).toBe(1);
+        });
+
+        it('should not jump during scrolling backward in horizontal orientation', () => {
+            scroller.scrollTo({ left: 30000 });
+            scrollerDiv.dispatchEvent(new Event('scroll'));
+
+            const { firstInViewport } = getBoundaryViewportItemsHorizontal(fixture, scrollerDiv);
+            const leftBefore = firstInViewport.getBoundingClientRect().left;
+
+            scroller.scrollTo({ left: scrollerDiv.scrollLeft - 1 });
+            scrollerDiv.dispatchEvent(new Event('scroll'));
+
+            const leftAfter = firstInViewport.getBoundingClientRect().left;
+
+            expect(leftAfter - leftBefore).toBe(1);
         });
     });
 
@@ -868,6 +944,31 @@ fdescribe('mytest', () => {
         it('should get shift 3', () => {
             const shift = getShift({ scrollPos: 0, prevItemPos: 0, currItemPos: 0 });
             expect(shift).toBe(0);
+        });
+
+        it('should calculate thing at once', () => {
+            const scrollPos = { main: 0, cross: 0 };
+            const positions = initGridPositions({
+                items: getItems(100),
+                scrollPos,
+                getItemSize: () => ({ main: 50, cross: 40 }),
+                viewportSize: { main: 200, cross: 200 },
+                scrollTo: ({ main, cross }) => {
+                    scrollPos.main = main;
+                    scrollPos.cross = cross;
+                },
+                onChange: ({ jump }) => {
+                    scrollPos.main += jump.main;
+                    scrollPos.cross += jump.cross;
+                }
+            });
+
+            scrollPos.main = 3000;
+            const preidx = binarySearchFirst(scrollPos.main, positions.positions.mainAxis);
+            positions.getRange({ main: 0, cross: 0 });
+            const postidx = binarySearchFirst(scrollPos.main, positions.positions.mainAxis);
+
+            expect(preidx).toBe(postidx);
         });
     });
 });
