@@ -13774,8 +13774,8 @@
                             "name": "style",
                             "optional": true,
                             "readonly": false,
-                            "type": "(klass: string) => any",
-                            "description": "Inline style of the comopnent."
+                            "type": "Object",
+                            "description": "Inline style of the component."
                         },
                         {
                             "name": "contentStyle",
