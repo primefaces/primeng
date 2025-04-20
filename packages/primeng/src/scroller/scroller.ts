@@ -868,10 +868,12 @@ export class Scroller extends BaseComponent implements OnInit, AfterContentInit,
         this.last = last;
 
         if (this.showLoader) {
+            const numsInViewport = this._poss.numsInViewport();
             const numItemsInViewport = {
-                main: range.last.main - range.first.main,
-                cross: range.last.cross - range.first.cross
+                main: numsInViewport.last.main - numsInViewport.first.main,
+                cross: numsInViewport.last.cross - numsInViewport.first.cross
             };
+
             this.loaderArr = this.both ? Array.from({ length: numItemsInViewport.main }).map(() => Array.from({ length: numItemsInViewport.cross })) : Array.from({ length: numItemsInViewport.main });
         }
 
