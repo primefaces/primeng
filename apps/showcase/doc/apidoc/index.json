@@ -13362,7 +13362,7 @@
                             "optional": true,
                             "readonly": false,
                             "type": "Object",
-                            "description": "Inline style of the comopnent."
+                            "description": "Inline style of the component."
                         },
                         {
                             "name": "contentStyle",
