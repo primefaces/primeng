@@ -2169,9 +2169,9 @@ export class DatePicker extends BaseComponent implements OnInit, AfterContentIni
     }
 
     clear() {
-        this.inputFieldValue = null;
         this.value = null;
         this.onModelChange(this.value);
+        this.updateInputfield();
         this.onClear.emit();
     }
 
