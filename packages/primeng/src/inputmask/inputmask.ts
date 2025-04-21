@@ -845,6 +845,7 @@ export class InputMask extends BaseComponent implements OnInit, AfterContentInit
 
     updateFilledState() {
         this.filled = this.inputViewChild?.nativeElement && this.inputViewChild.nativeElement.value != '';
+        this.cd.markForCheck();
     }
 
     focus() {
