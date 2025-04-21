@@ -187,7 +187,7 @@ export const DATEPICKER_VALUE_ACCESSOR: any = {
                                     [ariaLabel]="prevIconAriaLabel"
                                 >
                                     <ChevronLeftIcon *ngIf="!previousIconTemplate && !_previousIconTemplate" />
-                                    <span *ngIf="previousIconTemplate || !_previousIconTemplate">
+                                    <span *ngIf="previousIconTemplate || _previousIconTemplate">
                                         <ng-template *ngTemplateOutlet="previousIconTemplate || _previousIconTemplate"></ng-template>
                                     </span>
                                 </p-button>
@@ -233,7 +233,7 @@ export const DATEPICKER_VALUE_ACCESSOR: any = {
                                 >
                                     <ChevronRightIcon *ngIf="!nextIconTemplate && !_nextIconTemplate" />
 
-                                    <span *ngIf="nextIconTemplate || !_nextIconTemplate">
+                                    <span *ngIf="nextIconTemplate || _nextIconTemplate">
                                         <ng-template *ngTemplateOutlet="nextIconTemplate || _nextIconTemplate"></ng-template>
                                     </span>
                                 </p-button>
