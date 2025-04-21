@@ -1524,6 +1524,10 @@ export class CascadeSelect extends BaseComponent implements OnInit, AfterContent
         this.id = this.id || uuid('pn_id_');
         this.autoUpdateModel();
         this.bindMatchMediaListener();
+    }
+
+    ngAfterViewInit() {
+        super.ngAfterViewInit();
         this.initialized = true;
     }
 
