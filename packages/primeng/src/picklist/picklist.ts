@@ -1366,11 +1366,7 @@ export class PickList extends BaseComponent implements AfterViewChecked, AfterCo
             for (let i = 0; i < itemsToMove.length; i++) {
                 let selectedItem = itemsToMove[i];
                 if (findIndexInList(selectedItem, this.target) == -1) {
-                    const index = findIndexInList(selectedItem, this.source);
-                    if (index > -1) {
-                        const [movedItem] = this.source.splice(index, 1);
-                        this.target = [...(this.target ?? []), movedItem];
-                    }
+                    this.target?.push(this.source?.splice(findIndexInList(selectedItem, this.source), 1)[0]);
 
                     if (this.visibleOptionsSource?.includes(selectedItem)) {
                         this.visibleOptionsSource.splice(findIndexInList(selectedItem, this.visibleOptionsSource), 1);
