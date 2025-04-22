@@ -746,9 +746,25 @@ export class Scroller extends BaseComponent implements OnInit, AfterContentInit,
         return this._step ? this.page !== this.getPageByFirst(first ?? this.first) : true;
     }
 
+    private scrollDebt?: { position: GridItem; index?: GridItem };
+    private _scrollTo(options: ScrollToOptions, index?: GridItem) {
+        this.elementViewChild?.nativeElement?.scrollTo(options);
+
+        if (options.behavior === 'smooth')
+            this.scrollDebt = {
+                index,
+                position: index
+                    ? {
+                          main: this._poss.positions.mainAxis[index.main].pos,
+                          cross: this._poss.positions.crossAxis[index.cross].pos
+                      }
+                    : this.toMainCrossAxises(options.top ?? this.elementViewChild?.nativeElement.scrollTop, options.left ?? this.elementViewChild?.nativeElement.scrollLeft)
+            };
+    }
+
     scrollTo(options: ScrollToOptions) {
         // this.lastScrollPos = this.both ? { top: 0, left: 0 } : 0;
-        this.elementViewChild?.nativeElement?.scrollTo(options);
+        this._scrollTo(options);
     }
 
     scrollToIndex(index: number | number[], behavior: ScrollBehavior = 'auto') {
@@ -758,7 +774,7 @@ export class Scroller extends BaseComponent implements OnInit, AfterContentInit,
             const first = this._first;
             const { scrollTop = 0, scrollLeft = 0 } = this.elementViewChild?.nativeElement;
             const contentPos = this.getContentPosition();
-            const scrollTo = (left = 0, top = 0) => this.scrollTo({ left, top, behavior });
+            const scrollTo = (left = 0, top = 0) => this._scrollTo({ left, top, behavior }, { main: index[0] ?? index, cross: index[1] ?? 0 });
             let newFirst = this.both ? { rows: 0, cols: 0 } : 0;
             let isRangeChanged = false,
                 isScrollChanged = false;
@@ -789,7 +805,7 @@ export class Scroller extends BaseComponent implements OnInit, AfterContentInit,
     scrollInView(index: number, to: ScrollerToType, behavior: ScrollBehavior = 'auto') {
         if (to) {
             const { viewport } = this.getRenderedRange();
-            const scrollTo = (left = 0, top = 0) => this.scrollTo({ left, top, behavior });
+            const scrollTo = (left = 0, top = 0) => this._scrollTo({ left, top, behavior }, { main: index[0] ?? index, cross: index[1] ?? 0 });
             const isToStart = to === 'to-start';
             const isToEnd = to === 'to-end';
 
@@ -913,11 +929,6 @@ export class Scroller extends BaseComponent implements OnInit, AfterContentInit,
         }
     }
 
-    getLast(last = 0, isCols = false) {
-        const gridItems = this.isBoth(this._items) ? this._items[0] || [] : this._items;
-        return this._items ? Math.min(isCols ? (this._columns || gridItems).length : this._items.length, last) : 0;
-    }
-
     getContentPosition() {
         if (this.contentEl) {
             const style = getComputedStyle(this.contentEl);
@@ -1033,6 +1044,21 @@ export class Scroller extends BaseComponent implements OnInit, AfterContentInit,
         } else {
             !this.d_loading && this.onScrollChange(event);
         }
+
+        if (!this.scrollDebt) return;
+
+        const isScrolledTo = (targetPos: number, scrollPos: number, viewportSize: number, totalSize: number) => targetPos === scrollPos || totalSize <= scrollPos + viewportSize;
+        const { offsetHeight, offsetWidth, scrollHeight, scrollWidth, scrollTop, scrollLeft } = event.target as HTMLDivElement;
+        const viewportSize = this.toMainCrossAxises(offsetHeight, offsetWidth);
+        const totalSize = this.toMainCrossAxises(scrollHeight, scrollWidth);
+        const scrollPos = this.toMainCrossAxises(scrollTop, scrollLeft);
+        this.scrollDebt.index && (this.scrollDebt.position = { main: this._poss.positions.mainAxis[this.scrollDebt.index.main].pos, cross: this._poss.positions.crossAxis[this.scrollDebt.index.cross].pos });
+        const eliminateDebt = this.scrollDebt.index
+            ? () => this.scrollToIndex(this.both ? [this.scrollDebt.index.main, this.scrollDebt.index.cross] : this.scrollDebt.index.main, 'smooth')
+            : () => this.scrollTo({ ...this.toTopLeft(this.scrollDebt.position), behavior: 'smooth' });
+
+        if (isScrolledTo(this.scrollDebt.position.main, scrollPos.main, viewportSize.main, totalSize.main) && isScrolledTo(this.scrollDebt.position.cross, scrollPos.cross, viewportSize.cross, totalSize.cross)) this.scrollDebt = undefined;
+        else eliminateDebt();
     }
 
     bindResizeListener() {
