@@ -22673,14 +22673,6 @@
                             "description": "Enables to hide the overlay when outside is clicked."
                         },
                         {
-                            "name": "showCloseIcon",
-                            "optional": false,
-                            "readonly": false,
-                            "type": "boolean",
-                            "default": "false",
-                            "description": "When enabled, displays a close icon at top right corner."
-                        },
-                        {
                             "name": "style",
                             "optional": false,
                             "readonly": false,
@@ -22709,13 +22701,6 @@
                             "type": "boolean",
                             "default": "true",
                             "description": "Whether to automatically manage layering."
-                        },
-                        {
-                            "name": "ariaCloseLabel",
-                            "optional": false,
-                            "readonly": false,
-                            "type": "string",
-                            "description": "Aria label of the close icon."
                         },
                         {
                             "name": "baseZIndex",
