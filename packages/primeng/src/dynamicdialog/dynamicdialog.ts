@@ -344,7 +344,12 @@ export class DynamicDialogComponent extends BaseComponent implements AfterViewIn
     }
 
     getAriaLabelledBy() {
-        return this.header !== null ? uuid('pn_id_') + '_header' : null;
+        const { header, showHeader } = this.ddconfig;
+
+        if (header === null || showHeader === false) {
+            return null;
+        }
+        return uuid('pn_id_') + '_header';
     }
 
     loadChildComponent(componentType: Type<any>) {
