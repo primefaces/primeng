@@ -740,6 +740,8 @@ export class CascadeSelect extends BaseComponent implements OnInit, AfterContent
 
     _componentStyle = inject(CascadeSelectStyle);
 
+    initialized: boolean = false;
+
     get containerClass() {
         return {
             'p-cascadeselect p-component p-inputwrapper': true,
@@ -1141,10 +1143,12 @@ export class CascadeSelect extends BaseComponent implements OnInit, AfterContent
         this.onModelChange(value);
         this.modelValue.set(value);
 
-        this.onChange.emit({
-            originalEvent: event,
-            value: value
-        });
+        if (this.initialized) {
+            this.onChange.emit({
+                originalEvent: event,
+                value: value
+            });
+        }
     }
 
     autoUpdateModel() {
@@ -1520,6 +1524,11 @@ export class CascadeSelect extends BaseComponent implements OnInit, AfterContent
         this.id = this.id || uuid('pn_id_');
         this.autoUpdateModel();
         this.bindMatchMediaListener();
+    }
+
+    ngAfterViewInit() {
+        super.ngAfterViewInit();
+        this.initialized = true;
     }
 
     bindMatchMediaListener() {
