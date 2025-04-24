@@ -1,14 +1,13 @@
-//@ts-ignore
-const TypeDoc = require('typedoc');
-//@ts-ignore
-const path = require('path');
-//@ts-ignore
-const fs = require('fs');
-//@ts-ignore
+import * as TypeDoc from 'typedoc';
+import * as path from 'path';
+import { dirname } from 'path';
+import { fileURLToPath } from 'url';
+import * as fs from 'fs';
+
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = dirname(__filename);
 const rootDir = path.resolve(__dirname, '../../../packages/primeng');
-//@ts-ignore
 const outputPath = path.resolve(__dirname, '../../../apps/showcase/doc/apidoc/');
-// packages/primeng/
 
 const staticMessages = {
     methods: "Defines methods that can be accessed by the component's reference.",
