@@ -1,14 +1,12 @@
-//@ts-ignore
-const TypeDoc = require('typedoc');
-//@ts-ignore
-const path = require('path');
-//@ts-ignore
-const fs = require('fs');
-//@ts-ignore
+import { Application, DeclarationReflection } from 'typedoc';
+import * as path from 'path';
+import { fileURLToPath } from 'url';
+import * as fs from 'fs';
+
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
 const rootDir = path.resolve(__dirname, '../../../packages/primeng');
-//@ts-ignore
 const outputPath = path.resolve(__dirname, '../../../apps/showcase/doc/apidoc/');
-// packages/primeng/
 
 const staticMessages = {
     methods: "Defines methods that can be accessed by the component's reference.",
@@ -23,7 +21,7 @@ const staticMessages = {
 };
 
 async function main() {
-    const app = await TypeDoc.Application.bootstrapWithPlugins({
+    const app = await Application.bootstrapWithPlugins({
         // typedoc options here
         name: 'PrimeNG',
         entryPointStrategy: 'expand',
@@ -81,7 +79,7 @@ async function main() {
 
         const modules = project.groups.find((g) => g.title === 'Modules');
         if (isProcessable(modules)) {
-            modules.children.forEach((module) => {
+            modules.children.forEach((module: DeclarationReflection) => {
                 const name = module.name.replace(/.*\//, '');
                 if (allowed(name)) {
                     if (module.groups) {
@@ -104,7 +102,7 @@ async function main() {
                                 values: []
                             };
 
-                            module_types_group.children.forEach((type) => {
+                            module_types_group.children.forEach((type: DeclarationReflection) => {
                                 types.values.push({
                                     name: type.name,
                                     description: type.comment && type.comment.summary.map((s) => s.text || '').join(' '),
@@ -122,13 +120,13 @@ async function main() {
                                 description: staticMessages['styles'],
                                 values: []
                             };
-                            module_enums_group.children.forEach((child) => {
+                            module_enums_group.children.forEach((child: DeclarationReflection) => {
                                 if (child) {
                                     if (child && child.groups) {
                                         const values = child.groups.find((g) => g.title === 'Enumeration Members');
-                                        values.children.forEach((value) => {
+                                        values.children.forEach((value: DeclarationReflection) => {
                                             classes.values.push({
-                                                class: value.type.value,
+                                                class: value.type['value'],
                                                 description: value.comment && value.comment.summary[0]['text']
                                             });
                                         });
@@ -140,7 +138,7 @@ async function main() {
                         }
 
                         if (isProcessable(module_components_group)) {
-                            module_components_group.children.forEach((component) => {
+                            module_components_group.children.forEach((component: DeclarationReflection) => {
                                 const componentName = component.name;
                                 const comment = component.comment;
 
@@ -156,7 +154,7 @@ async function main() {
                                         values: []
                                     };
 
-                                    component_props_group.children.forEach((prop) => {
+                                    component_props_group.children.forEach((prop: DeclarationReflection) => {
                                         let defaultValue = prop.defaultValue ? prop.defaultValue.replace(/^'|'$/g, '') : undefined;
 
                                         // Check for @defaultValue tag in comment blockTags
@@ -172,7 +170,7 @@ async function main() {
                                             optional: prop.flags.isOptional,
                                             readonly: prop.flags.isReadonly,
                                             type: prop.getSignature && prop.getSignature.type ? prop.getSignature.type.toString() : prop.type ? prop.type.toString() : null,
-                                            default: prop.type && prop.type.name === 'boolean' && !prop.defaultValue ? 'false' : defaultValue,
+                                            default: prop.type && prop.type['name'] === 'boolean' && !prop.defaultValue ? 'false' : defaultValue,
                                             description: (prop.getSignature?.comment?.summary || prop.setSignature?.comment?.summary || prop.comment?.summary)?.map((s) => s.text || '').join(' '),
                                             deprecated: getDeprecatedText(prop.getSignature) || getDeprecatedText(prop.setSignature) || getDeprecatedText(prop)
                                         });
@@ -212,7 +210,7 @@ async function main() {
                                         values: []
                                     };
 
-                                    component_methods_group.children.forEach((method) => {
+                                    component_methods_group.children.forEach((method: DeclarationReflection) => {
                                         const signature = method.getAllSignatures()[0];
                                         methods.values.push({
                                             name: signature.name,
@@ -264,7 +262,7 @@ async function main() {
                                         values: []
                                     };
 
-                                    component_templates_group.children.forEach((template) => {
+                                    component_templates_group.children.forEach((template: DeclarationReflection) => {
                                         const templateType = template.type && template.type.toString();
                                         let contextType = 'unknown';
 
@@ -290,7 +288,7 @@ async function main() {
                                         description: staticMessages['types'],
                                         values: []
                                     };
-                                    component_types_group.children.forEach((type) => {
+                                    component_types_group.children.forEach((type: DeclarationReflection) => {
                                         types.values.push({
                                             name: type.name,
                                             description: type.comment && type.comment.summary.map((s) => s.text || '').join(' '),
@@ -412,7 +410,7 @@ async function main() {
                                 description: staticMessages['service']
                             };
 
-                            module_service_group.children.forEach((service) => {
+                            module_service_group.children.forEach((service: DeclarationReflection) => {
                                 const service_methods_group = service.groups.find((g) => g.title === 'Method');
                                 if (isProcessable(service_methods_group)) {
                                     const methods = {
@@ -420,7 +418,7 @@ async function main() {
                                         values: []
                                     };
 
-                                    service_methods_group.children.forEach((method) => {
+                                    service_methods_group.children.forEach((method: DeclarationReflection) => {
                                         const signature = method.getAllSignatures()[0];
                                         methods.values.push({
                                             name: signature.name,
@@ -447,65 +445,7 @@ async function main() {
                                 values: []
                             };
 
-                            module_types_group.children.forEach((t) => {
-                                const parameters =
-                                    t.signatures && t.signatures[0]?.parameters
-                                        ? t.signatures[0].parameters.map((param) => ({
-                                              name: param.name,
-                                              description: param.comment && param.comment.summary.map((s) => s.text || '').join(' '),
-                                              type: param.type && param.type.name
-                                          }))
-                                        : [];
-
-                                const returnType = t.signatures && t.signatures[0]?.type ? t.signatures[0].type.name : t.type && t.type.declaration && t.type.declaration.signatures && t.type.declaration.signatures[0]?.type.name;
-
-                                const returnDescription =
-                                    t.comment && t.comment.blockTags
-                                        ? t.comment.blockTags
-                                              .filter((tag) => tag.tag === '@returns')
-                                              .map((tag) => tag.content.map((content) => content.text).join(' '))
-                                              .join(' ')
-                                        : '';
-
-                                const typeChildren =
-                                    t.children && t.children.length
-                                        ? t.children.map((child) => {
-                                              const childSignatures = child.type && child.type.declaration && child.type.declaration.signatures;
-                                              const childParameters =
-                                                  childSignatures && childSignatures[0]?.parameters
-                                                      ? childSignatures[0].parameters.map((param) => ({
-                                                            name: param.name,
-                                                            description: param.comment && param.comment.summary.map((s) => s.text || '').join(' '),
-                                                            type: param.type && param.type.name
-                                                        }))
-                                                      : [];
-
-                                              const childReturnType = childSignatures && childSignatures[0]?.type ? childSignatures[0].type.name : undefined;
-
-                                              const childReturnDescription =
-                                                  child.comment && child.comment.blockTags
-                                                      ? child.comment.blockTags
-                                                            .filter((tag) => tag.tag === '@returns')
-                                                            .map((tag) => tag.content.map((content) => content.text).join(' '))
-                                                            .join(' ')
-                                                      : '';
-
-                                              return {
-                                                  name: child.name,
-                                                  description: child.comment && child.comment.summary.map((s) => s.text || '').join(' '),
-                                                  type: childParameters.length || childReturnType ? 'function' : child.type && child.type.name,
-                                                  parameters: childParameters.length ? childParameters : undefined,
-                                                  returns: childReturnType
-                                                      ? {
-                                                            type: childReturnType,
-                                                            description: childReturnDescription
-                                                        }
-                                                      : undefined,
-                                                  deprecated: getDeprecatedText(child)
-                                              };
-                                          })
-                                        : [];
-
+                            module_types_group.children.forEach((t: DeclarationReflection) => {
                                 types.values.push({
                                     name: t.name,
                                     value: getTypesValue(t),
@@ -560,7 +500,7 @@ async function main() {
 }
 
 function extractParameter(emitter) {
-    let { comment, type } = emitter;
+    const { comment, type } = emitter;
 
     if (type && type.typeArguments) {
         if (type.toString()) {
@@ -600,7 +540,7 @@ const allowed = (name) => {
 const getTypesValue = (typeobj) => {
     let { type } = typeobj;
 
-    if (typeobj.indexSignature) {
+    if (typeobj.indexSignatures) {
         const signature = typeobj.getAllSignatures()[0];
         const value = signature.parameters.map((param) => {
             return {
