@@ -1,12 +1,12 @@
-//@ts-ignore
-const TypeDoc = require('typedoc');
-//@ts-ignore
-const path = require('path');
-//@ts-ignore
-const fs = require('fs');
-//@ts-ignore
+import * as TypeDoc from 'typedoc';
+import * as path from 'path';
+import { dirname } from 'path';
+import { fileURLToPath } from 'url';
+import * as fs from 'fs';
+
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = dirname(__filename);
 const rootDir = path.resolve(__dirname, '../../../packages/themes');
-//@ts-ignore
 const outputPath = path.resolve(__dirname, '../../../apps/showcase/doc/apidoc/');
 
 async function themedoc() {
