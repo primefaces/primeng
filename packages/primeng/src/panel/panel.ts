@@ -228,7 +228,6 @@ export class Panel extends BaseComponent implements AfterContentInit, BlockableU
     /**
      * Specifies if header of panel cannot be displayed.
      * @group Props
-     * @deprecated since v15.4.2, use `headericons` template instead.
      */
     @Input({ transform: booleanAttribute }) showHeader: boolean = true;
     /**
