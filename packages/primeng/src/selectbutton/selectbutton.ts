@@ -48,7 +48,7 @@ export const SELECTBUTTON_VALUE_ACCESSOR: any = {
                 [offLabel]="this.getOptionLabel(option)"
                 [disabled]="disabled || isOptionDisabled(option)"
                 (onChange)="onOptionSelect($event, option, i)"
-                [allowEmpty]="allowEmpty"
+                [allowEmpty]="getAllowEmpty()"
                 [size]="size"
             >
                 @if (itemTemplate || _itemTemplate) {
@@ -191,6 +191,10 @@ export class SelectButton extends BaseComponent implements AfterContentInit, Con
     focusedIndex: number = 0;
 
     _componentStyle = inject(SelectButtonStyle);
+
+    getAllowEmpty() {
+        return !this.multiple ? this.allowEmpty : this.allowEmpty || this.value?.length !== 1;
+    }
 
     getOptionLabel(option: any) {
         return this.optionLabel ? resolveFieldData(option, this.optionLabel) : option.label != undefined ? option.label : option;
