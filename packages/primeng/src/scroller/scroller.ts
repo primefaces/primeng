@@ -560,7 +560,6 @@ export class Scroller extends BaseComponent implements OnInit, AfterContentInit,
 
     ngOnInit() {
         super.ngOnInit();
-        console.log(this.options);
         this.setInitialState();
     }
 
