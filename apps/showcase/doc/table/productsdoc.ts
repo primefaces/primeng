@@ -179,7 +179,7 @@ interface ExportColumn {
                     </ng-template>
                 </p-dialog>
 
-                <p-confirmDialog [style]="{ width: '450px' }" />
+                <p-confirmDialog [style]="{ width: '450px' }" closeAriaLabel="Close" />
             </div>
         </p-deferred-demo>
         <app-code [code]="code" selector="table-products-demo" [extFiles]="extFiles"></app-code>`,

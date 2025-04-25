@@ -11,7 +11,7 @@ import { ConfirmationService, MessageService } from 'primeng/api';
         </app-docsectiontext>
         <div class="card flex justify-center">
             <p-toast />
-            <p-confirmdialog #cd>
+            <p-confirmdialog #cd closeAriaLabel="Close">
                 <ng-template #headless let-message let-onAccept="onAccept" let-onReject="onReject">
                     <div class="flex flex-col items-center p-8 bg-surface-0 dark:bg-surface-900 rounded">
                         <div class="rounded-full bg-primary text-primary-contrast inline-flex justify-center items-center h-24 w-24 -mt-20">
