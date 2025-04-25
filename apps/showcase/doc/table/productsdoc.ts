@@ -584,7 +584,6 @@ export class TableProductsDemo implements OnInit{
     ngOnInit() {
         this.loadDemoData();
     }
-
     loadDemoData() {
         this.productService.getProducts().then((data) => {
             this.products = data;
