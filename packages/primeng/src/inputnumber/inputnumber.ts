@@ -709,7 +709,7 @@ export class InputNumber extends BaseComponent implements OnInit, AfterContentIn
     }
 
     formatValue(value: any) {
-        if (value != null) {
+        if (value !== undefined && value != null) {
             if (value === '-') {
                 // Minus sign
                 return value;
