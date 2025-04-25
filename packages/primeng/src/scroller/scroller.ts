@@ -60,7 +60,7 @@ import { ScrollerStyle } from './style/scrollerstyle';
                     <ng-container *ngTemplateOutlet="contentTemplate || _contentTemplate; context: { $implicit: loadedItems, options: getContentOptions() }"></ng-container>
                 </ng-container>
                 <ng-template #buildInContent>
-                    <div #content class="p-virtualscroller-content" [ngClass]="{ 'p-virtualscroller-loading ': d_loading }" [ngStyle]="contentStyle" [attr.data-pc-section]="'content'">
+                    <div #content [class]="contentStyleClass" [ngClass]="{ 'p-virtualscroller-content': true, 'p-virtualscroller-loading ': d_loading }" [style]="contentStyle" [attr.data-pc-section]="'content'">
                         <ng-container *ngFor="let item of loadedItems; let index = index; trackBy: _trackBy">
                             <ng-container *ngTemplateOutlet="itemTemplate || _itemTemplate; context: { $implicit: item, options: getOptions(index) }"></ng-container>
                         </ng-container>
@@ -354,8 +354,8 @@ export class Scroller extends BaseComponent implements OnInit, AfterContentInit,
         this._options = val;
 
         if (val && typeof val === 'object') {
-            //@ts-ignore
             Object.entries(val).forEach(([k, v]) => this[`_${k}`] !== v && (this[`_${k}`] = v));
+            Object.entries(val).forEach(([k, v]) => this[`${k}`] !== v && (this[`${k}`] = v));
         }
     }
     /**
@@ -508,6 +508,16 @@ export class Scroller extends BaseComponent implements OnInit, AfterContentInit,
 
     defaultContentHeight: number | undefined;
 
+    _contentStyleClass: any;
+
+    get contentStyleClass() {
+        return this._contentStyleClass;
+    }
+
+    set contentStyleClass(val) {
+        this._contentStyleClass = val;
+    }
+
     get vertical() {
         return this._orientation === 'vertical';
     }
@@ -550,6 +560,7 @@ export class Scroller extends BaseComponent implements OnInit, AfterContentInit,
 
     ngOnInit() {
         super.ngOnInit();
+        console.log(this.options);
         this.setInitialState();
     }
 
@@ -689,8 +700,6 @@ export class Scroller extends BaseComponent implements OnInit, AfterContentInit,
         this.d_loading = this._loading || false;
         this.d_numToleratedItems = this._numToleratedItems;
         this.loaderArr = [];
-        this.spacerStyle = {};
-        this.contentStyle = {};
     }
 
     getElementRef() {
