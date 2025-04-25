@@ -11,7 +11,7 @@ import { ConfirmationService, MessageService } from 'primeng/api';
         </app-docsectiontext>
         <div class="card">
             <p-toast />
-            <p-confirmdialog key="positionDialog" [position]="position"/>
+            <p-confirmdialog key="positionDialog" [position]="position" />
             <div class="flex flex-wrap justify-center gap-2 mb-4">
                 <p-button (click)="confirmPosition('left')" icon="pi pi-arrow-right" label="Left" severity="secondary" styleClass="min-w-40" />
                 <p-button (click)="confirmPosition('right')" icon="pi pi-arrow-left" label="Right" severity="secondary" styleClass="min-w-40" />
