@@ -7,9 +7,9 @@ import { Component } from '@angular/core';
     template: `
         <app-docsectiontext>
             <p>
-                By default, all projected tab contents are rendered, even for inactive tabs. To override this behavior, you can wrap the content in an <i>ng-template</i>, enabling lazy loading — the content will only be rendered when the tab becomes
-                active. Once lazy-loaded content is rendered, it remains in the DOM even if the tab becomes inactive. You can change this behavior by setting the <i>cache</i> property to <i>false</i>, which will cause the lazy content to be recreated
-                on each activation.
+                By default, all projected tab contents are rendered, even for inactive tabs. To override this behavior, you can wrap the content in an <i><ng-template #content>your content</ng-template></i
+                >, enabling lazy loading — the content will only be rendered when the tab becomes active. Once lazy-loaded content is rendered, it remains in the DOM even if the tab becomes inactive. You can change this behavior by setting the
+                <i>cache</i> property to <i>false</i>, which will cause the lazy content to be recreated on each activation.
             </p>
         </app-docsectiontext>
         <div class="card">
@@ -28,10 +28,10 @@ import { Component } from '@angular/core';
                         </p>
                     </p-tabpanel>
                     <p-tabpanel value="1">
-                        <ng-template>Complex content to lazy load</ng-template>
+                        <ng-template #content>Complex content to lazy load</ng-template>
                     </p-tabpanel>
                     <p-tabpanel value="2">
-                        <ng-template>Complex content to lazy load</ng-template>
+                        <ng-template #content>Complex content to lazy load</ng-template>
                     </p-tabpanel>
                 </p-tabpanels>
             </p-tabs>
@@ -84,10 +84,10 @@ export class LazyDoc {
                 </p>
             </p-tabpanel>
             <p-tabpanel value="1">
-                <ng-template>Complex content to lazy load</ng-template>
+                <ng-template #content>Complex content to lazy load</ng-template>
             </p-tabpanel>
             <p-tabpanel value="2">
-                <ng-template>Complex content to lazy load</ng-template>
+                <ng-template #content>Complex content to lazy load</ng-template>
             </p-tabpanel>
         </p-tabpanels>
     </p-tabs>
