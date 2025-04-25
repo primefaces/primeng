@@ -179,7 +179,7 @@ interface ExportColumn {
                     </ng-template>
                 </p-dialog>
 
-                <p-confirmDialog [style]="{ width: '450px' }" closeAriaLabel="Close" />
+                <p-confirmDialog [style]="{ width: '450px' }" />
             </div>
         </p-deferred-demo>
         <app-code [code]="code" selector="table-products-demo" [extFiles]="extFiles"></app-code>`,
@@ -584,7 +584,7 @@ export class TableProductsDemo implements OnInit{
     ngOnInit() {
         this.loadDemoData();
     }
-    
+
     loadDemoData() {
         this.productService.getProducts().then((data) => {
             this.products = data;
