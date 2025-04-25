@@ -11,7 +11,7 @@ import { ConfirmationService, MessageService } from 'primeng/api';
         </app-docsectiontext>
         <div class="card flex justify-center gap-2">
             <p-toast />
-            <p-confirmdialog />
+            <p-confirmdialog closeAriaLabel="Close" />
             <p-button (click)="confirm1($event)" label="Save" [outlined]="true" />
             <p-button (click)="confirm2($event)" label="Delete" severity="danger" [outlined]="true" />
         </div>
