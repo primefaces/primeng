@@ -57,6 +57,7 @@ const hideAnimation = animation([animate('{{transition}}', style({ transform: '{
             [style]="style"
             [dismissableMask]="dismissableMask"
             [draggable]="draggable"
+            [closeAriaLabel]="option('closeAriaLabel')"
         >
             @if (headlessTemplate || _headlessTemplate) {
                 <ng-template #headless>
