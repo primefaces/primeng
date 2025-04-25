@@ -40,6 +40,7 @@ export const INPUTNUMBER_VALUE_ACCESSOR: any = {
     useExisting: forwardRef(() => InputNumber),
     multi: true
 };
+
 /**
  * InputNumber is an input component to provide numerical input.
  * @group Components
@@ -401,6 +402,7 @@ export class InputNumber extends BaseComponent implements OnInit, AfterContentIn
      * @group Props
      */
     @Input({ transform: booleanAttribute }) autofocus: boolean | undefined;
+
     /**
      * When present, it specifies that the element should be disabled.
      * @group Props
@@ -408,6 +410,7 @@ export class InputNumber extends BaseComponent implements OnInit, AfterContentIn
     @Input() get disabled(): boolean | undefined {
         return this._disabled;
     }
+
     set disabled(disabled: boolean | undefined) {
         if (disabled) this.focused = false;
 
@@ -415,6 +418,7 @@ export class InputNumber extends BaseComponent implements OnInit, AfterContentIn
 
         if (this.timer) this.clearTimer();
     }
+
     /**
      * Spans 100% width of the container when enabled.
      * @group Props
@@ -641,6 +645,7 @@ export class InputNumber extends BaseComponent implements OnInit, AfterContentIn
         const decimalChar = this.getDecimalChar();
         return new RegExp(`[${decimalChar}]`, 'g');
     }
+
     getDecimalChar(): string {
         const formatter = new Intl.NumberFormat(this.locale, { ...this.getOptions(), useGrouping: false });
         return formatter
@@ -1518,7 +1523,7 @@ export class InputNumber extends BaseComponent implements OnInit, AfterContentIn
     writeValue(value: any): void {
         this.value = value ? Number(value) : value;
         if (this.input) {
-            this.input.nativeElement.value = value ? Number(value) : value;
+            this.input.nativeElement.value = this.value ? String(this.value) : null;
         }
         this.cd.markForCheck();
     }
