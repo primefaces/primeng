@@ -1,5 +1,5 @@
 import { NgTemplateOutlet } from '@angular/common';
-import { booleanAttribute, ChangeDetectionStrategy, Component, computed, contentChild, forwardRef, inject, input, model, TemplateRef, ViewEncapsulation } from '@angular/core';
+import { booleanAttribute, ChangeDetectionStrategy, Component, computed, contentChild, forwardRef, inject, input, model, ViewEncapsulation } from '@angular/core';
 import { equals } from '@primeuix/utils';
 import { BaseComponent } from 'primeng/basecomponent';
 import { TabPanelStyle } from './style/tabpanelstyle';
@@ -51,7 +51,7 @@ export class TabPanel extends BaseComponent {
 
     id = computed(() => `${this.pcTabs.id()}_tabpanel_${this.value()}`);
 
-    lazyContent = contentChild(TemplateRef);
+    lazyContent = contentChild('content');
 
     ariaLabelledby = computed(() => `${this.pcTabs.id()}_tab_${this.value()}`);
 
