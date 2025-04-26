@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { ComponentFixture, TestBed } from '@angular/core/testing';
-import { binarySearchFirst, getShift, initGridPositions, Scroller } from './scroller';
+import { binarySearchFirst, getScrollShift, initGridManager, Scroller } from './scroller';
 import { By } from '@angular/platform-browser';
 import { CommonModule } from '@angular/common';
 import { provideAnimations } from '@angular/platform-browser/animations';
@@ -99,6 +99,13 @@ fdescribe('mytest', () => {
             scrollerDiv = scroller.elementViewChild.nativeElement;
         });
 
+        it('should get correct page', () => {
+            scroller.step = 10;
+            fixture.detectChanges();
+
+            expect(scroller.getPageByFirst(11)).toBe(2);
+        });
+
         it('should scrollToIndex of the last index with itemSize equals to 50', () => {
             scroller.scrollToIndex(scroller.items.length - 1);
             scrollerDiv.dispatchEvent(new Event('scroll'));
@@ -150,7 +157,7 @@ fdescribe('mytest', () => {
         });
 
         it('should scrollTo the bottom with itemSize equals to 50', () => {
-            scroller.scrollTo({ top: scroller._poss.totalSize().main });
+            scroller.scrollTo({ top: scrollerDiv.scrollHeight });
             scrollerDiv.dispatchEvent(new Event('scroll'));
 
             const { firstInViewport, lastInViewport } = getBoundaryViewportItems(fixture, scrollerDiv);
@@ -161,7 +168,7 @@ fdescribe('mytest', () => {
         });
 
         it('should scrollTo the middle with itemSize equals to 50', () => {
-            scroller.scrollTo({ top: scroller._poss.totalSize().main / 2 });
+            scroller.scrollTo({ top: scrollerDiv.scrollHeight / 2 });
             scrollerDiv.dispatchEvent(new Event('scroll'));
 
             const { firstInViewport, lastInViewport } = getBoundaryViewportItems(fixture, scrollerDiv);
@@ -364,14 +371,10 @@ fdescribe('mytest', () => {
             expect(lastInViewport.textContent.trim()).toBe(component.items.at(-1));
         });
 
-        xit('should smoothly scrollToIndex of the middle item', async () => {
-            const itemIdx = component.items.length / 2;
+        it('should smoothly scrollToIndex of the middle item', async () => {
+            const itemIdx = 200;
             scroller.scrollToIndex(itemIdx, 'smooth');
-            const scroll$ = fromEvent(scrollerDiv, 'scroll').pipe(
-                tap(() => scrollerDiv.dispatchEvent(new Event('scroll'))),
-                debounceTime(100),
-                first()
-            );
+            const scroll$ = fromEvent(scrollerDiv, 'scroll').pipe(debounceTime(100), first());
             await lastValueFrom(scroll$);
 
             const { firstInViewport, lastInViewport } = getBoundaryViewportItems(fixture, scrollerDiv);
@@ -389,11 +392,10 @@ fdescribe('mytest', () => {
                 first()
             );
             await lastValueFrom(scroll$);
-            const itemIdx = binarySearchFirst(scrollTo, scroller._poss.positions.mainAxis);
 
             const { firstInViewport, lastInViewport } = getBoundaryViewportItems(fixture, scrollerDiv);
 
-            expect(firstInViewport.textContent.trim()).toBe(component.items.at(itemIdx));
+            expect(firstInViewport.textContent.trim()).toBe(component.items.at(200));
             expect(lastInViewport).toBeTruthy();
         });
 
@@ -421,11 +423,10 @@ fdescribe('mytest', () => {
                 first()
             );
             await lastValueFrom(scroll$);
-            const itemIdx = binarySearchFirst(scrollPos, scroller._poss.positions.mainAxis);
 
             const { firstInViewport, lastInViewport } = getBoundaryViewportItems(fixture, scrollerDiv);
 
-            expect(firstInViewport.textContent.trim()).toBe(component.items.at(itemIdx));
+            expect(firstInViewport.textContent.trim()).toBe(component.items.at(200));
             expect(lastInViewport).toBeTruthy();
         });
     });
@@ -515,7 +516,7 @@ fdescribe('mytest', () => {
         });
 
         it('should scrollTo the bottom with itemSize equals to [50,100]', () => {
-            scroller.scrollTo({ top: scroller._poss.totalSize().main, left: scroller._poss.totalSize().cross });
+            scroller.scrollTo({ top: scrollerDiv.scrollHeight, left: scrollerDiv.scrollWidth });
             scrollerDiv.dispatchEvent(new Event('scroll'));
 
             const { firstInViewport, lastInViewport } = getBoundaryViewportItemsGrid(fixture, scrollerDiv);
@@ -526,7 +527,7 @@ fdescribe('mytest', () => {
         });
 
         it('should scrollTo the middle with itemSize equals to [50,100]', () => {
-            scroller.scrollTo({ top: scroller._poss.totalSize().main / 2, left: scroller._poss.totalSize().cross / 2 });
+            scroller.scrollTo({ top: scrollerDiv.scrollHeight / 2, left: scrollerDiv.scrollWidth / 2 });
             scrollerDiv.dispatchEvent(new Event('scroll'));
 
             const { firstInViewport, lastInViewport } = getBoundaryViewportItemsGrid(fixture, scrollerDiv);
@@ -538,36 +539,30 @@ fdescribe('mytest', () => {
 
         it('should calculate positions during user scrolling', () => {
             scrollerDiv.scrollTo({ top: 1000, left: 1000 });
-            const itemIdx = {
-                main: binarySearchFirst(1000, scroller._poss.positions.mainAxis),
-                cross: binarySearchFirst(1000, scroller._poss.positions.crossAxis)
-            };
             scrollerDiv.dispatchEvent(new Event('scroll'));
 
             const { firstInViewport, lastInViewport } = getBoundaryViewportItemsGrid(fixture, scrollerDiv);
 
             expect(scroller.first).not.toEqual({ rows: 0, cols: 0 });
-            expect(firstInViewport.textContent.trim()).toBe(component.items.at(itemIdx.main).at(itemIdx.cross));
+            expect(firstInViewport.textContent.trim()).toBe(component.items.at(23).at(19));
             expect(lastInViewport).toBeTruthy();
         });
 
         it('should jump to bottom item from user scrolling', () => {
-            const totalsize = scroller._poss.totalSize();
-            scrollerDiv.scrollTo({ top: totalsize.main, left: totalsize.cross });
-            const itemIdx = {
-                main: binarySearchFirst(scrollerDiv.scrollTop, scroller._poss.positions.mainAxis),
-                cross: binarySearchFirst(scrollerDiv.scrollLeft, scroller._poss.positions.crossAxis)
-            };
+            scrollerDiv.scrollTo({ top: scrollerDiv.scrollHeight, left: scrollerDiv.scrollWidth });
             scrollerDiv.dispatchEvent(new Event('scroll'));
 
             const { firstInViewport, lastInViewport } = getBoundaryViewportItemsGrid(fixture, scrollerDiv);
 
-            expect(firstInViewport.textContent.trim()).toBe(component.items.at(itemIdx.main).at(itemIdx.cross));
+            expect(firstInViewport.textContent.trim()).toBe(component.items.at(995).at(995));
             expect(lastInViewport).toBeTruthy();
         });
 
         it('should not flicker during smooth scrolling', () => {
-            const totalsize = scroller._poss.totalSize();
+            const totalsize = {
+                main: scrollerDiv.scrollHeight,
+                cross: scrollerDiv.scrollWidth
+            };
             scrollerDiv.scrollTo({ top: totalsize.main / 2, left: totalsize.cross / 2 + 10 });
             scrollerDiv.dispatchEvent(new Event('scroll'));
 
@@ -589,7 +584,10 @@ fdescribe('mytest', () => {
         });
 
         it('should calculate items on scroll right', () => {
-            const totalsize = scroller._poss.totalSize();
+            const totalsize = {
+                main: scrollerDiv.scrollHeight,
+                cross: scrollerDiv.scrollWidth
+            };
             scrollerDiv.scrollTo({ top: totalsize.main / 2, left: totalsize.cross / 2 + 10 });
             scrollerDiv.dispatchEvent(new Event('scroll'));
 
@@ -605,7 +603,7 @@ fdescribe('mytest', () => {
     describe('initGridPositions', () => {
         const getItems = (lenMain = 5, lenCross = 5) => Array.from({ length: lenMain }, (_, idx) => Array.from({ length: lenCross }, (_, idxCross) => `Item #${idx}_${idxCross}`));
         it('should create positions', () => {
-            const { positions } = initGridPositions({ items: getItems(), scrollPos: { main: 0, cross: 0 }, getItemSize: () => ({ main: 50, cross: 60 }), viewportSize: { main: 100, cross: 100 } });
+            const { positions } = initGridManager({ items: getItems(), scrollPos: () => ({ main: 0, cross: 0 }), setScrollSize: () => {}, scrollTo: () => {}, getItemSize: () => ({ main: 50, cross: 60 }), viewportSize: { main: 100, cross: 100 } });
             expect(positions).toEqual({
                 mainAxis: [
                     { size: 50, pos: 0 },
@@ -625,8 +623,15 @@ fdescribe('mytest', () => {
         });
 
         it('should calculate a [1000,1000] positions', () => {
-            const { positions, updateByIndex } = initGridPositions({ items: getItems(1000, 1000), scrollPos: { main: 0, cross: 0 }, getItemSize: () => ({ main: 50, cross: 100 }), viewportSize: { main: 200, cross: 200 } });
-            updateByIndex(-1, -1);
+            const { positions, at } = initGridManager({
+                items: getItems(1000, 1000),
+                getItemSize: () => ({ main: 50, cross: 100 }),
+                scrollPos: () => ({ main: 0, cross: 0 }),
+                scrollTo: () => {},
+                setScrollSize: () => {},
+                viewportSize: { main: 200, cross: 200 }
+            });
+            at(-1, -1);
 
             expect(positions.mainAxis.slice(0, 10)).toEqual([
                 { size: 50, pos: 0 },
@@ -671,13 +676,15 @@ fdescribe('mytest', () => {
         });
 
         it('should updateByIndex(499,499)', () => {
-            const { positions, updateByIndex } = initGridPositions({
+            const { positions, at } = initGridManager({
                 items: getItems(1000, 1000),
-                scrollPos: { main: 0, cross: 0 },
                 getItemSize: () => ({ main: 50, cross: 100 }),
+                scrollPos: () => ({ main: 0, cross: 0 }),
+                scrollTo: () => {},
+                setScrollSize: () => {},
                 viewportSize: { main: 200, cross: 200 }
             });
-            updateByIndex(499, 499);
+            at(499, 499);
 
             expect(positions.mainAxis.slice(494, 509)).toEqual([
                 { size: 40, pos: 19840 },
@@ -711,14 +718,15 @@ fdescribe('mytest', () => {
 
         it('should calculate first', () => {
             const scrollPos = { main: 19960, cross: 19960 };
-            const { getRange, positions } = initGridPositions({
+            const { getRange, positions } = initGridManager({
                 items: getItems(1000, 1000),
-                scrollPos,
+                scrollPos: () => scrollPos,
                 getItemSize: () => ({ main: 50, cross: 100 }),
                 scrollTo: (x) => {
                     scrollPos.main = x.main;
                     scrollPos.cross = x.cross;
                 },
+                setScrollSize: () => {},
                 viewportSize: { main: 200, cross: 200 }
             });
 
@@ -730,14 +738,15 @@ fdescribe('mytest', () => {
 
         it('should calculate last', () => {
             const scrollPos = { main: 19960, cross: 19960 };
-            const { getRange, positions } = initGridPositions({
+            const { getRange, positions } = initGridManager({
                 items: getItems(1000, 1000),
-                scrollPos,
+                scrollPos: () => scrollPos,
                 getItemSize: () => ({ main: 50, cross: 100 }),
                 scrollTo: (x) => {
                     scrollPos.main = x.main;
                     scrollPos.cross = x.cross;
                 },
+                setScrollSize: () => {},
                 viewportSize: { main: 200, cross: 200 }
             });
 
@@ -749,13 +758,15 @@ fdescribe('mytest', () => {
         });
 
         it('should calculate positions at the bottom', () => {
-            const { positions, updateByIndex } = initGridPositions({
+            const { positions, at } = initGridManager({
                 items: getItems(6, 5),
-                scrollPos: { main: 340, cross: 400 },
                 getItemSize: (_, mainIdx, crossIdx) => ({ main: [20, 50, 100][mainIdx % 3], cross: [30, 60, 110][crossIdx % 3] }),
+                scrollPos: () => ({ main: 340, cross: 400 }),
+                setScrollSize: () => {},
+                scrollTo: () => {},
                 viewportSize: { main: 100, cross: 100 }
             });
-            updateByIndex(-1, -1);
+            at(-1, -1);
 
             expect(positions).toEqual({
                 mainAxis: [
@@ -777,13 +788,15 @@ fdescribe('mytest', () => {
         });
 
         it('should calculate positions at the middle', () => {
-            const { positions, updateByIndex } = initGridPositions({
+            const { positions, at } = initGridManager({
                 items: getItems(10, 10),
-                scrollPos: { main: 160, cross: 160 },
                 getItemSize: (_, mainIdx, crossIdx) => ({ main: [20, 50, 100][mainIdx % 3], cross: [30, 60, 110][crossIdx % 3] }),
+                scrollPos: () => ({ main: 160, cross: 160 }),
+                setScrollSize: () => {},
+                scrollTo: () => {},
                 viewportSize: { main: 100, cross: 100 }
             });
-            updateByIndex(4, 4);
+            at(4, 4);
 
             expect(positions).toEqual({
                 mainAxis: [
@@ -814,8 +827,15 @@ fdescribe('mytest', () => {
         });
 
         it('should calculate real positions and adjust leftover positions from top down', () => {
-            const { positions, updateByIndex } = initGridPositions({ items: getItems(), scrollPos: { main: 0, cross: 0 }, getItemSize: () => ({ main: 200, cross: 200 }), viewportSize: { main: 200, cross: 200 } });
-            updateByIndex(1, 1);
+            const { positions, at } = initGridManager({
+                items: getItems(),
+                getItemSize: () => ({ main: 200, cross: 200 }),
+                scrollPos: () => ({ main: 0, cross: 0 }),
+                setScrollSize: () => {},
+                scrollTo: () => {},
+                viewportSize: { main: 200, cross: 200 }
+            });
+            at(1, 1);
 
             expect(positions).toEqual({
                 mainAxis: [
@@ -836,8 +856,15 @@ fdescribe('mytest', () => {
         });
 
         it('should calculate real positions and adjust leftover positions from bottom up', () => {
-            const { positions, updateByIndex } = initGridPositions({ items: getItems(), scrollPos: { main: 0, cross: 0 }, getItemSize: () => ({ main: 200, cross: 200 }), viewportSize: { main: 200, cross: 200 } });
-            updateByIndex(-1, -1);
+            const { positions, at } = initGridManager({
+                items: getItems(),
+                getItemSize: () => ({ main: 200, cross: 200 }),
+                scrollPos: () => ({ main: 0, cross: 0 }),
+                setScrollSize: () => {},
+                scrollTo: () => {},
+                viewportSize: { main: 200, cross: 200 }
+            });
+            at(-1, -1);
 
             expect(positions).toEqual({
                 mainAxis: [
@@ -857,26 +884,9 @@ fdescribe('mytest', () => {
             });
         });
 
-        it('should calculate correct jumps', () => {
-            let actualJump: { main: number; cross: number };
-            const scrollerEl = { main: 0, cross: 0 };
-            const { positions, at } = initGridPositions({ items: getItems(100, 100), scrollPos: scrollerEl, getItemSize: () => ({ main: 200, cross: 200 }), viewportSize: { main: 200, cross: 200 }, onChange: ({ jump }) => (actualJump = jump) });
-            const itemIdx = { main: 50, cross: 50 };
-            const positionBefore = { main: positions.mainAxis.at(itemIdx.main).pos, cross: positions.crossAxis.at(itemIdx.cross).pos };
-            scrollerEl.main = positionBefore.main;
-            scrollerEl.cross = positionBefore.cross;
-            at(25);
-            const expectedJump = {
-                main: positions.mainAxis.at(itemIdx.main).pos - positionBefore.main,
-                cross: positions.crossAxis.at(itemIdx.cross).pos - positionBefore.cross
-            };
-
-            expect(actualJump).toEqual(expectedJump);
-        });
-
         it('should be pure', () => {
-            const positions = initGridPositions({ items: getItems(100), scrollPos: { main: 0, cross: 0 }, getItemSize: () => ({ main: 200, cross: 200 }), viewportSize: { main: 200, cross: 200 } });
-            const positions2 = initGridPositions({ items: getItems(100), scrollPos: { main: 0, cross: 0 }, getItemSize: () => ({ main: 200, cross: 200 }), viewportSize: { main: 200, cross: 200 } });
+            const positions = initGridManager({ items: getItems(100), setScrollSize: () => {}, scrollTo: () => {}, scrollPos: () => ({ main: 0, cross: 0 }), getItemSize: () => ({ main: 200, cross: 200 }), viewportSize: { main: 200, cross: 200 } });
+            const positions2 = initGridManager({ items: getItems(100), setScrollSize: () => {}, scrollTo: () => {}, scrollPos: () => ({ main: 0, cross: 0 }), getItemSize: () => ({ main: 200, cross: 200 }), viewportSize: { main: 200, cross: 200 } });
             const idx = 25;
             positions.at(idx, idx);
             positions2.at(idx, idx);
@@ -886,50 +896,44 @@ fdescribe('mytest', () => {
 
         it('should restore same item in viewport', () => {
             const scrollPos = { main: 0, cross: 0 };
-            const positions = initGridPositions({
+            const positions = initGridManager({
                 items: getItems(100),
-                scrollPos,
+                scrollPos: () => scrollPos,
                 getItemSize: () => ({ main: 30, cross: 10 }),
                 viewportSize: { main: 200, cross: 200 },
                 scrollTo: ({ main, cross }) => {
                     scrollPos.main = main;
                     scrollPos.cross = cross;
                 },
-                onChange: ({ jump }) => {
-                    scrollPos.main += jump.main;
-                    scrollPos.cross += jump.cross;
-                }
+                setScrollSize: () => {}
             });
             scrollPos.main = positions.totalSize().main / 2;
             scrollPos.cross = positions.totalSize().cross / 2;
             positions.getRange({ main: 0, cross: 0 });
-            const firstInViewport = positions.numsInViewport().first;
+            const firstInViewport = positions.itemsInViewport().first;
             const scrollPos2 = {
-                main: scrollPos.main + getShift({ scrollPos: scrollPos.main, prevItemPos: positions.positions.mainAxis[firstInViewport.main].pos, currItemPos: 40 * firstInViewport.main }),
-                cross: scrollPos.cross + getShift({ scrollPos: scrollPos.cross, prevItemPos: positions.positions.crossAxis[firstInViewport.cross].pos, currItemPos: 40 * firstInViewport.cross })
+                main: scrollPos.main + getScrollShift({ scrollPos: scrollPos.main, prevItemPos: positions.positions.mainAxis[firstInViewport.main].pos, currItemPos: 40 * firstInViewport.main }),
+                cross: scrollPos.cross + getScrollShift({ scrollPos: scrollPos.cross, prevItemPos: positions.positions.crossAxis[firstInViewport.cross].pos, currItemPos: 40 * firstInViewport.cross })
             };
-            const positions2 = initGridPositions({
+            const positions2 = initGridManager({
                 items: getItems(100),
-                scrollPos: scrollPos2,
+                scrollPos: () => scrollPos2,
                 getItemSize: () => ({ main: 30, cross: 10 }),
                 viewportSize: { main: 200, cross: 200 },
                 scrollTo: ({ main, cross }) => {
                     scrollPos2.main = main;
                     scrollPos2.cross = cross;
                 },
-                onChange: ({ jump }) => {
-                    scrollPos2.main += jump.main;
-                    scrollPos2.cross += jump.cross;
-                }
+                setScrollSize: () => {}
             });
-            const firstInViewport2 = positions2.numsInViewport().first;
+            const firstInViewport2 = positions2.itemsInViewport().first;
 
             expect(firstInViewport).toEqual(firstInViewport2);
         });
 
         it('should get shift', () => {
             const scrollPos = 50;
-            const shift = getShift({
+            const shift = getScrollShift({
                 scrollPos,
                 prevItemPos: 40,
                 currItemPos: 180
@@ -938,29 +942,26 @@ fdescribe('mytest', () => {
         });
         it('should get shift 2', () => {
             const scrollPos = 190;
-            const shift = getShift({ scrollPos, prevItemPos: 180, currItemPos: 40 });
+            const shift = getScrollShift({ scrollPos, prevItemPos: 180, currItemPos: 40 });
             expect(scrollPos + shift).toBe(50);
         });
         it('should get shift 3', () => {
-            const shift = getShift({ scrollPos: 0, prevItemPos: 0, currItemPos: 0 });
+            const shift = getScrollShift({ scrollPos: 0, prevItemPos: 0, currItemPos: 0 });
             expect(shift).toBe(0);
         });
 
         it('should calculate thing at once', () => {
             const scrollPos = { main: 0, cross: 0 };
-            const positions = initGridPositions({
+            const positions = initGridManager({
                 items: getItems(100),
-                scrollPos,
+                scrollPos: () => scrollPos,
                 getItemSize: () => ({ main: 50, cross: 40 }),
                 viewportSize: { main: 200, cross: 200 },
                 scrollTo: ({ main, cross }) => {
                     scrollPos.main = main;
                     scrollPos.cross = cross;
                 },
-                onChange: ({ jump }) => {
-                    scrollPos.main += jump.main;
-                    scrollPos.cross += jump.cross;
-                }
+                setScrollSize: () => {}
             });
 
             scrollPos.main = 3000;
