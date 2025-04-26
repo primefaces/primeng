@@ -751,10 +751,12 @@ fdescribe('mytest', () => {
             });
 
             const first = { main: 495, cross: 497 };
-            const expectedLast = { main: 506, cross: 502 };
+            const expectedLast = { main: 507, cross: 503 };
             expect(getRange(first).last).toEqual(expectedLast);
-            expect(positions.mainAxis[expectedLast.main].size).toBe(50);
-            expect(positions.crossAxis[expectedLast.cross].size).toBe(100);
+            expect(positions.mainAxis[expectedLast.main - 1].size).toBe(50);
+            expect(positions.crossAxis[expectedLast.cross - 1].size).toBe(100);
+            expect(positions.mainAxis[expectedLast.main].size).toBe(40);
+            expect(positions.crossAxis[expectedLast.cross].size).toBe(40);
         });
 
         it('should calculate positions at the bottom', () => {

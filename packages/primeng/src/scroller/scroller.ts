@@ -930,8 +930,6 @@ export class Scroller extends BaseComponent implements OnInit, AfterContentInit,
 
     onScrollChange(event: Event) {
         const { first, last, isRangeChanged } = this._gridManager.getRange(this._first);
-        last.main++;
-        last.cross++;
         const target = <HTMLElement>event.target;
 
         if (isRangeChanged) {
@@ -1173,7 +1171,6 @@ export const initGridManager = <T>({
     itemsInViewport: () => { first: GridItem; last: GridItem };
 } => {
     const _items = isGrid(items) ? items : items.map((x) => [x]);
-
     const positions = {
         mainAxis: _items.map((_i, idx) => ({ size: estimatedItemSize.main, pos: idx * estimatedItemSize.main })),
         crossAxis: Array.from({ length: Math.max(..._items.map((i) => i.length)) }, (_i, idx) => ({ size: estimatedItemSize.cross, pos: idx * estimatedItemSize.cross }))
@@ -1182,6 +1179,7 @@ export const initGridManager = <T>({
         mainAxis: positions.mainAxis.map(() => false),
         crossAxis: positions.crossAxis.map(() => false)
     };
+    const _triggerDistance = { main: viewportSize.main / 2, cross: viewportSize.cross / 2 };
 
     const _calculateSizesWithinDistance = (distance: GridItem, startIdx: GridItem, direction: 'forward' | 'backward') => {
         const step = direction === 'forward' ? 1 : -1;
@@ -1293,18 +1291,17 @@ export const initGridManager = <T>({
         };
     };
 
-    const _calculateFirst = (currFirstIdx: number, scrollPos: number, itemPositions: ItemPos[], viewportSize: number) => {
+    const _calculateFirst = (currFirstIdx: number, scrollPos: number, itemPositions: ItemPos[], viewportSize: number, triggerDistance: number) => {
         const currFirstPos = itemPositions.at(currFirstIdx).pos;
         const newFirst = binarySearchFirst(Math.max(scrollPos - viewportSize, 0), itemPositions);
         const distanceFromCurrent = scrollPos - currFirstPos;
-        const triggerDistance = viewportSize / 2;
 
         return distanceFromCurrent < triggerDistance || distanceFromCurrent > viewportSize + triggerDistance ? newFirst : currFirstIdx;
     };
 
     const _calculateLast = (firstIdx: number, totalScrollSize: number, viewportSize: number, itemPositions: ItemPos[]) => {
-        const firstPos = itemPositions.at(firstIdx).pos - itemPositions.at(firstIdx).size;
-        return binarySearchFirst(Math.min(firstPos + viewportSize * 3, totalScrollSize), itemPositions);
+        const lastItemPos = itemPositions.at(firstIdx).pos + viewportSize * 3;
+        return lastItemPos > totalScrollSize ? itemPositions.length : binarySearchFirst(lastItemPos, itemPositions);
     };
 
     const _shouldRecalculate = (calculatedIdxs: boolean[], firstRendered: { pos: number; idx: number }, firstInViewport: { pos: number; idx: number }, triggerDistance: number) => {
@@ -1315,16 +1312,16 @@ export const initGridManager = <T>({
     const getRange = (first: GridItem) => {
         const viewport = itemsInViewport();
         if (
-            _shouldRecalculate(_calculatedIndexes.mainAxis, { pos: positions.mainAxis[first.main].pos, idx: first.main }, { pos: positions.mainAxis[viewport.first.main].pos, idx: viewport.first.main }, viewportSize.main / 2) ||
-            _shouldRecalculate(_calculatedIndexes.crossAxis, { pos: positions.crossAxis[first.cross].pos, idx: first.cross }, { pos: positions.crossAxis[viewport.first.cross].pos, idx: viewport.first.cross }, viewportSize.cross / 2)
+            _shouldRecalculate(_calculatedIndexes.mainAxis, { pos: positions.mainAxis[first.main].pos, idx: first.main }, { pos: positions.mainAxis[viewport.first.main].pos, idx: viewport.first.main }, _triggerDistance.main) ||
+            _shouldRecalculate(_calculatedIndexes.crossAxis, { pos: positions.crossAxis[first.cross].pos, idx: first.cross }, { pos: positions.crossAxis[viewport.first.cross].pos, idx: viewport.first.cross }, _triggerDistance.cross)
         )
             _syncScrollOnAction(() => _updateByIndex(viewport.first.main, viewport.first.cross));
 
         const totalScrollSize = totalSize();
         const { main: scrollPosMain, cross: scrollPosCross } = scrollPos();
         const newFirst = {
-            main: _calculateFirst(first.main, scrollPosMain, positions.mainAxis, viewportSize.main),
-            cross: _calculateFirst(first.cross, scrollPosCross, positions.crossAxis, viewportSize.cross)
+            main: _calculateFirst(first.main, scrollPosMain, positions.mainAxis, viewportSize.main, _triggerDistance.main),
+            cross: _calculateFirst(first.cross, scrollPosCross, positions.crossAxis, viewportSize.cross, _triggerDistance.cross)
         };
         const newLast = {
             main: _calculateLast(newFirst.main, totalScrollSize.main, viewportSize.main, positions.mainAxis),
