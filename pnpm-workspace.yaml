@@ -10,7 +10,7 @@ catalogs:
     angular19:
         "@angular-devkit/build-angular": ^19
         "@angular/animations": ^19
-        "@angular/cdk": 19.2.3
+        "@angular/cdk": ^19
         "@angular/cli": ^19
         "@angular/common": ^19
         "@angular/compiler": ^19
