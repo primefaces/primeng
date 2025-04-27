@@ -603,7 +603,7 @@ fdescribe('mytest', () => {
     describe('initGridPositions', () => {
         const getItems = (lenMain = 5, lenCross = 5) => Array.from({ length: lenMain }, (_, idx) => Array.from({ length: lenCross }, (_, idxCross) => `Item #${idx}_${idxCross}`));
         it('should create positions', () => {
-            const { positions } = initGridManager({ items: getItems(), scrollPos: () => ({ main: 0, cross: 0 }), setScrollSize: () => {}, scrollTo: () => {}, getItemSize: () => ({ main: 50, cross: 60 }), viewportSize: { main: 100, cross: 100 } });
+            const { positions } = initGridManager({ items: getItems(), getScrollPos: () => ({ main: 0, cross: 0 }), setScrollSize: () => {}, scrollTo: () => {}, getItemSize: () => ({ main: 50, cross: 60 }), viewportSize: { main: 100, cross: 100 } });
             expect(positions).toEqual({
                 mainAxis: [
                     { size: 50, pos: 0 },
@@ -626,7 +626,7 @@ fdescribe('mytest', () => {
             const { positions, at } = initGridManager({
                 items: getItems(1000, 1000),
                 getItemSize: () => ({ main: 50, cross: 100 }),
-                scrollPos: () => ({ main: 0, cross: 0 }),
+                getScrollPos: () => ({ main: 0, cross: 0 }),
                 scrollTo: () => {},
                 setScrollSize: () => {},
                 viewportSize: { main: 200, cross: 200 }
@@ -679,7 +679,7 @@ fdescribe('mytest', () => {
             const { positions, at } = initGridManager({
                 items: getItems(1000, 1000),
                 getItemSize: () => ({ main: 50, cross: 100 }),
-                scrollPos: () => ({ main: 0, cross: 0 }),
+                getScrollPos: () => ({ main: 0, cross: 0 }),
                 scrollTo: () => {},
                 setScrollSize: () => {},
                 viewportSize: { main: 200, cross: 200 }
@@ -720,7 +720,7 @@ fdescribe('mytest', () => {
             const scrollPos = { main: 19960, cross: 19960 };
             const { getRange, positions } = initGridManager({
                 items: getItems(1000, 1000),
-                scrollPos: () => scrollPos,
+                getScrollPos: () => scrollPos,
                 getItemSize: () => ({ main: 50, cross: 100 }),
                 scrollTo: (x) => {
                     scrollPos.main = x.main;
@@ -740,7 +740,7 @@ fdescribe('mytest', () => {
             const scrollPos = { main: 19960, cross: 19960 };
             const { getRange, positions } = initGridManager({
                 items: getItems(1000, 1000),
-                scrollPos: () => scrollPos,
+                getScrollPos: () => scrollPos,
                 getItemSize: () => ({ main: 50, cross: 100 }),
                 scrollTo: (x) => {
                     scrollPos.main = x.main;
@@ -763,7 +763,7 @@ fdescribe('mytest', () => {
             const { positions, at } = initGridManager({
                 items: getItems(6, 5),
                 getItemSize: (_, mainIdx, crossIdx) => ({ main: [20, 50, 100][mainIdx % 3], cross: [30, 60, 110][crossIdx % 3] }),
-                scrollPos: () => ({ main: 340, cross: 400 }),
+                getScrollPos: () => ({ main: 340, cross: 400 }),
                 setScrollSize: () => {},
                 scrollTo: () => {},
                 viewportSize: { main: 100, cross: 100 }
@@ -793,7 +793,7 @@ fdescribe('mytest', () => {
             const { positions, at } = initGridManager({
                 items: getItems(10, 10),
                 getItemSize: (_, mainIdx, crossIdx) => ({ main: [20, 50, 100][mainIdx % 3], cross: [30, 60, 110][crossIdx % 3] }),
-                scrollPos: () => ({ main: 160, cross: 160 }),
+                getScrollPos: () => ({ main: 160, cross: 160 }),
                 setScrollSize: () => {},
                 scrollTo: () => {},
                 viewportSize: { main: 100, cross: 100 }
@@ -832,7 +832,7 @@ fdescribe('mytest', () => {
             const { positions, at } = initGridManager({
                 items: getItems(),
                 getItemSize: () => ({ main: 200, cross: 200 }),
-                scrollPos: () => ({ main: 0, cross: 0 }),
+                getScrollPos: () => ({ main: 0, cross: 0 }),
                 setScrollSize: () => {},
                 scrollTo: () => {},
                 viewportSize: { main: 200, cross: 200 }
@@ -861,7 +861,7 @@ fdescribe('mytest', () => {
             const { positions, at } = initGridManager({
                 items: getItems(),
                 getItemSize: () => ({ main: 200, cross: 200 }),
-                scrollPos: () => ({ main: 0, cross: 0 }),
+                getScrollPos: () => ({ main: 0, cross: 0 }),
                 setScrollSize: () => {},
                 scrollTo: () => {},
                 viewportSize: { main: 200, cross: 200 }
@@ -887,8 +887,22 @@ fdescribe('mytest', () => {
         });
 
         it('should be pure', () => {
-            const positions = initGridManager({ items: getItems(100), setScrollSize: () => {}, scrollTo: () => {}, scrollPos: () => ({ main: 0, cross: 0 }), getItemSize: () => ({ main: 200, cross: 200 }), viewportSize: { main: 200, cross: 200 } });
-            const positions2 = initGridManager({ items: getItems(100), setScrollSize: () => {}, scrollTo: () => {}, scrollPos: () => ({ main: 0, cross: 0 }), getItemSize: () => ({ main: 200, cross: 200 }), viewportSize: { main: 200, cross: 200 } });
+            const positions = initGridManager({
+                items: getItems(100),
+                setScrollSize: () => {},
+                scrollTo: () => {},
+                getScrollPos: () => ({ main: 0, cross: 0 }),
+                getItemSize: () => ({ main: 200, cross: 200 }),
+                viewportSize: { main: 200, cross: 200 }
+            });
+            const positions2 = initGridManager({
+                items: getItems(100),
+                setScrollSize: () => {},
+                scrollTo: () => {},
+                getScrollPos: () => ({ main: 0, cross: 0 }),
+                getItemSize: () => ({ main: 200, cross: 200 }),
+                viewportSize: { main: 200, cross: 200 }
+            });
             const idx = 25;
             positions.at(idx, idx);
             positions2.at(idx, idx);
@@ -900,7 +914,7 @@ fdescribe('mytest', () => {
             const scrollPos = { main: 0, cross: 0 };
             const positions = initGridManager({
                 items: getItems(100),
-                scrollPos: () => scrollPos,
+                getScrollPos: () => scrollPos,
                 getItemSize: () => ({ main: 30, cross: 10 }),
                 viewportSize: { main: 200, cross: 200 },
                 scrollTo: ({ main, cross }) => {
@@ -919,7 +933,7 @@ fdescribe('mytest', () => {
             };
             const positions2 = initGridManager({
                 items: getItems(100),
-                scrollPos: () => scrollPos2,
+                getScrollPos: () => scrollPos2,
                 getItemSize: () => ({ main: 30, cross: 10 }),
                 viewportSize: { main: 200, cross: 200 },
                 scrollTo: ({ main, cross }) => {
@@ -956,7 +970,7 @@ fdescribe('mytest', () => {
             const scrollPos = { main: 0, cross: 0 };
             const positions = initGridManager({
                 items: getItems(100),
-                scrollPos: () => scrollPos,
+                getScrollPos: () => scrollPos,
                 getItemSize: () => ({ main: 50, cross: 40 }),
                 viewportSize: { main: 200, cross: 200 },
                 scrollTo: ({ main, cross }) => {

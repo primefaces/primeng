@@ -434,7 +434,7 @@ export class Scroller extends BaseComponent implements OnInit, AfterContentInit,
     private _gridManager: ReturnType<typeof initGridManager> = initGridManager({
         viewportSize: { main: 0, cross: 0 },
         items: [],
-        scrollPos: () => ({ main: 0, cross: 0 }),
+        getScrollPos: () => ({ main: 0, cross: 0 }),
         getItemSize: () => ({ main: 0, cross: 0 }),
         scrollTo: () => {},
         setScrollSize: () => {}
@@ -685,7 +685,7 @@ export class Scroller extends BaseComponent implements OnInit, AfterContentInit,
                           return { main, cross };
                       }
                     : () => (Array.isArray(_itemSize) ? { main: _itemSize[0], cross: _itemSize[1] } : { main: _itemSize, cross: 0 }),
-            scrollPos: () => this.toMainCrossAxises(this.elementViewChild.nativeElement.scrollTop, this.elementViewChild.nativeElement.scrollLeft),
+            getScrollPos: () => this.toMainCrossAxises(this.elementViewChild.nativeElement.scrollTop, this.elementViewChild.nativeElement.scrollLeft),
             scrollTo: (pos) => {
                 this.elementViewChild.nativeElement.scrollTo(this.toTopLeft(pos));
                 this.cd.detectChanges();
@@ -1151,7 +1151,7 @@ export const initGridManager = <T>({
     items,
     getItemSize,
     viewportSize,
-    scrollPos,
+    getScrollPos,
     scrollTo,
     setScrollSize,
     estimatedItemSize = { main: 40, cross: 40 }
@@ -1159,14 +1159,14 @@ export const initGridManager = <T>({
     items: T[] | T[][];
     getItemSize: (item: T, idxMain: number, idxCross: number) => GridItem;
     viewportSize: GridItem;
-    scrollPos: () => GridItem;
+    getScrollPos: () => GridItem;
     scrollTo: (pos: GridItem) => void;
     setScrollSize: (size: GridItem) => void;
     estimatedItemSize?: GridItem;
 }): {
     positions: { mainAxis: ItemPos[]; crossAxis: ItemPos[] };
     at: (main: number, cross?: number) => { main: ItemPos; cross: ItemPos };
-    totalSize: () => { main: number; cross: number };
+    totalSize: () => GridItem;
     getRange: (first: GridItem) => { first: GridItem; last: GridItem; isRangeChanged: boolean };
     itemsInViewport: () => { first: GridItem; last: GridItem };
 } => {
@@ -1236,9 +1236,9 @@ export const initGridManager = <T>({
     });
 
     const _syncScrollOnAction = (action: () => void) => {
-        const { main: scrollPosMain, cross: scrollPosCross } = scrollPos();
-        const initMainItemIdx = binarySearchFirst(scrollPosMain, positions.mainAxis);
-        const initCrossItemIdx = binarySearchFirst(scrollPosCross, positions.crossAxis);
+        const scrollPos = getScrollPos();
+        const initMainItemIdx = binarySearchFirst(scrollPos.main, positions.mainAxis);
+        const initCrossItemIdx = binarySearchFirst(scrollPos.cross, positions.crossAxis);
         const prevItemPos = {
             main: positions.mainAxis[initMainItemIdx].pos,
             cross: positions.crossAxis[initCrossItemIdx].pos
@@ -1250,19 +1250,19 @@ export const initGridManager = <T>({
         const updatedTotalSize = totalSize();
         const jump = {
             main: getScrollShift({
-                scrollPos: scrollPosMain,
+                scrollPos: scrollPos.main,
                 currItemPos: positions.mainAxis[initMainItemIdx].pos,
                 prevItemPos: prevItemPos.main
             }),
             cross: getScrollShift({
-                scrollPos: scrollPosCross,
+                scrollPos: scrollPos.cross,
                 currItemPos: positions.crossAxis[initCrossItemIdx].pos,
                 prevItemPos: prevItemPos.cross
             })
         };
 
         if ([updatedTotalSize.main - initTotalSize.main, updatedTotalSize.cross - initTotalSize.cross].some(Boolean)) setScrollSize(updatedTotalSize);
-        if (jump.main || jump.cross) scrollTo({ main: scrollPosMain + jump.main, cross: scrollPosCross + jump.cross });
+        if (jump.main || jump.cross) scrollTo({ main: scrollPos.main + jump.main, cross: scrollPos.cross + jump.cross });
     };
 
     const at = (main: number, cross: number = 0) => {
@@ -1274,7 +1274,7 @@ export const initGridManager = <T>({
         };
     };
 
-    const _getNumsInViewport = (scrollPos: number, viewportSize: number, itemPositions: ItemPos[]) => {
+    const _getItemsInViewport = (scrollPos: number, viewportSize: number, itemPositions: ItemPos[]) => {
         const first = binarySearchFirst(scrollPos, itemPositions);
         const last = binarySearchFirst(scrollPos + viewportSize, itemPositions);
 
@@ -1282,9 +1282,9 @@ export const initGridManager = <T>({
     };
 
     const itemsInViewport = () => {
-        const { main: scrollPosMain, cross: scrollPosCross } = scrollPos();
-        const main = _getNumsInViewport(scrollPosMain, viewportSize.main, positions.mainAxis);
-        const cross = _getNumsInViewport(scrollPosCross, viewportSize.cross, positions.crossAxis);
+        const { main: scrollPosMain, cross: scrollPosCross } = getScrollPos();
+        const main = _getItemsInViewport(scrollPosMain, viewportSize.main, positions.mainAxis);
+        const cross = _getItemsInViewport(scrollPosCross, viewportSize.cross, positions.crossAxis);
         return {
             first: { main: main.first, cross: cross.first },
             last: { main: main.last, cross: cross.last }
@@ -1305,8 +1305,8 @@ export const initGridManager = <T>({
     };
 
     const _shouldRecalculate = (calculatedIdxs: boolean[], firstRendered: { pos: number; idx: number }, firstInViewport: { pos: number; idx: number }, triggerDistance: number) => {
-        const thresholdDistance = firstInViewport.pos - firstRendered.pos;
-        return !calculatedIdxs.at(firstInViewport.idx) || (calculatedIdxs.some((x) => !x) && (thresholdDistance < triggerDistance || thresholdDistance > triggerDistance * 3));
+        const distanceBetween = firstInViewport.pos - firstRendered.pos;
+        return !calculatedIdxs.at(firstInViewport.idx) || (calculatedIdxs.length > 1 && (distanceBetween < triggerDistance || distanceBetween > triggerDistance * 3));
     };
 
     const getRange = (first: GridItem) => {
@@ -1318,26 +1318,25 @@ export const initGridManager = <T>({
             _syncScrollOnAction(() => _updateByIndex(viewport.first.main, viewport.first.cross));
 
         const totalScrollSize = totalSize();
-        const { main: scrollPosMain, cross: scrollPosCross } = scrollPos();
+        const scrollPos = getScrollPos();
         const newFirst = {
-            main: _calculateFirst(first.main, scrollPosMain, positions.mainAxis, viewportSize.main, _triggerDistance.main),
-            cross: _calculateFirst(first.cross, scrollPosCross, positions.crossAxis, viewportSize.cross, _triggerDistance.cross)
-        };
-        const newLast = {
-            main: _calculateLast(newFirst.main, totalScrollSize.main, viewportSize.main, positions.mainAxis),
-            cross: _calculateLast(newFirst.cross, totalScrollSize.cross, viewportSize.cross, positions.crossAxis)
+            main: _calculateFirst(first.main, scrollPos.main, positions.mainAxis, viewportSize.main, _triggerDistance.main),
+            cross: _calculateFirst(first.cross, scrollPos.cross, positions.crossAxis, viewportSize.cross, _triggerDistance.cross)
         };
 
         return {
             first: newFirst,
-            last: newLast,
+            last: {
+                main: _calculateLast(newFirst.main, totalScrollSize.main, viewportSize.main, positions.mainAxis),
+                cross: _calculateLast(newFirst.cross, totalScrollSize.cross, viewportSize.cross, positions.crossAxis)
+            },
             isRangeChanged: newFirst.main !== first.main || newFirst.cross !== first.cross
         };
     };
 
     if (positions.crossAxis.length) {
-        const { main: scrollMain, cross: scrollCross } = scrollPos();
-        _syncScrollOnAction(() => _updateByIndex(binarySearchFirst(scrollMain, positions.mainAxis), binarySearchFirst(scrollCross, positions.crossAxis)));
+        const scrollPos = getScrollPos();
+        _syncScrollOnAction(() => _updateByIndex(binarySearchFirst(scrollPos.main, positions.mainAxis), binarySearchFirst(scrollPos.cross, positions.crossAxis)));
     }
 
     return { positions, getRange, at, itemsInViewport, totalSize };
