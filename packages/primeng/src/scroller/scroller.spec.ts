@@ -3,93 +3,93 @@ import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { binarySearchFirst, getScrollShift, initGridManager, Scroller } from './scroller';
 import { By } from '@angular/platform-browser';
 import { CommonModule } from '@angular/common';
-import { provideAnimations } from '@angular/platform-browser/animations';
 import { debounceTime, first, fromEvent, lastValueFrom, tap } from 'rxjs';
 
-fdescribe('mytest', () => {
-    @Component({
-        template: `
-            <p-virtualscroller [items]="items" [itemSize]="itemSize" [orientation]="orientation" scrollHeight="200px" styleClass="border border-surface" [style]="{ width: '200px', height: '200px' }">
-                <ng-template #item let-item let-options="options">
-                    <div
-                        class="flex items-center p-2"
-                        [ngClass]="{ 'bg-surface-100 dark:bg-surface-700': options.odd }"
-                        [style]="{ overflow: 'hidden', width: orientation === 'horizontal' ? itemSize + 'px' : 'auto', height: orientation === 'vertical' ? itemSize + 'px' : 'auto' }"
-                    >
-                        {{ item }}
-                    </div>
-                </ng-template>
-            </p-virtualscroller>
-        `,
-        imports: [Scroller, CommonModule]
-    })
-    class BasicScrollerWrapper {
-        items = Array.from({ length: 1000 }).map((_, i) => `Item #${i}`);
-        itemSize = 50;
-        orientation: 'vertical' | 'horizontal' = 'vertical';
-    }
-
-    const getRenderedItems = <T>(fixture: ComponentFixture<T>) =>
+fdescribe('Scroller', () => {
+    const getRenderedItems = <T>(fixture: ComponentFixture<T>, grid = false) =>
         fixture.debugElement
-            .queryAll(By.css('.p-virtualscroller-content div'))
+            .queryAll(By.css(`.p-virtualscroller-content div ${grid ? 'div' : ''}`))
             .map((x) => x.nativeElement)
             .filter((x) => x instanceof HTMLElement);
-    const getRenderedItemsGrid = <T>(fixture: ComponentFixture<T>) =>
-        fixture.debugElement.queryAll(By.css('.p-virtualscroller-content div div')).reduce((acc, x) => {
-            if (x.nativeElement instanceof HTMLElement) acc.push(x.nativeElement);
-            return acc;
-        }, []);
 
     const findByBoundingClientRect = (items: HTMLElement[], scrollerDiv: HTMLDivElement, predicate: (itemRect: DOMRect, viewportRect: DOMRect, index: number) => boolean) => {
         return items.find((x, i) => predicate(x.getBoundingClientRect(), scrollerDiv.getBoundingClientRect(), i));
     };
 
-    const getFirstInViewport = <T>(fixture: ComponentFixture<T>, scrollerDiv: HTMLDivElement) =>
-        findByBoundingClientRect(getRenderedItems(fixture), scrollerDiv, (itemRect, viewportRect) => itemRect.top <= viewportRect.top && itemRect.bottom > viewportRect.top);
-
-    const getFirstInHorizontalViewport = <T>(fixture: ComponentFixture<T>, scrollerDiv: HTMLDivElement) =>
-        findByBoundingClientRect(getRenderedItems(fixture), scrollerDiv, (itemRect, viewportRect) => itemRect.left <= viewportRect.left && itemRect.right > viewportRect.left);
-
-    const getFirstInViewportGrid = <T>(fixture: ComponentFixture<T>, scrollerDiv: HTMLDivElement) =>
-        findByBoundingClientRect(getRenderedItemsGrid(fixture), scrollerDiv, (itemRect, viewportRect) => {
-            return itemRect.top <= viewportRect.top && itemRect.bottom > viewportRect.top && itemRect.left <= viewportRect.left && itemRect.right > viewportRect.left;
+    const getFirstInViewport = <T>(fixture: ComponentFixture<T>, scrollerDiv: HTMLDivElement, orientation: 'vertical' | 'horizontal' | 'both') =>
+        findByBoundingClientRect(getRenderedItems(fixture, orientation === 'both'), scrollerDiv, (itemRect, viewportRect) => {
+            const matchers = {
+                vertical: itemRect.top <= viewportRect.top && itemRect.bottom > viewportRect.top,
+                horizontal: itemRect.left <= viewportRect.left && itemRect.right > viewportRect.left,
+                both: itemRect.top <= viewportRect.top && itemRect.bottom > viewportRect.top && itemRect.left <= viewportRect.left && itemRect.right > viewportRect.left
+            };
+            return matchers[orientation];
         });
 
-    const getLastInViewport = <T>(fixture: ComponentFixture<T>, scrollerDiv: HTMLDivElement) =>
-        findByBoundingClientRect(getRenderedItems(fixture), scrollerDiv, (itemRect, viewportRect) => itemRect.top <= viewportRect.bottom && itemRect.bottom >= viewportRect.bottom);
-
-    const getLastInHorizontalViewport = <T>(fixture: ComponentFixture<T>, scrollerDiv: HTMLDivElement) =>
-        findByBoundingClientRect(getRenderedItems(fixture), scrollerDiv, (itemRect, viewportRect) => itemRect.left <= viewportRect.right && itemRect.right >= viewportRect.right);
-
-    const getLastInViewportGrid = <T>(fixture: ComponentFixture<T>, scrollerDiv: HTMLDivElement) =>
-        findByBoundingClientRect(getRenderedItemsGrid(fixture), scrollerDiv, (itemRect, viewportRect) => {
+    const getLastInViewport = <T>(fixture: ComponentFixture<T>, scrollerDiv: HTMLDivElement, orientation: 'vertical' | 'horizontal' | 'both') =>
+        findByBoundingClientRect(getRenderedItems(fixture, orientation === 'both'), scrollerDiv, (itemRect, viewportRect) => {
             const scrollBar = {
                 cross: scrollerDiv.offsetHeight - scrollerDiv.clientHeight,
                 main: scrollerDiv.offsetWidth - scrollerDiv.clientWidth
             };
-            return itemRect.top <= viewportRect.bottom - scrollBar.cross && itemRect.bottom >= viewportRect.bottom - scrollBar.cross && itemRect.left <= viewportRect.right - scrollBar.main && itemRect.right >= viewportRect.right - scrollBar.main;
+            const matchers = {
+                vertical: itemRect.top <= viewportRect.bottom && itemRect.bottom >= viewportRect.bottom,
+                horizontal: itemRect.left <= viewportRect.right && itemRect.right >= viewportRect.right,
+                both: itemRect.top <= viewportRect.bottom - scrollBar.cross && itemRect.bottom >= viewportRect.bottom - scrollBar.cross && itemRect.left <= viewportRect.right - scrollBar.main && itemRect.right >= viewportRect.right - scrollBar.main
+            };
+
+            return matchers[orientation];
         });
 
-    const getBoundaryViewportItems = <T>(fixture: ComponentFixture<T>, scrollerDiv: HTMLDivElement) => ({ lastInViewport: getLastInViewport(fixture, scrollerDiv), firstInViewport: getFirstInViewport(fixture, scrollerDiv) });
-
-    const getBoundaryViewportItemsGrid = <T>(fixture: ComponentFixture<T>, scrollerDiv: HTMLDivElement) => ({ lastInViewport: getLastInViewportGrid(fixture, scrollerDiv), firstInViewport: getFirstInViewportGrid(fixture, scrollerDiv) });
-
-    const getBoundaryViewportItemsHorizontal = <T>(fixture: ComponentFixture<T>, scrollerDiv: HTMLDivElement) => ({
-        lastInViewport: getLastInHorizontalViewport(fixture, scrollerDiv),
-        firstInViewport: getFirstInHorizontalViewport(fixture, scrollerDiv)
+    const getBoundaryViewportItems = <T>(fixture: ComponentFixture<T>, scrollerDiv: HTMLDivElement, orientation: 'vertical' | 'horizontal' | 'both') => ({
+        lastInViewport: getLastInViewport(fixture, scrollerDiv, orientation),
+        firstInViewport: getFirstInViewport(fixture, scrollerDiv, orientation)
     });
 
-    const expandInViewport = <T>(num: number, fixture: ComponentFixture<T>) => {
-        getRenderedItems(fixture)
-            .slice(0, num)
-            .forEach((item) => item.click());
-    };
+    const createActions = <ItemSize, T extends { itemSize: ItemSize }>(fixture: ComponentFixture<T>, scroller: Scroller, orientation: 'vertical' | 'horizontal' | 'both') => ({
+        getRenderedItems: () => getRenderedItems(fixture, orientation === 'both'),
+        scrollToIndex: (idx: number | number[], behavior?: ScrollBehavior) => {
+            scroller.scrollToIndex(idx, behavior);
+            scroller.elementViewChild.nativeElement.dispatchEvent(new Event('scroll'));
+        },
+        getViewportItems: () => getBoundaryViewportItems(fixture, scroller.elementViewChild.nativeElement, orientation),
+        setItemSize: (size: ItemSize) => {
+            fixture.componentInstance.itemSize = size;
+            fixture.detectChanges();
+        },
+        scrollTo: (opts: Parameters<Scroller['scrollTo']>[0]) => {
+            scroller.scrollTo(opts);
+            scroller.elementViewChild.nativeElement.dispatchEvent(new Event('scroll'));
+        },
+        userScrollTo: (opts: ScrollToOptions) => {
+            scroller.elementViewChild.nativeElement.scrollTo(opts);
+            scroller.elementViewChild.nativeElement.dispatchEvent(new Event('scroll'));
+        }
+    });
 
     describe('Scroller', () => {
+        @Component({
+            template: `
+                <p-virtualscroller [items]="items" [itemSize]="itemSize" scrollHeight="200px" styleClass="border border-surface" [style]="{ width: '200px', height: '200px' }">
+                    <ng-template #item let-item let-options="options">
+                        <div class="flex items-center p-2" [ngClass]="{ 'bg-surface-100 dark:bg-surface-700': options.odd }" [style]="{ overflow: 'hidden', height: itemSize + 'px' }">
+                            {{ item }}
+                        </div>
+                    </ng-template>
+                </p-virtualscroller>
+            `,
+            imports: [Scroller, CommonModule]
+        })
+        class BasicScrollerWrapper {
+            items = Array.from({ length: 1000 }).map((_, i) => `Item #${i}`);
+            itemSize = 50;
+        }
+
         let fixture: ComponentFixture<BasicScrollerWrapper>;
         let component: BasicScrollerWrapper;
         let scroller: Scroller;
         let scrollerDiv: HTMLDivElement;
+        let actions: ReturnType<typeof createActions>;
         beforeEach(async () => {
             await TestBed.configureTestingModule({ imports: [BasicScrollerWrapper] }).compileComponents();
             fixture = TestBed.createComponent(BasicScrollerWrapper);
@@ -97,337 +97,172 @@ fdescribe('mytest', () => {
             fixture.autoDetectChanges();
             scroller = fixture.debugElement.query(By.directive(Scroller)).componentInstance;
             scrollerDiv = scroller.elementViewChild.nativeElement;
+            actions = createActions(fixture, scroller, 'vertical');
         });
 
-        it('should get correct page', () => {
+        it('should calculate correct page', () => {
             scroller.step = 10;
-            fixture.detectChanges();
 
             expect(scroller.getPageByFirst(11)).toBe(2);
         });
 
-        it('should scrollToIndex of the last index with itemSize equals to 50', () => {
-            scroller.scrollToIndex(scroller.items.length - 1);
-            scrollerDiv.dispatchEvent(new Event('scroll'));
+        it('should scrollToIndex of the last item', () => {
+            actions.scrollToIndex(scroller.items.length - 1);
 
-            const { firstInViewport, lastInViewport } = getBoundaryViewportItems(fixture, scrollerDiv);
-
-            expect(scroller.last).toBe(scroller.items.length);
-            expect(firstInViewport).toBeTruthy();
-            expect(lastInViewport.textContent.trim()).toBe(component.items.at(-1));
-        });
-
-        it('should scrollToIndex of the middle index with itemSize equals to 50', () => {
-            const itemIdx = scroller.items.length / 2;
-            scroller.scrollToIndex(itemIdx);
-            scrollerDiv.dispatchEvent(new Event('scroll'));
-
-            const { firstInViewport, lastInViewport } = getBoundaryViewportItems(fixture, scrollerDiv);
-
-            expect(scroller.first).not.toBe(0);
-            expect(firstInViewport.textContent.trim()).toBe(component.items.at(itemIdx));
-            expect(lastInViewport).toBeTruthy();
-        });
-
-        it('should scrollToIndex of the last index with itemSize equals to 5', () => {
-            component.itemSize = 5;
-            fixture.detectChanges();
-            scroller.scrollToIndex(scroller.items.length - 1);
-            scrollerDiv.dispatchEvent(new Event('scroll'));
-
-            const { firstInViewport, lastInViewport } = getBoundaryViewportItems(fixture, scrollerDiv);
+            const { firstInViewport, lastInViewport } = actions.getViewportItems();
 
             expect(scroller.last).toBe(scroller.items.length);
             expect(firstInViewport).toBeTruthy();
             expect(lastInViewport.textContent.trim()).toBe(component.items.at(-1));
         });
 
-        it('should scrollToIndex of the middle index with itemSize equals to 5', () => {
-            component.itemSize = 5;
-            fixture.detectChanges();
+        it('should scrollToIndex of the middle item', () => {
             const itemIdx = scroller.items.length / 2;
-            scroller.scrollToIndex(itemIdx);
-            scrollerDiv.dispatchEvent(new Event('scroll'));
+            actions.scrollToIndex(itemIdx);
 
-            const { firstInViewport, lastInViewport } = getBoundaryViewportItems(fixture, scrollerDiv);
+            const { firstInViewport, lastInViewport } = actions.getViewportItems();
 
             expect(scroller.first).not.toBe(0);
             expect(firstInViewport.textContent.trim()).toBe(component.items.at(itemIdx));
             expect(lastInViewport).toBeTruthy();
         });
 
-        it('should scrollTo the bottom with itemSize equals to 50', () => {
-            scroller.scrollTo({ top: scrollerDiv.scrollHeight });
-            scrollerDiv.dispatchEvent(new Event('scroll'));
+        it('should scrollToIndex of the last item (itemSize=5)', () => {
+            actions.setItemSize(5);
+            actions.scrollToIndex(scroller.items.length - 1);
 
-            const { firstInViewport, lastInViewport } = getBoundaryViewportItems(fixture, scrollerDiv);
+            const { firstInViewport, lastInViewport } = actions.getViewportItems();
+
+            expect(scroller.last).toBe(scroller.items.length);
+            expect(firstInViewport).toBeTruthy();
+            expect(lastInViewport.textContent.trim()).toBe(component.items.at(-1));
+        });
+
+        it('should scrollToIndex of the middle item (itemSize=5)', () => {
+            actions.setItemSize(5);
+            const itemIdx = scroller.items.length / 2;
+            actions.scrollToIndex(itemIdx);
+
+            const { firstInViewport, lastInViewport } = actions.getViewportItems();
+
+            expect(scroller.first).not.toBe(0);
+            expect(firstInViewport.textContent.trim()).toBe(component.items.at(itemIdx));
+            expect(lastInViewport).toBeTruthy();
+        });
+
+        it('should scrollToIndex of the last item (itemSize=1000)', () => {
+            actions.setItemSize(1000);
+            actions.scrollToIndex(scroller.items.length - 1);
+
+            const { firstInViewport, lastInViewport } = actions.getViewportItems();
+
+            expect(scroller.last).toBe(scroller.items.length);
+            expect(firstInViewport).toBeTruthy();
+            expect(lastInViewport.textContent.trim()).toBe(component.items.at(-1));
+        });
+
+        it('should scrollToIndex of the middle item (itemSize=1000)', () => {
+            actions.setItemSize(1000);
+            const itemIdx = scroller.items.length / 2;
+            actions.scrollToIndex(itemIdx);
+
+            const { firstInViewport, lastInViewport } = actions.getViewportItems();
+
+            expect(scroller.first).not.toBe(0);
+            expect(firstInViewport.textContent.trim()).toBe(component.items.at(itemIdx));
+            expect(lastInViewport).toBeTruthy();
+        });
+
+        it('should scrollTo the bottom', () => {
+            actions.scrollTo({ top: scrollerDiv.scrollHeight });
+
+            const { firstInViewport, lastInViewport } = actions.getViewportItems();
 
             expect(scroller.last).toBe(scroller.items.length);
             expect(firstInViewport.textContent.trim()).toBe(component.items[995]);
             expect(lastInViewport).toBeTruthy();
         });
 
-        it('should scrollTo the middle with itemSize equals to 50', () => {
-            scroller.scrollTo({ top: scrollerDiv.scrollHeight / 2 });
-            scrollerDiv.dispatchEvent(new Event('scroll'));
+        it('should scrollTo the middle', () => {
+            actions.scrollTo({ top: scrollerDiv.scrollHeight / 2 });
 
-            const { firstInViewport, lastInViewport } = getBoundaryViewportItems(fixture, scrollerDiv);
+            const { firstInViewport, lastInViewport } = actions.getViewportItems();
 
             expect(scroller.first).not.toBe(0);
-            expect(firstInViewport).toBeTruthy();
+            expect(firstInViewport.textContent.trim()).toBe(component.items[499]);
+            expect(lastInViewport).toBeTruthy();
+        });
+
+        it('should smoothly scrollToIndex of the middle item', async () => {
+            const itemIdx = 50;
+            scroller.scrollToIndex(itemIdx, 'smooth');
+            const scroll$ = fromEvent(scrollerDiv, 'scroll').pipe(debounceTime(100), first());
+            await lastValueFrom(scroll$);
+
+            const { firstInViewport, lastInViewport } = actions.getViewportItems();
+
+            expect(firstInViewport.textContent.trim()).toBe(component.items.at(itemIdx));
             expect(lastInViewport).toBeTruthy();
         });
     });
-    @Component({
-        template: `
-            <p-virtualscroller [items]="items" [itemSize]="itemSize" orientation="horizontal" scrollHeight="200px" styleClass="border border-surface" [style]="{ width: '200px', height: '200px' }">
-                <ng-template #item let-item let-options="options">
-                    <div class="flex items-center p-2" [ngClass]="{ 'bg-surface-100 dark:bg-surface-700': options.odd }" [style]="{ overflow: 'hidden', width: itemSize + 'px' }">
-                        {{ item }}
-                    </div>
-                </ng-template>
-            </p-virtualscroller>
-        `,
-        imports: [Scroller, CommonModule]
-    })
-    class HorizontalScrollerWrapper {
-        items = Array.from({ length: 1000 }).map((_, i) => `Item #${i}`);
-        itemSize = 50;
-    }
-    describe('HorizontalScroller', () => {
+
+    describe('Horizontal Scroller', () => {
+        @Component({
+            template: `
+                <p-virtualscroller [items]="items" [itemSize]="itemSize" orientation="horizontal" scrollHeight="200px" styleClass="border border-surface" [style]="{ width: '200px', height: '200px' }">
+                    <ng-template #item let-item let-options="options">
+                        <div class="flex items-center p-2" [ngClass]="{ 'bg-surface-100 dark:bg-surface-700': options.odd }" [style]="{ overflow: 'hidden', width: itemSize + 'px' }">
+                            {{ item }}
+                        </div>
+                    </ng-template>
+                </p-virtualscroller>
+            `,
+            imports: [Scroller, CommonModule]
+        })
+        class HorizontalScrollerWrapper {
+            items = Array.from({ length: 1000 }).map((_, i) => `Item #${i}`);
+            itemSize = 50;
+        }
+
         let fixture: ComponentFixture<HorizontalScrollerWrapper>;
-        let component: HorizontalScrollerWrapper;
         let scroller: Scroller;
         let scrollerDiv: HTMLDivElement;
+        let actions: ReturnType<typeof createActions>;
         beforeEach(async () => {
             await TestBed.configureTestingModule({ imports: [HorizontalScrollerWrapper] }).compileComponents();
             fixture = TestBed.createComponent(HorizontalScrollerWrapper);
-            component = fixture.componentInstance;
             fixture.autoDetectChanges();
             scroller = fixture.debugElement.query(By.directive(Scroller)).componentInstance;
             scrollerDiv = scroller.elementViewChild.nativeElement;
+            actions = createActions(fixture, scroller, 'horizontal');
         });
 
-        it('should not jump during scrolling forward in horizontal orientation', () => {
-            scroller.scrollTo({ left: 300 });
-            scrollerDiv.dispatchEvent(new Event('scroll'));
+        it('should not jump during forward scrolling', () => {
+            actions.scrollTo({ left: 300 });
 
-            const { firstInViewport } = getBoundaryViewportItemsHorizontal(fixture, scrollerDiv);
+            const { firstInViewport } = actions.getViewportItems();
+
             const leftBefore = firstInViewport.getBoundingClientRect().left;
 
-            scroller.scrollTo({ left: 301 });
-            scrollerDiv.dispatchEvent(new Event('scroll'));
+            actions.scrollTo({ left: scrollerDiv.scrollLeft + 1 });
 
             const leftAfter = firstInViewport.getBoundingClientRect().left;
 
             expect(leftBefore - leftAfter).toBe(1);
         });
 
-        it('should not jump during scrolling backward in horizontal orientation', () => {
-            scroller.scrollTo({ left: 30000 });
-            scrollerDiv.dispatchEvent(new Event('scroll'));
+        it('should not jump during backward scrolling', () => {
+            actions.scrollTo({ left: 30000 });
 
-            const { firstInViewport } = getBoundaryViewportItemsHorizontal(fixture, scrollerDiv);
+            const { firstInViewport } = actions.getViewportItems();
+
             const leftBefore = firstInViewport.getBoundingClientRect().left;
 
-            scroller.scrollTo({ left: scrollerDiv.scrollLeft - 1 });
-            scrollerDiv.dispatchEvent(new Event('scroll'));
+            actions.scrollTo({ left: scrollerDiv.scrollLeft - 1 });
 
             const leftAfter = firstInViewport.getBoundingClientRect().left;
 
             expect(leftAfter - leftBefore).toBe(1);
-        });
-    });
-
-    @Component({
-        template: `
-            <p-virtualscroller [items]="items" [itemSize]="recreateItemSizeOnEachRender ? itemSize.bind(this) : itemSize" scrollHeight="200px" styleClass="border border-surface" [style]="{ width: '200px', height: '200px' }">
-                <ng-template #item let-item let-options="options">
-                    <div
-                        (click)="expandedItems.has(item) ? expandedItems.delete(item) : expandedItems.add(item)"
-                        class="flex items-center p-2"
-                        [ngClass]="{ 'bg-surface-100 dark:bg-surface-700': options.odd }"
-                        style="height: {{ itemSize(item).mainAxis }}px; overflow: hidden;"
-                    >
-                        {{ item }}
-                    </div>
-                </ng-template>
-            </p-virtualscroller>
-        `,
-        imports: [Scroller, CommonModule],
-        providers: [provideAnimations()]
-    })
-    class FlexibleScrollerWrapper {
-        items = Array.from({ length: 1000 }).map((_, i) => `Item #${i}`);
-        expandedItems = new Set<string>();
-        itemSize = (item: string) => ({ mainAxis: this.expandedItems.has(item) ? 100 : 30 });
-        recreateItemSizeOnEachRender = false;
-    }
-
-    describe('Flexible Scroller', () => {
-        let fixture: ComponentFixture<FlexibleScrollerWrapper>;
-        let component: FlexibleScrollerWrapper;
-        let scroller: Scroller;
-        let scrollerDiv: HTMLDivElement;
-        beforeEach(async () => {
-            await TestBed.configureTestingModule({ imports: [FlexibleScrollerWrapper] }).compileComponents();
-            fixture = TestBed.createComponent(FlexibleScrollerWrapper);
-            component = fixture.componentInstance;
-            fixture.autoDetectChanges();
-            scroller = fixture.debugElement.query(By.directive(Scroller)).componentInstance;
-            scrollerDiv = scroller.elementViewChild.nativeElement;
-        });
-
-        it('should scrollToIndex of the last item', () => {
-            scroller.scrollToIndex(component.items.length - 1);
-            scrollerDiv.dispatchEvent(new Event('scroll'));
-
-            const { firstInViewport, lastInViewport } = getBoundaryViewportItems(fixture, scrollerDiv);
-
-            expect(firstInViewport).toBeTruthy();
-            expect(lastInViewport.textContent.trim()).toBe(component.items.at(-1));
-        });
-
-        it('should scrollToIndex of the middle item', () => {
-            const itemIdx = component.items.length / 2;
-            scroller.scrollToIndex(itemIdx);
-            scrollerDiv.dispatchEvent(new Event('scroll'));
-
-            const { firstInViewport, lastInViewport } = getBoundaryViewportItems(fixture, scrollerDiv);
-
-            expect(firstInViewport.textContent.trim()).toBe(component.items.at(itemIdx));
-            expect(lastInViewport).toBeTruthy();
-        });
-
-        it('should scrollTo the middle', () => {
-            scroller.scrollTo({ top: scrollerDiv.scrollHeight / 2 });
-            scrollerDiv.dispatchEvent(new Event('scroll'));
-
-            const { firstInViewport, lastInViewport } = getBoundaryViewportItems(fixture, scrollerDiv);
-
-            expect(firstInViewport).toBeTruthy();
-            expect(lastInViewport).toBeTruthy();
-        });
-
-        it('should scrollTo the bottom', () => {
-            scroller.scrollTo({ top: scrollerDiv.scrollHeight });
-            scrollerDiv.dispatchEvent(new Event('scroll'));
-
-            const { firstInViewport, lastInViewport } = getBoundaryViewportItems(fixture, scrollerDiv);
-
-            expect(firstInViewport).toBeTruthy();
-            expect(lastInViewport.textContent.trim()).toBe(component.items.at(-1));
-        });
-
-        it('should expand first item', () => {
-            const { firstInViewport } = getBoundaryViewportItems(fixture, scrollerDiv);
-            firstInViewport.click();
-
-            expect(firstInViewport.offsetHeight).toBe(100);
-        });
-
-        it('should expand first 5 items and scrollTo the middle', () => {
-            expandInViewport(5, fixture);
-            scroller.scrollTo({ top: scrollerDiv.scrollHeight / 2 });
-            scrollerDiv.dispatchEvent(new Event('scroll'));
-
-            const { firstInViewport, lastInViewport } = getBoundaryViewportItems(fixture, scrollerDiv);
-
-            expect(firstInViewport).toBeTruthy();
-            expect(lastInViewport).toBeTruthy();
-        });
-
-        it('should expand first 5 items and scrollTo the bottom', () => {
-            expandInViewport(5, fixture);
-            scroller.scrollTo({ top: scrollerDiv.scrollHeight });
-            scrollerDiv.dispatchEvent(new Event('scroll'));
-
-            const { firstInViewport, lastInViewport } = getBoundaryViewportItems(fixture, scrollerDiv);
-
-            expect(firstInViewport).toBeTruthy();
-            expect(lastInViewport.textContent.trim()).toBe(component.items.at(-1));
-        });
-
-        it('should expand first 5 items and scrollToIndex of the middle item', () => {
-            expandInViewport(5, fixture);
-            const itemIdx = component.items.length / 2;
-            scroller.scrollToIndex(itemIdx);
-            scrollerDiv.dispatchEvent(new Event('scroll'));
-
-            const { firstInViewport, lastInViewport } = getBoundaryViewportItems(fixture, scrollerDiv);
-
-            expect(firstInViewport.textContent.trim()).toBe(component.items.at(itemIdx));
-            expect(lastInViewport).toBeTruthy();
-        });
-
-        it('should expand first 5 items and scrollToIndex of the last item', () => {
-            expandInViewport(5, fixture);
-            scroller.scrollToIndex(component.items.length - 1);
-            scrollerDiv.dispatchEvent(new Event('scroll'));
-
-            const { firstInViewport, lastInViewport } = getBoundaryViewportItems(fixture, scrollerDiv);
-
-            expect(firstInViewport).toBeTruthy();
-            expect(lastInViewport.textContent.trim()).toBe(component.items.at(-1));
-        });
-
-        it('should smoothly scrollToIndex of the middle item', async () => {
-            const itemIdx = 200;
-            scroller.scrollToIndex(itemIdx, 'smooth');
-            const scroll$ = fromEvent(scrollerDiv, 'scroll').pipe(debounceTime(100), first());
-            await lastValueFrom(scroll$);
-
-            const { firstInViewport, lastInViewport } = getBoundaryViewportItems(fixture, scrollerDiv);
-
-            expect(firstInViewport.textContent.trim()).toBe(component.items.at(itemIdx));
-            expect(lastInViewport).toBeTruthy();
-        });
-
-        xit('should smoothly scrollTo the middle', async () => {
-            const scrollTo = scrollerDiv.scrollHeight / 2;
-            scroller.scrollTo({ top: scrollTo, behavior: 'smooth' });
-            const scroll$ = fromEvent(scrollerDiv, 'scroll').pipe(
-                tap(() => scrollerDiv.dispatchEvent(new Event('scroll'))),
-                debounceTime(100),
-                first()
-            );
-            await lastValueFrom(scroll$);
-
-            const { firstInViewport, lastInViewport } = getBoundaryViewportItems(fixture, scrollerDiv);
-
-            expect(firstInViewport.textContent.trim()).toBe(component.items.at(200));
-            expect(lastInViewport).toBeTruthy();
-        });
-
-        it('should scrollTo the middle while recreating itemSize function on every render', async () => {
-            component.recreateItemSizeOnEachRender = true;
-            fixture.detectChanges();
-            const scrollPos = scrollerDiv.scrollHeight / 2;
-            scroller.scrollTo({ top: scrollPos });
-            scrollerDiv.dispatchEvent(new Event('scroll'));
-
-            const { firstInViewport, lastInViewport } = getBoundaryViewportItems(fixture, scrollerDiv);
-
-            expect(firstInViewport.textContent.trim()).toBe(component.items.at(502));
-            expect(lastInViewport).toBeTruthy();
-        });
-
-        xit('should smoothly scrollTo the middle while recreating itemSize function on every render', async () => {
-            component.recreateItemSizeOnEachRender = true;
-            fixture.detectChanges();
-            const scrollPos = scrollerDiv.scrollHeight / 2;
-            scroller.scrollTo({ top: scrollPos, behavior: 'smooth' });
-            const scroll$ = fromEvent(scrollerDiv, 'scroll').pipe(
-                tap(() => scrollerDiv.dispatchEvent(new Event('scroll'))),
-                debounceTime(100),
-                first()
-            );
-            await lastValueFrom(scroll$);
-
-            const { firstInViewport, lastInViewport } = getBoundaryViewportItems(fixture, scrollerDiv);
-
-            expect(firstInViewport.textContent.trim()).toBe(component.items.at(200));
-            expect(lastInViewport).toBeTruthy();
         });
     });
 
@@ -454,6 +289,7 @@ fdescribe('mytest', () => {
         let component: GridScrollerWrapper;
         let scroller: Scroller;
         let scrollerDiv: HTMLDivElement;
+        let actions: ReturnType<typeof createActions>;
         beforeEach(async () => {
             await TestBed.configureTestingModule({ imports: [GridScrollerWrapper] }).compileComponents();
             fixture = TestBed.createComponent(GridScrollerWrapper);
@@ -461,87 +297,79 @@ fdescribe('mytest', () => {
             fixture.autoDetectChanges();
             scroller = fixture.debugElement.query(By.directive(Scroller)).componentInstance;
             scrollerDiv = scroller.elementViewChild.nativeElement;
+            actions = createActions(fixture, scroller, 'both');
         });
 
-        it('should scrollToIndex of the last index with itemSize equals to [50,100]', () => {
+        it('should scrollToIndex of the last item', () => {
             const idx = { main: component.items.length - 1, cross: component.items.at(0).length - 1 };
-            scroller.scrollToIndex([idx.main, idx.cross]);
-            scrollerDiv.dispatchEvent(new Event('scroll'));
+            actions.scrollToIndex([idx.main, idx.cross]);
 
-            const { firstInViewport, lastInViewport } = getBoundaryViewportItemsGrid(fixture, scrollerDiv);
+            const { firstInViewport, lastInViewport } = actions.getViewportItems();
 
             expect(scroller.last).toEqual({ rows: idx.main + 1, cols: idx.cross + 1 });
             expect(firstInViewport).toBeTruthy();
             expect(lastInViewport.textContent.trim()).toBe(component.items.at(idx.main).at(idx.cross));
         });
 
-        it('should scrollToIndex of the middle index with itemSize equals to [50,100]', () => {
+        it('should scrollToIndex of the middle item', () => {
             const itemIdx = { main: component.items.length / 2, cross: component.items.at(0).length / 2 };
-            scroller.scrollToIndex([itemIdx.main, itemIdx.cross]);
-            scrollerDiv.dispatchEvent(new Event('scroll'));
+            actions.scrollToIndex([itemIdx.main, itemIdx.cross]);
 
-            const { firstInViewport, lastInViewport } = getBoundaryViewportItemsGrid(fixture, scrollerDiv);
+            const { firstInViewport, lastInViewport } = actions.getViewportItems();
 
             expect(scroller.first).not.toBe(0);
             expect(firstInViewport.textContent.trim()).toBe(component.items.at(itemIdx.main).at(itemIdx.cross));
             expect(lastInViewport).toBeTruthy();
         });
 
-        it('should scrollToIndex of the last index with itemSize equals to [5,10]', () => {
-            component.itemSize = [5, 10];
-            fixture.detectChanges();
+        it('should scrollToIndex of the last item (itemSize=[5,10])', () => {
+            actions.setItemSize([5, 10]);
             const itemIdx = { main: component.items.length - 1, cross: component.items.at(0).length - 1 };
-            scroller.scrollToIndex([itemIdx.main, itemIdx.cross]);
-            scrollerDiv.dispatchEvent(new Event('scroll'));
+            actions.scrollToIndex([itemIdx.main, itemIdx.cross]);
 
-            const { firstInViewport, lastInViewport } = getBoundaryViewportItemsGrid(fixture, scrollerDiv);
+            const { firstInViewport, lastInViewport } = actions.getViewportItems();
 
-            expect(scroller.last).toEqual({ rows: component.items.length, cols: component.items.at(0).length });
+            expect(scroller.last).toEqual({ rows: itemIdx.main + 1, cols: itemIdx.cross + 1 });
             expect(firstInViewport).toBeTruthy();
             expect(lastInViewport.textContent.trim()).toBe(component.items.at(itemIdx.main).at(itemIdx.cross));
         });
 
-        it('should scrollToIndex of the middle index with itemSize equals to [5,10]', () => {
-            component.itemSize = [5, 10];
-            fixture.detectChanges();
+        it('should scrollToIndex of the middle item (itemSize=[5,10])', () => {
+            actions.setItemSize([5, 10]);
             const itemIdx = { main: component.items.length / 2, cross: component.items.at(0).length / 2 };
-            scroller.scrollToIndex([itemIdx.main, itemIdx.cross]);
-            scrollerDiv.dispatchEvent(new Event('scroll'));
+            actions.scrollToIndex([itemIdx.main, itemIdx.cross]);
 
-            const { firstInViewport, lastInViewport } = getBoundaryViewportItemsGrid(fixture, scrollerDiv);
+            const { firstInViewport, lastInViewport } = actions.getViewportItems();
 
             expect(scroller.first).not.toBe(0);
             expect(firstInViewport.textContent.trim()).toBe(component.items.at(itemIdx.main).at(itemIdx.cross));
             expect(lastInViewport).toBeTruthy();
         });
 
-        it('should scrollTo the bottom with itemSize equals to [50,100]', () => {
-            scroller.scrollTo({ top: scrollerDiv.scrollHeight, left: scrollerDiv.scrollWidth });
-            scrollerDiv.dispatchEvent(new Event('scroll'));
+        it('should scrollTo the bottom', () => {
+            actions.scrollTo({ top: scrollerDiv.scrollHeight, left: scrollerDiv.scrollWidth });
 
-            const { firstInViewport, lastInViewport } = getBoundaryViewportItemsGrid(fixture, scrollerDiv);
+            const { firstInViewport, lastInViewport } = actions.getViewportItems();
 
-            expect(scroller.last).toEqual({ rows: component.items.length, cols: component.items.at(-1).length - 1 });
+            expect(scroller.last).toEqual({ rows: 1000, cols: 999 });
             expect(firstInViewport.textContent.trim()).toBe(component.items[995][995]);
             expect(lastInViewport).toBeTruthy();
         });
 
-        it('should scrollTo the middle with itemSize equals to [50,100]', () => {
-            scroller.scrollTo({ top: scrollerDiv.scrollHeight / 2, left: scrollerDiv.scrollWidth / 2 });
-            scrollerDiv.dispatchEvent(new Event('scroll'));
+        it('should scrollTo the middle', () => {
+            actions.scrollTo({ top: scrollerDiv.scrollHeight / 2, left: scrollerDiv.scrollWidth / 2 });
 
-            const { firstInViewport, lastInViewport } = getBoundaryViewportItemsGrid(fixture, scrollerDiv);
+            const { firstInViewport, lastInViewport } = actions.getViewportItems();
 
             expect(scroller.first).not.toEqual({ rows: 0, cols: 0 });
-            expect(firstInViewport).toBeTruthy();
+            expect(firstInViewport.textContent.trim()).toBe(component.items[499][497]);
             expect(lastInViewport).toBeTruthy();
         });
 
         it('should calculate positions during user scrolling', () => {
-            scrollerDiv.scrollTo({ top: 1000, left: 1000 });
-            scrollerDiv.dispatchEvent(new Event('scroll'));
+            actions.userScrollTo({ top: 1000, left: 1000 });
 
-            const { firstInViewport, lastInViewport } = getBoundaryViewportItemsGrid(fixture, scrollerDiv);
+            const { firstInViewport, lastInViewport } = actions.getViewportItems();
 
             expect(scroller.first).not.toEqual({ rows: 0, cols: 0 });
             expect(firstInViewport.textContent.trim()).toBe(component.items.at(23).at(19));
@@ -549,61 +377,55 @@ fdescribe('mytest', () => {
         });
 
         it('should jump to bottom item from user scrolling', () => {
-            scrollerDiv.scrollTo({ top: scrollerDiv.scrollHeight, left: scrollerDiv.scrollWidth });
-            scrollerDiv.dispatchEvent(new Event('scroll'));
+            actions.userScrollTo({ top: scrollerDiv.scrollHeight, left: scrollerDiv.scrollWidth });
 
-            const { firstInViewport, lastInViewport } = getBoundaryViewportItemsGrid(fixture, scrollerDiv);
+            const { firstInViewport, lastInViewport } = actions.getViewportItems();
 
+            expect(scroller.last).toEqual({ rows: 1000, cols: 999 });
             expect(firstInViewport.textContent.trim()).toBe(component.items.at(995).at(995));
             expect(lastInViewport).toBeTruthy();
         });
 
         it('should not flicker during smooth scrolling', () => {
-            const totalsize = {
-                main: scrollerDiv.scrollHeight,
-                cross: scrollerDiv.scrollWidth
+            actions.userScrollTo({ top: scrollerDiv.scrollHeight / 2, left: scrollerDiv.scrollWidth / 2 + 10 });
+
+            const prescroll = actions.getViewportItems();
+            expect(prescroll.firstInViewport.getBoundingClientRect().left).toBeLessThan(scrollerDiv.getBoundingClientRect().left);
+            const prescrollOffset = {
+                main: prescroll.firstInViewport.getBoundingClientRect().top - scrollerDiv.getBoundingClientRect().top,
+                cross: prescroll.firstInViewport.getBoundingClientRect().left - scrollerDiv.getBoundingClientRect().left
             };
-            scrollerDiv.scrollTo({ top: totalsize.main / 2, left: totalsize.cross / 2 + 10 });
-            scrollerDiv.dispatchEvent(new Event('scroll'));
 
-            const init = getBoundaryViewportItemsGrid(fixture, scrollerDiv);
-            expect(init.firstInViewport.getBoundingClientRect().left).toBeLessThan(scrollerDiv.getBoundingClientRect().left);
-            const diffCross = init.firstInViewport.getBoundingClientRect().left - scrollerDiv.getBoundingClientRect().left;
-            const diffMain = init.firstInViewport.getBoundingClientRect().top - scrollerDiv.getBoundingClientRect().top;
-            scrollerDiv.scrollTo({ top: scrollerDiv.scrollTop, left: scrollerDiv.scrollLeft - 200 });
-            scrollerDiv.dispatchEvent(new Event('scroll'));
+            actions.userScrollTo({ top: scrollerDiv.scrollTop, left: scrollerDiv.scrollLeft - 200 });
 
-            const after = getBoundaryViewportItemsGrid(fixture, scrollerDiv);
-            expect(after.firstInViewport.textContent.trim()).toBe(component.items.at(499).at(495));
-            const diffCrossAfter = after.firstInViewport.getBoundingClientRect().left - scrollerDiv.getBoundingClientRect().left;
-            const diffMainAfter = after.firstInViewport.getBoundingClientRect().top - scrollerDiv.getBoundingClientRect().top;
-            expect(diffCross).toBe(diffCrossAfter);
-            expect(diffMain).toBe(diffMainAfter);
-            expect(after.firstInViewport.getBoundingClientRect().left).toBeLessThan(scrollerDiv.getBoundingClientRect().left);
+            const postscroll = actions.getViewportItems();
+            expect(postscroll.firstInViewport.textContent.trim()).toBe(component.items.at(499).at(495));
+            const postscrollOffset = {
+                main: postscroll.firstInViewport.getBoundingClientRect().top - scrollerDiv.getBoundingClientRect().top,
+                cross: postscroll.firstInViewport.getBoundingClientRect().left - scrollerDiv.getBoundingClientRect().left
+            };
+
+            expect(prescrollOffset).toEqual(postscrollOffset);
+            expect(postscroll.firstInViewport.getBoundingClientRect().left).toBeLessThan(scrollerDiv.getBoundingClientRect().left);
             expect(scroller.first['cols']).toBeLessThan(495);
         });
 
-        it('should calculate items on scroll right', () => {
-            const totalsize = {
-                main: scrollerDiv.scrollHeight,
-                cross: scrollerDiv.scrollWidth
-            };
-            scrollerDiv.scrollTo({ top: totalsize.main / 2, left: totalsize.cross / 2 + 10 });
-            scrollerDiv.dispatchEvent(new Event('scroll'));
+        it('should render items on scroll right', () => {
+            actions.userScrollTo({ top: scrollerDiv.scrollHeight / 2, left: scrollerDiv.scrollWidth / 2 + 10 });
+            actions.userScrollTo({ top: scrollerDiv.scrollTop, left: scrollerDiv.scrollLeft + 250 });
 
-            scrollerDiv.scrollTo({ top: scrollerDiv.scrollTop, left: scrollerDiv.scrollLeft + 250 });
-            scrollerDiv.dispatchEvent(new Event('scroll'));
-
-            const { lastInViewport } = getBoundaryViewportItemsGrid(fixture, scrollerDiv);
+            const { lastInViewport } = actions.getViewportItems();
 
             expect(lastInViewport.getBoundingClientRect().right).toBeGreaterThan(scrollerDiv.getBoundingClientRect().right);
         });
     });
 
-    describe('initGridPositions', () => {
+    describe('initGridManager', () => {
         const getItems = (lenMain = 5, lenCross = 5) => Array.from({ length: lenMain }, (_, idx) => Array.from({ length: lenCross }, (_, idxCross) => `Item #${idx}_${idxCross}`));
-        it('should create positions', () => {
+
+        it('should initialize positions', () => {
             const { positions } = initGridManager({ items: getItems(), getScrollPos: () => ({ main: 0, cross: 0 }), setScrollSize: () => {}, scrollTo: () => {}, getItemSize: () => ({ main: 50, cross: 60 }), viewportSize: { main: 100, cross: 100 } });
+
             expect(positions).toEqual({
                 mainAxis: [
                     { size: 50, pos: 0 },
@@ -622,7 +444,7 @@ fdescribe('mytest', () => {
             });
         });
 
-        it('should calculate a [1000,1000] positions', () => {
+        it('should calculate positions for item at index [999,999]', () => {
             const { positions, at } = initGridManager({
                 items: getItems(1000, 1000),
                 getItemSize: () => ({ main: 50, cross: 100 }),
@@ -675,7 +497,7 @@ fdescribe('mytest', () => {
             ]);
         });
 
-        it('should updateByIndex(499,499)', () => {
+        it('should calculate positions for item at index [499,499]', () => {
             const { positions, at } = initGridManager({
                 items: getItems(1000, 1000),
                 getItemSize: () => ({ main: 50, cross: 100 }),
@@ -716,7 +538,7 @@ fdescribe('mytest', () => {
             ]);
         });
 
-        it('should calculate first', () => {
+        it('should calculate first item to render', () => {
             const scrollPos = { main: 19960, cross: 19960 };
             const { getRange, positions } = initGridManager({
                 items: getItems(1000, 1000),
@@ -730,13 +552,13 @@ fdescribe('mytest', () => {
                 viewportSize: { main: 200, cross: 200 }
             });
 
-            const expectedFirst = { main: 495, cross: 497 };
-            expect(getRange({ main: 0, cross: 0 }).first).toEqual(expectedFirst);
-            expect(positions.mainAxis[expectedFirst.main].size).toBe(50);
-            expect(positions.crossAxis[expectedFirst.cross].size).toBe(100);
+            const expectedFirstItemToRender = { main: 495, cross: 497 };
+            expect(getRange({ main: 0, cross: 0 }).first).toEqual(expectedFirstItemToRender);
+            expect(positions.mainAxis[expectedFirstItemToRender.main].size).toBe(50);
+            expect(positions.crossAxis[expectedFirstItemToRender.cross].size).toBe(100);
         });
 
-        it('should calculate last', () => {
+        it('should calculate last item index that should not be rendered', () => {
             const scrollPos = { main: 19960, cross: 19960 };
             const { getRange, positions } = initGridManager({
                 items: getItems(1000, 1000),
@@ -828,7 +650,7 @@ fdescribe('mytest', () => {
             });
         });
 
-        it('should calculate real positions and adjust leftover positions from top down', () => {
+        it('should calculate positions at the top and adjust leftover positions', () => {
             const { positions, at } = initGridManager({
                 items: getItems(),
                 getItemSize: () => ({ main: 200, cross: 200 }),
@@ -857,7 +679,7 @@ fdescribe('mytest', () => {
             });
         });
 
-        it('should calculate real positions and adjust leftover positions from bottom up', () => {
+        it('should calculate positions at the bottom and adjust leftover positions', () => {
             const { positions, at } = initGridManager({
                 items: getItems(),
                 getItemSize: () => ({ main: 200, cross: 200 }),
@@ -886,33 +708,9 @@ fdescribe('mytest', () => {
             });
         });
 
-        it('should be pure', () => {
-            const positions = initGridManager({
-                items: getItems(100),
-                setScrollSize: () => {},
-                scrollTo: () => {},
-                getScrollPos: () => ({ main: 0, cross: 0 }),
-                getItemSize: () => ({ main: 200, cross: 200 }),
-                viewportSize: { main: 200, cross: 200 }
-            });
-            const positions2 = initGridManager({
-                items: getItems(100),
-                setScrollSize: () => {},
-                scrollTo: () => {},
-                getScrollPos: () => ({ main: 0, cross: 0 }),
-                getItemSize: () => ({ main: 200, cross: 200 }),
-                viewportSize: { main: 200, cross: 200 }
-            });
-            const idx = 25;
-            positions.at(idx, idx);
-            positions2.at(idx, idx);
-
-            expect(positions.positions).toEqual(positions2.positions);
-        });
-
         it('should restore same item in viewport', () => {
             const scrollPos = { main: 0, cross: 0 };
-            const positions = initGridManager({
+            const gridManager = initGridManager({
                 items: getItems(100),
                 getScrollPos: () => scrollPos,
                 getItemSize: () => ({ main: 30, cross: 10 }),
@@ -923,15 +721,15 @@ fdescribe('mytest', () => {
                 },
                 setScrollSize: () => {}
             });
-            scrollPos.main = positions.totalSize().main / 2;
-            scrollPos.cross = positions.totalSize().cross / 2;
-            positions.getRange({ main: 0, cross: 0 });
-            const firstInViewport = positions.itemsInViewport().first;
+            scrollPos.main = gridManager.totalSize().main / 2 + 20;
+            scrollPos.cross = gridManager.totalSize().cross / 2;
+            gridManager.getRange({ main: 0, cross: 0 });
+            const firstInViewport = gridManager.itemsInViewport().first;
             const scrollPos2 = {
-                main: scrollPos.main + getScrollShift({ scrollPos: scrollPos.main, prevItemPos: positions.positions.mainAxis[firstInViewport.main].pos, currItemPos: 40 * firstInViewport.main }),
-                cross: scrollPos.cross + getScrollShift({ scrollPos: scrollPos.cross, prevItemPos: positions.positions.crossAxis[firstInViewport.cross].pos, currItemPos: 40 * firstInViewport.cross })
+                main: scrollPos.main + getScrollShift({ scrollPos: scrollPos.main, prevItemPos: gridManager.positions.mainAxis[firstInViewport.main].pos, currItemPos: 40 * firstInViewport.main }),
+                cross: scrollPos.cross + getScrollShift({ scrollPos: scrollPos.cross, prevItemPos: gridManager.positions.crossAxis[firstInViewport.cross].pos, currItemPos: 40 * firstInViewport.cross })
             };
-            const positions2 = initGridManager({
+            const gridManager2 = initGridManager({
                 items: getItems(100),
                 getScrollPos: () => scrollPos2,
                 getItemSize: () => ({ main: 30, cross: 10 }),
@@ -942,31 +740,14 @@ fdescribe('mytest', () => {
                 },
                 setScrollSize: () => {}
             });
-            const firstInViewport2 = positions2.itemsInViewport().first;
+            const firstInViewport2 = gridManager2.itemsInViewport().first;
 
             expect(firstInViewport).toEqual(firstInViewport2);
+            expect(scrollPos.main - gridManager.positions.mainAxis[firstInViewport.main].pos).toBe(scrollPos2.main - gridManager2.positions.mainAxis[firstInViewport.main].pos);
+            expect(scrollPos.cross - gridManager.positions.crossAxis[firstInViewport.cross].pos).toBe(scrollPos2.cross - gridManager2.positions.crossAxis[firstInViewport.cross].pos);
         });
 
-        it('should get shift', () => {
-            const scrollPos = 50;
-            const shift = getScrollShift({
-                scrollPos,
-                prevItemPos: 40,
-                currItemPos: 180
-            });
-            expect(scrollPos + shift).toBe(190);
-        });
-        it('should get shift 2', () => {
-            const scrollPos = 190;
-            const shift = getScrollShift({ scrollPos, prevItemPos: 180, currItemPos: 40 });
-            expect(scrollPos + shift).toBe(50);
-        });
-        it('should get shift 3', () => {
-            const shift = getScrollShift({ scrollPos: 0, prevItemPos: 0, currItemPos: 0 });
-            expect(shift).toBe(0);
-        });
-
-        it('should calculate thing at once', () => {
+        it('should keep assumed position in view after calculation', () => {
             const scrollPos = { main: 0, cross: 0 };
             const positions = initGridManager({
                 items: getItems(100),
@@ -986,6 +767,25 @@ fdescribe('mytest', () => {
             const postidx = binarySearchFirst(scrollPos.main, positions.positions.mainAxis);
 
             expect(preidx).toBe(postidx);
+        });
+    });
+
+    describe('getScrollShift', () => {
+        it('should calculate scroll shift (scrollPos=50))', () => {
+            const scrollPos = 50;
+            const shift = getScrollShift({ scrollPos, prevItemPos: 40, currItemPos: 180 });
+            expect(scrollPos + shift).toBe(190);
+        });
+
+        it('should calculate scroll shift (scrollPos=190)', () => {
+            const scrollPos = 190;
+            const shift = getScrollShift({ scrollPos, prevItemPos: 180, currItemPos: 40 });
+            expect(scrollPos + shift).toBe(50);
+        });
+
+        it('should calculate scroll shift (scrollPos=0)', () => {
+            const shift = getScrollShift({ scrollPos: 0, prevItemPos: 0, currItemPos: 0 });
+            expect(shift).toBe(0);
         });
     });
 });

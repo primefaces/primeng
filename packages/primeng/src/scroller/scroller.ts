@@ -1282,9 +1282,9 @@ export const initGridManager = <T>({
     };
 
     const itemsInViewport = () => {
-        const { main: scrollPosMain, cross: scrollPosCross } = getScrollPos();
-        const main = _getItemsInViewport(scrollPosMain, viewportSize.main, positions.mainAxis);
-        const cross = _getItemsInViewport(scrollPosCross, viewportSize.cross, positions.crossAxis);
+        const scrollPos = getScrollPos();
+        const main = _getItemsInViewport(scrollPos.main, viewportSize.main, positions.mainAxis);
+        const cross = _getItemsInViewport(scrollPos.cross, viewportSize.cross, positions.crossAxis);
         return {
             first: { main: main.first, cross: cross.first },
             last: { main: main.last, cross: cross.last }
@@ -1299,9 +1299,12 @@ export const initGridManager = <T>({
         return distanceFromCurrent < triggerDistance || distanceFromCurrent > viewportSize + triggerDistance ? newFirst : currFirstIdx;
     };
 
-    const _calculateLast = (firstIdx: number, totalScrollSize: number, viewportSize: number, itemPositions: ItemPos[]) => {
-        const lastItemPos = itemPositions.at(firstIdx).pos + viewportSize * 3;
-        return lastItemPos > totalScrollSize ? itemPositions.length : binarySearchFirst(lastItemPos, itemPositions);
+    //TODO: calculate last like first
+    const _calculateLast = (firstIdx: number, totalScrollSize: number, viewportSize: number, itemPositions: ItemPos[], scrollPos: number) => {
+        let lastItemPos = itemPositions.at(firstIdx).pos + viewportSize * 3;
+        if (lastItemPos < scrollPos) lastItemPos = scrollPos + viewportSize * 2;
+        const lastInViewportIdx = binarySearchFirst(scrollPos + viewportSize, itemPositions);
+        return lastItemPos > totalScrollSize ? itemPositions.length : Math.max(binarySearchFirst(lastItemPos, itemPositions), lastInViewportIdx + 1);
     };
 
     const _shouldRecalculate = (calculatedIdxs: boolean[], firstRendered: { pos: number; idx: number }, firstInViewport: { pos: number; idx: number }, triggerDistance: number) => {
@@ -1327,8 +1330,8 @@ export const initGridManager = <T>({
         return {
             first: newFirst,
             last: {
-                main: _calculateLast(newFirst.main, totalScrollSize.main, viewportSize.main, positions.mainAxis),
-                cross: _calculateLast(newFirst.cross, totalScrollSize.cross, viewportSize.cross, positions.crossAxis)
+                main: _calculateLast(newFirst.main, totalScrollSize.main, viewportSize.main, positions.mainAxis, scrollPos.main),
+                cross: _calculateLast(newFirst.cross, totalScrollSize.cross, viewportSize.cross, positions.crossAxis, scrollPos.cross)
             },
             isRangeChanged: newFirst.main !== first.main || newFirst.cross !== first.cross
         };
