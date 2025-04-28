@@ -1520,9 +1520,6 @@ export class InputNumber extends BaseComponent implements OnInit, AfterContentIn
 
     writeValue(value: any): void {
         this.value = value ? Number(value) : value;
-        if (this.input) {
-            this.input.nativeElement.value = value ? Number(value) : value;
-        }
         this.cd.markForCheck();
     }
 
