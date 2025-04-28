@@ -1,15 +1,16 @@
-import { Component } from '@angular/core';
 import { AppDocModule } from '@/components/doc/app.doc.module';
-import { OverviewDoc } from '@/doc/designer/overviewdoc';
-import { LicenseDoc } from '@/doc/designer/licensedoc';
-import { DashboardDoc } from '@/doc/designer/dashboarddoc';
+import { BaseDoc } from '@/doc/designer/createtheme/basedoc';
 import { FigmaDoc } from '@/doc/designer/createtheme/figmadoc';
-import { TokenSetsDoc } from '@/doc/designer/editor/tokensetsdoc';
+import { DashboardDoc } from '@/doc/designer/dashboarddoc';
 import { CustomTokensDoc } from '@/doc/designer/editor/customtokensdoc';
 import { IntelligentCompletionDoc } from '@/doc/designer/editor/intelligentcompletiondoc';
+import { TokenSetsDoc } from '@/doc/designer/editor/tokensetsdoc';
 import { TypographyDoc } from '@/doc/designer/editor/typographydoc';
-import { MigrationAssistantDoc } from '@/doc/designer/migrationassistantdoc';
+import { LicenseDoc } from '@/doc/designer/licensedoc';
 import { LimitationsDoc } from '@/doc/designer/limitationsdoc';
+import { MigrationAssistantDoc } from '@/doc/designer/migrationassistantdoc';
+import { OverviewDoc } from '@/doc/designer/overviewdoc';
+import { Component } from '@angular/core';
 
 @Component({
     standalone: true,
@@ -50,7 +51,7 @@ export class GuideDemo {
                 {
                     id: 'base',
                     label: 'Base',
-                    component: 'BaseDoc'
+                    component: BaseDoc
                 },
                 {
                     id: 'tokensets',
