@@ -98,6 +98,10 @@ export class Textarea extends BaseComponent implements OnInit, AfterViewInit, On
         this.updateFilledState();
     }
 
+    ngAfterViewChecked() {
+        if (this.autoResize) this.resize();
+    }
+
     @HostListener('input', ['$event'])
     onInput(e: Event) {
         this.updateState();
