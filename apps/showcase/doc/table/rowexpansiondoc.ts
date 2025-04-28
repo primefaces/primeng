@@ -336,8 +336,8 @@ export class RowExpansionDoc {
         typescript: `import { Component, OnInit } from '@angular/core';
 import { TableModule } from 'primeng/table';
 import { Product } from '@/domain/product';
-import { Tag } from 'primeng/tag';
-import { Rating } from 'primeng/rating';
+import { TagModule } from 'primeng/tag';
+import { RatingModule } from 'primeng/rating';
 import { CommonModule } from '@angular/common';
 import { ButtonModule } from 'primeng/button';
 import { ProductService } from '@/service/productservice';
@@ -349,7 +349,7 @@ import { TableRowCollapseEvent, TableRowExpandEvent } from 'primeng/table';
     selector: 'table-row-expansion-demo',
     templateUrl: 'table-row-expansion-demo.html',
     standalone: true,
-    imports: [TableModule, Tag, ToastModule, Rating, ButtonModule, CommonModule],
+    imports: [TableModule, TagModule, ToastModule, RatingModule, ButtonModule, CommonModule],
     providers: [ProductService, MessageService]
 })
 export class TableRowExpansionDemo implements OnInit{
