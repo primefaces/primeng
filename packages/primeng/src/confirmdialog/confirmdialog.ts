@@ -58,6 +58,7 @@ const hideAnimation = animation([animate('{{transition}}', style({ transform: '{
             [dismissableMask]="dismissableMask"
             [draggable]="draggable"
             [closeAriaLabel]="option('closeAriaLabel')"
+            [closeButtonProps]="getCloseButtonProps()"
         >
             @if (headlessTemplate || _headlessTemplate) {
                 <ng-template #headless>
@@ -635,6 +636,10 @@ export class ConfirmDialog extends BaseComponent implements OnInit, OnDestroy {
 
     getRejectButtonProps() {
         return this.option('rejectButtonProps');
+    }
+
+    getCloseButtonProps() {
+        return this.option('closeButtonProps');
     }
 }
 
