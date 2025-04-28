@@ -187,7 +187,8 @@ export const INPUTNUMBER_VALUE_ACCESSOR: any = {
     encapsulation: ViewEncapsulation.None,
     host: {
         '[attr.data-pc-name]': "'inputnumber'",
-        '[attr.data-pc-section]': "'root'"
+        '[attr.data-pc-section]': "'root'",
+        '[class]': 'hostClass'
     }
 })
 export class InputNumber extends BaseComponent implements OnInit, AfterContentInit, OnChanges, ControlValueAccessor {
@@ -555,17 +556,19 @@ export class InputNumber extends BaseComponent implements OnInit, AfterContentIn
         }
     }
 
-    @HostBinding('class') get hostClasses(): any {
-        return {
-            'p-inputnumber p-component p-inputwrapper': true,
-            'p-inputwrapper-filled': this.filled || this.allowEmpty === false,
-            'p-inputwrapper-focus': this.focused,
-            'p-inputnumber-stacked': this.showButtons && this.buttonLayout === 'stacked',
-            'p-inputnumber-horizontal': this.showButtons && this.buttonLayout === 'horizontal',
-            'p-inputnumber-vertical': this.showButtons && this.buttonLayout === 'vertical',
-            'p-inputnumber-fluid': this.hasFluid,
-            [`${this.styleClass}`]: this.styleClass
-        };
+    get hostClass(): string {
+        return [
+            'p-inputnumber p-component p-inputwrapper',
+            this.styleClass,
+            this.filled || this.allowEmpty === false ? 'p-inputwrapper-filled' : '',
+            this.focused ? 'p-inputwrapper-focus' : '',
+            this.showButtons && this.buttonLayout === 'stacked' ? 'p-inputnumber-stacked' : '',
+            this.showButtons && this.buttonLayout === 'horizontal' ? 'p-inputnumber-horizontal' : '',
+            this.showButtons && this.buttonLayout === 'vertical' ? 'p-inputnumber-vertical' : '',
+            this.hasFluid ? 'p-inputnumber-fluid' : ''
+        ]
+            .filter((cls) => !!cls)
+            .join(' ');
     }
 
     @HostBinding('style') get hostStyle(): any {
