@@ -1,34 +1,34 @@
-import { AnimationEvent, animate, style, transition, trigger } from '@angular/animations';
+import { animate, AnimationEvent, style, transition, trigger } from '@angular/animations';
 import { CommonModule, isPlatformBrowser } from '@angular/common';
 import {
+    booleanAttribute,
     ChangeDetectionStrategy,
     Component,
     ContentChild,
+    ContentChildren,
+    effect,
     ElementRef,
     EventEmitter,
+    forwardRef,
     Inject,
+    inject,
     Input,
+    input,
     NgModule,
+    numberAttribute,
     OnDestroy,
     OnInit,
     Output,
+    QueryList,
     Renderer2,
+    signal,
     TemplateRef,
     ViewChild,
     ViewEncapsulation,
-    ViewRef,
-    booleanAttribute,
-    effect,
-    forwardRef,
-    inject,
-    input,
-    numberAttribute,
-    signal,
-    ContentChildren,
-    QueryList
+    ViewRef
 } from '@angular/core';
 import { RouterModule } from '@angular/router';
-import { absolutePosition, appendChild, findLastIndex, findSingle, focus, isEmpty, isNotEmpty, isPrintableCharacter, isTouchDevice, nestedPosition, resolve, uuid, addStyle, getOuterWidth } from '@primeuix/utils';
+import { absolutePosition, addStyle, appendChild, findLastIndex, findSingle, focus, getOuterWidth, isEmpty, isNotEmpty, isPrintableCharacter, isTouchDevice, nestedPosition, relativePosition, resolve, uuid } from '@primeuix/utils';
 import { MenuItem, OverlayService, PrimeTemplate, SharedModule } from 'primeng/api';
 import { BaseComponent } from 'primeng/basecomponent';
 import { ConnectedOverlayScrollHandler } from 'primeng/dom';
@@ -980,7 +980,9 @@ export class TieredMenu extends BaseComponent implements OnInit, OnDestroy {
     }
 
     alignOverlay() {
-        absolutePosition(this.container, this.target);
+        if (this.relativeAlign) relativePosition(this.container, this.target);
+        else absolutePosition(this.container, this.target);
+
         const targetWidth = getOuterWidth(this.target);
 
         if (targetWidth > getOuterWidth(this.container)) {
