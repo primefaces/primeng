@@ -29,9 +29,8 @@ import { BadgeModule } from 'primeng/badge';
 import { BaseComponent } from 'primeng/basecomponent';
 import { SpinnerIcon } from 'primeng/icons';
 import { Ripple } from 'primeng/ripple';
-import { ButtonProps } from './button.interface';
+import { ButtonProps, ButtonSeverity } from './button.interface';
 import { ButtonStyle } from './style/buttonstyle';
-import { ButtonSeverity } from './button.interface';
 
 type ButtonIconPosition = 'left' | 'right' | 'top' | 'bottom';
 

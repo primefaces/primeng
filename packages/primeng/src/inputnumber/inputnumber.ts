@@ -422,6 +422,11 @@ export class InputNumber extends BaseComponent implements OnInit, AfterContentIn
      */
     @Input({ transform: booleanAttribute }) fluid: boolean = false;
     /**
+     * When "showButton" is set to true, this allows you to disable focusing the input when a user interacts with the buttons.
+     * @group Props
+     */
+    @Input({ transform: booleanAttribute }) disableFocusOnButtonInteraction: boolean = false;
+    /**
      * Callback to invoke on input.
      * @param {InputNumberInputEvent} event - Custom input event.
      * @group Emits
@@ -808,7 +813,7 @@ export class InputNumber extends BaseComponent implements OnInit, AfterContentIn
         }
 
         if (!this.disabled) {
-            this.input?.nativeElement.focus();
+            if (!this.disableFocusOnButtonInteraction) this.input?.nativeElement.focus();
             this.repeat(event, null, 1);
             event.preventDefault();
         }
@@ -844,7 +849,7 @@ export class InputNumber extends BaseComponent implements OnInit, AfterContentIn
             return;
         }
         if (!this.disabled) {
-            this.input?.nativeElement.focus();
+            if (!this.disableFocusOnButtonInteraction) this.input?.nativeElement.focus();
             this.repeat(event, null, -1);
             event.preventDefault();
         }
