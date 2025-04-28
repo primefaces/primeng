@@ -118,7 +118,7 @@ export const LISTBOX_VALUE_ACCESSOR: any = {
                     </span>
                 </ng-template>
             </div>
-            <div [ngClass]="'p-listbox-list-container'" #container [ngStyle]="listStyle" [class]="listStyleClass" [style.max-height]="virtualScroll ? 'auto' : scrollHeight || 'auto'" [attr.tabindex]="!disabled && '0'">
+            <div [ngClass]="'p-listbox-list-container'" #container cdkScrollable [ngStyle]="listStyle" [class]="listStyleClass" [style.max-height]="virtualScroll ? 'auto' : scrollHeight || 'auto'" [attr.tabindex]="!disabled && '0'">
                 @if (hasFilter() && isEmpty()) {
                     <div class="p-listbox-empty-message" [cdkDropListData]="$any([])" (cdkDropListDropped)="drop($event)" cdkDropList>
                         @if (!emptyFilterTemplate && !_emptyFilterTemplate && !_emptyTemplate && !emptyTemplate) {
