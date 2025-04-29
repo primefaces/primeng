@@ -51,7 +51,7 @@ export class Tag extends BaseComponent implements AfterContentInit {
      * Severity type of the tag.
      * @group Props
      */
-    @Input() severity: 'success' | 'secondary' | 'info' | 'warn' | 'danger' | 'contrast' | undefined;
+    @Input() severity: string | 'success' | 'secondary' | 'info' | 'warn' | 'danger' | 'contrast' | undefined | null;
     /**
      * Value to display inside the tag.
      * @group Props
