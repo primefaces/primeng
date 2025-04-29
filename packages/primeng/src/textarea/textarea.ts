@@ -9,7 +9,7 @@ import { TextareaStyle } from './style/textareastyle';
  * @group Components
  */
 @Directive({
-    selector: '[pTextarea]',
+    selector: '[pTextarea], [pInputTextarea]',
     standalone: true,
     host: {
         class: 'p-textarea p-component',
