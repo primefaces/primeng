@@ -346,6 +346,7 @@ export class Popover extends BaseComponent implements AfterContentInit, OnDestro
     onAnimationStart(event: AnimationEvent) {
         if (event.toState === 'open') {
             this.container = event.element;
+            this.container?.setAttribute(this.attrSelector, '');
             this.appendContainer();
             this.align();
             this.bindDocumentClickListener();
