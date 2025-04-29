@@ -603,7 +603,7 @@ p-datatable-gridlines .p-datatable-tbody > tr:last-child > td {
 
 .p-datatable-tbody > tr.p-datatable-row-selected .p-datatable-row-toggle-button:hover {
     background: ${dt('datatable.row.toggle.button.selected.hover.background')};
-    ${dt('datatable.row.toggle.button.selected.hover.color')};
+    color: ${dt('datatable.row.toggle.button.selected.hover.color')};
 }
 
 .p-datatable-row-toggle-button:focus-visible {
