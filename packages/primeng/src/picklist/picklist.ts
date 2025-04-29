@@ -143,7 +143,7 @@ import { PickListStyle } from './style/pickliststyle';
                     [filterPlaceHolder]="sourceFilterPlaceholder"
                     [dragdrop]="dragdrop"
                     (onDrop)="onDrop($event, SOURCE_LIST)"
-                    (onFilter)="onSourceFilter.emit($event)"
+                    (onFilter)="onFilter($event.originalEvent, SOURCE_LIST)"
                 >
                     <ng-container *ngIf="sourceHeaderTemplate || _sourceHeaderTemplate || sourceHeader">
                         <ng-template #header>
@@ -277,7 +277,7 @@ import { PickListStyle } from './style/pickliststyle';
                     [filterPlaceHolder]="targetFilterPlaceholder"
                     [dragdrop]="dragdrop"
                     (onDrop)="onDrop($event, TARGET_LIST)"
-                    (onFilter)="onTargetFilter.emit($event)"
+                    (onFilter)="onFilter($event.originalEvent, TARGET_LIST)"
                 >
                     <ng-container *ngIf="targetHeaderTemplate || _targetHeaderTemplate || targetHeader">
                         <ng-template #header>
@@ -1183,7 +1183,7 @@ export class PickList extends BaseComponent implements AfterViewChecked, AfterCo
         }
 
         this.moveRight();
-        this.viewChildMarkForCheck();
+        this.triggerChangeDetection();
     }
 
     onTargetItemDblClick() {
@@ -1192,7 +1192,7 @@ export class PickList extends BaseComponent implements AfterViewChecked, AfterCo
         }
 
         this.moveLeft();
-        this.viewChildMarkForCheck();
+        this.triggerChangeDetection();
     }
 
     onFilter(event: KeyboardEvent, listType: number) {
@@ -1257,9 +1257,9 @@ export class PickList extends BaseComponent implements AfterViewChecked, AfterCo
         return items.sort((item1, item2) => findIndexInList(item1, list) - findIndexInList(item2, list));
     }
 
-    viewChildMarkForCheck() {
-        this.listViewSourceChild.cd.markForCheck();
-        this.listViewTargetChild.cd.markForCheck();
+    triggerChangeDetection() {
+        this.source = [...this.source];
+        this.target = [...this.target];
     }
 
     moveUp(listElement: any, list: any[], selectedItems: any[], callback: EventEmitter<any>, listType: number) {
@@ -1284,7 +1284,7 @@ export class PickList extends BaseComponent implements AfterViewChecked, AfterCo
             this.movedUp = true;
             this.reorderedListElement = listElement;
             callback.emit({ items: selectedItems });
-            this.viewChildMarkForCheck();
+            this.triggerChangeDetection();
         }
     }
 
@@ -1307,7 +1307,7 @@ export class PickList extends BaseComponent implements AfterViewChecked, AfterCo
 
             listElement.scrollTop = 0;
             callback.emit({ items: selectedItems });
-            this.viewChildMarkForCheck();
+            this.triggerChangeDetection();
         }
     }
 
@@ -1333,7 +1333,7 @@ export class PickList extends BaseComponent implements AfterViewChecked, AfterCo
             this.movedDown = true;
             this.reorderedListElement = listElement;
             callback.emit({ items: selectedItems });
-            this.viewChildMarkForCheck();
+            this.triggerChangeDetection();
         }
     }
 
@@ -1356,7 +1356,7 @@ export class PickList extends BaseComponent implements AfterViewChecked, AfterCo
 
             listElement.scrollTop = listElement.scrollHeight;
             callback.emit({ items: selectedItems });
-            this.viewChildMarkForCheck();
+            this.triggerChangeDetection();
         }
     }
 
@@ -1388,7 +1388,7 @@ export class PickList extends BaseComponent implements AfterViewChecked, AfterCo
             if (this.filterValueTarget) {
                 this.filter(<any[]>this.target, this.TARGET_LIST);
             }
-            this.viewChildMarkForCheck();
+            this.triggerChangeDetection();
         }
     }
 
@@ -1419,7 +1419,7 @@ export class PickList extends BaseComponent implements AfterViewChecked, AfterCo
             }
 
             this.visibleOptionsSource = [];
-            this.viewChildMarkForCheck();
+            this.triggerChangeDetection();
         }
     }
 
@@ -1451,7 +1451,7 @@ export class PickList extends BaseComponent implements AfterViewChecked, AfterCo
             if (this.filterValueSource) {
                 this.filter(<any[]>this.source, this.SOURCE_LIST);
             }
-            this.viewChildMarkForCheck();
+            this.triggerChangeDetection();
         }
     }
 
@@ -1483,7 +1483,7 @@ export class PickList extends BaseComponent implements AfterViewChecked, AfterCo
             }
 
             this.visibleOptionsTarget = [];
-            this.viewChildMarkForCheck();
+            this.triggerChangeDetection();
         }
     }
 
