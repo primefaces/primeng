@@ -511,13 +511,6 @@ export class InputMask extends BaseInput implements OnInit, AfterContentInit {
             this.checkVal();
         }
         this.onBlur.emit(e);
-
-        if (this.modelValue() != this.focusText || this.modelValue() != this.value) {
-            this.updateModel(e);
-            let event = this.document.createEvent('HTMLEvents');
-            event.initEvent('change', true, false);
-            this.inputViewChild?.nativeElement.dispatchEvent(event);
-        }
     }
 
     onInputKeydown(e: KeyboardEvent) {
