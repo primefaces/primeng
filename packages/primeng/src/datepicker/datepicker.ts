@@ -589,7 +589,16 @@ export class DatePicker extends BaseComponent implements OnInit, AfterContentIni
      * Format of the date which can also be defined at locale settings.
      * @group Props
      */
-    @Input() dateFormat: string | undefined;
+    @Input()
+    get dateFormat(): string | undefined {
+        return this._dateFormat;
+    }
+    set dateFormat(value: string | undefined) {
+        this._dateFormat = value;
+        if (this.initialized) {
+            this.updateInputfield();
+        }
+    }
     /**
      * Separator for multiple selection mode.
      * @group Props
@@ -661,7 +670,16 @@ export class DatePicker extends BaseComponent implements OnInit, AfterContentIni
      * Specifies 12 or 24 hour format.
      * @group Props
      */
-    @Input() hourFormat: string = '24';
+    @Input()
+    get hourFormat(): string {
+        return this._hourFormat;
+    }
+    set hourFormat(value: string) {
+        this._hourFormat = value;
+        if (this.initialized) {
+            this.updateInputfield();
+        }
+    }
     /**
      * Whether to display timepicker only.
      * @group Props
@@ -1132,6 +1150,10 @@ export class DatePicker extends BaseComponent implements OnInit, AfterContentIni
     _minDate?: Date | null;
 
     _maxDate?: Date | null;
+
+    _dateFormat: string | undefined;
+
+    _hourFormat: string = '24';
 
     _showTime!: boolean;
 
