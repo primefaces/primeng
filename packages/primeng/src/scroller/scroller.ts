@@ -696,7 +696,7 @@ export class Scroller extends BaseComponent implements OnInit, AfterContentInit,
             }
         });
 
-        this.setContentPosition({ first: this._gridManager.getRange(this._first).first });
+        this.setContentPosition({ first: this._gridManager.getRange(this._first, this._last).first });
         this.setSize();
         this.calculateOptions();
         this.setSpacerSize();
@@ -744,7 +744,7 @@ export class Scroller extends BaseComponent implements OnInit, AfterContentInit,
             const { scrollTop = 0, scrollLeft = 0 } = this.elementViewChild?.nativeElement;
             const contentPos = this.getContentPosition();
             const scrollTo = (left = 0, top = 0) => this._scrollTo({ left, top, behavior }, { main: index[0] ?? index, cross: index[1] ?? 0 });
-            const range = this._gridManager.getRange(this._first);
+            const range = this._gridManager.getRange(this._first, this._last);
             let newFirst = this.both ? { rows: 0, cols: 0 } : 0;
             let isRangeChanged = false,
                 isScrollChanged = false;
@@ -823,7 +823,7 @@ export class Scroller extends BaseComponent implements OnInit, AfterContentInit,
     }
 
     calculateOptions() {
-        const range = this._gridManager.getRange(this._first);
+        const range = this._gridManager.getRange(this._first, this._last);
         this.last = this.both
             ? {
                   rows: range.last.main,
@@ -929,7 +929,7 @@ export class Scroller extends BaseComponent implements OnInit, AfterContentInit,
     }
 
     onScrollChange(event: Event) {
-        const { first, last, isRangeChanged } = this._gridManager.getRange(this._first);
+        const { first, last, isRangeChanged } = this._gridManager.getRange(this._first, this._last);
         const target = <HTMLElement>event.target;
 
         if (isRangeChanged) {
@@ -963,7 +963,7 @@ export class Scroller extends BaseComponent implements OnInit, AfterContentInit,
             }
 
             if (!this.d_loading && this.showLoader) {
-                const { isRangeChanged } = this._gridManager.getRange(this._first);
+                const { isRangeChanged } = this._gridManager.getRange(this._first, this._last);
                 const changed = isRangeChanged || (this._step ? this.isPageChanged() : false);
 
                 if (changed) {
@@ -1167,7 +1167,7 @@ export const initGridManager = <T>({
     positions: { mainAxis: ItemPos[]; crossAxis: ItemPos[] };
     at: (main: number, cross?: number) => { main: ItemPos; cross: ItemPos };
     totalSize: () => GridItem;
-    getRange: (first: GridItem) => { first: GridItem; last: GridItem; isRangeChanged: boolean };
+    getRange: (first: GridItem, last: GridItem) => { first: GridItem; last: GridItem; isRangeChanged: boolean };
     itemsInViewport: () => { first: GridItem; last: GridItem };
 } => {
     const _items = isGrid(items) ? items : items.map((x) => [x]);
@@ -1217,10 +1217,17 @@ export const initGridManager = <T>({
         }
     };
 
+    const _isScrollOverItem = (scrollPos: number, item: ItemPos) => scrollPos > item.pos && scrollPos < item.pos + item.size;
+
     const _updateByIndex = (mainIdx: number, crossIdx: number = 0) => {
         const idx = { main: positions.mainAxis.indexOf(positions.mainAxis.at(mainIdx)), cross: positions.crossAxis.indexOf(positions.crossAxis.at(crossIdx)) };
+        const scrollPos = getScrollPos();
+        const itemOverlapDistance = {
+            main: _isScrollOverItem(scrollPos.main, positions.mainAxis[idx.main]) ? scrollPos.main - positions.mainAxis[idx.main].pos : 0,
+            cross: _isScrollOverItem(scrollPos.cross, positions.crossAxis[idx.cross]) ? scrollPos.cross - positions.crossAxis[idx.cross].pos : 0
+        };
         const getBackwardDistance = (viewportSize: number, forwardDistanceLeft: number) => viewportSize + Math.max(forwardDistanceLeft - viewportSize, 0);
-        const { distanceLeft } = _calculateSizesWithinDistance({ main: viewportSize.main * 2, cross: viewportSize.cross * 2 }, idx, 'forward');
+        const { distanceLeft } = _calculateSizesWithinDistance({ main: viewportSize.main * 2 + itemOverlapDistance.main, cross: viewportSize.cross * 2 + itemOverlapDistance.cross }, idx, 'forward');
         const { lastCalculatedIndex } = _calculateSizesWithinDistance(
             { main: getBackwardDistance(viewportSize.main, distanceLeft.main), cross: getBackwardDistance(viewportSize.cross, distanceLeft.cross) },
             { main: Math.max(0, idx.main - 1), cross: Math.max(0, idx.cross - 1) },
@@ -1299,41 +1306,53 @@ export const initGridManager = <T>({
         return distanceFromCurrent < triggerDistance || distanceFromCurrent > viewportSize + triggerDistance ? newFirst : currFirstIdx;
     };
 
-    //TODO: calculate last like first
-    const _calculateLast = (firstIdx: number, totalScrollSize: number, viewportSize: number, itemPositions: ItemPos[], scrollPos: number) => {
-        let lastItemPos = itemPositions.at(firstIdx).pos + viewportSize * 3;
-        if (lastItemPos < scrollPos) lastItemPos = scrollPos + viewportSize * 2;
-        const lastInViewportIdx = binarySearchFirst(scrollPos + viewportSize, itemPositions);
-        return lastItemPos > totalScrollSize ? itemPositions.length : Math.max(binarySearchFirst(lastItemPos, itemPositions), lastInViewportIdx + 1);
+    const _calculateLast = (currLastIdx: number, scrollPos: number, itemPositions: ItemPos[], viewportSize: number, triggerDistance: number) => {
+        const currLastPos = itemPositions.at(currLastIdx).pos;
+        const newLastIdx = binarySearchFirst(scrollPos + viewportSize * 2 - 1, itemPositions) + 1;
+        const distanceFromCurrent = currLastPos - scrollPos + viewportSize;
+
+        return distanceFromCurrent < triggerDistance || distanceFromCurrent > viewportSize + triggerDistance ? newLastIdx : currLastIdx;
     };
 
-    const _shouldRecalculate = (calculatedIdxs: boolean[], firstRendered: { pos: number; idx: number }, firstInViewport: { pos: number; idx: number }, triggerDistance: number) => {
-        const distanceBetween = firstInViewport.pos - firstRendered.pos;
-        return !calculatedIdxs.at(firstInViewport.idx) || (calculatedIdxs.length > 1 && (distanceBetween < triggerDistance || distanceBetween > triggerDistance * 3));
+    const _shouldRecalculate = (calculatedIdxs: boolean[], renderedItemPos: { first: number; last: number }, firstInViewport: { pos: number; idx: number }, lastInViewport: { pos: number; idx: number }, triggerDistance: number) => {
+        const distanceBetween = { first: firstInViewport.pos - renderedItemPos.first, last: renderedItemPos.last - lastInViewport.pos };
+        return !calculatedIdxs.at(firstInViewport.idx) || (calculatedIdxs.length > 1 && (distanceBetween.first < triggerDistance || distanceBetween.last < triggerDistance));
     };
 
-    const getRange = (first: GridItem) => {
+    const getRange = (first: GridItem, last: GridItem) => {
         const viewport = itemsInViewport();
         if (
-            _shouldRecalculate(_calculatedIndexes.mainAxis, { pos: positions.mainAxis[first.main].pos, idx: first.main }, { pos: positions.mainAxis[viewport.first.main].pos, idx: viewport.first.main }, _triggerDistance.main) ||
-            _shouldRecalculate(_calculatedIndexes.crossAxis, { pos: positions.crossAxis[first.cross].pos, idx: first.cross }, { pos: positions.crossAxis[viewport.first.cross].pos, idx: viewport.first.cross }, _triggerDistance.cross)
+            _shouldRecalculate(
+                _calculatedIndexes.mainAxis,
+                { first: positions.mainAxis[first.main].pos, last: positions.mainAxis[last.main].pos },
+                { pos: positions.mainAxis[viewport.first.main].pos, idx: viewport.first.main },
+                { pos: positions.mainAxis[viewport.last.main].pos, idx: viewport.last.main },
+                _triggerDistance.main
+            ) ||
+            _shouldRecalculate(
+                _calculatedIndexes.crossAxis,
+                { first: positions.crossAxis[first.cross].pos, last: positions.crossAxis[last.cross].pos },
+                { pos: positions.crossAxis[viewport.first.cross].pos, idx: viewport.first.cross },
+                { pos: positions.crossAxis[viewport.last.cross].pos, idx: viewport.last.cross },
+                _triggerDistance.cross
+            )
         )
             _syncScrollOnAction(() => _updateByIndex(viewport.first.main, viewport.first.cross));
 
-        const totalScrollSize = totalSize();
         const scrollPos = getScrollPos();
         const newFirst = {
             main: _calculateFirst(first.main, scrollPos.main, positions.mainAxis, viewportSize.main, _triggerDistance.main),
             cross: _calculateFirst(first.cross, scrollPos.cross, positions.crossAxis, viewportSize.cross, _triggerDistance.cross)
         };
+        const newLast = {
+            main: _calculateLast(last.main, scrollPos.main, positions.mainAxis, viewportSize.main, _triggerDistance.main),
+            cross: _calculateLast(last.cross, scrollPos.cross, positions.crossAxis, viewportSize.cross, _triggerDistance.cross)
+        };
 
         return {
             first: newFirst,
-            last: {
-                main: _calculateLast(newFirst.main, totalScrollSize.main, viewportSize.main, positions.mainAxis, scrollPos.main),
-                cross: _calculateLast(newFirst.cross, totalScrollSize.cross, viewportSize.cross, positions.crossAxis, scrollPos.cross)
-            },
-            isRangeChanged: newFirst.main !== first.main || newFirst.cross !== first.cross
+            last: newLast,
+            isRangeChanged: newFirst.main !== first.main || newFirst.cross !== first.cross || newLast.main !== last.main || newLast.cross !== last.cross
         };
     };
 

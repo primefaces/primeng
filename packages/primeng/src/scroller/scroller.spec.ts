@@ -351,7 +351,7 @@ fdescribe('Scroller', () => {
 
             const { firstInViewport, lastInViewport } = actions.getViewportItems();
 
-            expect(scroller.last).toEqual({ rows: 1000, cols: 999 });
+            expect(scroller.last).toEqual({ rows: 1000, cols: 1000 });
             expect(firstInViewport.textContent.trim()).toBe(component.items[995][995]);
             expect(lastInViewport).toBeTruthy();
         });
@@ -381,7 +381,7 @@ fdescribe('Scroller', () => {
 
             const { firstInViewport, lastInViewport } = actions.getViewportItems();
 
-            expect(scroller.last).toEqual({ rows: 1000, cols: 999 });
+            expect(scroller.last).toEqual({ rows: 1000, cols: 1000 });
             expect(firstInViewport.textContent.trim()).toBe(component.items.at(995).at(995));
             expect(lastInViewport).toBeTruthy();
         });
@@ -497,6 +497,31 @@ fdescribe('Scroller', () => {
             ]);
         });
 
+        it('should calculate position with first item partially in viewport', () => {
+            const scrollPos = { main: 0, cross: 0 };
+            const viewportSize = { main: 200, cross: 200 };
+            const { positions, getRange } = initGridManager({
+                items: getItems(1000, 1000),
+                getItemSize: () => ({ main: 100, cross: 100 }),
+                getScrollPos: () => scrollPos,
+                scrollTo: ({ main, cross }) => {
+                    scrollPos.main = main;
+                    scrollPos.cross = cross;
+                },
+                setScrollSize: () => {},
+                viewportSize
+            });
+            scrollPos.main = 40055;
+            scrollPos.cross = scrollPos.main;
+            getRange({ main: 0, cross: 0 }, { main: 0, cross: 0 });
+            const lastRenderedIdx = binarySearchFirst(scrollPos.main + viewportSize.main * 2, positions.mainAxis);
+            const firstInViewportIdx = binarySearchFirst(scrollPos.main, positions.mainAxis);
+
+            expect(scrollPos.main - positions.mainAxis[firstInViewportIdx].pos).toBe(15);
+            expect(lastRenderedIdx).toBe(999);
+            expect(positions.mainAxis.at(lastRenderedIdx).size).toBe(100);
+        });
+
         it('should calculate positions for item at index [499,499]', () => {
             const { positions, at } = initGridManager({
                 items: getItems(1000, 1000),
@@ -553,7 +578,7 @@ fdescribe('Scroller', () => {
             });
 
             const expectedFirstItemToRender = { main: 495, cross: 497 };
-            expect(getRange({ main: 0, cross: 0 }).first).toEqual(expectedFirstItemToRender);
+            expect(getRange({ main: 0, cross: 0 }, { main: 0, cross: 0 }).first).toEqual(expectedFirstItemToRender);
             expect(positions.mainAxis[expectedFirstItemToRender.main].size).toBe(50);
             expect(positions.crossAxis[expectedFirstItemToRender.cross].size).toBe(100);
         });
@@ -572,9 +597,8 @@ fdescribe('Scroller', () => {
                 viewportSize: { main: 200, cross: 200 }
             });
 
-            const first = { main: 495, cross: 497 };
             const expectedLast = { main: 507, cross: 503 };
-            expect(getRange(first).last).toEqual(expectedLast);
+            expect(getRange({ main: 0, cross: 0 }, { main: 0, cross: 0 }).last).toEqual(expectedLast);
             expect(positions.mainAxis[expectedLast.main - 1].size).toBe(50);
             expect(positions.crossAxis[expectedLast.cross - 1].size).toBe(100);
             expect(positions.mainAxis[expectedLast.main].size).toBe(40);
@@ -595,11 +619,11 @@ fdescribe('Scroller', () => {
             expect(positions).toEqual({
                 mainAxis: [
                     { size: 40, pos: 0 },
-                    { size: 40, pos: 40 },
-                    { size: 100, pos: 80 },
-                    { size: 20, pos: 180 },
-                    { size: 50, pos: 200 },
-                    { size: 100, pos: 250 }
+                    { size: 50, pos: 40 },
+                    { size: 100, pos: 90 },
+                    { size: 20, pos: 190 },
+                    { size: 50, pos: 210 },
+                    { size: 100, pos: 260 }
                 ],
                 crossAxis: [
                     { size: 40, pos: 0 },
@@ -723,8 +747,9 @@ fdescribe('Scroller', () => {
             });
             scrollPos.main = gridManager.totalSize().main / 2 + 20;
             scrollPos.cross = gridManager.totalSize().cross / 2;
-            gridManager.getRange({ main: 0, cross: 0 });
+            gridManager.getRange({ main: 0, cross: 0 }, { main: 0, cross: 0 });
             const firstInViewport = gridManager.itemsInViewport().first;
+
             const scrollPos2 = {
                 main: scrollPos.main + getScrollShift({ scrollPos: scrollPos.main, prevItemPos: gridManager.positions.mainAxis[firstInViewport.main].pos, currItemPos: 40 * firstInViewport.main }),
                 cross: scrollPos.cross + getScrollShift({ scrollPos: scrollPos.cross, prevItemPos: gridManager.positions.crossAxis[firstInViewport.cross].pos, currItemPos: 40 * firstInViewport.cross })
@@ -763,7 +788,7 @@ fdescribe('Scroller', () => {
 
             scrollPos.main = 3000;
             const preidx = binarySearchFirst(scrollPos.main, positions.positions.mainAxis);
-            positions.getRange({ main: 0, cross: 0 });
+            positions.getRange({ main: 0, cross: 0 }, { main: 0, cross: 0 });
             const postidx = binarySearchFirst(scrollPos.main, positions.positions.mainAxis);
 
             expect(preidx).toBe(postidx);
