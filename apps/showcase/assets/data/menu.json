@@ -56,8 +56,7 @@
                         },
                         {
                             "name": "FloatLabel",
-                            "routerLink": "/floatlabel",
-                            "badge": "NEW"
+                            "routerLink": "/floatlabel"
                         },
                         {
                             "name": "IconField",
@@ -65,8 +64,7 @@
                         },
                         {
                             "name": "IftaLabel",
-                            "routerLink": "/iftalabel",
-                            "badge": "NEW"
+                            "routerLink": "/iftalabel"
                         },
                         {
                             "name": "InputGroup",
@@ -375,8 +373,7 @@
                         },
                         {
                             "name": "ImageCompare",
-                            "routerLink": "/imagecompare",
-                            "badge":"NEW"
+                            "routerLink": "/imagecompare"
                         }
                     ]
                 },
@@ -584,8 +581,7 @@
                 {
                     "name": "Contribution",
                     "routerLink": "/contribution",
-                    "icon": "pi pi-users",
-                    "badge": "NEW"
+                    "icon": "pi pi-users"
                 },
                 {
                     "name": "Store",
