@@ -10612,7 +10612,6 @@
                             "optional": false,
                             "readonly": false,
                             "type": "string",
-                            "default": "24",
                             "description": "Specifies 12 or 24 hour format."
                         },
                         {
@@ -20944,7 +20943,7 @@
                             "optional": false,
                             "readonly": false,
                             "type": "number",
-                            "description": "Decides how many selected item labels to show at most."
+                            "description": "Maximum number of selectable items."
                         },
                         {
                             "name": "selectedItemsLabel",
@@ -23812,8 +23811,7 @@
                             "readonly": false,
                             "type": "boolean",
                             "default": "true",
-                            "description": "Specifies if header of panel cannot be displayed.",
-                            "deprecated": "since v15.4.2, use "
+                            "description": "Specifies if header of panel cannot be displayed."
                         },
                         {
                             "name": "toggler",
@@ -29395,6 +29393,7 @@
                             "optional": false,
                             "readonly": false,
                             "type": "boolean",
+                            "default": "false",
                             "description": "When present, it specifies that the menu button element should be disabled."
                         },
                         {
@@ -29402,6 +29401,7 @@
                             "optional": false,
                             "readonly": false,
                             "type": "boolean",
+                            "default": "false",
                             "description": "When present, it specifies that the button element should be disabled."
                         }
                     ]
@@ -32995,7 +32995,7 @@
                             "name": "severity",
                             "optional": false,
                             "readonly": false,
-                            "type": "\"info\" | \"success\" | \"warn\" | \"danger\" | \"secondary\" | \"contrast\"",
+                            "type": "string",
                             "description": "Severity type of the tag."
                         },
                         {
