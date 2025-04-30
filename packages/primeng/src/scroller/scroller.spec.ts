@@ -106,6 +106,13 @@ fdescribe('Scroller', () => {
             expect(scroller.getPageByFirst(11)).toBe(2);
         });
 
+        it('should render items', () => {
+            const { firstInViewport, lastInViewport } = actions.getViewportItems();
+
+            expect(firstInViewport).toBeTruthy();
+            expect(lastInViewport).toBeTruthy();
+        });
+
         it('should scrollToIndex of the last item', () => {
             actions.scrollToIndex(scroller.items.length - 1);
 
@@ -193,6 +200,50 @@ fdescribe('Scroller', () => {
             expect(lastInViewport).toBeTruthy();
         });
 
+        it('should scrollTo the bottom (itemSize=5)', () => {
+            actions.setItemSize(5);
+            actions.scrollTo({ top: scrollerDiv.scrollHeight });
+
+            const { firstInViewport, lastInViewport } = actions.getViewportItems();
+
+            expect(scroller.last).toBe(scroller.items.length);
+            expect(firstInViewport.textContent.trim()).toBe(component.items[960]);
+            expect(lastInViewport.textContent.trim()).toBe(component.items[999]);
+        });
+
+        it('should scrollTo the middle (itemSize=5)', () => {
+            actions.setItemSize(5);
+            actions.scrollTo({ top: scrollerDiv.scrollHeight / 2 });
+
+            const { firstInViewport, lastInViewport } = actions.getViewportItems();
+
+            expect(scroller.first).not.toBe(0);
+            expect(firstInViewport.textContent.trim()).toBe(component.items[535]);
+            expect(lastInViewport).toBeTruthy();
+        });
+
+        it('should scrollTo the bottom (itemSize=1000)', () => {
+            actions.setItemSize(1000);
+            actions.scrollTo({ top: scrollerDiv.scrollHeight });
+
+            const { firstInViewport, lastInViewport } = actions.getViewportItems();
+
+            expect(scroller.last).toBe(996);
+            expect(firstInViewport.textContent.trim()).toBe(component.items[995]);
+            expect(lastInViewport).toBeTruthy();
+        });
+
+        it('should scrollTo the middle (itemSize=1000)', () => {
+            actions.setItemSize(1000);
+            actions.scrollTo({ top: scrollerDiv.scrollHeight / 2 });
+
+            const { firstInViewport, lastInViewport } = actions.getViewportItems();
+
+            expect(scroller.first).not.toBe(0);
+            expect(firstInViewport.textContent.trim()).toBe(component.items[488]);
+            expect(lastInViewport).toBeTruthy();
+        });
+
         it('should smoothly scrollToIndex of the middle item', async () => {
             const itemIdx = 50;
             scroller.scrollToIndex(itemIdx, 'smooth');
@@ -203,6 +254,99 @@ fdescribe('Scroller', () => {
 
             expect(firstInViewport.textContent.trim()).toBe(component.items.at(itemIdx));
             expect(lastInViewport).toBeTruthy();
+        });
+
+        it('should not flicker during scrolling up', () => {
+            actions.userScrollTo({ top: scrollerDiv.scrollHeight / 2 + 15 });
+
+            const prescroll = actions.getViewportItems();
+            expect(prescroll.firstInViewport.getBoundingClientRect().top).toBeLessThan(scrollerDiv.getBoundingClientRect().top);
+            const prescrollOffset = prescroll.firstInViewport.getBoundingClientRect().top - scrollerDiv.getBoundingClientRect().top;
+
+            actions.userScrollTo({ top: scrollerDiv.scrollTop - 200 });
+
+            const postscroll = actions.getViewportItems();
+            const postscrollOffset = postscroll.firstInViewport.getBoundingClientRect().top - scrollerDiv.getBoundingClientRect().top;
+
+            expect(postscroll.firstInViewport.textContent.trim()).toBe(component.items.at(495));
+            expect(prescrollOffset).toBe(postscrollOffset);
+            expect(postscroll.firstInViewport.getBoundingClientRect().top).toBeLessThan(scrollerDiv.getBoundingClientRect().top);
+        });
+
+        it('should not flicker during scrolling up (itemSize=5)', () => {
+            actions.setItemSize(5);
+            actions.userScrollTo({ top: scrollerDiv.scrollHeight / 2 + 3 });
+
+            const prescroll = actions.getViewportItems();
+            expect(prescroll.firstInViewport.getBoundingClientRect().top).toBeLessThan(scrollerDiv.getBoundingClientRect().top);
+            const prescrollOffset = prescroll.firstInViewport.getBoundingClientRect().top - scrollerDiv.getBoundingClientRect().top;
+
+            actions.userScrollTo({ top: scrollerDiv.scrollTop - 200 });
+
+            const postscroll = actions.getViewportItems();
+            const postscrollOffset = postscroll.firstInViewport.getBoundingClientRect().top - scrollerDiv.getBoundingClientRect().top;
+
+            expect(prescroll.firstInViewport.textContent.trim()).toBe(component.items.at(535));
+            expect(postscroll.firstInViewport.textContent.trim()).toBe(component.items.at(495));
+            expect(prescrollOffset).toBe(postscrollOffset);
+            expect(postscroll.firstInViewport.getBoundingClientRect().top).toBeLessThan(scrollerDiv.getBoundingClientRect().top);
+        });
+
+        it('should not flicker during scrolling up (itemSize=1000)', () => {
+            actions.setItemSize(1000);
+            actions.userScrollTo({ top: scrollerDiv.scrollHeight / 2 + 30 });
+
+            const prescroll = actions.getViewportItems();
+            expect(prescroll.firstInViewport.getBoundingClientRect().top).toBeLessThan(scrollerDiv.getBoundingClientRect().top);
+            const prescrollOffset = prescroll.firstInViewport.getBoundingClientRect().top - scrollerDiv.getBoundingClientRect().top;
+
+            actions.userScrollTo({ top: scrollerDiv.scrollTop - 200 });
+
+            const postscroll = actions.getViewportItems();
+            const postscrollOffset = postscroll.firstInViewport.getBoundingClientRect().top - scrollerDiv.getBoundingClientRect().top;
+
+            expect(prescroll.firstInViewport.textContent.trim()).toBe(component.items.at(488));
+            expect(postscroll.firstInViewport.textContent.trim()).toBe(component.items.at(487));
+            expect(prescrollOffset).toBe(-30);
+            expect(postscrollOffset).toBe(-830);
+            expect(postscroll.firstInViewport.getBoundingClientRect().top).toBeLessThan(scrollerDiv.getBoundingClientRect().top);
+        });
+
+        it('should not flicker during scrolling down', () => {
+            actions.userScrollTo({ top: scrollerDiv.scrollHeight / 2 + 15 });
+
+            const prescroll = actions.getViewportItems();
+            expect(prescroll.firstInViewport.getBoundingClientRect().top).toBeLessThan(scrollerDiv.getBoundingClientRect().top);
+            const prescrollOffset = prescroll.firstInViewport.getBoundingClientRect().top - scrollerDiv.getBoundingClientRect().top;
+
+            actions.userScrollTo({ top: scrollerDiv.scrollTop + 200 });
+
+            const postscroll = actions.getViewportItems();
+            const postscrollOffset = postscroll.firstInViewport.getBoundingClientRect().top - scrollerDiv.getBoundingClientRect().top;
+
+            expect(postscroll.firstInViewport.textContent.trim()).toBe(component.items.at(503));
+            expect(prescrollOffset).toBe(postscrollOffset);
+            expect(postscroll.firstInViewport.getBoundingClientRect().top).toBeLessThan(scrollerDiv.getBoundingClientRect().top);
+        });
+
+        it('should not flicker during scrolling down (itemSize=1000)', () => {
+            actions.setItemSize(1000);
+            actions.userScrollTo({ top: scrollerDiv.scrollHeight / 2 + 30 });
+
+            const prescroll = actions.getViewportItems();
+            expect(prescroll.firstInViewport.getBoundingClientRect().top).toBeLessThan(scrollerDiv.getBoundingClientRect().top);
+            const prescrollOffset = prescroll.firstInViewport.getBoundingClientRect().top - scrollerDiv.getBoundingClientRect().top;
+
+            actions.userScrollTo({ top: scrollerDiv.scrollTop + 200 });
+
+            const postscroll = actions.getViewportItems();
+            const postscrollOffset = postscroll.firstInViewport.getBoundingClientRect().top - scrollerDiv.getBoundingClientRect().top;
+
+            expect(prescroll.firstInViewport.textContent.trim()).toBe(component.items.at(488));
+            expect(postscroll.firstInViewport.textContent.trim()).toBe(component.items.at(488));
+            expect(prescrollOffset).toBe(-30);
+            expect(postscrollOffset).toBe(-230);
+            expect(postscroll.firstInViewport.getBoundingClientRect().top).toBeLessThan(scrollerDiv.getBoundingClientRect().top);
         });
     });
 
@@ -386,7 +530,7 @@ fdescribe('Scroller', () => {
             expect(lastInViewport).toBeTruthy();
         });
 
-        it('should not flicker during smooth scrolling', () => {
+        it('should not flicker during scrolling', () => {
             actions.userScrollTo({ top: scrollerDiv.scrollHeight / 2, left: scrollerDiv.scrollWidth / 2 + 10 });
 
             const prescroll = actions.getViewportItems();

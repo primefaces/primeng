@@ -1309,7 +1309,7 @@ export const initGridManager = <T>({
     const _calculateLast = (currLastIdx: number, scrollPos: number, itemPositions: ItemPos[], viewportSize: number, triggerDistance: number) => {
         const currLastPos = itemPositions.at(currLastIdx).pos;
         const newLastIdx = binarySearchFirst(scrollPos + viewportSize * 2 - 1, itemPositions) + 1;
-        const distanceFromCurrent = currLastPos - scrollPos + viewportSize;
+        const distanceFromCurrent = currLastPos > scrollPos ? currLastPos - scrollPos + viewportSize : 0;
 
         return distanceFromCurrent < triggerDistance || distanceFromCurrent > viewportSize + triggerDistance ? newLastIdx : currLastIdx;
     };
