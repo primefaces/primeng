@@ -625,7 +625,7 @@ export class ContextMenu extends BaseComponent implements OnInit, AfterContentIn
             if (!this.documentClickListener) {
                 const documentTarget: any = this.el ? this.el.nativeElement.ownerDocument : 'document';
 
-                this.documentClickListener = this.renderer.listen(documentTarget, 'click', (event) => {
+                this.documentClickListener = this.renderer.listen(documentTarget, 'mousedown', (event) => {
                     if (this.containerViewChild.nativeElement.offsetParent && this.isOutsideClicked(event) && !event.ctrlKey && event.button !== 2 && this.triggerEvent !== 'click') {
                         this.hide();
                     }
