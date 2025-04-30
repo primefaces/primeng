@@ -925,7 +925,7 @@ export class InputNumber extends BaseComponent implements OnInit, AfterContentIn
                 for (let index = selectionStart; index <= inputValue.length; index++) {
                     const previousCharIndex = index === 0 ? 0 : index - 1;
                     if (this.isNumeralChar(inputValue.charAt(previousCharIndex))) {
-                        this.input.nativeElement.setSelectionRange(index, index);
+                        this.setSelectionRange(index, index);
                         break;
                     }
                 }
@@ -934,7 +934,7 @@ export class InputNumber extends BaseComponent implements OnInit, AfterContentIn
             case 'ArrowRight':
                 for (let index = selectionEnd; index >= 0; index--) {
                     if (this.isNumeralChar(inputValue.charAt(index))) {
-                        this.input.nativeElement.setSelectionRange(index, index);
+                        this.setSelectionRange(index, index);
                         break;
                     }
                 }
@@ -969,7 +969,7 @@ export class InputNumber extends BaseComponent implements OnInit, AfterContentIn
                             this._decimal.lastIndex = 0;
 
                             if (decimalLength) {
-                                this.input?.nativeElement.setSelectionRange(selectionStart - 1, selectionStart - 1);
+                                this.setSelectionRange(selectionStart - 1, selectionStart - 1);
                             } else {
                                 newValueStr = inputValue.slice(0, selectionStart - 1) + inputValue.slice(selectionStart);
                             }
@@ -1015,7 +1015,7 @@ export class InputNumber extends BaseComponent implements OnInit, AfterContentIn
                             this._decimal.lastIndex = 0;
 
                             if (decimalLength) {
-                                this.input?.nativeElement.setSelectionRange(selectionStart + 1, selectionStart + 1);
+                                this.setSelectionRange(selectionStart + 1, selectionStart + 1);
                             } else {
                                 newValueStr = inputValue.slice(0, selectionStart) + inputValue.slice(selectionStart + 1);
                             }
@@ -1282,7 +1282,7 @@ export class InputNumber extends BaseComponent implements OnInit, AfterContentIn
         }
 
         if (index !== null) {
-            this.input?.nativeElement.setSelectionRange(index + 1, index + 1);
+            this.setSelectionRange(index + 1, index + 1);
         } else {
             i = selectionStart;
             while (i < valueLength) {
@@ -1296,7 +1296,7 @@ export class InputNumber extends BaseComponent implements OnInit, AfterContentIn
             }
 
             if (index !== null) {
-                this.input?.nativeElement.setSelectionRange(index, index);
+                this.setSelectionRange(index, index);
             }
         }
 
@@ -1391,10 +1391,10 @@ export class InputNumber extends BaseComponent implements OnInit, AfterContentIn
 
         if (currentLength === 0) {
             this.input.nativeElement.value = newValue;
-            this.input.nativeElement.setSelectionRange(0, 0);
+            this.setSelectionRange(0, 0);
             const index = this.initCursor();
             const selectionEnd = index + insertedValueStr.length;
-            this.input.nativeElement.setSelectionRange(selectionEnd, selectionEnd);
+            this.setSelectionRange(selectionEnd, selectionEnd);
         } else {
             let selectionStart = this.input.nativeElement.selectionStart;
             let selectionEnd = this.input.nativeElement.selectionEnd;
@@ -1424,11 +1424,11 @@ export class InputNumber extends BaseComponent implements OnInit, AfterContentIn
                 tRegex.test(newValue.slice(sRegex.lastIndex));
 
                 selectionEnd = sRegex.lastIndex + tRegex.lastIndex;
-                this.input.nativeElement.setSelectionRange(selectionEnd, selectionEnd);
+                this.setSelectionRange(selectionEnd, selectionEnd);
             } else if (newLength === currentLength) {
-                if (operation === 'insert' || operation === 'delete-back-single') this.input.nativeElement.setSelectionRange(selectionEnd + 1, selectionEnd + 1);
-                else if (operation === 'delete-single') this.input.nativeElement.setSelectionRange(selectionEnd - 1, selectionEnd - 1);
-                else if (operation === 'delete-range' || operation === 'spin') this.input.nativeElement.setSelectionRange(selectionEnd, selectionEnd);
+                if (operation === 'insert' || operation === 'delete-back-single') this.setSelectionRange(selectionEnd + 1, selectionEnd + 1);
+                else if (operation === 'delete-single') this.setSelectionRange(selectionEnd - 1, selectionEnd - 1);
+                else if (operation === 'delete-range' || operation === 'spin') this.setSelectionRange(selectionEnd, selectionEnd);
             } else if (operation === 'delete-back-single') {
                 let prevChar = inputValue.charAt(selectionEnd - 1);
                 let nextChar = inputValue.charAt(selectionEnd);
@@ -1442,15 +1442,15 @@ export class InputNumber extends BaseComponent implements OnInit, AfterContentIn
                 }
 
                 this._group.lastIndex = 0;
-                this.input.nativeElement.setSelectionRange(selectionEnd, selectionEnd);
+                this.setSelectionRange(selectionEnd, selectionEnd);
             } else if (inputValue === '-' && operation === 'insert') {
-                this.input.nativeElement.setSelectionRange(0, 0);
+                this.setSelectionRange(0, 0);
                 const index = this.initCursor();
                 const selectionEnd = index + insertedValueStr.length + 1;
-                this.input.nativeElement.setSelectionRange(selectionEnd, selectionEnd);
+                this.setSelectionRange(selectionEnd, selectionEnd);
             } else {
                 selectionEnd = selectionEnd + (newLength - currentLength);
-                this.input.nativeElement.setSelectionRange(selectionEnd, selectionEnd);
+                this.setSelectionRange(selectionEnd, selectionEnd);
             }
         }
 
@@ -1549,6 +1549,11 @@ export class InputNumber extends BaseComponent implements OnInit, AfterContentIn
         if (this.timer) {
             clearInterval(this.timer);
         }
+    }
+
+    setSelectionRange(start: number, end: number) {
+        // Calling setSelectionRange focuses the input element. Check to see if it's not disabled so we can call it
+        if (!this.disableFocusOnButtonInteraction) this.input?.nativeElement.setSelectionRange(start, end);
     }
 }
 
