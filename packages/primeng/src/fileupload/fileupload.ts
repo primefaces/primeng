@@ -916,6 +916,7 @@ export class FileUpload extends BaseComponent implements AfterViewInit, AfterCon
         this.uploadedFileCount = 0;
         this.onClear.emit();
         this.clearInputElement();
+        this.msgs = [];
         this.cd.markForCheck();
     }
     /**
@@ -961,14 +962,17 @@ export class FileUpload extends BaseComponent implements AfterViewInit, AfterCon
     }
 
     checkFileLimit(files: File[]) {
-        this.msgs = [];
+        this.msgs ??= [];
         const hasExistingValidationMessages = this.msgs.length > 0 && this.fileLimit && this.fileLimit < files.length;
+
         if (this.isFileLimitExceeded() || hasExistingValidationMessages) {
             const text = `${this.invalidFileLimitMessageSummary.replace('{0}', (this.fileLimit as number).toString())} ${this.invalidFileLimitMessageDetail.replace('{0}', (this.fileLimit as number).toString())}`;
             this.msgs.push({
                 severity: 'error',
                 text: text
             });
+        } else {
+            this.msgs = this.msgs.filter((msg) => !msg.text.includes(this.invalidFileLimitMessageSummary));
         }
     }
 
