@@ -76,7 +76,7 @@ export class DynamicDialogConfig<DataType = any, InputValuesType extends Record<
      */
     rtl?: boolean = false;
     /**
-     * Inline style of the comopnent.
+     * Inline style of the component.
      * @group Props
      */
     style?: { [klass: string]: any } | null | undefined;

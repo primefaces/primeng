@@ -214,7 +214,7 @@
                             "name": "style",
                             "optional": false,
                             "readonly": false,
-                            "type": "(klass: string) => any",
+                            "type": "Object",
                             "description": "Inline style of the tab header and content."
                         },
                         {
@@ -747,6 +747,9 @@
     "filterservice": {
         "components": {}
     },
+    "api": {
+        "components": {}
+    },
     "lazyloadevent": {
         "components": {},
         "interfaces": {
@@ -802,7 +805,7 @@
                             "name": "filters",
                             "optional": true,
                             "readonly": false,
-                            "type": "(s: string) => FilterMetadata",
+                            "type": "Object",
                             "description": "An object containing filter metadata for filtering the data.\nThe keys represent the field names, and the values represent the corresponding filter metadata."
                         },
                         {
@@ -816,7 +819,7 @@
                             "name": "forceUpdate",
                             "optional": true,
                             "readonly": false,
-                            "type": "() => void",
+                            "type": "Function",
                             "description": "A function that can be called to force an update in the lazy loaded data."
                         }
                     ]
@@ -861,7 +864,7 @@
                             "name": "filters",
                             "optional": true,
                             "readonly": false,
-                            "type": "(s: string) => FilterMetadata | FilterMetadata[]"
+                            "type": "Object"
                         },
                         {
                             "name": "globalFilter",
@@ -919,7 +922,7 @@
                             "name": "command",
                             "optional": true,
                             "readonly": false,
-                            "type": "(event?: any) => void",
+                            "type": "Function",
                             "description": "Callback to execute when item is clicked."
                         },
                         {
@@ -1052,7 +1055,7 @@
                             "name": "queryParams",
                             "optional": true,
                             "readonly": false,
-                            "type": "(k: string) => any",
+                            "type": "Object",
                             "description": "Query parameters for internal navigation via routerLink."
                         },
                         {
@@ -1094,7 +1097,7 @@
                             "name": "state",
                             "optional": true,
                             "readonly": false,
-                            "type": "(k: string) => any",
+                            "type": "Object",
                             "description": "Developer-defined state that can be passed to any navigation."
                         }
                     ]
@@ -1257,7 +1260,7 @@
                             "name": "style",
                             "optional": true,
                             "readonly": false,
-                            "type": "(klass: string) => any",
+                            "type": "Object",
                             "description": "Inline style of the menuitem."
                         },
                         {
@@ -1306,7 +1309,7 @@
                             "name": "queryParams",
                             "optional": true,
                             "readonly": false,
-                            "type": "(k: string) => any",
+                            "type": "Object",
                             "description": "Query parameters for internal navigation via routerLink."
                         },
                         {
@@ -1348,7 +1351,7 @@
                             "name": "iconStyle",
                             "optional": true,
                             "readonly": false,
-                            "type": "(klass: string) => any",
+                            "type": "Object",
                             "description": "Inline style of the item's icon."
                         },
                         {
@@ -1362,7 +1365,7 @@
                             "name": "state",
                             "optional": true,
                             "readonly": false,
-                            "type": "(k: string) => any",
+                            "type": "Object",
                             "description": "Developer-defined state that can be passed to any navigation."
                         },
                         {
@@ -1713,7 +1716,7 @@
                             "name": "listener",
                             "optional": true,
                             "readonly": false,
-                            "type": "(event: Event, options?: OverlayListenerOptions) => boolean | void",
+                            "type": "Function",
                             "description": "A listener function for handling events related to the overlay."
                         },
                         {
@@ -1727,42 +1730,42 @@
                             "name": "onBeforeShow",
                             "optional": true,
                             "readonly": false,
-                            "type": "(event?: OverlayOnBeforeShowEvent) => void",
+                            "type": "Function",
                             "description": "A callback function that is invoked before the overlay is shown."
                         },
                         {
                             "name": "onShow",
                             "optional": true,
                             "readonly": false,
-                            "type": "(event?: OverlayOnShowEvent) => void",
+                            "type": "Function",
                             "description": "A callback function that is invoked when the overlay is shown."
                         },
                         {
                             "name": "onBeforeHide",
                             "optional": true,
                             "readonly": false,
-                            "type": "(event?: OverlayOnBeforeHideEvent) => void",
+                            "type": "Function",
                             "description": "A callback function that is invoked before the overlay is hidden."
                         },
                         {
                             "name": "onHide",
                             "optional": true,
                             "readonly": false,
-                            "type": "(event?: OverlayOnHideEvent) => void",
+                            "type": "Function",
                             "description": "A callback function that is invoked when the overlay is hidden."
                         },
                         {
                             "name": "onAnimationStart",
                             "optional": true,
                             "readonly": false,
-                            "type": "(event?: AnimationEvent) => void",
+                            "type": "Function",
                             "description": "A callback function that is invoked when the overlay's animation starts."
                         },
                         {
                             "name": "onAnimationDone",
                             "optional": true,
                             "readonly": false,
-                            "type": "(event?: AnimationEvent) => void",
+                            "type": "Function",
                             "description": "A callback function that is invoked when the overlay's animation is done."
                         }
                     ]
@@ -1808,7 +1811,7 @@
                             "name": "style",
                             "optional": true,
                             "readonly": false,
-                            "type": "(klass: string) => any",
+                            "type": "Object",
                             "description": "Inline style of the component."
                         },
                         {
@@ -1822,7 +1825,7 @@
                             "name": "contentStyle",
                             "optional": true,
                             "readonly": false,
-                            "type": "(klass: string) => any",
+                            "type": "Object",
                             "description": "Inline style of the content."
                         },
                         {
@@ -2208,7 +2211,7 @@
                             "name": "filters",
                             "optional": true,
                             "readonly": false,
-                            "type": "(s: string) => FilterMetadata | FilterMetadata[]",
+                            "type": "Object",
                             "description": "The filters to be applied to the table."
                         },
                         {
@@ -2250,7 +2253,7 @@
                             "name": "expandedRowKeys",
                             "optional": true,
                             "readonly": false,
-                            "type": "(s: string) => boolean",
+                            "type": "Object",
                             "description": "The keys of the expanded rows in the table."
                         }
                     ]
@@ -3661,14 +3664,14 @@
                             "name": "style",
                             "optional": false,
                             "readonly": false,
-                            "type": "(klass: string) => any",
+                            "type": "Object",
                             "description": "Inline style of the component."
                         },
                         {
                             "name": "panelStyle",
                             "optional": false,
                             "readonly": false,
-                            "type": "(klass: string) => any",
+                            "type": "Object",
                             "description": "Inline style of the overlay panel element."
                         },
                         {
@@ -3689,7 +3692,7 @@
                             "name": "inputStyle",
                             "optional": false,
                             "readonly": false,
-                            "type": "(klass: string) => any",
+                            "type": "Object",
                             "description": "Inline style of the input field."
                         },
                         {
@@ -4038,14 +4041,14 @@
                             "name": "optionLabel",
                             "optional": false,
                             "readonly": false,
-                            "type": "string | (item: any) => string",
+                            "type": "string | Function",
                             "description": "Property name or getter function to use as the label of an option."
                         },
                         {
                             "name": "optionValue",
                             "optional": false,
                             "readonly": false,
-                            "type": "string | (item: any) => string",
+                            "type": "string | Function",
                             "description": "Property name or getter function to use as the value of an option."
                         },
                         {
@@ -4107,7 +4110,7 @@
                             "name": "optionDisabled",
                             "optional": false,
                             "readonly": false,
-                            "type": "string | (item: any) => string",
+                            "type": "string",
                             "description": "Property name or getter function to use as the disabled flag of an option, defaults to false when not defined."
                         },
                         {
@@ -4131,6 +4134,7 @@
                             "optional": false,
                             "readonly": false,
                             "type": "\"outlined\" | \"filled\"",
+                            "default": "outlined",
                             "description": "Specifies the input variant of the component."
                         },
                         {
@@ -4675,7 +4679,7 @@
                             "name": "style",
                             "optional": false,
                             "readonly": false,
-                            "type": "(klass: string) => any",
+                            "type": "Object",
                             "description": "Inline style of the element."
                         },
                         {
@@ -4756,7 +4760,7 @@
                             "name": "style",
                             "optional": false,
                             "readonly": false,
-                            "type": "(klass: string) => any",
+                            "type": "Object",
                             "description": "Inline style of the component."
                         }
                     ]
@@ -4808,7 +4812,7 @@
                             "name": "severity",
                             "optional": false,
                             "readonly": false,
-                            "type": "\"info\" | \"success\" | \"warn\" | \"danger\" | \"secondary\" | \"contrast\"",
+                            "type": "\"info\" | \"success\" | \"warn\" | \"danger\" | \"secondary\" | \"contrast\" | \"help\" | \"primary\"",
                             "description": "Severity type of the badge."
                         },
                         {
@@ -4822,7 +4826,7 @@
                             "name": "badgeStyle",
                             "optional": false,
                             "readonly": false,
-                            "type": "(klass: string) => any",
+                            "type": "Object",
                             "description": "Inline style of the element."
                         },
                         {
@@ -4852,7 +4856,7 @@
                             "name": "style",
                             "optional": false,
                             "readonly": false,
-                            "type": "InputSignal<(klass: string) => any>",
+                            "type": "InputSignal<Object>",
                             "default": "...",
                             "description": "Inline style of the element."
                         },
@@ -4876,7 +4880,7 @@
                             "name": "severity",
                             "optional": false,
                             "readonly": false,
-                            "type": "InputSignal<\"info\" | \"success\" | \"warn\" | \"danger\" | \"secondary\" | \"contrast\">",
+                            "type": "InputSignal<\"info\" | \"success\" | \"warn\" | \"danger\" | \"secondary\" | \"contrast\" | \"help\" | \"primary\">",
                             "default": "...",
                             "description": "Severity type of the badge."
                         },
@@ -5027,7 +5031,7 @@
                             "name": "style",
                             "optional": false,
                             "readonly": false,
-                            "type": "(klass: string) => any",
+                            "type": "Object",
                             "description": "Inline style of the component."
                         },
                         {
@@ -5236,7 +5240,7 @@
                             "name": "severity",
                             "optional": false,
                             "readonly": false,
-                            "type": "ButtonSeverity",
+                            "type": "\"info\" | \"success\" | \"warn\" | \"danger\" | \"secondary\" | \"contrast\" | \"help\" | \"primary\"",
                             "description": "Defines the style of the button."
                         },
                         {
@@ -5401,7 +5405,7 @@
                             "name": "severity",
                             "optional": false,
                             "readonly": false,
-                            "type": "ButtonSeverity",
+                            "type": "\"info\" | \"success\" | \"warn\" | \"danger\" | \"secondary\" | \"contrast\" | \"help\" | \"primary\"",
                             "description": "Defines the style of the button."
                         },
                         {
@@ -5445,7 +5449,7 @@
                             "name": "style",
                             "optional": false,
                             "readonly": false,
-                            "type": "(klass: string) => any",
+                            "type": "Object",
                             "description": "Inline style of the element."
                         },
                         {
@@ -5467,7 +5471,7 @@
                             "name": "badgeSeverity",
                             "optional": false,
                             "readonly": false,
-                            "type": "\"info\" | \"success\" | \"warn\" | \"danger\" | \"secondary\" | \"contrast\" | \"primary\" | \"help\"",
+                            "type": "\"info\" | \"success\" | \"warn\" | \"danger\" | \"secondary\" | \"contrast\" | \"help\" | \"primary\"",
                             "default": "secondary",
                             "description": "Severity type of the badge."
                         },
@@ -5648,7 +5652,7 @@
                             "name": "style",
                             "optional": false,
                             "readonly": false,
-                            "type": "(klass: string) => any",
+                            "type": "Object",
                             "description": "Inline style of the component."
                         },
                         {
@@ -5662,7 +5666,7 @@
                             "name": "inputStyle",
                             "optional": false,
                             "readonly": false,
-                            "type": "(klass: string) => any",
+                            "type": "Object",
                             "description": "Inline style of the input field."
                         },
                         {
@@ -6190,7 +6194,7 @@
                             "parameters": [
                                 {
                                     "name": "event",
-                                    "type": "AnimationEvent"
+                                    "type": "AnimationEvent_2"
                                 }
                             ],
                             "description": "Callback to invoke when date panel closed."
@@ -6671,7 +6675,7 @@
                     "description": "Defines the input properties of the component.",
                     "values": [
                         {
-                            "name": "header",
+                            "name": "_header",
                             "optional": false,
                             "readonly": false,
                             "type": "string",
@@ -6851,7 +6855,7 @@
                             "name": "indicatorsContentStyle",
                             "optional": false,
                             "readonly": false,
-                            "type": "(klass: string) => any",
+                            "type": "Object",
                             "description": "Inline style of the indicator items."
                         },
                         {
@@ -6866,7 +6870,7 @@
                             "name": "indicatorStyle",
                             "optional": false,
                             "readonly": false,
-                            "type": "(klass: string) => any",
+                            "type": "Object",
                             "description": "Style of the indicators."
                         },
                         {
@@ -6912,7 +6916,7 @@
                             "name": "style",
                             "optional": false,
                             "readonly": false,
-                            "type": "(klass: string) => any",
+                            "type": "Object",
                             "description": "Inline style of the component."
                         },
                         {
@@ -6927,7 +6931,6 @@
                             "optional": false,
                             "readonly": false,
                             "type": "ButtonProps",
-                            "default": "...",
                             "description": "Used to pass all properties of the ButtonProps to the Button component."
                         },
                         {
@@ -6935,7 +6938,6 @@
                             "optional": false,
                             "readonly": false,
                             "type": "ButtonProps",
-                            "default": "...",
                             "description": "Used to pass all properties of the ButtonProps to the Button component."
                         }
                     ]
@@ -7165,6 +7167,14 @@
                             "description": "Unique identifier of the component"
                         },
                         {
+                            "name": "selectOnFocus",
+                            "optional": false,
+                            "readonly": false,
+                            "type": "boolean",
+                            "default": "false",
+                            "description": "Determines if the option will be selected on focus."
+                        },
+                        {
                             "name": "searchMessage",
                             "optional": false,
                             "readonly": false,
@@ -7218,22 +7228,6 @@
                             "description": "Name of the disabled field of an option."
                         },
                         {
-                            "name": "focusOnHover",
-                            "optional": false,
-                            "readonly": false,
-                            "type": "boolean",
-                            "default": "true",
-                            "description": "Fields used when filtering the options, defaults to optionLabel."
-                        },
-                        {
-                            "name": "selectOnFocus",
-                            "optional": false,
-                            "readonly": false,
-                            "type": "boolean",
-                            "default": "false",
-                            "description": "Determines if the option will be selected on focus."
-                        },
-                        {
                             "name": "autoOptionFocus",
                             "optional": false,
                             "readonly": false,
@@ -7252,7 +7246,7 @@
                             "name": "style",
                             "optional": false,
                             "readonly": false,
-                            "type": "(klass: string) => any",
+                            "type": "Object",
                             "description": "Inline style of the component."
                         },
                         {
@@ -7287,7 +7281,7 @@
                             "name": "optionGroupChildren",
                             "optional": false,
                             "readonly": false,
-                            "type": "string | string[]",
+                            "type": "string",
                             "description": "Property name or getter function to retrieve the items of a group."
                         },
                         {
@@ -7388,7 +7382,7 @@
                             "name": "panelStyle",
                             "optional": false,
                             "readonly": false,
-                            "type": "(klass: string) => any",
+                            "type": "Object",
                             "description": "Inline style of the overlay panel."
                         },
                         {
@@ -7419,6 +7413,7 @@
                             "optional": false,
                             "readonly": false,
                             "type": "\"outlined\" | \"filled\"",
+                            "default": "outlined",
                             "description": "Specifies the input variant of the component."
                         },
                         {
@@ -8040,14 +8035,14 @@
                             "name": "style",
                             "optional": false,
                             "readonly": false,
-                            "type": "(klass: string) => any",
+                            "type": "Object",
                             "description": "Inline style of the component."
                         },
                         {
                             "name": "inputStyle",
                             "optional": false,
                             "readonly": false,
-                            "type": "(klass: string) => any",
+                            "type": "Object",
                             "description": "Inline style of the input element."
                         },
                         {
@@ -8138,6 +8133,7 @@
                             "optional": false,
                             "readonly": false,
                             "type": "\"outlined\" | \"filled\"",
+                            "default": "outlined",
                             "description": "Specifies the input variant of the component."
                         }
                     ]
@@ -8292,7 +8288,7 @@
                             "name": "style",
                             "optional": false,
                             "readonly": false,
-                            "type": "(klass: string) => any",
+                            "type": "Object",
                             "description": "Inline style of the element."
                         },
                         {
@@ -8401,409 +8397,6 @@
             }
         }
     },
-    "chips": {
-        "components": {
-            "Chips": {
-                "description": "Chips groups a collection of contents in tabs.",
-                "props": {
-                    "description": "Defines the input properties of the component.",
-                    "values": [
-                        {
-                            "name": "style",
-                            "optional": false,
-                            "readonly": false,
-                            "type": "(klass: string) => any",
-                            "description": "Inline style of the element."
-                        },
-                        {
-                            "name": "styleClass",
-                            "optional": false,
-                            "readonly": false,
-                            "type": "string",
-                            "description": "Style class of the element."
-                        },
-                        {
-                            "name": "disabled",
-                            "optional": false,
-                            "readonly": false,
-                            "type": "boolean",
-                            "default": "false",
-                            "description": "When present, it specifies that the element should be disabled."
-                        },
-                        {
-                            "name": "field",
-                            "optional": false,
-                            "readonly": false,
-                            "type": "string",
-                            "description": "Name of the property to display on a chip."
-                        },
-                        {
-                            "name": "placeholder",
-                            "optional": false,
-                            "readonly": false,
-                            "type": "string",
-                            "description": "Advisory information to display on input."
-                        },
-                        {
-                            "name": "max",
-                            "optional": false,
-                            "readonly": false,
-                            "type": "number",
-                            "description": "Maximum number of entries allowed."
-                        },
-                        {
-                            "name": "maxLength",
-                            "optional": false,
-                            "readonly": false,
-                            "type": "number",
-                            "description": "Maximum length of a chip."
-                        },
-                        {
-                            "name": "ariaLabel",
-                            "optional": false,
-                            "readonly": false,
-                            "type": "string",
-                            "description": "Defines a string that labels the input for accessibility."
-                        },
-                        {
-                            "name": "ariaLabelledBy",
-                            "optional": false,
-                            "readonly": false,
-                            "type": "string",
-                            "description": "Establishes relationships between the component and label(s) where its value should be one or more element IDs."
-                        },
-                        {
-                            "name": "tabindex",
-                            "optional": false,
-                            "readonly": false,
-                            "type": "number",
-                            "description": "Index of the element in tabbing order."
-                        },
-                        {
-                            "name": "inputId",
-                            "optional": false,
-                            "readonly": false,
-                            "type": "string",
-                            "description": "Identifier of the focus input to match a label defined for the component."
-                        },
-                        {
-                            "name": "allowDuplicate",
-                            "optional": false,
-                            "readonly": false,
-                            "type": "boolean",
-                            "default": "true",
-                            "description": "Whether to allow duplicate values or not."
-                        },
-                        {
-                            "name": "caseSensitiveDuplication",
-                            "optional": false,
-                            "readonly": false,
-                            "type": "boolean",
-                            "default": "true",
-                            "description": "Defines whether duplication check should be case-sensitive"
-                        },
-                        {
-                            "name": "inputStyle",
-                            "optional": false,
-                            "readonly": false,
-                            "type": "(klass: string) => any",
-                            "description": "Inline style of the input field."
-                        },
-                        {
-                            "name": "inputStyleClass",
-                            "optional": false,
-                            "readonly": false,
-                            "type": "string",
-                            "description": "Style class of the input field."
-                        },
-                        {
-                            "name": "chipIcon",
-                            "optional": false,
-                            "readonly": false,
-                            "type": "string",
-                            "description": "Icon to display in chip remove action.."
-                        },
-                        {
-                            "name": "addOnTab",
-                            "optional": false,
-                            "readonly": false,
-                            "type": "boolean",
-                            "default": "false",
-                            "description": "Whether to add an item on tab key press."
-                        },
-                        {
-                            "name": "addOnBlur",
-                            "optional": false,
-                            "readonly": false,
-                            "type": "boolean",
-                            "default": "false",
-                            "description": "Whether to add an item when the input loses focus."
-                        },
-                        {
-                            "name": "separator",
-                            "optional": false,
-                            "readonly": false,
-                            "type": "string | RegExp",
-                            "description": "Separator char to add an item when pressed in addition to the enter key."
-                        },
-                        {
-                            "name": "showClear",
-                            "optional": false,
-                            "readonly": false,
-                            "type": "boolean",
-                            "default": "false",
-                            "description": "When enabled, a clear icon is displayed to clear the value."
-                        },
-                        {
-                            "name": "autofocus",
-                            "optional": false,
-                            "readonly": false,
-                            "type": "boolean",
-                            "default": "false",
-                            "description": "When present, it specifies that the component should automatically get focus on load."
-                        },
-                        {
-                            "name": "variant",
-                            "optional": false,
-                            "readonly": false,
-                            "type": "\"outlined\" | \"filled\"",
-                            "default": "outlined",
-                            "description": "Specifies the input variant of the component."
-                        }
-                    ]
-                },
-                "emits": {
-                    "description": "Defines emit that determine the behavior of the component based on a given condition or report the actions that the component takes.",
-                    "values": [
-                        {
-                            "name": "onAdd",
-                            "parameters": [
-                                {
-                                    "name": "event",
-                                    "type": "ChipsAddEvent"
-                                }
-                            ],
-                            "description": "Callback to invoke on chip add."
-                        },
-                        {
-                            "name": "onRemove",
-                            "parameters": [
-                                {
-                                    "name": "event",
-                                    "type": "ChipsRemoveEvent"
-                                }
-                            ],
-                            "description": "Callback to invoke on chip remove."
-                        },
-                        {
-                            "name": "onFocus",
-                            "parameters": [
-                                {
-                                    "name": "event",
-                                    "type": "Event"
-                                }
-                            ],
-                            "description": "Callback to invoke on focus of input field."
-                        },
-                        {
-                            "name": "onBlur",
-                            "parameters": [
-                                {
-                                    "name": "event",
-                                    "type": "Event"
-                                }
-                            ],
-                            "description": "Callback to invoke on blur of input field."
-                        },
-                        {
-                            "name": "onChipClick",
-                            "parameters": [
-                                {
-                                    "name": "event",
-                                    "type": "ChipsClickEvent"
-                                }
-                            ],
-                            "description": "Callback to invoke on chip clicked."
-                        },
-                        {
-                            "name": "onChipContextMenu",
-                            "parameters": [
-                                {
-                                    "name": "event",
-                                    "type": "ChipsContextMenuEvent"
-                                }
-                            ],
-                            "description": "Callback to invoke on chip contextmenu."
-                        },
-                        {
-                            "name": "onClear",
-                            "parameters": [
-                                {
-                                    "name": "value",
-                                    "type": "any"
-                                }
-                            ],
-                            "description": "Callback to invoke on clear token clicked."
-                        }
-                    ]
-                },
-                "methods": {
-                    "description": "Defines methods that can be accessed by the component's reference.",
-                    "values": [
-                        {
-                            "name": "clear",
-                            "parameters": [],
-                            "description": "Callback to invoke on filter reset."
-                        }
-                    ]
-                }
-            }
-        },
-        "interfaces": {
-            "components": {},
-            "events": {
-                "description": "Defines the custom events used by the component's emitters.",
-                "values": [
-                    {
-                        "name": "ChipsAddEvent",
-                        "description": "Custom add event.",
-                        "props": [
-                            {
-                                "name": "originalEvent",
-                                "optional": false,
-                                "readonly": false,
-                                "type": "Event",
-                                "description": "Browser event."
-                            },
-                            {
-                                "name": "value",
-                                "optional": false,
-                                "readonly": false,
-                                "type": "any",
-                                "description": "Added/Removed item value."
-                            }
-                        ]
-                    },
-                    {
-                        "name": "ChipsRemoveEvent",
-                        "description": "Custom remove event.",
-                        "props": [
-                            {
-                                "name": "originalEvent",
-                                "optional": false,
-                                "readonly": false,
-                                "type": "Event",
-                                "description": "Browser event."
-                            },
-                            {
-                                "name": "value",
-                                "optional": false,
-                                "readonly": false,
-                                "type": "any",
-                                "description": "Added/Removed item value."
-                            }
-                        ]
-                    },
-                    {
-                        "name": "ChipsClickEvent",
-                        "description": "Custom click event.",
-                        "props": [
-                            {
-                                "name": "originalEvent",
-                                "optional": false,
-                                "readonly": false,
-                                "type": "Event",
-                                "description": "Browser event."
-                            },
-                            {
-                                "name": "value",
-                                "optional": false,
-                                "readonly": false,
-                                "type": "any",
-                                "description": "Added/Removed item value."
-                            }
-                        ]
-                    },
-                    {
-                        "name": "ChipsContextMenuEvent",
-                        "description": "Custom contextmenu event.",
-                        "props": [
-                            {
-                                "name": "originalEvent",
-                                "optional": false,
-                                "readonly": false,
-                                "type": "Event",
-                                "description": "Browser event."
-                            },
-                            {
-                                "name": "value",
-                                "optional": false,
-                                "readonly": false,
-                                "type": "any",
-                                "description": "Added/Removed item value."
-                            }
-                        ]
-                    }
-                ]
-            },
-            "templates": {
-                "description": "Defines the templates used by the component.",
-                "values": [
-                    {
-                        "parent": "chips",
-                        "name": "item",
-                        "parameters": [
-                            {
-                                "name": "context",
-                                "type": "{\n  \t $implicit: any, // Value of the chip element.\n  }",
-                                "description": "item data."
-                            }
-                        ],
-                        "description": "Custom item template."
-                    },
-                    {
-                        "parent": "chips",
-                        "name": "removetokenicon",
-                        "parameters": [],
-                        "description": "Custom remove icon template."
-                    },
-                    {
-                        "parent": "chips",
-                        "name": "clearicon",
-                        "parameters": [],
-                        "description": "Custom clear icon template."
-                    }
-                ]
-            }
-        },
-        "style": {
-            "components": {},
-            "classes": {
-                "values": [
-                    {
-                        "class": "p-chip",
-                        "description": "Class name of the root element"
-                    },
-                    {
-                        "class": "p-chip-image",
-                        "description": "Class name of the image element"
-                    },
-                    {
-                        "class": "p-chip-icon",
-                        "description": "Class name of the icon element"
-                    },
-                    {
-                        "class": "p-chip-label",
-                        "description": "Class name of the label element"
-                    },
-                    {
-                        "class": "p-chip-remove-icon",
-                        "description": "Class name of the remove icon element"
-                    }
-                ]
-            }
-        }
-    },
     "colorpicker": {
         "components": {
             "ColorPicker": {
@@ -8815,7 +8408,7 @@
                             "name": "style",
                             "optional": false,
                             "readonly": false,
-                            "type": "(klass: string) => any",
+                            "type": "Object",
                             "description": "Inline style of the component."
                         },
                         {
@@ -8837,7 +8430,7 @@
                             "name": "format",
                             "optional": false,
                             "readonly": false,
-                            "type": "\"rgb\" | \"hex\" | \"hsb\"",
+                            "type": "\"hex\" | \"rgb\" | \"hsb\"",
                             "default": "hex",
                             "description": "Format to use in value binding."
                         },
@@ -9017,10 +8610,8 @@
             }
         }
     },
-    "common": {
-        "style": {
-            "components": {}
-        }
+    "config": {
+        "components": {}
     },
     "primeng": {
         "components": {}
@@ -9063,7 +8654,7 @@
                             "name": "style",
                             "optional": false,
                             "readonly": false,
-                            "type": "(klass: string) => any",
+                            "type": "Object",
                             "description": "Inline style of the element."
                         },
                         {
@@ -9272,16 +8863,8 @@
                             "name": "position",
                             "optional": false,
                             "readonly": false,
-                            "type": "\"right\" | \"left\" | \"top\" | \"bottom\" | \"center\" | \"topleft\" | \"bottomleft\" | \"topright\" | \"bottomright\"",
+                            "type": "string",
                             "description": "Allows getting the position of the component."
-                        },
-                        {
-                            "name": "draggable",
-                            "optional": false,
-                            "readonly": false,
-                            "type": "boolean",
-                            "default": "true",
-                            "description": "Enables dragging to change the position using header."
                         }
                     ]
                 },
@@ -9448,7 +9031,7 @@
                             "name": "style",
                             "optional": false,
                             "readonly": false,
-                            "type": "(klass: string) => any",
+                            "type": "Object",
                             "description": "Inline style of the component."
                         },
                         {
@@ -9588,7 +9171,7 @@
                             "name": "style",
                             "optional": false,
                             "readonly": false,
-                            "type": "(klass: string) => any",
+                            "type": "Object",
                             "description": "Inline style of the component."
                         },
                         {
@@ -9704,36 +9287,6 @@
                 }
             }
         },
-        "interfaces": {
-            "components": {},
-            "templates": {
-                "description": "Defines the templates used by the component.",
-                "values": [
-                    {
-                        "parent": "contextmenu",
-                        "name": "item",
-                        "parameters": [
-                            {
-                                "name": "context",
-                                "type": "{\n  \t $implicit: MenuItem, // Item instance.\n  }"
-                            }
-                        ],
-                        "description": "Custom item template."
-                    },
-                    {
-                        "parent": "contextmenu",
-                        "name": "submenuicon",
-                        "parameters": [
-                            {
-                                "name": "context",
-                                "type": "{\n  \t class: string, // Style class of the submenu icon.\n  }"
-                            }
-                        ],
-                        "description": "Custom template of submenuicon."
-                    }
-                ]
-            }
-        },
         "style": {
             "components": {},
             "classes": {
@@ -9777,6 +9330,36 @@
                     {
                         "class": "p-contextmenu-separator",
                         "description": "Class name of the separator element"
+                    }
+                ]
+            }
+        },
+        "interfaces": {
+            "components": {},
+            "templates": {
+                "description": "Defines the templates used by the component.",
+                "values": [
+                    {
+                        "parent": "contextmenu",
+                        "name": "item",
+                        "parameters": [
+                            {
+                                "name": "context",
+                                "type": "{\n  \t $implicit: MenuItem, // Item instance.\n  }"
+                            }
+                        ],
+                        "description": "Custom item template."
+                    },
+                    {
+                        "parent": "contextmenu",
+                        "name": "submenuicon",
+                        "parameters": [
+                            {
+                                "name": "context",
+                                "type": "{\n  \t class: string, // Style class of the submenu icon.\n  }"
+                            }
+                        ],
+                        "description": "Custom template of submenuicon."
                     }
                 ]
             }
@@ -9932,7 +9515,7 @@
                             "name": "style",
                             "optional": false,
                             "readonly": false,
-                            "type": "(klass: string) => any",
+                            "type": "Object",
                             "description": "Inline style of the component."
                         },
                         {
@@ -10243,27 +9826,27 @@
                 "values": [
                     {
                         "parent": "dataview",
-                        "name": "list",
+                        "name": "listItem",
                         "parameters": [
                             {
                                 "name": "context",
-                                "type": "{\n  \t $implicit: any, // Rows data.\n  }",
-                                "description": "data of the DataView."
+                                "type": "{\n  \t $implicit: any, // Row data.\n  \t rowIndex: number, // Row index.\n  }",
+                                "description": "data of the item."
                             }
                         ],
-                        "description": "Custom list template."
+                        "description": "Custom list item template."
                     },
                     {
                         "parent": "dataview",
-                        "name": "grid",
+                        "name": "gridItem",
                         "parameters": [
                             {
                                 "name": "context",
-                                "type": "{\n  \t $implicit: any, // Rows data.\n  }",
-                                "description": "data of the DataView."
+                                "type": "{\n  \t $implicit: any, // Row data.\n  \t rowIndex: number, // Row index.\n  }",
+                                "description": "data of the item."
                             }
                         ],
-                        "description": "Custom grid template."
+                        "description": "Custom grid item template."
                     },
                     {
                         "parent": "dataview",
@@ -10303,7 +9886,7 @@
                     },
                     {
                         "parent": "dataview",
-                        "name": "emptymessage",
+                        "name": "empty",
                         "parameters": [],
                         "description": "Custom empty message template."
                     },
@@ -10422,7 +10005,7 @@
                             "name": "style",
                             "optional": false,
                             "readonly": false,
-                            "type": "(klass: string) => any",
+                            "type": "Object",
                             "description": "Inline style of the component."
                         },
                         {
@@ -10436,7 +10019,7 @@
                             "name": "inputStyle",
                             "optional": false,
                             "readonly": false,
-                            "type": "(klass: string) => any",
+                            "type": "Object",
                             "description": "Inline style of the input field."
                         },
                         {
@@ -10971,7 +10554,7 @@
                             "parameters": [
                                 {
                                     "name": "event",
-                                    "type": "AnimationEvent"
+                                    "type": "AnimationEvent_2"
                                 }
                             ],
                             "description": "Callback to invoke when date panel closed."
@@ -11762,7 +11345,7 @@
                             "name": "maskStyle",
                             "optional": false,
                             "readonly": false,
-                            "type": "(klass: string) => any",
+                            "type": "Object",
                             "description": "Style of the mask."
                         },
                         {
@@ -12170,7 +11753,7 @@
                             "name": "style",
                             "optional": false,
                             "readonly": false,
-                            "type": "(klass: string) => any",
+                            "type": "Object",
                             "description": "Inline style of the component."
                         },
                         {
@@ -12241,7 +11824,7 @@
                             "name": "style",
                             "optional": false,
                             "readonly": false,
-                            "type": "(klass: string) => any",
+                            "type": "Object",
                             "description": "Inline style of the element."
                         },
                         {
@@ -12372,6 +11955,9 @@
     "domhandler": {
         "components": {}
     },
+    "dom": {
+        "components": {}
+    },
     "dragdrop": {
         "components": {
             "Draggable": {
@@ -12437,7 +12023,7 @@
                     "description": "Defines the input properties of the component.",
                     "values": [
                         {
-                            "name": "_pDroppableDisabled",
+                            "name": "pDroppableDisabled",
                             "optional": false,
                             "readonly": false,
                             "type": "boolean",
@@ -12518,7 +12104,7 @@
                             "name": "style",
                             "optional": false,
                             "readonly": false,
-                            "type": "(klass: string) => any",
+                            "type": "Object",
                             "description": "Inline style of the component."
                         },
                         {
@@ -12632,7 +12218,7 @@
                             "name": "maskStyle",
                             "optional": false,
                             "readonly": false,
-                            "type": "(klass: string) => any",
+                            "type": "Object",
                             "description": "Style of the mask."
                         },
                         {
@@ -12828,14 +12414,14 @@
                             "name": "style",
                             "optional": false,
                             "readonly": false,
-                            "type": "(klass: string) => any",
+                            "type": "Object",
                             "description": "Inline style of the element."
                         },
                         {
                             "name": "panelStyle",
                             "optional": false,
                             "readonly": false,
-                            "type": "(klass: string) => any",
+                            "type": "Object",
                             "description": "Inline style of the overlay panel element."
                         },
                         {
@@ -12924,6 +12510,7 @@
                             "optional": false,
                             "readonly": false,
                             "type": "\"outlined\" | \"filled\"",
+                            "default": "outlined",
                             "description": "Specifies the input variant of the component."
                         },
                         {
@@ -13336,7 +12923,7 @@
                             "parameters": [
                                 {
                                     "name": "event",
-                                    "type": "AnimationEvent"
+                                    "type": "AnimationEvent_2"
                                 }
                             ],
                             "description": "Callback to invoke when dropdown overlay gets visible."
@@ -13346,7 +12933,7 @@
                             "parameters": [
                                 {
                                     "name": "event",
-                                    "type": "AnimationEvent"
+                                    "type": "AnimationEvent_2"
                                 }
                             ],
                             "description": "Callback to invoke when dropdown overlay gets hidden."
@@ -13602,14 +13189,14 @@
                                 "name": "filter",
                                 "optional": true,
                                 "readonly": false,
-                                "type": "(value?: any) => void",
+                                "type": "Function",
                                 "description": "Filter function."
                             },
                             {
                                 "name": "reset",
                                 "optional": true,
                                 "readonly": false,
-                                "type": "() => void",
+                                "type": "Function",
                                 "description": "Reset function."
                             }
                         ]
@@ -13634,12 +13221,12 @@
                     "parameters": [
                         {
                             "name": "componentType",
-                            "type": "Type$1<T>",
+                            "type": "Type<T>",
                             "description": "Dynamic component for content template."
                         },
                         {
                             "name": "config",
-                            "type": "DynamicDialogConfig<DataType, InputValuesType>",
+                            "type": "DynamicDialogConfig<any>",
                             "description": "DynamicDialog object."
                         }
                     ],
@@ -13671,14 +13258,7 @@
                             "name": "data",
                             "optional": true,
                             "readonly": false,
-                            "type": "DataType",
-                            "description": "An object to pass to the component loaded inside the Dialog."
-                        },
-                        {
-                            "name": "inputValues",
-                            "optional": true,
-                            "readonly": false,
-                            "type": "InputValuesType",
+                            "type": "T",
                             "description": "An object to pass to the component loaded inside the Dialog."
                         },
                         {
@@ -13753,7 +13333,7 @@
                             "readonly": false,
                             "type": "boolean",
                             "default": "false",
-                            "description": "Whether to re-enforce layering through applying zIndex."
+                            "description": "Whether to automatically manage layering."
                         },
                         {
                             "name": "dismissableMask",
@@ -13775,14 +13355,14 @@
                             "name": "style",
                             "optional": true,
                             "readonly": false,
-                            "type": "(klass: string) => any",
-                            "description": "Inline style of the comopnent."
+                            "type": "Object",
+                            "description": "Inline style of the component."
                         },
                         {
                             "name": "contentStyle",
                             "optional": true,
                             "readonly": false,
-                            "type": "(klass: string) => any",
+                            "type": "Object",
                             "description": "Inline style of the content."
                         },
                         {
@@ -13948,42 +13528,42 @@
                             "name": "header",
                             "optional": true,
                             "readonly": false,
-                            "type": "Type$1<any>",
+                            "type": "Type<any>",
                             "description": "Template of the header."
                         },
                         {
                             "name": "content",
                             "optional": true,
                             "readonly": false,
-                            "type": "Type$1<any>",
+                            "type": "Type<any>",
                             "description": "Template of the content."
                         },
                         {
                             "name": "footer",
                             "optional": true,
                             "readonly": false,
-                            "type": "Type$1<any>",
+                            "type": "Type<any>",
                             "description": "Template of the footer."
                         },
                         {
                             "name": "minimizeicon",
                             "optional": true,
                             "readonly": false,
-                            "type": "Type$1<any>",
+                            "type": "Type<any>",
                             "description": "Template of the minimize icon."
                         },
                         {
                             "name": "maximizeicon",
                             "optional": true,
                             "readonly": false,
-                            "type": "Type$1<any>",
+                            "type": "Type<any>",
                             "description": "Template of the maximize icon."
                         },
                         {
                             "name": "closeicon",
                             "optional": true,
                             "readonly": false,
-                            "type": "Type$1<any>",
+                            "type": "Type<any>",
                             "description": "Template of the close icon."
                         }
                     ]
@@ -14173,7 +13753,7 @@
                             "name": "style",
                             "optional": false,
                             "readonly": false,
-                            "type": "(klass: string) => any",
+                            "type": "Object",
                             "description": "Inline style of the container."
                         },
                         {
@@ -14429,7 +14009,7 @@
                             "name": "style",
                             "optional": false,
                             "readonly": false,
-                            "type": "(klass: string) => any",
+                            "type": "Object",
                             "description": "Inline style of the component."
                         },
                         {
@@ -14751,7 +14331,7 @@
                             "name": "style",
                             "optional": false,
                             "readonly": false,
-                            "type": "(klass: string) => any",
+                            "type": "Object",
                             "description": "Inline style of the element."
                         },
                         {
@@ -15729,7 +15309,7 @@
                             "name": "containerStyle",
                             "optional": false,
                             "readonly": false,
-                            "type": "(klass: string) => any",
+                            "type": "Object",
                             "description": "Inline style of the component on fullscreen mode. Otherwise, the 'style' property can be used."
                         },
                         {
@@ -16260,7 +15840,7 @@
                             "name": "imageStyle",
                             "optional": false,
                             "readonly": false,
-                            "type": "(klass: string) => any",
+                            "type": "Object",
                             "description": "Inline style of the image element."
                         },
                         {
@@ -16274,7 +15854,7 @@
                             "name": "style",
                             "optional": false,
                             "readonly": false,
-                            "type": "(klass: string) => any",
+                            "type": "Object",
                             "description": "Inline style of the element."
                         },
                         {
@@ -16588,72 +16168,6 @@
             }
         }
     },
-    "imagecompare": {
-        "components": {
-            "ImageCompare": {
-                "description": "Compare two images side by side with a slider.",
-                "props": {
-                    "description": "Defines the input properties of the component.",
-                    "values": [
-                        {
-                            "name": "tabindex",
-                            "optional": false,
-                            "readonly": false,
-                            "type": "number",
-                            "default": "0",
-                            "description": "Index of the element in tabbing order."
-                        },
-                        {
-                            "name": "ariaLabelledby",
-                            "optional": false,
-                            "readonly": false,
-                            "type": "string",
-                            "description": "Defines a string value that labels an interactive element."
-                        },
-                        {
-                            "name": "ariaLabel",
-                            "optional": false,
-                            "readonly": false,
-                            "type": "string",
-                            "description": "Identifier of the underlying input element."
-                        }
-                    ]
-                },
-                "templates": {
-                    "description": "Defines the templates used by the component.",
-                    "values": [
-                        {
-                            "name": "left",
-                            "description": "Template for the left side.",
-                            "type": "TemplateRef<any>",
-                            "parameters": []
-                        },
-                        {
-                            "name": "right",
-                            "description": "Template for the right side.",
-                            "type": "TemplateRef<any>",
-                            "parameters": []
-                        }
-                    ]
-                }
-            }
-        },
-        "style": {
-            "components": {},
-            "classes": {
-                "values": [
-                    {
-                        "class": "p-imagecompare",
-                        "description": "Class name of the root element"
-                    },
-                    {
-                        "class": "p-imagecompare-slider",
-                        "description": "Class name of the slider element"
-                    }
-                ]
-            }
-        }
-    },
     "inplace": {
         "components": {
             "Inplace": {
@@ -16697,7 +16211,7 @@
                             "name": "style",
                             "optional": false,
                             "readonly": false,
-                            "type": "(klass: string) => any",
+                            "type": "Object",
                             "description": "Inline style of the element."
                         },
                         {
@@ -16779,21 +16293,21 @@
                     "description": "Defines the templates used by the component.",
                     "values": [
                         {
-                            "name": "display",
+                            "name": "content",
                             "description": "Display template of the element.",
                             "type": "TemplateRef<any>",
                             "parameters": []
                         },
                         {
-                            "name": "content",
+                            "name": "closeicon",
                             "description": "Content template of the element.",
                             "type": "TemplateRef<any>",
                             "parameters": []
                         },
                         {
-                            "name": "closeicon",
+                            "name": "_componentstyle",
                             "description": "Close icon template of the element.",
-                            "type": "TemplateRef<any>",
+                            "type": "InplaceStyle",
                             "parameters": []
                         }
                     ]
@@ -16857,7 +16371,7 @@
                             "name": "style",
                             "optional": false,
                             "readonly": false,
-                            "type": "(klass: string) => any",
+                            "type": "Object",
                             "description": "Inline style of the element."
                         },
                         {
@@ -16894,7 +16408,7 @@
                             "name": "style",
                             "optional": false,
                             "readonly": false,
-                            "type": "(klass: string) => any",
+                            "type": "Object",
                             "description": "Inline style of the element."
                         },
                         {
@@ -16974,7 +16488,7 @@
                             "name": "style",
                             "optional": false,
                             "readonly": false,
-                            "type": "(klass: string) => any",
+                            "type": "Object",
                             "description": "Inline style of the input field."
                         },
                         {
@@ -17031,6 +16545,7 @@
                             "optional": false,
                             "readonly": false,
                             "type": "\"outlined\" | \"filled\"",
+                            "default": "outlined",
                             "description": "Specifies the input variant of the component."
                         },
                         {
@@ -17305,7 +16820,7 @@
                             "name": "style",
                             "optional": false,
                             "readonly": false,
-                            "type": "(klass: string) => any",
+                            "type": "Object",
                             "description": "Inline style of the component."
                         },
                         {
@@ -17349,13 +16864,6 @@
                             "readonly": false,
                             "type": "string",
                             "description": "Specifies one or more IDs in the DOM that labels the input field."
-                        },
-                        {
-                            "name": "ariaDescribedBy",
-                            "optional": false,
-                            "readonly": false,
-                            "type": "string",
-                            "description": "Specifies one or more IDs in the DOM that describes the input field."
                         },
                         {
                             "name": "ariaLabel",
@@ -17509,6 +17017,7 @@
                             "optional": false,
                             "readonly": false,
                             "type": "\"outlined\" | \"filled\"",
+                            "default": "outlined",
                             "description": "Specifies the input variant of the component."
                         },
                         {
@@ -17652,7 +17161,7 @@
                         },
                         {
                             "name": "incrementbuttonicon",
-                            "description": "Template of the increment button icon.",
+                            "description": "Template of the icrement button icon.",
                             "type": "TemplateRef<any>",
                             "parameters": []
                         },
@@ -17788,6 +17297,7 @@
                             "optional": false,
                             "readonly": false,
                             "type": "\"outlined\" | \"filled\"",
+                            "default": "outlined",
                             "description": "Specifies the input variant of the component."
                         },
                         {
@@ -17931,35 +17441,35 @@
                             "name": "input",
                             "optional": false,
                             "readonly": false,
-                            "type": "(event: Event, index: number) => void",
+                            "type": "Function",
                             "description": "input event."
                         },
                         {
                             "name": "keydown",
                             "optional": false,
                             "readonly": false,
-                            "type": "(event: Event) => void",
+                            "type": "Function",
                             "description": "keydown event."
                         },
                         {
                             "name": "focus",
                             "optional": false,
                             "readonly": false,
-                            "type": "(event: Event) => void",
+                            "type": "Function",
                             "description": "focus event."
                         },
                         {
                             "name": "blur",
                             "optional": false,
                             "readonly": false,
-                            "type": "(event: Event) => void",
+                            "type": "Function",
                             "description": "blur event."
                         },
                         {
                             "name": "paste",
                             "optional": false,
                             "readonly": false,
-                            "type": "(event: Event) => void",
+                            "type": "Function",
                             "description": "paste event."
                         }
                     ]
@@ -18020,7 +17530,7 @@
                             "name": "style",
                             "optional": false,
                             "readonly": false,
-                            "type": "(klass: string) => any",
+                            "type": "Object",
                             "description": "Inline style of the component."
                         },
                         {
@@ -18168,6 +17678,7 @@
                             "optional": false,
                             "readonly": false,
                             "type": "\"outlined\" | \"filled\"",
+                            "default": "outlined",
                             "description": "Specifies the input variant of the component."
                         },
                         {
@@ -18179,7 +17690,7 @@
                             "description": "Spans 100% width of the container when enabled."
                         },
                         {
-                            "name": "pSize",
+                            "name": "size",
                             "optional": false,
                             "readonly": false,
                             "type": "\"small\" | \"large\"",
@@ -18221,6 +17732,7 @@
                             "optional": false,
                             "readonly": false,
                             "type": "\"outlined\" | \"filled\"",
+                            "default": "outlined",
                             "description": "Specifies the input variant of the component."
                         },
                         {
@@ -18241,7 +17753,7 @@
                             "parameters": [
                                 {
                                     "name": "event",
-                                    "type": "{} | Event"
+                                    "type": "Object | Event"
                                 }
                             ],
                             "description": "Callback to invoke on textarea resize."
@@ -18271,6 +17783,7 @@
                             "optional": false,
                             "readonly": false,
                             "type": "\"outlined\" | \"filled\"",
+                            "default": "outlined",
                             "description": "Specifies the input variant of the component."
                         },
                         {
@@ -18282,7 +17795,7 @@
                             "description": "Spans 100% width of the container when enabled."
                         },
                         {
-                            "name": "pSize",
+                            "name": "size",
                             "optional": false,
                             "readonly": false,
                             "type": "\"small\" | \"large\"",
@@ -18298,7 +17811,7 @@
                             "parameters": [
                                 {
                                     "name": "event",
-                                    "type": "{} | Event"
+                                    "type": "Object | Event"
                                 }
                             ],
                             "description": "Callback to invoke on textarea resize."
@@ -18382,7 +17895,7 @@
                             "name": "style",
                             "optional": false,
                             "readonly": false,
-                            "type": "(klass: string) => any",
+                            "type": "Object",
                             "description": "Inline style of the component."
                         },
                         {
@@ -18702,7 +18215,7 @@
                             "name": "style",
                             "optional": false,
                             "readonly": false,
-                            "type": "(klass: string) => any",
+                            "type": "Object",
                             "description": "Inline style of the container."
                         },
                         {
@@ -18716,7 +18229,7 @@
                             "name": "listStyle",
                             "optional": false,
                             "readonly": false,
-                            "type": "(klass: string) => any",
+                            "type": "Object",
                             "description": "Inline style of the list element."
                         },
                         {
@@ -18769,7 +18282,7 @@
                             "name": "filterMatchMode",
                             "optional": false,
                             "readonly": false,
-                            "type": "string",
+                            "type": "\"gt\" | \"lt\" | \"in\" | \"startsWith\" | \"contains\" | \"endsWith\" | \"equals\" | \"notEquals\" | \"lte\" | \"gte\"",
                             "default": "contains",
                             "description": "Defines how the items are filtered."
                         },
@@ -18837,8 +18350,8 @@
                             "name": "optionDisabled",
                             "optional": false,
                             "readonly": false,
-                            "type": "string | (item: any) => boolean",
-                            "description": "Name of the disabled field of an option or function to determine disabled state."
+                            "type": "string",
+                            "description": "Name of the disabled field of an option."
                         },
                         {
                             "name": "ariaFilterLabel",
@@ -18920,14 +18433,6 @@
                             "type": "boolean",
                             "default": "false",
                             "description": "Whether the selected option will be shown with a check mark."
-                        },
-                        {
-                            "name": "dragdrop",
-                            "optional": false,
-                            "readonly": false,
-                            "type": "boolean",
-                            "default": "false",
-                            "description": "Whether to enable dragdrop based reordering."
                         }
                     ]
                 },
@@ -19013,16 +18518,6 @@
                                 }
                             ],
                             "description": "Emits on lazy load."
-                        },
-                        {
-                            "name": "onDrop",
-                            "parameters": [
-                                {
-                                    "name": "value",
-                                    "type": "CdkDragDrop<string[], string[], any"
-                                }
-                            ],
-                            "description": "Emits on item is dropped."
                         }
                     ]
                 },
@@ -19338,14 +18833,14 @@
                                 "name": "filter",
                                 "optional": true,
                                 "readonly": false,
-                                "type": "(value?: any) => void",
+                                "type": "Function",
                                 "description": "Callback to filter options."
                             },
                             {
                                 "name": "reset",
                                 "optional": true,
                                 "readonly": false,
-                                "type": "() => void",
+                                "type": "Function",
                                 "description": "Callback to reset filter."
                             }
                         ]
@@ -19419,7 +18914,7 @@
                             "name": "style",
                             "optional": false,
                             "readonly": false,
-                            "type": "(klass: string) => any",
+                            "type": "Object",
                             "description": "Inline style of the element."
                         },
                         {
@@ -19680,7 +19175,7 @@
                             "name": "style",
                             "optional": false,
                             "readonly": false,
-                            "type": "(klass: string) => any",
+                            "type": "Object",
                             "description": "Inline style of the component."
                         },
                         {
@@ -19874,48 +19369,6 @@
                 }
             }
         },
-        "interfaces": {
-            "components": {},
-            "templates": {
-                "description": "Defines the templates used by the component.",
-                "values": [
-                    {
-                        "parent": "menu",
-                        "name": "start",
-                        "parameters": [],
-                        "description": "Custom template of start."
-                    },
-                    {
-                        "parent": "menu",
-                        "name": "end",
-                        "parameters": [],
-                        "description": "Custom template of end."
-                    },
-                    {
-                        "parent": "menu",
-                        "name": "item",
-                        "parameters": [
-                            {
-                                "name": "context",
-                                "type": "{\n  \t $implicit: MenuItem, // Item instance.\n  }"
-                            }
-                        ],
-                        "description": "Custom template of item."
-                    },
-                    {
-                        "parent": "menu",
-                        "name": "submenuheader",
-                        "parameters": [
-                            {
-                                "name": "context",
-                                "type": "{\n  \t $implicit: MenuItem, // Item instance.\n  }"
-                            }
-                        ],
-                        "description": "Custom template of submenuheader."
-                    }
-                ]
-            }
-        },
         "style": {
             "components": {},
             "classes": {
@@ -19966,6 +19419,48 @@
                     }
                 ]
             }
+        },
+        "interfaces": {
+            "components": {},
+            "templates": {
+                "description": "Defines the templates used by the component.",
+                "values": [
+                    {
+                        "parent": "menu",
+                        "name": "start",
+                        "parameters": [],
+                        "description": "Custom template of start."
+                    },
+                    {
+                        "parent": "menu",
+                        "name": "end",
+                        "parameters": [],
+                        "description": "Custom template of end."
+                    },
+                    {
+                        "parent": "menu",
+                        "name": "item",
+                        "parameters": [
+                            {
+                                "name": "context",
+                                "type": "{\n  \t $implicit: MenuItem, // Item instance.\n  }"
+                            }
+                        ],
+                        "description": "Custom template of item."
+                    },
+                    {
+                        "parent": "menu",
+                        "name": "submenuheader",
+                        "parameters": [
+                            {
+                                "name": "context",
+                                "type": "{\n  \t $implicit: MenuItem, // Item instance.\n  }"
+                            }
+                        ],
+                        "description": "Custom template of submenuheader."
+                    }
+                ]
+            }
         }
     },
     "menubar": {
@@ -19986,7 +19481,7 @@
                             "name": "style",
                             "optional": false,
                             "readonly": false,
-                            "type": "(klass: string) => any",
+                            "type": "Object",
                             "description": "Inline style of the element."
                         },
                         {
@@ -20267,7 +19762,7 @@
                             "name": "style",
                             "optional": false,
                             "readonly": false,
-                            "type": "(klass: string) => any",
+                            "type": "Object",
                             "description": "Inline style of the component."
                         },
                         {
@@ -20340,8 +19835,8 @@
                             "name": "onClose",
                             "parameters": [
                                 {
-                                    "name": "event",
-                                    "type": "{ originalEvent: Event }"
+                                    "name": "value",
+                                    "type": "Object"
                                 }
                             ],
                             "description": "Emits when the message is closed."
@@ -20447,7 +19942,7 @@
                             "name": "style",
                             "optional": false,
                             "readonly": false,
-                            "type": "(klass: string) => any",
+                            "type": "Object",
                             "description": "Inline style of the component."
                         },
                         {
@@ -20608,7 +20103,7 @@
                             "name": "style",
                             "optional": false,
                             "readonly": false,
-                            "type": "(klass: string) => any",
+                            "type": "Object",
                             "description": "Inline style of the element."
                         },
                         {
@@ -20789,7 +20284,7 @@
                             "name": "style",
                             "optional": false,
                             "readonly": false,
-                            "type": "(klass: string) => any",
+                            "type": "Object",
                             "description": "Inline style of the element."
                         },
                         {
@@ -20895,6 +20390,7 @@
                             "optional": false,
                             "readonly": false,
                             "type": "\"outlined\" | \"filled\"",
+                            "default": "outlined",
                             "description": "Specifies the input variant of the component."
                         },
                         {
@@ -21316,7 +20812,7 @@
                             "optional": false,
                             "readonly": false,
                             "type": "boolean",
-                            "default": "true",
+                            "default": "false",
                             "description": "Whether the selected option will be add highlight class."
                         }
                     ]
@@ -21388,8 +20884,8 @@
                             "name": "onPanelShow",
                             "parameters": [
                                 {
-                                    "name": "event",
-                                    "type": "AnimationEvent"
+                                    "name": "value",
+                                    "type": "void"
                                 }
                             ],
                             "description": "Callback to invoke when overlay panel becomes visible."
@@ -21398,8 +20894,8 @@
                             "name": "onPanelHide",
                             "parameters": [
                                 {
-                                    "name": "event",
-                                    "type": "AnimationEvent"
+                                    "name": "value",
+                                    "type": "void"
                                 }
                             ],
                             "description": "Callback to invoke when overlay panel becomes hidden."
@@ -21634,7 +21130,7 @@
                     },
                     {
                         "parent": "multiselect",
-                        "name": "selecteditems",
+                        "name": "selectedItems",
                         "parameters": [
                             {
                                 "name": "context",
@@ -21773,13 +21269,13 @@
                                 "name": "filter",
                                 "optional": true,
                                 "readonly": false,
-                                "type": "(value?: any) => void"
+                                "type": "Function"
                             },
                             {
                                 "name": "reset",
                                 "optional": true,
                                 "readonly": false,
-                                "type": "() => void"
+                                "type": "Function"
                             }
                         ]
                     }
@@ -21884,7 +21380,7 @@
                             "name": "style",
                             "optional": false,
                             "readonly": false,
-                            "type": "(klass: string) => any",
+                            "type": "Object",
                             "description": "Inline style of the component."
                         },
                         {
@@ -21919,7 +21415,7 @@
                             "name": "listStyle",
                             "optional": false,
                             "readonly": false,
-                            "type": "(klass: string) => any",
+                            "type": "Object",
                             "description": "Inline style of the list element."
                         },
                         {
@@ -22372,13 +21868,13 @@
                                 "name": "filter",
                                 "optional": true,
                                 "readonly": false,
-                                "type": "(value?: any) => void"
+                                "type": "Function"
                             },
                             {
                                 "name": "reset",
                                 "optional": true,
                                 "readonly": false,
-                                "type": "() => void"
+                                "type": "Function"
                             }
                         ]
                     }
@@ -22419,7 +21915,7 @@
                             "name": "style",
                             "optional": false,
                             "readonly": false,
-                            "type": "(klass: string) => any",
+                            "type": "Object",
                             "description": "Inline style of the component."
                         },
                         {
@@ -22696,7 +22192,7 @@
                             "name": "style",
                             "optional": false,
                             "readonly": false,
-                            "type": "(klass: string) => any",
+                            "type": "Object",
                             "description": "The style property is an input that determines the style object for the component."
                         },
                         {
@@ -22710,7 +22206,7 @@
                             "name": "contentStyle",
                             "optional": false,
                             "readonly": false,
-                            "type": "(klass: string) => any",
+                            "type": "Object",
                             "description": "The contentStyle property is an input that determines the style object for the content of the component."
                         },
                         {
@@ -22843,7 +22339,7 @@
                             "parameters": [
                                 {
                                     "name": "event",
-                                    "type": "AnimationEvent"
+                                    "type": "AnimationEvent_2"
                                 }
                             ],
                             "description": "Callback to invoke when the animation is started."
@@ -22853,7 +22349,7 @@
                             "parameters": [
                                 {
                                     "name": "event",
-                                    "type": "AnimationEvent"
+                                    "type": "AnimationEvent_2"
                                 }
                             ],
                             "description": "Callback to invoke when the animation is done."
@@ -22895,7 +22391,7 @@
                             "name": "style",
                             "optional": false,
                             "readonly": false,
-                            "type": "(klass: string) => any",
+                            "type": "Object",
                             "description": "Inline style of the element."
                         },
                         {
@@ -22909,7 +22405,7 @@
                             "name": "severity",
                             "optional": false,
                             "readonly": false,
-                            "type": "\"info\" | \"success\" | \"warn\" | \"danger\" | \"secondary\" | \"contrast\"",
+                            "type": "\"info\" | \"success\" | \"warn\" | \"danger\" | \"secondary\" | \"contrast\" | \"help\" | \"primary\"",
                             "description": "Severity type of the badge."
                         },
                         {
@@ -22984,7 +22480,7 @@
                             "name": "style",
                             "optional": false,
                             "readonly": false,
-                            "type": "(klass: string) => any",
+                            "type": "Object",
                             "description": "Inline style of the component."
                         },
                         {
@@ -23171,10 +22667,18 @@
                             "description": "Enables to hide the overlay when outside is clicked."
                         },
                         {
+                            "name": "showCloseIcon",
+                            "optional": false,
+                            "readonly": false,
+                            "type": "boolean",
+                            "default": "false",
+                            "description": "When enabled, displays a close icon at top right corner."
+                        },
+                        {
                             "name": "style",
                             "optional": false,
                             "readonly": false,
-                            "type": "(klass: string) => any",
+                            "type": "Object",
                             "description": "Inline style of the component."
                         },
                         {
@@ -23344,13 +22848,7 @@
                     {
                         "parent": "popover",
                         "name": "content",
-                        "parameters": [
-                            {
-                                "name": "context",
-                                "type": "{\n  \t closeCallback: VoidFunction, // undefined\n  }",
-                                "description": "closeCallback."
-                            }
-                        ],
+                        "parameters": [],
                         "description": "Custom template of content."
                     },
                     {
@@ -23382,7 +22880,7 @@
                             "name": "style",
                             "optional": false,
                             "readonly": false,
-                            "type": "(klass: string) => any",
+                            "type": "Object",
                             "description": "Inline style of the component."
                         },
                         {
@@ -23503,7 +23001,7 @@
                             "name": "jumpToPageItemTemplate",
                             "optional": false,
                             "readonly": false,
-                            "type": "TemplateRef<{ $implicit: any }>",
+                            "type": "TemplateRef<Object>",
                             "description": "Template instance to inject into the jump to page dropdown item inside in the paginator."
                         },
                         {
@@ -23525,7 +23023,7 @@
                             "name": "dropdownItemTemplate",
                             "optional": false,
                             "readonly": false,
-                            "type": "TemplateRef<{ $implicit: any }>",
+                            "type": "TemplateRef<Object>",
                             "description": "Template instance to inject into the rows per page dropdown item inside in the paginator."
                         },
                         {
@@ -23772,7 +23270,7 @@
                             "name": "style",
                             "optional": false,
                             "readonly": false,
-                            "type": "(klass: string) => any",
+                            "type": "Object",
                             "description": "Inline style of the component."
                         },
                         {
@@ -24028,7 +23526,7 @@
                             "name": "style",
                             "optional": false,
                             "readonly": false,
-                            "type": "(klass: string) => any",
+                            "type": "Object",
                             "description": "Inline style of the component."
                         },
                         {
@@ -24263,6 +23761,7 @@
                             "optional": false,
                             "readonly": false,
                             "type": "\"outlined\" | \"filled\"",
+                            "default": "outlined",
                             "description": "Specifies the input variant of the component."
                         },
                         {
@@ -24424,14 +23923,14 @@
                             "name": "style",
                             "optional": false,
                             "readonly": false,
-                            "type": "(klass: string) => any",
+                            "type": "Object",
                             "description": "Inline style of the component."
                         },
                         {
                             "name": "inputStyle",
                             "optional": false,
                             "readonly": false,
-                            "type": "(klass: string) => any",
+                            "type": "Object",
                             "description": "Inline style of the input field."
                         },
                         {
@@ -24485,14 +23984,8 @@
                             "optional": false,
                             "readonly": false,
                             "type": "\"outlined\" | \"filled\"",
+                            "default": "outlined",
                             "description": "Specifies the input variant of the component."
-                        },
-                        {
-                            "name": "tabindex",
-                            "optional": true,
-                            "readonly": false,
-                            "type": "number",
-                            "description": "Index of the element in tabbing order."
                         }
                     ]
                 },
@@ -24531,6 +24024,45 @@
                         }
                     ]
                 }
+            }
+        },
+        "style": {
+            "components": {},
+            "classes": {
+                "values": [
+                    {
+                        "class": "p-password",
+                        "description": "Class name of the root element"
+                    },
+                    {
+                        "class": "p-password-input",
+                        "description": "Class name of the pt input element"
+                    },
+                    {
+                        "class": "p-password-mask-icon",
+                        "description": "Class name of the mask icon element"
+                    },
+                    {
+                        "class": "p-password-unmask-icon",
+                        "description": "Class name of the unmask icon element"
+                    },
+                    {
+                        "class": "p-password-overlay",
+                        "description": "Class name of the overlay element"
+                    },
+                    {
+                        "class": "p-password-meter",
+                        "description": "Class name of the meter element"
+                    },
+                    {
+                        "class": "p-password-meter-label",
+                        "description": "Class name of the meter label element"
+                    },
+                    {
+                        "class": "p-password-meter-text",
+                        "description": "Class name of the meter text element"
+                    }
+                ]
             }
         },
         "interfaces": {
@@ -24573,45 +24105,6 @@
                         "name": "showicon",
                         "parameters": [],
                         "description": "Custom template of show icon."
-                    }
-                ]
-            }
-        },
-        "style": {
-            "components": {},
-            "classes": {
-                "values": [
-                    {
-                        "class": "p-password",
-                        "description": "Class name of the root element"
-                    },
-                    {
-                        "class": "p-password-input",
-                        "description": "Class name of the pt input element"
-                    },
-                    {
-                        "class": "p-password-mask-icon",
-                        "description": "Class name of the mask icon element"
-                    },
-                    {
-                        "class": "p-password-unmask-icon",
-                        "description": "Class name of the unmask icon element"
-                    },
-                    {
-                        "class": "p-password-overlay",
-                        "description": "Class name of the overlay element"
-                    },
-                    {
-                        "class": "p-password-meter",
-                        "description": "Class name of the meter element"
-                    },
-                    {
-                        "class": "p-password-meter-label",
-                        "description": "Class name of the meter label element"
-                    },
-                    {
-                        "class": "p-password-meter-text",
-                        "description": "Class name of the meter text element"
                     }
                 ]
             }
@@ -24796,7 +24289,7 @@
                             "name": "style",
                             "optional": false,
                             "readonly": false,
-                            "type": "(klass: string) => any",
+                            "type": "Object",
                             "description": "Inline style of the component."
                         },
                         {
@@ -24859,20 +24352,6 @@
                             "description": "When present, it specifies that the component should be disabled."
                         },
                         {
-                            "name": "sourceOptionDisabled",
-                            "optional": false,
-                            "readonly": false,
-                            "type": "string | (item: any) => boolean",
-                            "description": "Name of the disabled field of a target option or function to determine disabled state."
-                        },
-                        {
-                            "name": "targetOptionDisabled",
-                            "optional": false,
-                            "readonly": false,
-                            "type": "string | (item: any) => boolean",
-                            "description": "Name of the disabled field of a target option or function to determine disabled state."
-                        },
-                        {
                             "name": "ariaSourceFilterLabel",
                             "optional": false,
                             "readonly": false,
@@ -24890,7 +24369,7 @@
                             "name": "filterMatchMode",
                             "optional": false,
                             "readonly": false,
-                            "type": "string",
+                            "type": "\"gt\" | \"lt\" | \"in\" | \"startsWith\" | \"contains\" | \"endsWith\" | \"equals\" | \"notEquals\" | \"lte\" | \"gte\"",
                             "default": "contains",
                             "description": "Defines how the items are filtered."
                         },
@@ -25148,13 +24627,13 @@
                         {
                             "name": "sourcefilter",
                             "description": "Custom source filter template.",
-                            "type": "TemplateRef<{ options: PickListFilterOptions }>",
+                            "type": "TemplateRef<Object>",
                             "parameters": []
                         },
                         {
                             "name": "targetfilter",
                             "description": "Custom target filter template.",
-                            "type": "TemplateRef<{ options: PickListFilterOptions }>",
+                            "type": "TemplateRef<Object>",
                             "parameters": []
                         },
                         {
@@ -25184,61 +24663,61 @@
                         {
                             "name": "moveupicon",
                             "description": "Custom move up icon template.",
-                            "type": "TemplateRef<{ $implicit: boolean }>",
+                            "type": "TemplateRef<Object>",
                             "parameters": []
                         },
                         {
                             "name": "movetopicon",
                             "description": "Custom move top icon template.",
-                            "type": "TemplateRef<{ $implicit: boolean }>",
+                            "type": "TemplateRef<Object>",
                             "parameters": []
                         },
                         {
                             "name": "movedownicon",
                             "description": "Custom move down icon template.",
-                            "type": "TemplateRef<{ $implicit: boolean }>",
+                            "type": "TemplateRef<Object>",
                             "parameters": []
                         },
                         {
                             "name": "movebottomicon",
                             "description": "Custom move bottom icon template.",
-                            "type": "TemplateRef<{ $implicit: boolean }>",
+                            "type": "TemplateRef<Object>",
                             "parameters": []
                         },
                         {
                             "name": "movetotargeticon",
                             "description": "Custom move to target icon template.",
-                            "type": "TemplateRef<{ $implicit: boolean }>",
+                            "type": "TemplateRef<Object>",
                             "parameters": []
                         },
                         {
                             "name": "movealltotargeticon",
                             "description": "Custom move all to target icon template.",
-                            "type": "TemplateRef<{ $implicit: boolean }>",
+                            "type": "TemplateRef<Object>",
                             "parameters": []
                         },
                         {
                             "name": "movetosourceicon",
                             "description": "Custom move to source icon template.",
-                            "type": "TemplateRef<{ $implicit: boolean }>",
+                            "type": "TemplateRef<Object>",
                             "parameters": []
                         },
                         {
                             "name": "movealltosourceicon",
                             "description": "Custom move all to source icon template.",
-                            "type": "TemplateRef<{ $implicit: boolean }>",
+                            "type": "TemplateRef<Object>",
                             "parameters": []
                         },
                         {
                             "name": "targetfiltericon",
                             "description": "Custom target filter icon template.",
-                            "type": "TemplateRef<{ options: PickListFilterOptions }>",
+                            "type": "TemplateRef<Object>",
                             "parameters": []
                         },
                         {
                             "name": "sourcefiltericon",
                             "description": "Custom source filter icon template.",
-                            "type": "TemplateRef<{ options: PickListFilterOptions }>",
+                            "type": "TemplateRef<Object>",
                             "parameters": []
                         }
                     ]
@@ -25575,13 +25054,13 @@
                                 "name": "filter",
                                 "optional": true,
                                 "readonly": false,
-                                "type": "(value?: any) => void"
+                                "type": "Function"
                             },
                             {
                                 "name": "reset",
                                 "optional": true,
                                 "readonly": false,
-                                "type": "() => void"
+                                "type": "Function"
                             }
                         ]
                     }
@@ -25660,7 +25139,7 @@
                             "name": "style",
                             "optional": false,
                             "readonly": false,
-                            "type": "(klass: string) => any",
+                            "type": "Object",
                             "description": "Inline style of the element."
                         },
                         {
@@ -25690,25 +25169,6 @@
                 }
             }
         },
-        "interfaces": {
-            "components": {},
-            "templates": {
-                "description": "Defines the templates used by the component.",
-                "values": [
-                    {
-                        "parent": "progressbar",
-                        "name": "content",
-                        "parameters": [
-                            {
-                                "name": "context",
-                                "type": "{\n  \t $implicit: any, // Value of the progressbar.\n  }"
-                            }
-                        ],
-                        "description": "Custom template of content."
-                    }
-                ]
-            }
-        },
         "style": {
             "components": {},
             "classes": {
@@ -25724,6 +25184,25 @@
                     {
                         "class": "p-progressbar-label",
                         "description": "Class name of the label element"
+                    }
+                ]
+            }
+        },
+        "interfaces": {
+            "components": {},
+            "templates": {
+                "description": "Defines the templates used by the component.",
+                "values": [
+                    {
+                        "parent": "progressbar",
+                        "name": "content",
+                        "parameters": [
+                            {
+                                "name": "context",
+                                "type": "{\n  \t $implicit: any, // Value of the progressbar.\n  }"
+                            }
+                        ],
+                        "description": "Custom template of content."
                     }
                 ]
             }
@@ -25747,7 +25226,7 @@
                             "name": "style",
                             "optional": false,
                             "readonly": false,
-                            "type": "(klass: string) => any",
+                            "type": "Object",
                             "description": "Inline style of the element."
                         },
                         {
@@ -25846,6 +25325,7 @@
                             "optional": false,
                             "readonly": false,
                             "type": "\"outlined\" | \"filled\"",
+                            "default": "outlined",
                             "description": "Specifies the input variant of the component."
                         },
                         {
@@ -25887,7 +25367,7 @@
                             "name": "style",
                             "optional": false,
                             "readonly": false,
-                            "type": "(klass: string) => any",
+                            "type": "Object",
                             "description": "Inline style of the component."
                         },
                         {
@@ -26056,7 +25536,7 @@
                             "name": "iconOnStyle",
                             "optional": false,
                             "readonly": false,
-                            "type": "(klass: string) => any",
+                            "type": "Object",
                             "description": "Inline style of the on icon."
                         },
                         {
@@ -26070,7 +25550,7 @@
                             "name": "iconOffStyle",
                             "optional": false,
                             "readonly": false,
-                            "type": "(klass: string) => any",
+                            "type": "Object",
                             "description": "Inline style of the off icon."
                         },
                         {
@@ -26656,13 +26136,13 @@
                                 "name": "spacerStyle",
                                 "optional": true,
                                 "readonly": false,
-                                "type": "(klass: string) => any"
+                                "type": "Object"
                             },
                             {
                                 "name": "contentStyle",
                                 "optional": true,
                                 "readonly": false,
-                                "type": "(klass: string) => any"
+                                "type": "Object"
                             },
                             {
                                 "name": "vertical",
@@ -26686,13 +26166,13 @@
                                 "name": "getItemOptions",
                                 "optional": true,
                                 "readonly": false,
-                                "type": "(index: number) => ScrollerItemOptions"
+                                "type": "Function"
                             },
                             {
                                 "name": "getLoaderOptions",
                                 "optional": true,
                                 "readonly": false,
-                                "type": "(index: number, options?: any) => ScrollerLoaderOptions"
+                                "type": "Function"
                             }
                         ]
                     },
@@ -26809,6 +26289,7 @@
                     },
                     {
                         "name": "ScrollerLoaderIconOptions",
+                        "value": "{\"[klass:string]\":\"any\"}",
                         "description": "Loader icon options."
                     }
                 ]
@@ -26853,7 +26334,7 @@
                             "name": "style",
                             "optional": false,
                             "readonly": false,
-                            "type": "(klass: string) => any",
+                            "type": "Object",
                             "description": "Inline style of the component."
                         },
                         {
@@ -26967,7 +26448,7 @@
                             "name": "style",
                             "optional": false,
                             "readonly": false,
-                            "type": "(klass: string) => any",
+                            "type": "Object",
                             "description": "Inline style of the element."
                         },
                         {
@@ -27123,14 +26604,14 @@
                             "name": "style",
                             "optional": false,
                             "readonly": false,
-                            "type": "(klass: string) => any",
+                            "type": "Object",
                             "description": "Inline style of the element."
                         },
                         {
                             "name": "panelStyle",
                             "optional": false,
                             "readonly": false,
-                            "type": "(klass: string) => any",
+                            "type": "Object",
                             "description": "Inline style of the overlay panel element."
                         },
                         {
@@ -27219,6 +26700,7 @@
                             "optional": false,
                             "readonly": false,
                             "type": "\"outlined\" | \"filled\"",
+                            "default": "outlined",
                             "description": "Specifies the input variant of the component."
                         },
                         {
@@ -27638,7 +27120,7 @@
                             "parameters": [
                                 {
                                     "name": "event",
-                                    "type": "AnimationEvent"
+                                    "type": "AnimationEvent_2"
                                 }
                             ],
                             "description": "Callback to invoke when select overlay gets visible."
@@ -27648,7 +27130,7 @@
                             "parameters": [
                                 {
                                     "name": "event",
-                                    "type": "AnimationEvent"
+                                    "type": "AnimationEvent_2"
                                 }
                             ],
                             "description": "Callback to invoke when select overlay gets hidden."
@@ -28005,14 +27487,14 @@
                                 "name": "filter",
                                 "optional": true,
                                 "readonly": false,
-                                "type": "(value?: any) => void",
+                                "type": "Function",
                                 "description": "Filter function."
                             },
                             {
                                 "name": "reset",
                                 "optional": true,
                                 "readonly": false,
-                                "type": "() => void",
+                                "type": "Function",
                                 "description": "Reset function."
                             }
                         ]
@@ -28140,6 +27622,7 @@
                             "optional": false,
                             "readonly": false,
                             "type": "boolean",
+                            "default": "false",
                             "description": "Whether selection can be cleared."
                         },
                         {
@@ -28362,7 +27845,7 @@
                             "name": "style",
                             "optional": false,
                             "readonly": false,
-                            "type": "(klass: string) => any",
+                            "type": "Object",
                             "description": "Inline style of the component."
                         },
                         {
@@ -28594,7 +28077,7 @@
                             "name": "style",
                             "optional": false,
                             "readonly": false,
-                            "type": "(klass: string) => any",
+                            "type": "Object",
                             "description": "Inline style of the element."
                         },
                         {
@@ -28717,7 +28200,7 @@
                             "name": "style",
                             "optional": false,
                             "readonly": false,
-                            "type": "(klass: string) => any",
+                            "type": "Object",
                             "description": "Inline style of the component."
                         },
                         {
@@ -28901,7 +28384,7 @@
                             "name": "style",
                             "optional": false,
                             "readonly": false,
-                            "type": "(klass: string) => any",
+                            "type": "Object",
                             "description": "Inline style of the element."
                         },
                         {
@@ -28963,7 +28446,7 @@
                             "name": "buttonStyle",
                             "optional": false,
                             "readonly": false,
-                            "type": "(klass: string) => any",
+                            "type": "Object",
                             "description": "Inline style of the button element."
                         },
                         {
@@ -28977,7 +28460,7 @@
                             "name": "maskStyle",
                             "optional": false,
                             "readonly": false,
-                            "type": "(klass: string) => any",
+                            "type": "Object",
                             "description": "Inline style of the mask element."
                         },
                         {
@@ -29209,7 +28692,7 @@
                             "name": "severity",
                             "optional": false,
                             "readonly": false,
-                            "type": "\"info\" | \"success\" | \"warn\" | \"danger\" | \"secondary\" | \"contrast\" | \"primary\" | \"help\"",
+                            "type": "\"info\" | \"success\" | \"warn\" | \"danger\" | \"secondary\" | \"contrast\" | \"help\" | \"primary\"",
                             "description": "Defines the style of the button."
                         },
                         {
@@ -29300,7 +28783,7 @@
                             "name": "style",
                             "optional": false,
                             "readonly": false,
-                            "type": "(klass: string) => any",
+                            "type": "Object",
                             "description": "Inline style of the element."
                         },
                         {
@@ -29314,7 +28797,7 @@
                             "name": "menuStyle",
                             "optional": false,
                             "readonly": false,
-                            "type": "(klass: string) => any",
+                            "type": "Object",
                             "description": "Inline style of the overlay menu."
                         },
                         {
@@ -29535,14 +29018,14 @@
                             "name": "style",
                             "optional": false,
                             "readonly": false,
-                            "type": "(klass: string) => any",
+                            "type": "Object",
                             "description": "Inline style of the component."
                         },
                         {
                             "name": "panelStyle",
                             "optional": false,
                             "readonly": false,
-                            "type": "(klass: string) => any",
+                            "type": "Object",
                             "description": "Inline style of the panel."
                         },
                         {
@@ -29838,7 +29321,7 @@
                             "name": "activateCallback",
                             "optional": false,
                             "readonly": false,
-                            "type": "() => void",
+                            "type": "Function",
                             "description": "Callback function to activate a step."
                         },
                         {
@@ -29865,7 +29348,7 @@
                             "name": "activateCallback",
                             "optional": false,
                             "readonly": false,
-                            "type": "(index: number) => void",
+                            "type": "Function",
                             "description": "Callback function to activate a step."
                         },
                         {
@@ -29936,7 +29419,7 @@
                             "name": "style",
                             "optional": false,
                             "readonly": false,
-                            "type": "(klass: string) => any",
+                            "type": "Object",
                             "description": "Inline style of the component."
                         },
                         {
@@ -30395,7 +29878,7 @@
                             "name": "style",
                             "optional": false,
                             "readonly": false,
-                            "type": "(klass: string) => any",
+                            "type": "Object",
                             "description": "Inline style of the component."
                         },
                         {
@@ -30409,7 +29892,7 @@
                             "name": "tableStyle",
                             "optional": false,
                             "readonly": false,
-                            "type": "(klass: string) => any",
+                            "type": "Object",
                             "description": "Inline style of the table."
                         },
                         {
@@ -30601,7 +30084,7 @@
                             "name": "rowSelectable",
                             "optional": false,
                             "readonly": false,
-                            "type": "(row: { data: any; index: number }) => boolean",
+                            "type": "Function",
                             "description": "Defines if the row is selectable."
                         },
                         {
@@ -30656,7 +30139,7 @@
                             "name": "filters",
                             "optional": false,
                             "readonly": false,
-                            "type": "(s: string) => FilterMetadata | FilterMetadata[]",
+                            "type": "Object",
                             "default": "{}",
                             "description": "An array of FilterMetadata objects to provide external filters."
                         },
@@ -30686,7 +30169,7 @@
                             "name": "expandedRowKeys",
                             "optional": false,
                             "readonly": false,
-                            "type": "(s: string) => boolean",
+                            "type": "Object",
                             "default": "{}",
                             "description": "Map instance to keep the expanded rows where key of the map is the data key of the row."
                         },
@@ -30694,7 +30177,7 @@
                             "name": "editingRowKeys",
                             "optional": false,
                             "readonly": false,
-                            "type": "(s: string) => boolean",
+                            "type": "Object",
                             "default": "{}",
                             "description": "Map instance to keep the rows being edited where key of the map is the data key of the row."
                         },
@@ -30970,7 +30453,7 @@
                             "name": "value",
                             "optional": false,
                             "readonly": false,
-                            "type": "RowData[]",
+                            "type": "any[]",
                             "description": "An array of objects to display."
                         },
                         {
@@ -31084,7 +30567,7 @@
                             "parameters": [
                                 {
                                     "name": "event",
-                                    "type": "TableRowSelectEvent<RowData"
+                                    "type": "TableRowSelectEvent"
                                 }
                             ],
                             "description": "Callback to invoke when a row is selected."
@@ -31094,7 +30577,7 @@
                             "parameters": [
                                 {
                                     "name": "event",
-                                    "type": "TableRowUnSelectEvent<RowData"
+                                    "type": "TableRowUnSelectEvent"
                                 }
                             ],
                             "description": "Callback to invoke when a row is unselected."
@@ -31144,7 +30627,7 @@
                             "parameters": [
                                 {
                                     "name": "event",
-                                    "type": "TableRowExpandEvent<RowData"
+                                    "type": "TableRowExpandEvent"
                                 }
                             ],
                             "description": "Callback to invoke when a row is expanded."
@@ -31164,7 +30647,7 @@
                             "parameters": [
                                 {
                                     "name": "event",
-                                    "type": "TableContextMenuSelectEvent<RowData"
+                                    "type": "TableContextMenuSelectEvent"
                                 }
                             ],
                             "description": "Callback to invoke when a row is selected with right click."
@@ -31330,6 +30813,203 @@
                                 }
                             ],
                             "description": "Scrolls to given index."
+                        }
+                    ]
+                },
+                "templates": {
+                    "description": "Defines the templates used by the component.",
+                    "values": [
+                        {
+                            "name": "caption",
+                            "description": "Caption template",
+                            "type": "TemplateRef<any>",
+                            "parameters": []
+                        },
+                        {
+                            "name": "header",
+                            "description": "Header template",
+                            "type": "TemplateRef<any>",
+                            "parameters": []
+                        },
+                        {
+                            "name": "headergrouped",
+                            "description": "Header grouped template",
+                            "type": "TemplateRef<any>",
+                            "parameters": []
+                        },
+                        {
+                            "name": "body",
+                            "description": "Body template",
+                            "type": "TemplateRef<any>",
+                            "parameters": []
+                        },
+                        {
+                            "name": "loadingbody",
+                            "description": "Loading body template",
+                            "type": "TemplateRef<any>",
+                            "parameters": []
+                        },
+                        {
+                            "name": "footer",
+                            "description": "Footer template",
+                            "type": "TemplateRef<any>",
+                            "parameters": []
+                        },
+                        {
+                            "name": "footergrouped",
+                            "description": "Footer grouped template",
+                            "type": "TemplateRef<any>",
+                            "parameters": []
+                        },
+                        {
+                            "name": "summary",
+                            "description": "Summary template",
+                            "type": "TemplateRef<any>",
+                            "parameters": []
+                        },
+                        {
+                            "name": "colgroup",
+                            "description": "Column group template",
+                            "type": "TemplateRef<any>",
+                            "parameters": []
+                        },
+                        {
+                            "name": "expandedrow",
+                            "description": "Row expansion template",
+                            "type": "TemplateRef<any>",
+                            "parameters": []
+                        },
+                        {
+                            "name": "groupheader",
+                            "description": "Group header template",
+                            "type": "TemplateRef<any>",
+                            "parameters": []
+                        },
+                        {
+                            "name": "groupfooter",
+                            "description": "Group footer template",
+                            "type": "TemplateRef<any>",
+                            "parameters": []
+                        },
+                        {
+                            "name": "frozenheader",
+                            "description": "Frozen header template",
+                            "type": "TemplateRef<any>",
+                            "parameters": []
+                        },
+                        {
+                            "name": "frozenbody",
+                            "description": "Frozen body template",
+                            "type": "TemplateRef<any>",
+                            "parameters": []
+                        },
+                        {
+                            "name": "frozenfooter",
+                            "description": "Frozen footer template",
+                            "type": "TemplateRef<any>",
+                            "parameters": []
+                        },
+                        {
+                            "name": "frozencolgroup",
+                            "description": "Frozen column group template",
+                            "type": "TemplateRef<any>",
+                            "parameters": []
+                        },
+                        {
+                            "name": "frozenexpandedrow",
+                            "description": "Frozen row expansion template",
+                            "type": "TemplateRef<any>",
+                            "parameters": []
+                        },
+                        {
+                            "name": "emptymessage",
+                            "description": "Empty message template",
+                            "type": "TemplateRef<any>",
+                            "parameters": []
+                        },
+                        {
+                            "name": "paginatorleft",
+                            "description": "Paginator left template",
+                            "type": "TemplateRef<any>",
+                            "parameters": []
+                        },
+                        {
+                            "name": "paginatorright",
+                            "description": "Paginator right template",
+                            "type": "TemplateRef<any>",
+                            "parameters": []
+                        },
+                        {
+                            "name": "paginatordropdownicon",
+                            "description": "Paginator dropdown icon template",
+                            "type": "TemplateRef<any>",
+                            "parameters": []
+                        },
+                        {
+                            "name": "paginatordropdownitem",
+                            "description": "Paginator dropdown item template",
+                            "type": "TemplateRef<any>",
+                            "parameters": []
+                        },
+                        {
+                            "name": "paginatorfirstpagelinkicon",
+                            "description": "Paginator first page link icon template",
+                            "type": "TemplateRef<any>",
+                            "parameters": []
+                        },
+                        {
+                            "name": "paginatorlastpagelinkicon",
+                            "description": "Paginator last page link icon template",
+                            "type": "TemplateRef<any>",
+                            "parameters": []
+                        },
+                        {
+                            "name": "paginatorpreviouspagelinkicon",
+                            "description": "Paginator previous page link icon template",
+                            "type": "TemplateRef<any>",
+                            "parameters": []
+                        },
+                        {
+                            "name": "paginatornextpagelinkicon",
+                            "description": "Paginator next page link icon template",
+                            "type": "TemplateRef<any>",
+                            "parameters": []
+                        },
+                        {
+                            "name": "loadingicon",
+                            "description": "Loading icon template",
+                            "type": "TemplateRef<any>",
+                            "parameters": []
+                        },
+                        {
+                            "name": "reorderindicatorupicon",
+                            "description": "Reorder indicator up icon template",
+                            "type": "TemplateRef<any>",
+                            "parameters": []
+                        },
+                        {
+                            "name": "reorderindicatordownicon",
+                            "description": "Reorder indicator down icon template",
+                            "type": "TemplateRef<any>",
+                            "parameters": []
+                        },
+                        {
+                            "name": "sorticon",
+                            "description": "Sort icon template",
+                            "type": "TemplateRef<any>",
+                            "parameters": []
+                        },
+                        {
+                            "name": "checkboxicon",
+                            "description": "Checkbox icon template",
+                            "type": "TemplateRef<any>",
+                            "parameters": []
+                        },
+                        {
+                            "name": "headercheckboxicon",
+                            "description": "Header checkbox icon template",
+                            "type": "TemplateRef<any>",
+                            "parameters": []
                         }
                     ]
                 }
@@ -31554,7 +31234,7 @@
                                 "name": "data",
                                 "optional": true,
                                 "readonly": false,
-                                "type": "RowData | RowData[]",
+                                "type": "any",
                                 "description": "Row data."
                             },
                             {
@@ -31588,7 +31268,7 @@
                                 "name": "data",
                                 "optional": true,
                                 "readonly": false,
-                                "type": "RowData | RowData[]",
+                                "type": "any",
                                 "description": "Row data."
                             },
                             {
@@ -31615,7 +31295,7 @@
                                 "name": "filters",
                                 "optional": true,
                                 "readonly": false,
-                                "type": "(s: string) => FilterMetadata",
+                                "type": "Object",
                                 "description": "Filter meta."
                             },
                             {
@@ -31653,7 +31333,7 @@
                                 "name": "filters",
                                 "optional": true,
                                 "readonly": false,
-                                "type": "(s: string) => FilterMetadata | FilterMetadata[]"
+                                "type": "Object"
                             },
                             {
                                 "name": "globalFilter",
@@ -31704,7 +31384,7 @@
                                 "name": "data",
                                 "optional": false,
                                 "readonly": false,
-                                "type": "RowData",
+                                "type": "any",
                                 "description": "Row data."
                             }
                         ]
@@ -31744,7 +31424,7 @@
                                 "name": "data",
                                 "optional": false,
                                 "readonly": false,
-                                "type": "RowData",
+                                "type": "any",
                                 "description": "Row data."
                             },
                             {
@@ -31764,7 +31444,7 @@
                                 "name": "data",
                                 "optional": false,
                                 "readonly": false,
-                                "type": "RowData",
+                                "type": "any",
                                 "description": "Row data."
                             }
                         ]
@@ -31851,7 +31531,7 @@
                                 "name": "data",
                                 "optional": true,
                                 "readonly": false,
-                                "type": "RowData",
+                                "type": "any",
                                 "description": "New value."
                             }
                         ]
@@ -32319,7 +31999,7 @@
                             "name": "style",
                             "optional": false,
                             "readonly": false,
-                            "type": "(klass: string) => any",
+                            "type": "Object",
                             "description": "Inline style of the element."
                         },
                         {
@@ -32541,6 +32221,10 @@
                         "description": "Class name of the inkbar element"
                     },
                     {
+                        "class": "p-tab-active",
+                        "description": "Class name of the active tab element"
+                    },
+                    {
                         "class": "p-tablist-nav-button",
                         "description": "Class name of the navigation buttons"
                     },
@@ -32692,7 +32376,7 @@
                             "name": "headerStyle",
                             "optional": false,
                             "readonly": false,
-                            "type": "(klass: string) => any",
+                            "type": "Object",
                             "description": "Inline style of the tab header."
                         },
                         {
@@ -32789,7 +32473,7 @@
                             "name": "style",
                             "optional": false,
                             "readonly": false,
-                            "type": "(klass: string) => any",
+                            "type": "Object",
                             "description": "Inline style of the component."
                         },
                         {
@@ -32981,7 +32665,7 @@
                             "name": "style",
                             "optional": false,
                             "readonly": false,
-                            "type": "(klass: string) => any",
+                            "type": "Object",
                             "description": "Inline style of the component."
                         },
                         {
@@ -33010,7 +32694,8 @@
                             "optional": false,
                             "readonly": false,
                             "type": "string",
-                            "description": "Icon of the tag to display next to the value."
+                            "description": "Icon of the tag to display next to the value.",
+                            "deprecated": "since 15.4.2. Use 'icon' template."
                         },
                         {
                             "name": "rounded",
@@ -33083,7 +32768,7 @@
                             "name": "style",
                             "optional": false,
                             "readonly": false,
-                            "type": "(klass: string) => any",
+                            "type": "Object",
                             "description": "Inline style of the component."
                         },
                         {
@@ -33153,14 +32838,14 @@
                                 "name": "sendCommand",
                                 "optional": false,
                                 "readonly": false,
-                                "type": "(command: string) => void",
+                                "type": "Function",
                                 "description": "Emits command value."
                             },
                             {
                                 "name": "sendResponse",
                                 "optional": false,
                                 "readonly": false,
-                                "type": "(response: string) => void",
+                                "type": "Function",
                                 "description": "Emits response value."
                             }
                         ]
@@ -33198,7 +32883,7 @@
                             "name": "style",
                             "optional": false,
                             "readonly": false,
-                            "type": "(klass: string) => any",
+                            "type": "Object",
                             "description": "Inline style of the component."
                         },
                         {
@@ -33489,7 +33174,7 @@
                             "name": "style",
                             "optional": false,
                             "readonly": false,
-                            "type": "(klass: string) => any",
+                            "type": "Object",
                             "description": "Inline style of the component."
                         },
                         {
@@ -33664,7 +33349,7 @@
                             "name": "style",
                             "optional": false,
                             "readonly": false,
-                            "type": "(klass: string) => any",
+                            "type": "Object",
                             "description": "Inline style of the component."
                         },
                         {
@@ -33733,7 +33418,7 @@
                             "name": "breakpoints",
                             "optional": false,
                             "readonly": false,
-                            "type": "(key: string) => any",
+                            "type": "Object",
                             "description": "Object literal to define styles per screen size."
                         }
                     ]
@@ -34107,7 +33792,7 @@
                             "name": "style",
                             "optional": false,
                             "readonly": false,
-                            "type": "(klass: string) => any",
+                            "type": "Object",
                             "description": "Inline style of the component."
                         },
                         {
@@ -34281,7 +33966,7 @@
                             "name": "style",
                             "optional": false,
                             "readonly": false,
-                            "type": "(klass: string) => any",
+                            "type": "Object",
                             "description": "Inline style of the component."
                         },
                         {
@@ -34577,7 +34262,7 @@
                             "name": "style",
                             "optional": false,
                             "readonly": false,
-                            "type": "(klass: string) => any",
+                            "type": "Object",
                             "description": "Inline style of the component."
                         },
                         {
@@ -34707,14 +34392,6 @@
                             "type": "boolean",
                             "default": "false",
                             "description": "When specified, displays an input field to filter the items."
-                        },
-                        {
-                            "name": "filterInputAutoFocus",
-                            "optional": false,
-                            "readonly": false,
-                            "type": "boolean",
-                            "default": "false",
-                            "description": "Determines whether the filter input should be automatically focused when the component is rendered."
                         },
                         {
                             "name": "filterBy",
@@ -34997,12 +34674,6 @@
                 "templates": {
                     "description": "Defines the templates used by the component.",
                     "values": [
-                        {
-                            "name": "filter",
-                            "description": "Filter template.",
-                            "type": "TemplateRef<any>",
-                            "parameters": []
-                        },
                         {
                             "name": "node",
                             "description": "Node template.",
@@ -35481,6 +35152,7 @@
                             "optional": false,
                             "readonly": false,
                             "type": "\"outlined\" | \"filled\"",
+                            "default": "outlined",
                             "description": "Specifies the input variant of the component."
                         },
                         {
@@ -35532,14 +35204,14 @@
                             "name": "panelClass",
                             "optional": false,
                             "readonly": false,
-                            "type": "string | string[] | Set<string> | (klass: string) => any",
+                            "type": "string | string[] | Set<string> | Object",
                             "description": "Style class of the overlay panel."
                         },
                         {
                             "name": "panelStyle",
                             "optional": false,
                             "readonly": false,
-                            "type": "(klass: string) => any",
+                            "type": "Object",
                             "description": "Inline style of the panel element."
                         },
                         {
@@ -35561,7 +35233,7 @@
                             "name": "containerStyle",
                             "optional": false,
                             "readonly": false,
-                            "type": "(klass: string) => any",
+                            "type": "Object",
                             "description": "Inline style of the container element."
                         },
                         {
@@ -35575,7 +35247,7 @@
                             "name": "labelStyle",
                             "optional": false,
                             "readonly": false,
-                            "type": "(klass: string) => any",
+                            "type": "Object",
                             "description": "Inline style of the label element."
                         },
                         {
@@ -36142,7 +35814,7 @@
                             "name": "style",
                             "optional": false,
                             "readonly": false,
-                            "type": "(klass: string) => any",
+                            "type": "Object",
                             "description": "Inline style of the component."
                         },
                         {
@@ -36156,7 +35828,7 @@
                             "name": "tableStyle",
                             "optional": false,
                             "readonly": false,
-                            "type": "(klass: string) => any",
+                            "type": "Object",
                             "description": "Inline style of the table."
                         },
                         {
@@ -36412,7 +36084,7 @@
                             "readonly": false,
                             "type": "boolean",
                             "default": "false",
-                            "description": "When specified, enables horizontal and/or vertical scrolling."
+                            "description": "When specifies, enables horizontal and/or vertical scrolling."
                         },
                         {
                             "name": "scrollHeight",
@@ -36462,7 +36134,7 @@
                             "name": "frozenColumns",
                             "optional": false,
                             "readonly": false,
-                            "type": "(klass: string) => any",
+                            "type": "Object",
                             "description": "An array of objects to represent dynamic columns that are frozen."
                         },
                         {
@@ -36508,7 +36180,7 @@
                             "name": "filters",
                             "optional": false,
                             "readonly": false,
-                            "type": "(s: string) => FilterMetadata",
+                            "type": "Object",
                             "default": "{}",
                             "description": "An array of FilterMetadata objects to provide external filters."
                         },
@@ -36972,7 +36644,7 @@
                                 "name": "filters",
                                 "optional": true,
                                 "readonly": false,
-                                "type": "(s: string) => FilterMetadata | FilterMetadata[]"
+                                "type": "Object"
                             },
                             {
                                 "name": "globalFilter",
@@ -37043,7 +36715,7 @@
                                 "name": "filters",
                                 "optional": true,
                                 "readonly": false,
-                                "type": "(s: string) => FilterMetadata",
+                                "type": "Object",
                                 "description": "Filter meta."
                             },
                             {
@@ -37731,7 +37403,7 @@
                                 "name": "filterConstraint",
                                 "optional": false,
                                 "readonly": false,
-                                "type": "(dataFieldValue: any, filterValue: any, filterLocale: string) => boolean",
+                                "type": "Function",
                                 "description": "Filter constraints."
                             },
                             {
@@ -37752,6 +37424,9 @@
             "components": {}
         }
     },
+    "utils": {
+        "components": {}
+    },
     "inpututils": {
         "components": {}
     },
@@ -37763,5 +37438,76 @@
     },
     "zindexutils": {
         "components": {}
+    },
+    "common": {
+        "style": {
+            "components": {}
+        }
+    },
+    "imagecompare": {
+        "components": {
+            "ImageCompare": {
+                "description": "Compare two images side by side with a slider.",
+                "props": {
+                    "description": "Defines the input properties of the component.",
+                    "values": [
+                        {
+                            "name": "tabindex",
+                            "optional": false,
+                            "readonly": false,
+                            "type": "number",
+                            "default": "0",
+                            "description": "Index of the element in tabbing order."
+                        },
+                        {
+                            "name": "ariaLabelledby",
+                            "optional": false,
+                            "readonly": false,
+                            "type": "string",
+                            "description": "Defines a string value that labels an interactive element."
+                        },
+                        {
+                            "name": "ariaLabel",
+                            "optional": false,
+                            "readonly": false,
+                            "type": "string",
+                            "description": "Identifier of the underlying input element."
+                        }
+                    ]
+                },
+                "templates": {
+                    "description": "Defines the templates used by the component.",
+                    "values": [
+                        {
+                            "name": "left",
+                            "description": "Template for the left side.",
+                            "type": "TemplateRef<any>",
+                            "parameters": []
+                        },
+                        {
+                            "name": "right",
+                            "description": "Template for the right side.",
+                            "type": "TemplateRef<any>",
+                            "parameters": []
+                        }
+                    ]
+                }
+            }
+        },
+        "style": {
+            "components": {},
+            "classes": {
+                "values": [
+                    {
+                        "class": "p-imagecompare",
+                        "description": "Class name of the root element"
+                    },
+                    {
+                        "class": "p-imagecompare-slider",
+                        "description": "Class name of the slider element"
+                    }
+                ]
+            }
+        }
     }
 }
