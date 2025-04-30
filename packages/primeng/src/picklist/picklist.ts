@@ -26,7 +26,7 @@ import { FilterService, PrimeTemplate, SharedModule } from 'primeng/api';
 import { BaseComponent } from 'primeng/basecomponent';
 import { ButtonDirective, ButtonProps } from 'primeng/button';
 import { AngleDoubleDownIcon, AngleDoubleLeftIcon, AngleDoubleRightIcon, AngleDoubleUpIcon, AngleDownIcon, AngleLeftIcon, AngleRightIcon, AngleUpIcon } from 'primeng/icons';
-import { Listbox } from 'primeng/listbox';
+import { Listbox, ListboxFilterEvent } from 'primeng/listbox';
 import { Ripple } from 'primeng/ripple';
 import { Nullable, VoidListener } from 'primeng/ts-helpers';
 import {
@@ -1204,11 +1204,13 @@ export class PickList extends BaseComponent implements AfterViewChecked, AfterCo
     filterSource(value: any = '') {
         this.filterValueSource = value.trim().toLocaleLowerCase(this.filterLocale);
         this.filter(<any[]>this.source, this.SOURCE_LIST);
+        this.onSourceFilter.emit({ query: this.filterValueSource, value: this.visibleOptionsSource });
     }
 
     filterTarget(value: any = '') {
         this.filterValueTarget = value.trim().toLocaleLowerCase(this.filterLocale);
         this.filter(<any[]>this.target, this.TARGET_LIST);
+        this.onTargetFilter.emit({ query: this.filterValueTarget, value: this.visibleOptionsTarget });
     }
 
     filter(data: any[], listType: number) {
