@@ -1185,7 +1185,7 @@ export class TieredMenu extends BaseComponent implements OnInit, OnDestroy {
     bindOutsideClickListener() {
         if (isPlatformBrowser(this.platformId)) {
             if (!this.outsideClickListener) {
-                this.outsideClickListener = this.renderer.listen(this.document, 'click', (event) => {
+                this.outsideClickListener = this.renderer.listen(this.document, 'mousedown', (event) => {
                     const isOutsideContainer = this.containerViewChild && !this.containerViewChild.nativeElement.contains(event.target);
                     const isOutsideTarget = this.popup ? !(this.target && (this.target === event.target || this.target.contains(event.target))) : true;
                     if (isOutsideContainer && isOutsideTarget) {
@@ -1198,7 +1198,7 @@ export class TieredMenu extends BaseComponent implements OnInit, OnDestroy {
 
     unbindOutsideClickListener() {
         if (this.outsideClickListener) {
-            document.removeEventListener('click', this.outsideClickListener);
+            document.removeEventListener('mousedown', this.outsideClickListener);
             this.outsideClickListener = null;
         }
     }

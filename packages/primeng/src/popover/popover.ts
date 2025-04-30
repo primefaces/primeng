@@ -221,7 +221,7 @@ export class Popover extends BaseComponent implements AfterContentInit, OnDestro
     bindDocumentClickListener() {
         if (isPlatformBrowser(this.platformId)) {
             if (!this.documentClickListener) {
-                let documentEvent = isIOS() ? 'touchstart' : 'click';
+                let documentEvent = isIOS() ? 'touchstart' : 'mousedown';
                 const documentTarget: any = this.el ? this.el.nativeElement.ownerDocument : this.document;
 
                 this.documentClickListener = this.renderer.listen(documentTarget, documentEvent, (event) => {
@@ -346,6 +346,7 @@ export class Popover extends BaseComponent implements AfterContentInit, OnDestro
     onAnimationStart(event: AnimationEvent) {
         if (event.toState === 'open') {
             this.container = event.element;
+            this.container?.setAttribute(this.attrSelector, '');
             this.appendContainer();
             this.align();
             this.bindDocumentClickListener();
