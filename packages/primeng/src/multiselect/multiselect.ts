@@ -63,9 +63,9 @@ import { Ripple } from 'primeng/ripple';
 import { Scroller } from 'primeng/scroller';
 import { Tooltip } from 'primeng/tooltip';
 import { Nullable } from 'primeng/ts-helpers';
+import { ObjectUtils } from 'primeng/utils';
 import { MultiSelectBlurEvent, MultiSelectChangeEvent, MultiSelectFilterEvent, MultiSelectFilterOptions, MultiSelectFocusEvent, MultiSelectLazyLoadEvent, MultiSelectRemoveEvent, MultiSelectSelectAllChangeEvent } from './multiselect.interface';
 import { MultiSelectStyle } from './style/multiselectstyle';
-import { ObjectUtils } from 'primeng/utils';
 
 export const MULTISELECT_VALUE_ACCESSOR: any = {
     provide: NG_VALUE_ACCESSOR,
@@ -575,7 +575,7 @@ export class MultiSelect extends BaseComponent implements OnInit, AfterViewInit,
         return this._maxSelectedLabels;
     }
     /**
-     * Decides how many selected item labels to show at most.
+     * Maximum number of selectable items.
      * @group Props
      */
     @Input({ transform: numberAttribute }) selectionLimit: number | undefined;
