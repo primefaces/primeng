@@ -1553,7 +1553,7 @@ export class InputNumber extends BaseComponent implements OnInit, AfterContentIn
 
     setSelectionRange(start: number, end: number) {
         // Calling setSelectionRange focuses the input element. Check to see if it's not disabled so we can call it
-        if (!this.disableFocusOnButtonInteraction) this.input?.nativeElement.setSelectionRange(start, end);
+        if (!this.disableFocusOnButtonInteraction || !this.showButtons) this.input?.nativeElement.setSelectionRange(start, end);
     }
 }
 
