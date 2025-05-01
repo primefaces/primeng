@@ -1307,9 +1307,10 @@ export const initGridManager = <T>({
     };
 
     const _calculateLast = (currLastIdx: number, scrollPos: number, itemPositions: ItemPos[], viewportSize: number, triggerDistance: number) => {
-        const currLastPos = itemPositions.at(currLastIdx).pos;
+        const lastRenderedItem = itemPositions.at(Math.max(currLastIdx - 1, 0));
+        const currLastPos = lastRenderedItem.pos + lastRenderedItem.size;
         const newLastIdx = binarySearchFirst(scrollPos + viewportSize * 2 - 1, itemPositions) + 1;
-        const distanceFromCurrent = currLastPos > scrollPos ? currLastPos - scrollPos + viewportSize : 0;
+        const distanceFromCurrent = currLastPos > scrollPos + viewportSize ? currLastPos - scrollPos + viewportSize : 0;
 
         return distanceFromCurrent < triggerDistance || distanceFromCurrent > viewportSize + triggerDistance ? newLastIdx : currLastIdx;
     };
@@ -1321,17 +1322,18 @@ export const initGridManager = <T>({
 
     const getRange = (first: GridItem, last: GridItem) => {
         const viewport = itemsInViewport();
+        const lastRenderedItem = { main: positions.mainAxis[Math.max(last.main - 1, 0)], cross: positions.crossAxis[Math.max(last.cross - 1, 0)] };
         if (
             _shouldRecalculate(
                 _calculatedIndexes.mainAxis,
-                { first: positions.mainAxis[first.main].pos, last: positions.mainAxis[last.main].pos },
+                { first: positions.mainAxis[first.main].pos, last: lastRenderedItem.main.pos + lastRenderedItem.main.size },
                 { pos: positions.mainAxis[viewport.first.main].pos, idx: viewport.first.main },
                 { pos: positions.mainAxis[viewport.last.main].pos, idx: viewport.last.main },
                 _triggerDistance.main
             ) ||
             _shouldRecalculate(
                 _calculatedIndexes.crossAxis,
-                { first: positions.crossAxis[first.cross].pos, last: positions.crossAxis[last.cross].pos },
+                { first: positions.crossAxis[first.cross].pos, last: lastRenderedItem.cross.pos + lastRenderedItem.cross.size },
                 { pos: positions.crossAxis[viewport.first.cross].pos, idx: viewport.first.cross },
                 { pos: positions.crossAxis[viewport.last.cross].pos, idx: viewport.last.cross },
                 _triggerDistance.cross
