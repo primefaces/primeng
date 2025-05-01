@@ -72,7 +72,7 @@ fdescribe('Scroller', () => {
             template: `
                 <p-virtualscroller [items]="items" [itemSize]="itemSize" scrollHeight="200px" styleClass="border border-surface" [style]="{ width: '200px', height: '200px' }">
                     <ng-template #item let-item let-options="options">
-                        <div class="flex items-center p-2" [ngClass]="{ 'bg-surface-100 dark:bg-surface-700': options.odd }" [style]="{ overflow: 'hidden', height: itemSize + 'px' }">
+                        <div class="flex items-center p-2" [ngClass]="{ 'bg-surface-100 dark:bg-surface-700': options.odd }" [style]="{ overflow: 'hidden', height: getItemSize(item, options.index) + 'px' }">
                             {{ item }}
                         </div>
                     </ng-template>
@@ -82,7 +82,9 @@ fdescribe('Scroller', () => {
         })
         class BasicScrollerWrapper {
             items = Array.from({ length: 1000 }).map((_, i) => `Item #${i}`);
-            itemSize = 50;
+            itemSize: number | ((item: string, idx: number) => { mainAxis: number }) = 50;
+
+            getItemSize = (item: string, idx: number) => (typeof this.itemSize === 'number' ? this.itemSize : this.itemSize(item, idx).mainAxis);
         }
 
         let fixture: ComponentFixture<BasicScrollerWrapper>;
@@ -242,6 +244,51 @@ fdescribe('Scroller', () => {
             expect(scroller.first).not.toBe(0);
             expect(firstInViewport.textContent.trim()).toBe(component.items[488]);
             expect(lastInViewport).toBeTruthy();
+        });
+
+        it('should scrollTo the middle (itemSize=variable)', () => {
+            actions.setItemSize((_i, idx) => ({ mainAxis: [20, 30, 80][idx % 3] }));
+            actions.scrollTo({ top: scrollerDiv.scrollHeight / 2 });
+
+            const { firstInViewport, lastInViewport } = actions.getViewportItems();
+
+            expect(scroller.first).not.toBe(0);
+            expect(firstInViewport.textContent.trim()).toBe(component.items[500]);
+            expect(lastInViewport).toBeTruthy();
+        });
+
+        it('should scrollTo the bottom (itemSize=variable)', () => {
+            actions.setItemSize((_i, idx) => ({ mainAxis: [20, 30, 80][idx % 3] }));
+            actions.scrollTo({ top: scrollerDiv.scrollHeight });
+
+            const { firstInViewport, lastInViewport } = actions.getViewportItems();
+
+            expect(scroller.first).toBe(989);
+            expect(firstInViewport.textContent.trim()).toBe(component.items[995]);
+            expect(lastInViewport).toBeTruthy();
+        });
+
+        it('should scrollToIndex of the middle item (itemSize=variable)', () => {
+            actions.setItemSize((_i, idx) => ({ mainAxis: [20, 30, 80][idx % 3] }));
+            const middleItemIdx = component.items.length / 2;
+            actions.scrollToIndex(middleItemIdx);
+
+            const { firstInViewport, lastInViewport } = actions.getViewportItems();
+
+            expect(scroller.first).not.toBe(0);
+            expect(firstInViewport.textContent.trim()).toBe(component.items[middleItemIdx]);
+            expect(lastInViewport).toBeTruthy();
+        });
+
+        it('should scrollToIndex of the last item (itemSize=variable)', () => {
+            actions.setItemSize((_i, idx) => ({ mainAxis: [20, 30, 80][idx % 3] }));
+            actions.scrollToIndex(component.items.length - 1);
+
+            const { firstInViewport, lastInViewport } = actions.getViewportItems();
+
+            expect(scroller.last).toBe(component.items.length);
+            expect(firstInViewport).toBeTruthy();
+            expect(lastInViewport.textContent.trim()).toBe(component.items.at(-1));
         });
 
         it('should smoothly scrollToIndex of the middle item', async () => {
