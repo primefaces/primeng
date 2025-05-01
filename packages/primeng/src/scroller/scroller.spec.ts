@@ -1117,6 +1117,62 @@ fdescribe('Scroller', () => {
 
             expect(preidx).toBe(postidx);
         });
+
+        xdescribe('perf', () => {
+            it('should initialize in 10ms', () => {
+                const params = {
+                    items: getItems(5000, 5000),
+                    getItemSize: () => ({ main: 50, cross: 100 }),
+                    getScrollPos: () => ({ main: 0, cross: 0 }),
+                    scrollTo: () => {},
+                    setScrollSize: () => {},
+                    viewportSize: { main: 200, cross: 200 }
+                };
+
+                const start = performance.now();
+                initGridManager(params);
+                const end = performance.now();
+
+                expect(end - start).toBeLessThanOrEqual(10);
+            });
+
+            it('should getRange in 10ms', () => {
+                const scrollPos = { main: 0, cross: 0 };
+                const { getRange } = initGridManager({
+                    items: getItems(5000, 5000),
+                    getItemSize: () => ({ main: 50, cross: 100 }),
+                    getScrollPos: () => scrollPos,
+                    scrollTo: () => {},
+                    setScrollSize: () => {},
+                    viewportSize: { main: 2000, cross: 2000 }
+                });
+                scrollPos.main = 20000;
+                scrollPos.cross = 20000;
+
+                const start = performance.now();
+                getRange({ main: 0, cross: 0 }, { main: 0, cross: 0 });
+                const end = performance.now();
+
+                expect(end - start).toBeLessThanOrEqual(10);
+            });
+
+            it('should calculate positions in 10ms', () => {
+                const { at } = initGridManager({
+                    items: getItems(5000, 5000),
+                    getItemSize: () => ({ main: 50, cross: 100 }),
+                    getScrollPos: () => ({ main: 0, cross: 0 }),
+                    scrollTo: () => {},
+                    setScrollSize: () => {},
+                    viewportSize: { main: 2000, cross: 2000 }
+                });
+
+                const start = performance.now();
+                at(4999, 4999);
+                const end = performance.now();
+
+                expect(end - start).toBeLessThanOrEqual(10);
+            });
+        });
     });
 
     describe('getScrollShift', () => {
