@@ -1241,7 +1241,7 @@ export class MegaMenu extends BaseComponent implements AfterContentInit, OnDestr
     bindOutsideClickListener() {
         if (isPlatformBrowser(this.platformId)) {
             if (!this.outsideClickListener) {
-                this.outsideClickListener = this.renderer.listen(this.document, 'mousedown', (event) => {
+                this.outsideClickListener = this.renderer.listen(this.document, 'click', (event) => {
                     const isOutsideContainer = this.container?.nativeElement !== event.target && !this.container?.nativeElement.contains(event.target);
 
                     if (isOutsideContainer) {

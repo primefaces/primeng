@@ -730,7 +730,7 @@ export class SpeedDial extends BaseComponent implements AfterViewInit, AfterCont
     bindDocumentClickListener() {
         if (isPlatformBrowser(this.platformId)) {
             if (!this.documentClickListener && this.hideOnClickOutside) {
-                this.documentClickListener = this.renderer.listen(this.document, 'mousedown', (event) => {
+                this.documentClickListener = this.renderer.listen(this.document, 'click', (event) => {
                     if (this.visible && this.isOutsideClicked(event)) {
                         this.hide();
                     }
