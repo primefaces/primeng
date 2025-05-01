@@ -558,7 +558,7 @@ export class Overlay extends BaseComponent implements AfterContentInit, OnDestro
 
     bindDocumentClickListener() {
         if (!this.documentClickListener) {
-            this.documentClickListener = this.renderer.listen(this.document, 'mousedown', (event) => {
+            this.documentClickListener = this.renderer.listen(this.document, 'click', (event) => {
                 const isTargetClicked = this.targetEl && ((this.targetEl as any).isSameNode(event.target) || (!this.isOverlayClicked && (this.targetEl as any).contains(event.target)));
                 const isOutsideClicked = !isTargetClicked && !this.isOverlayContentClicked;
                 const valid = this.listener ? this.listener(event, { type: 'outside', mode: this.overlayMode, valid: event.which !== 3 && isOutsideClicked }) : isOutsideClicked;

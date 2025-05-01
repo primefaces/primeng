@@ -410,7 +410,7 @@ export class ConfirmPopup extends BaseComponent implements AfterContentInit, OnD
 
     bindDocumentClickListener() {
         if (!this.documentClickListener) {
-            let documentEvent = isIOS() ? 'touchstart' : 'mousedown';
+            let documentEvent = isIOS() ? 'touchstart' : 'click';
             const documentTarget: any = this.el ? this.el.nativeElement.ownerDocument : this.document;
 
             this.documentClickListener = this.renderer.listen(documentTarget, documentEvent, (event) => {

@@ -1163,7 +1163,7 @@ export class Menubar extends BaseComponent implements AfterContentInit, OnDestro
     bindOutsideClickListener() {
         if (isPlatformBrowser(this.platformId)) {
             if (!this.outsideClickListener) {
-                this.outsideClickListener = this.renderer.listen(this.document, 'mousedown', (event) => {
+                this.outsideClickListener = this.renderer.listen(this.document, 'click', (event) => {
                     const isOutsideContainer = this.rootmenu.el.nativeElement !== event.target && !this.rootmenu.el.nativeElement.contains(event.target);
                     const isOutsideMenuButton = this.mobileActive && this.menubutton.nativeElement !== event.target && !this.menubutton.nativeElement.contains(event.target);
 
