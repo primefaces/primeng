@@ -62,8 +62,6 @@ export class Tag extends BaseComponent implements AfterContentInit {
 
     _iconTemplate: TemplateRef<any> | undefined;
 
-    _style: { [klass: string]: any } | null | undefined;
-
     _componentStyle = inject(TagStyle);
 
     ngAfterContentInit() {
