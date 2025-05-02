@@ -3515,7 +3515,8 @@ export class TTEditableColumn implements AfterViewInit {
         let targetCell = this.findPreviousEditableColumn(currentCell);
 
         if (targetCell) {
-            invokeElementMethod(targetCell, 'click', undefined);
+            // @ts-ignore
+            invokeElementMethod(targetCell as HTMLElement, 'click', undefined);
             event.preventDefault();
         }
     }
@@ -3526,6 +3527,7 @@ export class TTEditableColumn implements AfterViewInit {
         let targetCell = this.findNextEditableColumn(currentCell);
 
         if (targetCell) {
+            // @ts-ignore
             invokeElementMethod(targetCell, 'click', undefined);
             event.preventDefault();
         }

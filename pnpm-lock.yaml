@@ -80,8 +80,8 @@ catalogs:
       specifier: ^1.0.0
       version: 1.0.3
     '@primeuix/utils':
-      specifier: ^0.3.2
-      version: 0.3.2
+      specifier: ^0.5.3
+      version: 0.5.3
     primeicons:
       specifier: ^7.0.0
       version: 7.0.0
@@ -342,7 +342,7 @@ importers:
         version: 1.0.3
       '@primeuix/utils':
         specifier: 'catalog:'
-        version: 0.3.2
+        version: 0.5.3
       rxjs:
         specifier: ^6.0.0 || ^7.8.1
         version: 7.8.2
@@ -2371,10 +2371,6 @@ packages:
 
   '@primeuix/themes@1.0.3':
     resolution: {integrity: sha512-f/1qadrv5TFMHfvtVv4Y9zjrkeDP2BO/cuzbHBO9DYxKL6YBIPT9BjKec2K4Kg8PcfGm6CAvxAvICadJSWejRw==}
-
-  '@primeuix/utils@0.3.2':
-    resolution: {integrity: sha512-B+nphqTQeq+i6JuICLdVWnDMjONome2sNz0xI65qIOyeB4EF12CoKRiCsxuZ5uKAkHi/0d1LqlQ9mIWRSdkavw==}
-    engines: {node: '>=12.11.0'}
 
   '@primeuix/utils@0.5.3':
     resolution: {integrity: sha512-7SGh7734wcF1/uK6RzO6Z6CBjGQ97GDHfpyl2F1G/c7R0z9hkT/V72ypDo82AWcCS7Ta07oIjDpOCTkSVZuEGQ==}
@@ -8946,8 +8942,6 @@ snapshots:
   '@primeuix/themes@1.0.3':
     dependencies:
       '@primeuix/styled': 0.5.1
-
-  '@primeuix/utils@0.3.2': {}
 
   '@primeuix/utils@0.5.3': {}
 

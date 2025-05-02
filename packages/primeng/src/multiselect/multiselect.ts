@@ -30,30 +30,13 @@ import {
     ViewEncapsulation
 } from '@angular/core';
 import { ControlValueAccessor, FormsModule, NG_VALUE_ACCESSOR } from '@angular/forms';
-import {
-    deepEquals,
-    equals,
-    findLastIndex,
-    findSingle,
-    focus,
-    getFirstFocusableElement,
-    getFocusableElements,
-    getLastFocusableElement,
-    hasClass,
-    isArray,
-    isHidden,
-    isNotEmpty,
-    isPrintableCharacter,
-    resolveFieldData,
-    unblockBodyScroll,
-    uuid
-} from '@primeuix/utils';
+import { deepEquals, equals, findLastIndex, findSingle, focus, getFirstFocusableElement, getFocusableElements, getLastFocusableElement, hasClass, isArray, isHidden, isNotEmpty, isPrintableCharacter, resolveFieldData, uuid } from '@primeuix/utils';
 import { FilterService, Footer, Header, OverlayOptions, OverlayService, PrimeTemplate, ScrollerOptions, SharedModule, TranslationKeys } from 'primeng/api';
 import { AutoFocus } from 'primeng/autofocus';
 import { BaseComponent } from 'primeng/basecomponent';
 import { Checkbox } from 'primeng/checkbox';
 import { Chip } from 'primeng/chip';
-import { DomHandler } from 'primeng/dom';
+import { DomHandler, unblockBodyScroll } from 'primeng/dom';
 import { IconField } from 'primeng/iconfield';
 import { CheckIcon, ChevronDownIcon, SearchIcon, TimesIcon } from 'primeng/icons';
 import { InputIcon } from 'primeng/inputicon';
