@@ -17,10 +17,20 @@ ${style({ dt })}
 `;
 
 const classes = {
-    root: ({ props }) => [
+    root: ({ instance }) => [
         'p-panel p-component',
         {
-            'p-panel-toggleable': props.toggleable
+            'p-panel-toggleable': instance.toggleable,
+            'p-panel-expanded': !instance.collapsed && instance.toggleable
+        },
+        instance.styleClass
+    ],
+    icons: ({ instance }) => [
+        'p-panel-icons',
+        {
+            'p-panel-icons-start': instance.iconPos === 'start',
+            'p-panel-icons-end': instance.iconPos === 'end',
+            'p-panel-icons-center': instance.iconPos === 'center'
         }
     ],
     header: 'p-panel-header',
