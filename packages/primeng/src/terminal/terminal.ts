@@ -49,11 +49,6 @@ export class Terminal extends BaseComponent implements AfterViewInit, AfterViewC
      */
     @Input() prompt: string | undefined;
     /**
-     * Inline style of the component.
-     * @group Props
-     */
-    @Input() style: { [klass: string]: any } | null | undefined;
-    /**
      * Style class of the component.
      * @group Props
      */
