@@ -86,7 +86,8 @@ export const MULTISELECT_VALUE_ACCESSOR: any = {
             [ngClass]="{
                 'p-multiselect-option-selected': selected && highlightOnSelect,
                 'p-disabled': disabled,
-                'p-focus': focused
+                'p-focus': focused,
+                'p-multiselect-option-selected': selected
             }"
             [id]="id"
             [attr.aria-label]="label"
