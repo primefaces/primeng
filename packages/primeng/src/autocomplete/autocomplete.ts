@@ -1468,6 +1468,7 @@ export class AutoComplete extends BaseComponent implements AfterViewChecked, Aft
         if (!this.typeahead) {
             if (this.multiple) {
                 this.updateModel([...(this.modelValue() || []), event.target.value]);
+                this.onSelect.emit({ originalEvent: event, value: event.target.value });
                 this.inputEL.nativeElement.value = '';
             }
         }
