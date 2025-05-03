@@ -140,7 +140,7 @@ const theme = ({ dt }) => `
     cursor: move;
 }
 
-.p-datatable-mask {
+.p-datatable-mask.p-overlay-mask {
     position: absolute;
     display: flex;
     align-items: center;
@@ -445,7 +445,7 @@ const theme = ({ dt }) => `
     box-shadow: inset 0 -2px 0 0 ${dt('datatable.drop.point.color')};
 }
 
-.p-datatable-loading-icon {
+.p-datatable-loading-icon.p-icon {
     font-size: ${dt('datatable.loading.icon.size')};
     width: ${dt('datatable.loading.icon.size')};
     height: ${dt('datatable.loading.icon.size')};
