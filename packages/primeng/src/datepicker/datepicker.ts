@@ -91,7 +91,7 @@ export const DATEPICKER_VALUE_ACCESSOR: any = {
                     [attr.aria-controls]="overlayVisible ? panelId : null"
                     [attr.aria-labelledby]="ariaLabelledBy"
                     [attr.aria-label]="ariaLabel"
-                    [value]="inputFieldValue"
+                    [value]="displayValue ?? inputFieldValue"
                     (focus)="onInputFocus($event)"
                     (keydown)="onInputKeydown($event)"
                     (click)="onInputClick()"
@@ -599,6 +599,12 @@ export class DatePicker extends BaseComponent implements OnInit, AfterContentIni
             this.updateInputfield();
         }
     }
+    /**
+     * Format of the date as it should be displayed in the input field.
+     * For example, one can set the display value to 'dd/mm/yy' but still
+     * store a utc value as 'yy-mm-dd' in the model.
+     */
+    @Input() displayDateFormat: string | undefined;
     /**
      * Separator for multiple selection mode.
      * @group Props
@@ -1144,6 +1150,8 @@ export class DatePicker extends BaseComponent implements OnInit, AfterContentIni
     isKeydown: Nullable<boolean>;
 
     filled: Nullable<boolean>;
+
+    displayValue: Nullable<string> = null;
 
     inputFieldValue: Nullable<string> = null;
 
@@ -1771,15 +1779,14 @@ export class DatePicker extends BaseComponent implements OnInit, AfterContentIni
         }
     }
 
-    updateInputfield() {
+    private getFormattedModelValue(format?: string): string {
         let formattedValue = '';
-
         if (this.value) {
             if (this.isSingleSelection()) {
-                formattedValue = this.formatDateTime(this.value);
+                formattedValue = this.formatDateTime(this.value, format);
             } else if (this.isMultipleSelection()) {
                 for (let i = 0; i < this.value.length; i++) {
-                    let dateAsString = this.formatDateTime(this.value[i]);
+                    let dateAsString = this.formatDateTime(this.value[i], format);
                     formattedValue += dateAsString;
                     if (i !== this.value.length - 1) {
                         formattedValue += this.multipleSeparator + ' ';
@@ -1790,22 +1797,29 @@ export class DatePicker extends BaseComponent implements OnInit, AfterContentIni
                     let startDate = this.value[0];
                     let endDate = this.value[1];
 
-                    formattedValue = this.formatDateTime(startDate);
+                    formattedValue = this.formatDateTime(startDate, format);
                     if (endDate) {
-                        formattedValue += ' ' + this.rangeSeparator + ' ' + this.formatDateTime(endDate);
+                        formattedValue += ' ' + this.rangeSeparator + ' ' + this.formatDateTime(endDate, format);
                     }
                 }
             }
         }
+        return formattedValue;
+    }
 
-        this.inputFieldValue = formattedValue;
+    updateInputfield() {
+        this.inputFieldValue = this.getFormattedModelValue();
+        if(this.displayDateFormat) {
+            this.displayValue = this.getFormattedModelValue(this.displayDateFormat);
+        }
+
         this.updateFilledState();
         if (this.inputfieldViewChild && this.inputfieldViewChild.nativeElement) {
             this.inputfieldViewChild.nativeElement.value = this.inputFieldValue;
         }
     }
 
-    formatDateTime(date: any) {
+    formatDateTime(date: any, format?: string) {
         let formattedValue = this.keepInvalid ? date : null;
         const isDateValid = this.isValidDateForTimeConstraints(date);
 
@@ -1813,7 +1827,7 @@ export class DatePicker extends BaseComponent implements OnInit, AfterContentIni
             if (this.timeOnly) {
                 formattedValue = this.formatTime(date);
             } else {
-                formattedValue = this.formatDate(date, this.getDateFormat());
+                formattedValue = this.formatDate(date, format ?? this.getDateFormat());
                 if (this.showTime) {
                     formattedValue += ' ' + this.formatTime(date);
                 }
@@ -3125,7 +3139,7 @@ export class DatePicker extends BaseComponent implements OnInit, AfterContentIni
             date = new Date();
             this.populateTime(date, parts[0], parts[1]);
         } else {
-            const dateFormat = this.getDateFormat();
+            const dateFormat = this.displayDateFormat ?? this.getDateFormat();
             if (this.showTime) {
                 let ampm = this.hourFormat == '12' ? parts.pop() : null;
                 let timeString = parts.pop();
