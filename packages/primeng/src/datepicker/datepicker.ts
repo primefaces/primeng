@@ -3858,11 +3858,11 @@ export class DatePicker extends BaseComponent implements OnInit, AfterContentIni
     }
 
     isOutsideClicked(event: Event) {
-        return !(this.el.nativeElement.isSameNode(event.target) || this.isNavIconClicked(event) || this.el.nativeElement.contains(event.target) || (this.overlay && this.overlay.contains(<Node>event.target)));
+        return !(this.el.nativeElement.isSameNode(event.composedPath()[0]) || this.isNavIconClicked(event.composedPath()[0]) || this.el.nativeElement.contains(event.composedPath()[0]) || (this.overlay && this.overlay.contains(<Node>event.composedPath()[0])));
     }
 
-    isNavIconClicked(event: any) {
-        return hasClass(event.target, 'p-datepicker-prev-button') || hasClass(event.target, 'p-datepicker-prev-icon') || hasClass(event.target, 'p-datepicker-next-button') || hasClass(event.target, 'p-datepicker-next-icon');
+    isNavIconClicked(target: any) {
+        return hasClass(target, 'p-datepicker-prev-button') || hasClass(target, 'p-datepicker-prev-icon') || hasClass(target, 'p-datepicker-next-button') || hasClass(target, 'p-datepicker-next-icon');
     }
 
     onWindowResize() {
