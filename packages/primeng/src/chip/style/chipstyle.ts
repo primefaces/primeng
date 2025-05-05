@@ -1,6 +1,6 @@
 // @ts-nocheck
 import { Injectable } from '@angular/core';
-import { style } from '@primeuix/styles/progressbar';
+import { style } from '@primeuix/styles/chip';
 import { BaseStyle } from 'primeng/base';
 
 const classes = {
