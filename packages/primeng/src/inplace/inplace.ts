@@ -31,11 +31,11 @@ export class InplaceContent {}
     standalone: true,
     imports: [CommonModule, ButtonModule, TimesIcon, SharedModule, Ripple],
     template: `
-        <div class="p-inplace-display" (click)="onActivateClick($event)" tabindex="0" role="button" (keydown)="onKeydown($event)" [ngClass]="{ 'p-disabled': disabled }" *ngIf="!active">
+        <div [class]="cx('display')" (click)="onActivateClick($event)" tabindex="0" role="button" (keydown)="onKeydown($event)" [ngClass]="{ 'p-disabled': disabled }" *ngIf="!active">
             <ng-content select="[pInplaceDisplay]"></ng-content>
             <ng-container *ngTemplateOutlet="displayTemplate || _displayTemplate"></ng-container>
         </div>
-        <div class="p-inplace-content" *ngIf="active">
+        <div [class]="cx('content')" *ngIf="active">
             <ng-content select="[pInplaceContent]"></ng-content>
             <ng-container *ngTemplateOutlet="contentTemplate || _contentTemplate; context: { closeCallback: onDeactivateClick.bind(this) }"></ng-container>
 
