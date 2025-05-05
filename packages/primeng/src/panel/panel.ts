@@ -55,7 +55,7 @@ export interface PanelHeaderIconsTemplateContext {
     imports: [CommonModule, PlusIcon, MinusIcon, ButtonModule, SharedModule],
     template: `
         <div [class]="cx('header')" *ngIf="showHeader" (click)="onHeaderClick($event)" [attr.id]="id + '-titlebar'">
-            <span class="p-panel-title" *ngIf="_header" [attr.id]="id + '_header'">{{ _header }}</span>
+            <span [class]="cx('title')" *ngIf="_header" [attr.id]="id + '_header'">{{ _header }}</span>
             <ng-content select="p-header"></ng-content>
             <ng-container *ngTemplateOutlet="headerTemplate || _headerTemplate"></ng-container>
             <div [class]="cx('icons')">
@@ -68,7 +68,7 @@ export interface PanelHeaderIconsTemplateContext {
                     [rounded]="true"
                     type="button"
                     role="button"
-                    styleClass="p-panel-header-icon p-panel-toggler p-link"
+                    [styleClass]="cx('pcToggleButton')"
                     [attr.aria-label]="buttonAriaLabel"
                     [attr.aria-controls]="id + '_content'"
                     [attr.aria-expanded]="!collapsed"
@@ -95,7 +95,7 @@ export interface PanelHeaderIconsTemplateContext {
             </div>
         </div>
         <div
-            class="p-panel-content-container"
+            [class]="cx('contentContainer')"
             [id]="id + '_content'"
             role="region"
             [attr.aria-labelledby]="id + '_header'"
@@ -122,12 +122,12 @@ export interface PanelHeaderIconsTemplateContext {
             "
             (@panelContent.done)="onToggleDone($event)"
         >
-            <div class="p-panel-content" #contentWrapper>
+            <div [class]="cx('content')" #contentWrapper>
                 <ng-content></ng-content>
                 <ng-container *ngTemplateOutlet="contentTemplate || _contentTemplate"></ng-container>
             </div>
 
-            <div class="p-panel-footer" *ngIf="footerFacet || footerTemplate || _footerTemplate">
+            <div [class]="cx('footer')" *ngIf="footerFacet || footerTemplate || _footerTemplate">
                 <ng-content select="p-footer"></ng-content>
                 <ng-container *ngTemplateOutlet="footerTemplate || _footerTemplate"></ng-container>
             </div>
