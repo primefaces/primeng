@@ -6,6 +6,7 @@
     "scripts": {
         "ng": "ng",
         "start": "ng serve",
+        "start:ssr": "ng serve --configuration=development-ssr",
         "e2e": "ng e2e",
         "lint": "ng lint",
         "build": "ng build",
@@ -23,7 +24,6 @@
         "@docsearch/css": "^3.3.4",
         "@docsearch/js": "^3.3.4",
         "@primeuix/themes": "catalog:",
-        "@primeng/themes": "workspace:*",
         "@angular/cdk": "catalog:angular19",
         "@stackblitz/sdk": "1.9.0",
         "@types/express": "^4.17.17",
