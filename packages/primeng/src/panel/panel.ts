@@ -191,7 +191,7 @@ export class Panel extends BaseComponent implements AfterContentInit, BlockableU
     /**
      * Style class of the component.
      * @group Props
-     * @deprecated since v20.0.0, use `styleClass` instead.
+     * @deprecated since v20.0.0, use `class` instead.
      */
     @Input() styleClass: string | undefined;
     /**

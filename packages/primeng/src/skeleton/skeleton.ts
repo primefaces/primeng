@@ -27,6 +27,7 @@ import { SkeletonStyle } from './style/skeletonstyle';
 export class Skeleton extends BaseComponent {
     /**
      * Class of the element.
+     * @deprecated since v20.0.0, use `class` instead.
      * @group Props
      */
     @Input() styleClass: string | undefined;
