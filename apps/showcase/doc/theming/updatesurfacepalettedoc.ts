@@ -15,7 +15,7 @@ import { Component } from '@angular/core';
 })
 export class UpdateSurfacePaletteDoc {
     code1 = {
-        typescript: `import { updateSurfacePalette } from '@primeng/themes';`
+        typescript: `import { updateSurfacePalette } from '@primeuix/themes';`
     };
 
     code2 = {

@@ -13,7 +13,7 @@ import { Component } from '@angular/core';
 })
 export class DtDoc {
     code1 = {
-        typescript: `import { $dt } from '@primeng/themes';`
+        typescript: `import { $dt } from '@primeuix/themes';`
     };
 
     code2 = {

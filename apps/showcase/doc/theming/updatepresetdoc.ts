@@ -13,7 +13,7 @@ import { Component } from '@angular/core';
 })
 export class UpdatePresetDoc {
     code1 = {
-        typescript: `import { updatePreset } from '@primeng/themes';`
+        typescript: `import { updatePreset } from '@primeuix/themes';`
     };
 
     code2 = {

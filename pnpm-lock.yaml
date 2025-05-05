@@ -232,9 +232,6 @@ importers:
       '@docsearch/js':
         specifier: ^3.3.4
         version: 3.9.0(@algolia/client-search@4.24.0)(@types/react@18.3.20)(search-insights@2.17.3)
-      '@primeng/themes':
-        specifier: workspace:*
-        version: link:../../packages/themes
       '@primeuix/themes':
         specifier: 'catalog:'
         version: 1.0.3

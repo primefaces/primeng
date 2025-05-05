@@ -3,7 +3,7 @@ import { DesignTokenField } from '@/components/layout/designer/editor/designtoke
 import { CommonModule } from '@angular/common';
 import { ChangeDetectionStrategy, Component, Input } from '@angular/core';
 import { FormsModule } from '@angular/forms';
-import { palette } from '@primeng/themes';
+import { palette } from '@primeuix/themes';
 import { FieldsetModule } from 'primeng/fieldset';
 
 @Component({
