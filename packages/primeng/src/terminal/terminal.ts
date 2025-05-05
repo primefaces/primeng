@@ -50,6 +50,7 @@ export class Terminal extends BaseComponent implements AfterViewInit, AfterViewC
     @Input() prompt: string | undefined;
     /**
      * Style class of the component.
+     * @deprecated since v20.0.0, use `class` instead.
      * @group Props
      */
     @Input() styleClass: string | undefined;

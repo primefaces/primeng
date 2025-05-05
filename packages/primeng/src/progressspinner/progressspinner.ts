@@ -32,6 +32,7 @@ import { ProgressSpinnerStyle } from './style/progressspinnerstyle';
 export class ProgressSpinner extends BaseComponent {
     /**
      * Class of the element.
+     * @deprecated since v20.0.0, use `class` instead.
      * @group Props
      */
     @Input() styleClass: string | undefined;

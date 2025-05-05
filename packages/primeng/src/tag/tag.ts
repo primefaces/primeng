@@ -32,6 +32,7 @@ import { TagStyle } from './style/tagstyle';
 export class Tag extends BaseComponent implements AfterContentInit {
     /**
      * Style class of the component.
+     * @deprecated since v20.0.0, use `class` instead.
      * @group Props
      */
     @Input() styleClass: string | undefined;

@@ -49,6 +49,7 @@ export class ProgressBar extends BaseComponent implements AfterContentInit {
     @Input({ transform: booleanAttribute }) showValue: boolean = true;
     /**
      * Style class of the element.
+     * @deprecated since v20.0.0, use `class` instead.
      * @group Props
      */
     @Input() styleClass: string | undefined;
