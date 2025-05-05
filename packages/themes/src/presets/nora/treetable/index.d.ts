@@ -1,3 +1,1 @@
-import { TreeTableDesignTokens } from '../../types/treetable';
-declare const _default: TreeTableDesignTokens;
-export default _default;
+export * from '@primeuix/themes/types/treetable';

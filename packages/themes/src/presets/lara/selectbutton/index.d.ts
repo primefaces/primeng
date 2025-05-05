@@ -1,3 +1,1 @@
-import { SelectButtonDesignTokens } from '../../types/selectbutton';
-declare const _default: SelectButtonDesignTokens;
-export default _default;
+export * from '@primeuix/themes/types/selectbutton';
