@@ -27,8 +27,7 @@ const classes = {
         {
             'p-panel-toggleable': instance.toggleable,
             'p-panel-expanded': !instance.collapsed && instance.toggleable
-        },
-        instance.styleClass
+        }
     ],
     icons: ({ instance }) => [
         'p-panel-icons',
