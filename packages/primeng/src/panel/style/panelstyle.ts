@@ -7,6 +7,10 @@ const theme = ({ dt }) => `
 ${style({ dt })}
 
 /* For PrimeNG */
+p-panel {
+    display: block;
+}
+
 .p-panel-toggleable.p-panel-expanded > .p-panel-content-container:not(.ng-animating) {
     overflow: visible
 }
