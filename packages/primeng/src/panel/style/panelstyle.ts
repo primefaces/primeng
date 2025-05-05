@@ -7,7 +7,7 @@ const theme = ({ dt }) => `
 ${style({ dt })}
 
 /* For PrimeNG */
-p-panel {
+.p-panel {
     display: block;
 }
 
