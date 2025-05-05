@@ -43,12 +43,11 @@ import { ChipStyle } from './style/chipstyle';
     encapsulation: ViewEncapsulation.None,
     providers: [ChipStyle],
     host: {
-        '[class]': 'containerClass()',
-        '[style]': 'style',
+        '[class]': "cx('root')",
         '[style.display]': '!visible && "none"',
-        '[attr.data-pc-name]': "'chip'",
-        '[attr.aria-label]': 'label',
-        '[attr.data-pc-section]': "'root'"
+        '[data-pc-name]': "'chip'",
+        '[aria-label]': 'label',
+        '[data-pc-section]': "'root'"
     }
 })
 export class Chip extends BaseComponent implements AfterContentInit {
@@ -73,12 +72,8 @@ export class Chip extends BaseComponent implements AfterContentInit {
      */
     @Input() alt: string | undefined;
     /**
-     * Inline style of the element.
-     * @group Props
-     */
-    @Input() style: { [klass: string]: any } | null | undefined;
-    /**
      * Class of the element.
+     * @deprecated since v20.0.0, use `class` instead.
      * @group Props
      */
     @Input() styleClass: string | undefined;
@@ -167,9 +162,6 @@ export class Chip extends BaseComponent implements AfterContentInit {
             if (currentValue.alt !== undefined) {
                 this.alt = currentValue.alt;
             }
-            if (currentValue.style !== undefined) {
-                this.style = currentValue.style;
-            }
             if (currentValue.styleClass !== undefined) {
                 this.styleClass = currentValue.styleClass;
             }
@@ -180,16 +172,6 @@ export class Chip extends BaseComponent implements AfterContentInit {
                 this.removeIcon = currentValue.removeIcon;
             }
         }
-    }
-
-    containerClass() {
-        let classes = 'p-chip p-component';
-
-        if (this.styleClass) {
-            classes += ` ${this.styleClass}`;
-        }
-
-        return classes;
     }
 
     close(event: MouseEvent) {
