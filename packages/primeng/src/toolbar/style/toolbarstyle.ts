@@ -1,30 +1,14 @@
+// @ts-nocheck
 import { Injectable } from '@angular/core';
+import { style } from '@primeuix/styles/toolbar';
 import { BaseStyle } from 'primeng/base';
 
 const theme = ({ dt }) => `
-.p-toolbar {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    flex-wrap: wrap;
-    padding: ${dt('toolbar.padding')};
-    background: ${dt('toolbar.background')};
-    border: 1px solid ${dt('toolbar.border.color')};
-    color: ${dt('toolbar.color')};
-    border-radius: ${dt('toolbar.border.radius')};
-    gap: ${dt('toolbar.gap')};
-}
-
-.p-toolbar-start,
-.p-toolbar-center,
-.p-toolbar-end {
-    display: flex;
-    align-items: center;
-}
+${style({ dt })}
 `;
 
 const classes = {
-    root: 'p-toolbar p-component',
+    root: ({ instance }) => ['p-toolbar p-component', instance.styleClass],
     start: 'p-toolbar-start',
     center: 'p-toolbar-center',
     end: 'p-toolbar-end'
