@@ -1,14 +1,14 @@
-// @ts-nocheck
 import { Injectable } from '@angular/core';
+import { css } from '@primeuix/styled';
 import { style } from '@primeuix/styles/card';
 import { BaseStyle } from 'primeng/base';
 
-const theme = ({ dt }) => `
-${style({ dt })}
+const theme = css`
+    ${style}
 
-.p-card {
-    display: block;
-}
+    .p-card {
+        display: block;
+    }
 `;
 
 const classes = {

@@ -1,11 +1,6 @@
-// @ts-nocheck
 import { Injectable } from '@angular/core';
 import { style } from '@primeuix/styles/toolbar';
 import { BaseStyle } from 'primeng/base';
-
-const theme = ({ dt }) => `
-${style({ dt })}
-`;
 
 const classes = {
     root: ({ instance }) => ['p-toolbar p-component', instance.styleClass],
@@ -18,7 +13,7 @@ const classes = {
 export class ToolbarStyle extends BaseStyle {
     name = 'toolbar';
 
-    theme = theme;
+    theme = style;
 
     classes = classes;
 }

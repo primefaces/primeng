@@ -1,11 +1,6 @@
-// @ts-nocheck
 import { Injectable } from '@angular/core';
 import { style } from '@primeuix/styles/tabs';
 import { BaseStyle } from 'primeng/base';
-
-const theme = ({ dt }) => `
-${style({ dt })}
-`;
 
 const classes = {
     root: ({ instance }) => [
@@ -20,7 +15,7 @@ const classes = {
 export class TabsStyle extends BaseStyle {
     name = 'tabs';
 
-    theme = theme;
+    theme = style;
 
     classes = classes;
 }
