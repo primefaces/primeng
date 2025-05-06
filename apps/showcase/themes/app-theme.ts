@@ -17,7 +17,6 @@ const Noir = definePreset(Aura, {
             950: '{surface.950}'
         },
         colorScheme: {
-            // @ts-ignore
             light: {
                 primary: {
                     color: '{primary.950}',
@@ -32,7 +31,6 @@ const Noir = definePreset(Aura, {
                     focusColor: '#ffffff'
                 }
             },
-            // @ts-ignore
             dark: {
                 primary: {
                     color: '{primary.50}',
