@@ -1,18 +1,19 @@
-// @ts-nocheck
 import { Injectable } from '@angular/core';
+import { css } from '@primeuix/styled';
 import { style } from '@primeuix/styles/fieldset';
 import { BaseStyle } from 'primeng/base';
 
-const theme = ({ dt }) => `
-${style({ dt })}
-/* For PrimeNG */
-.p-fieldset-toggleable.p-fieldset-expanded > .p-fieldset-content-container:not(.ng-animating) {
-    overflow: visible
-}
+const theme = css`
+    ${style}
 
-.p-fieldset-toggleable .p-fieldset-content-container {
-    overflow: hidden;
-}
+    /* For PrimeNG */
+    .p-fieldset-toggleable.p-fieldset-expanded > .p-fieldset-content-container:not(.ng-animating) {
+        overflow: visible;
+    }
+
+    .p-fieldset-toggleable .p-fieldset-content-container {
+        overflow: hidden;
+    }
 `;
 
 const classes = {

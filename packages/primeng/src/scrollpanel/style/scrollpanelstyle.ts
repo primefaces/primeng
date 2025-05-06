@@ -1,13 +1,14 @@
-// @ts-nocheck
 import { Injectable } from '@angular/core';
+import { css } from '@primeuix/styled';
 import { style } from '@primeuix/styles/scrollpanel';
 import { BaseStyle } from 'primeng/base';
 
-const theme = ({ dt }) => `
-${style({ dt })}
-.p-scrollpanel {
-    display: block
-}
+const theme = css`
+    ${style}
+
+    .p-scrollpanel {
+        display: block;
+    }
 `;
 
 const classes = {

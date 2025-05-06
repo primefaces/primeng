@@ -1,11 +1,6 @@
-// @ts-nocheck
 import { Injectable } from '@angular/core';
 import { style } from '@primeuix/styles/divider';
 import { BaseStyle } from 'primeng/base';
-
-const theme = ({ dt }) => `
-${style({ dt })}
-`;
 
 /* Position */
 const inlineStyles = {
@@ -35,7 +30,7 @@ const classes = {
 export class DividerStyle extends BaseStyle {
     name = 'divider';
 
-    theme = theme;
+    theme = style;
 
     classes = classes;
 

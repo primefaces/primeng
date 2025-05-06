@@ -1,18 +1,19 @@
-// @ts-nocheck
 import { Injectable } from '@angular/core';
-import { BaseStyle } from 'primeng/base';
+import { css } from '@primeuix/styled';
 import { style } from '@primeuix/styles/stepper';
+import { BaseStyle } from 'primeng/base';
 
-const theme = ({ dt }) => `
-${style({ dt })}
-/* For PrimeNG */
-.p-steppanel {
-    overflow: hidden;
-}
+const theme = css`
+    ${style}
 
-.p-stepppanel:not(.ng-animating) {
-    overflow: inherit;
-}
+    /* For PrimeNG */
+    .p-steppanel {
+        overflow: hidden;
+    }
+
+    .p-stepppanel:not(.ng-animating) {
+        overflow: inherit;
+    }
 `;
 
 const classes = {

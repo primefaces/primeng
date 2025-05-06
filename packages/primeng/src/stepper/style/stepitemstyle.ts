@@ -1,4 +1,3 @@
-// @ts-nocheck
 import { Injectable } from '@angular/core';
 import { BaseStyle } from 'primeng/base';
 
@@ -10,6 +9,7 @@ const classes = {
         }
     ]
 };
+
 @Injectable()
 export class StepItemStyle extends BaseStyle {
     name = 'stepitem';

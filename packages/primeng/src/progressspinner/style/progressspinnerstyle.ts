@@ -1,4 +1,3 @@
-// @ts-nocheck
 import { Injectable } from '@angular/core';
 import { style } from '@primeuix/styles/progressspinner';
 import { BaseStyle } from 'primeng/base';

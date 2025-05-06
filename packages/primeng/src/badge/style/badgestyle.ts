@@ -1,26 +1,25 @@
-// @ts-nocheck
 import { Injectable } from '@angular/core';
-import { isEmpty, isNotEmpty } from '@primeuix/utils';
+import { css } from '@primeuix/styled';
 import { style } from '@primeuix/styles/badge';
+import { isEmpty, isNotEmpty } from '@primeuix/utils';
 import { BaseStyle } from 'primeng/base';
 
-const theme = ({ dt }) => `
-${style({ dt })}
+const theme = css`
+    ${style}
 
-/* For PrimeNG (directive)*/
+    /* For PrimeNG (directive)*/
+    .p-overlay-badge {
+        position: relative;
+    }
 
-.p-overlay-badge {
-    position: relative;
-}
-
-.p-overlay-badge > .p-badge {
-    position: absolute;
-    top: 0;
-    inset-inline-end: 0;
-    transform: translate(50%, -50%);
-    transform-origin: 100% 0;
-    margin: 0;
-}
+    .p-overlay-badge > .p-badge {
+        position: absolute;
+        top: 0;
+        inset-inline-end: 0;
+        transform: translate(50%, -50%);
+        transform-origin: 100% 0;
+        margin: 0;
+    }
 `;
 
 const classes = {

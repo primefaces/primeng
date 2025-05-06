@@ -1,4 +1,3 @@
-// @ts-nocheck
 import { Injectable } from '@angular/core';
 import { style } from '@primeuix/styles/metergroup';
 import { BaseStyle } from 'primeng/base';
