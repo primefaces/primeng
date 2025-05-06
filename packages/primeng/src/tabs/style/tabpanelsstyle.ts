@@ -27,7 +27,7 @@ export enum TabPanelsClasses {
     /**
      * Class name of the root element
      */
-    root = 'p-tabpanel'
+    root = 'p-tabpanels'
 }
 
 export interface TabPanelsStyle extends BaseStyle {}
