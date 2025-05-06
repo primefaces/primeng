@@ -1,5 +1,5 @@
 import { animate, AnimationEvent, style, transition, trigger } from '@angular/animations';
-import { CommonModule, DOCUMENT, isPlatformBrowser } from '@angular/common';
+import { CommonModule, isPlatformBrowser } from '@angular/common';
 import {
     AfterContentChecked,
     AfterViewInit,
@@ -12,7 +12,6 @@ import {
     DoCheck,
     ElementRef,
     EventEmitter,
-    forwardRef,
     HostListener,
     Inject,
     inject,
@@ -26,7 +25,6 @@ import {
     Output,
     PLATFORM_ID,
     QueryList,
-    Renderer2,
     SimpleChanges,
     TemplateRef,
     ViewChild,
@@ -1033,18 +1031,7 @@ export class GalleriaItem implements OnChanges {
                         </div>
                     </div>
                 </div>
-                <button
-                    *ngIf="showThumbnailNavigators"
-                    type="button"
-                    [ngClass]="{
-                        'p-galleria-thumbnail-next-button p-galleria-thumbnail-nav-button': true,
-                        'p-disabled': this.isNavForwardDisabled()
-                    }"
-                    (click)="navForward($event)"
-                    [disabled]="isNavForwardDisabled()"
-                    pRipple
-                    [attr.aria-label]="ariaNextButtonLabel()"
-                >
+                <button *ngIf="showThumbnailNavigators" type="button" [class]="cx('thumbnailNextButton')" (click)="navForward($event)" [disabled]="isNavForwardDisabled()" pRipple [attr.aria-label]="ariaNextButtonLabel()">
                     <ng-container *ngIf="!galleria.nextThumbnailIconTemplate && !galleria._nextThumbnailIconTemplate">
                         <ChevronRightIcon *ngIf="!isVertical" [ngClass]="'p-galleria-thumbnail-next-icon'" />
                         <ChevronDownIcon *ngIf="isVertical" [ngClass]="'p-galleria-thumbnail-next-icon'" />
@@ -1054,9 +1041,10 @@ export class GalleriaItem implements OnChanges {
             </div>
         </div>
     `,
-    changeDetection: ChangeDetectionStrategy.OnPush
+    changeDetection: ChangeDetectionStrategy.OnPush,
+    providers: [GalleriaStyle]
 })
-export class GalleriaThumbnails implements OnInit, AfterContentChecked, AfterViewInit, OnDestroy {
+export class GalleriaThumbnails extends BaseComponent implements OnInit, AfterContentChecked, AfterViewInit, OnDestroy {
     @Input() containerId: string | undefined;
 
     @Input() value: any[] | undefined;
@@ -1124,15 +1112,14 @@ export class GalleriaThumbnails implements OnInit, AfterContentChecked, AfterVie
 
     _oldactiveIndex: number = 0;
 
-    constructor(
-        public galleria: Galleria,
-        @Inject(DOCUMENT) private document: Document,
-        @Inject(PLATFORM_ID) private platformId: any,
-        private renderer: Renderer2,
-        private cd: ChangeDetectorRef
-    ) {}
+    _componentStyle = inject(GalleriaStyle);
+
+    constructor(public galleria: Galleria) {
+        super();
+    }
 
     ngOnInit() {
+        super.ngOnInit();
         if (isPlatformBrowser(this.platformId)) {
             this.createStyle();
 
@@ -1175,6 +1162,7 @@ export class GalleriaThumbnails implements OnInit, AfterContentChecked, AfterVie
     }
 
     ngAfterViewInit() {
+        super.ngAfterViewInit();
         if (isPlatformBrowser(this.platformId)) {
             this.calculatePosition();
         }
@@ -1523,6 +1511,7 @@ export class GalleriaThumbnails implements OnInit, AfterContentChecked, AfterVie
     }
 
     ngOnDestroy() {
+        super.ngOnDestroy();
         if (this.responsiveOptions) {
             this.unbindDocumentListeners();
         }
