@@ -17,7 +17,7 @@ const classes = {
     pcPrevButton: ({ instance }) => [
         'p-carousel-prev-button',
         {
-            'p-disabled': instance.backwardIsDisabled
+            'p-disabled': instance.isBackwardNavDisabled()
         }
     ],
     viewport: 'p-carousel-viewport',
@@ -41,7 +41,7 @@ const classes = {
     pcNextButton: ({ instance }) => [
         'p-carousel-next-button',
         {
-            'p-disabled': instance.forwardIsDisabled
+            'p-disabled': instance.isForwardNavDisabled()
         }
     ],
     indicatorList: 'p-carousel-indicator-list',
