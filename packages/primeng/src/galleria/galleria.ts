@@ -50,7 +50,7 @@ import { GalleriaStyle } from './style/galleriastyle';
     standalone: false,
     template: `
         <div *ngIf="fullScreen; else windowed" #container>
-            <div *ngIf="maskVisible" #mask [ngClass]="{ 'p-galleria-mask p-overlay-mask p-overlay-mask-enter': true }" [class]="maskClass" [attr.role]="fullScreen ? 'dialog' : 'region'" [attr.aria-modal]="fullScreen ? 'true' : undefined">
+            <div *ngIf="maskVisible" #mask [ngClass]="cx('mask')" [class]="maskClass" [attr.role]="fullScreen ? 'dialog' : 'region'" [attr.aria-modal]="fullScreen ? 'true' : undefined">
                 <p-galleriaContent
                     *ngIf="visible"
                     [@animation]="{
@@ -433,29 +433,15 @@ export class Galleria extends BaseComponent implements OnChanges, OnDestroy {
     selector: 'p-galleriaContent',
     standalone: false,
     template: `
-        <div
-            [attr.id]="id"
-            [attr.role]="'region'"
-            *ngIf="value && value.length > 0"
-            [ngClass]="{
-                'p-galleria p-component': true,
-                'p-galleria-fullscreen': this.galleria.fullScreen,
-                'p-galleria-inset-indicators': this.galleria.showIndicatorsOnItem,
-                'p-galleria-hover-navigators': this.galleria.showItemNavigatorsOnHover && !this.galleria.fullScreen
-            }"
-            [ngStyle]="!galleria.fullScreen ? galleria.containerStyle : {}"
-            [class]="galleriaClass()"
-            pFocusTrap
-            [pFocusTrapDisabled]="!fullScreen"
-        >
-            <button *ngIf="galleria.fullScreen" type="button" class="p-galleria-close-button" (click)="maskHide.emit()" [attr.aria-label]="closeAriaLabel()" [attr.data-pc-section]="'closebutton'">
-                <TimesIcon *ngIf="!galleria.closeIconTemplate && !galleria._closeIconTemplate" [styleClass]="'p-galleria-close-icon'" />
+        <div [attr.id]="id" [attr.role]="'region'" *ngIf="value && value.length > 0" [class]="cx('root')" [ngStyle]="!galleria.fullScreen ? galleria.containerStyle : {}" pFocusTrap [pFocusTrapDisabled]="!fullScreen">
+            <button *ngIf="galleria.fullScreen" type="button" [class]="cx('closeButton')" (click)="maskHide.emit()" [attr.aria-label]="closeAriaLabel()" [attr.data-pc-section]="'closebutton'">
+                <TimesIcon *ngIf="!galleria.closeIconTemplate && !galleria._closeIconTemplate" [styleClass]="cx('closeIcon')" />
                 <ng-template *ngTemplateOutlet="galleria.closeIconTemplate || galleria._closeIconTemplate"></ng-template>
             </button>
-            <div *ngIf="galleria.templates && (galleria.headerFacet || galleria.headerTemplate)" class="p-galleria-header">
+            <div *ngIf="galleria.templates && (galleria.headerFacet || galleria.headerTemplate)" [class]="cx('header')">
                 <p-galleriaItemSlot type="header" [templates]="galleria.templates"></p-galleriaItemSlot>
             </div>
-            <div class="p-galleria-content" [attr.aria-live]="galleria.autoPlay ? 'polite' : 'off'">
+            <div [class]="cx('content')" [attr.aria-live]="galleria.autoPlay ? 'polite' : 'off'">
                 <p-galleriaItem
                     [id]="id"
                     [value]="value"
@@ -491,12 +477,13 @@ export class Galleria extends BaseComponent implements OnChanges, OnDestroy {
                     (stopSlideShow)="stopSlideShow()"
                 ></p-galleriaThumbnails>
             </div>
-            <div *ngIf="shouldRenderFooter()" class="p-galleria-footer">
+            <div *ngIf="shouldRenderFooter()" [class]="cx('footer')">
                 <p-galleriaItemSlot type="footer" [templates]="galleria.templates"></p-galleriaItemSlot>
             </div>
         </div>
     `,
-    changeDetection: ChangeDetectionStrategy.OnPush
+    changeDetection: ChangeDetectionStrategy.OnPush,
+    providers: [GalleriaStyle]
 })
 export class GalleriaContent extends BaseComponent implements DoCheck {
     @Input() get activeIndex(): number {
@@ -517,6 +504,8 @@ export class GalleriaContent extends BaseComponent implements DoCheck {
     @Output() activeItemChange: EventEmitter<number> = new EventEmitter();
 
     @ViewChild('closeButton') closeButton: ElementRef | undefined;
+
+    _componentStyle = inject(GalleriaStyle);
 
     id: string;
 
@@ -566,13 +555,6 @@ export class GalleriaContent extends BaseComponent implements DoCheck {
 
     shouldRenderFooter() {
         return (this.galleria.footerFacet && this.galleria.templates.toArray().length > 0) || this.galleria.footerTemplate;
-    }
-
-    galleriaClass() {
-        const thumbnailsPosClass = this.galleria.showThumbnails && this.getPositionClass('p-galleria-thumbnails', this.galleria.thumbnailsPosition as string);
-        const indicatorPosClass = this.galleria.showIndicators && this.getPositionClass('p-galleria-indicators', this.galleria.indicatorsPosition as string);
-
-        return (this.galleria.containerClass ? this.galleria.containerClass + ' ' : '') + (thumbnailsPosClass ? thumbnailsPosClass + ' ' : '') + (indicatorPosClass ? indicatorPosClass + ' ' : '');
     }
 
     startSlideShow() {
@@ -756,63 +738,46 @@ export class GalleriaItemSlot {
     selector: 'p-galleriaItem',
     standalone: false,
     template: `
-        <div class="p-galleria-items">
-            <button
-                *ngIf="showItemNavigators"
-                type="button"
-                role="navigation"
-                [ngClass]="{ 'p-galleria-prev-button p-galleria-nav-button': true, 'p-disabled': this.isNavBackwardDisabled() }"
-                (click)="navBackward($event)"
-                [disabled]="isNavBackwardDisabled()"
-                (focus)="onButtonFocus('left')"
-                (blur)="onButtonBlur('left')"
-            >
-                <ChevronLeftIcon *ngIf="!galleria.itemPreviousIconTemplate && !galleria._itemPreviousIconTemplate" [styleClass]="'p-galleria-prev-icon'" />
+        <div [class]="cx('items')">
+            <button *ngIf="showItemNavigators" type="button" role="navigation" [class]="cx('prevButton')" (click)="navBackward($event)" (focus)="onButtonFocus('left')" (blur)="onButtonBlur('left')">
+                <ChevronLeftIcon *ngIf="!galleria.itemPreviousIconTemplate && !galleria._itemPreviousIconTemplate" [styleClass]="cx('prevIcon')" />
                 <ng-template *ngTemplateOutlet="galleria.itemPreviousIconTemplate || galleria._itemPreviousIconTemplate"></ng-template>
             </button>
-            <div [id]="id + '_item_' + activeIndex" role="group" class="p-galleria-item" [attr.aria-label]="ariaSlideNumber(activeIndex + 1)" [attr.aria-roledescription]="ariaSlideLabel()">
-                <p-galleriaItemSlot type="item" [item]="activeItem" [templates]="templates" class="p-galleria-item"></p-galleriaItemSlot>
+            <div [id]="id + '_item_' + activeIndex" role="group" [class]="cx('item')" [attr.aria-label]="ariaSlideNumber(activeIndex + 1)" [attr.aria-roledescription]="ariaSlideLabel()">
+                <p-galleriaItemSlot type="item" [item]="activeItem" [templates]="templates" [class]="cx('item')"></p-galleriaItemSlot>
             </div>
-            <button
-                *ngIf="showItemNavigators"
-                type="button"
-                [ngClass]="{ 'p-galleria-next-button p-galleria-nav-button': true, 'p-disabled': this.isNavForwardDisabled() }"
-                (click)="navForward($event)"
-                [disabled]="isNavForwardDisabled()"
-                role="navigation"
-                (focus)="onButtonFocus('right')"
-                (blur)="onButtonBlur('right')"
-            >
-                <ChevronRightIcon *ngIf="!galleria.itemNextIconTemplate && !galleria._itemNextIconTemplate" [styleClass]="'p-galleria-next-icon'" />
+            <button *ngIf="showItemNavigators" type="button" [class]="cx('nextButton')" (click)="navForward($event)" role="navigation" (focus)="onButtonFocus('right')" (blur)="onButtonBlur('right')">
+                <ChevronRightIcon *ngIf="!galleria.itemNextIconTemplate && !galleria._itemNextIconTemplate" [styleClass]="cx('nextIcon')" />
                 <ng-template *ngTemplateOutlet="galleria.itemNextIconTemplate || galleria._itemNextIconTemplate"></ng-template>
             </button>
-            <div class="p-galleria-caption" *ngIf="captionFacet || galleria.captionTemplate">
+            <div [class]="cx('caption')" *ngIf="captionFacet || galleria.captionTemplate">
                 <p-galleriaItemSlot type="caption" [item]="activeItem" [templates]="templates"></p-galleriaItemSlot>
             </div>
         </div>
-        <ul *ngIf="showIndicators" class="p-galleria-indicator-list">
+        <ul *ngIf="showIndicators" [class]="cx('indicatorList')">
             <li
                 *ngFor="let item of value; let index = index"
                 tabindex="0"
                 (click)="onIndicatorClick(index)"
                 (mouseenter)="onIndicatorMouseEnter(index)"
                 (keydown)="onIndicatorKeyDown($event, index)"
-                [ngClass]="{ 'p-galleria-indicator': true, 'p-galleria-indicator-active': isIndicatorItemActive(index) }"
+                [class]="cx('indicator', { index })"
                 [attr.aria-label]="ariaPageLabel(index + 1)"
                 [attr.aria-selected]="activeIndex === index"
                 [attr.aria-controls]="id + '_item_' + index"
             >
-                <button type="button" tabIndex="-1" class="p-galleria-indicator-button" *ngIf="!indicatorFacet && !galleria.indicatorTemplate"></button>
+                <button type="button" tabIndex="-1" [class]="cx('indicatorButton')" *ngIf="!indicatorFacet && !galleria.indicatorTemplate"></button>
                 <p-galleriaItemSlot type="indicator" [index]="index" [templates]="templates"></p-galleriaItemSlot>
             </li>
         </ul>
     `,
     host: {
-        class: 'p-galleria-items-container'
+        '[class]': "cx('itemsContainer')"
     },
-    changeDetection: ChangeDetectionStrategy.OnPush
+    changeDetection: ChangeDetectionStrategy.OnPush,
+    providers: [GalleriaStyle]
 })
-export class GalleriaItem implements OnChanges {
+export class GalleriaItem extends BaseComponent implements OnChanges {
     @Input() id: string | undefined;
 
     @Input({ transform: booleanAttribute }) circular: boolean = false;
@@ -841,6 +806,8 @@ export class GalleriaItem implements OnChanges {
 
     @Output() onActiveIndexChange: EventEmitter<number> = new EventEmitter();
 
+    _componentStyle = inject(GalleriaStyle);
+
     @Input() get activeIndex(): number {
         return this._activeIndex;
     }
@@ -859,9 +826,12 @@ export class GalleriaItem implements OnChanges {
 
     rightButtonFocused: boolean = false;
 
-    constructor(public galleria: Galleria) {}
+    constructor(public galleria: Galleria) {
+        super();
+    }
 
     ngOnChanges({ autoPlay }: SimpleChanges): void {
+        super.ngOnChanges({ autoPlay });
         if (autoPlay?.currentValue) {
             this.startSlideShow.emit();
         }
@@ -979,37 +949,20 @@ export class GalleriaItem implements OnChanges {
     selector: 'p-galleriaThumbnails',
     standalone: false,
     template: `
-        <div class="p-galleria-thumbnails">
-            <div class="p-galleria-thumbnails-content">
-                <button
-                    *ngIf="showThumbnailNavigators"
-                    type="button"
-                    [ngClass]="{
-                        'p-galleria-thumbnail-prev-button p-galleria-thumbnail-nav-button': true,
-                        'p-disabled': this.isNavBackwardDisabled()
-                    }"
-                    (click)="navBackward($event)"
-                    [disabled]="isNavBackwardDisabled()"
-                    pRipple
-                    [attr.aria-label]="ariaPrevButtonLabel()"
-                >
+        <div [class]="cx('thumbnails')">
+            <div [class]="cx('thumbnailContent')">
+                <button *ngIf="showThumbnailNavigators" type="button" [class]="cx('thumbnailPrevButton')" (click)="navBackward($event)" pRipple [attr.aria-label]="ariaPrevButtonLabel()">
                     <ng-container *ngIf="!galleria.previousThumbnailIconTemplate && !galleria._previousThumbnailIconTemplate">
-                        <ChevronLeftIcon *ngIf="!isVertical" [styleClass]="'p-galleria-thumbnail-prev-icon'" />
-                        <ChevronUpIcon *ngIf="isVertical" [styleClass]="'p-galleria-thumbnail-prev-icon'" />
+                        <ChevronLeftIcon *ngIf="!isVertical" [styleClass]="cx('thumbnailPrevIcon')" />
+                        <ChevronUpIcon *ngIf="isVertical" [styleClass]="cx('thumbnailPrevIcon')" />
                     </ng-container>
                     <ng-template *ngTemplateOutlet="galleria.previousThumbnailIconTemplate || galleria._previousThumbnailIconTemplate"></ng-template>
                 </button>
-                <div class="p-galleria-thumbnails-viewport" [ngStyle]="{ height: isVertical ? contentHeight : '' }">
-                    <div #itemsContainer class="p-galleria-thumbnail-items" (transitionend)="onTransitionEnd()" (touchstart)="onTouchStart($event)" (touchmove)="onTouchMove($event)" role="tablist">
+                <div [class]="cx('thumbnailsViewport')" [ngStyle]="{ height: isVertical ? contentHeight : '' }">
+                    <div #itemsContainer [class]="cx('thumbnailItems')" (transitionend)="onTransitionEnd()" (touchstart)="onTouchStart($event)" (touchmove)="onTouchMove($event)" role="tablist">
                         <div
                             *ngFor="let item of value; let index = index"
-                            [ngClass]="{
-                                'p-galleria-thumbnail-item': true,
-                                'p-galleria-thumbnail-item-current': activeIndex === index,
-                                'p-galleria-thumbnail-item-active': isItemActive(index),
-                                'p-galleria-thumbnail-item-start': firstItemAciveIndex() === index,
-                                'p-galleria-thumbnail-item-end': lastItemActiveIndex() === index
-                            }"
+                            [class]="cx('thumbnailItem', { index, activeIndex })"
                             [attr.aria-selected]="activeIndex === index"
                             [attr.aria-controls]="containerId + '_item_' + index"
                             [attr.data-pc-section]="'thumbnailitem'"
@@ -1017,7 +970,7 @@ export class GalleriaItem implements OnChanges {
                             (keydown)="onThumbnailKeydown($event, index)"
                         >
                             <div
-                                class="p-galleria-thumbnail"
+                                [class]="cx('thumbnail')"
                                 [attr.tabindex]="activeIndex === index ? 0 : -1"
                                 [attr.aria-current]="activeIndex === index ? 'page' : undefined"
                                 [attr.aria-label]="ariaPageLabel(index + 1)"
@@ -1030,10 +983,10 @@ export class GalleriaItem implements OnChanges {
                         </div>
                     </div>
                 </div>
-                <button *ngIf="showThumbnailNavigators" type="button" [class]="cx('thumbnailNextButton')" (click)="navForward($event)" [disabled]="isNavForwardDisabled()" pRipple [attr.aria-label]="ariaNextButtonLabel()">
+                <button *ngIf="showThumbnailNavigators" type="button" [class]="cx('thumbnailNextButton')" (click)="navForward($event)" pRipple [attr.aria-label]="ariaNextButtonLabel()">
                     <ng-container *ngIf="!galleria.nextThumbnailIconTemplate && !galleria._nextThumbnailIconTemplate">
-                        <ChevronRightIcon *ngIf="!isVertical" [ngClass]="'p-galleria-thumbnail-next-icon'" />
-                        <ChevronDownIcon *ngIf="isVertical" [ngClass]="'p-galleria-thumbnail-next-icon'" />
+                        <ChevronRightIcon *ngIf="!isVertical" [ngClass]="cx('thumbnailNextIcon')" />
+                        <ChevronDownIcon *ngIf="isVertical" [ngClass]="cx('thumbnailNextIcon')" />
                     </ng-container>
                     <ng-template *ngTemplateOutlet="galleria.nextThumbnailIconTemplate || galleria._nextThumbnailIconTemplate"></ng-template>
                 </button>
