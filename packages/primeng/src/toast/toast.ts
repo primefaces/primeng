@@ -16,7 +16,6 @@ import {
     Output,
     QueryList,
     TemplateRef,
-    ViewChild,
     ViewEncapsulation,
     booleanAttribute,
     inject,
@@ -159,8 +158,6 @@ export class ToastItem extends BaseComponent implements AfterViewInit, OnDestroy
 
     @Output() onClose: EventEmitter<ToastItemCloseEvent> = new EventEmitter();
 
-    @ViewChild('container') containerViewChild: ElementRef | undefined;
-
     _componentStyle = inject(ToastStyle);
 
     timeout: any;
@@ -235,29 +232,31 @@ export class ToastItem extends BaseComponent implements AfterViewInit, OnDestroy
     standalone: true,
     imports: [CommonModule, ToastItem, SharedModule],
     template: `
-        <div #container [ngClass]="cx('root')" [ngStyle]="sx('root')" [style]="style" [class]="styleClass">
-            <p-toastItem
-                *ngFor="let msg of messages; let i = index"
-                [message]="msg"
-                [index]="i"
-                [life]="life"
-                (onClose)="onMessageClose($event)"
-                [template]="template || _template"
-                [headlessTemplate]="headlessTemplate || _headlessTemplate"
-                @toastAnimation
-                (@toastAnimation.start)="onAnimationStart($event)"
-                (@toastAnimation.done)="onAnimationEnd($event)"
-                [showTransformOptions]="showTransformOptions"
-                [hideTransformOptions]="hideTransformOptions"
-                [showTransitionOptions]="showTransitionOptions"
-                [hideTransitionOptions]="hideTransitionOptions"
-            ></p-toastItem>
-        </div>
+        <p-toastItem
+            *ngFor="let msg of messages; let i = index"
+            [message]="msg"
+            [index]="i"
+            [life]="life"
+            (onClose)="onMessageClose($event)"
+            [template]="template || _template"
+            [headlessTemplate]="headlessTemplate || _headlessTemplate"
+            @toastAnimation
+            (@toastAnimation.start)="onAnimationStart($event)"
+            (@toastAnimation.done)="onAnimationEnd($event)"
+            [showTransformOptions]="showTransformOptions"
+            [hideTransformOptions]="hideTransformOptions"
+            [showTransitionOptions]="showTransitionOptions"
+            [hideTransitionOptions]="hideTransitionOptions"
+        ></p-toastItem>
     `,
     animations: [trigger('toastAnimation', [transition(':enter, :leave', [query('@*', animateChild())])])],
     changeDetection: ChangeDetectionStrategy.OnPush,
     encapsulation: ViewEncapsulation.None,
-    providers: [ToastStyle]
+    providers: [ToastStyle],
+    host: {
+        '[class]': "cx('root')",
+        '[style]': "sx('root')"
+    }
 })
 export class Toast extends BaseComponent implements OnInit, OnDestroy {
     /**
@@ -281,12 +280,8 @@ export class Toast extends BaseComponent implements OnInit, OnDestroy {
      */
     @Input({ transform: numberAttribute }) life: number = 3000;
     /**
-     * Inline style of the component.
-     * @group Props
-     */
-    @Input() style: { [klass: string]: any } | null | undefined;
-    /**
      * Inline class of the component.
+     * @deprecated since v20.0.0, use `class` instead.
      * @group Props
      */
     @Input() styleClass: string | undefined;
@@ -356,8 +351,6 @@ export class Toast extends BaseComponent implements OnInit, OnDestroy {
      */
     @ContentChild('headless') headlessTemplate: TemplateRef<any> | undefined;
 
-    @ViewChild('container') containerViewChild: ElementRef | undefined;
-
     messageSubscription: Subscription | undefined;
 
     clearSubscription: Subscription | undefined;
@@ -377,6 +370,10 @@ export class Toast extends BaseComponent implements OnInit, OnDestroy {
     id: string = uuid('pn_id_');
 
     @ContentChildren(PrimeTemplate) templates: QueryList<PrimeTemplate> | undefined;
+
+    constructor() {
+        super();
+    }
 
     ngOnInit() {
         super.ngOnInit();
@@ -481,9 +478,9 @@ export class Toast extends BaseComponent implements OnInit, OnDestroy {
 
     onAnimationStart(event: AnimationEvent) {
         if (event.fromState === 'void') {
-            this.renderer.setAttribute(this.containerViewChild?.nativeElement, this.id, '');
-            if (this.autoZIndex && this.containerViewChild?.nativeElement.style.zIndex === '') {
-                ZIndexUtils.set('modal', this.containerViewChild?.nativeElement, this.baseZIndex || this.config.zIndex.modal);
+            this.renderer.setAttribute(this.el?.nativeElement, this.id, '');
+            if (this.autoZIndex && this.el?.nativeElement.style.zIndex === '') {
+                ZIndexUtils.set('modal', this.el?.nativeElement, this.baseZIndex || this.config.zIndex.modal);
             }
         }
     }
@@ -491,7 +488,7 @@ export class Toast extends BaseComponent implements OnInit, OnDestroy {
     onAnimationEnd(event: AnimationEvent) {
         if (event.toState === 'void') {
             if (this.autoZIndex && isEmpty(this.messages)) {
-                ZIndexUtils.clear(this.containerViewChild?.nativeElement);
+                ZIndexUtils.clear(this.el?.nativeElement);
             }
         }
     }
@@ -533,8 +530,8 @@ export class Toast extends BaseComponent implements OnInit, OnDestroy {
             this.messageSubscription.unsubscribe();
         }
 
-        if (this.containerViewChild && this.autoZIndex) {
-            ZIndexUtils.clear(this.containerViewChild.nativeElement);
+        if (this.el && this.autoZIndex) {
+            ZIndexUtils.clear(this.el.nativeElement);
         }
 
         if (this.clearSubscription) {
