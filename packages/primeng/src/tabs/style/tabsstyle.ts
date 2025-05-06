@@ -6,7 +6,7 @@ const classes = {
     root: ({ instance }) => [
         'p-tabs p-component',
         {
-            'p-tabs-scrollable': instance.scrollable
+            'p-tabs-scrollable': instance.scrollable()
         }
     ]
 };
