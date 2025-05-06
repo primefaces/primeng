@@ -7,7 +7,7 @@ const theme = ({ dt }) => `
 ${style({ dt })}
 
 /* For PrimeNG */
-p-panel {
+.p-panel {
     display: block;
 }
 
@@ -23,11 +23,11 @@ p-panel {
 const classes = {
     root: ({ instance }) => [
         'p-panel p-component',
+        instance.styleClass,
         {
             'p-panel-toggleable': instance.toggleable,
             'p-panel-expanded': !instance.collapsed && instance.toggleable
-        },
-        instance.styleClass
+        }
     ],
     icons: ({ instance }) => [
         'p-panel-icons',
