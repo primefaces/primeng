@@ -43,7 +43,7 @@ import { CarouselStyle } from './style/carouselstyle';
         </div>
         <div [class]="contentClass" [ngClass]="cx('contentContainer')">
             <div [class]="cx('content')" [attr.aria-live]="allowAutoplay ? 'polite' : 'off'">
-                <p-button *ngIf="showNavigators" [class]="cx('pcPrevButton')" [disabled]="isBackwardNavDisabled()" [attr.aria-label]="ariaPrevButtonLabel()" (click)="navBackward($event)" [text]="true" [buttonProps]="prevButtonProps">
+                <p-button *ngIf="showNavigators" [class]="cx('pcPrevButton')" [attr.aria-label]="ariaPrevButtonLabel()" (click)="navBackward($event)" [text]="true" [buttonProps]="prevButtonProps">
                     <ng-template #icon>
                         <ng-container *ngIf="!previousIconTemplate && !_previousIconTemplate && !prevButtonProps?.icon">
                             <ChevronLeftIcon *ngIf="!isVertical()" />
@@ -79,7 +79,7 @@ import { CarouselStyle } from './style/carouselstyle';
                         </div>
                     </div>
                 </div>
-                <p-button type="button" *ngIf="showNavigators" [class]="cx('pcNextButton')" [disabled]="isForwardNavDisabled()" (click)="navForward($event)" [attr.aria-label]="ariaNextButtonLabel()" [buttonProps]="nextButtonProps" [text]="true">
+                <p-button type="button" *ngIf="showNavigators" [class]="cx('pcNextButton')" (click)="navForward($event)" [attr.aria-label]="ariaNextButtonLabel()" [buttonProps]="nextButtonProps" [text]="true">
                     <ng-template #icon>
                         <ng-container *ngIf="!nextIconTemplate && !_nextIconTemplate && !nextButtonProps?.icon">
                             <ChevronRightIcon *ngIf="!isVertical()" />
