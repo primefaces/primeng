@@ -21,6 +21,7 @@ import { ImportDoc } from './importdoc';
 import { InvalidDoc } from './invaliddoc';
 import { MultipleDoc } from './multipledoc';
 import { ObjectsDoc } from './objectsdoc';
+import { ObjectsValueDoc } from './objectsvaluedoc';
 import { ReactiveFormsDoc } from './reactiveformsdoc';
 import { SizesDoc } from './sizesdoc';
 import { StyleDoc } from './styledoc';
@@ -42,6 +43,7 @@ import { VirtualScrollDoc } from './virtualscrolldoc';
         DropdownDoc,
         ForceSelectionDoc,
         ObjectsDoc,
+        ObjectsValueDoc,
         ReactiveFormsDoc,
         FloatLabelDoc,
         IftaLabelDoc,

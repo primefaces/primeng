@@ -15,6 +15,7 @@ import {
     forwardRef,
     inject,
     Input,
+    model,
     NgModule,
     NgZone,
     numberAttribute,
@@ -858,6 +859,8 @@ export class AutoComplete extends BaseComponent implements AfterViewChecked, Aft
 
     _componentStyle = inject(AutoCompleteStyle);
 
+    _pendingValue = model(false);
+
     visibleOptions = computed(() => {
         return this.group ? this.flatOptions(this._suggestions()) : this._suggestions() || [];
     });
@@ -970,6 +973,12 @@ export class AutoComplete extends BaseComponent implements AfterViewChecked, Aft
         super();
         effect(() => {
             this.filled = isNotEmpty(this.modelValue());
+        });
+
+        effect(() => {
+            if (this._suggestions() && this._pendingValue()) {
+                this.resolvePendingValue();
+            }
         });
     }
 
@@ -1135,9 +1144,9 @@ export class AutoComplete extends BaseComponent implements AfterViewChecked, Aft
 
     isSelected(option) {
         if (this.multiple) {
-            return this.unique ? this.modelValue()?.find((model) => equals(model, this.getOptionValue(option), this.equalityKey())) : false;
+            return this.unique ? this.modelValue()?.find((model) => equals(model, option, this.equalityKey())) : false;
         }
-        return equals(this.modelValue(), this.getOptionValue(option), this.equalityKey());
+        return equals(this.modelValue(), option, this.equalityKey());
     }
 
     isOptionMatched(option, value) {
@@ -1537,16 +1546,14 @@ export class AutoComplete extends BaseComponent implements AfterViewChecked, Aft
     }
 
     onOptionSelect(event, option, isHide = true) {
-        const value = this.getOptionValue(option);
-
         if (this.multiple) {
             this.inputEL.nativeElement.value = '';
 
             if (!this.isSelected(option)) {
-                this.updateModel([...(this.modelValue() || []), value]);
+                this.updateModel([...(this.modelValue() || []), option]);
             }
         } else {
-            this.updateModel(value);
+            this.updateModel(option);
         }
 
         this.onSelect.emit({ originalEvent: event, value: option });
@@ -1588,7 +1595,12 @@ export class AutoComplete extends BaseComponent implements AfterViewChecked, Aft
     updateModel(value) {
         this.value = value;
         this.modelValue.set(value);
-        this.onModelChange(value);
+        if (!this.optionValue) {
+            this.onModelChange(value);
+        } else {
+            this.onModelChange(this.multiple ? value.map((val) => resolveFieldData(val, this.optionValue)) : resolveFieldData(value, this.optionValue));
+        }
+
         this.updateInputValue();
         this.cd.markForCheck();
     }
@@ -1673,8 +1685,53 @@ export class AutoComplete extends BaseComponent implements AfterViewChecked, Aft
     writeValue(value: any): void {
         this.value = value;
         this.modelValue.set(value);
+
+        if (this.optionValue && value) {
+            // When new value is set, we need to resolve the value to the corresponding option(s) from suggestions that could
+            // arrive later if loading is asynchronous
+            this._pendingValue.update(() => true);
+        }
+
         this.updateInputValue();
         this.cd.markForCheck();
+    }
+
+    resolvePendingValue() {
+        // Resolve the value to the corresponding option(s) from suggestions in case of optionValue is defined
+        if (this.optionValue && this.value && this.suggestions) {
+            if (!this.multiple) {
+                // Resolve single value to the corresponding option from suggestions
+                const selectedOption = this.findOptionByValue(this.value);
+                if (selectedOption) {
+                    this.modelValue.set(selectedOption);
+                }
+            } else {
+                // Resolve multiple values to the corresponding options from suggestions
+                const selectedOptions = this.findOptionsByValues(this.value);
+                if (selectedOptions) {
+                    this.modelValue.set(selectedOptions);
+                }
+            }
+            this._pendingValue.update(() => false);
+        }
+    }
+
+    /**
+     * Finds a single option in suggestions that matches the given value.
+     * @param value - The value to match.
+     * @returns The matched option or undefined.
+     */
+    private findOptionByValue(value: any): any {
+        return this.suggestions?.find((item: any) => resolveFieldData(item, this.optionValue) === value);
+    }
+
+    /**
+     * Finds multiple options in suggestions that match the given values.
+     * @param values - The array of values to match.
+     * @returns An array of matched options or undefined.
+     */
+    private findOptionsByValues(values: any[]): any[] | undefined {
+        return this.suggestions?.filter((item: any) => values.some((val: any) => resolveFieldData(item, this.optionValue) === val));
     }
 
     hasSelectedOption() {
@@ -1694,10 +1751,6 @@ export class AutoComplete extends BaseComponent implements AfterViewChecked, Aft
 
     getOptionLabel(option: any) {
         return this.field || this.optionLabel ? resolveFieldData(option, this.field || this.optionLabel) : option && option.label != undefined ? option.label : option;
-    }
-
-    getOptionValue(option) {
-        return this.optionValue ? resolveFieldData(option, this.optionValue) : option && option.value != undefined ? option.value : option;
     }
 
     getOptionIndex(index, scrollerOptions) {
