@@ -79,6 +79,7 @@ const TREENODE_INSTANCE = new InjectionToken<UITreeNode>('TREENODE_INSTANCE');
                 [attr.data-id]="node.key"
                 role="treeitem"
                 (keydown)="onKeyDown($event)"
+                (contextmenu)="onNodeRightClick($event)"
                 [pBind]="getPTOptions('node')"
             >
                 @if (isPrevDropPointActive()) {
@@ -88,7 +89,6 @@ const TREENODE_INSTANCE = new InjectionToken<UITreeNode>('TREENODE_INSTANCE');
                     [class]="cx('nodeContent')"
                     [style.paddingLeft]="level * indentation + 'rem'"
                     (click)="onNodeClick($event)"
-                    (contextmenu)="onNodeRightClick($event)"
                     (dblclick)="onNodeDblClick($event)"
                     (touchend)="onNodeTouchEnd()"
                     (drop)="onNodeDrop($event)"
