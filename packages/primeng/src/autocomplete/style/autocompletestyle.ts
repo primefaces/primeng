@@ -63,7 +63,7 @@ const classes = {
         // 'p-invalid': instance.invalid,
         'p-autocomplete-fluid': instance.hasFluid
     }),
-    pcInput: ({ instance }) => ['p-autocomplete-input', instance.inputStyleClass],
+    pcInputText: ({ instance }) => ['p-autocomplete-input', instance.inputStyleClass],
     inputMultiple: ({ instance }) => ({
         'p-autocomplete-input-multiple': true,
         'p-variant-filled': (instance.variant ?? (instance.config.inputStyle() || instance.config.inputVariant())) === 'filled'
@@ -124,7 +124,7 @@ export enum AutoCompleteClasses {
     /**
      * Class name of the input element
      */
-    pcInput = 'p-autocomplete-input',
+    pcInputText = 'p-autocomplete-input',
     /**
      * Class name of the input multiple element
      */
