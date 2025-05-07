@@ -38,7 +38,7 @@ export class PopupDoc implements OnInit {
         ];
     }
     code: Code = {
-        basic: `<p-toast />
+        basic: `
 <p-menu #menu [model]="items" [popup]="true" />
 <p-button (click)="menu.toggle($event)" icon="pi pi-ellipsis-v"/>`,
 
