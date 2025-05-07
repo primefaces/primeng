@@ -44,42 +44,45 @@ export const CHECKBOX_VALUE_ACCESSOR: any = {
     standalone: true,
     imports: [CommonModule, CheckIcon, MinusIcon, SharedModule],
     template: `
-        <div [style]="style" [class]="styleClass" [ngClass]="containerClass" [attr.data-p-highlight]="checked" [attr.data-p-checked]="checked" [attr.data-p-disabled]="disabled">
-            <input
-                #input
-                [attr.id]="inputId"
-                type="checkbox"
-                [value]="value"
-                [attr.name]="name"
-                [checked]="checked"
-                [attr.tabindex]="tabindex"
-                [disabled]="disabled"
-                [readonly]="readonly"
-                [attr.required]="required ? true : null"
-                [attr.aria-labelledby]="ariaLabelledBy"
-                [attr.aria-label]="ariaLabel"
-                [style]="inputStyle"
-                [class]="inputClass"
-                [ngClass]="{ 'p-checkbox-input': true }"
-                (focus)="onInputFocus($event)"
-                (blur)="onInputBlur($event)"
-                (change)="handleChange($event)"
-            />
-            <div class="p-checkbox-box">
-                <ng-container *ngIf="!checkboxIconTemplate && !_checkboxIconTemplate">
-                    <ng-container *ngIf="checked">
-                        <span *ngIf="checkboxIcon" class="p-checkbox-icon" [ngClass]="checkboxIcon" [attr.data-pc-section]="'icon'"></span>
-                        <CheckIcon *ngIf="!checkboxIcon" [styleClass]="'p-checkbox-icon'" [attr.data-pc-section]="'icon'" />
-                    </ng-container>
-                    <MinusIcon *ngIf="_indeterminate()" [styleClass]="'p-checkbox-icon'" [attr.data-pc-section]="'icon'" />
+        <input
+            #input
+            [attr.id]="inputId"
+            type="checkbox"
+            [value]="value"
+            [attr.name]="name"
+            [checked]="checked"
+            [attr.tabindex]="tabindex"
+            [disabled]="disabled"
+            [readonly]="readonly"
+            [attr.required]="required ? true : null"
+            [attr.aria-labelledby]="ariaLabelledBy"
+            [attr.aria-label]="ariaLabel"
+            [style]="inputStyle"
+            [class]="cx('input')"
+            (focus)="onInputFocus($event)"
+            (blur)="onInputBlur($event)"
+            (change)="handleChange($event)"
+        />
+        <div [class]="cx('box')">
+            <ng-container *ngIf="!checkboxIconTemplate && !_checkboxIconTemplate">
+                <ng-container *ngIf="checked">
+                    <span *ngIf="checkboxIcon" [class]="cx('icon')" [ngClass]="checkboxIcon" [attr.data-pc-section]="'icon'"></span>
+                    <CheckIcon *ngIf="!checkboxIcon" [styleClass]="cx('icon')" [attr.data-pc-section]="'icon'" />
                 </ng-container>
-                <ng-template *ngTemplateOutlet="checkboxIconTemplate || _checkboxIconTemplate; context: { checked: checked, class: 'p-checkbox-icon' }"></ng-template>
-            </div>
+                <MinusIcon *ngIf="_indeterminate()" [styleClass]="cx('icon')" [attr.data-pc-section]="'icon'" />
+            </ng-container>
+            <ng-template *ngTemplateOutlet="checkboxIconTemplate || _checkboxIconTemplate; context: { checked: checked, class: cx('icon') }"></ng-template>
         </div>
     `,
     providers: [CHECKBOX_VALUE_ACCESSOR, CheckboxStyle],
     changeDetection: ChangeDetectionStrategy.OnPush,
-    encapsulation: ViewEncapsulation.None
+    encapsulation: ViewEncapsulation.None,
+    host: {
+        '[class]': "cx('root')",
+        '[data-p-highlight]': 'checked',
+        '[data-p-checked]': 'checked',
+        '[data-p-disabled]': 'disabled'
+    }
 })
 export class Checkbox extends BaseComponent implements AfterContentInit, ControlValueAccessor {
     /**
@@ -123,17 +126,13 @@ export class Checkbox extends BaseComponent implements AfterContentInit, Control
      */
     @Input() inputId: string | undefined;
     /**
-     * Inline style of the component.
-     * @group Props
-     */
-    @Input() style: { [klass: string]: any } | null | undefined;
-    /**
      * Inline style of the input element.
      * @group Props
      */
     @Input() inputStyle: { [klass: string]: any } | null | undefined;
     /**
      * Style class of the component.
+     * @deprecated since v20.0.0, use `class` instead.
      * @group Props
      */
     @Input() styleClass: string | undefined;
@@ -215,17 +214,6 @@ export class Checkbox extends BaseComponent implements AfterContentInit, Control
 
     get checked() {
         return this._indeterminate() ? false : this.binary ? this.model === this.trueValue : contains(this.value, this.model);
-    }
-
-    get containerClass() {
-        return {
-            'p-checkbox p-component': true,
-            'p-checkbox-checked p-highlight': this.checked,
-            'p-disabled': this.disabled,
-            'p-variant-filled': this.variant === 'filled' || this.config.inputStyle() === 'filled' || this.config.inputVariant() === 'filled',
-            'p-checkbox-sm p-inputfield-sm': this.size === 'small',
-            'p-checkbox-lg p-inputfield-lg': this.size === 'large'
-        };
     }
 
     _indeterminate = signal<any>(undefined);
