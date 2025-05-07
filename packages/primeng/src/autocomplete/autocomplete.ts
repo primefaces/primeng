@@ -141,9 +141,8 @@ export const AUTOCOMPLETE_VALUE_ACCESSOR: any = {
                 <input
                     #focusInput
                     [pAutoFocus]="autofocus"
-                    [ngClass]="inputClass"
+                    [class]="cx('pcInputText')"
                     [ngStyle]="inputStyle"
-                    [class]="inputStyleClass"
                     [attr.type]="type"
                     [attr.id]="inputId"
                     [autocomplete]="autocomplete"
@@ -893,13 +892,6 @@ export class AutoComplete extends BaseComponent implements AfterViewChecked, Aft
             'p-autocomplete-overlay p-component': true,
             'p-input-filled': this.config.inputStyle() === 'filled' || this.config.inputVariant() === 'filled',
             'p-ripple-disabled': this.config.ripple() === false
-        };
-    }
-
-    get inputClass() {
-        return {
-            'p-autocomplete-input': !this.multiple,
-            'p-autocomplete-dd-input': this.dropdown
         };
     }
 
