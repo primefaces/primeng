@@ -85,12 +85,12 @@ import { AutoFocusModule } from 'primeng/autofocus';
                 [attr.data-id]="node.key"
                 role="treeitem"
                 (keydown)="onKeyDown($event)"
+                (contextmenu)="onNodeRightClick($event)"
             >
                 <div
                     [ngClass]="nodeContentClass"
                     [style.paddingLeft]="level * indentation + 'rem'"
                     (click)="onNodeClick($event)"
-                    (contextmenu)="onNodeRightClick($event)"
                     (dblclick)="onNodeDblClick($event)"
                     (touchend)="onNodeTouchEnd()"
                     (drop)="onDropNode($event)"
