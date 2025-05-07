@@ -71,7 +71,7 @@ import { Meta, Title } from '@angular/platform-browser';
                             <div class="flex-1 flex gap-4 flex-col">
                                 <div class="p-4 bg-surface-0 dark:bg-surface-900 rounded border-blue-500 border-l-4">
                                     <h2 class="text-lg font-bold mt-0 mb-2">PrimeNG+</h2>
-                                    <p class="mt-0 mb-4 leading-normal">Initiate the advanced UI suite with complex enterprise grade components including Event Valendar, Data Grid, Text Editor, Charts, TimeLine, PDF Viewer...</p>
+                                    <p class="mt-0 mb-4 leading-normal">Initiate the advanced UI suite with complex enterprise grade components including Event Calendar, Data Grid, Text Editor, Charts, TimeLine, PDF Viewer...</p>
                                     <div class="bg-surface-200 dark:bg-surface-600 rounded">
                                         <div class="bg-blue-500 rounded" style="width: 0%; height: 4px"></div>
                                     </div>
