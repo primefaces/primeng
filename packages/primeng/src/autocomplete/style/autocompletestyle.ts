@@ -52,17 +52,20 @@ const inlineStyles = {
 };
 
 const classes = {
-    root: ({ instance }) => ({
-        'p-autocomplete p-component p-inputwrapper': true,
-        'p-disabled': instance.disabled,
-        'p-focus': instance.focused,
-        'p-inputwrapper-filled': instance.filled,
-        'p-inputwrapper-focus': (instance.focused && !instance.disabled) || instance.autofocus || instance.overlayVisible,
-        'p-autocomplete-open': instance.overlayVisible,
-        'p-autocomplete-clearable': instance.showClear && !instance.disabled,
-        // 'p-invalid': instance.invalid,
-        'p-autocomplete-fluid': instance.hasFluid
-    }),
+    root: ({ instance }) => [
+        'p-autocomplete p-component p-inputwrapper',
+        instance.styleClass,
+        {
+            'p-disabled': instance.disabled,
+            'p-focus': instance.focused,
+            'p-inputwrapper-filled': instance.filled,
+            'p-inputwrapper-focus': (instance.focused && !instance.disabled) || instance.autofocus || instance.overlayVisible,
+            'p-autocomplete-open': instance.overlayVisible,
+            'p-autocomplete-clearable': instance.showClear && !instance.disabled,
+            // 'p-invalid': instance.invalid,
+            'p-autocomplete-fluid': instance.hasFluid
+        }
+    ],
     pcInputText: ({ instance }) => ['p-autocomplete-input', instance.inputStyleClass],
     inputMultiple: ({ instance }) => ({
         'p-autocomplete-input-multiple': true,
@@ -172,7 +175,11 @@ export enum AutoCompleteClasses {
     /**
      * Class name of the empty message element
      */
-    emptyMessage = 'p-autocomplete-empty-message'
+    emptyMessage = 'p-autocomplete-empty-message',
+    /**
+     * Class name of the clear icon
+     */
+    clearIcon = 'p-autocomplete-clear-icon'
 }
 
 export interface AutoCompleteStyle extends BaseStyle {}
