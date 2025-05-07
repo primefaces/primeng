@@ -42,7 +42,7 @@ export const TOGGLEBUTTON_VALUE_ACCESSOR: any = {
     hostDirectives: [{ directive: Ripple }],
     host: {
         '[tabindex]': 'tabindex',
-        '[disabled]': 'disabled',
+        '[attr.disabled]': 'disabled',
         '[attr.aria-labelledby]': 'ariaLabelledBy',
         '[attr.aria-pressed]': 'checked',
         '[attr.data-p-checked]': 'active',
