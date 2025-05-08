@@ -44,14 +44,7 @@ export const RATING_VALUE_ACCESSOR: any = {
     template: `
         <ng-container *ngIf="!isCustomIcon; else customTemplate">
             <ng-template ngFor [ngForOf]="starsArray" let-star let-i="index">
-                <div
-                    class="p-rating-option"
-                    [ngClass]="{
-                        'p-rating-option-active': star + 1 <= value,
-                        'p-focus-visible': star + 1 === focusedOptionIndex() && isFocusVisibleItem
-                    }"
-                    (click)="onOptionClick($event, star + 1)"
-                >
+                <div [class]="cx('option', { star, value })" (click)="onOptionClick($event, star + 1)">
                     <span class="p-hidden-accessible" [attr.data-p-hidden-accessible]="true">
                         <input
                             type="radio"
@@ -68,12 +61,12 @@ export const RATING_VALUE_ACCESSOR: any = {
                         />
                     </span>
                     <ng-container *ngIf="!value || i >= value">
-                        <span class="p-rating-icon" *ngIf="iconOffClass" [ngStyle]="iconOffStyle" [ngClass]="iconOffClass" [attr.data-pc-section]="'offIcon'"></span>
-                        <StarIcon *ngIf="!iconOffClass" [ngStyle]="iconOffStyle" [styleClass]="'p-rating-icon'" [attr.data-pc-section]="'offIcon'" />
+                        <span [class]="cx('offIcon')" *ngIf="iconOffClass" [ngStyle]="iconOffStyle" [ngClass]="iconOffClass" [attr.data-pc-section]="'offIcon'"></span>
+                        <StarIcon *ngIf="!iconOffClass" [ngStyle]="iconOffStyle" [styleClass]="cx('offIcon')" [attr.data-pc-section]="'offIcon'" />
                     </ng-container>
                     <ng-container *ngIf="value && i < value">
-                        <span class="p-rating-icon p-rating-icon-active" *ngIf="iconOnClass" [ngStyle]="iconOnStyle" [ngClass]="iconOnClass" [attr.data-pc-section]="'onIcon'"></span>
-                        <StarFillIcon *ngIf="!iconOnClass" [ngStyle]="iconOnStyle" [styleClass]="'p-rating-icon p-rating-icon-active'" [attr.data-pc-section]="'onIcon'" />
+                        <span [class]="cx('onIcon')" *ngIf="iconOnClass" [ngStyle]="iconOnStyle" [ngClass]="iconOnClass" [attr.data-pc-section]="'onIcon'"></span>
+                        <StarFillIcon *ngIf="!iconOnClass" [ngStyle]="iconOnStyle" [styleClass]="cx('onIcon')" [attr.data-pc-section]="'onIcon'" />
                     </ng-container>
                 </div>
             </ng-template>
@@ -88,11 +81,9 @@ export const RATING_VALUE_ACCESSOR: any = {
     changeDetection: ChangeDetectionStrategy.OnPush,
     encapsulation: ViewEncapsulation.None,
     host: {
-        class: 'p-rating',
-        '[attr.data-pc-name]': '"rating"',
-        '[attr.data-pc-section]': '"root"',
-        '[class.p-readonly]': 'readonly',
-        '[class.p-disabled]': 'disabled'
+        '[class]': "cx('root')",
+        'data-pc-name': 'rating',
+        'data-pc-section': 'root'
     }
 })
 export class Rating extends BaseComponent implements OnInit, ControlValueAccessor {
