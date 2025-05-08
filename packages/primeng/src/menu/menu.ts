@@ -65,62 +65,64 @@ export class SafeHtmlPipe implements PipeTransform {
     standalone: true,
     imports: [CommonModule, RouterModule, Ripple, TooltipModule, BadgeModule, SharedModule, SafeHtmlPipe],
     template: `
-        <div [attr.data-pc-section]="'content'" class="p-menu-item-content" (click)="onItemClick($event, item)">
-            <ng-container *ngIf="!itemTemplate">
-                <a
-                    *ngIf="!item?.routerLink"
-                    [attr.title]="item.title"
-                    [attr.href]="item.url || null"
-                    [attr.data-automationid]="item.automationId"
-                    [attr.tabindex]="-1"
-                    [attr.data-pc-section]="'action'"
-                    class="p-menu-item-link"
-                    [target]="item.target"
-                    [ngClass]="{ 'p-disabled': item.disabled }"
-                    pRipple
-                >
-                    <ng-container *ngTemplateOutlet="itemContent; context: { $implicit: item }"></ng-container>
-                </a>
-                <a
-                    *ngIf="item?.routerLink"
-                    [routerLink]="item.routerLink"
-                    [attr.data-automationid]="item.automationId"
-                    [attr.tabindex]="-1"
-                    [attr.data-pc-section]="'action'"
-                    [attr.title]="item.title"
-                    [queryParams]="item.queryParams"
-                    routerLinkActive="p-menu-item-link-active"
-                    [routerLinkActiveOptions]="item.routerLinkActiveOptions || { exact: false }"
-                    class="p-menu-item-link"
-                    [target]="item.target"
-                    [ngClass]="{ 'p-disabled': item.disabled }"
-                    [fragment]="item.fragment"
-                    [queryParamsHandling]="item.queryParamsHandling"
-                    [preserveFragment]="item.preserveFragment"
-                    [skipLocationChange]="item.skipLocationChange"
-                    [replaceUrl]="item.replaceUrl"
-                    [state]="item.state"
-                    pRipple
-                >
-                    <ng-container *ngTemplateOutlet="itemContent; context: { $implicit: item }"></ng-container>
-                </a>
-            </ng-container>
+        <ng-container *ngIf="!itemTemplate">
+            <a
+                *ngIf="!item?.routerLink"
+                [attr.title]="item.title"
+                [attr.href]="item.url || null"
+                [attr.data-automationid]="item.automationId"
+                [attr.tabindex]="-1"
+                [attr.data-pc-section]="'action'"
+                [class]="cx('itemLink')"
+                [target]="item.target"
+                pRipple
+            >
+                <ng-container *ngTemplateOutlet="itemContent; context: { $implicit: item }"></ng-container>
+            </a>
+            <a
+                *ngIf="item?.routerLink"
+                [routerLink]="item.routerLink"
+                [attr.data-automationid]="item.automationId"
+                [attr.tabindex]="-1"
+                [attr.data-pc-section]="'action'"
+                [attr.title]="item.title"
+                [queryParams]="item.queryParams"
+                routerLinkActive="p-menu-item-link-active"
+                [routerLinkActiveOptions]="item.routerLinkActiveOptions || { exact: false }"
+                [class]="cx('itemLink')"
+                [target]="item.target"
+                [fragment]="item.fragment"
+                [queryParamsHandling]="item.queryParamsHandling"
+                [preserveFragment]="item.preserveFragment"
+                [skipLocationChange]="item.skipLocationChange"
+                [replaceUrl]="item.replaceUrl"
+                [state]="item.state"
+                pRipple
+            >
+                <ng-container *ngTemplateOutlet="itemContent; context: { $implicit: item }"></ng-container>
+            </a>
+        </ng-container>
 
-            <ng-container *ngIf="itemTemplate">
-                <ng-template *ngTemplateOutlet="itemTemplate; context: { $implicit: item }"></ng-template>
-            </ng-container>
+        <ng-container *ngIf="itemTemplate">
+            <ng-template *ngTemplateOutlet="itemTemplate; context: { $implicit: item }"></ng-template>
+        </ng-container>
 
-            <ng-template #itemContent>
-                <span class="p-menu-item-icon" *ngIf="item.icon" [ngClass]="item.icon" [class]="item.iconClass" [ngStyle]="item.iconStyle"></span>
-                <span class="p-menu-item-label" *ngIf="item.escape !== false; else htmlLabel">{{ item.label }}</span>
-                <ng-template #htmlLabel><span class="p-menu-item-label" [innerHTML]="item.label | safeHtml"></span></ng-template>
-                <p-badge *ngIf="item.badge" [styleClass]="item.badgeStyleClass" [value]="item.badge" />
-            </ng-template>
-        </div>
+        <ng-template #itemContent>
+            <span [class]="cx('itemIcon', { item })" *ngIf="item.icon" [style]="item.iconStyle"></span>
+            <span [class]="cx('itemLabel')" *ngIf="item.escape !== false; else htmlLabel">{{ item.label }}</span>
+            <ng-template #htmlLabel><span class="p-menu-item-label" [innerHTML]="item.label | safeHtml"></span></ng-template>
+            <p-badge *ngIf="item.badge" [styleClass]="item.badgeStyleClass" [value]="item.badge" />
+        </ng-template>
     `,
-    encapsulation: ViewEncapsulation.None
+    host: {
+        'data-pc-section': 'content',
+        '[class]': "cx('itemContent')",
+        '(click)': 'onItemClick($event, item)'
+    },
+    encapsulation: ViewEncapsulation.None,
+    providers: [MenuStyle]
 })
-export class MenuItemContent {
+export class MenuItemContent extends BaseComponent {
     @Input('pMenuItemContent') item: MenuItem | undefined;
 
     @Input() itemTemplate: any | undefined;
@@ -129,7 +131,10 @@ export class MenuItemContent {
 
     menu: Menu;
 
+    _componentStyle = inject(MenuStyle);
+
     constructor(@Inject(forwardRef(() => Menu)) menu: Menu) {
+        super();
         this.menu = menu as Menu;
     }
 
@@ -148,9 +153,8 @@ export class MenuItemContent {
     template: `
         <div
             #container
-            [ngClass]="{ 'p-menu p-component': true, 'p-menu-overlay': popup }"
-            [class]="styleClass"
-            [ngStyle]="style"
+            [class]="cx('root')"
+            [style]="style"
             *ngIf="!popup || visible"
             (click)="onOverlayClick($event)"
             [@overlayAnimation]="{
@@ -163,12 +167,12 @@ export class MenuItemContent {
             [attr.data-pc-name]="'menu'"
             [attr.id]="id"
         >
-            <div *ngIf="startTemplate ?? _startTemplate" class="p-menu-start" [attr.data-pc-section]="'start'">
+            <div *ngIf="startTemplate ?? _startTemplate" [class]="cx('start')" [attr.data-pc-section]="'start'">
                 <ng-container *ngTemplateOutlet="startTemplate ?? _startTemplate"></ng-container>
             </div>
             <ul
                 #list
-                class="p-menu-list p-reset"
+                [class]="cx('list')"
                 role="menu"
                 [attr.id]="id + '_list'"
                 [attr.tabindex]="getTabIndexValue()"
@@ -181,17 +185,8 @@ export class MenuItemContent {
                 (keydown)="onListKeyDown($event)"
             >
                 <ng-template ngFor let-submenu let-i="index" [ngForOf]="model" *ngIf="hasSubMenu()">
-                    <li class="p-menu-separator" *ngIf="submenu.separator && submenu.visible !== false" role="separator"></li>
-                    <li
-                        class="p-menu-submenu-label"
-                        [attr.data-automationid]="submenu.automationId"
-                        *ngIf="!submenu.separator"
-                        [ngClass]="{ 'p-hidden': submenu.visible === false, flex: submenu.visible }"
-                        pTooltip
-                        [tooltipOptions]="submenu.tooltipOptions"
-                        role="none"
-                        [attr.id]="menuitemId(submenu, id, i)"
-                    >
+                    <li [class]="cx('separator')" *ngIf="submenu.separator && submenu.visible !== false" role="separator"></li>
+                    <li [class]="cx('submenuLabel')" [attr.data-automationid]="submenu.automationId" *ngIf="!submenu.separator" pTooltip [tooltipOptions]="submenu.tooltipOptions" role="none" [attr.id]="menuitemId(submenu, id, i)">
                         <ng-container *ngIf="!submenuHeaderTemplate && !_submenuHeaderTemplate">
                             <span *ngIf="submenu.escape !== false; else htmlSubmenuLabel">{{ submenu.label }}</span>
                             <ng-template #htmlSubmenuLabel><span [innerHTML]="submenu.label | safeHtml"></span></ng-template>
@@ -199,18 +194,13 @@ export class MenuItemContent {
                         <ng-container *ngTemplateOutlet="submenuHeaderTemplate ?? _submenuHeaderTemplate; context: { $implicit: submenu }"></ng-container>
                     </li>
                     <ng-template ngFor let-item let-j="index" [ngForOf]="submenu.items">
-                        <li class="p-menu-separator" *ngIf="item.separator && (item.visible !== false || submenu.visible !== false)" role="separator"></li>
+                        <li [class]="cx('separator')" *ngIf="item.separator && (item.visible !== false || submenu.visible !== false)" role="separator"></li>
                         <li
-                            class="p-menu-item"
+                            [class]="cx('item', { item, menuItemId: menuitemId(item, id, i, j) })"
                             *ngIf="!item.separator && item.visible !== false && (item.visible !== undefined || submenu.visible !== false)"
                             [pMenuItemContent]="item"
                             [itemTemplate]="itemTemplate ?? _itemTemplate"
-                            [ngClass]="{
-                                'p-focus': focusedOptionId() && menuitemId(item, id, i, j) === focusedOptionId(),
-                                'p-disabled': disabled(item.disabled)
-                            }"
-                            [ngStyle]="item.style"
-                            [class]="item.styleClass"
+                            [style]="item.style"
                             (onMenuItemClick)="itemClick($event, menuitemId(item, id, i, j))"
                             pTooltip
                             [tooltipOptions]="item.tooltipOptions"
@@ -225,18 +215,13 @@ export class MenuItemContent {
                     </ng-template>
                 </ng-template>
                 <ng-template ngFor let-item let-i="index" [ngForOf]="model" *ngIf="!hasSubMenu()">
-                    <li class="p-menu-separator" *ngIf="item.separator && item.visible !== false" role="separator"></li>
+                    <li [class]="cx('separator')" *ngIf="item.separator && item.visible !== false" role="separator"></li>
                     <li
-                        class="p-menu-item"
+                        [class]="cx('item', { item, menuItemId: menuitemId(item, id, i) })"
                         *ngIf="!item.separator && item.visible !== false"
                         [pMenuItemContent]="item"
                         [itemTemplate]="itemTemplate ?? _itemTemplate"
-                        [ngClass]="{
-                            'p-focus': focusedOptionId() && menuitemId(item, id, i) === focusedOptionId(),
-                            'p-disabled': disabled(item.disabled)
-                        }"
                         [ngStyle]="item.style"
-                        [class]="item.styleClass"
                         (onMenuItemClick)="itemClick($event, menuitemId(item, id, i))"
                         pTooltip
                         [tooltipOptions]="item.tooltipOptions"
@@ -250,7 +235,7 @@ export class MenuItemContent {
                     ></li>
                 </ng-template>
             </ul>
-            <div *ngIf="endTemplate ?? _endTemplate" class="p-menu-end" [attr.data-pc-section]="'end'">
+            <div *ngIf="endTemplate ?? _endTemplate" [class]="cx('end')" [attr.data-pc-section]="'end'">
                 <ng-container *ngTemplateOutlet="endTemplate ?? _endTemplate"></ng-container>
             </div>
         </div>
