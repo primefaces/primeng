@@ -576,6 +576,8 @@ export class ConfirmDialog extends BaseComponent implements OnInit, OnDestroy {
     hide(type?: ConfirmEventType) {
         this.onHide.emit(type);
         this.visible = false;
+        // Unsubscribe from confirmation events when the dialogue is closed, because events are created when the dialogue is opened.
+        this.unsubscribeConfirmationEvents();
         this.confirmation = null;
     }
 
@@ -588,6 +590,8 @@ export class ConfirmDialog extends BaseComponent implements OnInit, OnDestroy {
 
     ngOnDestroy() {
         this.subscription.unsubscribe();
+        // Unsubscribe from confirmation events if the dialogue is opened and this component is somehow destroyed.
+        this.unsubscribeConfirmationEvents();
 
         if (this.translationSubscription) {
             this.translationSubscription.unsubscribe();
@@ -618,6 +622,13 @@ export class ConfirmDialog extends BaseComponent implements OnInit, OnDestroy {
         }
 
         this.hide(ConfirmEventType.REJECT);
+    }
+
+    unsubscribeConfirmationEvents() {
+        if (this.confirmation) {
+            this.confirmation.acceptEvent?.unsubscribe();
+            this.confirmation.rejectEvent?.unsubscribe();
+        }
     }
 
     get acceptButtonLabel(): string {
