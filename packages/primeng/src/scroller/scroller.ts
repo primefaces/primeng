@@ -929,7 +929,7 @@ export class Scroller extends BaseComponent implements OnInit, AfterContentInit,
     }
 
     onScrollChange(event: Event) {
-        const { first, last, isRangeChanged } = this._gridManager.getRange(this._first, this._last);
+        const { first, last, isRangeChanged, isContentPositionShifted } = this._gridManager.getRange(this._first, this._last);
         const target = <HTMLElement>event.target;
 
         if (isRangeChanged) {
@@ -951,7 +951,7 @@ export class Scroller extends BaseComponent implements OnInit, AfterContentInit,
                 isLazyStateChanged && this.handleEvents('onLazyLoad', lazyLoadState);
                 this.lazyLoadState = lazyLoadState;
             }
-        }
+        } else if (isContentPositionShifted) this.setContentPosition({ first });
     }
 
     onContainerScroll(event: Event) {
@@ -1167,7 +1167,7 @@ export const initGridManager = <T>({
     positions: { mainAxis: ItemPos[]; crossAxis: ItemPos[] };
     at: (main: number, cross?: number) => { main: ItemPos; cross: ItemPos };
     totalSize: () => GridItem;
-    getRange: (first: GridItem, last: GridItem) => { first: GridItem; last: GridItem; isRangeChanged: boolean };
+    getRange: (first: GridItem, last: GridItem) => { first: GridItem; last: GridItem; isRangeChanged: boolean; isContentPositionShifted: boolean };
     itemsInViewport: () => { first: GridItem; last: GridItem };
 } => {
     const _items = isGrid(items) ? items : items.map((x) => [x]);
@@ -1323,6 +1323,7 @@ export const initGridManager = <T>({
     const getRange = (first: GridItem, last: GridItem) => {
         const viewport = itemsInViewport();
         const lastRenderedItem = { main: positions.mainAxis[Math.max(last.main - 1, 0)], cross: positions.crossAxis[Math.max(last.cross - 1, 0)] };
+        const contentPosition = { main: positions.mainAxis[first.main].pos, cross: positions.crossAxis[first.cross].pos };
         if (
             _shouldRecalculate(
                 _calculatedIndexes.mainAxis,
@@ -1354,6 +1355,7 @@ export const initGridManager = <T>({
         return {
             first: newFirst,
             last: newLast,
+            isContentPositionShifted: contentPosition.main !== positions.mainAxis[first.main].pos || contentPosition.cross !== positions.crossAxis[first.cross].pos,
             isRangeChanged: newFirst.main !== first.main || newFirst.cross !== first.cross || newLast.main !== last.main || newLast.cross !== last.cross
         };
     };

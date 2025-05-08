@@ -18,12 +18,11 @@ import { ProgrammaticDoc } from './programmaticdoc';
 import { ScrollOptionsDoc } from './scrolloptionsdoc';
 import { StyleDoc } from './styledoc';
 import { TemplateDoc } from './templatedoc';
-import { FlexibleItemsHeightDoc } from './flexibleitemsheightdoc';
-import { FlexibleGridDoc } from './flexiblegriddoc';
+import { VariableItemSizesDoc, ItemSizePipe } from './variablesizesdoc';
 
 @NgModule({
     imports: [CommonModule, RouterModule, AppCodeModule, AppDocModule, Scroller, Skeleton, ButtonModule],
-    declarations: [BasicDoc, DelayDoc, ImportDoc, HorizontalDoc, GridDoc, FlexibleGridDoc, FlexibleItemsHeightDoc, LazyLoadDoc, LoaderDoc, ScrollOptionsDoc, StyleDoc, TemplateDoc, ProgrammaticDoc, AccessibilityDoc],
+    declarations: [BasicDoc, DelayDoc, ImportDoc, HorizontalDoc, GridDoc, VariableItemSizesDoc, ItemSizePipe, LazyLoadDoc, LoaderDoc, ScrollOptionsDoc, StyleDoc, TemplateDoc, ProgrammaticDoc, AccessibilityDoc],
     exports: [AppDocModule]
 })
 export class VirtualScrollerDocModule {}

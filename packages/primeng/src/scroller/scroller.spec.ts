@@ -597,7 +597,12 @@ fdescribe('Scroller', () => {
                 <p-virtualscroller [items]="items" orientation="both" [itemSize]="itemSize" scrollHeight="200px" [style]="{ width: '200px', height: '200px' }">
                     <ng-template #item let-item let-options="options">
                         <div style="display: flex; align-items: center">
-                            <div *ngFor="let el of item" style="width: {{ itemSize[1] }}px; height: {{ itemSize[0] }}px">{{ el }}</div>
+                            <div
+                                *ngFor="let el of item; let elIndex = index"
+                                style="width: {{ getItemSize(el, options.index, options.firstCrossAxisIndex + elIndex).crossAxis }}px; height: {{ getItemSize(el, options.index, options.firstCrossAxisIndex + elIndex).mainAxis }}px"
+                            >
+                                {{ el }}
+                            </div>
                         </div>
                     </ng-template>
                 </p-virtualscroller>
@@ -606,7 +611,9 @@ fdescribe('Scroller', () => {
         })
         class GridScrollerWrapper {
             items = getItems(1000, 1000);
-            itemSize = [50, 100];
+            itemSize: [number, number] | ((item: string, idxMain: number, idxCross: number) => { mainAxis: number }) = [50, 100];
+
+            getItemSize = (item: string, idxMain: number, idxCross: number) => (Array.isArray(this.itemSize) ? { mainAxis: this.itemSize[0], crossAxis: this.itemSize[1] } : this.itemSize(item, idxMain, idxCross));
         }
 
         let fixture: ComponentFixture<GridScrollerWrapper>;
@@ -734,13 +741,32 @@ fdescribe('Scroller', () => {
             expect(scroller.first['cols']).toBeLessThan(495);
         });
 
-        it('should render items on scroll right', () => {
-            actions.userScrollTo({ top: scrollerDiv.scrollHeight / 2, left: scrollerDiv.scrollWidth / 2 + 10 });
-            actions.userScrollTo({ top: scrollerDiv.scrollTop, left: scrollerDiv.scrollLeft + 250 });
+        it('should not flicker on scroll up (itemSize=variable)', () => {
+            actions.setItemSize((_i, idxMain, idxCross) => ({ mainAxis: [120, 20, 50, 30][idxMain % 4], crossAxis: [80, 125, 100, 200][idxCross % 4] }));
+            actions.userScrollTo({ top: scrollerDiv.scrollHeight / 2, left: scrollerDiv.scrollWidth / 2 });
 
-            const { lastInViewport } = actions.getViewportItems();
+            const { firstInViewport } = actions.getViewportItems();
+            const firstInViewportPos = firstInViewport.getBoundingClientRect().top;
 
-            expect(lastInViewport.getBoundingClientRect().right).toBeGreaterThan(scrollerDiv.getBoundingClientRect().right);
+            actions.userScrollTo({ top: scrollerDiv.scrollTop - 100, left: scrollerDiv.scrollLeft });
+
+            const prevFirstInViewport = actions.getRenderedItems().find((item) => item.textContent === firstInViewport.textContent);
+
+            expect(prevFirstInViewport.getBoundingClientRect().top - firstInViewportPos).toBe(100);
+        });
+
+        it('should not flicker on scroll left (itemSize=variable)', () => {
+            actions.setItemSize((_i, idxMain, idxCross) => ({ mainAxis: [120, 20, 50, 30][idxMain % 4], crossAxis: [80, 125, 100, 200][idxCross % 4] }));
+            actions.userScrollTo({ top: scrollerDiv.scrollHeight / 2, left: scrollerDiv.scrollWidth / 2 });
+
+            const { firstInViewport } = actions.getViewportItems();
+            const firstInViewportPos = firstInViewport.getBoundingClientRect().left;
+
+            actions.userScrollTo({ top: scrollerDiv.scrollTop, left: scrollerDiv.scrollLeft - 100 });
+
+            const prevFirstInViewport = actions.getRenderedItems().find((item) => item.textContent === firstInViewport.textContent);
+
+            expect(prevFirstInViewport.getBoundingClientRect().left - firstInViewportPos).toBe(100);
         });
     });
 
@@ -1126,7 +1152,7 @@ fdescribe('Scroller', () => {
                     getScrollPos: () => ({ main: 0, cross: 0 }),
                     scrollTo: () => {},
                     setScrollSize: () => {},
-                    viewportSize: { main: 200, cross: 200 }
+                    viewportSize: { main: 2000, cross: 2000 }
                 };
 
                 const start = performance.now();

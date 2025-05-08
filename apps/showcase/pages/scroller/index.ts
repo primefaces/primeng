@@ -10,8 +10,7 @@ import { ProgrammaticDoc } from '@/doc/scroller/programmaticdoc';
 import { TemplateDoc } from '@/doc/scroller/templatedoc';
 import { VirtualScrollerDocModule } from '@/doc/scroller/scrollerdoc.module';
 import { Component } from '@angular/core';
-import { FlexibleItemsHeightDoc } from '@/doc/scroller/flexibleitemsheightdoc';
-import { FlexibleGridDoc } from '@/doc/scroller/flexiblegriddoc';
+import { VariableItemSizesDoc } from '@/doc/scroller/variablesizesdoc';
 
 @Component({
     template: `<app-doc docTitle="Angular Virtual Scroller Component" header="Scroller" description="VirtualScroller is a performance-approach to handle huge data efficiently." [docs]="docs" [apiDocs]="['Scroller']" themeDocs="scroller"></app-doc>`,
@@ -32,11 +31,6 @@ export class VirtualScrollerDemo {
             component: BasicDoc
         },
         {
-            id: 'flexible',
-            label: 'Flexible Height',
-            component: FlexibleItemsHeightDoc
-        },
-        {
             id: 'horizontal',
             label: 'Horizontal',
             component: HorizontalDoc
@@ -47,9 +41,9 @@ export class VirtualScrollerDemo {
             component: GridDoc
         },
         {
-            id: 'flexible-grid',
-            label: 'Flexible Grid',
-            component: FlexibleGridDoc
+            id: 'variable',
+            label: 'Variable Sizes',
+            component: VariableItemSizesDoc
         },
         {
             id: 'delay',
