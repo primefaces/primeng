@@ -50,18 +50,11 @@ type Meter = {
  * Password directive.
  * @group Components
  */
-
-// strengthClass(meter: any) {
-//     return `p-password-meter-label p-password-meter${meter?.strength ? `-${meter.strength}` : ''}`;
-// }
 @Directive({
     selector: '[pPassword]',
     standalone: true,
     host: {
-        class: 'p-password p-inputtext p-component p-inputwrapper',
-        '[class.p-inputwrapper-filled]': 'filled',
-        '[class.p-variant-filled]': 'variant === "filled" || config.inputStyle() === "filled" || config.inputVariant() === "filled"',
-        '[class.p-password-fluid-directive]': 'hasFluid'
+        '[class]': "cx('rootDirective')"
     },
     providers: [PasswordStyle]
 })
@@ -401,88 +394,91 @@ export const Password_VALUE_ACCESSOR: any = {
     standalone: true,
     imports: [CommonModule, InputText, AutoFocus, TimesIcon, EyeSlashIcon, EyeIcon, MapperPipe, SharedModule],
     template: `
-        <div [ngClass]="rootClass" [ngStyle]="style" [class]="styleClass" [attr.data-pc-name]="'password'" [attr.data-pc-section]="'root'">
-            <input
-                #input
-                [attr.label]="label"
-                [attr.aria-label]="ariaLabel"
-                [attr.aria-labelledBy]="ariaLabelledBy"
-                [attr.id]="inputId"
-                [attr.tabindex]="tabindex"
-                pInputText
-                [disabled]="disabled"
-                [pSize]="size"
-                [ngClass]="disabled | mapper: inputFieldClass"
-                [ngStyle]="inputStyle"
-                [class]="inputStyleClass"
-                [attr.type]="unmasked | mapper: inputType"
-                [attr.placeholder]="placeholder"
-                [attr.autocomplete]="autocomplete"
-                [value]="value"
-                [variant]="variant"
-                (input)="onInput($event)"
-                (focus)="onInputFocus($event)"
-                (blur)="onInputBlur($event)"
-                (keyup)="onKeyUp($event)"
-                [attr.maxlength]="maxLength"
-                [attr.data-pc-section]="'input'"
-                [pAutoFocus]="autofocus"
-            />
-            <ng-container *ngIf="showClear && value != null">
-                <TimesIcon *ngIf="!clearIconTemplate && !_clearIconTemplate" class="p-password-clear-icon" (click)="clear()" [attr.data-pc-section]="'clearIcon'" />
-                <span (click)="clear()" class="p-password-clear-icon" [attr.data-pc-section]="'clearIcon'">
-                    <ng-template *ngTemplateOutlet="clearIconTemplate || _clearIconTemplate"></ng-template>
+        <input
+            #input
+            [attr.label]="label"
+            [attr.aria-label]="ariaLabel"
+            [attr.aria-labelledBy]="ariaLabelledBy"
+            [attr.id]="inputId"
+            [attr.tabindex]="tabindex"
+            pInputText
+            [disabled]="disabled"
+            [pSize]="size"
+            [ngStyle]="inputStyle"
+            [class]="cx('pcInputText')"
+            [attr.type]="unmasked | mapper: inputType"
+            [attr.placeholder]="placeholder"
+            [attr.autocomplete]="autocomplete"
+            [value]="value"
+            [variant]="variant"
+            (input)="onInput($event)"
+            (focus)="onInputFocus($event)"
+            (blur)="onInputBlur($event)"
+            (keyup)="onKeyUp($event)"
+            [attr.maxlength]="maxLength"
+            [attr.data-pc-section]="'input'"
+            [pAutoFocus]="autofocus"
+        />
+        <ng-container *ngIf="showClear && value != null">
+            <TimesIcon *ngIf="!clearIconTemplate && !_clearIconTemplate" [class]="cx('clearIcon')" (click)="clear()" [attr.data-pc-section]="'clearIcon'" />
+            <span (click)="clear()" [class]="cx('clearIcon')" [attr.data-pc-section]="'clearIcon'">
+                <ng-template *ngTemplateOutlet="clearIconTemplate || _clearIconTemplate"></ng-template>
+            </span>
+        </ng-container>
+
+        <ng-container *ngIf="toggleMask">
+            <ng-container *ngIf="unmasked">
+                <EyeSlashIcon [class]="cx('maskIcon')" *ngIf="!hideIconTemplate && !_hideIconTemplate" (click)="onMaskToggle()" [attr.data-pc-section]="'hideIcon'" />
+                <span *ngIf="hideIconTemplate || _hideIconTemplate" (click)="onMaskToggle()">
+                    <ng-template *ngTemplateOutlet="hideIconTemplate || _hideIconTemplate; context: { class: 'p-password-toggle-mask-icon p-password-mask-icon' }"></ng-template>
                 </span>
             </ng-container>
-
-            <ng-container *ngIf="toggleMask">
-                <ng-container *ngIf="unmasked">
-                    <EyeSlashIcon class="p-password-toggle-mask-icon p-password-mask-icon" *ngIf="!hideIconTemplate && !_hideIconTemplate" (click)="onMaskToggle()" [attr.data-pc-section]="'hideIcon'" />
-                    <span *ngIf="hideIconTemplate || _hideIconTemplate" (click)="onMaskToggle()">
-                        <ng-template *ngTemplateOutlet="hideIconTemplate || _hideIconTemplate; context: { class: 'p-password-toggle-mask-icon p-password-mask-icon' }"></ng-template>
-                    </span>
-                </ng-container>
-                <ng-container *ngIf="!unmasked">
-                    <EyeIcon *ngIf="!showIconTemplate && !_showIconTemplate" class="p-password-toggle-mask-icon p-password-mask-icon" (click)="onMaskToggle()" [attr.data-pc-section]="'showIcon'" />
-                    <span *ngIf="showIconTemplate || _showIconTemplate" (click)="onMaskToggle()">
-                        <ng-template *ngTemplateOutlet="showIconTemplate || _showIconTemplate"></ng-template>
-                    </span>
-                </ng-container>
+            <ng-container *ngIf="!unmasked">
+                <EyeIcon *ngIf="!showIconTemplate && !_showIconTemplate" [class]="cx('maskIcon')" (click)="onMaskToggle()" [attr.data-pc-section]="'showIcon'" />
+                <span *ngIf="showIconTemplate || _showIconTemplate" (click)="onMaskToggle()">
+                    <ng-template *ngTemplateOutlet="showIconTemplate || _showIconTemplate"></ng-template>
+                </span>
             </ng-container>
+        </ng-container>
 
-            <div
-                #overlay
-                *ngIf="overlayVisible"
-                class="p-password-overlay p-component"
-                (click)="onOverlayClick($event)"
-                [@overlayAnimation]="{
-                    value: 'visible',
-                    params: { showTransitionParams: showTransitionOptions, hideTransitionParams: hideTransitionOptions }
-                }"
-                (@overlayAnimation.start)="onAnimationStart($event)"
-                (@overlayAnimation.done)="onAnimationEnd($event)"
-                [attr.data-pc-section]="'panel'"
-            >
-                <ng-container *ngTemplateOutlet="headerTemplate || _headerTemplate"></ng-container>
-                <ng-container *ngIf="contentTemplate || _contentTemplate; else content">
-                    <ng-container *ngTemplateOutlet="contentTemplate || _contentTemplate"></ng-container>
-                </ng-container>
-                <ng-template #content>
-                    <div class="p-password-content">
-                        <div class="p-password-meter" [attr.data-pc-section]="'meter'">
-                            <div [ngClass]="meter | mapper: strengthClass" [ngStyle]="{ width: meter ? meter.width : '' }" [attr.data-pc-section]="'meterLabel'"></div>
-                        </div>
-                        <div class="p-password-meter-text" [attr.data-pc-section]="'info'">{{ infoText }}</div>
+        <div
+            #overlay
+            *ngIf="overlayVisible"
+            [class]="cx('overlay')"
+            (click)="onOverlayClick($event)"
+            [@overlayAnimation]="{
+                value: 'visible',
+                params: { showTransitionParams: showTransitionOptions, hideTransitionParams: hideTransitionOptions }
+            }"
+            (@overlayAnimation.start)="onAnimationStart($event)"
+            (@overlayAnimation.done)="onAnimationEnd($event)"
+            [attr.data-pc-section]="'panel'"
+        >
+            <ng-container *ngTemplateOutlet="headerTemplate || _headerTemplate"></ng-container>
+            <ng-container *ngIf="contentTemplate || _contentTemplate; else content">
+                <ng-container *ngTemplateOutlet="contentTemplate || _contentTemplate"></ng-container>
+            </ng-container>
+            <ng-template #content>
+                <div [class]="cx('content')">
+                    <div [class]="cx('meter')" [attr.data-pc-section]="'meter'">
+                        <div [class]="cx('meterLabel')" [ngStyle]="{ width: meter ? meter.width : '' }" [attr.data-pc-section]="'meterLabel'"></div>
                     </div>
-                </ng-template>
-                <ng-container *ngTemplateOutlet="footerTemplate || _footerTemplate"></ng-container>
-            </div>
+                    <div [class]="cx('meterText')" [attr.data-pc-section]="'info'">{{ infoText }}</div>
+                </div>
+            </ng-template>
+            <ng-container *ngTemplateOutlet="footerTemplate || _footerTemplate"></ng-container>
         </div>
     `,
     animations: [trigger('overlayAnimation', [transition(':enter', [style({ opacity: 0, transform: 'scaleY(0.8)' }), animate('{{showTransitionParams}}')]), transition(':leave', [animate('{{hideTransitionParams}}', style({ opacity: 0 }))])])],
     providers: [Password_VALUE_ACCESSOR, PasswordStyle],
     changeDetection: ChangeDetectionStrategy.OnPush,
-    encapsulation: ViewEncapsulation.None
+    encapsulation: ViewEncapsulation.None,
+    host: {
+        '[class]': "cx('root')",
+        '[style]': "sx('root')",
+        'data-pc-name': 'password',
+        'data-pc-section': 'root'
+    }
 })
 export class Password extends BaseComponent implements OnInit, AfterContentInit {
     /**
@@ -577,14 +573,10 @@ export class Password extends BaseComponent implements OnInit, AfterContentInit 
     @Input() inputStyleClass: string | undefined;
     /**
      * Style class of the element.
+     * @deprecated since v20.0.0, use `class` instead.
      * @group Props
      */
     @Input() styleClass: string | undefined;
-    /**
-     * Inline style of the component.
-     * @group Props
-     */
-    @Input() style: { [klass: string]: any } | null | undefined;
     /**
      * Inline style of the input field.
      * @group Props
@@ -962,22 +954,6 @@ export class Password extends BaseComponent implements OnInit, AfterContentInit 
             this.resizeListener();
             this.resizeListener = null;
         }
-    }
-
-    containerClass(toggleMask: boolean) {
-        return { 'p-password p-component p-inputwrapper': true, 'p-input-icon-right': toggleMask };
-    }
-
-    get rootClass() {
-        return this._componentStyle.classes.root({ instance: this });
-    }
-
-    inputFieldClass(disabled: boolean) {
-        return { 'p-password-input': true, 'p-disabled': disabled };
-    }
-
-    strengthClass(meter: any) {
-        return `p-password-meter-label p-password-meter${meter?.strength ? `-${meter.strength}` : ''}`;
     }
 
     filled() {
