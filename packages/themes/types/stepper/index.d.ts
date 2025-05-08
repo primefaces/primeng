@@ -252,5 +252,11 @@ export interface StepperDesignTokens extends DesignTokens<StepperDesignTokens> {
          * @designToken stepper.steppanel.padding
          */
         padding?: string;
+        /**
+         * Indent of steppanel
+         *
+         * @designToken stepper.steppanel.indent
+         */
+        indent?: string;
     };
 }

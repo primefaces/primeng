@@ -133,7 +133,6 @@ import { MegaMenuStyle } from './style/megamenustyle';
                                 [routerLink]="getItemProp(processedItem, 'routerLink')"
                                 [attr.data-automationid]="getItemProp(processedItem, 'automationId')"
                                 [attr.tabindex]="-1"
-                                [attr.aria-hidden]="true"
                                 [attr.data-pc-section]="'action'"
                                 [queryParams]="getItemProp(processedItem, 'queryParams')"
                                 [routerLinkActive]="'p-megamenu-item-link-active'"
@@ -154,7 +153,6 @@ import { MegaMenuStyle } from './style/megamenustyle';
                                     [ngClass]="getItemProp(processedItem, 'icon')"
                                     [ngStyle]="getItemProp(processedItem, 'iconStyle')"
                                     [attr.data-pc-section]="'icon'"
-                                    [attr.aria-hidden]="true"
                                     [attr.tabindex]="-1"
                                 ></span>
                                 <span class="p-megamenu-item-label" *ngIf="getItemProp(processedItem, 'escape'); else htmlRouteLabel">{{ getItemLabel(processedItem) }}</span>

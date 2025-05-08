@@ -113,6 +113,7 @@ input.p-select-label {
 }
 
 .p-select-overlay {
+    cursor: default;
     background: ${dt('select.overlay.background')};
     color: ${dt('select.overlay.color')};
     border: 1px solid ${dt('select.overlay.border.color')};
@@ -228,7 +229,7 @@ const classes = {
         'p-select p-component p-inputwrapper',
         {
             'p-disabled': instance.disabled,
-            'p-variant-filled': instance.variant ? instance.variant === 'filled' : instance.config.inputStyle() === 'filled',
+            'p-variant-filled': instance.variant === 'filled' || instance.config.inputVariant() === 'filled' || instance.config.inputStyle() === 'filled',
             'p-focus': instance.focused,
             'p-inputwrapper-filled': instance.modelValue() !== undefined && instance.modelValue() !== null,
             'p-inputwrapper-focus': instance.focused || instance.overlayVisible,

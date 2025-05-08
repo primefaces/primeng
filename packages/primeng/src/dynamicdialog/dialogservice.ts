@@ -26,7 +26,7 @@ export class DialogService {
      * @returns {DynamicDialogRef} DynamicDialog instance.
      * @group Method
      */
-    public open<T>(componentType: Type<T>, config: DynamicDialogConfig): DynamicDialogRef<T> {
+    public open<T, DataType = any, InputValuesType extends Record<string, any> = {}>(componentType: Type<T>, config: DynamicDialogConfig<DataType, InputValuesType>): DynamicDialogRef<T> {
         if (!this.duplicationPermission(componentType, config)) {
             return null;
         }
@@ -34,6 +34,7 @@ export class DialogService {
         const dialogRef = this.appendDialogComponentToBody<T>(config, componentType);
 
         this.dialogComponentRefMap.get(dialogRef).instance.childComponentType = componentType;
+        this.dialogComponentRefMap.get(dialogRef).instance.inputValues = config.inputValues;
 
         return dialogRef;
     }
@@ -90,6 +91,7 @@ export class DialogService {
         const dialogComponentRef = this.dialogComponentRefMap.get(dialogRef);
         this.appRef.detachView(dialogComponentRef.hostView);
         dialogComponentRef.destroy();
+        dialogComponentRef.changeDetectorRef.detectChanges();
         this.dialogComponentRefMap.delete(dialogRef);
     }
 

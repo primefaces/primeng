@@ -131,6 +131,28 @@ export interface DatePickerDesignTokens extends DesignTokens<DatePickerDesignTok
          */
         width?: string;
         /**
+         * Sm of dropdown
+         */
+        sm?: {
+            /**
+             * Sm width of dropdown
+             *
+             * @designToken datepicker.dropdown.sm.width
+             */
+            width?: string;
+        };
+        /**
+         * Lg of dropdown
+         */
+        lg?: {
+            /**
+             * Lg width of dropdown
+             *
+             * @designToken datepicker.dropdown.lg.width
+             */
+            width?: string;
+        };
+        /**
          * Border color of dropdown
          *
          * @designToken datepicker.dropdown.border.color
@@ -507,6 +529,12 @@ export interface DatePickerDesignTokens extends DesignTokens<DatePickerDesignTok
      * Used to pass tokens of the year section
      */
     year?: {
+        /**
+         * Padding of year
+         *
+         * @designToken datepicker.year.padding
+         */
+        padding?: string;
         /**
          * Border radius of year
          *

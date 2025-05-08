@@ -27,7 +27,13 @@ const theme = ({ dt }) => `
 .p-iftalabel .p-multiselect-label-container,
 .p-iftalabel .p-autocomplete-input-multiple,
 .p-iftalabel .p-cascadeselect-label,
-.p-iftalabel .p-treeselect-label {
+.p-iftalabel .p-treeselect-label,
+.p-iftalabel .p-datepicker-input,
+.p-iftalabel .p-inputmask,
+.p-iftalabel .p-autocomplete .p-inputtext,
+.p-iftalabel .p-inputnumber .p-inputtext,
+.p-iftalabel .p-password .p-inputtext,
+.p-iftalabel > .p-iconfield .p-inputtext {
     padding-top: ${dt('iftalabel.input.padding.top')};
 }
 

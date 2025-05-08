@@ -78,6 +78,7 @@ export const DATEPICKER_VALUE_ACCESSOR: any = {
                 <input
                     #inputfield
                     pInputText
+                    [pSize]="size"
                     type="text"
                     role="combobox"
                     [attr.id]="inputId"
@@ -181,10 +182,10 @@ export const DATEPICKER_VALUE_ACCESSOR: any = {
                                     (onClick)="onPrevButtonClick($event)"
                                     [ngStyle]="{ visibility: i === 0 ? 'visible' : 'hidden' }"
                                     type="button"
-                                    [attr.aria-label]="prevIconAriaLabel"
+                                    [ariaLabel]="prevIconAriaLabel"
                                 >
                                     <ChevronLeftIcon *ngIf="!previousIconTemplate && !_previousIconTemplate" />
-                                    <span *ngIf="previousIconTemplate || !_previousIconTemplate">
+                                    <span *ngIf="previousIconTemplate || _previousIconTemplate">
                                         <ng-template *ngTemplateOutlet="previousIconTemplate || _previousIconTemplate"></ng-template>
                                     </span>
                                 </p-button>
@@ -214,7 +215,7 @@ export const DATEPICKER_VALUE_ACCESSOR: any = {
                                         {{ getYear(month) }}
                                     </button>
                                     <span class="p-datepicker-decade" *ngIf="currentView === 'year'">
-                                        <ng-container *ngIf="!decadeTemplate && _decadeTemplate">{{ yearPickerValues()[0] }} - {{ yearPickerValues()[yearPickerValues().length - 1] }}</ng-container>
+                                        <ng-container *ngIf="!decadeTemplate && !_decadeTemplate">{{ yearPickerValues()[0] }} - {{ yearPickerValues()[yearPickerValues().length - 1] }}</ng-container>
                                         <ng-container *ngTemplateOutlet="decadeTemplate || _decadeTemplate; context: { $implicit: yearPickerValues }"></ng-container>
                                     </span>
                                 </div>
@@ -226,11 +227,11 @@ export const DATEPICKER_VALUE_ACCESSOR: any = {
                                     styleClass="p-datepicker-next-button p-button-icon-only"
                                     (onClick)="onNextButtonClick($event)"
                                     [ngStyle]="{ visibility: i === months.length - 1 ? 'visible' : 'hidden' }"
-                                    [attr.aria-label]="nextIconAriaLabel"
+                                    [ariaLabel]="nextIconAriaLabel"
                                 >
-                                    <ChevronRightIcon *ngIf="!decadeTemplate && !_decadeTemplate" />
+                                    <ChevronRightIcon *ngIf="!nextIconTemplate && !_nextIconTemplate" />
 
-                                    <span *ngIf="nextIconTemplate || !_nextIconTemplate">
+                                    <span *ngIf="nextIconTemplate || _nextIconTemplate">
                                         <ng-template *ngTemplateOutlet="nextIconTemplate || _nextIconTemplate"></ng-template>
                                     </span>
                                 </p-button>
@@ -588,7 +589,16 @@ export class DatePicker extends BaseComponent implements OnInit, AfterContentIni
      * Format of the date which can also be defined at locale settings.
      * @group Props
      */
-    @Input() dateFormat: string | undefined;
+    @Input()
+    get dateFormat(): string | undefined {
+        return this._dateFormat;
+    }
+    set dateFormat(value: string | undefined) {
+        this._dateFormat = value;
+        if (this.initialized) {
+            this.updateInputfield();
+        }
+    }
     /**
      * Separator for multiple selection mode.
      * @group Props
@@ -660,7 +670,16 @@ export class DatePicker extends BaseComponent implements OnInit, AfterContentIni
      * Specifies 12 or 24 hour format.
      * @group Props
      */
-    @Input() hourFormat: string = '24';
+    @Input()
+    get hourFormat(): string {
+        return this._hourFormat;
+    }
+    set hourFormat(value: string) {
+        this._hourFormat = value;
+        if (this.initialized) {
+            this.updateInputfield();
+        }
+    }
     /**
      * Whether to display timepicker only.
      * @group Props
@@ -1132,6 +1151,10 @@ export class DatePicker extends BaseComponent implements OnInit, AfterContentIni
 
     _maxDate?: Date | null;
 
+    _dateFormat: string | undefined;
+
+    _hourFormat: string = '24';
+
     _showTime!: boolean;
 
     _yearRange!: string;
@@ -1471,8 +1494,8 @@ export class DatePicker extends BaseComponent implements OnInit, AfterContentIni
             let m = month + i;
             let y = year;
             if (m > 11) {
-                m = (m % 11) - 1;
-                y = year + 1;
+                m = m % 12;
+                y = year + Math.floor((month + i) / 12);
             }
 
             this.months.push(this.createMonth(m, y));
@@ -1705,7 +1728,7 @@ export class DatePicker extends BaseComponent implements OnInit, AfterContentIni
             }
         }
 
-        if ((this.isSingleSelection() && this.hideOnDateTimeSelect) || (this.isRangeSelection() && this.value[1])) {
+        if (this.hideOnDateTimeSelect && (this.isSingleSelection() || (this.isRangeSelection() && this.value[1]))) {
             setTimeout(() => {
                 event.preventDefault();
                 this.hideOverlay();
@@ -1981,13 +2004,24 @@ export class DatePicker extends BaseComponent implements OnInit, AfterContentIni
         return this.value != null && typeof this.value !== 'string';
     }
 
-    isMonthSelected(month: number) {
-        if (this.isComparable() && !this.isMultipleSelection()) {
-            const [start, end] = this.isRangeSelection() ? this.value : [this.value, this.value];
-            const selected = new Date(this.currentYear, month, 1);
-            return selected >= start && selected <= (end ?? start);
+    isMonthSelected(month) {
+        if (!this.isComparable()) return false;
+
+        if (this.isMultipleSelection()) {
+            return this.value.some((currentValue) => currentValue.getMonth() === month && currentValue.getFullYear() === this.currentYear);
+        } else if (this.isRangeSelection()) {
+            if (!this.value[1]) {
+                return this.value[0]?.getFullYear() === this.currentYear && this.value[0]?.getMonth() === month;
+            } else {
+                const currentDate = new Date(this.currentYear, month, 1);
+                const startDate = new Date(this.value[0].getFullYear(), this.value[0].getMonth(), 1);
+                const endDate = new Date(this.value[1].getFullYear(), this.value[1].getMonth(), 1);
+
+                return currentDate >= startDate && currentDate <= endDate;
+            }
+        } else {
+            return this.value.getMonth() === month && this.value.getFullYear() === this.currentYear;
         }
-        return false;
     }
 
     isMonthDisabled(month: number, year?: number) {
@@ -2142,6 +2176,10 @@ export class DatePicker extends BaseComponent implements OnInit, AfterContentIni
     }
 
     onButtonClick(event: Event, inputfield: any = this.inputfieldViewChild?.nativeElement) {
+        if (this.disabled) {
+            return;
+        }
+
         if (!this.overlayVisible) {
             inputfield.focus();
             this.showOverlay();
@@ -2151,9 +2189,9 @@ export class DatePicker extends BaseComponent implements OnInit, AfterContentIni
     }
 
     clear() {
-        this.inputFieldValue = null;
         this.value = null;
         this.onModelChange(this.value);
+        this.updateInputfield();
         this.onClear.emit();
     }
 
@@ -2620,9 +2658,9 @@ export class DatePicker extends BaseComponent implements OnInit, AfterContentIni
                     let cells;
 
                     if (this.currentView === 'month') {
-                        cells = find(this.contentViewChild.nativeElement, '.p-monthpicker .p-monthpicker-month:not(.p-disabled)');
+                        cells = find(this.contentViewChild.nativeElement, '.p-datepicker-month-view .p-datepicker-month:not(.p-disabled)');
                     } else if (this.currentView === 'year') {
-                        cells = find(this.contentViewChild.nativeElement, '.p-yearpicker .p-yearpicker-year:not(.p-disabled)');
+                        cells = find(this.contentViewChild.nativeElement, '.p-datepicker-year-view .p-datepicker-year:not(.p-disabled)');
                     } else {
                         cells = find(this.contentViewChild.nativeElement, this._focusKey || '.p-datepicker-calendar td span:not(.p-disabled):not(.p-ink)');
                     }
@@ -2632,9 +2670,9 @@ export class DatePicker extends BaseComponent implements OnInit, AfterContentIni
                     }
                 } else {
                     if (this.currentView === 'month') {
-                        cell = findSingle(this.contentViewChild.nativeElement, '.p-monthpicker .p-monthpicker-month:not(.p-disabled)');
+                        cell = findSingle(this.contentViewChild.nativeElement, '.p-datepicker-month-view .p-datepicker-month:not(.p-disabled)');
                     } else if (this.currentView === 'year') {
-                        cell = findSingle(this.contentViewChild.nativeElement, '.p-yearpicker .p-yearpicker-year:not(.p-disabled)');
+                        cell = findSingle(this.contentViewChild.nativeElement, '.p-datepicker-year-view .p-datepicker-year:not(.p-disabled)');
                     } else {
                         cell = findSingle(this.contentViewChild.nativeElement, this._focusKey || '.p-datepicker-calendar td span:not(.p-disabled):not(.p-ink)');
                     }
@@ -2658,23 +2696,23 @@ export class DatePicker extends BaseComponent implements OnInit, AfterContentIni
         let cell!: any;
 
         if (this.currentView === 'month') {
-            let cells = find(contentEl, '.p-monthpicker .p-monthpicker-month:not(.p-disabled)');
-            let selectedCell = <any>findSingle(contentEl, '.p-monthpicker .p-monthpicker-month.p-highlight');
+            let cells = find(contentEl, '.p-datepicker-month-view .p-datepicker-month:not(.p-disabled)');
+            let selectedCell = <any>findSingle(contentEl, '.p-datepicker-month-view .p-datepicker-month.p-highlight');
             cells.forEach((cell: any) => (cell.tabIndex = -1));
             cell = selectedCell || cells[0];
 
             if (cells.length === 0) {
-                let disabledCells = find(contentEl, '.p-monthpicker .p-monthpicker-month.p-disabled[tabindex = "0"]');
+                let disabledCells = find(contentEl, '.p-datepicker-month-view .p-datepicker-month.p-disabled[tabindex = "0"]');
                 disabledCells.forEach((cell: any) => (cell.tabIndex = -1));
             }
         } else if (this.currentView === 'year') {
-            let cells = find(contentEl, '.p-yearpicker .p-yearpicker-year:not(.p-disabled)');
-            let selectedCell = findSingle(contentEl, '.p-yearpicker .p-yearpicker-year.p-highlight');
+            let cells = find(contentEl, '.p-datepicker-year-view .p-datepicker-year:not(.p-disabled)');
+            let selectedCell = findSingle(contentEl, '.p-datepicker-year-view .p-datepicker-year.p-highlight');
             cells.forEach((cell: any) => (cell.tabIndex = -1));
             cell = selectedCell || cells[0];
 
             if (cells.length === 0) {
-                let disabledCells = find(contentEl, '.p-yearpicker .p-yearpicker-year.p-disabled[tabindex = "0"]');
+                let disabledCells = find(contentEl, '.p-datepicker-year-view .p-datepicker-year.p-disabled[tabindex = "0"]');
                 disabledCells.forEach((cell: any) => (cell.tabIndex = -1));
             }
         } else {

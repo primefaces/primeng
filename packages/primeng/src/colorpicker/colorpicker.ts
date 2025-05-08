@@ -1,6 +1,6 @@
 import { animate, AnimationEvent, style, transition, trigger } from '@angular/animations';
 import { CommonModule, isPlatformBrowser } from '@angular/common';
-import { booleanAttribute, ChangeDetectionStrategy, Component, ElementRef, EventEmitter, forwardRef, inject, Input, NgModule, numberAttribute, OnDestroy, Output, TemplateRef, ViewChild, ViewEncapsulation } from '@angular/core';
+import { AfterViewInit, booleanAttribute, ChangeDetectionStrategy, Component, ElementRef, EventEmitter, forwardRef, inject, Input, NgModule, numberAttribute, OnDestroy, Output, TemplateRef, ViewChild, ViewEncapsulation } from '@angular/core';
 import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
 import { absolutePosition, appendChild, isTouchDevice, relativePosition } from '@primeuix/utils';
 import { OverlayService, SharedModule, TranslationKeys } from 'primeng/api';
@@ -87,7 +87,7 @@ export const COLORPICKER_VALUE_ACCESSOR: any = {
     changeDetection: ChangeDetectionStrategy.OnPush,
     encapsulation: ViewEncapsulation.None
 })
-export class ColorPicker extends BaseComponent implements ControlValueAccessor, OnDestroy {
+export class ColorPicker extends BaseComponent implements ControlValueAccessor, OnDestroy, AfterViewInit {
     /**
      * Inline style of the component.
      * @group Props
@@ -780,6 +780,13 @@ export class ColorPicker extends BaseComponent implements ControlValueAccessor, 
         this.unbindDocumentResizeListener();
         this.unbindDocumentClickListener();
         this.overlay = null;
+    }
+
+    ngAfterViewInit() {
+        if (this.inline) {
+            this.updateColorSelector();
+            this.updateUI();
+        }
     }
 
     ngOnDestroy() {

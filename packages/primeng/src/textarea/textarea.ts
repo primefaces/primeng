@@ -9,7 +9,7 @@ import { TextareaStyle } from './style/textareastyle';
  * @group Components
  */
 @Directive({
-    selector: '[pTextarea]',
+    selector: '[pTextarea], [pInputTextarea]',
     standalone: true,
     host: {
         class: 'p-textarea p-component',
@@ -34,7 +34,7 @@ export class Textarea extends BaseComponent implements OnInit, AfterViewInit, On
      * Specifies the input variant of the component.
      * @group Props
      */
-    @Input() variant: 'filled' | 'outlined' = 'outlined';
+    @Input() variant: 'filled' | 'outlined';
     /**
      * Spans 100% width of the container when enabled.
      * @group Props
@@ -96,6 +96,10 @@ export class Textarea extends BaseComponent implements OnInit, AfterViewInit, On
 
         this.updateFilledState();
         this.cd.detectChanges();
+    }
+
+    ngAfterViewChecked() {
+        if (this.autoResize) this.resize();
     }
 
     @HostListener('input', ['$event'])

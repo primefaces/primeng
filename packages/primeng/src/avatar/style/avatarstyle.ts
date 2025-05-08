@@ -57,6 +57,8 @@ const theme = ({ dt }) => `
 
 .p-avatar-xl .p-avatar-icon {
     font-size: ${dt('avatar.xl.font.size')};
+    width: ${dt('avatar.xl.icon.size')};
+    height: ${dt('avatar.xl.icon.size')};
 }
 
 .p-avatar-group {

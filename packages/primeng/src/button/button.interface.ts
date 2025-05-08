@@ -57,3 +57,5 @@ export interface ButtonProps {
     ariaLabel?: string | undefined;
     autofocus?: boolean | undefined;
 }
+
+export type ButtonSeverity = 'success' | 'info' | 'warn' | 'danger' | 'help' | 'primary' | 'secondary' | 'contrast' | null | undefined;

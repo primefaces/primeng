@@ -4,7 +4,7 @@ import { AutoPlayDoc } from '@/doc/galleria/autoplaydoc';
 import { BasicDoc } from '@/doc/galleria/basicdoc';
 import { CaptionDoc } from '@/doc/galleria/captiondoc';
 import { ControlledDoc } from '@/doc/galleria/controlleddoc';
-import { FullScreenTemplateDoc } from '@/doc/galleria/fullscreen/customcontentdoc';
+import { CustomContentDoc } from '@/doc/galleria/fullscreen/customcontentdoc';
 import { WithoutThumbnailsDoc } from '@/doc/galleria/fullscreen/withoutthumbnailsdoc';
 import { WithThumbnailsDoc } from '@/doc/galleria/fullscreen/withthumbnailsdoc';
 import { GalleriaDocModule } from '@/doc/galleria/galleriadoc.module';
@@ -97,7 +97,7 @@ export class GalleriaDemo {
                 {
                     id: 'customcontent',
                     label: 'Custom Content',
-                    component: FullScreenTemplateDoc
+                    component: CustomContentDoc
                 }
             ]
         },
@@ -142,7 +142,6 @@ export class GalleriaDemo {
             label: 'Advanced',
             component: AdvancedDoc
         },
-
         {
             id: 'accessibility',
             label: 'Accessibility',

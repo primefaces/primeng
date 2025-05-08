@@ -181,7 +181,7 @@ export class MenuItemContent {
                 (keydown)="onListKeyDown($event)"
             >
                 <ng-template ngFor let-submenu let-i="index" [ngForOf]="model" *ngIf="hasSubMenu()">
-                    <li class="p-menu-separator" *ngIf="submenu.separator" [ngClass]="{ 'p-hidden': submenu.visible === false }" role="separator"></li>
+                    <li class="p-menu-separator" *ngIf="submenu.separator && submenu.visible !== false" role="separator"></li>
                     <li
                         class="p-menu-submenu-label"
                         [attr.data-automationid]="submenu.automationId"
@@ -199,14 +199,13 @@ export class MenuItemContent {
                         <ng-container *ngTemplateOutlet="submenuHeaderTemplate ?? _submenuHeaderTemplate; context: { $implicit: submenu }"></ng-container>
                     </li>
                     <ng-template ngFor let-item let-j="index" [ngForOf]="submenu.items">
-                        <li class="p-menu-separator" *ngIf="item.separator" [ngClass]="{ 'p-hidden': item.visible === false || submenu.visible === false }" role="separator"></li>
+                        <li class="p-menu-separator" *ngIf="item.separator && (item.visible !== false || submenu.visible !== false)" role="separator"></li>
                         <li
                             class="p-menu-item"
-                            *ngIf="!item.separator"
+                            *ngIf="!item.separator && item.visible !== false && (item.visible !== undefined || submenu.visible !== false)"
                             [pMenuItemContent]="item"
                             [itemTemplate]="itemTemplate ?? _itemTemplate"
                             [ngClass]="{
-                                'p-hidden': item.visible === false || submenu.visible === false,
                                 'p-focus': focusedOptionId() && menuitemId(item, id, i, j) === focusedOptionId(),
                                 'p-disabled': disabled(item.disabled)
                             }"
@@ -226,14 +225,13 @@ export class MenuItemContent {
                     </ng-template>
                 </ng-template>
                 <ng-template ngFor let-item let-i="index" [ngForOf]="model" *ngIf="!hasSubMenu()">
-                    <li class="p-menu-separator" *ngIf="item.separator" [ngClass]="{ 'p-hidden': item.visible === false }" role="separator"></li>
+                    <li class="p-menu-separator" *ngIf="item.separator && item.visible !== false" role="separator"></li>
                     <li
                         class="p-menu-item"
-                        *ngIf="!item.separator"
+                        *ngIf="!item.separator && item.visible !== false"
                         [pMenuItemContent]="item"
                         [itemTemplate]="itemTemplate ?? _itemTemplate"
                         [ngClass]="{
-                            'p-hidden': item.visible === false,
                             'p-focus': focusedOptionId() && menuitemId(item, id, i) === focusedOptionId(),
                             'p-disabled': disabled(item.disabled)
                         }"
@@ -805,6 +803,7 @@ export class Menu extends BaseComponent implements AfterContentInit, OnDestroy {
     unbindScrollListener() {
         if (this.scrollHandler) {
             this.scrollHandler.unbindScrollListener();
+            this.scrollHandler = null;
         }
     }
 
@@ -841,14 +840,7 @@ export class Menu extends BaseComponent implements AfterContentInit, OnDestroy {
     }
 
     hasSubMenu(): boolean {
-        if (this.model) {
-            for (var item of this.model) {
-                if (item.items) {
-                    return true;
-                }
-            }
-        }
-        return false;
+        return this.model?.some((item) => item.items) ?? false;
     }
 
     isItemHidden(item: any): boolean {

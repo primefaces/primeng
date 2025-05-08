@@ -1,5 +1,6 @@
 import { CommonModule } from '@angular/common';
 import { ChangeDetectionStrategy, Component, Input, NgModule, ViewEncapsulation } from '@angular/core';
+import { AnimateOnScrollModule } from 'primeng/animateonscroll';
 import { SharedModule } from 'primeng/api';
 
 @Component({
@@ -7,7 +8,7 @@ import { SharedModule } from 'primeng/api';
     standalone: false,
     template: `
         <div class="px-6 py-6 sm:px-10 sm:py-5 lg:py-20 lg:px-8 rounded-3xl bg-surface-0 dark:bg-surface-900">
-            <div class="p-6 md:p-8 rounded-2xl lg:rounded-3xl border border-surface max-w-3xl w-full mx-auto animate-duration-500">
+            <div pAnimateOnScroll enterClass="animate-fadein" class="p-6 md:p-8 rounded-2xl lg:rounded-3xl border border-surface max-w-3xl w-full mx-auto animate-duration-500">
                 <div class="rounded-lg lg:rounded-xl border border-surface overflow-hidden">
                     <div class="py-1 px-6 h-14 flex items-center gap-2">
                         <div class="w-3 h-3 rounded-full" [style.backgroundColor]="'#ED6B5D'"></div>
@@ -16,8 +17,8 @@ import { SharedModule } from 'primeng/api';
                     </div>
                     <div class="p-6 bg-surface-900 dark:bg-surface-800 flex flex-col gap-4 relative">
                         <p class="m-0 text-surface-0 text-xs sm:text-sm">&gt; npm install -g angular-cli</p>
-                        <p class="m-0 text-surface-0 text-xs sm:text-sm">&gt; ng new my-apollo-app</p>
-                        <p class="m-0 text-surface-0 text-xs sm:text-sm">&gt; cd my-apollo-app</p>
+                        <p class="m-0 text-surface-0 text-xs sm:text-sm">&gt; cd {{ appName }}-ng</p>
+                        <p class="m-0 text-surface-0 text-xs sm:text-sm">&gt; npm install</p>
                         <p class="m-0 text-surface-0 text-xs sm:text-sm">&gt; ng serve</p>
                         <img class="w-28 lg:w-32 h-28 lg:h-32 absolute right-6 bottom-4" src="https://primefaces.org/cdn/primeng/images/templates/angular-3d-logo.png" alt="Angular 3D Logo" />
                     </div>
@@ -33,10 +34,11 @@ import { SharedModule } from 'primeng/api';
 export class TemplateConfiguration {
     @Input() title;
     @Input() description;
+    @Input() appName;
 }
 
 @NgModule({
-    imports: [CommonModule, SharedModule],
+    imports: [CommonModule, SharedModule, AnimateOnScrollModule],
     exports: [TemplateConfiguration, SharedModule],
     declarations: [TemplateConfiguration]
 })

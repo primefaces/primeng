@@ -180,7 +180,7 @@ export class InputMask extends BaseComponent implements OnInit, AfterContentInit
      * Specifies the input variant of the component.
      * @group Props
      */
-    @Input() variant: 'filled' | 'outlined' = 'outlined';
+    @Input() variant: 'filled' | 'outlined';
     /**
      * Used to define a string that labels the input element.
      * @group Props
@@ -845,6 +845,7 @@ export class InputMask extends BaseComponent implements OnInit, AfterContentInit
 
     updateFilledState() {
         this.filled = this.inputViewChild?.nativeElement && this.inputViewChild.nativeElement.value != '';
+        this.cd.markForCheck();
     }
 
     focus() {

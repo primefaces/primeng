@@ -39,11 +39,28 @@ export interface AvatarDesignTokens extends DesignTokens<AvatarDesignTokens> {
          */
         background?: string;
         /**
+         * Color of root
+         *
+         * @designToken avatar.color
+         */
+        color?: string;
+        /**
          * Border radius of root
          *
          * @designToken avatar.border.radius
          */
         borderRadius?: string;
+    };
+    /**
+     * Used to pass tokens of the icon section
+     */
+    icon?: {
+        /**
+         * Size of icon
+         *
+         * @designToken avatar.icon.size
+         */
+        size?: string;
     };
     /**
      * Used to pass tokens of the group section
@@ -84,6 +101,28 @@ export interface AvatarDesignTokens extends DesignTokens<AvatarDesignTokens> {
          * @designToken avatar.lg.font.size
          */
         fontSize?: string;
+        /**
+         * Icon of lg
+         */
+        icon?: {
+            /**
+             * Icon size of lg
+             *
+             * @designToken avatar.lg.icon.size
+             */
+            size?: string;
+        };
+        /**
+         * Group of lg
+         */
+        group?: {
+            /**
+             * Group offset of lg
+             *
+             * @designToken avatar.lg.group.offset
+             */
+            offset?: string;
+        };
     };
     /**
      * Used to pass tokens of the xl section
@@ -107,5 +146,27 @@ export interface AvatarDesignTokens extends DesignTokens<AvatarDesignTokens> {
          * @designToken avatar.xl.font.size
          */
         fontSize?: string;
+        /**
+         * Icon of xl
+         */
+        icon?: {
+            /**
+             * Icon size of xl
+             *
+             * @designToken avatar.xl.icon.size
+             */
+            size?: string;
+        };
+        /**
+         * Group of xl
+         */
+        group?: {
+            /**
+             * Group offset of xl
+             *
+             * @designToken avatar.xl.group.offset
+             */
+            offset?: string;
+        };
     };
 }

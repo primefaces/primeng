@@ -39,7 +39,7 @@ export const SELECTBUTTON_VALUE_ACCESSOR: any = {
     standalone: true,
     imports: [ToggleButton, FormsModule, CommonModule, SharedModule],
     template: `
-        @for (option of options; track option; let i = $index) {
+        @for (option of options; track getOptionLabel(option); let i = $index) {
             <p-toggleButton
                 [autofocus]="autofocus"
                 [styleClass]="styleClass"
@@ -48,7 +48,7 @@ export const SELECTBUTTON_VALUE_ACCESSOR: any = {
                 [offLabel]="this.getOptionLabel(option)"
                 [disabled]="disabled || isOptionDisabled(option)"
                 (onChange)="onOptionSelect($event, option, i)"
-                [allowEmpty]="allowEmpty"
+                [allowEmpty]="getAllowEmpty()"
                 [size]="size"
             >
                 @if (itemTemplate || _itemTemplate) {
@@ -66,7 +66,7 @@ export const SELECTBUTTON_VALUE_ACCESSOR: any = {
         '[class.p-selectbutton]': 'true',
         '[class.p-component]': 'true',
         '[style]': 'style',
-        '[attr.role]': 'group',
+        '[attr.role]': '"group"',
         '[attr.aria-labelledby]': 'ariaLabelledBy',
         '[attr.data-pc-section]': "'root'",
         '[attr.data-pc-name]': "'selectbutton'"
@@ -97,7 +97,17 @@ export class SelectButton extends BaseComponent implements AfterContentInit, Con
      * Whether selection can be cleared.
      * @group Props
      */
-    @Input({ transform: booleanAttribute }) unselectable: boolean = false;
+    get unselectable(): boolean {
+        return this._unselectable;
+    }
+    private _unselectable: boolean = false;
+
+    @Input({ transform: booleanAttribute })
+    set unselectable(value: boolean) {
+        this._unselectable = value;
+        this.allowEmpty = !value;
+    }
+
     /**
      * Index of the element in tabbing order.
      * @group Props
@@ -181,6 +191,10 @@ export class SelectButton extends BaseComponent implements AfterContentInit, Con
     focusedIndex: number = 0;
 
     _componentStyle = inject(SelectButtonStyle);
+
+    getAllowEmpty() {
+        return this.allowEmpty || this.value?.length !== 1;
+    }
 
     getOptionLabel(option: any) {
         return this.optionLabel ? resolveFieldData(option, this.optionLabel) : option.label != undefined ? option.label : option;

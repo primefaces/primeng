@@ -358,6 +358,8 @@ export class Drawer extends BaseComponent implements AfterViewInit, AfterContent
     }
 
     show() {
+        this.container.setAttribute(this.attrSelector, '');
+
         if (this.autoZIndex) {
             ZIndexUtils.set('modal', this.container, this.baseZIndex || this.config.zIndex.modal);
         }
@@ -389,8 +391,7 @@ export class Drawer extends BaseComponent implements AfterViewInit, AfterContent
     enableModality() {
         const activeDrawers = this.document.querySelectorAll('.p-drawer-active');
         const activeDrawersLength = activeDrawers.length;
-        const zIndex = activeDrawersLength == 1 ? String(parseInt((this.container as HTMLDivElement).style.zIndex) - 1) : String(parseInt((activeDrawers[0] as HTMLElement).style.zIndex) - 1);
-        this.container.setAttribute(this.attrSelector, '');
+        const zIndex = activeDrawersLength == 1 ? String(parseInt((this.container as HTMLDivElement).style.zIndex) - 1) : String(parseInt((activeDrawers[activeDrawersLength - 1] as HTMLElement).style.zIndex) - 1);
 
         if (!this.mask) {
             this.mask = this.renderer.createElement('div');

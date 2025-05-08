@@ -6,8 +6,6 @@ const theme = ({ dt }) => `
     display: inline-flex;
     cursor: pointer;
     user-select: none;
-    align-items: center;
-    justify-content: center;
     overflow: hidden;
     position: relative;
     color: ${dt('togglebutton.color')};
@@ -25,35 +23,16 @@ const theme = ({ dt }) => `
 }
 
 .p-togglebutton-content {
-    position: relative;
     display: inline-flex;
+    flex: 1 1 auto;
     align-items: center;
     justify-content: center;
     gap: ${dt('togglebutton.gap')};
-}
-
-.p-togglebutton-label,
-.p-togglebutton-icon {
-    position: relative;
-    transition: none;
-}
-
-.p-togglebutton::before {
-    content: "";
+    padding: ${dt('togglebutton.content.padding')};
     background: transparent;
+    border-radius: ${dt('togglebutton.content.border.radius')};
     transition: background ${dt('togglebutton.transition.duration')}, color ${dt('togglebutton.transition.duration')}, border-color ${dt('togglebutton.transition.duration')},
             outline-color ${dt('togglebutton.transition.duration')}, box-shadow ${dt('togglebutton.transition.duration')};
-    position: absolute;
-    inset-inline-start: ${dt('togglebutton.content.left')};
-    top: ${dt('togglebutton.content.top')};
-    width: calc(100% - calc(2 *  ${dt('togglebutton.content.left')}));
-    height: calc(100% - calc(2 *  ${dt('togglebutton.content.top')}));
-    border-radius: ${dt('togglebutton.border.radius')};
-}
-
-.p-togglebutton.p-togglebutton-checked::before {
-    background: ${dt('togglebutton.content.checked.background')};
-    box-shadow: ${dt('togglebutton.content.checked.shadow')};
 }
 
 .p-togglebutton:not(:disabled):not(.p-togglebutton-checked):hover {
@@ -67,6 +46,11 @@ const theme = ({ dt }) => `
     color: ${dt('togglebutton.checked.color')};
 }
 
+.p-togglebutton-checked .p-togglebutton-content {
+    background: ${dt('togglebutton.content.checked.background')};
+    box-shadow: ${dt('togglebutton.content.checked.shadow')};
+}
+
 .p-togglebutton:focus-visible {
     box-shadow: ${dt('togglebutton.focus.ring.shadow')};
     outline: ${dt('togglebutton.focus.ring.width')} ${dt('togglebutton.focus.ring.style')} ${dt('togglebutton.focus.ring.color')};
@@ -77,12 +61,18 @@ const theme = ({ dt }) => `
     border-color: ${dt('togglebutton.invalid.border.color')};
 }
 
-.p-togglebutton:disabled {
+.p-togglebutton:disabled:not(.p-togglebutton-checked) {
     opacity: 1;
     cursor: default;
     background: ${dt('togglebutton.disabled.background')};
     border-color: ${dt('togglebutton.disabled.border.color')};
     color: ${dt('togglebutton.disabled.color')};
+}
+
+.p-togglebutton-label,
+.p-togglebutton-icon {
+    position: relative;
+    transition: none;
 }
 
 .p-togglebutton-icon {
@@ -106,18 +96,25 @@ const theme = ({ dt }) => `
     font-size: ${dt('togglebutton.sm.font.size')};
 }
 
+.p-togglebutton-sm .p-togglebutton-content {
+    padding: ${dt('togglebutton.content.sm.padding')};
+}
+
 .p-togglebutton-lg {
     padding: ${dt('togglebutton.lg.padding')};
     font-size: ${dt('togglebutton.lg.font.size')};
 }
 
-/* For PrimeNG (iconPos) */
+.p-togglebutton-lg .p-togglebutton-content {
+    padding: ${dt('togglebutton.content.lg.padding')};
+}
 
+/* For PrimeNG (iconPos) */
 .p-togglebutton-icon-right {
     order: 1;
 }
 
-p-togglebutton.ng-invalid.ng-dirty > .p-togglebutton {
+.p-togglebutton.ng-invalid.ng-dirty {
     border-color: ${dt('togglebutton.invalid.border.color')};
 }
 `;

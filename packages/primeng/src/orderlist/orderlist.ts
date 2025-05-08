@@ -24,7 +24,7 @@ import { find, findIndexInList, findSingle, hasClass, insertIntoOrderedArray, is
 import { FilterService, PrimeTemplate, SharedModule } from 'primeng/api';
 import { BaseComponent } from 'primeng/basecomponent';
 import { ButtonDirective, ButtonProps } from 'primeng/button';
-import { AngleDoubleDownIcon, AngleDoubleUpIcon, AngleDownIcon, AngleUpIcon, SearchIcon } from 'primeng/icons';
+import { AngleDoubleDownIcon, AngleDoubleUpIcon, AngleDownIcon, AngleUpIcon } from 'primeng/icons';
 import { Listbox } from 'primeng/listbox';
 import { Ripple } from 'primeng/ripple';
 import { Nullable } from 'primeng/ts-helpers';
@@ -102,6 +102,8 @@ import { OrderListStyle } from './style/orderliststyle';
                     [filterBy]="filterBy"
                     [filterLocale]="filterLocale"
                     [filterPlaceHolder]="filterPlaceholder"
+                    [dragdrop]="dragdrop"
+                    (onDrop)="onDrop($event)"
                 >
                     <ng-container *ngIf="headerTemplate || _headerTemplate">
                         <ng-template #header>
@@ -111,6 +113,16 @@ import { OrderListStyle } from './style/orderliststyle';
                     <ng-container *ngIf="itemTemplate || _itemTemplate">
                         <ng-template #item let-option let-selected="selected" let-index="index">
                             <ng-template *ngTemplateOutlet="itemTemplate || _itemTemplate; context: { $implicit: option, selected: selected, index: index }"></ng-template>
+                        </ng-template>
+                    </ng-container>
+                    <ng-container *ngIf="emptyMessageTemplate || _emptyMessageTemplate">
+                        <ng-template #empty>
+                            <ng-template *ngTemplateOutlet="emptyMessageTemplate || _emptyMessageTemplate"></ng-template>
+                        </ng-template>
+                    </ng-container>
+                    <ng-container *ngIf="emptyFilterMessageTemplate || _emptyFilterMessageTemplate">
+                        <ng-template #emptyfilter>
+                            <ng-template *ngTemplateOutlet="emptyFilterMessageTemplate || _emptyFilterMessageTemplate"></ng-template>
                         </ng-template>
                     </ng-container>
                 </p-listbox>

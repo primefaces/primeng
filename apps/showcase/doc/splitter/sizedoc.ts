@@ -10,10 +10,10 @@ import { Component } from '@angular/core';
         </app-docsectiontext>
         <div class="card">
             <p-splitter [panelSizes]="[25, 75]" [style]="{ height: '300px' }" styleClass="mb-8">
-                <ng-template pTemplate>
+                <ng-template #panel>
                     <div class="flex items-center justify-center h-full">Panel 1</div>
                 </ng-template>
-                <ng-template pTemplate>
+                <ng-template #panel>
                     <div class="flex items-center justify-center h-full">Panel 2</div>
                 </ng-template>
             </p-splitter>
@@ -24,20 +24,20 @@ import { Component } from '@angular/core';
 export class SizeDoc {
     code: Code = {
         basic: `<p-splitter [panelSizes]="[25, 75]" [style]="{ height: '300px' }" styleClass="mb-8">
-    <ng-template pTemplate>
+    <ng-template #panel>
         <div class="flex items-center justify-center h-full">Panel 1</div>
     </ng-template>
-    <ng-template pTemplate>
+    <ng-template #panel>
         <div class="flex items-center justify-center h-full">Panel 2</div>
     </ng-template>
 </p-splitter>`,
 
         html: `<div class="card">
     <p-splitter [panelSizes]="[25, 75]" [style]="{ height: '300px' }" styleClass="mb-8">
-        <ng-template pTemplate>
+        <ng-template #panel>
             <div class="flex items-center justify-center h-full">Panel 1</div>
         </ng-template>
-        <ng-template pTemplate>
+        <ng-template #panel>
             <div class="flex items-center justify-center h-full">Panel 2</div>
         </ng-template>
     </p-splitter>

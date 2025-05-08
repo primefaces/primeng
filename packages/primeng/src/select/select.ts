@@ -177,9 +177,9 @@ export class SelectItem extends BaseComponent {
             [attr.required]="required"
         >
             <ng-container *ngIf="!selectedItemTemplate && !_selectedItemTemplate; else defaultPlaceholder">{{ label() === 'p-emptylabel' ? '&nbsp;' : label() }}</ng-container>
-            <ng-container *ngIf="(selectedItemTemplate || _selectedItemTemplate) && selectedOption" [ngTemplateOutlet]="selectedItemTemplate || _selectedItemTemplate" [ngTemplateOutletContext]="{ $implicit: selectedOption }"></ng-container>
+            <ng-container *ngIf="(selectedItemTemplate || _selectedItemTemplate) && !isSelectedOptionEmpty()" [ngTemplateOutlet]="selectedItemTemplate || _selectedItemTemplate" [ngTemplateOutletContext]="{ $implicit: selectedOption }"></ng-container>
             <ng-template #defaultPlaceholder>
-                <span *ngIf="!selectedOption">{{ label() === 'p-emptylabel' ? '&nbsp;' : label() }}</span>
+                <span *ngIf="isSelectedOptionEmpty()">{{ label() === 'p-emptylabel' ? '&nbsp;' : label() }}</span>
             </ng-template>
         </span>
         <input
@@ -473,7 +473,7 @@ export class Select extends BaseComponent implements OnInit, AfterViewInit, Afte
      * Specifies the input variant of the component.
      * @group Props
      */
-    @Input() variant: 'filled' | 'outlined' = 'outlined';
+    @Input() variant: 'filled' | 'outlined';
     /**
      * Identifier of the accessible input element.
      * @group Props
@@ -1302,7 +1302,7 @@ export class Select extends BaseComponent implements OnInit, AfterViewInit, Afte
         }
 
         if (this.selectedOptionUpdated && this.itemsWrapper) {
-            let selectedItem = <any>findSingle(this.overlayViewChild?.overlayViewChild?.nativeElement, 'li.p-highlight');
+            let selectedItem = <any>findSingle(this.overlayViewChild?.overlayViewChild?.nativeElement, 'li.p-select-option-selected');
             if (selectedItem) {
                 scrollInView(this.itemsWrapper, selectedItem);
             }
@@ -1377,14 +1377,15 @@ export class Select extends BaseComponent implements OnInit, AfterViewInit, Afte
     }
 
     isSelected(option) {
-        return this.isValidOption(option) && this.isOptionValueEqualsModelValue(option);
+        return this.isOptionValueEqualsModelValue(option);
     }
 
     private isOptionValueEqualsModelValue(option: any) {
-        return equals(this.modelValue(), this.getOptionValue(option), this.equalityKey());
+        return this.isValidOption(option) && equals(this.modelValue(), this.getOptionValue(option), this.equalityKey());
     }
 
     ngAfterViewInit() {
+        super.ngAfterViewInit();
         if (this.editable) {
             this.updateEditableLabel();
         }
@@ -1424,6 +1425,10 @@ export class Select extends BaseComponent implements OnInit, AfterViewInit, Afte
 
     getOptionValue(option: any) {
         return this.optionValue && this.optionValue !== null ? resolveFieldData(option, this.optionValue) : !this.optionLabel && option && option.value !== undefined ? option.value : option;
+    }
+
+    isSelectedOptionEmpty() {
+        return isEmpty(this.selectedOption);
     }
 
     isOptionDisabled(option: any) {
@@ -1535,7 +1540,7 @@ export class Select extends BaseComponent implements OnInit, AfterViewInit, Afte
 
     onOverlayAnimationStart(event: AnimationEvent) {
         if (event.toState === 'visible') {
-            this.itemsWrapper = <any>findSingle(this.overlayViewChild?.overlayViewChild?.nativeElement, this.virtualScroll ? '.p-scroller' : '.p-dropdown-items-wrapper');
+            this.itemsWrapper = <any>findSingle(this.overlayViewChild?.overlayViewChild?.nativeElement, this.virtualScroll ? '.p-scroller' : '.p-select-list-container');
             this.virtualScroll && this.scroller?.setContentEl(this.itemsViewChild?.nativeElement);
 
             if (this.options && this.options.length) {
@@ -1545,8 +1550,7 @@ export class Select extends BaseComponent implements OnInit, AfterViewInit, Afte
                         this.scroller?.scrollToIndex(selectedIndex);
                     }
                 } else {
-                    let selectedListItem = findSingle(this.itemsWrapper, '.p-dropdown-item.p-highlight');
-
+                    let selectedListItem = findSingle(this.itemsWrapper, '.p-select-option.p-select-option-selected');
                     if (selectedListItem) {
                         selectedListItem.scrollIntoView({ block: 'nearest', inline: 'nearest' });
                     }
@@ -1956,6 +1960,7 @@ export class Select extends BaseComponent implements OnInit, AfterViewInit, Afte
     onEscapeKey(event: KeyboardEvent) {
         this.overlayVisible && this.hide(true);
         event.preventDefault();
+        event.stopPropagation();
     }
 
     onTabKey(event, pressedInInputText = false) {
@@ -2006,19 +2011,7 @@ export class Select extends BaseComponent implements OnInit, AfterViewInit, Afte
         let optionIndex = -1;
         let matched = false;
 
-        if (this.focusedOptionIndex() !== -1) {
-            optionIndex = this.visibleOptions()
-                .slice(this.focusedOptionIndex())
-                .findIndex((option) => this.isOptionMatched(option));
-            optionIndex =
-                optionIndex === -1
-                    ? this.visibleOptions()
-                          .slice(0, this.focusedOptionIndex())
-                          .findIndex((option) => this.isOptionMatched(option))
-                    : optionIndex + this.focusedOptionIndex();
-        } else {
-            optionIndex = this.visibleOptions().findIndex((option) => this.isOptionMatched(option));
-        }
+        optionIndex = this.visibleOptions().findIndex((option) => this.isOptionMatched(option));
 
         if (optionIndex !== -1) {
             matched = true;
@@ -2029,7 +2022,9 @@ export class Select extends BaseComponent implements OnInit, AfterViewInit, Afte
         }
 
         if (optionIndex !== -1) {
-            this.changeFocusedOptionIndex(event, optionIndex);
+            setTimeout(() => {
+                this.changeFocusedOptionIndex(event, optionIndex);
+            });
         }
 
         if (this.searchTimeout) {

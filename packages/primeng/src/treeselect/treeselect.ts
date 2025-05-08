@@ -149,6 +149,7 @@ export const TREESELECT_VALUE_ACCESSOR: any = {
                                 [virtualScrollOptions]="virtualScrollOptions"
                                 [_templateMap]="templateMap"
                                 [loading]="loading"
+                                [filterInputAutoFocus]="filterInputAutoFocus"
                             >
                                 <ng-container *ngIf="emptyTemplate || _emptyTemplate">
                                     <ng-template #empty>
@@ -210,7 +211,7 @@ export class TreeSelect extends BaseComponent implements AfterContentInit {
      * Specifies the input variant of the component.
      * @group Props
      */
-    @Input() variant: 'filled' | 'outlined' = 'outlined';
+    @Input() variant: 'filled' | 'outlined';
     /**
      * Defines how the selected items are displayed.
      * @group Props

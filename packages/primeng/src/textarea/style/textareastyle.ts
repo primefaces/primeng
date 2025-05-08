@@ -20,8 +20,8 @@ const theme = ({ dt }) => `
 }
 
 .p-textarea.ng-invalid.ng-dirty {
-    border-color: ${dt('textarea.invalid.border.color')}
-};
+    border-color: ${dt('textarea.invalid.border.color')};
+}
 
 .p-textarea:enabled:hover {
     border-color: ${dt('textarea.hover.border.color')};
@@ -40,6 +40,10 @@ const theme = ({ dt }) => `
 
 .p-textarea.p-variant-filled {
     background: ${dt('textarea.filled.background')};
+}
+
+.p-textarea.p-variant-filled:enabled:hover {
+    background: ${dt('textarea.filled.hover.background')};
 }
 
 .p-textarea.p-variant-filled:enabled:focus {

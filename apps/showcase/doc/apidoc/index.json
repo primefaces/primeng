@@ -63,21 +63,21 @@
                             "name": "headerStyle",
                             "optional": false,
                             "readonly": false,
-                            "type": "Object",
+                            "type": "(klass: string) => any",
                             "description": "Inline style of the tab header."
                         },
                         {
                             "name": "tabStyle",
                             "optional": false,
                             "readonly": false,
-                            "type": "Object",
+                            "type": "(klass: string) => any",
                             "description": "Inline style of the tab."
                         },
                         {
                             "name": "contentStyle",
                             "optional": false,
                             "readonly": false,
-                            "type": "Object",
+                            "type": "(klass: string) => any",
                             "description": "Inline style of the tab content."
                         },
                         {
@@ -171,12 +171,6 @@
                         {
                             "name": "header",
                             "description": "Content template for the content of the drawer.",
-                            "type": "TemplateRef<any>",
-                            "parameters": []
-                        },
-                        {
-                            "name": "footer",
-                            "description": "Header template for the header of the drawer.",
                             "type": "TemplateRef<any>",
                             "parameters": []
                         },
@@ -10201,7 +10195,6 @@
                             "optional": false,
                             "readonly": false,
                             "type": "string",
-                            "default": "24",
                             "description": "Specifies 12 or 24 hour format."
                         },
                         {
@@ -13362,7 +13355,7 @@
                             "optional": true,
                             "readonly": false,
                             "type": "Object",
-                            "description": "Inline style of the comopnent."
+                            "description": "Inline style of the component."
                         },
                         {
                             "name": "contentStyle",
@@ -20446,7 +20439,7 @@
                             "optional": false,
                             "readonly": false,
                             "type": "number",
-                            "description": "Decides how many selected item labels to show at most."
+                            "description": "Maximum number of selectable items."
                         },
                         {
                             "name": "selectedItemsLabel",
@@ -20812,6 +20805,14 @@
                             "type": "boolean",
                             "default": "false",
                             "description": "Whether to focus on the first visible or selected element when the overlay panel is shown."
+                        },
+                        {
+                            "name": "highlightOnSelect",
+                            "optional": false,
+                            "readonly": false,
+                            "type": "boolean",
+                            "default": "false",
+                            "description": "Whether the selected option will be add highlight class."
                         }
                     ]
                 },
@@ -23308,8 +23309,7 @@
                             "readonly": false,
                             "type": "boolean",
                             "default": "true",
-                            "description": "Specifies if header of panel cannot be displayed.",
-                            "deprecated": "since v15.4.2, use "
+                            "description": "Specifies if header of panel cannot be displayed."
                         },
                         {
                             "name": "toggler",
@@ -28876,6 +28876,7 @@
                             "optional": false,
                             "readonly": false,
                             "type": "boolean",
+                            "default": "false",
                             "description": "When present, it specifies that the menu button element should be disabled."
                         },
                         {
@@ -28883,6 +28884,7 @@
                             "optional": false,
                             "readonly": false,
                             "type": "boolean",
+                            "default": "false",
                             "description": "When present, it specifies that the button element should be disabled."
                         }
                     ]
@@ -31772,7 +31774,7 @@
                     },
                     {
                         "parent": "table",
-                        "name": "rowexpansion",
+                        "name": "expandedrow",
                         "parameters": [
                             {
                                 "name": "context",
@@ -31838,7 +31840,7 @@
                     },
                     {
                         "parent": "table",
-                        "name": "frozenrowexpansion",
+                        "name": "frozenexpandedrow",
                         "parameters": [
                             {
                                 "name": "context",
@@ -32217,6 +32219,10 @@
                     {
                         "class": "p-tablist-active-bar",
                         "description": "Class name of the inkbar element"
+                    },
+                    {
+                        "class": "p-tab-active",
+                        "description": "Class name of the active tab element"
                     },
                     {
                         "class": "p-tablist-nav-button",
@@ -32673,7 +32679,7 @@
                             "name": "severity",
                             "optional": false,
                             "readonly": false,
-                            "type": "\"info\" | \"success\" | \"warn\" | \"danger\" | \"secondary\" | \"contrast\"",
+                            "type": "string",
                             "description": "Severity type of the tag."
                         },
                         {
@@ -34573,6 +34579,16 @@
                             "description": "Callback to invoke when a node is selected with right click."
                         },
                         {
+                            "name": "onNodeDoubleClick",
+                            "parameters": [
+                                {
+                                    "name": "event",
+                                    "type": "TreeNodeDoubleClickEvent"
+                                }
+                            ],
+                            "description": "Callback to invoke when a node is double clicked."
+                        },
+                        {
                             "name": "onNodeDrop",
                             "parameters": [
                                 {
@@ -34867,6 +34883,26 @@
                     {
                         "name": "TreeNodeContextMenuSelectEvent",
                         "description": "Custom context menu select event.",
+                        "props": [
+                            {
+                                "name": "originalEvent",
+                                "optional": false,
+                                "readonly": false,
+                                "type": "Event",
+                                "description": "Browser event"
+                            },
+                            {
+                                "name": "node",
+                                "optional": false,
+                                "readonly": false,
+                                "type": "TreeNode<any>",
+                                "description": "Node instance."
+                            }
+                        ]
+                    },
+                    {
+                        "name": "TreeNodeDoubleClickEvent",
+                        "description": "Custom node double click event.",
                         "props": [
                             {
                                 "name": "originalEvent",

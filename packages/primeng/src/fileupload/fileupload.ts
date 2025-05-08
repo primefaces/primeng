@@ -68,7 +68,6 @@ import { FileUploadStyle } from './style/fileuploadstyle';
                         (blur)="onBlur()"
                         (onClick)="choose()"
                         (keydown.enter)="choose()"
-                        tabindex="0"
                         [attr.data-pc-section]="'choosebutton'"
                         [buttonProps]="chooseButtonProps"
                     >
@@ -192,7 +191,6 @@ import { FileUploadStyle } from './style/fileuploadstyle';
                 [style]="style"
                 (onClick)="onBasicUploaderClick()"
                 (keydown)="onBasicKeydown($event)"
-                tabindex="0"
                 [buttonProps]="chooseButtonProps"
             >
                 <ng-template #icon>
@@ -918,6 +916,7 @@ export class FileUpload extends BaseComponent implements AfterViewInit, AfterCon
         this.uploadedFileCount = 0;
         this.onClear.emit();
         this.clearInputElement();
+        this.msgs = [];
         this.cd.markForCheck();
     }
     /**
@@ -964,13 +963,16 @@ export class FileUpload extends BaseComponent implements AfterViewInit, AfterCon
 
     checkFileLimit(files: File[]) {
         this.msgs ??= [];
-        const hasExistingValidationMessages = this.msgs.length > 0 && this.fileLimit < files.length;
+        const hasExistingValidationMessages = this.msgs.length > 0 && this.fileLimit && this.fileLimit < files.length;
+
         if (this.isFileLimitExceeded() || hasExistingValidationMessages) {
             const text = `${this.invalidFileLimitMessageSummary.replace('{0}', (this.fileLimit as number).toString())} ${this.invalidFileLimitMessageDetail.replace('{0}', (this.fileLimit as number).toString())}`;
             this.msgs.push({
                 severity: 'error',
                 text: text
             });
+        } else {
+            this.msgs = this.msgs.filter((msg) => !msg.text.includes(this.invalidFileLimitMessageSummary));
         }
     }
 

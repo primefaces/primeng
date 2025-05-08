@@ -104,6 +104,40 @@ export interface ToggleButtonDesignTokens extends DesignTokens<ToggleButtonDesig
          */
         transitionDuration?: string;
         /**
+         * Sm of root
+         */
+        sm?: {
+            /**
+             * Sm font size of root
+             *
+             * @designToken togglebutton.sm.font.size
+             */
+            fontSize?: string;
+            /**
+             * Sm padding of root
+             *
+             * @designToken togglebutton.sm.padding
+             */
+            padding?: string;
+        };
+        /**
+         * Lg of root
+         */
+        lg?: {
+            /**
+             * Lg font size of root
+             *
+             * @designToken togglebutton.lg.font.size
+             */
+            fontSize?: string;
+            /**
+             * Lg padding of root
+             *
+             * @designToken togglebutton.lg.padding
+             */
+            padding?: string;
+        };
+        /**
          * Background of root
          *
          * @designToken togglebutton.background
@@ -186,17 +220,17 @@ export interface ToggleButtonDesignTokens extends DesignTokens<ToggleButtonDesig
      */
     content?: {
         /**
-         * Left of content
+         * Padding of the content
          *
-         * @designToken togglebutton.content.left
+         * @designToken togglebutton.content.padding
          */
-        left?: string;
+        padding?: string;
         /**
-         * Top of content
+         * Border radius of the content
          *
-         * @designToken togglebutton.content.top
+         * @designToken togglebutton.border.radius
          */
-        top?: string;
+        borderRadius?: string;
         /**
          * Checked shadow of content
          *
@@ -209,5 +243,27 @@ export interface ToggleButtonDesignTokens extends DesignTokens<ToggleButtonDesig
          * @designToken togglebutton.content.checked.background
          */
         checkedBackground?: string;
+        /**
+         * Sm of content
+         */
+        sm?: {
+            /**
+             * Sm padding of content
+             *
+             * @designToken togglebutton.content.sm.padding
+             */
+            padding?: string;
+        };
+        /**
+         * Lg of root
+         */
+        lg?: {
+            /**
+             * Lg padding of content
+             *
+             * @designToken togglebutton.content.lg.padding
+             */
+            padding?: string;
+        };
     };
 }

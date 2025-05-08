@@ -26,7 +26,7 @@ import { TagModule } from 'primeng/tag';
                     <p class="m-0 leading-normal text-lg">
                         Majority of the existing applications prefer to remain at a previous version due to stability requirements instead of upgrading to the latest version immediately. PrimeNG LTS is a support service to provide a license for the
                         finest compatible version suited to you. LTS covers the prior two versions from the latest release, this means up to 18 months of almost bi-weekly releases to bring the latest defect fixes and security updates to your project.
-                        As an example, when PrimeNG moves to Angular 18, v17 and v16 will move to LTS support whereas STS (short term support) versions of PrimeNG 18 will be open source under MIT license for at least 6 months until Angular/PrimeNG 19
+                        As an example, when PrimeNG moves to Angular 20, v19 and v18 will move to LTS support whereas STS (short term support) versions of PrimeNG 20 will be open source under MIT license for at least 6 months until Angular/PrimeNG 21
                         is released.
                     </p>
                 </div>
@@ -51,25 +51,42 @@ import { TagModule } from 'primeng/tag';
                         <tbody>
                             <tr class="text-lg text-surface-800 dark:text-surface-50">
                                 <td class="p-2">
-                                    <p-tag value="v17" styleClass="text-lg px-4"></p-tag>
+                                    <p-tag value="v19" styleClass="text-lg px-4"></p-tag>
                                 </td>
                                 <td class="p-2">STS</td>
+                                <td class="p-2">After v20 release</td>
+                                <td class="p-2">After v22 release</td>
+                            </tr>
+                            <tr class="text-lg text-surface-800 dark:text-surface-50">
+                                <td class="p-2">
+                                    <p-tag value="v18" styleClass="text-lg px-4" severity="success"></p-tag>
+                                </td>
+                                <td class="p-2">LTS</td>
+                                <td class="p-2">After v19 release</td>
+                                <td class="p-2">After v21 release</td>
+                            </tr>
+
+                            <tr class="text-lg text-surface-800 dark:text-surface-50">
+                                <td class="p-2">
+                                    <p-tag value="v17" styleClass="text-lg px-4" severity="success"></p-tag>
+                                </td>
+                                <td class="p-2">LTS</td>
                                 <td class="p-2">After v18 release</td>
                                 <td class="p-2">After v20 release</td>
                             </tr>
                             <tr class="text-lg text-surface-800 dark:text-surface-50">
                                 <td class="p-2">
-                                    <p-tag value="v16" styleClass="text-lg px-4" severity="success"></p-tag>
+                                    <p-tag value="v16" styleClass="text-lg px-4" severity="danger"></p-tag>
                                 </td>
-                                <td class="p-2">LTS</td>
+                                <td class="p-2">Legacy</td>
                                 <td class="p-2">After v17 release</td>
                                 <td class="p-2">After v19 release</td>
                             </tr>
                             <tr class="text-lg text-surface-800 dark:text-surface-50">
                                 <td class="p-2">
-                                    <p-tag value="v15" styleClass="text-lg px-4" severity="success"></p-tag>
+                                    <p-tag value="v15" styleClass="text-lg px-4" severity="danger"></p-tag>
                                 </td>
-                                <td class="p-2">LTS</td>
+                                <td class="p-2">Legacy</td>
                                 <td class="p-2">After v16 release</td>
                                 <td class="p-2">After v18 release</td>
                             </tr>
@@ -297,10 +314,12 @@ import { LicenseManager } from 'primeng/api';
     selector: 'app-root',
     templateUrl: './app.component.html'
 })
-export class AppComponent {
+export class AppComponent implements OnInit {
 
-    LicenseManager.verify('LICENSE_KEY', 'PASS_KEY');
-
+    ngOnInit() {
+        LicenseManager.verify('LICENSE_KEY', 'PASS_KEY');    
+    }
+        
 }`
     };
 

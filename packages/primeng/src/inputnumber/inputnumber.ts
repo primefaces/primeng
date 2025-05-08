@@ -67,6 +67,7 @@ export const INPUTNUMBER_VALUE_ACCESSOR: any = {
             [attr.placeholder]="placeholder"
             [attr.aria-label]="ariaLabel"
             [attr.aria-labelledby]="ariaLabelledBy"
+            [attr.aria-describedby]="ariaDescribedBy"
             [attr.title]="title"
             [pSize]="size"
             [attr.name]="name"
@@ -187,7 +188,7 @@ export const INPUTNUMBER_VALUE_ACCESSOR: any = {
     host: {
         '[attr.data-pc-name]': "'inputnumber'",
         '[attr.data-pc-section]': "'root'",
-        style: 'style'
+        '[class]': 'hostClass'
     }
 })
 export class InputNumber extends BaseComponent implements OnInit, AfterContentInit, OnChanges, ControlValueAccessor {
@@ -251,6 +252,11 @@ export class InputNumber extends BaseComponent implements OnInit, AfterContentIn
      * @group Props
      */
     @Input() ariaLabelledBy: string | undefined;
+    /**
+     * Specifies one or more IDs in the DOM that describes the input field.
+     * @group Props
+     */
+    @Input() ariaDescribedBy: string | undefined;
     /**
      * Used to define a string that labels the input element.
      * @group Props
@@ -355,7 +361,7 @@ export class InputNumber extends BaseComponent implements OnInit, AfterContentIn
      * Specifies the input variant of the component.
      * @group Props
      */
-    @Input() variant: 'filled' | 'outlined' = 'outlined';
+    @Input() variant: 'filled' | 'outlined';
     /**
      * The minimum number of fraction digits to use. Possible values are from 0 to 20; the default for plain number and percent formatting is 0; the default for currency formatting is the number of minor unit digits provided by the ISO 4217 currency code list (2 if the list doesn't provide that information).
      * @group Props
@@ -550,23 +556,28 @@ export class InputNumber extends BaseComponent implements OnInit, AfterContentIn
         }
     }
 
-    @HostBinding('class') get hostClasses(): string {
-        if (typeof this._rootClass === 'string') {
-            return this._rootClass;
-        }
-        if (Array.isArray(this._rootClass)) {
-            return this._rootClass.join(' ');
-        }
-        if (typeof this._rootClass === 'object') {
-            return Object.keys(this._rootClass)
-                .filter((key) => this._rootClass[key])
-                .join(' ');
-        }
-        return '';
+    get hostClass(): string {
+        return [
+            'p-inputnumber p-component p-inputwrapper',
+            this.styleClass,
+            this.filled || this.allowEmpty === false ? 'p-inputwrapper-filled' : '',
+            this.focused ? 'p-inputwrapper-focus' : '',
+            this.showButtons && this.buttonLayout === 'stacked' ? 'p-inputnumber-stacked' : '',
+            this.showButtons && this.buttonLayout === 'horizontal' ? 'p-inputnumber-horizontal' : '',
+            this.showButtons && this.buttonLayout === 'vertical' ? 'p-inputnumber-vertical' : '',
+            this.hasFluid ? 'p-inputnumber-fluid' : ''
+        ]
+            .filter((cls) => !!cls)
+            .join(' ');
+    }
+
+    @HostBinding('style') get hostStyle(): any {
+        return this.style;
     }
 
     ngOnInit() {
         super.ngOnInit();
+
         this.ngControl = this.injector.get(NgControl, null, { optional: true });
 
         this.constructParser();
@@ -1447,7 +1458,7 @@ export class InputNumber extends BaseComponent implements OnInit, AfterContentIn
             this._decimal.lastIndex = 0;
 
             if (this.suffixChar) {
-                return decimalCharIndex !== -1 ? val1 : val1.replace(this.suffixChar, '').split(this._decimal)[0] + val2.replace(this.suffixChar, '').slice(decimalCharIndex) + this.suffixChar;
+                return decimalCharIndex !== -1 ? val1.replace(this.suffixChar, '').split(this._decimal)[0] + val2.replace(this.suffixChar, '').slice(decimalCharIndex) + this.suffixChar : val1;
             } else {
                 return decimalCharIndex !== -1 ? val1.split(this._decimal)[0] + val2.slice(decimalCharIndex) : val1;
             }
@@ -1508,7 +1519,7 @@ export class InputNumber extends BaseComponent implements OnInit, AfterContentIn
     }
 
     writeValue(value: any): void {
-        this.value = value;
+        this.value = value ? Number(value) : value;
         this.cd.markForCheck();
     }
 

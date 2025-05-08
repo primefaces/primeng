@@ -527,7 +527,7 @@ export class Tooltip extends BaseComponent implements AfterViewInit, OnDestroy {
     }
 
     private get activeElement(): HTMLElement {
-        return this.el.nativeElement.nodeName.includes('P-') ? findSingle(this.el.nativeElement, '.p-component') : this.el.nativeElement;
+        return this.el.nativeElement.nodeName.startsWith('P-') ? findSingle(this.el.nativeElement, '.p-component') : this.el.nativeElement;
     }
 
     alignRight() {
@@ -659,7 +659,7 @@ export class Tooltip extends BaseComponent implements AfterViewInit, OnDestroy {
         if (this.container && this.container.parentElement) {
             if (this.getOption('appendTo') === 'body') document.body.removeChild(this.container);
             else if (this.getOption('appendTo') === 'target') this.el.nativeElement.removeChild(this.container);
-            else removeChild(this.container, this.getOption('appendTo'));
+            else removeChild(this.getOption('appendTo'), this.container);
         }
 
         this.unbindDocumentResizeListener();

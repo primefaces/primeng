@@ -19,6 +19,15 @@ const theme = ({ dt }) => `
     transition: background ${dt('inputnumber.transition.duration')}, color ${dt('inputnumber.transition.duration')}, border-color ${dt('inputnumber.transition.duration')}, outline-color ${dt('inputnumber.transition.duration')};
 }
 
+.p-inputnumber-clear-icon {
+    position: absolute;
+    top: 50%;
+    margin-top: -0.5rem;
+    cursor: pointer;
+    right: 0.75rem;
+    color: ${dt('inputnumber.button.color')};
+}
+
 .p-inputnumber-button:hover {
     background: ${dt('inputnumber.button.hover.background')};
     color: ${dt('inputnumber.button.hover.color')};
@@ -38,7 +47,7 @@ const theme = ({ dt }) => `
     display: flex;
     flex-direction: column;
     position: absolute;
-    top: 1px;
+    inset-block-start: 1px;
     inset-inline-end: 1px;
     height: calc(100% - 2px);
     z-index: 1;
@@ -46,7 +55,7 @@ const theme = ({ dt }) => `
 
 .p-inputnumber-stacked .p-inputnumber-increment-button {
     padding: 0;
-    border-end-start-radius: calc(${dt('inputnumber.button.border.radius')} - 1px);
+    border-start-end-radius: calc(${dt('inputnumber.button.border.radius')} - 1px);
 }
 
 .p-inputnumber-stacked .p-inputnumber-decrement-button {
@@ -162,14 +171,20 @@ const theme = ({ dt }) => `
     height: ${dt('form.field.lg.font.size')};
 }
 
+p-inputNumber.ng-invalid.ng-dirty > .p-inputtext,
+p-input-number.ng-invalid.ng-dirty > .p-inputtext,
 p-inputnumber.ng-invalid.ng-dirty > .p-inputtext {
     border-color: ${dt('inputtext.invalid.border.color')};
 }
 
+p-inputNumber.ng-invalid.ng-dirty > .p-inputtext:enabled:focus,
+p-input-number.ng-invalid.ng-dirty > .p-inputtext:enabled:focus,
 p-inputnumber.ng-invalid.ng-dirty > .p-inputtext:enabled:focus {
     border-color: ${dt('inputtext.focus.border.color')};
 }
 
+p-inputNumber.ng-invalid.ng-dirty > .p-inputtext::placeholder,
+p-input-number.ng-invalid.ng-dirty > .p-inputtext::placeholder,
 p-inputnumber.ng-invalid.ng-dirty > .p-inputtext::placeholder {
     color: ${dt('inputtext.invalid.placeholder.color')};
 }

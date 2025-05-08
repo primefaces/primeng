@@ -225,7 +225,7 @@ export class SplitButton extends BaseComponent implements AfterContentInit {
      *  Target element to attach the overlay, valid values are "body" or a local ng-template variable of another element (note: use binding with brackets for template variables, e.g. [appendTo]="mydiv" for a div element having #mydiv as variable name).
      * @group Props
      */
-    @Input() appendTo: HTMLElement | ElementRef | TemplateRef<any> | string | null | undefined | any;
+    @Input() appendTo: HTMLElement | ElementRef | TemplateRef<any> | string | null | undefined | any = 'body';
     /**
      * Indicates the direction of the element.
      * @group Props
@@ -265,7 +265,7 @@ export class SplitButton extends BaseComponent implements AfterContentInit {
      */
     @Input({ transform: booleanAttribute }) set disabled(v: boolean | undefined) {
         this._disabled = v;
-        this._buttonDisabled = v;
+        this.buttonDisabled = v;
         this.menuButtonDisabled = v;
     }
     public get disabled(): boolean | undefined {
@@ -280,26 +280,12 @@ export class SplitButton extends BaseComponent implements AfterContentInit {
      * When present, it specifies that the menu button element should be disabled.
      * @group Props
      */
-    @Input('menuButtonDisabled') set menuButtonDisabled(v: boolean | undefined) {
-        if (this.disabled) {
-            this._menuButtonDisabled = this.disabled;
-        } else this._menuButtonDisabled = v;
-    }
-    public get menuButtonDisabled(): boolean | undefined {
-        return this._menuButtonDisabled;
-    }
+    @Input({ transform: booleanAttribute }) menuButtonDisabled: boolean = false;
     /**
      * When present, it specifies that the button element should be disabled.
      * @group Props
      */
-    @Input() set buttonDisabled(v: boolean | undefined) {
-        if (this.disabled) {
-            this.buttonDisabled = this.disabled;
-        } else this._buttonDisabled = v;
-    }
-    public get buttonDisabled(): boolean {
-        return this._buttonDisabled;
-    }
+    @Input({ transform: booleanAttribute }) buttonDisabled: boolean = false;
     /**
      * Callback to invoke when default command button is clicked.
      * @param {MouseEvent} event - Mouse event.
@@ -346,10 +332,6 @@ export class SplitButton extends BaseComponent implements AfterContentInit {
     isExpanded = signal<boolean>(false);
 
     private _disabled: boolean | undefined;
-
-    private _buttonDisabled: boolean | undefined;
-
-    private _menuButtonDisabled: boolean | undefined;
 
     _componentStyle = inject(SplitButtonStyle);
 

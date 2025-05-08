@@ -43,6 +43,7 @@ import {
     TreeLazyLoadEvent,
     TreeNodeCollapseEvent,
     TreeNodeContextMenuSelectEvent,
+    TreeNodeDoubleClickEvent,
     TreeNodeDropEvent,
     TreeNodeExpandEvent,
     TreeNodeSelectEvent,
@@ -50,6 +51,7 @@ import {
     TreeScrollEvent,
     TreeScrollIndexChangeEvent
 } from './tree.interface';
+import { AutoFocusModule } from 'primeng/autofocus';
 
 @Component({
     selector: 'p-treeNode',
@@ -69,6 +71,7 @@ import {
             ></li>
             <li
                 [ngClass]="nodeClass"
+                [class]="node.styleClass"
                 [ngStyle]="{ height: itemSize + 'px' }"
                 [style]="node.style"
                 [attr.aria-label]="node.label"
@@ -88,6 +91,7 @@ import {
                     [style.paddingLeft]="level * indentation + 'rem'"
                     (click)="onNodeClick($event)"
                     (contextmenu)="onNodeRightClick($event)"
+                    (dblclick)="onNodeDblClick($event)"
                     (touchend)="onNodeTouchEnd()"
                     (drop)="onDropNode($event)"
                     (dragover)="onDropNodeDragOver($event)"
@@ -108,7 +112,7 @@ import {
                             </ng-container>
                         </ng-container>
                         <span *ngIf="tree.togglerIconTemplate || tree._togglerIconTemplate" class="p-tree-node-toggle-icon">
-                            <ng-template *ngTemplateOutlet="tree.togglerIconTemplate || tree._togglerIconTemplate; context: { $implicit: node.expanded }"></ng-template>
+                            <ng-template *ngTemplateOutlet="tree.togglerIconTemplate || tree._togglerIconTemplate; context: { $implicit: node.expanded, loading: node.loading }"></ng-template>
                         </span>
                     </button>
 
@@ -119,9 +123,10 @@ import {
                         [indeterminate]="node.partialSelected"
                         *ngIf="tree.selectionMode == 'checkbox'"
                         [disabled]="node.selectable === false"
-                        [variant]="tree?.config.inputStyle() === 'filled' ? 'filled' : 'outlined' || tree?.config.inputVariant() === 'filled' ? 'filled' : 'outlined'"
+                        [variant]="tree?.config.inputStyle() === 'filled' || tree?.config.inputVariant() === 'filled' ? 'filled' : 'outlined'"
                         [attr.data-p-partialchecked]="node.partialSelected"
                         [tabindex]="-1"
+                        (click)="$event.preventDefault()"
                     >
                         <ng-container *ngIf="tree.checkboxIconTemplate || tree._checkboxIconTemplate">
                             <ng-template #icon>
@@ -147,7 +152,7 @@ import {
                         </span>
                     </span>
                 </div>
-                <ul class="p-tree-node-children" style="display: none;" *ngIf="!tree.virtualScroll && node.children && node.expanded" [style.display]="node.expanded ? 'block' : 'none'" role="group">
+                <ul class="p-tree-node-children" style="display: none;" *ngIf="!tree.virtualScroll && node.children && node.expanded" [style.display]="node.expanded ? 'flex' : 'none'" role="group">
                     <p-treeNode
                         *ngFor="let childNode of node.children; let firstChild = first; let lastChild = last; let index = index; trackBy: tree.trackBy.bind(this)"
                         [node]="childNode"
@@ -282,7 +287,6 @@ export class UITreeNode extends BaseComponent implements OnInit {
 
     onNodeClick(event: MouseEvent) {
         this.tree.onNodeClick(event, <TreeNode>this.node);
-        event.preventDefault();
     }
 
     onNodeKeydown(event: KeyboardEvent) {
@@ -297,6 +301,10 @@ export class UITreeNode extends BaseComponent implements OnInit {
 
     onNodeRightClick(event: MouseEvent) {
         this.tree.onNodeRightClick(event, <TreeNode>this.node);
+    }
+
+    onNodeDblClick(event: MouseEvent) {
+        this.tree.onNodeDblClick(event, <TreeNode>this.node);
     }
 
     isSelected() {
@@ -701,7 +709,7 @@ export class UITreeNode extends BaseComponent implements OnInit {
 @Component({
     selector: 'p-tree',
     standalone: true,
-    imports: [CommonModule, Scroller, SharedModule, SearchIcon, SpinnerIcon, InputText, FormsModule, IconField, InputIcon, UITreeNode],
+    imports: [CommonModule, Scroller, SharedModule, SearchIcon, SpinnerIcon, InputText, FormsModule, IconField, InputIcon, UITreeNode, AutoFocusModule],
     template: `
         <div [ngClass]="containerClass" [ngStyle]="style" [class]="styleClass" (drop)="onDrop($event)" (dragover)="onDragOver($event)" (dragenter)="onDragEnter()" (dragleave)="onDragLeave($event)">
             <div class="p-tree-mask p-overlay-mask" *ngIf="loading && loadingMode === 'mask'">
@@ -718,7 +726,17 @@ export class UITreeNode extends BaseComponent implements OnInit {
                 <ng-container *ngTemplateOutlet="filterTemplate || _filterTemplate; context: { $implicit: filterOptions }"></ng-container>
             } @else {
                 <p-iconField *ngIf="filter">
-                    <input #filter pInputText type="search" autocomplete="off" class="p-tree-filter-input" [attr.placeholder]="filterPlaceholder" (keydown.enter)="$event.preventDefault()" (input)="_filter($event.target.value)" />
+                    <input
+                        #filter
+                        [pAutoFocus]="filterInputAutoFocus"
+                        pInputText
+                        type="search"
+                        autocomplete="off"
+                        class="p-tree-filter-input"
+                        [attr.placeholder]="filterPlaceholder"
+                        (keydown.enter)="$event.preventDefault()"
+                        (input)="_filter($event.target.value)"
+                    />
                     <p-inputIcon>
                         <SearchIcon *ngIf="!filterIconTemplate && !_filterIconTemplate" class="p-tree-filter-icon" />
                         <span *ngIf="filterIconTemplate || _filterIconTemplate">
@@ -910,6 +928,11 @@ export class Tree extends BaseComponent implements OnInit, AfterContentInit, OnC
      */
     @Input({ transform: booleanAttribute }) filter: boolean | undefined;
     /**
+     * Determines whether the filter input should be automatically focused when the component is rendered.
+     * @group Props
+     */
+    @Input({ transform: booleanAttribute }) filterInputAutoFocus: boolean = false;
+    /**
      * When filtering is enabled, filterBy decides which field or fields (comma separated) to search against.
      * @group Props
      */
@@ -1033,6 +1056,12 @@ export class Tree extends BaseComponent implements OnInit, AfterContentInit, OnC
      * @group Emits
      */
     @Output() onNodeContextMenuSelect: EventEmitter<TreeNodeContextMenuSelectEvent> = new EventEmitter<TreeNodeContextMenuSelectEvent>();
+    /**
+     * Callback to invoke when a node is double clicked.
+     * @param {TreeNodeDoubleClickEvent} event - Node double click event.
+     * @group Emits
+     */
+    @Output() onNodeDoubleClick: EventEmitter<TreeNodeDoubleClickEvent> = new EventEmitter<TreeNodeDoubleClickEvent>();
     /**
      * Callback to invoke when a node is dropped.
      * @param {TreeNodeDropEvent} event - Node drop event.
@@ -1295,7 +1324,9 @@ export class Tree extends BaseComponent implements OnInit, AfterContentInit, OnC
                 node.style = '--p-focus-ring-color: none;';
                 return;
             } else {
-                node.style = '--p-focus-ring-color: var(--primary-color)';
+                if (!node.style?.includes('--p-focus-ring-color')) {
+                    node.style = node.style ? `${node.style}--p-focus-ring-color: var(--primary-color)` : '--p-focus-ring-color: var(--primary-color)';
+                }
             }
 
             if (this.hasFilteredNodes()) {
@@ -1410,6 +1441,10 @@ export class Tree extends BaseComponent implements OnInit, AfterContentInit, OnC
                 this.onNodeContextMenuSelect.emit({ originalEvent: event, node: node });
             }
         }
+    }
+
+    onNodeDblClick(event: MouseEvent, node: TreeNode<any>) {
+        this.onNodeDoubleClick.emit({ originalEvent: event, node: node });
     }
 
     findIndexInSelection(node: TreeNode) {

@@ -73,6 +73,20 @@ const theme = ({ dt }) => `
     line-height: 1;
 }
 
+.p-datepicker:has(.p-datepicker-dropdown) .p-datepicker-clear-icon,
+.p-datepicker:has(.p-datepicker-input-icon-container) .p-datepicker-clear-icon {
+    inset-inline-end: calc(${dt('datepicker.dropdown.width')} + ${dt('form.field.padding.x')});
+}
+
+.p-datepicker-clear-icon {
+    position: absolute;
+    top: 50%;
+    margin-top: -0.5rem;
+    cursor: pointer;
+    color: ${dt('form.field.icon.color')};
+    inset-inline-end: ${dt('form.field.padding.x')};
+}
+
 .p-datepicker-fluid {
     display: flex;
 }
@@ -404,9 +418,12 @@ p-calendar.ng-invalid.ng-dirty .p-datepicker.p-inputwrapper .p-inputtext{
     border-color: ${dt('inputtext.invalid.border.color')};
 }
 
-p-datepicker.ng-invalid.ng-dirty .p-datepicker.p-inputwrapper .p-inputtext{
+p-datePicker.ng-invalid.ng-dirty .p-datepicker.p-inputwrapper .p-inputtext,
+p-date-picker.ng-invalid.ng-dirty .p-datepicker.p-inputwrapper .p-inputtext,
+p-datepicker.ng-invalid.ng-dirty .p-datepicker.p-inputwrapper .p-inputtext {
     border-color: ${dt('inputtext.invalid.border.color')};
 }
+
 `;
 
 const inlineStyles = {
@@ -418,6 +435,7 @@ const classes = {
         'p-datepicker p-component p-inputwrapper': true,
         'p-datepicker-fluid': instance.hasFluid,
         'p-inputwrapper-filled': instance.filled,
+        'p-variant-filled': instance.variant === 'filled' || instance.config.inputVariant() === 'filled' || instance.config.inputStyle() === 'filled',
         'p-inputwrapper-focus': instance.focus,
         'p-focus': instance.focus || instance.overlayVisible
     }),
@@ -457,7 +475,13 @@ const classes = {
         let selectedDayClass = '';
 
         if (instance.isRangeSelection() && instance.isSelected(date) && date.selectable) {
-            selectedDayClass = date.day === instance.value[0].getDate() || date.day === instance.value[1].getDate() ? 'p-datepicker-day-selected' : 'p-datepicker-day-selected-range';
+            const startDate = instance.value[0];
+            const endDate = instance.value[1];
+
+            const isStart = startDate && date.year === startDate.getFullYear() && date.month === startDate.getMonth() && date.day === startDate.getDate();
+            const isEnd = endDate && date.year === endDate.getFullYear() && date.month === endDate.getMonth() && date.day === endDate.getDate();
+
+            selectedDayClass = isStart || isEnd ? 'p-datepicker-day-selected' : 'p-datepicker-day-selected-range';
         }
 
         return {

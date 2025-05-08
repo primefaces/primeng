@@ -11,7 +11,7 @@ import { MenuItem } from 'primeng/api';
             <p>Items with navigation are defined with templating to be able to use a router link component, an external link or programmatic navigation.</p>
         </app-docsectiontext>
         <div class="card flex justify-center">
-            <p-tieredMenu [model]="items">
+            <p-tieredmenu [model]="items">
                 <ng-template #item let-item let-hasSubmenu="hasSubmenu">
                     <ng-container *ngIf="item.route; else withoutRoute">
                         <a [routerLink]="item.route" [href]="item.href" class="p-tieredmenu-item-link">
@@ -36,7 +36,7 @@ import { MenuItem } from 'primeng/api';
                         </ng-template>
                     </ng-template>
                 </ng-template>
-            </p-tieredMenu>
+            </p-tieredmenu>
         </div>
         <app-code [code]="code" selector="tiered-menu-router-demo"></app-code>
     `
@@ -87,7 +87,7 @@ export class RouterDoc implements OnInit {
     }
 
     code: Code = {
-        basic: `<p-tieredMenu [model]="items">
+        basic: `<p-tieredmenu [model]="items">
     <ng-template #item let-item let-hasSubmenu="hasSubmenu">
         <ng-container *ngIf="item.route; else withoutRoute">
             <a [routerLink]="item.route" [href]="item.href" class="p-tieredmenu-item-link">
@@ -112,10 +112,10 @@ export class RouterDoc implements OnInit {
             </ng-template>
         </ng-template>
     </ng-template>
-</p-tieredMenu>`,
+</p-tieredmenu>`,
 
         html: `<div class="card flex justify-center">
-    <p-tieredMenu [model]="items">
+    <p-tieredmenu [model]="items">
         <ng-template #item let-item let-hasSubmenu="hasSubmenu">
             <ng-container *ngIf="item.route; else withoutRoute">
                 <a [routerLink]="item.route" [href]="item.href" class="p-tieredmenu-item-link">
@@ -140,7 +140,7 @@ export class RouterDoc implements OnInit {
                 </ng-template>
             </ng-template>
         </ng-template>
-    </p-tieredMenu>
+    </p-tieredmenu>
 </div>`,
 
         typescript: `import { Component, OnInit } from '@angular/core';

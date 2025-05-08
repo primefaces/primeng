@@ -13,17 +13,17 @@ import { TreeNode } from 'primeng/api';
         <div class="card">
             <p-deferred-demo (load)="loadDemoData()">
                 <p-treetable [value]="files" [scrollable]="true" showGridlines [tableStyle]="{ 'min-width': '50rem' }">
-                    <ng-template pTemplate="header">
+                    <ng-template #header>
                         <tr>
                             <th>Name</th>
                             <th>Size</th>
                             <th>Type</th>
                         </tr>
                     </ng-template>
-                    <ng-template pTemplate="body" let-rowNode let-rowData="rowData">
+                    <ng-template #body let-rowNode let-rowData="rowData">
                         <tr [ttRow]="rowNode">
                             <td>
-                                <p-treeTableToggler [rowNode]="rowNode" />
+                                <p-treetable-toggler [rowNode]="rowNode" />
                                 {{ rowData.name }}
                             </td>
                             <td>{{ rowData.size }}</td>
@@ -48,17 +48,17 @@ export class GridlinesDoc {
 
     code: Code = {
         basic: `<p-treetable [value]="files" [scrollable]="true" showGridlines [tableStyle]="{ 'min-width': '50rem' }">
-    <ng-template pTemplate="header">
+    <ng-template #header>
         <tr>
             <th>Name</th>
             <th>Size</th>
             <th>Type</th>
         </tr>
     </ng-template>
-    <ng-template pTemplate="body" let-rowNode let-rowData="rowData">
+    <ng-template #body let-rowNode let-rowData="rowData">
         <tr [ttRow]="rowNode">
             <td>
-                <p-treeTableToggler [rowNode]="rowNode" />
+                <p-treetable-toggler [rowNode]="rowNode" />
                 {{ rowData.name }}
             </td>
             <td>{{ rowData.size }}</td>
@@ -69,17 +69,17 @@ export class GridlinesDoc {
 
         html: `<div class="card">
     <p-treetable [value]="files" [scrollable]="true" showGridlines [tableStyle]="{ 'min-width': '50rem' }">
-        <ng-template pTemplate="header">
+        <ng-template #header>
             <tr>
                 <th>Name</th>
                 <th>Size</th>
                 <th>Type</th>
             </tr>
         </ng-template>
-        <ng-template pTemplate="body" let-rowNode let-rowData="rowData">
+        <ng-template #body let-rowNode let-rowData="rowData">
             <tr [ttRow]="rowNode">
                 <td>
-                    <p-treeTableToggler [rowNode]="rowNode" />
+                    <p-treetable-toggler [rowNode]="rowNode" />
                     {{ rowData.name }}
                 </td>
                 <td>{{ rowData.size }}</td>

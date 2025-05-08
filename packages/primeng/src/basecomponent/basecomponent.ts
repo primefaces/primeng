@@ -1,8 +1,7 @@
 import { DOCUMENT, isPlatformServer } from '@angular/common';
-import { ChangeDetectorRef, ContentChildren, Directive, ElementRef, inject, Injector, Input, PLATFORM_ID, QueryList, Renderer2, SimpleChanges } from '@angular/core';
+import { ChangeDetectorRef, Directive, ElementRef, inject, Injector, Input, PLATFORM_ID, Renderer2, SimpleChanges } from '@angular/core';
 import { Theme, ThemeService } from '@primeuix/styled';
 import { getKeyValue, uuid } from '@primeuix/utils';
-import { PrimeTemplate } from 'primeng/api';
 import { Base, BaseStyle } from 'primeng/base';
 import { PrimeNG } from 'primeng/config';
 import { BaseComponentStyle } from './style/basecomponentstyle';
@@ -47,6 +46,8 @@ export class BaseComponent {
 
     attrSelector = uuid('pc');
 
+    private themeChangeListeners: Function[] = [];
+
     _getHostInstance(instance) {
         if (instance) {
             return instance ? (this['hostName'] ? (instance['name'] === this['hostName'] ? instance : this._getHostInstance(instance.parentInstance)) : instance.parentInstance) : undefined;
@@ -82,12 +83,13 @@ export class BaseComponent {
 
     ngOnDestroy() {
         this._unloadScopedThemeStyles();
+        this.themeChangeListeners.forEach((callback) => ThemeService.off('theme:change', callback));
     }
 
     _loadStyles() {
         const _load = () => {
             if (!Base.isStyleNameLoaded('base')) {
-                this.baseStyle.loadCSS(this.styleOptions);
+                this.baseStyle.loadGlobalCSS(this.styleOptions);
                 Base.setLoadedStyleName('base');
             }
 
@@ -115,7 +117,7 @@ export class BaseComponent {
             this.baseStyle.load(primitive?.css, { name: 'primitive-variables', ...this.styleOptions });
             this.baseStyle.load(semantic?.css, { name: 'semantic-variables', ...this.styleOptions });
             this.baseStyle.load(global?.css, { name: 'global-variables', ...this.styleOptions });
-            this.baseStyle.loadTheme({ name: 'global-style', ...this.styleOptions }, style);
+            this.baseStyle.loadGlobalTheme({ name: 'global-style', ...this.styleOptions }, style);
 
             Theme.setLoadedStyleName('common');
         }
@@ -161,6 +163,7 @@ export class BaseComponent {
     _themeChangeListener(callback = () => {}) {
         Base.clearLoadedStyleNames();
         ThemeService.on('theme:change', callback);
+        this.themeChangeListeners.push(callback);
     }
 
     cx(arg: string, rest?: string): string {

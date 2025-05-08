@@ -564,12 +564,11 @@ import { TooltipModule } from 'primeng/tooltip';
                 padding: 0;
                 border-radius: 0;
             }
-            }
         }\`
     ],
     providers: [MessageService, TerminalService, PhotoService, NodeService]
 })
-export class DockAdvancedDemo implements OnInit {
+export class DockAdvancedDemo implements OnInit, OnDestroy {
     displayTerminal: boolean | undefined;
 
     displayFinder: boolean | undefined;

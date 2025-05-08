@@ -10,7 +10,7 @@ import { TemplateHeroRectangleModule } from './templateherorectangle';
     template: `
         <div class="w-full h-[56rem] md:h-[32rem] xl:h-[36.25rem] bg-primary rounded-3xl overflow-hidden relative">
             <ng-container *ngIf="!!templateHeroData?.pattern">
-                <img class="select-none absolute md:bottom-0 bottom-80 left-0 z-[6] md:w-[95rem] h-auto w-[90rem] opacity-60" width="1344" [src]="templateHeroData.pattern" alt="Template Hero Pattern" priority />
+                <img [class]="templateHeroData?.patternClass" width="1344" [src]="templateHeroData.pattern" alt="Template Hero Pattern" priority />
             </ng-container>
             <ng-container *ngIf="!!templateHeroData?.light">
                 <template-hero-light></template-hero-light>
@@ -23,8 +23,11 @@ import { TemplateHeroRectangleModule } from './templateherorectangle';
                     class="absolute top-0 left-0 w-full h-full backdrop-blur-[2px] rounded-3xl border border-[rgba(255,255,255,0.24)] [background:linear-gradient(180deg,rgba(170,140,255,0.00)_0%,var(--p-primary-400)/0.8_100%),rgba(255,255,255,0.10)] shadow-[0px_2px_4px_0px_rgba(255,255,255,0.24)_inset,0px_48px_80px_0px_rgba(0,0,0,0.08),0px_-5px_13px_-2px_rgba(255,255,255,0.55)_inset]"
                 ></div>
                 <div class="z-10 relative">
-                    <div class="h-8 lg:h-10 [&>svg]:h-full [&>svg]:w-auto select-none">
-                        <ng-container *ngComponentOutlet="templateLogo"></ng-container>
+                    <div class="flex gap-4 items-center">
+                        <div class="h-8 lg:h-10 [&>svg]:h-full [&>svg]:w-auto select-none">
+                            <ng-container *ngComponentOutlet="templateLogo"></ng-container>
+                        </div>
+                        <div *ngIf="templateHeroData.isMultipurpose" class="bg-surface-0 dark:bg-surface-900 text-surface-900 dark:text-surface-0 px-2 py-1 font-medium leading-6 rounded-md">Multipurpose</div>
                     </div>
                     <p class="text-primary-contrast mt-4 mb-0 lg:text-base text-sm">{{ templateHeroData?.description }}</p>
                     <div class="flex items-center gap-4 mt-8">
@@ -44,7 +47,7 @@ import { TemplateHeroRectangleModule } from './templateherorectangle';
                             <i class="pi pi-github " style="font-size: 1rem;"></i>
                             <span class="hover:underline">{{ templateHeroData?.free ? 'Open Issues' : 'Community' }}</span>
                         </a>
-                        <a class="flex items-center gap-2 text-primary-contrast lg:text-base text-sm" [href]="templateHeroData?.docHref" target="_blank">
+                        <a *ngIf="templateHeroData?.docHref" class="flex items-center gap-2 text-primary-contrast lg:text-base text-sm" [href]="templateHeroData?.docHref" target="_blank">
                             <i class="pi pi-book " style="font-size: 1rem;"></i>
                             <span class="hover:underline">Documentation</span>
                         </a>

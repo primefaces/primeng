@@ -11,6 +11,7 @@ import { MultipleDoc } from '@/doc/listbox/multipledoc';
 import { ReactiveFormsDoc } from '@/doc/listbox/reactiveformsdoc';
 import { TemplateDoc } from '@/doc/listbox/templatedoc';
 import { VirtualScrollDoc } from '@/doc/listbox/virtualscrolldoc';
+import { CheckboxDoc } from '@/doc/listbox/checkboxdoc';
 import { Component } from '@angular/core';
 
 @Component({
@@ -39,6 +40,11 @@ export class ListboxDemo {
             id: 'checkmark',
             label: 'Checkmark',
             component: CheckmarkDoc
+        },
+        {
+            id: 'checkbox',
+            label: 'Checkbox',
+            component: CheckboxDoc
         },
         {
             id: 'multiple',

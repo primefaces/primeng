@@ -53,13 +53,15 @@ export default {
         hoverBackground: '{content.hover.background}',
         color: '{content.color}',
         hoverColor: '{content.hover.color}',
-        padding: '0.25rem 0.5rem'
+        padding: '0.25rem 0.5rem',
+        borderRadius: '{content.border.radius}'
     },
     selectYear: {
         hoverBackground: '{content.hover.background}',
         color: '{content.color}',
         hoverColor: '{content.hover.color}',
-        padding: '0.25rem 0.5rem'
+        padding: '0.25rem 0.5rem',
+        borderRadius: '{content.border.radius}'
     },
     group: {
         borderColor: '{content.border.color}',

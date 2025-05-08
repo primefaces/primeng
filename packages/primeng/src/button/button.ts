@@ -29,7 +29,7 @@ import { BadgeModule } from 'primeng/badge';
 import { BaseComponent } from 'primeng/basecomponent';
 import { SpinnerIcon } from 'primeng/icons';
 import { Ripple } from 'primeng/ripple';
-import { ButtonProps } from './button.interface';
+import { ButtonProps, ButtonSeverity } from './button.interface';
 import { ButtonStyle } from './style/buttonstyle';
 
 type ButtonIconPosition = 'left' | 'right' | 'top' | 'bottom';
@@ -142,11 +142,23 @@ export class ButtonDirective extends BaseComponent implements AfterViewInit, OnD
             Object.entries(val).forEach(([k, v]) => this[`_${k}`] !== v && (this[`_${k}`] = v));
         }
     }
+    private _severity: ButtonSeverity;
     /**
      * Defines the style of the button.
      * @group Props
      */
-    @Input() severity: 'success' | 'info' | 'warn' | 'danger' | 'help' | 'primary' | 'secondary' | 'contrast' | null | undefined;
+    @Input()
+    get severity(): ButtonSeverity {
+        return this._severity;
+    }
+
+    set severity(value: ButtonSeverity) {
+        this._severity = value;
+
+        if (this.initialized) {
+            this.setStyleClass();
+        }
+    }
     /**
      * Add a shadow to indicate elevation.
      * @group Props
@@ -337,8 +349,19 @@ export class ButtonDirective extends BaseComponent implements AfterViewInit, OnD
 
     setStyleClass() {
         const styleClass = this.getStyleClass();
+        this.removeExistingSeverityClass();
+
         this.htmlElement.classList.remove(...this._internalClasses);
         this.htmlElement.classList.add(...styleClass);
+    }
+
+    removeExistingSeverityClass() {
+        const severityArray = ['success', 'info', 'warn', 'danger', 'help', 'primary', 'secondary', 'contrast'];
+        const existingSeverityClass = this.htmlElement.classList.value.split(' ').find((cls) => severityArray.some((severity) => cls === `p-button-${severity}`));
+
+        if (existingSeverityClass) {
+            this.htmlElement.classList.remove(existingSeverityClass);
+        }
     }
 
     createLabel() {
@@ -534,7 +557,7 @@ export class Button extends BaseComponent implements AfterContentInit {
      * Defines the style of the button.
      * @group Props
      */
-    @Input() severity: 'success' | 'info' | 'warn' | 'danger' | 'help' | 'primary' | 'secondary' | 'contrast' | null | undefined;
+    @Input() severity: ButtonSeverity;
     /**
      * Add a border class without a background initially.
      * @group Props
@@ -627,7 +650,7 @@ export class Button extends BaseComponent implements AfterContentInit {
      * Template of the loading.
      * @group Templates
      **/
-    @ContentChild('loading') loadingIconTemplate: TemplateRef<any> | undefined;
+    @ContentChild('loadingicon') loadingIconTemplate: TemplateRef<any> | undefined;
     /**
      * Template of the icon.
      * @group Templates
@@ -672,19 +695,19 @@ export class Button extends BaseComponent implements AfterContentInit {
         this.templates?.forEach((item) => {
             switch (item.getType()) {
                 case 'content':
-                    this.contentTemplate = item.template;
+                    this._contentTemplate = item.template;
                     break;
 
                 case 'icon':
-                    this.iconTemplate = item.template;
+                    this._iconTemplate = item.template;
                     break;
 
                 case 'loadingicon':
-                    this.loadingIconTemplate = item.template;
+                    this._loadingIconTemplate = item.template;
                     break;
 
                 default:
-                    this.contentTemplate = item.template;
+                    this._contentTemplate = item.template;
                     break;
             }
         });
@@ -723,7 +746,7 @@ export class Button extends BaseComponent implements AfterContentInit {
     get buttonClass() {
         return {
             'p-button p-component': true,
-            'p-button-icon-only': (this.icon || this.iconTemplate || this.loadingIcon || this.loadingIconTemplate || this._loadingIconTemplate) && !this.label,
+            'p-button-icon-only': (this.icon || this.iconTemplate || this._iconTemplate || this.loadingIcon || this.loadingIconTemplate || this._loadingIconTemplate) && !this.label,
             'p-button-vertical': (this.iconPos === 'top' || this.iconPos === 'bottom') && this.label,
             'p-button-loading': this.loading,
             'p-button-loading-label-only': this.loading && !this.icon && this.label && !this.loadingIcon && this.iconPos === 'left',

@@ -1,6 +1,6 @@
 {
-    "id": 1,
-    "content": "PrimeNG v19 Final is out now 🚀",
+    "id": 92,
+    "content": "Introducing the all-new Theme Designer! 🚀",
     "linkText": "Learn More",
-    "linkHref": "['/theming']"
+    "routerLink": "/designer"
 }

@@ -39,6 +39,7 @@ import { DiamondSeparator } from './diamondseparator';
         <template-configuration
             title="Angular with CLI"
             description="Diamond is powered by Angular CLI to get started in no time following the best practices like service based component interaction modular design and strict mode support"
+            appName="diamond"
         ></template-configuration>
         <diamond-separator></diamond-separator>
         <template-features-animation [featuresData]="animationFeaturesData1"></template-features-animation>
@@ -51,170 +52,141 @@ export class DiamondPage {
 
     templateHeroData = {
         pattern: 'https://primefaces.org/cdn/primeng/images/templates/diamond/diamond-hero-pattern.png',
-        dashboard1: 'https://primefaces.org/cdn/primeng/images/templates/diamond/diamond-hero-dashboard1.png',
-        dashboard2: 'https://primefaces.org/cdn/primeng/images/templates/diamond/diamond-hero-dashboard2.png',
-        description: 'A spectacular application template with light&dark modes, beautiful main menu with themes and layouts, premium PrimeNG component themes, reusable css widgets, utilities, modern icons and professional template pages.',
+        patternClass: 'select-none absolute z-[6] w-[62rem] h-[44rem] -top-8 -left-36 md:-left-12',
+        dashboard1: 'https://primefaces.org/cdn/primeng/images/templates/diamond/diamond-remastered-hero-dashboard-1.png',
+        dashboard2: 'https://primefaces.org/cdn/primeng/images/templates/diamond/diamond-remastered-hero-dashboard-2.png',
+        description: 'An amazing application template for Angular based on CLI featuring light-dark modes with 8 surface colors, 7 menu layouts, various menu themes, sample apps, ready to use template pages and 3 presets.',
         liveHref: 'https://diamond.primeng.org',
         docHref: 'https://diamond.primeng.org/documentation'
     };
 
-    relatedData = [
-        {
-            src: 'https://primefaces.org/cdn/primeng/images/layouts/apollo-ng.jpg',
-            href: '/templates/apollo'
-        },
-        {
-            src: 'https://primefaces.org/cdn/primeng/images/layouts/avalon-ng.jpg',
-            href: '/templates/avalon'
-        },
-        {
-            src: 'https://primefaces.org/cdn/primeng/images/layouts/verona-ng.jpg',
-            href: '/templates/verona'
-        }
-    ];
-
-    features1Data = [
-        {
-            src: 'https://primefaces.org/cdn/primeng/images/templates/avalon/avalon-features1-feature1.png',
-            title: 'Ready to Use Applications',
-            description: 'Mail, File System, Tasks, Calendar, Blog and Chat are the sample applications to get started with ease.'
-        },
-        {
-            src: 'https://primefaces.org/cdn/primeng/images/templates/avalon/avalon-features1-feature2.png',
-            title: 'E-Commerce Pages',
-            description: 'Avalon offers E-commerce pages to kickstart your e-commerce project powered by PrimeBlocks.'
-        },
-        {
-            src: 'https://primefaces.org/cdn/primeng/images/templates/avalon/avalon-features1-feature3.png',
-            title: 'Ready to Use Pages',
-            description: 'Landing, login, invoice, help, user management and error pages are provided as template pages to get started with building your app.'
-        }
-    ];
     features2Data = [
         {
             title: 'Fully Responsive',
             description: 'Diamond is crafted to provide optimal viewing and interaction experience for a wide range of devices.',
-            src: 'https://primefaces.org/cdn/primeng/images/templates/diamond/diamond-features2-responsive.png'
+            src: 'https://primefaces.org/cdn/primeng/images/templates/diamond/diamond-remastered-features-responsive.png'
         },
         {
             title: 'Cross Browser Compatible',
             description: 'First class support for Firefox, Safari, Chrome and Edge.',
-            src: 'https://primefaces.org/cdn/primeng/images/compatible-ng.png',
-            darkSrc: 'https://primefaces.org/cdn/primeng/images/compatible-ng-dark.png'
+            src: 'https://primefaces.org/cdn/primeng/images/templates/common/cross-browser.png',
+            darkSrc: 'https://primefaces.org/cdn/primeng/images/templates/common/cross-browser-dark.png'
         },
         {
-            title: 'Lifetime Support',
-            description: 'Diamond has a dedicated forum where lifetime support is delivered by engineers at PrimeTek in a timely manner.',
-            src: 'https://primefaces.org/cdn/primeng/images/templates/apollo/apollo-features2-lifetime.png'
+            title: 'Support',
+            description: `PrimeTek offers assistance with account management and licensing issues, with the expectation that users have the necessary technical knowledge to use our products, as we do not offer technical support or consulting. Users
+            can seek assistance in our community via our public <a href="https://discord.com/invite/gzKFYnpmCY">Discord</a> and
+            <a href="https://github.com/orgs/primefaces/discussions/categories/primeng-templates" class="doc-link">Forum</a>.`,
+            src: 'https://primefaces.org/cdn/primeng/images/templates/common/support.png'
         },
         {
             title: 'Customizable Design',
             description: 'Fully customizable with a mixture of Sass and CSS variables.',
-            src: 'https://primefaces.org/cdn/primeng/images/templates/apollo/apollo-features2-customizable.png',
-            darkSrc: 'https://primefaces.org/cdn/primeng/images/templates/apollo/apollo-features2-customizable-dark.png'
+            src: 'https://primefaces.org/cdn/primeng/images/templates/common/customizable.png',
+            darkSrc: 'https://primefaces.org/cdn/primeng/images/templates/common/customizable-dark.png'
         },
         {
             title: 'Ready to Use Pages',
             description: 'Landing, login, invoice, help, user management and error pages are provided as template pages to get started with building your app.',
-            src: 'https://primefaces.org/cdn/primeng/images/templates/diamond/diamond-features2-ready.png'
+            src: 'https://primefaces.org/cdn/primeng/images/templates/diamond/diamond-remastered-features-ready.png'
         },
         {
             title: 'Mobile Experience',
             description: 'Touch optimized enhanced mobile experience with responsive design.',
-            src: 'https://primefaces.org/cdn/primeng/images/templates/diamond/diamond-features2-mobile.png'
+            src: 'https://primefaces.org/cdn/primeng/images/templates/diamond/diamond-remastered-features-mobile.png'
         }
     ];
 
     animationFeaturesData1 = [
         {
             id: 1,
-            title: 'PrimeFlex CSS Utilities',
-            description: 'PrimeFlex is a CSS utility library featuring various helpers such as a grid grid-cols-12 gap-4 system, flexbox, spacing, elevation and more.',
-            src: 'https://primefaces.org/cdn/primeng/images/templates/apollo/features-animation-utilities.png'
+            title: 'Tailwind CSS',
+            description: 'The demo content is built with TailwindCSS, while the application shell uses custom CSS, offering flexibility and efficiency for responsive design.',
+            src: 'https://primefaces.org/cdn/primeng/images/templates/common/tailwind.png'
         },
         {
             id: 2,
             title: 'PrimeBlocks',
-            description: 'Fully compatible with PrimeBlocks, choose from the wide range of blocks and customize the way you like. Note that PrimeBlocks is not included in the template and requires a separate purchase.',
-            src: 'https://primefaces.org/cdn/primeng/images/templates/apollo/features-animation-blocks.png'
+            description: `Designed to be fully compatible with upcoming next-gen PrimeBlocks, choose from the extensive range of blocks and customize the way you like.`,
+            src: 'https://primefaces.org/cdn/primeng/images/templates/common/primeblocks.png'
         },
         {
             id: 3,
             title: 'PrimeIcons',
             description: 'Diamond ships with PrimeIcons, PrimeTek’s modern icon library including a wide range of icons for your applications.',
-            src: 'https://primefaces.org/cdn/primeng/images/templates/apollo/features-animation-icons.png'
+            src: 'https://primefaces.org/cdn/primeng/images/templates/common/primeicons.png'
         },
         {
             id: 4,
             title: 'Figma File',
             description:
-                'Diamond uses Figma as the design tool. It will be possible to download the Figma file after your purchase. You can preview the Figma file before the purchase. Note that PrimeNG UI components are excluded from the Diamond Figma file as they are available in PrimeOne for Figma only.',
-            src: 'https://primefaces.org/cdn/primeng/images/templates/diamond/features-animation-figma.png'
+                'Powered by Figma as the design tool. It will be possible to download the Figma file after your purchase. Note that PrimeNG UI components are excluded from the template Figma file as they are available in PrimeOne for Figma only.',
+            src: 'https://primefaces.org/cdn/primeng/images/templates/diamond/features-remastered-animation-figma.png'
         }
     ];
 
     animationFeaturesData2 = [
         {
             id: 1,
-            title: 'Light / Dark / Dim Modes',
-            description: 'Diamond has 3 display modes to choose from; Light, Dim and Dark.',
-            src: 'https://primefaces.org/cdn/primeng/images/templates/diamond/features-animation-darkmode.png'
+            title: 'Light and Dark Modes',
+            description: '2 color schemes with 8 surface color alternatives for each.',
+            src: 'https://primefaces.org/cdn/primeng/images/templates/diamond/features-remastered-animation-darkmode.png'
         },
         {
             id: 2,
-            title: 'Component Themes',
-            description: 'Diamond offers 30 built-in component themes and creating your own theme is a matter of defining couple of sass variables.',
-            src: 'https://primefaces.org/cdn/primeng/images/templates/diamond/features-animation-component-themes.png'
+            title: 'Themes and Presets',
+            description: 'Diamond offers 17 built-in theme colors with the power of 3 presets: Aura, Lara and Nora.',
+            src: 'https://primefaces.org/cdn/primeng/images/templates/diamond/features-remastered-animation-component-themes.png'
         },
         {
             id: 3,
             title: '7 Menu Orientations',
             description: 'Static, Overlay, Slim, Compact, Horizontal, Reveal and Drawer are the available menu layouts depending on your preference.',
-            src: 'https://primefaces.org/cdn/primeng/images/templates/diamond/features-animation-orientations.png',
+            src: 'https://primefaces.org/cdn/primeng/images/templates/diamond/features-remastered-animation-orientations.png',
             type: 'inline-animation',
             inlineFeaturesData: [
                 {
                     id: 1,
                     title: 'Static',
-                    src: 'https://primefaces.org/cdn/primeng/images/templates/diamond/Static.png'
+                    src: 'https://primefaces.org/cdn/primeng/images/templates/diamond/static-remastered.png'
                 },
                 {
                     id: 2,
                     title: 'Slim',
-                    src: 'https://primefaces.org/cdn/primeng/images/templates/diamond/Slim.png'
+                    src: 'https://primefaces.org/cdn/primeng/images/templates/diamond/slim-remastered.png'
                 },
                 {
                     id: 3,
                     title: 'Horizontal',
-                    src: 'https://primefaces.org/cdn/primeng/images/templates/diamond/Horizontal.png'
+                    src: 'https://primefaces.org/cdn/primeng/images/templates/diamond/horizontal-remastered.png'
                 },
                 {
                     id: 4,
                     title: 'Drawer',
-                    src: 'https://primefaces.org/cdn/primeng/images/templates/diamond/Drawer.png'
+                    src: 'https://primefaces.org/cdn/primeng/images/templates/diamond/drawer-remastered.png'
                 },
                 {
                     id: 5,
                     title: 'Overlay',
-                    src: 'https://primefaces.org/cdn/primeng/images/templates/diamond/Overlay.png'
+                    src: 'https://primefaces.org/cdn/primeng/images/templates/diamond/overlay-remastered.png'
                 },
                 {
                     id: 6,
                     title: 'Compact',
-                    src: 'https://primefaces.org/cdn/primeng/images/templates/diamond/Compact.png'
+                    src: 'https://primefaces.org/cdn/primeng/images/templates/diamond/compact-remastered.png'
                 },
                 {
                     id: 7,
                     title: 'Reveal',
-                    src: 'https://primefaces.org/cdn/primeng/images/templates/diamond/Reveal.png'
+                    src: 'https://primefaces.org/cdn/primeng/images/templates/diamond/reveal-remastered.png'
                 }
             ]
         },
         {
             id: 4,
             title: 'Menu Themes',
-            description: 'Stunning theming options for the main menu in light color scheme.',
-            src: 'https://primefaces.org/cdn/primeng/images/templates/diamond/features-animation-orientations.png'
+            description: 'Stunning theming options for the main menu.',
+            src: 'https://primefaces.org/cdn/primeng/images/templates/diamond/features-remastered-animation-orientations.png'
         }
     ];
 
@@ -227,13 +199,13 @@ export class DiamondPage {
                 title: 'Basic License',
                 price: '$59',
                 discount_price: '$39',
-                included: ['Non Commercial Usage', 'Single End Product, No Multi-Use', 'Lifetime Support', 'Unlimited Updates']
+                included: ['Non Commercial Usage', 'Single End Product, No Multi-Use', '1 Year Free Updates']
             },
             {
                 title: 'Extended License',
                 price: '$590',
                 discount_price: '$390',
-                included: ['Commercial Usage', 'Multiple End Products', 'Lifetime Support', 'Unlimited Updates']
+                included: ['Commercial Usage', 'Multiple End Products', '1 Year Free Updates']
             }
         ]
     };

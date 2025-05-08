@@ -144,8 +144,9 @@ export class AccordionPanel extends BaseComponent {
         '[attr.id]': 'id()',
         '[attr.aria-expanded]': 'active()',
         '[attr.aria-controls]': 'ariaControls()',
+        '[attr.aria-disabled]': 'disabled()',
         '[attr.role]': '"button"',
-        '[attr.tabindex]': '"0"',
+        '[attr.tabindex]': 'disabled()?"-1":"0"',
         '[attr.data-p-active]': 'active()',
         '[attr.data-p-disabled]': 'disabled()',
         '[attr.data-pc-name]': '"accordionheader"',
@@ -177,8 +178,19 @@ export class AccordionHeader extends BaseComponent {
      */
     @ContentChild('toggleicon') toggleicon: TemplateRef<AccordionToggleIconTemplateContext> | undefined;
 
-    @HostListener('click', ['$event']) onClick() {
+    @HostListener('click', ['$event']) onClick(event?: MouseEvent | KeyboardEvent) {
+        const wasActive = this.active();
+
         this.changeActiveValue();
+
+        const isActive = this.active();
+        const index = this.pcAccordionPanel.value();
+
+        if (!wasActive && isActive) {
+            this.pcAccordion.onOpen.emit({ originalEvent: event, index });
+        } else if (wasActive && !isActive) {
+            this.pcAccordion.onClose.emit({ originalEvent: event, index });
+        }
     }
 
     @HostListener('focus', ['$event']) onFocus() {

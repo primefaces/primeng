@@ -25,6 +25,12 @@ const theme = ({ dt }) => `
     gap: ${dt('button.gap')};
 }
 
+.p-button-icon,
+.p-button-icon:before,
+.p-button-icon:after {
+    line-height: inherit;
+}
+
 .p-button:disabled {
     cursor: default;
 }
@@ -72,6 +78,14 @@ const theme = ({ dt }) => `
     font-size: ${dt('button.sm.font.size')};
 }
 
+.p-button-sm.p-button-icon-only {
+    width: ${dt('button.sm.icon.only.width')};
+}
+
+.p-button-sm.p-button-icon-only.p-button-rounded {
+    height: ${dt('button.sm.icon.only.width')};
+}
+
 .p-button-lg {
     font-size: ${dt('button.lg.font.size')};
     padding-block: ${dt('button.lg.padding.y')};
@@ -80,6 +94,14 @@ const theme = ({ dt }) => `
 
 .p-button-lg .p-button-icon {
     font-size: ${dt('button.lg.font.size')};
+}
+
+.p-button-lg.p-button-icon-only {
+    width: ${dt('button.lg.icon.only.width')};
+}
+
+.p-button-lg.p-button-icon-only.p-button-rounded {
+    height: ${dt('button.lg.icon.only.width')};
 }
 
 .p-button-vertical {

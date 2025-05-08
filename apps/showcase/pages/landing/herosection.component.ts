@@ -333,7 +333,7 @@ import { OverviewApp } from './samples/overviewapp.component';
                             <div *ngFor="let data of opportunities" class="flex flex-col p-3 rounded-xl bg-emphasis">
                                 <div class="flex items-start justify-between gap-2">
                                     <div class="font-medium text-color mt-0.5">{{ data.title }}</div>
-                                    <a [routerLink]="data.link" target="_blank" rel="noopener">
+                                    <a [href]="data.link" target="_blank" rel="noopener">
                                         <p-button icon="pi pi-arrow-up-right text-sm !leading-none" styleClass="w-8 h-8 !border-surface !bg-surface-0 dark:!bg-surface-900" severity="secondary" text />
                                     </a>
                                 </div>
@@ -567,38 +567,38 @@ export class HeroSectionComponent implements OnInit, OnDestroy {
         this.opportunities = [
             {
                 title: 'Apollo',
-                link: 'https://primevue.org/templates/apollo/',
-                image: 'https://primefaces.org/cdn/primevue/images/layouts/apollo-vue.jpg',
+                link: 'https://apollo.primeng.org',
+                image: 'https://primefaces.org/cdn/primeng/images/layouts/apollo-ng.jpg',
                 text: 'Keep your application fresh with Apollo, the newest and most modern template available.'
             },
             {
                 title: 'Ultima',
-                link: 'https://primevue.org/templates/ultima/',
-                image: 'https://primefaces.org/cdn/primevue/images/layouts/ultima-vue.jpg',
+                link: 'https://ultima.primeng.org/',
+                image: 'https://primefaces.org/cdn/primeng/images/layouts/ultima-ng.jpg',
                 text: "Elevate your application's intuitiveness with Ultima's premium Material Design interface."
             },
             {
                 title: 'Diamond',
-                link: 'https://primevue.org/templates/diamond/',
-                image: 'https://primefaces.org/cdn/primevue/images/layouts/diamond-vue.jpg',
+                link: 'https://diamond.primeng.org/',
+                image: 'https://primefaces.org/cdn/primeng/images/layouts/diamond-ng.jpg',
                 text: "Handle complex operations with elegance with Diamond's robust and powerful premium design."
             },
             {
                 title: 'Atlantis',
-                link: 'https://primevue.org/templates/atlantis/',
-                image: 'https://primefaces.org/cdn/primevue/images/layouts/atlantis-vue.jpg',
+                link: 'https://atlantis.primeng.org/',
+                image: 'https://primefaces.org/cdn/primeng/images/layouts/atlantis-ng.jpg',
                 text: "Boost your application's capabilities, customization with the Atlantis template."
             },
             {
                 title: 'Verona',
-                link: 'https://primevue.org/templates/verona/',
-                image: 'https://primefaces.org/cdn/primevue/images/layouts/verona-vue.jpg',
+                link: 'https://verona.primeng.org/',
+                image: 'https://primefaces.org/cdn/primeng/images/layouts/verona-ng.jpg',
                 text: "Achieve sophistication and subtlety with Verona's minimalistic, content-focused design."
             },
             {
                 title: 'Freya',
-                link: 'https://primevue.org/templates/freya/',
-                image: 'https://primefaces.org/cdn/primevue/images/layouts/freya-vue.png',
+                link: 'https://freya.primeng.org/',
+                image: 'https://primefaces.org/cdn/primeng/images/layouts/freya-ng.jpg',
                 text: "Give your application a sleek, updated look with Freya's chic and modern premium template."
             }
         ];

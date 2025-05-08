@@ -32,6 +32,16 @@ const theme = ({ dt }) => `
 
 .p-listbox-header {
     padding: ${dt('listbox.list.header.padding')};
+    display: flex;
+    align-items: center;
+}
+
+.p-listbox-header > * {
+    flex: 1 1 auto;
+}
+
+.p-listbox-header > .p-checkbox {
+    flex: 0 0 auto;
 }
 
 .p-listbox-filter {
@@ -64,6 +74,10 @@ const theme = ({ dt }) => `
     color: ${dt('listbox.option.color')};
     transition: background ${dt('listbox.transition.duration')}, color ${dt('listbox.transition.duration')}, border-color ${dt('listbox.transition.duration')},
             box-shadow ${dt('listbox.transition.duration')}, outline-color ${dt('listbox.transition.duration')};
+}
+
+.p-listbox-option:not(.cdk-drag-disabled) {
+    cursor: move;
 }
 
 .p-listbox-striped li:nth-child(even of .p-listbox-option) {
@@ -111,6 +125,8 @@ const theme = ({ dt }) => `
 
 /* For PrimeNG */
 
+p-listBox.ng-invalid.ng-dirty > .p-listbox.p-component,
+p-list-box.ng-invalid.ng-dirty > .p-listbox.p-component,
 p-listbox.ng-invalid.ng-dirty > .p-listbox.p-component {
     border-color: ${dt('listbox.invalid.border.color')};
 }

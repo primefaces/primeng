@@ -24,7 +24,7 @@ import { BreadCrumbStyle } from './style/breadcrumbstyle';
                     [attr.id]="home.id"
                     [ngClass]="{ 'p-breadcrumb-home-item': true, 'p-disabled': home.disabled }"
                     [ngStyle]="home.style"
-                    *ngIf="home"
+                    *ngIf="home && home.visible !== false"
                     pTooltip
                     [tooltipOptions]="home.tooltipOptions"
                     [attr.data-pc-section]="'home'"
@@ -78,6 +78,7 @@ import { BreadCrumbStyle } from './style/breadcrumbstyle';
                 </li>
                 <ng-template ngFor let-menuitem let-end="last" [ngForOf]="model">
                     <li
+                        *ngIf="menuitem.visible !== false"
                         [class]="menuitem.styleClass"
                         [attr.id]="menuitem.id"
                         [ngStyle]="menuitem.style"
@@ -131,7 +132,7 @@ import { BreadCrumbStyle } from './style/breadcrumbstyle';
                             </a>
                         }
                     </li>
-                    <li *ngIf="!end" class="p-breadcrumb-separator" [attr.data-pc-section]="'separator'">
+                    <li *ngIf="!end && menuitem.visible !== false" class="p-breadcrumb-separator" [attr.data-pc-section]="'separator'">
                         <ChevronRightIcon *ngIf="!separatorTemplate && !_separatorTemplate" />
                         <ng-template *ngTemplateOutlet="separatorTemplate || _separatorTemplate"></ng-template>
                     </li>

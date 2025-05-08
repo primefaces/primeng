@@ -1,6 +1,6 @@
 import { Code } from '@/domain/code';
 import { PhotoService } from '@/service/photoservice';
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, model } from '@angular/core';
 
 @Component({
     selector: 'hover-doc',
@@ -11,10 +11,10 @@ import { Component, OnInit } from '@angular/core';
         </app-docsectiontext>
         <div class="card">
             <p-galleria [(value)]="images" [showIndicators]="false" [showItemNavigatorsOnHover]="true" [showItemNavigators]="true" [responsiveOptions]="responsiveOptions" [containerStyle]="{ 'max-width': '640px' }">
-                <ng-template pTemplate="item" let-item>
+                <ng-template #item let-item>
                     <img [src]="item.itemImageSrc" style="width: 100%; display: block;" />
                 </ng-template>
-                <ng-template pTemplate="thumbnail" let-item>
+                <ng-template #thumbnail let-item>
                     <img [src]="item.thumbnailImageSrc" style="display: block;" />
                 </ng-template>
             </p-galleria>
@@ -24,7 +24,7 @@ import { Component, OnInit } from '@angular/core';
     providers: [PhotoService]
 })
 export class HoverDoc implements OnInit {
-    images: any[] | undefined;
+    images = model([]);
 
     responsiveOptions: any[] = [
         {
@@ -40,31 +40,29 @@ export class HoverDoc implements OnInit {
     constructor(private photoService: PhotoService) {}
 
     ngOnInit() {
-        this.photoService.getImages().then((images) => {
-            this.images = images;
-        });
+        this.photoService.getImages().then((images) => this.images.set(images));
     }
 
     code: Code = {
         basic: `<p-galleria [(value)]="images" [showIndicators]="false" [showItemNavigatorsOnHover]="true" [showItemNavigators]="true" [responsiveOptions]="responsiveOptions" [containerStyle]="{ 'max-width': '640px' }">
-    <ng-template pTemplate="item" let-item>
+    <ng-template #item let-item>
         <img [src]="item.itemImageSrc" style="width: 100%; display: block;" />
     </ng-template>
-    <ng-template pTemplate="thumbnail" let-item>
+    <ng-template #thumbnail let-item>
         <img [src]="item.thumbnailImageSrc" style="display: block;" />
     </ng-template>
 </p-galleria>`,
         html: `<div class="card">
     <p-galleria [(value)]="images" [showIndicators]="false" [showItemNavigatorsOnHover]="true" [showItemNavigators]="true" [responsiveOptions]="responsiveOptions" [containerStyle]="{ 'max-width': '640px' }">
-        <ng-template pTemplate="item" let-item>
+        <ng-template #item let-item>
             <img [src]="item.itemImageSrc" style="width: 100%; display: block;" />
         </ng-template>
-        <ng-template pTemplate="thumbnail" let-item>
+        <ng-template #thumbnail let-item>
             <img [src]="item.thumbnailImageSrc" style="display: block;" />
         </ng-template>
     </p-galleria>
 </div>`,
-        typescript: `import { Component, OnInit } from '@angular/core';
+        typescript: `import { Component, OnInit, model } from '@angular/core';
 import { PhotoService } from '@/service/photoservice';
 import { GalleriaModule } from 'primeng/galleria';
 
@@ -76,25 +74,23 @@ import { GalleriaModule } from 'primeng/galleria';
     providers: [PhotoService]
 })
 export class GalleriaNavigatorHoverDemo implements OnInit {
-    images: any[] | undefined;
+    images = model([]);
 
     responsiveOptions: any[] = [
         {
             breakpoint: '1300px',
-            numVisible: 4,
+            numVisible: 4
         },
         {
             breakpoint: '575px',
-            numVisible: 1,
-        },
+            numVisible: 1
+        }
     ];
 
     constructor(private photoService: PhotoService) {}
 
     ngOnInit() {
-        this.photoService.getImages().then((images) => {
-            this.images = images;
-        });
+        this.photoService.getImages().then((images) => this.images.set(images));
     }
 }`,
         data: `

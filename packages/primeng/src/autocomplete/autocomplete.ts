@@ -126,19 +126,17 @@ export const AUTOCOMPLETE_VALUE_ACCESSOR: any = {
                     [attr.aria-posinset]="i + 1"
                     [attr.aria-selected]="true"
                 >
-                    <ng-container *ngTemplateOutlet="selectedItemTemplate || _selectedItemTemplate; context: { $implicit: option }"></ng-container>
-                    <p-chip styleClass="p-autocomplete-chip" *ngIf="!selectedItemTemplate && !_selectedItemTemplate" [label]="getOptionLabel(option)" [removable]="true">
-                        <ng-container *ngIf="!removeIconTemplate && !_removeIconTemplate">
-                            <ng-template #removeicon>
-                                <span class="p-autocomplete-chip-icon" (click)="!readonly ? removeOption($event, i) : ''">
-                                    <TimesCircleIcon [styleClass]="'p-autocomplete-chip-icon'" [attr.aria-hidden]="true" />
-                                </span>
-                            </ng-template>
-                        </ng-container>
+                    <p-chip styleClass="p-autocomplete-chip" [label]="!selectedItemTemplate && !_selectedItemTemplate && getOptionLabel(option)" [removable]="true" (onRemove)="!readonly ? removeOption($event, i) : ''">
+                        <ng-container *ngTemplateOutlet="selectedItemTemplate || _selectedItemTemplate; context: { $implicit: option }"></ng-container>
+                        <ng-template #removeicon>
+                            <span *ngIf="!removeIconTemplate && !_removeIconTemplate" class="p-autocomplete-chip-icon" (click)="!readonly ? removeOption($event, i) : ''">
+                                <TimesCircleIcon [styleClass]="'p-autocomplete-chip-icon'" [attr.aria-hidden]="true" />
+                            </span>
+                            <span *ngIf="removeIconTemplate || _removeIconTemplate" [attr.aria-hidden]="true">
+                                <ng-template *ngTemplateOutlet="removeIconTemplate || _removeIconTemplate; context: { removeCallback: removeOption.bind(this), index: i, class: 'p-autocomplete-chip-icon' }"></ng-template>
+                            </span>
+                        </ng-template>
                     </p-chip>
-                    <span *ngIf="removeIconTemplate || _removeIconTemplate" [attr.aria-hidden]="true">
-                        <ng-template *ngTemplateOutlet="removeIconTemplate || _removeIconTemplate; context: { class: 'p-autocomplete-chip-icon' }"></ng-template>
-                    </span>
                 </li>
                 <li class="p-autocomplete-input-chip" role="option">
                     <input
@@ -614,7 +612,7 @@ export class AutoComplete extends BaseComponent implements AfterViewChecked, Aft
      * Property name or getter function to use as the disabled flag of an option, defaults to false when not defined.
      * @group Props
      */
-    @Input() optionDisabled: string | undefined;
+    @Input() optionDisabled: string | ((item: any) => string) | undefined;
     /**
      * When enabled, the hovered option will be focused.
      * @group Props
@@ -630,7 +628,7 @@ export class AutoComplete extends BaseComponent implements AfterViewChecked, Aft
      * Specifies the input variant of the component.
      * @group Props
      */
-    @Input() variant: 'filled' | 'outlined' = 'outlined';
+    @Input() variant: 'filled' | 'outlined';
     /**
      * Spans 100% width of the container when enabled.
      * @group Props
@@ -1057,7 +1055,7 @@ export class AutoComplete extends BaseComponent implements AfterViewChecked, Aft
 
     handleSuggestionsChange() {
         if (this.loading) {
-            this._suggestions()?.length > 0 ? this.show() : !!this.emptyTemplate ? this.show() : this.hide();
+            this._suggestions()?.length > 0 || this.showEmptyMessage || !!this.emptyTemplate ? this.show() : this.hide();
             const focusedOptionIndex = this.overlayVisible && this.autoOptionFocus ? this.findFirstFocusedOptionIndex() : -1;
             this.focusedOptionIndex.set(focusedOptionIndex);
             this.suggestionsUpdated = true;
@@ -1580,9 +1578,7 @@ export class AutoComplete extends BaseComponent implements AfterViewChecked, Aft
         event.stopPropagation();
 
         const removedOption = this.modelValue()[index];
-        const value = this.modelValue()
-            .filter((_, i) => i !== index)
-            .map((option) => this.getOptionValue(option));
+        const value = this.modelValue().filter((_, i) => i !== index);
 
         this.updateModel(value);
         this.onUnselect.emit({ originalEvent: event, value: removedOption });

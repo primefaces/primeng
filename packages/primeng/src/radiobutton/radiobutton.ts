@@ -120,7 +120,7 @@ export class RadioButton extends BaseComponent implements ControlValueAccessor, 
      * Specifies the input variant of the component.
      * @group Props
      */
-    @Input() variant: 'filled' | 'outlined' = 'outlined';
+    @Input() variant: 'filled' | 'outlined';
     /**
      * Defines the size of the component.
      * @group Props

@@ -75,6 +75,7 @@ const theme = ({ dt }) => `
     height: ${dt('icon.size')};
 }
 
+.p-password:has(.p-password-toggle-mask-icon) .p-password-clear-icon,
 .p-password:has(.p-password-toggle-mask-icon) .p-password-input {
     padding-inline-end: calc((${dt('form.field.padding.x')} * 2) + ${dt('icon.size')});
 }
@@ -114,6 +115,7 @@ const classes = {
     root: ({ instance }) => ({
         'p-password p-component p-inputwrapper': true,
         'p-inputwrapper-filled': instance.filled(),
+        'p-variant-filled': 'instance.variant === "filled" || instance.config.inputVariant() === "filled" || instance.config.inputStyle() === "filled"',
         'p-inputwrapper-focus': instance.focused,
         'p-password-fluid': instance.hasFluid
     }),

@@ -1,30 +1,31 @@
+import { CDK_DRAG_CONFIG, CdkDragDrop, DragDropModule } from '@angular/cdk/drag-drop';
 import { CommonModule } from '@angular/common';
 import {
     AfterContentInit,
-    booleanAttribute,
     ChangeDetectionStrategy,
     Component,
-    computed,
     ContentChild,
     ContentChildren,
     ElementRef,
     EventEmitter,
-    forwardRef,
-    inject,
     Input,
     NgModule,
-    numberAttribute,
     OnDestroy,
     OnInit,
     Output,
     QueryList,
-    signal,
     TemplateRef,
     ViewChild,
-    ViewEncapsulation
+    ViewEncapsulation,
+    booleanAttribute,
+    computed,
+    forwardRef,
+    inject,
+    numberAttribute,
+    signal
 } from '@angular/core';
 import { ControlValueAccessor, FormsModule, NG_VALUE_ACCESSOR } from '@angular/forms';
-import { equals, findLastIndex, findSingle, focus, getFirstFocusableElement, isEmpty, isNotEmpty, isPrintableCharacter, resolveFieldData, uuid } from '@primeuix/utils';
+import { equals, findLastIndex, findSingle, focus, getFirstFocusableElement, isEmpty, isFunction, isNotEmpty, isPrintableCharacter, resolveFieldData, uuid } from '@primeuix/utils';
 import { FilterService, Footer, Header, PrimeTemplate, ScrollerOptions, SharedModule } from 'primeng/api';
 import { BaseComponent } from 'primeng/basecomponent';
 import { Checkbox } from 'primeng/checkbox';
@@ -51,19 +52,10 @@ export const LISTBOX_VALUE_ACCESSOR: any = {
 @Component({
     selector: 'p-listbox, p-listBox, p-list-box',
     standalone: true,
-    imports: [CommonModule, Ripple, Scroller, InputIcon, SearchIcon, Checkbox, CheckIcon, IconField, InputText, BlankIcon, FormsModule, SharedModule],
+    imports: [CommonModule, Ripple, Scroller, InputIcon, SearchIcon, Checkbox, CheckIcon, IconField, InputText, BlankIcon, FormsModule, SharedModule, DragDropModule],
     template: `
         <div [attr.id]="id" [ngClass]="containerClass" [ngStyle]="style" [class]="styleClass" (focusout)="onFocusout($event)">
-            <span
-                #firstHiddenFocusableElement
-                role="presentation"
-                [attr.aria-hidden]="true"
-                class="p-hidden-accessible p-hidden-focusable"
-                [tabindex]="!disabled ? tabindex : -1"
-                (focus)="onFirstHiddenFocus($event)"
-                [attr.data-p-hidden-focusable]="true"
-            >
-            </span>
+            <span #firstHiddenFocusableElement role="presentation" class="p-hidden-accessible p-hidden-focusable" [tabindex]="!disabled ? tabindex : -1" (focus)="onFirstHiddenFocus($event)" [attr.data-p-hidden-focusable]="true"> </span>
             <div class="p-listbox-header" *ngIf="headerFacet || headerTemplate || _headerTemplate">
                 <ng-content select="p-header"></ng-content>
                 <ng-container *ngTemplateOutlet="headerTemplate || _headerTemplate; context: { $implicit: modelValue(), options: visibleOptions() }"></ng-container>
@@ -79,7 +71,7 @@ export const LISTBOX_VALUE_ACCESSOR: any = {
                         [ngModel]="allSelected()"
                         [disabled]="disabled"
                         [tabindex]="-1"
-                        [variant]="config.inputStyle() === 'filled' ? 'filled' : 'outlined' || config.inputVariant() === 'filled' ? 'filled' : 'outlined'"
+                        [variant]="config.inputStyle() === 'filled' || config.inputVariant() === 'filled' ? 'filled' : 'outlined'"
                         [binary]="true"
                     >
                         <ng-container *ngIf="checkIconTemplate || _checkIconTemplate">
@@ -127,129 +119,149 @@ export const LISTBOX_VALUE_ACCESSOR: any = {
                 </ng-template>
             </div>
             <div [ngClass]="'p-listbox-list-container'" #container [ngStyle]="listStyle" [class]="listStyleClass" [style.max-height]="virtualScroll ? 'auto' : scrollHeight || 'auto'" [attr.tabindex]="!disabled && '0'">
-                <p-scroller
-                    #scroller
-                    *ngIf="virtualScroll"
-                    [items]="visibleOptions()"
-                    [style]="{ height: scrollHeight }"
-                    [itemSize]="virtualScrollItemSize"
-                    [autoSize]="true"
-                    [lazy]="lazy"
-                    [options]="virtualScrollOptions"
-                    (onLazyLoad)="onLazyLoad.emit($event)"
-                    [tabindex]="scrollerTabIndex"
-                >
-                    <ng-template #content let-items let-scrollerOptions="options">
-                        <ng-container *ngTemplateOutlet="buildInItems; context: { $implicit: items, options: scrollerOptions }"></ng-container>
-                    </ng-template>
-                    @if (loaderTemplate || _loaderTemplate) {
-                        <ng-template #loader let-scrollerOptions="options">
-                            <ng-container *ngTemplateOutlet="loaderTemplate || _loaderTemplate; context: { options: scrollerOptions }"></ng-container>
-                        </ng-template>
-                    }
-                </p-scroller>
-                <ng-container *ngIf="!virtualScroll">
-                    <ng-container *ngTemplateOutlet="buildInItems; context: { $implicit: visibleOptions(), options: {} }"></ng-container>
-                </ng-container>
-
-                <ng-template #buildInItems let-items let-scrollerOptions="options">
-                    <ul
-                        #list
-                        class="p-listbox-list"
-                        role="listbox"
-                        [tabindex]="-1"
-                        [attr.aria-multiselectable]="true"
-                        [ngClass]="scrollerOptions.contentStyleClass"
-                        [style]="scrollerOptions.contentStyle"
-                        [attr.aria-activedescendant]="focused ? focusedOptionId : undefined"
-                        [attr.aria-label]="ariaLabel"
-                        [attr.aria-disabled]="disabled"
-                        (focus)="onListFocus($event)"
-                        (blur)="onListBlur($event)"
-                        (keydown)="onListKeyDown($event)"
+                @if (hasFilter() && isEmpty()) {
+                    <div class="p-listbox-empty-message" [cdkDropListData]="$any([])" (cdkDropListDropped)="drop($event)" cdkDropList>
+                        @if (!emptyFilterTemplate && !_emptyFilterTemplate && !_emptyTemplate && !emptyTemplate) {
+                            {{ emptyFilterMessageText }}
+                        } @else {
+                            <ng-container #emptyFilter *ngTemplateOutlet="emptyFilterTemplate || _emptyFilterTemplate || _emptyTemplate || emptyTemplate"></ng-container>
+                        }
+                    </div>
+                } @else if (!hasFilter() && isEmpty()) {
+                    <div class="p-listbox-empty-message" [cdkDropListData]="$any([])" (cdkDropListDropped)="drop($event)" cdkDropList>
+                        @if (!emptyTemplate && !_emptyTemplate) {
+                            {{ emptyMessage }}
+                        } @else {
+                            <ng-container #empty *ngTemplateOutlet="emptyTemplate || _emptyTemplate"></ng-container>
+                        }
+                    </div>
+                } @else {
+                    <p-scroller
+                        #scroller
+                        *ngIf="virtualScroll"
+                        [items]="visibleOptions()"
+                        [style]="{ height: scrollHeight }"
+                        [itemSize]="virtualScrollItemSize"
+                        [autoSize]="true"
+                        [lazy]="lazy"
+                        [options]="virtualScrollOptions"
+                        (onLazyLoad)="onLazyLoad.emit($event)"
+                        [tabindex]="scrollerTabIndex"
                     >
-                        <ng-template ngFor let-option [ngForOf]="items" let-i="index">
-                            <ng-container *ngIf="isOptionGroup(option)">
-                                <li [attr.id]="id + '_' + getOptionIndex(i, scrollerOptions)" class="p-listbox-option-group" [ngStyle]="{ height: scrollerOptions.itemSize + 'px' }" role="option">
-                                    <span *ngIf="!groupTemplate && !_groupTemplate">{{ getOptionGroupLabel(option.optionGroup) }}</span>
-                                    <ng-container *ngTemplateOutlet="groupTemplate || _groupTemplate; context: { $implicit: option.optionGroup }"></ng-container>
-                                </li>
-                            </ng-container>
-                            <ng-container *ngIf="!isOptionGroup(option)">
-                                <li
-                                    pRipple
-                                    class="p-listbox-option"
-                                    role="option"
-                                    [attr.id]="id + '_' + getOptionIndex(i, scrollerOptions)"
-                                    [ngStyle]="{ height: scrollerOptions.itemSize + 'px' }"
-                                    [ngClass]="{
-                                        'p-listbox-option-selected': isSelected(option) && highlightOnSelect,
-                                        'p-focus': focusedOptionIndex() === getOptionIndex(i, scrollerOptions),
-                                        'p-disabled': isOptionDisabled(option)
-                                    }"
-                                    [attr.aria-label]="getOptionLabel(option)"
-                                    [attr.aria-selected]="isSelected(option)"
-                                    [attr.aria-disabled]="isOptionDisabled(option)"
-                                    [attr.aria-setsize]="ariaSetSize"
-                                    [attr.ariaPosInset]="getAriaPosInset(getOptionIndex(i, scrollerOptions))"
-                                    (click)="onOptionSelect($event, option, getOptionIndex(i, scrollerOptions))"
-                                    (dblclick)="onOptionDoubleClick($event, option)"
-                                    (mousedown)="onOptionMouseDown($event, getOptionIndex(i, scrollerOptions))"
-                                    (mouseenter)="onOptionMouseEnter($event, getOptionIndex(i, scrollerOptions))"
-                                    (touchend)="onOptionTouchEnd()"
-                                >
-                                    <p-checkbox
-                                        *ngIf="checkbox && multiple"
-                                        styleClass="p-listbox-option-check-icon"
-                                        [ngModel]="isSelected(option)"
-                                        [disabled]="disabled || isOptionDisabled(option)"
-                                        [tabindex]="-1"
-                                        [variant]="config.inputStyle() === 'filled' ? 'filled' : 'outlined' || config.inputVariant() === 'filled' ? 'filled' : 'outlined'"
-                                        [binary]="true"
-                                    >
-                                        <ng-container *ngIf="checkIconTemplate || _checkIconTemplate">
-                                            <ng-template #icon>
-                                                <ng-template *ngTemplateOutlet="checkIconTemplate || _checkIconTemplate; context: { $implicit: isSelected(option) }"></ng-template>
-                                            </ng-template>
-                                        </ng-container>
-                                    </p-checkbox>
-                                    <ng-container *ngIf="checkmark">
-                                        <ng-container *ngIf="!checkmarkTemplate && !_checkmarkTemplate">
-                                            <BlankIcon *ngIf="!isSelected(option)" styleClass="p-listbox-option-check-icon" />
-                                            <CheckIcon *ngIf="isSelected(option)" styleClass="p-listbox-option-check-icon" />
-                                        </ng-container>
-                                        <ng-container *ngTemplateOutlet="checkmarkTemplate || _checkmarkTemplate; context: { implicit: isSelected(option) }"></ng-container>
-                                    </ng-container>
-                                    <span *ngIf="!itemTemplate && !_itemTemplate">{{ getOptionLabel(option) }}</span>
-                                    <ng-container
-                                        *ngTemplateOutlet="
-                                            itemTemplate || _itemTemplate;
-                                            context: {
-                                                $implicit: option,
-                                                index: getOptionIndex(i, scrollerOptions),
-                                                selected: isSelected(option)
-                                            }
-                                        "
-                                    ></ng-container>
-                                </li>
-                            </ng-container>
+                        <ng-template #content let-items let-scrollerOptions="options">
+                            <ng-container *ngTemplateOutlet="buildInItems; context: { $implicit: items, options: scrollerOptions }"></ng-container>
                         </ng-template>
-                        <li *ngIf="hasFilter() && isEmpty()" class="p-listbox-empty-message" role="option">
-                            @if (!emptyFilterTemplate && !_emptyFilterTemplate && !_emptyTemplate && !emptyTemplate) {
-                                {{ emptyFilterMessageText }}
-                            } @else {
-                                <ng-container #emptyFilter *ngTemplateOutlet="emptyFilterTemplate || _emptyFilterTemplate || _emptyTemplate || emptyTemplate"></ng-container>
-                            }
-                        </li>
-                        <li *ngIf="!hasFilter() && isEmpty()" class="p-listbox-empty-message" role="option">
-                            @if (!emptyTemplate && !_emptyTemplate) {
-                                {{ emptyMessage }}
-                            } @else {
-                                <ng-container #empty *ngTemplateOutlet="emptyTemplate || _emptyTemplate"></ng-container>
-                            }
-                        </li>
-                    </ul>
-                </ng-template>
+                        @if (loaderTemplate || _loaderTemplate) {
+                            <ng-template #loader let-scrollerOptions="options">
+                                <ng-container *ngTemplateOutlet="loaderTemplate || _loaderTemplate; context: { options: scrollerOptions }"></ng-container>
+                            </ng-template>
+                        }
+                    </p-scroller>
+                    <ng-container *ngIf="!virtualScroll">
+                        <ng-container *ngTemplateOutlet="buildInItems; context: { $implicit: visibleOptions(), options: {} }"></ng-container>
+                    </ng-container>
+
+                    <ng-template #buildInItems let-items let-scrollerOptions="options">
+                        <ul
+                            #list
+                            class="p-listbox-list"
+                            role="listbox"
+                            [tabindex]="-1"
+                            [attr.aria-multiselectable]="true"
+                            [ngClass]="scrollerOptions.contentStyleClass"
+                            [style]="scrollerOptions.contentStyle"
+                            [attr.aria-activedescendant]="focused ? focusedOptionId : undefined"
+                            [attr.aria-label]="ariaLabel"
+                            [attr.aria-disabled]="disabled"
+                            (focus)="onListFocus($event)"
+                            (blur)="onListBlur($event)"
+                            (keydown)="onListKeyDown($event)"
+                            cdkDropList
+                            [cdkDropListData]="items"
+                            (cdkDropListDropped)="drop($event)"
+                        >
+                            <ng-template ngFor let-option [ngForOf]="items" let-i="index">
+                                <ng-container *ngIf="isOptionGroup(option)">
+                                    <li
+                                        [attr.id]="id + '_' + getOptionIndex(i, scrollerOptions)"
+                                        class="p-listbox-option-group"
+                                        [ngStyle]="{ height: scrollerOptions.itemSize + 'px' }"
+                                        role="option"
+                                        cdkDrag
+                                        [cdkDragData]="option"
+                                        [cdkDragDisabled]="!dragdrop"
+                                    >
+                                        <span *ngIf="!groupTemplate && !_groupTemplate">{{ getOptionGroupLabel(option.optionGroup) }}</span>
+                                        <ng-container *ngTemplateOutlet="groupTemplate || _groupTemplate; context: { $implicit: option.optionGroup }"></ng-container>
+                                    </li>
+                                </ng-container>
+                                <ng-container *ngIf="!isOptionGroup(option)">
+                                    <li
+                                        pRipple
+                                        class="p-listbox-option"
+                                        role="option"
+                                        [attr.id]="id + '_' + getOptionIndex(i, scrollerOptions)"
+                                        [ngStyle]="{ height: scrollerOptions.itemSize + 'px' }"
+                                        [ngClass]="{
+                                            'p-listbox-option-selected': isSelected(option) && highlightOnSelect,
+                                            'p-focus': focusedOptionIndex() === getOptionIndex(i, scrollerOptions),
+                                            'p-disabled': isOptionDisabled(option)
+                                        }"
+                                        [attr.aria-label]="getOptionLabel(option)"
+                                        [attr.aria-selected]="isSelected(option)"
+                                        [attr.aria-disabled]="isOptionDisabled(option)"
+                                        [attr.aria-setsize]="ariaSetSize"
+                                        [attr.ariaPosInset]="getAriaPosInset(getOptionIndex(i, scrollerOptions))"
+                                        (click)="onOptionSelect($event, option, getOptionIndex(i, scrollerOptions))"
+                                        (dblclick)="onOptionDoubleClick($event, option)"
+                                        (mousedown)="onOptionMouseDown($event, getOptionIndex(i, scrollerOptions))"
+                                        (mouseenter)="onOptionMouseEnter($event, getOptionIndex(i, scrollerOptions))"
+                                        (touchend)="onOptionTouchEnd()"
+                                        cdkDrag
+                                        [cdkDragData]="option"
+                                        [cdkDragDisabled]="!dragdrop"
+                                    >
+                                        <p-checkbox
+                                            *ngIf="checkbox && multiple"
+                                            styleClass="p-listbox-option-check-icon"
+                                            [ngModel]="isSelected(option)"
+                                            [readonly]="true"
+                                            [disabled]="disabled || isOptionDisabled(option)"
+                                            [tabindex]="-1"
+                                            [variant]="config.inputStyle() === 'filled' || config.inputVariant() === 'filled' ? 'filled' : 'outlined'"
+                                            [binary]="true"
+                                        >
+                                            <ng-container *ngIf="checkIconTemplate || _checkIconTemplate">
+                                                <ng-template #icon>
+                                                    <ng-template *ngTemplateOutlet="checkIconTemplate || _checkIconTemplate; context: { $implicit: isSelected(option) }"></ng-template>
+                                                </ng-template>
+                                            </ng-container>
+                                        </p-checkbox>
+                                        <ng-container *ngIf="checkmark">
+                                            <ng-container *ngIf="!checkmarkTemplate && !_checkmarkTemplate">
+                                                <BlankIcon *ngIf="!isSelected(option)" styleClass="p-listbox-option-check-icon" />
+                                                <CheckIcon *ngIf="isSelected(option)" styleClass="p-listbox-option-check-icon" />
+                                            </ng-container>
+                                            <ng-container *ngTemplateOutlet="checkmarkTemplate || _checkmarkTemplate; context: { implicit: isSelected(option) }"></ng-container>
+                                        </ng-container>
+                                        <span *ngIf="!itemTemplate && !_itemTemplate">{{ getOptionLabel(option) }}</span>
+                                        <ng-container
+                                            *ngTemplateOutlet="
+                                                itemTemplate || _itemTemplate;
+                                                context: {
+                                                    $implicit: option,
+                                                    index: getOptionIndex(i, scrollerOptions),
+                                                    selected: isSelected(option),
+                                                    disabled: isOptionDisabled(option)
+                                                }
+                                            "
+                                        ></ng-container>
+                                    </li>
+                                </ng-container>
+                            </ng-template>
+                        </ul>
+                    </ng-template>
+                }
             </div>
             <div class="p-listbox-footer" *ngIf="footerFacet || footerTemplate || _footerTemplate">
                 <ng-content select="p-footer"></ng-content>
@@ -261,19 +273,19 @@ export const LISTBOX_VALUE_ACCESSOR: any = {
             <span role="status" aria-live="polite" class="p-hidden-accessible">
                 {{ selectedMessageText }}
             </span>
-            <span
-                #lastHiddenFocusableElement
-                role="presentation"
-                [attr.aria-hidden]="true"
-                class="p-hidden-accessible p-hidden-focusable"
-                [tabindex]="!disabled ? tabindex : -1"
-                (focus)="onLastHiddenFocus($event)"
-                [attr.data-p-hidden-focusable]="true"
-            >
-            </span>
+            <span #lastHiddenFocusableElement role="presentation" class="p-hidden-accessible p-hidden-focusable" [tabindex]="!disabled ? tabindex : -1" (focus)="onLastHiddenFocus($event)" [attr.data-p-hidden-focusable]="true"> </span>
         </div>
     `,
-    providers: [LISTBOX_VALUE_ACCESSOR, ListBoxStyle],
+    providers: [
+        LISTBOX_VALUE_ACCESSOR,
+        ListBoxStyle,
+        {
+            provide: CDK_DRAG_CONFIG,
+            useValue: {
+                zIndex: 1200
+            }
+        }
+    ],
     changeDetection: ChangeDetectionStrategy.OnPush,
     encapsulation: ViewEncapsulation.None
 })
@@ -420,7 +432,7 @@ export class Listbox extends BaseComponent implements AfterContentInit, OnInit, 
      * Defines how the items are filtered.
      * @group Props
      */
-    @Input() filterMatchMode: 'contains' | 'startsWith' | 'endsWith' | 'equals' | 'notEquals' | 'in' | 'lt' | 'lte' | 'gt' | 'gte' = 'contains';
+    @Input() filterMatchMode: 'contains' | 'startsWith' | 'endsWith' | 'equals' | 'notEquals' | 'in' | 'lt' | 'lte' | 'gt' | 'gte' | string = 'contains';
     /**
      * Locale to use in filtering. The default locale is the host environment's current locale.
      * @group Props
@@ -462,10 +474,10 @@ export class Listbox extends BaseComponent implements AfterContentInit, OnInit, 
      */
     @Input() optionGroupLabel: string | undefined = 'label';
     /**
-     * Name of the disabled field of an option.
+     * Name of the disabled field of an option or function to determine disabled state.
      * @group Props
      */
-    @Input() optionDisabled: string | undefined;
+    @Input() optionDisabled: string | ((item: any) => boolean) | undefined;
     /**
      * Defines a string that labels the filter input.
      * @group Props
@@ -540,10 +552,16 @@ export class Listbox extends BaseComponent implements AfterContentInit, OnInit, 
      */
     @Input({ transform: booleanAttribute }) checkmark: boolean = false;
     /**
+     * Whether to enable dragdrop based reordering.
+     * @group Props
+     */
+    @Input({ transform: booleanAttribute }) dragdrop: boolean = false;
+    /**
      * Callback to invoke on value change.
      * @param {ListboxChangeEvent} event - Custom change event.
      * @group Emits
      */
+
     @Output() onChange: EventEmitter<ListboxChangeEvent> = new EventEmitter<ListboxChangeEvent>();
     /**
      * Callback to invoke when option is clicked.
@@ -587,6 +605,12 @@ export class Listbox extends BaseComponent implements AfterContentInit, OnInit, 
      * @group Emits
      */
     @Output() onLazyLoad: EventEmitter<ScrollerLazyLoadEvent> = new EventEmitter<ScrollerLazyLoadEvent>();
+    /**
+     * Emits on item is dropped.
+     * @param {CdkDragDrop<string[]>} event - Scroller lazy load event.
+     * @group Emits
+     */
+    @Output() onDrop: EventEmitter<CdkDragDrop<string[]>> = new EventEmitter<CdkDragDrop<string[]>>();
 
     @ViewChild('headerchkbox') headerCheckboxViewChild: Nullable<ElementRef>;
 
@@ -1555,6 +1579,9 @@ export class Listbox extends BaseComponent implements AfterContentInit, OnInit, 
     }
 
     isOptionDisabled(option: any) {
+        if (isFunction(this.optionDisabled)) {
+            return this.optionDisabled(option);
+        }
         return this.optionDisabled ? resolveFieldData(option, this.optionDisabled) : false;
     }
 
@@ -1583,6 +1610,12 @@ export class Listbox extends BaseComponent implements AfterContentInit, OnInit, 
         }
 
         this._filterValue.set(null);
+    }
+
+    drop(event: CdkDragDrop<string[]>) {
+        if (event) {
+            this.onDrop.emit(event);
+        }
     }
 
     ngOnDestroy() {

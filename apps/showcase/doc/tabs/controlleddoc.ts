@@ -14,7 +14,7 @@ import { Component } from '@angular/core';
                 <p-button (onClick)="value = 1" rounded="true" styleClass="w-8 h-8 p-0" [outlined]="value !== 1" label="2" />
                 <p-button (onClick)="value = 2" rounded="true" styleClass="w-8 h-8 p-0" [outlined]="value !== 2" label="3" />
             </div>
-            <p-tabs [value]="value">
+            <p-tabs [(value)]="value">
                 <p-tablist>
                     <p-tab [value]="0">Header I</p-tab>
                     <p-tab [value]="1">Header II</p-tab>

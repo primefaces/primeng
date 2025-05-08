@@ -68,7 +68,9 @@ export interface StepPanelContentTemplateContext {
         '[class.p-component]': 'true'
     }
 })
-export class StepList extends BaseComponent {}
+export class StepList extends BaseComponent {
+    steps = contentChildren(forwardRef(() => Step));
+}
 
 @Component({
     selector: 'p-stepper-separator',
@@ -113,9 +115,9 @@ export class StepItem extends BaseComponent {
 
     isActive = computed(() => this.pcStepper.value() === this.value());
 
-    step = contentChild(Step);
+    step = contentChild(forwardRef(() => Step));
 
-    stepPanel = contentChild(StepPanel);
+    stepPanel = contentChild(forwardRef(() => StepPanel));
 
     constructor() {
         super();
@@ -139,7 +141,7 @@ export class StepItem extends BaseComponent {
     imports: [CommonModule, StepperSeparator, SharedModule],
     template: `
         @if (!content && !_contentTemplate) {
-            <button [attr.id]="id()" class="p-step-header" [attr.role]="'tab'" [tabindex]="isStepDisabled() ? -1 : undefined" [attr.aria-controls]="ariaControls()" [disabled]="isStepDisabled()" (click)="onStepClick()">
+            <button [attr.id]="id()" class="p-step-header" [attr.role]="'tab'" [tabindex]="isStepDisabled() ? -1 : undefined" [attr.aria-controls]="ariaControls()" [disabled]="isStepDisabled()" (click)="onStepClick()" type="button">
                 <span class="p-step-number">{{ value() }}</span>
                 <span class="p-step-title">
                     <ng-content></ng-content>
@@ -198,9 +200,12 @@ export class Step extends BaseComponent implements AfterContentInit {
 
     isSeparatorVisible = computed(() => {
         if (this.pcStepper.stepList()) {
-            const index = findIndexInList(this.el.nativeElement, this.pcStepper.stepList().el.nativeElement.children);
-            const stepLen = find(this.pcStepper.stepList().el.nativeElement, '[data-pc-name="step"]').length;
+            const steps = this.pcStepper.stepList().steps();
+            const index = steps.indexOf(this);
+            const stepLen = steps.length;
             return index !== stepLen - 1;
+        } else {
+            return false;
         }
     });
     /**

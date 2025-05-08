@@ -277,7 +277,7 @@ export class ConfirmPopup extends BaseComponent implements AfterContentInit, OnD
     }
 
     option(name: string, k?: string) {
-        const source: { [key: string]: any } = this || this;
+        const source: { [key: string]: any } = this;
         if (source.hasOwnProperty(name)) {
             if (k) {
                 return source[k];

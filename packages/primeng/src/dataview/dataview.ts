@@ -359,7 +359,7 @@ export class DataView extends BaseComponent implements OnInit, OnDestroy, Blocka
      * Template for loading icon.
      * @group Templates
      */
-    @ContentChild('loadingIcon') loadingicon: TemplateRef<any>;
+    @ContentChild('loadingicon') loadingicon: TemplateRef<any>;
     /**
      * Template for list icon.
      * @group Templates
@@ -413,6 +413,9 @@ export class DataView extends BaseComponent implements OnInit, OnDestroy, Blocka
 
     ngOnChanges(simpleChanges: SimpleChanges) {
         super.ngOnChanges(simpleChanges);
+        if (simpleChanges.layout && !simpleChanges.layout.firstChange) {
+            this.onChangeLayout.emit({ layout: simpleChanges.layout.currentValue });
+        }
         if (simpleChanges.value) {
             this._value = simpleChanges.value.currentValue;
             this.updateTotalRecords();

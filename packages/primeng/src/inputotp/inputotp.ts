@@ -70,7 +70,7 @@ export interface InputOtpInputTemplateContext {
                     type="text"
                     pInputText
                     [value]="getModelValue(i)"
-                    [maxLength]="1"
+                    [maxLength]="i === 1 ? length : 1"
                     [type]="inputType"
                     class="p-inputotp-input"
                     [pSize]="size"
@@ -119,7 +119,7 @@ export class InputOtp extends BaseComponent implements AfterContentInit {
      * Specifies the input variant of the component.
      * @group Props
      */
-    @Input() variant: 'filled' | 'outlined' = 'outlined';
+    @Input() variant: 'filled' | 'outlined';
     /**
      * Index of the element in tabbing order.
      * @group Props
@@ -231,7 +231,13 @@ export class InputOtp extends BaseComponent implements AfterContentInit {
     }
 
     onInput(event, index) {
-        this.tokens[index] = event.target.value;
+        const value = event.target.value;
+        if (index === 0 && value.length > 1) {
+            this.handleOnPaste(value, event);
+            event.stopPropagation();
+            return;
+        }
+        this.tokens[index] = value;
         this.updateModel(event);
 
         if (event.inputType === 'deleteContentBackward') {
@@ -372,7 +378,7 @@ export class InputOtp extends BaseComponent implements AfterContentInit {
                 break;
 
             default:
-                if ((this.integerOnly && !((event.code.startsWith('Digit') || event.code.startsWith('Numpad')) && Number(event.key) >= 0 && Number(event.key) <= 9)) || (this.tokens.join('').length >= this.length && event.code !== 'Delete')) {
+                if ((this.integerOnly && !(Number(event.key) >= 0 && Number(event.key) <= 9)) || (this.tokens.join('').length >= this.length && event.code !== 'Delete')) {
                     event.preventDefault();
                 }
 
@@ -385,15 +391,19 @@ export class InputOtp extends BaseComponent implements AfterContentInit {
             let paste = event.clipboardData.getData('text');
 
             if (paste.length) {
-                let pastedCode = paste.substring(0, this.length + 1);
-
-                if (!this.integerOnly || !isNaN(pastedCode)) {
-                    this.tokens = pastedCode.split('');
-                    this.updateModel(event);
-                }
+                this.handleOnPaste(paste, event);
             }
 
             event.preventDefault();
+        }
+    }
+
+    handleOnPaste(paste, event) {
+        let pastedCode = paste.substring(0, this.length + 1);
+
+        if (!this.integerOnly || !isNaN(pastedCode)) {
+            this.tokens = pastedCode.split('');
+            this.updateModel(event);
         }
     }
 

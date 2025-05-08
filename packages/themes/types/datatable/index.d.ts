@@ -61,6 +61,28 @@ export interface DataTableDesignTokens extends DesignTokens<DataTableDesignToken
          * @designToken datatable.header.padding
          */
         padding?: string;
+        /**
+         * Sm of header
+         */
+        sm?: {
+            /**
+             * Sm padding of header
+             *
+             * @designToken datatable.header.sm.padding
+             */
+            padding?: string;
+        };
+        /**
+         * Lg of header
+         */
+        lg?: {
+            /**
+             * Lg padding of header
+             *
+             * @designToken datatable.header.lg.padding
+             */
+            padding?: string;
+        };
     };
     /**
      * Used to pass tokens of the header cell section
@@ -154,6 +176,27 @@ export interface DataTableDesignTokens extends DesignTokens<DataTableDesignToken
              * @designToken datatable.header.cell.focus.ring.shadow
              */
             shadow?: string;
+        } /**
+         * Sm of header cell
+         */;
+        sm?: {
+            /**
+             * Sm padding of header cell
+             *
+             * @designToken datatable.header.cell.sm.padding
+             */
+            padding?: string;
+        };
+        /**
+         * Lg of header cell
+         */
+        lg?: {
+            /**
+             * Lg padding of header cell
+             *
+             * @designToken datatable.header.cell.lg.padding
+             */
+            padding?: string;
         };
     };
     /**
@@ -271,6 +314,28 @@ export interface DataTableDesignTokens extends DesignTokens<DataTableDesignToken
          * @designToken datatable.body.cell.selected.border.color
          */
         selectedBorderColor?: string;
+        /**
+         * Sm of body cell
+         */
+        sm?: {
+            /**
+             * Sm padding of body cell
+             *
+             * @designToken datatable.body.cell.sm.padding
+             */
+            padding?: string;
+        };
+        /**
+         * Lg of body cell
+         */
+        lg?: {
+            /**
+             * Lg padding of body cell
+             *
+             * @designToken datatable.body.cell.lg.padding
+             */
+            padding?: string;
+        };
     };
     /**
      * Used to pass tokens of the footer cell section
@@ -300,6 +365,28 @@ export interface DataTableDesignTokens extends DesignTokens<DataTableDesignToken
          * @designToken datatable.footer.cell.padding
          */
         padding?: string;
+        /**
+         * Sm of footer cell
+         */
+        sm?: {
+            /**
+             * Sm padding of footer cell
+             *
+             * @designToken datatable.footer.cell.sm.padding
+             */
+            padding?: string;
+        };
+        /**
+         * Lg of footer cell
+         */
+        lg?: {
+            /**
+             * Lg padding of footer cell
+             *
+             * @designToken datatable.footer.cell.lg.padding
+             */
+            padding?: string;
+        };
     };
     /**
      * Used to pass tokens of the column footer section
@@ -346,142 +433,50 @@ export interface DataTableDesignTokens extends DesignTokens<DataTableDesignToken
          * @designToken datatable.footer.padding
          */
         padding?: string;
+        /**
+         * Sm of footer
+         */
+        sm?: {
+            /**
+             * Sm padding of footer
+             *
+             * @designToken datatable.footer.sm.padding
+             */
+            padding?: string;
+        };
+        /**
+         * Lg of footer
+         */
+        lg?: {
+            /**
+             * Lg padding of footer
+             *
+             * @designToken datatable.footer.lg.padding
+             */
+            padding?: string;
+        };
     };
     /**
      * Used to pass tokens of the drop point color section
      */
-    dropPointColor?: {
+    dropPoint?: {
         /**
-         * 0 of drop point color
+         * Color of drop point
          *
-         * @designToken datatable.drop.point.color.0
+         * @designToken datatable.drop.point.color
          */
-        0?: string;
-        /**
-         * 1 of drop point color
-         *
-         * @designToken datatable.drop.point.color.1
-         */
-        1?: string;
-        /**
-         * 2 of drop point color
-         *
-         * @designToken datatable.drop.point.color.2
-         */
-        2?: string;
-        /**
-         * 3 of drop point color
-         *
-         * @designToken datatable.drop.point.color.3
-         */
-        3?: string;
-        /**
-         * 4 of drop point color
-         *
-         * @designToken datatable.drop.point.color.4
-         */
-        4?: string;
-        /**
-         * 5 of drop point color
-         *
-         * @designToken datatable.drop.point.color.5
-         */
-        5?: string;
-        /**
-         * 6 of drop point color
-         *
-         * @designToken datatable.drop.point.color.6
-         */
-        6?: string;
-        /**
-         * 7 of drop point color
-         *
-         * @designToken datatable.drop.point.color.7
-         */
-        7?: string;
-        /**
-         * 8 of drop point color
-         *
-         * @designToken datatable.drop.point.color.8
-         */
-        8?: string;
-        /**
-         * 9 of drop point color
-         *
-         * @designToken datatable.drop.point.color.9
-         */
-        9?: string;
-        /**
-         * 10 of drop point color
-         *
-         * @designToken datatable.drop.point.color.10
-         */
-        10?: string;
-        /**
-         * 11 of drop point color
-         *
-         * @designToken datatable.drop.point.color.11
-         */
-        11?: string;
-        /**
-         * 12 of drop point color
-         *
-         * @designToken datatable.drop.point.color.12
-         */
-        12?: string;
-        /**
-         * 13 of drop point color
-         *
-         * @designToken datatable.drop.point.color.13
-         */
-        13?: string;
-        /**
-         * 14 of drop point color
-         *
-         * @designToken datatable.drop.point.color.14
-         */
-        14?: string;
+        color?: string;
     };
     /**
-     * Used to pass tokens of the column resizer width section
+     * Used to pass tokens of the column resizer section
      */
-    columnResizerWidth?: {
+    columnResizer?: {
         /**
-         * 0 of column resizer width
+         * Width of column resizer
          *
-         * @designToken datatable.column.resizer.width.0
+         * @designToken datatable.column.resizer.width
          */
-        0?: string;
-        /**
-         * 1 of column resizer width
-         *
-         * @designToken datatable.column.resizer.width.1
-         */
-        1?: string;
-        /**
-         * 2 of column resizer width
-         *
-         * @designToken datatable.column.resizer.width.2
-         */
-        2?: string;
-        /**
-         * 3 of column resizer width
-         *
-         * @designToken datatable.column.resizer.width.3
-         */
-        3?: string;
-        /**
-         * 4 of column resizer width
-         *
-         * @designToken datatable.column.resizer.width.4
-         */
-        4?: string;
-        /**
-         * 5 of column resizer width
-         *
-         * @designToken datatable.column.resizer.width.5
-         */
-        5?: string;
+        width?: string;
     };
     /**
      * Used to pass tokens of the resize indicator section
@@ -516,6 +511,12 @@ export interface DataTableDesignTokens extends DesignTokens<DataTableDesignToken
          * @designToken datatable.sort.icon.hover.color
          */
         hoverColor?: string;
+        /**
+         * Size of sort icon
+         *
+         * @designToken datatable.sort.icon.size
+         */
+        size?: string;
     };
     /**
      * Used to pass tokens of the loading icon section

@@ -204,6 +204,8 @@ const theme = ({ dt }) => `
 }
 
 .p-message-text {
+    display: inline-flex;
+    align-items: center;
     font-size: ${dt('message.text.font.size')};
     font-weight: ${dt('message.text.font.weight')};
 }

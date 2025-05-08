@@ -42,7 +42,7 @@ export class BadgeDirective extends BaseComponent implements OnChanges, AfterVie
      * Severity type of the badge.
      * @group Props
      */
-    @Input() severity: 'success' | 'info' | 'warn' | 'danger' | 'help' | 'primary' | 'secondary' | 'contrast' | null | undefined;
+    @Input() severity: 'secondary' | 'info' | 'success' | 'warn' | 'danger' | 'contrast' | null | undefined;
     /**
      * Value to display inside the badge.
      * @group Props
@@ -105,6 +105,7 @@ export class BadgeDirective extends BaseComponent implements OnChanges, AfterVie
     }
 
     public ngAfterViewInit(): void {
+        super.ngAfterViewInit();
         this.id = uuid('pn_id_') + '_badge';
         this.renderBadgeContent();
     }
@@ -248,7 +249,7 @@ export class BadgeDirective extends BaseComponent implements OnChanges, AfterVie
     providers: [BadgeStyle],
     host: {
         '[class]': 'containerClass()',
-        '[style.display]': 'badgeDisabled() && "none"',
+        '[style.display]': 'badgeDisabled() ? "none" : null',
         '[style]': 'style()'
     }
 })
@@ -277,7 +278,7 @@ export class Badge extends BaseComponent {
      * Severity type of the badge.
      * @group Props
      */
-    severity = input<'success' | 'info' | 'warn' | 'danger' | 'help' | 'primary' | 'secondary' | 'contrast' | null>();
+    severity = input<'secondary' | 'info' | 'success' | 'warn' | 'danger' | 'contrast' | null>();
     /**
      * Value to display inside the badge.
      * @group Props

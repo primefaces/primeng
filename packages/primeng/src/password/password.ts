@@ -102,7 +102,7 @@ export class PasswordDirective extends BaseComponent implements OnDestroy, DoChe
      * Specifies the input variant of the component.
      * @group Props
      */
-    @Input() variant: 'filled' | 'outlined' = 'outlined';
+    @Input() variant: 'filled' | 'outlined';
     /**
      * Spans 100% width of the container when enabled.
      * @group Props
@@ -408,6 +408,7 @@ export const Password_VALUE_ACCESSOR: any = {
                 [attr.aria-label]="ariaLabel"
                 [attr.aria-labelledBy]="ariaLabelledBy"
                 [attr.id]="inputId"
+                [attr.tabindex]="tabindex"
                 pInputText
                 [disabled]="disabled"
                 [pSize]="size"
@@ -623,7 +624,12 @@ export class Password extends BaseComponent implements OnInit, AfterContentInit 
      * Specifies the input variant of the component.
      * @group Props
      */
-    @Input() variant: 'filled' | 'outlined' = 'outlined';
+    @Input() variant: 'filled' | 'outlined';
+    /**
+     * Index of the element in tabbing order.
+     * @group Props
+     */
+    @Input({ transform: numberAttribute }) tabindex?: number;
     /**
      * Callback to invoke when the component receives focus.
      * @param {Event} event - Browser event.
@@ -652,7 +658,7 @@ export class Password extends BaseComponent implements OnInit, AfterContentInit 
 
     @ContentChild('clearicon', { descendants: false }) clearIconTemplate: Nullable<TemplateRef<any>>;
 
-    @ContentChild('headericon', { descendants: false }) hideIconTemplate: Nullable<TemplateRef<any>>;
+    @ContentChild('hideicon', { descendants: false }) hideIconTemplate: Nullable<TemplateRef<any>>;
 
     @ContentChild('showicon', { descendants: false }) showIconTemplate: Nullable<TemplateRef<any>>;
 
