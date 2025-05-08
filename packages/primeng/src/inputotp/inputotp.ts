@@ -72,7 +72,7 @@ export interface InputOtpInputTemplateContext {
                     [value]="getModelValue(i)"
                     [maxLength]="i === 1 ? length : 1"
                     [type]="inputType"
-                    class="p-inputotp-input"
+                    [class]="cx('pcInputText')"
                     [pSize]="size"
                     [variant]="variant"
                     [readonly]="readonly"
@@ -96,7 +96,7 @@ export interface InputOtpInputTemplateContext {
     encapsulation: ViewEncapsulation.None,
     providers: [INPUT_OTP_VALUE_ACCESSOR, InputOtpStyle],
     host: {
-        class: 'p-inputotp p-component'
+        '[class]': "cx('root')"
     }
 })
 export class InputOtp extends BaseComponent implements AfterContentInit {

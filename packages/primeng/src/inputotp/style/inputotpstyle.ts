@@ -1,39 +1,17 @@
 import { Injectable } from '@angular/core';
 import { BaseStyle } from 'primeng/base';
-
-const theme = ({ dt }) => `
-.p-inputotp {
-    display: flex;
-    align-items: center;
-    gap: 0.5rem;
-}
-
-.p-inputotp-input {
-    text-align: center;
-    width: 2.5rem;
-}
-
-.p-inputotp-input.p-inputtext-sm {
-    text-align: center;
-    width: ${dt('inputotp.input.sm.width')};
-}
-
-.p-inputotp-input.p-inputtext-lg {
-    text-align: center;
-    width: ${dt('inputotp.input.lg.width')};
-}
-`;
+import { style } from '@primeuix/styles/inputotp';
 
 const classes = {
     root: 'p-inputotp p-component',
-    pcInput: 'p-inputotp-input'
+    pcInputText: 'p-inputotp-input'
 };
 
 @Injectable()
 export class InputOtpStyle extends BaseStyle {
     name = 'inputotp';
 
-    theme = theme;
+    theme = style;
 
     classes = classes;
 }
@@ -56,7 +34,7 @@ export enum InputOtpClasses {
     /**
      * Class name of the input element
      */
-    pcInput = 'p-inputotp-input'
+    pcInputText = 'p-inputotp-input'
 }
 
 export interface InputOtpStyle extends BaseStyle {}
