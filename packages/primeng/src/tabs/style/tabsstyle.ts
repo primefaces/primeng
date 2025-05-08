@@ -30,11 +30,12 @@ const theme = ({ dt }) => `
 
 .p-tablist-tab-list {
     position: relative;
-    display: flex;
+    display: inline-flex;
     background: ${dt('tabs.tablist.background')};
     border-style: solid;
     border-color: ${dt('tabs.tablist.border.color')};
     border-width: ${dt('tabs.tablist.border.width')};
+    min-width: 100%;
 }
 
 .p-tablist-content {
