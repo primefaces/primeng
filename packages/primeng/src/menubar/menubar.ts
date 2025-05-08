@@ -175,7 +175,7 @@ export class MenubarService {
                     [attr.aria-labelledby]="getItemLabelId(processedItem)"
                     (itemClick)="itemClick.emit($event)"
                     (itemMouseEnter)="onItemMouseEnter($event)"
-                    [inlineStyles]="{ display: isItemActive(processedItem) ? 'flex' : 'none' }"
+                    [inlineStyles]="sx('submenu', true, { instance: this, processedItem })"
                 ></ul>
             </li>
         </ng-template>
