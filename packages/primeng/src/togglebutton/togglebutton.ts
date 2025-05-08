@@ -31,7 +31,7 @@ export const TOGGLEBUTTON_VALUE_ACCESSOR: any = {
         '[attr.data-p-checked]': 'active',
         '[attr.data-p-disabled]': 'disabled()',
         '[attr.required]': 'required()',
-        '[attr.type]': '"button"'
+        '[attr.role]': '"button"'
     },
     template: `<span [class]="cx('content')">
         <ng-container *ngTemplateOutlet="contentTemplate || _contentTemplate; context: { $implicit: checked }"></ng-container>
