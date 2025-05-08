@@ -18,18 +18,14 @@ const classes = {
     start: 'p-menubar-start',
     button: 'p-menubar-button',
     rootList: 'p-menubar-root-list',
-    item: ({ instance, processedItem }) => {
-        const a = [
-            'p-menubar-item',
-            {
-                'p-menubar-item-active': instance.isItemActive(processedItem),
-                'p-focus': instance.isItemFocused(processedItem),
-                'p-disabled': instance.isItemDisabled(processedItem)
-            }
-        ];
-        console.log(a);
-        return a;
-    },
+    item: ({ instance, processedItem }) => [
+        'p-menubar-item',
+        {
+            'p-menubar-item-active': instance.isItemActive(processedItem),
+            'p-focus': instance.isItemFocused(processedItem),
+            'p-disabled': instance.isItemDisabled(processedItem)
+        }
+    ],
     itemContent: 'p-menubar-item-content',
     itemLink: 'p-menubar-item-link',
     itemIcon: 'p-menubar-item-icon',
