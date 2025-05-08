@@ -55,45 +55,35 @@ export class RadioControlRegistry {
     standalone: true,
     imports: [CommonModule, AutoFocus, SharedModule],
     template: `
-        <div
-            [ngStyle]="style"
-            [ngClass]="{
-                'p-radiobutton p-component': true,
-                'p-radiobutton-checked': checked,
-                'p-disabled': disabled,
-                'p-variant-filled': variant === 'filled' || config.inputStyle() === 'filled' || config.inputVariant() === 'filled',
-                'p-radiobutton-sm p-inputfield-sm': size === 'small',
-                'p-radiobutton-lg p-inputfield-lg': size === 'large'
-            }"
-            [class]="styleClass"
-            [attr.data-pc-name]="'radiobutton'"
-            [attr.data-pc-section]="'root'"
-        >
-            <input
-                #input
-                [attr.id]="inputId"
-                type="radio"
-                class="p-radiobutton-input"
-                [attr.name]="name"
-                [checked]="checked"
-                [disabled]="disabled"
-                [value]="value"
-                [attr.aria-labelledby]="ariaLabelledBy"
-                [attr.aria-label]="ariaLabel"
-                [attr.tabindex]="tabindex"
-                [attr.aria-checked]="checked"
-                (focus)="onInputFocus($event)"
-                (blur)="onInputBlur($event)"
-                (change)="onChange($event)"
-                [pAutoFocus]="autofocus"
-            />
-            <div class="p-radiobutton-box" [attr.data-pc-section]="'input'">
-                <div class="p-radiobutton-icon" [attr.data-pc-section]="'icon'"></div>
-            </div>
+        <input
+            #input
+            [attr.id]="inputId"
+            type="radio"
+            [class]="cx('input')"
+            [attr.name]="name"
+            [checked]="checked"
+            [disabled]="disabled"
+            [value]="value"
+            [attr.aria-labelledby]="ariaLabelledBy"
+            [attr.aria-label]="ariaLabel"
+            [attr.tabindex]="tabindex"
+            [attr.aria-checked]="checked"
+            (focus)="onInputFocus($event)"
+            (blur)="onInputBlur($event)"
+            (change)="onChange($event)"
+            [pAutoFocus]="autofocus"
+        />
+        <div [class]="cx('box')" [attr.data-pc-section]="'input'">
+            <div [class]="cx('icon')" [attr.data-pc-section]="'icon'"></div>
         </div>
     `,
     providers: [RADIO_VALUE_ACCESSOR, RadioButtonStyle],
-    changeDetection: ChangeDetectionStrategy.OnPush
+    changeDetection: ChangeDetectionStrategy.OnPush,
+    host: {
+        'data-pc-name': 'radiobutton',
+        'data-pc-section': 'root',
+        '[class]': "cx('root')"
+    }
 })
 export class RadioButton extends BaseComponent implements ControlValueAccessor, OnInit, OnDestroy {
     /**
@@ -147,12 +137,8 @@ export class RadioButton extends BaseComponent implements ControlValueAccessor, 
      */
     @Input() ariaLabel: string | undefined;
     /**
-     * Inline style of the component.
-     * @group Props
-     */
-    @Input() style: { [klass: string]: any } | null | undefined;
-    /**
      * Style class of the component.
+     * @deprecated since v20.0.0, use `class` instead.
      * @group Props
      */
     @Input() styleClass: string | undefined;
