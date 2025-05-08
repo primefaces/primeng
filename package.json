@@ -67,7 +67,7 @@
         "husky": "^9.1.6",
         "lint-staged": "^12.0.0",
         "ng-packagr": "catalog:angular19",
-        "pnpm": "^9.6.0",
+        "pnpm": "^10.0.0",
         "prettier": "^3.0.0",
         "tsup": "^8.1.0",
         "typescript": "catalog:angular19"
