@@ -43,6 +43,8 @@ export class MenuBarStyle extends BaseStyle {
     theme = style;
 
     classes = classes;
+
+    inlineStyles = inlineStyles;
 }
 
 /**
