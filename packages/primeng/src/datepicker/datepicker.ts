@@ -71,6 +71,7 @@ export const DATEPICKER_VALUE_ACCESSOR: any = {
                 [attr.aria-controls]="overlayVisible ? panelId : null"
                 [attr.aria-labelledby]="ariaLabelledBy"
                 [attr.aria-label]="ariaLabel"
+                [attr.aria-describedby]="ariaDescribedBy"
                 [value]="inputFieldValue"
                 (focus)="onInputFocus($event)"
                 (keydown)="onInputKeydown($event)"
@@ -493,6 +494,11 @@ export class DatePicker extends BaseComponent implements OnInit, AfterContentIni
      * @group Props
      */
     @Input() ariaLabel: string | undefined;
+    /**
+     * Specifies one or more IDs in the DOM that describes the input field.
+     * @group Props
+     */
+    @Input() ariaDescribedBy: string | undefined;
 
     /**
      * Defines a string that labels the icon button for accessibility.
