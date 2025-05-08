@@ -80,7 +80,7 @@ const classes = {
     meter: 'p-password-meter',
     meterLabel: ({ instance }) => `p-password-meter-label ${instance.meter ? 'p-password-meter-' + instance.meter.strength : ''}`,
     meterText: 'p-password-meter-text',
-    clearIcon: 'p-autocomplete-clear-icon'
+    clearIcon: 'p-password-clear-icon'
 };
 
 @Injectable()
@@ -140,7 +140,7 @@ export enum PasswordClasses {
     /**
      * Class name of the clear icon
      */
-    clearIcon = 'p-autocomplete-clear-icon'
+    clearIcon = 'p-password-clear-icon'
 }
 
 export interface PasswordStyle extends BaseStyle {}
