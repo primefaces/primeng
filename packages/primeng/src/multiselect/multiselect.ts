@@ -63,14 +63,9 @@ export const MULTISELECT_VALUE_ACCESSOR: any = {
     template: `
         <li
             pRipple
-            class="p-multiselect-option"
+            [class]="cx('option')"
             role="option"
             [ngStyle]="{ height: itemSize + 'px' }"
-            [ngClass]="{
-                'p-multiselect-option-selected': selected && highlightOnSelect,
-                'p-disabled': disabled,
-                'p-focus': focused
-            }"
             [id]="id"
             [attr.aria-label]="label"
             [attr.aria-setsize]="ariaSetSize"
@@ -94,7 +89,8 @@ export const MULTISELECT_VALUE_ACCESSOR: any = {
             <ng-container *ngTemplateOutlet="template; context: { $implicit: option }"></ng-container>
         </li>
     `,
-    encapsulation: ViewEncapsulation.None
+    encapsulation: ViewEncapsulation.None,
+    providers: [MultiSelectStyle]
 })
 export class MultiSelectItem extends BaseComponent {
     @Input() id: string | undefined;
@@ -128,6 +124,8 @@ export class MultiSelectItem extends BaseComponent {
     @Output() onClick: EventEmitter<any> = new EventEmitter();
 
     @Output() onMouseEnter: EventEmitter<any> = new EventEmitter();
+
+    _componentStyle = inject(MultiSelectStyle);
 
     onOptionClick(event: Event) {
         this.onClick.emit({
@@ -182,7 +180,7 @@ export class MultiSelectItem extends BaseComponent {
             />
         </div>
         <div
-            class="p-multiselect-label-container"
+            [class]="cx('labelContainer')"
             [pTooltip]="tooltip"
             (mouseleave)="labelContainerMouseLeave()"
             [tooltipDisabled]="_disableTooltip"
@@ -190,20 +188,20 @@ export class MultiSelectItem extends BaseComponent {
             [positionStyle]="tooltipPositionStyle"
             [tooltipStyleClass]="tooltipStyleClass"
         >
-            <div [ngClass]="labelClass">
+            <div [class]="cx('label')">
                 <ng-container *ngIf="!selectedItemsTemplate && !_selectedItemsTemplate">
                     <ng-container *ngIf="display === 'comma'">{{ label() || 'empty' }}</ng-container>
                     <ng-container *ngIf="display === 'chip'">
                         @if (chipSelectedItems() && chipSelectedItems().length === maxSelectedLabels) {
                             {{ getSelectedItemsLabel() }}
                         } @else {
-                            <div #token *ngFor="let item of chipSelectedItems(); let i = index" class="p-multiselect-chip-item">
-                                <p-chip styleClass="p-multiselect-chip" [label]="getLabelByValue(item)" [removable]="!disabled && !readonly" (onRemove)="removeOption(item, $event)" [removeIcon]="chipIcon">
+                            <div #token *ngFor="let item of chipSelectedItems(); let i = index" [class]="cx('chipItem')">
+                                <p-chip [class]="cx('pcChip')" [label]="getLabelByValue(item)" [removable]="!disabled && !readonly" (onRemove)="removeOption(item, $event)" [removeIcon]="chipIcon">
                                     <ng-container *ngIf="chipIconTemplate || _chipIconTemplate || removeTokenIconTemplate || _removeTokenIconTemplate">
                                         <ng-template #removeicon>
                                             <ng-container *ngIf="!disabled && !readonly">
                                                 <span
-                                                    class="p-multiselect-chip-icon"
+                                                    [class]="cx('chipIcon')"
                                                     *ngIf="chipIconTemplate || _chipIconTemplate || removeTokenIconTemplate || _removeTokenIconTemplate"
                                                     (click)="removeOption(item, $event)"
                                                     [attr.data-pc-section]="'clearicon'"
@@ -227,27 +225,27 @@ export class MultiSelectItem extends BaseComponent {
             </div>
         </div>
         <ng-container *ngIf="isVisibleClearIcon">
-            <TimesIcon *ngIf="!clearIconTemplate && !_clearIconTemplate" class="p-multiselect-clear-icon" (click)="clear($event)" [attr.data-pc-section]="'clearicon'" [attr.aria-hidden]="true" />
-            <span *ngIf="clearIconTemplate || _clearIconTemplate" class="p-multiselect-clear-icon" (click)="clear($event)" [attr.data-pc-section]="'clearicon'" [attr.aria-hidden]="true">
+            <TimesIcon *ngIf="!clearIconTemplate && !_clearIconTemplate" [class]="cx('clearIcon')" (click)="clear($event)" [attr.data-pc-section]="'clearicon'" [attr.aria-hidden]="true" />
+            <span *ngIf="clearIconTemplate || _clearIconTemplate" [class]="cx('clearIcon')" (click)="clear($event)" [attr.data-pc-section]="'clearicon'" [attr.aria-hidden]="true">
                 <ng-template *ngTemplateOutlet="clearIconTemplate || _clearIconTemplate"></ng-template>
             </span>
         </ng-container>
-        <div class="p-multiselect-dropdown">
+        <div [class]="cx('dropdown')">
             <ng-container *ngIf="loading; else elseBlock">
                 <ng-container *ngIf="loadingIconTemplate || _loadingIconTemplate">
                     <ng-container *ngTemplateOutlet="loadingIconTemplate || _loadingIconTemplate"></ng-container>
                 </ng-container>
                 <ng-container *ngIf="!loadingIconTemplate && !_loadingIconTemplate">
-                    <span *ngIf="loadingIcon" [ngClass]="'p-multiselect-loading-icon pi-spin ' + loadingIcon" aria-hidden="true"></span>
-                    <span *ngIf="!loadingIcon" [class]="'p-multiselect-loading-icon pi pi-spinner pi-spin'" aria-hidden="true"></span>
+                    <span *ngIf="loadingIcon" [class]="cx('loadingIcon')" aria-hidden="true"></span>
+                    <span *ngIf="!loadingIcon" [class]="cx('loadingIcon')" aria-hidden="true"></span>
                 </ng-container>
             </ng-container>
             <ng-template #elseBlock>
                 <ng-container *ngIf="!dropdownIconTemplate && !_dropdownIconTemplate">
-                    <span *ngIf="dropdownIcon" class="p-multiselect-dropdown-icon" [ngClass]="dropdownIcon" [attr.data-pc-section]="'triggericon'" [attr.aria-hidden]="true"></span>
-                    <ChevronDownIcon *ngIf="!dropdownIcon" [styleClass]="'p-multiselect-dropdown-icon'" [attr.data-pc-section]="'triggericon'" [attr.aria-hidden]="true" />
+                    <span *ngIf="dropdownIcon" [class]="cx('loadingIcon')" [ngClass]="dropdownIcon" [attr.data-pc-section]="'triggericon'" [attr.aria-hidden]="true"></span>
+                    <ChevronDownIcon *ngIf="!dropdownIcon" [styleClass]="cx('dropdownIcon')" [attr.data-pc-section]="'triggericon'" [attr.aria-hidden]="true" />
                 </ng-container>
-                <span *ngIf="dropdownIconTemplate || _dropdownIconTemplate" class="p-multiselect-dropdown-icon" [attr.data-pc-section]="'triggericon'" [attr.aria-hidden]="true">
+                <span *ngIf="dropdownIconTemplate || _dropdownIconTemplate" [class]="cx('dropdownIcon')" [attr.data-pc-section]="'triggericon'" [attr.aria-hidden]="true">
                     <ng-template *ngTemplateOutlet="dropdownIconTemplate || _dropdownIconTemplate"></ng-template>
                 </span>
             </ng-template>
@@ -266,7 +264,7 @@ export class MultiSelectItem extends BaseComponent {
             (onHide)="hide()"
         >
             <ng-template #content>
-                <div [attr.id]="id + '_list'" [ngClass]="'p-multiselect-overlay p-component'" [ngStyle]="panelStyle" [class]="panelStyleClass">
+                <div [attr.id]="id + '_list'" [class]="cx('overlay')" [ngStyle]="panelStyle">
                     <span
                         #firstHiddenFocusableEl
                         role="presentation"
@@ -278,7 +276,7 @@ export class MultiSelectItem extends BaseComponent {
                     >
                     </span>
                     <ng-container *ngTemplateOutlet="headerTemplate || _headerTemplate"></ng-container>
-                    <div class="p-multiselect-header" *ngIf="showHeader">
+                    <div [class]="cx('header')" *ngIf="showHeader">
                         <ng-content select="p-header"></ng-content>
                         <ng-container *ngIf="filterTemplate || _filterTemplate; else builtInFilterElement">
                             <ng-container *ngTemplateOutlet="filterTemplate || _filterTemplate; context: { options: filterOptions }"></ng-container>
@@ -300,38 +298,36 @@ export class MultiSelectItem extends BaseComponent {
                                 </ng-template>
                             </p-checkbox>
 
-                            <div class="p-multiselect-filter-container" *ngIf="filter">
-                                <p-iconfield>
-                                    <input
-                                        #filterInput
-                                        pInputText
-                                        [variant]="variant"
-                                        type="text"
-                                        [attr.autocomplete]="autocomplete"
-                                        role="searchbox"
-                                        [attr.aria-owns]="id + '_list'"
-                                        [attr.aria-activedescendant]="focusedOptionId"
-                                        [value]="_filterValue() || ''"
-                                        (input)="onFilterInputChange($event)"
-                                        (keydown)="onFilterKeyDown($event)"
-                                        (click)="onInputClick($event)"
-                                        (blur)="onFilterBlur($event)"
-                                        class="p-multiselect-filter"
-                                        [disabled]="disabled"
-                                        [attr.placeholder]="filterPlaceHolder"
-                                        [attr.aria-label]="ariaFilterLabel"
-                                    />
-                                    <p-inputicon>
-                                        <SearchIcon [styleClass]="'p-multiselect-filter-icon'" *ngIf="!filterIconTemplate && !_filterIconTemplate" />
-                                        <span *ngIf="filterIconTemplate || _filterIconTemplate" class="p-multiselect-filter-icon">
-                                            <ng-template *ngTemplateOutlet="filterIconTemplate || _filterIconTemplate"></ng-template>
-                                        </span>
-                                    </p-inputicon>
-                                </p-iconfield>
-                            </div>
+                            <p-iconfield *ngIf="filter" [class]="cx('pcFilterContainer')">
+                                <input
+                                    #filterInput
+                                    pInputText
+                                    [variant]="variant"
+                                    type="text"
+                                    [attr.autocomplete]="autocomplete"
+                                    role="searchbox"
+                                    [attr.aria-owns]="id + '_list'"
+                                    [attr.aria-activedescendant]="focusedOptionId"
+                                    [value]="_filterValue() || ''"
+                                    (input)="onFilterInputChange($event)"
+                                    (keydown)="onFilterKeyDown($event)"
+                                    (click)="onInputClick($event)"
+                                    (blur)="onFilterBlur($event)"
+                                    [class]="cx('pcFilter')"
+                                    [disabled]="disabled"
+                                    [attr.placeholder]="filterPlaceHolder"
+                                    [attr.aria-label]="ariaFilterLabel"
+                                />
+                                <p-inputicon>
+                                    <SearchIcon *ngIf="!filterIconTemplate && !_filterIconTemplate" />
+                                    <span *ngIf="filterIconTemplate || _filterIconTemplate" class="p-multiselect-filter-icon">
+                                        <ng-template *ngTemplateOutlet="filterIconTemplate || _filterIconTemplate"></ng-template>
+                                    </span>
+                                </p-inputicon>
+                            </p-iconfield>
                         </ng-template>
                     </div>
-                    <div class="p-multiselect-list-container" [style.max-height]="virtualScroll ? 'auto' : scrollHeight || 'auto'">
+                    <div [class]="cx('listContainer')" [style.max-height]="virtualScroll ? 'auto' : scrollHeight || 'auto'">
                         <p-scroller
                             *ngIf="virtualScroll"
                             #scroller
@@ -358,10 +354,10 @@ export class MultiSelectItem extends BaseComponent {
                         </ng-container>
 
                         <ng-template #buildInItems let-items let-scrollerOptions="options">
-                            <ul #items class="p-multiselect-list" [ngClass]="scrollerOptions.contentStyleClass" [style]="scrollerOptions.contentStyle" role="listbox" aria-multiselectable="true" [attr.aria-label]="listLabel">
+                            <ul #items [class]="cx('list', { contentStyleClass: scrollerOptions.contentStyleClass })" [style]="scrollerOptions.contentStyle" role="listbox" aria-multiselectable="true" [attr.aria-label]="listLabel">
                                 <ng-template ngFor let-option [ngForOf]="items" let-i="index">
                                     <ng-container *ngIf="isOptionGroup(option)">
-                                        <li [attr.id]="id + '_' + getOptionIndex(i, scrollerOptions)" class="p-multiselect-option-group" [ngStyle]="{ height: scrollerOptions.itemSize + 'px' }" role="option">
+                                        <li [attr.id]="id + '_' + getOptionIndex(i, scrollerOptions)" [class]="cx('optionGroup')" [ngStyle]="{ height: scrollerOptions.itemSize + 'px' }" role="option">
                                             <span *ngIf="!groupTemplate">{{ getOptionGroupLabel(option.optionGroup) }}</span>
                                             <ng-container *ngTemplateOutlet="groupTemplate; context: { $implicit: option.optionGroup }"></ng-container>
                                         </li>
@@ -388,14 +384,14 @@ export class MultiSelectItem extends BaseComponent {
                                     </ng-container>
                                 </ng-template>
 
-                                <li *ngIf="hasFilter() && isEmpty()" class="p-multiselect-empty-message" [ngStyle]="{ height: scrollerOptions.itemSize + 'px' }" role="option">
+                                <li *ngIf="hasFilter() && isEmpty()" [class]="cx('emptyMessage')" [ngStyle]="{ height: scrollerOptions.itemSize + 'px' }" role="option">
                                     @if (!emptyFilterTemplate && !_emptyFilterTemplate && !emptyTemplate && !_emptyTemplate) {
                                         {{ emptyFilterMessageLabel }}
                                     } @else {
                                         <ng-container *ngTemplateOutlet="emptyFilterTemplate || _emptyFilterTemplate || emptyTemplate || _emptyFilterTemplate"></ng-container>
                                     }
                                 </li>
-                                <li *ngIf="!hasFilter() && isEmpty()" class="p-multiselect-empty-message" [ngStyle]="{ height: scrollerOptions.itemSize + 'px' }" role="option">
+                                <li *ngIf="!hasFilter() && isEmpty()" [class]="cx('emptyMessage')" [ngStyle]="{ height: scrollerOptions.itemSize + 'px' }" role="option">
                                     @if (!emptyTemplate && !_emptyTemplate) {
                                         {{ emptyMessageLabel }}
                                     } @else {
@@ -428,9 +424,9 @@ export class MultiSelectItem extends BaseComponent {
     encapsulation: ViewEncapsulation.None,
     host: {
         '[attr.id]': 'id',
-        '[style]': 'style',
         '(click)': 'onContainerClick($event)',
-        '[class.p-variant-filled]': 'variant === "filled" || config.inputVariant() === "filled" || config.inputStyle() === "filled" '
+        '[class]': "cx('root')",
+        '[style]': "sx('root')"
     }
 })
 export class MultiSelect extends BaseComponent implements OnInit, AfterViewInit, AfterContentInit, AfterViewChecked, ControlValueAccessor {
@@ -445,12 +441,8 @@ export class MultiSelect extends BaseComponent implements OnInit, AfterViewInit,
      */
     @Input() ariaLabel: string | undefined;
     /**
-     * Inline style of the element.
-     * @group Props
-     */
-    @Input() style: { [klass: string]: any } | null | undefined;
-    /**
      * Style class of the element.
+     * @deprecated since v20.0.0, use `class` instead.
      * @group Props
      */
     @Input() styleClass: string | undefined;
@@ -1188,34 +1180,6 @@ export class MultiSelect extends BaseComponent implements OnInit, AfterViewInit,
     selectedOptions: any;
 
     clickInProgress: boolean = false;
-
-    @HostBinding('class') get hostClasses(): string {
-        const classes = [];
-
-        if (typeof this.rootClass === 'string') {
-            classes.push(this.rootClass);
-        } else if (Array.isArray(this.rootClass)) {
-            classes.push(...this.rootClass);
-        } else if (typeof this.rootClass === 'object') {
-            Object.keys(this.rootClass)
-                .filter((key) => this.rootClass[key])
-                .forEach((key) => classes.push(key));
-        }
-
-        if (this.styleClass) {
-            classes.push(this.styleClass);
-        }
-
-        return classes.join(' ');
-    }
-
-    get rootClass() {
-        return this._componentStyle.classes.root({ instance: this });
-    }
-
-    get labelClass() {
-        return this._componentStyle.classes.label({ instance: this });
-    }
 
     get emptyMessageLabel(): string {
         return this.emptyMessage || this.config.getTranslation(TranslationKeys.EMPTY_MESSAGE);
