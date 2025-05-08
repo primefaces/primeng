@@ -13,14 +13,7 @@ import { InputTextStyle } from './style/inputtextstyle';
     selector: '[pInputText]',
     standalone: true,
     host: {
-        class: 'p-inputtext p-component',
-        '[class.p-filled]': 'filled',
-        '[class.p-variant-filled]': '(variant ?? (config.inputStyle() || config.inputVariant())) === "filled"',
-        '[class.p-inputtext-fluid]': 'hasFluid',
-        '[class.p-inputtext-sm]': 'pSize === "small"',
-        '[class.p-inputfield-sm]': 'pSize === "small"',
-        '[class.p-inputtext-lg]': 'pSize === "large"',
-        '[class.p-inputfield-lg]': 'pSize === "large"'
+        '[class]': "cx('root')"
     },
     providers: [InputTextStyle]
 })
