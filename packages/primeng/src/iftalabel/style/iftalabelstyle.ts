@@ -8,7 +8,7 @@ const theme = css`
     ${style}
 
     /* For PrimeNG */
-.p-iftalabel {
+    .p-iftalabel {
         display: block;
     }
 
