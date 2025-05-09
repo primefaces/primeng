@@ -41,50 +41,32 @@ export const TOGGLEBUTTON_VALUE_ACCESSOR: any = {
     imports: [CommonModule, SharedModule],
     hostDirectives: [{ directive: Ripple }],
     host: {
+        '[class]': "cx('root')",
         '[tabindex]': 'tabindex',
-        '[attr.disabled]': 'disabled',
-        '[attr.aria-labelledby]': 'ariaLabelledBy',
-        '[attr.aria-pressed]': 'checked',
-        '[attr.data-p-checked]': 'active',
-        '[attr.data-p-disabled]': 'disabled',
-        '[attr.type]': '"button"',
-        '[class.p-togglebutton]': 'true',
-        '[class.p-togglebutton-checked]': 'checked',
-        '[class.p-disabled]': 'disabled',
-        '[class.p-togglebutton-sm]': 'size === "small"',
-        '[class.p-inputfield-sm]': 'size === "small"',
-        '[class.p-togglebutton-lg]': 'size === "large"',
-        '[class.p-inputfield-lg]': 'size === "large"'
+        '[disabled]': 'disabled',
+        '[aria-labelledby]': 'ariaLabelledBy',
+        '[aria-pressed]': 'checked',
+        '[data-p-checked]': 'active',
+        '[data-p-disabled]': 'disabled',
+        '[type]': '"button"'
     },
-    template: `<span [ngClass]="cx('content')">
+    template: `<span [class]="cx('content')">
         <ng-container *ngTemplateOutlet="contentTemplate || _contentTemplate; context: { $implicit: checked }"></ng-container>
         @if (!contentTemplate) {
             @if (!iconTemplate) {
                 @if (onIcon || offIcon) {
-                    <span
-                        [class]="checked ? this.onIcon : this.offIcon"
-                        [ngClass]="{
-                            'p-togglebutton-icon': true,
-                            'p-togglebutton-icon-left': iconPos === 'left',
-                            'p-togglebutton-icon-right': iconPos === 'right'
-                        }"
-                        [attr.data-pc-section]="'icon'"
-                    ></span>
+                    <span [class]="cx('icon')" [attr.data-pc-section]="'icon'"></span>
                 }
             } @else {
                 <ng-container *ngTemplateOutlet="iconTemplate || _iconTemplate; context: { $implicit: checked }"></ng-container>
             }
-            <span [ngClass]="cx('label')" [attr.data-pc-section]="'label'">{{ checked ? (hasOnLabel ? onLabel : ' ') : hasOffLabel ? offLabel : ' ' }}</span>
+            <span [class]="cx('label')" [attr.data-pc-section]="'label'">{{ checked ? (hasOnLabel ? onLabel : ' ') : hasOffLabel ? offLabel : ' ' }}</span>
         }
     </span>`,
     providers: [TOGGLEBUTTON_VALUE_ACCESSOR, ToggleButtonStyle],
     changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class ToggleButton extends BaseComponent implements AfterContentInit, ControlValueAccessor {
-    @HostBinding('class') get hostClass() {
-        return this.styleClass || '';
-    }
-
     @HostListener('keydown', ['$event']) onKeyDown(event: KeyboardEvent) {
         switch (event.code) {
             case 'Enter':
@@ -147,12 +129,8 @@ export class ToggleButton extends BaseComponent implements AfterContentInit, Con
      */
     @Input({ transform: booleanAttribute }) disabled: boolean | undefined;
     /**
-     * Inline style of the element.
-     * @group Props
-     */
-    @Input() style: any;
-    /**
      * Style class of the element.
+     * @deprecated since v20.0.0, use `class` instead.
      * @group Props
      */
     @Input() styleClass: string | undefined;
