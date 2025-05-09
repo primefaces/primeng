@@ -3606,14 +3606,18 @@ export class FrozenColumn implements AfterViewInit {
         '[class.p-datatable-sortable-column]': 'isEnabled()',
         '[class.p-datatable-column-sorted]': 'sorted',
         '[attr.tabindex]': 'isEnabled() ? "0" : null',
-        '[attr.role]': '"columnheader"',
+        '[attr.role]': 'role',
         '[attr.aria-sort]': 'sortOrder'
     }
 })
 export class SortableColumn implements OnInit, OnDestroy {
+    readonly #elementRef = inject(ElementRef);
+
     @Input('pSortableColumn') field: string | undefined;
 
     @Input({ transform: booleanAttribute }) pSortableColumnDisabled: boolean | undefined;
+
+    role = this.#elementRef.nativeElement?.tagName !== 'TH' ? 'columnheader' : null;
 
     sorted: boolean | undefined;
 
