@@ -39,7 +39,7 @@ const classes = {
         'p-speeddial-mask',
         instance.maskClassName,
         {
-            'p-speeddial-mask-visible': true
+            'p-speeddial-mask-visible': instance.visible
         }
     ]
 };
