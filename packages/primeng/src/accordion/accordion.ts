@@ -313,6 +313,7 @@ export class AccordionHeader extends BaseComponent {
                 'hidden',
                 style({
                     height: '0',
+                    paddingBottom: '0',
                     visibility: 'hidden'
                 })
             ),
