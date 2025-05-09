@@ -12,15 +12,7 @@ import { TextareaStyle } from './style/textareastyle';
     selector: '[pTextarea], [pInputTextarea]',
     standalone: true,
     host: {
-        class: 'p-textarea p-component',
-        '[class.p-filled]': 'filled',
-        '[class.p-textarea-resizable]': 'autoResize',
-        '[class.p-variant-filled]': 'variant === "filled" || config.inputStyle() === "filled" || config.inputVariant() === "filled"',
-        '[class.p-textarea-fluid]': 'hasFluid',
-        '[class.p-textarea-sm]': 'pSize === "small"',
-        '[class.p-inputfield-sm]': 'pSize === "small"',
-        '[class.p-textarea-lg]': 'pSize === "large"',
-        '[class.p-inputfield-lg]': 'pSize === "large"'
+        '[class]': "cx('root')"
     },
     providers: [TextareaStyle]
 })
