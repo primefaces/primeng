@@ -11,7 +11,6 @@ const classes = {
         'p-treeselect p-component p-inputwrapper',
         instance.containerStyleClass,
         {
-            'p-treeselect p-component p-inputwrapper': true,
             'p-treeselect-display-chip': instance.display === 'chip',
             'p-disabled': instance.disabled,
             'p-invalid': instance.invalid,
