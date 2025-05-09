@@ -58,7 +58,7 @@ import { CarouselStyle } from './style/carouselstyle';
                     <div #itemsContainer [class]="cx('itemList')" (transitionend)="onTransitionEnd()">
                         <div
                             *ngFor="let item of clonedItemsForStarting; let index = index"
-                            [class]="cx('itemClone', { index, value, totalShiftedItems, d_numVisible })"
+                            [class]="cx('itemClone', { index })"
                             [attr.aria-hidden]="!(totalShiftedItems * -1 === value.length)"
                             [attr.aria-label]="ariaSlideNumber(index)"
                             [attr.aria-roledescription]="ariaSlideLabel()"
@@ -74,7 +74,7 @@ import { CarouselStyle } from './style/carouselstyle';
                         >
                             <ng-container *ngTemplateOutlet="itemTemplate || _itemTemplate; context: { $implicit: item }"></ng-container>
                         </div>
-                        <div *ngFor="let item of clonedItemsForFinishing; let index = index" [class]="cx('itemClone', { index, value, totalShiftedItems, d_numVisible })">
+                        <div *ngFor="let item of clonedItemsForFinishing; let index = index" [class]="cx('itemClone', { index })">
                             <ng-container *ngTemplateOutlet="itemTemplate || _itemTemplate; context: { $implicit: item }"></ng-container>
                         </div>
                     </div>
@@ -91,13 +91,12 @@ import { CarouselStyle } from './style/carouselstyle';
                     </ng-template>
                 </p-button>
             </div>
-            <ul #indicatorContent [ngClass]="cx('indicatorList')" [class]="indicatorsContentClass" [ngStyle]="indicatorsContentStyle" *ngIf="showIndicators" (keydown)="onIndicatorKeydown($event)">
-                <li *ngFor="let totalDot of totalDotsArray(); let i = index" [ngClass]="cx('indicator')" [attr.data-pc-section]="'indicator'">
+            <ul #indicatorContent [class]="cx('indicatorList')" [ngStyle]="indicatorsContentStyle" *ngIf="showIndicators" (keydown)="onIndicatorKeydown($event)">
+                <li *ngFor="let totalDot of totalDotsArray(); let i = index" [class]="cx('indicator', { index: i })" [attr.data-pc-section]="'indicator'">
                     <button
                         type="button"
                         [class]="cx('indicatorButton')"
                         (click)="onDotClick($event, i)"
-                        [class]="indicatorStyleClass"
                         [ngStyle]="indicatorStyle"
                         [attr.aria-label]="ariaPageLabel(i + 1)"
                         [attr.aria-current]="_page === i ? 'page' : undefined"
