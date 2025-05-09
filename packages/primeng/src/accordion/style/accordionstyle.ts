@@ -27,11 +27,11 @@ const theme = ({ dt }) => css`
 
 const classes = {
     root: 'p-accordion p-component',
-    panel: ({ instance, props }) => [
+    panel: ({ instance }) => [
         'p-accordionpanel',
         {
-            'p-accordionpanel-active': instance.active,
-            'p-disabled': props.disabled
+            'p-accordionpanel-active': instance.active(),
+            'p-disabled': instance.disabled()
         }
     ],
     header: 'p-accordionheader',
