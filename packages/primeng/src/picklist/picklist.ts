@@ -1157,12 +1157,15 @@ export class PickList extends BaseComponent implements AfterViewChecked, AfterCo
                 if (!metaKey) {
                     selectedItems = [];
                 }
-                selectedItems.push(item);
+                if (item !== undefined) {
+                    selectedItems.push(item);
+                }
             }
         } else {
             if (selected) {
                 selectedItems = selectedItems.filter((_, i) => i !== index); // Creating a new array without the selected item
-            } else {
+            } else if (item !== undefined) {
+                // Don't push undefined item to selected items, as this will move an additional item from the list.
                 selectedItems.push(item);
             }
         }
