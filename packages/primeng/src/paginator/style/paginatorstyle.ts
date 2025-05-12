@@ -3,7 +3,7 @@ import { style } from '@primeuix/styles/paginator';
 import { BaseStyle } from 'primeng/base';
 
 const classes = {
-    paginator: () => ['p-paginator p-component'],
+    paginator: ({ instance }) => ['p-paginator p-component', instance.styleClass],
     content: 'p-paginator-content',
     contentStart: 'p-paginator-content-start',
     contentEnd: 'p-paginator-content-end',
