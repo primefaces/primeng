@@ -7,7 +7,10 @@ const theme = css`
     ${style}
 
     /* For PrimeNG */
-    
+    .p-listbox {
+        display: block;
+    }
+
     p-listBox.ng-invalid.ng-dirty > .p-listbox.p-component,
     p-list-box.ng-invalid.ng-dirty > .p-listbox.p-component,
     p-listbox.ng-invalid.ng-dirty > .p-listbox.p-component {
