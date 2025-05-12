@@ -23,6 +23,7 @@ const theme = css`
 const classes = {
     root: ({ instance }) => [
         'p-dataview p-component',
+        instance.styleClass,
         {
             'p-dataview-list': instance.layout === 'list',
             'p-dataview-grid': instance.layout === 'grid'
