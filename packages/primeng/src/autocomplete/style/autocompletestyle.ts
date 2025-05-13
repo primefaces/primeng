@@ -87,7 +87,7 @@ const classes = {
     dropdown: 'p-autocomplete-dropdown',
     overlay: 'p-autocomplete-overlay p-component',
     listContainer: 'p-autocomplete-list-container',
-    list: 'p-autocomplete-list',
+    list: ({ contentStyleClass }) => ['p-autocomplete-list', contentStyleClass],
     optionGroup: 'p-autocomplete-option-group',
     option: ({ instance, option, i, scrollerOptions }) => ({
         'p-autocomplete-option': true,
