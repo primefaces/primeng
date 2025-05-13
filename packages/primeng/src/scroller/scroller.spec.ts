@@ -1,6 +1,6 @@
 import { ChangeDetectorRef, Component } from '@angular/core';
 import { ComponentFixture, fakeAsync, TestBed, tick } from '@angular/core/testing';
-import { defaultEstimatedItemSize, findIndexByPosition, getScrollShift, initGridManager, Scroller } from './scroller';
+import { defaultEstimatedItemSize, findIndexByPosition, getScrollShift, initGridManager, Scroller, shouldCalculateNodes } from './scroller';
 import { By } from '@angular/platform-browser';
 import { CommonModule } from '@angular/common';
 import { debounceTime, first, fromEvent, lastValueFrom } from 'rxjs';
@@ -1223,5 +1223,98 @@ describe('getScrollShift', () => {
     it('should calculate scroll shift (scrollPos=0)', () => {
         const shift = getScrollShift({ scrollPos: 0, prevNodePos: 0, currNodePos: 0 });
         expect(shift).toBe(0);
+    });
+});
+
+describe('shouldCalculateNodes', () => {
+    it('should not calculate already calculated nodes when trigger distance to first rendered node is passed', () => {
+        const res = shouldCalculateNodes({
+            nodes: Array.from({ length: 100 }, (_, idx) => ({ size: 40, pos: idx * 40 })),
+            calculatedIdxs: Array.from({ length: 100 }, () => true),
+            triggerDistance: 200,
+            viewportSize: 400,
+            viewportNodesIdxs: { first: 25, last: 35 },
+            renderedNodesIdxs: { first: 22, last: 45 }
+        });
+
+        expect(res).toBeFalse();
+    });
+
+    it('should not calculate already calculated nodes when trigger distance to last rendered node is passed', () => {
+        const res = shouldCalculateNodes({
+            nodes: Array.from({ length: 100 }, (_, idx) => ({ size: 40, pos: idx * 40 })),
+            calculatedIdxs: Array.from({ length: 100 }, () => true),
+            triggerDistance: 200,
+            viewportSize: 400,
+            viewportNodesIdxs: { first: 25, last: 35 },
+            renderedNodesIdxs: { first: 15, last: 37 }
+        });
+
+        expect(res).toBeFalse();
+    });
+
+    it('should calculate nodes when trigger distance to first rendered node is passed', () => {
+        const res = shouldCalculateNodes({
+            nodes: Array.from({ length: 100 }, (_, idx) => ({ size: 40, pos: idx * 40 })),
+            calculatedIdxs: Array.from({ length: 100 }, (_, idx) => idx >= 22 && idx <= 45),
+            triggerDistance: 200,
+            viewportSize: 400,
+            viewportNodesIdxs: { first: 25, last: 35 },
+            renderedNodesIdxs: { first: 22, last: 45 }
+        });
+
+        expect(res).toBeTrue();
+    });
+
+    it('should calculate nodes when trigger distance to last rendered node is passed', () => {
+        const res = shouldCalculateNodes({
+            nodes: Array.from({ length: 100 }, (_, idx) => ({ size: 40, pos: idx * 40 })),
+            calculatedIdxs: Array.from({ length: 100 }, (_, idx) => idx >= 15 && idx <= 37),
+            triggerDistance: 200,
+            viewportSize: 400,
+            viewportNodesIdxs: { first: 25, last: 35 },
+            renderedNodesIdxs: { first: 15, last: 37 }
+        });
+
+        expect(res).toBeTrue();
+    });
+
+    it('should calculate nodes when they are no calculated nodes', () => {
+        const res = shouldCalculateNodes({
+            nodes: Array.from({ length: 100 }, (_, idx) => ({ size: 40, pos: idx * 40 })),
+            calculatedIdxs: Array.from({ length: 100 }, () => false),
+            triggerDistance: 200,
+            viewportSize: 400,
+            viewportNodesIdxs: { first: 25, last: 35 },
+            renderedNodesIdxs: { first: 15, last: 37 }
+        });
+
+        expect(res).toBeTrue();
+    });
+
+    it('should not calculate nodes when they are calculated', () => {
+        const res = shouldCalculateNodes({
+            nodes: [{ size: 300, pos: 0 }],
+            calculatedIdxs: [true],
+            triggerDistance: 200,
+            viewportSize: 400,
+            viewportNodesIdxs: { first: 0, last: 0 },
+            renderedNodesIdxs: { first: 0, last: 0 }
+        });
+
+        expect(res).toBeFalse();
+    });
+
+    it('should calculate nodes in viewport that are not calculated', () => {
+        const res = shouldCalculateNodes({
+            nodes: Array.from({ length: 100 }, (_, idx) => ({ size: 40, pos: idx * 40 })),
+            calculatedIdxs: Array.from({ length: 100 }, (_, idx) => idx < 50 || idx > 60),
+            triggerDistance: 200,
+            viewportSize: 400,
+            viewportNodesIdxs: { first: 50, last: 60 },
+            renderedNodesIdxs: { first: 10, last: 40 }
+        });
+
+        expect(res).toBeTrue();
     });
 });

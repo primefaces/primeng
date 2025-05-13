@@ -846,7 +846,8 @@ export class Scroller extends BaseComponent implements OnInit, AfterContentInit,
 
         if (this.showLoader) {
             const { first, last } = this._gridManager.nodesInViewport();
-            this.loaderArr = this.both ? Array.from({ length: last.main - first.main }).map(() => Array.from({ length: last.cross - first.cross })) : Array.from({ length: last.main - first.main });
+            const itemsInViewport = { main: last.main - first.main + 1, cross: last.cross - first.cross + 1 };
+            this.loaderArr = this.both ? Array.from({ length: itemsInViewport.main }).map(() => Array.from({ length: itemsInViewport.cross })) : Array.from({ length: itemsInViewport.main });
         }
 
         if (this._lazy) {
@@ -1202,14 +1203,17 @@ export const initGridManager = <T>({
         const inRange = (idx: number, nodesLength: number) => idx < nodesLength && idx >= 0;
         const passedDistance = { main: 0, cross: 0 };
         const idx = { main: startIdx.main, cross: startIdx.cross };
-        while (passedDistance.main < distance.main && inRange(idx.main, nodes.mainAxis.length)) {
+        const nodesLen = { main: nodes.mainAxis.length, cross: nodes.crossAxis.length };
+        while (passedDistance.main < distance.main && inRange(idx.main, nodesLen.main)) {
             passedDistance.cross = 0;
             idx.cross = startIdx.cross;
-            while (passedDistance.cross < distance.cross && inRange(idx.cross, nodes.crossAxis.length)) {
-                const size = getItemSize(_items.at(idx.main).at(idx.cross), idx.main, idx.cross);
-                adjustSize(nodes.mainAxis[idx.main], size.main, _calculatedIndexes.mainAxis[idx.main]);
-                adjustSize(nodes.crossAxis[idx.cross], size.cross, _calculatedIndexes.crossAxis[idx.cross]);
-                _calculatedIndexes.mainAxis[idx.main] = _calculatedIndexes.crossAxis[idx.cross] = true;
+            while (passedDistance.cross < distance.cross && inRange(idx.cross, nodesLen.cross)) {
+                if (!_calculatedIndexes.mainAxis[idx.main] || !_calculatedIndexes.crossAxis[idx.cross]) {
+                    const size = getItemSize(_items.at(idx.main).at(idx.cross), idx.main, idx.cross);
+                    adjustSize(nodes.mainAxis[idx.main], size.main, _calculatedIndexes.mainAxis[idx.main]);
+                    adjustSize(nodes.crossAxis[idx.cross], size.cross, _calculatedIndexes.crossAxis[idx.cross]);
+                    _calculatedIndexes.mainAxis[idx.main] = _calculatedIndexes.crossAxis[idx.cross] = true;
+                }
                 passedDistance.cross += nodes.crossAxis[idx.cross].size;
                 idx.cross += step;
             }
@@ -1225,7 +1229,8 @@ export const initGridManager = <T>({
     };
 
     const _recalculateNodes = (idx: number, nodes: VirtualNode[]) => {
-        while (idx < nodes.length) {
+        const len = nodes.length;
+        while (idx < len) {
             const prevNode = nodes[idx - 1] || { size: 0, pos: 0 };
             nodes[idx].pos = prevNode.pos + prevNode.size;
             idx++;
@@ -1330,30 +1335,26 @@ export const initGridManager = <T>({
         return distanceFromCurrent < triggerDistance || distanceFromCurrent > viewportSize + triggerDistance ? newLastIdx : currLastIdx;
     };
 
-    const _shouldRecalculate = (calculatedIdxs: boolean[], renderedNodePos: { first: number; last: number }, firstInViewport: { pos: number; idx: number }, lastInViewport: { pos: number; idx: number }, triggerDistance: number) => {
-        const distanceBetween = { first: firstInViewport.pos - renderedNodePos.first, last: renderedNodePos.last - lastInViewport.pos };
-        return !calculatedIdxs.at(firstInViewport.idx) || (calculatedIdxs.length > 1 && (distanceBetween.first < triggerDistance || distanceBetween.last < triggerDistance));
-    };
-
     const getRange = (first: GridItem, last: GridItem) => {
         const viewport = nodesInViewport();
-        const lastRenderedNode = { main: nodes.mainAxis[Math.max(last.main - 1, 0)], cross: nodes.crossAxis[Math.max(last.cross - 1, 0)] };
         const contentPosition = { main: nodes.mainAxis[first.main].pos, cross: nodes.crossAxis[first.cross].pos };
         if (
-            _shouldRecalculate(
-                _calculatedIndexes.mainAxis,
-                { first: nodes.mainAxis[first.main].pos, last: lastRenderedNode.main.pos + lastRenderedNode.main.size },
-                { pos: nodes.mainAxis[viewport.first.main].pos, idx: viewport.first.main },
-                { pos: nodes.mainAxis[viewport.last.main].pos, idx: viewport.last.main },
-                _triggerDistance.main
-            ) ||
-            _shouldRecalculate(
-                _calculatedIndexes.crossAxis,
-                { first: nodes.crossAxis[first.cross].pos, last: lastRenderedNode.cross.pos + lastRenderedNode.cross.size },
-                { pos: nodes.crossAxis[viewport.first.cross].pos, idx: viewport.first.cross },
-                { pos: nodes.crossAxis[viewport.last.cross].pos, idx: viewport.last.cross },
-                _triggerDistance.cross
-            )
+            shouldCalculateNodes({
+                calculatedIdxs: _calculatedIndexes.mainAxis,
+                triggerDistance: _triggerDistance.main,
+                viewportSize: viewportSize.main,
+                nodes: nodes.mainAxis,
+                viewportNodesIdxs: { first: viewport.first.main, last: viewport.last.main },
+                renderedNodesIdxs: { first: first.main, last: Math.max(last.main - 1, 0) }
+            }) ||
+            shouldCalculateNodes({
+                calculatedIdxs: _calculatedIndexes.crossAxis,
+                triggerDistance: _triggerDistance.cross,
+                viewportSize: viewportSize.cross,
+                nodes: nodes.crossAxis,
+                viewportNodesIdxs: { first: viewport.first.cross, last: viewport.last.cross },
+                renderedNodesIdxs: { first: first.cross, last: Math.max(last.cross - 1, 0) }
+            })
         )
             _syncScrollOnAction(() => _updateByIndex(viewport.first.main, viewport.first.cross));
 
@@ -1384,6 +1385,36 @@ export const initGridManager = <T>({
 };
 
 export const getScrollShift = ({ scrollPos, prevNodePos, currNodePos }: { scrollPos: number; prevNodePos: number; currNodePos: number }): number => currNodePos - scrollPos + (scrollPos - prevNodePos);
+
+export const shouldCalculateNodes = ({
+    viewportNodesIdxs,
+    calculatedIdxs,
+    nodes,
+    renderedNodesIdxs,
+    viewportSize,
+    triggerDistance
+}: {
+    calculatedIdxs: boolean[];
+    nodes: VirtualNode[];
+    renderedNodesIdxs: { first: number; last: number };
+    viewportNodesIdxs: { first: number; last: number };
+    triggerDistance: number;
+    viewportSize: number;
+}) => {
+    const distanceBetween = { first: nodes[viewportNodesIdxs.first].pos - nodes[renderedNodesIdxs.first].pos, last: nodes[renderedNodesIdxs.last].pos - nodes[viewportNodesIdxs.last].pos };
+
+    if (!calculatedIdxs[viewportNodesIdxs.first] || !calculatedIdxs[viewportNodesIdxs.last]) return true;
+    if (distanceBetween.first < triggerDistance) {
+        const newFirst = findIndexByPosition(nodes[viewportNodesIdxs.first].pos - viewportSize, nodes);
+        return !calculatedIdxs[newFirst];
+    }
+    if (distanceBetween.last < triggerDistance) {
+        const newLast = findIndexByPosition(nodes[viewportNodesIdxs.last].pos + viewportSize, nodes);
+        return !calculatedIdxs[newLast];
+    }
+
+    return false;
+};
 
 @NgModule({
     imports: [Scroller, SharedModule],
