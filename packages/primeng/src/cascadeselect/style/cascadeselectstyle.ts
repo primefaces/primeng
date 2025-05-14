@@ -43,8 +43,8 @@ const classes = {
     label: ({ instance }) => [
         'p-cascadeselect-label',
         {
-            'p-placeholder': instance.label === instance.placeholder,
-            'p-cascadeselect-label-empty': !instance.$slots['value'] && (instance.label === 'p-emptylabel' || instance.label.length === 0)
+            'p-placeholder': instance.label() === instance.placeholder,
+            'p-cascadeselect-label-empty': !instance.value && (instance.label() === 'p-emptylabel' || instance.label().length === 0)
         }
     ],
     clearIcon: 'p-cascadeselect-clear-icon',
