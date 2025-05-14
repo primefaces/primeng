@@ -75,8 +75,7 @@ export const INPUTMASK_VALUE_ACCESSOR: any = {
         <input
             #input
             pInputText
-            [class]="styleClass"
-            [ngClass]="inputClass"
+            [class]="cx('root')"
             [attr.id]="inputId"
             [attr.type]="type"
             [attr.name]="name"
@@ -345,10 +344,6 @@ export class InputMask extends BaseComponent implements OnInit, AfterContentInit
     androidChrome: boolean = true;
 
     focused: Nullable<boolean>;
-
-    get inputClass() {
-        return this._componentStyle.classes.root({ instance: this });
-    }
 
     _componentStyle = inject(InputMaskStyle);
 
