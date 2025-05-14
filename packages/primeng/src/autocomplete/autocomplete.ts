@@ -196,7 +196,7 @@ export const AUTOCOMPLETE_VALUE_ACCESSOR: any = {
             (onHide)="hide()"
         >
             <ng-template #content>
-                <div [ngClass]="panelClass" [ngStyle]="panelStyle" [class]="panelStyleClass">
+                <div [class]="cx('overlay')" [ngStyle]="panelStyle">
                     <ng-container *ngTemplateOutlet="headerTemplate || _headerTemplate"></ng-container>
                     <div [class]="cx('listContainer')" [style.max-height]="virtualScroll ? 'auto' : scrollHeight">
                         <p-scroller
@@ -885,14 +885,6 @@ export class AutoComplete extends BaseComponent implements AfterViewChecked, Aft
 
     get focusedOptionId() {
         return this.focusedOptionIndex() !== -1 ? `${this.id}_${this.focusedOptionIndex()}` : null;
-    }
-
-    get panelClass() {
-        return {
-            'p-autocomplete-overlay p-component': true,
-            'p-input-filled': this.config.inputStyle() === 'filled' || this.config.inputVariant() === 'filled',
-            'p-ripple-disabled': this.config.ripple() === false
-        };
     }
 
     get searchResultMessageText() {
