@@ -1204,6 +1204,7 @@ export const initGridManager = <T>({
         const passedDistance = { main: 0, cross: 0 };
         const idx = { main: startIdx.main, cross: startIdx.cross };
         const nodesLen = { main: nodes.mainAxis.length, cross: nodes.crossAxis.length };
+        let nodesCalculated = false;
         while (passedDistance.main < distance.main && inRange(idx.main, nodesLen.main)) {
             passedDistance.cross = 0;
             idx.cross = startIdx.cross;
@@ -1212,7 +1213,7 @@ export const initGridManager = <T>({
                     const size = getItemSize(_items.at(idx.main).at(idx.cross), idx.main, idx.cross);
                     adjustSize(nodes.mainAxis[idx.main], size.main, _calculatedIndexes.mainAxis[idx.main]);
                     adjustSize(nodes.crossAxis[idx.cross], size.cross, _calculatedIndexes.crossAxis[idx.cross]);
-                    _calculatedIndexes.mainAxis[idx.main] = _calculatedIndexes.crossAxis[idx.cross] = true;
+                    _calculatedIndexes.mainAxis[idx.main] = _calculatedIndexes.crossAxis[idx.cross] = nodesCalculated = true;
                 }
                 passedDistance.cross += nodes.crossAxis[idx.cross].size;
                 idx.cross += step;
@@ -1224,7 +1225,8 @@ export const initGridManager = <T>({
 
         return {
             distanceLeft: { main: Math.max(distance.main - passedDistance.main, 0), cross: Math.max(distance.cross - passedDistance.cross, 0) },
-            lastCalculatedIndex: { main: idx.main - step, cross: idx.cross - step }
+            lastCalculatedIndex: { main: idx.main - step, cross: idx.cross - step },
+            nodesCalculated
         };
     };
 
@@ -1247,14 +1249,16 @@ export const initGridManager = <T>({
             cross: _isScrollOverNode(scrollPos.cross, nodes.crossAxis[idx.cross]) ? scrollPos.cross - nodes.crossAxis[idx.cross].pos : 0
         };
         const getBackwardDistance = (viewportSize: number, forwardDistanceLeft: number) => viewportSize + Math.max(forwardDistanceLeft - viewportSize, 0);
-        const { distanceLeft } = _calculateSizesWithinDistance({ main: viewportSize.main * 2 + nodeOverlapDistance.main, cross: viewportSize.cross * 2 + nodeOverlapDistance.cross }, idx, 'forward');
-        const { lastCalculatedIndex } = _calculateSizesWithinDistance(
+        const { distanceLeft, nodesCalculated: forwardNodesCalculated } = _calculateSizesWithinDistance({ main: viewportSize.main * 2 + nodeOverlapDistance.main, cross: viewportSize.cross * 2 + nodeOverlapDistance.cross }, idx, 'forward');
+        const { lastCalculatedIndex, nodesCalculated: backwardNodesCalculated } = _calculateSizesWithinDistance(
             { main: getBackwardDistance(viewportSize.main, distanceLeft.main), cross: getBackwardDistance(viewportSize.cross, distanceLeft.cross) },
             { main: Math.max(0, idx.main - 1), cross: Math.max(0, idx.cross - 1) },
             'backward'
         );
-        _recalculateNodes(lastCalculatedIndex.main, nodes.mainAxis);
-        _recalculateNodes(lastCalculatedIndex.cross, nodes.crossAxis);
+        if (forwardNodesCalculated || backwardNodesCalculated) {
+            _recalculateNodes(lastCalculatedIndex.main, nodes.mainAxis);
+            _recalculateNodes(lastCalculatedIndex.cross, nodes.crossAxis);
+        }
     };
 
     const totalSize = () => ({
@@ -1401,7 +1405,10 @@ export const shouldCalculateNodes = ({
     triggerDistance: number;
     viewportSize: number;
 }) => {
-    const distanceBetween = { first: nodes[viewportNodesIdxs.first].pos - nodes[renderedNodesIdxs.first].pos, last: nodes[renderedNodesIdxs.last].pos - nodes[viewportNodesIdxs.last].pos };
+    const distanceBetween = {
+        first: nodes[viewportNodesIdxs.first].pos - nodes[renderedNodesIdxs.first].pos,
+        last: nodes[renderedNodesIdxs.last].pos + nodes[renderedNodesIdxs.last].size - (nodes[viewportNodesIdxs.last].pos + nodes[viewportNodesIdxs.last].size)
+    };
 
     if (!calculatedIdxs[viewportNodesIdxs.first] || !calculatedIdxs[viewportNodesIdxs.last]) return true;
     if (distanceBetween.first < triggerDistance) {
@@ -1409,7 +1416,7 @@ export const shouldCalculateNodes = ({
         return !calculatedIdxs[newFirst];
     }
     if (distanceBetween.last < triggerDistance) {
-        const newLast = findIndexByPosition(nodes[viewportNodesIdxs.last].pos + viewportSize, nodes);
+        const newLast = findIndexByPosition(nodes[viewportNodesIdxs.last].pos + nodes[viewportNodesIdxs.last].size + viewportSize, nodes);
         return !calculatedIdxs[newLast];
     }
 
