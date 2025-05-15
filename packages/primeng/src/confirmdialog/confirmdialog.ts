@@ -47,7 +47,7 @@ const hideAnimation = animation([animate('{{transition}}', style({ transform: '{
             (visibleChange)="onVisibleChange($event)"
             role="alertdialog"
             [closable]="option('closable')"
-            [styleClass]="containerClass"
+            [styleClass]="cx('root')"
             [modal]="true"
             [header]="option('header')"
             [closeOnEscape]="option('closeOnEscape')"
@@ -74,9 +74,7 @@ const hideAnimation = animation([animate('{{transition}}', style({ transform: '{
             } @else {
                 @if (headerTemplate || _headerTemplate) {
                     <ng-template #header>
-                        <div [ngClass]="cx('header')">
-                            <ng-container *ngTemplateOutlet="headerTemplate || _headerTemplate"></ng-container>
-                        </div>
+                        <ng-container *ngTemplateOutlet="headerTemplate || _headerTemplate"></ng-container>
                     </ng-template>
                 }
 
@@ -89,7 +87,7 @@ const hideAnimation = animation([animate('{{transition}}', style({ transform: '{
                     @if (messageTemplate || _messageTemplate) {
                         <ng-template *ngTemplateOutlet="messageTemplate || _messageTemplate; context: { $implicit: confirmation }"></ng-template>
                     } @else {
-                        <span [ngClass]="cx('message')" [innerHTML]="option('message')"> </span>
+                        <span [class]="cx('message')" [innerHTML]="option('message')"> </span>
                     }
                 </ng-template>
             }
@@ -415,10 +413,6 @@ export class ConfirmDialog extends BaseComponent implements OnInit, OnDestroy {
     ariaLabelledBy: string = this.getAriaLabelledBy();
 
     translationSubscription: Subscription | undefined;
-
-    get containerClass(): string {
-        return this.cx('root') + ' ' + this.styleClass || ' ';
-    }
 
     constructor(
         private confirmationService: ConfirmationService,
