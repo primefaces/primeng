@@ -10,6 +10,7 @@ export interface Props {
     routeFiles?: RouteFile[];
     selector?: string;
 }
+const version = require('package.json').version;
 
 const dependencies = {
     '@angular/animations': '^19.0.1',
@@ -22,12 +23,12 @@ const dependencies = {
     '@angular/platform-browser': '^19.0.1',
     '@angular/platform-browser-dynamic': '^19.0.1',
     '@angular/router': '^19.0.1',
-    '@primeng/themes': '^19.0.0',
+    '@primeng/themes': `${version}`,
     '@types/jasmine': '4.3.1',
     '@types/node': '12.20.55',
     'chart.js': '^3.3.2',
     primeicons: '7.0.0',
-    primeng: '^19.0.0',
+    primeng: `${version}`,
     quill: '1.3.7',
     rxjs: '~7.8.1',
     tslib: '^2.5.0',
