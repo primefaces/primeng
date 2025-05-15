@@ -32,7 +32,7 @@ export class AppComponent implements OnInit {
 
     translate(lang: string) {
         this.translateService.use(lang);
-        this.translateService.get('primeng').subscribe(res => this.primeng.setTranslation(res));
+        this.translateService.get('primeng').subscribe(res => this.config.setTranslation(res));
     }
 }`
     };
