@@ -38,6 +38,7 @@ const theme = css`
 const classes = {
     root: ({ instance }) => [
         'p-inputgroup',
+        instance.styleClass,
         {
             'p-inputgroup-fluid': instance.fluid
         }

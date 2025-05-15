@@ -264,7 +264,7 @@ export class CascadeSelectSub extends BaseComponent implements OnInit {
                 [pAutoFocus]="autofocus"
             />
         </div>
-        <span [ngClass]="labelClass" [attr.data-pc-section]="'label'">
+        <span [class]="cx('label')" [attr.data-pc-section]="'label'">
             <ng-container *ngIf="valueTemplate || _valueTemplate; else defaultValueTemplate">
                 <ng-container *ngTemplateOutlet="valueTemplate || _valueTemplate; context: { $implicit: value, placeholder: placeholder }"></ng-container>
             </ng-container>
@@ -738,14 +738,6 @@ export class CascadeSelect extends BaseComponent implements OnInit, AfterContent
     @HostListener('click', ['$event'])
     onHostClick(event: MouseEvent) {
         this.onContainerClick(event);
-    }
-
-    get labelClass() {
-        return {
-            'p-cascadeselect-label': true,
-            'p-placeholder': this.label() === this.placeholder,
-            'p-cascadeselect-label-empty': !this.value && (this.label() === 'p-emptylabel' || this.label().length === 0)
-        };
     }
 
     get hasFluid() {

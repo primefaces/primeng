@@ -85,7 +85,11 @@ const classes = {
         'pi-spin': instance.loading
     }),
     dropdown: 'p-autocomplete-dropdown',
-    overlay: 'p-autocomplete-overlay p-component',
+    overlay: ({ instance }) => [
+        'p-autocomplete-overlay p-component',
+        instance.panelStyleClass,
+        { 'p-input-filled': instance.config.inputStyle() === 'filled' || instance.config.inputVariant() === 'filled', 'p-ripple-disabled': instance.config.ripple() === false }
+    ],
     listContainer: 'p-autocomplete-list-container',
     list: ({ contentStyleClass }) => ['p-autocomplete-list', contentStyleClass],
     optionGroup: 'p-autocomplete-option-group',
