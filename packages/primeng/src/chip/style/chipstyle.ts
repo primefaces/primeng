@@ -23,11 +23,11 @@ const theme = ({ dt }) => `
     border-radius: 50%;
     width: ${dt('chip.image.width')};
     height: ${dt('chip.image.height')};
-    margin-left: calc(-1 * ${dt('chip.padding.y')});
+    margin-left: calc(-1 * ${dt('chip.padding.x')});
 }
 
 .p-chip:has(.p-chip-remove-icon) {
-    padding-inline-end: ${dt('chip.padding.y')};
+    padding-inline-end: ${dt('chip.padding.x')};
 }
 
 .p-chip:has(.p-chip-image) {
