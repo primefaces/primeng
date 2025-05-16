@@ -237,9 +237,9 @@ export class TableService {
                 </ng-container>
 
                 <ng-template #buildInTable let-items let-scrollerOptions="options">
-                    <table #table role="table" [ngClass]="cx('table')" [class]="tableStyleClass" [style]="tableStyle" [attr.id]="id + '-table'">
+                    <table #table [ngClass]="cx('table')" [class]="tableStyleClass" [style]="tableStyle" [attr.id]="id + '-table'">
                         <ng-container *ngTemplateOutlet="colGroupTemplate || _colGroupTemplate; context: { $implicit: scrollerOptions.columns }"></ng-container>
-                        <thead role="rowgroup" #thead [ngClass]="cx('thead')" [ngStyle]="sx('thead')">
+                        <thead #thead [ngClass]="cx('thead')" [ngStyle]="sx('thead')">
                             <ng-container
                                 *ngTemplateOutlet="
                                     headerGroupedTemplate || headerTemplate || _headerTemplate;
@@ -250,7 +250,6 @@ export class TableService {
                             ></ng-container>
                         </thead>
                         <tbody
-                            role="rowgroup"
                             [ngClass]="cx('tbody')"
                             *ngIf="frozenValue || frozenBodyTemplate || _frozenBodyTemplate"
                             [value]="frozenValue"
@@ -260,7 +259,6 @@ export class TableService {
                             [frozen]="true"
                         ></tbody>
                         <tbody
-                            role="rowgroup"
                             [ngClass]="cx('tbody', scrollerOptions.contentStyleClass)"
                             [style]="scrollerOptions.contentStyle"
                             [value]="dataToRender(scrollerOptions.rows)"
@@ -269,12 +267,11 @@ export class TableService {
                             [scrollerOptions]="scrollerOptions"
                         ></tbody>
                         <tbody
-                            role="rowgroup"
                             *ngIf="scrollerOptions.spacerStyle"
                             [style]="'height: calc(' + scrollerOptions.spacerStyle.height + ' - ' + scrollerOptions.rows.length * scrollerOptions.itemSize + 'px);'"
                             [ngClass]="cx('virtualScrollerSpacer')"
                         ></tbody>
-                        <tfoot role="rowgroup" *ngIf="footerGroupedTemplate || footerTemplate || _footerTemplate || _footerGroupedTemplate" #tfoot [ngClass]="cx('footer')" [ngStyle]="sx('tfoot')">
+                        <tfoot *ngIf="footerGroupedTemplate || footerTemplate || _footerTemplate || _footerGroupedTemplate" #tfoot [ngClass]="cx('footer')" [ngStyle]="sx('tfoot')">
                             <ng-container
                                 *ngTemplateOutlet="
                                     footerGroupedTemplate || footerTemplate || _footerTemplate || _footerGroupedTemplate;
