@@ -136,8 +136,8 @@ export const AUTOCOMPLETE_VALUE_ACCESSOR: any = {
                             </ng-template>
                         </ng-container>
                     </p-chip>
-                    <span *ngIf="removeIconTemplate || _removeIconTemplate" [attr.aria-hidden]="true" (click)="removeOption($event, i)">
-                        <ng-template *ngTemplateOutlet="removeIconTemplate || _removeIconTemplate; context: { class: 'p-autocomplete-chip-icon' }"></ng-template>
+                    <span *ngIf="removeIconTemplate || _removeIconTemplate">
+                        <ng-template *ngTemplateOutlet="removeIconTemplate || _removeIconTemplate; context: { class: 'p-autocomplete-chip-icon', removeCallback: removeOption.bind(this), index: i }"></ng-template>
                     </span>
                 </li>
                 <li class="p-autocomplete-input-chip" role="option">
