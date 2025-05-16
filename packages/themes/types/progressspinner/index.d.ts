@@ -15,27 +15,27 @@ export interface ProgressSpinnerDesignTokens extends DesignTokens<ProgressSpinne
      */
     root?: {
         /**
-         * Color.1 of root
+         * Color one of root
          *
-         * @designToken progressspinner.color.1
+         * @designToken progressspinner.color.one
          */
         colorOne?: string;
         /**
-         * Color.2 of root
+         * Color two of root
          *
-         * @designToken progressspinner.color.2
+         * @designToken progressspinner.color.two
          */
         colorTwo?: string;
         /**
-         * Color.3 of root
+         * Color three of root
          *
-         * @designToken progressspinner.color.3
+         * @designToken progressspinner.color.three
          */
         colorThree?: string;
         /**
-         * Color.4 of root
+         * Color four of root
          *
-         * @designToken progressspinner.color.4
+         * @designToken progressspinner.color.four
          */
         colorFour?: string;
     };
