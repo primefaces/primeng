@@ -244,6 +244,8 @@ const classes = {
         [instance.styleClass]: !!instance.styleClass,
         'p-tree-node-selectable': instance.selectable,
         'p-tree-node-dragover': instance.draghoverNode,
+        'p-tree-node-first': instance.firstChild,
+        'p-tree-node-last':instance.lastChild,
         'p-tree-node-selected': instance.selectionMode === 'checkbox' && instance.tree.highlightOnSelect ? instance.checked : instance.selected
     }),
     nodeToggleButton: 'p-tree-node-toggle-button',
