@@ -145,16 +145,16 @@ export interface AutoCompleteTemplates {
         /**
          * Class of the removeicon.
          */
-        $class: string;
+        class: string;
         /**
          * Remove callback.
          */
-        $removeCallback: (event: Event, index: number) => void;
+        removeCallback: (event: Event, index: number) => void;
         /**
          * Option index.
          */
-        $index: number;
-    }): TemplateRef<{ $class: string; $removeCallback: (event: Event, index: number) => void; $index: number }>;
+        index: number;
+    }): TemplateRef<{ class: string; removeCallback: (event: Event, index: number) => void; index: number }>;
     /**
      * Custom loading icon template.
      */
