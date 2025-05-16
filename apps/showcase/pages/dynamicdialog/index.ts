@@ -1,5 +1,6 @@
 import { CloseDoc } from '@/doc/dynamicdialog/closedoc';
 import { CustomizationDoc } from '@/doc/dynamicdialog/customizationdoc';
+import { CustomProvidersDoc } from '@/doc/dynamicdialog/customprovidersdoc';
 import { DynamicDialogDocModule } from '@/doc/dynamicdialog/dynamicdialogdoc.module';
 import { ExampleDoc } from '@/doc/dynamicdialog/exampledoc';
 import { ImportDoc } from '@/doc/dynamicdialog/importdoc';
@@ -58,6 +59,11 @@ export class DynamicDialogDemo {
             id: 'example',
             label: 'Example',
             component: ExampleDoc
+        },
+        {
+            id: 'customproviders',
+            label: 'Custom Providers',
+            component: CustomProvidersDoc
         }
     ];
 }
