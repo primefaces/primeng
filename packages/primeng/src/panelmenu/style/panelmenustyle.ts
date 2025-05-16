@@ -48,9 +48,9 @@ const classes = {
     ],
     itemContent: 'p-panelmenu-item-content',
     itemLink: 'p-panelmenu-item-link',
-    itemIcon: ({ processedItem }) => ['p-panelmenu-item-icon', processedItem && processedItem.icon],
+    itemIcon: 'p-panelmenu-item-icon',
     itemLabel: 'p-panelmenu-item-label',
-    submenuIcon: ({ processedItem }) => ['p-panelmenu-submenu-icon', processedItem && processedItem.icon],
+    submenuIcon: 'p-panelmenu-submenu-icon',
     submenu: 'p-panelmenu-submenu',
     separator: 'p-menuitem-separator',
     badge: 'p-menuitem-badge'

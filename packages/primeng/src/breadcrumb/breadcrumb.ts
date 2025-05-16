@@ -7,7 +7,6 @@ import { ChevronRightIcon, HomeIcon } from 'primeng/icons';
 import { TooltipModule } from 'primeng/tooltip';
 import { BreadcrumbItemClickEvent } from './breadcrumb.interface';
 import { BreadCrumbStyle } from './style/breadcrumbstyle';
-import { cn, resolve } from '@primeuix/utils';
 
 /**
  * Breadcrumb provides contextual information about page hierarchy.
@@ -232,12 +231,6 @@ export class Breadcrumb extends BaseComponent implements AfterContentInit {
             }
         });
     }
-
-    getItemProp(processedItem: any, name: string, params: any | null = null): any {
-        return processedItem && processedItem.item ? resolve(processedItem.item[name], params) : undefined;
-    }
-
-    protected readonly cn = cn;
 }
 
 @NgModule({

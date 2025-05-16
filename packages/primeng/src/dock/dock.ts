@@ -57,7 +57,7 @@ import { DockStyle } from './style/dockstyle';
                     <li
                         *ngIf="item.visible !== false"
                         [attr.id]="getItemId(item, i)"
-                        [class]="cx('item', { item, id: getItemId(item, i) })"
+                        [class]="cn(cx('item', { item, id: getItemId(item, i) }), item?.styleClass)"
                         role="menuitem"
                         [attr.aria-label]="item.label"
                         [attr.aria-disabled]="disabled(item)"
@@ -87,7 +87,7 @@ import { DockStyle } from './style/dockstyle';
                                 [state]="item.state"
                                 [attr.aria-hidden]="true"
                             >
-                                <span [class]="cx('itemIcon')" *ngIf="item.icon && !itemTemplate && !_itemTemplate" [ngClass]="item.icon" [ngStyle]="item.iconStyle"></span>
+                                <span [class]="cn(cx('itemIcon'), item.icon)" *ngIf="item.icon && !itemTemplate && !_itemTemplate" [ngStyle]="item.iconStyle"></span>
                                 <ng-container *ngTemplateOutlet="itemTemplate || itemTemplate; context: { $implicit: item }"></ng-container>
                             </a>
                             <ng-template #elseBlock>
@@ -102,7 +102,7 @@ import { DockStyle } from './style/dockstyle';
                                     [attr.tabindex]="item.disabled ? null : item.tabindex ? item.tabindex : '-1'"
                                     [attr.aria-hidden]="true"
                                 >
-                                    <span [class]="cx('itemIcon')" *ngIf="item.icon && !itemTemplate && !_itemTemplate" [ngClass]="item.icon" [ngStyle]="item.iconStyle"></span>
+                                    <span [class]="cn(cx('itemIcon'), item.icon)" *ngIf="item.icon && !itemTemplate && !_itemTemplate" [ngStyle]="item.iconStyle"></span>
                                     <ng-container *ngTemplateOutlet="itemTemplate || _itemTemplate; context: { $implicit: item }"></ng-container>
                                 </a>
                             </ng-template>

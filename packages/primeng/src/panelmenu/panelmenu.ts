@@ -50,7 +50,7 @@ import { PanelMenuStyle } from './style/panelmenustyle';
             (keydown)="menuKeyDown.emit($event)"
         >
             <ng-template ngFor let-processedItem let-index="index" [ngForOf]="items">
-                <li *ngIf="processedItem.separator" [class]="cx('separator')" role="separator"></li>
+                <li *ngIf="processedItem.separator" [class]="cn(cx('separator'), getItemProp(processedItem, 'styleClass'))" role="separator"></li>
                 <li
                     *ngIf="!processedItem.separator && isItemVisible(processedItem)"
                     role="treeitem"
@@ -78,8 +78,8 @@ import { PanelMenuStyle } from './style/panelmenustyle';
                             >
                                 <ng-container *ngIf="isItemGroup(processedItem)">
                                     <ng-container *ngIf="!panelMenu.submenuIconTemplate && !panelMenu._submenuIconTemplate">
-                                        <AngleDownIcon [styleClass]="cx('submenuIcon')" *ngIf="isItemActive(processedItem)" [ngStyle]="getItemProp(processedItem, 'iconStyle')" />
-                                        <AngleRightIcon [styleClass]="cx('submenuIcon')" *ngIf="!isItemActive(processedItem)" [ngStyle]="getItemProp(processedItem, 'iconStyle')" />
+                                        <AngleDownIcon [styleClass]="cn(cx('submenuIcon'), getItemProp(processedItem, 'icon'))" *ngIf="isItemActive(processedItem)" [ngStyle]="getItemProp(processedItem, 'iconStyle')" />
+                                        <AngleRightIcon [styleClass]="cn(cx('submenuIcon'), getItemProp(processedItem, 'icon'))" *ngIf="!isItemActive(processedItem)" [ngStyle]="getItemProp(processedItem, 'iconStyle')" />
                                     </ng-container>
                                     <ng-template *ngTemplateOutlet="panelMenu.submenuIconTemplate || panelMenu._submenuIconTemplate"></ng-template>
                                 </ng-container>
@@ -107,15 +107,15 @@ import { PanelMenuStyle } from './style/panelmenustyle';
                             >
                                 <ng-container *ngIf="isItemGroup(processedItem)">
                                     <ng-container *ngIf="!panelMenu.submenuIconTemplate && !panelMenu._submenuIconTemplate">
-                                        <AngleDownIcon *ngIf="isItemActive(processedItem)" [styleClass]="cx('submenuIcon')" [ngStyle]="getItemProp(processedItem, 'iconStyle')" />
-                                        <AngleRightIcon *ngIf="!isItemActive(processedItem)" [styleClass]="cx('submenuIcon')" [ngStyle]="getItemProp(processedItem, 'iconStyle')" />
+                                        <AngleDownIcon *ngIf="isItemActive(processedItem)" [styleClass]="cn(cx('submenuIcon'), getItemProp(processedItem, 'icon'))" [ngStyle]="getItemProp(processedItem, 'iconStyle')" />
+                                        <AngleRightIcon *ngIf="!isItemActive(processedItem)" [styleClass]="cn(cx('submenuIcon'), getItemProp(processedItem, 'icon'))" [ngStyle]="getItemProp(processedItem, 'iconStyle')" />
                                     </ng-container>
                                     <ng-template *ngTemplateOutlet="panelMenu.submenuIconTemplate && panelMenu._submenuIconTemplate"></ng-template>
                                 </ng-container>
-                                <span [class]="cx('itemIcon', { processedItem })" *ngIf="processedItem.icon" [ngStyle]="getItemProp(processedItem, 'iconStyle')"></span>
+                                <span [class]="cn(cx('itemIcon'), getItemProp(processedItem, 'icon'))" *ngIf="processedItem.icon" [ngStyle]="getItemProp(processedItem, 'iconStyle')"></span>
                                 <ng-template #htmlLabel><span [class]="cx('itemLabel')" [innerHTML]="getItemProp(processedItem, 'label')"></span></ng-template>
-                                <ng-template #htmlRouteLabel><span class="p-panelmenu-item-label" [innerHTML]="getItemProp(processedItem, 'label')"></span></ng-template>
-                                <span [class]="cx('badge')" *ngIf="processedItem.badge" [ngClass]="processedItem.badgeStyleClass">{{ processedItem.badge }}</span>
+                                <ng-template #htmlRouteLabel><span [class]="cx('itemLabel')" [innerHTML]="getItemProp(processedItem, 'label')"></span></ng-template>
+                                <span [class]="cn(cx('badge'), getItemProp(processedItem, 'badgeStyleClass'))" *ngIf="processedItem.badge">{{ processedItem.badge }}</span>
                             </a>
                         </ng-container>
                         <ng-container *ngIf="itemTemplate">
@@ -723,10 +723,9 @@ export class PanelMenuList extends BaseComponent implements OnChanges {
     standalone: true,
     template: `
         <ng-container *ngFor="let item of model; let f = first; let l = last; let i = index">
-            <div *ngIf="isItemVisible(item)" [class]="cx('panel')" [ngClass]="getItemProp(item, 'headerClass')" [ngStyle]="getItemProp(item, 'style')" [attr.data-pc-section]="'panel'">
+            <div *ngIf="isItemVisible(item)" [class]="cn(cx('panel'), getItemProp(item, 'headerClass'))" [ngStyle]="getItemProp(item, 'style')" [attr.data-pc-section]="'panel'">
                 <div
-                    [class]="cx('header', { item })"
-                    [ngClass]="getItemProp(item, 'styleClass')"
+                    [class]="cn(cx('header', { item }), getItemProp(item, 'styleClass'))"
                     [ngStyle]="getItemProp(item, 'style')"
                     [pTooltip]="getItemProp(item, 'tooltip')"
                     [attr.id]="getHeaderId(item, i)"
@@ -761,10 +760,10 @@ export class PanelMenuList extends BaseComponent implements OnChanges {
                                     </ng-container>
                                     <ng-template *ngTemplateOutlet="headerIconTemplate || _headerIconTemplate"></ng-template>
                                 </ng-container>
-                                <span [ngClass]="[cx('headerIcon'), item.icon]" *ngIf="item.icon" [ngStyle]="getItemProp(item, 'iconStyle')"></span>
+                                <span [class]="cn(cx('headerIcon'), item.icon)" *ngIf="item.icon" [ngStyle]="getItemProp(item, 'iconStyle')"></span>
                                 <span [class]="cx('headerLabel')" *ngIf="getItemProp(item, 'escape') !== false; else htmlLabel">{{ getItemProp(item, 'label') }}</span>
                                 <ng-template #htmlLabel><span [class]="cx('headerLabel')" [innerHTML]="getItemProp(item, 'label')"></span></ng-template>
-                                <span [class]="cx('badge')" *ngIf="getItemProp(item, 'badge')" [ngClass]="getItemProp(item, 'badgeStyleClass')">{{ getItemProp(item, 'badge') }}</span>
+                                <span [class]="cn(cx('badge'), getItemProp(item, 'badgeStyleClass'))" *ngIf="getItemProp(item, 'badge')">{{ getItemProp(item, 'badge') }}</span>
                             </a>
                         </ng-container>
                         <ng-container *ngTemplateOutlet="itemTemplate; context: { $implicit: item }"></ng-container>
@@ -792,10 +791,10 @@ export class PanelMenuList extends BaseComponent implements OnChanges {
                                 </ng-container>
                                 <ng-template *ngTemplateOutlet="headerIconTemplate || _headerIconTemplate"></ng-template>
                             </ng-container>
-                            <span [ngClass]="[cx('headerIcon'), item.icon]" *ngIf="item.icon" [ngStyle]="getItemProp(item, 'iconStyle')"></span>
+                            <span [class]="cn(cx('headerIcon'), item.icon)" *ngIf="item.icon" [ngStyle]="getItemProp(item, 'iconStyle')"></span>
                             <span [class]="cx('headerLabel')" *ngIf="getItemProp(item, 'escape') !== false; else htmlRouteLabel">{{ getItemProp(item, 'label') }}</span>
                             <ng-template #htmlRouteLabel><span [class]="cx('headerLabel')" [innerHTML]="getItemProp(item, 'label')"></span></ng-template>
-                            <span *ngIf="getItemProp(item, 'badge')" [class]="cx('badge')" [ngClass]="getItemProp(item, 'badgeStyleClass')">{{ getItemProp(item, 'badge') }}</span>
+                            <span *ngIf="getItemProp(item, 'badge')" [class]="cn(cx('badge'), getItemProp(item, 'badgeStyleClass'))">{{ getItemProp(item, 'badge') }}</span>
                         </a>
                     </div>
                 </div>

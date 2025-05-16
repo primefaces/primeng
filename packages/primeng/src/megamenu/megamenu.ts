@@ -55,7 +55,7 @@ import { MegaMenuStyle } from './style/megamenustyle';
             (focus)="menuFocus.emit($event)"
             (blur)="menuBlur.emit($event)"
         >
-            <li *ngIf="submenu" [class]="cx('submenuLabel')" [ngClass]="getItemProp(submenu, 'class')" [style]="getItemProp(submenu, 'style')" role="presentation">
+            <li *ngIf="submenu" [class]="cn(cx('submenuLabel'), getItemProp(submenu, 'class'))" [style]="getItemProp(submenu, 'style')" role="presentation">
                 {{ getItemLabel(submenu) }}
             </li>
             <ng-template ngFor let-processedItem [ngForOf]="items" let-index="index">
@@ -63,7 +63,7 @@ import { MegaMenuStyle } from './style/megamenustyle';
                     *ngIf="isItemVisible(processedItem) && getItemProp(processedItem, 'separator')"
                     [attr.id]="getItemId(processedItem)"
                     [style]="getItemProp(processedItem, 'style')"
-                    [ngClass]="[cx('separator'), this.getItemProp(processedItem, 'class')]"
+                    [class]="cn(cx('separator'), this.getItemProp(processedItem, 'class'))"
                     role="separator"
                     [attr.data-pc-section]="'separator'"
                 ></li>
@@ -84,7 +84,7 @@ import { MegaMenuStyle } from './style/megamenustyle';
                     [attr.aria-setsize]="getAriaSetSize()"
                     [attr.aria-posinset]="getAriaPosInset(index)"
                     [ngStyle]="getItemProp(processedItem, 'style')"
-                    [class]="cx('item', { processedItem })"
+                    [class]="cn(cx('item', { processedItem }), processedItem?.styleClass)"
                     pTooltip
                     [tooltipOptions]="getItemProp(processedItem, 'tooltipOptions')"
                 >
@@ -102,7 +102,7 @@ import { MegaMenuStyle } from './style/megamenustyle';
                             >
                                 <span
                                     *ngIf="getItemProp(processedItem, 'icon')"
-                                    [ngClass]="[cx('itemIcon'), getItemProp(processedItem, 'icon')]"
+                                    [class]="cn(cx('itemIcon'), getItemProp(processedItem, 'icon'))"
                                     [ngStyle]="getItemProp(processedItem, 'iconStyle')"
                                     [attr.data-pc-section]="'icon'"
                                     [attr.tabindex]="-1"
@@ -114,7 +114,7 @@ import { MegaMenuStyle } from './style/megamenustyle';
                                 <ng-template #htmlLabel>
                                     <span [class]="cx('itemLabel')" [innerHTML]="getItemLabel(processedItem)" [attr.data-pc-section]="'label'"></span>
                                 </ng-template>
-                                <p-badge *ngIf="getItemProp(processedItem, 'badge')" [styleClass]="getItemProp(processedItem, 'badgeStyleClass')" [value]="getItemProp(processedItem, 'badge')" />
+                                <p-badge *ngIf="getItemProp(processedItem, 'badge')" [class]="getItemProp(processedItem, 'badgeStyleClass')" [value]="getItemProp(processedItem, 'badge')" />
                                 <ng-container *ngIf="isItemGroup(processedItem)">
                                     <ng-container *ngIf="!megaMenu.submenuIconTemplate && !megaMenu._submenuIconTemplate">
                                         @if (orientation === 'horizontal' || mobileActive) {
@@ -146,7 +146,7 @@ import { MegaMenuStyle } from './style/megamenustyle';
                                 pRipple
                             >
                                 <span
-                                    [ngClass]="[cx('itemIcon'), getItemProp(processedItem, 'icon')]"
+                                    [class]="cn(cx('itemIcon'), getItemProp(processedItem, 'icon'))"
                                     *ngIf="getItemProp(processedItem, 'icon')"
                                     [ngStyle]="getItemProp(processedItem, 'iconStyle')"
                                     [attr.data-pc-section]="'icon'"

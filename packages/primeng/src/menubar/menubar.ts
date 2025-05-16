@@ -65,7 +65,7 @@ export class MenubarService {
                 *ngIf="isItemVisible(processedItem) && getItemProp(processedItem, 'separator')"
                 [attr.id]="getItemId(processedItem)"
                 [style]="getItemProp(processedItem, 'style')"
-                [class]="cx('separator')"
+                [class]="cn(cx('separator'), processedItem?.styleClass)"
                 role="separator"
                 [attr.data-pc-section]="'separator'"
             ></li>
@@ -85,7 +85,7 @@ export class MenubarService {
                 [attr.aria-setsize]="getAriaSetSize()"
                 [attr.aria-posinset]="getAriaPosInset(index)"
                 [style]="getItemProp(processedItem, 'style')"
-                [class]="cx('item', { instance: this, processedItem })"
+                [class]="cn(cx('item', { instance: this, processedItem }), processedItem?.styleClass)"
                 pTooltip
                 [tooltipOptions]="getItemProp(processedItem, 'tooltipOptions')"
             >
@@ -101,7 +101,7 @@ export class MenubarService {
                             [attr.tabindex]="-1"
                             pRipple
                         >
-                            <span *ngIf="getItemProp(processedItem, 'icon')" [ngClass]="[cx('itemIcon'), getItemProp(processedItem, 'icon')]" [style]="getItemProp(processedItem, 'iconStyle')" [attr.data-pc-section]="'icon'" [attr.tabindex]="-1">
+                            <span *ngIf="getItemProp(processedItem, 'icon')" [class]="cn(cx('itemIcon'), getItemProp(processedItem, 'icon'))" [style]="getItemProp(processedItem, 'iconStyle')" [attr.data-pc-section]="'icon'" [attr.tabindex]="-1">
                             </span>
                             <span *ngIf="getItemProp(processedItem, 'escape'); else htmlLabel" [class]="cx('itemLabel')" [attr.data-pc-section]="'label'" [id]="getItemLabelId(processedItem)">
                                 {{ getItemLabel(processedItem) }}
@@ -139,7 +139,7 @@ export class MenubarService {
                             pRipple
                         >
                             <span
-                                [ngClass]="[cx('itemIcon'), getItemProp(processedItem, 'icon')]"
+                                [class]="cn(cx('itemIcon'), getItemProp(processedItem, 'icon'))"
                                 *ngIf="getItemProp(processedItem, 'icon')"
                                 [ngStyle]="getItemProp(processedItem, 'iconStyle')"
                                 [attr.data-pc-section]="'icon'"
