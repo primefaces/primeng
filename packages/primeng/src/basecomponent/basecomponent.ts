@@ -189,4 +189,6 @@ export class BaseComponent {
     get $style() {
         return this.parent ? this.parent.componentStyle : this.componentStyle;
     }
+
+    protected readonly cn = cn;
 }

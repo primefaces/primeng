@@ -85,7 +85,7 @@ import { ContextMenuStyle } from './style/contextmenustyle';
                     *ngIf="isItemVisible(processedItem) && getItemProp(processedItem, 'separator')"
                     [attr.id]="getItemId(processedItem)"
                     [style]="getItemProp(processedItem, 'style')"
-                    [ngClass]="cx('separator', getItemProp(processedItem, 'styleClass'))"
+                    [ngClass]="cn(cx('separator'), getItemProp(processedItem, 'styleClass'))"
                     role="separator"
                     [attr.data-pc-section]="'separator'"
                 ></li>
@@ -106,7 +106,7 @@ import { ContextMenuStyle } from './style/contextmenustyle';
                     [attr.aria-setsize]="getAriaSetSize()"
                     [attr.aria-posinset]="getAriaPosInset(index)"
                     [style]="getItemProp(processedItem, 'style')"
-                    [ngClass]="cx('item', { instance: this, processedItem })"
+                    [class]="cn(cx('item', { instance: this, processedItem }), processedItem?.styleClass)"
                     pTooltip
                     [tooltipOptions]="getItemProp(processedItem, 'tooltipOptions')"
                 >
@@ -125,7 +125,7 @@ import { ContextMenuStyle } from './style/contextmenustyle';
                             >
                                 <span
                                     *ngIf="getItemProp(processedItem, 'icon')"
-                                    [ngClass]="cx('itemIcon', getItemProp(processedItem, 'icon'))"
+                                    [class]="cn(cx('itemIcon'), getItemProp(processedItem, 'icon'))"
                                     [ngStyle]="getItemProp(processedItem, 'iconStyle')"
                                     [attr.data-pc-section]="'icon'"
                                     [attr.aria-hidden]="true"
@@ -167,7 +167,7 @@ import { ContextMenuStyle } from './style/contextmenustyle';
                             >
                                 <span
                                     *ngIf="getItemProp(processedItem, 'icon')"
-                                    [ngClass]="cx('itemIcon', getItemProp(processedItem, 'icon'))"
+                                    [class]="cn(cx('itemIcon'), getItemProp(processedItem, 'icon'))"
                                     [ngStyle]="getItemProp(processedItem, 'iconStyle')"
                                     [attr.data-pc-section]="'icon'"
                                     [attr.aria-hidden]="true"
@@ -275,25 +275,8 @@ export class ContextMenuSub extends BaseComponent {
         return this.getItemId(processedItem);
     }
 
-    getItemClass(processedItem: any) {
-        return {
-            ...this.getItemProp(processedItem, 'class'),
-            'p-contextmenu-item': true,
-            'p-contextmenu-item-active': this.isItemActive(processedItem),
-            'p-focus': this.isItemFocused(processedItem),
-            'p-disabled': this.isItemDisabled(processedItem)
-        };
-    }
-
     getItemLabel(processedItem: any): string {
         return this.getItemProp(processedItem, 'label');
-    }
-
-    getSeparatorItemClass(processedItem: any) {
-        return {
-            ...this.getItemProp(processedItem, 'class'),
-            'p-contextmenu-separator': true
-        };
     }
 
     getAriaSetSize() {
