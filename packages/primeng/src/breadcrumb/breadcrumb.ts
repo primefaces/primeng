@@ -7,7 +7,7 @@ import { ChevronRightIcon, HomeIcon } from 'primeng/icons';
 import { TooltipModule } from 'primeng/tooltip';
 import { BreadcrumbItemClickEvent } from './breadcrumb.interface';
 import { BreadCrumbStyle } from './style/breadcrumbstyle';
-import { resolve } from '@primeuix/utils';
+import { cn, resolve } from '@primeuix/utils';
 
 /**
  * Breadcrumb provides contextual information about page hierarchy.
@@ -20,7 +20,7 @@ import { resolve } from '@primeuix/utils';
     template: `
         <nav [class]="cx('root')" [style]="style" [attr.data-pc-name]="'breadcrumb'" [attr.data-pc-section]="'root'">
             <ol [attr.data-pc-section]="'menu'" [class]="cx('list')">
-                <li [attr.id]="home.id" [class]="cx('homeItem', home.styleClass)" [ngStyle]="home.style" *ngIf="home && home.visible !== false" pTooltip [tooltipOptions]="home.tooltipOptions" [attr.data-pc-section]="'home'">
+                <li [attr.id]="home.id" [class]="cn(cx('homeItem'), home.styleClass)" [ngStyle]="home.style" *ngIf="home && home.visible !== false" pTooltip [tooltipOptions]="home.tooltipOptions" [attr.data-pc-section]="'home'">
                     <a
                         [href]="home.url ? home.url : null"
                         *ngIf="!home.routerLink"
@@ -31,7 +31,7 @@ import { resolve } from '@primeuix/utils';
                         [attr.title]="home.title"
                         [attr.tabindex]="home.disabled ? null : '0'"
                     >
-                        <span *ngIf="home.icon" [class]="cx('itemIcon')" [ngClass]="home.icon" [ngStyle]="home?.style"></span>
+                        <span *ngIf="home.icon" [class]="cn(cx('itemIcon'), home.icon)" [ngStyle]="home?.style"></span>
                         <HomeIcon *ngIf="!home.icon" [class]="cx('itemIcon')" />
                         <ng-container *ngIf="home.label">
                             <span *ngIf="home.escape !== false; else htmlHomeLabel" [class]="cx('itemLabel')">{{ home.label }}</span>
@@ -56,7 +56,7 @@ import { resolve } from '@primeuix/utils';
                         [replaceUrl]="home.replaceUrl"
                         [state]="home.state"
                     >
-                        <span *ngIf="home.icon" [class]="cx('itemIcon', home.icon)" [style]="home.iconStyle"></span>
+                        <span *ngIf="home.icon" [class]="cn(cx('itemIcon'), home.icon)" [style]="home.iconStyle"></span>
                         <HomeIcon *ngIf="!home.icon" [styleClass]="cx('itemIcon')" />
                         <ng-container *ngIf="home.label">
                             <span *ngIf="home.escape !== false; else htmlHomeRouteLabel" [class]="cx('itemLabel')">{{ home.label }}</span>
@@ -71,8 +71,7 @@ import { resolve } from '@primeuix/utils';
                 <ng-template ngFor let-menuitem let-end="last" [ngForOf]="model">
                     <li
                         *ngIf="menuitem.visible !== false"
-                        [class]="cx('item', { menuitem })"
-                        [ngClass]="menuitem.styleClass"
+                        [class]="cn(cx('item', { menuitem }), menuitem.styleClass)"
                         [attr.id]="menuitem.id"
                         [style]="menuitem.style"
                         pTooltip
@@ -92,7 +91,7 @@ import { resolve } from '@primeuix/utils';
                                 [attr.tabindex]="menuitem?.disabled ? null : '0'"
                             >
                                 <ng-container *ngIf="!itemTemplate && !_itemTemplate">
-                                    <span *ngIf="menuitem?.icon" [class]="cx('itemIcon', menuitem?.icon)" [style]="menuitem?.iconStyle"></span>
+                                    <span *ngIf="menuitem?.icon" [class]="cn(cx('itemIcon'), menuitem?.icon)" [style]="menuitem?.iconStyle"></span>
                                     <ng-container *ngIf="menuitem?.label">
                                         <span *ngIf="menuitem?.escape !== false; else htmlLabel" [class]="cx('itemLabel')">{{ menuitem?.label }}</span>
                                         <ng-template #htmlLabel><span [class]="cx('itemLabel')" [innerHTML]="menuitem?.label"></span></ng-template>
@@ -116,7 +115,7 @@ import { resolve } from '@primeuix/utils';
                                 [replaceUrl]="menuitem?.replaceUrl"
                                 [state]="menuitem?.state"
                             >
-                                <span *ngIf="menuitem?.icon" [class]="cx('itemIcon', menuitem?.icon)" [style]="menuitem?.iconStyle"></span>
+                                <span *ngIf="menuitem?.icon" [class]="cn(cx('itemIcon'), menuitem?.icon)" [style]="menuitem?.iconStyle"></span>
                                 <ng-container *ngIf="menuitem?.label">
                                     <span *ngIf="menuitem?.escape !== false; else htmlRouteLabel" [class]="cx('itemLabel')">{{ menuitem?.label }}</span>
                                     <ng-template #htmlRouteLabel><span [class]="cx('itemLabel')" [innerHTML]="menuitem?.label"></span></ng-template>
@@ -237,6 +236,8 @@ export class Breadcrumb extends BaseComponent implements AfterContentInit {
     getItemProp(processedItem: any, name: string, params: any | null = null): any {
         return processedItem && processedItem.item ? resolve(processedItem.item[name], params) : undefined;
     }
+
+    protected readonly cn = cn;
 }
 
 @NgModule({
