@@ -126,17 +126,19 @@ export const AUTOCOMPLETE_VALUE_ACCESSOR: any = {
                     [attr.aria-posinset]="i + 1"
                     [attr.aria-selected]="true"
                 >
-                    <p-chip styleClass="p-autocomplete-chip" [label]="!selectedItemTemplate && !_selectedItemTemplate && getOptionLabel(option)" [removable]="true" (onRemove)="!readonly ? removeOption($event, i) : ''">
-                        <ng-container *ngTemplateOutlet="selectedItemTemplate || _selectedItemTemplate; context: { $implicit: option }"></ng-container>
-                        <ng-template #removeicon>
-                            <span *ngIf="!removeIconTemplate && !_removeIconTemplate" class="p-autocomplete-chip-icon" (click)="!readonly ? removeOption($event, i) : ''">
-                                <TimesCircleIcon [styleClass]="'p-autocomplete-chip-icon'" [attr.aria-hidden]="true" />
-                            </span>
-                            <span *ngIf="removeIconTemplate || _removeIconTemplate" [attr.aria-hidden]="true">
-                                <ng-template *ngTemplateOutlet="removeIconTemplate || _removeIconTemplate; context: { removeCallback: removeOption.bind(this), index: i, class: 'p-autocomplete-chip-icon' }"></ng-template>
-                            </span>
-                        </ng-template>
+                    <ng-container *ngTemplateOutlet="selectedItemTemplate || _selectedItemTemplate; context: { $implicit: option }"></ng-container>
+                    <p-chip styleClass="p-autocomplete-chip" *ngIf="!selectedItemTemplate && !_selectedItemTemplate" [label]="getOptionLabel(option)" [removable]="true" (onRemove)="!readonly ? removeOption($event, i) : ''">
+                        <ng-container *ngIf="!removeIconTemplate && !_removeIconTemplate">
+                            <ng-template #removeicon>
+                                <span class="p-autocomplete-chip-icon" (click)="!readonly ? removeOption($event, i) : ''">
+                                    <TimesCircleIcon [styleClass]="'p-autocomplete-chip-icon'" [attr.aria-hidden]="true" />
+                                </span>
+                            </ng-template>
+                        </ng-container>
                     </p-chip>
+                    <span *ngIf="removeIconTemplate || _removeIconTemplate">
+                        <ng-template *ngTemplateOutlet="removeIconTemplate || _removeIconTemplate; context: { class: 'p-autocomplete-chip-icon', removeCallback: removeOption.bind(this), index: i }"></ng-template>
+                    </span>
                 </li>
                 <li class="p-autocomplete-input-chip" role="option">
                     <input
