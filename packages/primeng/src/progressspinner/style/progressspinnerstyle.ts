@@ -32,7 +32,7 @@ const theme = ({ dt }) => `
 .p-progressspinner-circle {
     stroke-dasharray: 89, 200;
     stroke-dashoffset: 0;
-    stroke: ${dt('progressspinner.color.1')};
+    stroke: ${dt('progressspinner.colorOne')};
     animation: p-progressspinner-dash 1.5s ease-in-out infinite, p-progressspinner-color 6s ease-in-out infinite;
     stroke-linecap: round;
 }
@@ -59,17 +59,17 @@ const theme = ({ dt }) => `
 @keyframes p-progressspinner-color {
     100%,
     0% {
-        stroke: ${dt('progressspinner.color.one')};
+        stroke: ${dt('progressspinner.colorOne')};
     }
     40% {
-        stroke: ${dt('progressspinner.color.two')};
+        stroke: ${dt('progressspinner.colorTwo')};
     }
     66% {
-        stroke: ${dt('progressspinner.color.three')};
+        stroke: ${dt('progressspinner.colorThree')};
     }
     80%,
     90% {
-        stroke: ${dt('progressspinner.color.four')};
+        stroke: ${dt('progressspinner.colorFour')};
     }
 }
 `;
