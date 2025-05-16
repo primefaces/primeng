@@ -47,7 +47,7 @@ export const TOGGLEBUTTON_VALUE_ACCESSOR: any = {
         '[attr.aria-pressed]': 'checked',
         '[attr.data-p-checked]': 'active',
         '[attr.data-p-disabled]': 'disabled',
-        '[attr.type]': '"button"',
+        '[attr.role]': '"button"',
         '[class.p-togglebutton]': 'true',
         '[class.p-togglebutton-checked]': 'checked',
         '[class.p-disabled]': 'disabled',
