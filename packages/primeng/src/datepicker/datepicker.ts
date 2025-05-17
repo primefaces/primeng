@@ -719,7 +719,21 @@ export class DatePicker extends BaseComponent implements OnInit, AfterContentIni
      * When enabled, datepicker will show week numbers.
      * @group Props
      */
-    @Input({ transform: booleanAttribute }) showWeek: boolean = false;
+    @Input({ transform: booleanAttribute }) get showWeek(): boolean {
+        return this._showWeek;
+    }
+    set showWeek(value: boolean) {
+        this._showWeek = value;
+        if (this.initialized && value) {
+            this.months
+                .filter((month) => month.weekNumbers.length === 0)
+                .forEach((monthToUpdate) => {
+                    monthToUpdate.dates.forEach((week) => {
+                        monthToUpdate.weekNumbers.push(this.getWeekNumber(new Date(week[0].year, week[0].month, week[0].day)));
+                    });
+                });
+        }
+    }
     /**
      * When enabled, datepicker will start week numbers from first day of the year.
      * @group Props
@@ -1158,6 +1172,8 @@ export class DatePicker extends BaseComponent implements OnInit, AfterContentIni
     _showTime!: boolean;
 
     _yearRange!: string;
+
+    _showWeek: boolean = false;
 
     preventDocumentListener: Nullable<boolean>;
 
