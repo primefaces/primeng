@@ -333,6 +333,10 @@ const theme = ({ dt }) => `
 }
 */
 
+.p-datatable-column-title {
+    display: none;
+}
+
 .p-datatable-tbody > tr {
     outline-color: transparent;
     background: ${dt('datatable.row.background')};
