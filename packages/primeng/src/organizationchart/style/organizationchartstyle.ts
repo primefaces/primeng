@@ -7,7 +7,6 @@ const classes = {
     table: 'p-organizationchart-table',
     node: ({ instance }) => [
         'p-organizationchart-node',
-        instance.node.styleClass,
         { 'p-organizationchart-node': true, 'p-organizationchart-node-selectable': instance.chart.selectionMode && instance.node.selectable !== false, 'p-organizationchart-node-selected': instance.isSelected() }
     ],
     nodeToggleButton: 'p-organizationchart-node-toggle-button',
