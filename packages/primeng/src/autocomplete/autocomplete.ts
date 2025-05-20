@@ -63,7 +63,7 @@ export const AUTOCOMPLETE_VALUE_ACCESSOR: any = {
             #focusInput
             [pAutoFocus]="autofocus"
             pInputText
-            [class]="cx('pcInputText')"
+            [class]="cn('pcInputText', inputStyleClass)"
             [ngStyle]="inputStyle"
             [type]="type"
             [attr.value]="inputValue()"
@@ -173,7 +173,7 @@ export const AUTOCOMPLETE_VALUE_ACCESSOR: any = {
         </ul>
         <ng-container *ngIf="loading">
             <SpinnerIcon *ngIf="!loadingIconTemplate && !_loadingIconTemplate" [styleClass]="cx('loader')" [spin]="true" [attr.aria-hidden]="true" />
-            <span *ngIf="loadingIconTemplate || _loadingIconTemplate" [class]="cx('loader')" [attr.aria-hidden]="true">
+            <span *ngIf="loadingIconTemplate || _loadingIconTemplate" [class]="cn('loader')" [attr.aria-hidden]="true">
                 <ng-template *ngTemplateOutlet="loadingIconTemplate || _loadingIconTemplate"></ng-template>
             </span>
         </ng-container>
@@ -196,7 +196,7 @@ export const AUTOCOMPLETE_VALUE_ACCESSOR: any = {
             (onHide)="hide()"
         >
             <ng-template #content>
-                <div [class]="cx('overlay')" [ngStyle]="panelStyle">
+                <div [class]="cn('overlay', panelStyleClass)" [ngStyle]="panelStyle">
                     <ng-container *ngTemplateOutlet="headerTemplate || _headerTemplate"></ng-container>
                     <div [class]="cx('listContainer')" [style.max-height]="virtualScroll ? 'auto' : scrollHeight">
                         <p-scroller
@@ -225,7 +225,7 @@ export const AUTOCOMPLETE_VALUE_ACCESSOR: any = {
                     </div>
 
                     <ng-template #buildInItems let-items let-scrollerOptions="options">
-                        <ul #items [class]="cx('list', { contentStyleClass: scrollerOptions.contentStyleClass })" [style]="scrollerOptions.contentStyle" role="listbox" [attr.id]="id + '_list'" [attr.aria-label]="listLabel">
+                        <ul #items [class]="cn('list', scrollerOptions.contentStyleClass)" [style]="scrollerOptions.contentStyle" role="listbox" [attr.id]="id + '_list'" [attr.aria-label]="listLabel">
                             <ng-template ngFor let-option [ngForOf]="items" let-i="index">
                                 <ng-container *ngIf="isOptionGroup(option)">
                                     <li [attr.id]="id + '_' + getOptionIndex(i, scrollerOptions)" [class]="cx('optionGroup')" [ngStyle]="{ height: scrollerOptions.itemSize + 'px' }" role="option">
@@ -282,7 +282,7 @@ export const AUTOCOMPLETE_VALUE_ACCESSOR: any = {
     changeDetection: ChangeDetectionStrategy.OnPush,
     encapsulation: ViewEncapsulation.None,
     host: {
-        '[class]': "cx('root')",
+        '[class]': "cn('root',styleClass)",
         '[style]': "sx('root')"
     }
 })
