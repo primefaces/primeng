@@ -64,10 +64,10 @@ export const SELECTBUTTON_VALUE_ACCESSOR: any = {
     encapsulation: ViewEncapsulation.None,
     host: {
         '[class]': "cx('root')",
-        role: '"group"',
-        '[aria-labelledby]': 'ariaLabelledBy',
-        'data-pc-section': 'root',
-        'data-pc-name': 'selectbutton'
+        '[attr.role]': '"group"',
+        '[attr.aria-labelledby]': 'ariaLabelledBy',
+        '[attr.data-pc-section]': '"root"',
+        '[attr.data-pc-name]': '"selectbutton"'
     }
 })
 export class SelectButton extends BaseComponent implements AfterContentInit, ControlValueAccessor {
