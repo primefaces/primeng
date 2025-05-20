@@ -59,21 +59,14 @@ const classes = {
     pcChip: 'p-multiselect-chip',
     chipIcon: 'p-multiselect-chip-icon',
     dropdown: 'p-multiselect-dropdown',
-    loadingIcon: ({ instance }) => [
-        'p-multiselect-loading-icon',
-        instance.loadingIcon || '',
-        {
-            'pi-spin': instance.loadingIcon,
-            'pi pi-spinner pi-spin': !instance.loadingIcon
-        }
-    ],
+    loadingIcon: 'p-multiselect-loading-icon',
     dropdownIcon: 'p-multiselect-dropdown-icon',
-    overlay: ({ instance }) => ['p-multiselect-overlay p-component', instance.panelStyleClass],
+    overlay: 'p-multiselect-overlay p-component',
     header: 'p-multiselect-header',
     pcFilterContainer: 'p-multiselect-filter-container',
     pcFilter: 'p-multiselect-filter',
     listContainer: 'p-multiselect-list-container',
-    list: ({ contentStyleClass }) => ['p-multiselect-list', contentStyleClass],
+    list: 'p-multiselect-list',
     optionGroup: 'p-multiselect-option-group',
     option: ({ instance }) => ({
         'p-multiselect-option': true,

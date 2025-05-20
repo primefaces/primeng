@@ -253,13 +253,13 @@ export class MultiSelectItem extends BaseComponent {
                     <ng-container *ngTemplateOutlet="loadingIconTemplate || _loadingIconTemplate"></ng-container>
                 </ng-container>
                 <ng-container *ngIf="!loadingIconTemplate && !_loadingIconTemplate">
-                    <span *ngIf="loadingIcon" [class]="cx('loadingIcon')" aria-hidden="true"></span>
-                    <span *ngIf="!loadingIcon" [class]="cx('loadingIcon')" aria-hidden="true"></span>
+                    <span *ngIf="loadingIcon" [class]="cn(cx('loadingIcon'), 'pi-spin ' + loadingIcon)" aria-hidden="true"></span>
+                    <span *ngIf="!loadingIcon" [class]="cn(cx('loadingIcon'), 'pi pi-spinner pi-spin')" aria-hidden="true"></span>
                 </ng-container>
             </ng-container>
             <ng-template #elseBlock>
                 <ng-container *ngIf="!dropdownIconTemplate && !_dropdownIconTemplate">
-                    <span *ngIf="dropdownIcon" [class]="cx('loadingIcon')" [ngClass]="dropdownIcon" [attr.data-pc-section]="'triggericon'" [attr.aria-hidden]="true"></span>
+                    <span *ngIf="dropdownIcon" [class]="cx('dropdownIcon')" [ngClass]="dropdownIcon" [attr.data-pc-section]="'triggericon'" [attr.aria-hidden]="true"></span>
                     <ChevronDownIcon *ngIf="!dropdownIcon" [styleClass]="cx('dropdownIcon')" [attr.data-pc-section]="'triggericon'" [attr.aria-hidden]="true" />
                 </ng-container>
                 <span *ngIf="dropdownIconTemplate || _dropdownIconTemplate" [class]="cx('dropdownIcon')" [attr.data-pc-section]="'triggericon'" [attr.aria-hidden]="true">
@@ -281,7 +281,7 @@ export class MultiSelectItem extends BaseComponent {
             (onHide)="hide()"
         >
             <ng-template #content>
-                <div [attr.id]="id + '_list'" [class]="cx('overlay')" [ngStyle]="panelStyle">
+                <div [attr.id]="id + '_list'" [class]="cn(cx('overlay'), panelStyleClass)" [ngStyle]="panelStyle">
                     <span
                         #firstHiddenFocusableEl
                         role="presentation"
@@ -371,7 +371,7 @@ export class MultiSelectItem extends BaseComponent {
                         </ng-container>
 
                         <ng-template #buildInItems let-items let-scrollerOptions="options">
-                            <ul #items [class]="cx('list', { contentStyleClass: scrollerOptions.contentStyleClass })" [style]="scrollerOptions.contentStyle" role="listbox" aria-multiselectable="true" [attr.aria-label]="listLabel">
+                            <ul #items [class]="cn(cx('list'), scrollerOptions.contentStyleClass)" [style]="scrollerOptions.contentStyle" role="listbox" aria-multiselectable="true" [attr.aria-label]="listLabel">
                                 <ng-template ngFor let-option [ngForOf]="items" let-i="index">
                                     <ng-container *ngIf="isOptionGroup(option)">
                                         <li [attr.id]="id + '_' + getOptionIndex(i, scrollerOptions)" [class]="cx('optionGroup')" [ngStyle]="{ height: scrollerOptions.itemSize + 'px' }" role="option">
