@@ -83,12 +83,11 @@ export class MeterGroupLabel extends BaseComponent {
     encapsulation: ViewEncapsulation.None,
     providers: [MeterGroupStyle],
     host: {
-        '[aria-valuemin]': 'min',
-        role: 'meter',
-        '[aria-valuemax]': 'max',
-        '[aria-valuenow]': 'totalPercent()',
-        '[class]': "cx('root')",
-        '[style]': 'containerStyle'
+        '[attr.aria-valuemin]': 'min',
+        '[attr.role]': '"meter"',
+        '[attr.aria-valuemax]': 'max',
+        '[attr.aria-valuenow]': 'totalPercent()',
+        '[class]': "cx('root')"
     }
 })
 export class MeterGroup extends BaseComponent implements AfterContentInit {
