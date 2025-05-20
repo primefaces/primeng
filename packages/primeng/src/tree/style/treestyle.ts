@@ -24,20 +24,19 @@ const classes = {
         }
     ],
     mask: 'p-tree-mask p-overlay-mask',
-    loadingIcon: ({ instance, spin }) => ['p-tree-loading-icon', instance.loadingIcon, { 'pi-spin': spin }],
+    loadingIcon: 'p-tree-loading-icon',
     pcFilterInput: 'p-tree-filter-input',
     wrapper: 'p-tree-root',
     rootChildren: 'p-tree-root-children',
     node: ({ instance }) => ({ 'p-tree-node': true, 'p-tree-node-leaf': instance.isLeaf() }),
     nodeContent: ({ instance }) => ({
         'p-tree-node-content': true,
-        [instance.styleClass]: !!instance.styleClass,
         'p-tree-node-selectable': instance.selectable,
         'p-tree-node-dragover': instance.draghoverNode,
         'p-tree-node-selected': instance.selectionMode === 'checkbox' && instance.tree.highlightOnSelect ? instance.checked : instance.selected
     }),
     nodeToggleButton: 'p-tree-node-toggle-button',
-    nodeToggleIcon: ({ spin }) => ['p-tree-node-toggle-icon', { 'pi-spin': spin }],
+    nodeToggleIcon: 'p-tree-node-toggle-icon',
     nodeCheckbox: 'p-tree-node-checkbox',
     nodeIcon: 'p-tree-node-icon',
     nodeLabel: 'p-tree-node-label',
