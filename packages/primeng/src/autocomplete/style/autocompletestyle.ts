@@ -54,7 +54,6 @@ const inlineStyles = {
 const classes = {
     root: ({ instance }) => [
         'p-autocomplete p-component p-inputwrapper',
-        instance.styleClass,
         {
             'p-disabled': instance.disabled,
             'p-focus': instance.focused,
@@ -66,7 +65,7 @@ const classes = {
             'p-autocomplete-fluid': instance.hasFluid
         }
     ],
-    pcInputText: ({ instance }) => ['p-autocomplete-input', instance.inputStyleClass],
+    pcInputText: 'p-autocomplete-input',
     inputMultiple: ({ instance }) => ({
         'p-autocomplete-input-multiple': true,
         'p-variant-filled': (instance.variant ?? (instance.config.inputStyle() || instance.config.inputVariant())) === 'filled'
@@ -80,18 +79,11 @@ const classes = {
     pcChip: 'p-autocomplete-chip',
     chipIcon: 'p-autocomplete-chip-icon',
     inputChip: 'p-autocomplete-input-chip',
-    loader: ({ instance }) => ({
-        'p-autocomplete-loader': true,
-        'pi-spin': instance.loading
-    }),
+    loader: 'p-autocomplete-loader',
     dropdown: 'p-autocomplete-dropdown',
-    overlay: ({ instance }) => [
-        'p-autocomplete-overlay p-component',
-        instance.panelStyleClass,
-        { 'p-input-filled': instance.config.inputStyle() === 'filled' || instance.config.inputVariant() === 'filled', 'p-ripple-disabled': instance.config.ripple() === false }
-    ],
+    overlay: ({ instance }) => ['p-autocomplete-overlay p-component', { 'p-input-filled': instance.config.inputStyle() === 'filled' || instance.config.inputVariant() === 'filled', 'p-ripple-disabled': instance.config.ripple() === false }],
     listContainer: 'p-autocomplete-list-container',
-    list: ({ contentStyleClass }) => ['p-autocomplete-list', contentStyleClass],
+    list: 'p-autocomplete-list',
     optionGroup: 'p-autocomplete-option-group',
     option: ({ instance, option, i, scrollerOptions }) => ({
         'p-autocomplete-option': true,
