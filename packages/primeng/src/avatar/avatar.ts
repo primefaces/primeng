@@ -22,9 +22,9 @@ import { AvatarStyle } from './style/avatarstyle';
     encapsulation: ViewEncapsulation.None,
     host: {
         '[class]': "cx('root')",
-        '[data-pc-name]': '"avatar"',
-        '[aria-label]': 'ariaLabel',
-        '[aria-labelledby]': 'ariaLabelledBy'
+        '[attr.data-pc-name]': '"avatar"',
+        '[attr.aria-label]': 'ariaLabel',
+        '[attr.aria-labelledby]': 'ariaLabelledBy'
     },
     providers: [AvatarStyle]
 })
