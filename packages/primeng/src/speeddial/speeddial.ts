@@ -48,7 +48,7 @@ import { SpeedDialStyle } from './style/speeddialstyle';
                 pRipple
                 [style]="buttonStyle"
                 [icon]="buttonIconClass"
-                [class]="cx('pcButton')"
+                [class]="cn(cx('pcButton'), buttonClassName)"
                 [disabled]="disabled"
                 [attr.aria-expanded]="visible"
                 [attr.aria-haspopup]="true"
@@ -115,7 +115,7 @@ import { SpeedDialStyle } from './style/speeddialstyle';
                 </ng-container>
             </li>
         </ul>
-        <div *ngIf="mask && visible" [class]="cx('mask')" [ngStyle]="maskStyle"></div>
+        <div *ngIf="mask && visible" [class]="cn(cx('mask'), maskClassName)" [ngStyle]="maskStyle"></div>
     `,
     changeDetection: ChangeDetectionStrategy.OnPush,
     encapsulation: ViewEncapsulation.None,
@@ -123,8 +123,8 @@ import { SpeedDialStyle } from './style/speeddialstyle';
     host: {
         '[class]': "cx('root')",
         '[style]': "sx('root')",
-        'data-pc-name': 'speeddial',
-        'data-pc-section': 'root'
+        '[attr.data-pc-name]': "'speeddial'",
+        '[attr.data-pc-section]': "'root'"
     }
 })
 export class SpeedDial extends BaseComponent implements AfterViewInit, AfterContentInit, OnDestroy {
