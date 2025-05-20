@@ -28,7 +28,6 @@ const classes = {
     labelContainer: 'p-treeselect-label-container',
     label: ({ instance }) => [
         'p-treeselect-label',
-        instance.labelStyleClass,
         {
             'p-placeholder': instance.label === instance.placeholder,
             'p-treeselect-label-empty': !instance.placeholder && instance.emptyValue
@@ -38,7 +37,7 @@ const classes = {
     pcChip: 'p-treeselect-chip',
     dropdown: 'p-treeselect-dropdown',
     dropdownIcon: 'p-treeselect-dropdown-icon',
-    panel: ({ instance }) => ['p-treeselect-overlay p-component', instance.panelStyleClass, instance.panelClass],
+    panel: 'p-treeselect-overlay p-component',
     treeContainer: 'p-treeselect-tree-container',
     emptyMessage: 'p-treeselect-empty-message'
 };
