@@ -126,7 +126,7 @@ export class TreeTableService {
     template: `
         <div [class]="cx('loading')" *ngIf="loading && showLoader">
             <div [class]="cx('mask')">
-                <i *ngIf="loadingIcon" [class]="cx('loadingIcon', { spin: true })"></i>
+                <i *ngIf="loadingIcon" [class]="cn(cx('loadingIcon'), 'pi-spin' + loadingIcon)"></i>
                 <ng-container *ngIf="!loadingIcon">
                     <SpinnerIcon *ngIf="!loadingIconTemplate && !_loadingIconTemplate" [spin]="true" [styleClass]="cx('loadingIcon')" />
                     <span *ngIf="loadingIconTemplate || _loadingIconTemplate" [class]="cx('loadingIcon')">
@@ -257,7 +257,7 @@ export class TreeTableService {
     encapsulation: ViewEncapsulation.None,
     host: {
         '[class]': "cx('root')",
-        'data-scrollselectors': '.p-treetable-scrollable-body'
+        '[attr.data-scrollselectors]': "'.p-treetable-scrollable-body'"
     }
 })
 export class TreeTable extends BaseComponent implements AfterContentInit, OnInit, OnDestroy, BlockableUI, OnChanges {
@@ -2385,7 +2385,7 @@ export class TTBody {
     template: `
         <div #scrollHeader [class]="cx('scrollableHeader')">
             <div #scrollHeaderBox [class]="cx('scrollableHeaderBox')">
-                <table [class]="cx('scrollableHeaderTable')" [ngStyle]="tt.tableStyle">
+                <table [class]="cn(cx('scrollableHeaderTable'), tt.tableStyleClass)" [ngStyle]="tt.tableStyle">
                     <ng-container
                         *ngTemplateOutlet="frozen ? tt.frozenColGroupTemplate || tt._frozenColGroupTemplate || tt.colGroupTemplate || tt._colGroupTemplate : tt.colGroupTemplate || tt._colGroupTemplate; context: { $implicit: columns }"
                     ></ng-container>
@@ -3638,7 +3638,7 @@ export class TreeTableCellEditor extends BaseComponent implements AfterContentIn
     selector: '[ttRow]',
     standalone: false,
     host: {
-        '[class]': 'cx("ttRow")',
+        '[class]': `'p-element ' + styleClass`,
         '[tabindex]': "'0'",
         '[aria-expanded]': 'expanded',
         '[aria-level]': 'level',

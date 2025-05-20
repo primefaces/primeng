@@ -466,7 +466,7 @@ const classes = {
     ],
     loading: 'p-treetable-loading', //TODO: required?
     mask: 'p-treetable-mask p-overlay-mask',
-    loadingIcon: ({ instance, spin }) => ['p-treetable-loading-icon', instance.loadingIcon, { 'pi-spin': spin }],
+    loadingIcon: 'p-treetable-loading-icon',
     header: 'p-treetable-header',
     pcPaginator: ({ instance }) => ['p-treetable-paginator-' + instance.paginatorPosition, instance.paginatorStyleClass],
     tableContainer: 'p-treetable-table-container',
@@ -513,12 +513,11 @@ const classes = {
     reorderIndicatorDown: 'p-treetable-reorder-indicator-down',
     scrollableHeader: 'p-treetable-scrollable-header',
     scrollableHeaderBox: 'p-treetable-scrollable-header-box',
-    scrollableHeaderTable: ({ instance }) => ['p-treetable-scrollable-header-table', instance.tt.tableStyleClass],
+    scrollableHeaderTable: 'p-treetable-scrollable-header-table',
     scrollableBody: 'p-treetable-scrollable-body',
     scrollableFooter: 'p-treetable-scrollable-footer',
     scrollableFooterBox: 'p-treetable-scrollable-footer-box',
-    scrollableFooterTable: 'p-treetable-scrollable-footer-table',
-    ttRow: ({ instance }) => ['p-element', instance.styleClass]
+    scrollableFooterTable: 'p-treetable-scrollable-footer-table'
 };
 
 @Injectable()
