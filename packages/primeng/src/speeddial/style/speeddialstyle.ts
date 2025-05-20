@@ -26,7 +26,6 @@ const classes = {
     ],
     pcButton: ({ instance }) => [
         'p-button-icon-only p-speeddial-button p-button-rounded',
-        instance.buttonClassName,
         {
             'p-speeddial-rotate': instance.rotateAnimation && !instance.hideIcon
         }
@@ -37,7 +36,6 @@ const classes = {
     actionIcon: 'p-speeddial-action-icon',
     mask: ({ instance }) => [
         'p-speeddial-mask',
-        instance.maskClassName,
         {
             'p-speeddial-mask-visible': instance.visible
         }
