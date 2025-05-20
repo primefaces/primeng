@@ -32,13 +32,7 @@ const classes = {
     header: 'p-dataview-header',
     loading: 'p-dataview-loading',
     loadingOverlay: 'p-dataview-loading-overlay p-overlay-mask',
-    loadingIcon: ({ instance }) => [
-        'p-dataview-loading-icon',
-        instance.loadingIcon,
-        {
-            'p-spin': instance.loadingicon
-        }
-    ],
+    loadingIcon: 'p-dataview-loading-icon',
     pcPaginator: ({ position }) => 'p-dataview-paginator-' + position,
     content: 'p-dataview-content',
     emptyMessage: 'p-dataview-empty-message',
