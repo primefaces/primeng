@@ -21,11 +21,11 @@ import { ProgressSpinnerStyle } from './style/progressspinnerstyle';
     encapsulation: ViewEncapsulation.None,
     providers: [ProgressSpinnerStyle],
     host: {
-        '[aria-label]': 'ariaLabel',
-        role: 'progressbar',
-        'data-pc-name': 'progressspinner',
-        'data-pc-section': 'root',
-        '[aria-busy]': 'true',
+        '[attr.aria-label]': 'ariaLabel',
+        '[attr.role]': "'progressbar'",
+        '[attr.data-pc-name]': "'progressspinner'",
+        '[attr.data-pc-section]': "'root'",
+        '[attr.aria-busy]': 'true',
         '[class]': "cx('root')"
     }
 })
