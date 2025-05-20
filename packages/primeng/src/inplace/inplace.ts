@@ -52,7 +52,7 @@ export class InplaceContent {}
     encapsulation: ViewEncapsulation.None,
     providers: [InplaceStyle],
     host: {
-        'aria-live': 'polite',
+        '[attr.aria-live]': "'polite'",
         '[class]': "cx('root')"
     }
 })
