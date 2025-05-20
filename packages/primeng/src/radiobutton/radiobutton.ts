@@ -80,8 +80,8 @@ export class RadioControlRegistry {
     providers: [RADIO_VALUE_ACCESSOR, RadioButtonStyle],
     changeDetection: ChangeDetectionStrategy.OnPush,
     host: {
-        'data-pc-name': 'radiobutton',
-        'data-pc-section': 'root',
+        '[attr.data-pc-name]': 'radiobutton',
+        '[attr.data-pc-section]': 'root',
         '[class]': "cx('root')"
     }
 })

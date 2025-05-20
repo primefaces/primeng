@@ -17,6 +17,7 @@ const theme = css`
 const classes = {
     root: ({ instance }) => [
         'p-radiobutton p-component',
+        instance.styleClass,
         {
             'p-radiobutton-checked': instance.checked,
             'p-disabled': instance.disabled,
