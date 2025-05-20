@@ -85,7 +85,7 @@ import { ContextMenuStyle } from './style/contextmenustyle';
                     *ngIf="isItemVisible(processedItem) && getItemProp(processedItem, 'separator')"
                     [attr.id]="getItemId(processedItem)"
                     [style]="getItemProp(processedItem, 'style')"
-                    [ngClass]="cn(cx('separator'), getItemProp(processedItem, 'styleClass'))"
+                    [class]="cn(cx('separator'), getItemProp(processedItem, 'styleClass'))"
                     role="separator"
                     [attr.data-pc-section]="'separator'"
                 ></li>
