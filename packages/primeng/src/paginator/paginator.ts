@@ -133,8 +133,8 @@ import { PaginatorStyle } from './style/paginatorstyle';
     encapsulation: ViewEncapsulation.None,
     providers: [PaginatorStyle],
     host: {
-        'data-pc-name': 'paginator',
-        'data-pc-section': 'root',
+        '[attr.data-pc-name]': "'paginator'",
+        '[attr.data-pc-section]': "'root'",
         '[class]': "cx('paginator')"
     }
 })
