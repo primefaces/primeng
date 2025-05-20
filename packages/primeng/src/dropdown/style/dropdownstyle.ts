@@ -215,13 +215,13 @@ input.p-select-label {
 
 const classes = {
     root: ({ instance }) => [
-        'p-dropdown p-select p-component p-inputwrapper',
+        'p-select p-component p-inputwrapper',
         instance.styleClass,
         {
             'p-disabled': instance.disabled,
             'p-variant-filled': instance.variant === 'filled' || instance.config.inputVariant() === 'filled' || instance.config.inputStyle() === 'filled',
             'p-focus': instance.focused,
-            'p-inputwrapper-filled': instance.modelValue() !== undefined && instance.modelValue() !== null && !instance.modelValue().length,
+            'p-inputwrapper-filled': instance.modelValue() !== undefined && instance.modelValue() !== null,
             'p-inputwrapper-focus': instance.focused || instance.overlayVisible,
             'p-select-open': instance.overlayVisible,
             'p-select-fluid': instance.hasFluid,
@@ -229,29 +229,22 @@ const classes = {
             'p-select-lg p-inputfield-lg': instance.size === 'large'
         }
     ],
-    label: ({ instance, props }) => [
+    label: ({ instance }) => [
         'p-select-label',
         {
-            'p-placeholder': !props.editable && instance.label === props.placeholder,
-            'p-select-label-empty': !props.editable && !instance.$slots['value'] && (instance.label === 'p-emptylabel' || instance.label.length === 0)
+            'p-placeholder': instance.placeholder() && instance.label() === instance.placeholder(),
+            'p-select-label-empty': !instance.editable && !instance.selectedItemTemplate && (instance.label() === undefined || instance.label() === null || instance.label() === 'p-emptylabel' || instance.label().length === 0)
         }
     ],
     clearIcon: 'p-select-clear-icon',
     dropdown: 'p-select-dropdown',
-    loadingIcon: ({ instance }) => [
-        'p-select-loading-icon',
-        instance.loadingIcon || '',
-        {
-            'pi-spin': instance.loadingIcon,
-            'pi pi-spinner pi-spin': !instance.loadingIcon
-        }
-    ],
-    dropdownIcon: ({ instance }) => ['p-select-dropdown-icon', instance.dropdownIcon || ''],
-    overlay: ({ instance }) => ['p-select-overlay p-component', instance.panelStyleClass],
+    loadingIcon: 'p-select-loading-icon',
+    dropdownIcon: 'p-select-dropdown-icon',
+    overlay: 'p-select-overlay p-component',
     header: 'p-select-header',
     pcFilter: 'p-select-filter',
     listContainer: 'p-select-list-container',
-    list: ({ contentStyleClass }) => ['p-select-list', contentStyleClass],
+    list: 'p-select-list',
     optionGroup: 'p-select-option-group',
     optionGroupLabel: 'p-select-option-group-label',
     option: ({ instance }) => [
