@@ -118,7 +118,7 @@ export const LISTBOX_VALUE_ACCESSOR: any = {
                 </span>
             </ng-template>
         </div>
-        <div #container [class]="cx('listContainer')" [ngStyle]="listStyle" [style.max-height]="virtualScroll ? 'auto' : scrollHeight || 'auto'" [attr.tabindex]="!disabled && '0'">
+        <div #container [class]="cn(cx('listContainer'), listStyleClass)" [ngStyle]="listStyle" [style.max-height]="virtualScroll ? 'auto' : scrollHeight || 'auto'" [attr.tabindex]="!disabled && '0'">
             @if (hasFilter() && isEmpty()) {
                 <div [class]="cx('emptyMessage')" [cdkDropListData]="$any([])" (cdkDropListDropped)="drop($event)" cdkDropList>
                     @if (!emptyFilterTemplate && !_emptyFilterTemplate && !_emptyTemplate && !emptyTemplate) {
@@ -283,7 +283,7 @@ export const LISTBOX_VALUE_ACCESSOR: any = {
     changeDetection: ChangeDetectionStrategy.OnPush,
     encapsulation: ViewEncapsulation.None,
     host: {
-        '[id]': 'id',
+        '[attr.id]': 'id',
         '[class]': "cx('root')"
     }
 })

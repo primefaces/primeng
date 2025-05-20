@@ -21,6 +21,7 @@ const theme = css`
 const classes = {
     root: ({ instance }) => [
         'p-listbox p-component',
+        instance.styleClass,
         {
             'p-listbox-striped': instance.striped,
             'p-disabled': instance.disabled,
@@ -29,7 +30,7 @@ const classes = {
     ],
     header: 'p-listbox-header',
     pcFilter: 'p-listbox-filter',
-    listContainer: ({ instance }) => ['p-listbox-list-container', instance.listStyleClass],
+    listContainer: 'p-listbox-list-container',
     list: 'p-listbox-list',
     optionGroup: 'p-listbox-option-group',
     option: ({ instance, option, i, scrollerOptions }) => [
