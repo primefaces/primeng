@@ -53,7 +53,7 @@ export const INPUTNUMBER_VALUE_ACCESSOR: any = {
             #input
             [attr.id]="inputId"
             role="spinbutton"
-            [class]="cx('pcInputText')"
+            [class]="cn(cx('pcInputText'), inputStyleClass)"
             [ngStyle]="inputStyle"
             [value]="formattedValue()"
             [variant]="variant"
@@ -97,7 +97,7 @@ export const INPUTNUMBER_VALUE_ACCESSOR: any = {
         <span [class]="cx('buttonGroup')" *ngIf="showButtons && buttonLayout === 'stacked'" [attr.data-pc-section]="'buttonGroup'">
             <button
                 type="button"
-                [class]="cx('incrementButton')"
+                [class]="cn(cx('incrementButton'), incrementButtonClass)"
                 [disabled]="disabled"
                 tabindex="-1"
                 (mousedown)="onUpButtonMouseDown($event)"
@@ -117,7 +117,7 @@ export const INPUTNUMBER_VALUE_ACCESSOR: any = {
 
             <button
                 type="button"
-                [class]="cx('decrementButton')"
+                [class]="cn(cx('decrementButton'), decrementButtonClass)"
                 [disabled]="disabled"
                 tabindex="-1"
                 [attr.aria-hidden]="true"
