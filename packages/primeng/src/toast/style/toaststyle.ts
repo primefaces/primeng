@@ -18,7 +18,8 @@ const inlineStyles = {
 };
 
 const classes = {
-    root: ({ instance }) => ({ 'p-toast p-component': true, [`p-toast-${instance._position}`]: !!instance._position, [instance.styleClass]: !!instance.styleClass }),
+    root: ({ instance }) => ['p-toast p-component', `p-toast-${instance._position}`, instance.styleClass],
+
     message: ({ instance }) => ({
         'p-toast-message': true,
         'p-toast-message-info': instance.message.severity === 'info' || instance.message.severity === undefined,

@@ -1,25 +1,24 @@
-import { AnimationEvent, animate, animateChild, query, state, style, transition, trigger } from '@angular/animations';
+import { animate, animateChild, AnimationEvent, query, state, style, transition, trigger } from '@angular/animations';
 import { CommonModule } from '@angular/common';
 import {
     AfterViewInit,
+    booleanAttribute,
     ChangeDetectionStrategy,
     Component,
     ContentChild,
     ContentChildren,
-    ElementRef,
     EventEmitter,
+    inject,
     Input,
     NgModule,
     NgZone,
+    numberAttribute,
     OnDestroy,
     OnInit,
     Output,
     QueryList,
     TemplateRef,
-    ViewEncapsulation,
-    booleanAttribute,
-    inject,
-    numberAttribute
+    ViewEncapsulation
 } from '@angular/core';
 import { isEmpty, setAttribute, uuid } from '@primeuix/utils';
 import { MessageService, PrimeTemplate, SharedModule, ToastMessageOptions } from 'primeng/api';
@@ -38,8 +37,7 @@ import { ToastCloseEvent, ToastItemCloseEvent, ToastPositionType } from './toast
         <div
             #container
             [attr.id]="message?.id"
-            [class]="message?.styleClass"
-            [ngClass]="cx('message')"
+            [class]="cn(cx('message'), message?.styleClass)"
             [@messageState]="{
                 value: 'visible',
                 params: {
@@ -60,10 +58,10 @@ import { ToastCloseEvent, ToastItemCloseEvent, ToastPositionType } from './toast
             @if (headlessTemplate) {
                 <ng-container *ngTemplateOutlet="headlessTemplate; context: { $implicit: message, closeFn: onCloseIconClick }"></ng-container>
             } @else {
-                <div [ngClass]="cx('messageContent')" [class]="message?.contentStyleClass" [attr.data-pc-section]="'content'">
+                <div [class]="cn(cx('messageContent'), message?.contentStyleClass)" [attr.data-pc-section]="'content'">
                     <ng-container *ngIf="!template">
-                        <span *ngIf="message.icon" [ngClass]="cx('messageIcon')"></span>
-                        <span [ngClass]="cx('messageIcon')" *ngIf="!message.icon" [attr.aria-hidden]="true" [attr.data-pc-section]="'icon'">
+                        <span *ngIf="message.icon" [class]="cn(cx('messageIcon'), message?.icon)"></span>
+                        <span [class]="cx('messageIcon')" *ngIf="!message.icon" [attr.aria-hidden]="true" [attr.data-pc-section]="'icon'">
                             @switch (message.severity) {
                                 @case ('success') {
                                     <CheckIcon [attr.aria-hidden]="true" [attr.data-pc-section]="'icon'" />
@@ -92,11 +90,11 @@ import { ToastCloseEvent, ToastItemCloseEvent, ToastPositionType } from './toast
                     <ng-container *ngTemplateOutlet="template; context: { $implicit: message }"></ng-container>
                     @if (message?.closable !== false) {
                         <div>
-                            <button type="button" [attr.class]="cx('closeButton')" (click)="onCloseIconClick($event)" (keydown.enter)="onCloseIconClick($event)" [ariaLabel]="closeAriaLabel" [attr.data-pc-section]="'closebutton'" autofocus>
+                            <button type="button" [attr.class]="cx('closeButton')" (click)="onCloseIconClick($event)" (keydown.enter)="onCloseIconClick($event)" [attr.aria-label]="closeAriaLabel" [attr.data-pc-section]="'closebutton'" autofocus>
                                 @if (message.closeIcon) {
-                                    <span *ngIf="message.closeIcon" [ngClass]="cx('closeIcon')"></span>
+                                    <span *ngIf="message.closeIcon" [class]="cn(cx('closeIcon'), message?.closeIcon)"></span>
                                 } @else {
-                                    <TimesIcon [ngClass]="cx('closeIcon')" [attr.aria-hidden]="true" [attr.data-pc-section]="'closeicon'" />
+                                    <TimesIcon [class]="cx('closeIcon')" [attr.aria-hidden]="true" [attr.data-pc-section]="'closeicon'" />
                                 }
                             </button>
                         </div>
