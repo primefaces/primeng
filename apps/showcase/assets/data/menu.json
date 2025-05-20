@@ -510,9 +510,10 @@
 
         },
         {
-            "name": "PrimeBlocks",
+            "name": "New PrimeBlocks",
             "icon": "pi pi-server",
-            "href": "https://blocks.primeng.org"
+            "href": "https://primeblocks.org",
+            "badge": "Soon"
         },
         {
             "name": "Guides",
