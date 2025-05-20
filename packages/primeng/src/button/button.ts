@@ -480,7 +480,7 @@ export class ButtonDirective extends BaseComponent implements AfterViewInit, OnD
                 <ng-template [ngIf]="loadingIconTemplate || _loadingIconTemplate" *ngTemplateOutlet="loadingIconTemplate || _loadingIconTemplate; context: { class: iconClass() }"></ng-template>
             </ng-container>
             <ng-container *ngIf="!loading">
-                <span *ngIf="icon && !iconTemplate && !_iconTemplate" [class]="icon" [ngClass]="iconClass()" [attr.data-pc-section]="'icon'"></span>
+                <span *ngIf="icon && !iconTemplate && !_iconTemplate" [ngClass]="iconClass()" [attr.data-pc-section]="'icon'"></span>
                 <ng-template [ngIf]="!icon && (iconTemplate || _iconTemplate)" *ngTemplateOutlet="iconTemplate || _iconTemplate; context: { class: iconClass() }"></ng-template>
             </ng-container>
             <span class="p-button-label" [attr.aria-hidden]="icon && !label" *ngIf="!contentTemplate && !_contentTemplate && label" [attr.data-pc-section]="'label'">{{ label }}</span>
@@ -736,6 +736,7 @@ export class Button extends BaseComponent implements AfterContentInit {
         return {
             [`p-button-loading-icon pi-spin ${this.loadingIcon ?? ''}`]: this.loading,
             'p-button-icon': true,
+            [this.icon]: true,
             'p-button-icon-left': this.iconPos === 'left' && this.label,
             'p-button-icon-right': this.iconPos === 'right' && this.label,
             'p-button-icon-top': this.iconPos === 'top' && this.label,
