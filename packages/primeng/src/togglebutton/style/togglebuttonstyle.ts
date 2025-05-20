@@ -28,7 +28,9 @@ const classes = {
         }
     ],
     content: 'p-togglebutton-content',
-    icon: ({ instance }) => ['p-togglebutton-icon', instance.checked ? instance.onIcon : instance.offIcon, { 'p-togglebutton-icon-left': instance.iconPos === 'left', 'p-togglebutton-icon-right': instance.iconPos === 'right' }],
+    icon: 'p-togglebutton-icon',
+    iconLeft: 'p-togglebutton-icon-left',
+    iconRight: 'p-togglebutton-icon-right',
     label: 'p-togglebutton-label'
 };
 
@@ -59,6 +61,14 @@ export enum ToggleButtonClasses {
      * Class name of the icon element
      */
     icon = 'p-togglebutton-icon',
+    /**
+     * Class name of the left icon
+     */
+    iconLeft = 'p-togglebutton-icon-left',
+    /**
+     * Class name of the right icon
+     */
+    iconRight = 'p-togglebutton-icon-right',
     /**
      * Class name of the label element
      */
