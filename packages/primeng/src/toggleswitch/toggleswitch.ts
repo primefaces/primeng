@@ -82,8 +82,8 @@ export const TOGGLESWITCH_VALUE_ACCESSOR: any = {
     host: {
         '[class]': "cx('root')",
         '[style]': "sx('root')",
-        'data-pc-name': 'toggleswitch',
-        'data-pc-section': 'root'
+        '[attr.data-pc-name]': "'toggleswitch'",
+        '[attr.data-pc-section]': "'root'"
     }
 })
 export class ToggleSwitch extends BaseComponent implements AfterContentInit {
