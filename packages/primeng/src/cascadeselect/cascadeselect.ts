@@ -286,8 +286,8 @@ export class CascadeSelectSub extends BaseComponent implements OnInit {
                     <ng-container *ngTemplateOutlet="loadingIconTemplate || _loadingIconTemplate"></ng-container>
                 </ng-container>
                 <ng-container *ngIf="!loadingIconTemplate && !_loadingIconTemplate">
-                    <span *ngIf="loadingIcon" [class]="cx('loadingIcon')" aria-hidden="true"></span>
-                    <span *ngIf="!loadingIcon" [class]="cx('loadingIcon')" aria-hidden="true"></span>
+                    <span *ngIf="loadingIcon" [class]="cn(cx('loadingIcon', loadingIcon, 'pi-spin'))" aria-hidden="true"></span>
+                    <span *ngIf="!loadingIcon" [class]="cn(cx('loadingIcon', loadingIcon, ' pi pi-spinner pi-spin'))" aria-hidden="true"></span>
                 </ng-container>
             </ng-container>
             <ng-template #elseBlock>
@@ -315,7 +315,7 @@ export class CascadeSelectSub extends BaseComponent implements OnInit {
             (onHide)="hide($event)"
         >
             <ng-template #content>
-                <div #panel [ngClass]="cx('overlay')" [ngStyle]="panelStyle" [attr.data-pc-section]="'panel'">
+                <div #panel [class]="cn(cx('overlay'), panelStyleClass)" [ngStyle]="panelStyle" [attr.data-pc-section]="'panel'">
                     <ng-template *ngTemplateOutlet="headerTemplate || _headerTemplate"></ng-template>
                     <div [class]="cx('listContainer')" [attr.data-pc-section]="'wrapper'">
                         <p-cascadeselect-sub
@@ -352,10 +352,10 @@ export class CascadeSelectSub extends BaseComponent implements OnInit {
     changeDetection: ChangeDetectionStrategy.OnPush,
     encapsulation: ViewEncapsulation.None,
     host: {
-        '[class]': "cx('root')",
+        '[class]': "cn(cx('root'), styleClass)",
         '[style]': "sx('root')",
-        'data-pc-name': 'cascadeselect',
-        'data-pc-section': 'root'
+        '[attr.data-pc-name]': 'cascadeselect',
+        '[attr.data-pc-section]': 'root'
     }
 })
 export class CascadeSelect extends BaseComponent implements OnInit, AfterContentInit {
