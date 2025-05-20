@@ -40,9 +40,9 @@ import { BlockUiStyle } from './style/blockuistyle';
     encapsulation: ViewEncapsulation.None,
     providers: [BlockUiStyle],
     host: {
-        '[aria-busy]': 'blocked',
-        'data-pc-name': 'blockui',
-        'data-pc-section': 'root',
+        '[attr.aria-busy]': 'blocked',
+        '[attr.data-pc-name]': "'blockui'",
+        '[attr.data-pc-section]': "'root'",
         '[class]': "cx('root')"
     }
 })
