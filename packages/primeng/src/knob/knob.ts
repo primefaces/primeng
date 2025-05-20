@@ -51,8 +51,8 @@ export const KNOB_VALUE_ACCESSOR: any = {
     changeDetection: ChangeDetectionStrategy.OnPush,
     encapsulation: ViewEncapsulation.None,
     host: {
-        'data-pc-name': 'knob',
-        'data-pc-section': 'root',
+        '[attr.data-pc-name]': 'knob',
+        '[attr.data-pc-section]': 'root',
         '[class]': "cx('root')"
     }
 })
