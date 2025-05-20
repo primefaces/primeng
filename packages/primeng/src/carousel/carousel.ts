@@ -114,8 +114,8 @@ import { CarouselStyle } from './style/carouselstyle';
     encapsulation: ViewEncapsulation.None,
     providers: [CarouselStyle],
     host: {
-        '[id]': 'id',
-        role: 'region',
+        '[attr.id]': 'id',
+        '[attr.role]': "'region'",
         '[class]': "cx('root')"
     }
 })
