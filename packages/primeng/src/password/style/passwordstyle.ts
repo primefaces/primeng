@@ -72,7 +72,7 @@ const classes = {
             'p-password-fluid-directive': instance.hasFluid
         }
     ],
-    pcInputText: ({ instance }) => ['p-password-input', instance.inputStyleClass],
+    pcInputText: 'p-password-input',
     maskIcon: 'p-password-toggle-mask-icon p-password-mask-icon',
     unmaskIcon: 'p-password-toggle-mask-icon p-password-unmask-icon',
     overlay: 'p-password-overlay p-component',

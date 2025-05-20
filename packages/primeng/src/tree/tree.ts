@@ -70,8 +70,7 @@ import { AutoFocusModule } from 'primeng/autofocus';
                 (dragleave)="onDropPointDragLeave($event)"
             ></li>
             <li
-                [ngClass]="nodeClass"
-                [class]="node.styleClass"
+                [class]="cn(cx('node'), node.styleClass)"
                 [ngStyle]="{ height: itemSize + 'px' }"
                 [style]="node.style"
                 [attr.aria-label]="node.label"
@@ -87,7 +86,7 @@ import { AutoFocusModule } from 'primeng/autofocus';
                 (keydown)="onKeyDown($event)"
             >
                 <div
-                    [ngClass]="nodeContentClass"
+                    [class]="cx('nodeContent')"
                     [style.paddingLeft]="level * indentation + 'rem'"
                     (click)="onNodeClick($event)"
                     (contextmenu)="onNodeRightClick($event)"
@@ -108,7 +107,7 @@ import { AutoFocusModule } from 'primeng/autofocus';
                                 <ChevronDownIcon *ngIf="node.expanded" [styleClass]="cx('nodeToggleIcon')" />
                             </ng-container>
                             <ng-container *ngIf="loadingMode === 'icon' && node.loading">
-                                <SpinnerIcon [styleClass]="cx('nodeToggleIcon', { spin: true })" />
+                                <SpinnerIcon [styleClass]="cn(cx('nodeToggleIcon'), 'pi-spin')" />
                             </ng-container>
                         </ng-container>
                         <span *ngIf="tree.togglerIconTemplate || tree._togglerIconTemplate" [styleClass]="cx('nodeToggleIcon')">
@@ -228,10 +227,6 @@ export class UITreeNode extends BaseComponent implements OnInit {
 
     get nodeClass() {
         return this.tree._componentStyle.classes.node({ instance: this });
-    }
-
-    get nodeContentClass() {
-        return this.tree._componentStyle.classes.nodeContent({ instance: this });
     }
 
     get selectable() {
@@ -714,7 +709,7 @@ export class UITreeNode extends BaseComponent implements OnInit {
     imports: [CommonModule, Scroller, SharedModule, SearchIcon, SpinnerIcon, InputText, FormsModule, IconField, InputIcon, UITreeNode, AutoFocusModule],
     template: `
         <div [class]="cx('mask')" *ngIf="loading && loadingMode === 'mask'">
-            <i *ngIf="loadingIcon" [class]="cx('loadingIcon', { spin: true })"></i>
+            <i *ngIf="loadingIcon" [class]="cn(cx('loadingIcon'), 'pi-spin' + loadingIcon)"></i>
             <ng-container *ngIf="!loadingIcon">
                 <SpinnerIcon *ngIf="!loadingIconTemplate && !_loadingIconTemplate" [spin]="true" [styleClass]="cx('loadingIcon')" />
                 <span *ngIf="loadingIconTemplate || _loadingIconTemplate" [class]="cx('loadingIcon')">

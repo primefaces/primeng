@@ -55,7 +55,6 @@ const classes = {
     inputIcon: 'p-datepicker-input-icon',
     panel: ({ instance }) => [
         'p-datepicker-panel p-component',
-        instance.panelStyleClass,
         {
             'p-datepicker-panel p-component': true,
             'p-datepicker-panel-inline': instance.inline,

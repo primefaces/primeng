@@ -282,7 +282,7 @@ export const AUTOCOMPLETE_VALUE_ACCESSOR: any = {
     changeDetection: ChangeDetectionStrategy.OnPush,
     encapsulation: ViewEncapsulation.None,
     host: {
-        '[class]': "cn(cx('root'), styleClass)",
+        '[class]': "cx('root')",
         '[style]': "sx('root')"
     }
 })

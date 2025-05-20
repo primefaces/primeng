@@ -20,9 +20,9 @@ import { ImageCompareStyle } from './style/imagecomparestyle';
     `,
     host: {
         '[class]': "cx('root')",
-        '[tabindex]': 'tabindex',
-        '[aria-labelledby]': 'ariaLabelledby',
-        '[aria-label]': 'ariaLabel'
+        '[attr.tabindex]': 'tabindex',
+        '[attr.aria-labelledby]': 'ariaLabelledby',
+        '[attr.aria-label]': 'ariaLabel'
     },
     changeDetection: ChangeDetectionStrategy.OnPush,
     encapsulation: ViewEncapsulation.None,

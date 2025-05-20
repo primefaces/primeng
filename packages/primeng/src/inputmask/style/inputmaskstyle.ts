@@ -42,7 +42,8 @@ const classes = {
         {
             'p-filled': instance.variant ? instance.variant === 'filled' : instance.config.inputStyle() === 'filled'
         }
-    ]
+    ],
+    clearIcon: 'p-inputmask-clear-icon'
 };
 
 @Injectable()
@@ -68,7 +69,11 @@ export enum InputMaskClasses {
     /**
      * Class name of the root element
      */
-    root = 'p-inputmask'
+    root = 'p-inputmask',
+    /**
+     * Class name of the clear icon element
+     */
+    clearIcon = 'p-inputmask-clear-icon'
 }
 
 export interface InputMaskStyle extends BaseStyle {}

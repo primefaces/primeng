@@ -82,8 +82,8 @@ export const RATING_VALUE_ACCESSOR: any = {
     encapsulation: ViewEncapsulation.None,
     host: {
         '[class]': "cx('root')",
-        'data-pc-name': 'rating',
-        'data-pc-section': 'root'
+        '[attr.data-pc-name]': "'rating'",
+        '[attr.data-pc-section]': "'root'"
     }
 })
 export class Rating extends BaseComponent implements OnInit, ControlValueAccessor {

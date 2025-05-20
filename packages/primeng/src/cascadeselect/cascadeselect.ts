@@ -286,8 +286,8 @@ export class CascadeSelectSub extends BaseComponent implements OnInit {
                     <ng-container *ngTemplateOutlet="loadingIconTemplate || _loadingIconTemplate"></ng-container>
                 </ng-container>
                 <ng-container *ngIf="!loadingIconTemplate && !_loadingIconTemplate">
-                    <span *ngIf="loadingIcon" [class]="cn(cx('loadingIcon', loadingIcon, 'pi-spin'))" aria-hidden="true"></span>
-                    <span *ngIf="!loadingIcon" [class]="cn(cx('loadingIcon', loadingIcon, ' pi pi-spinner pi-spin'))" aria-hidden="true"></span>
+                    <span *ngIf="loadingIcon" [class]="cn(cx('loadingIcon'), loadingIcon + 'pi-spin')" aria-hidden="true"></span>
+                    <span *ngIf="!loadingIcon" [class]="cn(cx('loadingIcon'), loadingIcon + ' pi pi-spinner pi-spin')" aria-hidden="true"></span>
                 </ng-container>
             </ng-container>
             <ng-template #elseBlock>
@@ -352,10 +352,10 @@ export class CascadeSelectSub extends BaseComponent implements OnInit {
     changeDetection: ChangeDetectionStrategy.OnPush,
     encapsulation: ViewEncapsulation.None,
     host: {
-        '[class]': "cn(cx('root'), styleClass)",
+        '[class]': "cx('root')",
         '[style]': "sx('root')",
-        '[attr.data-pc-name]': 'cascadeselect',
-        '[attr.data-pc-section]': 'root'
+        '[attr.data-pc-name]': "'cascadeselect'",
+        '[attr.data-pc-section]': "'root'"
     }
 })
 export class CascadeSelect extends BaseComponent implements OnInit, AfterContentInit {

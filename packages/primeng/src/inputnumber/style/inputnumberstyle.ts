@@ -47,7 +47,7 @@ const classes = {
             'p-inputnumber-fluid': instance.hasFluid
         }
     ],
-    pcInputText: ({ instance }) => ['p-inputnumber-input', instance.inputStyleClass],
+    pcInputText: 'p-inputnumber-input',
     buttonGroup: 'p-inputnumber-button-group',
     incrementButton: ({ instance }) => [
         'p-inputnumber-button p-inputnumber-increment-button',

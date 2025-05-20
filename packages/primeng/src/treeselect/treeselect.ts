@@ -68,7 +68,7 @@ export const TREESELECT_VALUE_ACCESSOR: any = {
             />
         </div>
         <div [class]="cx('labelContainer')">
-            <div [class]="cx('label')" [ngStyle]="labelStyle">
+            <div [class]="cn(cx('label'), labelStyleClass)" [ngStyle]="labelStyle">
                 <ng-container *ngIf="valueTemplate || _valueTemplate; else defaultValueTemplate">
                     <ng-container *ngTemplateOutlet="valueTemplate || _valueTemplate; context: { $implicit: value, placeholder: placeholder }"></ng-container>
                 </ng-container>
@@ -111,7 +111,7 @@ export const TREESELECT_VALUE_ACCESSOR: any = {
             (onHide)="hide($event)"
         >
             <ng-template #content>
-                <div #panel [attr.id]="listId" [class]="cx('panel')" [ngStyle]="panelStyle">
+                <div #panel [attr.id]="listId" [class]="cn(cx('panel'), panelStyleClass, panelClass)" [ngStyle]="panelStyle">
                     <span
                         #firstHiddenFocusableEl
                         role="presentation"

@@ -110,7 +110,7 @@ import { OrderListStyle } from './style/orderliststyle';
     providers: [OrderListStyle],
     host: {
         '[class]': "cx('root')",
-        'data-pc-section': 'root'
+        '[attr.data-pc-section]': "'root'"
     }
 })
 export class OrderList extends BaseComponent implements AfterContentInit {

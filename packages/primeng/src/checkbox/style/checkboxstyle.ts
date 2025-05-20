@@ -5,6 +5,7 @@ import { BaseStyle } from 'primeng/base';
 const classes = {
     root: ({ instance }) => [
         'p-checkbox p-component',
+        instance.styleClass,
         {
             'p-checkbox-checked p-highlight': instance.checked,
             'p-disabled': instance.disabled,
@@ -14,7 +15,7 @@ const classes = {
         }
     ],
     box: 'p-checkbox-box',
-    input: ({ instance }) => ['p-checkbox-input', instance.inputClass],
+    input: 'p-checkbox-input',
     icon: 'p-checkbox-icon'
 };
 

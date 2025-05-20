@@ -42,20 +42,20 @@ export const TOGGLEBUTTON_VALUE_ACCESSOR: any = {
     hostDirectives: [{ directive: Ripple }],
     host: {
         '[class]': "cx('root')",
-        '[tabindex]': 'tabindex',
-        '[disabled]': 'disabled',
-        '[aria-labelledby]': 'ariaLabelledBy',
-        '[aria-pressed]': 'checked',
-        '[data-p-checked]': 'active',
-        '[data-p-disabled]': 'disabled',
-        '[type]': '"button"'
+        '[attr.tabindex]': 'tabindex',
+        '[attr.disabled]': 'disabled',
+        '[attr.aria-labelledby]': 'ariaLabelledBy',
+        '[attr.aria-pressed]': 'checked',
+        '[attr.data-p-checked]': 'active',
+        '[attr.data-p-disabled]': 'disabled',
+        '[attr.type]': '"button"'
     },
     template: `<span [class]="cx('content')">
         <ng-container *ngTemplateOutlet="contentTemplate || _contentTemplate; context: { $implicit: checked }"></ng-container>
         @if (!contentTemplate) {
             @if (!iconTemplate) {
                 @if (onIcon || offIcon) {
-                    <span [class]="cx('icon')" [attr.data-pc-section]="'icon'"></span>
+                    <span [class]="cn(cx('icon'), checked ? this.onIcon : this.offIcon, iconPos === 'left' ? cx('iconLeft') : cx('iconRight'))" [attr.data-pc-section]="'icon'"></span>
                 }
             } @else {
                 <ng-container *ngTemplateOutlet="iconTemplate || _iconTemplate; context: { $implicit: checked }"></ng-container>

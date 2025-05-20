@@ -72,7 +72,7 @@ export interface InputOtpInputTemplateContext {
                     [value]="getModelValue(i)"
                     [maxLength]="i === 1 ? length : 1"
                     [type]="inputType"
-                    [class]="cx('pcInputText')"
+                    [class]="cn(cx('pcInputText'), styleClass)"
                     [pSize]="size"
                     [variant]="variant"
                     [readonly]="readonly"
@@ -84,7 +84,6 @@ export interface InputOtpInputTemplateContext {
                     (paste)="onPaste($event)"
                     (keydown)="onKeyDown($event)"
                     [pAutoFocus]="getAutofocus(i)"
-                    [ngClass]="styleClass"
                 />
             </ng-container>
             <ng-container *ngIf="inputTemplate || _inputTemplate">

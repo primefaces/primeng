@@ -21,7 +21,7 @@ const classes = {
             'p-progressbar-indeterminate': instance.mode == 'indeterminate'
         }
     ],
-    value: ({ instance }) => ['p-progressbar-value', instance.valueStyleClass],
+    value: 'p-progressbar-value',
     label: 'p-progressbar-label'
 };
 

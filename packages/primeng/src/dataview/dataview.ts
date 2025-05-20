@@ -39,7 +39,7 @@ import { DataViewStyle } from './style/dataviewstyle';
     template: `
         <div [class]="cx('loading')" *ngIf="loading">
             <div [class]="cx('loadingOverlay')">
-                <i *ngIf="loadingIcon" [class]="cx('loadingIcon')"></i>
+                <i *ngIf="loadingIcon" [class]="cn(cx('loadingIcon'), 'pi-spin' + loadingIcon)"></i>
                 <ng-container *ngIf="!loadingIcon">
                     <SpinnerIcon *ngIf="!loadingicon" [spin]="true" [styleClass]="cx('loadingIcon')" />
                     <ng-template *ngTemplateOutlet="loadingicon"></ng-template>

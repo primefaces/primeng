@@ -132,7 +132,7 @@ export class TableService {
     standalone: false,
     template: `
         <div [class]="cx('mask')" *ngIf="loading && showLoader">
-            <i *ngIf="loadingIcon" [class]="cx('loadingIcon')"></i>
+            <i *ngIf="loadingIcon" [class]="cn(cx('loadingIcon'), loadingIcon)"></i>
             <ng-container *ngIf="!loadingIcon">
                 <SpinnerIcon *ngIf="!loadingIconTemplate && !_loadingIconTemplate" [spin]="true" [styleClass]="cx('loadingIcon')" />
                 <span *ngIf="loadingIconTemplate || _loadingIconTemplate" [class]="cx('loadingIcon')">
@@ -234,7 +234,7 @@ export class TableService {
             </ng-container>
 
             <ng-template #buildInTable let-items let-scrollerOptions="options">
-                <table #table role="table" [class]="cx('table')" [style]="tableStyle" [attr.id]="id + '-table'">
+                <table #table role="table" [class]="cn(cx('table'), tableStyleClass)" [style]="tableStyle" [attr.id]="id + '-table'">
                     <ng-container *ngTemplateOutlet="colGroupTemplate || _colGroupTemplate; context: { $implicit: scrollerOptions.columns }"></ng-container>
                     <thead role="rowgroup" #thead [class]="cx('thead')" [ngStyle]="sx('thead')">
                         <ng-container
@@ -347,7 +347,7 @@ export class TableService {
     changeDetection: ChangeDetectionStrategy.Default,
     encapsulation: ViewEncapsulation.None,
     host: {
-        '[id]': 'id',
+        '[attr.id]': 'id',
         '[class]': "cx('root')"
     }
 })
