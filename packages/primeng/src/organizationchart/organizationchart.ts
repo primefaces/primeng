@@ -38,7 +38,7 @@ import { OrganizationChartStyle } from './style/organizationchartstyle';
         <tbody *ngIf="node" [attr.data-pc-section]="'body'">
             <tr [attr.data-pc-section]="'row'">
                 <td [attr.colspan]="colspan" [attr.data-pc-section]="'cell'">
-                    <div [class]="cn(cx('node', node.styleClass))" (click)="onNodeClick($event, node)" [attr.data-pc-section]="'node'">
+                    <div [class]="cn(cx('node'), node.styleClass)" (click)="onNodeClick($event, node)" [attr.data-pc-section]="'node'">
                         <div *ngIf="!chart.getTemplateForNode(node)">{{ node.label }}</div>
                         <div *ngIf="chart.getTemplateForNode(node)">
                             <ng-container *ngTemplateOutlet="chart.getTemplateForNode(node); context: { $implicit: node }"></ng-container>
