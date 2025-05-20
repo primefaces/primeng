@@ -74,8 +74,8 @@ export const COLORPICKER_VALUE_ACCESSOR: any = {
     encapsulation: ViewEncapsulation.None,
     host: {
         '[class]': "cx('root')",
-        '[attr.data-pc-name]': 'colorpicker',
-        '[attr.data-pc-section]': 'root'
+        '[attr.data-pc-name]': '"colorpicker"',
+        '[attr.data-pc-section]': '"root"'
     }
 })
 export class ColorPicker extends BaseComponent implements ControlValueAccessor, OnDestroy, AfterViewInit {
