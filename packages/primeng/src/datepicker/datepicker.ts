@@ -126,7 +126,7 @@ export const DATEPICKER_VALUE_ACCESSOR: any = {
             #contentWrapper
             [attr.id]="panelId"
             [ngStyle]="panelStyle"
-            [class]="cx('panel')"
+            [class]="cn(cx('panel'), panelStyleClass)"
             [@overlayAnimation]="{
                 value: 'visible',
                 params: { showTransitionParams: showTransitionOptions, hideTransitionParams: hideTransitionOptions }
