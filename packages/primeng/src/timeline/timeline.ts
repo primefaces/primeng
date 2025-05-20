@@ -37,8 +37,8 @@ import { TimelineStyle } from './style/timelinestyle';
     providers: [TimelineStyle],
     host: {
         '[class]': "cx('root')",
-        '[data-pc-section]': "'root'",
-        '[data-pc-name]': "'timeline'"
+        '[attr.data-pc-section]': "'root'",
+        '[attr.data-pc-name]': "'timeline'"
     }
 })
 export class Timeline extends BaseComponent implements AfterContentInit, BlockableUI {
