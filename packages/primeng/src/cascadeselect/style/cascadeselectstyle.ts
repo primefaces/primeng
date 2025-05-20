@@ -7,7 +7,7 @@ const theme = css`
     ${style}
 
     /* For PrimeNG */
-.p-cascadeselect-clear-icon {
+    .p-cascadeselect-clear-icon {
         cursor: pointer;
         display: flex;
         align-items: center;
@@ -24,7 +24,6 @@ const inlineStyles = {
 const classes = {
     root: ({ instance }) => [
         'p-cascadeselect p-component p-inputwrapper',
-        instance.styleClass,
         {
             'p-cascadeselect p-component p-inputwrapper': true,
             'p-cascadeselect-clearable': instance.showClear && !instance.disabled,
@@ -49,11 +48,10 @@ const classes = {
     ],
     clearIcon: 'p-cascadeselect-clear-icon',
     dropdown: 'p-cascadeselect-dropdown',
-    loadingIcon: ({ instance }) => [instance.loadingIcon ? 'p-cascadeselect-loading-icon pi-spin ' + instance.loadingIcon : 'p-cascadeselect-loading-icon pi pi-spinner pi-spin'],
+    loadingIcon: 'p-cascadeselect-loading-icon',
     dropdownIcon: 'p-cascadeselect-dropdown-icon',
     overlay: ({ instance }) => [
         'p-cascadeselect-overlay p-component',
-        instance.panelStyleClass,
         {
             'p-cascadeselect-mobile-active': instance.queryMatches()
         }
