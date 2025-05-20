@@ -1189,7 +1189,7 @@ export const initGridManager = <T>({
     const _items = isGrid(items) ? items : items.map((x) => [x]);
     const nodes = {
         mainAxis: _items.map((_i, idx) => ({ size: estimatedItemSize.main, pos: idx * estimatedItemSize.main })),
-        crossAxis: Array.from({ length: Math.max(..._items.map((i) => i.length)) }, (_i, idx) => ({ size: estimatedItemSize.cross, pos: idx * estimatedItemSize.cross }))
+        crossAxis: Array.from({ length: _items.reduce((acc, i) => Math.max(acc, i.length), 0) }, (_i, idx) => ({ size: estimatedItemSize.cross, pos: idx * estimatedItemSize.cross }))
     };
     const _calculatedIndexes = {
         mainAxis: nodes.mainAxis.map(() => false),

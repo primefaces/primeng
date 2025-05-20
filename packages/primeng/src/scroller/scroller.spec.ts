@@ -770,11 +770,12 @@ describe('Grid Scroller', () => {
 });
 
 describe('initGridManager', () => {
-    const getItems = (lenMain = 5, lenCross = 5) => Array.from({ length: lenMain }, (_, idx) => Array.from({ length: lenCross }, (_, idxCross) => `Item #${idx}_${idxCross}`));
+    const getItems = (len = 5) => Array.from({ length: len }, (_, idx) => `Item #${idx}`);
+    const getGridItems = (lenMain = 5, lenCross = 5) => getItems(lenMain).map((_, idx) => Array.from({ length: lenCross }, (_, idxCross) => `Item #${idx}_${idxCross}`));
 
     it('should initialize nodes', () => {
         const { nodes } = initGridManager({
-            items: getItems(),
+            items: getGridItems(),
             getScrollPos: () => ({ main: 0, cross: 0 }),
             setScrollSize: () => {},
             scrollTo: () => {},
@@ -800,9 +801,29 @@ describe('initGridManager', () => {
         });
     });
 
+    it('should initialize 1_000_000 nodes', () => {
+        const { nodes } = initGridManager({
+            items: getItems(1_000_000),
+            getScrollPos: () => ({ main: 0, cross: 0 }),
+            setScrollSize: () => {},
+            scrollTo: () => {},
+            getItemSize: () => ({ main: 50, cross: 60 }),
+            viewportSize: { main: 100, cross: 100 }
+        });
+
+        expect(nodes.mainAxis.slice(0, 5)).toEqual([
+            { size: 50, pos: 0 },
+            { size: 50, pos: 50 },
+            { size: 50, pos: 100 },
+            { size: 50, pos: 150 },
+            { size: defaultEstimatedItemSize.main, pos: 200 }
+        ]);
+        expect(nodes.crossAxis).toEqual([{ size: 60, pos: 0 }]);
+    });
+
     it('should calculate nodes for item at index [999,999]', () => {
         const { nodes, at } = initGridManager({
-            items: getItems(1000, 1000),
+            items: getGridItems(1000, 1000),
             getItemSize: () => ({ main: 50, cross: 100 }),
             getScrollPos: () => ({ main: 0, cross: 0 }),
             scrollTo: () => {},
@@ -857,7 +878,7 @@ describe('initGridManager', () => {
         const scrollPos = { main: 0, cross: 0 };
         const viewportSize = { main: 200, cross: 200 };
         const { nodes, getRange } = initGridManager({
-            items: getItems(1000, 1000),
+            items: getGridItems(1000, 1000),
             getItemSize: () => ({ main: 100, cross: 100 }),
             getScrollPos: () => scrollPos,
             scrollTo: ({ main, cross }) => {
@@ -880,7 +901,7 @@ describe('initGridManager', () => {
 
     it('should calculate nodes for item at index [499,499]', () => {
         const { nodes, at } = initGridManager({
-            items: getItems(1000, 1000),
+            items: getGridItems(1000, 1000),
             getItemSize: () => ({ main: 50, cross: 100 }),
             getScrollPos: () => ({ main: 0, cross: 0 }),
             scrollTo: () => {},
@@ -922,7 +943,7 @@ describe('initGridManager', () => {
     it('should calculate first node to render', () => {
         const scrollPos = { main: 19960, cross: 19960 };
         const { getRange, nodes } = initGridManager({
-            items: getItems(1000, 1000),
+            items: getGridItems(1000, 1000),
             getScrollPos: () => scrollPos,
             getItemSize: () => ({ main: 50, cross: 100 }),
             scrollTo: (x) => {
@@ -942,7 +963,7 @@ describe('initGridManager', () => {
     it('should calculate last node index that should not be rendered', () => {
         const scrollPos = { main: 19960, cross: 19960 };
         const { getRange, nodes } = initGridManager({
-            items: getItems(1000, 1000),
+            items: getGridItems(1000, 1000),
             getScrollPos: () => scrollPos,
             getItemSize: () => ({ main: 50, cross: 100 }),
             scrollTo: (x) => {
@@ -963,7 +984,7 @@ describe('initGridManager', () => {
 
     it('should calculate nodes at the bottom', () => {
         const { nodes, at } = initGridManager({
-            items: getItems(6, 5),
+            items: getGridItems(6, 5),
             getItemSize: (_, mainIdx, crossIdx) => ({ main: [20, 50, 100][mainIdx % 3], cross: [30, 60, 110][crossIdx % 3] }),
             getScrollPos: () => ({ main: 340, cross: 400 }),
             setScrollSize: () => {},
@@ -993,7 +1014,7 @@ describe('initGridManager', () => {
 
     it('should calculate nodes at the middle', () => {
         const { nodes, at } = initGridManager({
-            items: getItems(10, 10),
+            items: getGridItems(10, 10),
             getItemSize: (_, mainIdx, crossIdx) => ({ main: [20, 50, 100][mainIdx % 3], cross: [30, 60, 110][crossIdx % 3] }),
             getScrollPos: () => ({ main: 160, cross: 160 }),
             setScrollSize: () => {},
@@ -1032,7 +1053,7 @@ describe('initGridManager', () => {
 
     it('should calculate nodes at the top and adjust leftover nodes', () => {
         const { nodes, at } = initGridManager({
-            items: getItems(),
+            items: getGridItems(),
             getItemSize: () => ({ main: 200, cross: 200 }),
             getScrollPos: () => ({ main: 0, cross: 0 }),
             setScrollSize: () => {},
@@ -1061,7 +1082,7 @@ describe('initGridManager', () => {
 
     it('should calculate nodes at the bottom and adjust leftover nodes', () => {
         const { nodes, at } = initGridManager({
-            items: getItems(),
+            items: getGridItems(),
             getItemSize: () => ({ main: 200, cross: 200 }),
             getScrollPos: () => ({ main: 0, cross: 0 }),
             setScrollSize: () => {},
@@ -1091,7 +1112,7 @@ describe('initGridManager', () => {
     it('should restore same item in viewport', () => {
         const scrollPos = { main: 0, cross: 0 };
         const gridManager = initGridManager({
-            items: getItems(100),
+            items: getGridItems(100),
             getScrollPos: () => scrollPos,
             getItemSize: () => ({ main: 30, cross: 10 }),
             viewportSize: { main: 200, cross: 200 },
@@ -1111,7 +1132,7 @@ describe('initGridManager', () => {
             cross: scrollPos.cross + getScrollShift({ scrollPos: scrollPos.cross, prevNodePos: gridManager.nodes.crossAxis[firstInViewport.cross].pos, currNodePos: defaultEstimatedItemSize.cross * firstInViewport.cross })
         };
         const gridManager2 = initGridManager({
-            items: getItems(100),
+            items: getGridItems(100),
             getScrollPos: () => scrollPos2,
             getItemSize: () => ({ main: 30, cross: 10 }),
             viewportSize: { main: 200, cross: 200 },
@@ -1131,7 +1152,7 @@ describe('initGridManager', () => {
     it('should keep assumed nodes in view after calculation', () => {
         const scrollPos = { main: 0, cross: 0 };
         const gridManager = initGridManager({
-            items: getItems(100),
+            items: getGridItems(100),
             getScrollPos: () => scrollPos,
             getItemSize: () => ({ main: 50, cross: 40 }),
             viewportSize: { main: 200, cross: 200 },
@@ -1153,7 +1174,7 @@ describe('initGridManager', () => {
     xdescribe('perf', () => {
         it('should initialize in 10ms', () => {
             const params = {
-                items: getItems(5000, 5000),
+                items: getGridItems(5000, 5000),
                 getItemSize: () => ({ main: 50, cross: 100 }),
                 getScrollPos: () => ({ main: 0, cross: 0 }),
                 scrollTo: () => {},
@@ -1171,7 +1192,7 @@ describe('initGridManager', () => {
         it('should getRange in 10ms', () => {
             const scrollPos = { main: 0, cross: 0 };
             const { getRange } = initGridManager({
-                items: getItems(5000, 5000),
+                items: getGridItems(5000, 5000),
                 getItemSize: () => ({ main: 50, cross: 100 }),
                 getScrollPos: () => scrollPos,
                 scrollTo: () => {},
@@ -1190,7 +1211,7 @@ describe('initGridManager', () => {
 
         it('should calculate nodes in 10ms', () => {
             const { at } = initGridManager({
-                items: getItems(5000, 5000),
+                items: getGridItems(5000, 5000),
                 getItemSize: () => ({ main: 50, cross: 100 }),
                 getScrollPos: () => ({ main: 0, cross: 0 }),
                 scrollTo: () => {},
