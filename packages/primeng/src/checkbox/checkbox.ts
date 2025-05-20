@@ -79,9 +79,9 @@ export const CHECKBOX_VALUE_ACCESSOR: any = {
     encapsulation: ViewEncapsulation.None,
     host: {
         '[class]': "cx('root')",
-        '[data-p-highlight]': 'checked',
-        '[data-p-checked]': 'checked',
-        '[data-p-disabled]': 'disabled'
+        '[attr.data-p-highlight]': 'checked',
+        '[attr.data-p-checked]': 'checked',
+        '[attr.data-p-disabled]': 'disabled'
     }
 })
 export class Checkbox extends BaseComponent implements AfterContentInit, ControlValueAccessor {
