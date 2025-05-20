@@ -17,9 +17,9 @@ import { SkeletonStyle } from './style/skeletonstyle';
     encapsulation: ViewEncapsulation.None,
     providers: [SkeletonStyle],
     host: {
-        '[aria-hidden]': 'true',
-        'data-pc-name': 'skeleton',
-        'data-pc-section': 'root',
+        '[attr.aria-hidden]': 'true',
+        '[attr.data-pc-name]': "'skeleton'",
+        '[attr.data-pc-section]': "'root'",
         '[class]': "cx('root')",
         '[style]': 'containerStyle'
     }
