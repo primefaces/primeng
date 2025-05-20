@@ -45,9 +45,9 @@ import { ChipStyle } from './style/chipstyle';
     host: {
         '[class]': "cx('root')",
         '[style.display]': '!visible && "none"',
-        '[data-pc-name]': "'chip'",
-        '[aria-label]': 'label',
-        '[data-pc-section]': "'root'"
+        '[attr.data-pc-name]': "'chip'",
+        '[attr.aria-label]': 'label',
+        '[attr.data-pc-section]': "'root'"
     }
 })
 export class Chip extends BaseComponent implements AfterContentInit {
