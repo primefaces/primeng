@@ -405,7 +405,7 @@ export const Password_VALUE_ACCESSOR: any = {
             [disabled]="disabled"
             [pSize]="size"
             [ngStyle]="inputStyle"
-            [class]="cx('pcInputText')"
+            [class]="cn(cx('pcInputText'), inputStyleClass)"
             [attr.type]="unmasked | mapper: inputType"
             [attr.placeholder]="placeholder"
             [attr.autocomplete]="autocomplete"
@@ -430,13 +430,13 @@ export const Password_VALUE_ACCESSOR: any = {
             <ng-container *ngIf="unmasked">
                 <EyeSlashIcon [class]="cx('maskIcon')" *ngIf="!hideIconTemplate && !_hideIconTemplate" (click)="onMaskToggle()" [attr.data-pc-section]="'hideIcon'" />
                 <span *ngIf="hideIconTemplate || _hideIconTemplate" (click)="onMaskToggle()">
-                    <ng-template *ngTemplateOutlet="hideIconTemplate || _hideIconTemplate; context: { class: 'p-password-toggle-mask-icon p-password-mask-icon' }"></ng-template>
+                    <ng-template *ngTemplateOutlet="hideIconTemplate || _hideIconTemplate; context: { class: cx('maskIcon') }"></ng-template>
                 </span>
             </ng-container>
             <ng-container *ngIf="!unmasked">
-                <EyeIcon *ngIf="!showIconTemplate && !_showIconTemplate" [class]="cx('maskIcon')" (click)="onMaskToggle()" [attr.data-pc-section]="'showIcon'" />
+                <EyeIcon *ngIf="!showIconTemplate && !_showIconTemplate" [class]="cx('unmaskIcon')" (click)="onMaskToggle()" [attr.data-pc-section]="'showIcon'" />
                 <span *ngIf="showIconTemplate || _showIconTemplate" (click)="onMaskToggle()">
-                    <ng-template *ngTemplateOutlet="showIconTemplate || _showIconTemplate"></ng-template>
+                    <ng-template *ngTemplateOutlet="showIconTemplate || _showIconTemplate; context: { class: cx('unmaskIcon') }"></ng-template>
                 </span>
             </ng-container>
         </ng-container>
@@ -476,8 +476,8 @@ export const Password_VALUE_ACCESSOR: any = {
     host: {
         '[class]': "cx('root')",
         '[style]': "sx('root')",
-        'data-pc-name': 'password',
-        'data-pc-section': 'root'
+        '[attr.data-pc-name]': 'password',
+        '[attr.data-pc-section]': 'root'
     }
 })
 export class Password extends BaseComponent implements OnInit, AfterContentInit {
