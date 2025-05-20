@@ -6233,9 +6233,12 @@ export class ColumnFilterFormElement implements OnInit {
     ) {}
 
     ngOnInit() {
-        this.filterCallback = (value: any) => {
+        this.filterCallback = (value: any, skipFilter: boolean = false) => {
             (<any>this.filterConstraint).value = value;
-            this.dt._filter();
+
+            if (!skipFilter) {
+                this.dt._filter();
+            }
         };
     }
 
