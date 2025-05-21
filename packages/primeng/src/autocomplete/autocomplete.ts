@@ -1474,7 +1474,7 @@ export class AutoComplete extends BaseComponent implements AfterViewChecked, Aft
             }
         }
         if (!this.overlayVisible) {
-            this.onArrowDownKey(event);
+            return;
         } else {
             if (this.focusedOptionIndex() !== -1) {
                 this.onOptionSelect(event, this.visibleOptions()[this.focusedOptionIndex()]);
