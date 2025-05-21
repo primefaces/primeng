@@ -91,14 +91,12 @@ export class TableService {
     private selectionSource = new Subject();
     private contextMenuSource = new Subject<any>();
     private valueSource = new Subject<any>();
-    private totalRecordsSource = new Subject<any>();
     private columnsSource = new Subject();
 
     sortSource$ = this.sortSource.asObservable();
     selectionSource$ = this.selectionSource.asObservable();
     contextMenuSource$ = this.contextMenuSource.asObservable();
     valueSource$ = this.valueSource.asObservable();
-    totalRecordsSource$ = this.totalRecordsSource.asObservable();
     columnsSource$ = this.columnsSource.asObservable();
 
     onSort(sortMeta: SortMeta | SortMeta[] | null) {
@@ -115,10 +113,6 @@ export class TableService {
 
     onValueChange(value: any) {
         this.valueSource.next(value);
-    }
-
-    onTotalRecordsChange(value: number) {
-        this.totalRecordsSource.next(value);
     }
 
     onColumnsChange(columns: any[]) {
@@ -793,13 +787,8 @@ export class Table<RowData = any> extends BaseComponent implements OnInit, After
      * Number of total records, defaults to length of value when not defined.
      * @group Props
      */
-    @Input() get totalRecords(): number {
-        return this._totalRecords;
-    }
-    set totalRecords(val: number) {
-        this._totalRecords = val;
-        this.tableService.onTotalRecordsChange(this._totalRecords);
-    }
+    @Input() totalRecords: number = 0;
+
     /**
      * Name of the field to sort data by default.
      * @group Props
@@ -1387,6 +1376,11 @@ export class Table<RowData = any> extends BaseComponent implements OnInit, After
 
     ngOnChanges(simpleChange: SimpleChanges) {
         super.ngOnChanges(simpleChange);
+
+        if (simpleChange.totalRecords && simpleChange.totalRecords.firstChange) {
+            this._totalRecords = simpleChange.totalRecords.currentValue;
+        }
+
         if (simpleChange.value) {
             if (this.isStateful() && !this.stateRestored && isPlatformBrowser(this.platformId)) {
                 this.restoreState();
@@ -1395,7 +1389,7 @@ export class Table<RowData = any> extends BaseComponent implements OnInit, After
             this._value = simpleChange.value.currentValue;
 
             if (!this.lazy) {
-                this.totalRecords = this._value ? this._value.length : 0;
+                this.totalRecords = this._totalRecords === 0 && this._value ? this._value.length : (this._totalRecords ?? 0);
 
                 if (this.sortMode == 'single' && (this.sortField || this.groupRowsBy)) this.sortSingle();
                 else if (this.sortMode == 'multiple' && (this.multiSortMeta || this.groupRowsBy)) this.sortMultiple();
@@ -2230,11 +2224,10 @@ export class Table<RowData = any> extends BaseComponent implements OnInit, After
             if (!this.value) {
                 return;
             }
-
             if (!this.hasFilter()) {
                 this.filteredValue = null;
                 if (this.paginator) {
-                    this.totalRecords = this.value ? this.value.length : 0;
+                    this.totalRecords = this._totalRecords === 0 && this.value ? this.value.length : this._totalRecords;
                 }
             } else {
                 let globalFilterFieldsArray;
@@ -2302,7 +2295,7 @@ export class Table<RowData = any> extends BaseComponent implements OnInit, After
                 }
 
                 if (this.paginator) {
-                    this.totalRecords = this.filteredValue ? this.filteredValue.length : this.value ? this.value.length : 0;
+                    this.totalRecords = this.filteredValue ? this.filteredValue.length : this._totalRecords === 0 && this.value ? this.value.length : (this._totalRecords ?? 0);
                 }
             }
         }
@@ -2379,7 +2372,7 @@ export class Table<RowData = any> extends BaseComponent implements OnInit, After
         if (this.lazy) {
             this.onLazyLoad.emit(this.createLazyLoadMetadata());
         } else {
-            this.totalRecords = this._value ? this._value.length : 0;
+            this.totalRecords = this._totalRecords === 0 && this._value ? this._value.length : (this._totalRecords ?? 0);
         }
     }
 
