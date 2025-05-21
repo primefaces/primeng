@@ -83,6 +83,10 @@ const theme = ({ dt }) => `
     outline: 0 none;
 }
 
+.p-select-label-fluid {
+    width: 1px;
+}
+
 .p-select-label.p-placeholder {
     color: ${dt('select.placeholder.color')};
 }
@@ -243,6 +247,7 @@ const classes = {
         'p-select-label',
         {
             'p-placeholder': !props.editable && instance.label === props.placeholder,
+            'p-select-label-fluid': instance.hasFluid,
             'p-select-label-empty': !props.editable && !instance.$slots['value'] && (instance.label === 'p-emptylabel' || instance.label.length === 0)
         }
     ],
@@ -298,6 +303,10 @@ export enum SelectClasses {
      * Class name of the label element
      */
     label = 'p-select-label',
+    /**
+    * Class name of the label fluid element
+    */
+    labelFluid = 'p-select-label-fluid',
     /**
      * Class name of the clear icon element
      */

@@ -1090,6 +1090,7 @@ export class Select extends BaseComponent implements OnInit, AfterViewInit, Afte
         const label = this.label();
         return {
             'p-select-label': true,
+            'p-select-label-fluid': this.hasFluid,
             'p-placeholder': this.placeholder() && label === this.placeholder(),
             'p-select-label-empty': !this.editable && !this.selectedItemTemplate && (label === undefined || label === null || label === 'p-emptylabel' || label.length === 0)
         };
