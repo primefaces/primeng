@@ -5993,7 +5993,7 @@ export class ColumnFilter extends BaseComponent implements AfterContentInit {
     get hasFilter(): boolean {
         let fieldFilter = this.dt.filters[<string>this.field];
         if (fieldFilter) {
-            if (Array.isArray(fieldFilter)) return !this.dt.isFilterBlank((<FilterMetadata[]>fieldFilter)[0].value);
+            if (Array.isArray(fieldFilter)) return (<FilterMetadata[]>fieldFilter).some((rule) => !this.dt.isFilterBlank(rule.value));
             else return !this.dt.isFilterBlank(fieldFilter.value);
         }
 
