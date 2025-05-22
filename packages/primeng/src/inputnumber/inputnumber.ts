@@ -78,7 +78,7 @@ export const INPUTNUMBER_VALUE_ACCESSOR: any = {
             [attr.required]="required"
             [attr.min]="min"
             [attr.max]="max"
-            inputmode="decimal"
+            [attr.inputmode]="isIntegerMode ? 'numeric' : 'decimal'"
             (input)="onUserInput($event)"
             (keydown)="onInputKeyDown($event)"
             (keypress)="onInputKeyPress($event)"
@@ -341,7 +341,7 @@ export class InputNumber extends BaseComponent implements OnInit, AfterContentIn
      * Defines the behavior of the component, valid values are "decimal" and "currency".
      * @group Props
      */
-    @Input() mode: string | any = 'decimal';
+    @Input() mode: string | any = 'integer';
     /**
      * The currency to use in currency formatting. Possible values are the ISO 4217 currency codes, such as "USD" for the US dollar, "EUR" for the euro, or "CNY" for the Chinese RMB. There is no default value; if the style is "currency", the currency property must be provided.
      * @group Props
@@ -606,13 +606,17 @@ export class InputNumber extends BaseComponent implements OnInit, AfterContentIn
     getOptions() {
         return {
             localeMatcher: this.localeMatcher,
-            style: this.mode,
+            style: this.getFormatMode(),
             currency: this.currency,
             currencyDisplay: this.currencyDisplay,
             useGrouping: this.useGrouping,
-            minimumFractionDigits: this.minFractionDigits ?? undefined,
-            maximumFractionDigits: this.maxFractionDigits ?? undefined
+            minimumFractionDigits: this.isIntegerMode() ? 0 : this.minFractionDigits,
+            maximumFractionDigits: this.isIntegerMode() ? 0 : this.maxFractionDigits
         };
+    }
+
+    getFormatMode() {
+        return this.mode === 'integer' ? 'decimal' : this.mode;
     }
 
     constructParser() {
@@ -684,7 +688,7 @@ export class InputNumber extends BaseComponent implements OnInit, AfterContentIn
             this.prefixChar = this.prefix;
         } else {
             const formatter = new Intl.NumberFormat(this.locale, {
-                style: this.mode,
+                style: this.getFormatMode(),
                 currency: this.currency,
                 currencyDisplay: this.currencyDisplay
             });
@@ -699,7 +703,7 @@ export class InputNumber extends BaseComponent implements OnInit, AfterContentIn
             this.suffixChar = this.suffix;
         } else {
             const formatter = new Intl.NumberFormat(this.locale, {
-                style: this.mode,
+                style: this.getFormatMode(),
                 currency: this.currency,
                 currencyDisplay: this.currencyDisplay,
                 minimumFractionDigits: 0,
@@ -1133,6 +1137,10 @@ export class InputNumber extends BaseComponent implements OnInit, AfterContentIn
 
     isDecimalMode() {
         return this.mode === 'decimal';
+    }
+
+    isIntegerMode() {
+        return this.mode === 'integer';
     }
 
     getDecimalCharIndexes(val: string) {
