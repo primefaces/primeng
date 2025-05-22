@@ -41,91 +41,87 @@ import { SpeedDialStyle } from './style/speeddialstyle';
     standalone: true,
     imports: [CommonModule, ButtonModule, Ripple, TooltipModule, RouterModule, PlusIcon, SharedModule],
     template: `
-        <ng-container *ngIf="!buttonTemplate && !_buttonTemplate">
-            <button
-                type="button"
-                pButton
-                pRipple
-                [style]="buttonStyle"
-                [icon]="buttonIconClass"
-                [class]="cn(cx('pcButton'), buttonClassName)"
-                [disabled]="disabled"
-                [attr.aria-expanded]="visible"
-                [attr.aria-haspopup]="true"
-                [attr.aria-controls]="id + '_list'"
-                [attr.aria-label]="ariaLabel"
-                [attr.aria-labelledby]="ariaLabelledBy"
-                (click)="onButtonClick($event)"
-                (keydown)="onTogglerKeydown($event)"
-                [attr.data-pc-name]="'button'"
-                [buttonProps]="buttonProps"
+        <div #container [class]="cn(cx('root'), className)" [style]="style" [ngStyle]="sx('root')" [attr.data-pc-name]="'speeddial'" [attr.data-pc-section]="'root'">
+            <ng-container *ngIf="!buttonTemplate && !_buttonTemplate">
+                <button
+                    type="button"
+                    pButton
+                    pRipple
+                    [style]="buttonStyle"
+                    [icon]="buttonIconClass"
+                    [class]="cn(cx('pcButton'), buttonClassName)"
+                    [disabled]="disabled"
+                    [attr.aria-expanded]="visible"
+                    [attr.aria-haspopup]="true"
+                    [attr.aria-controls]="id + '_list'"
+                    [attr.aria-label]="ariaLabel"
+                    [attr.aria-labelledby]="ariaLabelledBy"
+                    (click)="onButtonClick($event)"
+                    (keydown)="onTogglerKeydown($event)"
+                    [attr.data-pc-name]="'button'"
+                    [buttonProps]="buttonProps"
+                >
+                    <PlusIcon pButtonIcon *ngIf="!buttonIconClass && !iconTemplate && !_iconTemplate" />
+                    <ng-container *ngTemplateOutlet="iconTemplate || _iconTemplate"></ng-container>
+                </button>
+            </ng-container>
+            <ng-container *ngIf="buttonTemplate || _buttonTemplate">
+                <ng-container *ngTemplateOutlet="buttonTemplate || _buttonTemplate; context: { toggleCallback: onButtonClick.bind(this) }"></ng-container>
+            </ng-container>
+            <ul
+                #list
+                [class]="cx('list')"
+                role="menu"
+                [id]="id + '_list'"
+                (focus)="onFocus($event)"
+                (focusout)="onBlur($event)"
+                (keydown)="onKeyDown($event)"
+                [attr.aria-activedescendant]="focused ? focusedOptionId : undefined"
+                [tabindex]="-1"
+                [attr.data-pc-section]="'menu'"
+                [ngStyle]="sx('list')"
             >
-                <PlusIcon pButtonIcon *ngIf="!buttonIconClass && !iconTemplate && !_iconTemplate" />
-                <ng-container *ngTemplateOutlet="iconTemplate || _iconTemplate"></ng-container>
-            </button>
-        </ng-container>
-        <ng-container *ngIf="buttonTemplate || _buttonTemplate">
-            <ng-container *ngTemplateOutlet="buttonTemplate || _buttonTemplate; context: { toggleCallback: onButtonClick.bind(this) }"></ng-container>
-        </ng-container>
-        <ul
-            #list
-            [class]="cx('list')"
-            role="menu"
-            [id]="id + '_list'"
-            (focus)="onFocus($event)"
-            (focusout)="onBlur($event)"
-            (keydown)="onKeyDown($event)"
-            [attr.aria-activedescendant]="focused ? focusedOptionId : undefined"
-            [tabindex]="-1"
-            [attr.data-pc-section]="'menu'"
-            [ngStyle]="sx('list')"
-        >
-            <li
-                *ngFor="let item of model; let i = index"
-                [ngStyle]="getItemStyle(i)"
-                [class]="cx('item', { item, i })"
-                pTooltip
-                [tooltipOptions]="item.tooltipOptions || getTooltipOptions(item)"
-                [id]="id + '_' + i"
-                [attr.aria-controls]="id + '_item'"
-                role="menuitem"
-                [attr.data-pc-section]="'menuitem'"
-            >
-                <ng-container *ngIf="itemTemplate || _itemTemplate">
-                    <ng-container *ngTemplateOutlet="itemTemplate || _itemTemplate; context: { $implicit: item, index: i, toggleCallback: onItemClick.bind(this) }"></ng-container>
-                </ng-container>
-                <ng-container *ngIf="!itemTemplate && !_itemTemplate">
-                    <button
-                        type="button"
-                        pButton
-                        pRipple
-                        [class]="cx('pcAction')"
-                        severity="secondary"
-                        [rounded]="true"
-                        size="small"
-                        role="menuitem"
-                        [icon]="item.icon"
-                        (click)="onItemClick($event, item)"
-                        [disabled]="item?.disabled"
-                        (keydown.enter)="onItemClick($event, item)"
-                        [attr.data-pc-section]="'action'"
-                        [attr.aria-label]="item.label"
-                        [attr.tabindex]="item.disabled || !visible ? null : item.tabindex ? item.tabindex : '0'"
-                    ></button>
-                </ng-container>
-            </li>
-        </ul>
+                <li
+                    *ngFor="let item of model; let i = index"
+                    [ngStyle]="getItemStyle(i)"
+                    [class]="cx('item', { item, i })"
+                    pTooltip
+                    [tooltipOptions]="item.tooltipOptions || getTooltipOptions(item)"
+                    [id]="id + '_' + i"
+                    [attr.aria-controls]="id + '_item'"
+                    role="menuitem"
+                    [attr.data-pc-section]="'menuitem'"
+                >
+                    <ng-container *ngIf="itemTemplate || _itemTemplate">
+                        <ng-container *ngTemplateOutlet="itemTemplate || _itemTemplate; context: { $implicit: item, index: i, toggleCallback: onItemClick.bind(this) }"></ng-container>
+                    </ng-container>
+                    <ng-container *ngIf="!itemTemplate && !_itemTemplate">
+                        <button
+                            type="button"
+                            pButton
+                            pRipple
+                            [class]="cx('pcAction')"
+                            severity="secondary"
+                            [rounded]="true"
+                            size="small"
+                            role="menuitem"
+                            [icon]="item.icon"
+                            (click)="onItemClick($event, item)"
+                            [disabled]="item?.disabled"
+                            (keydown.enter)="onItemClick($event, item)"
+                            [attr.data-pc-section]="'action'"
+                            [attr.aria-label]="item.label"
+                            [attr.tabindex]="item.disabled || !visible ? null : item.tabindex ? item.tabindex : '0'"
+                        ></button>
+                    </ng-container>
+                </li>
+            </ul>
+        </div>
         <div *ngIf="mask && visible" [class]="cn(cx('mask'), maskClassName)" [ngStyle]="maskStyle"></div>
     `,
     changeDetection: ChangeDetectionStrategy.OnPush,
     encapsulation: ViewEncapsulation.None,
-    providers: [SpeedDialStyle],
-    host: {
-        '[class]': "cx('root')",
-        '[style]': "sx('root')",
-        '[attr.data-pc-name]': "'speeddial'",
-        '[attr.data-pc-section]': "'root'"
-    }
+    providers: [SpeedDialStyle]
 })
 export class SpeedDial extends BaseComponent implements AfterViewInit, AfterContentInit, OnDestroy {
     /**
@@ -156,8 +152,12 @@ export class SpeedDial extends BaseComponent implements AfterViewInit, AfterCont
         }
     }
     /**
+     * Inline style of the element.
+     * @group Props
+     */
+    @Input() style: { [klass: string]: any } | null | undefined;
+    /**
      * Style class of the element.
-     * @deprecated since v20.0.0, use `class` instead.
      * @group Props
      */
     @Input() className: string | undefined;
@@ -282,6 +282,8 @@ export class SpeedDial extends BaseComponent implements AfterViewInit, AfterCont
      */
     @Output() onHide: EventEmitter<Event> = new EventEmitter<Event>();
 
+    @ViewChild('container') container: ElementRef | undefined;
+
     @ViewChild('list') list: ElementRef | undefined;
     /**
      * Template of the button.
@@ -337,7 +339,7 @@ export class SpeedDial extends BaseComponent implements AfterViewInit, AfterCont
         super.ngAfterViewInit();
         if (isPlatformBrowser(this.platformId)) {
             if (this.type !== 'linear') {
-                const button = <any>findSingle(this.el?.nativeElement, '.p-speeddial-button');
+                const button = <any>findSingle(this.container?.nativeElement, '.p-speeddial-button');
                 const firstItem = <any>findSingle(this.list?.nativeElement, '.p-speeddial-item');
 
                 if (button && firstItem) {
@@ -510,13 +512,13 @@ export class SpeedDial extends BaseComponent implements AfterViewInit, AfterCont
     }
 
     onEnterKey(event: any) {
-        const items = find(this.el.nativeElement, '[data-pc-section="menuitem"]');
+        const items = find(this.container.nativeElement, '[data-pc-section="menuitem"]');
         const itemIndex = [...items].findIndex((item) => item.id === this.focusedOptionIndex());
 
         this.onItemClick(event, this.model[itemIndex]);
         this.onBlur(event);
 
-        const buttonEl = <any>findSingle(this.el.nativeElement, 'button');
+        const buttonEl = <any>findSingle(this.container.nativeElement, 'button');
 
         buttonEl && focus(buttonEl);
     }
@@ -524,7 +526,7 @@ export class SpeedDial extends BaseComponent implements AfterViewInit, AfterCont
     onEscapeKey(event: KeyboardEvent) {
         this.hide();
 
-        const buttonEl = <any>findSingle(this.el.nativeElement, 'button');
+        const buttonEl = <any>findSingle(this.container.nativeElement, 'button');
 
         buttonEl && focus(buttonEl);
     }
@@ -590,7 +592,7 @@ export class SpeedDial extends BaseComponent implements AfterViewInit, AfterCont
     }
 
     findPrevOptionIndex(index) {
-        const items = find(this.el.nativeElement, '[data-pc-section="menuitem"]');
+        const items = find(this.container.nativeElement, '[data-pc-section="menuitem"]');
 
         const filteredItems = [...items].filter((item) => !hasClass(findSingle(item, 'a'), 'p-disabled'));
         const newIndex = index === -1 ? filteredItems[filteredItems.length - 1].id : index;
@@ -602,7 +604,7 @@ export class SpeedDial extends BaseComponent implements AfterViewInit, AfterCont
     }
 
     findNextOptionIndex(index) {
-        const items = find(this.el.nativeElement, '[data-pc-section="menuitem"]');
+        const items = find(this.container.nativeElement, '[data-pc-section="menuitem"]');
         const filteredItems = [...items].filter((item) => !hasClass(findSingle(item, 'a'), 'p-disabled'));
         const newIndex = index === -1 ? filteredItems[0].id : index;
         let matchedOptionIndex = filteredItems.findIndex((link) => link.getAttribute('id') === newIndex);
@@ -613,7 +615,7 @@ export class SpeedDial extends BaseComponent implements AfterViewInit, AfterCont
     }
 
     changeFocusedOptionIndex(index) {
-        const items = find(this.el.nativeElement, '[data-pc-section="menuitem"]');
+        const items = find(this.container.nativeElement, '[data-pc-section="menuitem"]');
         const filteredItems = [...items].filter((item) => !hasClass(findSingle(item, 'a'), 'p-disabled'));
 
         if (filteredItems[index]) {
@@ -693,7 +695,7 @@ export class SpeedDial extends BaseComponent implements AfterViewInit, AfterCont
     }
 
     isOutsideClicked(event: Event) {
-        return this.el && !(this.el.nativeElement.isSameNode(event.target) || this.el.nativeElement.contains(event.target) || this.isItemClicked);
+        return this.container && !(this.container.nativeElement.isSameNode(event.target) || this.container.nativeElement.contains(event.target) || this.isItemClicked);
     }
 
     bindDocumentClickListener() {
