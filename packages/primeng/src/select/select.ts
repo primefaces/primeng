@@ -201,7 +201,7 @@ export class SelectItem extends BaseComponent {
             (blur)="onInputBlur($event)"
         />
         <ng-container *ngIf="isVisibleClearIcon">
-            <TimesIcon class="p-select-clear-icon" (click)="clear($event)" *ngIf="!clearIconTemplate && !_clearIconTemplate" [attr.data-pc-section]="'clearicon'" />
+            <TimesIcon class="p-select-clear-icon" (click)="clear($event)" *ngIf="!clearIconTemplate && !_clearIconTemplate" [attr.data-pc-section]="'clearicon'" [attr.tabindex]="0" (keydown)="onClearIconKeyDown($event)" />
             <span class="p-select-clear-icon" (click)="clear($event)" *ngIf="clearIconTemplate || _clearIconTemplate" [attr.data-pc-section]="'clearicon'">
                 <ng-template *ngTemplateOutlet="clearIconTemplate || _clearIconTemplate; context: { class: 'p-select-clear-icon' }"></ng-template>
             </span>
@@ -1622,6 +1622,18 @@ export class Select extends BaseComponent implements OnInit, AfterViewInit, Afte
             this.onModelTouched();
         }
         this.preventModelTouched = false;
+    }
+
+    onClearIconKeyDown(event: KeyboardEvent) {
+        if (this.disabled || this.readonly || this.loading) {
+            return;
+        }
+        switch (event.code) {
+            case 'Enter':
+            case 'NumpadEnter':
+                this.clear(event);
+                break;
+        }
     }
 
     onKeyDown(event: KeyboardEvent, search: boolean = false) {
