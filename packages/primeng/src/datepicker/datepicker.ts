@@ -342,7 +342,7 @@ export const DATEPICKER_VALUE_ACCESSOR: any = {
                             (keyup.enter)="onTimePickerElementMouseUp($event)"
                             (keyup.space)="onTimePickerElementMouseUp($event)"
                             (mouseleave)="onTimePickerElementMouseLeave()"
-                            [attr.aria-label]="getTranslation('nextHour')"
+                            [ariaLabel]="getTranslation('nextHour')"
                         >
                             <ChevronUpIcon *ngIf="!incrementIconTemplate && !_incrementIconTemplate" />
 
@@ -362,7 +362,7 @@ export const DATEPICKER_VALUE_ACCESSOR: any = {
                             (keyup.enter)="onTimePickerElementMouseUp($event)"
                             (keyup.space)="onTimePickerElementMouseUp($event)"
                             (mouseleave)="onTimePickerElementMouseLeave()"
-                            [attr.aria-label]="getTranslation('prevHour')"
+                            [ariaLabel]="getTranslation('prevHour')"
                         >
                             <ChevronDownIcon *ngIf="!decrementIconTemplate && !_decrementIconTemplate" />
 
@@ -386,7 +386,7 @@ export const DATEPICKER_VALUE_ACCESSOR: any = {
                             (keyup.enter)="onTimePickerElementMouseUp($event)"
                             (keyup.space)="onTimePickerElementMouseUp($event)"
                             (mouseleave)="onTimePickerElementMouseLeave()"
-                            [attr.aria-label]="getTranslation('nextMinute')"
+                            [ariaLabel]="getTranslation('nextMinute')"
                         >
                             <ChevronUpIcon *ngIf="!incrementIconTemplate && !_incrementIconTemplate" />
 
@@ -406,7 +406,7 @@ export const DATEPICKER_VALUE_ACCESSOR: any = {
                             (keyup.enter)="onTimePickerElementMouseUp($event)"
                             (keyup.space)="onTimePickerElementMouseUp($event)"
                             (mouseleave)="onTimePickerElementMouseLeave()"
-                            [attr.aria-label]="getTranslation('prevMinute')"
+                            [ariaLabel]="getTranslation('prevMinute')"
                         >
                             <ChevronDownIcon *ngIf="!decrementIconTemplate && !_decrementIconTemplate" />
                             <ng-container *ngIf="decrementIconTemplate || _decrementIconTemplate">
@@ -431,7 +431,7 @@ export const DATEPICKER_VALUE_ACCESSOR: any = {
                             (keyup.enter)="onTimePickerElementMouseUp($event)"
                             (keyup.space)="onTimePickerElementMouseUp($event)"
                             (mouseleave)="onTimePickerElementMouseLeave()"
-                            [attr.aria-label]="getTranslation('nextSecond')"
+                            [ariaLabel]="getTranslation('nextSecond')"
                         >
                             <ChevronUpIcon *ngIf="!incrementIconTemplate && !_incrementIconTemplate" />
 
@@ -451,7 +451,7 @@ export const DATEPICKER_VALUE_ACCESSOR: any = {
                             (keyup.enter)="onTimePickerElementMouseUp($event)"
                             (keyup.space)="onTimePickerElementMouseUp($event)"
                             (mouseleave)="onTimePickerElementMouseLeave()"
-                            [attr.aria-label]="getTranslation('prevSecond')"
+                            [ariaLabel]="getTranslation('prevSecond')"
                         >
                             <ChevronDownIcon *ngIf="!decrementIconTemplate && !_decrementIconTemplate" />
 
@@ -470,7 +470,7 @@ export const DATEPICKER_VALUE_ACCESSOR: any = {
                             (keydown)="onContainerButtonKeydown($event)"
                             (onClick)="toggleAMPM($event)"
                             (keydown.enter)="toggleAMPM($event)"
-                            [attr.aria-label]="getTranslation('am')"
+                            [ariaLabel]="getTranslation('am')"
                         >
                             <ChevronUpIcon *ngIf="!incrementIconTemplate && !_incrementIconTemplate" />
                             <ng-template *ngTemplateOutlet="incrementIconTemplate || _incrementIconTemplate"></ng-template>
@@ -484,7 +484,7 @@ export const DATEPICKER_VALUE_ACCESSOR: any = {
                             (keydown)="onContainerButtonKeydown($event)"
                             (click)="toggleAMPM($event)"
                             (keydown.enter)="toggleAMPM($event)"
-                            [attr.aria-label]="getTranslation('pm')"
+                            [ariaLabel]="getTranslation('pm')"
                         >
                             <ChevronDownIcon *ngIf="!decrementIconTemplate && !_decrementIconTemplate" />
                             <ng-template *ngTemplateOutlet="decrementIconTemplate || _decrementIconTemplate"></ng-template>
