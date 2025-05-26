@@ -15,6 +15,7 @@ import {
     numberAttribute,
     Output,
     QueryList,
+    signal,
     ViewChild,
     ViewEncapsulation
 } from '@angular/core';
@@ -64,29 +65,30 @@ export class SplitterPanel extends BaseComponent {
                 <div [ngClass]="panelContainerClass()" [class]="panelStyleClass" [ngStyle]="panelStyle" tabindex="-1" [attr.data-pc-name]="'splitter'" [attr.data-pc-section]="'root'">
                     <ng-container *ngTemplateOutlet="panel"></ng-container>
                 </div>
-                <div
-                    *ngIf="i !== panels.length - 1"
-                    class="p-splitter-gutter"
-                    role="separator"
-                    tabindex="-1"
-                    (mousedown)="onGutterMouseDown($event, i)"
-                    (touchstart)="onGutterTouchStart($event, i)"
-                    (touchmove)="onGutterTouchMove($event)"
-                    (touchend)="onGutterTouchEnd($event)"
-                    [attr.data-p-gutter-resizing]="false"
-                    [attr.data-pc-section]="'gutter'"
-                >
+                @if (i !== panels.length - 1) {
                     <div
-                        class="p-splitter-gutter-handle"
-                        tabindex="0"
-                        [ngStyle]="gutterStyle()"
-                        [attr.aria-orientation]="layout"
-                        [attr.aria-valuenow]="prevSize"
-                        [attr.data-pc-section]="'gutterhandle'"
-                        (keyup)="onGutterKeyUp($event)"
-                        (keydown)="onGutterKeyDown($event, i)"
-                    ></div>
-                </div>
+                        class="p-splitter-gutter"
+                        tabindex="-1"
+                        (mousedown)="onGutterMouseDown($event, i)"
+                        (touchstart)="onGutterTouchStart($event, i)"
+                        (touchmove)="onGutterTouchMove($event)"
+                        (touchend)="onGutterTouchEnd($event)"
+                        [attr.data-p-gutter-resizing]="false"
+                        [attr.data-pc-section]="'gutter'"
+                    >
+                        <div
+                            class="p-splitter-gutter-handle"
+                            tabindex="0"
+                            role="separator"
+                            [attr.aria-orientation]="layout"
+                            [attr.aria-valuenow]="prevSize().toFixed(4)"
+                            [ngStyle]="gutterStyle()"
+                            [attr.data-pc-section]="'gutterhandle'"
+                            (keyup)="onGutterKeyUp($event)"
+                            (keydown)="onGutterKeyDown($event, i)"
+                        ></div>
+                    </div>
+                }
             </ng-template>
         </div>
     `,
@@ -223,7 +225,7 @@ export class Splitter extends BaseComponent implements AfterContentInit {
 
     timer: any;
 
-    prevSize: any;
+    prevSize = signal(0);
 
     _componentStyle = inject(SplitterStyle);
 
@@ -274,7 +276,7 @@ export class Splitter extends BaseComponent implements AfterContentInit {
 
                     this._panelSizes = _panelSizes;
 
-                    this.prevSize = parseFloat(_panelSizes[0]).toFixed(4);
+                    this.prevSize.set(parseFloat(_panelSizes[0]));
                 }
             }
         }
@@ -334,7 +336,7 @@ export class Splitter extends BaseComponent implements AfterContentInit {
             newNextPanelSize = (this.nextPanelSize as number) - newPos;
         }
 
-        this.prevSize = parseFloat(newPrevPanelSize).toFixed(4);
+        this.prevSize.set(parseFloat(newPrevPanelSize));
 
         if (this.validateResize(newPrevPanelSize, newNextPanelSize)) {
             (this.prevPanelElement as HTMLElement).style.flexBasis = 'calc(' + newPrevPanelSize + '% - ' + (this.panels.length - 1) * this.gutterSize + 'px)';
