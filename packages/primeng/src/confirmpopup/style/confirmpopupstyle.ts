@@ -68,7 +68,7 @@ const theme = ({ dt }) => `
 .p-confirmpopup:after,
 .p-confirmpopup:before {
     bottom: 100%;
-    left: ${dt('confirmpopup.arrow.offset')};
+    left: calc(var(--overlayArrowLeft) + ${dt('confirmpopup.arrow.offset')});
     content: " ";
     height: 0;
     width: 0;
