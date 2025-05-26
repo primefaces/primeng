@@ -82,7 +82,7 @@ export const CASCADESELECT_VALUE_ACCESSOR: any = {
                     <p-cascadeselect-sub
                         *ngIf="isOptionGroup(processedOption) && isOptionActive(processedOption)"
                         [role]="'group'"
-                        class="p-cascadeselect-list p-cascadeselect-overlay p-cascadeselect-option-list"
+                        class="p-cascadeselect-overlay p-cascadeselect-option-list"
                         [selectId]="selectId"
                         [focusedOptionId]="focusedOptionId"
                         [activeOptionPath]="activeOptionPath"

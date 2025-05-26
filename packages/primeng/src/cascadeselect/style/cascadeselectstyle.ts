@@ -121,7 +121,6 @@ p-cascadeselect.ng-invalid.ng-dirty .p-cascadeselect-label.p-placeholder {
 }
 
 .p-cascadeselect-option-list {
-    display: none;
     min-width: 100%;
     position: absolute;
     z-index: 1;
