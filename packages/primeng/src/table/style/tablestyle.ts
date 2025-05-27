@@ -349,12 +349,12 @@ const theme = ({ dt }) => `
     padding: ${dt('datatable.body.cell.padding')};
 }
 
-.p-datatable-hoverable .p-datatable-tbody > tr:not(.p-datatable-row-selected):hover {
+.p-datatable-hoverable .p-datatable-tbody > tr:not(.p-datatable-row-selected):hover td {
     background: ${dt('datatable.row.hover.background')};
     color: ${dt('datatable.row.hover.color')};
 }
 
-.p-datatable-tbody > tr.p-datatable-row-selected {
+.p-datatable-tbody > tr.p-datatable-row-selected td {
     background: ${dt('datatable.row.selected.background')};
     color: ${dt('datatable.row.selected.color')};
 }
@@ -523,7 +523,7 @@ p-datatable-gridlines .p-datatable-tbody > tr:last-child > td {
     border-width: 0 1px 0 1px;
 }
 
-.p-datatable.p-datatable-striped .p-datatable-tbody > tr:nth-child(odd) {
+.p-datatable.p-datatable-striped .p-datatable-tbody > tr:nth-child(odd):not(.p-datatable-row-selected) td {
     background: ${dt('datatable.row.striped.background')};
 }
 
@@ -532,7 +532,7 @@ p-datatable-gridlines .p-datatable-tbody > tr:last-child > td {
     color: ${dt('datatable.row.selected.color')};
 }
 
-.p-datatable-striped.p-datatable-hoverable .p-datatable-tbody > tr:not(.p-datatable-row-selected):hover {
+.p-datatable-striped.p-datatable-hoverable .p-datatable-tbody > tr:not(.p-datatable-row-selected):hover td {
     background: ${dt('datatable.row.hover.background')};
     color: ${dt('datatable.row.hover.color')};
 }
