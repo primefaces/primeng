@@ -11,10 +11,11 @@ import { ImportDoc } from './importdoc';
 import { SelectionDoc } from './selectiondoc';
 import { StyleDoc } from './styledoc';
 import { TemplateDoc } from './templatedoc';
+import { PreserveSpaceDoc } from '@/doc/organizationchart/preservespacedoc';
 
 @NgModule({
     imports: [CommonModule, RouterModule, AppCodeModule, AppDocModule, OrganizationChartModule],
     exports: [AppDocModule],
-    declarations: [ImportDoc, BasicDoc, TemplateDoc, SelectionDoc, ColoredDoc, StyleDoc, AccessibilityDoc]
+    declarations: [ImportDoc, BasicDoc, TemplateDoc, SelectionDoc, ColoredDoc, PreserveSpaceDoc, StyleDoc, AccessibilityDoc]
 })
 export class OrganizationChartDocModule {}

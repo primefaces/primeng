@@ -141,8 +141,15 @@ export class OrganizationChartNode implements OnDestroy {
     }
 
     getChildStyle(node: TreeNode<any>) {
+        const isNodeVisible = !this.leaf && node.expanded;
+        if(!this.chart.preserveSpace){
+            return {
+                visibility: isNodeVisible ? 'inherit' : 'hidden',
+                display: isNodeVisible ? undefined : 'none'
+            };
+        }
         return {
-            visibility: !this.leaf && node.expanded ? 'inherit' : 'hidden'
+            visibility: isNodeVisible ? 'inherit' : 'hidden',
         };
     }
 
@@ -175,7 +182,7 @@ export class OrganizationChartNode implements OnDestroy {
     standalone: true,
     imports: [CommonModule, OrganizationChartNode, SharedModule],
     template: `
-        <div [ngStyle]="style" [class]="styleClass" [ngClass]="{ 'p-organizationchart p-component': true, 'p-organizationchart-preservespace': preserveSpace }" [attr.data-pc-section]="'root'">
+        <div [ngStyle]="style" [class]="styleClass" [ngClass]="{ 'p-organizationchart p-component': true }" [attr.data-pc-section]="'root'">
             <table class="p-organizationchart-table" [collapsible]="collapsible" pOrganizationChartNode [node]="root" *ngIf="root"></table>
         </div>
     `,
