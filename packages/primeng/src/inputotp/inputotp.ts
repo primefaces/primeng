@@ -5,8 +5,8 @@ import { PrimeTemplate, SharedModule } from 'primeng/api';
 import { AutoFocus } from 'primeng/autofocus';
 import { BaseComponent } from 'primeng/basecomponent';
 import { InputText } from 'primeng/inputtext';
-import { InputOtpStyle } from './style/inputotpstyle';
 import { Nullable } from 'primeng/ts-helpers';
+import { InputOtpStyle } from './style/inputotpstyle';
 
 export const INPUT_OTP_VALUE_ACCESSOR: any = {
     provide: NG_VALUE_ACCESSOR,
@@ -85,6 +85,7 @@ export interface InputOtpInputTemplateContext {
                     (keydown)="onKeyDown($event)"
                     [pAutoFocus]="getAutofocus(i)"
                     [ngClass]="styleClass"
+                    [attr.inputmode]="integerOnly ? 'numeric' : undefined"
                 />
             </ng-container>
             <ng-container *ngIf="inputTemplate || _inputTemplate">
@@ -232,17 +233,30 @@ export class InputOtp extends BaseComponent implements AfterContentInit {
 
     onInput(event, index) {
         const value = event.target.value;
+
+        if(value.length > 1 && index === this.length-1) {
+            event.target.value = value[0];
+            event.stopPropagation();
+            return;
+        }
+
+        if (this.tokens.join('').length >= this.length && event.inputType !== 'deleteContentBackward') {
+            event.stopPropagation();
+            return;
+        }
+
         if (index === 0 && value.length > 1) {
             this.handleOnPaste(value, event);
             event.stopPropagation();
             return;
         }
+
         this.tokens[index] = value;
         this.updateModel(event);
 
         if (event.inputType === 'deleteContentBackward') {
             this.moveToPrev(event);
-        } else if (event.inputType === 'insertText' || event.inputType === 'deleteContentForward') {
+        } else if (event.inputType === 'insertText' || event.inputType === 'insertCompositionText' || event.inputType === 'deleteContentForward') {
             this.moveToNext(event);
         }
     }
@@ -350,7 +364,7 @@ export class InputOtp extends BaseComponent implements AfterContentInit {
             return;
         }
 
-        switch (event.code) {
+        switch (event.key) {
             case 'ArrowLeft':
                 this.moveToPrev(event);
                 event.preventDefault();
@@ -377,8 +391,15 @@ export class InputOtp extends BaseComponent implements AfterContentInit {
 
                 break;
 
+            case 'Tab':
+                break;
+
             default:
-                if ((this.integerOnly && !(Number(event.key) >= 0 && Number(event.key) <= 9)) || (this.tokens.join('').length >= this.length && event.code !== 'Delete')) {
+                if (this.integerOnly && !(Number(event.key) >= 0 && Number(event.key) <= 9)) {
+                    event.preventDefault();
+                }
+
+                if(this.tokens.join('').length >= this.length && event.code !== 'Delete') {
                     event.preventDefault();
                 }
 
