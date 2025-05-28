@@ -1,4 +1,4 @@
-import { AfterViewInit, booleanAttribute, Directive, DoCheck, HostListener, inject, Input, NgModule, Optional, Self } from '@angular/core';
+import { AfterViewInit, booleanAttribute, Directive, DoCheck, HostListener, inject, Input, NgModule } from '@angular/core';
 import { NgControl, NgModel } from '@angular/forms';
 import { isEmpty } from '@primeuix/utils';
 import { BaseComponent } from 'primeng/basecomponent';
@@ -33,32 +33,20 @@ export class InputText extends BaseComponent implements DoCheck, AfterViewInit {
      * @group Props
      */
     @Input('pSize') pSize: 'large' | 'small';
-    /**
-     * When present, it specifies that the component should have invalid state style.
-     * @group Props
-     */
-    @Input() invalid: boolean = false;
 
     filled: Nullable<boolean>;
 
     _componentStyle = inject(InputTextStyle);
+
+    ngModel = inject(NgModel, { optional: true });
+
+    ngControl = inject(NgControl, { optional: true, self: true });
 
     get hasFluid() {
         const nativeElement = this.el.nativeElement;
         const fluidComponent = nativeElement.closest('p-fluid');
 
         return isEmpty(this.fluid) ? !!fluidComponent : this.fluid;
-    }
-
-    constructor(
-        @Optional() public ngModel: NgModel,
-        @Self() @Optional() public ngControl: NgControl
-    ) {
-        super();
-    }
-
-    get controlInvalid() {
-        return this.ngControl.invalid;
     }
 
     ngAfterViewInit() {
@@ -78,6 +66,12 @@ export class InputText extends BaseComponent implements DoCheck, AfterViewInit {
 
     updateFilledState() {
         this.filled = (this.el.nativeElement.value && this.el.nativeElement.value.length) || (this.ngModel && this.ngModel.model);
+    }
+
+    get isInvalid() {
+        const controlInvalid = !!this.ngControl?.invalid && (this.ngControl?.dirty || this.ngControl?.touched);
+        const modelInvalid = !!this.ngModel?.invalid && (this.ngModel?.dirty || this.ngModel?.touched);
+        return controlInvalid || modelInvalid;
     }
 }
 

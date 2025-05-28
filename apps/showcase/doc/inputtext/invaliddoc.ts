@@ -6,11 +6,12 @@ import { Component } from '@angular/core';
     standalone: false,
     template: `
         <app-docsectiontext>
-            <p>Invalid state is displayed using the <i>invalid</i> prop to indicate a failed validation. You can use this style when integrating with form validation libraries.</p>
+            <p>Invalid state is displayed automatically based on the form validation state. The <code>p-invalid</code> class will be added dynamically if the input field is invalid and dirty.</p>
         </app-docsectiontext>
         <div class="card flex flex-wrap justify-center gap-4">
-            <input pInputText [(ngModel)]="value1" [invalid]="!value1" placeholder="Name" />
-            <input pInputText [(ngModel)]="value2" [invalid]="!value2" variant="filled" placeholder="Name" />
+            <input pInputText [(ngModel)]="value1" name="value1" placeholder="Name" required />
+
+            <input pInputText [(ngModel)]="value2" name="value2" placeholder="Name" required variant="filled" />
         </div>
         <app-code [code]="code" selector="input-text-invalid-demo"></app-code>
     `
@@ -21,12 +22,39 @@ export class InvalidDoc {
     value2: string | undefined;
 
     code: Code = {
-        basic: `<input pInputText [(ngModel)]="value1" [invalid]="!value1" placeholder="Name" />
-<input pInputText [(ngModel)]="value2" [invalid]="!value2" variant="filled" placeholder="Name" />`,
+        basic: `<input
+    pInputText
+    [(ngModel)]="value1"
+    name="value1"
+    placeholder="Name"
+    required
+/>
+
+<input
+    pInputText
+    [(ngModel)]="value2"
+    name="value2"
+    placeholder="Name"
+    required
+    variant="filled"
+/>`,
 
         html: `<div class="card flex flex-wrap justify-center gap-4">
-    <input pInputText [(ngModel)]="value1" [invalid]="!value1" placeholder="Name" />
-    <input pInputText [(ngModel)]="value2" [invalid]="!value2" variant="filled" placeholder="Name" />
+    <input
+        pInputText
+        [(ngModel)]="value1"
+        name="value1"
+        placeholder="Name"
+        required
+    />
+    <input
+        pInputText
+        [(ngModel)]="value2"
+        name="value2"
+        placeholder="Name"
+        required
+        variant="filled"
+    />
 </div>`,
 
         typescript: `import { Component } from '@angular/core';
