@@ -12,7 +12,6 @@ import {
     DoCheck,
     ElementRef,
     EventEmitter,
-    forwardRef,
     HostListener,
     Inject,
     inject,
@@ -32,7 +31,7 @@ import {
     ViewChild,
     ViewEncapsulation
 } from '@angular/core';
-import { addClass, blockBodyScroll, find, findSingle, focus, getAttribute, removeClass, setAttribute, unblockBodyScroll, uuid } from '@primeuix/utils';
+import { addClass, appendChild, blockBodyScroll, find, findSingle, focus, getAttribute, removeClass, setAttribute, unblockBodyScroll, uuid } from '@primeuix/utils';
 import { PrimeTemplate, SharedModule } from 'primeng/api';
 import { BaseComponent } from 'primeng/basecomponent';
 import { FocusTrap } from 'primeng/focustrap';
@@ -297,6 +296,20 @@ export class Galleria extends BaseComponent implements OnChanges, OnDestroy {
 
     _componentStyle = inject(GalleriaStyle);
 
+    _appendTo: 'body' | HTMLElement | undefined;
+
+    /**
+     * Galleria in fullscreen mode can be mounted into its location, body or DOM element instance using this option.
+     * @defaultValue null
+     * @group Props
+     */
+    @Input() get appendTo(): 'body' | HTMLElement | undefined {
+        return this._appendTo;
+    }
+    set appendTo(value: 'body' | HTMLElement | undefined) {
+        this._appendTo = value;
+    }
+
     constructor(
         @Inject(PLATFORM_ID) public platformId: any,
         public element: ElementRef,
@@ -382,6 +395,7 @@ export class Galleria extends BaseComponent implements OnChanges, OnDestroy {
         switch (event.toState) {
             case 'visible':
                 this.enableModality();
+                this.appendGallery();
                 setTimeout(() => {
                     focus(<any>findSingle(this.container.nativeElement, '[data-pc-section="closebutton"]'));
                 }, 25);
@@ -407,6 +421,13 @@ export class Galleria extends BaseComponent implements OnChanges, OnDestroy {
 
         if (this.mask) {
             ZIndexUtils.set('modal', this.mask.nativeElement, this.baseZIndex || this.config.zIndex.modal);
+        }
+    }
+
+    appendGallery() {
+        if (this.appendTo && this.fullScreen) {
+            if (this.appendTo === 'body') this.document.body.appendChild(<HTMLElement>this.el.nativeElement);
+            else appendChild(this.appendTo, this.el.nativeElement);
         }
     }
 
