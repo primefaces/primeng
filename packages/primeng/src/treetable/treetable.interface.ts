@@ -402,6 +402,20 @@ export interface TreeTableTemplates {
         partialSelected: boolean;
     }): TemplateRef<{ $implicit: boolean; partialSelected: boolean }>;
     /**
+     * Custom checkbox partial icon template.
+     * @param {Object} context - checkbox data.
+     */
+    checkboxicon(context: {
+        /**
+         * Checkbox state.
+         */
+        $implicit: boolean;
+        /**
+         * Partial selection state of row node.
+         */
+        partialSelected: boolean;
+    }): TemplateRef<{ $implicit: boolean; partialSelected: boolean }>;
+    /**
      * Custom header checkbox icon template.
      * @param {Object} context - checkbox data.
      */
