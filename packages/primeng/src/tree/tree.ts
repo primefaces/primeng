@@ -128,11 +128,13 @@ import { AutoFocusModule } from 'primeng/autofocus';
                         [tabindex]="-1"
                         (click)="$event.preventDefault()"
                     >
-                        <ng-container *ngIf="tree.checkboxIconTemplate || tree._checkboxIconTemplate">
+                        <ng-container *ngIf="tree.checkboxIconTemplate || tree._checkboxIconTemplate || tree.checkboxPartialIconTemplate || tree._checkboxPartialIconTemplate">
                             <ng-template #icon>
                                 <ng-template
                                     *ngTemplateOutlet="
-                                        tree.checkboxIconTemplate || tree._checkboxIconTemplate;
+                                        node.partialSelected && (tree.checkboxPartialIconTemplate || tree._checkboxPartialIconTemplate)
+                                            ? tree.checkboxPartialIconTemplate || tree._checkboxPartialIconTemplate
+                                            : tree.checkboxIconTemplate || tree._checkboxIconTemplate;
                                         context: {
                                             $implicit: isSelected(),
                                             partialSelected: node.partialSelected,
@@ -1133,6 +1135,11 @@ export class Tree extends BaseComponent implements OnInit, AfterContentInit, OnC
      */
     @ContentChild('checkboxicon', { descendants: false }) checkboxIconTemplate: TemplateRef<any> | undefined;
     /**
+     * Checkbox partial icon template.
+     * @group Templates
+     */
+    @ContentChild('checkboxpartialicon', { descendants: false }) checkboxPartialIconTemplate: TemplateRef<any> | undefined;
+    /**
      * Loading icon template.
      * @group Templates
      */
@@ -1162,6 +1169,8 @@ export class Tree extends BaseComponent implements OnInit, AfterContentInit, OnC
     _togglerIconTemplate: TemplateRef<any> | undefined;
 
     _checkboxIconTemplate: TemplateRef<any> | undefined;
+
+    _checkboxPartialIconTemplate: TemplateRef<any> | undefined;
 
     _loadingIconTemplate: TemplateRef<any> | undefined;
 
@@ -1198,6 +1207,10 @@ export class Tree extends BaseComponent implements OnInit, AfterContentInit, OnC
 
                 case 'checkboxicon':
                     this._checkboxIconTemplate = item.template;
+                    break;
+
+                case 'checkboxpartialicon':
+                    this._checkboxPartialIconTemplate = item.template;
                     break;
 
                 case 'loadingicon':

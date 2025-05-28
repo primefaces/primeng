@@ -179,6 +179,20 @@ export interface TreeTemplates {
         partialSelected: boolean;
     }): TemplateRef<{ $implicit: boolean; partialSelected: boolean }>;
     /**
+     * Custom checkbox partial icon template.
+     * @param {Object} context - node data.
+     */
+    checkboxpartialicon(context: {
+        /**
+         * Checked state of the node.
+         */
+        $implicit: boolean;
+        /**
+         * Partial selection state of the node.
+         */
+        partialSelected: boolean;
+    }): TemplateRef<{ $implicit: boolean; partialSelected: boolean }>;
+    /**
      * Custom loading icon template.
      */
     loadingicon(): TemplateRef<any>;

@@ -852,6 +852,9 @@ export class TreeTable extends BaseComponent implements AfterContentInit, OnInit
     @ContentChild('checkboxicon', { descendants: false }) _checkboxIconTemplate: Nullable<TemplateRef<any>>;
     checkboxIconTemplate: Nullable<TemplateRef<any>>;
 
+    @ContentChild('checkboxpartialicon', { descendants: false }) _checkboxPartialIconTemplate: Nullable<TemplateRef<any>>;
+    checkboxPartialIconTemplate: Nullable<TemplateRef<any>>;
+
     @ContentChild('headercheckboxicon', { descendants: false }) _headerCheckboxIconTemplate: Nullable<TemplateRef<any>>;
     headerCheckboxIconTemplate: Nullable<TemplateRef<any>>;
 
@@ -992,6 +995,10 @@ export class TreeTable extends BaseComponent implements AfterContentInit, OnInit
 
                 case 'checkboxicon':
                     this.checkboxIconTemplate = item.template;
+                    break;
+
+                case 'checkboxpartialicon':
+                    this.checkboxPartialIconTemplate = item.template;
                     break;
 
                 case 'headercheckboxicon':
@@ -3217,9 +3224,17 @@ export class TTContextMenuRow {
     standalone: false,
     template: `
         <p-checkbox [ngModel]="checked" (onChange)="onClick($event)" [binary]="true" [disabled]="disabled" [indeterminate]="partialChecked" styleClass="p-treetable-node-checkbox" [tabIndex]="-1">
-            <ng-container *ngIf="tt.checkboxIconTemplate || tt._checkboxIconTemplate">
+            <ng-container *ngIf="tt.checkboxIconTemplate || tt._checkboxIconTemplate || tt.checkboxPartialIconTemplate || tt._checkboxPartialIconTemplate">
                 <ng-template pTemplate="icon">
-                    <ng-template *ngTemplateOutlet="tt.checkboxIconTemplate || tt._checkboxIconTemplate; context: { $implicit: checked, partialSelected: partialChecked }"></ng-template>
+                    <ng-template
+                        *ngTemplateOutlet="
+                            partialChecked && (tt.checkboxPartialIconTemplate || tt._checkboxPartialIconTemplate) ? tt.checkboxPartialIconTemplate || tt._checkboxPartialIconTemplate : tt.checkboxIconTemplate || tt._checkboxIconTemplate;
+                            context: {
+                                $implicit: checked,
+                                partialSelected: partialChecked
+                            }
+                        "
+                    ></ng-template>
                 </ng-template>
             </ng-container>
         </p-checkbox>
