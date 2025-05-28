@@ -15,7 +15,7 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
         <form [formGroup]="formGroup" class="card flex flex-wrap justify-center gap-4">
             <input pInputText formControlName="value" [invalid]="formGroup.get('value')?.invalid && formGroup.get('value')?.touched" placeholder="Name" />
         </form>
-        <app-code [code]="code" selector="input-text-invalid-demo"></app-code>
+        <app-code [code]="code" selector="input-text-reactive-forms-invalid-demo"></app-code>
     `
 })
 export class ReactiveFormsInvalidDoc {
@@ -42,12 +42,12 @@ import { FormsModule } from '@angular/forms';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 
 @Component({
-    selector: 'input-text-invalid-demo',
-    templateUrl: './input-text-invalid-demo.html',
+    selector: 'input-text-reactive-forms-invalid-demo',
+    templateUrl: './input-text-reactive-forms-invalid-demo.html',
     standalone: true,
     imports: [FormsModule, InputTextModule]
 })
-export class InputTextInvalidDemo {
+export class InputTextReactiveFormsInvalidDemo {
     formGroup: FormGroup | undefined;
 
     constructor(private fb: FormBuilder) {
