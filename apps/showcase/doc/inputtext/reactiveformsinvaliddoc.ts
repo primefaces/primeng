@@ -13,7 +13,7 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
             </p>
         </app-docsectiontext>
         <form [formGroup]="formGroup" class="card flex justify-center">
-            <input pInputText formControlName="value" [invalid]="formGroup.get('value')?.invalid && formGroup.get('value')?.touched" placeholder="Name" />
+            <input pInputText formControlName="value" placeholder="Name" />
         </form>
         <app-code [code]="code" selector="input-text-reactive-forms-invalid-demo"></app-code>
     `
@@ -29,11 +29,11 @@ export class ReactiveFormsInvalidDoc {
 
     code: Code = {
         basic: `<form [formGroup]="formGroup" class="card flex justify-center">
-    <input pInputText formControlName="value" [invalid]="formGroup.get('value')?.invalid && formGroup.get('value')?.touched" placeholder="Name" />
+    <input pInputText formControlName="value" placeholder="Name" />
 </form>`,
 
         html: `<form [formGroup]="formGroup" class="card flex justify-center">
-    <input pInputText formControlName="value" [invalid]="formGroup.get('value')?.invalid && formGroup.get('value')?.touched" placeholder="Name" />
+    <input pInputText formControlName="value" placeholder="Name" />
 </form>`,
 
         typescript: `import { Component } from '@angular/core';
