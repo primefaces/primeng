@@ -9,6 +9,7 @@ import { ImportDoc } from '@/doc/inputtext/importdoc';
 import { InputtextDocModule } from '@/doc/inputtext/inputtextdoc.module';
 import { InvalidDoc } from '@/doc/inputtext/invaliddoc';
 import { ReactiveFormsDoc } from '@/doc/inputtext/reactiveformsdoc';
+import { ReactiveFormsInvalidDoc } from '@/doc/inputtext/reactiveformsinvaliddoc';
 import { SizesDoc } from '@/doc/inputtext/sizesdoc';
 import { Component } from '@angular/core';
 
@@ -69,8 +70,12 @@ export class InputTextDemo {
         {
             id: 'invalid',
             label: 'Invalid',
-            component: InvalidDoc
+            children: [
+                { id: 'invalid', label: 'Invalid', component: InvalidDoc },
+                { id: 'reactiveformsinvalid', label: 'Reactive Forms with Invalid State', component: ReactiveFormsInvalidDoc }
+            ]
         },
+
         {
             id: 'disabled',
             label: 'Disabled',
