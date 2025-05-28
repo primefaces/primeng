@@ -1,5 +1,5 @@
-import { AfterViewInit, booleanAttribute, Directive, DoCheck, HostListener, inject, Input, NgModule, Optional } from '@angular/core';
-import { NgModel } from '@angular/forms';
+import { AfterViewInit, booleanAttribute, Directive, DoCheck, HostListener, inject, Input, NgModule, Optional, Self } from '@angular/core';
+import { NgControl, NgModel } from '@angular/forms';
 import { isEmpty } from '@primeuix/utils';
 import { BaseComponent } from 'primeng/basecomponent';
 import { Nullable } from 'primeng/ts-helpers';
@@ -50,8 +50,15 @@ export class InputText extends BaseComponent implements DoCheck, AfterViewInit {
         return isEmpty(this.fluid) ? !!fluidComponent : this.fluid;
     }
 
-    constructor(@Optional() public ngModel: NgModel) {
+    constructor(
+        @Optional() public ngModel: NgModel,
+        @Self() @Optional() public ngControl: NgControl
+    ) {
         super();
+    }
+
+    get controlInvalid() {
+        return this.ngControl.invalid;
     }
 
     ngAfterViewInit() {
