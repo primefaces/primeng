@@ -23,6 +23,7 @@ const classes = {
             'p-filled': instance.filled,
             'p-inputtext-sm': instance.pSize === 'small',
             'p-inputtext-lg': instance.pSize === 'large',
+            'p-invalid': instance.invalid,
             'p-variant-filled': (instance.variant ?? (instance.config.inputStyle() || instance.config.inputVariant())) === 'filled',
             'p-inputtext-fluid': instance.hasFluid
         }

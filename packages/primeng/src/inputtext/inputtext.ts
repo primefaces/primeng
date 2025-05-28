@@ -33,6 +33,11 @@ export class InputText extends BaseComponent implements DoCheck, AfterViewInit {
      * @group Props
      */
     @Input('pSize') pSize: 'large' | 'small';
+    /**
+     * When present, it specifies that the component should have invalid state style.
+     * @group Props
+     */
+    @Input() invalid: boolean = false;
 
     filled: Nullable<boolean>;
 

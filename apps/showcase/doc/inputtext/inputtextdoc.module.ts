@@ -22,10 +22,11 @@ import { KeyFilterDoc } from './keyfilterdoc';
 import { ReactiveFormsDoc } from './reactiveformsdoc';
 import { SizesDoc } from './sizesdoc';
 import { StyleDoc } from './styledoc';
+import { ReactiveFormsInvalidDoc } from './reactiveformsinvaliddoc';
 
 @NgModule({
     imports: [CommonModule, AppCodeModule, InputTextModule, FormsModule, ReactiveFormsModule, AppDocModule, KeyFilterModule, FloatLabelModule, IftaLabelModule, RouterModule],
-    declarations: [BasicDoc, DisabledDoc, FloatLabelDoc, IftaLabelDoc, HelpTextDoc, IconsDoc, InvalidDoc, KeyFilterDoc, SizesDoc, ImportDoc, StyleDoc, AccessibilityDoc, ReactiveFormsDoc, FilledDoc],
+    declarations: [BasicDoc, DisabledDoc, FloatLabelDoc, IftaLabelDoc, HelpTextDoc, IconsDoc, InvalidDoc, KeyFilterDoc, SizesDoc, ImportDoc, StyleDoc, AccessibilityDoc, ReactiveFormsDoc, FilledDoc, ReactiveFormsInvalidDoc],
     exports: [AppDocModule]
 })
 export class InputtextDocModule {}
