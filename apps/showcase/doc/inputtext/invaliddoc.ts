@@ -6,7 +6,7 @@ import { Component } from '@angular/core';
     standalone: false,
     template: `
         <app-docsectiontext>
-            <p>Invalid state is displayed automatically based on the form validation state. The <code>p-invalid</code> class will be added dynamically if the input field is invalid and dirty.</p>
+            <p>Invalid state is displayed automatically based on the form validation state. The <i>p-invalid</i> class will be added dynamically if the input field is invalid and dirty.</p>
         </app-docsectiontext>
         <div class="card flex flex-wrap justify-center gap-4">
             <input pInputText [(ngModel)]="value1" name="value1" placeholder="Name" required />
