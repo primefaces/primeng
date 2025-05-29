@@ -47,6 +47,11 @@ export class ReactiveFormsDoc {
         if (this.exampleForm.valid) {
             this.messageService.add({ severity: 'success', summary: 'Success', detail: 'Form Submitted', life: 3000 });
         }
+
+        if (this.exampleForm.invalid) {
+            this.exampleForm.markAllAsTouched();
+            return;
+        }
     }
 
     isInvalid(controlName: string) {
@@ -147,7 +152,12 @@ export class ReactiveFormsDemo {
 
     onSubmit() {
         if (this.exampleForm.valid) {
-            this.messageService.add({severity:'success', summary:'Success', detail:'Form Submitted', life: 3000});
+            this.messageService.add({ severity: 'success', summary: 'Success', detail: 'Form Submitted', life: 3000 });
+        }
+
+        if(this.exampleForm.invalid) {
+            this.exampleForm.markAllAsTouched();
+            return;
         }
     }
 

@@ -41,6 +41,11 @@ export class TemplateDrivenFormsDoc {
     onSubmit(form: any) {
         if (form.valid) {
             this.messageService.add({ severity: 'success', summary: 'Success', detail: 'Form Submitted', life: 3000 });
+        } else {
+            Object.keys(form.controls).forEach((field) => {
+                const control = form.controls[field];
+                control.markAsTouched({ onlySelf: true });
+            });
         }
     }
 
@@ -137,11 +142,16 @@ export class TemplateDrivenFormsDemo {
     user = {
             username: '',
             email: ''
-        };
+    };
 
     onSubmit(form: any) {
-        if(form.valid) {
-            this.messageService.add({severity:'success', summary:'Success', detail:'Form Submitted', life: 3000});
+        if (form.valid) {
+            this.messageService.add({ severity: 'success', summary: 'Success', detail: 'Form Submitted', life: 3000 });
+        } else {
+            Object.keys(form.controls).forEach((field) => {
+                const control = form.controls[field];
+                control.markAsTouched({ onlySelf: true });
+            });
         }
     }
 }`
