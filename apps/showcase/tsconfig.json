@@ -7,8 +7,6 @@
         "strict": false,
         "paths": {
             "primeng/*": ["../../packages/primeng/src/*/public_api"],
-            "@primeng/themes/*": ["../../packages/themes/src/presets/*"],
-            "@primeng/themes": ["../../packages/themes/src/index.ts"],
             "@primeuix/themes/styles/*": ["../../../../packages/themes/src/styles/*"],
             "@primeuix/themes/*": ["../../../../packages/themes/src/presets/*"],
 

@@ -3,22 +3,22 @@ import { CommonModule, isPlatformBrowser } from '@angular/common';
 import {
     AfterContentInit,
     AfterViewChecked,
+    booleanAttribute,
     ChangeDetectionStrategy,
     Component,
     ContentChild,
     ContentChildren,
     ElementRef,
     EventEmitter,
+    inject,
     Input,
     NgModule,
+    numberAttribute,
     Output,
     QueryList,
     TemplateRef,
     ViewChild,
-    ViewEncapsulation,
-    booleanAttribute,
-    inject,
-    numberAttribute
+    ViewEncapsulation
 } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { find, findIndexInList, findSingle, isEmpty, scrollInView, setAttribute, uuid } from '@primeuix/utils';
@@ -26,7 +26,7 @@ import { FilterService, PrimeTemplate, SharedModule } from 'primeng/api';
 import { BaseComponent } from 'primeng/basecomponent';
 import { ButtonDirective, ButtonProps } from 'primeng/button';
 import { AngleDoubleDownIcon, AngleDoubleLeftIcon, AngleDoubleRightIcon, AngleDoubleUpIcon, AngleDownIcon, AngleLeftIcon, AngleRightIcon, AngleUpIcon } from 'primeng/icons';
-import { Listbox, ListboxFilterEvent } from 'primeng/listbox';
+import { Listbox } from 'primeng/listbox';
 import { Ripple } from 'primeng/ripple';
 import { Nullable, VoidListener } from 'primeng/ts-helpers';
 import {
@@ -53,15 +53,14 @@ import { PickListStyle } from './style/pickliststyle';
     standalone: true,
     imports: [CommonModule, ButtonDirective, Ripple, DragDropModule, AngleDoubleDownIcon, AngleDoubleLeftIcon, AngleDoubleRightIcon, AngleDoubleUpIcon, AngleDownIcon, AngleLeftIcon, AngleRightIcon, AngleUpIcon, Listbox, FormsModule, SharedModule],
     template: `
-        <div [class]="styleClass" [ngStyle]="style" [ngClass]="{ 'p-picklist p-component': true }" cdkDropListGroup [attr.data-pc-name]="'picklist'" [attr.data-pc-section]="'root'">
-            <div class="p-picklist-controls p-picklist-source-controls" *ngIf="showSourceControls" [attr.data-pc-section]="'sourceControls'" [attr.data-pc-group-section]="'controls'">
+        <div [ngStyle]="style" [class]="cx('root')" cdkDropListGroup [attr.data-pc-name]="'picklist'" [attr.data-pc-section]="'root'">
+            <div [class]="cx('sourceControls')" *ngIf="showSourceControls" [attr.data-pc-section]="'sourceControls'" [attr.data-pc-group-section]="'controls'">
                 <button
                     type="button"
                     [attr.aria-label]="moveUpAriaLabel"
                     pButton
                     pRipple
                     severity="secondary"
-                    class="p-button-icon-only"
                     [disabled]="sourceMoveDisabled()"
                     (click)="moveUp(sourcelist, source, selectedItemsSource, onSourceReorder, SOURCE_LIST)"
                     [attr.data-pc-section]="'sourceMoveUpButton'"
@@ -76,7 +75,6 @@ import { PickListStyle } from './style/pickliststyle';
                     pButton
                     pRipple
                     severity="secondary"
-                    class="p-button-icon-only"
                     [disabled]="sourceMoveDisabled()"
                     (click)="moveTop(sourcelist, source, selectedItemsSource, onSourceReorder, SOURCE_LIST)"
                     [attr.data-pc-section]="'sourceMoveTopButton'"
@@ -91,7 +89,6 @@ import { PickListStyle } from './style/pickliststyle';
                     pButton
                     pRipple
                     severity="secondary"
-                    class="p-button-icon-only"
                     [disabled]="sourceMoveDisabled()"
                     (click)="moveDown(sourcelist, source, selectedItemsSource, onSourceReorder, SOURCE_LIST)"
                     [attr.data-pc-section]="'sourceMoveDownButton'"
@@ -106,7 +103,6 @@ import { PickListStyle } from './style/pickliststyle';
                     pButton
                     pRipple
                     severity="secondary"
-                    class="p-button-icon-only"
                     [disabled]="sourceMoveDisabled()"
                     (click)="moveBottom(sourcelist, source, selectedItemsSource, onSourceReorder, SOURCE_LIST)"
                     [attr.data-pc-section]="'sourceMoveBottomButton'"
@@ -116,7 +112,7 @@ import { PickListStyle } from './style/pickliststyle';
                     <ng-template *ngTemplateOutlet="moveBottomIconTemplate || _moveBottomIconTemplate"></ng-template>
                 </button>
             </div>
-            <div class="p-picklist-list-container p-picklist-source-list-container" [attr.data-pc-section]="'sourceWrapper'" [attr.data-pc-group-section]="'listWrapper'">
+            <div [class]="cx('sourceListContainer')" [attr.data-pc-section]="'sourceWrapper'" [attr.data-pc-group-section]="'listWrapper'">
                 <p-listbox
                     #sourcelist
                     [multiple]="true"
@@ -124,7 +120,7 @@ import { PickListStyle } from './style/pickliststyle';
                     [(ngModel)]="selectedItemsSource"
                     optionLabel="name"
                     [id]="idSource + '_list'"
-                    [ngStyle]="sourceStyle"
+                    [listStyle]="sourceStyle"
                     [striped]="stripedRows"
                     [tabindex]="tabindex"
                     (onFocus)="onListFocus($event, SOURCE_LIST)"
@@ -147,7 +143,7 @@ import { PickListStyle } from './style/pickliststyle';
                 >
                     <ng-container *ngIf="sourceHeaderTemplate || _sourceHeaderTemplate || sourceHeader">
                         <ng-template #header>
-                            <div class="p-picklist-title" *ngIf="!sourceHeaderTemplate && !_sourceHeaderTemplate">{{ sourceHeader }}</div>
+                            <div *ngIf="!sourceHeaderTemplate && !_sourceHeaderTemplate">{{ sourceHeader }}</div>
                             <ng-template *ngTemplateOutlet="sourceHeaderTemplate || _sourceHeaderTemplate"></ng-template>
                         </ng-template>
                     </ng-container>
@@ -176,14 +172,13 @@ import { PickListStyle } from './style/pickliststyle';
                     </ng-container>
                 </p-listbox>
             </div>
-            <div class="p-picklist-controls p-picklist-transfer-controls" [attr.data-pc-section]="'buttons'" [attr.data-pc-group-section]="'controls'">
+            <div [class]="cx('targetControls')" [attr.data-pc-section]="'buttons'" [attr.data-pc-group-section]="'controls'">
                 <button
                     type="button"
                     [attr.aria-label]="moveToTargetAriaLabel"
                     pButton
                     pRipple
                     severity="secondary"
-                    class="p-button-icon-only"
                     [disabled]="moveRightDisabled()"
                     (click)="moveRight()"
                     [attr.data-pc-section]="'moveToTargetButton'"
@@ -201,7 +196,6 @@ import { PickListStyle } from './style/pickliststyle';
                     pButton
                     pRipple
                     severity="secondary"
-                    class="p-button-icon-only"
                     [disabled]="moveAllRightDisabled()"
                     (click)="moveAllRight()"
                     [attr.data-pc-section]="'moveAllToTargetButton'"
@@ -219,7 +213,6 @@ import { PickListStyle } from './style/pickliststyle';
                     pButton
                     pRipple
                     severity="secondary"
-                    class="p-button-icon-only"
                     [disabled]="moveLeftDisabled()"
                     (click)="moveLeft()"
                     [attr.data-pc-section]="'moveToSourceButton'"
@@ -237,7 +230,6 @@ import { PickListStyle } from './style/pickliststyle';
                     pButton
                     pRipple
                     severity="secondary"
-                    class="p-button-icon-only"
                     [disabled]="moveAllLeftDisabled()"
                     (click)="moveAllLeft()"
                     [attr.data-pc-section]="'moveAllToSourceButton'"
@@ -250,7 +242,7 @@ import { PickListStyle } from './style/pickliststyle';
                     <ng-template *ngTemplateOutlet="moveAllToSourceIconTemplate || _moveAllToSourceIconTemplate; context: { $implicit: viewChanged }"></ng-template>
                 </button>
             </div>
-            <div class="p-picklist-list-container p-picklist-target-list-container" [attr.data-pc-section]="'targetWrapper'" [attr.data-pc-group-section]="'listwrapper'">
+            <div [class]="cx('targetListContainer')" [attr.data-pc-section]="'targetWrapper'" [attr.data-pc-group-section]="'listwrapper'">
                 <p-listbox
                     #targetlist
                     [multiple]="true"
@@ -258,7 +250,7 @@ import { PickListStyle } from './style/pickliststyle';
                     [(ngModel)]="selectedItemsTarget"
                     optionLabel="name"
                     [id]="idTarget + '_list'"
-                    [ngStyle]="targetStyle"
+                    [listStyle]="targetStyle"
                     [striped]="stripedRows"
                     [tabindex]="tabindex"
                     (onFocus)="onListFocus($event, TARGET_LIST)"
@@ -281,7 +273,7 @@ import { PickListStyle } from './style/pickliststyle';
                 >
                     <ng-container *ngIf="targetHeaderTemplate || _targetHeaderTemplate || targetHeader">
                         <ng-template #header>
-                            <div class="p-picklist-title" *ngIf="!targetHeaderTemplate && !_targetHeaderTemplate">{{ targetHeader }}</div>
+                            <div *ngIf="!targetHeaderTemplate && !_targetHeaderTemplate">{{ targetHeader }}</div>
                             <ng-template *ngTemplateOutlet="targetHeaderTemplate || _targetHeaderTemplate"></ng-template>
                         </ng-template>
                     </ng-container>
@@ -310,7 +302,7 @@ import { PickListStyle } from './style/pickliststyle';
                     </ng-container>
                 </p-listbox>
             </div>
-            <div class="p-picklist-controls p-picklist-target-controls" *ngIf="showTargetControls" [attr.data-pc-section]="'targetControls'" [attr.data-pc-group-section]="'controls'">
+            <div [class]="cx('targetControls')" *ngIf="showTargetControls" [attr.data-pc-section]="'targetControls'" [attr.data-pc-group-section]="'controls'">
                 <button
                     type="button"
                     [attr.aria-label]="moveUpAriaLabel"
@@ -332,7 +324,6 @@ import { PickListStyle } from './style/pickliststyle';
                     pButton
                     pRipple
                     severity="secondary"
-                    class="p-button-icon-only"
                     [disabled]="targetMoveDisabled()"
                     (click)="moveTop(targetlist, target, selectedItemsTarget, onTargetReorder, TARGET_LIST)"
                     [attr.data-pc-section]="'targetMoveTopButton'"
@@ -347,7 +338,6 @@ import { PickListStyle } from './style/pickliststyle';
                     pButton
                     pRipple
                     severity="secondary"
-                    class="p-button-icon-only"
                     [disabled]="targetMoveDisabled()"
                     (click)="moveDown(targetlist, target, selectedItemsTarget, onTargetReorder, TARGET_LIST)"
                     [attr.data-pc-section]="'targetMoveDownButton'"
@@ -362,7 +352,6 @@ import { PickListStyle } from './style/pickliststyle';
                     pButton
                     pRipple
                     severity="secondary"
-                    class="p-button-icon-only"
                     [disabled]="targetMoveDisabled()"
                     (click)="moveBottom(targetlist, target, selectedItemsTarget, onTargetReorder, TARGET_LIST)"
                     [attr.data-pc-section]="'targetMoveBottomButton'"

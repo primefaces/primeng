@@ -452,22 +452,23 @@ p-tree-table-toggler + p-tree-table-checkbox + span {
 `;
 
 const classes = {
-    root: ({ instance }) => ({
-        'p-treetable p-component': true,
-        'p-treetable-hoverable': instance.rowHover || instance.selectionMode,
-        'p-treetable-resizable': instance.resizableColumns,
-        'p-treetable-resizable-fit': instance.resizableColumns && instance.columnResizeMode === 'fit',
-        'p-treetable-scrollable': instance.scrollable,
-        'p-treetable-flex-scrollable': instance.scrollable && instance.scrollHeight === 'flex',
-        'p-treetable-gridlines': instance.showGridlines,
-        'p-treetable-sm': instance.size === 'small',
-        'p-treetable-lg': instance.size === 'large'
-    }),
+    root: ({ instance }) => [
+        'p-treetable p-component',
+        instance.styleClass,
+        {
+            'p-treetable-gridlines': instance.showGridlines,
+            'p-treetable-hoverable-rows': instance.rowHover || instance.selectionMode === 'single' || instance.selectionMode === 'multiple',
+            'p-treetable-auto-layout': instance.autoLayout,
+            'p-treetable-resizable': instance.resizableColumns,
+            'p-treetable-resizable-fit': instance.resizableColumns && instance.columnResizeMode === 'fit',
+            'p-treetable-flex-scrollable': instance.scrollable && instance.scrollHeight === 'flex'
+        }
+    ],
     loading: 'p-treetable-loading', //TODO: required?
     mask: 'p-treetable-mask p-overlay-mask',
     loadingIcon: 'p-treetable-loading-icon',
     header: 'p-treetable-header',
-    paginator: ({ instance }) => 'p-treetable-paginator-' + instance.paginatorPosition,
+    pcPaginator: ({ instance }) => ['p-treetable-paginator-' + instance.paginatorPosition, instance.paginatorStyleClass],
     tableContainer: 'p-treetable-table-container',
     table: ({ instance }) => ({
         'p-treetable-table': true,
@@ -476,13 +477,11 @@ const classes = {
         'p-treetable-resizable-table-fit': instance.resizableColumns && instance.columnResizeMode === 'fit'
     }),
     thead: 'p-treetable-thead',
-    headerCell: ({ instance }) => ({
-        'p-treetable-header-cell': true,
-        'p-treetable-sortable-column': instance.sortable,
-        'p-treetable-resizable-column': instance.resizableColumns,
-        'p-treetable-column-sorted': instance?.sorted,
-        'p-treetable-frozen-column': instance.columnProp('frozen')
+    sortableColumn: ({ instance }) => ({
+        'p-sortable-column': instance.isEnabled(),
+        'p-treetable-column-sorted': instance.sorted
     }),
+    sortableColumnIcon: 'p-sortable-column-icon',
     columnResizer: 'p-treetable-column-resizer',
     columnHeaderContent: 'p-treetable-column-header-content',
     columnTitle: 'p-treetable-column-title',
@@ -492,30 +491,33 @@ const classes = {
     row: ({ instance }) => ({
         'p-treetable-row-selected': instance.selected
     }),
-    bodyCell: ({ instance }) => ({
-        'p-treetable-frozen-column': instance.columnProp('frozen')
+    contextMenuRow: ({ instance }) => ({
+        'p-treetable-contextmenu-row-selected': instance.selected
     }),
-    bodyCellContent: ({ instance }) => ({
-        'p-treetable-body-cell-content': true,
-        'p-treetable-body-cell-content-expander': instance.columnProp('expander')
-    }),
-    toggler: 'p-treetable-body-cell-content-expander',
+    toggler: 'p-treetable-toggler',
     nodeToggleButton: 'p-treetable-node-toggle-button',
     nodeToggleIcon: 'p-treetable-node-toggle-icon',
     pcNodeCheckbox: 'p-treetable-node-checkbox',
-    emptyMessage: 'p-treetable-empty-message',
     tfoot: 'p-treetable-tfoot',
     footerCell: ({ instance }) => ({
         'p-treetable-frozen-column': instance.columnProp('frozen')
     }),
     footer: 'p-treetable-footer',
-    columnResizeIndicator: 'p-treetable-column-resize-indicator'
-};
-
-const inlineStyles = {
-    tableContainer: { overflow: 'auto' },
-    thead: { position: 'sticky' },
-    tfoot: { position: 'sticky' }
+    columnResizeIndicator: 'p-treetable-column-resize-indicator',
+    wrapper: 'p-treetable-wrapper',
+    scrollableWrapper: 'p-treetable-scrollable-wrapper',
+    scrollableView: 'p-treetable-scrollable-view',
+    frozenView: 'p-treetable-frozen-view',
+    columnResizerHelper: 'p-column-resizer-helper',
+    reorderIndicatorUp: 'p-treetable-reorder-indicator-up',
+    reorderIndicatorDown: 'p-treetable-reorder-indicator-down',
+    scrollableHeader: 'p-treetable-scrollable-header',
+    scrollableHeaderBox: 'p-treetable-scrollable-header-box',
+    scrollableHeaderTable: 'p-treetable-scrollable-header-table',
+    scrollableBody: 'p-treetable-scrollable-body',
+    scrollableFooter: 'p-treetable-scrollable-footer',
+    scrollableFooterBox: 'p-treetable-scrollable-footer-box',
+    scrollableFooterTable: 'p-treetable-scrollable-footer-table'
 };
 
 @Injectable()
@@ -525,8 +527,6 @@ export class TreeTableStyle extends BaseStyle {
     theme = theme;
 
     classes = classes;
-
-    inlineStyles = inlineStyles;
 }
 
 /**
@@ -562,7 +562,7 @@ export enum TreeTableClasses {
     /**
      * Class name of the paginator element
      */
-    paginator = 'p-treetable-paginator-[position]',
+    pcPaginator = 'p-treetable-paginator-[position]',
     /**
      * Class name of the table container element
      */
@@ -622,7 +622,67 @@ export enum TreeTableClasses {
     /**
      * Class name of the column resize indicator element
      */
-    columnResizeIndicator = 'p-treetable-column-resize-indicator'
+    columnResizeIndicator = 'p-treetable-column-resize-indicator',
+    /**
+     * Class name of the wrapper element
+     */
+    wrapper = 'p-treetable-wrapper',
+    /**
+     * Class name of the scrollable wrapper element
+     */
+    scrollableWrapper = 'p-treetable-scrollable-wrapper',
+    /**
+     * Class name of the scrollable view element
+     */
+    scrollableView = 'p-treetable-scrollable-view',
+    /**
+     * Class name of the frozen view element
+     */
+    frozenView = 'p-treetable-frozen-view',
+    /**
+     * Class name of the column resizer helper element
+     */
+    columnResizerHelper = 'p-treetable-column-resizer-helper',
+    /**
+     * Class name of the reorder indicator up element
+     */
+    reorderIndicatorUp = 'p-treetable-reorder-indicator-up',
+    /**
+     * Class name of the reorder indicator down element
+     */
+    reorderIndicatorDown = 'p-treetable-reorder-indicator-down',
+    /**
+     * Class name of the scrollable header element
+     */
+    scrollableHeader = 'p-treetable-scrollable-header',
+    /**
+     * Class name of the scrollable header box element
+     */
+    scrollableHeaderBox = 'p-treetable-scrollable-header-box',
+    /**
+     * Class name of the scrollable header table element
+     */
+    scrollableHeaderTable = 'p-treetable-scrollable-header-table',
+    /**
+     * Class name of the scrollable body element
+     */
+    scrollableBody = 'p-treetable-scrollable-body',
+    /**
+     * Class name of the scrollable footer element
+     */
+    scrollableFooter = 'p-treetable-scrollable-footer',
+    /**
+     * Class name of the scrollable footer box element
+     */
+    scrollableFooterBox = 'p-treetable-scrollable-footer-box',
+    /**
+     * Class name of the scrollable footer table element
+     */
+    scrollableFooterTable = 'p-treetable-scrollable-footer-table',
+    /**
+     * Class name of the sortable column icon element
+     */
+    sortableColumnIcon = 'p-sortable-column-icon'
 }
 
 export interface TreeTableStyle extends BaseStyle {}

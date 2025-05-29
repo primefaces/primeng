@@ -1,3 +1,1 @@
-import { ListboxDesignTokens } from '../../types/listbox';
-declare const _default: ListboxDesignTokens;
-export default _default;
+export * from '@primeuix/themes/types/listbox';

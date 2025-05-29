@@ -72,7 +72,7 @@ export interface InputOtpInputTemplateContext {
                     [value]="getModelValue(i)"
                     [maxLength]="i === 1 ? length : 1"
                     [type]="inputType"
-                    class="p-inputotp-input"
+                    [class]="cn(cx('pcInputText'), styleClass)"
                     [pSize]="size"
                     [variant]="variant"
                     [readonly]="readonly"
@@ -84,7 +84,6 @@ export interface InputOtpInputTemplateContext {
                     (paste)="onPaste($event)"
                     (keydown)="onKeyDown($event)"
                     [pAutoFocus]="getAutofocus(i)"
-                    [ngClass]="styleClass"
                 />
             </ng-container>
             <ng-container *ngIf="inputTemplate || _inputTemplate">
@@ -96,7 +95,7 @@ export interface InputOtpInputTemplateContext {
     encapsulation: ViewEncapsulation.None,
     providers: [INPUT_OTP_VALUE_ACCESSOR, InputOtpStyle],
     host: {
-        class: 'p-inputotp p-component'
+        '[class]': "cx('root')"
     }
 })
 export class InputOtp extends BaseComponent implements AfterContentInit {

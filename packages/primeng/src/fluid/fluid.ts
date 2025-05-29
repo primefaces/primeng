@@ -16,7 +16,7 @@ import { FluidStyle } from './style/fluidstyle';
     encapsulation: ViewEncapsulation.None,
     providers: [FluidStyle],
     host: {
-        '[class.p-fluid]': 'true'
+        '[class]': "cx('root')"
     }
 })
 export class Fluid extends BaseComponent {
