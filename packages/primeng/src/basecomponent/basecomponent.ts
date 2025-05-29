@@ -83,6 +83,7 @@ export class BaseComponent {
 
     ngOnDestroy() {
         this._unloadScopedThemeStyles();
+        // @ts-ignore
         this.themeChangeListeners.forEach((callback) => ThemeService.off('theme:change', callback));
     }
 
