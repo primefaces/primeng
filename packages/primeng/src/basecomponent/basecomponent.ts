@@ -1,7 +1,7 @@
 import { DOCUMENT, isPlatformServer } from '@angular/common';
 import { ChangeDetectorRef, Directive, ElementRef, inject, Injector, Input, PLATFORM_ID, Renderer2, SimpleChanges } from '@angular/core';
 import { Theme, ThemeService } from '@primeuix/styled';
-import { classNames, getKeyValue, uuid } from '@primeuix/utils';
+import { cn, getKeyValue, uuid } from '@primeuix/utils';
 import { Base, BaseStyle } from 'primeng/base';
 import { PrimeNG } from 'primeng/config';
 import { BaseComponentStyle } from './style/basecomponentstyle';
@@ -171,10 +171,10 @@ export class BaseComponent {
         const classes = this.parent ? this.parent.componentStyle?.classes?.[arg] : this.componentStyle?.classes?.[arg];
 
         if (typeof classes === 'function') {
-            return classNames(classes({ instance: this }));
+            return cn(classes({ instance: this }));
         }
 
-        return classNames(typeof classes === 'string' ? classes : arg);
+        return cn(typeof classes === 'string' ? classes : arg);
     }
 
     sx(arg: string): string {

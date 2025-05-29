@@ -32,7 +32,8 @@ import {
     ViewChild,
     ViewEncapsulation
 } from '@angular/core';
-import { addClass, blockBodyScroll, find, findSingle, focus, getAttribute, removeClass, setAttribute, unblockBodyScroll, uuid } from '@primeuix/utils';
+import { addClass, find, findSingle, focus, getAttribute, removeClass, setAttribute, uuid } from '@primeuix/utils';
+import { blockBodyScroll, unblockBodyScroll } from 'primeng/dom';
 import { PrimeTemplate, SharedModule } from 'primeng/api';
 import { BaseComponent } from 'primeng/basecomponent';
 import { FocusTrap } from 'primeng/focustrap';

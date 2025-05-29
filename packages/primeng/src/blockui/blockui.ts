@@ -18,9 +18,9 @@ import {
     ViewChild,
     ViewEncapsulation
 } from '@angular/core';
-import { addClass, blockBodyScroll, removeClass, unblockBodyScroll } from '@primeuix/utils';
 import { PrimeTemplate, SharedModule } from 'primeng/api';
 import { BaseComponent } from 'primeng/basecomponent';
+import { blockBodyScroll, unblockBodyScroll } from 'primeng/dom';
 import { ZIndexUtils } from 'primeng/utils';
 import { BlockUiStyle } from './style/blockuistyle';
 
