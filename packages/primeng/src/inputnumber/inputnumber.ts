@@ -9,7 +9,6 @@ import {
     ElementRef,
     EventEmitter,
     forwardRef,
-    HostBinding,
     inject,
     Injector,
     Input,
@@ -54,9 +53,8 @@ export const INPUTNUMBER_VALUE_ACCESSOR: any = {
             #input
             [attr.id]="inputId"
             role="spinbutton"
-            [ngClass]="'p-inputnumber-input'"
+            [class]="cn(cx('pcInputText'), inputStyleClass)"
             [ngStyle]="inputStyle"
-            [class]="inputStyleClass"
             [value]="formattedValue()"
             [variant]="variant"
             [attr.aria-valuemin]="min"
@@ -91,16 +89,15 @@ export const INPUTNUMBER_VALUE_ACCESSOR: any = {
             [fluid]="hasFluid"
         />
         <ng-container *ngIf="buttonLayout != 'vertical' && showClear && value">
-            <TimesIcon *ngIf="!clearIconTemplate && !_clearIconTemplate" [ngClass]="'p-inputnumber-clear-icon'" (click)="clear()" [attr.data-pc-section]="'clearIcon'" />
-            <span *ngIf="clearIconTemplate || _clearIconTemplate" (click)="clear()" class="p-inputnumber-clear-icon" [attr.data-pc-section]="'clearIcon'">
+            <TimesIcon *ngIf="!clearIconTemplate && !_clearIconTemplate" [class]="cx('clearIcon')" (click)="clear()" [attr.data-pc-section]="'clearIcon'" />
+            <span *ngIf="clearIconTemplate || _clearIconTemplate" (click)="clear()" [class]="cx('clearIcon')" [attr.data-pc-section]="'clearIcon'">
                 <ng-template *ngTemplateOutlet="clearIconTemplate || _clearIconTemplate"></ng-template>
             </span>
         </ng-container>
-        <span class="p-inputnumber-button-group" *ngIf="showButtons && buttonLayout === 'stacked'" [attr.data-pc-section]="'buttonGroup'">
+        <span [class]="cx('buttonGroup')" *ngIf="showButtons && buttonLayout === 'stacked'" [attr.data-pc-section]="'buttonGroup'">
             <button
                 type="button"
-                [ngClass]="_incrementButtonClass"
-                [class]="incrementButtonClass"
+                [class]="cn(cx('incrementButton'), incrementButtonClass)"
                 [disabled]="disabled"
                 tabindex="-1"
                 (mousedown)="onUpButtonMouseDown($event)"
@@ -120,8 +117,7 @@ export const INPUTNUMBER_VALUE_ACCESSOR: any = {
 
             <button
                 type="button"
-                [ngClass]="_decrementButtonClass"
-                [class]="decrementButtonClass"
+                [class]="cn(cx('decrementButton'), decrementButtonClass)"
                 [disabled]="disabled"
                 tabindex="-1"
                 [attr.aria-hidden]="true"
@@ -142,8 +138,7 @@ export const INPUTNUMBER_VALUE_ACCESSOR: any = {
         <button
             *ngIf="showButtons && buttonLayout !== 'stacked'"
             type="button"
-            [ngClass]="_incrementButtonClass"
-            [class]="incrementButtonClass"
+            [class]="cx('incrementButton')"
             [disabled]="disabled"
             tabindex="-1"
             [attr.aria-hidden]="true"
@@ -163,8 +158,7 @@ export const INPUTNUMBER_VALUE_ACCESSOR: any = {
         <button
             *ngIf="showButtons && buttonLayout !== 'stacked'"
             type="button"
-            [ngClass]="_decrementButtonClass"
-            [class]="decrementButtonClass"
+            [class]="cx('decrementButton')"
             [disabled]="disabled"
             tabindex="-1"
             [attr.aria-hidden]="true"
@@ -188,7 +182,7 @@ export const INPUTNUMBER_VALUE_ACCESSOR: any = {
     host: {
         '[attr.data-pc-name]': "'inputnumber'",
         '[attr.data-pc-section]': "'root'",
-        '[class]': 'hostClass'
+        '[class]': "cx('root')"
     }
 })
 export class InputNumber extends BaseComponent implements OnInit, AfterContentInit, OnChanges, ControlValueAccessor {
@@ -214,14 +208,10 @@ export class InputNumber extends BaseComponent implements OnInit, AfterContentIn
     @Input() inputId: string | undefined;
     /**
      * Style class of the component.
+     * @deprecated since v20.0.0, use `class` instead.
      * @group Props
      */
     @Input() styleClass: string | undefined;
-    /**
-     * Inline style of the component.
-     * @group Props
-     */
-    @Input() style: { [klass: string]: any } | null | undefined;
     /**
      * Advisory information to display on input.
      * @group Props
@@ -526,22 +516,10 @@ export class InputNumber extends BaseComponent implements OnInit, AfterContentIn
 
     private ngControl: NgControl | null = null;
 
-    get _rootClass() {
-        return this._componentStyle.classes.root({ instance: this });
-    }
-
     get hasFluid() {
         const nativeElement = this.el.nativeElement;
         const fluidComponent = nativeElement.closest('p-fluid');
         return this.fluid || !!fluidComponent;
-    }
-
-    get _incrementButtonClass() {
-        return this._componentStyle.classes.incrementButton({ instance: this });
-    }
-
-    get _decrementButtonClass() {
-        return this._componentStyle.classes.decrementButton({ instance: this });
     }
 
     constructor(public readonly injector: Injector) {
@@ -554,25 +532,6 @@ export class InputNumber extends BaseComponent implements OnInit, AfterContentIn
         if (props.some((p) => !!simpleChange[p])) {
             this.updateConstructParser();
         }
-    }
-
-    get hostClass(): string {
-        return [
-            'p-inputnumber p-component p-inputwrapper',
-            this.styleClass,
-            this.filled || this.allowEmpty === false ? 'p-inputwrapper-filled' : '',
-            this.focused ? 'p-inputwrapper-focus' : '',
-            this.showButtons && this.buttonLayout === 'stacked' ? 'p-inputnumber-stacked' : '',
-            this.showButtons && this.buttonLayout === 'horizontal' ? 'p-inputnumber-horizontal' : '',
-            this.showButtons && this.buttonLayout === 'vertical' ? 'p-inputnumber-vertical' : '',
-            this.hasFluid ? 'p-inputnumber-fluid' : ''
-        ]
-            .filter((cls) => !!cls)
-            .join(' ');
-    }
-
-    @HostBinding('style') get hostStyle(): any {
-        return this.style;
     }
 
     ngOnInit() {

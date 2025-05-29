@@ -227,6 +227,7 @@ input.p-select-label {
 const classes = {
     root: ({ instance }) => [
         'p-select p-component p-inputwrapper',
+        instance.styleClass,
         {
             'p-disabled': instance.disabled,
             'p-variant-filled': instance.variant === 'filled' || instance.config.inputVariant() === 'filled' || instance.config.inputStyle() === 'filled',
@@ -239,16 +240,16 @@ const classes = {
             'p-select-lg p-inputfield-lg': instance.size === 'large'
         }
     ],
-    label: ({ instance, props }) => [
+    label: ({ instance }) => [
         'p-select-label',
         {
-            'p-placeholder': !props.editable && instance.label === props.placeholder,
-            'p-select-label-empty': !props.editable && !instance.$slots['value'] && (instance.label === 'p-emptylabel' || instance.label.length === 0)
+            'p-placeholder': instance.placeholder() && instance.label() === instance.placeholder(),
+            'p-select-label-empty': !instance.editable && !instance.selectedItemTemplate && (instance.label() === undefined || instance.label() === null || instance.label() === 'p-emptylabel' || instance.label().length === 0)
         }
     ],
     clearIcon: 'p-select-clear-icon',
     dropdown: 'p-select-dropdown',
-    loadingicon: 'p-select-loading-icon',
+    loadingIcon: 'p-select-loading-icon',
     dropdownIcon: 'p-select-dropdown-icon',
     overlay: 'p-select-overlay p-component',
     header: 'p-select-header',
@@ -257,12 +258,12 @@ const classes = {
     list: 'p-select-list',
     optionGroup: 'p-select-option-group',
     optionGroupLabel: 'p-select-option-group-label',
-    option: ({ instance, props, state, option, focusedOption }) => [
+    option: ({ instance }) => [
         'p-select-option',
         {
-            'p-select-option-selected': instance.isSelected(option) && props.highlightOnSelect,
-            'p-focus': state.focusedOptionIndex === focusedOption,
-            'p-disabled': instance.isOptionDisabled(option)
+            'p-select-option-selected': instance.selected && !instance.checkmark,
+            'p-disabled': instance.disabled,
+            'p-focus': instance.focused
         }
     ],
     optionLabel: 'p-select-option-label',
@@ -309,7 +310,7 @@ export enum SelectClasses {
     /**
      * Class name of the loadingicon element
      */
-    loadingicon = 'p-select-loading-icon',
+    loadingIcon = 'p-select-loading-icon',
     /**
      * Class name of the dropdown icon element
      */

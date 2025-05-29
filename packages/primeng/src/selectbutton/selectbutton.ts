@@ -63,13 +63,11 @@ export const SELECTBUTTON_VALUE_ACCESSOR: any = {
     changeDetection: ChangeDetectionStrategy.OnPush,
     encapsulation: ViewEncapsulation.None,
     host: {
-        '[class.p-selectbutton]': 'true',
-        '[class.p-component]': 'true',
-        '[style]': 'style',
+        '[class]': "cx('root')",
         '[attr.role]': '"group"',
         '[attr.aria-labelledby]': 'ariaLabelledBy',
-        '[attr.data-pc-section]': "'root'",
-        '[attr.data-pc-name]': "'selectbutton'"
+        '[attr.data-pc-section]': '"root"',
+        '[attr.data-pc-name]': '"selectbutton"'
     }
 })
 export class SelectButton extends BaseComponent implements AfterContentInit, ControlValueAccessor {
@@ -123,11 +121,6 @@ export class SelectButton extends BaseComponent implements AfterContentInit, Con
      * @group Props
      */
     @Input({ transform: booleanAttribute }) allowEmpty: boolean = true;
-    /**
-     * Inline style of the component.
-     * @group Props
-     */
-    @Input() style: any;
     /**
      * Style class of the component.
      * @group Props

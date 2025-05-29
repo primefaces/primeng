@@ -9,6 +9,7 @@ import {
     ElementRef,
     EventEmitter,
     forwardRef,
+    HostListener,
     inject,
     Input,
     NgModule,
@@ -49,46 +50,46 @@ export const TOGGLESWITCH_VALUE_ACCESSOR: any = {
     standalone: true,
     imports: [CommonModule, AutoFocus, SharedModule],
     template: `
-        <div [ngClass]="cx('root')" [style]="sx('root')" [ngStyle]="style" [class]="styleClass" (click)="onClick($event)" [attr.data-pc-name]="'toggleswitch'" [attr.data-pc-section]="'root'">
-            <input
-                #input
-                [attr.id]="inputId"
-                type="checkbox"
-                role="switch"
-                [ngClass]="cx('input')"
-                [checked]="checked()"
-                [disabled]="disabled"
-                [attr.aria-checked]="checked()"
-                [attr.aria-labelledby]="ariaLabelledBy"
-                [attr.aria-label]="ariaLabel"
-                [attr.name]="name"
-                [attr.tabindex]="tabindex"
-                (focus)="onFocus()"
-                (blur)="onBlur()"
-                [attr.data-pc-section]="'hiddenInput'"
-                [pAutoFocus]="autofocus"
-            />
-            <span [ngClass]="cx('slider')" [attr.data-pc-section]="'slider'">
-                <div [ngClass]="cx('handle')">
-                    @if (handleTemplate || _handleTemplate) {
-                        <ng-container *ngTemplateOutlet="handleTemplate || _handleTemplate; context: { checked: checked() }" />
-                    }
-                </div>
-            </span>
-        </div>
+        <input
+            #input
+            [attr.id]="inputId"
+            type="checkbox"
+            role="switch"
+            [class]="cx('input')"
+            [checked]="checked()"
+            [disabled]="disabled"
+            [attr.aria-checked]="checked()"
+            [attr.aria-labelledby]="ariaLabelledBy"
+            [attr.aria-label]="ariaLabel"
+            [attr.name]="name"
+            [attr.tabindex]="tabindex"
+            (focus)="onFocus()"
+            (blur)="onBlur()"
+            [attr.data-pc-section]="'hiddenInput'"
+            [pAutoFocus]="autofocus"
+        />
+        <span [class]="cx('slider')" [attr.data-pc-section]="'slider'">
+            <div [class]="cx('handle')">
+                @if (handleTemplate || _handleTemplate) {
+                    <ng-container *ngTemplateOutlet="handleTemplate || _handleTemplate; context: { checked: checked() }" />
+                }
+            </div>
+        </span>
     `,
     providers: [TOGGLESWITCH_VALUE_ACCESSOR, ToggleSwitchStyle],
     changeDetection: ChangeDetectionStrategy.OnPush,
-    encapsulation: ViewEncapsulation.None
+    encapsulation: ViewEncapsulation.None,
+    host: {
+        '[class]': "cx('root')",
+        '[style]': "sx('root')",
+        '[attr.data-pc-name]': "'toggleswitch'",
+        '[attr.data-pc-section]': "'root'"
+    }
 })
 export class ToggleSwitch extends BaseComponent implements AfterContentInit {
     /**
-     * Inline style of the component.
-     * @group Props
-     */
-    @Input() style: { [klass: string]: any } | null | undefined;
-    /**
      * Style class of the component.
+     * @deprecated since v20.0.0, use `class` instead.
      * @group Props
      */
     @Input() styleClass: string | undefined;
@@ -175,6 +176,11 @@ export class ToggleSwitch extends BaseComponent implements AfterContentInit {
     _componentStyle = inject(ToggleSwitchStyle);
 
     @ContentChildren(PrimeTemplate) templates!: QueryList<PrimeTemplate>;
+
+    @HostListener('click', ['$event'])
+    onHostClick(event: MouseEvent) {
+        this.onClick(event);
+    }
 
     ngAfterContentInit() {
         this.templates.forEach((item) => {

@@ -1,9 +1,8 @@
-import { AfterViewInit, booleanAttribute, Directive, DoCheck, HostListener, inject, Input, NgModule, Optional } from '@angular/core';
-import { NgModel } from '@angular/forms';
+import { AfterViewInit, Directive, DoCheck, HostListener, inject, Input, NgModule } from '@angular/core';
 import { isEmpty } from '@primeuix/utils';
-import { BaseComponent } from 'primeng/basecomponent';
 import { Nullable } from 'primeng/ts-helpers';
 import { InputTextStyle } from './style/inputtextstyle';
+import { BaseInput } from 'primeng/baseinput';
 
 /**
  * InputText directive is an extension to standard input element with theming.
@@ -13,28 +12,11 @@ import { InputTextStyle } from './style/inputtextstyle';
     selector: '[pInputText]',
     standalone: true,
     host: {
-        class: 'p-inputtext p-component',
-        '[class.p-filled]': 'filled',
-        '[class.p-variant-filled]': '(variant ?? (config.inputStyle() || config.inputVariant())) === "filled"',
-        '[class.p-inputtext-fluid]': 'hasFluid',
-        '[class.p-inputtext-sm]': 'pSize === "small"',
-        '[class.p-inputfield-sm]': 'pSize === "small"',
-        '[class.p-inputtext-lg]': 'pSize === "large"',
-        '[class.p-inputfield-lg]': 'pSize === "large"'
+        '[class]': "cx('root')"
     },
     providers: [InputTextStyle]
 })
-export class InputText extends BaseComponent implements DoCheck, AfterViewInit {
-    /**
-     * Specifies the input variant of the component.
-     * @group Props
-     */
-    @Input() variant: 'filled' | 'outlined';
-    /**
-     * Spans 100% width of the container when enabled.
-     * @group Props
-     */
-    @Input({ transform: booleanAttribute }) fluid: boolean | undefined;
+export class InputText extends BaseInput implements DoCheck, AfterViewInit {
     /**
      * Defines the size of the component.
      * @group Props
@@ -49,11 +31,7 @@ export class InputText extends BaseComponent implements DoCheck, AfterViewInit {
         const nativeElement = this.el.nativeElement;
         const fluidComponent = nativeElement.closest('p-fluid');
 
-        return isEmpty(this.fluid) ? !!fluidComponent : this.fluid;
-    }
-
-    constructor(@Optional() public ngModel: NgModel) {
-        super();
+        return isEmpty(this.fluid()) ? !!fluidComponent : this.fluid();
     }
 
     ngAfterViewInit() {
