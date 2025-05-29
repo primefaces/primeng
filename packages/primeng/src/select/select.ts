@@ -25,6 +25,7 @@ import {
     Signal,
     signal,
     TemplateRef,
+    untracked,
     ViewChild,
     ViewEncapsulation,
     ViewRef
@@ -1302,7 +1303,7 @@ export class Select extends BaseComponent implements OnInit, AfterViewInit, Afte
         }
 
         this.value = value;
-        this.allowModelChange() && this.onModelChange(value);
+        untracked(() => this.allowModelChange()) && this.onModelChange(value);
         this.modelValue.set(this.value);
         this.updateEditableLabel();
         this.cd.markForCheck();
