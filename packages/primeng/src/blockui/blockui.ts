@@ -15,7 +15,6 @@ import {
     OnDestroy,
     QueryList,
     TemplateRef,
-    ViewChild,
     ViewEncapsulation
 } from '@angular/core';
 import { blockBodyScroll, unblockBodyScroll } from '@primeuix/utils';
@@ -136,6 +135,7 @@ export class BlockUI extends BaseComponent implements AfterViewInit, AfterConten
                 this.target.getBlockableElement().style.position = 'relative';
             } else {
                 this.renderer.appendChild(this.document.body, (this.el as ElementRef).nativeElement);
+                //@ts-ignore
                 blockBodyScroll();
             }
 
@@ -160,6 +160,7 @@ export class BlockUI extends BaseComponent implements AfterViewInit, AfterConten
             ZIndexUtils.clear(this.el.nativeElement);
             // removeClass(this.el.nativeElement, 'p-overlay-mask-leave');
             this.renderer.removeChild(this.el.nativeElement, this.el.nativeElement);
+            //@ts-ignore
             unblockBodyScroll();
         }
         this.unbindAnimationEndListener();

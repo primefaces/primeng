@@ -50,7 +50,7 @@ export class ReactiveFormsDoc {
     }
 
     isInvalid(controlName: string) {
-        return this.exampleForm[controlName].invalid && this.exampleForm[controlName].touched;
+        return this.exampleForm.get(controlName)?.invalid && this.exampleForm.get(controlName)?.touched;
     }
 
     code: Code = {
@@ -152,7 +152,7 @@ export class ReactiveFormsDemo {
     }
 
     isInvalid(controlName: string) {
-        return this.exampleForm[controlName].invalid && this.exampleForm[controlName].touched;
+        return this.exampleForm.get(controlName)?.invalid && this.exampleForm.get(controlName)?.touched;
     }
 
 }`
