@@ -95,7 +95,7 @@ importers:
     devDependencies:
       '@angular-devkit/build-angular':
         specifier: catalog:angular19
-        version: 19.2.14(i37aejap2ofinncveogbjz663y)
+        version: 19.2.14(bqbhlc5zfhqg4l63h2buswk2pq)
       '@angular-eslint/eslint-plugin':
         specifier: catalog:angular19
         version: 19.6.0(@typescript-eslint/utils@8.33.0(eslint@9.27.0(jiti@2.4.2))(typescript@5.5.4))(eslint@9.27.0(jiti@2.4.2))(typescript@5.5.4)
@@ -188,7 +188,7 @@ importers:
         version: 12.5.0
       ng-packagr:
         specifier: catalog:angular19
-        version: 19.2.2(@angular/compiler-cli@19.2.14(@angular/compiler@19.2.14)(typescript@5.5.4))(tailwindcss@3.4.17(ts-node@10.9.2(@types/node@22.15.24)(typescript@5.5.4)))(tslib@2.8.1)(typescript@5.5.4)
+        version: 19.2.2(@angular/compiler-cli@19.2.14(@angular/compiler@19.2.14)(typescript@5.5.4))(tailwindcss@3.4.17)(tslib@2.8.1)(typescript@5.5.4)
       pnpm:
         specifier: ^9.6.0
         version: 9.15.9
@@ -7011,13 +7011,13 @@ snapshots:
     transitivePeerDependencies:
       - chokidar
 
-  '@angular-devkit/build-angular@19.2.14(i37aejap2ofinncveogbjz663y)':
+  '@angular-devkit/build-angular@19.2.14(bqbhlc5zfhqg4l63h2buswk2pq)':
     dependencies:
       '@ampproject/remapping': 2.3.0
       '@angular-devkit/architect': 0.1902.14(chokidar@4.0.3)
       '@angular-devkit/build-webpack': 0.1902.14(chokidar@4.0.3)(webpack-dev-server@5.2.0(webpack@5.98.0(esbuild@0.25.4)))(webpack@5.98.0(esbuild@0.25.4))
       '@angular-devkit/core': 19.2.14(chokidar@4.0.3)
-      '@angular/build': 19.2.14(5uxuhjr6td4i4uwbmgzy6r6bau)
+      '@angular/build': 19.2.14(scyj2fyazwgsqvn2nylmqrrqqq)
       '@angular/compiler-cli': 19.2.14(@angular/compiler@19.2.14)(typescript@5.5.4)
       '@babel/core': 7.26.10
       '@babel/generator': 7.26.10
@@ -7075,7 +7075,7 @@ snapshots:
       '@angular/ssr': 19.2.14(dr7barvtioh7ajetzq36vbi7vm)
       esbuild: 0.25.4
       karma: 6.4.4
-      ng-packagr: 19.2.2(@angular/compiler-cli@19.2.14(@angular/compiler@19.2.14)(typescript@5.5.4))(tailwindcss@3.4.17(ts-node@10.9.2(@types/node@22.15.24)(typescript@5.5.4)))(tslib@2.8.1)(typescript@5.5.4)
+      ng-packagr: 19.2.2(@angular/compiler-cli@19.2.14(@angular/compiler@19.2.14)(typescript@5.5.4))(tailwindcss@3.4.17)(tslib@2.8.1)(typescript@5.5.4)
       tailwindcss: 3.4.17(ts-node@10.9.2(@types/node@22.15.24)(typescript@5.5.4))
     transitivePeerDependencies:
       - '@angular/compiler'
@@ -7187,7 +7187,7 @@ snapshots:
       '@angular/core': 19.2.14(rxjs@7.8.2)(zone.js@0.15.1)
       tslib: 2.8.1
 
-  '@angular/build@19.2.14(5uxuhjr6td4i4uwbmgzy6r6bau)':
+  '@angular/build@19.2.14(scyj2fyazwgsqvn2nylmqrrqqq)':
     dependencies:
       '@ampproject/remapping': 2.3.0
       '@angular-devkit/architect': 0.1902.14(chokidar@4.0.3)
@@ -7224,7 +7224,7 @@ snapshots:
       karma: 6.4.4
       less: 4.2.2
       lmdb: 3.2.6
-      ng-packagr: 19.2.2(@angular/compiler-cli@19.2.14(@angular/compiler@19.2.14)(typescript@5.5.4))(tailwindcss@3.4.17(ts-node@10.9.2(@types/node@22.15.24)(typescript@5.5.4)))(tslib@2.8.1)(typescript@5.5.4)
+      ng-packagr: 19.2.2(@angular/compiler-cli@19.2.14(@angular/compiler@19.2.14)(typescript@5.5.4))(tailwindcss@3.4.17)(tslib@2.8.1)(typescript@5.5.4)
       postcss: 8.5.2
       tailwindcss: 3.4.17(ts-node@10.9.2(@types/node@22.15.24)(typescript@5.5.4))
     transitivePeerDependencies:
@@ -12138,7 +12138,7 @@ snapshots:
 
   neo-async@2.6.2: {}
 
-  ng-packagr@19.2.2(@angular/compiler-cli@19.2.14(@angular/compiler@19.2.14)(typescript@5.5.4))(tailwindcss@3.4.17(ts-node@10.9.2(@types/node@22.15.24)(typescript@5.5.4)))(tslib@2.8.1)(typescript@5.5.4):
+  ng-packagr@19.2.2(@angular/compiler-cli@19.2.14(@angular/compiler@19.2.14)(typescript@5.5.4))(tailwindcss@3.4.17)(tslib@2.8.1)(typescript@5.5.4):
     dependencies:
       '@angular/compiler-cli': 19.2.14(@angular/compiler@19.2.14)(typescript@5.5.4)
       '@rollup/plugin-json': 6.1.0(rollup@4.41.1)

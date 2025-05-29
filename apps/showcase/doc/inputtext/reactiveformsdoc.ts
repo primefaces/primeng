@@ -25,7 +25,7 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
                     }
                 </div>
 
-                <button pButton severity="secondary" type="submit">Submit</button>
+                <button pButton severity="secondary" type="submit"><span pButtonLabel>Submit</span></button>
             </form>
         </div>
         <app-code [code]="code" selector="template-driven-forms-demo"></app-code>
@@ -82,7 +82,7 @@ export class ReactiveFormsDoc {
             }
         </div>
 
-        <button pButton severity="secondary" type="submit">Submit</button>
+           <button pButton severity="secondary" type="submit"><span pButtonLabel>Submit</span></button>
     </form>
 </div>`,
 
@@ -115,7 +115,7 @@ export class ReactiveFormsDoc {
             }
         </div>
 
-        <button pButton severity="secondary" type="submit">Submit</button>
+           <button pButton severity="secondary" type="submit"><span pButtonLabel>Submit</span></button>
     </form>
 </div>`,
 
@@ -125,7 +125,7 @@ import { ButtonModule } from 'primeng/button';
 import { ToastModule } from 'primeng/button';
 import { MessageModule } from 'primeng/message';
 import { MessageService } from 'primeng/api';
-import {FormBuilder, FormGroup, Validators} from '@angular/forms';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 
 @Component({
     selector: 'reactive-forms-demo',

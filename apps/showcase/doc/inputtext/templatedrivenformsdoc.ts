@@ -24,7 +24,7 @@ import { MessageService } from 'primeng/api';
                     }
                 </div>
 
-                <button pButton severity="secondary" type="submit">Submit</button>
+                <button pButton severity="secondary" type="submit"><span pButtonLabel>Submit</span></button>
             </form>
         </div>
         <app-code [code]="code" selector="template-driven-forms-demo"></app-code>
@@ -78,7 +78,7 @@ export class TemplateDrivenFormsDoc {
         }
     </div>
 
-    <button pButton severity="secondary" type="submit">Submit</button>
+    <button pButton severity="secondary" type="submit"><span pButtonLabel>Submit</span></button>
 </form>`,
 
         html: `<p-toast />
@@ -116,7 +116,7 @@ export class TemplateDrivenFormsDoc {
             }
         </div>
 
-        <button pButton severity="secondary" type="submit">Submit</button>
+        <button pButton severity="secondary" type="submit"><span pButtonLabel>Submit</span></button>
     </form>
 </div>`,
 
