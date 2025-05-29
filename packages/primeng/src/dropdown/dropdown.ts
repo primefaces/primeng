@@ -30,8 +30,23 @@ import {
     ViewRef
 } from '@angular/core';
 import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
-import { deepEquals, equals, findLastIndex, findSingle, focus, getFirstFocusableElement, getFocusableElements, getLastFocusableElement, isEmpty, isNotEmpty, isPrintableCharacter, resolveFieldData, scrollInView, uuid } from '@primeuix/utils';
-import { unblockBodyScroll } from 'primeng/dom';
+import {
+    deepEquals,
+    equals,
+    findLastIndex,
+    findSingle,
+    focus,
+    getFirstFocusableElement,
+    getFocusableElements,
+    getLastFocusableElement,
+    isEmpty,
+    isNotEmpty,
+    isPrintableCharacter,
+    resolveFieldData,
+    scrollInView,
+    unblockBodyScroll,
+    uuid
+} from '@primeuix/utils';
 import { FilterService, OverlayOptions, PrimeTemplate, ScrollerOptions, SelectItem, SharedModule, TranslationKeys } from 'primeng/api';
 import { AutoFocusModule } from 'primeng/autofocus';
 import { BaseComponent } from 'primeng/basecomponent';

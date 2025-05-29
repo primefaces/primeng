@@ -21,8 +21,7 @@ import {
     ViewChild,
     ViewEncapsulation
 } from '@angular/core';
-import { addClass, appendChild, setAttribute } from '@primeuix/utils';
-import { blockBodyScroll, unblockBodyScroll } from 'primeng/dom';
+import { addClass, appendChild, blockBodyScroll, setAttribute, unblockBodyScroll } from '@primeuix/utils';
 import { PrimeTemplate, SharedModule } from 'primeng/api';
 import { BaseComponent } from 'primeng/basecomponent';
 import { Button, ButtonProps } from 'primeng/button';

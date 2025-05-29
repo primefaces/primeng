@@ -31,11 +31,26 @@ import {
     ViewRef
 } from '@angular/core';
 import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
-import { deepEquals, equals, findLastIndex, findSingle, focus, getFirstFocusableElement, getFocusableElements, getLastFocusableElement, isEmpty, isNotEmpty, isPrintableCharacter, resolveFieldData, scrollInView, uuid } from '@primeuix/utils';
+import {
+    deepEquals,
+    equals,
+    findLastIndex,
+    findSingle,
+    focus,
+    getFirstFocusableElement,
+    getFocusableElements,
+    getLastFocusableElement,
+    isEmpty,
+    isNotEmpty,
+    isPrintableCharacter,
+    resolveFieldData,
+    scrollInView,
+    unblockBodyScroll,
+    uuid
+} from '@primeuix/utils';
 import { FilterService, OverlayOptions, PrimeTemplate, ScrollerOptions, SharedModule, TranslationKeys } from 'primeng/api';
 import { AutoFocus } from 'primeng/autofocus';
 import { BaseComponent } from 'primeng/basecomponent';
-import { unblockBodyScroll } from 'primeng/dom';
 import { IconField } from 'primeng/iconfield';
 import { BlankIcon, CheckIcon, ChevronDownIcon, SearchIcon, TimesIcon } from 'primeng/icons';
 import { InputIcon } from 'primeng/inputicon';

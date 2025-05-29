@@ -20,8 +20,7 @@ import {
     ViewEncapsulation
 } from '@angular/core';
 import { SafeUrl } from '@angular/platform-browser';
-import { addClass, appendChild, focus } from '@primeuix/utils';
-import { blockBodyScroll, unblockBodyScroll } from 'primeng/dom';
+import { addClass, appendChild, blockBodyScroll, focus, unblockBodyScroll } from '@primeuix/utils';
 import { PrimeTemplate, SharedModule } from 'primeng/api';
 import { BaseComponent } from 'primeng/basecomponent';
 import { FocusTrap } from 'primeng/focustrap';

@@ -25,12 +25,31 @@ import {
     ViewEncapsulation
 } from '@angular/core';
 import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
-import { absolutePosition, addClass, addStyle, appendChild, find, findSingle, getFocusableElements, getIndex, getOuterWidth, hasClass, isDate, isNotEmpty, isTouchDevice, relativePosition, setAttribute, uuid } from '@primeuix/utils';
+import {
+    absolutePosition,
+    addClass,
+    addStyle,
+    appendChild,
+    blockBodyScroll,
+    find,
+    findSingle,
+    getFocusableElements,
+    getIndex,
+    getOuterWidth,
+    hasClass,
+    isDate,
+    isNotEmpty,
+    isTouchDevice,
+    relativePosition,
+    setAttribute,
+    unblockBodyScroll,
+    uuid
+} from '@primeuix/utils';
 import { OverlayService, PrimeTemplate, SharedModule, TranslationKeys } from 'primeng/api';
 import { AutoFocus } from 'primeng/autofocus';
 import { BaseComponent } from 'primeng/basecomponent';
 import { Button } from 'primeng/button';
-import { ConnectedOverlayScrollHandler, unblockBodyScroll, blockBodyScroll } from 'primeng/dom';
+import { ConnectedOverlayScrollHandler } from 'primeng/dom';
 import { CalendarIcon, ChevronDownIcon, ChevronLeftIcon, ChevronRightIcon, ChevronUpIcon, TimesIcon } from 'primeng/icons';
 import { InputText } from 'primeng/inputtext';
 import { Ripple } from 'primeng/ripple';
