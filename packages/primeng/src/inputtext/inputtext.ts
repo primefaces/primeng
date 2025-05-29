@@ -1,9 +1,8 @@
-import { AfterViewInit, booleanAttribute, Directive, DoCheck, HostListener, inject, Input, NgModule } from '@angular/core';
-import { NgControl, NgModel } from '@angular/forms';
+import { AfterViewInit, Directive, DoCheck, HostListener, inject, Input, NgModule } from '@angular/core';
 import { isEmpty } from '@primeuix/utils';
-import { BaseComponent } from 'primeng/basecomponent';
 import { Nullable } from 'primeng/ts-helpers';
 import { InputTextStyle } from './style/inputtextstyle';
+import { BaseInput } from 'primeng/baseinput';
 
 /**
  * InputText directive is an extension to standard input element with theming.
@@ -17,17 +16,7 @@ import { InputTextStyle } from './style/inputtextstyle';
     },
     providers: [InputTextStyle]
 })
-export class InputText extends BaseComponent implements DoCheck, AfterViewInit {
-    /**
-     * Specifies the input variant of the component.
-     * @group Props
-     */
-    @Input() variant: 'filled' | 'outlined';
-    /**
-     * Spans 100% width of the container when enabled.
-     * @group Props
-     */
-    @Input({ transform: booleanAttribute }) fluid: boolean | undefined;
+export class InputText extends BaseInput implements DoCheck, AfterViewInit {
     /**
      * Defines the size of the component.
      * @group Props
@@ -38,15 +27,11 @@ export class InputText extends BaseComponent implements DoCheck, AfterViewInit {
 
     _componentStyle = inject(InputTextStyle);
 
-    ngModel = inject(NgModel, { optional: true });
-
-    ngControl = inject(NgControl, { optional: true, self: true });
-
     get hasFluid() {
         const nativeElement = this.el.nativeElement;
         const fluidComponent = nativeElement.closest('p-fluid');
 
-        return isEmpty(this.fluid) ? !!fluidComponent : this.fluid;
+        return isEmpty(this.fluid()) ? !!fluidComponent : this.fluid();
     }
 
     ngAfterViewInit() {
@@ -66,12 +51,6 @@ export class InputText extends BaseComponent implements DoCheck, AfterViewInit {
 
     updateFilledState() {
         this.filled = (this.el.nativeElement.value && this.el.nativeElement.value.length) || (this.ngModel && this.ngModel.model);
-    }
-
-    get isInvalid() {
-        const controlInvalid = !!this.ngControl?.invalid && (this.ngControl?.dirty || this.ngControl?.touched);
-        const modelInvalid = !!this.ngModel?.invalid && (this.ngModel?.dirty || this.ngModel?.touched);
-        return controlInvalid || modelInvalid;
     }
 }
 

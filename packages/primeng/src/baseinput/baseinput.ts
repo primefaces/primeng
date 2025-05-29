@@ -7,15 +7,21 @@ export class BaseInput extends BaseComponent {
     ngModel = inject(NgModel, { optional: true });
 
     ngControl = inject(NgControl, { optional: true, self: true });
-
-    invalid = input(undefined);
+    /**
+     * When present, it specifies that the component should have invalid state style.
+     * @defaultValue undefined
+     * @group Props
+     */
+    invalid = input<boolean | undefined>();
     /**
      * Spans 100% width of the container when enabled.
+     * @defaultValue false
      * @group Props
      */
     fluid = input(false, { transform: booleanAttribute });
     /**
      * Specifies the input variant of the component.
+     * @defaultValue undefined
      * @group Props
      */
     variant = input<'filled' | 'outlined' | undefined>();
