@@ -1,12 +1,11 @@
-import { booleanAttribute, Directive, inject, input } from '@angular/core';
-import { BaseComponent } from 'primeng/basecomponent';
-import { NgControl, NgModel } from '@angular/forms';
+import { booleanAttribute, computed, Directive, inject, input } from '@angular/core';
+import { BaseEditableHolder } from 'primeng/baseeditableholder';
+import { Fluid } from '../fluid/fluid';
 
 @Directive({ standalone: true })
-export class BaseInput extends BaseComponent {
-    ngModel = inject(NgModel, { optional: true });
+export class BaseInput extends BaseEditableHolder {
+    fluidParent: Fluid = inject(Fluid, { optional: true, host: true, skipSelf: true });
 
-    ngControl = inject(NgControl, { optional: true, self: true });
     /**
      * When present, it specifies that the component should have invalid state style.
      * @defaultValue undefined
@@ -25,11 +24,57 @@ export class BaseInput extends BaseComponent {
      * @group Props
      */
     variant = input<'filled' | 'outlined' | undefined>();
+    /**
+     * Specifies the size of the component.
+     * @defaultValue undefined
+     * @group Props
+     */
+    size = input<'large' | 'small' | undefined>();
+    /**
+     * Specifies the value must match the pattern.
+     * @defaultValue undefined
+     * @group Props
+     */
+    pattern = input<string>();
+    /**
+     * The value must be greater than or equal to the value.
+     * @defaultValue undefined
+     * @group Props
+     */
+    min = input<number>();
+    /**
+     * The value must be less than or equal to the value.
+     * @defaultValue undefined
+     * @group Props
+     */
+    max = input<number>();
+    /**
+     * Unless the step is set to the any literal, the value must be min + an integral multiple of the step.
+     * @defaultValue undefined
+     * @group Props
+     */
+    step = input<number>();
+    /**
+     * The number of characters (code points) must not be less than the value of the attribute, if non-empty.
+     * @defaultValue undefined
+     * @group Props
+     */
+    minlength = input<number>();
+    /**
+     * The number of characters (code points) must not exceed the value of the attribute.
+     * @defaultValue undefined
+     * @group Props
+     */
+    maxlength = input<number>();
+
+    $variant = computed(() => this.config.inputStyle() || this.variant() || this.config.inputVariant());
+
+    get hasFluid() {
+        return this.fluid() || this.fluidParent;
+    }
 
     get isInvalid() {
         if (this.invalid() != undefined) return this.invalid();
-        const controlInvalid = !!this.ngControl?.invalid && (this.ngControl?.dirty || this.ngControl?.touched);
-        const modelInvalid = !!this.ngModel?.invalid && (this.ngModel?.dirty || this.ngModel?.touched);
-        return controlInvalid || modelInvalid;
+        else return !!this.ngControl?.invalid && (this.ngControl?.dirty || this.ngControl?.touched);
     }
 }

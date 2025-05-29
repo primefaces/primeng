@@ -5,7 +5,9 @@ import { Component } from '@angular/core';
     selector: 'invalid-doc',
     standalone: false,
     template: `
-        <app-docsectiontext> Invalid state is displayed using the <i>invalid</i> prop to indicate a failed validation. You can use this style when integrating with form validation libraries. </app-docsectiontext>
+        <app-docsectiontext>
+            <p>Invalid state is displayed using the <i>invalid</i> prop to indicate a failed validation. You can use this style when integrating with form validation libraries.</p>
+        </app-docsectiontext>
         <div class="card flex flex-wrap justify-center gap-4">
             <input pInputText [(ngModel)]="value" name="value" placeholder="Name" [invalid]="true" required />
         </div>

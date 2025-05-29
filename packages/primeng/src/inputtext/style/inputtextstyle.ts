@@ -7,10 +7,10 @@ const classes = {
         'p-inputtext p-component',
         {
             'p-filled': instance.filled,
-            'p-inputtext-sm': instance.pSize === 'small',
-            'p-inputtext-lg': instance.pSize === 'large',
+            'p-inputtext-sm': instance.$size === 'small',
+            'p-inputtext-lg': instance.$size === 'large',
             'p-invalid': instance.isInvalid,
-            'p-variant-filled': (instance.variant() ?? (instance.config.inputStyle() || instance.config.inputVariant())) === 'filled',
+            'p-variant-filled': instance.$variant() === 'filled',
             'p-inputtext-fluid': instance.hasFluid
         }
     ]

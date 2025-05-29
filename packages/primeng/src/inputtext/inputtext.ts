@@ -1,5 +1,4 @@
 import { AfterViewInit, Directive, DoCheck, HostListener, inject, Input, NgModule } from '@angular/core';
-import { isEmpty } from '@primeuix/utils';
 import { Nullable } from 'primeng/ts-helpers';
 import { InputTextStyle } from './style/inputtextstyle';
 import { BaseInput } from 'primeng/baseinput';
@@ -12,27 +11,32 @@ import { BaseInput } from 'primeng/baseinput';
     selector: '[pInputText]',
     standalone: true,
     host: {
-        '[class]': "cx('root')"
+        '[class]': "cx('root')",
+        '[attr.pattern]': 'pattern()',
+        '[attr.min]': 'min()',
+        '[attr.max]': 'max()',
+        '[attr.maxlength]': 'maxlength()',
+        '[attr.size]': '$size',
+        '[attr.required]': 'required()'
     },
     providers: [InputTextStyle]
 })
 export class InputText extends BaseInput implements DoCheck, AfterViewInit {
     /**
      * Defines the size of the component.
+     * @deprecated deprecated in v20, use size property instead.
      * @group Props
      */
     @Input('pSize') pSize: 'large' | 'small';
 
+    // for backward compatibility
+    get $size() {
+        return this.pSize != undefined ? this.pSize : this.size();
+    }
+
     filled: Nullable<boolean>;
 
     _componentStyle = inject(InputTextStyle);
-
-    get hasFluid() {
-        const nativeElement = this.el.nativeElement;
-        const fluidComponent = nativeElement.closest('p-fluid');
-
-        return isEmpty(this.fluid()) ? !!fluidComponent : this.fluid();
-    }
 
     ngAfterViewInit() {
         super.ngAfterViewInit();
@@ -50,7 +54,9 @@ export class InputText extends BaseInput implements DoCheck, AfterViewInit {
     }
 
     updateFilledState() {
-        this.filled = (this.el.nativeElement.value && this.el.nativeElement.value.length) || (this.ngModel && this.ngModel.model);
+        const controlValue = this.ngControl?.value;
+        const elementValue = this.el.nativeElement.value;
+        this.filled = !!elementValue || !!controlValue;
     }
 }
 
