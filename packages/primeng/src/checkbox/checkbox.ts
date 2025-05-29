@@ -221,7 +221,7 @@ export class Checkbox extends BaseComponent implements AfterContentInit, Control
      * The template of the checkbox icon.
      * @group Templates
      */
-    @ContentChild('checkboxicon', { descendants: false }) checkboxIconTemplate: TemplateRef<any>;
+    @ContentChild('icon', { descendants: false }) checkboxIconTemplate: TemplateRef<any>;
 
     @ContentChildren(PrimeTemplate) templates: Nullable<QueryList<PrimeTemplate>>;
 
@@ -241,9 +241,6 @@ export class Checkbox extends BaseComponent implements AfterContentInit, Control
         this.templates.forEach((item) => {
             switch (item.getType()) {
                 case 'icon':
-                    this._checkboxIconTemplate = item.template;
-                    break;
-                case 'checkboxicon':
                     this._checkboxIconTemplate = item.template;
                     break;
             }
