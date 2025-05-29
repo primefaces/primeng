@@ -9,52 +9,19 @@ import { Component } from '@angular/core';
             <p>Invalid state is displayed automatically based on the form validation state. The <i>p-invalid</i> class will be added dynamically if the input field is invalid and dirty.</p>
         </app-docsectiontext>
         <div class="card flex flex-wrap justify-center gap-4">
-            <input pInputText [(ngModel)]="value1" name="value1" placeholder="Name" required />
-
-            <input pInputText [(ngModel)]="value2" name="value2" placeholder="Name" required variant="filled" />
+            <input pInputText [(ngModel)]="value" name="value" placeholder="Name" [invalid]="true" required />
         </div>
         <app-code [code]="code" selector="input-text-invalid-demo"></app-code>
     `
 })
 export class InvalidDoc {
-    value1: string | undefined;
-
-    value2: string | undefined;
+    value: string | undefined;
 
     code: Code = {
-        basic: `<input
-    pInputText
-    [(ngModel)]="value1"
-    name="value1"
-    placeholder="Name"
-    required
-/>
-
-<input
-    pInputText
-    [(ngModel)]="value2"
-    name="value2"
-    placeholder="Name"
-    required
-    variant="filled"
-/>`,
+        basic: `<input pInputText [(ngModel)]="value" name="value" placeholder="Name" [invalid]="true" required />`,
 
         html: `<div class="card flex flex-wrap justify-center gap-4">
-    <input
-        pInputText
-        [(ngModel)]="value1"
-        name="value1"
-        placeholder="Name"
-        required
-    />
-    <input
-        pInputText
-        [(ngModel)]="value2"
-        name="value2"
-        placeholder="Name"
-        required
-        variant="filled"
-    />
+    <input pInputText [(ngModel)]="value" name="value" placeholder="Name" [invalid]="true" required />
 </div>`,
 
         typescript: `import { Component } from '@angular/core';

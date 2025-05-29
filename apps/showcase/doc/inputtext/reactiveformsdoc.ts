@@ -1,56 +1,160 @@
 import { Code } from '@/domain/code';
-import { Component, OnInit } from '@angular/core';
-import { FormControl, FormGroup } from '@angular/forms';
+import { Component, inject } from '@angular/core';
+import { MessageService } from 'primeng/api';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 
 @Component({
     selector: 'reactive-forms-doc',
     standalone: false,
     template: `
-        <app-docsectiontext>
-            <p>InputText can also be used with reactive forms. In this case, the <i>formControlName</i> property is used to bind the component to a form control.</p>
-        </app-docsectiontext>
+        <p-toast />
         <div class="card flex justify-center">
-            <form [formGroup]="formGroup">
-                <input type="text" pInputText formControlName="text" />
+            <form [formGroup]="exampleForm" (ngSubmit)="onSubmit()" class="flex flex-col gap-4 w-full sm:w-56">
+                <div class="flex flex-col gap-1">
+                    <label for="username">Username:</label>
+                    <input pInputText type="text" id="username" formControlName="username" />
+                    @if (isInvalid('username')) {
+                        <p-message severity="error" size="small" variant="simple">Username is required.</p-message>
+                    }
+                </div>
+                <div class="flex flex-col gap-1">
+                    <label for="email">Email:</label>
+                    <input pInputText type="email" id="email" formControlName="email" />
+                    @if (isInvalid('email')) {
+                        <p-message severity="error" size="small" variant="simple">Email is required.</p-message>
+                    }
+                </div>
+
+                <button pButton severity="secondary" type="submit">Submit</button>
             </form>
         </div>
-        <app-code [code]="code" selector="input-text-reactive-forms-demo"></app-code>
+        <app-code [code]="code" selector="template-driven-forms-demo"></app-code>
     `
 })
-export class ReactiveFormsDoc implements OnInit {
-    formGroup: FormGroup | undefined;
+export class ReactiveFormsDoc {
+    messageService = inject(MessageService);
 
-    ngOnInit() {
-        this.formGroup = new FormGroup({
-            text: new FormControl<string | null>(null)
+    exampleForm: FormGroup;
+
+    constructor(private fb: FormBuilder) {
+        this.exampleForm = this.fb.group({
+            username: ['', Validators.required],
+            email: ['', [Validators.required, Validators.email]]
         });
+    }
+
+    onSubmit() {
+        if (this.exampleForm.valid) {
+            this.messageService.add({ severity: 'success', summary: 'Success', detail: 'Form Submitted', life: 3000 });
+        }
+    }
+
+    isInvalid(controlName: string) {
+        return this.exampleForm[controlName].invalid && this.exampleForm[controlName].touched;
     }
 
     code: Code = {
-        basic: `<input type="text" pInputText formControlName="text" />`,
+        basic: `<div class="card flex justify-center">
+    <form [formGroup]="exampleForm" (ngSubmit)="onSubmit()" class="flex flex-col gap-4 w-full sm:w-56">
+        <div class="flex flex-col gap-1">
+            <label for="username">Username:</label>
+            <input
+                pInputText
+                type="text"
+                id="username"
+                formControlName="username"
 
-        html: `<div class="card flex justify-center">
-    <input type="text" pInputText formControlName="text" />
+            />
+            @if(isInvalid('username')) {
+                <p-message severity="error" size="small" variant="simple">Username is required.</p-message>
+            }
+        </div>
+        <div class="flex flex-col gap-1">
+            <label for="email">Email:</label>
+            <input
+                pInputText
+                type="email"
+                id="email"
+                formControlName="email"
+            />
+            @if(isInvalid('email')) {
+                <p-message severity="error" size="small" variant="simple">Email is required.</p-message>
+            }
+        </div>
+
+        <button pButton severity="secondary" type="submit">Submit</button>
+    </form>
 </div>`,
 
-        typescript: `import { Component, OnInit } from '@angular/core';
-import { FormControl, FormGroup, ReactiveFormsModule } from '@angular/forms';
+        html: `<p-toast />
+<div class="card flex justify-center">
+    <form [formGroup]="exampleForm" (ngSubmit)="onSubmit()" class="flex flex-col gap-4 w-full sm:w-56">
+        <div class="flex flex-col gap-1">
+            <label for="username">Username:</label>
+            <input
+                pInputText
+                type="text"
+                id="username"
+                formControlName="username"
+
+            />
+            @if(isInvalid('username')) {
+                <p-message severity="error" size="small" variant="simple">Username is required.</p-message>
+            }
+        </div>
+        <div class="flex flex-col gap-1">
+            <label for="email">Email:</label>
+            <input
+                pInputText
+                type="email"
+                id="email"
+                formControlName="email"
+            />
+            @if(isInvalid('email')) {
+                <p-message severity="error" size="small" variant="simple">Email is required.</p-message>
+            }
+        </div>
+
+        <button pButton severity="secondary" type="submit">Submit</button>
+    </form>
+</div>`,
+
+        typescript: `import { Component, inject } from '@angular/core';
 import { InputTextModule } from 'primeng/inputtext';
+import { ButtonModule } from 'primeng/button';
+import { ToastModule } from 'primeng/button';
+import { MessageModule } from 'primeng/message';
+import { MessageService } from 'primeng/api';
+import {FormBuilder, FormGroup, Validators} from '@angular/forms';
 
 @Component({
-    selector: 'input-text-reactive-forms-demo',
-    templateUrl: './input-text-reactive-forms-demo.html',
+    selector: 'reactive-forms-demo',
+    templateUrl: './reactive-forms-demo.html',
     standalone: true,
-    imports: [ReactiveFormsModule, InputTextModule]
+    imports: [ReactiveFormsModule, InputTextModule, ButtonModule, ToastModule, MessageModule]
 })
-export class InputTextReactiveFormsDemo implements OnInit {
-    formGroup: FormGroup | undefined;
+export class ReactiveFormsDemo {
+    messageService = inject(MessageService);
 
-    ngOnInit() {
-        this.formGroup = new FormGroup({
-            text: new FormControl<string | null>(null)
+    exampleForm: FormGroup;
+
+    constructor(private fb: FormBuilder) {
+        this.exampleForm = this.fb.group({
+            username: ['', Validators.required],
+            email: ['', [Validators.required, Validators.email]],
         });
     }
+
+    onSubmit() {
+        if (this.exampleForm.valid) {
+            this.messageService.add({severity:'success', summary:'Success', detail:'Form Submitted', life: 3000});
+        }
+    }
+
+    isInvalid(controlName: string) {
+        return this.exampleForm[controlName].invalid && this.exampleForm[controlName].touched;
+    }
+
 }`
     };
 }

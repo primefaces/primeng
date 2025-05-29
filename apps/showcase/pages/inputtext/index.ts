@@ -9,9 +9,9 @@ import { ImportDoc } from '@/doc/inputtext/importdoc';
 import { InputtextDocModule } from '@/doc/inputtext/inputtextdoc.module';
 import { InvalidDoc } from '@/doc/inputtext/invaliddoc';
 import { ReactiveFormsDoc } from '@/doc/inputtext/reactiveformsdoc';
-import { ReactiveFormsInvalidDoc } from '@/doc/inputtext/reactiveformsinvaliddoc';
 import { SizesDoc } from '@/doc/inputtext/sizesdoc';
 import { Component } from '@angular/core';
+import { TemplateDrivenFormsDoc } from '@/doc/inputtext/templatedrivenformsdoc';
 
 @Component({
     standalone: true,
@@ -36,11 +36,6 @@ export class InputTextDemo {
             id: 'basic',
             label: 'Basic',
             component: BasicDoc
-        },
-        {
-            id: 'reactive-forms',
-            label: 'Reactive Forms',
-            component: ReactiveFormsDoc
         },
         {
             id: 'floatlabel',
@@ -68,14 +63,18 @@ export class InputTextDemo {
             component: FilledDoc
         },
         {
-            id: 'invalid',
-            label: 'Invalid',
+            id: 'forms',
+            label: 'Forms',
             children: [
-                { id: 'invalid', label: 'Invalid', component: InvalidDoc },
-                { id: 'reactiveformsinvalid', label: 'Reactive Forms with Invalid State', component: ReactiveFormsInvalidDoc }
+                { id: 'templatedriven', label: 'Template Driven', component: TemplateDrivenFormsDoc },
+                { id: 'reactive', label: 'Reactive Forms', component: ReactiveFormsDoc }
             ]
         },
-
+        {
+            id: 'invalid',
+            label: 'Invalid',
+            component: InvalidDoc
+        },
         {
             id: 'disabled',
             label: 'Disabled',
