@@ -3605,10 +3605,11 @@ export class FrozenColumn implements AfterViewInit {
     standalone: false,
     host: {
         '[class]': "cx('sortableColumn')",
-        '[attr.tabindex]': 'isEnabled() ? "0" : null',
-        '[attr.role]': 'role',
-        '[attr.aria-sort]': 'sortOrder'
-    }
+        '[tabindex]': 'isEnabled() ? "0" : null',
+        '[role]': '"columnheader"',
+        '[aria-sort]': 'sortOrder'
+    },
+    providers: [TableStyle]
 })
 export class SortableColumn extends BaseComponent implements OnInit, OnDestroy {
     readonly #elementRef = inject(ElementRef);
