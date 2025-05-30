@@ -69,6 +69,5 @@ export class BaseInput extends BaseEditableHolder {
 
     get isInvalid() {
         if (this.invalid() != undefined) return this.invalid();
-        else return !!this.ngControl?.invalid && (this.ngControl?.dirty || this.ngControl?.touched);
     }
 }

@@ -11,15 +11,20 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
         <div class="card flex justify-center">
             <form [formGroup]="exampleForm" (ngSubmit)="onSubmit()" class="flex flex-col gap-4 w-full sm:w-56">
                 <div class="flex flex-col gap-1">
-                    <input pInputText type="text" id="username" placeholder="Username" formControlName="username" />
+                    <input pInputText type="text" id="username" placeholder="Username" formControlName="username" [invalid]="isInvalid('username')" />
                     @if (isInvalid('username')) {
                         <p-message severity="error" size="small" variant="simple">Username is required.</p-message>
                     }
                 </div>
                 <div class="flex flex-col gap-1">
-                    <input pInputText type="email" id="email" placeholder="Email" formControlName="email" />
+                    <input pInputText type="email" id="email" placeholder="Email" formControlName="email" [invalid]="isInvalid('email')" />
                     @if (isInvalid('email')) {
-                        <p-message severity="error" size="small" variant="simple">Email is required.</p-message>
+                        @if (exampleForm.get('email')?.errors?.['required']) {
+                            <p-message severity="error" size="small" variant="simple">Email is required.</p-message>
+                        }
+                        @if (exampleForm.get('email')?.errors?.['email']) {
+                            <p-message severity="error" size="small" variant="simple">Please enter a valid email.</p-message>
+                        }
                     }
                 </div>
                 <button pButton severity="secondary" type="submit"><span pButtonLabel>Submit</span></button>
@@ -33,6 +38,8 @@ export class ReactiveFormsDoc {
 
     exampleForm: FormGroup;
 
+    formSubmitted = false;
+
     constructor(private fb: FormBuilder) {
         this.exampleForm = this.fb.group({
             username: ['', Validators.required],
@@ -41,52 +48,59 @@ export class ReactiveFormsDoc {
     }
 
     onSubmit() {
+        this.formSubmitted = true;
         if (this.exampleForm.valid) {
             this.messageService.add({ severity: 'success', summary: 'Success', detail: 'Form Submitted', life: 3000 });
-        }
-
-        if (this.exampleForm.invalid) {
-            this.exampleForm.markAllAsTouched();
-            return;
+            this.exampleForm.reset();
+            this.formSubmitted = false;
         }
     }
 
     isInvalid(controlName: string) {
-        return this.exampleForm.get(controlName)?.invalid && this.exampleForm.get(controlName)?.touched;
+        const control = this.exampleForm.get(controlName);
+        return control?.invalid && (control.touched || this.formSubmitted);
     }
 
     code: Code = {
-        basic: `<div class="card flex justify-center">
-    <form [formGroup]="exampleForm" (ngSubmit)="onSubmit()" class="flex flex-col gap-4 w-full sm:w-56">
-        <div class="flex flex-col gap-1">
-            <input pInputText type="text" id="username" placeholder="Username" formControlName="username" />
-            @if (isInvalid('username')) {
-                <p-message severity="error" size="small" variant="simple">Username is required.</p-message>
-            }
-        </div>
-        <div class="flex flex-col gap-1">
-            <input pInputText type="email" id="email" placeholder="Email" formControlName="email"/>
-            @if (isInvalid('email')) {
+        basic: `<form [formGroup]="exampleForm" (ngSubmit)="onSubmit()" class="flex flex-col gap-4 w-full sm:w-56">
+    <div class="flex flex-col gap-1">
+        <input pInputText type="text" id="username" placeholder="Username" formControlName="username" [invalid]="isInvalid('username')" />
+        @if (isInvalid('username')) {
+            <p-message severity="error" size="small" variant="simple">Username is required.</p-message>
+        }
+    </div>
+    <div class="flex flex-col gap-1">
+        <input pInputText type="email" id="email" placeholder="Email" formControlName="email" [invalid]="isInvalid('email')" />
+        @if (isInvalid('email')) {
+            @if (exampleForm.get('email')?.errors?.['required']) {
                 <p-message severity="error" size="small" variant="simple">Email is required.</p-message>
             }
-        </div>
-        <button pButton severity="secondary" type="submit"><span pButtonLabel>Submit</span></button>
-    </form>
-</div>`,
+            @if (exampleForm.get('email')?.errors?.['email']) {
+                <p-message severity="error" size="small" variant="simple">Please enter a valid email.</p-message>
+            }
+        }
+    </div>
+    <button pButton severity="secondary" type="submit"><span pButtonLabel>Submit</span></button>
+</form>`,
 
         html: `<p-toast />
 <div class="card flex justify-center">
     <form [formGroup]="exampleForm" (ngSubmit)="onSubmit()" class="flex flex-col gap-4 w-full sm:w-56">
         <div class="flex flex-col gap-1">
-            <input pInputText type="text" id="username" placeholder="Username" formControlName="username" />
+            <input pInputText type="text" id="username" placeholder="Username" formControlName="username" [invalid]="isInvalid('username')" />
             @if (isInvalid('username')) {
                 <p-message severity="error" size="small" variant="simple">Username is required.</p-message>
             }
         </div>
         <div class="flex flex-col gap-1">
-            <input pInputText type="email" id="email" placeholder="Email" formControlName="email"/>
+            <input pInputText type="email" id="email" placeholder="Email" formControlName="email" [invalid]="isInvalid('email')" />
             @if (isInvalid('email')) {
-                <p-message severity="error" size="small" variant="simple">Email is required.</p-message>
+                @if (exampleForm.get('email')?.errors?.['required']) {
+                    <p-message severity="error" size="small" variant="simple">Email is required.</p-message>
+                }
+                @if (exampleForm.get('email')?.errors?.['email']) {
+                    <p-message severity="error" size="small" variant="simple">Please enter a valid email.</p-message>
+                }
             }
         </div>
         <button pButton severity="secondary" type="submit"><span pButtonLabel>Submit</span></button>
@@ -112,28 +126,28 @@ export class ReactiveFormsDemo {
 
     exampleForm: FormGroup;
 
+    formSubmitted = false;
+
     constructor(private fb: FormBuilder) {
         this.exampleForm = this.fb.group({
             username: ['', Validators.required],
-            email: ['', [Validators.required, Validators.email]],
+            email: ['', [Validators.required, Validators.email]]
         });
     }
 
     onSubmit() {
+        this.formSubmitted = true;
         if (this.exampleForm.valid) {
             this.messageService.add({ severity: 'success', summary: 'Success', detail: 'Form Submitted', life: 3000 });
-        }
-
-        if(this.exampleForm.invalid) {
-            this.exampleForm.markAllAsTouched();
-            return;
+            this.exampleForm.reset();
+            this.formSubmitted = false;
         }
     }
 
     isInvalid(controlName: string) {
-        return this.exampleForm.get(controlName)?.invalid && this.exampleForm.get(controlName)?.touched;
+        const control = this.exampleForm.get(controlName);
+        return control?.invalid && (control.touched || this.formSubmitted);
     }
-
 }`
     };
 }
