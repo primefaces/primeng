@@ -66,8 +66,4 @@ export class BaseInput extends BaseEditableHolder {
     get hasFluid() {
         return this.fluid() ?? !!this.pcFluid;
     }
-
-    get isInvalid() {
-        if (this.invalid() != undefined) return this.invalid();
-    }
 }
