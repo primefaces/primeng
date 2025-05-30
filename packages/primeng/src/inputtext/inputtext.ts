@@ -16,7 +16,7 @@ import { BaseInput } from 'primeng/baseinput';
         '[attr.min]': 'min()',
         '[attr.max]': 'max()',
         '[attr.maxlength]': 'maxlength()',
-        '[attr.size]': '$size',
+        '[attr.size]': 'size()',
         '[attr.required]': 'required()'
     },
     providers: [InputTextStyle]
@@ -28,11 +28,6 @@ export class InputText extends BaseInput implements DoCheck, AfterViewInit {
      * @group Props
      */
     @Input('pSize') pSize: 'large' | 'small';
-
-    // for backward compatibility
-    get $size() {
-        return this.pSize != undefined ? this.pSize : this.size();
-    }
 
     filled: Nullable<boolean>;
 
