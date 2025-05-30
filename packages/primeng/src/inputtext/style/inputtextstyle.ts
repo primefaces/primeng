@@ -6,7 +6,7 @@ const classes = {
     root: ({ instance }) => [
         'p-inputtext p-component',
         {
-            'p-filled': instance.filled,
+            'p-filled': instance.$filled(),
             'p-inputtext-sm': instance.pSize === 'small',
             'p-inputtext-lg': instance.pSize === 'large',
             'p-invalid': instance.isInvalid,

@@ -1,6 +1,7 @@
-import { Directive, inject, input } from '@angular/core';
-import { BaseComponent } from 'primeng/basecomponent';
+import { computed, Directive, inject, input, signal } from '@angular/core';
 import { NgControl, NgModel } from '@angular/forms';
+import { isNotEmpty } from '@primeuix/utils';
+import { BaseComponent } from 'primeng/basecomponent';
 
 @Directive({ standalone: true })
 export class BaseEditableHolder extends BaseComponent {
@@ -30,4 +31,12 @@ export class BaseEditableHolder extends BaseComponent {
      * @group Props
      */
     name = input<string | undefined>();
+
+    modelValue = signal<string | undefined>(undefined);
+
+    $filled = computed(() => isNotEmpty(this.modelValue()));
+
+    writeModelValue(value: any, event?: any) {
+        this.modelValue.set(value);
+    }
 }
