@@ -14,12 +14,12 @@ import { Component } from '@angular/core';
 export class DownloadDoc {
     code: Code = {
         command: `# Using npm
-npm install primeng @primeng/themes
+npm install primeng @primeuix/themes
 
 # Using yarn
-yarn add primeng @primeng/themes
+yarn add primeng @primeuix/themes
 
 # Using pnpm
-pnpm add primeng @primeng/themes`
+pnpm add primeng @primeuix/themes`
     };
 }

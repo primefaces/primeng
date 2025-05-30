@@ -1,23 +1,9 @@
 import { Injectable } from '@angular/core';
 import { BaseStyle } from 'primeng/base';
-
-const theme = ({ dt }) => `
-.p-confirmdialog .p-dialog-content {
-    display: flex;
-    align-items: center;
-    gap:  ${dt('confirmdialog.content.gap')};
-}
-
-.p-confirmdialog .p-confirmdialog-icon {
-    color: ${dt('confirmdialog.icon.color')};
-    font-size: ${dt('confirmdialog.icon.size')};
-    width: ${dt('confirmdialog.icon.size')};
-    height: ${dt('confirmdialog.icon.size')};
-}
-`;
+import { style } from '@primeuix/styles/confirmdialog';
 
 const classes = {
-    root: 'p-confirmdialog',
+    root: ({ instance }) => ['p-confirmdialog', instance.styleClass],
     icon: 'p-confirmdialog-icon',
     message: 'p-confirmdialog-message',
     pcRejectButton: 'p-confirmdialog-reject-button',
@@ -28,7 +14,7 @@ const classes = {
 export class ConfirmDialogStyle extends BaseStyle {
     name = 'confirmdialog';
 
-    theme = theme;
+    theme = style;
 
     classes = classes;
 }

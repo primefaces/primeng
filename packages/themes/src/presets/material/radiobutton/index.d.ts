@@ -1,3 +1,1 @@
-import { RadioButtonDesignTokens } from '../../types/radiobutton';
-declare const _default: RadioButtonDesignTokens;
-export default _default;
+export * from '@primeuix/themes/types/radiobutton';

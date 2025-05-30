@@ -1,10 +1,10 @@
-import { ChangeDetectionStrategy, Component, computed, EventEmitter, inject, input, Input, model, OnInit, Output } from '@angular/core';
-import { CommonModule } from '@angular/common';
 import { DesignerService } from '@/service/designerservice';
-import { AutoCompleteModule } from 'primeng/autocomplete';
+import { CommonModule } from '@angular/common';
+import { ChangeDetectionStrategy, Component, computed, EventEmitter, inject, input, Input, model, OnInit, Output } from '@angular/core';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { $dt } from '@primeuix/themes';
+import { AutoCompleteModule } from 'primeng/autocomplete';
 import { TooltipModule } from 'primeng/tooltip';
-import { $dt } from '@primeng/themes';
 import { UniqueComponentId } from 'primeng/utils';
 
 @Component({

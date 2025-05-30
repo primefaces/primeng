@@ -23,7 +23,7 @@ const dependencies = {
     '@angular/platform-browser': '^19.0.1',
     '@angular/platform-browser-dynamic': '^19.0.1',
     '@angular/router': '^19.0.1',
-    '@primeng/themes': `${version}`,
+    '@primeuix/themes': '^19.0.0',
     '@types/jasmine': '4.3.1',
     '@types/node': '12.20.55',
     'chart.js': '^3.3.2',
@@ -410,11 +410,11 @@ const theme_switcher = `
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { Component, computed, effect, inject, PLATFORM_ID, signal } from '@angular/core';
-import { $t, updatePreset, updateSurfacePalette } from '@primeng/themes';
-import Aura from '@primeng/themes/aura';
-import Lara from '@primeng/themes/lara';
-import Material from '@primeng/themes/material';
-import Nora from '@primeng/themes/nora';
+import { $t, updatePreset, updateSurfacePalette } from '@primeuix/themes';
+import Aura from '@primeuix/themes/aura';
+import Lara from '@primeuix/themes/lara';
+import Material from '@primeuix/themes/material';
+import Nora from '@primeuix/themes/nora';
 import { PrimeNG } from 'primeng/config';
 import { SelectButtonModule } from 'primeng/selectbutton';
 import { StyleClassModule } from 'primeng/styleclass';
@@ -1376,7 +1376,7 @@ import { provideAnimationsAsync } from '@angular/platform-browser/animations/asy
 import { provideHttpClient, withFetch } from '@angular/common/http';
 import { ApplicationConfig } from '@angular/core';
 import { providePrimeNG } from 'primeng/config';
-import Aura from '@primeng/themes/aura';
+import Aura from '@primeuix/themes/aura';
 
   export const appConfig: ApplicationConfig = {
       providers: [

@@ -21,49 +21,48 @@ export const KNOB_VALUE_ACCESSOR: any = {
     standalone: true,
     imports: [CommonModule, SharedModule],
     template: `
-        <div [ngClass]="containerClass" [class]="styleClass" [ngStyle]="style" [attr.data-pc-name]="'knob'" [attr.data-pc-section]="'root'">
-            <svg
-                viewBox="0 0 100 100"
-                role="slider"
-                [style.width]="size + 'px'"
-                [style.height]="size + 'px'"
-                (click)="onClick($event)"
-                (keydown)="onKeyDown($event)"
-                (mousedown)="onMouseDown($event)"
-                (mouseup)="onMouseUp($event)"
-                (touchstart)="onTouchStart($event)"
-                (touchend)="onTouchEnd($event)"
-                [attr.aria-valuemin]="min"
-                [attr.aria-valuemax]="max"
-                [attr.aria-valuenow]="_value"
-                [attr.aria-labelledby]="ariaLabelledBy"
-                [attr.aria-label]="ariaLabel"
-                [attr.tabindex]="readonly || disabled ? -1 : tabindex"
-                [attr.data-pc-section]="'svg'"
-            >
-                <path [attr.d]="rangePath()" [attr.stroke-width]="strokeWidth" [attr.stroke]="rangeColor" class="p-knob-range"></path>
-                <path [attr.d]="valuePath()" [attr.stroke-width]="strokeWidth" [attr.stroke]="valueColor" class="p-knob-value"></path>
-                <text *ngIf="showValue" [attr.x]="50" [attr.y]="57" text-anchor="middle" [attr.fill]="textColor" class="p-knob-text" [attr.name]="name">
-                    {{ valueToDisplay() }}
-                </text>
-            </svg>
-        </div>
+        <svg
+            viewBox="0 0 100 100"
+            role="slider"
+            [style.width]="size + 'px'"
+            [style.height]="size + 'px'"
+            (click)="onClick($event)"
+            (keydown)="onKeyDown($event)"
+            (mousedown)="onMouseDown($event)"
+            (mouseup)="onMouseUp($event)"
+            (touchstart)="onTouchStart($event)"
+            (touchend)="onTouchEnd($event)"
+            [attr.aria-valuemin]="min"
+            [attr.aria-valuemax]="max"
+            [attr.aria-valuenow]="_value"
+            [attr.aria-labelledby]="ariaLabelledBy"
+            [attr.aria-label]="ariaLabel"
+            [attr.tabindex]="readonly || disabled ? -1 : tabindex"
+            [attr.data-pc-section]="'svg'"
+        >
+            <path [attr.d]="rangePath()" [attr.stroke-width]="strokeWidth" [attr.stroke]="rangeColor" [class]="cx('range')"></path>
+            <path [attr.d]="valuePath()" [attr.stroke-width]="strokeWidth" [attr.stroke]="valueColor" [class]="cx('value')"></path>
+            <text *ngIf="showValue" [attr.x]="50" [attr.y]="57" text-anchor="middle" [attr.fill]="textColor" [class]="cx('text')" [attr.name]="name">
+                {{ valueToDisplay() }}
+            </text>
+        </svg>
     `,
     providers: [KNOB_VALUE_ACCESSOR, KnobStyle],
     changeDetection: ChangeDetectionStrategy.OnPush,
-    encapsulation: ViewEncapsulation.None
+    encapsulation: ViewEncapsulation.None,
+    host: {
+        '[attr.data-pc-name]': "'knob'",
+        '[attr.data-pc-section]': "'root'",
+        '[class]': "cx('root')"
+    }
 })
 export class Knob extends BaseComponent {
     /**
      * Style class of the component.
+     * @deprecated since v20.0.0, use `class` instead.
      * @group Props
      */
     @Input() styleClass: string | undefined;
-    /**
-     * Inline style of the component.
-     * @group Props
-     */
-    @Input() style: { [klass: string]: any } | null | undefined;
     /**
      * Defines a string that labels the input for accessibility.
      * @group Props

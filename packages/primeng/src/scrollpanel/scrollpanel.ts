@@ -33,49 +33,52 @@ import { ScrollPanelStyle } from './style/scrollpanelstyle';
     standalone: true,
     imports: [CommonModule, SharedModule],
     template: `
-        <div #container [ngClass]="'p-scrollpanel p-component'" [ngStyle]="style" [class]="styleClass" [attr.data-pc-name]="'scrollpanel'">
-            <div class="p-scrollpanel-content-container" [attr.data-pc-section]="'wrapper'">
-                <div #content class="p-scrollpanel-content" [attr.data-pc-section]="'content'" (mouseenter)="moveBar()" (scroll)="onScroll($event)">
-                    @if (!contentTemplate && !_contentTemplate) {
-                        <ng-content></ng-content>
-                    }
-                    <ng-container *ngTemplateOutlet="contentTemplate || _contentTemplate"></ng-container>
-                </div>
+        <div [class]="cx('contentContainer')" [attr.data-pc-section]="'wrapper'">
+            <div #content [class]="cx('content')" [attr.data-pc-section]="'content'" (mouseenter)="moveBar()" (scroll)="onScroll($event)">
+                @if (!contentTemplate && !_contentTemplate) {
+                    <ng-content></ng-content>
+                }
+                <ng-container *ngTemplateOutlet="contentTemplate || _contentTemplate"></ng-container>
             </div>
-            <div
-                #xBar
-                class="p-scrollpanel-bar p-scrollpanel-bar-x"
-                tabindex="0"
-                role="scrollbar"
-                [attr.aria-orientation]="'horizontal'"
-                [attr.aria-valuenow]="lastScrollLeft"
-                [attr.data-pc-section]="'barx'"
-                [attr.aria-controls]="contentId"
-                (mousedown)="onXBarMouseDown($event)"
-                (keydown)="onKeyDown($event)"
-                (keyup)="onKeyUp()"
-                (focus)="onFocus($event)"
-                (blur)="onBlur()"
-            ></div>
-            <div
-                #yBar
-                class="p-scrollpanel-bar p-scrollpanel-bar-y"
-                tabindex="0"
-                role="scrollbar"
-                [attr.aria-orientation]="'vertical'"
-                [attr.aria-valuenow]="lastScrollTop"
-                [attr.data-pc-section]="'bary'"
-                [attr.aria-controls]="contentId"
-                (mousedown)="onYBarMouseDown($event)"
-                (keydown)="onKeyDown($event)"
-                (keyup)="onKeyUp()"
-                (focus)="onFocus($event)"
-            ></div>
         </div>
+        <div
+            #xBar
+            [class]="cx('barX')"
+            tabindex="0"
+            role="scrollbar"
+            [attr.aria-orientation]="'horizontal'"
+            [attr.aria-valuenow]="lastScrollLeft"
+            [attr.data-pc-section]="'barx'"
+            [attr.aria-controls]="contentId"
+            (mousedown)="onXBarMouseDown($event)"
+            (keydown)="onKeyDown($event)"
+            (keyup)="onKeyUp()"
+            (focus)="onFocus($event)"
+            (blur)="onBlur()"
+        ></div>
+        <div
+            #yBar
+            [class]="cx('barY')"
+            tabindex="0"
+            role="scrollbar"
+            [attr.aria-orientation]="'vertical'"
+            [attr.aria-valuenow]="lastScrollTop"
+            [attr.data-pc-section]="'bary'"
+            [attr.aria-controls]="contentId"
+            (mousedown)="onYBarMouseDown($event)"
+            (keydown)="onKeyDown($event)"
+            (keyup)="onKeyUp()"
+            (focus)="onFocus($event)"
+        ></div>
     `,
     changeDetection: ChangeDetectionStrategy.OnPush,
     encapsulation: ViewEncapsulation.None,
-    providers: [ScrollPanelStyle]
+    providers: [ScrollPanelStyle],
+    host: {
+        '[class]': 'cx("root")',
+        '[style]': 'style',
+        'data-pc-name': 'scrollpanel'
+    }
 })
 export class ScrollPanel extends BaseComponent implements AfterViewInit, AfterContentInit, OnDestroy {
     /**
@@ -93,8 +96,6 @@ export class ScrollPanel extends BaseComponent implements AfterViewInit, AfterCo
      * @group Props
      */
     @Input({ transform: numberAttribute }) step: number = 5;
-
-    @ViewChild('container') containerViewChild: ElementRef | undefined;
 
     @ViewChild('content') contentViewChild: ElementRef | undefined;
 
@@ -198,7 +199,7 @@ export class ScrollPanel extends BaseComponent implements AfterViewInit, AfterCo
     }
 
     calculateContainerHeight() {
-        let container = (this.containerViewChild as ElementRef).nativeElement;
+        let container = (this.el as ElementRef).nativeElement;
         let content = (this.contentViewChild as ElementRef).nativeElement;
         let xBar = (this.xBarViewChild as ElementRef).nativeElement;
         const window = this.document.defaultView as Window;
@@ -217,7 +218,7 @@ export class ScrollPanel extends BaseComponent implements AfterViewInit, AfterCo
     }
 
     moveBar() {
-        let container = (this.containerViewChild as ElementRef).nativeElement;
+        let container = (this.el as ElementRef).nativeElement;
         let content = (this.contentViewChild as ElementRef).nativeElement;
 
         /* horizontal scroll */
