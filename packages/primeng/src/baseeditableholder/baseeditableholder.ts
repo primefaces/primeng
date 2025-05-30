@@ -12,4 +12,22 @@ export class BaseEditableHolder extends BaseComponent {
      * @group Props
      */
     required = input<boolean | undefined>();
+    /**
+     * When present, it specifies that the component should have invalid state style.
+     * @defaultValue undefined
+     * @group Props
+     */
+    invalid = input<boolean | undefined>();
+    /**
+     * When present, it specifies that the component should have disabled state style.
+     * @defaultValue undefined
+     * @group Props
+     */
+    disabled = input<boolean | undefined>();
+    /**
+     * When present, it specifies that the name of the input.
+     * @defaultValue undefined
+     * @group Props
+     */
+    name = input<string | undefined>();
 }

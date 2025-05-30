@@ -4,20 +4,14 @@ import { Fluid } from 'primeng/fluid';
 
 @Directive({ standalone: true })
 export class BaseInput extends BaseEditableHolder {
-    fluidParent: Fluid = inject(Fluid, { optional: true, host: true, skipSelf: true });
+    pcFluid: Fluid = inject(Fluid, { optional: true, host: true, skipSelf: true });
 
     /**
-     * When present, it specifies that the component should have invalid state style.
+     * Spans 100% width of the container when enabled.
      * @defaultValue undefined
      * @group Props
      */
-    invalid = input<boolean | undefined>();
-    /**
-     * Spans 100% width of the container when enabled.
-     * @defaultValue false
-     * @group Props
-     */
-    fluid = input(false, { transform: booleanAttribute });
+    fluid = input(undefined, { transform: booleanAttribute });
     /**
      * Specifies the input variant of the component.
      * @defaultValue undefined
@@ -70,7 +64,7 @@ export class BaseInput extends BaseEditableHolder {
     $variant = computed(() => this.config.inputStyle() || this.variant() || this.config.inputVariant());
 
     get hasFluid() {
-        return this.fluid() || this.fluidParent;
+        return this.fluid() ?? !!this.pcFluid;
     }
 
     get isInvalid() {

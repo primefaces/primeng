@@ -17,14 +17,15 @@ import { BaseInput } from 'primeng/baseinput';
         '[attr.max]': 'max()',
         '[attr.maxlength]': 'maxlength()',
         '[attr.size]': 'size()',
-        '[attr.required]': 'required()'
+        '[attr.required]': 'required()',
+        '[attr.disabled]': 'disabled()',
+        '[attr.name]': 'name()'
     },
     providers: [InputTextStyle]
 })
 export class InputText extends BaseInput implements DoCheck, AfterViewInit {
     /**
      * Defines the size of the component.
-     * @deprecated deprecated in v20, use size property instead.
      * @group Props
      */
     @Input('pSize') pSize: 'large' | 'small';
