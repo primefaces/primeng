@@ -10,20 +10,17 @@ import { MessageService } from 'primeng/api';
         <div class="card flex justify-center">
             <form #exampleForm="ngForm" (ngSubmit)="onSubmit(exampleForm)" class="flex flex-col gap-4 w-full sm:w-56">
                 <div class="flex flex-col gap-1">
-                    <label for="username">Username:</label>
-                    <input pInputText type="text" id="username" name="username" [(ngModel)]="user.username" #username="ngModel" required />
+                    <input pInputText type="text" id="username" placeholder="Username" name="username" [(ngModel)]="user.username" #username="ngModel" required />
                     @if (username.invalid && username.touched) {
                         <p-message severity="error" size="small" variant="simple">Username is required.</p-message>
                     }
                 </div>
                 <div class="flex flex-col gap-1">
-                    <label for="email">Email:</label>
-                    <input pInputText type="email" id="email" name="email" [(ngModel)]="user.email" #email="ngModel" required email />
+                    <input pInputText type="email" id="email" name="email" placeholder="Email" [(ngModel)]="user.email" #email="ngModel" required email />
                     @if (email.invalid && email.touched) {
                         <p-message severity="error" size="small" variant="simple">Email is required.</p-message>
                     }
                 </div>
-
                 <button pButton severity="secondary" type="submit"><span pButtonLabel>Submit</span></button>
             </form>
         </div>
@@ -52,37 +49,17 @@ export class TemplateDrivenFormsDoc {
     code: Code = {
         basic: `<form #exampleForm="ngForm" (ngSubmit)="onSubmit(exampleForm)" class="flex flex-col gap-4 w-full sm:w-56">
     <div class="flex flex-col gap-1">
-        <label for="username">Username:</label>
-        <input
-            pInputText
-            type="text"
-            id="username"
-            name="username"
-            [(ngModel)]="user.username"
-            #username="ngModel"
-            required
-        />
-        @if(username.invalid && username.touched) {
+        <input pInputText type="text" id="username" placeholder="Username" name="username" [(ngModel)]="user.username" #username="ngModel" required />
+        @if (username.invalid && username.touched) {
             <p-message severity="error" size="small" variant="simple">Username is required.</p-message>
         }
     </div>
     <div class="flex flex-col gap-1">
-        <label for="email">Email:</label>
-        <input
-            pInputText
-            type="email"
-            id="email"
-            name="email"
-            [(ngModel)]="user.email"
-            #email="ngModel"
-            required
-            email
-        />
-        @if(email.invalid && email.touched) {
+        <input pInputText type="email" id="email" name="email" placeholder="Email" [(ngModel)]="user.email" #email="ngModel" required email />
+        @if (email.invalid && email.touched) {
             <p-message severity="error" size="small" variant="simple">Email is required.</p-message>
         }
     </div>
-
     <button pButton severity="secondary" type="submit"><span pButtonLabel>Submit</span></button>
 </form>`,
 
@@ -90,37 +67,17 @@ export class TemplateDrivenFormsDoc {
 <div class="card flex justify-center">
     <form #exampleForm="ngForm" (ngSubmit)="onSubmit(exampleForm)" class="flex flex-col gap-4 w-full sm:w-56">
         <div class="flex flex-col gap-1">
-            <label for="username">Username:</label>
-            <input
-                pInputText
-                type="text"
-                id="username"
-                name="username"
-                [(ngModel)]="user.username"
-                #username="ngModel"
-                required
-            />
-            @if(username.invalid && username.touched) {
+            <input pInputText type="text" id="username" placeholder="Username" name="username" [(ngModel)]="user.username" #username="ngModel" required />
+            @if (username.invalid && username.touched) {
                 <p-message severity="error" size="small" variant="simple">Username is required.</p-message>
             }
         </div>
         <div class="flex flex-col gap-1">
-            <label for="email">Email:</label>
-            <input
-                pInputText
-                type="email"
-                id="email"
-                name="email"
-                [(ngModel)]="user.email"
-                #email="ngModel"
-                required
-                email
-            />
-            @if(email.invalid && email.touched) {
+            <input pInputText type="email" id="email" name="email" placeholder="Email" [(ngModel)]="user.email" #email="ngModel" required email />
+            @if (email.invalid && email.touched) {
                 <p-message severity="error" size="small" variant="simple">Email is required.</p-message>
             }
         </div>
-
         <button pButton severity="secondary" type="submit"><span pButtonLabel>Submit</span></button>
     </form>
 </div>`,

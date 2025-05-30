@@ -11,20 +11,17 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
         <div class="card flex justify-center">
             <form [formGroup]="exampleForm" (ngSubmit)="onSubmit()" class="flex flex-col gap-4 w-full sm:w-56">
                 <div class="flex flex-col gap-1">
-                    <label for="username">Username:</label>
-                    <input pInputText type="text" id="username" formControlName="username" />
+                    <input pInputText type="text" id="username" placeholder="Username" formControlName="username" />
                     @if (isInvalid('username')) {
                         <p-message severity="error" size="small" variant="simple">Username is required.</p-message>
                     }
                 </div>
                 <div class="flex flex-col gap-1">
-                    <label for="email">Email:</label>
-                    <input pInputText type="email" id="email" formControlName="email" />
+                    <input pInputText type="email" id="email" placeholder="Email" formControlName="email" />
                     @if (isInvalid('email')) {
                         <p-message severity="error" size="small" variant="simple">Email is required.</p-message>
                     }
                 </div>
-
                 <button pButton severity="secondary" type="submit"><span pButtonLabel>Submit</span></button>
             </form>
         </div>
@@ -62,32 +59,18 @@ export class ReactiveFormsDoc {
         basic: `<div class="card flex justify-center">
     <form [formGroup]="exampleForm" (ngSubmit)="onSubmit()" class="flex flex-col gap-4 w-full sm:w-56">
         <div class="flex flex-col gap-1">
-            <label for="username">Username:</label>
-            <input
-                pInputText
-                type="text"
-                id="username"
-                formControlName="username"
-
-            />
-            @if(isInvalid('username')) {
+            <input pInputText type="text" id="username" placeholder="Username" formControlName="username" />
+            @if (isInvalid('username')) {
                 <p-message severity="error" size="small" variant="simple">Username is required.</p-message>
             }
         </div>
         <div class="flex flex-col gap-1">
-            <label for="email">Email:</label>
-            <input
-                pInputText
-                type="email"
-                id="email"
-                formControlName="email"
-            />
-            @if(isInvalid('email')) {
+            <input pInputText type="email" id="email" placeholder="Email" formControlName="email"/>
+            @if (isInvalid('email')) {
                 <p-message severity="error" size="small" variant="simple">Email is required.</p-message>
             }
         </div>
-
-           <button pButton severity="secondary" type="submit"><span pButtonLabel>Submit</span></button>
+        <button pButton severity="secondary" type="submit"><span pButtonLabel>Submit</span></button>
     </form>
 </div>`,
 
@@ -95,32 +78,18 @@ export class ReactiveFormsDoc {
 <div class="card flex justify-center">
     <form [formGroup]="exampleForm" (ngSubmit)="onSubmit()" class="flex flex-col gap-4 w-full sm:w-56">
         <div class="flex flex-col gap-1">
-            <label for="username">Username:</label>
-            <input
-                pInputText
-                type="text"
-                id="username"
-                formControlName="username"
-
-            />
-            @if(isInvalid('username')) {
+            <input pInputText type="text" id="username" placeholder="Username" formControlName="username" />
+            @if (isInvalid('username')) {
                 <p-message severity="error" size="small" variant="simple">Username is required.</p-message>
             }
         </div>
         <div class="flex flex-col gap-1">
-            <label for="email">Email:</label>
-            <input
-                pInputText
-                type="email"
-                id="email"
-                formControlName="email"
-            />
-            @if(isInvalid('email')) {
+            <input pInputText type="email" id="email" placeholder="Email" formControlName="email"/>
+            @if (isInvalid('email')) {
                 <p-message severity="error" size="small" variant="simple">Email is required.</p-message>
             }
         </div>
-
-           <button pButton severity="secondary" type="submit"><span pButtonLabel>Submit</span></button>
+        <button pButton severity="secondary" type="submit"><span pButtonLabel>Submit</span></button>
     </form>
 </div>`,
 
