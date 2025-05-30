@@ -97,8 +97,8 @@ export class TemplateDrivenFormsDemo {
     messageService = inject(MessageService);
 
     user = {
-            username: '',
-            email: ''
+        username: '',
+        email: ''
     };
 
     onSubmit(form: any) {
