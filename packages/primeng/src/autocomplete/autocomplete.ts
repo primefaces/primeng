@@ -9,7 +9,6 @@ import {
     computed,
     ContentChild,
     ContentChildren,
-    effect,
     ElementRef,
     EventEmitter,
     forwardRef,
@@ -31,7 +30,6 @@ import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
 import { cn, equals, findLastIndex, findSingle, focus, isEmpty, isNotEmpty, resolveFieldData, uuid } from '@primeuix/utils';
 import { OverlayOptions, OverlayService, PrimeTemplate, ScrollerOptions, SharedModule, TranslationKeys } from 'primeng/api';
 import { AutoFocus } from 'primeng/autofocus';
-import { BaseComponent } from 'primeng/basecomponent';
 import { Chip } from 'primeng/chip';
 import { PrimeNG } from 'primeng/config';
 import { ConnectedOverlayScrollHandler } from 'primeng/dom';
@@ -863,7 +861,7 @@ export class AutoComplete extends BaseInput implements AfterViewChecked, AfterCo
     }
 
     get selectedMessageText() {
-        return this.hasSelectedOption() ? this.selectionMessageText.replaceAll('{0}', this.multiple ? this.modelValue().length : '1') : this.emptySelectionMessageText;
+        return this.hasSelectedOption() ? this.selectionMessageText.replaceAll('{0}', this.multiple ? this.modelValue()?.length : '1') : this.emptySelectionMessageText;
     }
 
     get ariaSetSize() {
@@ -1055,7 +1053,7 @@ export class AutoComplete extends BaseInput implements AfterViewChecked, AfterCo
 
     isSelected(option) {
         if (this.multiple) {
-            return this.unique ? this.modelValue()?.find((model) => equals(model, this.getOptionValue(option), this.equalityKey())) : false;
+            return this.unique ? (this.modelValue() as string[])?.find((model) => equals(model, this.getOptionValue(option), this.equalityKey())) : false;
         }
         return equals(this.modelValue(), this.getOptionValue(option), this.equalityKey());
     }
@@ -1492,7 +1490,7 @@ export class AutoComplete extends BaseInput implements AfterViewChecked, AfterCo
         event.stopPropagation();
 
         const removedOption = this.modelValue()[index];
-        const value = this.modelValue().filter((_, i) => i !== index);
+        const value = (this.modelValue() as string[]).filter((_, i) => i !== index);
 
         this.updateModel(value);
         this.onUnselect.emit({ originalEvent: event, value: removedOption });

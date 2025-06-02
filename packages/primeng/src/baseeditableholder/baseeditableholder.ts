@@ -28,7 +28,7 @@ export class BaseEditableHolder extends BaseComponent {
      */
     name = input<string | undefined>();
 
-    modelValue = signal<string | string[] | undefined>(undefined);
+    modelValue = signal<string | string[] | any | undefined>(undefined);
 
     $filled = computed(() => isNotEmpty(this.modelValue()));
 
