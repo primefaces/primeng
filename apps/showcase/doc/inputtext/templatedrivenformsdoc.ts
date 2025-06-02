@@ -18,12 +18,14 @@ import { MessageService } from 'primeng/api';
                 <div class="flex flex-col gap-1">
                     <input pInputText type="email" id="email" name="email" placeholder="Email" [(ngModel)]="user.email" #email="ngModel" required email [invalid]="email.invalid && (email.touched || exampleForm.submitted)" />
                     @if (email.invalid && (email.touched || exampleForm.submitted)) {
-                        @if (email.errors['required']) {
-                            <p-message severity="error" size="small" variant="simple">Email is required.</p-message>
-                        }
-                        @if (email.errors['email']) {
-                            <p-message severity="error" size="small" variant="simple">Please enter a valid email.</p-message>
-                        }
+                        <p-message severity="error" size="small" variant="simple">
+                            @if (email.hasError('required')) {
+                                Email is Required.
+                            }
+                            @if (email.hasError('email')) {
+                                Please enter a valid email.
+                            }
+                        </p-message>
                     }
                 </div>
                 <button pButton severity="secondary" type="submit"><span pButtonLabel>Submit</span></button>
@@ -58,12 +60,14 @@ export class TemplateDrivenFormsDoc {
     <div class="flex flex-col gap-1">
         <input pInputText type="email" id="email" name="email" placeholder="Email" [(ngModel)]="user.email" #email="ngModel" required email [invalid]="email.invalid && (email.touched || exampleForm.submitted)" />
         @if (email.invalid && (email.touched || exampleForm.submitted)) {
-            @if (email.errors['required']) {
-                <p-message severity="error" size="small" variant="simple">Email is required.</p-message>
-            }
-            @if (email.errors['email']) {
-                <p-message severity="error" size="small" variant="simple">Please enter a valid email.</p-message>
-            }
+            <p-message severity="error" size="small" variant="simple">
+                @if (email.hasError('required')) {
+                    Email is Required.
+                }
+                @if (email.hasError('email')) {
+                    Please enter a valid email.
+                }
+            </p-message>
         }
     </div>
     <button pButton severity="secondary" type="submit"><span pButtonLabel>Submit</span></button>
@@ -81,12 +85,14 @@ export class TemplateDrivenFormsDoc {
         <div class="flex flex-col gap-1">
             <input pInputText type="email" id="email" name="email" placeholder="Email" [(ngModel)]="user.email" #email="ngModel" required email [invalid]="email.invalid && (email.touched || exampleForm.submitted)" />
             @if (email.invalid && (email.touched || exampleForm.submitted)) {
-                @if (email.errors['required']) {
-                    <p-message severity="error" size="small" variant="simple">Email is required.</p-message>
-                }
-                @if (email.errors['email']) {
-                    <p-message severity="error" size="small" variant="simple">Please enter a valid email.</p-message>
-                }
+                <p-message severity="error" size="small" variant="simple">
+                    @if (email.hasError('required')) {
+                        Email is Required.
+                    }
+                    @if (email.hasError('email')) {
+                        Please enter a valid email.
+                    }
+                </p-message>
             }
         </div>
         <button pButton severity="secondary" type="submit"><span pButtonLabel>Submit</span></button>
