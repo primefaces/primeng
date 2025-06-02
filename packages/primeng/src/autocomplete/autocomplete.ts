@@ -96,7 +96,7 @@ export const AUTOCOMPLETE_VALUE_ACCESSOR: any = {
             (keyup)="onInputKeyUp($event)"
             [fluid]="hasFluid"
         />
-        <ng-container *ngIf="filled && !disabled && showClear && !loading">
+        <ng-container *ngIf="$filled() && !disabled && showClear && !loading">
             <TimesIcon *ngIf="!clearIconTemplate && !_clearIconTemplate" [styleClass]="cx('clearIcon')" (click)="clear()" [attr.aria-hidden]="true" />
             <span *ngIf="clearIconTemplate || _clearIconTemplate" [class]="cx('clearIcon')" (click)="clear()" [attr.aria-hidden]="true">
                 <ng-template *ngTemplateOutlet="clearIconTemplate || _clearIconTemplate"></ng-template>
@@ -150,7 +150,7 @@ export const AUTOCOMPLETE_VALUE_ACCESSOR: any = {
                     [required]="required()"
                     [attr.name]="name()"
                     role="combobox"
-                    [attr.placeholder]="!filled ? placeholder : null"
+                    [attr.placeholder]="!$filled() ? placeholder : null"
                     aria-autocomplete="list"
                     [attr.maxlength]="maxlength"
                     [tabindex]="!disabled ? tabindex : -1"
@@ -775,15 +775,6 @@ export class AutoComplete extends BaseInput implements AfterViewChecked, AfterCo
 
     focused: boolean = false;
 
-    _filled: boolean;
-
-    get filled() {
-        return this._filled;
-    }
-    set filled(value: any) {
-        this._filled = value;
-    }
-
     loading: Nullable<boolean>;
 
     scrollHandler: Nullable<ConnectedOverlayScrollHandler>;
@@ -900,9 +891,6 @@ export class AutoComplete extends BaseInput implements AfterViewChecked, AfterCo
         private zone: NgZone
     ) {
         super();
-        effect(() => {
-            this.filled = isNotEmpty(this.modelValue());
-        });
     }
 
     ngOnInit() {
