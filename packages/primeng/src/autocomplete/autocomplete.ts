@@ -67,6 +67,7 @@ export const AUTOCOMPLETE_VALUE_ACCESSOR: any = {
             [type]="type"
             [attr.value]="inputValue()"
             [variant]="variant()"
+            [invalid]="invalid()"
             [attr.id]="inputId"
             [autocomplete]="autocomplete"
             [required]="required()"
