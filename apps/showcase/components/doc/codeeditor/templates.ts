@@ -23,7 +23,7 @@ const dependencies = {
     '@angular/platform-browser': '^19.0.1',
     '@angular/platform-browser-dynamic': '^19.0.1',
     '@angular/router': '^19.0.1',
-    '@primeuix/themes': '^19.0.0',
+    '@primeuix/themes': `${version}`,
     '@types/jasmine': '4.3.1',
     '@types/node': '12.20.55',
     'chart.js': '^3.3.2',
