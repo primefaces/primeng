@@ -1,13 +1,9 @@
-import { computed, Directive, inject, input, signal } from '@angular/core';
-import { NgControl, NgModel } from '@angular/forms';
+import { computed, Directive, input, signal } from '@angular/core';
 import { isNotEmpty } from '@primeuix/utils';
 import { BaseComponent } from 'primeng/basecomponent';
 
 @Directive({ standalone: true })
 export class BaseEditableHolder extends BaseComponent {
-    ngModel = inject(NgModel, { optional: true });
-
-    ngControl = inject(NgControl, { optional: true, self: true });
     /**
      * There must be a value (if set).
      * @group Props

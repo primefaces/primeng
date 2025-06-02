@@ -2,6 +2,7 @@ import { AfterViewInit, Directive, DoCheck, HostListener, inject, Input, NgModul
 import { BaseInput } from 'primeng/baseinput';
 import { Nullable } from 'primeng/ts-helpers';
 import { InputTextStyle } from './style/inputtextstyle';
+import { NgControl } from '@angular/forms';
 
 /**
  * InputText directive is an extension to standard input element with theming.
@@ -24,6 +25,8 @@ import { InputTextStyle } from './style/inputtextstyle';
     providers: [InputTextStyle]
 })
 export class InputText extends BaseInput implements DoCheck, AfterViewInit {
+    ngControl = inject(NgControl, { optional: true, self: true });
+
     /**
      * Defines the size of the component.
      * @group Props
@@ -36,27 +39,18 @@ export class InputText extends BaseInput implements DoCheck, AfterViewInit {
 
     ngAfterViewInit() {
         super.ngAfterViewInit();
-        //this.updateFilledState();
         this.writeModelValue(this.ngControl?.value ?? this.el.nativeElement.value);
         this.cd.detectChanges();
     }
 
     ngDoCheck() {
-        //this.updateFilledState();
         this.writeModelValue(this.ngControl?.value ?? this.el.nativeElement.value);
     }
 
     @HostListener('input', ['$event'])
     onInput(event: Event) {
-        //this.updateFilledState();
         this.writeModelValue(this.ngControl?.value ?? this.el.nativeElement.value, event);
     }
-
-    /*updateFilledState() {
-        const controlValue = this.ngControl?.value;
-        const elementValue = this.el.nativeElement.value;
-        this.filled = !!elementValue || !!controlValue;
-    }*/
 }
 
 @NgModule({
