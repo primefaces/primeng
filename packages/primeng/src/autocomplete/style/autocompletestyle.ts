@@ -59,9 +59,9 @@ const classes = {
             'p-disabled': instance.disabled(),
             'p-focus': instance.focused,
             'p-inputwrapper-filled': instance.$filled(),
-            'p-inputwrapper-focus': (instance.focused && !instance.disabled) || instance.autofocus || instance.overlayVisible,
+            'p-inputwrapper-focus': (instance.focused && !instance.disabled()) || instance.autofocus || instance.overlayVisible,
             'p-autocomplete-open': instance.overlayVisible,
-            'p-autocomplete-clearable': instance.showClear && !instance.disabled,
+            'p-autocomplete-clearable': instance.showClear && !instance.disabled(),
             // 'p-invalid': instance.invalid,
             'p-autocomplete-fluid': instance.hasFluid
         }
