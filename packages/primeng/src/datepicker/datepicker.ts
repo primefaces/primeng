@@ -54,92 +54,83 @@ export const DATEPICKER_VALUE_ACCESSOR: any = {
     standalone: true,
     imports: [CommonModule, Button, Ripple, ChevronLeftIcon, ChevronRightIcon, ChevronUpIcon, ChevronDownIcon, TimesIcon, CalendarIcon, AutoFocus, InputText, SharedModule],
     template: `
-        <ng-template [ngIf]="!inline">
-            <input
-                #inputfield
-                pInputText
-                [pSize]="size"
-                type="text"
-                role="combobox"
-                [attr.id]="inputId"
-                [attr.name]="name"
-                [attr.required]="required"
-                [attr.aria-required]="required"
-                aria-autocomplete="none"
-                aria-haspopup="dialog"
-                [attr.aria-expanded]="overlayVisible ?? false"
-                [attr.aria-controls]="overlayVisible ? panelId : null"
-                [attr.aria-labelledby]="ariaLabelledBy"
-                [attr.aria-label]="ariaLabel"
-                [value]="inputFieldValue"
-                (focus)="onInputFocus($event)"
-                (keydown)="onInputKeydown($event)"
-                (click)="onInputClick()"
-                (blur)="onInputBlur($event)"
-                [readonly]="readonlyInput"
-                (input)="onUserInput($event)"
-                [ngStyle]="inputStyle"
-                [class]="inputStyleClass"
-                [ngClass]="'p-datepicker-input'"
-                [placeholder]="placeholder || ''"
-                [disabled]="disabled"
-                [attr.tabindex]="tabindex"
-                [attr.inputmode]="touchUI ? 'off' : null"
-                autocomplete="off"
-                [pAutoFocus]="autofocus"
-                [variant]="variant"
-                [fluid]="hasFluid"
-            />
-            <ng-container *ngIf="showClear && !disabled && value != null">
-                <TimesIcon *ngIf="!clearIconTemplate && !_clearIconTemplate" [class]="cx('clearIcon')" (click)="clear()" />
-                <span *ngIf="clearIconTemplate || _clearIconTemplate" [class]="cx('clearIcon')" (click)="clear()">
-                    <ng-template *ngTemplateOutlet="clearIconTemplate || _clearIconTemplate"></ng-template>
-                </span>
-            </ng-container>
-            <button
-                type="button"
-                [attr.aria-label]="iconButtonAriaLabel"
-                aria-haspopup="dialog"
-                [attr.aria-expanded]="overlayVisible ?? false"
-                [attr.aria-controls]="overlayVisible ? panelId : null"
-                *ngIf="showIcon && iconDisplay === 'button'"
-                (click)="onButtonClick($event, inputfield)"
-                [class]="cx('dropdown')"
-                [disabled]="disabled"
-                tabindex="0"
-            >
-                <span *ngIf="icon" [ngClass]="icon"></span>
-                <ng-container *ngIf="!icon">
-                    <CalendarIcon *ngIf="!triggerIconTemplate && !_triggerIconTemplate" />
-                    <ng-template *ngTemplateOutlet="triggerIconTemplate || _triggerIconTemplate"></ng-template>
+        <span #container [ngClass]="rootClass" [ngStyle]="style" [class]="styleClass">
+            <ng-template [ngIf]="!inline">
+                <input
+                    #inputfield
+                    pInputText
+                    [pSize]="size"
+                    type="text"
+                    role="combobox"
+                    [attr.id]="inputId"
+                    [attr.name]="name"
+                    [attr.required]="required"
+                    [attr.aria-required]="required"
+                    aria-autocomplete="none"
+                    aria-haspopup="dialog"
+                    [attr.aria-expanded]="overlayVisible ?? false"
+                    [attr.aria-controls]="overlayVisible ? panelId : null"
+                    [attr.aria-labelledby]="ariaLabelledBy"
+                    [attr.aria-label]="ariaLabel"
+                    [value]="inputFieldValue"
+                    (focus)="onInputFocus($event)"
+                    (keydown)="onInputKeydown($event)"
+                    (click)="onInputClick()"
+                    (blur)="onInputBlur($event)"
+                    [readonly]="readonlyInput"
+                    (input)="onUserInput($event)"
+                    [ngStyle]="inputStyle"
+                    [class]="inputStyleClass"
+                    [ngClass]="'p-datepicker-input'"
+                    [placeholder]="placeholder || ''"
+                    [disabled]="disabled"
+                    [attr.tabindex]="tabindex"
+                    [attr.inputmode]="touchUI ? 'off' : null"
+                    autocomplete="off"
+                    [pAutoFocus]="autofocus"
+                    [variant]="variant"
+                    [fluid]="hasFluid"
+                />
+                <ng-container *ngIf="showClear && !disabled && value != null">
+                    <TimesIcon *ngIf="!clearIconTemplate && !_clearIconTemplate" [class]="'p-datepicker-clear-icon'" (click)="clear()" />
+                    <span *ngIf="clearIconTemplate || _clearIconTemplate" class="p-datepicker-clear-icon" (click)="clear()">
+                        <ng-template *ngTemplateOutlet="clearIconTemplate || _clearIconTemplate"></ng-template>
+                    </span>
                 </ng-container>
-            </button>
-            <ng-container *ngIf="iconDisplay === 'input' && showIcon">
-                <span [class]="cx('inputIconContainer')">
-                    <CalendarIcon (click)="onButtonClick($event)" *ngIf="!inputIconTemplate && !_inputIconTemplate" [class]="cx('inputIcon')" />
-
-                    <ng-container *ngTemplateOutlet="inputIconTemplate || _inputIconTemplate; context: { clickCallBack: onButtonClick.bind(this) }"></ng-container>
-                </span>
-            </ng-container>
-        </ng-template>
-        <div
-            #contentWrapper
-            [attr.id]="panelId"
-            [ngStyle]="panelStyle"
-            [class]="cn(cx('panel'), panelStyleClass)"
-            [@overlayAnimation]="{
-                value: 'visible',
-                params: { showTransitionParams: showTransitionOptions, hideTransitionParams: hideTransitionOptions }
-            }"
-            [attr.aria-label]="getTranslation('chooseDate')"
-            [attr.role]="inline ? null : 'dialog'"
-            [attr.aria-modal]="inline ? null : 'true'"
-            [@.disabled]="inline === true"
-            (@overlayAnimation.start)="onOverlayAnimationStart($event)"
-            (@overlayAnimation.done)="onOverlayAnimationDone($event)"
-            (click)="onOverlayClick($event)"
-            *ngIf="inline || overlayVisible"
-        >
+                <button
+                    type="button"
+                    [attr.aria-label]="iconButtonAriaLabel"
+                    aria-haspopup="dialog"
+                    [attr.aria-expanded]="overlayVisible ?? false"
+                    [attr.aria-controls]="overlayVisible ? panelId : null"
+                    *ngIf="showIcon && iconDisplay === 'button'"
+                    (click)="onButtonClick($event, inputfield)"
+                    class="p-datepicker-dropdown"
+                    [disabled]="disabled"
+                    tabindex="0"
+                >
+                    <span *ngIf="icon" [ngClass]="icon"></span>
+                    <ng-container *ngIf="!icon">
+                        <CalendarIcon *ngIf="!triggerIconTemplate && !_triggerIconTemplate" />
+                        <ng-template *ngTemplateOutlet="triggerIconTemplate || _triggerIconTemplate"></ng-template>
+                    </ng-container>
+                </button>
+                <ng-container *ngIf="iconDisplay === 'input' && showIcon">
+                    <span class="p-datepicker-input-icon-container">
+                        <span *ngIf="icon" [ngClass]="icon"></span>
+                        <ng-container *ngIf="!icon">
+                            <CalendarIcon
+                                (click)="onButtonClick($event)"
+                                *ngIf="!inputIconTemplate && !_inputIconTemplate"
+                                [ngClass]="{
+                                    'p-datepicker-input-icon': showOnFocus
+                                }"
+                            />
+                        </ng-container>
+                        <ng-container *ngTemplateOutlet="inputIconTemplate || _inputIconTemplate; context: { clickCallBack: onButtonClick.bind(this) }"></ng-container>
+                    </span>
+                </ng-container>
+            </ng-template>
             <ng-content select="p-header"></ng-content>
             <ng-container *ngTemplateOutlet="headerTemplate || _headerTemplate"></ng-container>
             <ng-container *ngIf="!timeOnly">
