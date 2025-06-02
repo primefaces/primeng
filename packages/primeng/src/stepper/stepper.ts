@@ -1,6 +1,7 @@
 import { CommonModule } from '@angular/common';
 import {
     AfterContentInit,
+    booleanAttribute,
     ChangeDetectionStrategy,
     Component,
     computed,
@@ -27,7 +28,6 @@ import { animate, state, style, transition, trigger } from '@angular/animations'
 import { find, findIndexInList, uuid } from '@primeuix/utils';
 import { PrimeTemplate, SharedModule } from 'primeng/api';
 import { BaseComponent } from 'primeng/basecomponent';
-import { transformToBoolean } from 'primeng/utils';
 import { StepperStyle } from './style/stepperstyle';
 import { StepStyle } from './style/stepstyle';
 import { StepItemStyle } from './style/stepitemstyle';
@@ -195,9 +195,7 @@ export class Step extends BaseComponent implements AfterContentInit {
      * @defaultValue false
      * @group Props
      */
-    disabled: InputSignalWithTransform<any, boolean> = input(false, {
-        transform: (v: any | boolean) => transformToBoolean(v)
-    });
+    disabled: InputSignalWithTransform<boolean, unknown> = input(false, { transform: booleanAttribute });
 
     active = computed(() => this.pcStepper.isStepActive(this.value()));
 
@@ -401,9 +399,7 @@ export class Stepper extends BaseComponent {
      * @type {InputSignalWithTransform<any, boolean >}
      * @group Props
      */
-    linear: InputSignalWithTransform<any, boolean> = input(false, {
-        transform: (v: any | boolean) => transformToBoolean(v)
-    });
+    linear: InputSignalWithTransform<boolean, unknown> = input(false, { transform: booleanAttribute });
     /**
      * Transition options of the animation.
      * @defaultValue 400ms cubic-bezier(0.86, 0, 0.07, 1)

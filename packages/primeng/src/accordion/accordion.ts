@@ -31,7 +31,6 @@ import { BlockableUI, Header, PrimeTemplate, SharedModule } from 'primeng/api';
 import { BaseComponent } from 'primeng/basecomponent';
 import { ChevronDownIcon, ChevronUpIcon } from 'primeng/icons';
 import { Ripple } from 'primeng/ripple';
-import { transformToBoolean } from 'primeng/utils';
 import { Subscription } from 'rxjs';
 import { AccordionStyle } from './style/accordionstyle';
 
@@ -102,7 +101,7 @@ export class AccordionPanel extends BaseComponent {
      * @defaultValue false
      * @group Props
      */
-    disabled: InputSignalWithTransform<any, boolean> = input(false, { transform: (v: any) => transformToBoolean(v) });
+    disabled: InputSignalWithTransform<boolean, unknown> = input(false, { transform: booleanAttribute });
 
     active = computed(() => (this.pcAccordion.multiple() ? this.valueEquals(this.pcAccordion.value(), this.value()) : this.pcAccordion.value() === this.value()));
 
@@ -717,7 +716,7 @@ export class Accordion extends BaseComponent implements BlockableUI, AfterConten
      * @defaultValue false
      * @group Props
      */
-    multiple = input(false, { transform: (v: any) => transformToBoolean(v) });
+    multiple = input(false, { transform: booleanAttribute });
     /**
      * Inline style of the tab header and content.
      * @group Props
@@ -743,7 +742,7 @@ export class Accordion extends BaseComponent implements BlockableUI, AfterConten
      * @defaultValue false
      * @group Props
      */
-    selectOnFocus = input(false, { transform: (v: any) => transformToBoolean(v) });
+    selectOnFocus = input(false, { transform: booleanAttribute });
     set activeIndex(val: number | number[] | null | undefined) {
         this._activeIndex = val;
         if (this.preventActiveIndexPropagation) {
