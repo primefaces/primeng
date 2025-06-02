@@ -1501,7 +1501,7 @@ export class AutoComplete extends BaseInput implements AfterViewChecked, AfterCo
 
     updateModel(value) {
         this.value = value;
-        this.modelValue.set(value);
+        this.writeModelValue(value);
         this.onModelChange(value);
         this.updateInputValue();
         this.cd.markForCheck();
@@ -1586,7 +1586,7 @@ export class AutoComplete extends BaseInput implements AfterViewChecked, AfterCo
 
     writeValue(value: any): void {
         this.value = value;
-        this.modelValue.set(value);
+        this.writeModelValue(value);
         this.updateInputValue();
         this.cd.markForCheck();
     }
