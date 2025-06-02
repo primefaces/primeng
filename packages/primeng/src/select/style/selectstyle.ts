@@ -7,8 +7,17 @@ const theme = css`
     ${style}
 
     /* For PrimeNG */
+    .p-select-label.p-placeholder {
+        color: ${dt('select.placeholder.color')};
+    }
+
     .p-select.ng-invalid.ng-dirty {
         border-color: ${dt('select.invalid.border.color')};
+    }
+
+    .p-dropdown.ng-invalid.ng-dirty .p-dropdown-label.p-placeholder,
+    .p-select.ng-invalid.ng-dirty .p-select-label.p-placeholder {
+        color: ${dt('select.invalid.placeholder.color')};
     }
 `;
 
@@ -17,15 +26,15 @@ const classes = {
         'p-select p-component p-inputwrapper',
         instance.styleClass,
         {
-            'p-disabled': instance.disabled,
-            'p-variant-filled': instance.variant === 'filled' || instance.config.inputVariant() === 'filled' || instance.config.inputStyle() === 'filled',
+            'p-disabled': instance.disabled(),
+            'p-variant-filled': instance.$variant() === 'filled',
             'p-focus': instance.focused,
-            'p-inputwrapper-filled': instance.modelValue() !== undefined && instance.modelValue() !== null,
+            'p-inputwrapper-filled': instance.$filled(),
             'p-inputwrapper-focus': instance.focused || instance.overlayVisible,
             'p-select-open': instance.overlayVisible,
             'p-select-fluid': instance.hasFluid,
-            'p-select-sm p-inputfield-sm': instance.size === 'small',
-            'p-select-lg p-inputfield-lg': instance.size === 'large'
+            'p-select-sm p-inputfield-sm': instance.size() === 'small',
+            'p-select-lg p-inputfield-lg': instance.size() === 'large'
         }
     ],
     label: ({ instance }) => [

@@ -26,8 +26,7 @@ import {
     signal,
     TemplateRef,
     ViewChild,
-    ViewEncapsulation,
-    ViewRef
+    ViewEncapsulation
 } from '@angular/core';
 import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
 import { deepEquals, equals, findLastIndex, findSingle, focus, getFirstFocusableElement, getFocusableElements, getLastFocusableElement, isEmpty, isNotEmpty, isPrintableCharacter, resolveFieldData, scrollInView, uuid } from '@primeuix/utils';
@@ -46,6 +45,7 @@ import { Tooltip } from 'primeng/tooltip';
 import { Nullable } from 'primeng/ts-helpers';
 import { SelectChangeEvent, SelectFilterEvent, SelectFilterOptions, SelectLazyLoadEvent } from './select.interface';
 import { SelectStyle } from './style/selectstyle';
+import { BaseInput } from 'primeng/baseinput';
 
 export const SELECT_VALUE_ACCESSOR: any = {
     provide: NG_VALUE_ACCESSOR,
@@ -141,7 +141,7 @@ export class SelectItem extends BaseComponent {
             [tooltipPosition]="tooltipPosition"
             [positionStyle]="tooltipPositionStyle"
             [tooltipStyleClass]="tooltipStyleClass"
-            [attr.aria-disabled]="disabled"
+            [attr.aria-disabled]="disabled()"
             [attr.id]="inputId"
             role="combobox"
             [attr.aria-label]="ariaLabel || (label() === 'p-emptylabel' ? undefined : label())"
@@ -149,14 +149,14 @@ export class SelectItem extends BaseComponent {
             [attr.aria-haspopup]="'listbox'"
             [attr.aria-expanded]="overlayVisible ?? false"
             [attr.aria-controls]="overlayVisible ? id + '_list' : null"
-            [attr.tabindex]="!disabled ? tabindex : -1"
+            [attr.tabindex]="!disabled() ? tabindex : -1"
             [pAutoFocus]="autofocus"
             [attr.aria-activedescendant]="focused ? focusedOptionId : undefined"
             (focus)="onInputFocus($event)"
             (blur)="onInputBlur($event)"
             (keydown)="onKeyDown($event)"
-            [attr.aria-required]="required"
-            [attr.required]="required"
+            [attr.aria-required]="required()"
+            [attr.required]="required()"
         >
             <ng-container *ngIf="!selectedItemTemplate && !_selectedItemTemplate; else defaultPlaceholder">{{ label() === 'p-emptylabel' ? '&nbsp;' : label() }}</ng-container>
             <ng-container *ngIf="(selectedItemTemplate || _selectedItemTemplate) && !isSelectedOptionEmpty()" [ngTemplateOutlet]="selectedItemTemplate || _selectedItemTemplate" [ngTemplateOutletContext]="{ $implicit: selectedOption }"></ng-container>
@@ -169,9 +169,9 @@ export class SelectItem extends BaseComponent {
             #editableInput
             type="text"
             [attr.id]="inputId"
-            [attr.maxlength]="maxlength"
+            [attr.maxlength]="maxlength()"
             [class]="cx('label')"
-            [disabled]="disabled"
+            [disabled]="disabled()"
             aria-haspopup="listbox"
             [attr.placeholder]="modelValue() === undefined || modelValue() === null ? placeholder() : undefined"
             [attr.aria-label]="ariaLabel || (label() === 'p-emptylabel' ? undefined : label())"
@@ -181,6 +181,7 @@ export class SelectItem extends BaseComponent {
             [attr.aria-activedescendant]="focused ? focusedOptionId : undefined"
             (focus)="onInputFocus($event)"
             (blur)="onInputBlur($event)"
+            [attr.name]="name()"
         />
         <ng-container *ngIf="isVisibleClearIcon">
             <TimesIcon [class]="cx('clearIcon')" (click)="clear($event)" *ngIf="!clearIconTemplate && !_clearIconTemplate" [attr.data-pc-section]="'clearicon'" />
@@ -246,13 +247,13 @@ export class SelectItem extends BaseComponent {
                                 <input
                                     #filter
                                     pInputText
-                                    [pSize]="size"
+                                    [pSize]="size()"
                                     type="text"
                                     role="searchbox"
                                     autocomplete="off"
                                     [value]="_filterValue() || ''"
                                     [class]="cx('pcFilter')"
-                                    [variant]="variant"
+                                    [variant]="$variant()"
                                     [attr.placeholder]="filterPlaceholder"
                                     [attr.aria-owns]="id + '_list'"
                                     (input)="onFilterInputChange($event)"
@@ -361,7 +362,7 @@ export class SelectItem extends BaseComponent {
     changeDetection: ChangeDetectionStrategy.OnPush,
     encapsulation: ViewEncapsulation.None
 })
-export class Select extends BaseComponent implements OnInit, AfterViewInit, AfterContentInit, AfterViewChecked, ControlValueAccessor {
+export class Select extends BaseInput implements OnInit, AfterViewInit, AfterContentInit, AfterViewChecked, ControlValueAccessor {
     /**
      * Unique identifier of the component
      * @group Props
@@ -377,11 +378,6 @@ export class Select extends BaseComponent implements OnInit, AfterViewInit, Afte
      * @group Props
      */
     @Input({ transform: booleanAttribute }) filter: boolean | undefined;
-    /**
-     * Name of the input element.
-     * @group Props
-     */
-    @Input() name: string | undefined;
     /**
      * Inline style of the overlay panel element.
      * @group Props
@@ -403,11 +399,6 @@ export class Select extends BaseComponent implements OnInit, AfterViewInit, Afte
      * @group Props
      */
     @Input({ transform: booleanAttribute }) readonly: boolean | undefined;
-    /**
-     * When present, it specifies that an input field must be filled out before submitting the form.
-     * @group Props
-     */
-    @Input({ transform: booleanAttribute }) required: boolean | undefined;
     /**
      * When present, custom value instead of predefined options can be entered using the editable input field.
      * @group Props
@@ -448,11 +439,6 @@ export class Select extends BaseComponent implements OnInit, AfterViewInit, Afte
      * @group Props
      */
     @Input() filterLocale: string | undefined;
-    /**
-     * Specifies the input variant of the component.
-     * @group Props
-     */
-    @Input() variant: 'filled' | 'outlined';
     /**
      * Identifier of the accessible input element.
      * @group Props
@@ -570,11 +556,6 @@ export class Select extends BaseComponent implements OnInit, AfterViewInit, Afte
      */
     @Input() virtualScrollOptions: ScrollerOptions | undefined;
     /**
-     * Defines the size of the component.
-     * @group Props
-     */
-    @Input() size: 'large' | 'small';
-    /**
      * Whether to use overlay API feature. The properties of overlay API can be used like an object in it.
      * @group Props
      */
@@ -599,11 +580,6 @@ export class Select extends BaseComponent implements OnInit, AfterViewInit, Afte
      * @group Props
      */
     @Input() filterMatchMode: 'contains' | 'startsWith' | 'endsWith' | 'equals' | 'notEquals' | 'in' | 'lt' | 'lte' | 'gt' | 'gte' = 'contains';
-    /**
-     * Maximum number of character allows in the editable input field.
-     * @group Props
-     */
-    @Input({ transform: numberAttribute }) maxlength: number | undefined;
     /**
      * Advisory information to display in a tooltip on hover.
      * @group Props
@@ -645,29 +621,24 @@ export class Select extends BaseComponent implements OnInit, AfterViewInit, Afte
      */
     @Input({ transform: booleanAttribute }) autofocusFilter: boolean = true;
     /**
-     * Whether the component should span the full width of its parent.
-     * @group Props
-     */
-    @Input({ transform: booleanAttribute }) fluid: boolean | undefined;
-    /**
      * When present, it specifies that the component should be disabled.
      * @group Props
      */
-    @Input() get disabled(): boolean | undefined {
-        return this._disabled;
-    }
-    set disabled(_disabled: boolean | undefined) {
-        if (_disabled) {
-            this.focused = false;
-
-            if (this.overlayVisible) this.hide();
-        }
-
-        this._disabled = _disabled;
-        if (!(this.cd as ViewRef).destroyed) {
-            this.cd.detectChanges();
-        }
-    }
+    // @Input() get disabled(): boolean | undefined {
+    //     return this._disabled;
+    // }
+    // set disabled(_disabled: boolean | undefined) {
+    //     if (_disabled) {
+    //         this.focused = false;
+    //
+    //         if (this.overlayVisible) this.hide();
+    //     }
+    //
+    //     this._disabled = _disabled;
+    //     if (!(this.cd as ViewRef).destroyed) {
+    //         this.cd.detectChanges();
+    //     }
+    // }
     /**
      * Item size of item to be virtual scrolled.
      * @group Props
@@ -831,12 +802,6 @@ export class Select extends BaseComponent implements OnInit, AfterViewInit, Afte
 
     @ViewChild('lastHiddenFocusableEl') lastHiddenFocusableElementOnOverlay: Nullable<ElementRef>;
 
-    get hasFluid() {
-        const nativeElement = this.el.nativeElement;
-        const fluidComponent = nativeElement.closest('p-fluid');
-        return this.fluid || !!fluidComponent;
-    }
-
     _disabled: boolean | undefined;
 
     itemsWrapper: Nullable<HTMLDivElement>;
@@ -977,8 +942,6 @@ export class Select extends BaseComponent implements OnInit, AfterViewInit, Afte
 
     _placeholder = signal<string | undefined>(undefined);
 
-    modelValue = signal<any>(null);
-
     value: any;
 
     onModelChange: Function = () => {};
@@ -1032,7 +995,7 @@ export class Select extends BaseComponent implements OnInit, AfterViewInit, Afte
     }
 
     get isVisibleClearIcon(): boolean | undefined {
-        return this.modelValue() != null && this.hasSelectedOption() && this.showClear && !this.disabled;
+        return this.modelValue() != null && this.hasSelectedOption() && this.showClear && !this.disabled();
     }
 
     get listLabel(): string {
@@ -1092,14 +1055,7 @@ export class Select extends BaseComponent implements OnInit, AfterViewInit, Afte
         return selectedOptionIndex !== -1 ? this.getOptionLabel(options[selectedOptionIndex]) : this.placeholder() || 'p-emptylabel';
     });
 
-    filled = computed(() => {
-        if (typeof this.modelValue() === 'string') return !!this.modelValue();
-        return this.label() !== 'p-emptylabel' && this.modelValue() !== undefined && this.modelValue() !== null;
-    });
-
     selectedOption: any;
-
-    editableInputValue = computed(() => this.getOptionLabel(this.selectedOption) || this.modelValue() || '');
 
     constructor(
         public zone: NgZone,
@@ -1292,7 +1248,7 @@ export class Select extends BaseComponent implements OnInit, AfterViewInit, Afte
     updateModel(value, event?) {
         this.value = value;
         this.onModelChange(value);
-        this.modelValue.set(value);
+        this.writeModelValue(value);
         this.selectedOptionUpdated = true;
     }
 
@@ -1303,7 +1259,7 @@ export class Select extends BaseComponent implements OnInit, AfterViewInit, Afte
 
         this.value = value;
         this.allowModelChange() && this.onModelChange(value);
-        this.modelValue.set(this.value);
+        this.writeModelValue(this.value);
         this.updateEditableLabel();
         this.cd.markForCheck();
     }
@@ -1418,13 +1374,8 @@ export class Select extends BaseComponent implements OnInit, AfterViewInit, Afte
         this.onModelTouched = fn;
     }
 
-    setDisabledState(val: boolean): void {
-        this.disabled = val;
-        this.cd.markForCheck();
-    }
-
     onContainerClick(event: any) {
-        if (this.disabled || this.readonly || this.loading) {
+        if (this.disabled() || this.readonly || this.loading) {
             return;
         }
 
@@ -1537,7 +1488,7 @@ export class Select extends BaseComponent implements OnInit, AfterViewInit, Afte
     }
 
     onInputFocus(event: Event) {
-        if (this.disabled) {
+        if (this.disabled()) {
             // For ScreenReaders
             return;
         }
@@ -1561,7 +1512,7 @@ export class Select extends BaseComponent implements OnInit, AfterViewInit, Afte
     }
 
     onKeyDown(event: KeyboardEvent, search: boolean = false) {
-        if (this.disabled || this.readonly || this.loading) {
+        if (this.disabled() || this.readonly || this.loading) {
             return;
         }
 
