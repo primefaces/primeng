@@ -313,6 +313,8 @@ export class SelectItem extends BaseComponent {
                                             [selected]="isSelected(option)"
                                             [label]="getOptionLabel(option)"
                                             [disabled]="isOptionDisabled(option)"
+                                            [pTooltip]="getOptionTooltip(option)"
+                                            tooltipPosition="top"
                                             [template]="itemTemplate || _itemTemplate"
                                             [focused]="focusedOptionIndex() === getOptionIndex(i, scrollerOptions)"
                                             [ariaPosInset]="getAriaPosInset(getOptionIndex(i, scrollerOptions))"
@@ -499,6 +501,11 @@ export class Select extends BaseInput implements OnInit, AfterViewInit, AfterCon
      * @group Props
      */
     @Input() optionDisabled: string | undefined;
+    /**
+     * Name of the tooltip field of an option.
+     * @group Props
+     */
+    @Input() optionTooltip: string | undefined;
     /**
      * Name of the label field of an option group.
      * @group Props
@@ -1329,6 +1336,10 @@ export class Select extends BaseInput implements OnInit, AfterViewInit, AfterCon
         } else {
             return this.optionDisabled ? resolveFieldData(option, this.optionDisabled) : option && option.disabled !== undefined ? option.disabled : false;
         }
+    }
+
+    getOptionTooltip(option: any) {
+        return this.optionTooltip ? resolveFieldData(option, this.optionTooltip) : undefined;
     }
 
     getOptionGroupLabel(optionGroup: any) {
