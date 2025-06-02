@@ -75,8 +75,7 @@ export const INPUTMASK_VALUE_ACCESSOR: any = {
         <input
             #input
             pInputText
-            [class]="styleClass"
-            [ngClass]="inputClass"
+            [class]="cx('root')"
             [attr.id]="inputId"
             [attr.type]="type"
             [attr.name]="name"
@@ -105,8 +104,8 @@ export const INPUTMASK_VALUE_ACCESSOR: any = {
             [attr.data-pc-section]="'root'"
         />
         <ng-container *ngIf="value != null && filled && showClear && !disabled">
-            <TimesIcon *ngIf="!clearIconTemplate && !_clearIconTemplate" [styleClass]="'p-inputmask-clear-icon'" (click)="clear()" [attr.data-pc-section]="'clearIcon'" />
-            <span *ngIf="clearIconTemplate || _clearIconTemplate" class="p-inputmask-clear-icon" (click)="clear()" [attr.data-pc-section]="'clearIcon'">
+            <TimesIcon *ngIf="!clearIconTemplate && !_clearIconTemplate" [styleClass]="cx('clearIcon')" (click)="clear()" [attr.data-pc-section]="'clearIcon'" />
+            <span *ngIf="clearIconTemplate || _clearIconTemplate" [class]="cx('clearIcon')" (click)="clear()" [attr.data-pc-section]="'clearIcon'">
                 <ng-template *ngTemplateOutlet="clearIconTemplate || _clearIconTemplate"></ng-template>
             </span>
         </ng-container>
@@ -345,10 +344,6 @@ export class InputMask extends BaseComponent implements OnInit, AfterContentInit
     androidChrome: boolean = true;
 
     focused: Nullable<boolean>;
-
-    get inputClass() {
-        return this._componentStyle.classes.root({ instance: this });
-    }
 
     _componentStyle = inject(InputMaskStyle);
 
@@ -845,6 +840,7 @@ export class InputMask extends BaseComponent implements OnInit, AfterContentInit
 
     updateFilledState() {
         this.filled = this.inputViewChild?.nativeElement && this.inputViewChild.nativeElement.value != '';
+        this.cd.markForCheck();
     }
 
     focus() {

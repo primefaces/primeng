@@ -61,11 +61,34 @@ const theme = ({ dt }) => `
 }
 `;
 
+const classes = {
+    root: ({ instance }) => [
+        'p-virtualscroller',
+        {
+            'p-virtualscroller-inline': instance.inline,
+            'p-virtualscroller-both p-both-scroll': instance.both,
+            'p-virtualscroller-horizontal p-horizontal-scroll': instance.horizontal
+        },
+        instance._styleClass
+    ],
+    content: 'p-virtualscroller-content',
+    spacer: 'p-virtualscroller-spacer',
+    loader: ({ instance }) => [
+        'p-virtualscroller-loader',
+        {
+            'p-virtualscroller-loader-mask': !instance.loaderTemplate
+        }
+    ],
+    loadingIcon: 'p-virtualscroller-loading-icon'
+};
+
 @Injectable()
 export class ScrollerStyle extends BaseStyle {
     name = 'virtualscroller';
 
     theme = theme;
+
+    classes = classes;
 }
 
 /**

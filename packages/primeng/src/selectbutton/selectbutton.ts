@@ -39,7 +39,7 @@ export const SELECTBUTTON_VALUE_ACCESSOR: any = {
     standalone: true,
     imports: [ToggleButton, FormsModule, CommonModule, SharedModule],
     template: `
-        @for (option of options; track option; let i = $index) {
+        @for (option of options; track getOptionLabel(option); let i = $index) {
             <p-toggleButton
                 [autofocus]="autofocus"
                 [styleClass]="styleClass"
@@ -48,7 +48,7 @@ export const SELECTBUTTON_VALUE_ACCESSOR: any = {
                 [offLabel]="this.getOptionLabel(option)"
                 [disabled]="disabled || isOptionDisabled(option)"
                 (onChange)="onOptionSelect($event, option, i)"
-                [allowEmpty]="allowEmpty"
+                [allowEmpty]="getAllowEmpty()"
                 [size]="size"
             >
                 @if (itemTemplate || _itemTemplate) {
@@ -63,13 +63,11 @@ export const SELECTBUTTON_VALUE_ACCESSOR: any = {
     changeDetection: ChangeDetectionStrategy.OnPush,
     encapsulation: ViewEncapsulation.None,
     host: {
-        '[class.p-selectbutton]': 'true',
-        '[class.p-component]': 'true',
-        '[style]': 'style',
+        '[class]': "cx('root')",
         '[attr.role]': '"group"',
         '[attr.aria-labelledby]': 'ariaLabelledBy',
-        '[attr.data-pc-section]': "'root'",
-        '[attr.data-pc-name]': "'selectbutton'"
+        '[attr.data-pc-section]': '"root"',
+        '[attr.data-pc-name]': '"selectbutton"'
     }
 })
 export class SelectButton extends BaseComponent implements AfterContentInit, ControlValueAccessor {
@@ -123,11 +121,6 @@ export class SelectButton extends BaseComponent implements AfterContentInit, Con
      * @group Props
      */
     @Input({ transform: booleanAttribute }) allowEmpty: boolean = true;
-    /**
-     * Inline style of the component.
-     * @group Props
-     */
-    @Input() style: any;
     /**
      * Style class of the component.
      * @group Props
@@ -191,6 +184,13 @@ export class SelectButton extends BaseComponent implements AfterContentInit, Con
     focusedIndex: number = 0;
 
     _componentStyle = inject(SelectButtonStyle);
+
+    getAllowEmpty() {
+        if (this.multiple) {
+            return this.allowEmpty || this.value?.length !== 1;
+        }
+        return this.allowEmpty;
+    }
 
     getOptionLabel(option: any) {
         return this.optionLabel ? resolveFieldData(option, this.optionLabel) : option.label != undefined ? option.label : option;

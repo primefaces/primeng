@@ -1,9 +1,9 @@
-import { computed, inject, Injectable, signal } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
-import { $dt, usePreset } from '@primeuix/styled';
-import { MessageService } from 'primeng/api';
-import Aura from '@primeng/themes/aura/index';
 import { environment } from '@/environments/environment';
+import { HttpClient } from '@angular/common/http';
+import { computed, inject, Injectable, signal } from '@angular/core';
+import { $dt, usePreset } from '@primeuix/styled';
+import Aura from '@primeuix/themes/aura';
+import { MessageService } from 'primeng/api';
 
 export interface Theme {
     key: string;

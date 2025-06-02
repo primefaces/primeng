@@ -9,18 +9,10 @@ import { TextareaStyle } from './style/textareastyle';
  * @group Components
  */
 @Directive({
-    selector: '[pTextarea]',
+    selector: '[pTextarea], [pInputTextarea]',
     standalone: true,
     host: {
-        class: 'p-textarea p-component',
-        '[class.p-filled]': 'filled',
-        '[class.p-textarea-resizable]': 'autoResize',
-        '[class.p-variant-filled]': 'variant === "filled" || config.inputStyle() === "filled" || config.inputVariant() === "filled"',
-        '[class.p-textarea-fluid]': 'hasFluid',
-        '[class.p-textarea-sm]': 'pSize === "small"',
-        '[class.p-inputfield-sm]': 'pSize === "small"',
-        '[class.p-textarea-lg]': 'pSize === "large"',
-        '[class.p-inputfield-lg]': 'pSize === "large"'
+        '[class]': "cx('root')"
     },
     providers: [TextareaStyle]
 })
@@ -92,10 +84,14 @@ export class Textarea extends BaseComponent implements OnInit, AfterViewInit, On
 
     ngAfterViewInit() {
         super.ngAfterViewInit();
-        this.cd.detectChanges();
         if (this.autoResize) this.resize();
 
         this.updateFilledState();
+        this.cd.detectChanges();
+    }
+
+    ngAfterViewChecked() {
+        if (this.autoResize) this.resize();
     }
 
     @HostListener('input', ['$event'])

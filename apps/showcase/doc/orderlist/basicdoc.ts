@@ -8,7 +8,7 @@ import { ChangeDetectorRef, Component, OnInit } from '@angular/core';
     standalone: false,
     template: `
         <app-docsectiontext>
-            <p>OrderList is used as a controlled input with <i>value</i> properties. Content of a list item needs to be defined with the <i>pTemplate</i> property that receives an object in the list as parameter.</p>
+            <p>OrderList is used as a controlled input with <i>value</i> property. Content of a list item needs to be defined with the <i>item</i> template that receives an object in the list as parameter.</p>
         </app-docsectiontext>
         <div class="card sm:flex sm:justify-center">
             <p-orderlist [value]="products" dataKey="id" breakpoint="575px">

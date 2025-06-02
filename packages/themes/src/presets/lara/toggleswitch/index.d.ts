@@ -1,3 +1,1 @@
-import { ToggleSwitchDesignTokens } from '../../types/toggleswitch';
-declare const _default: ToggleSwitchDesignTokens;
-export default _default;
+export * from '@primeuix/themes/types/toggleswitch';
