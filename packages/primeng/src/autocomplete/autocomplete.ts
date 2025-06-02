@@ -43,6 +43,7 @@ import { Scroller } from 'primeng/scroller';
 import { Nullable } from 'primeng/ts-helpers';
 import { AutoCompleteCompleteEvent, AutoCompleteDropdownClickEvent, AutoCompleteLazyLoadEvent, AutoCompleteSelectEvent, AutoCompleteUnselectEvent } from './autocomplete.interface';
 import { AutoCompleteStyle } from './style/autocompletestyle';
+import { BaseInput } from 'primeng/baseinput';
 
 export const AUTOCOMPLETE_VALUE_ACCESSOR: any = {
     provide: NG_VALUE_ACCESSOR,
@@ -67,19 +68,19 @@ export const AUTOCOMPLETE_VALUE_ACCESSOR: any = {
             [ngStyle]="inputStyle"
             [type]="type"
             [attr.value]="inputValue()"
-            [variant]="variant"
+            [variant]="variant()"
             [attr.id]="inputId"
             [autocomplete]="autocomplete"
-            [required]="required"
-            [name]="name"
+            [required]="required()"
+            [name]="name()"
             aria-autocomplete="list"
             role="combobox"
             [attr.placeholder]="placeholder"
-            [pSize]="size"
+            [pSize]="size()"
             [attr.maxlength]="maxlength"
             [tabindex]="!disabled ? tabindex : -1"
             [readonly]="readonly"
-            [disabled]="disabled"
+            [disabled]="disabled()"
             [attr.aria-label]="ariaLabel"
             [attr.aria-labelledby]="ariaLabelledBy"
             [attr.aria-required]="required"
@@ -95,7 +96,7 @@ export const AUTOCOMPLETE_VALUE_ACCESSOR: any = {
             (keyup)="onInputKeyUp($event)"
             [fluid]="hasFluid"
         />
-        <ng-container *ngIf="filled && !disabled && showClear && !loading">
+        <ng-container *ngIf="$filled() && !disabled && showClear && !loading">
             <TimesIcon *ngIf="!clearIconTemplate && !_clearIconTemplate" [styleClass]="cx('clearIcon')" (click)="clear()" [attr.aria-hidden]="true" />
             <span *ngIf="clearIconTemplate || _clearIconTemplate" [class]="cx('clearIcon')" (click)="clear()" [attr.aria-hidden]="true">
                 <ng-template *ngTemplateOutlet="clearIconTemplate || _clearIconTemplate"></ng-template>
@@ -146,10 +147,10 @@ export const AUTOCOMPLETE_VALUE_ACCESSOR: any = {
                     [attr.type]="type"
                     [attr.id]="inputId"
                     [autocomplete]="autocomplete"
-                    [required]="required"
-                    [attr.name]="name"
+                    [required]="required()"
+                    [attr.name]="name()"
                     role="combobox"
-                    [attr.placeholder]="!filled ? placeholder : null"
+                    [attr.placeholder]="!$filled() ? placeholder : null"
                     aria-autocomplete="list"
                     [attr.maxlength]="maxlength"
                     [tabindex]="!disabled ? tabindex : -1"
@@ -286,7 +287,7 @@ export const AUTOCOMPLETE_VALUE_ACCESSOR: any = {
         '[style]': "sx('root')"
     }
 })
-export class AutoComplete extends BaseComponent implements AfterViewChecked, AfterContentInit, OnDestroy, ControlValueAccessor {
+export class AutoComplete extends BaseInput implements AfterViewChecked, AfterContentInit, OnDestroy, ControlValueAccessor {
     /**
      * Minimum number of characters to initiate a search.
      * @group Props
@@ -339,11 +340,6 @@ export class AutoComplete extends BaseComponent implements AfterViewChecked, Aft
      */
     @Input({ transform: booleanAttribute }) readonly: boolean | undefined;
     /**
-     * When present, it specifies that the component should be disabled.
-     * @group Props
-     */
-    @Input({ transform: booleanAttribute }) disabled: boolean | undefined;
-    /**
      * Maximum height of the suggestions panel.
      * @group Props
      */
@@ -368,26 +364,6 @@ export class AutoComplete extends BaseComponent implements AfterViewChecked, Aft
      * @group Props
      */
     @Input() virtualScrollOptions: ScrollerOptions | undefined;
-    /**
-     * Maximum number of character allows in the input field.
-     * @group Props
-     */
-    @Input({ transform: (value: unknown) => numberAttribute(value, null) }) maxlength: number | undefined;
-    /**
-     * Name of the input element.
-     * @group Props
-     */
-    @Input() name: string | undefined;
-    /**
-     * When present, it specifies that an input field must be filled out before submitting the form.
-     * @group Props
-     */
-    @Input({ transform: booleanAttribute }) required: boolean | undefined;
-    /**
-     * Defines the size of the component.
-     * @group Props
-     */
-    @Input() size: 'large' | 'small';
     /**
      * Target element to attach the overlay, valid values are "body" or a local ng-template variable of another element (note: use binding with brackets for template variables, e.g. [appendTo]="mydiv" for a div element having #mydiv as variable name).
      * @group Props
@@ -622,16 +598,6 @@ export class AutoComplete extends BaseComponent implements AfterViewChecked, Aft
      */
     @Input({ transform: booleanAttribute }) typeahead: boolean = true;
     /**
-     * Specifies the input variant of the component.
-     * @group Props
-     */
-    @Input() variant: 'filled' | 'outlined';
-    /**
-     * Spans 100% width of the container when enabled.
-     * @group Props
-     */
-    @Input({ transform: booleanAttribute }) fluid: boolean = false;
-    /**
      * Callback to invoke to search for suggestions.
      * @param {AutoCompleteCompleteEvent} event - Custom complete event.
      * @group Emits
@@ -809,15 +775,6 @@ export class AutoComplete extends BaseComponent implements AfterViewChecked, Aft
 
     focused: boolean = false;
 
-    _filled: boolean;
-
-    get filled() {
-        return this._filled;
-    }
-    set filled(value: any) {
-        this._filled = value;
-    }
-
     loading: Nullable<boolean>;
 
     scrollHandler: Nullable<ConnectedOverlayScrollHandler>;
@@ -849,8 +806,6 @@ export class AutoComplete extends BaseComponent implements AfterViewChecked, Aft
     _clearIconTemplate: TemplateRef<any>;
 
     _dropdownIconTemplate: TemplateRef<any>;
-
-    modelValue = signal<any>(null);
 
     focusedMultipleOptionIndex = signal<number>(-1);
 
@@ -936,9 +891,6 @@ export class AutoComplete extends BaseComponent implements AfterViewChecked, Aft
         private zone: NgZone
     ) {
         super();
-        effect(() => {
-            this.filled = isNotEmpty(this.modelValue());
-        });
     }
 
     ngOnInit() {
@@ -1377,12 +1329,6 @@ export class AutoComplete extends BaseComponent implements AfterViewChecked, Aft
         }
     }
 
-    get hasFluid() {
-        const nativeElement = this.el.nativeElement;
-        const fluidComponent = nativeElement.closest('p-fluid');
-        return this.fluid || !!fluidComponent;
-    }
-
     onArrowLeftKey(event) {
         const target = event.currentTarget;
         this.focusedOptionIndex.set(-1);
@@ -1686,11 +1632,6 @@ export class AutoComplete extends BaseComponent implements AfterViewChecked, Aft
 
     registerOnTouched(fn: Function): void {
         this.onModelTouched = fn;
-    }
-
-    setDisabledState(val: boolean): void {
-        this.disabled = val;
-        this.cd.markForCheck();
     }
 
     onOverlayAnimationStart(event: AnimationEvent) {
