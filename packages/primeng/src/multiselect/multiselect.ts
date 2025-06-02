@@ -386,6 +386,8 @@ export class MultiSelectItem extends BaseComponent {
                                             [selected]="isSelected(option)"
                                             [label]="getOptionLabel(option)"
                                             [disabled]="isOptionDisabled(option)"
+                                            [pTooltip]="getOptionTooltip(option)"
+                                            tooltipPosition="top"
                                             [template]="itemTemplate || _itemTemplate"
                                             [checkIconTemplate]="checkIconTemplate || _checkIconTemplate"
                                             [itemCheckboxIconTemplate]="itemCheckboxIconTemplate || _itemCheckboxIconTemplate"
@@ -605,6 +607,11 @@ export class MultiSelect extends BaseInput implements OnInit, AfterViewInit, Aft
      * @group Props
      */
     @Input() optionDisabled: string | undefined;
+    /**
+     * Name of the tooltip field of an option.
+     * @group Props
+     */
+    @Input() optionTooltip: string | undefined;
     /**
      * Name of the label field of an option group.
      * @group Props
@@ -1470,6 +1477,10 @@ export class MultiSelect extends BaseInput implements OnInit, AfterViewInit, Aft
             return true;
         }
         return this.optionDisabled ? resolveFieldData(option, this.optionDisabled) : option && option.disabled !== undefined ? option.disabled : false;
+    }
+
+    getOptionTooltip(option: any) {
+        return this.optionTooltip ? resolveFieldData(option, this.optionTooltip) : null;
     }
 
     isSelected(option) {
