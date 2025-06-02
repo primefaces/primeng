@@ -5,12 +5,12 @@ import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
 import { absolutePosition, appendChild, isTouchDevice, relativePosition } from '@primeuix/utils';
 import { OverlayService, SharedModule, TranslationKeys } from 'primeng/api';
 import { AutoFocusModule } from 'primeng/autofocus';
-import { BaseComponent } from 'primeng/basecomponent';
 import { ConnectedOverlayScrollHandler } from 'primeng/dom';
 import { Nullable, VoidListener } from 'primeng/ts-helpers';
 import { ZIndexUtils } from 'primeng/utils';
 import { ColorPickerChangeEvent } from './colorpicker.interface';
 import { ColorPickerStyle } from './style/colorpickerstyle';
+import { BaseInput } from 'primeng/baseinput';
 
 export const COLORPICKER_VALUE_ACCESSOR: any = {
     provide: NG_VALUE_ACCESSOR,
@@ -33,7 +33,7 @@ export const COLORPICKER_VALUE_ACCESSOR: any = {
             [class]="cx('preview')"
             readonly="readonly"
             [attr.tabindex]="tabindex"
-            [disabled]="disabled"
+            [disabled]="disabled()"
             (click)="onInputClick()"
             (keydown)="onInputKeydown($event)"
             (focus)="onInputFocus()"
@@ -78,7 +78,7 @@ export const COLORPICKER_VALUE_ACCESSOR: any = {
         '[attr.data-pc-section]': '"root"'
     }
 })
-export class ColorPicker extends BaseComponent implements ControlValueAccessor, OnDestroy, AfterViewInit {
+export class ColorPicker extends BaseInput implements ControlValueAccessor, OnDestroy, AfterViewInit {
     /**
      * Style class of the component.
      * @deprecated since v20.0.0, use `class` instead.
@@ -100,11 +100,6 @@ export class ColorPicker extends BaseComponent implements ControlValueAccessor, 
      * @group Props
      */
     @Input() appendTo: HTMLElement | ElementRef | TemplateRef<any> | string | null | undefined | any;
-    /**
-     * When present, it specifies that the component should be disabled.
-     * @group Props
-     */
-    @Input({ transform: booleanAttribute }) disabled: boolean | undefined;
     /**
      * Index of the element in tabbing order.
      * @group Props
@@ -228,7 +223,7 @@ export class ColorPicker extends BaseComponent implements ControlValueAccessor, 
     }
 
     onHueMousedown(event: MouseEvent) {
-        if (this.disabled) {
+        if (this.disabled()) {
             return;
         }
 
@@ -240,7 +235,7 @@ export class ColorPicker extends BaseComponent implements ControlValueAccessor, 
     }
 
     onHueDragStart(event: TouchEvent) {
-        if (this.disabled) {
+        if (this.disabled()) {
             return;
         }
 
@@ -249,7 +244,7 @@ export class ColorPicker extends BaseComponent implements ControlValueAccessor, 
     }
 
     onColorDragStart(event: TouchEvent) {
-        if (this.disabled) {
+        if (this.disabled()) {
             return;
         }
 
@@ -273,7 +268,7 @@ export class ColorPicker extends BaseComponent implements ControlValueAccessor, 
     }
 
     onColorMousedown(event: MouseEvent) {
-        if (this.disabled) {
+        if (this.disabled()) {
             return;
         }
 
@@ -512,11 +507,6 @@ export class ColorPicker extends BaseComponent implements ControlValueAccessor, 
 
     registerOnTouched(fn: Function): void {
         this.onModelTouched = fn;
-    }
-
-    setDisabledState(val: boolean): void {
-        this.disabled = val;
-        this.cd.markForCheck();
     }
 
     bindDocumentClickListener() {
