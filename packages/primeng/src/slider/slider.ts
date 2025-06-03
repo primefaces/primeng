@@ -1,13 +1,13 @@
 import { CommonModule, isPlatformBrowser } from '@angular/common';
-import { booleanAttribute, ChangeDetectionStrategy, Component, ElementRef, EventEmitter, forwardRef, HostListener, inject, Input, NgModule, NgZone, numberAttribute, OnDestroy, Output, ViewChild, ViewEncapsulation } from '@angular/core';
+import { booleanAttribute, ChangeDetectionStrategy, Component, ElementRef, EventEmitter, forwardRef, HostListener, inject, input, Input, NgModule, NgZone, numberAttribute, OnDestroy, Output, ViewChild, ViewEncapsulation } from '@angular/core';
 import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
 import { addClass, getWindowScrollLeft, getWindowScrollTop, isRTL, removeClass } from '@primeuix/utils';
 import { SharedModule } from 'primeng/api';
 import { AutoFocus } from 'primeng/autofocus';
-import { BaseComponent } from 'primeng/basecomponent';
 import { Nullable, VoidListener } from 'primeng/ts-helpers';
 import { SliderChangeEvent, SliderSlideEndEvent } from './slider.interface';
 import { SliderStyle } from './style/sliderstyle';
+import { BaseInput } from 'primeng/baseinput';
 
 export const SLIDER_VALUE_ACCESSOR: any = {
     provide: NG_VALUE_ACCESSOR,
@@ -60,11 +60,11 @@ export const SLIDER_VALUE_ACCESSOR: any = {
             (touchend)="onDragEnd($event)"
             (mousedown)="onMouseDown($event)"
             (keydown)="onKeyDown($event)"
-            [attr.tabindex]="disabled ? null : tabindex"
+            [attr.tabindex]="disabled() ? null : tabindex"
             role="slider"
-            [attr.aria-valuemin]="min"
+            [attr.aria-valuemin]="min()"
             [attr.aria-valuenow]="value"
-            [attr.aria-valuemax]="max"
+            [attr.aria-valuemax]="max()"
             [attr.aria-labelledby]="ariaLabelledBy"
             [attr.aria-label]="ariaLabel"
             [attr.aria-orientation]="orientation"
@@ -82,11 +82,11 @@ export const SLIDER_VALUE_ACCESSOR: any = {
             (touchstart)="onDragStart($event, 0)"
             (touchmove)="onDrag($event)"
             (touchend)="onDragEnd($event)"
-            [attr.tabindex]="disabled ? null : tabindex"
+            [attr.tabindex]="disabled() ? null : tabindex"
             role="slider"
-            [attr.aria-valuemin]="min"
+            [attr.aria-valuemin]="min()"
             [attr.aria-valuenow]="value ? value[0] : null"
-            [attr.aria-valuemax]="max"
+            [attr.aria-valuemax]="max()"
             [attr.aria-labelledby]="ariaLabelledBy"
             [attr.aria-label]="ariaLabel"
             [attr.aria-orientation]="orientation"
@@ -104,11 +104,11 @@ export const SLIDER_VALUE_ACCESSOR: any = {
             (touchstart)="onDragStart($event, 1)"
             (touchmove)="onDrag($event)"
             (touchend)="onDragEnd($event)"
-            [attr.tabindex]="disabled ? null : tabindex"
+            [attr.tabindex]="disabled() ? null : tabindex"
             role="slider"
-            [attr.aria-valuemin]="min"
+            [attr.aria-valuemin]="min()"
             [attr.aria-valuenow]="value ? value[1] : null"
-            [attr.aria-valuemax]="max"
+            [attr.aria-valuemax]="max()"
             [attr.aria-labelledby]="ariaLabelledBy"
             [attr.aria-label]="ariaLabel"
             [attr.aria-orientation]="orientation"
@@ -124,37 +124,27 @@ export const SLIDER_VALUE_ACCESSOR: any = {
         '[class]': "cx('root')"
     }
 })
-export class Slider extends BaseComponent implements OnDestroy, ControlValueAccessor {
+export class Slider extends BaseInput implements OnDestroy, ControlValueAccessor {
     /**
      * When enabled, displays an animation on click of the slider bar.
      * @group Props
      */
     @Input({ transform: booleanAttribute }) animate: boolean | undefined;
     /**
-     * When present, it specifies that the element should be disabled.
-     * @group Props
-     */
-    @Input({ transform: booleanAttribute }) disabled: boolean | undefined;
-    /**
      * Mininum boundary value.
      * @group Props
      */
-    @Input({ transform: numberAttribute }) min: number = 0;
+    min = input<number>(0);
     /**
      * Maximum boundary value.
      * @group Props
      */
-    @Input({ transform: numberAttribute }) max: number = 100;
+    max = input<number>(100);
     /**
      * Orientation of the slider.
      * @group Props
      */
     @Input() orientation: 'horizontal' | 'vertical' = 'horizontal';
-    /**
-     * Step factor to increment/decrement the value.
-     * @group Props
-     */
-    @Input({ transform: numberAttribute }) step: number | undefined;
     /**
      * When specified, allows two boundary values to be picked.
      * @group Props
@@ -257,14 +247,14 @@ export class Slider extends BaseComponent implements OnDestroy, ControlValueAcce
     }
 
     onMouseDown(event: Event, index?: number) {
-        if (this.disabled) {
+        if (this.disabled()) {
             return;
         }
 
         this.dragging = true;
         this.updateDomData();
         this.sliderHandleClick = true;
-        if (this.range && this.handleValues && this.handleValues[0] === this.max) {
+        if (this.range && this.handleValues && this.handleValues[0] === this.max()) {
             this.handleIndex = 0;
         } else {
             (this.handleIndex as any) = index;
@@ -280,14 +270,14 @@ export class Slider extends BaseComponent implements OnDestroy, ControlValueAcce
     }
 
     onDragStart(event: TouchEvent, index?: number) {
-        if (this.disabled) {
+        if (this.disabled()) {
             return;
         }
 
         var touchobj = event.changedTouches[0];
         this.startHandleValue = this.range ? this.handleValues[index as number] : this.handleValue;
         this.dragging = true;
-        if (this.range && this.handleValues && this.handleValues[0] === this.max) {
+        if (this.range && this.handleValues && this.handleValues[0] === this.max()) {
             this.handleIndex = 0;
         } else {
             this.handleIndex = index as number;
@@ -309,7 +299,7 @@ export class Slider extends BaseComponent implements OnDestroy, ControlValueAcce
     }
 
     onDrag(event: TouchEvent) {
-        if (this.disabled) {
+        if (this.disabled()) {
             return;
         }
 
@@ -328,7 +318,7 @@ export class Slider extends BaseComponent implements OnDestroy, ControlValueAcce
     }
 
     onDragEnd(event: TouchEvent) {
-        if (this.disabled) {
+        if (this.disabled()) {
             return;
         }
 
@@ -345,7 +335,7 @@ export class Slider extends BaseComponent implements OnDestroy, ControlValueAcce
     }
 
     onBarClick(event: Event) {
-        if (this.disabled) {
+        if (this.disabled()) {
             return;
         }
 
@@ -387,12 +377,12 @@ export class Slider extends BaseComponent implements OnDestroy, ControlValueAcce
                 break;
 
             case 'Home':
-                this.updateValue(this.min, event);
+                this.updateValue(this.min(), event);
                 event.preventDefault();
                 break;
 
             case 'End':
-                this.updateValue(this.max, event);
+                this.updateValue(this.max(), event);
                 event.preventDefault();
                 break;
 
@@ -405,11 +395,11 @@ export class Slider extends BaseComponent implements OnDestroy, ControlValueAcce
         let newValue;
 
         if (this.range) {
-            if (this.step) newValue = this.values[index] - this.step;
+            if (this.step()) newValue = this.values[index] - this.step();
             else newValue = this.values[index] - 1;
         } else {
-            if (this.step) newValue = this.value - this.step;
-            else if (!this.step && pageKey) newValue = this.value - 10;
+            if (this.step()) newValue = this.value - this.step();
+            else if (!this.step() && pageKey) newValue = this.value - 10;
             else newValue = this.value - 1;
         }
 
@@ -421,11 +411,11 @@ export class Slider extends BaseComponent implements OnDestroy, ControlValueAcce
         let newValue;
 
         if (this.range) {
-            if (this.step) newValue = this.values[index] + this.step;
+            if (this.step()) newValue = this.values[index] + this.step();
             else newValue = this.values[index] + 1;
         } else {
-            if (this.step) newValue = this.value + this.step;
-            else if (!this.step && pageKey) newValue = this.value + 10;
+            if (this.step()) newValue = this.value + this.step();
+            else if (!this.step() && pageKey) newValue = this.value + 10;
             else newValue = this.value + 1;
         }
 
@@ -488,14 +478,14 @@ export class Slider extends BaseComponent implements OnDestroy, ControlValueAcce
         let newValue = this.getValueFromHandle(handleValue);
 
         if (this.range) {
-            if (this.step) {
+            if (this.step()) {
                 this.handleStepChange(newValue, (this.values as any)[this.handleIndex]);
             } else {
                 this.handleValues[this.handleIndex] = handleValue;
                 this.updateValue(newValue, event);
             }
         } else {
-            if (this.step) {
+            if (this.step()) {
                 this.handleStepChange(newValue, this.value as any);
             } else {
                 this.handleValue = handleValue;
@@ -509,7 +499,7 @@ export class Slider extends BaseComponent implements OnDestroy, ControlValueAcce
     handleStepChange(newValue: number, oldValue: number) {
         let diff = newValue - oldValue;
         let val = oldValue;
-        let _step = this.step as number;
+        let _step = this.step() as number;
 
         if (diff < 0) {
             val = oldValue + Math.ceil(newValue / _step - oldValue / _step) * _step;
@@ -536,11 +526,6 @@ export class Slider extends BaseComponent implements OnDestroy, ControlValueAcce
 
     registerOnTouched(fn: Function): void {
         this.onModelTouched = fn;
-    }
-
-    setDisabledState(val: boolean): void {
-        this.disabled = val;
-        this.cd.markForCheck();
     }
 
     get rangeStartLeft() {
@@ -586,15 +571,15 @@ export class Slider extends BaseComponent implements OnDestroy, ControlValueAcce
 
     updateHandleValue(): void {
         if (this.range) {
-            this.handleValues[0] = (((this.values as number[])[0] < this.min ? 0 : (this.values as number[])[0] - this.min) * 100) / (this.max - this.min);
-            this.handleValues[1] = (((this.values as number[])[1] > this.max ? 100 : (this.values as number[])[1] - this.min) * 100) / (this.max - this.min);
+            this.handleValues[0] = (((this.values as number[])[0] < this.min() ? 0 : (this.values as number[])[0] - this.min()) * 100) / (this.max() - this.min());
+            this.handleValues[1] = (((this.values as number[])[1] > this.max() ? 100 : (this.values as number[])[1] - this.min()) * 100) / (this.max() - this.min());
         } else {
-            if ((this.value as number) < this.min) this.handleValue = 0;
-            else if ((this.value as number) > this.max) this.handleValue = 100;
-            else this.handleValue = (((this.value as number) - this.min) * 100) / (this.max - this.min);
+            if ((this.value as number) < this.min()) this.handleValue = 0;
+            else if ((this.value as number) > this.max()) this.handleValue = 100;
+            else this.handleValue = (((this.value as number) - this.min()) * 100) / (this.max() - this.min());
         }
 
-        if (this.step) {
+        if (this.step()) {
             this.updateDiffAndOffset();
         }
     }
@@ -617,23 +602,23 @@ export class Slider extends BaseComponent implements OnDestroy, ControlValueAcce
             let value = val;
 
             if (this.handleIndex == 0) {
-                if (value < this.min) {
-                    value = this.min;
+                if (value < this.min()) {
+                    value = this.min();
                     this.handleValues[0] = 0;
                 } else if (value > (this.values as number[])[1]) {
-                    if (value > this.max) {
-                        value = this.max;
+                    if (value > this.max()) {
+                        value = this.max();
                         this.handleValues[0] = 100;
                     }
                 }
                 this.sliderHandleStart?.nativeElement.focus();
             } else {
-                if (value > this.max) {
-                    value = this.max;
+                if (value > this.max()) {
+                    value = this.max();
                     this.handleValues[1] = 100;
                     this.offset = this.handleValues[1];
-                } else if (value < this.min) {
-                    value = this.min;
+                } else if (value < this.min()) {
+                    value = this.min();
                     this.handleValues[1] = 0;
                 } else if (value < (this.values as number[])[0]) {
                     this.offset = this.handleValues[1];
@@ -641,7 +626,7 @@ export class Slider extends BaseComponent implements OnDestroy, ControlValueAcce
                 this.sliderHandleEnd?.nativeElement.focus();
             }
 
-            if (this.step) {
+            if (this.step()) {
                 this.updateHandleValue();
             } else {
                 this.updateDiffAndOffset();
@@ -652,11 +637,11 @@ export class Slider extends BaseComponent implements OnDestroy, ControlValueAcce
             this.onModelChange(newValues);
             this.onChange.emit({ event: event as Event, values: this.values as number[] });
         } else {
-            if (val < this.min) {
-                val = this.min;
+            if (val < this.min()) {
+                val = this.min();
                 this.handleValue = 0;
-            } else if (val > this.max) {
-                val = this.max;
+            } else if (val > this.max()) {
+                val = this.max();
                 this.handleValue = 100;
             }
 
@@ -670,7 +655,7 @@ export class Slider extends BaseComponent implements OnDestroy, ControlValueAcce
     }
 
     getValueFromHandle(handleValue: number): number {
-        return (this.max - this.min) * (handleValue / 100) + this.min;
+        return (this.max() - this.min()) * (handleValue / 100) + this.min();
     }
 
     getDecimalsCount(value: number): number {
@@ -679,7 +664,7 @@ export class Slider extends BaseComponent implements OnDestroy, ControlValueAcce
     }
 
     getNormalizedValue(val: number): number {
-        let decimalsCount = this.getDecimalsCount(this.step as number);
+        let decimalsCount = this.getDecimalsCount(this.step() as number);
         if (decimalsCount > 0) {
             return +parseFloat(val.toString()).toFixed(decimalsCount);
         } else {

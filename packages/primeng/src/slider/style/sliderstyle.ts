@@ -21,7 +21,8 @@ const classes = {
         'p-slider p-component',
         instance.styleClass,
         {
-            'p-disabled': instance.disabled,
+            'p-disabled': instance.disabled(),
+            'p-invalid': instance.invalid(),
             'p-slider-horizontal': instance.orientation === 'horizontal',
             'p-slider-vertical': instance.orientation === 'vertical',
             'p-slider-animate': instance.animate
