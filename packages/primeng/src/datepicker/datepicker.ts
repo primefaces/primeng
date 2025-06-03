@@ -39,6 +39,7 @@ import { ZIndexUtils } from 'primeng/utils';
 import { Subscription } from 'rxjs';
 import { DatePickerMonthChangeEvent, DatePickerResponsiveOptions, DatePickerTypeView, DatePickerYearChangeEvent, LocaleSettings, Month, NavigationState } from './datepicker.interface';
 import { DatePickerStyle } from './style/datepickerstyle';
+import { BaseInput } from 'primeng/baseinput';
 
 export const DATEPICKER_VALUE_ACCESSOR: any = {
     provide: NG_VALUE_ACCESSOR,
@@ -58,13 +59,13 @@ export const DATEPICKER_VALUE_ACCESSOR: any = {
             <input
                 #inputfield
                 pInputText
-                [pSize]="size"
+                [pSize]="size()"
                 type="text"
                 role="combobox"
                 [attr.id]="inputId"
-                [attr.name]="name"
-                [attr.required]="required"
-                [attr.aria-required]="required"
+                [attr.name]="name()"
+                [attr.required]="required()"
+                [attr.aria-required]="required()"
                 aria-autocomplete="none"
                 aria-haspopup="dialog"
                 [attr.aria-expanded]="overlayVisible ?? false"
@@ -79,18 +80,18 @@ export const DATEPICKER_VALUE_ACCESSOR: any = {
                 [readonly]="readonlyInput"
                 (input)="onUserInput($event)"
                 [ngStyle]="inputStyle"
-                [class]="inputStyleClass"
-                [ngClass]="'p-datepicker-input'"
+                [class]="cn(cx('pcInputText'), inputStyleClass)"
                 [placeholder]="placeholder || ''"
-                [disabled]="disabled"
+                [disabled]="disabled()"
                 [attr.tabindex]="tabindex"
                 [attr.inputmode]="touchUI ? 'off' : null"
                 autocomplete="off"
                 [pAutoFocus]="autofocus"
-                [variant]="variant"
+                [variant]="variant()"
                 [fluid]="hasFluid"
+                [invalid]="invalid()"
             />
-            <ng-container *ngIf="showClear && !disabled && value != null">
+            <ng-container *ngIf="showClear && !disabled() && value != null">
                 <TimesIcon *ngIf="!clearIconTemplate && !_clearIconTemplate" [class]="cx('clearIcon')" (click)="clear()" />
                 <span *ngIf="clearIconTemplate || _clearIconTemplate" [class]="cx('clearIcon')" (click)="clear()">
                     <ng-template *ngTemplateOutlet="clearIconTemplate || _clearIconTemplate"></ng-template>
@@ -105,7 +106,7 @@ export const DATEPICKER_VALUE_ACCESSOR: any = {
                 *ngIf="showIcon && iconDisplay === 'button'"
                 (click)="onButtonClick($event, inputfield)"
                 [class]="cx('dropdown')"
-                [disabled]="disabled"
+                [disabled]="disabled()"
                 tabindex="0"
             >
                 <span *ngIf="icon" [ngClass]="icon"></span>
@@ -450,7 +451,7 @@ export const DATEPICKER_VALUE_ACCESSOR: any = {
         '[style]': "sx('root')"
     }
 })
-export class DatePicker extends BaseComponent implements OnInit, AfterContentInit, AfterViewInit, OnDestroy, ControlValueAccessor {
+export class DatePicker extends BaseInput implements OnInit, AfterContentInit, AfterViewInit, OnDestroy, ControlValueAccessor {
     @Input() iconDisplay: 'input' | 'button' = 'button';
     /**
      * Style class of the component.
@@ -468,11 +469,6 @@ export class DatePicker extends BaseComponent implements OnInit, AfterContentIni
      * @group Props
      */
     @Input() inputId: string | undefined;
-    /**
-     * Name of the input element.
-     * @group Props
-     */
-    @Input() name: string | undefined;
     /**
      * Style class of the input field.
      * @group Props
@@ -499,11 +495,6 @@ export class DatePicker extends BaseComponent implements OnInit, AfterContentIni
      * @group Props
      */
     @Input() iconAriaLabel: string | undefined;
-    /**
-     * When specified, disables the component.
-     * @group Props
-     */
-    @Input({ transform: booleanAttribute }) disabled: boolean | undefined;
     /**
      * Format of the date which can also be defined at locale settings.
      * @group Props
@@ -548,11 +539,6 @@ export class DatePicker extends BaseComponent implements OnInit, AfterContentIni
      * @group Props
      */
     @Input({ transform: booleanAttribute }) showIcon: boolean | undefined;
-    /**
-     * Whether the component should span the full width of its parent.
-     * @group Props
-     */
-    @Input({ transform: booleanAttribute }) fluid: boolean | undefined;
     /**
      * Icon of the datepicker button.
      * @group Props
@@ -624,11 +610,6 @@ export class DatePicker extends BaseComponent implements OnInit, AfterContentIni
      * @group Props
      */
     @Input({ transform: booleanAttribute }) showSeconds: boolean = false;
-    /**
-     * When present, it specifies that an input field must be filled out before submitting the form.
-     * @group Props
-     */
-    @Input({ transform: booleanAttribute }) required: boolean | undefined;
     /**
      * When disabled, datepicker will not be visible with input focus.
      * @group Props
@@ -744,16 +725,6 @@ export class DatePicker extends BaseComponent implements OnInit, AfterContentIni
      * @group Props
      */
     @Input({ transform: numberAttribute }) tabindex: number | undefined;
-    /**
-     * Specifies the input variant of the component.
-     * @group Props
-     */
-    @Input() variant: 'filled' | 'outlined';
-    /**
-     * Defines the size of the component.
-     * @group Props
-     */
-    @Input() size: 'large' | 'small';
     /**
      * The minimum selectable date.
      * @group Props
@@ -1240,12 +1211,6 @@ export class DatePicker extends BaseComponent implements OnInit, AfterContentIni
         return this.currentView === 'year' ? this.getTranslation('nextDecade') : this.currentView === 'month' ? this.getTranslation('nextYear') : this.getTranslation('nextMonth');
     }
 
-    get hasFluid() {
-        const nativeElement = this.el.nativeElement;
-        const fluidComponent = nativeElement.closest('p-fluid');
-        return this.fluid || !!fluidComponent;
-    }
-
     constructor(
         private zone: NgZone,
         public overlayService: OverlayService
@@ -1285,7 +1250,7 @@ export class DatePicker extends BaseComponent implements OnInit, AfterContentIni
         if (this.inline) {
             this.contentViewChild && this.contentViewChild.nativeElement.setAttribute(this.attributeSelector, '');
 
-            if (!this.disabled && !this.inline) {
+            if (!this.disabled() && !this.inline) {
                 this.initFocusableCell();
                 if (this.numberOfMonths === 1) {
                     if (this.contentViewChild && this.contentViewChild.nativeElement) {
@@ -1518,7 +1483,7 @@ export class DatePicker extends BaseComponent implements OnInit, AfterContentIni
     }
 
     navBackward(event: any) {
-        if (this.disabled) {
+        if (this.disabled()) {
             event.preventDefault();
             return;
         }
@@ -1549,7 +1514,7 @@ export class DatePicker extends BaseComponent implements OnInit, AfterContentIni
     }
 
     navForward(event: any) {
-        if (this.disabled) {
+        if (this.disabled()) {
             event.preventDefault();
             return;
         }
@@ -1618,7 +1583,7 @@ export class DatePicker extends BaseComponent implements OnInit, AfterContentIni
     }
 
     onDateSelect(event: Event, dateMeta: any) {
-        if (this.disabled || !dateMeta.selectable) {
+        if (this.disabled() || !dateMeta.selectable) {
             event.preventDefault();
             return;
         }
@@ -2085,7 +2050,7 @@ export class DatePicker extends BaseComponent implements OnInit, AfterContentIni
     }
 
     onButtonClick(event: Event, inputfield: any = this.inputfieldViewChild?.nativeElement) {
-        if (this.disabled) {
+        if (this.disabled()) {
             return;
         }
 
@@ -2120,7 +2085,7 @@ export class DatePicker extends BaseComponent implements OnInit, AfterContentIni
     }
 
     switchViewButtonDisabled() {
-        return this.numberOfMonths > 1 || this.disabled;
+        return this.numberOfMonths > 1 || this.disabled();
     }
 
     onPrevButtonClick(event: Event) {
@@ -2638,7 +2603,7 @@ export class DatePicker extends BaseComponent implements OnInit, AfterContentIni
 
             if (!this.preventFocus && (!this.navigationState || !this.navigationState.button)) {
                 setTimeout(() => {
-                    if (!this.disabled) {
+                    if (!this.disabled()) {
                         cell.focus();
                     }
                 }, 1);
@@ -2822,21 +2787,21 @@ export class DatePicker extends BaseComponent implements OnInit, AfterContentIni
     }
 
     onTimePickerElementMouseDown(event: Event, type: number, direction: number) {
-        if (!this.disabled) {
+        if (!this.disabled()) {
             this.repeat(event, null, type, direction);
             event.preventDefault();
         }
     }
 
     onTimePickerElementMouseUp(event: Event) {
-        if (!this.disabled) {
+        if (!this.disabled()) {
             this.clearTimePickerTimer();
             this.updateTime();
         }
     }
 
     onTimePickerElementMouseLeave() {
-        if (!this.disabled && this.timePickerTimer) {
+        if (!this.disabled() && this.timePickerTimer) {
             this.clearTimePickerTimer();
             this.updateTime();
         }
@@ -3291,11 +3256,6 @@ export class DatePicker extends BaseComponent implements OnInit, AfterContentIni
 
     registerOnTouched(fn: Function): void {
         this.onModelTouched = fn;
-    }
-
-    setDisabledState(val: boolean): void {
-        this.disabled = val;
-        this.cd.markForCheck();
     }
 
     getDateFormat() {
