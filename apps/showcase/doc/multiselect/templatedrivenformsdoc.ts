@@ -11,20 +11,21 @@ interface City {
     selector: 'template-driven-forms-doc',
     standalone: false,
     template: `
-        <app-docsectiontext> </app-docsectiontext>
+        <app-docsectiontext></app-docsectiontext>
         <p-toast />
         <div class="card flex justify-center">
-            <form #exampleForm="ngForm" (ngSubmit)="onSubmit(exampleForm)" class="flex flex-col gap-4 w-full sm:w-56">
+            <form #exampleForm="ngForm" (ngSubmit)="onSubmit(exampleForm)" class="flex justify-center flex-col gap-4 w-full md:w-80">
                 <div class="flex flex-col gap-1">
-                    <p-select
+                    <p-multiselect
                         #city="ngModel"
                         [(ngModel)]="selectedCity"
                         [options]="cities"
-                        [invalid]="city.invalid && (city.touched || exampleForm.submitted)"
                         optionLabel="name"
                         name="city"
-                        placeholder="Select a City"
-                        class="w-full md:w-56"
+                        placeholder="Select Cities"
+                        [maxSelectedLabels]="3"
+                        [invalid]="city.invalid && (city.touched || exampleForm.submitted)"
+                        fluid
                         required
                     />
                     @if (city.invalid && (city.touched || exampleForm.submitted)) {
@@ -34,7 +35,7 @@ interface City {
                 <button pButton severity="secondary" type="submit"><span pButtonLabel>Submit</span></button>
             </form>
         </div>
-        <app-code [code]="code" selector="select-template-driven-forms-demo"></app-code>
+        <app-code [code]="code" selector="multiselect-reactive-forms-demo"></app-code>
     `
 })
 export class TemplateDrivenFormsDoc {
@@ -58,21 +59,45 @@ export class TemplateDrivenFormsDoc {
     }
 
     code: Code = {
-        basic: `<form #exampleForm (ngSubmit)="onSubmit(exampleForm)" class="flex flex-col gap-4 w-full sm:w-56">
-    <div class="flex flex-col gap-1">
-        <p-select #city="ngModel" [(ngModel)]="selectedCity" [options]="cities" [invalid]="city.invalid && (city.touched || exampleForm.submitted)" optionLabel="name" placeholder="Select a City" class="w-full md:w-56" required />
-        @if (city.invalid && (city.touched || exampleForm.submitted)) {
-            <p-message severity="error" size="small" variant="simple">City is required.</p-message>
-        }
-    </div>
-    <button pButton severity="secondary" type="submit"><span pButtonLabel>Submit</span></button>
-</form>`,
+        basic: `<div class="card flex justify-center">
+    <form #exampleForm="ngForm" (ngSubmit)="onSubmit(exampleForm)" class="flex justify-center flex-col gap-4 w-full md:w-80">
+        <div class="flex flex-col gap-1">
+            <p-multiselect
+                #city="ngModel"
+                [(ngModel)]="selectedCity"
+                [options]="cities"
+                optionLabel="name"
+                name="city"
+                placeholder="Select Cities"
+                [maxSelectedLabels]="3"
+                [invalid]="city.invalid && (city.touched || exampleForm.submitted)"
+                fluid
+                required
+            />
+            @if (city.invalid && (city.touched || exampleForm.submitted)) {
+                <p-message severity="error" size="small" variant="simple">City is required.</p-message>
+            }
+        </div>
+        <button pButton severity="secondary" type="submit"><span pButtonLabel>Submit</span></button>
+    </form>
+</div>`,
 
         html: `<p-toast />
 <div class="card flex justify-center">
-    <form #exampleForm (ngSubmit)="onSubmit(exampleForm)" class="flex flex-col gap-4 w-full sm:w-56">
+    <form #exampleForm="ngForm" (ngSubmit)="onSubmit(exampleForm)" class="flex justify-center flex-col gap-4 w-full md:w-80">
         <div class="flex flex-col gap-1">
-            <p-select #city="ngModel" [(ngModel)]="selectedCity" [options]="cities" [invalid]="city.invalid && (city.touched || exampleForm.submitted)" optionLabel="name" placeholder="Select a City" class="w-full md:w-56" required />
+            <p-multiselect
+                #city="ngModel"
+                [(ngModel)]="selectedCity"
+                [options]="cities"
+                optionLabel="name"
+                name="city"
+                placeholder="Select Cities"
+                [maxSelectedLabels]="3"
+                [invalid]="city.invalid && (city.touched || exampleForm.submitted)"
+                fluid
+                required
+            />
             @if (city.invalid && (city.touched || exampleForm.submitted)) {
                 <p-message severity="error" size="small" variant="simple">City is required.</p-message>
             }
@@ -83,7 +108,7 @@ export class TemplateDrivenFormsDoc {
 
         typescript: `import { Component } from '@angular/core';
 import { FormsModule } from '@angular/forms';
-import { Select } from 'primeng/select';
+import { MultiSelect } from 'primeng/multiselect';
 import { Message } from 'primeng/message';
 import { Toast } from 'primeng/toast';
 import { MessageService } from 'primeng/api';
@@ -94,12 +119,12 @@ interface City {
 }
 
 @Component({
-    selector: 'select-template-driven-forms-demo',
-    templateUrl: './select-template-driven-forms-demo.html',
+    selector: 'multi-select-template-driven-forms-demo',
+    templateUrl: './multi-select-template-driven-forms-demo.html',
     standalone: true,
-    imports: [FormsModule, Select, Message, Toast]
+    imports: [FormsModule, MultiSelect, Message, Toast]
 })
-export class TemplateDrivenFormsDemo {
+export class TemplateDrivenFormsDemo{
     messageService = inject(MessageService);
 
     cities: City[] = [
