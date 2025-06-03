@@ -1,30 +1,12 @@
 import { CommonModule } from '@angular/common';
-import {
-    AfterContentInit,
-    booleanAttribute,
-    ChangeDetectionStrategy,
-    Component,
-    ContentChild,
-    ContentChildren,
-    EventEmitter,
-    forwardRef,
-    HostBinding,
-    HostListener,
-    inject,
-    Input,
-    NgModule,
-    numberAttribute,
-    Output,
-    QueryList,
-    TemplateRef
-} from '@angular/core';
+import { AfterContentInit, booleanAttribute, ChangeDetectionStrategy, Component, ContentChild, ContentChildren, EventEmitter, forwardRef, HostListener, inject, Input, NgModule, numberAttribute, Output, QueryList, TemplateRef } from '@angular/core';
 import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
 import { PrimeTemplate, SharedModule } from 'primeng/api';
-import { BaseComponent } from 'primeng/basecomponent';
 import { Ripple } from 'primeng/ripple';
 import { Nullable } from 'primeng/ts-helpers';
 import { ToggleButtonStyle } from './style/togglebuttonstyle';
 import { ToggleButtonChangeEvent } from './togglebutton.interface';
+import { BaseInput } from 'primeng/baseinput';
 
 export const TOGGLEBUTTON_VALUE_ACCESSOR: any = {
     provide: NG_VALUE_ACCESSOR,
@@ -43,11 +25,11 @@ export const TOGGLEBUTTON_VALUE_ACCESSOR: any = {
     host: {
         '[class]': "cx('root')",
         '[attr.tabindex]': 'tabindex',
-        '[attr.disabled]': 'disabled',
+        '[attr.disabled]': 'disabled()',
         '[attr.aria-labelledby]': 'ariaLabelledBy',
         '[attr.aria-pressed]': 'checked',
         '[attr.data-p-checked]': 'active',
-        '[attr.data-p-disabled]': 'disabled',
+        '[attr.data-p-disabled]': 'disabled()',
         '[attr.type]': '"button"'
     },
     template: `<span [class]="cx('content')">
@@ -66,7 +48,7 @@ export const TOGGLEBUTTON_VALUE_ACCESSOR: any = {
     providers: [TOGGLEBUTTON_VALUE_ACCESSOR, ToggleButtonStyle],
     changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class ToggleButton extends BaseComponent implements AfterContentInit, ControlValueAccessor {
+export class ToggleButton extends BaseInput implements AfterContentInit, ControlValueAccessor {
     @HostListener('keydown', ['$event']) onKeyDown(event: KeyboardEvent) {
         switch (event.code) {
             case 'Enter':
@@ -81,7 +63,7 @@ export class ToggleButton extends BaseComponent implements AfterContentInit, Con
     }
 
     @HostListener('click', ['$event']) toggle(event: Event) {
-        if (!this.disabled && !(this.allowEmpty === false && this.checked)) {
+        if (!this.disabled() && !(this.allowEmpty === false && this.checked)) {
             this.checked = !this.checked;
             this.onModelChange(this.checked);
             this.onModelTouched();
@@ -124,11 +106,6 @@ export class ToggleButton extends BaseComponent implements AfterContentInit, Con
      */
     @Input() ariaLabelledBy: string | undefined;
     /**
-     * When present, it specifies that the element should be disabled.
-     * @group Props
-     */
-    @Input({ transform: booleanAttribute }) disabled: boolean | undefined;
-    /**
      * Style class of the element.
      * @deprecated since v20.0.0, use `class` instead.
      * @group Props
@@ -144,11 +121,6 @@ export class ToggleButton extends BaseComponent implements AfterContentInit, Con
      * @group Props
      */
     @Input({ transform: numberAttribute }) tabindex: number | undefined = 0;
-    /**
-     * Defines the size of the component.
-     * @group Props
-     */
-    @Input() size: 'large' | 'small';
     /**
      * Position of the icon.
      * @group Props
@@ -206,11 +178,6 @@ export class ToggleButton extends BaseComponent implements AfterContentInit, Con
 
     registerOnTouched(fn: Function): void {
         this.onModelTouched = fn;
-    }
-
-    setDisabledState(val: boolean): void {
-        this.disabled = val;
-        this.cd.markForCheck();
     }
 
     get hasOnLabel(): boolean {
