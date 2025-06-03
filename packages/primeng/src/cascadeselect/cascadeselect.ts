@@ -36,6 +36,7 @@ import { Ripple } from 'primeng/ripple';
 import { Nullable, VoidListener } from 'primeng/ts-helpers';
 import { CascadeSelectBeforeHideEvent, CascadeSelectBeforeShowEvent, CascadeSelectChangeEvent, CascadeSelectHideEvent, CascadeSelectShowEvent } from './cascadeselect.interface';
 import { CascadeSelectStyle } from './style/cascadeselectstyle';
+import { BaseInput } from 'primeng/baseinput';
 
 export const CASCADESELECT_VALUE_ACCESSOR: any = {
     provide: NG_VALUE_ACCESSOR,
@@ -248,9 +249,9 @@ export class CascadeSelectSub extends BaseComponent implements OnInit {
                 readonly
                 type="text"
                 role="combobox"
-                [disabled]="disabled"
+                [disabled]="disabled()"
                 [placeholder]="placeholder"
-                [tabindex]="!disabled ? tabindex : -1"
+                [tabindex]="!disabled() ? tabindex : -1"
                 [attr.id]="inputId"
                 [attr.aria-label]="ariaLabel"
                 [attr.aria-labelledby]="ariaLabelledBy"
@@ -273,7 +274,7 @@ export class CascadeSelectSub extends BaseComponent implements OnInit {
             </ng-template>
         </span>
 
-        <ng-container *ngIf="filled && !disabled && showClear">
+        <ng-container *ngIf="$filled() && !disabled() && showClear">
             <TimesIcon *ngIf="!clearIconTemplate && !_clearIconTemplate" [class]="cx('clearIcon')" (click)="clear($event)" [attr.data-pc-section]="'clearicon'" [attr.aria-hidden]="true" />
             <span *ngIf="clearIconTemplate || _clearIconTemplate" [class]="cx('clearIcon')" (click)="clear($event)" [attr.data-pc-section]="'clearicon'" [attr.aria-hidden]="true">
                 <ng-template *ngTemplateOutlet="clearIconTemplate || _clearIconTemplate"></ng-template>
@@ -358,7 +359,7 @@ export class CascadeSelectSub extends BaseComponent implements OnInit {
         '[attr.data-pc-section]': "'root'"
     }
 })
-export class CascadeSelect extends BaseComponent implements OnInit, AfterContentInit {
+export class CascadeSelect extends BaseInput implements OnInit, AfterContentInit {
     /**
      * Unique identifier of the component
      * @group Props
@@ -470,11 +471,6 @@ export class CascadeSelect extends BaseComponent implements OnInit, AfterContent
      */
     @Input() inputId: string | undefined;
     /**
-     * Defines the size of the component.
-     * @group Props
-     */
-    @Input() size: 'large' | 'small';
-    /**
      * Index of the element in tabbing order.
      * @group Props
      */
@@ -499,11 +495,6 @@ export class CascadeSelect extends BaseComponent implements OnInit, AfterContent
      * @group Props
      */
     @Input() appendTo: HTMLElement | ElementRef | TemplateRef<any> | string | null | undefined | any;
-    /**
-     * When present, it specifies that the component should be disabled.
-     * @group Props
-     */
-    @Input({ transform: booleanAttribute }) disabled: boolean | undefined;
     /**
      * When enabled, a clear icon is displayed to clear the value.
      * @group Props
@@ -542,11 +533,6 @@ export class CascadeSelect extends BaseComponent implements OnInit, AfterContent
         console.log('The showTransitionOptions property is deprecated since v14.2.0, use overlayOptions property instead.');
     }
     /**
-     * Specifies the input variant of the component.
-     * @group Props
-     */
-    @Input() variant: 'filled' | 'outlined';
-    /**
      * Whether the dropdown is in loading state.
      * @group Props
      */
@@ -568,11 +554,6 @@ export class CascadeSelect extends BaseComponent implements OnInit, AfterContent
         this._hideTransitionOptions = val;
         console.log('The hideTransitionOptions property is deprecated since v14.2.0, use overlayOptions property instead.');
     }
-    /**
-     * Spans 100% width of the container when enabled.
-     * @group Props
-     */
-    @Input({ transform: booleanAttribute }) fluid: boolean = false;
     /**
      * The breakpoint to define the maximum width boundary.
      * @group Props
@@ -727,8 +708,6 @@ export class CascadeSelect extends BaseComponent implements OnInit, AfterContent
 
     activeOptionPath = signal<any>([]);
 
-    modelValue = signal<any>(null);
-
     processedOptions: string[] | string | undefined = [];
 
     _componentStyle = inject(CascadeSelectStyle);
@@ -740,20 +719,8 @@ export class CascadeSelect extends BaseComponent implements OnInit, AfterContent
         this.onContainerClick(event);
     }
 
-    get hasFluid() {
-        const nativeElement = this.el.nativeElement;
-        const fluidComponent = nativeElement.closest('p-fluid');
-        return this.fluid || !!fluidComponent;
-    }
-
     get focusedOptionId() {
         return this.focusedOptionInfo().index !== -1 ? `${this.id}${isNotEmpty(this.focusedOptionInfo().parentKey) ? '_' + this.focusedOptionInfo().parentKey : ''}_${this.focusedOptionInfo().index}` : null;
-    }
-
-    get filled(): boolean {
-        if (typeof this.modelValue() === 'string') return !!this.modelValue();
-
-        return this.modelValue() || this.modelValue() != null || this.modelValue() != undefined;
     }
 
     get searchResultMessageText() {
@@ -881,7 +848,7 @@ export class CascadeSelect extends BaseComponent implements OnInit, AfterContent
     }
 
     onInputFocus(event: FocusEvent) {
-        if (this.disabled) {
+        if (this.disabled()) {
             // For screenreaders
             return;
         }
@@ -899,7 +866,7 @@ export class CascadeSelect extends BaseComponent implements OnInit, AfterContent
     }
 
     onInputKeyDown(event: KeyboardEvent) {
-        if (this.disabled || this.loading) {
+        if (this.disabled() || this.loading) {
             event.preventDefault();
 
             return;
@@ -1114,7 +1081,7 @@ export class CascadeSelect extends BaseComponent implements OnInit, AfterContent
     updateModel(value, event?) {
         this.value = value;
         this.onModelChange(value);
-        this.modelValue.set(value);
+        this.writeModelValue(value);
 
         if (this.initialized) {
             this.onChange.emit({
@@ -1182,7 +1149,7 @@ export class CascadeSelect extends BaseComponent implements OnInit, AfterContent
     }
 
     onContainerClick(event: MouseEvent) {
-        if (this.disabled || this.loading) {
+        if (this.disabled() || this.loading) {
             return;
         }
 
@@ -1549,11 +1516,6 @@ export class CascadeSelect extends BaseComponent implements OnInit, AfterContent
 
     registerOnTouched(fn: Function): void {
         this.onModelTouched = fn;
-    }
-
-    setDisabledState(val: boolean): void {
-        this.disabled = val;
-        this.cd.markForCheck();
     }
 
     ngOnDestroy() {

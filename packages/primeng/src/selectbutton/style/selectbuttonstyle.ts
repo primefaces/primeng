@@ -14,7 +14,12 @@ const theme = css`
 `;
 
 const classes = {
-    root: () => ['p-selectbutton p-component']
+    root: ({ instance }) => [
+        'p-selectbutton p-component',
+        {
+            'p-invalid': instance.invalid()
+        }
+    ]
 };
 
 @Injectable()

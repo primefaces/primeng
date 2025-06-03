@@ -11,9 +11,7 @@ const theme = css`
         display: inline-block;
     }
 
-    p-toggleSwitch.ng-invalid.ng-dirty > .p-toggleswitch > .p-toggleswitch-slider,
-    p-toggle-switch.ng-invalid.ng-dirty > .p-toggleswitch > .p-toggleswitch-slider,
-    p-toggleswitch.ng-invalid.ng-dirty > .p-toggleswitch > .p-toggleswitch-slider {
+    p-toggleswitch.ng-invalid.ng-dirty > .p-toggleswitch-slider {
         border-color: ${dt('toggleswitch.invalid.border.color')};
     }
 `;
@@ -29,8 +27,8 @@ const classes = {
         {
             'p-toggleswitch p-component': true,
             'p-toggleswitch-checked': instance.checked(),
-            'p-disabled': instance.disabled,
-            'p-invalid': instance.invalid
+            'p-disabled': instance.disabled(),
+            'p-invalid': instance.invalid()
         }
     ],
 

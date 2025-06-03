@@ -51,12 +51,12 @@ import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
 import { getUserAgent, isClient } from '@primeuix/utils';
 import { PrimeTemplate, SharedModule } from 'primeng/api';
 import { AutoFocus } from 'primeng/autofocus';
-import { BaseComponent } from 'primeng/basecomponent';
 import { TimesIcon } from 'primeng/icons';
 import { InputText } from 'primeng/inputtext';
 import { Nullable } from 'primeng/ts-helpers';
 import { Caret } from './inputmask.interface';
 import { InputMaskStyle } from './style/inputmaskstyle';
+import { BaseInput } from 'primeng/baseinput';
 
 export const INPUTMASK_VALUE_ACCESSOR: any = {
     provide: NG_VALUE_ACCESSOR,
@@ -78,25 +78,25 @@ export const INPUTMASK_VALUE_ACCESSOR: any = {
             [class]="cx('root')"
             [attr.id]="inputId"
             [attr.type]="type"
-            [attr.name]="name"
+            [attr.name]="name()"
             [ngStyle]="style"
             [attr.placeholder]="placeholder"
             [attr.title]="title"
-            [pSize]="size"
+            [pSize]="size()"
             [attr.autocomplete]="autocomplete"
-            [attr.maxlength]="maxlength"
+            [attr.maxlength]="maxlength()"
             [attr.tabindex]="tabindex"
             [attr.aria-label]="ariaLabel"
             [attr.aria-labelledBy]="ariaLabelledBy"
             [attr.aria-required]="ariaRequired"
-            [disabled]="disabled"
+            [disabled]="disabled()"
             [readonly]="readonly"
-            [attr.required]="required"
+            [attr.required]="required()"
             (focus)="onInputFocus($event)"
             (blur)="onInputBlur($event)"
             (keydown)="onInputKeydown($event)"
             (keypress)="onKeyPress($event)"
-            [variant]="variant"
+            [variant]="$variant()"
             [pAutoFocus]="autofocus"
             (input)="onInputChange($event)"
             (paste)="handleInputChange($event)"
@@ -114,7 +114,7 @@ export const INPUTMASK_VALUE_ACCESSOR: any = {
     changeDetection: ChangeDetectionStrategy.OnPush,
     encapsulation: ViewEncapsulation.None
 })
-export class InputMask extends BaseComponent implements OnInit, AfterContentInit, ControlValueAccessor {
+export class InputMask extends BaseInput implements OnInit, AfterContentInit, ControlValueAccessor {
     /**
      * HTML5 input type.
      * @group Props
@@ -156,16 +156,6 @@ export class InputMask extends BaseComponent implements OnInit, AfterContentInit
      */
     @Input() placeholder: string | undefined;
     /**
-     * Defines the size of the component.
-     * @group Props
-     */
-    @Input() size: 'large' | 'small';
-    /**
-     * Maximum number of character allows in the input field.
-     * @group Props
-     */
-    @Input({ transform: numberAttribute }) maxlength: number | undefined;
-    /**
      * Specifies tab order of the element.
      * @group Props
      */
@@ -175,11 +165,6 @@ export class InputMask extends BaseComponent implements OnInit, AfterContentInit
      * @group Props
      */
     @Input() title: string | undefined;
-    /**
-     * Specifies the input variant of the component.
-     * @group Props
-     */
-    @Input() variant: 'filled' | 'outlined';
     /**
      * Used to define a string that labels the input element.
      * @group Props
@@ -196,11 +181,6 @@ export class InputMask extends BaseComponent implements OnInit, AfterContentInit
      */
     @Input({ transform: booleanAttribute }) ariaRequired: boolean | undefined;
     /**
-     * When present, it specifies that the element value cannot be altered.
-     * @group Props
-     */
-    @Input({ transform: booleanAttribute }) disabled: boolean | undefined;
-    /**
      * When present, it specifies that an input field is read-only.
      * @group Props
      */
@@ -210,16 +190,6 @@ export class InputMask extends BaseComponent implements OnInit, AfterContentInit
      * @group Props
      */
     @Input({ transform: booleanAttribute }) unmask: boolean | undefined;
-    /**
-     * Name of the input field.
-     * @group Props
-     */
-    @Input() name: string | undefined;
-    /**
-     * When present, it specifies that an input field must be filled out before submitting the form.
-     * @group Props
-     */
-    @Input({ transform: booleanAttribute }) required: boolean | undefined;
     /**
      * Regex pattern for alpha characters
      * @group Props
@@ -429,11 +399,6 @@ export class InputMask extends BaseComponent implements OnInit, AfterContentInit
 
     registerOnTouched(fn: Function): void {
         this.onModelTouched = fn;
-    }
-
-    setDisabledState(val: boolean): void {
-        this.disabled = val;
-        this.cd.markForCheck();
     }
 
     caret(first?: number, last?: number): Caret | undefined {

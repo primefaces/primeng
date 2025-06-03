@@ -23,9 +23,9 @@ import {
 import { NG_VALUE_ACCESSOR } from '@angular/forms';
 import { PrimeTemplate, SharedModule } from 'primeng/api';
 import { AutoFocus } from 'primeng/autofocus';
-import { BaseComponent } from 'primeng/basecomponent';
 import { ToggleSwitchStyle } from './style/toggleswitchstyle';
 import { ToggleSwitchChangeEvent } from './toggleswitch.interface';
+import { BaseInput } from 'primeng/baseinput';
 
 /**
  * Context interface for the handle template.
@@ -57,11 +57,11 @@ export const TOGGLESWITCH_VALUE_ACCESSOR: any = {
             role="switch"
             [class]="cx('input')"
             [checked]="checked()"
-            [disabled]="disabled"
+            [disabled]="disabled()"
             [attr.aria-checked]="checked()"
             [attr.aria-labelledby]="ariaLabelledBy"
             [attr.aria-label]="ariaLabel"
-            [attr.name]="name"
+            [attr.name]="name()"
             [attr.tabindex]="tabindex"
             (focus)="onFocus()"
             (blur)="onBlur()"
@@ -86,7 +86,7 @@ export const TOGGLESWITCH_VALUE_ACCESSOR: any = {
         '[attr.data-pc-section]': "'root'"
     }
 })
-export class ToggleSwitch extends BaseComponent implements AfterContentInit {
+export class ToggleSwitch extends BaseInput implements AfterContentInit {
     /**
      * Style class of the component.
      * @deprecated since v20.0.0, use `class` instead.
@@ -103,16 +103,6 @@ export class ToggleSwitch extends BaseComponent implements AfterContentInit {
      * @group Props
      */
     @Input() inputId: string | undefined;
-    /**
-     * Name of the input element.
-     * @group Props
-     */
-    @Input() name: string | undefined;
-    /**
-     * When present, it specifies that the element should be disabled.
-     * @group Props
-     */
-    @Input({ transform: booleanAttribute }) disabled: boolean | undefined;
     /**
      * When present, it specifies that the component cannot be edited.
      * @group Props
@@ -196,7 +186,7 @@ export class ToggleSwitch extends BaseComponent implements AfterContentInit {
     }
 
     onClick(event: Event) {
-        if (!this.disabled && !this.readonly) {
+        if (!this.disabled() && !this.readonly) {
             this.modelValue = this.checked() ? this.falseValue : this.trueValue;
 
             this.onModelChange(this.modelValue);
@@ -229,11 +219,6 @@ export class ToggleSwitch extends BaseComponent implements AfterContentInit {
 
     registerOnTouched(fn: Function): void {
         this.onModelTouched = fn;
-    }
-
-    setDisabledState(val: boolean): void {
-        this.disabled = val;
-        this.cd.markForCheck();
     }
 
     checked() {

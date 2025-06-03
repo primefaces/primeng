@@ -19,6 +19,7 @@ const theme = css`
     .p-autocomplete:has(.p-autocomplete-dropdown) .p-autocomplete-clear-icon {
         right: calc(${dt('autocomplete.padding.x')} + ${dt('autocomplete.dropdown.width')});
     }
+
     p-autoComplete.ng-invalid.ng-dirty .p-autocomplete-input,
     p-autoComplete.ng-invalid.ng-dirty .p-autocomplete-input-multiple,
     p-auto-complete.ng-invalid.ng-dirty .p-autocomplete-input,
@@ -26,6 +27,7 @@ const theme = css`
     p-autocomplete.ng-invalid.ng-dirty .p-autocomplete-input-multiple {
         border-color: ${dt('autocomplete.invalid.border.color')};
     }
+
     p-autoComplete.ng-invalid.ng-dirty .p-autocomplete-input:enabled:focus,
     p-autoComplete.ng-invalid.ng-dirty:not(.p-disabled).p-focus .p-autocomplete-input-multiple,
     p-auto-complete.ng-invalid.ng-dirty .p-autocomplete-input:enabled:focus,
@@ -34,6 +36,7 @@ const theme = css`
     p-autocomplete.ng-invalid.ng-dirty:not(.p-disabled).p-focus .p-autocomplete-input-multiple {
         border-color: ${dt('autocomplete.focus.border.color')};
     }
+
     p-autoComplete.ng-invalid.ng-dirty .p-autocomplete-input-chip input::placeholder,
     p-auto-complete.ng-invalid.ng-dirty .p-autocomplete-input-chip input::placeholder,
     p-autocomplete.ng-invalid.ng-dirty .p-autocomplete-input-chip input::placeholder {
@@ -57,12 +60,12 @@ const classes = {
         instance.styleClass,
         {
             'p-disabled': instance.disabled(),
+            'p-invalid': instance.invalid(),
             'p-focus': instance.focused,
             'p-inputwrapper-filled': instance.$filled(),
-            'p-inputwrapper-focus': (instance.focused && !instance.disabled) || instance.autofocus || instance.overlayVisible,
+            'p-inputwrapper-focus': (instance.focused && !instance.disabled()) || instance.autofocus || instance.overlayVisible,
             'p-autocomplete-open': instance.overlayVisible,
-            'p-autocomplete-clearable': instance.showClear && !instance.disabled,
-            // 'p-invalid': instance.invalid,
+            'p-autocomplete-clearable': instance.showClear && !instance.disabled(),
             'p-autocomplete-fluid': instance.hasFluid
         }
     ],

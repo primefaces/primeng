@@ -6,10 +6,10 @@ import { Component } from '@angular/core';
     standalone: false,
     template: `
         <app-docsectiontext>
-            <p>Invalid state style is added using the <i>ng-invalid</i> and <i>ng-dirty</i> class to indicate a failed validation.</p>
+            <p>Invalid state is displayed using the <i>invalid</i> prop to indicate a failed validation. You can use this style when integrating with form validation libraries.</p>
         </app-docsectiontext>
         <div class="card flex justify-center">
-            <p-togglebutton [(ngModel)]="checked" onIcon="pi pi-check" offIcon="pi pi-times" class="ng-invalid ng-dirty" styleClass="w-full sm:w-40" aria-label="Confirmation" />
+            <p-togglebutton [(ngModel)]="checked" onIcon="pi pi-check" offIcon="pi pi-times" [invalid]="!checked" styleClass="w-full sm:w-40" aria-label="Confirmation" />
         </div>
         <app-code [code]="code" selector="toggle-button-invalid-demo"></app-code>
     `
@@ -18,10 +18,10 @@ export class InvalidDoc {
     checked: boolean = false;
 
     code: Code = {
-        basic: `<p-togglebutton [(ngModel)]="checked" onIcon="pi pi-check" offIcon="pi pi-times" class="ng-invalid ng-dirty" styleClass="w-full sm:w-40" aria-label="Confirmation" />`,
+        basic: `<p-togglebutton [(ngModel)]="checked" onIcon="pi pi-check" offIcon="pi pi-times" [invalid]="!checked" styleClass="w-full sm:w-40" aria-label="Confirmation" />`,
 
         html: `<div class="card flex justify-center">
-    <p-togglebutton [(ngModel)]="checked" onIcon="pi pi-check" offIcon="pi pi-times" class="ng-invalid ng-dirty" styleClass="w-full sm:w-40" aria-label="Confirmation" />
+    <p-togglebutton [(ngModel)]="checked" onIcon="pi pi-check" offIcon="pi pi-times" [invalid]="!checked" styleClass="w-full sm:w-40" aria-label="Confirmation" />
 </div>`,
 
         typescript: `import { Component } from '@angular/core';

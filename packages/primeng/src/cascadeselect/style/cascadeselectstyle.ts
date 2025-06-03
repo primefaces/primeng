@@ -7,6 +7,18 @@ const theme = css`
     ${style}
 
     /* For PrimeNG */
+    .p-cascadeselect.ng-invalid.ng-dirty {
+        border-color: ${dt('cascadeselect.invalid.border.color')};
+    }
+
+    .p-cascadeselect:not(.p-disabled).p-focus {
+        border-color: dt('cascadeselect.focus.border.color');
+    }
+
+    .p-cascadeselect.ng-invalid.ng-dirty .p-cascadeselect-label.p-placeholder {
+        color: ${dt('cascadeselect.invalid.placeholder.color')};
+    }
+
     .p-cascadeselect-clear-icon {
         cursor: pointer;
         display: flex;
@@ -27,17 +39,18 @@ const classes = {
         instance.styleClass,
         {
             'p-cascadeselect p-component p-inputwrapper': true,
-            'p-cascadeselect-clearable': instance.showClear && !instance.disabled,
+            'p-cascadeselect-clearable': instance.showClear && !instance.disabled(),
             'p-cascadeselect-mobile': instance.queryMatches(),
-            'p-disabled': instance.disabled,
+            'p-disabled': instance.disabled(),
+            'p-invalid': instance.invalid(),
             'p-focus': instance.focused,
             'p-inputwrapper-filled': instance.modelValue(),
-            'p-variant-filled': instance.variant === 'filled' || instance.config.inputStyle() === 'filled' || instance.config.inputVariant() === 'filled',
+            'p-variant-filled': instance.$variant() === 'filled',
             'p-inputwrapper-focus': instance.focused || instance.overlayVisible,
             'p-cascadeselect-open': instance.overlayVisible,
             'p-cascadeselect-fluid': instance.hasFluid,
-            'p-cascadeselect-sm p-inputfield-sm': instance.size === 'small',
-            'p-cascadeselect-lg p-inputfield-lg': instance.size === 'large'
+            'p-cascadeselect-sm p-inputfield-sm': instance.size() === 'small',
+            'p-cascadeselect-lg p-inputfield-lg': instance.size() === 'large'
         }
     ],
     label: ({ instance }) => [

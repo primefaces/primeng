@@ -66,7 +66,8 @@ export const AUTOCOMPLETE_VALUE_ACCESSOR: any = {
             [ngStyle]="inputStyle"
             [type]="type"
             [attr.value]="inputValue()"
-            [variant]="variant()"
+            [variant]="$variant()"
+            [invalid]="invalid()"
             [attr.id]="inputId"
             [autocomplete]="autocomplete"
             [required]="required()"
@@ -75,13 +76,13 @@ export const AUTOCOMPLETE_VALUE_ACCESSOR: any = {
             role="combobox"
             [attr.placeholder]="placeholder"
             [pSize]="size()"
-            [attr.maxlength]="maxlength"
-            [tabindex]="!disabled ? tabindex : -1"
+            [attr.maxlength]="maxlength()"
+            [tabindex]="!disabled() ? tabindex : -1"
             [readonly]="readonly"
             [disabled]="disabled()"
             [attr.aria-label]="ariaLabel"
             [attr.aria-labelledby]="ariaLabelledBy"
-            [attr.aria-required]="required"
+            [attr.aria-required]="required()"
             [attr.aria-expanded]="overlayVisible ?? false"
             [attr.aria-controls]="overlayVisible ? id + '_list' : null"
             [attr.aria-activedescendant]="focused ? focusedOptionId : undefined"
@@ -94,7 +95,7 @@ export const AUTOCOMPLETE_VALUE_ACCESSOR: any = {
             (keyup)="onInputKeyUp($event)"
             [fluid]="hasFluid"
         />
-        <ng-container *ngIf="$filled() && !disabled && showClear && !loading">
+        <ng-container *ngIf="$filled() && !disabled() && showClear && !loading">
             <TimesIcon *ngIf="!clearIconTemplate && !_clearIconTemplate" [styleClass]="cx('clearIcon')" (click)="clear()" [attr.aria-hidden]="true" />
             <span *ngIf="clearIconTemplate || _clearIconTemplate" [class]="cx('clearIcon')" (click)="clear()" [attr.aria-hidden]="true">
                 <ng-template *ngTemplateOutlet="clearIconTemplate || _clearIconTemplate"></ng-template>
@@ -150,13 +151,13 @@ export const AUTOCOMPLETE_VALUE_ACCESSOR: any = {
                     role="combobox"
                     [attr.placeholder]="!$filled() ? placeholder : null"
                     aria-autocomplete="list"
-                    [attr.maxlength]="maxlength"
-                    [tabindex]="!disabled ? tabindex : -1"
+                    [attr.maxlength]="maxlength()"
+                    [tabindex]="!disabled() ? tabindex : -1"
                     [readonly]="readonly"
-                    [disabled]="disabled"
+                    [disabled]="disabled()"
                     [attr.aria-label]="ariaLabel"
                     [attr.aria-labelledby]="ariaLabelledBy"
-                    [attr.aria-required]="required"
+                    [attr.aria-required]="required()"
                     [attr.aria-expanded]="overlayVisible ?? false"
                     [attr.aria-controls]="overlayVisible ? id + '_list' : null"
                     [attr.aria-activedescendant]="focused ? focusedOptionId : undefined"
@@ -176,7 +177,7 @@ export const AUTOCOMPLETE_VALUE_ACCESSOR: any = {
                 <ng-template *ngTemplateOutlet="loadingIconTemplate || _loadingIconTemplate"></ng-template>
             </span>
         </ng-container>
-        <button #ddBtn type="button" [attr.aria-label]="dropdownAriaLabel" [class]="cx('dropdown')" [disabled]="disabled" pRipple (click)="handleDropdownClick($event)" *ngIf="dropdown" [attr.tabindex]="tabindex">
+        <button #ddBtn type="button" [attr.aria-label]="dropdownAriaLabel" [class]="cx('dropdown')" [disabled]="disabled()" pRipple (click)="handleDropdownClick($event)" *ngIf="dropdown" [attr.tabindex]="tabindex">
             <span *ngIf="dropdownIcon" [ngClass]="dropdownIcon" [attr.aria-hidden]="true"></span>
             <ng-container *ngIf="!dropdownIcon">
                 <ChevronDownIcon *ngIf="!dropdownIconTemplate && !_dropdownIconTemplate" />
@@ -1073,7 +1074,7 @@ export class AutoComplete extends BaseInput implements AfterViewChecked, AfterCo
     }
 
     onContainerClick(event) {
-        if (this.disabled || this.loading || this.isInputClicked(event) || this.isDropdownClicked(event)) {
+        if (this.disabled() || this.loading || this.isInputClicked(event) || this.isDropdownClicked(event)) {
             return;
         }
 
@@ -1105,8 +1106,8 @@ export class AutoComplete extends BaseInput implements AfterViewChecked, AfterCo
             }
 
             let query = event.target.value;
-            if (this.maxlength !== null) {
-                query = query.split('').slice(0, this.maxlength).join('');
+            if (this.maxlength() !== null) {
+                query = query.split('').slice(0, this.maxlength()).join('');
             }
 
             if (!this.multiple && !this.forceSelection) {
@@ -1154,7 +1155,7 @@ export class AutoComplete extends BaseInput implements AfterViewChecked, AfterCo
     }
 
     onInputFocus(event) {
-        if (this.disabled) {
+        if (this.disabled()) {
             // For ScreenReaders
             return;
         }
@@ -1171,7 +1172,7 @@ export class AutoComplete extends BaseInput implements AfterViewChecked, AfterCo
     }
 
     onMultipleContainerFocus(event) {
-        if (this.disabled) {
+        if (this.disabled()) {
             // For ScreenReaders
             return;
         }
@@ -1185,7 +1186,7 @@ export class AutoComplete extends BaseInput implements AfterViewChecked, AfterCo
     }
 
     onMultipleContainerKeyDown(event) {
-        if (this.disabled) {
+        if (this.disabled()) {
             event.preventDefault();
 
             return;
@@ -1226,7 +1227,7 @@ export class AutoComplete extends BaseInput implements AfterViewChecked, AfterCo
     }
 
     onKeyDown(event) {
-        if (this.disabled) {
+        if (this.disabled()) {
             event.preventDefault();
 
             return;

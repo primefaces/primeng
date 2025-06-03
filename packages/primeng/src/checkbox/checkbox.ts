@@ -24,11 +24,11 @@ import {
 import { ControlValueAccessor, FormControl, NG_VALUE_ACCESSOR, NgControl } from '@angular/forms';
 import { contains, equals } from '@primeuix/utils';
 import { PrimeTemplate, SharedModule } from 'primeng/api';
-import { BaseComponent } from 'primeng/basecomponent';
 import { CheckIcon, MinusIcon } from 'primeng/icons';
 import { Nullable } from 'primeng/ts-helpers';
 import { CheckboxChangeEvent } from './checkbox.interface';
 import { CheckboxStyle } from './style/checkboxstyle';
+import { BaseInput } from 'primeng/baseinput';
 
 export const CHECKBOX_VALUE_ACCESSOR: any = {
     provide: NG_VALUE_ACCESSOR,
@@ -49,12 +49,12 @@ export const CHECKBOX_VALUE_ACCESSOR: any = {
             [attr.id]="inputId"
             type="checkbox"
             [value]="value"
-            [attr.name]="name"
+            [attr.name]="name()"
             [checked]="checked"
             [attr.tabindex]="tabindex"
-            [disabled]="disabled"
+            [disabled]="disabled()"
             [readonly]="readonly"
-            [attr.required]="required ? true : null"
+            [attr.required]="required() ? true : null"
             [attr.aria-labelledby]="ariaLabelledBy"
             [attr.aria-label]="ariaLabel"
             [style]="inputStyle"
@@ -81,25 +81,15 @@ export const CHECKBOX_VALUE_ACCESSOR: any = {
         '[class]': "cx('root')",
         '[attr.data-p-highlight]': 'checked',
         '[attr.data-p-checked]': 'checked',
-        '[attr.data-p-disabled]': 'disabled'
+        '[attr.data-p-disabled]': 'disabled()'
     }
 })
-export class Checkbox extends BaseComponent implements AfterContentInit, ControlValueAccessor {
+export class Checkbox extends BaseInput implements AfterContentInit, ControlValueAccessor {
     /**
      * Value of the checkbox.
      * @group Props
      */
     @Input() value: any;
-    /**
-     * Name of the checkbox group.
-     * @group Props
-     */
-    @Input() name: string | undefined;
-    /**
-     * When present, it specifies that the element should be disabled.
-     * @group Props
-     */
-    @Input({ transform: booleanAttribute }) disabled: boolean | undefined;
     /**
      * Allows to select a boolean value instead of multiple values.
      * @group Props
@@ -147,11 +137,6 @@ export class Checkbox extends BaseComponent implements AfterContentInit, Control
      */
     @Input({ transform: booleanAttribute }) indeterminate: boolean = false;
     /**
-     * Defines the size of the component.
-     * @group Props
-     */
-    @Input() size: 'large' | 'small';
-    /**
      * Form control value.
      * @group Props
      */
@@ -167,11 +152,6 @@ export class Checkbox extends BaseComponent implements AfterContentInit, Control
      */
     @Input({ transform: booleanAttribute }) readonly: boolean | undefined;
     /**
-     * When present, it specifies that checkbox must be checked before submitting the form.
-     * @group Props
-     */
-    @Input({ transform: booleanAttribute }) required: boolean | undefined;
-    /**
      * When present, it specifies that the component should automatically get focus on load.
      * @group Props
      */
@@ -186,11 +166,6 @@ export class Checkbox extends BaseComponent implements AfterContentInit, Control
      * @group Props
      */
     @Input() falseValue: any = false;
-    /**
-     * Specifies the input variant of the component.
-     * @group Props
-     */
-    @Input() variant: 'filled' | 'outlined';
     /**
      * Callback to invoke on value change.
      * @param {CheckboxChangeEvent} event - Custom value change event.
@@ -324,13 +299,6 @@ export class Checkbox extends BaseComponent implements AfterContentInit, Control
 
     registerOnTouched(fn: Function): void {
         this.onModelTouched = fn;
-    }
-
-    setDisabledState(val: boolean): void {
-        setTimeout(() => {
-            this.disabled = val;
-            this.cd.markForCheck();
-        });
     }
 }
 
