@@ -162,7 +162,7 @@ export class MultiSelectItem extends BaseComponent {
                 [tooltipPosition]="tooltipPosition"
                 [positionStyle]="tooltipPositionStyle"
                 [tooltipStyleClass]="tooltipStyleClass"
-                [attr.aria-disabled]="disabled"
+                [attr.aria-disabled]="disabled()"
                 [attr.id]="inputId"
                 role="combobox"
                 [attr.aria-label]="ariaLabel"
@@ -170,13 +170,21 @@ export class MultiSelectItem extends BaseComponent {
                 [attr.aria-haspopup]="'listbox'"
                 [attr.aria-expanded]="overlayVisible ?? false"
                 [attr.aria-controls]="overlayVisible ? id + '_list' : null"
-                [attr.tabindex]="!disabled ? tabindex : -1"
+                [attr.tabindex]="!disabled() ? tabindex : -1"
                 [attr.aria-activedescendant]="focused ? focusedOptionId : undefined"
                 (focus)="onInputFocus($event)"
                 (blur)="onInputBlur($event)"
                 (keydown)="onKeyDown($event)"
                 [pAutoFocus]="autofocus"
-                [attr.value]="label() || 'empty'"
+                [attr.value]="modelValue()"
+                [attr.pattern]="pattern()"
+                [attr.min]="min()"
+                [attr.max]="max()"
+                [attr.step]="step()"
+                [attr.minlength]="minlength()"
+                [attr.maxlength]="maxlength()"
+                [attr.name]="name()"
+                [attr.disabled]="disabled()"
             />
         </div>
         <div
@@ -196,10 +204,10 @@ export class MultiSelectItem extends BaseComponent {
                             {{ getSelectedItemsLabel() }}
                         } @else {
                             <div #token *ngFor="let item of chipSelectedItems(); let i = index" [class]="cx('chipItem')">
-                                <p-chip [class]="cx('pcChip')" [label]="getLabelByValue(item)" [removable]="!disabled && !readonly" (onRemove)="removeOption(item, $event)" [removeIcon]="chipIcon">
+                                <p-chip [class]="cx('pcChip')" [label]="getLabelByValue(item)" [removable]="!disabled() && !readonly" (onRemove)="removeOption(item, $event)" [removeIcon]="chipIcon">
                                     <ng-container *ngIf="chipIconTemplate || _chipIconTemplate || removeTokenIconTemplate || _removeTokenIconTemplate">
                                         <ng-template #removeicon>
-                                            <ng-container *ngIf="!disabled && !readonly">
+                                            <ng-container *ngIf="!disabled() && !readonly">
                                                 <span
                                                     [class]="cx('chipIcon')"
                                                     *ngIf="chipIconTemplate || _chipIconTemplate || removeTokenIconTemplate || _removeTokenIconTemplate"
@@ -288,7 +296,7 @@ export class MultiSelectItem extends BaseComponent {
                                 [binary]="true"
                                 (onChange)="onToggleAll($event)"
                                 *ngIf="showToggleAll && !selectionLimit"
-                                [variant]="variant()"
+                                [variant]="$variant()"
                                 [disabled]="disabled()"
                                 #headerCheckbox
                             >
@@ -311,7 +319,7 @@ export class MultiSelectItem extends BaseComponent {
                                 <input
                                     #filterInput
                                     pInputText
-                                    [variant]="variant()"
+                                    [variant]="$variant()"
                                     type="text"
                                     [attr.autocomplete]="autocomplete"
                                     role="searchbox"
@@ -385,7 +393,7 @@ export class MultiSelectItem extends BaseComponent {
                                             [focused]="focusedOptionIndex() === getOptionIndex(i, scrollerOptions)"
                                             [ariaPosInset]="getAriaPosInset(getOptionIndex(i, scrollerOptions))"
                                             [ariaSetSize]="ariaSetSize"
-                                            [variant]="variant()"
+                                            [variant]="$variant()"
                                             [highlightOnSelect]="highlightOnSelect"
                                             (onClick)="onOptionSelect($event, false, getOptionIndex(i, scrollerOptions))"
                                             (onMouseEnter)="onOptionMouseEnter($event, getOptionIndex(i, scrollerOptions))"
@@ -1939,7 +1947,7 @@ export class MultiSelect extends BaseInput implements OnInit, AfterViewInit, Aft
 
     writeValue(value: any): void {
         this.value = value;
-        this.modelValue.set(this.value);
+        this.writeModelValue(value);
         this.cd.markForCheck();
     }
 
