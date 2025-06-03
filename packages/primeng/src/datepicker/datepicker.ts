@@ -87,7 +87,7 @@ export const DATEPICKER_VALUE_ACCESSOR: any = {
                 [attr.inputmode]="touchUI ? 'off' : null"
                 autocomplete="off"
                 [pAutoFocus]="autofocus"
-                [variant]="variant()"
+                [variant]="$variant()"
                 [fluid]="hasFluid"
                 [invalid]="invalid()"
             />
