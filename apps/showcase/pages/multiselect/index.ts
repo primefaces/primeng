@@ -16,6 +16,7 @@ import { SizesDoc } from '@/doc/multiselect/sizesdoc';
 import { TemplateDoc } from '@/doc/multiselect/templatedoc';
 import { VirtualScrollDoc } from '@/doc/multiselect/virtualscrolldoc';
 import { Component } from '@angular/core';
+import { TemplateDrivenFormsDoc } from '@/doc/multiselect/templatedrivenformsdoc';
 
 @Component({
     template: `<app-doc docTitle="Angular MultiSelect Component" header="MultiSelect" description="MultiSelect is used to select multiple items from a collection." [docs]="docs" [apiDocs]="['MultiSelect']" themeDocs="multiselect"></app-doc> `,
@@ -33,11 +34,6 @@ export class MultiSelectDemo {
             id: 'basic',
             label: 'Basic',
             component: BasicDoc
-        },
-        {
-            id: 'reactive-forms',
-            label: 'Reactive Forms',
-            component: ReactiveFormsDoc
         },
         {
             id: 'chips',
@@ -88,6 +84,14 @@ export class MultiSelectDemo {
             id: 'filled',
             label: 'Filled',
             component: FilledDoc
+        },
+        {
+            id: 'forms',
+            label: 'Forms',
+            children: [
+                { id: 'templatedriven', label: 'Template Driven', component: TemplateDrivenFormsDoc },
+                { id: 'reactive', label: 'Reactive Forms', component: ReactiveFormsDoc }
+            ]
         },
         {
             id: 'invalid',
