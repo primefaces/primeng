@@ -66,7 +66,6 @@ const classes = {
             'p-inputwrapper-focus': (instance.focused && !instance.disabled()) || instance.autofocus || instance.overlayVisible,
             'p-autocomplete-open': instance.overlayVisible,
             'p-autocomplete-clearable': instance.showClear && !instance.disabled(),
-
             'p-autocomplete-fluid': instance.hasFluid
         }
     ],

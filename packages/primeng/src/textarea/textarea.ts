@@ -1,8 +1,8 @@
 import { AfterViewInit, booleanAttribute, Directive, EventEmitter, HostListener, inject, Input, NgModule, OnDestroy, OnInit, Optional, Output } from '@angular/core';
 import { NgControl, NgModel } from '@angular/forms';
-import { BaseComponent } from 'primeng/basecomponent';
 import { Subscription } from 'rxjs';
 import { TextareaStyle } from './style/textareastyle';
+import { BaseInput } from 'primeng/baseinput';
 
 /**
  * Textarea adds styling and autoResize functionality to standard textarea element.
@@ -16,22 +16,12 @@ import { TextareaStyle } from './style/textareastyle';
     },
     providers: [TextareaStyle]
 })
-export class Textarea extends BaseComponent implements OnInit, AfterViewInit, OnDestroy {
+export class Textarea extends BaseInput implements OnInit, AfterViewInit, OnDestroy {
     /**
      * When present, textarea size changes as being typed.
      * @group Props
      */
     @Input({ transform: booleanAttribute }) autoResize: boolean | undefined;
-    /**
-     * Specifies the input variant of the component.
-     * @group Props
-     */
-    @Input() variant: 'filled' | 'outlined';
-    /**
-     * Spans 100% width of the container when enabled.
-     * @group Props
-     */
-    @Input({ transform: booleanAttribute }) fluid: boolean = false;
     /**
      * Defines the size of the component.
      * @group Props
@@ -74,12 +64,6 @@ export class Textarea extends BaseComponent implements OnInit, AfterViewInit, On
                 this.updateState();
             });
         }
-    }
-
-    get hasFluid() {
-        const nativeElement = this.el.nativeElement;
-        const fluidComponent = nativeElement.closest('p-fluid');
-        return this.fluid || !!fluidComponent;
     }
 
     ngAfterViewInit() {
