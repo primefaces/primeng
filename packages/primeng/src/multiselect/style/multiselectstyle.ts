@@ -15,6 +15,7 @@ const theme = css`
     p-multiselect.ng-invalid.ng-dirty .p-multiselect-label.p-placeholder {
         color: ${dt('multiselect.invalid.placeholder.color')};
     }
+
     .p-multiselect-clear-icon {
         cursor: pointer;
         display: flex;
@@ -37,16 +38,16 @@ const classes = {
         {
             'p-multiselect p-component p-inputwrapper': true,
             'p-multiselect-display-chip': instance.display === 'chip',
-            'p-disabled': instance.disabled,
-            'p-invalid': instance.invalid,
-            'p-variant-filled': instance.variant === 'filled' || instance.config.inputVariant() === 'filled' || instance.config.inputStyle() === 'filled',
+            'p-disabled': instance.disabled(),
+            'p-invalid': instance.invalid(),
+            'p-variant-filled': instance.$variant(),
             'p-focus': instance.focused,
-            'p-inputwrapper-filled': instance.filled,
+            'p-inputwrapper-filled': instance.$filled(),
             'p-inputwrapper-focus': instance.focused || instance.overlayVisible,
             'p-multiselect-open': instance.overlayVisible,
             'p-multiselect-fluid': instance.hasFluid,
-            'p-multiselect-sm p-inputfield-sm': instance.size === 'small',
-            'p-multiselect-lg p-inputfield-lg': instance.size === 'large'
+            'p-multiselect-sm p-inputfield-sm': instance.size() === 'small',
+            'p-multiselect-lg p-inputfield-lg': instance.size() === 'large'
         }
     ],
     labelContainer: 'p-multiselect-label-container',
