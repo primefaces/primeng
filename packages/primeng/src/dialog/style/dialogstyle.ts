@@ -70,7 +70,7 @@ const theme = ({ dt }) => `
 .p-dialog-topright .p-dialog,
 .p-dialog-bottomleft .p-dialog,
 .p-dialog-bottomright .p-dialog {
-    margin: 0.75rem;
+    margin: 0.75rem !important;
     transform: translate3d(0px, 0px, 0px);
 }
 
