@@ -20,10 +20,10 @@ import {
 import { ControlValueAccessor, FormsModule, NG_VALUE_ACCESSOR } from '@angular/forms';
 import { equals, resolveFieldData } from '@primeuix/utils';
 import { PrimeTemplate, SharedModule } from 'primeng/api';
-import { BaseComponent } from 'primeng/basecomponent';
 import { ToggleButton } from 'primeng/togglebutton';
 import { SelectButtonChangeEvent, SelectButtonOptionClickEvent } from './selectbutton.interface';
 import { SelectButtonStyle } from './style/selectbuttonstyle';
+import { BaseInput } from 'primeng/baseinput';
 
 export const SELECTBUTTON_VALUE_ACCESSOR: any = {
     provide: NG_VALUE_ACCESSOR,
@@ -46,10 +46,10 @@ export const SELECTBUTTON_VALUE_ACCESSOR: any = {
                 [ngModel]="isSelected(option)"
                 [onLabel]="this.getOptionLabel(option)"
                 [offLabel]="this.getOptionLabel(option)"
-                [disabled]="disabled || isOptionDisabled(option)"
+                [disabled]="disabled() || isOptionDisabled(option)"
                 (onChange)="onOptionSelect($event, option, i)"
                 [allowEmpty]="getAllowEmpty()"
-                [size]="size"
+                [size]="size()"
             >
                 @if (itemTemplate || _itemTemplate) {
                     <ng-template #content>
@@ -70,7 +70,7 @@ export const SELECTBUTTON_VALUE_ACCESSOR: any = {
         '[attr.data-pc-name]': '"selectbutton"'
     }
 })
-export class SelectButton extends BaseComponent implements AfterContentInit, ControlValueAccessor {
+export class SelectButton extends BaseInput implements AfterContentInit, ControlValueAccessor {
     /**
      * An array of selectitems to display as the available options.
      * @group Props
@@ -131,16 +131,6 @@ export class SelectButton extends BaseComponent implements AfterContentInit, Con
      * @group Props
      */
     @Input() ariaLabelledBy: string | undefined;
-    /**
-     * Defines the size of the component.
-     * @group Props
-     */
-    @Input() size: 'large' | 'small';
-    /**
-     * When present, it specifies that the element should be disabled.
-     * @group Props
-     */
-    @Input({ transform: booleanAttribute }) disabled: boolean | undefined;
     /**
      * A property to uniquely identify a value in options.
      * @group Props
@@ -217,13 +207,8 @@ export class SelectButton extends BaseComponent implements AfterContentInit, Con
         this.onModelTouched = fn;
     }
 
-    setDisabledState(val: boolean): void {
-        this.disabled = val;
-        this.cd.markForCheck();
-    }
-
     onOptionSelect(event, option, index) {
-        if (this.disabled || this.isOptionDisabled(option)) {
+        if (this.disabled() || this.isOptionDisabled(option)) {
             return;
         }
 
