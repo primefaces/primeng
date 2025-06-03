@@ -28,7 +28,6 @@ import {
 import { ControlValueAccessor, FormsModule, NG_VALUE_ACCESSOR } from '@angular/forms';
 import { equals, findLastIndex, findSingle, focus, getFirstFocusableElement, isEmpty, isFunction, isNotEmpty, isPrintableCharacter, resolveFieldData, uuid } from '@primeuix/utils';
 import { FilterService, Footer, Header, PrimeTemplate, ScrollerOptions, SharedModule } from 'primeng/api';
-import { BaseComponent } from 'primeng/basecomponent';
 import { Checkbox } from 'primeng/checkbox';
 import { IconField } from 'primeng/iconfield';
 import { BlankIcon, CheckIcon, SearchIcon } from 'primeng/icons';
@@ -40,6 +39,7 @@ import { Nullable } from 'primeng/ts-helpers';
 import { Subscription } from 'rxjs';
 import { ListboxChangeEvent, ListboxClickEvent, ListboxDoubleClickEvent, ListboxFilterEvent, ListboxFilterOptions, ListboxSelectAllChangeEvent } from './listbox.interface';
 import { ListBoxStyle } from './style/listboxstyle';
+import { BaseInput } from 'primeng/baseinput';
 
 export const LISTBOX_VALUE_ACCESSOR: any = {
     provide: NG_VALUE_ACCESSOR,
@@ -55,21 +55,21 @@ export const LISTBOX_VALUE_ACCESSOR: any = {
     standalone: true,
     imports: [CommonModule, Ripple, Scroller, InputIcon, SearchIcon, Checkbox, CheckIcon, IconField, InputText, BlankIcon, FormsModule, SharedModule, DragDropModule],
     template: `
-        <span #firstHiddenFocusableElement role="presentation" class="p-hidden-accessible p-hidden-focusable" [tabindex]="!disabled ? tabindex : -1" (focus)="onFirstHiddenFocus($event)" [attr.data-p-hidden-focusable]="true"> </span>
+        <span #firstHiddenFocusableElement role="presentation" class="p-hidden-accessible p-hidden-focusable" [tabindex]="!disabled() ? tabindex : -1" (focus)="onFirstHiddenFocus($event)" [attr.data-p-hidden-focusable]="true"> </span>
         <div [class]="cx('header')" *ngIf="headerFacet || headerTemplate || _headerTemplate">
             <ng-content select="p-header"></ng-content>
             <ng-container *ngTemplateOutlet="headerTemplate || _headerTemplate; context: { $implicit: modelValue(), options: visibleOptions() }"></ng-container>
         </div>
         <div [class]="cx('header')" *ngIf="(checkbox && multiple && showToggleAll) || filter">
-            <div *ngIf="checkbox && multiple && showToggleAll" class="p-checkbox p-component" [ngClass]="{ 'p-checkbox-disabled': disabled }" (click)="onToggleAll($event)" (keydown)="onHeaderCheckboxKeyDown($event)">
+            <div *ngIf="checkbox && multiple && showToggleAll" class="p-checkbox p-component" [ngClass]="{ 'p-checkbox-disabled': disabled() }" (click)="onToggleAll($event)" (keydown)="onHeaderCheckboxKeyDown($event)">
                 <div class="p-hidden-accessible" [attr.data-p-hidden-accessible]="true">
-                    <input #headerchkbox type="checkbox" readonly="readonly" [attr.checked]="allSelected()" [disabled]="disabled" (focus)="onHeaderCheckboxFocus($event)" (blur)="onHeaderCheckboxBlur()" [attr.aria-label]="toggleAllAriaLabel" />
+                    <input #headerchkbox type="checkbox" readonly="readonly" [attr.checked]="allSelected()" [disabled]="disabled()" (focus)="onHeaderCheckboxFocus($event)" (blur)="onHeaderCheckboxBlur()" [attr.aria-label]="toggleAllAriaLabel" />
                 </div>
                 <p-checkbox
                     *ngIf="checkbox && multiple"
                     [class]="cx('optionCheckIcon')"
                     [ngModel]="allSelected()"
-                    [disabled]="disabled"
+                    [disabled]="disabled()"
                     [tabindex]="-1"
                     [variant]="config.inputStyle() === 'filled' || config.inputVariant() === 'filled' ? 'filled' : 'outlined'"
                     [binary]="true"
@@ -94,12 +94,12 @@ export const LISTBOX_VALUE_ACCESSOR: any = {
                             [class]="cx('pcFilter')"
                             role="searchbox"
                             [value]="_filterValue() || ''"
-                            [disabled]="disabled"
+                            [disabled]="disabled()"
                             [attr.aria-owns]="id + '_list'"
                             [attr.aria-activedescendant]="focusedOptionId"
                             [attr.placeholder]="filterPlaceHolder"
                             [attr.aria-label]="ariaFilterLabel"
-                            [tabindex]="!disabled && !focused ? tabindex : -1"
+                            [tabindex]="!disabled() && !focused ? tabindex : -1"
                             (input)="onFilterChange($event)"
                             (keydown)="onFilterKeyDown($event)"
                             (focus)="onFilterFocus($event)"
@@ -118,7 +118,7 @@ export const LISTBOX_VALUE_ACCESSOR: any = {
                 </span>
             </ng-template>
         </div>
-        <div #container [class]="cn(cx('listContainer'), listStyleClass)" [ngStyle]="listStyle" [style.max-height]="virtualScroll ? 'auto' : scrollHeight || 'auto'" [attr.tabindex]="!disabled && '0'">
+        <div #container [class]="cn(cx('listContainer'), listStyleClass)" [ngStyle]="listStyle" [style.max-height]="virtualScroll ? 'auto' : scrollHeight || 'auto'" [attr.tabindex]="!disabled() && '0'">
             @if (hasFilter() && isEmpty()) {
                 <div [class]="cx('emptyMessage')" [cdkDropListData]="$any([])" (cdkDropListDropped)="drop($event)" cdkDropList>
                     @if (!emptyFilterTemplate && !_emptyFilterTemplate && !_emptyTemplate && !emptyTemplate) {
@@ -172,7 +172,7 @@ export const LISTBOX_VALUE_ACCESSOR: any = {
                         [style]="scrollerOptions.contentStyle"
                         [attr.aria-activedescendant]="focused ? focusedOptionId : undefined"
                         [attr.aria-label]="ariaLabel"
-                        [attr.aria-disabled]="disabled"
+                        [attr.aria-disabled]="disabled()"
                         (focus)="onListFocus($event)"
                         (blur)="onListBlur($event)"
                         (keydown)="onListKeyDown($event)"
@@ -221,7 +221,7 @@ export const LISTBOX_VALUE_ACCESSOR: any = {
                                         [class]="cx('optionCheckIcon')"
                                         [ngModel]="isSelected(option)"
                                         [readonly]="true"
-                                        [disabled]="disabled || isOptionDisabled(option)"
+                                        [disabled]="disabled() || isOptionDisabled(option)"
                                         [tabindex]="-1"
                                         [variant]="config.inputStyle() === 'filled' || config.inputVariant() === 'filled' ? 'filled' : 'outlined'"
                                         [binary]="true"
@@ -287,7 +287,7 @@ export const LISTBOX_VALUE_ACCESSOR: any = {
         '[class]': "cx('root')"
     }
 })
-export class Listbox extends BaseComponent implements AfterContentInit, OnInit, ControlValueAccessor, OnDestroy {
+export class Listbox extends BaseInput implements AfterContentInit, OnInit, ControlValueAccessor, OnDestroy {
     /**
      * Unique identifier of the component.
      * @group Props
@@ -402,11 +402,6 @@ export class Listbox extends BaseComponent implements AfterContentInit, OnInit, 
      * @group Props
      */
     @Input({ transform: booleanAttribute }) readonly: boolean | undefined;
-    /**
-     * When present, it specifies that the element should be disabled.
-     * @group Props
-     */
-    @Input({ transform: booleanAttribute }) disabled: boolean | undefined;
     /**
      * When specified, allows selecting items with checkboxes.
      * @group Props
@@ -742,14 +737,6 @@ export class Listbox extends BaseComponent implements AfterContentInit, OnInit, 
 
     _componentStyle = inject(ListBoxStyle);
 
-    get containerClass() {
-        return {
-            'p-listbox p-component': true,
-            'p-listbox-striped': this.striped,
-            'p-disabled': this.disabled
-        };
-    }
-
     get focusedOptionId() {
         return this.focusedOptionIndex() !== -1 ? `${this.id}_${this.focusedOptionIndex()}` : null;
     }
@@ -809,8 +796,6 @@ export class Listbox extends BaseComponent implements AfterContentInit, OnInit, 
     startRangeIndex = signal<number>(-1);
 
     focusedOptionIndex = signal<number>(-1);
-
-    modelValue = signal<any>(null);
 
     @HostListener('focusout', ['$event'])
     onHostFocusOut(event: FocusEvent) {
@@ -899,7 +884,7 @@ export class Listbox extends BaseComponent implements AfterContentInit, OnInit, 
 
     writeValue(value: any): void {
         this.value = value;
-        this.modelValue.set(this.value);
+        this.writeModelValue(this.value);
         this.cd.markForCheck();
     }
 
@@ -909,11 +894,6 @@ export class Listbox extends BaseComponent implements AfterContentInit, OnInit, 
 
     registerOnTouched(fn: Function): void {
         this.onModelTouched = fn;
-    }
-
-    setDisabledState(val: boolean): void {
-        this.disabled = val;
-        this.cd.markForCheck();
     }
 
     flatOptions(options) {
@@ -941,7 +921,7 @@ export class Listbox extends BaseComponent implements AfterContentInit, OnInit, 
      */
     public updateModel(value, event?) {
         this.value = value;
-        this.modelValue.set(value);
+        this.writeModelValue(value);
         this.onModelChange(value);
 
         this.onChange.emit({ originalEvent: event, value: this.value });
@@ -952,7 +932,7 @@ export class Listbox extends BaseComponent implements AfterContentInit, OnInit, 
     }
 
     onOptionSelect(event, option, index = -1) {
-        if (this.disabled || this.isOptionDisabled(option) || this.readonly) {
+        if (this.disabled() || this.isOptionDisabled(option) || this.readonly) {
             return;
         }
 
@@ -1029,7 +1009,7 @@ export class Listbox extends BaseComponent implements AfterContentInit, OnInit, 
     }
 
     onToggleAll(event) {
-        if (this.disabled || this.readonly) {
+        if (this.disabled() || this.readonly) {
             return;
         }
         focus(this.headerCheckboxViewChild.nativeElement);
@@ -1059,7 +1039,7 @@ export class Listbox extends BaseComponent implements AfterContentInit, OnInit, 
     }
 
     onOptionTouchEnd() {
-        if (this.disabled) {
+        if (this.disabled()) {
             return;
         }
 
@@ -1077,7 +1057,7 @@ export class Listbox extends BaseComponent implements AfterContentInit, OnInit, 
     }
 
     onOptionDoubleClick(event: MouseEvent, option: any) {
-        if (this.disabled || this.isOptionDisabled(option) || this.readonly) {
+        if (this.disabled() || this.isOptionDisabled(option) || this.readonly) {
             return;
         }
 
@@ -1147,7 +1127,7 @@ export class Listbox extends BaseComponent implements AfterContentInit, OnInit, 
     }
 
     onHeaderCheckboxKeyDown(event) {
-        if (this.disabled) {
+        if (this.disabled()) {
             event.preventDefault();
 
             return;

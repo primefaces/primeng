@@ -11,9 +11,7 @@ const theme = css`
         display: block;
     }
 
-    p-listBox.ng-invalid.ng-dirty > .p-listbox.p-component,
-    p-list-box.ng-invalid.ng-dirty > .p-listbox.p-component,
-    p-listbox.ng-invalid.ng-dirty > .p-listbox.p-component {
+    .p-listbox.ng-invalid.ng-dirty {
         border-color: ${dt('listbox.invalid.border.color')};
     }
 `;
@@ -24,8 +22,8 @@ const classes = {
         instance.styleClass,
         {
             'p-listbox-striped': instance.striped,
-            'p-disabled': instance.disabled,
-            'p-invalid': instance.invalid
+            'p-disabled': instance.disabled(),
+            'p-invalid': instance.invalid()
         }
     ],
     header: 'p-listbox-header',
