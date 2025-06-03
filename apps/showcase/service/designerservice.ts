@@ -270,6 +270,7 @@ export class DesignerService {
     }
 
     async restore() {
+        if (!environment.production) return;
         this.http.get(this.baseUrl + '/license/restore', { withCredentials: true }).subscribe({
             next: (res: any) => {
                 const data = res.data;
