@@ -24,7 +24,6 @@ import { NG_VALUE_ACCESSOR } from '@angular/forms';
 import { focus, getFirstFocusableElement, getFocusableElements, getLastFocusableElement, hasClass, isNotEmpty, uuid } from '@primeuix/utils';
 import { OverlayOptions, PrimeTemplate, ScrollerOptions, SharedModule, TreeNode } from 'primeng/api';
 import { AutoFocus } from 'primeng/autofocus';
-import { BaseComponent } from 'primeng/basecomponent';
 import { Chip } from 'primeng/chip';
 import { ChevronDownIcon, TimesIcon } from 'primeng/icons';
 import { Overlay } from 'primeng/overlay';
@@ -32,6 +31,7 @@ import { Tree, TreeFilterEvent, TreeNodeSelectEvent, TreeNodeUnSelectEvent } fro
 import { Nullable } from 'primeng/ts-helpers';
 import { TreeSelectStyle } from './style/treeselectstyle';
 import { TreeSelectNodeCollapseEvent, TreeSelectNodeExpandEvent } from './treeselect.interface';
+import { BaseInput } from 'primeng/baseinput';
 
 export const TREESELECT_VALUE_ACCESSOR: any = {
     provide: NG_VALUE_ACCESSOR,
@@ -54,11 +54,11 @@ export const TREESELECT_VALUE_ACCESSOR: any = {
                 role="combobox"
                 [attr.id]="inputId"
                 readonly
-                [disabled]="disabled"
+                [disabled]="disabled()"
                 (focus)="onInputFocus($event)"
                 (blur)="onInputBlur($event)"
                 (keydown)="onKeyDown($event)"
-                [attr.tabindex]="!disabled ? tabindex : -1"
+                [attr.tabindex]="!disabled() ? tabindex : -1"
                 [attr.aria-controls]="overlayVisible ? listId : null"
                 [attr.aria-haspopup]="'tree'"
                 [attr.aria-expanded]="overlayVisible ?? false"
@@ -85,7 +85,7 @@ export const TREESELECT_VALUE_ACCESSOR: any = {
                 </ng-template>
             </div>
         </div>
-        <ng-container *ngIf="checkValue() && !disabled && showClear">
+        <ng-container *ngIf="checkValue() && !disabled() && showClear">
             <TimesIcon *ngIf="!clearIconTemplate && !_clearIconTemplate" [class]="cx('clearIcon')" (click)="clear($event)" />
             <span *ngIf="clearIconTemplate || clearIconTemplate" [class]="cx('clearIcon')" (click)="clear($event)">
                 <ng-template *ngTemplateOutlet="clearIconTemplate || _clearIconTemplate"></ng-template>
@@ -189,7 +189,7 @@ export const TREESELECT_VALUE_ACCESSOR: any = {
         '[style]': "sx('root')"
     }
 })
-export class TreeSelect extends BaseComponent implements AfterContentInit {
+export class TreeSelect extends BaseInput implements AfterContentInit {
     /**
      * Identifier of the underlying input element.
      * @group Props
@@ -201,20 +201,10 @@ export class TreeSelect extends BaseComponent implements AfterContentInit {
      */
     @Input() scrollHeight: string = '400px';
     /**
-     * When present, it specifies that the component should be disabled.
-     * @group Props
-     */
-    @Input({ transform: booleanAttribute }) disabled: boolean | undefined;
-    /**
      * Defines how multiple items can be selected, when true metaKey needs to be pressed to select or unselect an item and when set to false selection of each item can be toggled individually. On touch enabled devices, metaKeySelection is turned off automatically.
      * @group Props
      */
     @Input({ transform: booleanAttribute }) metaKeySelection: boolean = false;
-    /**
-     * Specifies the input variant of the component.
-     * @group Props
-     */
-    @Input() variant: 'filled' | 'outlined';
     /**
      * Defines how the selected items are displayed.
      * @group Props
@@ -255,11 +245,6 @@ export class TreeSelect extends BaseComponent implements AfterContentInit {
      * @group Props
      */
     @Input() panelStyle: { [klass: string]: any } | null | undefined;
-    /**
-     * Spans 100% width of the container when enabled.
-     * @group Props
-     */
-    @Input({ transform: booleanAttribute }) fluid: boolean = false;
     /**
      * Style class of the panel element.
      * @group Props
@@ -362,11 +347,6 @@ export class TreeSelect extends BaseComponent implements AfterContentInit {
      * @group Props
      */
     @Input() virtualScrollItemSize: number | undefined;
-    /**
-     * Defines the size of the component.
-     * @group Props
-     */
-    @Input() size: 'large' | 'small';
     /**
      * Whether to use the scroller feature. The properties of scroller component can be used like an object in it.
      * @group Props
@@ -727,7 +707,7 @@ export class TreeSelect extends BaseComponent implements AfterContentInit {
     }
 
     onClick(event: any) {
-        if (this.disabled) {
+        if (this.disabled()) {
             return;
         }
 
@@ -998,7 +978,7 @@ export class TreeSelect extends BaseComponent implements AfterContentInit {
     }
 
     onInputFocus(event: Event) {
-        if (this.disabled) {
+        if (this.disabled()) {
             // For ScreenReaders
             return;
         }
@@ -1025,19 +1005,6 @@ export class TreeSelect extends BaseComponent implements AfterContentInit {
 
     registerOnTouched(fn: Function): void {
         this.onModelTouched = fn;
-    }
-
-    setDisabledState(val: boolean): void {
-        setTimeout(() => {
-            this.disabled = val;
-            this.cd.markForCheck();
-        });
-    }
-
-    get hasFluid() {
-        const nativeElement = this.el.nativeElement;
-        const fluidComponent = nativeElement.closest('p-fluid');
-        return this.fluid || !!fluidComponent;
     }
 
     get emptyValue() {
