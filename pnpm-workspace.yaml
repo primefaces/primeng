@@ -3,14 +3,18 @@ packages:
     - 'apps/*'
 
 catalog:
-    '@primeuix/styled': ^0.3.2
-    '@primeuix/utils': ^0.3.2
+    '@primeuix/styled': ^0.6.1
+    '@primeuix/utils': ^0.5.3
+    '@primeuix/styles': ^1.1.1
+    '@primeuix/themes': ^1.1.1
+    'tailwindcss-primeui': ^0.6.1
+    'primeicons': ^7.0.0
 
 catalogs:
     angular19:
         "@angular-devkit/build-angular": ^19
         "@angular/animations": ^19
-        "@angular/cdk": 19.2.3
+        "@angular/cdk": ^19
         "@angular/cli": ^19
         "@angular/common": ^19
         "@angular/compiler": ^19

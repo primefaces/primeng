@@ -45,7 +45,7 @@ import { FileUploadStyle } from './style/fileuploadstyle';
     standalone: true,
     imports: [CommonModule, Button, ProgressBar, Message, PlusIcon, UploadIcon, TimesIcon, SharedModule],
     template: `
-        <div [ngClass]="'p-fileupload p-fileupload-advanced p-component'" [ngStyle]="style" [class]="styleClass" *ngIf="mode === 'advanced'" [attr.data-pc-name]="'fileupload'" [attr.data-pc-section]="'root'">
+        <div [class]="cn(cx('root'), styleClass)" [ngStyle]="style" *ngIf="mode === 'advanced'" [attr.data-pc-name]="'fileupload'" [attr.data-pc-section]="'root'">
             <input
                 [attr.aria-label]="browseFilesLabel"
                 #advancedfileinput
@@ -58,10 +58,10 @@ import { FileUploadStyle } from './style/fileuploadstyle';
                 [attr.data-pc-section]="'input'"
                 [style.display]="'none'"
             />
-            <div class="p-fileupload-header">
+            <div [class]="cx('header')">
                 <ng-container *ngIf="!headerTemplate && !_headerTemplate">
                     <p-button
-                        [styleClass]="'p-fileupload-choose-button ' + chooseStyleClass"
+                        [styleClass]="cn(cx('pcChooseButton'), chooseStyleClass)"
                         [disabled]="disabled || isChooseDisabled()"
                         (focus)="onFocus()"
                         [label]="chooseButtonLabel"
@@ -96,7 +96,7 @@ import { FileUploadStyle } from './style/fileuploadstyle';
                         [label]="uploadButtonLabel"
                         (onClick)="upload()"
                         [disabled]="!hasFiles() || isFileLimitExceeded()"
-                        [styleClass]="'p-fileupload-upload-button ' + uploadStyleClass"
+                        [styleClass]="cn(cx('pcUploadButton'), uploadStyleClass)"
                         [buttonProps]="uploadButtonProps"
                     >
                         <span *ngIf="uploadIcon" [ngClass]="uploadIcon" [attr.aria-hidden]="true"></span>
@@ -107,7 +107,7 @@ import { FileUploadStyle } from './style/fileuploadstyle';
                             </span>
                         </ng-container>
                     </p-button>
-                    <p-button *ngIf="!auto && showCancelButton" [label]="cancelButtonLabel" (onClick)="clear()" [disabled]="!hasFiles() || uploading" [styleClass]="'p-fileupload-cancel-button ' + cancelStyleClass" [buttonProps]="cancelButtonProps">
+                    <p-button *ngIf="!auto && showCancelButton" [label]="cancelButtonLabel" (onClick)="clear()" [disabled]="!hasFiles() || uploading" [styleClass]="cn(cx('pcCancelButton'), cancelStyleClass)" [buttonProps]="cancelButtonProps">
                         <span *ngIf="cancelIcon" [ngClass]="cancelIcon"></span>
                         <ng-container *ngIf="!cancelIcon">
                             <TimesIcon *ngIf="!cancelIconTemplate && !_cancelIconTemplate" [attr.aria-hidden]="true" />
@@ -131,22 +131,22 @@ import { FileUploadStyle } from './style/fileuploadstyle';
                 ></ng-container>
                 <ng-container *ngTemplateOutlet="toolbarTemplate || _toolbarTemplate"></ng-container>
             </div>
-            <div #content class="p-fileupload-content" (dragenter)="onDragEnter($event)" (dragleave)="onDragLeave($event)" (drop)="onDrop($event)" [attr.data-pc-section]="'content'">
+            <div #content [class]="cx('content')" (dragenter)="onDragEnter($event)" (dragleave)="onDragLeave($event)" (drop)="onDrop($event)" [attr.data-pc-section]="'content'">
                 <p-progressbar [value]="progress" [showValue]="false" *ngIf="hasFiles()"></p-progressbar>
                 @for (message of msgs; track message) {
                     <p-message [severity]="message.severity" [text]="message.text"></p-message>
                 }
 
-                <div class="p-fileupload-file-list" *ngIf="hasFiles()">
+                <div [class]="cx('fileList')" *ngIf="hasFiles()">
                     @if (!fileTemplate && !_fileTemplate) {
-                        <div class="p-fileupload-file" *ngFor="let file of files; let i = index">
+                        <div [class]="cx('file')" *ngFor="let file of files; let i = index">
                             <img [src]="file.objectURL" *ngIf="isImage(file)" [width]="previewWidth" (error)="imageError($event)" class="p-fileupload-file-thumbnail" />
-                            <div class="p-fileupload-file-info">
-                                <div class="p-fileupload-file-name">{{ file.name }}</div>
-                                <span class="p-fileupload-file-size">{{ formatSize(file.size) }}</span>
+                            <div [class]="cx('fileInfo')">
+                                <div [class]="cx('fileName')">{{ file.name }}</div>
+                                <span [class]="cx('fileSize')">{{ formatSize(file.size) }}</span>
                             </div>
-                            <div class="p-fileupload-file-actions">
-                                <p-button (onClick)="remove($event, i)" [disabled]="uploading" text rounded severity="danger" [styleClass]="'p-fileupload-file-remove-button ' + removeStyleClass">
+                            <div [class]="cx('fileActions')">
+                                <p-button (onClick)="remove($event, i)" [disabled]="uploading" text rounded severity="danger" [styleClass]="cn(cx('pcFileRemoveButton'), removeStyleClass)">
                                     <ng-template #icon>
                                         <TimesIcon *ngIf="!cancelIconTemplate && !_cancelIconTemplate" />
                                         <ng-template *ngTemplateOutlet="cancelIconTemplate || _cancelIconTemplate"></ng-template>
@@ -179,20 +179,12 @@ import { FileUploadStyle } from './style/fileuploadstyle';
                 }
             </div>
         </div>
-        <div [ngClass]="'p-fileupload p-fileupload-basic p-component'" [class]="styleClass" *ngIf="mode === 'basic'" [attr.data-pc-name]="'fileupload'">
+        <div [class]="cn(cx('root'), styleClass)" *ngIf="mode === 'basic'" [attr.data-pc-name]="'fileupload'">
             @for (message of msgs; track message) {
                 <p-message [severity]="message.severity" [text]="message.text"></p-message>
             }
 
-            <p-button
-                [styleClass]="'p-fileupload-choose-button ' + chooseStyleClass"
-                [disabled]="disabled"
-                [label]="chooseButtonLabel"
-                [style]="style"
-                (onClick)="onBasicUploaderClick()"
-                (keydown)="onBasicKeydown($event)"
-                [buttonProps]="chooseButtonProps"
-            >
+            <p-button [styleClass]="cn(cx('pcChooseButton'), chooseStyleClass)" [disabled]="disabled" [label]="chooseButtonLabel" [style]="style" (onClick)="onBasicUploaderClick()" (keydown)="onBasicKeydown($event)" [buttonProps]="chooseButtonProps">
                 <ng-template #icon>
                     @if (hasFiles() && !auto) {
                         <span *ngIf="uploadIcon" class="p-button-icon p-button-icon-left" [ngClass]="uploadIcon"></span>
@@ -225,7 +217,7 @@ import { FileUploadStyle } from './style/fileuploadstyle';
             </p-button>
             @if (!auto) {
                 @if (!fileLabelTemplate && !_fileLabelTemplate) {
-                    <span [class]="cx('filelabel')">
+                    <span>
                         {{ basicFileChosenLabel() }}
                     </span>
                 } @else {
@@ -916,6 +908,7 @@ export class FileUpload extends BaseComponent implements AfterViewInit, AfterCon
         this.uploadedFileCount = 0;
         this.onClear.emit();
         this.clearInputElement();
+        this.msgs = [];
         this.cd.markForCheck();
     }
     /**
@@ -961,14 +954,17 @@ export class FileUpload extends BaseComponent implements AfterViewInit, AfterCon
     }
 
     checkFileLimit(files: File[]) {
-        this.msgs = [];
+        this.msgs ??= [];
         const hasExistingValidationMessages = this.msgs.length > 0 && this.fileLimit && this.fileLimit < files.length;
+
         if (this.isFileLimitExceeded() || hasExistingValidationMessages) {
             const text = `${this.invalidFileLimitMessageSummary.replace('{0}', (this.fileLimit as number).toString())} ${this.invalidFileLimitMessageDetail.replace('{0}', (this.fileLimit as number).toString())}`;
             this.msgs.push({
                 severity: 'error',
                 text: text
             });
+        } else {
+            this.msgs = this.msgs.filter((msg) => !msg.text.includes(this.invalidFileLimitMessageSummary));
         }
     }
 

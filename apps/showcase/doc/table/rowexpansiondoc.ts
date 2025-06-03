@@ -10,9 +10,8 @@ import { TableRowCollapseEvent, TableRowExpandEvent } from 'primeng/table';
     standalone: false,
     template: ` <app-docsectiontext>
             <p>
-                Row expansion allows displaying detailed content for a particular row. To use this feature, add a template named expandedrow and use the <i>pRowToggler</i> directive whose value is the row data instance on an element of your choice
-                whose click event toggles the expansion. This enables providing your custom UI such as buttons, links and so on. Example below uses an anchor with an icon as a toggler. Setting <i>pRowTogglerDisabled</i> as true disables the toggle
-                event for the element.
+                Row expansion allows displaying detailed content for a particular row. To use this feature, define a <i>dataKey</i>, add a template named <i>expandedrow</i> and use the <i>pRowToggler</i> directive on an element as the target to
+                toggle an expansion. This enables providing your custom UI such as buttons, links and so on. Example below uses an anchor with an icon as a toggler. Setting <i>pRowTogglerDisabled</i> as true disables the toggle event for the element.
             </p>
         </app-docsectiontext>
         <p-deferred-demo (load)="loadDemoData()">
@@ -336,8 +335,8 @@ export class RowExpansionDoc {
         typescript: `import { Component, OnInit } from '@angular/core';
 import { TableModule } from 'primeng/table';
 import { Product } from '@/domain/product';
-import { Tag } from 'primeng/tag';
-import { Rating } from 'primeng/rating';
+import { TagModule } from 'primeng/tag';
+import { RatingModule } from 'primeng/rating';
 import { CommonModule } from '@angular/common';
 import { ButtonModule } from 'primeng/button';
 import { ProductService } from '@/service/productservice';
@@ -349,7 +348,7 @@ import { TableRowCollapseEvent, TableRowExpandEvent } from 'primeng/table';
     selector: 'table-row-expansion-demo',
     templateUrl: 'table-row-expansion-demo.html',
     standalone: true,
-    imports: [TableModule, Tag, ToastModule, Rating, ButtonModule, CommonModule],
+    imports: [TableModule, TagModule, ToastModule, RatingModule, ButtonModule, CommonModule],
     providers: [ProductService, MessageService]
 })
 export class TableRowExpansionDemo implements OnInit{

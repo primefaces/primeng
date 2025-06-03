@@ -32,9 +32,28 @@ import { SizesDoc } from './sizesdoc';
 import { StyleDoc } from './styledoc';
 import { TemplateDoc } from './templatedoc';
 import { VirtualScrollDoc } from './virtualscrolldoc';
+import { MessageModule } from 'primeng/message';
+import { TemplateDrivenFormsDoc } from '@/doc/select/templatedrivenformsdoc';
+import { ToastModule } from 'primeng/toast';
 
 @NgModule({
-    imports: [CommonModule, RouterModule, AppCodeModule, AppDocModule, FormsModule, ReactiveFormsModule, SelectModule, ButtonModule, InputTextModule, FloatLabelModule, IftaLabelModule, InputGroupModule, InputGroupAddonModule],
+    imports: [
+        CommonModule,
+        RouterModule,
+        AppCodeModule,
+        AppDocModule,
+        FormsModule,
+        ReactiveFormsModule,
+        ToastModule,
+        MessageModule,
+        SelectModule,
+        ButtonModule,
+        InputTextModule,
+        FloatLabelModule,
+        IftaLabelModule,
+        InputGroupModule,
+        InputGroupAddonModule
+    ],
     exports: [AppDocModule],
     declarations: [
         ImportDoc,
@@ -56,6 +75,7 @@ import { VirtualScrollDoc } from './virtualscrolldoc';
         CheckmarkDoc,
         ClearIconDoc,
         LoadingStateDoc,
+        TemplateDrivenFormsDoc,
         FilledDoc,
         SizesDoc
     ]

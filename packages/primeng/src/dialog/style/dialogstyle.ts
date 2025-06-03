@@ -1,4 +1,6 @@
 import { Injectable } from '@angular/core';
+import { css } from '@primeuix/styled';
+import { style } from '@primeuix/styles/dialog';
 import { BaseStyle } from 'primeng/base';
 
 const theme = ({ dt }) => `
@@ -160,20 +162,20 @@ const theme = ({ dt }) => `
 /* For PrimeNG */
 
 .p-dialog .p-resizable-handle {
-    position: absolute;
-    font-size: 0.1px;
-    display: block;
-    cursor: se-resize;
-    width: 12px;
-    height: 12px;
-    right: 1px;
-    bottom: 1px;
-}
+        position: absolute;
+        font-size: 0.1px;
+        display: block;
+        cursor: se-resize;
+        width: 12px;
+        height: 12px;
+        right: 1px;
+        bottom: 1px;
+    }
 
-.p-confirm-dialog .p-dialog-content {
-    display: flex;
-    align-items: center;
-}
+    .p-confirm-dialog .p-dialog-content {
+        display: flex;
+        align-items: center;
+    }
 `;
 
 /* Position */
@@ -211,20 +213,21 @@ const classes = {
         const positions = ['left', 'right', 'top', 'topleft', 'topright', 'bottom', 'bottomleft', 'bottomright'];
         const pos = positions.find((item) => item === instance.position);
 
-        return {
-            'p-dialog-mask': true,
-            'p-overlay-mask p-overlay-mask-enter': instance.modal,
-            [`p-dialog-${pos}`]: pos
-        };
+        return ['p-dialog-mask', { 'p-overlay-mask p-overlay-mask-enter': instance.modal }, `p-dialog-${pos}`, instance.maskStyleClass];
     },
-    root: ({ instance }) => ({ 'p-dialog p-component': true, 'p-dialog-maximized': instance.maximizable && instance.maximized }),
+    root: ({ instance }) => [
+        'p-dialog p-component',
+        {
+            'p-dialog-maximized': instance.maximizable && instance.maximized
+        }
+    ],
     header: 'p-dialog-header',
     title: 'p-dialog-title',
     resizeHandle: 'p-resizable-handle',
     headerActions: 'p-dialog-header-actions',
     pcMaximizeButton: 'p-dialog-maximize-button',
     pcCloseButton: 'p-dialog-close-button',
-    content: 'p-dialog-content',
+    content: ({ instance }) => ['p-dialog-content', instance.contentStyleClass],
     footer: 'p-dialog-footer'
 };
 

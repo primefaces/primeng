@@ -5,12 +5,12 @@ import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
 import { absolutePosition, appendChild, isTouchDevice, relativePosition } from '@primeuix/utils';
 import { OverlayService, SharedModule, TranslationKeys } from 'primeng/api';
 import { AutoFocusModule } from 'primeng/autofocus';
-import { BaseComponent } from 'primeng/basecomponent';
 import { ConnectedOverlayScrollHandler } from 'primeng/dom';
 import { Nullable, VoidListener } from 'primeng/ts-helpers';
 import { ZIndexUtils } from 'primeng/utils';
 import { ColorPickerChangeEvent } from './colorpicker.interface';
 import { ColorPickerStyle } from './style/colorpickerstyle';
+import { BaseInput } from 'primeng/baseinput';
 
 export const COLORPICKER_VALUE_ACCESSOR: any = {
     provide: NG_VALUE_ACCESSOR,
@@ -26,58 +26,44 @@ export const COLORPICKER_VALUE_ACCESSOR: any = {
     standalone: true,
     imports: [CommonModule, AutoFocusModule, SharedModule],
     template: `
+        <input
+            *ngIf="!inline"
+            #input
+            type="text"
+            [class]="cx('preview')"
+            readonly="readonly"
+            [attr.tabindex]="tabindex"
+            [disabled]="disabled()"
+            (click)="onInputClick()"
+            (keydown)="onInputKeydown($event)"
+            (focus)="onInputFocus()"
+            [attr.id]="inputId"
+            [style.backgroundColor]="inputBgColor"
+            [attr.data-pc-section]="'input'"
+            [attr.aria-label]="ariaLabel"
+            [pAutoFocus]="autofocus"
+        />
         <div
-            #container
-            [ngStyle]="style"
-            [class]="styleClass"
-            [ngClass]="{
-                'p-colorpicker p-component': true,
-                'p-colorpicker-overlay': !inline,
-                'p-colorpicker-dragging': colorDragging || hueDragging
+            *ngIf="inline || overlayVisible"
+            [class]="cx('panel')"
+            (click)="onOverlayClick($event)"
+            [@overlayAnimation]="{
+                value: 'visible',
+                params: { showTransitionParams: showTransitionOptions, hideTransitionParams: hideTransitionOptions }
             }"
-            [attr.data-pc-name]="'colorpicker'"
-            [attr.data-pc-section]="'root'"
+            [@.disabled]="inline === true"
+            (@overlayAnimation.start)="onOverlayAnimationStart($event)"
+            (@overlayAnimation.done)="onOverlayAnimationEnd($event)"
+            [attr.data-pc-section]="'panel'"
         >
-            <input
-                *ngIf="!inline"
-                #input
-                type="text"
-                class="p-colorpicker-preview"
-                [ngClass]="{ 'p-disabled': disabled }"
-                readonly="readonly"
-                [attr.tabindex]="tabindex"
-                [disabled]="disabled"
-                (click)="onInputClick()"
-                (keydown)="onInputKeydown($event)"
-                (focus)="onInputFocus()"
-                [attr.id]="inputId"
-                [style.backgroundColor]="inputBgColor"
-                [attr.data-pc-section]="'input'"
-                [attr.aria-label]="ariaLabel"
-                [pAutoFocus]="autofocus"
-            />
-            <div
-                *ngIf="inline || overlayVisible"
-                [ngClass]="{ 'p-colorpicker-panel': true, 'p-colorpicker-panel-inline': inline, 'p-disabled': disabled }"
-                (click)="onOverlayClick($event)"
-                [@overlayAnimation]="{
-                    value: 'visible',
-                    params: { showTransitionParams: showTransitionOptions, hideTransitionParams: hideTransitionOptions }
-                }"
-                [@.disabled]="inline === true"
-                (@overlayAnimation.start)="onOverlayAnimationStart($event)"
-                (@overlayAnimation.done)="onOverlayAnimationEnd($event)"
-                [attr.data-pc-section]="'panel'"
-            >
-                <div class="p-colorpicker-content" [attr.data-pc-section]="'content'">
-                    <div #colorSelector class="p-colorpicker-color-selector" (touchstart)="onColorDragStart($event)" (touchmove)="onDrag($event)" (touchend)="onDragEnd()" (mousedown)="onColorMousedown($event)" [attr.data-pc-section]="'selector'">
-                        <div class="p-colorpicker-color-background" [attr.data-pc-section]="'color'">
-                            <div #colorHandle class="p-colorpicker-color-handle" [attr.data-pc-section]="'colorHandle'"></div>
-                        </div>
+            <div [class]="cx('content')" [attr.data-pc-section]="'content'">
+                <div #colorSelector [class]="cx('colorSelector')" (touchstart)="onColorDragStart($event)" (touchmove)="onDrag($event)" (touchend)="onDragEnd()" (mousedown)="onColorMousedown($event)" [attr.data-pc-section]="'selector'">
+                    <div [class]="cx('colorBackground')" [attr.data-pc-section]="'color'">
+                        <div #colorHandle [class]="cx('colorHandle')" [attr.data-pc-section]="'colorHandle'"></div>
                     </div>
-                    <div #hue class="p-colorpicker-hue" (mousedown)="onHueMousedown($event)" (touchstart)="onHueDragStart($event)" (touchmove)="onDrag($event)" (touchend)="onDragEnd()" [attr.data-pc-section]="'hue'">
-                        <div #hueHandle class="p-colorpicker-hue-handle" [attr.data-pc-section]="'hueHandle'"></div>
-                    </div>
+                </div>
+                <div #hue [class]="cx('hue')" (mousedown)="onHueMousedown($event)" (touchstart)="onHueDragStart($event)" (touchmove)="onDrag($event)" (touchend)="onDragEnd()" [attr.data-pc-section]="'hue'">
+                    <div #hueHandle [class]="cx('hueHandle')" [attr.data-pc-section]="'hueHandle'"></div>
                 </div>
             </div>
         </div>
@@ -85,16 +71,17 @@ export const COLORPICKER_VALUE_ACCESSOR: any = {
     animations: [trigger('overlayAnimation', [transition(':enter', [style({ opacity: 0, transform: 'scaleY(0.8)' }), animate('{{showTransitionParams}}')]), transition(':leave', [animate('{{hideTransitionParams}}', style({ opacity: 0 }))])])],
     providers: [COLORPICKER_VALUE_ACCESSOR, ColorPickerStyle],
     changeDetection: ChangeDetectionStrategy.OnPush,
-    encapsulation: ViewEncapsulation.None
+    encapsulation: ViewEncapsulation.None,
+    host: {
+        '[class]': "cx('root')",
+        '[attr.data-pc-name]': '"colorpicker"',
+        '[attr.data-pc-section]': '"root"'
+    }
 })
-export class ColorPicker extends BaseComponent implements ControlValueAccessor, OnDestroy, AfterViewInit {
-    /**
-     * Inline style of the component.
-     * @group Props
-     */
-    @Input() style: { [klass: string]: any } | null | undefined;
+export class ColorPicker extends BaseInput implements ControlValueAccessor, OnDestroy, AfterViewInit {
     /**
      * Style class of the component.
+     * @deprecated since v20.0.0, use `class` instead.
      * @group Props
      */
     @Input() styleClass: string | undefined;
@@ -113,11 +100,6 @@ export class ColorPicker extends BaseComponent implements ControlValueAccessor, 
      * @group Props
      */
     @Input() appendTo: HTMLElement | ElementRef | TemplateRef<any> | string | null | undefined | any;
-    /**
-     * When present, it specifies that the component should be disabled.
-     * @group Props
-     */
-    @Input({ transform: booleanAttribute }) disabled: boolean | undefined;
     /**
      * Index of the element in tabbing order.
      * @group Props
@@ -169,8 +151,6 @@ export class ColorPicker extends BaseComponent implements ControlValueAccessor, 
      * @group Emits
      */
     @Output() onHide: EventEmitter<any> = new EventEmitter<any>();
-
-    @ViewChild('container') containerViewChild: Nullable<ElementRef>;
 
     @ViewChild('input') inputViewChild: Nullable<ElementRef>;
 
@@ -243,7 +223,7 @@ export class ColorPicker extends BaseComponent implements ControlValueAccessor, 
     }
 
     onHueMousedown(event: MouseEvent) {
-        if (this.disabled) {
+        if (this.disabled()) {
             return;
         }
 
@@ -255,7 +235,7 @@ export class ColorPicker extends BaseComponent implements ControlValueAccessor, 
     }
 
     onHueDragStart(event: TouchEvent) {
-        if (this.disabled) {
+        if (this.disabled()) {
             return;
         }
 
@@ -264,7 +244,7 @@ export class ColorPicker extends BaseComponent implements ControlValueAccessor, 
     }
 
     onColorDragStart(event: TouchEvent) {
-        if (this.disabled) {
+        if (this.disabled()) {
             return;
         }
 
@@ -288,7 +268,7 @@ export class ColorPicker extends BaseComponent implements ControlValueAccessor, 
     }
 
     onColorMousedown(event: MouseEvent) {
-        if (this.disabled) {
+        if (this.disabled()) {
             return;
         }
 
@@ -529,11 +509,6 @@ export class ColorPicker extends BaseComponent implements ControlValueAccessor, 
         this.onModelTouched = fn;
     }
 
-    setDisabledState(val: boolean): void {
-        this.disabled = val;
-        this.cd.markForCheck();
-    }
-
     bindDocumentClickListener() {
         if (!this.documentClickListener) {
             const documentTarget: any = this.el ? this.el.nativeElement.ownerDocument : 'document';
@@ -621,7 +596,7 @@ export class ColorPicker extends BaseComponent implements ControlValueAccessor, 
 
     bindScrollListener() {
         if (!this.scrollHandler) {
-            this.scrollHandler = new ConnectedOverlayScrollHandler(this.containerViewChild?.nativeElement, () => {
+            this.scrollHandler = new ConnectedOverlayScrollHandler(this.el?.nativeElement, () => {
                 if (this.overlayVisible) {
                     this.hide();
                 }

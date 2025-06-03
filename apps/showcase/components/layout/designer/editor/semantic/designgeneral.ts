@@ -1,11 +1,11 @@
-import { ChangeDetectionStrategy, Component, computed, inject } from '@angular/core';
-import { CommonModule } from '@angular/common';
-import { DesignTokenField } from '@/components/layout/designer/editor/designtokenfield';
-import { FieldsetModule } from 'primeng/fieldset';
-import { FormsModule } from '@angular/forms';
-import { DesignerService } from '@/service/designerservice';
-import { palette } from '@primeng/themes';
 import { DesignColorPalette } from '@/components/layout/designer/editor/designcolorpalette';
+import { DesignTokenField } from '@/components/layout/designer/editor/designtokenfield';
+import { DesignerService } from '@/service/designerservice';
+import { CommonModule } from '@angular/common';
+import { ChangeDetectionStrategy, Component, computed, inject } from '@angular/core';
+import { FormsModule } from '@angular/forms';
+import { palette } from '@primeuix/themes';
+import { FieldsetModule } from 'primeng/fieldset';
 
 @Component({
     selector: 'design-general',
