@@ -41,7 +41,7 @@ export class ReactiveFormsDoc {
     onSubmit() {
         this.formSubmitted = true;
         if (this.exampleForm.valid) {
-            this.messageService.add({ severity: 'success', summary: 'Success', detail: 'Form is Submitted', life: 3000 });
+            this.messageService.add({ severity: 'success', summary: 'Success', detail: 'Form is submitted', life: 3000 });
             this.exampleForm.reset();
             this.formSubmitted = false;
         }
@@ -106,7 +106,7 @@ export class ColorPickerReactiveFormsDemo {
     onSubmit() {
         this.formSubmitted = true;
         if (this.exampleForm.valid) {
-            this.messageService.add({ severity: 'success', summary: 'Success', detail: 'Form is Submitted', life: 3000 });
+            this.messageService.add({ severity: 'success', summary: 'Success', detail: 'Form is submitted', life: 3000 });
             this.exampleForm.reset();
             this.formSubmitted = false;
         }
