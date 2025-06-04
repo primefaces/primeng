@@ -8,6 +8,7 @@ import { IftaLabelDoc } from '@/doc/textarea/iftalabeldoc';
 import { ImportDoc } from '@/doc/textarea/importdoc';
 import { InvalidDoc } from '@/doc/textarea/invaliddoc';
 import { ReactiveFormsDoc } from '@/doc/textarea/reactiveformsdoc';
+import { TemplateDrivenFormsDoc } from '@/doc/textarea/templatedrivenformsdoc';
 import { SizesDoc } from '@/doc/textarea/sizesdoc';
 import { TextareaDocModule } from '@/doc/textarea/texteareadoc.module';
 import { Component } from '@angular/core';
@@ -28,11 +29,6 @@ export class TextareaDemo {
             id: 'basic',
             label: 'Basic',
             component: BasicDoc
-        },
-        {
-            id: 'reactive-forms',
-            label: 'Reactive Forms',
-            component: ReactiveFormsDoc
         },
         {
             id: 'autoresize',
@@ -58,6 +54,14 @@ export class TextareaDemo {
             id: 'filled',
             label: 'Filled',
             component: FilledDoc
+        },
+        {
+            id: 'forms',
+            label: 'Forms',
+            children: [
+                { id: 'templatedriven', label: 'Template Driven', component: TemplateDrivenFormsDoc },
+                { id: 'reactive', label: 'Reactive Forms', component: ReactiveFormsDoc }
+            ]
         },
         {
             id: 'invalid',
