@@ -92,6 +92,7 @@ import { AutoCompleteModule } from 'primeng/autocomplete';
 import { MessageModule } from 'primeng/message';
 import { ToastModule } from 'primeng/toast';
 import { MessageService } from 'primeng/api';
+import { ButtonModule } from 'primeng/button';
 
 interface AutoCompleteCompleteEvent {
     originalEvent: Event;
@@ -102,7 +103,7 @@ interface AutoCompleteCompleteEvent {
     selector: 'autocomplete-reactive-forms-demo',
     templateUrl: './autocomplete-reactive-forms-demo.html',
     standalone: true,
-    imports: [ReactiveFormsModule, AutoCompleteModule, MessageModule, ToastModule ],
+    imports: [ReactiveFormsModule, AutoCompleteModule, MessageModule, ToastModule, ButtonModule],
     providers: [CountryService]
 })
 export class AutocompleteReactiveFormsDemo implements OnInit {
