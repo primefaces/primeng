@@ -64,6 +64,7 @@ export const DATEPICKER_VALUE_ACCESSOR: any = {
                 role="combobox"
                 [attr.id]="inputId"
                 [attr.name]="name()"
+                [required]="required()"
                 [attr.required]="required()"
                 [attr.aria-required]="required()"
                 aria-autocomplete="none"
