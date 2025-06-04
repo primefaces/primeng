@@ -58,7 +58,7 @@ export class TemplateDrivenFormsDoc {
     </form>
 </div>`,
 
-        typescript: `import { Component } from '@angular/core';
+        typescript: `import { Component, inject } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { MultiSelect } from 'primeng/multiselect';
 import { Message } from 'primeng/message';

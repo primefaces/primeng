@@ -44,10 +44,10 @@ export class BaseInput extends BaseEditableHolder {
     max = input<number>();
     /**
      * Unless the step is set to the any literal, the value must be min + an integral multiple of the step.
-     * @defaultValue undefined
+     * @defaultValue 1
      * @group Props
      */
-    step = input<number>();
+    step = input<number>(1);
     /**
      * The number of characters (code points) must not be less than the value of the attribute, if non-empty.
      * @defaultValue undefined

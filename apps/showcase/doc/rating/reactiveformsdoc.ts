@@ -10,6 +10,7 @@ import { MessageService } from 'primeng/api';
         <app-docsectiontext>
             <p>Rating can also be used with reactive forms. In this case, the <i>formControlName</i> property is used to bind the component to a form control.</p>
         </app-docsectiontext>
+        <p-toast />
         <div class="card flex justify-center">
             <form [formGroup]="exampleForm" (ngSubmit)="onSubmit()" class="flex flex-col gap-4 w-40">
                 <div class="flex flex-col items-center gap-2">
@@ -48,7 +49,6 @@ export class ReactiveFormsDoc {
 
     isInvalid(controlName: string) {
         const control = this.exampleForm.get(controlName);
-        console.log(control);
         return control?.invalid && (control.touched || this.formSubmitted);
     }
 
@@ -63,7 +63,8 @@ export class ReactiveFormsDoc {
     <button pButton severity="secondary" type="submit"><span pButtonLabel>Submit</span></button>
 </form>`,
 
-        html: `<div class="card flex justify-center">
+        html: `<p-toast />
+<div class="card flex justify-center">
     <form [formGroup]="exampleForm" (ngSubmit)="onSubmit()" class="flex flex-col gap-4 w-40">
         <div class="flex flex-col items-center gap-2">
             <p-rating formControlName="ratingValue" [invalid]="isInvalid('ratingValue')"/>
@@ -75,7 +76,7 @@ export class ReactiveFormsDoc {
     </form>
 </div>`,
 
-        typescript: `import { Component, OnInit } from '@angular/core';
+        typescript: `import { Component, inject } from '@angular/core';
 import { FormControl, FormGroup, ReactiveFormsModule } from '@angular/forms';
 import { Rating } from 'primeng/rating';
 import { Message } from 'primeng/message';
@@ -88,7 +89,7 @@ import { Toast } from 'primeng/toast';
     standalone: true,
     imports: [ReactiveFormsModule, Rating, Toast, Message, Button]
 })
-export class RatingReactiveFormsDemo implements OnInit {
+export class RatingReactiveFormsDemo {
     messageService = inject(MessageService);
 
     exampleForm: FormGroup | undefined;
