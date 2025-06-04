@@ -72,6 +72,9 @@ export class ReactiveFormsDoc {
         typescript: `import {Component, inject} from '@angular/core';
 import {FormBuilder, FormGroup, Validators} from '@angular/forms';
 import { MessageService } from 'primeng/api';
+import { Message } from 'primeng/message';
+import { Button } from 'primeng/button';
+import { Toast } from 'primeng/toast';
 
 interface City {
     name: string,
@@ -82,7 +85,7 @@ interface City {
     selector: 'multi-select-reactive-forms-demo',
     templateUrl: './multi-select-reactive-forms-demo.html',
     standalone: true,
-    imports: [ReactiveFormsModule, MultiSelectModule, Message, Button]
+    imports: [ReactiveFormsModule, MultiSelectModule, Message, Button, Toast]
 })
 export class MultiSelectReactiveFormsDemo implements OnInit {
        messageService = inject(MessageService);
