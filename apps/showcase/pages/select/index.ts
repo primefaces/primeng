@@ -20,6 +20,7 @@ import { TemplateDoc } from '@/doc/select/templatedoc';
 import { VirtualScrollDoc } from '@/doc/select/virtualscrolldoc';
 import { Component } from '@angular/core';
 import { TemplateDrivenFormsDoc } from '@/doc/select/templatedrivenformsdoc';
+import { TooltipDoc } from '@/doc/select/tooltipdoc';
 
 @Component({
     template: `<app-doc docTitle="Angular Select Component" header="Select" description="Select is used to choose an item from a collection of options." [docs]="docs" [apiDocs]="['Select']" themeDocs="select"></app-doc> `,
@@ -122,6 +123,11 @@ export class SelectDemo {
             id: 'disabled',
             label: 'Disabled',
             component: DisabledDoc
+        },
+        {
+            id: 'tooltip',
+            label: 'Tooltip',
+            component: TooltipDoc
         },
 
         {
