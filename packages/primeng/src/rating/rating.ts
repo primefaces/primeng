@@ -22,11 +22,11 @@ import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
 import { focus, getFirstFocusableElement, uuid } from '@primeuix/utils';
 import { PrimeTemplate, SharedModule } from 'primeng/api';
 import { AutoFocus } from 'primeng/autofocus';
-import { BaseComponent } from 'primeng/basecomponent';
-import { BanIcon, StarFillIcon, StarIcon } from 'primeng/icons';
+import { StarFillIcon, StarIcon } from 'primeng/icons';
 import { Nullable } from 'primeng/ts-helpers';
 import { RatingRateEvent } from './rating.interface';
 import { RatingStyle } from './style/ratingstyle';
+import { BaseInput } from 'primeng/baseinput';
 
 export const RATING_VALUE_ACCESSOR: any = {
     provide: NG_VALUE_ACCESSOR,
@@ -49,9 +49,16 @@ export const RATING_VALUE_ACCESSOR: any = {
                         <input
                             type="radio"
                             value="0"
-                            [name]="nameattr"
+                            [attr.id]="nameattr"
+                            [attr.name]="name()"
+                            [attr.value]="modelValue()"
+                            [attr.min]="min()"
+                            [attr.minlength]="minlength()"
+                            [attr.maxlength]="maxlength()"
+                            [attr.disabled]="disabled()"
+                            [attr.required]="required()"
                             [checked]="value === 0"
-                            [disabled]="disabled"
+                            [disabled]="disabled()"
                             [readonly]="readonly"
                             [attr.aria-label]="starAriaLabel(star + 1)"
                             (focus)="onInputFocus($event, star + 1)"
@@ -86,12 +93,7 @@ export const RATING_VALUE_ACCESSOR: any = {
         '[attr.data-pc-section]': "'root'"
     }
 })
-export class Rating extends BaseComponent implements OnInit, ControlValueAccessor {
-    /**
-     * When present, it specifies that the element should be disabled.
-     * @group Props
-     */
-    @Input({ transform: booleanAttribute }) disabled: boolean | undefined;
+export class Rating extends BaseInput implements OnInit, ControlValueAccessor {
     /**
      * When present, changing the value is not possible.
      * @group Props
@@ -219,7 +221,7 @@ export class Rating extends BaseComponent implements OnInit, ControlValueAccesso
     }
 
     onOptionClick(event, value) {
-        if (!this.readonly && !this.disabled) {
+        if (!this.readonly && !this.disabled()) {
             this.onOptionSelect(event, value);
             this.isFocusVisibleItem = false;
             const firstFocusableEl = <any>getFirstFocusableElement(event.currentTarget, '');
@@ -229,7 +231,7 @@ export class Rating extends BaseComponent implements OnInit, ControlValueAccesso
     }
 
     onOptionSelect(event, value) {
-        if (!this.readonly && !this.disabled) {
+        if (!this.readonly && !this.disabled()) {
             if (this.focusedOptionIndex() === value || value === this.value) {
                 this.focusedOptionIndex.set(-1);
                 this.updateModel(event, null);
@@ -251,14 +253,14 @@ export class Rating extends BaseComponent implements OnInit, ControlValueAccesso
     }
 
     onInputFocus(event, value) {
-        if (!this.readonly && !this.disabled) {
+        if (!this.readonly && !this.disabled()) {
             this.focusedOptionIndex.set(value);
             this.onFocus.emit(event);
         }
     }
 
     updateModel(event, value) {
-        this.value = value;
+        this.writeValue(value);
         this.onModelChange(this.value);
         this.onModelTouched();
 
@@ -282,7 +284,7 @@ export class Rating extends BaseComponent implements OnInit, ControlValueAccesso
 
     writeValue(value: any): void {
         this.value = value;
-        this.cd.detectChanges();
+        this.writeModelValue(value);
     }
 
     registerOnChange(fn: Function): void {
@@ -291,11 +293,6 @@ export class Rating extends BaseComponent implements OnInit, ControlValueAccesso
 
     registerOnTouched(fn: Function): void {
         this.onModelTouched = fn;
-    }
-
-    setDisabledState(val: boolean): void {
-        this.disabled = val;
-        this.cd.markForCheck();
     }
 
     get isCustomIcon(): boolean {
