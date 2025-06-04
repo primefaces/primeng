@@ -15,10 +15,14 @@ import { ReadOnlyDoc } from './readonlydoc';
 import { StyleDoc } from './styledoc';
 import { TemplateDoc } from './templatedoc';
 import { WithoutCancelDoc } from './withoutcanceldoc';
+import { ToastModule } from 'primeng/toast';
+import { MessageModule } from 'primeng/message';
+import { ButtonModule } from 'primeng/button';
+import { TemplateDrivenFormsDoc } from '@/doc/rating/templatedrivenformsdoc';
 
 @NgModule({
-    imports: [CommonModule, AppCodeModule, AppDocModule, Rating, FormsModule, ReactiveFormsModule, RouterModule],
+    imports: [CommonModule, AppCodeModule, AppDocModule, Rating, FormsModule, ReactiveFormsModule, RouterModule, MessageModule, ToastModule, ButtonModule],
     exports: [AppDocModule],
-    declarations: [ImportDoc, BasicDoc, WithoutCancelDoc, NumberOfStarsDoc, TemplateDoc, ReadOnlyDoc, DisabledDoc, StyleDoc, AccessibilityDoc, ReactiveFormsDoc]
+    declarations: [ImportDoc, BasicDoc, WithoutCancelDoc, NumberOfStarsDoc, TemplateDoc, ReadOnlyDoc, DisabledDoc, StyleDoc, AccessibilityDoc, ReactiveFormsDoc, TemplateDrivenFormsDoc]
 })
 export class RatingDocModule {}
