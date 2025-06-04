@@ -34,7 +34,7 @@ interface City {
                 <button pButton severity="secondary" type="submit"><span pButtonLabel>Submit</span></button>
             </form>
         </div>
-        <app-code [code]="code" selector="select-reactive-forms-demo"></app-code>
+        <app-code [code]="code" selector="select-template-driven-forms-demo"></app-code>
     `
 })
 export class TemplateDrivenFormsDoc {
