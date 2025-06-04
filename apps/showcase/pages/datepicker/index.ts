@@ -20,6 +20,7 @@ import { MultipleMonthDoc } from '@/doc/datepicker/multiplemonths.doc';
 import { RangeDoc } from '@/doc/datepicker/rangedoc';
 import { ReactiveFormsDoc } from '@/doc/datepicker/reactiveformsdoc';
 import { SizesDoc } from '@/doc/datepicker/sizesdoc';
+import { TemplateDrivenFormsDoc } from '@/doc/datepicker/templatedrivenformsdoc';
 import { TimeDoc } from '@/doc/datepicker/timedoc';
 import { YearDoc } from '@/doc/datepicker/yeardoc';
 import { Component } from '@angular/core';
@@ -40,11 +41,6 @@ export class DatePickerDemo {
             id: 'basic',
             label: 'Basic',
             component: BasicDoc
-        },
-        {
-            id: 'reactive-forms',
-            label: 'Reactive Forms',
-            component: ReactiveFormsDoc
         },
         {
             id: 'format',
@@ -130,6 +126,14 @@ export class DatePickerDemo {
             id: 'filled',
             label: 'Filled',
             component: FilledDoc
+        },
+        {
+            id: 'forms',
+            label: 'Forms',
+            children: [
+                { id: 'templatedriven', label: 'Template Driven', component: TemplateDrivenFormsDoc },
+                { id: 'reactive', label: 'Reactive Forms', component: ReactiveFormsDoc }
+            ]
         },
         {
             id: 'invalid',

@@ -92,12 +92,13 @@ import { MessageModule } from 'primeng/message';
 import { ToastModule } from 'primeng/toast';
 import { MessageService } from 'primeng/api';
 import { AutoCompleteCompleteEvent } from 'primeng/autocomplete';
+import { ButtonModule } from 'primeng/button';
 
 @Component({
     selector: 'autocomplete-template-driven-forms-demo',
     templateUrl: './autocomplete-template-driven-forms-demo.html',
     standalone: true,
-    imports: [FormsModule, AutoCompleteModule, MessageModule, ToastModule]
+    imports: [FormsModule, AutoCompleteModule, MessageModule, ToastModule, ButtonModule]
 })
 export class TemplateDrivenFormsDemo implements OnInit {
     messageService = inject(MessageService);

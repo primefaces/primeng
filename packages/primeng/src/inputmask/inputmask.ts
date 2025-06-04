@@ -79,6 +79,7 @@ export const INPUTMASK_VALUE_ACCESSOR: any = {
             [attr.id]="inputId"
             [attr.type]="type"
             [attr.name]="name()"
+            [invalid]="invalid()"
             [ngStyle]="style"
             [attr.placeholder]="placeholder"
             [attr.title]="title"
