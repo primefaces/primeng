@@ -24,10 +24,32 @@ import { ReactiveFormsDoc } from './reactiveformsdoc';
 import { SizesDoc } from './sizesdoc';
 import { StyleDoc } from './styledoc';
 import { VerticalDoc } from './verticaldoc';
+import { MessageModule } from 'primeng/message';
+import { ToastModule } from 'primeng/toast';
+import { ButtonModule } from 'primeng/button';
+import { TemplateDrivenFormsDoc } from '@/doc/inputnumber/templatedrivenformsdoc';
 
 @NgModule({
-    imports: [CommonModule, FormsModule, ReactiveFormsModule, InputNumberModule, RouterModule, AppCodeModule, AppDocModule, FloatLabelModule, FluidModule, IftaLabelModule],
+    imports: [CommonModule, FormsModule, ReactiveFormsModule, InputNumberModule, RouterModule, AppCodeModule, AppDocModule, FloatLabelModule, FluidModule, IftaLabelModule, ButtonModule, ToastModule, MessageModule],
     exports: [AppDocModule],
-    declarations: [ImportDoc, NumeralsDoc, LocaleDoc, CurrencyDoc, PrefixSuffixDoc, ButtonsDoc, VerticalDoc, FloatlabelDoc, IftaLabelDoc, InvalidDoc, FilledDoc, DisabledDoc, StyleDoc, AccessibilityDoc, ReactiveFormsDoc, SizesDoc]
+    declarations: [
+        ImportDoc,
+        NumeralsDoc,
+        LocaleDoc,
+        CurrencyDoc,
+        PrefixSuffixDoc,
+        ButtonsDoc,
+        VerticalDoc,
+        FloatlabelDoc,
+        IftaLabelDoc,
+        InvalidDoc,
+        FilledDoc,
+        DisabledDoc,
+        StyleDoc,
+        AccessibilityDoc,
+        ReactiveFormsDoc,
+        SizesDoc,
+        TemplateDrivenFormsDoc
+    ]
 })
 export class InputNumberDocModule {}

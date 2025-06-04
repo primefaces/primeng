@@ -15,6 +15,7 @@ import { ReactiveFormsDoc } from '@/doc/inputnumber/reactiveformsdoc';
 import { SizesDoc } from '@/doc/inputnumber/sizesdoc';
 import { VerticalDoc } from '@/doc/inputnumber/verticaldoc';
 import { Component } from '@angular/core';
+import { TemplateDrivenFormsDoc } from '@/doc/inputnumber/templatedrivenformsdoc';
 
 @Component({
     template: `<app-doc docTitle="Angular InputNumber Component" header="InputNumber" description="InputNumber is an input component to provide numerical input." [docs]="docs" [apiDocs]="['InputNumber']" themeDocs="inputnumber"></app-doc> `,
@@ -32,11 +33,6 @@ export class InputNumberDemo {
             id: 'numerals',
             label: 'Numerals',
             component: NumeralsDoc
-        },
-        {
-            id: 'reactive-forms',
-            label: 'Reactive Forms',
-            component: ReactiveFormsDoc
         },
         {
             id: 'locale',
@@ -82,6 +78,14 @@ export class InputNumberDemo {
             id: 'filled',
             label: 'Filled',
             component: FilledDoc
+        },
+        {
+            id: 'forms',
+            label: 'Forms',
+            children: [
+                { id: 'templatedriven', label: 'Template Driven', component: TemplateDrivenFormsDoc },
+                { id: 'reactive', label: 'Reactive Forms', component: ReactiveFormsDoc }
+            ]
         },
         {
             id: 'invalid',

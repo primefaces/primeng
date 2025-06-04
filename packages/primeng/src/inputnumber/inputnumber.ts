@@ -27,12 +27,12 @@ import { ControlValueAccessor, NG_VALUE_ACCESSOR, NgControl } from '@angular/for
 import { getSelection } from '@primeuix/utils';
 import { PrimeTemplate, SharedModule } from 'primeng/api';
 import { AutoFocus } from 'primeng/autofocus';
-import { BaseComponent } from 'primeng/basecomponent';
 import { AngleDownIcon, AngleUpIcon, TimesIcon } from 'primeng/icons';
 import { InputText } from 'primeng/inputtext';
 import { Nullable } from 'primeng/ts-helpers';
 import { InputNumberInputEvent } from './inputnumber.interface';
 import { InputNumberStyle } from './style/inputnumberstyle';
+import { BaseInput } from 'primeng/baseinput';
 
 export const INPUTNUMBER_VALUE_ACCESSOR: any = {
     provide: NG_VALUE_ACCESSOR,
@@ -56,26 +56,28 @@ export const INPUTNUMBER_VALUE_ACCESSOR: any = {
             [class]="cn(cx('pcInputText'), inputStyleClass)"
             [ngStyle]="inputStyle"
             [value]="formattedValue()"
-            [variant]="variant"
-            [attr.aria-valuemin]="min"
-            [attr.aria-valuemax]="max"
+            [variant]="$variant()"
+            [attr.aria-valuemin]="min()"
+            [attr.aria-valuemax]="max()"
             [attr.aria-valuenow]="value"
-            [disabled]="disabled"
+            [disabled]="disabled()"
             [readonly]="readonly"
             [attr.placeholder]="placeholder"
             [attr.aria-label]="ariaLabel"
             [attr.aria-labelledby]="ariaLabelledBy"
             [attr.aria-describedby]="ariaDescribedBy"
             [attr.title]="title"
-            [pSize]="size"
-            [attr.name]="name"
+            [pSize]="size()"
+            [name]="name()"
             [attr.autocomplete]="autocomplete"
-            [attr.maxlength]="maxlength"
-            [attr.tabindex]="tabindex"
+            [maxlength]="maxlength()"
+            [minlength]="minlength()"
+            [tabindex]="tabindex"
             [attr.aria-required]="ariaRequired"
-            [attr.required]="required"
-            [attr.min]="min"
-            [attr.max]="max"
+            [required]="required()"
+            [min]="min()"
+            [max]="max()"
+            [attr.step]="step()"
             inputmode="decimal"
             (input)="onUserInput($event)"
             (keydown)="onInputKeyDown($event)"
@@ -185,7 +187,7 @@ export const INPUTNUMBER_VALUE_ACCESSOR: any = {
         '[class]': "cx('root')"
     }
 })
-export class InputNumber extends BaseComponent implements OnInit, AfterContentInit, OnChanges, ControlValueAccessor {
+export class InputNumber extends BaseInput implements OnInit, AfterContentInit, OnChanges, ControlValueAccessor {
     /**
      * Displays spinner buttons.
      * @group Props
@@ -218,16 +220,6 @@ export class InputNumber extends BaseComponent implements OnInit, AfterContentIn
      */
     @Input() placeholder: string | undefined;
     /**
-     * Defines the size of the component.
-     * @group Props
-     */
-    @Input() size: 'large' | 'small';
-    /**
-     * Maximum number of character allows in the input field.
-     * @group Props
-     */
-    @Input({ transform: numberAttribute }) maxlength: number | undefined;
-    /**
      * Specifies tab order of the element.
      * @group Props
      */
@@ -258,30 +250,10 @@ export class InputNumber extends BaseComponent implements OnInit, AfterContentIn
      */
     @Input({ transform: booleanAttribute }) ariaRequired: boolean | undefined;
     /**
-     * Name of the input field.
-     * @group Props
-     */
-    @Input() name: string | undefined;
-    /**
-     * Indicates that whether the input field is required.
-     * @group Props
-     */
-    @Input({ transform: booleanAttribute }) required: boolean | undefined;
-    /**
      * Used to define a string that autocomplete attribute the current element.
      * @group Props
      */
     @Input() autocomplete: string | undefined;
-    /**
-     * Mininum boundary value.
-     * @group Props
-     */
-    @Input({ transform: numberAttribute }) min: number | undefined;
-    /**
-     * Maximum boundary value.
-     * @group Props
-     */
-    @Input({ transform: numberAttribute }) max: number | undefined;
     /**
      * Style class of the increment button.
      * @group Props
@@ -307,11 +279,6 @@ export class InputNumber extends BaseComponent implements OnInit, AfterContentIn
      * @group Props
      */
     @Input({ transform: booleanAttribute }) readonly: boolean = false;
-    /**
-     * Step factor to increment/decrement the value.
-     * @group Props
-     */
-    @Input({ transform: numberAttribute }) step: number = 1;
     /**
      * Determines whether the input field is empty.
      * @group Props
@@ -347,11 +314,6 @@ export class InputNumber extends BaseComponent implements OnInit, AfterContentIn
      * @group Props
      */
     @Input({ transform: booleanAttribute }) useGrouping: boolean = true;
-    /**
-     * Specifies the input variant of the component.
-     * @group Props
-     */
-    @Input() variant: 'filled' | 'outlined';
     /**
      * The minimum number of fraction digits to use. Possible values are from 0 to 20; the default for plain number and percent formatting is 0; the default for currency formatting is the number of minor unit digits provided by the ISO 4217 currency code list (2 if the list doesn't provide that information).
      * @group Props
@@ -396,21 +358,16 @@ export class InputNumber extends BaseComponent implements OnInit, AfterContentIn
      * When present, it specifies that the element should be disabled.
      * @group Props
      */
-    @Input() get disabled(): boolean | undefined {
-        return this._disabled;
-    }
-    set disabled(disabled: boolean | undefined) {
-        if (disabled) this.focused = false;
-
-        this._disabled = disabled;
-
-        if (this.timer) this.clearTimer();
-    }
-    /**
-     * Spans 100% width of the container when enabled.
-     * @group Props
-     */
-    @Input({ transform: booleanAttribute }) fluid: boolean = false;
+    // @Input() get disabled(): boolean | undefined {
+    //     return this._disabled;
+    // }
+    // set disabled(disabled: boolean | undefined) {
+    //     if (disabled) this.focused = false;
+    //
+    //     this._disabled = disabled;
+    //
+    //     if (this.timer) this.clearTimer();
+    // }
     /**
      * Callback to invoke on input.
      * @param {InputNumberInputEvent} event - Custom input event.
@@ -515,12 +472,6 @@ export class InputNumber extends BaseComponent implements OnInit, AfterContentIn
     _componentStyle = inject(InputNumberStyle);
 
     private ngControl: NgControl | null = null;
-
-    get hasFluid() {
-        const nativeElement = this.el.nativeElement;
-        const fluidComponent = nativeElement.closest('p-fluid');
-        return this.fluid || !!fluidComponent;
-    }
 
     constructor(public readonly injector: Injector) {
         super();
@@ -742,10 +693,10 @@ export class InputNumber extends BaseComponent implements OnInit, AfterContentIn
     }
 
     spin(event: Event, dir: number) {
-        let step = this.step * dir;
+        let step = this.step() * dir;
         let currentValue = this.parseValue(this.input?.nativeElement.value) || 0;
         let newValue = this.validateValue((currentValue as number) + step);
-        if (this.maxlength && this.maxlength < this.formatValue(newValue).length) {
+        if (this.maxlength() && this.maxlength() < this.formatValue(newValue).length) {
             return;
         }
         this.updateInput(newValue, null, 'spin', null);
@@ -766,7 +717,7 @@ export class InputNumber extends BaseComponent implements OnInit, AfterContentIn
             return;
         }
 
-        if (!this.disabled) {
+        if (!this.disabled()) {
             this.input?.nativeElement.focus();
             this.repeat(event, null, 1);
             event.preventDefault();
@@ -774,13 +725,13 @@ export class InputNumber extends BaseComponent implements OnInit, AfterContentIn
     }
 
     onUpButtonMouseUp() {
-        if (!this.disabled) {
+        if (!this.disabled()) {
             this.clearTimer();
         }
     }
 
     onUpButtonMouseLeave() {
-        if (!this.disabled) {
+        if (!this.disabled()) {
             this.clearTimer();
         }
     }
@@ -792,7 +743,7 @@ export class InputNumber extends BaseComponent implements OnInit, AfterContentIn
     }
 
     onUpButtonKeyUp() {
-        if (!this.disabled) {
+        if (!this.disabled()) {
             this.clearTimer();
         }
     }
@@ -802,7 +753,7 @@ export class InputNumber extends BaseComponent implements OnInit, AfterContentIn
             this.clearTimer();
             return;
         }
-        if (!this.disabled) {
+        if (!this.disabled()) {
             this.input?.nativeElement.focus();
             this.repeat(event, null, -1);
             event.preventDefault();
@@ -810,19 +761,19 @@ export class InputNumber extends BaseComponent implements OnInit, AfterContentIn
     }
 
     onDownButtonMouseUp() {
-        if (!this.disabled) {
+        if (!this.disabled()) {
             this.clearTimer();
         }
     }
 
     onDownButtonMouseLeave() {
-        if (!this.disabled) {
+        if (!this.disabled()) {
             this.clearTimer();
         }
     }
 
     onDownButtonKeyUp() {
-        if (!this.disabled) {
+        if (!this.disabled()) {
             this.clearTimer();
         }
     }
@@ -992,15 +943,15 @@ export class InputNumber extends BaseComponent implements OnInit, AfterContentIn
                 break;
 
             case 'Home':
-                if (this.min) {
-                    this.updateModel(event, this.min);
+                if (this.min()) {
+                    this.updateModel(event, this.min());
                     event.preventDefault();
                 }
                 break;
 
             case 'End':
-                if (this.max) {
-                    this.updateModel(event, this.max);
+                if (this.max()) {
+                    this.updateModel(event, this.max());
                     event.preventDefault();
                 }
                 break;
@@ -1042,7 +993,7 @@ export class InputNumber extends BaseComponent implements OnInit, AfterContentIn
             return;
         }
 
-        if (this.maxlength && newValueStr.length > this.maxlength) {
+        if (this.maxlength() && newValueStr.length > this.maxlength()) {
             return;
         }
 
@@ -1052,12 +1003,12 @@ export class InputNumber extends BaseComponent implements OnInit, AfterContentIn
     }
 
     onPaste(event: ClipboardEvent) {
-        if (!this.disabled && !this.readonly) {
+        if (!this.disabled() && !this.readonly) {
             event.preventDefault();
             let data = (event.clipboardData || (this.document as any).defaultView['clipboardData']).getData('Text');
             if (data) {
-                if (this.maxlength) {
-                    data = data.toString().substring(0, this.maxlength);
+                if (this.maxlength()) {
+                    data = data.toString().substring(0, this.maxlength());
                 }
 
                 let filteredData = this.parseValue(data);
@@ -1069,7 +1020,7 @@ export class InputNumber extends BaseComponent implements OnInit, AfterContentIn
     }
 
     allowMinusSign() {
-        return this.min == null || this.min < 0;
+        return this.min() == null || this.min() < 0;
     }
 
     isMinusSign(char: string) {
@@ -1321,12 +1272,12 @@ export class InputNumber extends BaseComponent implements OnInit, AfterContentIn
             return null;
         }
 
-        if (this.min != null && (value as number) < this.min) {
-            return this.min;
+        if (this.min() != null && (value as number) < this.min()) {
+            return this.min();
         }
 
-        if (this.max != null && (value as number) > this.max) {
-            return this.max;
+        if (this.max() != null && (value as number) > this.max()) {
+            return this.max();
         }
 
         return value;
@@ -1353,13 +1304,13 @@ export class InputNumber extends BaseComponent implements OnInit, AfterContentIn
             let selectionStart = this.input.nativeElement.selectionStart;
             let selectionEnd = this.input.nativeElement.selectionEnd;
 
-            if (this.maxlength && newValue.length > this.maxlength) {
-                newValue = newValue.slice(0, this.maxlength);
-                selectionStart = Math.min(selectionStart, this.maxlength);
-                selectionEnd = Math.min(selectionEnd, this.maxlength);
+            if (this.maxlength() && newValue.length > this.maxlength()) {
+                newValue = newValue.slice(0, this.maxlength());
+                selectionStart = Math.min(selectionStart, this.maxlength());
+                selectionEnd = Math.min(selectionEnd, this.maxlength());
             }
 
-            if (this.maxlength && this.maxlength < newValue.length) {
+            if (this.maxlength() && this.maxlength() < newValue.length) {
                 return;
             }
 
@@ -1459,7 +1410,7 @@ export class InputNumber extends BaseComponent implements OnInit, AfterContentIn
     }
 
     formattedValue() {
-        const val = !this.value && !this.allowEmpty ? 0 : this.value;
+        const val = !this.modelValue() && !this.allowEmpty ? 0 : this.modelValue();
         return this.formatValue(val);
     }
 
@@ -1479,6 +1430,7 @@ export class InputNumber extends BaseComponent implements OnInit, AfterContentIn
 
     writeValue(value: any): void {
         this.value = value ? Number(value) : value;
+        this.writeModelValue(value);
         this.cd.markForCheck();
     }
 
@@ -1488,11 +1440,6 @@ export class InputNumber extends BaseComponent implements OnInit, AfterContentIn
 
     registerOnTouched(fn: Function): void {
         this.onModelTouched = fn;
-    }
-
-    setDisabledState(val: boolean): void {
-        this.disabled = val;
-        this.cd.markForCheck();
     }
 
     get filled() {

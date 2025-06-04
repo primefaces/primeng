@@ -39,12 +39,13 @@ const classes = {
         'p-inputnumber p-component p-inputwrapper',
         instance.styleClass,
         {
-            'p-inputwrapper-filled': instance.filled || instance.allowEmpty === false,
+            'p-inputwrapper-filled': instance.$filled() || instance.allowEmpty === false,
             'p-inputwrapper-focus': instance.focused,
             'p-inputnumber-stacked': instance.showButtons && instance.buttonLayout === 'stacked',
             'p-inputnumber-horizontal': instance.showButtons && instance.buttonLayout === 'horizontal',
             'p-inputnumber-vertical': instance.showButtons && instance.buttonLayout === 'vertical',
-            'p-inputnumber-fluid': instance.hasFluid
+            'p-inputnumber-fluid': instance.hasFluid,
+            'p-invalid': instance.invalid()
         }
     ],
     pcInputText: 'p-inputnumber-input',
@@ -53,14 +54,14 @@ const classes = {
         'p-inputnumber-button p-inputnumber-increment-button',
         instance.incrementButtonClass,
         {
-            'p-disabled': instance.showButtons && instance.max !== null && instance.maxlength
+            'p-disabled': instance.showButtons && instance.max() !== null && instance.maxlength()
         }
     ],
     decrementButton: ({ instance }) => [
         'p-inputnumber-button p-inputnumber-decrement-button',
         instance.decrementButtonClass,
         {
-            'p-disabled': instance.showButtons && instance.min !== null && instance.minlength
+            'p-disabled': instance.showButtons && instance.min() !== null && instance.minlength()
         }
     ],
     clearIcon: 'p-inputnumber-clear-icon'
