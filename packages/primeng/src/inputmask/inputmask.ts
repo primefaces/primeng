@@ -543,13 +543,6 @@ export class InputMask extends BaseInput implements OnInit, AfterContentInit, Co
         }
         this.updateFilledState();
         this.onBlur.emit(e);
-
-        if (this.inputViewChild?.nativeElement.value != this.focusText || this.inputViewChild?.nativeElement.value != this.value) {
-            this.updateModel(e);
-            let event = this.document.createEvent('HTMLEvents');
-            event.initEvent('change', true, false);
-            this.inputViewChild?.nativeElement.dispatchEvent(event);
-        }
     }
 
     onInputKeydown(e: KeyboardEvent) {
@@ -798,7 +791,7 @@ export class InputMask extends BaseInput implements OnInit, AfterContentInit, Co
 
     updateModel(e: Event) {
         const updatedValue = this.unmask ? this.getUnmaskedValue() : (e.target as HTMLInputElement).value;
-        if (updatedValue !== null || updatedValue !== undefined) {
+        if (updatedValue !== this.value && (updatedValue !== null || updatedValue !== undefined)) {
             this.value = updatedValue;
             this.onModelChange(this.value);
         }
