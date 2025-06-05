@@ -43,9 +43,8 @@ import { ConfirmPopupStyle } from './style/confirmpopupstyle';
     template: `
         <div
             *ngIf="visible"
-            [ngClass]="'p-confirmpopup p-component'"
+            [class]="cx('root')"
             [ngStyle]="style"
-            [class]="styleClass"
             role="alertdialog"
             (click)="onOverlayClick($event)"
             [@animation]="{
@@ -59,21 +58,21 @@ import { ConfirmPopupStyle } from './style/confirmpopupstyle';
                 <ng-container *ngTemplateOutlet="headlessTemplate || _headlessTemplate; context: { $implicit: confirmation }"></ng-container>
             </ng-container>
             <ng-template #notHeadless>
-                <div #content class="p-confirmpopup-content">
+                <div #content [class]="cx('content')">
                     <ng-container *ngIf="contentTemplate || _contentTemplate; else withoutContentTemplate">
                         <ng-container *ngTemplateOutlet="contentTemplate || _contentTemplate; context: { $implicit: confirmation }"></ng-container>
                     </ng-container>
                     <ng-template #withoutContentTemplate>
-                        <i [ngClass]="'p-confirmpopup-icon'" [class]="confirmation?.icon" *ngIf="confirmation?.icon"></i>
-                        <span class="p-confirmpopup-message">{{ confirmation?.message }}</span>
+                        <i [class]="cx('icon')" *ngIf="confirmation?.icon"></i>
+                        <span [class]="cx('message')">{{ confirmation?.message }}</span>
                     </ng-template>
                 </div>
-                <div class="p-confirmpopup-footer">
+                <div [class]="cx('footer')">
                     <p-button
                         type="button"
                         [label]="rejectButtonLabel"
                         (onClick)="onReject()"
-                        [ngClass]="'p-confirmpopup-reject-button'"
+                        [class]="cx('pcRejectButton')"
                         [styleClass]="confirmation?.rejectButtonStyleClass"
                         [size]="confirmation.rejectButtonProps?.size || 'small'"
                         [text]="confirmation.rejectButtonProps?.text || false"
@@ -88,7 +87,7 @@ import { ConfirmPopupStyle } from './style/confirmpopupstyle';
                         type="button"
                         [label]="acceptButtonLabel"
                         (onClick)="onAccept()"
-                        [ngClass]="'p-confirmpopup-accept-button'"
+                        [class]="cx('pcAcceptButton')"
                         [styleClass]="confirmation?.acceptButtonStyleClass"
                         [size]="confirmation.acceptButtonProps?.size || 'small'"
                         *ngIf="confirmation?.acceptVisible !== false"
@@ -277,7 +276,7 @@ export class ConfirmPopup extends BaseComponent implements AfterContentInit, OnD
     }
 
     option(name: string, k?: string) {
-        const source: { [key: string]: any } = this || this;
+        const source: { [key: string]: any } = this;
         if (source.hasOwnProperty(name)) {
             if (k) {
                 return source[k];
@@ -328,10 +327,10 @@ export class ConfirmPopup extends BaseComponent implements AfterContentInit, OnD
     getElementToFocus() {
         switch (this.defaultFocus) {
             case 'accept':
-                return <any>findSingle(this.container, '.p-confirm-popup-accept');
+                return <any>findSingle(this.container, '.p-confirm-popup-accept-button');
 
             case 'reject':
-                return <any>findSingle(this.container, '.p-confirm-popup-reject');
+                return <any>findSingle(this.container, '.p-confirm-popup-reject-button');
 
             case 'none':
                 return null;
@@ -355,7 +354,7 @@ export class ConfirmPopup extends BaseComponent implements AfterContentInit, OnD
         if (containerOffset.left < targetOffset.left) {
             arrowLeft = targetOffset.left - containerOffset.left;
         }
-        (this.container as HTMLDivElement).style.setProperty('--overlayArrowLeft', `${arrowLeft}px`);
+        (this.container as HTMLDivElement).style.setProperty('--p-confirmpopup-arrow-left', `${arrowLeft}px`);
 
         if (containerOffset.top < targetOffset.top) {
             addClass(this.container, 'p-confirm-popup-flipped');

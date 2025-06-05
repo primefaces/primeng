@@ -54,7 +54,6 @@ export const routes: Routes = [
                 path: 'colorpicker',
                 loadChildren: () => import('@/pages/colorpicker/routes')
             },
-            { path: 'colors', loadChildren: () => import('@/pages/colors/routes') },
             {
                 path: 'confirmdialog',
                 loadChildren: () => import('@/pages/confirmdialog/routes')
@@ -296,7 +295,11 @@ export const routes: Routes = [
                 loadChildren: () => import('@/pages/animateonscroll/routes')
             },
             { path: 'templates', loadChildren: () => import('@/pages/templates/templates.module').then((m) => m.TemplatesModule) },
-            { path: 'guides', loadChildren: () => import('@/pages/guides/guides.module').then((m) => m.GuidesModule) }
+            { path: 'guides', loadChildren: () => import('@/pages/guides/guides.module').then((m) => m.GuidesModule) },
+            {
+                path: 'designer',
+                loadChildren: () => import('@/pages/designer/routes')
+            }
         ]
     },
     { path: 'notfound', loadChildren: () => import('@/pages/notfound/routes') },

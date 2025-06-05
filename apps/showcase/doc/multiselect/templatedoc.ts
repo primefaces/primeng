@@ -11,7 +11,7 @@ interface Country {
     standalone: false,
     template: `
         <app-docsectiontext>
-            <p>Available options and the selected options support templating with <i>pTemplate</i> properties respectively. In addition, header, footer and filter sections can be templated as well.</p>
+            <p>Available options and the selected options support customization with <i>item</i> and <i>selecteditems</i> templates respectively. In addition, header, footer and filter sections can be templated as well.</p>
         </app-docsectiontext>
         <div class="card flex justify-center">
             <p-multiselect [options]="countries" [(ngModel)]="selectedCountries" placeholder="Select Countries" optionLabel="name" styleClass="w-full md:w-80" display="chip">

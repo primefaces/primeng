@@ -1,5 +1,5 @@
 import { CommonModule } from '@angular/common';
-import { ChangeDetectionStrategy, Component, HostBinding, inject, Input, NgModule, ViewEncapsulation } from '@angular/core';
+import { ChangeDetectionStrategy, Component, inject, Input, NgModule, ViewEncapsulation } from '@angular/core';
 import { SharedModule } from 'primeng/api';
 import { BaseComponent } from 'primeng/basecomponent';
 import { DividerStyle } from './style/dividerstyle';
@@ -13,30 +13,18 @@ import { DividerStyle } from './style/dividerstyle';
     standalone: true,
     imports: [CommonModule, SharedModule],
     template: `
-        <div class="p-divider-content">
+        <div [class]="cx('content')">
             <ng-content></ng-content>
         </div>
     `,
     changeDetection: ChangeDetectionStrategy.OnPush,
     encapsulation: ViewEncapsulation.None,
     host: {
-        '[class.p-divider]': 'true',
-        '[class.p-component]': 'true',
-        '[class.p-divider-horizontal]': 'layout === "horizontal"',
-        '[class.p-divider-vertical]': 'layout === "vertical"',
-        '[class.p-divider-solid]': 'type === "solid"',
-        '[class.p-divider-dashed]': 'type === "dashed"',
-        '[class.p-divider-dotted]': 'type === "dotted"',
-        '[class.p-divider-left]': 'layout === "horizontal" && (!align || align === "left")',
-        '[class.p-divider-center]': '(layout === "horizontal" && align === "center") || (layout === "vertical" && (!align || align === "center"))',
-        '[class.p-divider-right]': 'layout === "horizontal" && align === "right"',
-        '[class.p-divider-top]': 'layout === "vertical" && align === "top"',
-        '[class.p-divider-bottom]': 'layout === "vertical" && align === "bottom"',
-        '[attr.aria-orientation]': 'layout',
-        '[attr.data-pc-name]': "'divider'",
-        '[attr.role]': '"separator"',
-        '[style.justifyContent]': 'layout === "horizontal" ? (align === "center" || align === undefined ? "center" : (align === "left" ? "flex-start" : (align === "right" ? "flex-end" : null))) : null',
-        '[style.alignItems]': 'layout === "vertical" ? (align === "center" || align === undefined ? "center" : (align === "top" ? "flex-start" : (align === "bottom" ? "flex-end" : null))) : null'
+        '[aria-orientation]': 'layout',
+        'data-pc-name': 'divider',
+        role: 'separator',
+        '[class]': "cx('root')",
+        '[style]': "sx('root')"
     },
     providers: [DividerStyle]
 })
@@ -68,10 +56,6 @@ export class Divider extends BaseComponent {
     @Input() align: 'left' | 'center' | 'right' | 'top' | 'bottom' | undefined;
 
     _componentStyle = inject(DividerStyle);
-
-    @HostBinding('class') get hostClass() {
-        return this.styleClass;
-    }
 }
 
 @NgModule({

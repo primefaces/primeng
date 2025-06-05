@@ -1,48 +1,19 @@
 import { Injectable } from '@angular/core';
+import { css } from '@primeuix/styled';
+import { style } from '@primeuix/styles/scrolltop';
 import { BaseStyle } from 'primeng/base';
 
-const theme = ({ dt }) => `
-.p-scrolltop.p-button {
-    position: fixed;
-    bottom: 20px;
-    inset-inline-end: 20px;
-}
+const theme = css`
+    ${style}
 
-.p-scrolltop-sticky.p-button {
-    position: sticky;
-    display: flex;
-    margin-left: auto;
-}
-
-.p-scrolltop-sticky.p-button:dir(rtl) {
-    margin-left: 0;
-    margin-right: auto;
-}
-
-.p-scrolltop-enter-from {
-    opacity: 0;
-}
-
-.p-scrolltop-enter-active {
-    transition: opacity 0.15s;
-}
-
-.p-scrolltop.p-scrolltop-leave-to {
-    opacity: 0;
-}
-
-.p-scrolltop-leave-active {
-    transition: opacity 0.15s;
-}
-
-/* For PrimeNG */
-.p-scrolltop-sticky.p-link {
-    margin-left: auto;
-}
+    /* For PrimeNG */
+    .p-scrolltop-sticky.p-link {
+        margin-left: auto;
+    }
 `;
 
 const classes = {
-    root: ({ props }) => ['p-scrolltop', { 'p-scrolltop-sticky': props.target !== 'window' }],
+    root: ({ instance }) => ['p-scrolltop', instance.styleClass, { 'p-scrolltop-sticky': instance.target !== 'window' }],
     icon: 'p-scrolltop-icon'
 };
 

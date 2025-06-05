@@ -178,7 +178,7 @@ export class AppCodeComponent {
 
             if (!str.includes(importModuleStatement)) {
                 let modifiedCodeWithImportsModule = str.replace(/import\s+{[^{}]*}\s+from\s+'[^']+';[\r\n]*/g, (match) => {
-                    if (match.includes('Module') && !match.includes('ReactiveFormsModule')) {
+                    if (match.includes('Module') && !match.includes('ReactiveFormsModule') && !match.includes('Ref')) {
                         return '';
                     }
                     return match;
