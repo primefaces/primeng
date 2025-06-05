@@ -81,12 +81,13 @@ export class TemplateDoc {
         typescript: `import { Component } from '@angular/core';
 import { DrawerModule } from 'primeng/drawer';
 import { ButtonModule } from 'primeng/button';
+import { AvatarModule } from 'primeng/avatar';
 
 @Component({
     selector: 'drawer-template-demo',
     templateUrl: './drawer-template-demo.html',
     standalone: true,
-    imports: [DrawerModule, ButtonModule]
+    imports: [DrawerModule, ButtonModule, AvatarModule]
 })
 export class DrawerTemplateDemo {
     visible: boolean = false;
