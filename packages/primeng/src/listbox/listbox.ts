@@ -501,6 +501,8 @@ export class Listbox extends BaseInput implements AfterContentInit, OnInit, Cont
     }
     set options(val: any[]) {
         this._options.set(val);
+        // if scroller is present the options net to be recalculated to have new options displayed
+        this.scroller?.calculateOptions();
     }
     /**
      * When specified, filter displays with this value.
