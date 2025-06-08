@@ -655,7 +655,7 @@ export class Menu extends BaseComponent implements AfterContentInit, OnDestroy {
 
     onEnterKey(event) {
         const element = <any>findSingle(this.containerViewChild.nativeElement, `li[id="${`${this.focusedOptionIndex()}`}"]`);
-        const anchorElement = element && <any>findSingle(element, 'a[data-pc-section="action"]');
+        const anchorElement = element && <any>findSingle(element, 'a');
 
         this.popup && focus(this.target);
         anchorElement ? anchorElement.click() : element && element.click();
