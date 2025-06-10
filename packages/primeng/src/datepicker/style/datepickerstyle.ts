@@ -38,7 +38,6 @@ const inlineStyles = {
 const classes = {
     root: ({ instance }) => [
         'p-datepicker p-component p-inputwrapper',
-        instance.styleClass,
         {
             'p-invalid': instance.invalid(),
             'p-datepicker-fluid': instance.hasFluid,

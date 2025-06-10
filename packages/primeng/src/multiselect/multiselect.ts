@@ -442,7 +442,7 @@ export class MultiSelectItem extends BaseComponent {
     host: {
         '[attr.id]': 'id',
         '(click)': 'onContainerClick($event)',
-        '[class]': "cx('root')",
+        '[class]': "cn(cx('root'), styleClass)",
         '[style]': "sx('root')"
     }
 })

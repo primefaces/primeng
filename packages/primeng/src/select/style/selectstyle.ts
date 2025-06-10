@@ -24,7 +24,6 @@ const theme = css`
 const classes = {
     root: ({ instance }) => [
         'p-select p-component p-inputwrapper',
-        instance.styleClass,
         {
             'p-disabled': instance.disabled(),
             'p-variant-filled': instance.$variant() === 'filled',

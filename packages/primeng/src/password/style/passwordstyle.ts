@@ -56,7 +56,6 @@ const inlineStyles = {
 const classes = {
     root: ({ instance }) => [
         'p-password p-component p-inputwrapper',
-        instance.styleClass,
         {
             'p-inputwrapper-filled': instance.filled(),
             'p-variant-filled': instance.variant === 'filled' || instance.config.inputVariant() === 'filled' || instance.config.inputStyle() === 'filled',

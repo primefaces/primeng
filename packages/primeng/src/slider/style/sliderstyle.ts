@@ -19,7 +19,6 @@ const inlineStyles = {
 const classes = {
     root: ({ instance }) => [
         'p-slider p-component',
-        instance.styleClass,
         {
             'p-disabled': instance.disabled(),
             'p-invalid': instance.invalid(),

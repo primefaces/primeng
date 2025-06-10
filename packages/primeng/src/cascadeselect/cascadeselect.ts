@@ -353,7 +353,7 @@ export class CascadeSelectSub extends BaseComponent implements OnInit {
     changeDetection: ChangeDetectionStrategy.OnPush,
     encapsulation: ViewEncapsulation.None,
     host: {
-        '[class]': "cx('root')",
+        '[class]': "cn(cx('root'), styleClass)",
         '[style]': "sx('root')",
         '[attr.data-pc-name]': "'cascadeselect'",
         '[attr.data-pc-section]': "'root'"

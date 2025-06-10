@@ -57,7 +57,6 @@ const inlineStyles = {
 const classes = {
     root: ({ instance }) => [
         'p-autocomplete p-component p-inputwrapper',
-        instance.styleClass,
         {
             'p-disabled': instance.disabled(),
             'p-invalid': instance.invalid(),

@@ -15,7 +15,6 @@ const theme = css`
 const classes = {
     root: ({ instance }) => [
         'p-iconfield',
-        instance.styleClass,
         {
             'p-iconfield-left': instance.iconPosition == 'left',
             'p-iconfield-right': instance.iconPosition == 'right'

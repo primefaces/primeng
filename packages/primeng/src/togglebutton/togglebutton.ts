@@ -23,7 +23,7 @@ export const TOGGLEBUTTON_VALUE_ACCESSOR: any = {
     imports: [CommonModule, SharedModule],
     hostDirectives: [{ directive: Ripple }],
     host: {
-        '[class]': "cx('root')",
+        '[class]': "cn(cx('root'), styleClass)",
         '[attr.tabindex]': 'tabindex',
         '[attr.disabled]': 'disabled()',
         '[attr.aria-labelledby]': 'ariaLabelledBy',

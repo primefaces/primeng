@@ -82,7 +82,7 @@ export class RadioControlRegistry {
     host: {
         '[attr.data-pc-name]': "'radiobutton'",
         '[attr.data-pc-section]': "'root'",
-        '[class]': "cx('root')"
+        '[class]': "cn(cx('root'), styleClass)"
     }
 })
 export class RadioButton extends BaseComponent implements ControlValueAccessor, OnInit, OnDestroy {

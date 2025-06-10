@@ -19,7 +19,6 @@ const theme = css`
 const classes = {
     root: ({ instance }) => [
         'p-togglebutton p-component',
-        instance.styleClass,
         {
             'p-togglebutton-checked': instance.checked,
             'p-invalid': instance.invalid(),

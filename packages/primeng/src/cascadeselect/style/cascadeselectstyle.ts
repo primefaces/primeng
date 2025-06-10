@@ -36,7 +36,6 @@ const inlineStyles = {
 const classes = {
     root: ({ instance }) => [
         'p-cascadeselect p-component p-inputwrapper',
-        instance.styleClass,
         {
             'p-cascadeselect p-component p-inputwrapper': true,
             'p-cascadeselect-clearable': instance.showClear && !instance.disabled(),

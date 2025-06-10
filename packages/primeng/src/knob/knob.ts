@@ -53,7 +53,7 @@ export const KNOB_VALUE_ACCESSOR: any = {
     host: {
         '[attr.data-pc-name]': "'knob'",
         '[attr.data-pc-section]': "'root'",
-        '[class]': "cx('root')"
+        '[class]': "cn(cx('root'), styleClass)"
     }
 })
 export class Knob extends BaseComponent {

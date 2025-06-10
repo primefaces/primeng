@@ -13,7 +13,12 @@ const theme = css`
 `;
 
 const classes = {
-    root: ({ instance }) => ['p-editor', instance.styleClass],
+    root: ({ instance }) => [
+        'p-editor',
+        {
+            'p-invalid': instance.invalid()
+        }
+    ],
     toolbar: 'p-editor-toolbar',
     content: 'p-editor-content'
 };

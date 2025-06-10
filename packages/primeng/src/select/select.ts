@@ -354,7 +354,7 @@ export class SelectItem extends BaseComponent {
         </p-overlay>
     `,
     host: {
-        '[class]': "cx('root')",
+        '[class]': "cn(cx('root'), styleClass)",
         '[attr.id]': 'id',
         '(click)': 'onContainerClick($event)'
     },

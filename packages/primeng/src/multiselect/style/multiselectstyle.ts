@@ -34,7 +34,6 @@ const inlineStyles = {
 const classes = {
     root: ({ instance }) => [
         'p-multiselect p-component p-inputwrapper',
-        instance.styleClass,
         {
             'p-multiselect p-component p-inputwrapper': true,
             'p-multiselect-display-chip': instance.display === 'chip',

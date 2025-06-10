@@ -28,7 +28,6 @@ const inlineStyles = {
 const classes = {
     root: ({ instance }) => [
         'p-treeselect p-component p-inputwrapper',
-        instance.containerStyleClass,
         {
             'p-treeselect-display-chip': instance.display === 'chip',
             'p-disabled': instance.disabled(),

@@ -121,7 +121,7 @@ export const SLIDER_VALUE_ACCESSOR: any = {
     host: {
         '[attr.data-pc-name]': "'slider'",
         '[attr.data-pc-section]': "'root'",
-        '[class]': "cx('root')"
+        '[class]': "cn(cx('root'), styleClass)"
     }
 })
 export class Slider extends BaseInput implements OnDestroy, ControlValueAccessor {

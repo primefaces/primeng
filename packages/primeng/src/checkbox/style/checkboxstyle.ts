@@ -17,7 +17,6 @@ const theme = css`
 const classes = {
     root: ({ instance }) => [
         'p-checkbox p-component',
-        instance.styleClass,
         {
             'p-checkbox-checked p-highlight': instance.checked,
             'p-disabled': instance.disabled(),

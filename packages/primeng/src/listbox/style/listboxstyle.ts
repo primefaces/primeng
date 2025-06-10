@@ -19,7 +19,6 @@ const theme = css`
 const classes = {
     root: ({ instance }) => [
         'p-listbox p-component',
-        instance.styleClass,
         {
             'p-listbox-striped': instance.striped,
             'p-disabled': instance.disabled(),

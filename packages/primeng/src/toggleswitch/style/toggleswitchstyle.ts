@@ -23,7 +23,6 @@ const inlineStyles = {
 const classes = {
     root: ({ instance }) => [
         'p-toggleswitch p-component',
-        instance.styleClass,
         {
             'p-toggleswitch p-component': true,
             'p-toggleswitch-checked': instance.checked(),

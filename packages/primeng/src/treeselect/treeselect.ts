@@ -185,7 +185,7 @@ export const TREESELECT_VALUE_ACCESSOR: any = {
     providers: [TREESELECT_VALUE_ACCESSOR, TreeSelectStyle],
     encapsulation: ViewEncapsulation.None,
     host: {
-        '[class]': "cx('root')",
+        '[class]': "cn(cx('root'), containerStyleClass)",
         '[style]': "sx('root')"
     }
 })
