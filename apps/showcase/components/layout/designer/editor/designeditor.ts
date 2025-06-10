@@ -1,180 +1,115 @@
-import { ChangeDetectionStrategy, Component, computed, inject, OnDestroy, OnInit, signal } from '@angular/core';
-import { CommonModule } from '@angular/common';
+import { Component, computed, inject, OnInit, signal } from '@angular/core';
 import { TabsModule } from 'primeng/tabs';
-import { DesignBorderRadius } from './primitive/designborderradius';
-import { DesignColors } from './primitive/designcolors';
-import { DesignGeneral } from './semantic/designgeneral';
-import { DesignFormField } from './semantic/designformfield';
-import { DesignList } from './semantic/designlist';
-import { DesignNavigation } from './semantic/designnavigation';
-import { DesignOverlay } from './semantic/designoverlay';
-import { DesignCS } from './semantic/colorscheme/designcs';
+import { FieldsetModule } from 'primeng/fieldset';
+import { CommonModule } from '@angular/common';
 import { DesignerService } from '@/service/designerservice';
-import { DesignCustomTokens } from './custom/designcustomtokens';
-import { DesignSettings } from './settings/designsettings';
 import { NavigationEnd, Router } from '@angular/router';
-import { FormsModule } from '@angular/forms';
-import { DividerModule } from 'primeng/divider';
-import { SelectButtonModule } from 'primeng/selectbutton';
-import { ButtonModule } from 'primeng/button';
-import { TagModule } from 'primeng/tag';
-import { FileUploadModule } from 'primeng/fileupload';
-import { AppConfigService } from '@/service/appconfigservice';
-import { PrimeNG } from 'primeng/config';
-import { AccordionModule } from 'primeng/accordion';
-import { DesignComponent } from './component/designcomponent';
 import { Subscription } from 'rxjs';
+import { DesignComponentSection } from '@/components/layout/designer/editor/component/designcomponentsection';
+import { AppConfigService } from '@/service/appconfigservice';
 
 @Component({
-    selector: 'design-editor',
+    selector: 'design-component',
     standalone: true,
-    imports: [
-        CommonModule,
-        TabsModule,
-        FormsModule,
-        ButtonModule,
-        SelectButtonModule,
-        TagModule,
-        FileUploadModule,
-        DesignBorderRadius,
-        DividerModule,
-        AccordionModule,
-        DesignComponent,
-        DesignColors,
-        DesignGeneral,
-        DesignFormField,
-        DesignList,
-        DesignNavigation,
-        DesignOverlay,
-        DesignCS,
-        DesignCustomTokens,
-        DesignSettings
-    ],
-    template: ` <p-tabs [(value)]="activeTab" [lazy]="true">
-        <p-tablist>
-            <p-tab [value]="0"> Primitive </p-tab>
-            <p-tab [value]="1"> Semantic </p-tab>
-            <p-tab [value]="2" [disabled]="!isComponentRoute()">Component</p-tab>
-            <p-tab [value]="3">Custom</p-tab>
-            <p-tab [value]="4" class="!ml-auto">Settings</p-tab>
-        </p-tablist>
-        <p-tabpanels>
-            <p-tabpanel [value]="0">
-                <div>
-                    <form (keydown)="onKeyDown($event)" class="flex flex-col gap-3">
-                        <design-border-radius />
-                        <design-colors />
-                    </form>
-                </div>
-            </p-tabpanel>
-
-            <p-tabpanel [value]="1">
-                <p-accordion [value]="['0', '1']" [multiple]="true">
-                    <p-accordion-panel value="0">
-                        <p-accordion-header>Common</p-accordion-header>
-                        <p-accordion-content>
-                            <div>
-                                <form (keydown)="onKeyDown($event)" class="flex flex-col gap-3">
-                                    <design-general />
-                                    <design-form-field />
-                                    <design-list />
-                                    <design-navigation />
-                                    <design-overlay />
-                                </form>
+    imports: [CommonModule, FieldsetModule, TabsModule, DesignComponentSection],
+    template: `<section class="flex flex-col gap-3">
+        <div class="text-lg font-semibold capitalize mb-2">{{ componentKey() }}</div>
+        <p-fieldset legend="Common" [toggleable]="true">
+            <div class="flex flex-col gap-3">
+                @if (hasCommonTokens()) {
+                    @for (entry of objectKeys(this.tokens()); track entry) {
+                        @if (entry !== 'colorScheme' && entry !== 'css') {
+                            <design-component-section [componentKey]="componentKey()" [path]="entry" />
+                        }
+                    }
+                } @else {
+                    <span class="block py-3">There are no design tokens</span>
+                }
+            </div>
+        </p-fieldset>
+        <p-fieldset legend="Color Scheme" [toggleable]="true">
+            @if (hasColorScheme()) {
+                <p-tabs value="cs-0" (valueChange)="tabValueChange($event)">
+                    <p-tablist>
+                        <p-tab value="cs-0">Light</p-tab>
+                        <p-tab value="cs-1">Dark</p-tab>
+                    </p-tablist>
+                    <p-tabpanels>
+                        <p-tabpanel value="cs-0">
+                            <div class="flex flex-col gap-3">
+                                @for (entry of objectKeys(lightTokens()); track entry) {
+                                    <design-component-section [componentKey]="componentKey()" [path]="'colorScheme.light.' + entry" />
+                                }
                             </div>
-                        </p-accordion-content>
-                    </p-accordion-panel>
-
-                    <p-accordion-panel value="1">
-                        <p-accordion-header>Color Scheme</p-accordion-header>
-                        <p-accordion-content>
-                            <p-tabs value="cs-0">
-                                <p-tablist>
-                                    <p-tab value="cs-0">Light</p-tab>
-                                    <p-tab value="cs-1">Dark</p-tab>
-                                </p-tablist>
-                                <p-tabpanels class="!px-0">
-                                    <p-tabpanel value="cs-0">
-                                        <form (keydown)="onKeyDown($event)">
-                                            <design-cs [value]="colorScheme()?.light" />
-                                        </form>
-                                    </p-tabpanel>
-                                    <p-tabpanel value="cs-1">
-                                        <form (keydown)="onKeyDown($event)">
-                                            <design-cs [value]="colorScheme()?.dark" />
-                                        </form>
-                                    </p-tabpanel>
-                                </p-tabpanels>
-                            </p-tabs>
-                        </p-accordion-content>
-                    </p-accordion-panel>
-                </p-accordion>
-            </p-tabpanel>
-
-            <p-tabpanel [value]="2">
-                <form *ngIf="isComponentRoute()" (keydown)="onKeyDown($event)">
-                    <design-component />
-                </form>
-            </p-tabpanel>
-
-            <p-tabpanel [value]="3">
-                <design-custom-tokens />
-            </p-tabpanel>
-
-            <p-tabpanel [value]="4">
-                <design-settings />
-            </p-tabpanel>
-        </p-tabpanels>
-    </p-tabs>`,
-    changeDetection: ChangeDetectionStrategy.OnPush
+                        </p-tabpanel>
+                        <p-tabpanel value="cs-1">
+                            <div class="flex flex-col gap-3">
+                                @for (entry of objectKeys(darkTokens()); track entry) {
+                                    <design-component-section [componentKey]="componentKey()" [path]="'colorScheme.dark.' + entry" />
+                                }
+                            </div>
+                        </p-tabpanel>
+                    </p-tabpanels>
+                </p-tabs>
+            } @else {
+                <span class="block py-3">There are no design tokens defined per color scheme.</span>
+            }
+        </p-fieldset>
+    </section>`
 })
-export class DesignEditor implements OnInit, OnDestroy {
-    colorScheme = computed(() => this.designerService.designer().theme.preset?.semantic.colorScheme);
-    designerService: DesignerService = inject(DesignerService);
+export class DesignComponent implements OnInit {
+    objectKeys = Object.keys;
 
     configService: AppConfigService = inject(AppConfigService);
 
-    config: PrimeNG = inject(PrimeNG);
+    designerService: DesignerService = inject(DesignerService);
 
     router: Router = inject(Router);
 
-    get activeTab() {
-        return this.designerService.designer().activeTab;
-    }
+    tokens = computed(() => this.designerService.designer().theme.preset.components[this.componentKey()]);
 
-    set activeTab(value: number) {
-        this.designerService.designer.update((prev) => ({ ...prev, activeTab: value }));
-    }
+    componentKey = signal<string>('');
 
-    isComponentRoute = computed(() => this.designerService.designer().theme.preset?.components[this.currentPath()] !== undefined);
+    lightTokens = computed(() => {
+        const designer = this.designerService.designer();
+        return designer.theme.preset.components[this.componentKey()].colorScheme?.light;
+    });
 
-    currentPath = signal<string>('');
+    darkTokens = computed(() => this.tokens().colorScheme?.dark);
+
+    hasColorScheme = computed(() => this.tokens().colorScheme !== undefined);
+
+    hasCommonTokens = computed(
+        () =>
+            Object.keys(this.tokens()).filter((name: string) => {
+                return name !== 'colorScheme' && name !== 'css';
+            }).length > 0
+    );
 
     routeSubscription!: Subscription;
 
     constructor() {
         this.routeSubscription = this.router.events.subscribe((event: NavigationEnd) => {
-            const url = event.url;
-            if (url) {
-                this.currentPath.set(url.split('/')[1]);
+            if (event.url) {
+                const url = event.url.split('/')[1] === 'table' ? 'datatable' : event.url.split('/')[1];
+                this.componentKey.set(url);
             }
         });
     }
 
     ngOnInit() {
-        if (!this.currentPath()) {
-            this.currentPath.set(this.router.routerState.snapshot.url.split('/')[1]);
+        if (!this.componentKey()) {
+            const url = this.router.routerState.snapshot.url.split('/')[1] === 'table' ? 'datatable' : this.router.routerState.snapshot.url.split('/')[1];
+            this.componentKey.set(url);
         }
     }
 
-    ngOnDestroy() {
-        this.routeSubscription.unsubscribe();
-    }
-
-    onKeyDown(event: any) {
-        if (event.code === 'Enter' || event.code === 'NumpadEnter') {
-            this.designerService.applyTheme(this.designerService.designer().theme);
-            event.preventDefault();
+    tabValueChange(event: string) {
+        if (event === 'cs-1') {
+            this.configService.appState.update((state) => ({ ...state, darkTheme: true }));
+        }
+        if (event === 'cs-0') {
+            this.configService.appState.update((state) => ({ ...state, darkTheme: false }));
         }
     }
 }
