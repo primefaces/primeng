@@ -79,7 +79,7 @@ export class DesignerService {
     }
 
     resolveColor(token) {
-        if (token.startsWith('{') && token.endsWith('}')) {
+        if (token && token.startsWith('{') && token.endsWith('}')) {
             let cssVariable = $dt(token).variable.slice(4, -1);
             return getComputedStyle(document.documentElement).getPropertyValue(cssVariable);
         } else {
