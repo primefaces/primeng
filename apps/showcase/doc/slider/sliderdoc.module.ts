@@ -14,13 +14,17 @@ import { ImportDoc } from './importdoc';
 import { InputDoc } from './inputdoc';
 import { RangeDoc } from './rangedoc';
 import { ReactiveFormsDoc } from './reactiveformsdoc';
+import { TemplateDrivenFormsDoc } from './templatedrivenformsdoc';
 import { StepDoc } from './stepdoc';
 import { StyleDoc } from './styledoc';
 import { VerticalDoc } from './verticaldoc';
+import { ToastModule } from 'primeng/toast';
+import { MessageModule } from 'primeng/message';
+import { ButtonModule } from 'primeng/button';
 
 @NgModule({
-    imports: [CommonModule, AppCodeModule, FormsModule, ReactiveFormsModule, SliderModule, AppDocModule, InputTextModule, SelectButtonModule, RouterModule],
+    imports: [CommonModule, AppCodeModule, FormsModule, ReactiveFormsModule, SliderModule, AppDocModule, InputTextModule, SelectButtonModule, RouterModule, ToastModule, MessageModule, ButtonModule],
     exports: [AppDocModule],
-    declarations: [ImportDoc, BasicDoc, InputDoc, StepDoc, RangeDoc, VerticalDoc, FilterDoc, StyleDoc, AccessibilityDoc, ReactiveFormsDoc]
+    declarations: [ImportDoc, BasicDoc, InputDoc, StepDoc, RangeDoc, VerticalDoc, FilterDoc, StyleDoc, AccessibilityDoc, ReactiveFormsDoc, TemplateDrivenFormsDoc]
 })
 export class SliderDocModule {}
