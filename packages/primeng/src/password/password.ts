@@ -476,8 +476,8 @@ export const Password_VALUE_ACCESSOR: any = {
     host: {
         '[class]': "cx('root')",
         '[style]': "sx('root')",
-        '[attr.data-pc-name]': 'password',
-        '[attr.data-pc-section]': 'root'
+        'data-pc-name': 'password',
+        'data-pc-section': 'root'
     }
 })
 export class Password extends BaseComponent implements OnInit, AfterContentInit {
