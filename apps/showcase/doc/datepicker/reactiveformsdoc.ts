@@ -14,7 +14,7 @@ import { MessageService } from 'primeng/api';
         <div class="card flex justify-center">
             <form [formGroup]="exampleForm" (ngSubmit)="onSubmit()" class="flex flex-col gap-4">
                 <div class="flex flex-col gap-1">
-                    <p-datepicker formControlName="selectedDate" />
+                    <p-datepicker formControlName="selectedDate" [invalid]="isInvalid('selectedDate')" />
                     @if (isInvalid('selectedDate')) {
                         <p-message severity="error" size="small" variant="simple">Date is required.</p-message>
                     }
@@ -55,7 +55,7 @@ export class ReactiveFormsDoc {
     code: Code = {
         basic: `<form [formGroup]="exampleForm" (ngSubmit)="onSubmit()" class="flex flex-col gap-4">
     <div class="flex flex-col gap-1">
-        <p-datepicker formControlName="selectedDate" />
+        <p-datepicker formControlName="selectedDate" [invalid]="isInvalid('selectedDate')" />
         @if (isInvalid('selectedDate')) {
             <p-message severity="error" size="small" variant="simple">Date is required.</p-message>
         }
@@ -66,7 +66,7 @@ export class ReactiveFormsDoc {
         html: `<div class="card flex justify-center">
     <form [formGroup]="exampleForm" (ngSubmit)="onSubmit()" class="flex flex-col gap-4">
         <div class="flex flex-col gap-1">
-            <p-datepicker formControlName="selectedDate" />
+            <p-datepicker formControlName="selectedDate" [invalid]="isInvalid('selectedDate')" />
             @if (isInvalid('selectedDate')) {
                 <p-message severity="error" size="small" variant="simple">Date is required.</p-message>
             }
