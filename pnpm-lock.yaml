@@ -71,8 +71,8 @@ catalogs:
       version: 0.15.1
   default:
     '@primeuix/styled':
-      specifier: ^0.3.2
-      version: 0.3.2
+      specifier: 0.3.2-patch.1
+      version: 0.3.2-patch.1
     '@primeuix/utils':
       specifier: ^0.3.2
       version: 0.3.2
@@ -225,7 +225,7 @@ importers:
         version: link:../../packages/themes
       '@primeuix/styled':
         specifier: 'catalog:'
-        version: 0.3.2
+        version: 0.3.2-patch.1
       '@primeuix/utils':
         specifier: 'catalog:'
         version: 0.3.2
@@ -327,7 +327,7 @@ importers:
         version: 19.2.14(@angular/common@19.2.14(@angular/core@19.2.14(rxjs@7.8.2)(zone.js@0.15.1))(rxjs@7.8.2))(@angular/core@19.2.14(rxjs@7.8.2)(zone.js@0.15.1))(@angular/platform-browser@19.2.14(@angular/animations@19.2.14(@angular/common@19.2.14(@angular/core@19.2.14(rxjs@7.8.2)(zone.js@0.15.1))(rxjs@7.8.2))(@angular/core@19.2.14(rxjs@7.8.2)(zone.js@0.15.1)))(@angular/common@19.2.14(@angular/core@19.2.14(rxjs@7.8.2)(zone.js@0.15.1))(rxjs@7.8.2))(@angular/core@19.2.14(rxjs@7.8.2)(zone.js@0.15.1)))(rxjs@7.8.2)
       '@primeuix/styled':
         specifier: 'catalog:'
-        version: 0.3.2
+        version: 0.3.2-patch.1
       '@primeuix/utils':
         specifier: 'catalog:'
         version: 0.3.2
@@ -359,7 +359,7 @@ importers:
     dependencies:
       '@primeuix/styled':
         specifier: 'catalog:'
-        version: 0.3.2
+        version: 0.3.2-patch.1
     publishDirectory: dist
 
 packages:
@@ -2348,8 +2348,8 @@ packages:
     resolution: {integrity: sha512-+1VkjdD0QBLPodGrJUeqarH8VAIvQODIbwh9XpP5Syisf7YoQgsJKPNFoqqLQlu+VQ/tVSshMR6loPMn8U+dPg==}
     engines: {node: '>=14'}
 
-  '@primeuix/styled@0.3.2':
-    resolution: {integrity: sha512-ColZes0+/WKqH4ob2x8DyNYf1NENpe5ZguOvx5yCLxaP8EIMVhLjWLO/3umJiDnQU4XXMLkn2mMHHw+fhTX/mw==}
+  '@primeuix/styled@0.3.2-patch.1':
+    resolution: {integrity: sha512-z6NG7gaYMi6GiAKnCYNkOA0h9sJBCx8JNJqD+sal7AhjyGA39CI7FHpCVnmyVuPPj9BHch7dQG/1Qlir3S1K8A==}
     engines: {node: '>=12.11.0'}
 
   '@primeuix/utils@0.3.2':
@@ -8965,7 +8965,7 @@ snapshots:
   '@pkgjs/parseargs@0.11.0':
     optional: true
 
-  '@primeuix/styled@0.3.2':
+  '@primeuix/styled@0.3.2-patch.1':
     dependencies:
       '@primeuix/utils': 0.3.2
 
