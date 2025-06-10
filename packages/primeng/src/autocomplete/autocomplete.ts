@@ -71,12 +71,17 @@ export const AUTOCOMPLETE_VALUE_ACCESSOR: any = {
             [attr.id]="inputId"
             [autocomplete]="autocomplete"
             [required]="required()"
-            [name]="name()"
             aria-autocomplete="list"
             role="combobox"
             [attr.placeholder]="placeholder"
+            [name]="name()"
+            [minlength]="minlength() || minLength"
             [pSize]="size()"
-            [attr.maxlength]="maxlength()"
+            [min]="min()"
+            [max]="max()"
+            [pattern]="pattern()"
+            [size]="size()"
+            [maxlength]="maxlength()"
             [tabindex]="!disabled() ? tabindex : -1"
             [readonly]="readonly"
             [disabled]="disabled()"
@@ -147,11 +152,16 @@ export const AUTOCOMPLETE_VALUE_ACCESSOR: any = {
                     [attr.id]="inputId"
                     [autocomplete]="autocomplete"
                     [required]="required()"
-                    [attr.name]="name()"
+                    [name]="name()"
+                    [attr.minlength]="minlength() || minLength"
+                    [attr.maxlength]="maxlength()"
+                    [attr.size]="size()"
+                    [attr.min]="min()"
+                    [attr.max]="max()"
+                    [attr.pattern]="pattern()"
                     role="combobox"
                     [attr.placeholder]="!$filled() ? placeholder : null"
                     aria-autocomplete="list"
-                    [attr.maxlength]="maxlength()"
                     [tabindex]="!disabled() ? tabindex : -1"
                     [readonly]="readonly"
                     [disabled]="disabled()"
@@ -1101,6 +1111,8 @@ export class AutoComplete extends BaseInput implements AfterViewChecked, AfterCo
 
     onInput(event) {
         if (this.typeahead) {
+            const _minLength = this.minlength() != undefined ? this.minlength() : this.minLength;
+
             if (this.searchTimeout) {
                 clearTimeout(this.searchTimeout);
             }
@@ -1121,7 +1133,7 @@ export class AutoComplete extends BaseInput implements AfterViewChecked, AfterCo
                     this.hide();
                 }, this.delay / 2);
             } else {
-                if (query.length >= this.minLength) {
+                if (query.length >= _minLength) {
                     this.focusedOptionIndex.set(-1);
 
                     this.searchTimeout = setTimeout(() => {
