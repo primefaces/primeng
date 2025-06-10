@@ -29,11 +29,6 @@ export class SliderDemo {
             component: BasicDoc
         },
         {
-            id: 'reactive-forms',
-            label: 'Reactive Forms',
-            component: ReactiveFormsDoc
-        },
-        {
             id: 'input',
             label: 'Input',
             component: InputDoc
