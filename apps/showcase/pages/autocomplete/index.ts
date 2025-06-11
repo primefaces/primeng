@@ -12,6 +12,7 @@ import { ImportDoc } from '@/doc/autocomplete/importdoc';
 import { InvalidDoc } from '@/doc/autocomplete/invaliddoc';
 import { MultipleDoc } from '@/doc/autocomplete/multipledoc';
 import { ObjectsDoc } from '@/doc/autocomplete/objectsdoc';
+import { ObjectsValueDoc } from '@/doc/autocomplete/objectsvaluedoc';
 import { ReactiveFormsDoc } from '@/doc/autocomplete/reactiveformsdoc';
 import { SizesDoc } from '@/doc/autocomplete/sizesdoc';
 import { TemplateDoc } from '@/doc/autocomplete/templatedoc';
@@ -53,6 +54,11 @@ export class AutoCompleteDemo {
             id: 'objects',
             label: 'Objects',
             component: ObjectsDoc
+        },
+        {
+            id: 'objectsvalue',
+            label: 'Objects With Value',
+            component: ObjectsValueDoc
         },
         {
             id: 'template',
