@@ -106,7 +106,7 @@ interface AutoCompleteCompleteEvent {
     imports: [ReactiveFormsModule, AutoCompleteModule, MessageModule, ToastModule, ButtonModule],
     providers: [CountryService]
 })
-export class AutocompleteReactiveFormsDemo implements OnInit {
+export class AutocompleteReactiveFormsDemo {
     messageService = inject(MessageService);
 
     items: any[] | undefined;
