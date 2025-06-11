@@ -11,7 +11,7 @@ import { MessageService } from 'primeng/api';
         <div class="card flex justify-center">
             <form #exampleForm="ngForm" (ngSubmit)="onSubmit(exampleForm)" class="flex justify-center flex-col gap-4 md:w-56">
                 <div class="flex flex-col gap-1">
-                    <p-inputotp #value="ngModel" [(ngModel)]="value" [invalid]="value.invalid && (value.touched || exampleForm.submitted)" name="value" required />
+                    <p-inputotp #value="ngModel" [(ngModel)]="value" [invalid]="value.invalid && (value.touched || exampleForm.submitted)" name="value" required [minlength]="4" />
 
                     @if (value.invalid && (value.touched || exampleForm.submitted)) {
                         <p-message severity="error" size="small" variant="simple">Passcode is required.</p-message>
@@ -38,7 +38,7 @@ export class TemplateDrivenFormsDoc {
     code: Code = {
         basic: `<form #exampleForm="ngForm" (ngSubmit)="onSubmit(exampleForm)" class="flex justify-center flex-col gap-4 md:w-56">
     <div class="flex flex-col gap-1">
-        <p-inputotp #value="ngModel" [(ngModel)]="value" [invalid]="value.invalid && (value.touched || exampleForm.submitted)" name="value" required />
+        <p-inputotp #value="ngModel" [(ngModel)]="value" [invalid]="value.invalid && (value.touched || exampleForm.submitted)" name="value" required [minlength]="4" />
 
         @if (value.invalid && (value.touched || exampleForm.submitted)) {
             <p-message severity="error" size="small" variant="simple">Passcode is required.</p-message>
@@ -51,7 +51,7 @@ export class TemplateDrivenFormsDoc {
 <div class="card flex justify-center">
     <form #exampleForm="ngForm" (ngSubmit)="onSubmit(exampleForm)" class="flex justify-center flex-col gap-4 md:w-56">
         <div class="flex flex-col gap-1">
-            <p-inputotp #value="ngModel" [(ngModel)]="value" [invalid]="value.invalid && (value.touched || exampleForm.submitted)" name="value" required />
+            <p-inputotp #value="ngModel" [(ngModel)]="value" [invalid]="value.invalid && (value.touched || exampleForm.submitted)" name="value" required  [minlength]="4"/>
 
             @if (value.invalid && (value.touched || exampleForm.submitted)) {
                 <p-message severity="error" size="small" variant="simple">Passcode is required.</p-message>
