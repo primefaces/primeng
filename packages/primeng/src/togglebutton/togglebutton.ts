@@ -65,6 +65,7 @@ export class ToggleButton extends BaseInput implements AfterContentInit, Control
     @HostListener('click', ['$event']) toggle(event: Event) {
         if (!this.disabled() && !(this.allowEmpty === false && this.checked)) {
             this.checked = !this.checked;
+            this.writeModelValue(this.checked);
             this.onModelChange(this.checked);
             this.onModelTouched();
             this.onChange.emit({
@@ -169,6 +170,7 @@ export class ToggleButton extends BaseInput implements AfterContentInit, Control
 
     writeValue(value: any): void {
         this.checked = value;
+        this.writeModelValue(value);
         this.cd.markForCheck();
     }
 
