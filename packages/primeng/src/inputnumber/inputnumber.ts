@@ -57,6 +57,7 @@ export const INPUTNUMBER_VALUE_ACCESSOR: any = {
             [ngStyle]="inputStyle"
             [value]="formattedValue()"
             [variant]="$variant()"
+            [invalid]="invalid()"
             [attr.aria-valuemin]="min()"
             [attr.aria-valuemax]="max()"
             [attr.aria-valuenow]="value"
@@ -100,7 +101,7 @@ export const INPUTNUMBER_VALUE_ACCESSOR: any = {
             <button
                 type="button"
                 [class]="cn(cx('incrementButton'), incrementButtonClass)"
-                [disabled]="disabled"
+                [disabled]="disabled()"
                 tabindex="-1"
                 (mousedown)="onUpButtonMouseDown($event)"
                 (mouseup)="onUpButtonMouseUp()"
@@ -120,7 +121,7 @@ export const INPUTNUMBER_VALUE_ACCESSOR: any = {
             <button
                 type="button"
                 [class]="cn(cx('decrementButton'), decrementButtonClass)"
-                [disabled]="disabled"
+                [disabled]="disabled()"
                 tabindex="-1"
                 [attr.aria-hidden]="true"
                 (mousedown)="onDownButtonMouseDown($event)"
@@ -141,7 +142,7 @@ export const INPUTNUMBER_VALUE_ACCESSOR: any = {
             *ngIf="showButtons && buttonLayout !== 'stacked'"
             type="button"
             [class]="cx('incrementButton')"
-            [disabled]="disabled"
+            [disabled]="disabled()"
             tabindex="-1"
             [attr.aria-hidden]="true"
             (mousedown)="onUpButtonMouseDown($event)"
@@ -161,7 +162,7 @@ export const INPUTNUMBER_VALUE_ACCESSOR: any = {
             *ngIf="showButtons && buttonLayout !== 'stacked'"
             type="button"
             [class]="cx('decrementButton')"
-            [disabled]="disabled"
+            [disabled]="disabled()"
             tabindex="-1"
             [attr.aria-hidden]="true"
             (mousedown)="onDownButtonMouseDown($event)"
@@ -355,20 +356,6 @@ export class InputNumber extends BaseInput implements OnInit, AfterContentInit, 
      */
     @Input({ transform: booleanAttribute }) autofocus: boolean | undefined;
     /**
-     * When present, it specifies that the element should be disabled.
-     * @group Props
-     */
-    // @Input() get disabled(): boolean | undefined {
-    //     return this._disabled;
-    // }
-    // set disabled(disabled: boolean | undefined) {
-    //     if (disabled) this.focused = false;
-    //
-    //     this._disabled = disabled;
-    //
-    //     if (this.timer) this.clearTimer();
-    // }
-    /**
      * Callback to invoke on input.
      * @param {InputNumberInputEvent} event - Custom input event.
      * @group Emits
@@ -466,8 +453,6 @@ export class InputNumber extends BaseInput implements OnInit, AfterContentInit, 
     _suffix: Nullable<RegExp>;
 
     _index: number | any;
-
-    _disabled: boolean | undefined;
 
     _componentStyle = inject(InputNumberStyle);
 
