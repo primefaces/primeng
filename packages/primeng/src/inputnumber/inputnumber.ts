@@ -1069,6 +1069,8 @@ export class InputNumber extends BaseInput implements OnInit, AfterContentInit, 
         let selectionEnd = this.input?.nativeElement.selectionEnd;
         let inputValue = this.input?.nativeElement.value.trim();
         const { decimalCharIndex, minusCharIndex, suffixCharIndex, currencyCharIndex } = this.getCharIndexes(inputValue);
+        const operation = selectionStart !== selectionEnd ? 'range-insert' : 'insert';
+
         let newValueStr;
 
         if (sign.isMinusSign) {
@@ -1081,7 +1083,21 @@ export class InputNumber extends BaseInput implements OnInit, AfterContentInit, 
                 this.updateValue(event, newValueStr, text, 'insert');
             }
         } else if (sign.isDecimalSign) {
-            if (decimalCharIndex > 0 && selectionStart === decimalCharIndex) {
+            if (!!this.minFractionDigits || this.mode === 'currency') {
+                const isStartWithDecimal = decimalCharIndex === -1 && selectionStart === 0;
+                const rangeWithDecimal = operation === 'range-insert' && selectionStart <= decimalCharIndex && selectionEnd >= decimalCharIndex;
+                const followDecimalFormat = decimalCharIndex === selectionStart;
+                // User range-select then pressed decimal, prepend zero and use 'range-insert'
+                if (rangeWithDecimal) {
+                    this.updateValue(event, '0.', '0.', 'range-insert');
+                    // User pressed decimal at the beginning, prepend zero + value
+                } else if (isStartWithDecimal) {
+                    this.updateValue(event, '0.' + inputValue, '0.', 'insert');
+                    // User follows decimal format by pressing period while cursor is at decimal, proceed normally
+                } else if (followDecimalFormat) {
+                    this.updateValue(event, inputValue, text, 'insert');
+                }
+            } else if (decimalCharIndex > 0 && selectionStart === decimalCharIndex) {
                 this.updateValue(event, inputValue, text, 'insert');
             } else if (decimalCharIndex > selectionStart && decimalCharIndex < selectionEnd) {
                 newValueStr = this.insertText(inputValue, text, selectionStart, selectionEnd);
@@ -1092,7 +1108,6 @@ export class InputNumber extends BaseInput implements OnInit, AfterContentInit, 
             }
         } else {
             const maxFractionDigits = this.numberFormat.resolvedOptions().maximumFractionDigits;
-            const operation = selectionStart !== selectionEnd ? 'range-insert' : 'insert';
 
             if (decimalCharIndex > 0 && selectionStart > decimalCharIndex) {
                 if (selectionStart + text.length - (decimalCharIndex + 1) <= maxFractionDigits) {
@@ -1281,10 +1296,10 @@ export class InputNumber extends BaseInput implements OnInit, AfterContentInit, 
 
         if (currentLength === 0) {
             this.input.nativeElement.value = newValue;
-            this.input.nativeElement.setSelectionRange(0, 0);
-            const index = this.initCursor();
-            const selectionEnd = index + insertedValueStr.length;
-            this.input.nativeElement.setSelectionRange(selectionEnd, selectionEnd);
+            const selectionEnd = insertedValueStr.length;
+            setTimeout(() => {
+                this.input.nativeElement.setSelectionRange(selectionEnd + 1, selectionEnd + 1);
+            });
         } else {
             let selectionStart = this.input.nativeElement.selectionStart;
             let selectionEnd = this.input.nativeElement.selectionEnd;
@@ -1314,7 +1329,9 @@ export class InputNumber extends BaseInput implements OnInit, AfterContentInit, 
                 tRegex.test(newValue.slice(sRegex.lastIndex));
 
                 selectionEnd = sRegex.lastIndex + tRegex.lastIndex;
-                this.input.nativeElement.setSelectionRange(selectionEnd, selectionEnd);
+                setTimeout(() => {
+                    this.input.nativeElement.setSelectionRange(selectionEnd, selectionEnd);
+                });
             } else if (newLength === currentLength) {
                 if (operation === 'insert' || operation === 'delete-back-single') this.input.nativeElement.setSelectionRange(selectionEnd + 1, selectionEnd + 1);
                 else if (operation === 'delete-single') this.input.nativeElement.setSelectionRange(selectionEnd - 1, selectionEnd - 1);
