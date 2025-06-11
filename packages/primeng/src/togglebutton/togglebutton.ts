@@ -30,6 +30,7 @@ export const TOGGLEBUTTON_VALUE_ACCESSOR: any = {
         '[attr.aria-pressed]': 'checked',
         '[attr.data-p-checked]': 'active',
         '[attr.data-p-disabled]': 'disabled()',
+        '[attr.required]': 'required()',
         '[attr.type]': '"button"'
     },
     template: `<span [class]="cx('content')">
