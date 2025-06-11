@@ -3,9 +3,9 @@ import { booleanAttribute, ChangeDetectionStrategy, Component, EventEmitter, for
 import { NG_VALUE_ACCESSOR } from '@angular/forms';
 import { $dt } from '@primeuix/styled';
 import { SharedModule } from 'primeng/api';
-import { BaseComponent } from 'primeng/basecomponent';
 import { VoidListener } from 'primeng/ts-helpers';
 import { KnobStyle } from './style/knobstyle';
+import { BaseInput } from 'primeng/baseinput';
 
 export const KNOB_VALUE_ACCESSOR: any = {
     provide: NG_VALUE_ACCESSOR,
@@ -24,16 +24,22 @@ export const KNOB_VALUE_ACCESSOR: any = {
         <svg
             viewBox="0 0 100 100"
             role="slider"
-            [style.width]="size + 'px'"
-            [style.height]="size + 'px'"
+            [style.width]="pSize + 'px'"
+            [style.height]="pSize + 'px'"
             (click)="onClick($event)"
             (keydown)="onKeyDown($event)"
             (mousedown)="onMouseDown($event)"
             (mouseup)="onMouseUp($event)"
             (touchstart)="onTouchStart($event)"
             (touchend)="onTouchEnd($event)"
-            [attr.aria-valuemin]="min"
-            [attr.aria-valuemax]="max"
+            [attr.aria-valuemin]="min()"
+            [attr.aria-valuemax]="max()"
+            [attr.min]="min()"
+            [attr.max]="max()"
+            [attr.step]="step()"
+            [attr.name]="name()"
+            [attr.disabled]="disabled()"
+            [attr.required]="required()"
             [attr.aria-valuenow]="_value"
             [attr.aria-labelledby]="ariaLabelledBy"
             [attr.aria-label]="ariaLabel"
@@ -56,7 +62,7 @@ export const KNOB_VALUE_ACCESSOR: any = {
         '[class]': "cn(cx('root'), styleClass)"
     }
 })
-export class Knob extends BaseComponent {
+export class Knob extends BaseInput {
     /**
      * Style class of the component.
      * @deprecated since v20.0.0, use `class` instead.
@@ -99,40 +105,15 @@ export class Knob extends BaseComponent {
      */
     @Input() valueTemplate: string = '{value}';
     /**
-     * Name of the input element.
-     * @group Props
-     */
-    @Input() name: string | undefined;
-    /**
      * Size of the component in pixels.
      * @group Props
      */
-    @Input({ transform: numberAttribute }) size: number = 100;
-    /**
-     * Step factor to increment/decrement the value.
-     * @group Props
-     */
-    @Input({ transform: numberAttribute }) step: number = 1;
-    /**
-     * Mininum boundary value.
-     * @group Props
-     */
-    @Input({ transform: numberAttribute }) min: number = 0;
-    /**
-     * Maximum boundary value.
-     * @group Props
-     */
-    @Input({ transform: numberAttribute }) max: number = 100;
+    @Input({ transform: numberAttribute, alias: 'size' }) pSize: number = 100;
     /**
      * Width of the knob stroke.
      * @group Props
      */
     @Input({ transform: numberAttribute }) strokeWidth: number = 14;
-    /**
-     * When present, it specifies that the component should be disabled.
-     * @group Props
-     */
-    @Input({ transform: booleanAttribute }) disabled: boolean | undefined;
     /**
      * Whether the show the value inside the knob.
      * @group Props
@@ -179,7 +160,7 @@ export class Knob extends BaseComponent {
     get containerClass() {
         return {
             'p-knob p-component': true,
-            'p-disabled': this.disabled
+            'p-disabled': this.disabled()
         };
     }
 
@@ -188,14 +169,14 @@ export class Knob extends BaseComponent {
     }
 
     onClick(event: MouseEvent) {
-        if (!this.disabled && !this.readonly) {
+        if (!this.disabled() && !this.readonly) {
             this.updateValue(event.offsetX, event.offsetY);
         }
     }
 
     updateValue(offsetX: number, offsetY: number) {
-        let dx = offsetX - this.size / 2;
-        let dy = this.size / 2 - offsetY;
+        let dx = offsetX - this.pSize / 2;
+        let dy = this.pSize / 2 - offsetY;
         let angle = Math.atan2(dy, dx);
         let start = -Math.PI / 2 - Math.PI / 6;
         this.updateModel(angle, start);
@@ -203,18 +184,18 @@ export class Knob extends BaseComponent {
 
     updateModel(angle: number, start: number) {
         let mappedValue;
-        if (angle > this.maxRadians) mappedValue = this.mapRange(angle, this.minRadians, this.maxRadians, this.min, this.max);
-        else if (angle < start) mappedValue = this.mapRange(angle + 2 * Math.PI, this.minRadians, this.maxRadians, this.min, this.max);
+        if (angle > this.maxRadians) mappedValue = this.mapRange(angle, this.minRadians, this.maxRadians, this.min(), this.max());
+        else if (angle < start) mappedValue = this.mapRange(angle + 2 * Math.PI, this.minRadians, this.maxRadians, this.min(), this.max());
         else return;
 
-        let newValue = Math.round((mappedValue - this.min) / this.step) * this.step + this.min;
+        let newValue = Math.round((mappedValue - this.min()) / this.step()) * this.step() + this.min();
         this.value = newValue;
         this.onModelChange(this.value);
         this.onChange.emit(this.value);
     }
 
     onMouseDown(event: MouseEvent) {
-        if (!this.disabled && !this.readonly) {
+        if (!this.disabled() && !this.readonly) {
             const window = this.document.defaultView || 'window';
             this.windowMouseMoveListener = this.renderer.listen(window, 'mousemove', this.onMouseMove.bind(this));
             this.windowMouseUpListener = this.renderer.listen(window, 'mouseup', this.onMouseUp.bind(this));
@@ -223,7 +204,7 @@ export class Knob extends BaseComponent {
     }
 
     onMouseUp(event: MouseEvent) {
-        if (!this.disabled && !this.readonly) {
+        if (!this.disabled() && !this.readonly) {
             if (this.windowMouseMoveListener) {
                 this.windowMouseMoveListener();
                 this.windowMouseUpListener = null;
@@ -238,7 +219,7 @@ export class Knob extends BaseComponent {
     }
 
     onTouchStart(event: TouchEvent) {
-        if (!this.disabled && !this.readonly) {
+        if (!this.disabled() && !this.readonly) {
             const window = this.document.defaultView || 'window';
             this.windowTouchMoveListener = this.renderer.listen(window, 'touchmove', this.onTouchMove.bind(this));
             this.windowTouchEndListener = this.renderer.listen(window, 'touchend', this.onTouchEnd.bind(this));
@@ -247,7 +228,7 @@ export class Knob extends BaseComponent {
     }
 
     onTouchEnd(event: TouchEvent) {
-        if (!this.disabled && !this.readonly) {
+        if (!this.disabled() && !this.readonly) {
             if (this.windowTouchMoveListener) {
                 this.windowTouchMoveListener();
             }
@@ -261,14 +242,14 @@ export class Knob extends BaseComponent {
     }
 
     onMouseMove(event: MouseEvent) {
-        if (!this.disabled && !this.readonly) {
+        if (!this.disabled() && !this.readonly) {
             this.updateValue(event.offsetX, event.offsetY);
             event.preventDefault();
         }
     }
 
     onTouchMove(event: Event) {
-        if (!this.disabled && !this.readonly && event instanceof TouchEvent && event.touches.length === 1) {
+        if (!this.disabled() && !this.readonly && event instanceof TouchEvent && event.touches.length === 1) {
             const rect = this.el.nativeElement.children[0].getBoundingClientRect();
             const touch = event.targetTouches.item(0);
             if (touch) {
@@ -280,8 +261,8 @@ export class Knob extends BaseComponent {
     }
 
     updateModelValue(newValue) {
-        if (newValue > this.max) this.value = this.max;
-        else if (newValue < this.min) this.value = this.min;
+        if (newValue > this.max()) this.value = this.max();
+        else if (newValue < this.min()) this.value = this.min();
         else this.value = newValue;
 
         this.onModelChange(this.value);
@@ -289,7 +270,7 @@ export class Knob extends BaseComponent {
     }
 
     onKeyDown(event: KeyboardEvent) {
-        if (!this.disabled && !this.readonly) {
+        if (!this.disabled() && !this.readonly) {
             switch (event.code) {
                 case 'ArrowRight':
 
@@ -309,14 +290,14 @@ export class Knob extends BaseComponent {
 
                 case 'Home': {
                     event.preventDefault();
-                    this.updateModelValue(this.min);
+                    this.updateModelValue(this.min());
 
                     break;
                 }
 
                 case 'End': {
                     event.preventDefault();
-                    this.updateModelValue(this.max);
+                    this.updateModelValue(this.max());
                     break;
                 }
 
@@ -337,6 +318,7 @@ export class Knob extends BaseComponent {
 
     writeValue(value: any): void {
         this.value = value;
+        this.writeModelValue(this.value);
         this.cd.markForCheck();
     }
 
@@ -348,11 +330,6 @@ export class Knob extends BaseComponent {
         this.onModelTouched = fn;
     }
 
-    setDisabledState(val: boolean): void {
-        this.disabled = val;
-        this.cd.markForCheck();
-    }
-
     rangePath() {
         return `M ${this.minX()} ${this.minY()} A ${this.radius} ${this.radius} 0 1 1 ${this.maxX()} ${this.maxY()}`;
     }
@@ -362,12 +339,12 @@ export class Knob extends BaseComponent {
     }
 
     zeroRadians() {
-        if (this.min > 0 && this.max > 0) return this.mapRange(this.min, this.min, this.max, this.minRadians, this.maxRadians);
-        else return this.mapRange(0, this.min, this.max, this.minRadians, this.maxRadians);
+        if (this.min() > 0 && this.max() > 0) return this.mapRange(this.min(), this.min(), this.max(), this.minRadians, this.maxRadians);
+        else return this.mapRange(0, this.min(), this.max(), this.minRadians, this.maxRadians);
     }
 
     valueRadians() {
-        return this.mapRange(this._value, this.min, this.max, this.minRadians, this.maxRadians);
+        return this.mapRange(this._value, this.min(), this.max(), this.minRadians, this.maxRadians);
     }
 
     minX() {
@@ -415,7 +392,7 @@ export class Knob extends BaseComponent {
     }
 
     get _value(): number {
-        return this.value != null ? this.value : this.min;
+        return this.value != null ? this.value : this.min();
     }
 }
 
