@@ -196,6 +196,7 @@ export class SelectButton extends BaseInput implements AfterContentInit, Control
 
     writeValue(value: any): void {
         this.value = value;
+        this.writeModelValue(this.value);
         this.cd.markForCheck();
     }
 
@@ -233,6 +234,7 @@ export class SelectButton extends BaseInput implements AfterContentInit, Control
 
         this.focusedIndex = index;
         this.value = newValue;
+        this.writeModelValue(this.value);
         this.onModelChange(this.value);
 
         this.onChange.emit({
