@@ -1,7 +1,7 @@
 import { AppConfigService } from '@/service/appconfigservice';
 import { DesignerService } from '@/service/designerservice';
 import { CommonModule } from '@angular/common';
-import { ChangeDetectionStrategy, Component, computed, inject, model, OnInit, Renderer2, ViewChild } from '@angular/core';
+import { ChangeDetectionStrategy, Component, computed, inject, model, OnInit, Renderer2, viewChild } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { RouterModule } from '@angular/router';
 import { ConfirmationService } from 'primeng/api';
@@ -106,7 +106,7 @@ import { ToastModule } from 'primeng/toast';
     changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class DesignDashboard implements OnInit {
-    @ViewChild('menu') menu!: Menu;
+    menu = viewChild<Menu>('menu');
 
     configService = inject(AppConfigService);
 
@@ -246,7 +246,7 @@ export class DesignDashboard implements OnInit {
     toggleMenuOptions(event: any, theme: any) {
         event.stopPropagation();
         this.designerService.currentTheme.set(theme);
-        this.menu.toggle(event);
+        this.menu().toggle(event);
     }
 
     onMenuShow() {
@@ -259,7 +259,7 @@ export class DesignDashboard implements OnInit {
 
     bindScrollListener() {
         this.scrollListener = this.renderer.listen(window, 'scroll', () => {
-            this.menu.hide();
+            this.menu().hide();
         });
     }
 
