@@ -57,8 +57,8 @@ const classes = {
     root: ({ instance }) => [
         'p-password p-component p-inputwrapper',
         {
-            'p-inputwrapper-filled': instance.filled(),
-            'p-variant-filled': instance.variant === 'filled' || instance.config.inputVariant() === 'filled' || instance.config.inputStyle() === 'filled',
+            'p-inputwrapper-filled': instance.$filled(),
+            'p-variant-filled': instance.$variant() === 'filled',
             'p-inputwrapper-focus': instance.focused,
             'p-password-fluid': instance.hasFluid
         }
@@ -66,8 +66,8 @@ const classes = {
     rootDirective: ({ instance }) => [
         'p-password p-inputtext p-component p-inputwrapper',
         {
-            'p-inputwrapper-filled': instance.filled,
-            'p-variant-filled': instance.variant === 'filled' || instance.config.inputVariant() === 'filled' || instance.config.inputStyle() === 'filled',
+            'p-inputwrapper-filled': instance.$filled(),
+            'p-variant-filled': instance.$variant() === 'filled',
             'p-password-fluid-directive': instance.hasFluid
         }
     ],

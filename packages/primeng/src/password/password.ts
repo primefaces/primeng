@@ -8,7 +8,6 @@ import {
     ContentChild,
     ContentChildren,
     Directive,
-    DoCheck,
     ElementRef,
     EventEmitter,
     forwardRef,
@@ -30,10 +29,9 @@ import {
     ViewEncapsulation
 } from '@angular/core';
 import { NG_VALUE_ACCESSOR } from '@angular/forms';
-import { absolutePosition, addClass, getOuterWidth, hasClass, isTouchDevice, relativePosition, removeClass } from '@primeuix/utils';
+import { absolutePosition, addClass, cn, getOuterWidth, hasClass, isTouchDevice, relativePosition, removeClass } from '@primeuix/utils';
 import { OverlayService, PrimeTemplate, SharedModule, TranslationKeys } from 'primeng/api';
 import { AutoFocus } from 'primeng/autofocus';
-import { BaseComponent } from 'primeng/basecomponent';
 import { ConnectedOverlayScrollHandler, DomHandler } from 'primeng/dom';
 import { EyeIcon, EyeSlashIcon, TimesIcon } from 'primeng/icons';
 import { InputText } from 'primeng/inputtext';
@@ -41,6 +39,7 @@ import { Nullable, VoidListener } from 'primeng/ts-helpers';
 import { ZIndexUtils } from 'primeng/utils';
 import { Subscription } from 'rxjs';
 import { PasswordStyle } from './style/passwordstyle';
+import { BaseInput } from 'primeng/baseinput';
 
 type Meter = {
     strength: string;
@@ -58,7 +57,7 @@ type Meter = {
     },
     providers: [PasswordStyle]
 })
-export class PasswordDirective extends BaseComponent implements OnDestroy, DoCheck {
+export class PasswordDirective extends BaseInput implements OnDestroy {
     /**
      * Text to prompt password entry. Defaults to PrimeNG I18N API configuration.
      * @group Props
@@ -91,16 +90,6 @@ export class PasswordDirective extends BaseComponent implements OnDestroy, DoChe
     @Input() set showPassword(show: boolean) {
         this.el.nativeElement.type = show ? 'text' : 'password';
     }
-    /**
-     * Specifies the input variant of the component.
-     * @group Props
-     */
-    @Input() variant: 'filled' | 'outlined';
-    /**
-     * Spans 100% width of the container when enabled.
-     * @group Props
-     */
-    @Input({ transform: booleanAttribute }) fluid: boolean = false;
 
     panel: Nullable<HTMLDivElement>;
 
@@ -120,27 +109,13 @@ export class PasswordDirective extends BaseComponent implements OnDestroy, DoChe
 
     _componentStyle = inject(PasswordStyle);
 
-    get hasFluid() {
-        const nativeElement = this.el.nativeElement;
-        const fluidComponent = nativeElement.closest('p-fluid');
-        return this.fluid || !!fluidComponent;
-    }
-
     constructor(public zone: NgZone) {
         super();
     }
 
-    ngDoCheck() {
-        this.updateFilledState();
-    }
-
     @HostListener('input', ['$event'])
     onInput(e: Event) {
-        this.updateFilledState();
-    }
-
-    updateFilledState() {
-        this.filled = this.el.nativeElement.value && this.el.nativeElement.value.length;
+        this.writeModelValue(this.el.nativeElement.value);
     }
 
     createPanel() {
@@ -304,10 +279,6 @@ export class PasswordDirective extends BaseComponent implements OnDestroy, DoChe
         else return 1 + 0.5 * (x / (x + y / 4));
     }
 
-    get disabled(): boolean {
-        return this.el.nativeElement.disabled;
-    }
-
     bindScrollListener() {
         if (!this.scrollHandler) {
             this.scrollHandler = new ConnectedOverlayScrollHandler(this.el.nativeElement, () => {
@@ -402,15 +373,20 @@ export const Password_VALUE_ACCESSOR: any = {
             [attr.id]="inputId"
             [attr.tabindex]="tabindex"
             pInputText
-            [disabled]="disabled"
-            [pSize]="size"
+            [disabled]="disabled()"
+            [pSize]="size()"
             [ngStyle]="inputStyle"
             [class]="cn(cx('pcInputText'), inputStyleClass)"
             [attr.type]="unmasked | mapper: inputType"
             [attr.placeholder]="placeholder"
             [attr.autocomplete]="autocomplete"
             [value]="value"
-            [variant]="variant"
+            [variant]="$variant()"
+            [name]="name()"
+            [required]="required()"
+            [maxlength]="maxlength()"
+            [minlength]="minlength()"
+            [invalid]="invalid()"
             (input)="onInput($event)"
             (focus)="onInputFocus($event)"
             (blur)="onInputBlur($event)"
@@ -480,17 +456,12 @@ export const Password_VALUE_ACCESSOR: any = {
         'data-pc-section': 'root'
     }
 })
-export class Password extends BaseComponent implements OnInit, AfterContentInit {
+export class Password extends BaseInput implements OnInit, AfterContentInit {
     /**
      * Defines a string that labels the input for accessibility.
      * @group Props
      */
     @Input() ariaLabel: string | undefined;
-    /**
-     * Whether the component should span the full width of its parent.
-     * @group Props
-     */
-    @Input({ transform: booleanAttribute }) fluid: boolean | undefined;
     /**
      * Specifies one or more IDs in the DOM that labels the input field.
      * @group Props
@@ -501,11 +472,6 @@ export class Password extends BaseComponent implements OnInit, AfterContentInit 
      * @group Props
      */
     @Input() label: string | undefined;
-    /**
-     * Indicates whether the component is disabled or not.
-     * @group Props
-     */
-    @Input({ transform: booleanAttribute }) disabled: boolean | undefined;
     /**
      * Text to prompt password entry. Defaults to PrimeNG I18N API configuration.
      * @group Props
@@ -562,11 +528,6 @@ export class Password extends BaseComponent implements OnInit, AfterContentInit 
      */
     @Input({ transform: booleanAttribute }) toggleMask: boolean | undefined;
     /**
-     * Defines the size of the component.
-     * @group Props
-     */
-    @Input() size: 'large' | 'small';
-    /**
      * Style class of the input field.
      * @group Props
      */
@@ -612,11 +573,6 @@ export class Password extends BaseComponent implements OnInit, AfterContentInit 
      * @group Props
      */
     @Input({ transform: booleanAttribute }) autofocus: boolean | undefined;
-    /**
-     * Specifies the input variant of the component.
-     * @group Props
-     */
-    @Input() variant: 'filled' | 'outlined';
     /**
      * Index of the element in tabbing order.
      * @group Props
@@ -697,12 +653,6 @@ export class Password extends BaseComponent implements OnInit, AfterContentInit 
     translationSubscription: Nullable<Subscription>;
 
     _componentStyle = inject(PasswordStyle);
-
-    get hasFluid() {
-        const nativeElement = this.el.nativeElement;
-        const fluidComponent = nativeElement.closest('p-fluid');
-        return this.fluid || !!fluidComponent;
-    }
 
     overlayService = inject(OverlayService);
 
@@ -899,7 +849,7 @@ export class Password extends BaseComponent implements OnInit, AfterContentInit 
         else this.value = value;
 
         if (this.feedback) this.updateUI(this.value || '');
-
+        this.writeModelValue(this.value);
         this.cd.markForCheck();
     }
 
@@ -909,11 +859,6 @@ export class Password extends BaseComponent implements OnInit, AfterContentInit 
 
     registerOnTouched(fn: Function): void {
         this.onModelTouched = fn;
-    }
-
-    setDisabledState(val: boolean): void {
-        this.disabled = val;
-        this.cd.markForCheck();
     }
 
     bindScrollListener() {
@@ -954,10 +899,6 @@ export class Password extends BaseComponent implements OnInit, AfterContentInit 
             this.resizeListener();
             this.resizeListener = null;
         }
-    }
-
-    filled() {
-        return this.value != null && this.value.toString().length > 0;
     }
 
     promptText() {
@@ -1018,6 +959,8 @@ export class Password extends BaseComponent implements OnInit, AfterContentInit 
 
         super.ngOnDestroy();
     }
+
+    protected readonly cn = cn;
 }
 
 @NgModule({
