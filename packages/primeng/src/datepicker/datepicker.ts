@@ -28,9 +28,8 @@ import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
 import { absolutePosition, addClass, addStyle, appendChild, find, findSingle, getFocusableElements, getIndex, getOuterWidth, hasClass, isDate, isNotEmpty, isTouchDevice, relativePosition, setAttribute, uuid } from '@primeuix/utils';
 import { OverlayService, PrimeTemplate, SharedModule, TranslationKeys } from 'primeng/api';
 import { AutoFocus } from 'primeng/autofocus';
-import { BaseComponent } from 'primeng/basecomponent';
 import { Button } from 'primeng/button';
-import { ConnectedOverlayScrollHandler, unblockBodyScroll, blockBodyScroll } from 'primeng/dom';
+import { blockBodyScroll, ConnectedOverlayScrollHandler, unblockBodyScroll } from 'primeng/dom';
 import { CalendarIcon, ChevronDownIcon, ChevronLeftIcon, ChevronRightIcon, ChevronUpIcon, TimesIcon } from 'primeng/icons';
 import { InputText } from 'primeng/inputtext';
 import { Ripple } from 'primeng/ripple';
@@ -72,7 +71,7 @@ export const DATEPICKER_VALUE_ACCESSOR: any = {
                 [attr.aria-controls]="overlayVisible ? panelId : null"
                 [attr.aria-labelledby]="ariaLabelledBy"
                 [attr.aria-label]="ariaLabel"
-                [value]="inputFieldValue"
+                [value]="modelValue()"
                 (focus)="onInputFocus($event)"
                 (keydown)="onInputKeydown($event)"
                 (click)="onInputClick()"
@@ -1031,10 +1030,6 @@ export class DatePicker extends BaseInput implements OnInit, AfterContentInit, A
 
     isKeydown: Nullable<boolean>;
 
-    filled: Nullable<boolean>;
-
-    inputFieldValue: Nullable<string> = null;
-
     _minDate?: Date | null;
 
     _maxDate?: Date | null;
@@ -1672,11 +1667,7 @@ export class DatePicker extends BaseInput implements OnInit, AfterContentInit, A
             }
         }
 
-        this.inputFieldValue = formattedValue;
-        this.updateFilledState();
-        if (this.inputfieldViewChild && this.inputfieldViewChild.nativeElement) {
-            this.inputfieldViewChild.nativeElement.value = this.inputFieldValue;
-        }
+        this.writeModelValue(formattedValue);
     }
 
     formatDateTime(date: any) {
@@ -1784,6 +1775,7 @@ export class DatePicker extends BaseInput implements OnInit, AfterContentInit, A
         this.value = value;
 
         if (this.dataType == 'date') {
+            this.writeModelValue(this.value);
             this.onModelChange(this.value);
         } else if (this.dataType == 'string') {
             if (this.isSingleSelection()) {
@@ -1793,6 +1785,7 @@ export class DatePicker extends BaseInput implements OnInit, AfterContentInit, A
                 if (Array.isArray(this.value)) {
                     stringArrValue = this.value.map((date: Date) => this.formatDateTime(date));
                 }
+                this.writeModelValue(stringArrValue);
                 this.onModelChange(stringArrValue);
             }
         }
@@ -2064,6 +2057,7 @@ export class DatePicker extends BaseInput implements OnInit, AfterContentInit, A
 
     clear() {
         this.value = null;
+        this.writeModelValue(this.value);
         this.onModelChange(this.value);
         this.updateInputfield();
         this.onClear.emit();
@@ -2950,7 +2944,6 @@ export class DatePicker extends BaseInput implements OnInit, AfterContentInit, A
             this.updateModel(value);
         }
 
-        this.filled = (val != null && val.length) as any;
         this.onInput.emit(event);
     }
 
@@ -3585,10 +3578,6 @@ export class DatePicker extends BaseInput implements OnInit, AfterContentInit, A
         date.setHours(date.getHours() > 12 ? date.getHours() + 2 : 0);
 
         return date;
-    }
-
-    updateFilledState() {
-        this.filled = (this.inputFieldValue && this.inputFieldValue != '') as boolean;
     }
 
     isValidDateForTimeConstraints(selectedDate: Date) {
