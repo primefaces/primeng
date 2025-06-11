@@ -78,6 +78,8 @@ export interface InputOtpInputTemplateContext {
                     [invalid]="invalid()"
                     [readonly]="readonly"
                     [disabled]="disabled()"
+                    [name]="name()"
+                    [required]="required()"
                     [tabindex]="tabindex"
                     (input)="onInput($event, i - 1)"
                     (focus)="onInputFocus($event)"
@@ -229,6 +231,7 @@ export class InputOtp extends BaseInput implements AfterContentInit {
 
     updateModel(event: any) {
         const newValue = this.tokens.join('');
+        this.writeModelValue(newValue);
         this.onModelChange(newValue);
 
         this.onChange.emit({
@@ -247,6 +250,7 @@ export class InputOtp extends BaseInput implements AfterContentInit {
         } else {
             this.value = value;
         }
+        this.writeModelValue(this.value);
         this.updateTokens();
         this.cd.markForCheck();
     }
