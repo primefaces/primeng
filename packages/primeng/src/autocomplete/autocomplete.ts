@@ -27,7 +27,7 @@ import {
     ViewEncapsulation
 } from '@angular/core';
 import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
-import { cn, equals, findLastIndex, findSingle, focus, isEmpty, isNotEmpty, resolveFieldData, uuid } from '@primeuix/utils';
+import { equals, findLastIndex, findSingle, focus, isEmpty, isNotEmpty, resolveFieldData, uuid } from '@primeuix/utils';
 import { OverlayOptions, OverlayService, PrimeTemplate, ScrollerOptions, SharedModule, TranslationKeys } from 'primeng/api';
 import { AutoFocus } from 'primeng/autofocus';
 import { Chip } from 'primeng/chip';
@@ -1679,8 +1679,6 @@ export class AutoComplete extends BaseInput implements AfterViewChecked, AfterCo
 
         super.ngOnDestroy();
     }
-
-    protected readonly cn = cn;
 }
 
 @NgModule({

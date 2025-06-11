@@ -29,7 +29,7 @@ import {
     ViewEncapsulation
 } from '@angular/core';
 import { NG_VALUE_ACCESSOR } from '@angular/forms';
-import { absolutePosition, addClass, cn, getOuterWidth, hasClass, isTouchDevice, relativePosition, removeClass } from '@primeuix/utils';
+import { absolutePosition, addClass, getOuterWidth, hasClass, isTouchDevice, relativePosition, removeClass } from '@primeuix/utils';
 import { OverlayService, PrimeTemplate, SharedModule, TranslationKeys } from 'primeng/api';
 import { AutoFocus } from 'primeng/autofocus';
 import { ConnectedOverlayScrollHandler, DomHandler } from 'primeng/dom';
@@ -959,8 +959,6 @@ export class Password extends BaseInput implements OnInit, AfterContentInit {
 
         super.ngOnDestroy();
     }
-
-    protected readonly cn = cn;
 }
 
 @NgModule({
