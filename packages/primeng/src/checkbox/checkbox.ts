@@ -188,7 +188,7 @@ export class Checkbox extends BaseInput implements AfterContentInit, ControlValu
     @ViewChild('input') inputViewChild: Nullable<ElementRef>;
 
     get checked() {
-        return this._indeterminate() ? false : this.binary ? this.model === this.trueValue : contains(this.value, this.model);
+        return this._indeterminate() ? false : this.binary ? this.modelValue() === this.trueValue : contains(this.value, this.modelValue());
     }
 
     _indeterminate = signal<any>(undefined);
@@ -201,8 +201,6 @@ export class Checkbox extends BaseInput implements AfterContentInit, ControlValu
     @ContentChildren(PrimeTemplate) templates: Nullable<QueryList<PrimeTemplate>>;
 
     _checkboxIconTemplate: TemplateRef<any> | undefined;
-
-    model: any;
 
     onModelChange: Function = () => {};
 
@@ -242,21 +240,21 @@ export class Checkbox extends BaseInput implements AfterContentInit, ControlValu
          * */
         const selfControl = this.injector.get<NgControl | null>(NgControl, null, { optional: true, self: true });
 
-        const currentModelValue = selfControl && !this.formControl ? selfControl.value : this.model;
+        const currentModelValue = selfControl && !this.formControl ? selfControl.value : this.modelValue();
 
         if (!this.binary) {
             if (this.checked || this._indeterminate()) newModelValue = currentModelValue.filter((val) => !equals(val, this.value));
             else newModelValue = currentModelValue ? [...currentModelValue, this.value] : [this.value];
 
             this.onModelChange(newModelValue);
-            this.model = newModelValue;
+            this.writeModelValue(newModelValue);
 
             if (this.formControl) {
                 this.formControl.setValue(newModelValue);
             }
         } else {
             newModelValue = this._indeterminate() ? this.trueValue : this.checked ? this.falseValue : this.trueValue;
-            this.model = newModelValue;
+            this.writeModelValue(newModelValue);
             this.onModelChange(newModelValue);
         }
 
@@ -289,7 +287,7 @@ export class Checkbox extends BaseInput implements AfterContentInit, ControlValu
     }
 
     writeValue(model: any): void {
-        this.model = model;
+        this.writeModelValue(model);
         this.cd.markForCheck();
     }
 
