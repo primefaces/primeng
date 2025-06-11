@@ -34,11 +34,6 @@ export const KNOB_VALUE_ACCESSOR: any = {
             (touchend)="onTouchEnd($event)"
             [attr.aria-valuemin]="min()"
             [attr.aria-valuemax]="max()"
-            [attr.min]="min()"
-            [attr.max]="max()"
-            [attr.step]="step()"
-            [attr.name]="name()"
-            [attr.disabled]="disabled()"
             [attr.required]="required()"
             [attr.aria-valuenow]="_value"
             [attr.aria-labelledby]="ariaLabelledBy"
@@ -59,7 +54,12 @@ export const KNOB_VALUE_ACCESSOR: any = {
     host: {
         '[attr.data-pc-name]': "'knob'",
         '[attr.data-pc-section]': "'root'",
-        '[class]': "cn(cx('root'), styleClass)"
+        '[class]': "cn(cx('root'), styleClass)",
+        '[attr.disabled]': 'disabled()',
+        '[attr.name]': 'name()',
+        '[attr.min]': 'min()',
+        '[attr.required]': 'required()',
+        '[attr.step]': 'step()'
     }
 })
 export class Knob extends BaseInput {
