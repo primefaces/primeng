@@ -58,6 +58,7 @@ export const TOGGLESWITCH_VALUE_ACCESSOR: any = {
             [class]="cx('input')"
             [checked]="checked()"
             [disabled]="disabled()"
+            [required]="required()"
             [attr.aria-checked]="checked()"
             [attr.aria-labelledby]="ariaLabelledBy"
             [attr.aria-label]="ariaLabel"
@@ -155,8 +156,6 @@ export class ToggleSwitch extends BaseInput implements AfterContentInit {
 
     _handleTemplate: TemplateRef<any> | undefined;
 
-    modelValue: any = false;
-
     focused: boolean = false;
 
     onModelChange: Function = () => {};
@@ -187,12 +186,12 @@ export class ToggleSwitch extends BaseInput implements AfterContentInit {
 
     onClick(event: Event) {
         if (!this.disabled() && !this.readonly) {
-            this.modelValue = this.checked() ? this.falseValue : this.trueValue;
+            this.writeModelValue(this.checked() ? this.falseValue : this.trueValue);
 
-            this.onModelChange(this.modelValue);
+            this.onModelChange(this.modelValue());
             this.onChange.emit({
                 originalEvent: event,
-                checked: this.modelValue
+                checked: this.modelValue()
             });
 
             this.input.nativeElement.focus();
@@ -209,7 +208,7 @@ export class ToggleSwitch extends BaseInput implements AfterContentInit {
     }
 
     writeValue(value: any): void {
-        this.modelValue = value;
+        this.writeModelValue(value);
         this.cd.markForCheck();
     }
 
@@ -222,7 +221,7 @@ export class ToggleSwitch extends BaseInput implements AfterContentInit {
     }
 
     checked() {
-        return this.modelValue === this.trueValue;
+        return this.modelValue() === this.trueValue;
     }
 }
 
