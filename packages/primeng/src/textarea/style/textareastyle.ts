@@ -19,13 +19,14 @@ const classes = {
     root: ({ instance }) => [
         'p-textarea p-component',
         {
-            'p-filled': instance.filled,
+            'p-filled': instance.$filled(),
             'p-textarea-resizable ': instance.autoResize,
             'p-variant-filled': instance.$variant() === 'filled',
             'p-textarea-fluid': instance.hasFluid,
-            'p-inputfield-sm p-textarea-sm': instance.pSize === 'small',
-            'p-textarea-lg p-inputfield-lg': instance.pSize === 'large',
-            'p-invalid': instance.invalid()
+            'p-inputfield-sm p-textarea-sm': instance.size() === 'small',
+            'p-textarea-lg p-inputfield-lg': instance.size() === 'large',
+            'p-invalid': instance.invalid(),
+            'p-disabled': instance.disabled()
         }
     ]
 };

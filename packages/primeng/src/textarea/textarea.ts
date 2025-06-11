@@ -1,5 +1,5 @@
-import { AfterViewInit, booleanAttribute, Directive, EventEmitter, HostListener, inject, Input, NgModule, OnDestroy, OnInit, Optional, Output } from '@angular/core';
-import { NgControl, NgModel } from '@angular/forms';
+import { AfterViewInit, booleanAttribute, Directive, EventEmitter, HostListener, inject, Input, NgModule, OnDestroy, OnInit, Output } from '@angular/core';
+import { NgControl } from '@angular/forms';
 import { Subscription } from 'rxjs';
 import { TextareaStyle } from './style/textareastyle';
 import { BaseInput } from 'primeng/baseinput';
@@ -12,7 +12,15 @@ import { BaseInput } from 'primeng/baseinput';
     selector: '[pTextarea], [pInputTextarea]',
     standalone: true,
     host: {
-        '[class]': "cx('root')"
+        '[class]': "cx('root')",
+        '[attr.pattern]': 'pattern()',
+        '[attr.min]': 'min()',
+        '[attr.max]': 'max()',
+        '[attr.maxlength]': 'maxlength()',
+        '[attr.size]': 'size()',
+        '[attr.required]': 'required()',
+        '[attr.disabled]': 'disabled()',
+        '[attr.name]': 'name()'
     },
     providers: [TextareaStyle]
 })
@@ -34,33 +42,18 @@ export class Textarea extends BaseInput implements OnInit, AfterViewInit, OnDest
      */
     @Output() onResize: EventEmitter<Event | {}> = new EventEmitter<Event | {}>();
 
-    filled: boolean | undefined;
-
-    cachedScrollHeight: number | undefined;
-
     ngModelSubscription: Subscription | undefined;
 
     ngControlSubscription: Subscription | undefined;
 
     _componentStyle = inject(TextareaStyle);
 
-    constructor(
-        @Optional() public ngModel: NgModel,
-        @Optional() public control: NgControl
-    ) {
-        super();
-    }
+    ngControl = inject(NgControl, { optional: true, self: true });
 
     ngOnInit() {
         super.ngOnInit();
-        if (this.ngModel) {
-            this.ngModelSubscription = (this.ngModel as any).valueChanges.subscribe(() => {
-                this.updateState();
-            });
-        }
-
-        if (this.control) {
-            this.ngControlSubscription = (this.control as any).valueChanges.subscribe(() => {
+        if (this.ngControl) {
+            this.ngControlSubscription = (this.ngControl as any).valueChanges.subscribe(() => {
                 this.updateState();
             });
         }
@@ -70,7 +63,6 @@ export class Textarea extends BaseInput implements OnInit, AfterViewInit, OnDest
         super.ngAfterViewInit();
         if (this.autoResize) this.resize();
 
-        this.updateFilledState();
         this.cd.detectChanges();
     }
 
@@ -80,11 +72,8 @@ export class Textarea extends BaseInput implements OnInit, AfterViewInit, OnDest
 
     @HostListener('input', ['$event'])
     onInput(e: Event) {
+        this.writeModelValue(e.target['value']);
         this.updateState();
-    }
-
-    updateFilledState() {
-        this.filled = this.el.nativeElement.value && this.el.nativeElement.value.length;
     }
 
     resize(event?: Event) {
@@ -102,8 +91,6 @@ export class Textarea extends BaseInput implements OnInit, AfterViewInit, OnDest
     }
 
     updateState() {
-        this.updateFilledState();
-
         if (this.autoResize) {
             this.resize();
         }
