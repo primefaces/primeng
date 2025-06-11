@@ -39,7 +39,6 @@ import {
     inject,
     Input,
     NgModule,
-    numberAttribute,
     OnInit,
     Output,
     QueryList,
@@ -78,21 +77,22 @@ export const INPUTMASK_VALUE_ACCESSOR: any = {
             [class]="cx('root')"
             [attr.id]="inputId"
             [attr.type]="type"
-            [attr.name]="name()"
+            [name]="name()"
             [invalid]="invalid()"
             [ngStyle]="style"
             [attr.placeholder]="placeholder"
             [attr.title]="title"
             [pSize]="size()"
             [attr.autocomplete]="autocomplete"
-            [attr.maxlength]="maxlength()"
+            [maxlength]="maxlength()"
+            [minlength]="minlength()"
             [attr.tabindex]="tabindex"
             [attr.aria-label]="ariaLabel"
             [attr.aria-labelledBy]="ariaLabelledBy"
             [attr.aria-required]="ariaRequired"
             [disabled]="disabled()"
             [readonly]="readonly"
-            [attr.required]="required()"
+            [required]="required()"
             (focus)="onInputFocus($event)"
             (blur)="onInputBlur($event)"
             (keydown)="onInputKeydown($event)"
@@ -104,7 +104,7 @@ export const INPUTMASK_VALUE_ACCESSOR: any = {
             [attr.data-pc-name]="'inputmask'"
             [attr.data-pc-section]="'root'"
         />
-        <ng-container *ngIf="value != null && filled && showClear && !disabled">
+        <ng-container *ngIf="value != null && $filled() && showClear && !disabled()">
             <TimesIcon *ngIf="!clearIconTemplate && !_clearIconTemplate" [styleClass]="cx('clearIcon')" (click)="clear()" [attr.data-pc-section]="'clearIcon'" />
             <span *ngIf="clearIconTemplate || _clearIconTemplate" [class]="cx('clearIcon')" (click)="clear()" [attr.data-pc-section]="'clearIcon'">
                 <ng-template *ngTemplateOutlet="clearIconTemplate || _clearIconTemplate"></ng-template>
@@ -288,8 +288,6 @@ export class InputMask extends BaseInput implements OnInit, AfterContentInit, Co
 
     input: Nullable<HTMLInputElement>;
 
-    filled: Nullable<boolean>;
-
     defs: Nullable<{ [klass: string]: any }>;
 
     tests: RegExp[] | any;
@@ -383,6 +381,7 @@ export class InputMask extends BaseInput implements OnInit, AfterContentInit, Co
 
     writeValue(value: any): void {
         this.value = value;
+        this.writeModelValue(this.value);
 
         if (this.inputViewChild && this.inputViewChild.nativeElement) {
             if (this.value == undefined || this.value == null) this.inputViewChild.nativeElement.value = '';
@@ -390,7 +389,6 @@ export class InputMask extends BaseInput implements OnInit, AfterContentInit, Co
 
             this.checkVal();
             this.focusText = this.inputViewChild.nativeElement.value;
-            this.updateFilledState();
         }
     }
 
@@ -541,10 +539,9 @@ export class InputMask extends BaseInput implements OnInit, AfterContentInit, Co
         if (!this.keepBuffer) {
             this.checkVal();
         }
-        this.updateFilledState();
         this.onBlur.emit(e);
 
-        if (this.inputViewChild?.nativeElement.value != this.focusText || this.inputViewChild?.nativeElement.value != this.value) {
+        if (this.modelValue() != this.focusText || this.modelValue() != this.value) {
             this.updateModel(e);
             let event = this.document.createEvent('HTMLEvents');
             event.initEvent('change', true, false);
@@ -656,8 +653,6 @@ export class InputMask extends BaseInput implements OnInit, AfterContentInit, Co
         }
 
         this.updateModel(e);
-
-        this.updateFilledState();
 
         if (completed) {
             this.onComplete.emit();
@@ -800,13 +795,9 @@ export class InputMask extends BaseInput implements OnInit, AfterContentInit, Co
         const updatedValue = this.unmask ? this.getUnmaskedValue() : (e.target as HTMLInputElement).value;
         if (updatedValue !== null || updatedValue !== undefined) {
             this.value = updatedValue;
+            this.writeModelValue(this.value);
             this.onModelChange(this.value);
         }
-    }
-
-    updateFilledState() {
-        this.filled = this.inputViewChild?.nativeElement && this.inputViewChild.nativeElement.value != '';
-        this.cd.markForCheck();
     }
 
     focus() {

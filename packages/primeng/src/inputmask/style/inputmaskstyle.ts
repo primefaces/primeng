@@ -40,7 +40,7 @@ const classes = {
     root: ({ instance }) => [
         'p-inputmask',
         {
-            'p-filled': instance.$variant === 'filled'
+            'p-variant-filled': instance.$variant() === 'filled'
         }
     ],
     clearIcon: 'p-inputmask-clear-icon'
