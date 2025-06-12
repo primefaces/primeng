@@ -9,23 +9,24 @@ import { MessageService } from 'primeng/api';
         <app-docsectiontext> </app-docsectiontext>
         <p-toast />
         <div class="card flex justify-center">
-            <form #exampleForm="ngForm" (ngSubmit)="onSubmit(exampleForm)" class="flex flex-col gap-4">
+            <form #exampleForm="ngForm" (ngSubmit)="onSubmit(exampleForm)" class="flex justify-center flex-col gap-4 md:w-56">
                 <div class="flex flex-col gap-1">
-                    <p-togglebutton name="consent" #model="ngModel" [(ngModel)]="checked" [invalid]="model.invalid && (model.touched || exampleForm.submitted)" name="country" onLabel="Accept All" offLabel="Reject All" required />
+                    <p-password #model="ngModel" [(ngModel)]="value" [invalid]="model.invalid && (model.touched || exampleForm.submitted)" name="password" [feedback]="false" autocomplete="off" required />
+
                     @if (model.invalid && (model.touched || exampleForm.submitted)) {
-                        <p-message severity="error" size="small" variant="simple">Consent is mandatory.</p-message>
+                        <p-message severity="error" size="small" variant="simple">Password is required.</p-message>
                     }
                 </div>
                 <button pButton severity="secondary" type="submit"><span pButtonLabel>Submit</span></button>
             </form>
         </div>
-        <app-code [code]="code" selector="toggle-button-template-driven-forms-demo"></app-code>
+        <app-code [code]="code" selector="password-template-driven-forms-demo"></app-code>
     `
 })
 export class TemplateDrivenFormsDoc {
     messageService = inject(MessageService);
 
-    checked: boolean = false;
+    value: any;
 
     onSubmit(form: any) {
         if (form.valid) {
@@ -35,11 +36,12 @@ export class TemplateDrivenFormsDoc {
     }
 
     code: Code = {
-        basic: `<form #exampleForm="ngForm" (ngSubmit)="onSubmit(exampleForm)" class="flex flex-col gap-4">
+        basic: `<form #exampleForm="ngForm" (ngSubmit)="onSubmit(exampleForm)" class="flex justify-center flex-col gap-4 md:w-56">
     <div class="flex flex-col gap-1">
-        <p-togglebutton name="consent" #model="ngModel" [(ngModel)]="checked" [invalid]="model.invalid && (model.touched || exampleForm.submitted)" name="country" onLabel="Accept All" offLabel="Reject All" required />
+        <p-password #model="ngModel" [(ngModel)]="value" [invalid]="model.invalid && (model.touched || exampleForm.submitted)" name="password" [feedback]="false" autocomplete="off" required />
+
         @if (model.invalid && (model.touched || exampleForm.submitted)) {
-            <p-message severity="error" size="small" variant="simple">Consent is mandatory.</p-message>
+            <p-message severity="error" size="small" variant="simple">Password is required.</p-message>
         }
     </div>
     <button pButton severity="secondary" type="submit"><span pButtonLabel>Submit</span></button>
@@ -47,11 +49,12 @@ export class TemplateDrivenFormsDoc {
 
         html: `<p-toast />
 <div class="card flex justify-center">
-    <form #exampleForm="ngForm" (ngSubmit)="onSubmit(exampleForm)" class="flex flex-col gap-4">
+    <form #exampleForm="ngForm" (ngSubmit)="onSubmit(exampleForm)" class="flex justify-center flex-col gap-4 md:w-56">
         <div class="flex flex-col gap-1">
-            <p-togglebutton name="consent" #model="ngModel" [(ngModel)]="checked" [invalid]="model.invalid && (model.touched || exampleForm.submitted)" name="country" onLabel="Accept All" offLabel="Reject All" required />
+            <p-password #model="ngModel" [(ngModel)]="value" [invalid]="model.invalid && (model.touched || exampleForm.submitted)" name="password" [feedback]="false" autocomplete="off" required />
+
             @if (model.invalid && (model.touched || exampleForm.submitted)) {
-                <p-message severity="error" size="small" variant="simple">Consent is mandatory.</p-message>
+                <p-message severity="error" size="small" variant="simple">Password is required.</p-message>
             }
         </div>
         <button pButton severity="secondary" type="submit"><span pButtonLabel>Submit</span></button>
@@ -60,22 +63,22 @@ export class TemplateDrivenFormsDoc {
 
         typescript: `import { Component, inject } from '@angular/core';
 import { FormsModule } from '@angular/forms';
-import { ToggleButtonModule } from 'primeng/togglebutton';
+import { PasswordModule } from 'primeng/password';
 import { MessageModule } from 'primeng/message';
 import { ToastModule } from 'primeng/toast';
 import { MessageService } from 'primeng/api';
 import { ButtonModule } from 'primeng/button';
 
 @Component({
-    selector: 'toggle-button-template-driven-forms-demo',
-    templateUrl: './toggle-button-template-driven-forms-demo.html',
+    selector: 'password-template-driven-forms-demo',
+    templateUrl: './password-template-driven-forms-demo.html',
     standalone: true,
-    imports: [FormsModule, ToggleButtonModule, MessageModule, ToastModule, ButtonModule]
+    imports: [FormsModule, PasswordModule, MessageModule, ToastModule, ButtonModule]
 })
 export class TemplateDrivenFormsDemo {
     messageService = inject(MessageService);
 
-    checked: boolean = false;
+    value: any;
 
     onSubmit(form: any) {
         if (form.valid) {

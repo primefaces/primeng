@@ -11,21 +11,20 @@ import { MessageService } from 'primeng/api';
         <div class="card flex justify-center">
             <form #exampleForm="ngForm" (ngSubmit)="onSubmit(exampleForm)" class="flex justify-center flex-col gap-4 md:w-56">
                 <div class="flex flex-col gap-1">
-                    <p-inputmask name="serial" mask="99-999999" #serialNumber="ngModel" [(ngModel)]="value" placeholder="99-999999" [invalid]="serialNumber.invalid && (serialNumber.touched || exampleForm.submitted)" required />
-                    @if (serialNumber.invalid && (serialNumber.touched || exampleForm.submitted)) {
-                        <p-message severity="error" size="small" variant="simple">Serial number is required.</p-message>
+                    <p-inputotp #otpModel="ngModel" [(ngModel)]="value" [invalid]="otpModel.invalid && (otpModel.touched || exampleForm.submitted)" name="value" required [minlength]="4" />
+
+                    @if (otpModel.invalid && (otpModel.touched || exampleForm.submitted)) {
+                        <p-message severity="error" size="small" variant="simple">Passcode is required.</p-message>
                     }
                 </div>
                 <button pButton severity="secondary" type="submit"><span pButtonLabel>Submit</span></button>
             </form>
         </div>
-        <app-code [code]="code" selector="input-mask-template-driven-forms-demo"></app-code>
+        <app-code [code]="code" selector="input-otp-template-driven-forms-demo"></app-code>
     `
 })
 export class TemplateDrivenFormsDoc {
     messageService = inject(MessageService);
-
-    items: any[] = [];
 
     value: any;
 
@@ -39,44 +38,45 @@ export class TemplateDrivenFormsDoc {
     code: Code = {
         basic: `<form #exampleForm="ngForm" (ngSubmit)="onSubmit(exampleForm)" class="flex justify-center flex-col gap-4 md:w-56">
     <div class="flex flex-col gap-1">
-        <p-inputmask name="serial" mask="99-999999" #serialNumber="ngModel" [(ngModel)]="value" placeholder="99-999999" [invalid]="serialNumber.invalid && (serialNumber.touched || exampleForm.submitted)" required />
-        @if (serialNumber.invalid && (serialNumber.touched || exampleForm.submitted)) {
-            <p-message severity="error" size="small" variant="simple">Serial number is required.</p-message>
+        <p-inputotp #otpModel="ngModel" [(ngModel)]="value" [invalid]="otpModel.invalid && (otpModel.touched || exampleForm.submitted)" name="value" required [minlength]="4" />
+
+        @if (otpModel.invalid && (otpModel.touched || exampleForm.submitted)) {
+            <p-message severity="error" size="small" variant="simple">Passcode is required.</p-message>
         }
     </div>
     <button pButton severity="secondary" type="submit"><span pButtonLabel>Submit</span></button>
 </form>`,
 
-        html: `<div class="card flex justify-center">
+        html: `<p-toast />
+<div class="card flex justify-center">
     <form #exampleForm="ngForm" (ngSubmit)="onSubmit(exampleForm)" class="flex justify-center flex-col gap-4 md:w-56">
         <div class="flex flex-col gap-1">
-            <p-inputmask name="serial" mask="99-999999" #serialNumber="ngModel" [(ngModel)]="value" placeholder="99-999999" [invalid]="serialNumber.invalid && (serialNumber.touched || exampleForm.submitted)" required />
-            @if (serialNumber.invalid && (serialNumber.touched || exampleForm.submitted)) {
-                <p-message severity="error" size="small" variant="simple">Serial number is required.</p-message>
+            <p-inputotp #otpModel="ngModel" [(ngModel)]="value" [invalid]="otpModel.invalid && (otpModel.touched || exampleForm.submitted)" name="value" required [minlength]="4" />
+
+            @if (otpModel.invalid && (otpModel.touched || exampleForm.submitted)) {
+                <p-message severity="error" size="small" variant="simple">Passcode is required.</p-message>
             }
         </div>
         <button pButton severity="secondary" type="submit"><span pButtonLabel>Submit</span></button>
     </form>
 </div>`,
 
-        typescript: `import { Component, inject} from '@angular/core';
-import { InputMaskModule } from 'primeng/inputmask';
-import { MessageService } from 'primeng/api';
+        typescript: `import { Component, inject } from '@angular/core';
+import { FormsModule } from '@angular/forms';
 import { MessageModule } from 'primeng/message';
 import { ToastModule } from 'primeng/toast';
+import { MessageService } from 'primeng/api';
 import { ButtonModule } from 'primeng/button';
-import { FormsModule } from '@angular/forms';
+import { InputOtpModule } from 'primeng/inputotp';
 
 @Component({
-    selector: 'input-mask-template-driven-forms-demo',
-    templateUrl: './input-mask-template-driven-forms-demo.html',
+    selector: 'input-otp-template-driven-forms-demo',
+    templateUrl: './input-otp-template-driven-forms-demo.html',
     standalone: true,
-    imports: [FormsModule, InputMaskModule, MessageModule, ToastModule, ButtonModule]
+    imports: [FormsModule, InputOtpModule, MessageModule, ToastModule, ButtonModule]
 })
-export class InputMaskTemplateDrivenFormsDoc {
+export class TemplateDrivenFormsDemo implements OnInit {
     messageService = inject(MessageService);
-
-    items: any[] = [];
 
     value: any;
 

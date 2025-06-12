@@ -1,7 +1,11 @@
 import { Code } from '@/domain/code';
 import { Component, inject } from '@angular/core';
 import { MessageService } from 'primeng/api';
-import { AutoCompleteCompleteEvent } from 'primeng/autocomplete';
+
+interface City {
+    name: string;
+    code: string;
+}
 
 @Component({
     selector: 'template-driven-forms-doc',
@@ -12,8 +16,8 @@ import { AutoCompleteCompleteEvent } from 'primeng/autocomplete';
         <div class="card flex justify-center">
             <form #exampleForm="ngForm" (ngSubmit)="onSubmit(exampleForm)" class="flex justify-center flex-col gap-4 md:w-56">
                 <div class="flex flex-col gap-1">
-                    <p-autocomplete #country="ngModel" [(ngModel)]="value" [suggestions]="items" [invalid]="country.invalid && (country.touched || exampleForm.submitted)" name="country" (completeMethod)="search($event)" required fluid />
-                    @if (country.invalid && (country.touched || exampleForm.submitted)) {
+                    <p-listbox #country="ngModel" [options]="cities" [(ngModel)]="selectedCity" optionLabel="name" class="w-full md:w-56" [invalid]="country.invalid && exampleForm.submitted" name="country" required />
+                    @if (country.invalid && exampleForm.submitted) {
                         <p-message severity="error" size="small" variant="simple">Country is required.</p-message>
                     }
                 </div>
@@ -26,12 +30,18 @@ import { AutoCompleteCompleteEvent } from 'primeng/autocomplete';
 export class TemplateDrivenFormsDoc {
     messageService = inject(MessageService);
 
-    items: any[] = [];
+    selectedCity!: City;
 
-    value: any;
+    cities!: City[];
 
-    search(event: AutoCompleteCompleteEvent) {
-        this.items = [...Array(10).keys()].map((item) => event.query + '-' + item);
+    ngOnInit() {
+        this.cities = [
+            { name: 'New York', code: 'NY' },
+            { name: 'Rome', code: 'RM' },
+            { name: 'London', code: 'LDN' },
+            { name: 'Istanbul', code: 'IST' },
+            { name: 'Paris', code: 'PRS' }
+        ];
     }
 
     onSubmit(form: any) {
@@ -44,17 +54,8 @@ export class TemplateDrivenFormsDoc {
     code: Code = {
         basic: `<form #exampleForm="ngForm" (ngSubmit)="onSubmit(exampleForm)" class="flex justify-center flex-col gap-4 md:w-56">
     <div class="flex flex-col gap-1">
-        <p-autocomplete
-            #country="ngModel"
-            [(ngModel)]="value"
-            [suggestions]="items"
-            [invalid]="country.invalid && (country.touched || exampleForm.submitted)"
-            name="country"
-            (completeMethod)="search($event)"
-            required
-            fluid
-        />
-        @if (country.invalid && (country.touched || exampleForm.submitted)) {
+        <p-listbox #country="ngModel" [options]="cities" [(ngModel)]="selectedCity" optionLabel="name" class="w-full md:w-56" [invalid]="country.invalid && exampleForm.submitted" name="country" required />
+        @if (country.invalid && exampleForm.submitted) {
             <p-message severity="error" size="small" variant="simple">Country is required.</p-message>
         }
     </div>
@@ -63,19 +64,10 @@ export class TemplateDrivenFormsDoc {
 
         html: `<p-toast />
 <div class="card flex justify-center">
-    <form #exampleForm="ngForm" (ngSubmit)="onSubmit(exampleForm)" class="flex justify-center flex-col gap-4 w-full md:w-56">
+    <form #exampleForm="ngForm" (ngSubmit)="onSubmit(exampleForm)" class="flex justify-center flex-col gap-4 md:w-56">
         <div class="flex flex-col gap-1">
-            <p-autocomplete
-                #country="ngModel"
-                [(ngModel)]="value"
-                [suggestions]="items"
-                [invalid]="country.invalid && (country.touched || exampleForm.submitted)"
-                name="country"
-                (completeMethod)="search($event)"
-                required
-                fluid
-            />
-            @if (country.invalid && (country.touched || exampleForm.submitted)) {
+            <p-listbox #country="ngModel" [options]="cities" [(ngModel)]="selectedCity" optionLabel="name" class="w-full md:w-56" [invalid]="country.invalid && exampleForm.submitted" name="country" required />
+            @if (country.invalid && exampleForm.submitted) {
                 <p-message severity="error" size="small" variant="simple">Country is required.</p-message>
             }
         </div>
@@ -85,28 +77,38 @@ export class TemplateDrivenFormsDoc {
 
         typescript: `import { Component, inject } from '@angular/core';
 import { FormsModule } from '@angular/forms';
-import { AutoCompleteModule } from 'primeng/autocomplete';
 import { MessageModule } from 'primeng/message';
 import { ToastModule } from 'primeng/toast';
 import { MessageService } from 'primeng/api';
-import { AutoCompleteCompleteEvent } from 'primeng/autocomplete';
 import { ButtonModule } from 'primeng/button';
+import { ListboxModule } from 'primeng/listbox';
+
+interface City {
+    name: string;
+    code: string;
+}
 
 @Component({
     selector: 'autocomplete-template-driven-forms-demo',
     templateUrl: './autocomplete-template-driven-forms-demo.html',
     standalone: true,
-    imports: [FormsModule, AutoCompleteModule, MessageModule, ToastModule, ButtonModule]
+    imports: [FormsModule, MessageModule, ToastModule, ButtonModule, ListboxModule]
 })
 export class TemplateDrivenFormsDemo {
     messageService = inject(MessageService);
 
-    items: any[] = [];
+    selectedCity!: City;
 
-    value: any;
+    cities!: City[];
 
-    search(event: AutoCompleteCompleteEvent) {
-        this.items = [...Array(10).keys()].map((item) => event.query + '-' + item);
+    ngOnInit() {
+        this.cities = [
+            { name: 'New York', code: 'NY' },
+            { name: 'Rome', code: 'RM' },
+            { name: 'London', code: 'LDN' },
+            { name: 'Istanbul', code: 'IST' },
+            { name: 'Paris', code: 'PRS' }
+        ];
     }
 
     onSubmit(form: any) {

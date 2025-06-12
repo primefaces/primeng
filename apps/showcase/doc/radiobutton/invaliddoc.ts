@@ -6,22 +6,22 @@ import { Component } from '@angular/core';
     standalone: false,
     template: `
         <app-docsectiontext>
-            <p>Invalid state style is added using the <i>ng-invalid</i> and <i>ng-dirty</i> class to indicate a failed validation.</p>
+            <p>Invalid state is displayed using the <i>invalid</i> prop to indicate a failed validation. You can use this style when integrating with form validation libraries.</p>
         </app-docsectiontext>
         <div class="card flex justify-center">
-            <p-radiobutton [(ngModel)]="checked" class="ng-invalid ng-dirty" />
+            <p-radiobutton [(ngModel)]="value" [invalid]="!value" />
         </div>
         <app-code [code]="code" selector="radio-button-invalid-demo"></app-code>
     `
 })
 export class InvalidDoc {
-    checked: any = false;
+    value: boolean = false;
 
     code: Code = {
-        basic: `<p-radiobutton class="ng-invalid ng-dirty" />`,
+        basic: `<p-radiobutton [(ngModel)]="value" [invalid]="!value"  />`,
 
         html: `<div class="card flex justify-center">
-    <p-radiobutton class="ng-invalid ng-dirty" />
+    <p-radiobutton [(ngModel)]="value" [invalid]="!value"  />
 </div>`,
 
         typescript: `import { Component } from '@angular/core';
@@ -34,6 +34,8 @@ import { FormsModule } from '@angular/forms';
     standalone: true,
     imports: [FormsModule, RadioButton]
 })
-export class RadioButtonInvalidDemo { }`
+export class RadioButtonInvalidDemo {
+    value : boolean = false;
+}`
     };
 }

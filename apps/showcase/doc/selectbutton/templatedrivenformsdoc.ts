@@ -11,8 +11,8 @@ import { MessageService } from 'primeng/api';
         <div class="card flex justify-center">
             <form #exampleForm="ngForm" (ngSubmit)="onSubmit(exampleForm)" class="flex justify-center flex-col gap-4">
                 <div class="flex flex-col gap-1">
-                    <p-selectbutton #value="ngModel" [(ngModel)]="value" [options]="stateOptions" optionLabel="label" optionValue="value" [invalid]="value.invalid && (value.touched || exampleForm.submitted)" required name="value" />
-                    @if (value.invalid && (value.touched || exampleForm.submitted)) {
+                    <p-selectbutton #model="ngModel" [(ngModel)]="value" [options]="stateOptions" optionLabel="label" optionValue="value" [invalid]="model.invalid && (model.touched || exampleForm.submitted)" required name="value" />
+                    @if (model.invalid && (model.touched || exampleForm.submitted)) {
                         <p-message severity="error" size="small" variant="simple">Selection is required.</p-message>
                     }
                 </div>
@@ -24,8 +24,6 @@ import { MessageService } from 'primeng/api';
 })
 export class TemplateDrivenFormsDoc {
     messageService = inject(MessageService);
-
-    items: any[] = [];
 
     value: any;
 
@@ -44,8 +42,8 @@ export class TemplateDrivenFormsDoc {
     code: Code = {
         basic: `<form #exampleForm="ngForm" (ngSubmit)="onSubmit(exampleForm)" class="flex justify-center flex-col gap-4">
     <div class="flex flex-col gap-1">
-        <p-selectbutton #value="ngModel" [(ngModel)]="value" [options]="stateOptions" optionLabel="label" optionValue="value" [invalid]="value.invalid && (value.touched || exampleForm.submitted)" required name="value" />
-        @if (value.invalid && (value.touched || exampleForm.submitted)) {
+        <p-selectbutton #model="ngModel" [(ngModel)]="value" [options]="stateOptions" optionLabel="label" optionValue="value" [invalid]="model.invalid && (model.touched || exampleForm.submitted)" required name="value" />
+        @if (model.invalid && (model.touched || exampleForm.submitted)) {
             <p-message severity="error" size="small" variant="simple">Selection is required.</p-message>
         }
     </div>
@@ -56,8 +54,8 @@ export class TemplateDrivenFormsDoc {
 <div class="card flex justify-center">
     <form #exampleForm="ngForm" (ngSubmit)="onSubmit(exampleForm)" class="flex justify-center flex-col gap-4">
         <div class="flex flex-col gap-1">
-            <p-selectbutton #value="ngModel" [(ngModel)]="value" [options]="stateOptions" optionLabel="label" optionValue="value" [invalid]="value.invalid && (value.touched || exampleForm.submitted)" required name="value" />
-            @if (value.invalid && (value.touched || exampleForm.submitted)) {
+            <p-selectbutton #model="ngModel" [(ngModel)]="value" [options]="stateOptions" optionLabel="label" optionValue="value" [invalid]="model.invalid && (model.touched || exampleForm.submitted)" required name="value" />
+            @if (model.invalid && (model.touched || exampleForm.submitted)) {
                 <p-message severity="error" size="small" variant="simple">Selection is required.</p-message>
             }
         </div>
@@ -81,8 +79,6 @@ import { ButtonModule } from 'primeng/button';
 })
 export class TemplateDrivenFormsDemo implements OnInit {
     messageService = inject(MessageService);
-
-    items: any[] = [];
 
     value: any;
 
