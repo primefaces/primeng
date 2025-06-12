@@ -85,8 +85,7 @@ export class ReactiveFormsDoc {
     </form>
 </div>`,
 
-        typescript: `import { Component, OnInit } from '@angular/core';
-import { CountryService } from '@/service/countryservice';
+        typescript: `import { Component, inject } from '@angular/core';
 import { FormBuilder, FormGroup, Validators, ReactiveFormsModule } from '@angular/forms';
 import { AutoCompleteModule } from 'primeng/autocomplete';
 import { MessageModule } from 'primeng/message';
@@ -104,7 +103,6 @@ interface AutoCompleteCompleteEvent {
     templateUrl: './autocomplete-reactive-forms-demo.html',
     standalone: true,
     imports: [ReactiveFormsModule, AutoCompleteModule, MessageModule, ToastModule, ButtonModule],
-    providers: [CountryService]
 })
 export class AutocompleteReactiveFormsDemo {
     messageService = inject(MessageService);

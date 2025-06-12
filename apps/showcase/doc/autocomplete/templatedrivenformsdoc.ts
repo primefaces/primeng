@@ -50,7 +50,6 @@ export class TemplateDrivenFormsDoc {
             [suggestions]="items"
             [invalid]="country.invalid && (country.touched || exampleForm.submitted)"
             name="country"
-            class="md:w-56"
             (completeMethod)="search($event)"
             required
             fluid
@@ -72,7 +71,6 @@ export class TemplateDrivenFormsDoc {
                 [suggestions]="items"
                 [invalid]="country.invalid && (country.touched || exampleForm.submitted)"
                 name="country"
-                class="w-full md:w-56"
                 (completeMethod)="search($event)"
                 required
                 fluid
@@ -85,7 +83,7 @@ export class TemplateDrivenFormsDoc {
     </form>
 </div>`,
 
-        typescript: `import { Component, OnInit } from '@angular/core';
+        typescript: `import { Component, inject } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { AutoCompleteModule } from 'primeng/autocomplete';
 import { MessageModule } from 'primeng/message';
@@ -100,7 +98,7 @@ import { ButtonModule } from 'primeng/button';
     standalone: true,
     imports: [FormsModule, AutoCompleteModule, MessageModule, ToastModule, ButtonModule]
 })
-export class TemplateDrivenFormsDemo implements OnInit {
+export class TemplateDrivenFormsDemo {
     messageService = inject(MessageService);
 
     items: any[] = [];
