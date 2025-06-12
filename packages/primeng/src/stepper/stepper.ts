@@ -29,6 +29,11 @@ import { PrimeTemplate, SharedModule } from 'primeng/api';
 import { BaseComponent } from 'primeng/basecomponent';
 import { transformToBoolean } from 'primeng/utils';
 import { StepperStyle } from './style/stepperstyle';
+import { StepStyle } from './style/stepstyle';
+import { StepItemStyle } from './style/stepitemstyle';
+import { StepListStyle } from './style/stepliststyle';
+import { StepPanelStyle } from './style/steppanelstyle';
+import { StepPanelsStyle } from './style/steppanelsstyle';
 
 /**
  * Context interface for the StepPanel content template.
@@ -64,11 +69,15 @@ export interface StepPanelContentTemplateContext {
     changeDetection: ChangeDetectionStrategy.OnPush,
     encapsulation: ViewEncapsulation.None,
     host: {
-        '[class.p-steplist]': 'true',
-        '[class.p-component]': 'true'
-    }
+        '[class]': 'cx("root")'
+    },
+    providers: [StepListStyle]
 })
-export class StepList extends BaseComponent {}
+export class StepList extends BaseComponent {
+    steps = contentChildren(forwardRef(() => Step));
+
+    _componentStyle = inject(StepListStyle);
+}
 
 @Component({
     selector: 'p-stepper-separator',
@@ -78,11 +87,13 @@ export class StepList extends BaseComponent {}
     changeDetection: ChangeDetectionStrategy.OnPush,
     encapsulation: ViewEncapsulation.None,
     host: {
-        '[class.p-stepper-separator]': 'true',
-        '[class.p-component]': 'true'
-    }
+        '[class]': 'cx("separator")'
+    },
+    providers: [StepperStyle]
 })
-export class StepperSeparator extends BaseComponent {}
+export class StepperSeparator extends BaseComponent {
+    _componentStyle = inject(StepperStyle);
+}
 
 /**
  * StepItem is a helper component for Stepper component used in vertical orientation.
@@ -96,10 +107,10 @@ export class StepperSeparator extends BaseComponent {}
     changeDetection: ChangeDetectionStrategy.OnPush,
     encapsulation: ViewEncapsulation.None,
     host: {
-        '[class.p-stepitem]': 'true',
-        '[class.p-component]': 'true',
+        '[class]': 'cx("root")',
         '[attr.data-p-active]': 'isActive()'
-    }
+    },
+    providers: [StepItemStyle]
 })
 export class StepItem extends BaseComponent {
     pcStepper = inject(forwardRef(() => Stepper));
@@ -113,9 +124,9 @@ export class StepItem extends BaseComponent {
 
     isActive = computed(() => this.pcStepper.value() === this.value());
 
-    step = contentChild(Step);
+    step = contentChild(forwardRef(() => Step));
 
-    stepPanel = contentChild(StepPanel);
+    stepPanel = contentChild(forwardRef(() => StepPanel));
 
     constructor() {
         super();
@@ -127,6 +138,8 @@ export class StepItem extends BaseComponent {
             this.stepPanel().value.set(this.value());
         });
     }
+
+    _componentStyle = inject(StepItemStyle);
 }
 
 /**
@@ -139,9 +152,9 @@ export class StepItem extends BaseComponent {
     imports: [CommonModule, StepperSeparator, SharedModule],
     template: `
         @if (!content && !_contentTemplate) {
-            <button [attr.id]="id()" class="p-step-header" [attr.role]="'tab'" [tabindex]="isStepDisabled() ? -1 : undefined" [attr.aria-controls]="ariaControls()" [disabled]="isStepDisabled()" (click)="onStepClick()">
-                <span class="p-step-number">{{ value() }}</span>
-                <span class="p-step-title">
+            <button [attr.id]="id()" [class]="cx('header')" [attr.role]="'tab'" [tabindex]="isStepDisabled() ? -1 : undefined" [attr.aria-controls]="ariaControls()" [disabled]="isStepDisabled()" (click)="onStepClick()" type="button">
+                <span [class]="cx('number')">{{ value() }}</span>
+                <span [class]="cx('title')">
                     <ng-content></ng-content>
                 </span>
             </button>
@@ -158,16 +171,14 @@ export class StepItem extends BaseComponent {
     changeDetection: ChangeDetectionStrategy.OnPush,
     encapsulation: ViewEncapsulation.None,
     host: {
-        '[class.p-step]': 'true',
-        '[class.p-step-active]': 'active()',
-        '[class.p-disabled]': 'isStepDisabled()',
-        '[class.p-component]': 'true',
+        '[class]': 'cx("root")',
         '[attr.aria-current]': 'active() ? "step" : undefined',
         '[attr.role]': '"presentation"',
         '[attr.data-p-active]': 'active()',
         '[attr.data-p-disabled]': 'isStepDisabled()',
         '[attr.data-pc-name]': '"step"'
-    }
+    },
+    providers: [StepStyle]
 })
 export class Step extends BaseComponent implements AfterContentInit {
     pcStepper = inject(forwardRef(() => Stepper));
@@ -198,9 +209,12 @@ export class Step extends BaseComponent implements AfterContentInit {
 
     isSeparatorVisible = computed(() => {
         if (this.pcStepper.stepList()) {
-            const index = findIndexInList(this.el.nativeElement, this.pcStepper.stepList().el.nativeElement.children);
-            const stepLen = find(this.pcStepper.stepList().el.nativeElement, '[data-pc-name="step"]').length;
+            const steps = this.pcStepper.stepList().steps();
+            const index = steps.indexOf(this);
+            const stepLen = steps.length;
             return index !== stepLen - 1;
+        } else {
+            return false;
         }
     });
     /**
@@ -213,6 +227,8 @@ export class Step extends BaseComponent implements AfterContentInit {
     @ContentChildren(PrimeTemplate) templates: QueryList<PrimeTemplate> | undefined;
 
     _contentTemplate: TemplateRef<any> | undefined;
+
+    _componentStyle = inject(StepStyle);
 
     ngAfterContentInit() {
         this.templates?.forEach((item) => {
@@ -250,9 +266,7 @@ export class Step extends BaseComponent implements AfterContentInit {
     changeDetection: ChangeDetectionStrategy.OnPush,
     encapsulation: ViewEncapsulation.None,
     host: {
-        '[class.p-steppanel]': 'true',
-        '[class.p-component]': 'true',
-        '[class.p-steppanel-active]': 'active()',
+        '[class]': 'cx("root")',
         '[attr.role]': '"tabpanel"',
         '[attr.aria-controls]': 'ariaControls()',
         '[attr.id]': 'id()',
@@ -278,7 +292,8 @@ export class Step extends BaseComponent implements AfterContentInit {
             transition('visible <=> hidden', [animate('250ms cubic-bezier(0.86, 0, 0.07, 1)')]),
             transition('void => *', animate(0))
         ])
-    ]
+    ],
+    providers: [StepPanelStyle]
 })
 export class StepPanel extends BaseComponent implements AfterContentInit {
     pcStepper = inject(forwardRef(() => Stepper));
@@ -321,6 +336,8 @@ export class StepPanel extends BaseComponent implements AfterContentInit {
 
     _contentTemplate: TemplateRef<any> | undefined;
 
+    _componentStyle = inject(StepPanelStyle);
+
     ngAfterContentInit() {
         this.templates?.forEach((item) => {
             switch (item.getType()) {
@@ -344,11 +361,13 @@ export class StepPanel extends BaseComponent implements AfterContentInit {
     changeDetection: ChangeDetectionStrategy.OnPush,
     encapsulation: ViewEncapsulation.None,
     host: {
-        '[class.p-steppanels]': 'true',
-        '[class.p-component]': 'true'
-    }
+        '[class]': 'cx("root")'
+    },
+    providers: [StepPanelsStyle]
 })
-export class StepPanels extends BaseComponent {}
+export class StepPanels extends BaseComponent {
+    _componentStyle = inject(StepPanelsStyle);
+}
 
 /**
  * Stepper is a component that streamlines a wizard-like workflow, organizing content into coherent steps and visually guiding users through a numbered progression in a multistep process.
@@ -363,8 +382,7 @@ export class StepPanels extends BaseComponent {}
     encapsulation: ViewEncapsulation.None,
     providers: [StepperStyle],
     host: {
-        '[class.p-stepper]': 'true',
-        '[class.p-component]': 'true',
+        '[class]': 'cx("root")',
         '[attr.role]': '"tablist"',
         '[attr.id]': 'id()'
     }

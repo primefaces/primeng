@@ -7,6 +7,7 @@ import { InvalidDoc } from '@/doc/toggleswitch/invaliddoc';
 import { PreselectionDoc } from '@/doc/toggleswitch/preselectiondoc';
 import { ReactiveFormsDoc } from '@/doc/toggleswitch/reactiveformsdoc';
 import { TemplateDoc } from '@/doc/toggleswitch/templatedoc';
+import { TemplateDrivenFormsDoc } from '@/doc/toggleswitch/templatedrivenformsdoc';
 import { Component } from '@angular/core';
 
 @Component({
@@ -27,14 +28,17 @@ export class ToggleSwitchDemo {
             component: BasicDoc
         },
         {
-            id: 'reactive-forms',
-            label: 'Reactive Forms',
-            component: ReactiveFormsDoc
-        },
-        {
             id: 'preselection',
             label: 'Preselection',
             component: PreselectionDoc
+        },
+        {
+            id: 'forms',
+            label: 'Forms',
+            children: [
+                { id: 'templatedriven', label: 'Template Driven', component: TemplateDrivenFormsDoc },
+                { id: 'reactive', label: 'Reactive Forms', component: ReactiveFormsDoc }
+            ]
         },
         {
             id: 'invalid',
@@ -51,7 +55,6 @@ export class ToggleSwitchDemo {
             label: 'Disabled',
             component: DisabledDoc
         },
-
         {
             id: 'accessibility',
             label: 'Accessibility',

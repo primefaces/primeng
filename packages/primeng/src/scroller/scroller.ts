@@ -8,6 +8,7 @@ import {
     ContentChildren,
     ElementRef,
     EventEmitter,
+    HostBinding,
     inject,
     Input,
     NgModule,
@@ -39,34 +40,19 @@ import { ScrollerStyle } from './style/scrollerstyle';
     standalone: true,
     template: `
         <ng-container *ngIf="!_disabled; else disabledContainer">
-            <div
-                #element
-                [attr.id]="_id"
-                [attr.tabindex]="tabindex"
-                [ngStyle]="_style"
-                [class]="_styleClass"
-                [ngClass]="{
-                    'p-virtualscroller': true,
-                    'p-virtualscroller-inline': inline,
-                    'p-virtualscroller-both p-both-scroll': both,
-                    'p-virtualscroller-horizontal p-horizontal-scroll': horizontal
-                }"
-                (scroll)="onContainerScroll($event)"
-                [attr.data-pc-name]="'scroller'"
-                [attr.data-pc-section]="'root'"
-            >
+            <div #element [attr.id]="_id" [attr.tabindex]="tabindex" [ngStyle]="_style" [class]="cx('root')" (scroll)="onContainerScroll($event)" [attr.data-pc-name]="'scroller'" [attr.data-pc-section]="'root'">
                 <ng-container *ngIf="contentTemplate || _contentTemplate; else buildInContent">
                     <ng-container *ngTemplateOutlet="contentTemplate || _contentTemplate; context: { $implicit: loadedItems, options: getContentOptions() }"></ng-container>
                 </ng-container>
                 <ng-template #buildInContent>
-                    <div #content class="p-virtualscroller-content" [ngClass]="{ 'p-virtualscroller-loading ': d_loading }" [ngStyle]="contentStyle" [attr.data-pc-section]="'content'">
+                    <div #content [class]="cn(cx('content'), contentStyleClass)" [style]="contentStyle" [attr.data-pc-section]="'content'">
                         <ng-container *ngFor="let item of loadedItems; let index = index; trackBy: _trackBy">
                             <ng-container *ngTemplateOutlet="itemTemplate || _itemTemplate; context: { $implicit: item, options: getOptions(index) }"></ng-container>
                         </ng-container>
                     </div>
                 </ng-template>
-                <div *ngIf="_showSpacer" class="p-virtualscroller-spacer" [ngStyle]="spacerStyle" [attr.data-pc-section]="'spacer'"></div>
-                <div *ngIf="!loaderDisabled && _showLoader && d_loading" class="p-virtualscroller-loader" [ngClass]="{ 'p-virtualscroller-loader-mask': !loaderTemplate }" [attr.data-pc-section]="'loader'">
+                <div *ngIf="_showSpacer" [class]="cx('spacer')" [ngStyle]="spacerStyle" [attr.data-pc-section]="'spacer'"></div>
+                <div *ngIf="!loaderDisabled && _showLoader && d_loading" [class]="cx('loader')" [attr.data-pc-section]="'loader'">
                     <ng-container *ngIf="loaderTemplate || _loaderTemplate; else buildInLoader">
                         <ng-container *ngFor="let item of loaderArr; let index = index">
                             <ng-container
@@ -84,7 +70,7 @@ import { ScrollerStyle } from './style/scrollerstyle';
                             <ng-container *ngTemplateOutlet="loaderIconTemplate || _loaderIconTemplate; context: { options: { styleClass: 'p-virtualscroller-loading-icon' } }"></ng-container>
                         </ng-container>
                         <ng-template #buildInLoaderIcon>
-                            <SpinnerIcon [styleClass]="'p-virtualscroller-loading-icon pi-spin'" [attr.data-pc-section]="'loadingIcon'" />
+                            <SpinnerIcon [styleClass]="cn(cx('loadingIcon'), ' pi-spin')" [attr.data-pc-section]="'loadingIcon'" />
                         </ng-template>
                     </ng-template>
                 </div>
@@ -353,8 +339,8 @@ export class Scroller extends BaseComponent implements OnInit, AfterContentInit,
         this._options = val;
 
         if (val && typeof val === 'object') {
-            //@ts-ignore
             Object.entries(val).forEach(([k, v]) => this[`_${k}`] !== v && (this[`_${k}`] = v));
+            Object.entries(val).forEach(([k, v]) => this[`${k}`] !== v && (this[`${k}`] = v));
         }
     }
     /**
@@ -379,6 +365,8 @@ export class Scroller extends BaseComponent implements OnInit, AfterContentInit,
     @ViewChild('element') elementViewChild: Nullable<ElementRef>;
 
     @ViewChild('content') contentViewChild: Nullable<ElementRef>;
+
+    @HostBinding('style.height') height: string;
 
     _id: string | undefined;
 
@@ -505,6 +493,16 @@ export class Scroller extends BaseComponent implements OnInit, AfterContentInit,
 
     defaultContentHeight: number | undefined;
 
+    _contentStyleClass: any;
+
+    get contentStyleClass() {
+        return this._contentStyleClass;
+    }
+
+    set contentStyleClass(val) {
+        this._contentStyleClass = val;
+    }
+
     get vertical() {
         return this._orientation === 'vertical';
     }
@@ -553,7 +551,9 @@ export class Scroller extends BaseComponent implements OnInit, AfterContentInit,
     ngOnChanges(simpleChanges: SimpleChanges) {
         super.ngOnChanges(simpleChanges);
         let isLoadingChanged = false;
-
+        if (this.scrollHeight == '100%') {
+            this.height = '100%';
+        }
         if (simpleChanges.loading) {
             const { previousValue, currentValue } = simpleChanges.loading;
 
@@ -684,8 +684,6 @@ export class Scroller extends BaseComponent implements OnInit, AfterContentInit,
         this.d_loading = this._loading || false;
         this.d_numToleratedItems = this._numToleratedItems;
         this.loaderArr = [];
-        this.spacerStyle = {};
-        this.contentStyle = {};
     }
 
     getElementRef() {

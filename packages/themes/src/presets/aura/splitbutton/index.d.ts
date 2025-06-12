@@ -1,3 +1,1 @@
-import { SplitButtonDesignTokens } from '../../types/splitbutton';
-declare const _default: SplitButtonDesignTokens;
-export default _default;
+export * from '@primeuix/themes/types/splitbutton';

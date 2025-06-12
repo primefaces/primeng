@@ -66,6 +66,8 @@ export class BasicDoc implements OnInit {
             };
 
             this.basicOptions = {
+                maintainAspectRatio: false,
+                aspectRatio: 0.8,
                 plugins: {
                     legend: {
                         labels: {

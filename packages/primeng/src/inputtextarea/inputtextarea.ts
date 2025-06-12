@@ -31,7 +31,7 @@ export class InputTextarea extends BaseComponent implements OnInit, AfterViewIni
      * Specifies the input variant of the component.
      * @group Props
      */
-    @Input() variant: 'filled' | 'outlined' = 'outlined';
+    @Input() variant: 'filled' | 'outlined';
     /**
      * Spans 100% width of the container when enabled.
      * @group Props

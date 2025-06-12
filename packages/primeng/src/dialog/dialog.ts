@@ -23,11 +23,11 @@ import {
     ViewEncapsulation,
     ViewRef
 } from '@angular/core';
-import { addClass, appendChild, blockBodyScroll, getOuterHeight, getOuterWidth, getViewport, hasClass, removeClass, setAttribute, unblockBodyScroll, uuid } from '@primeuix/utils';
+import { addClass, appendChild, getOuterHeight, getOuterWidth, getViewport, hasClass, removeClass, setAttribute, uuid } from '@primeuix/utils';
 import { PrimeTemplate, SharedModule, TranslationKeys } from 'primeng/api';
 import { BaseComponent } from 'primeng/basecomponent';
 import { Button, ButtonProps } from 'primeng/button';
-import { DomHandler } from 'primeng/dom';
+import { blockBodyScroll, DomHandler, unblockBodyScroll } from 'primeng/dom';
 import { FocusTrap } from 'primeng/focustrap';
 import { TimesIcon, WindowMaximizeIcon, WindowMinimizeIcon } from 'primeng/icons';
 import { Nullable, VoidListener } from 'primeng/ts-helpers';
@@ -46,30 +46,13 @@ const hideAnimation = animation([animate('{{transition}}', style({ transform: '{
     standalone: true,
     imports: [CommonModule, Button, FocusTrap, TimesIcon, WindowMaximizeIcon, WindowMinimizeIcon, SharedModule],
     template: `
-        <div
-            *ngIf="maskVisible"
-            [ngClass]="maskClass"
-            [class]="maskStyleClass"
-            [ngStyle]="{
-                position: 'fixed',
-                height: '100%',
-                width: '100%',
-                left: 0,
-                top: 0,
-                display: 'flex',
-                'justify-content': position === 'left' || position === 'topleft' || position === 'bottomleft' ? 'flex-start' : position === 'right' || position === 'topright' || position === 'bottomright' ? 'flex-end' : 'center',
-                'align-items': position === 'top' || position === 'topleft' || position === 'topright' ? 'flex-start' : position === 'bottom' || position === 'bottomleft' || position === 'bottomright' ? 'flex-end' : 'center',
-                'pointer-events': modal ? 'auto' : 'none'
-            }"
-            [style]="maskStyle"
-        >
+        <div *ngIf="maskVisible" [class]="cx('mask')" [style]="sx('mask')" [ngStyle]="maskStyle">
             <div
                 *ngIf="visible"
                 #container
-                [class]="styleClass"
-                [ngClass]="{ 'p-dialog p-component': true, 'p-dialog-maximized': maximizable && maximized }"
-                [ngStyle]="{ display: 'flex', 'flex-direction': 'column', 'pointer-events': 'auto' }"
-                [style]="style"
+                [class]="cx('root')"
+                [style]="sx('root')"
+                [ngStyle]="style"
                 pFocusTrap
                 [pFocusTrapDisabled]="focusTrap === false"
                 [@animation]="{
@@ -87,11 +70,11 @@ const hideAnimation = animation([animate('{{transition}}', style({ transform: '{
                 </ng-container>
 
                 <ng-template #notHeadless>
-                    <div *ngIf="resizable" [ngClass]="cx('resizeHandle')" style="z-index: 90;" (mousedown)="initResize($event)"></div>
-                    <div #titlebar [ngClass]="cx('header')" (mousedown)="initDrag($event)">
-                        <span [id]="ariaLabelledBy" [ngClass]="cx('title')" *ngIf="!_headerTemplate && !headerTemplate && !headerT">{{ header }}</span>
+                    <div *ngIf="resizable" [class]="cx('resizeHandle')" style="z-index: 90;" (mousedown)="initResize($event)"></div>
+                    <div #titlebar [class]="cx('header')" (mousedown)="initDrag($event)" *ngIf="showHeader">
+                        <span [id]="ariaLabelledBy" [class]="cx('title')" *ngIf="!_headerTemplate && !headerTemplate && !headerT">{{ header }}</span>
                         <ng-container *ngTemplateOutlet="_headerTemplate || headerTemplate || headerT"></ng-container>
-                        <div [ngClass]="cx('headerActions')">
+                        <div [class]="cx('headerActions')">
                             <p-button *ngIf="maximizable" [styleClass]="cx('pcMaximizeButton')" (onClick)="maximize()" (keydown.enter)="maximize()" [tabindex]="maximizable ? '0' : '-1'" [ariaLabel]="maximizeLabel" [buttonProps]="maximizeButtonProps">
                                 <span *ngIf="maximizeIcon && !_maximizeiconTemplate && !_minimizeiconTemplate" [ngClass]="maximized ? minimizeIcon : maximizeIcon"></span>
                                 <ng-container *ngIf="!maximizeIcon && !maximizeButtonProps?.icon">
@@ -108,7 +91,7 @@ const hideAnimation = animation([animate('{{transition}}', style({ transform: '{
                             <p-button *ngIf="closable" [styleClass]="cx('pcCloseButton')" [ariaLabel]="closeAriaLabel" (onClick)="close($event)" (keydown.enter)="close($event)" [tabindex]="closeTabindex" [buttonProps]="closeButtonProps">
                                 <ng-template #icon>
                                     <ng-container *ngIf="!_closeiconTemplate && !closeIconTemplate && !closeIconT && !closeButtonProps?.icon">
-                                        <span *ngIf="closeIcon" [ngClass]="closeIcon"></span>
+                                        <span *ngIf="closeIcon" [class]="closeIcon"></span>
                                         <TimesIcon *ngIf="!closeIcon" />
                                     </ng-container>
                                     <span *ngIf="_closeiconTemplate || closeIconTemplate || closeIconT">
@@ -118,11 +101,11 @@ const hideAnimation = animation([animate('{{transition}}', style({ transform: '{
                             </p-button>
                         </div>
                     </div>
-                    <div #content [ngClass]="cx('content')" [class]="contentStyleClass" [ngStyle]="contentStyle" [attr.data-pc-section]="'content'">
+                    <div #content [class]="cx('content')" [ngStyle]="contentStyle" [attr.data-pc-section]="'content'">
                         <ng-content></ng-content>
                         <ng-container *ngTemplateOutlet="_contentTemplate || contentTemplate || contentT"></ng-container>
                     </div>
-                    <div #footer [ngClass]="cx('footer')" *ngIf="_footerTemplate || footerTemplate || footerT">
+                    <div #footer [class]="cx('footer')" *ngIf="_footerTemplate || footerTemplate || footerT">
                         <ng-content select="p-footer"></ng-content>
                         <ng-container *ngTemplateOutlet="_footerTemplate || footerTemplate || footerT"></ng-container>
                     </div>
@@ -1054,6 +1037,10 @@ export class Dialog extends BaseComponent implements OnInit, AfterContentInit, O
                 this.onContainerDestroy();
                 this.onHide.emit({});
                 this.cd.markForCheck();
+
+                if (this.maskVisible !== this.visible) {
+                    this.maskVisible = this.visible;
+                }
                 break;
             case 'visible':
                 this.onShow.emit({});

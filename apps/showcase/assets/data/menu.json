@@ -56,8 +56,7 @@
                         },
                         {
                             "name": "FloatLabel",
-                            "routerLink": "/floatlabel",
-                            "badge": "NEW"
+                            "routerLink": "/floatlabel"
                         },
                         {
                             "name": "IconField",
@@ -65,8 +64,7 @@
                         },
                         {
                             "name": "IftaLabel",
-                            "routerLink": "/iftalabel",
-                            "badge": "NEW"
+                            "routerLink": "/iftalabel"
                         },
                         {
                             "name": "InputGroup",
@@ -375,8 +373,7 @@
                         },
                         {
                             "name": "ImageCompare",
-                            "routerLink": "/imagecompare",
-                            "badge":"NEW"
+                            "routerLink": "/imagecompare"
                         }
                     ]
                 },
@@ -498,9 +495,25 @@
             "routerLink": "/templates"
         },
         {
-            "name": "PrimeBlocks",
+            "name": "Theme Designer",
+            "icon": "pi pi-sparkles",
+            "children": [
+                {
+                    "name": "Overview",
+                    "routerLink": "/designer"
+                },
+                {
+                    "name": "Guide",
+                    "routerLink": "/designer/guide"
+                }
+            ]
+
+        },
+        {
+            "name": "New PrimeBlocks",
             "icon": "pi pi-server",
-            "href": "https://blocks.primeng.org"
+            "href": "https://primeblocks.org",
+            "badge": "Soon"
         },
         {
             "name": "Guides",
@@ -511,7 +524,7 @@
                     "routerLink": "/guides/accessibility"
                 },
                 {
-                    "name": "Migration to V18",
+                    "name": "Migration to v18+",
                     "routerLink": "/guides/migration"
                 },
                 {
@@ -547,12 +560,6 @@
             ]
         },
         {
-            "name": "Contribution",
-            "routerLink": "/contribution",
-            "icon": "pi pi-users",
-            "badge": "NEW"
-        },
-        {
             "name": "Discover",
             "icon": "pi pi-search",
             "children": [
@@ -561,12 +568,21 @@
                     "routerLink": "/team"
                 },
                 {
+                    "name": "Roadmap",
+                    "routerLink": "/roadmap"
+                },
+                {
                     "name": "Source Code",
                     "href": "https://github.com/primefaces/primeng"
                 },
                 {
                     "name": "Changelog",
                     "href": "https://github.com/primefaces/primeng/blob/master/CHANGELOG.md"
+                },
+                {
+                    "name": "Contribution",
+                    "routerLink": "/contribution",
+                    "icon": "pi pi-users"
                 },
                 {
                     "name": "Store",

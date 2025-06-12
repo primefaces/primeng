@@ -5,7 +5,6 @@ const theme = ({ dt }) => `
 .p-overlay {
     position: absolute;
     top: 0;
-    inset-inline-start: 0;
 }
 
 .p-overlay-modal {

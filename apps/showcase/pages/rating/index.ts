@@ -8,6 +8,7 @@ import { ReactiveFormsDoc } from '@/doc/rating/reactiveformsdoc';
 import { ReadOnlyDoc } from '@/doc/rating/readonlydoc';
 import { TemplateDoc } from '@/doc/rating/templatedoc';
 import { Component } from '@angular/core';
+import { TemplateDrivenFormsDoc } from '@/doc/rating/templatedrivenformsdoc';
 
 @Component({
     template: `<app-doc docTitle="Angular Rating Component" header="Rating" description="Rating component is a star based selection input." [docs]="docs" [apiDocs]="['Rating']" themeDocs="rating"></app-doc>`,
@@ -27,11 +28,6 @@ export class RatingDemo {
             component: BasicDoc
         },
         {
-            id: 'reactive-forms',
-            label: 'Reactive Forms',
-            component: ReactiveFormsDoc
-        },
-        {
             id: 'numberofstars',
             label: 'Number of Stars',
             component: NumberOfStarsDoc
@@ -40,6 +36,14 @@ export class RatingDemo {
             id: 'template',
             label: 'Template',
             component: TemplateDoc
+        },
+        {
+            id: 'forms',
+            label: 'Forms',
+            children: [
+                { id: 'templatedriven', label: 'Template Driven', component: TemplateDrivenFormsDoc },
+                { id: 'reactive', label: 'Reactive Forms', component: ReactiveFormsDoc }
+            ]
         },
         {
             id: 'readonly',

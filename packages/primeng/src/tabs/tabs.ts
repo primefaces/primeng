@@ -22,11 +22,9 @@ import { TabPanels } from './tabpanels';
     encapsulation: ViewEncapsulation.None,
     providers: [TabsStyle],
     host: {
-        '[class.p-tabs]': 'true',
-        '[class.p-tabs-scrollable]': 'scrollable()',
-        '[class.p-component]': 'true',
+        '[class]': 'cx("root")',
         '[attr.data-pc-name]': '"tabs"',
-        '[attr.id]': 'id'
+        '[attr.id]': 'id()'
     }
 })
 export class Tabs extends BaseComponent {

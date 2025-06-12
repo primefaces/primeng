@@ -7,6 +7,7 @@ import { RangeDoc } from '@/doc/slider/rangedoc';
 import { ReactiveFormsDoc } from '@/doc/slider/reactiveformsdoc';
 import { SliderDocModule } from '@/doc/slider/sliderdoc.module';
 import { StepDoc } from '@/doc/slider/stepdoc';
+import { TemplateDrivenFormsDoc } from '@/doc/slider/templatedrivenformsdoc';
 import { VerticalDoc } from '@/doc/slider/verticaldoc';
 import { Component } from '@angular/core';
 
@@ -26,11 +27,6 @@ export class SliderDemo {
             id: 'basic',
             label: 'Basic',
             component: BasicDoc
-        },
-        {
-            id: 'reactive-forms',
-            label: 'Reactive Forms',
-            component: ReactiveFormsDoc
         },
         {
             id: 'input',
@@ -56,6 +52,14 @@ export class SliderDemo {
             id: 'vertical',
             label: 'Vertical',
             component: VerticalDoc
+        },
+        {
+            id: 'forms',
+            label: 'Forms',
+            children: [
+                { id: 'templatedriven', label: 'Template Driven', component: TemplateDrivenFormsDoc },
+                { id: 'reactive', label: 'Reactive Forms', component: ReactiveFormsDoc }
+            ]
         },
 
         {

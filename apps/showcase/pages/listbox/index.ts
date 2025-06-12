@@ -11,7 +11,9 @@ import { MultipleDoc } from '@/doc/listbox/multipledoc';
 import { ReactiveFormsDoc } from '@/doc/listbox/reactiveformsdoc';
 import { TemplateDoc } from '@/doc/listbox/templatedoc';
 import { VirtualScrollDoc } from '@/doc/listbox/virtualscrolldoc';
+import { CheckboxDoc } from '@/doc/listbox/checkboxdoc';
 import { Component } from '@angular/core';
+import { TemplateDrivenFormsDoc } from '@/doc/listbox/templatedrivenformsdoc';
 
 @Component({
     template: `<app-doc docTitle="Angular Listbox Component" header="Listbox" description="Listbox is used to select one or more values from a list of items." [docs]="docs" [apiDocs]="['Listbox']" themeDocs="listbox"></app-doc> `,
@@ -41,6 +43,11 @@ export class ListboxDemo {
             component: CheckmarkDoc
         },
         {
+            id: 'checkbox',
+            label: 'Checkbox',
+            component: CheckboxDoc
+        },
+        {
             id: 'multiple',
             label: 'Multiple',
             component: MultipleDoc
@@ -64,6 +71,14 @@ export class ListboxDemo {
             id: 'virtualscroll',
             label: 'Virtual Scroll',
             component: VirtualScrollDoc
+        },
+        {
+            id: 'forms',
+            label: 'Forms',
+            children: [
+                { id: 'templatedriven', label: 'Template Driven', component: TemplateDrivenFormsDoc },
+                { id: 'reactive', label: 'Reactive Forms', component: ReactiveFormsDoc }
+            ]
         },
         {
             id: 'invalid',

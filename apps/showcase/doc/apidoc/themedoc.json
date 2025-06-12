@@ -523,9 +523,19 @@
                 "description": "Background of root"
             },
             {
+                "token": "avatar.color",
+                "variable": "--p-avatar-color",
+                "description": "Color of root"
+            },
+            {
                 "token": "avatar.border.radius",
                 "variable": "--p-avatar-border-radius",
                 "description": "Border radius of root"
+            },
+            {
+                "token": "avatar.icon.size",
+                "variable": "--p-avatar-icon-size",
+                "description": "Size of icon"
             },
             {
                 "token": "avatar.group.border.color",
@@ -553,6 +563,16 @@
                 "description": "Font size of lg"
             },
             {
+                "token": "avatar.lg.icon.size",
+                "variable": "--p-avatar-lg-icon-size",
+                "description": "Icon size of lg"
+            },
+            {
+                "token": "avatar.lg.group.offset",
+                "variable": "--p-avatar-lg-group-offset",
+                "description": "Group offset of lg"
+            },
+            {
                 "token": "avatar.xl.width",
                 "variable": "--p-avatar-xl-width",
                 "description": "Width of xl"
@@ -566,6 +586,16 @@
                 "token": "avatar.xl.font.size",
                 "variable": "--p-avatar-xl-font-size",
                 "description": "Font size of xl"
+            },
+            {
+                "token": "avatar.xl.icon.size",
+                "variable": "--p-avatar-xl-icon-size",
+                "description": "Icon size of xl"
+            },
+            {
+                "token": "avatar.xl.group.offset",
+                "variable": "--p-avatar-xl-group-offset",
+                "description": "Group offset of xl"
             }
         ]
     },
@@ -868,6 +898,11 @@
                 "description": "Sm padding y of root"
             },
             {
+                "token": "button.sm.icon.only.width",
+                "variable": "--p-button-sm-icon-only-width",
+                "description": "Sm icon only width of root"
+            },
+            {
                 "token": "button.lg.font.size",
                 "variable": "--p-button-lg-font-size",
                 "description": "Lg font size of root"
@@ -881,6 +916,11 @@
                 "token": "button.lg.padding.y",
                 "variable": "--p-button-lg-padding-y",
                 "description": "Lg padding y of root"
+            },
+            {
+                "token": "button.lg.icon.only.width",
+                "variable": "--p-button-lg-icon-only-width",
+                "description": "Lg icon only width of root"
             },
             {
                 "token": "button.label.font.weight",
@@ -1643,6 +1683,21 @@
                 "description": "Danger color of text"
             },
             {
+                "token": "button.text.contrast.hover.background",
+                "variable": "--p-button-text-contrast-hover-background",
+                "description": "Contrast hover background of text"
+            },
+            {
+                "token": "button.text.contrast.active.background",
+                "variable": "--p-button-text-contrast-active-background",
+                "description": "Contrast active background of text"
+            },
+            {
+                "token": "button.text.contrast.color",
+                "variable": "--p-button-text-contrast-color",
+                "description": "Contrast color of text"
+            },
+            {
                 "token": "button.text.plain.hover.background",
                 "variable": "--p-button-text-plain-hover-background",
                 "description": "Plain hover background of text"
@@ -2193,6 +2248,26 @@
                 "description": "Transition duration of root"
             },
             {
+                "token": "checkbox.sm.width",
+                "variable": "--p-checkbox-sm-width",
+                "description": "Sm width of root"
+            },
+            {
+                "token": "checkbox.sm.height",
+                "variable": "--p-checkbox-sm-height",
+                "description": "Sm height of root"
+            },
+            {
+                "token": "checkbox.lg.width",
+                "variable": "--p-checkbox-lg-width",
+                "description": "Lg width of root"
+            },
+            {
+                "token": "checkbox.lg.height",
+                "variable": "--p-checkbox-lg-height",
+                "description": "Lg height of root"
+            },
+            {
                 "token": "checkbox.icon.size",
                 "variable": "--p-checkbox-icon-size",
                 "description": "Size of icon"
@@ -2216,6 +2291,16 @@
                 "token": "checkbox.icon.disabled.color",
                 "variable": "--p-checkbox-icon-disabled-color",
                 "description": "Disabled color of icon"
+            },
+            {
+                "token": "checkbox.icon.sm.size",
+                "variable": "--p-checkbox-icon-sm-size",
+                "description": "Sm size of icon"
+            },
+            {
+                "token": "checkbox.icon.lg.size",
+                "variable": "--p-checkbox-icon-lg-size",
+                "description": "Lg size of icon"
             }
         ]
     },
@@ -2648,6 +2733,16 @@
                 "description": "Padding of header"
             },
             {
+                "token": "datatable.header.sm.padding",
+                "variable": "--p-datatable-header-sm-padding",
+                "description": "Sm padding of header"
+            },
+            {
+                "token": "datatable.header.lg.padding",
+                "variable": "--p-datatable-header-lg-padding",
+                "description": "Lg padding of header"
+            },
+            {
                 "token": "datatable.header.cell.background",
                 "variable": "--p-datatable-header-cell-background",
                 "description": "Background of header cell"
@@ -2716,6 +2811,16 @@
                 "token": "datatable.header.cell.focus.ring.shadow",
                 "variable": "--p-datatable-header-cell-focus-ring-shadow",
                 "description": "Focus ring shadow of header cell"
+            },
+            {
+                "token": "datatable.header.cell.sm.padding",
+                "variable": "--p-datatable-header-cell-sm-padding",
+                "description": "Sm padding of header cell"
+            },
+            {
+                "token": "datatable.header.cell.lg.padding",
+                "variable": "--p-datatable-header-cell-lg-padding",
+                "description": "Lg padding of header cell"
             },
             {
                 "token": "datatable.column.title.font.weight",
@@ -2798,6 +2903,16 @@
                 "description": "Selected border color of body cell"
             },
             {
+                "token": "datatable.body.cell.sm.padding",
+                "variable": "--p-datatable-body-cell-sm-padding",
+                "description": "Sm padding of body cell"
+            },
+            {
+                "token": "datatable.body.cell.lg.padding",
+                "variable": "--p-datatable-body-cell-lg-padding",
+                "description": "Lg padding of body cell"
+            },
+            {
                 "token": "datatable.footer.cell.background",
                 "variable": "--p-datatable-footer-cell-background",
                 "description": "Background of footer cell"
@@ -2816,6 +2931,16 @@
                 "token": "datatable.footer.cell.padding",
                 "variable": "--p-datatable-footer-cell-padding",
                 "description": "Padding of footer cell"
+            },
+            {
+                "token": "datatable.footer.cell.sm.padding",
+                "variable": "--p-datatable-footer-cell-sm-padding",
+                "description": "Sm padding of footer cell"
+            },
+            {
+                "token": "datatable.footer.cell.lg.padding",
+                "variable": "--p-datatable-footer-cell-lg-padding",
+                "description": "Lg padding of footer cell"
             },
             {
                 "token": "datatable.column.footer.font.weight",
@@ -2848,109 +2973,24 @@
                 "description": "Padding of footer"
             },
             {
-                "token": "datatable.drop.point.color.0",
-                "variable": "--p-datatable-drop-point-color-0",
-                "description": "0 of drop point color"
+                "token": "datatable.footer.sm.padding",
+                "variable": "--p-datatable-footer-sm-padding",
+                "description": "Sm padding of footer"
             },
             {
-                "token": "datatable.drop.point.color.1",
-                "variable": "--p-datatable-drop-point-color-1",
-                "description": "1 of drop point color"
+                "token": "datatable.footer.lg.padding",
+                "variable": "--p-datatable-footer-lg-padding",
+                "description": "Lg padding of footer"
             },
             {
-                "token": "datatable.drop.point.color.2",
-                "variable": "--p-datatable-drop-point-color-2",
-                "description": "2 of drop point color"
+                "token": "datatable.drop.point.color",
+                "variable": "--p-datatable-drop-point-color",
+                "description": "Color of drop point"
             },
             {
-                "token": "datatable.drop.point.color.3",
-                "variable": "--p-datatable-drop-point-color-3",
-                "description": "3 of drop point color"
-            },
-            {
-                "token": "datatable.drop.point.color.4",
-                "variable": "--p-datatable-drop-point-color-4",
-                "description": "4 of drop point color"
-            },
-            {
-                "token": "datatable.drop.point.color.5",
-                "variable": "--p-datatable-drop-point-color-5",
-                "description": "5 of drop point color"
-            },
-            {
-                "token": "datatable.drop.point.color.6",
-                "variable": "--p-datatable-drop-point-color-6",
-                "description": "6 of drop point color"
-            },
-            {
-                "token": "datatable.drop.point.color.7",
-                "variable": "--p-datatable-drop-point-color-7",
-                "description": "7 of drop point color"
-            },
-            {
-                "token": "datatable.drop.point.color.8",
-                "variable": "--p-datatable-drop-point-color-8",
-                "description": "8 of drop point color"
-            },
-            {
-                "token": "datatable.drop.point.color.9",
-                "variable": "--p-datatable-drop-point-color-9",
-                "description": "9 of drop point color"
-            },
-            {
-                "token": "datatable.drop.point.color.10",
-                "variable": "--p-datatable-drop-point-color-10",
-                "description": "10 of drop point color"
-            },
-            {
-                "token": "datatable.drop.point.color.11",
-                "variable": "--p-datatable-drop-point-color-11",
-                "description": "11 of drop point color"
-            },
-            {
-                "token": "datatable.drop.point.color.12",
-                "variable": "--p-datatable-drop-point-color-12",
-                "description": "12 of drop point color"
-            },
-            {
-                "token": "datatable.drop.point.color.13",
-                "variable": "--p-datatable-drop-point-color-13",
-                "description": "13 of drop point color"
-            },
-            {
-                "token": "datatable.drop.point.color.14",
-                "variable": "--p-datatable-drop-point-color-14",
-                "description": "14 of drop point color"
-            },
-            {
-                "token": "datatable.column.resizer.width.0",
-                "variable": "--p-datatable-column-resizer-width-0",
-                "description": "0 of column resizer width"
-            },
-            {
-                "token": "datatable.column.resizer.width.1",
-                "variable": "--p-datatable-column-resizer-width-1",
-                "description": "1 of column resizer width"
-            },
-            {
-                "token": "datatable.column.resizer.width.2",
-                "variable": "--p-datatable-column-resizer-width-2",
-                "description": "2 of column resizer width"
-            },
-            {
-                "token": "datatable.column.resizer.width.3",
-                "variable": "--p-datatable-column-resizer-width-3",
-                "description": "3 of column resizer width"
-            },
-            {
-                "token": "datatable.column.resizer.width.4",
-                "variable": "--p-datatable-column-resizer-width-4",
-                "description": "4 of column resizer width"
-            },
-            {
-                "token": "datatable.column.resizer.width.5",
-                "variable": "--p-datatable-column-resizer-width-5",
-                "description": "5 of column resizer width"
+                "token": "datatable.column.resizer.width",
+                "variable": "--p-datatable-column-resizer-width",
+                "description": "Width of column resizer"
             },
             {
                 "token": "datatable.resize.indicator.width",
@@ -2971,6 +3011,11 @@
                 "token": "datatable.sort.icon.hover.color",
                 "variable": "--p-datatable-sort-icon-hover-color",
                 "description": "Hover color of sort icon"
+            },
+            {
+                "token": "datatable.sort.icon.size",
+                "variable": "--p-datatable-sort-icon-size",
+                "description": "Size of sort icon"
             },
             {
                 "token": "datatable.loading.icon.size",
@@ -3408,6 +3453,16 @@
                 "description": "Width of dropdown"
             },
             {
+                "token": "datepicker.dropdown.sm.width",
+                "variable": "--p-datepicker-dropdown-sm-width",
+                "description": "Sm width of dropdown"
+            },
+            {
+                "token": "datepicker.dropdown.lg.width",
+                "variable": "--p-datepicker-dropdown-lg-width",
+                "description": "Lg width of dropdown"
+            },
+            {
                 "token": "datepicker.dropdown.border.color",
                 "variable": "--p-datepicker-dropdown-border-color",
                 "description": "Border color of dropdown"
@@ -3666,6 +3721,11 @@
                 "token": "datepicker.year.view.margin",
                 "variable": "--p-datepicker-year-view-margin",
                 "description": "Margin of year view"
+            },
+            {
+                "token": "datepicker.year.padding",
+                "variable": "--p-datepicker-year-padding",
+                "description": "Padding of year"
             },
             {
                 "token": "datepicker.year.border.radius",
@@ -3941,6 +4001,11 @@
                 "token": "drawer.content.padding",
                 "variable": "--p-drawer-content-padding",
                 "description": "Padding of content"
+            },
+            {
+                "token": "drawer.footer.padding",
+                "variable": "--p-drawer-footer-padding",
+                "description": "Padding of footer"
             }
         ]
     },
@@ -4288,6 +4353,11 @@
                 "description": "Padding of header"
             },
             {
+                "token": "fileupload.header.border.color",
+                "variable": "--p-fileupload-header-border-color",
+                "description": "Border color of header"
+            },
+            {
                 "token": "fileupload.header.border.width",
                 "variable": "--p-fileupload-header-border-width",
                 "description": "Border width of header"
@@ -4313,6 +4383,11 @@
                 "description": "Padding of content"
             },
             {
+                "token": "fileupload.content.gap",
+                "variable": "--p-fileupload-content-gap",
+                "description": "Gap of content"
+            },
+            {
                 "token": "fileupload.file.padding",
                 "variable": "--p-fileupload-file-padding",
                 "description": "Padding of file"
@@ -4331,6 +4406,11 @@
                 "token": "fileupload.file.info.gap",
                 "variable": "--p-fileupload-file-info-gap",
                 "description": "Info gap of file"
+            },
+            {
+                "token": "fileupload.file.list.gap",
+                "variable": "--p-fileupload-file-list-gap",
+                "description": "Gap of file list"
             },
             {
                 "token": "fileupload.progressbar.height",
@@ -4358,6 +4438,11 @@
                 "description": "Focus color of root"
             },
             {
+                "token": "floatlabel.active.color",
+                "variable": "--p-floatlabel-active-color",
+                "description": "Active color of root"
+            },
+            {
                 "token": "floatlabel.invalid.color",
                 "variable": "--p-floatlabel-invalid-color",
                 "description": "Invalid color of root"
@@ -4366,6 +4451,66 @@
                 "token": "floatlabel.transition.duration",
                 "variable": "--p-floatlabel-transition-duration",
                 "description": "Transition duration of root"
+            },
+            {
+                "token": "floatlabel.position.x",
+                "variable": "--p-floatlabel-position-x",
+                "description": "Position x of root"
+            },
+            {
+                "token": "floatlabel.position.y",
+                "variable": "--p-floatlabel-position-y",
+                "description": "Position y of root"
+            },
+            {
+                "token": "floatlabel.font.weight",
+                "variable": "--p-floatlabel-font-weight",
+                "description": "Font weight of root"
+            },
+            {
+                "token": "floatlabel.active.font.size",
+                "variable": "--p-floatlabel-active-font-size",
+                "description": "Active font size of root"
+            },
+            {
+                "token": "floatlabel.active.font.weight",
+                "variable": "--p-floatlabel-active-font-weight",
+                "description": "Active font weight of root"
+            },
+            {
+                "token": "floatlabel.over.active.top",
+                "variable": "--p-floatlabel-over-active-top",
+                "description": "Active top of over"
+            },
+            {
+                "token": "floatlabel.in.input.padding.top",
+                "variable": "--p-floatlabel-in-input-padding-top",
+                "description": "Input padding top of in"
+            },
+            {
+                "token": "floatlabel.in.input.padding.bottom",
+                "variable": "--p-floatlabel-in-input-padding-bottom",
+                "description": "Input padding bottom of in"
+            },
+            {
+                "token": "floatlabel.in.active.top",
+                "variable": "--p-floatlabel-in-active-top",
+                "description": "Active top of in"
+            },
+            {
+                "token": "floatlabel.on.border.radius",
+                "variable": "--p-floatlabel-on-border-radius",
+                "description": "Border radius of on"
+            },
+            {
+                "token": "floatlabel.on.active.background",
+                "variable": "--p-floatlabel-on-active-background",
+                "description": "Active background of on"
+            },
+            {
+                "token": "floatlabel.on.active.padding",
+                "variable": "--p-floatlabel-on-active-padding",
+                "description": "Active padding of on"
             }
         ]
     },
@@ -4985,7 +5130,6 @@
         ]
     },
     "": {
-        "description": "[Live Demo](https://www.primeng.org/)",
         "tokens": []
     },
     "inlinemessage": {
@@ -5882,6 +6026,11 @@
                 "description": "Horizontal orientation padding of root"
             },
             {
+                "token": "megamenu.horizontal.orientation.gap",
+                "variable": "--p-megamenu-horizontal-orientation-gap",
+                "description": "Horizontal orientation gap of root"
+            },
+            {
                 "token": "megamenu.transition.duration",
                 "variable": "--p-megamenu-transition-duration",
                 "description": "Transition duration of root"
@@ -6344,22 +6493,22 @@
             {
                 "token": "menubar.submenu.icon.size",
                 "variable": "--p-menubar-submenu-icon-size",
-                "description": "Size of submenu icon"
+                "description": "Icon size of submenu"
             },
             {
                 "token": "menubar.submenu.icon.color",
                 "variable": "--p-menubar-submenu-icon-color",
-                "description": "Color of submenu icon"
+                "description": "Icon color of submenu"
             },
             {
                 "token": "menubar.submenu.icon.focus.color",
                 "variable": "--p-menubar-submenu-icon-focus-color",
-                "description": "Focus color of submenu icon"
+                "description": "Icon focus color of submenu"
             },
             {
                 "token": "menubar.submenu.icon.active.color",
                 "variable": "--p-menubar-submenu-icon-active-color",
-                "description": "Active color of submenu icon"
+                "description": "Icon active color of submenu"
             },
             {
                 "token": "menubar.separator.border.color",
@@ -6447,6 +6596,16 @@
                 "description": "Gap of content"
             },
             {
+                "token": "message.content.sm.padding",
+                "variable": "--p-message-content-sm-padding",
+                "description": "Sm padding of content"
+            },
+            {
+                "token": "message.content.lg.padding",
+                "variable": "--p-message-content-lg-padding",
+                "description": "Lg padding of content"
+            },
+            {
                 "token": "message.text.font.size",
                 "variable": "--p-message-text-font-size",
                 "description": "Font size of text"
@@ -6457,9 +6616,29 @@
                 "description": "Font weight of text"
             },
             {
+                "token": "message.text.sm.font.size",
+                "variable": "--p-message-text-sm-font-size",
+                "description": "Sm font size of text"
+            },
+            {
+                "token": "message.text.lg.font.size",
+                "variable": "--p-message-text-lg-font-size",
+                "description": "Lg font size of text"
+            },
+            {
                 "token": "message.icon.size",
                 "variable": "--p-message-icon-size",
                 "description": "Size of icon"
+            },
+            {
+                "token": "message.icon.sm.size",
+                "variable": "--p-message-icon-sm-size",
+                "description": "Sm size of icon"
+            },
+            {
+                "token": "message.icon.lg.size",
+                "variable": "--p-message-icon-lg-size",
+                "description": "Lg size of icon"
             },
             {
                 "token": "message.close.button.width",
@@ -6497,6 +6676,26 @@
                 "description": "Size of close icon"
             },
             {
+                "token": "message.close.icon.sm.size",
+                "variable": "--p-message-close-icon-sm-size",
+                "description": "Sm size of close icon"
+            },
+            {
+                "token": "message.close.icon.lg.size",
+                "variable": "--p-message-close-icon-lg-size",
+                "description": "Lg size of close icon"
+            },
+            {
+                "token": "message.outlined.border.width",
+                "variable": "--p-message-outlined-border-width",
+                "description": "Root border width of outlined"
+            },
+            {
+                "token": "message.simple.content.padding",
+                "variable": "--p-message-simple-content-padding",
+                "description": "Content padding of simple"
+            },
+            {
                 "token": "message.info.background",
                 "variable": "--p-message-info-background",
                 "description": "Background of info"
@@ -6530,6 +6729,21 @@
                 "token": "message.info.close.button.focus.ring.shadow",
                 "variable": "--p-message-info-close-button-focus-ring-shadow",
                 "description": "Close button focus ring shadow of info"
+            },
+            {
+                "token": "message.info.outlined.color",
+                "variable": "--p-message-info-outlined-color",
+                "description": "Outlined color of info"
+            },
+            {
+                "token": "message.info.outlined.border.color",
+                "variable": "--p-message-info-outlined-border-color",
+                "description": "Outlined border color of info"
+            },
+            {
+                "token": "message.info.simple.color",
+                "variable": "--p-message-info-simple-color",
+                "description": "Simple color of info"
             },
             {
                 "token": "message.success.background",
@@ -6567,6 +6781,21 @@
                 "description": "Close button focus ring shadow of success"
             },
             {
+                "token": "message.success.outlined.color",
+                "variable": "--p-message-success-outlined-color",
+                "description": "Outlined color of success"
+            },
+            {
+                "token": "message.success.outlined.border.color",
+                "variable": "--p-message-success-outlined-border-color",
+                "description": "Outlined border color of success"
+            },
+            {
+                "token": "message.success.simple.color",
+                "variable": "--p-message-success-simple-color",
+                "description": "Simple color of success"
+            },
+            {
                 "token": "message.warn.background",
                 "variable": "--p-message-warn-background",
                 "description": "Background of warn"
@@ -6600,6 +6829,21 @@
                 "token": "message.warn.close.button.focus.ring.shadow",
                 "variable": "--p-message-warn-close-button-focus-ring-shadow",
                 "description": "Close button focus ring shadow of warn"
+            },
+            {
+                "token": "message.warn.outlined.color",
+                "variable": "--p-message-warn-outlined-color",
+                "description": "Outlined color of warn"
+            },
+            {
+                "token": "message.warn.outlined.border.color",
+                "variable": "--p-message-warn-outlined-border-color",
+                "description": "Outlined border color of warn"
+            },
+            {
+                "token": "message.warn.simple.color",
+                "variable": "--p-message-warn-simple-color",
+                "description": "Simple color of warn"
             },
             {
                 "token": "message.error.background",
@@ -6637,6 +6881,21 @@
                 "description": "Close button focus ring shadow of error"
             },
             {
+                "token": "message.error.outlined.color",
+                "variable": "--p-message-error-outlined-color",
+                "description": "Outlined color of error"
+            },
+            {
+                "token": "message.error.outlined.border.color",
+                "variable": "--p-message-error-outlined-border-color",
+                "description": "Outlined border color of error"
+            },
+            {
+                "token": "message.error.simple.color",
+                "variable": "--p-message-error-simple-color",
+                "description": "Simple color of error"
+            },
+            {
                 "token": "message.secondary.background",
                 "variable": "--p-message-secondary-background",
                 "description": "Background of secondary"
@@ -6672,6 +6931,21 @@
                 "description": "Close button focus ring shadow of secondary"
             },
             {
+                "token": "message.secondary.outlined.color",
+                "variable": "--p-message-secondary-outlined-color",
+                "description": "Outlined color of secondary"
+            },
+            {
+                "token": "message.secondary.outlined.border.color",
+                "variable": "--p-message-secondary-outlined-border-color",
+                "description": "Outlined border color of secondary"
+            },
+            {
+                "token": "message.secondary.simple.color",
+                "variable": "--p-message-secondary-simple-color",
+                "description": "Simple color of secondary"
+            },
+            {
                 "token": "message.contrast.background",
                 "variable": "--p-message-contrast-background",
                 "description": "Background of contrast"
@@ -6705,6 +6979,21 @@
                 "token": "message.contrast.close.button.focus.ring.shadow",
                 "variable": "--p-message-contrast-close-button-focus-ring-shadow",
                 "description": "Close button focus ring shadow of contrast"
+            },
+            {
+                "token": "message.contrast.outlined.color",
+                "variable": "--p-message-contrast-outlined-color",
+                "description": "Outlined color of contrast"
+            },
+            {
+                "token": "message.contrast.outlined.border.color",
+                "variable": "--p-message-contrast-outlined-border-color",
+                "description": "Outlined border color of contrast"
+            },
+            {
+                "token": "message.contrast.simple.color",
+                "variable": "--p-message-contrast-simple-color",
+                "description": "Simple color of contrast"
             }
         ]
     },
@@ -7702,24 +7991,24 @@
         "description": "ProgressSpinner Design Tokens\n\n[Live Demo](https://www.primeng.org/progressspinner/)",
         "tokens": [
             {
-                "token": "progressspinner.color.1",
-                "variable": "--p-progressspinner-color-1",
-                "description": "Color.1 of root"
+                "token": "progressspinner.color.one",
+                "variable": "--p-progressspinner-color-one",
+                "description": "Color one of root"
             },
             {
-                "token": "progressspinner.color.2",
-                "variable": "--p-progressspinner-color-2",
-                "description": "Color.2 of root"
+                "token": "progressspinner.color.two",
+                "variable": "--p-progressspinner-color-two",
+                "description": "Color two of root"
             },
             {
-                "token": "progressspinner.color.3",
-                "variable": "--p-progressspinner-color-3",
-                "description": "Color.3 of root"
+                "token": "progressspinner.color.three",
+                "variable": "--p-progressspinner-color-three",
+                "description": "Color three of root"
             },
             {
-                "token": "progressspinner.color.4",
-                "variable": "--p-progressspinner-color-4",
-                "description": "Color.4 of root"
+                "token": "progressspinner.color.four",
+                "variable": "--p-progressspinner-color-four",
+                "description": "Color four of root"
             }
         ]
     },
@@ -7837,6 +8126,26 @@
                 "description": "Transition duration of root"
             },
             {
+                "token": "radiobutton.sm.width",
+                "variable": "--p-radiobutton-sm-width",
+                "description": "Sm width of root"
+            },
+            {
+                "token": "radiobutton.sm.height",
+                "variable": "--p-radiobutton-sm-height",
+                "description": "Sm height of root"
+            },
+            {
+                "token": "radiobutton.lg.width",
+                "variable": "--p-radiobutton-lg-width",
+                "description": "Lg width of root"
+            },
+            {
+                "token": "radiobutton.lg.height",
+                "variable": "--p-radiobutton-lg-height",
+                "description": "Lg height of root"
+            },
+            {
                 "token": "radiobutton.icon.size",
                 "variable": "--p-radiobutton-icon-size",
                 "description": "Size of icon"
@@ -7855,6 +8164,16 @@
                 "token": "radiobutton.icon.disabled.color",
                 "variable": "--p-radiobutton-icon-disabled-color",
                 "description": "Disabled color of icon"
+            },
+            {
+                "token": "radiobutton.icon.sm.size",
+                "variable": "--p-radiobutton-icon-sm-size",
+                "description": "Sm size of icon"
+            },
+            {
+                "token": "radiobutton.icon.lg.size",
+                "variable": "--p-radiobutton-icon-lg-size",
+                "description": "Lg size of icon"
             }
         ]
     },
@@ -8042,6 +8361,11 @@
                 "description": "Placeholder color of root"
             },
             {
+                "token": "select.invalid.placeholder.color",
+                "variable": "--p-select-invalid-placeholder-color",
+                "description": "Invalid placeholder color of root"
+            },
+            {
                 "token": "select.shadow",
                 "variable": "--p-select-shadow",
                 "description": "Shadow of root"
@@ -8090,6 +8414,36 @@
                 "token": "select.transition.duration",
                 "variable": "--p-select-transition-duration",
                 "description": "Transition duration of root"
+            },
+            {
+                "token": "select.sm.font.size",
+                "variable": "--p-select-sm-font-size",
+                "description": "Sm font size of root"
+            },
+            {
+                "token": "select.sm.padding.x",
+                "variable": "--p-select-sm-padding-x",
+                "description": "Sm padding x of root"
+            },
+            {
+                "token": "select.sm.padding.y",
+                "variable": "--p-select-sm-padding-y",
+                "description": "Sm padding y of root"
+            },
+            {
+                "token": "select.lg.font.size",
+                "variable": "--p-select-lg-font-size",
+                "description": "Lg font size of root"
+            },
+            {
+                "token": "select.lg.padding.x",
+                "variable": "--p-select-lg-padding-x",
+                "description": "Lg padding x of root"
+            },
+            {
+                "token": "select.lg.padding.y",
+                "variable": "--p-select-lg-padding-y",
+                "description": "Lg padding y of root"
             },
             {
                 "token": "select.dropdown.width",
@@ -8327,6 +8681,11 @@
                 "description": "Content border radius of handle"
             },
             {
+                "token": "slider.handle.content.background",
+                "variable": "--p-slider-handle-content-background",
+                "description": "Background of handle"
+            },
+            {
                 "token": "slider.handle.content.hover.background",
                 "variable": "--p-slider-handle-content-hover-background",
                 "description": "Content hover background of handle"
@@ -8370,11 +8729,6 @@
                 "token": "slider.handle.focus.ring.shadow",
                 "variable": "--p-slider-handle-focus-ring-shadow",
                 "description": "Focus ring shadow of handle"
-            },
-            {
-                "token": "slider.handle.content.background",
-                "variable": "--p-slider-handle-content-background",
-                "description": "Content background of handle"
             }
         ]
     },
@@ -8650,6 +9004,11 @@
                 "token": "stepper.steppanel.padding",
                 "variable": "--p-stepper-steppanel-padding",
                 "description": "Padding of steppanel"
+            },
+            {
+                "token": "stepper.steppanel.indent",
+                "variable": "--p-stepper-steppanel-indent",
+                "description": "Indent of steppanel"
             }
         ]
     },
@@ -9397,6 +9756,11 @@
                 "description": "Filled background of root"
             },
             {
+                "token": "textarea.filled.hover.background",
+                "variable": "--p-textarea-filled-hover-background",
+                "description": "Filled hover background of root"
+            },
+            {
                 "token": "textarea.filled.focus.background",
                 "variable": "--p-textarea-filled-focus-background",
                 "description": "Filled focus background of root"
@@ -9772,6 +10136,11 @@
                 "description": "Transition duration of root"
             },
             {
+                "token": "toast.blur",
+                "variable": "--p-toast-blur",
+                "description": "Blur of root"
+            },
+            {
                 "token": "toast.icon.size",
                 "variable": "--p-toast-icon-size",
                 "description": "Size of icon"
@@ -9845,31 +10214,6 @@
                 "token": "toast.close.icon.size",
                 "variable": "--p-toast-close-icon-size",
                 "description": "Size of close icon"
-            },
-            {
-                "token": "toast.blur.0",
-                "variable": "--p-toast-blur-0",
-                "description": "0 of blur"
-            },
-            {
-                "token": "toast.blur.1",
-                "variable": "--p-toast-blur-1",
-                "description": "1 of blur"
-            },
-            {
-                "token": "toast.blur.2",
-                "variable": "--p-toast-blur-2",
-                "description": "2 of blur"
-            },
-            {
-                "token": "toast.blur.3",
-                "variable": "--p-toast-blur-3",
-                "description": "3 of blur"
-            },
-            {
-                "token": "toast.blur.4",
-                "variable": "--p-toast-blur-4",
-                "description": "4 of blur"
             },
             {
                 "token": "toast.info.background",
@@ -10187,6 +10531,26 @@
                 "description": "Transition duration of root"
             },
             {
+                "token": "togglebutton.sm.font.size",
+                "variable": "--p-togglebutton-sm-font-size",
+                "description": "Sm font size of root"
+            },
+            {
+                "token": "togglebutton.sm.padding",
+                "variable": "--p-togglebutton-sm-padding",
+                "description": "Sm padding of root"
+            },
+            {
+                "token": "togglebutton.lg.font.size",
+                "variable": "--p-togglebutton-lg-font-size",
+                "description": "Lg font size of root"
+            },
+            {
+                "token": "togglebutton.lg.padding",
+                "variable": "--p-togglebutton-lg-padding",
+                "description": "Lg padding of root"
+            },
+            {
                 "token": "togglebutton.background",
                 "variable": "--p-togglebutton-background",
                 "description": "Background of root"
@@ -10247,14 +10611,14 @@
                 "description": "Checked color of icon"
             },
             {
-                "token": "togglebutton.content.left",
-                "variable": "--p-togglebutton-content-left",
-                "description": "Left of content"
+                "token": "togglebutton.content.padding",
+                "variable": "--p-togglebutton-content-padding",
+                "description": "Padding of the content"
             },
             {
-                "token": "togglebutton.content.top",
-                "variable": "--p-togglebutton-content-top",
-                "description": "Top of content"
+                "token": "togglebutton.border.radius",
+                "variable": "--p-togglebutton-border-radius",
+                "description": "Border radius of the content"
             },
             {
                 "token": "togglebutton.content.checked.shadow",
@@ -10265,6 +10629,16 @@
                 "token": "togglebutton.content.checked.background",
                 "variable": "--p-togglebutton-content-checked-background",
                 "description": "Checked background of content"
+            },
+            {
+                "token": "togglebutton.content.sm.padding",
+                "variable": "--p-togglebutton-content-sm-padding",
+                "description": "Sm padding of content"
+            },
+            {
+                "token": "togglebutton.content.lg.padding",
+                "variable": "--p-togglebutton-content-lg-padding",
+                "description": "Lg padding of content"
             }
         ]
     },
@@ -10695,6 +11069,11 @@
                 "token": "tree.loading.icon.size",
                 "variable": "--p-tree-loading-icon-size",
                 "description": "Size of loading icon"
+            },
+            {
+                "token": "tree.filter.margin",
+                "variable": "--p-tree-filter-margin",
+                "description": "Margin of filter"
             }
         ]
     },
@@ -11142,34 +11521,9 @@
                 "description": "Padding of footer"
             },
             {
-                "token": "treetable.column.resizer.width.0",
-                "variable": "--p-treetable-column-resizer-width-0",
-                "description": "0 of column resizer width"
-            },
-            {
-                "token": "treetable.column.resizer.width.1",
-                "variable": "--p-treetable-column-resizer-width-1",
-                "description": "1 of column resizer width"
-            },
-            {
-                "token": "treetable.column.resizer.width.2",
-                "variable": "--p-treetable-column-resizer-width-2",
-                "description": "2 of column resizer width"
-            },
-            {
-                "token": "treetable.column.resizer.width.3",
-                "variable": "--p-treetable-column-resizer-width-3",
-                "description": "3 of column resizer width"
-            },
-            {
-                "token": "treetable.column.resizer.width.4",
-                "variable": "--p-treetable-column-resizer-width-4",
-                "description": "4 of column resizer width"
-            },
-            {
-                "token": "treetable.column.resizer.width.5",
-                "variable": "--p-treetable-column-resizer-width-5",
-                "description": "5 of column resizer width"
+                "token": "treetable.column.resizer.width",
+                "variable": "--p-treetable-column-resizer-width",
+                "description": "Width of column resizer"
             },
             {
                 "token": "treetable.resize.indicator.width",
@@ -11190,6 +11544,11 @@
                 "token": "treetable.sort.icon.hover.color",
                 "variable": "--p-treetable-sort-icon-hover-color",
                 "description": "Hover color of sort icon"
+            },
+            {
+                "token": "treetable.sort.icon.size",
+                "variable": "--p-treetable-sort-icon-size",
+                "description": "Size of sort icon"
             },
             {
                 "token": "treetable.loading.icon.size",

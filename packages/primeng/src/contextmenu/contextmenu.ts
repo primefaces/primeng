@@ -67,7 +67,7 @@ import { ContextMenuStyle } from './style/contextmenustyle';
             *ngIf="root ? true : visible"
             #sublist
             role="menu"
-            [ngClass]="{ 'p-contextmenu-submenu': !root, 'p-contextmenu-root-list': root }"
+            [class]="root ? cx('rootList') : cx('submenu')"
             [@overlayAnimation]="visible"
             (@overlayAnimation.start)="onEnter($event, sublist)"
             [attr.id]="menuId + '_list'"
@@ -86,7 +86,7 @@ import { ContextMenuStyle } from './style/contextmenustyle';
                     *ngIf="isItemVisible(processedItem) && getItemProp(processedItem, 'separator')"
                     [attr.id]="getItemId(processedItem)"
                     [style]="getItemProp(processedItem, 'style')"
-                    [ngClass]="getSeparatorItemClass(processedItem)"
+                    [class]="cn(cx('separator'), getItemProp(processedItem, 'styleClass'))"
                     role="separator"
                     [attr.data-pc-section]="'separator'"
                 ></li>
@@ -106,13 +106,12 @@ import { ContextMenuStyle } from './style/contextmenustyle';
                     [attr.aria-level]="level + 1"
                     [attr.aria-setsize]="getAriaSetSize()"
                     [attr.aria-posinset]="getAriaPosInset(index)"
-                    [ngStyle]="getItemProp(processedItem, 'style')"
-                    [ngClass]="getItemClass(processedItem)"
-                    [class]="getItemProp(processedItem, 'styleClass')"
+                    [style]="getItemProp(processedItem, 'style')"
+                    [class]="cn(cx('item', { instance: this, processedItem }), processedItem?.styleClass)"
                     pTooltip
                     [tooltipOptions]="getItemProp(processedItem, 'tooltipOptions')"
                 >
-                    <div [attr.data-pc-section]="'content'" class="p-contextmenu-item-content" (click)="onItemClick($event, processedItem)" (mouseenter)="onItemMouseEnter({ $event, processedItem })">
+                    <div [attr.data-pc-section]="'content'" [class]="cx('itemContent')" (click)="onItemClick($event, processedItem)" (mouseenter)="onItemMouseEnter({ $event, processedItem })">
                         <ng-container *ngIf="!itemTemplate">
                             <a
                                 *ngIf="!getItemProp(processedItem, 'routerLink')"
@@ -121,29 +120,26 @@ import { ContextMenuStyle } from './style/contextmenustyle';
                                 [attr.data-automationid]="getItemProp(processedItem, 'automationId')"
                                 [attr.data-pc-section]="'action'"
                                 [target]="getItemProp(processedItem, 'target')"
-                                [ngClass]="{ 'p-contextmenu-item-link': true }"
+                                [class]="cx('itemLink')"
                                 [attr.tabindex]="-1"
                                 pRipple
                             >
                                 <span
                                     *ngIf="getItemProp(processedItem, 'icon')"
-                                    class="p-contextmenu-item-icon"
-                                    [ngClass]="getItemProp(processedItem, 'icon')"
+                                    [class]="cn(cx('itemIcon'), getItemProp(processedItem, 'icon'))"
                                     [ngStyle]="getItemProp(processedItem, 'iconStyle')"
                                     [attr.data-pc-section]="'icon'"
                                     [attr.aria-hidden]="true"
                                     [attr.tabindex]="-1"
                                 >
                                 </span>
-                                <span *ngIf="getItemProp(processedItem, 'escape'); else htmlLabel" class="p-contextmenu-item-label" [attr.data-pc-section]="'label'">
+                                <span *ngIf="getItemProp(processedItem, 'escape'); else htmlLabel" [class]="cx('itemLabel')" [attr.data-pc-section]="'label'">
                                     {{ getItemLabel(processedItem) }}
                                 </span>
-                                <ng-template #htmlLabel>
-                                    <span class="p-contextmenu-item-label" [innerHTML]="getItemLabel(processedItem)" [attr.data-pc-section]="'label'"></span>
-                                </ng-template>
-                                <p-badge *ngIf="getItemProp(processedItem, 'badge')" [styleClass]="getItemProp(processedItem, 'badgeStyleClass')" [value]="getItemProp(processedItem, 'badge')" />
+                                <ng-template #htmlLabel> <span [class]="cx('itemLabel')" [innerHTML]="getItemLabel(processedItem)" [attr.data-pc-section]="'label'"></span> </ng-template>
+                                <p-badge *ngIf="getItemProp(processedItem, 'badge')" [class]="getItemProp(processedItem, 'badgeStyleClass')" [value]="getItemProp(processedItem, 'badge')" />
                                 <ng-container *ngIf="isItemGroup(processedItem)">
-                                    <AngleRightIcon *ngIf="!contextMenu.submenuIconTemplate && !contextMenu._submenuIconTemplate" [class]="'p-contextmenu-submenu-icon'" [attr.data-pc-section]="'submenuicon'" [attr.aria-hidden]="true" />
+                                    <AngleRightIcon *ngIf="!contextMenu.submenuIconTemplate && !contextMenu._submenuIconTemplate" [class]="cx('itemIcon')" [attr.data-pc-section]="'submenuicon'" [attr.aria-hidden]="true" />
                                     <ng-template
                                         *ngTemplateOutlet="contextMenu.submenuIconTemplate || contextMenu._submenuIconTemplate; context: { class: 'p-contextmenu-submenu-icon' }"
                                         [attr.data-pc-section]="'submenuicon'"
@@ -159,9 +155,9 @@ import { ContextMenuStyle } from './style/contextmenustyle';
                                 [attr.aria-hidden]="true"
                                 [attr.data-pc-section]="'action'"
                                 [queryParams]="getItemProp(processedItem, 'queryParams')"
-                                [routerLinkActiveOptions]="getItemProp(processedItem, 'routerLinkActiveOptions') || { exact: false }"
+                                [routerLinkActiveOptions]="getItemProp(processedItem, 'routerLinActiveOptions') || { exact: false }"
                                 [target]="getItemProp(processedItem, 'target')"
-                                [ngClass]="{ 'p-contextmenu-item-link': true, 'p-disabled': getItemProp(processedItem, 'disabled') }"
+                                [class]="cx('itemLink')"
                                 [fragment]="getItemProp(processedItem, 'fragment')"
                                 [queryParamsHandling]="getItemProp(processedItem, 'queryParamsHandling')"
                                 [preserveFragment]="getItemProp(processedItem, 'preserveFragment')"
@@ -172,23 +168,22 @@ import { ContextMenuStyle } from './style/contextmenustyle';
                             >
                                 <span
                                     *ngIf="getItemProp(processedItem, 'icon')"
-                                    class="p-contextmenu-item-icon"
-                                    [ngClass]="getItemProp(processedItem, 'icon')"
+                                    [class]="cn(cx('itemIcon'), getItemProp(processedItem, 'icon'))"
                                     [ngStyle]="getItemProp(processedItem, 'iconStyle')"
                                     [attr.data-pc-section]="'icon'"
                                     [attr.aria-hidden]="true"
                                     [attr.tabindex]="-1"
                                 >
                                 </span>
-                                <span *ngIf="getItemProp(processedItem, 'escape'); else htmlLabel" class="p-contextmenu-item-label" [attr.data-pc-section]="'label'">
+                                <span *ngIf="getItemProp(processedItem, 'escape'); else htmlLabel" [class]="cx('itemLabel')" [attr.data-pc-section]="'label'">
                                     {{ getItemLabel(processedItem) }}
                                 </span>
                                 <ng-template #htmlLabel>
-                                    <span class="p-contextmenu-item-label" [innerHTML]="getItemLabel(processedItem)" [attr.data-pc-section]="'label'"></span>
+                                    <span [class]="cx('itemLabel')" [innerHTML]="getItemLabel(processedItem)" [attr.data-pc-section]="'label'"></span>
                                 </ng-template>
-                                <p-badge *ngIf="getItemProp(processedItem, 'badge')" [styleClass]="getItemProp(processedItem, 'badgeStyleClass')" [value]="getItemProp(processedItem, 'badge')" />
+                                <p-badge *ngIf="getItemProp(processedItem, 'badge')" [class]="getItemProp(processedItem, 'badgeStyleClass')" [value]="getItemProp(processedItem, 'badge')" />
                                 <ng-container *ngIf="isItemGroup(processedItem)">
-                                    <AngleRightIcon *ngIf="!contextMenu.submenuIconTemplate && !contextMenu._submenuIconTemplate" [class]="'p-contextmenu-submenu-icon'" [attr.data-pc-section]="'submenuicon'" [attr.aria-hidden]="true" />
+                                    <AngleRightIcon *ngIf="!contextMenu.submenuIconTemplate && !contextMenu._submenuIconTemplate" [class]="cx('submenuIcon')" [attr.data-pc-section]="'submenuicon'" [attr.aria-hidden]="true" />
                                     <ng-template
                                         *ngTemplateOutlet="!contextMenu.submenuIconTemplate || !contextMenu._submenuIconTemplate; context: { class: 'p-contextmenu-submenu-icon' }"
                                         [attr.data-pc-section]="'submenuicon'"
@@ -219,7 +214,8 @@ import { ContextMenuStyle } from './style/contextmenustyle';
         </ul>
     `,
     animations: [trigger('overlayAnimation', [transition(':enter', [style({ opacity: 0 })]), transition(':leave', [style({ opacity: 0 })])])],
-    encapsulation: ViewEncapsulation.None
+    encapsulation: ViewEncapsulation.None,
+    providers: [ContextMenuStyle]
 })
 export class ContextMenuSub extends BaseComponent {
     @Input({ transform: booleanAttribute }) visible: boolean = false;
@@ -262,11 +258,13 @@ export class ContextMenuSub extends BaseComponent {
 
     @ViewChild('sublist') sublistViewChild: ElementRef;
 
+    _componentStyle = inject(ContextMenuStyle);
+
     constructor(@Inject(forwardRef(() => ContextMenu)) public contextMenu: ContextMenu) {
         super();
     }
 
-    getItemProp(processedItem: any, name: string, params: any | null = null) {
+    getItemProp(processedItem: any, name: string, params: any | null = null): any {
         return processedItem && processedItem.item ? resolve(processedItem.item[name], params) : undefined;
     }
 
@@ -278,25 +276,8 @@ export class ContextMenuSub extends BaseComponent {
         return this.getItemId(processedItem);
     }
 
-    getItemClass(processedItem: any) {
-        return {
-            ...this.getItemProp(processedItem, 'class'),
-            'p-contextmenu-item': true,
-            'p-contextmenu-item-active': this.isItemActive(processedItem),
-            'p-focus': this.isItemFocused(processedItem),
-            'p-disabled': this.isItemDisabled(processedItem)
-        };
-    }
-
     getItemLabel(processedItem: any): string {
         return this.getItemProp(processedItem, 'label');
-    }
-
-    getSeparatorItemClass(processedItem: any) {
-        return {
-            ...this.getItemProp(processedItem, 'class'),
-            'p-contextmenu-separator': true
-        };
     }
 
     getAriaSetSize() {
@@ -376,8 +357,7 @@ export class ContextMenuSub extends BaseComponent {
             [attr.data-pc-section]="'root'"
             [attr.data-pc-name]="'contextmenu'"
             [attr.id]="id"
-            [ngClass]="{ 'p-contextmenu p-component': true, 'p-contextmenu-mobile': queryMatches }"
-            [class]="styleClass"
+            [class]="cx('root')"
             [ngStyle]="style"
             [@overlayAnimation]="{ value: 'visible' }"
             (@overlayAnimation.start)="onOverlayAnimationStart($event)"

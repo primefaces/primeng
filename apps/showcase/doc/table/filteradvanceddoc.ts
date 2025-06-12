@@ -20,7 +20,7 @@ import { Table } from 'primeng/table';
                                 <p-inputicon>
                                     <i class="pi pi-search"></i>
                                 </p-inputicon>
-                                <input pInputText type="text" (input)="dt2.filterGlobal($event.target.value, 'contains')" placeholder="Search keyword" />
+                                <input pInputText type="text" (input)="dt1.filterGlobal($event.target.value, 'contains')" placeholder="Search keyword" />
                             </p-iconfield>
                         </div>
                     </ng-template>
@@ -42,20 +42,15 @@ import { Table } from 'primeng/table';
                                 <div class="flex items-center">
                                     Agent
                                     <p-columnFilter field="representative" matchMode="in" display="menu" [showMatchModes]="false" [showOperator]="false" [showAddButton]="false">
-                                        <ng-template #header>
-                                            <div class="px-4 pt-4 pb-0">
-                                                <span class="font-bold">Agent Picker</span>
-                                            </div>
-                                        </ng-template>
                                         <ng-template #filter let-value let-filter="filterCallback">
-                                            <p-multiSelect [(ngModel)]="value" [options]="representatives" placeholder="Any" (onChange)="filter($event.value)" optionLabel="name">
+                                            <p-multiselect [(ngModel)]="value" [options]="representatives" placeholder="Any" (onChange)="filter($event.value)" optionLabel="name" style="min-width: 14rem" [panelStyle]="{ minWidth: '16rem' }">
                                                 <ng-template let-option #item>
-                                                    <div class="inline-block align-middle">
-                                                        <img [alt]="option.label" src="https://primefaces.org/cdn/primeng/images/demo/avatar/{{ option.image }}" width="24" class="align-middle" />
-                                                        <span class="ml-1 mt-1">{{ option.name }}</span>
+                                                    <div class="flex items-center gap-2">
+                                                        <img [alt]="option.label" src="https://primefaces.org/cdn/primeng/images/demo/avatar/{{ option.image }}" style="width: 32px" />
+                                                        <span>{{ option.name }}</span>
                                                     </div>
                                                 </ng-template>
-                                            </p-multiSelect>
+                                            </p-multiselect>
                                         </ng-template>
                                     </p-columnFilter>
                                 </div>
@@ -63,7 +58,7 @@ import { Table } from 'primeng/table';
                             <th style="min-width:10rem">
                                 <div class="flex items-center">
                                     Date
-                                    <p-columnFilter type="date" field="date" display="menu" />
+                                    <p-columnFilter type="date" field="date" display="menu"></p-columnFilter>
                                 </div>
                             </th>
                             <th style="min-width:10rem">
@@ -77,9 +72,9 @@ import { Table } from 'primeng/table';
                                     Status
                                     <p-columnFilter field="status" matchMode="equals" display="menu">
                                         <ng-template #filter let-value let-filter="filterCallback">
-                                            <p-select [(ngModel)]="value" [options]="statuses" (onChange)="filter($event.value)" placeholder="Any">
+                                            <p-select [(ngModel)]="value" [options]="statuses" (onChange)="filter($event.value)" placeholder="Select One" styleClass="w-full">
                                                 <ng-template let-option #item>
-                                                    <p-tag [value]="option.value" [severity]="getSeverity(option.label)"></p-tag>
+                                                    <p-tag [value]="option.value" [severity]="getSeverity(option.value)"></p-tag>
                                                 </ng-template>
                                             </p-select>
                                         </ng-template>
@@ -215,16 +210,7 @@ export class FilterAdvancedDoc {
     }
 
     code: Code = {
-        basic: `<p-table
-    #dt1
-    [value]="customers"
-    dataKey="id"
-    [rows]="10"
-    [rowsPerPageOptions]="[10, 25, 50]"
-    [loading]="loading"
-    [paginator]="true"
-    [globalFilterFields]="['name', 'country.name', 'representative.name', 'status']"
->
+        basic: `<p-table #dt1 [value]="customers" dataKey="id" [rows]="10" [rowsPerPageOptions]="[10, 25, 50]" [loading]="loading" [paginator]="true" [globalFilterFields]="['name', 'country.name', 'representative.name', 'status']">
     <ng-template #caption>
         <div class="flex">
             <p-button label="Clear" [outlined]="true" icon="pi pi-filter-slash" (click)="clear(dt1)" />
@@ -232,7 +218,7 @@ export class FilterAdvancedDoc {
                 <p-inputicon>
                     <i class="pi pi-search"></i>
                 </p-inputicon>
-                <input pInputText type="text" (input)="dt2.filterGlobal($event.target.value, 'contains')" placeholder="Search keyword" />
+                <input pInputText type="text" (input)="dt1.filterGlobal($event.target.value, 'contains')" placeholder="Search keyword" />
             </p-iconfield>
         </div>
     </ng-template>
@@ -254,20 +240,15 @@ export class FilterAdvancedDoc {
                 <div class="flex items-center">
                     Agent
                     <p-columnFilter field="representative" matchMode="in" display="menu" [showMatchModes]="false" [showOperator]="false" [showAddButton]="false">
-                        <ng-template #header>
-                            <div class="px-4 pt-4 pb-0">
-                                <span class="font-bold">Agent Picker</span>
-                            </div>
-                        </ng-template>
                         <ng-template #filter let-value let-filter="filterCallback">
-                            <p-multiSelect [(ngModel)]="value" [options]="representatives" placeholder="Any" (onChange)="filter($event.value)" optionLabel="name">
+                            <p-multiselect [(ngModel)]="value" [options]="representatives" placeholder="Any" (onChange)="filter($event.value)" optionLabel="name" style="min-width: 14rem" [panelStyle]="{ minWidth: '16rem' }">
                                 <ng-template let-option #item>
-                                    <div class="inline-block align-middle">
-                                        <img [alt]="option.label" src="https://primefaces.org/cdn/primeng/images/demo/avatar/{{ option.image }}" width="24" class="align-middle" />
-                                        <span class="ml-1 mt-1">{{ option.name }}</span>
+                                    <div class="flex items-center gap-2">
+                                        <img [alt]="option.label" src="https://primefaces.org/cdn/primeng/images/demo/avatar/{{ option.image }}" style="width: 32px" />
+                                        <span>{{ option.name }}</span>
                                     </div>
                                 </ng-template>
-                            </p-multiSelect>
+                            </p-multiselect>
                         </ng-template>
                     </p-columnFilter>
                 </div>
@@ -275,7 +256,7 @@ export class FilterAdvancedDoc {
             <th style="min-width:10rem">
                 <div class="flex items-center">
                     Date
-                    <p-columnFilter type="date" field="date" display="menu" />
+                    <p-columnFilter type="date" field="date" display="menu"></p-columnFilter>
                 </div>
             </th>
             <th style="min-width:10rem">
@@ -289,11 +270,11 @@ export class FilterAdvancedDoc {
                     Status
                     <p-columnFilter field="status" matchMode="equals" display="menu">
                         <ng-template #filter let-value let-filter="filterCallback">
-                            <p-dropdown [(ngModel)]="value" [options]="statuses" (onChange)="filter($event.value)" placeholder="Any">
+                            <p-select [(ngModel)]="value" [options]="statuses" (onChange)="filter($event.value)" placeholder="Select One" styleClass="w-full">
                                 <ng-template let-option #item>
-                                    <p-tag [value]="option.value" [severity]="getSeverity(option.label)" />
+                                    <p-tag [value]="option.value" [severity]="getSeverity(option.value)"></p-tag>
                                 </ng-template>
-                            </p-dropdown>
+                            </p-select>
                         </ng-template>
                     </p-columnFilter>
                 </div>
@@ -302,11 +283,11 @@ export class FilterAdvancedDoc {
                 <div class="flex items-center">
                     Activity
                     <p-columnFilter field="activity" matchMode="between" display="menu" [showMatchModes]="false" [showOperator]="false" [showAddButton]="false">
-                        <ng-template #filter let-filter="filterCallback">
-                            <p-slider [(ngModel)]="activityValues" [range]="true" (onSlideEnd)="filter($event.values)" styleClass="m-4" />
+                        <ng-template #filter let-value let-filter="filterCallback">
+                            <p-slider [(ngModel)]="value" [range]="true" styleClass="m-4" (onSlideEnd)="filter($event.values)" />
                             <div class="flex items-center px-2">
-                                <span>{{ activityValues[0] }}</span>
-                                <span>{{ activityValues[1] }}</span>
+                                <span *ngIf="!value">0</span>
+                                <span *ngIf="value">{{ value[0] }} - {{ value[1] }}</span>
                             </div>
                         </ng-template>
                     </p-columnFilter>
@@ -327,14 +308,14 @@ export class FilterAdvancedDoc {
             </td>
             <td>
                 <div class="flex items-center gap-2">
-                <img src="https://primefaces.org/cdn/primeng/images/demo/flag/flag_placeholder.png" [class]="'flag flag-' + customer.country.code" style="width: 20px" />
-                <span >{{ customer.country.name }}</span>
+                    <img src="https://primefaces.org/cdn/primeng/images/demo/flag/flag_placeholder.png" [class]="'flag flag-' + customer.country.code" style="width: 20px" />
+                    <span>{{ customer.country.name }}</span>
                 </div>
             </td>
             <td>
-            <div class="flex items-center gap-2">
-                <img [alt]="customer.representative.name" src="https://primefaces.org/cdn/primeng/images/demo/avatar/{{ customer.representative.image }}" width="32"  />
-                <span >{{ customer.representative.name }}</span>
+                <div class="flex items-center gap-2">
+                    <img [alt]="customer.representative.name" src="https://primefaces.org/cdn/primeng/images/demo/avatar/{{ customer.representative.image }}" width="32" />
+                    <span>{{ customer.representative.name }}</span>
                 </div>
             </td>
             <td>
@@ -367,16 +348,7 @@ export class FilterAdvancedDoc {
     </ng-template>
 </p-table>`,
         html: `<div class="card">
-    <p-table
-        #dt1
-        [value]="customers"
-        dataKey="id"
-        [rows]="10"
-        [rowsPerPageOptions]="[10, 25, 50]"
-        [loading]="loading"
-        [paginator]="true"
-        [globalFilterFields]="['name', 'country.name', 'representative.name', 'status']"
-        >
+     <p-table #dt1 [value]="customers" dataKey="id" [rows]="10" [rowsPerPageOptions]="[10, 25, 50]" [loading]="loading" [paginator]="true" [globalFilterFields]="['name', 'country.name', 'representative.name', 'status']">
         <ng-template #caption>
             <div class="flex">
                 <p-button label="Clear" [outlined]="true" icon="pi pi-filter-slash" (click)="clear(dt1)" />
@@ -384,7 +356,7 @@ export class FilterAdvancedDoc {
                     <p-inputicon>
                         <i class="pi pi-search"></i>
                     </p-inputicon>
-                    <input pInputText type="text" (input)="dt2.filterGlobal($event.target.value, 'contains')" placeholder="Search keyword" />
+                    <input pInputText type="text" (input)="dt1.filterGlobal($event.target.value, 'contains')" placeholder="Search keyword" />
                 </p-iconfield>
             </div>
         </ng-template>
@@ -406,20 +378,15 @@ export class FilterAdvancedDoc {
                     <div class="flex items-center">
                         Agent
                         <p-columnFilter field="representative" matchMode="in" display="menu" [showMatchModes]="false" [showOperator]="false" [showAddButton]="false">
-                            <ng-template #header>
-                                <div class="px-4 pt-4 pb-0">
-                                    <span class="font-bold">Agent Picker</span>
-                                </div>
-                            </ng-template>
                             <ng-template #filter let-value let-filter="filterCallback">
-                                <p-multiSelect [(ngModel)]="value" [options]="representatives" placeholder="Any" (onChange)="filter($event.value)" optionLabel="name">
+                                <p-multiselect [(ngModel)]="value" [options]="representatives" placeholder="Any" (onChange)="filter($event.value)" optionLabel="name" style="min-width: 14rem" [panelStyle]="{ minWidth: '16rem' }">
                                     <ng-template let-option #item>
-                                        <div class="inline-block align-middle">
-                                            <img [alt]="option.label" src="https://primefaces.org/cdn/primeng/images/demo/avatar/{{ option.image }}" width="24" class="align-middle" />
-                                            <span class="ml-1 mt-1">{{ option.name }}</span>
+                                        <div class="flex items-center gap-2">
+                                            <img [alt]="option.label" src="https://primefaces.org/cdn/primeng/images/demo/avatar/{{ option.image }}" style="width: 32px" />
+                                            <span>{{ option.name }}</span>
                                         </div>
                                     </ng-template>
-                                </p-multiSelect>
+                                </p-multiselect>
                             </ng-template>
                         </p-columnFilter>
                     </div>
@@ -427,7 +394,7 @@ export class FilterAdvancedDoc {
                 <th style="min-width:10rem">
                     <div class="flex items-center">
                         Date
-                        <p-columnFilter type="date" field="date" display="menu" />
+                        <p-columnFilter type="date" field="date" display="menu"></p-columnFilter>
                     </div>
                 </th>
                 <th style="min-width:10rem">
@@ -441,11 +408,11 @@ export class FilterAdvancedDoc {
                         Status
                         <p-columnFilter field="status" matchMode="equals" display="menu">
                             <ng-template #filter let-value let-filter="filterCallback">
-                                <p-dropdown [(ngModel)]="value" [options]="statuses" (onChange)="filter($event.value)" placeholder="Any">
+                                <p-select [(ngModel)]="value" [options]="statuses" (onChange)="filter($event.value)" placeholder="Select One" styleClass="w-full">
                                     <ng-template let-option #item>
-                                        <p-tag [value]="option.value" [severity]="getSeverity(option.label)" />
+                                        <p-tag [value]="option.value" [severity]="getSeverity(option.value)"></p-tag>
                                     </ng-template>
-                                </p-dropdown>
+                                </p-select>
                             </ng-template>
                         </p-columnFilter>
                     </div>
@@ -454,11 +421,11 @@ export class FilterAdvancedDoc {
                     <div class="flex items-center">
                         Activity
                         <p-columnFilter field="activity" matchMode="between" display="menu" [showMatchModes]="false" [showOperator]="false" [showAddButton]="false">
-                            <ng-template #filter let-filter="filterCallback">
-                                <p-slider [(ngModel)]="activityValues" [range]="true" (onSlideEnd)="filter($event.values)" styleClass="m-4" />
+                            <ng-template #filter let-value let-filter="filterCallback">
+                                <p-slider [(ngModel)]="value" [range]="true" styleClass="m-4" (onSlideEnd)="filter($event.values)" />
                                 <div class="flex items-center px-2">
-                                    <span>{{ activityValues[0] }}</span>
-                                    <span>{{ activityValues[1] }}</span>
+                                    <span *ngIf="!value">0</span>
+                                    <span *ngIf="value">{{ value[0] }} - {{ value[1] }}</span>
                                 </div>
                             </ng-template>
                         </p-columnFilter>
@@ -479,14 +446,14 @@ export class FilterAdvancedDoc {
                 </td>
                 <td>
                     <div class="flex items-center gap-2">
-                    <img src="https://primefaces.org/cdn/primeng/images/demo/flag/flag_placeholder.png" [class]="'flag flag-' + customer.country.code" style="width: 20px" />
-                    <span >{{ customer.country.name }}</span>
+                        <img src="https://primefaces.org/cdn/primeng/images/demo/flag/flag_placeholder.png" [class]="'flag flag-' + customer.country.code" style="width: 20px" />
+                        <span>{{ customer.country.name }}</span>
                     </div>
                 </td>
                 <td>
-                <div class="flex items-center gap-2">
-                    <img [alt]="customer.representative.name" src="https://primefaces.org/cdn/primeng/images/demo/avatar/{{ customer.representative.image }}" width="32"  />
-                    <span >{{ customer.representative.name }}</span>
+                    <div class="flex items-center gap-2">
+                        <img [alt]="customer.representative.name" src="https://primefaces.org/cdn/primeng/images/demo/avatar/{{ customer.representative.image }}" width="32" />
+                        <span>{{ customer.representative.name }}</span>
                     </div>
                 </td>
                 <td>
@@ -606,7 +573,7 @@ export class TableFilterAdvancedDemo implements OnInit {
                 return 'info';
 
             case 'negotiation':
-                return 'warning';
+                return 'warn';
 
             case 'renewal':
                 return null;
@@ -658,7 +625,7 @@ export class TableFilterAdvancedDemo implements OnInit {
                 return 'info';
 
             case 'negotiation':
-                return 'warning';
+                return 'warn';
 
             case 'renewal':
                 return null;

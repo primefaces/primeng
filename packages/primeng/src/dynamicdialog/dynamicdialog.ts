@@ -1,6 +1,6 @@
 import { animate, animation, AnimationEvent, style, transition, trigger, useAnimation } from '@angular/animations';
 import { CommonModule, isPlatformBrowser } from '@angular/common';
-import { AfterViewInit, ChangeDetectionStrategy, Component, ComponentRef, ElementRef, inject, NgModule, NgZone, OnDestroy, Optional, Renderer2, SkipSelf, TemplateRef, Type, ViewChild, ViewEncapsulation, ViewRef } from '@angular/core';
+import { AfterViewInit, ChangeDetectionStrategy, Component, ComponentRef, ElementRef, inject, NgModule, NgZone, OnDestroy, Optional, Renderer2, SkipSelf, Type, ViewChild, ViewEncapsulation, ViewRef } from '@angular/core';
 import { addClass, getOuterHeight, getOuterWidth, getViewport, hasClass, removeClass, setAttribute, uuid } from '@primeuix/utils';
 import { SharedModule, TranslationKeys } from 'primeng/api';
 import { BaseComponent } from 'primeng/basecomponent';
@@ -24,29 +24,13 @@ const hideAnimation = animation([animate('{{transition}}', style({ transform: '{
     standalone: true,
     imports: [CommonModule, SharedModule, DynamicDialogContent, WindowMaximizeIcon, WindowMinimizeIcon, TimesIcon, Button, FocusTrap],
     template: `
-        <div
-            #mask
-            [ngStyle]="{
-                position: 'fixed',
-                height: '100%',
-                width: '100%',
-                left: 0,
-                top: 0,
-                display: 'flex',
-                'justify-content': position === 'left' || position === 'topleft' || position === 'bottomleft' ? 'flex-start' : position === 'right' || position === 'topright' || position === 'bottomright' ? 'flex-end' : 'center',
-                'align-items': position === 'top' || position === 'topleft' || position === 'topright' ? 'flex-start' : position === 'bottom' || position === 'bottomleft' || position === 'bottomright' ? 'flex-end' : 'center',
-                'pointer-events': ddconfig.modal ? 'auto' : 'none'
-            }"
-            [class]="ddconfig.maskStyleClass"
-            [ngClass]="maskClass"
-        >
+        <div #mask [style]="sx('mask')" [class]="cn(cx('mask'), ddconfig.maskStyleClass)">
             <div
                 *ngIf="visible"
                 #container
-                [ngClass]="{ 'p-dialog p-component': true, 'p-dialog-maximized': maximizable && maximized }"
-                [ngStyle]="{ display: 'flex', 'flex-direction': 'column', 'pointer-events': 'auto' }"
-                [style]="ddconfig.style"
-                [class]="ddconfig.styleClass"
+                [class]="cn(cx('root'), ddconfig.styleClass)"
+                [ngStyle]="ddconfig.style"
+                [style]="sx('root')"
                 [@animation]="{
                     value: 'visible',
                     params: {
@@ -65,13 +49,13 @@ const hideAnimation = animation([animate('{{transition}}', style({ transform: '{
                 [attr.aria-modal]="true"
                 [attr.id]="dialogId"
             >
-                <div *ngIf="ddconfig.resizable" [ngClass]="'p-resizable-handle'" style="z-index: 90;" (mousedown)="initResize($event)"></div>
-                <div #titlebar [ngClass]="'p-dialog-header'" (mousedown)="initDrag($event)" *ngIf="ddconfig.showHeader !== false">
+                <div *ngIf="ddconfig.resizable" [class]="cx('resizeHandle')" (mousedown)="initResize($event)"></div>
+                <div #titlebar [class]="cx('header')" (mousedown)="initDrag($event)" *ngIf="ddconfig.showHeader !== false">
                     <ng-container *ngComponentOutlet="headerTemplate"></ng-container>
                     <ng-container *ngIf="!headerTemplate">
-                        <span [ngClass]="'p-dialog-title'" [id]="ariaLabelledBy">{{ ddconfig.header }}</span>
-                        <div [ngClass]="'p-dialog-header-actions'">
-                            <p-button *ngIf="ddconfig.maximizable" [styleClass]="'p-dialog-maximize-button'" (onClick)="maximize()" (keydown.enter)="maximize()" rounded text [tabindex]="maximizable ? '0' : '-1'">
+                        <span [class]="cx('title')" [id]="ariaLabelledBy">{{ ddconfig.header }}</span>
+                        <div [class]="cx('headerActions')">
+                            <p-button *ngIf="ddconfig.maximizable" [styleClass]="cx('pcMaximizeButton')" (onClick)="maximize()" (keydown.enter)="maximize()" rounded text [tabindex]="maximizable ? '0' : '-1'">
                                 <ng-container *ngIf="!maximizeIcon">
                                     <WindowMaximizeIcon *ngIf="!maximized && !maximizeIconTemplate" />
                                     <WindowMinimizeIcon *ngIf="maximized && !minimizeIconTemplate" />
@@ -83,7 +67,7 @@ const hideAnimation = animation([animate('{{transition}}', style({ transform: '{
                                     <ng-template *ngTemplateOutlet="minimizeIconTemplate"></ng-template>
                                 </ng-container>
                             </p-button>
-                            <p-button *ngIf="closable" [styleClass]="'p-dialog-close-button'" [ariaLabel]="closeAriaLabel" (onClick)="hide()" (keydown.enter)="hide()" rounded text severity="secondary">
+                            <p-button *ngIf="closable" [styleClass]="cx('pcCloseButton')" [ariaLabel]="ddconfig.closeAriaLabel || defaultCloseAriaLabel" (onClick)="hide()" (keydown.enter)="hide()" rounded text severity="secondary">
                                 <ng-container *ngIf="!closeIconTemplate">
                                     <TimesIcon />
                                 </ng-container>
@@ -94,11 +78,11 @@ const hideAnimation = animation([animate('{{transition}}', style({ transform: '{
                         </div>
                     </ng-container>
                 </div>
-                <div #content [ngClass]="'p-dialog-content'" [ngStyle]="ddconfig.contentStyle">
+                <div #content [class]="cx('content')" [style]="ddconfig.contentStyle">
                     <ng-template pDynamicDialogContent *ngIf="!contentTemplate"></ng-template>
                     <ng-container *ngComponentOutlet="contentTemplate"></ng-container>
                 </div>
-                <div #footer [ngClass]="'p-dialog-footer'" *ngIf="ddconfig.footer || footerTemplate">
+                <div #footer [class]="cx('footer')" *ngIf="ddconfig.footer || footerTemplate">
                     <ng-container *ngIf="!footerTemplate">
                         {{ ddconfig.footer }}
                     </ng-container>
@@ -211,7 +195,7 @@ export class DynamicDialogComponent extends BaseComponent implements AfterViewIn
         return this.ddconfig.position!;
     }
 
-    get closeAriaLabel(): string {
+    get defaultCloseAriaLabel(): string {
         return this.config.getTranslation(TranslationKeys.ARIA)['close'];
     }
 
@@ -273,20 +257,11 @@ export class DynamicDialogComponent extends BaseComponent implements AfterViewIn
         return this.ddconfig?.templates?.closeicon;
     }
 
-    get maskClass() {
-        const positions = ['left', 'right', 'top', 'topleft', 'topright', 'bottom', 'bottomleft', 'bottomright'];
-        const pos = positions.find((item) => item === this.position);
-
-        return {
-            'p-dialog-mask': true,
-            'p-overlay-mask p-overlay-mask-enter': this.ddconfig.modal || this.ddconfig.dismissableMask,
-            [`p-dialog-${pos}`]: pos
-        };
-    }
-
     get dialogId() {
         return this.attrSelector;
     }
+
+    private zIndexForLayering?: number;
 
     constructor(
         public renderer: Renderer2,
@@ -342,7 +317,12 @@ export class DynamicDialogComponent extends BaseComponent implements AfterViewIn
     }
 
     getAriaLabelledBy() {
-        return this.header !== null ? uuid('pn_id_') + '_header' : null;
+        const { header, showHeader } = this.ddconfig;
+
+        if (header === null || showHeader === false) {
+            return null;
+        }
+        return uuid('pn_id_') + '_header';
     }
 
     loadChildComponent(componentType: Type<any>) {
@@ -364,6 +344,8 @@ export class DynamicDialogComponent extends BaseComponent implements AfterViewIn
         if (this.ddconfig.autoZIndex !== false) {
             ZIndexUtils.set('modal', this.container, (this.ddconfig.baseZIndex || 0) + this.config.zIndex.modal);
             (this.wrapper as HTMLElement).style.zIndex = String(parseInt((this.container as HTMLDivElement).style.zIndex, 10) - 1);
+        } else {
+            this.zIndexForLayering = ZIndexUtils.generateZIndex('modal', (this.ddconfig.baseZIndex || 0) + this.config.zIndex.modal);
         }
     }
 
@@ -411,6 +393,9 @@ export class DynamicDialogComponent extends BaseComponent implements AfterViewIn
 
         if (this.container && this.ddconfig.autoZIndex !== false) {
             ZIndexUtils.clear(this.container);
+        }
+        if (this.zIndexForLayering) {
+            ZIndexUtils.revertZIndex(this.zIndexForLayering);
         }
 
         if (this.ddconfig.modal !== false) {
@@ -695,7 +680,8 @@ export class DynamicDialogComponent extends BaseComponent implements AfterViewIn
 
         this.documentEscapeListener = this.renderer.listen(documentTarget, 'keydown', (event) => {
             if (event.which == 27) {
-                if (parseInt((this.container as HTMLDivElement).style.zIndex) == ZIndexUtils.getCurrent()) {
+                const currentZIndex = ZIndexUtils.getCurrent();
+                if (parseInt((this.container as HTMLDivElement).style.zIndex) == currentZIndex || this.zIndexForLayering == currentZIndex) {
                     this.hide();
                 }
             }

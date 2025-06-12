@@ -3,10 +3,10 @@ import { AfterContentInit, afterNextRender, ChangeDetectionStrategy, Component, 
 import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
 import { findSingle } from '@primeuix/utils';
 import { Header, PrimeTemplate, SharedModule } from 'primeng/api';
-import { BaseComponent } from 'primeng/basecomponent';
 import { Nullable } from 'primeng/ts-helpers';
 import { EditorInitEvent, EditorSelectionChangeEvent, EditorTextChangeEvent } from './editor.interface';
 import { EditorStyle } from './style/editorstyle';
+import { BaseInput } from 'primeng/baseinput';
 
 export const EDITOR_VALUE_ACCESSOR: any = {
     provide: NG_VALUE_ACCESSOR,
@@ -22,63 +22,61 @@ export const EDITOR_VALUE_ACCESSOR: any = {
     standalone: true,
     imports: [CommonModule, SharedModule],
     template: `
-        <div [ngClass]="'p-editor-container'" [class]="styleClass">
-            <div class="p-editor-toolbar" *ngIf="toolbar || headerTemplate || _headerTemplate">
-                <ng-content select="p-header"></ng-content>
-                <ng-container *ngTemplateOutlet="headerTemplate || _headerTemplate"></ng-container>
-            </div>
-            <div class="p-editor-toolbar" *ngIf="!toolbar && !headerTemplate && !_headerTemplate">
-                <span class="ql-formats">
-                    <select class="ql-header">
-                        <option value="1">Heading</option>
-                        <option value="2">Subheading</option>
-                        <option selected>Normal</option>
-                    </select>
-                    <select class="ql-font">
-                        <option selected>Sans Serif</option>
-                        <option value="serif">Serif</option>
-                        <option value="monospace">Monospace</option>
-                    </select>
-                </span>
-                <span class="ql-formats">
-                    <button class="ql-bold" aria-label="Bold" type="button"></button>
-                    <button class="ql-italic" aria-label="Italic" type="button"></button>
-                    <button class="ql-underline" aria-label="Underline" type="button"></button>
-                </span>
-                <span class="ql-formats">
-                    <select class="ql-color"></select>
-                    <select class="ql-background"></select>
-                </span>
-                <span class="ql-formats">
-                    <button class="ql-list" value="ordered" aria-label="Ordered List" type="button"></button>
-                    <button class="ql-list" value="bullet" aria-label="Unordered List" type="button"></button>
-                    <select class="ql-align">
-                        <option selected></option>
-                        <option value="center">center</option>
-                        <option value="right">right</option>
-                        <option value="justify">justify</option>
-                    </select>
-                </span>
-                <span class="ql-formats">
-                    <button class="ql-link" aria-label="Insert Link" type="button"></button>
-                    <button class="ql-image" aria-label="Insert Image" type="button"></button>
-                    <button class="ql-code-block" aria-label="Insert Code Block" type="button"></button>
-                </span>
-                <span class="ql-formats">
-                    <button class="ql-clean" aria-label="Remove Styles" type="button"></button>
-                </span>
-            </div>
-            <div class="p-editor-content" [ngStyle]="style"></div>
+        <div [class]="cx('toolbar')" *ngIf="toolbar || headerTemplate || _headerTemplate">
+            <ng-content select="p-header"></ng-content>
+            <ng-container *ngTemplateOutlet="headerTemplate || _headerTemplate"></ng-container>
         </div>
+        <div [class]="cx('toolbar')" *ngIf="!toolbar && !headerTemplate && !_headerTemplate">
+            <span class="ql-formats">
+                <select class="ql-header">
+                    <option value="1">Heading</option>
+                    <option value="2">Subheading</option>
+                    <option selected>Normal</option>
+                </select>
+                <select class="ql-font">
+                    <option selected>Sans Serif</option>
+                    <option value="serif">Serif</option>
+                    <option value="monospace">Monospace</option>
+                </select>
+            </span>
+            <span class="ql-formats">
+                <button class="ql-bold" aria-label="Bold" type="button"></button>
+                <button class="ql-italic" aria-label="Italic" type="button"></button>
+                <button class="ql-underline" aria-label="Underline" type="button"></button>
+            </span>
+            <span class="ql-formats">
+                <select class="ql-color"></select>
+                <select class="ql-background"></select>
+            </span>
+            <span class="ql-formats">
+                <button class="ql-list" value="ordered" aria-label="Ordered List" type="button"></button>
+                <button class="ql-list" value="bullet" aria-label="Unordered List" type="button"></button>
+                <select class="ql-align">
+                    <option selected></option>
+                    <option value="center">center</option>
+                    <option value="right">right</option>
+                    <option value="justify">justify</option>
+                </select>
+            </span>
+            <span class="ql-formats">
+                <button class="ql-link" aria-label="Insert Link" type="button"></button>
+                <button class="ql-image" aria-label="Insert Image" type="button"></button>
+                <button class="ql-code-block" aria-label="Insert Code Block" type="button"></button>
+            </span>
+            <span class="ql-formats">
+                <button class="ql-clean" aria-label="Remove Styles" type="button"></button>
+            </span>
+        </div>
+        <div [class]="cx('content')" [ngStyle]="style"></div>
     `,
     providers: [EDITOR_VALUE_ACCESSOR, EditorStyle],
     changeDetection: ChangeDetectionStrategy.OnPush,
     encapsulation: ViewEncapsulation.None,
     host: {
-        class: 'p-editor'
+        '[class]': "cn(cx('root'), styleClass)"
     }
 })
-export class Editor extends BaseComponent implements AfterContentInit, ControlValueAccessor {
+export class Editor extends BaseInput implements AfterContentInit, ControlValueAccessor {
     /**
      * Inline style of the container.
      * @group Props
@@ -86,6 +84,7 @@ export class Editor extends BaseComponent implements AfterContentInit, ControlVa
     @Input() style: { [klass: string]: any } | null | undefined;
     /**
      * Style class of the container.
+     * @deprecated since v20.0.0, use `class` instead.
      * @group Props
      */
     @Input() styleClass: string | undefined;

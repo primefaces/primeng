@@ -139,9 +139,22 @@ export interface AutoCompleteTemplates {
         $implicit: ScrollerOptions;
     }): TemplateRef<{ $implicit: ScrollerOptions }>;
     /**
-     * Custom remove token icon template.
+     * Custom remove icon template.
      */
-    removetokenicon(): TemplateRef<any>;
+    removeicon(context: {
+        /**
+         * Class of the removeicon.
+         */
+        class: string;
+        /**
+         * Remove callback.
+         */
+        removeCallback: (event: Event, index: number) => void;
+        /**
+         * Option index.
+         */
+        index: number;
+    }): TemplateRef<{ class: string; removeCallback: (event: Event, index: number) => void; index: number }>;
     /**
      * Custom loading icon template.
      */

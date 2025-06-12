@@ -82,13 +82,12 @@ export interface AccordionToggleIconTemplateContext {
     changeDetection: ChangeDetectionStrategy.OnPush,
     encapsulation: ViewEncapsulation.None,
     host: {
-        '[class.p-accordionpanel]': 'true',
-        '[class.p-accordionpanel-active]': 'active()',
-        '[class.p-disabled]': 'disabled()',
+        '[class]': 'cx("panel")',
         '[attr.data-pc-name]': '"accordionpanel"',
         '[attr.data-p-disabled]': 'disabled()',
         '[attr.data-p-active]': 'active()'
-    }
+    },
+    providers: [AccordionStyle]
 })
 export class AccordionPanel extends BaseComponent {
     pcAccordion = inject(forwardRef(() => Accordion));
@@ -113,6 +112,8 @@ export class AccordionPanel extends BaseComponent {
         }
         return currentValue === value;
     }
+
+    _componentStyle = inject(AccordionStyle);
 }
 /**
  * AccordionHeader is a helper component for Accordion component.
@@ -140,18 +141,20 @@ export class AccordionPanel extends BaseComponent {
     changeDetection: ChangeDetectionStrategy.OnPush,
     encapsulation: ViewEncapsulation.None,
     host: {
-        '[class.p-accordionheader]': 'true',
+        '[class]': "cx('header')",
         '[attr.id]': 'id()',
         '[attr.aria-expanded]': 'active()',
         '[attr.aria-controls]': 'ariaControls()',
+        '[attr.aria-disabled]': 'disabled()',
         '[attr.role]': '"button"',
-        '[attr.tabindex]': '"0"',
+        '[attr.tabindex]': 'disabled()?"-1":"0"',
         '[attr.data-p-active]': 'active()',
         '[attr.data-p-disabled]': 'disabled()',
         '[attr.data-pc-name]': '"accordionheader"',
         '[style.user-select]': '"none"'
     },
-    hostDirectives: [Ripple]
+    hostDirectives: [Ripple],
+    providers: [AccordionStyle]
 })
 export class AccordionHeader extends BaseComponent {
     pcAccordion = inject(forwardRef(() => Accordion));
@@ -177,8 +180,19 @@ export class AccordionHeader extends BaseComponent {
      */
     @ContentChild('toggleicon') toggleicon: TemplateRef<AccordionToggleIconTemplateContext> | undefined;
 
-    @HostListener('click', ['$event']) onClick() {
+    @HostListener('click', ['$event']) onClick(event?: MouseEvent | KeyboardEvent) {
+        const wasActive = this.active();
+
         this.changeActiveValue();
+
+        const isActive = this.active();
+        const index = this.pcAccordionPanel.value();
+
+        if (!wasActive && isActive) {
+            this.pcAccordion.onOpen.emit({ originalEvent: event, index });
+        } else if (wasActive && !isActive) {
+            this.pcAccordion.onClose.emit({ originalEvent: event, index });
+        }
     }
 
     @HostListener('focus', ['$event']) onFocus() {
@@ -208,6 +222,8 @@ export class AccordionHeader extends BaseComponent {
                 break;
         }
     }
+
+    _componentStyle = inject(AccordionStyle);
 
     changeActiveValue() {
         this.pcAccordion.updateValue(this.pcAccordionPanel.value());
@@ -282,13 +298,13 @@ export class AccordionHeader extends BaseComponent {
     selector: 'p-accordion-content, p-accordioncontent',
     imports: [CommonModule],
     standalone: true,
-    template: ` <div class="p-accordioncontent-content">
+    template: ` <div [class]="cx('content')">
         <ng-content />
     </div>`,
     changeDetection: ChangeDetectionStrategy.OnPush,
     encapsulation: ViewEncapsulation.None,
     host: {
-        '[class.p-accordioncontent]': 'true',
+        '[class]': 'cx("contentContainer")',
         '[attr.id]': 'id()',
         '[attr.role]': '"region"',
         '[attr.data-pc-name]': '"accordioncontent"',
@@ -304,6 +320,7 @@ export class AccordionHeader extends BaseComponent {
                 'hidden',
                 style({
                     height: '0',
+                    paddingBottom: '0',
                     visibility: 'hidden'
                 })
             ),
@@ -317,7 +334,8 @@ export class AccordionHeader extends BaseComponent {
             transition('visible <=> hidden', [animate('{{transitionParams}}')]),
             transition('void => *', animate(0))
         ])
-    ]
+    ],
+    providers: [AccordionStyle]
 })
 export class AccordionContent extends BaseComponent {
     pcAccordion = inject(forwardRef(() => Accordion));
@@ -329,6 +347,8 @@ export class AccordionContent extends BaseComponent {
     ariaLabelledby = computed(() => `${this.pcAccordion.id()}_accordionheader_${this.pcAccordionPanel.value()}`);
 
     id = computed(() => `${this.pcAccordion.id()}_accordioncontent_${this.pcAccordionPanel.value()}`);
+
+    _componentStyle = inject(AccordionStyle);
 }
 
 /**
@@ -673,8 +693,7 @@ export class AccordionTab extends BaseComponent implements AfterContentInit, OnD
     imports: [CommonModule, SharedModule],
     template: ` <ng-content /> `,
     host: {
-        '[class.p-accordion]': 'true',
-        '[class.p-component]': 'true'
+        '[class]': "cx('root')"
     },
     changeDetection: ChangeDetectionStrategy.OnPush,
     providers: [AccordionStyle]

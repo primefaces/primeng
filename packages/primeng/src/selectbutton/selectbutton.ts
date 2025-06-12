@@ -20,10 +20,10 @@ import {
 import { ControlValueAccessor, FormsModule, NG_VALUE_ACCESSOR } from '@angular/forms';
 import { equals, resolveFieldData } from '@primeuix/utils';
 import { PrimeTemplate, SharedModule } from 'primeng/api';
-import { BaseComponent } from 'primeng/basecomponent';
 import { ToggleButton } from 'primeng/togglebutton';
 import { SelectButtonChangeEvent, SelectButtonOptionClickEvent } from './selectbutton.interface';
 import { SelectButtonStyle } from './style/selectbuttonstyle';
+import { BaseInput } from 'primeng/baseinput';
 
 export const SELECTBUTTON_VALUE_ACCESSOR: any = {
     provide: NG_VALUE_ACCESSOR,
@@ -39,17 +39,17 @@ export const SELECTBUTTON_VALUE_ACCESSOR: any = {
     standalone: true,
     imports: [ToggleButton, FormsModule, CommonModule, SharedModule],
     template: `
-        @for (option of options; track option; let i = $index) {
+        @for (option of options; track getOptionLabel(option); let i = $index) {
             <p-toggleButton
                 [autofocus]="autofocus"
                 [styleClass]="styleClass"
                 [ngModel]="isSelected(option)"
                 [onLabel]="this.getOptionLabel(option)"
                 [offLabel]="this.getOptionLabel(option)"
-                [disabled]="disabled || isOptionDisabled(option)"
+                [disabled]="disabled() || isOptionDisabled(option)"
                 (onChange)="onOptionSelect($event, option, i)"
-                [allowEmpty]="allowEmpty"
-                [size]="size"
+                [allowEmpty]="getAllowEmpty()"
+                [size]="size()"
             >
                 @if (itemTemplate || _itemTemplate) {
                     <ng-template #content>
@@ -63,16 +63,14 @@ export const SELECTBUTTON_VALUE_ACCESSOR: any = {
     changeDetection: ChangeDetectionStrategy.OnPush,
     encapsulation: ViewEncapsulation.None,
     host: {
-        '[class.p-selectbutton]': 'true',
-        '[class.p-component]': 'true',
-        '[style]': 'style',
-        '[attr.role]': 'group',
+        '[class]': "cx('root')",
+        '[attr.role]': '"group"',
         '[attr.aria-labelledby]': 'ariaLabelledBy',
-        '[attr.data-pc-section]': "'root'",
-        '[attr.data-pc-name]': "'selectbutton'"
+        '[attr.data-pc-section]': '"root"',
+        '[attr.data-pc-name]': '"selectbutton"'
     }
 })
-export class SelectButton extends BaseComponent implements AfterContentInit, ControlValueAccessor {
+export class SelectButton extends BaseInput implements AfterContentInit, ControlValueAccessor {
     /**
      * An array of selectitems to display as the available options.
      * @group Props
@@ -97,7 +95,17 @@ export class SelectButton extends BaseComponent implements AfterContentInit, Con
      * Whether selection can be cleared.
      * @group Props
      */
-    @Input({ transform: booleanAttribute }) unselectable: boolean = false;
+    get unselectable(): boolean {
+        return this._unselectable;
+    }
+    private _unselectable: boolean = false;
+
+    @Input({ transform: booleanAttribute })
+    set unselectable(value: boolean) {
+        this._unselectable = value;
+        this.allowEmpty = !value;
+    }
+
     /**
      * Index of the element in tabbing order.
      * @group Props
@@ -114,11 +122,6 @@ export class SelectButton extends BaseComponent implements AfterContentInit, Con
      */
     @Input({ transform: booleanAttribute }) allowEmpty: boolean = true;
     /**
-     * Inline style of the component.
-     * @group Props
-     */
-    @Input() style: any;
-    /**
      * Style class of the component.
      * @group Props
      */
@@ -128,16 +131,6 @@ export class SelectButton extends BaseComponent implements AfterContentInit, Con
      * @group Props
      */
     @Input() ariaLabelledBy: string | undefined;
-    /**
-     * Defines the size of the component.
-     * @group Props
-     */
-    @Input() size: 'large' | 'small';
-    /**
-     * When present, it specifies that the element should be disabled.
-     * @group Props
-     */
-    @Input({ transform: booleanAttribute }) disabled: boolean | undefined;
     /**
      * A property to uniquely identify a value in options.
      * @group Props
@@ -182,6 +175,13 @@ export class SelectButton extends BaseComponent implements AfterContentInit, Con
 
     _componentStyle = inject(SelectButtonStyle);
 
+    getAllowEmpty() {
+        if (this.multiple) {
+            return this.allowEmpty || this.value?.length !== 1;
+        }
+        return this.allowEmpty;
+    }
+
     getOptionLabel(option: any) {
         return this.optionLabel ? resolveFieldData(option, this.optionLabel) : option.label != undefined ? option.label : option;
     }
@@ -196,6 +196,7 @@ export class SelectButton extends BaseComponent implements AfterContentInit, Con
 
     writeValue(value: any): void {
         this.value = value;
+        this.writeModelValue(this.value);
         this.cd.markForCheck();
     }
 
@@ -207,13 +208,8 @@ export class SelectButton extends BaseComponent implements AfterContentInit, Con
         this.onModelTouched = fn;
     }
 
-    setDisabledState(val: boolean): void {
-        this.disabled = val;
-        this.cd.markForCheck();
-    }
-
     onOptionSelect(event, option, index) {
-        if (this.disabled || this.isOptionDisabled(option)) {
+        if (this.disabled() || this.isOptionDisabled(option)) {
             return;
         }
 
@@ -238,6 +234,7 @@ export class SelectButton extends BaseComponent implements AfterContentInit, Con
 
         this.focusedIndex = index;
         this.value = newValue;
+        this.writeModelValue(this.value);
         this.onModelChange(this.value);
 
         this.onChange.emit({

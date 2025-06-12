@@ -25,7 +25,7 @@ import { find, findIndexInList, findSingle, isEmpty, scrollInView, setAttribute,
 import { FilterService, PrimeTemplate, SharedModule } from 'primeng/api';
 import { BaseComponent } from 'primeng/basecomponent';
 import { ButtonDirective, ButtonProps } from 'primeng/button';
-import { AngleDoubleDownIcon, AngleDoubleLeftIcon, AngleDoubleRightIcon, AngleDoubleUpIcon, AngleDownIcon, AngleLeftIcon, AngleRightIcon, AngleUpIcon, SearchIcon } from 'primeng/icons';
+import { AngleDoubleDownIcon, AngleDoubleLeftIcon, AngleDoubleRightIcon, AngleDoubleUpIcon, AngleDownIcon, AngleLeftIcon, AngleRightIcon, AngleUpIcon } from 'primeng/icons';
 import { Listbox } from 'primeng/listbox';
 import { Ripple } from 'primeng/ripple';
 import { Nullable, VoidListener } from 'primeng/ts-helpers';
@@ -53,15 +53,14 @@ import { PickListStyle } from './style/pickliststyle';
     standalone: true,
     imports: [CommonModule, ButtonDirective, Ripple, DragDropModule, AngleDoubleDownIcon, AngleDoubleLeftIcon, AngleDoubleRightIcon, AngleDoubleUpIcon, AngleDownIcon, AngleLeftIcon, AngleRightIcon, AngleUpIcon, Listbox, FormsModule, SharedModule],
     template: `
-        <div [class]="styleClass" [ngStyle]="style" [ngClass]="{ 'p-picklist p-component': true }" cdkDropListGroup [attr.data-pc-name]="'picklist'" [attr.data-pc-section]="'root'">
-            <div class="p-picklist-controls p-picklist-source-controls" *ngIf="showSourceControls" [attr.data-pc-section]="'sourceControls'" [attr.data-pc-group-section]="'controls'">
+        <div [ngStyle]="style" [class]="cx('root')" cdkDropListGroup [attr.data-pc-name]="'picklist'" [attr.data-pc-section]="'root'">
+            <div [class]="cx('sourceControls')" *ngIf="showSourceControls" [attr.data-pc-section]="'sourceControls'" [attr.data-pc-group-section]="'controls'">
                 <button
                     type="button"
                     [attr.aria-label]="moveUpAriaLabel"
                     pButton
                     pRipple
                     severity="secondary"
-                    class="p-button-icon-only"
                     [disabled]="sourceMoveDisabled()"
                     (click)="moveUp(sourcelist, source, selectedItemsSource, onSourceReorder, SOURCE_LIST)"
                     [attr.data-pc-section]="'sourceMoveUpButton'"
@@ -76,7 +75,6 @@ import { PickListStyle } from './style/pickliststyle';
                     pButton
                     pRipple
                     severity="secondary"
-                    class="p-button-icon-only"
                     [disabled]="sourceMoveDisabled()"
                     (click)="moveTop(sourcelist, source, selectedItemsSource, onSourceReorder, SOURCE_LIST)"
                     [attr.data-pc-section]="'sourceMoveTopButton'"
@@ -91,7 +89,6 @@ import { PickListStyle } from './style/pickliststyle';
                     pButton
                     pRipple
                     severity="secondary"
-                    class="p-button-icon-only"
                     [disabled]="sourceMoveDisabled()"
                     (click)="moveDown(sourcelist, source, selectedItemsSource, onSourceReorder, SOURCE_LIST)"
                     [attr.data-pc-section]="'sourceMoveDownButton'"
@@ -106,7 +103,6 @@ import { PickListStyle } from './style/pickliststyle';
                     pButton
                     pRipple
                     severity="secondary"
-                    class="p-button-icon-only"
                     [disabled]="sourceMoveDisabled()"
                     (click)="moveBottom(sourcelist, source, selectedItemsSource, onSourceReorder, SOURCE_LIST)"
                     [attr.data-pc-section]="'sourceMoveBottomButton'"
@@ -116,7 +112,7 @@ import { PickListStyle } from './style/pickliststyle';
                     <ng-template *ngTemplateOutlet="moveBottomIconTemplate || _moveBottomIconTemplate"></ng-template>
                 </button>
             </div>
-            <div class="p-picklist-list-container p-picklist-source-list-container" [attr.data-pc-section]="'sourceWrapper'" [attr.data-pc-group-section]="'listWrapper'">
+            <div [class]="cx('sourceListContainer')" [attr.data-pc-section]="'sourceWrapper'" [attr.data-pc-group-section]="'listWrapper'">
                 <p-listbox
                     #sourcelist
                     [multiple]="true"
@@ -124,7 +120,7 @@ import { PickListStyle } from './style/pickliststyle';
                     [(ngModel)]="selectedItemsSource"
                     optionLabel="name"
                     [id]="idSource + '_list'"
-                    [ngStyle]="sourceStyle"
+                    [listStyle]="sourceStyle"
                     [striped]="stripedRows"
                     [tabindex]="tabindex"
                     (onFocus)="onListFocus($event, SOURCE_LIST)"
@@ -132,44 +128,57 @@ import { PickListStyle } from './style/pickliststyle';
                     (keydown)="onItemKeyDown($event, selectedItemsSource, onSourceSelect, SOURCE_LIST)"
                     (onDblClick)="onSourceItemDblClick()"
                     [disabled]="disabled"
+                    [optionDisabled]="sourceOptionDisabled"
                     [metaKeySelection]="metaKeySelection"
                     [scrollHeight]="scrollHeight"
                     [autoOptionFocus]="autoOptionFocus"
                     [filter]="filterBy"
                     [filterBy]="filterBy"
                     [filterLocale]="filterLocale"
+                    [filterMatchMode]="filterMatchMode"
                     [filterPlaceHolder]="sourceFilterPlaceholder"
+                    [dragdrop]="dragdrop"
+                    (onDrop)="onDrop($event, SOURCE_LIST)"
+                    (onFilter)="onFilter($event.originalEvent, SOURCE_LIST)"
                 >
-                    <ng-container *ngIf="sourceHeaderTemplate || _sourceHeaderTemplate">
+                    <ng-container *ngIf="sourceHeaderTemplate || _sourceHeaderTemplate || sourceHeader">
                         <ng-template #header>
+                            <div *ngIf="!sourceHeaderTemplate && !_sourceHeaderTemplate">{{ sourceHeader }}</div>
                             <ng-template *ngTemplateOutlet="sourceHeaderTemplate || _sourceHeaderTemplate"></ng-template>
                         </ng-template>
                     </ng-container>
                     <ng-container *ngIf="sourceFilterTemplate || _sourceFilterTemplate">
-                        <ng-container *ngTemplateOutlet="sourceFilterTemplate || _sourceFilterTemplate; context: { options: sourceFilterOptions }"></ng-container>
+                        <ng-template #filter>
+                            <ng-template *ngTemplateOutlet="sourceFilterTemplate || _sourceFilterTemplate; context: { options: sourceFilterOptions }"></ng-template>
+                        </ng-template>
                     </ng-container>
                     <ng-container *ngIf="sourceFilterIconTemplate || _sourceFilterIconTemplate">
                         <ng-container *ngTemplateOutlet="sourceFilterIconTemplate || _sourceFilterIconTemplate"></ng-container>
                     </ng-container>
-                    <div class="p-picklist-title" *ngIf="!sourceHeaderTemplate && !_sourceHeaderTemplate">{{ sourceHeader }}</div>
                     <ng-container *ngIf="itemTemplate || _itemTemplate">
-                        <ng-template #item let-item let-index="index" let-selected="selected">
-                            <ng-container *ngTemplateOutlet="itemTemplate || _itemTemplate; context: { $implicit: item, index: index, selected: selected }"></ng-container>
+                        <ng-template #item let-item let-index="index" let-selected="selected" let-disabled="disabled">
+                            <ng-container *ngTemplateOutlet="itemTemplate || _itemTemplate; context: { $implicit: item, index: index, selected: selected, disabled: disabled }"></ng-container>
                         </ng-template>
                     </ng-container>
-                    <ng-container *ngIf="emptyFilterMessageSourceTemplate || _emptyFilterMessageSourceTemplate || emptyMessageSourceTemplate || _emptyMessageSourceTemplate">
-                        <ng-container *ngTemplateOutlet="emptyFilterMessageSourceTemplate || _emptyFilterMessageSourceTemplate || emptyMessageSourceTemplate || _emptyMessageSourceTemplate"></ng-container>
+                    <ng-container *ngIf="emptyMessageSourceTemplate || _emptyMessageSourceTemplate">
+                        <ng-template #empty>
+                            <ng-container *ngTemplateOutlet="emptyMessageSourceTemplate || _emptyMessageSourceTemplate"></ng-container>
+                        </ng-template>
+                    </ng-container>
+                    <ng-container *ngIf="emptyFilterMessageSourceTemplate || _emptyFilterMessageSourceTemplate">
+                        <ng-template #emptyfilter>
+                            <ng-container *ngTemplateOutlet="emptyFilterMessageSourceTemplate || _emptyFilterMessageSourceTemplate"></ng-container>
+                        </ng-template>
                     </ng-container>
                 </p-listbox>
             </div>
-            <div class="p-picklist-controls p-picklist-transfer-controls" [attr.data-pc-section]="'buttons'" [attr.data-pc-group-section]="'controls'">
+            <div [class]="cx('targetControls')" [attr.data-pc-section]="'buttons'" [attr.data-pc-group-section]="'controls'">
                 <button
                     type="button"
                     [attr.aria-label]="moveToTargetAriaLabel"
                     pButton
                     pRipple
                     severity="secondary"
-                    class="p-button-icon-only"
                     [disabled]="moveRightDisabled()"
                     (click)="moveRight()"
                     [attr.data-pc-section]="'moveToTargetButton'"
@@ -187,7 +196,6 @@ import { PickListStyle } from './style/pickliststyle';
                     pButton
                     pRipple
                     severity="secondary"
-                    class="p-button-icon-only"
                     [disabled]="moveAllRightDisabled()"
                     (click)="moveAllRight()"
                     [attr.data-pc-section]="'moveAllToTargetButton'"
@@ -205,7 +213,6 @@ import { PickListStyle } from './style/pickliststyle';
                     pButton
                     pRipple
                     severity="secondary"
-                    class="p-button-icon-only"
                     [disabled]="moveLeftDisabled()"
                     (click)="moveLeft()"
                     [attr.data-pc-section]="'moveToSourceButton'"
@@ -223,7 +230,6 @@ import { PickListStyle } from './style/pickliststyle';
                     pButton
                     pRipple
                     severity="secondary"
-                    class="p-button-icon-only"
                     [disabled]="moveAllLeftDisabled()"
                     (click)="moveAllLeft()"
                     [attr.data-pc-section]="'moveAllToSourceButton'"
@@ -236,7 +242,7 @@ import { PickListStyle } from './style/pickliststyle';
                     <ng-template *ngTemplateOutlet="moveAllToSourceIconTemplate || _moveAllToSourceIconTemplate; context: { $implicit: viewChanged }"></ng-template>
                 </button>
             </div>
-            <div class="p-picklist-list-container p-picklist-target-list-container" [attr.data-pc-section]="'targetWrapper'" [attr.data-pc-group-section]="'listwrapper'">
+            <div [class]="cx('targetListContainer')" [attr.data-pc-section]="'targetWrapper'" [attr.data-pc-group-section]="'listwrapper'">
                 <p-listbox
                     #targetlist
                     [multiple]="true"
@@ -244,7 +250,7 @@ import { PickListStyle } from './style/pickliststyle';
                     [(ngModel)]="selectedItemsTarget"
                     optionLabel="name"
                     [id]="idTarget + '_list'"
-                    [ngStyle]="targetStyle"
+                    [listStyle]="targetStyle"
                     [striped]="stripedRows"
                     [tabindex]="tabindex"
                     (onFocus)="onListFocus($event, TARGET_LIST)"
@@ -252,37 +258,51 @@ import { PickListStyle } from './style/pickliststyle';
                     (keydown)="onItemKeyDown($event, selectedItemsTarget, onTargetSelect, TARGET_LIST)"
                     (onDblClick)="onTargetItemDblClick()"
                     [disabled]="disabled"
+                    [optionDisabled]="targetOptionDisabled"
                     [metaKeySelection]="metaKeySelection"
                     [scrollHeight]="scrollHeight"
                     [autoOptionFocus]="autoOptionFocus"
                     [filter]="filterBy"
                     [filterBy]="filterBy"
                     [filterLocale]="filterLocale"
+                    [filterMatchMode]="filterMatchMode"
                     [filterPlaceHolder]="targetFilterPlaceholder"
+                    [dragdrop]="dragdrop"
+                    (onDrop)="onDrop($event, TARGET_LIST)"
+                    (onFilter)="onFilter($event.originalEvent, TARGET_LIST)"
                 >
-                    <ng-container *ngIf="targetHeaderTemplate || _targetHeaderTemplate">
+                    <ng-container *ngIf="targetHeaderTemplate || _targetHeaderTemplate || targetHeader">
                         <ng-template #header>
+                            <div *ngIf="!targetHeaderTemplate && !_targetHeaderTemplate">{{ targetHeader }}</div>
                             <ng-template *ngTemplateOutlet="targetHeaderTemplate || _targetHeaderTemplate"></ng-template>
                         </ng-template>
                     </ng-container>
                     <ng-container *ngIf="targetFilterTemplate || _targetFilterTemplate">
-                        <ng-container *ngTemplateOutlet="targetFilterTemplate || _targetFilterTemplate; context: { options: targetFilterOptions }"></ng-container>
+                        <ng-template #filter>
+                            <ng-template *ngTemplateOutlet="targetFilterTemplate || _targetFilterTemplate; context: { options: targetFilterOptions }"></ng-template>
+                        </ng-template>
                     </ng-container>
                     <ng-container *ngIf="targetFilterIconTemplate || _targetFilterIconTemplate">
                         <ng-container *ngTemplateOutlet="targetFilterIconTemplate || _targetFilterIconTemplate"></ng-container>
                     </ng-container>
-                    <div class="p-picklist-title" *ngIf="!targetHeaderTemplate && !_targetHeaderTemplate">{{ targetHeader }}</div>
                     <ng-container *ngIf="itemTemplate || _itemTemplate">
-                        <ng-template #item let-item let-index="index" let-selected="selected">
-                            <ng-container *ngTemplateOutlet="itemTemplate || _itemTemplate; context: { $implicit: item, index: index, selected: selected }"></ng-container>
+                        <ng-template #item let-item let-index="index" let-selected="selected" let-disabled="disabled">
+                            <ng-container *ngTemplateOutlet="itemTemplate || _itemTemplate; context: { $implicit: item, index: index, selected: selected, disabled: disabled }"></ng-container>
                         </ng-template>
                     </ng-container>
-                    <ng-container *ngIf="emptyFilterMessageTargetTemplate || _emptyFilterMessageTargetTemplate || emptyMessageTargetTemplate || _emptyMessageTargetTemplate">
-                        <ng-container *ngTemplateOutlet="emptyFilterMessageTargetTemplate || _emptyFilterMessageTargetTemplate || emptyMessageTargetTemplate || _emptyMessageTargetTemplate"></ng-container>
+                    <ng-container *ngIf="emptyMessageTargetTemplate || _emptyMessageTargetTemplate">
+                        <ng-template #empty>
+                            <ng-container *ngTemplateOutlet="emptyMessageTargetTemplate || _emptyMessageTargetTemplate"></ng-container>
+                        </ng-template>
+                    </ng-container>
+                    <ng-container *ngIf="emptyFilterMessageTargetTemplate || _emptyFilterMessageTargetTemplate">
+                        <ng-template #emptyfilter>
+                            <ng-container *ngTemplateOutlet="emptyFilterMessageTargetTemplate || _emptyFilterMessageTargetTemplate"></ng-container>
+                        </ng-template>
                     </ng-container>
                 </p-listbox>
             </div>
-            <div class="p-picklist-controls p-picklist-target-controls" *ngIf="showTargetControls" [attr.data-pc-section]="'targetControls'" [attr.data-pc-group-section]="'controls'">
+            <div [class]="cx('targetControls')" *ngIf="showTargetControls" [attr.data-pc-section]="'targetControls'" [attr.data-pc-group-section]="'controls'">
                 <button
                     type="button"
                     [attr.aria-label]="moveUpAriaLabel"
@@ -304,7 +324,6 @@ import { PickListStyle } from './style/pickliststyle';
                     pButton
                     pRipple
                     severity="secondary"
-                    class="p-button-icon-only"
                     [disabled]="targetMoveDisabled()"
                     (click)="moveTop(targetlist, target, selectedItemsTarget, onTargetReorder, TARGET_LIST)"
                     [attr.data-pc-section]="'targetMoveTopButton'"
@@ -319,7 +338,6 @@ import { PickListStyle } from './style/pickliststyle';
                     pButton
                     pRipple
                     severity="secondary"
-                    class="p-button-icon-only"
                     [disabled]="targetMoveDisabled()"
                     (click)="moveDown(targetlist, target, selectedItemsTarget, onTargetReorder, TARGET_LIST)"
                     [attr.data-pc-section]="'targetMoveDownButton'"
@@ -334,7 +352,6 @@ import { PickListStyle } from './style/pickliststyle';
                     pButton
                     pRipple
                     severity="secondary"
-                    class="p-button-icon-only"
                     [disabled]="targetMoveDisabled()"
                     (click)="moveBottom(targetlist, target, selectedItemsTarget, onTargetReorder, TARGET_LIST)"
                     [attr.data-pc-section]="'targetMoveBottomButton'"
@@ -511,6 +528,19 @@ export class PickList extends BaseComponent implements AfterViewChecked, AfterCo
      * @group Props
      */
     @Input({ transform: booleanAttribute }) disabled: boolean = false;
+
+    /**
+     * Name of the disabled field of a target option or function to determine disabled state.
+     * @group Props
+     */
+    @Input() sourceOptionDisabled: string | ((item: any) => boolean) | undefined;
+
+    /**
+     * Name of the disabled field of a target option or function to determine disabled state.
+     * @group Props
+     */
+    @Input() targetOptionDisabled: string | ((item: any) => boolean) | undefined;
+
     /**
      * Defines a string that labels the filter input of source list.
      * @group Props
@@ -525,7 +555,7 @@ export class PickList extends BaseComponent implements AfterViewChecked, AfterCo
      * Defines how the items are filtered.
      * @group Props
      */
-    @Input() filterMatchMode: 'contains' | 'startsWith' | 'endsWith' | 'equals' | 'notEquals' | 'in' | 'lt' | 'lte' | 'gt' | 'gte' = 'contains';
+    @Input() filterMatchMode: 'contains' | 'startsWith' | 'endsWith' | 'equals' | 'notEquals' | 'in' | 'lt' | 'lte' | 'gt' | 'gte' | string = 'contains';
     /**
      * Whether to displays rows with alternating colors.
      * @group Props
@@ -1081,13 +1111,16 @@ export class PickList extends BaseComponent implements AfterViewChecked, AfterCo
 
     ngAfterViewChecked() {
         if (this.movedUp || this.movedDown) {
-            let listItems = find(this.reorderedListElement, 'li.p-highlight');
+            let listItems = find(this.reorderedListElement?.el.nativeElement, 'li.p-listbox-option-selected');
+
             let listItem;
 
-            if (this.movedUp) listItem = listItems[0];
-            else listItem = listItems[listItems.length - 1];
+            if (listItems.length > 0) {
+                if (this.movedUp) listItem = listItems[0];
+                else listItem = listItems[listItems.length - 1];
 
-            scrollInView(this.reorderedListElement, listItem);
+                scrollInView(this.reorderedListElement?.el.nativeElement, listItem);
+            }
             this.movedUp = false;
             this.movedDown = false;
             this.reorderedListElement = null;
@@ -1139,7 +1172,7 @@ export class PickList extends BaseComponent implements AfterViewChecked, AfterCo
         }
 
         this.moveRight();
-        this.viewChildMarkForCheck();
+        this.triggerChangeDetection();
     }
 
     onTargetItemDblClick() {
@@ -1148,7 +1181,7 @@ export class PickList extends BaseComponent implements AfterViewChecked, AfterCo
         }
 
         this.moveLeft();
-        this.viewChildMarkForCheck();
+        this.triggerChangeDetection();
     }
 
     onFilter(event: KeyboardEvent, listType: number) {
@@ -1160,11 +1193,13 @@ export class PickList extends BaseComponent implements AfterViewChecked, AfterCo
     filterSource(value: any = '') {
         this.filterValueSource = value.trim().toLocaleLowerCase(this.filterLocale);
         this.filter(<any[]>this.source, this.SOURCE_LIST);
+        this.onSourceFilter.emit({ query: this.filterValueSource, value: this.visibleOptionsSource });
     }
 
     filterTarget(value: any = '') {
         this.filterValueTarget = value.trim().toLocaleLowerCase(this.filterLocale);
         this.filter(<any[]>this.target, this.TARGET_LIST);
+        this.onTargetFilter.emit({ query: this.filterValueTarget, value: this.visibleOptionsTarget });
     }
 
     filter(data: any[], listType: number) {
@@ -1213,9 +1248,9 @@ export class PickList extends BaseComponent implements AfterViewChecked, AfterCo
         return items.sort((item1, item2) => findIndexInList(item1, list) - findIndexInList(item2, list));
     }
 
-    viewChildMarkForCheck() {
-        this.listViewSourceChild.cd.markForCheck();
-        this.listViewTargetChild.cd.markForCheck();
+    triggerChangeDetection() {
+        this.source = [...this.source];
+        this.target = [...this.target];
     }
 
     moveUp(listElement: any, list: any[], selectedItems: any[], callback: EventEmitter<any>, listType: number) {
@@ -1240,7 +1275,7 @@ export class PickList extends BaseComponent implements AfterViewChecked, AfterCo
             this.movedUp = true;
             this.reorderedListElement = listElement;
             callback.emit({ items: selectedItems });
-            this.viewChildMarkForCheck();
+            this.triggerChangeDetection();
         }
     }
 
@@ -1263,7 +1298,7 @@ export class PickList extends BaseComponent implements AfterViewChecked, AfterCo
 
             listElement.scrollTop = 0;
             callback.emit({ items: selectedItems });
-            this.viewChildMarkForCheck();
+            this.triggerChangeDetection();
         }
     }
 
@@ -1289,7 +1324,7 @@ export class PickList extends BaseComponent implements AfterViewChecked, AfterCo
             this.movedDown = true;
             this.reorderedListElement = listElement;
             callback.emit({ items: selectedItems });
-            this.viewChildMarkForCheck();
+            this.triggerChangeDetection();
         }
     }
 
@@ -1312,7 +1347,7 @@ export class PickList extends BaseComponent implements AfterViewChecked, AfterCo
 
             listElement.scrollTop = listElement.scrollHeight;
             callback.emit({ items: selectedItems });
-            this.viewChildMarkForCheck();
+            this.triggerChangeDetection();
         }
     }
 
@@ -1344,7 +1379,7 @@ export class PickList extends BaseComponent implements AfterViewChecked, AfterCo
             if (this.filterValueTarget) {
                 this.filter(<any[]>this.target, this.TARGET_LIST);
             }
-            this.viewChildMarkForCheck();
+            this.triggerChangeDetection();
         }
     }
 
@@ -1375,7 +1410,7 @@ export class PickList extends BaseComponent implements AfterViewChecked, AfterCo
             }
 
             this.visibleOptionsSource = [];
-            this.viewChildMarkForCheck();
+            this.triggerChangeDetection();
         }
     }
 
@@ -1407,7 +1442,7 @@ export class PickList extends BaseComponent implements AfterViewChecked, AfterCo
             if (this.filterValueSource) {
                 this.filter(<any[]>this.source, this.SOURCE_LIST);
             }
-            this.viewChildMarkForCheck();
+            this.triggerChangeDetection();
         }
     }
 
@@ -1439,7 +1474,7 @@ export class PickList extends BaseComponent implements AfterViewChecked, AfterCo
             }
 
             this.visibleOptionsTarget = [];
-            this.viewChildMarkForCheck();
+            this.triggerChangeDetection();
         }
     }
 
@@ -1658,6 +1693,7 @@ export class PickList extends BaseComponent implements AfterViewChecked, AfterCo
     }
 
     onSpaceKey(event: Event | any, selectedItems: any[], callback: EventEmitter<any>, listType: number) {
+        if (event.target.tagName === 'INPUT') return;
         event.preventDefault();
 
         if (event.shiftKey && selectedItems && selectedItems.length > 0) {

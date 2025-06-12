@@ -3,10 +3,10 @@ import { AfterContentInit, booleanAttribute, ChangeDetectionStrategy, Component,
 import { NG_VALUE_ACCESSOR } from '@angular/forms';
 import { PrimeTemplate, SharedModule } from 'primeng/api';
 import { AutoFocus } from 'primeng/autofocus';
-import { BaseComponent } from 'primeng/basecomponent';
 import { InputText } from 'primeng/inputtext';
 import { InputOtpStyle } from './style/inputotpstyle';
 import { Nullable } from 'primeng/ts-helpers';
+import { BaseInput } from 'primeng/baseinput';
 
 export const INPUT_OTP_VALUE_ACCESSOR: any = {
     provide: NG_VALUE_ACCESSOR,
@@ -72,11 +72,14 @@ export interface InputOtpInputTemplateContext {
                     [value]="getModelValue(i)"
                     [maxLength]="i === 1 ? length : 1"
                     [type]="inputType"
-                    class="p-inputotp-input"
-                    [pSize]="size"
-                    [variant]="variant"
+                    [class]="cn(cx('pcInputText'), styleClass)"
+                    [pSize]="size()"
+                    [variant]="$variant()"
+                    [invalid]="invalid()"
                     [readonly]="readonly"
-                    [disabled]="disabled"
+                    [disabled]="disabled()"
+                    [name]="name()"
+                    [required]="required()"
                     [tabindex]="tabindex"
                     (input)="onInput($event, i - 1)"
                     (focus)="onInputFocus($event)"
@@ -84,7 +87,6 @@ export interface InputOtpInputTemplateContext {
                     (paste)="onPaste($event)"
                     (keydown)="onKeyDown($event)"
                     [pAutoFocus]="getAutofocus(i)"
-                    [ngClass]="styleClass"
                 />
             </ng-container>
             <ng-container *ngIf="inputTemplate || _inputTemplate">
@@ -96,30 +98,15 @@ export interface InputOtpInputTemplateContext {
     encapsulation: ViewEncapsulation.None,
     providers: [INPUT_OTP_VALUE_ACCESSOR, InputOtpStyle],
     host: {
-        class: 'p-inputotp p-component'
+        '[class]': "cx('root')"
     }
 })
-export class InputOtp extends BaseComponent implements AfterContentInit {
-    /**
-     * When present, it specifies that the component should have invalid state style.
-     * @group Props
-     */
-    @Input() invalid: boolean = false;
-    /**
-     * When present, it specifies that the component should be disabled.
-     * @group Props
-     */
-    @Input() disabled: boolean = false;
+export class InputOtp extends BaseInput implements AfterContentInit {
     /**
      * When present, it specifies that an input field is read-only.
      * @group Props
      */
     @Input() readonly: boolean = false;
-    /**
-     * Specifies the input variant of the component.
-     * @group Props
-     */
-    @Input() variant: 'filled' | 'outlined' = 'outlined';
     /**
      * Index of the element in tabbing order.
      * @group Props
@@ -150,11 +137,6 @@ export class InputOtp extends BaseComponent implements AfterContentInit {
      * @group Props
      */
     @Input({ transform: booleanAttribute }) autofocus: boolean | undefined;
-    /**
-     * Defines the size of the component.
-     * @group Props
-     */
-    @Input() size: 'large' | 'small';
     /**
      * Callback to invoke on value change.
      * @group Emits
@@ -249,6 +231,7 @@ export class InputOtp extends BaseComponent implements AfterContentInit {
 
     updateModel(event: any) {
         const newValue = this.tokens.join('');
+        this.writeModelValue(newValue);
         this.onModelChange(newValue);
 
         this.onChange.emit({
@@ -267,6 +250,7 @@ export class InputOtp extends BaseComponent implements AfterContentInit {
         } else {
             this.value = value;
         }
+        this.writeModelValue(this.value);
         this.updateTokens();
         this.cd.markForCheck();
     }
@@ -387,7 +371,7 @@ export class InputOtp extends BaseComponent implements AfterContentInit {
     }
 
     onPaste(event) {
-        if (!this.disabled && !this.readonly) {
+        if (!this.disabled() && !this.readonly) {
             let paste = event.clipboardData.getData('text');
 
             if (paste.length) {

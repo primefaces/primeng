@@ -22,11 +22,11 @@ import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
 import { focus, getFirstFocusableElement, uuid } from '@primeuix/utils';
 import { PrimeTemplate, SharedModule } from 'primeng/api';
 import { AutoFocus } from 'primeng/autofocus';
-import { BaseComponent } from 'primeng/basecomponent';
-import { BanIcon, StarFillIcon, StarIcon } from 'primeng/icons';
+import { StarFillIcon, StarIcon } from 'primeng/icons';
 import { Nullable } from 'primeng/ts-helpers';
 import { RatingRateEvent } from './rating.interface';
 import { RatingStyle } from './style/ratingstyle';
+import { BaseInput } from 'primeng/baseinput';
 
 export const RATING_VALUE_ACCESSOR: any = {
     provide: NG_VALUE_ACCESSOR,
@@ -44,21 +44,21 @@ export const RATING_VALUE_ACCESSOR: any = {
     template: `
         <ng-container *ngIf="!isCustomIcon; else customTemplate">
             <ng-template ngFor [ngForOf]="starsArray" let-star let-i="index">
-                <div
-                    class="p-rating-option"
-                    [ngClass]="{
-                        'p-rating-option-active': star + 1 <= value,
-                        'p-focus-visible': star + 1 === focusedOptionIndex() && isFocusVisibleItem
-                    }"
-                    (click)="onOptionClick($event, star + 1)"
-                >
+                <div [class]="cx('option', { star, value })" (click)="onOptionClick($event, star + 1)">
                     <span class="p-hidden-accessible" [attr.data-p-hidden-accessible]="true">
                         <input
                             type="radio"
                             value="0"
-                            [name]="nameattr"
+                            [attr.id]="nameattr"
+                            [attr.name]="name()"
+                            [attr.value]="modelValue()"
+                            [attr.min]="min()"
+                            [attr.minlength]="minlength()"
+                            [attr.maxlength]="maxlength()"
+                            [attr.disabled]="disabled()"
+                            [attr.required]="required()"
                             [checked]="value === 0"
-                            [disabled]="disabled"
+                            [disabled]="disabled()"
                             [readonly]="readonly"
                             [attr.aria-label]="starAriaLabel(star + 1)"
                             (focus)="onInputFocus($event, star + 1)"
@@ -68,12 +68,12 @@ export const RATING_VALUE_ACCESSOR: any = {
                         />
                     </span>
                     <ng-container *ngIf="!value || i >= value">
-                        <span class="p-rating-icon" *ngIf="iconOffClass" [ngStyle]="iconOffStyle" [ngClass]="iconOffClass" [attr.data-pc-section]="'offIcon'"></span>
-                        <StarIcon *ngIf="!iconOffClass" [ngStyle]="iconOffStyle" [styleClass]="'p-rating-icon'" [attr.data-pc-section]="'offIcon'" />
+                        <span [class]="cx('offIcon')" *ngIf="iconOffClass" [ngStyle]="iconOffStyle" [ngClass]="iconOffClass" [attr.data-pc-section]="'offIcon'"></span>
+                        <StarIcon *ngIf="!iconOffClass" [ngStyle]="iconOffStyle" [styleClass]="cx('offIcon')" [attr.data-pc-section]="'offIcon'" />
                     </ng-container>
                     <ng-container *ngIf="value && i < value">
-                        <span class="p-rating-icon p-rating-icon-active" *ngIf="iconOnClass" [ngStyle]="iconOnStyle" [ngClass]="iconOnClass" [attr.data-pc-section]="'onIcon'"></span>
-                        <StarFillIcon *ngIf="!iconOnClass" [ngStyle]="iconOnStyle" [styleClass]="'p-rating-icon p-rating-icon-active'" [attr.data-pc-section]="'onIcon'" />
+                        <span [class]="cx('onIcon')" *ngIf="iconOnClass" [ngStyle]="iconOnStyle" [ngClass]="iconOnClass" [attr.data-pc-section]="'onIcon'"></span>
+                        <StarFillIcon *ngIf="!iconOnClass" [ngStyle]="iconOnStyle" [styleClass]="cx('onIcon')" [attr.data-pc-section]="'onIcon'" />
                     </ng-container>
                 </div>
             </ng-template>
@@ -88,19 +88,12 @@ export const RATING_VALUE_ACCESSOR: any = {
     changeDetection: ChangeDetectionStrategy.OnPush,
     encapsulation: ViewEncapsulation.None,
     host: {
-        class: 'p-rating',
-        '[attr.data-pc-name]': '"rating"',
-        '[attr.data-pc-section]': '"root"',
-        '[class.p-readonly]': 'readonly',
-        '[class.p-disabled]': 'disabled'
+        '[class]': "cx('root')",
+        '[attr.data-pc-name]': "'rating'",
+        '[attr.data-pc-section]': "'root'"
     }
 })
-export class Rating extends BaseComponent implements OnInit, ControlValueAccessor {
-    /**
-     * When present, it specifies that the element should be disabled.
-     * @group Props
-     */
-    @Input({ transform: booleanAttribute }) disabled: boolean | undefined;
+export class Rating extends BaseInput implements OnInit, ControlValueAccessor {
     /**
      * When present, changing the value is not possible.
      * @group Props
@@ -228,7 +221,7 @@ export class Rating extends BaseComponent implements OnInit, ControlValueAccesso
     }
 
     onOptionClick(event, value) {
-        if (!this.readonly && !this.disabled) {
+        if (!this.readonly && !this.disabled()) {
             this.onOptionSelect(event, value);
             this.isFocusVisibleItem = false;
             const firstFocusableEl = <any>getFirstFocusableElement(event.currentTarget, '');
@@ -238,7 +231,7 @@ export class Rating extends BaseComponent implements OnInit, ControlValueAccesso
     }
 
     onOptionSelect(event, value) {
-        if (!this.readonly && !this.disabled) {
+        if (!this.readonly && !this.disabled()) {
             if (this.focusedOptionIndex() === value || value === this.value) {
                 this.focusedOptionIndex.set(-1);
                 this.updateModel(event, null);
@@ -260,14 +253,14 @@ export class Rating extends BaseComponent implements OnInit, ControlValueAccesso
     }
 
     onInputFocus(event, value) {
-        if (!this.readonly && !this.disabled) {
+        if (!this.readonly && !this.disabled()) {
             this.focusedOptionIndex.set(value);
             this.onFocus.emit(event);
         }
     }
 
     updateModel(event, value) {
-        this.value = value;
+        this.writeValue(value);
         this.onModelChange(this.value);
         this.onModelTouched();
 
@@ -291,7 +284,7 @@ export class Rating extends BaseComponent implements OnInit, ControlValueAccesso
 
     writeValue(value: any): void {
         this.value = value;
-        this.cd.detectChanges();
+        this.writeModelValue(value);
     }
 
     registerOnChange(fn: Function): void {
@@ -300,11 +293,6 @@ export class Rating extends BaseComponent implements OnInit, ControlValueAccesso
 
     registerOnTouched(fn: Function): void {
         this.onModelTouched = fn;
-    }
-
-    setDisabledState(val: boolean): void {
-        this.disabled = val;
-        this.cd.markForCheck();
     }
 
     get isCustomIcon(): boolean {

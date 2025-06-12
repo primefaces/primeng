@@ -42,7 +42,6 @@
                         ],
                         "allowedCommonJsDependencies": [
                             "chart.js",
-                            "xlsx",
                             "jspdf-autotable",
                             "file-saver",
                             "jspdf",
@@ -51,24 +50,51 @@
                             "core-js",
                             "raf",
                             "rgbcolor"
-                        ],
-                        "server": "server/main.server.ts",
-                        "prerender": {
-                            "discoverRoutes": false,
-                            "routesFile": "router/routes.txt"
-                        },
-                        "ssr": {
-                            "entry": "server/server.ts"
-                        }
+                        ]
                     },
                     "configurations": {
                         "production": {
-                            "outputHashing": "all"
+                            "outputHashing": "all",
+                            "server": "server/main.server.ts",
+                            "prerender": {
+                                "discoverRoutes": false,
+                                "routesFile": "router/routes.txt"
+                            },
+                            "ssr": {
+                                "entry": "server/server.ts"
+                            }
                         },
                         "development": {
                             "optimization": false,
                             "extractLicenses": false,
-                            "sourceMap": true
+                            "sourceMap": false,
+                            "namedChunks": false,
+                            "fileReplacements": [
+                                {
+                                    "replace": "./environments/environment.ts",
+                                    "with": "./environments/environment.development.ts"
+                                }
+                            ]
+                        },
+                        "development-ssr": {
+                            "optimization": false,
+                            "extractLicenses": false,
+                            "sourceMap": false,
+                            "namedChunks": false,
+                            "fileReplacements": [
+                                {
+                                    "replace": "./environments/environment.ts",
+                                    "with": "./environments/environment.development.ts"
+                                }
+                            ],
+                            "server": "server/main.server.ts",
+                            "prerender": {
+                                "discoverRoutes": false,
+                                "routesFile": "router/routes.txt"
+                            },
+                            "ssr": {
+                                "entry": "server/server.ts"
+                            }
                         }
                     },
                     "defaultConfiguration": "production"
@@ -81,6 +107,9 @@
                         },
                         "development": {
                             "buildTarget": "showcase:build:development"
+                        },
+                        "development-ssr": {
+                            "buildTarget": "showcase:build:development-ssr"
                         }
                     },
                     "defaultConfiguration": "development"

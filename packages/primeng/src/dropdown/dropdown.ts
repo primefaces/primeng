@@ -30,23 +30,8 @@ import {
     ViewRef
 } from '@angular/core';
 import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
-import {
-    deepEquals,
-    equals,
-    findLastIndex,
-    findSingle,
-    focus,
-    getFirstFocusableElement,
-    getFocusableElements,
-    getLastFocusableElement,
-    isEmpty,
-    isNotEmpty,
-    isPrintableCharacter,
-    resolveFieldData,
-    scrollInView,
-    unblockBodyScroll,
-    uuid
-} from '@primeuix/utils';
+import { deepEquals, equals, findLastIndex, findSingle, focus, getFirstFocusableElement, getFocusableElements, getLastFocusableElement, isEmpty, isNotEmpty, isPrintableCharacter, resolveFieldData, scrollInView, uuid } from '@primeuix/utils';
+import { unblockBodyScroll } from 'primeng/dom';
 import { FilterService, OverlayOptions, PrimeTemplate, ScrollerOptions, SelectItem, SharedModule, TranslationKeys } from 'primeng/api';
 import { AutoFocusModule } from 'primeng/autofocus';
 import { BaseComponent } from 'primeng/basecomponent';
@@ -470,7 +455,7 @@ export class Dropdown extends BaseComponent implements OnInit, AfterViewInit, Af
      * Specifies the input variant of the component.
      * @group Props
      */
-    @Input() variant: 'filled' | 'outlined' = 'outlined';
+    @Input() variant: 'filled' | 'outlined';
     /**
      * Identifier of the accessible input element.
      * @group Props
@@ -1247,6 +1232,7 @@ export class Dropdown extends BaseComponent implements OnInit, AfterViewInit, Af
     }
 
     ngAfterViewInit() {
+        super.ngAfterViewInit();
         if (this.editable) {
             this.updateEditableLabel();
         }

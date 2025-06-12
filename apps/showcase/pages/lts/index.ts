@@ -314,10 +314,12 @@ import { LicenseManager } from 'primeng/api';
     selector: 'app-root',
     templateUrl: './app.component.html'
 })
-export class AppComponent {
+export class AppComponent implements OnInit {
 
-    LicenseManager.verify('LICENSE_KEY', 'PASS_KEY');
-
+    ngOnInit() {
+        LicenseManager.verify('LICENSE_KEY', 'PASS_KEY');    
+    }
+        
 }`
     };
 

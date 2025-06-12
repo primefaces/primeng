@@ -1,5 +1,5 @@
 import { inject, Injectable } from '@angular/core';
-import { dt, Theme } from '@primeuix/styled';
+import { css as Css, dt, Theme } from '@primeuix/styled';
 import { minifyCSS, resolve } from '@primeuix/utils';
 import { UseStyle } from 'primeng/usestyle';
 
@@ -88,6 +88,10 @@ const theme = ({ dt }) => `
 .p-icon {
     width: ${dt('icon.size')};
     height: ${dt('icon.size')};
+}
+
+.p-unselectable-text {
+    user-select: none;
 }
 
 .p-overlay-mask {
@@ -195,16 +199,16 @@ export class BaseStyle {
 
     useStyle: UseStyle = inject(UseStyle);
 
-    theme = theme;
+    theme = undefined;
 
-    css = css;
+    css = undefined;
 
     classes = {};
 
     inlineStyles = {};
 
     load = (style, options = {}, transform = (cs) => cs) => {
-        const computedStyle = transform(resolve(style, { dt }));
+        const computedStyle = transform(Css`${resolve(style, { dt })}`);
         return computedStyle ? this.useStyle.use(minifyCSS(computedStyle), { name: this.name, ...options }) : {};
     };
 
@@ -213,7 +217,15 @@ export class BaseStyle {
     };
 
     loadTheme = (options: any = {}, style: string = '') => {
-        return this.load(this.theme, options, (computedStyle = '') => Theme.transformCSS(options.name || this.name, `${computedStyle}${style}`));
+        return this.load(this.theme, options, (computedStyle = '') => Theme.transformCSS(options.name || this.name, `${computedStyle}${Css`${style}`}`));
+    };
+
+    loadGlobalCSS = (options = {}) => {
+        return this.load(css, options);
+    };
+
+    loadGlobalTheme = (options: any = {}, style: string = '') => {
+        return this.load(theme, options, (computedStyle = '') => Theme.transformCSS(options.name || this.name, `${computedStyle}${Css`${style}`}`));
     };
 
     getCommonTheme = (params?) => {
@@ -239,7 +251,7 @@ export class BaseStyle {
     getStyleSheet = (extendedCSS = '', props = {}) => {
         if (this.css) {
             const _css = resolve(this.css, { dt });
-            const _style = minifyCSS(`${_css}${extendedCSS}`);
+            const _style = minifyCSS(Css`${_css}${extendedCSS}`);
             const _props = Object.entries(props)
                 .reduce((acc, [k, v]) => acc.push(`${k}="${v}"`) && acc, [])
                 .join(' ');
@@ -259,7 +271,7 @@ export class BaseStyle {
 
         if (this.theme) {
             const name = this.name === 'base' ? 'global-style' : `${this.name}-style`;
-            const _css = resolve(this.theme, { dt });
+            const _css = Css`${resolve(this.theme, { dt })}`;
             const _style = minifyCSS(Theme.transformCSS(name, _css));
             const _props = Object.entries(props)
                 .reduce((acc, [k, v]) => acc.push(`${k}="${v}"`) && acc, [])

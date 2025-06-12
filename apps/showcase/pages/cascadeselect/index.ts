@@ -11,6 +11,7 @@ import { LoadingDoc } from '@/doc/cascadeselect/loadingdoc';
 import { ReactiveFormsDoc } from '@/doc/cascadeselect/reactiveformsdoc';
 import { SizesDoc } from '@/doc/cascadeselect/sizesdoc';
 import { TemplateDoc } from '@/doc/cascadeselect/templatedoc';
+import { TemplateDrivenFormsDoc } from '@/doc/cascadeselect/templatedrivenformsdoc';
 import { Component } from '@angular/core';
 
 @Component({
@@ -29,11 +30,6 @@ export class CascadeSelectDemo {
             id: 'basic',
             label: 'Basic',
             component: BasicDoc
-        },
-        {
-            id: 'reactive-forms',
-            label: 'Reactive Forms',
-            component: ReactiveFormsDoc
         },
         {
             id: 'template',
@@ -64,6 +60,14 @@ export class CascadeSelectDemo {
             id: 'filled',
             label: 'Filled',
             component: FilledDoc
+        },
+        {
+            id: 'forms',
+            label: 'Forms',
+            children: [
+                { id: 'templatedriven', label: 'Template Driven', component: TemplateDrivenFormsDoc },
+                { id: 'reactive', label: 'Reactive Forms', component: ReactiveFormsDoc }
+            ]
         },
         {
             id: 'invalid',
