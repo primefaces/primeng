@@ -7,15 +7,15 @@ const theme = css`
     ${style}
 
     /* For PrimeNG */
-    .p-cascadeselect.ng-invalid.ng-dirty {
+    .p-cascadeselect.ng-invalid.ng-dirty:not(.ng-untouched):not(.ng-pristine) {
         border-color: ${dt('cascadeselect.invalid.border.color')};
     }
 
     .p-cascadeselect:not(.p-disabled).p-focus {
-        border-color: dt('cascadeselect.focus.border.color');
+        border-color: ${dt('cascadeselect.focus.border.color')};
     }
 
-    .p-cascadeselect.ng-invalid.ng-dirty .p-cascadeselect-label.p-placeholder {
+    .p-cascadeselect.ng-invalid.ng-dirty:not(.ng-untouched):not(.ng-pristine) .p-cascadeselect-label.p-placeholder {
         color: ${dt('cascadeselect.invalid.placeholder.color')};
     }
 

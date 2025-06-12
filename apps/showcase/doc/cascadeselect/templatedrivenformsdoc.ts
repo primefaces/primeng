@@ -15,7 +15,7 @@ import { MessageService } from 'primeng/api';
                         #country="ngModel"
                         [(ngModel)]="selectedCity"
                         [options]="countries"
-                        [invalid]="country.invalid && exampleForm.submitted"
+                        [invalid]="country.invalid && (country.touched || exampleForm.submitted)"
                         name="country"
                         optionLabel="cname"
                         optionGroupLabel="name"
@@ -24,7 +24,7 @@ import { MessageService } from 'primeng/api';
                         placeholder="Select a City"
                         required
                     />
-                    @if (country.invalid && exampleForm.submitted) {
+                    @if (country.invalid && (country.touched || exampleForm.submitted)) {
                         <p-message severity="error" size="small" variant="simple">Country is required.</p-message>
                     }
                 </div>
@@ -39,7 +39,7 @@ export class TemplateDrivenFormsDoc {
 
     countries: any[] | undefined;
 
-    selectedCity: any;
+    selectedCity: any = null;
 
     constructor() {
         this.countries = [
@@ -132,7 +132,7 @@ export class TemplateDrivenFormsDoc {
             #country="ngModel"
             [(ngModel)]="selectedCity"
             [options]="countries"
-            [invalid]="country.invalid && exampleForm.submitted"
+            [invalid]="country.invalid && (country.touched || exampleForm.submitted)"
             name="country"
             optionLabel="cname"
             optionGroupLabel="name"
@@ -141,7 +141,7 @@ export class TemplateDrivenFormsDoc {
             placeholder="Select a City"
             required
         />
-        @if (country.invalid && exampleForm.submitted) {
+        @if (country.invalid && (country.touched || exampleForm.submitted)) {
             <p-message severity="error" size="small" variant="simple">Country is required.</p-message>
         }
     </div>
@@ -156,7 +156,7 @@ export class TemplateDrivenFormsDoc {
                 #country="ngModel"
                 [(ngModel)]="selectedCity"
                 [options]="countries"
-                [invalid]="country.invalid && exampleForm.submitted"
+                [invalid]="country.invalid && (country.touched || exampleForm.submitted)"
                 name="country"
                 optionLabel="cname"
                 optionGroupLabel="name"
@@ -165,7 +165,7 @@ export class TemplateDrivenFormsDoc {
                 placeholder="Select a City"
                 required
             />
-            @if (country.invalid && exampleForm.submitted) {
+            @if (country.invalid && (country.touched || exampleForm.submitted)) {
                 <p-message severity="error" size="small" variant="simple">Country is required.</p-message>
             }
         </div>

@@ -249,7 +249,9 @@ export class CascadeSelectSub extends BaseComponent implements OnInit {
                 readonly
                 type="text"
                 role="combobox"
-                [disabled]="disabled()"
+                [attr.disabled]="disabled()"
+                [attr.name]="name()"
+                [attr.required]="required()"
                 [placeholder]="placeholder"
                 [tabindex]="!disabled() ? tabindex : -1"
                 [attr.id]="inputId"
