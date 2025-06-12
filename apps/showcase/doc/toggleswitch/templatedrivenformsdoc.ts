@@ -25,7 +25,7 @@ import { MessageService } from 'primeng/api';
 export class TemplateDrivenFormsDoc {
     messageService = inject(MessageService);
 
-    checked: boolean = false;
+    checked: boolean;
 
     onSubmit(form: any) {
         if (form.valid) {
@@ -75,7 +75,7 @@ import { ButtonModule } from 'primeng/button';
 export class TemplateDrivenFormsDemo {
     messageService = inject(MessageService);
 
-    checked: boolean = false;
+    checked: boolean;
 
     onSubmit(form: any) {
         if (form.valid) {

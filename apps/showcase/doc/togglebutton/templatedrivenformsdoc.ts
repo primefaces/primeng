@@ -11,7 +11,7 @@ import { MessageService } from 'primeng/api';
         <div class="card flex justify-center">
             <form #exampleForm="ngForm" (ngSubmit)="onSubmit(exampleForm)" class="flex flex-col gap-4">
                 <div class="flex flex-col gap-1">
-                    <p-togglebutton name="consent" #model="ngModel" [(ngModel)]="checked" [invalid]="model.invalid && (model.touched || exampleForm.submitted)" name="country" onLabel="Accept All" offLabel="Reject All" required />
+                    <p-togglebutton #model="ngModel" [(ngModel)]="checked" [invalid]="model.invalid && (model.touched || exampleForm.submitted)" name="country" onLabel="Accept All" offLabel="Reject All" required />
                     @if (model.invalid && (model.touched || exampleForm.submitted)) {
                         <p-message severity="error" size="small" variant="simple">Consent is mandatory.</p-message>
                     }
@@ -25,7 +25,7 @@ import { MessageService } from 'primeng/api';
 export class TemplateDrivenFormsDoc {
     messageService = inject(MessageService);
 
-    checked: boolean = false;
+    checked: boolean;
 
     onSubmit(form: any) {
         if (form.valid) {
@@ -37,7 +37,7 @@ export class TemplateDrivenFormsDoc {
     code: Code = {
         basic: `<form #exampleForm="ngForm" (ngSubmit)="onSubmit(exampleForm)" class="flex flex-col gap-4">
     <div class="flex flex-col gap-1">
-        <p-togglebutton name="consent" #model="ngModel" [(ngModel)]="checked" [invalid]="model.invalid && (model.touched || exampleForm.submitted)" name="country" onLabel="Accept All" offLabel="Reject All" required />
+        <p-togglebutton #model="ngModel" [(ngModel)]="checked" [invalid]="model.invalid && (model.touched || exampleForm.submitted)" name="country" onLabel="Accept All" offLabel="Reject All" required />
         @if (model.invalid && (model.touched || exampleForm.submitted)) {
             <p-message severity="error" size="small" variant="simple">Consent is mandatory.</p-message>
         }
@@ -49,7 +49,7 @@ export class TemplateDrivenFormsDoc {
 <div class="card flex justify-center">
     <form #exampleForm="ngForm" (ngSubmit)="onSubmit(exampleForm)" class="flex flex-col gap-4">
         <div class="flex flex-col gap-1">
-            <p-togglebutton name="consent" #model="ngModel" [(ngModel)]="checked" [invalid]="model.invalid && (model.touched || exampleForm.submitted)" name="country" onLabel="Accept All" offLabel="Reject All" required />
+            <p-togglebutton #model="ngModel" [(ngModel)]="checked" [invalid]="model.invalid && (model.touched || exampleForm.submitted)" name="country" onLabel="Accept All" offLabel="Reject All" required />
             @if (model.invalid && (model.touched || exampleForm.submitted)) {
                 <p-message severity="error" size="small" variant="simple">Consent is mandatory.</p-message>
             }
@@ -75,7 +75,7 @@ import { ButtonModule } from 'primeng/button';
 export class TemplateDrivenFormsDemo {
     messageService = inject(MessageService);
 
-    checked: boolean = false;
+    checked: boolean;
 
     onSubmit(form: any) {
         if (form.valid) {
