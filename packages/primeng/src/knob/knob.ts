@@ -32,18 +32,18 @@ export const KNOB_VALUE_ACCESSOR: any = {
             (mouseup)="onMouseUp($event)"
             (touchstart)="onTouchStart($event)"
             (touchend)="onTouchEnd($event)"
-            [attr.aria-valuemin]="min()"
-            [attr.aria-valuemax]="max()"
+            [attr.aria-valuemin]="pMin"
+            [attr.aria-valuemax]="pMax"
             [attr.required]="required()"
             [attr.aria-valuenow]="_value"
             [attr.aria-labelledby]="ariaLabelledBy"
             [attr.aria-label]="ariaLabel"
-            [attr.tabindex]="readonly || disabled ? -1 : tabindex"
+            [attr.tabindex]="readonly || disabled() ? -1 : tabindex"
             [attr.data-pc-section]="'svg'"
         >
             <path [attr.d]="rangePath()" [attr.stroke-width]="strokeWidth" [attr.stroke]="rangeColor" [class]="cx('range')"></path>
             <path [attr.d]="valuePath()" [attr.stroke-width]="strokeWidth" [attr.stroke]="valueColor" [class]="cx('value')"></path>
-            <text *ngIf="showValue" [attr.x]="50" [attr.y]="57" text-anchor="middle" [attr.fill]="textColor" [class]="cx('text')" [attr.name]="name">
+            <text *ngIf="showValue" [attr.x]="50" [attr.y]="57" text-anchor="middle" [attr.fill]="textColor" [class]="cx('text')" [attr.name]="name()">
                 {{ valueToDisplay() }}
             </text>
         </svg>
@@ -110,6 +110,21 @@ export class Knob extends BaseInput {
      */
     @Input({ transform: numberAttribute, alias: 'size' }) pSize: number = 100;
     /**
+     * Mininum boundary value.
+     * @group Props
+     */
+    @Input({ transform: numberAttribute, alias: 'min' }) pMin: number = 0;
+    /**
+     * Maximum boundary value.
+     * @group Props
+     */
+    @Input({ transform: numberAttribute, alias: 'max' }) pMax: number = 100;
+    /**
+     * Step factor to increment/decrement the value.
+     * @group Props
+     */
+    @Input({ transform: numberAttribute, alias: 'step' }) pStep: number = 1;
+    /**
      * Width of the knob stroke.
      * @group Props
      */
@@ -157,13 +172,6 @@ export class Knob extends BaseInput {
 
     _componentStyle = inject(KnobStyle);
 
-    get containerClass() {
-        return {
-            'p-knob p-component': true,
-            'p-disabled': this.disabled()
-        };
-    }
-
     mapRange(x: number, inMin: number, inMax: number, outMin: number, outMax: number) {
         return ((x - inMin) * (outMax - outMin)) / (inMax - inMin) + outMin;
     }
@@ -184,12 +192,13 @@ export class Knob extends BaseInput {
 
     updateModel(angle: number, start: number) {
         let mappedValue;
-        if (angle > this.maxRadians) mappedValue = this.mapRange(angle, this.minRadians, this.maxRadians, this.min(), this.max());
-        else if (angle < start) mappedValue = this.mapRange(angle + 2 * Math.PI, this.minRadians, this.maxRadians, this.min(), this.max());
+        if (angle > this.maxRadians) mappedValue = this.mapRange(angle, this.minRadians, this.maxRadians, this.pMin, this.pMax);
+        else if (angle < start) mappedValue = this.mapRange(angle + 2 * Math.PI, this.minRadians, this.maxRadians, this.pMin, this.pMax);
         else return;
 
-        let newValue = Math.round((mappedValue - this.min()) / this.step()) * this.step() + this.min();
+        let newValue = Math.round((mappedValue - this.pMin) / this.pStep) * this.pStep + this.pMin;
         this.value = newValue;
+        this.writeModelValue(this.value);
         this.onModelChange(this.value);
         this.onChange.emit(this.value);
     }
@@ -261,10 +270,11 @@ export class Knob extends BaseInput {
     }
 
     updateModelValue(newValue) {
-        if (newValue > this.max()) this.value = this.max();
-        else if (newValue < this.min()) this.value = this.min();
+        if (newValue > this.pMax) this.value = this.pMax;
+        else if (newValue < this.pMin) this.value = this.pMin;
         else this.value = newValue;
 
+        this.writeModelValue(this.value);
         this.onModelChange(this.value);
         this.onChange.emit(this.value);
     }
@@ -290,14 +300,14 @@ export class Knob extends BaseInput {
 
                 case 'Home': {
                     event.preventDefault();
-                    this.updateModelValue(this.min());
+                    this.updateModelValue(this.pMin);
 
                     break;
                 }
 
                 case 'End': {
                     event.preventDefault();
-                    this.updateModelValue(this.max());
+                    this.updateModelValue(this.pMax);
                     break;
                 }
 
@@ -339,12 +349,12 @@ export class Knob extends BaseInput {
     }
 
     zeroRadians() {
-        if (this.min() > 0 && this.max() > 0) return this.mapRange(this.min(), this.min(), this.max(), this.minRadians, this.maxRadians);
-        else return this.mapRange(0, this.min(), this.max(), this.minRadians, this.maxRadians);
+        if (this.pMin > 0 && this.pMax > 0) return this.mapRange(this.pMin, this.pMin, this.pMax, this.minRadians, this.maxRadians);
+        else return this.mapRange(0, this.pMin, this.pMax, this.minRadians, this.maxRadians);
     }
 
     valueRadians() {
-        return this.mapRange(this._value, this.min(), this.max(), this.minRadians, this.maxRadians);
+        return this.mapRange(this._value, this.pMin, this.pMax, this.minRadians, this.maxRadians);
     }
 
     minX() {
@@ -392,7 +402,7 @@ export class Knob extends BaseInput {
     }
 
     get _value(): number {
-        return this.value != null ? this.value : this.min();
+        return this.value != null ? this.value : this.pMin;
     }
 }
 

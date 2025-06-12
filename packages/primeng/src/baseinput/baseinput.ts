@@ -35,13 +35,13 @@ export class BaseInput extends BaseEditableHolder {
      * @defaultValue undefined
      * @group Props
      */
-    min = input<number>();
+    min = input<number>(0);
     /**
      * The value must be less than or equal to the value.
      * @defaultValue undefined
      * @group Props
      */
-    max = input<number>();
+    max = input<number>(100);
     /**
      * Unless the step is set to the any literal, the value must be min + an integral multiple of the step.
      * @defaultValue 1
