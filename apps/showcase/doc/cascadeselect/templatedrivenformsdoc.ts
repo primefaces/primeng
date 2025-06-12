@@ -1,53 +1,47 @@
 import { Code } from '@/domain/code';
 import { Component, inject } from '@angular/core';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { MessageService } from 'primeng/api';
 
 @Component({
-    selector: 'reactive-forms-doc',
+    selector: 'template-driven-forms-doc',
     standalone: false,
     template: `
-        <app-docsectiontext>
-            <p>CascadeSelect can also be used with reactive forms. In this case, the <i>formControlName</i> property is used to bind the component to a form control.</p>
-        </app-docsectiontext>
-
+        <app-docsectiontext> </app-docsectiontext>
         <p-toast />
         <div class="card flex justify-center">
-            <form [formGroup]="exampleForm" (ngSubmit)="onSubmit()" class="flex flex-col gap-4">
+            <form #exampleForm="ngForm" (ngSubmit)="onSubmit(exampleForm)" class="flex justify-center flex-col gap-4">
                 <div class="flex flex-col gap-1">
                     <p-cascadeselect
-                        formControlName="selectedCountry"
+                        #country="ngModel"
+                        [(ngModel)]="selectedCity"
                         [options]="countries"
+                        [invalid]="country.invalid && exampleForm.submitted"
+                        name="country"
                         optionLabel="cname"
                         optionGroupLabel="name"
                         [optionGroupChildren]="['states', 'cities']"
                         [style]="{ minWidth: '14rem' }"
                         placeholder="Select a City"
-                        [invalid]="isInvalid('selectedCountry')"
+                        required
                     />
-
-                    @if (isInvalid('selectedCountry')) {
+                    @if (country.invalid && exampleForm.submitted) {
                         <p-message severity="error" size="small" variant="simple">Country is required.</p-message>
                     }
                 </div>
                 <button pButton severity="secondary" type="submit"><span pButtonLabel>Submit</span></button>
             </form>
         </div>
-        <app-code [code]="code" selector="cascade-select-reactive-forms-demo"></app-code>
+        <app-code [code]="code" selector="autocomplete-template-driven-forms-demo"></app-code>
     `
 })
-export class ReactiveFormsDoc {
-    countries: any[] | undefined;
-
-    formGroup: FormGroup | undefined;
-
+export class TemplateDrivenFormsDoc {
     messageService = inject(MessageService);
 
-    exampleForm: FormGroup | undefined;
+    countries: any[] | undefined;
 
-    formSubmitted: boolean = false;
+    selectedCity: any;
 
-    constructor(private fb: FormBuilder) {
+    constructor() {
         this.countries = [
             {
                 name: 'Australia',
@@ -122,41 +116,32 @@ export class ReactiveFormsDoc {
                 ]
             }
         ];
-
-        this.exampleForm = this.fb.group({
-            selectedCountry: ['', Validators.required]
-        });
     }
 
-    onSubmit() {
-        this.formSubmitted = true;
-        if (this.exampleForm.valid) {
-            this.messageService.add({ severity: 'success', summary: 'Success', detail: 'Form is submitted', life: 3000 });
-            this.exampleForm.reset();
-            this.formSubmitted = false;
+    onSubmit(form: any) {
+        if (form.valid) {
+            this.messageService.add({ severity: 'success', summary: 'Success', detail: 'Form Submitted', life: 3000 });
+            form.resetForm();
         }
     }
 
-    isInvalid(controlName: string) {
-        const control = this.exampleForm.get(controlName);
-        return control?.invalid && this.formSubmitted;
-    }
-
     code: Code = {
-        basic: `<form [formGroup]="exampleForm" (ngSubmit)="onSubmit()" class="flex flex-col gap-4">
+        basic: `<form #exampleForm="ngForm" (ngSubmit)="onSubmit(exampleForm)" class="flex justify-center flex-col gap-4">
     <div class="flex flex-col gap-1">
         <p-cascadeselect
-            formControlName="selectedCountry"
+            #country="ngModel"
+            [(ngModel)]="selectedCity"
             [options]="countries"
+            [invalid]="country.invalid && exampleForm.submitted"
+            name="country"
             optionLabel="cname"
             optionGroupLabel="name"
             [optionGroupChildren]="['states', 'cities']"
             [style]="{ minWidth: '14rem' }"
             placeholder="Select a City"
-            [invalid]="isInvalid('selectedCountry')"
+            required
         />
-
-        @if (isInvalid('selectedCountry')) {
+        @if (country.invalid && exampleForm.submitted) {
             <p-message severity="error" size="small" variant="simple">Country is required.</p-message>
         }
     </div>
@@ -165,20 +150,22 @@ export class ReactiveFormsDoc {
 
         html: `<p-toast />
 <div class="card flex justify-center">
-    <form [formGroup]="exampleForm" (ngSubmit)="onSubmit()" class="flex flex-col gap-4">
+    <form #exampleForm="ngForm" (ngSubmit)="onSubmit(exampleForm)" class="flex justify-center flex-col gap-4">
         <div class="flex flex-col gap-1">
             <p-cascadeselect
-                formControlName="selectedCountry"
+                #country="ngModel"
+                [(ngModel)]="selectedCity"
                 [options]="countries"
+                [invalid]="country.invalid && exampleForm.submitted"
+                name="country"
                 optionLabel="cname"
                 optionGroupLabel="name"
                 [optionGroupChildren]="['states', 'cities']"
                 [style]="{ minWidth: '14rem' }"
                 placeholder="Select a City"
-                [invalid]="isInvalid('selectedCountry')"
+                required
             />
-
-            @if (isInvalid('selectedCountry')) {
+            @if (country.invalid && exampleForm.submitted) {
                 <p-message severity="error" size="small" variant="simple">Country is required.</p-message>
             }
         </div>
@@ -187,7 +174,7 @@ export class ReactiveFormsDoc {
 </div>`,
 
         typescript: `import { Component, inject } from '@angular/core';
-import { FormBuilder, FormGroup, Validators, ReactiveFormsModule } from '@angular/forms';
+import { FormsModule } from '@angular/forms';
 import { CascadeSelectModule } from 'primeng/cascadeselect';
 import { MessageModule } from 'primeng/message';
 import { ToastModule } from 'primeng/toast';
@@ -195,23 +182,19 @@ import { MessageService } from 'primeng/api';
 import { ButtonModule } from 'primeng/button';
 
 @Component({
-    selector: 'cascade-select-reactive-forms-demo',
-    templateUrl: './cascade-select-reactive-forms-demo.html',
+    selector: 'autocomplete-template-driven-forms-demo',
+    templateUrl: './autocomplete-template-driven-forms-demo.html',
     standalone: true,
-    imports: [ReactiveFormsModule, CascadeSelectModule, MessageModule, ToastModule, ButtonModule]
+    imports: [FormsModule, CascadeSelectModule, MessageModule, ToastModule, ButtonModule]
 })
-export class CascadeSelectReactiveFormsDemo {
-    countries: any[] | undefined;
-
-    formGroup: FormGroup | undefined;
-
+export class TemplateDrivenFormsDemo {
     messageService = inject(MessageService);
 
-    exampleForm: FormGroup | undefined;
+    countries: any[] | undefined;
 
-    formSubmitted: boolean = false;
+    selectedCity: any;
 
-    constructor(private fb: FormBuilder) {
+    constructor() {
         this.countries = [
             {
                 name: 'Australia',
@@ -286,24 +269,13 @@ export class CascadeSelectReactiveFormsDemo {
                 ]
             }
         ];
-
-        this.exampleForm = this.fb.group({
-            selectedCountry: ['', Validators.required]
-        });
     }
 
-    onSubmit() {
-        this.formSubmitted = true;
-        if (this.exampleForm.valid) {
-            this.messageService.add({ severity: 'success', summary: 'Success', detail: 'Form is submitted', life: 3000 });
-            this.exampleForm.reset();
-            this.formSubmitted = false;
+    onSubmit(form: any) {
+        if (form.valid) {
+            this.messageService.add({ severity: 'success', summary: 'Success', detail: 'Form Submitted', life: 3000 });
+            form.resetForm();
         }
-    }
-
-    isInvalid(controlName: string) {
-        const control = this.exampleForm.get(controlName);
-        return control?.invalid && this.formSubmitted;
     }
 }`
     };
