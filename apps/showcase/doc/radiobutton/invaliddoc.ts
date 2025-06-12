@@ -18,10 +18,10 @@ export class InvalidDoc {
     value: boolean = false;
 
     code: Code = {
-        basic: `<p-radiobutton [invalid]="!value"  />`,
+        basic: `<p-radiobutton [(ngModel)]="value" [invalid]="!value"  />`,
 
         html: `<div class="card flex justify-center">
-    <p-radiobutton [invalid]="!value"  />
+    <p-radiobutton [(ngModel)]="value" [invalid]="!value"  />
 </div>`,
 
         typescript: `import { Component } from '@angular/core';
