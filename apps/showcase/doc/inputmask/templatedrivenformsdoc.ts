@@ -37,10 +37,10 @@ export class TemplateDrivenFormsDoc {
     }
 
     code: Code = {
-        basic: `<form [formGroup]="exampleForm" (ngSubmit)="onSubmit()" class="flex flex-col gap-4 sm:w-56">
+        basic: `<form #exampleForm="ngForm" (ngSubmit)="onSubmit(exampleForm)" class="flex justify-center flex-col gap-4 md:w-56">
     <div class="flex flex-col gap-1">
-        <p-inputmask mask="99-999999" formControlName="value" placeholder="99-999999" [invalid]="isInvalid('value')" />
-        @if (isInvalid('value')) {
+        <p-inputmask name="serial" mask="99-999999" #serialNumber="ngModel" [(ngModel)]="value" placeholder="99-999999" [invalid]="serialNumber.invalid && (serialNumber.touched || exampleForm.submitted)" required />
+        @if (serialNumber.invalid && (serialNumber.touched || exampleForm.submitted)) {
             <p-message severity="error" size="small" variant="simple">Serial number is required.</p-message>
         }
     </div>
@@ -48,10 +48,10 @@ export class TemplateDrivenFormsDoc {
 </form>`,
 
         html: `<div class="card flex justify-center">
-    <form [formGroup]="exampleForm" (ngSubmit)="onSubmit()" class="flex flex-col gap-4 sm:w-56">
+    <form #exampleForm="ngForm" (ngSubmit)="onSubmit(exampleForm)" class="flex justify-center flex-col gap-4 md:w-56">
         <div class="flex flex-col gap-1">
-            <p-inputmask mask="99-999999" formControlName="value" placeholder="99-999999" [invalid]="isInvalid('value')" />
-            @if (isInvalid('value')) {
+            <p-inputmask name="serial" mask="99-999999" #serialNumber="ngModel" [(ngModel)]="value" placeholder="99-999999" [invalid]="serialNumber.invalid && (serialNumber.touched || exampleForm.submitted)" required />
+            @if (serialNumber.invalid && (serialNumber.touched || exampleForm.submitted)) {
                 <p-message severity="error" size="small" variant="simple">Serial number is required.</p-message>
             }
         </div>

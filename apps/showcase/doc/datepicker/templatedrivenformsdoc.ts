@@ -11,8 +11,8 @@ import { MessageService } from 'primeng/api';
         <div class="card flex justify-center">
             <form #exampleForm="ngForm" (ngSubmit)="onSubmit(exampleForm)" class="flex justify-center flex-col gap-4 md:w-56">
                 <div class="flex flex-col gap-1">
-                    <p-datepicker name="date" [invalid]="date.invalid && (date.touched || exampleForm.submitted)" #date="ngModel" [(ngModel)]="date" required />
-                    @if (date.invalid && (date.touched || exampleForm.submitted)) {
+                    <p-datepicker name="date" [invalid]="dateModel.invalid && (dateModel.touched || exampleForm.submitted)" #dateModel="ngModel" [(ngModel)]="date" required />
+                    @if (dateModel.invalid && (dateModel.touched || exampleForm.submitted)) {
                         <p-message severity="error" size="small" variant="simple">Date is required.</p-message>
                     }
                 </div>
@@ -38,8 +38,8 @@ export class TemplateDrivenFormsDoc {
     code: Code = {
         basic: `<form #exampleForm="ngForm" (ngSubmit)="onSubmit(exampleForm)" class="flex justify-center flex-col gap-4 md:w-56">
     <div class="flex flex-col gap-1">
-        <p-datepicker name="date" [invalid]="date.invalid && (date.touched || exampleForm.submitted)" #date="ngModel" [(ngModel)]="date" required />
-        @if (date.invalid && (date.touched || exampleForm.submitted)) {
+        <p-datepicker name="date" [invalid]="dateModel.invalid && (dateModel.touched || exampleForm.submitted)" #dateModel="ngModel" [(ngModel)]="date" required />
+        @if (dateModel.invalid && (dateModel.touched || exampleForm.submitted)) {
             <p-message severity="error" size="small" variant="simple">Date is required.</p-message>
         }
     </div>
@@ -50,8 +50,8 @@ export class TemplateDrivenFormsDoc {
 <div class="card flex justify-center">
     <form #exampleForm="ngForm" (ngSubmit)="onSubmit(exampleForm)" class="flex justify-center flex-col gap-4 md:w-56">
         <div class="flex flex-col gap-1">
-            <p-datepicker name="date" [invalid]="date.invalid && (date.touched || exampleForm.submitted)" #date="ngModel" [(ngModel)]="date" required />
-            @if (date.invalid && (date.touched || exampleForm.submitted)) {
+            <p-datepicker name="date" [invalid]="dateModel.invalid && (dateModel.touched || exampleForm.submitted)" #dateModel="ngModel" [(ngModel)]="date" required />
+            @if (dateModel.invalid && (dateModel.touched || exampleForm.submitted)) {
                 <p-message severity="error" size="small" variant="simple">Date is required.</p-message>
             }
         </div>

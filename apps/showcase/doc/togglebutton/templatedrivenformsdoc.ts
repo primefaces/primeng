@@ -11,8 +11,8 @@ import { MessageService } from 'primeng/api';
         <div class="card flex justify-center">
             <form #exampleForm="ngForm" (ngSubmit)="onSubmit(exampleForm)" class="flex flex-col gap-4">
                 <div class="flex flex-col gap-1">
-                    <p-togglebutton name="consent" #checked="ngModel" [(ngModel)]="checked" [invalid]="checked.invalid && (checked.touched || exampleForm.submitted)" name="country" onLabel="Accept All" offLabel="Reject All" required />
-                    @if (checked.invalid && (checked.touched || exampleForm.submitted)) {
+                    <p-togglebutton name="consent" #model="ngModel" [(ngModel)]="checked" [invalid]="model.invalid && (model.touched || exampleForm.submitted)" name="country" onLabel="Accept All" offLabel="Reject All" required />
+                    @if (model.invalid && (model.touched || exampleForm.submitted)) {
                         <p-message severity="error" size="small" variant="simple">Consent is mandatory.</p-message>
                     }
                 </div>
@@ -37,8 +37,8 @@ export class TemplateDrivenFormsDoc {
     code: Code = {
         basic: `<form #exampleForm="ngForm" (ngSubmit)="onSubmit(exampleForm)" class="flex flex-col gap-4">
     <div class="flex flex-col gap-1">
-        <p-togglebutton name="consent" #checked="ngModel" [(ngModel)]="checked" [invalid]="checked.invalid && (checked.touched || exampleForm.submitted)" name="country" onLabel="Accept All" offLabel="Reject All" required />
-        @if (checked.invalid && (checked.touched || exampleForm.submitted)) {
+        <p-togglebutton name="consent" #model="ngModel" [(ngModel)]="checked" [invalid]="model.invalid && (model.touched || exampleForm.submitted)" name="country" onLabel="Accept All" offLabel="Reject All" required />
+        @if (model.invalid && (model.touched || exampleForm.submitted)) {
             <p-message severity="error" size="small" variant="simple">Consent is mandatory.</p-message>
         }
     </div>
@@ -49,8 +49,8 @@ export class TemplateDrivenFormsDoc {
 <div class="card flex justify-center">
     <form #exampleForm="ngForm" (ngSubmit)="onSubmit(exampleForm)" class="flex flex-col gap-4">
         <div class="flex flex-col gap-1">
-            <p-togglebutton name="consent" #checked="ngModel" [(ngModel)]="checked" [invalid]="checked.invalid && (checked.touched || exampleForm.submitted)" name="country" onLabel="Accept All" offLabel="Reject All" required />
-            @if (checked.invalid && (checked.touched || exampleForm.submitted)) {
+            <p-togglebutton name="consent" #model="ngModel" [(ngModel)]="checked" [invalid]="model.invalid && (model.touched || exampleForm.submitted)" name="country" onLabel="Accept All" offLabel="Reject All" required />
+            @if (model.invalid && (model.touched || exampleForm.submitted)) {
                 <p-message severity="error" size="small" variant="simple">Consent is mandatory.</p-message>
             }
         </div>

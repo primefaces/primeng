@@ -11,8 +11,8 @@ import { MessageService } from 'primeng/api';
         <div class="card flex justify-center">
             <form #exampleForm="ngForm" (ngSubmit)="onSubmit(exampleForm)" class="flex justify-center flex-col gap-4">
                 <div class="flex flex-col gap-4">
-                    <p-slider #value="ngModel" [(ngModel)]="value" class="w-56" required [invalid]="value.invalid && (value.touched || exampleForm.submitted)" name="slider" />
-                    @if (value.invalid && (value.touched || exampleForm.submitted)) {
+                    <p-slider #model="ngModel" [(ngModel)]="value" class="w-56" required [invalid]="model.invalid && (model.touched || exampleForm.submitted)" name="slider" />
+                    @if (model.invalid && (model.touched || exampleForm.submitted)) {
                         <p-message severity="error" size="small" variant="simple">Must be greater than 25.</p-message>
                     }
                 </div>
@@ -37,8 +37,8 @@ export class TemplateDrivenFormsDoc {
     code: Code = {
         basic: `<form #exampleForm="ngForm" (ngSubmit)="onSubmit(exampleForm)" class="flex justify-center flex-col gap-4">
     <div class="flex flex-col gap-4">
-        <p-slider #value="ngModel" [(ngModel)]="value" class="w-56" required [invalid]="value.invalid && (value.touched || exampleForm.submitted)" name="slider" />
-        @if (value.invalid && (value.touched || exampleForm.submitted)) {
+        <p-slider #model="ngModel" [(ngModel)]="value" class="w-56" required [invalid]="model.invalid && (model.touched || exampleForm.submitted)" name="slider" />
+        @if (model.invalid && (model.touched || exampleForm.submitted)) {
             <p-message severity="error" size="small" variant="simple">Must be greater than 25.</p-message>
         }
     </div>
@@ -49,8 +49,8 @@ export class TemplateDrivenFormsDoc {
 <div class="card flex justify-center">
     <form #exampleForm="ngForm" (ngSubmit)="onSubmit(exampleForm)" class="flex justify-center flex-col gap-4">
         <div class="flex flex-col gap-4">
-            <p-slider #value="ngModel" [(ngModel)]="value" class="w-56" required [invalid]="value.invalid && (value.touched || exampleForm.submitted)" name="slider" />
-            @if (value.invalid && (value.touched || exampleForm.submitted)) {
+            <p-slider #model="ngModel" [(ngModel)]="value" class="w-56" required [invalid]="model.invalid && (model.touched || exampleForm.submitted)" name="slider" />
+            @if (model.invalid && (model.touched || exampleForm.submitted)) {
                 <p-message severity="error" size="small" variant="simple">Must be greater than 25.</p-message>
             }
         </div>
