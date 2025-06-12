@@ -6,7 +6,6 @@ import { AutoFocus } from 'primeng/autofocus';
 import { Nullable } from 'primeng/ts-helpers';
 import { RadioButtonClickEvent } from './radiobutton.interface';
 import { RadioButtonStyle } from './style/radiobuttonstyle';
-import { cn } from '@primeuix/utils';
 import { BaseInput } from 'primeng/baseinput';
 
 export const RADIO_VALUE_ACCESSOR: any = {
@@ -44,7 +43,7 @@ export class RadioControlRegistry {
             return false;
         }
 
-        return controlPair[0].control.root === (accessor as any).control.control.root && controlPair[1].name === accessor.name;
+        return controlPair[0].control.root === (accessor as any).control.control.root && controlPair[1].name() === accessor.name();
     }
 }
 /**
@@ -58,14 +57,14 @@ export class RadioControlRegistry {
     template: `
         <input
             #input
-            [value]="modelValue()"
             [attr.id]="inputId"
             type="radio"
             [class]="cx('input')"
             [attr.name]="name()"
+            [attr.disabled]="disabled()"
+            [attr.required]="required()"
             [checked]="checked"
-            [disabled]="disabled()"
-            [required]="required()"
+            [value]="modelValue()"
             [attr.aria-labelledby]="ariaLabelledBy"
             [attr.aria-label]="ariaLabel"
             [attr.tabindex]="tabindex"
@@ -84,7 +83,7 @@ export class RadioControlRegistry {
     host: {
         '[attr.data-pc-name]': "'radiobutton'",
         '[attr.data-pc-section]': "'root'",
-        '[class]': "cn(cx('root'), styleClass)"
+        '[class]': "cx('root')"
     }
 })
 export class RadioButton extends BaseInput implements ControlValueAccessor, OnInit, OnDestroy {
@@ -93,11 +92,6 @@ export class RadioButton extends BaseInput implements ControlValueAccessor, OnIn
      * @group Props
      */
     @Input() value: any;
-    /**
-     * The name of the form control.
-     * @group Props
-     */
-    @Input() formControlName: string | undefined;
     /**
      * Index of the element in tabbing order.
      * @group Props
@@ -186,7 +180,7 @@ export class RadioButton extends BaseInput implements ControlValueAccessor, OnIn
     select(event: Event) {
         if (!this.disabled()) {
             this.checked = true;
-            this.writeModelValue(this.value);
+            this.writeModelValue(this.checked);
             this.onModelChange(this.value);
             this.registry.select(this);
             this.onClick.emit({ originalEvent: event, value: this.value });
@@ -194,12 +188,7 @@ export class RadioButton extends BaseInput implements ControlValueAccessor, OnIn
     }
 
     writeValue(value: any): void {
-        if (!this.binary) {
-            this.checked = value == this.value;
-        } else {
-            this.checked = !!value;
-        }
-
+        this.checked = !this.binary ? value == this.value : !!value;
         this.writeModelValue(this.checked);
         this.cd.markForCheck();
     }
@@ -235,8 +224,6 @@ export class RadioButton extends BaseInput implements ControlValueAccessor, OnIn
         this.registry.remove(this);
         super.ngOnDestroy();
     }
-
-    protected readonly cn = cn;
 }
 
 @NgModule({

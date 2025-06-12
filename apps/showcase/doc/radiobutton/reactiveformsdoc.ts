@@ -15,9 +15,9 @@ import { MessageService } from 'primeng/api';
         <div class="card flex justify-center">
             <form [formGroup]="exampleForm" (ngSubmit)="onSubmit()" class="flex flex-col gap-4">
                 <div class="flex flex-wrap gap-4">
-                    @for (category of categories; track category) {
+                    @for (category of categories; track category.key) {
                         <div class="flex items-center gap-2">
-                            <p-radiobutton formControlName="selectedCategory" [inputId]="category.key" [value]="category" [invalid]="isInvalid('selectedCategory')" />
+                            <p-radiobutton formControlName="selectedCategory" name="selectedCategory" [inputId]="category.key" [value]="category" [invalid]="isInvalid('selectedCategory')" />
                             <label [for]="category.key"> {{ category.name }} </label>
                         </div>
                     }
@@ -81,7 +81,7 @@ export class ReactiveFormsDoc {
     <div class="flex flex-wrap gap-4">
         @for (category of categories; track category) {
             <div class="flex items-center gap-2">
-                <p-radiobutton formControlName="selectedCategory" [inputId]="category.key" [value]="category" [invalid]="isInvalid('selectedCategory')" />
+                <p-radiobutton formControlName="selectedCategory" name="selectedCategory" [inputId]="category.key" [value]="category" [invalid]="isInvalid('selectedCategory')" />
                 <label [for]="category.key"> {{ category.name }} </label>
             </div>
         }
@@ -99,7 +99,7 @@ export class ReactiveFormsDoc {
         <div class="flex flex-wrap gap-4">
             @for (category of categories; track category) {
                 <div class="flex items-center gap-2">
-                    <p-radiobutton formControlName="selectedCategory" [inputId]="category.key" [value]="category" [invalid]="isInvalid('selectedCategory')" />
+                    <p-radiobutton formControlName="selectedCategory" name="selectedCategory" [inputId]="category.key" [value]="category" [invalid]="isInvalid('selectedCategory')" />
                     <label [for]="category.key"> {{ category.name }} </label>
                 </div>
             }
