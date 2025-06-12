@@ -57,7 +57,7 @@ export class ReactiveFormsDoc {
 
     isInvalid(controlName: string) {
         const control = this.exampleForm.get(controlName);
-        return control?.invalid && (control.touched || this.formSubmitted);
+        return control?.invalid && this.formSubmitted;
     }
 
     code: Code = {
@@ -132,7 +132,7 @@ export class TreeSelectReactiveFormsDemo {
 
     isInvalid(controlName: string) {
         const control = this.exampleForm.get(controlName);
-        return control?.invalid && (control.touched || this.formSubmitted);
+        return control?.invalid && this.formSubmitted;
     }
 }`,
         service: ['NodeService'],
