@@ -28,12 +28,12 @@ import { find, findIndexInList, uuid } from '@primeuix/utils';
 import { PrimeTemplate, SharedModule } from 'primeng/api';
 import { BaseComponent } from 'primeng/basecomponent';
 import { transformToBoolean } from 'primeng/utils';
-import { StepperStyle } from './style/stepperstyle';
-import { StepStyle } from './style/stepstyle';
 import { StepItemStyle } from './style/stepitemstyle';
 import { StepListStyle } from './style/stepliststyle';
-import { StepPanelStyle } from './style/steppanelstyle';
 import { StepPanelsStyle } from './style/steppanelsstyle';
+import { StepPanelStyle } from './style/steppanelstyle';
+import { StepperStyle } from './style/stepperstyle';
+import { StepStyle } from './style/stepstyle';
 
 /**
  * Context interface for the StepPanel content template.
@@ -173,6 +173,7 @@ export class StepItem extends BaseComponent {
     host: {
         '[class]': 'cx("root")',
         '[attr.aria-current]': 'active() ? "step" : undefined',
+        '[attr.aria-labelledby]': 'ariaLabelledBy()',
         '[attr.data-p-active]': 'active()',
         '[attr.data-p-disabled]': 'isStepDisabled()',
         '[attr.data-pc-name]': '"step"'
@@ -268,7 +269,7 @@ export class Step extends BaseComponent implements AfterContentInit {
         '[class]': 'cx("root")',
         '[attr.role]': '"tabpanel"',
         '[attr.id]': 'id()',
-    '[attr.aria-labelledby]': 'ariaLabelledBy()',
+        '[attr.aria-labelledby]': 'ariaLabelledBy()',
         '[attr.data-p-active]': 'active()',
         '[attr.data-pc-name]': '"steppanel"'
     },
@@ -383,7 +384,8 @@ export class StepPanels extends BaseComponent {
     host: {
         '[class]': 'cx("root")',
         '[attr.role]': '"tablist"',
-        '[attr.id]': 'id()'
+        '[attr.id]': 'id()',
+        '[attr.aria-labelledby]': 'ariaLabelledBy()'
     }
 })
 export class Stepper extends BaseComponent {
