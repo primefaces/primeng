@@ -1340,7 +1340,7 @@ export class Tree extends BaseComponent implements OnInit, AfterContentInit, OnC
             }
 
             if (this.hasFilteredNodes()) {
-                node = this.getNodeWithKey(<string>node.key, <TreeNode<any>[]>this.filteredNodes) as TreeNode;
+                node = this.getNodeWithKey(<string>node.key, <TreeNode<any>[]>this.value) as TreeNode;
                 if (!node) {
                     return;
                 }
