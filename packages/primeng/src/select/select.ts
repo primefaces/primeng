@@ -1,38 +1,39 @@
 import { AnimationEvent } from '@angular/animations';
 import { CommonModule } from '@angular/common';
 import {
-    AfterContentInit,
-    AfterViewChecked,
-    AfterViewInit,
-    booleanAttribute,
-    ChangeDetectionStrategy,
-    Component,
-    computed,
-    ContentChild,
-    ContentChildren,
-    effect,
-    ElementRef,
-    EventEmitter,
-    forwardRef,
-    inject,
-    Input,
-    NgModule,
-    NgZone,
-    numberAttribute,
-    OnInit,
-    Output,
-    QueryList,
-    Signal,
-    signal,
-    TemplateRef,
-    ViewChild,
-    ViewEncapsulation
+  AfterContentInit,
+  AfterViewChecked,
+  AfterViewInit,
+  booleanAttribute,
+  ChangeDetectionStrategy,
+  Component,
+  computed,
+  ContentChild,
+  ContentChildren,
+  effect,
+  ElementRef,
+  EventEmitter,
+  forwardRef,
+  inject,
+  Input,
+  NgModule,
+  NgZone,
+  numberAttribute,
+  OnInit,
+  Output,
+  QueryList,
+  Signal,
+  signal,
+  TemplateRef,
+  ViewChild,
+  ViewEncapsulation
 } from '@angular/core';
 import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
 import { deepEquals, equals, findLastIndex, findSingle, focus, getFirstFocusableElement, getFocusableElements, getLastFocusableElement, isEmpty, isNotEmpty, isPrintableCharacter, resolveFieldData, scrollInView, uuid } from '@primeuix/utils';
 import { FilterService, OverlayOptions, PrimeTemplate, ScrollerOptions, SharedModule, TranslationKeys } from 'primeng/api';
 import { AutoFocus } from 'primeng/autofocus';
 import { BaseComponent } from 'primeng/basecomponent';
+import { BaseInput } from 'primeng/baseinput';
 import { unblockBodyScroll } from 'primeng/dom';
 import { IconField } from 'primeng/iconfield';
 import { BlankIcon, CheckIcon, ChevronDownIcon, SearchIcon, TimesIcon } from 'primeng/icons';
@@ -43,9 +44,9 @@ import { Ripple } from 'primeng/ripple';
 import { Scroller } from 'primeng/scroller';
 import { Tooltip } from 'primeng/tooltip';
 import { Nullable } from 'primeng/ts-helpers';
+import { CloseOnEscapeService } from 'primeng/utils';
 import { SelectChangeEvent, SelectFilterEvent, SelectFilterOptions, SelectLazyLoadEvent } from './select.interface';
 import { SelectStyle } from './style/selectstyle';
-import { BaseInput } from 'primeng/baseinput';
 
 export const SELECT_VALUE_ACCESSOR: any = {
     provide: NG_VALUE_ACCESSOR,
@@ -1062,6 +1063,13 @@ export class Select extends BaseInput implements OnInit, AfterViewInit, AfterCon
         public filterService: FilterService
     ) {
         super();
+        inject(CloseOnEscapeService).closeOnEscape(
+            {
+                closeOnEscape: () => this.hide(),
+                kind: 'single'
+            },
+            this.injector
+        );
         effect(() => {
             const modelValue = this.modelValue();
             const visibleOptions = this.visibleOptions();
@@ -1465,6 +1473,9 @@ export class Select extends BaseInput implements OnInit, AfterViewInit, AfterCon
      * @group Method
      */
     public hide(isFocus?) {
+        if (!this.overlayVisible) {
+            return false;
+        }
         this.overlayVisible = false;
         this.focusedOptionIndex.set(-1);
         this.clicked.set(false);
@@ -1485,6 +1496,7 @@ export class Select extends BaseInput implements OnInit, AfterViewInit, AfterCon
             }
         }
         this.cd.markForCheck();
+        return true;
     }
 
     onInputFocus(event: Event) {
@@ -1563,11 +1575,6 @@ export class Select extends BaseInput implements OnInit, AfterViewInit, AfterCon
                 this.onEnterKey(event);
                 break;
 
-            //escape and tab
-            case 'Escape':
-                this.onEscapeKey(event);
-                break;
-
             case 'Tab':
                 this.onTabKey(event);
                 break;
@@ -1619,10 +1626,6 @@ export class Select extends BaseInput implements OnInit, AfterViewInit, AfterCon
             case 'Enter':
             case 'NumpadEnter':
                 this.onEnterKey(event, true);
-                break;
-
-            case 'Escape':
-                this.onEscapeKey(event);
                 break;
 
             case 'Tab':
@@ -1842,12 +1845,6 @@ export class Select extends BaseInput implements OnInit, AfterViewInit, AfterCon
         }
 
         event.preventDefault();
-    }
-
-    onEscapeKey(event: KeyboardEvent) {
-        this.overlayVisible && this.hide(true);
-        event.preventDefault();
-        event.stopPropagation();
     }
 
     onTabKey(event, pressedInInputText = false) {

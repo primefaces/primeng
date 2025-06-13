@@ -1,38 +1,39 @@
 import { AnimationEvent } from '@angular/animations';
 import { CommonModule } from '@angular/common';
 import {
-    AfterContentInit,
-    AfterViewChecked,
-    AfterViewInit,
-    booleanAttribute,
-    ChangeDetectionStrategy,
-    Component,
-    computed,
-    ContentChild,
-    ContentChildren,
-    effect,
-    ElementRef,
-    EventEmitter,
-    forwardRef,
-    inject,
-    Input,
-    NgModule,
-    NgZone,
-    numberAttribute,
-    OnInit,
-    Output,
-    QueryList,
-    Signal,
-    signal,
-    TemplateRef,
-    ViewChild,
-    ViewEncapsulation
+  AfterContentInit,
+  AfterViewChecked,
+  AfterViewInit,
+  booleanAttribute,
+  ChangeDetectionStrategy,
+  Component,
+  computed,
+  ContentChild,
+  ContentChildren,
+  effect,
+  ElementRef,
+  EventEmitter,
+  forwardRef,
+  inject,
+  Input,
+  NgModule,
+  NgZone,
+  numberAttribute,
+  OnInit,
+  Output,
+  QueryList,
+  Signal,
+  signal,
+  TemplateRef,
+  ViewChild,
+  ViewEncapsulation
 } from '@angular/core';
 import { ControlValueAccessor, FormsModule, NG_VALUE_ACCESSOR } from '@angular/forms';
 import { deepEquals, equals, findLastIndex, findSingle, focus, getFirstFocusableElement, getFocusableElements, getLastFocusableElement, isArray, isNotEmpty, isPrintableCharacter, resolveFieldData, uuid } from '@primeuix/utils';
 import { FilterService, Footer, Header, OverlayOptions, OverlayService, PrimeTemplate, ScrollerOptions, SharedModule, TranslationKeys } from 'primeng/api';
 import { AutoFocus } from 'primeng/autofocus';
 import { BaseComponent } from 'primeng/basecomponent';
+import { BaseInput } from 'primeng/baseinput';
 import { Checkbox } from 'primeng/checkbox';
 import { Chip } from 'primeng/chip';
 import { DomHandler, unblockBodyScroll } from 'primeng/dom';
@@ -45,10 +46,9 @@ import { Ripple } from 'primeng/ripple';
 import { Scroller } from 'primeng/scroller';
 import { Tooltip } from 'primeng/tooltip';
 import { Nullable } from 'primeng/ts-helpers';
-import { ObjectUtils } from 'primeng/utils';
+import { CloseOnEscapeService, ObjectUtils } from 'primeng/utils';
 import { MultiSelectBlurEvent, MultiSelectChangeEvent, MultiSelectFilterEvent, MultiSelectFilterOptions, MultiSelectFocusEvent, MultiSelectLazyLoadEvent, MultiSelectRemoveEvent, MultiSelectSelectAllChangeEvent } from './multiselect.interface';
 import { MultiSelectStyle } from './style/multiselectstyle';
-import { BaseInput } from 'primeng/baseinput';
 
 export const MULTISELECT_VALUE_ACCESSOR: any = {
     provide: NG_VALUE_ACCESSOR,
@@ -1261,6 +1261,13 @@ export class MultiSelect extends BaseInput implements OnInit, AfterViewInit, Aft
         public overlayService: OverlayService
     ) {
         super();
+        inject(CloseOnEscapeService).closeOnEscape(
+            {
+                closeOnEscape: () => this.hide(),
+                kind: 'single'
+            },
+            this.injector
+        );
         effect(() => {
             const modelValue = this.modelValue();
 
@@ -1575,10 +1582,6 @@ export class MultiSelect extends BaseInput implements OnInit, AfterViewInit, Aft
                 this.onEnterKey(event);
                 break;
 
-            case 'Escape':
-                this.onEscapeKey(event);
-                break;
-
             case 'Tab':
                 this.onTabKey(event);
                 break;
@@ -1636,10 +1639,6 @@ export class MultiSelect extends BaseInput implements OnInit, AfterViewInit, Aft
             case 'Enter':
             case 'NumpadEnter':
                 this.onEnterKey(event);
-                break;
-
-            case 'Escape':
-                this.onEscapeKey(event);
                 break;
 
             case 'Tab':
@@ -1761,12 +1760,6 @@ export class MultiSelect extends BaseInput implements OnInit, AfterViewInit, Aft
             }
         }
 
-        event.preventDefault();
-    }
-
-    onEscapeKey(event) {
-        this.overlayVisible && this.hide(true);
-        event.stopPropagation();
         event.preventDefault();
     }
 
@@ -1989,6 +1982,9 @@ export class MultiSelect extends BaseInput implements OnInit, AfterViewInit, Aft
      * @group Method
      */
     public hide(isFocus?) {
+        if (!this.overlayVisible) {
+            return false;
+        }
         this.overlayVisible = false;
         this.focusedOptionIndex.set(-1);
 
@@ -2001,6 +1997,7 @@ export class MultiSelect extends BaseInput implements OnInit, AfterViewInit, Aft
 
         isFocus && focus(this.focusInputViewChild?.nativeElement);
         this.cd.markForCheck();
+        return true;
     }
 
     onOverlayAnimationStart(event: AnimationEvent) {
