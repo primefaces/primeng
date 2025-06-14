@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { css, dt } from '@primeng/themes';
+import { css, dt } from '@primeuix/styled';
 import { style } from '@primeuix/styles/select';
 import { BaseStyle } from 'primeng/base';
 /**
