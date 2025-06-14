@@ -65,8 +65,8 @@ const hideAnimation = animation([animate('{{transition}}', style({ transform: '{
                 [attr.aria-labelledby]="ariaLabelledBy"
                 [attr.aria-modal]="true"
             >
-                <ng-container *ngIf="_headlessTemplate || headlessTemplate || headlessT; else notHeadless">
-                    <ng-container *ngTemplateOutlet="_headlessTemplate || headlessTemplate || headlessT"></ng-container>
+                <ng-container *ngIf="headless; else notHeadless">
+                    <ng-container *ngTemplateOutlet="headless"/>
                 </ng-container>
 
                 <ng-template #notHeadless>
@@ -569,6 +569,10 @@ export class Dialog extends BaseComponent implements OnInit, AfterContentInit, O
 
     headlessT: TemplateRef<any> | undefined;
 
+    get headless(): TemplateRef<any> | undefined {
+        return this._headlessTemplate || this.headlessTemplate || this.headlessT;
+    }
+
     get maximizeLabel(): string {
         return this.config.getTranslation(TranslationKeys.ARIA)['maximizeLabel'];
     }
@@ -633,7 +637,10 @@ export class Dialog extends BaseComponent implements OnInit, AfterContentInit, O
     }
 
     getAriaLabelledBy() {
-        return this.header !== null ? uuid('pn_id_') + '_header' : null;
+        if (this.headless !== undefined || this.header === undefined || this.showHeader === false) {
+            return null;
+        }
+        return uuid('pn_id_') + '_header';
     }
 
     parseDurationToMilliseconds(durationString: string): number | undefined {
