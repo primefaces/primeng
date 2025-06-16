@@ -39,7 +39,6 @@ import { Nullable } from 'primeng/ts-helpers';
 import { Subscription } from 'rxjs';
 import { ListboxChangeEvent, ListboxClickEvent, ListboxDoubleClickEvent, ListboxFilterEvent, ListboxFilterOptions, ListboxSelectAllChangeEvent } from './listbox.interface';
 import { ListBoxStyle } from './style/listboxstyle';
-import { BaseInput } from 'primeng/baseinput';
 import { BaseEditableHolder } from 'primeng/baseeditableholder';
 
 export const LISTBOX_VALUE_ACCESSOR: any = {
@@ -269,7 +268,7 @@ export const LISTBOX_VALUE_ACCESSOR: any = {
         <span role="status" aria-live="polite" class="p-hidden-accessible">
             {{ selectedMessageText }}
         </span>
-        <span #lastHiddenFocusableElement role="presentation" class="p-hidden-accessible p-hidden-focusable" [tabindex]="!disabled ? tabindex : -1" (focus)="onLastHiddenFocus($event)" [attr.data-p-hidden-focusable]="true"> </span>
+        <span #lastHiddenFocusableElement role="presentation" class="p-hidden-accessible p-hidden-focusable" [tabindex]="!disabled() ? tabindex : -1" (focus)="onLastHiddenFocus($event)" [attr.data-p-hidden-focusable]="true"> </span>
     `,
     providers: [
         LISTBOX_VALUE_ACCESSOR,

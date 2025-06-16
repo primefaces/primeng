@@ -19,7 +19,7 @@ import { NgControl } from '@angular/forms';
         '[attr.maxlength]': 'maxlength()',
         '[attr.size]': 'size()',
         '[attr.required]': 'required()',
-        '[attr.disabled]': 'disabled()',
+        '[disabled]': 'disabled()',
         '[attr.name]': 'name()'
     },
     providers: [InputTextStyle]
