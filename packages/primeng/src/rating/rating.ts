@@ -27,6 +27,7 @@ import { Nullable } from 'primeng/ts-helpers';
 import { RatingRateEvent } from './rating.interface';
 import { RatingStyle } from './style/ratingstyle';
 import { BaseInput } from 'primeng/baseinput';
+import { BaseEditableHolder } from '../baseeditableholder/baseeditableholder';
 
 export const RATING_VALUE_ACCESSOR: any = {
     provide: NG_VALUE_ACCESSOR,
@@ -52,9 +53,6 @@ export const RATING_VALUE_ACCESSOR: any = {
                             [attr.id]="nameattr"
                             [attr.name]="name()"
                             [attr.value]="modelValue()"
-                            [attr.min]="min()"
-                            [attr.minlength]="minlength()"
-                            [attr.maxlength]="maxlength()"
                             [attr.disabled]="disabled()"
                             [attr.required]="required()"
                             [checked]="value === 0"
@@ -93,7 +91,7 @@ export const RATING_VALUE_ACCESSOR: any = {
         '[attr.data-pc-section]': "'root'"
     }
 })
-export class Rating extends BaseInput implements OnInit, ControlValueAccessor {
+export class Rating extends BaseEditableHolder implements OnInit, ControlValueAccessor {
     /**
      * When present, changing the value is not possible.
      * @group Props

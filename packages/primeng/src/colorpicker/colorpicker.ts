@@ -2,7 +2,7 @@ import { animate, AnimationEvent, style, transition, trigger } from '@angular/an
 import { CommonModule, isPlatformBrowser } from '@angular/common';
 import { AfterViewInit, booleanAttribute, ChangeDetectionStrategy, Component, ElementRef, EventEmitter, forwardRef, inject, Input, NgModule, numberAttribute, OnDestroy, Output, TemplateRef, ViewChild, ViewEncapsulation } from '@angular/core';
 import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
-import { absolutePosition, appendChild, isTouchDevice, relativePosition } from '@primeuix/utils';
+import { absolutePosition, appendChild, cn, isTouchDevice, relativePosition } from '@primeuix/utils';
 import { OverlayService, SharedModule, TranslationKeys } from 'primeng/api';
 import { AutoFocusModule } from 'primeng/autofocus';
 import { ConnectedOverlayScrollHandler } from 'primeng/dom';
@@ -11,6 +11,7 @@ import { ZIndexUtils } from 'primeng/utils';
 import { ColorPickerChangeEvent } from './colorpicker.interface';
 import { ColorPickerStyle } from './style/colorpickerstyle';
 import { BaseInput } from 'primeng/baseinput';
+import { BaseEditableHolder } from 'primeng/baseeditableholder';
 
 export const COLORPICKER_VALUE_ACCESSOR: any = {
     provide: NG_VALUE_ACCESSOR,
@@ -78,7 +79,7 @@ export const COLORPICKER_VALUE_ACCESSOR: any = {
         '[attr.data-pc-section]': '"root"'
     }
 })
-export class ColorPicker extends BaseInput implements ControlValueAccessor, OnDestroy, AfterViewInit {
+export class ColorPicker extends BaseEditableHolder implements ControlValueAccessor, OnDestroy, AfterViewInit {
     /**
      * Style class of the component.
      * @deprecated since v20.0.0, use `class` instead.
@@ -777,6 +778,8 @@ export class ColorPicker extends BaseInput implements ControlValueAccessor, OnDe
         this.restoreOverlayAppend();
         this.onOverlayHide();
     }
+
+    protected readonly cn = cn;
 }
 
 @NgModule({

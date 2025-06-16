@@ -6,7 +6,7 @@ import { Ripple } from 'primeng/ripple';
 import { Nullable } from 'primeng/ts-helpers';
 import { ToggleButtonStyle } from './style/togglebuttonstyle';
 import { ToggleButtonChangeEvent } from './togglebutton.interface';
-import { BaseInput } from 'primeng/baseinput';
+import { BaseEditableHolder } from 'primeng/baseeditableholder';
 
 export const TOGGLEBUTTON_VALUE_ACCESSOR: any = {
     provide: NG_VALUE_ACCESSOR,
@@ -49,7 +49,7 @@ export const TOGGLEBUTTON_VALUE_ACCESSOR: any = {
     providers: [TOGGLEBUTTON_VALUE_ACCESSOR, ToggleButtonStyle],
     changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class ToggleButton extends BaseInput implements AfterContentInit, ControlValueAccessor {
+export class ToggleButton extends BaseEditableHolder implements AfterContentInit, ControlValueAccessor {
     @HostListener('keydown', ['$event']) onKeyDown(event: KeyboardEvent) {
         switch (event.code) {
             case 'Enter':
@@ -133,6 +133,11 @@ export class ToggleButton extends BaseInput implements AfterContentInit, Control
      * @group Props
      */
     @Input({ transform: booleanAttribute }) autofocus: boolean | undefined;
+    /**
+     * Defines the size of the component.
+     * @group Props
+     */
+    @Input() size: 'large' | 'small';
     /**
      * Whether selection can not be cleared.
      * @group Props

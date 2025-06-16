@@ -40,6 +40,7 @@ import { Subscription } from 'rxjs';
 import { ListboxChangeEvent, ListboxClickEvent, ListboxDoubleClickEvent, ListboxFilterEvent, ListboxFilterOptions, ListboxSelectAllChangeEvent } from './listbox.interface';
 import { ListBoxStyle } from './style/listboxstyle';
 import { BaseInput } from 'primeng/baseinput';
+import { BaseEditableHolder } from 'primeng/baseeditableholder';
 
 export const LISTBOX_VALUE_ACCESSOR: any = {
     provide: NG_VALUE_ACCESSOR,
@@ -113,7 +114,7 @@ export const LISTBOX_VALUE_ACCESSOR: any = {
                         </p-inputicon>
                     </p-iconfield>
                 </div>
-                <span role="status" attr.aria-live="polite" class="p-hidden-accessible" [attr.data-p-hidden-accessible]="true">
+                <span role="status" [attr.aria-live]="'polite'" class="p-hidden-accessible" [attr.data-p-hidden-accessible]="true">
                     {{ filterResultMessageText }}
                 </span>
             </ng-template>
@@ -287,7 +288,7 @@ export const LISTBOX_VALUE_ACCESSOR: any = {
         '[class]': "cn(cx('root'), styleClass)"
     }
 })
-export class Listbox extends BaseInput implements AfterContentInit, OnInit, ControlValueAccessor, OnDestroy {
+export class Listbox extends BaseEditableHolder implements AfterContentInit, OnInit, ControlValueAccessor, OnDestroy {
     /**
      * Unique identifier of the component.
      * @group Props

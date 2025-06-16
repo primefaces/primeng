@@ -25,7 +25,7 @@ import { PrimeTemplate, SharedModule } from 'primeng/api';
 import { AutoFocus } from 'primeng/autofocus';
 import { ToggleSwitchStyle } from './style/toggleswitchstyle';
 import { ToggleSwitchChangeEvent } from './toggleswitch.interface';
-import { BaseInput } from 'primeng/baseinput';
+import { BaseEditableHolder } from 'primeng/baseeditableholder';
 
 /**
  * Context interface for the handle template.
@@ -87,7 +87,7 @@ export const TOGGLESWITCH_VALUE_ACCESSOR: any = {
         '[attr.data-pc-section]': "'root'"
     }
 })
-export class ToggleSwitch extends BaseInput implements AfterContentInit {
+export class ToggleSwitch extends BaseEditableHolder implements AfterContentInit {
     /**
      * Style class of the component.
      * @deprecated since v20.0.0, use `class` instead.
