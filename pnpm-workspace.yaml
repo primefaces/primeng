@@ -3,7 +3,7 @@ packages:
     - 'apps/*'
 
 catalog:
-    '@primeuix/styled': ^0.3.2
+    '@primeuix/styled': 0.3.2-patch.1
     '@primeuix/utils': ^0.3.2
 
 catalogs:

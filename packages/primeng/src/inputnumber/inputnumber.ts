@@ -1495,6 +1495,7 @@ export class InputNumber extends BaseComponent implements OnInit, AfterContentIn
         this.input.nativeElement.value = this.formatValue(newValueString);
         this.input.nativeElement.setAttribute('aria-valuenow', newValueString);
         this.updateModel(event, newValueNumber);
+        this.onModelTouched();
         this.onBlur.emit(event);
     }
 
@@ -1515,7 +1516,6 @@ export class InputNumber extends BaseComponent implements OnInit, AfterContentIn
         } else if (isBlurUpdateOnMode) {
             this.onModelChange(value);
         }
-        this.onModelTouched();
     }
 
     writeValue(value: any): void {

@@ -7991,24 +7991,24 @@
         "description": "ProgressSpinner Design Tokens\n\n[Live Demo](https://www.primeng.org/progressspinner/)",
         "tokens": [
             {
-                "token": "progressspinner.color.1",
-                "variable": "--p-progressspinner-color-1",
-                "description": "Color.1 of root"
+                "token": "progressspinner.color.one",
+                "variable": "--p-progressspinner-color-one",
+                "description": "Color one of root"
             },
             {
-                "token": "progressspinner.color.2",
-                "variable": "--p-progressspinner-color-2",
-                "description": "Color.2 of root"
+                "token": "progressspinner.color.two",
+                "variable": "--p-progressspinner-color-two",
+                "description": "Color two of root"
             },
             {
-                "token": "progressspinner.color.3",
-                "variable": "--p-progressspinner-color-3",
-                "description": "Color.3 of root"
+                "token": "progressspinner.color.three",
+                "variable": "--p-progressspinner-color-three",
+                "description": "Color three of root"
             },
             {
-                "token": "progressspinner.color.4",
-                "variable": "--p-progressspinner-color-4",
-                "description": "Color.4 of root"
+                "token": "progressspinner.color.four",
+                "variable": "--p-progressspinner-color-four",
+                "description": "Color four of root"
             }
         ]
     },

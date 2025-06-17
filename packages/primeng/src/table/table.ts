@@ -237,9 +237,9 @@ export class TableService {
                 </ng-container>
 
                 <ng-template #buildInTable let-items let-scrollerOptions="options">
-                    <table #table role="table" [ngClass]="cx('table')" [class]="tableStyleClass" [style]="tableStyle" [attr.id]="id + '-table'">
+                    <table #table [ngClass]="cx('table')" [class]="tableStyleClass" [style]="tableStyle" [attr.id]="id + '-table'">
                         <ng-container *ngTemplateOutlet="colGroupTemplate || _colGroupTemplate; context: { $implicit: scrollerOptions.columns }"></ng-container>
-                        <thead role="rowgroup" #thead [ngClass]="cx('thead')" [ngStyle]="sx('thead')">
+                        <thead #thead [ngClass]="cx('thead')" [ngStyle]="sx('thead')">
                             <ng-container
                                 *ngTemplateOutlet="
                                     headerGroupedTemplate || headerTemplate || _headerTemplate;
@@ -250,7 +250,6 @@ export class TableService {
                             ></ng-container>
                         </thead>
                         <tbody
-                            role="rowgroup"
                             [ngClass]="cx('tbody')"
                             *ngIf="frozenValue || frozenBodyTemplate || _frozenBodyTemplate"
                             [value]="frozenValue"
@@ -260,7 +259,6 @@ export class TableService {
                             [frozen]="true"
                         ></tbody>
                         <tbody
-                            role="rowgroup"
                             [ngClass]="cx('tbody', scrollerOptions.contentStyleClass)"
                             [style]="scrollerOptions.contentStyle"
                             [value]="dataToRender(scrollerOptions.rows)"
@@ -269,12 +267,11 @@ export class TableService {
                             [scrollerOptions]="scrollerOptions"
                         ></tbody>
                         <tbody
-                            role="rowgroup"
                             *ngIf="scrollerOptions.spacerStyle"
                             [style]="'height: calc(' + scrollerOptions.spacerStyle.height + ' - ' + scrollerOptions.rows.length * scrollerOptions.itemSize + 'px);'"
                             [ngClass]="cx('virtualScrollerSpacer')"
                         ></tbody>
-                        <tfoot role="rowgroup" *ngIf="footerGroupedTemplate || footerTemplate || _footerTemplate || _footerGroupedTemplate" #tfoot [ngClass]="cx('footer')" [ngStyle]="sx('tfoot')">
+                        <tfoot *ngIf="footerGroupedTemplate || footerTemplate || _footerTemplate || _footerGroupedTemplate" #tfoot [ngClass]="cx('footer')" [ngStyle]="sx('tfoot')">
                             <ng-container
                                 *ngTemplateOutlet="
                                     footerGroupedTemplate || footerTemplate || _footerTemplate || _footerGroupedTemplate;
@@ -3037,7 +3034,14 @@ export class Table<RowData = any> extends BaseComponent implements OnInit, After
 
     saveColumnWidths(state: any) {
         let widths: any[] = [];
-        let headers = DomHandler.find(this.containerViewChild?.nativeElement, '.p-datatable-thead > tr > th');
+        let headers = [];
+
+        const container = this.containerViewChild?.nativeElement;
+
+        if (container) {
+            headers = DomHandler.find(container, '.p-datatable-thead > tr > th');
+        }
+
         headers.forEach((header) => widths.push(DomHandler.getOuterWidth(header)));
         state.columnWidths = widths.join(',');
 
@@ -3606,14 +3610,18 @@ export class FrozenColumn implements AfterViewInit {
         '[class.p-datatable-sortable-column]': 'isEnabled()',
         '[class.p-datatable-column-sorted]': 'sorted',
         '[attr.tabindex]': 'isEnabled() ? "0" : null',
-        '[attr.role]': '"columnheader"',
+        '[attr.role]': 'role',
         '[attr.aria-sort]': 'sortOrder'
     }
 })
 export class SortableColumn implements OnInit, OnDestroy {
+    readonly #elementRef = inject(ElementRef);
+
     @Input('pSortableColumn') field: string | undefined;
 
     @Input({ transform: booleanAttribute }) pSortableColumnDisabled: boolean | undefined;
+
+    role = this.#elementRef.nativeElement?.tagName !== 'TH' ? 'columnheader' : null;
 
     sorted: boolean | undefined;
 

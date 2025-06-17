@@ -1,4 +1,11 @@
 # Changelog
+## [19.1.2](https://github.com/primefaces/primeng/tree/19.1.2) (2025-05-01)
+[Full Changelog](https://github.com/primefaces/primeng/compare/19.1.1...19.1.2)
+
+**Fixed bugs:**
+- Select: selection with mouse not working in 19.1.1 [#18204](https://github.com/primefaces/primeng/issues/18204)
+- Error: NG0100 while using pTextarea from primeng 19.1.0 [#18159](https://github.com/primefaces/primeng/issues/18159)
+
 ## [19.1.1](https://github.com/primefaces/primeng/tree/19.1.1) (2025-04-30)
 [Full Changelog](https://github.com/primefaces/primeng/compare/19.1.0...19.1.1)
 

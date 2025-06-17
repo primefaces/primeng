@@ -193,7 +193,10 @@ export class SelectButton extends BaseComponent implements AfterContentInit, Con
     _componentStyle = inject(SelectButtonStyle);
 
     getAllowEmpty() {
-        return this.allowEmpty || this.value?.length !== 1;
+        if (this.multiple) {
+            return this.allowEmpty || this.value?.length !== 1;
+        }
+        return this.allowEmpty;
     }
 
     getOptionLabel(option: any) {
