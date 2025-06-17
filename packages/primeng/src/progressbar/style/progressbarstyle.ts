@@ -1,16 +1,6 @@
 import { Injectable } from '@angular/core';
 import { style } from '@primeuix/styles/progressbar';
-import { css } from '@primeuix/styled';
 import { BaseStyle } from 'primeng/base';
-
-const theme = css`
-    ${style}
-
-    /* For PrimeNG */
-    .p-progressbar {
-        display: block;
-    }
-`;
 
 const classes = {
     root: ({ instance }) => [
@@ -29,7 +19,7 @@ const classes = {
 export class ProgressBarStyle extends BaseStyle {
     name = 'progressbar';
 
-    theme = theme;
+    theme = style;
 
     classes = classes;
 }

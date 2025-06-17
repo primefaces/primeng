@@ -1,16 +1,6 @@
 import { Injectable } from '@angular/core';
-import { css } from '@primeuix/styled';
 import { style } from '@primeuix/styles/scrolltop';
 import { BaseStyle } from 'primeng/base';
-
-const theme = css`
-    ${style}
-
-    /* For PrimeNG */
-    .p-scrolltop-sticky.p-link {
-        margin-left: auto;
-    }
-`;
 
 const classes = {
     root: ({ instance }) => ['p-scrolltop', instance.styleClass, { 'p-scrolltop-sticky': instance.target !== 'window' }],
@@ -21,7 +11,7 @@ const classes = {
 export class ScrollTopStyle extends BaseStyle {
     name = 'scrolltop';
 
-    theme = theme;
+    theme = style;
 
     classes = classes;
 }

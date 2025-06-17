@@ -1,13 +1,12 @@
 import { Injectable } from '@angular/core';
-import { BaseStyle } from 'primeng/base';
-import { style } from '@primeuix/styles/panelmenu';
 import { css } from '@primeuix/styled';
+import { style } from '@primeuix/styles/panelmenu';
+import { BaseStyle } from 'primeng/base';
 
 const theme = css`
     ${style}
     /*For PrimeNG*/
-
-.p-panelmenu-item:not(.ng-animating) {
+    .p-panelmenu-item:not(.ng-animating) {
         overflow: hidden;
     }
 
@@ -16,7 +15,8 @@ const theme = css`
     }
 
     .p-panelmenu-root-list,
-    .p-panelmenu-submenu {
+    .p-panelmenu-submenu,
+    .p-panelmenu-item-link {
         outline: 0 none;
     }
 `;

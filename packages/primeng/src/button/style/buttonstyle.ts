@@ -1,20 +1,6 @@
 import { Injectable } from '@angular/core';
-import { BaseStyle } from 'primeng/base';
-import { css } from '@primeuix/styled';
 import { style } from '@primeuix/styles/button';
-
-const theme = css`
-    ${style}
-
-    /* For PrimeNG */
-.p-button-icon-right {
-        order: 1;
-    }
-
-    p-button[iconpos='right'] spinnericon {
-        order: 1;
-    }
-`;
+import { BaseStyle } from 'primeng/base';
 
 const classes = {
     root: ({ instance }) => [

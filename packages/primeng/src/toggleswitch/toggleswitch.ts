@@ -23,9 +23,9 @@ import {
 import { NG_VALUE_ACCESSOR } from '@angular/forms';
 import { PrimeTemplate, SharedModule } from 'primeng/api';
 import { AutoFocus } from 'primeng/autofocus';
+import { BaseEditableHolder } from 'primeng/baseeditableholder';
 import { ToggleSwitchStyle } from './style/toggleswitchstyle';
 import { ToggleSwitchChangeEvent } from './toggleswitch.interface';
-import { BaseEditableHolder } from 'primeng/baseeditableholder';
 
 /**
  * Context interface for the handle template.
@@ -69,13 +69,13 @@ export const TOGGLESWITCH_VALUE_ACCESSOR: any = {
             [attr.data-pc-section]="'hiddenInput'"
             [pAutoFocus]="autofocus"
         />
-        <span [class]="cx('slider')" [attr.data-pc-section]="'slider'">
+        <div [class]="cx('slider')" [attr.data-pc-section]="'slider'">
             <div [class]="cx('handle')">
                 @if (handleTemplate || _handleTemplate) {
                     <ng-container *ngTemplateOutlet="handleTemplate || _handleTemplate; context: { checked: checked() }" />
                 }
             </div>
-        </span>
+        </div>
     `,
     providers: [TOGGLESWITCH_VALUE_ACCESSOR, ToggleSwitchStyle],
     changeDetection: ChangeDetectionStrategy.OnPush,

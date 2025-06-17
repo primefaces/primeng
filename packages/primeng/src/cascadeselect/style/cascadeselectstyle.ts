@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
-import { BaseStyle } from 'primeng/base';
-import { style } from '@primeuix/styles/cascadeselect';
 import { css, dt } from '@primeuix/styled';
+import { style } from '@primeuix/styles/cascadeselect';
+import { BaseStyle } from 'primeng/base';
 
 const theme = css`
     ${style}
@@ -11,22 +11,8 @@ const theme = css`
         border-color: ${dt('cascadeselect.invalid.border.color')};
     }
 
-    .p-cascadeselect:not(.p-disabled).p-focus {
-        border-color: ${dt('cascadeselect.focus.border.color')};
-    }
-
     .p-cascadeselect.ng-invalid.ng-dirty:not(.ng-untouched):not(.ng-pristine) .p-cascadeselect-label.p-placeholder {
         color: ${dt('cascadeselect.invalid.placeholder.color')};
-    }
-
-    .p-cascadeselect-clear-icon {
-        cursor: pointer;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        flex-shrink: 0;
-        background: transparent;
-        color: ${dt('cascadeselect.clear.icon.color')};
     }
 `;
 const inlineStyles = {

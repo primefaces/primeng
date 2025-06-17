@@ -28,12 +28,12 @@ import { find, findIndexInList, uuid } from '@primeuix/utils';
 import { PrimeTemplate, SharedModule } from 'primeng/api';
 import { BaseComponent } from 'primeng/basecomponent';
 import { transformToBoolean } from 'primeng/utils';
-import { StepperStyle } from './style/stepperstyle';
-import { StepStyle } from './style/stepstyle';
 import { StepItemStyle } from './style/stepitemstyle';
 import { StepListStyle } from './style/stepliststyle';
-import { StepPanelStyle } from './style/steppanelstyle';
 import { StepPanelsStyle } from './style/steppanelsstyle';
+import { StepPanelStyle } from './style/steppanelstyle';
+import { StepperStyle } from './style/stepperstyle';
+import { StepStyle } from './style/stepstyle';
 
 /**
  * Context interface for the StepPanel content template.
@@ -289,7 +289,7 @@ export class Step extends BaseComponent implements AfterContentInit {
                     visibility: 'visible'
                 })
             ),
-            transition('visible <=> hidden', [animate('250ms cubic-bezier(0.86, 0, 0.07, 1)')]),
+            transition('visible <=> hidden', [animate('1000ms ease-in-out')]),
             transition('void => *', animate(0))
         ])
     ],

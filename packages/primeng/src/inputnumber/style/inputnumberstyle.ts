@@ -7,14 +7,6 @@ const theme = css`
     ${style}
 
     /* For PrimeNG */
-    .p-inputnumber-clear-icon {
-        position: absolute;
-        top: 50%;
-        margin-top: -0.5rem;
-        cursor: pointer;
-        right: 0.75rem;
-        color: ${dt('inputnumber.button.color')};
-    }
     p-inputNumber.ng-invalid.ng-dirty > .p-inputtext,
     p-input-number.ng-invalid.ng-dirty > .p-inputtext,
     p-inputnumber.ng-invalid.ng-dirty > .p-inputtext {

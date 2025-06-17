@@ -1,24 +1,6 @@
 import { Injectable } from '@angular/core';
-import { css } from '@primeuix/styled';
 import { style } from '@primeuix/styles/dataview';
 import { BaseStyle } from 'primeng/base';
-
-const theme = css`
-    ${style}
-
-    /* For PrimeNG */
-      .p-dataview {
-        position: relative;
-    }
-
-    .p-dataview .p-dataview-loading-overlay {
-        position: absolute;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        z-index: 2;
-    }
-`;
 
 const classes = {
     root: ({ instance }) => [
@@ -43,7 +25,7 @@ const classes = {
 export class DataViewStyle extends BaseStyle {
     name = 'dataview';
 
-    theme = theme;
+    theme = style;
 
     classes = classes;
 }

@@ -1,15 +1,10 @@
 import { Injectable } from '@angular/core';
-import { style } from '@primeuix/styles/toggleswitch';
 import { css, dt } from '@primeuix/styled';
+import { style } from '@primeuix/styles/toggleswitch';
 import { BaseStyle } from 'primeng/base';
 
 const theme = css`
     ${style}
-
-    /* For PrimeNG */
-    .p-toggleswitch-slider {
-        display: inline-block;
-    }
 
     p-toggleswitch.ng-invalid.ng-dirty > .p-toggleswitch-slider {
         border-color: ${dt('toggleswitch.invalid.border.color')};

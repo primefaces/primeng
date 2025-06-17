@@ -1,28 +1,6 @@
 import { Injectable } from '@angular/core';
-import { css } from '@primeuix/styled';
 import { style } from '@primeuix/styles/dialog';
 import { BaseStyle } from 'primeng/base';
-
-const theme = css`
-    ${style}
-    /* For PrimeNG */
-
-.p-dialog .p-resizable-handle {
-        position: absolute;
-        font-size: 0.1px;
-        display: block;
-        cursor: se-resize;
-        width: 12px;
-        height: 12px;
-        right: 1px;
-        bottom: 1px;
-    }
-
-    .p-confirm-dialog .p-dialog-content {
-        display: flex;
-        align-items: center;
-    }
-`;
 
 /* Position */
 const inlineStyles = {
@@ -81,7 +59,7 @@ const classes = {
 export class DialogStyle extends BaseStyle {
     name = 'dialog';
 
-    theme = theme;
+    theme = style;
 
     classes = classes;
 

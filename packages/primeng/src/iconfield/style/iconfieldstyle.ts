@@ -1,16 +1,6 @@
 import { Injectable } from '@angular/core';
-import { css } from '@primeuix/styled';
 import { style } from '@primeuix/styles/iconfield';
 import { BaseStyle } from 'primeng/base';
-
-const theme = css`
-    ${style}
-
-    /* For PrimeNG */
-    .p-iconfield {
-        display: block;
-    }
-`;
 
 const classes = {
     root: ({ instance }) => [
@@ -26,7 +16,7 @@ const classes = {
 export class IconFieldStyle extends BaseStyle {
     name = 'iconfield';
 
-    theme = theme;
+    theme = style;
 
     classes = classes;
 }
