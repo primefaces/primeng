@@ -60,7 +60,7 @@ export interface InputOtpInputTemplateContext {
  * @group Components
  */
 @Component({
-    selector: 'p-inputOtp, p-inputotp, p-input-otp',
+    selector: 'p-inputotp',
     standalone: true,
     imports: [CommonModule, InputText, AutoFocus, SharedModule],
     template: `

@@ -75,7 +75,7 @@ export interface AccordionToggleIconTemplateContext {
  * @group Components
  */
 @Component({
-    selector: 'p-accordion-panel, p-accordionpanel',
+    selector: 'p-accordion-panel',
     imports: [CommonModule],
     standalone: true,
     template: `<ng-content />`,
@@ -120,7 +120,7 @@ export class AccordionPanel extends BaseComponent {
  * @group Components
  */
 @Component({
-    selector: 'p-accordion-header, p-accordionheader',
+    selector: 'p-accordion-header',
     imports: [CommonModule, ChevronDownIcon, ChevronUpIcon],
     standalone: true,
     template: `
@@ -295,7 +295,7 @@ export class AccordionHeader extends BaseComponent {
 }
 
 @Component({
-    selector: 'p-accordion-content, p-accordioncontent',
+    selector: 'p-accordioncontent',
     imports: [CommonModule],
     standalone: true,
     template: ` <div [class]="cx('content')">
@@ -358,7 +358,7 @@ export class AccordionContent extends BaseComponent {
  * @group Components
  */
 @Component({
-    selector: 'p-accordionTab, p-accordion-tab, p-accordiontab',
+    selector: 'p-accordion-tab',
     standalone: true,
     imports: [CommonModule, ChevronDownIcon, ChevronUpIcon],
     template: `

@@ -46,7 +46,7 @@ export const TOGGLESWITCH_VALUE_ACCESSOR: any = {
  * @group Components
  */
 @Component({
-    selector: 'p-toggleswitch, p-toggleSwitch, p-toggle-switch',
+    selector: 'p-toggleswitch',
     standalone: true,
     imports: [CommonModule, AutoFocus, SharedModule],
     template: `

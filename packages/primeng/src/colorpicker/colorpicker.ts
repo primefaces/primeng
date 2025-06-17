@@ -22,7 +22,7 @@ export const COLORPICKER_VALUE_ACCESSOR: any = {
  * @group Components
  */
 @Component({
-    selector: 'p-colorPicker, p-colorpicker, p-color-picker',
+    selector: 'p-colorpicker',
     standalone: true,
     imports: [CommonModule, AutoFocusModule, SharedModule],
     template: `

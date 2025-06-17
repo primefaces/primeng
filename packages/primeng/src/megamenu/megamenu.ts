@@ -313,7 +313,7 @@ export class MegaMenuSub extends BaseComponent {
  * @group Components
  */
 @Component({
-    selector: 'p-megaMenu, p-megamenu, p-mega-menu',
+    selector: 'p-megamenu',
     standalone: true,
     imports: [CommonModule, RouterModule, MegaMenuSub, TooltipModule, BarsIcon, BadgeModule, SharedModule],
     template: `

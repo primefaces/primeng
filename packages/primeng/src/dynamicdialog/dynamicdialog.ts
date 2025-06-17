@@ -20,7 +20,7 @@ const showAnimation = animation([style({ transform: '{{transform}}', opacity: 0 
 const hideAnimation = animation([animate('{{transition}}', style({ transform: '{{transform}}', opacity: 0 }))]);
 
 @Component({
-    selector: 'p-dynamicDialog, p-dynamicdialog, p-dynamic-dialog',
+    selector: 'p-dynamicdialog',
     standalone: true,
     imports: [CommonModule, SharedModule, DynamicDialogContent, WindowMaximizeIcon, WindowMinimizeIcon, TimesIcon, Button, FocusTrap],
     template: `

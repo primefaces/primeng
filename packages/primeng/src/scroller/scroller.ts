@@ -35,7 +35,7 @@ import { ScrollerStyle } from './style/scrollerstyle';
  * @group Components
  */
 @Component({
-    selector: 'p-scroller, p-virtualscroller, p-virtual-scroller, p-virtualScroller',
+    selector: 'p-scroller, p-virtualscroller',
     imports: [CommonModule, SpinnerIcon, SharedModule],
     standalone: true,
     template: `

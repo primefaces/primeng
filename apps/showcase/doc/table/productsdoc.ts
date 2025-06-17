@@ -179,7 +179,7 @@ interface ExportColumn {
                     </ng-template>
                 </p-dialog>
 
-                <p-confirmDialog [style]="{ width: '450px' }" />
+                <p-confirmdialog [style]="{ width: '450px' }" />
             </div>
         </p-deferred-demo>
         <app-code [code]="code" selector="table-products-demo" [extFiles]="extFiles"></app-code>`,
@@ -342,7 +342,7 @@ export class ProductsDoc {
     </ng-template>
 </p-dialog>
 
-<p-confirmDialog [style]="{ width: '450px' }" />`,
+<p-confirmdialog [style]="{ width: '450px' }" />`,
         html: `<div class="card">
     <p-toast />
     <p-toolbar styleClass="mb-6">
@@ -499,7 +499,7 @@ export class ProductsDoc {
         </ng-template>
     </p-dialog>
 
-    <p-confirmDialog [style]="{ width: '450px' }" />
+    <p-confirmdialog [style]="{ width: '450px' }" />
 </div>`,
         typescript: `import { ChangeDetectorRef, Component, OnInit, ViewChild } from '@angular/core';
 import { ConfirmationService, MessageService } from 'primeng/api';

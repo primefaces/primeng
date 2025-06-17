@@ -1,5 +1,5 @@
 import { CommonModule } from '@angular/common';
-import { ChangeDetectionStrategy, Component, ViewEncapsulation } from '@angular/core';
+import { ChangeDetectionStrategy, Component } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { RouterModule } from '@angular/router';
 import { MenuItem } from 'primeng/api';
@@ -28,13 +28,13 @@ import { ToggleSwitchModule } from 'primeng/toggleswitch';
                 </div>
             </div>
             <div class="px-5">
-                <p-iconField iconPosition="left">
-                    <p-inputIcon class="pi pi-search"> </p-inputIcon>
+                <p-iconfield iconPosition="left">
+                    <p-inputicon class="pi pi-search"> </p-inputicon>
                     <input type="text" pInputText [(ngModel)]="search" placeholder="Search" class="w-full" />
-                </p-iconField>
+                </p-iconfield>
             </div>
             <div class="w-full px-5">
-                <p-selectButton [(ngModel)]="value" [options]="options" aria-labelledby="basic" class="w-full" styleClass="w-full" />
+                <p-selectbutton [(ngModel)]="value" [options]="options" aria-labelledby="basic" class="w-full" styleClass="w-full" />
             </div>
             <div class="flex-1 flex flex-col">
                 <div

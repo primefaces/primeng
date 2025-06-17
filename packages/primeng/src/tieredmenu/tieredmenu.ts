@@ -340,7 +340,7 @@ export class TieredMenuSub extends BaseComponent {
  * @group Components
  */
 @Component({
-    selector: 'p-tieredMenu, p-tieredmenu, p-tiered-menu',
+    selector: 'p-tieredmenu',
     standalone: true,
     imports: [CommonModule, TieredMenuSub, RouterModule, TooltipModule, SharedModule],
     template: `

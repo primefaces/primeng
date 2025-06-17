@@ -121,7 +121,7 @@ export class TreeTableService {
  * @group Components
  */
 @Component({
-    selector: 'p-treeTable, p-treetable, p-tree-table',
+    selector: 'p-treetable',
     standalone: false,
     template: `
         <div [class]="cx('loading')" *ngIf="loading && showLoader">

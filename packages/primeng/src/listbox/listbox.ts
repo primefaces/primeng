@@ -51,7 +51,7 @@ export const LISTBOX_VALUE_ACCESSOR: any = {
  * @group Components
  */
 @Component({
-    selector: 'p-listbox, p-listBox, p-list-box',
+    selector: 'p-listbox',
     standalone: true,
     imports: [CommonModule, Ripple, Scroller, InputIcon, SearchIcon, Checkbox, CheckIcon, IconField, InputText, BlankIcon, FormsModule, SharedModule, DragDropModule],
     template: `

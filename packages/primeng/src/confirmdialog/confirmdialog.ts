@@ -37,7 +37,7 @@ const hideAnimation = animation([animate('{{transition}}', style({ transform: '{
  * @group Components
  */
 @Component({
-    selector: 'p-confirmDialog, p-confirmdialog, p-confirm-dialog',
+    selector: 'p-confirmdialog',
     standalone: true,
     imports: [CommonModule, Button, Dialog, SharedModule],
     template: `
