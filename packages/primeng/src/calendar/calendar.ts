@@ -36,7 +36,7 @@ import { Ripple } from 'primeng/ripple';
 import { Nullable, VoidListener } from 'primeng/ts-helpers';
 import { ZIndexUtils } from 'primeng/utils';
 import { Subscription } from 'rxjs';
-import { CalendarMonthChangeEvent, CalendarResponsiveOptions, CalendarTypeView, CalendarYearChangeEvent, LocaleSettings, Month, NavigationState } from './calendar.interface';
+import { CalendarDate, CalendarMonthChangeEvent, CalendarResponsiveOptions, CalendarTypeView, CalendarYearChangeEvent, LocaleSettings, Month, NavigationState } from './calendar.interface';
 import { CalendarStyle } from './style/calendarstyle';
 
 export const CALENDAR_VALUE_ACCESSOR: any = {
@@ -1197,7 +1197,7 @@ export class Calendar extends BaseComponent implements OnInit, AfterContentInit,
 
     filled: Nullable<boolean>;
 
-    inputFieldValue: Nullable<string> = null;
+    inputFieldValue: Nullable<string | Date> = null;
 
     _minDate?: Date | null;
 
@@ -1469,7 +1469,7 @@ export class Calendar extends BaseComponent implements OnInit, AfterContentInit,
     }
 
     createMonth(month: number, year: number): Month {
-        let dates = [];
+        let dates: CalendarDate[][] = [];
         let firstDay = this.getFirstDayOfMonthIndex(month, year);
         let daysLength = this.getDaysCountInMonth(month, year);
         let prevMonthDaysLength = this.getDaysCountInPrevMonth(month, year);
@@ -1479,7 +1479,7 @@ export class Calendar extends BaseComponent implements OnInit, AfterContentInit,
         let monthRows = Math.ceil((daysLength + firstDay) / 7);
 
         for (let i = 0; i < monthRows; i++) {
-            let week = [];
+            let week: CalendarDate[] = [];
 
             if (i == 0) {
                 for (let j = prevMonthDaysLength - firstDay + 1; j <= prevMonthDaysLength; j++) {
@@ -1538,12 +1538,7 @@ export class Calendar extends BaseComponent implements OnInit, AfterContentInit,
             dates.push(week);
         }
 
-        return {
-            month: month,
-            year: year,
-            dates: <any>dates,
-            weekNumbers: weekNumbers
-        };
+        return { month, year, dates, weekNumbers };
     }
 
     initTime(date: Date) {
@@ -1660,7 +1655,7 @@ export class Calendar extends BaseComponent implements OnInit, AfterContentInit,
         event.preventDefault();
     }
 
-    onDateSelect(event: Event, dateMeta: any) {
+    onDateSelect(event: Event, dateMeta: CalendarDate) {
         if (this.disabled || !dateMeta.selectable) {
             event.preventDefault();
             return;
@@ -1675,7 +1670,7 @@ export class Calendar extends BaseComponent implements OnInit, AfterContentInit,
             }
             this.updateModel(this.value);
         } else {
-            if (this.shouldSelectDate(dateMeta)) {
+            if (this.shouldSelectDate()) {
                 this.selectDate(dateMeta);
             }
         }
@@ -1697,7 +1692,7 @@ export class Calendar extends BaseComponent implements OnInit, AfterContentInit,
         event.preventDefault();
     }
 
-    shouldSelectDate(dateMeta: any) {
+    shouldSelectDate() {
         if (this.isMultipleSelection()) return this.maxDateCount != null ? this.maxDateCount > (this.value ? this.value.length : 0) : true;
         else return true;
     }
@@ -1724,7 +1719,7 @@ export class Calendar extends BaseComponent implements OnInit, AfterContentInit,
     }
 
     updateInputfield() {
-        let formattedValue = '';
+        let formattedValue: Date | string = '';
 
         if (this.value) {
             if (this.isSingleSelection()) {
@@ -1757,8 +1752,8 @@ export class Calendar extends BaseComponent implements OnInit, AfterContentInit,
         }
     }
 
-    formatDateTime(date: any) {
-        let formattedValue = this.keepInvalid ? date : null;
+    formatDateTime(date: Date): string | Date {
+        let formattedValue: string | Date = this.keepInvalid ? date : null;
         const isDateValid = this.isValidDateForTimeConstraints(date);
 
         if (this.isValidDate(date)) {
@@ -1777,7 +1772,7 @@ export class Calendar extends BaseComponent implements OnInit, AfterContentInit,
         return formattedValue;
     }
 
-    formatDateMetaToDate(dateMeta: any): Date {
+    formatDateMetaToDate(dateMeta: CalendarDate): Date {
         return new Date(dateMeta.year, dateMeta.month, dateMeta.day);
     }
 
@@ -1804,7 +1799,7 @@ export class Calendar extends BaseComponent implements OnInit, AfterContentInit,
         this.alignOverlay();
     }
 
-    selectDate(dateMeta: any) {
+    selectDate(dateMeta: CalendarDate) {
         let date = this.formatDateMetaToDate(dateMeta);
 
         if (this.showTime) {
@@ -1929,7 +1924,7 @@ export class Calendar extends BaseComponent implements OnInit, AfterContentInit,
         return firstDayOfWeek > 0 ? 7 - firstDayOfWeek : 0;
     }
 
-    isSelected(dateMeta: any): boolean | undefined {
+    isSelected(dateMeta: CalendarDate): boolean | undefined {
         if (this.value) {
             if (this.isSingleSelection()) {
                 return this.isDateEquals(this.value, dateMeta);
@@ -1992,12 +1987,12 @@ export class Calendar extends BaseComponent implements OnInit, AfterContentInit,
         return false;
     }
 
-    isDateEquals(value: any, dateMeta: any) {
+    isDateEquals(value: any, dateMeta: CalendarDate) {
         if (value && isDate(value)) return value.getDate() === dateMeta.day && value.getMonth() === dateMeta.month && value.getFullYear() === dateMeta.year;
         else return false;
     }
 
-    isDateBetween(start: Date, end: Date, dateMeta: any) {
+    isDateBetween(start: Date, end: Date, dateMeta: CalendarDate) {
         let between: boolean = false;
         if (isDate(start) && isDate(end)) {
             let date: Date = this.formatDateMetaToDate(dateMeta);
@@ -2023,7 +2018,7 @@ export class Calendar extends BaseComponent implements OnInit, AfterContentInit,
         return today.getDate() === day && today.getMonth() === month && today.getFullYear() === year;
     }
 
-    isSelectable(day: any, month: any, year: any, otherMonth: any): boolean {
+    isSelectable(day: number, month: number, year: number, otherMonth: boolean): boolean {
         let validMin = true;
         let validMax = true;
         let validDate = true;
@@ -2217,7 +2212,7 @@ export class Calendar extends BaseComponent implements OnInit, AfterContentInit,
         }
     }
 
-    onDateCellKeydown(event: any, dateMeta: any, groupIndex: number) {
+    onDateCellKeydown(event: any, dateMeta: CalendarDate, groupIndex: number) {
         const cellContent = event.currentTarget;
         const cell = cellContent.parentElement;
         const currentDate = this.formatDateMetaToDate(dateMeta);
@@ -3408,7 +3403,7 @@ export class Calendar extends BaseComponent implements OnInit, AfterContentInit,
         return output;
     }
 
-    formatTime(date: any) {
+    formatTime(date: Date) {
         if (!date) {
             return '';
         }
@@ -3663,7 +3658,7 @@ export class Calendar extends BaseComponent implements OnInit, AfterContentInit,
 
     onTodayButtonClick(event: any) {
         const date: Date = new Date();
-        const dateMeta = {
+        const dateMeta: CalendarDate = {
             day: date.getDate(),
             month: date.getMonth(),
             year: date.getFullYear(),
