@@ -50,7 +50,7 @@ const hideAnimation = animation([animate('{{transition}}', style({ transform: '{
             <div
                 *ngIf="visible"
                 #container
-                [class]="cx('root')"
+                [class]="cn(cx('root'), styleClass)"
                 [style]="sx('root')"
                 [ngStyle]="style"
                 pFocusTrap
