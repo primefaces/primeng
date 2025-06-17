@@ -398,6 +398,7 @@ export class Tooltip extends BaseComponent implements AfterViewInit, OnDestroy {
 
         let tooltipArrow = document.createElement('div');
         tooltipArrow.className = 'p-tooltip-arrow';
+        tooltipArrow.setAttribute('data-pc-section', 'arrow');
         this.container.appendChild(tooltipArrow);
 
         this.tooltipText = document.createElement('div');
@@ -536,27 +537,63 @@ export class Tooltip extends BaseComponent implements AfterViewInit, OnDestroy {
         const offsetLeft = getOuterWidth(el);
         const offsetTop = (getOuterHeight(el) - getOuterHeight(this.container)) / 2;
         this.alignTooltip(offsetLeft, offsetTop);
+        let arrowElement = this.getArrowElement();
+
+        arrowElement.style.top = '50%';
+        arrowElement.style.right = null;
+        arrowElement.style.bottom = null;
+        arrowElement.style.left = '0';
     }
 
     alignLeft() {
         this.preAlign('left');
+        let arrowElement = this.getArrowElement();
         let offsetLeft = getOuterWidth(this.container);
         let offsetTop = (getOuterHeight(this.el.nativeElement) - getOuterHeight(this.container)) / 2;
         this.alignTooltip(-offsetLeft, offsetTop);
+
+        arrowElement.style.top = '50%';
+        arrowElement.style.right = '0';
+        arrowElement.style.bottom = null;
+        arrowElement.style.left = null;
     }
 
     alignTop() {
         this.preAlign('top');
+        let arrowElement = this.getArrowElement();
+        let hostOffset = this.getHostOffset();
+        let elementWidth = getOuterWidth(this.container);
+
         let offsetLeft = (getOuterWidth(this.el.nativeElement) - getOuterWidth(this.container)) / 2;
         let offsetTop = getOuterHeight(this.container);
         this.alignTooltip(offsetLeft, -offsetTop);
+
+        let elementRelativeCenter = hostOffset.left - this.getHostOffset().left + elementWidth / 2;
+        arrowElement.style.top = null;
+        arrowElement.style.right = null;
+        arrowElement.style.bottom = '0';
+        arrowElement.style.left = elementRelativeCenter + 'px';
+    }
+
+    getArrowElement(): any {
+        return findSingle(this.container, '[data-pc-section="arrow"]');
     }
 
     alignBottom() {
         this.preAlign('bottom');
+        let arrowElement = this.getArrowElement();
+        let elementWidth = getOuterWidth(this.container);
+        let hostOffset = this.getHostOffset();
         let offsetLeft = (getOuterWidth(this.el.nativeElement) - getOuterWidth(this.container)) / 2;
         let offsetTop = getOuterHeight(this.el.nativeElement);
         this.alignTooltip(offsetLeft, offsetTop);
+
+        let elementRelativeCenter = hostOffset.left - this.getHostOffset().left + elementWidth / 2;
+
+        arrowElement.style.top = '0';
+        arrowElement.style.right = null;
+        arrowElement.style.bottom = null;
+        arrowElement.style.left = elementRelativeCenter + 'px';
     }
 
     alignTooltip(offsetLeft, offsetTop) {
