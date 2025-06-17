@@ -25,6 +25,12 @@ export class BaseInput extends BaseEditableHolder {
      */
     size = input<'large' | 'small' | undefined>();
     /**
+     * Specifies the visible width of the input element in characters.
+     * @defaultValue undefined
+     * @group Props
+     */
+    inputSize = input<number>(undefined);
+    /**
      * Specifies the value must match the pattern.
      * @defaultValue undefined
      * @group Props
