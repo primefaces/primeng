@@ -295,7 +295,7 @@ export class AccordionHeader extends BaseComponent {
 }
 
 @Component({
-    selector: 'p-accordioncontent',
+    selector: 'p-accordion-content',
     imports: [CommonModule],
     standalone: true,
     template: ` <div [class]="cx('content')">

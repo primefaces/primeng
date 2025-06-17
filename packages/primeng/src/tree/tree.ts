@@ -721,7 +721,7 @@ export class UITreeNode extends BaseComponent implements OnInit {
         @if (filterTemplate || _filterTemplate) {
             <ng-container *ngTemplateOutlet="filterTemplate || _filterTemplate; context: { $implicit: filterOptions }"></ng-container>
         } @else {
-            <p-iconField *ngIf="filter" [class]="cx('pcFilterContainer')">
+            <p-iconfield *ngIf="filter" [class]="cx('pcFilterContainer')">
                 <input
                     #filter
                     [pAutoFocus]="filterInputAutoFocus"
@@ -733,13 +733,13 @@ export class UITreeNode extends BaseComponent implements OnInit {
                     (keydown.enter)="$event.preventDefault()"
                     (input)="_filter($event.target.value)"
                 />
-                <p-inputIcon>
+                <p-inputicon>
                     <SearchIcon *ngIf="!filterIconTemplate && !_filterIconTemplate" [class]="cx('filterIcon')" />
                     <span *ngIf="filterIconTemplate || _filterIconTemplate" [class]="cx('filterIcon')">
                         <ng-template *ngTemplateOutlet="filterIconTemplate || _filterIconTemplate"></ng-template>
                     </span>
-                </p-inputIcon>
-            </p-iconField>
+                </p-inputicon>
+            </p-iconfield>
         }
 
         <ng-container *ngIf="getRootNode()?.length">
