@@ -3,7 +3,7 @@ import { BaseStyle } from 'primeng/base';
 import { style } from '@primeuix/styles/confirmdialog';
 
 const classes = {
-    root: ({ instance }) => ['p-confirmdialog', instance.styleClass],
+    root: 'p-confirmdialog',
     icon: 'p-confirmdialog-icon',
     message: 'p-confirmdialog-message',
     pcRejectButton: 'p-confirmdialog-reject-button',
