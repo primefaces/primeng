@@ -59,6 +59,7 @@ export const DATEPICKER_VALUE_ACCESSOR: any = {
                 #inputfield
                 pInputText
                 [pSize]="size()"
+                [size]="inputSize()"
                 type="text"
                 role="combobox"
                 [attr.id]="inputId"

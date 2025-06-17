@@ -75,13 +75,13 @@ export const AUTOCOMPLETE_VALUE_ACCESSOR: any = {
             role="combobox"
             [attr.placeholder]="placeholder"
             [name]="name()"
-            [minlength]="minlength() || minLength"
+            [attr.minlength]="minlength()"
             [pSize]="size()"
             [min]="min()"
             [max]="max()"
             [pattern]="pattern()"
-            [size]="size()"
-            [maxlength]="maxlength()"
+            [size]="inputSize()"
+            [attr.maxlength]="maxlength()"
             [tabindex]="!disabled() ? tabindex : -1"
             [readonly]="readonly"
             [disabled]="disabled()"
@@ -153,7 +153,7 @@ export const AUTOCOMPLETE_VALUE_ACCESSOR: any = {
                     [autocomplete]="autocomplete"
                     [required]="required()"
                     [name]="name()"
-                    [attr.minlength]="minlength() || minLength"
+                    [attr.minlength]="minlength()"
                     [attr.maxlength]="maxlength()"
                     [attr.size]="size()"
                     [attr.min]="min()"
@@ -299,9 +299,15 @@ export const AUTOCOMPLETE_VALUE_ACCESSOR: any = {
 export class AutoComplete extends BaseInput implements AfterViewChecked, AfterContentInit, OnDestroy, ControlValueAccessor {
     /**
      * Minimum number of characters to initiate a search.
+     * @deprecated since v20.0.0, use `minQueryLength` instead.
      * @group Props
      */
     @Input({ transform: numberAttribute }) minLength: number = 1;
+    /**
+     * Minimum number of characters to initiate a search.
+     * @group Props
+     */
+    @Input({ transform: numberAttribute }) minQueryLength: number = 1;
     /**
      * Delay between keystrokes to wait before sending a query.
      * @group Props
@@ -1111,7 +1117,7 @@ export class AutoComplete extends BaseInput implements AfterViewChecked, AfterCo
 
     onInput(event) {
         if (this.typeahead) {
-            const _minLength = this.minlength() != undefined ? this.minlength() : this.minLength;
+            const _minLength = this.minQueryLength || this.minLength;
 
             if (this.searchTimeout) {
                 clearTimeout(this.searchTimeout);

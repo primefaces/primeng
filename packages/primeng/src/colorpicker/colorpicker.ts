@@ -10,7 +10,6 @@ import { Nullable, VoidListener } from 'primeng/ts-helpers';
 import { ZIndexUtils } from 'primeng/utils';
 import { ColorPickerChangeEvent } from './colorpicker.interface';
 import { ColorPickerStyle } from './style/colorpickerstyle';
-import { BaseInput } from 'primeng/baseinput';
 import { BaseEditableHolder } from 'primeng/baseeditableholder';
 
 export const COLORPICKER_VALUE_ACCESSOR: any = {

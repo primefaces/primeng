@@ -1,8 +1,11 @@
 import { Injectable } from '@angular/core';
 import { css, dt } from '@primeuix/styled';
 import { BaseStyle } from 'primeng/base';
+import { style } from '@primeuix/styles/autocomplete';
 
 const theme = css`
+    ${style}
+
     /* For PrimeNG */
     p-autoComplete.ng-invalid.ng-dirty .p-autocomplete-input,
     p-autoComplete.ng-invalid.ng-dirty .p-autocomplete-input-multiple,

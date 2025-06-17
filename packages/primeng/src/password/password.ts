@@ -384,14 +384,13 @@ export const Password_VALUE_ACCESSOR: any = {
             [variant]="$variant()"
             [name]="name()"
             [required]="required()"
-            [maxlength]="maxlength()"
-            [minlength]="minlength()"
+            [attr.maxlength]="maxlength() || maxLength"
+            [attr.minlength]="minlength()"
             [invalid]="invalid()"
             (input)="onInput($event)"
             (focus)="onInputFocus($event)"
             (blur)="onInputBlur($event)"
             (keyup)="onKeyUp($event)"
-            [attr.maxlength]="maxLength"
             [attr.data-pc-section]="'input'"
             [pAutoFocus]="autofocus"
         />
@@ -499,6 +498,7 @@ export class Password extends BaseInput implements OnInit, AfterContentInit {
     @Input() mediumLabel: string | undefined;
     /**
      * specifies the maximum number of characters allowed in the input element.
+     * @deprecated in v20, use maxlength instead.
      * @group Props
      */
     @Input({ transform: numberAttribute }) maxLength: number | undefined;

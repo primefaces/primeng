@@ -5,7 +5,6 @@ import { $dt } from '@primeuix/styled';
 import { SharedModule } from 'primeng/api';
 import { VoidListener } from 'primeng/ts-helpers';
 import { KnobStyle } from './style/knobstyle';
-import { BaseInput } from 'primeng/baseinput';
 import { BaseEditableHolder } from 'primeng/baseeditableholder';
 
 export const KNOB_VALUE_ACCESSOR: any = {
