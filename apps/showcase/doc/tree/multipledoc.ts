@@ -63,7 +63,7 @@ import { FormsModule } from '@angular/forms';
     selector: 'tree-multiple-demo',
     templateUrl: './tree-multiple-demo.html',
     standalone: true,
-    imports: [Tree, InputSwitchModule, ToggleSwitchModule],
+    imports: [Tree, ToggleSwitchModule],
     providers: [NodeService]
 })
 export class TreeMultipleDemo implements OnInit {

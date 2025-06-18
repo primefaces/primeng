@@ -226,14 +226,14 @@ import { DataView } from 'primeng/dataview';
 import { ButtonModule } from 'primeng/button';
 import { Tag } from 'primeng/tag';
 import { CommonModule } from '@angular/common';
-import { DropdownModule } from 'primeng/dropdown';
+import { SelectModule } from 'primeng/select';
 import { signal } from '@angular/core';
 
 @Component({
     selector: 'data-view-sorting-demo',
     templateUrl: './data-view-sorting-demo.html',
     standalone: true,
-    imports: [DataView, ButtonModule, Tag, CommonModule, DropdownModule],
+    imports: [DataView, ButtonModule, Tag, CommonModule, SelectModule],
     providers: [ProductService]
 })
 export class DataViewSortingDemo {

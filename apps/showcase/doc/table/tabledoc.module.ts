@@ -7,7 +7,6 @@ import { FormsModule } from '@angular/forms';
 import { RouterModule } from '@angular/router';
 import { BadgeModule } from 'primeng/badge';
 import { ButtonModule } from 'primeng/button';
-import { CalendarModule } from 'primeng/calendar';
 import { ConfirmDialogModule } from 'primeng/confirmdialog';
 import { ContextMenuModule } from 'primeng/contextmenu';
 import { DialogModule } from 'primeng/dialog';
@@ -93,7 +92,6 @@ import { VirtualScrollLazyDoc } from './virtualscrolllazydoc';
         CommonModule,
         FormsModule,
         TableModule,
-        CalendarModule,
         SliderModule,
         DialogModule,
         ConfirmDialogModule,

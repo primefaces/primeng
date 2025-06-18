@@ -5,7 +5,6 @@ import { NgModule } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { RouterModule } from '@angular/router';
 import { Checkbox } from 'primeng/checkbox';
-import { InputSwitchModule } from 'primeng/inputswitch';
 import { ColorsDoc } from './accessibility/colorsdoc';
 import { FormControlsDoc } from './accessibility/formcontrolsdoc';
 import { IntroductionDoc } from './accessibility/introductiondoc';
@@ -27,7 +26,7 @@ import { OverviewDoc } from './primeflex/overviewdoc';
 import { TailwindCSSDoc } from './primeflex/tailwindcssdoc';
 
 @NgModule({
-    imports: [CommonModule, AppCodeModule, AppDocModule, RouterModule, FormsModule, Checkbox, InputSwitchModule],
+    imports: [CommonModule, AppCodeModule, AppDocModule, RouterModule, FormsModule, Checkbox],
     exports: [AppDocModule],
     declarations: [
         ColorsDoc,

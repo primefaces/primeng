@@ -4,7 +4,6 @@ import { CommonModule } from '@angular/common';
 import { NgModule } from '@angular/core';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { RouterModule } from '@angular/router';
-import { DropdownModule } from 'primeng/dropdown';
 import { Editor } from 'primeng/editor';
 import { AccessibilityDoc } from './accessibilitydoc';
 import { BasicDoc } from './basicdoc';
@@ -20,7 +19,7 @@ import { MessageModule } from 'primeng/message';
 import { ButtonModule } from 'primeng/button';
 
 @NgModule({
-    imports: [CommonModule, RouterModule, AppCodeModule, AppDocModule, Editor, FormsModule, DropdownModule, ReactiveFormsModule, ToastModule, MessageModule, ButtonModule],
+    imports: [CommonModule, RouterModule, AppCodeModule, AppDocModule, Editor, FormsModule, ReactiveFormsModule, ToastModule, MessageModule, ButtonModule],
     exports: [AppDocModule],
     declarations: [ImportDoc, QuillDoc, BasicDoc, ReadOnlyDoc, CustomToolbarDoc, StyleDoc, AccessibilityDoc, ReactiveFormsDoc, TemplateDrivenFormsDoc]
 })

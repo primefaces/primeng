@@ -9,7 +9,6 @@ import Material from '@primeuix/themes/material';
 import Nora from '@primeuix/themes/nora';
 import { ButtonModule } from 'primeng/button';
 import { PrimeNG } from 'primeng/config';
-import { InputSwitchModule } from 'primeng/inputswitch';
 import { RadioButtonModule } from 'primeng/radiobutton';
 import { SelectButton } from 'primeng/selectbutton';
 import { ToggleSwitchModule } from 'primeng/toggleswitch';
@@ -83,7 +82,7 @@ const presets = {
     host: {
         class: 'config-panel hidden'
     },
-    imports: [CommonModule, FormsModule, InputSwitchModule, ButtonModule, RadioButtonModule, SelectButton, ToggleSwitchModule]
+    imports: [CommonModule, FormsModule, ButtonModule, RadioButtonModule, SelectButton, ToggleSwitchModule]
 })
 export class AppConfiguratorComponent {
     get ripple() {

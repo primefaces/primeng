@@ -1036,7 +1036,6 @@ const getAngularApp = (props: Props = {}) => {
     import { BreadcrumbModule } from 'primeng/breadcrumb';
     import { BlockUIModule } from 'primeng/blockui';
     import { ButtonModule } from 'primeng/button';
-    import { CalendarModule } from 'primeng/calendar';
     import { DatePickerModule } from 'primeng/datepicker';
     import { CarouselModule } from 'primeng/carousel';
     import { CascadeSelectModule } from 'primeng/cascadeselect';
@@ -1063,7 +1062,6 @@ const getAngularApp = (props: Props = {}) => {
     import { IftaLabelModule } from 'primeng/iftalabel';
     import { InplaceModule } from 'primeng/inplace';
     import { InputMaskModule } from 'primeng/inputmask';
-    import { InputSwitchModule } from 'primeng/inputswitch';
     import { InputTextModule } from 'primeng/inputtext';
     import { TextareaModule } from 'primeng/textarea';
     import { InputNumberModule } from 'primeng/inputnumber';
@@ -1083,7 +1081,6 @@ const getAngularApp = (props: Props = {}) => {
     import { MeterGroupModule } from 'primeng/metergroup';
     import { OrganizationChartModule } from 'primeng/organizationchart';
     import { OrderListModule } from 'primeng/orderlist';
-    import { OverlayPanelModule } from 'primeng/overlaypanel';
     import { PaginatorModule } from 'primeng/paginator';
     import { PanelModule } from 'primeng/panel';
     import { PanelMenuModule } from 'primeng/panelmenu';
@@ -1094,7 +1091,6 @@ const getAngularApp = (props: Props = {}) => {
     import { RadioButtonModule } from 'primeng/radiobutton';
     import { RatingModule } from 'primeng/rating';
     import { SelectButtonModule } from 'primeng/selectbutton';
-    import { SidebarModule } from 'primeng/sidebar';
     import { ScrollerModule } from 'primeng/scroller';
     import { ScrollPanelModule } from 'primeng/scrollpanel';
     import { ScrollTopModule } from 'primeng/scrolltop';
@@ -1146,7 +1142,6 @@ const getAngularApp = (props: Props = {}) => {
             BreadcrumbModule,
             BlockUIModule,
             ButtonModule,
-            CalendarModule,
             DatePickerModule,
             CarouselModule,
             CascadeSelectModule,
@@ -1174,7 +1169,6 @@ const getAngularApp = (props: Props = {}) => {
             IftaLabelModule,
             InplaceModule,
             InputMaskModule,
-            InputSwitchModule,
             InputTextModule,
             TextareaModule,
             InputNumberModule,
@@ -1194,7 +1188,6 @@ const getAngularApp = (props: Props = {}) => {
             MeterGroupModule,
             OrganizationChartModule,
             OrderListModule,
-            OverlayPanelModule,
             PaginatorModule,
             PanelModule,
             PanelMenuModule,
@@ -1205,7 +1198,6 @@ const getAngularApp = (props: Props = {}) => {
             RadioButtonModule,
             RatingModule,
             SelectButtonModule,
-            SidebarModule,
             ScrollerModule,
             ScrollPanelModule,
             ScrollTopModule,
@@ -1254,7 +1246,6 @@ const getAngularApp = (props: Props = {}) => {
             BreadcrumbModule,
             BlockUIModule,
             ButtonModule,
-            CalendarModule,
             DatePickerModule,
             CarouselModule,
             CascadeSelectModule,
@@ -1282,7 +1273,6 @@ const getAngularApp = (props: Props = {}) => {
             IftaLabelModule,
             InplaceModule,
             InputMaskModule,
-            InputSwitchModule,
             InputTextModule,
             TextareaModule,
             InputNumberModule,
@@ -1302,7 +1292,6 @@ const getAngularApp = (props: Props = {}) => {
             MeterGroupModule,
             OrganizationChartModule,
             OrderListModule,
-            OverlayPanelModule,
             PaginatorModule,
             PanelModule,
             PanelMenuModule,
@@ -1313,7 +1302,6 @@ const getAngularApp = (props: Props = {}) => {
             RadioButtonModule,
             RatingModule,
             SelectButtonModule,
-            SidebarModule,
             ScrollerModule,
             ScrollPanelModule,
             ScrollTopModule,
