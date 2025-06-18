@@ -811,7 +811,7 @@ export class UITreeNode extends BaseComponent implements OnInit {
     encapsulation: ViewEncapsulation.None,
     providers: [TreeStyle],
     host: {
-        '[class]': "cx('root')"
+        '[class]': "cn(cx('root'), styleClass)"
     }
 })
 export class Tree extends BaseComponent implements OnInit, AfterContentInit, OnChanges, OnDestroy, BlockableUI {

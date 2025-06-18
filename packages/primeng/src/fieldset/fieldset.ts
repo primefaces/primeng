@@ -19,7 +19,7 @@ import { FieldsetStyle } from './style/fieldsetstyle';
     standalone: true,
     imports: [CommonModule, ButtonModule, MinusIcon, PlusIcon, SharedModule],
     template: `
-        <fieldset [attr.id]="id" [style]="sx('root')" [class]="cx('root')" [attr.data-pc-name]="'fieldset'" [attr.data-pc-section]="'root'">
+        <fieldset [attr.id]="id" [ngStyle]="style" [class]="cn(cx('root'), styleClass)" [attr.data-pc-name]="'fieldset'" [attr.data-pc-section]="'root'">
             <legend [class]="cx('legend')" [attr.data-pc-section]="'legend'">
                 <ng-container *ngIf="toggleable; else legendContent">
                     <button

@@ -5,7 +5,6 @@ import { BaseStyle } from 'primeng/base';
 const classes = {
     root: ({ instance }) => [
         'p-panel p-component',
-        instance.styleClass,
         {
             'p-panel-toggleable': instance.toggleable,
             'p-panel-expanded': !instance.collapsed && instance.toggleable

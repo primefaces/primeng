@@ -42,7 +42,7 @@ import { BlockUiStyle } from './style/blockuistyle';
         '[attr.aria-busy]': 'blocked',
         '[attr.data-pc-name]': "'blockui'",
         '[attr.data-pc-section]': "'root'",
-        '[class]': "cx('root')"
+        '[class]': "cn(cx('root'), styleClass)"
     }
 })
 export class BlockUI extends BaseComponent implements AfterViewInit, AfterContentInit, OnDestroy {

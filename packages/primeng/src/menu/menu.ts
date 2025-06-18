@@ -153,7 +153,7 @@ export class MenuItemContent extends BaseComponent {
     template: `
         <div
             #container
-            [class]="cx('root')"
+            [class]="cn(cx('root'), styleClass)"
             [style]="style"
             *ngIf="!popup || visible"
             (click)="onOverlayClick($event)"

@@ -13,7 +13,7 @@ const theme = css`
 `;
 
 const classes = {
-    root: ({ instance }) => ['p-contextmenu p-component', instance.styleClass],
+    root: () => ['p-contextmenu p-component'],
     rootList: 'p-contextmenu-root-list',
     item: ({ instance, processedItem }) => [
         'p-contextmenu-item',

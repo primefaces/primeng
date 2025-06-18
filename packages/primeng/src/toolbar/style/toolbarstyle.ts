@@ -3,7 +3,7 @@ import { style } from '@primeuix/styles/toolbar';
 import { BaseStyle } from 'primeng/base';
 
 const classes = {
-    root: ({ instance }) => ['p-toolbar p-component', instance.styleClass],
+    root: () => ['p-toolbar p-component'],
     start: 'p-toolbar-start',
     center: 'p-toolbar-center',
     end: 'p-toolbar-end'

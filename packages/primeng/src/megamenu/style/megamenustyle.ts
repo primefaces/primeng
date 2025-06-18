@@ -9,7 +9,6 @@ const inlineStyles = {
 const classes = {
     root: ({ instance }) => [
         'p-megamenu p-component',
-        instance.styleClass,
         {
             'p-megamenu-mobile': instance.queryMatches,
             'p-megamenu-mobile-active': instance.mobileActive,

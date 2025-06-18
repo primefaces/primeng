@@ -134,7 +134,7 @@ import { DataViewStyle } from './style/dataviewstyle';
     encapsulation: ViewEncapsulation.None,
     providers: [DataViewStyle],
     host: {
-        '[class]': "cx('root')"
+        '[class]': "cn(cx('root'), styleClass)"
     }
 })
 export class DataView extends BaseComponent implements OnInit, OnDestroy, BlockableUI, OnChanges {

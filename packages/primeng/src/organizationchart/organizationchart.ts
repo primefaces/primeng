@@ -175,7 +175,7 @@ export class OrganizationChartNode extends BaseComponent implements OnDestroy {
     providers: [OrganizationChartStyle],
     host: {
         '[attr.data-pc-section]': "'root'",
-        '[class]': "cx('root')"
+        '[class]': "cn(cx('root'), styleClass)"
     }
 })
 export class OrganizationChart extends BaseComponent implements AfterContentInit {

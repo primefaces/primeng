@@ -5,7 +5,6 @@ import { BaseStyle } from 'primeng/base';
 const classes = {
     root: ({ instance }) => [
         'p-tree p-component',
-        instance.styleClass,
         {
             'p-tree-selectable': instance.selectionMode != null,
             'p-tree-loading': instance.loading,

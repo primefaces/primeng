@@ -15,7 +15,6 @@ const classes = {
         'p-divider p-component',
         'p-divider-' + instance.layout,
         'p-divider-' + instance.type,
-        instance.styleClass,
         { 'p-divider-left': instance.layout === 'horizontal' && (!instance.align || instance.align === 'left') },
         { 'p-divider-center': instance.layout === 'horizontal' && instance.align === 'center' },
         { 'p-divider-right': instance.layout === 'horizontal' && instance.align === 'right' },

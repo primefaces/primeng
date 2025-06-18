@@ -43,7 +43,7 @@ import { ChipStyle } from './style/chipstyle';
     encapsulation: ViewEncapsulation.None,
     providers: [ChipStyle],
     host: {
-        '[class]': "cx('root')",
+        '[class]': "cn(cx('root'), styleClass)",
         '[style.display]': '!visible && "none"',
         '[attr.data-pc-name]': "'chip'",
         '[attr.aria-label]': 'label',

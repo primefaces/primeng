@@ -45,7 +45,7 @@ const hideAnimation = animation([animate('{{transition}}', style({ transform: '{
     template: `
         <div
             #container
-            [class]="cx('root')"
+            [class]="cn(cx('root'), styleClass)"
             *ngIf="visible"
             [@panelState]="{ value: 'visible', params: { transform: transformOptions, transition: transitionOptions } }"
             (@panelState.start)="onAnimationStart($event)"

@@ -398,10 +398,9 @@ export class MenubarSub extends BaseComponent implements OnInit, OnDestroy {
     encapsulation: ViewEncapsulation.None,
     providers: [MenubarService, MenuBarStyle],
     host: {
-        '[class]': 'cx("root")',
+        '[class]': 'cn(cx("root"), styleClass)',
         'data-pc-section': 'root',
-        'data-pc-name': 'menubar',
-        '[style]': 'style'
+        'data-pc-name': 'menubar'
     }
 })
 export class Menubar extends BaseComponent implements AfterContentInit, OnDestroy, OnInit {
@@ -417,12 +416,8 @@ export class Menubar extends BaseComponent implements AfterContentInit, OnDestro
         return this._model;
     }
     /**
-     * Inline style of the element.
-     * @group Props
-     */
-    @Input() style: { [klass: string]: any } | null | undefined;
-    /**
      * Class of the element.
+     * @deprecated since v20.0.0, use `class` instead.
      * @group Props
      */
     @Input() styleClass: string | undefined;

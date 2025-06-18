@@ -28,8 +28,7 @@ import { ToolbarStyle } from './style/toolbarstyle';
     encapsulation: ViewEncapsulation.None,
     providers: [ToolbarStyle],
     host: {
-        '[class]': 'cx("root")',
-        '[style]': 'style',
+        '[class]': 'cn(cx("root"), styleClass)',
         'data-pc-section': 'root',
         'data-pc-name': 'toolbar',
         role: 'toolbar',
@@ -38,12 +37,8 @@ import { ToolbarStyle } from './style/toolbarstyle';
 })
 export class Toolbar extends BaseComponent implements AfterContentInit, BlockableUI {
     /**
-     * Inline style of the component.
-     * @group Props
-     */
-    @Input() style: { [klass: string]: any } | null | undefined;
-    /**
      * Style class of the component.
+     * @deprecated since v20.0.0, use `class` instead.
      * @group Props
      */
     @Input() styleClass: string | undefined;

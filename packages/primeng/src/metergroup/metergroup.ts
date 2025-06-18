@@ -87,7 +87,7 @@ export class MeterGroupLabel extends BaseComponent {
         '[attr.role]': '"meter"',
         '[attr.aria-valuemax]': 'max',
         '[attr.aria-valuenow]': 'totalPercent()',
-        '[class]': "cx('root')"
+        '[class]': "cn(cx('root'), styleClass)"
     }
 })
 export class MeterGroup extends BaseComponent implements AfterContentInit {

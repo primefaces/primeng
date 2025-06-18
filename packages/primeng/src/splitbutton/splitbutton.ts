@@ -128,7 +128,7 @@ type SplitButtonIconPosition = 'left' | 'right';
     providers: [SplitButtonStyle],
     encapsulation: ViewEncapsulation.None,
     host: {
-        '[class]': "cx('root')"
+        '[class]': "cn(cx('root'), styleClass)"
     }
 })
 export class SplitButton extends BaseComponent implements AfterContentInit {

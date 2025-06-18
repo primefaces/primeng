@@ -20,7 +20,7 @@ import { MessageStyle } from './style/messagestyle';
             <div
                 class="p-message p-component"
                 [attr.aria-live]="'polite'"
-                [class]="cx('root')"
+                [class]="cn(cx('root'), styleClass)"
                 [attr.role]="'alert'"
                 [@messageAnimation]="{
                     value: 'visible()',

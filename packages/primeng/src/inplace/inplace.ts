@@ -53,7 +53,7 @@ export class InplaceContent {}
     providers: [InplaceStyle],
     host: {
         '[attr.aria-live]': "'polite'",
-        '[class]': "cx('root')"
+        '[class]': "cn(cx('root'), styleClass)"
     }
 })
 export class Inplace extends BaseComponent implements AfterContentInit {
@@ -79,6 +79,7 @@ export class Inplace extends BaseComponent implements AfterContentInit {
     @Input({ transform: booleanAttribute }) preventClick: boolean | undefined;
     /**
      * Class of the element.
+     * @deprecated since v20.0.0, use `class` instead.
      * @group Props
      */
     @Input() styleClass: string | undefined;

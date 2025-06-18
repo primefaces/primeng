@@ -135,7 +135,7 @@ import { PaginatorStyle } from './style/paginatorstyle';
     host: {
         '[attr.data-pc-name]': "'paginator'",
         '[attr.data-pc-section]': "'root'",
-        '[class]': "cx('paginator')"
+        '[class]': "cn(cx('paginator'), styleClass)"
     }
 })
 export class Paginator extends BaseComponent implements OnInit, AfterContentInit, OnChanges {

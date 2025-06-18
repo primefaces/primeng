@@ -3,7 +3,7 @@ import { style } from '@primeuix/styles/progressspinner';
 import { BaseStyle } from 'primeng/base';
 
 const classes = {
-    root: ({ instance }) => ['p-progressspinner', instance.styleClass],
+    root: () => ['p-progressspinner'],
     spin: 'p-progressspinner-spin',
     circle: 'p-progressspinner-circle'
 };

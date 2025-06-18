@@ -256,7 +256,7 @@ export class TreeTableService {
     providers: [TreeTableService, TreeTableStyle],
     encapsulation: ViewEncapsulation.None,
     host: {
-        '[class]': "cx('root')",
+        '[class]': "cn(cx('root'), styleClass)",
         '[attr.data-scrollselectors]': "'.p-treetable-scrollable-body'"
     }
 })

@@ -7,7 +7,7 @@ const theme = ({ dt }) => css`
     ${style}
 
     /*For PrimeNG*/
-.p-accordion .p-accordioncontent {
+    .p-accordion .p-accordioncontent {
         overflow: hidden;
     }
 

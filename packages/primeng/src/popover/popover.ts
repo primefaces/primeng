@@ -43,7 +43,7 @@ import { $dt } from '@primeuix/styled';
     template: `
         <div
             *ngIf="render"
-            [class]="cx('root')"
+            [class]="cn(cx('root'), styleClass)"
             [ngStyle]="style"
             (click)="onOverlayClick($event)"
             [@animation]="{

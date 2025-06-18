@@ -12,8 +12,7 @@ const classes = {
         {
             'p-menubar-mobile': instance.queryMatches,
             'p-menubar-mobile-active': instance.mobileActive
-        },
-        instance.styleClass
+        }
     ],
     start: 'p-menubar-start',
     button: 'p-menubar-button',

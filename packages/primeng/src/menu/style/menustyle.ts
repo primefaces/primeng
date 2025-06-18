@@ -17,8 +17,7 @@ const classes = {
         'p-menu p-component',
         {
             'p-menu-overlay': instance.popup
-        },
-        instance.styleClass
+        }
     ],
     start: 'p-menu-start',
     list: 'p-menu-list',

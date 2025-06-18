@@ -5,7 +5,6 @@ import { BaseStyle } from 'primeng/base';
 const classes = {
     root: ({ instance }) => [
         'p-image p-component',
-        instance.styleClass,
         {
             'p-image-preview': instance.preview
         }

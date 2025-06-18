@@ -460,7 +460,7 @@ export class ButtonDirective extends BaseComponent implements AfterViewInit, OnD
             [attr.aria-label]="ariaLabel"
             [ngStyle]="style"
             [disabled]="disabled || loading"
-            [class]="cx('root')"
+            [class]="cn(cx('root'), styleClass)"
             (click)="onClick.emit($event)"
             (focus)="onFocus.emit($event)"
             (blur)="onBlur.emit($event)"

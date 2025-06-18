@@ -252,7 +252,7 @@ export class ToastItem extends BaseComponent implements AfterViewInit, OnDestroy
     encapsulation: ViewEncapsulation.None,
     providers: [ToastStyle],
     host: {
-        '[class]': "cx('root')",
+        '[class]': "cn(cx('root'), styleClass)",
         '[style]': "sx('root')"
     }
 })
@@ -283,7 +283,6 @@ export class Toast extends BaseComponent implements OnInit, OnDestroy {
      * @group Props
      */
     @Input() styleClass: string | undefined;
-
     /**
      * Position of the toast in viewport.
      * @group Props

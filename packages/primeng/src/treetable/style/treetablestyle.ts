@@ -454,7 +454,6 @@ p-tree-table-toggler + p-tree-table-checkbox + span {
 const classes = {
     root: ({ instance }) => [
         'p-treetable p-component',
-        instance.styleClass,
         {
             'p-treetable-gridlines': instance.showGridlines,
             'p-treetable-hoverable-rows': instance.rowHover || instance.selectionMode === 'single' || instance.selectionMode === 'multiple',

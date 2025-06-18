@@ -43,7 +43,7 @@ import { ConfirmPopupStyle } from './style/confirmpopupstyle';
     template: `
         <div
             *ngIf="visible"
-            [class]="cx('root')"
+            [class]="cn(cx('root'), styleClass)"
             [ngStyle]="style"
             role="alertdialog"
             (click)="onOverlayClick($event)"

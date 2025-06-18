@@ -5,7 +5,6 @@ import { BaseStyle } from 'primeng/base';
 const classes = {
     root: ({ instance }) => [
         'p-progressbar p-component',
-        instance.styleClass,
         {
             'p-progressbar-determinate': instance.mode == 'determinate',
             'p-progressbar-indeterminate': instance.mode == 'indeterminate'

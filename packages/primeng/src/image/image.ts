@@ -112,7 +112,7 @@ import { ImageStyle } from './style/imagestyle';
     encapsulation: ViewEncapsulation.None,
     providers: [ImageStyle],
     host: {
-        '[class]': "cx('root')"
+        '[class]': "cn(cx('root'),styleClass)"
     }
 })
 export class Image extends BaseComponent implements AfterContentInit {

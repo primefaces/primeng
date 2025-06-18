@@ -9,7 +9,6 @@ const inlineStyles = {
 const classes = {
     root: ({ instance }) => [
         'p-skeleton p-component',
-        instance.styleClass,
         {
             'p-skeleton-circle': instance.shape === 'circle',
             'p-skeleton-animation-none': instance.animation === 'none'

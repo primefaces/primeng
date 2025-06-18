@@ -125,7 +125,6 @@ const theme = css`
 const classes = {
     root: ({ instance }) => [
         'p-datatable p-component',
-        instance.styleClass,
         {
             'p-datatable-hoverable': instance.rowHover || instance.selectionMode,
             'p-datatable-resizable': instance.resizableColumns,

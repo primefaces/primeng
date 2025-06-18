@@ -3,7 +3,7 @@ import { style } from '@primeuix/styles/inplace';
 import { BaseStyle } from 'primeng/base';
 
 const classes = {
-    root: ({ instance }) => ['p-inplace p-component', instance.styleClass],
+    root: () => ['p-inplace p-component'],
     display: ({ instance }) => ['p-inplace-display', { 'p-disabled': instance.disabled }],
     content: 'p-inplace-content'
 };

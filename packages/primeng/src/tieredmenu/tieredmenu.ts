@@ -349,7 +349,7 @@ export class TieredMenuSub extends BaseComponent {
             [attr.data-pc-section]="'root'"
             [attr.data-pc-name]="'tieredmenu'"
             [id]="id"
-            [class]="cx('root')"
+            [class]="cn(cx('root'), styleClass)"
             [ngStyle]="style"
             (click)="onOverlayClick($event)"
             [@overlayAnimation]="{

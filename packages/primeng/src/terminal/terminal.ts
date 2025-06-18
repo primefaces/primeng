@@ -34,7 +34,7 @@ import { TerminalService } from './terminalservice';
     encapsulation: ViewEncapsulation.None,
     providers: [TerminalStyle],
     host: {
-        '[class]': "cx('root')"
+        '[class]': "cn(cx('root'), styleClass)"
     }
 })
 export class Terminal extends BaseComponent implements AfterViewInit, AfterViewChecked, OnDestroy {

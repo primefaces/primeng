@@ -167,7 +167,7 @@ export interface PanelHeaderIconsTemplateContext {
     host: {
         '[id]': 'id',
         'data-pc-name': 'panel',
-        '[class]': "cx('root')"
+        '[class]': "cn(cx('root'), styleClass)"
     }
 })
 export class Panel extends BaseComponent implements AfterContentInit, BlockableUI {

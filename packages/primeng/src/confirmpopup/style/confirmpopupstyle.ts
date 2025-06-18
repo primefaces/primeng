@@ -3,7 +3,7 @@ import { style } from '@primeuix/styles/confirmpopup';
 import { BaseStyle } from 'primeng/base';
 
 const classes = {
-    root: ({ instance }) => ['p-confirmpopup p-component', instance.styleClass],
+    root: () => ['p-confirmpopup p-component'],
     content: 'p-confirmpopup-content',
     icon: ({ instance }) => ['p-confirmpopup-icon', instance.confirmation?.icon],
     message: 'p-confirmpopup-message',

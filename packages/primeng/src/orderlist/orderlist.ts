@@ -109,7 +109,7 @@ import { OrderListStyle } from './style/orderliststyle';
     encapsulation: ViewEncapsulation.None,
     providers: [OrderListStyle],
     host: {
-        '[class]': "cx('root')",
+        '[class]': "cn(cx('root'), styleClass)",
         '[attr.data-pc-section]': "'root'"
     }
 })

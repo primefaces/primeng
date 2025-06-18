@@ -31,7 +31,7 @@ import { ProgressBarStyle } from './style/progressbarstyle';
         '[attr.data-pc-name]': "'progressbar'",
         '[attr.data-pc-section]': "'root'",
         '[attr.aria-level]': 'value + unit',
-        '[class]': "cx('root')"
+        '[class]': "cn(cx('root'), styleClass)"
     }
 })
 export class ProgressBar extends BaseComponent implements AfterContentInit {

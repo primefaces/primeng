@@ -5,7 +5,6 @@ import { BaseStyle } from 'primeng/base';
 const classes = {
     root: ({ instance }) => [
         'p-fieldset p-component',
-        instance.styleClass,
         {
             'p-fieldset-toggleable': instance.toggleable
         }

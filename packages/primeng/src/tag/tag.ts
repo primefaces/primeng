@@ -26,7 +26,7 @@ import { TagStyle } from './style/tagstyle';
     encapsulation: ViewEncapsulation.None,
     providers: [TagStyle],
     host: {
-        '[class]': "cx('root')"
+        '[class]': "cn(cx('root'), styleClass)"
     }
 })
 export class Tag extends BaseComponent implements AfterContentInit {

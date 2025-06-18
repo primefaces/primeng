@@ -3,7 +3,7 @@ import { style } from '@primeuix/styles/steps';
 import { BaseStyle } from 'primeng/base';
 
 const classes = {
-    root: ({ instance }) => ['p-steps p-component', { 'p-readonly': instance.readonly }, instance.styleClass],
+    root: ({ instance }) => ['p-steps p-component', { 'p-readonly': instance.readonly }],
     list: 'p-steps-list',
     item: ({ instance, item, index }) => [
         'p-steps-item',

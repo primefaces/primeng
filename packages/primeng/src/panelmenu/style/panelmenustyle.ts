@@ -22,7 +22,7 @@ const theme = css`
 `;
 
 const classes = {
-    root: ({ instance }) => ['p-panelmenu p-component', instance.styleClass],
+    root: () => ['p-panelmenu p-component'],
     panel: 'p-panelmenu-panel',
     header: ({ instance, item }) => [
         'p-panelmenu-header',

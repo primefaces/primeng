@@ -28,7 +28,7 @@ import { ScrollTopStyle } from './style/scrolltopstyle';
             (@animation.done)="onLeave($event)"
             [attr.aria-label]="buttonAriaLabel"
             (click)="onClick()"
-            [styleClass]="cx('root')"
+            [styleClass]="cn(cx('root'), styleClass)"
             [ngStyle]="style"
             type="button"
             [buttonProps]="buttonProps"

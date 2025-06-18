@@ -348,7 +348,7 @@ export class TableService {
     encapsulation: ViewEncapsulation.None,
     host: {
         '[attr.id]': 'id',
-        '[class]': "cx('root')"
+        '[class]': "cn(cx('root'), styleClass)"
     }
 })
 export class Table<RowData = any> extends BaseComponent implements OnInit, AfterViewInit, AfterContentInit, BlockableUI, OnChanges {

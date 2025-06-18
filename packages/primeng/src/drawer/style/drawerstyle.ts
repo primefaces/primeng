@@ -84,8 +84,7 @@ const classes = {
             'p-drawer-full': instance.fullScreen,
             'p-drawer-open': instance.visible
         },
-        `p-drawer-${instance.position}`,
-        instance.styleClass
+        `p-drawer-${instance.position}`
     ],
     header: 'p-drawer-header',
     title: 'p-drawer-title',

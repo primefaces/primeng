@@ -3,7 +3,7 @@ import { BaseStyle } from 'primeng/base';
 import { style } from '@primeuix/styles/picklist';
 
 const classes = {
-    root: ({ instance }) => ['p-picklist p-component', instance.styleClass],
+    root: () => ['p-picklist p-component'],
     sourceControls: 'p-picklist-controls p-picklist-source-controls',
     sourceListContainer: 'p-picklist-list-container p-picklist-source-list-container',
     transferControls: 'p-picklist-controls p-picklist-transfer-controls',

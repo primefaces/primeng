@@ -371,7 +371,7 @@ export class MegaMenuSub extends BaseComponent {
     encapsulation: ViewEncapsulation.None,
     providers: [MegaMenuStyle],
     host: {
-        '[class]': 'cx("root")',
+        '[class]': 'cn(cx("root"), styleClass)',
         '[id]': 'id',
         'data-pc-section': 'root',
         'data-pc-name': 'megamenu'
@@ -390,12 +390,8 @@ export class MegaMenu extends BaseComponent implements AfterContentInit, OnDestr
         return this._model;
     }
     /**
-     * Inline style of the element.
-     * @group Props
-     */
-    @Input() style: { [klass: string]: any } | null | undefined;
-    /**
      * Class of the element.
+     * @deprecated since v20.0.0, use `class` instead.
      * @group Props
      */
     @Input() styleClass: string | undefined;

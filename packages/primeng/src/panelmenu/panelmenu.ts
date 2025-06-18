@@ -849,7 +849,7 @@ export class PanelMenuList extends BaseComponent implements OnChanges {
     encapsulation: ViewEncapsulation.None,
     providers: [PanelMenuStyle],
     host: {
-        '[class]': 'cx("root")',
+        '[class]': 'cn(cx("root"), styleClass)',
         'data-pc-section': 'root',
         'data-pc-name': 'panelmenu'
     }
@@ -861,12 +861,8 @@ export class PanelMenu extends BaseComponent implements AfterContentInit {
      */
     @Input() model: MenuItem[] | undefined;
     /**
-     * Inline style of the component.
-     * @group Props
-     */
-    @Input() style: { [klass: string]: any } | null | undefined;
-    /**
      * Style class of the component.
+     * @deprecated since v20.0.0, use `class` instead.
      * @group Props
      */
     @Input() styleClass: string | undefined;

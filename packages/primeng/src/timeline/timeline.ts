@@ -36,7 +36,7 @@ import { TimelineStyle } from './style/timelinestyle';
     encapsulation: ViewEncapsulation.None,
     providers: [TimelineStyle],
     host: {
-        '[class]': "cx('root')",
+        '[class]': "cn(cx('root'), styleClass)",
         '[attr.data-pc-section]': "'root'",
         '[attr.data-pc-name]': "'timeline'"
     }

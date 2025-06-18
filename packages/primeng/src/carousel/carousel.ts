@@ -116,7 +116,7 @@ import { CarouselStyle } from './style/carouselstyle';
     host: {
         '[attr.id]': 'id',
         '[attr.role]': "'region'",
-        '[class]': "cx('root')"
+        '[class]': "cn(cx('root'), styleClass)"
     }
 })
 export class Carousel extends BaseComponent implements AfterContentInit {

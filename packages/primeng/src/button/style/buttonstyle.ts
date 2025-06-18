@@ -19,8 +19,7 @@ const classes = {
             'p-button-lg': instance.size === 'large',
             'p-button-plain': instance.plain,
             'p-button-fluid': instance.hasFluid
-        },
-        instance.styleClass
+        }
     ],
     loadingIcon: 'p-button-loading-icon',
     icon: ({ instance }) => [

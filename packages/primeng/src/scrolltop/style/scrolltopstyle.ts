@@ -3,7 +3,7 @@ import { style } from '@primeuix/styles/scrolltop';
 import { BaseStyle } from 'primeng/base';
 
 const classes = {
-    root: ({ instance }) => ['p-scrolltop', instance.styleClass, { 'p-scrolltop-sticky': instance.target !== 'window' }],
+    root: ({ instance }) => ['p-scrolltop', { 'p-scrolltop-sticky': instance.target !== 'window' }],
     icon: 'p-scrolltop-icon'
 };
 

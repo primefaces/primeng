@@ -68,8 +68,7 @@ const classes = {
             'p-virtualscroller-inline': instance.inline,
             'p-virtualscroller-both p-both-scroll': instance.both,
             'p-virtualscroller-horizontal p-horizontal-scroll': instance.horizontal
-        },
-        instance._styleClass
+        }
     ],
     content: 'p-virtualscroller-content',
     spacer: 'p-virtualscroller-spacer',

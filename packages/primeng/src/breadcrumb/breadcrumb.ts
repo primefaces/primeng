@@ -17,7 +17,7 @@ import { BreadCrumbStyle } from './style/breadcrumbstyle';
     standalone: true,
     imports: [CommonModule, RouterModule, TooltipModule, ChevronRightIcon, HomeIcon, SharedModule],
     template: `
-        <nav [class]="cx('root')" [style]="style" [attr.data-pc-name]="'breadcrumb'" [attr.data-pc-section]="'root'">
+        <nav [class]="cn(cx('root'), styleClass)" [style]="style" [attr.data-pc-name]="'breadcrumb'" [attr.data-pc-section]="'root'">
             <ol [attr.data-pc-section]="'menu'" [class]="cx('list')">
                 <li [attr.id]="home.id" [class]="cn(cx('homeItem'), home.styleClass)" [ngStyle]="home.style" *ngIf="home && home.visible !== false" pTooltip [tooltipOptions]="home.tooltipOptions" [attr.data-pc-section]="'home'">
                     <a

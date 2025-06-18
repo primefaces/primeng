@@ -37,7 +37,7 @@ const classes = {
         const positions = ['left', 'right', 'top', 'topleft', 'topright', 'bottom', 'bottomleft', 'bottomright'];
         const pos = positions.find((item) => item === instance.position);
 
-        return ['p-dialog-mask', { 'p-overlay-mask p-overlay-mask-enter': instance.modal }, `p-dialog-${pos}`, instance.maskStyleClass];
+        return ['p-dialog-mask', { 'p-overlay-mask p-overlay-mask-enter': instance.modal }, `p-dialog-${pos}`];
     },
     root: ({ instance }) => [
         'p-dialog p-component',
@@ -51,7 +51,7 @@ const classes = {
     headerActions: 'p-dialog-header-actions',
     pcMaximizeButton: 'p-dialog-maximize-button',
     pcCloseButton: 'p-dialog-close-button',
-    content: ({ instance }) => ['p-dialog-content', instance.contentStyleClass],
+    content: () => ['p-dialog-content'],
     footer: 'p-dialog-footer'
 };
 

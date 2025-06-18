@@ -46,7 +46,7 @@ const hideAnimation = animation([animate('{{transition}}', style({ transform: '{
     standalone: true,
     imports: [CommonModule, Button, FocusTrap, TimesIcon, WindowMaximizeIcon, WindowMinimizeIcon, SharedModule],
     template: `
-        <div *ngIf="maskVisible" [class]="cx('mask')" [style]="sx('mask')" [ngStyle]="maskStyle">
+        <div *ngIf="maskVisible" [class]="cn(cx('mask'), maskStyleClass)" [style]="sx('mask')" [ngStyle]="maskStyle">
             <div
                 *ngIf="visible"
                 #container
@@ -101,7 +101,7 @@ const hideAnimation = animation([animate('{{transition}}', style({ transform: '{
                             </p-button>
                         </div>
                     </div>
-                    <div #content [class]="cx('content')" [ngStyle]="contentStyle" [attr.data-pc-section]="'content'">
+                    <div #content [class]="cn(cx('content'), contentStyleClass)" [ngStyle]="contentStyle" [attr.data-pc-section]="'content'">
                         <ng-content></ng-content>
                         <ng-container *ngTemplateOutlet="_contentTemplate || contentTemplate || contentT"></ng-container>
                     </div>

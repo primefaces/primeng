@@ -6,7 +6,6 @@ const classes = {
     root: ({ instance }) => [
         'p-dock p-component',
         `p-dock-${instance.position}`,
-        instance.styleClass,
         {
             'p-dock-mobile': instance.queryMatches()
         }

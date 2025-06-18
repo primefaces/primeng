@@ -3,7 +3,7 @@ import { style } from '@primeuix/styles/terminal';
 import { BaseStyle } from 'primeng/base';
 
 const classes = {
-    root: ({ instance }) => ['p-terminal p-component', instance.styleClass],
+    root: () => ['p-terminal p-component'],
     welcomeMessage: 'p-terminal-welcome-message',
     commandList: 'p-terminal-command-list',
     command: 'p-terminal-command',

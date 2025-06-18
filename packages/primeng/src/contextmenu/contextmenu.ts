@@ -356,7 +356,7 @@ export class ContextMenuSub extends BaseComponent {
             [attr.data-pc-section]="'root'"
             [attr.data-pc-name]="'contextmenu'"
             [attr.id]="id"
-            [class]="cx('root')"
+            [class]="cn(cx('root'), styleClass)"
             [ngStyle]="style"
             [@overlayAnimation]="{ value: 'visible' }"
             (@overlayAnimation.start)="onOverlayAnimationStart($event)"

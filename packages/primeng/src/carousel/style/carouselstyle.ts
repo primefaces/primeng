@@ -5,7 +5,6 @@ import { BaseStyle } from 'primeng/base';
 const classes = {
     root: ({ instance }) => [
         'p-carousel p-component',
-        instance.styleClass,
         {
             'p-carousel-vertical': instance.isVertical(),
             'p-carousel-horizontal': !instance.isVertical()

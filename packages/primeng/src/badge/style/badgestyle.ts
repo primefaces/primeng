@@ -25,7 +25,6 @@ const theme = css`
 const classes = {
     root: ({ instance }) => [
         'p-badge p-component',
-        instance.styleClass(),
         {
             'p-badge-circle': isNotEmpty(instance.value()) && String(instance.value()).length === 1,
             'p-badge-dot': isEmpty(instance.value()),
