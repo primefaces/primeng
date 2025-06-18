@@ -44,6 +44,7 @@ import { Ripple } from 'primeng/ripple';
 import { Scroller } from 'primeng/scroller';
 import { TooltipModule } from 'primeng/tooltip';
 import { Nullable } from 'primeng/ts-helpers';
+import { CloseOnEscapeService } from 'primeng/utils';
 import { DropdownChangeEvent, DropdownFilterEvent, DropdownFilterOptions, DropdownLazyLoadEvent } from './dropdown.interface';
 import { DropdownStyle } from './style/dropdownstyle';
 
@@ -1018,6 +1019,13 @@ export class Dropdown extends BaseComponent implements OnInit, AfterViewInit, Af
         public filterService: FilterService
     ) {
         super();
+        inject(CloseOnEscapeService).closeOnEscape(
+            {
+                closeOnEscape: () => this.hide(),
+                kind: 'single'
+            },
+            this.injector
+        );
         effect(() => {
             const modelValue = this.modelValue();
             const visibleOptions = this.visibleOptions();
@@ -1414,6 +1422,7 @@ export class Dropdown extends BaseComponent implements OnInit, AfterViewInit, Af
      * @group Method
      */
     public hide(isFocus?) {
+        const isVisibile = this.overlayVisible;
         this.overlayVisible = false;
         this.focusedOptionIndex.set(-1);
         this.clicked.set(false);
@@ -1434,6 +1443,7 @@ export class Dropdown extends BaseComponent implements OnInit, AfterViewInit, Af
             }
         }
         this.cd.markForCheck();
+        return isVisibile;
     }
 
     onInputFocus(event: Event) {
@@ -1512,11 +1522,6 @@ export class Dropdown extends BaseComponent implements OnInit, AfterViewInit, Af
                 this.onEnterKey(event);
                 break;
 
-            //escape and tab
-            case 'Escape':
-                this.onEscapeKey(event);
-                break;
-
             case 'Tab':
                 this.onTabKey(event);
                 break;
@@ -1568,10 +1573,6 @@ export class Dropdown extends BaseComponent implements OnInit, AfterViewInit, Af
             case 'Enter':
             case 'NumpadEnter':
                 this.onEnterKey(event, true);
-                break;
-
-            case 'Escape':
-                this.onEscapeKey(event);
                 break;
 
             case 'Tab':
@@ -1790,11 +1791,6 @@ export class Dropdown extends BaseComponent implements OnInit, AfterViewInit, Af
             !pressedInInput && this.hide();
         }
 
-        event.preventDefault();
-    }
-
-    onEscapeKey(event: KeyboardEvent) {
-        this.overlayVisible && this.hide(true);
         event.preventDefault();
     }
 

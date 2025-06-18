@@ -1,35 +1,36 @@
 import { AnimationEvent } from '@angular/animations';
 import { CommonModule } from '@angular/common';
 import {
-    AfterContentInit,
-    AfterViewChecked,
-    booleanAttribute,
-    ChangeDetectionStrategy,
-    Component,
-    computed,
-    ContentChild,
-    ContentChildren,
-    ElementRef,
-    EventEmitter,
-    forwardRef,
-    HostListener,
-    inject,
-    Input,
-    NgModule,
-    NgZone,
-    numberAttribute,
-    OnDestroy,
-    Output,
-    QueryList,
-    signal,
-    TemplateRef,
-    ViewChild,
-    ViewEncapsulation
+  AfterContentInit,
+  AfterViewChecked,
+  booleanAttribute,
+  ChangeDetectionStrategy,
+  Component,
+  computed,
+  ContentChild,
+  ContentChildren,
+  ElementRef,
+  EventEmitter,
+  forwardRef,
+  HostListener,
+  inject,
+  Input,
+  NgModule,
+  NgZone,
+  numberAttribute,
+  OnDestroy,
+  Output,
+  QueryList,
+  signal,
+  TemplateRef,
+  ViewChild,
+  ViewEncapsulation
 } from '@angular/core';
 import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
 import { equals, findLastIndex, findSingle, focus, isEmpty, isNotEmpty, resolveFieldData, uuid } from '@primeuix/utils';
 import { OverlayOptions, OverlayService, PrimeTemplate, ScrollerOptions, SharedModule, TranslationKeys } from 'primeng/api';
 import { AutoFocus } from 'primeng/autofocus';
+import { BaseInput } from 'primeng/baseinput';
 import { Chip } from 'primeng/chip';
 import { PrimeNG } from 'primeng/config';
 import { ConnectedOverlayScrollHandler } from 'primeng/dom';
@@ -39,9 +40,9 @@ import { Overlay } from 'primeng/overlay';
 import { Ripple } from 'primeng/ripple';
 import { Scroller } from 'primeng/scroller';
 import { Nullable } from 'primeng/ts-helpers';
+import { CloseOnEscapeService } from 'primeng/utils';
 import { AutoCompleteCompleteEvent, AutoCompleteDropdownClickEvent, AutoCompleteLazyLoadEvent, AutoCompleteSelectEvent, AutoCompleteUnselectEvent } from './autocomplete.interface';
 import { AutoCompleteStyle } from './style/autocompletestyle';
-import { BaseInput } from 'primeng/baseinput';
 
 export const AUTOCOMPLETE_VALUE_ACCESSOR: any = {
     provide: NG_VALUE_ACCESSOR,
@@ -906,6 +907,13 @@ export class AutoComplete extends BaseInput implements AfterViewChecked, AfterCo
         private zone: NgZone
     ) {
         super();
+        inject(CloseOnEscapeService).closeOnEscape(
+            {
+                closeOnEscape: () => this.hide(),
+                kind: 'single'
+            },
+            this.injector
+        );
     }
 
     ngOnInit() {
@@ -1289,10 +1297,6 @@ export class AutoComplete extends BaseInput implements AfterViewChecked, AfterCo
                 this.onEnterKey(event);
                 break;
 
-            case 'Escape':
-                this.onEscapeKey(event);
-                break;
-
             case 'Tab':
                 this.onTabKey(event);
                 break;
@@ -1412,11 +1416,6 @@ export class AutoComplete extends BaseInput implements AfterViewChecked, AfterCo
             this.hide();
         }
 
-        event.preventDefault();
-    }
-
-    onEscapeKey(event) {
-        this.overlayVisible && this.hide(true);
         event.preventDefault();
     }
 
@@ -1581,6 +1580,7 @@ export class AutoComplete extends BaseInput implements AfterViewChecked, AfterCo
     }
 
     hide(isFocus = false) {
+        const isVisible = this.overlayVisible;
         const _hide = () => {
             this.dirty = isFocus;
             this.overlayVisible = false;
@@ -1593,6 +1593,7 @@ export class AutoComplete extends BaseInput implements AfterViewChecked, AfterCo
         setTimeout(() => {
             _hide();
         }, 0); // For ScreenReaders
+        return isVisible;
     }
 
     clear() {

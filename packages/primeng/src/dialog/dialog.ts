@@ -31,7 +31,7 @@ import { blockBodyScroll, DomHandler, unblockBodyScroll } from 'primeng/dom';
 import { FocusTrap } from 'primeng/focustrap';
 import { TimesIcon, WindowMaximizeIcon, WindowMinimizeIcon } from 'primeng/icons';
 import { Nullable, VoidListener } from 'primeng/ts-helpers';
-import { ZIndexUtils } from 'primeng/utils';
+import { CloseOnEscapeService, ZIndexUtils } from 'primeng/utils';
 import { DialogStyle } from './style/dialogstyle';
 
 const showAnimation = animation([style({ transform: '{{transform}}', opacity: 0 }), animate('{{transition}}')]);
@@ -517,8 +517,6 @@ export class Dialog extends BaseComponent implements OnInit, AfterContentInit, O
 
     documentResizeEndListener: VoidListener;
 
-    documentEscapeListener: VoidListener;
-
     maskClickListener: VoidListener;
 
     lastPageX: number | undefined;
@@ -585,6 +583,17 @@ export class Dialog extends BaseComponent implements OnInit, AfterContentInit, O
         };
     }
 
+    constructor() {
+        super();
+        inject(CloseOnEscapeService).closeOnEscape(
+            {
+                closeOnEscape: () => this.closeWithEscape(),
+                kind: 'global',
+                onlyCloseForFocussedElements: () => [this.wrapper]
+            },
+            this.injector
+        );
+    }
     ngOnInit() {
         super.ngOnInit();
         if (this.breakpoints) {
@@ -687,6 +696,13 @@ export class Dialog extends BaseComponent implements OnInit, AfterContentInit, O
     close(event: Event) {
         this.visibleChange.emit(false);
         event.preventDefault();
+    }
+
+    private closeWithEscape() {
+        if (!this.closeOnEscape || !this.visible || !this.closable) {
+            return false;
+        }
+        this.visibleChange.emit(false);
     }
 
     enableModality() {
@@ -915,17 +931,12 @@ export class Dialog extends BaseComponent implements OnInit, AfterContentInit, O
         if (this.resizable) {
             this.bindDocumentResizeListeners();
         }
-
-        if (this.closeOnEscape && this.closable) {
-            this.bindDocumentEscapeListener();
-        }
     }
 
     unbindGlobalListeners() {
         this.unbindDocumentDragListener();
         this.unbindDocumentDragEndListener();
         this.unbindDocumentResizeListeners();
-        this.unbindDocumentEscapeListener();
     }
 
     bindDocumentDragListener() {
@@ -973,23 +984,6 @@ export class Dialog extends BaseComponent implements OnInit, AfterContentInit, O
             this.documentResizeEndListener();
             this.documentResizeListener = null;
             this.documentResizeEndListener = null;
-        }
-    }
-
-    bindDocumentEscapeListener() {
-        const documentTarget: any = this.el ? this.el.nativeElement.ownerDocument : 'document';
-
-        this.documentEscapeListener = this.renderer.listen(documentTarget, 'keydown', (event) => {
-            if (event.key == 'Escape') {
-                this.close(event);
-            }
-        });
-    }
-
-    unbindDocumentEscapeListener() {
-        if (this.documentEscapeListener) {
-            this.documentEscapeListener();
-            this.documentEscapeListener = null;
         }
     }
 

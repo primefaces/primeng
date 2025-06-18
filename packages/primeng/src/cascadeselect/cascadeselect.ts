@@ -34,6 +34,7 @@ import { AngleRightIcon, ChevronDownIcon, TimesIcon } from 'primeng/icons';
 import { Overlay } from 'primeng/overlay';
 import { Ripple } from 'primeng/ripple';
 import { Nullable, VoidListener } from 'primeng/ts-helpers';
+import { CloseOnEscapeService } from 'primeng/utils';
 import { CascadeSelectBeforeHideEvent, CascadeSelectBeforeShowEvent, CascadeSelectChangeEvent, CascadeSelectHideEvent, CascadeSelectShowEvent } from './cascadeselect.interface';
 import { CascadeSelectStyle } from './style/cascadeselectstyle';
 import { BaseInput } from 'primeng/baseinput';
@@ -910,10 +911,6 @@ export class CascadeSelect extends BaseInput implements OnInit, AfterContentInit
                 this.onEnterKey(event);
                 break;
 
-            case 'Escape':
-                this.onEscapeKey(event);
-                break;
-
             case 'Tab':
                 this.onTabKey(event);
                 break;
@@ -1050,11 +1047,6 @@ export class CascadeSelect extends BaseInput implements OnInit, AfterContentInit
 
     onSpaceKey(event) {
         this.onEnterKey(event);
-    }
-
-    onEscapeKey(event) {
-        this.overlayVisible && this.hide(event, true);
-        event.preventDefault();
     }
 
     onTabKey(event) {
@@ -1298,6 +1290,7 @@ export class CascadeSelect extends BaseInput implements OnInit, AfterContentInit
     }
 
     hide(event?, isFocus = false) {
+        if (!this.overlayVisible) return false;
         const _hide = () => {
             this.overlayVisible = false;
             this.clicked = false;
@@ -1312,6 +1305,7 @@ export class CascadeSelect extends BaseInput implements OnInit, AfterContentInit
         setTimeout(() => {
             _hide();
         }, 0); // For ScreenReaders
+        return true;
     }
 
     show(event?, isFocus = false) {
@@ -1381,6 +1375,13 @@ export class CascadeSelect extends BaseInput implements OnInit, AfterContentInit
 
     constructor(public overlayService: OverlayService) {
         super();
+        inject(CloseOnEscapeService).closeOnEscape(
+            {
+                closeOnEscape: () => this.hide(),
+                kind: 'single'
+            },
+            this.injector
+        );
         effect(() => {
             const activeOptionPath = this.activeOptionPath();
             if (isNotEmpty(activeOptionPath)) {

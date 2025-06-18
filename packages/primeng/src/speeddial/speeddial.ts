@@ -1,25 +1,25 @@
 import { CommonModule, isPlatformBrowser } from '@angular/common';
 import {
-    AfterContentInit,
-    AfterViewInit,
-    booleanAttribute,
-    ChangeDetectionStrategy,
-    Component,
-    ContentChild,
-    ContentChildren,
-    ElementRef,
-    EventEmitter,
-    inject,
-    Input,
-    NgModule,
-    numberAttribute,
-    OnDestroy,
-    Output,
-    QueryList,
-    signal,
-    TemplateRef,
-    ViewChild,
-    ViewEncapsulation
+  AfterContentInit,
+  AfterViewInit,
+  booleanAttribute,
+  ChangeDetectionStrategy,
+  Component,
+  ContentChild,
+  ContentChildren,
+  ElementRef,
+  EventEmitter,
+  inject,
+  Input,
+  NgModule,
+  numberAttribute,
+  OnDestroy,
+  Output,
+  QueryList,
+  signal,
+  TemplateRef,
+  ViewChild,
+  ViewEncapsulation
 } from '@angular/core';
 import { RouterModule } from '@angular/router';
 import { find, findSingle, focus, hasClass, uuid } from '@primeuix/utils';
@@ -29,6 +29,7 @@ import { ButtonModule, ButtonProps } from 'primeng/button';
 import { PlusIcon } from 'primeng/icons';
 import { Ripple } from 'primeng/ripple';
 import { TooltipModule } from 'primeng/tooltip';
+import { CloseOnEscapeService } from 'primeng/utils';
 import { asapScheduler } from 'rxjs';
 import { SpeedDialStyle } from './style/speeddialstyle';
 
@@ -326,6 +327,17 @@ export class SpeedDial extends BaseComponent implements AfterViewInit, AfterCont
         return this.focusedOptionIndex() !== -1 ? this.focusedOptionIndex() : null;
     }
 
+    constructor() {
+        super();
+        inject(CloseOnEscapeService).closeOnEscape(
+            {
+                closeOnEscape: () => this.closeWithEscape(),
+                kind: 'single'
+            },
+            this.injector
+        );
+    }
+
     getTooltipOptions(item: MenuItem) {
         return { ...this.tooltipOptions, tooltipLabel: item.label, disabled: !this.tooltipOptions };
     }
@@ -378,12 +390,14 @@ export class SpeedDial extends BaseComponent implements AfterViewInit, AfterCont
     }
 
     hide() {
+        const isVisible = this._visible;
         this.onVisibleChange.emit(false);
         this.visibleChange.emit(false);
         this._visible = false;
         this.onHide.emit();
         this.unbindDocumentClickListener();
         this.cd.markForCheck();
+        return isVisible;
     }
 
     onButtonClick(event: MouseEvent) {
@@ -423,10 +437,6 @@ export class SpeedDial extends BaseComponent implements AfterViewInit, AfterCont
             case 'Enter':
             case 'Space':
                 this.onEnterKey(event);
-                break;
-
-            case 'Escape':
-                this.onEscapeKey(event);
                 break;
 
             case 'Home':
@@ -523,12 +533,11 @@ export class SpeedDial extends BaseComponent implements AfterViewInit, AfterCont
         buttonEl && focus(buttonEl);
     }
 
-    onEscapeKey(event: KeyboardEvent) {
-        this.hide();
-
+    private closeWithEscape() {
+        const didHide = this.hide();
         const buttonEl = <any>findSingle(this.container.nativeElement, 'button');
-
         buttonEl && focus(buttonEl);
+        return didHide;
     }
 
     onTogglerKeydown(event: KeyboardEvent) {
@@ -536,18 +545,11 @@ export class SpeedDial extends BaseComponent implements AfterViewInit, AfterCont
             case 'ArrowDown':
             case 'ArrowLeft':
                 this.onTogglerArrowDown(event);
-
                 break;
 
             case 'ArrowUp':
             case 'ArrowRight':
                 this.onTogglerArrowUp(event);
-
-                break;
-
-            case 'Escape':
-                this.onEscapeKey(event);
-
                 break;
 
             default:
