@@ -71,17 +71,17 @@ catalogs:
       version: 0.15.1
   default:
     '@primeuix/styled':
-      specifier: ^0.6.1
-      version: 0.6.4
+      specifier: ^0.7.0-beta.1
+      version: 0.7.0-beta.1
     '@primeuix/styles':
-      specifier: ^1.1.2
-      version: 1.1.2
+      specifier: ^1.2.0-beta.1
+      version: 1.2.0-beta.1
     '@primeuix/themes':
-      specifier: ^1.1.2
-      version: 1.1.2
+      specifier: ^1.2.0-beta.1
+      version: 1.2.0-beta.1
     '@primeuix/utils':
-      specifier: ^0.5.4
-      version: 0.5.4
+      specifier: ^0.6.0-beta.1
+      version: 0.6.0-beta.1
     primeicons:
       specifier: ^7.0.0
       version: 7.0.0
@@ -234,7 +234,7 @@ importers:
         version: 3.9.0(@algolia/client-search@4.24.0)(@types/react@18.3.23)(search-insights@2.17.3)
       '@primeuix/themes':
         specifier: 'catalog:'
-        version: 1.1.2
+        version: 1.2.0-beta.1
       '@stackblitz/sdk':
         specifier: 1.9.0
         version: 1.9.0
@@ -333,13 +333,13 @@ importers:
         version: 19.2.14(@angular/common@19.2.14(@angular/core@19.2.14(rxjs@7.8.2)(zone.js@0.15.1))(rxjs@7.8.2))(@angular/core@19.2.14(rxjs@7.8.2)(zone.js@0.15.1))(@angular/platform-browser@19.2.14(@angular/animations@19.2.14(@angular/common@19.2.14(@angular/core@19.2.14(rxjs@7.8.2)(zone.js@0.15.1))(rxjs@7.8.2))(@angular/core@19.2.14(rxjs@7.8.2)(zone.js@0.15.1)))(@angular/common@19.2.14(@angular/core@19.2.14(rxjs@7.8.2)(zone.js@0.15.1))(rxjs@7.8.2))(@angular/core@19.2.14(rxjs@7.8.2)(zone.js@0.15.1)))(rxjs@7.8.2)
       '@primeuix/styled':
         specifier: 'catalog:'
-        version: 0.6.4
+        version: 0.7.0-beta.1
       '@primeuix/styles':
         specifier: 'catalog:'
-        version: 1.1.2
+        version: 1.2.0-beta.1
       '@primeuix/utils':
         specifier: 'catalog:'
-        version: 0.5.4
+        version: 0.6.0-beta.1
       rxjs:
         specifier: ^6.0.0 || ^7.8.1
         version: 7.8.2
@@ -368,10 +368,10 @@ importers:
     dependencies:
       '@primeuix/styled':
         specifier: 'catalog:'
-        version: 0.6.4
+        version: 0.7.0-beta.1
       '@primeuix/themes':
         specifier: 'catalog:'
-        version: 1.1.2
+        version: 1.2.0-beta.1
     publishDirectory: dist
 
 packages:
@@ -2364,18 +2364,18 @@ packages:
     resolution: {integrity: sha512-+1VkjdD0QBLPodGrJUeqarH8VAIvQODIbwh9XpP5Syisf7YoQgsJKPNFoqqLQlu+VQ/tVSshMR6loPMn8U+dPg==}
     engines: {node: '>=14'}
 
-  '@primeuix/styled@0.6.4':
-    resolution: {integrity: sha512-7ePLwqazLV0x269YlPMeE4wtQKT0NScY2/gEin0/96krTiGiElmlzKMMbH69bVApm/sfen5DZGuCEEwPiBJJ5g==}
+  '@primeuix/styled@0.7.0-beta.1':
+    resolution: {integrity: sha512-S53V4CRGTzoLVjkigZbWXqVYRE5Txqtmj2w6BD27sOdfKkCjqHK5sTHx6sWaDHHTZ/EzgqHzIfsPCgoV5uWwVA==}
     engines: {node: '>=12.11.0'}
 
-  '@primeuix/styles@1.1.2':
-    resolution: {integrity: sha512-KSwyuxNhl2bVv9eBr6SQHyRUtg93mCL7xqfQPoEzr7tgKfvIHJdGcMSSFxYyEXQv4EmSF6JxVkCWprKFAfnR5Q==}
+  '@primeuix/styles@1.2.0-beta.1':
+    resolution: {integrity: sha512-VD4bpR+rlUXyl1zlCwUIlYZPKmPL9Hsnp2BdBL9z0rHwQv/JlnyNMV66p+72Xa75q1TAiEPoRTjU0DGB3agadA==}
 
-  '@primeuix/themes@1.1.2':
-    resolution: {integrity: sha512-yxnmMqMct6RYWX6m9gS9AIG8QArjnROQzBqQf8UDQggAedX3My1fxr9FKEpvZMoY39WD494kG0pU9zIa1k2XyA==}
+  '@primeuix/themes@1.2.0-beta.1':
+    resolution: {integrity: sha512-XcszIvQ1naUIJ6OgUdYlCtPJdsvdp7kShgXIOVGmmfIp431qHcQXQOaaqRM6Dg5uenlCjr4Nfbo0Ph1ZvwIPzA==}
 
-  '@primeuix/utils@0.5.4':
-    resolution: {integrity: sha512-8LggV3Jz59pymHQD10e/u63z/GemQ22RBeu2Gb1eJgBYVwn1iOb82LR+daeAc/LxrXCC5pHnftnCmnZO6vInLA==}
+  '@primeuix/utils@0.6.0-beta.1':
+    resolution: {integrity: sha512-WRGMImiHE/e4womxwVxC9swFHLVr5GrsUsOgKI65FatwXP2ng95f7PqEqydaEBq68SzDtyNqZy28sP9r+C/X5w==}
     engines: {node: '>=12.11.0'}
 
   '@rollup/plugin-json@6.1.0':
@@ -8988,19 +8988,19 @@ snapshots:
   '@pkgjs/parseargs@0.11.0':
     optional: true
 
-  '@primeuix/styled@0.6.4':
+  '@primeuix/styled@0.7.0-beta.1':
     dependencies:
-      '@primeuix/utils': 0.5.4
+      '@primeuix/utils': 0.6.0-beta.1
 
-  '@primeuix/styles@1.1.2':
+  '@primeuix/styles@1.2.0-beta.1':
     dependencies:
-      '@primeuix/styled': 0.6.4
+      '@primeuix/styled': 0.7.0-beta.1
 
-  '@primeuix/themes@1.1.2':
+  '@primeuix/themes@1.2.0-beta.1':
     dependencies:
-      '@primeuix/styled': 0.6.4
+      '@primeuix/styled': 0.7.0-beta.1
 
-  '@primeuix/utils@0.5.4': {}
+  '@primeuix/utils@0.6.0-beta.1': {}
 
   '@rollup/plugin-json@6.1.0(rollup@4.43.0)':
     dependencies:
