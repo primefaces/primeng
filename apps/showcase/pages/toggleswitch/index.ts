@@ -2,7 +2,7 @@ import { AccessibilityDoc } from '@/doc/toggleswitch/accessibilitydoc';
 import { BasicDoc } from '@/doc/toggleswitch/basicdoc';
 import { DisabledDoc } from '@/doc/toggleswitch/disableddoc';
 import { ImportDoc } from '@/doc/toggleswitch/importdoc';
-import { InputSwitchDocModule } from '@/doc/toggleswitch/inputswitchdoc.module';
+import { ToggleSwitchDocModule } from '@/doc/toggleswitch/toggleswitchdoc.module';
 import { InvalidDoc } from '@/doc/toggleswitch/invaliddoc';
 import { PreselectionDoc } from '@/doc/toggleswitch/preselectiondoc';
 import { ReactiveFormsDoc } from '@/doc/toggleswitch/reactiveformsdoc';
@@ -13,7 +13,7 @@ import { Component } from '@angular/core';
 @Component({
     template: `<app-doc docTitle="Angular ToggleSwitch Component" header="ToggleSwitch" description="ToggleSwitch is used to select a boolean value." [docs]="docs" [apiDocs]="['ToggleSwitch']" themeDocs="toggleswitch"></app-doc>`,
     standalone: true,
-    imports: [InputSwitchDocModule]
+    imports: [ToggleSwitchDocModule]
 })
 export class ToggleSwitchDemo {
     docs = [
