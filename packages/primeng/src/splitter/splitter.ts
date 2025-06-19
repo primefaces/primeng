@@ -58,6 +58,7 @@ import { SplitterStyle } from './style/splitterstyle';
 export class Splitter extends BaseComponent implements AfterContentInit {
     /**
      * Style class of the component.
+     * @deprecated since v20. Use `class` instead.
      * @group Props
      */
     @Input() styleClass: string | undefined;
