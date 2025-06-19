@@ -40,7 +40,6 @@ const classes = {
     rootList: 'p-panelmenu-root-list',
     item: ({ instance, processedItem }) => [
         'p-panelmenu-item',
-        processedItem.styleClass,
         {
             'p-focus': instance.isItemFocused(processedItem) && !instance.isItemDisabled(processedItem),
             'p-disabled': instance.isItemDisabled(processedItem)

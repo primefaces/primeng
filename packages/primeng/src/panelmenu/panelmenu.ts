@@ -39,7 +39,7 @@ import { PanelMenuStyle } from './style/panelmenustyle';
     template: `
         <ul
             #list
-            [class]="root ? cx('rootList') : cx('submenu')"
+            [class]="root ? cn(cx('rootList'), cx('submenu')) : cx('submenu')"
             role="tree"
             [tabindex]="-1"
             [attr.aria-activedescendant]="focusedItemId"
@@ -60,7 +60,7 @@ import { PanelMenuStyle } from './style/panelmenustyle';
                     [attr.aria-level]="level + 1"
                     [attr.aria-setsize]="getAriaSetSize()"
                     [attr.aria-posinset]="getAriaPosInset(index)"
-                    [class]="cx('item', { processedItem })"
+                    [class]="cn(cx('item', { processedItem }, processedItem.styleClass))"
                     [ngStyle]="getItemProp(processedItem, 'style')"
                     [pTooltip]="getItemProp(processedItem, 'tooltip')"
                     [attr.data-p-disabled]="isItemDisabled(processedItem)"
