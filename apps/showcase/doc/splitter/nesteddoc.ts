@@ -11,7 +11,7 @@ import { Component } from '@angular/core';
         <div class="card">
             <p-splitter [style]="{ height: '300px' }" [panelSizes]="[20, 80]" [minSizes]="[10, 0]" styleClass="mb-8">
                 <ng-template #panel>
-                    <div class="col flex items-center justify-center">Panel 1</div>
+                    <div class="col flex w-full items-center justify-center">Panel 1</div>
                 </ng-template>
                 <ng-template #panel>
                     <p-splitter layout="vertical" [panelSizes]="[50, 50]">
@@ -21,10 +21,10 @@ import { Component } from '@angular/core';
                         <ng-template #panel>
                             <p-splitter [panelSizes]="[20, 80]">
                                 <ng-template #panel>
-                                    <div class="col flex items-center justify-center">Panel 3</div>
+                                    <div class="col h-full flex items-center justify-center">Panel 3</div>
                                 </ng-template>
                                 <ng-template #panel>
-                                    <div class="col flex items-center justify-center">Panel 4</div>
+                                    <div class="col h-full flex items-center justify-center">Panel 4</div>
                                 </ng-template>
                             </p-splitter>
                         </ng-template>
@@ -39,7 +39,7 @@ export class NestedDoc {
     code: Code = {
         basic: `<p-splitter [style]="{ height: '300px' }" [panelSizes]="[20, 80]" [minSizes]="[10, 0]" styleClass="mb-8">
     <ng-template #panel>
-        <div class="col flex items-center justify-center">Panel 1</div>
+        <div class="col flex w-full items-center justify-center">Panel 1</div>
     </ng-template>
     <ng-template #panel>
         <p-splitter layout="vertical" [panelSizes]="[50, 50]">
@@ -49,10 +49,10 @@ export class NestedDoc {
             <ng-template #panel>
                 <p-splitter [panelSizes]="[20, 80]">
                     <ng-template #panel>
-                        <div class="col flex items-center justify-center">Panel 3</div>
+                        <div class="col h-full flex items-center justify-center">Panel 3</div>
                     </ng-template>
                     <ng-template #panel>
-                        <div class="col flex items-center justify-center">Panel 4</div>
+                        <div class="col h-full flex items-center justify-center">Panel 4</div>
                     </ng-template>
                 </p-splitter>
             </ng-template>
@@ -63,7 +63,7 @@ export class NestedDoc {
         html: `<div class="card">
     <p-splitter [style]="{ height: '300px' }" [panelSizes]="[20, 80]" [minSizes]="[10, 0]" styleClass="mb-8">
         <ng-template #panel>
-            <div class="col flex items-center justify-center">Panel 1</div>
+            <div class="col flex w-full items-center justify-center">Panel 1</div>
         </ng-template>
         <ng-template #panel>
             <p-splitter layout="vertical" [panelSizes]="[50, 50]">
@@ -73,10 +73,10 @@ export class NestedDoc {
                 <ng-template #panel>
                     <p-splitter [panelSizes]="[20, 80]">
                         <ng-template #panel>
-                            <div class="col flex items-center justify-center">Panel 3</div>
+                            <div class="col h-full flex items-center justify-center">Panel 3</div>
                         </ng-template>
                         <ng-template #panel>
-                            <div class="col flex items-center justify-center">Panel 4</div>
+                            <div class="col h-full flex items-center justify-center">Panel 4</div>
                         </ng-template>
                     </p-splitter>
                 </ng-template>
