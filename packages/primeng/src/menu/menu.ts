@@ -185,14 +185,20 @@ export class MenuItemContent extends BaseComponent {
                 (keydown)="onListKeyDown($event)"
             >
                 <ng-template ngFor let-submenu let-i="index" [ngForOf]="model" *ngIf="hasSubMenu()">
-                    <li [class]="cx('separator')" *ngIf="submenu.separator && submenu.visible !== false" role="separator"></li>
-                    <li [class]="cx('submenuLabel')" [attr.data-automationid]="submenu.automationId" *ngIf="!submenu.separator" pTooltip [tooltipOptions]="submenu.tooltipOptions" role="none" [attr.id]="menuitemId(submenu, id, i)">
-                        <ng-container *ngIf="!submenuHeaderTemplate && !_submenuHeaderTemplate">
-                            <span *ngIf="submenu.escape !== false; else htmlSubmenuLabel">{{ submenu.label }}</span>
-                            <ng-template #htmlSubmenuLabel><span [innerHTML]="submenu.label | safeHtml"></span></ng-template>
-                        </ng-container>
-                        <ng-container *ngTemplateOutlet="submenuHeaderTemplate ?? _submenuHeaderTemplate; context: { $implicit: submenu }"></ng-container>
-                    </li>
+                    @if (submenu.visible !== false) {
+                        @if (submenu.separator) {
+                            <li [class]="cx('separator')" role="separator"></li>
+                        } @else {
+                            <li [class]="cx('submenuLabel')" [attr.data-automationid]="submenu.automationId" pTooltip [tooltipOptions]="submenu.tooltipOptions" role="none" [attr.id]="menuitemId(submenu, id, i)">
+                                <ng-container *ngIf="!submenuHeaderTemplate && !_submenuHeaderTemplate">
+                                    <span *ngIf="submenu.escape !== false; else htmlSubmenuLabel">{{ submenu.label }}</span>
+                                    <ng-template #htmlSubmenuLabel><span [innerHTML]="submenu.label | safeHtml"></span></ng-template>
+                                </ng-container>
+                                <ng-container *ngTemplateOutlet="submenuHeaderTemplate ?? _submenuHeaderTemplate; context: { $implicit: submenu }"></ng-container>
+                            </li>
+                        }
+                    }
+
                     <ng-template ngFor let-item let-j="index" [ngForOf]="submenu.items">
                         <li [class]="cx('separator')" *ngIf="item.separator && (item.visible !== false || submenu.visible !== false)" role="separator"></li>
                         <li
