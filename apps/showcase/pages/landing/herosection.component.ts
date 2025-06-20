@@ -13,7 +13,6 @@ import { DrawerModule } from 'primeng/drawer';
 import { KnobModule } from 'primeng/knob';
 import { OverlayBadgeModule } from 'primeng/overlaybadge';
 import { SelectButton } from 'primeng/selectbutton';
-import { TabMenuModule } from 'primeng/tabmenu';
 import { ToggleSwitchModule } from 'primeng/toggleswitch';
 import { TooltipModule } from 'primeng/tooltip';
 import { Subscription } from 'rxjs';
@@ -34,7 +33,6 @@ import { OverviewApp } from './samples/overviewapp.component';
         SelectButton,
         ToggleSwitchModule,
         BadgeModule,
-        TabMenuModule,
         FormsModule,
         DividerModule,
         AvatarModule,

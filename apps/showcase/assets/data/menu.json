@@ -325,10 +325,6 @@
                             "routerLink": "/panelmenu"
                         },
                         {
-                            "name": "Steps",
-                            "routerLink": "/steps"
-                        },
-                        {
                             "name": "TieredMenu",
                             "routerLink": "/tieredmenu"
                         }

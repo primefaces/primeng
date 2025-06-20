@@ -24,4 +24,4 @@ import { ButtonModule } from 'primeng/button';
     exports: [AppDocModule],
     declarations: [ImportDoc, BasicDoc, PreselectionDoc, DisabledDoc, InvalidDoc, StyleDoc, AccessibilityDoc, ReactiveFormsDoc, TemplateDoc, TemplateDrivenFormsDoc]
 })
-export class InputSwitchDocModule {}
+export class ToggleSwitchDocModule {}

@@ -13,6 +13,9 @@ export type ZIndex = {
 
 export type PrimeNGConfigType = {
     ripple?: boolean;
+    /**
+     * @deprecated Since v20. Use `inputVariant` instead.
+     */
     inputStyle?: 'outlined' | 'filled';
     inputVariant?: 'outlined' | 'filled';
     csp?: {
@@ -29,7 +32,9 @@ export class PrimeNG extends ThemeProvider {
     ripple = signal<boolean>(false);
 
     public platformId: any = inject(PLATFORM_ID);
-
+    /**
+     * @deprecated Since v20. Use `inputVariant` instead.
+     */
     inputStyle = signal<'outlined' | 'filled'>(null);
 
     inputVariant = signal<'outlined' | 'filled'>(null);
