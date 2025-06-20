@@ -164,7 +164,7 @@ export class DomHandler {
 
         element.style.top = top + 'px';
         element.style.left = left + 'px';
-        gutter && (element.style.marginTop = origin === 'bottom' ? 'calc(var(--p-anchor-gutter) * -1)' : 'calc(var(--p-anchor-gutter))');
+        gutter && (element.style.marginTop = origin === 'bottom' ? `calc(${dt('anchor.gutter')} * -1)` : dt('anchor.gutter'));
     }
 
     public static absolutePosition(element: any, target: any, gutter: boolean = true): void {
@@ -843,7 +843,7 @@ export class DomHandler {
     }
 }
 
-import { $dt } from '@primeuix/styled';
+import { $dt, dt } from '@primeuix/styled';
 import * as utils from '@primeuix/utils';
 
 // @todo: update this when we remove the old domhandler
