@@ -47,15 +47,14 @@ import {
     ViewEncapsulation
 } from '@angular/core';
 import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
-import { getUserAgent, isClient } from '@primeuix/utils';
 import { PrimeTemplate, SharedModule } from 'primeng/api';
 import { AutoFocus } from 'primeng/autofocus';
+import { BaseInput } from 'primeng/baseinput';
 import { TimesIcon } from 'primeng/icons';
 import { InputText } from 'primeng/inputtext';
 import { Nullable } from 'primeng/ts-helpers';
 import { Caret } from './inputmask.interface';
 import { InputMaskStyle } from './style/inputmaskstyle';
-import { BaseInput } from 'primeng/baseinput';
 
 export const INPUTMASK_VALUE_ACCESSOR: any = {
     provide: NG_VALUE_ACCESSOR,
@@ -104,6 +103,7 @@ export const INPUTMASK_VALUE_ACCESSOR: any = {
             (paste)="handleInputChange($event)"
             [attr.data-pc-name]="'inputmask'"
             [attr.data-pc-section]="'root'"
+            [attr.inputmode]="inputMode"
         />
         <ng-container *ngIf="value != null && $filled() && showClear && !disabled()">
             <TimesIcon *ngIf="!clearIconTemplate && !_clearIconTemplate" [styleClass]="cx('clearIcon')" (click)="clear()" [attr.data-pc-section]="'clearIcon'" />
@@ -147,6 +147,11 @@ export class InputMask extends BaseInput implements OnInit, AfterContentInit, Co
      * @group Props
      */
     @Input() inputId: string | undefined;
+    /**
+     * Used to show a different keyboard on mobile
+     * @group Props
+     */
+    @Input() inputMode: string = 'text';
     /**
      * Style class of the input field.
      * @group Props
@@ -289,8 +294,6 @@ export class InputMask extends BaseInput implements OnInit, AfterContentInit, Co
 
     input: Nullable<HTMLInputElement>;
 
-    defs: Nullable<{ [klass: string]: any }>;
-
     tests: RegExp[] | any;
 
     partialPosition: Nullable<number>;
@@ -299,7 +302,7 @@ export class InputMask extends BaseInput implements OnInit, AfterContentInit, Co
 
     lastRequiredNonMaskPos: Nullable<number>;
 
-    len: Nullable<number>;
+    maskLength: Nullable<number>;
 
     oldVal: Nullable<string>;
 
@@ -311,7 +314,7 @@ export class InputMask extends BaseInput implements OnInit, AfterContentInit, Co
 
     caretTimeoutId: any;
 
-    androidChrome: boolean = true;
+    android: boolean = true;
 
     focused: Nullable<boolean>;
 
@@ -321,7 +324,7 @@ export class InputMask extends BaseInput implements OnInit, AfterContentInit, Co
         super.ngOnInit();
         if (isPlatformBrowser(this.platformId)) {
             let ua = navigator.userAgent;
-            this.androidChrome = /chrome/i.test(ua) && /android/i.test(ua);
+            this.android = /android/i.test(ua);
         }
 
         this.initMask();
@@ -342,26 +345,28 @@ export class InputMask extends BaseInput implements OnInit, AfterContentInit, Co
     initMask() {
         this.tests = [];
         this.partialPosition = (this.mask as string).length;
-        this.len = (this.mask as string).length;
+        this.maskLength = (this.mask as string).length;
         this.firstNonMaskPos = null;
-        this.defs = {
+
+        const defs = {
             '9': '[0-9]',
             a: this.characterPattern,
             '*': `${this.characterPattern}|[0-9]`
         };
 
         let maskTokens = (this.mask as string).split('');
-        for (let i = 0; i < maskTokens.length; i++) {
-            let c = maskTokens[i];
-            if (c == '?') {
-                this.len--;
-                this.partialPosition = i;
-            } else if (this.defs[c]) {
-                this.tests.push(new RegExp(this.defs[c]));
+
+        for (let index = 0; index < maskTokens.length; index++) {
+            const maskCharacter = maskTokens[index];
+            if (maskCharacter == '?') {
+                this.maskLength--;
+                this.partialPosition = index;
+            } else if (defs[maskCharacter]) {
+                this.tests.push(new RegExp(defs[maskCharacter]));
                 if (this.firstNonMaskPos === null) {
                     this.firstNonMaskPos = this.tests.length - 1;
                 }
-                if (i < this.partialPosition) {
+                if (index < this.partialPosition) {
                     this.lastRequiredNonMaskPos = this.tests.length - 1;
                 }
             } else {
@@ -370,11 +375,11 @@ export class InputMask extends BaseInput implements OnInit, AfterContentInit, Co
         }
 
         this.buffer = [];
-        for (let i = 0; i < maskTokens.length; i++) {
-            let c = maskTokens[i];
-            if (c != '?') {
-                if (this.defs[c]) this.buffer.push(this.getPlaceholder(i));
-                else this.buffer.push(c);
+        for (let index = 0; index < maskTokens.length; index++) {
+            const maskCharacter = maskTokens[index];
+            if (maskCharacter != '?') {
+                if (defs[maskCharacter]) this.buffer.push(this.getPlaceholder(index));
+                else this.buffer.push(maskCharacter);
             }
         }
         this.defaultBuffer = this.buffer.join('');
@@ -402,7 +407,7 @@ export class InputMask extends BaseInput implements OnInit, AfterContentInit, Co
     }
 
     caret(first?: number, last?: number): Caret | undefined {
-        let range, begin, end;
+        let range, begin: number, end: number;
 
         if (!this.inputViewChild?.nativeElement.offsetParent || this.inputViewChild.nativeElement !== this.inputViewChild.nativeElement.ownerDocument.activeElement) {
             return;
@@ -435,7 +440,6 @@ export class InputMask extends BaseInput implements OnInit, AfterContentInit, Co
     }
 
     isCompleted(): boolean {
-        let completed: boolean;
         for (let i = this.firstNonMaskPos as number; i <= (this.lastRequiredNonMaskPos as number); i++) {
             if (this.tests[i] && (this.buffer as string[])[i] === this.getPlaceholder(i)) {
                 return false;
@@ -453,7 +457,7 @@ export class InputMask extends BaseInput implements OnInit, AfterContentInit, Co
     }
 
     seekNext(pos: number) {
-        while (++pos < (this.len as number) && !this.tests[pos]);
+        while (++pos < (this.maskLength as number) && !this.tests[pos]);
         return pos;
     }
 
@@ -462,39 +466,37 @@ export class InputMask extends BaseInput implements OnInit, AfterContentInit, Co
         return pos;
     }
 
-    shiftL(begin: number, end: number) {
-        let i, j;
-
+    shiftLeft(begin: number, end: number) {
         if (begin < 0) {
             return;
         }
 
-        for (i = begin, j = this.seekNext(end); i < (this.len as number); i++) {
-            if (this.tests[i]) {
-                if (j < (this.len as number) && this.tests[i].test(this.buffer[j])) {
-                    this.buffer[i] = this.buffer[j];
-                    this.buffer[j] = this.getPlaceholder(j);
+        for (let index = begin, nextIndex = this.seekNext(end); index < (this.maskLength as number); index++) {
+            if (this.tests[index]) {
+                if (nextIndex < (this.maskLength as number) && this.tests[index].test(this.buffer[nextIndex])) {
+                    this.buffer[index] = this.buffer[nextIndex];
+                    this.buffer[nextIndex] = this.getPlaceholder(nextIndex);
                 } else {
                     break;
                 }
 
-                j = this.seekNext(j);
+                nextIndex = this.seekNext(nextIndex);
             }
         }
         this.writeBuffer();
         this.caret(Math.max(this.firstNonMaskPos as number, begin));
     }
 
-    shiftR(pos: number) {
-        let i, c, j, t;
+    shiftRight(pos: number) {
+        for (let index = pos, placeHolder = this.getPlaceholder(pos); index < (this.maskLength as number); index++) {
+            if (this.tests[index]) {
+                const nextIndex = this.seekNext(index);
+                const buffer = this.buffer[index];
 
-        for (i = pos, c = this.getPlaceholder(pos); i < (this.len as number); i++) {
-            if (this.tests[i]) {
-                j = this.seekNext(i);
-                t = this.buffer[i];
-                this.buffer[i] = c;
-                if (j < (this.len as number) && this.tests[j].test(t)) {
-                    c = t;
+                this.buffer[index] = placeHolder;
+
+                if (nextIndex < (this.maskLength as number) && this.tests[nextIndex].test(buffer)) {
+                    placeHolder = buffer;
                 } else {
                     break;
                 }
@@ -502,158 +504,125 @@ export class InputMask extends BaseInput implements OnInit, AfterContentInit, Co
         }
     }
 
-    handleAndroidInput(e: Event) {
-        var curVal = this.inputViewChild?.nativeElement.value;
-        var pos = this.caret() as Caret;
-        if (this.oldVal && this.oldVal.length && this.oldVal.length > curVal.length) {
-            // a deletion or backspace happened
-            this.checkVal(true);
-            while (pos.begin > 0 && !this.tests[pos.begin - 1]) pos.begin--;
-            if (pos.begin === 0) {
-                while (pos.begin < (this.firstNonMaskPos as number) && !this.tests[pos.begin]) pos.begin++;
-            }
-
-            setTimeout(() => {
-                this.caret(pos.begin, pos.begin);
-                this.updateModel(e);
-                if (this.isCompleted()) {
-                    this.onComplete.emit();
-                }
-            }, 0);
-        } else {
-            this.checkVal(true);
-            while (pos.begin < (this.len as number) && !this.tests[pos.begin]) pos.begin++;
-
-            setTimeout(() => {
-                this.caret(pos.begin, pos.begin);
-                this.updateModel(e);
-                if (this.isCompleted()) {
-                    this.onComplete.emit();
-                }
-            }, 0);
-        }
-    }
-
-    onInputBlur(e: Event) {
+    onInputBlur(event: Event) {
         this.focused = false;
         this.onModelTouched();
         if (!this.keepBuffer) {
             this.checkVal();
         }
-        this.onBlur.emit(e);
+        this.onBlur.emit(event);
 
         if (this.modelValue() != this.focusText || this.modelValue() != this.value) {
-            this.updateModel(e);
-            let event = this.document.createEvent('HTMLEvents');
-            event.initEvent('change', true, false);
-            this.inputViewChild?.nativeElement.dispatchEvent(event);
+            this.updateModel(event);
+            let newEvent = new Event('change', { bubbles: true, cancelable: false });
+            this.inputViewChild?.nativeElement.dispatchEvent(newEvent);
         }
     }
 
-    onInputKeydown(e: KeyboardEvent) {
+    onInputKeydown(event: KeyboardEvent) {
         if (this.readonly) {
             return;
         }
 
-        let k = e.which || e.keyCode,
-            pos,
-            begin,
-            end;
-        let iPhone;
-        if (isPlatformBrowser(this.platformId)) {
-            iPhone = /iphone/i.test(getUserAgent());
-        }
+        let key = event.key,
+            positions = this.caret() as Caret,
+            begin: number = positions.begin,
+            end: number = positions.end;
+
         this.oldVal = this.inputViewChild?.nativeElement.value;
 
-        this.onKeydown.emit(e);
+        this.onKeydown.emit(event);
 
-        //backspace, delete, and escape get special treatment
-        if (k === 8 || k === 46 || (iPhone && k === 127)) {
-            pos = this.caret() as Caret;
-            begin = pos.begin;
-            end = pos.end;
+        //backspace, delete, enter and escape get special treatment
+        if (key === 'Backspace' || key === 'Delete') {
 
             if (end - begin === 0) {
-                begin = k !== 46 ? this.seekPrev(begin) : (end = this.seekNext(begin - 1));
-                end = k === 46 ? this.seekNext(end) : end;
+                begin = key !== 'Delete' ? this.seekPrev(begin) : (end = this.seekNext(begin - 1));
+                end = key === 'Delete' ? this.seekNext(end) : end;
             }
 
             this.clearBuffer(begin, end);
             if (this.keepBuffer) {
-                this.shiftL(begin, end - 2);
+                this.shiftLeft(begin, end - 2);
             } else {
-                this.shiftL(begin, end - 1);
+                this.shiftLeft(begin, end - 1);
             }
-            this.updateModel(e);
-            this.onInput.emit(e);
+            this.updateModel(event);
+            this.onInput.emit(event);
 
-            e.preventDefault();
-        } else if (k === 13) {
-            // enter
-            this.onInputBlur(e);
-            this.updateModel(e);
-        } else if (k === 27) {
-            // escape
+            event.preventDefault();
+        } else if (key === 'Enter') {
+            this.onInputBlur(event);
+            this.updateModel(event);
+
+        } else if (key === 'Escape') {
             (this.inputViewChild as ElementRef).nativeElement.value = this.focusText;
             this.caret(0, this.checkVal());
-            this.updateModel(e);
+            this.updateModel(event);
 
-            e.preventDefault();
+            event.preventDefault();
         }
     }
 
-    onKeyPress(e: KeyboardEvent) {
-        if (this.readonly) {
+    onKeyPress(event: KeyboardEvent) {
+        // Android input is handled by onInputChange
+        if (this.readonly || this.android) {
             return;
         }
 
-        var k = e.which || e.keyCode,
-            pos = this.caret() as Caret,
-            p: number,
-            c: string,
-            next: number,
-            completed!: boolean;
+        let key = event.key,
+            positions = this.caret() as Caret,
+            completed: boolean;
 
-        if (e.ctrlKey || e.altKey || e.metaKey || k < 32 || (k > 34 && k < 41)) {
+
+        // key < 32 || (key > 34 && key < 41);
+        const ignoredKeys = [
+            'Backspace',
+            'Tab',
+            'Enter',
+            'Shift',
+            'Control',
+            'Alt',
+            'Pause',
+            'CapsLock',
+            'Escape',
+            'End',
+            'Home',
+            'ArrowLeft',
+            'ArrowRight',
+            'ArrowUp',
+            'ArrowDown',
+        ];
+
+        if (event.ctrlKey || event.altKey || event.metaKey || ignoredKeys.includes(key)) {
             //Ignore
             return;
-        } else if (k && k !== 13) {
-            if (pos.end - pos.begin !== 0) {
-                this.clearBuffer(pos.begin, pos.end);
-                this.shiftL(pos.begin, pos.end - 1);
-            }
-
-            p = this.seekNext(pos.begin - 1);
-            if (p < (this.len as number)) {
-                c = String.fromCharCode(k);
-                if (this.tests[p].test(c)) {
-                    this.shiftR(p);
-
-                    this.buffer[p] = c;
-                    this.writeBuffer();
-                    next = this.seekNext(p);
-
-                    if (isClient() && /android/i.test(getUserAgent())) {
-                        let proxy = () => {
-                            this.caret(next);
-                        };
-
-                        setTimeout(proxy, 0);
-                    } else {
-                        this.caret(next);
-                    }
-
-                    if (pos.begin <= (this.lastRequiredNonMaskPos as number)) {
-                        completed = this.isCompleted();
-                    }
-
-                    this.onInput.emit(e);
-                }
-            }
-            e.preventDefault();
         }
 
-        this.updateModel(e);
+        if (positions.end - positions.begin !== 0) {
+            this.clearBuffer(positions.begin, positions.end);
+            this.shiftLeft(positions.begin, positions.end - 1);
+        }
+
+        const nextIndex = this.seekNext(positions.begin - 1);
+
+        if (nextIndex < (this.maskLength as number) && this.tests[nextIndex].test(key)) {
+            this.shiftRight(nextIndex);
+
+            this.buffer[nextIndex] = key;
+            this.writeBuffer();
+            const next = this.seekNext(nextIndex);
+            this.caret(next);
+
+            if (positions.begin <= (this.lastRequiredNonMaskPos as number)) {
+                completed = this.isCompleted();
+            }
+
+            this.onInput.emit(event);
+        }
+
+        event.preventDefault();
+        this.updateModel(event);
 
         if (completed) {
             this.onComplete.emit();
@@ -662,10 +631,9 @@ export class InputMask extends BaseInput implements OnInit, AfterContentInit, Co
 
     clearBuffer(start: number, end: number) {
         if (!this.keepBuffer) {
-            let i;
-            for (i = start; i < end && i < (this.len as number); i++) {
-                if (this.tests[i]) {
-                    this.buffer[i] = this.getPlaceholder(i);
+            for (let index = start; index < end && index < (this.maskLength as number); index++) {
+                if (this.tests[index]) {
+                    this.buffer[index] = this.getPlaceholder(index);
                 }
             }
         }
@@ -677,35 +645,35 @@ export class InputMask extends BaseInput implements OnInit, AfterContentInit, Co
 
     checkVal(allow?: boolean): number {
         //try to place characters where they belong
-        let test = this.inputViewChild?.nativeElement.value,
+        let valueToTest = this.inputViewChild?.nativeElement.value,
             lastMatch = -1,
-            i,
-            c,
-            pos;
+            index: number,
+            pos: number;
 
-        for (i = 0, pos = 0; i < (this.len as number); i++) {
-            if (this.tests[i]) {
-                this.buffer[i] = this.getPlaceholder(i);
-                while (pos++ < test.length) {
-                    c = test.charAt(pos - 1);
-                    if (this.tests[i].test(c)) {
+        for (index = 0, pos = 0; index < (this.maskLength as number); index++) {
+            if (this.tests[index]) {
+                this.buffer[index] = this.getPlaceholder(index);
+                while (pos++ < valueToTest.length) {
+                    const character = valueToTest.charAt(pos - 1);
+
+                    if (this.tests[index].test(character)) {
                         if (!this.keepBuffer) {
-                            this.buffer[i] = c;
+                            this.buffer[index] = character;
                         }
-                        lastMatch = i;
+                        lastMatch = index;
                         break;
                     }
                 }
-                if (pos > test.length) {
-                    this.clearBuffer(i + 1, this.len as number);
+                if (pos > valueToTest.length) {
+                    this.clearBuffer(index + 1, this.maskLength as number);
                     break;
                 }
             } else {
-                if (this.buffer[i] === test.charAt(pos)) {
+                if (this.buffer[index] === valueToTest.charAt(pos)) {
                     pos++;
                 }
-                if (i < (this.partialPosition as number)) {
-                    lastMatch = i;
+                if (index < (this.partialPosition as number)) {
+                    lastMatch = index;
                 }
             }
         }
@@ -716,7 +684,7 @@ export class InputMask extends BaseInput implements OnInit, AfterContentInit, Co
                 // Invalid value. Remove it and replace it with the
                 // mask, which is the default behavior.
                 if (this.inputViewChild?.nativeElement.value) this.inputViewChild.nativeElement.value = '';
-                this.clearBuffer(0, this.len as number);
+                this.clearBuffer(0, this.maskLength as number);
             } else {
                 // Invalid value, but we opt to show the value to the
                 // user and allow them to correct their mistake.
@@ -726,7 +694,7 @@ export class InputMask extends BaseInput implements OnInit, AfterContentInit, Co
             this.writeBuffer();
             (this.inputViewChild as ElementRef).nativeElement.value = this.inputViewChild?.nativeElement.value.substring(0, lastMatch + 1);
         }
-        return (this.partialPosition ? i : this.firstNonMaskPos) as number;
+        return (this.partialPosition ? index : this.firstNonMaskPos) as number;
     }
 
     onInputFocus(event: Event) {
@@ -737,11 +705,10 @@ export class InputMask extends BaseInput implements OnInit, AfterContentInit, Co
         this.focused = true;
 
         clearTimeout(this.caretTimeoutId);
-        let pos: number;
 
         this.focusText = this.inputViewChild?.nativeElement.value;
 
-        pos = this.keepBuffer ? this.inputViewChild?.nativeElement.value.length : this.checkVal();
+        const pos = this.keepBuffer ? this.inputViewChild?.nativeElement.value.length : this.checkVal();
 
         this.caretTimeoutId = setTimeout(() => {
             if (this.inputViewChild?.nativeElement !== this.inputViewChild?.nativeElement.ownerDocument.activeElement) {
@@ -758,8 +725,31 @@ export class InputMask extends BaseInput implements OnInit, AfterContentInit, Co
         this.onFocus.emit(event);
     }
 
+    handleAndroidInput(event: Event) {
+        let currentValue = this.inputViewChild?.nativeElement.value;
+        let positions = this.caret() as Caret;
+        if (this.oldVal && this.oldVal.length && this.oldVal.length > currentValue.length) {
+            // a deletion or backspace happened
+            positions.begin = this.checkVal(true);
+            while (positions.begin > 0 && !this.tests[positions.begin - 1]) positions.begin--;
+            if (positions.begin === 0) {
+                while (positions.begin < (this.firstNonMaskPos as number) && !this.tests[positions.begin]) positions.begin++;
+            }
+
+        } else {
+            positions.begin = this.checkVal(true);
+            while (positions.begin < (this.maskLength as number) && !this.tests[positions.begin]) positions.begin++;
+        }
+
+        this.caret(positions.begin, positions.begin);
+        this.updateModel(event);
+        if (this.isCompleted()) {
+            this.onComplete.emit();
+        }
+    }
+
     onInputChange(event: Event) {
-        if (this.androidChrome) this.handleAndroidInput(event);
+        if (this.android) this.handleAndroidInput(event);
         else this.handleInputChange(event);
 
         this.onInput.emit(event);
@@ -771,7 +761,7 @@ export class InputMask extends BaseInput implements OnInit, AfterContentInit, Co
         }
 
         setTimeout(() => {
-            var pos = this.checkVal(true);
+            let pos = this.checkVal(true);
             this.caret(pos);
             this.updateModel(event);
             if (this.isCompleted()) {
@@ -782,18 +772,18 @@ export class InputMask extends BaseInput implements OnInit, AfterContentInit, Co
 
     getUnmaskedValue() {
         let unmaskedBuffer = [];
-        for (let i = 0; i < this.buffer.length; i++) {
-            let c = this.buffer[i];
-            if (this.tests[i] && c != this.getPlaceholder(i)) {
-                unmaskedBuffer.push(c);
+        for (let index = 0; index < this.buffer.length; index++) {
+            const character = this.buffer[index];
+            if (this.tests[index] && character != this.getPlaceholder(index)) {
+                unmaskedBuffer.push(character);
             }
         }
 
         return unmaskedBuffer.join('');
     }
 
-    updateModel(e: Event) {
-        const updatedValue = this.unmask ? this.getUnmaskedValue() : (e.target as HTMLInputElement).value;
+    updateModel(event: Event) {
+        const updatedValue = this.unmask ? this.getUnmaskedValue() : (event.target as HTMLInputElement).value;
         if (updatedValue !== null || updatedValue !== undefined) {
             this.value = updatedValue;
             this.writeModelValue(this.value);
