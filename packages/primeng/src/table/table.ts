@@ -3532,16 +3532,34 @@ export class RowGroupHeader {
     }
 })
 export class FrozenColumn implements AfterViewInit {
+    _frozen = true;
+
     @Input() get frozen(): boolean {
         return this._frozen;
     }
 
     set frozen(val: boolean) {
         this._frozen = val;
-        Promise.resolve(null).then(() => this.updateStickyPosition());
+        if (val) {
+            Promise.resolve(null).then(() => {
+                this.listenToOtherTableElements();
+                this.updateStickyPosition(true);
+            });
+        } else {
+            this.removeListeners();
+        }
     }
 
     @Input() alignFrozen: string = 'left';
+
+    sibling: any;
+    firstFrozenCellInColumn: any;
+    isfirstFrozenCellInColumn = false;
+    siblingResizeObserver: ResizeObserver | null = null;
+    rowMutationObserver: MutationObserver;
+    isFirstFrozenCellInColumnDestroyedHandler: () => void = () => this.initSiblings();
+    positionChangedHandler: () => void = () => this.updateStickyPositionWithDelay(true);
+    isSiblingDestroyedHandler: () => void = () => this.listenToOtherTableElements();
 
     constructor(
         private el: ElementRef,
@@ -3551,26 +3569,66 @@ export class FrozenColumn implements AfterViewInit {
     ngAfterViewInit() {
         this.zone.runOutsideAngular(() => {
             setTimeout(() => {
-                this.recalculateColumns();
-            }, 1000);
+                this.initSiblings();
+                this.updateStickyPositionWithDelay(false);
+            }, 200);
         });
     }
 
-    @HostListener('window:resize', ['$event'])
-    recalculateColumns() {
-        const siblings = DomHandler.siblings(this.el.nativeElement);
-        const index = DomHandler.index(this.el.nativeElement);
-        const time = (siblings.length - index + 1) * 50;
-
-        setTimeout(() => {
-            this.updateStickyPosition();
-        }, time);
+    initSiblings() {
+        this.setFirstFrozenColumnCell();
+        if (this.isfirstFrozenCellInColumn) {
+            this.listenToOtherTableElements();
+        }
     }
 
-    _frozen: boolean = true;
+    ngOnDestroy() {
+        this.removeListeners();
+        this.el.nativeElement.dispatchEvent(new CustomEvent('isDestroyed'));
+    }
 
-    updateStickyPosition() {
-        if (this._frozen) {
+    setFirstFrozenColumnCell() {
+        if (this.el?.nativeElement?.parentNode) {
+            this.firstFrozenCellInColumn = null;
+            const index = DomHandler.index(this.el.nativeElement);
+            // get the thead, tbody, tfooter, etc. node
+            const childNodes = this.el.nativeElement.parentNode?.parentNode?.childNodes;
+
+            // Check the row until first frozen cell at same index in row as current element is found
+            if (childNodes) {
+                for (let i = 0; i < childNodes.length; i++) {
+                    if (childNodes[i].children) {
+                        const children = childNodes[i].children[index];
+                        if (children && children.hasAttribute('pFrozenColumn')) {
+                            if (children !== this.el.nativeElement) {
+                                this.firstFrozenCellInColumn = childNodes[i].children[index];
+                                this.isfirstFrozenCellInColumn = false;
+                            } else {
+                                this.isfirstFrozenCellInColumn = true;
+                                this.firstFrozenCellInColumn = null;
+                            }
+                            break;
+                        }
+                    }
+                }
+            }
+        }
+    }
+
+    updateStickyPositionWithDelay(cascading: boolean) {
+        if (this.el?.nativeElement?.parentNode) {
+            const siblings = DomHandler.siblings(this.el.nativeElement);
+            const index = DomHandler.index(this.el.nativeElement);
+            const time = this.alignFrozen === 'left' ? (index + 1) * 50 : (siblings.length - index + 1) * 50;
+
+            setTimeout(() => {
+                this.updateStickyPosition(cascading);
+            }, time);
+        }
+    }
+
+    updateStickyPosition(cascading: boolean) {
+        if ((this.isfirstFrozenCellInColumn || !cascading) && this._frozen) {
             if (this.alignFrozen === 'right') {
                 let right = 0;
                 let sibling = this.el.nativeElement.nextElementSibling;
@@ -3579,6 +3637,7 @@ export class FrozenColumn implements AfterViewInit {
                     sibling = sibling.nextElementSibling;
                 }
                 this.el.nativeElement.style.right = right + 'px';
+                this.el.nativeElement.dispatchEvent(new CustomEvent('positionChanged'));
             } else {
                 let left = 0;
                 let sibling = this.el.nativeElement.previousElementSibling;
@@ -3587,17 +3646,76 @@ export class FrozenColumn implements AfterViewInit {
                     sibling = sibling.previousElementSibling;
                 }
                 this.el.nativeElement.style.left = left + 'px';
+                this.el.nativeElement.dispatchEvent(new CustomEvent('positionChanged'));
             }
 
-            const filterRow = this.el.nativeElement?.parentElement?.nextElementSibling;
-            if (filterRow) {
-                let index = DomHandler.index(this.el.nativeElement);
-                if (filterRow.children && filterRow.children[index]) {
-                    filterRow.children[index].style.left = this.el.nativeElement.style.left;
-                    filterRow.children[index].style.right = this.el.nativeElement.style.right;
+            // Only first frozen cell is setting all the others cells position when cascading is on
+            if (cascading) {
+                const index = DomHandler.index(this.el.nativeElement);
+                let nextRow = this.el.nativeElement?.parentElement?.nextElementSibling;
+                while (nextRow) {
+                    if (nextRow.children && nextRow.children[index] && nextRow.children[index].hasAttribute('pFrozenColumn')) {
+                        nextRow.children[index].style.left = this.el.nativeElement.style.left;
+                        nextRow.children[index].style.right = this.el.nativeElement.style.right;
+                    }
+                    nextRow = nextRow.nextElementSibling;
                 }
             }
         }
+    }
+
+    listenToOtherTableElements() {
+        this.removeListeners();
+        if (this._frozen) {
+            this.firstFrozenCellInColumn?.addEventListener('isDestroyed', this.isFirstFrozenCellInColumnDestroyedHandler);
+            if (this.isfirstFrozenCellInColumn) {
+                this.sibling = this.alignFrozen === 'left' ? this.el.nativeElement.previousElementSibling : this.el.nativeElement.nextElementSibling;
+
+                if (this.sibling) {
+                    this.setupSiblingResizeObserver(this.sibling);
+                    this.sibling.addEventListener('positionChanged', this.positionChangedHandler);
+                    this.sibling.addEventListener('isDestroyed', this.isSiblingDestroyedHandler);
+                }
+                this.setupRowMutationObserver(this.el.nativeElement.parentNode);
+            }
+        }
+    }
+
+    setupSiblingResizeObserver(observedElement: HTMLElement) {
+        // Observe the right (or left) element to adapt position if it changed width
+        if (observedElement) {
+            this.siblingResizeObserver = new ResizeObserver(() => {
+                this.updateStickyPositionWithDelay(true);
+            });
+            this.siblingResizeObserver.observe(observedElement);
+        }
+    }
+
+    setupRowMutationObserver(observedElement: HTMLElement) {
+        // Observe if a column is moved, added or removed in the row of the Frozen cell
+        if (observedElement) {
+            this.rowMutationObserver = new MutationObserver((mutations) => {
+                mutations.forEach((mutation) => {
+                    if (mutation.type === 'childList') {
+                        this.initSiblings();
+                    }
+                });
+            });
+            this.rowMutationObserver.observe(observedElement, {
+                childList: true,
+                subtree: false
+            });
+        }
+    }
+
+    removeListeners() {
+        this.firstFrozenCellInColumn?.removeEventListener('isDestroyed', this.isFirstFrozenCellInColumnDestroyedHandler);
+        if (this.sibling) {
+            this.siblingResizeObserver?.unobserve(this.sibling);
+            this.sibling.removeEventListener('positionChanged', this.positionChangedHandler);
+            this.sibling.removeEventListener('isDestroyed', this.isSiblingDestroyedHandler);
+        }
+        this.rowMutationObserver?.disconnect();
     }
 }
 @Directive({
