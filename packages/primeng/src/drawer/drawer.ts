@@ -33,6 +33,8 @@ import { DrawerStyle } from './style/drawerstyle';
 const showAnimation = animation([style({ transform: '{{transform}}', opacity: 0 }), animate('{{transition}}')]);
 
 const hideAnimation = animation([animate('{{transition}}', style({ transform: '{{transform}}', opacity: 0 }))]);
+
+const defaultTransformOptions = 'translate3d(-100%, 0px, 0px)';
 /**
  * Sidebar is a panel component displayed as an overlay at the edges of the screen.
  * @group Components
@@ -219,8 +221,11 @@ export class Drawer extends BaseComponent implements AfterViewInit, AfterContent
     }
     set fullScreen(value: boolean) {
         this._fullScreen = value;
-
-        if (value) this.transformOptions = 'none';
+        if (value === true) {
+            this.transformOptions = 'none';
+        } else {
+            this.transformOptions = defaultTransformOptions;
+        }
     }
     /**
      * Title content of the dialog.
@@ -271,7 +276,7 @@ export class Drawer extends BaseComponent implements AfterViewInit, AfterContent
 
     container: Nullable<HTMLDivElement>;
 
-    transformOptions: any = 'translate3d(-100%, 0px, 0px)';
+    transformOptions: any = defaultTransformOptions;
 
     mask: Nullable<HTMLDivElement>;
 
