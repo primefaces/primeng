@@ -156,7 +156,7 @@ export class DesignEditor implements OnInit, OnDestroy {
     constructor() {
         this.routeSubscription = this.router.events.subscribe((event: NavigationEnd) => {
             if (event.url) {
-                const url = event.url === 'table' ? 'datatable' : event.url.split('/')[1];
+                const url = event.url.split('/')[1] === 'table' ? 'datatable' : event.url.split('/')[1];
                 this.currentPath.set(url);
             }
         });
