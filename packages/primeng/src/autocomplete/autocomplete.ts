@@ -307,7 +307,7 @@ export class AutoComplete extends BaseInput implements AfterViewChecked, AfterCo
      * Minimum number of characters to initiate a search.
      * @group Props
      */
-    @Input({ transform: numberAttribute }) minQueryLength: number = 1;
+    @Input({ transform: numberAttribute }) minQueryLength: number | undefined;
     /**
      * Delay between keystrokes to wait before sending a query.
      * @group Props

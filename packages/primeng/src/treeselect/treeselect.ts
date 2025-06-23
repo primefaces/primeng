@@ -5,6 +5,7 @@ import {
     booleanAttribute,
     ChangeDetectionStrategy,
     Component,
+    computed,
     ContentChild,
     ContentChildren,
     ElementRef,
@@ -12,6 +13,7 @@ import {
     forwardRef,
     HostListener,
     inject,
+    input,
     Input,
     NgModule,
     Output,
@@ -31,7 +33,8 @@ import { Tree, TreeFilterEvent, TreeNodeSelectEvent, TreeNodeUnSelectEvent } fro
 import { Nullable } from 'primeng/ts-helpers';
 import { TreeSelectStyle } from './style/treeselectstyle';
 import { TreeSelectNodeCollapseEvent, TreeSelectNodeExpandEvent } from './treeselect.interface';
-import { BaseInput } from 'primeng/baseinput';
+import { BaseEditableHolder } from 'primeng/baseeditableholder';
+import { Fluid } from '../fluid/fluid';
 
 export const TREESELECT_VALUE_ACCESSOR: any = {
     provide: NG_VALUE_ACCESSOR,
@@ -189,7 +192,7 @@ export const TREESELECT_VALUE_ACCESSOR: any = {
         '[style]': "sx('root')"
     }
 })
-export class TreeSelect extends BaseInput implements AfterContentInit {
+export class TreeSelect extends BaseEditableHolder implements AfterContentInit {
     /**
      * Identifier of the underlying input element.
      * @group Props
@@ -399,6 +402,24 @@ export class TreeSelect extends BaseInput implements AfterContentInit {
      */
     @Input({ transform: booleanAttribute }) loading: boolean | undefined;
     /**
+     * Specifies the size of the component.
+     * @defaultValue undefined
+     * @group Props
+     */
+    size = input<'large' | 'small' | undefined>();
+    /**
+     * Specifies the input variant of the component.
+     * @defaultValue undefined
+     * @group Props
+     */
+    variant = input<'filled' | 'outlined' | undefined>();
+    /**
+     * Spans 100% width of the container when enabled.
+     * @defaultValue undefined
+     * @group Props
+     */
+    fluid = input(undefined, { transform: booleanAttribute });
+    /**
      * Callback to invoke when a node is expanded.
      * @param {TreeSelectNodeExpandEvent} event - Custom node expand event.
      * @group Emits
@@ -410,7 +431,6 @@ export class TreeSelect extends BaseInput implements AfterContentInit {
      * @group Emits
      */
     @Output() onNodeCollapse: EventEmitter<TreeSelectNodeCollapseEvent> = new EventEmitter<TreeSelectNodeCollapseEvent>();
-
     /**
      * Callback to invoke when the overlay is shown.
      * @param {Event} event - Browser event.
@@ -475,6 +495,14 @@ export class TreeSelect extends BaseInput implements AfterContentInit {
     @ViewChild('firstHiddenFocusableEl') firstHiddenFocusableElementOnOverlay: Nullable<ElementRef>;
 
     @ViewChild('lastHiddenFocusableEl') lastHiddenFocusableElementOnOverlay: Nullable<ElementRef>;
+
+    $variant = computed(() => this.config.inputStyle() || this.variant() || this.config.inputVariant());
+
+    pcFluid: Fluid = inject(Fluid, { optional: true, host: true, skipSelf: true });
+
+    get hasFluid() {
+        return this.fluid() ?? !!this.pcFluid;
+    }
 
     public filteredNodes: TreeNode[] | undefined | null;
 

@@ -5,6 +5,7 @@ import {
     booleanAttribute,
     ChangeDetectionStrategy,
     Component,
+    computed,
     ContentChild,
     ContentChildren,
     Directive,
@@ -13,6 +14,7 @@ import {
     forwardRef,
     HostListener,
     inject,
+    input,
     Input,
     NgModule,
     NgZone,
@@ -40,6 +42,8 @@ import { ZIndexUtils } from 'primeng/utils';
 import { Subscription } from 'rxjs';
 import { PasswordStyle } from './style/passwordstyle';
 import { BaseInput } from 'primeng/baseinput';
+import { BaseEditableHolder } from 'primeng/baseeditableholder';
+import { Fluid } from '../fluid/fluid';
 
 type Meter = {
     strength: string;
@@ -57,7 +61,7 @@ type Meter = {
     },
     providers: [PasswordStyle]
 })
-export class PasswordDirective extends BaseInput implements OnDestroy {
+export class PasswordDirective extends BaseEditableHolder implements OnDestroy {
     /**
      * Text to prompt password entry. Defaults to PrimeNG I18N API configuration.
      * @group Props
@@ -89,6 +93,32 @@ export class PasswordDirective extends BaseInput implements OnDestroy {
      */
     @Input() set showPassword(show: boolean) {
         this.el.nativeElement.type = show ? 'text' : 'password';
+    }
+    /**
+     * Specifies the input variant of the component.
+     * @defaultValue undefined
+     * @group Props
+     */
+    variant = input<'filled' | 'outlined' | undefined>();
+    /**
+     * Spans 100% width of the container when enabled.
+     * @defaultValue undefined
+     * @group Props
+     */
+    fluid = input(undefined, { transform: booleanAttribute });
+    /**
+     * Specifies the size of the component.
+     * @defaultValue undefined
+     * @group Props
+     */
+    size = input<'large' | 'small' | undefined>();
+
+    pcFluid: Fluid = inject(Fluid, { optional: true, host: true, skipSelf: true });
+
+    $variant = computed(() => this.config.inputStyle() || this.variant() || this.config.inputVariant());
+
+    get hasFluid() {
+        return this.fluid() ?? !!this.pcFluid;
     }
 
     panel: Nullable<HTMLDivElement>;

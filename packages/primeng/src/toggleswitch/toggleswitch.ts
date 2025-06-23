@@ -11,6 +11,7 @@ import {
     forwardRef,
     HostListener,
     inject,
+    input,
     Input,
     NgModule,
     numberAttribute,
@@ -124,6 +125,12 @@ export class ToggleSwitch extends BaseEditableHolder implements AfterContentInit
      * @group Props
      */
     @Input() ariaLabel: string | undefined;
+    /**
+     * Specifies the size of the component.
+     * @defaultValue undefined
+     * @group Props
+     */
+    size = input<'large' | 'small' | undefined>();
     /**
      * Establishes relationships between the component and label(s) where its value should be one or more element IDs.
      * @group Props

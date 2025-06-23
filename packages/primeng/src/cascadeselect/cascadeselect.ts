@@ -13,6 +13,7 @@ import {
     forwardRef,
     HostListener,
     inject,
+    input,
     Input,
     NgModule,
     numberAttribute,
@@ -36,7 +37,8 @@ import { Ripple } from 'primeng/ripple';
 import { Nullable, VoidListener } from 'primeng/ts-helpers';
 import { CascadeSelectBeforeHideEvent, CascadeSelectBeforeShowEvent, CascadeSelectChangeEvent, CascadeSelectHideEvent, CascadeSelectShowEvent } from './cascadeselect.interface';
 import { CascadeSelectStyle } from './style/cascadeselectstyle';
-import { BaseInput } from 'primeng/baseinput';
+import { BaseEditableHolder } from '../baseeditableholder/baseeditableholder';
+import { Fluid } from 'primeng/fluid';
 
 export const CASCADESELECT_VALUE_ACCESSOR: any = {
     provide: NG_VALUE_ACCESSOR,
@@ -361,7 +363,7 @@ export class CascadeSelectSub extends BaseComponent implements OnInit {
         '[attr.data-pc-section]': "'root'"
     }
 })
-export class CascadeSelect extends BaseInput implements OnInit, AfterContentInit {
+export class CascadeSelect extends BaseEditableHolder implements OnInit, AfterContentInit {
     /**
      * Unique identifier of the component
      * @group Props
@@ -562,6 +564,24 @@ export class CascadeSelect extends BaseInput implements OnInit, AfterContentInit
      */
     @Input() breakpoint: string = '960px';
     /**
+     * Specifies the size of the component.
+     * @defaultValue undefined
+     * @group Props
+     */
+    size = input<'large' | 'small' | undefined>();
+    /**
+     * Specifies the input variant of the component.
+     * @defaultValue undefined
+     * @group Props
+     */
+    variant = input<'filled' | 'outlined' | undefined>();
+    /**
+     * Spans 100% width of the container when enabled.
+     * @defaultValue undefined
+     * @group Props
+     */
+    fluid = input(undefined, { transform: booleanAttribute });
+    /**
      * Callback to invoke on value change.
      * @param {CascadeSelectChangeEvent} event - Custom change event.
      * @group Emits
@@ -715,6 +735,14 @@ export class CascadeSelect extends BaseInput implements OnInit, AfterContentInit
     _componentStyle = inject(CascadeSelectStyle);
 
     initialized: boolean = false;
+
+    $variant = computed(() => this.config.inputStyle() || this.variant() || this.config.inputVariant());
+
+    pcFluid: Fluid = inject(Fluid, { optional: true, host: true, skipSelf: true });
+
+    get hasFluid() {
+        return this.fluid() ?? !!this.pcFluid;
+    }
 
     @HostListener('click', ['$event'])
     onHostClick(event: MouseEvent) {
