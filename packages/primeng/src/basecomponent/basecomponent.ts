@@ -29,12 +29,12 @@ export class BaseComponent {
     public scopedStyleEl: any;
 
     public rootEl: any;
+
+    @Input() dt: Object | undefined;
     /**
      * Target element to attach the overlay, valid values are "body" or a local ng-template variable of another element (note: use binding with brackets for template variables, e.g. [appendTo]="mydiv" for a div element having #mydiv as variable name).
      * @group Props
      */
-    @Input() dt: Object | undefined;
-
     appendTo = input<HTMLElement | ElementRef | TemplateRef<any> | string | null | undefined | any>(undefined);
 
     $appendTo = computed(() => this.appendTo() || this.config.overlayAppendTo());
