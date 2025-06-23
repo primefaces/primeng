@@ -28,7 +28,6 @@ import {
 } from '@angular/core';
 import { RouterModule } from '@angular/router';
 import {
-    appendChild,
     calculateScrollbarWidth,
     findLastIndex,
     findSingle,
@@ -43,7 +42,6 @@ import {
     isIOS,
     isNotEmpty,
     isPrintableCharacter,
-    removeChild,
     resolve,
     uuid
 } from '@primeuix/utils';
@@ -56,6 +54,7 @@ import { TooltipModule } from 'primeng/tooltip';
 import { VoidListener } from 'primeng/ts-helpers';
 import { ZIndexUtils } from 'primeng/utils';
 import { ContextMenuStyle } from './style/contextmenustyle';
+import { DomHandler } from '../dom/domhandler';
 
 @Component({
     selector: 'p-contextMenuSub, p-contextmenu-sub',
@@ -427,11 +426,6 @@ export class ContextMenu extends BaseComponent implements OnInit, AfterContentIn
      * @group Props
      */
     @Input() styleClass: string | undefined;
-    /**
-     * Target element to attach the overlay, valid values are "body" or a local ng-template variable of another element.
-     * @group Props
-     */
-    @Input() appendTo: HTMLElement | ElementRef | TemplateRef<any> | string | null | undefined | any;
     /**
      * Whether to automatically manage layering.
      * @group Props
@@ -997,10 +991,7 @@ export class ContextMenu extends BaseComponent implements OnInit, AfterContentIn
     }
 
     appendOverlay() {
-        if (this.appendTo) {
-            if (this.appendTo === 'body') this.renderer.appendChild(this.document.body, this.containerViewChild.nativeElement);
-            else appendChild(this.appendTo, this.containerViewChild.nativeElement);
-        }
+        DomHandler.appendOverlay(this.container, this.$appendTo() === 'body' ? this.document.body : this.$appendTo(), this.$appendTo());
     }
 
     moveOnTop() {
@@ -1234,11 +1225,9 @@ export class ContextMenu extends BaseComponent implements OnInit, AfterContentIn
     }
 
     removeAppendedElements() {
-        if (this.appendTo && this.containerViewChild) {
-            if (this.appendTo === 'body') {
+        if (this.$appendTo() && this.containerViewChild) {
+            if (this.$appendTo() === 'body') {
                 this.renderer.removeChild(this.document.body, this.containerViewChild.nativeElement);
-            } else {
-                removeChild(this.containerViewChild.nativeElement, this.appendTo);
             }
         }
     }

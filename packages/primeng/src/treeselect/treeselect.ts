@@ -105,7 +105,7 @@ export const TREESELECT_VALUE_ACCESSOR: any = {
             [(visible)]="overlayVisible"
             [options]="overlayOptions"
             [target]="'@parent'"
-            [appendTo]="appendTo"
+            [appendTo]="$appendTo()"
             [showTransitionOptions]="showTransitionOptions"
             [hideTransitionOptions]="hideTransitionOptions"
             (onAnimationStart)="onOverlayAnimationStart($event)"
@@ -285,11 +285,6 @@ export class TreeSelect extends BaseEditableHolder implements AfterContentInit {
      * @group Props
      */
     @Input() emptyMessage: string = '';
-    /**
-     * A valid query selector or an HTMLElement to specify where the overlay gets attached. Special keywords are "body" for document body and "self" for the element itself.
-     * @group Props
-     */
-    @Input() appendTo: HTMLElement | ElementRef | TemplateRef<any> | string | null | undefined | any;
     /**
      * When specified, displays an input field to filter the items.
      * @group Props

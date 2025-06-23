@@ -199,7 +199,7 @@ export const AUTOCOMPLETE_VALUE_ACCESSOR: any = {
             [(visible)]="overlayVisible"
             [options]="overlayOptions"
             [target]="'@parent'"
-            [appendTo]="appendTo"
+            [appendTo]="$appendTo()"
             [showTransitionOptions]="showTransitionOptions"
             [hideTransitionOptions]="hideTransitionOptions"
             (onAnimationStart)="onOverlayAnimationStart($event)"
@@ -379,11 +379,6 @@ export class AutoComplete extends BaseInput implements AfterViewChecked, AfterCo
      * @group Props
      */
     @Input() virtualScrollOptions: ScrollerOptions | undefined;
-    /**
-     * Target element to attach the overlay, valid values are "body" or a local ng-template variable of another element (note: use binding with brackets for template variables, e.g. [appendTo]="mydiv" for a div element having #mydiv as variable name).
-     * @group Props
-     */
-    @Input() appendTo: HTMLElement | ElementRef | TemplateRef<any> | string | null | undefined | any;
     /**
      * When enabled, highlights the first item in the list by default.
      * @group Props

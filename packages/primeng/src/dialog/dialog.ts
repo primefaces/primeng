@@ -203,11 +203,6 @@ export class Dialog extends BaseComponent implements OnInit, AfterContentInit, O
         console.log('Responsive property is deprecated.');
     }
     /**
-     * Target element to attach the dialog, valid values are "body" or a local ng-template variable of another element (note: use binding with brackets for template variables, e.g. [appendTo]="mydiv" for a div element having #mydiv as variable name).
-     * @group Props
-     */
-    @Input() appendTo: HTMLElement | ElementRef | TemplateRef<any> | string | null | undefined | any;
-    /**
      * Object literal to define widths per screen size.
      * @group Props
      */
@@ -994,14 +989,14 @@ export class Dialog extends BaseComponent implements OnInit, AfterContentInit, O
     }
 
     appendContainer() {
-        if (this.appendTo) {
-            if (this.appendTo === 'body') this.renderer.appendChild(this.document.body, this.wrapper);
-            else appendChild(this.appendTo, this.wrapper);
+        if (this.$appendTo()) {
+            if (this.$appendTo() === 'body') this.renderer.appendChild(this.document.body, this.wrapper);
+            else appendChild(this.$appendTo(), this.wrapper);
         }
     }
 
     restoreAppend() {
-        if (this.container && this.appendTo) {
+        if (this.container && this.$appendTo()) {
             this.renderer.appendChild(this.el.nativeElement, this.wrapper);
         }
     }

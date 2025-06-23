@@ -30,11 +30,11 @@ import {
 } from '@angular/core';
 import { DomSanitizer, SafeHtml } from '@angular/platform-browser';
 import { RouterModule } from '@angular/router';
-import { absolutePosition, appendChild, find, findSingle, focus, isTouchDevice, relativePosition, uuid } from '@primeuix/utils';
+import { absolutePosition, find, findSingle, focus, isTouchDevice, relativePosition, uuid } from '@primeuix/utils';
 import { MenuItem, OverlayService, PrimeTemplate, SharedModule } from 'primeng/api';
 import { BadgeModule } from 'primeng/badge';
 import { BaseComponent } from 'primeng/basecomponent';
-import { ConnectedOverlayScrollHandler } from 'primeng/dom';
+import { ConnectedOverlayScrollHandler, DomHandler } from 'primeng/dom';
 import { Ripple } from 'primeng/ripple';
 import { TooltipModule } from 'primeng/tooltip';
 import { Nullable, VoidListener } from 'primeng/ts-helpers';
@@ -266,11 +266,6 @@ export class Menu extends BaseComponent implements AfterContentInit, OnDestroy {
      * @group Props
      */
     @Input() styleClass: string | undefined;
-    /**
-     * Target element to attach the overlay, valid values are "body" or a local ng-template variable of another element (note: use binding with brackets for template variables, e.g. [appendTo]="mydiv" for a div element having #mydiv as variable name).
-     * @group Props
-     */
-    @Input() appendTo: HTMLElement | ElementRef | TemplateRef<any> | string | null | undefined | any;
     /**
      * Whether to automatically manage layering.
      * @group Props
@@ -510,14 +505,11 @@ export class Menu extends BaseComponent implements AfterContentInit, OnDestroy {
     }
 
     appendOverlay() {
-        if (this.appendTo) {
-            if (this.appendTo === 'body') this.renderer.appendChild(this.document.body, this.container);
-            else appendChild(this.appendTo, this.container);
-        }
+        DomHandler.appendOverlay(this.container, this.$appendTo() === 'body' ? this.document.body : this.$appendTo(), this.$appendTo());
     }
 
     restoreOverlayAppend() {
-        if (this.container && this.appendTo) {
+        if (this.container && this.$appendTo()) {
             this.renderer.appendChild(this.el.nativeElement, this.container);
         }
     }
