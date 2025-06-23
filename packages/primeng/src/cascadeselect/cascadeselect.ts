@@ -310,7 +310,7 @@ export class CascadeSelectSub extends BaseComponent implements OnInit {
             [(visible)]="overlayVisible"
             [options]="overlayOptions"
             [target]="'@parent'"
-            [appendTo]="appendTo"
+            [appendTo]="$appendTo()"
             [showTransitionOptions]="showTransitionOptions"
             [hideTransitionOptions]="hideTransitionOptions"
             (onAnimationDone)="onOverlayAnimationDone($event)"
@@ -494,11 +494,6 @@ export class CascadeSelect extends BaseEditableHolder implements OnInit, AfterCo
      * @group Props
      */
     @Input() ariaLabel: string | undefined;
-    /**
-     * Id of the element or "body" for document where the overlay should be appended to.
-     * @group Props
-     */
-    @Input() appendTo: HTMLElement | ElementRef | TemplateRef<any> | string | null | undefined | any;
     /**
      * When enabled, a clear icon is displayed to clear the value.
      * @group Props

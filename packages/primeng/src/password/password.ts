@@ -548,11 +548,6 @@ export class Password extends BaseInput implements OnInit, AfterContentInit {
      */
     @Input({ transform: booleanAttribute }) feedback: boolean = true;
     /**
-     * Id of the element or "body" for document where the overlay should be appended to.
-     * @group Props
-     */
-    @Input() appendTo: HTMLElement | ElementRef | TemplateRef<any> | string | null | undefined | any;
-    /**
      * Whether to show an icon to display the password as plain text.
      * @group Props
      */
@@ -758,19 +753,13 @@ export class Password extends BaseInput implements OnInit, AfterContentInit {
     }
 
     appendContainer() {
-        if (this.appendTo) {
-            if (this.appendTo === 'body') this.renderer.appendChild(this.document.body, this.overlay);
-            else (this.document as any).getElementById(this.appendTo).appendChild(this.overlay as HTMLElement);
-        }
+        DomHandler.appendOverlay(this.overlay, this.$appendTo() === 'body' ? this.document.body : this.$appendTo(), this.$appendTo());
     }
 
     alignOverlay() {
-        if (this.appendTo) {
-            (this.overlay as HTMLElement).style.minWidth = getOuterWidth(this.input.nativeElement) + 'px';
-            absolutePosition(this.overlay as any, this.input.nativeElement);
-        } else {
-            relativePosition(this.overlay as any, this.input.nativeElement);
-        }
+        (this.overlay as HTMLElement).style.minWidth = getOuterWidth(this.input.nativeElement) + 'px';
+        if (this.$appendTo() === 'self') relativePosition(this.overlay as HTMLElement, this.input?.nativeElement);
+        else absolutePosition(this.overlay as HTMLElement, this.input?.nativeElement);
     }
 
     onInput(event: Event) {
@@ -948,9 +937,9 @@ export class Password extends BaseInput implements OnInit, AfterContentInit {
     }
 
     restoreAppend() {
-        if (this.overlay && this.appendTo) {
-            if (this.appendTo === 'body') this.renderer.removeChild(this.document.body, this.overlay);
-            else (this.document as any).getElementById(this.appendTo).removeChild(this.overlay);
+        if (this.overlay && this.$appendTo()) {
+            if (this.$appendTo() === 'body') this.renderer.removeChild(this.document.body, this.overlay);
+            else (this.document as any).getElementById(this.$appendTo()).removeChild(this.overlay);
         }
     }
 

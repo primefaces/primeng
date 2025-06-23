@@ -183,11 +183,6 @@ export class Image extends BaseComponent implements AfterContentInit {
      */
     @Input() loading: 'lazy' | 'eager' | undefined;
     /**
-     * Target element to attach the dialog, valid values are "body" or a local ng-template variable of another element (note: use binding with brackets for template variables, e.g. [appendTo]="mydiv" for a div element having #mydiv as variable name).
-     * @group Props
-     */
-    @Input() appendTo: HTMLElement | ElementRef | TemplateRef<any> | string | null | undefined | any;
-    /**
      * Controls the preview functionality.
      * @group Props
      */
@@ -464,9 +459,9 @@ export class Image extends BaseComponent implements AfterContentInit {
     }
 
     appendContainer() {
-        if (this.appendTo) {
-            if (this.appendTo === 'body') this.document.body.appendChild(this.wrapper as HTMLElement);
-            else appendChild(this.appendTo, this.wrapper);
+        if (this.$appendTo()) {
+            if (this.$appendTo() === 'body') this.document.body.appendChild(this.wrapper as HTMLElement);
+            else appendChild(this.$appendTo(), this.wrapper);
         }
     }
 

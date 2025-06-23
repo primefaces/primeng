@@ -1,5 +1,5 @@
 import { DOCUMENT, isPlatformServer } from '@angular/common';
-import { ChangeDetectorRef, Directive, ElementRef, inject, Injector, Input, PLATFORM_ID, Renderer2, SimpleChanges } from '@angular/core';
+import { ChangeDetectorRef, computed, Directive, ElementRef, inject, Injector, input, Input, PLATFORM_ID, Renderer2, SimpleChanges, TemplateRef } from '@angular/core';
 import { Theme, ThemeService } from '@primeuix/styled';
 import { cn, getKeyValue, uuid } from '@primeuix/utils';
 import { Base, BaseStyle } from 'primeng/base';
@@ -29,8 +29,15 @@ export class BaseComponent {
     public scopedStyleEl: any;
 
     public rootEl: any;
-
+    /**
+     * Target element to attach the overlay, valid values are "body" or a local ng-template variable of another element (note: use binding with brackets for template variables, e.g. [appendTo]="mydiv" for a div element having #mydiv as variable name).
+     * @group Props
+     */
     @Input() dt: Object | undefined;
+
+    appendTo = input<HTMLElement | ElementRef | TemplateRef<any> | string | null | undefined | any>(undefined);
+
+    $appendTo = computed(() => this.appendTo() || this.config.overlayAppendTo());
 
     get styleOptions() {
         return { nonce: this.config?.csp().nonce };
