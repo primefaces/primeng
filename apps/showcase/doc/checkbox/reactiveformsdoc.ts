@@ -144,7 +144,7 @@ import { MessageModule } from 'primeng/message';
     standalone: true,
     imports: [ReactiveFormsModule, CheckboxModule, ToastModule, ButtonModule, MessageModule]
 })
-export class CheckboxReactiveFormsDemo implements OnInit{
+export class CheckboxReactiveFormsDemo {
     messageService = inject(MessageService);
 
     formSubmitted: boolean = false;

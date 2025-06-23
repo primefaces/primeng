@@ -694,19 +694,12 @@ export class AccordionTab extends BaseComponent implements AfterContentInit, OnD
     imports: [CommonModule, SharedModule],
     template: ` <ng-content /> `,
     host: {
-        '[class]': "cx('root')"
+        '[class]': "cn(cx('root'), styleClass)"
     },
     changeDetection: ChangeDetectionStrategy.OnPush,
     providers: [AccordionStyle]
 })
 export class Accordion extends BaseComponent implements BlockableUI, AfterContentInit, OnDestroy {
-    @HostBinding('class') get hostClass() {
-        return this.styleClass;
-    }
-
-    @HostBinding('style') get hostStyle() {
-        return this.style;
-    }
     /**
      * Value of the active tab.
      * @defaultValue undefined
@@ -720,12 +713,8 @@ export class Accordion extends BaseComponent implements BlockableUI, AfterConten
      */
     multiple = input(false, { transform: (v: any) => transformToBoolean(v) });
     /**
-     * Inline style of the tab header and content.
-     * @group Props
-     */
-    @Input() style: { [klass: string]: any } | null | undefined;
-    /**
      * Class of the element.
+     * @deprecated since v20.0.0, use `class` instead.
      * @group Props
      */
     @Input() styleClass: string | undefined;
