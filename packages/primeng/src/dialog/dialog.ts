@@ -996,7 +996,7 @@ export class Dialog extends BaseComponent implements OnInit, AfterContentInit, O
     }
 
     restoreAppend() {
-        if (this.container && this.$appendTo()) {
+        if (this.container && this.$appendTo() !== 'self') {
             this.renderer.appendChild(this.el.nativeElement, this.wrapper);
         }
     }

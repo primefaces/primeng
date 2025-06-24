@@ -67,7 +67,7 @@ export class BaseInput extends BaseEditableHolder {
      */
     maxlength = input<number>();
 
-    $variant = computed(() => this.config.inputStyle() || this.variant() || this.config.inputVariant());
+    $variant = computed(() => this.variant() || this.config.inputStyle() || this.config.inputVariant());
 
     get hasFluid() {
         return this.fluid() ?? !!this.pcFluid;

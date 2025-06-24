@@ -1,6 +1,25 @@
 import { animate, animation, AnimationEvent, style, transition, trigger, useAnimation } from '@angular/animations';
 import { CommonModule, isPlatformBrowser } from '@angular/common';
-import { AfterContentInit, ChangeDetectionStrategy, Component, ContentChild, ContentChildren, ElementRef, EventEmitter, inject, Input, NgModule, NgZone, OnDestroy, Output, QueryList, TemplateRef, ViewChild, ViewEncapsulation } from '@angular/core';
+import {
+    AfterContentInit,
+    ChangeDetectionStrategy,
+    Component,
+    ContentChild,
+    ContentChildren,
+    ElementRef,
+    EventEmitter,
+    inject,
+    input,
+    Input,
+    NgModule,
+    NgZone,
+    OnDestroy,
+    Output,
+    QueryList,
+    TemplateRef,
+    ViewChild,
+    ViewEncapsulation
+} from '@angular/core';
 import { addClass, focus, getTargetElement, isTouchDevice, removeClass } from '@primeuix/utils';
 import { OverlayModeType, OverlayOnBeforeHideEvent, OverlayOnBeforeShowEvent, OverlayOnHideEvent, OverlayOnShowEvent, OverlayOptions, OverlayService, PrimeTemplate, ResponsiveOverlayOptions, SharedModule } from 'primeng/api';
 import { BaseComponent } from 'primeng/basecomponent';
@@ -452,6 +471,8 @@ export class Overlay extends BaseComponent implements AfterContentInit, OnDestro
         this.isOverlayContentClicked = true;
     }
 
+    hostAttrSelector = input<string>();
+
     onOverlayContentAnimationStart(event: AnimationEvent) {
         switch (event.toState) {
             case 'visible':
@@ -461,6 +482,7 @@ export class Overlay extends BaseComponent implements AfterContentInit, OnDestro
                     ZIndexUtils.set(this.overlayMode, this.overlayEl, this.baseZIndex + this.config?.zIndex[this.overlayMode]);
                 }
 
+                this.hostAttrSelector() && this.overlayEl.setAttribute(this.hostAttrSelector(), '');
                 DomHandler.appendOverlay(this.overlayEl, this.$appendTo() === 'body' ? this.document.body : this.$appendTo(), this.$appendTo());
                 this.alignOverlay();
                 break;
@@ -612,8 +634,8 @@ export class Overlay extends BaseComponent implements AfterContentInit, OnDestro
     ngOnDestroy() {
         this.hide(this.overlayEl, true);
 
-        if (this.overlayEl) {
-            DomHandler.appendOverlay(this.overlayEl, this.targetEl, this.$appendTo());
+        if (this.overlayEl && this.$appendTo() !== 'self') {
+            this.renderer.appendChild(this.el.nativeElement, this.overlayEl);
             ZIndexUtils.clear(this.overlayEl);
         }
 

@@ -450,6 +450,7 @@ export const Password_VALUE_ACCESSOR: any = {
             #overlay
             *ngIf="overlayVisible"
             [class]="cx('overlay')"
+            [style]="sx('overlay')"
             (click)="onOverlayClick($event)"
             [@overlayAnimation]="{
                 value: 'visible',
