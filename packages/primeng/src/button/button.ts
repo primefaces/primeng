@@ -194,9 +194,10 @@ export class ButtonDirective extends BaseComponent implements AfterViewInit, OnD
     @Input({ transform: booleanAttribute }) plain: boolean = false;
     /**
      * Spans 100% width of the container when enabled.
+     * @defaultValue undefined
      * @group Props
      */
-    @Input({ transform: booleanAttribute }) fluid: boolean | undefined;
+    fluid = input(undefined, { transform: booleanAttribute });
 
     public _label: string | undefined;
 
@@ -211,6 +212,8 @@ export class ButtonDirective extends BaseComponent implements AfterViewInit, OnD
     }
 
     private _internalClasses: string[] = Object.values(INTERNAL_BUTTON_CLASSES);
+
+    pcFluid: Fluid = inject(Fluid, { optional: true, host: true, skipSelf: true });
 
     isTextButton = computed(() => !!(!this.iconSignal() && this.labelSignal() && this.text));
 
@@ -343,10 +346,7 @@ export class ButtonDirective extends BaseComponent implements AfterViewInit, OnD
     }
 
     get hasFluid() {
-        const nativeElement = this.el.nativeElement;
-        const fluidComponent = nativeElement.closest('p-fluid');
-
-        return isEmpty(this.fluid) ? !!fluidComponent : this.fluid;
+        return this.fluid() ?? !!this.pcFluid;
     }
 
     setStyleClass() {
@@ -741,27 +741,6 @@ export class Button extends BaseComponent implements AfterContentInit {
             'p-button-icon-right': this.iconPos === 'right' && this.label,
             'p-button-icon-top': this.iconPos === 'top' && this.label,
             'p-button-icon-bottom': this.iconPos === 'bottom' && this.label
-        };
-    }
-
-    get buttonClass() {
-        return {
-            'p-button p-component': true,
-            'p-button-icon-only': (this.icon || this.iconTemplate || this._iconTemplate || this.loadingIcon || this.loadingIconTemplate || this._loadingIconTemplate) && !this.label,
-            'p-button-vertical': (this.iconPos === 'top' || this.iconPos === 'bottom') && this.label,
-            'p-button-loading': this.loading,
-            'p-button-loading-label-only': this.loading && !this.icon && this.label && !this.loadingIcon && this.iconPos === 'left',
-            'p-button-link': this.link,
-            [`p-button-${this.severity}`]: this.severity,
-            'p-button-raised': this.raised,
-            'p-button-rounded': this.rounded,
-            'p-button-text': this.text || this.variant == 'text',
-            'p-button-outlined': this.outlined || this.variant == 'outlined',
-            'p-button-sm': this.size === 'small',
-            'p-button-lg': this.size === 'large',
-            'p-button-plain': this.plain,
-            'p-button-fluid': this.hasFluid,
-            [`${this.styleClass}`]: this.styleClass
         };
     }
 }
