@@ -41,7 +41,7 @@ export const SELECTBUTTON_VALUE_ACCESSOR: any = {
     imports: [ToggleButton, FormsModule, CommonModule, SharedModule],
     template: `
         @for (option of options; track getOptionLabel(option); let i = $index) {
-            <p-toggleButton
+            <p-togglebutton
                 [autofocus]="autofocus"
                 [styleClass]="styleClass"
                 [ngModel]="isSelected(option)"
@@ -51,13 +51,14 @@ export const SELECTBUTTON_VALUE_ACCESSOR: any = {
                 (onChange)="onOptionSelect($event, option, i)"
                 [allowEmpty]="getAllowEmpty()"
                 [size]="size()"
+                [fluid]="fluid()"
             >
                 @if (itemTemplate || _itemTemplate) {
                     <ng-template #content>
                         <ng-container *ngTemplateOutlet="itemTemplate || _itemTemplate; context: { $implicit: option, index: i }"></ng-container>
                     </ng-template>
                 }
-            </p-toggleButton>
+            </p-togglebutton>
         }
     `,
     providers: [SELECTBUTTON_VALUE_ACCESSOR, SelectButtonStyle],
@@ -148,6 +149,12 @@ export class SelectButton extends BaseEditableHolder implements AfterContentInit
      * @group Props
      */
     size = input<'large' | 'small' | undefined>();
+    /**
+     * Spans 100% width of the container when enabled.
+     * @defaultValue undefined
+     * @group Props
+     */
+    fluid = input(undefined, { transform: booleanAttribute });
     /**
      * Callback to invoke on input click.
      * @param {SelectButtonOptionClickEvent} event - Custom click event.

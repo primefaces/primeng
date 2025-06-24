@@ -22,6 +22,7 @@ import {
     computed,
     forwardRef,
     inject,
+    input,
     numberAttribute,
     signal
 } from '@angular/core';
@@ -546,11 +547,16 @@ export class Listbox extends BaseEditableHolder implements AfterContentInit, OnI
      */
     @Input({ transform: booleanAttribute }) dragdrop: boolean = false;
     /**
+     * Spans 100% width of the container when enabled.
+     * @defaultValue undefined
+     * @group Props
+     */
+    fluid = input(undefined, { transform: booleanAttribute });
+    /**
      * Callback to invoke on value change.
      * @param {ListboxChangeEvent} event - Custom change event.
      * @group Emits
      */
-
     @Output() onChange: EventEmitter<ListboxChangeEvent> = new EventEmitter<ListboxChangeEvent>();
     /**
      * Callback to invoke when option is clicked.

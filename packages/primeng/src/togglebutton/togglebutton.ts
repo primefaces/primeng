@@ -1,5 +1,23 @@
 import { CommonModule } from '@angular/common';
-import { AfterContentInit, booleanAttribute, ChangeDetectionStrategy, Component, ContentChild, ContentChildren, EventEmitter, forwardRef, HostListener, inject, Input, NgModule, numberAttribute, Output, QueryList, TemplateRef } from '@angular/core';
+import {
+    AfterContentInit,
+    booleanAttribute,
+    ChangeDetectionStrategy,
+    Component,
+    ContentChild,
+    ContentChildren,
+    EventEmitter,
+    forwardRef,
+    HostListener,
+    inject,
+    input,
+    Input,
+    NgModule,
+    numberAttribute,
+    Output,
+    QueryList,
+    TemplateRef
+} from '@angular/core';
 import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
 import { PrimeTemplate, SharedModule } from 'primeng/api';
 import { Ripple } from 'primeng/ripple';
@@ -143,6 +161,12 @@ export class ToggleButton extends BaseEditableHolder implements AfterContentInit
      * @group Props
      */
     @Input() allowEmpty: boolean | undefined;
+    /**
+     * Spans 100% width of the container when enabled.
+     * @defaultValue undefined
+     * @group Props
+     */
+    fluid = input(undefined, { transform: booleanAttribute });
     /**
      * Callback to invoke on value change.
      * @param {ToggleButtonChangeEvent} event - Custom change event.
