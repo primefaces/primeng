@@ -1840,9 +1840,11 @@ export class Select extends BaseInput implements OnInit, AfterViewInit, AfterCon
     }
 
     onEscapeKey(event: KeyboardEvent) {
-        this.overlayVisible && this.hide(true);
-        event.preventDefault();
-        event.stopPropagation();
+        if (this.overlayVisible) {
+            this.hide(true);
+            event.preventDefault();
+            event.stopPropagation();
+        }
     }
 
     onTabKey(event, pressedInInputText = false) {
