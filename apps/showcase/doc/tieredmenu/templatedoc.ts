@@ -10,7 +10,7 @@ import { MenuItem } from 'primeng/api';
             <p>TieredMenu offers item customization with the <i>item</i> template that receives the menuitem instance from the model as a parameter.</p>
         </app-docsectiontext>
         <div class="card flex justify-center">
-            <p-tieredmenu [model]="items">
+            <p-tieredMenu [model]="items">
                 <ng-template #item let-item let-hasSubmenu="hasSubmenu">
                     <a pRipple class="flex items-center p-tieredmenu-item-link">
                         <span [class]="item.icon" class="p-tieredmenu-item-icon"></span>
@@ -20,7 +20,7 @@ import { MenuItem } from 'primeng/api';
                         <i *ngIf="hasSubmenu" class="pi pi-angle-right ml-auto"></i>
                     </a>
                 </ng-template>
-            </p-tieredmenu>
+            </p-tieredMenu>
         </div>
         <app-code [code]="code" selector="tiered-menu-template-demo"></app-code>
     `
@@ -111,7 +111,7 @@ export class TemplateDoc implements OnInit {
     }
 
     code: Code = {
-        basic: `<p-tieredmenu [model]="items">
+        basic: `<p-tieredMenu [model]="items">
     <ng-template #item let-item let-hasSubmenu="hasSubmenu">
         <a pRipple class="flex items-center p-tieredmenu-item-link">
             <span [class]="item.icon" class="p-tieredmenu-item-icon"></span>
@@ -123,10 +123,10 @@ export class TemplateDoc implements OnInit {
             <i *ngIf="hasSubmenu" class="pi pi-angle-right ml-auto"></i>
         </a>
     </ng-template>
-</p-tieredmenu>`,
+</p-tieredMenu>`,
 
         html: `<div class="card flex justify-center">
-    <p-tieredmenu [model]="items">
+    <p-tieredMenu [model]="items">
         <ng-template #item let-item let-hasSubmenu="hasSubmenu">
             <a pRipple class="flex items-center p-tieredmenu-item-link">
                 <span [class]="item.icon" class="p-tieredmenu-item-icon"></span>
@@ -138,7 +138,7 @@ export class TemplateDoc implements OnInit {
                 <i *ngIf="hasSubmenu" class="pi pi-angle-right ml-auto"></i>
             </a>
         </ng-template>
-    </p-tieredmenu>
+    </p-tieredMenu>
 </div>`,
 
         typescript: `import { Component, OnInit } from '@angular/core';

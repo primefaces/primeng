@@ -33,7 +33,7 @@ import { DataViewStyle } from './style/dataviewstyle';
  * @group Components
  */
 @Component({
-    selector: 'p-dataview',
+    selector: 'p-dataView, p-dataview, p-data-view',
     standalone: true,
     imports: [CommonModule, PaginatorModule, SpinnerIcon, SharedModule],
     template: `

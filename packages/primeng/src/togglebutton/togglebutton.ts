@@ -18,7 +18,7 @@ export const TOGGLEBUTTON_VALUE_ACCESSOR: any = {
  * @group Components
  */
 @Component({
-    selector: 'p-togglebutton',
+    selector: 'p-toggleButton, p-togglebutton, p-toggle-button',
     standalone: true,
     imports: [CommonModule, SharedModule],
     hostDirectives: [{ directive: Ripple }],

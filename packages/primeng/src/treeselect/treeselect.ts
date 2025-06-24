@@ -43,7 +43,7 @@ export const TREESELECT_VALUE_ACCESSOR: any = {
  * @group Components
  */
 @Component({
-    selector: 'p-treeselect',
+    selector: 'p-treeSelect, p-treeselect, p-tree-select',
     standalone: true,
     imports: [CommonModule, Overlay, SharedModule, Tree, AutoFocus, TimesIcon, ChevronDownIcon, Chip],
     template: `

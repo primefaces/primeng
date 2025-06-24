@@ -49,7 +49,7 @@ import { PickListStyle } from './style/pickliststyle';
  * @group Components
  */
 @Component({
-    selector: 'p-picklist',
+    selector: 'p-pickList, p-picklist, p-pick-list',
     standalone: true,
     imports: [CommonModule, ButtonDirective, Ripple, DragDropModule, AngleDoubleDownIcon, AngleDoubleLeftIcon, AngleDoubleRightIcon, AngleDoubleUpIcon, AngleDownIcon, AngleLeftIcon, AngleRightIcon, AngleUpIcon, Listbox, FormsModule, SharedModule],
     template: `

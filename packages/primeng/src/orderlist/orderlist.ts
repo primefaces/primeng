@@ -36,7 +36,7 @@ import { OrderListStyle } from './style/orderliststyle';
  * @group Components
  */
 @Component({
-    selector: 'p-orderlist',
+    selector: 'p-orderList, p-orderlist, p-order-list',
     standalone: true,
     imports: [CommonModule, ButtonDirective, Ripple, DragDropModule, AngleDoubleDownIcon, AngleDoubleUpIcon, AngleUpIcon, AngleDownIcon, Listbox, FormsModule, SharedModule],
     template: `

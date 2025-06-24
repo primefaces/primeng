@@ -9,7 +9,7 @@ import { InputGroupStyle } from './style/inputgroupstyle';
  * @group Components
  */
 @Component({
-    selector: 'p-inputgroup',
+    selector: 'p-inputgroup, p-inputGroup, p-input-group',
     standalone: true,
     imports: [CommonModule, SharedModule],
     template: ` <ng-content></ng-content> `,

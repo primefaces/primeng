@@ -167,7 +167,7 @@ export class OrganizationChartNode extends BaseComponent implements OnDestroy {
  * @group Components
  */
 @Component({
-    selector: 'p-organization-chart',
+    selector: 'p-organizationChart, p-organization-chart, p-organizationchart',
     standalone: true,
     imports: [CommonModule, OrganizationChartNode, SharedModule],
     template: ` <table [class]="cx('table')" [collapsible]="collapsible" pOrganizationChartNode [node]="root" *ngIf="root"></table> `,

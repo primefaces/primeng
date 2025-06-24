@@ -37,7 +37,7 @@ import { SpeedDialStyle } from './style/speeddialstyle';
  * @group Components
  */
 @Component({
-    selector: 'p-speeddial',
+    selector: 'p-speeddial, p-speedDial, p-speed-dial',
     standalone: true,
     imports: [CommonModule, ButtonModule, Ripple, TooltipModule, RouterModule, PlusIcon, SharedModule],
     template: `

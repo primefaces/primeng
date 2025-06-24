@@ -9,7 +9,7 @@ import { ProgressBarStyle } from './style/progressbarstyle';
  * @group Components
  */
 @Component({
-    selector: 'p-progressbar',
+    selector: 'p-progressBar, p-progressbar, p-progress-bar',
     standalone: true,
     imports: [CommonModule, SharedModule],
     template: `

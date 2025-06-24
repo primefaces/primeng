@@ -9,7 +9,7 @@ import { ImageCompareStyle } from './style/imagecomparestyle';
  * @group Components
  */
 @Component({
-    selector: 'p-imagecompare',
+    selector: 'p-imageCompare, p-imagecompare, p-image-compare',
     standalone: true,
     imports: [CommonModule, SharedModule],
     template: `

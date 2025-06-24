@@ -239,7 +239,7 @@ export class CascadeSelectSub extends BaseComponent implements OnInit {
  * @group Components
  */
 @Component({
-    selector: 'p-cascadeselect',
+    selector: 'p-cascadeSelect, p-cascadeselect, p-cascade-select',
     standalone: true,
     imports: [CommonModule, Overlay, AutoFocus, CascadeSelectSub, ChevronDownIcon, TimesIcon, SharedModule],
     template: `

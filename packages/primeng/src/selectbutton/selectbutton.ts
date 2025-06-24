@@ -36,12 +36,12 @@ export const SELECTBUTTON_VALUE_ACCESSOR: any = {
  * @group Components
  */
 @Component({
-    selector: 'p-selectbutton',
+    selector: 'p-selectButton, p-selectbutton, p-select-button',
     standalone: true,
     imports: [ToggleButton, FormsModule, CommonModule, SharedModule],
     template: `
         @for (option of options; track getOptionLabel(option); let i = $index) {
-            <p-togglebutton
+            <p-toggleButton
                 [autofocus]="autofocus"
                 [styleClass]="styleClass"
                 [ngModel]="isSelected(option)"
@@ -57,7 +57,7 @@ export const SELECTBUTTON_VALUE_ACCESSOR: any = {
                         <ng-container *ngTemplateOutlet="itemTemplate || _itemTemplate; context: { $implicit: option, index: i }"></ng-container>
                     </ng-template>
                 }
-            </p-togglebutton>
+            </p-toggleButton>
         }
     `,
     providers: [SELECTBUTTON_VALUE_ACCESSOR, SelectButtonStyle],

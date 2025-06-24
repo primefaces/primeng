@@ -9,7 +9,7 @@ import { ProgressSpinnerStyle } from './style/progressspinnerstyle';
  * @group Components
  */
 @Component({
-    selector: 'p-progress-spinner',
+    selector: 'p-progressSpinner, p-progress-spinner, p-progressspinner',
     standalone: true,
     imports: [CommonModule, SharedModule],
     template: `

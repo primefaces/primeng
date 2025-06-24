@@ -40,7 +40,7 @@ export const CHECKBOX_VALUE_ACCESSOR: any = {
  * @group Components
  */
 @Component({
-    selector: 'p-checkbox',
+    selector: 'p-checkbox, p-checkBox, p-check-box',
     standalone: true,
     imports: [CommonModule, CheckIcon, MinusIcon, SharedModule],
     template: `

@@ -29,7 +29,7 @@ import { ScrollPanelStyle } from './style/scrollpanelstyle';
  * @group Components
  */
 @Component({
-    selector: 'p-scrollpanel',
+    selector: 'p-scroll-panel, p-scrollPanel, p-scrollpanel',
     standalone: true,
     imports: [CommonModule, SharedModule],
     template: `

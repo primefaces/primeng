@@ -28,7 +28,7 @@ import { BlockUiStyle } from './style/blockuistyle';
  * @group Components
  */
 @Component({
-    selector: 'p-blockui',
+    selector: 'p-blockUI, p-blockui, p-block-ui',
     standalone: true,
     imports: [CommonModule, SharedModule],
     template: `

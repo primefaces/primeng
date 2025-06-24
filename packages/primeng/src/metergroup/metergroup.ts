@@ -43,7 +43,7 @@ export class MeterGroupLabel extends BaseComponent {
  * @group Components
  */
 @Component({
-    selector: 'p-metergroup',
+    selector: 'p-meterGroup, p-metergroup, p-meter-group',
     standalone: true,
     imports: [CommonModule, MeterGroupLabel, SharedModule],
     template: `

@@ -11,7 +11,7 @@ import { ChangeDetectorRef, Component, OnInit } from '@angular/core';
             <p>Items can be reordered using drag and drop by enabling <i>dragdrop</i> property. Depends on <i>&#64;angular/cdk</i> package.</p>
         </app-docsectiontext>
         <div class="card xl:flex xl:justify-center">
-            <p-orderlist [value]="products" [listStyle]="{ 'max-height': '30rem' }" header="List of Products" [dragdrop]="true">
+            <p-orderList [value]="products" [listStyle]="{ 'max-height': '30rem' }" header="List of Products" [dragdrop]="true">
                 <ng-template let-product #item>
                     <div class="flex flex-wrap p-2 items-center gap-4">
                         <img src="https://primefaces.org/cdn/primeng/images/demo/product/{{ product.image }}" [alt]="product.name" class="w-16 shadow shrink-0 rounded-border" />
@@ -25,7 +25,7 @@ import { ChangeDetectorRef, Component, OnInit } from '@angular/core';
                         <span class="font-bold text-surface-900 dark:text-surface-0">{{ '$' + product.price }}</span>
                     </div>
                 </ng-template>
-            </p-orderlist>
+            </p-orderList>
         </div>
         <app-code [code]="code" selector="orderlist-drag-drop-demo" [extFiles]="extFiles"></app-code>
     `
@@ -57,7 +57,7 @@ export class DragDropDoc implements OnInit {
     }
 
     code: Code = {
-        basic: `<p-orderlist
+        basic: `<p-orderList
     [value]="products"
     [listStyle]="{ 'max-height': '30rem' }"
     header="List of Products"
@@ -82,10 +82,10 @@ export class DragDropDoc implements OnInit {
                 </span>
             </div>
         </ng-template>
-</p-orderlist>`,
+</p-orderList>`,
 
         html: `<div class="card xl:flex xl:justify-center">
-    <p-orderlist
+    <p-orderList
         [value]="products"
         [listStyle]="{ 'max-height': '30rem' }"
         header="List of Products"
@@ -110,7 +110,7 @@ export class DragDropDoc implements OnInit {
                     </span>
                 </div>
             </ng-template>
-    </p-orderlist>
+    </p-orderList>
 </div>`,
 
         typescript: `import { Component, OnInit } from '@angular/core';
