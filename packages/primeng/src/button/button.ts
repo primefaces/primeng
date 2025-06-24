@@ -12,6 +12,7 @@ import {
     Directive,
     EventEmitter,
     inject,
+    input,
     Input,
     NgModule,
     numberAttribute,
@@ -31,6 +32,7 @@ import { SpinnerIcon } from 'primeng/icons';
 import { Ripple } from 'primeng/ripple';
 import { ButtonProps, ButtonSeverity } from './button.interface';
 import { ButtonStyle } from './style/buttonstyle';
+import { Fluid } from 'primeng/fluid';
 
 type ButtonIconPosition = 'left' | 'right' | 'top' | 'bottom';
 
@@ -617,9 +619,10 @@ export class Button extends BaseComponent implements AfterContentInit {
     @Input({ transform: booleanAttribute }) autofocus: boolean | undefined;
     /**
      * Spans 100% width of the container when enabled.
+     * @defaultValue undefined
      * @group Props
      */
-    @Input({ transform: booleanAttribute }) fluid: boolean | undefined;
+    fluid = input(undefined, { transform: booleanAttribute });
     /**
      * Callback to execute when button is clicked.
      * This event is intended to be used with the <p-button> component. Using a regular <button> element, use (click).
@@ -673,12 +676,10 @@ export class Button extends BaseComponent implements AfterContentInit {
             Object.entries(val).forEach(([k, v]) => this[`_${k}`] !== v && (this[`_${k}`] = v));
         }
     }
+    pcFluid: Fluid = inject(Fluid, { optional: true, host: true, skipSelf: true });
 
     get hasFluid() {
-        const nativeElement = this.el.nativeElement;
-        const fluidComponent = nativeElement.closest('p-fluid');
-
-        return isEmpty(this.fluid) ? !!fluidComponent : this.fluid;
+        return this.fluid() ?? !!this.pcFluid;
     }
 
     _componentStyle = inject(ButtonStyle);
