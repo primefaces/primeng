@@ -24,7 +24,8 @@ const classes = {
             'p-invalid': instance.invalid(),
             'p-disabled': instance.disabled(),
             'p-togglebutton-sm p-inputfield-sm': instance.size === 'small',
-            'p-togglebutton-lg p-inputfield-lg': instance.size === 'large'
+            'p-togglebutton-lg p-inputfield-lg': instance.size === 'large',
+            'p-togglebutton-fluid': instance.fluid()
         }
     ],
     content: 'p-togglebutton-content',
