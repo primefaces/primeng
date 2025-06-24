@@ -38,13 +38,13 @@ export class BaseInput extends BaseEditableHolder {
     pattern = input<string>();
     /**
      * The value must be greater than or equal to the value.
-     * @defaultValue undefined
+     * @defaultValue 0
      * @group Props
      */
     min = input<number>(0);
     /**
      * The value must be less than or equal to the value.
-     * @defaultValue undefined
+     * @defaultValue 100
      * @group Props
      */
     max = input<number>(100);
