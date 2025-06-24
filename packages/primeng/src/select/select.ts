@@ -214,6 +214,7 @@ export class SelectItem extends BaseComponent {
 
         <p-overlay
             #overlay
+            [hostAttrSelector]="attrSelector"
             [(visible)]="overlayVisible"
             [options]="overlayOptions"
             [target]="'@parent'"
@@ -1446,7 +1447,6 @@ export class Select extends BaseInput implements OnInit, AfterViewInit, AfterCon
                     this.filterViewChild.nativeElement.focus();
                 }
             }
-
             this.onShow.emit(event);
         }
         if (event.toState === 'void') {
