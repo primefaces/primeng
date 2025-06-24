@@ -1661,7 +1661,7 @@ export class Tree extends BaseComponent implements OnInit, AfterContentInit, OnC
         }
     }
 
-    allowDrop(dragNode: TreeNode, dropNode: TreeNode<any> | null, dragNodeScope: any, dropPoint: 'node'|'between' = 'node'): boolean {
+    allowDrop(dragNode: TreeNode, dropNode: TreeNode<any> | null, dragNodeScope: any, dropPoint: 'node' | 'between' = 'node'): boolean {
         if (!dragNode) {
             //prevent random html elements to be dragged
             return false;
