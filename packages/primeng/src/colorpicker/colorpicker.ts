@@ -396,6 +396,7 @@ export class ColorPicker extends BaseEditableHolder implements ControlValueAcces
             case 'visible':
                 if (!this.inline) {
                     this.overlay = event.element;
+                    this.attrSelector && this.overlay.setAttribute(this.attrSelector, '');
                     this.appendOverlay();
 
                     if (this.autoZIndex) {

@@ -307,6 +307,7 @@ export class CascadeSelectSub extends BaseComponent implements OnInit {
         </span>
         <p-overlay
             #overlay
+            [hostAttrSelector]="attrSelector"
             [(visible)]="overlayVisible"
             [options]="overlayOptions"
             [target]="'@parent'"

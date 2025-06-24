@@ -424,6 +424,7 @@ export class Image extends BaseComponent implements AfterContentInit {
             case 'visible':
                 this.container = event.element;
                 this.wrapper = this.container?.parentElement;
+                this.attrSelector && this.wrapper.setAttribute(this.attrSelector, '');
                 this.appendContainer();
                 this.moveOnTop();
 

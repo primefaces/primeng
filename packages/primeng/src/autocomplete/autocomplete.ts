@@ -196,6 +196,7 @@ export const AUTOCOMPLETE_VALUE_ACCESSOR: any = {
         </button>
         <p-overlay
             #overlay
+            [hostAttrSelector]="attrSelector"
             [(visible)]="overlayVisible"
             [options]="overlayOptions"
             [target]="'@parent'"

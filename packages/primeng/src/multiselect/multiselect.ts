@@ -257,6 +257,7 @@ export class MultiSelectItem extends BaseComponent {
         </div>
         <p-overlay
             #overlay
+            [hostAttrSelector]="attrSelector"
             [(visible)]="overlayVisible"
             [options]="overlayOptions"
             [target]="'@parent'"
