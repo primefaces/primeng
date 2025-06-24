@@ -26,15 +26,15 @@ import { NG_VALUE_ACCESSOR } from '@angular/forms';
 import { focus, getFirstFocusableElement, getFocusableElements, getLastFocusableElement, hasClass, isNotEmpty, uuid } from '@primeuix/utils';
 import { OverlayOptions, PrimeTemplate, ScrollerOptions, SharedModule, TreeNode } from 'primeng/api';
 import { AutoFocus } from 'primeng/autofocus';
+import { BaseEditableHolder } from 'primeng/baseeditableholder';
 import { Chip } from 'primeng/chip';
+import { Fluid } from 'primeng/fluid';
 import { ChevronDownIcon, TimesIcon } from 'primeng/icons';
 import { Overlay } from 'primeng/overlay';
 import { Tree, TreeFilterEvent, TreeNodeSelectEvent, TreeNodeUnSelectEvent } from 'primeng/tree';
 import { Nullable } from 'primeng/ts-helpers';
 import { TreeSelectStyle } from './style/treeselectstyle';
 import { TreeSelectNodeCollapseEvent, TreeSelectNodeExpandEvent } from './treeselect.interface';
-import { BaseEditableHolder } from 'primeng/baseeditableholder';
-import { Fluid } from '../fluid/fluid';
 
 export const TREESELECT_VALUE_ACCESSOR: any = {
     provide: NG_VALUE_ACCESSOR,
@@ -492,7 +492,7 @@ export class TreeSelect extends BaseEditableHolder implements AfterContentInit {
 
     @ViewChild('lastHiddenFocusableEl') lastHiddenFocusableElementOnOverlay: Nullable<ElementRef>;
 
-    $variant = computed(() => this.config.inputStyle() || this.variant() || this.config.inputVariant());
+    $variant = computed(() => this.variant() || this.config.inputStyle() || this.config.inputVariant());
 
     pcFluid: Fluid = inject(Fluid, { optional: true, host: true, skipSelf: true });
 

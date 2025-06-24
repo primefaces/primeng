@@ -34,9 +34,11 @@ import { deepEquals, equals, findLastIndex, findSingle, focus, getFirstFocusable
 import { FilterService, Footer, Header, OverlayOptions, OverlayService, PrimeTemplate, ScrollerOptions, SharedModule, TranslationKeys } from 'primeng/api';
 import { AutoFocus } from 'primeng/autofocus';
 import { BaseComponent } from 'primeng/basecomponent';
+import { BaseEditableHolder } from 'primeng/baseeditableholder';
 import { Checkbox } from 'primeng/checkbox';
 import { Chip } from 'primeng/chip';
 import { DomHandler, unblockBodyScroll } from 'primeng/dom';
+import { Fluid } from 'primeng/fluid';
 import { IconField } from 'primeng/iconfield';
 import { CheckIcon, ChevronDownIcon, SearchIcon, TimesIcon } from 'primeng/icons';
 import { InputIcon } from 'primeng/inputicon';
@@ -49,8 +51,6 @@ import { Nullable } from 'primeng/ts-helpers';
 import { ObjectUtils } from 'primeng/utils';
 import { MultiSelectBlurEvent, MultiSelectChangeEvent, MultiSelectFilterEvent, MultiSelectFilterOptions, MultiSelectFocusEvent, MultiSelectLazyLoadEvent, MultiSelectRemoveEvent, MultiSelectSelectAllChangeEvent } from './multiselect.interface';
 import { MultiSelectStyle } from './style/multiselectstyle';
-import { Fluid } from 'primeng/fluid';
-import { BaseEditableHolder } from 'primeng/baseeditableholder';
 
 export const MULTISELECT_VALUE_ACCESSOR: any = {
     provide: NG_VALUE_ACCESSOR,
@@ -1066,7 +1066,7 @@ export class MultiSelect extends BaseEditableHolder implements OnInit, AfterView
 
     _headerCheckboxIconTemplate: TemplateRef<any> | undefined;
 
-    $variant = computed(() => this.config.inputStyle() || this.variant() || this.config.inputVariant());
+    $variant = computed(() => this.variant() || this.config.inputStyle() || this.config.inputVariant());
 
     pcFluid: Fluid = inject(Fluid, { optional: true, host: true, skipSelf: true });
 

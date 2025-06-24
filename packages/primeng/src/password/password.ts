@@ -34,16 +34,16 @@ import { NG_VALUE_ACCESSOR } from '@angular/forms';
 import { absolutePosition, addClass, getOuterWidth, hasClass, isTouchDevice, relativePosition, removeClass } from '@primeuix/utils';
 import { OverlayService, PrimeTemplate, SharedModule, TranslationKeys } from 'primeng/api';
 import { AutoFocus } from 'primeng/autofocus';
+import { BaseEditableHolder } from 'primeng/baseeditableholder';
+import { BaseInput } from 'primeng/baseinput';
 import { ConnectedOverlayScrollHandler, DomHandler } from 'primeng/dom';
+import { Fluid } from 'primeng/fluid';
 import { EyeIcon, EyeSlashIcon, TimesIcon } from 'primeng/icons';
 import { InputText } from 'primeng/inputtext';
 import { Nullable, VoidListener } from 'primeng/ts-helpers';
 import { ZIndexUtils } from 'primeng/utils';
 import { Subscription } from 'rxjs';
 import { PasswordStyle } from './style/passwordstyle';
-import { BaseInput } from 'primeng/baseinput';
-import { BaseEditableHolder } from 'primeng/baseeditableholder';
-import { Fluid } from '../fluid/fluid';
 
 type Meter = {
     strength: string;
@@ -111,11 +111,11 @@ export class PasswordDirective extends BaseEditableHolder implements OnDestroy {
      * @defaultValue undefined
      * @group Props
      */
-    size = input<'large' | 'small' | undefined>();
+    size = input<'large' | 'small' | undefined>(undefined, { alias: 'pSize' });
 
     pcFluid: Fluid = inject(Fluid, { optional: true, host: true, skipSelf: true });
 
-    $variant = computed(() => this.config.inputStyle() || this.variant() || this.config.inputVariant());
+    $variant = computed(() => this.variant() || this.config.inputStyle() || this.config.inputVariant());
 
     get hasFluid() {
         return this.fluid() ?? !!this.pcFluid;

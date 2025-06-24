@@ -26,11 +26,11 @@ import {
 import { ControlValueAccessor, FormControl, NG_VALUE_ACCESSOR, NgControl } from '@angular/forms';
 import { contains, equals } from '@primeuix/utils';
 import { PrimeTemplate, SharedModule } from 'primeng/api';
+import { BaseEditableHolder } from 'primeng/baseeditableholder';
 import { CheckIcon, MinusIcon } from 'primeng/icons';
 import { Nullable } from 'primeng/ts-helpers';
 import { CheckboxChangeEvent } from './checkbox.interface';
 import { CheckboxStyle } from './style/checkboxstyle';
-import { BaseEditableHolder } from 'primeng/baseeditableholder';
 
 export const CHECKBOX_VALUE_ACCESSOR: any = {
     provide: NG_VALUE_ACCESSOR,
@@ -224,7 +224,7 @@ export class Checkbox extends BaseEditableHolder implements AfterContentInit, Co
 
     _componentStyle = inject(CheckboxStyle);
 
-    $variant = computed(() => this.config.inputStyle() || this.variant() || this.config.inputVariant());
+    $variant = computed(() => this.variant() || this.config.inputStyle() || this.config.inputVariant());
 
     ngAfterContentInit() {
         this.templates.forEach((item) => {

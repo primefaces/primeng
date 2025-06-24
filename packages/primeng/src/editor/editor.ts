@@ -6,7 +6,7 @@ import { Header, PrimeTemplate, SharedModule } from 'primeng/api';
 import { Nullable } from 'primeng/ts-helpers';
 import { EditorInitEvent, EditorSelectionChangeEvent, EditorTextChangeEvent } from './editor.interface';
 import { EditorStyle } from './style/editorstyle';
-import { BaseInput } from 'primeng/baseinput';
+import { BaseEditableHolder } from 'primeng/baseeditableholder';
 
 export const EDITOR_VALUE_ACCESSOR: any = {
     provide: NG_VALUE_ACCESSOR,
@@ -76,7 +76,7 @@ export const EDITOR_VALUE_ACCESSOR: any = {
         '[class]': "cn(cx('root'), styleClass)"
     }
 })
-export class Editor extends BaseInput implements AfterContentInit, ControlValueAccessor {
+export class Editor extends BaseEditableHolder implements AfterContentInit, ControlValueAccessor {
     /**
      * Inline style of the container.
      * @group Props

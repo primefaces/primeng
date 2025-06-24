@@ -4,9 +4,9 @@ import { ControlValueAccessor, NG_VALUE_ACCESSOR, NgControl } from '@angular/for
 import { SharedModule } from 'primeng/api';
 import { AutoFocus } from 'primeng/autofocus';
 import { Nullable } from 'primeng/ts-helpers';
+import { BaseEditableHolder } from '../baseeditableholder/baseeditableholder';
 import { RadioButtonClickEvent } from './radiobutton.interface';
 import { RadioButtonStyle } from './style/radiobuttonstyle';
-import { BaseEditableHolder } from '../baseeditableholder/baseeditableholder';
 
 export const RADIO_VALUE_ACCESSOR: any = {
     provide: NG_VALUE_ACCESSOR,
@@ -161,7 +161,7 @@ export class RadioButton extends BaseEditableHolder implements ControlValueAcces
 
     @ViewChild('input') inputViewChild!: ElementRef;
 
-    $variant = computed(() => this.config.inputStyle() || this.variant() || this.config.inputVariant());
+    $variant = computed(() => this.variant() || this.config.inputStyle() || this.config.inputVariant());
 
     public onModelChange: Function = () => {};
 

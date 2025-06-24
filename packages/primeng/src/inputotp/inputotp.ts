@@ -21,10 +21,10 @@ import {
 import { NG_VALUE_ACCESSOR } from '@angular/forms';
 import { PrimeTemplate, SharedModule } from 'primeng/api';
 import { AutoFocus } from 'primeng/autofocus';
-import { InputText } from 'primeng/inputtext';
-import { InputOtpStyle } from './style/inputotpstyle';
-import { Nullable } from 'primeng/ts-helpers';
 import { BaseEditableHolder } from 'primeng/baseeditableholder';
+import { InputText } from 'primeng/inputtext';
+import { Nullable } from 'primeng/ts-helpers';
+import { InputOtpStyle } from './style/inputotpstyle';
 
 export const INPUT_OTP_VALUE_ACCESSOR: any = {
     provide: NG_VALUE_ACCESSOR,
@@ -204,7 +204,7 @@ export class InputOtp extends BaseEditableHolder implements AfterContentInit {
 
     value: any;
 
-    $variant = computed(() => this.config.inputStyle() || this.variant() || this.config.inputVariant());
+    $variant = computed(() => this.variant() || this.config.inputStyle() || this.config.inputVariant());
 
     get inputMode(): string {
         return this.integerOnly ? 'numeric' : 'text';

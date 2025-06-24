@@ -31,14 +31,14 @@ import { calculateScrollbarWidth, equals, findLastIndex, findSingle, focus, getH
 import { OverlayOptions, OverlayService, PrimeTemplate, SharedModule, TranslationKeys } from 'primeng/api';
 import { AutoFocus } from 'primeng/autofocus';
 import { BaseComponent } from 'primeng/basecomponent';
+import { Fluid } from 'primeng/fluid';
 import { AngleRightIcon, ChevronDownIcon, TimesIcon } from 'primeng/icons';
 import { Overlay } from 'primeng/overlay';
 import { Ripple } from 'primeng/ripple';
 import { Nullable, VoidListener } from 'primeng/ts-helpers';
+import { BaseEditableHolder } from '../baseeditableholder/baseeditableholder';
 import { CascadeSelectBeforeHideEvent, CascadeSelectBeforeShowEvent, CascadeSelectChangeEvent, CascadeSelectHideEvent, CascadeSelectShowEvent } from './cascadeselect.interface';
 import { CascadeSelectStyle } from './style/cascadeselectstyle';
-import { BaseEditableHolder } from '../baseeditableholder/baseeditableholder';
-import { Fluid } from 'primeng/fluid';
 
 export const CASCADESELECT_VALUE_ACCESSOR: any = {
     provide: NG_VALUE_ACCESSOR,
@@ -732,7 +732,7 @@ export class CascadeSelect extends BaseEditableHolder implements OnInit, AfterCo
 
     initialized: boolean = false;
 
-    $variant = computed(() => this.config.inputStyle() || this.variant() || this.config.inputVariant());
+    $variant = computed(() => this.variant() || this.config.inputStyle() || this.config.inputVariant());
 
     pcFluid: Fluid = inject(Fluid, { optional: true, host: true, skipSelf: true });
 

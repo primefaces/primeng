@@ -1,9 +1,9 @@
 import { AfterViewInit, booleanAttribute, computed, Directive, EventEmitter, HostListener, inject, input, Input, NgModule, OnDestroy, OnInit, Output } from '@angular/core';
 import { NgControl } from '@angular/forms';
+import { BaseEditableHolder } from 'primeng/baseeditableholder';
+import { Fluid } from 'primeng/fluid';
 import { Subscription } from 'rxjs';
 import { TextareaStyle } from './style/textareastyle';
-import { Fluid } from 'primeng/fluid';
-import { BaseEditableHolder } from 'primeng/baseeditableholder';
 
 /**
  * Textarea adds styling and autoResize functionality to standard textarea element.
@@ -41,7 +41,7 @@ export class Textarea extends BaseEditableHolder implements OnInit, AfterViewIni
      */
     fluid = input(undefined, { transform: booleanAttribute });
 
-    $variant = computed(() => this.config.inputStyle() || this.variant() || this.config.inputVariant());
+    $variant = computed(() => this.variant() || this.config.inputStyle() || this.config.inputVariant());
     /**
      * Callback to invoke on textarea resize.
      * @param {(Event | {})} event - Custom resize event.

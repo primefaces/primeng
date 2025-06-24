@@ -1,8 +1,8 @@
 import { AfterViewInit, booleanAttribute, computed, Directive, DoCheck, HostListener, inject, input, Input, NgModule } from '@angular/core';
-import { InputTextStyle } from './style/inputtextstyle';
 import { NgControl } from '@angular/forms';
 import { BaseEditableHolder } from 'primeng/baseeditableholder';
 import { Fluid } from 'primeng/fluid';
+import { InputTextStyle } from './style/inputtextstyle';
 
 /**
  * InputText directive is an extension to standard input element with theming.
@@ -39,7 +39,7 @@ export class InputText extends BaseEditableHolder implements DoCheck, AfterViewI
      */
     fluid = input(undefined, { transform: booleanAttribute });
 
-    $variant = computed(() => this.config.inputStyle() || this.variant() || this.config.inputVariant());
+    $variant = computed(() => this.variant() || this.config.inputStyle() || this.config.inputVariant());
 
     _componentStyle = inject(InputTextStyle);
 
