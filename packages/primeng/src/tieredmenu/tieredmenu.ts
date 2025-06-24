@@ -332,7 +332,6 @@ export class TieredMenuSub extends BaseComponent {
     onItemClick(event: any, processedItem: any) {
         this.getItemProp(processedItem, 'command', { originalEvent: event, item: processedItem.item });
         this.itemClick.emit({ originalEvent: event, processedItem, isFocus: true });
-        console.log(event, processedItem);
         for (const submenu of this.submenus()) {
             submenu.positionSubmenu();
         }
