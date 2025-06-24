@@ -1,5 +1,5 @@
 import { CommonModule } from '@angular/common';
-import { ChangeDetectionStrategy, Component, inject, Input, NgModule, ViewEncapsulation } from '@angular/core';
+import { ChangeDetectionStrategy, Component, computed, inject, input, NgModule, ViewEncapsulation } from '@angular/core';
 import { SharedModule } from 'primeng/api';
 import { BaseComponent } from 'primeng/basecomponent';
 import { FloatLabelStyle } from './style/floatlabelstyle';
@@ -26,7 +26,9 @@ export class FloatLabel extends BaseComponent {
      * Defines the positioning of the label relative to the input.
      * @group Props
      */
-    @Input() variant: 'in' | 'over' | 'on' = 'over';
+    variant = input<'in' | 'over' | 'on' | undefined>();
+
+    $variant = computed(() => this.variant() || this.config.floatVariant() || 'over');
 }
 
 @NgModule({
