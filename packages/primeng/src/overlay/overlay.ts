@@ -612,8 +612,8 @@ export class Overlay extends BaseComponent implements AfterContentInit, OnDestro
     ngOnDestroy() {
         this.hide(this.overlayEl, true);
 
-        if (this.overlayEl) {
-            DomHandler.appendOverlay(this.overlayEl, this.targetEl, this.$appendTo());
+        if (this.overlayEl && this.$appendTo() !== 'self') {
+            this.renderer.appendChild(this.el.nativeElement, this.overlayEl);
             ZIndexUtils.clear(this.overlayEl);
         }
 
