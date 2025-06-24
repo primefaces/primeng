@@ -1428,10 +1428,6 @@ export class InputNumber extends BaseInput implements OnInit, AfterContentInit, 
         this.onModelTouched = fn;
     }
 
-    get filled() {
-        return this.value != null && this.value.toString().length > 0;
-    }
-
     clearTimer() {
         if (this.timer) {
             clearInterval(this.timer);
