@@ -7,10 +7,6 @@ const theme = css`
     ${style}
 
     /* For PrimeNG */
-    .p-password-overlay {
-        position: absolute;
-    }
-
     p-password.ng-invalid.ng-dirty .p-inputtext {
         border-color: ${dt('inputtext.invalid.border.color')};
     }
@@ -29,7 +25,8 @@ const theme = css`
 `;
 
 const inlineStyles = {
-    root: ({ instance }) => ({ position: instance.$appendTo() === 'self' ? 'relative' : undefined })
+    root: ({ instance }) => ({ position: instance.$appendTo() === 'self' ? 'relative' : undefined }),
+    overlay: { position: 'absolute' }
 };
 
 const classes = {

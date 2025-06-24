@@ -137,7 +137,7 @@ import { DomHandler } from '../dom/domhandler';
                                 <ng-template #htmlLabel> <span [class]="cx('itemLabel')" [innerHTML]="getItemLabel(processedItem)" [attr.data-pc-section]="'label'"></span> </ng-template>
                                 <p-badge *ngIf="getItemProp(processedItem, 'badge')" [class]="getItemProp(processedItem, 'badgeStyleClass')" [value]="getItemProp(processedItem, 'badge')" />
                                 <ng-container *ngIf="isItemGroup(processedItem)">
-                                    <AngleRightIcon *ngIf="!contextMenu.submenuIconTemplate && !contextMenu._submenuIconTemplate" [class]="cx('itemIcon')" [attr.data-pc-section]="'submenuicon'" [attr.aria-hidden]="true" />
+                                    <AngleRightIcon *ngIf="!contextMenu.submenuIconTemplate && !contextMenu._submenuIconTemplate" [class]="cx('submenuIcon')" [attr.data-pc-section]="'submenuicon'" [attr.aria-hidden]="true" />
                                     <ng-template
                                         *ngTemplateOutlet="contextMenu.submenuIconTemplate || contextMenu._submenuIconTemplate; context: { class: 'p-contextmenu-submenu-icon' }"
                                         [attr.data-pc-section]="'submenuicon'"
@@ -356,6 +356,7 @@ export class ContextMenuSub extends BaseComponent {
             [attr.data-pc-name]="'contextmenu'"
             [attr.id]="id"
             [class]="cn(cx('root'), styleClass)"
+            [style]="sx('root')"
             [ngStyle]="style"
             [@overlayAnimation]="{ value: 'visible' }"
             (@overlayAnimation.start)="onOverlayAnimationStart($event)"

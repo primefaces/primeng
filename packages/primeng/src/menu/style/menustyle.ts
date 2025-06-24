@@ -1,16 +1,10 @@
 import { Injectable } from '@angular/core';
-import { css } from '@primeuix/styled';
 import { style } from '@primeuix/styles/menu';
 import { BaseStyle } from 'primeng/base';
 
-const theme = css`
-    ${style}
-
-    /* For PrimeNG */
-.p-menu-overlay {
-        position: absolute;
-    }
-`;
+const inlineStyles = {
+    root: ({ instance }) => ({ position: instance.popup ? 'absolute' : 'relative' })
+};
 
 const classes = {
     root: ({ instance }) => [
@@ -42,9 +36,11 @@ const classes = {
 export class MenuStyle extends BaseStyle {
     name = 'menu';
 
-    theme = theme;
+    theme = style;
 
     classes = classes;
+
+    inlineStyles = inlineStyles;
 }
 
 /**
