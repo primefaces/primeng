@@ -24,6 +24,7 @@ import {
     signal,
     TemplateRef,
     ViewChild,
+    viewChildren,
     ViewEncapsulation,
     ViewRef
 } from '@angular/core';
@@ -38,11 +39,14 @@ import { TooltipModule } from 'primeng/tooltip';
 import { Nullable, VoidListener } from 'primeng/ts-helpers';
 import { ZIndexUtils } from 'primeng/utils';
 import { TieredMenuStyle } from './style/tieredmenustyle';
+import { isItemActive, IsItemActivePipe } from './pipes/item-active.pipe';
+import { IsItemVisiblePipe } from './pipes/item-visible.pipe';
+import { IsItemGroupPipe } from './pipes/item-group.pipe';
 
 @Component({
     selector: 'p-tieredMenuSub, p-tieredmenusub',
     standalone: true,
-    imports: [CommonModule, RouterModule, Ripple, TooltipModule, AngleRightIcon, SharedModule],
+    imports: [CommonModule, RouterModule, Ripple, TooltipModule, AngleRightIcon, SharedModule, IsItemActivePipe, IsItemVisiblePipe, IsItemGroupPipe],
     template: `
         <ul
             #sublist
@@ -75,13 +79,13 @@ import { TieredMenuStyle } from './style/tieredmenustyle';
                     role="menuitem"
                     [attr.id]="getItemId(processedItem)"
                     [attr.data-pc-section]="'menuitem'"
-                    [attr.data-p-highlight]="isItemActive(processedItem)"
+                    [attr.data-p-highlight]="processedItem | isItemActive: activeItemPath()"
                     [attr.data-p-focused]="isItemFocused(processedItem)"
                     [attr.data-p-disabled]="isItemDisabled(processedItem)"
                     [attr.aria-label]="getItemLabel(processedItem)"
                     [attr.aria-disabled]="isItemDisabled(processedItem) || undefined"
-                    [attr.aria-haspopup]="isItemGroup(processedItem) && !getItemProp(processedItem, 'to') ? 'menu' : undefined"
-                    [attr.aria-expanded]="isItemGroup(processedItem) ? isItemActive(processedItem) : undefined"
+                    [attr.aria-haspopup]="(processedItem | isItemGroup) && !getItemProp(processedItem, 'to') ? 'menu' : undefined"
+                    [attr.aria-expanded]="(processedItem | isItemGroup) ? (processedItem | isItemActive: activeItemPath()) : undefined"
                     [attr.aria-setsize]="getAriaSetSize()"
                     [attr.aria-posinset]="getAriaPosInset(index)"
                     [ngStyle]="getItemProp(processedItem, 'style')"
@@ -117,7 +121,7 @@ import { TieredMenuStyle } from './style/tieredmenustyle';
                                 </ng-template>
                                 <span *ngIf="getItemProp(processedItem, 'badge')" [class]="cn(cx('itemBadge'), getItemProp(processedItem, 'badgeStyleClass'))">{{ getItemProp(processedItem, 'badge') }}</span>
 
-                                <ng-container *ngIf="isItemGroup(processedItem)">
+                                <ng-container *ngIf="processedItem | isItemGroup">
                                     <AngleRightIcon *ngIf="!tieredMenu.submenuIconTemplate && !tieredMenu._submenuIconTemplate" [class]="cx('submenuIcon')" [attr.data-pc-section]="'submenuicon'" [attr.aria-hidden]="true" />
                                     <ng-template *ngTemplateOutlet="tieredMenu.submenuIconTemplate || tieredMenu._submenuIconTemplate" [attr.data-pc-section]="'submenuicon'" [attr.aria-hidden]="true"></ng-template>
                                 </ng-container>
@@ -158,7 +162,7 @@ import { TieredMenuStyle } from './style/tieredmenustyle';
                                 </ng-template>
                                 <span *ngIf="getItemProp(processedItem, 'badge')" [class]="cn(cx('itemBadge'), getItemProp(processedItem, 'badgeStyleClass'))">{{ getItemProp(processedItem, 'badge') }}</span>
 
-                                <ng-container *ngIf="isItemGroup(processedItem)">
+                                <ng-container *ngIf="processedItem | isItemGroup">
                                     <AngleRightIcon *ngIf="!tieredMenu.submenuIconTemplate && !tieredMenu._submenuIconTemplate" [class]="cx('submenuIcon')" [attr.data-pc-section]="'submenuicon'" [attr.aria-hidden]="true" />
                                     <ng-template *ngTemplateOutlet="tieredMenu.submenuIconTemplate || tieredMenu._submenuIconTemplate" [attr.data-pc-section]="'submenuicon'" [attr.aria-hidden]="true"></ng-template>
                                 </ng-container>
@@ -169,20 +173,21 @@ import { TieredMenuStyle } from './style/tieredmenustyle';
                         </ng-container>
                     </div>
 
-                    <p-tieredmenusub
-                        *ngIf="isItemVisible(processedItem) && isItemGroup(processedItem)"
-                        [items]="processedItem.items"
-                        [itemTemplate]="itemTemplate"
-                        [autoDisplay]="autoDisplay"
-                        [menuId]="menuId"
-                        [activeItemPath]="activeItemPath()"
-                        [focusedItemId]="focusedItemId"
-                        [ariaLabelledBy]="getItemId(processedItem)"
-                        [level]="level + 1"
-                        (itemClick)="itemClick.emit($event)"
-                        (itemMouseEnter)="onItemMouseEnter($event)"
-                        [inlineStyles]="{ display: isItemActive(processedItem) ? 'flex' : 'none' }"
-                    ></p-tieredmenusub>
+                    @if ((processedItem | isItemVisible) && (processedItem | isItemGroup)) {
+                        <p-tieredmenusub
+                            [items]="processedItem.items"
+                            [itemTemplate]="itemTemplate"
+                            [autoDisplay]="autoDisplay"
+                            [menuId]="menuId"
+                            [activeItemPath]="activeItemPath()"
+                            [focusedItemId]="focusedItemId"
+                            [ariaLabelledBy]="getItemId(processedItem)"
+                            [level]="level + 1"
+                            (itemClick)="itemClick.emit($event)"
+                            (itemMouseEnter)="onItemMouseEnter($event)"
+                            [inlineStyles]="{ display: (processedItem | isItemActive: activeItemPath()) ? 'flex' : 'none' }"
+                        ></p-tieredmenusub>
+                    }
                 </li>
             </ng-template>
         </ul>
@@ -232,6 +237,8 @@ export class TieredMenuSub extends BaseComponent {
 
     @ViewChild('sublist', { static: true }) sublistViewChild: ElementRef;
 
+    readonly submenus = viewChildren(TieredMenuSub);
+
     _componentStyle = inject(TieredMenuStyle);
 
     constructor(
@@ -267,7 +274,7 @@ export class TieredMenuSub extends BaseComponent {
         return {
             ...this.getItemProp(processedItem, 'class'),
             'p-tieredmenu-item': true,
-            'p-tieredmenu-item-active': this.isItemActive(processedItem),
+            'p-tieredmenu-item-active': isItemActive(processedItem, this.activeItemPath()),
             'p-focus': this.isItemFocused(processedItem),
             'p-disabled': this.isItemDisabled(processedItem)
         };
@@ -304,13 +311,6 @@ export class TieredMenuSub extends BaseComponent {
         return this.getItemProp(processedItem, 'visible') !== false;
     }
 
-    isItemActive(processedItem: any): boolean {
-        if (this.activeItemPath()) {
-            this.positionSubmenu();
-            return this.activeItemPath().some((path) => path.key === processedItem.key);
-        }
-    }
-
     isItemDisabled(processedItem: any): boolean {
         return this.getItemProp(processedItem, 'disabled');
     }
@@ -319,20 +319,23 @@ export class TieredMenuSub extends BaseComponent {
         return this.focusedItemId === this.getItemId(processedItem);
     }
 
-    isItemGroup(processedItem: any): boolean {
-        return isNotEmpty(processedItem.items);
-    }
-
     onItemMouseEnter(param: any) {
         if (this.autoDisplay) {
             const { event, processedItem } = param;
             this.itemMouseEnter.emit({ originalEvent: event, processedItem });
+            for (const submenu of this.submenus()) {
+                submenu.positionSubmenu();
+            }
         }
     }
 
     onItemClick(event: any, processedItem: any) {
         this.getItemProp(processedItem, 'command', { originalEvent: event, item: processedItem.item });
         this.itemClick.emit({ originalEvent: event, processedItem, isFocus: true });
+        console.log(event, processedItem);
+        for (const submenu of this.submenus()) {
+            submenu.positionSubmenu();
+        }
     }
 }
 /**

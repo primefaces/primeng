@@ -1,9 +1,10 @@
 import { Injectable } from '@angular/core';
 import { BaseStyle } from 'primeng/base';
 import { style } from '@primeuix/styles/tieredmenu';
+import { isItemActive } from '../pipes/item-active.pipe';
 
 const inlineStyles = {
-    submenu: ({ instance, processedItem }) => ({ display: instance.isItemActive(processedItem) ? 'flex' : 'none' })
+    submenu: ({ instance, processedItem }) => ({ display: isItemActive(processedItem, instance.activeItemPath()) ? 'flex' : 'none' })
 };
 
 const classes = {
@@ -20,7 +21,7 @@ const classes = {
         'p-tieredmenu-item',
         processedItem.styleClass,
         {
-            'p-tieredmenu-item-active': instance.isItemActive(processedItem),
+            'p-tieredmenu-item-active': isItemActive(processedItem, instance.activeItemPath()),
             'p-focus': instance.isItemFocused(processedItem),
             'p-disabled': instance.isItemDisabled(processedItem)
         }
