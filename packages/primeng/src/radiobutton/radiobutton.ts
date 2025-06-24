@@ -1,12 +1,12 @@
 import { CommonModule } from '@angular/common';
-import { booleanAttribute, ChangeDetectionStrategy, Component, ElementRef, EventEmitter, forwardRef, inject, Injectable, Injector, Input, NgModule, numberAttribute, OnDestroy, OnInit, Output, ViewChild } from '@angular/core';
+import { booleanAttribute, ChangeDetectionStrategy, Component, computed, ElementRef, EventEmitter, forwardRef, inject, Injectable, Injector, input, Input, NgModule, numberAttribute, OnDestroy, OnInit, Output, ViewChild } from '@angular/core';
 import { ControlValueAccessor, NG_VALUE_ACCESSOR, NgControl } from '@angular/forms';
 import { SharedModule } from 'primeng/api';
 import { AutoFocus } from 'primeng/autofocus';
 import { Nullable } from 'primeng/ts-helpers';
 import { RadioButtonClickEvent } from './radiobutton.interface';
 import { RadioButtonStyle } from './style/radiobuttonstyle';
-import { BaseInput } from 'primeng/baseinput';
+import { BaseEditableHolder } from '../baseeditableholder/baseeditableholder';
 
 export const RADIO_VALUE_ACCESSOR: any = {
     provide: NG_VALUE_ACCESSOR,
@@ -86,7 +86,7 @@ export class RadioControlRegistry {
         '[class]': "cx('root')"
     }
 })
-export class RadioButton extends BaseInput implements ControlValueAccessor, OnInit, OnDestroy {
+export class RadioButton extends BaseEditableHolder implements ControlValueAccessor, OnInit, OnDestroy {
     /**
      * Value of the radiobutton.
      * @group Props
@@ -129,6 +129,18 @@ export class RadioButton extends BaseInput implements ControlValueAccessor, OnIn
      */
     @Input({ transform: booleanAttribute }) binary: boolean | undefined;
     /**
+     * Specifies the input variant of the component.
+     * @defaultValue undefined
+     * @group Props
+     */
+    variant = input<'filled' | 'outlined' | undefined>();
+    /**
+     * Specifies the size of the component.
+     * @defaultValue undefined
+     * @group Props
+     */
+    size = input<'large' | 'small' | undefined>();
+    /**
      * Callback to invoke on radio button click.
      * @param {RadioButtonClickEvent} event - Custom click event.
      * @group Emits
@@ -148,6 +160,8 @@ export class RadioButton extends BaseInput implements ControlValueAccessor, OnIn
     @Output() onBlur: EventEmitter<Event> = new EventEmitter<Event>();
 
     @ViewChild('input') inputViewChild!: ElementRef;
+
+    $variant = computed(() => this.config.inputStyle() || this.variant() || this.config.inputVariant());
 
     public onModelChange: Function = () => {};
 

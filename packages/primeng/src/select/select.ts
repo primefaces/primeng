@@ -217,7 +217,7 @@ export class SelectItem extends BaseComponent {
             [(visible)]="overlayVisible"
             [options]="overlayOptions"
             [target]="'@parent'"
-            [appendTo]="appendTo"
+            [appendTo]="$appendTo()"
             [autoZIndex]="autoZIndex"
             [baseZIndex]="baseZIndex"
             [showTransitionOptions]="showTransitionOptions"
@@ -404,11 +404,6 @@ export class Select extends BaseInput implements OnInit, AfterViewInit, AfterCon
      * @group Props
      */
     @Input({ transform: booleanAttribute }) editable: boolean | undefined;
-    /**
-     * Target element to attach the overlay, valid values are "body" or a local ng-template variable of another element (note: use binding with brackets for template variables, e.g. [appendTo]="mydiv" for a div element having #mydiv as variable name).
-     * @group Props
-     */
-    @Input() appendTo: HTMLElement | ElementRef | TemplateRef<any> | string | null | undefined | any;
     /**
      * Index of the element in tabbing order.
      * @group Props

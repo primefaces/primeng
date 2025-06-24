@@ -1,12 +1,30 @@
 import { CommonModule } from '@angular/common';
-import { AfterContentInit, booleanAttribute, ChangeDetectionStrategy, Component, ContentChild, ContentChildren, EventEmitter, forwardRef, inject, Input, NgModule, Output, QueryList, TemplateRef, ViewEncapsulation } from '@angular/core';
+import {
+    AfterContentInit,
+    booleanAttribute,
+    ChangeDetectionStrategy,
+    Component,
+    computed,
+    ContentChild,
+    ContentChildren,
+    EventEmitter,
+    forwardRef,
+    inject,
+    input,
+    Input,
+    NgModule,
+    Output,
+    QueryList,
+    TemplateRef,
+    ViewEncapsulation
+} from '@angular/core';
 import { NG_VALUE_ACCESSOR } from '@angular/forms';
 import { PrimeTemplate, SharedModule } from 'primeng/api';
 import { AutoFocus } from 'primeng/autofocus';
 import { InputText } from 'primeng/inputtext';
 import { InputOtpStyle } from './style/inputotpstyle';
 import { Nullable } from 'primeng/ts-helpers';
-import { BaseInput } from 'primeng/baseinput';
+import { BaseEditableHolder } from 'primeng/baseeditableholder';
 
 export const INPUT_OTP_VALUE_ACCESSOR: any = {
     provide: NG_VALUE_ACCESSOR,
@@ -101,7 +119,7 @@ export interface InputOtpInputTemplateContext {
         '[class]': "cx('root')"
     }
 })
-export class InputOtp extends BaseInput implements AfterContentInit {
+export class InputOtp extends BaseEditableHolder implements AfterContentInit {
     /**
      * When present, it specifies that an input field is read-only.
      * @group Props
@@ -138,6 +156,18 @@ export class InputOtp extends BaseInput implements AfterContentInit {
      */
     @Input({ transform: booleanAttribute }) autofocus: boolean | undefined;
     /**
+     * Specifies the input variant of the component.
+     * @defaultValue undefined
+     * @group Props
+     */
+    variant = input<'filled' | 'outlined' | undefined>();
+    /**
+     * Specifies the size of the component.
+     * @defaultValue undefined
+     * @group Props
+     */
+    size = input<'large' | 'small' | undefined>();
+    /**
      * Callback to invoke on value change.
      * @group Emits
      */
@@ -154,7 +184,6 @@ export class InputOtp extends BaseInput implements AfterContentInit {
      * @group Emits
      */
     @Output() onBlur: EventEmitter<Event> = new EventEmitter();
-
     /**
      * Input template.
      * @param {InputOtpInputTemplateContext} context - Context of the template
@@ -174,6 +203,8 @@ export class InputOtp extends BaseInput implements AfterContentInit {
     onModelTouched: Function = () => {};
 
     value: any;
+
+    $variant = computed(() => this.config.inputStyle() || this.variant() || this.config.inputVariant());
 
     get inputMode(): string {
         return this.integerOnly ? 'numeric' : 'text';

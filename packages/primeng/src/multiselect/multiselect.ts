@@ -15,6 +15,7 @@ import {
     EventEmitter,
     forwardRef,
     inject,
+    input,
     Input,
     NgModule,
     NgZone,
@@ -48,7 +49,8 @@ import { Nullable } from 'primeng/ts-helpers';
 import { ObjectUtils } from 'primeng/utils';
 import { MultiSelectBlurEvent, MultiSelectChangeEvent, MultiSelectFilterEvent, MultiSelectFilterOptions, MultiSelectFocusEvent, MultiSelectLazyLoadEvent, MultiSelectRemoveEvent, MultiSelectSelectAllChangeEvent } from './multiselect.interface';
 import { MultiSelectStyle } from './style/multiselectstyle';
-import { BaseInput } from 'primeng/baseinput';
+import { Fluid } from 'primeng/fluid';
+import { BaseEditableHolder } from 'primeng/baseeditableholder';
 
 export const MULTISELECT_VALUE_ACCESSOR: any = {
     provide: NG_VALUE_ACCESSOR,
@@ -177,12 +179,7 @@ export class MultiSelectItem extends BaseComponent {
                 (keydown)="onKeyDown($event)"
                 [pAutoFocus]="autofocus"
                 [attr.value]="modelValue()"
-                [attr.pattern]="pattern()"
                 [attr.required]="required()"
-                [attr.min]="min()"
-                [attr.max]="max()"
-                [attr.minlength]="minlength()"
-                [attr.maxlength]="maxlength()"
                 [attr.name]="name()"
                 [attr.disabled]="disabled()"
             />
@@ -263,7 +260,7 @@ export class MultiSelectItem extends BaseComponent {
             [(visible)]="overlayVisible"
             [options]="overlayOptions"
             [target]="'@parent'"
-            [appendTo]="appendTo"
+            [appendTo]="$appendTo()"
             [autoZIndex]="autoZIndex"
             [baseZIndex]="baseZIndex"
             [showTransitionOptions]="showTransitionOptions"
@@ -446,7 +443,7 @@ export class MultiSelectItem extends BaseComponent {
         '[style]': "sx('root')"
     }
 })
-export class MultiSelect extends BaseInput implements OnInit, AfterViewInit, AfterContentInit, AfterViewChecked, ControlValueAccessor {
+export class MultiSelect extends BaseEditableHolder implements OnInit, AfterViewInit, AfterContentInit, AfterViewChecked, ControlValueAccessor {
     /**
      * Unique identifier of the component
      * @group Props
@@ -513,11 +510,6 @@ export class MultiSelect extends BaseInput implements OnInit, AfterViewInit, Aft
      * @group Props
      */
     @Input({ transform: numberAttribute }) tabindex: number | undefined = 0;
-    /**
-     * Target element to attach the overlay, valid values are "body" or a local ng-template variable of another element (note: use binding with brackets for template variables, e.g. [appendTo]="mydiv" for a div element having #mydiv as variable name).
-     * @group Props
-     */
-    @Input() appendTo: HTMLElement | ElementRef | TemplateRef<any> | string | null | undefined | any;
     /**
      * A property to uniquely identify a value in options.
      * @group Props
@@ -860,6 +852,24 @@ export class MultiSelect extends BaseInput implements OnInit, AfterViewInit, Aft
      */
     @Input({ transform: booleanAttribute }) highlightOnSelect: boolean = true;
     /**
+     * Specifies the size of the component.
+     * @defaultValue undefined
+     * @group Props
+     */
+    size = input<'large' | 'small' | undefined>();
+    /**
+     * Specifies the input variant of the component.
+     * @defaultValue undefined
+     * @group Props
+     */
+    variant = input<'filled' | 'outlined' | undefined>();
+    /**
+     * Spans 100% width of the container when enabled.
+     * @defaultValue undefined
+     * @group Props
+     */
+    fluid = input(undefined, { transform: booleanAttribute });
+    /**
      * Callback to invoke when value changes.
      * @param {MultiSelectChangeEvent} event - Custom change event.
      * @group Emits
@@ -1054,6 +1064,14 @@ export class MultiSelect extends BaseInput implements OnInit, AfterViewInit, Aft
     _itemCheckboxIconTemplate: TemplateRef<any> | undefined;
 
     _headerCheckboxIconTemplate: TemplateRef<any> | undefined;
+
+    $variant = computed(() => this.config.inputStyle() || this.variant() || this.config.inputVariant());
+
+    pcFluid: Fluid = inject(Fluid, { optional: true, host: true, skipSelf: true });
+
+    get hasFluid() {
+        return this.fluid() ?? !!this.pcFluid;
+    }
 
     ngAfterContentInit() {
         (this.templates as QueryList<PrimeTemplate>).forEach((item) => {

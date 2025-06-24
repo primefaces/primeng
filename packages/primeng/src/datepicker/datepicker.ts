@@ -545,11 +545,6 @@ export class DatePicker extends BaseInput implements OnInit, AfterContentInit, A
      */
     @Input() icon: string | undefined;
     /**
-     * Target element to attach the overlay, valid values are "body" or a local ng-template variable of another element (note: use binding with brackets for template variables, e.g. [appendTo]="mydiv" for a div element having#mydiv as variable name).
-     * @group Props
-     */
-    @Input() appendTo: HTMLElement | ElementRef | TemplateRef<any> | string | null | undefined | any;
-    /**
      * When specified, prevents entering the date manually with keyboard.
      * @group Props
      */
@@ -3128,14 +3123,14 @@ export class DatePicker extends BaseInput implements OnInit, AfterContentInit, A
     }
 
     appendOverlay() {
-        if (this.appendTo) {
-            if (this.appendTo === 'body') this.document.body.appendChild(<HTMLElement>this.overlay);
-            else appendChild(this.appendTo, this.overlay);
+        if (this.$appendTo()) {
+            if (this.$appendTo() === 'body') this.document.body.appendChild(<HTMLElement>this.overlay);
+            else appendChild(this.$appendTo(), this.overlay);
         }
     }
 
     restoreOverlayAppend() {
-        if (this.overlay && this.appendTo) {
+        if (this.overlay && this.$appendTo()) {
             this.el.nativeElement.appendChild(this.overlay);
         }
     }
@@ -3144,7 +3139,7 @@ export class DatePicker extends BaseInput implements OnInit, AfterContentInit, A
         if (this.touchUI) {
             this.enableModality(this.overlay);
         } else if (this.overlay) {
-            if (this.appendTo) {
+            if (this.$appendTo()) {
                 if (this.view === 'date') {
                     if (!this.overlay.style.width) {
                         this.overlay.style.width = getOuterWidth(this.overlay) + 'px';

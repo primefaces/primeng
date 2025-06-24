@@ -157,17 +157,6 @@ export class Overlay extends BaseComponent implements AfterContentInit, OnDestro
         this._target = value;
     }
     /**
-     * Overlay can be mounted into its location, body or DOM element instance using this option.
-     * @defaultValue null
-     * @group Props
-     */
-    @Input() get appendTo(): 'body' | HTMLElement | undefined {
-        return this._appendTo || this.overlayOptions?.appendTo;
-    }
-    set appendTo(value: 'body' | HTMLElement | undefined) {
-        this._appendTo = value;
-    }
-    /**
      * The autoZIndex determines whether to automatically manage layering. Its default value is 'false'.
      * @defaultValue false
      * @group Props
@@ -318,8 +307,6 @@ export class Overlay extends BaseComponent implements AfterContentInit, OnDestro
 
     _target: any;
 
-    _appendTo: 'body' | HTMLElement | undefined;
-
     _autoZIndex: boolean | undefined;
 
     _baseZIndex: number | undefined;
@@ -444,7 +431,7 @@ export class Overlay extends BaseComponent implements AfterContentInit, OnDestro
     }
 
     alignOverlay() {
-        !this.modal && DomHandler.alignOverlay(this.overlayEl, this.targetEl, this.appendTo);
+        !this.modal && DomHandler.alignOverlay(this.overlayEl, this.targetEl, this.$appendTo());
     }
 
     onVisibleChange(visible: boolean) {
@@ -474,7 +461,7 @@ export class Overlay extends BaseComponent implements AfterContentInit, OnDestro
                     ZIndexUtils.set(this.overlayMode, this.overlayEl, this.baseZIndex + this.config?.zIndex[this.overlayMode]);
                 }
 
-                DomHandler.appendOverlay(this.overlayEl, this.appendTo === 'body' ? this.document.body : this.appendTo, this.appendTo);
+                DomHandler.appendOverlay(this.overlayEl, this.$appendTo() === 'body' ? this.document.body : this.$appendTo(), this.$appendTo());
                 this.alignOverlay();
                 break;
 
@@ -507,7 +494,7 @@ export class Overlay extends BaseComponent implements AfterContentInit, OnDestro
                     this.modalVisible = false;
                     this.unbindListeners();
 
-                    DomHandler.appendOverlay(this.overlayEl, this.targetEl, this.appendTo);
+                    DomHandler.appendOverlay(this.overlayEl, this.targetEl, this.$appendTo());
                     ZIndexUtils.clear(container);
                     this.cd.markForCheck();
 
@@ -626,7 +613,7 @@ export class Overlay extends BaseComponent implements AfterContentInit, OnDestro
         this.hide(this.overlayEl, true);
 
         if (this.overlayEl) {
-            DomHandler.appendOverlay(this.overlayEl, this.targetEl, this.appendTo);
+            DomHandler.appendOverlay(this.overlayEl, this.targetEl, this.$appendTo());
             ZIndexUtils.clear(this.overlayEl);
         }
 

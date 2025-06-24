@@ -4,12 +4,14 @@ import {
     booleanAttribute,
     ChangeDetectionStrategy,
     Component,
+    computed,
     ContentChild,
     ContentChildren,
     ElementRef,
     EventEmitter,
     forwardRef,
     inject,
+    input,
     Input,
     NgModule,
     numberAttribute,
@@ -28,7 +30,7 @@ import { CheckIcon, MinusIcon } from 'primeng/icons';
 import { Nullable } from 'primeng/ts-helpers';
 import { CheckboxChangeEvent } from './checkbox.interface';
 import { CheckboxStyle } from './style/checkboxstyle';
-import { BaseInput } from 'primeng/baseinput';
+import { BaseEditableHolder } from 'primeng/baseeditableholder';
 
 export const CHECKBOX_VALUE_ACCESSOR: any = {
     provide: NG_VALUE_ACCESSOR,
@@ -84,7 +86,7 @@ export const CHECKBOX_VALUE_ACCESSOR: any = {
         '[attr.data-p-disabled]': 'disabled()'
     }
 })
-export class Checkbox extends BaseInput implements AfterContentInit, ControlValueAccessor {
+export class Checkbox extends BaseEditableHolder implements AfterContentInit, ControlValueAccessor {
     /**
      * Value of the checkbox.
      * @group Props
@@ -167,6 +169,18 @@ export class Checkbox extends BaseInput implements AfterContentInit, ControlValu
      */
     @Input() falseValue: any = false;
     /**
+     * Specifies the input variant of the component.
+     * @defaultValue undefined
+     * @group Props
+     */
+    variant = input<'filled' | 'outlined' | undefined>();
+    /**
+     * Specifies the size of the component.
+     * @defaultValue undefined
+     * @group Props
+     */
+    size = input<'large' | 'small' | undefined>();
+    /**
      * Callback to invoke on value change.
      * @param {CheckboxChangeEvent} event - Custom value change event.
      * @group Emits
@@ -209,6 +223,8 @@ export class Checkbox extends BaseInput implements AfterContentInit, ControlValu
     focused: boolean = false;
 
     _componentStyle = inject(CheckboxStyle);
+
+    $variant = computed(() => this.config.inputStyle() || this.variant() || this.config.inputVariant());
 
     ngAfterContentInit() {
         this.templates.forEach((item) => {

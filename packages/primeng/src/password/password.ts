@@ -5,6 +5,7 @@ import {
     booleanAttribute,
     ChangeDetectionStrategy,
     Component,
+    computed,
     ContentChild,
     ContentChildren,
     Directive,
@@ -13,6 +14,7 @@ import {
     forwardRef,
     HostListener,
     inject,
+    input,
     Input,
     NgModule,
     NgZone,
@@ -40,6 +42,8 @@ import { ZIndexUtils } from 'primeng/utils';
 import { Subscription } from 'rxjs';
 import { PasswordStyle } from './style/passwordstyle';
 import { BaseInput } from 'primeng/baseinput';
+import { BaseEditableHolder } from 'primeng/baseeditableholder';
+import { Fluid } from '../fluid/fluid';
 
 type Meter = {
     strength: string;
@@ -57,7 +61,7 @@ type Meter = {
     },
     providers: [PasswordStyle]
 })
-export class PasswordDirective extends BaseInput implements OnDestroy {
+export class PasswordDirective extends BaseEditableHolder implements OnDestroy {
     /**
      * Text to prompt password entry. Defaults to PrimeNG I18N API configuration.
      * @group Props
@@ -89,6 +93,32 @@ export class PasswordDirective extends BaseInput implements OnDestroy {
      */
     @Input() set showPassword(show: boolean) {
         this.el.nativeElement.type = show ? 'text' : 'password';
+    }
+    /**
+     * Specifies the input variant of the component.
+     * @defaultValue undefined
+     * @group Props
+     */
+    variant = input<'filled' | 'outlined' | undefined>();
+    /**
+     * Spans 100% width of the container when enabled.
+     * @defaultValue undefined
+     * @group Props
+     */
+    fluid = input(undefined, { transform: booleanAttribute });
+    /**
+     * Specifies the size of the component.
+     * @defaultValue undefined
+     * @group Props
+     */
+    size = input<'large' | 'small' | undefined>();
+
+    pcFluid: Fluid = inject(Fluid, { optional: true, host: true, skipSelf: true });
+
+    $variant = computed(() => this.config.inputStyle() || this.variant() || this.config.inputVariant());
+
+    get hasFluid() {
+        return this.fluid() ?? !!this.pcFluid;
     }
 
     panel: Nullable<HTMLDivElement>;
@@ -518,11 +548,6 @@ export class Password extends BaseInput implements OnInit, AfterContentInit {
      */
     @Input({ transform: booleanAttribute }) feedback: boolean = true;
     /**
-     * Id of the element or "body" for document where the overlay should be appended to.
-     * @group Props
-     */
-    @Input() appendTo: HTMLElement | ElementRef | TemplateRef<any> | string | null | undefined | any;
-    /**
      * Whether to show an icon to display the password as plain text.
      * @group Props
      */
@@ -728,19 +753,13 @@ export class Password extends BaseInput implements OnInit, AfterContentInit {
     }
 
     appendContainer() {
-        if (this.appendTo) {
-            if (this.appendTo === 'body') this.renderer.appendChild(this.document.body, this.overlay);
-            else (this.document as any).getElementById(this.appendTo).appendChild(this.overlay as HTMLElement);
-        }
+        DomHandler.appendOverlay(this.overlay, this.$appendTo() === 'body' ? this.document.body : this.$appendTo(), this.$appendTo());
     }
 
     alignOverlay() {
-        if (this.appendTo) {
-            (this.overlay as HTMLElement).style.minWidth = getOuterWidth(this.input.nativeElement) + 'px';
-            absolutePosition(this.overlay as any, this.input.nativeElement);
-        } else {
-            relativePosition(this.overlay as any, this.input.nativeElement);
-        }
+        (this.overlay as HTMLElement).style.minWidth = getOuterWidth(this.input.nativeElement) + 'px';
+        if (this.$appendTo() === 'self') relativePosition(this.overlay as HTMLElement, this.input?.nativeElement);
+        else absolutePosition(this.overlay as HTMLElement, this.input?.nativeElement);
     }
 
     onInput(event: Event) {
@@ -918,9 +937,9 @@ export class Password extends BaseInput implements OnInit, AfterContentInit {
     }
 
     restoreAppend() {
-        if (this.overlay && this.appendTo) {
-            if (this.appendTo === 'body') this.renderer.removeChild(this.document.body, this.overlay);
-            else (this.document as any).getElementById(this.appendTo).removeChild(this.overlay);
+        if (this.overlay && this.$appendTo()) {
+            if (this.$appendTo() === 'body') this.renderer.removeChild(this.document.body, this.overlay);
+            else (this.document as any).getElementById(this.$appendTo()).removeChild(this.overlay);
         }
     }
 

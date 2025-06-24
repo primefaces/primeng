@@ -70,14 +70,14 @@ const theme = ({ dt }) => `
 }`;
 
 const classes = {
-    root: ({ instance, props }) => [
+    root: ({ instance }) => [
         'p-textarea p-component',
         {
-            'p-filled': instance.filled,
-            'p-textarea-resizable ': props.autoResize,
-            'p-invalid': props.invalid,
-            'p-variant-filled': props.variant ? props.variant === 'filled' : instance.config.inputStyle === 'filled' || instance.config.inputVariant === 'filled',
-            'p-textarea-fluid': props.fluid
+            'p-filled': instance.$variant() === 'filled',
+            'p-textarea-resizable ': instance.autoResize,
+            'p-invalid': instance.invalid(),
+            'p-variant-filled': instance.$variant() === 'filled',
+            'p-textarea-fluid': instance.hasFluid
         }
     ]
 };

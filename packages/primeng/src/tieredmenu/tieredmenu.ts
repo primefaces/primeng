@@ -417,11 +417,6 @@ export class TieredMenu extends BaseComponent implements OnInit, OnDestroy {
      */
     @Input() styleClass: string | undefined;
     /**
-     * Target element to attach the overlay, valid values are "body" or a local ng-template variable of another element.
-     * @group Props
-     */
-    @Input() appendTo: HTMLElement | ElementRef | TemplateRef<any> | string | null | undefined | any;
-    /**
      * The breakpoint to define the maximum width boundary.
      * @group Props
      */
@@ -997,14 +992,14 @@ export class TieredMenu extends BaseComponent implements OnInit, OnDestroy {
     }
 
     appendOverlay() {
-        if (this.appendTo) {
-            if (this.appendTo === 'body') this.renderer.appendChild(this.document.body, this.container);
-            else appendChild(this.appendTo, this.container);
+        if (this.$appendTo()) {
+            if (this.$appendTo() === 'body') this.renderer.appendChild(this.document.body, this.container);
+            else appendChild(this.$appendTo(), this.container);
         }
     }
 
     restoreOverlayAppend() {
-        if (this.container && this.appendTo) {
+        if (this.container && this.$appendTo()) {
             this.renderer.appendChild(this.el.nativeElement, this.container);
         }
     }
