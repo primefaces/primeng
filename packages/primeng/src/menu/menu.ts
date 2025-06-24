@@ -510,7 +510,7 @@ export class Menu extends BaseComponent implements AfterContentInit, OnDestroy {
     }
 
     restoreOverlayAppend() {
-        if (this.container && this.$appendTo()) {
+        if (this.container && this.$appendTo() !== 'self') {
             this.renderer.appendChild(this.el.nativeElement, this.container);
         }
     }

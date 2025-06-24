@@ -497,10 +497,6 @@ export class ContextMenu extends BaseComponent implements OnInit, AfterContentIn
 
     visible = signal(false);
 
-    relativeAlign: boolean | undefined;
-
-    private window: Window;
-
     focused: boolean = false;
 
     activeItemPath = signal<any>([]);

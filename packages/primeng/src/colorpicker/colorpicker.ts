@@ -441,7 +441,7 @@ export class ColorPicker extends BaseEditableHolder implements ControlValueAcces
     }
 
     restoreOverlayAppend() {
-        if (this.overlay && this.$appendTo()) {
+        if (this.overlay && this.$appendTo() !== 'self') {
             this.renderer.appendChild(this.inputViewChild?.nativeElement, this.overlay);
         }
     }

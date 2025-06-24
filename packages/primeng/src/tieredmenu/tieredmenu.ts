@@ -999,7 +999,7 @@ export class TieredMenu extends BaseComponent implements OnInit, OnDestroy {
     }
 
     restoreOverlayAppend() {
-        if (this.container && this.$appendTo()) {
+        if (this.container && this.$appendTo() !== 'self') {
             this.renderer.appendChild(this.el.nativeElement, this.container);
         }
     }

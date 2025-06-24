@@ -3130,7 +3130,7 @@ export class DatePicker extends BaseInput implements OnInit, AfterContentInit, A
     }
 
     restoreOverlayAppend() {
-        if (this.overlay && this.$appendTo()) {
+        if (this.overlay && this.$appendTo() !== 'self') {
             this.el.nativeElement.appendChild(this.overlay);
         }
     }
