@@ -474,6 +474,7 @@ export class Menu extends BaseComponent implements AfterContentInit, OnDestroy {
                     this.container = event.element;
                     this.moveOnTop();
                     this.onShow.emit({});
+                    this.attrSelector && this.container.setAttribute(this.attrSelector, '');
                     this.appendOverlay();
                     this.alignOverlay();
                     this.bindDocumentClickListener();
@@ -510,7 +511,7 @@ export class Menu extends BaseComponent implements AfterContentInit, OnDestroy {
     }
 
     restoreOverlayAppend() {
-        if (this.container && this.$appendTo()) {
+        if (this.container && this.$appendTo() !== 'self') {
             this.renderer.appendChild(this.el.nativeElement, this.container);
         }
     }

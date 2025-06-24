@@ -310,6 +310,8 @@ export class Overlay extends BaseComponent implements AfterContentInit, OnDestro
 
     @ContentChildren(PrimeTemplate) templates: QueryList<any> | undefined;
 
+    hostAttrSelector = input<string>();
+
     _contentTemplate: TemplateRef<any> | undefined;
 
     _visible: boolean = false;
@@ -470,8 +472,6 @@ export class Overlay extends BaseComponent implements AfterContentInit, OnDestro
 
         this.isOverlayContentClicked = true;
     }
-
-    hostAttrSelector = input<string>();
 
     onOverlayContentAnimationStart(event: AnimationEvent) {
         switch (event.toState) {

@@ -954,6 +954,7 @@ export class TieredMenu extends BaseComponent implements OnInit, OnDestroy {
                     this.moveOnTop();
                     this.onShow.emit({});
                     addStyle(this.containerViewChild.nativeElement, { position: 'absolute', top: 0 });
+                    this.attrSelector && this.container.setAttribute(this.attrSelector, '');
                     this.appendOverlay();
                     this.alignOverlay();
                     this.bindOutsideClickListener();
@@ -999,7 +1000,7 @@ export class TieredMenu extends BaseComponent implements OnInit, OnDestroy {
     }
 
     restoreOverlayAppend() {
-        if (this.container && this.$appendTo()) {
+        if (this.container && this.$appendTo() !== 'self') {
             this.renderer.appendChild(this.el.nativeElement, this.container);
         }
     }
