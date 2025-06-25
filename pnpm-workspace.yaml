@@ -11,7 +11,7 @@ catalog:
     'primeicons': ^7.0.0
 
 catalogs:
-    angular19:
+    angular20:
         "@angular-devkit/build-angular": ^20.0.3
         "@angular/animations": ^20.0.4
         "@angular/cdk": ^20.0.3

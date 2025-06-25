@@ -20,11 +20,11 @@
     },
     "devDependencies": {
         "@algolia/client-search": "^4.19.1",
-        "@angular/ssr": "catalog:angular19",
+        "@angular/ssr": "catalog:angular20",
         "@docsearch/css": "^3.3.4",
         "@docsearch/js": "^3.3.4",
         "@primeuix/themes": "catalog:",
-        "@angular/cdk": "catalog:angular19",
+        "@angular/cdk": "catalog:angular20",
         "@stackblitz/sdk": "1.9.0",
         "@types/express": "^4.17.17",
         "@types/jasmine": "~4.3.1",
@@ -48,7 +48,7 @@
         "ts-node": "~10.9.2",
         "tslib": "^2.5.0",
         "typedoc": "0.28.5",
-        "zone.js": "catalog:angular19"
+        "zone.js": "catalog:angular20"
     },
     "dependencies": {
         "autoprefixer": "^10.4.20",
