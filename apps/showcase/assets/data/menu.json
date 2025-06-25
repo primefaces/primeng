@@ -520,16 +520,26 @@
                     "routerLink": "/guides/accessibility"
                 },
                 {
-                    "name": "Migration to v18+",
-                    "routerLink": "/guides/migration"
-                },
-                {
                     "name": "PrimeFlex",
                     "routerLink": "/guides/primeflex"
                 },
                 {
                     "name": "PrimeTV",
                     "href": "https://www.youtube.com/channel/UCTgmp69aBOlLnPEqlUyetWw"
+                }
+            ]
+        },
+        {
+            "name": "Migration",
+            "icon": "pi pi-arrow-up",
+            "children": [
+                {
+                    "name": "Updating to v20",
+                    "routerLink": "/migration/v20"
+                },
+                {
+                    "name": "Updating to v19",
+                    "routerLink": "/migration/v19"
                 }
             ]
         },

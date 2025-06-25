@@ -1,14 +1,15 @@
-import { BreakingChangesDoc } from '@/doc/guides/migration/breakingchangesdoc';
-import { DeprecatedComponentsDoc } from '@/doc/guides/migration/deprecatedcomponentsdoc';
-import { MigrationOverviewDoc } from '@/doc/guides/migration/migrationoverviewdoc';
-import { RenamedComponentsDoc } from '@/doc/guides/migration/renamedcomponentsdoc';
+import { AppDocModule } from '@/components/doc/app.doc.module';
+import { BreakingChangesDoc } from '@/doc/migration/v20/breakingchangesdoc';
+import { DeprecatedComponentsDoc } from '@/doc/migration/v20/deprecatedcomponentsdoc';
+import { MigrationOverviewDoc } from '@/doc/migration/v20/migrationoverviewdoc';
+import { RenamedComponentsDoc } from '@/doc/migration/v20/renamedcomponentsdoc';
 import { Component } from '@angular/core';
 
 @Component({
-    standalone: false,
-    template: ` <app-doc docTitle="Migration - PrimeNG" header="Migration" description="Migration guide to PrimeNG v18" [docs]="docs"></app-doc>`
+    imports: [AppDocModule],
+    template: `<app-doc docTitle="Migration - PrimeNG v20" header="Migration" description="Migration guide to PrimeNG v20" [docs]="docs"></app-doc>`
 })
-export class MigrationDemoComponent {
+export class v20MigrationDemoComponent {
     docs = [
         {
             id: 'overview',

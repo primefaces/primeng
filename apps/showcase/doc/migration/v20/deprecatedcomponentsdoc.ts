@@ -1,8 +1,9 @@
+import { AppDocModule } from '@/components/doc/app.doc.module';
 import { Component } from '@angular/core';
 
 @Component({
-    selector: 'deprecated-doc',
-    standalone: false,
+    selector: 'v20-deprecated-doc',
+    imports: [AppDocModule],
     template: `
         <app-docsectiontext>
             <h4>Deprecated Components</h4>

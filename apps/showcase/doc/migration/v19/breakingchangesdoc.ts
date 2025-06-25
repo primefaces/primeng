@@ -1,8 +1,9 @@
+import { AppDocModule } from '@/components/doc/app.doc.module';
 import { Component } from '@angular/core';
 
 @Component({
-    selector: 'breaking-doc',
-    standalone: false,
+    selector: 'v19-breaking-doc',
+    imports: [AppDocModule],
     template: `
         <app-docsectiontext>
             <h4>Configuration</h4>

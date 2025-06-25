@@ -1,8 +1,9 @@
+import { AppDocModule } from '@/components/doc/app.doc.module';
 import { Component } from '@angular/core';
 
 @Component({
-    selector: 'migration-overview-doc',
-    standalone: false,
+    selector: 'v20-migration-overview-doc',
+    imports: [AppDocModule],
     template: `
         <app-docsectiontext>
             <p>

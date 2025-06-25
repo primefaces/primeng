@@ -1,8 +1,9 @@
+import { AppDocModule } from '@/components/doc/app.doc.module';
 import { Component } from '@angular/core';
 
 @Component({
-    selector: 'renamed-doc',
-    standalone: false,
+    selector: 'v20-renamed-doc',
+    imports: [AppDocModule],
     template: `
         <app-docsectiontext>
             <h4>Renamed Components</h4>
