@@ -555,18 +555,6 @@ export class DatePicker extends BaseInput implements OnInit, AfterContentInit, A
      */
     @Input() shortYearCutoff: any = '+10';
     /**
-     * Whether the month should be rendered as a dropdown instead of text.
-     * @group Props
-     * @deprecated Navigator is always on.
-     */
-    @Input({ transform: booleanAttribute }) monthNavigator: boolean | undefined;
-    /**
-     * Whether the year should be rendered as a dropdown instead of text.
-     * @group Props
-     * @deprecated  Navigator is always on.
-     */
-    @Input({ transform: booleanAttribute }) yearNavigator: boolean | undefined;
-    /**
      * Specifies 12 or 24 hour format.
      * @group Props
      */
@@ -776,25 +764,6 @@ export class DatePicker extends BaseInput implements OnInit, AfterContentInit, A
         }
     }
     /**
-     * The range of years displayed in the year drop-down in (nnnn:nnnn) format such as (2000:2020).
-     * @group Props
-     * @deprecated Years are based on decades by default.
-     */
-    @Input() get yearRange(): string {
-        return this._yearRange;
-    }
-    set yearRange(yearRange: string) {
-        this._yearRange = yearRange;
-
-        if (yearRange) {
-            const years = yearRange.split(':');
-            const yearStart = parseInt(years[0]);
-            const yearEnd = parseInt(years[1]);
-
-            this.populateYearOptions(yearStart, yearEnd);
-        }
-    }
-    /**
      * Whether to display timepicker.
      * @group Props
      */
@@ -846,14 +815,6 @@ export class DatePicker extends BaseInput implements OnInit, AfterContentInit, A
         this._firstDayOfWeek = firstDayOfWeek;
 
         this.createWeekDays();
-    }
-    /**
-     * Option to set datepicker locale.
-     * @group Props
-     * @deprecated Locale property has no effect, use new i18n API instead.
-     */
-    @Input() set locale(newLocale: LocaleSettings) {
-        console.log('Locale property has no effect, use new i18n API instead.');
     }
     /**
      * Type of view to display, valid values are "date" for datepicker and "month" for month picker.
@@ -1539,7 +1500,7 @@ export class DatePicker extends BaseInput implements OnInit, AfterContentInit, A
         this.currentYear--;
         let _yearOptions = <number[]>this.yearOptions;
 
-        if (this.yearNavigator && this.currentYear < _yearOptions[0]) {
+        if (this.currentYear < _yearOptions[0]) {
             let difference = _yearOptions[_yearOptions.length - 1] - _yearOptions[0];
             this.populateYearOptions(_yearOptions[0] - difference, _yearOptions[_yearOptions.length - 1] - difference);
         }
@@ -1557,7 +1518,7 @@ export class DatePicker extends BaseInput implements OnInit, AfterContentInit, A
         this.currentYear++;
         let _yearOptions = <number[]>this.yearOptions;
 
-        if (this.yearNavigator && this.currentYear > _yearOptions[_yearOptions.length - 1]) {
+        if (this.currentYear > _yearOptions[_yearOptions.length - 1]) {
             let difference = _yearOptions[_yearOptions.length - 1] - _yearOptions[0];
             this.populateYearOptions(_yearOptions[0] + difference, _yearOptions[_yearOptions.length - 1] + difference);
         }

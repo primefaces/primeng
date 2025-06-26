@@ -101,12 +101,13 @@ export class Message extends BaseComponent implements AfterContentInit {
     @Input() severity: string | 'success' | 'info' | 'warn' | 'error' | 'secondary' | 'contrast' | undefined | null = 'info';
     /**
      * Text content.
+     * @deprecated since v20.0.0. Use content projection instead '<p-message>Content</p-message>'.
      * @group Props
      */
     @Input() text: string | undefined;
     /**
      * Whether displaying messages would be escaped or not.
-     * @deprecated Use content projection instead '<p-message>Content</p-message>'.
+     * @deprecated since v20.0.0. Use content projection instead '<p-message>Content</p-message>'.
      * @group Props
      */
     @Input({ transform: booleanAttribute }) escape: boolean = true;

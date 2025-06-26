@@ -215,7 +215,7 @@ export const AUTOCOMPLETE_VALUE_ACCESSOR: any = {
                             #scroller
                             [items]="visibleOptions()"
                             [style]="{ height: scrollHeight }"
-                            [itemSize]="virtualScrollItemSize || _itemSize"
+                            [itemSize]="virtualScrollItemSize"
                             [autoSize]="true"
                             [lazy]="lazy"
                             (onLazyLoad)="onLazyLoad.emit($event)"
@@ -446,12 +446,6 @@ export class AutoComplete extends BaseInput implements AfterViewChecked, AfterCo
      */
     @Input({ transform: booleanAttribute }) showClear: boolean = false;
     /**
-     * Field of a suggested object to resolve and display.
-     * @group Props
-     * @deprecated use optionLabel property instead
-     */
-    @Input() field: string | undefined;
-    /**
      * Displays a button next to the input field when enabled.
      * @group Props
      */
@@ -531,18 +525,6 @@ export class AutoComplete extends BaseInput implements AfterViewChecked, AfterCo
     set suggestions(value: any[]) {
         this._suggestions.set(value);
         this.handleSuggestionsChange();
-    }
-    /**
-     * Element dimensions of option for virtual scrolling.
-     * @group Props
-     * @deprecated use virtualScrollItemSize property instead.
-     */
-    @Input() get itemSize(): number {
-        return this._itemSize as number;
-    }
-    set itemSize(val: number) {
-        this._itemSize = val;
-        console.log('The itemSize property is deprecated, use virtualScrollItemSize property instead.');
     }
     /**
      * Property name or getter function to use as the label of an option.
@@ -688,8 +670,6 @@ export class AutoComplete extends BaseInput implements AfterViewChecked, AfterCo
     @ViewChild('scroller') scroller: Nullable<Scroller>;
 
     @ViewChild('overlay') overlayViewChild!: Overlay;
-
-    _itemSize: Nullable<number>;
 
     itemsWrapper: Nullable<HTMLDivElement>;
 
@@ -1620,7 +1600,7 @@ export class AutoComplete extends BaseInput implements AfterViewChecked, AfterCo
     }
 
     getOptionLabel(option: any) {
-        return this.field || this.optionLabel ? resolveFieldData(option, this.field || this.optionLabel) : option && option.label != undefined ? option.label : option;
+        return this.optionLabel ? resolveFieldData(option, this.optionLabel) : option && option.label != undefined ? option.label : option;
     }
 
     getOptionValue(option) {

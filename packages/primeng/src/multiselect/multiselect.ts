@@ -220,12 +220,12 @@ export class MultiSelectItem extends BaseComponent {
                                 </p-chip>
                             </div>
                         }
-                        <ng-container *ngIf="!modelValue() || modelValue().length === 0">{{ placeholder() || defaultLabel || 'empty' }}</ng-container>
+                        <ng-container *ngIf="!modelValue() || modelValue().length === 0">{{ placeholder() || 'empty' }}</ng-container>
                     </ng-container>
                 </ng-container>
                 <ng-container *ngIf="selectedItemsTemplate || _selectedItemsTemplate">
                     <ng-container *ngTemplateOutlet="selectedItemsTemplate || _selectedItemsTemplate; context: { $implicit: selectedOptions, removeChip: removeOption.bind(this) }"></ng-container>
-                    <ng-container *ngIf="!modelValue() || modelValue().length === 0">{{ placeholder() || defaultLabel || 'empty' }}</ng-container>
+                    <ng-container *ngIf="!modelValue() || modelValue().length === 0">{{ placeholder() || 'empty' }}</ng-container>
                 </ng-container>
             </div>
         </div>
@@ -255,20 +255,7 @@ export class MultiSelectItem extends BaseComponent {
                 </span>
             </ng-template>
         </div>
-        <p-overlay
-            #overlay
-            [hostAttrSelector]="attrSelector"
-            [(visible)]="overlayVisible"
-            [options]="overlayOptions"
-            [target]="'@parent'"
-            [appendTo]="$appendTo()"
-            [autoZIndex]="autoZIndex"
-            [baseZIndex]="baseZIndex"
-            [showTransitionOptions]="showTransitionOptions"
-            [hideTransitionOptions]="hideTransitionOptions"
-            (onAnimationStart)="onOverlayAnimationStart($event)"
-            (onHide)="hide()"
-        >
+        <p-overlay #overlay [hostAttrSelector]="attrSelector" [(visible)]="overlayVisible" [options]="overlayOptions" [target]="'@parent'" [appendTo]="$appendTo()" (onAnimationStart)="onOverlayAnimationStart($event)" (onHide)="hide()">
             <ng-template #content>
                 <div [attr.id]="id + '_list'" [class]="cn(cx('overlay'), panelStyleClass)" [ngStyle]="panelStyle">
                     <span
@@ -348,7 +335,7 @@ export class MultiSelectItem extends BaseComponent {
                             #scroller
                             [items]="visibleOptions()"
                             [style]="{ height: scrollHeight }"
-                            [itemSize]="virtualScrollItemSize || _itemSize"
+                            [itemSize]="virtualScrollItemSize"
                             [autoSize]="true"
                             [tabindex]="-1"
                             [lazy]="lazy"
@@ -385,7 +372,6 @@ export class MultiSelectItem extends BaseComponent {
                                             [label]="getOptionLabel(option)"
                                             [disabled]="isOptionDisabled(option)"
                                             [template]="itemTemplate || _itemTemplate"
-                                            [checkIconTemplate]="checkIconTemplate || _checkIconTemplate"
                                             [itemCheckboxIconTemplate]="itemCheckboxIconTemplate || _itemCheckboxIconTemplate"
                                             [itemSize]="scrollerOptions.itemSize"
                                             [focused]="focusedOptionIndex() === getOptionIndex(i, scrollerOptions)"
@@ -714,66 +700,6 @@ export class MultiSelect extends BaseEditableHolder implements OnInit, AfterView
      */
     @Input({ transform: booleanAttribute }) autofocus: boolean | undefined;
     /**
-     * @deprecated since v14.2.0, use overlayOptions property instead.
-     * Whether to automatically manage layering.
-     * @group Props
-     */
-    @Input() get autoZIndex(): boolean | undefined {
-        return this._autoZIndex;
-    }
-    set autoZIndex(val: boolean | undefined) {
-        this._autoZIndex = val;
-        console.log('The autoZIndex property is deprecated since v14.2.0, use overlayOptions property instead.');
-    }
-    /**
-     * @deprecated since v14.2.0, use overlayOptions property instead.
-     * Base zIndex value to use in layering.
-     * @group Props
-     */
-    @Input() get baseZIndex(): number | undefined {
-        return this._baseZIndex;
-    }
-    set baseZIndex(val: number | undefined) {
-        this._baseZIndex = val;
-        console.log('The baseZIndex property is deprecated since v14.2.0, use overlayOptions property instead.');
-    }
-    /**
-     * Transition options of the show animation.
-     * @group Props
-     * @deprecated since v14.2.0, use overlayOptions property instead.
-     */
-    @Input() get showTransitionOptions(): string | undefined {
-        return this._showTransitionOptions;
-    }
-    set showTransitionOptions(val: string | undefined) {
-        this._showTransitionOptions = val;
-        console.log('The showTransitionOptions property is deprecated since v14.2.0, use overlayOptions property instead.');
-    }
-    /**
-     * Transition options of the hide animation.
-     * @group Props
-     * @deprecated since v14.2.0, use overlayOptions property instead.
-     */
-    @Input() get hideTransitionOptions(): string | undefined {
-        return this._hideTransitionOptions;
-    }
-    set hideTransitionOptions(val: string | undefined) {
-        this._hideTransitionOptions = val;
-        console.log('The hideTransitionOptions property is deprecated since v14.2.0, use overlayOptions property instead.');
-    }
-    /**
-     * Label to display when there are no selections.
-     * @group Props
-     * @deprecated Use placeholder instead.
-     */
-    @Input() set defaultLabel(val: string | undefined) {
-        this._defaultLabel = val;
-        console.log('defaultLabel property is deprecated since 16.6.0, use placeholder instead');
-    }
-    get defaultLabel(): string | undefined {
-        return this._defaultLabel;
-    }
-    /**
      * Label to display when there are no selections.
      * @group Props
      */
@@ -804,18 +730,6 @@ export class MultiSelect extends BaseEditableHolder implements OnInit, AfterView
     }
     set filterValue(val: string | undefined | null) {
         this._filterValue.set(val);
-    }
-    /**
-     * Item size of item to be virtual scrolled.
-     * @group Props
-     * @deprecated use virtualScrollItemSize property instead.
-     */
-    @Input() get itemSize(): number | undefined {
-        return this._itemSize;
-    }
-    set itemSize(val: number | undefined) {
-        this._itemSize = val;
-        console.log('The itemSize property is deprecated, use virtualScrollItemSize property instead.');
     }
     /**
      * Whether all data is selected.
@@ -964,19 +878,7 @@ export class MultiSelect extends BaseEditableHolder implements OnInit, AfterView
 
     _selectAll: boolean | undefined | null = null;
 
-    _autoZIndex: boolean | undefined;
-
-    _baseZIndex: number | undefined;
-
-    _showTransitionOptions: string | undefined;
-
-    _hideTransitionOptions: string | undefined;
-
-    _defaultLabel: string | undefined;
-
     _placeholder = signal<string | undefined>(undefined);
-
-    _itemSize: number | undefined;
 
     _disableTooltip = false;
 
@@ -1009,8 +911,6 @@ export class MultiSelect extends BaseEditableHolder implements OnInit, AfterView
     @ContentChild('empty', { descendants: false }) emptyTemplate: TemplateRef<any> | undefined;
 
     @ContentChild('selecteditems', { descendants: false }) selectedItemsTemplate: TemplateRef<any> | undefined;
-
-    @ContentChild('checkicon', { descendants: false }) checkIconTemplate: TemplateRef<any> | undefined;
 
     @ContentChild('loadingicon', { descendants: false }) loadingIconTemplate: TemplateRef<any> | undefined;
 
@@ -1047,8 +947,6 @@ export class MultiSelect extends BaseEditableHolder implements OnInit, AfterView
     _emptyTemplate: TemplateRef<any> | undefined;
 
     _selectedItemsTemplate: TemplateRef<any> | undefined;
-
-    _checkIconTemplate: TemplateRef<any> | undefined;
 
     _loadingIconTemplate: TemplateRef<any> | undefined;
 
@@ -1112,11 +1010,6 @@ export class MultiSelect extends BaseEditableHolder implements OnInit, AfterView
 
                 case 'loader':
                     this._loaderTemplate = item.template;
-                    break;
-
-                case 'checkicon':
-                    this._checkIconTemplate = item.template;
-                    console.warn('checkicon is deprecated and will removed in future. Use itemcheckboxicon or headercheckboxicon templates instead.');
                     break;
 
                 case 'headercheckboxicon':
@@ -1265,7 +1158,7 @@ export class MultiSelect extends BaseEditableHolder implements OnInit, AfterView
                 }
             }
         } else {
-            label = this.placeholder() || this.defaultLabel || '';
+            label = this.placeholder() || '';
         }
         return label;
     });

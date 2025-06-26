@@ -369,30 +369,6 @@ export class TreeSelect extends BaseEditableHolder implements AfterContentInit {
         this.updateTreeState();
     }
     /**
-     * Transition options of the show animation.
-     * @group Props
-     * @deprecated since v14.2.0 use overlayOptions property instead.
-     */
-    @Input() get showTransitionOptions(): string | undefined {
-        return this._showTransitionOptions;
-    }
-    set showTransitionOptions(val: string | undefined) {
-        this._showTransitionOptions = val;
-        console.log('The showTransitionOptions property is deprecated since v14.2.0, use overlayOptions property instead.');
-    }
-    /**
-     * Transition options of the hide animation.
-     * @group Props
-     * @deprecated since v14.2.0 use overlayOptions property instead.
-     */
-    @Input() get hideTransitionOptions(): string | undefined {
-        return this._hideTransitionOptions;
-    }
-    set hideTransitionOptions(val: string | undefined) {
-        this._hideTransitionOptions = val;
-        console.log('The hideTransitionOptions property is deprecated since v14.2.0, use overlayOptions property instead.');
-    }
-    /**
      * Displays a loader to indicate data load is in progress.
      * @group Props
      */
@@ -607,8 +583,6 @@ export class TreeSelect extends BaseEditableHolder implements AfterContentInit {
 
     overlayVisible: Nullable<boolean>;
 
-    selfChange: Nullable<boolean>;
-
     value: any | undefined;
 
     expandedNodes: any[] = [];
@@ -691,7 +665,7 @@ export class TreeSelect extends BaseEditableHolder implements AfterContentInit {
                     this._itemLoadingIconTemplate = item.template;
                     break;
 
-                default: //TODO: @deprecated Used "value" template instead
+                default: //TODO: @deprecated Use "value" template instead
                     if (item.name) this.templateMap[item.name] = item.template;
                     else this.valueTemplate = item.template;
                     break;

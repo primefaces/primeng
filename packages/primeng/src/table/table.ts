@@ -197,7 +197,7 @@ export class TableService {
                     height: scrollHeight !== 'flex' ? scrollHeight : undefined
                 }"
                 [scrollHeight]="scrollHeight !== 'flex' ? undefined : '100%'"
-                [itemSize]="virtualScrollItemSize || _virtualRowHeight"
+                [itemSize]="virtualScrollItemSize"
                 [step]="rows"
                 [delay]="lazy ? virtualScrollDelay : 0"
                 [inline]="true"
@@ -575,12 +575,6 @@ export class Table<RowData = any> extends BaseComponent implements OnInit, After
      */
     @Input({ transform: booleanAttribute }) scrollable: boolean | undefined;
     /**
-     * Orientation of the scrolling, options are "vertical", "horizontal" and "both".
-     * @group Props
-     * @deprecated Property is obselete since v14.2.0.
-     */
-    @Input() scrollDirection: 'vertical' | 'horizontal' | 'both' = 'vertical';
-    /**
      * Type of the row grouping, valid values are "subheader" and "rowspan".
      * @group Props
      */
@@ -615,19 +609,6 @@ export class Table<RowData = any> extends BaseComponent implements OnInit, After
      * @group Props
      */
     @Input() frozenWidth: string | undefined;
-    /**
-     * Defines if the table is responsive.
-     * @group Props
-     * @deprecated table is always responsive with scrollable behavior.
-     */
-    @Input() get responsive(): boolean | undefined | null {
-        return this._responsive;
-    }
-    set responsive(val: boolean | undefined | null) {
-        this._responsive = val;
-        console.log('responsive property is deprecated as table is always responsive with scrollable behavior.');
-    }
-    _responsive: boolean | undefined | null;
     /**
      * Local ng-template varilable of a ContextMenu.
      * @group Props
@@ -678,11 +659,6 @@ export class Table<RowData = any> extends BaseComponent implements OnInit, After
      * @group Props
      */
     @Input({ transform: booleanAttribute }) showInitialSortBadge: boolean = true;
-    /**
-     * Whether the cell widths scale according to their content or not.  Deprecated:  Table layout is always "auto".
-     * @group Props
-     */
-    @Input({ transform: booleanAttribute }) autoLayout: boolean | undefined;
     /**
      * Export function.
      * @group Props
@@ -838,18 +814,6 @@ export class Table<RowData = any> extends BaseComponent implements OnInit, After
     }
     set selection(val: any) {
         this._selection = val;
-    }
-    /**
-     * Indicates the height of rows to be scrolled.
-     * @group Props
-     * @deprecated use virtualScrollItemSize property instead.
-     */
-    @Input() get virtualRowHeight(): number {
-        return this._virtualRowHeight;
-    }
-    set virtualRowHeight(val: number) {
-        this._virtualRowHeight = val;
-        console.log('The virtualRowHeight property is deprecated.');
     }
     /**
      * Whether all data is selected.
@@ -1020,8 +984,6 @@ export class Table<RowData = any> extends BaseComponent implements OnInit, After
     @ViewChild('scroller') scroller: Nullable<Scroller>;
 
     @ContentChildren(PrimeTemplate) _templates: Nullable<QueryList<PrimeTemplate>>;
-
-    _virtualRowHeight: number = 28;
 
     _value: RowData[] = [];
 

@@ -376,33 +376,12 @@ export class Accordion extends BaseComponent implements BlockableUI {
      * @group Props
      */
     selectOnFocus = input(false, { transform: (v: any) => transformToBoolean(v) });
-    set activeIndex(val: number | number[] | null | undefined) {
-        this._activeIndex = val;
-        if (this.preventActiveIndexPropagation) {
-            this.preventActiveIndexPropagation = false;
-            return;
-        }
-    }
     /**
      * Transition options of the animation.
      * @group Props
      */
     @Input() transitionOptions: string = '400ms cubic-bezier(0.86, 0, 0.07, 1)';
-    /**
-     * Returns the active index.
-     * @param {number | number[]} value - New index.
-     * @deprecated use native valueChange emitter of the value model.
-     * @group Emits
-     */
-    @Output() activeIndexChange: EventEmitter<number | number[]> = new EventEmitter<number | number[]>();
 
-    set headerAriaLevel(val: number) {
-        if (typeof val === 'number' && val > 0) {
-            this._headerAriaLevel = val;
-        } else if (this._headerAriaLevel !== 2) {
-            this._headerAriaLevel = 2;
-        }
-    }
     /**
      * Callback to invoke when an active tab is collapsed by clicking on the header.
      * @param {AccordionTabCloseEvent} event - Custom tab close event.
@@ -418,31 +397,7 @@ export class Accordion extends BaseComponent implements BlockableUI {
 
     id = signal(uuid('pn_id_'));
 
-    private _activeIndex: any;
-
-    private _headerAriaLevel: number = 2;
-
-    preventActiveIndexPropagation: boolean = false;
-
     _componentStyle = inject(AccordionStyle);
-
-    /**
-     * Index of the active tab or an array of indexes in multiple mode.
-     * @deprecated use value property with new architecture instead.
-     * @group Props
-     */
-    @Input() get activeIndex(): number | number[] | null | undefined {
-        return this._activeIndex;
-    }
-
-    /**
-     * The aria-level that each accordion header will have. The default value is 2 as per W3C specifications
-     * @deprecated use AccoridonHeader component and bind attribute to the host.
-     * @group Props
-     */
-    @Input() get headerAriaLevel(): number {
-        return this._headerAriaLevel;
-    }
 
     @HostListener('keydown', ['$event'])
     onKeydown(event) {

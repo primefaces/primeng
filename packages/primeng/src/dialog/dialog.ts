@@ -135,28 +135,6 @@ export class Dialog extends BaseComponent implements OnInit, AfterContentInit, O
      */
     @Input({ transform: booleanAttribute }) resizable: boolean = true;
     /**
-     * Defines the left offset of dialog.
-     * @group Props
-     * @deprecated positionLeft property is deprecated.
-     */
-    @Input() get positionLeft(): number {
-        return 0;
-    }
-    set positionLeft(_positionLeft: number) {
-        console.log('positionLeft property is deprecated.');
-    }
-    /**
-     * Defines the top offset of dialog.
-     * @group Props
-     * @deprecated positionTop property is deprecated.
-     */
-    @Input() get positionTop(): number {
-        return 0;
-    }
-    set positionTop(_positionTop: number) {
-        console.log('positionTop property is deprecated.');
-    }
-    /**
      * Style of the content section.
      * @group Props
      */
@@ -192,17 +170,6 @@ export class Dialog extends BaseComponent implements OnInit, AfterContentInit, O
      */
     @Input({ transform: booleanAttribute }) closable: boolean = true;
     /**
-     * Defines if the component is responsive.
-     * @group Props
-     * @deprecated Responsive property is deprecated.
-     */
-    @Input() get responsive(): boolean {
-        return false;
-    }
-    set responsive(_responsive: boolean) {
-        console.log('Responsive property is deprecated.');
-    }
-    /**
      * Object literal to define widths per screen size.
      * @group Props
      */
@@ -227,17 +194,6 @@ export class Dialog extends BaseComponent implements OnInit, AfterContentInit, O
      * @group Props
      */
     @Input({ transform: booleanAttribute }) showHeader: boolean = true;
-    /**
-     * Defines the breakpoint of the component responsive.
-     * @group Props
-     * @deprecated Breakpoint property is not utilized and deprecated. Use breakpoints or CSS media queries instead.
-     */
-    @Input() get breakpoint(): number {
-        return 649;
-    }
-    set breakpoint(_breakpoint: number) {
-        console.log('Breakpoint property is not utilized and deprecated, use breakpoints or CSS media queries instead.');
-    }
     /**
      * Whether background scroll should be blocked when dialog is visible.
      * @group Props

@@ -529,7 +529,7 @@ export class Password extends BaseInput implements OnInit, AfterContentInit {
     @Input() mediumLabel: string | undefined;
     /**
      * specifies the maximum number of characters allowed in the input element.
-     * @deprecated in v20, use maxlength instead.
+     * @deprecated since v20.0.0, use maxlength instead.
      * @group Props
      */
     @Input({ transform: numberAttribute }) maxLength: number | undefined;

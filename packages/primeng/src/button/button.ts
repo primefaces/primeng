@@ -188,7 +188,6 @@ export class ButtonDirective extends BaseComponent implements AfterViewInit, OnD
     @Input() size: 'small' | 'large' | undefined | null = null;
     /**
      * Add a plain textual class to the button without a background initially.
-     * @deprecated use variant property instead.
      * @group Props
      */
     @Input({ transform: booleanAttribute }) plain: boolean = false;
@@ -551,7 +550,6 @@ export class Button extends BaseComponent implements AfterContentInit {
     @Input({ transform: booleanAttribute }) text: boolean = false;
     /**
      * Add a plain textual class to the button without a background initially.
-     * @deprecated use variant property instead.
      * @group Props
      */
     @Input({ transform: booleanAttribute }) plain: boolean = false;

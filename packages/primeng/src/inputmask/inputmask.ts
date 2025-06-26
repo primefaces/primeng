@@ -203,15 +203,6 @@ export class InputMask extends BaseInput implements OnInit, AfterContentInit, Co
      */
     @Input({ transform: booleanAttribute }) autofocus: boolean | undefined;
     /**
-     * When present, the input gets a focus automatically on load.
-     * @group Props
-     * @deprecated Use autofocus property instead.
-     */
-    @Input({ transform: booleanAttribute }) set autoFocus(value: boolean | undefined) {
-        this.autofocus = value;
-        console.log('autoFocus is deprecated. Use autofocus property instead.');
-    }
-    /**
      * Used to define a string that autocomplete attribute the current element.
      * @group Props
      */

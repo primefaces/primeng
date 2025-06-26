@@ -312,8 +312,6 @@ export class CascadeSelectSub extends BaseComponent implements OnInit {
             [options]="overlayOptions"
             [target]="'@parent'"
             [appendTo]="$appendTo()"
-            [showTransitionOptions]="showTransitionOptions"
-            [hideTransitionOptions]="hideTransitionOptions"
             (onAnimationDone)="onOverlayAnimationDone($event)"
             (onBeforeShow)="onBeforeShow.emit($event)"
             (onShow)="show($event)"
@@ -521,18 +519,6 @@ export class CascadeSelect extends BaseEditableHolder implements OnInit, AfterCo
      */
     @Input({ transform: booleanAttribute }) autofocus: boolean | undefined;
     /**
-     * Transition options of the show animation.
-     * @group Props
-     * @deprecated deprecated since v14.2.0, use overlayOptions property instead.
-     */
-    @Input() get showTransitionOptions(): string {
-        return this._showTransitionOptions;
-    }
-    set showTransitionOptions(val: string) {
-        this._showTransitionOptions = val;
-        console.log('The showTransitionOptions property is deprecated since v14.2.0, use overlayOptions property instead.');
-    }
-    /**
      * Whether the dropdown is in loading state.
      * @group Props
      */
@@ -542,18 +528,6 @@ export class CascadeSelect extends BaseEditableHolder implements OnInit, AfterCo
      * @group Props
      */
     @Input() loadingIcon: string | undefined;
-    /**
-     * Transition options of the hide animation.
-     * @group Props
-     * @deprecated deprecated since v14.2.0, use overlayOptions property instead.
-     */
-    @Input() get hideTransitionOptions(): string {
-        return this._hideTransitionOptions;
-    }
-    set hideTransitionOptions(val: string) {
-        this._hideTransitionOptions = val;
-        console.log('The hideTransitionOptions property is deprecated since v14.2.0, use overlayOptions property instead.');
-    }
     /**
      * The breakpoint to define the maximum width boundary.
      * @group Props
@@ -699,10 +673,6 @@ export class CascadeSelect extends BaseEditableHolder implements OnInit, AfterCo
     _groupIconTemplate: TemplateRef<any> | undefined;
 
     _clearIconTemplate: TemplateRef<any> | undefined;
-
-    _showTransitionOptions: string = '';
-
-    _hideTransitionOptions: string = '';
 
     selectionPath: any = null;
 

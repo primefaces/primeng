@@ -212,20 +212,7 @@ export class SelectItem extends BaseComponent {
             </ng-template>
         </div>
 
-        <p-overlay
-            #overlay
-            [hostAttrSelector]="attrSelector"
-            [(visible)]="overlayVisible"
-            [options]="overlayOptions"
-            [target]="'@parent'"
-            [appendTo]="$appendTo()"
-            [autoZIndex]="autoZIndex"
-            [baseZIndex]="baseZIndex"
-            [showTransitionOptions]="showTransitionOptions"
-            [hideTransitionOptions]="hideTransitionOptions"
-            (onAnimationStart)="onOverlayAnimationStart($event)"
-            (onHide)="hide()"
-        >
+        <p-overlay #overlay [hostAttrSelector]="attrSelector" [(visible)]="overlayVisible" [options]="overlayOptions" [target]="'@parent'" [appendTo]="$appendTo()" (onAnimationStart)="onOverlayAnimationStart($event)" (onHide)="hide()">
             <ng-template #content>
                 <div [class]="cn(cx('overlay'), panelStyleClass)" [ngStyle]="panelStyle">
                     <span
@@ -278,7 +265,7 @@ export class SelectItem extends BaseComponent {
                             #scroller
                             [items]="visibleOptions()"
                             [style]="{ height: scrollHeight }"
-                            [itemSize]="virtualScrollItemSize || _itemSize"
+                            [itemSize]="virtualScrollItemSize"
                             [autoSize]="true"
                             [lazy]="lazy"
                             (onLazyLoad)="onLazyLoad.emit($event)"
@@ -506,12 +493,6 @@ export class Select extends BaseInput implements OnInit, AfterViewInit, AfterCon
      */
     @Input() optionGroupChildren: string = 'items';
     /**
-     * Whether to display the first item as the label if no placeholder is defined and value is null.
-     * @deprecated since v17.3.0, set initial value by model instead.
-     * @group Props
-     */
-    @Input({ transform: booleanAttribute }) autoDisplayFirst: boolean = true;
-    /**
      * Whether to display options as grouped when nested options are provided.
      * @group Props
      */
@@ -616,90 +597,6 @@ export class Select extends BaseInput implements OnInit, AfterViewInit, AfterCon
      * @group Props
      */
     @Input({ transform: booleanAttribute }) autofocusFilter: boolean = true;
-    /**
-     * When present, it specifies that the component should be disabled.
-     * @group Props
-     */
-    // @Input() get disabled(): boolean | undefined {
-    //     return this._disabled;
-    // }
-    // set disabled(_disabled: boolean | undefined) {
-    //     if (_disabled) {
-    //         this.focused = false;
-    //
-    //         if (this.overlayVisible) this.hide();
-    //     }
-    //
-    //     this._disabled = _disabled;
-    //     if (!(this.cd as ViewRef).destroyed) {
-    //         this.cd.detectChanges();
-    //     }
-    // }
-    /**
-     * Item size of item to be virtual scrolled.
-     * @group Props
-     * @deprecated use virtualScrollItemSize property instead.
-     */
-    @Input() get itemSize(): number | undefined {
-        return this._itemSize;
-    }
-    set itemSize(val: number | undefined) {
-        this._itemSize = val;
-        console.log('The itemSize property is deprecated, use virtualScrollItemSize property instead.');
-    }
-    _itemSize: number | undefined;
-    /**
-     * Whether to automatically manage layering.
-     * @group Props
-     * @deprecated since v14.2.0, use overlayOptions property instead.
-     */
-    @Input() get autoZIndex(): boolean | undefined {
-        return this._autoZIndex;
-    }
-    set autoZIndex(val: boolean | undefined) {
-        this._autoZIndex = val;
-        console.log('The autoZIndex property is deprecated since v14.2.0, use overlayOptions property instead.');
-    }
-    _autoZIndex: boolean | undefined;
-    /**
-     * Base zIndex value to use in layering.
-     * @group Props
-     * @deprecated since v14.2.0, use overlayOptions property instead.
-     */
-    @Input() get baseZIndex(): number | undefined {
-        return this._baseZIndex;
-    }
-    set baseZIndex(val: number | undefined) {
-        this._baseZIndex = val;
-        console.log('The baseZIndex property is deprecated since v14.2.0, use overlayOptions property instead.');
-    }
-    _baseZIndex: number | undefined;
-    /**
-     * Transition options of the show animation.
-     * @group Props
-     * @deprecated since v14.2.0, use overlayOptions property instead.
-     */
-    @Input() get showTransitionOptions(): string | undefined {
-        return this._showTransitionOptions;
-    }
-    set showTransitionOptions(val: string | undefined) {
-        this._showTransitionOptions = val;
-        console.log('The showTransitionOptions property is deprecated since v14.2.0, use overlayOptions property instead.');
-    }
-    _showTransitionOptions: string | undefined;
-    /**
-     * Transition options of the hide animation.
-     * @group Props
-     * @deprecated since v14.2.0, use overlayOptions property instead.
-     */
-    @Input() get hideTransitionOptions(): string | undefined {
-        return this._hideTransitionOptions;
-    }
-    set hideTransitionOptions(val: string | undefined) {
-        this._hideTransitionOptions = val;
-        console.log('The hideTransitionOptions property is deprecated since v14.2.0, use overlayOptions property instead.');
-    }
-    _hideTransitionOptions: string | undefined;
     /**
      * When specified, filter displays with this value.
      * @group Props
@@ -1214,12 +1111,6 @@ export class Select extends BaseInput implements OnInit, AfterViewInit, AfterCon
         if (this.selectOnFocus && this.autoOptionFocus && !this.hasSelectedOption()) {
             this.focusedOptionIndex.set(this.findFirstFocusedOptionIndex());
             this.onOptionSelect(null, this.visibleOptions()[this.focusedOptionIndex()], false);
-        }
-        if (this.autoDisplayFirst && (this.modelValue() === null || this.modelValue() === undefined)) {
-            if (!this.placeholder()) {
-                const ind = this.findFirstOptionIndex();
-                this.onOptionSelect(null, this.visibleOptions()[ind], false, true);
-            }
         }
     }
 
