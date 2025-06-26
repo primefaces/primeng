@@ -5354,6 +5354,10 @@ packages:
     resolution: {integrity: sha512-9rPDIPsCwOivatEZGM8+apgM7AiTDLSnpwMmLaSmdm2PeND8bFJzZLZZxyrJjLH8Xx/MpKoVaKf+vZOWALNHbw==}
     engines: {node: '>=20.x'}
 
+  piscina@5.1.2:
+    resolution: {integrity: sha512-9cE/BTA/xhDiyNUEj6EKWLEQC17fh/24ydYzQwcA7QdYh75K6kzL2GHvxDF5i9rFGtUaaKk7/u4xp07qiKXccQ==}
+    engines: {node: '>=20.x'}
+
   pkg-dir@8.0.0:
     resolution: {integrity: sha512-4peoBq4Wks0riS0z8741NVv+/8IiTvqnZAr8QGgtdifrtpdXbNw/FxRS1l6NFqm4EMzuS0EDqNNx4XGaz8cuyQ==}
     engines: {node: '>=18'}
@@ -11777,7 +11781,7 @@ snapshots:
       jsonc-parser: 3.3.1
       less: 4.3.0
       ora: 8.2.0
-      piscina: 5.1.1
+      piscina: 5.1.2
       postcss: 8.5.6
       rollup-plugin-dts: 6.2.1(rollup@4.44.1)(typescript@5.8.3)
       rxjs: 7.8.2
@@ -12114,6 +12118,10 @@ snapshots:
   pirates@4.0.7: {}
 
   piscina@5.1.1:
+    optionalDependencies:
+      '@napi-rs/nice': 1.0.1
+
+  piscina@5.1.2:
     optionalDependencies:
       '@napi-rs/nice': 1.0.1
 
