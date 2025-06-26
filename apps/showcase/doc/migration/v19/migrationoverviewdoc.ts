@@ -11,7 +11,7 @@ import { Component } from '@angular/core';
                 next-generation version that fully embraces modern Web APIs and removes technical debt like the legacy-styled mode. Every component has been reviewed and enhanced.
             </p>
             <p>
-                The most notable feature is the new <a href="/theming" class="">styled mode</a> implementation. Previous iterations use SASS at an external repo called <i>PrimeNG-sass-theme</i> which requires compilation of a <i>theme.css</i>a file.
+                The most notable feature is the new <a routerLink="/theming">styled mode</a> implementation. Previous iterations use SASS at an external repo called <i>PrimeNG-sass-theme</i> which requires compilation of a <i>theme.css</i>a file.
                 This file had to be included in the application and need to be swapped at runtime for basic tasks like dark mode or primary color changes. In v18, styled mode is now part of the core, SASS is not used at all, and a new design token
                 based architecture that fully utilizes CSS variables has been created. The new API is modern and superior to the legacy styled mode.
             </p>

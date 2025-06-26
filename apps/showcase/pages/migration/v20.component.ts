@@ -1,42 +1,41 @@
 import { AppDocModule } from '@/components/doc/app.doc.module';
-import { BreakingChangesDoc } from '@/doc/migration/v20/breakingchangesdoc';
-import { DeprecatedComponentsDoc } from '@/doc/migration/v20/deprecatedcomponentsdoc';
-import { MigrationOverviewDoc } from '@/doc/migration/v20/migrationoverviewdoc';
-import { RenamedComponentsDoc } from '@/doc/migration/v20/renamedcomponentsdoc';
+import { BackwardCompatibleDoc } from '@/doc/migration/v20/backwardcompatibledoc';
+import { BreakingDoc } from '@/doc/migration/v20/breakingdoc';
+import { DeprecationsDoc } from '@/doc/migration/v20/deprecationsdoc';
+import { RemovalsDoc } from '@/doc/migration/v20/removalsdoc';
+import { OverviewDoc } from '@/doc/migration/v20/overviewdoc';
 import { Component } from '@angular/core';
 
 @Component({
     imports: [AppDocModule],
-    template: `<app-doc docTitle="Migration - PrimeNG v20" header="Migration" description="Migration guide to PrimeNG v20" [docs]="docs"></app-doc>`
+    template: `<app-doc docTitle="Migration - PrimeNG v20" header="Migration" description="Migration guide to PrimeNG v20." [docs]="docs"></app-doc>`
 })
 export class v20MigrationDemoComponent {
     docs = [
         {
             id: 'overview',
             label: 'Overview',
-            component: MigrationOverviewDoc
+            component: OverviewDoc
         },
         {
-            id: 'changes',
-            label: 'Changes',
-            description: 'The list of backward compatible and breaking changes.',
-            children: [
-                {
-                    id: 'compatible',
-                    label: 'Compatible',
-                    component: RenamedComponentsDoc
-                },
-                {
-                    id: 'deprecated',
-                    label: 'Deprecated Components',
-                    component: DeprecatedComponentsDoc
-                },
-                {
-                    id: 'breaking',
-                    label: 'Breaking',
-                    component: BreakingChangesDoc
-                }
-            ]
+            id: 'breakingchanges',
+            label: 'Breaking Changes',
+            component: BreakingDoc
+        },
+        {
+            id: 'backwardcompatible',
+            label: 'Backward Compatible',
+            component: BackwardCompatibleDoc
+        },
+        {
+            id: 'deprecations',
+            label: 'Deprecations',
+            component: DeprecationsDoc
+        },
+        {
+            id: 'removals',
+            label: 'Removals',
+            component: RemovalsDoc
         }
     ];
 }
