@@ -54,7 +54,7 @@ import { TooltipModule } from 'primeng/tooltip';
 import { VoidListener } from 'primeng/ts-helpers';
 import { ZIndexUtils } from 'primeng/utils';
 import { ContextMenuStyle } from './style/contextmenustyle';
-import { DomHandler } from '../dom/domhandler';
+import { DomHandler } from 'primeng/dom';
 
 @Component({
     selector: 'p-contextMenuSub, p-contextmenu-sub',

@@ -26,8 +26,7 @@ import { StarFillIcon, StarIcon } from 'primeng/icons';
 import { Nullable } from 'primeng/ts-helpers';
 import { RatingRateEvent } from './rating.interface';
 import { RatingStyle } from './style/ratingstyle';
-import { BaseInput } from 'primeng/baseinput';
-import { BaseEditableHolder } from '../baseeditableholder/baseeditableholder';
+import { BaseEditableHolder } from 'primeng/baseeditableholder';
 
 export const RATING_VALUE_ACCESSOR: any = {
     provide: NG_VALUE_ACCESSOR,
