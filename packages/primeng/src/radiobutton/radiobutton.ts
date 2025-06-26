@@ -4,7 +4,7 @@ import { ControlValueAccessor, NG_VALUE_ACCESSOR, NgControl } from '@angular/for
 import { SharedModule } from 'primeng/api';
 import { AutoFocus } from 'primeng/autofocus';
 import { Nullable } from 'primeng/ts-helpers';
-import { BaseEditableHolder } from '../baseeditableholder/baseeditableholder';
+import { BaseEditableHolder } from 'primeng/baseeditableholder';
 import { RadioButtonClickEvent } from './radiobutton.interface';
 import { RadioButtonStyle } from './style/radiobuttonstyle';
 
