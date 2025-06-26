@@ -711,6 +711,7 @@ export class Table<RowData = any> extends BaseComponent implements OnInit, After
     @Input({ transform: numberAttribute }) groupRowsByOrder: number = 1;
     /**
      * Defines the responsive mode, valid options are "stack" and "scroll".
+     * @deprecated since v20.0.0, always defaults to scroll, stack mode needs custom implementation
      * @group Props
      */
     @Input() responsiveLayout: string = 'scroll';

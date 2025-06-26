@@ -25,7 +25,7 @@ import { TagModule } from 'primeng/tag';
                             <td>20</td>
                             <td>ng-template with a template reference variable</td>
                             <td>v21</td>
-                            <td><p-tag value="removed" severity="danger" /></td>
+                            <td><p-tag value="deprecated" severity="warn" /></td>
                         </tr>
                         <tr>
                             <td>styleClass</td>
@@ -53,28 +53,28 @@ import { TagModule } from 'primeng/tag';
                             <td>20</td>
                             <td><i>pButtonIcon</i> and <i>pButtonLabel</i> directives</td>
                             <td>v21</td>
-                            <td><p-tag value="removed" severity="danger" /></td>
+                            <td><p-tag value="deprecated" severity="warn" /></td>
                         </tr>
                         <tr>
                             <td>Button plain property</td>
                             <td>20</td>
                             <td><i>pButtonIcon</i> and <i>pButtonLabel</i> directives</td>
                             <td>v21</td>
-                            <td><p-tag value="removed" severity="danger" /></td>
+                            <td><p-tag value="deprecated" severity="warn" /></td>
                         </tr>
                         <tr>
                             <td>pButton buttonProps property</td>
                             <td>20</td>
                             <td>Use button properties directly on the element</td>
                             <td>v21</td>
-                            <td><p-tag value="removed" severity="danger" /></td>
+                            <td><p-tag value="deprecated" severity="warn" /></td>
                         </tr>
                         <tr>
                             <td>p-button badgeClass property</td>
                             <td>20</td>
                             <td><i>badgeSeverity</i> property</td>
                             <td>v21</td>
-                            <td><p-tag value="removed" severity="danger" /></td>
+                            <td><p-tag value="deprecated" severity="warn" /></td>
                         </tr>
                         <tr>
                             <td>AutoComplete minLength property</td>
@@ -119,11 +119,18 @@ import { TagModule } from 'primeng/tag';
                             <td><p-tag value="deprecated" severity="warn" /></td>
                         </tr>
                         <tr>
+                            <td>Table responsiveLayout property</td>
+                            <td>20</td>
+                            <td>Always defaults to scroll, stack mode needs custom implementation</td>
+                            <td>v21</td>
+                            <td><p-tag value="deprecated" severity="warn" /></td>
+                        </tr>
+                        <tr>
                             <td>TreeSelect default template</td>
                             <td>20</td>
                             <td><i>value</i> template</td>
                             <td>v21</td>
-                            <td><p-tag value="removed" severity="danger" /></td>
+                            <td><p-tag value="deprecated" severity="warn" /></td>
                         </tr>
                     </tbody>
                 </table>
