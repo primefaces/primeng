@@ -16,9 +16,9 @@ interface AutoCompleteCompleteEvent {
         </app-docsectiontext>
         <p-toast />
         <div class="card flex justify-center">
-            <form [formGroup]="exampleForm" (ngSubmit)="onSubmit()" class="flex flex-col gap-4 sm:w-56">
+            <form [formGroup]="exampleForm" (ngSubmit)="onSubmit()" class="flex justify-center flex-col gap-4 md:w-56">
                 <div class="flex flex-col gap-1">
-                    <p-autocomplete formControlName="selectedCountry" [suggestions]="items" [invalid]="isInvalid('selectedCountry')" (completeMethod)="search($event)" />
+                    <p-autocomplete formControlName="selectedCountry" [suggestions]="items" [invalid]="isInvalid('selectedCountry')" (completeMethod)="search($event)" fluid />
                     @if (isInvalid('selectedCountry')) {
                         <p-message severity="error" size="small" variant="simple">Country is required.</p-message>
                     }
@@ -62,9 +62,9 @@ export class ReactiveFormsDoc {
     }
 
     code: Code = {
-        basic: `<form [formGroup]="exampleForm" (ngSubmit)="onSubmit()" class="flex flex-col gap-4 sm:w-56">
+        basic: `<form [formGroup]="exampleForm" (ngSubmit)="onSubmit()" class="flex justify-center flex-col gap-4 md:w-56">
     <div class="flex flex-col gap-1">
-        <p-autocomplete formControlName="selectedCountry" [suggestions]="items" [invalid]="isInvalid('selectedCountry')" (completeMethod)="search($event)" />
+        <p-autocomplete formControlName="selectedCountry" [suggestions]="items" [invalid]="isInvalid('selectedCountry')" (completeMethod)="search($event)" fluid />
         @if (isInvalid('selectedCountry')) {
             <p-message severity="error" size="small" variant="simple">Country is required.</p-message>
         }
@@ -74,9 +74,9 @@ export class ReactiveFormsDoc {
 
         html: `<p-toast />
 <div class="card flex justify-center">
-    <form [formGroup]="exampleForm" (ngSubmit)="onSubmit()" class="flex flex-col gap-4 sm:w-56">
+    <form [formGroup]="exampleForm" (ngSubmit)="onSubmit()" class="flex justify-center flex-col gap-4 md:w-56">
         <div class="flex flex-col gap-1">
-            <p-autocomplete formControlName="selectedCountry" [suggestions]="items" [invalid]="isInvalid('selectedCountry')" (completeMethod)="search($event)" />
+            <p-autocomplete formControlName="selectedCountry" [suggestions]="items" [invalid]="isInvalid('selectedCountry')" (completeMethod)="search($event)" fluid />
             @if (isInvalid('selectedCountry')) {
                 <p-message severity="error" size="small" variant="simple">Country is required.</p-message>
             }
