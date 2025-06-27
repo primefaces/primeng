@@ -27,12 +27,12 @@ import { ControlValueAccessor, NG_VALUE_ACCESSOR, NgControl } from '@angular/for
 import { getSelection } from '@primeuix/utils';
 import { PrimeTemplate, SharedModule } from 'primeng/api';
 import { AutoFocus } from 'primeng/autofocus';
+import { BaseInput } from 'primeng/baseinput';
 import { AngleDownIcon, AngleUpIcon, TimesIcon } from 'primeng/icons';
 import { InputText } from 'primeng/inputtext';
 import { Nullable } from 'primeng/ts-helpers';
 import { InputNumberInputEvent } from './inputnumber.interface';
 import { InputNumberStyle } from './style/inputnumberstyle';
-import { BaseInput } from 'primeng/baseinput';
 
 export const INPUTNUMBER_VALUE_ACCESSOR: any = {
     provide: NG_VALUE_ACCESSOR,
@@ -61,24 +61,24 @@ export const INPUTNUMBER_VALUE_ACCESSOR: any = {
             [attr.aria-valuemin]="min()"
             [attr.aria-valuemax]="max()"
             [attr.aria-valuenow]="value"
-            [disabled]="disabled()"
-            [readonly]="readonly"
+            [attr.disabled]="disabled()"
+            [attr.readonly]="readonly"
             [attr.placeholder]="placeholder"
             [attr.aria-label]="ariaLabel"
             [attr.aria-labelledby]="ariaLabelledBy"
             [attr.aria-describedby]="ariaDescribedBy"
             [attr.title]="title"
             [pSize]="size()"
-            [size]="inputSize()"
-            [name]="name()"
+            [attr.size]="inputSize()"
+            [attr.name]="name()"
             [attr.autocomplete]="autocomplete"
             [attr.maxlength]="maxlength()"
             [attr.minlength]="minlength()"
-            [tabindex]="tabindex"
+            [attr.tabindex]="tabindex"
             [attr.aria-required]="ariaRequired"
-            [required]="required()"
-            [min]="min()"
-            [max]="max()"
+            [attr.required]="required()"
+            [attr.min]="min()"
+            [attr.max]="max()"
             [attr.step]="step()"
             inputmode="decimal"
             (input)="onUserInput($event)"
