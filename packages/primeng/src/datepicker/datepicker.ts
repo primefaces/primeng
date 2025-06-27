@@ -59,7 +59,7 @@ export const DATEPICKER_VALUE_ACCESSOR: any = {
                 #inputfield
                 pInputText
                 [pSize]="size()"
-                [size]="inputSize()"
+                [attr.size]="inputSize()"
                 type="text"
                 role="combobox"
                 [attr.id]="inputId"
@@ -77,12 +77,12 @@ export const DATEPICKER_VALUE_ACCESSOR: any = {
                 (keydown)="onInputKeydown($event)"
                 (click)="onInputClick()"
                 (blur)="onInputBlur($event)"
-                [readonly]="readonlyInput"
+                [attr.readonly]="readonlyInput"
                 (input)="onUserInput($event)"
                 [ngStyle]="inputStyle"
                 [class]="cn(cx('pcInputText'), inputStyleClass)"
-                [placeholder]="placeholder || ''"
-                [disabled]="disabled()"
+                [attr.placeholder]="placeholder || ''"
+                [attr.disabled]="disabled()"
                 [attr.tabindex]="tabindex"
                 [attr.inputmode]="touchUI ? 'off' : null"
                 autocomplete="off"
@@ -170,7 +170,7 @@ export const DATEPICKER_VALUE_ACCESSOR: any = {
                                     (click)="switchToMonthView($event)"
                                     (keydown)="onContainerButtonKeydown($event)"
                                     [class]="cx('selectMonth')"
-                                    [disabled]="switchViewButtonDisabled()"
+                                    [attr.disabled]="switchViewButtonDisabled()"
                                     [attr.aria-label]="this.getTranslation('chooseMonth')"
                                     pRipple
                                 >
@@ -182,7 +182,7 @@ export const DATEPICKER_VALUE_ACCESSOR: any = {
                                     (click)="switchToYearView($event)"
                                     (keydown)="onContainerButtonKeydown($event)"
                                     [class]="cx('selectYear')"
-                                    [disabled]="switchViewButtonDisabled()"
+                                    [attr.disabled]="switchViewButtonDisabled()"
                                     [attr.aria-label]="getTranslation('chooseYear')"
                                     pRipple
                                 >

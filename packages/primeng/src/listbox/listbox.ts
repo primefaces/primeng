@@ -29,6 +29,7 @@ import {
 import { ControlValueAccessor, FormsModule, NG_VALUE_ACCESSOR } from '@angular/forms';
 import { equals, findLastIndex, findSingle, focus, getFirstFocusableElement, isEmpty, isFunction, isNotEmpty, isPrintableCharacter, resolveFieldData, uuid } from '@primeuix/utils';
 import { FilterService, Footer, Header, PrimeTemplate, ScrollerOptions, SharedModule } from 'primeng/api';
+import { BaseEditableHolder } from 'primeng/baseeditableholder';
 import { Checkbox } from 'primeng/checkbox';
 import { IconField } from 'primeng/iconfield';
 import { BlankIcon, CheckIcon, SearchIcon } from 'primeng/icons';
@@ -40,7 +41,6 @@ import { Nullable } from 'primeng/ts-helpers';
 import { Subscription } from 'rxjs';
 import { ListboxChangeEvent, ListboxClickEvent, ListboxDoubleClickEvent, ListboxFilterEvent, ListboxFilterOptions, ListboxSelectAllChangeEvent } from './listbox.interface';
 import { ListBoxStyle } from './style/listboxstyle';
-import { BaseEditableHolder } from 'primeng/baseeditableholder';
 
 export const LISTBOX_VALUE_ACCESSOR: any = {
     provide: NG_VALUE_ACCESSOR,
@@ -95,12 +95,12 @@ export const LISTBOX_VALUE_ACCESSOR: any = {
                             [class]="cx('pcFilter')"
                             role="searchbox"
                             [value]="_filterValue() || ''"
-                            [disabled]="disabled()"
+                            [attr.disabled]="disabled()"
                             [attr.aria-owns]="id + '_list'"
                             [attr.aria-activedescendant]="focusedOptionId"
                             [attr.placeholder]="filterPlaceHolder"
                             [attr.aria-label]="ariaFilterLabel"
-                            [tabindex]="!disabled() && !focused ? tabindex : -1"
+                            [attr.tabindex]="!disabled() && !focused ? tabindex : -1"
                             (input)="onFilterChange($event)"
                             (keydown)="onFilterKeyDown($event)"
                             (focus)="onFilterFocus($event)"

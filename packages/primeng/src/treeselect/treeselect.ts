@@ -57,7 +57,7 @@ export const TREESELECT_VALUE_ACCESSOR: any = {
                 role="combobox"
                 [attr.id]="inputId"
                 readonly
-                [disabled]="disabled()"
+                [attr.disabled]="disabled()"
                 (focus)="onInputFocus($event)"
                 (blur)="onInputBlur($event)"
                 (keydown)="onKeyDown($event)"

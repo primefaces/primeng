@@ -22,11 +22,11 @@ import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
 import { focus, getFirstFocusableElement, uuid } from '@primeuix/utils';
 import { PrimeTemplate, SharedModule } from 'primeng/api';
 import { AutoFocus } from 'primeng/autofocus';
+import { BaseEditableHolder } from 'primeng/baseeditableholder';
 import { StarFillIcon, StarIcon } from 'primeng/icons';
 import { Nullable } from 'primeng/ts-helpers';
 import { RatingRateEvent } from './rating.interface';
 import { RatingStyle } from './style/ratingstyle';
-import { BaseEditableHolder } from 'primeng/baseeditableholder';
 
 export const RATING_VALUE_ACCESSOR: any = {
     provide: NG_VALUE_ACCESSOR,
@@ -55,8 +55,8 @@ export const RATING_VALUE_ACCESSOR: any = {
                             [attr.disabled]="disabled()"
                             [attr.required]="required()"
                             [checked]="value === 0"
-                            [disabled]="disabled()"
-                            [readonly]="readonly"
+                            [attr.disabled]="disabled()"
+                            [attr.readonly]="readonly"
                             [attr.aria-label]="starAriaLabel(star + 1)"
                             (focus)="onInputFocus($event, star + 1)"
                             (blur)="onInputBlur($event)"
