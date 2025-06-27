@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { css, dt } from '@primeuix/styled';
-import { BaseStyle } from 'primeng/base';
 import { style } from '@primeuix/styles/autocomplete';
+import { BaseStyle } from 'primeng/base';
 
 const theme = css`
     ${style}
@@ -45,7 +45,6 @@ const classes = {
     root: ({ instance }) => [
         'p-autocomplete p-component p-inputwrapper',
         {
-            'p-disabled': instance.disabled(),
             'p-invalid': instance.invalid(),
             'p-focus': instance.focused,
             'p-inputwrapper-filled': instance.$filled(),
@@ -56,10 +55,13 @@ const classes = {
         }
     ],
     pcInputText: 'p-autocomplete-input',
-    inputMultiple: ({ instance }) => ({
-        'p-autocomplete-input-multiple': true,
-        'p-variant-filled': instance.$variant() === 'filled'
-    }),
+    inputMultiple: ({ instance }) => [
+        'p-autocomplete-input-multiple',
+        {
+            'p-disabled': instance.disabled(),
+            'p-variant-filled': instance.$variant() === 'filled'
+        }
+    ],
     chipItem: ({ instance, i }) => [
         'p-autocomplete-chip-item',
         {
