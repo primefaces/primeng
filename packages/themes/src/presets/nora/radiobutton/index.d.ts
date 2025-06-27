@@ -1,1 +1,2 @@
-export * from '@primeuix/themes/types/radiobutton';
+export * from '@primeuix/themes/nora/radiobutton';
+export { default } from '@primeuix/themes/nora/radiobutton';

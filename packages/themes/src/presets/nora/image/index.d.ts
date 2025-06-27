@@ -1,1 +1,2 @@
-export * from '@primeuix/themes/types/image';
+export * from '@primeuix/themes/nora/image';
+export { default } from '@primeuix/themes/nora/image';

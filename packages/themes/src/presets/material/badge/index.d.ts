@@ -1,1 +1,2 @@
-export * from '@primeuix/themes/types/badge';
+export * from '@primeuix/themes/material/badge';
+export { default } from '@primeuix/themes/material/badge';

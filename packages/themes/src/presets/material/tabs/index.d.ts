@@ -1,1 +1,2 @@
-export * from '@primeuix/themes/types/tabs';
+export * from '@primeuix/themes/material/tabs';
+export { default } from '@primeuix/themes/material/tabs';

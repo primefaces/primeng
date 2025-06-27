@@ -1,1 +1,2 @@
-export * from '@primeuix/themes/types/selectbutton';
+export * from '@primeuix/themes/nora/selectbutton';
+export { default } from '@primeuix/themes/nora/selectbutton';

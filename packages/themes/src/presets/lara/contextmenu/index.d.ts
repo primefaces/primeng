@@ -1,1 +1,2 @@
-export * from '@primeuix/themes/types/contextmenu';
+export * from '@primeuix/themes/lara/contextmenu';
+export { default } from '@primeuix/themes/lara/contextmenu';

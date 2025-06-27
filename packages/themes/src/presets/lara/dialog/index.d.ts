@@ -1,1 +1,2 @@
-export * from '@primeuix/themes/types/dialog';
+export * from '@primeuix/themes/lara/dialog';
+export { default } from '@primeuix/themes/lara/dialog';

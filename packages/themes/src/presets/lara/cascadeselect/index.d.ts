@@ -1,1 +1,2 @@
-export * from '@primeuix/themes/types/cascadeselect';
+export * from '@primeuix/themes/lara/cascadeselect';
+export { default } from '@primeuix/themes/lara/cascadeselect';
