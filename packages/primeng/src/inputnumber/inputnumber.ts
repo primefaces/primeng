@@ -62,7 +62,7 @@ export const INPUTNUMBER_VALUE_ACCESSOR: any = {
             [attr.aria-valuemax]="max()"
             [attr.aria-valuenow]="value"
             [attr.disabled]="disabled()"
-            [readonly]="readonly"
+            [attr.readonly]="readonly"
             [attr.placeholder]="placeholder"
             [attr.aria-label]="ariaLabel"
             [attr.aria-labelledby]="ariaLabelledBy"
@@ -280,7 +280,7 @@ export class InputNumber extends BaseInput implements OnInit, AfterContentInit, 
      * When present, it specifies that an input field is read-only.
      * @group Props
      */
-    @Input({ transform: booleanAttribute }) readonly: boolean = false;
+    @Input({ transform: booleanAttribute }) readonly: boolean | undefined;
     /**
      * Determines whether the input field is empty.
      * @group Props
