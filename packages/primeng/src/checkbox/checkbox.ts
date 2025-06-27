@@ -50,7 +50,7 @@ export const CHECKBOX_VALUE_ACCESSOR: any = {
             #input
             [attr.id]="inputId"
             type="checkbox"
-            [value]="value"
+            [attr.value]="value"
             [attr.name]="name()"
             [checked]="checked"
             [attr.tabindex]="tabindex"

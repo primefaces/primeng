@@ -3,8 +3,8 @@ import { booleanAttribute, ChangeDetectionStrategy, Component, computed, Element
 import { ControlValueAccessor, NG_VALUE_ACCESSOR, NgControl } from '@angular/forms';
 import { SharedModule } from 'primeng/api';
 import { AutoFocus } from 'primeng/autofocus';
-import { Nullable } from 'primeng/ts-helpers';
 import { BaseEditableHolder } from 'primeng/baseeditableholder';
+import { Nullable } from 'primeng/ts-helpers';
 import { RadioButtonClickEvent } from './radiobutton.interface';
 import { RadioButtonStyle } from './style/radiobuttonstyle';
 
@@ -64,7 +64,7 @@ export class RadioControlRegistry {
             [attr.disabled]="disabled()"
             [attr.required]="required()"
             [checked]="checked"
-            [value]="modelValue()"
+            [attr.value]="modelValue()"
             [attr.aria-labelledby]="ariaLabelledBy"
             [attr.aria-label]="ariaLabel"
             [attr.tabindex]="tabindex"
