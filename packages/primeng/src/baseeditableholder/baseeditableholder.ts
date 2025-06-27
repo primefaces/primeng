@@ -1,4 +1,4 @@
-import { computed, Directive, input, signal } from '@angular/core';
+import { booleanAttribute, computed, Directive, input, signal } from '@angular/core';
 import { isNotEmpty } from '@primeuix/utils';
 import { BaseComponent } from 'primeng/basecomponent';
 
@@ -8,19 +8,19 @@ export class BaseEditableHolder extends BaseComponent {
      * There must be a value (if set).
      * @group Props
      */
-    required = input<boolean | undefined>();
+    required = input(undefined, { transform: booleanAttribute });
     /**
      * When present, it specifies that the component should have invalid state style.
      * @defaultValue undefined
      * @group Props
      */
-    invalid = input<boolean | undefined>();
+    invalid = input(undefined, { transform: booleanAttribute });
     /**
      * When present, it specifies that the component should have disabled state style.
      * @defaultValue undefined
      * @group Props
      */
-    disabled = input<boolean | undefined>();
+    disabled = input(undefined, { transform: booleanAttribute });
     /**
      * When present, it specifies that the name of the input.
      * @defaultValue undefined
