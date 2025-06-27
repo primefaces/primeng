@@ -1,1 +1,2 @@
-export * from '@primeuix/themes/types/imagecompare';
+export * from '@primeuix/themes/material/imagecompare';
+export { default } from '@primeuix/themes/material/imagecompare';

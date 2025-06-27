@@ -1,1 +1,2 @@
-export * from '@primeuix/themes/types/card';
+export * from '@primeuix/themes/aura/card';
+export { default } from '@primeuix/themes/aura/card';

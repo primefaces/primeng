@@ -1,1 +1,2 @@
-export * from '@primeuix/themes/types/textarea';
+export * from '@primeuix/themes/material/textarea';
+export { default } from '@primeuix/themes/material/textarea';

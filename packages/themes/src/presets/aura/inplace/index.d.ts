@@ -1,1 +1,2 @@
-export * from '@primeuix/themes/types/inplace';
+export * from '@primeuix/themes/aura/inplace';
+export { default } from '@primeuix/themes/aura/inplace';

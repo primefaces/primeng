@@ -1,1 +1,2 @@
-export * from '@primeuix/themes/types/timeline';
+export * from '@primeuix/themes/aura/timeline';
+export { default } from '@primeuix/themes/aura/timeline';

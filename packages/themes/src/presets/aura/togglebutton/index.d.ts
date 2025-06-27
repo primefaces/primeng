@@ -1,1 +1,2 @@
-export * from '@primeuix/themes/types/togglebutton';
+export * from '@primeuix/themes/aura/togglebutton';
+export { default } from '@primeuix/themes/aura/togglebutton';

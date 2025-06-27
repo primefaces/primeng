@@ -1,1 +1,2 @@
-export * from '@primeuix/themes/types/megamenu';
+export * from '@primeuix/themes/lara/megamenu';
+export { default } from '@primeuix/themes/lara/megamenu';
