@@ -15,6 +15,8 @@
             "@/*": ["./*"]
         }
     },
+    "include": ["../../packages/primeng/src/**/*.d.ts", "../../node_modules/@primeuix/styles/**/*.d.ts", "../../node_modules/@primeuix/themes/**/*.d.ts"],
+    "exclude": ["node_modules", "**/node_modules", "**/dist", "**/*.spec.ts", "**/*.test.ts"],
     "files": ["app/main.ts", "server/main.server.ts", "server/server.ts", "app/polyfills.ts"],
     "angularCompilerOptions": {
         "enableI18nLegacyMessageIdFormat": false,

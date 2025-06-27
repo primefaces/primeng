@@ -1,8 +1,8 @@
-import * as TypeDoc from 'typedoc';
+import * as fs from 'fs';
 import * as path from 'path';
 import { dirname } from 'path';
+import * as TypeDoc from 'typedoc';
 import { fileURLToPath } from 'url';
-import * as fs from 'fs';
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = dirname(__filename);
@@ -26,12 +26,12 @@ async function main() {
         // typedoc options here
         name: 'PrimeNG',
         entryPointStrategy: 'expand',
-        entryPoints: [`${rootDir}`],
+        entryPoints: ['../../packages/primeng'],
         hideGenerator: true,
-        excludeExternals: true,
+        excludeExternals: false,
         includeVersion: true,
         searchInComments: true,
-        disableSources: false,
+        disableSources: true,
         logLevel: 'Error',
         sort: ['source-order'],
         exclude: ['node_modules', 'src/**/*spec.ts', 'src/**/*public_api.ts']
