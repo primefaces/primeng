@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
+import { css, dt } from '@primeuix/styled';
 import { style } from '@primeuix/styles/floatlabel';
 import { BaseStyle } from 'primeng/base';
-import { css, dt } from '@primeuix/styled';
 
 const theme = css`
     ${style}
@@ -16,9 +16,9 @@ const classes = {
     root: ({ instance }) => [
         'p-floatlabel',
         {
-            'p-floatlabel-over': instance.variant === 'over',
-            'p-floatlabel-on': instance.variant === 'on',
-            'p-floatlabel-in': instance.variant === 'in'
+            'p-floatlabel-over': instance.$variant() === 'over',
+            'p-floatlabel-on': instance.$variant() === 'on',
+            'p-floatlabel-in': instance.$variant() === 'in'
         }
     ]
 };

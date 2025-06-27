@@ -19,6 +19,7 @@ export type PrimeNGConfigType = {
      */
     inputStyle?: 'outlined' | 'filled';
     inputVariant?: 'outlined' | 'filled';
+    floatVariant?: 'in' | 'over' | 'on';
     csp?: {
         nonce: string | undefined;
     };
@@ -39,6 +40,8 @@ export class PrimeNG extends ThemeProvider {
     inputStyle = signal<'outlined' | 'filled'>(null);
 
     inputVariant = signal<'outlined' | 'filled'>(null);
+
+    floatVariant = signal<'in' | 'over' | 'on'>(null);
 
     overlayAppendTo = signal<HTMLElement | ElementRef | TemplateRef<any> | string | null | undefined | any>('self');
 
@@ -202,13 +205,14 @@ export class PrimeNG extends ThemeProvider {
     }
 
     setConfig(config: PrimeNGConfigType): void {
-        const { csp, ripple, inputStyle, inputVariant, theme, overlayOptions, translation, filterMatchModeOptions, overlayAppendTo } = config || {};
+        const { csp, ripple, inputStyle, inputVariant, floatVariant, theme, overlayOptions, translation, filterMatchModeOptions, overlayAppendTo } = config || {};
 
         if (csp) this.csp.set(csp);
         if (overlayAppendTo) this.overlayAppendTo.set(overlayAppendTo);
         if (ripple) this.ripple.set(ripple);
         if (inputStyle) this.inputStyle.set(inputStyle);
         if (inputVariant) this.inputVariant.set(inputVariant);
+        if (floatVariant) this.floatVariant.set(floatVariant);
         if (overlayOptions) this.overlayOptions = overlayOptions;
         if (translation) this.setTranslation(translation);
         if (filterMatchModeOptions) this.filterMatchModeOptions = filterMatchModeOptions;
