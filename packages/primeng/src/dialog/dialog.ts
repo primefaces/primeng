@@ -945,7 +945,7 @@ export class Dialog extends BaseComponent implements OnInit, AfterContentInit, O
     }
 
     appendContainer() {
-        if (this.$appendTo()) {
+        if (this.$appendTo() && this.$appendTo() !== 'self') {
             if (this.$appendTo() === 'body') this.renderer.appendChild(this.document.body, this.wrapper);
             else appendChild(this.$appendTo(), this.wrapper);
         }

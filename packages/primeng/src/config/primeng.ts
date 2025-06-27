@@ -40,7 +40,7 @@ export class PrimeNG extends ThemeProvider {
 
     inputVariant = signal<'outlined' | 'filled'>(null);
 
-    overlayAppendTo = signal<HTMLElement | ElementRef | TemplateRef<any> | string | null | undefined | any>('self');
+    overlayAppendTo = signal<HTMLElement | ElementRef | TemplateRef<any> | 'self' | 'body' | null | undefined | any>('self');
 
     overlayOptions: OverlayOptions = {};
 

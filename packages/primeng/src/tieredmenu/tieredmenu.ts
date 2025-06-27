@@ -993,7 +993,7 @@ export class TieredMenu extends BaseComponent implements OnInit, OnDestroy {
     }
 
     appendOverlay() {
-        if (this.$appendTo()) {
+        if (this.$appendTo() && this.$appendTo() !== 'self') {
             if (this.$appendTo() === 'body') this.renderer.appendChild(this.document.body, this.container);
             else appendChild(this.$appendTo(), this.container);
         }

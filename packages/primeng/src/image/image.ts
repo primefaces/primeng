@@ -21,9 +21,9 @@ import {
 } from '@angular/core';
 import { SafeUrl } from '@angular/platform-browser';
 import { addClass, appendChild, focus } from '@primeuix/utils';
-import { blockBodyScroll, unblockBodyScroll } from 'primeng/dom';
 import { PrimeTemplate, SharedModule } from 'primeng/api';
 import { BaseComponent } from 'primeng/basecomponent';
+import { blockBodyScroll, unblockBodyScroll } from 'primeng/dom';
 import { FocusTrap } from 'primeng/focustrap';
 import { EyeIcon, RefreshIcon, SearchMinusIcon, SearchPlusIcon, TimesIcon, UndoIcon } from 'primeng/icons';
 import { Nullable } from 'primeng/ts-helpers';
@@ -460,7 +460,7 @@ export class Image extends BaseComponent implements AfterContentInit {
     }
 
     appendContainer() {
-        if (this.$appendTo()) {
+        if (this.$appendTo() && this.$appendTo() !== 'self') {
             if (this.$appendTo() === 'body') this.document.body.appendChild(this.wrapper as HTMLElement);
             else appendChild(this.$appendTo(), this.wrapper);
         }
