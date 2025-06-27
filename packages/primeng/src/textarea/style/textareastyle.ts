@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
-import { style } from '@primeuix/styles/textarea';
 import { css, dt } from '@primeuix/styled';
+import { style } from '@primeuix/styles/textarea';
 import { BaseStyle } from 'primeng/base';
 
 const theme = css`
@@ -23,8 +23,8 @@ const classes = {
             'p-textarea-resizable ': instance.autoResize,
             'p-variant-filled': instance.$variant() === 'filled',
             'p-textarea-fluid': instance.hasFluid,
-            'p-inputfield-sm p-textarea-sm': instance.size() === 'small',
-            'p-textarea-lg p-inputfield-lg': instance.size() === 'large',
+            'p-inputfield-sm p-textarea-sm': instance.pSize === 'small',
+            'p-textarea-lg p-inputfield-lg': instance.pSize === 'large',
             'p-invalid': instance.invalid(),
             'p-disabled': instance.disabled()
         }
