@@ -5,7 +5,6 @@ import { NgModule } from '@angular/core';
 import { RouterModule } from '@angular/router';
 import { ButtonModule } from 'primeng/button';
 import { ButtonGroupModule } from 'primeng/buttongroup';
-import { WindowMaximizeIcon } from 'primeng/icons';
 import { RippleModule } from 'primeng/ripple';
 import { AccessibilityDoc } from './accessibilitydoc';
 import { BadgeDoc } from './badgedoc';
@@ -30,7 +29,7 @@ import { TemplateDoc } from './templatedoc';
 import { TextDoc } from './textdoc';
 
 @NgModule({
-    imports: [CommonModule, AppCodeModule, AppDocModule, ButtonModule, ButtonGroupModule, RippleModule, RouterModule, WindowMaximizeIcon],
+    imports: [CommonModule, AppCodeModule, AppDocModule, ButtonModule, ButtonGroupModule, RippleModule, RouterModule],
     exports: [AppDocModule],
     declarations: [
         ImportDoc,
