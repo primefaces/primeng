@@ -156,7 +156,8 @@ export class SelectItem extends BaseComponent {
             (blur)="onInputBlur($event)"
             (keydown)="onKeyDown($event)"
             [attr.aria-required]="required()"
-            [attr.required]="required()"
+            [attr.required]="required() ? '' : undefined"
+            [attr.disabled]="disabled() ? '' : undefined"
         >
             <ng-container *ngIf="!selectedItemTemplate && !_selectedItemTemplate; else defaultPlaceholder">{{ label() === 'p-emptylabel' ? '&nbsp;' : label() }}</ng-container>
             <ng-container *ngIf="(selectedItemTemplate || _selectedItemTemplate) && !isSelectedOptionEmpty()" [ngTemplateOutlet]="selectedItemTemplate || _selectedItemTemplate" [ngTemplateOutletContext]="{ $implicit: selectedOption }"></ng-container>
@@ -169,9 +170,7 @@ export class SelectItem extends BaseComponent {
             #editableInput
             type="text"
             [attr.id]="inputId"
-            [attr.maxlength]="maxlength()"
             [class]="cx('label')"
-            [attr.disabled]="disabled()"
             aria-haspopup="listbox"
             [attr.placeholder]="modelValue() === undefined || modelValue() === null ? placeholder() : undefined"
             [attr.aria-label]="ariaLabel || (label() === 'p-emptylabel' ? undefined : label())"
@@ -182,6 +181,15 @@ export class SelectItem extends BaseComponent {
             (focus)="onInputFocus($event)"
             (blur)="onInputBlur($event)"
             [attr.name]="name()"
+            [attr.minlength]="minlength()"
+            [attr.min]="min()"
+            [attr.max]="max()"
+            [attr.pattern]="pattern()"
+            [attr.size]="inputSize()"
+            [attr.maxlength]="maxlength()"
+            [attr.required]="required() ? '' : undefined"
+            [attr.readonly]="readonly ? '' : undefined"
+            [attr.disabled]="disabled() ? '' : undefined"
         />
         <ng-container *ngIf="isVisibleClearIcon">
             <TimesIcon [class]="cx('clearIcon')" (click)="clear($event)" *ngIf="!clearIconTemplate && !_clearIconTemplate" [attr.data-pc-section]="'clearicon'" />
@@ -694,8 +702,6 @@ export class Select extends BaseInput implements OnInit, AfterViewInit, AfterCon
     @ViewChild('firstHiddenFocusableEl') firstHiddenFocusableElementOnOverlay: Nullable<ElementRef>;
 
     @ViewChild('lastHiddenFocusableEl') lastHiddenFocusableElementOnOverlay: Nullable<ElementRef>;
-
-    _disabled: boolean | undefined;
 
     itemsWrapper: Nullable<HTMLDivElement>;
 

@@ -64,7 +64,6 @@ export const DATEPICKER_VALUE_ACCESSOR: any = {
                 role="combobox"
                 [attr.id]="inputId"
                 [attr.name]="name()"
-                [attr.required]="required()"
                 [attr.aria-required]="required()"
                 aria-autocomplete="none"
                 aria-haspopup="dialog"
@@ -77,12 +76,13 @@ export const DATEPICKER_VALUE_ACCESSOR: any = {
                 (keydown)="onInputKeydown($event)"
                 (click)="onInputClick()"
                 (blur)="onInputBlur($event)"
-                [attr.readonly]="readonlyInput"
+                [attr.required]="required() ? '' : undefined"
+                [attr.readonly]="readonlyInput ? '' : undefined"
+                [attr.disabled]="disabled() ? '' : undefined"
                 (input)="onUserInput($event)"
                 [ngStyle]="inputStyle"
                 [class]="cn(cx('pcInputText'), inputStyleClass)"
                 [attr.placeholder]="placeholder || ''"
-                [attr.disabled]="disabled()"
                 [attr.tabindex]="tabindex"
                 [attr.inputmode]="touchUI ? 'off' : null"
                 autocomplete="off"
@@ -170,7 +170,7 @@ export const DATEPICKER_VALUE_ACCESSOR: any = {
                                     (click)="switchToMonthView($event)"
                                     (keydown)="onContainerButtonKeydown($event)"
                                     [class]="cx('selectMonth')"
-                                    [attr.disabled]="switchViewButtonDisabled()"
+                                    [attr.disabled]="switchViewButtonDisabled() ? '' : undefined"
                                     [attr.aria-label]="this.getTranslation('chooseMonth')"
                                     pRipple
                                 >
@@ -182,7 +182,7 @@ export const DATEPICKER_VALUE_ACCESSOR: any = {
                                     (click)="switchToYearView($event)"
                                     (keydown)="onContainerButtonKeydown($event)"
                                     [class]="cx('selectYear')"
-                                    [attr.disabled]="switchViewButtonDisabled()"
+                                    [attr.disabled]="switchViewButtonDisabled() ? '' : undefined"
                                     [attr.aria-label]="getTranslation('chooseYear')"
                                     pRipple
                                 >

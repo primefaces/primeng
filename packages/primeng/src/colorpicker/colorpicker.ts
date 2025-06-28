@@ -31,9 +31,9 @@ export const COLORPICKER_VALUE_ACCESSOR: any = {
             #input
             type="text"
             [class]="cx('preview')"
-            readonly="readonly"
+            readonly
             [attr.tabindex]="tabindex"
-            [disabled]="disabled()"
+            [attr.disabled]="disabled() ? '' : undefined"
             (click)="onInputClick()"
             (keydown)="onInputKeydown($event)"
             (focus)="onInputFocus()"

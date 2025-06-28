@@ -64,7 +64,16 @@ export const LISTBOX_VALUE_ACCESSOR: any = {
         <div [class]="cx('header')" *ngIf="(checkbox && multiple && showToggleAll) || filter">
             <div *ngIf="checkbox && multiple && showToggleAll" class="p-checkbox p-component" [ngClass]="{ 'p-checkbox-disabled': disabled() }" (click)="onToggleAll($event)" (keydown)="onHeaderCheckboxKeyDown($event)">
                 <div class="p-hidden-accessible" [attr.data-p-hidden-accessible]="true">
-                    <input #headerchkbox type="checkbox" readonly="readonly" [attr.checked]="allSelected()" [disabled]="disabled()" (focus)="onHeaderCheckboxFocus($event)" (blur)="onHeaderCheckboxBlur()" [attr.aria-label]="toggleAllAriaLabel" />
+                    <input
+                        #headerchkbox
+                        type="checkbox"
+                        readonly="readonly"
+                        [attr.checked]="allSelected()"
+                        [attr.disabled]="disabled() ? '' : undefined"
+                        (focus)="onHeaderCheckboxFocus($event)"
+                        (blur)="onHeaderCheckboxBlur()"
+                        [attr.aria-label]="toggleAllAriaLabel"
+                    />
                 </div>
                 <p-checkbox
                     *ngIf="checkbox && multiple"
@@ -95,7 +104,7 @@ export const LISTBOX_VALUE_ACCESSOR: any = {
                             [class]="cx('pcFilter')"
                             role="searchbox"
                             [value]="_filterValue() || ''"
-                            [disabled]="disabled()"
+                            [attr.disabled]="disabled() ? '' : undefined"
                             [attr.aria-owns]="id + '_list'"
                             [attr.aria-activedescendant]="focusedOptionId"
                             [attr.placeholder]="filterPlaceHolder"

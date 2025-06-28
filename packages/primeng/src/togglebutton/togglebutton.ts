@@ -43,12 +43,12 @@ export const TOGGLEBUTTON_VALUE_ACCESSOR: any = {
     host: {
         '[class]': "cn(cx('root'), styleClass)",
         '[attr.tabindex]': 'tabindex',
-        '[attr.disabled]': 'disabled()',
+        '[attr.disabled]': 'disabled() ? "" : undefined',
         '[attr.aria-labelledby]': 'ariaLabelledBy',
         '[attr.aria-pressed]': 'checked',
         '[attr.data-p-checked]': 'active',
-        '[attr.data-p-disabled]': 'disabled()',
-        '[attr.required]': 'required()',
+        '[attr.data-p-disabled]': 'disabled() ? "" : undefined',
+        '[attr.required]': 'required() ? "" : undefined',
         '[attr.type]': '"button"'
     },
     template: `<span [class]="cx('content')">

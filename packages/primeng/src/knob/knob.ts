@@ -34,7 +34,7 @@ export const KNOB_VALUE_ACCESSOR: any = {
             (touchend)="onTouchEnd($event)"
             [attr.aria-valuemin]="min"
             [attr.aria-valuemax]="max"
-            [attr.required]="required()"
+            [attr.required]="required() ? '' : undefined"
             [attr.aria-valuenow]="_value"
             [attr.aria-labelledby]="ariaLabelledBy"
             [attr.aria-label]="ariaLabel"
@@ -55,10 +55,10 @@ export const KNOB_VALUE_ACCESSOR: any = {
         '[attr.data-pc-name]': "'knob'",
         '[attr.data-pc-section]': "'root'",
         '[class]': "cn(cx('root'), styleClass)",
-        '[attr.disabled]': 'disabled()',
+        '[attr.disabled]': 'disabled() ? "" : undefined',
         '[attr.name]': 'name()',
         '[attr.min]': 'min',
-        '[attr.required]': 'required()',
+        '[attr.required]': 'required() ? "" : undefined',
         '[attr.step]': 'step'
     }
 })

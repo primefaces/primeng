@@ -179,9 +179,9 @@ export class MultiSelectItem extends BaseComponent {
                 (keydown)="onKeyDown($event)"
                 [pAutoFocus]="autofocus"
                 [attr.value]="modelValue()"
-                [attr.required]="required()"
                 [attr.name]="name()"
-                [attr.disabled]="disabled()"
+                [attr.required]="required() ? '' : undefined"
+                [attr.disabled]="disabled() ? '' : undefined"
             />
         </div>
         <div
@@ -316,7 +316,7 @@ export class MultiSelectItem extends BaseComponent {
                                     (click)="onInputClick($event)"
                                     (blur)="onFilterBlur($event)"
                                     [class]="cx('pcFilter')"
-                                    [attr.disabled]="disabled()"
+                                    [attr.disabled]="disabled() ? '' : undefined"
                                     [attr.placeholder]="filterPlaceHolder"
                                     [attr.aria-label]="ariaFilterLabel"
                                 />

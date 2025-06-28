@@ -31,12 +31,12 @@ import { calculateScrollbarWidth, equals, findLastIndex, findSingle, focus, getH
 import { OverlayOptions, OverlayService, PrimeTemplate, SharedModule, TranslationKeys } from 'primeng/api';
 import { AutoFocus } from 'primeng/autofocus';
 import { BaseComponent } from 'primeng/basecomponent';
+import { BaseEditableHolder } from 'primeng/baseeditableholder';
 import { Fluid } from 'primeng/fluid';
 import { AngleRightIcon, ChevronDownIcon, TimesIcon } from 'primeng/icons';
 import { Overlay } from 'primeng/overlay';
 import { Ripple } from 'primeng/ripple';
 import { Nullable, VoidListener } from 'primeng/ts-helpers';
-import { BaseEditableHolder } from 'primeng/baseeditableholder';
 import { CascadeSelectBeforeHideEvent, CascadeSelectBeforeShowEvent, CascadeSelectChangeEvent, CascadeSelectHideEvent, CascadeSelectShowEvent } from './cascadeselect.interface';
 import { CascadeSelectStyle } from './style/cascadeselectstyle';
 
@@ -251,9 +251,9 @@ export class CascadeSelectSub extends BaseComponent implements OnInit {
                 readonly
                 type="text"
                 role="combobox"
-                [attr.disabled]="disabled()"
                 [attr.name]="name()"
-                [attr.required]="required()"
+                [attr.required]="required() ? '' : undefined"
+                [attr.disabled]="disabled() ? '' : undefined"
                 [attr.placeholder]="placeholder"
                 [attr.tabindex]="!disabled() ? tabindex : -1"
                 [attr.id]="inputId"
