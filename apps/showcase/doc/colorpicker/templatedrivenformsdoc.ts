@@ -11,7 +11,7 @@ import { MessageService } from 'primeng/api';
             <p-toast />
             <form #exampleForm="ngForm" (ngSubmit)="onSubmit(exampleForm)" class="flex flex-col gap-4">
                 <div class="flex flex-col items-center gap-2">
-                    <p-colorpicker name="color" [(ngModel)]="color" #colorModel="ngModel" required />
+                    <p-colorpicker name="color" [(ngModel)]="color" #colorModel="ngModel" required defaultColor="989898" />
                     @if (colorModel.invalid && (colorModel.touched || exampleForm.submitted)) {
                         <p-message severity="error" size="small" variant="simple">Color is required.</p-message>
                     }
@@ -37,7 +37,7 @@ export class TemplateDrivenFormsDoc {
     code: Code = {
         basic: `<form #exampleForm="ngForm" (ngSubmit)="onSubmit(exampleForm)" class="flex flex-col gap-4">
     <div class="flex flex-col items-center gap-2">
-        <p-colorpicker name="color" [(ngModel)]="color" #colorModel="ngModel" required />
+        <p-colorpicker name="color" [(ngModel)]="color" #colorModel="ngModel" required defaultColor="989898" />
         @if (colorModel.invalid && (colorModel.touched || exampleForm.submitted)) {
             <p-message severity="error" size="small" variant="simple">Color is required.</p-message>
         }
@@ -49,7 +49,7 @@ export class TemplateDrivenFormsDoc {
     <p-toast />
     <form #exampleForm="ngForm" (ngSubmit)="onSubmit(exampleForm)" class="flex flex-col gap-4">
         <div class="flex flex-col items-center gap-2">
-            <p-colorpicker name="color" [(ngModel)]="color" #colorModel="ngModel" required />
+            <p-colorpicker name="color" [(ngModel)]="color" #colorModel="ngModel" required defaultColor="989898" />
             @if (colorModel.invalid && (colorModel.touched || exampleForm.submitted)) {
                 <p-message severity="error" size="small" variant="simple">Color is required.</p-message>
             }

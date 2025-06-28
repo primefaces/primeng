@@ -5,12 +5,12 @@ import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
 import { absolutePosition, cn, isTouchDevice, relativePosition } from '@primeuix/utils';
 import { OverlayService, SharedModule, TranslationKeys } from 'primeng/api';
 import { AutoFocusModule } from 'primeng/autofocus';
+import { BaseEditableHolder } from 'primeng/baseeditableholder';
 import { ConnectedOverlayScrollHandler, DomHandler } from 'primeng/dom';
 import { Nullable, VoidListener } from 'primeng/ts-helpers';
 import { ZIndexUtils } from 'primeng/utils';
 import { ColorPickerChangeEvent } from './colorpicker.interface';
 import { ColorPickerStyle } from './style/colorpickerstyle';
-import { BaseEditableHolder } from 'primeng/baseeditableholder';
 
 export const COLORPICKER_VALUE_ACCESSOR: any = {
     provide: NG_VALUE_ACCESSOR,
@@ -126,6 +126,11 @@ export class ColorPicker extends BaseEditableHolder implements ControlValueAcces
      */
     @Input({ transform: booleanAttribute }) autofocus: boolean | undefined;
     /**
+     * Default color to display initially when model value is not present.
+     * @group Props
+     */
+    @Input() defaultColor: string | undefined = 'ff0000';
+    /**
      * Callback to invoke on value change.
      * @param {ColorPickerChangeEvent} event - Custom value change event.
      * @group Emits
@@ -151,8 +156,6 @@ export class ColorPicker extends BaseEditableHolder implements ControlValueAcces
     shown: Nullable<boolean>;
 
     overlayVisible: Nullable<boolean>;
-
-    defaultColor: string = 'ff0000';
 
     onModelChange: Function = () => {};
 

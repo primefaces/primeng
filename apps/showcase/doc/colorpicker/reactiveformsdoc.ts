@@ -14,7 +14,7 @@ import { MessageService } from 'primeng/api';
             <p-toast />
             <form [formGroup]="exampleForm" (ngSubmit)="onSubmit()" class="flex flex-col gap-4">
                 <div class="flex flex-col items-center gap-2">
-                    <p-colorpicker formControlName="color" />
+                    <p-colorpicker formControlName="color" defaultColor="989898" />
                     @if (isInvalid('color')) {
                         <p-message severity="error" size="small" variant="simple">Color is required.</p-message>
                     }
@@ -55,7 +55,7 @@ export class ReactiveFormsDoc {
     code: Code = {
         basic: `<form [formGroup]="exampleForm" (ngSubmit)="onSubmit()" class="flex flex-col gap-4">
     <div class="flex flex-col items-center gap-2">
-        <p-colorpicker formControlName="color" />
+        <p-colorpicker formControlName="color" defaultColor="989898" />
         @if (isInvalid('color')) {
             <p-message severity="error" size="small" variant="simple">Color is required.</p-message>
         }
@@ -67,7 +67,7 @@ export class ReactiveFormsDoc {
     <p-toast />
     <form [formGroup]="exampleForm" (ngSubmit)="onSubmit()" class="flex flex-col gap-4">
         <div class="flex flex-col items-center gap-2">
-            <p-colorpicker formControlName="color" />
+            <p-colorpicker formControlName="color" defaultColor="989898" />
             @if (isInvalid('color')) {
                 <p-message severity="error" size="small" variant="simple">Color is required.</p-message>
             }
