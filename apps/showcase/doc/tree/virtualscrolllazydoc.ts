@@ -10,7 +10,7 @@ import { TreeNode } from 'primeng/api';
         <app-docsectiontext>
             <p>VirtualScroller is a performance-approach to handle huge data efficiently. Setting <i>virtualScroll</i> property as true and providing a <i>virtualScrollItemSize</i> in pixels would be enough to enable this functionality.</p>
         </app-docsectiontext>
-        <div class="card flex justify-center">
+        <div class="card">
             <p-tree styleClass="w-full md:w-[30rem]" scrollHeight="250px" [virtualScroll]="true" [lazy]="true" [virtualScrollItemSize]="46" [value]="files" (onNodeExpand)="nodeExpand($event)" [loading]="loading" />
         </div>
         <app-code [code]="code" selector="tree-virtual-scroll-lazy-demo"></app-code>
@@ -62,7 +62,7 @@ export class LazyVirtualScrollDoc implements OnInit {
     code: Code = {
         basic: `<p-tree styleClass="w-full md:w-[30rem]" scrollHeight="250px" [virtualScroll]="true" [lazy]="true" [virtualScrollItemSize]="46" [value]="files" (onNodeExpand)="nodeExpand($event)" [loading]="loading" />`,
 
-        html: `<div class="card flex justify-center">
+        html: `<div class="card">
     <p-tree styleClass="w-full md:w-[30rem]" scrollHeight="250px" [virtualScroll]="true" [lazy]="true" [virtualScrollItemSize]="46" [value]="files" (onNodeExpand)="nodeExpand($event)" [loading]="loading" />
 </div>`,
 
