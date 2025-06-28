@@ -28,6 +28,7 @@ import { VirtualScrollDoc } from './virtualscrolldoc';
 import { ToastModule } from 'primeng/toast';
 import { TemplateDrivenFormsDoc } from './templatedrivenformsdoc';
 import { MessageModule } from 'primeng/message';
+import { TooltipDoc } from './tooltipdoc';
 
 @NgModule({
     imports: [CommonModule, AppCodeModule, RouterModule, MultiSelectModule, FormsModule, ReactiveFormsModule, AppDocModule, FloatLabelModule, IftaLabelModule, ButtonModule, ToastModule, MessageModule],
@@ -50,7 +51,8 @@ import { MessageModule } from 'primeng/message';
         LoadingStateDoc,
         FilledDoc,
         SizesDoc,
-        TemplateDrivenFormsDoc
+        TemplateDrivenFormsDoc,
+        TooltipDoc
     ]
 })
 export class MultiSelectDocModule {}
