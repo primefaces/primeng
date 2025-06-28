@@ -94,7 +94,7 @@ export interface InputOtpInputTemplateContext {
                     [pSize]="size()"
                     [variant]="$variant()"
                     [invalid]="invalid()"
-                    [attr.readonly]="readonly"
+                    [readonly]="readonly"
                     [attr.disabled]="disabled()"
                     [attr.name]="name()"
                     [attr.required]="required()"
@@ -124,7 +124,7 @@ export class InputOtp extends BaseEditableHolder implements AfterContentInit {
      * When present, it specifies that an input field is read-only.
      * @group Props
      */
-    @Input() readonly: boolean = false;
+    @Input({ transform: booleanAttribute }) readonly: boolean;
     /**
      * Index of the element in tabbing order.
      * @group Props
