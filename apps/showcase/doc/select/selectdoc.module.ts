@@ -35,6 +35,7 @@ import { VirtualScrollDoc } from './virtualscrolldoc';
 import { MessageModule } from 'primeng/message';
 import { TemplateDrivenFormsDoc } from '@/doc/select/templatedrivenformsdoc';
 import { ToastModule } from 'primeng/toast';
+import { TooltipDoc } from './tooltipdoc';
 
 @NgModule({
     imports: [
@@ -77,7 +78,8 @@ import { ToastModule } from 'primeng/toast';
         LoadingStateDoc,
         TemplateDrivenFormsDoc,
         FilledDoc,
-        SizesDoc
+        SizesDoc,
+        TooltipDoc
     ]
 })
 export class SelectDocModule {}
