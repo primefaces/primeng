@@ -31,9 +31,9 @@ import {
     ViewEncapsulation
 } from '@angular/core';
 import { addClass, find, findSingle, focus, getAttribute, removeClass, setAttribute, uuid } from '@primeuix/utils';
-import { blockBodyScroll, unblockBodyScroll } from 'primeng/dom';
 import { PrimeTemplate, SharedModule } from 'primeng/api';
 import { BaseComponent } from 'primeng/basecomponent';
+import { blockBodyScroll, unblockBodyScroll } from 'primeng/dom';
 import { FocusTrap } from 'primeng/focustrap';
 import { ChevronDownIcon, ChevronLeftIcon, ChevronRightIcon, ChevronUpIcon, TimesIcon, WindowMaximizeIcon, WindowMinimizeIcon } from 'primeng/icons';
 import { Ripple } from 'primeng/ripple';
@@ -434,7 +434,7 @@ export class Galleria extends BaseComponent implements OnChanges, OnDestroy {
     selector: 'p-galleriaContent',
     standalone: false,
     template: `
-        <div [attr.id]="id" [attr.role]="'region'" *ngIf="value && value.length > 0" [class]="cx('root')" [ngStyle]="!galleria.fullScreen ? galleria.containerStyle : {}" pFocusTrap [pFocusTrapDisabled]="!fullScreen">
+        <div [attr.id]="id" [attr.role]="'region'" *ngIf="value && value.length > 0" [class]="cn(cx('root'), galleria.containerClass)" [ngStyle]="!galleria.fullScreen ? galleria.containerStyle : {}" pFocusTrap [pFocusTrapDisabled]="!fullScreen">
             <button *ngIf="galleria.fullScreen" type="button" [class]="cx('closeButton')" (click)="maskHide.emit()" [attr.aria-label]="closeAriaLabel()" [attr.data-pc-section]="'closebutton'">
                 <TimesIcon *ngIf="!galleria.closeIconTemplate && !galleria._closeIconTemplate" [styleClass]="cx('closeIcon')" />
                 <ng-template *ngTemplateOutlet="galleria.closeIconTemplate || galleria._closeIconTemplate"></ng-template>
