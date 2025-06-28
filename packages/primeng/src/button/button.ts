@@ -28,11 +28,11 @@ import { PrimeTemplate, SharedModule } from 'primeng/api';
 import { AutoFocus } from 'primeng/autofocus';
 import { BadgeModule } from 'primeng/badge';
 import { BaseComponent } from 'primeng/basecomponent';
+import { Fluid } from 'primeng/fluid';
 import { SpinnerIcon } from 'primeng/icons';
 import { Ripple } from 'primeng/ripple';
 import { ButtonProps, ButtonSeverity } from './button.interface';
 import { ButtonStyle } from './style/buttonstyle';
-import { Fluid } from 'primeng/fluid';
 
 type ButtonIconPosition = 'left' | 'right' | 'top' | 'bottom';
 
@@ -484,7 +484,7 @@ export class ButtonDirective extends BaseComponent implements AfterViewInit, OnD
                 <span *ngIf="icon && !iconTemplate && !_iconTemplate" [class]="cx('icon')" [attr.data-pc-section]="'icon'"></span>
                 <ng-template [ngIf]="!icon && (iconTemplate || _iconTemplate)" *ngTemplateOutlet="iconTemplate || _iconTemplate; context: { class: cx('icon') }"></ng-template>
             </ng-container>
-            <span [class]="cx('label')" [attr.aria-hidden]="icon && !label" *ngIf="!contentTemplate && !_contentTemplate && label" [attr.data-pc-section]="'label'">{{ label }}</span>
+            <span [class]="cx('label')" [attr.aria-hidden]="icon && !label" *ngIf="!contentTemplate && !_contentTemplate" [attr.data-pc-section]="'label'">{{ label || '&nbsp;' }}</span>
             <p-badge *ngIf="!contentTemplate && !_contentTemplate && badge" [value]="badge" [severity]="badgeSeverity"></p-badge>
         </button>
     `,
