@@ -41,7 +41,7 @@ export class TemplateDoc {
                     this.delete();
                 }
             },
-            { label: 'Angular Website', url: 'http://angular.io' },
+            { label: 'Angular.dev', url: 'https://angular.dev' },
             { separator: true },
             { label: 'Upload', routerLink: ['/fileupload'] }
         ];
@@ -101,7 +101,7 @@ export class SplitButtonTemplateDemo {
                     this.delete();
                 }
             },
-            { label: 'Angular Website', url: 'http://angular.io' },
+            { label: 'Angular.dev', url: 'https://angular.dev' },
             { separator: true },
             { label: 'Upload', routerLink: ['/fileupload'] }
         ];
