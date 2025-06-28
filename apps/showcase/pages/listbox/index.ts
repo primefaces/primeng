@@ -1,5 +1,6 @@
 import { AccessibilityDoc } from '@/doc/listbox/accessibilitydoc';
 import { BasicDoc } from '@/doc/listbox/basicdoc';
+import { CheckboxDoc } from '@/doc/listbox/checkboxdoc';
 import { CheckmarkDoc } from '@/doc/listbox/checkmarkdoc';
 import { DisabledDoc } from '@/doc/listbox/disableddoc';
 import { FilterDoc } from '@/doc/listbox/filterdoc';
@@ -10,10 +11,9 @@ import { ListboxDocModule } from '@/doc/listbox/listboxdoc.module';
 import { MultipleDoc } from '@/doc/listbox/multipledoc';
 import { ReactiveFormsDoc } from '@/doc/listbox/reactiveformsdoc';
 import { TemplateDoc } from '@/doc/listbox/templatedoc';
-import { VirtualScrollDoc } from '@/doc/listbox/virtualscrolldoc';
-import { CheckboxDoc } from '@/doc/listbox/checkboxdoc';
-import { Component } from '@angular/core';
 import { TemplateDrivenFormsDoc } from '@/doc/listbox/templatedrivenformsdoc';
+import { VirtualScrollDoc } from '@/doc/listbox/virtualscrolldoc';
+import { Component } from '@angular/core';
 
 @Component({
     template: `<app-doc docTitle="Angular Listbox Component" header="Listbox" description="Listbox is used to select one or more values from a list of items." [docs]="docs" [apiDocs]="['Listbox']" themeDocs="listbox"></app-doc> `,
@@ -31,11 +31,6 @@ export class ListboxDemo {
             id: 'basic',
             label: 'Basic',
             component: BasicDoc
-        },
-        {
-            id: 'reactive-forms',
-            label: 'Reactive Forms',
-            component: ReactiveFormsDoc
         },
         {
             id: 'checkmark',
