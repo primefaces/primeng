@@ -11,7 +11,7 @@ import { ChangeDetectorRef, Component, OnInit } from '@angular/core';
             <p>When <i>autoplayInterval</i> is defined in milliseconds, items are scrolled automatically. In addition, for infinite scrolling <i>circular</i> property needs to be added which is enabled automatically in auto play mode.</p>
         </app-docsectiontext>
         <div class="card">
-            <p-carousel [value]="products" [numVisible]="3" [numScroll]="3" [circular]="true" [responsiveOptions]="responsiveOptions" autoplayInterval="3000">
+            <p-carousel [value]="products" [numVisible]="3" [numScroll]="1" [circular]="true" [responsiveOptions]="responsiveOptions" autoplayInterval="3000">
                 <ng-template let-product #item>
                     <div class="border border-surface-200 dark:border-surface-700 rounded m-2 p-4">
                         <div class="mb-4">
@@ -46,8 +46,8 @@ export class CircularDoc implements OnInit {
     ) {}
 
     ngOnInit() {
-        this.productService.getProductsSmall().then((products) => {
-            this.products = products;
+        this.productService.getProductsSmall().then((data) => {
+            this.products = data.slice(0, 9);
             this.cdr.detectChanges();
         });
 
@@ -87,7 +87,7 @@ export class CircularDoc implements OnInit {
     }
 
     code: Code = {
-        basic: `<p-carousel [value]="products" [numVisible]="3" [numScroll]="3" [circular]="true" [responsiveOptions]="responsiveOptions" autoplayInterval="3000">
+        basic: `<p-carousel [value]="products" [numVisible]="3" [numScroll]="1" [circular]="true" [responsiveOptions]="responsiveOptions" autoplayInterval="3000">
     <ng-template let-product #item>
         <div class="border border-surface-200 dark:border-surface-700 rounded m-2 p-4">
             <div class="mb-4">
@@ -108,7 +108,7 @@ export class CircularDoc implements OnInit {
     </ng-template>
 </p-carousel>`,
         html: `<div class="card">
-      <p-carousel [value]="products" [numVisible]="3" [numScroll]="3" [circular]="true" [responsiveOptions]="responsiveOptions" autoplayInterval="3000">
+      <p-carousel [value]="products" [numVisible]="3" [numScroll]="1" [circular]="true" [responsiveOptions]="responsiveOptions" autoplayInterval="3000">
         <ng-template let-product #item>
             <div class="border border-surface-200 dark:border-surface-700 rounded m-2 p-4">
                 <div class="mb-4">
@@ -151,8 +151,8 @@ export class CarouselCircularDemo implements OnInit{
     constructor(private productService: ProductService) {}
 
     ngOnInit() {
-        this.productService.getProductsSmall().then((products) => {
-            this.products = products;
+        this.productService.getProductsSmall().then(data => {
+            this.products = data.slice(0, 9);
         });
 
         this.responsiveOptions = [
