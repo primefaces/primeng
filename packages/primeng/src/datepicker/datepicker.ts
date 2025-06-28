@@ -3099,7 +3099,7 @@ export class DatePicker extends BaseInput implements OnInit, AfterContentInit, A
         if (this.touchUI) {
             this.enableModality(this.overlay);
         } else if (this.overlay) {
-            if (this.$appendTo()) {
+            if (this.$appendTo() && this.$appendTo() !== 'self') {
                 if (this.view === 'date') {
                     if (!this.overlay.style.width) {
                         this.overlay.style.width = getOuterWidth(this.overlay) + 'px';
