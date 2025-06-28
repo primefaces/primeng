@@ -3041,7 +3041,7 @@ export class DatePicker extends BaseInput implements OnInit, AfterContentInit, A
                 if (!this.inline) {
                     this.overlay = event.element;
                     this.attrSelector && this.overlay.setAttribute(this.attrSelector, '');
-                    const styles = !this.inline ? { position: 'absolute', top: '0', left: '0' } : undefined;
+                    const styles = !this.inline ? { position: 'absolute', top: '0' } : undefined;
                     addStyle(this.overlay, styles);
 
                     this.appendOverlay();
