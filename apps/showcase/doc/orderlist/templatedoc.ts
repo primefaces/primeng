@@ -8,7 +8,7 @@ import { ChangeDetectorRef, Component, OnInit } from '@angular/core';
     standalone: false,
     template: `
         <app-docsectiontext>
-            <p>For custom content support define an <i>option</i> template that gets the item instance as a parameter. In addition <i>header</i> template is provided for further customization.</p>
+            <p>For custom content support define an <i>item</i> template that gets the item instance as a parameter. In addition <i>header</i> template is provided for further customization.</p>
         </app-docsectiontext>
         <div class="card xl:flex xl:justify-center">
             <p-orderlist [value]="products" dataKey="id" breakpoint="575px" scrollHeight="20rem">
