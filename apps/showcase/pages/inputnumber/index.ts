@@ -13,9 +13,9 @@ import { NumeralsDoc } from '@/doc/inputnumber/numeralsdoc';
 import { PrefixSuffixDoc } from '@/doc/inputnumber/prefixsuffixdoc';
 import { ReactiveFormsDoc } from '@/doc/inputnumber/reactiveformsdoc';
 import { SizesDoc } from '@/doc/inputnumber/sizesdoc';
+import { TemplateDrivenFormsDoc } from '@/doc/inputnumber/templatedrivenformsdoc';
 import { VerticalDoc } from '@/doc/inputnumber/verticaldoc';
 import { Component } from '@angular/core';
-import { TemplateDrivenFormsDoc } from '@/doc/inputnumber/templatedrivenformsdoc';
 
 @Component({
     template: `<app-doc docTitle="Angular InputNumber Component" header="InputNumber" description="InputNumber is an input component to provide numerical input." [docs]="docs" [apiDocs]="['InputNumber']" themeDocs="inputnumber"></app-doc> `,
@@ -80,12 +80,9 @@ export class InputNumberDemo {
             component: FilledDoc
         },
         {
-            id: 'forms',
-            label: 'Forms',
-            children: [
-                { id: 'templatedriven', label: 'Template Driven', component: TemplateDrivenFormsDoc },
-                { id: 'reactive', label: 'Reactive Forms', component: ReactiveFormsDoc }
-            ]
+            id: 'disabled',
+            label: 'Disabled',
+            component: DisabledDoc
         },
         {
             id: 'invalid',
@@ -93,11 +90,13 @@ export class InputNumberDemo {
             component: InvalidDoc
         },
         {
-            id: 'disabled',
-            label: 'Disabled',
-            component: DisabledDoc
+            id: 'forms',
+            label: 'Forms',
+            children: [
+                { id: 'templatedriven', label: 'Template Driven', component: TemplateDrivenFormsDoc },
+                { id: 'reactive', label: 'Reactive Forms', component: ReactiveFormsDoc }
+            ]
         },
-
         {
             id: 'accessibility',
             label: 'Accessibility',

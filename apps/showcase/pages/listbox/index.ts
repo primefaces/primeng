@@ -68,14 +68,6 @@ export class ListboxDemo {
             component: VirtualScrollDoc
         },
         {
-            id: 'forms',
-            label: 'Forms',
-            children: [
-                { id: 'templatedriven', label: 'Template Driven', component: TemplateDrivenFormsDoc },
-                { id: 'reactive', label: 'Reactive Forms', component: ReactiveFormsDoc }
-            ]
-        },
-        {
             id: 'invalid',
             label: 'Invalid',
             component: InvalidDoc
@@ -85,7 +77,14 @@ export class ListboxDemo {
             label: 'Disabled',
             component: DisabledDoc
         },
-
+        {
+            id: 'forms',
+            label: 'Forms',
+            children: [
+                { id: 'templatedriven', label: 'Template Driven', component: TemplateDrivenFormsDoc },
+                { id: 'reactive', label: 'Reactive Forms', component: ReactiveFormsDoc }
+            ]
+        },
         {
             id: 'accessibility',
             label: 'Accessibility',
