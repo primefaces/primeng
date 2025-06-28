@@ -6,7 +6,7 @@ import { Component } from '@angular/core';
     standalone: false,
     template: `
         <app-docsectiontext>
-            <p>AutoFocus is applied to any focusable input element on initial load. It's disabled by default and needs to be enabled manually.</p>
+            <p>AutoFocus is applied to any focusable input element with the <i>pAutoFocus</i> directive.</p>
         </app-docsectiontext>
         <div class="card flex justify-center">
             <input type="text" pInputText [pAutoFocus]="true" placeholder="Automatically focused" />
