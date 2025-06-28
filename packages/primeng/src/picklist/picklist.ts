@@ -527,7 +527,7 @@ export class PickList extends BaseComponent implements AfterViewChecked, AfterCo
      * When present, it specifies that the component should be disabled.
      * @group Props
      */
-    @Input({ transform: booleanAttribute }) disabled: boolean = false;
+    @Input({ transform: booleanAttribute }) disabled: boolean;
 
     /**
      * Name of the disabled field of a target option or function to determine disabled state.

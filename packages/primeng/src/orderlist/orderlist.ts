@@ -221,7 +221,7 @@ export class OrderList extends BaseComponent implements AfterContentInit {
      * When present, it specifies that the component should be disabled.
      * @group Props
      */
-    @Input({ transform: booleanAttribute }) disabled: boolean = false;
+    @Input({ transform: booleanAttribute }) disabled: boolean;
 
     /**
      * Function to optimize the dom operations by delegating to ngForTrackBy, default algorithm checks for object identity.
