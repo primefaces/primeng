@@ -12,7 +12,7 @@ interface UploadEvent {
     standalone: false,
     template: `
         <app-docsectiontext>
-            <p>FileUpload is an advanced uploader with dragdrop support, multi file uploads, auto uploading, progress tracking and validations.</p>
+            <p>Advanced uploader provides dragdrop support, multi file uploads, auto uploading, progress tracking and validations.</p>
         </app-docsectiontext>
         <div class="card">
             <p-toast />
