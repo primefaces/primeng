@@ -131,12 +131,6 @@ export class Rating extends BaseEditableHolder implements OnInit, ControlValueAc
      */
     @Output() onRate: EventEmitter<RatingRateEvent> = new EventEmitter<RatingRateEvent>();
     /**
-     * Emitted when the rating is cancelled.
-     * @param {Event} value - Browser event.
-     * @group Emits
-     */
-    @Output() onCancel: EventEmitter<Event> = new EventEmitter<Event>();
-    /**
      * Emitted when the rating receives focus.
      * @param {Event} value - Browser event.
      * @group Emits
@@ -158,11 +152,6 @@ export class Rating extends BaseEditableHolder implements OnInit, ControlValueAc
      * @group Templates
      */
     @ContentChild('officon', { descendants: false }) offIconTemplate: Nullable<TemplateRef<any>>;
-    /**
-     * Custom cancel icon template.
-     * @group Templates
-     */
-    @ContentChild('cancelicon', { descendants: false }) cancelIconTemplate: Nullable<TemplateRef<any>>;
 
     @ContentChildren(PrimeTemplate) templates!: QueryList<PrimeTemplate>;
 
@@ -186,8 +175,6 @@ export class Rating extends BaseEditableHolder implements OnInit, ControlValueAc
 
     _offIconTemplate: TemplateRef<any> | undefined;
 
-    _cancelIconTemplate: TemplateRef<any> | undefined;
-
     ngOnInit() {
         super.ngOnInit();
         this.nameattr = this.nameattr || uuid('pn_id_');
@@ -206,10 +193,6 @@ export class Rating extends BaseEditableHolder implements OnInit, ControlValueAc
 
                 case 'officon':
                     this._offIconTemplate = item.template;
-                    break;
-
-                case 'cancelicon':
-                    this._cancelIconTemplate = item.template;
                     break;
             }
         });
@@ -261,14 +244,10 @@ export class Rating extends BaseEditableHolder implements OnInit, ControlValueAc
         this.onModelChange(this.value);
         this.onModelTouched();
 
-        if (!value) {
-            this.onCancel.emit();
-        } else {
-            this.onRate.emit({
-                originalEvent: event,
-                value
-            });
-        }
+        this.onRate.emit({
+            originalEvent: event,
+            value
+        });
     }
 
     starAriaLabel(value) {
@@ -293,7 +272,7 @@ export class Rating extends BaseEditableHolder implements OnInit, ControlValueAc
     }
 
     get isCustomIcon(): boolean {
-        return !!(this.onIconTemplate || this._onIconTemplate || this.offIconTemplate || this._offIconTemplate || this.cancelIconTemplate || this._cancelIconTemplate);
+        return !!(this.onIconTemplate || this._onIconTemplate || this.offIconTemplate || this._offIconTemplate);
     }
 }
 

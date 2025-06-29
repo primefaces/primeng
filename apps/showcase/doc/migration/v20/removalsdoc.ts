@@ -166,6 +166,12 @@ import { TagModule } from 'primeng/tag';
                             <td><p-tag value="removed" severity="danger" /></td>
                         </tr>
                         <tr>
+                            <td>Rating onCancel event and cancelIcon template</td>
+                            <td>18</td>
+                            <td>Obsolete, not utilized.</td>
+                            <td><p-tag value="removed" severity="danger" /></td>
+                        </tr>
+                        <tr>
                             <td>MultiSelect defaultLabel property</td>
                             <td>v18</td>
                             <td><i>placeholder</i> property.</td>
