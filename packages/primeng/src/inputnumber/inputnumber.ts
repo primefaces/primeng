@@ -76,7 +76,7 @@ export const INPUTNUMBER_VALUE_ACCESSOR: any = {
             [attr.aria-required]="ariaRequired"
             [attr.min]="min()"
             [attr.max]="max()"
-            [attr.step]="step()"
+            [attr.step]="step() ?? 1"
             [attr.required]="required() ? '' : undefined"
             [attr.readonly]="readonly ? '' : undefined"
             [attr.disabled]="disabled() ? '' : undefined"
@@ -679,7 +679,7 @@ export class InputNumber extends BaseInput implements OnInit, AfterContentInit, 
     }
 
     spin(event: Event, dir: number) {
-        let step = this.step() * dir;
+        let step = (this.step() ?? 1) * dir;
         let currentValue = this.parseValue(this.input?.nativeElement.value) || 0;
         let newValue = this.validateValue((currentValue as number) + step);
         if (this.maxlength() && this.maxlength() < this.formatValue(newValue).length) {
