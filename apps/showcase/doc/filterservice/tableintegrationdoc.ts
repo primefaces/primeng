@@ -1,7 +1,7 @@
 import { Car } from '@/domain/car';
 import { Code } from '@/domain/code';
 import { CarService } from '@/service/carservice';
-import { Component, OnInit } from '@angular/core';
+import { ChangeDetectorRef, Component, OnInit } from '@angular/core';
 import { FilterMatchMode, FilterService, SelectItem } from 'primeng/api';
 
 @Component({
@@ -12,10 +12,10 @@ import { FilterMatchMode, FilterService, SelectItem } from 'primeng/api';
             <p>A custom equals filter that checks for exact case sensitive value is registered and defined as a match mode of a column filter.</p>
         </app-docsectiontext>
         <div class="card">
-            <p-table #dt [columns]="cols" [value]="cars" [paginator]="true" [rows]="10" responsiveLayout="scroll">
+            <p-table #dt [columns]="cols" [value]="cars" [paginator]="true" [rows]="10" [tableStyle]="{ 'min-width': '75rem' }">
                 <ng-template pTemplate="header" let-columns>
                     <tr>
-                        <th *ngFor="let col of columns">&#123;&#123;col.header&#125;&#125;</th>
+                        <th *ngFor="let col of columns" [style.width]="'25%'">{{ col.header }}</th>
                     </tr>
                     <tr>
                         <th *ngFor="let col of columns">
@@ -25,7 +25,7 @@ import { FilterMatchMode, FilterService, SelectItem } from 'primeng/api';
                 </ng-template>
                 <ng-template pTemplate="body" let-rowData let-columns="columns">
                     <tr [pSelectableRow]="rowData">
-                        <td *ngFor="let col of columns">&#123;&#123;rowData[col.field]&#125;&#125;</td>
+                        <td *ngFor="let col of columns">{{ rowData[col.field] }}</td>
                     </tr>
                 </ng-template>
             </p-table>
@@ -43,7 +43,8 @@ export class TableIntegrationDoc implements OnInit {
 
     constructor(
         private carService: CarService,
-        private filterService: FilterService
+        private filterService: FilterService,
+        private cd: ChangeDetectorRef
     ) {}
 
     ngOnInit() {
@@ -74,59 +75,51 @@ export class TableIntegrationDoc implements OnInit {
             { label: 'Contains', value: FilterMatchMode.CONTAINS }
         ];
 
-        this.carService.getCarsMedium().then((cars) => (this.cars = cars));
+        this.carService.getCarsMedium().then((cars) => {
+            this.cars = cars;
+
+            this.cd.markForCheck();
+        });
     }
 
     code: Code = {
-        basic: `<p-table #dt [columns]="cols" [value]="cars" [paginator]="true" [rows]="10" responsiveLayout="scroll">
+        basic: `<p-table #dt [columns]="cols" [value]="cars" [paginator]="true" [rows]="10" [tableStyle]="{ 'min-width': '75rem' }">
     <ng-template pTemplate="header" let-columns>
         <tr>
-            <th *ngFor="let col of columns">
-                &#123;&#123;col.header&#125;&#125;
-            </th>
+            <th *ngFor="let col of columns" [style.width]="'25%'">{{ col.header }}</th>
         </tr>
         <tr>
             <th *ngFor="let col of columns">
-                <p-columnFilter
-                    type="text"
-                    [field]="col.field"
-                    [matchModeOptions]="matchModeOptions"
-                    [matchMode]="'custom-equals'" />
+                <p-columnFilter type="text" [field]="col.field" [matchModeOptions]="matchModeOptions" [matchMode]="'custom-equals'" />
             </th>
         </tr>
     </ng-template>
     <ng-template pTemplate="body" let-rowData let-columns="columns">
         <tr [pSelectableRow]="rowData">
-            <td *ngFor="let col of columns">
-                &#123;&#123;rowData[col.field]&#125;&#125;
-            </td>
+            <td *ngFor="let col of columns">{{ rowData[col.field] }}</td>
         </tr>
     </ng-template>
 </p-table>`,
         html: `<div class="card">
-    <p-table #dt [columns]="cols" [value]="cars" [paginator]="true" [rows]="10" responsiveLayout="scroll">
+    <p-table #dt [columns]="cols" [value]="cars" [paginator]="true" [rows]="10" [tableStyle]="{ 'min-width': '75rem' }">
         <ng-template pTemplate="header" let-columns>
             <tr>
-                <th *ngFor="let col of columns">&#123;&#123;col.header&#125;&#125;</th>
+                <th *ngFor="let col of columns" [style.width]="'25%'">{{ col.header }}</th>
             </tr>
             <tr>
                 <th *ngFor="let col of columns">
-                    <p-columnFilter
-                        type="text"
-                        [field]="col.field"
-                        [matchModeOptions]="matchModeOptions"
-                        [matchMode]="'custom-equals'" />
+                    <p-columnFilter type="text" [field]="col.field" [matchModeOptions]="matchModeOptions" [matchMode]="'custom-equals'" />
                 </th>
             </tr>
         </ng-template>
         <ng-template pTemplate="body" let-rowData let-columns="columns">
             <tr [pSelectableRow]="rowData">
-                <td *ngFor="let col of columns">&#123;&#123;rowData[col.field]&#125;&#125;</td>
+                <td *ngFor="let col of columns">{{ rowData[col.field] }}</td>
             </tr>
         </ng-template>
     </p-table>
 </div>`,
-        typescript: `import { Component, OnInit } from '@angular/core';
+        typescript: `import { ChangeDetectorRef, Component, OnInit } from '@angular/core';
 import { FilterMatchMode, FilterService, SelectItem } from 'primeng/api';
 import { Car } from '@/domain/car';
 import { CarService } from '@/service/carservice';
@@ -147,7 +140,7 @@ export class FilterServiceTableIntegrationDemo implements OnInit {
 
     matchModeOptions: SelectItem[];
 
-    constructor(private carService: CarService, private filterService: FilterService) {}
+    constructor(private carService: CarService, private filterService: FilterService, private cd: ChangeDetectorRef) {}
 
     ngOnInit() {
         const customFilterName = 'custom-equals';
@@ -177,7 +170,11 @@ export class FilterServiceTableIntegrationDemo implements OnInit {
             { label: 'Contains', value: FilterMatchMode.CONTAINS }
         ];
 
-        this.carService.getCarsMedium().then((cars) => (this.cars = cars));
+        this.carService.getCarsMedium().then((cars) => {
+            this.cars = cars;
+
+            this.cd.markForCheck();
+        });
     }
 }`,
         service: ['CarService']
