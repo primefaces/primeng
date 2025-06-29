@@ -42,42 +42,41 @@ export const RATING_VALUE_ACCESSOR: any = {
     imports: [CommonModule, AutoFocus, StarFillIcon, StarIcon, SharedModule],
     standalone: true,
     template: `
-        <ng-container *ngIf="!isCustomIcon; else customTemplate">
-            <ng-template ngFor [ngForOf]="starsArray" let-star let-i="index">
-                <div [class]="cx('option', { star, value })" (click)="onOptionClick($event, star + 1)">
-                    <span class="p-hidden-accessible" [attr.data-p-hidden-accessible]="true">
-                        <input
-                            type="radio"
-                            value="0"
-                            [attr.id]="nameattr"
-                            [attr.name]="name()"
-                            [attr.value]="modelValue()"
-                            [attr.required]="required() ? '' : undefined"
-                            [attr.readonly]="readonly ? '' : undefined"
-                            [attr.disabled]="disabled() ? '' : undefined"
-                            [checked]="value === 0"
-                            [attr.aria-label]="starAriaLabel(star + 1)"
-                            (focus)="onInputFocus($event, star + 1)"
-                            (blur)="onInputBlur($event)"
-                            (change)="onChange($event, star + 1)"
-                            [pAutoFocus]="autofocus"
-                        />
-                    </span>
-                    <ng-container *ngIf="!value || i >= value">
-                        <span [class]="cx('offIcon')" *ngIf="iconOffClass" [ngStyle]="iconOffStyle" [ngClass]="iconOffClass" [attr.data-pc-section]="'offIcon'"></span>
-                        <StarIcon *ngIf="!iconOffClass" [ngStyle]="iconOffStyle" [styleClass]="cx('offIcon')" [attr.data-pc-section]="'offIcon'" />
-                    </ng-container>
-                    <ng-container *ngIf="value && i < value">
+        <ng-template ngFor [ngForOf]="starsArray" let-star let-i="index">
+            <div [class]="cx('option', { star, value })" (click)="onOptionClick($event, star + 1)">
+                <span class="p-hidden-accessible" [attr.data-p-hidden-accessible]="true">
+                    <input
+                        type="radio"
+                        [value]="star + 1"
+                        [attr.name]="name() || nameattr + '_name'"
+                        [attr.value]="modelValue()"
+                        [attr.required]="required() ? '' : undefined"
+                        [attr.readonly]="readonly ? '' : undefined"
+                        [attr.disabled]="disabled() ? '' : undefined"
+                        [checked]="value === star + 1"
+                        [attr.aria-label]="starAriaLabel(star + 1)"
+                        (focus)="onInputFocus($event, star + 1)"
+                        (blur)="onInputBlur($event)"
+                        (change)="onChange($event, star + 1)"
+                        [pAutoFocus]="autofocus"
+                    />
+                </span>
+                @if (star + 1 <= value) {
+                    @if (onIconTemplate || _onIconTemplate) {
+                        <ng-container *ngTemplateOutlet="onIconTemplate || _onIconTemplate; context: { $implicit: star + 1, class: cx('onIcon') }"></ng-container>
+                    } @else {
                         <span [class]="cx('onIcon')" *ngIf="iconOnClass" [ngStyle]="iconOnStyle" [ngClass]="iconOnClass" [attr.data-pc-section]="'onIcon'"></span>
                         <StarFillIcon *ngIf="!iconOnClass" [ngStyle]="iconOnStyle" [styleClass]="cx('onIcon')" [attr.data-pc-section]="'onIcon'" />
-                    </ng-container>
-                </div>
-            </ng-template>
-        </ng-container>
-        <ng-template #customTemplate>
-            <span *ngFor="let star of starsArray; let i = index" (click)="onOptionClick($event, star + 1)" [attr.data-pc-section]="'onIcon'">
-                <ng-container *ngTemplateOutlet="getIconTemplate(i)"></ng-container>
-            </span>
+                    }
+                } @else {
+                    @if (offIconTemplate || _offIconTemplate) {
+                        <ng-container *ngTemplateOutlet="offIconTemplate || _offIconTemplate; context: { $implicit: star + 1, class: cx('offIcon') }"></ng-container>
+                    } @else {
+                        <span [class]="cx('offIcon')" *ngIf="iconOffClass" [ngStyle]="iconOffStyle" [ngClass]="iconOffClass" [attr.data-pc-section]="'offIcon'"></span>
+                        <StarIcon *ngIf="!iconOffClass" [ngStyle]="iconOffStyle" [styleClass]="cx('offIcon')" [attr.data-pc-section]="'offIcon'" />
+                    }
+                }
+            </div>
         </ng-template>
     `,
     providers: [RATING_VALUE_ACCESSOR, RatingStyle],
@@ -251,6 +250,8 @@ export class Rating extends BaseEditableHolder implements OnInit, ControlValueAc
     onInputFocus(event, value) {
         if (!this.readonly && !this.disabled()) {
             this.focusedOptionIndex.set(value);
+            this.isFocusVisibleItem = event.sourceCapabilities?.firesTouchEvents === false;
+
             this.onFocus.emit(event);
         }
     }
