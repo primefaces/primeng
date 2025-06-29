@@ -257,10 +257,8 @@ export class Step extends BaseComponent implements AfterContentInit {
         @if (isSeparatorVisible()) {
             <p-stepper-separator />
         }
-        <div class="p-steppanel-content" [@content]="isVertical() ? (active() ? { value: 'visible', params: { transitionParams: transitionOptions() } } : { value: 'hidden', params: { transitionParams: transitionOptions() } }) : undefined">
-            @if (active()) {
-                <ng-container *ngTemplateOutlet="contentTemplate || _contentTemplate; context: { activateCallback: updateValue.bind(this), value: value(), active: active() }"></ng-container>
-            }
+        <div [class]="cx('content')" [@content]="isVertical() ? (active() ? { value: 'visible', params: { transitionParams: transitionOptions() } } : { value: 'hidden', params: { transitionParams: transitionOptions() } }) : undefined">
+            <ng-container *ngTemplateOutlet="contentTemplate || _contentTemplate; context: { activateCallback: updateValue.bind(this), value: value(), active: active() }"></ng-container>
         </div>
     `,
     changeDetection: ChangeDetectionStrategy.OnPush,
@@ -271,7 +269,8 @@ export class Step extends BaseComponent implements AfterContentInit {
         '[attr.aria-controls]': 'ariaControls()',
         '[attr.id]': 'id()',
         '[attr.data-p-active]': 'active()',
-        '[attr.data-pc-name]': '"steppanel"'
+        '[attr.data-pc-name]': '"steppanel"',
+        '[style.display]': '!isVertical() && !active() ? "none" : ""'
     },
     animations: [
         trigger('content', [
@@ -289,7 +288,7 @@ export class Step extends BaseComponent implements AfterContentInit {
                     visibility: 'visible'
                 })
             ),
-            transition('visible <=> hidden', [animate('1000ms ease-in-out')]),
+            transition('visible <=> hidden', [animate('400ms cubic-bezier(0.86, 0, 0.07, 1)')]),
             transition('void => *', animate(0))
         ])
     ],
