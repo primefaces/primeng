@@ -1676,10 +1676,12 @@ export class MultiSelect extends BaseEditableHolder implements OnInit, AfterView
         event.preventDefault();
     }
 
-    onEscapeKey(event) {
-        this.overlayVisible && this.hide(true);
-        event.stopPropagation();
-        event.preventDefault();
+    onEscapeKey(event: KeyboardEvent) {
+        if (this.overlayVisible) {
+            this.hide(true);
+            event.stopPropagation();
+            event.preventDefault();
+        }
     }
 
     onTabKey(event, pressedInInputText = false) {
