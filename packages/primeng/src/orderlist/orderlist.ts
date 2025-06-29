@@ -979,21 +979,21 @@ export class OrderList extends BaseComponent implements AfterContentInit {
 
                 let innerHTML = `
                     @media screen and (max-width: ${this.breakpoint}) {
-                        .p-orderlist[${this.id}] {
+                        .p-orderlist[${this.attrSelector}] {
                             flex-direction: column;
                         }
 
-                        .p-orderlist[${this.id}] .p-orderlist-controls {
+                        .p-orderlist[${this.attrSelector}] .p-orderlist-controls {
                             padding: var(--content-padding);
                             flex-direction: row;
                         }
 
-                        .p-orderlist[${this.id}] .p-orderlist-controls .p-button {
+                        .p-orderlist[${this.attrSelector}] .p-orderlist-controls .p-button {
                             margin-right: var(--inline-spacing);
                             margin-bottom: 0;
                         }
 
-                        .p-orderlist[${this.id}] .p-orderlist-controls .p-button:last-child {
+                        .p-orderlist[${this.attrSelector}] .p-orderlist-controls .p-button:last-child {
                             margin-right: 0;
                         }
                     }
