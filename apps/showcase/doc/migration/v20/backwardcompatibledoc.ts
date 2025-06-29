@@ -18,7 +18,7 @@ import { Component } from '@angular/core';
                 This style is opinionated as it is specifally for invalid and dirty states ignoring other potential UX requirements like touched/untouched or form submit. In v20, the new <i>invalid</i>
                 provides full control to highlight a component a invalid.
             </p>
-            <app-code [code]="code2" [hideToggleCode]="true" lang="scss"></app-code>
+            <app-code [code]="code2" [hideToggleCode]="true" lang="html"></app-code>
             <p class="mt-4">This styling change is backward compatible, meaning the opinionated <i>ng-invalid.ng-dirty</i> class is still included however in future versions, it will be removed.</p>
 
             <h4>PrimeUIX Themes</h4>
@@ -28,10 +28,14 @@ import { Component } from '@angular/core';
                 the hood and the design tokens as theme presets are loaded from <i>{{ '@' }}primeuix/themes</i>.
             </p>
             <p>
-                The components need to be adjusted to fit in the PrimeUIX theming by using the <i>host</i> element, as a result the <i>styleClass</i> became obselete since native <i>class</i> attribute is already available. These changes are backward
-                compatible, <i>{{ '@' }}primeng/themes</i> use <i>{{ '@' }}primeuix/themes</i> internally, and migration is easy as replacing the dependency <i>{{ '@' }}primeng/themes</i> with <i>{{ '@' }}primeuix/themes</i> in your application.
+                The components need to be adjusted to fit in the PrimeUIX theming by using the <i>host</i> element where applicable, as a result for the components that use host element (&lt;p-* /&gt;) as their main container, the
+                <i>styleClass</i> became obselete since native <i>class</i> attribute is already available on the custom element. Refer to the documentation of a particular component to find out if <i>styleClass</i> is deprecated.
             </p>
-            <p></p>
+            <app-code [code]="code3" [hideToggleCode]="true"></app-code>
+            <p class="mt-4">
+                All of these changes are backward compatible, <i>{{ '@' }}primeng/themes</i> use <i>{{ '@' }}primeuix/themes</i> internally, and migration is easy as replacing the dependency <i>{{ '@' }}primeng/themes</i> with
+                <i>{{ '@' }}primeuix/themes</i> in your application.
+            </p>
         </app-docsectiontext>
     `
 })
@@ -43,6 +47,14 @@ export class BackwardCompatibleDoc {
     };
 
     code2: Code = {
-        command: `<input type="text" pattern="email" [invalid]="email.invalid && (email.touched || sampleForm.submitted)" />`
+        html: `<input type="text" pattern="email" [invalid]="email.invalid && (email.touched || sampleForm.submitted)" />`
+    };
+
+    code3: Code = {
+        html: `<!-- Deprecated -->
+<p-select styleClass="mx-auto" />
+
+<!-- New -->
+<p-select class="mx-auto" />`
     };
 }

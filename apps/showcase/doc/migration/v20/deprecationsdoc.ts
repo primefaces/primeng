@@ -28,7 +28,7 @@ import { TagModule } from 'primeng/tag';
                             <td><p-tag value="deprecated" severity="warn" /></td>
                         </tr>
                         <tr>
-                            <td>styleClass</td>
+                            <td>styleClass *(for host enabled components)</td>
                             <td>v20</td>
                             <td>class</td>
                             <td>v21</td>
