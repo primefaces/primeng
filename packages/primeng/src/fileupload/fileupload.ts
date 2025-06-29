@@ -184,46 +184,56 @@ import { FileUploadStyle } from './style/fileuploadstyle';
                 <p-message [severity]="message.severity" [text]="message.text"></p-message>
             }
 
-            <p-button [styleClass]="cn(cx('pcChooseButton'), chooseStyleClass)" [disabled]="disabled" [label]="chooseButtonLabel" [style]="style" (onClick)="onBasicUploaderClick()" (keydown)="onBasicKeydown($event)" [buttonProps]="chooseButtonProps">
-                <ng-template #icon>
-                    @if (hasFiles() && !auto) {
-                        <span *ngIf="uploadIcon" class="p-button-icon p-button-icon-left" [ngClass]="uploadIcon"></span>
-                        <ng-container *ngIf="!uploadIcon">
-                            <UploadIcon *ngIf="!uploadIconTemplate && !_uploadIconTemplate" [styleClass]="'p-button-icon p-button-icon-left'" />
-                            <span *ngIf="_uploadIconTemplate || uploadIconTemplate" class="p-button-icon p-button-icon-left">
-                                <ng-template *ngTemplateOutlet="_uploadIconTemplate || uploadIconTemplate"></ng-template>
-                            </span>
-                        </ng-container>
-                    } @else {
-                        <span *ngIf="chooseIcon" class="p-button-icon p-button-icon-left pi" [ngClass]="chooseIcon"></span>
-                        <ng-container *ngIf="!chooseIcon">
-                            <PlusIcon *ngIf="!chooseIconTemplate && !_chooseIconTemplate" [attr.data-pc-section]="'uploadicon'" />
-                            <ng-template *ngTemplateOutlet="chooseIconTemplate || _chooseIconTemplate"></ng-template>
-                        </ng-container>
-                    }
-                </ng-template>
-                <input
-                    [attr.aria-label]="browseFilesLabel"
-                    #basicfileinput
-                    type="file"
-                    [accept]="accept"
-                    [multiple]="multiple"
+            <div [class]="cx('basicContent')">
+                <p-button
+                    [styleClass]="cn(cx('pcChooseButton'), chooseStyleClass)"
                     [disabled]="disabled"
-                    (change)="onFileSelect($event)"
-                    (focus)="onFocus()"
-                    (blur)="onBlur()"
-                    [attr.data-pc-section]="'input'"
-                />
-            </p-button>
-            @if (!auto) {
-                @if (!fileLabelTemplate && !_fileLabelTemplate) {
-                    <span>
-                        {{ basicFileChosenLabel() }}
-                    </span>
-                } @else {
-                    <ng-container *ngTemplateOutlet="fileLabelTemplate || _fileLabelTemplate; context: { $implicit: files }"></ng-container>
+                    [label]="chooseButtonLabel"
+                    [style]="style"
+                    (onClick)="onBasicUploaderClick()"
+                    (keydown)="onBasicKeydown($event)"
+                    [buttonProps]="chooseButtonProps"
+                >
+                    <ng-template #icon>
+                        @if (hasFiles() && !auto) {
+                            <span *ngIf="uploadIcon" class="p-button-icon p-button-icon-left" [ngClass]="uploadIcon"></span>
+                            <ng-container *ngIf="!uploadIcon">
+                                <UploadIcon *ngIf="!uploadIconTemplate && !_uploadIconTemplate" [styleClass]="'p-button-icon p-button-icon-left'" />
+                                <span *ngIf="_uploadIconTemplate || uploadIconTemplate" class="p-button-icon p-button-icon-left">
+                                    <ng-template *ngTemplateOutlet="_uploadIconTemplate || uploadIconTemplate"></ng-template>
+                                </span>
+                            </ng-container>
+                        } @else {
+                            <span *ngIf="chooseIcon" class="p-button-icon p-button-icon-left pi" [ngClass]="chooseIcon"></span>
+                            <ng-container *ngIf="!chooseIcon">
+                                <PlusIcon *ngIf="!chooseIconTemplate && !_chooseIconTemplate" [attr.data-pc-section]="'uploadicon'" />
+                                <ng-template *ngTemplateOutlet="chooseIconTemplate || _chooseIconTemplate"></ng-template>
+                            </ng-container>
+                        }
+                    </ng-template>
+                    <input
+                        [attr.aria-label]="browseFilesLabel"
+                        #basicfileinput
+                        type="file"
+                        [accept]="accept"
+                        [multiple]="multiple"
+                        [disabled]="disabled"
+                        (change)="onFileSelect($event)"
+                        (focus)="onFocus()"
+                        (blur)="onBlur()"
+                        [attr.data-pc-section]="'input'"
+                    />
+                </p-button>
+                @if (!auto) {
+                    @if (!fileLabelTemplate && !_fileLabelTemplate) {
+                        <span>
+                            {{ basicFileChosenLabel() }}
+                        </span>
+                    } @else {
+                        <ng-container *ngTemplateOutlet="fileLabelTemplate || _fileLabelTemplate; context: { $implicit: files }"></ng-container>
+                    }
                 }
-            }
+            </div>
         </div>
     `,
     changeDetection: ChangeDetectionStrategy.OnPush,
