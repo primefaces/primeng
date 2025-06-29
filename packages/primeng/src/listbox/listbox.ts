@@ -1066,7 +1066,7 @@ export class Listbox extends BaseEditableHolder implements AfterContentInit, OnI
     }
 
     onOptionMouseEnter(event: MouseEvent, index: number) {
-        if (this.focusOnHover) {
+        if (this.focusOnHover && this.focused) {
             this.changeFocusedOptionIndex(event, index);
         }
     }
