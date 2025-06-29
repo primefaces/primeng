@@ -10,7 +10,7 @@ import { MenuItem } from 'primeng/api';
             <p>Items with navigation are defined with templating to be able to use a routerLink directive, an external link or programmatic navigation.</p>
         </app-docsectiontext>
         <div class="card flex justify-center">
-            <p-breadcrumb class="max-w-full" [model]="items">
+            <p-breadcrumb [model]="items">
                 <ng-template #item let-item>
                     <ng-container *ngIf="item.route; else elseBlock">
                         <a [routerLink]="item.route" class="p-breadcrumb-item-link">
@@ -39,7 +39,7 @@ export class RouterDoc implements OnInit {
     }
 
     code: Code = {
-        basic: `<p-breadcrumb class="max-w-full" [model]="items">
+        basic: `<p-breadcrumb [model]="items">
     <ng-template #item let-item>
         <ng-container *ngIf="item.route; else elseBlock">
             <a [routerLink]="item.route" class="p-breadcrumb-item-link">
@@ -56,7 +56,7 @@ export class RouterDoc implements OnInit {
 </p-breadcrumb>`,
 
         html: `<div class="card flex justify-center">
-    <p-breadcrumb class="max-w-full" [model]="items">
+    <p-breadcrumb [model]="items">
         <ng-template #item let-item>
             <ng-container *ngIf="item.route; else elseBlock">
                 <a [routerLink]="item.route" class="p-breadcrumb-item-link">
