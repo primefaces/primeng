@@ -80,7 +80,7 @@ export class AnimateOnScroll extends BaseComponent implements OnInit, AfterViewI
         return {
             root: this.root,
             rootMargin: this.rootMargin,
-            threshold: this.threshold
+            threshold: this.threshold || 0.5
         };
     }
 
