@@ -1,10 +1,17 @@
+import { FilterService, PrimeTemplate, SharedModule } from 'primeng/api';
+import { BaseComponent } from 'primeng/basecomponent';
+import { ButtonDirective, ButtonProps } from 'primeng/button';
+import { AngleDoubleDownIcon, AngleDoubleLeftIcon, AngleDoubleRightIcon, AngleDoubleUpIcon, AngleDownIcon, AngleLeftIcon, AngleRightIcon, AngleUpIcon } from 'primeng/icons';
+import { Listbox } from 'primeng/listbox';
+import { Ripple } from 'primeng/ripple';
+import { Nullable, VoidListener } from 'primeng/ts-helpers';
+
 import { CdkDragDrop, DragDropModule, moveItemInArray, transferArrayItem } from '@angular/cdk/drag-drop';
 import { CommonModule, isPlatformBrowser } from '@angular/common';
 import {
     AfterContentInit,
     AfterViewChecked,
     booleanAttribute,
-    ChangeDetectionStrategy,
     Component,
     ContentChild,
     ContentChildren,
@@ -12,6 +19,7 @@ import {
     EventEmitter,
     inject,
     Input,
+    model,
     NgModule,
     numberAttribute,
     Output,
@@ -22,13 +30,7 @@ import {
 } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { find, findIndexInList, findSingle, isEmpty, scrollInView, setAttribute, uuid } from '@primeuix/utils';
-import { FilterService, PrimeTemplate, SharedModule } from 'primeng/api';
-import { BaseComponent } from 'primeng/basecomponent';
-import { ButtonDirective, ButtonProps } from 'primeng/button';
-import { AngleDoubleDownIcon, AngleDoubleLeftIcon, AngleDoubleRightIcon, AngleDoubleUpIcon, AngleDownIcon, AngleLeftIcon, AngleRightIcon, AngleUpIcon } from 'primeng/icons';
-import { Listbox } from 'primeng/listbox';
-import { Ripple } from 'primeng/ripple';
-import { Nullable, VoidListener } from 'primeng/ts-helpers';
+
 import {
     PickListFilterOptions,
     PickListMoveAllToSourceEvent,
@@ -62,7 +64,7 @@ import { PickListStyle } from './style/pickliststyle';
                     pRipple
                     severity="secondary"
                     [disabled]="sourceMoveDisabled()"
-                    (click)="moveUp(sourcelist, source, selectedItemsSource, onSourceReorder, SOURCE_LIST)"
+                    (click)="moveUp(sourcelist, source(), selectedItemsSource, onSourceReorder, SOURCE_LIST)"
                     [attr.data-pc-section]="'sourceMoveUpButton'"
                     [buttonProps]="getButtonProps('moveup')"
                 >
@@ -76,7 +78,7 @@ import { PickListStyle } from './style/pickliststyle';
                     pRipple
                     severity="secondary"
                     [disabled]="sourceMoveDisabled()"
-                    (click)="moveTop(sourcelist, source, selectedItemsSource, onSourceReorder, SOURCE_LIST)"
+                    (click)="moveTop(sourcelist, source(), selectedItemsSource, onSourceReorder, SOURCE_LIST)"
                     [attr.data-pc-section]="'sourceMoveTopButton'"
                     [buttonProps]="getButtonProps('movetop')"
                 >
@@ -90,7 +92,7 @@ import { PickListStyle } from './style/pickliststyle';
                     pRipple
                     severity="secondary"
                     [disabled]="sourceMoveDisabled()"
-                    (click)="moveDown(sourcelist, source, selectedItemsSource, onSourceReorder, SOURCE_LIST)"
+                    (click)="moveDown(sourcelist, source(), selectedItemsSource, onSourceReorder, SOURCE_LIST)"
                     [attr.data-pc-section]="'sourceMoveDownButton'"
                     [buttonProps]="getButtonProps('movedown')"
                 >
@@ -104,7 +106,7 @@ import { PickListStyle } from './style/pickliststyle';
                     pRipple
                     severity="secondary"
                     [disabled]="sourceMoveDisabled()"
-                    (click)="moveBottom(sourcelist, source, selectedItemsSource, onSourceReorder, SOURCE_LIST)"
+                    (click)="moveBottom(sourcelist, source(), selectedItemsSource, onSourceReorder, SOURCE_LIST)"
                     [attr.data-pc-section]="'sourceMoveBottomButton'"
                     [buttonProps]="getButtonProps('movebottom')"
                 >
@@ -116,7 +118,7 @@ import { PickListStyle } from './style/pickliststyle';
                 <p-listbox
                     #sourcelist
                     [multiple]="true"
-                    [options]="source"
+                    [options]="source()"
                     [(ngModel)]="selectedItemsSource"
                     optionLabel="name"
                     [id]="idSource + '_list'"
@@ -246,7 +248,7 @@ import { PickListStyle } from './style/pickliststyle';
                 <p-listbox
                     #targetlist
                     [multiple]="true"
-                    [options]="target"
+                    [options]="target()"
                     [(ngModel)]="selectedItemsTarget"
                     optionLabel="name"
                     [id]="idTarget + '_list'"
@@ -311,7 +313,7 @@ import { PickListStyle } from './style/pickliststyle';
                     severity="secondary"
                     class="p-button-icon-only"
                     [disabled]="targetMoveDisabled()"
-                    (click)="moveUp(targetlist, target, selectedItemsTarget, onTargetReorder, TARGET_LIST)"
+                    (click)="moveUp(targetlist, target(), selectedItemsTarget, onTargetReorder, TARGET_LIST)"
                     [attr.data-pc-section]="'targetMoveUpButton'"
                     [buttonProps]="getButtonProps('moveup')"
                 >
@@ -325,7 +327,7 @@ import { PickListStyle } from './style/pickliststyle';
                     pRipple
                     severity="secondary"
                     [disabled]="targetMoveDisabled()"
-                    (click)="moveTop(targetlist, target, selectedItemsTarget, onTargetReorder, TARGET_LIST)"
+                    (click)="moveTop(targetlist, target(), selectedItemsTarget, onTargetReorder, TARGET_LIST)"
                     [attr.data-pc-section]="'targetMoveTopButton'"
                     [buttonProps]="getButtonProps('movetop')"
                 >
@@ -339,7 +341,7 @@ import { PickListStyle } from './style/pickliststyle';
                     pRipple
                     severity="secondary"
                     [disabled]="targetMoveDisabled()"
-                    (click)="moveDown(targetlist, target, selectedItemsTarget, onTargetReorder, TARGET_LIST)"
+                    (click)="moveDown(targetlist, target(), selectedItemsTarget, onTargetReorder, TARGET_LIST)"
                     [attr.data-pc-section]="'targetMoveDownButton'"
                     [buttonProps]="getButtonProps('movedown')"
                 >
@@ -353,7 +355,7 @@ import { PickListStyle } from './style/pickliststyle';
                     pRipple
                     severity="secondary"
                     [disabled]="targetMoveDisabled()"
-                    (click)="moveBottom(targetlist, target, selectedItemsTarget, onTargetReorder, TARGET_LIST)"
+                    (click)="moveBottom(targetlist, target(), selectedItemsTarget, onTargetReorder, TARGET_LIST)"
                     [attr.data-pc-section]="'targetMoveBottomButton'"
                     [buttonProps]="getButtonProps('movebottom')"
                 >
@@ -363,7 +365,6 @@ import { PickListStyle } from './style/pickliststyle';
             </div>
         </div>
     `,
-    changeDetection: ChangeDetectionStrategy.OnPush,
     encapsulation: ViewEncapsulation.None,
     providers: [PickListStyle]
 })
@@ -372,12 +373,14 @@ export class PickList extends BaseComponent implements AfterViewChecked, AfterCo
      * An array of objects for the source list.
      * @group Props
      */
-    @Input() source: any[] | undefined;
+    source = model<any[]>([]);
+
     /**
      * An array of objects for the target list.
      * @group Props
      */
-    @Input() target: any[] | undefined;
+    target = model<any[]>([]);
+
     /**
      * Text for the source list caption
      * @group Props
@@ -1192,13 +1195,13 @@ export class PickList extends BaseComponent implements AfterViewChecked, AfterCo
 
     filterSource(value: any = '') {
         this.filterValueSource = value.trim().toLocaleLowerCase(this.filterLocale);
-        this.filter(<any[]>this.source, this.SOURCE_LIST);
+        this.filter(<any[]>this.source(), this.SOURCE_LIST);
         this.onSourceFilter.emit({ query: this.filterValueSource, value: this.visibleOptionsSource });
     }
 
     filterTarget(value: any = '') {
         this.filterValueTarget = value.trim().toLocaleLowerCase(this.filterLocale);
-        this.filter(<any[]>this.target, this.TARGET_LIST);
+        this.filter(<any[]>this.target(), this.TARGET_LIST);
         this.onTargetFilter.emit({ query: this.filterValueTarget, value: this.visibleOptionsTarget });
     }
 
@@ -1220,8 +1223,8 @@ export class PickList extends BaseComponent implements AfterViewChecked, AfterCo
     }
 
     isEmpty(listType: number) {
-        if (listType == this.SOURCE_LIST) return this.filterValueSource ? !this.visibleOptionsSource || this.visibleOptionsSource.length === 0 : !this.source || this.source.length === 0;
-        else return this.filterValueTarget ? !this.visibleOptionsTarget || this.visibleOptionsTarget.length === 0 : !this.target || this.target.length === 0;
+        if (listType == this.SOURCE_LIST) return this.filterValueSource ? !this.visibleOptionsSource || this.visibleOptionsSource.length === 0 : !this.source() || this.source().length === 0;
+        else return this.filterValueTarget ? !this.visibleOptionsTarget || this.visibleOptionsTarget.length === 0 : !this.target() || this.target().length === 0;
     }
 
     isVisibleInList(data: any[], item: any, filterValue: string): boolean | undefined {
@@ -1249,8 +1252,8 @@ export class PickList extends BaseComponent implements AfterViewChecked, AfterCo
     }
 
     triggerChangeDetection() {
-        this.source = [...this.source];
-        this.target = [...this.target];
+        this.listViewTargetChild.cd.markForCheck();
+        this.listViewSourceChild.cd.markForCheck();
     }
 
     moveUp(listElement: any, list: any[], selectedItems: any[], callback: EventEmitter<any>, listType: number) {
@@ -1356,8 +1359,8 @@ export class PickList extends BaseComponent implements AfterViewChecked, AfterCo
             let itemsToMove = [...this.selectedItemsSource];
             for (let i = 0; i < itemsToMove.length; i++) {
                 let selectedItem = itemsToMove[i];
-                if (findIndexInList(selectedItem, this.target) == -1) {
-                    this.target?.push(this.source?.splice(findIndexInList(selectedItem, this.source), 1)[0]);
+                if (findIndexInList(selectedItem, this.target()) == -1) {
+                    this.target().push(this.source().splice(findIndexInList(selectedItem, this.source()), 1)[0]);
 
                     if (this.visibleOptionsSource?.includes(selectedItem)) {
                         this.visibleOptionsSource.splice(findIndexInList(selectedItem, this.visibleOptionsSource), 1);
@@ -1377,20 +1380,21 @@ export class PickList extends BaseComponent implements AfterViewChecked, AfterCo
             this.selectedItemsSource = [];
 
             if (this.filterValueTarget) {
-                this.filter(<any[]>this.target, this.TARGET_LIST);
+                this.filter(<any[]>this.target(), this.TARGET_LIST);
             }
+
             this.triggerChangeDetection();
         }
     }
 
     moveAllRight() {
-        if (this.source) {
+        if (this.source()) {
             let movedItems = [];
 
-            for (let i = 0; i < this.source.length; i++) {
-                if (this.isItemVisible(this.source[i], this.SOURCE_LIST)) {
-                    let removedItem = this.source.splice(i, 1)[0];
-                    this.target?.push(removedItem);
+            for (let i = 0; i < this.source().length; i++) {
+                if (this.isItemVisible(this.source()[i], this.SOURCE_LIST)) {
+                    let removedItem = this.source().splice(i, 1)[0];
+                    this.target().push(removedItem);
                     movedItems.push(removedItem);
                     i--;
                 }
@@ -1406,7 +1410,7 @@ export class PickList extends BaseComponent implements AfterViewChecked, AfterCo
             this.selectedItemsSource = [];
 
             if (this.filterValueTarget) {
-                this.filter(<any[]>this.target, this.TARGET_LIST);
+                this.filter(<any[]>this.target(), this.TARGET_LIST);
             }
 
             this.visibleOptionsSource = [];
@@ -1419,8 +1423,8 @@ export class PickList extends BaseComponent implements AfterViewChecked, AfterCo
             let itemsToMove = [...this.selectedItemsTarget];
             for (let i = 0; i < itemsToMove.length; i++) {
                 let selectedItem = itemsToMove[i];
-                if (findIndexInList(selectedItem, this.source) == -1) {
-                    this.source?.push(this.target?.splice(findIndexInList(selectedItem, this.target), 1)[0]);
+                if (findIndexInList(selectedItem, this.source()) == -1) {
+                    this.source().push(this.target().splice(findIndexInList(selectedItem, this.target()), 1)[0]);
 
                     if (this.visibleOptionsTarget?.includes(selectedItem)) {
                         this.visibleOptionsTarget.splice(findIndexInList(selectedItem, this.visibleOptionsTarget), 1)[0];
@@ -1440,20 +1444,20 @@ export class PickList extends BaseComponent implements AfterViewChecked, AfterCo
             this.selectedItemsTarget = [];
 
             if (this.filterValueSource) {
-                this.filter(<any[]>this.source, this.SOURCE_LIST);
+                this.filter(<any[]>this.source(), this.SOURCE_LIST);
             }
             this.triggerChangeDetection();
         }
     }
 
     moveAllLeft() {
-        if (this.target) {
+        if (this.target()) {
             let movedItems = [];
 
-            for (let i = 0; i < this.target.length; i++) {
-                if (this.isItemVisible(this.target[i], this.TARGET_LIST)) {
-                    let removedItem = this.target.splice(i, 1)[0];
-                    this.source?.push(removedItem);
+            for (let i = 0; i < this.target().length; i++) {
+                if (this.isItemVisible(this.target()[i], this.TARGET_LIST)) {
+                    let removedItem = this.target().splice(i, 1)[0];
+                    this.source().push(removedItem);
                     movedItems.push(removedItem);
                     i--;
                 }
@@ -1470,7 +1474,7 @@ export class PickList extends BaseComponent implements AfterViewChecked, AfterCo
             this.selectedItemsTarget = [];
 
             if (this.filterValueSource) {
-                this.filter(<any[]>this.source, this.SOURCE_LIST);
+                this.filter(<any[]>this.source(), this.SOURCE_LIST);
             }
 
             this.visibleOptionsTarget = [];
@@ -1512,7 +1516,7 @@ export class PickList extends BaseComponent implements AfterViewChecked, AfterCo
             }
 
             if (this.filterValueSource) {
-                this.filter(<any[]>this.source, this.SOURCE_LIST);
+                this.filter(<any[]>this.source(), this.SOURCE_LIST);
             }
         } else {
             if (isTransfer) {
@@ -1537,7 +1541,7 @@ export class PickList extends BaseComponent implements AfterViewChecked, AfterCo
             }
 
             if (this.filterValueTarget) {
-                this.filter(<any[]>this.target, this.TARGET_LIST);
+                this.filter(<any[]>this.target(), this.TARGET_LIST);
             }
         }
     }
@@ -1567,10 +1571,10 @@ export class PickList extends BaseComponent implements AfterViewChecked, AfterCo
 
     getVisibleList(listType: number) {
         if (listType === this.SOURCE_LIST) {
-            return this.visibleOptionsSource && this.visibleOptionsSource.length > 0 ? this.visibleOptionsSource : this.source && this.source.length > 0 ? this.source : null;
+            return this.visibleOptionsSource && this.visibleOptionsSource.length > 0 ? this.visibleOptionsSource : this.source() && this.source().length > 0 ? this.source() : null;
         }
 
-        return this.visibleOptionsTarget && this.visibleOptionsTarget.length > 0 ? this.visibleOptionsTarget : this.target && this.target.length > 0 ? this.target : null;
+        return this.visibleOptionsTarget && this.visibleOptionsTarget.length > 0 ? this.visibleOptionsTarget : this.target() && this.target().length > 0 ? this.target() : null;
     }
 
     setSelectionList(listType: number, selectedItems: any[]) {
@@ -1638,10 +1642,10 @@ export class PickList extends BaseComponent implements AfterViewChecked, AfterCo
         if (index === -1) return null;
 
         if (listType === this.SOURCE_LIST) {
-            return this.visibleOptionsSource && this.visibleOptionsSource.length ? this.visibleOptionsSource[index] : this.source && this.source.length ? this.source[index] : null;
+            return this.visibleOptionsSource && this.visibleOptionsSource.length ? this.visibleOptionsSource[index] : this.source() && this.source().length ? this.source()[index] : null;
         }
 
-        return this.visibleOptionsTarget && this.visibleOptionsTarget.length ? this.visibleOptionsTarget[index] : this.target && this.target.length ? this.target[index] : null;
+        return this.visibleOptionsTarget && this.visibleOptionsTarget.length ? this.visibleOptionsTarget[index] : this.target() && this.target().length ? this.target()[index] : null;
     }
 
     changeFocusedOptionIndex(index, listType) {
@@ -1751,11 +1755,11 @@ export class PickList extends BaseComponent implements AfterViewChecked, AfterCo
         let previousIndex, currentIndex;
 
         if (droppedList === this.SOURCE_LIST) {
-            previousIndex = isTransfer ? (this.filterValueTarget ? findIndexInList(data, this.target) : fromIndex) : this.filterValueSource ? findIndexInList(data, this.source) : fromIndex;
-            currentIndex = this.filterValueSource ? this.findFilteredCurrentIndex(<any[]>this.visibleOptionsSource, toIndex, this.source) : toIndex;
+            previousIndex = isTransfer ? (this.filterValueTarget ? findIndexInList(data, this.target()) : fromIndex) : this.filterValueSource ? findIndexInList(data, this.source()) : fromIndex;
+            currentIndex = this.filterValueSource ? this.findFilteredCurrentIndex(<any[]>this.visibleOptionsSource, toIndex, this.source()) : toIndex;
         } else {
-            previousIndex = isTransfer ? (this.filterValueSource ? findIndexInList(data, this.source) : fromIndex) : this.filterValueTarget ? findIndexInList(data, this.target) : fromIndex;
-            currentIndex = this.filterValueTarget ? this.findFilteredCurrentIndex(<any[]>this.visibleOptionsTarget, toIndex, this.target) : toIndex;
+            previousIndex = isTransfer ? (this.filterValueSource ? findIndexInList(data, this.source()) : fromIndex) : this.filterValueTarget ? findIndexInList(data, this.target()) : fromIndex;
+            currentIndex = this.filterValueTarget ? this.findFilteredCurrentIndex(<any[]>this.visibleOptionsTarget, toIndex, this.target()) : toIndex;
         }
 
         return { previousIndex, currentIndex };
@@ -1863,11 +1867,11 @@ export class PickList extends BaseComponent implements AfterViewChecked, AfterCo
     }
 
     moveAllRightDisabled() {
-        return this.disabled || isEmpty(this.source);
+        return this.disabled || isEmpty(this.source());
     }
 
     moveAllLeftDisabled() {
-        return this.disabled || isEmpty(this.target);
+        return this.disabled || isEmpty(this.target());
     }
 
     destroyStyle() {
