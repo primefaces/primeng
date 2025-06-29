@@ -487,8 +487,7 @@ export class OrderList extends BaseComponent implements AfterContentInit {
             if (listItems.length > 0) {
                 if (this.movedUp) listItem = listItems[0];
                 else listItem = listItems[listItems.length - 1];
-
-                scrollInView(this.listViewChild?.el.nativeElement, listItem);
+                scrollInView(this.listViewChild?.containerViewChild.nativeElement, listItem);
             }
             this.movedUp = false;
             this.movedDown = false;
@@ -767,10 +766,10 @@ export class OrderList extends BaseComponent implements AfterContentInit {
     }
 
     onListFocus(event) {
-        const focusableEl = findSingle(this.listViewChild.el.nativeElement, '[data-p-highlight="true"]') || findSingle(this.listViewChild.el.nativeElement, '[data-pc-section="item"]');
+        const focusableEl = findSingle(this.listViewChild?.containerViewChild.nativeElement, '[data-p-selected="true"]') || findSingle(this.listViewChild?.containerViewChild.nativeElement, '[data-pc-section="item"]');
 
         if (focusableEl) {
-            const findIndex = findIndexInList(focusableEl, this.listViewChild.el.nativeElement.children);
+            const findIndex = findIndexInList(focusableEl, this.listViewChild?.containerViewChild.nativeElement.children?.[0].children || []);
             this.focused = true;
             const index = this.focusedOptionIndex !== -1 ? this.focusedOptionIndex : focusableEl ? findIndex : -1;
 
@@ -939,7 +938,7 @@ export class OrderList extends BaseComponent implements AfterContentInit {
     }
 
     scrollInView(id) {
-        const element = findSingle(this.listViewChild.el.nativeElement, `[data-pc-section="item"][id="${id}"]`);
+        const element = findSingle(this.listViewChild?.containerViewChild.nativeElement, `[data-pc-section="item"][id="${id}"]`);
 
         if (element) {
             element.scrollIntoView && element.scrollIntoView({ block: 'nearest', inline: 'nearest' });

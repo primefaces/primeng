@@ -217,6 +217,8 @@ export const LISTBOX_VALUE_ACCESSOR: any = {
                                     [attr.aria-disabled]="isOptionDisabled(option)"
                                     [attr.aria-setsize]="ariaSetSize"
                                     [attr.ariaPosInset]="getAriaPosInset(getOptionIndex(i, scrollerOptions))"
+                                    [attr.data-pc-section]="'item'"
+                                    [attr.data-p-selected]="isSelected(option)"
                                     (click)="onOptionSelect($event, option, getOptionIndex(i, scrollerOptions))"
                                     (dblclick)="onOptionDoubleClick($event, option)"
                                     (mousedown)="onOptionMouseDown($event, getOptionIndex(i, scrollerOptions))"
@@ -952,7 +954,6 @@ export class Listbox extends BaseEditableHolder implements AfterContentInit, OnI
         }
 
         event && this.onClick.emit({ originalEvent: event, option, value: this.value });
-
         this.multiple ? this.onOptionSelectMultiple(event, option) : this.onOptionSelectSingle(event, option);
         this.optionTouched = false;
         index !== -1 && this.focusedOptionIndex.set(index);
@@ -1131,6 +1132,7 @@ export class Listbox extends BaseEditableHolder implements AfterContentInit, OnI
         this.focusedOptionIndex.set(-1);
         this.startRangeIndex.set(-1);
         this.searchValue = '';
+        this.onBlur.emit(event);
     }
 
     onHeaderCheckboxFocus(event) {
