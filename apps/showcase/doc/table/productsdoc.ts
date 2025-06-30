@@ -114,9 +114,6 @@ interface ExportColumn {
                             </td>
                         </tr>
                     </ng-template>
-                    <ng-template #summary>
-                        <div class="flex items-center justify-between">In total there are {{ products ? products.length : 0 }} products.</div>
-                    </ng-template>
                 </p-table>
 
                 <p-dialog [(visible)]="productDialog" [style]="{ width: '450px' }" header="Product Details" [modal]="true">
@@ -277,9 +274,6 @@ export class ProductsDoc {
             </td>
         </tr>
     </ng-template>
-    <ng-template #summary>
-        <div class="flex items-center justify-between">In total there are {{ products ? products.length : 0 }} products.</div>
-    </ng-template>
 </p-table>
 
 <p-dialog [(visible)]="productDialog" [style]="{ width: '450px' }" header="Product Details" [modal]="true">
@@ -433,9 +427,6 @@ export class ProductsDoc {
                     <p-button icon="pi pi-trash" severity="danger" [rounded]="true" [outlined]="true" (click)="deleteProduct(product)" />
                 </td>
             </tr>
-        </ng-template>
-        <ng-template #summary>
-            <div class="flex items-center justify-between">In total there are {{ products ? products.length : 0 }} products.</div>
         </ng-template>
     </p-table>
 
@@ -624,6 +615,15 @@ export class TableProductsDemo implements OnInit{
             message: 'Are you sure you want to delete the selected products?',
             header: 'Confirm',
             icon: 'pi pi-exclamation-triangle',
+            rejectButtonProps: {
+                label: 'No',
+                severity: 'secondary',
+                variant: 'text'
+            },
+            acceptButtonProps: {
+                severity: 'danger',
+                label: 'Yes'
+            },
             accept: () => {
                 this.products = this.products.filter((val) => !this.selectedProducts?.includes(val));
                 this.selectedProducts = null;
@@ -647,6 +647,15 @@ export class TableProductsDemo implements OnInit{
             message: 'Are you sure you want to delete ' + product.name + '?',
             header: 'Confirm',
             icon: 'pi pi-exclamation-triangle',
+            rejectButtonProps: {
+                label: 'No',
+                severity: 'secondary',
+                variant: 'text'
+            },
+            acceptButtonProps: {
+                severity: 'danger',
+                label: 'Yes'
+            },
             accept: () => {
                 this.products = this.products.filter((val) => val.id !== product.id);
                 this.product = {};
@@ -831,6 +840,15 @@ export interface Product {
             message: 'Are you sure you want to delete the selected products?',
             header: 'Confirm',
             icon: 'pi pi-exclamation-triangle',
+            rejectButtonProps: {
+                label: 'No',
+                severity: 'secondary',
+                variant: 'text'
+            },
+            acceptButtonProps: {
+                severity: 'danger',
+                label: 'Yes'
+            },
             accept: () => {
                 this.products = this.products.filter((val) => !this.selectedProducts?.includes(val));
                 this.selectedProducts = null;
@@ -854,6 +872,15 @@ export interface Product {
             message: 'Are you sure you want to delete ' + product.name + '?',
             header: 'Confirm',
             icon: 'pi pi-exclamation-triangle',
+            rejectButtonProps: {
+                label: 'No',
+                severity: 'secondary',
+                variant: 'text'
+            },
+            acceptButtonProps: {
+                severity: 'danger',
+                label: 'Yes'
+            },
             accept: () => {
                 this.products = this.products.filter((val) => val.id !== product.id);
                 this.product = {};
@@ -913,6 +940,7 @@ export interface Product {
                 });
             } else {
                 this.product.id = this.createId();
+                this.product.code = this.createId();
                 this.product.image = 'product-placeholder.svg';
                 this.products.push(this.product);
                 this.messageService.add({
