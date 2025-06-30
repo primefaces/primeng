@@ -750,6 +750,8 @@ export class Listbox extends BaseEditableHolder implements AfterContentInit, OnI
 
     focused: boolean | undefined;
 
+    skipScrollInView: boolean | undefined;
+
     scrollerTabIndex: string = '0';
 
     _componentStyle = inject(ListBoxStyle);
@@ -956,6 +958,7 @@ export class Listbox extends BaseEditableHolder implements AfterContentInit, OnI
         event && this.onClick.emit({ originalEvent: event, option, value: this.value });
         this.multiple ? this.onOptionSelectMultiple(event, option) : this.onOptionSelectSingle(event, option);
         this.optionTouched = false;
+        this.skipScrollInView = false;
         index !== -1 && this.focusedOptionIndex.set(index);
     }
 
@@ -1063,6 +1066,7 @@ export class Listbox extends BaseEditableHolder implements AfterContentInit, OnI
     }
 
     onOptionMouseDown(event: MouseEvent, index: number) {
+        this.skipScrollInView = true;
         this.changeFocusedOptionIndex(event, index);
     }
 

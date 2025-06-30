@@ -480,7 +480,7 @@ export class OrderList extends BaseComponent implements AfterContentInit {
 
     ngAfterViewChecked() {
         if (this.movedUp || this.movedDown) {
-            let listItems = find(this.listViewChild?.el.nativeElement, 'li.p-listbox-option-selected');
+            let listItems = find(this.listViewChild?.containerViewChild.nativeElement, 'li.p-listbox-option-selected');
 
             let listItem;
 
@@ -772,8 +772,7 @@ export class OrderList extends BaseComponent implements AfterContentInit {
             const findIndex = findIndexInList(focusableEl, this.listViewChild?.containerViewChild.nativeElement.children?.[0].children || []);
             this.focused = true;
             const index = this.focusedOptionIndex !== -1 ? this.focusedOptionIndex : focusableEl ? findIndex : -1;
-
-            this.changeFocusedOptionIndex(index);
+            this.changeFocusedOptionIndex(index, !this.listViewChild?.skipScrollInView);
         }
 
         this.onFocus.emit(event);
@@ -822,6 +821,7 @@ export class OrderList extends BaseComponent implements AfterContentInit {
     }
 
     onArrowDownKey(event) {
+        debugger;
         const optionIndex = this.findNextOptionIndex(this.focusedOptionIndex);
 
         this.changeFocusedOptionIndex(optionIndex);
@@ -864,7 +864,7 @@ export class OrderList extends BaseComponent implements AfterContentInit {
             this.d_selection = [...this.value].slice(focusedIndex, visibleOptions.length - 1);
             this.selectionChange.emit(this.d_selection);
         } else {
-            this.changeFocusedOptionIndex(find(this.listViewChild.el.nativeElement, '[data-pc-section="item"]').length - 1);
+            this.changeFocusedOptionIndex(find(this.listViewChild?.containerViewChild.nativeElement, '[data-pc-section="item"]').length - 1);
         }
 
         event.preventDefault();
@@ -897,14 +897,14 @@ export class OrderList extends BaseComponent implements AfterContentInit {
     }
 
     findNextOptionIndex(index) {
-        const items = find(this.listViewChild.el.nativeElement, '[data-pc-section="item"]');
+        const items = find(this.listViewChild?.containerViewChild.nativeElement, '[data-pc-section="item"]');
         const matchedOptionIndex = [...items].findIndex((link) => link.id === index);
 
         return matchedOptionIndex > -1 ? matchedOptionIndex + 1 : 0;
     }
 
     findPrevOptionIndex(index) {
-        const items = find(this.listViewChild.el.nativeElement, '[data-pc-section="item"]');
+        const items = find(this.listViewChild?.containerViewChild.nativeElement, '[data-pc-section="item"]');
         const matchedOptionIndex = [...items].findIndex((link) => link.id === index);
 
         return matchedOptionIndex > -1 ? matchedOptionIndex - 1 : 0;
@@ -926,15 +926,15 @@ export class OrderList extends BaseComponent implements AfterContentInit {
         return this.visibleOptions && this.visibleOptions.length ? this.visibleOptions[index] : this.value && this.value.length ? this.value[index] : null;
     }
 
-    changeFocusedOptionIndex(index) {
-        const items = find(this.listViewChild.el.nativeElement, '[data-pc-section="item"]');
+    changeFocusedOptionIndex(index, scrollToView: boolean = true) {
+        const items = find(this.listViewChild?.containerViewChild.nativeElement, '[data-pc-section="item"]');
 
         let order = index >= items.length ? items.length - 1 : index < 0 ? 0 : index;
 
         this.focusedOptionIndex = items[order] ? items[order].getAttribute('id') : -1;
         this.focusedOption = this.getFocusedOption(order);
 
-        this.scrollInView(this.focusedOptionIndex);
+        scrollToView && this.scrollInView(this.focusedOptionIndex);
     }
 
     scrollInView(id) {
