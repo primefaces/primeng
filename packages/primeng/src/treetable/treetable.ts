@@ -243,12 +243,12 @@ export class TreeTableService {
             <ng-container *ngTemplateOutlet="summaryTemplate || _summaryTemplate"></ng-container>
         </div>
 
-        <div #resizeHelper [class]="cx('columnResizerHelper')" style="display:none" *ngIf="resizableColumns"></div>
-        <span #reorderIndicatorUp [class]="cx('reorderIndicatorUp')" style="display: none;" *ngIf="reorderableColumns">
+        <div #resizeHelper [class]="cx('columnResizerHelper')" [style.display]="'none'" *ngIf="resizableColumns"></div>
+        <span #reorderIndicatorUp [class]="cx('reorderIndicatorUp')" [style.display]="'none'" *ngIf="reorderableColumns">
             <ArrowDownIcon *ngIf="!reorderIndicatorUpIconTemplate && !_reorderIndicatorUpIconTemplate" />
             <ng-template *ngTemplateOutlet="reorderIndicatorUpIconTemplate || _reorderIndicatorUpIconTemplate"></ng-template>
         </span>
-        <span #reorderIndicatorDown [class]="cx('reorderIndicatorDown')" style="display: none;" *ngIf="reorderableColumns">
+        <span #reorderIndicatorDown [class]="cx('reorderIndicatorDown')" [style.display]="'none'" *ngIf="reorderableColumns">
             <ArrowUpIcon *ngIf="!reorderIndicatorDownIconTemplate && !_reorderIndicatorDownIconTemplate" />
             <ng-template *ngTemplateOutlet="reorderIndicatorDownIconTemplate || _reorderIndicatorDownIconTemplate"></ng-template>
         </span>
@@ -2446,7 +2446,7 @@ export class TTBody {
                     [frozen]="frozen"
                 ></tbody>
             </table>
-            <div #scrollableAligner style="background-color:transparent" *ngIf="frozen"></div>
+            <div #scrollableAligner [style.background-color]="'transparent'" *ngIf="frozen"></div>
         </ng-template>
 
         <div #scrollFooter *ngIf="tt.footerTemplate || tt._footerTemplate" [class]="cx('scrollableFooter')">
