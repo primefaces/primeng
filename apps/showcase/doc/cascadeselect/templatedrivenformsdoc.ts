@@ -12,11 +12,11 @@ import { MessageService } from 'primeng/api';
             <form #exampleForm="ngForm" (ngSubmit)="onSubmit(exampleForm)" class="flex justify-center flex-col gap-4">
                 <div class="flex flex-col gap-1">
                     <p-cascadeselect
-                        #country="ngModel"
+                        #city="ngModel"
                         [(ngModel)]="selectedCity"
                         [options]="countries"
-                        [invalid]="country.invalid && (country.touched || exampleForm.submitted)"
-                        name="country"
+                        [invalid]="city.invalid && (city.touched || exampleForm.submitted)"
+                        name="city"
                         optionLabel="cname"
                         optionGroupLabel="name"
                         [optionGroupChildren]="['states', 'cities']"
@@ -24,8 +24,8 @@ import { MessageService } from 'primeng/api';
                         placeholder="Select a City"
                         required
                     />
-                    @if (country.invalid && (country.touched || exampleForm.submitted)) {
-                        <p-message severity="error" size="small" variant="simple">Country is required.</p-message>
+                    @if (city.invalid && (city.touched || exampleForm.submitted)) {
+                        <p-message severity="error" size="small" variant="simple">City is required.</p-message>
                     }
                 </div>
                 <button pButton severity="secondary" type="submit"><span pButtonLabel>Submit</span></button>
@@ -129,11 +129,11 @@ export class TemplateDrivenFormsDoc {
         basic: `<form #exampleForm="ngForm" (ngSubmit)="onSubmit(exampleForm)" class="flex justify-center flex-col gap-4">
     <div class="flex flex-col gap-1">
         <p-cascadeselect
-            #country="ngModel"
+            #city="ngModel"
             [(ngModel)]="selectedCity"
             [options]="countries"
-            [invalid]="country.invalid && (country.touched || exampleForm.submitted)"
-            name="country"
+            [invalid]="city.invalid && (city.touched || exampleForm.submitted)"
+            name="city"
             optionLabel="cname"
             optionGroupLabel="name"
             [optionGroupChildren]="['states', 'cities']"
@@ -141,8 +141,8 @@ export class TemplateDrivenFormsDoc {
             placeholder="Select a City"
             required
         />
-        @if (country.invalid && (country.touched || exampleForm.submitted)) {
-            <p-message severity="error" size="small" variant="simple">Country is required.</p-message>
+        @if (city.invalid && (city.touched || exampleForm.submitted)) {
+            <p-message severity="error" size="small" variant="simple">City is required.</p-message>
         }
     </div>
     <button pButton severity="secondary" type="submit"><span pButtonLabel>Submit</span></button>
@@ -153,11 +153,11 @@ export class TemplateDrivenFormsDoc {
     <form #exampleForm="ngForm" (ngSubmit)="onSubmit(exampleForm)" class="flex justify-center flex-col gap-4">
         <div class="flex flex-col gap-1">
             <p-cascadeselect
-                #country="ngModel"
+                #city="ngModel"
                 [(ngModel)]="selectedCity"
                 [options]="countries"
-                [invalid]="country.invalid && (country.touched || exampleForm.submitted)"
-                name="country"
+                [invalid]="city.invalid && (city.touched || exampleForm.submitted)"
+                name="city"
                 optionLabel="cname"
                 optionGroupLabel="name"
                 [optionGroupChildren]="['states', 'cities']"
@@ -165,8 +165,8 @@ export class TemplateDrivenFormsDoc {
                 placeholder="Select a City"
                 required
             />
-            @if (country.invalid && (country.touched || exampleForm.submitted)) {
-                <p-message severity="error" size="small" variant="simple">Country is required.</p-message>
+            @if (city.invalid && (city.touched || exampleForm.submitted)) {
+                <p-message severity="error" size="small" variant="simple">City is required.</p-message>
             }
         </div>
         <button pButton severity="secondary" type="submit"><span pButtonLabel>Submit</span></button>

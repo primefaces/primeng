@@ -38,14 +38,6 @@ export class RatingDemo {
             component: TemplateDoc
         },
         {
-            id: 'forms',
-            label: 'Forms',
-            children: [
-                { id: 'templatedriven', label: 'Template Driven', component: TemplateDrivenFormsDoc },
-                { id: 'reactive', label: 'Reactive Forms', component: ReactiveFormsDoc }
-            ]
-        },
-        {
             id: 'readonly',
             label: 'Readonly',
             component: ReadOnlyDoc
@@ -55,7 +47,14 @@ export class RatingDemo {
             label: 'Disabled',
             component: DisabledDoc
         },
-
+        {
+            id: 'forms',
+            label: 'Forms',
+            children: [
+                { id: 'templatedriven', label: 'Template Driven', component: TemplateDrivenFormsDoc },
+                { id: 'reactive', label: 'Reactive Forms', component: ReactiveFormsDoc }
+            ]
+        },
         {
             id: 'accessibility',
             label: 'Accessibility',

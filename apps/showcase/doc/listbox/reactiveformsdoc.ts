@@ -22,7 +22,7 @@ interface City {
                 <div class="flex flex-col gap-1">
                     <p-listbox [options]="cities" formControlName="selectedCity" optionLabel="name" class="w-full md:w-56" [invalid]="isInvalid('selectedCity')" />
                     @if (isInvalid('selectedCity')) {
-                        <p-message severity="error" size="small" variant="simple">Country is required.</p-message>
+                        <p-message severity="error" size="small" variant="simple">City is required.</p-message>
                     }
                 </div>
                 <button pButton severity="secondary" type="submit"><span pButtonLabel>Submit</span></button>
@@ -73,7 +73,7 @@ export class ReactiveFormsDoc {
     <div class="flex flex-col gap-1">
         <p-listbox [options]="cities" formControlName="selectedCity" optionLabel="name" class="w-full md:w-56" [invalid]="isInvalid('selectedCity')" />
         @if (isInvalid('selectedCity')) {
-            <p-message severity="error" size="small" variant="simple">Country is required.</p-message>
+            <p-message severity="error" size="small" variant="simple">City is required.</p-message>
         }
     </div>
     <button pButton severity="secondary" type="submit"><span pButtonLabel>Submit</span></button>
@@ -85,7 +85,7 @@ export class ReactiveFormsDoc {
         <div class="flex flex-col gap-1">
             <p-listbox [options]="cities" formControlName="selectedCity" optionLabel="name" class="w-full md:w-56" [invalid]="isInvalid('selectedCity')" />
             @if (isInvalid('selectedCity')) {
-                <p-message severity="error" size="small" variant="simple">Country is required.</p-message>
+                <p-message severity="error" size="small" variant="simple">City is required.</p-message>
             }
         </div>
         <button pButton severity="secondary" type="submit"><span pButtonLabel>Submit</span></button>

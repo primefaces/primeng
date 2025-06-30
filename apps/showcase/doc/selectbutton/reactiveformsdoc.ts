@@ -19,7 +19,7 @@ import { MessageService } from 'primeng/api';
                         <p-message severity="error" size="small" variant="simple">Selection is required</p-message>
                     }
                 </div>
-                <button pButton severity="secondary" type="submit"><span pButtonLabel>Submit</span></button>
+                <button pButton type="submit"><span pButtonLabel>Submit</span></button>
             </form>
         </div>
         <app-code [code]="code" selector="select-button-reactive-forms-demo"></app-code>
@@ -65,7 +65,7 @@ export class ReactiveFormsDoc {
             <p-message severity="error" size="small" variant="simple">Selection is required</p-message>
         }
     </div>
-    <button pButton severity="secondary" type="submit"><span pButtonLabel>Submit</span></button>
+    <button pButton type="submit"><span pButtonLabel>Submit</span></button>
 </form>`,
 
         html: `<div class="card flex justify-center">
@@ -76,7 +76,7 @@ export class ReactiveFormsDoc {
                 <p-message severity="error" size="small" variant="simple">Selection is required</p-message>
             }
         </div>
-        <button pButton severity="secondary" type="submit"><span pButtonLabel>Submit</span></button>
+        <button pButton type="submit"><span pButtonLabel>Submit</span></button>
     </form>
 </div>`,
 
