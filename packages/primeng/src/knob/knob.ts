@@ -3,9 +3,9 @@ import { booleanAttribute, ChangeDetectionStrategy, Component, EventEmitter, for
 import { NG_VALUE_ACCESSOR } from '@angular/forms';
 import { $dt } from '@primeuix/styled';
 import { SharedModule } from 'primeng/api';
+import { BaseEditableHolder } from 'primeng/baseeditableholder';
 import { VoidListener } from 'primeng/ts-helpers';
 import { KnobStyle } from './style/knobstyle';
-import { BaseEditableHolder } from 'primeng/baseeditableholder';
 
 export const KNOB_VALUE_ACCESSOR: any = {
     provide: NG_VALUE_ACCESSOR,
@@ -54,12 +54,7 @@ export const KNOB_VALUE_ACCESSOR: any = {
     host: {
         '[attr.data-pc-name]': "'knob'",
         '[attr.data-pc-section]': "'root'",
-        '[class]': "cn(cx('root'), styleClass)",
-        '[attr.disabled]': 'disabled() ? "" : undefined',
-        '[attr.name]': 'name()',
-        '[attr.min]': 'min',
-        '[attr.required]': 'required() ? "" : undefined',
-        '[attr.step]': 'step'
+        '[class]': "cn(cx('root'), styleClass)"
     }
 })
 export class Knob extends BaseEditableHolder {
