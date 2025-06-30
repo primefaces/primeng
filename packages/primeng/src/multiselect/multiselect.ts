@@ -731,6 +731,13 @@ export class MultiSelect extends BaseEditableHolder implements OnInit, AfterView
     set filterValue(val: string | undefined | null) {
         this._filterValue.set(val);
     }
+
+    /**
+     * When specified, the empty value will become this value. The default value is null. An empty array is also allowed.
+     * @group Props
+     */
+    readonly emptyValue = input<null | never[]>(null);
+
     /**
      * Whether all data is selected.
      * @group Props
@@ -1065,7 +1072,7 @@ export class MultiSelect extends BaseEditableHolder implements OnInit, AfterView
 
     _maxSelectedLabels: number = 3;
 
-    modelValue = signal<any>(null);
+    modelValue = signal<any>(this.emptyValue());
 
     _filterValue = signal<any>(null);
 
@@ -1088,7 +1095,7 @@ export class MultiSelect extends BaseEditableHolder implements OnInit, AfterView
     }
 
     get isVisibleClearIcon(): boolean | undefined {
-        return this.modelValue() != null && this.modelValue() !== '' && isNotEmpty(this.modelValue()) && this.showClear && !this.disabled() && !this.readonly && this.$filled();
+        return this.modelValue() !== this.emptyValue() && this.modelValue() !== '' && isNotEmpty(this.modelValue()) && this.showClear && !this.disabled() && !this.readonly && this.$filled();
     }
 
     get toggleAllAriaLabel() {
@@ -1266,7 +1273,7 @@ export class MultiSelect extends BaseEditableHolder implements OnInit, AfterView
         }
 
         let selected = this.isSelected(option);
-        let value = null;
+        let value;
 
         if (selected) {
             value = this.modelValue().filter((val) => !equals(val, this.getOptionValue(option), this.equalityKey()));
@@ -1816,7 +1823,7 @@ export class MultiSelect extends BaseEditableHolder implements OnInit, AfterView
         }
 
         if (this.partialSelected()) {
-            this.selectedOptions = null;
+            this.selectedOptions = this.emptyValue();
             this.cd.markForCheck();
         }
 
@@ -1968,9 +1975,9 @@ export class MultiSelect extends BaseEditableHolder implements OnInit, AfterView
     }
 
     clear(event: Event) {
-        this.value = null;
-        this.updateModel(null, event);
-        this.selectedOptions = null;
+        this.value = this.emptyValue();
+        this.updateModel(this.emptyValue(), event);
+        this.selectedOptions = this.emptyValue();
         this.onClear.emit();
         this._disableTooltip = true;
 
