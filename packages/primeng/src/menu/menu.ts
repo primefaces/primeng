@@ -192,7 +192,7 @@ export class MenuItemContent extends BaseComponent {
                     <ng-template ngFor let-item let-j="index" [ngForOf]="submenu.items">
                         <li [class]="cx('separator')" *ngIf="item.separator && (item.visible !== false || submenu.visible !== false)" role="separator"></li>
                         <li
-                            [class]="cx('item', { item, menuItemId: menuitemId(item, id, i, j) })"
+                            [class]="cx('item', { item, id: menuitemId(item, id, i, j) })"
                             *ngIf="!item.separator && item.visible !== false && (item.visible !== undefined || submenu.visible !== false)"
                             [pMenuItemContent]="item"
                             [itemTemplate]="itemTemplate ?? _itemTemplate"
@@ -213,7 +213,7 @@ export class MenuItemContent extends BaseComponent {
                 <ng-template ngFor let-item let-i="index" [ngForOf]="model" *ngIf="!hasSubMenu()">
                     <li [class]="cx('separator')" *ngIf="item.separator && item.visible !== false" role="separator"></li>
                     <li
-                        [class]="cx('item', { item, menuItemId: menuitemId(item, id, i) })"
+                        [class]="cx('item', { item, id: menuitemId(item, id, i) })"
                         *ngIf="!item.separator && item.visible !== false"
                         [pMenuItemContent]="item"
                         [itemTemplate]="itemTemplate ?? _itemTemplate"
@@ -555,6 +555,7 @@ export class Menu extends BaseComponent implements AfterContentInit, OnDestroy {
     onListFocus(event: Event) {
         if (!this.focused) {
             this.focused = true;
+            !this.popup && this.changeFocusedOptionIndex(0);
             this.onFocus.emit(event);
         }
     }
@@ -672,7 +673,6 @@ export class Menu extends BaseComponent implements AfterContentInit, OnDestroy {
 
     changeFocusedOptionIndex(index) {
         const links = find(this.containerViewChild.nativeElement, 'li[data-pc-section="menuitem"][data-p-disabled="false"]');
-
         if (links.length > 0) {
             let order = index >= links.length ? links.length - 1 : index < 0 ? 0 : index;
             order > -1 && this.focusedOptionIndex.set(links[order].getAttribute('id'));
