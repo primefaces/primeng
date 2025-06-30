@@ -46,7 +46,7 @@ import { ImageStyle } from './style/imagestyle';
         <ng-container *ngTemplateOutlet="imageTemplate || _imageTemplate; context: { errorCallback: imageError.bind(this) }"></ng-container>
 
         <button *ngIf="preview" [attr.aria-label]="zoomImageAriaLabel" type="button" [class]="cx('previewMask')" (click)="onImageClick()" #previewButton [ngStyle]="{ height: height + 'px', width: width + 'px' }">
-            <ng-container *ngIf="indicatorTemplate || !_indicatorTemplate; else defaultTemplate">
+            <ng-container *ngIf="indicatorTemplate || _indicatorTemplate; else defaultTemplate">
                 <ng-container *ngTemplateOutlet="indicatorTemplate || _indicatorTemplate"></ng-container>
             </ng-container>
             <ng-template #defaultTemplate>
@@ -472,13 +472,6 @@ export class Image extends BaseComponent implements AfterContentInit {
 
     get zoomImageAriaLabel() {
         return this.config.translation.aria ? this.config.translation.aria.zoomImage : undefined;
-    }
-
-    containerClass() {
-        return {
-            'p-image p-component': true,
-            'p-image-preview': this.preview
-        };
     }
 
     handleToolbarClick(event: MouseEvent): void {
