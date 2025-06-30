@@ -47,7 +47,11 @@ interface Column {
                             </td>
                         </tr>
                     </ng-template>
-                    <ng-template #footer> In total there are {{ products ? products.length : 0 }} products. </ng-template>
+                    <ng-template #footer>
+                        <tr>
+                            <td colspan="6">In total there are {{ products ? products.length : 0 }} products.</td>
+                        </tr>
+                    </ng-template>
                 </p-table>
             </div>
         </p-deferred-demo>

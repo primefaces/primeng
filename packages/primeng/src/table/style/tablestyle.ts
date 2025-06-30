@@ -93,10 +93,6 @@ const theme = css`
         font-weight: normal;
     }
 
-    .p-datatable-tbody:has(+ .p-datatable-tfoot) > tr:last-child > td {
-        border-width: 0;
-    }
-
     .p-datatable-thead > tr > th,
     .p-datatable-sort-icon,
     .p-datatable-sort-badge {
@@ -213,7 +209,7 @@ const classes = {
         'p-datatable-sortable-column': instance.isEnabled(),
         ' p-datatable-column-sorted': instance.sorted
     }),
-    sortableColumnIcon: 'p-sortable-column-icon',
+    sortableColumnIcon: 'p-datatable-sort-icon',
     sortableColumnBadge: 'p-sortable-column-badge',
     selectableRow: ({ instance }) => ({
         'p-datatable-selectable-row': instance.isEnabled(),
