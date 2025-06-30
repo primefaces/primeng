@@ -44,7 +44,7 @@ export const TOGGLEBUTTON_VALUE_ACCESSOR: any = {
         '[class]': "cn(cx('root'), styleClass)",
         '[attr.aria-labelledby]': 'ariaLabelledBy',
         '[attr.aria-pressed]': 'checked',
-        '[attr.aria-role]': '"button"'
+        '[attr.role]': '"button"'
     },
     template: `<span [class]="cx('content')">
         <ng-container *ngTemplateOutlet="contentTemplate || _contentTemplate; context: { $implicit: checked }"></ng-container>
