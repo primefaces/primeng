@@ -16,7 +16,7 @@ import { ChangeDetectionStrategy, ChangeDetectorRef, Component } from '@angular/
                         <tr>
                             <th style="width:25%">Code</th>
                             <th style="width:25%">Name</th>
-                            <th style="width:25%">Inventory Status</th>
+                            <th style="width:25%">Quantity</th>
                             <th style="width:25%">Price</th>
                         </tr>
                     </ng-template>
@@ -42,13 +42,13 @@ import { ChangeDetectionStrategy, ChangeDetectorRef, Component } from '@angular/
                                     </ng-template>
                                 </p-cellEditor>
                             </td>
-                            <td [pEditableColumn]="product.inventoryStatus" pEditableColumnField="inventoryStatus">
+                            <td [pEditableColumn]="product.quantity" pEditableColumnField="quantity">
                                 <p-cellEditor>
                                     <ng-template #input>
-                                        <input pInputText [(ngModel)]="product.inventoryStatus" />
+                                        <input pInputText [(ngModel)]="product.quantity" />
                                     </ng-template>
                                     <ng-template #output>
-                                        {{ product.inventoryStatus }}
+                                        {{ product.quantity }}
                                     </ng-template>
                                 </p-cellEditor>
                             </td>
@@ -96,7 +96,7 @@ export class CellEditDoc {
                 Name
             </th>
             <th style="width:25%">
-                Inventory Status
+                Quantity
             </th>
             <th style="width:25%">
                 Price
@@ -132,15 +132,15 @@ export class CellEditDoc {
                     </ng-template>
                 </p-cellEditor>
             </td>
-            <td [pEditableColumn]="product.inventoryStatus" pEditableColumnField="inventoryStatus">
+            <td [pEditableColumn]="product.quantity" pEditableColumnField="quantity">
                 <p-cellEditor>
                     <ng-template #input>
                         <input
                             pInputText
-                            [(ngModel)]="product.inventoryStatus" />
+                            [(ngModel)]="product.quantity" />
                     </ng-template>
                     <ng-template #output>
-                        {{ product.inventoryStatus }}
+                        {{ product.quantity }}
                     </ng-template>
                 </p-cellEditor>
             </td>
@@ -170,7 +170,7 @@ export class CellEditDoc {
                     Name
                 </th>
                 <th style="width:25%">
-                    Inventory Status
+                    Quantity
                 </th>
                 <th style="width:25%">
                     Price
@@ -206,15 +206,15 @@ export class CellEditDoc {
                         </ng-template>
                     </p-cellEditor>
                 </td>
-                <td [pEditableColumn]="product.inventoryStatus" pEditableColumnField="inventoryStatus">
+                <td [pEditableColumn]="product.quantity" pEditableColumnField="quantity">
                     <p-cellEditor>
                         <ng-template #input>
                             <input
                                 pInputText
-                                [(ngModel)]="product.inventoryStatus" />
+                                [(ngModel)]="product.quantity" />
                         </ng-template>
                         <ng-template #output>
-                            {{ product.inventoryStatus }}
+                            {{ product.quantity }}
                         </ng-template>
                     </p-cellEditor>
                 </td>
@@ -268,7 +268,7 @@ export class TableCellEditDemo implements OnInit {
     price: 65,
     category: 'Accessories',
     quantity: 24,
-    inventoryStatus: 'INSTOCK',
+    quantity: 'INSTOCK',
     rating: 5
 },
 ...`,
@@ -291,7 +291,7 @@ export interface Product {
     description?: string;
     price?: number;
     quantity?: number;
-    inventoryStatus?: string;
+    quantity?: string;
     category?: string;
     image?: string;
     rating?: number;
