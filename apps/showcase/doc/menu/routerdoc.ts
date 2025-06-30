@@ -47,7 +47,7 @@ export class RouterDoc implements OnInit {
                     {
                         label: 'Router Link',
                         icon: 'pi pi-palette',
-                        route: '/guides/csslayer'
+                        route: '/theming'
                     },
                     {
                         label: 'Programmatic',
@@ -127,7 +127,7 @@ export class MenuRouterDemo implements OnInit {
                     {
                         label: 'Router Link',
                         icon: 'pi pi-palette',
-                        route: '/guides/csslayer'
+                        route: '/theming'
                     },
                     {
                         label: 'Programmatic',

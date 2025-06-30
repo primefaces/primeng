@@ -95,7 +95,7 @@ importers:
     devDependencies:
       '@angular-devkit/build-angular':
         specifier: catalog:angular20
-        version: 20.0.4(k65ql2pyrppjsf4yjtaryfceza)
+        version: 20.0.4(shqxsejwlhd4kizldc7gtsno4e)
       '@angular-eslint/eslint-plugin':
         specifier: catalog:angular20
         version: 20.1.1(@typescript-eslint/utils@8.35.0(eslint@9.30.0(jiti@2.4.2))(typescript@5.8.3))(eslint@9.30.0(jiti@2.4.2))(typescript@5.8.3)
@@ -188,7 +188,7 @@ importers:
         version: 12.5.0
       ng-packagr:
         specifier: catalog:angular20
-        version: 20.0.1(@angular/compiler-cli@20.0.5(@angular/compiler@20.0.5)(typescript@5.8.3))(tailwindcss@3.4.17(ts-node@10.9.2(@types/node@22.15.34)(typescript@5.8.3)))(tslib@2.8.1)(typescript@5.8.3)
+        version: 20.0.1(@angular/compiler-cli@20.0.5(@angular/compiler@20.0.5)(typescript@5.8.3))(tailwindcss@3.4.17)(tslib@2.8.1)(typescript@5.8.3)
       pnpm:
         specifier: ^9.6.0
         version: 9.15.9
@@ -1876,26 +1876,21 @@ packages:
     resolution: {integrity: sha512-u3UPsIilWKOM3F9CXtrG8LEJmNxwoCQC/XVj4IKYXvvpx7QIi/Kg1LI5uDmDpKlac62NUtX7eLjRh+jVZcLOzw==}
     engines: {node: ^14.15.0 || ^16.10.0 || >=18.0.0}
 
-  '@jridgewell/gen-mapping@0.3.8':
-    resolution: {integrity: sha512-imAbBGkb+ebQyxKgzv5Hu2nmROxoDOXHh80evxdoXNOrvAnVx7zimzc1Oo5h9RlfV4vPXaE2iM5pOFbvOCClWA==}
-    engines: {node: '>=6.0.0'}
+  '@jridgewell/gen-mapping@0.3.10':
+    resolution: {integrity: sha512-HM2F4B9N4cA0RH2KQiIZOHAZqtP4xGS4IZ+SFe1SIbO4dyjf9MTY2Bo3vHYnm0hglWfXqBrzUBSa+cJfl3Xvrg==}
 
   '@jridgewell/resolve-uri@3.1.2':
     resolution: {integrity: sha512-bRISgCIjP20/tbWSPWMEi54QVPRZExkuD9lJL+UIxUKtwVJA8wW1Trb1jMs1RFXo1CBTNZ/5hpC9QvmKWdopKw==}
     engines: {node: '>=6.0.0'}
 
-  '@jridgewell/set-array@1.2.1':
-    resolution: {integrity: sha512-R8gLRTZeyp03ymzP/6Lil/28tGeGEzhx1q2k703KGWRAI1VdvPIXdG70VJc2pAMw3NA6JKL5hhFu1sJX0Mnn/A==}
-    engines: {node: '>=6.0.0'}
+  '@jridgewell/source-map@0.3.8':
+    resolution: {integrity: sha512-3EDAPd0B8X1gsQQgGHU8vyxSp2MB414z3roN67fY7nI0GV3GDthHfaWcbCfrC95tpAzA5xUvAuoO9Dxx/ywwRQ==}
 
-  '@jridgewell/source-map@0.3.6':
-    resolution: {integrity: sha512-1ZJTZebgqllO79ue2bm3rIGud/bOe0pP5BjSRCRxxYkEZS8STV7zN84UBbiYu7jy+eCKSnVIUgoWWE/tt+shMQ==}
+  '@jridgewell/sourcemap-codec@1.5.2':
+    resolution: {integrity: sha512-gKYheCylLIedI+CSZoDtGkFV9YEBxRRVcfCH7OfAqh4TyUyRjEE6WVE/aXDXX0p8BIe/QgLcaAoI0220KRRFgg==}
 
-  '@jridgewell/sourcemap-codec@1.5.0':
-    resolution: {integrity: sha512-gv3ZRaISU3fjPAgNsriBRqGWQL6quFx04YMPW/zD8XMLsU32mhCCbfbO6KZFLjvYpCZ8zyDEgqsgf+PwPaM7GQ==}
-
-  '@jridgewell/trace-mapping@0.3.25':
-    resolution: {integrity: sha512-vNk6aEwybGtawWmy/PzwnGDOjCkLWSD2wqvjGGAgOAwCGWySYXfYoxt00IJkTF+8Lb57DwOb3Aa0o9CApepiYQ==}
+  '@jridgewell/trace-mapping@0.3.27':
+    resolution: {integrity: sha512-VO95AxtSFMelbg3ouljAYnfvTEwSWVt/2YLf+U5Ejd8iT5mXE2Sa/1LGyvySMne2CGsepGLI7KpF3EzE3Aq9Mg==}
 
   '@jridgewell/trace-mapping@0.3.9':
     resolution: {integrity: sha512-3Belt6tdc8bPgAtbcmdtNJlirVoTmEb5e2gC94PnkwEW9jI6CAHUeoG85tjWP5WquqfavoMtMwiG4P926ZKKuQ==}
@@ -6814,8 +6809,8 @@ snapshots:
 
   '@ampproject/remapping@2.3.0':
     dependencies:
-      '@jridgewell/gen-mapping': 0.3.8
-      '@jridgewell/trace-mapping': 0.3.25
+      '@jridgewell/gen-mapping': 0.3.10
+      '@jridgewell/trace-mapping': 0.3.27
 
   '@angular-devkit/architect@0.2000.4(chokidar@4.0.3)':
     dependencies:
@@ -6824,13 +6819,13 @@ snapshots:
     transitivePeerDependencies:
       - chokidar
 
-  '@angular-devkit/build-angular@20.0.4(k65ql2pyrppjsf4yjtaryfceza)':
+  '@angular-devkit/build-angular@20.0.4(shqxsejwlhd4kizldc7gtsno4e)':
     dependencies:
       '@ampproject/remapping': 2.3.0
       '@angular-devkit/architect': 0.2000.4(chokidar@4.0.3)
       '@angular-devkit/build-webpack': 0.2000.4(chokidar@4.0.3)(webpack-dev-server@5.2.1(webpack@5.99.8(esbuild@0.25.5)))(webpack@5.99.8(esbuild@0.25.5))
       '@angular-devkit/core': 20.0.4(chokidar@4.0.3)
-      '@angular/build': 20.0.4(7jfd5llyprml4x3dknrk4eumc4)
+      '@angular/build': 20.0.4(7n7mlmgnr5vvlbd2rvpbjc25wa)
       '@angular/compiler-cli': 20.0.5(@angular/compiler@20.0.5)(typescript@5.8.3)
       '@babel/core': 7.27.1
       '@babel/generator': 7.27.1
@@ -6890,7 +6885,7 @@ snapshots:
       '@angular/ssr': 20.0.4(c5wln6yvtzs7av5txafvwxdr5y)
       esbuild: 0.25.5
       karma: 6.4.4
-      ng-packagr: 20.0.1(@angular/compiler-cli@20.0.5(@angular/compiler@20.0.5)(typescript@5.8.3))(tailwindcss@3.4.17(ts-node@10.9.2(@types/node@22.15.34)(typescript@5.8.3)))(tslib@2.8.1)(typescript@5.8.3)
+      ng-packagr: 20.0.1(@angular/compiler-cli@20.0.5(@angular/compiler@20.0.5)(typescript@5.8.3))(tailwindcss@3.4.17)(tslib@2.8.1)(typescript@5.8.3)
       tailwindcss: 3.4.17(ts-node@10.9.2(@types/node@22.15.34)(typescript@5.8.3))
     transitivePeerDependencies:
       - '@angular/compiler'
@@ -7006,7 +7001,7 @@ snapshots:
       '@angular/core': 20.0.5(@angular/compiler@20.0.5)(rxjs@7.8.2)(zone.js@0.15.1)
       tslib: 2.8.1
 
-  '@angular/build@20.0.4(7jfd5llyprml4x3dknrk4eumc4)':
+  '@angular/build@20.0.4(7n7mlmgnr5vvlbd2rvpbjc25wa)':
     dependencies:
       '@ampproject/remapping': 2.3.0
       '@angular-devkit/architect': 0.2000.4(chokidar@4.0.3)
@@ -7046,7 +7041,7 @@ snapshots:
       karma: 6.4.4
       less: 4.3.0
       lmdb: 3.3.0
-      ng-packagr: 20.0.1(@angular/compiler-cli@20.0.5(@angular/compiler@20.0.5)(typescript@5.8.3))(tailwindcss@3.4.17(ts-node@10.9.2(@types/node@22.15.34)(typescript@5.8.3)))(tslib@2.8.1)(typescript@5.8.3)
+      ng-packagr: 20.0.1(@angular/compiler-cli@20.0.5(@angular/compiler@20.0.5)(typescript@5.8.3))(tailwindcss@3.4.17)(tslib@2.8.1)(typescript@5.8.3)
       postcss: 8.5.3
       tailwindcss: 3.4.17(ts-node@10.9.2(@types/node@22.15.34)(typescript@5.8.3))
     transitivePeerDependencies:
@@ -7103,7 +7098,7 @@ snapshots:
     dependencies:
       '@angular/compiler': 20.0.5
       '@babel/core': 7.27.4
-      '@jridgewell/sourcemap-codec': 1.5.0
+      '@jridgewell/sourcemap-codec': 1.5.2
       chokidar: 4.0.3
       convert-source-map: 1.9.0
       reflect-metadata: 0.2.2
@@ -7250,16 +7245,16 @@ snapshots:
     dependencies:
       '@babel/parser': 7.27.7
       '@babel/types': 7.27.7
-      '@jridgewell/gen-mapping': 0.3.8
-      '@jridgewell/trace-mapping': 0.3.25
+      '@jridgewell/gen-mapping': 0.3.10
+      '@jridgewell/trace-mapping': 0.3.27
       jsesc: 3.1.0
 
   '@babel/generator@7.27.5':
     dependencies:
       '@babel/parser': 7.27.7
       '@babel/types': 7.27.7
-      '@jridgewell/gen-mapping': 0.3.8
-      '@jridgewell/trace-mapping': 0.3.25
+      '@jridgewell/gen-mapping': 0.3.10
+      '@jridgewell/trace-mapping': 0.3.27
       jsesc: 3.1.0
 
   '@babel/helper-annotate-as-pure@7.27.1':
@@ -8432,32 +8427,29 @@ snapshots:
       '@types/yargs': 17.0.33
       chalk: 4.1.2
 
-  '@jridgewell/gen-mapping@0.3.8':
+  '@jridgewell/gen-mapping@0.3.10':
     dependencies:
-      '@jridgewell/set-array': 1.2.1
-      '@jridgewell/sourcemap-codec': 1.5.0
-      '@jridgewell/trace-mapping': 0.3.25
+      '@jridgewell/sourcemap-codec': 1.5.2
+      '@jridgewell/trace-mapping': 0.3.27
 
   '@jridgewell/resolve-uri@3.1.2': {}
 
-  '@jridgewell/set-array@1.2.1': {}
-
-  '@jridgewell/source-map@0.3.6':
+  '@jridgewell/source-map@0.3.8':
     dependencies:
-      '@jridgewell/gen-mapping': 0.3.8
-      '@jridgewell/trace-mapping': 0.3.25
+      '@jridgewell/gen-mapping': 0.3.10
+      '@jridgewell/trace-mapping': 0.3.27
 
-  '@jridgewell/sourcemap-codec@1.5.0': {}
+  '@jridgewell/sourcemap-codec@1.5.2': {}
 
-  '@jridgewell/trace-mapping@0.3.25':
+  '@jridgewell/trace-mapping@0.3.27':
     dependencies:
       '@jridgewell/resolve-uri': 3.1.2
-      '@jridgewell/sourcemap-codec': 1.5.0
+      '@jridgewell/sourcemap-codec': 1.5.2
 
   '@jridgewell/trace-mapping@0.3.9':
     dependencies:
       '@jridgewell/resolve-uri': 3.1.2
-      '@jridgewell/sourcemap-codec': 1.5.0
+      '@jridgewell/sourcemap-codec': 1.5.2
 
   '@jsonjoy.com/base64@1.1.2(tslib@2.8.1)':
     dependencies:
@@ -11595,7 +11587,7 @@ snapshots:
 
   magic-string@0.30.17:
     dependencies:
-      '@jridgewell/sourcemap-codec': 1.5.0
+      '@jridgewell/sourcemap-codec': 1.5.2
 
   make-dir@2.1.0:
     dependencies:
@@ -11810,7 +11802,7 @@ snapshots:
 
   neo-async@2.6.2: {}
 
-  ng-packagr@20.0.1(@angular/compiler-cli@20.0.5(@angular/compiler@20.0.5)(typescript@5.8.3))(tailwindcss@3.4.17(ts-node@10.9.2(@types/node@22.15.34)(typescript@5.8.3)))(tslib@2.8.1)(typescript@5.8.3):
+  ng-packagr@20.0.1(@angular/compiler-cli@20.0.5(@angular/compiler@20.0.5)(typescript@5.8.3))(tailwindcss@3.4.17)(tslib@2.8.1)(typescript@5.8.3):
     dependencies:
       '@ampproject/remapping': 2.3.0
       '@angular/compiler-cli': 20.0.5(@angular/compiler@20.0.5)(typescript@5.8.3)
@@ -12991,7 +12983,7 @@ snapshots:
 
   sucrase@3.35.0:
     dependencies:
-      '@jridgewell/gen-mapping': 0.3.8
+      '@jridgewell/gen-mapping': 0.3.10
       commander: 4.1.1
       glob: 10.4.5
       lines-and-columns: 1.2.4
@@ -13067,7 +13059,7 @@ snapshots:
 
   terser-webpack-plugin@5.3.14(esbuild@0.25.5)(webpack@5.99.8(esbuild@0.25.5)):
     dependencies:
-      '@jridgewell/trace-mapping': 0.3.25
+      '@jridgewell/trace-mapping': 0.3.27
       jest-worker: 27.5.1
       schema-utils: 4.3.2
       serialize-javascript: 6.0.2
@@ -13078,7 +13070,7 @@ snapshots:
 
   terser@5.39.1:
     dependencies:
-      '@jridgewell/source-map': 0.3.6
+      '@jridgewell/source-map': 0.3.8
       acorn: 8.15.0
       commander: 2.20.3
       source-map-support: 0.5.21
