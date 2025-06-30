@@ -44,21 +44,21 @@ import { Table } from 'primeng/table';
                                 <p-tableHeaderCheckbox />
                             </th>
                             <th pSortableColumn="name" style="min-width: 14rem">
-                                <div class="flex justify-between items-center">
+                                <div class="flex justify-between items-center gap-2">
                                     Name
                                     <p-sortIcon field="name" />
                                     <p-columnFilter type="text" field="name" display="menu" class="ml-auto" />
                                 </div>
                             </th>
                             <th pSortableColumn="country.name" style="min-width: 14rem">
-                                <div class="flex justify-between items-center">
+                                <div class="flex justify-between items-center gap-2">
                                     Country
                                     <p-sortIcon field="country.name" />
                                     <p-columnFilter type="text" field="country.name" display="menu" class="ml-auto" />
                                 </div>
                             </th>
                             <th pSortableColumn="representative.name" style="min-width: 14rem">
-                                <div class="flex justify-between items-center">
+                                <div class="flex justify-between items-center gap-2">
                                     Agent
                                     <p-sortIcon field="representative.name" />
                                     <p-columnFilter field="representative" matchMode="in" display="menu" [showMatchModes]="false" [showOperator]="false" [showAddButton]="false" class="ml-auto">
@@ -75,22 +75,22 @@ import { Table } from 'primeng/table';
                                     </p-columnFilter>
                                 </div>
                             </th>
-                            <th pSortableColumn="date" style="min-width: 10rem">
-                                <div class="flex justify-between items-center">
+                            <th pSortableColumn="date" style="min-width: 14rem">
+                                <div class="flex justify-between items-center gap-2">
                                     Date
                                     <p-sortIcon field="date" />
                                     <p-columnFilter type="date" field="date" display="menu" class="ml-auto" />
                                 </div>
                             </th>
-                            <th pSortableColumn="balance" style="min-width: 10rem">
-                                <div class="flex justify-between items-center">
+                            <th pSortableColumn="balance" style="min-width: 14rem">
+                                <div class="flex justify-between items-center gap-2">
                                     Balance
                                     <p-sortIcon field="balance" />
                                     <p-columnFilter type="numeric" field="balance" display="menu" currency="USD" class="ml-auto" />
                                 </div>
                             </th>
-                            <th pSortableColumn="status" style="min-width: 10rem">
-                                <div class="flex justify-between items-center">
+                            <th pSortableColumn="status" style="min-width: 14rem">
+                                <div class="flex justify-between items-center gap-2">
                                     Status
                                     <p-sortIcon field="status" />
                                     <p-columnFilter field="status" matchMode="equals" display="menu" class="ml-auto">
@@ -104,8 +104,8 @@ import { Table } from 'primeng/table';
                                     </p-columnFilter>
                                 </div>
                             </th>
-                            <th pSortableColumn="activity" style="min-width: 10rem">
-                                <div class="flex justify-between items-center">
+                            <th pSortableColumn="activity" style="min-width: 14rem">
+                                <div class="flex justify-between items-center gap-2">
                                     Activity
                                     <p-sortIcon field="activity" />
                                     <p-columnFilter field="activity" matchMode="between" display="menu" [showMatchModes]="false" [showOperator]="false" [showAddButton]="false" class="ml-auto">
@@ -255,21 +255,21 @@ export class CustomersDoc {
                 <p-tableHeaderCheckbox />
             </th>
             <th pSortableColumn="name" style="min-width: 14rem">
-                <div class="flex justify-between items-center">
+                <div class="flex justify-between items-center gap-2">
                     Name
                     <p-sortIcon field="name" />
                     <p-columnFilter type="text" field="name" display="menu" class="ml-auto" />
                 </div>
             </th>
             <th pSortableColumn="country.name" style="min-width: 14rem">
-                <div class="flex justify-between items-center">
+                <div class="flex justify-between items-center gap-2">
                     Country
                     <p-sortIcon field="country.name" />
                     <p-columnFilter type="text" field="country.name" display="menu" class="ml-auto" />
                 </div>
             </th>
             <th pSortableColumn="representative.name" style="min-width: 14rem">
-                <div class="flex justify-between items-center">
+                <div class="flex justify-between items-center gap-2">
                     Agent
                     <p-sortIcon field="representative.name" />
                     <p-columnFilter field="representative" matchMode="in" display="menu" [showMatchModes]="false" [showOperator]="false" [showAddButton]="false" class="ml-auto">
@@ -286,22 +286,22 @@ export class CustomersDoc {
                     </p-columnFilter>
                 </div>
             </th>
-            <th pSortableColumn="date" style="min-width: 10rem">
-                <div class="flex justify-between items-center">
+            <th pSortableColumn="date" style="min-width: 14rem">
+                <div class="flex justify-between items-center gap-2">
                     Date
                     <p-sortIcon field="date" />
                     <p-columnFilter type="date" field="date" display="menu" class="ml-auto" />
                 </div>
             </th>
-            <th pSortableColumn="balance" style="min-width: 10rem">
-                <div class="flex justify-between items-center">
+            <th pSortableColumn="balance" style="min-width: 14rem">
+                <div class="flex justify-between items-center gap-2">
                     Balance
                     <p-sortIcon field="balance" />
                     <p-columnFilter type="numeric" field="balance" display="menu" currency="USD" class="ml-auto" />
                 </div>
             </th>
-            <th pSortableColumn="status" style="min-width: 10rem">
-                <div class="flex justify-between items-center">
+            <th pSortableColumn="status" style="min-width: 14rem">
+                <div class="flex justify-between items-center gap-2">
                     Status
                     <p-sortIcon field="status" />
                     <p-columnFilter field="status" matchMode="equals" display="menu" class="ml-auto">
@@ -315,8 +315,8 @@ export class CustomersDoc {
                     </p-columnFilter>
                 </div>
             </th>
-            <th pSortableColumn="activity" style="min-width: 10rem">
-                <div class="flex justify-between items-center">
+            <th pSortableColumn="activity" style="min-width: 14rem">
+                <div class="flex justify-between items-center gap-2">
                     Activity
                     <p-sortIcon field="activity" />
                     <p-columnFilter field="activity" matchMode="between" display="menu" [showMatchModes]="false" [showOperator]="false" [showAddButton]="false" class="ml-auto">
@@ -409,21 +409,21 @@ export class CustomersDoc {
                     <p-tableHeaderCheckbox />
                 </th>
                 <th pSortableColumn="name" style="min-width: 14rem">
-                    <div class="flex justify-between items-center">
+                    <div class="flex justify-between items-center gap-2">
                         Name
                         <p-sortIcon field="name" />
                         <p-columnFilter type="text" field="name" display="menu" class="ml-auto" />
                     </div>
                 </th>
                 <th pSortableColumn="country.name" style="min-width: 14rem">
-                    <div class="flex justify-between items-center">
+                    <div class="flex justify-between items-center gap-2">
                         Country
                         <p-sortIcon field="country.name" />
                         <p-columnFilter type="text" field="country.name" display="menu" class="ml-auto" />
                     </div>
                 </th>
                 <th pSortableColumn="representative.name" style="min-width: 14rem">
-                    <div class="flex justify-between items-center">
+                    <div class="flex justify-between items-center gap-2">
                         Agent
                         <p-sortIcon field="representative.name" />
                         <p-columnFilter field="representative" matchMode="in" display="menu" [showMatchModes]="false" [showOperator]="false" [showAddButton]="false" class="ml-auto">
@@ -440,22 +440,22 @@ export class CustomersDoc {
                         </p-columnFilter>
                     </div>
                 </th>
-                <th pSortableColumn="date" style="min-width: 10rem">
-                    <div class="flex justify-between items-center">
+                <th pSortableColumn="date" style="min-width: 14rem">
+                    <div class="flex justify-between items-center gap-2">
                         Date
                         <p-sortIcon field="date" />
                         <p-columnFilter type="date" field="date" display="menu" class="ml-auto" />
                     </div>
                 </th>
-                <th pSortableColumn="balance" style="min-width: 10rem">
-                    <div class="flex justify-between items-center">
+                <th pSortableColumn="balance" style="min-width: 14rem">
+                    <div class="flex justify-between items-center gap-2">
                         Balance
                         <p-sortIcon field="balance" />
                         <p-columnFilter type="numeric" field="balance" display="menu" currency="USD" class="ml-auto" />
                     </div>
                 </th>
-                <th pSortableColumn="status" style="min-width: 10rem">
-                    <div class="flex justify-between items-center">
+                <th pSortableColumn="status" style="min-width: 14rem">
+                    <div class="flex justify-between items-center gap-2">
                         Status
                         <p-sortIcon field="status" />
                         <p-columnFilter field="status" matchMode="equals" display="menu" class="ml-auto">
@@ -469,8 +469,8 @@ export class CustomersDoc {
                         </p-columnFilter>
                     </div>
                 </th>
-                <th pSortableColumn="activity" style="min-width: 10rem">
-                    <div class="flex justify-between items-center">
+                <th pSortableColumn="activity" style="min-width: 14rem">
+                    <div class="flex justify-between items-center gap-2">
                         Activity
                         <p-sortIcon field="activity" />
                         <p-columnFilter field="activity" matchMode="between" display="menu" [showMatchModes]="false" [showOperator]="false" [showAddButton]="false" class="ml-auto">

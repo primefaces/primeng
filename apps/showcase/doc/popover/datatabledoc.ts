@@ -19,7 +19,7 @@ import { Popover } from 'primeng/popover';
                         <th class="w-1/6">Id</th>
                         <th class="w-1/6">Code</th>
                         <th class="w-1/6">Name</th>
-                        <th class="w-1/6" pSortableColumn="price">Price <p-sortIcon field="price" /></th>
+                        <th class="w-1/6">Price</th>
                         <th class="w-1/6">Image</th>
                         <th class="w-1/6">Details</th>
                     </tr>
@@ -106,7 +106,7 @@ export class DataTableDoc implements OnInit {
             <th class="w-1/6">Id</th>
             <th class="w-1/6">Code</th>
             <th class="w-1/6">Name</th>
-            <th class="w-1/6" pSortableColumn="price">Price <p-sortIcon field="price" /></th>
+            <th class="w-1/6">Price</th>
             <th class="w-1/6">Image</th>
             <th class="w-1/6">Details</th>
         </tr>
@@ -191,7 +191,7 @@ export class DataTableDoc implements OnInit {
                 <th class="w-1/6">Id</th>
                 <th class="w-1/6">Code</th>
                 <th class="w-1/6">Name</th>
-                <th class="w-1/6" pSortableColumn="price">Price <p-sortIcon field="price" /></th>
+                <th class="w-1/6">Price</th>
                 <th class="w-1/6">Image</th>
                 <th class="w-1/6">Details</th>
             </tr>

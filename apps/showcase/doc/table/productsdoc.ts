@@ -67,25 +67,35 @@ interface ExportColumn {
                             </th>
                             <th style="min-width: 16rem">Code</th>
                             <th pSortableColumn="name" style="min-width:16rem">
-                                Name
-                                <p-sortIcon field="name" />
+                                <div class="flex items-center gap-2">
+                                    Name
+                                    <p-sortIcon field="name" />
+                                </div>
                             </th>
                             <th>Image</th>
                             <th pSortableColumn="price" style="min-width: 8rem">
-                                Price
-                                <p-sortIcon field="price" />
+                                <div class="flex items-center gap-2">
+                                    Price
+                                    <p-sortIcon field="price" />
+                                </div>
                             </th>
                             <th pSortableColumn="category" style="min-width:10rem">
-                                Category
-                                <p-sortIcon field="category" />
+                                <div class="flex items-center gap-2">
+                                    Category
+                                    <p-sortIcon field="category" />
+                                </div>
                             </th>
                             <th pSortableColumn="rating" style="min-width: 12rem">
-                                Reviews
-                                <p-sortIcon field="rating" />
+                                <div class="flex items-center gap-2">
+                                    Reviews
+                                    <p-sortIcon field="rating" />
+                                </div>
                             </th>
                             <th pSortableColumn="inventoryStatus" style="min-width: 12rem">
-                                Status
-                                <p-sortIcon field="inventoryStatus" />
+                                <div class="flex items-center gap-2">
+                                    Status
+                                    <p-sortIcon field="inventoryStatus" />
+                                </div>
                             </th>
                             <th style="min-width: 12rem"></th>
                         </tr>
@@ -227,25 +237,35 @@ export class ProductsDoc {
             </th>
             <th style="min-width: 16rem">Code</th>
             <th pSortableColumn="name" style="min-width:16rem">
-                Name
-                <p-sortIcon field="name" />
+                <div class="flex items-center gap-2">
+                    Name
+                    <p-sortIcon field="name" />
+                </div>
             </th>
             <th>Image</th>
             <th pSortableColumn="price" style="min-width: 8rem">
-                Price
-                <p-sortIcon field="price" />
+                <div class="flex items-center gap-2">
+                    Price
+                    <p-sortIcon field="price" />
+                </div>
             </th>
             <th pSortableColumn="category" style="min-width:10rem">
-                Category
-                <p-sortIcon field="category" />
+                <div class="flex items-center gap-2">
+                    Category
+                    <p-sortIcon field="category" />
+                </div>
             </th>
             <th pSortableColumn="rating" style="min-width: 12rem">
-                Reviews
-                <p-sortIcon field="rating" />
+                <div class="flex items-center gap-2">
+                    Reviews
+                    <p-sortIcon field="rating" />
+                </div>
             </th>
             <th pSortableColumn="inventoryStatus" style="min-width: 12rem">
-                Status
-                <p-sortIcon field="inventoryStatus" />
+                <div class="flex items-center gap-2">
+                    Status
+                    <p-sortIcon field="inventoryStatus" />
+                </div>
             </th>
             <th style="min-width: 12rem"></th>
         </tr>
@@ -381,25 +401,35 @@ export class ProductsDoc {
                 </th>
                 <th style="min-width: 16rem">Code</th>
                 <th pSortableColumn="name" style="min-width:16rem">
-                    Name
-                    <p-sortIcon field="name" />
+                    <div class="flex items-center gap-2">
+                        Name
+                        <p-sortIcon field="name" />
+                    </div>
                 </th>
                 <th>Image</th>
                 <th pSortableColumn="price" style="min-width: 8rem">
-                    Price
-                    <p-sortIcon field="price" />
+                    <div class="flex items-center gap-2">
+                        Price
+                        <p-sortIcon field="price" />
+                    </div>
                 </th>
                 <th pSortableColumn="category" style="min-width:10rem">
-                    Category
-                    <p-sortIcon field="category" />
+                    <div class="flex items-center gap-2">
+                        Category
+                        <p-sortIcon field="category" />
+                    </div>
                 </th>
                 <th pSortableColumn="rating" style="min-width: 12rem">
-                    Reviews
-                    <p-sortIcon field="rating" />
+                    <div class="flex items-center gap-2">
+                        Reviews
+                        <p-sortIcon field="rating" />
+                    </div>
                 </th>
                 <th pSortableColumn="inventoryStatus" style="min-width: 12rem">
-                    Status
-                    <p-sortIcon field="inventoryStatus" />
+                    <div class="flex items-center gap-2">
+                        Status
+                        <p-sortIcon field="inventoryStatus" />
+                    </div>
                 </th>
                 <th style="min-width: 12rem"></th>
             </tr>
