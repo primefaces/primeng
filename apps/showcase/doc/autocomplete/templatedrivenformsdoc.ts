@@ -12,9 +12,9 @@ import { AutoCompleteCompleteEvent } from 'primeng/autocomplete';
         <div class="card flex justify-center">
             <form #exampleForm="ngForm" (ngSubmit)="onSubmit(exampleForm)" class="flex justify-center flex-col gap-4 md:w-56">
                 <div class="flex flex-col gap-1">
-                    <p-autocomplete #country="ngModel" [(ngModel)]="value" [suggestions]="items" [invalid]="country.invalid && (country.touched || exampleForm.submitted)" name="country" (completeMethod)="search($event)" required fluid />
-                    @if (country.invalid && (country.touched || exampleForm.submitted)) {
-                        <p-message severity="error" size="small" variant="simple">Country is required.</p-message>
+                    <p-autocomplete #val="ngModel" [(ngModel)]="value" [suggestions]="items" [invalid]="val.invalid && (val.touched || exampleForm.submitted)" name="val" (completeMethod)="search($event)" required fluid />
+                    @if (val.invalid && (val.touched || exampleForm.submitted)) {
+                        <p-message severity="error" size="small" variant="simple">Value is required.</p-message>
                     }
                 </div>
                 <button pButton severity="secondary" type="submit"><span pButtonLabel>Submit</span></button>
@@ -45,17 +45,17 @@ export class TemplateDrivenFormsDoc {
         basic: `<form #exampleForm="ngForm" (ngSubmit)="onSubmit(exampleForm)" class="flex justify-center flex-col gap-4 md:w-56">
     <div class="flex flex-col gap-1">
         <p-autocomplete
-            #country="ngModel"
+            #val="ngModel"
             [(ngModel)]="value"
             [suggestions]="items"
-            [invalid]="country.invalid && (country.touched || exampleForm.submitted)"
-            name="country"
+            [invalid]="val.invalid && (val.touched || exampleForm.submitted)"
+            name="val"
             (completeMethod)="search($event)"
             required
             fluid
         />
-        @if (country.invalid && (country.touched || exampleForm.submitted)) {
-            <p-message severity="error" size="small" variant="simple">Country is required.</p-message>
+        @if (val.invalid && (val.touched || exampleForm.submitted)) {
+            <p-message severity="error" size="small" variant="simple">Value is required.</p-message>
         }
     </div>
     <button pButton severity="secondary" type="submit"><span pButtonLabel>Submit</span></button>
@@ -66,17 +66,17 @@ export class TemplateDrivenFormsDoc {
     <form #exampleForm="ngForm" (ngSubmit)="onSubmit(exampleForm)" class="flex justify-center flex-col gap-4 w-full md:w-56">
         <div class="flex flex-col gap-1">
             <p-autocomplete
-                #country="ngModel"
+                #val="ngModel"
                 [(ngModel)]="value"
                 [suggestions]="items"
-                [invalid]="country.invalid && (country.touched || exampleForm.submitted)"
-                name="country"
+                [invalid]="val.invalid && (val.touched || exampleForm.submitted)"
+                name="val"
                 (completeMethod)="search($event)"
                 required
                 fluid
             />
-            @if (country.invalid && (country.touched || exampleForm.submitted)) {
-                <p-message severity="error" size="small" variant="simple">Country is required.</p-message>
+            @if (val.invalid && (val.touched || exampleForm.submitted)) {
+                <p-message severity="error" size="small" variant="simple">Value is required.</p-message>
             }
         </div>
         <button pButton severity="secondary" type="submit"><span pButtonLabel>Submit</span></button>

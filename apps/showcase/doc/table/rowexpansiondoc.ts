@@ -27,27 +27,12 @@ import { TableRowCollapseEvent, TableRowExpandEvent } from 'primeng/table';
                     <ng-template #header>
                         <tr>
                             <th style="width: 5rem"></th>
-                            <th pSortableColumn="name">
-                                Name
-                                <p-sortIcon field="name" />
-                            </th>
+                            <th>Name</th>
                             <th>Image</th>
-                            <th pSortableColumn="price">
-                                Price
-                                <p-sortIcon field="price" />
-                            </th>
-                            <th pSortableColumn="category">
-                                Category
-                                <p-sortIcon field="category" />
-                            </th>
-                            <th pSortableColumn="rating">
-                                Reviews
-                                <p-sortIcon field="rating" />
-                            </th>
-                            <th pSortableColumn="inventoryStatus">
-                                Status
-                                <p-sortIcon field="inventoryStatus" />
-                            </th>
+                            <th>Price</th>
+                            <th>Category</th>
+                            <th>Reviews</th>
+                            <th>Status</th>
                         </tr>
                     </ng-template>
                     <ng-template #body let-product let-expanded="expanded">
@@ -195,12 +180,12 @@ export class RowExpansionDoc {
     <ng-template #header>
         <tr>
             <th style="width: 5rem"></th>
-            <th pSortableColumn="name">Name <p-sortIcon field="name" /></th>
+            <th>Name</th>
             <th>Image</th>
-            <th pSortableColumn="price">Price <p-sortIcon field="price" /></th>
-            <th pSortableColumn="category">Category <p-sortIcon field="category" /></th>
-            <th pSortableColumn="rating">Reviews <p-sortIcon field="rating" /></th>
-            <th pSortableColumn="inventoryStatus">Status <p-sortIcon field="inventoryStatus" /></th>
+            <th>Price</th>
+            <th>Category</th>
+            <th>Reviews</th>
+            <th>Status</th>
         </tr>
     </ng-template>
     <ng-template #body let-product let-expanded="expanded">
@@ -269,12 +254,12 @@ export class RowExpansionDoc {
         <ng-template #header>
             <tr>
                 <th style="width: 5rem"></th>
-                <th pSortableColumn="name">Name <p-sortIcon field="name" /></th>
+                <th>Name</th>
                 <th>Image</th>
-                <th pSortableColumn="price">Price <p-sortIcon field="price" /></th>
-                <th pSortableColumn="category">Category <p-sortIcon field="category" /></th>
-                <th pSortableColumn="rating">Reviews <p-sortIcon field="rating" /></th>
-                <th pSortableColumn="inventoryStatus">Status <p-sortIcon field="inventoryStatus" /></th>
+                <th>Price</th>
+                <th>Category</th>
+                <th>Reviews</th>
+                <th>Status</th>
             </tr>
         </ng-template>
         <ng-template #body let-product let-expanded="expanded">

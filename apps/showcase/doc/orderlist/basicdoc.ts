@@ -12,7 +12,7 @@ import { ChangeDetectorRef, Component, OnInit } from '@angular/core';
         </app-docsectiontext>
         <div class="card sm:flex sm:justify-center">
             <p-orderlist [value]="products" dataKey="id" [responsive]="true" breakpoint="575px">
-                <ng-template #option let-option>
+                <ng-template #item let-option>
                     {{ option.name }}
                 </ng-template>
             </p-orderlist>
@@ -57,14 +57,14 @@ export class BasicDoc implements OnInit {
 
     code: Code = {
         basic: `<p-orderlist [value]="products" dataKey="id" [responsive]="true" breakpoint="575px">
-    <ng-template #option let-option>
+    <ng-template #item let-option>
         {{ option.name }}
     </ng-template>
 </p-orderlist>`,
 
         html: `<div class="card sm:flex sm:justify-center">
     <p-orderlist [value]="products" dataKey="id" [responsive]="true" breakpoint="575px">
-        <ng-template #option let-option>
+        <ng-template #item let-option>
             {{ option.name }}
         </ng-template>
     </p-orderlist>

@@ -74,7 +74,7 @@ export const INPUTMASK_VALUE_ACCESSOR: any = {
         <input
             #input
             pInputText
-            [class]="cx('root')"
+            [class]="cn(cx('root'), styleClass)"
             [attr.id]="inputId"
             [attr.type]="type"
             [attr.name]="name()"
@@ -104,6 +104,7 @@ export const INPUTMASK_VALUE_ACCESSOR: any = {
             (paste)="handleInputChange($event)"
             [attr.data-pc-name]="'inputmask'"
             [attr.data-pc-section]="'root'"
+            [fluid]="hasFluid"
         />
         <ng-container *ngIf="value != null && $filled() && showClear && !disabled()">
             <TimesIcon *ngIf="!clearIconTemplate && !_clearIconTemplate" [styleClass]="cx('clearIcon')" (click)="clear()" [attr.data-pc-section]="'clearIcon'" />
