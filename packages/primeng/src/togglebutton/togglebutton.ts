@@ -20,11 +20,11 @@ import {
 } from '@angular/core';
 import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
 import { PrimeTemplate, SharedModule } from 'primeng/api';
+import { BaseEditableHolder } from 'primeng/baseeditableholder';
 import { Ripple } from 'primeng/ripple';
 import { Nullable } from 'primeng/ts-helpers';
 import { ToggleButtonStyle } from './style/togglebuttonstyle';
 import { ToggleButtonChangeEvent } from './togglebutton.interface';
-import { BaseEditableHolder } from 'primeng/baseeditableholder';
 
 export const TOGGLEBUTTON_VALUE_ACCESSOR: any = {
     provide: NG_VALUE_ACCESSOR,
@@ -42,14 +42,9 @@ export const TOGGLEBUTTON_VALUE_ACCESSOR: any = {
     hostDirectives: [{ directive: Ripple }],
     host: {
         '[class]': "cn(cx('root'), styleClass)",
-        '[attr.tabindex]': 'tabindex',
-        '[attr.disabled]': 'disabled() ? "" : undefined',
         '[attr.aria-labelledby]': 'ariaLabelledBy',
         '[attr.aria-pressed]': 'checked',
-        '[attr.data-p-checked]': 'active',
-        '[attr.data-p-disabled]': 'disabled() ? "" : undefined',
-        '[attr.required]': 'required() ? "" : undefined',
-        '[attr.type]': '"button"'
+        '[attr.role]': '"button"'
     },
     template: `<span [class]="cx('content')">
         <ng-container *ngTemplateOutlet="contentTemplate || _contentTemplate; context: { $implicit: checked }"></ng-container>
