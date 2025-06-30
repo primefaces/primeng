@@ -25,7 +25,7 @@ import { ChangeDetectionStrategy, ChangeDetectorRef, Component } from '@angular/
                             <td [pEditableColumn]="product.code" pEditableColumnField="code">
                                 <p-cellEditor>
                                     <ng-template #input>
-                                        <input pInputText type="text" [(ngModel)]="product.code" />
+                                        <input pInputText type="text" [(ngModel)]="product.code" fluid />
                                     </ng-template>
                                     <ng-template #output>
                                         {{ product.code }}
@@ -35,7 +35,7 @@ import { ChangeDetectionStrategy, ChangeDetectorRef, Component } from '@angular/
                             <td [pEditableColumn]="product.name" pEditableColumnField="name">
                                 <p-cellEditor>
                                     <ng-template #input>
-                                        <input pInputText type="text" [(ngModel)]="product.name" required />
+                                        <input pInputText type="text" [(ngModel)]="product.name" required fluid />
                                     </ng-template>
                                     <ng-template #output>
                                         {{ product.name }}
@@ -45,7 +45,7 @@ import { ChangeDetectionStrategy, ChangeDetectorRef, Component } from '@angular/
                             <td [pEditableColumn]="product.quantity" pEditableColumnField="quantity">
                                 <p-cellEditor>
                                     <ng-template #input>
-                                        <input pInputText [(ngModel)]="product.quantity" />
+                                        <input pInputText [(ngModel)]="product.quantity" fluid />
                                     </ng-template>
                                     <ng-template #output>
                                         {{ product.quantity }}
@@ -55,7 +55,7 @@ import { ChangeDetectionStrategy, ChangeDetectorRef, Component } from '@angular/
                             <td [pEditableColumn]="product.price" pEditableColumnField="price">
                                 <p-cellEditor>
                                     <ng-template #input>
-                                        <input pInputText type="text" [(ngModel)]="product.price" />
+                                        <input pInputText type="text" [(ngModel)]="product.price" fluid />
                                     </ng-template>
                                     <ng-template #output>
                                         {{ product.price | currency: 'USD' }}
@@ -111,7 +111,8 @@ export class CellEditDoc {
                         <input
                             pInputText
                             type="text"
-                            [(ngModel)]="product.code" />
+                            [(ngModel)]="product.code" 
+                            fluid />
                     </ng-template>
                     <ng-template #output>
                         {{ product.code }}
@@ -125,7 +126,8 @@ export class CellEditDoc {
                             pInputText
                             type="text"
                             [(ngModel)]="product.name"
-                            required />
+                            required 
+                            fluid />
                     </ng-template>
                     <ng-template #output>
                         {{ product.name }}
@@ -137,7 +139,8 @@ export class CellEditDoc {
                     <ng-template #input>
                         <input
                             pInputText
-                            [(ngModel)]="product.quantity" />
+                            [(ngModel)]="product.quantity" 
+                            fluid />
                     </ng-template>
                     <ng-template #output>
                         {{ product.quantity }}
@@ -149,7 +152,8 @@ export class CellEditDoc {
                     <ng-template #input>
                         <input
                             pInputText type="text"
-                            [(ngModel)]="product.price" />
+                            [(ngModel)]="product.price" 
+                            fluid />
                     </ng-template>
                     <ng-template #output>
                         {{ product.price | currency: 'USD' }}
@@ -185,7 +189,8 @@ export class CellEditDoc {
                             <input
                                 pInputText
                                 type="text"
-                                [(ngModel)]="product.code" />
+                                [(ngModel)]="product.code" 
+                                fluid />
                         </ng-template>
                         <ng-template #output>
                             {{ product.code }}
@@ -199,7 +204,8 @@ export class CellEditDoc {
                                 pInputText
                                 type="text"
                                 [(ngModel)]="product.name"
-                                required />
+                                required 
+                                fluid />
                         </ng-template>
                         <ng-template #output>
                             {{ product.name }}
@@ -211,7 +217,8 @@ export class CellEditDoc {
                         <ng-template #input>
                             <input
                                 pInputText
-                                [(ngModel)]="product.quantity" />
+                                [(ngModel)]="product.quantity" 
+                                fluid />
                         </ng-template>
                         <ng-template #output>
                             {{ product.quantity }}
@@ -223,7 +230,8 @@ export class CellEditDoc {
                         <ng-template #input>
                             <input
                                 pInputText type="text"
-                                [(ngModel)]="product.price" />
+                                [(ngModel)]="product.price" 
+                                fluid />
                         </ng-template>
                         <ng-template #output>
                             {{ product.price | currency: 'USD' }}

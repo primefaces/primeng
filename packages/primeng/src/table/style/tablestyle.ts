@@ -122,6 +122,15 @@ const theme = css`
         align-items: center;
         gap: ${dt('datatable.header.cell.gap')};
     }
+
+    .p-datatable .p-editable-column.p-cell-editing {
+        padding: 0;
+    }
+
+    .p-datatable .p-editable-column.p-cell-editing p-celleditor {
+        display: block;
+        width: 100%;
+    }
 `;
 
 const classes = {
