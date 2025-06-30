@@ -45,6 +45,7 @@ import { ArrowDownIcon } from 'primeng/icons/arrowdown';
 import { ArrowUpIcon } from 'primeng/icons/arrowup';
 import { CheckIcon } from 'primeng/icons/check';
 import { FilterIcon } from 'primeng/icons/filter';
+import { FilterFillIcon } from 'primeng/icons/filterfill';
 import { FilterSlashIcon } from 'primeng/icons/filterslash';
 import { PlusIcon } from 'primeng/icons/plus';
 import { SortAltIcon } from 'primeng/icons/sortalt';
@@ -5270,16 +5271,13 @@ export class ReorderableRow implements AfterViewInit {
                 [buttonProps]="filterButtonProps?.filter"
             >
                 <ng-template #icon>
-                    <FilterIcon *ngIf="!filterIconTemplate && !_filterIconTemplate" />
-                    <span class="pi-filter-icon" *ngIf="filterIconTemplate || _filterIconTemplate">
-                        <ng-template *ngTemplateOutlet="filterIconTemplate || _filterIconTemplate; context: { hasFilter: hasFilter }"></ng-template>
-                    </span>
-                </ng-template>
-            </p-button>
-            <p-button *ngIf="showClearButton && display === 'row' && hasFilter" [styleClass]="cx('pcColumnfilterClearButton')" (onClick)="clearFilter()" [ariaLabel]="clearButtonLabel" [buttonProps]="filterButtonProps?.inline?.clear">
-                <ng-template #icon>
-                    <FilterSlashIcon *ngIf="!clearFilterIconTemplate && !_clearFilterIconTemplate" />
-                    <ng-template *ngTemplateOutlet="clearFilterIconTemplate || _clearFilterIconTemplate"></ng-template>
+                    <ng-container>
+                        <FilterIcon *ngIf="!filterIconTemplate && !_filterIconTemplate && !hasFilter" />
+                        <FilterFillIcon *ngIf="!filterIconTemplate && !_filterIconTemplate && hasFilter" />
+                        <span class="pi-filter-icon" *ngIf="filterIconTemplate || _filterIconTemplate">
+                            <ng-template *ngTemplateOutlet="filterIconTemplate || _filterIconTemplate; context: { hasFilter: hasFilter }"></ng-template>
+                        </span>
+                    </ng-container>
                 </ng-template>
             </p-button>
             <div
@@ -5447,7 +5445,7 @@ export class ColumnFilter extends BaseComponent implements AfterContentInit {
      * Decides whether to close popup on clear button click.
      * @group Props
      */
-    @Input({ transform: booleanAttribute }) hideOnClear: boolean = false;
+    @Input({ transform: booleanAttribute }) hideOnClear: boolean = true;
     /**
      * Filter placeholder.
      * @group Props
@@ -6275,6 +6273,7 @@ export class ColumnFilterFormElement implements OnInit {
         SortAmountDownIcon,
         CheckIcon,
         FilterIcon,
+        FilterFillIcon,
         FilterSlashIcon,
         PlusIcon,
         TrashIcon,

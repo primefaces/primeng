@@ -12,7 +12,7 @@ import { Table } from 'primeng/table';
         </app-docsectiontext>
         <p-deferred-demo (load)="loadDemoData()">
             <div class="card">
-                <p-table #dt1 [value]="customers" dataKey="id" [rows]="10" [rowsPerPageOptions]="[10, 25, 50]" [loading]="loading" [paginator]="true" [globalFilterFields]="['name', 'country.name', 'representative.name', 'status']">
+                <p-table #dt1 [value]="customers" dataKey="id" [rows]="10" [rowsPerPageOptions]="[10, 25, 50]" [loading]="loading" [paginator]="true" [globalFilterFields]="['name', 'country.name', 'representative.name', 'status']" showGridlines>
                     <ng-template #caption>
                         <div class="flex">
                             <p-button label="Clear" [outlined]="true" icon="pi pi-filter-slash" (click)="clear(dt1)" />
@@ -27,19 +27,19 @@ import { Table } from 'primeng/table';
                     <ng-template #header>
                         <tr>
                             <th style="min-width:15rem">
-                                <div class="flex items-center">
+                                <div class="flex items-center justify-between">
                                     Name
                                     <p-columnFilter type="text" field="name" display="menu" />
                                 </div>
                             </th>
                             <th style="min-width:15rem">
-                                <div class="flex items-center">
+                                <div class="flex items-center justify-between">
                                     Country
                                     <p-columnFilter type="text" field="country.name" display="menu" />
                                 </div>
                             </th>
                             <th style="min-width:15rem">
-                                <div class="flex items-center">
+                                <div class="flex items-center justify-between">
                                     Agent
                                     <p-columnFilter field="representative" matchMode="in" display="menu" [showMatchModes]="false" [showOperator]="false" [showAddButton]="false">
                                         <ng-template #filter let-value let-filter="filterCallback">
@@ -56,19 +56,19 @@ import { Table } from 'primeng/table';
                                 </div>
                             </th>
                             <th style="min-width:10rem">
-                                <div class="flex items-center">
+                                <div class="flex items-center justify-between">
                                     Date
                                     <p-columnFilter type="date" field="date" display="menu"></p-columnFilter>
                                 </div>
                             </th>
                             <th style="min-width:10rem">
-                                <div class="flex items-center">
+                                <div class="flex items-center justify-between">
                                     Balance
                                     <p-columnFilter type="numeric" field="balance" display="menu" currency="USD" />
                                 </div>
                             </th>
                             <th style="min-width:10rem">
-                                <div class="flex items-center">
+                                <div class="flex items-center justify-between">
                                     Status
                                     <p-columnFilter field="status" matchMode="equals" display="menu">
                                         <ng-template #filter let-value let-filter="filterCallback">
@@ -82,7 +82,7 @@ import { Table } from 'primeng/table';
                                 </div>
                             </th>
                             <th style="min-width:10rem">
-                                <div class="flex items-center">
+                                <div class="flex items-center justify-between">
                                     Activity
                                     <p-columnFilter field="activity" matchMode="between" display="menu" [showMatchModes]="false" [showOperator]="false" [showAddButton]="false">
                                         <ng-template #filter let-value let-filter="filterCallback">
@@ -96,7 +96,7 @@ import { Table } from 'primeng/table';
                                 </div>
                             </th>
                             <th style="width: 3rem">
-                                <div class="flex items-center">
+                                <div class="flex items-center justify-between">
                                     Verified
                                     <p-columnFilter type="boolean" field="verified" display="menu" />
                                 </div>
@@ -210,7 +210,7 @@ export class FilterAdvancedDoc {
     }
 
     code: Code = {
-        basic: `<p-table #dt1 [value]="customers" dataKey="id" [rows]="10" [rowsPerPageOptions]="[10, 25, 50]" [loading]="loading" [paginator]="true" [globalFilterFields]="['name', 'country.name', 'representative.name', 'status']">
+        basic: `<p-table #dt1 [value]="customers" dataKey="id" [rows]="10" [rowsPerPageOptions]="[10, 25, 50]" [loading]="loading" [paginator]="true" [globalFilterFields]="['name', 'country.name', 'representative.name', 'status']" showGridlines>
     <ng-template #caption>
         <div class="flex">
             <p-button label="Clear" [outlined]="true" icon="pi pi-filter-slash" (click)="clear(dt1)" />
@@ -225,19 +225,19 @@ export class FilterAdvancedDoc {
     <ng-template #header>
         <tr>
             <th style="min-width:15rem">
-                <div class="flex items-center">
+                <div class="flex items-center justify-between">
                     Name
                     <p-columnFilter type="text" field="name" display="menu" />
                 </div>
             </th>
             <th style="min-width:15rem">
-                <div class="flex items-center">
+                <div class="flex items-center justify-between">
                     Country
                     <p-columnFilter type="text" field="country.name" display="menu" />
                 </div>
             </th>
             <th style="min-width:15rem">
-                <div class="flex items-center">
+                <div class="flex items-center justify-between">
                     Agent
                     <p-columnFilter field="representative" matchMode="in" display="menu" [showMatchModes]="false" [showOperator]="false" [showAddButton]="false">
                         <ng-template #filter let-value let-filter="filterCallback">
@@ -254,19 +254,19 @@ export class FilterAdvancedDoc {
                 </div>
             </th>
             <th style="min-width:10rem">
-                <div class="flex items-center">
+                <div class="flex items-center justify-between">
                     Date
                     <p-columnFilter type="date" field="date" display="menu"></p-columnFilter>
                 </div>
             </th>
             <th style="min-width:10rem">
-                <div class="flex items-center">
+                <div class="flex items-center justify-between">
                     Balance
                     <p-columnFilter type="numeric" field="balance" display="menu" currency="USD" />
                 </div>
             </th>
             <th style="min-width:10rem">
-                <div class="flex items-center">
+                <div class="flex items-center justify-between">
                     Status
                     <p-columnFilter field="status" matchMode="equals" display="menu">
                         <ng-template #filter let-value let-filter="filterCallback">
@@ -280,7 +280,7 @@ export class FilterAdvancedDoc {
                 </div>
             </th>
             <th style="min-width:10rem">
-                <div class="flex items-center">
+                <div class="flex items-center justify-between">
                     Activity
                     <p-columnFilter field="activity" matchMode="between" display="menu" [showMatchModes]="false" [showOperator]="false" [showAddButton]="false">
                         <ng-template #filter let-value let-filter="filterCallback">
@@ -294,7 +294,7 @@ export class FilterAdvancedDoc {
                 </div>
             </th>
             <th style="width: 3rem">
-                <div class="flex items-center">
+                <div class="flex items-center justify-between">
                     Verified
                     <p-columnFilter type="boolean" field="verified" display="menu" />
                 </div>
@@ -348,7 +348,7 @@ export class FilterAdvancedDoc {
     </ng-template>
 </p-table>`,
         html: `<div class="card">
-     <p-table #dt1 [value]="customers" dataKey="id" [rows]="10" [rowsPerPageOptions]="[10, 25, 50]" [loading]="loading" [paginator]="true" [globalFilterFields]="['name', 'country.name', 'representative.name', 'status']">
+     <p-table #dt1 [value]="customers" dataKey="id" [rows]="10" [rowsPerPageOptions]="[10, 25, 50]" [loading]="loading" [paginator]="true" [globalFilterFields]="['name', 'country.name', 'representative.name', 'status']" showGridlines>
         <ng-template #caption>
             <div class="flex">
                 <p-button label="Clear" [outlined]="true" icon="pi pi-filter-slash" (click)="clear(dt1)" />
@@ -363,19 +363,19 @@ export class FilterAdvancedDoc {
         <ng-template #header>
             <tr>
                 <th style="min-width:15rem">
-                    <div class="flex items-center">
+                    <div class="flex items-center justify-between">
                         Name
                         <p-columnFilter type="text" field="name" display="menu" />
                     </div>
                 </th>
                 <th style="min-width:15rem">
-                    <div class="flex items-center">
+                    <div class="flex items-center justify-between">
                         Country
                         <p-columnFilter type="text" field="country.name" display="menu" />
                     </div>
                 </th>
                 <th style="min-width:15rem">
-                    <div class="flex items-center">
+                    <div class="flex items-center justify-between">
                         Agent
                         <p-columnFilter field="representative" matchMode="in" display="menu" [showMatchModes]="false" [showOperator]="false" [showAddButton]="false">
                             <ng-template #filter let-value let-filter="filterCallback">
@@ -392,19 +392,19 @@ export class FilterAdvancedDoc {
                     </div>
                 </th>
                 <th style="min-width:10rem">
-                    <div class="flex items-center">
+                    <div class="flex items-center justify-between">
                         Date
                         <p-columnFilter type="date" field="date" display="menu"></p-columnFilter>
                     </div>
                 </th>
                 <th style="min-width:10rem">
-                    <div class="flex items-center">
+                    <div class="flex items-center justify-between">
                         Balance
                         <p-columnFilter type="numeric" field="balance" display="menu" currency="USD" />
                     </div>
                 </th>
                 <th style="min-width:10rem">
-                    <div class="flex items-center">
+                    <div class="flex items-center justify-between">
                         Status
                         <p-columnFilter field="status" matchMode="equals" display="menu">
                             <ng-template #filter let-value let-filter="filterCallback">
@@ -418,7 +418,7 @@ export class FilterAdvancedDoc {
                     </div>
                 </th>
                 <th style="min-width:10rem">
-                    <div class="flex items-center">
+                    <div class="flex items-center justify-between">
                         Activity
                         <p-columnFilter field="activity" matchMode="between" display="menu" [showMatchModes]="false" [showOperator]="false" [showAddButton]="false">
                             <ng-template #filter let-value let-filter="filterCallback">
@@ -432,7 +432,7 @@ export class FilterAdvancedDoc {
                     </div>
                 </th>
                 <th style="width: 3rem">
-                    <div class="flex items-center">
+                    <div class="flex items-center justify-between">
                         Verified
                         <p-columnFilter type="boolean" field="verified" display="menu" />
                     </div>

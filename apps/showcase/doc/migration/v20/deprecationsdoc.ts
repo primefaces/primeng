@@ -139,6 +139,13 @@ import { TagModule } from 'primeng/tag';
                             <td>None</td>
                             <td><p-tag value="deprecated" severity="warn" /></td>
                         </tr>
+                        <tr>
+                            <td>clearFilterIcon template of Table</td>
+                            <td>20</td>
+                            <td>Obsolete, not utilized.</td>
+                            <td>None</td>
+                            <td><p-tag value="deprecated" severity="warn" /></td>
+                        </tr>
                     </tbody>
                 </table>
             </div>
