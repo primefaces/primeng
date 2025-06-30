@@ -965,7 +965,7 @@ export class Select extends BaseInput implements OnInit, AfterViewInit, AfterCon
             const modelValue = this.modelValue();
             const visibleOptions = this.visibleOptions();
 
-            if (visibleOptions && isNotEmpty(visibleOptions)) {
+            if (visibleOptions && isNotEmpty(visibleOptions) && !this.filterValue) {
                 const selectedOptionIndex = this.findSelectedOptionIndex();
 
                 if (selectedOptionIndex !== -1 || modelValue === undefined || (typeof modelValue === 'string' && modelValue.length === 0) || this.isModelValueNotSet() || this.editable) {
@@ -1126,6 +1126,7 @@ export class Select extends BaseInput implements OnInit, AfterViewInit, AfterCon
             this.updateModel(value, event);
             this.focusedOptionIndex.set(this.findSelectedOptionIndex());
             preventChange === false && this.onChange.emit({ originalEvent: event, value: value });
+            this._filterValue.set(null);
         }
         if (isHide) {
             this.hide(true);
