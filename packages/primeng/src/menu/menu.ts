@@ -64,7 +64,7 @@ export class SafeHtmlPipe implements PipeTransform {
     selector: '[pMenuItemContent]',
     standalone: true,
     imports: [CommonModule, RouterModule, Ripple, TooltipModule, BadgeModule, SharedModule, SafeHtmlPipe],
-    template: `
+    template: ` <div [class]="cx('itemContent')" (click)="onItemClick($event, item)" [attr.data-pc-section]="'content'">
         <ng-container *ngIf="!itemTemplate">
             <a
                 *ngIf="!item?.routerLink"
@@ -113,12 +113,7 @@ export class SafeHtmlPipe implements PipeTransform {
             <ng-template #htmlLabel><span class="p-menu-item-label" [innerHTML]="item.label | safeHtml"></span></ng-template>
             <p-badge *ngIf="item.badge" [styleClass]="item.badgeStyleClass" [value]="item.badge" />
         </ng-template>
-    `,
-    host: {
-        'data-pc-section': 'content',
-        '[class]': "cx('itemContent')",
-        '(click)': 'onItemClick($event, item)'
-    },
+    </div>`,
     encapsulation: ViewEncapsulation.None,
     providers: [MenuStyle]
 })
