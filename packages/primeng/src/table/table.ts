@@ -4077,7 +4077,7 @@ export class SelectableRowDblClick implements OnInit, OnDestroy {
     selector: '[pContextMenuRow]',
     standalone: false,
     host: {
-        '[class.p-highlight-contextmenu]': 'selected',
+        '[class.p-datatable-contextmenu-row-selected]': 'selected',
         '[attr.tabindex]': 'isEnabled() ? 0 : undefined'
     }
 })
