@@ -35,6 +35,7 @@ import {
 } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { BlockableUI, FilterMatchMode, FilterMetadata, FilterOperator, FilterService, LazyLoadMeta, OverlayService, PrimeTemplate, ScrollerOptions, SelectItem, SharedModule, SortMeta, TableState, TranslationKeys } from 'primeng/api';
+import { BadgeModule } from 'primeng/badge';
 import { BaseComponent } from 'primeng/basecomponent';
 import { Button, ButtonModule } from 'primeng/button';
 import { CheckboxChangeEvent, CheckboxModule } from 'primeng/checkbox';
@@ -3676,7 +3677,7 @@ export class SortableColumn extends BaseComponent implements OnInit, OnDestroy {
         <span *ngIf="dt.sortIconTemplate || dt._sortIconTemplate" [class]="cx('sortableColumnIcon')">
             <ng-template *ngTemplateOutlet="dt.sortIconTemplate || dt._sortIconTemplate; context: { $implicit: sortOrder }"></ng-template>
         </span>
-        <span *ngIf="isMultiSorted()" [class]="cx('sortableColumnBadge')">{{ getBadgeValue() }}</span>
+        <p-badge *ngIf="isMultiSorted()" [class]="cx('sortableColumnBadge')" [value]="getBadgeValue()" size="small"></p-badge>
     `,
     changeDetection: ChangeDetectionStrategy.OnPush,
     encapsulation: ViewEncapsulation.None,
@@ -6263,6 +6264,7 @@ export class ColumnFilterFormElement implements OnInit {
         SelectButtonModule,
         DatePickerModule,
         InputNumberModule,
+        BadgeModule,
         CheckboxModule,
         ScrollerModule,
         ArrowDownIcon,

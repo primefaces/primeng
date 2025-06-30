@@ -116,6 +116,12 @@ const theme = css`
         background: ${dt('datatable.row.selected.background')};
         color: ${dt('datatable.row.selected.color')};
     }
+
+    p-sortIcon {
+        display: inline-flex;
+        align-items: center;
+        gap: ${dt('datatable.header.cell.gap')};
+    }
 `;
 
 const classes = {
