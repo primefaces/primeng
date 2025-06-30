@@ -148,9 +148,9 @@ export const DATEPICKER_VALUE_ACCESSOR: any = {
                     <div [class]="cx('calendar')" *ngFor="let month of months; let i = index">
                         <div [class]="cx('header')">
                             <p-button
-                                size="small"
                                 rounded
-                                text
+                                variant="text"
+                                severity="secondary"
                                 (keydown)="onContainerButtonKeydown($event)"
                                 [styleClass]="cx('pcPrevButton')"
                                 (onClick)="onPrevButtonClick($event)"
@@ -158,7 +158,9 @@ export const DATEPICKER_VALUE_ACCESSOR: any = {
                                 type="button"
                                 [ariaLabel]="prevIconAriaLabel"
                             >
-                                <ChevronLeftIcon *ngIf="!previousIconTemplate && !_previousIconTemplate" />
+                                <ng-template #icon>
+                                    <ChevronLeftIcon *ngIf="!previousIconTemplate && !_previousIconTemplate" />
+                                </ng-template>
                                 <span *ngIf="previousIconTemplate || _previousIconTemplate">
                                     <ng-template *ngTemplateOutlet="previousIconTemplate || _previousIconTemplate"></ng-template>
                                 </span>
@@ -195,15 +197,17 @@ export const DATEPICKER_VALUE_ACCESSOR: any = {
                             </div>
                             <p-button
                                 rounded
-                                text
-                                size="small"
+                                variant="text"
+                                severity="secondary"
                                 (keydown)="onContainerButtonKeydown($event)"
                                 [styleClass]="cx('pcNextButton')"
                                 (onClick)="onNextButtonClick($event)"
                                 [ngStyle]="{ visibility: i === months.length - 1 ? 'visible' : 'hidden' }"
                                 [ariaLabel]="nextIconAriaLabel"
                             >
-                                <ChevronRightIcon *ngIf="!nextIconTemplate && !_nextIconTemplate" />
+                                <ng-template #icon>
+                                    <ChevronRightIcon *ngIf="!nextIconTemplate && !_nextIconTemplate" />
+                                </ng-template>
 
                                 <span *ngIf="nextIconTemplate || _nextIconTemplate">
                                     <ng-template *ngTemplateOutlet="nextIconTemplate || _nextIconTemplate"></ng-template>
@@ -413,8 +417,28 @@ export const DATEPICKER_VALUE_ACCESSOR: any = {
                 </div>
             </div>
             <div [class]="cx('buttonbar')" *ngIf="showButtonBar">
-                <p-button size="small" [styleClass]="cx('pcTodayButton')" [label]="getTranslation('today')" (keydown)="onContainerButtonKeydown($event)" (onClick)="onTodayButtonClick($event)" [ngClass]="todayButtonStyleClass" />
-                <p-button size="small" [styleClass]="cx('pcClearButton')" [label]="getTranslation('clear')" (keydown)="onContainerButtonKeydown($event)" (onClick)="onClearButtonClick($event)" [ngClass]="clearButtonStyleClass" />
+                <p-button
+                    size="small"
+                    [styleClass]="cx('pcTodayButton')"
+                    [label]="getTranslation('today')"
+                    (keydown)="onContainerButtonKeydown($event)"
+                    (onClick)="onTodayButtonClick($event)"
+                    [ngClass]="todayButtonStyleClass"
+                    severity="secondary"
+                    variant="text"
+                    size="small"
+                />
+                <p-button
+                    size="small"
+                    [styleClass]="cx('pcClearButton')"
+                    [label]="getTranslation('clear')"
+                    (keydown)="onContainerButtonKeydown($event)"
+                    (onClick)="onClearButtonClick($event)"
+                    [ngClass]="clearButtonStyleClass"
+                    severity="secondary"
+                    variant="text"
+                    size="small"
+                />
             </div>
             <ng-content select="p-footer"></ng-content>
             <ng-container *ngTemplateOutlet="footerTemplate || _footerTemplate"></ng-container>
