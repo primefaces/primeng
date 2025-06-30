@@ -370,32 +370,76 @@ const theme = ({ dt }) => `
     color: ${dt('treetable.row.hover.color')};
 }
 
-.p-treetable.p-treetable-gridlines .p-datatable-header {
+.p-treetable-gridlines .p-treetable-header {
     border-width: 1px 1px 0 1px;
 }
 
-.p-treetable.p-treetable-gridlines .p-treetable-footer {
+.p-treetable-gridlines .p-treetable-footer {
     border-width: 0 1px 1px 1px;
 }
 
-.p-treetable.p-treetable-gridlines .p-treetable-top {
+.p-treetable-gridlines .p-treetable-paginator-top {
+    border-width: 1px 1px 0 1px;
+}
+
+.p-treetable-gridlines .p-treetable-paginator-bottom {
+    border-width: 0 1px 1px 1px;
+}
+
+.p-treetable-gridlines .p-treetable-thead > tr > th {
+    border-width: 1px 0 1px 1px;
+}
+
+.p-treetable-gridlines .p-treetable-thead > tr > th:last-child {
+    border-width: 1px;
+}
+
+.p-treetable-gridlines .p-treetable-tbody > tr > td {
+    border-width: 1px 0 0 1px;
+}
+
+.p-treetable-gridlines .p-treetable-tbody > tr > td:last-child {
+    border-width: 1px 1px 0 1px;
+}
+
+.p-treetable-gridlines .p-treetable-tbody > tr:last-child > td {
+    border-width: 1px 0 1px 1px;
+}
+
+.p-treetable-gridlines .p-treetable-tbody > tr:last-child > td:last-child {
+    border-width: 1px;
+}
+
+.p-treetable-gridlines .p-treetable-tfoot > tr > td {
+    border-width: 1px 0 1px 1px;
+}
+
+.p-treetable-gridlines .p-treetable-tfoot > tr > td:last-child {
+    border-width: 1px 1px 1px 1px;
+}
+
+.p-treetable.p-treetable-gridlines .p-treetable-thead + .p-treetable-tfoot > tr > td {
+    border-width: 0 0 1px 1px;
+}
+
+.p-treetable.p-treetable-gridlines .p-treetable-thead + .p-treetable-tfoot > tr > td:last-child {
+    border-width: 0 1px 1px 1px;
+}
+
+.p-treetable.p-treetable-gridlines:has(.p-treetable-thead):has(.p-treetable-tbody) .p-treetable-tbody > tr > td {
+    border-width: 0 0 1px 1px;
+}
+
+.p-treetable.p-treetable-gridlines:has(.p-treetable-thead):has(.p-treetable-tbody) .p-treetable-tbody > tr > td:last-child {
+    border-width: 0 1px 1px 1px;
+}
+
+.p-treetable.p-treetable-gridlines:has(.p-treetable-tbody):has(.p-treetable-tfoot) .p-treetable-tbody > tr:last-child > td {
+    border-width: 0 0 0 1px;
+}
+
+.p-treetable.p-treetable-gridlines:has(.p-treetable-tbody):has(.p-treetable-tfoot) .p-treetable-tbody > tr:last-child > td:last-child {
     border-width: 0 1px 0 1px;
-}
-
-.p-treetable.p-treetable-gridlines .p-treetable-bottom {
-    border-width: 0 1px 1px 1px;
-}
-
-.p-treetable.p-treetable-gridlines .p-treetable-thead>tr>th {
-    border-width: 1px;
-}
-
-.p-treetable.p-treetable-gridlines .p-treetable-tbody>tr>td {
-    border-width: 1px;
-}
-
-.p-treetable.p-treetable-gridlines .p-treetable-tfoot>tr>td {
-    border-width: 1px;
 }
 
 .p-treetable.p-treetable-sm .p-treetable-header {
