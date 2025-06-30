@@ -24,6 +24,14 @@ const theme = ({ dt }) => `
     vertical-align: middle;
 }
 
+.p-treetable-sort-icon {
+    color: dt('treetable.sort.icon.color');
+    font-size: dt('treetable.sort.icon.size');
+    width: dt('treetable.sort.icon.size');
+    height: dt('treetable.sort.icon.size');
+    transition: color dt('treetable.transition.duration');
+}
+
 .p-treetable .p-sortable-column .p-sortable-column-badge {
     display: inline-flex;
     align-items: center;
@@ -493,6 +501,12 @@ p-treetable-toggler + p-treetable-checkbox + span,
 p-tree-table-toggler + p-tree-table-checkbox + span {
     vertical-align: middle;
 }
+
+p-treetable-sort-icon {
+    display: inline-flex;
+    align-items: center;
+    gap: ${dt('treetable.header.cell.gap')};
+}
 `;
 
 const classes = {
@@ -524,7 +538,8 @@ const classes = {
         'p-sortable-column': instance.isEnabled(),
         'p-treetable-column-sorted': instance.sorted
     }),
-    sortableColumnIcon: 'p-sortable-column-icon',
+    sortableColumnIcon: 'p-treetable-sort-icon',
+    sortableColumnBadge: 'p-sortable-column-badge',
     columnResizer: 'p-treetable-column-resizer',
     columnHeaderContent: 'p-treetable-column-header-content',
     columnTitle: 'p-treetable-column-title',

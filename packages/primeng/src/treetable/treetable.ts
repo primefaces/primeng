@@ -55,6 +55,7 @@ import {
     resolveFieldData
 } from '@primeuix/utils';
 import { BlockableUI, FilterMetadata, FilterService, PrimeTemplate, ScrollerOptions, SharedModule, SortMeta, TreeNode, TreeTableNode } from 'primeng/api';
+import { BadgeModule } from 'primeng/badge';
 import { BaseComponent } from 'primeng/basecomponent';
 import { Checkbox } from 'primeng/checkbox';
 import { DomHandler } from 'primeng/dom';
@@ -2767,7 +2768,8 @@ export class TTSortableColumn extends BaseComponent implements OnInit, OnDestroy
         </ng-container>
         <span *ngIf="tt.sortIconTemplate || tt._sortIconTemplate" [class]="cx('sortableColumnIcon')">
             <ng-template *ngTemplateOutlet="tt.sortIconTemplate || tt._sortIconTemplate; context: { $implicit: sortOrder }"></ng-template>
-        </span>`,
+        </span>
+        <p-badge *ngIf="isMultiSorted()" [class]="cx('sortableColumnBadge')" [value]="getBadgeValue()" size="small"></p-badge>`,
     encapsulation: ViewEncapsulation.None,
     changeDetection: ChangeDetectionStrategy.OnPush,
     providers: [TreeTableStyle]
@@ -2805,6 +2807,23 @@ export class TTSortIcon extends BaseComponent implements OnInit, OnDestroy {
         event.preventDefault();
     }
 
+    getMultiSortMetaIndex() {
+        let multiSortMeta = this.tt._multiSortMeta;
+        let index = -1;
+
+        if (multiSortMeta && this.tt.sortMode === 'multiple' && multiSortMeta.length > 1) {
+            for (let i = 0; i < multiSortMeta.length; i++) {
+                let meta = multiSortMeta[i];
+                if (meta.field === this.field || meta.field === this.field) {
+                    index = i;
+                    break;
+                }
+            }
+        }
+
+        return index;
+    }
+
     updateSortState() {
         if (this.tt.sortMode === 'single') {
             this.sortOrder = this.tt.isSorted(<string>this.field) ? this.tt.sortOrder : 0;
@@ -2812,6 +2831,14 @@ export class TTSortIcon extends BaseComponent implements OnInit, OnDestroy {
             let sortMeta = this.tt.getSortMeta(<string>this.field);
             this.sortOrder = sortMeta ? sortMeta.order : 0;
         }
+    }
+
+    getBadgeValue() {
+        return this.getMultiSortMetaIndex() + 1;
+    }
+
+    isMultiSorted() {
+        return this.tt.sortMode === 'multiple' && this.getMultiSortMetaIndex() > -1;
     }
 
     ngOnDestroy() {
@@ -3912,6 +3939,7 @@ export class TreeTableToggler extends BaseComponent {
         SortAltIcon,
         SortAmountUpAltIcon,
         SortAmountDownIcon,
+        BadgeModule,
         CheckIcon,
         MinusIcon,
         ChevronDownIcon,

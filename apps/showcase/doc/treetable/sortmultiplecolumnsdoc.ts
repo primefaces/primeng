@@ -21,8 +21,10 @@ interface Column {
                     <ng-template #header let-columns>
                         <tr>
                             <th *ngFor="let col of columns" [ttSortableColumn]="col.field">
-                                {{ col.header }}
-                                <p-treetable-sort-icon [field]="col.field" />
+                                <div class="flex items-center gap-2">
+                                    {{ col.header }}
+                                    <p-treetable-sort-icon [field]="col.field" />
+                                </div>
                             </th>
                         </tr>
                     </ng-template>
@@ -63,8 +65,10 @@ export class SortMultipleColumnsDoc {
     <ng-template #header let-columns>
         <tr>
             <th *ngFor="let col of columns" [ttSortableColumn]="col.field">
-                {{ col.header }}
-                <p-treetable-sort-icon [field]="col.field" />
+                <div class="flex items-center gap-2">
+                    {{ col.header }}
+                    <p-treetable-sort-icon [field]="col.field" />
+                </div>
             </th>
         </tr>
     </ng-template>
@@ -83,8 +87,10 @@ export class SortMultipleColumnsDoc {
         <ng-template #header let-columns>
             <tr>
                 <th *ngFor="let col of columns" [ttSortableColumn]="col.field">
-                    {{ col.header }}
-                    <p-treetable-sort-icon [field]="col.field" />
+                    <div class="flex items-center gap-2">
+                        {{ col.header }}
+                        <p-treetable-sort-icon [field]="col.field" />
+                    </div>
                 </th>
             </tr>
         </ng-template>
