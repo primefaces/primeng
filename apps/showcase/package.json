@@ -11,8 +11,7 @@
         "lint": "ng lint",
         "build": "ng build",
         "build:apidoc": "node scripts/build-apidoc.mjs",
-        "build:themedoc": "node ./scripts/build-themedoc.mjs",
-        "build:docs": "npm run build:apidoc && npm run build:themedoc"
+        "build:docs": "npm run build:apidoc"
     },
     "repository": {
         "type": "git",

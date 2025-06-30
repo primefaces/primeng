@@ -27,7 +27,7 @@
                             "optional": false,
                             "readonly": false,
                             "type": "InputSignal<any>",
-                            "default": "...",
+                            "default": "'self'",
                             "description": "Target element to attach the overlay, valid values are \"body\" or a local ng-template variable of another element (note: use binding with brackets for template variables, e.g. [appendTo]=\"mydiv\" for a div element having #mydiv as variable name)."
                         }
                     ]
@@ -43,7 +43,7 @@
                             "optional": false,
                             "readonly": false,
                             "type": "InputSignal<any>",
-                            "default": "...",
+                            "default": "'self'",
                             "description": "Target element to attach the overlay, valid values are \"body\" or a local ng-template variable of another element (note: use binding with brackets for template variables, e.g. [appendTo]=\"mydiv\" for a div element having #mydiv as variable name)."
                         }
                     ]
@@ -124,7 +124,7 @@
                             "optional": false,
                             "readonly": false,
                             "type": "InputSignal<any>",
-                            "default": "...",
+                            "default": "'self'",
                             "description": "Target element to attach the overlay, valid values are \"body\" or a local ng-template variable of another element (note: use binding with brackets for template variables, e.g. [appendTo]=\"mydiv\" for a div element having #mydiv as variable name)."
                         }
                     ]
@@ -289,6 +289,7 @@
                             "optional": false,
                             "readonly": false,
                             "type": "number",
+                            "default": "0.5",
                             "description": "Specifies the threshold option of the IntersectionObserver API"
                         },
                         {
@@ -296,7 +297,7 @@
                             "optional": false,
                             "readonly": false,
                             "type": "boolean",
-                            "default": "true",
+                            "default": "false",
                             "description": "Whether the scroll event listener should be removed after initial run."
                         },
                         {
@@ -304,7 +305,7 @@
                             "optional": false,
                             "readonly": false,
                             "type": "InputSignal<any>",
-                            "default": "...",
+                            "default": "'self'",
                             "description": "Target element to attach the overlay, valid values are \"body\" or a local ng-template variable of another element (note: use binding with brackets for template variables, e.g. [appendTo]=\"mydiv\" for a div element having #mydiv as variable name)."
                         }
                     ]
@@ -3927,7 +3928,7 @@
                             "optional": false,
                             "readonly": false,
                             "type": "InputSignal<any>",
-                            "default": "...",
+                            "default": "'self'",
                             "description": "Target element to attach the overlay, valid values are \"body\" or a local ng-template variable of another element (note: use binding with brackets for template variables, e.g. [appendTo]=\"mydiv\" for a div element having #mydiv as variable name)."
                         },
                         {
@@ -3935,7 +3936,7 @@
                             "optional": false,
                             "readonly": false,
                             "type": "InputSignalWithTransform<boolean, unknown>",
-                            "default": "...",
+                            "default": "false",
                             "description": "There must be a value (if set)."
                         },
                         {
@@ -3943,7 +3944,7 @@
                             "optional": false,
                             "readonly": false,
                             "type": "InputSignalWithTransform<boolean, unknown>",
-                            "default": "undefined",
+                            "default": "false",
                             "description": "When present, it specifies that the component should have invalid state style."
                         },
                         {
@@ -3951,7 +3952,7 @@
                             "optional": false,
                             "readonly": false,
                             "type": "InputSignalWithTransform<boolean, unknown>",
-                            "default": "undefined",
+                            "default": "false",
                             "description": "When present, it specifies that the component should have disabled state style."
                         },
                         {
@@ -3967,7 +3968,7 @@
                             "optional": false,
                             "readonly": false,
                             "type": "InputSignalWithTransform<boolean, unknown>",
-                            "default": "undefined",
+                            "default": "false",
                             "description": "Spans 100% width of the container when enabled."
                         },
                         {
@@ -3975,7 +3976,7 @@
                             "optional": false,
                             "readonly": false,
                             "type": "InputSignal<\"outlined\" | \"filled\">",
-                            "default": "undefined",
+                            "default": "'outlined'",
                             "description": "Specifies the input variant of the component."
                         },
                         {
@@ -3991,7 +3992,7 @@
                             "optional": false,
                             "readonly": false,
                             "type": "InputSignal<number>",
-                            "default": "20",
+                            "default": "undefined",
                             "description": "Specifies the visible width of the input element in characters."
                         },
                         {
@@ -4007,7 +4008,7 @@
                             "optional": false,
                             "readonly": false,
                             "type": "InputSignal<number>",
-                            "default": "0",
+                            "default": "undefined",
                             "description": "The value must be greater than or equal to the value."
                         },
                         {
@@ -4023,7 +4024,7 @@
                             "optional": false,
                             "readonly": false,
                             "type": "InputSignal<number>",
-                            "default": "1",
+                            "default": "undefined",
                             "description": "Unless the step is set to the any literal, the value must be min + an integral multiple of the step."
                         },
                         {
@@ -4528,7 +4529,7 @@
                             "optional": false,
                             "readonly": false,
                             "type": "InputSignal<any>",
-                            "default": "...",
+                            "default": "'self'",
                             "description": "Target element to attach the overlay, valid values are \"body\" or a local ng-template variable of another element (note: use binding with brackets for template variables, e.g. [appendTo]=\"mydiv\" for a div element having #mydiv as variable name)."
                         }
                     ]
@@ -4607,7 +4608,7 @@
                             "optional": false,
                             "readonly": false,
                             "type": "InputSignal<any>",
-                            "default": "...",
+                            "default": "'self'",
                             "description": "Target element to attach the overlay, valid values are \"body\" or a local ng-template variable of another element (note: use binding with brackets for template variables, e.g. [appendTo]=\"mydiv\" for a div element having #mydiv as variable name)."
                         }
                     ]
@@ -4675,7 +4676,7 @@
                             "optional": false,
                             "readonly": false,
                             "type": "InputSignal<any>",
-                            "default": "...",
+                            "default": "'self'",
                             "description": "Target element to attach the overlay, valid values are \"body\" or a local ng-template variable of another element (note: use binding with brackets for template variables, e.g. [appendTo]=\"mydiv\" for a div element having #mydiv as variable name)."
                         }
                     ]
@@ -4756,7 +4757,7 @@
                             "optional": false,
                             "readonly": false,
                             "type": "InputSignal<any>",
-                            "default": "...",
+                            "default": "'self'",
                             "description": "Target element to attach the overlay, valid values are \"body\" or a local ng-template variable of another element (note: use binding with brackets for template variables, e.g. [appendTo]=\"mydiv\" for a div element having #mydiv as variable name)."
                         }
                     ]
@@ -4821,7 +4822,7 @@
                             "optional": false,
                             "readonly": false,
                             "type": "InputSignal<any>",
-                            "default": "...",
+                            "default": "'self'",
                             "description": "Target element to attach the overlay, valid values are \"body\" or a local ng-template variable of another element (note: use binding with brackets for template variables, e.g. [appendTo]=\"mydiv\" for a div element having #mydiv as variable name)."
                         }
                     ]
@@ -4870,7 +4871,7 @@
                             "optional": false,
                             "readonly": false,
                             "type": "InputSignal<any>",
-                            "default": "...",
+                            "default": "'self'",
                             "description": "Target element to attach the overlay, valid values are \"body\" or a local ng-template variable of another element (note: use binding with brackets for template variables, e.g. [appendTo]=\"mydiv\" for a div element having #mydiv as variable name)."
                         },
                         {
@@ -4964,7 +4965,7 @@
                             "optional": false,
                             "readonly": false,
                             "type": "InputSignal<any>",
-                            "default": "...",
+                            "default": "'self'",
                             "description": "Target element to attach the overlay, valid values are \"body\" or a local ng-template variable of another element (note: use binding with brackets for template variables, e.g. [appendTo]=\"mydiv\" for a div element having #mydiv as variable name)."
                         },
                         {
@@ -5140,7 +5141,7 @@
                             "optional": false,
                             "readonly": false,
                             "type": "InputSignal<any>",
-                            "default": "...",
+                            "default": "'self'",
                             "description": "Target element to attach the overlay, valid values are \"body\" or a local ng-template variable of another element (note: use binding with brackets for template variables, e.g. [appendTo]=\"mydiv\" for a div element having #mydiv as variable name)."
                         },
                         {
@@ -5267,7 +5268,7 @@
                             "optional": false,
                             "readonly": false,
                             "type": "InputSignal<any>",
-                            "default": "...",
+                            "default": "'self'",
                             "description": "Target element to attach the overlay, valid values are \"body\" or a local ng-template variable of another element (note: use binding with brackets for template variables, e.g. [appendTo]=\"mydiv\" for a div element having #mydiv as variable name)."
                         },
                         {
@@ -5614,7 +5615,7 @@
                             "optional": false,
                             "readonly": false,
                             "type": "InputSignal<any>",
-                            "default": "...",
+                            "default": "'self'",
                             "description": "Target element to attach the overlay, valid values are \"body\" or a local ng-template variable of another element (note: use binding with brackets for template variables, e.g. [appendTo]=\"mydiv\" for a div element having #mydiv as variable name)."
                         },
                         {
@@ -5740,7 +5741,7 @@
                             "optional": false,
                             "readonly": false,
                             "type": "InputSignal<any>",
-                            "default": "...",
+                            "default": "'self'",
                             "description": "Target element to attach the overlay, valid values are \"body\" or a local ng-template variable of another element (note: use binding with brackets for template variables, e.g. [appendTo]=\"mydiv\" for a div element having #mydiv as variable name)."
                         },
                         {
@@ -6112,7 +6113,7 @@
                             "optional": false,
                             "readonly": false,
                             "type": "InputSignal<any>",
-                            "default": "...",
+                            "default": "'self'",
                             "description": "Target element to attach the overlay, valid values are \"body\" or a local ng-template variable of another element (note: use binding with brackets for template variables, e.g. [appendTo]=\"mydiv\" for a div element having #mydiv as variable name)."
                         },
                         {
@@ -6120,7 +6121,7 @@
                             "optional": false,
                             "readonly": false,
                             "type": "InputSignalWithTransform<boolean, unknown>",
-                            "default": "...",
+                            "default": "false",
                             "description": "There must be a value (if set)."
                         },
                         {
@@ -6128,7 +6129,7 @@
                             "optional": false,
                             "readonly": false,
                             "type": "InputSignalWithTransform<boolean, unknown>",
-                            "default": "undefined",
+                            "default": "false",
                             "description": "When present, it specifies that the component should have invalid state style."
                         },
                         {
@@ -6136,7 +6137,7 @@
                             "optional": false,
                             "readonly": false,
                             "type": "InputSignalWithTransform<boolean, unknown>",
-                            "default": "undefined",
+                            "default": "false",
                             "description": "When present, it specifies that the component should have disabled state style."
                         },
                         {
@@ -6839,7 +6840,7 @@
                             "optional": false,
                             "readonly": false,
                             "type": "InputSignal<any>",
-                            "default": "...",
+                            "default": "'self'",
                             "description": "Target element to attach the overlay, valid values are \"body\" or a local ng-template variable of another element (note: use binding with brackets for template variables, e.g. [appendTo]=\"mydiv\" for a div element having #mydiv as variable name)."
                         },
                         {
@@ -6950,7 +6951,7 @@
                             "optional": false,
                             "readonly": false,
                             "type": "InputSignal<any>",
-                            "default": "...",
+                            "default": "'self'",
                             "description": "Target element to attach the overlay, valid values are \"body\" or a local ng-template variable of another element (note: use binding with brackets for template variables, e.g. [appendTo]=\"mydiv\" for a div element having #mydiv as variable name)."
                         },
                         {
@@ -6958,7 +6959,7 @@
                             "optional": false,
                             "readonly": false,
                             "type": "InputSignalWithTransform<boolean, unknown>",
-                            "default": "...",
+                            "default": "false",
                             "description": "There must be a value (if set)."
                         },
                         {
@@ -6966,7 +6967,7 @@
                             "optional": false,
                             "readonly": false,
                             "type": "InputSignalWithTransform<boolean, unknown>",
-                            "default": "undefined",
+                            "default": "false",
                             "description": "When present, it specifies that the component should have invalid state style."
                         },
                         {
@@ -6974,7 +6975,7 @@
                             "optional": false,
                             "readonly": false,
                             "type": "InputSignalWithTransform<boolean, unknown>",
-                            "default": "undefined",
+                            "default": "false",
                             "description": "When present, it specifies that the component should have disabled state style."
                         },
                         {
@@ -7245,7 +7246,7 @@
                             "optional": false,
                             "readonly": false,
                             "type": "InputSignal<any>",
-                            "default": "...",
+                            "default": "'self'",
                             "description": "Target element to attach the overlay, valid values are \"body\" or a local ng-template variable of another element (note: use binding with brackets for template variables, e.g. [appendTo]=\"mydiv\" for a div element having #mydiv as variable name)."
                         },
                         {
@@ -7395,7 +7396,7 @@
                             "optional": false,
                             "readonly": false,
                             "type": "InputSignal<any>",
-                            "default": "...",
+                            "default": "'self'",
                             "description": "Target element to attach the overlay, valid values are \"body\" or a local ng-template variable of another element (note: use binding with brackets for template variables, e.g. [appendTo]=\"mydiv\" for a div element having #mydiv as variable name)."
                         },
                         {
@@ -7403,7 +7404,7 @@
                             "optional": false,
                             "readonly": false,
                             "type": "InputSignalWithTransform<boolean, unknown>",
-                            "default": "...",
+                            "default": "false",
                             "description": "There must be a value (if set)."
                         },
                         {
@@ -7411,7 +7412,7 @@
                             "optional": false,
                             "readonly": false,
                             "type": "InputSignalWithTransform<boolean, unknown>",
-                            "default": "undefined",
+                            "default": "false",
                             "description": "When present, it specifies that the component should have invalid state style."
                         },
                         {
@@ -7419,7 +7420,7 @@
                             "optional": false,
                             "readonly": false,
                             "type": "InputSignalWithTransform<boolean, unknown>",
-                            "default": "undefined",
+                            "default": "false",
                             "description": "When present, it specifies that the component should have disabled state style."
                         },
                         {
@@ -7499,6 +7500,14 @@
                             "type": "boolean",
                             "default": "false",
                             "description": "When present, it specifies that the component should automatically get focus on load."
+                        },
+                        {
+                            "name": "defaultColor",
+                            "optional": false,
+                            "readonly": false,
+                            "type": "string",
+                            "default": "ff0000",
+                            "description": "Default color to display initially when model value is not present."
                         }
                     ]
                 },
@@ -7987,7 +7996,7 @@
                             "optional": false,
                             "readonly": false,
                             "type": "InputSignal<any>",
-                            "default": "...",
+                            "default": "'self'",
                             "description": "Target element to attach the overlay, valid values are \"body\" or a local ng-template variable of another element (note: use binding with brackets for template variables, e.g. [appendTo]=\"mydiv\" for a div element having #mydiv as variable name)."
                         },
                         {
@@ -8152,7 +8161,7 @@
                             "optional": false,
                             "readonly": false,
                             "type": "InputSignal<any>",
-                            "default": "...",
+                            "default": "'self'",
                             "description": "Target element to attach the overlay, valid values are \"body\" or a local ng-template variable of another element (note: use binding with brackets for template variables, e.g. [appendTo]=\"mydiv\" for a div element having #mydiv as variable name)."
                         },
                         {
@@ -8358,7 +8367,7 @@
                             "optional": false,
                             "readonly": false,
                             "type": "InputSignal<any>",
-                            "default": "...",
+                            "default": "'self'",
                             "description": "Target element to attach the overlay, valid values are \"body\" or a local ng-template variable of another element (note: use binding with brackets for template variables, e.g. [appendTo]=\"mydiv\" for a div element having #mydiv as variable name)."
                         },
                         {
@@ -9001,7 +9010,7 @@
                             "optional": false,
                             "readonly": false,
                             "type": "InputSignal<any>",
-                            "default": "...",
+                            "default": "'self'",
                             "description": "Target element to attach the overlay, valid values are \"body\" or a local ng-template variable of another element (note: use binding with brackets for template variables, e.g. [appendTo]=\"mydiv\" for a div element having #mydiv as variable name)."
                         },
                         {
@@ -9009,7 +9018,7 @@
                             "optional": false,
                             "readonly": false,
                             "type": "InputSignalWithTransform<boolean, unknown>",
-                            "default": "...",
+                            "default": "false",
                             "description": "There must be a value (if set)."
                         },
                         {
@@ -9017,7 +9026,7 @@
                             "optional": false,
                             "readonly": false,
                             "type": "InputSignalWithTransform<boolean, unknown>",
-                            "default": "undefined",
+                            "default": "false",
                             "description": "When present, it specifies that the component should have invalid state style."
                         },
                         {
@@ -9025,7 +9034,7 @@
                             "optional": false,
                             "readonly": false,
                             "type": "InputSignalWithTransform<boolean, unknown>",
-                            "default": "undefined",
+                            "default": "false",
                             "description": "When present, it specifies that the component should have disabled state style."
                         },
                         {
@@ -9041,7 +9050,7 @@
                             "optional": false,
                             "readonly": false,
                             "type": "InputSignalWithTransform<boolean, unknown>",
-                            "default": "undefined",
+                            "default": "false",
                             "description": "Spans 100% width of the container when enabled."
                         },
                         {
@@ -9049,7 +9058,7 @@
                             "optional": false,
                             "readonly": false,
                             "type": "InputSignal<\"outlined\" | \"filled\">",
-                            "default": "undefined",
+                            "default": "'outlined'",
                             "description": "Specifies the input variant of the component."
                         },
                         {
@@ -9065,7 +9074,7 @@
                             "optional": false,
                             "readonly": false,
                             "type": "InputSignal<number>",
-                            "default": "20",
+                            "default": "undefined",
                             "description": "Specifies the visible width of the input element in characters."
                         },
                         {
@@ -9081,7 +9090,7 @@
                             "optional": false,
                             "readonly": false,
                             "type": "InputSignal<number>",
-                            "default": "0",
+                            "default": "undefined",
                             "description": "The value must be greater than or equal to the value."
                         },
                         {
@@ -9097,7 +9106,7 @@
                             "optional": false,
                             "readonly": false,
                             "type": "InputSignal<number>",
-                            "default": "1",
+                            "default": "undefined",
                             "description": "Unless the step is set to the any literal, the value must be min + an integral multiple of the step."
                         },
                         {
@@ -10220,7 +10229,7 @@
                             "optional": false,
                             "readonly": false,
                             "type": "InputSignal<any>",
-                            "default": "...",
+                            "default": "'self'",
                             "description": "Target element to attach the overlay, valid values are \"body\" or a local ng-template variable of another element (note: use binding with brackets for template variables, e.g. [appendTo]=\"mydiv\" for a div element having #mydiv as variable name)."
                         },
                         {
@@ -10726,7 +10735,7 @@
                             "optional": false,
                             "readonly": false,
                             "type": "InputSignal<any>",
-                            "default": "...",
+                            "default": "'self'",
                             "description": "Target element to attach the overlay, valid values are \"body\" or a local ng-template variable of another element (note: use binding with brackets for template variables, e.g. [appendTo]=\"mydiv\" for a div element having #mydiv as variable name)."
                         },
                         {
@@ -10792,7 +10801,7 @@
                             "optional": false,
                             "readonly": false,
                             "type": "InputSignal<any>",
-                            "default": "...",
+                            "default": "'self'",
                             "description": "Target element to attach the overlay, valid values are \"body\" or a local ng-template variable of another element (note: use binding with brackets for template variables, e.g. [appendTo]=\"mydiv\" for a div element having #mydiv as variable name)."
                         },
                         {
@@ -11904,7 +11913,7 @@
                             "optional": false,
                             "readonly": false,
                             "type": "InputSignal<any>",
-                            "default": "...",
+                            "default": "'self'",
                             "description": "Target element to attach the overlay, valid values are \"body\" or a local ng-template variable of another element (note: use binding with brackets for template variables, e.g. [appendTo]=\"mydiv\" for a div element having #mydiv as variable name)."
                         },
                         {
@@ -11912,7 +11921,7 @@
                             "optional": false,
                             "readonly": false,
                             "type": "InputSignalWithTransform<boolean, unknown>",
-                            "default": "...",
+                            "default": "false",
                             "description": "There must be a value (if set)."
                         },
                         {
@@ -11920,7 +11929,7 @@
                             "optional": false,
                             "readonly": false,
                             "type": "InputSignalWithTransform<boolean, unknown>",
-                            "default": "undefined",
+                            "default": "false",
                             "description": "When present, it specifies that the component should have invalid state style."
                         },
                         {
@@ -11928,7 +11937,7 @@
                             "optional": false,
                             "readonly": false,
                             "type": "InputSignalWithTransform<boolean, unknown>",
-                            "default": "undefined",
+                            "default": "false",
                             "description": "When present, it specifies that the component should have disabled state style."
                         },
                         {
@@ -12178,7 +12187,7 @@
                             "optional": false,
                             "readonly": false,
                             "type": "InputSignal<any>",
-                            "default": "...",
+                            "default": "'self'",
                             "description": "Target element to attach the overlay, valid values are \"body\" or a local ng-template variable of another element (note: use binding with brackets for template variables, e.g. [appendTo]=\"mydiv\" for a div element having #mydiv as variable name)."
                         },
                         {
@@ -12415,7 +12424,7 @@
                             "optional": false,
                             "readonly": false,
                             "type": "InputSignal<any>",
-                            "default": "...",
+                            "default": "'self'",
                             "description": "Target element to attach the overlay, valid values are \"body\" or a local ng-template variable of another element (note: use binding with brackets for template variables, e.g. [appendTo]=\"mydiv\" for a div element having #mydiv as variable name)."
                         },
                         {
@@ -13253,6 +13262,10 @@
                     {
                         "class": "p-fileupload-file-remove-button",
                         "description": "Class name of the file remove button element"
+                    },
+                    {
+                        "class": "p-fileupload-basic-content",
+                        "description": "Class name of the content in basic mode"
                     }
                 ]
             }
@@ -13270,7 +13283,7 @@
                             "optional": false,
                             "readonly": false,
                             "type": "InputSignal<any>",
-                            "default": "...",
+                            "default": "'self'",
                             "description": "Target element to attach the overlay, valid values are \"body\" or a local ng-template variable of another element (note: use binding with brackets for template variables, e.g. [appendTo]=\"mydiv\" for a div element having #mydiv as variable name)."
                         },
                         {
@@ -13309,7 +13322,7 @@
                             "optional": false,
                             "readonly": false,
                             "type": "InputSignal<any>",
-                            "default": "...",
+                            "default": "'self'",
                             "description": "Target element to attach the overlay, valid values are \"body\" or a local ng-template variable of another element (note: use binding with brackets for template variables, e.g. [appendTo]=\"mydiv\" for a div element having #mydiv as variable name)."
                         }
                     ]
@@ -13340,7 +13353,7 @@
                             "optional": false,
                             "readonly": false,
                             "type": "InputSignal<any>",
-                            "default": "...",
+                            "default": "'self'",
                             "description": "Target element to attach the overlay, valid values are \"body\" or a local ng-template variable of another element (note: use binding with brackets for template variables, e.g. [appendTo]=\"mydiv\" for a div element having #mydiv as variable name)."
                         },
                         {
@@ -13368,7 +13381,7 @@
                             "optional": false,
                             "readonly": false,
                             "type": "InputSignal<any>",
-                            "default": "...",
+                            "default": "'self'",
                             "description": "Target element to attach the overlay, valid values are \"body\" or a local ng-template variable of another element (note: use binding with brackets for template variables, e.g. [appendTo]=\"mydiv\" for a div element having #mydiv as variable name)."
                         },
                         {
@@ -13863,7 +13876,7 @@
                             "optional": false,
                             "readonly": false,
                             "type": "InputSignal<any>",
-                            "default": "...",
+                            "default": "'self'",
                             "description": "Target element to attach the overlay, valid values are \"body\" or a local ng-template variable of another element (note: use binding with brackets for template variables, e.g. [appendTo]=\"mydiv\" for a div element having #mydiv as variable name)."
                         },
                         {
@@ -14072,7 +14085,7 @@
                             "optional": false,
                             "readonly": false,
                             "type": "InputSignal<any>",
-                            "default": "...",
+                            "default": "'self'",
                             "description": "Target element to attach the overlay, valid values are \"body\" or a local ng-template variable of another element (note: use binding with brackets for template variables, e.g. [appendTo]=\"mydiv\" for a div element having #mydiv as variable name)."
                         }
                     ]
@@ -14103,7 +14116,7 @@
                             "optional": false,
                             "readonly": false,
                             "type": "InputSignal<any>",
-                            "default": "...",
+                            "default": "'self'",
                             "description": "Target element to attach the overlay, valid values are \"body\" or a local ng-template variable of another element (note: use binding with brackets for template variables, e.g. [appendTo]=\"mydiv\" for a div element having #mydiv as variable name)."
                         },
                         {
@@ -14444,7 +14457,7 @@
                             "optional": false,
                             "readonly": false,
                             "type": "InputSignal<any>",
-                            "default": "...",
+                            "default": "'self'",
                             "description": "Target element to attach the overlay, valid values are \"body\" or a local ng-template variable of another element (note: use binding with brackets for template variables, e.g. [appendTo]=\"mydiv\" for a div element having #mydiv as variable name)."
                         },
                         {
@@ -14518,7 +14531,7 @@
                             "optional": false,
                             "readonly": false,
                             "type": "InputSignal<any>",
-                            "default": "...",
+                            "default": "'self'",
                             "description": "Target element to attach the overlay, valid values are \"body\" or a local ng-template variable of another element (note: use binding with brackets for template variables, e.g. [appendTo]=\"mydiv\" for a div element having #mydiv as variable name)."
                         },
                         {
@@ -14713,7 +14726,7 @@
                             "optional": false,
                             "readonly": false,
                             "type": "InputSignal<any>",
-                            "default": "...",
+                            "default": "'self'",
                             "description": "Target element to attach the overlay, valid values are \"body\" or a local ng-template variable of another element (note: use binding with brackets for template variables, e.g. [appendTo]=\"mydiv\" for a div element having #mydiv as variable name)."
                         },
                         {
@@ -14752,7 +14765,7 @@
                             "optional": false,
                             "readonly": false,
                             "type": "InputSignal<any>",
-                            "default": "...",
+                            "default": "'self'",
                             "description": "Target element to attach the overlay, valid values are \"body\" or a local ng-template variable of another element (note: use binding with brackets for template variables, e.g. [appendTo]=\"mydiv\" for a div element having #mydiv as variable name)."
                         },
                         {
@@ -14789,7 +14802,7 @@
                             "optional": false,
                             "readonly": false,
                             "type": "InputSignal<any>",
-                            "default": "...",
+                            "default": "'self'",
                             "description": "Target element to attach the overlay, valid values are \"body\" or a local ng-template variable of another element (note: use binding with brackets for template variables, e.g. [appendTo]=\"mydiv\" for a div element having #mydiv as variable name)."
                         },
                         {
@@ -14816,7 +14829,7 @@
                             "optional": false,
                             "readonly": false,
                             "type": "InputSignal<any>",
-                            "default": "...",
+                            "default": "'self'",
                             "description": "Target element to attach the overlay, valid values are \"body\" or a local ng-template variable of another element (note: use binding with brackets for template variables, e.g. [appendTo]=\"mydiv\" for a div element having #mydiv as variable name)."
                         },
                         {
@@ -14824,7 +14837,7 @@
                             "optional": false,
                             "readonly": false,
                             "type": "InputSignalWithTransform<boolean, unknown>",
-                            "default": "...",
+                            "default": "false",
                             "description": "There must be a value (if set)."
                         },
                         {
@@ -14832,7 +14845,7 @@
                             "optional": false,
                             "readonly": false,
                             "type": "InputSignalWithTransform<boolean, unknown>",
-                            "default": "undefined",
+                            "default": "false",
                             "description": "When present, it specifies that the component should have invalid state style."
                         },
                         {
@@ -14840,7 +14853,7 @@
                             "optional": false,
                             "readonly": false,
                             "type": "InputSignalWithTransform<boolean, unknown>",
-                            "default": "undefined",
+                            "default": "false",
                             "description": "When present, it specifies that the component should have disabled state style."
                         },
                         {
@@ -14856,7 +14869,7 @@
                             "optional": false,
                             "readonly": false,
                             "type": "InputSignalWithTransform<boolean, unknown>",
-                            "default": "undefined",
+                            "default": "false",
                             "description": "Spans 100% width of the container when enabled."
                         },
                         {
@@ -14864,7 +14877,7 @@
                             "optional": false,
                             "readonly": false,
                             "type": "InputSignal<\"outlined\" | \"filled\">",
-                            "default": "undefined",
+                            "default": "'outlined'",
                             "description": "Specifies the input variant of the component."
                         },
                         {
@@ -14880,7 +14893,7 @@
                             "optional": false,
                             "readonly": false,
                             "type": "InputSignal<number>",
-                            "default": "20",
+                            "default": "undefined",
                             "description": "Specifies the visible width of the input element in characters."
                         },
                         {
@@ -14896,7 +14909,7 @@
                             "optional": false,
                             "readonly": false,
                             "type": "InputSignal<number>",
-                            "default": "0",
+                            "default": "undefined",
                             "description": "The value must be greater than or equal to the value."
                         },
                         {
@@ -14912,7 +14925,7 @@
                             "optional": false,
                             "readonly": false,
                             "type": "InputSignal<number>",
-                            "default": "1",
+                            "default": "undefined",
                             "description": "Unless the step is set to the any literal, the value must be min + an integral multiple of the step."
                         },
                         {
@@ -15212,7 +15225,7 @@
                             "optional": false,
                             "readonly": false,
                             "type": "InputSignal<any>",
-                            "default": "...",
+                            "default": "'self'",
                             "description": "Target element to attach the overlay, valid values are \"body\" or a local ng-template variable of another element (note: use binding with brackets for template variables, e.g. [appendTo]=\"mydiv\" for a div element having #mydiv as variable name)."
                         },
                         {
@@ -15220,7 +15233,7 @@
                             "optional": false,
                             "readonly": false,
                             "type": "InputSignalWithTransform<boolean, unknown>",
-                            "default": "...",
+                            "default": "false",
                             "description": "There must be a value (if set)."
                         },
                         {
@@ -15228,7 +15241,7 @@
                             "optional": false,
                             "readonly": false,
                             "type": "InputSignalWithTransform<boolean, unknown>",
-                            "default": "undefined",
+                            "default": "false",
                             "description": "When present, it specifies that the component should have invalid state style."
                         },
                         {
@@ -15236,7 +15249,7 @@
                             "optional": false,
                             "readonly": false,
                             "type": "InputSignalWithTransform<boolean, unknown>",
-                            "default": "undefined",
+                            "default": "false",
                             "description": "When present, it specifies that the component should have disabled state style."
                         },
                         {
@@ -15252,7 +15265,7 @@
                             "optional": false,
                             "readonly": false,
                             "type": "InputSignalWithTransform<boolean, unknown>",
-                            "default": "undefined",
+                            "default": "false",
                             "description": "Spans 100% width of the container when enabled."
                         },
                         {
@@ -15260,7 +15273,7 @@
                             "optional": false,
                             "readonly": false,
                             "type": "InputSignal<\"outlined\" | \"filled\">",
-                            "default": "undefined",
+                            "default": "'outlined'",
                             "description": "Specifies the input variant of the component."
                         },
                         {
@@ -15276,7 +15289,7 @@
                             "optional": false,
                             "readonly": false,
                             "type": "InputSignal<number>",
-                            "default": "20",
+                            "default": "undefined",
                             "description": "Specifies the visible width of the input element in characters."
                         },
                         {
@@ -15292,7 +15305,7 @@
                             "optional": false,
                             "readonly": false,
                             "type": "InputSignal<number>",
-                            "default": "0",
+                            "default": "undefined",
                             "description": "The value must be greater than or equal to the value."
                         },
                         {
@@ -15308,7 +15321,7 @@
                             "optional": false,
                             "readonly": false,
                             "type": "InputSignal<number>",
-                            "default": "1",
+                            "default": "undefined",
                             "description": "Unless the step is set to the any literal, the value must be min + an integral multiple of the step."
                         },
                         {
@@ -15753,7 +15766,7 @@
                             "optional": false,
                             "readonly": false,
                             "type": "InputSignal<any>",
-                            "default": "...",
+                            "default": "'self'",
                             "description": "Target element to attach the overlay, valid values are \"body\" or a local ng-template variable of another element (note: use binding with brackets for template variables, e.g. [appendTo]=\"mydiv\" for a div element having #mydiv as variable name)."
                         },
                         {
@@ -15761,7 +15774,7 @@
                             "optional": false,
                             "readonly": false,
                             "type": "InputSignalWithTransform<boolean, unknown>",
-                            "default": "...",
+                            "default": "false",
                             "description": "There must be a value (if set)."
                         },
                         {
@@ -15769,7 +15782,7 @@
                             "optional": false,
                             "readonly": false,
                             "type": "InputSignalWithTransform<boolean, unknown>",
-                            "default": "undefined",
+                            "default": "false",
                             "description": "When present, it specifies that the component should have invalid state style."
                         },
                         {
@@ -15777,7 +15790,7 @@
                             "optional": false,
                             "readonly": false,
                             "type": "InputSignalWithTransform<boolean, unknown>",
-                            "default": "undefined",
+                            "default": "false",
                             "description": "When present, it specifies that the component should have disabled state style."
                         },
                         {
@@ -16036,7 +16049,7 @@
                             "optional": false,
                             "readonly": false,
                             "type": "InputSignal<any>",
-                            "default": "...",
+                            "default": "'self'",
                             "description": "Target element to attach the overlay, valid values are \"body\" or a local ng-template variable of another element (note: use binding with brackets for template variables, e.g. [appendTo]=\"mydiv\" for a div element having #mydiv as variable name)."
                         },
                         {
@@ -16044,7 +16057,7 @@
                             "optional": false,
                             "readonly": false,
                             "type": "InputSignalWithTransform<boolean, unknown>",
-                            "default": "...",
+                            "default": "false",
                             "description": "There must be a value (if set)."
                         },
                         {
@@ -16052,7 +16065,7 @@
                             "optional": false,
                             "readonly": false,
                             "type": "InputSignalWithTransform<boolean, unknown>",
-                            "default": "undefined",
+                            "default": "false",
                             "description": "When present, it specifies that the component should have invalid state style."
                         },
                         {
@@ -16060,7 +16073,7 @@
                             "optional": false,
                             "readonly": false,
                             "type": "InputSignalWithTransform<boolean, unknown>",
-                            "default": "undefined",
+                            "default": "false",
                             "description": "When present, it specifies that the component should have disabled state style."
                         },
                         {
@@ -16167,7 +16180,7 @@
                             "optional": false,
                             "readonly": false,
                             "type": "InputSignal<any>",
-                            "default": "...",
+                            "default": "'self'",
                             "description": "Target element to attach the overlay, valid values are \"body\" or a local ng-template variable of another element (note: use binding with brackets for template variables, e.g. [appendTo]=\"mydiv\" for a div element having #mydiv as variable name)."
                         },
                         {
@@ -16175,7 +16188,7 @@
                             "optional": false,
                             "readonly": false,
                             "type": "InputSignalWithTransform<boolean, unknown>",
-                            "default": "...",
+                            "default": "false",
                             "description": "There must be a value (if set)."
                         },
                         {
@@ -16183,7 +16196,7 @@
                             "optional": false,
                             "readonly": false,
                             "type": "InputSignalWithTransform<boolean, unknown>",
-                            "default": "undefined",
+                            "default": "false",
                             "description": "When present, it specifies that the component should have invalid state style."
                         },
                         {
@@ -16191,7 +16204,7 @@
                             "optional": false,
                             "readonly": false,
                             "type": "InputSignalWithTransform<boolean, unknown>",
-                            "default": "undefined",
+                            "default": "false",
                             "description": "When present, it specifies that the component should have disabled state style."
                         },
                         {
@@ -16375,7 +16388,7 @@
                             "optional": false,
                             "readonly": false,
                             "type": "InputSignal<any>",
-                            "default": "...",
+                            "default": "'self'",
                             "description": "Target element to attach the overlay, valid values are \"body\" or a local ng-template variable of another element (note: use binding with brackets for template variables, e.g. [appendTo]=\"mydiv\" for a div element having #mydiv as variable name)."
                         },
                         {
@@ -16383,7 +16396,7 @@
                             "optional": false,
                             "readonly": false,
                             "type": "InputSignalWithTransform<boolean, unknown>",
-                            "default": "...",
+                            "default": "false",
                             "description": "There must be a value (if set)."
                         },
                         {
@@ -16391,7 +16404,7 @@
                             "optional": false,
                             "readonly": false,
                             "type": "InputSignalWithTransform<boolean, unknown>",
-                            "default": "undefined",
+                            "default": "false",
                             "description": "When present, it specifies that the component should have invalid state style."
                         },
                         {
@@ -16399,7 +16412,7 @@
                             "optional": false,
                             "readonly": false,
                             "type": "InputSignalWithTransform<boolean, unknown>",
-                            "default": "undefined",
+                            "default": "false",
                             "description": "When present, it specifies that the component should have disabled state style."
                         },
                         {
@@ -17257,7 +17270,7 @@
                             "optional": false,
                             "readonly": false,
                             "type": "InputSignal<any>",
-                            "default": "...",
+                            "default": "'self'",
                             "description": "Target element to attach the overlay, valid values are \"body\" or a local ng-template variable of another element (note: use binding with brackets for template variables, e.g. [appendTo]=\"mydiv\" for a div element having #mydiv as variable name)."
                         },
                         {
@@ -17512,7 +17525,7 @@
                             "optional": false,
                             "readonly": false,
                             "type": "InputSignal<any>",
-                            "default": "...",
+                            "default": "'self'",
                             "description": "Target element to attach the overlay, valid values are \"body\" or a local ng-template variable of another element (note: use binding with brackets for template variables, e.g. [appendTo]=\"mydiv\" for a div element having #mydiv as variable name)."
                         },
                         {
@@ -17785,7 +17798,7 @@
                             "optional": false,
                             "readonly": false,
                             "type": "InputSignal<any>",
-                            "default": "...",
+                            "default": "'self'",
                             "description": "Target element to attach the overlay, valid values are \"body\" or a local ng-template variable of another element (note: use binding with brackets for template variables, e.g. [appendTo]=\"mydiv\" for a div element having #mydiv as variable name)."
                         },
                         {
@@ -18051,7 +18064,7 @@
                             "optional": false,
                             "readonly": false,
                             "type": "InputSignal<any>",
-                            "default": "...",
+                            "default": "'self'",
                             "description": "Target element to attach the overlay, valid values are \"body\" or a local ng-template variable of another element (note: use binding with brackets for template variables, e.g. [appendTo]=\"mydiv\" for a div element having #mydiv as variable name)."
                         },
                         {
@@ -18249,7 +18262,7 @@
                             "optional": false,
                             "readonly": false,
                             "type": "InputSignal<any>",
-                            "default": "...",
+                            "default": "'self'",
                             "description": "Target element to attach the overlay, valid values are \"body\" or a local ng-template variable of another element (note: use binding with brackets for template variables, e.g. [appendTo]=\"mydiv\" for a div element having #mydiv as variable name)."
                         },
                         {
@@ -18465,7 +18478,7 @@
                             "optional": false,
                             "readonly": false,
                             "type": "InputSignal<any>",
-                            "default": "...",
+                            "default": "'self'",
                             "description": "Target element to attach the overlay, valid values are \"body\" or a local ng-template variable of another element (note: use binding with brackets for template variables, e.g. [appendTo]=\"mydiv\" for a div element having #mydiv as variable name)."
                         },
                         {
@@ -18473,7 +18486,7 @@
                             "optional": false,
                             "readonly": false,
                             "type": "InputSignalWithTransform<boolean, unknown>",
-                            "default": "...",
+                            "default": "false",
                             "description": "There must be a value (if set)."
                         },
                         {
@@ -18481,7 +18494,7 @@
                             "optional": false,
                             "readonly": false,
                             "type": "InputSignalWithTransform<boolean, unknown>",
-                            "default": "undefined",
+                            "default": "false",
                             "description": "When present, it specifies that the component should have invalid state style."
                         },
                         {
@@ -18489,7 +18502,7 @@
                             "optional": false,
                             "readonly": false,
                             "type": "InputSignalWithTransform<boolean, unknown>",
-                            "default": "undefined",
+                            "default": "false",
                             "description": "When present, it specifies that the component should have disabled state style."
                         },
                         {
@@ -19537,7 +19550,7 @@
                             "optional": false,
                             "readonly": false,
                             "type": "InputSignal<any>",
-                            "default": "...",
+                            "default": "'self'",
                             "description": "Target element to attach the overlay, valid values are \"body\" or a local ng-template variable of another element (note: use binding with brackets for template variables, e.g. [appendTo]=\"mydiv\" for a div element having #mydiv as variable name)."
                         },
                         {
@@ -20074,7 +20087,7 @@
                             "optional": false,
                             "readonly": false,
                             "type": "InputSignal<any>",
-                            "default": "...",
+                            "default": "'self'",
                             "description": "Target element to attach the overlay, valid values are \"body\" or a local ng-template variable of another element (note: use binding with brackets for template variables, e.g. [appendTo]=\"mydiv\" for a div element having #mydiv as variable name)."
                         },
                         {
@@ -20347,7 +20360,7 @@
                             "optional": false,
                             "readonly": false,
                             "type": "InputSignal<any>",
-                            "default": "...",
+                            "default": "'self'",
                             "description": "Target element to attach the overlay, valid values are \"body\" or a local ng-template variable of another element (note: use binding with brackets for template variables, e.g. [appendTo]=\"mydiv\" for a div element having #mydiv as variable name)."
                         },
                         {
@@ -20554,7 +20567,7 @@
                             "optional": false,
                             "readonly": false,
                             "type": "InputSignal<any>",
-                            "default": "...",
+                            "default": "'self'",
                             "description": "Target element to attach the overlay, valid values are \"body\" or a local ng-template variable of another element (note: use binding with brackets for template variables, e.g. [appendTo]=\"mydiv\" for a div element having #mydiv as variable name)."
                         },
                         {
@@ -20628,7 +20641,7 @@
                             "optional": false,
                             "readonly": false,
                             "type": "InputSignal<any>",
-                            "default": "...",
+                            "default": "'self'",
                             "description": "Target element to attach the overlay, valid values are \"body\" or a local ng-template variable of another element (note: use binding with brackets for template variables, e.g. [appendTo]=\"mydiv\" for a div element having #mydiv as variable name)."
                         },
                         {
@@ -20999,7 +21012,7 @@
                             "optional": false,
                             "readonly": false,
                             "type": "InputSignal<any>",
-                            "default": "...",
+                            "default": "'self'",
                             "description": "Target element to attach the overlay, valid values are \"body\" or a local ng-template variable of another element (note: use binding with brackets for template variables, e.g. [appendTo]=\"mydiv\" for a div element having #mydiv as variable name)."
                         },
                         {
@@ -21256,7 +21269,7 @@
                             "optional": false,
                             "readonly": false,
                             "type": "InputSignal<any>",
-                            "default": "...",
+                            "default": "'self'",
                             "description": "Target element to attach the overlay, valid values are \"body\" or a local ng-template variable of another element (note: use binding with brackets for template variables, e.g. [appendTo]=\"mydiv\" for a div element having #mydiv as variable name)."
                         },
                         {
@@ -21458,7 +21471,7 @@
                             "optional": false,
                             "readonly": false,
                             "type": "InputSignal<any>",
-                            "default": "...",
+                            "default": "'self'",
                             "description": "Target element to attach the overlay, valid values are \"body\" or a local ng-template variable of another element (note: use binding with brackets for template variables, e.g. [appendTo]=\"mydiv\" for a div element having #mydiv as variable name)."
                         },
                         {
@@ -21466,7 +21479,7 @@
                             "optional": false,
                             "readonly": false,
                             "type": "InputSignalWithTransform<boolean, unknown>",
-                            "default": "...",
+                            "default": "false",
                             "description": "There must be a value (if set)."
                         },
                         {
@@ -21474,7 +21487,7 @@
                             "optional": false,
                             "readonly": false,
                             "type": "InputSignalWithTransform<boolean, unknown>",
-                            "default": "undefined",
+                            "default": "false",
                             "description": "When present, it specifies that the component should have invalid state style."
                         },
                         {
@@ -21482,7 +21495,7 @@
                             "optional": false,
                             "readonly": false,
                             "type": "InputSignalWithTransform<boolean, unknown>",
-                            "default": "undefined",
+                            "default": "false",
                             "description": "When present, it specifies that the component should have disabled state style."
                         },
                         {
@@ -21545,7 +21558,7 @@
                             "optional": false,
                             "readonly": false,
                             "type": "InputSignal<\"outlined\" | \"filled\">",
-                            "default": "undefined",
+                            "default": "'outlined'",
                             "description": "Specifies the input variant of the component."
                         },
                         {
@@ -21553,7 +21566,7 @@
                             "optional": false,
                             "readonly": false,
                             "type": "InputSignalWithTransform<boolean, unknown>",
-                            "default": "undefined",
+                            "default": "false",
                             "description": "Spans 100% width of the container when enabled."
                         },
                         {
@@ -21577,7 +21590,7 @@
                             "optional": false,
                             "readonly": false,
                             "type": "InputSignal<any>",
-                            "default": "...",
+                            "default": "'self'",
                             "description": "Target element to attach the overlay, valid values are \"body\" or a local ng-template variable of another element (note: use binding with brackets for template variables, e.g. [appendTo]=\"mydiv\" for a div element having #mydiv as variable name)."
                         },
                         {
@@ -21585,7 +21598,7 @@
                             "optional": false,
                             "readonly": false,
                             "type": "InputSignalWithTransform<boolean, unknown>",
-                            "default": "...",
+                            "default": "false",
                             "description": "There must be a value (if set)."
                         },
                         {
@@ -21593,7 +21606,7 @@
                             "optional": false,
                             "readonly": false,
                             "type": "InputSignalWithTransform<boolean, unknown>",
-                            "default": "undefined",
+                            "default": "false",
                             "description": "When present, it specifies that the component should have invalid state style."
                         },
                         {
@@ -21601,7 +21614,7 @@
                             "optional": false,
                             "readonly": false,
                             "type": "InputSignalWithTransform<boolean, unknown>",
-                            "default": "undefined",
+                            "default": "false",
                             "description": "When present, it specifies that the component should have disabled state style."
                         },
                         {
@@ -21617,7 +21630,7 @@
                             "optional": false,
                             "readonly": false,
                             "type": "InputSignalWithTransform<boolean, unknown>",
-                            "default": "undefined",
+                            "default": "false",
                             "description": "Spans 100% width of the container when enabled."
                         },
                         {
@@ -21625,7 +21638,7 @@
                             "optional": false,
                             "readonly": false,
                             "type": "InputSignal<\"outlined\" | \"filled\">",
-                            "default": "undefined",
+                            "default": "'outlined'",
                             "description": "Specifies the input variant of the component."
                         },
                         {
@@ -21641,7 +21654,7 @@
                             "optional": false,
                             "readonly": false,
                             "type": "InputSignal<number>",
-                            "default": "20",
+                            "default": "undefined",
                             "description": "Specifies the visible width of the input element in characters."
                         },
                         {
@@ -21657,7 +21670,7 @@
                             "optional": false,
                             "readonly": false,
                             "type": "InputSignal<number>",
-                            "default": "0",
+                            "default": "undefined",
                             "description": "The value must be greater than or equal to the value."
                         },
                         {
@@ -21673,7 +21686,7 @@
                             "optional": false,
                             "readonly": false,
                             "type": "InputSignal<number>",
-                            "default": "1",
+                            "default": "undefined",
                             "description": "Unless the step is set to the any literal, the value must be min + an integral multiple of the step."
                         },
                         {
@@ -21958,7 +21971,7 @@
                             "optional": false,
                             "readonly": false,
                             "type": "InputSignal<any>",
-                            "default": "...",
+                            "default": "'self'",
                             "description": "Target element to attach the overlay, valid values are \"body\" or a local ng-template variable of another element (note: use binding with brackets for template variables, e.g. [appendTo]=\"mydiv\" for a div element having #mydiv as variable name)."
                         },
                         {
@@ -23153,7 +23166,7 @@
                             "optional": false,
                             "readonly": false,
                             "type": "InputSignal<any>",
-                            "default": "...",
+                            "default": "'self'",
                             "description": "Target element to attach the overlay, valid values are \"body\" or a local ng-template variable of another element (note: use binding with brackets for template variables, e.g. [appendTo]=\"mydiv\" for a div element having #mydiv as variable name)."
                         },
                         {
@@ -23245,7 +23258,7 @@
                             "optional": false,
                             "readonly": false,
                             "type": "InputSignal<any>",
-                            "default": "...",
+                            "default": "'self'",
                             "description": "Target element to attach the overlay, valid values are \"body\" or a local ng-template variable of another element (note: use binding with brackets for template variables, e.g. [appendTo]=\"mydiv\" for a div element having #mydiv as variable name)."
                         },
                         {
@@ -23323,7 +23336,7 @@
                             "optional": false,
                             "readonly": false,
                             "type": "InputSignal<any>",
-                            "default": "...",
+                            "default": "'self'",
                             "description": "Target element to attach the overlay, valid values are \"body\" or a local ng-template variable of another element (note: use binding with brackets for template variables, e.g. [appendTo]=\"mydiv\" for a div element having #mydiv as variable name)."
                         },
                         {
@@ -23331,7 +23344,7 @@
                             "optional": false,
                             "readonly": false,
                             "type": "InputSignalWithTransform<boolean, unknown>",
-                            "default": "...",
+                            "default": "false",
                             "description": "There must be a value (if set)."
                         },
                         {
@@ -23339,7 +23352,7 @@
                             "optional": false,
                             "readonly": false,
                             "type": "InputSignalWithTransform<boolean, unknown>",
-                            "default": "undefined",
+                            "default": "false",
                             "description": "When present, it specifies that the component should have invalid state style."
                         },
                         {
@@ -23347,7 +23360,7 @@
                             "optional": false,
                             "readonly": false,
                             "type": "InputSignalWithTransform<boolean, unknown>",
-                            "default": "undefined",
+                            "default": "false",
                             "description": "When present, it specifies that the component should have disabled state style."
                         },
                         {
@@ -23546,7 +23559,7 @@
                             "optional": false,
                             "readonly": false,
                             "type": "InputSignal<any>",
-                            "default": "...",
+                            "default": "'self'",
                             "description": "Target element to attach the overlay, valid values are \"body\" or a local ng-template variable of another element (note: use binding with brackets for template variables, e.g. [appendTo]=\"mydiv\" for a div element having #mydiv as variable name)."
                         },
                         {
@@ -23554,7 +23567,7 @@
                             "optional": false,
                             "readonly": false,
                             "type": "InputSignalWithTransform<boolean, unknown>",
-                            "default": "...",
+                            "default": "false",
                             "description": "There must be a value (if set)."
                         },
                         {
@@ -23562,7 +23575,7 @@
                             "optional": false,
                             "readonly": false,
                             "type": "InputSignalWithTransform<boolean, unknown>",
-                            "default": "undefined",
+                            "default": "false",
                             "description": "When present, it specifies that the component should have invalid state style."
                         },
                         {
@@ -23570,7 +23583,7 @@
                             "optional": false,
                             "readonly": false,
                             "type": "InputSignalWithTransform<boolean, unknown>",
-                            "default": "undefined",
+                            "default": "false",
                             "description": "When present, it specifies that the component should have disabled state style."
                         },
                         {
@@ -23649,16 +23662,6 @@
                             "description": "Emitted on value change."
                         },
                         {
-                            "name": "onCancel",
-                            "parameters": [
-                                {
-                                    "name": "event",
-                                    "type": "Event"
-                                }
-                            ],
-                            "description": "Emitted when the rating is cancelled."
-                        },
-                        {
                             "name": "onFocus",
                             "parameters": [
                                 {
@@ -23692,12 +23695,6 @@
                         {
                             "name": "officon",
                             "description": "Custom off icon template.",
-                            "type": "TemplateRef<any>",
-                            "parameters": []
-                        },
-                        {
-                            "name": "cancelicon",
-                            "description": "Custom cancel icon template.",
                             "type": "TemplateRef<any>",
                             "parameters": []
                         }
@@ -23792,7 +23789,7 @@
                             "optional": false,
                             "readonly": false,
                             "type": "InputSignal<any>",
-                            "default": "...",
+                            "default": "'self'",
                             "description": "Target element to attach the overlay, valid values are \"body\" or a local ng-template variable of another element (note: use binding with brackets for template variables, e.g. [appendTo]=\"mydiv\" for a div element having #mydiv as variable name)."
                         }
                     ]
@@ -23823,7 +23820,7 @@
                             "optional": false,
                             "readonly": false,
                             "type": "InputSignal<any>",
-                            "default": "...",
+                            "default": "'self'",
                             "description": "Target element to attach the overlay, valid values are \"body\" or a local ng-template variable of another element (note: use binding with brackets for template variables, e.g. [appendTo]=\"mydiv\" for a div element having #mydiv as variable name)."
                         },
                         {
@@ -24427,7 +24424,7 @@
                             "optional": false,
                             "readonly": false,
                             "type": "InputSignal<any>",
-                            "default": "...",
+                            "default": "'self'",
                             "description": "Target element to attach the overlay, valid values are \"body\" or a local ng-template variable of another element (note: use binding with brackets for template variables, e.g. [appendTo]=\"mydiv\" for a div element having #mydiv as variable name)."
                         },
                         {
@@ -24536,7 +24533,7 @@
                             "optional": false,
                             "readonly": false,
                             "type": "InputSignal<any>",
-                            "default": "...",
+                            "default": "'self'",
                             "description": "Target element to attach the overlay, valid values are \"body\" or a local ng-template variable of another element (note: use binding with brackets for template variables, e.g. [appendTo]=\"mydiv\" for a div element having #mydiv as variable name)."
                         },
                         {
@@ -24677,7 +24674,7 @@
                             "optional": false,
                             "readonly": false,
                             "type": "InputSignal<any>",
-                            "default": "...",
+                            "default": "'self'",
                             "description": "Target element to attach the overlay, valid values are \"body\" or a local ng-template variable of another element (note: use binding with brackets for template variables, e.g. [appendTo]=\"mydiv\" for a div element having #mydiv as variable name)."
                         },
                         {
@@ -24685,7 +24682,7 @@
                             "optional": false,
                             "readonly": false,
                             "type": "InputSignalWithTransform<boolean, unknown>",
-                            "default": "...",
+                            "default": "false",
                             "description": "There must be a value (if set)."
                         },
                         {
@@ -24693,7 +24690,7 @@
                             "optional": false,
                             "readonly": false,
                             "type": "InputSignalWithTransform<boolean, unknown>",
-                            "default": "undefined",
+                            "default": "false",
                             "description": "When present, it specifies that the component should have invalid state style."
                         },
                         {
@@ -24701,7 +24698,7 @@
                             "optional": false,
                             "readonly": false,
                             "type": "InputSignalWithTransform<boolean, unknown>",
-                            "default": "undefined",
+                            "default": "false",
                             "description": "When present, it specifies that the component should have disabled state style."
                         },
                         {
@@ -24717,7 +24714,7 @@
                             "optional": false,
                             "readonly": false,
                             "type": "InputSignalWithTransform<boolean, unknown>",
-                            "default": "undefined",
+                            "default": "false",
                             "description": "Spans 100% width of the container when enabled."
                         },
                         {
@@ -24725,7 +24722,7 @@
                             "optional": false,
                             "readonly": false,
                             "type": "InputSignal<\"outlined\" | \"filled\">",
-                            "default": "undefined",
+                            "default": "'outlined'",
                             "description": "Specifies the input variant of the component."
                         },
                         {
@@ -24741,7 +24738,7 @@
                             "optional": false,
                             "readonly": false,
                             "type": "InputSignal<number>",
-                            "default": "20",
+                            "default": "undefined",
                             "description": "Specifies the visible width of the input element in characters."
                         },
                         {
@@ -24757,7 +24754,7 @@
                             "optional": false,
                             "readonly": false,
                             "type": "InputSignal<number>",
-                            "default": "0",
+                            "default": "undefined",
                             "description": "The value must be greater than or equal to the value."
                         },
                         {
@@ -24773,7 +24770,7 @@
                             "optional": false,
                             "readonly": false,
                             "type": "InputSignal<number>",
-                            "default": "1",
+                            "default": "undefined",
                             "description": "Unless the step is set to the any literal, the value must be min + an integral multiple of the step."
                         },
                         {
@@ -25702,7 +25699,7 @@
                             "optional": false,
                             "readonly": false,
                             "type": "InputSignal<any>",
-                            "default": "...",
+                            "default": "'self'",
                             "description": "Target element to attach the overlay, valid values are \"body\" or a local ng-template variable of another element (note: use binding with brackets for template variables, e.g. [appendTo]=\"mydiv\" for a div element having #mydiv as variable name)."
                         },
                         {
@@ -25710,7 +25707,7 @@
                             "optional": false,
                             "readonly": false,
                             "type": "InputSignalWithTransform<boolean, unknown>",
-                            "default": "...",
+                            "default": "false",
                             "description": "There must be a value (if set)."
                         },
                         {
@@ -25718,7 +25715,7 @@
                             "optional": false,
                             "readonly": false,
                             "type": "InputSignalWithTransform<boolean, unknown>",
-                            "default": "undefined",
+                            "default": "false",
                             "description": "When present, it specifies that the component should have invalid state style."
                         },
                         {
@@ -25726,7 +25723,7 @@
                             "optional": false,
                             "readonly": false,
                             "type": "InputSignalWithTransform<boolean, unknown>",
-                            "default": "undefined",
+                            "default": "false",
                             "description": "When present, it specifies that the component should have disabled state style."
                         },
                         {
@@ -25971,7 +25968,7 @@
                             "optional": false,
                             "readonly": false,
                             "type": "InputSignal<any>",
-                            "default": "...",
+                            "default": "'self'",
                             "description": "Target element to attach the overlay, valid values are \"body\" or a local ng-template variable of another element (note: use binding with brackets for template variables, e.g. [appendTo]=\"mydiv\" for a div element having #mydiv as variable name)."
                         },
                         {
@@ -26048,7 +26045,7 @@
                             "optional": false,
                             "readonly": false,
                             "type": "InputSignal<any>",
-                            "default": "...",
+                            "default": "'self'",
                             "description": "Target element to attach the overlay, valid values are \"body\" or a local ng-template variable of another element (note: use binding with brackets for template variables, e.g. [appendTo]=\"mydiv\" for a div element having #mydiv as variable name)."
                         },
                         {
@@ -26056,7 +26053,7 @@
                             "optional": false,
                             "readonly": false,
                             "type": "InputSignalWithTransform<boolean, unknown>",
-                            "default": "...",
+                            "default": "false",
                             "description": "There must be a value (if set)."
                         },
                         {
@@ -26064,7 +26061,7 @@
                             "optional": false,
                             "readonly": false,
                             "type": "InputSignalWithTransform<boolean, unknown>",
-                            "default": "undefined",
+                            "default": "false",
                             "description": "When present, it specifies that the component should have invalid state style."
                         },
                         {
@@ -26072,7 +26069,7 @@
                             "optional": false,
                             "readonly": false,
                             "type": "InputSignalWithTransform<boolean, unknown>",
-                            "default": "undefined",
+                            "default": "false",
                             "description": "When present, it specifies that the component should have disabled state style."
                         },
                         {
@@ -26297,7 +26294,7 @@
                             "optional": false,
                             "readonly": false,
                             "type": "InputSignal<any>",
-                            "default": "...",
+                            "default": "'self'",
                             "description": "Target element to attach the overlay, valid values are \"body\" or a local ng-template variable of another element (note: use binding with brackets for template variables, e.g. [appendTo]=\"mydiv\" for a div element having #mydiv as variable name)."
                         },
                         {
@@ -26944,7 +26941,7 @@
                             "optional": false,
                             "readonly": false,
                             "type": "InputSignal<any>",
-                            "default": "...",
+                            "default": "'self'",
                             "description": "Target element to attach the overlay, valid values are \"body\" or a local ng-template variable of another element (note: use binding with brackets for template variables, e.g. [appendTo]=\"mydiv\" for a div element having #mydiv as variable name)."
                         },
                         {
@@ -27144,7 +27141,7 @@
                             "optional": false,
                             "readonly": false,
                             "type": "InputSignal<any>",
-                            "default": "...",
+                            "default": "'self'",
                             "description": "Target element to attach the overlay, valid values are \"body\" or a local ng-template variable of another element (note: use binding with brackets for template variables, e.g. [appendTo]=\"mydiv\" for a div element having #mydiv as variable name)."
                         },
                         {
@@ -27168,7 +27165,7 @@
                             "optional": false,
                             "readonly": false,
                             "type": "InputSignal<any>",
-                            "default": "...",
+                            "default": "'self'",
                             "description": "Target element to attach the overlay, valid values are \"body\" or a local ng-template variable of another element (note: use binding with brackets for template variables, e.g. [appendTo]=\"mydiv\" for a div element having #mydiv as variable name)."
                         },
                         {
@@ -27211,7 +27208,7 @@
                             "optional": false,
                             "readonly": false,
                             "type": "InputSignal<any>",
-                            "default": "...",
+                            "default": "'self'",
                             "description": "Target element to attach the overlay, valid values are \"body\" or a local ng-template variable of another element (note: use binding with brackets for template variables, e.g. [appendTo]=\"mydiv\" for a div element having #mydiv as variable name)."
                         },
                         {
@@ -27252,7 +27249,7 @@
                             "optional": false,
                             "readonly": false,
                             "type": "InputSignal<any>",
-                            "default": "...",
+                            "default": "'self'",
                             "description": "Target element to attach the overlay, valid values are \"body\" or a local ng-template variable of another element (note: use binding with brackets for template variables, e.g. [appendTo]=\"mydiv\" for a div element having #mydiv as variable name)."
                         },
                         {
@@ -27796,7 +27793,7 @@
                             "optional": false,
                             "readonly": false,
                             "type": "InputSignal<any>",
-                            "default": "...",
+                            "default": "'self'",
                             "description": "Target element to attach the overlay, valid values are \"body\" or a local ng-template variable of another element (note: use binding with brackets for template variables, e.g. [appendTo]=\"mydiv\" for a div element having #mydiv as variable name)."
                         },
                         {
@@ -29706,7 +29703,7 @@
                             "optional": false,
                             "readonly": false,
                             "type": "InputSignal<any>",
-                            "default": "...",
+                            "default": "'self'",
                             "description": "Target element to attach the overlay, valid values are \"body\" or a local ng-template variable of another element (note: use binding with brackets for template variables, e.g. [appendTo]=\"mydiv\" for a div element having #mydiv as variable name)."
                         }
                     ]
@@ -29774,7 +29771,7 @@
                             "optional": false,
                             "readonly": false,
                             "type": "InputSignal<any>",
-                            "default": "...",
+                            "default": "'self'",
                             "description": "Target element to attach the overlay, valid values are \"body\" or a local ng-template variable of another element (note: use binding with brackets for template variables, e.g. [appendTo]=\"mydiv\" for a div element having #mydiv as variable name)."
                         }
                     ]
@@ -29805,7 +29802,7 @@
                             "optional": false,
                             "readonly": false,
                             "type": "InputSignal<any>",
-                            "default": "...",
+                            "default": "'self'",
                             "description": "Target element to attach the overlay, valid values are \"body\" or a local ng-template variable of another element (note: use binding with brackets for template variables, e.g. [appendTo]=\"mydiv\" for a div element having #mydiv as variable name)."
                         },
                         {
@@ -29844,7 +29841,7 @@
                             "optional": false,
                             "readonly": false,
                             "type": "InputSignal<any>",
-                            "default": "...",
+                            "default": "'self'",
                             "description": "Target element to attach the overlay, valid values are \"body\" or a local ng-template variable of another element (note: use binding with brackets for template variables, e.g. [appendTo]=\"mydiv\" for a div element having #mydiv as variable name)."
                         },
                         {
@@ -29955,7 +29952,7 @@
                             "optional": false,
                             "readonly": false,
                             "type": "InputSignal<any>",
-                            "default": "...",
+                            "default": "'self'",
                             "description": "Target element to attach the overlay, valid values are \"body\" or a local ng-template variable of another element (note: use binding with brackets for template variables, e.g. [appendTo]=\"mydiv\" for a div element having #mydiv as variable name)."
                         },
                         {
@@ -30002,7 +29999,7 @@
                             "optional": false,
                             "readonly": false,
                             "type": "InputSignal<any>",
-                            "default": "...",
+                            "default": "'self'",
                             "description": "Target element to attach the overlay, valid values are \"body\" or a local ng-template variable of another element (note: use binding with brackets for template variables, e.g. [appendTo]=\"mydiv\" for a div element having #mydiv as variable name)."
                         },
                         {
@@ -30092,7 +30089,7 @@
                             "optional": false,
                             "readonly": false,
                             "type": "InputSignal<any>",
-                            "default": "...",
+                            "default": "'self'",
                             "description": "Target element to attach the overlay, valid values are \"body\" or a local ng-template variable of another element (note: use binding with brackets for template variables, e.g. [appendTo]=\"mydiv\" for a div element having #mydiv as variable name)."
                         },
                         {
@@ -30180,7 +30177,7 @@
                             "optional": false,
                             "readonly": false,
                             "type": "InputSignal<any>",
-                            "default": "...",
+                            "default": "'self'",
                             "description": "Target element to attach the overlay, valid values are \"body\" or a local ng-template variable of another element (note: use binding with brackets for template variables, e.g. [appendTo]=\"mydiv\" for a div element having #mydiv as variable name)."
                         },
                         {
@@ -30188,7 +30185,7 @@
                             "optional": false,
                             "readonly": false,
                             "type": "InputSignalWithTransform<boolean, unknown>",
-                            "default": "...",
+                            "default": "false",
                             "description": "There must be a value (if set)."
                         },
                         {
@@ -30196,7 +30193,7 @@
                             "optional": false,
                             "readonly": false,
                             "type": "InputSignalWithTransform<boolean, unknown>",
-                            "default": "undefined",
+                            "default": "false",
                             "description": "When present, it specifies that the component should have invalid state style."
                         },
                         {
@@ -30204,7 +30201,7 @@
                             "optional": false,
                             "readonly": false,
                             "type": "InputSignalWithTransform<boolean, unknown>",
-                            "default": "undefined",
+                            "default": "false",
                             "description": "When present, it specifies that the component should have disabled state style."
                         },
                         {
@@ -30289,7 +30286,7 @@
                             "optional": false,
                             "readonly": false,
                             "type": "InputSignal<any>",
-                            "default": "...",
+                            "default": "'self'",
                             "description": "Target element to attach the overlay, valid values are \"body\" or a local ng-template variable of another element (note: use binding with brackets for template variables, e.g. [appendTo]=\"mydiv\" for a div element having #mydiv as variable name)."
                         },
                         {
@@ -30589,7 +30586,7 @@
                             "optional": false,
                             "readonly": false,
                             "type": "InputSignal<any>",
-                            "default": "...",
+                            "default": "'self'",
                             "description": "Target element to attach the overlay, valid values are \"body\" or a local ng-template variable of another element (note: use binding with brackets for template variables, e.g. [appendTo]=\"mydiv\" for a div element having #mydiv as variable name)."
                         },
                         {
@@ -30742,7 +30739,7 @@
                             "optional": false,
                             "readonly": false,
                             "type": "InputSignal<any>",
-                            "default": "...",
+                            "default": "'self'",
                             "description": "Target element to attach the overlay, valid values are \"body\" or a local ng-template variable of another element (note: use binding with brackets for template variables, e.g. [appendTo]=\"mydiv\" for a div element having #mydiv as variable name)."
                         },
                         {
@@ -30986,7 +30983,7 @@
                             "optional": false,
                             "readonly": false,
                             "type": "InputSignal<any>",
-                            "default": "...",
+                            "default": "'self'",
                             "description": "Target element to attach the overlay, valid values are \"body\" or a local ng-template variable of another element (note: use binding with brackets for template variables, e.g. [appendTo]=\"mydiv\" for a div element having #mydiv as variable name)."
                         },
                         {
@@ -30994,7 +30991,7 @@
                             "optional": false,
                             "readonly": false,
                             "type": "InputSignalWithTransform<boolean, unknown>",
-                            "default": "...",
+                            "default": "false",
                             "description": "There must be a value (if set)."
                         },
                         {
@@ -31002,7 +30999,7 @@
                             "optional": false,
                             "readonly": false,
                             "type": "InputSignalWithTransform<boolean, unknown>",
-                            "default": "undefined",
+                            "default": "false",
                             "description": "When present, it specifies that the component should have invalid state style."
                         },
                         {
@@ -31010,7 +31007,7 @@
                             "optional": false,
                             "readonly": false,
                             "type": "InputSignalWithTransform<boolean, unknown>",
-                            "default": "undefined",
+                            "default": "false",
                             "description": "When present, it specifies that the component should have disabled state style."
                         },
                         {
@@ -31260,7 +31257,7 @@
                             "optional": false,
                             "readonly": false,
                             "type": "InputSignal<any>",
-                            "default": "...",
+                            "default": "'self'",
                             "description": "Target element to attach the overlay, valid values are \"body\" or a local ng-template variable of another element (note: use binding with brackets for template variables, e.g. [appendTo]=\"mydiv\" for a div element having #mydiv as variable name)."
                         },
                         {
@@ -31268,7 +31265,7 @@
                             "optional": false,
                             "readonly": false,
                             "type": "InputSignalWithTransform<boolean, unknown>",
-                            "default": "...",
+                            "default": "false",
                             "description": "There must be a value (if set)."
                         },
                         {
@@ -31276,7 +31273,7 @@
                             "optional": false,
                             "readonly": false,
                             "type": "InputSignalWithTransform<boolean, unknown>",
-                            "default": "undefined",
+                            "default": "false",
                             "description": "When present, it specifies that the component should have invalid state style."
                         },
                         {
@@ -31284,7 +31281,7 @@
                             "optional": false,
                             "readonly": false,
                             "type": "InputSignalWithTransform<boolean, unknown>",
-                            "default": "undefined",
+                            "default": "false",
                             "description": "When present, it specifies that the component should have disabled state style."
                         },
                         {
@@ -31461,7 +31458,7 @@
                             "optional": false,
                             "readonly": false,
                             "type": "InputSignal<any>",
-                            "default": "...",
+                            "default": "'self'",
                             "description": "Target element to attach the overlay, valid values are \"body\" or a local ng-template variable of another element (note: use binding with brackets for template variables, e.g. [appendTo]=\"mydiv\" for a div element having #mydiv as variable name)."
                         },
                         {
@@ -31568,7 +31565,7 @@
                             "optional": false,
                             "readonly": false,
                             "type": "InputSignal<any>",
-                            "default": "...",
+                            "default": "'self'",
                             "description": "Target element to attach the overlay, valid values are \"body\" or a local ng-template variable of another element (note: use binding with brackets for template variables, e.g. [appendTo]=\"mydiv\" for a div element having #mydiv as variable name)."
                         },
                         {
@@ -31731,7 +31728,7 @@
                             "optional": false,
                             "readonly": false,
                             "type": "InputSignal<any>",
-                            "default": "...",
+                            "default": "'self'",
                             "description": "Target element to attach the overlay, valid values are \"body\" or a local ng-template variable of another element (note: use binding with brackets for template variables, e.g. [appendTo]=\"mydiv\" for a div element having #mydiv as variable name)."
                         },
                         {
@@ -32634,7 +32631,7 @@
                             "optional": false,
                             "readonly": false,
                             "type": "InputSignal<any>",
-                            "default": "...",
+                            "default": "'self'",
                             "description": "Target element to attach the overlay, valid values are \"body\" or a local ng-template variable of another element (note: use binding with brackets for template variables, e.g. [appendTo]=\"mydiv\" for a div element having #mydiv as variable name)."
                         },
                         {
@@ -32642,7 +32639,7 @@
                             "optional": false,
                             "readonly": false,
                             "type": "InputSignalWithTransform<boolean, unknown>",
-                            "default": "...",
+                            "default": "false",
                             "description": "There must be a value (if set)."
                         },
                         {
@@ -32650,7 +32647,7 @@
                             "optional": false,
                             "readonly": false,
                             "type": "InputSignalWithTransform<boolean, unknown>",
-                            "default": "undefined",
+                            "default": "false",
                             "description": "When present, it specifies that the component should have invalid state style."
                         },
                         {
@@ -32658,7 +32655,7 @@
                             "optional": false,
                             "readonly": false,
                             "type": "InputSignalWithTransform<boolean, unknown>",
-                            "default": "undefined",
+                            "default": "false",
                             "description": "When present, it specifies that the component should have disabled state style."
                         },
                         {
@@ -33333,7 +33330,7 @@
                             "optional": false,
                             "readonly": false,
                             "type": "InputSignal<any>",
-                            "default": "...",
+                            "default": "'self'",
                             "description": "Target element to attach the overlay, valid values are \"body\" or a local ng-template variable of another element (note: use binding with brackets for template variables, e.g. [appendTo]=\"mydiv\" for a div element having #mydiv as variable name)."
                         },
                         {

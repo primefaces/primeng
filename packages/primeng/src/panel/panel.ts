@@ -348,7 +348,7 @@ export class Panel extends BaseComponent implements AfterContentInit, BlockableU
     }
 
     getBlockableElement(): HTMLElement {
-        return this.el.nativeElement.children[0];
+        return this.el.nativeElement;
     }
 
     updateTabIndex() {
