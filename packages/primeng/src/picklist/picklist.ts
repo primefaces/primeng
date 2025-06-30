@@ -1134,26 +1134,24 @@ export class PickList extends BaseComponent implements AfterViewChecked, AfterCo
 
         let index = this.findIndexInList(item, selectedItems);
         if (itemId) this.focusedOptionIndex = itemId;
-        let selected = index != -1;
+        let shouldSelect = index != -1;
         let metaSelection = this.itemTouched ? false : this.metaKeySelection;
 
         if (metaSelection) {
             let metaKey = (<KeyboardEvent>event).metaKey || (<KeyboardEvent>event).ctrlKey || (<KeyboardEvent>event).shiftKey;
 
-            if (selected && metaKey) {
+            if (!shouldSelect && metaKey) {
                 selectedItems = selectedItems.filter((_, i) => i !== index);
             } else {
                 if (!metaKey) {
-                    selectedItems = [];
+                    selectedItems = selectedItems.filter((_, i) => i !== index);
                 }
-                selectedItems.push(item);
+                if (shouldSelect) {
+                    selectedItems.push(item);
+                }
             }
-        } else {
-            if (selected) {
-                selectedItems = selectedItems.filter((_, i) => i !== index); // Creating a new array without the selected item
-            } else {
-                selectedItems.push(item);
-            }
+        } else if (!shouldSelect) {
+            selectedItems = selectedItems.filter((_, i) => i !== index); // Creating a new array without the selected item
         }
         this.setSelectionList(listType, selectedItems);
         callback.emit({ originalEvent: event, items: selectedItems });
@@ -1544,6 +1542,8 @@ export class PickList extends BaseComponent implements AfterViewChecked, AfterCo
 
     onListFocus(event, listType) {
         this.onFocus.emit(event);
+        // Reset the focused option when the list is focused, in case the user has selected an option using the keyboard beforehand.
+        this.changeFocusedOptionIndex(0, listType);
     }
 
     onListBlur(event, listType) {
@@ -1555,9 +1555,9 @@ export class PickList extends BaseComponent implements AfterViewChecked, AfterCo
     }
 
     getListItems(listType: number) {
-        let listElemet = this.getListElement(listType);
+        let listElement = this.getListElement(listType);
 
-        return find(listElemet, 'li.p-picklist-item');
+        return find(listElement, 'li.p-listbox-option');
     }
 
     getLatestSelectedVisibleOptionIndex(visibleList: any[], selectedItems: any[]): number {
