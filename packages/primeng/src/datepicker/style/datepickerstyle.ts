@@ -24,7 +24,7 @@ const classes = {
             'p-datepicker-fluid': instance.hasFluid,
             'p-inputwrapper-filled': instance.$filled(),
             'p-variant-filled': instance.$variant() === 'filled',
-            'p-inputwrapper-focus': instance.focus,
+            'p-inputwrapper-focus': instance.focus || instance.overlayVisible,
             'p-focus': instance.focus || instance.overlayVisible
         }
     ],
