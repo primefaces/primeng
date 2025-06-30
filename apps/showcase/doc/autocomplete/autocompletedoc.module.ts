@@ -21,6 +21,7 @@ import { ImportDoc } from './importdoc';
 import { InvalidDoc } from './invaliddoc';
 import { MultipleDoc } from './multipledoc';
 import { ObjectsDoc } from './objectsdoc';
+import { ObjectsValueDoc } from './objectsvaluedoc';
 import { ReactiveFormsDoc } from './reactiveformsdoc';
 import { SizesDoc } from './sizesdoc';
 import { StyleDoc } from './styledoc';
@@ -45,6 +46,7 @@ import { ToastModule } from 'primeng/toast';
         DropdownDoc,
         ForceSelectionDoc,
         ObjectsDoc,
+        ObjectsValueDoc,
         ReactiveFormsDoc,
         FloatLabelDoc,
         IftaLabelDoc,
