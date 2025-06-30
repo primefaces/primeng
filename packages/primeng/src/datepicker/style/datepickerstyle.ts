@@ -84,11 +84,11 @@ const classes = {
         };
     },
     monthView: 'p-datepicker-month-view',
-    month: ({ instance, i }) => [
+    month: ({ instance, index }) => [
         'p-datepicker-month',
         {
-            'p-datepicker-month-selected': instance.isMonthSelected(i),
-            'p-disabled': instance.isMonthDisabled(i)
+            'p-datepicker-month-selected': instance.isMonthSelected(index),
+            'p-disabled': instance.isMonthDisabled(index)
         }
     ],
     yearView: 'p-datepicker-year-view',
