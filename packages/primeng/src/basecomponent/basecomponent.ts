@@ -40,7 +40,7 @@ export class BaseComponent {
     $appendTo = computed(() => this.appendTo() || this.config.overlayAppendTo());
 
     get styleOptions() {
-        return { nonce: this.config?.csp().nonce };
+        return { nonce: this.config?.csp().nonce, element: this.el };
     }
 
     get _name() {
@@ -67,7 +67,7 @@ export class BaseComponent {
 
     ngOnInit() {
         if (this.document) {
-            this._loadStyles();
+            this._loadStyles(this.el.nativeElement.shadowRoot || this.el.nativeElement.getRootNode?.().constructor.name === 'ShadowRoot');
         }
     }
 
@@ -94,14 +94,14 @@ export class BaseComponent {
         this.themeChangeListeners.forEach((callback) => ThemeService.off('theme:change', callback));
     }
 
-    _loadStyles() {
+    _loadStyles(inShadowRoot: boolean = false) {
         const _load = () => {
-            if (!Base.isStyleNameLoaded('base')) {
+            if (!Base.isStyleNameLoaded('base') || inShadowRoot) {
                 this.baseStyle.loadGlobalCSS(this.styleOptions);
                 Base.setLoadedStyleName('base');
             }
 
-            this._loadThemeStyles();
+            this._loadThemeStyles(inShadowRoot);
             // @todo update config.theme()
         };
 
@@ -117,7 +117,7 @@ export class BaseComponent {
         }
     }
 
-    _loadThemeStyles() {
+    _loadThemeStyles(inShadowRoot: boolean = false) {
         // common
         if (!Theme.isStyleNameLoaded('common')) {
             const { primitive, semantic, global, style } = this.componentStyle?.getCommonTheme?.() || {};
@@ -131,7 +131,7 @@ export class BaseComponent {
         }
 
         // component
-        if (!Theme.isStyleNameLoaded(this.componentStyle?.name) && this.componentStyle?.name) {
+        if (inShadowRoot || (!Theme.isStyleNameLoaded(this.componentStyle?.name) && this.componentStyle?.name)) {
             const { css, style } = this.componentStyle?.getComponentTheme?.() || {};
 
             this.componentStyle?.load(css, { name: `${this.componentStyle?.name}-variables`, ...this.styleOptions });
