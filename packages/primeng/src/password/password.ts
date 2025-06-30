@@ -89,6 +89,8 @@ export class PasswordDirective extends BaseEditableHolder implements OnDestroy {
     @Input({ transform: booleanAttribute }) feedback: boolean = true;
     /**
      * Sets the visibility of the password field.
+     * @defaultValue false
+     * @type boolean
      * @group Props
      */
     @Input() set showPassword(show: boolean) {
@@ -96,13 +98,13 @@ export class PasswordDirective extends BaseEditableHolder implements OnDestroy {
     }
     /**
      * Specifies the input variant of the component.
-     * @defaultValue undefined
+     * @defaultValue 'outlined'
      * @group Props
      */
     variant = input<'filled' | 'outlined' | undefined>();
     /**
      * Spans 100% width of the container when enabled.
-     * @defaultValue undefined
+     * @defaultValue false
      * @group Props
      */
     fluid = input(undefined, { transform: booleanAttribute });

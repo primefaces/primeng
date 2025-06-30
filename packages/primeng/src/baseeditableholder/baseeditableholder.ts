@@ -6,18 +6,19 @@ import { BaseComponent } from 'primeng/basecomponent';
 export class BaseEditableHolder extends BaseComponent {
     /**
      * There must be a value (if set).
+     * @defaultValue false
      * @group Props
      */
     required = input(undefined, { transform: booleanAttribute });
     /**
      * When present, it specifies that the component should have invalid state style.
-     * @defaultValue undefined
+     * @defaultValue false
      * @group Props
      */
     invalid = input(undefined, { transform: booleanAttribute });
     /**
      * When present, it specifies that the component should have disabled state style.
-     * @defaultValue undefined
+     * @defaultValue false
      * @group Props
      */
     disabled = input(undefined, { transform: booleanAttribute });
