@@ -302,6 +302,11 @@ export class InputNumber extends BaseInput implements OnInit, AfterContentInit, 
      */
     @Input() mode: string | any = 'decimal';
     /**
+     * Determines whether any decimal key on the keyboard can be used for adding decimals.
+     * @group Props
+     */
+    @Input({ transform: booleanAttribute }) anyDecimalKey: boolean = false;
+    /**
      * The currency to use in currency formatting. Possible values are the ISO 4217 currency codes, such as "USD" for the US dollar, "EUR" for the euro, or "CNY" for the Chinese RMB. There is no default value; if the style is "currency", the currency property must be provided.
      * @group Props
      */
@@ -958,11 +963,12 @@ export class InputNumber extends BaseInput implements OnInit, AfterContentInit, 
         let char = String.fromCharCode(code);
         let isDecimalSign = this.isDecimalSign(char);
         const isMinusSign = this.isMinusSign(char);
+        const isAnyDecimalKey = event.code === 'NumpadDecimal' || (this.anyDecimalKey && (event.code === 'Comma' || event.code === 'Period'));
 
         if (code != 13) {
             event.preventDefault();
         }
-        if (!isDecimalSign && event.code === 'NumpadDecimal') {
+        if (!isDecimalSign && isAnyDecimalKey) {
             isDecimalSign = true;
             char = this._decimalChar;
             code = char.charCodeAt(0);
