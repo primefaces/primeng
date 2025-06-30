@@ -8,7 +8,7 @@ import { MenuItem } from 'primeng/api';
     standalone: false,
     template: `
         <app-docsectiontext>
-            <p>Items with navigation are defined with templating to be able to use a <i>routerLink</i> directive, an external link or programmatic navigation.</p>
+            <p>Menu items support navigation via routerLink, programmatic routing using commands, or external URLs.</p>
         </app-docsectiontext>
         <div class="card flex justify-center">
             <span #span class="inline-flex items-center justify-center border-2 border-primary rounded w-16 h-16" aria-haspopup="true">

@@ -8,10 +8,7 @@ import { MenuItem } from 'primeng/api';
     standalone: false,
     template: `
         <app-docsectiontext>
-            <p>
-                Navigation is specified using url property for external links and with <i>routerLink</i> for internal ones. If a menuitem has an active route, <i>p-menuitem-link-active</i> style class is added as an indicator. Active route link can
-                be configured with <i>routerLinkActiveOptions</i> property of MenuItem API.
-            </p>
+            <p>Menu items support navigation via routerLink, programmatic routing using commands, or external URLs.</p>
         </app-docsectiontext>
         <div class="card flex justify-center">
             <p-menu [model]="items" />

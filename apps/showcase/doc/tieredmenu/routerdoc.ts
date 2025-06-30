@@ -8,7 +8,7 @@ import { MenuItem } from 'primeng/api';
     standalone: false,
     template: `
         <app-docsectiontext>
-            <p>Items with navigation are defined with templating to be able to use a router link component, an external link or programmatic navigation.</p>
+            <p>Menu items support navigation via routerLink, programmatic routing using commands, or external URLs.</p>
         </app-docsectiontext>
         <div class="card flex justify-center">
             <p-tieredmenu [model]="items" />
