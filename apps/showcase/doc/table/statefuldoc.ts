@@ -33,7 +33,7 @@ import { ChangeDetectionStrategy, ChangeDetectorRef, Component } from '@angular/
                             <p-inputicon>
                                 <i class="pi pi-search"></i>
                             </p-inputicon>
-                            <input pInputText type="text" (input)="dt1.filterGlobal($event.target.value, 'contains')" placeholder="Global Search" />
+                            <input pInputText type="text" [value]="dt1.filters['global']?.value" (input)="dt1.filterGlobal($event.target.value, 'contains')" placeholder="Global Search" />
                         </p-iconfield>
                     </ng-template>
                     <ng-template #header>
@@ -147,6 +147,7 @@ export class StatefulDoc {
             <input
                 pInputText
                 type="text"
+                [value]="dt1.filters['global']?.value"
                 (input)="dt1.filterGlobal($event.target.value, 'contains')"
                 placeholder="Global Search"
             />
@@ -259,6 +260,7 @@ export class StatefulDoc {
                 <input
                     pInputText
                     type="text"
+                    [value]="dt1.filters['global']?.value"
                     (input)="dt1.filterGlobal($event.target.value, 'contains')"
                     placeholder="Global Search"
                 />
