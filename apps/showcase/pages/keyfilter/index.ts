@@ -2,9 +2,7 @@ import { AccessibilityDoc } from '@/doc/keyfilter/accessibilitydoc';
 import { ImportDoc } from '@/doc/keyfilter/importdoc';
 import { KeyFilterDocModule } from '@/doc/keyfilter/keyfilterdoc.module';
 import { PresetsDoc } from '@/doc/keyfilter/presetsdoc';
-import { ReactiveFormsDoc } from '@/doc/keyfilter/reactiveformsdoc';
 import { RegexDoc } from '@/doc/keyfilter/regexdoc';
-import { TemplateDrivenFormsDoc } from '@/doc/keyfilter/templatedrivenformsdoc';
 import { Component } from '@angular/core';
 
 @Component({
@@ -34,14 +32,6 @@ export class KeyFilterDemo {
             id: 'regex',
             label: 'Regex',
             component: RegexDoc
-        },
-        {
-            id: 'forms',
-            label: 'Forms',
-            children: [
-                { id: 'templatedriven', label: 'Template Driven', component: TemplateDrivenFormsDoc },
-                { id: 'reactive', label: 'Reactive Forms', component: ReactiveFormsDoc }
-            ]
         },
         {
             id: 'accessibility',

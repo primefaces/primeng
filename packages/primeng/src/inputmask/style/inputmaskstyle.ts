@@ -17,6 +17,12 @@ const theme = ({ dt }) => css`
         color: ${dt('form.field.icon.color')};
     }
 
+    p-inputMask:has(.p-inputtext-fluid),
+    p-input-mask:has(.p-inputtext-fluid),
+    p-inputmask:has(.p-inputtext-fluid) {
+        width: 100%;
+    }
+
     p-inputMask.ng-invalid.ng-dirty > .p-inputtext,
     p-input-mask.ng-invalid.ng-dirty > .p-inputtext,
     p-inputmask.ng-invalid.ng-dirty > .p-inputtext {

@@ -16,9 +16,9 @@ interface City {
         <div class="card flex justify-center">
             <form #exampleForm="ngForm" (ngSubmit)="onSubmit(exampleForm)" class="flex justify-center flex-col gap-4 md:w-56">
                 <div class="flex flex-col gap-1">
-                    <p-listbox #country="ngModel" [options]="cities" [(ngModel)]="selectedCity" optionLabel="name" class="w-full md:w-56" [invalid]="country.invalid && exampleForm.submitted" name="country" required />
-                    @if (country.invalid && exampleForm.submitted) {
-                        <p-message severity="error" size="small" variant="simple">Country is required.</p-message>
+                    <p-listbox #city="ngModel" [options]="cities" [(ngModel)]="selectedCity" optionLabel="name" class="w-full md:w-56" [invalid]="city.invalid && exampleForm.submitted" name="city" required />
+                    @if (city.invalid && exampleForm.submitted) {
+                        <p-message severity="error" size="small" variant="simple">City is required.</p-message>
                     }
                 </div>
                 <button pButton severity="secondary" type="submit"><span pButtonLabel>Submit</span></button>
@@ -54,9 +54,9 @@ export class TemplateDrivenFormsDoc {
     code: Code = {
         basic: `<form #exampleForm="ngForm" (ngSubmit)="onSubmit(exampleForm)" class="flex justify-center flex-col gap-4 md:w-56">
     <div class="flex flex-col gap-1">
-        <p-listbox #country="ngModel" [options]="cities" [(ngModel)]="selectedCity" optionLabel="name" class="w-full md:w-56" [invalid]="country.invalid && exampleForm.submitted" name="country" required />
-        @if (country.invalid && exampleForm.submitted) {
-            <p-message severity="error" size="small" variant="simple">Country is required.</p-message>
+        <p-listbox #city="ngModel" [options]="cities" [(ngModel)]="selectedCity" optionLabel="name" class="w-full md:w-56" [invalid]="city.invalid && exampleForm.submitted" name="city" required />
+        @if (city.invalid && exampleForm.submitted) {
+            <p-message severity="error" size="small" variant="simple">City is required.</p-message>
         }
     </div>
     <button pButton severity="secondary" type="submit"><span pButtonLabel>Submit</span></button>
@@ -66,9 +66,9 @@ export class TemplateDrivenFormsDoc {
 <div class="card flex justify-center">
     <form #exampleForm="ngForm" (ngSubmit)="onSubmit(exampleForm)" class="flex justify-center flex-col gap-4 md:w-56">
         <div class="flex flex-col gap-1">
-            <p-listbox #country="ngModel" [options]="cities" [(ngModel)]="selectedCity" optionLabel="name" class="w-full md:w-56" [invalid]="country.invalid && exampleForm.submitted" name="country" required />
-            @if (country.invalid && exampleForm.submitted) {
-                <p-message severity="error" size="small" variant="simple">Country is required.</p-message>
+            <p-listbox #city="ngModel" [options]="cities" [(ngModel)]="selectedCity" optionLabel="name" class="w-full md:w-56" [invalid]="city.invalid && exampleForm.submitted" name="city" required />
+            @if (city.invalid && exampleForm.submitted) {
+                <p-message severity="error" size="small" variant="simple">City is required.</p-message>
             }
         </div>
         <button pButton severity="secondary" type="submit"><span pButtonLabel>Submit</span></button>

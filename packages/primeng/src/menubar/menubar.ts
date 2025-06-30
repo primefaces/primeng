@@ -316,13 +316,8 @@ export class MenubarSub extends BaseComponent implements OnInit, OnDestroy {
         return index - this.items.slice(0, index).filter((processedItem) => this.isItemVisible(processedItem) && this.getItemProp(processedItem, 'separator')).length + 1;
     }
 
-    onItemMouseLeave() {
-        this.menubarService.mouseLeaves.next(true);
-    }
-
     onItemMouseEnter(param: any) {
         if (this.autoDisplay) {
-            this.menubarService.mouseLeaves.next(false);
             const { event, processedItem } = param;
             this.itemMouseEnter.emit({ originalEvent: event, processedItem });
         }
@@ -436,7 +431,7 @@ export class Menubar extends BaseComponent implements AfterContentInit, OnDestro
      * @defaultValue true
      * @group Props
      */
-    @Input({ transform: booleanAttribute }) autoDisplay: boolean | undefined = false;
+    @Input({ transform: booleanAttribute }) autoDisplay: boolean | undefined = true;
     /**
      * Whether to hide a root submenu when mouse leaves.
      * @group Props
@@ -727,9 +722,11 @@ export class Menubar extends BaseComponent implements AfterContentInit, OnDestro
 
     onItemMouseEnter(event: any) {
         if (!isTouchDevice()) {
-            if (!this.mobileActive) {
-                this.onItemChange(event);
+            if (this.dirty) {
+                this.onItemChange(event, 'hover');
             }
+        } else {
+            this.onItemChange({ event, processedItem: event.processedItem, focus: this.autoDisplay }, 'hover');
         }
     }
 
@@ -751,7 +748,7 @@ export class Menubar extends BaseComponent implements AfterContentInit, OnDestro
         }
     }
 
-    onItemChange(event: any) {
+    onItemChange(event: any, type?: string | undefined) {
         const { processedItem, isFocus } = event;
 
         if (isEmpty(processedItem)) return;
@@ -762,10 +759,15 @@ export class Menubar extends BaseComponent implements AfterContentInit, OnDestro
 
         grouped && activeItemPath.push(processedItem);
         this.focusedItemInfo.set({ index, level, parentKey, item });
-        this.activeItemPath.set(activeItemPath);
 
         grouped && (this.dirty = true);
         isFocus && focus(this.rootmenu.el.nativeElement);
+
+        if (type === 'hover' && this.queryMatches) {
+            return;
+        }
+
+        this.activeItemPath.set(activeItemPath);
     }
 
     toggle(event: MouseEvent) {
