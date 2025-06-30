@@ -8,8 +8,9 @@ import { Component } from '@angular/core';
         <app-docsectiontext>
             <h3>Screen Reader</h3>
             <p>
-                Value to describe the component can either be provided via <i>label</i> tag combined with <i>inputId</i> prop or using <i>aria-labelledby</i>, <i>aria-label</i> props. The input element has <i>combobox</i> role in addition to
-                <i>aria-autocomplete</i> as "none", <i>aria-haspopup</i> as "dialog" and <i>aria-expanded</i> attributes. The relation between the input and the popup is created with <i>aria-controls</i> attribute that refers to the id of the popup.
+                Value to describe the component can either be provided via <i>label</i> tag combined with <i>inputId</i> prop or using <i>ariaLabelledBy</i>, <i>ariaLabel</i>, <i>ariaDescribedBy</i> props. The input element has <i>combobox</i> role
+                in addition to <i>aria-autocomplete</i> as "none", <i>aria-haspopup</i> as "dialog" and <i>aria-expanded</i> attributes. The relation between the input and the popup is created with <i>aria-controls</i> attribute that refers to the id
+                of the popup.
             </p>
             <p>
                 The optional DatePicker button requires includes <i>aria-haspopup</i>, <i>aria-expanded</i> for states along with <i>aria-controls</i> to define the relation between the popup and the button. The value to read is retrieved from the
@@ -237,6 +238,9 @@ export class AccessibilityDoc {
 <span id="date2">Date</span>
 <p-datepicker ariaLabelledBy="date2"/>
 
-<p-datepicker ariaLabel="Date"/>`
+<p-datepicker ariaLabel="Date"/>
+
+<p-datepicker ariaDescribedBy="describe" />
+<small id="describe">Information</small>`
     };
 }
