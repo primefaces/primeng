@@ -456,10 +456,6 @@ export class TreeSelect extends BaseEditableHolder implements AfterContentInit {
 
     $appendTo = computed(() => this.appendTo() || this.config.overlayAppendTo());
 
-    _showTransitionOptions: string | undefined;
-
-    _hideTransitionOptions: string | undefined;
-
     @ViewChild('focusInput') focusInput: Nullable<ElementRef>;
 
     @ViewChild('filter') filterViewChild: Nullable<ElementRef>;
