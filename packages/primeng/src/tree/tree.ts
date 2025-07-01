@@ -28,6 +28,7 @@ import {
 import { FormsModule } from '@angular/forms';
 import { find, findSingle, focus, hasClass, removeAccents, resolveFieldData } from '@primeuix/utils';
 import { BlockableUI, PrimeTemplate, ScrollerOptions, SharedModule, TranslationKeys, TreeDragDropService, TreeNode } from 'primeng/api';
+import { AutoFocusModule } from 'primeng/autofocus';
 import { BaseComponent } from 'primeng/basecomponent';
 import { Checkbox } from 'primeng/checkbox';
 import { IconField } from 'primeng/iconfield';
@@ -52,7 +53,6 @@ import {
     TreeScrollEvent,
     TreeScrollIndexChangeEvent
 } from './tree.interface';
-import { AutoFocusModule } from 'primeng/autofocus';
 
 @Component({
     selector: 'p-treeNode',
@@ -694,7 +694,7 @@ export class UITreeNode extends BaseComponent implements OnInit {
 
     focusVirtualNode() {
         this.timeout = setTimeout(() => {
-            let node = <any>findSingle(document.body, `[data-id="${<TreeNode>this.node?.key ?? <TreeNode>this.node?.data}"]`);
+            let node = <any>findSingle(this.tree?.contentViewChild.nativeElement, `[data-id="${<TreeNode>this.node?.key ?? <TreeNode>this.node?.data}"]`);
             focus(node);
         }, 1);
     }
@@ -759,7 +759,7 @@ export class UITreeNode extends BaseComponent implements OnInit {
                 [options]="virtualScrollOptions"
             >
                 <ng-template #content let-items let-scrollerOptions="options">
-                    <ul *ngIf="items" [class]="cx('rootChildren')" [ngClass]="scrollerOptions.contentStyleClass" [style]="scrollerOptions.contentStyle" role="tree" [attr.aria-label]="ariaLabel" [attr.aria-labelledby]="ariaLabelledBy">
+                    <ul *ngIf="items" #content [class]="cx('rootChildren')" [ngClass]="scrollerOptions.contentStyleClass" [style]="scrollerOptions.contentStyle" role="tree" [attr.aria-label]="ariaLabel" [attr.aria-labelledby]="ariaLabelledBy">
                         <p-treeNode
                             #treeNode
                             *ngFor="let rowNode of items; let firstChild = first; let lastChild = last; let index = index; trackBy: trackBy"
@@ -784,7 +784,7 @@ export class UITreeNode extends BaseComponent implements OnInit {
             </p-scroller>
             <ng-container *ngIf="!virtualScroll">
                 <div #wrapper [class]="cx('wrapper')" [style.max-height]="scrollHeight">
-                    <ul [class]="cx('rootChildren')" *ngIf="getRootNode()" role="tree" [attr.aria-label]="ariaLabel" [attr.aria-labelledby]="ariaLabelledBy">
+                    <ul #content [class]="cx('rootChildren')" *ngIf="getRootNode()" role="tree" [attr.aria-label]="ariaLabel" [attr.aria-labelledby]="ariaLabelledBy">
                         <p-treeNode
                             *ngFor="let node of getRootNode(); let firstChild = first; let lastChild = last; let index = index; trackBy: trackBy.bind(this)"
                             [node]="node"
@@ -1129,6 +1129,8 @@ export class Tree extends BaseComponent implements OnInit, AfterContentInit, OnC
     @ViewChild('scroller') scroller: Nullable<Scroller>;
 
     @ViewChild('wrapper') wrapperViewChild: Nullable<ElementRef>;
+
+    @ViewChild('content') contentViewChild: Nullable<ElementRef>;
 
     @ContentChildren(PrimeTemplate) private templates: QueryList<PrimeTemplate> | undefined;
 
