@@ -234,7 +234,7 @@ export class FileContent extends BaseComponent {
                                 <div
                                     pFileContent
                                     [files]="uploadedFiles"
-                                    (onRemove)="onRemoveClick($event)"
+                                    (onRemove)="onRemoveUploadedFileClick($event)"
                                     [badgeValue]="completedLabel()"
                                     badgeSeverity="success"
                                     [previewWidth]="previewWidth"
@@ -988,6 +988,9 @@ export class FileUpload extends BaseComponent implements AfterViewInit, AfterCon
         if (this.hasFiles()) {
             this.remove(event, index);
         }
+    }
+    onRemoveUploadedFileClick(e: any) {
+        const { event, index } = e;
         if (this.hasUploadedFiles()) {
             this.removeUploadedFile(index);
         }
