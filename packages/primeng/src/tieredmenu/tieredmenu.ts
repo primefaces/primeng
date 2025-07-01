@@ -4,6 +4,7 @@ import {
     booleanAttribute,
     ChangeDetectionStrategy,
     Component,
+    computed,
     ContentChild,
     ContentChildren,
     effect,
@@ -473,6 +474,12 @@ export class TieredMenu extends BaseComponent implements OnInit, OnDestroy {
      */
     @Input({ transform: numberAttribute }) tabindex: number = 0;
     /**
+     * Target element to attach the overlay, valid values are "body" or a local ng-template variable of another element (note: use binding with brackets for template variables, e.g. [appendTo]="mydiv" for a div element having #mydiv as variable name).
+     * @defaultValue 'self'
+     * @group Props
+     */
+    appendTo = input<HTMLElement | ElementRef | TemplateRef<any> | 'self' | 'body' | null | undefined | any>(undefined);
+    /**
      * Callback to invoke when overlay menu is shown.
      * @group Emits
      */
@@ -498,6 +505,8 @@ export class TieredMenu extends BaseComponent implements OnInit, OnDestroy {
     @ContentChild('item', { descendants: false }) itemTemplate: TemplateRef<any>;
 
     @ContentChildren(PrimeTemplate) templates: QueryList<PrimeTemplate> | undefined;
+
+    $appendTo = computed(() => this.appendTo() || this.config.overlayAppendTo());
 
     container: HTMLDivElement | undefined;
 

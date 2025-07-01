@@ -15,6 +15,7 @@ import {
     EventEmitter,
     forwardRef,
     inject,
+    input,
     Input,
     NgModule,
     NgZone,
@@ -631,6 +632,12 @@ export class Select extends BaseInput implements OnInit, AfterViewInit, AfterCon
         }
     }
     /**
+     * Target element to attach the overlay, valid values are "body" or a local ng-template variable of another element (note: use binding with brackets for template variables, e.g. [appendTo]="mydiv" for a div element having #mydiv as variable name).
+     * @defaultValue 'self'
+     * @group Props
+     */
+    appendTo = input<HTMLElement | ElementRef | TemplateRef<any> | 'self' | 'body' | null | undefined | any>(undefined);
+    /**
      * Callback to invoke when value of select changes.
      * @param {SelectChangeEvent} event - custom change event.
      * @group Emits
@@ -704,6 +711,8 @@ export class Select extends BaseInput implements OnInit, AfterViewInit, AfterCon
     @ViewChild('lastHiddenFocusableEl') lastHiddenFocusableElementOnOverlay: Nullable<ElementRef>;
 
     itemsWrapper: Nullable<HTMLDivElement>;
+
+    $appendTo = computed(() => this.appendTo() || this.config.overlayAppendTo());
 
     /**
      * Custom item template.

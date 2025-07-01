@@ -5,6 +5,7 @@ import {
     booleanAttribute,
     ChangeDetectionStrategy,
     Component,
+    computed,
     ContentChild,
     ContentChildren,
     effect,
@@ -13,6 +14,7 @@ import {
     forwardRef,
     Inject,
     inject,
+    input,
     Input,
     NgModule,
     numberAttribute,
@@ -463,6 +465,12 @@ export class ContextMenu extends BaseComponent implements OnInit, AfterContentIn
      */
     @Input({ transform: numberAttribute }) pressDelay: number | undefined = 500;
     /**
+     * Target element to attach the overlay, valid values are "body" or a local ng-template variable of another element (note: use binding with brackets for template variables, e.g. [appendTo]="mydiv" for a div element having #mydiv as variable name).
+     * @defaultValue 'self'
+     * @group Props
+     */
+    appendTo = input<HTMLElement | ElementRef | TemplateRef<any> | 'self' | 'body' | null | undefined | any>(undefined);
+    /**
      * Callback to invoke when overlay menu is shown.
      * @group Emits
      */
@@ -504,6 +512,8 @@ export class ContextMenu extends BaseComponent implements OnInit, AfterContentIn
     focusedItemInfo = signal<any>({ index: -1, level: 0, parentKey: '', item: null });
 
     submenuVisible = signal<boolean>(false);
+
+    $appendTo = computed(() => this.appendTo() || this.config.overlayAppendTo());
 
     searchValue: string = '';
 

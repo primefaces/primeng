@@ -13,6 +13,7 @@ import {
     forwardRef,
     Inject,
     inject,
+    input,
     Input,
     NgModule,
     numberAttribute,
@@ -303,6 +304,12 @@ export class Menu extends BaseComponent implements AfterContentInit, OnDestroy {
      */
     @Input({ transform: numberAttribute }) tabindex: number = 0;
     /**
+     * Target element to attach the overlay, valid values are "body" or a local ng-template variable of another element (note: use binding with brackets for template variables, e.g. [appendTo]="mydiv" for a div element having #mydiv as variable name).
+     * @defaultValue 'self'
+     * @group Props
+     */
+    appendTo = input<HTMLElement | ElementRef | TemplateRef<any> | 'self' | 'body' | null | undefined | any>(undefined);
+    /**
      * Callback to invoke when overlay menu is shown.
      * @group Emits
      */
@@ -328,6 +335,8 @@ export class Menu extends BaseComponent implements AfterContentInit, OnDestroy {
     @ViewChild('list') listViewChild: Nullable<ElementRef>;
 
     @ViewChild('container') containerViewChild: Nullable<ElementRef>;
+
+    $appendTo = computed(() => this.appendTo() || this.config.overlayAppendTo());
 
     container: HTMLDivElement | undefined;
 

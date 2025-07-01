@@ -785,6 +785,12 @@ export class MultiSelect extends BaseEditableHolder implements OnInit, AfterView
      */
     fluid = input(undefined, { transform: booleanAttribute });
     /**
+     * Target element to attach the overlay, valid values are "body" or a local ng-template variable of another element (note: use binding with brackets for template variables, e.g. [appendTo]="mydiv" for a div element having #mydiv as variable name).
+     * @defaultValue 'self'
+     * @group Props
+     */
+    appendTo = input<HTMLElement | ElementRef | TemplateRef<any> | 'self' | 'body' | null | undefined | any>(undefined);
+    /**
      * Callback to invoke when value changes.
      * @param {MultiSelectChangeEvent} event - Custom change event.
      * @group Emits
@@ -965,6 +971,8 @@ export class MultiSelect extends BaseEditableHolder implements OnInit, AfterView
     _headerCheckboxIconTemplate: TemplateRef<any> | undefined;
 
     $variant = computed(() => this.variant() || this.config.inputStyle() || this.config.inputVariant());
+
+    $appendTo = computed(() => this.appendTo() || this.config.overlayAppendTo());
 
     pcFluid: Fluid = inject(Fluid, { optional: true, host: true, skipSelf: true });
 

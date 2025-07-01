@@ -21,33 +21,12 @@
                             "type": "InputSignalWithTransform<any, boolean>",
                             "default": "false",
                             "description": "Disables the tab when enabled."
-                        },
-                        {
-                            "name": "appendTo",
-                            "optional": false,
-                            "readonly": false,
-                            "type": "InputSignal<any>",
-                            "default": "'self'",
-                            "description": "Target element to attach the overlay, valid values are \"body\" or a local ng-template variable of another element (note: use binding with brackets for template variables, e.g. [appendTo]=\"mydiv\" for a div element having #mydiv as variable name)."
                         }
                     ]
                 }
             },
             "AccordionHeader": {
                 "description": "AccordionHeader is a helper component for Accordion component.",
-                "props": {
-                    "description": "Defines the input properties of the component.",
-                    "values": [
-                        {
-                            "name": "appendTo",
-                            "optional": false,
-                            "readonly": false,
-                            "type": "InputSignal<any>",
-                            "default": "'self'",
-                            "description": "Target element to attach the overlay, valid values are \"body\" or a local ng-template variable of another element (note: use binding with brackets for template variables, e.g. [appendTo]=\"mydiv\" for a div element having #mydiv as variable name)."
-                        }
-                    ]
-                },
                 "templates": {
                     "description": "Defines the templates used by the component.",
                     "values": [
@@ -118,14 +97,6 @@
                             "type": "string",
                             "default": "400ms cubic-bezier(0.86, 0, 0.07, 1)",
                             "description": "Transition options of the animation."
-                        },
-                        {
-                            "name": "appendTo",
-                            "optional": false,
-                            "readonly": false,
-                            "type": "InputSignal<any>",
-                            "default": "'self'",
-                            "description": "Target element to attach the overlay, valid values are \"body\" or a local ng-template variable of another element (note: use binding with brackets for template variables, e.g. [appendTo]=\"mydiv\" for a div element having #mydiv as variable name)."
                         }
                     ]
                 },
@@ -299,14 +270,6 @@
                             "type": "boolean",
                             "default": "false",
                             "description": "Whether the scroll event listener should be removed after initial run."
-                        },
-                        {
-                            "name": "appendTo",
-                            "optional": false,
-                            "readonly": false,
-                            "type": "InputSignal<any>",
-                            "default": "'self'",
-                            "description": "Target element to attach the overlay, valid values are \"body\" or a local ng-template variable of another element (note: use binding with brackets for template variables, e.g. [appendTo]=\"mydiv\" for a div element having #mydiv as variable name)."
                         }
                     ]
                 }
@@ -4523,14 +4486,6 @@
                             "type": "boolean",
                             "default": "false",
                             "description": "When present, it specifies that the component should automatically get focus on load."
-                        },
-                        {
-                            "name": "appendTo",
-                            "optional": false,
-                            "readonly": false,
-                            "type": "InputSignal<any>",
-                            "default": "'self'",
-                            "description": "Target element to attach the overlay, valid values are \"body\" or a local ng-template variable of another element (note: use binding with brackets for template variables, e.g. [appendTo]=\"mydiv\" for a div element having #mydiv as variable name)."
                         }
                     ]
                 }
@@ -4602,14 +4557,6 @@
                             "readonly": false,
                             "type": "string",
                             "description": "Establishes relationships between the component and label(s) where its value should be one or more element IDs."
-                        },
-                        {
-                            "name": "appendTo",
-                            "optional": false,
-                            "readonly": false,
-                            "type": "InputSignal<any>",
-                            "default": "'self'",
-                            "description": "Target element to attach the overlay, valid values are \"body\" or a local ng-template variable of another element (note: use binding with brackets for template variables, e.g. [appendTo]=\"mydiv\" for a div element having #mydiv as variable name)."
                         }
                     ]
                 },
@@ -4670,14 +4617,6 @@
                             "readonly": false,
                             "type": "{ [klass: string]: any }",
                             "description": "Inline style of the component."
-                        },
-                        {
-                            "name": "appendTo",
-                            "optional": false,
-                            "readonly": false,
-                            "type": "InputSignal<any>",
-                            "default": "'self'",
-                            "description": "Target element to attach the overlay, valid values are \"body\" or a local ng-template variable of another element (note: use binding with brackets for template variables, e.g. [appendTo]=\"mydiv\" for a div element having #mydiv as variable name)."
                         }
                     ]
                 }
@@ -4751,14 +4690,6 @@
                             "readonly": false,
                             "type": "string",
                             "description": "Class of the element."
-                        },
-                        {
-                            "name": "appendTo",
-                            "optional": false,
-                            "readonly": false,
-                            "type": "InputSignal<any>",
-                            "default": "'self'",
-                            "description": "Target element to attach the overlay, valid values are \"body\" or a local ng-template variable of another element (note: use binding with brackets for template variables, e.g. [appendTo]=\"mydiv\" for a div element having #mydiv as variable name)."
                         }
                     ]
                 }
@@ -4816,14 +4747,6 @@
                             "type": "InputSignalWithTransform<boolean, boolean>",
                             "default": "...",
                             "description": "When specified, disables the component."
-                        },
-                        {
-                            "name": "appendTo",
-                            "optional": false,
-                            "readonly": false,
-                            "type": "InputSignal<any>",
-                            "default": "'self'",
-                            "description": "Target element to attach the overlay, valid values are \"body\" or a local ng-template variable of another element (note: use binding with brackets for template variables, e.g. [appendTo]=\"mydiv\" for a div element having #mydiv as variable name)."
                         }
                     ]
                 }
@@ -4866,14 +4789,6 @@
                 "props": {
                     "description": "Defines the input properties of the component.",
                     "values": [
-                        {
-                            "name": "appendTo",
-                            "optional": false,
-                            "readonly": false,
-                            "type": "InputSignal<any>",
-                            "default": "'self'",
-                            "description": "Target element to attach the overlay, valid values are \"body\" or a local ng-template variable of another element (note: use binding with brackets for template variables, e.g. [appendTo]=\"mydiv\" for a div element having #mydiv as variable name)."
-                        },
                         {
                             "name": "target",
                             "optional": false,
@@ -4960,14 +4875,6 @@
                 "props": {
                     "description": "Defines the input properties of the component.",
                     "values": [
-                        {
-                            "name": "appendTo",
-                            "optional": false,
-                            "readonly": false,
-                            "type": "InputSignal<any>",
-                            "default": "'self'",
-                            "description": "Target element to attach the overlay, valid values are \"body\" or a local ng-template variable of another element (note: use binding with brackets for template variables, e.g. [appendTo]=\"mydiv\" for a div element having #mydiv as variable name)."
-                        },
                         {
                             "name": "model",
                             "optional": false,
@@ -5137,14 +5044,6 @@
                     "description": "Defines the input properties of the component.",
                     "values": [
                         {
-                            "name": "appendTo",
-                            "optional": false,
-                            "readonly": false,
-                            "type": "InputSignal<any>",
-                            "default": "'self'",
-                            "description": "Target element to attach the overlay, valid values are \"body\" or a local ng-template variable of another element (note: use binding with brackets for template variables, e.g. [appendTo]=\"mydiv\" for a div element having #mydiv as variable name)."
-                        },
-                        {
                             "name": "iconPos",
                             "optional": false,
                             "readonly": false,
@@ -5263,14 +5162,6 @@
                 "props": {
                     "description": "Defines the input properties of the component.",
                     "values": [
-                        {
-                            "name": "appendTo",
-                            "optional": false,
-                            "readonly": false,
-                            "type": "InputSignal<any>",
-                            "default": "'self'",
-                            "description": "Target element to attach the overlay, valid values are \"body\" or a local ng-template variable of another element (note: use binding with brackets for template variables, e.g. [appendTo]=\"mydiv\" for a div element having #mydiv as variable name)."
-                        },
                         {
                             "name": "type",
                             "optional": false,
@@ -5611,14 +5502,6 @@
                     "description": "Defines the input properties of the component.",
                     "values": [
                         {
-                            "name": "appendTo",
-                            "optional": false,
-                            "readonly": false,
-                            "type": "InputSignal<any>",
-                            "default": "'self'",
-                            "description": "Target element to attach the overlay, valid values are \"body\" or a local ng-template variable of another element (note: use binding with brackets for template variables, e.g. [appendTo]=\"mydiv\" for a div element having #mydiv as variable name)."
-                        },
-                        {
                             "name": "header",
                             "optional": false,
                             "readonly": false,
@@ -5736,14 +5619,6 @@
                 "props": {
                     "description": "Defines the input properties of the component.",
                     "values": [
-                        {
-                            "name": "appendTo",
-                            "optional": false,
-                            "readonly": false,
-                            "type": "InputSignal<any>",
-                            "default": "'self'",
-                            "description": "Target element to attach the overlay, valid values are \"body\" or a local ng-template variable of another element (note: use binding with brackets for template variables, e.g. [appendTo]=\"mydiv\" for a div element having #mydiv as variable name)."
-                        },
                         {
                             "name": "page",
                             "optional": false,
@@ -6109,14 +5984,6 @@
                     "description": "Defines the input properties of the component.",
                     "values": [
                         {
-                            "name": "appendTo",
-                            "optional": false,
-                            "readonly": false,
-                            "type": "InputSignal<any>",
-                            "default": "'self'",
-                            "description": "Target element to attach the overlay, valid values are \"body\" or a local ng-template variable of another element (note: use binding with brackets for template variables, e.g. [appendTo]=\"mydiv\" for a div element having #mydiv as variable name)."
-                        },
-                        {
                             "name": "required",
                             "optional": false,
                             "readonly": false,
@@ -6415,6 +6282,14 @@
                             "type": "InputSignalWithTransform<boolean, unknown>",
                             "default": "undefined",
                             "description": "Spans 100% width of the container when enabled."
+                        },
+                        {
+                            "name": "appendTo",
+                            "optional": false,
+                            "readonly": false,
+                            "type": "InputSignal<any>",
+                            "default": "'self'",
+                            "description": "Target element to attach the overlay, valid values are \"body\" or a local ng-template variable of another element (note: use binding with brackets for template variables, e.g. [appendTo]=\"mydiv\" for a div element having #mydiv as variable name)."
                         }
                     ]
                 },
@@ -6836,14 +6711,6 @@
                     "description": "Defines the input properties of the component.",
                     "values": [
                         {
-                            "name": "appendTo",
-                            "optional": false,
-                            "readonly": false,
-                            "type": "InputSignal<any>",
-                            "default": "'self'",
-                            "description": "Target element to attach the overlay, valid values are \"body\" or a local ng-template variable of another element (note: use binding with brackets for template variables, e.g. [appendTo]=\"mydiv\" for a div element having #mydiv as variable name)."
-                        },
-                        {
                             "name": "type",
                             "optional": false,
                             "readonly": false,
@@ -6946,14 +6813,6 @@
                 "props": {
                     "description": "Defines the input properties of the component.",
                     "values": [
-                        {
-                            "name": "appendTo",
-                            "optional": false,
-                            "readonly": false,
-                            "type": "InputSignal<any>",
-                            "default": "'self'",
-                            "description": "Target element to attach the overlay, valid values are \"body\" or a local ng-template variable of another element (note: use binding with brackets for template variables, e.g. [appendTo]=\"mydiv\" for a div element having #mydiv as variable name)."
-                        },
                         {
                             "name": "required",
                             "optional": false,
@@ -7242,14 +7101,6 @@
                     "description": "Defines the input properties of the component.",
                     "values": [
                         {
-                            "name": "appendTo",
-                            "optional": false,
-                            "readonly": false,
-                            "type": "InputSignal<any>",
-                            "default": "'self'",
-                            "description": "Target element to attach the overlay, valid values are \"body\" or a local ng-template variable of another element (note: use binding with brackets for template variables, e.g. [appendTo]=\"mydiv\" for a div element having #mydiv as variable name)."
-                        },
-                        {
                             "name": "label",
                             "optional": false,
                             "readonly": false,
@@ -7392,14 +7243,6 @@
                     "description": "Defines the input properties of the component.",
                     "values": [
                         {
-                            "name": "appendTo",
-                            "optional": false,
-                            "readonly": false,
-                            "type": "InputSignal<any>",
-                            "default": "'self'",
-                            "description": "Target element to attach the overlay, valid values are \"body\" or a local ng-template variable of another element (note: use binding with brackets for template variables, e.g. [appendTo]=\"mydiv\" for a div element having #mydiv as variable name)."
-                        },
-                        {
                             "name": "required",
                             "optional": false,
                             "readonly": false,
@@ -7508,6 +7351,14 @@
                             "type": "string",
                             "default": "ff0000",
                             "description": "Default color to display initially when model value is not present."
+                        },
+                        {
+                            "name": "appendTo",
+                            "optional": false,
+                            "readonly": false,
+                            "type": "InputSignal<any>",
+                            "default": "'self'",
+                            "description": "Target element to attach the overlay, valid values are \"body\" or a local ng-template variable of another element (note: use binding with brackets for template variables, e.g. [appendTo]=\"mydiv\" for a div element having #mydiv as variable name)."
                         }
                     ]
                 },
@@ -7992,14 +7843,6 @@
                     "description": "Defines the input properties of the component.",
                     "values": [
                         {
-                            "name": "appendTo",
-                            "optional": false,
-                            "readonly": false,
-                            "type": "InputSignal<any>",
-                            "default": "'self'",
-                            "description": "Target element to attach the overlay, valid values are \"body\" or a local ng-template variable of another element (note: use binding with brackets for template variables, e.g. [appendTo]=\"mydiv\" for a div element having #mydiv as variable name)."
-                        },
-                        {
                             "name": "key",
                             "optional": false,
                             "readonly": false,
@@ -8157,14 +8000,6 @@
                     "description": "Defines the input properties of the component.",
                     "values": [
                         {
-                            "name": "appendTo",
-                            "optional": false,
-                            "readonly": false,
-                            "type": "InputSignal<any>",
-                            "default": "'self'",
-                            "description": "Target element to attach the overlay, valid values are \"body\" or a local ng-template variable of another element (note: use binding with brackets for template variables, e.g. [appendTo]=\"mydiv\" for a div element having #mydiv as variable name)."
-                        },
-                        {
                             "name": "model",
                             "optional": false,
                             "readonly": false,
@@ -8260,6 +8095,14 @@
                             "type": "number",
                             "default": "500",
                             "description": "Press delay in touch devices as miliseconds."
+                        },
+                        {
+                            "name": "appendTo",
+                            "optional": false,
+                            "readonly": false,
+                            "type": "InputSignal<any>",
+                            "default": "'self'",
+                            "description": "Target element to attach the overlay, valid values are \"body\" or a local ng-template variable of another element (note: use binding with brackets for template variables, e.g. [appendTo]=\"mydiv\" for a div element having #mydiv as variable name)."
                         }
                     ]
                 },
@@ -8362,14 +8205,6 @@
                 "props": {
                     "description": "Defines the input properties of the component.",
                     "values": [
-                        {
-                            "name": "appendTo",
-                            "optional": false,
-                            "readonly": false,
-                            "type": "InputSignal<any>",
-                            "default": "'self'",
-                            "description": "Target element to attach the overlay, valid values are \"body\" or a local ng-template variable of another element (note: use binding with brackets for template variables, e.g. [appendTo]=\"mydiv\" for a div element having #mydiv as variable name)."
-                        },
                         {
                             "name": "paginator",
                             "optional": false,
@@ -9006,14 +8841,6 @@
                     "description": "Defines the input properties of the component.",
                     "values": [
                         {
-                            "name": "appendTo",
-                            "optional": false,
-                            "readonly": false,
-                            "type": "InputSignal<any>",
-                            "default": "'self'",
-                            "description": "Target element to attach the overlay, valid values are \"body\" or a local ng-template variable of another element (note: use binding with brackets for template variables, e.g. [appendTo]=\"mydiv\" for a div element having #mydiv as variable name)."
-                        },
-                        {
                             "name": "required",
                             "optional": false,
                             "readonly": false,
@@ -9554,6 +9381,14 @@
                             "readonly": false,
                             "type": "Date",
                             "description": "Set the date to highlight on first opening if the field is blank."
+                        },
+                        {
+                            "name": "appendTo",
+                            "optional": false,
+                            "readonly": false,
+                            "type": "InputSignal<any>",
+                            "default": "'self'",
+                            "description": "Target element to attach the overlay, valid values are \"body\" or a local ng-template variable of another element (note: use binding with brackets for template variables, e.g. [appendTo]=\"mydiv\" for a div element having #mydiv as variable name)."
                         }
                     ]
                 },
@@ -10225,14 +10060,6 @@
                     "description": "Defines the input properties of the component.",
                     "values": [
                         {
-                            "name": "appendTo",
-                            "optional": false,
-                            "readonly": false,
-                            "type": "InputSignal<any>",
-                            "default": "'self'",
-                            "description": "Target element to attach the overlay, valid values are \"body\" or a local ng-template variable of another element (note: use binding with brackets for template variables, e.g. [appendTo]=\"mydiv\" for a div element having #mydiv as variable name)."
-                        },
-                        {
                             "name": "header",
                             "optional": false,
                             "readonly": false,
@@ -10499,6 +10326,14 @@
                             "description": "Position of the dialog."
                         },
                         {
+                            "name": "appendTo",
+                            "optional": false,
+                            "readonly": false,
+                            "type": "InputSignal<any>",
+                            "default": "'self'",
+                            "description": "Target element to attach the overlay, valid values are \"body\" or a local ng-template variable of another element (note: use binding with brackets for template variables, e.g. [appendTo]=\"mydiv\" for a div element having #mydiv as variable name)."
+                        },
+                        {
                             "name": "headerTemplate",
                             "optional": false,
                             "readonly": false,
@@ -10731,14 +10566,6 @@
                     "description": "Defines the input properties of the component.",
                     "values": [
                         {
-                            "name": "appendTo",
-                            "optional": false,
-                            "readonly": false,
-                            "type": "InputSignal<any>",
-                            "default": "'self'",
-                            "description": "Target element to attach the overlay, valid values are \"body\" or a local ng-template variable of another element (note: use binding with brackets for template variables, e.g. [appendTo]=\"mydiv\" for a div element having #mydiv as variable name)."
-                        },
-                        {
                             "name": "styleClass",
                             "optional": false,
                             "readonly": false,
@@ -10796,14 +10623,6 @@
                 "props": {
                     "description": "Defines the input properties of the component.",
                     "values": [
-                        {
-                            "name": "appendTo",
-                            "optional": false,
-                            "readonly": false,
-                            "type": "InputSignal<any>",
-                            "default": "'self'",
-                            "description": "Target element to attach the overlay, valid values are \"body\" or a local ng-template variable of another element (note: use binding with brackets for template variables, e.g. [appendTo]=\"mydiv\" for a div element having #mydiv as variable name)."
-                        },
                         {
                             "name": "id",
                             "optional": false,
@@ -11909,14 +11728,6 @@
                     "description": "Defines the input properties of the component.",
                     "values": [
                         {
-                            "name": "appendTo",
-                            "optional": false,
-                            "readonly": false,
-                            "type": "InputSignal<any>",
-                            "default": "'self'",
-                            "description": "Target element to attach the overlay, valid values are \"body\" or a local ng-template variable of another element (note: use binding with brackets for template variables, e.g. [appendTo]=\"mydiv\" for a div element having #mydiv as variable name)."
-                        },
-                        {
                             "name": "required",
                             "optional": false,
                             "readonly": false,
@@ -12183,14 +11994,6 @@
                     "description": "Defines the input properties of the component.",
                     "values": [
                         {
-                            "name": "appendTo",
-                            "optional": false,
-                            "readonly": false,
-                            "type": "InputSignal<any>",
-                            "default": "'self'",
-                            "description": "Target element to attach the overlay, valid values are \"body\" or a local ng-template variable of another element (note: use binding with brackets for template variables, e.g. [appendTo]=\"mydiv\" for a div element having #mydiv as variable name)."
-                        },
-                        {
                             "name": "legend",
                             "optional": false,
                             "readonly": false,
@@ -12419,14 +12222,6 @@
                 "props": {
                     "description": "Defines the input properties of the component.",
                     "values": [
-                        {
-                            "name": "appendTo",
-                            "optional": false,
-                            "readonly": false,
-                            "type": "InputSignal<any>",
-                            "default": "'self'",
-                            "description": "Target element to attach the overlay, valid values are \"body\" or a local ng-template variable of another element (note: use binding with brackets for template variables, e.g. [appendTo]=\"mydiv\" for a div element having #mydiv as variable name)."
-                        },
                         {
                             "name": "name",
                             "optional": false,
@@ -13279,14 +13074,6 @@
                     "description": "Defines the input properties of the component.",
                     "values": [
                         {
-                            "name": "appendTo",
-                            "optional": false,
-                            "readonly": false,
-                            "type": "InputSignal<any>",
-                            "default": "'self'",
-                            "description": "Target element to attach the overlay, valid values are \"body\" or a local ng-template variable of another element (note: use binding with brackets for template variables, e.g. [appendTo]=\"mydiv\" for a div element having #mydiv as variable name)."
-                        },
-                        {
                             "name": "variant",
                             "optional": false,
                             "readonly": false,
@@ -13313,20 +13100,7 @@
     "fluid": {
         "components": {
             "Fluid": {
-                "description": "Fluid is a layout component to make descendant components span full width of their container.",
-                "props": {
-                    "description": "Defines the input properties of the component.",
-                    "values": [
-                        {
-                            "name": "appendTo",
-                            "optional": false,
-                            "readonly": false,
-                            "type": "InputSignal<any>",
-                            "default": "'self'",
-                            "description": "Target element to attach the overlay, valid values are \"body\" or a local ng-template variable of another element (note: use binding with brackets for template variables, e.g. [appendTo]=\"mydiv\" for a div element having #mydiv as variable name)."
-                        }
-                    ]
-                }
+                "description": "Fluid is a layout component to make descendant components span full width of their container."
             }
         },
         "style": {
@@ -13349,14 +13123,6 @@
                     "description": "Defines the input properties of the component.",
                     "values": [
                         {
-                            "name": "appendTo",
-                            "optional": false,
-                            "readonly": false,
-                            "type": "InputSignal<any>",
-                            "default": "'self'",
-                            "description": "Target element to attach the overlay, valid values are \"body\" or a local ng-template variable of another element (note: use binding with brackets for template variables, e.g. [appendTo]=\"mydiv\" for a div element having #mydiv as variable name)."
-                        },
-                        {
                             "name": "pFocusTrapDisabled",
                             "optional": false,
                             "readonly": false,
@@ -13376,14 +13142,6 @@
                 "props": {
                     "description": "Defines the input properties of the component.",
                     "values": [
-                        {
-                            "name": "appendTo",
-                            "optional": false,
-                            "readonly": false,
-                            "type": "InputSignal<any>",
-                            "default": "'self'",
-                            "description": "Target element to attach the overlay, valid values are \"body\" or a local ng-template variable of another element (note: use binding with brackets for template variables, e.g. [appendTo]=\"mydiv\" for a div element having #mydiv as variable name)."
-                        },
                         {
                             "name": "activeIndex",
                             "optional": false,
@@ -13872,14 +13630,6 @@
                     "description": "Defines the input properties of the component.",
                     "values": [
                         {
-                            "name": "appendTo",
-                            "optional": false,
-                            "readonly": false,
-                            "type": "InputSignal<any>",
-                            "default": "'self'",
-                            "description": "Target element to attach the overlay, valid values are \"body\" or a local ng-template variable of another element (note: use binding with brackets for template variables, e.g. [appendTo]=\"mydiv\" for a div element having #mydiv as variable name)."
-                        },
-                        {
                             "name": "iconPosition",
                             "optional": false,
                             "readonly": false,
@@ -14076,20 +13826,7 @@
     "iftalabel": {
         "components": {
             "IftaLabel": {
-                "description": "IftaLabel is used to create infield top aligned labels.",
-                "props": {
-                    "description": "Defines the input properties of the component.",
-                    "values": [
-                        {
-                            "name": "appendTo",
-                            "optional": false,
-                            "readonly": false,
-                            "type": "InputSignal<any>",
-                            "default": "'self'",
-                            "description": "Target element to attach the overlay, valid values are \"body\" or a local ng-template variable of another element (note: use binding with brackets for template variables, e.g. [appendTo]=\"mydiv\" for a div element having #mydiv as variable name)."
-                        }
-                    ]
-                }
+                "description": "IftaLabel is used to create infield top aligned labels."
             }
         },
         "style": {
@@ -14111,14 +13848,6 @@
                 "props": {
                     "description": "Defines the input properties of the component.",
                     "values": [
-                        {
-                            "name": "appendTo",
-                            "optional": false,
-                            "readonly": false,
-                            "type": "InputSignal<any>",
-                            "default": "'self'",
-                            "description": "Target element to attach the overlay, valid values are \"body\" or a local ng-template variable of another element (note: use binding with brackets for template variables, e.g. [appendTo]=\"mydiv\" for a div element having #mydiv as variable name)."
-                        },
                         {
                             "name": "imageClass",
                             "optional": false,
@@ -14234,6 +13963,14 @@
                             "type": "string",
                             "default": "150ms cubic-bezier(0, 0, 0.2, 1)",
                             "description": "Transition options of the hide animation"
+                        },
+                        {
+                            "name": "appendTo",
+                            "optional": false,
+                            "readonly": false,
+                            "type": "InputSignal<any>",
+                            "default": "'self'",
+                            "description": "Target element to attach the overlay, valid values are \"body\" or a local ng-template variable of another element (note: use binding with brackets for template variables, e.g. [appendTo]=\"mydiv\" for a div element having #mydiv as variable name)."
                         }
                     ]
                 },
@@ -14453,14 +14190,6 @@
                     "description": "Defines the input properties of the component.",
                     "values": [
                         {
-                            "name": "appendTo",
-                            "optional": false,
-                            "readonly": false,
-                            "type": "InputSignal<any>",
-                            "default": "'self'",
-                            "description": "Target element to attach the overlay, valid values are \"body\" or a local ng-template variable of another element (note: use binding with brackets for template variables, e.g. [appendTo]=\"mydiv\" for a div element having #mydiv as variable name)."
-                        },
-                        {
                             "name": "tabindex",
                             "optional": false,
                             "readonly": false,
@@ -14526,14 +14255,6 @@
                 "props": {
                     "description": "Defines the input properties of the component.",
                     "values": [
-                        {
-                            "name": "appendTo",
-                            "optional": false,
-                            "readonly": false,
-                            "type": "InputSignal<any>",
-                            "default": "'self'",
-                            "description": "Target element to attach the overlay, valid values are \"body\" or a local ng-template variable of another element (note: use binding with brackets for template variables, e.g. [appendTo]=\"mydiv\" for a div element having #mydiv as variable name)."
-                        },
                         {
                             "name": "active",
                             "optional": false,
@@ -14722,14 +14443,6 @@
                     "description": "Defines the input properties of the component.",
                     "values": [
                         {
-                            "name": "appendTo",
-                            "optional": false,
-                            "readonly": false,
-                            "type": "InputSignal<any>",
-                            "default": "'self'",
-                            "description": "Target element to attach the overlay, valid values are \"body\" or a local ng-template variable of another element (note: use binding with brackets for template variables, e.g. [appendTo]=\"mydiv\" for a div element having #mydiv as variable name)."
-                        },
-                        {
                             "name": "styleClass",
                             "optional": false,
                             "readonly": false,
@@ -14761,14 +14474,6 @@
                     "description": "Defines the input properties of the component.",
                     "values": [
                         {
-                            "name": "appendTo",
-                            "optional": false,
-                            "readonly": false,
-                            "type": "InputSignal<any>",
-                            "default": "'self'",
-                            "description": "Target element to attach the overlay, valid values are \"body\" or a local ng-template variable of another element (note: use binding with brackets for template variables, e.g. [appendTo]=\"mydiv\" for a div element having #mydiv as variable name)."
-                        },
-                        {
                             "name": "style",
                             "optional": false,
                             "readonly": false,
@@ -14798,14 +14503,6 @@
                     "description": "Defines the input properties of the component.",
                     "values": [
                         {
-                            "name": "appendTo",
-                            "optional": false,
-                            "readonly": false,
-                            "type": "InputSignal<any>",
-                            "default": "'self'",
-                            "description": "Target element to attach the overlay, valid values are \"body\" or a local ng-template variable of another element (note: use binding with brackets for template variables, e.g. [appendTo]=\"mydiv\" for a div element having #mydiv as variable name)."
-                        },
-                        {
                             "name": "styleClass",
                             "optional": false,
                             "readonly": false,
@@ -14824,14 +14521,6 @@
                 "props": {
                     "description": "Defines the input properties of the component.",
                     "values": [
-                        {
-                            "name": "appendTo",
-                            "optional": false,
-                            "readonly": false,
-                            "type": "InputSignal<any>",
-                            "default": "'self'",
-                            "description": "Target element to attach the overlay, valid values are \"body\" or a local ng-template variable of another element (note: use binding with brackets for template variables, e.g. [appendTo]=\"mydiv\" for a div element having #mydiv as variable name)."
-                        },
                         {
                             "name": "required",
                             "optional": false,
@@ -15220,14 +14909,6 @@
                 "props": {
                     "description": "Defines the input properties of the component.",
                     "values": [
-                        {
-                            "name": "appendTo",
-                            "optional": false,
-                            "readonly": false,
-                            "type": "InputSignal<any>",
-                            "default": "'self'",
-                            "description": "Target element to attach the overlay, valid values are \"body\" or a local ng-template variable of another element (note: use binding with brackets for template variables, e.g. [appendTo]=\"mydiv\" for a div element having #mydiv as variable name)."
-                        },
                         {
                             "name": "required",
                             "optional": false,
@@ -15762,14 +15443,6 @@
                     "description": "Defines the input properties of the component.",
                     "values": [
                         {
-                            "name": "appendTo",
-                            "optional": false,
-                            "readonly": false,
-                            "type": "InputSignal<any>",
-                            "default": "'self'",
-                            "description": "Target element to attach the overlay, valid values are \"body\" or a local ng-template variable of another element (note: use binding with brackets for template variables, e.g. [appendTo]=\"mydiv\" for a div element having #mydiv as variable name)."
-                        },
-                        {
                             "name": "required",
                             "optional": false,
                             "readonly": false,
@@ -16045,14 +15718,6 @@
                     "description": "Defines the input properties of the component.",
                     "values": [
                         {
-                            "name": "appendTo",
-                            "optional": false,
-                            "readonly": false,
-                            "type": "InputSignal<any>",
-                            "default": "'self'",
-                            "description": "Target element to attach the overlay, valid values are \"body\" or a local ng-template variable of another element (note: use binding with brackets for template variables, e.g. [appendTo]=\"mydiv\" for a div element having #mydiv as variable name)."
-                        },
-                        {
                             "name": "required",
                             "optional": false,
                             "readonly": false,
@@ -16175,14 +15840,6 @@
                 "props": {
                     "description": "Defines the input properties of the component.",
                     "values": [
-                        {
-                            "name": "appendTo",
-                            "optional": false,
-                            "readonly": false,
-                            "type": "InputSignal<any>",
-                            "default": "'self'",
-                            "description": "Target element to attach the overlay, valid values are \"body\" or a local ng-template variable of another element (note: use binding with brackets for template variables, e.g. [appendTo]=\"mydiv\" for a div element having #mydiv as variable name)."
-                        },
                         {
                             "name": "required",
                             "optional": false,
@@ -16383,14 +16040,6 @@
                 "props": {
                     "description": "Defines the input properties of the component.",
                     "values": [
-                        {
-                            "name": "appendTo",
-                            "optional": false,
-                            "readonly": false,
-                            "type": "InputSignal<any>",
-                            "default": "'self'",
-                            "description": "Target element to attach the overlay, valid values are \"body\" or a local ng-template variable of another element (note: use binding with brackets for template variables, e.g. [appendTo]=\"mydiv\" for a div element having #mydiv as variable name)."
-                        },
                         {
                             "name": "required",
                             "optional": false,
@@ -17266,14 +16915,6 @@
                     "description": "Defines the input properties of the component.",
                     "values": [
                         {
-                            "name": "appendTo",
-                            "optional": false,
-                            "readonly": false,
-                            "type": "InputSignal<any>",
-                            "default": "'self'",
-                            "description": "Target element to attach the overlay, valid values are \"body\" or a local ng-template variable of another element (note: use binding with brackets for template variables, e.g. [appendTo]=\"mydiv\" for a div element having #mydiv as variable name)."
-                        },
-                        {
                             "name": "model",
                             "optional": false,
                             "readonly": false,
@@ -17521,14 +17162,6 @@
                     "description": "Defines the input properties of the component.",
                     "values": [
                         {
-                            "name": "appendTo",
-                            "optional": false,
-                            "readonly": false,
-                            "type": "InputSignal<any>",
-                            "default": "'self'",
-                            "description": "Target element to attach the overlay, valid values are \"body\" or a local ng-template variable of another element (note: use binding with brackets for template variables, e.g. [appendTo]=\"mydiv\" for a div element having #mydiv as variable name)."
-                        },
-                        {
                             "name": "model",
                             "optional": false,
                             "readonly": false,
@@ -17617,6 +17250,14 @@
                             "type": "number",
                             "default": "0",
                             "description": "Index of the element in tabbing order."
+                        },
+                        {
+                            "name": "appendTo",
+                            "optional": false,
+                            "readonly": false,
+                            "type": "InputSignal<any>",
+                            "default": "'self'",
+                            "description": "Target element to attach the overlay, valid values are \"body\" or a local ng-template variable of another element (note: use binding with brackets for template variables, e.g. [appendTo]=\"mydiv\" for a div element having #mydiv as variable name)."
                         }
                     ]
                 },
@@ -17793,14 +17434,6 @@
                 "props": {
                     "description": "Defines the input properties of the component.",
                     "values": [
-                        {
-                            "name": "appendTo",
-                            "optional": false,
-                            "readonly": false,
-                            "type": "InputSignal<any>",
-                            "default": "'self'",
-                            "description": "Target element to attach the overlay, valid values are \"body\" or a local ng-template variable of another element (note: use binding with brackets for template variables, e.g. [appendTo]=\"mydiv\" for a div element having #mydiv as variable name)."
-                        },
                         {
                             "name": "model",
                             "optional": false,
@@ -18060,14 +17693,6 @@
                     "description": "Defines the input properties of the component.",
                     "values": [
                         {
-                            "name": "appendTo",
-                            "optional": false,
-                            "readonly": false,
-                            "type": "InputSignal<any>",
-                            "default": "'self'",
-                            "description": "Target element to attach the overlay, valid values are \"body\" or a local ng-template variable of another element (note: use binding with brackets for template variables, e.g. [appendTo]=\"mydiv\" for a div element having #mydiv as variable name)."
-                        },
-                        {
                             "name": "severity",
                             "optional": false,
                             "readonly": false,
@@ -18257,14 +17882,6 @@
                 "props": {
                     "description": "Defines the input properties of the component.",
                     "values": [
-                        {
-                            "name": "appendTo",
-                            "optional": false,
-                            "readonly": false,
-                            "type": "InputSignal<any>",
-                            "default": "'self'",
-                            "description": "Target element to attach the overlay, valid values are \"body\" or a local ng-template variable of another element (note: use binding with brackets for template variables, e.g. [appendTo]=\"mydiv\" for a div element having #mydiv as variable name)."
-                        },
                         {
                             "name": "value",
                             "optional": false,
@@ -18473,14 +18090,6 @@
                 "props": {
                     "description": "Defines the input properties of the component.",
                     "values": [
-                        {
-                            "name": "appendTo",
-                            "optional": false,
-                            "readonly": false,
-                            "type": "InputSignal<any>",
-                            "default": "'self'",
-                            "description": "Target element to attach the overlay, valid values are \"body\" or a local ng-template variable of another element (note: use binding with brackets for template variables, e.g. [appendTo]=\"mydiv\" for a div element having #mydiv as variable name)."
-                        },
                         {
                             "name": "required",
                             "optional": false,
@@ -18986,6 +18595,14 @@
                             "type": "InputSignalWithTransform<boolean, unknown>",
                             "default": "undefined",
                             "description": "Spans 100% width of the container when enabled."
+                        },
+                        {
+                            "name": "appendTo",
+                            "optional": false,
+                            "readonly": false,
+                            "type": "InputSignal<any>",
+                            "default": "'self'",
+                            "description": "Target element to attach the overlay, valid values are \"body\" or a local ng-template variable of another element (note: use binding with brackets for template variables, e.g. [appendTo]=\"mydiv\" for a div element having #mydiv as variable name)."
                         }
                     ]
                 },
@@ -19546,14 +19163,6 @@
                     "description": "Defines the input properties of the component.",
                     "values": [
                         {
-                            "name": "appendTo",
-                            "optional": false,
-                            "readonly": false,
-                            "type": "InputSignal<any>",
-                            "default": "'self'",
-                            "description": "Target element to attach the overlay, valid values are \"body\" or a local ng-template variable of another element (note: use binding with brackets for template variables, e.g. [appendTo]=\"mydiv\" for a div element having #mydiv as variable name)."
-                        },
-                        {
                             "name": "header",
                             "optional": false,
                             "readonly": false,
@@ -20083,14 +19692,6 @@
                     "description": "Defines the input properties of the component.",
                     "values": [
                         {
-                            "name": "appendTo",
-                            "optional": false,
-                            "readonly": false,
-                            "type": "InputSignal<any>",
-                            "default": "'self'",
-                            "description": "Target element to attach the overlay, valid values are \"body\" or a local ng-template variable of another element (note: use binding with brackets for template variables, e.g. [appendTo]=\"mydiv\" for a div element having #mydiv as variable name)."
-                        },
-                        {
                             "name": "value",
                             "optional": false,
                             "readonly": false,
@@ -20356,14 +19957,6 @@
                     "description": "Defines the input properties of the component.",
                     "values": [
                         {
-                            "name": "appendTo",
-                            "optional": false,
-                            "readonly": false,
-                            "type": "InputSignal<any>",
-                            "default": "'self'",
-                            "description": "Target element to attach the overlay, valid values are \"body\" or a local ng-template variable of another element (note: use binding with brackets for template variables, e.g. [appendTo]=\"mydiv\" for a div element having #mydiv as variable name)."
-                        },
-                        {
                             "name": "visible",
                             "optional": false,
                             "readonly": false,
@@ -20460,6 +20053,14 @@
                             "readonly": false,
                             "type": "OverlayOptions",
                             "description": "The options property is an input that specifies the overlay options for the component."
+                        },
+                        {
+                            "name": "appendTo",
+                            "optional": false,
+                            "readonly": false,
+                            "type": "InputSignal<any>",
+                            "default": "'self'",
+                            "description": "Target element to attach the overlay, valid values are \"body\" or a local ng-template variable of another element (note: use binding with brackets for template variables, e.g. [appendTo]=\"mydiv\" for a div element having #mydiv as variable name)."
                         }
                     ]
                 },
@@ -20563,14 +20164,6 @@
                     "description": "Defines the input properties of the component.",
                     "values": [
                         {
-                            "name": "appendTo",
-                            "optional": false,
-                            "readonly": false,
-                            "type": "InputSignal<any>",
-                            "default": "'self'",
-                            "description": "Target element to attach the overlay, valid values are \"body\" or a local ng-template variable of another element (note: use binding with brackets for template variables, e.g. [appendTo]=\"mydiv\" for a div element having #mydiv as variable name)."
-                        },
-                        {
                             "name": "styleClass",
                             "optional": false,
                             "readonly": false,
@@ -20636,14 +20229,6 @@
                 "props": {
                     "description": "Defines the input properties of the component.",
                     "values": [
-                        {
-                            "name": "appendTo",
-                            "optional": false,
-                            "readonly": false,
-                            "type": "InputSignal<any>",
-                            "default": "'self'",
-                            "description": "Target element to attach the overlay, valid values are \"body\" or a local ng-template variable of another element (note: use binding with brackets for template variables, e.g. [appendTo]=\"mydiv\" for a div element having #mydiv as variable name)."
-                        },
                         {
                             "name": "pageLinkSize",
                             "optional": false,
@@ -20796,6 +20381,14 @@
                             "readonly": false,
                             "type": "number",
                             "description": "Zero-relative number of the first row to be displayed."
+                        },
+                        {
+                            "name": "appendTo",
+                            "optional": false,
+                            "readonly": false,
+                            "type": "InputSignal<any>",
+                            "default": "'self'",
+                            "description": "Target element to attach the overlay, valid values are \"body\" or a local ng-template variable of another element (note: use binding with brackets for template variables, e.g. [appendTo]=\"mydiv\" for a div element having #mydiv as variable name)."
                         }
                     ]
                 },
@@ -21007,14 +20600,6 @@
                 "props": {
                     "description": "Defines the input properties of the component.",
                     "values": [
-                        {
-                            "name": "appendTo",
-                            "optional": false,
-                            "readonly": false,
-                            "type": "InputSignal<any>",
-                            "default": "'self'",
-                            "description": "Target element to attach the overlay, valid values are \"body\" or a local ng-template variable of another element (note: use binding with brackets for template variables, e.g. [appendTo]=\"mydiv\" for a div element having #mydiv as variable name)."
-                        },
                         {
                             "name": "toggleable",
                             "optional": false,
@@ -21265,14 +20850,6 @@
                     "description": "Defines the input properties of the component.",
                     "values": [
                         {
-                            "name": "appendTo",
-                            "optional": false,
-                            "readonly": false,
-                            "type": "InputSignal<any>",
-                            "default": "'self'",
-                            "description": "Target element to attach the overlay, valid values are \"body\" or a local ng-template variable of another element (note: use binding with brackets for template variables, e.g. [appendTo]=\"mydiv\" for a div element having #mydiv as variable name)."
-                        },
-                        {
                             "name": "model",
                             "optional": false,
                             "readonly": false,
@@ -21467,14 +21044,6 @@
                     "description": "Defines the input properties of the component.",
                     "values": [
                         {
-                            "name": "appendTo",
-                            "optional": false,
-                            "readonly": false,
-                            "type": "InputSignal<any>",
-                            "default": "'self'",
-                            "description": "Target element to attach the overlay, valid values are \"body\" or a local ng-template variable of another element (note: use binding with brackets for template variables, e.g. [appendTo]=\"mydiv\" for a div element having #mydiv as variable name)."
-                        },
-                        {
                             "name": "required",
                             "optional": false,
                             "readonly": false,
@@ -21585,14 +21154,6 @@
                 "props": {
                     "description": "Defines the input properties of the component.",
                     "values": [
-                        {
-                            "name": "appendTo",
-                            "optional": false,
-                            "readonly": false,
-                            "type": "InputSignal<any>",
-                            "default": "'self'",
-                            "description": "Target element to attach the overlay, valid values are \"body\" or a local ng-template variable of another element (note: use binding with brackets for template variables, e.g. [appendTo]=\"mydiv\" for a div element having #mydiv as variable name)."
-                        },
                         {
                             "name": "required",
                             "optional": false,
@@ -21875,6 +21436,14 @@
                             "readonly": false,
                             "type": "number",
                             "description": "Index of the element in tabbing order."
+                        },
+                        {
+                            "name": "appendTo",
+                            "optional": false,
+                            "readonly": false,
+                            "type": "InputSignal<any>",
+                            "default": "'self'",
+                            "description": "Target element to attach the overlay, valid values are \"body\" or a local ng-template variable of another element (note: use binding with brackets for template variables, e.g. [appendTo]=\"mydiv\" for a div element having #mydiv as variable name)."
                         }
                     ]
                 },
@@ -21966,14 +21535,6 @@
                 "props": {
                     "description": "Defines the input properties of the component.",
                     "values": [
-                        {
-                            "name": "appendTo",
-                            "optional": false,
-                            "readonly": false,
-                            "type": "InputSignal<any>",
-                            "default": "'self'",
-                            "description": "Target element to attach the overlay, valid values are \"body\" or a local ng-template variable of another element (note: use binding with brackets for template variables, e.g. [appendTo]=\"mydiv\" for a div element having #mydiv as variable name)."
-                        },
                         {
                             "name": "source",
                             "optional": false,
@@ -23162,14 +22723,6 @@
                     "description": "Defines the input properties of the component.",
                     "values": [
                         {
-                            "name": "appendTo",
-                            "optional": false,
-                            "readonly": false,
-                            "type": "InputSignal<any>",
-                            "default": "'self'",
-                            "description": "Target element to attach the overlay, valid values are \"body\" or a local ng-template variable of another element (note: use binding with brackets for template variables, e.g. [appendTo]=\"mydiv\" for a div element having #mydiv as variable name)."
-                        },
-                        {
                             "name": "value",
                             "optional": false,
                             "readonly": false,
@@ -23254,14 +22807,6 @@
                     "description": "Defines the input properties of the component.",
                     "values": [
                         {
-                            "name": "appendTo",
-                            "optional": false,
-                            "readonly": false,
-                            "type": "InputSignal<any>",
-                            "default": "'self'",
-                            "description": "Target element to attach the overlay, valid values are \"body\" or a local ng-template variable of another element (note: use binding with brackets for template variables, e.g. [appendTo]=\"mydiv\" for a div element having #mydiv as variable name)."
-                        },
-                        {
                             "name": "styleClass",
                             "optional": false,
                             "readonly": false,
@@ -23331,14 +22876,6 @@
                 "props": {
                     "description": "Defines the input properties of the component.",
                     "values": [
-                        {
-                            "name": "appendTo",
-                            "optional": false,
-                            "readonly": false,
-                            "type": "InputSignal<any>",
-                            "default": "'self'",
-                            "description": "Target element to attach the overlay, valid values are \"body\" or a local ng-template variable of another element (note: use binding with brackets for template variables, e.g. [appendTo]=\"mydiv\" for a div element having #mydiv as variable name)."
-                        },
                         {
                             "name": "required",
                             "optional": false,
@@ -23554,14 +23091,6 @@
                 "props": {
                     "description": "Defines the input properties of the component.",
                     "values": [
-                        {
-                            "name": "appendTo",
-                            "optional": false,
-                            "readonly": false,
-                            "type": "InputSignal<any>",
-                            "default": "'self'",
-                            "description": "Target element to attach the overlay, valid values are \"body\" or a local ng-template variable of another element (note: use binding with brackets for template variables, e.g. [appendTo]=\"mydiv\" for a div element having #mydiv as variable name)."
-                        },
                         {
                             "name": "required",
                             "optional": false,
@@ -23780,20 +23309,7 @@
     "ripple": {
         "components": {
             "Ripple": {
-                "description": "Ripple directive adds ripple effect to the host element.",
-                "props": {
-                    "description": "Defines the input properties of the component.",
-                    "values": [
-                        {
-                            "name": "appendTo",
-                            "optional": false,
-                            "readonly": false,
-                            "type": "InputSignal<any>",
-                            "default": "'self'",
-                            "description": "Target element to attach the overlay, valid values are \"body\" or a local ng-template variable of another element (note: use binding with brackets for template variables, e.g. [appendTo]=\"mydiv\" for a div element having #mydiv as variable name)."
-                        }
-                    ]
-                }
+                "description": "Ripple directive adds ripple effect to the host element."
             }
         },
         "style": {
@@ -23815,14 +23331,6 @@
                 "props": {
                     "description": "Defines the input properties of the component.",
                     "values": [
-                        {
-                            "name": "appendTo",
-                            "optional": false,
-                            "readonly": false,
-                            "type": "InputSignal<any>",
-                            "default": "'self'",
-                            "description": "Target element to attach the overlay, valid values are \"body\" or a local ng-template variable of another element (note: use binding with brackets for template variables, e.g. [appendTo]=\"mydiv\" for a div element having #mydiv as variable name)."
-                        },
                         {
                             "name": "id",
                             "optional": false,
@@ -24420,14 +23928,6 @@
                     "description": "Defines the input properties of the component.",
                     "values": [
                         {
-                            "name": "appendTo",
-                            "optional": false,
-                            "readonly": false,
-                            "type": "InputSignal<any>",
-                            "default": "'self'",
-                            "description": "Target element to attach the overlay, valid values are \"body\" or a local ng-template variable of another element (note: use binding with brackets for template variables, e.g. [appendTo]=\"mydiv\" for a div element having #mydiv as variable name)."
-                        },
-                        {
                             "name": "styleClass",
                             "optional": false,
                             "readonly": false,
@@ -24528,14 +24028,6 @@
                 "props": {
                     "description": "Defines the input properties of the component.",
                     "values": [
-                        {
-                            "name": "appendTo",
-                            "optional": false,
-                            "readonly": false,
-                            "type": "InputSignal<any>",
-                            "default": "'self'",
-                            "description": "Target element to attach the overlay, valid values are \"body\" or a local ng-template variable of another element (note: use binding with brackets for template variables, e.g. [appendTo]=\"mydiv\" for a div element having #mydiv as variable name)."
-                        },
                         {
                             "name": "styleClass",
                             "optional": false,
@@ -24669,14 +24161,6 @@
                 "props": {
                     "description": "Defines the input properties of the component.",
                     "values": [
-                        {
-                            "name": "appendTo",
-                            "optional": false,
-                            "readonly": false,
-                            "type": "InputSignal<any>",
-                            "default": "'self'",
-                            "description": "Target element to attach the overlay, valid values are \"body\" or a local ng-template variable of another element (note: use binding with brackets for template variables, e.g. [appendTo]=\"mydiv\" for a div element having #mydiv as variable name)."
-                        },
                         {
                             "name": "required",
                             "optional": false,
@@ -25164,6 +24648,14 @@
                             "readonly": false,
                             "type": "any[]",
                             "description": "An array of objects to display as the available options."
+                        },
+                        {
+                            "name": "appendTo",
+                            "optional": false,
+                            "readonly": false,
+                            "type": "InputSignal<any>",
+                            "default": "'self'",
+                            "description": "Target element to attach the overlay, valid values are \"body\" or a local ng-template variable of another element (note: use binding with brackets for template variables, e.g. [appendTo]=\"mydiv\" for a div element having #mydiv as variable name)."
                         }
                     ]
                 },
@@ -25695,14 +25187,6 @@
                     "description": "Defines the input properties of the component.",
                     "values": [
                         {
-                            "name": "appendTo",
-                            "optional": false,
-                            "readonly": false,
-                            "type": "InputSignal<any>",
-                            "default": "'self'",
-                            "description": "Target element to attach the overlay, valid values are \"body\" or a local ng-template variable of another element (note: use binding with brackets for template variables, e.g. [appendTo]=\"mydiv\" for a div element having #mydiv as variable name)."
-                        },
-                        {
                             "name": "required",
                             "optional": false,
                             "readonly": false,
@@ -25964,14 +25448,6 @@
                     "description": "Defines the input properties of the component.",
                     "values": [
                         {
-                            "name": "appendTo",
-                            "optional": false,
-                            "readonly": false,
-                            "type": "InputSignal<any>",
-                            "default": "'self'",
-                            "description": "Target element to attach the overlay, valid values are \"body\" or a local ng-template variable of another element (note: use binding with brackets for template variables, e.g. [appendTo]=\"mydiv\" for a div element having #mydiv as variable name)."
-                        },
-                        {
                             "name": "styleClass",
                             "optional": false,
                             "readonly": false,
@@ -26040,14 +25516,6 @@
                 "props": {
                     "description": "Defines the input properties of the component.",
                     "values": [
-                        {
-                            "name": "appendTo",
-                            "optional": false,
-                            "readonly": false,
-                            "type": "InputSignal<any>",
-                            "default": "'self'",
-                            "description": "Target element to attach the overlay, valid values are \"body\" or a local ng-template variable of another element (note: use binding with brackets for template variables, e.g. [appendTo]=\"mydiv\" for a div element having #mydiv as variable name)."
-                        },
                         {
                             "name": "required",
                             "optional": false,
@@ -26289,14 +25757,6 @@
                 "props": {
                     "description": "Defines the input properties of the component.",
                     "values": [
-                        {
-                            "name": "appendTo",
-                            "optional": false,
-                            "readonly": false,
-                            "type": "InputSignal<any>",
-                            "default": "'self'",
-                            "description": "Target element to attach the overlay, valid values are \"body\" or a local ng-template variable of another element (note: use binding with brackets for template variables, e.g. [appendTo]=\"mydiv\" for a div element having #mydiv as variable name)."
-                        },
                         {
                             "name": "id",
                             "optional": false,
@@ -26937,14 +26397,6 @@
                     "description": "Defines the input properties of the component.",
                     "values": [
                         {
-                            "name": "appendTo",
-                            "optional": false,
-                            "readonly": false,
-                            "type": "InputSignal<any>",
-                            "default": "'self'",
-                            "description": "Target element to attach the overlay, valid values are \"body\" or a local ng-template variable of another element (note: use binding with brackets for template variables, e.g. [appendTo]=\"mydiv\" for a div element having #mydiv as variable name)."
-                        },
-                        {
                             "name": "styleClass",
                             "optional": false,
                             "readonly": false,
@@ -27137,14 +26589,6 @@
                     "description": "Defines the input properties of the component.",
                     "values": [
                         {
-                            "name": "appendTo",
-                            "optional": false,
-                            "readonly": false,
-                            "type": "InputSignal<any>",
-                            "default": "'self'",
-                            "description": "Target element to attach the overlay, valid values are \"body\" or a local ng-template variable of another element (note: use binding with brackets for template variables, e.g. [appendTo]=\"mydiv\" for a div element having #mydiv as variable name)."
-                        },
-                        {
                             "name": "value",
                             "optional": false,
                             "readonly": false,
@@ -27160,14 +26604,6 @@
                 "props": {
                     "description": "Defines the input properties of the component.",
                     "values": [
-                        {
-                            "name": "appendTo",
-                            "optional": false,
-                            "readonly": false,
-                            "type": "InputSignal<any>",
-                            "default": "'self'",
-                            "description": "Target element to attach the overlay, valid values are \"body\" or a local ng-template variable of another element (note: use binding with brackets for template variables, e.g. [appendTo]=\"mydiv\" for a div element having #mydiv as variable name)."
-                        },
                         {
                             "name": "value",
                             "optional": false,
@@ -27204,14 +26640,6 @@
                     "description": "Defines the input properties of the component.",
                     "values": [
                         {
-                            "name": "appendTo",
-                            "optional": false,
-                            "readonly": false,
-                            "type": "InputSignal<any>",
-                            "default": "'self'",
-                            "description": "Target element to attach the overlay, valid values are \"body\" or a local ng-template variable of another element (note: use binding with brackets for template variables, e.g. [appendTo]=\"mydiv\" for a div element having #mydiv as variable name)."
-                        },
-                        {
                             "name": "value",
                             "optional": false,
                             "readonly": false,
@@ -27244,14 +26672,6 @@
                 "props": {
                     "description": "Defines the input properties of the component.",
                     "values": [
-                        {
-                            "name": "appendTo",
-                            "optional": false,
-                            "readonly": false,
-                            "type": "InputSignal<any>",
-                            "default": "'self'",
-                            "description": "Target element to attach the overlay, valid values are \"body\" or a local ng-template variable of another element (note: use binding with brackets for template variables, e.g. [appendTo]=\"mydiv\" for a div element having #mydiv as variable name)."
-                        },
                         {
                             "name": "value",
                             "optional": false,
@@ -27788,14 +27208,6 @@
                 "props": {
                     "description": "Defines the input properties of the component.",
                     "values": [
-                        {
-                            "name": "appendTo",
-                            "optional": false,
-                            "readonly": false,
-                            "type": "InputSignal<any>",
-                            "default": "'self'",
-                            "description": "Target element to attach the overlay, valid values are \"body\" or a local ng-template variable of another element (note: use binding with brackets for template variables, e.g. [appendTo]=\"mydiv\" for a div element having #mydiv as variable name)."
-                        },
                         {
                             "name": "frozenColumns",
                             "optional": false,
@@ -29695,19 +29107,6 @@
         "components": {
             "TabList": {
                 "description": "TabList is a helper component for Tabs component.",
-                "props": {
-                    "description": "Defines the input properties of the component.",
-                    "values": [
-                        {
-                            "name": "appendTo",
-                            "optional": false,
-                            "readonly": false,
-                            "type": "InputSignal<any>",
-                            "default": "'self'",
-                            "description": "Target element to attach the overlay, valid values are \"body\" or a local ng-template variable of another element (note: use binding with brackets for template variables, e.g. [appendTo]=\"mydiv\" for a div element having #mydiv as variable name)."
-                        }
-                    ]
-                },
                 "templates": {
                     "description": "Defines the templates used by the component.",
                     "values": [
@@ -29762,20 +29161,7 @@
     "tabpanels": {
         "components": {
             "TabPanels": {
-                "description": "TabPanels is a helper component for Tabs component.",
-                "props": {
-                    "description": "Defines the input properties of the component.",
-                    "values": [
-                        {
-                            "name": "appendTo",
-                            "optional": false,
-                            "readonly": false,
-                            "type": "InputSignal<any>",
-                            "default": "'self'",
-                            "description": "Target element to attach the overlay, valid values are \"body\" or a local ng-template variable of another element (note: use binding with brackets for template variables, e.g. [appendTo]=\"mydiv\" for a div element having #mydiv as variable name)."
-                        }
-                    ]
-                }
+                "description": "TabPanels is a helper component for Tabs component."
             }
         },
         "style": {
@@ -29797,14 +29183,6 @@
                 "props": {
                     "description": "Defines the input properties of the component.",
                     "values": [
-                        {
-                            "name": "appendTo",
-                            "optional": false,
-                            "readonly": false,
-                            "type": "InputSignal<any>",
-                            "default": "'self'",
-                            "description": "Target element to attach the overlay, valid values are \"body\" or a local ng-template variable of another element (note: use binding with brackets for template variables, e.g. [appendTo]=\"mydiv\" for a div element having #mydiv as variable name)."
-                        },
                         {
                             "name": "value",
                             "optional": false,
@@ -29836,14 +29214,6 @@
                 "props": {
                     "description": "Defines the input properties of the component.",
                     "values": [
-                        {
-                            "name": "appendTo",
-                            "optional": false,
-                            "readonly": false,
-                            "type": "InputSignal<any>",
-                            "default": "'self'",
-                            "description": "Target element to attach the overlay, valid values are \"body\" or a local ng-template variable of another element (note: use binding with brackets for template variables, e.g. [appendTo]=\"mydiv\" for a div element having #mydiv as variable name)."
-                        },
                         {
                             "name": "value",
                             "optional": false,
@@ -29948,14 +29318,6 @@
                     "description": "Defines the input properties of the component.",
                     "values": [
                         {
-                            "name": "appendTo",
-                            "optional": false,
-                            "readonly": false,
-                            "type": "InputSignal<any>",
-                            "default": "'self'",
-                            "description": "Target element to attach the overlay, valid values are \"body\" or a local ng-template variable of another element (note: use binding with brackets for template variables, e.g. [appendTo]=\"mydiv\" for a div element having #mydiv as variable name)."
-                        },
-                        {
                             "name": "value",
                             "optional": false,
                             "readonly": false,
@@ -29994,14 +29356,6 @@
                 "props": {
                     "description": "Defines the input properties of the component.",
                     "values": [
-                        {
-                            "name": "appendTo",
-                            "optional": false,
-                            "readonly": false,
-                            "type": "InputSignal<any>",
-                            "default": "'self'",
-                            "description": "Target element to attach the overlay, valid values are \"body\" or a local ng-template variable of another element (note: use binding with brackets for template variables, e.g. [appendTo]=\"mydiv\" for a div element having #mydiv as variable name)."
-                        },
                         {
                             "name": "styleClass",
                             "optional": false,
@@ -30085,14 +29439,6 @@
                     "description": "Defines the input properties of the component.",
                     "values": [
                         {
-                            "name": "appendTo",
-                            "optional": false,
-                            "readonly": false,
-                            "type": "InputSignal<any>",
-                            "default": "'self'",
-                            "description": "Target element to attach the overlay, valid values are \"body\" or a local ng-template variable of another element (note: use binding with brackets for template variables, e.g. [appendTo]=\"mydiv\" for a div element having #mydiv as variable name)."
-                        },
-                        {
                             "name": "welcomeMessage",
                             "optional": false,
                             "readonly": false,
@@ -30172,14 +29518,6 @@
                 "props": {
                     "description": "Defines the input properties of the component.",
                     "values": [
-                        {
-                            "name": "appendTo",
-                            "optional": false,
-                            "readonly": false,
-                            "type": "InputSignal<any>",
-                            "default": "'self'",
-                            "description": "Target element to attach the overlay, valid values are \"body\" or a local ng-template variable of another element (note: use binding with brackets for template variables, e.g. [appendTo]=\"mydiv\" for a div element having #mydiv as variable name)."
-                        },
                         {
                             "name": "required",
                             "optional": false,
@@ -30281,14 +29619,6 @@
                 "props": {
                     "description": "Defines the input properties of the component.",
                     "values": [
-                        {
-                            "name": "appendTo",
-                            "optional": false,
-                            "readonly": false,
-                            "type": "InputSignal<any>",
-                            "default": "'self'",
-                            "description": "Target element to attach the overlay, valid values are \"body\" or a local ng-template variable of another element (note: use binding with brackets for template variables, e.g. [appendTo]=\"mydiv\" for a div element having #mydiv as variable name)."
-                        },
                         {
                             "name": "model",
                             "optional": false,
@@ -30402,6 +29732,14 @@
                             "type": "number",
                             "default": "0",
                             "description": "Index of the element in tabbing order."
+                        },
+                        {
+                            "name": "appendTo",
+                            "optional": false,
+                            "readonly": false,
+                            "type": "InputSignal<any>",
+                            "default": "'self'",
+                            "description": "Target element to attach the overlay, valid values are \"body\" or a local ng-template variable of another element (note: use binding with brackets for template variables, e.g. [appendTo]=\"mydiv\" for a div element having #mydiv as variable name)."
                         }
                     ]
                 },
@@ -30582,14 +29920,6 @@
                     "description": "Defines the input properties of the component.",
                     "values": [
                         {
-                            "name": "appendTo",
-                            "optional": false,
-                            "readonly": false,
-                            "type": "InputSignal<any>",
-                            "default": "'self'",
-                            "description": "Target element to attach the overlay, valid values are \"body\" or a local ng-template variable of another element (note: use binding with brackets for template variables, e.g. [appendTo]=\"mydiv\" for a div element having #mydiv as variable name)."
-                        },
-                        {
                             "name": "value",
                             "optional": false,
                             "readonly": false,
@@ -30734,14 +30064,6 @@
                 "props": {
                     "description": "Defines the input properties of the component.",
                     "values": [
-                        {
-                            "name": "appendTo",
-                            "optional": false,
-                            "readonly": false,
-                            "type": "InputSignal<any>",
-                            "default": "'self'",
-                            "description": "Target element to attach the overlay, valid values are \"body\" or a local ng-template variable of another element (note: use binding with brackets for template variables, e.g. [appendTo]=\"mydiv\" for a div element having #mydiv as variable name)."
-                        },
                         {
                             "name": "key",
                             "optional": false,
@@ -30978,14 +30300,6 @@
                 "props": {
                     "description": "Defines the input properties of the component.",
                     "values": [
-                        {
-                            "name": "appendTo",
-                            "optional": false,
-                            "readonly": false,
-                            "type": "InputSignal<any>",
-                            "default": "'self'",
-                            "description": "Target element to attach the overlay, valid values are \"body\" or a local ng-template variable of another element (note: use binding with brackets for template variables, e.g. [appendTo]=\"mydiv\" for a div element having #mydiv as variable name)."
-                        },
                         {
                             "name": "required",
                             "optional": false,
@@ -31253,14 +30567,6 @@
                     "description": "Defines the input properties of the component.",
                     "values": [
                         {
-                            "name": "appendTo",
-                            "optional": false,
-                            "readonly": false,
-                            "type": "InputSignal<any>",
-                            "default": "'self'",
-                            "description": "Target element to attach the overlay, valid values are \"body\" or a local ng-template variable of another element (note: use binding with brackets for template variables, e.g. [appendTo]=\"mydiv\" for a div element having #mydiv as variable name)."
-                        },
-                        {
                             "name": "required",
                             "optional": false,
                             "readonly": false,
@@ -31454,14 +30760,6 @@
                     "description": "Defines the input properties of the component.",
                     "values": [
                         {
-                            "name": "appendTo",
-                            "optional": false,
-                            "readonly": false,
-                            "type": "InputSignal<any>",
-                            "default": "'self'",
-                            "description": "Target element to attach the overlay, valid values are \"body\" or a local ng-template variable of another element (note: use binding with brackets for template variables, e.g. [appendTo]=\"mydiv\" for a div element having #mydiv as variable name)."
-                        },
-                        {
                             "name": "styleClass",
                             "optional": false,
                             "readonly": false,
@@ -31560,14 +30858,6 @@
                 "props": {
                     "description": "Defines the input properties of the component.",
                     "values": [
-                        {
-                            "name": "appendTo",
-                            "optional": false,
-                            "readonly": false,
-                            "type": "InputSignal<any>",
-                            "default": "'self'",
-                            "description": "Target element to attach the overlay, valid values are \"body\" or a local ng-template variable of another element (note: use binding with brackets for template variables, e.g. [appendTo]=\"mydiv\" for a div element having #mydiv as variable name)."
-                        },
                         {
                             "name": "tooltipPosition",
                             "optional": false,
@@ -31691,6 +30981,14 @@
                             "readonly": false,
                             "type": "TooltipOptions",
                             "description": "Specifies the tooltip configuration options for the component."
+                        },
+                        {
+                            "name": "appendTo",
+                            "optional": false,
+                            "readonly": false,
+                            "type": "InputSignal<any>",
+                            "default": "'self'",
+                            "description": "Target element to attach the overlay, valid values are \"body\" or a local ng-template variable of another element (note: use binding with brackets for template variables, e.g. [appendTo]=\"mydiv\" for a div element having #mydiv as variable name)."
                         }
                     ]
                 }
@@ -31723,14 +31021,6 @@
                 "props": {
                     "description": "Defines the input properties of the component.",
                     "values": [
-                        {
-                            "name": "appendTo",
-                            "optional": false,
-                            "readonly": false,
-                            "type": "InputSignal<any>",
-                            "default": "'self'",
-                            "description": "Target element to attach the overlay, valid values are \"body\" or a local ng-template variable of another element (note: use binding with brackets for template variables, e.g. [appendTo]=\"mydiv\" for a div element having #mydiv as variable name)."
-                        },
                         {
                             "name": "value",
                             "optional": false,
@@ -32627,14 +31917,6 @@
                     "description": "Defines the input properties of the component.",
                     "values": [
                         {
-                            "name": "appendTo",
-                            "optional": false,
-                            "readonly": false,
-                            "type": "InputSignal<any>",
-                            "default": "'self'",
-                            "description": "Target element to attach the overlay, valid values are \"body\" or a local ng-template variable of another element (note: use binding with brackets for template variables, e.g. [appendTo]=\"mydiv\" for a div element having #mydiv as variable name)."
-                        },
-                        {
                             "name": "required",
                             "optional": false,
                             "readonly": false,
@@ -32946,6 +32228,14 @@
                             "type": "InputSignalWithTransform<boolean, unknown>",
                             "default": "undefined",
                             "description": "Spans 100% width of the container when enabled."
+                        },
+                        {
+                            "name": "appendTo",
+                            "optional": false,
+                            "readonly": false,
+                            "type": "InputSignal<any>",
+                            "default": "'self'",
+                            "description": "Target element to attach the overlay, valid values are \"body\" or a local ng-template variable of another element (note: use binding with brackets for template variables, e.g. [appendTo]=\"mydiv\" for a div element having #mydiv as variable name)."
                         }
                     ]
                 },
@@ -33325,14 +32615,6 @@
                 "props": {
                     "description": "Defines the input properties of the component.",
                     "values": [
-                        {
-                            "name": "appendTo",
-                            "optional": false,
-                            "readonly": false,
-                            "type": "InputSignal<any>",
-                            "default": "'self'",
-                            "description": "Target element to attach the overlay, valid values are \"body\" or a local ng-template variable of another element (note: use binding with brackets for template variables, e.g. [appendTo]=\"mydiv\" for a div element having #mydiv as variable name)."
-                        },
                         {
                             "name": "columns",
                             "optional": false,

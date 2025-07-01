@@ -6,12 +6,14 @@ import {
     booleanAttribute,
     ChangeDetectionStrategy,
     Component,
+    computed,
     ContentChild,
     ContentChildren,
     ElementRef,
     EventEmitter,
     forwardRef,
     inject,
+    input,
     Input,
     NgModule,
     NgZone,
@@ -869,7 +871,12 @@ export class DatePicker extends BaseInput implements OnInit, AfterContentInit, A
             this.createMonths(this.currentMonth, this.currentYear);
         }
     }
-
+    /**
+     * Target element to attach the overlay, valid values are "body" or a local ng-template variable of another element (note: use binding with brackets for template variables, e.g. [appendTo]="mydiv" for a div element having #mydiv as variable name).
+     * @defaultValue 'self'
+     * @group Props
+     */
+    appendTo = input<HTMLElement | ElementRef | TemplateRef<any> | 'self' | 'body' | null | undefined | any>(undefined);
     /**
      * Callback to invoke on focus of input field.
      * @param {Event} event - browser event.
@@ -978,7 +985,7 @@ export class DatePicker extends BaseInput implements OnInit, AfterContentInit, A
     currentMinute: Nullable<number>;
 
     currentSecond: Nullable<number>;
-
+    p;
     pm: Nullable<boolean>;
 
     mask: Nullable<HTMLDivElement>;
@@ -990,6 +997,8 @@ export class DatePicker extends BaseInput implements OnInit, AfterContentInit, A
     responsiveStyleElement: HTMLStyleElement | undefined | null;
 
     overlayVisible: Nullable<boolean>;
+
+    $appendTo = computed(() => this.appendTo() || this.config.overlayAppendTo());
 
     onModelChange: Function = () => {};
 

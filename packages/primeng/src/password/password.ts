@@ -607,6 +607,12 @@ export class Password extends BaseInput implements OnInit, AfterContentInit {
      */
     @Input({ transform: numberAttribute }) tabindex?: number;
     /**
+     * Target element to attach the overlay, valid values are "body" or a local ng-template variable of another element (note: use binding with brackets for template variables, e.g. [appendTo]="mydiv" for a div element having #mydiv as variable name).
+     * @defaultValue 'self'
+     * @group Props
+     */
+    appendTo = input<HTMLElement | ElementRef | TemplateRef<any> | 'self' | 'body' | null | undefined | any>(undefined);
+    /**
      * Callback to invoke when the component receives focus.
      * @param {Event} event - Browser event.
      * @group Emits
@@ -639,6 +645,8 @@ export class Password extends BaseInput implements OnInit, AfterContentInit {
     @ContentChild('showicon', { descendants: false }) showIconTemplate: Nullable<TemplateRef<any>>;
 
     @ContentChildren(PrimeTemplate) templates!: QueryList<PrimeTemplate>;
+
+    $appendTo = computed(() => this.appendTo() || this.config.overlayAppendTo());
 
     _contentTemplate: TemplateRef<any> | undefined;
 

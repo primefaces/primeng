@@ -5,12 +5,14 @@ import {
     booleanAttribute,
     ChangeDetectionStrategy,
     Component,
+    computed,
     ContentChild,
     ContentChildren,
     ElementRef,
     EventEmitter,
     HostListener,
     inject,
+    input,
     Input,
     NgModule,
     Output,
@@ -198,6 +200,12 @@ export class Image extends BaseComponent implements AfterContentInit {
      */
     @Input() hideTransitionOptions: string = '150ms cubic-bezier(0, 0, 0.2, 1)';
     /**
+     * Target element to attach the overlay, valid values are "body" or a local ng-template variable of another element (note: use binding with brackets for template variables, e.g. [appendTo]="mydiv" for a div element having #mydiv as variable name).
+     * @defaultValue 'self'
+     * @group Props
+     */
+    appendTo = input<HTMLElement | ElementRef | TemplateRef<any> | 'self' | 'body' | null | undefined | any>(undefined);
+    /**
      * Triggered when the preview overlay is shown.
      * @group Emits
      */
@@ -283,6 +291,8 @@ export class Image extends BaseComponent implements AfterContentInit {
     wrapper: Nullable<HTMLElement>;
 
     _componentStyle = inject(ImageStyle);
+
+    $appendTo = computed(() => this.appendTo() || this.config.overlayAppendTo());
 
     public get isZoomOutDisabled(): boolean {
         return this.scale - this.zoomSettings.step <= this.zoomSettings.min;

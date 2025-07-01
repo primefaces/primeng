@@ -1,5 +1,5 @@
 import { isPlatformBrowser } from '@angular/common';
-import { AfterViewInit, booleanAttribute, Directive, inject, Input, NgModule, NgZone, numberAttribute, OnDestroy, SimpleChanges, TemplateRef, ViewContainerRef } from '@angular/core';
+import { AfterViewInit, booleanAttribute, computed, Directive, ElementRef, inject, input, Input, NgModule, NgZone, numberAttribute, OnDestroy, SimpleChanges, TemplateRef, ViewContainerRef } from '@angular/core';
 import { appendChild, fadeIn, findSingle, getOuterHeight, getOuterWidth, getViewport, getWindowScrollLeft, getWindowScrollTop, hasClass, removeChild, uuid } from '@primeuix/utils';
 import { TooltipOptions } from 'primeng/api';
 import { BaseComponent } from 'primeng/basecomponent';
@@ -110,6 +110,14 @@ export class Tooltip extends BaseComponent implements AfterViewInit, OnDestroy {
      * @group Props
      */
     @Input() tooltipOptions: TooltipOptions | undefined;
+    /**
+     * Target element to attach the overlay, valid values are "body" or a local ng-template variable of another element (note: use binding with brackets for template variables, e.g. [appendTo]="mydiv" for a div element having #mydiv as variable name).
+     * @defaultValue 'self'
+     * @group Props
+     */
+    appendTo = input<HTMLElement | ElementRef | TemplateRef<any> | 'self' | 'body' | null | undefined | any>(undefined);
+
+    $appendTo = computed(() => this.appendTo() || this.config.overlayAppendTo());
 
     _tooltipOptions = {
         tooltipLabel: null,

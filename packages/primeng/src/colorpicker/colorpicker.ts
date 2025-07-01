@@ -1,6 +1,6 @@
 import { animate, AnimationEvent, style, transition, trigger } from '@angular/animations';
 import { CommonModule, isPlatformBrowser } from '@angular/common';
-import { AfterViewInit, booleanAttribute, ChangeDetectionStrategy, Component, ElementRef, EventEmitter, forwardRef, inject, Input, NgModule, OnDestroy, Output, ViewChild, ViewEncapsulation } from '@angular/core';
+import { AfterViewInit, booleanAttribute, ChangeDetectionStrategy, Component, computed, ElementRef, EventEmitter, forwardRef, inject, input, Input, NgModule, OnDestroy, Output, TemplateRef, ViewChild, ViewEncapsulation } from '@angular/core';
 import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
 import { absolutePosition, cn, isTouchDevice, relativePosition } from '@primeuix/utils';
 import { OverlayService, SharedModule, TranslationKeys } from 'primeng/api';
@@ -131,6 +131,12 @@ export class ColorPicker extends BaseEditableHolder implements ControlValueAcces
      */
     @Input() defaultColor: string | undefined = 'ff0000';
     /**
+     * Target element to attach the overlay, valid values are "body" or a local ng-template variable of another element (note: use binding with brackets for template variables, e.g. [appendTo]="mydiv" for a div element having #mydiv as variable name).
+     * @defaultValue 'self'
+     * @group Props
+     */
+    appendTo = input<HTMLElement | ElementRef | TemplateRef<any> | 'self' | 'body' | null | undefined | any>(undefined);
+    /**
      * Callback to invoke on value change.
      * @param {ColorPickerChangeEvent} event - Custom value change event.
      * @group Emits
@@ -148,6 +154,8 @@ export class ColorPicker extends BaseEditableHolder implements ControlValueAcces
     @Output() onHide: EventEmitter<any> = new EventEmitter<any>();
 
     @ViewChild('input') inputViewChild: Nullable<ElementRef>;
+
+    $appendTo = computed(() => this.appendTo() || this.config.overlayAppendTo());
 
     value: any = { h: 0, s: 100, b: 100 };
 

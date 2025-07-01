@@ -4,12 +4,14 @@ import {
     booleanAttribute,
     ChangeDetectionStrategy,
     Component,
+    computed,
     ContentChild,
     ContentChildren,
     ElementRef,
     EventEmitter,
     HostBinding,
     inject,
+    input,
     Input,
     NgModule,
     numberAttribute,
@@ -251,7 +253,12 @@ export class Paginator extends BaseComponent implements OnInit, AfterContentInit
     set first(val: number) {
         this._first = val;
     }
-
+    /**
+     * Target element to attach the overlay, valid values are "body" or a local ng-template variable of another element (note: use binding with brackets for template variables, e.g. [appendTo]="mydiv" for a div element having #mydiv as variable name).
+     * @defaultValue 'self'
+     * @group Props
+     */
+    appendTo = input<HTMLElement | ElementRef | TemplateRef<any> | 'self' | 'body' | null | undefined | any>(undefined);
     /**
      * Callback to invoke when page changes, the event object contains information about the new state.
      * @param {PaginatorState} event - Paginator state.
@@ -314,6 +321,8 @@ export class Paginator extends BaseComponent implements OnInit, AfterContentInit
     _page: number = 0;
 
     _componentStyle = inject(PaginatorStyle);
+
+    $appendTo = computed(() => this.appendTo() || this.config.overlayAppendTo());
 
     @HostBinding('style.display') get display(): string {
         return this.alwaysShow || (this.pageLinks && this.pageLinks.length > 1) ? null : 'none';

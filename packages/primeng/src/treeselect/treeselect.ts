@@ -390,6 +390,12 @@ export class TreeSelect extends BaseEditableHolder implements AfterContentInit {
      */
     fluid = input(undefined, { transform: booleanAttribute });
     /**
+     * Target element to attach the overlay, valid values are "body" or a local ng-template variable of another element (note: use binding with brackets for template variables, e.g. [appendTo]="mydiv" for a div element having #mydiv as variable name).
+     * @defaultValue 'self'
+     * @group Props
+     */
+    appendTo = input<HTMLElement | ElementRef | TemplateRef<any> | 'self' | 'body' | null | undefined | any>(undefined);
+    /**
      * Callback to invoke when a node is expanded.
      * @param {TreeSelectNodeExpandEvent} event - Custom node expand event.
      * @group Emits
@@ -447,6 +453,8 @@ export class TreeSelect extends BaseEditableHolder implements AfterContentInit {
      * @group Emits
      */
     @Output() onNodeSelect: EventEmitter<TreeNodeSelectEvent> = new EventEmitter<TreeNodeSelectEvent>();
+
+    $appendTo = computed(() => this.appendTo() || this.config.overlayAppendTo());
 
     _showTransitionOptions: string | undefined;
 

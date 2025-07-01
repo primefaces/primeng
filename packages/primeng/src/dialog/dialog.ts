@@ -5,11 +5,13 @@ import {
     booleanAttribute,
     ChangeDetectionStrategy,
     Component,
+    computed,
     ContentChild,
     ContentChildren,
     ElementRef,
     EventEmitter,
     inject,
+    input,
     Input,
     NgModule,
     NgZone,
@@ -354,6 +356,12 @@ export class Dialog extends BaseComponent implements OnInit, AfterContentInit, O
      */
     @Input() role: string = 'dialog';
     /**
+     * Target element to attach the overlay, valid values are "body" or a local ng-template variable of another element (note: use binding with brackets for template variables, e.g. [appendTo]="mydiv" for a div element having #mydiv as variable name).
+     * @defaultValue 'self'
+     * @group Props
+     */
+    appendTo = input<HTMLElement | ElementRef | TemplateRef<any> | 'self' | 'body' | null | undefined | any>(undefined);
+    /**
      * Callback to invoke when dialog is shown.
      * @group Emits
      */
@@ -447,6 +455,8 @@ export class Dialog extends BaseComponent implements OnInit, AfterContentInit, O
     @ContentChild('minimizeicon', { descendants: false }) _minimizeiconTemplate: TemplateRef<any> | undefined;
 
     @ContentChild('headless', { descendants: false }) _headlessTemplate: TemplateRef<any> | undefined;
+
+    $appendTo = computed(() => this.appendTo() || this.config.overlayAppendTo());
 
     _visible: boolean = false;
 
