@@ -156,12 +156,8 @@ export class Slider extends BaseEditableHolder implements OnDestroy, ControlValu
      */
     @Input({ transform: booleanAttribute }) range: boolean | undefined;
     /**
-     * Inline style of the component.
-     * @group Props
-     */
-    @Input() style: { [klass: string]: any } | null | undefined;
-    /**
      * Style class of the component.
+     * @deprecated since v20.0.0, use `class` instead.
      * @group Props
      */
     @Input() styleClass: string | undefined;
