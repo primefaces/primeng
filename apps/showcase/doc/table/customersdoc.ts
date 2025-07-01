@@ -110,7 +110,7 @@ import { Table } from 'primeng/table';
                                     <p-sortIcon field="activity" />
                                     <p-columnFilter field="activity" matchMode="between" display="menu" [showMatchModes]="false" [showOperator]="false" [showAddButton]="false" class="ml-auto">
                                         <ng-template #filter let-filter="filterCallback">
-                                            <p-slider [(ngModel)]="activityValues" [range]="true" (onSlideEnd)="filter($event.values)" styleClass="m-4"></p-slider>
+                                            <p-slider [(ngModel)]="activityValues" [range]="true" (onSlideEnd)="filter($event.values)" class="m-4"></p-slider>
                                             <div class="flex items-center justify-between px-2">
                                                 <span>{{ activityValues[0] }}</span>
                                                 <span>{{ activityValues[1] }}</span>
@@ -321,7 +321,7 @@ export class CustomersDoc {
                     <p-sortIcon field="activity" />
                     <p-columnFilter field="activity" matchMode="between" display="menu" [showMatchModes]="false" [showOperator]="false" [showAddButton]="false" class="ml-auto">
                         <ng-template #filter let-filter="filterCallback">
-                            <p-slider [(ngModel)]="activityValues" [range]="true" (onSlideEnd)="filter($event.values)" styleClass="m-4"></p-slider>
+                            <p-slider [(ngModel)]="activityValues" [range]="true" (onSlideEnd)="filter($event.values)" class="m-4"></p-slider>
                             <div class="flex items-center justify-between px-2">
                                 <span>{{ activityValues[0] }}</span>
                                 <span>{{ activityValues[1] }}</span>
@@ -475,7 +475,7 @@ export class CustomersDoc {
                         <p-sortIcon field="activity" />
                         <p-columnFilter field="activity" matchMode="between" display="menu" [showMatchModes]="false" [showOperator]="false" [showAddButton]="false" class="ml-auto">
                             <ng-template #filter let-filter="filterCallback">
-                                <p-slider [(ngModel)]="activityValues" [range]="true" (onSlideEnd)="filter($event.values)" styleClass="m-4"></p-slider>
+                                <p-slider [(ngModel)]="activityValues" [range]="true" (onSlideEnd)="filter($event.values)" class="m-4"></p-slider>
                                 <div class="flex items-center justify-between px-2">
                                     <span>{{ activityValues[0] }}</span>
                                     <span>{{ activityValues[1] }}</span>

@@ -11,7 +11,7 @@ import { TreeNode } from 'primeng/api';
             <p>VirtualScroller is a performance-approach to handle huge data efficiently. Setting <i>virtualScroll</i> property as true and providing a <i>virtualScrollItemSize</i> in pixels would be enough to enable this functionality.</p>
         </app-docsectiontext>
         <div class="card">
-            <p-tree styleClass="w-full md:w-[30rem]" scrollHeight="250px" [virtualScroll]="true" [virtualScrollItemSize]="46" [value]="files" />
+            <p-tree class="w-full md:w-[30rem]" scrollHeight="250px" [virtualScroll]="true" [virtualScrollItemSize]="46" [value]="files" />
         </div>
         <app-code [code]="code" selector="tree-virtual-scroll-demo"></app-code>
     `
@@ -42,10 +42,10 @@ export class VirtualScrollDoc implements OnInit {
     }
 
     code: Code = {
-        basic: `<p-tree [value]="files" styleClass="w-full md:w-[30rem]" scrollHeight="250px" [virtualScroll]="true" [virtualScrollItemSize]="46" />`,
+        basic: `<p-tree [value]="files" class="w-full md:w-[30rem]" scrollHeight="250px" [virtualScroll]="true" [virtualScrollItemSize]="46" />`,
 
         html: `<div class="card">
-    <p-tree [value]="files" styleClass="w-full md:w-[30rem]" scrollHeight="250px" [virtualScroll]="true" [virtualScrollItemSize]="46" />
+    <p-tree [value]="files" class="w-full md:w-[30rem]" scrollHeight="250px" [virtualScroll]="true" [virtualScrollItemSize]="46" />
 </div>`,
 
         typescript: `import { ChangeDetectorRef, Component, OnInit } from '@angular/core';

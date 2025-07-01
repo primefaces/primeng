@@ -9,7 +9,7 @@ import { Component } from '@angular/core';
             <p>Two-way binding to a boolean property is defined using the standard <i>ngModel</i> directive.</p>
         </app-docsectiontext>
         <div class="card flex justify-center">
-            <p-togglebutton [(ngModel)]="checked" onLabel="On" offLabel="Off" styleClass="w-24" />
+            <p-togglebutton [(ngModel)]="checked" onLabel="On" offLabel="Off" class="w-24" />
         </div>
         <app-code [code]="code" selector="toggle-button-basic-demo"></app-code>
     `
@@ -18,10 +18,10 @@ export class BasicDoc {
     checked: boolean = false;
 
     code: Code = {
-        basic: `<p-togglebutton [(ngModel)]="checked" onLabel="On" offLabel="Off" styleClass="w-24" />`,
+        basic: `<p-togglebutton [(ngModel)]="checked" onLabel="On" offLabel="Off" class="w-24" />`,
 
         html: `<div class="card flex justify-center">
-    <p-togglebutton [(ngModel)]="checked" onLabel="On" offLabel="Off" styleClass="w-24" />
+    <p-togglebutton [(ngModel)]="checked" onLabel="On" offLabel="Off" class="w-24" />
 </div>`,
 
         typescript: `import { Component } from '@angular/core';

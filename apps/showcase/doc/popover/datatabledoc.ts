@@ -45,7 +45,7 @@ import { Popover } from 'primeng/popover';
                         <div class="flex justify-center rounded">
                             <div class="relative mx-auto">
                                 <img class="rounded w-44 sm:w-64" [src]="'https://primefaces.org/cdn/primeng/images/demo/product/' + selectedProduct.image" [alt]="selectedProduct.name" />
-                                <p-tag [value]="selectedProduct.inventoryStatus" [severity]="getSeverity(selectedProduct)" class="absolute" styleClass="dark:!bg-surface-900" [style.left.px]="4" [style.top.px]="4" />
+                                <p-tag [value]="selectedProduct.inventoryStatus" [severity]="getSeverity(selectedProduct)" class="absolute dark:!bg-surface-900" [style.left.px]="4" [style.top.px]="4" />
                             </div>
                         </div>
                         <div class="pt-4">
@@ -143,8 +143,7 @@ export class DataTableDoc implements OnInit {
                     <p-tag
                         [value]="selectedProduct.inventoryStatus"
                         [severity]="getSeverity(selectedProduct)"
-                        class="absolute"
-                        styleClass="dark:!bg-surface-900"
+                        class="absolute dark:!bg-surface-900"
                         [style.left.px]="4"
                         [style.top.px]="4"
                     />
@@ -228,8 +227,7 @@ export class DataTableDoc implements OnInit {
                         <p-tag
                             [value]="selectedProduct.inventoryStatus"
                             [severity]="getSeverity(selectedProduct)"
-                            class="absolute"
-                            styleClass="dark:!bg-surface-900"
+                            class="absolute dark:!bg-surface-900"
                             [style.left.px]="4"
                             [style.top.px]="4"
                         />

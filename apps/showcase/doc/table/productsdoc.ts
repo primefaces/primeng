@@ -25,7 +25,7 @@ interface ExportColumn {
         <p-deferred-demo (load)="loadDemoData()">
             <div class="card">
                 <p-toast />
-                <p-toolbar styleClass="mb-6">
+                <p-toolbar class="mb-6">
                     <ng-template #start>
                         <p-button label="New" icon="pi pi-plus" class="mr-2" (onClick)="openNew()" />
                         <p-button severity="danger" label="Delete" icon="pi pi-trash" outlined (onClick)="deleteSelectedProducts()" [disabled]="!selectedProducts || !selectedProducts.length" />
@@ -55,7 +55,7 @@ interface ExportColumn {
                         <div class="flex items-center justify-between">
                             <h5 class="m-0">Manage Products</h5>
                             <p-iconfield>
-                                <p-inputicon styleClass="pi pi-search" />
+                                <p-inputicon class="pi pi-search" />
                                 <input pInputText type="text" (input)="dt.filterGlobal($event.target.value, 'contains')" placeholder="Search..." />
                             </p-iconfield>
                         </div>
@@ -195,7 +195,7 @@ interface ExportColumn {
 })
 export class ProductsDoc {
     code: Code = {
-        basic: `<p-toolbar styleClass="mb-6">
+        basic: `<p-toolbar class="mb-6">
     <ng-template #start>
         <p-button label="New" icon="pi pi-plus" class="mr-2" (onClick)="openNew()" />
         <p-button severity="danger" label="Delete" icon="pi pi-trash" outlined (onClick)="deleteSelectedProducts()" [disabled]="!selectedProducts || !selectedProducts.length" />
@@ -225,7 +225,7 @@ export class ProductsDoc {
         <div class="flex items-center justify-between">
             <h5 class="m-0">Manage Products</h5>
             <p-iconfield>
-                <p-inputicon styleClass="pi pi-search" />
+                <p-inputicon class="pi pi-search" />
                 <input pInputText type="text" (input)="dt.filterGlobal($event.target.value, 'contains')" placeholder="Search..." />
             </p-iconfield>
         </div>
@@ -359,7 +359,7 @@ export class ProductsDoc {
 <p-confirmDialog [style]="{ width: '450px' }" />`,
         html: `<div class="card">
     <p-toast />
-    <p-toolbar styleClass="mb-6">
+    <p-toolbar class="mb-6">
         <ng-template #start>
             <p-button label="New" icon="pi pi-plus" class="mr-2" (onClick)="openNew()" />
             <p-button severity="danger" label="Delete" icon="pi pi-trash" outlined (onClick)="deleteSelectedProducts()" [disabled]="!selectedProducts || !selectedProducts.length" />
@@ -389,7 +389,7 @@ export class ProductsDoc {
             <div class="flex items-center justify-between">
                 <h5 class="m-0">Manage Products</h5>
                 <p-iconfield>
-                    <p-inputicon styleClass="pi pi-search" />
+                    <p-inputicon class="pi pi-search" />
                     <input pInputText type="text" (input)="dt.filterGlobal($event.target.value, 'contains')" placeholder="Search..." />
                 </p-iconfield>
             </div>
