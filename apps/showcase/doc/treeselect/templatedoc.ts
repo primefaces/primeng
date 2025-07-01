@@ -10,7 +10,7 @@ import { Component } from '@angular/core';
             <p>TreeSelect offers multiple templates for customization through templating.</p>
         </app-docsectiontext>
         <div class="card flex justify-center">
-            <p-treeselect class="md:w-80 w-full" containerStyleClass="w-full" [(ngModel)]="selectedNodes" [options]="nodes" placeholder="Select Item">
+            <p-treeselect class="md:w-80 w-full" [(ngModel)]="selectedNodes" [options]="nodes" placeholder="Select Item">
                 <ng-template #dropdownicon>
                     <i class="pi pi-search"></i>
                 </ng-template>
@@ -38,7 +38,7 @@ export class TemplateDoc {
     }
 
     code: Code = {
-        basic: `<p-treeselect class="md:w-80 w-full" containerStyleClass="w-full" [(ngModel)]="selectedNodes" [options]="nodes" placeholder="Select Item">
+        basic: `<p-treeselect class="md:w-80 w-full" [(ngModel)]="selectedNodes" [options]="nodes" placeholder="Select Item">
     <ng-template #dropdownicon>
         <i class="pi pi-search"></i>
     </ng-template>
@@ -54,7 +54,7 @@ export class TemplateDoc {
 </p-treeselect>`,
 
         html: `<div class="card flex justify-center">
-    <p-treeselect class="md:w-80 w-full" containerStyleClass="w-full" [(ngModel)]="selectedNodes" [options]="nodes" placeholder="Select Item">
+    <p-treeselect class="md:w-80 w-full" [(ngModel)]="selectedNodes" [options]="nodes" placeholder="Select Item">
         <ng-template #dropdownicon>
             <i class="pi pi-search"></i>
         </ng-template>
