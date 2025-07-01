@@ -3132,19 +3132,20 @@ export class DatePicker extends BaseInput implements OnInit, AfterContentInit, A
         if (this.touchUI) {
             this.enableModality(this.overlay);
         } else if (this.overlay) {
-            if (this.$appendTo() && this.$appendTo() !== 'self') {
-                if (this.view === 'date') {
-                    if (!this.overlay.style.width) {
-                        this.overlay.style.width = getOuterWidth(this.overlay) + 'px';
-                    }
-                    if (!this.overlay.style.minWidth) {
-                        this.overlay.style.minWidth = getOuterWidth(this.inputfieldViewChild?.nativeElement) + 'px';
-                    }
-                } else {
-                    if (!this.overlay.style.width) {
-                        this.overlay.style.width = getOuterWidth(this.inputfieldViewChild?.nativeElement) + 'px';
-                    }
+            if (this.view === 'date') {
+                if (!this.overlay.style.width) {
+                    this.overlay.style.width = getOuterWidth(this.overlay) + 'px';
                 }
+                if (!this.overlay.style.minWidth) {
+                    this.overlay.style.minWidth = getOuterWidth(this.inputfieldViewChild?.nativeElement) + 'px';
+                }
+            } else {
+                if (!this.overlay.style.width) {
+                    this.overlay.style.width = getOuterWidth(this.inputfieldViewChild?.nativeElement) + 'px';
+                }
+            }
+
+            if (this.$appendTo() && this.$appendTo() !== 'self') {
                 absolutePosition(this.overlay, this.inputfieldViewChild?.nativeElement);
             } else {
                 relativePosition(this.overlay, this.inputfieldViewChild?.nativeElement);
