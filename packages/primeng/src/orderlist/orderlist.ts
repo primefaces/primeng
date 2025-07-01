@@ -20,12 +20,12 @@ import {
     ViewEncapsulation
 } from '@angular/core';
 import { FormsModule } from '@angular/forms';
-import { find, findIndexInList, findSingle, hasClass, insertIntoOrderedArray, isHidden, scrollInView, setAttribute, uuid } from '@primeuix/utils';
+import { findIndexInList, setAttribute, uuid } from '@primeuix/utils';
 import { FilterService, PrimeTemplate, SharedModule } from 'primeng/api';
 import { BaseComponent } from 'primeng/basecomponent';
 import { ButtonDirective, ButtonProps } from 'primeng/button';
 import { AngleDoubleDownIcon, AngleDoubleUpIcon, AngleDownIcon, AngleUpIcon } from 'primeng/icons';
-import { Listbox } from 'primeng/listbox';
+import { Listbox, ListboxChangeEvent } from 'primeng/listbox';
 import { Ripple } from 'primeng/ripple';
 import { Nullable } from 'primeng/ts-helpers';
 import { OrderListFilterEvent, OrderListFilterOptions, OrderListSelectionChangeEvent } from './orderlist.interface';
@@ -70,7 +70,7 @@ import { OrderListStyle } from './style/orderliststyle';
             [tabindex]="tabindex"
             (onFocus)="onListFocus($event)"
             (onBlur)="onListBlur($event)"
-            (keydown)="onItemKeydown($event)"
+            (onChange)="onChangeSelection($event)"
             [ariaLabel]="ariaLabel"
             [disabled]="disabled"
             [metaKeySelection]="metaKeySelection"
@@ -435,12 +435,6 @@ export class OrderList extends BaseComponent implements AfterContentInit {
 
     id: string = uuid('pn_id_');
 
-    focused: boolean = false;
-
-    focusedOptionIndex: any = -1;
-
-    focusedOption: any | undefined;
-
     public filterValue: Nullable<string>;
 
     public visibleOptions: Nullable<any[]>;
@@ -475,22 +469,6 @@ export class OrderList extends BaseComponent implements AfterContentInit {
                 filter: (value) => this.onFilterKeyup(value),
                 reset: () => this.resetFilter()
             };
-        }
-    }
-
-    ngAfterViewChecked() {
-        if (this.movedUp || this.movedDown) {
-            let listItems = find(this.listViewChild?.containerViewChild.nativeElement, 'li.p-listbox-option-selected');
-
-            let listItem;
-
-            if (listItems.length > 0) {
-                if (this.movedUp) listItem = listItems[0];
-                else listItem = listItems[listItems.length - 1];
-                scrollInView(this.listViewChild?.containerViewChild.nativeElement, listItem);
-            }
-            this.movedUp = false;
-            this.movedDown = false;
         }
     }
 
@@ -566,40 +544,14 @@ export class OrderList extends BaseComponent implements AfterContentInit {
         });
     }
 
-    onItemClick(event, item: any, index?: number, selectedId?: string) {
-        this.itemTouched = false;
-        let focusedIndex = index ? index : findIndexInList(this.focusedOption, this.value);
-        let selectedIndex = findIndexInList(item, this.d_selection);
-        let selected = selectedIndex !== -1;
-        let metaSelection = this.itemTouched ? false : this.metaKeySelection;
-
-        if (selectedId) {
-            this.focusedOptionIndex = selectedId;
-        }
-
-        if (metaSelection) {
-            let metaKey = event.metaKey || event.ctrlKey;
-
-            if (selected && metaKey) {
-                this.d_selection = this.d_selection.filter((val, focusedIndex) => focusedIndex !== selectedIndex);
-            } else {
-                this.d_selection = metaKey ? (this.d_selection ? [...this.d_selection] : []) : [];
-                insertIntoOrderedArray(item, focusedIndex, this.d_selection, this.value);
-            }
-        } else {
-            if (selected) {
-                this.d_selection = this.d_selection.filter((val, focusedIndex) => focusedIndex !== selectedIndex);
-            } else {
-                this.d_selection = this.d_selection ? [...this.d_selection] : [];
-                insertIntoOrderedArray(item, focusedIndex, this.d_selection, this.value);
-            }
-        }
+    onChangeSelection(e: ListboxChangeEvent) {
+        this.d_selection = e.value;
 
         //binding
-        this.selectionChange.emit(this.d_selection);
+        this.selectionChange.emit(e.value);
 
         //event
-        this.onSelectionChange.emit({ originalEvent: event, value: this.d_selection });
+        this.onSelectionChange.emit({ originalEvent: e.originalEvent, value: e.value });
     }
 
     onFilterKeyup(event: KeyboardEvent) {
@@ -636,10 +588,6 @@ export class OrderList extends BaseComponent implements AfterContentInit {
         } else {
             return true;
         }
-    }
-
-    onItemTouchEnd() {
-        this.itemTouched = true;
     }
 
     isSelected(item: any) {
@@ -760,213 +708,26 @@ export class OrderList extends BaseComponent implements AfterContentInit {
             }
 
             moveItemInArray(this.value as any[], previousIndex, currentIndex);
-            this.changeFocusedOptionIndex(currentIndex);
             this.onReorder.emit([event.item.data]);
         }
     }
 
     onListFocus(event) {
-        const focusableEl = findSingle(this.listViewChild?.containerViewChild.nativeElement, '[data-p-selected="true"]') || findSingle(this.listViewChild?.containerViewChild.nativeElement, '[data-pc-section="item"]');
-
-        if (focusableEl) {
-            const findIndex = findIndexInList(focusableEl, this.listViewChild?.containerViewChild.nativeElement.children?.[0].children || []);
-            this.focused = true;
-            const index = this.focusedOptionIndex !== -1 ? this.focusedOptionIndex : focusableEl ? findIndex : -1;
-            this.changeFocusedOptionIndex(index, !this.listViewChild?.skipScrollInView);
-        }
-
         this.onFocus.emit(event);
     }
 
     onListBlur(event) {
-        this.focused = false;
-        this.focusedOption = null;
-        this.focusedOptionIndex = -1;
         this.onBlur.emit(event);
-    }
-
-    onItemKeydown(event: KeyboardEvent) {
-        switch (event.code) {
-            case 'ArrowDown':
-                this.onArrowDownKey(event);
-                break;
-            case 'ArrowUp':
-                this.onArrowUpKey(event);
-                break;
-            case 'Home':
-                this.onHomeKey(event);
-                break;
-            case 'End':
-                this.onEndKey(event);
-                break;
-            case 'Enter':
-                this.onEnterKey(event);
-                break;
-            case 'Space':
-                this.onSpaceKey(event);
-                break;
-            case 'KeyA':
-                if (event.ctrlKey) {
-                    this.d_selection = [...this.value];
-                    this.selectionChange.emit(this.d_selection);
-                }
-            default:
-                break;
-        }
-    }
-
-    onOptionMouseDown(index) {
-        this.focused = true;
-        this.focusedOptionIndex = index;
-    }
-
-    onArrowDownKey(event) {
-        debugger;
-        const optionIndex = this.findNextOptionIndex(this.focusedOptionIndex);
-
-        this.changeFocusedOptionIndex(optionIndex);
-
-        if (event.shiftKey) {
-            this.onEnterKey(event);
-        }
-
-        event.preventDefault();
-    }
-    onArrowUpKey(event) {
-        const optionIndex = this.findPrevOptionIndex(this.focusedOptionIndex);
-
-        this.changeFocusedOptionIndex(optionIndex);
-
-        if (event.shiftKey) {
-            this.onEnterKey(event);
-        }
-
-        event.preventDefault();
-    }
-
-    onHomeKey(event) {
-        if (event.ctrlKey && event.shiftKey) {
-            let visibleOptions = this.getVisibleOptions();
-            let focusedIndex = findIndexInList(this.focusedOption, visibleOptions);
-            this.d_selection = [...this.value].slice(0, focusedIndex + 1);
-            this.selectionChange.emit(this.d_selection);
-        } else {
-            this.changeFocusedOptionIndex(0);
-        }
-
-        event.preventDefault();
-    }
-
-    onEndKey(event) {
-        if (event.ctrlKey && event.shiftKey) {
-            let visibleOptions = this.getVisibleOptions();
-            let focusedIndex = findIndexInList(this.focusedOption, visibleOptions);
-            this.d_selection = [...this.value].slice(focusedIndex, visibleOptions.length - 1);
-            this.selectionChange.emit(this.d_selection);
-        } else {
-            this.changeFocusedOptionIndex(find(this.listViewChild?.containerViewChild.nativeElement, '[data-pc-section="item"]').length - 1);
-        }
-
-        event.preventDefault();
-    }
-
-    onEnterKey(event) {
-        this.onItemClick(event, this.focusedOption);
-
-        event.preventDefault();
-    }
-
-    onSpaceKey(event) {
-        event.preventDefault();
-
-        if (event.shiftKey && this.selection && this.selection.length > 0) {
-            let visibleOptions = this.getVisibleOptions();
-            let lastSelectedIndex = this.getLatestSelectedVisibleOptionIndex(visibleOptions);
-
-            if (lastSelectedIndex !== -1) {
-                let focusedIndex = findIndexInList(this.focusedOption, visibleOptions);
-                this.d_selection = [...visibleOptions.slice(Math.min(lastSelectedIndex, focusedIndex), Math.max(lastSelectedIndex, focusedIndex) + 1)];
-                this.selectionChange.emit(this.d_selection);
-                this.onSelectionChange.emit({ originalEvent: event, value: this.d_selection });
-
-                return;
-            }
-        }
-
-        this.onEnterKey(event);
-    }
-
-    findNextOptionIndex(index) {
-        const items = find(this.listViewChild?.containerViewChild.nativeElement, '[data-pc-section="item"]');
-        const matchedOptionIndex = [...items].findIndex((link) => link.id === index);
-
-        return matchedOptionIndex > -1 ? matchedOptionIndex + 1 : 0;
-    }
-
-    findPrevOptionIndex(index) {
-        const items = find(this.listViewChild?.containerViewChild.nativeElement, '[data-pc-section="item"]');
-        const matchedOptionIndex = [...items].findIndex((link) => link.id === index);
-
-        return matchedOptionIndex > -1 ? matchedOptionIndex - 1 : 0;
-    }
-
-    getLatestSelectedVisibleOptionIndex(visibleOptions: any[]): number {
-        const latestSelectedItem = [...this.d_selection].reverse().find((item) => visibleOptions.includes(item));
-
-        return latestSelectedItem !== undefined ? visibleOptions.indexOf(latestSelectedItem) : -1;
     }
 
     getVisibleOptions() {
         return this.visibleOptions && this.visibleOptions.length > 0 ? this.visibleOptions : this.value && this.value.length > 0 ? this.value : null;
     }
 
-    getFocusedOption(index: number) {
-        if (index === -1) return null;
-
-        return this.visibleOptions && this.visibleOptions.length ? this.visibleOptions[index] : this.value && this.value.length ? this.value[index] : null;
-    }
-
-    changeFocusedOptionIndex(index, scrollToView: boolean = true) {
-        const items = find(this.listViewChild?.containerViewChild.nativeElement, '[data-pc-section="item"]');
-
-        let order = index >= items.length ? items.length - 1 : index < 0 ? 0 : index;
-
-        this.focusedOptionIndex = items[order] ? items[order].getAttribute('id') : -1;
-        this.focusedOption = this.getFocusedOption(order);
-
-        scrollToView && this.scrollInView(this.focusedOptionIndex);
-    }
-
-    scrollInView(id) {
-        const element = findSingle(this.listViewChild?.containerViewChild.nativeElement, `[data-pc-section="item"][id="${id}"]`);
-
-        if (element) {
-            element.scrollIntoView && element.scrollIntoView({ block: 'nearest', inline: 'nearest' });
-        }
-    }
-
-    findNextItem(item: any): HTMLElement | null {
-        let nextItem = item.nextElementSibling;
-
-        if (nextItem) return !hasClass(nextItem, 'p-orderlist-item') || isHidden(nextItem) ? this.findNextItem(nextItem) : nextItem;
-        else return null;
-    }
-
-    findPrevItem(item: any): HTMLElement | null {
-        let prevItem = item.previousElementSibling;
-
-        if (prevItem) return !hasClass(prevItem, 'p-orderlist-item') || isHidden(prevItem) ? this.findPrevItem(prevItem) : prevItem;
-        else return null;
-    }
-
     moveDisabled() {
         if (this.disabled || !this.selection.length) {
             return true;
         }
-    }
-
-    focusedOptionId() {
-        return this.focusedOptionIndex !== -1 ? this.focusedOptionIndex : null;
     }
 
     createStyle() {

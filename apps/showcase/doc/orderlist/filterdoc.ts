@@ -11,7 +11,7 @@ import { ChangeDetectorRef, Component, OnInit } from '@angular/core';
             <p>Filter value is checked against the property of an object configured with the <i>filterBy</i> property</p>
         </app-docsectiontext>
         <div class="card sm:flex sm:justify-center">
-            <p-orderlist [value]="products" [listStyle]="{ 'max-height': '30rem' }" filterBy="name" filterPlaceholder="Filter by name" [responsive]="true" breakpoint="575px">
+            <p-orderlist [value]="products" filterBy="name" filterPlaceholder="Filter by name" [responsive]="true" breakpoint="575px" scrollHeight="20rem">
                 <ng-template let-option let-selected="selected" #item>
                     <div class="flex flex-wrap p-1 items-center gap-4 w-full">
                         <img class="w-12 shrink-0 rounded" src="https://primefaces.org/cdn/primeng/images/demo/product/{{ option.image }}" [alt]="option.name" />
@@ -62,14 +62,7 @@ export class FilterDoc implements OnInit {
     }
 
     code: Code = {
-        basic: `<p-orderlist
-    [value]="products"
-    [listStyle]="{ 'max-height': '30rem' }"
-    filterBy="name"
-    filterPlaceholder="Filter by name"
-    [responsive]="true"
-    breakpoint="575px"
->
+        basic: `<p-orderlist [value]="products" filterBy="name" filterPlaceholder="Filter by name" [responsive]="true" breakpoint="575px" scrollHeight="20rem">
     <ng-template let-option let-selected="selected" #item>
         <div class="flex flex-wrap p-1 items-center gap-4 w-full">
             <img
@@ -95,14 +88,7 @@ export class FilterDoc implements OnInit {
 </p-orderlist>`,
 
         html: `<div class="card sm:flex sm:justify-center">
-    <p-orderlist
-        [value]="products"
-        [listStyle]="{ 'max-height': '30rem' }"
-        filterBy="name"
-        filterPlaceholder="Filter by name"
-        [responsive]="true"
-        breakpoint="575px"
-    >
+    <p-orderlist [value]="products" filterBy="name" filterPlaceholder="Filter by name" [responsive]="true" breakpoint="575px" scrollHeight="20rem">
         <ng-template let-option let-selected="selected" #item>
             <div class="flex flex-wrap p-1 items-center gap-4 w-full">
                 <img

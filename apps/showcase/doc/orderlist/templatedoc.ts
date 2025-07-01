@@ -38,13 +38,7 @@ import { ChangeDetectorRef, Component, OnInit } from '@angular/core';
 export class TemplateDoc implements OnInit {
     products!: Product[];
     code: Code = {
-        basic: `<p-orderlist
-    [value]="products"
-    dataKey="id"
-    [responsive]="true"
-    breakpoint="575px"
-    scrollHeight="20rem"
->
+        basic: `<p-orderlist [value]="products" dataKey="id" [responsive]="true" breakpoint="575px" scrollHeight="20rem">
     <ng-template let-option let-selected="selected" #item>
         <div class="flex flex-wrap p-1 items-center gap-4 w-full">
             <img
@@ -70,13 +64,7 @@ export class TemplateDoc implements OnInit {
 </p-orderlist>`,
 
         html: `<div class="card sm:flex sm:justify-center">
-    <p-orderlist
-        [value]="products"
-        dataKey="id"
-        [responsive]="true"
-        breakpoint="575px"
-        scrollHeight="20rem"
-    >
+    <p-orderlist [value]="products" dataKey="id" [responsive]="true" breakpoint="575px" scrollHeight="20rem">
         <ng-template let-option let-selected="selected" #item>
             <div class="flex flex-wrap p-1 items-center gap-4 w-full">
                 <img
