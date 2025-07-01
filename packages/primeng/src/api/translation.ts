@@ -8,6 +8,7 @@ export interface Translation {
     notContains?: string;
     endsWith?: string;
     equals?: string;
+    completed?: string;
     notEquals?: string;
     noFilter?: string;
     lt?: string;

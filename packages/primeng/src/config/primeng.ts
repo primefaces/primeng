@@ -81,6 +81,7 @@ export class PrimeNG extends ThemeProvider {
         accept: 'Yes',
         reject: 'No',
         choose: 'Choose',
+        completed: 'Completed',
         upload: 'Upload',
         cancel: 'Cancel',
         pending: 'Pending',
