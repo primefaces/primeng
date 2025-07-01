@@ -73,7 +73,7 @@ export const DATEPICKER_VALUE_ACCESSOR: any = {
                 [attr.aria-controls]="overlayVisible ? panelId : null"
                 [attr.aria-labelledby]="ariaLabelledBy"
                 [attr.aria-label]="ariaLabel"
-                [value]="modelValue()"
+                [value]="inputFieldValue"
                 (focus)="onInputFocus($event)"
                 (keydown)="onInputKeydown($event)"
                 (click)="onInputClick()"
@@ -1658,7 +1658,15 @@ export class DatePicker extends BaseInput implements OnInit, AfterContentInit, A
         }
 
         this.writeModelValue(formattedValue);
+
+        this.inputFieldValue = formattedValue;
+
+        if (this.inputfieldViewChild && this.inputfieldViewChild.nativeElement) {
+            this.inputfieldViewChild.nativeElement.value = this.inputFieldValue;
+        }
     }
+
+    inputFieldValue: Nullable<string> = null;
 
     formatDateTime(date: any) {
         let formattedValue = this.keepInvalid ? date : null;
@@ -2047,6 +2055,7 @@ export class DatePicker extends BaseInput implements OnInit, AfterContentInit, A
 
     clear() {
         this.value = null;
+        this.inputFieldValue = null;
         this.writeModelValue(this.value);
         this.onModelChange(this.value);
         this.updateInputfield();
