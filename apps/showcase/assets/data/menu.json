@@ -483,7 +483,16 @@
         {
             "name": "Figma UI Kit",
             "icon": "pi pi-pencil",
-            "routerLink": "/uikit"
+            "children": [
+                {
+                    "name": "Overview",
+                    "routerLink": "/uikit"
+                },
+                {
+                    "name": "Guide",
+                    "routerLink": "/uikit/guide"
+                }
+            ]
         },
         {
             "name": "Templates",
