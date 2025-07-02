@@ -201,18 +201,31 @@ export class MultiSelectItem extends BaseComponent {
                             {{ getSelectedItemsLabel() }}
                         } @else {
                             <div #token *ngFor="let item of chipSelectedItems(); let i = index" [class]="cx('chipItem')">
-                                <p-chip [class]="cx('pcChip')" [label]="getLabelByValue(item)" [removable]="!disabled() && !readonly" (onRemove)="removeOption(item, $event)" [removeIcon]="chipIcon">
-                                    <ng-container *ngIf="chipIconTemplate || _chipIconTemplate || removeTokenIconTemplate || _removeTokenIconTemplate">
+                                <p-chip [class]="cx('pcChip')" [label]="getLabelByValue(item)" [removable]="!disabled() && !readonly" (onRemove)="removeOption(item, $event)" [icon]="chipIcon" [removeIcon]="removeTokenIcon">
+                                    <ng-container *ngIf="chipIconTemplate || _chipIconTemplate">
+                                        <ng-template #chipicon>
+                                            <ng-container *ngIf="!disabled() && !readonly">
+                                                <span
+                                                    [class]="cx('chipIcon')"
+                                                    *ngIf="chipIconTemplate || _chipIconTemplate"
+                                                    [attr.aria-hidden]="true"
+                                                >
+                                                    <ng-container *ngTemplateOutlet="chipIconTemplate || _chipIconTemplate; context: { class: 'p-multiselect-chip-icon' }"></ng-container>
+                                                </span>
+                                            </ng-container>
+                                        </ng-template>
+                                    </ng-container>
+                                    <ng-container *ngIf="removeTokenIconTemplate || _removeTokenIconTemplate">
                                         <ng-template #removeicon>
                                             <ng-container *ngIf="!disabled() && !readonly">
                                                 <span
                                                     [class]="cx('chipIcon')"
-                                                    *ngIf="chipIconTemplate || _chipIconTemplate || removeTokenIconTemplate || _removeTokenIconTemplate"
+                                                    *ngIf="removeTokenIconTemplate || _removeTokenIconTemplate"
                                                     (click)="removeOption(item, $event)"
                                                     [attr.data-pc-section]="'clearicon'"
                                                     [attr.aria-hidden]="true"
                                                 >
-                                                    <ng-container *ngTemplateOutlet="chipIconTemplate || _chipIconTemplate || removeTokenIconTemplate || _removeTokenIconTemplate; context: { class: 'p-multiselect-chip-icon' }"></ng-container>
+                                                    <ng-container *ngTemplateOutlet="removeTokenIconTemplate || _removeTokenIconTemplate; context: { class: 'p-multiselect-chip-icon' }"></ng-container>
                                                 </span>
                                             </ng-container>
                                         </ng-template>
@@ -230,6 +243,7 @@ export class MultiSelectItem extends BaseComponent {
             </div>
         </div>
         <ng-container *ngIf="isVisibleClearIcon">
+            hello
             <TimesIcon *ngIf="!clearIconTemplate && !_clearIconTemplate" [class]="cx('clearIcon')" (click)="clear($event)" [attr.data-pc-section]="'clearicon'" [attr.aria-hidden]="true" />
             <span *ngIf="clearIconTemplate || _clearIconTemplate" [class]="cx('clearIcon')" (click)="clear($event)" [attr.data-pc-section]="'clearicon'" [attr.aria-hidden]="true">
                 <ng-template *ngTemplateOutlet="clearIconTemplate || _clearIconTemplate"></ng-template>
@@ -569,6 +583,11 @@ export class MultiSelect extends BaseEditableHolder implements OnInit, AfterView
      * @group Props
      */
     @Input() chipIcon: string | undefined;
+    /**
+     * Icon class of the remove token icon.
+     * @group Props
+     */
+    @Input() removeTokenIcon: string | undefined;
     /**
      * Name of the label field of an option.
      * @group Props
