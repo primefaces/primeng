@@ -95,7 +95,7 @@ export class UIKitDemo {
         },
         {
             id: 'update-prime-one',
-            label: 'Update Prime One',
+            label: 'Update PrimeOne',
             component: UpdatePrimeOneDoc
         },
         {
