@@ -167,7 +167,7 @@ import { TagModule } from 'primeng/tag';
                         </tr>
                         <tr>
                             <td>Rating onCancel event and cancelIcon template</td>
-                            <td>18</td>
+                            <td>v18</td>
                             <td>Obsolete, not utilized.</td>
                             <td><p-tag value="removed" severity="danger" /></td>
                         </tr>
@@ -221,19 +221,19 @@ import { TagModule } from 'primeng/tag';
                         </tr>
                         <tr>
                             <td>Table/TreeTable virtualRowHeight property</td>
-                            <td>18</td>
+                            <td>v18</td>
                             <td><i>virtualScrollItemSize</i> property</td>
                             <td><p-tag value="removed" severity="danger" /></td>
                         </tr>
                         <tr>
                             <td>Table autoLayout property</td>
-                            <td>18</td>
+                            <td>v18</td>
                             <td>Table always uses autoLayout as implementation requirement</td>
                             <td><p-tag value="removed" severity="danger" /></td>
                         </tr>
                         <tr>
                             <td>Tree virtualNodeHeight property</td>
-                            <td>18</td>
+                            <td>v18</td>
                             <td><i>virtualScrollItemSize</i> property</td>
                             <td><p-tag value="removed" severity="danger" /></td>
                         </tr>

@@ -22,7 +22,7 @@ import { TagModule } from 'primeng/tag';
                     <tbody>
                         <tr>
                             <td>pTemplate</td>
-                            <td>20</td>
+                            <td>v20</td>
                             <td>ng-template with a template reference variable</td>
                             <td>None</td>
                             <td><p-tag value="deprecated" severity="warn" /></td>
@@ -50,28 +50,28 @@ import { TagModule } from 'primeng/tag';
                         </tr>
                         <tr>
                             <td>pButton iconPos, loadingIcon, icon and label properties</td>
-                            <td>20</td>
+                            <td>v20</td>
                             <td><i>pButtonIcon</i> and <i>pButtonLabel</i> directives</td>
                             <td>None</td>
                             <td><p-tag value="deprecated" severity="warn" /></td>
                         </tr>
                         <tr>
                             <td>Button plain property</td>
-                            <td>20</td>
+                            <td>v20</td>
                             <td><i>pButtonIcon</i> and <i>pButtonLabel</i> directives</td>
                             <td>None</td>
                             <td><p-tag value="deprecated" severity="warn" /></td>
                         </tr>
                         <tr>
                             <td>pButton buttonProps property</td>
-                            <td>20</td>
+                            <td>v20</td>
                             <td>Use button properties directly on the element</td>
                             <td>None</td>
                             <td><p-tag value="deprecated" severity="warn" /></td>
                         </tr>
                         <tr>
                             <td>p-button badgeClass property</td>
-                            <td>20</td>
+                            <td>v20</td>
                             <td><i>badgeSeverity</i> property</td>
                             <td>None</td>
                             <td><p-tag value="deprecated" severity="warn" /></td>
@@ -120,28 +120,28 @@ import { TagModule } from 'primeng/tag';
                         </tr>
                         <tr>
                             <td>Table responsiveLayout property</td>
-                            <td>20</td>
+                            <td>v20</td>
                             <td>Always defaults to scroll, stack mode needs custom implementation</td>
                             <td>None</td>
                             <td><p-tag value="deprecated" severity="warn" /></td>
                         </tr>
                         <tr>
                             <td>TreeSelect default template</td>
-                            <td>20</td>
+                            <td>v20</td>
                             <td><i>value</i> template</td>
                             <td>None</td>
                             <td><p-tag value="deprecated" severity="warn" /></td>
                         </tr>
                         <tr>
                             <td>pBadge directive</td>
-                            <td>20</td>
+                            <td>v20</td>
                             <td><i>OverlayBadge</i> component</td>
                             <td>None</td>
                             <td><p-tag value="deprecated" severity="warn" /></td>
                         </tr>
                         <tr>
                             <td>clearFilterIcon template of Table</td>
-                            <td>20</td>
+                            <td>v20</td>
                             <td>Obsolete, not utilized.</td>
                             <td>None</td>
                             <td><p-tag value="deprecated" severity="warn" /></td>
