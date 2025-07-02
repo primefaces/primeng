@@ -2333,6 +2333,12 @@
                             "type": "string"
                         },
                         {
+                            "name": "completed",
+                            "optional": true,
+                            "readonly": false,
+                            "type": "string"
+                        },
+                        {
                             "name": "notEquals",
                             "optional": true,
                             "readonly": false,
@@ -14507,7 +14513,8 @@
                             "optional": false,
                             "readonly": false,
                             "type": "string",
-                            "description": "Style class of the element."
+                            "description": "Style class of the element.",
+                            "deprecated": "since v20.0.0, use "
                         }
                     ]
                 }
@@ -25596,18 +25603,12 @@
                             "description": "When specified, allows two boundary values to be picked."
                         },
                         {
-                            "name": "style",
-                            "optional": false,
-                            "readonly": false,
-                            "type": "{ [klass: string]: any }",
-                            "description": "Inline style of the component."
-                        },
-                        {
                             "name": "styleClass",
                             "optional": false,
                             "readonly": false,
                             "type": "string",
-                            "description": "Style class of the component."
+                            "description": "Style class of the component.",
+                            "deprecated": "since v20.0.0, use "
                         },
                         {
                             "name": "ariaLabel",

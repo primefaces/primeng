@@ -5258,6 +5258,7 @@ export class ReorderableRow implements AfterViewInit {
                 [currencyDisplay]="currencyDisplay"
                 [useGrouping]="useGrouping"
                 [showButtons]="showButtons"
+                [filterOn]="filterOn"
             ></p-columnFilterFormElement>
             <p-button
                 *ngIf="showMenuButton"
@@ -5338,6 +5339,7 @@ export class ReorderableRow implements AfterViewInit {
                                 [currency]="currency"
                                 [currencyDisplay]="currencyDisplay"
                                 [useGrouping]="useGrouping"
+                                [filterOn]="filterOn"
                             ></p-columnFilterFormElement>
                             <div>
                                 <p-button
@@ -5503,6 +5505,12 @@ export class ColumnFilter extends BaseComponent implements AfterContentInit {
      * @group Props
      */
     @Input() currencyDisplay: string | undefined;
+    /**
+     * Default trigger to run filtering on built-in text and numeric filters, valid values are 'enter' and 'input'.
+     * @defaultValue enter
+     * @group Props
+     */
+    @Input() filterOn: string | undefined = 'enter';
     /**
      * Defines if filter grouping will be enabled.
      * @group Props
@@ -6212,6 +6220,8 @@ export class ColumnFilterFormElement implements OnInit {
 
     @Input() ariaLabel: string | undefined;
 
+    @Input() filterOn: string | undefined;
+
     get showButtons(): boolean {
         return this.colFilter.showButtons;
     }
@@ -6233,7 +6243,7 @@ export class ColumnFilterFormElement implements OnInit {
     onModelChange(value: any) {
         (<any>this.filterConstraint).value = value;
 
-        if (this.type === 'date' || this.type === 'boolean' || value === '') {
+        if (this.type === 'date' || this.type === 'boolean' || ((this.type === 'text' || this.type === 'numeric') && this.filterOn === 'input') || !value) {
             this.dt._filter();
         }
     }
