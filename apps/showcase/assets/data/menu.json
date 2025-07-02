@@ -533,11 +533,11 @@
                 },
                 {
                     "name": "Long Term Support",
-                    "routerLink": "https://primeng.org/lts"
+                    "href": "https://primeng.org/lts"
                 },
                 {
                     "name": "PRO Support",
-                    "routerLink": "https://primeng.org/support"
+                    "href": "https://primeng.org/support"
                 }
             ]
         },
