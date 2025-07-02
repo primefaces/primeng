@@ -393,7 +393,12 @@ export class InputOtp extends BaseEditableHolder implements AfterContentInit {
                 break;
 
             default:
-                if ((this.integerOnly && !(Number(event.key) >= 0 && Number(event.key) <= 9)) || (this.tokens.join('').length >= this.length && event.code !== 'Delete')) {
+                const target = event.target as HTMLInputElement;
+                const hasSelection = target.selectionStart !== target.selectionEnd;
+                const isAtMaxLength = this.tokens.join('').length >= this.length;
+                const isValidKey = this.integerOnly ? (Number(event.key) >= 0 && Number(event.key) <= 9) : true;
+                
+                if (!isValidKey || (isAtMaxLength && event.code !== 'Delete' && !hasSelection)) {
                     event.preventDefault();
                 }
 
