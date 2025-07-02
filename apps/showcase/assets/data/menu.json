@@ -487,12 +487,12 @@
         {
             "name": "Figma UI Kit",
             "icon": "pi pi-pencil",
-            "routerLink": "https://primeng.org/uikit"
+            "href": "https://primeng.org/uikit"
         },
         {
             "name": "Templates",
             "icon": "pi pi-star",
-            "routerLink": "https://primeng.org/templates"
+            "href": "https://primeng.org/templates"
         },
         {
             "name": "Theme Designer",
@@ -500,11 +500,11 @@
             "children": [
                 {
                     "name": "Overview",
-                    "routerLink": "https://primeng.org/designer"
+                    "href": "https://primeng.org/designer"
                 },
                 {
                     "name": "Guide",
-                    "routerLink": "https://primeng.org/designer/guide"
+                    "href": "https://primeng.org/designer/guide"
                 }
             ]
         },
@@ -518,11 +518,11 @@
                 },
                 {
                     "name": "Migration to v19",
-                    "routerLink": "https://primeng.org/migration/v19"
+                    "href": "https://primeng.org/migration/v19"
                 },
                 {
                     "name": "PrimeFlex",
-                    "routerLink": "https://primeng.org/guides/primeflex"
+                    "href": "https://primeng.org/guides/primeflex"
                 },
                 {
                     "name": "PrimeTV",
@@ -544,11 +544,11 @@
                 },
                 {
                     "name": "Long Term Support",
-                    "routerLink": "https://primeng.org/lts"
+                    "href": "https://primeng.org/lts"
                 },
                 {
                     "name": "PRO Support",
-                    "routerLink": "https://primeng.org/support"
+                    "href": "https://primeng.org/support"
                 }
             ]
         },
@@ -558,11 +558,11 @@
             "children": [
                 {
                     "name": "About Us",
-                    "routerLink": "https://primeng.org/team"
+                    "href": "https://primeng.org/team"
                 },
                 {
                     "name": "Roadmap",
-                    "routerLink": "https://primeng.org/roadmap"
+                    "href": "https://primeng.org/roadmap"
                 },
                 {
                     "name": "Source Code",
@@ -574,7 +574,7 @@
                 },
                 {
                     "name": "Contribution",
-                    "routerLink": "https://primeng.org/contribution",
+                    "href": "https://primeng.org/contribution",
                     "icon": "pi pi-users"
                 },
                 {
