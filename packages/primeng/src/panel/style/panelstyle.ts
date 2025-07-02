@@ -1,13 +1,25 @@
 import { Injectable } from '@angular/core';
+import { css } from '@primeuix/styled';
 import { style } from '@primeuix/styles/panel';
 import { BaseStyle } from 'primeng/base';
+
+const theme = css`
+    ${style}
+
+    /* For PrimeNG */
+    .p-panel-collapsed > .p-panel-content-container,
+    .p-panel-content-container.ng-animating {
+        overflow: hidden;
+    }
+`;
 
 const classes = {
     root: ({ instance }) => [
         'p-panel p-component',
         {
             'p-panel-toggleable': instance.toggleable,
-            'p-panel-expanded': !instance.collapsed && instance.toggleable
+            'p-panel-expanded': !instance.collapsed && instance.toggleable,
+            'p-panel-collapsed': instance.collapsed && instance.toggleable
         }
     ],
     icons: ({ instance }) => [
@@ -30,7 +42,7 @@ const classes = {
 export class PanelStyle extends BaseStyle {
     name = 'panel';
 
-    theme = style;
+    theme = theme;
 
     classes = classes;
 }

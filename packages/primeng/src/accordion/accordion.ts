@@ -294,16 +294,13 @@ export class AccordionHeader extends BaseComponent {
                 'hidden',
                 style({
                     height: '0',
-                    paddingBottom: '0',
-                    visibility: 'hidden',
-                    overflow: 'hidden'
+                    paddingBottom: '0'
                 })
             ),
             state(
                 'visible',
                 style({
-                    height: '*',
-                    visibility: 'visible'
+                    height: '*'
                 })
             ),
             transition('visible <=> hidden', [animate('{{transitionParams}}')]),

@@ -136,15 +136,13 @@ export interface PanelHeaderIconsTemplateContext {
             state(
                 'hidden',
                 style({
-                    height: '0',
-                    overflow: 'hidden'
+                    height: '0'
                 })
             ),
             state(
                 'void',
                 style({
-                    height: '{{height}}',
-                    overflow: 'hidden'
+                    height: '{{height}}'
                 }),
                 { params: { height: '0' } }
             ),

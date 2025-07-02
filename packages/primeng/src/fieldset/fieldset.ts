@@ -76,8 +76,7 @@ import { FieldsetStyle } from './style/fieldsetstyle';
             state(
                 'hidden',
                 style({
-                    height: '0',
-                    overflow: 'hidden'
+                    height: '0'
                 })
             ),
             state(

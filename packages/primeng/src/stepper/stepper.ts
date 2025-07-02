@@ -277,15 +277,13 @@ export class Step extends BaseComponent implements AfterContentInit {
             state(
                 'hidden',
                 style({
-                    height: '0',
-                    visibility: 'hidden'
+                    height: '0'
                 })
             ),
             state(
                 'visible',
                 style({
-                    height: '*',
-                    visibility: 'visible'
+                    height: '*'
                 })
             ),
             transition('visible <=> hidden', [animate('400ms cubic-bezier(0.86, 0, 0.07, 1)')]),

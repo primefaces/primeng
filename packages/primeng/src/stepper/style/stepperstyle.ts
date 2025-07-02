@@ -7,12 +7,9 @@ const theme = css`
     ${style}
 
     /* For PrimeNG */
-    .p-steppanel {
+    .p-steppanel:not(.p-steppanel-active) > .p-steppanel-content,
+    .p-steppanel-content.ng-animating {
         overflow: hidden;
-    }
-
-    .p-stepppanel:not(.ng-animating) {
-        overflow: inherit;
     }
 `;
 
