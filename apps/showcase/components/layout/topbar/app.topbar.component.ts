@@ -124,7 +124,7 @@ import { StyleClass } from 'primeng/styleclass';
                 </li>
                 <li>
                     <button pStyleClass="@next" enterFromClass="hidden" enterActiveClass="animate-scalein" leaveToClass="hidden" leaveActiveClass="animate-fadeout" [hideOnOutsideClick]="true" type="button" class="topbar-item version-item">
-                        <span class="version-text">{{ versions ? versions[1].name : 'Latest' }}</span>
+                        <span class="version-text">{{ versions ? versions[2].name : 'Latest' }}</span>
                         <span class="version-icon pi pi-angle-down"></span>
                     </button>
                     <div class="versions-panel hidden">
