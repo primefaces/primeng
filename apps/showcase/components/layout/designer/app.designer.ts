@@ -1,16 +1,16 @@
-import { ChangeDetectionStrategy, Component, computed, inject, OnInit, PLATFORM_ID, ViewChild } from '@angular/core';
-import { Drawer, DrawerModule } from 'primeng/drawer';
-import { CommonModule, isPlatformBrowser } from '@angular/common';
-import { DesignerService } from '@/service/designerservice';
-import { AppConfigService } from '@/service/appconfigservice';
-import { ToastModule } from 'primeng/toast';
-import { PrimeNG } from 'primeng/config';
-import { ConfirmDialogModule } from 'primeng/confirmdialog';
-import { DesignDashboard } from '@/components/layout/designer/dashboard/designdashboard';
 import { DesignCreateTheme } from '@/components/layout/designer/create/designcreatetheme';
+import { DesignDashboard } from '@/components/layout/designer/dashboard/designdashboard';
 import { DesignEditor } from '@/components/layout/designer/editor/designeditor';
 import { DesignEditorFooter } from '@/components/layout/designer/editor/designeditorfooter';
+import { AppConfigService } from '@/service/appconfigservice';
+import { DesignerService } from '@/service/designerservice';
+import { CommonModule } from '@angular/common';
+import { ChangeDetectionStrategy, Component, computed, inject, PLATFORM_ID, ViewChild } from '@angular/core';
+import { PrimeNG } from 'primeng/config';
+import { ConfirmDialogModule } from 'primeng/confirmdialog';
 import { ConfirmPopupModule } from 'primeng/confirmpopup';
+import { Drawer, DrawerModule } from 'primeng/drawer';
+import { ToastModule } from 'primeng/toast';
 
 @Component({
     selector: 'app-designer',
@@ -50,7 +50,7 @@ import { ConfirmPopupModule } from 'primeng/confirmpopup';
         <p-confirm-dialog key="designer" />`,
     changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class AppDesigner implements OnInit {
+export class AppDesigner {
     @ViewChild('drawer') drawer: Drawer;
 
     public platformId: any = inject(PLATFORM_ID);
@@ -93,11 +93,5 @@ export class AppDesigner implements OnInit {
 
     toggleDarkMode() {
         this.configService.appState.update((state) => ({ ...state, darkTheme: !state.darkTheme }));
-    }
-
-    async ngOnInit() {
-        if (isPlatformBrowser(this.platformId)) {
-            await this.designerService.restore();
-        }
     }
 }
