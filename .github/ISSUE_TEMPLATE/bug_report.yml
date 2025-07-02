@@ -126,9 +126,10 @@ body:
     attributes:
       label: PrimeNG version
       description: >-
-        Only issues related to v19 are valid, previous versions are covered by
+        Only issues related to v19 and v20 are valid, previous versions are covered by
         PrimeNG LTS service.
       options:
+        - v20
         - v19
         - v18 (LTS Only)
         - v17 (LTS Only)
