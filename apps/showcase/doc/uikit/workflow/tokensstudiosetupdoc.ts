@@ -1,10 +1,12 @@
 import { Component } from '@angular/core';
 import { AppDocModule } from '@/components/doc/app.doc.module';
+import { CommonModule } from '@angular/common';
+import { RouterModule } from '@angular/router';
 
 @Component({
     selector: 'tokens-studio-setup-doc',
     standalone: true,
-    imports: [AppDocModule],
+    imports: [CommonModule, RouterModule, AppDocModule],
     template: `<app-docsectiontext>
         <ul class="leading-normal px-10 list-disc">
             <li class="py-2">
@@ -14,8 +16,8 @@ import { AppDocModule } from '@/components/doc/app.doc.module';
             </li>
             <li class="py-2"><b>Push tokens to your sync provider</b> - Once you've successfully switched to your new sync provider, push the token data from your local file to the new provider to ensure everything stays in sync.</li>
             <li class="py-2">
-                <b>Set Base Font Size to<i>&#123;app.font.size&#125;</i> in Tokens Studio Settings</b> - PrimeOne uses a base font size of 14px, aligning with the default in Prime UI libraries. In Tokens Studio, go to the Settings tab and set the
-                Base font size to<i>&#123;app.font.size&#125;</i> .
+                <b>Set Base Font Size to <i>&#123;app.font.size&#125;</i> in Tokens Studio Settings</b> - PrimeOne uses a base font size of 14px, aligning with the default in Prime UI libraries. In Tokens Studio, go to the Settings tab and set the
+                Base font size to <i>&#123;app.font.size&#125;</i>.
             </li>
             <li>If you wish to change this value, you can <a href="https://docs.tokens.studio/manage-settings/base-font-size" target="_blank" rel="noopener noreferrer">update</a> the corresponding token in the app set.</li>
         </ul>

@@ -72,7 +72,9 @@ export class UIKitDemo {
         },
         {
             id: 'workflow-demo',
-            label: 'Workflow',
+            label: 'Suggested Workflow',
+            description:
+                "PrimeOne uses Tokens Studio as its primary tool for design token management. To leverage the benefits of Figma Variables, these variables have also been exported from Tokens Studio and included in the file. This setup, while powerful, can make design changes somewhat complex and less fluid due to the way the tools interact. Although the provided guide outlines the recommended steps, we acknowledge that the workflow may feel unintuitive or slow at times. We’re actively exploring improvements, and in the meantime, suggest following the guide as a baseline while adapting it to your team's needs where necessary.",
             children: [
                 {
                     id: 'tokens-studio-setup-demo',
@@ -98,7 +100,7 @@ export class UIKitDemo {
         },
         {
             id: 'adding-prime-icons',
-            label: 'Adding Prime Icons',
+            label: 'Adding PrimeIcons',
             component: AddingPrimeIconsDoc
         },
         {
