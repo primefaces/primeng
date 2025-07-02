@@ -498,11 +498,6 @@
             "href": "https://primeng.org/templates"
         },
         {
-            "name": "PrimeBlocks",
-            "icon": "pi pi-server",
-            "href": "https://blocks.primeng.org"
-        },
-        {
             "name": "Guides",
             "icon": "pi pi-book",
             "children": [
@@ -538,11 +533,11 @@
                 },
                 {
                     "name": "Long Term Support",
-                    "routerLink": "/lts"
+                    "routerLink": "https://primeng.org/lts"
                 },
                 {
                     "name": "PRO Support",
-                    "routerLink": "/support"
+                    "routerLink": "https://primeng.org/support"
                 }
             ]
         },
