@@ -1,6 +1,6 @@
 import { Code, ExtFile, RouteFile } from '@/domain/code';
 import { CommonModule, DOCUMENT, isPlatformBrowser } from '@angular/common';
-import { Component, ElementRef, Inject, Input, NgModule, PLATFORM_ID, ViewChild, booleanAttribute } from '@angular/core';
+import { booleanAttribute, Component, ElementRef, Inject, Input, NgModule, PLATFORM_ID, ViewChild } from '@angular/core';
 import { ButtonModule } from 'primeng/button';
 import { TooltipModule } from 'primeng/tooltip';
 import { useCodeSandbox, useStackBlitz } from './codeeditor';
@@ -111,7 +111,7 @@ export class AppCodeComponent {
 
     @Input({ transform: booleanAttribute }) hideCodeSandbox: boolean = true;
 
-    @Input({ transform: booleanAttribute }) hideStackBlitz: boolean = true;
+    @Input({ transform: booleanAttribute }) hideStackBlitz: boolean = false;
 
     @Input({ transform: booleanAttribute }) importCode: boolean = false;
 
