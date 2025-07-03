@@ -305,6 +305,7 @@ export class DynamicDialogComponent extends BaseComponent implements AfterViewIn
         if (this.breakpoints) {
             this.createStyle();
         }
+        this.setTransformOptions(this.position);
     }
 
     createStyle() {
@@ -726,6 +727,30 @@ export class DynamicDialogComponent extends BaseComponent implements AfterViewIn
         if (this.maskClickListener) {
             this.maskClickListener();
             this.maskClickListener = null;
+        }
+    }
+
+    setTransformOptions(position: string): void {
+        switch (position) {
+            case 'topleft':
+            case 'bottomleft':
+            case 'left':
+                this.transformOptions = 'translate3d(-100%, 0px, 0px)';
+                break;
+            case 'topright':
+            case 'bottomright':
+            case 'right':
+                this.transformOptions = 'translate3d(100%, 0px, 0px)';
+                break;
+            case 'bottom':
+                this.transformOptions = 'translate3d(0px, 100%, 0px)';
+                break;
+            case 'top':
+                this.transformOptions = 'translate3d(0px, -100%, 0px)';
+                break;
+            default:
+                this.transformOptions = 'scale(0.7)';
+                break;
         }
     }
 
