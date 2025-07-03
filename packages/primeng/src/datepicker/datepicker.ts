@@ -411,7 +411,7 @@ export const DATEPICKER_VALUE_ACCESSOR: any = {
                         <ChevronUpIcon *ngIf="!incrementIconTemplate && !_incrementIconTemplate" />
                         <ng-template *ngTemplateOutlet="incrementIconTemplate || _incrementIconTemplate"></ng-template>
                     </p-button>
-                    <span>{{ pm ? 'PM' : 'AM' }}</span>
+                    <span>{{ pm ? getTranslation('pm') : getTranslation('am') }}</span>
                     <p-button size="small" text rounded [styleClass]="cx('pcDecrementButton')" (keydown)="onContainerButtonKeydown($event)" (click)="toggleAMPM($event)" (keydown.enter)="toggleAMPM($event)" [attr.aria-label]="getTranslation('pm')">
                         <ChevronDownIcon *ngIf="!decrementIconTemplate && !_decrementIconTemplate" />
                         <ng-template *ngTemplateOutlet="decrementIconTemplate || _decrementIconTemplate"></ng-template>
@@ -3365,7 +3365,7 @@ export class DatePicker extends BaseInput implements OnInit, AfterContentInit, A
         }
 
         if (this.hourFormat == '12') {
-            output += date.getHours() > 11 ? ' PM' : ' AM';
+            output += date.getHours() > 11 ? ` this.getTranslation('pm')` : ` this.getTranslation('am')`;
         }
 
         return output;
