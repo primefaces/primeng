@@ -3007,8 +3007,8 @@ export class Table<RowData = any> extends BaseComponent implements OnInit, After
         headers.forEach((header) => widths.push(DomHandler.getOuterWidth(header)));
         state.columnWidths = widths.join(',');
 
-        if (this.columnResizeMode === 'expand') {
-            state.tableWidth = DomHandler.getOuterWidth(this.tableViewChild?.nativeElement);
+        if (this.columnResizeMode === 'expand' && this.tableViewChild) {
+            state.tableWidth = DomHandler.getOuterWidth(this.tableViewChild.nativeElement);
         }
     }
 
