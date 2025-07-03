@@ -111,7 +111,7 @@ export class AppCodeComponent {
 
     @Input({ transform: booleanAttribute }) hideCodeSandbox: boolean = true;
 
-    @Input({ transform: booleanAttribute }) hideStackBlitz: boolean = false;
+    @Input({ transform: booleanAttribute }) hideStackBlitz: boolean = true;
 
     @Input({ transform: booleanAttribute }) importCode: boolean = false;
 
