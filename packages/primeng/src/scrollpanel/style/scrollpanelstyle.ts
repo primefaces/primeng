@@ -1,9 +1,8 @@
 import { Injectable } from '@angular/core';
-import { css } from '@primeuix/styled';
 import { style } from '@primeuix/styles/scrollpanel';
 import { BaseStyle } from 'primeng/base';
 
-const theme = css`
+const theme = /*css*/ `
     ${style}
 
     .p-scrollpanel {

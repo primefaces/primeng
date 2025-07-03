@@ -1,9 +1,8 @@
 import { Injectable } from '@angular/core';
-import { css, dt } from '@primeuix/styled';
 import { style } from '@primeuix/styles/autocomplete';
 import { BaseStyle } from 'primeng/base';
 
-const theme = css`
+const theme = /*css*/ `
     ${style}
 
     /* For PrimeNG */
@@ -12,7 +11,7 @@ const theme = css`
     p-auto-complete.ng-invalid.ng-dirty .p-autocomplete-input,
     p-auto-complete.ng-invalid.ng-dirty .p-autocomplete-input-multiple p-autocomplete.ng-invalid.ng-dirty .p-autocomplete-input,
     p-autocomplete.ng-invalid.ng-dirty .p-autocomplete-input-multiple {
-        border-color: ${dt('autocomplete.invalid.border.color')};
+        border-color: dt('autocomplete.invalid.border.color');
     }
 
     p-autoComplete.ng-invalid.ng-dirty .p-autocomplete-input:enabled:focus,
@@ -21,19 +20,19 @@ const theme = css`
     p-auto-complete.ng-invalid.ng-dirty:not(.p-disabled).p-focus .p-autocomplete-input-multiple,
     p-autocomplete.ng-invalid.ng-dirty .p-autocomplete-input:enabled:focus,
     p-autocomplete.ng-invalid.ng-dirty:not(.p-disabled).p-focus .p-autocomplete-input-multiple {
-        border-color: ${dt('autocomplete.focus.border.color')};
+        border-color: dt('autocomplete.focus.border.color');
     }
 
     p-autoComplete.ng-invalid.ng-dirty .p-autocomplete-input-chip input::placeholder,
     p-auto-complete.ng-invalid.ng-dirty .p-autocomplete-input-chip input::placeholder,
     p-autocomplete.ng-invalid.ng-dirty .p-autocomplete-input-chip input::placeholder {
-        color: ${dt('autocomplete.invalid.placeholder.color')};
+        color: dt('autocomplete.invalid.placeholder.color');
     }
 
     p-autoComplete.ng-invalid.ng-dirty .p-autocomplete-input::placeholder,
     p-auto-complete.ng-invalid.ng-dirty .p-autocomplete-input::placeholder,
     p-autocomplete.ng-invalid.ng-dirty .p-autocomplete-input::placeholder {
-        color: ${dt('autocomplete.invalid.placeholder.color')};
+        color: dt('autocomplete.invalid.placeholder.color');
     }
 `;
 

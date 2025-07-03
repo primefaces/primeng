@@ -3,7 +3,7 @@ import { css as Css, dt, Theme } from '@primeuix/styled';
 import { minifyCSS, resolve } from '@primeuix/utils';
 import { UseStyle } from 'primeng/usestyle';
 
-const theme = ({ dt }) => `
+const theme = /*css*/ `
 *,
 ::before,
 ::after {
@@ -78,16 +78,16 @@ const theme = ({ dt }) => `
 
 .p-disabled,
 .p-component:disabled {
-    opacity: ${dt('disabled.opacity')};
+    opacity: dt('disabled.opacity');
 }
 
 .pi {
-    font-size: ${dt('icon.size')};
+    font-size: dt('icon.size');
 }
 
 .p-icon {
-    width: ${dt('icon.size')};
-    height: ${dt('icon.size')};
+    width: dt('icon.size');
+    height: dt('icon.size');
 }
 
 .p-unselectable-text {
@@ -95,8 +95,8 @@ const theme = ({ dt }) => `
 }
 
 .p-overlay-mask {
-    background: ${dt('mask.background')};
-    color: ${dt('mask.color')};
+    background: dt('mask.background');
+    color: dt('mask.color');
     position: fixed;
     top: 0;
     left: 0;
@@ -105,11 +105,11 @@ const theme = ({ dt }) => `
 }
 
 .p-overlay-mask-enter {
-    animation: p-overlay-mask-enter-animation ${dt('mask.transition.duration')} forwards;
+    animation: p-overlay-mask-enter-animation dt('mask.transition.duration') forwards;
 }
 
 .p-overlay-mask-leave {
-    animation: p-overlay-mask-leave-animation ${dt('mask.transition.duration')} forwards;
+    animation: p-overlay-mask-leave-animation dt('mask.transition.duration') forwards;
 }
 /* Temporarily disabled, distrupts PrimeNG overlay animations */
 /* @keyframes p-overlay-mask-enter-animation {
@@ -117,12 +117,12 @@ const theme = ({ dt }) => `
         background: transparent;
     }
     to {
-        background: ${dt('mask.background')};
+        background: dt('mask.background');
     }
 }
 @keyframes p-overlay-mask-leave-animation {
     from {
-        background: ${dt('mask.background')};
+        background: dt('mask.background');
     }
     to {
         background: transparent;
@@ -136,7 +136,7 @@ const theme = ({ dt }) => `
 }
 `;
 
-const css = ({ dt }) => `
+const css = /*css*/ `
 .p-hidden-accessible {
     border: 0;
     clip: rect(0 0 0 0);
@@ -155,7 +155,7 @@ const css = ({ dt }) => `
 
 .p-overflow-hidden {
     overflow: hidden;
-    padding-right: ${dt('scrollbar.width')};
+    padding-right: dt('scrollbar.width');
 }
 
 /* @todo move to baseiconstyle.ts */

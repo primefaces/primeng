@@ -1,23 +1,22 @@
 import { Injectable } from '@angular/core';
-import { css, dt } from '@primeuix/styled';
 import { style } from '@primeuix/styles/treeselect';
 import { BaseStyle } from 'primeng/base';
 
-const theme = css`
+const theme = /*css*/ `
     ${style}
 
     /* For PrimeNG */
 
     .p-treeselect.ng-invalid.ng-dirty {
-        border-color: ${dt('treeselect.invalid.border.color')};
+        border-color: dt('treeselect.invalid.border.color');
     }
 
     p-treeselect.ng-invalid.ng-dirty.p-focus {
-        border-color: ${dt('treeselect.focus.border.color')};
+        border-color: dt('treeselect.focus.border.color');
     }
 
     p-treeselect.ng-invalid.ng-dirty .p-treeselect-label.p-placeholder {
-        color: ${dt('treeselect.invalid.placeholder.color')};
+        color: dt('treeselect.invalid.placeholder.color');
     }
 `;
 

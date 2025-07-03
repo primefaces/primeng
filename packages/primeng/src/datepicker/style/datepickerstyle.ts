@@ -1,14 +1,13 @@
 import { Injectable } from '@angular/core';
-import { css, dt } from '@primeuix/styled';
 import { style } from '@primeuix/styles/datepicker';
 import { BaseStyle } from 'primeng/base';
 
-const theme = css`
+const theme = /*css*/ `
     ${style}
 
     /* For PrimeNG */
     .p-datepicker.ng-invalid.ng-dirty .p-inputtext {
-        border-color: ${dt('inputtext.invalid.border.color')};
+        border-color: dt('inputtext.invalid.border.color');
     }
 `;
 

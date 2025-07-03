@@ -1,9 +1,8 @@
 import { Injectable } from '@angular/core';
-import { css } from '@primeuix/styled';
 import { style } from '@primeuix/styles/accordion';
 import { BaseStyle } from 'primeng/base';
 
-const theme = ({ dt }) => css`
+const theme = /*css*/ `
     ${style}
 
     /*For PrimeNG*/
@@ -18,7 +17,7 @@ const theme = ({ dt }) => css`
 
     .p-accordionheader:has(.p-accordionheader-toggle-icon.icon-start) {
         justify-content: flex-start;
-        gap: ${dt('accordion.header.padding')};
+        gap: dt('accordion.header.padding');
     }
 `;
 

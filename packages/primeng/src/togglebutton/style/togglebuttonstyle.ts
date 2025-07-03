@@ -1,9 +1,8 @@
 import { Injectable } from '@angular/core';
 import { style } from '@primeuix/styles/togglebutton';
-import { css, dt } from '@primeuix/styled';
 import { BaseStyle } from 'primeng/base';
 
-const theme = css`
+const theme = /*css*/ `
     ${style}
 
     /* For PrimeNG (iconPos) */
@@ -12,7 +11,7 @@ const theme = css`
     }
 
     .p-togglebutton.ng-invalid.ng-dirty {
-        border-color: ${dt('togglebutton.invalid.border.color')};
+        border-color: dt('togglebutton.invalid.border.color');
     }
 `;
 

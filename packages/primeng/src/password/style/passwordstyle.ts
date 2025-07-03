@@ -1,22 +1,21 @@
 import { Injectable } from '@angular/core';
-import { css, dt } from '@primeuix/styled';
 import { style } from '@primeuix/styles/password';
 import { BaseStyle } from 'primeng/base';
 
-const theme = css`
+const theme = /*css*/ `
     ${style}
 
     /* For PrimeNG */
     p-password.ng-invalid.ng-dirty .p-inputtext {
-        border-color: ${dt('inputtext.invalid.border.color')};
+        border-color: dt('inputtext.invalid.border.color');
     }
 
     p-password.ng-invalid.ng-dirty .p-inputtext:enabled:focus {
-        border-color: ${dt('inputtext.focus.border.color')};
+        border-color: dt('inputtext.focus.border.color');
     }
 
     p-password.ng-invalid.ng-dirty .p-inputtext::placeholder {
-        color: ${dt('inputtext.invalid.placeholder.color')};
+        color: dt('inputtext.invalid.placeholder.color');
     }
 
     .p-password-fluid-directive {

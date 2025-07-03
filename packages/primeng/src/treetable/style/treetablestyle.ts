@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { BaseStyle } from 'primeng/base';
 
-const theme = ({ dt }) => `
+const theme = /*css*/ `
 /* For PrimeNG */
 .p-treetable {
     position: relative;
@@ -142,7 +142,7 @@ const theme = ({ dt }) => `
     top: 0;
     right: 0;
     margin: 0;
-    width: ${dt('treetable.column.resizer.width')};
+    width: dt('treetable.column.resizer.width');
     height: 100%;
     padding: 0px;
     cursor: col-resize;
@@ -150,11 +150,11 @@ const theme = ({ dt }) => `
 }
 
 .p-treetable .p-column-resizer-helper {
-    width: ${dt('treetable.resize.indicator.width')};
+    width: dt('treetable.resize.indicator.width');
     position: absolute;
     z-index: 10;
     display: none;
-    background: ${dt('treetable.resize.indicator.color')};
+    background: dt('treetable.resize.indicator.color');
 }
 
 .p-treetable .p-row-editor-init,
@@ -189,9 +189,9 @@ const theme = ({ dt }) => `
 }
 
 .p-treetable-loading-icon {
-    font-size: ${dt('treetable.loading.icon.size')};
-    width: ${dt('treetable.loading.icon.size')};
-    height: ${dt('treetable.loading.icon.size')};
+    font-size: dt('treetable.loading.icon.size');
+    width: dt('treetable.loading.icon.size');
+    height: dt('treetable.loading.icon.size');
 }
 
 /* Virtual Scroll */
@@ -204,59 +204,59 @@ const theme = ({ dt }) => `
 }
 
 .p-treetable .p-paginator-top {
-    border-color: ${dt('treetable.paginator.top.border.color')};
+    border-color: dt('treetable.paginator.top.border.color');
     border-style: solid;
-    border-width: ${dt('treetable.paginator.top.border.width')};
+    border-width: dt('treetable.paginator.top.border.width');
 }
 
 .p-treetable .p-paginator-bottom {
-    border-color: ${dt('treetable.paginator.bottom.border.color')};
+    border-color: dt('treetable.paginator.bottom.border.color');
     border-style: solid;
-    border-width: ${dt('treetable.paginator.bottom.border.width')};
+    border-width: dt('treetable.paginator.bottom.border.width');
 }
 
 .p-treetable .p-treetable-header {
-    background: ${dt('treetable.header.background')};
-    color: ${dt('treetable.header.color')};
-    border-color: ${dt('treetable.header.border.color')};
+    background: dt('treetable.header.background');
+    color: dt('treetable.header.color');
+    border-color: dt('treetable.header.border.color');
     border-style: solid;
-    border-width: ${dt('treetable.header.border.width')};
-    padding: ${dt('treetable.header.padding')};
-    font-weight: ${dt('treetable.column.title.font.weight')};
+    border-width: dt('treetable.header.border.width');
+    padding: dt('treetable.header.padding');
+    font-weight: dt('treetable.column.title.font.weight');
 }
 
 .p-treetable .p-treetable-footer {
-    background: ${dt('treetable.footer.background')};
-    color: ${dt('treetable.footer.color')};
-    border-color: ${dt('treetable.footer.border.color')};
+    background: dt('treetable.footer.background');
+    color: dt('treetable.footer.color');
+    border-color: dt('treetable.footer.border.color');
     border-style: solid;
-    border-width: ${dt('treetable.footer.border.width')};
-    padding: ${dt('treetable.footer.padding')};
-    font-weight: ${dt('treetable.column.footer.font.weight')};
+    border-width: dt('treetable.footer.border.width');
+    padding: dt('treetable.footer.padding');
+    font-weight: dt('treetable.column.footer.font.weight');
 }
 
 .p-treetable .p-treetable-thead>tr>th {
-    padding: ${dt('treetable.header.cell.padding')};
-    background: ${dt('treetable.header.cell.background')};
-    border-color: ${dt('treetable.header.cell.border.color')};
+    padding: dt('treetable.header.cell.padding');
+    background: dt('treetable.header.cell.background');
+    border-color: dt('treetable.header.cell.border.color');
     border-style: solid;
     border-width: 0 0 1px 0;
-    color: ${dt('treetable.header.cell.color')};
-    font-weight: ${dt('treetable.column.title.font.weight')};
+    color: dt('treetable.header.cell.color');
+    font-weight: dt('treetable.column.title.font.weight');
     text-align: start;
-    transition: background ${dt('treetable.transition.duration')}, color ${dt('treetable.transition.duration')}, border-color ${dt('treetable.transition.duration')},
-            outline-color ${dt('treetable.transition.duration')}, box-shadow ${dt('treetable.transition.duration')};
+    transition: background dt('treetable.transition.duration'), color dt('treetable.transition.duration'), border-color dt('treetable.transition.duration'),
+            outline-color dt('treetable.transition.duration'), box-shadow dt('treetable.transition.duration');
 }
 
 .p-treetable .p-treetable-tfoot>tr>td {
     text-align: start;
-    padding: ${dt('treetable.footer.cell.padding')};
-    border-color: ${dt('treetable.footer.cell.border.color')};
+    padding: dt('treetable.footer.cell.padding');
+    border-color: dt('treetable.footer.cell.border.color');
     border-style: solid;
     border-width: 0 0 1px 0;
-    color: ${dt('treetable.footer.cell.color')};
-    background: ${dt('treetable.footer.cell.background')};
-    font-weight: ${dt('treetable.column.footer.font.weight')};
+    color: dt('treetable.footer.cell.color');
+    background: dt('treetable.footer.cell.background');
+    font-weight: dt('treetable.column.footer.font.weight');
 }
 
 .p-treetable .p-sortable-column {
@@ -267,33 +267,33 @@ const theme = ({ dt }) => `
 }
 
 .p-treetable .p-sortable-column .p-sortable-column-icon {
-    color: ${dt('treetable.sort.icon.color')};
-    transition: color ${dt('treetable.transition.duration')};
+    color: dt('treetable.sort.icon.color');
+    transition: color dt('treetable.transition.duration');
 }
 
 
 .p-treetable .p-sortable-column:not(.p-treetable-column-sorted):hover {
-    background: ${dt('treetable.header.cell.hover.background')};
-    color: ${dt('treetable.header.cell.hover.color')};
+    background: dt('treetable.header.cell.hover.background');
+    color: dt('treetable.header.cell.hover.color');
 }
 
 .p-treetable .p-sortable-column:not(.p-treetable-column-sorted):hover .p-sortable-column-icon {
-    color: ${dt('treetable.sort.icon.hover.color')};
+    color: dt('treetable.sort.icon.hover.color');
 }
 
 .p-treetable .p-sortable-column.p-treetable-column-sorted {
-    background: ${dt('treetable.header.cell.selected.background')};
-    color: ${dt('treetable.header.cell.selected.color')};
+    background: dt('treetable.header.cell.selected.background');
+    color: dt('treetable.header.cell.selected.color');
 }
 
 .p-treetable .p-sortable-column.p-treetable-column-sorted .p-sortable-column-icon {
-    color: ${dt('treetable.header.cell.selected.color')};
+    color: dt('treetable.header.cell.selected.color');
 }
 
 .p-treetable .p-sortable-column:focus-visible {
-    box-shadow: ${dt('treetable.header.cell.focus.ring.shadow')};
-    outline: ${dt('treetable.header.cell.focus.ring.width')} ${dt('treetable.header.cell.focus.ring.style')} ${dt('treetable.header.cell.focus.ring.color')};
-    outline-offset: ${dt('treetable.header.cell.focus.ring.offset')};
+    box-shadow: dt('treetable.header.cell.focus.ring.shadow');
+    outline: dt('treetable.header.cell.focus.ring.width') dt('treetable.header.cell.focus.ring.style') dt('treetable.header.cell.focus.ring.color');
+    outline-offset: dt('treetable.header.cell.focus.ring.offset');
 }
 
 .p-treetable-hoverable .p-treetable-selectable-row {
@@ -302,18 +302,18 @@ const theme = ({ dt }) => `
 
 .p-treetable .p-treetable-tbody > tr {
     outline-color: transparent;
-    background: ${dt('treetable.row.background')};
-    color: ${dt('treetable.row.color')};
-    transition: background ${dt('treetable.transition.duration')}, color ${dt('treetable.transition.duration')}, border-color ${dt('treetable.transition.duration')},
-            outline-color ${dt('treetable.transition.duration')}, box-shadow ${dt('treetable.transition.duration')};
+    background: dt('treetable.row.background');
+    color: dt('treetable.row.color');
+    transition: background dt('treetable.transition.duration'), color dt('treetable.transition.duration'), border-color dt('treetable.transition.duration'),
+            outline-color dt('treetable.transition.duration'), box-shadow dt('treetable.transition.duration');
 }
 
 .p-treetable .p-treetable-tbody>tr>td {
     text-align: start;
-    border-color: ${dt('treetable.body.cell.border.color')};
+    border-color: dt('treetable.body.cell.border.color');
     border-style: solid;
     border-width: 0 0 1px 0;
-    padding: ${dt('treetable.body.cell.padding')};
+    padding: dt('treetable.body.cell.padding');
 }
 
 .p-treetable .p-treetable-tbody>tr>td .p-treetable-toggler {
@@ -322,46 +322,46 @@ const theme = ({ dt }) => `
     justify-content: center;
     overflow: hidden;
     position: relative;
-    width: ${dt('treetable.node.toggle.button.size')};
-    height: ${dt('treetable.node.toggle.button.size')};
-    color: ${dt('treetable.node.toggle.button.color')};
+    width: dt('treetable.node.toggle.button.size');
+    height: dt('treetable.node.toggle.button.size');
+    color: dt('treetable.node.toggle.button.color');
     border: 0 none;
     background: transparent;
     cursor: pointer;
-    border-radius: ${dt('treetable.node.toggle.button.border.radius')};
-    transition: background ${dt('treetable.transition.duration')}, color ${dt('treetable.transition.duration')}, border-color ${dt('treetable.transition.duration')},
-            outline-color ${dt('treetable.transition.duration')}, box-shadow ${dt('treetable.transition.duration')};
+    border-radius: dt('treetable.node.toggle.button.border.radius');
+    transition: background dt('treetable.transition.duration'), color dt('treetable.transition.duration'), border-color dt('treetable.transition.duration'),
+            outline-color dt('treetable.transition.duration'), box-shadow dt('treetable.transition.duration');
     outline-color: transparent;
     user-select: none;
 }
 
 .p-treetable .p-treetable-tbody>tr>td .p-treetable-toggler:enabled:hover {
-    color: ${dt('treetable.node.toggle.button.hover.color')};
-    background: ${dt('treetable.node.toggle.button.hover.background')};
+    color: dt('treetable.node.toggle.button.hover.color');
+    background: dt('treetable.node.toggle.button.hover.background');
 }
 
 .p-treetable .p-treetable-tbody>tr>tr.treetable-row-selected .p-treetable-toggler:hover {
-    background: ${dt('treetable.node.toggle.button.selected.hover.background')};
-    color: ${dt('treetable.node.toggle.button.selected.hover.color')};
+    background: dt('treetable.node.toggle.button.selected.hover.background');
+    color: dt('treetable.node.toggle.button.selected.hover.color');
 }
 
 .p-treetable .p-treetable-tbody>tr>td .p-treetable-toggler:focus-visible {
-    box-shadow: ${dt('treetable.node.toggle.button.focus.ring.shadow')};
-    outline: ${dt('treetable.node.toggle.button.focus.ring.width')} ${dt('treetable.node.toggle.button.focus.ring.style')} ${dt('treetable.node.toggle.button.focus.ring.color')};
-    outline-offset: ${dt('treetable.node.toggle.button.focus.ring.offset')};
+    box-shadow: dt('treetable.node.toggle.button.focus.ring.shadow');
+    outline: dt('treetable.node.toggle.button.focus.ring.width') dt('treetable.node.toggle.button.focus.ring.style') dt('treetable.node.toggle.button.focus.ring.color');
+    outline-offset: dt('treetable.node.toggle.button.focus.ring.offset');
 }
 
 
 .p-treetable .p-treetable-tbody>tr.p-treetable-row-selected {
-    background: ${dt('treetable.row.selected.background')};
-    color: ${dt('treetable.row.selected.color')};
+    background: dt('treetable.row.selected.background');
+    color: dt('treetable.row.selected.color');
 }
 
 .p-treetable-tbody > tr:focus-visible,
 .p-treetable-tbody > tr.p-treetable-contextmenu-row-selected {
-    box-shadow: ${dt('treetable.row.focus.ring.shadow')};
-    outline: ${dt('treetable.row.focus.ring.width')} ${dt('treetable.row.focus.ring.style')} ${dt('treetable.row.focus.ring.color')};
-    outline-offset: ${dt('treetable.row.focus.ring.offset')};
+    box-shadow: dt('treetable.row.focus.ring.shadow');
+    outline: dt('treetable.row.focus.ring.width') dt('treetable.row.focus.ring.style') dt('treetable.row.focus.ring.color');
+    outline-offset: dt('treetable.row.focus.ring.offset');
 }
 
 .p-treetable .p-treetable-tbody>tr.p-treetable-row-selected .p-treetable-toggler {
@@ -369,13 +369,13 @@ const theme = ({ dt }) => `
 }
 
 .p-treetable .p-treetable-tbody>tr.p-treetable-row-selected .p-treetable-toggler:hover {
-    background: ${dt('treetable.node.toggle.button.selected.hover.background')};
-    color: ${dt('treetable.node.toggle.button.selected.hover.color')};
+    background: dt('treetable.node.toggle.button.selected.hover.background');
+    color: dt('treetable.node.toggle.button.selected.hover.color');
 }
 
 .p-treetable.p-treetable-hoverable-rows .p-treetable-tbody>tr:not(.p-treetable-row-selected):hover {
-    background: ${dt('treetable.row.hover.background')};
-    color: ${dt('treetable.row.hover.color')};
+    background: dt('treetable.row.hover.background');
+    color: dt('treetable.row.hover.color');
 }
 
 .p-treetable-gridlines .p-treetable-header {
@@ -505,7 +505,7 @@ p-tree-table-toggler + p-tree-table-checkbox + span {
 p-treetable-sort-icon {
     display: inline-flex;
     align-items: center;
-    gap: ${dt('treetable.header.cell.gap')};
+    gap: dt('treetable.header.cell.gap');
 }
 `;
 

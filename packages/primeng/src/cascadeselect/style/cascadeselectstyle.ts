@@ -1,18 +1,17 @@
 import { Injectable } from '@angular/core';
-import { css, dt } from '@primeuix/styled';
 import { style } from '@primeuix/styles/cascadeselect';
 import { BaseStyle } from 'primeng/base';
 
-const theme = css`
+const theme = /*css*/ `
     ${style}
 
     /* For PrimeNG */
     .p-cascadeselect.ng-invalid.ng-dirty:not(.ng-untouched):not(.ng-pristine) {
-        border-color: ${dt('cascadeselect.invalid.border.color')};
+        border-color: dt('cascadeselect.invalid.border.color');
     }
 
     .p-cascadeselect.ng-invalid.ng-dirty:not(.ng-untouched):not(.ng-pristine) .p-cascadeselect-label.p-placeholder {
-        color: ${dt('cascadeselect.invalid.placeholder.color')};
+        color: dt('cascadeselect.invalid.placeholder.color');
     }
 `;
 const inlineStyles = {

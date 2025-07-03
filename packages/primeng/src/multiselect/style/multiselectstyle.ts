@@ -1,19 +1,18 @@
 import { Injectable } from '@angular/core';
-import { css, dt } from '@primeuix/styled';
 import { style } from '@primeuix/styles/multiselect';
 import { BaseStyle } from 'primeng/base';
 
-const theme = css`
+const theme = /*css*/ `
     ${style}
 
     /* For PrimeNG */
    .p-multiselect.ng-invalid.ng-dirty {
-        border-color: ${dt('multiselect.invalid.border.color')};
+        border-color: dt('multiselect.invalid.border.color');
     }
     p-multiSelect.ng-invalid.ng-dirty .p-multiselect-label.p-placeholder,
     p-multi-select.ng-invalid.ng-dirty .p-multiselect-label.p-placeholder,
     p-multiselect.ng-invalid.ng-dirty .p-multiselect-label.p-placeholder {
-        color: ${dt('multiselect.invalid.placeholder.color')};
+        color: dt('multiselect.invalid.placeholder.color');
     }
 `;
 
