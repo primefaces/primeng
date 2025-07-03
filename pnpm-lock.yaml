@@ -75,10 +75,10 @@ catalogs:
       version: 0.7.0
     '@primeuix/styles':
       specifier: ^1.2.0
-      version: 1.2.0
+      version: 1.2.1
     '@primeuix/themes':
       specifier: ^1.2.0
-      version: 1.2.0
+      version: 1.2.1
     '@primeuix/utils':
       specifier: ^0.6.0
       version: 0.6.0
@@ -234,7 +234,7 @@ importers:
         version: 3.9.0(@algolia/client-search@4.25.2)(@types/react@18.3.23)(search-insights@2.17.3)
       '@primeuix/themes':
         specifier: 'catalog:'
-        version: 1.2.0
+        version: 1.2.1
       '@stackblitz/sdk':
         specifier: 1.9.0
         version: 1.9.0
@@ -336,7 +336,7 @@ importers:
         version: 0.7.0
       '@primeuix/styles':
         specifier: 'catalog:'
-        version: 1.2.0
+        version: 1.2.1
       '@primeuix/utils':
         specifier: 'catalog:'
         version: 0.6.0
@@ -371,7 +371,7 @@ importers:
         version: 0.7.0
       '@primeuix/themes':
         specifier: 'catalog:'
-        version: 1.2.0
+        version: 1.2.1
     publishDirectory: dist
 
 packages:
@@ -2241,11 +2241,11 @@ packages:
     resolution: {integrity: sha512-xUqMdQb75izeDkNWFK1QlU15aUl5LIU97Fq68IXOhrqqLsKEBnj5ftntFZrENQW70jAHwALdWP4EOGi/poc9Tg==}
     engines: {node: '>=12.11.0'}
 
-  '@primeuix/styles@1.2.0':
-    resolution: {integrity: sha512-N2Z8nrWbhTfdqLd6n3K2Ff4V/MPBFOps8RgaeR6hR4B2pbjkBEu719h9o936W944w8NCsdS8tTovykKshAckqg==}
+  '@primeuix/styles@1.2.1':
+    resolution: {integrity: sha512-Tri7pPgZgxrVmhJG8ijZZFolQ6vu27xnkGoAB9EFY8YlaKTM5iqkWzEcqdxy2KmgFWMXi+BrPHwO0RdQ6JCT+g==}
 
-  '@primeuix/themes@1.2.0':
-    resolution: {integrity: sha512-kRqdOvlBGf3vc49MKZWosVbU3HIdkBgc6hTwAmkKs7Vnj9qqWRyVymkOtYS/kV5kuftNeDihHXHEa+skg+SFpg==}
+  '@primeuix/themes@1.2.1':
+    resolution: {integrity: sha512-DVCFDncvag47tpag3TdufDTuvUbfKnkgzmlxAQkwuMS0IlPA3wChrf9VlL2wETg/ZpJm/tHobkJBnB9FmkiqnA==}
 
   '@primeuix/utils@0.6.0':
     resolution: {integrity: sha512-ULpB87ImNAiX36OMtyDeRceWB7N/mVlh6gGLqp/lx8UMKZlLIQH/UAFND86hYXHwNpXeNKcWfMGreb0Oc0hcZA==}
@@ -8728,11 +8728,11 @@ snapshots:
     dependencies:
       '@primeuix/utils': 0.6.0
 
-  '@primeuix/styles@1.2.0':
+  '@primeuix/styles@1.2.1':
     dependencies:
       '@primeuix/styled': 0.7.0
 
-  '@primeuix/themes@1.2.0':
+  '@primeuix/themes@1.2.1':
     dependencies:
       '@primeuix/styled': 0.7.0
 

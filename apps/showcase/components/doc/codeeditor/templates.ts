@@ -350,7 +350,7 @@ const tsconfig_json = `{
       "sourceMap": true,
       "declaration": false,
       "module": "es2022",
-      "moduleResolution": "node",
+      "moduleResolution": "bundler",
       "emitDecoratorMetadata": true,
       "experimentalDecorators": true,
       "target": "es2022",
