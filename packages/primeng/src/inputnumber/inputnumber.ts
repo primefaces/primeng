@@ -54,8 +54,8 @@ export const INPUTNUMBER_VALUE_ACCESSOR: any = {
             [attr.id]="inputId"
             role="spinbutton"
             [class]="cn(cx('pcInputText'), inputStyleClass)"
-            [ngStyle]="inputStyle"
             [value]="formattedValue()"
+            [ngStyle]="inputStyle"
             [variant]="$variant()"
             [invalid]="invalid()"
             [attr.aria-valuemin]="min()"
@@ -1281,7 +1281,7 @@ export class InputNumber extends BaseInput implements OnInit, AfterContentInit, 
         }
 
         if (currentLength === 0) {
-            this.input.nativeElement.value = newValue;
+            // this.input.nativeElement.value = newValue;
             this.input.nativeElement.setSelectionRange(0, 0);
             const index = this.initCursor();
             const selectionEnd = index + insertedValueStr.length;
@@ -1396,7 +1396,7 @@ export class InputNumber extends BaseInput implements OnInit, AfterContentInit, 
     }
 
     formattedValue() {
-        const val = !this.modelValue() && !this.allowEmpty ? 0 : this.modelValue();
+        const val = !this.value && !this.allowEmpty ? 0 : this.value;
         return this.formatValue(val);
     }
 
