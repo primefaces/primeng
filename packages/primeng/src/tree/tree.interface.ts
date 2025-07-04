@@ -71,6 +71,10 @@ export interface TreeNodeDropEvent {
      */
     dropNode?: TreeNode<any> | null;
     /**
+     * Indicates if the node is dropped in a drop point between nodes
+     */
+    dropPoint?: 'node' | 'between';
+    /**
      * Index of the dragged node.
      */
     index?: number;
