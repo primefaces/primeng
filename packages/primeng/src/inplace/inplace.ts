@@ -4,8 +4,8 @@ import { PrimeTemplate, SharedModule } from 'primeng/api';
 import { BaseComponent } from 'primeng/basecomponent';
 import { ButtonModule } from 'primeng/button';
 import { TimesIcon } from 'primeng/icons';
-import { InplaceStyle } from './style/inplacestyle';
 import { Ripple } from 'primeng/ripple';
+import { InplaceStyle } from './style/inplacestyle';
 
 @Component({
     selector: 'p-inplacedisplay, p-inplaceDisplay',
@@ -42,7 +42,7 @@ export class InplaceContent {}
             <ng-container *ngIf="closable">
                 <button *ngIf="closeIcon" type="button" [icon]="closeIcon" pButton pRipple (click)="onDeactivateClick($event)" [attr.aria-label]="closeAriaLabel"></button>
                 <button *ngIf="!closeIcon" type="button" pButton pRipple [ngClass]="'p-button-icon-only'" (click)="onDeactivateClick($event)" [attr.aria-label]="closeAriaLabel">
-                    <TimesIcon *ngIf="!closeIconTemplate && !_closeIconTemplate" />
+                    <svg data-p-icon="times" *ngIf="!closeIconTemplate && !_closeIconTemplate" />
                     <ng-template *ngTemplateOutlet="closeIconTemplate || _closeIconTemplate"></ng-template>
                 </button>
             </ng-container>

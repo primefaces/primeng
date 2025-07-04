@@ -62,7 +62,7 @@ import { MessageStyle } from './style/messagestyle';
                                 <ng-container *ngTemplateOutlet="closeIconTemplate || _closeIconTemplate"></ng-container>
                             }
                             @if (!closeIconTemplate && !_closeIconTemplate && !closeIcon) {
-                                <TimesIcon [styleClass]="cx('closeIcon')" />
+                                <svg data-p-icon="times" [class]="cx('closeIcon')" />
                             }
                         </button>
                     }

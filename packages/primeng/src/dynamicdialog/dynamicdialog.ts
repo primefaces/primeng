@@ -73,8 +73,8 @@ const hideAnimation = animation([animate('{{transition}}', style({ transform: '{
                         <div [ngClass]="'p-dialog-header-actions'">
                             <p-button *ngIf="ddconfig.maximizable" [styleClass]="'p-dialog-maximize-button'" (onClick)="maximize()" (keydown.enter)="maximize()" rounded text [tabindex]="maximizable ? '0' : '-1'">
                                 <ng-container *ngIf="!maximizeIcon">
-                                    <WindowMaximizeIcon *ngIf="!maximized && !maximizeIconTemplate" />
-                                    <WindowMinimizeIcon *ngIf="maximized && !minimizeIconTemplate" />
+                                    <svg data-p-icon="window-maximize" *ngIf="!maximized && !maximizeIconTemplate" />
+                                    <svg data-p-icon="window-minimize" *ngIf="maximized && !minimizeIconTemplate" />
                                 </ng-container>
                                 <ng-container *ngIf="!maximized">
                                     <ng-template *ngTemplateOutlet="maximizeIconTemplate"></ng-template>
@@ -85,7 +85,7 @@ const hideAnimation = animation([animate('{{transition}}', style({ transform: '{
                             </p-button>
                             <p-button *ngIf="closable" [styleClass]="'p-dialog-close-button'" [ariaLabel]="ddconfig.closeAriaLabel || defaultCloseAriaLabel" (onClick)="hide()" (keydown.enter)="hide()" rounded text severity="secondary">
                                 <ng-container *ngIf="!closeIconTemplate">
-                                    <TimesIcon />
+                                    <svg data-p-icon="times" />
                                 </ng-container>
                                 <span *ngIf="closeIconTemplate">
                                     <ng-template *ngTemplateOutlet="closeIconTemplate"></ng-template>

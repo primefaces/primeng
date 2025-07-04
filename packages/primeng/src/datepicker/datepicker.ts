@@ -94,7 +94,7 @@ export const DATEPICKER_VALUE_ACCESSOR: any = {
                 [invalid]="invalid()"
             />
             <ng-container *ngIf="showClear && !disabled() && value != null">
-                <TimesIcon *ngIf="!clearIconTemplate && !_clearIconTemplate" [class]="cx('clearIcon')" (click)="clear()" />
+                <svg data-p-icon="times" *ngIf="!clearIconTemplate && !_clearIconTemplate" [class]="cx('clearIcon')" (click)="clear()" />
                 <span *ngIf="clearIconTemplate || _clearIconTemplate" [class]="cx('clearIcon')" (click)="clear()">
                     <ng-template *ngTemplateOutlet="clearIconTemplate || _clearIconTemplate"></ng-template>
                 </span>
@@ -113,13 +113,13 @@ export const DATEPICKER_VALUE_ACCESSOR: any = {
             >
                 <span *ngIf="icon" [ngClass]="icon"></span>
                 <ng-container *ngIf="!icon">
-                    <CalendarIcon *ngIf="!triggerIconTemplate && !_triggerIconTemplate" />
+                    <svg data-p-icon="calendar" *ngIf="!triggerIconTemplate && !_triggerIconTemplate" />
                     <ng-template *ngTemplateOutlet="triggerIconTemplate || _triggerIconTemplate"></ng-template>
                 </ng-container>
             </button>
             <ng-container *ngIf="iconDisplay === 'input' && showIcon">
                 <span [class]="cx('inputIconContainer')">
-                    <CalendarIcon (click)="onButtonClick($event)" *ngIf="!inputIconTemplate && !_inputIconTemplate" [styleClass]="cx('inputIcon')" />
+                    <svg data-p-icon="calendar" (click)="onButtonClick($event)" *ngIf="!inputIconTemplate && !_inputIconTemplate" [class]="cx('inputIcon')" />
 
                     <ng-container *ngTemplateOutlet="inputIconTemplate || _inputIconTemplate; context: { clickCallBack: onButtonClick.bind(this) }"></ng-container>
                 </span>
@@ -161,7 +161,7 @@ export const DATEPICKER_VALUE_ACCESSOR: any = {
                                 [ariaLabel]="prevIconAriaLabel"
                             >
                                 <ng-template #icon>
-                                    <ChevronLeftIcon *ngIf="!previousIconTemplate && !_previousIconTemplate" />
+                                    <svg data-p-icon="chevron-left" *ngIf="!previousIconTemplate && !_previousIconTemplate" />
                                 </ng-template>
                                 <span *ngIf="previousIconTemplate || _previousIconTemplate">
                                     <ng-template *ngTemplateOutlet="previousIconTemplate || _previousIconTemplate"></ng-template>
@@ -208,7 +208,7 @@ export const DATEPICKER_VALUE_ACCESSOR: any = {
                                 [ariaLabel]="nextIconAriaLabel"
                             >
                                 <ng-template #icon>
-                                    <ChevronRightIcon *ngIf="!nextIconTemplate && !_nextIconTemplate" />
+                                    <svg data-p-icon="chevron-right" *ngIf="!nextIconTemplate && !_nextIconTemplate" />
                                 </ng-template>
 
                                 <span *ngIf="nextIconTemplate || _nextIconTemplate">
@@ -289,7 +289,7 @@ export const DATEPICKER_VALUE_ACCESSOR: any = {
                         (mouseleave)="onTimePickerElementMouseLeave()"
                         [attr.aria-label]="getTranslation('nextHour')"
                     >
-                        <ChevronUpIcon *ngIf="!incrementIconTemplate && !_incrementIconTemplate" />
+                        <svg data-p-icon="chevron-up" *ngIf="!incrementIconTemplate && !_incrementIconTemplate" />
 
                         <ng-template *ngTemplateOutlet="incrementIconTemplate || _incrementIconTemplate"></ng-template>
                     </p-button>
@@ -309,7 +309,7 @@ export const DATEPICKER_VALUE_ACCESSOR: any = {
                         (mouseleave)="onTimePickerElementMouseLeave()"
                         [attr.aria-label]="getTranslation('prevHour')"
                     >
-                        <ChevronDownIcon *ngIf="!decrementIconTemplate && !_decrementIconTemplate" />
+                        <svg data-p-icon="chevron-down" *ngIf="!decrementIconTemplate && !_decrementIconTemplate" />
 
                         <ng-template *ngTemplateOutlet="decrementIconTemplate || _decrementIconTemplate"></ng-template>
                     </p-button>
@@ -333,7 +333,7 @@ export const DATEPICKER_VALUE_ACCESSOR: any = {
                         (mouseleave)="onTimePickerElementMouseLeave()"
                         [attr.aria-label]="getTranslation('nextMinute')"
                     >
-                        <ChevronUpIcon *ngIf="!incrementIconTemplate && !_incrementIconTemplate" />
+                        <svg data-p-icon="chevron-up" *ngIf="!incrementIconTemplate && !_incrementIconTemplate" />
 
                         <ng-template *ngTemplateOutlet="incrementIconTemplate || _incrementIconTemplate"></ng-template>
                     </p-button>
@@ -353,7 +353,7 @@ export const DATEPICKER_VALUE_ACCESSOR: any = {
                         (mouseleave)="onTimePickerElementMouseLeave()"
                         [attr.aria-label]="getTranslation('prevMinute')"
                     >
-                        <ChevronDownIcon *ngIf="!decrementIconTemplate && !_decrementIconTemplate" />
+                        <svg data-p-icon="chevron-down" *ngIf="!decrementIconTemplate && !_decrementIconTemplate" />
                         <ng-container *ngIf="decrementIconTemplate || _decrementIconTemplate">
                             <ng-template *ngTemplateOutlet="decrementIconTemplate || _decrementIconTemplate"></ng-template>
                         </ng-container>
@@ -378,7 +378,7 @@ export const DATEPICKER_VALUE_ACCESSOR: any = {
                         (mouseleave)="onTimePickerElementMouseLeave()"
                         [attr.aria-label]="getTranslation('nextSecond')"
                     >
-                        <ChevronUpIcon *ngIf="!incrementIconTemplate && !_incrementIconTemplate" />
+                        <svg data-p-icon="chevron-up" *ngIf="!incrementIconTemplate && !_incrementIconTemplate" />
 
                         <ng-template *ngTemplateOutlet="incrementIconTemplate || _incrementIconTemplate"></ng-template>
                     </p-button>
@@ -398,7 +398,7 @@ export const DATEPICKER_VALUE_ACCESSOR: any = {
                         (mouseleave)="onTimePickerElementMouseLeave()"
                         [attr.aria-label]="getTranslation('prevSecond')"
                     >
-                        <ChevronDownIcon *ngIf="!decrementIconTemplate && !_decrementIconTemplate" />
+                        <svg data-p-icon="chevron-down" *ngIf="!decrementIconTemplate && !_decrementIconTemplate" />
 
                         <ng-template *ngTemplateOutlet="decrementIconTemplate || _decrementIconTemplate"></ng-template>
                     </p-button>
@@ -408,12 +408,12 @@ export const DATEPICKER_VALUE_ACCESSOR: any = {
                 </div>
                 <div [class]="cx('ampmPicker')" *ngIf="hourFormat == '12'">
                     <p-button size="small" text rounded [styleClass]="cx('pcIncrementButton')" (keydown)="onContainerButtonKeydown($event)" (onClick)="toggleAMPM($event)" (keydown.enter)="toggleAMPM($event)" [attr.aria-label]="getTranslation('am')">
-                        <ChevronUpIcon *ngIf="!incrementIconTemplate && !_incrementIconTemplate" />
+                        <svg data-p-icon="chevron-up" *ngIf="!incrementIconTemplate && !_incrementIconTemplate" />
                         <ng-template *ngTemplateOutlet="incrementIconTemplate || _incrementIconTemplate"></ng-template>
                     </p-button>
                     <span>{{ pm ? 'PM' : 'AM' }}</span>
                     <p-button size="small" text rounded [styleClass]="cx('pcDecrementButton')" (keydown)="onContainerButtonKeydown($event)" (click)="toggleAMPM($event)" (keydown.enter)="toggleAMPM($event)" [attr.aria-label]="getTranslation('pm')">
-                        <ChevronDownIcon *ngIf="!decrementIconTemplate && !_decrementIconTemplate" />
+                        <svg data-p-icon="chevron-down" *ngIf="!decrementIconTemplate && !_decrementIconTemplate" />
                         <ng-template *ngTemplateOutlet="decrementIconTemplate || _decrementIconTemplate"></ng-template>
                     </p-button>
                 </div>

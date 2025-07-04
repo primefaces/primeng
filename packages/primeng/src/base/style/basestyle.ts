@@ -25,40 +25,6 @@ const css = /*css*/ `
     overflow: hidden;
     padding-right: dt('scrollbar.width');
 }
-
-/* @todo move to baseiconstyle.ts */
-
-.p-icon {
-    display: inline-block;
-    vertical-align: baseline;
-}
-
-.p-icon-spin {
-    -webkit-animation: p-icon-spin 2s infinite linear;
-    animation: p-icon-spin 2s infinite linear;
-}
-
-@-webkit-keyframes p-icon-spin {
-    0% {
-        -webkit-transform: rotate(0deg);
-        transform: rotate(0deg);
-    }
-    100% {
-        -webkit-transform: rotate(359deg);
-        transform: rotate(359deg);
-    }
-}
-
-@keyframes p-icon-spin {
-    0% {
-        -webkit-transform: rotate(0deg);
-        transform: rotate(0deg);
-    }
-    100% {
-        -webkit-transform: rotate(359deg);
-        transform: rotate(359deg);
-    }
-}
 `;
 
 @Injectable({ providedIn: 'root' })

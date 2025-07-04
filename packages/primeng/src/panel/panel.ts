@@ -79,11 +79,11 @@ export interface PanelHeaderIconsTemplateContext {
                     <ng-template #icon>
                         <ng-container *ngIf="!headerIconsTemplate && !_headerIconsTemplate && !toggleButtonProps?.icon">
                             <ng-container *ngIf="!collapsed">
-                                <MinusIcon />
+                                <svg data-p-icon="minus" />
                             </ng-container>
 
                             <ng-container *ngIf="collapsed">
-                                <PlusIcon />
+                                <svg data-p-icon="plus" />
                             </ng-container>
                         </ng-container>
 

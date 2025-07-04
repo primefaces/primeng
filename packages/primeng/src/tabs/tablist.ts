@@ -5,8 +5,8 @@ import { PrimeTemplate, SharedModule } from 'primeng/api';
 import { BaseComponent } from 'primeng/basecomponent';
 import { ChevronLeftIcon, ChevronRightIcon } from 'primeng/icons';
 import { RippleModule } from 'primeng/ripple';
-import { Tabs } from './tabs';
 import { TabListStyle } from './style/tabliststyle';
+import { Tabs } from './tabs';
 
 /**
  * TabList is a helper component for Tabs component.
@@ -22,7 +22,7 @@ import { TabListStyle } from './style/tabliststyle';
                 @if (prevIconTemplate || _prevIconTemplate) {
                     <ng-container *ngTemplateOutlet="prevIconTemplate || _prevIconTemplate" />
                 } @else {
-                    <ChevronLeftIcon />
+                    <svg data-p-icon="chevron-left" />
                 }
             </button>
         }
@@ -37,7 +37,7 @@ import { TabListStyle } from './style/tabliststyle';
                 @if (nextIconTemplate || _nextIconTemplate) {
                     <ng-container *ngTemplateOutlet="nextIconTemplate || _nextIconTemplate" />
                 } @else {
-                    <ChevronRightIcon />
+                    <svg data-p-icon="chevron-right" />
                 }
             </button>
         }

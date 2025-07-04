@@ -65,19 +65,19 @@ import { ToastCloseEvent, ToastItemCloseEvent, ToastPositionType } from './toast
                         } @else {
                             @switch (message.severity) {
                                 @case ('success') {
-                                    <CheckIcon [styleClass]="cx('messageIcon')" [attr.aria-hidden]="true" [attr.data-pc-section]="'icon'" />
+                                    <svg data-p-icon="check" [class]="cx('messageIcon')" [attr.aria-hidden]="true" [attr.data-pc-section]="'icon'" />
                                 }
                                 @case ('info') {
-                                    <InfoCircleIcon [styleClass]="cx('messageIcon')" [attr.aria-hidden]="true" [attr.data-pc-section]="'icon'" />
+                                    <svg data-p-icon="info-circle" [class]="cx('messageIcon')" [attr.aria-hidden]="true" [attr.data-pc-section]="'icon'" />
                                 }
                                 @case ('error') {
-                                    <TimesCircleIcon [styleClass]="cx('messageIcon')" [attr.aria-hidden]="true" [attr.data-pc-section]="'icon'" />
+                                    <svg data-p-icon="times-circle" [class]="cx('messageIcon')" [attr.aria-hidden]="true" [attr.data-pc-section]="'icon'" />
                                 }
                                 @case ('warn') {
-                                    <ExclamationTriangleIcon [styleClass]="cx('messageIcon')" [attr.aria-hidden]="true" [attr.data-pc-section]="'icon'" />
+                                    <svg data-p-icon="exclamation-triangle" [class]="cx('messageIcon')" [attr.aria-hidden]="true" [attr.data-pc-section]="'icon'" />
                                 }
                                 @default {
-                                    <InfoCircleIcon [styleClass]="cx('messageIcon')" [attr.aria-hidden]="true" [attr.data-pc-section]="'icon'" />
+                                    <svg data-p-icon="info-circle" [class]="cx('messageIcon')" [attr.aria-hidden]="true" [attr.data-pc-section]="'icon'" />
                                 }
                             }
                         }
@@ -95,7 +95,7 @@ import { ToastCloseEvent, ToastItemCloseEvent, ToastPositionType } from './toast
                                 @if (message.closeIcon) {
                                     <span *ngIf="message.closeIcon" [class]="cn(cx('closeIcon'), message?.closeIcon)"></span>
                                 } @else {
-                                    <TimesIcon [styleClass]="cx('closeIcon')" [attr.aria-hidden]="true" [attr.data-pc-section]="'closeicon'" />
+                                    <svg data-p-icon="times" [class]="cx('closeIcon')" [attr.aria-hidden]="true" [attr.data-pc-section]="'closeicon'" />
                                 }
                             </button>
                         </div>

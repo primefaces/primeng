@@ -81,8 +81,8 @@ const hideAnimation = animation([animate('{{transition}}', style({ transform: '{
                                 <span *ngIf="maximizeIcon && !_maximizeiconTemplate && !_minimizeiconTemplate" [ngClass]="maximized ? minimizeIcon : maximizeIcon"></span>
                                 <ng-template #icon>
                                     <ng-container *ngIf="!maximizeIcon && !maximizeButtonProps?.icon">
-                                        <WindowMaximizeIcon *ngIf="!maximized && !_maximizeiconTemplate && !maximizeIconTemplate && !maximizeIconT" />
-                                        <WindowMinimizeIcon *ngIf="maximized && !_minimizeiconTemplate && !minimizeIconTemplate && !minimizeIconT" />
+                                        <svg data-p-icon="window-maximize" *ngIf="!maximized && !_maximizeiconTemplate && !maximizeIconTemplate && !maximizeIconT" />
+                                        <svg data-p-icon="window-minimize" *ngIf="maximized && !_minimizeiconTemplate && !minimizeIconTemplate && !minimizeIconT" />
                                     </ng-container>
                                     <ng-container *ngIf="!maximized">
                                         <ng-template *ngTemplateOutlet="_maximizeiconTemplate || maximizeIconTemplate || maximizeIconT"></ng-template>
@@ -96,7 +96,7 @@ const hideAnimation = animation([animate('{{transition}}', style({ transform: '{
                                 <ng-template #icon>
                                     <ng-container *ngIf="!_closeiconTemplate && !closeIconTemplate && !closeIconT && !closeButtonProps?.icon">
                                         <span *ngIf="closeIcon" [class]="closeIcon"></span>
-                                        <TimesIcon *ngIf="!closeIcon" />
+                                        <svg data-p-icon="times" *ngIf="!closeIcon" />
                                     </ng-container>
                                     <span *ngIf="_closeiconTemplate || closeIconTemplate || closeIconT">
                                         <ng-template *ngTemplateOutlet="_closeiconTemplate || closeIconTemplate || closeIconT"></ng-template>
