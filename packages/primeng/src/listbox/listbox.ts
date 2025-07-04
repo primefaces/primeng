@@ -512,6 +512,8 @@ export class Listbox extends BaseEditableHolder implements AfterContentInit, OnI
     }
     set options(val: any[]) {
         this._options.set(val);
+        // if scroller is present the options net to be recalculated to have new options displayed
+        this.scroller?.calculateOptions();
     }
     /**
      * When specified, filter displays with this value.
