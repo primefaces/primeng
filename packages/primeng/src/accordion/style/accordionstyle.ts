@@ -7,7 +7,7 @@ const theme = /*css*/ `
 
     /*For PrimeNG*/
     .p-accordionpanel:not(.p-accordionpanel-active) > .p-accordioncontent,
-    .p-accordioncontent.ng-animating {
+    .p-accordioncontent-content.ng-animating {
         overflow: hidden;
     }
 

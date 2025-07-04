@@ -272,7 +272,7 @@ export class AccordionHeader extends BaseComponent {
     selector: 'p-accordion-content, p-accordioncontent',
     imports: [CommonModule],
     standalone: true,
-    template: ` <div [class]="cx('content')">
+    template: ` <div [class]="cx('content')" [@content]="active() ? { value: 'visible', params: { transitionParams: pcAccordion.transitionOptions } } : { value: 'hidden', params: { transitionParams: pcAccordion.transitionOptions } }">
         <ng-content />
     </div>`,
     changeDetection: ChangeDetectionStrategy.OnPush,
@@ -283,10 +283,7 @@ export class AccordionHeader extends BaseComponent {
         '[attr.role]': '"region"',
         '[attr.data-pc-name]': '"accordioncontent"',
         '[attr.data-p-active]': 'active()',
-        '[attr.aria-labelledby]': 'ariaLabelledby()',
-        '[@content]': `active()
-            ? { value: 'visible', params: { transitionParams: pcAccordion.transitionOptions } }
-            : { value: 'hidden', params: { transitionParams: pcAccordion.transitionOptions } }`
+        '[attr.aria-labelledby]': 'ariaLabelledby()'
     },
     animations: [
         trigger('content', [
@@ -294,7 +291,8 @@ export class AccordionHeader extends BaseComponent {
                 'hidden',
                 style({
                     height: '0',
-                    paddingBottom: '0'
+                    paddingBottom: '0',
+                    visibility: 'hidden'
                 })
             ),
             state(
