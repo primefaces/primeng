@@ -1281,7 +1281,7 @@ export class InputNumber extends BaseInput implements OnInit, AfterContentInit, 
         }
 
         if (currentLength === 0) {
-            // this.input.nativeElement.value = newValue;
+            this.input.nativeElement.value = newValue;
             this.input.nativeElement.setSelectionRange(0, 0);
             const index = this.initCursor();
             const selectionEnd = index + insertedValueStr.length;
