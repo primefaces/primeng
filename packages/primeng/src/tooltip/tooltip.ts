@@ -628,6 +628,8 @@ export class Tooltip extends BaseComponent implements AfterViewInit, OnDestroy {
     }
 
     isOutOfBounds(): boolean {
+        if (!this.fitContent) return false;
+
         let offset = this.container.getBoundingClientRect();
         let targetTop = offset.top;
         let targetLeft = offset.left;
