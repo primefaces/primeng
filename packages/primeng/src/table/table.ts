@@ -335,12 +335,12 @@ export class TableService {
             <ng-container *ngTemplateOutlet="summaryTemplate || _summaryTemplate"></ng-container>
         </div>
 
-        <div #resizeHelper [ngClass]="cx('columnResizeIndicator')" style="display:none" *ngIf="resizableColumns"></div>
-        <span #reorderIndicatorUp [ngClass]="cx('rowReorderIndicatorUp')" style="display: none;" *ngIf="reorderableColumns">
+        <div #resizeHelper [ngClass]="cx('columnResizeIndicator')" [style.display]="'none'" *ngIf="resizableColumns"></div>
+        <span #reorderIndicatorUp [ngClass]="cx('rowReorderIndicatorUp')" [style.display]="'none'" *ngIf="reorderableColumns">
             <ArrowDownIcon *ngIf="!reorderIndicatorUpIconTemplate && !_reorderIndicatorUpIconTemplate" />
             <ng-template *ngTemplateOutlet="reorderIndicatorUpIconTemplate || _reorderIndicatorUpIconTemplate"></ng-template>
         </span>
-        <span #reorderIndicatorDown [ngClass]="cx('rowReorderIndicatorDown')" style="display: none;" *ngIf="reorderableColumns">
+        <span #reorderIndicatorDown [ngClass]="cx('rowReorderIndicatorDown')" [style.display]="'none'" *ngIf="reorderableColumns">
             <ArrowUpIcon *ngIf="!reorderIndicatorDownIconTemplate && !_reorderIndicatorDownIconTemplate" />
             <ng-template *ngTemplateOutlet="reorderIndicatorDownIconTemplate || _reorderIndicatorDownIconTemplate"></ng-template>
         </span>
