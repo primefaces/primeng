@@ -60,26 +60,27 @@ import { ToastCloseEvent, ToastItemCloseEvent, ToastPositionType } from './toast
             } @else {
                 <div [class]="cn(cx('messageContent'), message?.contentStyleClass)" [attr.data-pc-section]="'content'">
                     <ng-container *ngIf="!template">
-                        <span *ngIf="message.icon" [class]="cn(cx('messageIcon'), message?.icon)"></span>
-                        <span [class]="cx('messageIcon')" *ngIf="!message.icon" [attr.aria-hidden]="true" [attr.data-pc-section]="'icon'">
+                        @if (message.icon) {
+                            <span [class]="cn(cx('messageIcon'), message?.icon)"></span>
+                        } @else {
                             @switch (message.severity) {
                                 @case ('success') {
-                                    <CheckIcon [attr.aria-hidden]="true" [attr.data-pc-section]="'icon'" />
+                                    <CheckIcon [styleClass]="cx('messageIcon')" [attr.aria-hidden]="true" [attr.data-pc-section]="'icon'" />
                                 }
                                 @case ('info') {
-                                    <InfoCircleIcon [attr.aria-hidden]="true" [attr.data-pc-section]="'icon'" />
+                                    <InfoCircleIcon [styleClass]="cx('messageIcon')" [attr.aria-hidden]="true" [attr.data-pc-section]="'icon'" />
                                 }
                                 @case ('error') {
-                                    <TimesCircleIcon [attr.aria-hidden]="true" [attr.data-pc-section]="'icon'" />
+                                    <TimesCircleIcon [styleClass]="cx('messageIcon')" [attr.aria-hidden]="true" [attr.data-pc-section]="'icon'" />
                                 }
                                 @case ('warn') {
-                                    <ExclamationTriangleIcon [attr.aria-hidden]="true" [attr.data-pc-section]="'icon'" />
+                                    <ExclamationTriangleIcon [styleClass]="cx('messageIcon')" [attr.aria-hidden]="true" [attr.data-pc-section]="'icon'" />
                                 }
                                 @default {
-                                    <InfoCircleIcon [attr.aria-hidden]="true" [attr.data-pc-section]="'icon'" />
+                                    <InfoCircleIcon [styleClass]="cx('messageIcon')" [attr.aria-hidden]="true" [attr.data-pc-section]="'icon'" />
                                 }
                             }
-                        </span>
+                        }
                         <div [ngClass]="cx('messageText')" [attr.data-pc-section]="'text'">
                             <div [ngClass]="cx('summary')" [attr.data-pc-section]="'summary'">
                                 {{ message.summary }}
@@ -94,7 +95,7 @@ import { ToastCloseEvent, ToastItemCloseEvent, ToastPositionType } from './toast
                                 @if (message.closeIcon) {
                                     <span *ngIf="message.closeIcon" [class]="cn(cx('closeIcon'), message?.closeIcon)"></span>
                                 } @else {
-                                    <TimesIcon [class]="cx('closeIcon')" [attr.aria-hidden]="true" [attr.data-pc-section]="'closeicon'" />
+                                    <TimesIcon [styleClass]="cx('closeIcon')" [attr.aria-hidden]="true" [attr.data-pc-section]="'closeicon'" />
                                 }
                             </button>
                         </div>
