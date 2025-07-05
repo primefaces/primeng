@@ -2761,15 +2761,17 @@ export class TTSortableColumn extends BaseComponent implements OnInit, OnDestroy
 @Component({
     selector: 'p-treeTableSortIcon, p-treetable-sort-icon, p-tree-table-sort-icon',
     standalone: false,
-    template: ` <ng-container *ngIf="!tt.sortIconTemplate && !tt._sortIconTemplate">
-            <svg data-p-icon="sort-alt" [styleClass]="cx('sortableColumnIcon')" *ngIf="sortOrder === 0" />
-            <svg data-p-icon="sort-amount-up-alt" [styleClass]="cx('sortableColumnIcon')" *ngIf="sortOrder === 1" />
-            <svg data-p-icon="sort-amount-down" [styleClass]="cx('sortableColumnIcon')" *ngIf="sortOrder === -1" />
+    template: `
+        <ng-container *ngIf="!tt.sortIconTemplate && !tt._sortIconTemplate">
+            <svg data-p-icon="sort-alt" [class]="cx('sortableColumnIcon')" *ngIf="sortOrder === 0" />
+            <svg data-p-icon="sort-amount-up-alt" [class]="cx('sortableColumnIcon')" *ngIf="sortOrder === 1" />
+            <svg data-p-icon="sort-amount-down" [class]="cx('sortableColumnIcon')" *ngIf="sortOrder === -1" />
         </ng-container>
         <span *ngIf="tt.sortIconTemplate || tt._sortIconTemplate" [class]="cx('sortableColumnIcon')">
             <ng-template *ngTemplateOutlet="tt.sortIconTemplate || tt._sortIconTemplate; context: { $implicit: sortOrder }"></ng-template>
         </span>
-        <p-badge *ngIf="isMultiSorted()" [class]="cx('sortableColumnBadge')" [value]="getBadgeValue()" size="small"></p-badge>`,
+        <p-badge *ngIf="isMultiSorted()" [class]="cx('sortableColumnBadge')" [value]="getBadgeValue()" size="small"></p-badge>
+    `,
     encapsulation: ViewEncapsulation.None,
     changeDetection: ChangeDetectionStrategy.OnPush,
     providers: [TreeTableStyle]
