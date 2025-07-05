@@ -22,6 +22,11 @@ const theme = /*css*/ `
     transform-origin: inherit;
 }
 
+/* Github Issue #18560 */
+.p-component-overlay.p-component {
+    position: relative;
+}
+
 .p-overlay-modal > .p-overlay-content {
     z-index: 1;
     width: 90%;

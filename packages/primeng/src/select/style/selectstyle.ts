@@ -47,7 +47,7 @@ const classes = {
     dropdown: 'p-select-dropdown',
     loadingIcon: 'p-select-loading-icon',
     dropdownIcon: 'p-select-dropdown-icon',
-    overlay: 'p-select-overlay p-component',
+    overlay: 'p-select-overlay p-component-overlay p-component',
     header: 'p-select-header',
     pcFilter: 'p-select-filter',
     listContainer: 'p-select-list-container',

@@ -890,11 +890,17 @@ export class TreeSelect extends BaseEditableHolder implements AfterContentInit {
     nodeExpand(event: { originalEvent: Event; node: TreeNode }) {
         this.onNodeExpand.emit(event);
         this.expandedNodes.push(event.node);
+        setTimeout(() => {
+            this.overlayViewChild.alignOverlay();
+        });
     }
 
     nodeCollapse(event: { originalEvent: Event; node: TreeNode }) {
         this.onNodeCollapse.emit(event);
         this.expandedNodes.splice(this.expandedNodes.indexOf(event.node), 1);
+        setTimeout(() => {
+            this.overlayViewChild.alignOverlay();
+        });
     }
 
     resetExpandedNodes() {

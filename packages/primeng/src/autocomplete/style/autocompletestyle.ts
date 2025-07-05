@@ -72,7 +72,7 @@ const classes = {
     inputChip: 'p-autocomplete-input-chip',
     loader: 'p-autocomplete-loader',
     dropdown: 'p-autocomplete-dropdown',
-    overlay: ({ instance }) => ['p-autocomplete-overlay p-component', { 'p-input-filled': instance.$variant() === 'filled', 'p-ripple-disabled': instance.config.ripple() === false }],
+    overlay: ({ instance }) => ['p-autocomplete-overlay p-component-overlay p-component', { 'p-input-filled': instance.$variant() === 'filled', 'p-ripple-disabled': instance.config.ripple() === false }],
     listContainer: 'p-autocomplete-list-container',
     list: 'p-autocomplete-list',
     optionGroup: 'p-autocomplete-option-group',

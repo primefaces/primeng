@@ -54,7 +54,7 @@ const classes = {
     pcChip: 'p-treeselect-chip',
     dropdown: 'p-treeselect-dropdown',
     dropdownIcon: 'p-treeselect-dropdown-icon',
-    panel: 'p-treeselect-overlay p-component',
+    panel: 'p-treeselect-overlay p-component-overlay p-component',
     treeContainer: 'p-treeselect-tree-container',
     emptyMessage: 'p-treeselect-empty-message'
 };

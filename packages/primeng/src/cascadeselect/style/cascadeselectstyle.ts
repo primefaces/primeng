@@ -49,7 +49,7 @@ const classes = {
     loadingIcon: 'p-cascadeselect-loading-icon',
     dropdownIcon: 'p-cascadeselect-dropdown-icon',
     overlay: ({ instance }) => [
-        'p-cascadeselect-overlay p-component',
+        'p-cascadeselect-overlay p-component-overlay p-component',
         {
             'p-cascadeselect-mobile-active': instance.queryMatches()
         }

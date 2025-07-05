@@ -50,7 +50,7 @@ const classes = {
     dropdown: 'p-multiselect-dropdown',
     loadingIcon: 'p-multiselect-loading-icon',
     dropdownIcon: 'p-multiselect-dropdown-icon',
-    overlay: 'p-multiselect-overlay p-component',
+    overlay: 'p-multiselect-overlay p-component-overlay p-component',
     header: 'p-multiselect-header',
     pcFilterContainer: 'p-multiselect-filter-container',
     pcFilter: 'p-multiselect-filter',
