@@ -967,7 +967,7 @@ export class FileUpload extends BaseComponent implements AfterViewInit, AfterCon
                                 } else {
                                     this.onError.emit({ files: this.files });
                                 }
-                                this.uploadedFiles.push(...this.files);
+                                this.uploadedFiles = [...this.uploadedFiles, ...this.files];
                                 this.clear();
                                 break;
                             case HttpEventType.UploadProgress: {
@@ -1007,7 +1007,6 @@ export class FileUpload extends BaseComponent implements AfterViewInit, AfterCon
      */
     clear() {
         this.files = [];
-        this.uploadedFileCount = 0;
         this.onClear.emit();
         this.clearInputElement();
         this.msgs = [];
