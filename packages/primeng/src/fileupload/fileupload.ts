@@ -147,13 +147,15 @@ export class FileContent extends BaseComponent {
                             [attr.title]="''"
                             [attr.data-pc-section]="'input'"
                         />
-                        <span *ngIf="chooseIcon" [class]="chooseIcon" [attr.aria-label]="true" [attr.data-pc-section]="'chooseicon'"></span>
-                        <ng-container *ngIf="!chooseIcon">
-                            <svg data-p-icon="plus" *ngIf="!chooseIconTemplate && !_chooseIconTemplate" [attr.aria-label]="true" [attr.data-pc-section]="'chooseicon'" />
-                            <span *ngIf="chooseIconTemplate || _chooseIconTemplate" [attr.aria-label]="true" [attr.data-pc-section]="'chooseicon'">
-                                <ng-template *ngTemplateOutlet="chooseIconTemplate || _chooseIconTemplate"></ng-template>
-                            </span>
-                        </ng-container>
+                        <ng-template #icon>
+                            <span *ngIf="chooseIcon" [class]="chooseIcon" [attr.aria-label]="true" [attr.data-pc-section]="'chooseicon'"></span>
+                            <ng-container *ngIf="!chooseIcon">
+                                <svg data-p-icon="plus" *ngIf="!chooseIconTemplate && !_chooseIconTemplate" [attr.aria-label]="true" [attr.data-pc-section]="'chooseicon'" />
+                                <span *ngIf="chooseIconTemplate || _chooseIconTemplate" [attr.aria-label]="true" [attr.data-pc-section]="'chooseicon'">
+                                    <ng-template *ngTemplateOutlet="chooseIconTemplate || _chooseIconTemplate"></ng-template>
+                                </span>
+                            </ng-container>
+                        </ng-template>
                     </p-button>
 
                     <p-button
@@ -164,22 +166,26 @@ export class FileContent extends BaseComponent {
                         [styleClass]="cn(cx('pcUploadButton'), uploadStyleClass)"
                         [buttonProps]="uploadButtonProps"
                     >
-                        <span *ngIf="uploadIcon" [ngClass]="uploadIcon" [attr.aria-hidden]="true"></span>
-                        <ng-container *ngIf="!uploadIcon">
-                            <svg data-p-icon="upload" *ngIf="!uploadIconTemplate && !_uploadIconTemplate" />
-                            <span *ngIf="uploadIconTemplate || _uploadIconTemplate" [attr.aria-hidden]="true">
-                                <ng-template *ngTemplateOutlet="uploadIconTemplate || _uploadIconTemplate"></ng-template>
-                            </span>
-                        </ng-container>
+                        <ng-template #icon>
+                            <span *ngIf="uploadIcon" [ngClass]="uploadIcon" [attr.aria-hidden]="true"></span>
+                            <ng-container *ngIf="!uploadIcon">
+                                <svg data-p-icon="upload" *ngIf="!uploadIconTemplate && !_uploadIconTemplate" />
+                                <span *ngIf="uploadIconTemplate || _uploadIconTemplate" [attr.aria-hidden]="true">
+                                    <ng-template *ngTemplateOutlet="uploadIconTemplate || _uploadIconTemplate"></ng-template>
+                                </span>
+                            </ng-container>
+                        </ng-template>
                     </p-button>
                     <p-button *ngIf="!auto && showCancelButton" [label]="cancelButtonLabel" (onClick)="clear()" [disabled]="!hasFiles() || uploading" [styleClass]="cn(cx('pcCancelButton'), cancelStyleClass)" [buttonProps]="cancelButtonProps">
-                        <span *ngIf="cancelIcon" [ngClass]="cancelIcon"></span>
-                        <ng-container *ngIf="!cancelIcon">
-                            <svg data-p-icon="times" *ngIf="!cancelIconTemplate && !_cancelIconTemplate" [attr.aria-hidden]="true" />
-                            <span *ngIf="cancelIconTemplate || _cancelIconTemplate" [attr.aria-hidden]="true">
-                                <ng-template *ngTemplateOutlet="cancelIconTemplate || _cancelIconTemplate"></ng-template>
-                            </span>
-                        </ng-container>
+                        <ng-template #icon>
+                            <span *ngIf="cancelIcon" [ngClass]="cancelIcon"></span>
+                            <ng-container *ngIf="!cancelIcon">
+                                <svg data-p-icon="times" *ngIf="!cancelIconTemplate && !_cancelIconTemplate" [attr.aria-hidden]="true" />
+                                <span *ngIf="cancelIconTemplate || _cancelIconTemplate" [attr.aria-hidden]="true">
+                                    <ng-template *ngTemplateOutlet="cancelIconTemplate || _cancelIconTemplate"></ng-template>
+                                </span>
+                            </ng-container>
+                        </ng-template>
                     </p-button>
                 </ng-container>
                 <ng-container

@@ -49,9 +49,9 @@ import { CarouselStyle } from './style/carouselstyle';
                             <svg data-p-icon="chevron-left" *ngIf="!isVertical()" />
                             <svg data-p-icon="chevron-up" *ngIf="isVertical()" />
                         </ng-container>
-                        <span *ngIf="(previousIconTemplate || _previousIconTemplate) && !prevButtonProps?.icon">
+                        <ng-container *ngIf="(previousIconTemplate || _previousIconTemplate) && !prevButtonProps?.icon">
                             <ng-template *ngTemplateOutlet="previousIconTemplate || _previousIconTemplate"></ng-template>
-                        </span>
+                        </ng-container>
                     </ng-template>
                 </p-button>
                 <div [class]="cx('viewport')" [ngStyle]="{ height: isVertical() ? verticalViewPortHeight : 'auto' }" (touchend)="onTouchEnd($event)" (touchstart)="onTouchStart($event)" (touchmove)="onTouchMove($event)">

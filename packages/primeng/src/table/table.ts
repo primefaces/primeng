@@ -5352,8 +5352,10 @@ export class ReorderableRow implements AfterViewInit {
                                     [label]="removeRuleButtonLabel"
                                     [buttonProps]="filterButtonProps?.popover?.removeRule"
                                 >
-                                    <svg data-p-icon="trash" *ngIf="!removeRuleIconTemplate && !_removeRuleIconTemplate" />
-                                    <ng-template *ngTemplateOutlet="removeRuleIconTemplate || _removeRuleIconTemplate"></ng-template>
+                                    <ng-template #icon>
+                                        <svg data-p-icon="trash" *ngIf="!removeRuleIconTemplate && !_removeRuleIconTemplate" />
+                                        <ng-template *ngTemplateOutlet="removeRuleIconTemplate || _removeRuleIconTemplate"></ng-template>
+                                    </ng-template>
                                 </p-button>
                             </div>
                         </div>
@@ -5369,8 +5371,10 @@ export class ReorderableRow implements AfterViewInit {
                             (onClick)="addConstraint()"
                             [buttonProps]="filterButtonProps?.popover?.addRule"
                         >
-                            <svg data-p-icon="plus" *ngIf="!addRuleIconTemplate && !_addRuleIconTemplate" />
-                            <ng-template *ngTemplateOutlet="addRuleIconTemplate || _addRuleIconTemplate"></ng-template>
+                            <ng-template #icon>
+                                <svg data-p-icon="plus" *ngIf="!addRuleIconTemplate && !_addRuleIconTemplate" />
+                                <ng-template *ngTemplateOutlet="addRuleIconTemplate || _addRuleIconTemplate"></ng-template>
+                            </ng-template>
                         </p-button>
                     </div>
                     <div [class]="cx('filterButtonbar')">

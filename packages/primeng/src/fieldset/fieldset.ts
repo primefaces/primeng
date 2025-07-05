@@ -4,7 +4,6 @@ import { AfterContentInit, booleanAttribute, ChangeDetectionStrategy, Component,
 import { uuid } from '@primeuix/utils';
 import { BlockableUI, PrimeTemplate, SharedModule } from 'primeng/api';
 import { BaseComponent } from 'primeng/basecomponent';
-import { ButtonModule } from 'primeng/button';
 import { MinusIcon, PlusIcon } from 'primeng/icons';
 import { Nullable } from 'primeng/ts-helpers';
 import { FieldsetAfterToggleEvent, FieldsetBeforeToggleEvent } from './fieldset.interface';
@@ -17,7 +16,7 @@ import { FieldsetStyle } from './style/fieldsetstyle';
 @Component({
     selector: 'p-fieldset',
     standalone: true,
-    imports: [CommonModule, ButtonModule, MinusIcon, PlusIcon, SharedModule],
+    imports: [CommonModule, MinusIcon, PlusIcon, SharedModule],
     template: `
         <fieldset [attr.id]="id" [ngStyle]="style" [class]="cn(cx('root'), styleClass)" [attr.data-pc-name]="'fieldset'" [attr.data-pc-section]="'root'">
             <legend [class]="cx('legend')" [attr.data-pc-section]="'legend'">

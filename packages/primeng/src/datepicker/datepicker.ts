@@ -162,10 +162,10 @@ export const DATEPICKER_VALUE_ACCESSOR: any = {
                             >
                                 <ng-template #icon>
                                     <svg data-p-icon="chevron-left" *ngIf="!previousIconTemplate && !_previousIconTemplate" />
+                                    <span *ngIf="previousIconTemplate || _previousIconTemplate">
+                                        <ng-template *ngTemplateOutlet="previousIconTemplate || _previousIconTemplate"></ng-template>
+                                    </span>
                                 </ng-template>
-                                <span *ngIf="previousIconTemplate || _previousIconTemplate">
-                                    <ng-template *ngTemplateOutlet="previousIconTemplate || _previousIconTemplate"></ng-template>
-                                </span>
                             </p-button>
                             <div [class]="cx('title')">
                                 <button
@@ -209,11 +209,10 @@ export const DATEPICKER_VALUE_ACCESSOR: any = {
                             >
                                 <ng-template #icon>
                                     <svg data-p-icon="chevron-right" *ngIf="!nextIconTemplate && !_nextIconTemplate" />
+                                    <ng-container *ngIf="nextIconTemplate || _nextIconTemplate">
+                                        <ng-template *ngTemplateOutlet="nextIconTemplate || _nextIconTemplate"></ng-template>
+                                    </ng-container>
                                 </ng-template>
-
-                                <span *ngIf="nextIconTemplate || _nextIconTemplate">
-                                    <ng-template *ngTemplateOutlet="nextIconTemplate || _nextIconTemplate"></ng-template>
-                                </span>
                             </p-button>
                         </div>
                         <table [class]="cx('dayView')" role="grid" *ngIf="currentView === 'date'">
@@ -291,8 +290,8 @@ export const DATEPICKER_VALUE_ACCESSOR: any = {
                     >
                         <ng-template #icon>
                             <svg data-p-icon="chevron-up" *ngIf="!incrementIconTemplate && !_incrementIconTemplate" />
+                            <ng-template *ngTemplateOutlet="incrementIconTemplate || _incrementIconTemplate"></ng-template>
                         </ng-template>
-                        <ng-template *ngTemplateOutlet="incrementIconTemplate || _incrementIconTemplate"></ng-template>
                     </p-button>
                     <span><ng-container *ngIf="currentHour < 10">0</ng-container>{{ currentHour }}</span>
                     <p-button
@@ -312,8 +311,8 @@ export const DATEPICKER_VALUE_ACCESSOR: any = {
                     >
                         <ng-template #icon>
                             <svg data-p-icon="chevron-down" *ngIf="!decrementIconTemplate && !_decrementIconTemplate" />
+                            <ng-template *ngTemplateOutlet="decrementIconTemplate || _decrementIconTemplate"></ng-template>
                         </ng-template>
-                        <ng-template *ngTemplateOutlet="decrementIconTemplate || _decrementIconTemplate"></ng-template>
                     </p-button>
                 </div>
                 <div class="p-datepicker-separator">
@@ -337,8 +336,8 @@ export const DATEPICKER_VALUE_ACCESSOR: any = {
                     >
                         <ng-template #icon>
                             <svg data-p-icon="chevron-up" *ngIf="!incrementIconTemplate && !_incrementIconTemplate" />
+                            <ng-template *ngTemplateOutlet="incrementIconTemplate || _incrementIconTemplate"></ng-template>
                         </ng-template>
-                        <ng-template *ngTemplateOutlet="incrementIconTemplate || _incrementIconTemplate"></ng-template>
                     </p-button>
                     <span><ng-container *ngIf="currentMinute < 10">0</ng-container>{{ currentMinute }}</span>
                     <p-button
@@ -358,8 +357,8 @@ export const DATEPICKER_VALUE_ACCESSOR: any = {
                     >
                         <ng-template #icon>
                             <svg data-p-icon="chevron-down" *ngIf="!decrementIconTemplate && !_decrementIconTemplate" />
+                            <ng-template *ngTemplateOutlet="decrementIconTemplate || _decrementIconTemplate"></ng-template>
                         </ng-template>
-                        <ng-template *ngTemplateOutlet="decrementIconTemplate || _decrementIconTemplate"></ng-template>
                     </p-button>
                 </div>
                 <div [class]="cx('separator')" *ngIf="showSeconds">
@@ -383,8 +382,8 @@ export const DATEPICKER_VALUE_ACCESSOR: any = {
                     >
                         <ng-template #icon>
                             <svg data-p-icon="chevron-up" *ngIf="!incrementIconTemplate && !_incrementIconTemplate" />
+                            <ng-template *ngTemplateOutlet="incrementIconTemplate || _incrementIconTemplate"></ng-template>
                         </ng-template>
-                        <ng-template *ngTemplateOutlet="incrementIconTemplate || _incrementIconTemplate"></ng-template>
                     </p-button>
                     <span><ng-container *ngIf="currentSecond < 10">0</ng-container>{{ currentSecond }}</span>
                     <p-button
@@ -404,8 +403,8 @@ export const DATEPICKER_VALUE_ACCESSOR: any = {
                     >
                         <ng-template #icon>
                             <svg data-p-icon="chevron-down" *ngIf="!decrementIconTemplate && !_decrementIconTemplate" />
+                            <ng-template *ngTemplateOutlet="decrementIconTemplate || _decrementIconTemplate"></ng-template>
                         </ng-template>
-                        <ng-template *ngTemplateOutlet="decrementIconTemplate || _decrementIconTemplate"></ng-template>
                     </p-button>
                 </div>
                 <div [class]="cx('separator')" *ngIf="hourFormat == '12'">
@@ -424,8 +423,8 @@ export const DATEPICKER_VALUE_ACCESSOR: any = {
                     >
                         <ng-template #icon>
                             <svg data-p-icon="chevron-up" *ngIf="!incrementIconTemplate && !_incrementIconTemplate" />
+                            <ng-template *ngTemplateOutlet="incrementIconTemplate || _incrementIconTemplate"></ng-template>
                         </ng-template>
-                        <ng-template *ngTemplateOutlet="incrementIconTemplate || _incrementIconTemplate"></ng-template>
                     </p-button>
                     <span>{{ pm ? 'PM' : 'AM' }}</span>
                     <p-button
@@ -440,8 +439,8 @@ export const DATEPICKER_VALUE_ACCESSOR: any = {
                     >
                         <ng-template #icon>
                             <svg data-p-icon="chevron-down" *ngIf="!decrementIconTemplate && !_decrementIconTemplate" />
+                            <ng-template *ngTemplateOutlet="decrementIconTemplate || _decrementIconTemplate"></ng-template>
                         </ng-template>
-                        <ng-template *ngTemplateOutlet="decrementIconTemplate || _decrementIconTemplate"></ng-template>
                     </p-button>
                 </div>
             </div>
