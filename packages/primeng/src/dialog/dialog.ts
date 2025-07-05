@@ -279,7 +279,7 @@ export class Dialog extends BaseComponent implements OnInit, AfterContentInit, O
      */
     @Input() closeButtonProps: ButtonProps = {
         severity: 'secondary',
-        text: true,
+        variant: 'text',
         rounded: true
     };
     /**
@@ -288,7 +288,7 @@ export class Dialog extends BaseComponent implements OnInit, AfterContentInit, O
      */
     @Input() maximizeButtonProps: ButtonProps = {
         severity: 'secondary',
-        text: true,
+        variant: 'text',
         rounded: true
     };
     /**
