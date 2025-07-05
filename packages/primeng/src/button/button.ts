@@ -19,7 +19,6 @@ import {
     OnDestroy,
     Output,
     QueryList,
-    SimpleChanges,
     TemplateRef,
     ViewEncapsulation
 } from '@angular/core';
@@ -267,19 +266,6 @@ export class ButtonDirective extends BaseComponent implements AfterViewInit, OnD
         this.createLabel();
 
         this.initialized = true;
-    }
-
-    ngOnChanges(simpleChanges: SimpleChanges) {
-        super.ngOnChanges(simpleChanges);
-        const { buttonProps } = simpleChanges;
-
-        if (buttonProps) {
-            const props = buttonProps.currentValue;
-
-            for (const property in props) {
-                this[property] = props[property];
-            }
-        }
     }
 
     getStyleClass(): string[] {
@@ -710,19 +696,6 @@ export class Button extends BaseComponent implements AfterContentInit {
                     break;
             }
         });
-    }
-
-    ngOnChanges(simpleChanges: SimpleChanges) {
-        super.ngOnChanges(simpleChanges);
-        const { buttonProps } = simpleChanges;
-
-        if (buttonProps) {
-            const props = buttonProps.currentValue;
-
-            for (const property in props) {
-                this[property] = props[property];
-            }
-        }
     }
 
     spinnerIconClass(): string {

@@ -45,7 +45,7 @@ export interface ButtonProps {
     rounded?: boolean;
     text?: boolean;
     plain?: boolean;
-    severity?: 'success' | 'info' | 'warning' | 'danger' | 'help' | 'primary' | 'secondary' | 'contrast' | null | undefined;
+    severity?: ButtonSeverity;
     outlined?: boolean;
     link?: boolean;
     tabindex?: number | undefined;
