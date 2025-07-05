@@ -31,6 +31,7 @@ export class ExclamationTriangleIcon extends BaseIcon implements OnInit {
     pathId: string;
 
     ngOnInit() {
+        super.ngOnInit();
         this.pathId = 'url(#' + uuid() + ')';
     }
 }

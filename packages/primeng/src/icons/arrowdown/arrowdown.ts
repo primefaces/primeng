@@ -25,6 +25,7 @@ export class ArrowDownIcon extends BaseIcon implements OnInit {
     pathId: string;
 
     ngOnInit() {
+        super.ngOnInit();
         this.pathId = 'url(#' + uuid() + ')';
     }
 }

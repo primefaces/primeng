@@ -23,6 +23,7 @@ export class FilterIcon extends BaseIcon {
     pathId: string;
 
     ngOnInit() {
+        super.ngOnInit();
         this.pathId = 'url(#' + uuid() + ')';
     }
 }
