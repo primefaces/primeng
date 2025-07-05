@@ -173,7 +173,7 @@ export class StepItem extends BaseComponent {
     host: {
         '[class]': 'cx("root")',
         '[attr.aria-current]': 'active() ? "step" : undefined',
-        '[attr.role]': '"presentation"',
+        '[attr.aria-labelledby]': 'ariaLabelledBy()',
         '[attr.data-p-active]': 'active()',
         '[attr.data-p-disabled]': 'isStepDisabled()',
         '[attr.data-pc-name]': '"step"'
@@ -266,8 +266,8 @@ export class Step extends BaseComponent implements AfterContentInit {
     host: {
         '[class]': 'cx("root")',
         '[attr.role]': '"tabpanel"',
-        '[attr.aria-controls]': 'ariaControls()',
         '[attr.id]': 'id()',
+        '[attr.aria-labelledby]': 'ariaLabelledBy()',
         '[attr.data-p-active]': 'active()',
         '[attr.data-pc-name]': '"steppanel"',
         '[style.display]': '!isVertical() && !active() ? "none" : ""'
@@ -306,7 +306,7 @@ export class StepPanel extends BaseComponent implements AfterContentInit {
 
     active = computed(() => this.pcStepper.value() === this.value());
 
-    ariaControls = computed(() => `${this.pcStepper.id()}_step_${this.value()}`);
+    ariaLabelledBy = computed(() => `${this.pcStepper.id()}_step_${this.value()}`);
 
     id = computed(() => `${this.pcStepper.id()}_steppanel_${this.value()}`);
 
@@ -381,7 +381,8 @@ export class StepPanels extends BaseComponent {
     host: {
         '[class]': 'cx("root")',
         '[attr.role]': '"tablist"',
-        '[attr.id]': 'id()'
+        '[attr.id]': 'id()',
+        '[attr.aria-labelledby]': 'ariaLabelledBy()'
     }
 })
 export class Stepper extends BaseComponent {
