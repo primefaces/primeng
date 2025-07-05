@@ -84,12 +84,10 @@ const hideAnimation = animation([animate('{{transition}}', style({ transform: '{
                                 </ng-container>
                             </p-button>
                             <p-button *ngIf="closable" [styleClass]="'p-dialog-close-button'" [ariaLabel]="ddconfig.closeAriaLabel || defaultCloseAriaLabel" (onClick)="hide()" (keydown.enter)="hide()" rounded text severity="secondary">
-                                <ng-container *ngIf="!closeIconTemplate">
-                                    <svg data-p-icon="times" />
-                                </ng-container>
-                                <span *ngIf="closeIconTemplate">
+                                <ng-template #icon>
+                                    <svg *ngIf="!closeIconTemplate" data-p-icon="times" />
                                     <ng-template *ngTemplateOutlet="closeIconTemplate"></ng-template>
-                                </span>
+                                </ng-template>
                             </p-button>
                         </div>
                     </ng-container>
