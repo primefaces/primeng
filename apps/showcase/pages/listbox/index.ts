@@ -1,5 +1,6 @@
 import { AccessibilityDoc } from '@/doc/listbox/accessibilitydoc';
 import { BasicDoc } from '@/doc/listbox/basicdoc';
+import { CheckboxDoc } from '@/doc/listbox/checkboxdoc';
 import { CheckmarkDoc } from '@/doc/listbox/checkmarkdoc';
 import { DisabledDoc } from '@/doc/listbox/disableddoc';
 import { FilterDoc } from '@/doc/listbox/filterdoc';
@@ -10,8 +11,8 @@ import { ListboxDocModule } from '@/doc/listbox/listboxdoc.module';
 import { MultipleDoc } from '@/doc/listbox/multipledoc';
 import { ReactiveFormsDoc } from '@/doc/listbox/reactiveformsdoc';
 import { TemplateDoc } from '@/doc/listbox/templatedoc';
+import { TemplateDrivenFormsDoc } from '@/doc/listbox/templatedrivenformsdoc';
 import { VirtualScrollDoc } from '@/doc/listbox/virtualscrolldoc';
-import { CheckboxDoc } from '@/doc/listbox/checkboxdoc';
 import { Component } from '@angular/core';
 
 @Component({
@@ -30,11 +31,6 @@ export class ListboxDemo {
             id: 'basic',
             label: 'Basic',
             component: BasicDoc
-        },
-        {
-            id: 'reactive-forms',
-            label: 'Reactive Forms',
-            component: ReactiveFormsDoc
         },
         {
             id: 'checkmark',
@@ -81,7 +77,14 @@ export class ListboxDemo {
             label: 'Disabled',
             component: DisabledDoc
         },
-
+        {
+            id: 'forms',
+            label: 'Forms',
+            children: [
+                { id: 'templatedriven', label: 'Template Driven', component: TemplateDrivenFormsDoc },
+                { id: 'reactive', label: 'Reactive Forms', component: ReactiveFormsDoc }
+            ]
+        },
         {
             id: 'accessibility',
             label: 'Accessibility',

@@ -1,5 +1,5 @@
 import { isPlatformBrowser } from '@angular/common';
-import { AfterViewInit, booleanAttribute, Directive, ElementRef, inject, Input, NgModule, NgZone, numberAttribute, OnDestroy, SimpleChanges, TemplateRef, ViewContainerRef } from '@angular/core';
+import { AfterViewInit, booleanAttribute, computed, Directive, ElementRef, inject, input, Input, NgModule, NgZone, numberAttribute, OnDestroy, SimpleChanges, TemplateRef, ViewContainerRef } from '@angular/core';
 import { appendChild, fadeIn, findSingle, getOuterHeight, getOuterWidth, getViewport, getWindowScrollLeft, getWindowScrollTop, hasClass, removeChild, uuid } from '@primeuix/utils';
 import { TooltipOptions } from 'primeng/api';
 import { BaseComponent } from 'primeng/basecomponent';
@@ -28,11 +28,6 @@ export class Tooltip extends BaseComponent implements AfterViewInit, OnDestroy {
      * @group Props
      */
     @Input() tooltipEvent: 'hover' | 'focus' | 'both' | string | any = 'hover';
-    /**
-     *  Target element to attach the overlay, valid values are "body", "target" or a local ng-F variable of another element (note: use binding with brackets for template variables, e.g. [appendTo]="mydiv" for a div element having #mydiv as variable name).
-     * @group Props
-     */
-    @Input() appendTo: HTMLElement | ElementRef | TemplateRef<any> | string | null | undefined | any;
     /**
      * Type of CSS position.
      * @group Props
@@ -115,6 +110,14 @@ export class Tooltip extends BaseComponent implements AfterViewInit, OnDestroy {
      * @group Props
      */
     @Input() tooltipOptions: TooltipOptions | undefined;
+    /**
+     * Target element to attach the overlay, valid values are "body" or a local ng-template variable of another element (note: use binding with brackets for template variables, e.g. [appendTo]="mydiv" for a div element having #mydiv as variable name).
+     * @defaultValue 'self'
+     * @group Props
+     */
+    appendTo = input<HTMLElement | ElementRef | TemplateRef<any> | 'self' | 'body' | null | undefined | any>(undefined);
+
+    $appendTo = computed(() => this.appendTo() || this.config.overlayAppendTo());
 
     _tooltipOptions = {
         tooltipLabel: null,
@@ -398,6 +401,7 @@ export class Tooltip extends BaseComponent implements AfterViewInit, OnDestroy {
 
         let tooltipArrow = document.createElement('div');
         tooltipArrow.className = 'p-tooltip-arrow';
+        tooltipArrow.setAttribute('data-pc-section', 'arrow');
         this.container.appendChild(tooltipArrow);
 
         this.tooltipText = document.createElement('div');
@@ -527,7 +531,7 @@ export class Tooltip extends BaseComponent implements AfterViewInit, OnDestroy {
     }
 
     private get activeElement(): HTMLElement {
-        return this.el.nativeElement.nodeName.startsWith('P-') ? findSingle(this.el.nativeElement, '.p-component') : this.el.nativeElement;
+        return this.el.nativeElement.nodeName.startsWith('P-') ? (findSingle(this.el.nativeElement, '.p-component') as HTMLElement) : this.el.nativeElement;
     }
 
     alignRight() {
@@ -536,27 +540,63 @@ export class Tooltip extends BaseComponent implements AfterViewInit, OnDestroy {
         const offsetLeft = getOuterWidth(el);
         const offsetTop = (getOuterHeight(el) - getOuterHeight(this.container)) / 2;
         this.alignTooltip(offsetLeft, offsetTop);
+        let arrowElement = this.getArrowElement();
+
+        arrowElement.style.top = '50%';
+        arrowElement.style.right = null;
+        arrowElement.style.bottom = null;
+        arrowElement.style.left = '0';
     }
 
     alignLeft() {
         this.preAlign('left');
+        let arrowElement = this.getArrowElement();
         let offsetLeft = getOuterWidth(this.container);
         let offsetTop = (getOuterHeight(this.el.nativeElement) - getOuterHeight(this.container)) / 2;
         this.alignTooltip(-offsetLeft, offsetTop);
+
+        arrowElement.style.top = '50%';
+        arrowElement.style.right = '0';
+        arrowElement.style.bottom = null;
+        arrowElement.style.left = null;
     }
 
     alignTop() {
         this.preAlign('top');
+        let arrowElement = this.getArrowElement();
+        let hostOffset = this.getHostOffset();
+        let elementWidth = getOuterWidth(this.container);
+
         let offsetLeft = (getOuterWidth(this.el.nativeElement) - getOuterWidth(this.container)) / 2;
         let offsetTop = getOuterHeight(this.container);
         this.alignTooltip(offsetLeft, -offsetTop);
+
+        let elementRelativeCenter = hostOffset.left - this.getHostOffset().left + elementWidth / 2;
+        arrowElement.style.top = null;
+        arrowElement.style.right = null;
+        arrowElement.style.bottom = '0';
+        arrowElement.style.left = elementRelativeCenter + 'px';
+    }
+
+    getArrowElement(): any {
+        return findSingle(this.container, '[data-pc-section="arrow"]');
     }
 
     alignBottom() {
         this.preAlign('bottom');
+        let arrowElement = this.getArrowElement();
+        let elementWidth = getOuterWidth(this.container);
+        let hostOffset = this.getHostOffset();
         let offsetLeft = (getOuterWidth(this.el.nativeElement) - getOuterWidth(this.container)) / 2;
         let offsetTop = getOuterHeight(this.el.nativeElement);
         this.alignTooltip(offsetLeft, offsetTop);
+
+        let elementRelativeCenter = hostOffset.left - this.getHostOffset().left + elementWidth / 2;
+
+        arrowElement.style.top = '0';
+        arrowElement.style.right = null;
+        arrowElement.style.bottom = null;
+        arrowElement.style.left = elementRelativeCenter + 'px';
     }
 
     alignTooltip(offsetLeft, offsetTop) {

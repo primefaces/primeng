@@ -8,8 +8,8 @@ import { Component, signal } from '@angular/core';
         <app-docsectiontext>
             <p>Messages can disappear automatically by defined the <i>life</i> in milliseconds.</p>
         </app-docsectiontext>
-        <div class="card flex flex-col items-center justify-center gap-4">
-            <p-button label="Show" (onClick)="showMessage()" [disabled]="visible()" />
+        <div class="card flex flex-col items-center justify-center">
+            <p-button label="Show" (onClick)="showMessage()" [disabled]="visible()" styleClass="mb-4" />
             @if (visible()) {
                 <p-message [life]="3000" severity="success">Auto disappear message</p-message>
             }
@@ -31,8 +31,8 @@ export class LifeDoc {
     code: Code = {
         basic: `<p-message [life]="3000" severity="success">Auto disappear message</p-message>`,
 
-        html: `<div class="card flex flex-col items-center justify-center gap-4">
-    <p-button label="Show" (onClick)="showMessage()" [disabled]="visible()" />
+        html: `<div class="card flex flex-col items-center justify-center">
+    <p-button label="Show" (onClick)="showMessage()" [disabled]="visible()" styleClass="mb-4" />
     @if (visible()) {
         <p-message [life]="3000" severity="success">Auto disappear message</p-message>
     }

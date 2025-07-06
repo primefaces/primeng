@@ -1,3 +1,2 @@
-import { VirtualScrollerDesignTokens } from '../../types/virtualscroller';
-declare const _default: VirtualScrollerDesignTokens;
-export default _default;
+export * from '@primeuix/themes/nora/virtualscroller';
+export { default } from '@primeuix/themes/nora/virtualscroller';

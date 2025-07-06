@@ -4,7 +4,6 @@ import { CommonModule } from '@angular/common';
 import { NgModule } from '@angular/core';
 import { RouterModule } from '@angular/router';
 import { ButtonModule } from 'primeng/button';
-import { MessagesModule } from 'primeng/messages';
 import { SpeedDialModule } from 'primeng/speeddial';
 import { ToastModule } from 'primeng/toast';
 import { TooltipModule } from 'primeng/tooltip';
@@ -19,7 +18,7 @@ import { TemplateDoc } from './templatedoc';
 import { TooltipDoc } from './tooltipdoc';
 
 @NgModule({
-    imports: [CommonModule, AppCodeModule, AppDocModule, SpeedDialModule, MessagesModule, ToastModule, TooltipModule, RouterModule, ButtonModule],
+    imports: [CommonModule, AppCodeModule, AppDocModule, SpeedDialModule, ToastModule, TooltipModule, RouterModule, ButtonModule],
     exports: [AppDocModule],
     declarations: [ImportDoc, LinearDoc, CircleDoc, SemiCircleDoc, QuarterCircleDoc, TooltipDoc, MaskDoc, TemplateDoc, AccessibilityDoc]
 })

@@ -21,11 +21,10 @@ import { MultiSelect } from 'primeng/multiselect';
                 optionLabel="label"
                 [virtualScroll]="true"
                 [virtualScrollItemSize]="43"
-                class="multiselect-custom-virtual-scroll"
                 placeholder="Select Cities"
                 (onSelectAllChange)="onSelectAllChange($event)"
                 [maxSelectedLabels]="3"
-                styleClass="w-full md:w-80"
+                class="w-full md:w-80"
                 #ms
             >
                 <ng-template #headercheckboxicon let-allSelected="checked" let-partialSelected="partialSelected">
@@ -52,7 +51,7 @@ export class VirtualScrollDoc {
     }
 
     code: Code = {
-        basic: `<p-multiselect [options]="items" [showToggleAll]="true" [selectAll]="selectAll" [(ngModel)]="selectedItems" optionLabel="label" [virtualScroll]="true" [virtualScrollItemSize]="43" class="multiselect-custom-virtual-scroll" placeholder="Select Cities" (onSelectAllChange)="onSelectAllChange($event)" [maxSelectedLabels]="3" styleClass="w-full md:w-80" #ms>
+        basic: `<p-multiselect [options]="items" [showToggleAll]="true" [selectAll]="selectAll" [(ngModel)]="selectedItems" optionLabel="label" [virtualScroll]="true" [virtualScrollItemSize]="43" placeholder="Select Cities" (onSelectAllChange)="onSelectAllChange($event)" [maxSelectedLabels]="3" class="w-full md:w-80" #ms>
     <ng-template #headercheckboxicon let-allSelected let-partialSelected="partialSelected">
         <i class="pi pi-check" *ngIf="allSelected"></i>
         <i class="pi pi-minus" *ngIf="partialSelected" [ngStyle]="{ color: 'var(--text-color)' }"></i>
@@ -60,7 +59,7 @@ export class VirtualScrollDoc {
 </p-multiselect>`,
 
         html: `<div class="card flex justify-center">
-    <p-multiselect [options]="items" [showToggleAll]="true" [selectAll]="selectAll" [(ngModel)]="selectedItems" optionLabel="label" [virtualScroll]="true" [virtualScrollItemSize]="43" class="multiselect-custom-virtual-scroll" placeholder="Select Cities" (onSelectAllChange)="onSelectAllChange($event)" [maxSelectedLabels]="3" styleClass="w-full md:w-80" #ms>
+    <p-multiselect [options]="items" [showToggleAll]="true" [selectAll]="selectAll" [(ngModel)]="selectedItems" optionLabel="label" [virtualScroll]="true" [virtualScrollItemSize]="43" placeholder="Select Cities" (onSelectAllChange)="onSelectAllChange($event)" [maxSelectedLabels]="3" class="w-full md:w-80" #ms>
         <ng-template #headercheckboxicon let-allSelected let-partialSelected="partialSelected">
             <i class="pi pi-check" *ngIf="allSelected"></i>
             <i class="pi pi-minus" *ngIf="partialSelected" [ngStyle]="{ color: 'var(--text-color)' }"></i>

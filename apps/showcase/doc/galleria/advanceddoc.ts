@@ -21,7 +21,7 @@ import { Galleria } from 'primeng/galleria';
                 [showItemNavigators]="true"
                 [showItemNavigatorsOnHover]="true"
                 [circular]="true"
-                [autoPlay]="true"
+                [autoPlay]="isAutoPlay"
                 [transitionInterval]="3000"
                 [containerStyle]="{ 'max-width': '640px' }"
                 [containerClass]="galleriaClass()"
@@ -35,14 +35,33 @@ import { Galleria } from 'primeng/galleria';
                     </div>
                 </ng-template>
                 <ng-template #footer let-item>
-                    <div class="custom-galleria-footer">
-                        <button type="button" pButton icon="pi pi-list" (click)="onThumbnailButtonClick()"></button>
-                        <span *ngIf="images" class="title-container">
-                            <span>{{ activeIndex + 1 }}/{{ images.length }}</span>
-                            <span class="title">{{ images[activeIndex].title }}</span>
-                            <span>{{ images[activeIndex].alt }}</span>
+                    <div class="flex items-stretch bg-surface-950 text-white h-10">
+                        <button
+                            type="button"
+                            pButton
+                            icon="pi pi-th-large"
+                            (click)="onThumbnailButtonClick()"
+                            class="bg-transparent border-none rounded-none hover:bg-white/10 text-white inline-flex justify-center items-center cursor-pointer px-3"
+                        ></button>
+                        <button
+                            type="button"
+                            pButton
+                            [icon]="slideButtonIcon()"
+                            (click)="toggleAutoSlide()"
+                            class="bg-transparent border-none rounded-none hover:bg-white/10 text-white inline-flex justify-center items-center cursor-pointer px-3"
+                        ></button>
+                        <span *ngIf="images" class="flex items-center gap-4 ml-3">
+                            <span class="text-sm">{{ activeIndex + 1 }}/{{ images.length }}</span>
+                            <span class="font-bold text-sm">{{ images[activeIndex].title }}</span>
+                            <span class="text-sm">{{ images[activeIndex].alt }}</span>
                         </span>
-                        <button type="button" pButton [icon]="fullScreenIcon()" (click)="toggleFullScreen()" class="fullscreen-button"></button>
+                        <button
+                            type="button"
+                            pButton
+                            [icon]="fullScreenIcon()"
+                            (click)="toggleFullScreen()"
+                            class="bg-transparent border-none rounded-none hover:bg-white/10 text-white inline-flex justify-center items-center cursor-pointer px-3 ml-auto"
+                        ></button>
                     </div>
                 </ng-template>
             </p-galleria>
@@ -53,11 +72,13 @@ import { Galleria } from 'primeng/galleria';
 export class AdvancedDoc implements OnInit, OnDestroy {
     images: any[] | undefined;
 
-    showThumbnails: boolean | undefined;
+    showThumbnails: boolean = false;
 
     fullscreen: boolean = false;
 
     activeIndex: number = 0;
+
+    isAutoPlay: boolean = true;
 
     onFullScreenListener: any;
 
@@ -90,6 +111,10 @@ export class AdvancedDoc implements OnInit, OnDestroy {
 
     onThumbnailButtonClick() {
         this.showThumbnails = !this.showThumbnails;
+    }
+
+    toggleAutoSlide() {
+        this.isAutoPlay = !this.isAutoPlay;
     }
 
     toggleFullScreen() {
@@ -166,12 +191,18 @@ export class AdvancedDoc implements OnInit, OnDestroy {
         return `custom-galleria ${this.fullscreen ? 'fullscreen' : ''}`;
     }
 
+    slideButtonIcon() {
+        return this.isAutoPlay ? 'pi pi-pause' : 'pi pi-play';
+    }
+
     fullScreenIcon() {
         return `pi ${this.fullscreen ? 'pi-window-minimize' : 'pi-window-maximize'}`;
     }
 
     code: Code = {
-        basic: `<p-galleria #galleria [(value)]="images" [(activeIndex)]="activeIndex" [numVisible]="5" [showThumbnails]="showThumbnails" [showItemNavigators]="true" [showItemNavigatorsOnHover]="true" [circular]="true" [autoPlay]="true" [transitionInterval]="3000" [containerStyle]="{ 'max-width': '640px' }" [containerClass]="galleriaClass()">
+        basic: `<p-galleria #galleria [(value)]="images" [(activeIndex)]="activeIndex" [numVisible]="5" [showThumbnails]="showThumbnails" [showItemNavigators]="true" [showItemNavigatorsOnHover]="true"
+    [circular]="true" [autoPlay]="isAutoPlay" [transitionInterval]="3000" [containerStyle]="{ 'max-width': '640px' }" [containerClass]="galleriaClass()"
+>
     <ng-template #item let-item>
         <img [src]="item.itemImageSrc" [ngStyle]="{ width: !fullscreen ? '100%' : '', display: !fullscreen ? 'block' : '' }" />
     </ng-template>
@@ -181,19 +212,40 @@ export class AdvancedDoc implements OnInit, OnDestroy {
         </div>
     </ng-template>
     <ng-template #footer let-item>
-        <div class="custom-galleria-footer">
-            <button type="button" pButton icon="pi pi-list" (click)="onThumbnailButtonClick()"></button>
-            <span *ngIf="images" class="title-container">
-                <span>{{ activeIndex + 1 }}/{{ images.length }}</span>
-                <span class="title">{{ images[activeIndex].title }}</span>
-                <span>{{ images[activeIndex].alt }}</span>
+        <div class="flex items-stretch bg-surface-950 text-white h-10">
+            <button
+                type="button"
+                pButton
+                icon="pi pi-th-large"
+                (click)="onThumbnailButtonClick()"
+                class="bg-transparent border-none rounded-none hover:bg-white/10 text-white inline-flex justify-center items-center cursor-pointer px-3"
+            ></button>
+            <button
+                type="button"
+                pButton
+                [icon]="slideButtonIcon()"
+                (click)="toggleAutoSlide()"
+                class="bg-transparent border-none rounded-none hover:bg-white/10 text-white inline-flex justify-center items-center cursor-pointer px-3"
+            ></button>
+            <span *ngIf="images" class="flex items-center gap-4 ml-3">
+                <span class="text-sm">{{ activeIndex + 1 }}/{{ images.length }}</span>
+                <span class="font-bold text-sm">{{ images[activeIndex].title }}</span>
+                <span class="text-sm">{{ images[activeIndex].alt }}</span>
             </span>
-            <button type="button" pButton [icon]="fullScreenIcon()" (click)="toggleFullScreen()" class="fullscreen-button"></button>
+            <button
+                type="button"
+                pButton
+                [icon]="fullScreenIcon()"
+                (click)="toggleFullScreen()"
+                class="bg-transparent border-none rounded-none hover:bg-white/10 text-white inline-flex justify-center items-center cursor-pointer px-3 ml-auto"
+            ></button>
         </div>
     </ng-template>
 </p-galleria>`,
         html: `<div class="card">
-    <p-galleria #galleria [(value)]="images" [(activeIndex)]="activeIndex" [numVisible]="5" [showThumbnails]="showThumbnails" [showItemNavigators]="true" [showItemNavigatorsOnHover]="true" [circular]="true" [autoPlay]="true" [transitionInterval]="3000" [containerStyle]="{ 'max-width': '640px' }" [containerClass]="galleriaClass()">
+    <p-galleria #galleria [(value)]="images" [(activeIndex)]="activeIndex" [numVisible]="5" [showThumbnails]="showThumbnails" [showItemNavigators]="true" [showItemNavigatorsOnHover]="true"
+        [circular]="true" [autoPlay]="isAutoPlay" [transitionInterval]="3000" [containerStyle]="{ 'max-width': '640px' }" [containerClass]="galleriaClass()"
+    >
         <ng-template #item let-item>
             <img [src]="item.itemImageSrc" [ngStyle]="{ width: !fullscreen ? '100%' : '', display: !fullscreen ? 'block' : '' }" />
         </ng-template>
@@ -234,55 +286,6 @@ import { PhotoService } from '@/service/photoservice';
                             justify-content: center;
                         }
                     }
-
-                    .p-galleria-content {
-                        position: relative;
-                    }
-
-                    .p-galleria-thumbnail-wrapper {
-                        position: absolute;
-                        bottom: 0;
-                        left: 0;
-                        width: 100%;
-                    }
-
-                    .p-galleria-thumbnail-items-container {
-                        width: 100%;
-                    }
-
-                    .custom-galleria-footer {
-                        display: flex;
-                        align-items: center;
-                        background-color: rgba(0, 0, 0, .9);
-                        color: #ffffff;
-
-                        > button {
-                            background-color: transparent;
-                            color: #ffffff;
-                            border: 0 none;
-                            border-radius: 0;
-                            margin: .2rem 0;
-
-                            &.fullscreen-button {
-                                margin-left: auto;
-                            }
-
-                            &:hover {
-                                background-color: rgba(255, 255, 255, 0.1);
-                            }
-                        }
-                    }
-
-                    .title-container {
-                        > span {
-                            font-size: .9rem;
-                            padding-left: .829rem;
-
-                            &.title {
-                                font-weight: bold;
-                            }
-                        }
-                    }
                 }
             }
         }\`
@@ -295,11 +298,13 @@ export class GalleriaAdvancedDemo implements OnInit, OnDestroy {
 
     images: any[] | undefined;
 
-    showThumbnails: boolean | undefined;
+    showThumbnails: boolean = false;
 
     fullscreen: boolean = false;
 
     activeIndex: number = 0;
+
+    isAutoPlay: boolean = true;
 
     onFullScreenListener: any;
 
@@ -325,6 +330,10 @@ export class GalleriaAdvancedDemo implements OnInit, OnDestroy {
 
     onThumbnailButtonClick() {
         this.showThumbnails = !this.showThumbnails;
+    }
+
+    toggleAutoSlide() {
+        this.isAutoPlay = !this.isAutoPlay;
     }
 
     toggleFullScreen() {
@@ -393,6 +402,10 @@ export class GalleriaAdvancedDemo implements OnInit, OnDestroy {
 
     galleriaClass() {
         return \`custom-galleria \${this.fullscreen ? 'fullscreen' : ''}\`;
+    }
+
+    slideButtonIcon() {
+        return this.isAutoPlay ? 'pi pi-pause' : 'pi pi-play';
     }
 
     fullScreenIcon() {

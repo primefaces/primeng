@@ -1,3 +1,2 @@
-import { DialogDesignTokens } from '../../types/dialog';
-declare const _default: DialogDesignTokens;
-export default _default;
+export * from '@primeuix/themes/aura/dialog';
+export { default } from '@primeuix/themes/aura/dialog';

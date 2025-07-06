@@ -2,9 +2,11 @@ import { AppCodeModule } from '@/components/doc/app.code.component';
 import { AppDocModule } from '@/components/doc/app.doc.module';
 import { CommonModule } from '@angular/common';
 import { NgModule } from '@angular/core';
+import { FormsModule } from '@angular/forms';
 import { RouterModule } from '@angular/router';
 import { AvatarModule } from 'primeng/avatar';
 import { ButtonModule } from 'primeng/button';
+import { InputMaskModule } from 'primeng/inputmask';
 import { InputTextModule } from 'primeng/inputtext';
 import { MessageModule } from 'primeng/message';
 import { AccessibilityDoc } from './accessibilitydoc';
@@ -21,7 +23,7 @@ import { SimpleDoc } from './simpledoc';
 import { SizesDoc } from './sizesdoc';
 
 @NgModule({
-    imports: [CommonModule, AppCodeModule, RouterModule, MessageModule, AppDocModule, AvatarModule, InputTextModule, ButtonModule],
+    imports: [CommonModule, AppCodeModule, RouterModule, FormsModule, MessageModule, AppDocModule, AvatarModule, InputTextModule, InputMaskModule, ButtonModule],
     declarations: [BasicDoc, SeverityDoc, ImportDoc, IconDoc, FormDoc, DynamicDoc, ClosableDoc, LifeDoc, SizesDoc, OutlinedDoc, SimpleDoc, AccessibilityDoc],
     exports: [AppDocModule]
 })

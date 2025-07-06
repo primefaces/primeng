@@ -12,7 +12,7 @@ import { TreeNode } from 'primeng/api';
         <div class="card">
             <p-button (click)="toggleApplications()" label="Toggle Applications" />
             <p-deferred-demo (load)="loadDemoData()">
-                <p-treetable [value]="files" [scrollable]="true" [tableStyle]="{ 'min-width': '50rem' }" styleClass="mt-6">
+                <p-treetable [value]="files" [scrollable]="true" [tableStyle]="{ 'min-width': '50rem' }" class="mt-6">
                     <ng-template #header>
                         <tr>
                             <th style="width:34%;">Name</th>
@@ -61,7 +61,7 @@ export class ControlledDoc {
 
     code: Code = {
         basic: `<p-button (click)="toggleApplications()" label="Toggle Applications" />
-<p-treetable [value]="files" [scrollable]="true" [tableStyle]="{ 'min-width': '50rem' }" styleClass="mt-6">
+<p-treetable [value]="files" [scrollable]="true" [tableStyle]="{ 'min-width': '50rem' }" class="mt-6">
     <ng-template #header>
         <tr>
             <th>Name</th>
@@ -83,7 +83,7 @@ export class ControlledDoc {
 
         html: `<div class="card">
 <p-button (click)="toggleApplications()" label="Toggle Applications" />
-<p-treetable [value]="files" [scrollable]="true" [tableStyle]="{ 'min-width': '50rem' }" styleClass="mt-6">
+<p-treetable [value]="files" [scrollable]="true" [tableStyle]="{ 'min-width': '50rem' }" class="mt-6">
     <ng-template #header>
         <tr>
             <th>Name</th>

@@ -13,7 +13,7 @@ import { Component } from '@angular/core';
 })
 export class UpdatePrimaryPaletteDoc {
     code1 = {
-        typescript: `import { updatePrimaryPalette } from '@primeng/themes';`
+        typescript: `import { updatePrimaryPalette } from '@primeuix/themes';`
     };
 
     code2 = {

@@ -14,7 +14,7 @@ import { MessageService, TreeNode } from 'primeng/api';
             <p-toast />
             <p-tree
                 [value]="files"
-                styleClass="w-full md:w-[30rem]"
+                class="w-full md:w-[30rem]"
                 selectionMode="single"
                 [(selection)]="selectedFile"
                 (onNodeExpand)="nodeExpand($event)"
@@ -58,11 +58,11 @@ export class EventDoc implements OnInit {
     }
 
     code: Code = {
-        basic: `<p-tree [value]="files" styleClass="w-full md:w-[30rem]" selectionMode="single" [(selection)]="selectedFile" (onNodeExpand)="nodeExpand($event)" (onNodeCollapse)="nodeCollapse($event)" (onNodeSelect)="nodeSelect($event)" (onNodeUnselect)="nodeUnselect($event)" />`,
+        basic: `<p-tree [value]="files" class="w-full md:w-[30rem]" selectionMode="single" [(selection)]="selectedFile" (onNodeExpand)="nodeExpand($event)" (onNodeCollapse)="nodeCollapse($event)" (onNodeSelect)="nodeSelect($event)" (onNodeUnselect)="nodeUnselect($event)" />`,
 
         html: `<div class="card">
     <p-toast />
-    <p-tree [value]="files" styleClass="w-full md:w-[30rem]" selectionMode="single" [(selection)]="selectedFile" (onNodeExpand)="nodeExpand($event)" (onNodeCollapse)="nodeCollapse($event)" (onNodeSelect)="nodeSelect($event)" (onNodeUnselect)="nodeUnselect($event)" />
+    <p-tree [value]="files" class="w-full md:w-[30rem]" selectionMode="single" [(selection)]="selectedFile" (onNodeExpand)="nodeExpand($event)" (onNodeCollapse)="nodeCollapse($event)" (onNodeSelect)="nodeSelect($event)" (onNodeUnselect)="nodeUnselect($event)" />
 </div>`,
 
         typescript: `import { Component, OnInit } from '@angular/core';

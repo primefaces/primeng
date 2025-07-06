@@ -1,6 +1,7 @@
 import { CommonModule } from '@angular/common';
-import { ChangeDetectionStrategy, Component, ViewEncapsulation } from '@angular/core';
+import { ChangeDetectionStrategy, Component, inject, ViewEncapsulation } from '@angular/core';
 import { BaseComponent } from 'primeng/basecomponent';
+import { TabPanelsStyle } from './style/tabpanelsstyle';
 
 /**
  * TabPanels is a helper component for Tabs component.
@@ -14,10 +15,12 @@ import { BaseComponent } from 'primeng/basecomponent';
     changeDetection: ChangeDetectionStrategy.OnPush,
     encapsulation: ViewEncapsulation.None,
     host: {
-        '[class.p-tabpanels]': 'true',
-        '[class.p-component]': 'true',
+        '[class]': 'cx("root")',
         '[attr.data-pc-name]': '"tabpanels"',
         '[attr.role]': '"presentation"'
-    }
+    },
+    providers: [TabPanelsStyle]
 })
-export class TabPanels extends BaseComponent {}
+export class TabPanels extends BaseComponent {
+    _componentStyle = inject(TabPanelsStyle);
+}

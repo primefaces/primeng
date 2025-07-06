@@ -90,16 +90,17 @@ export class DesignComponent implements OnInit {
 
     constructor() {
         this.routeSubscription = this.router.events.subscribe((event: NavigationEnd) => {
-            const url = event.url;
-            if (url) {
-                this.componentKey.set(url.split('/')[1]);
+            if (event.url) {
+                const url = event.url.split('/')[1] === 'table' ? 'datatable' : event.url.split('/')[1];
+                this.componentKey.set(url);
             }
         });
     }
 
     ngOnInit() {
         if (!this.componentKey()) {
-            this.componentKey.set(this.router.routerState.snapshot.url.split('/')[1]);
+            const url = this.router.routerState.snapshot.url.split('/')[1] === 'table' ? 'datatable' : this.router.routerState.snapshot.url.split('/')[1];
+            this.componentKey.set(url);
         }
     }
 

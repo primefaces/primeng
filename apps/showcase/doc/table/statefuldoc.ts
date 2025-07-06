@@ -33,26 +33,34 @@ import { ChangeDetectionStrategy, ChangeDetectorRef, Component } from '@angular/
                             <p-inputicon>
                                 <i class="pi pi-search"></i>
                             </p-inputicon>
-                            <input pInputText type="text" (input)="dt1.filterGlobal($event.target.value, 'contains')" placeholder="Global Search" />
+                            <input pInputText type="text" [value]="dt1.filters['global']?.value" (input)="dt1.filterGlobal($event.target.value, 'contains')" placeholder="Global Search" />
                         </p-iconfield>
                     </ng-template>
                     <ng-template #header>
                         <tr>
                             <th pSortableColumn="name" style="width:25%">
-                                Name
-                                <p-sortIcon field="name" />
+                                <div class="flex items-center gap-2">
+                                    Name
+                                    <p-sortIcon field="name" />
+                                </div>
                             </th>
                             <th pSortableColumn="country.name" style="width:25%">
-                                Country
-                                <p-sortIcon field="country.name" />
+                                <div class="flex items-center gap-2">
+                                    Country
+                                    <p-sortIcon field="country.name" />
+                                </div>
                             </th>
                             <th pSortableColumn="representative.name" style="width:25%">
-                                Representative
-                                <p-sortIcon field="representative.name" />
+                                <div class="flex items-center gap-2">
+                                    Representative
+                                    <p-sortIcon field="representative.name" />
+                                </div>
                             </th>
                             <th pSortableColumn="status" style="width:25%">
-                                Status
-                                <p-sortIcon field="status" />
+                                <div class="flex items-center gap-2">
+                                    Status
+                                    <p-sortIcon field="status" />
+                                </div>
                             </th>
                         </tr>
                     </ng-template>
@@ -139,6 +147,7 @@ export class StatefulDoc {
             <input
                 pInputText
                 type="text"
+                [value]="dt1.filters['global']?.value"
                 (input)="dt1.filterGlobal($event.target.value, 'contains')"
                 placeholder="Global Search"
             />
@@ -146,14 +155,30 @@ export class StatefulDoc {
     </ng-template>
     <ng-template #header>
         <tr>
-            <th pSortableColumn="name" style="width:25%">Name <p-sortIcon field="name" /></th>
+            <th pSortableColumn="name" style="width:25%">
+                <div class="flex items-center gap-2">
+                    Name
+                    <p-sortIcon field="name" />
+                </div>
+            </th>
             <th pSortableColumn="country.name" style="width:25%">
-                Country <p-sortIcon field="country.name" />
+                <div class="flex items-center gap-2">
+                    Country
+                    <p-sortIcon field="country.name" />
+                </div>
             </th>
             <th pSortableColumn="representative.name" style="width:25%">
-                Representative <p-sortIcon field="representative.name" />
+                <div class="flex items-center gap-2">
+                    Representative
+                    <p-sortIcon field="representative.name" />
+                </div>
             </th>
-            <th pSortableColumn="status" style="width:25%">Status <p-sortIcon field="status" /></th>
+            <th pSortableColumn="status" style="width:25%">
+                <div class="flex items-center gap-2">
+                    Status
+                    <p-sortIcon field="status" />
+                </div>
+            </th>
         </tr>
     </ng-template>
     <ng-template #body let-customer>
@@ -235,6 +260,7 @@ export class StatefulDoc {
                 <input
                     pInputText
                     type="text"
+                    [value]="dt1.filters['global']?.value"
                     (input)="dt1.filterGlobal($event.target.value, 'contains')"
                     placeholder="Global Search"
                 />
@@ -242,14 +268,30 @@ export class StatefulDoc {
         </ng-template>
         <ng-template #header>
             <tr>
-                <th pSortableColumn="name" style="width:25%">Name <p-sortIcon field="name" /></th>
+                <th pSortableColumn="name" style="width:25%">
+                    <div class="flex items-center gap-2">
+                        Name
+                        <p-sortIcon field="name" />
+                    </div>
+                </th>
                 <th pSortableColumn="country.name" style="width:25%">
-                    Country <p-sortIcon field="country.name" />
+                    <div class="flex items-center gap-2">
+                        Country
+                        <p-sortIcon field="country.name" />
+                    </div>
                 </th>
                 <th pSortableColumn="representative.name" style="width:25%">
-                    Representative <p-sortIcon field="representative.name" />
+                    <div class="flex items-center gap-2">
+                        Representative
+                        <p-sortIcon field="representative.name" />
+                    </div>
                 </th>
-                <th pSortableColumn="status" style="width:25%">Status <p-sortIcon field="status" /></th>
+                <th pSortableColumn="status" style="width:25%">
+                    <div class="flex items-center gap-2">
+                        Status
+                        <p-sortIcon field="status" />
+                    </div>
+                </th>
             </tr>
         </ng-template>
         <ng-template #body let-customer>

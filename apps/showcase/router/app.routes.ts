@@ -71,7 +71,6 @@ export const routes: Routes = [
                 path: 'dataview',
                 loadChildren: () => import('@/pages/dataview/routes')
             },
-            { path: 'defer', loadChildren: () => import('@/pages/defer/routes') },
             { path: 'dialog', loadChildren: () => import('@/pages/dialog/routes') },
             { path: 'dock', loadChildren: () => import('@/pages/dock/routes') },
             { path: 'divider', loadChildren: () => import('@/pages/divider/routes') },
@@ -242,7 +241,6 @@ export const routes: Routes = [
                 loadChildren: () => import('@/pages/splitter/routes')
             },
             { path: 'stepper', loadChildren: () => import('@/pages/stepper/routes') },
-            { path: 'steps', loadChildren: () => import('@/pages/steps/routes') },
             { path: 'support', loadChildren: () => import('@/pages/support/routes') },
             {
                 path: 'styleclass',
@@ -299,6 +297,10 @@ export const routes: Routes = [
             {
                 path: 'designer',
                 loadChildren: () => import('@/pages/designer/routes')
+            },
+            {
+                path: 'migration',
+                loadChildren: () => import('@/pages/migration/routes')
             }
         ]
     },

@@ -13,31 +13,32 @@ import { ToolbarStyle } from './style/toolbarstyle';
     standalone: true,
     imports: [CommonModule, SharedModule],
     template: `
-        <div [ngClass]="'p-toolbar p-component'" [attr.aria-labelledby]="ariaLabelledBy" [ngStyle]="style" [class]="styleClass" role="toolbar" [attr.data-pc-name]="'toolbar'">
-            <ng-content></ng-content>
-            <div class="p-toolbar-start" *ngIf="startTemplate || _startTemplate" [attr.data-pc-section]="'start'">
-                <ng-container *ngTemplateOutlet="startTemplate || _startTemplate"></ng-container>
-            </div>
-            <div class="p-toolbar-center" *ngIf="centerTemplate || _centerTemplate" [attr.data-pc-section]="'center'">
-                <ng-container *ngTemplateOutlet="centerTemplate || _centerTemplate"></ng-container>
-            </div>
-            <div class="p-toolbar-end" *ngIf="endTemplate || _endTemplate" [attr.data-pc-section]="'end'">
-                <ng-container *ngTemplateOutlet="endTemplate || _endTemplate"></ng-container>
-            </div>
+        <ng-content></ng-content>
+        <div [class]="cx('start')" *ngIf="startTemplate || _startTemplate" [attr.data-pc-section]="'start'">
+            <ng-container *ngTemplateOutlet="startTemplate || _startTemplate"></ng-container>
+        </div>
+        <div [class]="cx('center')" *ngIf="centerTemplate || _centerTemplate" [attr.data-pc-section]="'center'">
+            <ng-container *ngTemplateOutlet="centerTemplate || _centerTemplate"></ng-container>
+        </div>
+        <div [class]="cx('end')" *ngIf="endTemplate || _endTemplate" [attr.data-pc-section]="'end'">
+            <ng-container *ngTemplateOutlet="endTemplate || _endTemplate"></ng-container>
         </div>
     `,
     changeDetection: ChangeDetectionStrategy.OnPush,
     encapsulation: ViewEncapsulation.None,
-    providers: [ToolbarStyle]
+    providers: [ToolbarStyle],
+    host: {
+        '[class]': 'cn(cx("root"), styleClass)',
+        'data-pc-section': 'root',
+        'data-pc-name': 'toolbar',
+        role: 'toolbar',
+        '[attr.aria-labelledby]': 'ariaLabelledBy'
+    }
 })
 export class Toolbar extends BaseComponent implements AfterContentInit, BlockableUI {
     /**
-     * Inline style of the component.
-     * @group Props
-     */
-    @Input() style: { [klass: string]: any } | null | undefined;
-    /**
      * Style class of the component.
+     * @deprecated since v20.0.0, use `class` instead.
      * @group Props
      */
     @Input() styleClass: string | undefined;

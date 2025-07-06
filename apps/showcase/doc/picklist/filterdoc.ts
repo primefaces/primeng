@@ -16,13 +16,11 @@ import { ChangeDetectorRef, Component } from '@angular/core';
                 [target]="targetProducts"
                 [dragdrop]="true"
                 [responsive]="true"
-                [sourceStyle]="{ height: '30rem' }"
-                [targetStyle]="{ height: '30rem' }"
                 filterBy="name"
                 sourceFilterPlaceholder="Search by name"
                 targetFilterPlaceholder="Search by name"
                 breakpoint="1400px"
-                scrollHeight="30rem"
+                scrollHeight="20rem"
             >
                 <ng-template let-option let-selected="selected" #option>
                     <div class="flex flex-wrap p-1 items-center gap-4 w-full">
@@ -70,13 +68,11 @@ export class FilterDoc {
     [target]="targetProducts"
     [dragdrop]="true"
     [responsive]="true"
-    [sourceStyle]="{ height: '30rem' }"
-    [targetStyle]="{ height: '30rem' }"
     filterBy="name"
     sourceFilterPlaceholder="Search by name"
     targetFilterPlaceholder="Search by name"
     breakpoint="1400px"
-    scrollHeight="30rem"
+    scrollHeight="20rem"
 >
     <ng-template let-option let-selected="selected" #option>
         <div class="flex flex-wrap p-1 items-center gap-4 w-full">
@@ -107,13 +103,11 @@ export class FilterDoc {
         [target]="targetProducts"
         [dragdrop]="true"
         [responsive]="true"
-        [sourceStyle]="{ height: '30rem' }"
-        [targetStyle]="{ height: '30rem' }"
         filterBy="name"
         sourceFilterPlaceholder="Search by name"
         targetFilterPlaceholder="Search by name"
         breakpoint="1400px"
-        scrollHeight="30rem"
+        scrollHeight="20rem"
     >
         <ng-template let-option let-selected="selected" #option>
             <div class="flex flex-wrap p-1 items-center gap-4 w-full">

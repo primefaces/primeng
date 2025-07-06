@@ -15,7 +15,7 @@ import { SelectItem } from 'primeng/api';
             <p-dataview #dv [value]="products()" [sortField]="sortField" [sortOrder]="sortOrder">
                 <ng-template #header>
                     <div class="flex flex-col md:flex-row md:justify-between">
-                        <p-select [options]="sortOptions" [(ngModel)]="sortKey" placeholder="Sort By Price" (onChange)="onSortChange($event)" styleClass="mb-2 md:mb-0" />
+                        <p-select [options]="sortOptions" [(ngModel)]="sortKey" placeholder="Sort By Price" (onChange)="onSortChange($event)" class="mb-2 md:mb-0" />
                     </div>
                 </ng-template>
                 <ng-template #list let-items>
@@ -24,7 +24,7 @@ import { SelectItem } from 'primeng/api';
                             <div class="flex flex-col sm:flex-row sm:items-center p-6 gap-4" [ngClass]="{ 'border-t border-surface-200 dark:border-surface-700': !first }">
                                 <div class="md:w-40 relative">
                                     <img class="block xl:block mx-auto rounded-border w-full" [src]="'https://primefaces.org/cdn/primeng/images/demo/product/' + item.image" [alt]="item.name" />
-                                    <p-tag [value]="item.inventoryStatus" [severity]="getSeverity(item)" class="absolute" styleClass="dark:!bg-surface-900" [style.left.px]="4" [style.top.px]="4" />
+                                    <p-tag [value]="item.inventoryStatus" [severity]="getSeverity(item)" class="dark:!bg-surface-900 absolute" [style.left.px]="4" [style.top.px]="4" />
                                 </div>
                                 <div class="flex flex-col md:flex-row justify-between md:items-center flex-1 gap-6">
                                     <div class="flex flex-row md:flex-col justify-between items-start gap-2">
@@ -78,7 +78,7 @@ export class SortingDoc {
                 [(ngModel)]="sortKey"
                 placeholder="Sort By Price"
                 (onChange)="onSortChange($event)"
-                styleClass="mb-2 md:mb-0"
+                class="mb-2 md:mb-0"
             />
         </div>
     </ng-template>
@@ -98,8 +98,7 @@ export class SortingDoc {
                         <p-tag
                             [value]="item.inventoryStatus"
                             [severity]="getSeverity(item)"
-                            class="absolute"
-                            styleClass="dark:!bg-surface-900"
+                            class="dark:!bg-surface-900 absolute"
                             [style.left.px]="4"
                             [style.top.px]="4"
                         />
@@ -152,7 +151,7 @@ export class SortingDoc {
                     [(ngModel)]="sortKey"
                     placeholder="Sort By Price"
                     (onChange)="onSortChange($event)"
-                    styleClass="mb-2 md:mb-0"
+                    class="mb-2 md:mb-0"
                 />
             </div>
         </ng-template>
@@ -172,8 +171,7 @@ export class SortingDoc {
                             <p-tag
                                 [value]="item.inventoryStatus"
                                 [severity]="getSeverity(item)"
-                                class="absolute"
-                                styleClass="dark:!bg-surface-900"
+                                class="dark:!bg-surface-900 absolute"
                                 [style.left.px]="4"
                                 [style.top.px]="4"
                             />
@@ -226,14 +224,14 @@ import { DataView } from 'primeng/dataview';
 import { ButtonModule } from 'primeng/button';
 import { Tag } from 'primeng/tag';
 import { CommonModule } from '@angular/common';
-import { DropdownModule } from 'primeng/dropdown';
+import { SelectModule } from 'primeng/select';
 import { signal } from '@angular/core';
 
 @Component({
     selector: 'data-view-sorting-demo',
     templateUrl: './data-view-sorting-demo.html',
     standalone: true,
-    imports: [DataView, ButtonModule, Tag, CommonModule, DropdownModule],
+    imports: [DataView, ButtonModule, Tag, CommonModule, SelectModule],
     providers: [ProductService]
 })
 export class DataViewSortingDemo {

@@ -1,6 +1,6 @@
 import { animate, state, style, transition, trigger } from '@angular/animations';
 import { CommonModule } from '@angular/common';
-import { AfterContentInit, ViewChild, ElementRef, booleanAttribute, ChangeDetectionStrategy, Component, ContentChild, ContentChildren, EventEmitter, inject, Input, NgModule, Output, QueryList, TemplateRef, ViewEncapsulation } from '@angular/core';
+import { AfterContentInit, booleanAttribute, ChangeDetectionStrategy, Component, ContentChild, ContentChildren, ElementRef, EventEmitter, inject, Input, NgModule, Output, QueryList, TemplateRef, ViewChild, ViewEncapsulation } from '@angular/core';
 import { uuid } from '@primeuix/utils';
 import { BlockableUI, Footer, PrimeTemplate, SharedModule } from 'primeng/api';
 import { BaseComponent } from 'primeng/basecomponent';
@@ -54,101 +54,80 @@ export interface PanelHeaderIconsTemplateContext {
     standalone: true,
     imports: [CommonModule, PlusIcon, MinusIcon, ButtonModule, SharedModule],
     template: `
-        <div
-            [attr.id]="id"
-            [attr.data-pc-name]="'panel'"
-            [ngClass]="{
-                'p-panel p-component': true,
-                'p-panel-toggleable': toggleable,
-                'p-panel-expanded': !collapsed && toggleable
-            }"
-            [ngStyle]="style"
-            [class]="styleClass"
-        >
-            <div class="p-panel-header" *ngIf="showHeader" (click)="onHeaderClick($event)" [attr.id]="id + '-titlebar'">
-                <span class="p-panel-title" *ngIf="_header" [attr.id]="id + '_header'">{{ _header }}</span>
-                <ng-content select="p-header"></ng-content>
-                <ng-container *ngTemplateOutlet="headerTemplate || _headerTemplate"></ng-container>
-                <div
-                    class="p-panel-icons"
-                    [ngClass]="{
-                        'p-panel-icons-start': iconPos === 'start',
-                        'p-panel-icons-end': iconPos === 'end',
-                        'p-panel-icons-center': iconPos === 'center'
-                    }"
+        <div [class]="cx('header')" *ngIf="showHeader" (click)="onHeaderClick($event)" [attr.id]="id + '-titlebar'">
+            <span [class]="cx('title')" *ngIf="_header" [attr.id]="id + '_header'">{{ _header }}</span>
+            <ng-content select="p-header"></ng-content>
+            <ng-container *ngTemplateOutlet="headerTemplate || _headerTemplate"></ng-container>
+            <div [class]="cx('icons')">
+                <ng-template *ngTemplateOutlet="iconTemplate || _iconTemplate"></ng-template>
+                <p-button
+                    *ngIf="toggleable"
+                    [attr.id]="id + '_header'"
+                    severity="secondary"
+                    [text]="true"
+                    [rounded]="true"
+                    type="button"
+                    role="button"
+                    [styleClass]="cx('pcToggleButton')"
+                    [attr.aria-label]="buttonAriaLabel"
+                    [attr.aria-controls]="id + '_content'"
+                    [attr.aria-expanded]="!collapsed"
+                    (click)="onIconClick($event)"
+                    (keydown)="onKeyDown($event)"
+                    [buttonProps]="toggleButtonProps"
                 >
-                    <ng-template *ngTemplateOutlet="iconTemplate || _iconTemplate"></ng-template>
-                    <p-button
-                        *ngIf="toggleable"
-                        [attr.id]="id + '_header'"
-                        severity="secondary"
-                        [text]="true"
-                        [rounded]="true"
-                        type="button"
-                        role="button"
-                        styleClass="p-panel-header-icon p-panel-toggler p-link"
-                        [attr.aria-label]="buttonAriaLabel"
-                        [attr.aria-controls]="id + '_content'"
-                        [attr.aria-expanded]="!collapsed"
-                        (click)="onIconClick($event)"
-                        (keydown)="onKeyDown($event)"
-                        [buttonProps]="toggleButtonProps"
-                    >
-                        <ng-template #icon>
-                            <ng-container *ngIf="!headerIconsTemplate && !_headerIconsTemplate && !toggleButtonProps?.icon">
-                                <ng-container *ngIf="!collapsed">
-                                    <span *ngIf="expandIcon" [class]="expandIcon"></span>
-                                    <MinusIcon *ngIf="!expandIcon" />
-                                </ng-container>
-
-                                <ng-container *ngIf="collapsed">
-                                    <span *ngIf="collapseIcon" [class]="collapseIcon"></span>
-                                    <PlusIcon *ngIf="!collapseIcon" />
-                                </ng-container>
+                    <ng-template #icon>
+                        <ng-container *ngIf="!headerIconsTemplate && !_headerIconsTemplate && !toggleButtonProps?.icon">
+                            <ng-container *ngIf="!collapsed">
+                                <svg data-p-icon="minus" />
                             </ng-container>
 
-                            <ng-template *ngTemplateOutlet="headerIconsTemplate || _headerIconsTemplate; context: { $implicit: collapsed }"></ng-template>
-                        </ng-template>
-                    </p-button>
-                </div>
-            </div>
-            <div
-                class="p-panel-content-container"
-                [id]="id + '_content'"
-                role="region"
-                [attr.aria-labelledby]="id + '_header'"
-                [attr.aria-hidden]="collapsed"
-                [attr.tabindex]="collapsed ? '-1' : undefined"
-                [@panelContent]="
-                    collapsed
-                        ? {
-                              value: 'hidden',
-                              params: {
-                                  transitionParams: animating ? transitionOptions : '0ms',
-                                  height: '0',
-                                  opacity: '0'
-                              }
-                          }
-                        : {
-                              value: 'visible',
-                              params: {
-                                  transitionParams: animating ? transitionOptions : '0ms',
-                                  height: '*',
-                                  opacity: '1'
-                              }
-                          }
-                "
-                (@panelContent.done)="onToggleDone($event)"
-            >
-                <div class="p-panel-content" #contentWrapper>
-                    <ng-content></ng-content>
-                    <ng-container *ngTemplateOutlet="contentTemplate || _contentTemplate"></ng-container>
-                </div>
+                            <ng-container *ngIf="collapsed">
+                                <svg data-p-icon="plus" />
+                            </ng-container>
+                        </ng-container>
 
-                <div class="p-panel-footer" *ngIf="footerFacet || footerTemplate || _footerTemplate">
-                    <ng-content select="p-footer"></ng-content>
-                    <ng-container *ngTemplateOutlet="footerTemplate || _footerTemplate"></ng-container>
-                </div>
+                        <ng-template *ngTemplateOutlet="headerIconsTemplate || _headerIconsTemplate; context: { $implicit: collapsed }"></ng-template>
+                    </ng-template>
+                </p-button>
+            </div>
+        </div>
+        <div
+            [class]="cx('contentContainer')"
+            [id]="id + '_content'"
+            role="region"
+            [attr.aria-labelledby]="id + '_header'"
+            [attr.aria-hidden]="collapsed"
+            [attr.tabindex]="collapsed ? '-1' : undefined"
+            [@panelContent]="
+                collapsed
+                    ? {
+                          value: 'hidden',
+                          params: {
+                              transitionParams: animating ? transitionOptions : '0ms',
+                              height: '0',
+                              opacity: '0'
+                          }
+                      }
+                    : {
+                          value: 'visible',
+                          params: {
+                              transitionParams: animating ? transitionOptions : '0ms',
+                              height: '*',
+                              opacity: '1'
+                          }
+                      }
+            "
+            (@panelContent.done)="onToggleDone($event)"
+        >
+            <div [class]="cx('content')" #contentWrapper>
+                <ng-content></ng-content>
+                <ng-container *ngTemplateOutlet="contentTemplate || _contentTemplate"></ng-container>
+            </div>
+
+            <div [class]="cx('footer')" *ngIf="footerFacet || footerTemplate || _footerTemplate">
+                <ng-content select="p-footer"></ng-content>
+                <ng-container *ngTemplateOutlet="footerTemplate || _footerTemplate"></ng-container>
             </div>
         </div>
     `,
@@ -180,7 +159,12 @@ export interface PanelHeaderIconsTemplateContext {
     ],
     changeDetection: ChangeDetectionStrategy.OnPush,
     encapsulation: ViewEncapsulation.None,
-    providers: [PanelStyle]
+    providers: [PanelStyle],
+    host: {
+        '[id]': 'id',
+        'data-pc-name': 'panel',
+        '[class]': "cn(cx('root'), styleClass)"
+    }
 })
 export class Panel extends BaseComponent implements AfterContentInit, BlockableUI {
     /**
@@ -199,13 +183,13 @@ export class Panel extends BaseComponent implements AfterContentInit, BlockableU
      */
     @Input({ transform: booleanAttribute }) collapsed: boolean | undefined;
     /**
-     * Inline style of the component.
-     * @group Props
+     * Id of the component.
      */
-    @Input() style: { [klass: string]: any } | null | undefined;
+    @Input() id: string | undefined = uuid('pn_id_');
     /**
      * Style class of the component.
      * @group Props
+     * @deprecated since v20.0.0, use `class` instead.
      */
     @Input() styleClass: string | undefined;
     /**
@@ -213,18 +197,6 @@ export class Panel extends BaseComponent implements AfterContentInit, BlockableU
      * @group Props
      */
     @Input() iconPos: 'start' | 'end' | 'center' = 'end';
-    /**
-     * Expand icon of the toggle button.
-     * @group Props
-     * @deprecated since v15.4.2, use `headericons` template instead.
-     */
-    @Input() expandIcon: string | undefined;
-    /**
-     * Collapse icon of the toggle button.
-     * @group Props
-     * @deprecated since v15.4.2, use `headericons` template instead.
-     */
-    @Input() collapseIcon: string | undefined;
     /**
      * Specifies if header of panel cannot be displayed.
      * @group Props
@@ -326,8 +298,6 @@ export class Panel extends BaseComponent implements AfterContentInit, BlockableU
 
     @ViewChild('contentWrapper') contentWrapperViewChild: ElementRef;
 
-    readonly id = uuid('pn_id_');
-
     get buttonAriaLabel() {
         return this._header;
     }
@@ -376,7 +346,7 @@ export class Panel extends BaseComponent implements AfterContentInit, BlockableU
     }
 
     getBlockableElement(): HTMLElement {
-        return this.el.nativeElement.children[0];
+        return this.el.nativeElement;
     }
 
     updateTabIndex() {

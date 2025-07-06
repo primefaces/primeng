@@ -21,7 +21,7 @@ import { MenuItem } from 'primeng/api';
                 </ng-template>
                 <ng-template #center>
                     <p-iconfield iconPosition="left">
-                        <p-inputicon styleClass="pi pi-search" />
+                        <p-inputicon class="pi pi-search" />
                         <input type="text" pInputText placeholder="Search" />
                     </p-iconfield>
                 </ng-template>
@@ -58,7 +58,7 @@ export class BasicDoc implements OnInit {
     </ng-template>
     <ng-template #center>
         <p-iconfield iconPosition="left">
-            <p-inputicon styleClass="pi pi-search" />
+            <p-inputicon class="pi pi-search" />
             <input type="text" pInputText placeholder="Search" />
         </p-iconfield>
     </ng-template>
@@ -76,7 +76,7 @@ export class BasicDoc implements OnInit {
         </ng-template>
         <ng-template #center>
             <p-iconfield iconPosition="left">
-                <p-inputicon styleClass="pi pi-search" />
+                <p-inputicon class="pi pi-search" />
                 <input type="text" pInputText placeholder="Search" />
             </p-iconfield>
         </ng-template>

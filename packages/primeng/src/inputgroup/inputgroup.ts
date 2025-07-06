@@ -15,20 +15,14 @@ import { InputGroupStyle } from './style/inputgroupstyle';
     template: ` <ng-content></ng-content> `,
     providers: [InputGroupStyle],
     host: {
-        class: 'p-inputgroup',
         '[attr.data-pc-name]': '"inputgroup"',
-        '[class]': 'styleClass',
-        '[style]': 'style'
+        '[class]': "cn(cx('root'), styleClass)"
     }
 })
 export class InputGroup extends BaseComponent {
     /**
-     * Inline style of the element.
-     * @group Props
-     */
-    @Input() style: { [klass: string]: any } | null | undefined;
-    /**
      * Class of the element.
+     * @deprecated since v20.0.0, use `class` instead.
      * @group Props
      */
     @Input() styleClass: string | undefined;
