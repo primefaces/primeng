@@ -23,19 +23,15 @@ import { DividerStyle } from './style/dividerstyle';
         '[aria-orientation]': 'layout',
         'data-pc-name': 'divider',
         role: 'separator',
-        '[class]': "cx('root')",
+        '[class]': "cn(cx('root'), styleClass)",
         '[style]': "sx('root')"
     },
     providers: [DividerStyle]
 })
 export class Divider extends BaseComponent {
     /**
-     * Inline style of the component.
-     * @group Props
-     */
-    @Input() style: { [klass: string]: any } | null | undefined;
-    /**
      * Style class of the component.
+     * @deprecated since v20.0.0, use `class` instead.
      * @group Props
      */
     @Input() styleClass: string | undefined;

@@ -28,12 +28,13 @@ import { animate, state, style, transition, trigger } from '@angular/animations'
 import { find, findIndexInList, uuid } from '@primeuix/utils';
 import { PrimeTemplate, SharedModule } from 'primeng/api';
 import { BaseComponent } from 'primeng/basecomponent';
-import { StepperStyle } from './style/stepperstyle';
-import { StepStyle } from './style/stepstyle';
+import { transformToBoolean } from 'primeng/utils';
 import { StepItemStyle } from './style/stepitemstyle';
 import { StepListStyle } from './style/stepliststyle';
-import { StepPanelStyle } from './style/steppanelstyle';
 import { StepPanelsStyle } from './style/steppanelsstyle';
+import { StepPanelStyle } from './style/steppanelstyle';
+import { StepperStyle } from './style/stepperstyle';
+import { StepStyle } from './style/stepstyle';
 
 /**
  * Context interface for the StepPanel content template.
@@ -255,10 +256,8 @@ export class Step extends BaseComponent implements AfterContentInit {
         @if (isSeparatorVisible()) {
             <p-stepper-separator />
         }
-        <div class="p-steppanel-content" [@content]="isVertical() ? (active() ? { value: 'visible', params: { transitionParams: transitionOptions() } } : { value: 'hidden', params: { transitionParams: transitionOptions() } }) : undefined">
-            @if (active()) {
-                <ng-container *ngTemplateOutlet="contentTemplate || _contentTemplate; context: { activateCallback: updateValue.bind(this), value: value(), active: active() }"></ng-container>
-            }
+        <div [class]="cx('content')" [@content]="isVertical() ? (active() ? { value: 'visible', params: { transitionParams: transitionOptions() } } : { value: 'hidden', params: { transitionParams: transitionOptions() } }) : undefined">
+            <ng-container *ngTemplateOutlet="contentTemplate || _contentTemplate; context: { activateCallback: updateValue.bind(this), value: value(), active: active() }"></ng-container>
         </div>
     `,
     changeDetection: ChangeDetectionStrategy.OnPush,
@@ -269,25 +268,24 @@ export class Step extends BaseComponent implements AfterContentInit {
         '[attr.aria-controls]': 'ariaControls()',
         '[attr.id]': 'id()',
         '[attr.data-p-active]': 'active()',
-        '[attr.data-pc-name]': '"steppanel"'
+        '[attr.data-pc-name]': '"steppanel"',
+        '[style.display]': '!isVertical() && !active() ? "none" : ""'
     },
     animations: [
         trigger('content', [
             state(
                 'hidden',
                 style({
-                    height: '0',
-                    visibility: 'hidden'
+                    height: '0'
                 })
             ),
             state(
                 'visible',
                 style({
-                    height: '*',
-                    visibility: 'visible'
+                    height: '*'
                 })
             ),
-            transition('visible <=> hidden', [animate('250ms cubic-bezier(0.86, 0, 0.07, 1)')]),
+            transition('visible <=> hidden', [animate('400ms cubic-bezier(0.86, 0, 0.07, 1)')]),
             transition('void => *', animate(0))
         ])
     ],

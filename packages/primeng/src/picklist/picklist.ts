@@ -2,7 +2,6 @@ import { CdkDragDrop, DragDropModule, moveItemInArray, transferArrayItem } from 
 import { CommonModule, isPlatformBrowser } from '@angular/common';
 import {
     AfterContentInit,
-    AfterViewChecked,
     booleanAttribute,
     ChangeDetectionStrategy,
     Component,
@@ -21,12 +20,12 @@ import {
     ViewEncapsulation
 } from '@angular/core';
 import { FormsModule } from '@angular/forms';
-import { find, findIndexInList, findSingle, isEmpty, scrollInView, setAttribute, uuid } from '@primeuix/utils';
+import { find, findIndexInList, isEmpty, setAttribute, uuid } from '@primeuix/utils';
 import { FilterService, PrimeTemplate, SharedModule } from 'primeng/api';
 import { BaseComponent } from 'primeng/basecomponent';
-import { ButtonDirective, ButtonProps } from 'primeng/button';
+import { ButtonModule, ButtonProps } from 'primeng/button';
 import { AngleDoubleDownIcon, AngleDoubleLeftIcon, AngleDoubleRightIcon, AngleDoubleUpIcon, AngleDownIcon, AngleLeftIcon, AngleRightIcon, AngleUpIcon } from 'primeng/icons';
-import { Listbox } from 'primeng/listbox';
+import { Listbox, ListboxChangeEvent } from 'primeng/listbox';
 import { Ripple } from 'primeng/ripple';
 import { Nullable, VoidListener } from 'primeng/ts-helpers';
 import {
@@ -51,9 +50,9 @@ import { PickListStyle } from './style/pickliststyle';
 @Component({
     selector: 'p-pickList, p-picklist, p-pick-list',
     standalone: true,
-    imports: [CommonModule, ButtonDirective, Ripple, DragDropModule, AngleDoubleDownIcon, AngleDoubleLeftIcon, AngleDoubleRightIcon, AngleDoubleUpIcon, AngleDownIcon, AngleLeftIcon, AngleRightIcon, AngleUpIcon, Listbox, FormsModule, SharedModule],
+    imports: [CommonModule, ButtonModule, Ripple, DragDropModule, AngleDoubleDownIcon, AngleDoubleLeftIcon, AngleDoubleRightIcon, AngleDoubleUpIcon, AngleDownIcon, AngleLeftIcon, AngleRightIcon, AngleUpIcon, Listbox, FormsModule, SharedModule],
     template: `
-        <div [ngStyle]="style" [class]="cx('root')" cdkDropListGroup [attr.data-pc-name]="'picklist'" [attr.data-pc-section]="'root'">
+        <div [ngStyle]="style" [class]="cn(cx('root'), styleClass)" cdkDropListGroup [attr.data-pc-name]="'picklist'" [attr.data-pc-section]="'root'">
             <div [class]="cx('sourceControls')" *ngIf="showSourceControls" [attr.data-pc-section]="'sourceControls'" [attr.data-pc-group-section]="'controls'">
                 <button
                     type="button"
@@ -66,7 +65,7 @@ import { PickListStyle } from './style/pickliststyle';
                     [attr.data-pc-section]="'sourceMoveUpButton'"
                     [buttonProps]="getButtonProps('moveup')"
                 >
-                    <AngleUpIcon *ngIf="!moveUpIconTemplate && !_moveUpIconTemplate" [attr.data-pc-section]="'moveupicon'" />
+                    <svg data-p-icon="angle-up" *ngIf="!moveUpIconTemplate && !_moveUpIconTemplate" [attr.data-pc-section]="'moveupicon'" pButtonIcon />
                     <ng-template *ngTemplateOutlet="moveUpIconTemplate || _moveUpIconTemplate"></ng-template>
                 </button>
                 <button
@@ -80,7 +79,7 @@ import { PickListStyle } from './style/pickliststyle';
                     [attr.data-pc-section]="'sourceMoveTopButton'"
                     [buttonProps]="getButtonProps('movetop')"
                 >
-                    <AngleDoubleUpIcon *ngIf="!moveTopIconTemplate && !_moveTopIconTemplate" [attr.data-pc-section]="'movetopicon'" />
+                    <svg data-p-icon="angle-double-up" *ngIf="!moveTopIconTemplate && !_moveTopIconTemplate" [attr.data-pc-section]="'movetopicon'" pButtonIcon />
                     <ng-template *ngTemplateOutlet="moveTopIconTemplate || _moveTopIconTemplate"></ng-template>
                 </button>
                 <button
@@ -94,7 +93,7 @@ import { PickListStyle } from './style/pickliststyle';
                     [attr.data-pc-section]="'sourceMoveDownButton'"
                     [buttonProps]="getButtonProps('movedown')"
                 >
-                    <AngleDownIcon *ngIf="!moveDownIconTemplate && !_moveDownIconTemplate" [attr.data-pc-section]="'movedownicon'" />
+                    <svg data-p-icon="angle-down" *ngIf="!moveDownIconTemplate && !_moveDownIconTemplate" [attr.data-pc-section]="'movedownicon'" pButtonIcon />
                     <ng-template *ngTemplateOutlet="moveDownIconTemplate || _moveDownIconTemplate"></ng-template>
                 </button>
                 <button
@@ -108,7 +107,7 @@ import { PickListStyle } from './style/pickliststyle';
                     [attr.data-pc-section]="'sourceMoveBottomButton'"
                     [buttonProps]="getButtonProps('movebottom')"
                 >
-                    <AngleDoubleDownIcon *ngIf="!moveBottomIconTemplate || _moveBottomIconTemplate" [attr.data-pc-section]="'movebottomicon'" />
+                    <svg data-p-icon="angle-double-down" *ngIf="!moveBottomIconTemplate || _moveBottomIconTemplate" [attr.data-pc-section]="'movebottomicon'" pButtonIcon />
                     <ng-template *ngTemplateOutlet="moveBottomIconTemplate || _moveBottomIconTemplate"></ng-template>
                 </button>
             </div>
@@ -125,7 +124,7 @@ import { PickListStyle } from './style/pickliststyle';
                     [tabindex]="tabindex"
                     (onFocus)="onListFocus($event, SOURCE_LIST)"
                     (onBlur)="onListBlur($event, SOURCE_LIST)"
-                    (keydown)="onItemKeyDown($event, selectedItemsSource, onSourceSelect, SOURCE_LIST)"
+                    (onChange)="onChangeSelection($event, SOURCE_LIST)"
                     (onDblClick)="onSourceItemDblClick()"
                     [disabled]="disabled"
                     [optionDisabled]="sourceOptionDisabled"
@@ -185,8 +184,8 @@ import { PickListStyle } from './style/pickliststyle';
                     [buttonProps]="getButtonProps('movetotarget')"
                 >
                     <ng-container *ngIf="!moveToTargetIconTemplate && !_moveToTargetIconTemplate">
-                        <AngleRightIcon *ngIf="!viewChanged" [attr.data-pc-section]="'movetotargeticon'" />
-                        <AngleDownIcon *ngIf="viewChanged" [attr.data-pc-section]="'movetotargeticon'" />
+                        <svg data-p-icon="angle-right" *ngIf="!viewChanged" [attr.data-pc-section]="'movetotargeticon'" pButtonIcon />
+                        <svg data-p-icon="angle-down" *ngIf="viewChanged" [attr.data-pc-section]="'movetotargeticon'" pButtonIcon />
                     </ng-container>
                     <ng-template *ngTemplateOutlet="moveToTargetIconTemplate || _moveToTargetIconTemplate; context: { $implicit: viewChanged }"></ng-template>
                 </button>
@@ -202,8 +201,8 @@ import { PickListStyle } from './style/pickliststyle';
                     [buttonProps]="getButtonProps('movealltotarget')"
                 >
                     <ng-container *ngIf="!moveAllToTargetIconTemplate && !_moveAllToTargetIconTemplate">
-                        <AngleDoubleRightIcon *ngIf="!viewChanged" [attr.data-pc-section]="'movealltotargeticon'" />
-                        <AngleDoubleDownIcon *ngIf="viewChanged" [attr.data-pc-section]="'movealltotargeticon'" />
+                        <svg data-p-icon="angle-double-right" *ngIf="!viewChanged" [attr.data-pc-section]="'movealltotargeticon'" pButtonIcon />
+                        <svg data-p-icon="angle-double-down" *ngIf="viewChanged" [attr.data-pc-section]="'movealltotargeticon'" pButtonIcon />
                     </ng-container>
                     <ng-template *ngTemplateOutlet="moveAllToTargetIconTemplate || _moveAllToTargetIconTemplate; context: { $implicit: viewChanged }"></ng-template>
                 </button>
@@ -219,8 +218,8 @@ import { PickListStyle } from './style/pickliststyle';
                     [buttonProps]="getButtonProps('movetosource')"
                 >
                     <ng-container *ngIf="!moveToSourceIconTemplate && !_moveToSourceIconTemplate">
-                        <AngleLeftIcon *ngIf="!viewChanged" [attr.data-pc-section]="'movedownsourceticon'" />
-                        <AngleUpIcon *ngIf="viewChanged" [attr.data-pc-section]="'movedownsourceticon'" />
+                        <svg data-p-icon="angle-left" *ngIf="!viewChanged" [attr.data-pc-section]="'movedownsourceticon'" pButtonIcon />
+                        <svg data-p-icon="angle-up" *ngIf="viewChanged" [attr.data-pc-section]="'movedownsourceticon'" pButtonIcon />
                     </ng-container>
                     <ng-template *ngTemplateOutlet="moveToSourceIconTemplate || _moveToSourceIconTemplate; context: { $implicit: viewChanged }"></ng-template>
                 </button>
@@ -236,8 +235,8 @@ import { PickListStyle } from './style/pickliststyle';
                     [buttonProps]="getButtonProps('movealltosource')"
                 >
                     <ng-container *ngIf="!moveAllToSourceIconTemplate && !_moveAllToSourceIconTemplate">
-                        <AngleDoubleLeftIcon *ngIf="!viewChanged" [attr.data-pc-section]="'movealltosourceticon'" />
-                        <AngleDoubleUpIcon *ngIf="viewChanged" [attr.data-pc-section]="'movealltosourceticon'" />
+                        <svg data-p-icon="angle-double-left" *ngIf="!viewChanged" [attr.data-pc-section]="'movealltosourceticon'" pButtonIcon />
+                        <svg data-p-icon="angle-double-up" *ngIf="viewChanged" [attr.data-pc-section]="'movealltosourceticon'" pButtonIcon />
                     </ng-container>
                     <ng-template *ngTemplateOutlet="moveAllToSourceIconTemplate || _moveAllToSourceIconTemplate; context: { $implicit: viewChanged }"></ng-template>
                 </button>
@@ -255,7 +254,7 @@ import { PickListStyle } from './style/pickliststyle';
                     [tabindex]="tabindex"
                     (onFocus)="onListFocus($event, TARGET_LIST)"
                     (onBlur)="onListBlur($event, TARGET_LIST)"
-                    (keydown)="onItemKeyDown($event, selectedItemsTarget, onTargetSelect, TARGET_LIST)"
+                    (onChange)="onChangeSelection($event, TARGET_LIST)"
                     (onDblClick)="onTargetItemDblClick()"
                     [disabled]="disabled"
                     [optionDisabled]="targetOptionDisabled"
@@ -315,7 +314,7 @@ import { PickListStyle } from './style/pickliststyle';
                     [attr.data-pc-section]="'targetMoveUpButton'"
                     [buttonProps]="getButtonProps('moveup')"
                 >
-                    <AngleUpIcon *ngIf="!moveUpIconTemplate && !_moveUpIconTemplate" [attr.data-pc-section]="'moveupicon'" />
+                    <svg data-p-icon="angle-up" *ngIf="!moveUpIconTemplate && !_moveUpIconTemplate" [attr.data-pc-section]="'moveupicon'" pButtonIcon />
                     <ng-template *ngTemplateOutlet="moveUpIconTemplate || _moveUpIconTemplate"></ng-template>
                 </button>
                 <button
@@ -329,7 +328,7 @@ import { PickListStyle } from './style/pickliststyle';
                     [attr.data-pc-section]="'targetMoveTopButton'"
                     [buttonProps]="getButtonProps('movetop')"
                 >
-                    <AngleDoubleUpIcon *ngIf="!moveTopIconTemplate && !_moveTopIconTemplate" [attr.data-pc-section]="'movetopicon'" />
+                    <svg data-p-icon="angle-double-up" *ngIf="!moveTopIconTemplate && !_moveTopIconTemplate" [attr.data-pc-section]="'movetopicon'" pButtonIcon />
                     <ng-template *ngTemplateOutlet="moveTopIconTemplate || moveTopIconTemplate"></ng-template>
                 </button>
                 <button
@@ -343,7 +342,7 @@ import { PickListStyle } from './style/pickliststyle';
                     [attr.data-pc-section]="'targetMoveDownButton'"
                     [buttonProps]="getButtonProps('movedown')"
                 >
-                    <AngleDownIcon *ngIf="!moveDownIconTemplate && !_moveDownIconTemplate" [attr.data-pc-section]="'movedownicon'" />
+                    <svg data-p-icon="angle-down" *ngIf="!moveDownIconTemplate && !_moveDownIconTemplate" [attr.data-pc-section]="'movedownicon'" pButtonIcon />
                     <ng-template *ngTemplateOutlet="moveDownIconTemplate || _moveDownIconTemplate"></ng-template>
                 </button>
                 <button
@@ -357,7 +356,7 @@ import { PickListStyle } from './style/pickliststyle';
                     [attr.data-pc-section]="'targetMoveBottomButton'"
                     [buttonProps]="getButtonProps('movebottom')"
                 >
-                    <AngleDoubleDownIcon *ngIf="!moveBottomIconTemplate && !_moveBottomIconTemplate" [attr.data-pc-section]="'movebottomicon'" />
+                    <svg data-p-icon="angle-double-down" *ngIf="!moveBottomIconTemplate && !_moveBottomIconTemplate" [attr.data-pc-section]="'movebottomicon'" pButtonIcon />
                     <ng-template *ngTemplateOutlet="moveBottomIconTemplate || _moveBottomIconTemplate"></ng-template>
                 </button>
             </div>
@@ -367,7 +366,7 @@ import { PickListStyle } from './style/pickliststyle';
     encapsulation: ViewEncapsulation.None,
     providers: [PickListStyle]
 })
-export class PickList extends BaseComponent implements AfterViewChecked, AfterContentInit {
+export class PickList extends BaseComponent implements AfterContentInit {
     /**
      * An array of objects for the source list.
      * @group Props
@@ -527,7 +526,7 @@ export class PickList extends BaseComponent implements AfterViewChecked, AfterCo
      * When present, it specifies that the component should be disabled.
      * @group Props
      */
-    @Input({ transform: booleanAttribute }) disabled: boolean = false;
+    @Input({ transform: booleanAttribute }) disabled: boolean;
 
     /**
      * Name of the disabled field of a target option or function to determine disabled state.
@@ -784,10 +783,6 @@ export class PickList extends BaseComponent implements AfterViewChecked, AfterCo
         return this.id + '_target';
     }
 
-    get focusedOptionId() {
-        return this.focusedOptionIndex !== -1 ? this.focusedOptionIndex : null;
-    }
-
     _breakpoint: string = '960px';
 
     public visibleOptionsSource: any[] | undefined | null;
@@ -829,15 +824,6 @@ export class PickList extends BaseComponent implements AfterViewChecked, AfterCo
     media: MediaQueryList | null | undefined;
 
     viewChanged: boolean | undefined;
-
-    focusedOptionIndex: any = -1;
-
-    focusedOption: any | undefined;
-
-    focused: any = {
-        sourceList: false,
-        targetList: false
-    };
 
     _componentStyle = inject(PickListStyle);
 
@@ -1109,61 +1095,11 @@ export class PickList extends BaseComponent implements AfterViewChecked, AfterCo
         });
     }
 
-    ngAfterViewChecked() {
-        if (this.movedUp || this.movedDown) {
-            let listItems = find(this.reorderedListElement?.el.nativeElement, 'li.p-listbox-option-selected');
+    onChangeSelection(e: ListboxChangeEvent, listType: number) {
+        this.setSelectionList(listType, e.value);
+        const callback = listType === this.SOURCE_LIST ? this.onSourceSelect : this.onTargetSelect;
 
-            let listItem;
-
-            if (listItems.length > 0) {
-                if (this.movedUp) listItem = listItems[0];
-                else listItem = listItems[listItems.length - 1];
-
-                scrollInView(this.reorderedListElement?.el.nativeElement, listItem);
-            }
-            this.movedUp = false;
-            this.movedDown = false;
-            this.reorderedListElement = null;
-        }
-    }
-
-    onItemClick(event: Event | any, item: any, selectedItems: any[], listType: number, callback: EventEmitter<any>, itemId?: string) {
-        if (this.disabled) {
-            return;
-        }
-
-        let index = this.findIndexInList(item, selectedItems);
-        if (itemId) this.focusedOptionIndex = itemId;
-        let selected = index != -1;
-        let metaSelection = this.itemTouched ? false : this.metaKeySelection;
-
-        if (metaSelection) {
-            let metaKey = (<KeyboardEvent>event).metaKey || (<KeyboardEvent>event).ctrlKey || (<KeyboardEvent>event).shiftKey;
-
-            if (selected && metaKey) {
-                selectedItems = selectedItems.filter((_, i) => i !== index);
-            } else {
-                if (!metaKey) {
-                    selectedItems = [];
-                }
-                selectedItems.push(item);
-            }
-        } else {
-            if (selected) {
-                selectedItems = selectedItems.filter((_, i) => i !== index); // Creating a new array without the selected item
-            } else {
-                selectedItems.push(item);
-            }
-        }
-        this.setSelectionList(listType, selectedItems);
-        callback.emit({ originalEvent: event, items: selectedItems });
-
-        this.itemTouched = false;
-    }
-
-    onOptionMouseDown(index, listType: number) {
-        this.focused[listType === this.SOURCE_LIST ? 'sourceList' : 'targetList'] = true;
-        this.focusedOptionIndex = index;
+        callback.emit({ originalEvent: e.originalEvent, items: e.value });
     }
 
     onSourceItemDblClick() {
@@ -1579,172 +1515,6 @@ export class PickList extends BaseComponent implements AfterViewChecked, AfterCo
         } else {
             this.selectedItemsTarget = selectedItems;
         }
-    }
-
-    findNextOptionIndex(index: number, listType: number) {
-        const items = this.getListItems(listType);
-
-        const matchedOptionIndex = [...items].findIndex((link: any) => link.id === index);
-
-        return matchedOptionIndex > -1 ? matchedOptionIndex + 1 : 0;
-    }
-
-    findPrevOptionIndex(index: number, listType: number) {
-        const items = this.getListItems(listType);
-        const matchedOptionIndex = [...items].findIndex((link: any) => link.id === index);
-
-        return matchedOptionIndex > -1 ? matchedOptionIndex - 1 : 0;
-    }
-
-    onItemKeyDown(event: Event | any, selectedItems: any[], callback: EventEmitter<any>, listType: number) {
-        switch (event.code) {
-            case 'ArrowDown':
-                this.onArrowDownKey(event, selectedItems, callback, listType);
-                break;
-
-            case 'ArrowUp':
-                this.onArrowUpKey(event, selectedItems, callback, listType);
-                break;
-
-            case 'Home':
-                this.onHomeKey(event, selectedItems, callback, listType);
-                break;
-
-            case 'End':
-                this.onEndKey(event, selectedItems, callback, listType);
-                break;
-
-            case 'Enter':
-                this.onEnterKey(event, selectedItems, callback, listType);
-                break;
-
-            case 'Space':
-                this.onSpaceKey(event, selectedItems, callback, listType);
-                break;
-
-            case 'KeyA':
-                if (event.ctrlKey) {
-                    this.setSelectionList(listType, this.getVisibleList(listType));
-                    callback.emit({ items: selectedItems });
-                    event.preventDefault();
-                }
-
-            default:
-                break;
-        }
-    }
-
-    getFocusedOption(index: number, listType: number) {
-        if (index === -1) return null;
-
-        if (listType === this.SOURCE_LIST) {
-            return this.visibleOptionsSource && this.visibleOptionsSource.length ? this.visibleOptionsSource[index] : this.source && this.source.length ? this.source[index] : null;
-        }
-
-        return this.visibleOptionsTarget && this.visibleOptionsTarget.length ? this.visibleOptionsTarget[index] : this.target && this.target.length ? this.target[index] : null;
-    }
-
-    changeFocusedOptionIndex(index, listType) {
-        const items = this.getListItems(listType);
-        if (items?.length > 0) {
-            let order = index >= items.length ? items.length - 1 : index < 0 ? 0 : index;
-
-            this.focusedOptionIndex = items[order].getAttribute('id');
-            this.focusedOption = this.getFocusedOption(order, listType);
-            this.scrollInView(items[order].getAttribute('id'), listType);
-        }
-    }
-
-    scrollInView(id, listType) {
-        const element = findSingle(this.getListElement(listType), `li[id="${id}"]`);
-
-        if (element) {
-            element.scrollIntoView && element.scrollIntoView({ block: 'nearest', inline: 'start' });
-        }
-    }
-
-    onArrowDownKey(event: Event | any, selectedItems: any[], callback: EventEmitter<any>, listType: number) {
-        const optionIndex = this.findNextOptionIndex(this.focusedOptionIndex, listType);
-
-        this.changeFocusedOptionIndex(optionIndex, listType);
-
-        if (event.shiftKey) {
-            this.onEnterKey(event, selectedItems, callback, listType);
-        }
-
-        event.preventDefault();
-    }
-
-    onArrowUpKey(event: Event | any, selectedItems: any[], callback: EventEmitter<any>, listType: number) {
-        const optionIndex = this.findPrevOptionIndex(this.focusedOptionIndex, listType);
-
-        this.changeFocusedOptionIndex(optionIndex, listType);
-
-        if (event.shiftKey) {
-            this.onEnterKey(event, selectedItems, callback, listType);
-        }
-
-        event.preventDefault();
-    }
-
-    onEnterKey(event: Event | any, selectedItems: any[], callback: EventEmitter<any>, listType: number) {
-        this.onItemClick(event, this.focusedOption, selectedItems, listType, callback);
-        event.preventDefault();
-    }
-
-    onSpaceKey(event: Event | any, selectedItems: any[], callback: EventEmitter<any>, listType: number) {
-        if (event.target.tagName === 'INPUT') return;
-        event.preventDefault();
-
-        if (event.shiftKey && selectedItems && selectedItems.length > 0) {
-            let visibleList = this.getVisibleList(listType);
-            let lastSelectedIndex = this.getLatestSelectedVisibleOptionIndex(visibleList, selectedItems);
-
-            if (lastSelectedIndex !== -1) {
-                let focusedIndex = findIndexInList(this.focusedOption, visibleList);
-
-                selectedItems = [...visibleList.slice(Math.min(lastSelectedIndex, focusedIndex), Math.max(lastSelectedIndex, focusedIndex) + 1)];
-                this.setSelectionList(listType, selectedItems);
-
-                callback.emit({ items: selectedItems });
-                return;
-            }
-        }
-
-        this.onEnterKey(event, selectedItems, callback, listType);
-    }
-
-    onHomeKey(event: Event | any, selectedItems: any[], callback: EventEmitter<any>, listType: number) {
-        if (event.ctrlKey && event.shiftKey) {
-            let visibleList = this.getVisibleList(listType);
-            let focusedIndex = findIndexInList(this.focusedOption, visibleList);
-
-            selectedItems = [...visibleList.slice(0, focusedIndex + 1)];
-            this.setSelectionList(listType, selectedItems);
-            callback.emit({ items: selectedItems });
-        } else {
-            this.changeFocusedOptionIndex(0, listType);
-        }
-
-        event.preventDefault();
-    }
-
-    onEndKey(event: Event | any, selectedItems: any[], callback: EventEmitter<any>, listType: number) {
-        let visibleList = this.getVisibleList(listType);
-        let lastIndex = visibleList && visibleList.length > 0 ? visibleList.length - 1 : null;
-        if (lastIndex === null) return;
-
-        if (event.ctrlKey && event.shiftKey) {
-            let focusedIndex = findIndexInList(this.focusedOption, visibleList);
-            selectedItems = [...visibleList.slice(focusedIndex, lastIndex)];
-
-            this.setSelectionList(listType, selectedItems);
-            callback.emit({ items: selectedItems });
-        } else {
-            this.changeFocusedOptionIndex(lastIndex, listType);
-        }
-
-        event.preventDefault();
     }
 
     getDropIndexes(fromIndex: number, toIndex: number, droppedList: number, isTransfer: boolean, data: any[] | any) {

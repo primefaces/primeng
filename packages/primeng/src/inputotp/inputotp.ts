@@ -1,12 +1,30 @@
 import { CommonModule } from '@angular/common';
-import { AfterContentInit, booleanAttribute, ChangeDetectionStrategy, Component, ContentChild, ContentChildren, EventEmitter, forwardRef, inject, Input, NgModule, Output, QueryList, TemplateRef, ViewEncapsulation } from '@angular/core';
+import {
+    AfterContentInit,
+    booleanAttribute,
+    ChangeDetectionStrategy,
+    Component,
+    computed,
+    ContentChild,
+    ContentChildren,
+    EventEmitter,
+    forwardRef,
+    inject,
+    input,
+    Input,
+    NgModule,
+    Output,
+    QueryList,
+    TemplateRef,
+    ViewEncapsulation
+} from '@angular/core';
 import { NG_VALUE_ACCESSOR } from '@angular/forms';
 import { PrimeTemplate, SharedModule } from 'primeng/api';
 import { AutoFocus } from 'primeng/autofocus';
-import { BaseComponent } from 'primeng/basecomponent';
+import { BaseEditableHolder } from 'primeng/baseeditableholder';
 import { InputText } from 'primeng/inputtext';
-import { InputOtpStyle } from './style/inputotpstyle';
 import { Nullable } from 'primeng/ts-helpers';
+import { InputOtpStyle } from './style/inputotpstyle';
 
 export const INPUT_OTP_VALUE_ACCESSOR: any = {
     provide: NG_VALUE_ACCESSOR,
@@ -70,14 +88,17 @@ export interface InputOtpInputTemplateContext {
                     type="text"
                     pInputText
                     [value]="getModelValue(i)"
-                    [maxLength]="i === 1 ? length : 1"
-                    [type]="inputType"
+                    [attr.maxlength]="i === 1 ? length : 1"
+                    [attr.type]="inputType"
                     [class]="cn(cx('pcInputText'), styleClass)"
-                    [pSize]="size"
-                    [variant]="variant"
-                    [readonly]="readonly"
-                    [disabled]="disabled"
-                    [tabindex]="tabindex"
+                    [pSize]="size()"
+                    [variant]="$variant()"
+                    [invalid]="invalid()"
+                    [attr.name]="name()"
+                    [attr.tabindex]="tabindex"
+                    [attr.required]="required() ? '' : undefined"
+                    [attr.readonly]="readonly ? '' : undefined"
+                    [attr.disabled]="disabled() ? '' : undefined"
                     (input)="onInput($event, i - 1)"
                     (focus)="onInputFocus($event)"
                     (blur)="onInputBlur($event)"
@@ -98,27 +119,12 @@ export interface InputOtpInputTemplateContext {
         '[class]': "cx('root')"
     }
 })
-export class InputOtp extends BaseComponent implements AfterContentInit {
-    /**
-     * When present, it specifies that the component should have invalid state style.
-     * @group Props
-     */
-    @Input() invalid: boolean = false;
-    /**
-     * When present, it specifies that the component should be disabled.
-     * @group Props
-     */
-    @Input() disabled: boolean = false;
+export class InputOtp extends BaseEditableHolder implements AfterContentInit {
     /**
      * When present, it specifies that an input field is read-only.
      * @group Props
      */
-    @Input() readonly: boolean = false;
-    /**
-     * Specifies the input variant of the component.
-     * @group Props
-     */
-    @Input() variant: 'filled' | 'outlined';
+    @Input({ transform: booleanAttribute }) readonly: boolean;
     /**
      * Index of the element in tabbing order.
      * @group Props
@@ -150,10 +156,17 @@ export class InputOtp extends BaseComponent implements AfterContentInit {
      */
     @Input({ transform: booleanAttribute }) autofocus: boolean | undefined;
     /**
-     * Defines the size of the component.
+     * Specifies the input variant of the component.
+     * @defaultValue undefined
      * @group Props
      */
-    @Input() size: 'large' | 'small';
+    variant = input<'filled' | 'outlined' | undefined>();
+    /**
+     * Specifies the size of the component.
+     * @defaultValue undefined
+     * @group Props
+     */
+    size = input<'large' | 'small' | undefined>();
     /**
      * Callback to invoke on value change.
      * @group Emits
@@ -171,7 +184,6 @@ export class InputOtp extends BaseComponent implements AfterContentInit {
      * @group Emits
      */
     @Output() onBlur: EventEmitter<Event> = new EventEmitter();
-
     /**
      * Input template.
      * @param {InputOtpInputTemplateContext} context - Context of the template
@@ -191,6 +203,8 @@ export class InputOtp extends BaseComponent implements AfterContentInit {
     onModelTouched: Function = () => {};
 
     value: any;
+
+    $variant = computed(() => this.variant() || this.config.inputStyle() || this.config.inputVariant());
 
     get inputMode(): string {
         return this.integerOnly ? 'numeric' : 'text';
@@ -248,6 +262,7 @@ export class InputOtp extends BaseComponent implements AfterContentInit {
 
     updateModel(event: any) {
         const newValue = this.tokens.join('');
+        this.writeModelValue(newValue);
         this.onModelChange(newValue);
 
         this.onChange.emit({
@@ -266,6 +281,7 @@ export class InputOtp extends BaseComponent implements AfterContentInit {
         } else {
             this.value = value;
         }
+        this.writeModelValue(this.value);
         this.updateTokens();
         this.cd.markForCheck();
     }
@@ -386,7 +402,7 @@ export class InputOtp extends BaseComponent implements AfterContentInit {
     }
 
     onPaste(event) {
-        if (!this.disabled && !this.readonly) {
+        if (!this.disabled() && !this.readonly) {
             let paste = event.clipboardData.getData('text');
 
             if (paste.length) {

@@ -34,7 +34,7 @@ interface City {
                 <button pButton severity="secondary" type="submit"><span pButtonLabel>Submit</span></button>
             </form>
         </div>
-        <app-code [code]="code" selector="select-reactive-forms-demo"></app-code>
+        <app-code [code]="code" selector="select-template-driven-forms-demo"></app-code>
     `
 })
 export class TemplateDrivenFormsDoc {
@@ -81,7 +81,7 @@ export class TemplateDrivenFormsDoc {
     </form>
 </div>`,
 
-        typescript: `import { Component, OnInit } from '@angular/core';
+        typescript: `import { Component } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { Select } from 'primeng/select';
 import { Message } from 'primeng/message';
@@ -99,7 +99,7 @@ interface City {
     standalone: true,
     imports: [FormsModule, Select, Message, Toast]
 })
-export class TemplateDrivenFormsDemo implements OnInit {
+export class TemplateDrivenFormsDemo {
     messageService = inject(MessageService);
 
     cities: City[] = [

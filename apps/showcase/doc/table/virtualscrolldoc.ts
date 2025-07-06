@@ -16,7 +16,7 @@ interface Column {
                 Virtual Scrolling is an efficient way to render large amount data. Usage is similar to regular scrolling with the addition of <i>virtualScrollerOptions</i> property to define a fixed <i>itemSize</i>. Internally, VirtualScroller
                 component is utilized so refer to the API of <a routerLink="/virtualscroll">VirtualScroller</a> for more information about the available options.
             </p>
-            <p>In this example, <b>100000</b> preloaded records are rendered by the Table.</p>
+            <p>In this example, <b>10000</b> preloaded records are rendered by the Table.</p>
         </app-docsectiontext>
         <p-deferred-demo (load)="loadDemoData()">
             <div class="card">

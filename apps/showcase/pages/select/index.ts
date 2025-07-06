@@ -17,9 +17,9 @@ import { ReactiveFormsDoc } from '@/doc/select/reactiveformsdoc';
 import { SelectDocModule } from '@/doc/select/selectdoc.module';
 import { SizesDoc } from '@/doc/select/sizesdoc';
 import { TemplateDoc } from '@/doc/select/templatedoc';
+import { TemplateDrivenFormsDoc } from '@/doc/select/templatedrivenformsdoc';
 import { VirtualScrollDoc } from '@/doc/select/virtualscrolldoc';
 import { Component } from '@angular/core';
-import { TemplateDrivenFormsDoc } from '@/doc/select/templatedrivenformsdoc';
 
 @Component({
     template: `<app-doc docTitle="Angular Select Component" header="Select" description="Select is used to choose an item from a collection of options." [docs]="docs" [apiDocs]="['Select']" themeDocs="select"></app-doc> `,
@@ -106,12 +106,9 @@ export class SelectDemo {
             component: SizesDoc
         },
         {
-            id: 'forms',
-            label: 'Forms',
-            children: [
-                { id: 'templatedriven', label: 'Template Driven', component: TemplateDrivenFormsDoc },
-                { id: 'reactive', label: 'Reactive Forms', component: ReactiveFormsDoc }
-            ]
+            id: 'disabled',
+            label: 'Disabled',
+            component: DisabledDoc
         },
         {
             id: 'invalid',
@@ -119,11 +116,13 @@ export class SelectDemo {
             component: InvalidDoc
         },
         {
-            id: 'disabled',
-            label: 'Disabled',
-            component: DisabledDoc
+            id: 'forms',
+            label: 'Forms',
+            children: [
+                { id: 'templatedriven', label: 'Template Driven', component: TemplateDrivenFormsDoc },
+                { id: 'reactive', label: 'Reactive Forms', component: ReactiveFormsDoc }
+            ]
         },
-
         {
             id: 'accessibility',
             label: 'Accessibility',

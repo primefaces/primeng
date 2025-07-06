@@ -8,7 +8,6 @@ import { AutoFocusModule } from 'primeng/autofocus';
 import { AvatarModule } from 'primeng/avatar';
 import { ButtonModule } from 'primeng/button';
 import { Dialog } from 'primeng/dialog';
-import { DropdownModule } from 'primeng/dropdown';
 import { InputTextModule } from 'primeng/inputtext';
 import { AccessibilityDoc } from './accessibilitydoc';
 import { BasicDoc } from './basicdoc';
@@ -23,9 +22,10 @@ import { ResponsiveDoc } from './responsivedoc';
 import { StyleDoc } from './styledoc';
 import { TemplateDoc } from './templatedoc';
 import { WithoutModalDoc } from './withoutmodaldoc';
+import { SelectModule } from 'primeng/select';
 
 @NgModule({
-    imports: [CommonModule, AppCodeModule, RouterModule, FormsModule, Dialog, ButtonModule, DropdownModule, AppDocModule, InputTextModule, AvatarModule, AutoFocusModule],
+    imports: [CommonModule, AppCodeModule, RouterModule, FormsModule, Dialog, ButtonModule, AppDocModule, InputTextModule, AvatarModule, AutoFocusModule, SelectModule],
     declarations: [BasicDoc, ImportDoc, StyleDoc, LongContentDoc, ResponsiveDoc, PositionDoc, MaximizableDoc, TemplateDoc, OverlaysInsideDoc, ModalDoc, AccessibilityDoc, HeadlessDoc, WithoutModalDoc],
     exports: [AppDocModule, LongContentDoc]
 })

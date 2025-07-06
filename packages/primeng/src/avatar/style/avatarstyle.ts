@@ -5,7 +5,6 @@ import { BaseStyle } from 'primeng/base';
 const classes = {
     root: ({ instance }) => [
         'p-avatar p-component',
-        instance.styleClass,
         {
             'p-avatar-image': instance.image != null,
             'p-avatar-circle': instance.shape === 'circle',

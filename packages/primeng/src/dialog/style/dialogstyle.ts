@@ -1,28 +1,6 @@
 import { Injectable } from '@angular/core';
-import { css } from '@primeuix/styled';
 import { style } from '@primeuix/styles/dialog';
 import { BaseStyle } from 'primeng/base';
-
-const theme = css`
-    ${style}
-    /* For PrimeNG */
-
-.p-dialog .p-resizable-handle {
-        position: absolute;
-        font-size: 0.1px;
-        display: block;
-        cursor: se-resize;
-        width: 12px;
-        height: 12px;
-        right: 1px;
-        bottom: 1px;
-    }
-
-    .p-confirm-dialog .p-dialog-content {
-        display: flex;
-        align-items: center;
-    }
-`;
 
 /* Position */
 const inlineStyles = {
@@ -59,7 +37,7 @@ const classes = {
         const positions = ['left', 'right', 'top', 'topleft', 'topright', 'bottom', 'bottomleft', 'bottomright'];
         const pos = positions.find((item) => item === instance.position);
 
-        return ['p-dialog-mask', { 'p-overlay-mask p-overlay-mask-enter': instance.modal }, `p-dialog-${pos}`, instance.maskStyleClass];
+        return ['p-dialog-mask', { 'p-overlay-mask p-overlay-mask-enter': instance.modal }, pos ? `p-dialog-${pos}` : ''];
     },
     root: ({ instance }) => [
         'p-dialog p-component',
@@ -73,7 +51,7 @@ const classes = {
     headerActions: 'p-dialog-header-actions',
     pcMaximizeButton: 'p-dialog-maximize-button',
     pcCloseButton: 'p-dialog-close-button',
-    content: ({ instance }) => ['p-dialog-content', instance.contentStyleClass],
+    content: () => ['p-dialog-content'],
     footer: 'p-dialog-footer'
 };
 
@@ -81,7 +59,7 @@ const classes = {
 export class DialogStyle extends BaseStyle {
     name = 'dialog';
 
-    theme = theme;
+    theme = style;
 
     classes = classes;
 

@@ -1,21 +1,10 @@
 import { Injectable } from '@angular/core';
-import { css } from '@primeuix/styled';
 import { style } from '@primeuix/styles/tree';
 import { BaseStyle } from 'primeng/base';
-
-const theme = css`
-    ${style}
-
-    /* For PrimeNG */
-    .p-tree {
-        display: block;
-    }
-`;
 
 const classes = {
     root: ({ instance }) => [
         'p-tree p-component',
-        instance.styleClass,
         {
             'p-tree-selectable': instance.selectionMode != null,
             'p-tree-loading': instance.loading,
@@ -49,7 +38,7 @@ const classes = {
 export class TreeStyle extends BaseStyle {
     name = 'tree';
 
-    theme = theme;
+    theme = style;
 
     classes = classes;
 }

@@ -1,66 +1,55 @@
 import { Injectable } from '@angular/core';
-import { css, dt } from '@primeuix/styled';
 import { style } from '@primeuix/styles/inputnumber';
 import { BaseStyle } from 'primeng/base';
 
-const theme = css`
+const theme = /*css*/ `
     ${style}
 
     /* For PrimeNG */
-    .p-inputnumber-clear-icon {
-        position: absolute;
-        top: 50%;
-        margin-top: -0.5rem;
-        cursor: pointer;
-        right: 0.75rem;
-        color: ${dt('inputnumber.button.color')};
-    }
     p-inputNumber.ng-invalid.ng-dirty > .p-inputtext,
     p-input-number.ng-invalid.ng-dirty > .p-inputtext,
     p-inputnumber.ng-invalid.ng-dirty > .p-inputtext {
-        border-color: ${dt('inputtext.invalid.border.color')};
+        border-color: dt('inputtext.invalid.border.color');
     }
 
     p-inputNumber.ng-invalid.ng-dirty > .p-inputtext:enabled:focus,
     p-input-number.ng-invalid.ng-dirty > .p-inputtext:enabled:focus,
     p-inputnumber.ng-invalid.ng-dirty > .p-inputtext:enabled:focus {
-        border-color: ${dt('inputtext.focus.border.color')};
+        border-color: dt('inputtext.focus.border.color');
     }
 
     p-inputNumber.ng-invalid.ng-dirty > .p-inputtext::placeholder,
     p-input-number.ng-invalid.ng-dirty > .p-inputtext::placeholder,
     p-inputnumber.ng-invalid.ng-dirty > .p-inputtext::placeholder {
-        color: ${dt('inputtext.invalid.placeholder.color')};
+        color: dt('inputtext.invalid.placeholder.color');
     }
 `;
 
 const classes = {
     root: ({ instance }) => [
         'p-inputnumber p-component p-inputwrapper',
-        instance.styleClass,
         {
-            'p-inputwrapper-filled': instance.filled || instance.allowEmpty === false,
+            'p-inputwrapper-filled': instance.$filled() || instance.allowEmpty === false,
             'p-inputwrapper-focus': instance.focused,
             'p-inputnumber-stacked': instance.showButtons && instance.buttonLayout === 'stacked',
             'p-inputnumber-horizontal': instance.showButtons && instance.buttonLayout === 'horizontal',
             'p-inputnumber-vertical': instance.showButtons && instance.buttonLayout === 'vertical',
-            'p-inputnumber-fluid': instance.hasFluid
+            'p-inputnumber-fluid': instance.hasFluid,
+            'p-invalid': instance.invalid()
         }
     ],
     pcInputText: 'p-inputnumber-input',
     buttonGroup: 'p-inputnumber-button-group',
     incrementButton: ({ instance }) => [
         'p-inputnumber-button p-inputnumber-increment-button',
-        instance.incrementButtonClass,
         {
-            'p-disabled': instance.showButtons && instance.max !== null && instance.maxlength
+            'p-disabled': instance.showButtons && instance.max() !== null && instance.maxlength()
         }
     ],
     decrementButton: ({ instance }) => [
         'p-inputnumber-button p-inputnumber-decrement-button',
-        instance.decrementButtonClass,
         {
-            'p-disabled': instance.showButtons && instance.min !== null && instance.minlength
+            'p-disabled': instance.showButtons && instance.min() !== null && instance.minlength()
         }
     ],
     clearIcon: 'p-inputnumber-clear-icon'

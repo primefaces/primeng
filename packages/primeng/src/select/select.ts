@@ -15,6 +15,7 @@ import {
     EventEmitter,
     forwardRef,
     inject,
+    input,
     Input,
     NgModule,
     NgZone,
@@ -33,6 +34,7 @@ import { deepEquals, equals, findLastIndex, findSingle, focus, getFirstFocusable
 import { FilterService, OverlayOptions, PrimeTemplate, ScrollerOptions, SharedModule, TranslationKeys } from 'primeng/api';
 import { AutoFocus } from 'primeng/autofocus';
 import { BaseComponent } from 'primeng/basecomponent';
+import { BaseInput } from 'primeng/baseinput';
 import { unblockBodyScroll } from 'primeng/dom';
 import { IconField } from 'primeng/iconfield';
 import { BlankIcon, CheckIcon, ChevronDownIcon, SearchIcon, TimesIcon } from 'primeng/icons';
@@ -45,7 +47,6 @@ import { Tooltip } from 'primeng/tooltip';
 import { Nullable } from 'primeng/ts-helpers';
 import { SelectChangeEvent, SelectFilterEvent, SelectFilterOptions, SelectLazyLoadEvent } from './select.interface';
 import { SelectStyle } from './style/selectstyle';
-import { BaseInput } from 'primeng/baseinput';
 
 export const SELECT_VALUE_ACCESSOR: any = {
     provide: NG_VALUE_ACCESSOR,
@@ -75,8 +76,8 @@ export const SELECT_VALUE_ACCESSOR: any = {
             [class]="cx('option')"
         >
             <ng-container *ngIf="checkmark">
-                <CheckIcon *ngIf="selected" [styleClass]="cx('optionCheckIcon')" />
-                <BlankIcon *ngIf="!selected" [styleClass]="cx('optionBlankIcon')" />
+                <svg data-p-icon="check" *ngIf="selected" [class]="cx('optionCheckIcon')" />
+                <svg data-p-icon="blank" *ngIf="!selected" [class]="cx('optionBlankIcon')" />
             </ng-container>
             <span *ngIf="!template">{{ label ?? 'empty' }}</span>
             <ng-container *ngTemplateOutlet="template; context: { $implicit: option }"></ng-container>
@@ -156,7 +157,8 @@ export class SelectItem extends BaseComponent {
             (blur)="onInputBlur($event)"
             (keydown)="onKeyDown($event)"
             [attr.aria-required]="required()"
-            [attr.required]="required()"
+            [attr.required]="required() ? '' : undefined"
+            [attr.disabled]="disabled() ? '' : undefined"
         >
             <ng-container *ngIf="!selectedItemTemplate && !_selectedItemTemplate; else defaultPlaceholder">{{ label() === 'p-emptylabel' ? '&nbsp;' : label() }}</ng-container>
             <ng-container *ngIf="(selectedItemTemplate || _selectedItemTemplate) && !isSelectedOptionEmpty()" [ngTemplateOutlet]="selectedItemTemplate || _selectedItemTemplate" [ngTemplateOutletContext]="{ $implicit: selectedOption }"></ng-container>
@@ -169,9 +171,7 @@ export class SelectItem extends BaseComponent {
             #editableInput
             type="text"
             [attr.id]="inputId"
-            [attr.maxlength]="maxlength()"
             [class]="cx('label')"
-            [disabled]="disabled()"
             aria-haspopup="listbox"
             [attr.placeholder]="modelValue() === undefined || modelValue() === null ? placeholder() : undefined"
             [attr.aria-label]="ariaLabel || (label() === 'p-emptylabel' ? undefined : label())"
@@ -182,9 +182,18 @@ export class SelectItem extends BaseComponent {
             (focus)="onInputFocus($event)"
             (blur)="onInputBlur($event)"
             [attr.name]="name()"
+            [attr.minlength]="minlength()"
+            [attr.min]="min()"
+            [attr.max]="max()"
+            [attr.pattern]="pattern()"
+            [attr.size]="inputSize()"
+            [attr.maxlength]="maxlength()"
+            [attr.required]="required() ? '' : undefined"
+            [attr.readonly]="readonly ? '' : undefined"
+            [attr.disabled]="disabled() ? '' : undefined"
         />
         <ng-container *ngIf="isVisibleClearIcon">
-            <TimesIcon [class]="cx('clearIcon')" (click)="clear($event)" *ngIf="!clearIconTemplate && !_clearIconTemplate" [attr.data-pc-section]="'clearicon'" />
+            <svg data-p-icon="times" [class]="cx('clearIcon')" (click)="clear($event)" *ngIf="!clearIconTemplate && !_clearIconTemplate" [attr.data-pc-section]="'clearicon'" />
             <span [class]="cx('clearIcon')" (click)="clear($event)" *ngIf="clearIconTemplate || _clearIconTemplate" [attr.data-pc-section]="'clearicon'">
                 <ng-template *ngTemplateOutlet="clearIconTemplate || _clearIconTemplate; context: { class: cx('clearIcon') }"></ng-template>
             </span>
@@ -204,7 +213,7 @@ export class SelectItem extends BaseComponent {
             <ng-template #elseBlock>
                 <ng-container *ngIf="!dropdownIconTemplate && !_dropdownIconTemplate">
                     <span [class]="cn(cx('dropdownIcon'), dropdownIcon)" *ngIf="dropdownIcon"></span>
-                    <ChevronDownIcon *ngIf="!dropdownIcon" [styleClass]="cx('dropdownIcon')" />
+                    <svg data-p-icon="chevron-down" *ngIf="!dropdownIcon" [class]="cx('dropdownIcon')" />
                 </ng-container>
                 <span *ngIf="dropdownIconTemplate || _dropdownIconTemplate" [class]="cx('dropdownIcon')">
                     <ng-template *ngTemplateOutlet="dropdownIconTemplate || _dropdownIconTemplate; context: { class: cx('dropdownIcon') }"></ng-template>
@@ -212,19 +221,7 @@ export class SelectItem extends BaseComponent {
             </ng-template>
         </div>
 
-        <p-overlay
-            #overlay
-            [(visible)]="overlayVisible"
-            [options]="overlayOptions"
-            [target]="'@parent'"
-            [appendTo]="appendTo"
-            [autoZIndex]="autoZIndex"
-            [baseZIndex]="baseZIndex"
-            [showTransitionOptions]="showTransitionOptions"
-            [hideTransitionOptions]="hideTransitionOptions"
-            (onAnimationStart)="onOverlayAnimationStart($event)"
-            (onHide)="hide()"
-        >
+        <p-overlay #overlay [hostAttrSelector]="attrSelector" [(visible)]="overlayVisible" [options]="overlayOptions" [target]="'@parent'" [appendTo]="$appendTo()" (onAnimationStart)="onOverlayAnimationStart($event)" (onHide)="hide()">
             <ng-template #content>
                 <div [class]="cn(cx('overlay'), panelStyleClass)" [ngStyle]="panelStyle">
                     <span
@@ -263,7 +260,7 @@ export class SelectItem extends BaseComponent {
                                     (blur)="onFilterBlur($event)"
                                 />
                                 <p-inputicon>
-                                    <SearchIcon *ngIf="!filterIconTemplate && !_filterIconTemplate" />
+                                    <svg data-p-icon="search" *ngIf="!filterIconTemplate && !_filterIconTemplate" />
                                     <span *ngIf="filterIconTemplate || _filterIconTemplate">
                                         <ng-template *ngTemplateOutlet="filterIconTemplate || _filterIconTemplate"></ng-template>
                                     </span>
@@ -277,7 +274,7 @@ export class SelectItem extends BaseComponent {
                             #scroller
                             [items]="visibleOptions()"
                             [style]="{ height: scrollHeight }"
-                            [itemSize]="virtualScrollItemSize || _itemSize"
+                            [itemSize]="virtualScrollItemSize"
                             [autoSize]="true"
                             [lazy]="lazy"
                             (onLazyLoad)="onLazyLoad.emit($event)"
@@ -354,7 +351,7 @@ export class SelectItem extends BaseComponent {
         </p-overlay>
     `,
     host: {
-        '[class]': "cx('root')",
+        '[class]': "cn(cx('root'), styleClass)",
         '[attr.id]': 'id',
         '(click)': 'onContainerClick($event)'
     },
@@ -404,11 +401,6 @@ export class Select extends BaseInput implements OnInit, AfterViewInit, AfterCon
      * @group Props
      */
     @Input({ transform: booleanAttribute }) editable: boolean | undefined;
-    /**
-     * Target element to attach the overlay, valid values are "body" or a local ng-template variable of another element (note: use binding with brackets for template variables, e.g. [appendTo]="mydiv" for a div element having #mydiv as variable name).
-     * @group Props
-     */
-    @Input() appendTo: HTMLElement | ElementRef | TemplateRef<any> | string | null | undefined | any;
     /**
      * Index of the element in tabbing order.
      * @group Props
@@ -509,12 +501,6 @@ export class Select extends BaseInput implements OnInit, AfterViewInit, AfterCon
      * @group Props
      */
     @Input() optionGroupChildren: string = 'items';
-    /**
-     * Whether to display the first item as the label if no placeholder is defined and value is null.
-     * @deprecated since v17.3.0, set initial value by model instead.
-     * @group Props
-     */
-    @Input({ transform: booleanAttribute }) autoDisplayFirst: boolean = true;
     /**
      * Whether to display options as grouped when nested options are provided.
      * @group Props
@@ -621,90 +607,6 @@ export class Select extends BaseInput implements OnInit, AfterViewInit, AfterCon
      */
     @Input({ transform: booleanAttribute }) autofocusFilter: boolean = true;
     /**
-     * When present, it specifies that the component should be disabled.
-     * @group Props
-     */
-    // @Input() get disabled(): boolean | undefined {
-    //     return this._disabled;
-    // }
-    // set disabled(_disabled: boolean | undefined) {
-    //     if (_disabled) {
-    //         this.focused = false;
-    //
-    //         if (this.overlayVisible) this.hide();
-    //     }
-    //
-    //     this._disabled = _disabled;
-    //     if (!(this.cd as ViewRef).destroyed) {
-    //         this.cd.detectChanges();
-    //     }
-    // }
-    /**
-     * Item size of item to be virtual scrolled.
-     * @group Props
-     * @deprecated use virtualScrollItemSize property instead.
-     */
-    @Input() get itemSize(): number | undefined {
-        return this._itemSize;
-    }
-    set itemSize(val: number | undefined) {
-        this._itemSize = val;
-        console.log('The itemSize property is deprecated, use virtualScrollItemSize property instead.');
-    }
-    _itemSize: number | undefined;
-    /**
-     * Whether to automatically manage layering.
-     * @group Props
-     * @deprecated since v14.2.0, use overlayOptions property instead.
-     */
-    @Input() get autoZIndex(): boolean | undefined {
-        return this._autoZIndex;
-    }
-    set autoZIndex(val: boolean | undefined) {
-        this._autoZIndex = val;
-        console.log('The autoZIndex property is deprecated since v14.2.0, use overlayOptions property instead.');
-    }
-    _autoZIndex: boolean | undefined;
-    /**
-     * Base zIndex value to use in layering.
-     * @group Props
-     * @deprecated since v14.2.0, use overlayOptions property instead.
-     */
-    @Input() get baseZIndex(): number | undefined {
-        return this._baseZIndex;
-    }
-    set baseZIndex(val: number | undefined) {
-        this._baseZIndex = val;
-        console.log('The baseZIndex property is deprecated since v14.2.0, use overlayOptions property instead.');
-    }
-    _baseZIndex: number | undefined;
-    /**
-     * Transition options of the show animation.
-     * @group Props
-     * @deprecated since v14.2.0, use overlayOptions property instead.
-     */
-    @Input() get showTransitionOptions(): string | undefined {
-        return this._showTransitionOptions;
-    }
-    set showTransitionOptions(val: string | undefined) {
-        this._showTransitionOptions = val;
-        console.log('The showTransitionOptions property is deprecated since v14.2.0, use overlayOptions property instead.');
-    }
-    _showTransitionOptions: string | undefined;
-    /**
-     * Transition options of the hide animation.
-     * @group Props
-     * @deprecated since v14.2.0, use overlayOptions property instead.
-     */
-    @Input() get hideTransitionOptions(): string | undefined {
-        return this._hideTransitionOptions;
-    }
-    set hideTransitionOptions(val: string | undefined) {
-        this._hideTransitionOptions = val;
-        console.log('The hideTransitionOptions property is deprecated since v14.2.0, use overlayOptions property instead.');
-    }
-    _hideTransitionOptions: string | undefined;
-    /**
      * When specified, filter displays with this value.
      * @group Props
      */
@@ -729,6 +631,12 @@ export class Select extends BaseInput implements OnInit, AfterViewInit, AfterCon
             this._options.set(val);
         }
     }
+    /**
+     * Target element to attach the overlay, valid values are "body" or a local ng-template variable of another element (note: use binding with brackets for template variables, e.g. [appendTo]="mydiv" for a div element having #mydiv as variable name).
+     * @defaultValue 'self'
+     * @group Props
+     */
+    appendTo = input<HTMLElement | ElementRef | TemplateRef<any> | 'self' | 'body' | null | undefined | any>(undefined);
     /**
      * Callback to invoke when value of select changes.
      * @param {SelectChangeEvent} event - custom change event.
@@ -802,9 +710,9 @@ export class Select extends BaseInput implements OnInit, AfterViewInit, AfterCon
 
     @ViewChild('lastHiddenFocusableEl') lastHiddenFocusableElementOnOverlay: Nullable<ElementRef>;
 
-    _disabled: boolean | undefined;
-
     itemsWrapper: Nullable<HTMLDivElement>;
+
+    $appendTo = computed(() => this.appendTo() || this.config.overlayAppendTo());
 
     /**
      * Custom item template.
@@ -1219,12 +1127,6 @@ export class Select extends BaseInput implements OnInit, AfterViewInit, AfterCon
             this.focusedOptionIndex.set(this.findFirstFocusedOptionIndex());
             this.onOptionSelect(null, this.visibleOptions()[this.focusedOptionIndex()], false);
         }
-        if (this.autoDisplayFirst && (this.modelValue() === null || this.modelValue() === undefined)) {
-            if (!this.placeholder()) {
-                const ind = this.findFirstOptionIndex();
-                this.onOptionSelect(null, this.visibleOptions()[ind], false, true);
-            }
-        }
     }
 
     onOptionSelect(event, option, isHide = true, preventChange = false) {
@@ -1451,7 +1353,6 @@ export class Select extends BaseInput implements OnInit, AfterViewInit, AfterCon
                     this.filterViewChild.nativeElement.focus();
                 }
             }
-
             this.onShow.emit(event);
         }
         if (event.toState === 'void') {

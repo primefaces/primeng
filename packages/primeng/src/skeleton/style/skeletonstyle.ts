@@ -1,16 +1,6 @@
 import { Injectable } from '@angular/core';
 import { style } from '@primeuix/styles/skeleton';
-import { css } from '@primeuix/styled';
 import { BaseStyle } from 'primeng/base';
-
-const theme = css`
-    ${style}
-
-    /* For PrimeNG */
-    .p-skeleton {
-        display: block;
-    }
-`;
 
 const inlineStyles = {
     root: { position: 'relative' }
@@ -19,7 +9,6 @@ const inlineStyles = {
 const classes = {
     root: ({ instance }) => [
         'p-skeleton p-component',
-        instance.styleClass,
         {
             'p-skeleton-circle': instance.shape === 'circle',
             'p-skeleton-animation-none': instance.animation === 'none'
@@ -31,7 +20,7 @@ const classes = {
 export class SkeletonStyle extends BaseStyle {
     name = 'skeleton';
 
-    theme = theme;
+    theme = style;
 
     classes = classes;
 

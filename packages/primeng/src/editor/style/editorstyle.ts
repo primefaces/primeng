@@ -1,19 +1,14 @@
 import { Injectable } from '@angular/core';
-import { BaseStyle } from 'primeng/base';
 import { style } from '@primeuix/styles/editor';
-import { css } from '@primeuix/styled';
-
-const theme = css`
-    ${style}
-
-    /* For PrimeNG */
-    .p-editor {
-        display: block;
-    }
-`;
+import { BaseStyle } from 'primeng/base';
 
 const classes = {
-    root: ({ instance }) => ['p-editor', instance.styleClass],
+    root: ({ instance }) => [
+        'p-editor',
+        {
+            'p-invalid': instance.invalid()
+        }
+    ],
     toolbar: 'p-editor-toolbar',
     content: 'p-editor-content'
 };
@@ -22,7 +17,7 @@ const classes = {
 export class EditorStyle extends BaseStyle {
     name = 'editor';
 
-    theme = theme;
+    theme = style;
 
     classes = classes;
 }

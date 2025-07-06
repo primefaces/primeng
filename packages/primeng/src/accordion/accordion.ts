@@ -1,37 +1,12 @@
 import { animate, state, style, transition, trigger } from '@angular/animations';
 import { CommonModule } from '@angular/common';
-import {
-    AfterContentInit,
-    booleanAttribute,
-    ChangeDetectionStrategy,
-    Component,
-    computed,
-    ContentChild,
-    ContentChildren,
-    EventEmitter,
-    forwardRef,
-    HostBinding,
-    HostListener,
-    inject,
-    Input,
-    input,
-    InputSignalWithTransform,
-    model,
-    NgModule,
-    numberAttribute,
-    OnDestroy,
-    Output,
-    QueryList,
-    signal,
-    TemplateRef,
-    ViewEncapsulation
-} from '@angular/core';
+import { ChangeDetectionStrategy, Component, computed, ContentChild, EventEmitter, forwardRef, HostListener, inject, Input, input, InputSignalWithTransform, model, NgModule, Output, signal, TemplateRef, ViewEncapsulation } from '@angular/core';
 import { findSingle, focus, getAttribute, uuid } from '@primeuix/utils';
-import { BlockableUI, Header, PrimeTemplate, SharedModule } from 'primeng/api';
+import { BlockableUI, SharedModule } from 'primeng/api';
 import { BaseComponent } from 'primeng/basecomponent';
 import { ChevronDownIcon, ChevronUpIcon } from 'primeng/icons';
 import { Ripple } from 'primeng/ripple';
-import { Subscription } from 'rxjs';
+import { transformToBoolean } from 'primeng/utils';
 import { AccordionStyle } from './style/accordionstyle';
 
 /**
@@ -129,11 +104,11 @@ export class AccordionPanel extends BaseComponent {
         } @else {
             <ng-container *ngIf="active()">
                 <span *ngIf="pcAccordion.collapseIcon" [class]="pcAccordion.collapseIcon" [ngClass]="pcAccordion.iconClass" [attr.aria-hidden]="true"></span>
-                <ChevronDownIcon *ngIf="!pcAccordion.collapseIcon" [ngClass]="pcAccordion.iconClass" [attr.aria-hidden]="true" />
+                <svg data-p-icon="chevron-up" *ngIf="!pcAccordion.collapseIcon" [class]="pcAccordion.iconClass" [attr.aria-hidden]="true" />
             </ng-container>
             <ng-container *ngIf="!active()">
                 <span *ngIf="pcAccordion.expandIcon" [class]="pcAccordion.expandIcon" [ngClass]="pcAccordion.iconClass" [attr.aria-hidden]="true"></span>
-                <ChevronUpIcon *ngIf="!pcAccordion.expandIcon" [ngClass]="pcAccordion.iconClass" [attr.aria-hidden]="true" />
+                <svg data-p-icon="chevron-down" *ngIf="!pcAccordion.expandIcon" [class]="pcAccordion.iconClass" [attr.aria-hidden]="true" />
             </ng-container>
         }
     `,
@@ -297,7 +272,7 @@ export class AccordionHeader extends BaseComponent {
     selector: 'p-accordion-content, p-accordioncontent',
     imports: [CommonModule],
     standalone: true,
-    template: ` <div [class]="cx('content')">
+    template: ` <div [class]="cx('content')" [@content]="active() ? { value: 'visible', params: { transitionParams: pcAccordion.transitionOptions } } : { value: 'hidden', params: { transitionParams: pcAccordion.transitionOptions } }">
         <ng-content />
     </div>`,
     changeDetection: ChangeDetectionStrategy.OnPush,
@@ -308,10 +283,7 @@ export class AccordionHeader extends BaseComponent {
         '[attr.role]': '"region"',
         '[attr.data-pc-name]': '"accordioncontent"',
         '[attr.data-p-active]': 'active()',
-        '[attr.aria-labelledby]': 'ariaLabelledby()',
-        '[@content]': `active()
-            ? { value: 'visible', params: { transitionParams: pcAccordion.transitionOptions } }
-            : { value: 'hidden', params: { transitionParams: pcAccordion.transitionOptions } }`
+        '[attr.aria-labelledby]': 'ariaLabelledby()'
     },
     animations: [
         trigger('content', [
@@ -326,8 +298,7 @@ export class AccordionHeader extends BaseComponent {
             state(
                 'visible',
                 style({
-                    height: '*',
-                    visibility: 'visible'
+                    height: '*'
                 })
             ),
             transition('visible <=> hidden', [animate('{{transitionParams}}')]),
@@ -351,338 +322,6 @@ export class AccordionContent extends BaseComponent {
 }
 
 /**
- * AccordionTab is a helper component for Accordion.
- * @deprecated Use AccordionPanel, AccordionHeader, AccordionContent instead.
- * @group Components
- */
-@Component({
-    selector: 'p-accordionTab, p-accordion-tab, p-accordiontab',
-    standalone: true,
-    imports: [CommonModule, ChevronDownIcon, ChevronUpIcon],
-    template: `
-        <button
-            class="p-accordionheader"
-            type="button"
-            [disabled]="disabled"
-            [attr.aria-expanded]="selected"
-            [attr.aria-level]="headerAriaLevel"
-            [class.p-disabled]="disabled"
-            [attr.data-p-disabled]="disabled"
-            [attr.data-pc-section]="'accordionheader'"
-            (click)="toggle($event)"
-            (keydown)="onKeydown($event)"
-            [ngClass]="headerStyleClass"
-            [ngStyle]="headerStyle"
-            [attr.tabindex]="disabled ? null : 0"
-            [attr.id]="getTabHeaderActionId(id)"
-            [attr.aria-controls]="getTabContentId(id)"
-        >
-            @if (!headerTemplate && !_headerTemplate) {
-                {{ header }}
-            } @else {
-                @if (headerTemplate || _headerTemplate) {
-                    <ng-container *ngTemplateOutlet="headerTemplate || _headerTemplate"></ng-container>
-                }
-                @if (headerFacet) {
-                    <ng-content select="p-header" />
-                }
-            }
-            @if (iconTemplate || _iconTemplate) {
-                <ng-template *ngTemplateOutlet="iconTemplate || _iconTemplate; context: { $implicit: selected }"></ng-template>
-            } @else {
-                <ng-container *ngIf="selected">
-                    <span *ngIf="accordion.collapseIcon" [class]="accordion.collapseIcon" [ngClass]="iconClass" [attr.aria-hidden]="true"></span>
-                    <ChevronDownIcon *ngIf="!accordion.collapseIcon" [ngClass]="iconClass" [attr.aria-hidden]="true" />
-                </ng-container>
-                <ng-container *ngIf="!selected">
-                    <span *ngIf="accordion.expandIcon" [class]="accordion.expandIcon" [ngClass]="iconClass" [attr.aria-hidden]="true"></span>
-                    <ChevronUpIcon *ngIf="!accordion.expandIcon" [ngClass]="iconClass" [attr.aria-hidden]="true" />
-                </ng-container>
-            }
-        </button>
-        <div
-            [attr.id]="getTabContentId(id)"
-            class="p-accordioncontent"
-            [@tabContent]="selected ? { value: 'visible', params: { transitionParams: transitionOptions } } : { value: 'hidden', params: { transitionParams: transitionOptions } }"
-            role="region"
-            [attr.aria-hidden]="!selected"
-            [attr.aria-labelledby]="getTabHeaderActionId(id)"
-            [attr.data-pc-section]="'toggleablecontent'"
-        >
-            <div class="p-accordioncontent-content" [ngClass]="contentStyleClass" [ngStyle]="contentStyle">
-                <ng-content />
-                <ng-container *ngIf="(contentTemplate || _contentTemplate) && (cache ? loaded : selected)">
-                    <ng-container *ngTemplateOutlet="contentTemplate || _contentTemplate"></ng-container>
-                </ng-container>
-            </div>
-        </div>
-    `,
-    animations: [
-        trigger('tabContent', [
-            state(
-                'hidden',
-                style({
-                    height: '0',
-                    visibility: 'hidden'
-                })
-            ),
-            state(
-                'visible',
-                style({
-                    height: '*',
-                    visibility: 'visible'
-                })
-            ),
-            transition('visible <=> hidden', [animate('{{transitionParams}}')]),
-            transition('void => *', animate(0))
-        ])
-    ],
-    host: {
-        '[class.p-accordionpanel]': 'true',
-        '[class.p-accordionpanel-active]': 'selected',
-        '[attr.data-pc-name]': '"accordiontab"'
-    },
-    providers: [AccordionStyle],
-    changeDetection: ChangeDetectionStrategy.OnPush,
-    encapsulation: ViewEncapsulation.None
-})
-export class AccordionTab extends BaseComponent implements AfterContentInit, OnDestroy {
-    @HostBinding('class') get hostClass() {
-        return this.tabStyleClass;
-    }
-    @HostBinding('style') get hostStyle() {
-        return this.tabStyle;
-    }
-    /**
-     * Current id state as a string.
-     * @group Props
-     */
-    @Input() id: string | undefined = uuid('pn_id_');
-    /**
-     * Used to define the header of the tab.
-     * @group Props
-     */
-    @Input() header: string | undefined;
-    /**
-     * Inline style of the tab header.
-     * @group Props
-     */
-    @Input() headerStyle: { [klass: string]: any } | null | undefined;
-    /**
-     * Inline style of the tab.
-     * @group Props
-     */
-    @Input() tabStyle: { [klass: string]: any } | null | undefined;
-    /**
-     * Inline style of the tab content.
-     * @group Props
-     */
-    @Input() contentStyle: { [klass: string]: any } | null | undefined;
-    /**
-     * Style class of the tab.
-     * @group Props
-     */
-    @Input() tabStyleClass: string | undefined;
-    /**
-     * Style class of the tab header.
-     * @group Props
-     */
-    @Input() headerStyleClass: string | undefined;
-    /**
-     * Style class of the tab content.
-     * @group Props
-     */
-    @Input() contentStyleClass: string | undefined;
-    /**
-     * Whether the tab is disabled.
-     * @group Props
-     */
-    @Input({ transform: booleanAttribute }) disabled: boolean | undefined;
-    /**
-     * Whether a lazy loaded panel should avoid getting loaded again on reselection.
-     * @group Props
-     */
-    @Input({ transform: booleanAttribute }) cache: boolean = true;
-    /**
-     * Transition options of the animation.
-     * @group Props
-     */
-    @Input() transitionOptions: string = '400ms cubic-bezier(0.86, 0, 0.07, 1)';
-    /**
-     * Position of the icon.
-     * @group Props
-     */
-    @Input() iconPos: 'end' | 'start' = 'start';
-    /**
-     * The value that returns the selection.
-     * @group Props
-     */
-    @Input() get selected(): boolean {
-        return this._selected;
-    }
-    set selected(val: boolean) {
-        this._selected = val;
-
-        if (!this.loaded) {
-            if (this._selected && this.cache) {
-                this.loaded = true;
-            }
-
-            this.cd.detectChanges();
-        }
-    }
-    /**
-     * The aria-level that each accordion header will have. The default value is 2 as per W3C specifications
-     * @group Props
-     */
-    @Input({ transform: numberAttribute }) headerAriaLevel: number = 2;
-    /**
-     * Event triggered by changing the choice.
-     * @param {boolean} value - Boolean value indicates that the option is changed.
-     * @group Emits
-     */
-    @Output() selectedChange: EventEmitter<boolean> = new EventEmitter<boolean>();
-
-    @ContentChildren(Header) headerFacet!: QueryList<Header>;
-
-    private _selected: boolean = false;
-
-    get iconClass() {
-        if (this.iconPos === 'end') {
-            return 'p-accordionheader-toggle-icon icon-end';
-        } else {
-            return 'p-accordionheader-toggle-icon icon-start';
-        }
-    }
-    /**
-     * Content template for the content of the drawer.
-     * @group Templates
-     */
-    @ContentChild('header', { descendants: false }) headerTemplate: TemplateRef<any> | undefined;
-    /**
-     * Template for the header icon.
-     * @group Templates
-     */
-    @ContentChild('icon', { descendants: false }) iconTemplate: TemplateRef<any> | undefined;
-    /**
-     * Content template for the footer of the drawer.
-     * @group Templates
-     */
-    @ContentChild('content', { descendants: false }) contentTemplate: TemplateRef<any> | undefined;
-
-    @ContentChildren(PrimeTemplate) templates: QueryList<PrimeTemplate> | undefined;
-
-    _headerTemplate: TemplateRef<any>;
-
-    _iconTemplate: TemplateRef<any>;
-
-    _contentTemplate: TemplateRef<any>;
-
-    loaded: boolean = false;
-
-    accordion = inject(forwardRef(() => Accordion)) as Accordion;
-
-    _componentStyle = inject(AccordionStyle);
-
-    ngOnInit() {
-        super.ngOnInit();
-        console.log('AccordionTab is deprecated as of v18, please use the new structure instead.');
-    }
-
-    ngAfterContentInit() {
-        this.templates.forEach((item) => {
-            switch (item.getType()) {
-                case 'content':
-                    this._contentTemplate = item.template;
-                    break;
-
-                case 'header':
-                    this._headerTemplate = item.template;
-                    break;
-
-                case 'icon':
-                    this._iconTemplate = item.template;
-                    break;
-
-                default:
-                    this._contentTemplate = item.template;
-                    break;
-            }
-        });
-    }
-
-    toggle(event?: MouseEvent | KeyboardEvent) {
-        if (this.disabled) {
-            return false;
-        }
-
-        let index = this.findTabIndex();
-
-        if (this.selected) {
-            this.selected = false;
-            this.accordion.onClose.emit({ originalEvent: event, index: index });
-        } else {
-            if (!this.accordion.multiple()) {
-                for (var i = 0; i < this.accordion.tabs.length; i++) {
-                    if (this.accordion.tabs[i].selected) {
-                        this.accordion.tabs[i].selected = false;
-                        this.accordion.tabs[i].selectedChange.emit(false);
-                        this.accordion.tabs[i].cd.markForCheck();
-                    }
-                }
-            }
-
-            this.selected = true;
-            this.loaded = true;
-            this.accordion.onOpen.emit({ originalEvent: event, index: index });
-        }
-
-        this.selectedChange.emit(this.selected);
-        this.accordion.updateActiveIndex();
-        this.cd.markForCheck();
-
-        event?.preventDefault();
-    }
-
-    findTabIndex() {
-        let index = -1;
-        for (var i = 0; i < this.accordion.tabs.length; i++) {
-            if (this.accordion.tabs[i] == this) {
-                index = i;
-                break;
-            }
-        }
-        return index;
-    }
-
-    onKeydown(event: KeyboardEvent) {
-        switch (event.code) {
-            case 'Enter':
-            case 'Space':
-                this.toggle(event);
-                event.preventDefault();
-                break;
-            default:
-                break;
-        }
-    }
-
-    getTabHeaderActionId(tabId) {
-        return `${tabId}_header_action`;
-    }
-
-    getTabContentId(tabId) {
-        return `${tabId}_content`;
-    }
-
-    ngOnDestroy() {
-        this.accordion.tabs.splice(this.findTabIndex(), 1);
-
-        super.ngOnDestroy();
-    }
-}
-
-/**
  * Accordion groups a collection of contents in tabs.
  * @group Components
  */
@@ -692,19 +331,12 @@ export class AccordionTab extends BaseComponent implements AfterContentInit, OnD
     imports: [CommonModule, SharedModule],
     template: ` <ng-content /> `,
     host: {
-        '[class]': "cx('root')"
+        '[class]': "cn(cx('root'), styleClass)"
     },
     changeDetection: ChangeDetectionStrategy.OnPush,
     providers: [AccordionStyle]
 })
-export class Accordion extends BaseComponent implements BlockableUI, AfterContentInit, OnDestroy {
-    @HostBinding('class') get hostClass() {
-        return this.styleClass;
-    }
-
-    @HostBinding('style') get hostStyle() {
-        return this.style;
-    }
+export class Accordion extends BaseComponent implements BlockableUI {
     /**
      * Value of the active tab.
      * @defaultValue undefined
@@ -718,12 +350,8 @@ export class Accordion extends BaseComponent implements BlockableUI, AfterConten
      */
     multiple = input(false, { transform: booleanAttribute });
     /**
-     * Inline style of the tab header and content.
-     * @group Props
-     */
-    @Input() style: { [klass: string]: any } | null | undefined;
-    /**
      * Class of the element.
+     * @deprecated since v20.0.0, use `class` instead.
      * @group Props
      */
     @Input() styleClass: string | undefined;
@@ -743,35 +371,12 @@ export class Accordion extends BaseComponent implements BlockableUI, AfterConten
      * @group Props
      */
     selectOnFocus = input(false, { transform: booleanAttribute });
-    set activeIndex(val: number | number[] | null | undefined) {
-        this._activeIndex = val;
-        if (this.preventActiveIndexPropagation) {
-            this.preventActiveIndexPropagation = false;
-            return;
-        }
-
-        this.updateSelectionState();
-    }
     /**
      * Transition options of the animation.
      * @group Props
      */
     @Input() transitionOptions: string = '400ms cubic-bezier(0.86, 0, 0.07, 1)';
-    /**
-     * Returns the active index.
-     * @param {number | number[]} value - New index.
-     * @deprecated use native valueChange emitter of the value model.
-     * @group Emits
-     */
-    @Output() activeIndexChange: EventEmitter<number | number[]> = new EventEmitter<number | number[]>();
 
-    set headerAriaLevel(val: number) {
-        if (typeof val === 'number' && val > 0) {
-            this._headerAriaLevel = val;
-        } else if (this._headerAriaLevel !== 2) {
-            this._headerAriaLevel = 2;
-        }
-    }
     /**
      * Callback to invoke when an active tab is collapsed by clicking on the header.
      * @param {AccordionTabCloseEvent} event - Custom tab close event.
@@ -787,37 +392,7 @@ export class Accordion extends BaseComponent implements BlockableUI, AfterConten
 
     id = signal(uuid('pn_id_'));
 
-    @ContentChildren(AccordionTab, { descendants: true }) tabList: QueryList<AccordionTab> | undefined;
-
-    tabListSubscription: Subscription | null = null;
-
-    private _activeIndex: any;
-
-    private _headerAriaLevel: number = 2;
-
-    preventActiveIndexPropagation: boolean = false;
-
-    public tabs: AccordionTab[] = [];
-
     _componentStyle = inject(AccordionStyle);
-
-    /**
-     * Index of the active tab or an array of indexes in multiple mode.
-     * @deprecated use value property with new architecture instead.
-     * @group Props
-     */
-    @Input() get activeIndex(): number | number[] | null | undefined {
-        return this._activeIndex;
-    }
-
-    /**
-     * The aria-level that each accordion header will have. The default value is 2 as per W3C specifications
-     * @deprecated use AccoridonHeader component and bind attribute to the host.
-     * @group Props
-     */
-    @Input() get headerAriaLevel(): number {
-        return this._headerAriaLevel;
-    }
 
     @HostListener('keydown', ['$event'])
     onKeydown(event) {
@@ -867,37 +442,6 @@ export class Accordion extends BaseComponent implements BlockableUI, AfterConten
     changeFocusedTab(element) {
         if (element) {
             focus(element);
-
-            if (this.selectOnFocus()) {
-                this.tabs.forEach((tab, i) => {
-                    let selected = this.multiple() ? this._activeIndex.includes(i) : i === this._activeIndex;
-
-                    if (this.multiple()) {
-                        if (!this._activeIndex) {
-                            this._activeIndex = [];
-                        }
-                        if (tab.id == element.id) {
-                            tab.selected = !tab.selected;
-                            if (!this._activeIndex.includes(i)) {
-                                this._activeIndex.push(i);
-                            } else {
-                                this._activeIndex = this._activeIndex.filter((ind) => ind !== i);
-                            }
-                        }
-                    } else {
-                        if (tab.id == element.id) {
-                            tab.selected = !tab.selected;
-                            this._activeIndex = i;
-                        } else {
-                            tab.selected = false;
-                        }
-                    }
-
-                    tab.selectedChange.emit(selected);
-                    this.activeIndexChange.emit(this._activeIndex);
-                    tab.cd.markForCheck();
-                });
-            }
         }
     }
 
@@ -931,67 +475,8 @@ export class Accordion extends BaseComponent implements BlockableUI, AfterConten
         event.preventDefault();
     }
 
-    ngAfterContentInit() {
-        this.initTabs();
-
-        this.tabListSubscription = (this.tabList as QueryList<AccordionTab>).changes.subscribe((_) => {
-            this.initTabs();
-        });
-    }
-
-    initTabs() {
-        this.tabs = (this.tabList as QueryList<AccordionTab>).toArray();
-
-        this.tabs.forEach((tab) => {
-            tab.headerAriaLevel = this._headerAriaLevel;
-        });
-
-        this.updateSelectionState();
-        this.cd.markForCheck();
-    }
-
     getBlockableElement(): HTMLElement {
         return this.el.nativeElement.children[0];
-    }
-
-    updateSelectionState() {
-        if (this.tabs && this.tabs.length && this._activeIndex != null) {
-            for (let i = 0; i < this.tabs.length; i++) {
-                let selected = this.multiple() ? this._activeIndex.includes(i) : i === this._activeIndex;
-                let changed = selected !== this.tabs[i].selected;
-
-                if (changed) {
-                    this.tabs[i].selected = selected;
-                    this.tabs[i].selectedChange.emit(selected);
-                    this.tabs[i].cd.markForCheck();
-                }
-            }
-        }
-    }
-
-    isTabActive(index) {
-        return this.multiple() ? this._activeIndex && (<number[]>this._activeIndex).includes(index) : this._activeIndex === index;
-    }
-
-    getTabProp(tab, name) {
-        return tab.props ? tab.props[name] : undefined;
-    }
-
-    updateActiveIndex() {
-        let index: number | number[] | null = this.multiple() ? [] : null;
-        this.tabs.forEach((tab, i) => {
-            if (tab.selected) {
-                if (this.multiple()) {
-                    (index as number[]).push(i);
-                } else {
-                    index = i;
-                    return;
-                }
-            }
-        });
-        this.preventActiveIndexPropagation = true;
-        this._activeIndex = index;
-        this.activeIndexChange.emit(index as number[] | number);
     }
 
     updateValue(value: string | number) {
@@ -1015,18 +500,10 @@ export class Accordion extends BaseComponent implements BlockableUI, AfterConten
             }
         }
     }
-
-    ngOnDestroy() {
-        if (this.tabListSubscription) {
-            this.tabListSubscription.unsubscribe();
-        }
-
-        super.ngOnDestroy();
-    }
 }
 
 @NgModule({
-    imports: [Accordion, AccordionTab, SharedModule, AccordionPanel, AccordionHeader, AccordionContent],
-    exports: [Accordion, AccordionTab, SharedModule, AccordionPanel, AccordionHeader, AccordionContent]
+    imports: [Accordion, SharedModule, AccordionPanel, AccordionHeader, AccordionContent],
+    exports: [Accordion, SharedModule, AccordionPanel, AccordionHeader, AccordionContent]
 })
 export class AccordionModule {}

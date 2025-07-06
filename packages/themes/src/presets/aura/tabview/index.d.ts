@@ -1,1 +1,2 @@
-export * from '@primeuix/themes/types/tabview';
+export * from '@primeuix/themes/aura/tabview';
+export { default } from '@primeuix/themes/aura/tabview';

@@ -7,8 +7,7 @@ const classes = {
         'p-blockui p-blockui-mask p-overlay-mask',
         {
             'p-blockui-mask-document': !instance.target
-        },
-        instance.styleClass
+        }
     ]
 };
 

@@ -1,14 +1,13 @@
 import { Injectable } from '@angular/core';
-import { css, dt } from '@primeuix/styled';
 import { style } from '@primeuix/styles/rating';
 import { BaseStyle } from 'primeng/base';
 
-const theme = css`
+const theme = /*css*/ `
     ${style}
 
     /* For PrimeNG */
     p-rating.ng-invalid.ng-dirty > .p-rating > .p-rating-icon {
-        stroke: ${dt('rating.invalid.icon.color')};
+        stroke: dt('rating.invalid.icon.color');
     }
 `;
 
@@ -17,7 +16,7 @@ const classes = {
         'p-rating',
         {
             'p-readonly': instance.readonly,
-            'p-disabled': instance.disabled
+            'p-disabled': instance.disabled()
         }
     ],
     option: ({ instance, star, value }) => [
@@ -28,8 +27,8 @@ const classes = {
             'p-focus-visible': star + 1 === instance.focusedOptionIndex() && instance.isFocusVisibleItem
         }
     ],
-    onIcon: 'p-rating-icon p-rating-on-icon',
-    offIcon: 'p-rating-icon p-rating-off-icon'
+    onIcon: ({ instance }) => ['p-rating-icon p-rating-on-icon', { 'p-invalid': instance.invalid() }],
+    offIcon: ({ instance }) => ['p-rating-icon p-rating-off-icon', { 'p-invalid': instance.invalid() }]
 };
 
 @Injectable()

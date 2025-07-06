@@ -13,6 +13,7 @@ import {
     forwardRef,
     Inject,
     inject,
+    input,
     Input,
     NgModule,
     numberAttribute,
@@ -30,11 +31,11 @@ import {
 } from '@angular/core';
 import { DomSanitizer, SafeHtml } from '@angular/platform-browser';
 import { RouterModule } from '@angular/router';
-import { absolutePosition, appendChild, find, findSingle, focus, isTouchDevice, relativePosition, uuid } from '@primeuix/utils';
+import { absolutePosition, find, findSingle, focus, isTouchDevice, relativePosition, uuid } from '@primeuix/utils';
 import { MenuItem, OverlayService, PrimeTemplate, SharedModule } from 'primeng/api';
 import { BadgeModule } from 'primeng/badge';
 import { BaseComponent } from 'primeng/basecomponent';
-import { ConnectedOverlayScrollHandler } from 'primeng/dom';
+import { ConnectedOverlayScrollHandler, DomHandler } from 'primeng/dom';
 import { Ripple } from 'primeng/ripple';
 import { TooltipModule } from 'primeng/tooltip';
 import { Nullable, VoidListener } from 'primeng/ts-helpers';
@@ -64,7 +65,7 @@ export class SafeHtmlPipe implements PipeTransform {
     selector: '[pMenuItemContent]',
     standalone: true,
     imports: [CommonModule, RouterModule, Ripple, TooltipModule, BadgeModule, SharedModule, SafeHtmlPipe],
-    template: `
+    template: ` <div [class]="cx('itemContent')" (click)="onItemClick($event, item)" [attr.data-pc-section]="'content'">
         <ng-container *ngIf="!itemTemplate">
             <a
                 *ngIf="!item?.routerLink"
@@ -113,12 +114,7 @@ export class SafeHtmlPipe implements PipeTransform {
             <ng-template #htmlLabel><span class="p-menu-item-label" [innerHTML]="item.label | safeHtml"></span></ng-template>
             <p-badge *ngIf="item.badge" [styleClass]="item.badgeStyleClass" [value]="item.badge" />
         </ng-template>
-    `,
-    host: {
-        'data-pc-section': 'content',
-        '[class]': "cx('itemContent')",
-        '(click)': 'onItemClick($event, item)'
-    },
+    </div>`,
     encapsulation: ViewEncapsulation.None,
     providers: [MenuStyle]
 })
@@ -153,8 +149,9 @@ export class MenuItemContent extends BaseComponent {
     template: `
         <div
             #container
-            [class]="cx('root')"
-            [style]="style"
+            [class]="cn(cx('root'), styleClass)"
+            [style]="sx('root')"
+            [ngStyle]="style"
             *ngIf="!popup || visible"
             (click)="onOverlayClick($event)"
             [@overlayAnimation]="{
@@ -196,7 +193,7 @@ export class MenuItemContent extends BaseComponent {
                     <ng-template ngFor let-item let-j="index" [ngForOf]="submenu.items">
                         <li [class]="cx('separator')" *ngIf="item.separator && (item.visible !== false || submenu.visible !== false)" role="separator"></li>
                         <li
-                            [class]="cx('item', { item, menuItemId: menuitemId(item, id, i, j) })"
+                            [class]="cx('item', { item, id: menuitemId(item, id, i, j) })"
                             *ngIf="!item.separator && item.visible !== false && (item.visible !== undefined || submenu.visible !== false)"
                             [pMenuItemContent]="item"
                             [itemTemplate]="itemTemplate ?? _itemTemplate"
@@ -217,7 +214,7 @@ export class MenuItemContent extends BaseComponent {
                 <ng-template ngFor let-item let-i="index" [ngForOf]="model" *ngIf="!hasSubMenu()">
                     <li [class]="cx('separator')" *ngIf="item.separator && item.visible !== false" role="separator"></li>
                     <li
-                        [class]="cx('item', { item, menuItemId: menuitemId(item, id, i) })"
+                        [class]="cx('item', { item, id: menuitemId(item, id, i) })"
                         *ngIf="!item.separator && item.visible !== false"
                         [pMenuItemContent]="item"
                         [itemTemplate]="itemTemplate ?? _itemTemplate"
@@ -267,11 +264,6 @@ export class Menu extends BaseComponent implements AfterContentInit, OnDestroy {
      */
     @Input() styleClass: string | undefined;
     /**
-     * Target element to attach the overlay, valid values are "body" or a local ng-template variable of another element (note: use binding with brackets for template variables, e.g. [appendTo]="mydiv" for a div element having #mydiv as variable name).
-     * @group Props
-     */
-    @Input() appendTo: HTMLElement | ElementRef | TemplateRef<any> | string | null | undefined | any;
-    /**
      * Whether to automatically manage layering.
      * @group Props
      */
@@ -312,6 +304,12 @@ export class Menu extends BaseComponent implements AfterContentInit, OnDestroy {
      */
     @Input({ transform: numberAttribute }) tabindex: number = 0;
     /**
+     * Target element to attach the overlay, valid values are "body" or a local ng-template variable of another element (note: use binding with brackets for template variables, e.g. [appendTo]="mydiv" for a div element having #mydiv as variable name).
+     * @defaultValue 'self'
+     * @group Props
+     */
+    appendTo = input<HTMLElement | ElementRef | TemplateRef<any> | 'self' | 'body' | null | undefined | any>(undefined);
+    /**
      * Callback to invoke when overlay menu is shown.
      * @group Emits
      */
@@ -337,6 +335,8 @@ export class Menu extends BaseComponent implements AfterContentInit, OnDestroy {
     @ViewChild('list') listViewChild: Nullable<ElementRef>;
 
     @ViewChild('container') containerViewChild: Nullable<ElementRef>;
+
+    $appendTo = computed(() => this.appendTo() || this.config.overlayAppendTo());
 
     container: HTMLDivElement | undefined;
 
@@ -478,6 +478,7 @@ export class Menu extends BaseComponent implements AfterContentInit, OnDestroy {
                     this.container = event.element;
                     this.moveOnTop();
                     this.onShow.emit({});
+                    this.attrSelector && this.container.setAttribute(this.attrSelector, '');
                     this.appendOverlay();
                     this.alignOverlay();
                     this.bindDocumentClickListener();
@@ -510,14 +511,11 @@ export class Menu extends BaseComponent implements AfterContentInit, OnDestroy {
     }
 
     appendOverlay() {
-        if (this.appendTo) {
-            if (this.appendTo === 'body') this.renderer.appendChild(this.document.body, this.container);
-            else appendChild(this.appendTo, this.container);
-        }
+        DomHandler.appendOverlay(this.container, this.$appendTo() === 'body' ? this.document.body : this.$appendTo(), this.$appendTo());
     }
 
     restoreOverlayAppend() {
-        if (this.container && this.appendTo) {
+        if (this.container && this.$appendTo() !== 'self') {
             this.renderer.appendChild(this.el.nativeElement, this.container);
         }
     }
@@ -566,6 +564,7 @@ export class Menu extends BaseComponent implements AfterContentInit, OnDestroy {
     onListFocus(event: Event) {
         if (!this.focused) {
             this.focused = true;
+            !this.popup && this.changeFocusedOptionIndex(0);
             this.onFocus.emit(event);
         }
     }
@@ -683,7 +682,6 @@ export class Menu extends BaseComponent implements AfterContentInit, OnDestroy {
 
     changeFocusedOptionIndex(index) {
         const links = find(this.containerViewChild.nativeElement, 'li[data-pc-section="menuitem"][data-p-disabled="false"]');
-
         if (links.length > 0) {
             let order = index >= links.length ? links.length - 1 : index < 0 ? 0 : index;
             order > -1 && this.focusedOptionIndex.set(links[order].getAttribute('id'));

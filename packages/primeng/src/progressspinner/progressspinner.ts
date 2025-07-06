@@ -26,7 +26,7 @@ import { ProgressSpinnerStyle } from './style/progressspinnerstyle';
         '[attr.data-pc-name]': "'progressspinner'",
         '[attr.data-pc-section]': "'root'",
         '[attr.aria-busy]': 'true',
-        '[class]': "cx('root')"
+        '[class]': "cn(cx('root'), styleClass)"
     }
 })
 export class ProgressSpinner extends BaseComponent {

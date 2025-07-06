@@ -1,42 +1,26 @@
 import { Injectable } from '@angular/core';
-import { BaseStyle } from 'primeng/base';
 import { style } from '@primeuix/styles/cascadeselect';
-import { css, dt } from '@primeuix/styled';
+import { BaseStyle } from 'primeng/base';
 
-const theme = css`
+const theme = /*css*/ `
     ${style}
 
     /* For PrimeNG */
-    .p-cascadeselect.ng-invalid.ng-dirty {
-        border-color: ${dt('cascadeselect.invalid.border.color')};
+    .p-cascadeselect.ng-invalid.ng-dirty:not(.ng-untouched):not(.ng-pristine) {
+        border-color: dt('cascadeselect.invalid.border.color');
     }
 
-    .p-cascadeselect:not(.p-disabled).p-focus {
-        border-color: dt('cascadeselect.focus.border.color');
-    }
-
-    .p-cascadeselect.ng-invalid.ng-dirty .p-cascadeselect-label.p-placeholder {
-        color: ${dt('cascadeselect.invalid.placeholder.color')};
-    }
-
-    .p-cascadeselect-clear-icon {
-        cursor: pointer;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        flex-shrink: 0;
-        background: transparent;
-        color: ${dt('cascadeselect.clear.icon.color')};
+    .p-cascadeselect.ng-invalid.ng-dirty:not(.ng-untouched):not(.ng-pristine) .p-cascadeselect-label.p-placeholder {
+        color: dt('cascadeselect.invalid.placeholder.color');
     }
 `;
 const inlineStyles = {
-    root: ({ instance }) => ({ position: instance.appendTo === 'self' ? 'relative' : undefined })
+    root: ({ instance }) => ({ position: instance.$appendTo() === 'self' ? 'relative' : undefined })
 };
 
 const classes = {
     root: ({ instance }) => [
         'p-cascadeselect p-component p-inputwrapper',
-        instance.styleClass,
         {
             'p-cascadeselect p-component p-inputwrapper': true,
             'p-cascadeselect-clearable': instance.showClear && !instance.disabled(),
@@ -65,7 +49,7 @@ const classes = {
     loadingIcon: 'p-cascadeselect-loading-icon',
     dropdownIcon: 'p-cascadeselect-dropdown-icon',
     overlay: ({ instance }) => [
-        'p-cascadeselect-overlay p-component',
+        'p-cascadeselect-overlay p-component-overlay p-component',
         {
             'p-cascadeselect-mobile-active': instance.queryMatches()
         }

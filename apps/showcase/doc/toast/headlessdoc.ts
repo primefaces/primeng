@@ -18,7 +18,7 @@ import { MessageService } from 'primeng/api';
                             <span class="font-bold text-base text-white dark:text-black">{{ message.summary }}</span>
                         </div>
                         <div class="flex flex-col gap-2">
-                            <p-progressbar [value]="progress" [showValue]="false" [style]="{ height: '4px' }" styleClass="!bg-primary/80" />
+                            <p-progressbar [value]="progress" [showValue]="false" [style]="{ height: '4px' }" class="!bg-primary/80" />
                             <label class="text-sm font-bold text-white dark:text-black">{{ progress }}% uploaded</label>
                         </div>
                         <div class="flex gap-4 mb-4 justify-end">
@@ -99,7 +99,7 @@ export class HeadlessDoc {
                 <span class="font-bold text-base text-white dark:text-black">{{ message.summary }}</span>
             </div>
             <div class="flex flex-col gap-2">
-                <p-progressbar [value]="progress" [showValue]="false" [style]="{ height: '4px' }" styleClass="!bg-primary/80" />
+                <p-progressbar [value]="progress" [showValue]="false" [style]="{ height: '4px' }" class="!bg-primary/80" />
                 <label class="text-sm font-bold text-white dark:text-black">{{ progress }}% uploaded</label>
             </div>
             <div class="flex gap-4 mb-4 justify-end">
@@ -119,7 +119,7 @@ export class HeadlessDoc {
                     <span class="font-bold text-base text-white dark:text-black">{{ message.summary }}</span>
                 </div>
                 <div class="flex flex-col gap-2">
-                    <p-progressbar [value]="progress" [showValue]="false" [style]="{ height: '4px' }" styleClass="!bg-primary/80" />
+                    <p-progressbar [value]="progress" [showValue]="false" [style]="{ height: '4px' }" class="!bg-primary/80" />
                     <label class="text-sm font-bold text-white dark:text-black">{{ progress }}% uploaded</label>
                 </div>
                 <div class="flex gap-4 mb-4 justify-end">

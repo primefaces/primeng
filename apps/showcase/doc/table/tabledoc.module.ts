@@ -7,7 +7,6 @@ import { FormsModule } from '@angular/forms';
 import { RouterModule } from '@angular/router';
 import { BadgeModule } from 'primeng/badge';
 import { ButtonModule } from 'primeng/button';
-import { CalendarModule } from 'primeng/calendar';
 import { ConfirmDialogModule } from 'primeng/confirmdialog';
 import { ContextMenuModule } from 'primeng/contextmenu';
 import { DialogModule } from 'primeng/dialog';
@@ -46,13 +45,11 @@ import { ColumnToggleDoc } from './columntoggledoc';
 import { ContextMenuDoc } from './contextmenudoc';
 import { ControlledSelectionDoc } from './controlledselectiondoc';
 import { CustomersDoc } from './customersdoc';
-import { CustomSortDoc } from './customsortdoc';
 import { DynamicDoc } from './dynamicdoc';
 import { ExpandableRowGroupDoc } from './expandablerowgroupdoc';
 import { ExportDoc } from './exportdoc';
 import { FilterAdvancedDoc } from './filteradvanceddoc';
 import { FilterBasicDoc } from './filterbasic';
-import { FilterSortEditDoc } from './filtersorteditdoc';
 import { FlexibleScrollDoc } from './flexiblescrolldoc';
 import { FrozenColumnsDoc } from './frozencolumnsdoc';
 import { FrozenRowsDoc } from './frozenrowsdoc';
@@ -93,7 +90,6 @@ import { VirtualScrollLazyDoc } from './virtualscrolllazydoc';
         CommonModule,
         FormsModule,
         TableModule,
-        CalendarModule,
         SliderModule,
         DialogModule,
         ConfirmDialogModule,
@@ -140,7 +136,6 @@ import { VirtualScrollLazyDoc } from './virtualscrolllazydoc';
         ContextMenuDoc,
         ControlledSelectionDoc,
         CustomersDoc,
-        CustomSortDoc,
         DynamicDoc,
         ExpandableRowGroupDoc,
         ExportDoc,
@@ -162,7 +157,6 @@ import { VirtualScrollLazyDoc } from './virtualscrolllazydoc';
         RadioButtonSelectionDoc,
         ReorderDoc,
         RowEditDoc,
-        FilterSortEditDoc,
         RowExpansionDoc,
         RowspanGroupingDoc,
         SingleColumnSortDoc,

@@ -1,19 +1,9 @@
 import { Injectable } from '@angular/core';
-import { css } from '@primeuix/styled';
 import { style } from '@primeuix/styles/terminal';
 import { BaseStyle } from 'primeng/base';
 
-const theme = css`
-    ${style}
-
-    /* For PrimeNG */
-    .p-terminal {
-        display: block;
-    }
-`;
-
 const classes = {
-    root: ({ instance }) => ['p-terminal p-component', instance.styleClass],
+    root: () => ['p-terminal p-component'],
     welcomeMessage: 'p-terminal-welcome-message',
     commandList: 'p-terminal-command-list',
     command: 'p-terminal-command',
@@ -28,7 +18,7 @@ const classes = {
 export class TerminalStyle extends BaseStyle {
     name = 'terminal';
 
-    theme = theme;
+    theme = style;
 
     classes = classes;
 }

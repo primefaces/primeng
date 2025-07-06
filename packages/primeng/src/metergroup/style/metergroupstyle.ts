@@ -5,7 +5,6 @@ import { BaseStyle } from 'primeng/base';
 const classes = {
     root: ({ instance }) => [
         'p-metergroup p-component',
-        instance.styleClass,
         {
             'p-metergroup-horizontal': instance.orientation === 'horizontal',
             'p-metergroup-vertical': instance.orientation === 'vertical'

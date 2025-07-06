@@ -41,7 +41,7 @@ import { CardStyle } from './style/cardstyle';
     encapsulation: ViewEncapsulation.None,
     providers: [CardStyle],
     host: {
-        '[class]': "cx('root')",
+        '[class]': "cn(cx('root'), styleClass)",
         '[data-pc-name]': '"card"',
         '[style]': '_style()'
     }
@@ -68,6 +68,7 @@ export class Card extends BaseComponent implements AfterContentInit, BlockableUI
     }
     /**
      * Class of the element.
+     * @deprecated since v20.0.0, use `class` instead.
      * @group Props
      */
     @Input() styleClass: string | undefined;

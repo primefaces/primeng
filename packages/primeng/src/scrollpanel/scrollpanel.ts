@@ -75,19 +75,14 @@ import { ScrollPanelStyle } from './style/scrollpanelstyle';
     encapsulation: ViewEncapsulation.None,
     providers: [ScrollPanelStyle],
     host: {
-        '[class]': 'cx("root")',
-        '[style]': 'style',
+        '[class]': 'cn(cx("root"), styleClass)',
         'data-pc-name': 'scrollpanel'
     }
 })
 export class ScrollPanel extends BaseComponent implements AfterViewInit, AfterContentInit, OnDestroy {
     /**
-     * Inline style of the component.
-     * @group Props
-     */
-    @Input() style: { [klass: string]: any } | null | undefined;
-    /**
      * Style class of the component.
+     * @deprecated since v20.0.0, use `class` instead.
      * @group Props
      */
     @Input() styleClass: string | undefined;

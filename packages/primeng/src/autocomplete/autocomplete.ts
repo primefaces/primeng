@@ -14,6 +14,7 @@ import {
     forwardRef,
     HostListener,
     inject,
+    input,
     Input,
     NgModule,
     NgZone,
@@ -27,13 +28,14 @@ import {
     ViewEncapsulation
 } from '@angular/core';
 import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
-import { cn, equals, findLastIndex, findSingle, focus, isEmpty, isNotEmpty, resolveFieldData, uuid } from '@primeuix/utils';
+import { equals, findLastIndex, findSingle, focus, isEmpty, isNotEmpty, resolveFieldData, uuid } from '@primeuix/utils';
 import { OverlayOptions, OverlayService, PrimeTemplate, ScrollerOptions, SharedModule, TranslationKeys } from 'primeng/api';
 import { AutoFocus } from 'primeng/autofocus';
+import { BaseInput } from 'primeng/baseinput';
 import { Chip } from 'primeng/chip';
 import { PrimeNG } from 'primeng/config';
 import { ConnectedOverlayScrollHandler } from 'primeng/dom';
-import { ChevronDownIcon, SpinnerIcon, TimesCircleIcon, TimesIcon } from 'primeng/icons';
+import { ChevronDownIcon, SpinnerIcon, TimesCircleIcon } from 'primeng/icons';
 import { InputText } from 'primeng/inputtext';
 import { Overlay } from 'primeng/overlay';
 import { Ripple } from 'primeng/ripple';
@@ -41,7 +43,6 @@ import { Scroller } from 'primeng/scroller';
 import { Nullable } from 'primeng/ts-helpers';
 import { AutoCompleteCompleteEvent, AutoCompleteDropdownClickEvent, AutoCompleteLazyLoadEvent, AutoCompleteSelectEvent, AutoCompleteUnselectEvent } from './autocomplete.interface';
 import { AutoCompleteStyle } from './style/autocompletestyle';
-import { BaseInput } from 'primeng/baseinput';
 
 export const AUTOCOMPLETE_VALUE_ACCESSOR: any = {
     provide: NG_VALUE_ACCESSOR,
@@ -55,7 +56,7 @@ export const AUTOCOMPLETE_VALUE_ACCESSOR: any = {
 @Component({
     selector: 'p-autoComplete, p-autocomplete, p-auto-complete',
     standalone: true,
-    imports: [CommonModule, Overlay, InputText, Ripple, Scroller, AutoFocus, TimesCircleIcon, SpinnerIcon, TimesIcon, ChevronDownIcon, Chip, SharedModule],
+    imports: [CommonModule, Overlay, InputText, Ripple, Scroller, AutoFocus, TimesCircleIcon, SpinnerIcon, ChevronDownIcon, Chip, SharedModule],
     template: `
         <input
             *ngIf="!multiple"
@@ -64,21 +65,27 @@ export const AUTOCOMPLETE_VALUE_ACCESSOR: any = {
             pInputText
             [class]="cn(cx('pcInputText'), inputStyleClass)"
             [ngStyle]="inputStyle"
-            [type]="type"
+            [attr.type]="type"
             [attr.value]="inputValue()"
-            [variant]="variant()"
+            [variant]="$variant()"
+            [invalid]="invalid()"
             [attr.id]="inputId"
-            [autocomplete]="autocomplete"
-            [required]="required()"
-            [name]="name()"
+            [attr.autocomplete]="autocomplete"
             aria-autocomplete="list"
             role="combobox"
             [attr.placeholder]="placeholder"
+            [attr.name]="name()"
+            [attr.minlength]="minlength()"
             [pSize]="size()"
+            [attr.min]="min()"
+            [attr.max]="max()"
+            [attr.pattern]="pattern()"
+            [attr.size]="inputSize()"
             [attr.maxlength]="maxlength()"
-            [tabindex]="!disabled() ? tabindex : -1"
-            [readonly]="readonly"
-            [disabled]="disabled()"
+            [attr.tabindex]="!disabled() ? tabindex : -1"
+            [attr.required]="required() ? '' : undefined"
+            [attr.readonly]="readonly ? '' : undefined"
+            [attr.disabled]="disabled() ? '' : undefined"
             [attr.aria-label]="ariaLabel"
             [attr.aria-labelledby]="ariaLabelledBy"
             [attr.aria-required]="required()"
@@ -95,7 +102,7 @@ export const AUTOCOMPLETE_VALUE_ACCESSOR: any = {
             [fluid]="hasFluid"
         />
         <ng-container *ngIf="$filled() && !disabled() && showClear && !loading">
-            <TimesIcon *ngIf="!clearIconTemplate && !_clearIconTemplate" [styleClass]="cx('clearIcon')" (click)="clear()" [attr.aria-hidden]="true" />
+            <svg data-p-icon="chevron-times" *ngIf="!clearIconTemplate && !_clearIconTemplate" [class]="cx('clearIcon')" (click)="clear()" [attr.aria-hidden]="true" />
             <span *ngIf="clearIconTemplate || _clearIconTemplate" [class]="cx('clearIcon')" (click)="clear()" [attr.aria-hidden]="true">
                 <ng-template *ngTemplateOutlet="clearIconTemplate || _clearIconTemplate"></ng-template>
             </span>
@@ -128,7 +135,7 @@ export const AUTOCOMPLETE_VALUE_ACCESSOR: any = {
                     <ng-container *ngTemplateOutlet="selectedItemTemplate || _selectedItemTemplate; context: { $implicit: option }"></ng-container>
                     <ng-template #removeicon>
                         <span *ngIf="!removeIconTemplate && !_removeIconTemplate" [class]="cx('chipIcon')" (click)="!readonly ? removeOption($event, i) : ''">
-                            <TimesCircleIcon [styleClass]="cx('chipIcon')" [attr.aria-hidden]="true" />
+                            <svg data-p-icon="times-circle" [class]="cx('chipIcon')" [attr.aria-hidden]="true" />
                         </span>
                         <span *ngIf="removeIconTemplate || _removeIconTemplate" [attr.aria-hidden]="true">
                             <ng-template *ngTemplateOutlet="removeIconTemplate || _removeIconTemplate; context: { removeCallback: removeOption.bind(this), index: i, class: cx('chipIcon') }"></ng-template>
@@ -144,16 +151,21 @@ export const AUTOCOMPLETE_VALUE_ACCESSOR: any = {
                     [ngStyle]="inputStyle"
                     [attr.type]="type"
                     [attr.id]="inputId"
-                    [autocomplete]="autocomplete"
-                    [required]="required()"
+                    [attr.autocomplete]="autocomplete"
                     [attr.name]="name()"
+                    [attr.minlength]="minlength()"
+                    [attr.maxlength]="maxlength()"
+                    [attr.size]="size()"
+                    [attr.min]="min()"
+                    [attr.max]="max()"
+                    [attr.pattern]="pattern()"
                     role="combobox"
                     [attr.placeholder]="!$filled() ? placeholder : null"
                     aria-autocomplete="list"
-                    [attr.maxlength]="maxlength()"
-                    [tabindex]="!disabled() ? tabindex : -1"
-                    [readonly]="readonly"
-                    [disabled]="disabled()"
+                    [attr.tabindex]="!disabled() ? tabindex : -1"
+                    [attr.required]="required() ? '' : undefined"
+                    [attr.readonly]="readonly ? '' : undefined"
+                    [attr.disabled]="disabled() ? '' : undefined"
                     [attr.aria-label]="ariaLabel"
                     [attr.aria-labelledby]="ariaLabelledBy"
                     [attr.aria-required]="required()"
@@ -171,7 +183,7 @@ export const AUTOCOMPLETE_VALUE_ACCESSOR: any = {
             </li>
         </ul>
         <ng-container *ngIf="loading">
-            <SpinnerIcon *ngIf="!loadingIconTemplate && !_loadingIconTemplate" [styleClass]="cx('loader')" [spin]="true" [attr.aria-hidden]="true" />
+            <svg data-p-icon="spinner" *ngIf="!loadingIconTemplate && !_loadingIconTemplate" [class]="cx('loader')" [spin]="true" [attr.aria-hidden]="true" />
             <span *ngIf="loadingIconTemplate || _loadingIconTemplate" [class]="cx('loader')" [attr.aria-hidden]="true">
                 <ng-template *ngTemplateOutlet="loadingIconTemplate || _loadingIconTemplate"></ng-template>
             </span>
@@ -179,16 +191,17 @@ export const AUTOCOMPLETE_VALUE_ACCESSOR: any = {
         <button #ddBtn type="button" [attr.aria-label]="dropdownAriaLabel" [class]="cx('dropdown')" [disabled]="disabled()" pRipple (click)="handleDropdownClick($event)" *ngIf="dropdown" [attr.tabindex]="tabindex">
             <span *ngIf="dropdownIcon" [ngClass]="dropdownIcon" [attr.aria-hidden]="true"></span>
             <ng-container *ngIf="!dropdownIcon">
-                <ChevronDownIcon *ngIf="!dropdownIconTemplate && !_dropdownIconTemplate" />
+                <svg data-p-icon="chevron-down" *ngIf="!dropdownIconTemplate && !_dropdownIconTemplate" />
                 <ng-template *ngTemplateOutlet="dropdownIconTemplate || _dropdownIconTemplate"></ng-template>
             </ng-container>
         </button>
         <p-overlay
             #overlay
+            [hostAttrSelector]="attrSelector"
             [(visible)]="overlayVisible"
             [options]="overlayOptions"
             [target]="'@parent'"
-            [appendTo]="appendTo"
+            [appendTo]="$appendTo()"
             [showTransitionOptions]="showTransitionOptions"
             [hideTransitionOptions]="hideTransitionOptions"
             (onAnimationStart)="onOverlayAnimationStart($event)"
@@ -203,7 +216,7 @@ export const AUTOCOMPLETE_VALUE_ACCESSOR: any = {
                             #scroller
                             [items]="visibleOptions()"
                             [style]="{ height: scrollHeight }"
-                            [itemSize]="virtualScrollItemSize || _itemSize"
+                            [itemSize]="virtualScrollItemSize"
                             [autoSize]="true"
                             [lazy]="lazy"
                             (onLazyLoad)="onLazyLoad.emit($event)"
@@ -281,16 +294,22 @@ export const AUTOCOMPLETE_VALUE_ACCESSOR: any = {
     changeDetection: ChangeDetectionStrategy.OnPush,
     encapsulation: ViewEncapsulation.None,
     host: {
-        '[class]': "cx('root')",
+        '[class]': "cn(cx('root'), styleClass)",
         '[style]': "sx('root')"
     }
 })
 export class AutoComplete extends BaseInput implements AfterViewChecked, AfterContentInit, OnDestroy, ControlValueAccessor {
     /**
      * Minimum number of characters to initiate a search.
+     * @deprecated since v20.0.0, use `minQueryLength` instead.
      * @group Props
      */
     @Input({ transform: numberAttribute }) minLength: number = 1;
+    /**
+     * Minimum number of characters to initiate a search.
+     * @group Props
+     */
+    @Input({ transform: numberAttribute }) minQueryLength: number | undefined;
     /**
      * Delay between keystrokes to wait before sending a query.
      * @group Props
@@ -363,11 +382,6 @@ export class AutoComplete extends BaseInput implements AfterViewChecked, AfterCo
      */
     @Input() virtualScrollOptions: ScrollerOptions | undefined;
     /**
-     * Target element to attach the overlay, valid values are "body" or a local ng-template variable of another element (note: use binding with brackets for template variables, e.g. [appendTo]="mydiv" for a div element having #mydiv as variable name).
-     * @group Props
-     */
-    @Input() appendTo: HTMLElement | ElementRef | TemplateRef<any> | string | null | undefined | any;
-    /**
      * When enabled, highlights the first item in the list by default.
      * @group Props
      */
@@ -432,12 +446,6 @@ export class AutoComplete extends BaseInput implements AfterViewChecked, AfterCo
      * @group Props
      */
     @Input({ transform: booleanAttribute }) showClear: boolean = false;
-    /**
-     * Field of a suggested object to resolve and display.
-     * @group Props
-     * @deprecated use optionLabel property instead
-     */
-    @Input() field: string | undefined;
     /**
      * Displays a button next to the input field when enabled.
      * @group Props
@@ -520,18 +528,6 @@ export class AutoComplete extends BaseInput implements AfterViewChecked, AfterCo
         this.handleSuggestionsChange();
     }
     /**
-     * Element dimensions of option for virtual scrolling.
-     * @group Props
-     * @deprecated use virtualScrollItemSize property instead.
-     */
-    @Input() get itemSize(): number {
-        return this._itemSize as number;
-    }
-    set itemSize(val: number) {
-        this._itemSize = val;
-        console.log('The itemSize property is deprecated, use virtualScrollItemSize property instead.');
-    }
-    /**
      * Property name or getter function to use as the label of an option.
      * @group Props
      */
@@ -595,6 +591,12 @@ export class AutoComplete extends BaseInput implements AfterViewChecked, AfterCo
      * @group Props
      */
     @Input({ transform: booleanAttribute }) typeahead: boolean = true;
+    /**
+     * Target element to attach the overlay, valid values are "body" or a local ng-template variable of another element (note: use binding with brackets for template variables, e.g. [appendTo]="mydiv" for a div element having #mydiv as variable name).
+     * @defaultValue 'self'
+     * @group Props
+     */
+    appendTo = input<HTMLElement | ElementRef | TemplateRef<any> | 'self' | 'body' | null | undefined | any>(undefined);
     /**
      * Callback to invoke to search for suggestions.
      * @param {AutoCompleteCompleteEvent} event - Custom complete event.
@@ -675,8 +677,6 @@ export class AutoComplete extends BaseInput implements AfterViewChecked, AfterCo
     @ViewChild('scroller') scroller: Nullable<Scroller>;
 
     @ViewChild('overlay') overlayViewChild!: Overlay;
-
-    _itemSize: Nullable<number>;
 
     itemsWrapper: Nullable<HTMLDivElement>;
 
@@ -810,6 +810,8 @@ export class AutoComplete extends BaseInput implements AfterViewChecked, AfterCo
     focusedOptionIndex = signal<number>(-1);
 
     _componentStyle = inject(AutoCompleteStyle);
+
+    $appendTo = computed(() => this.appendTo() || this.config.overlayAppendTo());
 
     visibleOptions = computed(() => {
         return this.group ? this.flatOptions(this._suggestions()) : this._suggestions() || [];
@@ -1100,6 +1102,8 @@ export class AutoComplete extends BaseInput implements AfterViewChecked, AfterCo
 
     onInput(event) {
         if (this.typeahead) {
+            const _minLength = this.minQueryLength || this.minLength;
+
             if (this.searchTimeout) {
                 clearTimeout(this.searchTimeout);
             }
@@ -1120,7 +1124,7 @@ export class AutoComplete extends BaseInput implements AfterViewChecked, AfterCo
                     this.hide();
                 }, this.delay / 2);
             } else {
-                if (query.length >= this.minLength) {
+                if (query.length >= _minLength) {
                     this.focusedOptionIndex.set(-1);
 
                     this.searchTimeout = setTimeout(() => {
@@ -1605,7 +1609,7 @@ export class AutoComplete extends BaseInput implements AfterViewChecked, AfterCo
     }
 
     getOptionLabel(option: any) {
-        return this.field || this.optionLabel ? resolveFieldData(option, this.field || this.optionLabel) : option && option.label != undefined ? option.label : option;
+        return this.optionLabel ? resolveFieldData(option, this.optionLabel) : option && option.label != undefined ? option.label : option;
     }
 
     getOptionValue(option) {
@@ -1666,8 +1670,6 @@ export class AutoComplete extends BaseInput implements AfterViewChecked, AfterCo
 
         super.ngOnDestroy();
     }
-
-    protected readonly cn = cn;
 }
 
 @NgModule({

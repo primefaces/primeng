@@ -18,7 +18,7 @@ import { StepsStyle } from './style/stepsstyle';
     standalone: true,
     imports: [CommonModule, RouterModule, TooltipModule, SharedModule],
     template: `
-        <nav [class]="cx('root')" [ngStyle]="style" [attr.data-pc-name]="'steps'">
+        <nav [class]="cn(cx('root'), styleClass)" [ngStyle]="style" [attr.data-pc-name]="'steps'">
             <ul #list [attr.data-pc-section]="'menu'" [class]="cx('list')">
                 @for (item of model; track item.label; let i = $index) {
                     <li

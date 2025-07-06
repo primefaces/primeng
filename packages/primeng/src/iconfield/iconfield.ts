@@ -16,7 +16,7 @@ import { IconFieldStyle } from './style/iconfieldstyle';
     encapsulation: ViewEncapsulation.None,
     changeDetection: ChangeDetectionStrategy.OnPush,
     host: {
-        '[class]': "cx('root')"
+        '[class]': "cn(cx('root'), styleClass)"
     }
 })
 export class IconField extends BaseComponent {

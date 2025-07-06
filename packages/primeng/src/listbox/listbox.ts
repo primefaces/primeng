@@ -22,13 +22,14 @@ import {
     computed,
     forwardRef,
     inject,
+    input,
     numberAttribute,
     signal
 } from '@angular/core';
 import { ControlValueAccessor, FormsModule, NG_VALUE_ACCESSOR } from '@angular/forms';
 import { equals, findLastIndex, findSingle, focus, getFirstFocusableElement, isEmpty, isFunction, isNotEmpty, isPrintableCharacter, resolveFieldData, uuid } from '@primeuix/utils';
 import { FilterService, Footer, Header, PrimeTemplate, ScrollerOptions, SharedModule } from 'primeng/api';
-import { BaseComponent } from 'primeng/basecomponent';
+import { BaseEditableHolder } from 'primeng/baseeditableholder';
 import { Checkbox } from 'primeng/checkbox';
 import { IconField } from 'primeng/iconfield';
 import { BlankIcon, CheckIcon, SearchIcon } from 'primeng/icons';
@@ -55,21 +56,30 @@ export const LISTBOX_VALUE_ACCESSOR: any = {
     standalone: true,
     imports: [CommonModule, Ripple, Scroller, InputIcon, SearchIcon, Checkbox, CheckIcon, IconField, InputText, BlankIcon, FormsModule, SharedModule, DragDropModule],
     template: `
-        <span #firstHiddenFocusableElement role="presentation" class="p-hidden-accessible p-hidden-focusable" [tabindex]="!disabled ? tabindex : -1" (focus)="onFirstHiddenFocus($event)" [attr.data-p-hidden-focusable]="true"> </span>
+        <span #firstHiddenFocusableElement role="presentation" class="p-hidden-accessible p-hidden-focusable" [tabindex]="!disabled() ? tabindex : -1" (focus)="onFirstHiddenFocus($event)" [attr.data-p-hidden-focusable]="true"> </span>
         <div [class]="cx('header')" *ngIf="headerFacet || headerTemplate || _headerTemplate">
             <ng-content select="p-header"></ng-content>
             <ng-container *ngTemplateOutlet="headerTemplate || _headerTemplate; context: { $implicit: modelValue(), options: visibleOptions() }"></ng-container>
         </div>
         <div [class]="cx('header')" *ngIf="(checkbox && multiple && showToggleAll) || filter">
-            <div *ngIf="checkbox && multiple && showToggleAll" class="p-checkbox p-component" [ngClass]="{ 'p-checkbox-disabled': disabled }" (click)="onToggleAll($event)" (keydown)="onHeaderCheckboxKeyDown($event)">
+            <div *ngIf="checkbox && multiple && showToggleAll" class="p-checkbox p-component" [ngClass]="{ 'p-checkbox-disabled': disabled() }" (click)="onToggleAll($event)" (keydown)="onHeaderCheckboxKeyDown($event)">
                 <div class="p-hidden-accessible" [attr.data-p-hidden-accessible]="true">
-                    <input #headerchkbox type="checkbox" readonly="readonly" [attr.checked]="allSelected()" [disabled]="disabled" (focus)="onHeaderCheckboxFocus($event)" (blur)="onHeaderCheckboxBlur()" [attr.aria-label]="toggleAllAriaLabel" />
+                    <input
+                        #headerchkbox
+                        type="checkbox"
+                        readonly="readonly"
+                        [attr.checked]="allSelected()"
+                        [attr.disabled]="disabled() ? '' : undefined"
+                        (focus)="onHeaderCheckboxFocus($event)"
+                        (blur)="onHeaderCheckboxBlur()"
+                        [attr.aria-label]="toggleAllAriaLabel"
+                    />
                 </div>
                 <p-checkbox
                     *ngIf="checkbox && multiple"
                     [class]="cx('optionCheckIcon')"
                     [ngModel]="allSelected()"
-                    [disabled]="disabled"
+                    [disabled]="disabled()"
                     [tabindex]="-1"
                     [variant]="config.inputStyle() === 'filled' || config.inputVariant() === 'filled' ? 'filled' : 'outlined'"
                     [binary]="true"
@@ -94,31 +104,30 @@ export const LISTBOX_VALUE_ACCESSOR: any = {
                             [class]="cx('pcFilter')"
                             role="searchbox"
                             [value]="_filterValue() || ''"
-                            [disabled]="disabled"
+                            [attr.disabled]="disabled() ? '' : undefined"
                             [attr.aria-owns]="id + '_list'"
                             [attr.aria-activedescendant]="focusedOptionId"
                             [attr.placeholder]="filterPlaceHolder"
                             [attr.aria-label]="ariaFilterLabel"
-                            [tabindex]="!disabled && !focused ? tabindex : -1"
+                            [attr.tabindex]="!disabled() && !focused ? tabindex : -1"
                             (input)="onFilterChange($event)"
                             (keydown)="onFilterKeyDown($event)"
-                            (focus)="onFilterFocus($event)"
                             (blur)="onFilterBlur($event)"
                         />
                         <p-inputicon>
-                            <SearchIcon *ngIf="!filterIconTemplate && !_filterIconTemplate" [attr.aria-hidden]="true" />
+                            <svg data-p-icon="search" *ngIf="!filterIconTemplate && !_filterIconTemplate" [attr.aria-hidden]="true" />
                             <span *ngIf="filterIconTemplate || _filterIconTemplate" [attr.aria-hidden]="true">
                                 <ng-template *ngTemplateOutlet="filterIconTemplate || _filterIconTemplate"></ng-template>
                             </span>
                         </p-inputicon>
                     </p-iconfield>
                 </div>
-                <span role="status" attr.aria-live="polite" class="p-hidden-accessible" [attr.data-p-hidden-accessible]="true">
+                <span role="status" [attr.aria-live]="'polite'" class="p-hidden-accessible" [attr.data-p-hidden-accessible]="true">
                     {{ filterResultMessageText }}
                 </span>
             </ng-template>
         </div>
-        <div #container [class]="cn(cx('listContainer'), listStyleClass)" [ngStyle]="listStyle" [style.max-height]="virtualScroll ? 'auto' : scrollHeight || 'auto'" [attr.tabindex]="!disabled && '0'">
+        <div #container [class]="cn(cx('listContainer'), listStyleClass)" [ngStyle]="listStyle" [style.max-height]="virtualScroll ? 'auto' : scrollHeight || 'auto'">
             @if (hasFilter() && isEmpty()) {
                 <div [class]="cx('emptyMessage')" [cdkDropListData]="$any([])" (cdkDropListDropped)="drop($event)" cdkDropList>
                     @if (!emptyFilterTemplate && !_emptyFilterTemplate && !_emptyTemplate && !emptyTemplate) {
@@ -172,7 +181,7 @@ export const LISTBOX_VALUE_ACCESSOR: any = {
                         [style]="scrollerOptions.contentStyle"
                         [attr.aria-activedescendant]="focused ? focusedOptionId : undefined"
                         [attr.aria-label]="ariaLabel"
-                        [attr.aria-disabled]="disabled"
+                        [attr.aria-disabled]="disabled()"
                         (focus)="onListFocus($event)"
                         (blur)="onListBlur($event)"
                         (keydown)="onListKeyDown($event)"
@@ -207,6 +216,8 @@ export const LISTBOX_VALUE_ACCESSOR: any = {
                                     [attr.aria-disabled]="isOptionDisabled(option)"
                                     [attr.aria-setsize]="ariaSetSize"
                                     [attr.ariaPosInset]="getAriaPosInset(getOptionIndex(i, scrollerOptions))"
+                                    [attr.data-pc-section]="'item'"
+                                    [attr.data-p-selected]="isSelected(option)"
                                     (click)="onOptionSelect($event, option, getOptionIndex(i, scrollerOptions))"
                                     (dblclick)="onOptionDoubleClick($event, option)"
                                     (mousedown)="onOptionMouseDown($event, getOptionIndex(i, scrollerOptions))"
@@ -221,7 +232,7 @@ export const LISTBOX_VALUE_ACCESSOR: any = {
                                         [class]="cx('optionCheckIcon')"
                                         [ngModel]="isSelected(option)"
                                         [readonly]="true"
-                                        [disabled]="disabled || isOptionDisabled(option)"
+                                        [disabled]="disabled() || isOptionDisabled(option)"
                                         [tabindex]="-1"
                                         [variant]="config.inputStyle() === 'filled' || config.inputVariant() === 'filled' ? 'filled' : 'outlined'"
                                         [binary]="true"
@@ -234,8 +245,8 @@ export const LISTBOX_VALUE_ACCESSOR: any = {
                                     </p-checkbox>
                                     <ng-container *ngIf="checkmark">
                                         <ng-container *ngIf="!checkmarkTemplate && !_checkmarkTemplate">
-                                            <BlankIcon *ngIf="!isSelected(option)" [styleClass]="cx('optionBlankIcon')" />
-                                            <CheckIcon *ngIf="isSelected(option)" [styleClass]="cx('optionCheckIcon')" />
+                                            <svg data-p-icon="blank" *ngIf="!isSelected(option)" [class]="cx('optionBlankIcon')" />
+                                            <svg data-p-icon="check" *ngIf="isSelected(option)" [class]="cx('optionCheckIcon')" />
                                         </ng-container>
                                         <ng-container *ngTemplateOutlet="checkmarkTemplate || _checkmarkTemplate; context: { implicit: isSelected(option) }"></ng-container>
                                     </ng-container>
@@ -268,7 +279,7 @@ export const LISTBOX_VALUE_ACCESSOR: any = {
         <span role="status" aria-live="polite" class="p-hidden-accessible">
             {{ selectedMessageText }}
         </span>
-        <span #lastHiddenFocusableElement role="presentation" class="p-hidden-accessible p-hidden-focusable" [tabindex]="!disabled ? tabindex : -1" (focus)="onLastHiddenFocus($event)" [attr.data-p-hidden-focusable]="true"> </span>
+        <span #lastHiddenFocusableElement role="presentation" class="p-hidden-accessible p-hidden-focusable" [tabindex]="!disabled() ? tabindex : -1" (focus)="onLastHiddenFocus($event)" [attr.data-p-hidden-focusable]="true"> </span>
     `,
     providers: [
         LISTBOX_VALUE_ACCESSOR,
@@ -284,10 +295,10 @@ export const LISTBOX_VALUE_ACCESSOR: any = {
     encapsulation: ViewEncapsulation.None,
     host: {
         '[attr.id]': 'id',
-        '[class]': "cx('root')"
+        '[class]': "cn(cx('root'), styleClass)"
     }
 })
-export class Listbox extends BaseComponent implements AfterContentInit, OnInit, ControlValueAccessor, OnDestroy {
+export class Listbox extends BaseEditableHolder implements AfterContentInit, OnInit, ControlValueAccessor, OnDestroy {
     /**
      * Unique identifier of the component.
      * @group Props
@@ -402,11 +413,6 @@ export class Listbox extends BaseComponent implements AfterContentInit, OnInit, 
      * @group Props
      */
     @Input({ transform: booleanAttribute }) readonly: boolean | undefined;
-    /**
-     * When present, it specifies that the element should be disabled.
-     * @group Props
-     */
-    @Input({ transform: booleanAttribute }) disabled: boolean | undefined;
     /**
      * When specified, allows selecting items with checkboxes.
      * @group Props
@@ -551,11 +557,16 @@ export class Listbox extends BaseComponent implements AfterContentInit, OnInit, 
      */
     @Input({ transform: booleanAttribute }) dragdrop: boolean = false;
     /**
+     * Spans 100% width of the container when enabled.
+     * @defaultValue undefined
+     * @group Props
+     */
+    fluid = input(undefined, { transform: booleanAttribute });
+    /**
      * Callback to invoke on value change.
      * @param {ListboxChangeEvent} event - Custom change event.
      * @group Emits
      */
-
     @Output() onChange: EventEmitter<ListboxChangeEvent> = new EventEmitter<ListboxChangeEvent>();
     /**
      * Callback to invoke when option is clicked.
@@ -742,14 +753,6 @@ export class Listbox extends BaseComponent implements AfterContentInit, OnInit, 
 
     _componentStyle = inject(ListBoxStyle);
 
-    get containerClass() {
-        return {
-            'p-listbox p-component': true,
-            'p-listbox-striped': this.striped,
-            'p-disabled': this.disabled
-        };
-    }
-
     get focusedOptionId() {
         return this.focusedOptionIndex() !== -1 ? `${this.id}_${this.focusedOptionIndex()}` : null;
     }
@@ -809,8 +812,6 @@ export class Listbox extends BaseComponent implements AfterContentInit, OnInit, 
     startRangeIndex = signal<number>(-1);
 
     focusedOptionIndex = signal<number>(-1);
-
-    modelValue = signal<any>(null);
 
     @HostListener('focusout', ['$event'])
     onHostFocusOut(event: FocusEvent) {
@@ -899,7 +900,7 @@ export class Listbox extends BaseComponent implements AfterContentInit, OnInit, 
 
     writeValue(value: any): void {
         this.value = value;
-        this.modelValue.set(this.value);
+        this.writeModelValue(this.value);
         this.cd.markForCheck();
     }
 
@@ -909,11 +910,6 @@ export class Listbox extends BaseComponent implements AfterContentInit, OnInit, 
 
     registerOnTouched(fn: Function): void {
         this.onModelTouched = fn;
-    }
-
-    setDisabledState(val: boolean): void {
-        this.disabled = val;
-        this.cd.markForCheck();
     }
 
     flatOptions(options) {
@@ -941,7 +937,7 @@ export class Listbox extends BaseComponent implements AfterContentInit, OnInit, 
      */
     public updateModel(value, event?) {
         this.value = value;
-        this.modelValue.set(value);
+        this.writeModelValue(value);
         this.onModelChange(value);
 
         this.onChange.emit({ originalEvent: event, value: this.value });
@@ -952,12 +948,11 @@ export class Listbox extends BaseComponent implements AfterContentInit, OnInit, 
     }
 
     onOptionSelect(event, option, index = -1) {
-        if (this.disabled || this.isOptionDisabled(option) || this.readonly) {
+        if (this.disabled() || this.isOptionDisabled(option) || this.readonly) {
             return;
         }
 
         event && this.onClick.emit({ originalEvent: event, option, value: this.value });
-
         this.multiple ? this.onOptionSelectMultiple(event, option) : this.onOptionSelectSingle(event, option);
         this.optionTouched = false;
         index !== -1 && this.focusedOptionIndex.set(index);
@@ -1029,7 +1024,7 @@ export class Listbox extends BaseComponent implements AfterContentInit, OnInit, 
     }
 
     onToggleAll(event) {
-        if (this.disabled || this.readonly) {
+        if (this.disabled() || this.readonly) {
             return;
         }
         focus(this.headerCheckboxViewChild.nativeElement);
@@ -1059,7 +1054,7 @@ export class Listbox extends BaseComponent implements AfterContentInit, OnInit, 
     }
 
     onOptionTouchEnd() {
-        if (this.disabled) {
+        if (this.disabled()) {
             return;
         }
 
@@ -1071,13 +1066,13 @@ export class Listbox extends BaseComponent implements AfterContentInit, OnInit, 
     }
 
     onOptionMouseEnter(event: MouseEvent, index: number) {
-        if (this.focusOnHover) {
+        if (this.focusOnHover && this.focused) {
             this.changeFocusedOptionIndex(event, index);
         }
     }
 
     onOptionDoubleClick(event: MouseEvent, option: any) {
-        if (this.disabled || this.isOptionDisabled(option) || this.readonly) {
+        if (this.disabled() || this.isOptionDisabled(option) || this.readonly) {
             return;
         }
 
@@ -1089,7 +1084,7 @@ export class Listbox extends BaseComponent implements AfterContentInit, OnInit, 
     }
 
     onFirstHiddenFocus(event: FocusEvent) {
-        focus(this.listViewChild.nativeElement);
+        focus(this.listViewChild?.nativeElement);
         const firstFocusableEl = getFirstFocusableElement(this.el.nativeElement, ':not([data-p-hidden-focusable="true"])');
         this.lastHiddenFocusableElement.nativeElement.tabIndex = isEmpty(firstFocusableEl) ? '-1' : undefined;
         this.firstHiddenFocusableElement.nativeElement.tabIndex = -1;
@@ -1098,7 +1093,7 @@ export class Listbox extends BaseComponent implements AfterContentInit, OnInit, 
     onLastHiddenFocus(event: FocusEvent) {
         const relatedTarget = event.relatedTarget;
 
-        if (relatedTarget === this.listViewChild.nativeElement) {
+        if (relatedTarget === this.listViewChild?.nativeElement) {
             const firstFocusableEl = <any>getFirstFocusableElement(this.el.nativeElement, ':not(.p-hidden-focusable)');
 
             focus(firstFocusableEl);
@@ -1112,23 +1107,18 @@ export class Listbox extends BaseComponent implements AfterContentInit, OnInit, 
     onFocusout(event: FocusEvent) {
         if (!this.el.nativeElement.contains(event.relatedTarget) && this.lastHiddenFocusableElement && this.firstHiddenFocusableElement) {
             this.firstHiddenFocusableElement.nativeElement.tabIndex = this.lastHiddenFocusableElement.nativeElement.tabIndex = undefined;
-            this.containerViewChild.nativeElement.tabIndex = '0';
             this.scrollerTabIndex = '0';
         }
     }
 
     onListFocus(event: FocusEvent) {
         this.focused = true;
-        const focusedOptionIndex = this.focusedOptionIndex() !== -1 ? this.focusedOptionIndex() : this.autoOptionFocus ? this.findFirstFocusedOptionIndex() : -1;
+        const focusedOptionIndex = this.focusedOptionIndex() !== -1 ? this.focusedOptionIndex() : this.autoOptionFocus ? this.findFirstFocusedOptionIndex() : this.findSelectedOptionIndex();
         this.focusedOptionIndex.set(focusedOptionIndex);
+        this.scrollInView(focusedOptionIndex);
         this.onFocus.emit(event);
 
-        this.containerViewChild.nativeElement.tabIndex = '-1';
         this.scrollerTabIndex = '-1';
-    }
-
-    onFilterFocus(event: FocusEvent) {
-        this.containerViewChild.nativeElement.tabIndex = '-1';
     }
 
     onListBlur(event: FocusEvent) {
@@ -1136,6 +1126,7 @@ export class Listbox extends BaseComponent implements AfterContentInit, OnInit, 
         this.focusedOptionIndex.set(-1);
         this.startRangeIndex.set(-1);
         this.searchValue = '';
+        this.onBlur.emit(event);
     }
 
     onHeaderCheckboxFocus(event) {
@@ -1147,7 +1138,7 @@ export class Listbox extends BaseComponent implements AfterContentInit, OnInit, 
     }
 
     onHeaderCheckboxKeyDown(event) {
-        if (this.disabled) {
+        if (this.disabled()) {
             event.preventDefault();
 
             return;
@@ -1169,7 +1160,7 @@ export class Listbox extends BaseComponent implements AfterContentInit, OnInit, 
     }
 
     onHeaderCheckboxTabKeyDown(event) {
-        focus(this.listViewChild.nativeElement);
+        focus(this.listViewChild?.nativeElement);
         event.preventDefault();
     }
 
@@ -1482,7 +1473,7 @@ export class Listbox extends BaseComponent implements AfterContentInit, OnInit, 
 
     scrollInView(index = -1) {
         const id = index !== -1 ? `${this.id}_${index}` : this.focusedOptionId;
-        const element = findSingle(this.listViewChild.nativeElement, `li[id="${id}"]`);
+        const element = findSingle(this.listViewChild?.nativeElement, `li[id="${id}"]`);
 
         if (element) {
             element.scrollIntoView && element.scrollIntoView({ block: 'nearest', inline: 'nearest' });
@@ -1553,6 +1544,23 @@ export class Listbox extends BaseComponent implements AfterContentInit, OnInit, 
         return matchedOptionIndex > -1 ? matchedOptionIndex : index;
     }
 
+    findSelectedOptionIndex() {
+        if (this.$filled) {
+            if (this.multiple) {
+                for (let index = this.modelValue().length - 1; index >= 0; index--) {
+                    const value = this.modelValue()[index];
+                    const matchedOptionIndex = this.visibleOptions().findIndex((option) => this.isValidSelectedOption(option) && this.isEquals(value, this.getOptionValue(option)));
+
+                    if (matchedOptionIndex > -1) return matchedOptionIndex;
+                }
+            } else {
+                return this.visibleOptions().findIndex((option) => this.isValidSelectedOption(option));
+            }
+        }
+
+        return -1;
+    }
+
     findNearestSelectedOptionIndex(index, firstCheckUp = false) {
         let matchedOptionIndex = -1;
 
@@ -1584,11 +1592,15 @@ export class Listbox extends BaseComponent implements AfterContentInit, OnInit, 
         return this.optionDisabled ? resolveFieldData(option, this.optionDisabled) : false;
     }
 
+    isEquals(value1, value2) {
+        return equals(value1, value2, this.equalityKey());
+    }
+
     isSelected(option) {
         const optionValue = this.getOptionValue(option);
 
-        if (this.multiple) return (this.modelValue() || []).some((value) => equals(value, optionValue, this.equalityKey()));
-        else return equals(this.modelValue(), optionValue, this.equalityKey());
+        if (this.multiple) return (this.modelValue() || []).some((value) => this.isEquals(value, optionValue));
+        else return this.isEquals(this.modelValue(), optionValue);
     }
 
     isValidOption(option) {

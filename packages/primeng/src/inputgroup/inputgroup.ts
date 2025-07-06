@@ -16,7 +16,7 @@ import { InputGroupStyle } from './style/inputgroupstyle';
     providers: [InputGroupStyle],
     host: {
         '[attr.data-pc-name]': '"inputgroup"',
-        '[class]': "cx('root')"
+        '[class]': "cn(cx('root'), styleClass)"
     }
 })
 export class InputGroup extends BaseComponent {

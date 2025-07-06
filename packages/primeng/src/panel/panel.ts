@@ -79,13 +79,11 @@ export interface PanelHeaderIconsTemplateContext {
                     <ng-template #icon>
                         <ng-container *ngIf="!headerIconsTemplate && !_headerIconsTemplate && !toggleButtonProps?.icon">
                             <ng-container *ngIf="!collapsed">
-                                <span *ngIf="expandIcon" [class]="expandIcon"></span>
-                                <MinusIcon *ngIf="!expandIcon" />
+                                <svg data-p-icon="minus" />
                             </ng-container>
 
                             <ng-container *ngIf="collapsed">
-                                <span *ngIf="collapseIcon" [class]="collapseIcon"></span>
-                                <PlusIcon *ngIf="!collapseIcon" />
+                                <svg data-p-icon="plus" />
                             </ng-container>
                         </ng-container>
 
@@ -165,7 +163,7 @@ export interface PanelHeaderIconsTemplateContext {
     host: {
         '[id]': 'id',
         'data-pc-name': 'panel',
-        '[class]': "cx('root')"
+        '[class]': "cn(cx('root'), styleClass)"
     }
 })
 export class Panel extends BaseComponent implements AfterContentInit, BlockableUI {
@@ -199,18 +197,6 @@ export class Panel extends BaseComponent implements AfterContentInit, BlockableU
      * @group Props
      */
     @Input() iconPos: 'start' | 'end' | 'center' = 'end';
-    /**
-     * Expand icon of the toggle button.
-     * @group Props
-     * @deprecated since v15.4.2, use `headericons` template instead.
-     */
-    @Input() expandIcon: string | undefined;
-    /**
-     * Collapse icon of the toggle button.
-     * @group Props
-     * @deprecated since v15.4.2, use `headericons` template instead.
-     */
-    @Input() collapseIcon: string | undefined;
     /**
      * Specifies if header of panel cannot be displayed.
      * @group Props
@@ -360,7 +346,7 @@ export class Panel extends BaseComponent implements AfterContentInit, BlockableU
     }
 
     getBlockableElement(): HTMLElement {
-        return this.el.nativeElement.children[0];
+        return this.el.nativeElement;
     }
 
     updateTabIndex() {

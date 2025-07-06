@@ -1,34 +1,27 @@
 import { Injectable } from '@angular/core';
-import { css } from '@primeuix/styled';
 import { style } from '@primeuix/styles/menu';
 import { BaseStyle } from 'primeng/base';
 
-const theme = css`
-    ${style}
-
-    /* For PrimeNG */
-.p-menu-overlay {
-        position: absolute;
-    }
-`;
+const inlineStyles = {
+    root: ({ instance }) => ({ position: instance.popup ? 'absolute' : 'relative' })
+};
 
 const classes = {
     root: ({ instance }) => [
         'p-menu p-component',
         {
             'p-menu-overlay': instance.popup
-        },
-        instance.styleClass
+        }
     ],
     start: 'p-menu-start',
     list: 'p-menu-list',
     submenuLabel: 'p-menu-submenu-label',
     separator: 'p-menu-separator',
     end: 'p-menu-end',
-    item: ({ instance, item, menuitemId }) => [
+    item: ({ instance, item, id }) => [
         'p-menu-item',
         {
-            'p-focus': instance.focusedOptionId() && menuitemId === instance.focusedOptionId(),
+            'p-focus': instance.focusedOptionId() && id === instance.focusedOptionId(),
             'p-disabled': instance.disabled(item.disabled)
         },
         item.styleClass
@@ -43,9 +36,11 @@ const classes = {
 export class MenuStyle extends BaseStyle {
     name = 'menu';
 
-    theme = theme;
+    theme = style;
 
     classes = classes;
+
+    inlineStyles = inlineStyles;
 }
 
 /**

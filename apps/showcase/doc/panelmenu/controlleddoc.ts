@@ -11,7 +11,7 @@ import { MenuItem } from 'primeng/api';
         </app-docsectiontext>
         <div class="card flex flex-col items-center gap-4">
             <p-button label="Toggle All" [text]="true" (onClick)="toggleAll()" />
-            <p-panelmenu [model]="items" styleClass="w-full md:w-80" />
+            <p-panelmenu [model]="items" class="w-full md:w-80" />
         </div>
         <app-code [code]="code" selector="panel-menu-controlled-demo"></app-code>
     `
@@ -108,11 +108,11 @@ export class ControlledDoc implements OnInit {
 
     code: Code = {
         basic: `<p-button label="Toggle All" [text]="true" (onClick)="toggleAll()" />
-<p-panelmenu [model]="items" styleClass="w-full md:w-80" />`,
+<p-panelmenu [model]="items" class="w-full md:w-80" />`,
 
         html: `<div class="card flex justify-center">
     <p-button label="Toggle All" [text]="true" (onClick)="toggleAll()" />
-    <p-panelmenu [model]="items" styleClass="w-full md:w-80" />
+    <p-panelmenu [model]="items" class="w-full md:w-80" />
 </div>`,
 
         typescript: `import { Component, OnInit } from '@angular/core';

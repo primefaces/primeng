@@ -5,8 +5,8 @@ import { BaseStyle } from 'primeng/base';
 /* Position */
 const inlineStyles = {
     root: ({ instance }) => ({
-        justifyContent: instance.layout === 'horizontal' ? (instance.align === 'center' || instance.align === null ? 'center' : instance.align === 'left' ? 'flex-start' : instance.align === 'right' ? 'flex-end' : null) : null,
-        alignItems: instance.layout === 'vertical' ? (instance.align === 'center' || instance.align === null ? 'center' : instance.align === 'top' ? 'flex-start' : instance.align === 'bottom' ? 'flex-end' : null) : null
+        justifyContent: instance.layout === 'horizontal' ? (instance.align === 'center' || instance.align == null ? 'center' : instance.align === 'left' ? 'flex-start' : instance.align === 'right' ? 'flex-end' : null) : null,
+        alignItems: instance.layout === 'vertical' ? (instance.align === 'center' || instance.align == null ? 'center' : instance.align === 'top' ? 'flex-start' : instance.align === 'bottom' ? 'flex-end' : null) : null
     })
 };
 
@@ -15,7 +15,6 @@ const classes = {
         'p-divider p-component',
         'p-divider-' + instance.layout,
         'p-divider-' + instance.type,
-        instance.styleClass,
         { 'p-divider-left': instance.layout === 'horizontal' && (!instance.align || instance.align === 'left') },
         { 'p-divider-center': instance.layout === 'horizontal' && instance.align === 'center' },
         { 'p-divider-right': instance.layout === 'horizontal' && instance.align === 'right' },

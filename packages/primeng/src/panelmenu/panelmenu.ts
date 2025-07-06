@@ -28,18 +28,18 @@ import { RouterModule } from '@angular/router';
 import { equals, findLast, findSingle, focus, getAttribute, isEmpty, isNotEmpty, isPrintableCharacter, resolve, uuid } from '@primeuix/utils';
 import { MenuItem, PrimeTemplate, SharedModule } from 'primeng/api';
 import { BaseComponent } from 'primeng/basecomponent';
-import { AngleDownIcon, AngleRightIcon, ChevronDownIcon, ChevronRightIcon } from 'primeng/icons';
+import { ChevronDownIcon, ChevronRightIcon } from 'primeng/icons';
 import { TooltipModule } from 'primeng/tooltip';
 import { PanelMenuStyle } from './style/panelmenustyle';
 
 @Component({
     selector: 'p-panelMenuSub, p-panelmenu-sub',
-    imports: [CommonModule, RouterModule, TooltipModule, AngleDownIcon, AngleRightIcon, SharedModule],
+    imports: [CommonModule, RouterModule, TooltipModule, ChevronDownIcon, ChevronRightIcon, SharedModule],
     standalone: true,
     template: `
         <ul
             #list
-            [class]="root ? cx('rootList') : cx('submenu')"
+            [class]="root ? cn(cx('rootList'), cx('submenu')) : cx('submenu')"
             role="tree"
             [tabindex]="-1"
             [attr.aria-activedescendant]="focusedItemId"
@@ -60,7 +60,7 @@ import { PanelMenuStyle } from './style/panelmenustyle';
                     [attr.aria-level]="level + 1"
                     [attr.aria-setsize]="getAriaSetSize()"
                     [attr.aria-posinset]="getAriaPosInset(index)"
-                    [class]="cx('item', { processedItem })"
+                    [class]="cn(cx('item', { processedItem }, processedItem.styleClass))"
                     [ngStyle]="getItemProp(processedItem, 'style')"
                     [pTooltip]="getItemProp(processedItem, 'tooltip')"
                     [attr.data-p-disabled]="isItemDisabled(processedItem)"
@@ -78,8 +78,8 @@ import { PanelMenuStyle } from './style/panelmenustyle';
                             >
                                 <ng-container *ngIf="isItemGroup(processedItem)">
                                     <ng-container *ngIf="!panelMenu.submenuIconTemplate && !panelMenu._submenuIconTemplate">
-                                        <AngleDownIcon [styleClass]="cn(cx('submenuIcon'), getItemProp(processedItem, 'icon'))" *ngIf="isItemActive(processedItem)" [ngStyle]="getItemProp(processedItem, 'iconStyle')" />
-                                        <AngleRightIcon [styleClass]="cn(cx('submenuIcon'), getItemProp(processedItem, 'icon'))" *ngIf="!isItemActive(processedItem)" [ngStyle]="getItemProp(processedItem, 'iconStyle')" />
+                                        <svg data-p-icon="chevron-down" [class]="cn(cx('submenuIcon'), getItemProp(processedItem, 'icon'))" *ngIf="isItemActive(processedItem)" [ngStyle]="getItemProp(processedItem, 'iconStyle')" />
+                                        <svg data-p-icon="chevron-right" [class]="cn(cx('submenuIcon'), getItemProp(processedItem, 'icon'))" *ngIf="!isItemActive(processedItem)" [ngStyle]="getItemProp(processedItem, 'iconStyle')" />
                                     </ng-container>
                                     <ng-template *ngTemplateOutlet="panelMenu.submenuIconTemplate || panelMenu._submenuIconTemplate"></ng-template>
                                 </ng-container>
@@ -107,14 +107,14 @@ import { PanelMenuStyle } from './style/panelmenustyle';
                             >
                                 <ng-container *ngIf="isItemGroup(processedItem)">
                                     <ng-container *ngIf="!panelMenu.submenuIconTemplate && !panelMenu._submenuIconTemplate">
-                                        <AngleDownIcon *ngIf="isItemActive(processedItem)" [styleClass]="cn(cx('submenuIcon'), getItemProp(processedItem, 'icon'))" [ngStyle]="getItemProp(processedItem, 'iconStyle')" />
-                                        <AngleRightIcon *ngIf="!isItemActive(processedItem)" [styleClass]="cn(cx('submenuIcon'), getItemProp(processedItem, 'icon'))" [ngStyle]="getItemProp(processedItem, 'iconStyle')" />
+                                        <svg data-p-icon="chevron-down" *ngIf="isItemActive(processedItem)" [class]="cn(cx('submenuIcon'), getItemProp(processedItem, 'icon'))" [ngStyle]="getItemProp(processedItem, 'iconStyle')" />
+                                        <svg data-p-icon="chevron-right" *ngIf="!isItemActive(processedItem)" [class]="cn(cx('submenuIcon'), getItemProp(processedItem, 'icon'))" [ngStyle]="getItemProp(processedItem, 'iconStyle')" />
                                     </ng-container>
                                     <ng-template *ngTemplateOutlet="panelMenu.submenuIconTemplate && panelMenu._submenuIconTemplate"></ng-template>
                                 </ng-container>
                                 <span [class]="cn(cx('itemIcon'), getItemProp(processedItem, 'icon'))" *ngIf="processedItem.icon" [ngStyle]="getItemProp(processedItem, 'iconStyle')"></span>
-                                <ng-template #htmlLabel><span [class]="cx('itemLabel')" [innerHTML]="getItemProp(processedItem, 'label')"></span></ng-template>
-                                <ng-template #htmlRouteLabel><span [class]="cx('itemLabel')" [innerHTML]="getItemProp(processedItem, 'label')"></span></ng-template>
+                                <span *ngIf="getItemProp(processedItem, 'label')" [class]="cx('itemLabel')" [innerHTML]="getItemProp(processedItem, 'label')"></span>
+
                                 <span [class]="cn(cx('badge'), getItemProp(processedItem, 'badgeStyleClass'))" *ngIf="processedItem.badge">{{ processedItem.badge }}</span>
                             </a>
                         </ng-container>
@@ -755,8 +755,8 @@ export class PanelMenuList extends BaseComponent implements OnChanges {
                             >
                                 <ng-container *ngIf="isItemGroup(item)">
                                     <ng-container *ngIf="!headerIconTemplate && !_headerIconTemplate">
-                                        <ChevronDownIcon [styleClass]="cx('headerIcon')" *ngIf="isItemActive(item)" />
-                                        <ChevronRightIcon [styleClass]="cx('headerIcon')" *ngIf="!isItemActive(item)" />
+                                        <svg data-p-icon="chevron-down" [class]="cx('headerIcon')" *ngIf="isItemActive(item)" />
+                                        <svg data-p-icon="chevron-right" [class]="cx('headerIcon')" *ngIf="!isItemActive(item)" />
                                     </ng-container>
                                     <ng-template *ngTemplateOutlet="headerIconTemplate || _headerIconTemplate"></ng-template>
                                 </ng-container>
@@ -786,8 +786,8 @@ export class PanelMenuList extends BaseComponent implements OnChanges {
                         >
                             <ng-container *ngIf="isItemGroup(item)">
                                 <ng-container *ngIf="!headerIconTemplate && !_headerIconTemplate">
-                                    <ChevronDownIcon [styleClass]="cx('headerIcon')" *ngIf="isItemActive(item)" />
-                                    <ChevronRightIcon [styleClass]="cx('headerIcon')" *ngIf="!isItemActive(item)" />
+                                    <svg data-p-icon="chevron-down" [class]="cx('headerIcon')" *ngIf="isItemActive(item)" />
+                                    <svg data-p-icon="chevron-right" [class]="cx('headerIcon')" *ngIf="!isItemActive(item)" />
                                 </ng-container>
                                 <ng-template *ngTemplateOutlet="headerIconTemplate || _headerIconTemplate"></ng-template>
                             </ng-container>
@@ -849,7 +849,7 @@ export class PanelMenuList extends BaseComponent implements OnChanges {
     encapsulation: ViewEncapsulation.None,
     providers: [PanelMenuStyle],
     host: {
-        '[class]': 'cx("root")',
+        '[class]': 'cn(cx("root"), styleClass)',
         'data-pc-section': 'root',
         'data-pc-name': 'panelmenu'
     }
@@ -861,12 +861,8 @@ export class PanelMenu extends BaseComponent implements AfterContentInit {
      */
     @Input() model: MenuItem[] | undefined;
     /**
-     * Inline style of the component.
-     * @group Props
-     */
-    @Input() style: { [klass: string]: any } | null | undefined;
-    /**
      * Style class of the component.
+     * @deprecated since v20.0.0, use `class` instead.
      * @group Props
      */
     @Input() styleClass: string | undefined;

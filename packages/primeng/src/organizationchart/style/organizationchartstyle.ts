@@ -3,7 +3,7 @@ import { style } from '@primeuix/styles/organizationchart';
 import { BaseStyle } from 'primeng/base';
 
 const classes = {
-    root: ({ instance }) => ['p-organizationchart p-component', instance.styleClass, { 'p-organizationchart-preservespace': instance.preserveSpace }],
+    root: ({ instance }) => ['p-organizationchart p-component', { 'p-organizationchart-preservespace': instance.preserveSpace }],
     table: 'p-organizationchart-table',
     node: ({ instance }) => [
         'p-organizationchart-node',

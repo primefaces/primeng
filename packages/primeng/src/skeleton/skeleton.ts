@@ -20,7 +20,7 @@ import { SkeletonStyle } from './style/skeletonstyle';
         '[attr.aria-hidden]': 'true',
         '[attr.data-pc-name]': "'skeleton'",
         '[attr.data-pc-section]': "'root'",
-        '[class]': "cx('root')",
+        '[class]': "cn(cx('root'), styleClass)",
         '[style]': 'containerStyle'
     }
 })

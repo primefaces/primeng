@@ -106,7 +106,7 @@ type SplitButtonIconPosition = 'left' | 'right';
         >
             <span *ngIf="dropdownIcon" [class]="dropdownIcon"></span>
             <ng-container *ngIf="!dropdownIcon">
-                <ChevronDownIcon *ngIf="!dropdownIconTemplate && !_dropdownIconTemplate" />
+                <svg data-p-icon="chevron-down" *ngIf="!dropdownIconTemplate && !_dropdownIconTemplate" />
                 <ng-template *ngTemplateOutlet="dropdownIconTemplate || _dropdownIconTemplate"></ng-template>
             </ng-container>
         </button>
@@ -128,7 +128,7 @@ type SplitButtonIconPosition = 'left' | 'right';
     providers: [SplitButtonStyle],
     encapsulation: ViewEncapsulation.None,
     host: {
-        '[class]': "cx('root')"
+        '[class]': "cn(cx('root'), styleClass)"
     }
 })
 export class SplitButton extends BaseComponent implements AfterContentInit {

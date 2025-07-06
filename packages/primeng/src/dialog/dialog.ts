@@ -5,11 +5,13 @@ import {
     booleanAttribute,
     ChangeDetectionStrategy,
     Component,
+    computed,
     ContentChild,
     ContentChildren,
     ElementRef,
     EventEmitter,
     inject,
+    input,
     Input,
     NgModule,
     NgZone,
@@ -46,11 +48,11 @@ const hideAnimation = animation([animate('{{transition}}', style({ transform: '{
     standalone: true,
     imports: [CommonModule, Button, FocusTrap, TimesIcon, WindowMaximizeIcon, WindowMinimizeIcon, SharedModule],
     template: `
-        <div *ngIf="maskVisible" [class]="cx('mask')" [style]="sx('mask')" [ngStyle]="maskStyle">
+        <div *ngIf="maskVisible" [class]="cn(cx('mask'), maskStyleClass)" [style]="sx('mask')" [ngStyle]="maskStyle">
             <div
                 *ngIf="visible"
                 #container
-                [class]="cx('root')"
+                [class]="cn(cx('root'), styleClass)"
                 [style]="sx('root')"
                 [ngStyle]="style"
                 pFocusTrap
@@ -70,29 +72,31 @@ const hideAnimation = animation([animate('{{transition}}', style({ transform: '{
                 </ng-container>
 
                 <ng-template #notHeadless>
-                    <div *ngIf="resizable" [class]="cx('resizeHandle')" style="z-index: 90;" (mousedown)="initResize($event)"></div>
+                    <div *ngIf="resizable" [class]="cx('resizeHandle')" [style.z-index]="90" (mousedown)="initResize($event)"></div>
                     <div #titlebar [class]="cx('header')" (mousedown)="initDrag($event)" *ngIf="showHeader">
                         <span [id]="ariaLabelledBy" [class]="cx('title')" *ngIf="!_headerTemplate && !headerTemplate && !headerT">{{ header }}</span>
                         <ng-container *ngTemplateOutlet="_headerTemplate || headerTemplate || headerT"></ng-container>
                         <div [class]="cx('headerActions')">
                             <p-button *ngIf="maximizable" [styleClass]="cx('pcMaximizeButton')" (onClick)="maximize()" (keydown.enter)="maximize()" [tabindex]="maximizable ? '0' : '-1'" [ariaLabel]="maximizeLabel" [buttonProps]="maximizeButtonProps">
-                                <span *ngIf="maximizeIcon && !_maximizeiconTemplate && !_minimizeiconTemplate" [ngClass]="maximized ? minimizeIcon : maximizeIcon"></span>
-                                <ng-container *ngIf="!maximizeIcon && !maximizeButtonProps?.icon">
-                                    <WindowMaximizeIcon *ngIf="!maximized && !_maximizeiconTemplate && !maximizeIconTemplate && !maximizeIconT" />
-                                    <WindowMinimizeIcon *ngIf="maximized && !_minimizeiconTemplate && !minimizeIconTemplate && !minimizeIconT" />
-                                </ng-container>
-                                <ng-container *ngIf="!maximized">
-                                    <ng-template *ngTemplateOutlet="_maximizeiconTemplate || maximizeIconTemplate || maximizeIconT"></ng-template>
-                                </ng-container>
-                                <ng-container *ngIf="maximized">
-                                    <ng-template *ngTemplateOutlet="_minimizeiconTemplate || minimizeIconTemplate || minimizeIconT"></ng-template>
-                                </ng-container>
+                                <ng-template #icon>
+                                    <span *ngIf="maximizeIcon && !_maximizeiconTemplate && !_minimizeiconTemplate" [ngClass]="maximized ? minimizeIcon : maximizeIcon"></span>
+                                    <ng-container *ngIf="!maximizeIcon && !maximizeButtonProps?.icon">
+                                        <svg data-p-icon="window-maximize" *ngIf="!maximized && !_maximizeiconTemplate && !maximizeIconTemplate && !maximizeIconT" />
+                                        <svg data-p-icon="window-minimize" *ngIf="maximized && !_minimizeiconTemplate && !minimizeIconTemplate && !minimizeIconT" />
+                                    </ng-container>
+                                    <ng-container *ngIf="!maximized">
+                                        <ng-template *ngTemplateOutlet="_maximizeiconTemplate || maximizeIconTemplate || maximizeIconT"></ng-template>
+                                    </ng-container>
+                                    <ng-container *ngIf="maximized">
+                                        <ng-template *ngTemplateOutlet="_minimizeiconTemplate || minimizeIconTemplate || minimizeIconT"></ng-template>
+                                    </ng-container>
+                                </ng-template>
                             </p-button>
                             <p-button *ngIf="closable" [styleClass]="cx('pcCloseButton')" [ariaLabel]="closeAriaLabel" (onClick)="close($event)" (keydown.enter)="close($event)" [tabindex]="closeTabindex" [buttonProps]="closeButtonProps">
                                 <ng-template #icon>
                                     <ng-container *ngIf="!_closeiconTemplate && !closeIconTemplate && !closeIconT && !closeButtonProps?.icon">
                                         <span *ngIf="closeIcon" [class]="closeIcon"></span>
-                                        <TimesIcon *ngIf="!closeIcon" />
+                                        <svg data-p-icon="times" *ngIf="!closeIcon" />
                                     </ng-container>
                                     <span *ngIf="_closeiconTemplate || closeIconTemplate || closeIconT">
                                         <ng-template *ngTemplateOutlet="_closeiconTemplate || closeIconTemplate || closeIconT"></ng-template>
@@ -101,7 +105,7 @@ const hideAnimation = animation([animate('{{transition}}', style({ transform: '{
                             </p-button>
                         </div>
                     </div>
-                    <div #content [class]="cx('content')" [ngStyle]="contentStyle" [attr.data-pc-section]="'content'">
+                    <div #content [class]="cn(cx('content'), contentStyleClass)" [ngStyle]="contentStyle" [attr.data-pc-section]="'content'">
                         <ng-content></ng-content>
                         <ng-container *ngTemplateOutlet="_contentTemplate || contentTemplate || contentT"></ng-container>
                     </div>
@@ -134,28 +138,6 @@ export class Dialog extends BaseComponent implements OnInit, AfterContentInit, O
      * @group Props
      */
     @Input({ transform: booleanAttribute }) resizable: boolean = true;
-    /**
-     * Defines the left offset of dialog.
-     * @group Props
-     * @deprecated positionLeft property is deprecated.
-     */
-    @Input() get positionLeft(): number {
-        return 0;
-    }
-    set positionLeft(_positionLeft: number) {
-        console.log('positionLeft property is deprecated.');
-    }
-    /**
-     * Defines the top offset of dialog.
-     * @group Props
-     * @deprecated positionTop property is deprecated.
-     */
-    @Input() get positionTop(): number {
-        return 0;
-    }
-    set positionTop(_positionTop: number) {
-        console.log('positionTop property is deprecated.');
-    }
     /**
      * Style of the content section.
      * @group Props
@@ -192,22 +174,6 @@ export class Dialog extends BaseComponent implements OnInit, AfterContentInit, O
      */
     @Input({ transform: booleanAttribute }) closable: boolean = true;
     /**
-     * Defines if the component is responsive.
-     * @group Props
-     * @deprecated Responsive property is deprecated.
-     */
-    @Input() get responsive(): boolean {
-        return false;
-    }
-    set responsive(_responsive: boolean) {
-        console.log('Responsive property is deprecated.');
-    }
-    /**
-     * Target element to attach the dialog, valid values are "body" or a local ng-template variable of another element (note: use binding with brackets for template variables, e.g. [appendTo]="mydiv" for a div element having #mydiv as variable name).
-     * @group Props
-     */
-    @Input() appendTo: HTMLElement | ElementRef | TemplateRef<any> | string | null | undefined | any;
-    /**
      * Object literal to define widths per screen size.
      * @group Props
      */
@@ -232,17 +198,6 @@ export class Dialog extends BaseComponent implements OnInit, AfterContentInit, O
      * @group Props
      */
     @Input({ transform: booleanAttribute }) showHeader: boolean = true;
-    /**
-     * Defines the breakpoint of the component responsive.
-     * @group Props
-     * @deprecated Breakpoint property is not utilized and deprecated. Use breakpoints or CSS media queries instead.
-     */
-    @Input() get breakpoint(): number {
-        return 649;
-    }
-    set breakpoint(_breakpoint: number) {
-        console.log('Breakpoint property is not utilized and deprecated, use breakpoints or CSS media queries instead.');
-    }
     /**
      * Whether background scroll should be blocked when dialog is visible.
      * @group Props
@@ -324,7 +279,7 @@ export class Dialog extends BaseComponent implements OnInit, AfterContentInit, O
      */
     @Input() closeButtonProps: ButtonProps = {
         severity: 'secondary',
-        text: true,
+        variant: 'text',
         rounded: true
     };
     /**
@@ -333,7 +288,7 @@ export class Dialog extends BaseComponent implements OnInit, AfterContentInit, O
      */
     @Input() maximizeButtonProps: ButtonProps = {
         severity: 'secondary',
-        text: true,
+        variant: 'text',
         rounded: true
     };
     /**
@@ -400,6 +355,12 @@ export class Dialog extends BaseComponent implements OnInit, AfterContentInit, O
      * @group Emits
      */
     @Input() role: string = 'dialog';
+    /**
+     * Target element to attach the overlay, valid values are "body" or a local ng-template variable of another element (note: use binding with brackets for template variables, e.g. [appendTo]="mydiv" for a div element having #mydiv as variable name).
+     * @defaultValue 'self'
+     * @group Props
+     */
+    appendTo = input<HTMLElement | ElementRef | TemplateRef<any> | 'self' | 'body' | null | undefined | any>(undefined);
     /**
      * Callback to invoke when dialog is shown.
      * @group Emits
@@ -494,6 +455,8 @@ export class Dialog extends BaseComponent implements OnInit, AfterContentInit, O
     @ContentChild('minimizeicon', { descendants: false }) _minimizeiconTemplate: TemplateRef<any> | undefined;
 
     @ContentChild('headless', { descendants: false }) _headlessTemplate: TemplateRef<any> | undefined;
+
+    $appendTo = computed(() => this.appendTo() || this.config.overlayAppendTo());
 
     _visible: boolean = false;
 
@@ -994,14 +957,14 @@ export class Dialog extends BaseComponent implements OnInit, AfterContentInit, O
     }
 
     appendContainer() {
-        if (this.appendTo) {
-            if (this.appendTo === 'body') this.renderer.appendChild(this.document.body, this.wrapper);
-            else appendChild(this.appendTo, this.wrapper);
+        if (this.$appendTo() && this.$appendTo() !== 'self') {
+            if (this.$appendTo() === 'body') this.renderer.appendChild(this.document.body, this.wrapper);
+            else appendChild(this.$appendTo(), this.wrapper);
         }
     }
 
     restoreAppend() {
-        if (this.container && this.appendTo) {
+        if (this.container && this.$appendTo() !== 'self') {
             this.renderer.appendChild(this.el.nativeElement, this.wrapper);
         }
     }
@@ -1011,6 +974,7 @@ export class Dialog extends BaseComponent implements OnInit, AfterContentInit, O
             case 'visible':
                 this.container = event.element;
                 this.wrapper = this.container?.parentElement;
+                this.attrSelector && this.container.setAttribute(this.attrSelector, '');
                 this.appendContainer();
                 this.moveOnTop();
                 this.bindGlobalListeners();

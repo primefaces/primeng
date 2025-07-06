@@ -1,1 +1,2 @@
-export * from '@primeuix/themes/types/iftalabel';
+export * from '@primeuix/themes/nora/iftalabel';
+export { default } from '@primeuix/themes/nora/iftalabel';

@@ -5,6 +5,7 @@ import {
     booleanAttribute,
     ChangeDetectionStrategy,
     Component,
+    computed,
     ContentChild,
     ContentChildren,
     effect,
@@ -13,6 +14,7 @@ import {
     forwardRef,
     Inject,
     inject,
+    input,
     Input,
     NgModule,
     numberAttribute,
@@ -28,7 +30,6 @@ import {
 } from '@angular/core';
 import { RouterModule } from '@angular/router';
 import {
-    appendChild,
     calculateScrollbarWidth,
     findLastIndex,
     findSingle,
@@ -43,13 +44,13 @@ import {
     isIOS,
     isNotEmpty,
     isPrintableCharacter,
-    removeChild,
     resolve,
     uuid
 } from '@primeuix/utils';
 import { MenuItem, OverlayService, PrimeTemplate, SharedModule } from 'primeng/api';
 import { BadgeModule } from 'primeng/badge';
 import { BaseComponent } from 'primeng/basecomponent';
+import { DomHandler } from 'primeng/dom';
 import { AngleRightIcon } from 'primeng/icons';
 import { Ripple } from 'primeng/ripple';
 import { TooltipModule } from 'primeng/tooltip';
@@ -138,7 +139,7 @@ import { ContextMenuStyle } from './style/contextmenustyle';
                                 <ng-template #htmlLabel> <span [class]="cx('itemLabel')" [innerHTML]="getItemLabel(processedItem)" [attr.data-pc-section]="'label'"></span> </ng-template>
                                 <p-badge *ngIf="getItemProp(processedItem, 'badge')" [class]="getItemProp(processedItem, 'badgeStyleClass')" [value]="getItemProp(processedItem, 'badge')" />
                                 <ng-container *ngIf="isItemGroup(processedItem)">
-                                    <AngleRightIcon *ngIf="!contextMenu.submenuIconTemplate && !contextMenu._submenuIconTemplate" [class]="cx('itemIcon')" [attr.data-pc-section]="'submenuicon'" [attr.aria-hidden]="true" />
+                                    <svg data-p-icon="angle-right" *ngIf="!contextMenu.submenuIconTemplate && !contextMenu._submenuIconTemplate" [class]="cx('submenuIcon')" [attr.data-pc-section]="'submenuicon'" [attr.aria-hidden]="true" />
                                     <ng-template
                                         *ngTemplateOutlet="contextMenu.submenuIconTemplate || contextMenu._submenuIconTemplate; context: { class: 'p-contextmenu-submenu-icon' }"
                                         [attr.data-pc-section]="'submenuicon'"
@@ -182,7 +183,7 @@ import { ContextMenuStyle } from './style/contextmenustyle';
                                 </ng-template>
                                 <p-badge *ngIf="getItemProp(processedItem, 'badge')" [class]="getItemProp(processedItem, 'badgeStyleClass')" [value]="getItemProp(processedItem, 'badge')" />
                                 <ng-container *ngIf="isItemGroup(processedItem)">
-                                    <AngleRightIcon *ngIf="!contextMenu.submenuIconTemplate && !contextMenu._submenuIconTemplate" [class]="cx('submenuIcon')" [attr.data-pc-section]="'submenuicon'" [attr.aria-hidden]="true" />
+                                    <svg data-p-icon="angle-right" *ngIf="!contextMenu.submenuIconTemplate && !contextMenu._submenuIconTemplate" [class]="cx('submenuIcon')" [attr.data-pc-section]="'submenuicon'" [attr.aria-hidden]="true" />
                                     <ng-template
                                         *ngTemplateOutlet="!contextMenu.submenuIconTemplate || !contextMenu._submenuIconTemplate; context: { class: 'p-contextmenu-submenu-icon' }"
                                         [attr.data-pc-section]="'submenuicon'"
@@ -356,7 +357,8 @@ export class ContextMenuSub extends BaseComponent {
             [attr.data-pc-section]="'root'"
             [attr.data-pc-name]="'contextmenu'"
             [attr.id]="id"
-            [class]="cx('root')"
+            [class]="cn(cx('root'), styleClass)"
+            [style]="sx('root')"
             [ngStyle]="style"
             [@overlayAnimation]="{ value: 'visible' }"
             (@overlayAnimation.start)="onOverlayAnimationStart($event)"
@@ -428,11 +430,6 @@ export class ContextMenu extends BaseComponent implements OnInit, AfterContentIn
      */
     @Input() styleClass: string | undefined;
     /**
-     * Target element to attach the overlay, valid values are "body" or a local ng-template variable of another element.
-     * @group Props
-     */
-    @Input() appendTo: HTMLElement | ElementRef | TemplateRef<any> | string | null | undefined | any;
-    /**
      * Whether to automatically manage layering.
      * @group Props
      */
@@ -468,6 +465,12 @@ export class ContextMenu extends BaseComponent implements OnInit, AfterContentIn
      */
     @Input({ transform: numberAttribute }) pressDelay: number | undefined = 500;
     /**
+     * Target element to attach the overlay, valid values are "body" or a local ng-template variable of another element (note: use binding with brackets for template variables, e.g. [appendTo]="mydiv" for a div element having #mydiv as variable name).
+     * @defaultValue 'self'
+     * @group Props
+     */
+    appendTo = input<HTMLElement | ElementRef | TemplateRef<any> | 'self' | 'body' | null | undefined | any>(undefined);
+    /**
      * Callback to invoke when overlay menu is shown.
      * @group Emits
      */
@@ -502,10 +505,6 @@ export class ContextMenu extends BaseComponent implements OnInit, AfterContentIn
 
     visible = signal(false);
 
-    relativeAlign: boolean | undefined;
-
-    private window: Window;
-
     focused: boolean = false;
 
     activeItemPath = signal<any>([]);
@@ -513,6 +512,8 @@ export class ContextMenu extends BaseComponent implements OnInit, AfterContentIn
     focusedItemInfo = signal<any>({ index: -1, level: 0, parentKey: '', item: null });
 
     submenuVisible = signal<boolean>(false);
+
+    $appendTo = computed(() => this.appendTo() || this.config.overlayAppendTo());
 
     searchValue: string = '';
 
@@ -981,6 +982,7 @@ export class ContextMenu extends BaseComponent implements OnInit, AfterContentIn
                 this.container = event.element;
                 this.position();
                 this.moveOnTop();
+                this.attrSelector && this.container.setAttribute(this.attrSelector, '');
                 this.appendOverlay();
                 this.bindGlobalListeners();
                 focus(this.rootmenu.sublistViewChild.nativeElement);
@@ -997,10 +999,7 @@ export class ContextMenu extends BaseComponent implements OnInit, AfterContentIn
     }
 
     appendOverlay() {
-        if (this.appendTo) {
-            if (this.appendTo === 'body') this.renderer.appendChild(this.document.body, this.containerViewChild.nativeElement);
-            else appendChild(this.appendTo, this.containerViewChild.nativeElement);
-        }
+        DomHandler.appendOverlay(this.container, this.$appendTo() === 'body' ? this.document.body : this.$appendTo(), this.$appendTo());
     }
 
     moveOnTop() {
@@ -1234,11 +1233,9 @@ export class ContextMenu extends BaseComponent implements OnInit, AfterContentIn
     }
 
     removeAppendedElements() {
-        if (this.appendTo && this.containerViewChild) {
-            if (this.appendTo === 'body') {
+        if (this.$appendTo() && this.containerViewChild) {
+            if (this.$appendTo() === 'body') {
                 this.renderer.removeChild(this.document.body, this.containerViewChild.nativeElement);
-            } else {
-                removeChild(this.containerViewChild.nativeElement, this.appendTo);
             }
         }
     }

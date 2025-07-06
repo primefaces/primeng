@@ -1,6 +1,26 @@
 import { animate, animation, AnimationEvent, style, transition, trigger, useAnimation } from '@angular/animations';
 import { CommonModule, isPlatformBrowser } from '@angular/common';
-import { AfterContentInit, ChangeDetectionStrategy, Component, ContentChild, ContentChildren, ElementRef, EventEmitter, inject, Input, NgModule, NgZone, OnDestroy, Output, QueryList, TemplateRef, ViewChild, ViewEncapsulation } from '@angular/core';
+import {
+    AfterContentInit,
+    ChangeDetectionStrategy,
+    Component,
+    computed,
+    ContentChild,
+    ContentChildren,
+    ElementRef,
+    EventEmitter,
+    inject,
+    input,
+    Input,
+    NgModule,
+    NgZone,
+    OnDestroy,
+    Output,
+    QueryList,
+    TemplateRef,
+    ViewChild,
+    ViewEncapsulation
+} from '@angular/core';
 import { addClass, focus, getTargetElement, isTouchDevice, removeClass } from '@primeuix/utils';
 import { OverlayModeType, OverlayOnBeforeHideEvent, OverlayOnBeforeShowEvent, OverlayOnHideEvent, OverlayOnShowEvent, OverlayOptions, OverlayService, PrimeTemplate, ResponsiveOverlayOptions, SharedModule } from 'primeng/api';
 import { BaseComponent } from 'primeng/basecomponent';
@@ -157,17 +177,6 @@ export class Overlay extends BaseComponent implements AfterContentInit, OnDestro
         this._target = value;
     }
     /**
-     * Overlay can be mounted into its location, body or DOM element instance using this option.
-     * @defaultValue null
-     * @group Props
-     */
-    @Input() get appendTo(): 'body' | HTMLElement | undefined {
-        return this._appendTo || this.overlayOptions?.appendTo;
-    }
-    set appendTo(value: 'body' | HTMLElement | undefined) {
-        this._appendTo = value;
-    }
-    /**
      * The autoZIndex determines whether to automatically manage layering. Its default value is 'false'.
      * @defaultValue false
      * @group Props
@@ -249,6 +258,12 @@ export class Overlay extends BaseComponent implements AfterContentInit, OnDestro
         this._options = val;
     }
     /**
+     * Target element to attach the overlay, valid values are "body" or a local ng-template variable of another element (note: use binding with brackets for template variables, e.g. [appendTo]="mydiv" for a div element having #mydiv as variable name).
+     * @defaultValue 'self'
+     * @group Props
+     */
+    appendTo = input<HTMLElement | ElementRef | TemplateRef<any> | 'self' | 'body' | null | undefined | any>(undefined);
+    /**
      * This EventEmitter is used to notify changes in the visibility state of a component.
      * @param {Boolean} boolean - Value of visibility as boolean.
      * @group Emits
@@ -302,6 +317,10 @@ export class Overlay extends BaseComponent implements AfterContentInit, OnDestro
 
     @ContentChildren(PrimeTemplate) templates: QueryList<any> | undefined;
 
+    hostAttrSelector = input<string>();
+
+    $appendTo = computed(() => this.appendTo() || this.config.overlayAppendTo());
+
     _contentTemplate: TemplateRef<any> | undefined;
 
     _visible: boolean = false;
@@ -317,8 +336,6 @@ export class Overlay extends BaseComponent implements AfterContentInit, OnDestro
     _contentStyleClass: string | undefined;
 
     _target: any;
-
-    _appendTo: 'body' | HTMLElement | undefined;
 
     _autoZIndex: boolean | undefined;
 
@@ -444,7 +461,7 @@ export class Overlay extends BaseComponent implements AfterContentInit, OnDestro
     }
 
     alignOverlay() {
-        !this.modal && DomHandler.alignOverlay(this.overlayEl, this.targetEl, this.appendTo);
+        !this.modal && DomHandler.alignOverlay(this.overlayEl, this.targetEl, this.$appendTo());
     }
 
     onVisibleChange(visible: boolean) {
@@ -474,7 +491,8 @@ export class Overlay extends BaseComponent implements AfterContentInit, OnDestro
                     ZIndexUtils.set(this.overlayMode, this.overlayEl, this.baseZIndex + this.config?.zIndex[this.overlayMode]);
                 }
 
-                DomHandler.appendOverlay(this.overlayEl, this.appendTo === 'body' ? this.document.body : this.appendTo, this.appendTo);
+                this.hostAttrSelector() && this.overlayEl.setAttribute(this.hostAttrSelector(), '');
+                DomHandler.appendOverlay(this.overlayEl, this.$appendTo() === 'body' ? this.document.body : this.$appendTo(), this.$appendTo());
                 this.alignOverlay();
                 break;
 
@@ -507,7 +525,7 @@ export class Overlay extends BaseComponent implements AfterContentInit, OnDestro
                     this.modalVisible = false;
                     this.unbindListeners();
 
-                    DomHandler.appendOverlay(this.overlayEl, this.targetEl, this.appendTo);
+                    DomHandler.appendOverlay(this.overlayEl, this.targetEl, this.$appendTo());
                     ZIndexUtils.clear(container);
                     this.cd.markForCheck();
 
@@ -625,8 +643,8 @@ export class Overlay extends BaseComponent implements AfterContentInit, OnDestro
     ngOnDestroy() {
         this.hide(this.overlayEl, true);
 
-        if (this.overlayEl) {
-            DomHandler.appendOverlay(this.overlayEl, this.targetEl, this.appendTo);
+        if (this.overlayEl && this.$appendTo() !== 'self') {
+            this.renderer.appendChild(this.el.nativeElement, this.overlayEl);
             ZIndexUtils.clear(this.overlayEl);
         }
 

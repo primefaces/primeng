@@ -20,7 +20,7 @@ import { MessageStyle } from './style/messagestyle';
             <div
                 class="p-message p-component"
                 [attr.aria-live]="'polite'"
-                [class]="cx('root')"
+                [class]="cn(cx('root'), styleClass)"
                 [attr.role]="'alert'"
                 [@messageAnimation]="{
                     value: 'visible()',
@@ -62,7 +62,7 @@ import { MessageStyle } from './style/messagestyle';
                                 <ng-container *ngTemplateOutlet="closeIconTemplate || _closeIconTemplate"></ng-container>
                             }
                             @if (!closeIconTemplate && !_closeIconTemplate && !closeIcon) {
-                                <TimesIcon [styleClass]="cx('closeIcon')" />
+                                <svg data-p-icon="times" [class]="cx('closeIcon')" />
                             }
                         </button>
                     }
@@ -101,12 +101,13 @@ export class Message extends BaseComponent implements AfterContentInit {
     @Input() severity: string | 'success' | 'info' | 'warn' | 'error' | 'secondary' | 'contrast' | undefined | null = 'info';
     /**
      * Text content.
+     * @deprecated since v20.0.0. Use content projection instead '<p-message>Content</p-message>'.
      * @group Props
      */
     @Input() text: string | undefined;
     /**
      * Whether displaying messages would be escaped or not.
-     * @deprecated Use content projection instead '<p-message>Content</p-message>'.
+     * @deprecated since v20.0.0. Use content projection instead '<p-message>Content</p-message>'.
      * @group Props
      */
     @Input({ transform: booleanAttribute }) escape: boolean = true;

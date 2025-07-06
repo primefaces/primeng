@@ -1,1 +1,2 @@
-export * from '@primeuix/themes/types/message';
+export * from '@primeuix/themes/aura/message';
+export { default } from '@primeuix/themes/aura/message';

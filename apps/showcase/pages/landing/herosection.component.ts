@@ -7,20 +7,12 @@ import { MenuItem, SelectItem } from 'primeng/api';
 import { AvatarModule } from 'primeng/avatar';
 import { BadgeModule } from 'primeng/badge';
 import { ButtonModule } from 'primeng/button';
-import { CalendarModule } from 'primeng/calendar';
 import { ChartModule } from 'primeng/chart';
-import { Chip } from 'primeng/chip';
 import { DividerModule } from 'primeng/divider';
 import { DrawerModule } from 'primeng/drawer';
-import { DropdownModule } from 'primeng/dropdown';
-import { InputNumber } from 'primeng/inputnumber';
-import { InputSwitchModule } from 'primeng/inputswitch';
 import { KnobModule } from 'primeng/knob';
 import { OverlayBadgeModule } from 'primeng/overlaybadge';
-import { RadioButton } from 'primeng/radiobutton';
 import { SelectButton } from 'primeng/selectbutton';
-import { Slider } from 'primeng/slider';
-import { TabMenuModule } from 'primeng/tabmenu';
 import { ToggleSwitchModule } from 'primeng/toggleswitch';
 import { TooltipModule } from 'primeng/tooltip';
 import { Subscription } from 'rxjs';
@@ -37,14 +29,10 @@ import { OverviewApp } from './samples/overviewapp.component';
     imports: [
         CommonModule,
         RouterModule,
-        DropdownModule,
-        CalendarModule,
         ChartModule,
-        InputSwitchModule,
         SelectButton,
         ToggleSwitchModule,
         BadgeModule,
-        TabMenuModule,
         FormsModule,
         DividerModule,
         AvatarModule,

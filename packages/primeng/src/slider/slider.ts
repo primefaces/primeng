@@ -1,13 +1,13 @@
 import { CommonModule, isPlatformBrowser } from '@angular/common';
-import { booleanAttribute, ChangeDetectionStrategy, Component, ElementRef, EventEmitter, forwardRef, HostListener, inject, Input, NgModule, NgZone, numberAttribute, OnDestroy, Output, ViewChild, ViewEncapsulation } from '@angular/core';
+import { booleanAttribute, ChangeDetectionStrategy, Component, ElementRef, EventEmitter, forwardRef, HostListener, inject, input, Input, NgModule, NgZone, numberAttribute, OnDestroy, Output, ViewChild, ViewEncapsulation } from '@angular/core';
 import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
 import { addClass, getWindowScrollLeft, getWindowScrollTop, isRTL, removeClass } from '@primeuix/utils';
 import { SharedModule } from 'primeng/api';
 import { AutoFocus } from 'primeng/autofocus';
-import { BaseComponent } from 'primeng/basecomponent';
 import { Nullable, VoidListener } from 'primeng/ts-helpers';
 import { SliderChangeEvent, SliderSlideEndEvent } from './slider.interface';
 import { SliderStyle } from './style/sliderstyle';
+import { BaseEditableHolder } from 'primeng/baseeditableholder';
 
 export const SLIDER_VALUE_ACCESSOR: any = {
     provide: NG_VALUE_ACCESSOR,
@@ -60,7 +60,7 @@ export const SLIDER_VALUE_ACCESSOR: any = {
             (touchend)="onDragEnd($event)"
             (mousedown)="onMouseDown($event)"
             (keydown)="onKeyDown($event)"
-            [attr.tabindex]="disabled ? null : tabindex"
+            [attr.tabindex]="disabled() ? null : tabindex"
             role="slider"
             [attr.aria-valuemin]="min"
             [attr.aria-valuenow]="value"
@@ -82,7 +82,7 @@ export const SLIDER_VALUE_ACCESSOR: any = {
             (touchstart)="onDragStart($event, 0)"
             (touchmove)="onDrag($event)"
             (touchend)="onDragEnd($event)"
-            [attr.tabindex]="disabled ? null : tabindex"
+            [attr.tabindex]="disabled() ? null : tabindex"
             role="slider"
             [attr.aria-valuemin]="min"
             [attr.aria-valuenow]="value ? value[0] : null"
@@ -104,7 +104,7 @@ export const SLIDER_VALUE_ACCESSOR: any = {
             (touchstart)="onDragStart($event, 1)"
             (touchmove)="onDrag($event)"
             (touchend)="onDragEnd($event)"
-            [attr.tabindex]="disabled ? null : tabindex"
+            [attr.tabindex]="disabled() ? null : tabindex"
             role="slider"
             [attr.aria-valuemin]="min"
             [attr.aria-valuenow]="value ? value[1] : null"
@@ -121,20 +121,15 @@ export const SLIDER_VALUE_ACCESSOR: any = {
     host: {
         '[attr.data-pc-name]': "'slider'",
         '[attr.data-pc-section]': "'root'",
-        '[class]': "cx('root')"
+        '[class]': "cn(cx('root'), styleClass)"
     }
 })
-export class Slider extends BaseComponent implements OnDestroy, ControlValueAccessor {
+export class Slider extends BaseEditableHolder implements OnDestroy, ControlValueAccessor {
     /**
      * When enabled, displays an animation on click of the slider bar.
      * @group Props
      */
     @Input({ transform: booleanAttribute }) animate: boolean | undefined;
-    /**
-     * When present, it specifies that the element should be disabled.
-     * @group Props
-     */
-    @Input({ transform: booleanAttribute }) disabled: boolean | undefined;
     /**
      * Mininum boundary value.
      * @group Props
@@ -257,7 +252,7 @@ export class Slider extends BaseComponent implements OnDestroy, ControlValueAcce
     }
 
     onMouseDown(event: Event, index?: number) {
-        if (this.disabled) {
+        if (this.disabled()) {
             return;
         }
 
@@ -280,7 +275,7 @@ export class Slider extends BaseComponent implements OnDestroy, ControlValueAcce
     }
 
     onDragStart(event: TouchEvent, index?: number) {
-        if (this.disabled) {
+        if (this.disabled()) {
             return;
         }
 
@@ -309,7 +304,7 @@ export class Slider extends BaseComponent implements OnDestroy, ControlValueAcce
     }
 
     onDrag(event: TouchEvent) {
-        if (this.disabled) {
+        if (this.disabled()) {
             return;
         }
 
@@ -328,7 +323,7 @@ export class Slider extends BaseComponent implements OnDestroy, ControlValueAcce
     }
 
     onDragEnd(event: TouchEvent) {
-        if (this.disabled) {
+        if (this.disabled()) {
             return;
         }
 
@@ -345,7 +340,7 @@ export class Slider extends BaseComponent implements OnDestroy, ControlValueAcce
     }
 
     onBarClick(event: Event) {
-        if (this.disabled) {
+        if (this.disabled()) {
             return;
         }
 
@@ -536,11 +531,6 @@ export class Slider extends BaseComponent implements OnDestroy, ControlValueAcce
 
     registerOnTouched(fn: Function): void {
         this.onModelTouched = fn;
-    }
-
-    setDisabledState(val: boolean): void {
-        this.disabled = val;
-        this.cd.markForCheck();
     }
 
     get rangeStartLeft() {

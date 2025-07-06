@@ -1,9 +1,8 @@
 import { Injectable } from '@angular/core';
-import { css, dt } from '@primeuix/styled';
 import { style } from '@primeuix/styles/datatable';
 import { BaseStyle } from 'primeng/base';
 
-const theme = css`
+const theme = /*css*/ `
     ${style}
 
     /* For PrimeNG */
@@ -23,18 +22,18 @@ const theme = css`
 
     .p-datatable-scrollable > tr:not(:has(.p-datatable-selectable-row)) > .p-datatable-frozen-column {
         position: sticky;
-        background: ${dt('datatable.header.cell.background')};
+        background: dt('datatable.header.cell.background');
     }
 
     .p-datatable-scrollable th.p-datatable-frozen-column {
         z-index: 1;
         position: sticky;
-        background: ${dt('datatable.header.cell.background')};
+        background: dt('datatable.header.cell.background');
     }
     .p-datatable-scrollable td.p-datatable-frozen-column {
         z-index: 1;
         position: sticky;
-        background: ${dt('datatable.header.cell.background')};
+        background: dt('datatable.header.cell.background');
     }
 
     .p-datatable-mask {
@@ -47,16 +46,16 @@ const theme = css`
 
     .p-datatable-filter-overlay {
         position: absolute;
-        background: ${dt('datatable.filter.overlay.select.background')};
-        color: ${dt('datatable.filter.overlay.select.color')};
-        border: 1px solid ${dt('datatable.filter.overlay.select.border.color')};
-        border-radius: ${dt('datatable.filter.overlay.select.border.radius')};
-        box-shadow: ${dt('datatable.filter.overlay.select.shadow')};
+        background: dt('datatable.filter.overlay.select.background');
+        color: dt('datatable.filter.overlay.select.color');
+        border: 1px solid dt('datatable.filter.overlay.select.border.color');
+        border-radius: dt('datatable.filter.overlay.select.border.radius');
+        box-shadow: dt('datatable.filter.overlay.select.shadow');
         min-width: 12.5rem;
     }
 
     .p-datatable-filter-rule {
-        border-bottom: 1px solid ${dt('datatable.filter.rule.border.color')};
+        border-bottom: 1px solid dt('datatable.filter.rule.border.color');
     }
 
     .p-datatable-filter-rule:last-child {
@@ -73,28 +72,24 @@ const theme = css`
     }
 
     .p-datatable-thead > tr > th {
-        padding: ${dt('datatable.header.cell.padding')};
-        background: ${dt('datatable.header.cell.background')};
-        border-color: ${dt('datatable.header.cell.border.color')};
+        padding: dt('datatable.header.cell.padding');
+        background: dt('datatable.header.cell.background');
+        border-color: dt('datatable.header.cell.border.color');
         border-style: solid;
         border-width: 0 0 1px 0;
-        color: ${dt('datatable.header.cell.color')};
-        font-weight: ${dt('datatable.column.title.font.weight')};
+        color: dt('datatable.header.cell.color');
+        font-weight: dt('datatable.column.title.font.weight');
         text-align: start;
         transition:
-            background ${dt('datatable.transition.duration')},
-            color ${dt('datatable.transition.duration')},
-            border-color ${dt('datatable.transition.duration')},
-            outline-color ${dt('datatable.transition.duration')},
-            box-shadow ${dt('datatable.transition.duration')};
+            background dt('datatable.transition.duration'),
+            color dt('datatable.transition.duration'),
+            border-color dt('datatable.transition.duration'),
+            outline-color dt('datatable.transition.duration'),
+            box-shadow dt('datatable.transition.duration');
     }
 
     .p-datatable-thead > tr > th p-columnfilter {
         font-weight: normal;
-    }
-
-    .p-datatable-tbody:has(+ .p-datatable-tfoot) > tr:last-child > td {
-        border-width: 0;
     }
 
     .p-datatable-thead > tr > th,
@@ -104,28 +99,42 @@ const theme = css`
     }
 
     .p-datatable-thead > tr > th.p-datatable-column-sorted {
-        background: ${dt('datatable.header.cell.selected.background')};
-        color: ${dt('datatable.header.cell.selected.color')};
+        background: dt('datatable.header.cell.selected.background');
+        color: dt('datatable.header.cell.selected.color');
     }
 
     .p-datatable-thead > tr > th.p-datatable-column-sorted .p-datatable-sort-icon {
-        color: ${dt('datatable.header.cell.selected.color')};
+        color: dt('datatable.header.cell.selected.color');
     }
 
     .p-datatable.p-datatable-striped .p-datatable-tbody > tr:nth-child(odd) {
-        background: ${dt('datatable.row.striped.background')};
+        background: dt('datatable.row.striped.background');
     }
 
     .p-datatable.p-datatable-striped .p-datatable-tbody > tr:nth-child(odd).p-datatable-row-selected {
-        background: ${dt('datatable.row.selected.background')};
-        color: ${dt('datatable.row.selected.color')};
+        background: dt('datatable.row.selected.background');
+        color: dt('datatable.row.selected.color');
+    }
+
+    p-sortIcon {
+        display: inline-flex;
+        align-items: center;
+        gap: dt('datatable.header.cell.gap');
+    }
+
+    .p-datatable .p-editable-column.p-cell-editing {
+        padding: 0;
+    }
+
+    .p-datatable .p-editable-column.p-cell-editing p-celleditor {
+        display: block;
+        width: 100%;
     }
 `;
 
 const classes = {
     root: ({ instance }) => [
         'p-datatable p-component',
-        instance.styleClass,
         {
             'p-datatable-hoverable': instance.rowHover || instance.selectionMode,
             'p-datatable-resizable': instance.resizableColumns,
@@ -214,7 +223,7 @@ const classes = {
         'p-datatable-sortable-column': instance.isEnabled(),
         ' p-datatable-column-sorted': instance.sorted
     }),
-    sortableColumnIcon: 'p-sortable-column-icon',
+    sortableColumnIcon: 'p-datatable-sort-icon',
     sortableColumnBadge: 'p-sortable-column-badge',
     selectableRow: ({ instance }) => ({
         'p-datatable-selectable-row': instance.isEnabled(),

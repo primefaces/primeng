@@ -1,36 +1,6 @@
 import { Injectable } from '@angular/core';
-import { BaseStyle } from 'primeng/base';
 import { style } from '@primeuix/styles/tooltip';
-import { css } from '@primeuix/styled';
-
-const theme = css`
-    ${style}
-    /* For PrimeNG */
-
-    .p-tooltip-arrow {
-        scale: 2;
-    }
-
-    .p-tooltip-right .p-tooltip-arrow {
-        top: 50%;
-        left: 0;
-    }
-
-    .p-tooltip-left .p-tooltip-arrow {
-        top: 50%;
-        right: 0;
-    }
-
-    .p-tooltip-top .p-tooltip-arrow {
-        bottom: 0;
-        left: 50%;
-    }
-
-    .p-tooltip-bottom .p-tooltip-arrow {
-        top: 0;
-        left: 50%;
-    }
-`;
+import { BaseStyle } from 'primeng/base';
 
 const classes = {
     root: 'p-tooltip p-component',
@@ -42,7 +12,7 @@ const classes = {
 export class TooltipStyle extends BaseStyle {
     name = 'tooltip';
 
-    theme = theme;
+    theme = style;
 
     classes = classes;
 }

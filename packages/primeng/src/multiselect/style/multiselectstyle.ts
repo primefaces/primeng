@@ -1,52 +1,41 @@
 import { Injectable } from '@angular/core';
-import { css, dt } from '@primeuix/styled';
-import { BaseStyle } from 'primeng/base';
 import { style } from '@primeuix/styles/multiselect';
+import { BaseStyle } from 'primeng/base';
 
-const theme = css`
+const theme = /*css*/ `
     ${style}
 
     /* For PrimeNG */
    .p-multiselect.ng-invalid.ng-dirty {
-        border-color: ${dt('multiselect.invalid.border.color')};
+        border-color: dt('multiselect.invalid.border.color');
     }
     p-multiSelect.ng-invalid.ng-dirty .p-multiselect-label.p-placeholder,
     p-multi-select.ng-invalid.ng-dirty .p-multiselect-label.p-placeholder,
     p-multiselect.ng-invalid.ng-dirty .p-multiselect-label.p-placeholder {
-        color: ${dt('multiselect.invalid.placeholder.color')};
-    }
-    .p-multiselect-clear-icon {
-        cursor: pointer;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        flex-shrink: 0;
-        background: transparent;
-        color: ${dt('multiselect.clear.icon.color')};
+        color: dt('multiselect.invalid.placeholder.color');
     }
 `;
 
 const inlineStyles = {
-    root: ({ instance }) => ({ position: instance.appendTo === 'self' ? 'relative' : undefined })
+    root: ({ instance }) => ({ position: instance.$appendTo() === 'self' ? 'relative' : undefined })
 };
 
 const classes = {
     root: ({ instance }) => [
         'p-multiselect p-component p-inputwrapper',
-        instance.styleClass,
         {
             'p-multiselect p-component p-inputwrapper': true,
             'p-multiselect-display-chip': instance.display === 'chip',
-            'p-disabled': instance.disabled,
-            'p-invalid': instance.invalid,
-            'p-variant-filled': instance.variant === 'filled' || instance.config.inputVariant() === 'filled' || instance.config.inputStyle() === 'filled',
+            'p-disabled': instance.disabled(),
+            'p-invalid': instance.invalid(),
+            'p-variant-filled': instance.$variant(),
             'p-focus': instance.focused,
-            'p-inputwrapper-filled': instance.filled,
+            'p-inputwrapper-filled': instance.$filled(),
             'p-inputwrapper-focus': instance.focused || instance.overlayVisible,
             'p-multiselect-open': instance.overlayVisible,
             'p-multiselect-fluid': instance.hasFluid,
-            'p-multiselect-sm p-inputfield-sm': instance.size === 'small',
-            'p-multiselect-lg p-inputfield-lg': instance.size === 'large'
+            'p-multiselect-sm p-inputfield-sm': instance.size() === 'small',
+            'p-multiselect-lg p-inputfield-lg': instance.size() === 'large'
         }
     ],
     labelContainer: 'p-multiselect-label-container',
@@ -61,7 +50,7 @@ const classes = {
     dropdown: 'p-multiselect-dropdown',
     loadingIcon: 'p-multiselect-loading-icon',
     dropdownIcon: 'p-multiselect-dropdown-icon',
-    overlay: 'p-multiselect-overlay p-component',
+    overlay: 'p-multiselect-overlay p-component-overlay p-component',
     header: 'p-multiselect-header',
     pcFilterContainer: 'p-multiselect-filter-container',
     pcFilter: 'p-multiselect-filter',

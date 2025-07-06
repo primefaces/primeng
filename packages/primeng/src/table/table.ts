@@ -35,6 +35,7 @@ import {
 } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { BlockableUI, FilterMatchMode, FilterMetadata, FilterOperator, FilterService, LazyLoadMeta, OverlayService, PrimeTemplate, ScrollerOptions, SelectItem, SharedModule, SortMeta, TableState, TranslationKeys } from 'primeng/api';
+import { BadgeModule } from 'primeng/badge';
 import { BaseComponent } from 'primeng/basecomponent';
 import { Button, ButtonModule } from 'primeng/button';
 import { CheckboxChangeEvent, CheckboxModule } from 'primeng/checkbox';
@@ -42,8 +43,8 @@ import { DatePickerModule } from 'primeng/datepicker';
 import { ConnectedOverlayScrollHandler, DomHandler } from 'primeng/dom';
 import { ArrowDownIcon } from 'primeng/icons/arrowdown';
 import { ArrowUpIcon } from 'primeng/icons/arrowup';
-import { CheckIcon } from 'primeng/icons/check';
 import { FilterIcon } from 'primeng/icons/filter';
+import { FilterFillIcon } from 'primeng/icons/filterfill';
 import { FilterSlashIcon } from 'primeng/icons/filterslash';
 import { PlusIcon } from 'primeng/icons/plus';
 import { SortAltIcon } from 'primeng/icons/sortalt';
@@ -134,7 +135,7 @@ export class TableService {
         <div [class]="cx('mask')" *ngIf="loading && showLoader">
             <i *ngIf="loadingIcon" [class]="cn(cx('loadingIcon'), loadingIcon)"></i>
             <ng-container *ngIf="!loadingIcon">
-                <SpinnerIcon *ngIf="!loadingIconTemplate && !_loadingIconTemplate" [spin]="true" [styleClass]="cx('loadingIcon')" />
+                <svg data-p-icon="spinner" *ngIf="!loadingIconTemplate && !_loadingIconTemplate" [spin]="true" [class]="cx('loadingIcon')" />
                 <span *ngIf="loadingIconTemplate || _loadingIconTemplate" [class]="cx('loadingIcon')">
                     <ng-template *ngTemplateOutlet="loadingIconTemplate || _loadingIconTemplate"></ng-template>
                 </span>
@@ -154,7 +155,7 @@ export class TableService {
             *ngIf="paginator && (paginatorPosition === 'top' || paginatorPosition == 'both')"
             [templateLeft]="paginatorLeftTemplate || _paginatorLeftTemplate"
             [templateRight]="paginatorRightTemplate || _paginatorRightTemplate"
-            [dropdownAppendTo]="paginatorDropdownAppendTo"
+            [appendTo]="paginatorDropdownAppendTo"
             [dropdownScrollHeight]="paginatorDropdownScrollHeight"
             [currentPageReportTemplate]="currentPageReportTemplate"
             [showFirstLastIcon]="showFirstLastIcon"
@@ -197,7 +198,7 @@ export class TableService {
                     height: scrollHeight !== 'flex' ? scrollHeight : undefined
                 }"
                 [scrollHeight]="scrollHeight !== 'flex' ? undefined : '100%'"
-                [itemSize]="virtualScrollItemSize || _virtualRowHeight"
+                [itemSize]="virtualScrollItemSize"
                 [step]="rows"
                 [delay]="lazy ? virtualScrollDelay : 0"
                 [inline]="true"
@@ -296,7 +297,7 @@ export class TableService {
             *ngIf="paginator && (paginatorPosition === 'bottom' || paginatorPosition == 'both')"
             [templateLeft]="paginatorLeftTemplate || _paginatorLeftTemplate"
             [templateRight]="paginatorRightTemplate || _paginatorRightTemplate"
-            [dropdownAppendTo]="paginatorDropdownAppendTo"
+            [appendTo]="paginatorDropdownAppendTo"
             [dropdownScrollHeight]="paginatorDropdownScrollHeight"
             [currentPageReportTemplate]="currentPageReportTemplate"
             [showFirstLastIcon]="showFirstLastIcon"
@@ -333,13 +334,13 @@ export class TableService {
             <ng-container *ngTemplateOutlet="summaryTemplate || _summaryTemplate"></ng-container>
         </div>
 
-        <div #resizeHelper [ngClass]="cx('columnResizeIndicator')" style="display:none" *ngIf="resizableColumns"></div>
-        <span #reorderIndicatorUp [ngClass]="cx('rowReorderIndicatorUp')" style="display: none;" *ngIf="reorderableColumns">
-            <ArrowDownIcon *ngIf="!reorderIndicatorUpIconTemplate && !_reorderIndicatorUpIconTemplate" />
+        <div #resizeHelper [ngClass]="cx('columnResizeIndicator')" [style.display]="'none'" *ngIf="resizableColumns"></div>
+        <span #reorderIndicatorUp [ngClass]="cx('rowReorderIndicatorUp')" [style.display]="'none'" *ngIf="reorderableColumns">
+            <svg data-p-icon="arrow-down" *ngIf="!reorderIndicatorUpIconTemplate && !_reorderIndicatorUpIconTemplate" />
             <ng-template *ngTemplateOutlet="reorderIndicatorUpIconTemplate || _reorderIndicatorUpIconTemplate"></ng-template>
         </span>
-        <span #reorderIndicatorDown [ngClass]="cx('rowReorderIndicatorDown')" style="display: none;" *ngIf="reorderableColumns">
-            <ArrowUpIcon *ngIf="!reorderIndicatorDownIconTemplate && !_reorderIndicatorDownIconTemplate" />
+        <span #reorderIndicatorDown [ngClass]="cx('rowReorderIndicatorDown')" [style.display]="'none'" *ngIf="reorderableColumns">
+            <svg data-p-icon="arrow-up" *ngIf="!reorderIndicatorDownIconTemplate && !_reorderIndicatorDownIconTemplate" />
             <ng-template *ngTemplateOutlet="reorderIndicatorDownIconTemplate || _reorderIndicatorDownIconTemplate"></ng-template>
         </span>
     `,
@@ -348,7 +349,7 @@ export class TableService {
     encapsulation: ViewEncapsulation.None,
     host: {
         '[attr.id]': 'id',
-        '[class]': "cx('root')"
+        '[class]': "cn(cx('root'), styleClass)"
     }
 })
 export class Table<RowData = any> extends BaseComponent implements OnInit, AfterViewInit, AfterContentInit, BlockableUI, OnChanges {
@@ -575,12 +576,6 @@ export class Table<RowData = any> extends BaseComponent implements OnInit, After
      */
     @Input({ transform: booleanAttribute }) scrollable: boolean | undefined;
     /**
-     * Orientation of the scrolling, options are "vertical", "horizontal" and "both".
-     * @group Props
-     * @deprecated Property is obselete since v14.2.0.
-     */
-    @Input() scrollDirection: 'vertical' | 'horizontal' | 'both' = 'vertical';
-    /**
      * Type of the row grouping, valid values are "subheader" and "rowspan".
      * @group Props
      */
@@ -615,19 +610,6 @@ export class Table<RowData = any> extends BaseComponent implements OnInit, After
      * @group Props
      */
     @Input() frozenWidth: string | undefined;
-    /**
-     * Defines if the table is responsive.
-     * @group Props
-     * @deprecated table is always responsive with scrollable behavior.
-     */
-    @Input() get responsive(): boolean | undefined | null {
-        return this._responsive;
-    }
-    set responsive(val: boolean | undefined | null) {
-        this._responsive = val;
-        console.log('responsive property is deprecated as table is always responsive with scrollable behavior.');
-    }
-    _responsive: boolean | undefined | null;
     /**
      * Local ng-template varilable of a ContextMenu.
      * @group Props
@@ -678,11 +660,6 @@ export class Table<RowData = any> extends BaseComponent implements OnInit, After
      * @group Props
      */
     @Input({ transform: booleanAttribute }) showInitialSortBadge: boolean = true;
-    /**
-     * Whether the cell widths scale according to their content or not.  Deprecated:  Table layout is always "auto".
-     * @group Props
-     */
-    @Input({ transform: booleanAttribute }) autoLayout: boolean | undefined;
     /**
      * Export function.
      * @group Props
@@ -735,6 +712,7 @@ export class Table<RowData = any> extends BaseComponent implements OnInit, After
     @Input({ transform: numberAttribute }) groupRowsByOrder: number = 1;
     /**
      * Defines the responsive mode, valid options are "stack" and "scroll".
+     * @deprecated since v20.0.0, always defaults to scroll, stack mode needs custom implementation
      * @group Props
      */
     @Input() responsiveLayout: string = 'scroll';
@@ -838,18 +816,6 @@ export class Table<RowData = any> extends BaseComponent implements OnInit, After
     }
     set selection(val: any) {
         this._selection = val;
-    }
-    /**
-     * Indicates the height of rows to be scrolled.
-     * @group Props
-     * @deprecated use virtualScrollItemSize property instead.
-     */
-    @Input() get virtualRowHeight(): number {
-        return this._virtualRowHeight;
-    }
-    set virtualRowHeight(val: number) {
-        this._virtualRowHeight = val;
-        console.log('The virtualRowHeight property is deprecated.');
     }
     /**
      * Whether all data is selected.
@@ -1020,8 +986,6 @@ export class Table<RowData = any> extends BaseComponent implements OnInit, After
     @ViewChild('scroller') scroller: Nullable<Scroller>;
 
     @ContentChildren(PrimeTemplate) _templates: Nullable<QueryList<PrimeTemplate>>;
-
-    _virtualRowHeight: number = 28;
 
     _value: RowData[] = [];
 
@@ -3042,8 +3006,8 @@ export class Table<RowData = any> extends BaseComponent implements OnInit, After
         headers.forEach((header) => widths.push(DomHandler.getOuterWidth(header)));
         state.columnWidths = widths.join(',');
 
-        if (this.columnResizeMode === 'expand') {
-            state.tableWidth = DomHandler.getOuterWidth(this.tableViewChild?.nativeElement);
+        if (this.columnResizeMode === 'expand' && this.tableViewChild) {
+            state.tableWidth = DomHandler.getOuterWidth(this.tableViewChild.nativeElement);
         }
     }
 
@@ -3706,14 +3670,14 @@ export class SortableColumn extends BaseComponent implements OnInit, OnDestroy {
     standalone: false,
     template: `
         <ng-container *ngIf="!(dt.sortIconTemplate || dt._sortIconTemplate)">
-            <SortAltIcon [styleClass]="cx('sortableColumnIcon')" *ngIf="sortOrder === 0" />
-            <SortAmountUpAltIcon [styleClass]="cx('sortableColumnIcon')" *ngIf="sortOrder === 1" />
-            <SortAmountDownIcon [styleClass]="cx('sortableColumnIcon')" *ngIf="sortOrder === -1" />
+            <svg data-p-icon="sort-alt" [class]="cx('sortableColumnIcon')" *ngIf="sortOrder === 0" />
+            <svg data-p-icon="sort-amount-up-alt" [class]="cx('sortableColumnIcon')" *ngIf="sortOrder === 1" />
+            <svg data-p-icon="sort-amount-down" [class]="cx('sortableColumnIcon')" *ngIf="sortOrder === -1" />
         </ng-container>
         <span *ngIf="dt.sortIconTemplate || dt._sortIconTemplate" [class]="cx('sortableColumnIcon')">
             <ng-template *ngTemplateOutlet="dt.sortIconTemplate || dt._sortIconTemplate; context: { $implicit: sortOrder }"></ng-template>
         </span>
-        <span *ngIf="isMultiSorted()" [class]="cx('sortableColumnBadge')">{{ getBadgeValue() }}</span>
+        <p-badge *ngIf="isMultiSorted()" [class]="cx('sortableColumnBadge')" [value]="getBadgeValue()" size="small"></p-badge>
     `,
     changeDetection: ChangeDetectionStrategy.OnPush,
     encapsulation: ViewEncapsulation.None,
@@ -4113,7 +4077,7 @@ export class SelectableRowDblClick implements OnInit, OnDestroy {
     selector: '[pContextMenuRow]',
     standalone: false,
     host: {
-        '[class.p-highlight-contextmenu]': 'selected',
+        '[class.p-datatable-contextmenu-row-selected]': 'selected',
         '[attr.tabindex]': 'isEnabled() ? 0 : undefined'
     }
 })
@@ -5293,6 +5257,7 @@ export class ReorderableRow implements AfterViewInit {
                 [currencyDisplay]="currencyDisplay"
                 [useGrouping]="useGrouping"
                 [showButtons]="showButtons"
+                [filterOn]="filterOn"
             ></p-columnFilterFormElement>
             <p-button
                 *ngIf="showMenuButton"
@@ -5306,16 +5271,13 @@ export class ReorderableRow implements AfterViewInit {
                 [buttonProps]="filterButtonProps?.filter"
             >
                 <ng-template #icon>
-                    <FilterIcon *ngIf="!filterIconTemplate && !_filterIconTemplate" />
-                    <span class="pi-filter-icon" *ngIf="filterIconTemplate || _filterIconTemplate">
-                        <ng-template *ngTemplateOutlet="filterIconTemplate || _filterIconTemplate; context: { hasFilter: hasFilter }"></ng-template>
-                    </span>
-                </ng-template>
-            </p-button>
-            <p-button *ngIf="showClearButton && display === 'row' && hasFilter" [styleClass]="cx('pcColumnfilterClearButton')" (onClick)="clearFilter()" [ariaLabel]="clearButtonLabel" [buttonProps]="filterButtonProps?.inline?.clear">
-                <ng-template #icon>
-                    <FilterSlashIcon *ngIf="!clearFilterIconTemplate && !_clearFilterIconTemplate" />
-                    <ng-template *ngTemplateOutlet="clearFilterIconTemplate || _clearFilterIconTemplate"></ng-template>
+                    <ng-container>
+                        <svg data-p-icon="filter" *ngIf="!filterIconTemplate && !_filterIconTemplate && !hasFilter" />
+                        <svg data-p-icon="filter-fill" *ngIf="!filterIconTemplate && !_filterIconTemplate && hasFilter" />
+                        <span class="pi-filter-icon" *ngIf="filterIconTemplate || _filterIconTemplate">
+                            <ng-template *ngTemplateOutlet="filterIconTemplate || _filterIconTemplate; context: { hasFilter: hasFilter }"></ng-template>
+                        </span>
+                    </ng-container>
                 </ng-template>
             </p-button>
             <div
@@ -5376,6 +5338,7 @@ export class ReorderableRow implements AfterViewInit {
                                 [currency]="currency"
                                 [currencyDisplay]="currencyDisplay"
                                 [useGrouping]="useGrouping"
+                                [filterOn]="filterOn"
                             ></p-columnFilterFormElement>
                             <div>
                                 <p-button
@@ -5389,8 +5352,10 @@ export class ReorderableRow implements AfterViewInit {
                                     [label]="removeRuleButtonLabel"
                                     [buttonProps]="filterButtonProps?.popover?.removeRule"
                                 >
-                                    <TrashIcon *ngIf="!removeRuleIconTemplate && !_removeRuleIconTemplate" />
-                                    <ng-template *ngTemplateOutlet="removeRuleIconTemplate || _removeRuleIconTemplate"></ng-template>
+                                    <ng-template #icon>
+                                        <svg data-p-icon="trash" *ngIf="!removeRuleIconTemplate && !_removeRuleIconTemplate" />
+                                        <ng-template *ngTemplateOutlet="removeRuleIconTemplate || _removeRuleIconTemplate"></ng-template>
+                                    </ng-template>
                                 </p-button>
                             </div>
                         </div>
@@ -5406,8 +5371,10 @@ export class ReorderableRow implements AfterViewInit {
                             (onClick)="addConstraint()"
                             [buttonProps]="filterButtonProps?.popover?.addRule"
                         >
-                            <PlusIcon *ngIf="!addRuleIconTemplate && !_addRuleIconTemplate" />
-                            <ng-template *ngTemplateOutlet="addRuleIconTemplate || _addRuleIconTemplate"></ng-template>
+                            <ng-template #icon>
+                                <svg data-p-icon="plus" *ngIf="!addRuleIconTemplate && !_addRuleIconTemplate" />
+                                <ng-template *ngTemplateOutlet="addRuleIconTemplate || _addRuleIconTemplate"></ng-template>
+                            </ng-template>
                         </p-button>
                     </div>
                     <div [class]="cx('filterButtonbar')">
@@ -5483,7 +5450,7 @@ export class ColumnFilter extends BaseComponent implements AfterContentInit {
      * Decides whether to close popup on clear button click.
      * @group Props
      */
-    @Input({ transform: booleanAttribute }) hideOnClear: boolean = false;
+    @Input({ transform: booleanAttribute }) hideOnClear: boolean = true;
     /**
      * Filter placeholder.
      * @group Props
@@ -5541,6 +5508,12 @@ export class ColumnFilter extends BaseComponent implements AfterContentInit {
      * @group Props
      */
     @Input() currencyDisplay: string | undefined;
+    /**
+     * Default trigger to run filtering on built-in text and numeric filters, valid values are 'enter' and 'input'.
+     * @defaultValue enter
+     * @group Props
+     */
+    @Input() filterOn: string | undefined = 'enter';
     /**
      * Defines if filter grouping will be enabled.
      * @group Props
@@ -6250,6 +6223,8 @@ export class ColumnFilterFormElement implements OnInit {
 
     @Input() ariaLabel: string | undefined;
 
+    @Input() filterOn: string | undefined;
+
     get showButtons(): boolean {
         return this.colFilter.showButtons;
     }
@@ -6271,7 +6246,7 @@ export class ColumnFilterFormElement implements OnInit {
     onModelChange(value: any) {
         (<any>this.filterConstraint).value = value;
 
-        if (this.type === 'date' || this.type === 'boolean' || value === '') {
+        if (this.type === 'date' || this.type === 'boolean' || ((this.type === 'text' || this.type === 'numeric') && this.filterOn === 'input') || !value) {
             this.dt._filter();
         }
     }
@@ -6300,6 +6275,7 @@ export class ColumnFilterFormElement implements OnInit {
         SelectButtonModule,
         DatePickerModule,
         InputNumberModule,
+        BadgeModule,
         CheckboxModule,
         ScrollerModule,
         ArrowDownIcon,
@@ -6308,8 +6284,8 @@ export class ColumnFilterFormElement implements OnInit {
         SortAltIcon,
         SortAmountUpAltIcon,
         SortAmountDownIcon,
-        CheckIcon,
         FilterIcon,
+        FilterFillIcon,
         FilterSlashIcon,
         PlusIcon,
         TrashIcon,

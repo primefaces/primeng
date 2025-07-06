@@ -1,24 +1,24 @@
 import { Injectable } from '@angular/core';
 import { BaseStyle } from 'primeng/base';
 
-const theme = ({ dt }) => `
+const theme = /*css*/ `
 .p-popover {
-    margin-top: ${dt('popover.gutter')};
-    background: ${dt('popover.background')};
-    color: ${dt('popover.color')};
-    border: 1px solid ${dt('popover.border.color')};
-    border-radius: ${dt('popover.border.radius')};
-    box-shadow: ${dt('popover.shadow')};
+    margin-top: dt('popover.gutter');
+    background: dt('popover.background');
+    color: dt('popover.color');
+    border: 1px solid dt('popover.border.color');
+    border-radius: dt('popover.border.radius');
+    box-shadow: dt('popover.shadow');
     position: absolute
 }
 
 .p-popover-content {
-    padding: ${dt('popover.content.padding')};
+    padding: dt('popover.content.padding');
 }
 
 .p-popover-flipped {
-    margin-top: calc(${dt('popover.gutter')} * -1);
-    margin-bottom: ${dt('popover.gutter')};
+    margin-top: calc(dt('popover.gutter') * -1);
+    margin-bottom: dt('popover.gutter');
 }
 
 .p-popover-enter-from {
@@ -41,7 +41,7 @@ const theme = ({ dt }) => `
 .p-popover:after,
 .p-popover:before {
     bottom: 100%;
-    left: calc(${dt('popover.arrow.offset')} + ${dt('popover.arrow.left')});
+    left: calc(dt('popover.arrow.offset') + dt('popover.arrow.left'));
     content: " ";
     height: 0;
     width: 0;
@@ -50,19 +50,19 @@ const theme = ({ dt }) => `
 }
 
 .p-popover:after {
-    border-width: calc(${dt('popover.gutter')} - 2px);
-    margin-left: calc(-1 * (${dt('popover.gutter')} - 2px));
+    border-width: calc(dt('popover.gutter') - 2px);
+    margin-left: calc(-1 * (dt('popover.gutter') - 2px));
     border-style: solid;
     border-color: transparent;
-    border-bottom-color: ${dt('popover.background')};
+    border-bottom-color: dt('popover.background');
 }
 
 .p-popover:before {
-    border-width: ${dt('popover.gutter')};
-    margin-left: calc(-1 * ${dt('popover.gutter')});
+    border-width: dt('popover.gutter');
+    margin-left: calc(-1 * dt('popover.gutter'));
     border-style: solid;
     border-color: transparent;
-    border-bottom-color: ${dt('popover.border.color')};
+    border-bottom-color: dt('popover.border.color');
 }
 
 .p-popover-flipped:after,
@@ -73,12 +73,12 @@ const theme = ({ dt }) => `
 
 .p-popover.p-popover-flipped:after {
     border-bottom-color: transparent;
-    border-top-color: ${dt('popover.background')};
+    border-top-color: dt('popover.background');
 }
 
 .p-popover.p-popover-flipped:before {
     border-bottom-color: transparent;
-    border-top-color: ${dt('popover.border.color')};
+    border-top-color: dt('popover.border.color');
 }
 
 `;

@@ -17,7 +17,6 @@ const inlineStyles = {
 const classes = {
     root: ({ instance }) => [
         `p-speeddial p-component p-speeddial-${instance.type}`,
-        instance.className,
         {
             [`p-speeddial-direction-${instance.direction}`]: instance.type !== 'circle',
             'p-speeddial-open': instance.visible,

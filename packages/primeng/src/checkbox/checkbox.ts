@@ -4,12 +4,14 @@ import {
     booleanAttribute,
     ChangeDetectionStrategy,
     Component,
+    computed,
     ContentChild,
     ContentChildren,
     ElementRef,
     EventEmitter,
     forwardRef,
     inject,
+    input,
     Input,
     NgModule,
     numberAttribute,
@@ -24,7 +26,7 @@ import {
 import { ControlValueAccessor, FormControl, NG_VALUE_ACCESSOR, NgControl } from '@angular/forms';
 import { contains, equals } from '@primeuix/utils';
 import { PrimeTemplate, SharedModule } from 'primeng/api';
-import { BaseComponent } from 'primeng/basecomponent';
+import { BaseEditableHolder } from 'primeng/baseeditableholder';
 import { CheckIcon, MinusIcon } from 'primeng/icons';
 import { Nullable } from 'primeng/ts-helpers';
 import { CheckboxChangeEvent } from './checkbox.interface';
@@ -48,13 +50,13 @@ export const CHECKBOX_VALUE_ACCESSOR: any = {
             #input
             [attr.id]="inputId"
             type="checkbox"
-            [value]="value"
-            [attr.name]="name"
+            [attr.value]="value"
+            [attr.name]="name()"
             [checked]="checked"
             [attr.tabindex]="tabindex"
-            [disabled]="disabled"
-            [readonly]="readonly"
-            [attr.required]="required ? true : null"
+            [attr.required]="required() ? '' : undefined"
+            [attr.readonly]="readonly ? '' : undefined"
+            [attr.disabled]="disabled() ? '' : undefined"
             [attr.aria-labelledby]="ariaLabelledBy"
             [attr.aria-label]="ariaLabel"
             [style]="inputStyle"
@@ -67,9 +69,9 @@ export const CHECKBOX_VALUE_ACCESSOR: any = {
             <ng-container *ngIf="!checkboxIconTemplate && !_checkboxIconTemplate">
                 <ng-container *ngIf="checked">
                     <span *ngIf="checkboxIcon" [class]="cx('icon')" [ngClass]="checkboxIcon" [attr.data-pc-section]="'icon'"></span>
-                    <CheckIcon *ngIf="!checkboxIcon" [styleClass]="cx('icon')" [attr.data-pc-section]="'icon'" />
+                    <svg data-p-icon="check" *ngIf="!checkboxIcon" [class]="cx('icon')" [attr.data-pc-section]="'icon'" />
                 </ng-container>
-                <MinusIcon *ngIf="_indeterminate()" [styleClass]="cx('icon')" [attr.data-pc-section]="'icon'" />
+                <svg data-p-icon="minus" *ngIf="_indeterminate()" [class]="cx('icon')" [attr.data-pc-section]="'icon'" />
             </ng-container>
             <ng-template *ngTemplateOutlet="checkboxIconTemplate || _checkboxIconTemplate; context: { checked: checked, class: cx('icon') }"></ng-template>
         </div>
@@ -78,28 +80,18 @@ export const CHECKBOX_VALUE_ACCESSOR: any = {
     changeDetection: ChangeDetectionStrategy.OnPush,
     encapsulation: ViewEncapsulation.None,
     host: {
-        '[class]': "cx('root')",
+        '[class]': "cn(cx('root'), styleClass)",
         '[attr.data-p-highlight]': 'checked',
         '[attr.data-p-checked]': 'checked',
-        '[attr.data-p-disabled]': 'disabled'
+        '[attr.data-p-disabled]': 'disabled()'
     }
 })
-export class Checkbox extends BaseComponent implements AfterContentInit, ControlValueAccessor {
+export class Checkbox extends BaseEditableHolder implements AfterContentInit, ControlValueAccessor {
     /**
      * Value of the checkbox.
      * @group Props
      */
     @Input() value: any;
-    /**
-     * Name of the checkbox group.
-     * @group Props
-     */
-    @Input() name: string | undefined;
-    /**
-     * When present, it specifies that the element should be disabled.
-     * @group Props
-     */
-    @Input({ transform: booleanAttribute }) disabled: boolean | undefined;
     /**
      * Allows to select a boolean value instead of multiple values.
      * @group Props
@@ -147,11 +139,6 @@ export class Checkbox extends BaseComponent implements AfterContentInit, Control
      */
     @Input({ transform: booleanAttribute }) indeterminate: boolean = false;
     /**
-     * Defines the size of the component.
-     * @group Props
-     */
-    @Input() size: 'large' | 'small';
-    /**
      * Form control value.
      * @group Props
      */
@@ -166,11 +153,6 @@ export class Checkbox extends BaseComponent implements AfterContentInit, Control
      * @group Props
      */
     @Input({ transform: booleanAttribute }) readonly: boolean | undefined;
-    /**
-     * When present, it specifies that checkbox must be checked before submitting the form.
-     * @group Props
-     */
-    @Input({ transform: booleanAttribute }) required: boolean | undefined;
     /**
      * When present, it specifies that the component should automatically get focus on load.
      * @group Props
@@ -188,9 +170,16 @@ export class Checkbox extends BaseComponent implements AfterContentInit, Control
     @Input() falseValue: any = false;
     /**
      * Specifies the input variant of the component.
+     * @defaultValue undefined
      * @group Props
      */
-    @Input() variant: 'filled' | 'outlined';
+    variant = input<'filled' | 'outlined' | undefined>();
+    /**
+     * Specifies the size of the component.
+     * @defaultValue undefined
+     * @group Props
+     */
+    size = input<'large' | 'small' | undefined>();
     /**
      * Callback to invoke on value change.
      * @param {CheckboxChangeEvent} event - Custom value change event.
@@ -213,7 +202,7 @@ export class Checkbox extends BaseComponent implements AfterContentInit, Control
     @ViewChild('input') inputViewChild: Nullable<ElementRef>;
 
     get checked() {
-        return this._indeterminate() ? false : this.binary ? this.model === this.trueValue : contains(this.value, this.model);
+        return this._indeterminate() ? false : this.binary ? this.modelValue() === this.trueValue : contains(this.value, this.modelValue());
     }
 
     _indeterminate = signal<any>(undefined);
@@ -227,8 +216,6 @@ export class Checkbox extends BaseComponent implements AfterContentInit, Control
 
     _checkboxIconTemplate: TemplateRef<any> | undefined;
 
-    model: any;
-
     onModelChange: Function = () => {};
 
     onModelTouched: Function = () => {};
@@ -236,6 +223,8 @@ export class Checkbox extends BaseComponent implements AfterContentInit, Control
     focused: boolean = false;
 
     _componentStyle = inject(CheckboxStyle);
+
+    $variant = computed(() => this.variant() || this.config.inputStyle() || this.config.inputVariant());
 
     ngAfterContentInit() {
         this.templates.forEach((item) => {
@@ -267,21 +256,21 @@ export class Checkbox extends BaseComponent implements AfterContentInit, Control
          * */
         const selfControl = this.injector.get<NgControl | null>(NgControl, null, { optional: true, self: true });
 
-        const currentModelValue = selfControl && !this.formControl ? selfControl.value : this.model;
+        const currentModelValue = selfControl && !this.formControl ? selfControl.value : this.modelValue();
 
         if (!this.binary) {
             if (this.checked || this._indeterminate()) newModelValue = currentModelValue.filter((val) => !equals(val, this.value));
             else newModelValue = currentModelValue ? [...currentModelValue, this.value] : [this.value];
 
             this.onModelChange(newModelValue);
-            this.model = newModelValue;
+            this.writeModelValue(newModelValue);
 
             if (this.formControl) {
                 this.formControl.setValue(newModelValue);
             }
         } else {
             newModelValue = this._indeterminate() ? this.trueValue : this.checked ? this.falseValue : this.trueValue;
-            this.model = newModelValue;
+            this.writeModelValue(newModelValue);
             this.onModelChange(newModelValue);
         }
 
@@ -314,7 +303,7 @@ export class Checkbox extends BaseComponent implements AfterContentInit, Control
     }
 
     writeValue(model: any): void {
-        this.model = model;
+        this.writeModelValue(model);
         this.cd.markForCheck();
     }
 
@@ -324,13 +313,6 @@ export class Checkbox extends BaseComponent implements AfterContentInit, Control
 
     registerOnTouched(fn: Function): void {
         this.onModelTouched = fn;
-    }
-
-    setDisabledState(val: boolean): void {
-        setTimeout(() => {
-            this.disabled = val;
-            this.cd.markForCheck();
-        });
     }
 }
 

@@ -1,30 +1,28 @@
 import { Injectable } from '@angular/core';
-import { css, dt } from '@primeuix/styled';
 import { style } from '@primeuix/styles/select';
 import { BaseStyle } from 'primeng/base';
 
-const theme = css`
+const theme = /*css*/ `
     ${style}
 
     /* For PrimeNG */
     .p-select-label.p-placeholder {
-        color: ${dt('select.placeholder.color')};
+        color: dt('select.placeholder.color');
     }
 
     .p-select.ng-invalid.ng-dirty {
-        border-color: ${dt('select.invalid.border.color')};
+        border-color: dt('select.invalid.border.color');
     }
 
     .p-dropdown.ng-invalid.ng-dirty .p-dropdown-label.p-placeholder,
     .p-select.ng-invalid.ng-dirty .p-select-label.p-placeholder {
-        color: ${dt('select.invalid.placeholder.color')};
+        color: dt('select.invalid.placeholder.color');
     }
 `;
 
 const classes = {
     root: ({ instance }) => [
         'p-select p-component p-inputwrapper',
-        instance.styleClass,
         {
             'p-disabled': instance.disabled(),
             'p-variant-filled': instance.$variant() === 'filled',
@@ -49,7 +47,7 @@ const classes = {
     dropdown: 'p-select-dropdown',
     loadingIcon: 'p-select-loading-icon',
     dropdownIcon: 'p-select-dropdown-icon',
-    overlay: 'p-select-overlay p-component',
+    overlay: 'p-select-overlay p-component-overlay p-component',
     header: 'p-select-header',
     pcFilter: 'p-select-filter',
     listContainer: 'p-select-list-container',

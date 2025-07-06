@@ -21,7 +21,7 @@ import { AvatarStyle } from './style/avatarstyle';
     changeDetection: ChangeDetectionStrategy.OnPush,
     encapsulation: ViewEncapsulation.None,
     host: {
-        '[class]': "cx('root')",
+        '[class]': "cn(cx('root'), styleClass)",
         '[attr.data-pc-name]': '"avatar"',
         '[attr.aria-label]': 'ariaLabel',
         '[attr.aria-labelledby]': 'ariaLabelledBy'

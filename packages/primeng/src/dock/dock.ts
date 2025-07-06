@@ -116,8 +116,7 @@ import { DockStyle } from './style/dockstyle';
     encapsulation: ViewEncapsulation.None,
     providers: [DockStyle],
     host: {
-        '[class]': 'cx("root")',
-        '[style]': 'style',
+        '[class]': 'cn(cx("root"), styleClass)',
         'data-pc-name': 'dock'
     }
 })
@@ -128,12 +127,8 @@ export class Dock extends BaseComponent implements AfterContentInit {
      */
     @Input() id: string | undefined;
     /**
-     * Inline style of the element.
-     * @group Props
-     */
-    @Input() style: { [klass: string]: any } | null | undefined;
-    /**
      * Class of the element.
+     * @deprecated since v20.0.0, use `class` instead.
      * @group Props
      */
     @Input() styleClass: string | undefined;

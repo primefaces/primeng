@@ -1,9 +1,9 @@
 import { CommonModule } from '@angular/common';
-import { booleanAttribute, ChangeDetectionStrategy, Component, ElementRef, EventEmitter, forwardRef, inject, Injectable, Injector, Input, NgModule, numberAttribute, OnDestroy, OnInit, Output, ViewChild } from '@angular/core';
+import { booleanAttribute, ChangeDetectionStrategy, Component, computed, ElementRef, EventEmitter, forwardRef, inject, Injectable, Injector, input, Input, NgModule, numberAttribute, OnDestroy, OnInit, Output, ViewChild } from '@angular/core';
 import { ControlValueAccessor, NG_VALUE_ACCESSOR, NgControl } from '@angular/forms';
 import { SharedModule } from 'primeng/api';
 import { AutoFocus } from 'primeng/autofocus';
-import { BaseComponent } from 'primeng/basecomponent';
+import { BaseEditableHolder } from 'primeng/baseeditableholder';
 import { Nullable } from 'primeng/ts-helpers';
 import { RadioButtonClickEvent } from './radiobutton.interface';
 import { RadioButtonStyle } from './style/radiobuttonstyle';
@@ -43,7 +43,7 @@ export class RadioControlRegistry {
             return false;
         }
 
-        return controlPair[0].control.root === (accessor as any).control.control.root && controlPair[1].name === accessor.name;
+        return controlPair[0].control.root === (accessor as any).control.control.root && controlPair[1].name() === accessor.name();
     }
 }
 /**
@@ -60,10 +60,11 @@ export class RadioControlRegistry {
             [attr.id]="inputId"
             type="radio"
             [class]="cx('input')"
-            [attr.name]="name"
+            [attr.name]="name()"
+            [attr.required]="required() ? '' : undefined"
+            [attr.disabled]="disabled() ? '' : undefined"
             [checked]="checked"
-            [disabled]="disabled"
-            [value]="value"
+            [attr.value]="modelValue()"
             [attr.aria-labelledby]="ariaLabelledBy"
             [attr.aria-label]="ariaLabel"
             [attr.tabindex]="tabindex"
@@ -85,37 +86,12 @@ export class RadioControlRegistry {
         '[class]': "cx('root')"
     }
 })
-export class RadioButton extends BaseComponent implements ControlValueAccessor, OnInit, OnDestroy {
+export class RadioButton extends BaseEditableHolder implements ControlValueAccessor, OnInit, OnDestroy {
     /**
      * Value of the radiobutton.
      * @group Props
      */
     @Input() value: any;
-    /**
-     * The name of the form control.
-     * @group Props
-     */
-    @Input() formControlName: string | undefined;
-    /**
-     * Name of the radiobutton group.
-     * @group Props
-     */
-    @Input() name: string | undefined;
-    /**
-     * When present, it specifies that the element should be disabled.
-     * @group Props
-     */
-    @Input({ transform: booleanAttribute }) disabled: boolean | undefined;
-    /**
-     * Specifies the input variant of the component.
-     * @group Props
-     */
-    @Input() variant: 'filled' | 'outlined';
-    /**
-     * Defines the size of the component.
-     * @group Props
-     */
-    @Input() size: 'large' | 'small';
     /**
      * Index of the element in tabbing order.
      * @group Props
@@ -153,6 +129,18 @@ export class RadioButton extends BaseComponent implements ControlValueAccessor, 
      */
     @Input({ transform: booleanAttribute }) binary: boolean | undefined;
     /**
+     * Specifies the input variant of the component.
+     * @defaultValue undefined
+     * @group Props
+     */
+    variant = input<'filled' | 'outlined' | undefined>();
+    /**
+     * Specifies the size of the component.
+     * @defaultValue undefined
+     * @group Props
+     */
+    size = input<'large' | 'small' | undefined>();
+    /**
      * Callback to invoke on radio button click.
      * @param {RadioButtonClickEvent} event - Custom click event.
      * @group Emits
@@ -173,6 +161,8 @@ export class RadioButton extends BaseComponent implements ControlValueAccessor, 
 
     @ViewChild('input') inputViewChild!: ElementRef;
 
+    $variant = computed(() => this.variant() || this.config.inputStyle() || this.config.inputVariant());
+
     public onModelChange: Function = () => {};
 
     public onModelTouched: Function = () => {};
@@ -192,19 +182,19 @@ export class RadioButton extends BaseComponent implements ControlValueAccessor, 
     ngOnInit() {
         super.ngOnInit();
         this.control = this.injector.get(NgControl);
-        this.checkName();
         this.registry.add(this.control, this);
     }
 
     onChange(event) {
-        if (!this.disabled) {
+        if (!this.disabled()) {
             this.select(event);
         }
     }
 
     select(event: Event) {
-        if (!this.disabled) {
+        if (!this.disabled()) {
             this.checked = true;
+            this.writeModelValue(this.checked);
             this.onModelChange(this.value);
             this.registry.select(this);
             this.onClick.emit({ originalEvent: event, value: this.value });
@@ -212,16 +202,8 @@ export class RadioButton extends BaseComponent implements ControlValueAccessor, 
     }
 
     writeValue(value: any): void {
-        if (!this.binary) {
-            this.checked = value == this.value;
-        } else {
-            this.checked = !!value;
-        }
-
-        if (this.inputViewChild && this.inputViewChild.nativeElement) {
-            this.inputViewChild.nativeElement.checked = this.checked;
-        }
-
+        this.checked = !this.binary ? value == this.value : !!value;
+        this.writeModelValue(this.checked);
         this.cd.markForCheck();
     }
 
@@ -231,11 +213,6 @@ export class RadioButton extends BaseComponent implements ControlValueAccessor, 
 
     registerOnTouched(fn: Function): void {
         this.onModelTouched = fn;
-    }
-
-    setDisabledState(val: boolean): void {
-        this.disabled = val;
-        this.cd.markForCheck();
     }
 
     onInputFocus(event: Event) {
@@ -260,22 +237,6 @@ export class RadioButton extends BaseComponent implements ControlValueAccessor, 
     ngOnDestroy() {
         this.registry.remove(this);
         super.ngOnDestroy();
-    }
-
-    private checkName() {
-        if (this.name && this.formControlName && this.name !== this.formControlName) {
-            this.throwNameError();
-        }
-        if (!this.name && this.formControlName) {
-            this.name = this.formControlName;
-        }
-    }
-
-    private throwNameError() {
-        throw new Error(`
-          If you define both a name and a formControlName attribute on your radio button, their values
-          must match. Ex: <p-radioButton formControlName="food" name="food"></p-radioButton>
-        `);
     }
 }
 

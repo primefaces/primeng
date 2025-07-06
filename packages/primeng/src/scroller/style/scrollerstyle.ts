@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { BaseStyle } from 'primeng/base';
 
-const theme = ({ dt }) => `
+const theme = /*css*/ `
 .p-virtualscroller {
     position: relative;
     overflow: auto;
@@ -36,8 +36,8 @@ const theme = ({ dt }) => `
     left: 0;
     width: 100%;
     height: 100%;
-    background: ${dt('virtualscroller.loader.mask.background')};
-    color: ${dt('virtualscroller.loader.mask.color')};
+    background: dt('virtualscroller.loader.mask.background');
+    color: dt('virtualscroller.loader.mask.color');
 }
 
 .p-virtualscroller-loader-mask {
@@ -47,9 +47,9 @@ const theme = ({ dt }) => `
 }
 
 .p-virtualscroller-loading-icon {
-    font-size: ${dt('virtualscroller.loader.icon.size')};
-    width: ${dt('virtualscroller.loader.icon.size')};
-    height: ${dt('virtualscroller.loader.icon.size')};
+    font-size: dt('virtualscroller.loader.icon.size');
+    width: dt('virtualscroller.loader.icon.size');
+    height: dt('virtualscroller.loader.icon.size');
 }
 
 .p-virtualscroller-horizontal > .p-virtualscroller-content {
@@ -68,8 +68,7 @@ const classes = {
             'p-virtualscroller-inline': instance.inline,
             'p-virtualscroller-both p-both-scroll': instance.both,
             'p-virtualscroller-horizontal p-horizontal-scroll': instance.horizontal
-        },
-        instance._styleClass
+        }
     ],
     content: 'p-virtualscroller-content',
     spacer: 'p-virtualscroller-spacer',

@@ -8,13 +8,13 @@ export class BaseInput extends BaseEditableHolder {
 
     /**
      * Spans 100% width of the container when enabled.
-     * @defaultValue undefined
+     * @defaultValue false
      * @group Props
      */
     fluid = input(undefined, { transform: booleanAttribute });
     /**
      * Specifies the input variant of the component.
-     * @defaultValue undefined
+     * @defaultValue 'outlined'
      * @group Props
      */
     variant = input<'filled' | 'outlined' | undefined>();
@@ -24,6 +24,12 @@ export class BaseInput extends BaseEditableHolder {
      * @group Props
      */
     size = input<'large' | 'small' | undefined>();
+    /**
+     * Specifies the visible width of the input element in characters.
+     * @defaultValue undefined
+     * @group Props
+     */
+    inputSize = input<number>();
     /**
      * Specifies the value must match the pattern.
      * @defaultValue undefined
@@ -61,7 +67,7 @@ export class BaseInput extends BaseEditableHolder {
      */
     maxlength = input<number>();
 
-    $variant = computed(() => this.config.inputStyle() || this.variant() || this.config.inputVariant());
+    $variant = computed(() => this.variant() || this.config.inputStyle() || this.config.inputVariant());
 
     get hasFluid() {
         return this.fluid() ?? !!this.pcFluid;

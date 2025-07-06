@@ -1,13 +1,11 @@
 import { Injectable } from '@angular/core';
-import { BaseStyle } from 'primeng/base';
 import { style } from '@primeuix/styles/panelmenu';
-import { css } from '@primeuix/styled';
+import { BaseStyle } from 'primeng/base';
 
-const theme = css`
+const theme = /*css*/ `
     ${style}
     /*For PrimeNG*/
-
-.p-panelmenu-item:not(.ng-animating) {
+    .p-panelmenu-item:not(.ng-animating) {
         overflow: hidden;
     }
 
@@ -16,13 +14,14 @@ const theme = css`
     }
 
     .p-panelmenu-root-list,
-    .p-panelmenu-submenu {
+    .p-panelmenu-submenu,
+    .p-panelmenu-item-link {
         outline: 0 none;
     }
 `;
 
 const classes = {
-    root: ({ instance }) => ['p-panelmenu p-component', instance.styleClass],
+    root: () => ['p-panelmenu p-component'],
     panel: 'p-panelmenu-panel',
     header: ({ instance, item }) => [
         'p-panelmenu-header',
@@ -40,7 +39,6 @@ const classes = {
     rootList: 'p-panelmenu-root-list',
     item: ({ instance, processedItem }) => [
         'p-panelmenu-item',
-        processedItem.styleClass,
         {
             'p-focus': instance.isItemFocused(processedItem) && !instance.isItemDisabled(processedItem),
             'p-disabled': instance.isItemDisabled(processedItem)

@@ -13,7 +13,7 @@ import { ProgressBarStyle } from './style/progressbarstyle';
     standalone: true,
     imports: [CommonModule, SharedModule],
     template: `
-        <div *ngIf="mode === 'determinate'" [class]="cn(cx('value'), valueStyleClass)" [style.width]="value + '%'" style="display:flex" [style.background]="color" [attr.data-pc-section]="'value'">
+        <div *ngIf="mode === 'determinate'" [class]="cn(cx('value'), valueStyleClass)" [style.width]="value + '%'" [style.display]="'flex'" [style.background]="color" [attr.data-pc-section]="'value'">
             <div [class]="cx('label')">
                 <div *ngIf="showValue && !contentTemplate && !_contentTemplate" [style.display]="value != null && value !== 0 ? 'flex' : 'none'" [attr.data-pc-section]="'label'">{{ value }}{{ unit }}</div>
                 <ng-container *ngTemplateOutlet="contentTemplate || _contentTemplate; context: { $implicit: value }"></ng-container>
@@ -31,7 +31,7 @@ import { ProgressBarStyle } from './style/progressbarstyle';
         '[attr.data-pc-name]': "'progressbar'",
         '[attr.data-pc-section]': "'root'",
         '[attr.aria-level]': 'value + unit',
-        '[class]': "cx('root')"
+        '[class]': "cn(cx('root'), styleClass)"
     }
 })
 export class ProgressBar extends BaseComponent implements AfterContentInit {

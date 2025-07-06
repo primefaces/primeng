@@ -17,7 +17,7 @@ interface Column {
         </app-docsectiontext>
         <div class="card">
             <p-deferred-demo (load)="loadDemoData()">
-                <p-treetable [value]="files" [columns]="cols" [resizableColumns]="true" columnResizeMode="expand">
+                <p-treetable [value]="files" [columns]="cols" [resizableColumns]="true" columnResizeMode="expand" showGridlines>
                     <ng-template #header let-columns>
                         <tr>
                             <th *ngFor="let col of columns" ttResizableColumn>
@@ -57,7 +57,7 @@ export class ResizeExpandDoc {
     }
 
     code: Code = {
-        basic: `<p-treetable [value]="files" [columns]="cols" [resizableColumns]="true" columnResizeMode="expand">
+        basic: `<p-treetable [value]="files" [columns]="cols" [resizableColumns]="true" columnResizeMode="expand" showGridlines>
     <ng-template #header let-columns>
         <tr>
             <th *ngFor="let col of columns" ttResizableColumn>
@@ -76,7 +76,7 @@ export class ResizeExpandDoc {
 </p-treetable>`,
 
         html: `<div class="card">
-    <p-treetable [value]="files" [columns]="cols" [resizableColumns]="true" columnResizeMode="expand">
+    <p-treetable [value]="files" [columns]="cols" [resizableColumns]="true" columnResizeMode="expand" showGridlines>
         <ng-template #header let-columns>
             <tr>
                 <th *ngFor="let col of columns" ttResizableColumn>

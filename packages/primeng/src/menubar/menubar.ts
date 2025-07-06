@@ -113,8 +113,8 @@ export class MenubarService {
 
                             <ng-container *ngIf="isItemGroup(processedItem)">
                                 <ng-container *ngIf="!submenuiconTemplate">
-                                    <AngleDownIcon [class]="cx('submenuIcon')" *ngIf="root" [attr.data-pc-section]="'submenuicon'" />
-                                    <AngleRightIcon [class]="cx('submenuIcon')" *ngIf="!root" [attr.data-pc-section]="'submenuicon'" />
+                                    <svg data-p-icon="angle-down" [class]="cx('submenuIcon')" *ngIf="root" [attr.data-pc-section]="'submenuicon'" />
+                                    <svg data-p-icon="angle-right" [class]="cx('submenuIcon')" *ngIf="!root" [attr.data-pc-section]="'submenuicon'" />
                                 </ng-container>
                                 <ng-template *ngTemplateOutlet="submenuiconTemplate" [attr.data-pc-section]="'submenuicon'"></ng-template>
                             </ng-container>
@@ -150,8 +150,8 @@ export class MenubarService {
                             <p-badge *ngIf="getItemProp(processedItem, 'badge')" [class]="getItemProp(processedItem, 'badgeStyleClass')" [value]="getItemProp(processedItem, 'badge')" />
                             <ng-container *ngIf="isItemGroup(processedItem)">
                                 <ng-container *ngIf="!submenuiconTemplate">
-                                    <AngleDownIcon [class]="cx('submenuIcon')" [attr.data-pc-section]="'submenuicon'" *ngIf="root" />
-                                    <AngleRightIcon [class]="cx('submenuIcon')" [attr.data-pc-section]="'submenuicon'" *ngIf="!root" />
+                                    <svg data-p-icon="angle-down" [class]="cx('submenuIcon')" [attr.data-pc-section]="'submenuicon'" *ngIf="root" />
+                                    <svg data-p-icon="angle-right" [class]="cx('submenuIcon')" [attr.data-pc-section]="'submenuicon'" *ngIf="!root" />
                                 </ng-container>
                                 <ng-template *ngTemplateOutlet="submenuiconTemplate" [attr.data-pc-section]="'submenuicon'"></ng-template>
                             </ng-container>
@@ -316,13 +316,8 @@ export class MenubarSub extends BaseComponent implements OnInit, OnDestroy {
         return index - this.items.slice(0, index).filter((processedItem) => this.isItemVisible(processedItem) && this.getItemProp(processedItem, 'separator')).length + 1;
     }
 
-    onItemMouseLeave() {
-        this.menubarService.mouseLeaves.next(true);
-    }
-
     onItemMouseEnter(param: any) {
         if (this.autoDisplay) {
-            this.menubarService.mouseLeaves.next(false);
             const { event, processedItem } = param;
             this.itemMouseEnter.emit({ originalEvent: event, processedItem });
         }
@@ -359,7 +354,7 @@ export class MenubarSub extends BaseComponent implements OnInit, OnDestroy {
             (click)="menuButtonClick($event)"
             (keydown)="menuButtonKeydown($event)"
         >
-            <BarsIcon *ngIf="!menuIconTemplate && !_menuIconTemplate" />
+            <svg data-p-icon="bars" *ngIf="!menuIconTemplate && !_menuIconTemplate" />
             <ng-template *ngTemplateOutlet="menuIconTemplate || _menuIconTemplate"></ng-template>
         </a>
         <ul
@@ -398,10 +393,9 @@ export class MenubarSub extends BaseComponent implements OnInit, OnDestroy {
     encapsulation: ViewEncapsulation.None,
     providers: [MenubarService, MenuBarStyle],
     host: {
-        '[class]': 'cx("root")',
+        '[class]': 'cn(cx("root"), styleClass)',
         'data-pc-section': 'root',
-        'data-pc-name': 'menubar',
-        '[style]': 'style'
+        'data-pc-name': 'menubar'
     }
 })
 export class Menubar extends BaseComponent implements AfterContentInit, OnDestroy, OnInit {
@@ -417,12 +411,8 @@ export class Menubar extends BaseComponent implements AfterContentInit, OnDestro
         return this._model;
     }
     /**
-     * Inline style of the element.
-     * @group Props
-     */
-    @Input() style: { [klass: string]: any } | null | undefined;
-    /**
      * Class of the element.
+     * @deprecated since v20.0.0, use `class` instead.
      * @group Props
      */
     @Input() styleClass: string | undefined;
@@ -441,7 +431,7 @@ export class Menubar extends BaseComponent implements AfterContentInit, OnDestro
      * @defaultValue true
      * @group Props
      */
-    @Input({ transform: booleanAttribute }) autoDisplay: boolean | undefined = false;
+    @Input({ transform: booleanAttribute }) autoDisplay: boolean | undefined = true;
     /**
      * Whether to hide a root submenu when mouse leaves.
      * @group Props
@@ -732,9 +722,11 @@ export class Menubar extends BaseComponent implements AfterContentInit, OnDestro
 
     onItemMouseEnter(event: any) {
         if (!isTouchDevice()) {
-            if (!this.mobileActive) {
-                this.onItemChange(event);
+            if (this.dirty) {
+                this.onItemChange(event, 'hover');
             }
+        } else {
+            this.onItemChange({ event, processedItem: event.processedItem, focus: this.autoDisplay }, 'hover');
         }
     }
 
@@ -756,7 +748,7 @@ export class Menubar extends BaseComponent implements AfterContentInit, OnDestro
         }
     }
 
-    onItemChange(event: any) {
+    onItemChange(event: any, type?: string | undefined) {
         const { processedItem, isFocus } = event;
 
         if (isEmpty(processedItem)) return;
@@ -767,10 +759,15 @@ export class Menubar extends BaseComponent implements AfterContentInit, OnDestro
 
         grouped && activeItemPath.push(processedItem);
         this.focusedItemInfo.set({ index, level, parentKey, item });
-        this.activeItemPath.set(activeItemPath);
 
         grouped && (this.dirty = true);
         isFocus && focus(this.rootmenu.el.nativeElement);
+
+        if (type === 'hover' && this.queryMatches) {
+            return;
+        }
+
+        this.activeItemPath.set(activeItemPath);
     }
 
     toggle(event: MouseEvent) {

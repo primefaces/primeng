@@ -12,6 +12,7 @@ import { PasswordDocModule } from '@/doc/password/passworddoc.module';
 import { ReactiveFormsDoc } from '@/doc/password/reactiveformsdoc';
 import { SizesDoc } from '@/doc/password/sizesdoc';
 import { TemplateDoc } from '@/doc/password/templatedoc';
+import { TemplateDrivenFormsDoc } from '@/doc/password/templatedrivenformsdoc';
 import { ToggleMaskDoc } from '@/doc/password/togglemaskdoc';
 import { Component } from '@angular/core';
 
@@ -32,11 +33,7 @@ export class PasswordDemo {
             label: 'Basic',
             component: BasicDoc
         },
-        {
-            id: 'reactive-forms',
-            label: 'Reactive Forms',
-            component: ReactiveFormsDoc
-        },
+
         {
             id: 'meter',
             label: 'Meter',
@@ -78,16 +75,23 @@ export class PasswordDemo {
             component: FilledDoc
         },
         {
+            id: 'disabled',
+            label: 'Disabled',
+            component: DisabledDoc
+        },
+        {
             id: 'invalid',
             label: 'Invalid',
             component: InvalidDoc
         },
         {
-            id: 'disabled',
-            label: 'Disabled',
-            component: DisabledDoc
+            id: 'forms',
+            label: 'Forms',
+            children: [
+                { id: 'templatedriven', label: 'Template Driven', component: TemplateDrivenFormsDoc },
+                { id: 'reactive', label: 'Reactive Forms', component: ReactiveFormsDoc }
+            ]
         },
-
         {
             id: 'accessibility',
             label: 'Accessibility',

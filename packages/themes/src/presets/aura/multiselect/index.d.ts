@@ -1,1 +1,2 @@
-export * from '@primeuix/themes/types/multiselect';
+export * from '@primeuix/themes/aura/multiselect';
+export { default } from '@primeuix/themes/aura/multiselect';

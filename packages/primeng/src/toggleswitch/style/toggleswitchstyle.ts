@@ -1,20 +1,12 @@
 import { Injectable } from '@angular/core';
 import { style } from '@primeuix/styles/toggleswitch';
-import { css, dt } from '@primeuix/styled';
 import { BaseStyle } from 'primeng/base';
 
-const theme = css`
+const theme = /*css*/ `
     ${style}
 
-    /* For PrimeNG */
-    .p-toggleswitch-slider {
-        display: inline-block;
-    }
-
-    p-toggleSwitch.ng-invalid.ng-dirty > .p-toggleswitch > .p-toggleswitch-slider,
-    p-toggle-switch.ng-invalid.ng-dirty > .p-toggleswitch > .p-toggleswitch-slider,
-    p-toggleswitch.ng-invalid.ng-dirty > .p-toggleswitch > .p-toggleswitch-slider {
-        border-color: ${dt('toggleswitch.invalid.border.color')};
+    p-toggleswitch.ng-invalid.ng-dirty > .p-toggleswitch-slider {
+        border-color: dt('toggleswitch.invalid.border.color');
     }
 `;
 
@@ -25,12 +17,11 @@ const inlineStyles = {
 const classes = {
     root: ({ instance }) => [
         'p-toggleswitch p-component',
-        instance.styleClass,
         {
             'p-toggleswitch p-component': true,
             'p-toggleswitch-checked': instance.checked(),
-            'p-disabled': instance.disabled,
-            'p-invalid': instance.invalid
+            'p-disabled': instance.disabled(),
+            'p-invalid': instance.invalid()
         }
     ],
 

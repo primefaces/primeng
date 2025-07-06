@@ -54,8 +54,8 @@ import { OrganizationChartStyle } from './style/organizationchartstyle';
                                 [attr.data-pc-section]="'nodeToggler'"
                             >
                                 <ng-container *ngIf="!chart.togglerIconTemplate && !chart._togglerIconTemplate">
-                                    <ChevronDownIcon *ngIf="node.expanded" [styleClass]="cx('nodeToggleButtonIcon')" [attr.data-pc-section]="'nodeTogglerIcon'" />
-                                    <ChevronUpIcon *ngIf="!node.expanded" [styleClass]="cx('nodeToggleButtonIcon')" [attr.data-pc-section]="'nodeTogglerIcon'" />
+                                    <svg data-p-icon="chevron-down" *ngIf="node.expanded" [class]="cx('nodeToggleButtonIcon')" [attr.data-pc-section]="'nodeTogglerIcon'" />
+                                    <svg data-p-icon="chevron-up" *ngIf="!node.expanded" [class]="cx('nodeToggleButtonIcon')" [attr.data-pc-section]="'nodeTogglerIcon'" />
                                 </ng-container>
                                 <span [class]="cx('nodeToggleButtonIcon')" *ngIf="chart.togglerIconTemplate || chart._togglerIconTemplate" [attr.data-pc-section]="'nodeTogglerIcon'">
                                     <ng-template *ngTemplateOutlet="chart.togglerIconTemplate || chart._togglerIconTemplate; context: { $implicit: node.expanded }"></ng-template>
@@ -175,7 +175,7 @@ export class OrganizationChartNode extends BaseComponent implements OnDestroy {
     providers: [OrganizationChartStyle],
     host: {
         '[attr.data-pc-section]': "'root'",
-        '[class]': "cx('root')"
+        '[class]': "cn(cx('root'), styleClass)"
     }
 })
 export class OrganizationChart extends BaseComponent implements AfterContentInit {
@@ -202,6 +202,7 @@ export class OrganizationChart extends BaseComponent implements AfterContentInit
     @Input({ transform: booleanAttribute }) collapsible: boolean | undefined;
     /**
      * Whether the space allocated by a node is preserved when hidden.
+     * @deprecated since v20.0.0.
      * @group Props
      */
     @Input({ transform: booleanAttribute }) preserveSpace: boolean = true;

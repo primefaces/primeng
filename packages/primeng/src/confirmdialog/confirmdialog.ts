@@ -47,7 +47,7 @@ const hideAnimation = animation([animate('{{transition}}', style({ transform: '{
             (visibleChange)="onVisibleChange($event)"
             role="alertdialog"
             [closable]="option('closable')"
-            [styleClass]="cx('root')"
+            [styleClass]="cn(cx('root'), styleClass)"
             [modal]="true"
             [header]="option('header')"
             [closeOnEscape]="option('closeOnEscape')"
@@ -105,10 +105,12 @@ const hideAnimation = animation([animate('{{transition}}', style({ transform: '{
                         [ariaLabel]="option('rejectButtonProps', 'ariaLabel')"
                         [buttonProps]="getRejectButtonProps()"
                     >
-                        @if (rejectIcon && !rejectIconTemplate && !_rejectIconTemplate) {
-                            <i *ngIf="option('rejectIcon')" [class]="option('rejectIcon')"></i>
-                        }
-                        <ng-template *ngTemplateOutlet="rejectIconTemplate || _rejectIconTemplate"></ng-template>
+                        <ng-template #icon>
+                            @if (rejectIcon && !rejectIconTemplate && !_rejectIconTemplate) {
+                                <i *ngIf="option('rejectIcon')" [class]="option('rejectIcon')"></i>
+                            }
+                            <ng-template *ngTemplateOutlet="rejectIconTemplate || _rejectIconTemplate"></ng-template>
+                        </ng-template>
                     </p-button>
                     <p-button
                         [label]="acceptButtonLabel"
@@ -118,10 +120,12 @@ const hideAnimation = animation([animate('{{transition}}', style({ transform: '{
                         [ariaLabel]="option('acceptButtonProps', 'ariaLabel')"
                         [buttonProps]="getAcceptButtonProps()"
                     >
-                        @if (acceptIcon && !_acceptIconTemplate && !acceptIconTemplate) {
-                            <i *ngIf="option('acceptIcon')" [class]="option('acceptIcon')"></i>
-                        }
-                        <ng-template *ngTemplateOutlet="acceptIconTemplate || _acceptIconTemplate"></ng-template>
+                        <ng-template #icon>
+                            @if (acceptIcon && !_acceptIconTemplate && !acceptIconTemplate) {
+                                <i *ngIf="option('acceptIcon')" [class]="option('acceptIcon')"></i>
+                            }
+                            <ng-template *ngTemplateOutlet="acceptIconTemplate || _acceptIconTemplate"></ng-template>
+                        </ng-template>
                     </p-button>
                 }
             </ng-template>

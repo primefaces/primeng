@@ -3,13 +3,13 @@ import { style } from '@primeuix/styles/colorpicker';
 import { BaseStyle } from 'primeng/base';
 
 const classes = {
-    root: ({ instance }) => ['p-colorpicker p-component', instance.styleClass, { 'p-colorpicker-overlay': !instance.inline, 'p-colorpicker-dragging': instance.colorDragging || instance.hueDragging }],
-    preview: ({ instance }) => ['p-colorpicker-preview', { 'p-disabled': instance.disabled }],
+    root: ({ instance }) => ['p-colorpicker p-component', { 'p-colorpicker-overlay': !instance.inline, 'p-colorpicker-dragging': instance.colorDragging || instance.hueDragging }],
+    preview: ({ instance }) => ['p-colorpicker-preview', { 'p-disabled': instance.disabled() }],
     panel: ({ instance }) => [
         'p-colorpicker-panel',
         {
             'p-colorpicker-panel-inline': instance.inline,
-            'p-disabled': instance.disabled
+            'p-disabled': instance.disabled()
         }
     ],
     content: 'p-colorpicker-content',

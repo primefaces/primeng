@@ -1,35 +1,13 @@
 import { Injectable } from '@angular/core';
-import { BaseStyle } from 'primeng/base';
-import { css, dt } from '@primeuix/styled';
 import { style } from '@primeuix/styles/datepicker';
+import { BaseStyle } from 'primeng/base';
 
-const theme = css`
+const theme = /*css*/ `
     ${style}
 
     /* For PrimeNG */
-
-    .p-datepicker:has(.p-datepicker-dropdown) .p-datepicker-clear-icon,
-    .p-datepicker:has(.p-datepicker-input-icon-container) .p-datepicker-clear-icon {
-        inset-inline-end: calc(${dt('datepicker.dropdown.width')} + ${dt('form.field.padding.x')});
-    }
-
-    .p-datepicker-clear-icon {
-        position: absolute;
-        top: 50%;
-        margin-top: -0.5rem;
-        cursor: pointer;
-        color: ${dt('form.field.icon.color')};
-        inset-inline-end: ${dt('form.field.padding.x')};
-    }
-
-    p-calendar.ng-invalid.ng-dirty .p-datepicker.p-inputwrapper .p-inputtext {
-        border-color: ${dt('inputtext.invalid.border.color')};
-    }
-
-    p-datePicker.ng-invalid.ng-dirty .p-datepicker.p-inputwrapper .p-inputtext,
-    p-date-picker.ng-invalid.ng-dirty .p-datepicker.p-inputwrapper .p-inputtext,
-    p-datepicker.ng-invalid.ng-dirty .p-datepicker.p-inputwrapper .p-inputtext {
-        border-color: ${dt('inputtext.invalid.border.color')};
+    .p-datepicker.ng-invalid.ng-dirty .p-inputtext {
+        border-color: dt('inputtext.invalid.border.color');
     }
 `;
 
@@ -40,16 +18,16 @@ const inlineStyles = {
 const classes = {
     root: ({ instance }) => [
         'p-datepicker p-component p-inputwrapper',
-        instance.styleClass,
         {
+            'p-invalid': instance.invalid(),
             'p-datepicker-fluid': instance.hasFluid,
-            'p-inputwrapper-filled': instance.filled,
-            'p-variant-filled': instance.variant === 'filled' || instance.config.inputVariant() === 'filled' || instance.config.inputStyle() === 'filled',
-            'p-inputwrapper-focus': instance.focus,
+            'p-inputwrapper-filled': instance.$filled(),
+            'p-variant-filled': instance.$variant() === 'filled',
+            'p-inputwrapper-focus': instance.focus || instance.overlayVisible,
             'p-focus': instance.focus || instance.overlayVisible
         }
     ],
-    pcInput: 'p-datepicker-input',
+    pcInputText: 'p-datepicker-input',
     dropdown: 'p-datepicker-dropdown',
     inputIconContainer: 'p-datepicker-input-icon-container',
     inputIcon: 'p-datepicker-input-icon',
@@ -58,7 +36,7 @@ const classes = {
         {
             'p-datepicker-panel p-component': true,
             'p-datepicker-panel-inline': instance.inline,
-            'p-disabled': instance.disabled,
+            'p-disabled': instance.disabled(),
             'p-datepicker-timeonly': instance.timeOnly
         }
     ],
@@ -100,16 +78,16 @@ const classes = {
         return {
             'p-datepicker-day': true,
             'p-datepicker-day-selected': !instance.isRangeSelection() && instance.isSelected(date) && date.selectable,
-            'p-disabled': instance.disabled || !date.selectable,
+            'p-disabled': instance.disabled() || !date.selectable,
             [selectedDayClass]: true
         };
     },
     monthView: 'p-datepicker-month-view',
-    month: ({ instance, i }) => [
+    month: ({ instance, index }) => [
         'p-datepicker-month',
         {
-            'p-datepicker-month-selected': instance.isMonthSelected(i),
-            'p-disabled': instance.isMonthDisabled(i)
+            'p-datepicker-month-selected': instance.isMonthSelected(index),
+            'p-disabled': instance.isMonthDisabled(index)
         }
     ],
     yearView: 'p-datepicker-year-view',
@@ -162,7 +140,7 @@ export enum DatePickerClasses {
     /**
      * Class name of the input element
      */
-    pcInput = 'p-datepicker-input',
+    pcInputText = 'p-datepicker-input',
     /**
      * Class name of the dropdown element
      */

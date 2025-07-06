@@ -1,12 +1,12 @@
 import { animate, AnimationEvent, style, transition, trigger } from '@angular/animations';
 import { CommonModule, isPlatformBrowser } from '@angular/common';
-import { AfterViewInit, booleanAttribute, ChangeDetectionStrategy, Component, ElementRef, EventEmitter, forwardRef, inject, Input, NgModule, numberAttribute, OnDestroy, Output, TemplateRef, ViewChild, ViewEncapsulation } from '@angular/core';
+import { AfterViewInit, booleanAttribute, ChangeDetectionStrategy, Component, computed, ElementRef, EventEmitter, forwardRef, inject, input, Input, NgModule, OnDestroy, Output, TemplateRef, ViewChild, ViewEncapsulation } from '@angular/core';
 import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
-import { absolutePosition, appendChild, isTouchDevice, relativePosition } from '@primeuix/utils';
+import { absolutePosition, cn, isTouchDevice, relativePosition } from '@primeuix/utils';
 import { OverlayService, SharedModule, TranslationKeys } from 'primeng/api';
 import { AutoFocusModule } from 'primeng/autofocus';
-import { BaseComponent } from 'primeng/basecomponent';
-import { ConnectedOverlayScrollHandler } from 'primeng/dom';
+import { BaseEditableHolder } from 'primeng/baseeditableholder';
+import { ConnectedOverlayScrollHandler, DomHandler } from 'primeng/dom';
 import { Nullable, VoidListener } from 'primeng/ts-helpers';
 import { ZIndexUtils } from 'primeng/utils';
 import { ColorPickerChangeEvent } from './colorpicker.interface';
@@ -31,9 +31,9 @@ export const COLORPICKER_VALUE_ACCESSOR: any = {
             #input
             type="text"
             [class]="cx('preview')"
-            readonly="readonly"
+            readonly
             [attr.tabindex]="tabindex"
-            [disabled]="disabled"
+            [attr.disabled]="disabled() ? '' : undefined"
             (click)="onInputClick()"
             (keydown)="onInputKeydown($event)"
             (focus)="onInputFocus()"
@@ -73,12 +73,12 @@ export const COLORPICKER_VALUE_ACCESSOR: any = {
     changeDetection: ChangeDetectionStrategy.OnPush,
     encapsulation: ViewEncapsulation.None,
     host: {
-        '[class]': "cx('root')",
+        '[class]': "cn(cx('root'), styleClass)",
         '[attr.data-pc-name]': '"colorpicker"',
         '[attr.data-pc-section]': '"root"'
     }
 })
-export class ColorPicker extends BaseComponent implements ControlValueAccessor, OnDestroy, AfterViewInit {
+export class ColorPicker extends BaseEditableHolder implements ControlValueAccessor, OnDestroy, AfterViewInit {
     /**
      * Style class of the component.
      * @deprecated since v20.0.0, use `class` instead.
@@ -96,16 +96,6 @@ export class ColorPicker extends BaseComponent implements ControlValueAccessor, 
      */
     @Input() format: 'hex' | 'rgb' | 'hsb' = 'hex';
     /**
-     * Target element to attach the overlay, valid values are "body" or a local ng-template variable of another element (note: use binding with brackets for template variables, e.g. [appendTo]="mydiv" for a div element having #mydiv as variable name).
-     * @group Props
-     */
-    @Input() appendTo: HTMLElement | ElementRef | TemplateRef<any> | string | null | undefined | any;
-    /**
-     * When present, it specifies that the component should be disabled.
-     * @group Props
-     */
-    @Input({ transform: booleanAttribute }) disabled: boolean | undefined;
-    /**
      * Index of the element in tabbing order.
      * @group Props
      */
@@ -121,11 +111,6 @@ export class ColorPicker extends BaseComponent implements ControlValueAccessor, 
      */
     @Input({ transform: booleanAttribute }) autoZIndex: boolean = true;
     /**
-     * Base zIndex value to use in layering.
-     * @group Props
-     */
-    @Input({ transform: numberAttribute }) baseZIndex: number = 0;
-    /**
      * Transition options of the show animation.
      * @group Props
      */
@@ -140,6 +125,17 @@ export class ColorPicker extends BaseComponent implements ControlValueAccessor, 
      * @group Props
      */
     @Input({ transform: booleanAttribute }) autofocus: boolean | undefined;
+    /**
+     * Default color to display initially when model value is not present.
+     * @group Props
+     */
+    @Input() defaultColor: string | undefined = 'ff0000';
+    /**
+     * Target element to attach the overlay, valid values are "body" or a local ng-template variable of another element (note: use binding with brackets for template variables, e.g. [appendTo]="mydiv" for a div element having #mydiv as variable name).
+     * @defaultValue 'self'
+     * @group Props
+     */
+    appendTo = input<HTMLElement | ElementRef | TemplateRef<any> | 'self' | 'body' | null | undefined | any>(undefined);
     /**
      * Callback to invoke on value change.
      * @param {ColorPickerChangeEvent} event - Custom value change event.
@@ -159,6 +155,8 @@ export class ColorPicker extends BaseComponent implements ControlValueAccessor, 
 
     @ViewChild('input') inputViewChild: Nullable<ElementRef>;
 
+    $appendTo = computed(() => this.appendTo() || this.config.overlayAppendTo());
+
     value: any = { h: 0, s: 100, b: 100 };
 
     inputBgColor: string | undefined;
@@ -166,8 +164,6 @@ export class ColorPicker extends BaseComponent implements ControlValueAccessor, 
     shown: Nullable<boolean>;
 
     overlayVisible: Nullable<boolean>;
-
-    defaultColor: string = 'ff0000';
 
     onModelChange: Function = () => {};
 
@@ -228,7 +224,7 @@ export class ColorPicker extends BaseComponent implements ControlValueAccessor, 
     }
 
     onHueMousedown(event: MouseEvent) {
-        if (this.disabled) {
+        if (this.disabled()) {
             return;
         }
 
@@ -240,7 +236,7 @@ export class ColorPicker extends BaseComponent implements ControlValueAccessor, 
     }
 
     onHueDragStart(event: TouchEvent) {
-        if (this.disabled) {
+        if (this.disabled()) {
             return;
         }
 
@@ -249,7 +245,7 @@ export class ColorPicker extends BaseComponent implements ControlValueAccessor, 
     }
 
     onColorDragStart(event: TouchEvent) {
-        if (this.disabled) {
+        if (this.disabled()) {
             return;
         }
 
@@ -273,7 +269,7 @@ export class ColorPicker extends BaseComponent implements ControlValueAccessor, 
     }
 
     onColorMousedown(event: MouseEvent) {
-        if (this.disabled) {
+        if (this.disabled()) {
             return;
         }
 
@@ -406,6 +402,7 @@ export class ColorPicker extends BaseComponent implements ControlValueAccessor, 
             case 'visible':
                 if (!this.inline) {
                     this.overlay = event.element;
+                    this.attrSelector && this.overlay.setAttribute(this.attrSelector, '');
                     this.appendOverlay();
 
                     if (this.autoZIndex) {
@@ -447,21 +444,18 @@ export class ColorPicker extends BaseComponent implements ControlValueAccessor, 
     }
 
     appendOverlay() {
-        if (this.appendTo) {
-            if (this.appendTo === 'body') this.renderer.appendChild(this.document.body, this.overlay);
-            else appendChild(this.appendTo, this.overlay);
-        }
+        DomHandler.appendOverlay(this.overlay, this.$appendTo() === 'body' ? this.document.body : this.$appendTo(), this.$appendTo());
     }
 
     restoreOverlayAppend() {
-        if (this.overlay && this.appendTo) {
-            this.renderer.appendChild(this.el.nativeElement, this.overlay);
+        if (this.overlay && this.$appendTo() !== 'self') {
+            this.renderer.appendChild(this.inputViewChild?.nativeElement, this.overlay);
         }
     }
 
     alignOverlay() {
-        if (this.appendTo) absolutePosition(this.overlay, this.inputViewChild?.nativeElement);
-        else relativePosition(this.overlay, this.inputViewChild?.nativeElement);
+        if (this.$appendTo() === 'self') relativePosition(this.overlay, this.inputViewChild?.nativeElement);
+        else absolutePosition(this.overlay, this.inputViewChild?.nativeElement);
     }
 
     hide() {
@@ -512,11 +506,6 @@ export class ColorPicker extends BaseComponent implements ControlValueAccessor, 
 
     registerOnTouched(fn: Function): void {
         this.onModelTouched = fn;
-    }
-
-    setDisabledState(val: boolean): void {
-        this.disabled = val;
-        this.cd.markForCheck();
     }
 
     bindDocumentClickListener() {
@@ -787,6 +776,8 @@ export class ColorPicker extends BaseComponent implements ControlValueAccessor, 
         this.restoreOverlayAppend();
         this.onOverlayHide();
     }
+
+    protected readonly cn = cn;
 }
 
 @NgModule({

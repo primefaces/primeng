@@ -63,7 +63,7 @@ import { ConfirmPopupModule } from 'primeng/confirmpopup';
                 </div>
             }
         </section>
-        <p-confirm-popup />`,
+        <p-confirmpopup />`,
     changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class DesignSettings {

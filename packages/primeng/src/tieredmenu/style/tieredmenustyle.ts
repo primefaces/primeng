@@ -12,8 +12,7 @@ const classes = {
         {
             'p-tieredmenu-overlay': instance.popup,
             'p-tieredmenu-mobile': instance.queryMatches
-        },
-        instance.styleClass
+        }
     ],
     start: 'p-tieredmenu-start',
     rootList: 'p-tieredmenu-root-list',

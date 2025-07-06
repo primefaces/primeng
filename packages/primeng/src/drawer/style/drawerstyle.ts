@@ -1,13 +1,12 @@
 import { Injectable } from '@angular/core';
-import { BaseStyle } from 'primeng/base';
-import { css } from '@primeuix/styled';
 import { style } from '@primeuix/styles/drawer';
+import { BaseStyle } from 'primeng/base';
 
-const theme = css`
+const theme = /*css*/ `
     ${style}
 
     /** For PrimeNG **/
-.p-drawer {
+    .p-drawer {
         position: fixed;
         display: flex;
         flex-direction: column;
@@ -84,8 +83,7 @@ const classes = {
             'p-drawer-full': instance.fullScreen,
             'p-drawer-open': instance.visible
         },
-        `p-drawer-${instance.position}`,
-        instance.styleClass
+        `p-drawer-${instance.position}`
     ],
     header: 'p-drawer-header',
     title: 'p-drawer-title',

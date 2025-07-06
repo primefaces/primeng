@@ -3,7 +3,7 @@ import { style } from '@primeuix/styles/orderlist';
 import { BaseStyle } from 'primeng/base';
 
 const classes = {
-    root: ({ instance }) => ['p-orderlist p-component', instance.styleClass],
+    root: () => ['p-orderlist p-component'],
     controls: 'p-orderlist-controls'
 };
 
