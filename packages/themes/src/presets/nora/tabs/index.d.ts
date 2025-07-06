@@ -1,3 +1,2 @@
-import { TabsDesignTokens } from '../../types/tabs';
-declare const _default: TabsDesignTokens;
-export default _default;
+export * from '@primeuix/themes/nora/tabs';
+export { default } from '@primeuix/themes/nora/tabs';

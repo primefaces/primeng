@@ -1,6 +1,7 @@
 import { NgModule } from '@angular/core';
 import { RouterModule } from '@angular/router';
 import { TemplatesComponent } from './templates.component';
+import { ButtonModule } from 'primeng/button';
 
 @NgModule({
     imports: [
@@ -18,6 +19,6 @@ import { TemplatesComponent } from './templates.component';
             { path: 'genesis', loadComponent: () => import('./genesis/genesis').then((m) => m.GenesisPage) }
         ])
     ],
-    exports: [RouterModule]
+    exports: [RouterModule, ButtonModule]
 })
 export class TemplatesRoutingModule {}

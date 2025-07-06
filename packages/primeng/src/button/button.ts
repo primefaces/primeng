@@ -12,13 +12,13 @@ import {
     Directive,
     EventEmitter,
     inject,
+    input,
     Input,
     NgModule,
     numberAttribute,
     OnDestroy,
     Output,
     QueryList,
-    SimpleChanges,
     TemplateRef,
     ViewEncapsulation
 } from '@angular/core';
@@ -27,6 +27,7 @@ import { PrimeTemplate, SharedModule } from 'primeng/api';
 import { AutoFocus } from 'primeng/autofocus';
 import { BadgeModule } from 'primeng/badge';
 import { BaseComponent } from 'primeng/basecomponent';
+import { Fluid } from 'primeng/fluid';
 import { SpinnerIcon } from 'primeng/icons';
 import { Ripple } from 'primeng/ripple';
 import { ButtonProps, ButtonSeverity } from './button.interface';
@@ -186,15 +187,15 @@ export class ButtonDirective extends BaseComponent implements AfterViewInit, OnD
     @Input() size: 'small' | 'large' | undefined | null = null;
     /**
      * Add a plain textual class to the button without a background initially.
-     * @deprecated use variant property instead.
      * @group Props
      */
     @Input({ transform: booleanAttribute }) plain: boolean = false;
     /**
      * Spans 100% width of the container when enabled.
+     * @defaultValue undefined
      * @group Props
      */
-    @Input({ transform: booleanAttribute }) fluid: boolean | undefined;
+    fluid = input(undefined, { transform: booleanAttribute });
 
     public _label: string | undefined;
 
@@ -209,6 +210,8 @@ export class ButtonDirective extends BaseComponent implements AfterViewInit, OnD
     }
 
     private _internalClasses: string[] = Object.values(INTERNAL_BUTTON_CLASSES);
+
+    pcFluid: Fluid = inject(Fluid, { optional: true, host: true, skipSelf: true });
 
     isTextButton = computed(() => !!(!this.iconSignal() && this.labelSignal() && this.text));
 
@@ -263,19 +266,6 @@ export class ButtonDirective extends BaseComponent implements AfterViewInit, OnD
         this.createLabel();
 
         this.initialized = true;
-    }
-
-    ngOnChanges(simpleChanges: SimpleChanges) {
-        super.ngOnChanges(simpleChanges);
-        const { buttonProps } = simpleChanges;
-
-        if (buttonProps) {
-            const props = buttonProps.currentValue;
-
-            for (const property in props) {
-                this[property] = props[property];
-            }
-        }
     }
 
     getStyleClass(): string[] {
@@ -341,10 +331,7 @@ export class ButtonDirective extends BaseComponent implements AfterViewInit, OnD
     }
 
     get hasFluid() {
-        const nativeElement = this.el.nativeElement;
-        const fluidComponent = nativeElement.closest('p-fluid');
-
-        return isEmpty(this.fluid) ? !!fluidComponent : this.fluid;
+        return this.fluid() ?? !!this.pcFluid;
     }
 
     setStyleClass() {
@@ -456,34 +443,34 @@ export class ButtonDirective extends BaseComponent implements AfterViewInit, OnD
     imports: [CommonModule, Ripple, AutoFocus, SpinnerIcon, BadgeModule, SharedModule],
     template: `
         <button
-            [attr.type]="type"
-            [attr.aria-label]="ariaLabel"
-            [ngStyle]="style"
-            [disabled]="disabled || loading"
-            [ngClass]="buttonClass"
+            [attr.type]="type || buttonProps?.type"
+            [attr.aria-label]="ariaLabel || buttonProps?.ariaLabel"
+            [ngStyle]="style || buttonProps?.style"
+            [disabled]="disabled || loading || buttonProps?.disabled"
+            [class]="cn(cx('root'), styleClass, buttonProps?.styleClass)"
             (click)="onClick.emit($event)"
             (focus)="onFocus.emit($event)"
             (blur)="onBlur.emit($event)"
             pRipple
             [attr.data-pc-name]="'button'"
             [attr.data-pc-section]="'root'"
-            [attr.tabindex]="tabindex"
-            [pAutoFocus]="autofocus"
+            [attr.tabindex]="tabindex || buttonProps?.tabindex"
+            [pAutoFocus]="autofocus || buttonProps?.autofocus"
         >
             <ng-content></ng-content>
             <ng-container *ngTemplateOutlet="contentTemplate || _contentTemplate"></ng-container>
             <ng-container *ngIf="loading">
                 <ng-container *ngIf="!loadingIconTemplate && !_loadingIconTemplate">
-                    <span *ngIf="loadingIcon" [ngClass]="iconClass()" [attr.aria-hidden]="true" [attr.data-pc-section]="'loadingicon'"></span>
-                    <SpinnerIcon *ngIf="!loadingIcon" [styleClass]="spinnerIconClass()" [spin]="true" [attr.aria-hidden]="true" [attr.data-pc-section]="'loadingicon'" />
+                    <span *ngIf="loadingIcon" [class]="cx('loadingIcon')" [attr.aria-hidden]="true" [attr.data-pc-section]="'loadingicon'"></span>
+                    <svg data-p-icon="spinner" *ngIf="!loadingIcon" [class]="cn(cx('loadingIcon'), spinnerIconClass())" [spin]="true" [attr.aria-hidden]="true" [attr.data-pc-section]="'loadingicon'" />
                 </ng-container>
-                <ng-template [ngIf]="loadingIconTemplate || _loadingIconTemplate" *ngTemplateOutlet="loadingIconTemplate || _loadingIconTemplate; context: { class: iconClass() }"></ng-template>
+                <ng-template [ngIf]="loadingIconTemplate || _loadingIconTemplate" *ngTemplateOutlet="loadingIconTemplate || _loadingIconTemplate; context: { class: cx('loadingIcon') }"></ng-template>
             </ng-container>
             <ng-container *ngIf="!loading">
-                <span *ngIf="icon && !iconTemplate && !_iconTemplate" [class]="icon" [ngClass]="iconClass()" [attr.data-pc-section]="'icon'"></span>
-                <ng-template [ngIf]="!icon && (iconTemplate || _iconTemplate)" *ngTemplateOutlet="iconTemplate || _iconTemplate; context: { class: iconClass() }"></ng-template>
+                <span *ngIf="icon && !iconTemplate && !_iconTemplate" [class]="cx('icon')" [attr.data-pc-section]="'icon'"></span>
+                <ng-template [ngIf]="!icon && (iconTemplate || _iconTemplate)" *ngTemplateOutlet="iconTemplate || _iconTemplate; context: { class: cx('icon') }"></ng-template>
             </ng-container>
-            <span class="p-button-label" [attr.aria-hidden]="icon && !label" *ngIf="!contentTemplate && !_contentTemplate && label" [attr.data-pc-section]="'label'">{{ label }}</span>
+            <span [class]="cx('label')" [attr.aria-hidden]="icon && !label" *ngIf="!contentTemplate && !_contentTemplate && label" [attr.data-pc-section]="'label'">{{ label }}</span>
             <p-badge *ngIf="!contentTemplate && !_contentTemplate && badge" [value]="badge" [severity]="badgeSeverity"></p-badge>
         </button>
     `,
@@ -549,7 +536,6 @@ export class Button extends BaseComponent implements AfterContentInit {
     @Input({ transform: booleanAttribute }) text: boolean = false;
     /**
      * Add a plain textual class to the button without a background initially.
-     * @deprecated use variant property instead.
      * @group Props
      */
     @Input({ transform: booleanAttribute }) plain: boolean = false;
@@ -611,15 +597,21 @@ export class Button extends BaseComponent implements AfterContentInit {
      */
     @Input() ariaLabel: string | undefined;
     /**
+     * Button props as an object.
+     * @group Props
+     */
+    @Input() buttonProps: any | ButtonProps;
+    /**
      * When present, it specifies that the component should automatically get focus on load.
      * @group Props
      */
     @Input({ transform: booleanAttribute }) autofocus: boolean | undefined;
     /**
      * Spans 100% width of the container when enabled.
+     * @defaultValue undefined
      * @group Props
      */
-    @Input({ transform: booleanAttribute }) fluid: boolean | undefined;
+    fluid = input(undefined, { transform: booleanAttribute });
     /**
      * Callback to execute when button is clicked.
      * This event is intended to be used with the <p-button> component. Using a regular <button> element, use (click).
@@ -657,33 +649,15 @@ export class Button extends BaseComponent implements AfterContentInit {
      **/
     @ContentChild('icon') iconTemplate: TemplateRef<any> | undefined;
 
-    _buttonProps: any | undefined;
-    /**
-     * Used to pass all properties of the ButtonProps to the Button component.
-     * @group Props
-     */
-    @Input() get buttonProps(): any | undefined {
-        return this._buttonProps;
-    }
-    set buttonProps(val: any | undefined) {
-        this._buttonProps = val;
+    @ContentChildren(PrimeTemplate) templates: QueryList<PrimeTemplate> | undefined;
 
-        if (val && typeof val === 'object') {
-            //@ts-ignore
-            Object.entries(val).forEach(([k, v]) => this[`_${k}`] !== v && (this[`_${k}`] = v));
-        }
-    }
+    pcFluid: Fluid = inject(Fluid, { optional: true, host: true, skipSelf: true });
 
     get hasFluid() {
-        const nativeElement = this.el.nativeElement;
-        const fluidComponent = nativeElement.closest('p-fluid');
-
-        return isEmpty(this.fluid) ? !!fluidComponent : this.fluid;
+        return this.fluid() ?? !!this.pcFluid;
     }
 
     _componentStyle = inject(ButtonStyle);
-
-    @ContentChildren(PrimeTemplate) templates: QueryList<PrimeTemplate> | undefined;
 
     _contentTemplate: TemplateRef<any> | undefined;
 
@@ -713,19 +687,6 @@ export class Button extends BaseComponent implements AfterContentInit {
         });
     }
 
-    ngOnChanges(simpleChanges: SimpleChanges) {
-        super.ngOnChanges(simpleChanges);
-        const { buttonProps } = simpleChanges;
-
-        if (buttonProps) {
-            const props = buttonProps.currentValue;
-
-            for (const property in props) {
-                this[property] = props[property];
-            }
-        }
-    }
-
     spinnerIconClass(): string {
         return Object.entries(this.iconClass())
             .filter(([, value]) => !!value)
@@ -740,27 +701,6 @@ export class Button extends BaseComponent implements AfterContentInit {
             'p-button-icon-right': this.iconPos === 'right' && this.label,
             'p-button-icon-top': this.iconPos === 'top' && this.label,
             'p-button-icon-bottom': this.iconPos === 'bottom' && this.label
-        };
-    }
-
-    get buttonClass() {
-        return {
-            'p-button p-component': true,
-            'p-button-icon-only': (this.icon || this.iconTemplate || this._iconTemplate || this.loadingIcon || this.loadingIconTemplate || this._loadingIconTemplate) && !this.label,
-            'p-button-vertical': (this.iconPos === 'top' || this.iconPos === 'bottom') && this.label,
-            'p-button-loading': this.loading,
-            'p-button-loading-label-only': this.loading && !this.icon && this.label && !this.loadingIcon && this.iconPos === 'left',
-            'p-button-link': this.link,
-            [`p-button-${this.severity}`]: this.severity,
-            'p-button-raised': this.raised,
-            'p-button-rounded': this.rounded,
-            'p-button-text': this.text || this.variant == 'text',
-            'p-button-outlined': this.outlined || this.variant == 'outlined',
-            'p-button-sm': this.size === 'small',
-            'p-button-lg': this.size === 'large',
-            'p-button-plain': this.plain,
-            'p-button-fluid': this.hasFluid,
-            [`${this.styleClass}`]: this.styleClass
         };
     }
 }

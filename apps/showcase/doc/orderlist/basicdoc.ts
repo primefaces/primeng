@@ -11,8 +11,8 @@ import { ChangeDetectorRef, Component, OnInit } from '@angular/core';
             <p>OrderList is used as a controlled input with <i>value</i> property. Content of a list item needs to be defined with the <i>item</i> template that receives an object in the list as parameter.</p>
         </app-docsectiontext>
         <div class="card sm:flex sm:justify-center">
-            <p-orderlist [value]="products" dataKey="id" breakpoint="575px">
-                <ng-template #option let-option>
+            <p-orderlist [value]="products" dataKey="id" [responsive]="true" breakpoint="575px">
+                <ng-template #item let-option>
                     {{ option.name }}
                 </ng-template>
             </p-orderlist>
@@ -56,15 +56,15 @@ export class BasicDoc implements OnInit {
     }
 
     code: Code = {
-        basic: `<p-orderlist [value]="products" dataKey="id" breakpoint="575px">
-    <ng-template #option let-option>
+        basic: `<p-orderlist [value]="products" dataKey="id" [responsive]="true" breakpoint="575px">
+    <ng-template #item let-option>
         {{ option.name }}
     </ng-template>
 </p-orderlist>`,
 
         html: `<div class="card sm:flex sm:justify-center">
-    <p-orderlist [value]="products" dataKey="id" breakpoint="575px">
-        <ng-template #option let-option>
+    <p-orderlist [value]="products" dataKey="id" [responsive]="true" breakpoint="575px">
+        <ng-template #item let-option>
             {{ option.name }}
         </ng-template>
     </p-orderlist>

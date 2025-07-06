@@ -7,10 +7,11 @@ import { Component } from '@angular/core';
     standalone: false,
     template: `
         <app-docsectiontext>
-            <p>Invalid state style is added using the <i>ng-invalid</i> and <i>ng-dirty</i> class to indicate a failed validation.</p>
+            <p>The invalid state is applied using the <i>⁠invalid</i> property to indicate failed validation, which can be integrated with Angular Forms.</p>
         </app-docsectiontext>
-        <div class="card flex justify-center">
-            <p-treeselect class="md:w-80 w-full ng-invalid ng-dirty" containerStyleClass="w-full" [(ngModel)]="selectedNodes" [options]="nodes" placeholder="Select Item" />
+        <div class="card flex flex-wrap justify-center gap-4">
+            <p-treeselect [invalid]="selectedValue1 === undefined" [(ngModel)]="selectedValue1" [options]="nodes" placeholder="TreeSelect" class="md:w-80 w-full" />
+            <p-treeselect [invalid]="selectedValue2 === undefined" [(ngModel)]="selectedValue2" [options]="nodes" placeholder="TreeSelect" class="md:w-80 w-full" />
         </div>
         <app-code [code]="code" selector="tree-select-invalid-demo"></app-code>
     `
@@ -18,17 +19,21 @@ import { Component } from '@angular/core';
 export class InvalidDoc {
     nodes!: any[];
 
-    selectedNodes: any;
+    selectedValue1: any;
+
+    selectedValue2: any;
 
     constructor(private nodeService: NodeService) {
         this.nodeService.getFiles().then((files) => (this.nodes = files));
     }
 
     code: Code = {
-        basic: `<p-treeselect class="md:w-80 w-full ng-invalid ng-dirty" containerStyleClass="w-full" [(ngModel)]="selectedNodes" [options]="nodes" placeholder="Select Item" />`,
+        basic: `<p-treeselect [invalid]="selectedValue1 === undefined" [(ngModel)]="selectedValue1" [options]="nodes" placeholder="TreeSelect" class="md:w-80 w-full" />
+<p-treeselect [invalid]="selectedValue2 === undefined" [(ngModel)]="selectedValue2" [options]="nodes" placeholder="TreeSelect" class="md:w-80 w-full" />`,
 
-        html: `<div class="card flex justify-center">
-    <p-treeselect class="md:w-80 w-full ng-invalid ng-dirty" containerStyleClass="w-full" [(ngModel)]="selectedNodes" [options]="nodes" placeholder="Select Item" />
+        html: `<div class="card flex flex-wrap justify-center gap-4">
+    <p-treeselect [invalid]="selectedValue1 === undefined" [(ngModel)]="selectedValue1" [options]="nodes" placeholder="TreeSelect" class="md:w-80 w-full" />
+    <p-treeselect [invalid]="selectedValue2 === undefined" [(ngModel)]="selectedValue2" [options]="nodes" placeholder="TreeSelect" class="md:w-80 w-full" />
 </div>`,
 
         typescript: `import { Component } from '@angular/core';
@@ -46,11 +51,14 @@ import { TreeSelect } from 'primeng/treeselect';
 export class TreeSelectInvalidDemo {
     nodes!: any[];
 
-    selectedNodes: any;
+    selectedValue1: any;
+
+    selectedValue2: any;
 
     constructor(private nodeService: NodeService) {
         this.nodeService.getFiles().then((files) => (this.nodes = files));
     }
+
 }`,
 
         service: ['NodeService'],

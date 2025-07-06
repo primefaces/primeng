@@ -1,132 +1,60 @@
 import { Injectable } from '@angular/core';
+import { style } from '@primeuix/styles/password';
 import { BaseStyle } from 'primeng/base';
 
-const theme = ({ dt }) => `
-.p-password {
-    display: inline-flex;
-    position: relative;
-}
+const theme = /*css*/ `
+    ${style}
 
-.p-password .p-password-overlay {
-    min-width: 100%;
-}
+    /* For PrimeNG */
+    p-password.ng-invalid.ng-dirty .p-inputtext {
+        border-color: dt('inputtext.invalid.border.color');
+    }
 
-.p-password-meter {
-    height: ${dt('password.meter.height')};
-    background: ${dt('password.meter.background')};
-    border-radius: ${dt('password.meter.border.radius')};
-}
+    p-password.ng-invalid.ng-dirty .p-inputtext:enabled:focus {
+        border-color: dt('inputtext.focus.border.color');
+    }
 
-.p-password-meter-label {
-    height: 100%;
-    width: 0;
-    transition: width 1s ease-in-out;
-    border-radius: ${dt('password.meter.border.radius')};
-}
+    p-password.ng-invalid.ng-dirty .p-inputtext::placeholder {
+        color: dt('inputtext.invalid.placeholder.color');
+    }
 
-.p-password-meter-weak {
-    background: ${dt('password.strength.weak.background')};
-}
-
-.p-password-meter-medium {
-    background: ${dt('password.strength.medium.background')};
-}
-
-.p-password-meter-strong {
-    background: ${dt('password.strength.strong.background')};
-}
-
-.p-password-fluid {
-    display: flex;
-}
-
-.p-password-fluid .p-password-input {
-    width: 100%;
-}
-
-.p-password-input::-ms-reveal,
-.p-password-input::-ms-clear {
-    display: none;
-}
-
-.p-password-overlay {
-    position: absolute;
-    padding: ${dt('password.overlay.padding')};
-    background: ${dt('password.overlay.background')};
-    color: ${dt('password.overlay.color')};
-    border: 1px solid ${dt('password.overlay.border.color')};
-    box-shadow: ${dt('password.overlay.shadow')};
-    border-radius: ${dt('password.overlay.border.radius')};
-}
-
-.p-password-content {
-    display: flex;
-    flex-direction: column;
-    gap: ${dt('password.content.gap')};
-}
-
-.p-password-toggle-mask-icon {
-    inset-inline-end: ${dt('form.field.padding.x')};
-    color: ${dt('password.icon.color')};
-    position: absolute;
-    top: 50%;
-    margin-top: calc(-1 * calc(${dt('icon.size')} / 2));
-    width: ${dt('icon.size')};
-    height: ${dt('icon.size')};
-}
-
-.p-password:has(.p-password-toggle-mask-icon) .p-password-clear-icon,
-.p-password:has(.p-password-toggle-mask-icon) .p-password-input {
-    padding-inline-end: calc((${dt('form.field.padding.x')} * 2) + ${dt('icon.size')});
-}
-
-/* For PrimeNG */
-p-password.ng-invalid.ng-dirty .p-inputtext {
-    border-color: ${dt('inputtext.invalid.border.color')};
-}
-
-p-password.ng-invalid.ng-dirty .p-inputtext:enabled:focus {
-    border-color: ${dt('inputtext.focus.border.color')};
-}
-
-p-password.ng-invalid.ng-dirty .p-inputtext::placeholder {
-    color: ${dt('inputtext.invalid.placeholder.color')};
-}
-
-.p-password-clear-icon {
-    position: absolute;
-    top: 50%;
-    margin-top: -0.5rem;
-    cursor: pointer;
-    inset-inline-end: ${dt('form.field.padding.x')};
-    color: ${dt('form.field.icon.color')};
-}
-
-.p-password-fluid-directive {
-    width:100%
-}
+    .p-password-fluid-directive {
+        width: 100%;
+    }
 `;
 
 const inlineStyles = {
-    root: ({ instance }) => ({ position: instance.appendTo === 'self' ? 'relative' : undefined })
+    root: ({ instance }) => ({ position: instance.$appendTo() === 'self' ? 'relative' : undefined }),
+    overlay: { position: 'absolute' }
 };
 
 const classes = {
-    root: ({ instance }) => ({
-        'p-password p-component p-inputwrapper': true,
-        'p-inputwrapper-filled': instance.filled(),
-        'p-variant-filled': 'instance.variant === "filled" || instance.config.inputVariant() === "filled" || instance.config.inputStyle() === "filled"',
-        'p-inputwrapper-focus': instance.focused,
-        'p-password-fluid': instance.hasFluid
-    }),
-    pcInput: 'p-password-input',
+    root: ({ instance }) => [
+        'p-password p-component p-inputwrapper',
+        {
+            'p-inputwrapper-filled': instance.$filled(),
+            'p-variant-filled': instance.$variant() === 'filled',
+            'p-inputwrapper-focus': instance.focused,
+            'p-password-fluid': instance.hasFluid
+        }
+    ],
+    rootDirective: ({ instance }) => [
+        'p-password p-inputtext p-component p-inputwrapper',
+        {
+            'p-inputwrapper-filled': instance.$filled(),
+            'p-variant-filled': instance.$variant() === 'filled',
+            'p-password-fluid-directive': instance.hasFluid
+        }
+    ],
+    pcInputText: 'p-password-input',
     maskIcon: 'p-password-toggle-mask-icon p-password-mask-icon',
     unmaskIcon: 'p-password-toggle-mask-icon p-password-unmask-icon',
     overlay: 'p-password-overlay p-component',
     content: 'p-password-content',
     meter: 'p-password-meter',
     meterLabel: ({ instance }) => `p-password-meter-label ${instance.meter ? 'p-password-meter-' + instance.meter.strength : ''}`,
-    meterText: 'p-password-meter-text'
+    meterText: 'p-password-meter-text',
+    clearIcon: 'p-password-clear-icon'
 };
 
 @Injectable()
@@ -158,7 +86,7 @@ export enum PasswordClasses {
     /**
      * Class name of the pt input element
      */
-    pcInput = 'p-password-input',
+    pcInputText = 'p-password-input',
     /**
      * Class name of the mask icon element
      */
@@ -182,7 +110,11 @@ export enum PasswordClasses {
     /**
      * Class name of the meter text element
      */
-    meterText = 'p-password-meter-text'
+    meterText = 'p-password-meter-text',
+    /**
+     * Class name of the clear icon
+     */
+    clearIcon = 'p-password-clear-icon'
 }
 
 export interface PasswordStyle extends BaseStyle {}

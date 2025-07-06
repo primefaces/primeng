@@ -1,30 +1,9 @@
 import { Injectable } from '@angular/core';
 import { BaseStyle } from 'primeng/base';
-
-const theme = ({ dt }) => `
-.p-picklist {
-    display: flex;
-    gap: ${dt('picklist.gap')};
-}
-
-.p-picklist-controls {
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    gap: ${dt('picklist.controls.gap')};
-}
-
-.p-picklist-list-container {
-    flex: 1 1 50%;
-}
-
-.p-picklist .p-listbox {
-    height: 100%;
-}
-`;
+import { style } from '@primeuix/styles/picklist';
 
 const classes = {
-    root: 'p-picklist p-component',
+    root: () => ['p-picklist p-component'],
     sourceControls: 'p-picklist-controls p-picklist-source-controls',
     sourceListContainer: 'p-picklist-list-container p-picklist-source-list-container',
     transferControls: 'p-picklist-controls p-picklist-transfer-controls',
@@ -36,7 +15,7 @@ const classes = {
 export class PickListStyle extends BaseStyle {
     name = 'picklist';
 
-    theme = theme;
+    theme = style;
 
     classes = classes;
 }

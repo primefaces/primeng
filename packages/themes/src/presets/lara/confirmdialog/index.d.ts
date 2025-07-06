@@ -1,3 +1,2 @@
-import { ConfirmDialogDesignTokens } from '../../types/confirmdialog';
-declare const _default: ConfirmDialogDesignTokens;
-export default _default;
+export * from '@primeuix/themes/lara/confirmdialog';
+export { default } from '@primeuix/themes/lara/confirmdialog';

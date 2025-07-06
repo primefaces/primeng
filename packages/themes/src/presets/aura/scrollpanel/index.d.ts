@@ -1,3 +1,2 @@
-import { ScrollPanelDesignTokens } from '../../types/scrollpanel';
-declare const _default: ScrollPanelDesignTokens;
-export default _default;
+export * from '@primeuix/themes/aura/scrollpanel';
+export { default } from '@primeuix/themes/aura/scrollpanel';

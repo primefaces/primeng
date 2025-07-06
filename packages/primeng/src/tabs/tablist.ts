@@ -1,10 +1,11 @@
 import { CommonModule, isPlatformBrowser } from '@angular/common';
 import { AfterContentInit, AfterViewInit, ChangeDetectionStrategy, Component, computed, ContentChild, ContentChildren, effect, ElementRef, forwardRef, inject, QueryList, signal, TemplateRef, ViewChild, ViewEncapsulation } from '@angular/core';
-import { findSingle, getHeight, getOffset, getOuterWidth, getWidth, isRTL } from '@primeuix/utils';
+import { findSingle, getOffset, getOuterWidth, getWidth, isRTL } from '@primeuix/utils';
 import { PrimeTemplate, SharedModule } from 'primeng/api';
 import { BaseComponent } from 'primeng/basecomponent';
 import { ChevronLeftIcon, ChevronRightIcon } from 'primeng/icons';
 import { RippleModule } from 'primeng/ripple';
+import { TabListStyle } from './style/tabliststyle';
 import { Tabs } from './tabs';
 
 /**
@@ -17,26 +18,26 @@ import { Tabs } from './tabs';
     imports: [CommonModule, ChevronLeftIcon, ChevronRightIcon, RippleModule, SharedModule],
     template: `
         @if (showNavigators() && isPrevButtonEnabled()) {
-            <button type="button" #prevButton pRipple class="p-tablist-nav-button p-tablist-prev-button" [attr.aria-label]="prevButtonAriaLabel" [attr.tabindex]="tabindex()" [attr.data-pc-group-section]="'navigator'" (click)="onPrevButtonClick()">
+            <button type="button" #prevButton pRipple [class]="cx('prevButton')" [attr.aria-label]="prevButtonAriaLabel" [attr.tabindex]="tabindex()" [attr.data-pc-group-section]="'navigator'" (click)="onPrevButtonClick()">
                 @if (prevIconTemplate || _prevIconTemplate) {
                     <ng-container *ngTemplateOutlet="prevIconTemplate || _prevIconTemplate" />
                 } @else {
-                    <ChevronLeftIcon />
+                    <svg data-p-icon="chevron-left" />
                 }
             </button>
         }
-        <div #content class="p-tablist-content" [ngClass]="{ 'p-tablist-viewport': scrollable() }" (scroll)="onScroll($event)">
-            <div #tabs class="p-tablist-tab-list" role="tablist">
+        <div #content [class]="cx('content')" (scroll)="onScroll($event)">
+            <div #tabs [class]="cx('tabList')" role="tablist">
                 <ng-content />
-                <span #inkbar role="presentation" class="p-tablist-active-bar" [attr.data-pc-section]="'inkbar'"></span>
+                <span #inkbar role="presentation" [class]="cx('activeBar')" [attr.data-pc-section]="'inkbar'"></span>
             </div>
         </div>
         @if (showNavigators() && isNextButtonEnabled()) {
-            <button type="button" #nextButton pRipple class="p-tablist-nav-button p-tablist-next-button" [attr.aria-label]="nextButtonAriaLabel" [attr.tabindex]="tabindex()" [attr.data-pc-group-section]="'navigator'" (click)="onNextButtonClick()">
+            <button type="button" #nextButton pRipple [class]="cx('nextButton')" [attr.aria-label]="nextButtonAriaLabel" [attr.tabindex]="tabindex()" [attr.data-pc-group-section]="'navigator'" (click)="onNextButtonClick()">
                 @if (nextIconTemplate || _nextIconTemplate) {
                     <ng-container *ngTemplateOutlet="nextIconTemplate || _nextIconTemplate" />
                 } @else {
-                    <ChevronRightIcon />
+                    <svg data-p-icon="chevron-right" />
                 }
             </button>
         }
@@ -44,10 +45,10 @@ import { Tabs } from './tabs';
     changeDetection: ChangeDetectionStrategy.OnPush,
     encapsulation: ViewEncapsulation.None,
     host: {
-        '[class.p-tablist]': 'true',
-        '[class.p-component]': 'true',
+        '[class]': 'cx("root")',
         '[attr.data-pc-name]': '"tablist"'
-    }
+    },
+    providers: [TabListStyle]
 })
 export class TabList extends BaseComponent implements AfterViewInit, AfterContentInit {
     /**
@@ -88,6 +89,8 @@ export class TabList extends BaseComponent implements AfterViewInit, AfterConten
     tabindex = computed(() => this.pcTabs.tabindex());
 
     scrollable = computed(() => this.pcTabs.scrollable());
+
+    _componentStyle = inject(TabListStyle);
 
     constructor() {
         super();

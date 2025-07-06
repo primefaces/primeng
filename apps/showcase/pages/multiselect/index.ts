@@ -14,6 +14,7 @@ import { MultiSelectDocModule } from '@/doc/multiselect/multiselectdoc.module';
 import { ReactiveFormsDoc } from '@/doc/multiselect/reactiveformsdoc';
 import { SizesDoc } from '@/doc/multiselect/sizesdoc';
 import { TemplateDoc } from '@/doc/multiselect/templatedoc';
+import { TemplateDrivenFormsDoc } from '@/doc/multiselect/templatedrivenformsdoc';
 import { VirtualScrollDoc } from '@/doc/multiselect/virtualscrolldoc';
 import { Component } from '@angular/core';
 
@@ -33,11 +34,6 @@ export class MultiSelectDemo {
             id: 'basic',
             label: 'Basic',
             component: BasicDoc
-        },
-        {
-            id: 'reactive-forms',
-            label: 'Reactive Forms',
-            component: ReactiveFormsDoc
         },
         {
             id: 'chips',
@@ -90,16 +86,23 @@ export class MultiSelectDemo {
             component: FilledDoc
         },
         {
+            id: 'disabled',
+            label: 'Disabled',
+            component: DisabledDoc
+        },
+        {
             id: 'invalid',
             label: 'Invalid',
             component: InvalidDoc
         },
         {
-            id: 'disabled',
-            label: 'Disabled',
-            component: DisabledDoc
+            id: 'forms',
+            label: 'Forms',
+            children: [
+                { id: 'templatedriven', label: 'Template Driven', component: TemplateDrivenFormsDoc },
+                { id: 'reactive', label: 'Reactive Forms', component: ReactiveFormsDoc }
+            ]
         },
-
         {
             id: 'accessibility',
             label: 'Accessibility',

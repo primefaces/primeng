@@ -10,6 +10,7 @@ import { InvalidDoc } from '@/doc/checkbox/invaliddoc';
 import { MultipleDoc } from '@/doc/checkbox/multipledoc';
 import { ReactiveFormsDoc } from '@/doc/checkbox/reactiveformsdoc';
 import { SizesDoc } from '@/doc/checkbox/sizesdoc';
+import { TemplateDrivenFormsDoc } from '@/doc/checkbox/templatedrivenformsdoc';
 import { Component } from '@angular/core';
 
 @Component({
@@ -28,11 +29,6 @@ export class CheckboxDemo {
             id: 'basic',
             label: 'Basic',
             component: BasicDoc
-        },
-        {
-            id: 'reactive-forms',
-            label: 'Reactive Forms',
-            component: ReactiveFormsDoc
         },
         {
             id: 'indeterminate',
@@ -60,16 +56,23 @@ export class CheckboxDemo {
             component: SizesDoc
         },
         {
+            id: 'disabled',
+            label: 'Disabled',
+            component: DisabledDoc
+        },
+        {
             id: 'invalid',
             label: 'Invalid',
             component: InvalidDoc
         },
         {
-            id: 'disabled',
-            label: 'Disabled',
-            component: DisabledDoc
+            id: 'forms',
+            label: 'Forms',
+            children: [
+                { id: 'templatedriven', label: 'Template Driven', component: TemplateDrivenFormsDoc },
+                { id: 'reactive', label: 'Reactive Forms', component: ReactiveFormsDoc }
+            ]
         },
-
         {
             id: 'accessibility',
             label: 'Accessibility',

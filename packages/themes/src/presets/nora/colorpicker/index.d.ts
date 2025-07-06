@@ -1,3 +1,2 @@
-import { ColorPickerDesignTokens } from '../../types/colorpicker';
-declare const _default: ColorPickerDesignTokens;
-export default _default;
+export * from '@primeuix/themes/nora/colorpicker';
+export { default } from '@primeuix/themes/nora/colorpicker';

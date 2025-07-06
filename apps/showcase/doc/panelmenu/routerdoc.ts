@@ -8,32 +8,10 @@ import { MenuItem, MessageService } from 'primeng/api';
     standalone: false,
     template: `
         <app-docsectiontext>
-            <p>Items with navigation are defined with templating to be able to use a routerLink directive, an external link or programmatic navigation.</p>
+            <p>Menu items support navigation via routerLink, programmatic routing using commands, or external URLs.</p>
         </app-docsectiontext>
         <div class="card flex justify-center">
-            <p-panelmenu [model]="items" styleClass="w-full md:w-80">
-                <ng-template #item let-item>
-                    <ng-container *ngIf="item.route; else urlRef">
-                        <a [routerLink]="item.route" class="flex items-center cursor-pointer text-surface-700 dark:text-surface-0 px-4 py-2">
-                            <span [class]="item.icon"></span>
-                            <span class="ml-2">{{ item.label }}</span>
-                        </a>
-                    </ng-container>
-                    <ng-template #urlRef>
-                        <a *ngIf="item.url; else noLink" [href]="item.url" class="flex items-center cursor-pointer text-surface-700 dark:text-surface-0 px-4 py-2">
-                            <span [class]="item.icon"></span>
-                            <span class="ml-2">{{ item.label }}</span>
-                        </a>
-                        <ng-template #noLink>
-                            <span class="flex items-center cursor-pointer text-surface-700 dark:text-surface-0 px-4 py-2">
-                                <span [class]="item.icon"></span>
-                                <span class="ml-2">{{ item.label }}</span>
-                                <i *ngIf="item.items" class="pi pi-angle-down text-primary ml-auto"></i>
-                            </span>
-                        </ng-template>
-                    </ng-template>
-                </ng-template>
-            </p-panelmenu>
+            <p-panelmenu [model]="items" class="w-full md:w-80" />
         </div>
         <app-code [code]="code" selector="panel-menu-router-demo"></app-code>
     `,
@@ -53,12 +31,12 @@ export class RouterDoc implements OnInit {
                     {
                         label: 'Installation',
                         icon: 'pi pi-eraser',
-                        route: '/installation'
+                        routerLink: '/installation'
                     },
                     {
                         label: 'Configuration',
                         icon: 'pi pi-heart',
-                        route: '/configuration'
+                        routerLink: '/configuration'
                     }
                 ]
             },
@@ -89,58 +67,10 @@ export class RouterDoc implements OnInit {
     }
 
     code: Code = {
-        basic: `<p-panelmenu [model]="items" styleClass="w-full md:w-80">
-    <ng-template #item let-item>
-        <ng-container *ngIf="item.route; else urlRef">
-            <a [routerLink]="item.route" class="flex align-items-center
-                cursor-pointer text-color px-3 py-2">
-                <span [class]="item.icon"></span>
-                <span class="ml-2">{{ item.label }}</span>
-            </a>
-        </ng-container>
-        <ng-template #urlRef>
-            <a *ngIf="item.url; else noLink" [href]="item.url" class="flex align-items-center
-                cursor-pointer text-color px-3 py-2">
-                <span [class]="item.icon"></span>
-                <span class="ml-2">{{ item.label }}</span>
-            </a>
-            <ng-template #noLink>
-                <span class="flex items-center cursor-pointer text-surface-700 dark:text-surface-0 px-4 py-2">
-                    <span [class]="item.icon"></span>
-                    <span class="ml-2">{{ item.label }}</span>
-                    <i *ngIf="item.items" class="pi pi-angle-down text-primary ml-auto"></i>
-                </span>
-            </ng-template>
-        </ng-template>
-    </ng-template>
-</p-panelmenu>`,
+        basic: `<p-panelmenu [model]="items" class="w-full md:w-80" />`,
 
         html: `<div class="card flex justify-center">
-    <p-panelmenu [model]="items" styleClass="w-full md:w-80">
-        <ng-template #item let-item>
-            <ng-container *ngIf="item.route; else urlRef">
-                <a [routerLink]="item.route" class="flex align-items-center
-                    cursor-pointer text-color px-3 py-2">
-                    <span [class]="item.icon"></span>
-                    <span class="ml-2">{{ item.label }}</span>
-                </a>
-            </ng-container>
-            <ng-template #urlRef>
-                <a *ngIf="item.url; else noLink" [href]="item.url" class="flex align-items-center
-                    cursor-pointer text-color px-3 py-2">
-                    <span [class]="item.icon"></span>
-                    <span class="ml-2">{{ item.label }}</span>
-                </a>
-                <ng-template #noLink>
-                    <span class="flex items-center cursor-pointer text-surface-700 dark:text-surface-0 px-4 py-2">
-                        <span [class]="item.icon"></span>
-                        <span class="ml-2">{{ item.label }}</span>
-                        <i *ngIf="item.items" class="pi pi-angle-down text-primary ml-auto"></i>
-                    </span>
-                </ng-template>
-            </ng-template>
-        </ng-template>
-    </p-panelmenu>
+    <p-panelmenu [model]="items" class="w-full md:w-80" />
 </div>`,
 
         typescript: `import { Component, OnInit } from '@angular/core';
@@ -169,12 +99,12 @@ export class PanelMenuRouterDemo implements OnInit {
                     {
                         label: 'Installation',
                         icon: 'pi pi-eraser',
-                        route: '/installation'
+                        routerLink: '/installation'
                     },
                     {
                         label: 'Configuration',
                         icon: 'pi pi-heart',
-                        route: '/configuration'
+                        routerLink: '/configuration'
                     }
                 ]
             },
@@ -203,7 +133,6 @@ export class PanelMenuRouterDemo implements OnInit {
             }
         ];
     }
-
 }`
     };
 }

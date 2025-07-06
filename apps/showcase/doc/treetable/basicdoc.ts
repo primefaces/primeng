@@ -44,10 +44,7 @@ export class BasicDoc {
     ) {}
 
     loadDemoData() {
-        this.nodeService.getFilesystem().then((files) => {
-            this.files = files.slice(0, 5);
-            this.cd.markForCheck();
-        });
+        this.nodeService.getFilesystem().then((files) => (this.files = files));
     }
 
     code: Code = {

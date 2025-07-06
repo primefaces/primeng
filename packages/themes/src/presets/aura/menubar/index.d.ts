@@ -1,3 +1,2 @@
-import { MenubarDesignTokens } from '../../types/menubar';
-declare const _default: MenubarDesignTokens;
-export default _default;
+export * from '@primeuix/themes/aura/menubar';
+export { default } from '@primeuix/themes/aura/menubar';

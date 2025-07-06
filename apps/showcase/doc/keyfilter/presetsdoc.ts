@@ -84,12 +84,13 @@ export class PresetsDoc {
         typescript: `import { Component } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { InputTextModule } from 'primeng/inputtext';
+import { KeyFilterModule } from 'primeng/keyfilter';
 
 @Component({
     selector: 'key-filter-presets-demo',
     templateUrl: './key-filter-presets-demo.html',
     standalone: true,
-    imports: [FormsModule, InputTextModule]
+    imports: [FormsModule, InputTextModule, KeyFilterModule]
 })
 export class KeyFilterPresetsDemo {}`
     };

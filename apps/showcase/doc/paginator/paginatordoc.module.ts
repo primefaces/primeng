@@ -6,7 +6,6 @@ import { FormsModule } from '@angular/forms';
 import { RouterModule } from '@angular/router';
 import { ButtonModule } from 'primeng/button';
 import { DividerModule } from 'primeng/divider';
-import { DropdownModule } from 'primeng/dropdown';
 import { InputNumber } from 'primeng/inputnumber';
 import { PaginatorModule } from 'primeng/paginator';
 import { Select } from 'primeng/select';
@@ -20,7 +19,7 @@ import { StyleDoc } from './styledoc';
 import { TemplateDoc } from './templatedoc';
 
 @NgModule({
-    imports: [CommonModule, AppCodeModule, AppDocModule, PaginatorModule, ButtonModule, DividerModule, FormsModule, InputNumber, Slider, RouterModule, Select, DropdownModule],
+    imports: [CommonModule, AppCodeModule, AppDocModule, PaginatorModule, ButtonModule, DividerModule, FormsModule, InputNumber, Slider, RouterModule, Select],
     exports: [AppDocModule],
     declarations: [ImportDoc, BasicDoc, TemplateDoc, ImagesDoc, StyleDoc, AccessibilityDoc, CurrentPageReportDoc]
 })
