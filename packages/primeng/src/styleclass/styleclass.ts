@@ -24,18 +24,6 @@ export class StyleClass implements OnDestroy {
     /**
      * Style class to add when item begins to get displayed.
      * @group Props
-     * @deprecated Use enterFromClass instead
-     */
-    @Input() set enterClass(value: string) {
-        this._enterClass = value;
-        console.log('enterClass is deprecated, use enterFromClass instead');
-    }
-    get enterClass() {
-        return this._enterClass;
-    }
-    /**
-     * Style class to add when item begins to get displayed.
-     * @group Props
      */
     @Input() enterFromClass: string | undefined;
     /**
@@ -48,18 +36,6 @@ export class StyleClass implements OnDestroy {
      * @group Props
      */
     @Input() enterToClass: string | undefined;
-    /**
-     * Style class to add when item begins to get hidden.
-     * @group Props
-     * @deprecated Use leaveFromClass instead
-     */
-    @Input() set leaveClass(value: string) {
-        this._leaveClass = value;
-        console.log('leaveClass is deprecated, use leaveFromClass instead');
-    }
-    get leaveClass() {
-        return this._leaveClass;
-    }
     /**
      * Style class to add when item begins to get hidden.
      * @group Props
@@ -140,8 +116,8 @@ export class StyleClass implements OnDestroy {
                 }
 
                 addClass(this.target, this.enterActiveClass);
-                if (this.enterClass || this.enterFromClass) {
-                    removeClass(this.target, this.enterClass || this.enterFromClass);
+                if (this.enterFromClass) {
+                    removeClass(this.target, this.enterFromClass);
                 }
 
                 this.enterListener = this.renderer.listen(this.target, 'animationend', () => {
@@ -158,8 +134,8 @@ export class StyleClass implements OnDestroy {
                 });
             }
         } else {
-            if (this.enterClass || this.enterFromClass) {
-                removeClass(this.target, this.enterClass || this.enterFromClass);
+            if (this.enterFromClass) {
+                removeClass(this.target, this.enterFromClass);
             }
 
             if (this.enterToClass) {
@@ -181,8 +157,8 @@ export class StyleClass implements OnDestroy {
             if (!this.animating) {
                 this.animating = true;
                 addClass(this.target, this.leaveActiveClass);
-                if (this.leaveClass || this.leaveFromClass) {
-                    removeClass(this.target, this.leaveClass || this.leaveFromClass);
+                if (this.leaveFromClass) {
+                    removeClass(this.target, this.leaveFromClass);
                 }
 
                 this.leaveListener = this.renderer.listen(this.target, 'animationend', () => {
@@ -195,8 +171,8 @@ export class StyleClass implements OnDestroy {
                 });
             }
         } else {
-            if (this.leaveClass || this.leaveFromClass) {
-                removeClass(this.target, this.leaveClass || this.leaveFromClass);
+            if (this.leaveFromClass) {
+                removeClass(this.target, this.leaveFromClass);
             }
 
             if (this.leaveToClass) {

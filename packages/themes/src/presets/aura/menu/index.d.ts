@@ -1,3 +1,2 @@
-import { MenuDesignTokens } from '../../types/menu';
-declare const _default: MenuDesignTokens;
-export default _default;
+export * from '@primeuix/themes/aura/menu';
+export { default } from '@primeuix/themes/aura/menu';

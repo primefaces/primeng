@@ -28,7 +28,7 @@ interface Column {
                     <ng-template #body let-rowNode let-rowData="rowData" let-columns="columns">
                         <tr [ttRow]="rowNode" [ngClass]="{ 'p-highlight': rowData.size.endsWith('kb') }">
                             <td *ngFor="let col of columns; let i = index" [ngClass]="{ 'font-bold': col.field === 'size' && rowData.size.endsWith('kb') }">
-                                <p-treeTableToggler [rowNode]="rowNode" *ngIf="i === 0" />
+                                <p-treetable-toggler [rowNode]="rowNode" *ngIf="i === 0" />
                                 {{ rowData[col.field] }}
                             </td>
                         </tr>
@@ -68,7 +68,7 @@ export class ConditionalStyleDoc {
     <ng-template #body let-rowNode let-rowData="rowData" let-columns="columns">
         <tr [ttRow]="rowNode" [ngClass]="{ 'p-highlight': rowData.size.endsWith('kb') }">
             <td *ngFor="let col of columns; let i = index" [ngClass]="{ 'font-bold': col.field === 'size' && rowData.size.endsWith('kb') }">
-                <p-treeTableToggler [rowNode]="rowNode" *ngIf="i === 0" />
+                <p-treetable-toggler [rowNode]="rowNode" *ngIf="i === 0" />
                 {{ rowData[col.field] }}
             </td>
         </tr>
@@ -87,7 +87,7 @@ export class ConditionalStyleDoc {
         <ng-template #body let-rowNode let-rowData="rowData" let-columns="columns">
             <tr [ttRow]="rowNode" [ngClass]="{ 'p-highlight': rowData.size.endsWith('kb') }">
                 <td *ngFor="let col of columns; let i = index" [ngClass]="{ 'font-bold': col.field === 'size' && rowData.size.endsWith('kb') }">
-                    <p-treeTableToggler [rowNode]="rowNode" *ngIf="i === 0" />
+                    <p-treetable-toggler [rowNode]="rowNode" *ngIf="i === 0" />
                     {{ rowData[col.field] }}
                 </td>
             </tr>

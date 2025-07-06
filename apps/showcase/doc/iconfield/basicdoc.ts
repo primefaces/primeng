@@ -13,12 +13,12 @@ import { Component } from '@angular/core';
         </app-docsectiontext>
         <div class="card flex flex-wrap justify-center gap-4">
             <p-iconfield>
-                <p-inputicon styleClass="pi pi-search" />
+                <p-inputicon class="pi pi-search" />
                 <input type="text" pInputText placeholder="Search" />
             </p-iconfield>
             <p-iconfield>
                 <input type="text" pInputText />
-                <p-inputicon styleClass="pi pi-spinner pi-spin" />
+                <p-inputicon class="pi pi-spinner pi-spin" />
             </p-iconfield>
         </div>
         <app-code [code]="code" selector="iconfield-basic-demo"></app-code>
@@ -27,22 +27,22 @@ import { Component } from '@angular/core';
 export class BasicDoc {
     code: Code = {
         basic: `<p-iconfield>
-    <p-inputicon styleClass="pi pi-search" />
+    <p-inputicon class="pi pi-search" />
     <input type="text" pInputText placeholder="Search" />
 </p-iconfield>
 <p-iconfield>
     <input type="text" pInputText />
-    <p-inputicon styleClass="pi pi-spinner pi-spin" />
+    <p-inputicon class="pi pi-spinner pi-spin" />
 </p-iconfield>`,
 
         html: `<div class="card flex flex-wrap justify-center gap-4">
     <p-iconfield>
-        <p-inputicon styleClass="pi pi-search" />
+        <p-inputicon class="pi pi-search" />
         <input type="text" pInputText placeholder="Search" />
     </p-iconfield>
     <p-iconfield>
         <input type="text" pInputText />
-        <p-inputicon styleClass="pi pi-spinner pi-spin" />
+        <p-inputicon class="pi pi-spinner pi-spin" />
     </p-iconfield>
 </div>`,
 

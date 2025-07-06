@@ -8,6 +8,7 @@ import { OverviewDoc } from '@/doc/tailwind/overviewdoc';
 import { PluginDoc } from '@/doc/tailwind/plugindoc';
 import { TailwindDocModule } from '@/doc/tailwind/tailwinddoc.module';
 import { Component } from '@angular/core';
+import { DarkModeDoc } from '@/doc/tailwind/darkmodedoc';
 
 @Component({
     template: `<app-doc docTitle="Tailwind CSS - PrimeNG" header="Tailwind CSS" description="Integration between PrimeNG and Tailwind CSS." [docs]="docs"></app-doc>`,
@@ -30,6 +31,11 @@ export class TailwindDemo {
             id: 'extensions',
             label: 'Extensions',
             component: ExtensionsDoc
+        },
+        {
+            id: 'darkmode',
+            label: 'Dark Mode',
+            component: DarkModeDoc
         },
         {
             id: 'override',

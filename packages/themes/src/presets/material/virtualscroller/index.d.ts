@@ -1,3 +1,2 @@
-import { VirtualScrollerDesignTokens } from '../../types/virtualscroller';
-declare const _default: VirtualScrollerDesignTokens;
-export default _default;
+export * from '@primeuix/themes/material/virtualscroller';
+export { default } from '@primeuix/themes/material/virtualscroller';

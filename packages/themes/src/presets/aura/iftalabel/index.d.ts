@@ -1,3 +1,2 @@
-import { IftaLabelDesignTokens } from '../../types/iftalabel';
-declare const _default: IftaLabelDesignTokens;
-export default _default;
+export * from '@primeuix/themes/aura/iftalabel';
+export { default } from '@primeuix/themes/aura/iftalabel';

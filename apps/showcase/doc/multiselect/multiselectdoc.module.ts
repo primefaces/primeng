@@ -25,10 +25,32 @@ import { SizesDoc } from './sizesdoc';
 import { StyleDoc } from './styledoc';
 import { TemplateDoc } from './templatedoc';
 import { VirtualScrollDoc } from './virtualscrolldoc';
+import { ToastModule } from 'primeng/toast';
+import { TemplateDrivenFormsDoc } from './templatedrivenformsdoc';
+import { MessageModule } from 'primeng/message';
 
 @NgModule({
-    imports: [CommonModule, AppCodeModule, RouterModule, MultiSelectModule, FormsModule, ReactiveFormsModule, AppDocModule, FloatLabelModule, IftaLabelModule, ButtonModule],
+    imports: [CommonModule, AppCodeModule, RouterModule, MultiSelectModule, FormsModule, ReactiveFormsModule, AppDocModule, FloatLabelModule, IftaLabelModule, ButtonModule, ToastModule, MessageModule],
     exports: [AppDocModule],
-    declarations: [ImportDoc, BasicDoc, ChipsDoc, GroupDoc, FilterDoc, TemplateDoc, VirtualScrollDoc, FloatLabelDoc, IftaLabelDoc, InvalidDoc, DisabledDoc, StyleDoc, AccessibilityDoc, ReactiveFormsDoc, LoadingStateDoc, FilledDoc, SizesDoc]
+    declarations: [
+        ImportDoc,
+        BasicDoc,
+        ChipsDoc,
+        GroupDoc,
+        FilterDoc,
+        TemplateDoc,
+        VirtualScrollDoc,
+        FloatLabelDoc,
+        IftaLabelDoc,
+        InvalidDoc,
+        DisabledDoc,
+        StyleDoc,
+        AccessibilityDoc,
+        ReactiveFormsDoc,
+        LoadingStateDoc,
+        FilledDoc,
+        SizesDoc,
+        TemplateDrivenFormsDoc
+    ]
 })
 export class MultiSelectDocModule {}

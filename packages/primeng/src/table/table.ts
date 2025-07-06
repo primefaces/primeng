@@ -1,5 +1,5 @@
 import { animate, AnimationEvent, style, transition, trigger } from '@angular/animations';
-import { CommonModule, DOCUMENT, isPlatformBrowser } from '@angular/common';
+import { CommonModule, isPlatformBrowser } from '@angular/common';
 import {
     AfterContentInit,
     AfterViewInit,
@@ -15,8 +15,8 @@ import {
     forwardRef,
     HostListener,
     inject,
-    Inject,
     Injectable,
+    input,
     Input,
     NgModule,
     NgZone,
@@ -26,7 +26,6 @@ import {
     OnInit,
     Optional,
     Output,
-    PLATFORM_ID,
     QueryList,
     Renderer2,
     SimpleChanges,
@@ -36,15 +35,16 @@ import {
 } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { BlockableUI, FilterMatchMode, FilterMetadata, FilterOperator, FilterService, LazyLoadMeta, OverlayService, PrimeTemplate, ScrollerOptions, SelectItem, SharedModule, SortMeta, TableState, TranslationKeys } from 'primeng/api';
+import { BadgeModule } from 'primeng/badge';
 import { BaseComponent } from 'primeng/basecomponent';
 import { Button, ButtonModule } from 'primeng/button';
+import { CheckboxChangeEvent, CheckboxModule } from 'primeng/checkbox';
 import { DatePickerModule } from 'primeng/datepicker';
-import { CheckboxModule } from 'primeng/checkbox';
 import { ConnectedOverlayScrollHandler, DomHandler } from 'primeng/dom';
 import { ArrowDownIcon } from 'primeng/icons/arrowdown';
 import { ArrowUpIcon } from 'primeng/icons/arrowup';
-import { CheckIcon } from 'primeng/icons/check';
 import { FilterIcon } from 'primeng/icons/filter';
+import { FilterFillIcon } from 'primeng/icons/filterfill';
 import { FilterSlashIcon } from 'primeng/icons/filterslash';
 import { PlusIcon } from 'primeng/icons/plus';
 import { SortAltIcon } from 'primeng/icons/sortalt';
@@ -132,225 +132,227 @@ export class TableService {
     selector: 'p-table',
     standalone: false,
     template: `
-        <div #container [ngStyle]="style" [class]="styleClass" [ngClass]="cx('root')" [attr.id]="id">
-            <div [ngClass]="cx('mask')" *ngIf="loading && showLoader">
-                <i *ngIf="loadingIcon" [class]="'p-datatable-loading-icon ' + loadingIcon"></i>
-                <ng-container *ngIf="!loadingIcon">
-                    <SpinnerIcon *ngIf="!loadingIconTemplate && !_loadingIconTemplate" [spin]="true" [styleClass]="cx('loadingIcon')" />
-                    <span *ngIf="loadingIconTemplate || _loadingIconTemplate" [ngClass]="cx('loadingIcon')">
-                        <ng-template *ngTemplateOutlet="loadingIconTemplate || _loadingIconTemplate"></ng-template>
-                    </span>
-                </ng-container>
-            </div>
-            <div *ngIf="captionTemplate || _captionTemplate" [ngClass]="cx('header')">
-                <ng-container *ngTemplateOutlet="captionTemplate || _captionTemplate"></ng-container>
-            </div>
-            <p-paginator
-                [rows]="rows"
-                [first]="first"
-                [totalRecords]="totalRecords"
-                [pageLinkSize]="pageLinks"
-                [alwaysShow]="alwaysShowPaginator"
-                (onPageChange)="onPageChange($event)"
-                [rowsPerPageOptions]="rowsPerPageOptions"
-                *ngIf="paginator && (paginatorPosition === 'top' || paginatorPosition == 'both')"
-                [templateLeft]="paginatorLeftTemplate"
-                [templateRight]="paginatorRightTemplate"
-                [dropdownAppendTo]="paginatorDropdownAppendTo"
-                [dropdownScrollHeight]="paginatorDropdownScrollHeight"
-                [currentPageReportTemplate]="currentPageReportTemplate"
-                [showFirstLastIcon]="showFirstLastIcon"
-                [dropdownItemTemplate]="paginatorDropdownItemTemplate || _paginatorDropdownItemTemplate"
-                [showCurrentPageReport]="showCurrentPageReport"
-                [showJumpToPageDropdown]="showJumpToPageDropdown"
-                [showJumpToPageInput]="showJumpToPageInput"
-                [showPageLinks]="showPageLinks"
-                [styleClass]="cx('pcPaginator') + ' ' + paginatorStyleClass && paginatorStyleClass"
-                [locale]="paginatorLocale"
+        <div [class]="cx('mask')" *ngIf="loading && showLoader">
+            <i *ngIf="loadingIcon" [class]="cn(cx('loadingIcon'), loadingIcon)"></i>
+            <ng-container *ngIf="!loadingIcon">
+                <svg data-p-icon="spinner" *ngIf="!loadingIconTemplate && !_loadingIconTemplate" [spin]="true" [class]="cx('loadingIcon')" />
+                <span *ngIf="loadingIconTemplate || _loadingIconTemplate" [class]="cx('loadingIcon')">
+                    <ng-template *ngTemplateOutlet="loadingIconTemplate || _loadingIconTemplate"></ng-template>
+                </span>
+            </ng-container>
+        </div>
+        <div *ngIf="captionTemplate || _captionTemplate" [class]="cx('header')">
+            <ng-container *ngTemplateOutlet="captionTemplate || _captionTemplate"></ng-container>
+        </div>
+        <p-paginator
+            [rows]="rows"
+            [first]="first"
+            [totalRecords]="totalRecords"
+            [pageLinkSize]="pageLinks"
+            [alwaysShow]="alwaysShowPaginator"
+            (onPageChange)="onPageChange($event)"
+            [rowsPerPageOptions]="rowsPerPageOptions"
+            *ngIf="paginator && (paginatorPosition === 'top' || paginatorPosition == 'both')"
+            [templateLeft]="paginatorLeftTemplate || _paginatorLeftTemplate"
+            [templateRight]="paginatorRightTemplate || _paginatorRightTemplate"
+            [appendTo]="paginatorDropdownAppendTo"
+            [dropdownScrollHeight]="paginatorDropdownScrollHeight"
+            [currentPageReportTemplate]="currentPageReportTemplate"
+            [showFirstLastIcon]="showFirstLastIcon"
+            [dropdownItemTemplate]="paginatorDropdownItemTemplate || _paginatorDropdownItemTemplate"
+            [showCurrentPageReport]="showCurrentPageReport"
+            [showJumpToPageDropdown]="showJumpToPageDropdown"
+            [showJumpToPageInput]="showJumpToPageInput"
+            [showPageLinks]="showPageLinks"
+            [styleClass]="cx('pcPaginator') + ' ' + paginatorStyleClass && paginatorStyleClass"
+            [locale]="paginatorLocale"
+        >
+            <ng-template pTemplate="dropdownicon" *ngIf="paginatorDropdownIconTemplate || _paginatorDropdownIconTemplate">
+                <ng-container *ngTemplateOutlet="paginatorDropdownIconTemplate || _paginatorDropdownIconTemplate"></ng-container>
+            </ng-template>
+
+            <ng-template pTemplate="firstpagelinkicon" *ngIf="paginatorFirstPageLinkIconTemplate || _paginatorFirstPageLinkIconTemplate">
+                <ng-container *ngTemplateOutlet="paginatorFirstPageLinkIconTemplate || _paginatorFirstPageLinkIconTemplate"></ng-container>
+            </ng-template>
+
+            <ng-template pTemplate="previouspagelinkicon" *ngIf="paginatorPreviousPageLinkIconTemplate || _paginatorPreviousPageLinkIconTemplate">
+                <ng-container *ngTemplateOutlet="paginatorPreviousPageLinkIconTemplate || _paginatorPreviousPageLinkIconTemplate"></ng-container>
+            </ng-template>
+
+            <ng-template pTemplate="lastpagelinkicon" *ngIf="paginatorLastPageLinkIconTemplate || _paginatorLastPageLinkIconTemplate">
+                <ng-container *ngTemplateOutlet="paginatorLastPageLinkIconTemplate || _paginatorLastPageLinkIconTemplate"></ng-container>
+            </ng-template>
+
+            <ng-template pTemplate="nextpagelinkicon" *ngIf="paginatorNextPageLinkIconTemplate || _paginatorNextPageLinkIconTemplate">
+                <ng-container *ngTemplateOutlet="paginatorNextPageLinkIconTemplate || _paginatorNextPageLinkIconTemplate"></ng-container>
+            </ng-template>
+        </p-paginator>
+
+        <div #wrapper [class]="cx('tableContainer')" [ngStyle]="sx('tableContainer')">
+            <p-scroller
+                #scroller
+                *ngIf="virtualScroll"
+                [items]="processedData"
+                [columns]="columns"
+                [style]="{
+                    height: scrollHeight !== 'flex' ? scrollHeight : undefined
+                }"
+                [scrollHeight]="scrollHeight !== 'flex' ? undefined : '100%'"
+                [itemSize]="virtualScrollItemSize"
+                [step]="rows"
+                [delay]="lazy ? virtualScrollDelay : 0"
+                [inline]="true"
+                [lazy]="lazy"
+                (onLazyLoad)="onLazyItemLoad($event)"
+                [loaderDisabled]="true"
+                [showSpacer]="false"
+                [showLoader]="loadingBodyTemplate || _loadingBodyTemplate"
+                [options]="virtualScrollOptions"
+                [autoSize]="true"
             >
-                <ng-template pTemplate="dropdownicon" *ngIf="paginatorDropdownIconTemplate || _paginatorDropdownIconTemplate">
-                    <ng-container *ngTemplateOutlet="paginatorDropdownIconTemplate || _paginatorDropdownIconTemplate"></ng-container>
-                </ng-template>
-
-                <ng-template pTemplate="firstpagelinkicon" *ngIf="paginatorFirstPageLinkIconTemplate || _paginatorFirstPageLinkIconTemplate">
-                    <ng-container *ngTemplateOutlet="paginatorFirstPageLinkIconTemplate || _paginatorFirstPageLinkIconTemplate"></ng-container>
-                </ng-template>
-
-                <ng-template pTemplate="previouspagelinkicon" *ngIf="paginatorPreviousPageLinkIconTemplate || _paginatorPreviousPageLinkIconTemplate">
-                    <ng-container *ngTemplateOutlet="paginatorPreviousPageLinkIconTemplate || _paginatorPreviousPageLinkIconTemplate"></ng-container>
-                </ng-template>
-
-                <ng-template pTemplate="lastpagelinkicon" *ngIf="paginatorLastPageLinkIconTemplate || _paginatorLastPageLinkIconTemplate">
-                    <ng-container *ngTemplateOutlet="paginatorLastPageLinkIconTemplate || _paginatorLastPageLinkIconTemplate"></ng-container>
-                </ng-template>
-
-                <ng-template pTemplate="nextpagelinkicon" *ngIf="paginatorNextPageLinkIconTemplate || _paginatorNextPageLinkIconTemplate">
-                    <ng-container *ngTemplateOutlet="paginatorNextPageLinkIconTemplate || _paginatorNextPageLinkIconTemplate"></ng-container>
-                </ng-template>
-            </p-paginator>
-
-            <div #wrapper [ngClass]="cx('tableContainer')" [ngStyle]="sx('tableContainer')">
-                <p-scroller
-                    #scroller
-                    *ngIf="virtualScroll"
-                    [items]="processedData"
-                    [columns]="columns"
-                    [style]="{
-                        height: scrollHeight !== 'flex' ? scrollHeight : undefined
-                    }"
-                    [scrollHeight]="scrollHeight !== 'flex' ? undefined : '100%'"
-                    [itemSize]="virtualScrollItemSize || _virtualRowHeight"
-                    [step]="rows"
-                    [delay]="lazy ? virtualScrollDelay : 0"
-                    [inline]="true"
-                    [lazy]="lazy"
-                    (onLazyLoad)="onLazyItemLoad($event)"
-                    [loaderDisabled]="true"
-                    [showSpacer]="false"
-                    [showLoader]="loadingBodyTemplate || _loadingBodyTemplate"
-                    [options]="virtualScrollOptions"
-                    [autoSize]="true"
-                >
-                    <ng-template #content let-items let-scrollerOptions="options">
-                        <ng-container
-                            *ngTemplateOutlet="
-                                buildInTable;
-                                context: {
-                                    $implicit: items,
-                                    options: scrollerOptions
-                                }
-                            "
-                        ></ng-container>
-                    </ng-template>
-                </p-scroller>
-                <ng-container *ngIf="!virtualScroll">
+                <ng-template #content let-items let-scrollerOptions="options">
                     <ng-container
                         *ngTemplateOutlet="
                             buildInTable;
                             context: {
-                                $implicit: processedData,
-                                options: { columns }
+                                $implicit: items,
+                                options: scrollerOptions
                             }
                         "
                     ></ng-container>
-                </ng-container>
-
-                <ng-template #buildInTable let-items let-scrollerOptions="options">
-                    <table #table role="table" [ngClass]="cx('table')" [class]="tableStyleClass" [style]="tableStyle" [attr.id]="id + '-table'">
-                        <ng-container *ngTemplateOutlet="colGroupTemplate || _colGroupTemplate; context: { $implicit: scrollerOptions.columns }"></ng-container>
-                        <thead role="rowgroup" #thead [ngClass]="cx('thead')" [ngStyle]="sx('thead')">
-                            <ng-container
-                                *ngTemplateOutlet="
-                                    headerGroupedTemplate || headerTemplate || _headerTemplate;
-                                    context: {
-                                        $implicit: scrollerOptions.columns
-                                    }
-                                "
-                            ></ng-container>
-                        </thead>
-                        <tbody
-                            role="rowgroup"
-                            [ngClass]="cx('tbody')"
-                            *ngIf="frozenValue || frozenBodyTemplate || _frozenBodyTemplate"
-                            [value]="frozenValue"
-                            [frozenRows]="true"
-                            [pTableBody]="scrollerOptions.columns"
-                            [pTableBodyTemplate]="frozenBodyTemplate || _frozenBodyTemplate"
-                            [frozen]="true"
-                        ></tbody>
-                        <tbody
-                            role="rowgroup"
-                            [ngClass]="cx('tbody', scrollerOptions.contentStyleClass)"
-                            [style]="scrollerOptions.contentStyle"
-                            [value]="dataToRender(scrollerOptions.rows)"
-                            [pTableBody]="scrollerOptions.columns"
-                            [pTableBodyTemplate]="bodyTemplate || _bodyTemplate"
-                            [scrollerOptions]="scrollerOptions"
-                        ></tbody>
-                        <tbody
-                            role="rowgroup"
-                            *ngIf="scrollerOptions.spacerStyle"
-                            [style]="'height: calc(' + scrollerOptions.spacerStyle.height + ' - ' + scrollerOptions.rows.length * scrollerOptions.itemSize + 'px);'"
-                            [ngClass]="cx('virtualScrollerSpacer')"
-                        ></tbody>
-                        <tfoot role="rowgroup" *ngIf="footerGroupedTemplate || footerTemplate || _footerTemplate || _footerGroupedTemplate" #tfoot [ngClass]="cx('footer')">
-                            <ng-container
-                                *ngTemplateOutlet="
-                                    footerGroupedTemplate || footerTemplate || _footerTemplate || _footerGroupedTemplate;
-                                    context: {
-                                        $implicit: scrollerOptions.columns
-                                    }
-                                "
-                            ></ng-container>
-                        </tfoot>
-                    </table>
                 </ng-template>
-            </div>
+            </p-scroller>
+            <ng-container *ngIf="!virtualScroll">
+                <ng-container
+                    *ngTemplateOutlet="
+                        buildInTable;
+                        context: {
+                            $implicit: processedData,
+                            options: { columns }
+                        }
+                    "
+                ></ng-container>
+            </ng-container>
 
-            <p-paginator
-                [rows]="rows"
-                [first]="first"
-                [totalRecords]="totalRecords"
-                [pageLinkSize]="pageLinks"
-                [alwaysShow]="alwaysShowPaginator"
-                (onPageChange)="onPageChange($event)"
-                [rowsPerPageOptions]="rowsPerPageOptions"
-                *ngIf="paginator && (paginatorPosition === 'bottom' || paginatorPosition == 'both')"
-                [templateLeft]="paginatorLeftTemplate || _paginatorLeftTemplate"
-                [templateRight]="paginatorRightTemplate || _paginatorRightTemplate"
-                [dropdownAppendTo]="paginatorDropdownAppendTo"
-                [dropdownScrollHeight]="paginatorDropdownScrollHeight"
-                [currentPageReportTemplate]="currentPageReportTemplate"
-                [showFirstLastIcon]="showFirstLastIcon"
-                [dropdownItemTemplate]="paginatorDropdownItemTemplate || _paginatorDropdownItemTemplate"
-                [showCurrentPageReport]="showCurrentPageReport"
-                [showJumpToPageDropdown]="showJumpToPageDropdown"
-                [showJumpToPageInput]="showJumpToPageInput"
-                [showPageLinks]="showPageLinks"
-                [styleClass]="cx('pcPaginator') + ' ' + paginatorStyleClass && paginatorStyleClass"
-                [locale]="paginatorLocale"
-            >
-                <ng-template pTemplate="dropdownicon" *ngIf="paginatorDropdownIconTemplate || _paginatorDropdownIconTemplate">
-                    <ng-container *ngTemplateOutlet="paginatorDropdownIconTemplate || _paginatorDropdownIconTemplate"></ng-container>
-                </ng-template>
-
-                <ng-template pTemplate="firstpagelinkicon" *ngIf="paginatorFirstPageLinkIconTemplate || _paginatorFirstPageLinkIconTemplate">
-                    <ng-container *ngTemplateOutlet="paginatorFirstPageLinkIconTemplate || _paginatorFirstPageLinkIconTemplate"></ng-container>
-                </ng-template>
-
-                <ng-template pTemplate="previouspagelinkicon" *ngIf="paginatorPreviousPageLinkIconTemplate || _paginatorPreviousPageLinkIconTemplate">
-                    <ng-container *ngTemplateOutlet="paginatorPreviousPageLinkIconTemplate || _paginatorPreviousPageLinkIconTemplate"></ng-container>
-                </ng-template>
-
-                <ng-template pTemplate="lastpagelinkicon" *ngIf="paginatorLastPageLinkIconTemplate || _paginatorLastPageLinkIconTemplate">
-                    <ng-container *ngTemplateOutlet="paginatorLastPageLinkIconTemplate || _paginatorLastPageLinkIconTemplate"></ng-container>
-                </ng-template>
-
-                <ng-template pTemplate="nextpagelinkicon" *ngIf="paginatorNextPageLinkIconTemplate || _paginatorNextPageLinkIconTemplate">
-                    <ng-container *ngTemplateOutlet="paginatorNextPageLinkIconTemplate || _paginatorNextPageLinkIconTemplate"></ng-container>
-                </ng-template>
-            </p-paginator>
-
-            <div *ngIf="summaryTemplate || _summaryTemplate" [ngClass]="cx('footer')">
-                <ng-container *ngTemplateOutlet="summaryTemplate || _summaryTemplate"></ng-container>
-            </div>
-
-            <div #resizeHelper [ngClass]="cx('columnResizeIndicator')" style="display:none" *ngIf="resizableColumns"></div>
-            <span #reorderIndicatorUp [ngClass]="cx('rowReorderIndicatorUp')" style="display: none;" *ngIf="reorderableColumns">
-                <ArrowDownIcon *ngIf="!reorderIndicatorUpIconTemplate && !_reorderIndicatorUpIconTemplate" />
-                <ng-template *ngTemplateOutlet="reorderIndicatorUpIconTemplate || _reorderIndicatorUpIconTemplate"></ng-template>
-            </span>
-            <span #reorderIndicatorDown [ngClass]="cx('rowReorderIndicatorDown')" style="display: none;" *ngIf="reorderableColumns">
-                <ArrowUpIcon *ngIf="!reorderIndicatorDownIconTemplate && !_reorderIndicatorDownIconTemplate" />
-                <ng-template *ngTemplateOutlet="reorderIndicatorDownIconTemplate || _reorderIndicatorDownIconTemplate"></ng-template>
-            </span>
+            <ng-template #buildInTable let-items let-scrollerOptions="options">
+                <table #table role="table" [class]="cn(cx('table'), tableStyleClass)" [style]="tableStyle" [attr.id]="id + '-table'">
+                    <ng-container *ngTemplateOutlet="colGroupTemplate || _colGroupTemplate; context: { $implicit: scrollerOptions.columns }"></ng-container>
+                    <thead role="rowgroup" #thead [class]="cx('thead')" [ngStyle]="sx('thead')">
+                        <ng-container
+                            *ngTemplateOutlet="
+                                headerGroupedTemplate || headerTemplate || _headerTemplate;
+                                context: {
+                                    $implicit: scrollerOptions.columns
+                                }
+                            "
+                        ></ng-container>
+                    </thead>
+                    <tbody
+                        role="rowgroup"
+                        [class]="cx('tbody')"
+                        *ngIf="frozenValue || frozenBodyTemplate || _frozenBodyTemplate"
+                        [value]="frozenValue"
+                        [frozenRows]="true"
+                        [pTableBody]="scrollerOptions.columns"
+                        [pTableBodyTemplate]="frozenBodyTemplate || _frozenBodyTemplate"
+                        [frozen]="true"
+                    ></tbody>
+                    <tbody
+                        role="rowgroup"
+                        [class]="cx('tbody', scrollerOptions.contentStyleClass)"
+                        [style]="scrollerOptions.contentStyle"
+                        [value]="dataToRender(scrollerOptions.rows)"
+                        [pTableBody]="scrollerOptions.columns"
+                        [pTableBodyTemplate]="bodyTemplate || _bodyTemplate"
+                        [scrollerOptions]="scrollerOptions"
+                    ></tbody>
+                    <tbody
+                        role="rowgroup"
+                        *ngIf="scrollerOptions.spacerStyle"
+                        [style]="'height: calc(' + scrollerOptions.spacerStyle.height + ' - ' + scrollerOptions.rows.length * scrollerOptions.itemSize + 'px);'"
+                        [class]="cx('virtualScrollerSpacer')"
+                    ></tbody>
+                    <tfoot role="rowgroup" *ngIf="footerGroupedTemplate || footerTemplate || _footerTemplate || _footerGroupedTemplate" #tfoot [ngClass]="cx('footer')" [ngStyle]="sx('tfoot')">
+                        <ng-container
+                            *ngTemplateOutlet="
+                                footerGroupedTemplate || footerTemplate || _footerTemplate || _footerGroupedTemplate;
+                                context: {
+                                    $implicit: scrollerOptions.columns
+                                }
+                            "
+                        ></ng-container>
+                    </tfoot>
+                </table>
+            </ng-template>
         </div>
+
+        <p-paginator
+            [rows]="rows"
+            [first]="first"
+            [totalRecords]="totalRecords"
+            [pageLinkSize]="pageLinks"
+            [alwaysShow]="alwaysShowPaginator"
+            (onPageChange)="onPageChange($event)"
+            [rowsPerPageOptions]="rowsPerPageOptions"
+            *ngIf="paginator && (paginatorPosition === 'bottom' || paginatorPosition == 'both')"
+            [templateLeft]="paginatorLeftTemplate || _paginatorLeftTemplate"
+            [templateRight]="paginatorRightTemplate || _paginatorRightTemplate"
+            [appendTo]="paginatorDropdownAppendTo"
+            [dropdownScrollHeight]="paginatorDropdownScrollHeight"
+            [currentPageReportTemplate]="currentPageReportTemplate"
+            [showFirstLastIcon]="showFirstLastIcon"
+            [dropdownItemTemplate]="paginatorDropdownItemTemplate || _paginatorDropdownItemTemplate"
+            [showCurrentPageReport]="showCurrentPageReport"
+            [showJumpToPageDropdown]="showJumpToPageDropdown"
+            [showJumpToPageInput]="showJumpToPageInput"
+            [showPageLinks]="showPageLinks"
+            [styleClass]="cx('pcPaginator') + ' ' + paginatorStyleClass && paginatorStyleClass"
+            [locale]="paginatorLocale"
+        >
+            <ng-template pTemplate="dropdownicon" *ngIf="paginatorDropdownIconTemplate || _paginatorDropdownIconTemplate">
+                <ng-container *ngTemplateOutlet="paginatorDropdownIconTemplate || _paginatorDropdownIconTemplate"></ng-container>
+            </ng-template>
+
+            <ng-template pTemplate="firstpagelinkicon" *ngIf="paginatorFirstPageLinkIconTemplate || _paginatorFirstPageLinkIconTemplate">
+                <ng-container *ngTemplateOutlet="paginatorFirstPageLinkIconTemplate || _paginatorFirstPageLinkIconTemplate"></ng-container>
+            </ng-template>
+
+            <ng-template pTemplate="previouspagelinkicon" *ngIf="paginatorPreviousPageLinkIconTemplate || _paginatorPreviousPageLinkIconTemplate">
+                <ng-container *ngTemplateOutlet="paginatorPreviousPageLinkIconTemplate || _paginatorPreviousPageLinkIconTemplate"></ng-container>
+            </ng-template>
+
+            <ng-template pTemplate="lastpagelinkicon" *ngIf="paginatorLastPageLinkIconTemplate || _paginatorLastPageLinkIconTemplate">
+                <ng-container *ngTemplateOutlet="paginatorLastPageLinkIconTemplate || _paginatorLastPageLinkIconTemplate"></ng-container>
+            </ng-template>
+
+            <ng-template pTemplate="nextpagelinkicon" *ngIf="paginatorNextPageLinkIconTemplate || _paginatorNextPageLinkIconTemplate">
+                <ng-container *ngTemplateOutlet="paginatorNextPageLinkIconTemplate || _paginatorNextPageLinkIconTemplate"></ng-container>
+            </ng-template>
+        </p-paginator>
+
+        <div *ngIf="summaryTemplate || _summaryTemplate" [ngClass]="cx('footer')">
+            <ng-container *ngTemplateOutlet="summaryTemplate || _summaryTemplate"></ng-container>
+        </div>
+
+        <div #resizeHelper [ngClass]="cx('columnResizeIndicator')" [style.display]="'none'" *ngIf="resizableColumns"></div>
+        <span #reorderIndicatorUp [ngClass]="cx('rowReorderIndicatorUp')" [style.display]="'none'" *ngIf="reorderableColumns">
+            <svg data-p-icon="arrow-down" *ngIf="!reorderIndicatorUpIconTemplate && !_reorderIndicatorUpIconTemplate" />
+            <ng-template *ngTemplateOutlet="reorderIndicatorUpIconTemplate || _reorderIndicatorUpIconTemplate"></ng-template>
+        </span>
+        <span #reorderIndicatorDown [ngClass]="cx('rowReorderIndicatorDown')" [style.display]="'none'" *ngIf="reorderableColumns">
+            <svg data-p-icon="arrow-up" *ngIf="!reorderIndicatorDownIconTemplate && !_reorderIndicatorDownIconTemplate" />
+            <ng-template *ngTemplateOutlet="reorderIndicatorDownIconTemplate || _reorderIndicatorDownIconTemplate"></ng-template>
+        </span>
     `,
     providers: [TableService, TableStyle],
     changeDetection: ChangeDetectionStrategy.Default,
-    encapsulation: ViewEncapsulation.None
+    encapsulation: ViewEncapsulation.None,
+    host: {
+        '[attr.id]': 'id',
+        '[class]': "cn(cx('root'), styleClass)"
+    }
 })
-export class Table extends BaseComponent implements OnInit, AfterViewInit, AfterContentInit, BlockableUI, OnChanges {
+export class Table<RowData = any> extends BaseComponent implements OnInit, AfterViewInit, AfterContentInit, BlockableUI, OnChanges {
     /**
      * An array of objects to represent dynamic columns that are frozen.
      * @group Props
@@ -362,12 +364,8 @@ export class Table extends BaseComponent implements OnInit, AfterViewInit, After
      */
     @Input() frozenValue: any[] | undefined;
     /**
-     * Inline style of the component.
-     * @group Props
-     */
-    @Input() style: { [klass: string]: any } | null | undefined;
-    /**
      * Style class of the component.
+     * @deprecated since v20.0.0, use `class` instead.
      * @group Props
      */
     @Input() styleClass: string | undefined;
@@ -578,12 +576,6 @@ export class Table extends BaseComponent implements OnInit, AfterViewInit, After
      */
     @Input({ transform: booleanAttribute }) scrollable: boolean | undefined;
     /**
-     * Orientation of the scrolling, options are "vertical", "horizontal" and "both".
-     * @group Props
-     * @deprecated Property is obselete since v14.2.0.
-     */
-    @Input() scrollDirection: 'vertical' | 'horizontal' | 'both' = 'vertical';
-    /**
      * Type of the row grouping, valid values are "subheader" and "rowspan".
      * @group Props
      */
@@ -618,19 +610,6 @@ export class Table extends BaseComponent implements OnInit, AfterViewInit, After
      * @group Props
      */
     @Input() frozenWidth: string | undefined;
-    /**
-     * Defines if the table is responsive.
-     * @group Props
-     * @deprecated table is always responsive with scrollable behavior.
-     */
-    @Input() get responsive(): boolean | undefined | null {
-        return this._responsive;
-    }
-    set responsive(val: boolean | undefined | null) {
-        this._responsive = val;
-        console.log('responsive property is deprecated as table is always responsive with scrollable behavior.');
-    }
-    _responsive: boolean | undefined | null;
     /**
      * Local ng-template varilable of a ContextMenu.
      * @group Props
@@ -681,11 +660,6 @@ export class Table extends BaseComponent implements OnInit, AfterViewInit, After
      * @group Props
      */
     @Input({ transform: booleanAttribute }) showInitialSortBadge: boolean = true;
-    /**
-     * Whether the cell widths scale according to their content or not.  Deprecated:  Table layout is always "auto".
-     * @group Props
-     */
-    @Input({ transform: booleanAttribute }) autoLayout: boolean | undefined;
     /**
      * Export function.
      * @group Props
@@ -738,6 +712,7 @@ export class Table extends BaseComponent implements OnInit, AfterViewInit, After
     @Input({ transform: numberAttribute }) groupRowsByOrder: number = 1;
     /**
      * Defines the responsive mode, valid options are "stack" and "scroll".
+     * @deprecated since v20.0.0, always defaults to scroll, stack mode needs custom implementation
      * @group Props
      */
     @Input() responsiveLayout: string = 'scroll';
@@ -755,10 +730,10 @@ export class Table extends BaseComponent implements OnInit, AfterViewInit, After
      * An array of objects to display.
      * @group Props
      */
-    @Input() get value(): any[] {
+    @Input() get value(): RowData[] {
         return this._value;
     }
-    set value(val: any[]) {
+    set value(val: RowData[]) {
         this._value = val;
     }
     /**
@@ -843,18 +818,6 @@ export class Table extends BaseComponent implements OnInit, AfterViewInit, After
         this._selection = val;
     }
     /**
-     * Indicates the height of rows to be scrolled.
-     * @group Props
-     * @deprecated use virtualScrollItemSize property instead.
-     */
-    @Input() get virtualRowHeight(): number {
-        return this._virtualRowHeight;
-    }
-    set virtualRowHeight(val: number) {
-        this._virtualRowHeight = val;
-        console.log('The virtualRowHeight property is deprecated.');
-    }
-    /**
      * Whether all data is selected.
      * @group Props
      */
@@ -881,13 +844,13 @@ export class Table extends BaseComponent implements OnInit, AfterViewInit, After
      * @param {TableRowSelectEvent} event - custom select event.
      * @group Emits
      */
-    @Output() onRowSelect: EventEmitter<TableRowSelectEvent> = new EventEmitter<TableRowSelectEvent>();
+    @Output() onRowSelect: EventEmitter<TableRowSelectEvent<RowData>> = new EventEmitter<TableRowSelectEvent<RowData>>();
     /**
      * Callback to invoke when a row is unselected.
      * @param {TableRowUnSelectEvent} event - custom unselect event.
      * @group Emits
      */
-    @Output() onRowUnselect: EventEmitter<TableRowUnSelectEvent> = new EventEmitter<TableRowUnSelectEvent>();
+    @Output() onRowUnselect: EventEmitter<TableRowUnSelectEvent<RowData>> = new EventEmitter<TableRowUnSelectEvent<RowData>>();
     /**
      * Callback to invoke when pagination occurs.
      * @param {TablePageEvent} event - custom pagination event.
@@ -917,7 +880,7 @@ export class Table extends BaseComponent implements OnInit, AfterViewInit, After
      * @param {TableRowExpandEvent} event - custom row expand event.
      * @group Emits
      */
-    @Output() onRowExpand: EventEmitter<TableRowExpandEvent> = new EventEmitter<TableRowExpandEvent>();
+    @Output() onRowExpand: EventEmitter<TableRowExpandEvent<RowData>> = new EventEmitter<TableRowExpandEvent<RowData>>();
     /**
      * Callback to invoke when a row is collapsed.
      * @param {TableRowCollapseEvent} event - custom row collapse event.
@@ -929,7 +892,7 @@ export class Table extends BaseComponent implements OnInit, AfterViewInit, After
      * @param {TableContextMenuSelectEvent} event - custom context menu select event.
      * @group Emits
      */
-    @Output() onContextMenuSelect: EventEmitter<TableContextMenuSelectEvent> = new EventEmitter<TableContextMenuSelectEvent>();
+    @Output() onContextMenuSelect: EventEmitter<TableContextMenuSelectEvent<RowData>> = new EventEmitter<TableContextMenuSelectEvent<RowData>>();
     /**
      * Callback to invoke when a column is resized.
      * @param {TableColResizeEvent} event - custom column resize event.
@@ -1004,8 +967,6 @@ export class Table extends BaseComponent implements OnInit, AfterViewInit, After
      */
     @Output() onStateRestore: EventEmitter<TableState> = new EventEmitter<TableState>();
 
-    @ViewChild('container') containerViewChild: Nullable<ElementRef>;
-
     @ViewChild('resizeHelper') resizeHelperViewChild: Nullable<ElementRef>;
 
     @ViewChild('reorderIndicatorUp')
@@ -1026,9 +987,7 @@ export class Table extends BaseComponent implements OnInit, AfterViewInit, After
 
     @ContentChildren(PrimeTemplate) _templates: Nullable<QueryList<PrimeTemplate>>;
 
-    _virtualRowHeight: number = 28;
-
-    _value: any[] = [];
+    _value: RowData[] = [];
 
     _columns: any[] | undefined;
 
@@ -1068,7 +1027,7 @@ export class Table extends BaseComponent implements OnInit, AfterViewInit, After
     @ContentChild('colgroup', { descendants: false }) _colGroupTemplate: TemplateRef<any>;
     colGroupTemplate: Nullable<TemplateRef<any>>;
 
-    @ContentChild('rowexpansion', { descendants: false }) _expandedRowTemplate: TemplateRef<any>;
+    @ContentChild('expandedrow', { descendants: false }) _expandedRowTemplate: TemplateRef<any>;
     expandedRowTemplate: Nullable<TemplateRef<any>>;
 
     @ContentChild('groupheader', { descendants: false }) _groupHeaderTemplate: TemplateRef<any>;
@@ -1203,7 +1162,7 @@ export class Table extends BaseComponent implements OnInit, AfterViewInit, After
 
     overlaySubscription: Subscription | undefined;
 
-    resizeColumnElement: any;
+    resizeColumnElement: HTMLElement;
 
     columnResizing: boolean = false;
 
@@ -1283,7 +1242,7 @@ export class Table extends BaseComponent implements OnInit, AfterViewInit, After
                     this.colGroupTemplate = item.template;
                     break;
 
-                case 'rowexpansion':
+                case 'expandedrow':
                     this.expandedRowTemplate = item.template;
                     break;
 
@@ -1311,7 +1270,7 @@ export class Table extends BaseComponent implements OnInit, AfterViewInit, After
                     this.frozenColGroupTemplate = item.template;
                     break;
 
-                case 'frozenrowexpansion':
+                case 'frozenexpandedrow':
                     this.frozenExpandedRowTemplate = item.template;
                     break;
 
@@ -1964,7 +1923,7 @@ export class Table extends BaseComponent implements OnInit, AfterViewInit, After
         }
     }
 
-    selectRange(event: MouseEvent | KeyboardEvent, rowIndex: number) {
+    selectRange(event: MouseEvent | KeyboardEvent, rowIndex: number, isMetaKeySelection?: boolean | undefined) {
         let rangeStart, rangeEnd;
 
         if (<number>this.anchorRowIndex > rowIndex) {
@@ -1983,10 +1942,10 @@ export class Table extends BaseComponent implements OnInit, AfterViewInit, After
             (rangeEnd as number) -= <number>this.first;
         }
 
-        let rangeRowsData = [];
+        let rangeRowsData: RowData[] = [];
         for (let i = <number>rangeStart; i <= <number>rangeEnd; i++) {
             let rangeRowData = this.filteredValue ? this.filteredValue[i] : this.value[i];
-            if (!this.isSelected(rangeRowData)) {
+            if (!this.isSelected(rangeRowData) && !isMetaKeySelection) {
                 if (!this.isRowSelectable(rangeRowData, rowIndex)) {
                     continue;
                 }
@@ -2113,7 +2072,7 @@ export class Table extends BaseComponent implements OnInit, AfterViewInit, After
         }
     }
 
-    toggleRowWithCheckbox(event: any, rowData: any) {
+    toggleRowWithCheckbox(event: { originalEvent: Event; rowIndex: number }, rowData: any) {
         this.selection = this.selection || [];
         let selected = this.isSelected(rowData);
         let dataKeyValue = this.dataKey ? String(ObjectUtils.resolveFieldData(rowData, this.dataKey)) : null;
@@ -2157,9 +2116,9 @@ export class Table extends BaseComponent implements OnInit, AfterViewInit, After
         }
     }
 
-    toggleRowsWithCheckbox(event: Event, check: boolean) {
+    toggleRowsWithCheckbox({ originalEvent }: CheckboxChangeEvent, check: boolean) {
         if (this._selectAll !== null) {
-            this.selectAllChange.emit({ originalEvent: event, checked: check });
+            this.selectAllChange.emit({ originalEvent, checked: check });
         } else {
             const data = this.selectionPageOnly ? this.dataToRender(this.processedData) : this.processedData;
             let selection = this.selectionPageOnly && this._selection ? this._selection.filter((s: any) => !data.some((d: any) => this.equals(s, d))) : [];
@@ -2175,7 +2134,7 @@ export class Table extends BaseComponent implements OnInit, AfterViewInit, After
             this.selectionChange.emit(this._selection);
             this.tableService.onSelectionChange();
             this.onHeaderCheckboxToggle.emit({
-                originalEvent: event,
+                originalEvent,
                 checked: check
             });
 
@@ -2631,48 +2590,49 @@ export class Table extends BaseComponent implements OnInit, AfterViewInit, After
     }
 
     onColumnResizeBegin(event: any) {
-        let containerLeft = DomHandler.getOffset(this.containerViewChild?.nativeElement).left;
-        this.resizeColumnElement = event.target.parentElement;
+        let containerLeft = DomHandler.getOffset(this.el?.nativeElement).left;
+        this.resizeColumnElement = event.target.closest('th');
         this.columnResizing = true;
         if (event.type == 'touchstart') {
-            this.lastResizerHelperX = event.changedTouches[0].clientX - containerLeft + this.containerViewChild?.nativeElement.scrollLeft;
+            this.lastResizerHelperX = event.changedTouches[0].clientX - containerLeft + this.el?.nativeElement.scrollLeft;
         } else {
-            this.lastResizerHelperX = event.pageX - containerLeft + this.containerViewChild?.nativeElement.scrollLeft;
+            this.lastResizerHelperX = event.pageX - containerLeft + this.el?.nativeElement.scrollLeft;
         }
         this.onColumnResize(event);
         event.preventDefault();
     }
 
     onColumnResize(event: any) {
-        let containerLeft = DomHandler.getOffset(this.containerViewChild?.nativeElement).left;
-        DomHandler.addClass(this.containerViewChild?.nativeElement, 'p-unselectable-text');
-        (<ElementRef>this.resizeHelperViewChild).nativeElement.style.height = this.containerViewChild?.nativeElement.offsetHeight + 'px';
+        let containerLeft = DomHandler.getOffset(this.el?.nativeElement).left;
+        DomHandler.addClass(this.el?.nativeElement, 'p-unselectable-text');
+        (<ElementRef>this.resizeHelperViewChild).nativeElement.style.height = this.el?.nativeElement.offsetHeight + 'px';
         (<ElementRef>this.resizeHelperViewChild).nativeElement.style.top = 0 + 'px';
         if (event.type == 'touchmove') {
-            (<ElementRef>this.resizeHelperViewChild).nativeElement.style.left = event.changedTouches[0].clientX - containerLeft + this.containerViewChild?.nativeElement.scrollLeft + 'px';
+            (<ElementRef>this.resizeHelperViewChild).nativeElement.style.left = event.changedTouches[0].clientX - containerLeft + this.el?.nativeElement.scrollLeft + 'px';
         } else {
-            (<ElementRef>this.resizeHelperViewChild).nativeElement.style.left = event.pageX - containerLeft + this.containerViewChild?.nativeElement.scrollLeft + 'px';
+            (<ElementRef>this.resizeHelperViewChild).nativeElement.style.left = event.pageX - containerLeft + this.el?.nativeElement.scrollLeft + 'px';
         }
         (<ElementRef>this.resizeHelperViewChild).nativeElement.style.display = 'block';
     }
 
     onColumnResizeEnd() {
-        let delta = this.resizeHelperViewChild?.nativeElement.offsetLeft - <number>this.lastResizerHelperX;
-        let columnWidth = this.resizeColumnElement.offsetWidth;
-        let newColumnWidth = columnWidth + delta;
-        let minWidth = this.resizeColumnElement.style.minWidth.replace(/[^\d.]/g, '') || 15;
+        const delta = this.resizeHelperViewChild?.nativeElement.offsetLeft - <number>this.lastResizerHelperX;
+        const columnWidth = this.resizeColumnElement.offsetWidth;
+        const newColumnWidth = columnWidth + delta;
+        const elementMinWidth = this.resizeColumnElement.style.minWidth.replace(/[^\d.]/g, '');
+        const minWidth = elementMinWidth ? parseFloat(elementMinWidth) : 15;
 
         if (newColumnWidth >= minWidth) {
             if (this.columnResizeMode === 'fit') {
-                let nextColumn = this.resizeColumnElement.nextElementSibling;
-                let nextColumnWidth = nextColumn.offsetWidth - delta;
+                const nextColumn = this.resizeColumnElement.nextElementSibling as HTMLElement;
+                const nextColumnWidth = nextColumn.offsetWidth - delta;
 
                 if (newColumnWidth > 15 && nextColumnWidth > 15) {
                     this.resizeTableCells(newColumnWidth, nextColumnWidth);
                 }
             } else if (this.columnResizeMode === 'expand') {
                 this._initialColWidths = this._totalTableWidth();
-                let tableWidth = this.tableViewChild?.nativeElement.offsetWidth + delta;
+                const tableWidth = this.tableViewChild?.nativeElement.offsetWidth + delta;
 
                 this.setResizeTableWidth(tableWidth + 'px');
                 this.resizeTableCells(newColumnWidth, null);
@@ -2689,12 +2649,12 @@ export class Table extends BaseComponent implements OnInit, AfterViewInit, After
         }
 
         (<ElementRef>this.resizeHelperViewChild).nativeElement.style.display = 'none';
-        DomHandler.removeClass(this.containerViewChild?.nativeElement, 'p-unselectable-text');
+        DomHandler.removeClass(this.el?.nativeElement, 'p-unselectable-text');
     }
 
     private _totalTableWidth(): number[] {
         let widths = [];
-        const tableHead = DomHandler.findSingle(this.containerViewChild.nativeElement, '.p-datatable-thead');
+        const tableHead = DomHandler.findSingle(this.el.nativeElement, '.p-datatable-thead');
         let headers = DomHandler.find(tableHead, 'tr > th');
         headers.forEach((header) => widths.push(DomHandler.getOuterWidth(header)));
 
@@ -2711,7 +2671,7 @@ export class Table extends BaseComponent implements OnInit, AfterViewInit, After
     onColumnDragEnter(event: any, dropHeader: any) {
         if (this.reorderableColumns && this.draggedColumn && dropHeader) {
             event.preventDefault();
-            let containerOffset = DomHandler.getOffset(this.containerViewChild?.nativeElement);
+            let containerOffset = DomHandler.getOffset(this.el?.nativeElement);
             let dropHeaderOffset = DomHandler.getOffset(dropHeader);
 
             if (this.draggedColumn != dropHeader) {
@@ -3035,12 +2995,19 @@ export class Table extends BaseComponent implements OnInit, AfterViewInit, After
 
     saveColumnWidths(state: any) {
         let widths: any[] = [];
-        let headers = DomHandler.find(this.containerViewChild?.nativeElement, '.p-datatable-thead > tr > th');
+        let headers = [];
+
+        const container = this.el?.nativeElement;
+
+        if (container) {
+            headers = DomHandler.find(container, '.p-datatable-thead > tr > th');
+        }
+
         headers.forEach((header) => widths.push(DomHandler.getOuterWidth(header)));
         state.columnWidths = widths.join(',');
 
-        if (this.columnResizeMode === 'expand') {
-            state.tableWidth = DomHandler.getOuterWidth(this.tableViewChild?.nativeElement);
+        if (this.columnResizeMode === 'expand' && this.tableViewChild) {
+            state.tableWidth = DomHandler.getOuterWidth(this.tableViewChild.nativeElement);
         }
     }
 
@@ -3206,7 +3173,7 @@ export class Table extends BaseComponent implements OnInit, AfterViewInit, After
     template: `
         <ng-container *ngIf="!dt.expandedRowTemplate && !dt._expandedRowTemplate">
             <ng-template ngFor let-rowData let-rowIndex="index" [ngForOf]="value" [ngForTrackBy]="dt.rowTrackBy">
-                <ng-container *ngIf="(dt.groupHeaderTemplate || dt._groupHeaderTemplate) && !dt.virtualScroll && dt.rowGroupMode === 'subheader' && shouldRenderRowGroupHeader(value, rowData, rowIndex)" role="row">
+                <ng-container *ngIf="(dt.groupHeaderTemplate || dt._groupHeaderTemplate) && !dt.virtualScroll && dt.rowGroupMode === 'subheader' && shouldRenderRowGroupHeader(value, rowData, getRowIndex(rowIndex))" role="row">
                     <ng-container
                         *ngTemplateOutlet="
                             dt.groupHeaderTemplate || dt._groupHeaderTemplate;
@@ -3250,7 +3217,7 @@ export class Table extends BaseComponent implements OnInit, AfterViewInit, After
                         "
                     ></ng-container>
                 </ng-container>
-                <ng-container *ngIf="(dt.groupFooterTemplate || dt._groupFooterTemplate) && !dt.virtualScroll && dt.rowGroupMode === 'subheader' && shouldRenderRowGroupFooter(value, rowData, rowIndex)" role="row">
+                <ng-container *ngIf="(dt.groupFooterTemplate || dt._groupFooterTemplate) && !dt.virtualScroll && dt.rowGroupMode === 'subheader' && shouldRenderRowGroupFooter(value, rowData, getRowIndex(rowIndex))" role="row">
                     <ng-container
                         *ngTemplateOutlet="
                             dt.groupFooterTemplate || dt._groupFooterTemplate;
@@ -3422,7 +3389,7 @@ export class TableBody implements AfterViewInit, OnDestroy {
 
     shouldRenderRowGroupHeader(value: any, rowData: any, i: number) {
         let currentRowFieldData = ObjectUtils.resolveFieldData(rowData, this.dt.groupRowsBy);
-        let prevRowData = value[i - (1 + this.dt._first)];
+        let prevRowData = value[i - this.dt._first - 1];
         if (prevRowData) {
             let previousRowFieldData = ObjectUtils.resolveFieldData(prevRowData, this.dt.groupRowsBy);
             return currentRowFieldData !== previousRowFieldData;
@@ -3433,7 +3400,7 @@ export class TableBody implements AfterViewInit, OnDestroy {
 
     shouldRenderRowGroupFooter(value: any, rowData: any, i: number) {
         let currentRowFieldData = ObjectUtils.resolveFieldData(rowData, this.dt.groupRowsBy);
-        let nextRowData = value[i + (1 + this.dt._first)];
+        let nextRowData = value[i - this.dt._first + 1];
         if (nextRowData) {
             let nextRowFieldData = ObjectUtils.resolveFieldData(nextRowData, this.dt.groupRowsBy);
             return currentRowFieldData !== nextRowFieldData;
@@ -3570,22 +3537,23 @@ export class FrozenColumn implements AfterViewInit {
         if (this._frozen) {
             if (this.alignFrozen === 'right') {
                 let right = 0;
-                let next = this.el.nativeElement.nextElementSibling;
-                if (next) {
-                    right = DomHandler.getOuterWidth(next) + (parseFloat(next.style.right) || 0);
+                let sibling = this.el.nativeElement.nextElementSibling;
+                while (sibling) {
+                    right += DomHandler.getOuterWidth(sibling);
+                    sibling = sibling.nextElementSibling;
                 }
                 this.el.nativeElement.style.right = right + 'px';
             } else {
                 let left = 0;
-                let prev = this.el.nativeElement.previousElementSibling;
-                if (prev) {
-                    left = DomHandler.getOuterWidth(prev) + (parseFloat(prev.style.left) || 0);
+                let sibling = this.el.nativeElement.previousElementSibling;
+                while (sibling) {
+                    left += DomHandler.getOuterWidth(sibling);
+                    sibling = sibling.previousElementSibling;
                 }
                 this.el.nativeElement.style.left = left + 'px';
             }
 
             const filterRow = this.el.nativeElement?.parentElement?.nextElementSibling;
-
             if (filterRow) {
                 let index = DomHandler.index(this.el.nativeElement);
                 if (filterRow.children && filterRow.children[index]) {
@@ -3600,17 +3568,21 @@ export class FrozenColumn implements AfterViewInit {
     selector: '[pSortableColumn]',
     standalone: false,
     host: {
-        '[class.p-datatable-sortable-column]': 'isEnabled()',
-        '[class.p-datatable-column-sorted]': 'sorted',
-        '[attr.tabindex]': 'isEnabled() ? "0" : null',
-        '[attr.role]': '"columnheader"',
-        '[attr.aria-sort]': 'sortOrder'
-    }
+        '[class]': "cx('sortableColumn')",
+        '[tabindex]': 'isEnabled() ? "0" : null',
+        '[role]': '"columnheader"',
+        '[aria-sort]': 'sortOrder'
+    },
+    providers: [TableStyle]
 })
-export class SortableColumn implements OnInit, OnDestroy {
+export class SortableColumn extends BaseComponent implements OnInit, OnDestroy {
+    readonly #elementRef = inject(ElementRef);
+
     @Input('pSortableColumn') field: string | undefined;
 
     @Input({ transform: booleanAttribute }) pSortableColumnDisabled: boolean | undefined;
+
+    role = this.#elementRef.nativeElement?.tagName !== 'TH' ? 'columnheader' : null;
 
     sorted: boolean | undefined;
 
@@ -3618,7 +3590,10 @@ export class SortableColumn implements OnInit, OnDestroy {
 
     subscription: Subscription | undefined;
 
+    _componentStyle = inject(TableStyle);
+
     constructor(public dt: Table) {
+        super();
         if (this.isEnabled()) {
             this.subscription = this.dt.tableService.sortSource$.subscribe((sortMeta) => {
                 this.updateSortState();
@@ -3627,6 +3602,7 @@ export class SortableColumn implements OnInit, OnDestroy {
     }
 
     ngOnInit() {
+        super.ngOnInit();
         if (this.isEnabled()) {
             this.updateSortState();
         }
@@ -3682,6 +3658,7 @@ export class SortableColumn implements OnInit, OnDestroy {
     }
 
     ngOnDestroy() {
+        super.ngOnDestroy();
         if (this.subscription) {
             this.subscription.unsubscribe();
         }
@@ -3692,36 +3669,41 @@ export class SortableColumn implements OnInit, OnDestroy {
     selector: 'p-sortIcon',
     standalone: false,
     template: `
-        <ng-container *ngIf="!(dt.sortIconTemplate && dt._sortIconTemplate)">
-            <SortAltIcon [styleClass]="'p-sortable-column-icon'" *ngIf="sortOrder === 0" />
-            <SortAmountUpAltIcon [styleClass]="'p-sortable-column-icon'" *ngIf="sortOrder === 1" />
-            <SortAmountDownIcon [styleClass]="'p-sortable-column-icon'" *ngIf="sortOrder === -1" />
+        <ng-container *ngIf="!(dt.sortIconTemplate || dt._sortIconTemplate)">
+            <svg data-p-icon="sort-alt" [class]="cx('sortableColumnIcon')" *ngIf="sortOrder === 0" />
+            <svg data-p-icon="sort-amount-up-alt" [class]="cx('sortableColumnIcon')" *ngIf="sortOrder === 1" />
+            <svg data-p-icon="sort-amount-down" [class]="cx('sortableColumnIcon')" *ngIf="sortOrder === -1" />
         </ng-container>
-        <span *ngIf="dt.sortIconTemplate || dt._sortIconTemplate" class="p-sortable-column-icon">
+        <span *ngIf="dt.sortIconTemplate || dt._sortIconTemplate" [class]="cx('sortableColumnIcon')">
             <ng-template *ngTemplateOutlet="dt.sortIconTemplate || dt._sortIconTemplate; context: { $implicit: sortOrder }"></ng-template>
         </span>
-        <span *ngIf="isMultiSorted()" class="p-sortable-column-badge">{{ getBadgeValue() }}</span>
+        <p-badge *ngIf="isMultiSorted()" [class]="cx('sortableColumnBadge')" [value]="getBadgeValue()" size="small"></p-badge>
     `,
     changeDetection: ChangeDetectionStrategy.OnPush,
-    encapsulation: ViewEncapsulation.None
+    encapsulation: ViewEncapsulation.None,
+    providers: [TableStyle]
 })
-export class SortIcon implements OnInit, OnDestroy {
+export class SortIcon extends BaseComponent implements OnInit, OnDestroy {
     @Input() field: string | undefined;
 
     subscription: Subscription | undefined;
 
     sortOrder: number | undefined;
 
+    _componentStyle = inject(TableStyle);
+
     constructor(
         public dt: Table,
         public cd: ChangeDetectorRef
     ) {
+        super();
         this.subscription = this.dt.tableService.sortSource$.subscribe((sortMeta) => {
             this.updateSortState();
         });
     }
 
     ngOnInit() {
+        super.ngOnInit();
         this.updateSortState();
     }
 
@@ -3768,6 +3750,7 @@ export class SortIcon implements OnInit, OnDestroy {
     }
 
     ngOnDestroy() {
+        super.ngOnDestroy();
         if (this.subscription) {
             this.subscription.unsubscribe();
         }
@@ -3778,13 +3761,13 @@ export class SortIcon implements OnInit, OnDestroy {
     selector: '[pSelectableRow]',
     standalone: false,
     host: {
-        '[class.p-datatable-selectable-row]': 'isEnabled()',
-        '[class.p-datatable-row-selected]': 'selected',
-        '[attr.tabindex]': 'setRowTabIndex()',
-        '[attr.data-p-selectable-row]': 'true'
-    }
+        '[class]': "cx('selectableRow')",
+        '[tabindex]': 'setRowTabIndex()',
+        '[data-p-selectable-row]': 'true'
+    },
+    providers: [TableStyle]
 })
-export class SelectableRow implements OnInit, OnDestroy {
+export class SelectableRow extends BaseComponent implements OnInit, OnDestroy {
     @Input('pSelectableRow') data: any;
 
     @Input('pSelectableRowIndex') index: number | undefined;
@@ -3795,11 +3778,13 @@ export class SelectableRow implements OnInit, OnDestroy {
 
     subscription: Subscription | undefined;
 
+    _componentStyle = inject(TableStyle);
+
     constructor(
         public dt: Table,
-        public tableService: TableService,
-        private el: ElementRef
+        public tableService: TableService
     ) {
+        super();
         if (this.isEnabled()) {
             this.subscription = this.dt.tableService.selectionSource$.subscribe(() => {
                 this.selected = this.dt.isSelected(this.data);
@@ -3814,6 +3799,7 @@ export class SelectableRow implements OnInit, OnDestroy {
     }
 
     ngOnInit() {
+        super.ngOnInit();
         if (this.isEnabled()) {
             this.selected = this.dt.isSelected(this.data);
         }
@@ -3868,7 +3854,7 @@ export class SelectableRow implements OnInit, OnDestroy {
                 if (event.code === 'KeyA' && (event.metaKey || event.ctrlKey) && this.dt.selectionMode === 'multiple') {
                     const data = this.dt.dataToRender(this.dt.processedData);
                     this.dt.selection = [...data];
-                    this.dt.selectRange(event, data.length - 1);
+                    this.dt.selectRange(event, data.length - 1, true);
 
                     event.preventDefault();
                 }
@@ -4000,7 +3986,7 @@ export class SelectableRow implements OnInit, OnDestroy {
     findNextSelectableRow(row: HTMLTableRowElement): HTMLTableRowElement | null {
         let nextRow = <HTMLTableRowElement>row.nextElementSibling;
         if (nextRow) {
-            if (DomHandler.hasClass(nextRow, 'p-selectable-row')) return nextRow;
+            if (DomHandler.hasClass(nextRow, 'p-datatable-selectable-row')) return nextRow;
             else return this.findNextSelectableRow(nextRow);
         } else {
             return null;
@@ -4010,7 +3996,7 @@ export class SelectableRow implements OnInit, OnDestroy {
     findPrevSelectableRow(row: HTMLTableRowElement): HTMLTableRowElement | null {
         let prevRow = <HTMLTableRowElement>row.previousElementSibling;
         if (prevRow) {
-            if (DomHandler.hasClass(prevRow, 'p-selectable-row')) return prevRow;
+            if (DomHandler.hasClass(prevRow, 'p-datatable-selectable-row')) return prevRow;
             else return this.findPrevSelectableRow(prevRow);
         } else {
             return null;
@@ -4022,6 +4008,7 @@ export class SelectableRow implements OnInit, OnDestroy {
     }
 
     ngOnDestroy() {
+        super.ngOnDestroy();
         if (this.subscription) {
             this.subscription.unsubscribe();
         }
@@ -4090,7 +4077,7 @@ export class SelectableRowDblClick implements OnInit, OnDestroy {
     selector: '[pContextMenuRow]',
     standalone: false,
     host: {
-        '[class.p-highlight-contextmenu]': 'selected',
+        '[class.p-datatable-contextmenu-row-selected]': 'selected',
         '[attr.tabindex]': 'isEnabled() ? 0 : undefined'
     }
 })
@@ -4170,10 +4157,11 @@ export class RowToggler {
     selector: '[pResizableColumn]',
     standalone: false,
     host: {
-        class: 'p-datatable-resizable-column'
-    }
+        '[class]': "cx('resizableColumn')"
+    },
+    providers: [TableStyle]
 })
-export class ResizableColumn implements AfterViewInit, OnDestroy {
+export class ResizableColumn extends BaseComponent implements AfterViewInit, OnDestroy {
     @Input({ transform: booleanAttribute }) pResizableColumnDisabled: boolean | undefined;
 
     resizer: HTMLSpanElement | undefined;
@@ -4190,16 +4178,18 @@ export class ResizableColumn implements AfterViewInit, OnDestroy {
 
     documentMouseUpListener: VoidListener;
 
+    _componentStyle = inject(TableStyle);
+
     constructor(
-        @Inject(DOCUMENT) private document: Document,
-        @Inject(PLATFORM_ID) private platformId: any,
-        private renderer: Renderer2,
         public dt: Table,
         public el: ElementRef,
         public zone: NgZone
-    ) {}
+    ) {
+        super();
+    }
 
     ngAfterViewInit() {
+        super.ngAfterViewInit();
         if (isPlatformBrowser(this.platformId)) {
             if (this.isEnabled()) {
                 DomHandler.addClass(this.el.nativeElement, 'p-datatable-resizable-column');
@@ -4277,6 +4267,7 @@ export class ResizableColumn implements AfterViewInit, OnDestroy {
     }
 
     ngOnDestroy() {
+        super.ngOnDestroy();
         if (this.resizerMouseDownListener) {
             this.resizerMouseDownListener();
             this.resizerMouseDownListener = null;
@@ -4290,10 +4281,11 @@ export class ResizableColumn implements AfterViewInit, OnDestroy {
     selector: '[pReorderableColumn]',
     standalone: false,
     host: {
-        class: 'p-datatable-reorderable-column'
-    }
+        '[class]': "cx('reorderableColumn')"
+    },
+    providers: [TableStyle]
 })
-export class ReorderableColumn implements AfterViewInit, OnDestroy {
+export class ReorderableColumn extends BaseComponent implements AfterViewInit, OnDestroy {
     @Input({ transform: booleanAttribute }) pReorderableColumnDisabled: boolean | undefined;
 
     dragStartListener: VoidListener;
@@ -4306,15 +4298,18 @@ export class ReorderableColumn implements AfterViewInit, OnDestroy {
 
     mouseDownListener: VoidListener;
 
+    _componentStyle = inject(TableStyle);
+
     constructor(
-        @Inject(PLATFORM_ID) private platformId: any,
-        private renderer: Renderer2,
         public dt: Table,
         public el: ElementRef,
         public zone: NgZone
-    ) {}
+    ) {
+        super();
+    }
 
     ngAfterViewInit() {
+        super.ngAfterViewInit();
         if (this.isEnabled()) {
             this.bindEvents();
         }
@@ -4396,6 +4391,7 @@ export class ReorderableColumn implements AfterViewInit, OnDestroy {
     }
 
     ngOnDestroy() {
+        super.ngOnDestroy();
         this.unbindEvents();
     }
 }
@@ -4806,15 +4802,18 @@ export class SaveEditableRow {
     selector: '[pCancelEditableRow]',
     standalone: false,
     host: {
-        class: 'p-datatable-row-editor-cancel'
-    }
+        '[class]': "cx('rowEditorCancel')"
+    },
+    providers: [TableStyle]
 })
-export class CancelEditableRow {
+export class CancelEditableRow extends BaseComponent {
     constructor(
         public dt: Table,
         public editableRow: EditableRow
-    ) {}
-
+    ) {
+        super();
+    }
+    _componentStyle = inject(TableStyle);
     @HostListener('click', ['$event'])
     onClick(event: Event) {
         this.dt.cancelRowEdit(this.editableRow.data);
@@ -4874,28 +4873,23 @@ export class CellEditor implements AfterContentInit {
 @Component({
     selector: 'p-tableRadioButton',
     standalone: false,
-    template: ` <p-radioButton #rb [(ngModel)]="checked" [disabled]="disabled" [inputId]="inputId" [name]="name" [ariaLabel]="ariaLabel" [binary]="true" [value]="value" (onClick)="onClick($event)" /> `,
+    template: ` <p-radioButton #rb [(ngModel)]="checked" [disabled]="disabled()" [inputId]="inputId()" [name]="name()" [ariaLabel]="ariaLabel" [binary]="true" [value]="value" (onClick)="onClick($event)" /> `,
     changeDetection: ChangeDetectionStrategy.OnPush,
     encapsulation: ViewEncapsulation.None
 })
-export class TableRadioButton {
-    @Input({ transform: booleanAttribute }) disabled: boolean | undefined;
-
+export class TableRadioButton implements OnInit, OnDestroy {
     @Input() value: any;
 
-    @Input({ transform: numberAttribute }) index: number | undefined;
-
-    @Input() inputId: string | undefined;
-
-    @Input() name: string | undefined;
+    readonly disabled = input<boolean | undefined, unknown>(undefined, { transform: booleanAttribute });
+    readonly index = input<number | undefined, unknown>(undefined, { transform: numberAttribute });
+    readonly inputId = input<string | undefined>();
+    readonly name = input<string | undefined>();
 
     @Input() ariaLabel: string | undefined;
 
     @ViewChild('rb') inputViewChild: Nullable<RadioButton>;
 
     checked: boolean | undefined;
-
-    focused: boolean | undefined;
 
     subscription: Subscription;
 
@@ -4916,11 +4910,11 @@ export class TableRadioButton {
     }
 
     onClick(event: RadioButtonClickEvent) {
-        if (!this.disabled) {
+        if (!this.disabled()) {
             this.dt.toggleRowWithRadio(
                 {
                     originalEvent: event.originalEvent,
-                    rowIndex: this.index
+                    rowIndex: this.index()
                 },
                 this.value
             );
@@ -4941,35 +4935,29 @@ export class TableRadioButton {
     selector: 'p-tableCheckbox',
     standalone: false,
     template: `
-        <p-checkbox [(ngModel)]="checked" [binary]="true" (onChange)="onClick($event)" [disabled]="disabled" [ariaLabel]="ariaLabel">
-            <ng-container *ngIf="dt.checkboxIconTemplate || dt._checkboxIconTemplate">
+        <p-checkbox [(ngModel)]="checked" [binary]="true" (onChange)="onClick($event)" [required]="required()" [disabled]="disabled()" [inputId]="inputId()" [name]="name()" [ariaLabel]="ariaLabel">
+            @if (dt.checkboxIconTemplate || dt._checkboxIconTemplate; as template) {
                 <ng-template pTemplate="icon">
-                    <ng-template *ngTemplateOutlet="dt.checkboxIconTemplate || dt._checkboxIconTemplate; context: { $implicit: checked }"></ng-template>
+                    <ng-template *ngTemplateOutlet="template; context: { $implicit: checked }" />
                 </ng-template>
-            </ng-container>
+            }
         </p-checkbox>
     `,
     changeDetection: ChangeDetectionStrategy.OnPush,
     encapsulation: ViewEncapsulation.None
 })
-export class TableCheckbox {
-    @Input({ transform: booleanAttribute }) disabled: boolean | undefined;
-
+export class TableCheckbox implements OnInit, OnDestroy {
     @Input() value: any;
 
-    @Input({ transform: numberAttribute }) index: number | undefined;
-
-    @Input() inputId: string | undefined;
-
-    @Input() name: string | undefined;
-
-    @Input({ transform: booleanAttribute }) required: boolean | undefined;
+    readonly disabled = input<boolean | undefined, unknown>(undefined, { transform: booleanAttribute });
+    readonly required = input<boolean | undefined, unknown>(undefined, { transform: booleanAttribute });
+    readonly index = input<number | undefined, unknown>(undefined, { transform: numberAttribute });
+    readonly inputId = input<string | undefined>();
+    readonly name = input<string | undefined>();
 
     @Input() ariaLabel: string | undefined;
 
     checked: boolean | undefined;
-
-    focused: boolean | undefined;
 
     subscription: Subscription;
 
@@ -4979,7 +4967,7 @@ export class TableCheckbox {
         public cd: ChangeDetectorRef
     ) {
         this.subscription = this.dt.tableService.selectionSource$.subscribe(() => {
-            this.checked = this.dt.isSelected(this.value) && !this.disabled;
+            this.checked = this.dt.isSelected(this.value) && !this.disabled();
             this.ariaLabel = this.ariaLabel || this.dt.config.translation.aria ? (this.checked ? this.dt.config.translation.aria.selectRow : this.dt.config.translation.aria.unselectRow) : undefined;
             this.cd.markForCheck();
         });
@@ -4989,25 +4977,17 @@ export class TableCheckbox {
         this.checked = this.dt.isSelected(this.value);
     }
 
-    onClick(event: Event) {
-        if (!this.disabled) {
+    onClick({ originalEvent }: CheckboxChangeEvent) {
+        if (!this.disabled()) {
             this.dt.toggleRowWithCheckbox(
                 {
-                    originalEvent: event,
-                    rowIndex: this.index
+                    originalEvent,
+                    rowIndex: this.index()
                 },
                 this.value
             );
         }
         DomHandler.clearSelection();
-    }
-
-    onFocus() {
-        this.focused = true;
-    }
-
-    onBlur() {
-        this.focused = false;
     }
 
     ngOnDestroy() {
@@ -5021,29 +5001,25 @@ export class TableCheckbox {
     selector: 'p-tableHeaderCheckbox',
     standalone: false,
     template: `
-        <p-checkbox [(ngModel)]="checked" (onChange)="onClick($event)" [binary]="true" [disabled]="isDisabled()" [ariaLabel]="ariaLabel">
-            <ng-container *ngIf="dt.headerCheckboxIconTemplate || dt._headerCheckboxIconTemplate">
+        <p-checkbox [(ngModel)]="checked" (onChange)="onClick($event)" [binary]="true" [disabled]="isDisabled()" [inputId]="inputId()" [name]="name()" [ariaLabel]="ariaLabel">
+            @if (dt.headerCheckboxIconTemplate || dt._headerCheckboxIconTemplate; as template) {
                 <ng-template pTemplate="icon">
-                    <ng-template *ngTemplateOutlet="dt.headerCheckboxIconTemplate || dt._headerCheckboxIconTemplate; context: { $implicit: checked }"></ng-template>
+                    <ng-template *ngTemplateOutlet="template; context: { $implicit: checked }" />
                 </ng-template>
-            </ng-container>
+            }
         </p-checkbox>
     `,
     changeDetection: ChangeDetectionStrategy.OnPush,
     encapsulation: ViewEncapsulation.None
 })
-export class TableHeaderCheckbox {
-    @Input({ transform: booleanAttribute }) disabled: boolean | undefined;
-
-    @Input() inputId: string | undefined;
-
-    @Input() name: string | undefined;
+export class TableHeaderCheckbox implements OnInit, OnDestroy {
+    readonly disabled = input<boolean | undefined, unknown>(undefined, { transform: booleanAttribute });
+    readonly inputId = input<string | undefined>();
+    readonly name = input<string | undefined>();
 
     @Input() ariaLabel: string | undefined;
 
     checked: boolean | undefined;
-
-    focused: boolean | undefined;
 
     selectionChangeSubscription: Subscription;
 
@@ -5068,8 +5044,8 @@ export class TableHeaderCheckbox {
         this.checked = this.updateCheckedState();
     }
 
-    onClick(event: Event) {
-        if (!this.disabled) {
+    onClick(event: CheckboxChangeEvent) {
+        if (!this.disabled()) {
             if (this.dt.value && this.dt.value.length > 0) {
                 this.dt.toggleRowsWithCheckbox(event, this.checked);
             }
@@ -5078,16 +5054,8 @@ export class TableHeaderCheckbox {
         DomHandler.clearSelection();
     }
 
-    onFocus() {
-        this.focused = true;
-    }
-
-    onBlur() {
-        this.focused = false;
-    }
-
     isDisabled() {
-        return this.disabled || !this.dt.value || !this.dt.value.length;
+        return this.disabled() || !this.dt.value || !this.dt.value.length;
     }
 
     ngOnDestroy() {
@@ -5119,11 +5087,16 @@ export class TableHeaderCheckbox {
     selector: '[pReorderableRowHandle]',
     standalone: false,
     host: {
-        class: 'p-datatable-reorderable-row-handle'
-    }
+        '[class]': "cx('reorderableRowHandle')"
+    },
+    providers: [TableStyle]
 })
-export class ReorderableRowHandle implements AfterViewInit {
-    constructor(public el: ElementRef) {}
+export class ReorderableRowHandle extends BaseComponent implements AfterViewInit {
+    _componentStyle = inject(TableStyle);
+
+    constructor(public el: ElementRef) {
+        super();
+    }
 
     ngAfterViewInit() {
         // DomHandler.addClass(this.el.nativeElement, 'p-datatable-reorderable-row-handle');
@@ -5264,7 +5237,7 @@ export class ReorderableRow implements AfterViewInit {
     selector: 'p-columnFilter',
     standalone: false,
     template: `
-        <div [ngClass]="cx('filter')">
+        <div [class]="cx('filter')">
             <p-columnFilterFormElement
                 *ngIf="display === 'row'"
                 class="p-fluid"
@@ -5272,7 +5245,7 @@ export class ReorderableRow implements AfterViewInit {
                 [field]="field"
                 [ariaLabel]="ariaLabel"
                 [filterConstraint]="dt.filters[field]"
-                [filterTemplate]="filterTemplate"
+                [filterTemplate]="filterTemplate || _filterTemplate"
                 [placeholder]="placeholder"
                 [minFractionDigits]="minFractionDigits"
                 [maxFractionDigits]="maxFractionDigits"
@@ -5284,6 +5257,7 @@ export class ReorderableRow implements AfterViewInit {
                 [currencyDisplay]="currencyDisplay"
                 [useGrouping]="useGrouping"
                 [showButtons]="showButtons"
+                [filterOn]="filterOn"
             ></p-columnFilterFormElement>
             <p-button
                 *ngIf="showMenuButton"
@@ -5297,21 +5271,18 @@ export class ReorderableRow implements AfterViewInit {
                 [buttonProps]="filterButtonProps?.filter"
             >
                 <ng-template #icon>
-                    <FilterIcon *ngIf="!filterIconTemplate && !_filterIconTemplate" />
-                    <span class="pi-filter-icon" *ngIf="filterIconTemplate || _filterIconTemplate">
-                        <ng-template *ngTemplateOutlet="filterIconTemplate || _filterIconTemplate"></ng-template>
-                    </span>
-                </ng-template>
-            </p-button>
-            <p-button *ngIf="showClearButton && display === 'row' && hasFilter" [styleClass]="cx('pcColumnfilterClearButton')" (onClick)="clearFilter()" [ariaLabel]="clearButtonLabel" [buttonProps]="filterButtonProps?.inline?.clear">
-                <ng-template #icon>
-                    <FilterSlashIcon *ngIf="!clearFilterIconTemplate && !_clearFilterIconTemplate" />
-                    <ng-template *ngTemplateOutlet="clearFilterIconTemplate || _clearFilterIconTemplate"></ng-template>
+                    <ng-container>
+                        <svg data-p-icon="filter" *ngIf="!filterIconTemplate && !_filterIconTemplate && !hasFilter" />
+                        <svg data-p-icon="filter-fill" *ngIf="!filterIconTemplate && !_filterIconTemplate && hasFilter" />
+                        <span class="pi-filter-icon" *ngIf="filterIconTemplate || _filterIconTemplate">
+                            <ng-template *ngTemplateOutlet="filterIconTemplate || _filterIconTemplate; context: { hasFilter: hasFilter }"></ng-template>
+                        </span>
+                    </ng-container>
                 </ng-template>
             </p-button>
             <div
                 *ngIf="showMenu && overlayVisible"
-                [ngClass]="cx('filterOverlay')"
+                [class]="cx('filterOverlay')"
                 [id]="overlayId"
                 [attr.aria-modal]="true"
                 role="dialog"
@@ -5322,28 +5293,28 @@ export class ReorderableRow implements AfterViewInit {
                 (keydown.escape)="onEscape()"
             >
                 <ng-container *ngTemplateOutlet="headerTemplate || _headerTemplate; context: { $implicit: field }"></ng-container>
-                <ul *ngIf="display === 'row'; else menu" [ngClass]="cx('filterConstraintList')">
+                <ul *ngIf="display === 'row'; else menu" [class]="cx('filterConstraintList')">
                     <li
                         *ngFor="let matchMode of matchModes; let i = index"
                         (click)="onRowMatchModeChange(matchMode.value)"
                         (keydown)="onRowMatchModeKeyDown($event)"
                         (keydown.enter)="onRowMatchModeChange(matchMode.value)"
-                        [ngClass]="cx('filterConstraint')"
+                        [class]="cx('filterConstraint')"
                         [class.p-datatable-filter-constraint-selected]="isRowMatchModeSelected(matchMode.value)"
                         [attr.tabindex]="i === 0 ? '0' : null"
                     >
                         {{ matchMode.label }}
                     </li>
-                    <li [ngClass]="cx('filterConstraintSeparator')"></li>
-                    <li [ngClass]="cx('filterConstraint')" (click)="onRowClearItemClick()" (keydown)="onRowMatchModeKeyDown($event)" (keydown.enter)="onRowClearItemClick()">
+                    <li [class]="cx('filterConstraintSeparator')"></li>
+                    <li [class]="cx('filterConstraint')" (click)="onRowClearItemClick()" (keydown)="onRowMatchModeKeyDown($event)" (keydown.enter)="onRowClearItemClick()">
                         {{ noFilterLabel }}
                     </li>
                 </ul>
                 <ng-template #menu>
-                    <div [ngClass]="cx('filterOperator')" *ngIf="isShowOperator">
+                    <div [class]="cx('filterOperator')" *ngIf="isShowOperator">
                         <p-select [options]="operatorOptions" [ngModel]="operator" (ngModelChange)="onOperatorChange($event)" [styleClass]="cx('pcFilterOperatorDropdown')"></p-select>
                     </div>
-                    <div [ngClass]="cx('filterRuleList')">
+                    <div [class]="cx('filterRuleList')">
                         <div *ngFor="let fieldConstraint of fieldConstraints; let i = index" [ngClass]="cx('filterRule')">
                             <p-select
                                 *ngIf="showMatchModes && matchModes"
@@ -5367,6 +5338,7 @@ export class ReorderableRow implements AfterViewInit {
                                 [currency]="currency"
                                 [currencyDisplay]="currencyDisplay"
                                 [useGrouping]="useGrouping"
+                                [filterOn]="filterOn"
                             ></p-columnFilterFormElement>
                             <div>
                                 <p-button
@@ -5380,8 +5352,10 @@ export class ReorderableRow implements AfterViewInit {
                                     [label]="removeRuleButtonLabel"
                                     [buttonProps]="filterButtonProps?.popover?.removeRule"
                                 >
-                                    <TrashIcon *ngIf="!removeRuleIconTemplate && !_removeRuleIconTemplate" />
-                                    <ng-template *ngTemplateOutlet="removeRuleIconTemplate || _removeRuleIconTemplate"></ng-template>
+                                    <ng-template #icon>
+                                        <svg data-p-icon="trash" *ngIf="!removeRuleIconTemplate && !_removeRuleIconTemplate" />
+                                        <ng-template *ngTemplateOutlet="removeRuleIconTemplate || _removeRuleIconTemplate"></ng-template>
+                                    </ng-template>
                                 </p-button>
                             </div>
                         </div>
@@ -5397,11 +5371,13 @@ export class ReorderableRow implements AfterViewInit {
                             (onClick)="addConstraint()"
                             [buttonProps]="filterButtonProps?.popover?.addRule"
                         >
-                            <PlusIcon *ngIf="!addRuleIconTemplate && !_addRuleIconTemplate" />
-                            <ng-template *ngTemplateOutlet="addRuleIconTemplate || _addRuleIconTemplate"></ng-template>
+                            <ng-template #icon>
+                                <svg data-p-icon="plus" *ngIf="!addRuleIconTemplate && !_addRuleIconTemplate" />
+                                <ng-template *ngTemplateOutlet="addRuleIconTemplate || _addRuleIconTemplate"></ng-template>
+                            </ng-template>
                         </p-button>
                     </div>
-                    <div [ngClass]="cx('filterButtonbar')">
+                    <div [class]="cx('filterButtonbar')">
                         <p-button #clearBtn *ngIf="showClearButton" [outlined]="true" (onClick)="clearFilter()" [attr.aria-label]="clearButtonLabel" [label]="clearButtonLabel" [buttonProps]="filterButtonProps?.popover?.clear" />
                         <p-button *ngIf="showApplyButton" (onClick)="applyFilter()" size="small" [label]="applyButtonLabel" [attr.aria-label]="applyButtonLabel" [buttonProps]="filterButtonProps?.popover?.apply" />
                     </div>
@@ -5474,7 +5450,7 @@ export class ColumnFilter extends BaseComponent implements AfterContentInit {
      * Decides whether to close popup on clear button click.
      * @group Props
      */
-    @Input({ transform: booleanAttribute }) hideOnClear: boolean = false;
+    @Input({ transform: booleanAttribute }) hideOnClear: boolean = true;
     /**
      * Filter placeholder.
      * @group Props
@@ -5532,6 +5508,12 @@ export class ColumnFilter extends BaseComponent implements AfterContentInit {
      * @group Props
      */
     @Input() currencyDisplay: string | undefined;
+    /**
+     * Default trigger to run filtering on built-in text and numeric filters, valid values are 'enter' and 'input'.
+     * @defaultValue enter
+     * @group Props
+     */
+    @Input() filterOn: string | undefined = 'enter';
     /**
      * Defines if filter grouping will be enabled.
      * @group Props
@@ -6200,7 +6182,7 @@ export class ColumnFilter extends BaseComponent implements AfterContentInit {
                     [currencyDisplay]="currencyDisplay"
                     [useGrouping]="useGrouping"
                 ></p-inputNumber>
-                <p-checkbox [indeterminate]="true" [binary]="true" *ngSwitchCase="'boolean'" [ngModel]="filterConstraint?.value" (ngModelChange)="onModelChange($event)" />
+                <p-checkbox [indeterminate]="filterConstraint?.value === null" [binary]="true" *ngSwitchCase="'boolean'" [ngModel]="filterConstraint?.value" (ngModelChange)="onModelChange($event)" />
 
                 <p-datepicker [ariaLabel]="ariaLabel" *ngSwitchCase="'date'" [placeholder]="placeholder" [ngModel]="filterConstraint?.value" (ngModelChange)="onModelChange($event)" appendTo="body"></p-datepicker>
             </ng-container>
@@ -6241,6 +6223,8 @@ export class ColumnFilterFormElement implements OnInit {
 
     @Input() ariaLabel: string | undefined;
 
+    @Input() filterOn: string | undefined;
+
     get showButtons(): boolean {
         return this.colFilter.showButtons;
     }
@@ -6262,7 +6246,7 @@ export class ColumnFilterFormElement implements OnInit {
     onModelChange(value: any) {
         (<any>this.filterConstraint).value = value;
 
-        if (this.type === 'date' || this.type === 'boolean' || value === '') {
+        if (this.type === 'date' || this.type === 'boolean' || ((this.type === 'text' || this.type === 'numeric') && this.filterOn === 'input') || !value) {
             this.dt._filter();
         }
     }
@@ -6291,6 +6275,7 @@ export class ColumnFilterFormElement implements OnInit {
         SelectButtonModule,
         DatePickerModule,
         InputNumberModule,
+        BadgeModule,
         CheckboxModule,
         ScrollerModule,
         ArrowDownIcon,
@@ -6299,8 +6284,8 @@ export class ColumnFilterFormElement implements OnInit {
         SortAltIcon,
         SortAmountUpAltIcon,
         SortAmountDownIcon,
-        CheckIcon,
         FilterIcon,
+        FilterFillIcon,
         FilterSlashIcon,
         PlusIcon,
         TrashIcon,

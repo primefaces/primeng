@@ -12,18 +12,13 @@ interface UploadEvent {
     standalone: false,
     template: `
         <app-docsectiontext>
-            <p>FileUpload is an advanced uploader with dragdrop support, multi file uploads, auto uploading, progress tracking and validations.</p>
+            <p>Advanced uploader provides dragdrop support, multi file uploads, auto uploading, progress tracking and validations.</p>
         </app-docsectiontext>
         <div class="card">
             <p-toast />
             <p-fileupload name="demo[]" url="https://www.primefaces.org/cdn/api/upload.php" (onUpload)="onUpload($event)" [multiple]="true" accept="image/*" maxFileSize="1000000" mode="advanced">
                 <ng-template #empty>
                     <div>Drag and drop files to here to upload.</div>
-                </ng-template>
-                <ng-template #content>
-                    <ul *ngIf="uploadedFiles.length">
-                        <li *ngFor="let file of uploadedFiles">{{ file.name }} - {{ file.size }} bytes</li>
-                    </ul>
                 </ng-template>
             </p-fileupload>
         </div>
@@ -49,22 +44,12 @@ export class AdvancedDoc {
     <ng-template #empty>
         <div>Drag and drop files to here to upload.</div>
     </ng-template>
-    <ng-template #content>
-        <ul *ngIf="uploadedFiles.length">
-            <li *ngFor="let file of uploadedFiles">{{ file.name }} - {{ file.size }} bytes</li>
-        </ul>
-    </ng-template>
 </p-fileupload>`,
         html: `<div class="card">
     <p-toast />
     <p-fileupload name="demo[]" url="https://www.primefaces.org/cdn/api/upload.php" (onUpload)="onUpload($event)" [multiple]="true" accept="image/*" maxFileSize="1000000" mode="advanced">
         <ng-template #empty>
             <div>Drag and drop files to here to upload.</div>
-        </ng-template>
-        <ng-template #content>
-            <ul *ngIf="uploadedFiles.length">
-                <li *ngFor="let file of uploadedFiles">{{ file.name }} - {{ file.size }} bytes</li>
-            </ul>
         </ng-template>
     </p-fileupload>
 </div>`,

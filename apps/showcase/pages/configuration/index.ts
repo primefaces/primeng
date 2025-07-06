@@ -2,6 +2,7 @@ import { ConfigurationDocModule } from '@/doc/configuration/configurationdoc.mod
 import { CspDoc } from '@/doc/configuration/cspdoc';
 import { DynamicDoc } from '@/doc/configuration/dynamicdoc';
 import { FilterModeDoc } from '@/doc/configuration/filtermodedoc';
+import { InputVariantDoc } from '@/doc/configuration/inputvariantdoc';
 import { ApiDoc } from '@/doc/configuration/locale/apidoc';
 import { RepositoryDoc } from '@/doc/configuration/locale/repositorydoc';
 import { RuntimeDoc } from '@/doc/configuration/locale/runtimedoc';
@@ -40,6 +41,11 @@ export class ConfigurationDemo {
             id: 'ripple',
             label: 'Ripple',
             component: RippleDoc
+        },
+        {
+            id: 'inputvariant',
+            label: 'InputVariant',
+            component: InputVariantDoc
         },
         {
             id: 'zIndex',

@@ -1,3 +1,2 @@
-import { PaginatorDesignTokens } from '../../types/paginator';
-declare const _default: PaginatorDesignTokens;
-export default _default;
+export * from '@primeuix/themes/nora/paginator';
+export { default } from '@primeuix/themes/nora/paginator';

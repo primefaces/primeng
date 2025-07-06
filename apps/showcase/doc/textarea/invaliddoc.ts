@@ -6,10 +6,10 @@ import { Component } from '@angular/core';
     standalone: false,
     template: `
         <app-docsectiontext>
-            <p>Invalid state style is added using the <i>ng-invalid</i> and <i>ng-dirty</i> class to indicate a failed validation.</p>
+            <p>The invalid state is applied using the <i>⁠invalid</i> property to indicate failed validation, which can be integrated with Angular Forms.</p>
         </app-docsectiontext>
         <div class="card flex justify-center">
-            <textarea rows="5" cols="30" pTextarea [(ngModel)]="value" class="ng-invalid ng-dirty" placeholder="Address"></textarea>
+            <textarea rows="5" cols="30" pTextarea [(ngModel)]="value" [invalid]="!value" placeholder="Address"></textarea>
         </div>
         <app-code [code]="code" selector="input-textarea-invalid-demo"></app-code>
     `
@@ -18,10 +18,10 @@ export class InvalidDoc {
     value!: string;
 
     code: Code = {
-        basic: `<textarea rows="5" cols="30" pTextarea [(ngModel)]="value" class="ng-invalid ng-dirty" placeholder="Address"></textarea>`,
+        basic: `<textarea rows="5" cols="30" pTextarea [(ngModel)]="value" [invalid]="!value" placeholder="Address"></textarea>`,
 
         html: `<div class="card flex justify-center">
-    <textarea rows="5" cols="30" pTextarea [(ngModel)]="value" class="ng-invalid ng-dirty" placeholder="Address"></textarea>
+    <textarea rows="5" cols="30" pTextarea [(ngModel)]="value" [invalid]="!value" placeholder="Address"></textarea>
 </div>`,
 
         typescript: `import { Component } from '@angular/core';

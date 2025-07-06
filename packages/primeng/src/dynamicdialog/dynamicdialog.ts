@@ -1,6 +1,6 @@
 import { animate, animation, AnimationEvent, style, transition, trigger, useAnimation } from '@angular/animations';
 import { CommonModule, isPlatformBrowser } from '@angular/common';
-import { AfterViewInit, ChangeDetectionStrategy, Component, ComponentRef, ElementRef, inject, NgModule, NgZone, OnDestroy, Optional, Renderer2, SkipSelf, TemplateRef, Type, ViewChild, ViewEncapsulation, ViewRef } from '@angular/core';
+import { AfterViewInit, ChangeDetectionStrategy, Component, ComponentRef, ElementRef, inject, NgModule, NgZone, OnDestroy, Optional, Renderer2, SkipSelf, Type, ViewChild, ViewEncapsulation, ViewRef } from '@angular/core';
 import { addClass, getOuterHeight, getOuterWidth, getViewport, hasClass, removeClass, setAttribute, uuid } from '@primeuix/utils';
 import { SharedModule, TranslationKeys } from 'primeng/api';
 import { BaseComponent } from 'primeng/basecomponent';
@@ -71,25 +71,23 @@ const hideAnimation = animation([animate('{{transition}}', style({ transform: '{
                     <ng-container *ngIf="!headerTemplate">
                         <span [ngClass]="'p-dialog-title'" [id]="ariaLabelledBy">{{ ddconfig.header }}</span>
                         <div [ngClass]="'p-dialog-header-actions'">
-                            <p-button *ngIf="ddconfig.maximizable" [styleClass]="'p-dialog-maximize-button'" (onClick)="maximize()" (keydown.enter)="maximize()" [tabindex]="maximizable ? '0' : '-1'">
-                                <ng-container *ngIf="!maximizeIcon">
-                                    <WindowMaximizeIcon *ngIf="!maximized && !maximizeIconTemplate" />
-                                    <WindowMinimizeIcon *ngIf="maximized && !minimizeIconTemplate" />
-                                </ng-container>
-                                <ng-container *ngIf="!maximized">
-                                    <ng-template *ngTemplateOutlet="maximizeIconTemplate"></ng-template>
-                                </ng-container>
-                                <ng-container *ngIf="maximized">
-                                    <ng-template *ngTemplateOutlet="minimizeIconTemplate"></ng-template>
-                                </ng-container>
+                            <p-button *ngIf="ddconfig.maximizable" [styleClass]="'p-dialog-maximize-button'" (onClick)="maximize()" (keydown.enter)="maximize()" rounded text [tabindex]="maximizable ? '0' : '-1'">
+                                <ng-template #icon>
+                                    <ng-container *ngIf="!maximized">
+                                        <svg data-p-icon="window-maximize" *ngIf="!maximizeIconTemplate" />
+                                        <ng-template *ngTemplateOutlet="maximizeIconTemplate"></ng-template>
+                                    </ng-container>
+                                    <ng-container *ngIf="maximized">
+                                        <svg data-p-icon="window-minimize" *ngIf="!minimizeIconTemplate" />
+                                        <ng-template *ngTemplateOutlet="minimizeIconTemplate"></ng-template>
+                                    </ng-container>
+                                </ng-template>
                             </p-button>
-                            <p-button *ngIf="closable" [styleClass]="'p-dialog-close-button'" [ariaLabel]="closeAriaLabel" (onClick)="hide()" (keydown.enter)="hide()" rounded text severity="secondary">
-                                <ng-container *ngIf="!closeIconTemplate">
-                                    <TimesIcon />
-                                </ng-container>
-                                <span *ngIf="closeIconTemplate">
+                            <p-button *ngIf="closable" [styleClass]="'p-dialog-close-button'" [ariaLabel]="ddconfig.closeAriaLabel || defaultCloseAriaLabel" (onClick)="hide()" (keydown.enter)="hide()" rounded text severity="secondary">
+                                <ng-template #icon>
+                                    <svg *ngIf="!closeIconTemplate" data-p-icon="times" />
                                     <ng-template *ngTemplateOutlet="closeIconTemplate"></ng-template>
-                                </span>
+                                </ng-template>
                             </p-button>
                         </div>
                     </ng-container>
@@ -211,7 +209,7 @@ export class DynamicDialogComponent extends BaseComponent implements AfterViewIn
         return this.ddconfig.position!;
     }
 
-    get closeAriaLabel(): string {
+    get defaultCloseAriaLabel(): string {
         return this.config.getTranslation(TranslationKeys.ARIA)['close'];
     }
 
@@ -288,6 +286,8 @@ export class DynamicDialogComponent extends BaseComponent implements AfterViewIn
         return this.attrSelector;
     }
 
+    private zIndexForLayering?: number;
+
     constructor(
         public renderer: Renderer2,
         public ddconfig: DynamicDialogConfig,
@@ -342,7 +342,12 @@ export class DynamicDialogComponent extends BaseComponent implements AfterViewIn
     }
 
     getAriaLabelledBy() {
-        return this.header !== null ? uuid('pn_id_') + '_header' : null;
+        const { header, showHeader } = this.ddconfig;
+
+        if (header === null || showHeader === false) {
+            return null;
+        }
+        return uuid('pn_id_') + '_header';
     }
 
     loadChildComponent(componentType: Type<any>) {
@@ -364,6 +369,8 @@ export class DynamicDialogComponent extends BaseComponent implements AfterViewIn
         if (this.ddconfig.autoZIndex !== false) {
             ZIndexUtils.set('modal', this.container, (this.ddconfig.baseZIndex || 0) + this.config.zIndex.modal);
             (this.wrapper as HTMLElement).style.zIndex = String(parseInt((this.container as HTMLDivElement).style.zIndex, 10) - 1);
+        } else {
+            this.zIndexForLayering = ZIndexUtils.generateZIndex('modal', (this.ddconfig.baseZIndex || 0) + this.config.zIndex.modal);
         }
     }
 
@@ -411,6 +418,9 @@ export class DynamicDialogComponent extends BaseComponent implements AfterViewIn
 
         if (this.container && this.ddconfig.autoZIndex !== false) {
             ZIndexUtils.clear(this.container);
+        }
+        if (this.zIndexForLayering) {
+            ZIndexUtils.revertZIndex(this.zIndexForLayering);
         }
 
         if (this.ddconfig.modal !== false) {
@@ -695,7 +705,8 @@ export class DynamicDialogComponent extends BaseComponent implements AfterViewIn
 
         this.documentEscapeListener = this.renderer.listen(documentTarget, 'keydown', (event) => {
             if (event.which == 27) {
-                if (parseInt((this.container as HTMLDivElement).style.zIndex) == ZIndexUtils.getCurrent()) {
+                const currentZIndex = ZIndexUtils.getCurrent();
+                if (parseInt((this.container as HTMLDivElement).style.zIndex) == currentZIndex || this.zIndexForLayering == currentZIndex) {
                     this.hide();
                 }
             }

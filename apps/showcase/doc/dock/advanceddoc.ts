@@ -11,10 +11,7 @@ import { Subscription } from 'rxjs';
     standalone: false,
     template: `
         <app-docsectiontext>
-            <p>
-                Dock requires a collection of menuitems as its <i>model</i>. Default location is <i>bottom</i> and other sides are also available when defined with the <i>position</i> property. Content of the dock component is defined by
-                <i>item</i> template.
-            </p>
+            <p>A mock desktop UI implemented with various components in addition to Dock.</p>
         </app-docsectiontext>
         <div class="card dock-demo">
             <p-menubar [model]="menubarItems">
@@ -156,14 +153,7 @@ export class AdvancedDoc implements OnInit, OnDestroy {
                     showDelay: 1000
                 },
                 icon: 'https://primefaces.org/cdn/primeng/images/dock/appstore.svg',
-                command: () => {
-                    this.messageService.add({
-                        severity: 'error',
-                        summary: 'An unexpected error occurred while signing in.',
-                        detail: 'UNTRUSTED_CERT_TITLE',
-                        key: 'tc'
-                    });
-                }
+                url: 'https://www.apple.com/app-store/'
             },
             {
                 label: 'Safari',
@@ -174,10 +164,7 @@ export class AdvancedDoc implements OnInit, OnDestroy {
                     positionLeft: 15,
                     showDelay: 1000
                 },
-                icon: 'https://primefaces.org/cdn/primeng/images/dock/safari.svg',
-                command: () => {
-                    this.messageService.add({ severity: 'warn', summary: 'Safari has stopped working', key: 'tc' });
-                }
+                icon: 'https://primefaces.org/cdn/primeng/images/dock/safari.svg'
             },
             {
                 label: 'Photos',
@@ -202,7 +189,8 @@ export class AdvancedDoc implements OnInit, OnDestroy {
                     positionLeft: 15,
                     showDelay: 1000
                 },
-                icon: 'https://primefaces.org/cdn/primeng/images/dock/github.svg'
+                icon: 'https://primefaces.org/cdn/primeng/images/dock/github.svg',
+                url: 'https://github.com/primefaces/primeng'
             },
             {
                 label: 'Trash',
@@ -215,7 +203,7 @@ export class AdvancedDoc implements OnInit, OnDestroy {
                 },
                 icon: 'https://primefaces.org/cdn/primeng/images/dock/trash.png',
                 command: () => {
-                    this.messageService.add({ severity: 'info', summary: 'Empty Trash', key: 'tc' });
+                    this.messageService.add({ severity: 'info', summary: 'Trash is empty', key: 'tc' });
                 }
             }
         ];
@@ -564,12 +552,11 @@ import { TooltipModule } from 'primeng/tooltip';
                 padding: 0;
                 border-radius: 0;
             }
-            }
         }\`
     ],
     providers: [MessageService, TerminalService, PhotoService, NodeService]
 })
-export class DockAdvancedDemo implements OnInit {
+export class DockAdvancedDemo implements OnInit, OnDestroy {
     displayTerminal: boolean | undefined;
 
     displayFinder: boolean | undefined;
@@ -630,9 +617,7 @@ export class DockAdvancedDemo implements OnInit {
                     showDelay: 1000
                 },
                 icon: 'https://primefaces.org/cdn/primeng/images/dock/appstore.svg',
-                command: () => {
-                    this.messageService.add({ severity: 'error', summary: 'An unexpected error occurred while signing in.', detail: 'UNTRUSTED_CERT_TITLE', key: 'tc' });
-                }
+                url: 'https://www.apple.com/app-store/'
             },
             {
                 label: 'Safari',
@@ -643,10 +628,7 @@ export class DockAdvancedDemo implements OnInit {
                     positionLeft: 15,
                     showDelay: 1000
                 },
-                icon: 'https://primefaces.org/cdn/primeng/images/dock/safari.svg',
-                command: () => {
-                    this.messageService.add({ severity: 'warn', summary: 'Safari has stopped working', key: 'tc' });
-                }
+                icon: 'https://primefaces.org/cdn/primeng/images/dock/safari.svg'
             },
             {
                 label: 'Photos',
@@ -671,7 +653,8 @@ export class DockAdvancedDemo implements OnInit {
                     positionLeft: 15,
                     showDelay: 1000
                 },
-                icon: 'https://primefaces.org/cdn/primeng/images/dock/github.svg'
+                icon: 'https://primefaces.org/cdn/primeng/images/dock/github.svg',
+                url: 'https://github.com/primefaces/primeng'
             },
             {
                 label: 'Trash',
@@ -684,7 +667,7 @@ export class DockAdvancedDemo implements OnInit {
                 },
                 icon: 'https://primefaces.org/cdn/primeng/images/dock/trash.png',
                 command: () => {
-                    this.messageService.add({ severity: 'info', summary: 'Empty Trash', key: 'tc' });
+                    this.messageService.add({ severity: 'info', summary: 'Trash is empty', key: 'tc' });
                 }
             }
         ];

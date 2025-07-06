@@ -14,11 +14,11 @@ import { Component, inject, signal } from '@angular/core';
             <p-dataview #dv [value]="products()">
                 <ng-template #list let-items>
                     <div class="grid grid-cols-12 gap-4 grid-nogutter">
-                        <div class="col-span-12" *ngFor="let item of items; let first = first" class="col-span-12">
+                        <div class="col-span-12" *ngFor="let item of items; let first = first">
                             <div class="flex flex-col sm:flex-row sm:items-center p-6 gap-4" [ngClass]="{ 'border-t border-surface-200 dark:border-surface-700': !first }">
                                 <div class="md:w-40 relative">
                                     <img class="block xl:block mx-auto rounded-border w-full" [src]="'https://primefaces.org/cdn/primeng/images/demo/product/' + item.image" [alt]="item.name" />
-                                    <p-tag [value]="item.inventoryStatus" [severity]="getSeverity(item)" class="absolute" styleClass="dark:!bg-surface-900" [style.left.px]="4" [style.top.px]="4" />
+                                    <p-tag [value]="item.inventoryStatus" [severity]="getSeverity(item)" class="absolute dark:!bg-surface-900" [style.left.px]="4" [style.top.px]="4" />
                                 </div>
                                 <div class="flex flex-col md:flex-row justify-between md:items-center flex-1 gap-6">
                                     <div class="flex flex-row md:flex-col justify-between items-start gap-2">
@@ -75,8 +75,7 @@ export class BasicDoc {
                         <p-tag
                             [value]="item.inventoryStatus"
                             [severity]="getSeverity(item)"
-                            class="absolute"
-                            styleClass="dark:!bg-surface-900"
+                            class="absolute dark:!bg-surface-900"
                             [style.left.px]="4"
                             [style.top.px]="4"
                         />
@@ -138,8 +137,7 @@ export class BasicDoc {
                             <p-tag
                                 [value]="item.inventoryStatus"
                                 [severity]="getSeverity(item)"
-                                class="absolute"
-                                styleClass="dark:!bg-surface-900"
+                                class="absolute dark:!bg-surface-900"
                                 [style.left.px]="4"
                                 [style.top.px]="4"
                             />
@@ -184,14 +182,14 @@ export class BasicDoc {
     </p-dataview>
 </div>`,
 
-        typescript: `import { Component } from '@angular/core';
+        typescript: `import { Component, inject, signal } from '@angular/core';
 import { Product } from '@/domain/product';
 import { ProductService } from '@/service/productservice';
 import { DataView } from 'primeng/dataview';
 import { ButtonModule } from 'primeng/button';
 import { Tag } from 'primeng/tag';
 import { CommonModule } from '@angular/common';
-import { signal } from '@angular/core';
+
 
 @Component({
     selector: 'data-view-basic-demo',
@@ -204,6 +202,7 @@ export class DataViewBasicDemo {
     products = signal<any>([]);
 
     productService = inject(ProductService);
+    
     ngOnInit() {
         this.productService.getProducts().then((data) => {
             const d = data.slice(0, 5);

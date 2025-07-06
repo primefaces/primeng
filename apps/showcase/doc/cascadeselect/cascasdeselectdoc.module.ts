@@ -18,13 +18,16 @@ import { ImportDoc } from './importdoc';
 import { InvalidDoc } from './invaliddoc';
 import { LoadingDoc } from './loadingdoc';
 import { ReactiveFormsDoc } from './reactiveformsdoc';
+import { TemplateDrivenFormsDoc } from './templatedrivenformsdoc';
 import { SizesDoc } from './sizesdoc';
 import { StyleDoc } from './styledoc';
 import { TemplateDoc } from './templatedoc';
+import { ToastModule } from 'primeng/toast';
+import { MessageModule } from 'primeng/message';
 
 @NgModule({
-    imports: [CommonModule, RouterModule, CascadeSelectModule, FormsModule, AppCodeModule, AppDocModule, ReactiveFormsModule, FloatLabelModule, IftaLabelModule, ButtonModule],
+    imports: [CommonModule, RouterModule, CascadeSelectModule, FormsModule, AppCodeModule, AppDocModule, ReactiveFormsModule, FloatLabelModule, IftaLabelModule, ButtonModule, ToastModule, MessageModule],
     exports: [AppDocModule],
-    declarations: [ImportDoc, BasicDoc, TemplateDoc, InvalidDoc, FloatLabelDoc, IftaLabelDoc, FilledDoc, DisabledDoc, StyleDoc, AccessibilityDoc, ReactiveFormsDoc, LoadingDoc, SizesDoc]
+    declarations: [ImportDoc, BasicDoc, TemplateDoc, InvalidDoc, FloatLabelDoc, IftaLabelDoc, FilledDoc, DisabledDoc, StyleDoc, AccessibilityDoc, ReactiveFormsDoc, LoadingDoc, SizesDoc, TemplateDrivenFormsDoc]
 })
 export class CascadeSelectDocModule {}

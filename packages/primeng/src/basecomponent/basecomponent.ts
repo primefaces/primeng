@@ -1,8 +1,7 @@
 import { DOCUMENT, isPlatformServer } from '@angular/common';
-import { ChangeDetectorRef, ContentChildren, Directive, ElementRef, inject, Injector, Input, PLATFORM_ID, QueryList, Renderer2, SimpleChanges } from '@angular/core';
+import { ChangeDetectorRef, Directive, ElementRef, inject, Injector, Input, PLATFORM_ID, Renderer2, SimpleChanges } from '@angular/core';
 import { Theme, ThemeService } from '@primeuix/styled';
-import { getKeyValue, uuid } from '@primeuix/utils';
-import { PrimeTemplate } from 'primeng/api';
+import { cn, getKeyValue, uuid } from '@primeuix/utils';
 import { Base, BaseStyle } from 'primeng/base';
 import { PrimeNG } from 'primeng/config';
 import { BaseComponentStyle } from './style/basecomponentstyle';
@@ -47,6 +46,8 @@ export class BaseComponent {
 
     attrSelector = uuid('pc');
 
+    private themeChangeListeners: Function[] = [];
+
     _getHostInstance(instance) {
         if (instance) {
             return instance ? (this['hostName'] ? (instance['name'] === this['hostName'] ? instance : this._getHostInstance(instance.parentInstance)) : instance.parentInstance) : undefined;
@@ -59,6 +60,7 @@ export class BaseComponent {
 
     ngOnInit() {
         if (this.document) {
+            this._loadCoreStyles();
             this._loadStyles();
         }
     }
@@ -82,12 +84,14 @@ export class BaseComponent {
 
     ngOnDestroy() {
         this._unloadScopedThemeStyles();
+        // @ts-ignore
+        this.themeChangeListeners.forEach((callback) => ThemeService.off('theme:change', callback));
     }
 
     _loadStyles() {
         const _load = () => {
             if (!Base.isStyleNameLoaded('base')) {
-                this.baseStyle.loadCSS(this.styleOptions);
+                this.baseStyle.loadGlobalCSS(this.styleOptions);
                 Base.setLoadedStyleName('base');
             }
 
@@ -100,7 +104,7 @@ export class BaseComponent {
     }
 
     _loadCoreStyles() {
-        if (!Base.isStyleNameLoaded('base') && this._name) {
+        if (!Base.isStyleNameLoaded('base') && this.componentStyle?.name) {
             this.baseComponentStyle.loadCSS(this.styleOptions);
             this.componentStyle && this.componentStyle?.loadCSS(this.styleOptions);
             Base.setLoadedStyleName(this.componentStyle?.name);
@@ -115,7 +119,7 @@ export class BaseComponent {
             this.baseStyle.load(primitive?.css, { name: 'primitive-variables', ...this.styleOptions });
             this.baseStyle.load(semantic?.css, { name: 'semantic-variables', ...this.styleOptions });
             this.baseStyle.load(global?.css, { name: 'global-variables', ...this.styleOptions });
-            this.baseStyle.loadTheme({ name: 'global-style', ...this.styleOptions }, style);
+            this.baseStyle.loadGlobalTheme({ name: 'global-style', ...this.styleOptions }, style);
 
             Theme.setLoadedStyleName('common');
         }
@@ -161,37 +165,31 @@ export class BaseComponent {
     _themeChangeListener(callback = () => {}) {
         Base.clearLoadedStyleNames();
         ThemeService.on('theme:change', callback);
+        this.themeChangeListeners.push(callback);
     }
 
-    cx(arg: string, rest?: string): string {
-        const classes = this.parent ? this.parent.componentStyle?.classes?.[arg] : this.componentStyle?.classes?.[arg];
-
-        if (typeof classes === 'function') {
-            return classes({ instance: this });
-        }
-
-        return typeof classes === 'string' ? classes : arg;
+    cx(key: string, params = {}): string {
+        return cn(this._getOptionValue(this.$style?.classes, key, { instance: this, ...params }));
     }
 
-    sx(arg: string): string {
-        const styles = this.componentStyle?.inlineStyles?.[arg];
-        if (typeof styles === 'function') {
-            return styles({ instance: this });
+    sx(key = '', when = true, params = {}) {
+        if (when) {
+            const self = this._getOptionValue(this.$style?.inlineStyles, key, { instance: this, ...params });
+            //const base = this._getOptionValue(BaseComponentStyle.inlineStyles, key, { ...this.$params, ...params });
+
+            return self;
         }
 
-        if (typeof styles === 'string') {
-            return styles;
-        } else {
-            return { ...styles };
-        }
+        return undefined;
     }
-
-    // cx(key = '', params = {}) {
-    //     const classes = this.parent ? this.parent.componentStyle?.classes : this.componentStyle?.classes;
-    //     return this._getOptionValue(classes({ instance: this._getHostInstance(this) }), key, { ...params });
-    // }
 
     get parent() {
         return this['parentInstance'];
     }
+
+    get $style() {
+        return this.parent ? this.parent.componentStyle : this.componentStyle;
+    }
+
+    protected readonly cn = cn;
 }

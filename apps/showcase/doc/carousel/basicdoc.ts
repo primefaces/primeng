@@ -17,7 +17,7 @@ import { ChangeDetectorRef, Component, OnInit } from '@angular/core';
                         <div class="mb-4">
                             <div class="relative mx-auto">
                                 <img src="https://primefaces.org/cdn/primeng/images/demo/product/{{ product.image }}" [alt]="product.name" class="w-full rounded-border" />
-                                <p-tag [value]="product.inventoryStatus" [severity]="getSeverity(product.inventoryStatus)" class="absolute" styleClass="dark:!bg-surface-900" [ngStyle]="{ 'left.px': 5, 'top.px': 5 }" />
+                                <p-tag [value]="product.inventoryStatus" [severity]="getSeverity(product.inventoryStatus)" class="absolute" [ngStyle]="{ 'left.px': 5, 'top.px': 5 }" />
                             </div>
                         </div>
                         <div class="mb-4 font-medium">{{ product.name }}</div>
@@ -47,7 +47,7 @@ export class BasicDoc implements OnInit {
             <div class="mb-4">
                 <div class="relative mx-auto">
                     <img src="https://primefaces.org/cdn/primeng/images/demo/product/{{ product.image }}" [alt]="product.name" class="w-full rounded-border" />
-                    <p-tag [value]="product.inventoryStatus" [severity]="getSeverity(product.inventoryStatus)" class="absolute" styleClass="dark:!bg-surface-900" [ngStyle]="{ 'left.px': 5, 'top.px': 5 }" />
+                    <p-tag [value]="product.inventoryStatus" [severity]="getSeverity(product.inventoryStatus)" class="absolute" [ngStyle]="{ 'left.px': 5, 'top.px': 5 }" />
                 </div>
             </div>
             <div class="mb-4 font-medium">{{ product.name }}</div>
@@ -68,7 +68,7 @@ export class BasicDoc implements OnInit {
                 <div class="mb-4">
                     <div class="relative mx-auto">
                         <img src="https://primefaces.org/cdn/primeng/images/demo/product/{{ product.image }}" [alt]="product.name" class="w-full rounded-border" />
-                        <p-tag [value]="product.inventoryStatus" [severity]="getSeverity(product.inventoryStatus)" class="absolute" styleClass="dark:!bg-surface-900" [ngStyle]="{ 'left.px': 5, 'top.px': 5 }" />
+                        <p-tag [value]="product.inventoryStatus" [severity]="getSeverity(product.inventoryStatus)" class="absolute" [ngStyle]="{ 'left.px': 5, 'top.px': 5 }" />
                     </div>
                 </div>
                 <div class="mb-4 font-medium">{{ product.name }}</div>
@@ -105,8 +105,8 @@ export class CarouselBasicDemo implements OnInit {
     constructor(private productService: ProductService) {}
 
     ngOnInit() {
-        this.productService.getProductsSmall().then((products) => {
-            this.products = products;
+        this.productService.getProductsSmall().then(data => {
+            this.products = data.slice(0, 9);
         });
 
        this.responsiveOptions = [
@@ -168,8 +168,8 @@ export class CarouselBasicDemo implements OnInit {
     ) {}
 
     ngOnInit() {
-        this.productService.getProductsSmall().then((products) => {
-            this.products = products;
+        this.productService.getProductsSmall().then((data) => {
+            this.products = data.slice(0, 9);
             this.cdr.detectChanges();
         });
 

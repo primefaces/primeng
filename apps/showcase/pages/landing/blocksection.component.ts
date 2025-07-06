@@ -1,16 +1,20 @@
 import { CommonModule } from '@angular/common';
 import { Component } from '@angular/core';
+import { TagModule } from 'primeng/tag';
 
 @Component({
     selector: 'block-section',
     standalone: true,
-    imports: [CommonModule],
+    imports: [CommonModule, TagModule],
     template: `
         <section id="blocks-section" class="landing-blocks pt-20 overflow-hidden">
-            <div class="section-header relative z-30">Blocks</div>
-            <p class="section-detail relative z-30">400+ ready to copy-paste UI blocks to build spectacular applications in no time.</p>
+            <div class="section-header relative z-30 flex items-center justify-center gap-4">
+                New PrimeBlocks
+                <p-tag value="Coming Soon" severity="warn" />
+            </div>
+            <p class="section-detail relative z-30">490+ ready to copy-paste UI blocks to build spectacular applications in no time.</p>
             <div class="flex justify-center mt-6 relative z-30">
-                <a href="https://blocks.primeng.org" target="_blank" class="linkbox linkbox-primary">
+                <a href="https://primeblocks.org" target="_blank" class="linkbox linkbox-primary">
                     <span>Explore All</span>
                     <i class="pi pi-arrow-right ms-2"></i>
                 </a>

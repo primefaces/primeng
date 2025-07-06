@@ -11,11 +11,11 @@ import { Component } from '@angular/core';
         <div class="card flex justify-center">
             <p-password [(ngModel)]="value" autocomplete="off">
                 <ng-template #header>
-                    <div class="font-semibold text-xm mb-4">Pick a password</div>
+                    <div class="font-semibold text-xm mb-4">Reset Password</div>
                 </ng-template>
                 <ng-template #footer>
                     <p-divider />
-                    <ul class="pl-2 ml-2 my-0 leading-normal">
+                    <ul class="pl-2 my-0 leading-normal text-sm">
                         <li>At least one lowercase</li>
                         <li>At least one uppercase</li>
                         <li>At least one numeric</li>
@@ -33,11 +33,11 @@ export class TemplateDoc {
     code: Code = {
         basic: `<p-password [(ngModel)]="value" autocomplete="off">
     <ng-template #header>
-        <div class="font-semibold text-xm mb-4">Pick a password</div>
+        <div class="font-semibold text-xm mb-4">Reset Password</div>
     </ng-template>
     <ng-template #footer>
         <p-divider />
-        <ul class="pl-2 ml-2 my-0 leading-normal">
+        <ul class="pl-2 my-0 leading-normal">
             <li>At least one lowercase</li>
             <li>At least one uppercase</li>
             <li>At least one numeric</li>
@@ -49,11 +49,11 @@ export class TemplateDoc {
         html: `<div class="card flex justify-center">
     <p-password [(ngModel)]="value" autocomplete="off">
         <ng-template #header>
-            <div class="font-semibold text-xm mb-4">Pick a password</div>
+            <div class="font-semibold text-xm mb-4">Reset Password</div>
         </ng-template>
         <ng-template #footer>
             <p-divider />
-            <ul class="pl-2 ml-2 my-0 leading-normal">
+            <ul class="pl-2 my-0 leading-normal">
                 <li>At least one lowercase</li>
                 <li>At least one uppercase</li>
                 <li>At least one numeric</li>

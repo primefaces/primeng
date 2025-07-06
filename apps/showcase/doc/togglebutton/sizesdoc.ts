@@ -9,9 +9,9 @@ import { Component } from '@angular/core';
             <p>ToggleButton provides <i>small</i> and <i>large</i> sizes as alternatives to the base.</p>
         </app-docsectiontext>
         <div class="card flex flex-col items-center gap-4">
-            <p-togglebutton [(ngModel)]="value1" onLabel="On" offLabel="Off" size="small" styleClass="min-w-16" />
-            <p-togglebutton [(ngModel)]="value2" onLabel="On" offLabel="Off" styleClass="min-w-20" />
-            <p-togglebutton [(ngModel)]="value3" onLabel="On" offLabel="Off" size="large" styleClass="min-w-24" />
+            <p-togglebutton [(ngModel)]="value1" onLabel="On" offLabel="Off" size="small" class="min-w-16" />
+            <p-togglebutton [(ngModel)]="value2" onLabel="On" offLabel="Off" class="min-w-20" />
+            <p-togglebutton [(ngModel)]="value3" onLabel="On" offLabel="Off" size="large" class="min-w-24" />
         </div>
         <app-code [code]="code" selector="toggle-button-sizes-demo"></app-code>
     `
@@ -24,14 +24,14 @@ export class SizesDoc {
     value3: boolean = false;
 
     code: Code = {
-        basic: `<p-togglebutton [(ngModel)]="value1" onLabel="On" offLabel="Off" size="small" styleClass="min-w-16" />
-<p-togglebutton [(ngModel)]="value2" onLabel="On" offLabel="Off" styleClass="min-w-20" />
-<p-togglebutton [(ngModel)]="value3" onLabel="On" offLabel="Off" size="large" styleClass="min-w-24" />`,
+        basic: `<p-togglebutton [(ngModel)]="value1" onLabel="On" offLabel="Off" size="small" class="min-w-16" />
+<p-togglebutton [(ngModel)]="value2" onLabel="On" offLabel="Off" class="min-w-20" />
+<p-togglebutton [(ngModel)]="value3" onLabel="On" offLabel="Off" size="large" class="min-w-24" />`,
 
         html: `<div class="card flex flex-col items-center gap-4">
-    <p-togglebutton [(ngModel)]="value1" onLabel="On" offLabel="Off" size="small" styleClass="min-w-16" />
-    <p-togglebutton [(ngModel)]="value2" onLabel="On" offLabel="Off" styleClass="min-w-20" />
-    <p-togglebutton [(ngModel)]="value3" onLabel="On" offLabel="Off" size="large" styleClass="min-w-24" />
+    <p-togglebutton [(ngModel)]="value1" onLabel="On" offLabel="Off" size="small" class="min-w-16" />
+    <p-togglebutton [(ngModel)]="value2" onLabel="On" offLabel="Off" class="min-w-20" />
+    <p-togglebutton [(ngModel)]="value3" onLabel="On" offLabel="Off" size="large" class="min-w-24" />
 </div>`,
 
         typescript: `import { Component } from '@angular/core';

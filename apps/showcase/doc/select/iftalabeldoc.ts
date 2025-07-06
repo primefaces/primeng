@@ -15,7 +15,7 @@ interface City {
         </app-docsectiontext>
         <div class="card flex justify-center">
             <p-iftalabel class="w-full md:w-56">
-                <p-select [(ngModel)]="selectedCity" inputId="dd-city" [options]="cities" optionLabel="name" styleClass="w-full" />
+                <p-select [(ngModel)]="selectedCity" inputId="dd-city" [options]="cities" optionLabel="name" class="w-full" />
                 <label for="dd-city">City</label>
             </p-iftalabel>
         </div>
@@ -28,13 +28,13 @@ export class IftaLabelDoc implements OnInit {
     selectedCity: City | undefined;
     code: Code = {
         basic: `<p-iftalabel class="w-full md:w-56">
-    <p-select [(ngModel)]="selectedCity" inputId="dd-city" [options]="cities" optionLabel="name" styleClass="w-full" />
+    <p-select [(ngModel)]="selectedCity" inputId="dd-city" [options]="cities" optionLabel="name" class="w-full" />
     <label for="dd-city">City</label>
 </p-iftalabel>`,
 
         html: `<div class="card flex justify-center">
     <p-iftalabel class="w-full md:w-56">
-        <p-select [(ngModel)]="selectedCity" inputId="dd-city" [options]="cities" optionLabel="name" styleClass="w-full" />
+        <p-select [(ngModel)]="selectedCity" inputId="dd-city" [options]="cities" optionLabel="name" class="w-full" />
         <label for="dd-city">City</label>
     </p-iftalabel>
 </div>`,

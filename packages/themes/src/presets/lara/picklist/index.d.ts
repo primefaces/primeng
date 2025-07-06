@@ -1,3 +1,2 @@
-import { PickListDesignTokens } from '../../types/picklist';
-declare const _default: PickListDesignTokens;
-export default _default;
+export * from '@primeuix/themes/lara/picklist';
+export { default } from '@primeuix/themes/lara/picklist';

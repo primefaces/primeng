@@ -11,7 +11,7 @@ import { Component } from '@angular/core';
         </app-docsectiontext>
         <div class="card flex justify-center">
             <p-iftalabel class="w-full md:w-80">
-                <p-treeselect [(ngModel)]="selectedValue" inputId="t_file" [options]="nodes" class="w-full" containerStyleClass="w-full" />
+                <p-treeselect [(ngModel)]="selectedValue" inputId="t_file" [options]="nodes" class="w-full" />
                 <label for="t_file">File</label>
             </p-iftalabel>
         </div>
@@ -24,13 +24,13 @@ export class IftaLabelDoc {
     selectedValue: any;
     code: Code = {
         basic: `<p-iftalabel class="w-full md:w-80">
-    <p-treeselect [(ngModel)]="selectedValue" inputId="t_file" [options]="nodes" class="w-full" containerStyleClass="w-full" />
+    <p-treeselect [(ngModel)]="selectedValue" inputId="t_file" [options]="nodes" class="w-full" />
     <label for="t_file">File</label>
 </p-iftalabel>`,
 
         html: `<div class="card flex justify-center">
     <p-iftalabel class="w-full md:w-80">
-        <p-treeselect [(ngModel)]="selectedValue" inputId="t_file" [options]="nodes" class="w-full" containerStyleClass="w-full" />
+        <p-treeselect [(ngModel)]="selectedValue" inputId="t_file" [options]="nodes" class="w-full" />
         <label for="t_file">File</label>
     </p-iftalabel>
 </div>`,

@@ -1,3 +1,2 @@
-import { InputTextDesignTokens } from '../../types/inputtext';
-declare const _default: InputTextDesignTokens;
-export default _default;
+export * from '@primeuix/themes/aura/inputtext';
+export { default } from '@primeuix/themes/aura/inputtext';

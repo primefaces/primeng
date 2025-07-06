@@ -9,12 +9,12 @@ import { ChangeDetectorRef, Component } from '@angular/core';
     template: `
         <app-docsectiontext>
             <p>
-                PickList is used as a controlled input with <i>source</i> and <i>target</i> properties. Content of a list item needs to be defined with the <i>pTemplate</i> property that receives an object in the list as parameter. Drag & drop
+                PickList is used as a controlled input with <i>source</i> and <i>target</i> properties. Content of a list item needs to be defined with the <i>item</i> template that receives an object in the list as parameter. Drag & drop
                 functionality depends on <i>&#64;angular/cdk</i> package.
             </p>
         </app-docsectiontext>
         <div class="card">
-            <p-picklist [source]="sourceProducts" [target]="targetProducts" [dragdrop]="true" [responsive]="true" [sourceStyle]="{ height: '30rem' }" [targetStyle]="{ height: '30rem' }" breakpoint="1400px">
+            <p-picklist [source]="sourceProducts" [target]="targetProducts" [dragdrop]="true" [responsive]="true" breakpoint="1400px">
                 <ng-template let-item #item>
                     {{ item.name }}
                 </ng-template>
@@ -42,14 +42,14 @@ export class BasicDoc {
     }
 
     code: Code = {
-        basic: `<p-picklist [source]="sourceProducts" [target]="targetProducts" [dragdrop]="true" [responsive]="true" [sourceStyle]="{ height: '30rem' }" [targetStyle]="{ height: '30rem' }" breakpoint="1400px">
+        basic: `<p-picklist [source]="sourceProducts" [target]="targetProducts" [dragdrop]="true" [responsive]="true" breakpoint="1400px">
     <ng-template let-item #item>
         {{ item.name }}
     </ng-template>
 </p-picklist>`,
 
         html: `<div class="card">
-    <p-picklist [source]="sourceProducts" [target]="targetProducts" [dragdrop]="true" [responsive]="true" [sourceStyle]="{ height: '30rem' }" [targetStyle]="{ height: '30rem' }" breakpoint="1400px">
+    <p-picklist [source]="sourceProducts" [target]="targetProducts" [dragdrop]="true" [responsive]="true" breakpoint="1400px">
         <ng-template let-item #item>
             {{ item.name }}
         </ng-template>

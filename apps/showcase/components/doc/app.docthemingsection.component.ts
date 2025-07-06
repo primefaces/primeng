@@ -1,7 +1,8 @@
 import { ChangeDetectionStrategy, Component, Input, signal } from '@angular/core';
 /* @todo: Change the import path */
 import APIDoc from '@/doc/apidoc/index.json';
-import ThemeDoc from '@/doc/apidoc/themedoc.json';
+//import ThemeDoc from '@/doc/apidoc/themedoc.json';
+import ThemeDoc from '@primeuix/themes/tokens';
 
 @Component({
     selector: 'app-docthemingsection',
@@ -17,6 +18,7 @@ import ThemeDoc from '@/doc/apidoc/themedoc.json';
             @if (tokensDoc()) {
                 <app-docapitable [id]="header + 'DesignTokens'" [label]="header + ' Design Tokens'" description="List of design tokens used in a preset." [data]="tokensDoc().tokens" />
             }
+            <app-docstyledpreset [data]="componentName.toLowerCase()"></app-docstyledpreset>
         </div>
         <app-docsection-nav [docs]="navItems()" />
     `,
@@ -26,6 +28,8 @@ export class AppDocThemingSectionComponent {
     @Input() header!: string;
 
     @Input() docs: string;
+
+    @Input() componentName: string;
 
     tokensDoc = signal<any>([]);
 
@@ -46,7 +50,8 @@ export class AppDocThemingSectionComponent {
                 {
                     id: this.header + 'DesignTokens',
                     label: 'Design Tokens'
-                }
+                },
+                { id: 'built-in-presets', label: 'Built-in Presets' }
             ]);
         }
         if (APIDoc[docName]) {

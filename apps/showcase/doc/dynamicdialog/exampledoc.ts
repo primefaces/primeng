@@ -42,7 +42,7 @@ export class ExampleDoc implements OnDestroy {
 
         typescript: `import { Component, OnDestroy } from '@angular/core';
 import { MessageService } from 'primeng/api';
-import { DialogService, DynamicDialog, DynamicDialogRef } from 'primeng/dynamicdialog';
+import { DialogService, DynamicDialogModule, DynamicDialogRef } from 'primeng/dynamicdialog';
 import { ProductListDemo } from './demo/productlistdemo';
 import { Footer } from './demo/footer';
 import { ToastModule } from 'primeng/toast';
@@ -51,7 +51,7 @@ import { ButtonModule } from 'primeng/button';
 @Component({
     selector: 'dynamic-dialog-example-demo',
     templateUrl: './dynamic-dialog-example-demo.html',
-    imports: [DynamicDialog, ToastModule, ButtonModule],
+    imports: [DynamicDialogModule, ToastModule, ButtonModule],
     providers: [DialogService, MessageService],
     standalone: true,
 })
@@ -183,7 +183,7 @@ import { ButtonModule } from 'primeng/button';
     template: \`<div class="flex justify-end mt-1 mb-4">
             <p-button icon="pi pi-external-link" label="Nested Dialog" [outlined]="true" severity="success" (click)="showInfo()" />
         </div>
-        <p-table [value]="products" responsiveLayout="scroll" [rows]="5" [responsive]="true">
+        <p-table [value]="products" responsiveLayout="scroll" [rows]="5">
             <ng-template pTemplate="header">
                 <tr>
                     <th pSortableColumn="code">Code</th>

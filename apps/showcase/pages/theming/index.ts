@@ -1,6 +1,5 @@
 import { ReversedKeysDoc } from '@/doc/splitbutton/reversedkeysdoc';
 import { ArchitectureDoc } from '@/doc/theming/architecturedoc';
-import { CaseDoc } from '@/doc/theming/casedoc';
 import { ColorsDoc } from '@/doc/theming/colorsdoc';
 import { ComponentDoc } from '@/doc/theming/componentdoc';
 import { DarkModeDoc } from '@/doc/theming/darkmodedoc';
@@ -60,11 +59,6 @@ export class ThemingDemo {
             id: 'presets',
             label: 'Presets',
             component: PresetsDoc
-        },
-        {
-            id: 'casestyle',
-            label: 'Case Style',
-            component: CaseDoc
         },
         {
             id: 'reserved',

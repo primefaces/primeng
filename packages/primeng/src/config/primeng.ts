@@ -1,4 +1,4 @@
-import { inject, Injectable, PLATFORM_ID, signal } from '@angular/core';
+import { ElementRef, inject, Injectable, PLATFORM_ID, signal, TemplateRef } from '@angular/core';
 import { FilterMatchMode, OverlayOptions, Translation } from 'primeng/api';
 import { Subject } from 'rxjs';
 import { ThemeConfigType, ThemeProvider } from './themeprovider';
@@ -13,12 +13,19 @@ export type ZIndex = {
 
 export type PrimeNGConfigType = {
     ripple?: boolean;
+    overlayAppendTo?: HTMLElement | ElementRef | TemplateRef<any> | string | null | undefined | any;
+    /**
+     * @deprecated Since v20. Use `inputVariant` instead.
+     */
     inputStyle?: 'outlined' | 'filled';
+    inputVariant?: 'outlined' | 'filled';
     csp?: {
         nonce: string | undefined;
     };
     overlayOptions?: OverlayOptions;
     translation?: Translation;
+    zIndex?: ZIndex;
+    filterMatchModeOptions?: any;
 } & ThemeConfigType;
 
 @Injectable({ providedIn: 'root' })
@@ -26,10 +33,14 @@ export class PrimeNG extends ThemeProvider {
     ripple = signal<boolean>(false);
 
     public platformId: any = inject(PLATFORM_ID);
+    /**
+     * @deprecated Since v20. Use `inputVariant` instead.
+     */
+    inputStyle = signal<'outlined' | 'filled'>(null);
 
-    inputStyle = signal<'outlined' | 'filled'>('outlined');
+    inputVariant = signal<'outlined' | 'filled'>(null);
 
-    inputVariant = signal<'outlined' | 'filled'>('outlined');
+    overlayAppendTo = signal<HTMLElement | ElementRef | TemplateRef<any> | 'self' | 'body' | null | undefined | any>('self');
 
     overlayOptions: OverlayOptions = {};
 
@@ -70,6 +81,7 @@ export class PrimeNG extends ThemeProvider {
         accept: 'Yes',
         reject: 'No',
         choose: 'Choose',
+        completed: 'Completed',
         upload: 'Upload',
         cancel: 'Cancel',
         pending: 'Pending',
@@ -191,13 +203,16 @@ export class PrimeNG extends ThemeProvider {
     }
 
     setConfig(config: PrimeNGConfigType): void {
-        const { csp, ripple, inputStyle, theme, overlayOptions, translation } = config || {};
+        const { csp, ripple, inputStyle, inputVariant, theme, overlayOptions, translation, filterMatchModeOptions, overlayAppendTo } = config || {};
 
         if (csp) this.csp.set(csp);
+        if (overlayAppendTo) this.overlayAppendTo.set(overlayAppendTo);
         if (ripple) this.ripple.set(ripple);
         if (inputStyle) this.inputStyle.set(inputStyle);
+        if (inputVariant) this.inputVariant.set(inputVariant);
         if (overlayOptions) this.overlayOptions = overlayOptions;
         if (translation) this.setTranslation(translation);
+        if (filterMatchModeOptions) this.filterMatchModeOptions = filterMatchModeOptions;
 
         if (theme)
             this.setThemeConfig({
