@@ -28,6 +28,7 @@ import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
 import { absolutePosition, addClass, addStyle, appendChild, find, findSingle, getFocusableElements, getIndex, getOuterWidth, hasClass, isDate, isNotEmpty, isTouchDevice, relativePosition, setAttribute, uuid } from '@primeuix/utils';
 import { OverlayService, PrimeTemplate, SharedModule, TranslationKeys } from 'primeng/api';
 import { AutoFocus } from 'primeng/autofocus';
+import { BaseInput } from 'primeng/baseinput';
 import { Button } from 'primeng/button';
 import { blockBodyScroll, ConnectedOverlayScrollHandler, unblockBodyScroll } from 'primeng/dom';
 import { CalendarIcon, ChevronDownIcon, ChevronLeftIcon, ChevronRightIcon, ChevronUpIcon, TimesIcon } from 'primeng/icons';
@@ -38,7 +39,6 @@ import { ZIndexUtils } from 'primeng/utils';
 import { Subscription } from 'rxjs';
 import { DatePickerMonthChangeEvent, DatePickerResponsiveOptions, DatePickerTypeView, DatePickerYearChangeEvent, LocaleSettings, Month, NavigationState } from './datepicker.interface';
 import { DatePickerStyle } from './style/datepickerstyle';
-import { BaseInput } from 'primeng/baseinput';
 
 export const DATEPICKER_VALUE_ACCESSOR: any = {
     provide: NG_VALUE_ACCESSOR,
@@ -1468,7 +1468,7 @@ export class DatePicker extends BaseInput implements OnInit, AfterContentInit, A
 
         if (this.showTime) {
             this.currentMinute = date.getMinutes();
-            this.currentSecond = date.getSeconds();
+            this.currentSecond = this.showSeconds ? date.getSeconds() : 0;
             this.setCurrentHourPM(date.getHours());
         } else if (this.timeOnly) {
             this.currentMinute = 0;
@@ -3038,7 +3038,7 @@ export class DatePicker extends BaseInput implements OnInit, AfterContentInit, A
         if (this.showTime || this.timeOnly) {
             this.setCurrentHourPM(val.getHours());
             this.currentMinute = val.getMinutes();
-            this.currentSecond = val.getSeconds();
+            this.currentSecond = this.showSeconds ? val.getSeconds() : 0;
         }
     }
 
