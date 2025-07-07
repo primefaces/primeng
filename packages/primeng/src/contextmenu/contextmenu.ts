@@ -116,7 +116,6 @@ import { ContextMenuStyle } from './style/contextmenustyle';
                             <a
                                 *ngIf="!getItemProp(processedItem, 'routerLink')"
                                 [attr.href]="getItemProp(processedItem, 'url')"
-                                [attr.aria-hidden]="true"
                                 [attr.data-automationid]="getItemProp(processedItem, 'automationId')"
                                 [attr.data-pc-section]="'action'"
                                 [target]="getItemProp(processedItem, 'target')"
@@ -152,7 +151,6 @@ import { ContextMenuStyle } from './style/contextmenustyle';
                                 [routerLink]="getItemProp(processedItem, 'routerLink')"
                                 [attr.data-automationid]="getItemProp(processedItem, 'automationId')"
                                 [attr.tabindex]="-1"
-                                [attr.aria-hidden]="true"
                                 [attr.data-pc-section]="'action'"
                                 [queryParams]="getItemProp(processedItem, 'queryParams')"
                                 [routerLinkActiveOptions]="getItemProp(processedItem, 'routerLinActiveOptions') || { exact: false }"
@@ -611,12 +609,6 @@ export class ContextMenu extends BaseComponent implements OnInit, AfterContentIn
                         this.hide();
                     }
                 });
-
-                this.documentTriggerListener = this.renderer.listen(documentTarget, this.triggerEvent, (event) => {
-                    if (this.containerViewChild.nativeElement.offsetParent && this.isOutsideClicked(event)) {
-                        this.hide();
-                    }
-                });
             }
             if (!this.resizeListener) {
                 this.resizeListener = this.renderer.listen(this.document.defaultView, 'resize', (event) => {
@@ -1046,6 +1038,7 @@ export class ContextMenu extends BaseComponent implements OnInit, AfterContentIn
     show(event: any) {
         this.activeItemPath.set([]);
         this.focusedItemInfo.set({ index: -1, level: 0, parentKey: '', item: null });
+        focus(this.rootmenu?.sublistViewChild?.nativeElement);
 
         this.pageX = event.pageX;
         this.pageY = event.pageY;
