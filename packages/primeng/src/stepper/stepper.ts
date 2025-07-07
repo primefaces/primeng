@@ -257,8 +257,15 @@ export class Step extends BaseComponent implements AfterContentInit {
         @if (isSeparatorVisible()) {
             <p-stepper-separator />
         }
-        <div [class]="cx('content')" [@content]="isVertical() ? (active() ? { value: 'visible', params: { transitionParams: transitionOptions() } } : { value: 'hidden', params: { transitionParams: transitionOptions() } }) : undefined">
-            <ng-container *ngTemplateOutlet="contentTemplate || _contentTemplate; context: { activateCallback: updateValue.bind(this), value: value(), active: active() }"></ng-container>
+        <div
+            [class]="cx('content')"
+            [@content]="isVertical() ? (active() ? { value: 'visible', params: { transitionParams: transitionOptions() } } : { value: 'hidden', params: { transitionParams: transitionOptions() } }) : undefined"
+            (@content.start)="onAnimationStart($event)"
+            (@content.done)="onAnimationEnd($event)"
+        >
+            @if (isVisible()) {
+                <ng-container *ngTemplateOutlet="contentTemplate || _contentTemplate; context: { activateCallback: updateValue.bind(this), value: value(), active: active() }"></ng-container>
+            }
         </div>
     `,
     changeDetection: ChangeDetectionStrategy.OnPush,
@@ -269,8 +276,7 @@ export class Step extends BaseComponent implements AfterContentInit {
         '[attr.aria-controls]': 'ariaControls()',
         '[attr.id]': 'id()',
         '[attr.data-p-active]': 'active()',
-        '[attr.data-pc-name]': '"steppanel"',
-        '[style.display]': '!isVertical() && !active() ? "none" : ""'
+        '[attr.data-pc-name]': '"steppanel"'
     },
     animations: [
         trigger('content', [
@@ -305,6 +311,10 @@ export class StepPanel extends BaseComponent implements AfterContentInit {
     value: ModelSignal<number> = model<number | undefined>(undefined);
 
     active = computed(() => this.pcStepper.value() === this.value());
+
+    visible = signal<boolean>(this.active());
+
+    isVisible = computed(() => this.active() || (this.isVertical() && this.visible()));
 
     ariaControls = computed(() => `${this.pcStepper.id()}_step_${this.value()}`);
 
@@ -343,6 +353,18 @@ export class StepPanel extends BaseComponent implements AfterContentInit {
                     break;
             }
         });
+    }
+
+    onAnimationStart(event: any) {
+        if (event.toState === 'visible') {
+            this.visible.set(true);
+        }
+    }
+
+    onAnimationEnd(event: any) {
+        if (event.toState === 'hidden') {
+            this.visible.set(false);
+        }
     }
 
     updateValue(value: number) {
