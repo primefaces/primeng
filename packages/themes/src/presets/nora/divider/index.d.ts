@@ -1,3 +1,2 @@
-import { DividerDesignTokens } from '../../types/divider';
-declare const _default: DividerDesignTokens;
-export default _default;
+export * from '@primeuix/themes/nora/divider';
+export { default } from '@primeuix/themes/nora/divider';

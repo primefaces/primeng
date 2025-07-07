@@ -1,10 +1,27 @@
 import { CommonModule } from '@angular/common';
-import { AfterContentInit, ChangeDetectionStrategy, ChangeDetectorRef, Component, ContentChild, ContentChildren, ElementRef, EventEmitter, inject, Input, NgModule, Output, QueryList, TemplateRef, ViewChild, ViewEncapsulation } from '@angular/core';
+import {
+    AfterContentInit,
+    ChangeDetectionStrategy,
+    ChangeDetectorRef,
+    Component,
+    ContentChild,
+    ContentChildren,
+    ElementRef,
+    EventEmitter,
+    inject,
+    Input,
+    NgModule,
+    Output,
+    QueryList,
+    signal,
+    TemplateRef,
+    ViewChild,
+    ViewEncapsulation
+} from '@angular/core';
 import { RouterModule } from '@angular/router';
 import { find, findSingle, resolve, uuid } from '@primeuix/utils';
 import { MenuItem, PrimeTemplate, SharedModule } from 'primeng/api';
 import { BaseComponent } from 'primeng/basecomponent';
-import { Divider } from 'primeng/divider';
 import { Ripple } from 'primeng/ripple';
 import { TooltipModule } from 'primeng/tooltip';
 import { Nullable } from 'primeng/ts-helpers';
@@ -19,89 +36,89 @@ import { DockStyle } from './style/dockstyle';
     standalone: true,
     imports: [CommonModule, RouterModule, Ripple, TooltipModule, SharedModule],
     template: `
-        <div [ngClass]="containerClass" [ngStyle]="style" [class]="styleClass" [attr.data-pc-name]="'dock'">
-            <div class="p-dock-list-container">
-                <ul
-                    #list
-                    [attr.id]="id"
-                    class="p-dock-list"
-                    role="menu"
-                    [attr.aria-orientation]="position === 'bottom' || position === 'top' ? 'horizontal' : 'vertical'"
-                    [attr.aria-activedescendant]="focused ? focusedOptionId : undefined"
-                    [tabindex]="tabindex"
-                    [attr.aria-label]="ariaLabel"
-                    [attr.aria-labelledby]="ariaLabelledBy"
-                    [attr.data-pc-section]="'menu'"
-                    (focus)="onListFocus($event)"
-                    (blur)="onListBlur($event)"
-                    (keydown)="onListKeyDown($event)"
-                    (mouseleave)="onListMouseLeave()"
-                >
-                    @for (item of model; track item.label; let i = $index) {
-                        <li
-                            *ngIf="item.visible !== false"
-                            [attr.id]="getItemId(item, i)"
-                            [ngClass]="itemClass(item, i)"
-                            role="menuitem"
-                            [attr.aria-label]="item.label"
-                            [attr.aria-disabled]="disabled(item)"
-                            (click)="onItemClick($event, item)"
-                            (mouseenter)="onItemMouseEnter(i)"
-                            [attr.data-pc-section]="'menuitem'"
-                            [attr.data-p-focused]="isItemActive(getItemId(item, i))"
-                            [attr.data-p-disabled]="disabled(item) || false"
-                        >
-                            <div class="p-dock-item-content" [attr.data-pc-section]="'content'">
+        <div [class]="cx('listContainer')">
+            <ul
+                #list
+                [attr.id]="id"
+                [class]="cx('list')"
+                role="menu"
+                [attr.aria-orientation]="position === 'bottom' || position === 'top' ? 'horizontal' : 'vertical'"
+                [attr.aria-activedescendant]="focused ? focusedOptionId : undefined"
+                [tabindex]="tabindex"
+                [attr.aria-label]="ariaLabel"
+                [attr.aria-labelledby]="ariaLabelledBy"
+                [attr.data-pc-section]="'menu'"
+                (focus)="onListFocus($event)"
+                (blur)="onListBlur($event)"
+                (keydown)="onListKeyDown($event)"
+                (mouseleave)="onListMouseLeave()"
+            >
+                @for (item of model; track item.label; let i = $index) {
+                    <li
+                        *ngIf="item.visible !== false"
+                        [attr.id]="getItemId(item, i)"
+                        [class]="cn(cx('item', { item, id: getItemId(item, i) }), item?.styleClass)"
+                        role="menuitem"
+                        [attr.aria-label]="item.label"
+                        [attr.aria-disabled]="disabled(item)"
+                        (click)="onItemClick($event, item)"
+                        (mouseenter)="onItemMouseEnter(i)"
+                        [attr.data-pc-section]="'menuitem'"
+                        [attr.data-p-focused]="isItemActive(getItemId(item, i))"
+                        [attr.data-p-disabled]="disabled(item) || false"
+                    >
+                        <div [class]="cx('itemContent')" [attr.data-pc-section]="'content'">
+                            <a
+                                *ngIf="isClickableRouterLink(item); else elseBlock"
+                                pRipple
+                                [routerLink]="item.routerLink"
+                                [queryParams]="item.queryParams"
+                                [class]="cx('itemLink')"
+                                [routerLinkActiveOptions]="item.routerLinkActiveOptions || { exact: false }"
+                                [target]="item.target"
+                                [attr.tabindex]="item.disabled ? null : item.tabindex ? item.tabindex : '-1'"
+                                pTooltip
+                                [tooltipOptions]="item.tooltipOptions"
+                                [fragment]="item.fragment"
+                                [queryParamsHandling]="item.queryParamsHandling"
+                                [preserveFragment]="item.preserveFragment"
+                                [skipLocationChange]="item.skipLocationChange"
+                                [replaceUrl]="item.replaceUrl"
+                                [state]="item.state"
+                                [attr.aria-hidden]="true"
+                            >
+                                <span [class]="cn(cx('itemIcon'), item.icon)" *ngIf="item.icon && !itemTemplate && !_itemTemplate" [ngStyle]="item.iconStyle"></span>
+                                <ng-container *ngTemplateOutlet="itemTemplate || itemTemplate; context: { $implicit: item }"></ng-container>
+                            </a>
+                            <ng-template #elseBlock>
                                 <a
-                                    *ngIf="isClickableRouterLink(item); else elseBlock"
+                                    [tooltipPosition]="item.tooltipPosition"
+                                    [attr.href]="item.url || null"
+                                    [class]="cx('itemLink')"
                                     pRipple
-                                    [routerLink]="item.routerLink"
-                                    [queryParams]="item.queryParams"
-                                    [ngClass]="{ 'p-disabled': item.disabled }"
-                                    class="p-dock-item-link"
-                                    [routerLinkActiveOptions]="item.routerLinkActiveOptions || { exact: false }"
-                                    [target]="item.target"
-                                    [attr.tabindex]="item.disabled || readonly ? null : item.tabindex ? item.tabindex : '-1'"
                                     pTooltip
                                     [tooltipOptions]="item.tooltipOptions"
-                                    [fragment]="item.fragment"
-                                    [queryParamsHandling]="item.queryParamsHandling"
-                                    [preserveFragment]="item.preserveFragment"
-                                    [skipLocationChange]="item.skipLocationChange"
-                                    [replaceUrl]="item.replaceUrl"
-                                    [state]="item.state"
+                                    [target]="item.target"
+                                    [attr.tabindex]="item.disabled ? null : item.tabindex ? item.tabindex : '-1'"
                                     [attr.aria-hidden]="true"
                                 >
-                                    <span class="p-dock-item-icon" *ngIf="item.icon && !itemTemplate && !_itemTemplate" [ngClass]="item.icon" [ngStyle]="item.iconStyle"></span>
-                                    <ng-container *ngTemplateOutlet="itemTemplate || itemTemplate; context: { $implicit: item }"></ng-container>
+                                    <span [class]="cn(cx('itemIcon'), item.icon)" *ngIf="item.icon && !itemTemplate && !_itemTemplate" [ngStyle]="item.iconStyle"></span>
+                                    <ng-container *ngTemplateOutlet="itemTemplate || _itemTemplate; context: { $implicit: item }"></ng-container>
                                 </a>
-                                <ng-template #elseBlock>
-                                    <a
-                                        [tooltipPosition]="item.tooltipPosition"
-                                        [attr.href]="item.url || null"
-                                        class="p-dock-item-link"
-                                        pRipple
-                                        pTooltip
-                                        [tooltipOptions]="item.tooltipOptions"
-                                        [ngClass]="{ 'p-disabled': item.disabled }"
-                                        [target]="item.target"
-                                        [attr.tabindex]="item.disabled || (i !== activeIndex && readonly) ? null : item.tabindex ? item.tabindex : '-1'"
-                                        [attr.aria-hidden]="true"
-                                    >
-                                        <span class="p-dock-item-icon" *ngIf="item.icon && !itemTemplate && !_itemTemplate" [ngClass]="item.icon" [ngStyle]="item.iconStyle"></span>
-                                        <ng-container *ngTemplateOutlet="itemTemplate || _itemTemplate; context: { $implicit: item }"></ng-container>
-                                    </a>
-                                </ng-template>
-                            </div>
-                        </li>
-                    }
-                </ul>
-            </div>
+                            </ng-template>
+                        </div>
+                    </li>
+                }
+            </ul>
         </div>
     `,
     changeDetection: ChangeDetectionStrategy.OnPush,
     encapsulation: ViewEncapsulation.None,
-    providers: [DockStyle]
+    providers: [DockStyle],
+    host: {
+        '[class]': 'cn(cx("root"), styleClass)',
+        'data-pc-name': 'dock'
+    }
 })
 export class Dock extends BaseComponent implements AfterContentInit {
     /**
@@ -110,12 +127,8 @@ export class Dock extends BaseComponent implements AfterContentInit {
      */
     @Input() id: string | undefined;
     /**
-     * Inline style of the element.
-     * @group Props
-     */
-    @Input() style: { [klass: string]: any } | null | undefined;
-    /**
      * Class of the element.
+     * @deprecated since v20.0.0, use `class` instead.
      * @group Props
      */
     @Input() styleClass: string | undefined;
@@ -134,6 +147,12 @@ export class Dock extends BaseComponent implements AfterContentInit {
      * @group Props
      */
     @Input() ariaLabel: string | undefined;
+    /**
+     * The breakpoint to define the maximum width boundary.
+     * @defaultValue 960px
+     * @group Props
+     */
+    @Input() breakpoint: string | undefined = '960px';
     /**
      * Defines a string that labels the dropdown button for accessibility.
      * @group Props
@@ -164,6 +183,14 @@ export class Dock extends BaseComponent implements AfterContentInit {
 
     _componentStyle = inject(DockStyle);
 
+    matchMediaListener: any;
+
+    query: any;
+
+    queryMatches = signal<boolean>(false);
+
+    mobileActive = signal<boolean>(false);
+
     get focusedOptionId() {
         return this.focusedOptionIndex !== -1 ? this.focusedOptionIndex : null;
     }
@@ -176,6 +203,12 @@ export class Dock extends BaseComponent implements AfterContentInit {
     ngOnInit() {
         super.ngOnInit();
         this.id = this.id || uuid('pn_id_');
+        this.bindMatchMediaListener();
+    }
+
+    ngOnDestroy() {
+        super.ngOnDestroy();
+        this.unbindMatchMediaListener();
     }
 
     @ContentChild('item') itemTemplate: TemplateRef<any> | undefined;
@@ -330,22 +363,8 @@ export class Dock extends BaseComponent implements AfterContentInit {
         return matchedOptionIndex > -1 ? matchedOptionIndex - 1 : 0;
     }
 
-    get containerClass() {
-        return {
-            ['p-dock p-component ' + ` p-dock-${this.position}`]: true
-        };
-    }
-
     isClickableRouterLink(item: any) {
         return item.routerLink && !item.disabled;
-    }
-
-    itemClass(item, index: number) {
-        return {
-            'p-dock-item': true,
-            'p-focus': this.isItemActive(this.getItemId(item, index)),
-            'p-disabled': this.disabled(item)
-        };
     }
 
     @ContentChildren(PrimeTemplate) templates: QueryList<PrimeTemplate> | undefined;
@@ -362,6 +381,29 @@ export class Dock extends BaseComponent implements AfterContentInit {
                     break;
             }
         });
+    }
+
+    bindMatchMediaListener() {
+        if (!this.matchMediaListener) {
+            const query = window.matchMedia(`(max-width: ${this.breakpoint})`);
+            this.query = query;
+            this.queryMatches.set(query.matches);
+
+            this.matchMediaListener = () => {
+                this.queryMatches.set(query.matches);
+                this.mobileActive.set(false);
+            };
+
+            this.renderer.listen(this.query, 'change', this.matchMediaListener.bind(this));
+        }
+    }
+
+    unbindMatchMediaListener() {
+        if (this.matchMediaListener) {
+            this.matchMediaListener();
+            this.matchMediaListener = null;
+            this.query = null;
+        }
     }
 }
 

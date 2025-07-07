@@ -1,3 +1,2 @@
-import { CarouselDesignTokens } from '../../types/carousel';
-declare const _default: CarouselDesignTokens;
-export default _default;
+export * from '@primeuix/themes/lara/carousel';
+export { default } from '@primeuix/themes/lara/carousel';

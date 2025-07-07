@@ -1,5 +1,5 @@
 import { DOCUMENT, isPlatformBrowser } from '@angular/common';
-import { booleanAttribute, Directive, ElementRef, inject, Input, NgModule, PLATFORM_ID } from '@angular/core';
+import { Directive, ElementRef, inject, Input, NgModule, PLATFORM_ID } from '@angular/core';
 import { BaseComponent } from 'primeng/basecomponent';
 import { DomHandler } from 'primeng/dom';
 
@@ -14,15 +14,9 @@ import { DomHandler } from 'primeng/dom';
 export class AutoFocus extends BaseComponent {
     /**
      * When present, it specifies that the component should automatically get focus on load.
-     * @deprecated use [pAutoFocus]="true"
      * @group Props
      */
-    @Input({ transform: booleanAttribute }) autofocus: boolean = false;
-    /**
-     * When present, it specifies that the component should automatically get focus on load.
-     * @group Props
-     */
-    @Input('pAutoFocus') _autofocus: boolean = false;
+    @Input('pAutoFocus') autofocus: boolean = false;
 
     focused: boolean = false;
 
@@ -52,7 +46,7 @@ export class AutoFocus extends BaseComponent {
     }
 
     autoFocus() {
-        if (isPlatformBrowser(this.platformId) && this._autofocus) {
+        if (isPlatformBrowser(this.platformId) && this.autofocus) {
             setTimeout(() => {
                 const focusableElements = DomHandler.getFocusableElements(this.host?.nativeElement);
 

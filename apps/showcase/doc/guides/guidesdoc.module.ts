@@ -5,7 +5,6 @@ import { NgModule } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { RouterModule } from '@angular/router';
 import { Checkbox } from 'primeng/checkbox';
-import { InputSwitchModule } from 'primeng/inputswitch';
 import { ColorsDoc } from './accessibility/colorsdoc';
 import { FormControlsDoc } from './accessibility/formcontrolsdoc';
 import { IntroductionDoc } from './accessibility/introductiondoc';
@@ -17,38 +16,14 @@ import { NormalizeDoc } from './csslayer/normalizedoc';
 import { ResetDoc } from './csslayer/resetdoc';
 import { SpecificityDoc } from './csslayer/specificitydoc';
 import { TailwindDoc } from './csslayer/tailwinddoc';
-import { BreakingChangesDoc } from './migration/breakingchangesdoc';
-import { DeprecatedComponentsDoc } from './migration/deprecatedcomponentsdoc';
-import { MigrationOverviewDoc } from './migration/migrationoverviewdoc';
-import { RenamedComponentsDoc } from './migration/renamedcomponentsdoc';
 import { CompatibilityDoc } from './primeflex/compatibilitydoc';
 import { MigrationDoc } from './primeflex/migrationdoc';
 import { OverviewDoc } from './primeflex/overviewdoc';
 import { TailwindCSSDoc } from './primeflex/tailwindcssdoc';
 
 @NgModule({
-    imports: [CommonModule, AppCodeModule, AppDocModule, RouterModule, FormsModule, Checkbox, InputSwitchModule],
+    imports: [CommonModule, AppCodeModule, AppDocModule, RouterModule, FormsModule, Checkbox],
     exports: [AppDocModule],
-    declarations: [
-        ColorsDoc,
-        FormControlsDoc,
-        IntroductionDoc,
-        SemanticHTMLDoc,
-        WAIARIADoc,
-        WCAGDoc,
-        SpecificityDoc,
-        ResetDoc,
-        TailwindDoc,
-        BootstrapDoc,
-        NormalizeDoc,
-        OverviewDoc,
-        CompatibilityDoc,
-        TailwindCSSDoc,
-        MigrationDoc,
-        BreakingChangesDoc,
-        DeprecatedComponentsDoc,
-        MigrationOverviewDoc,
-        RenamedComponentsDoc
-    ]
+    declarations: [ColorsDoc, FormControlsDoc, IntroductionDoc, SemanticHTMLDoc, WAIARIADoc, WCAGDoc, SpecificityDoc, ResetDoc, TailwindDoc, BootstrapDoc, NormalizeDoc, OverviewDoc, CompatibilityDoc, TailwindCSSDoc, MigrationDoc]
 })
 export class GuidesDocModule {}

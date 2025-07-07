@@ -8,6 +8,7 @@ import { ReactiveFormsDoc } from '@/doc/selectbutton/reactiveformsdoc';
 import { SelectButtonDocModule } from '@/doc/selectbutton/selectbuttondoc.module';
 import { SizesDoc } from '@/doc/selectbutton/sizesdoc';
 import { TemplateDoc } from '@/doc/selectbutton/templatedoc';
+import { TemplateDrivenFormsDoc } from '@/doc/selectbutton/templatedrivenformsdoc';
 import { Component } from '@angular/core';
 
 @Component({
@@ -35,11 +36,6 @@ export class SelectButtonDemo {
             component: BasicDoc
         },
         {
-            id: 'reactive-forms',
-            label: 'Reactive Forms',
-            component: ReactiveFormsDoc
-        },
-        {
             id: 'multiple',
             label: 'Multiple',
             component: MultipleDoc
@@ -55,14 +51,22 @@ export class SelectButtonDemo {
             component: SizesDoc
         },
         {
+            id: 'disabled',
+            label: 'Disabled',
+            component: DisabledDoc
+        },
+        {
             id: 'invalid',
             label: 'Invalid',
             component: InvalidDoc
         },
         {
-            id: 'disabled',
-            label: 'Disabled',
-            component: DisabledDoc
+            id: 'forms',
+            label: 'Forms',
+            children: [
+                { id: 'templatedriven', label: 'Template Driven', component: TemplateDrivenFormsDoc },
+                { id: 'reactive', label: 'Reactive Forms', component: ReactiveFormsDoc }
+            ]
         },
         {
             id: 'accessibility',

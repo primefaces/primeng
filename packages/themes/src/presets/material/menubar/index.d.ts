@@ -1,3 +1,2 @@
-import { MenubarDesignTokens } from '../../types/menubar';
-declare const _default: MenubarDesignTokens;
-export default _default;
+export * from '@primeuix/themes/material/menubar';
+export { default } from '@primeuix/themes/material/menubar';

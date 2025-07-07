@@ -1,13 +1,13 @@
-import { ChangeDetectionStrategy, Component, inject } from '@angular/core';
-import Aura from '@primeng/themes/aura';
-import Nora from '@primeng/themes/nora';
-import Lara from '@primeng/themes/lara';
 import { DesignerService } from '@/service/designerservice';
-import { FormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
+import { ChangeDetectionStrategy, Component, inject } from '@angular/core';
+import { FormsModule } from '@angular/forms';
+import Aura from '@primeuix/themes/aura';
+import Lara from '@primeuix/themes/lara';
+import Nora from '@primeuix/themes/nora';
+import { MessageService } from 'primeng/api';
 import { DividerModule } from 'primeng/divider';
 import { FileUploadModule } from 'primeng/fileupload';
-import { MessageService } from 'primeng/api';
 
 const presets = {
     Aura,

@@ -11,10 +11,10 @@ import { Component } from '@angular/core';
         <div class="card">
             <div class="rounded border border-surface-200 dark:border-surface-700 p-6 bg-surface-0 dark:bg-surface-900">
                 <div class="flex mb-4">
-                    <p-skeleton shape="circle" size="4rem" styleClass="mr-2" />
+                    <p-skeleton shape="circle" size="4rem" class="mr-2" />
                     <div>
-                        <p-skeleton width="10rem" styleClass="mb-2" />
-                        <p-skeleton width="5rem" styleClass="mb-2" />
+                        <p-skeleton width="10rem" class="mb-2" />
+                        <p-skeleton width="5rem" class="mb-2" />
                         <p-skeleton height=".5rem" />
                     </div>
                 </div>
@@ -32,10 +32,10 @@ export class CardDoc {
     code: Code = {
         basic: `<div class="rounded border border-surface-200 dark:border-surface-700 p-6 bg-surface-0 dark:bg-surface-900">
     <div class="flex mb-4">
-        <p-skeleton shape="circle" size="4rem" styleClass="mr-2" />
+        <p-skeleton shape="circle" size="4rem" class="mr-2" />
         <div>
-            <p-skeleton width="10rem" styleClass="mb-2" />
-            <p-skeleton width="5rem" styleClass="mb-2" />
+            <p-skeleton width="10rem" class="mb-2" />
+            <p-skeleton width="5rem" class="mb-2" />
             <p-skeleton height=".5rem" />
         </div>
     </div>
@@ -48,10 +48,10 @@ export class CardDoc {
         html: `<div class="card">
     <div class="rounded border border-surface-200 dark:border-surface-700 p-6 bg-surface-0 dark:bg-surface-900">
         <div class="flex mb-4">
-            <p-skeleton shape="circle" size="4rem" styleClass="mr-2" />
+            <p-skeleton shape="circle" size="4rem" class="mr-2" />
             <div>
-                <p-skeleton width="10rem" styleClass="mb-2" />
-                <p-skeleton width="5rem" styleClass="mb-2" />
+                <p-skeleton width="10rem" class="mb-2" />
+                <p-skeleton width="5rem" class="mb-2" />
                 <p-skeleton height=".5rem" />
             </div>
         </div>

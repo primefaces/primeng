@@ -27,27 +27,12 @@ import { TableRowCollapseEvent, TableRowExpandEvent } from 'primeng/table';
                     <ng-template #header>
                         <tr>
                             <th style="width: 5rem"></th>
-                            <th pSortableColumn="name">
-                                Name
-                                <p-sortIcon field="name" />
-                            </th>
+                            <th>Name</th>
                             <th>Image</th>
-                            <th pSortableColumn="price">
-                                Price
-                                <p-sortIcon field="price" />
-                            </th>
-                            <th pSortableColumn="category">
-                                Category
-                                <p-sortIcon field="category" />
-                            </th>
-                            <th pSortableColumn="rating">
-                                Reviews
-                                <p-sortIcon field="rating" />
-                            </th>
-                            <th pSortableColumn="inventoryStatus">
-                                Status
-                                <p-sortIcon field="inventoryStatus" />
-                            </th>
+                            <th>Price</th>
+                            <th>Category</th>
+                            <th>Reviews</th>
+                            <th>Status</th>
                         </tr>
                     </ng-template>
                     <ng-template #body let-product let-expanded="expanded">
@@ -78,24 +63,34 @@ import { TableRowCollapseEvent, TableRowExpandEvent } from 'primeng/table';
                                         <ng-template #header>
                                             <tr>
                                                 <th pSortableColumn="id">
-                                                    Id
-                                                    <p-sortIcon field="price" />
+                                                    <div class="flex items-center gap-2">
+                                                        Id
+                                                        <p-sortIcon field="price" />
+                                                    </div>
                                                 </th>
                                                 <th pSortableColumn="customer">
-                                                    Customer
-                                                    <p-sortIcon field="customer" />
+                                                    <div class="flex items-center gap-2">
+                                                        Customer
+                                                        <p-sortIcon field="customer" />
+                                                    </div>
                                                 </th>
                                                 <th pSortableColumn="date">
-                                                    Date
-                                                    <p-sortIcon field="date" />
+                                                    <div class="flex items-center gap-2">
+                                                        Date
+                                                        <p-sortIcon field="date" />
+                                                    </div>
                                                 </th>
                                                 <th pSortableColumn="amount">
-                                                    Amount
-                                                    <p-sortIcon field="amount" />
+                                                    <div class="flex items-center gap-2">
+                                                        Amount
+                                                        <p-sortIcon field="amount" />
+                                                    </div>
                                                 </th>
                                                 <th pSortableColumn="status">
-                                                    Status
-                                                    <p-sortIcon field="status" />
+                                                    <div class="flex items-center gap-2">
+                                                        Status
+                                                        <p-sortIcon field="status" />
+                                                    </div>
                                                 </th>
                                                 <th style="width: 4rem"></th>
                                             </tr>
@@ -195,12 +190,12 @@ export class RowExpansionDoc {
     <ng-template #header>
         <tr>
             <th style="width: 5rem"></th>
-            <th pSortableColumn="name">Name <p-sortIcon field="name" /></th>
+            <th>Name</th>
             <th>Image</th>
-            <th pSortableColumn="price">Price <p-sortIcon field="price" /></th>
-            <th pSortableColumn="category">Category <p-sortIcon field="category" /></th>
-            <th pSortableColumn="rating">Reviews <p-sortIcon field="rating" /></th>
-            <th pSortableColumn="inventoryStatus">Status <p-sortIcon field="inventoryStatus" /></th>
+            <th>Price</th>
+            <th>Category</th>
+            <th>Reviews</th>
+            <th>Status</th>
         </tr>
     </ng-template>
     <ng-template #body let-product let-expanded="expanded">
@@ -226,11 +221,36 @@ export class RowExpansionDoc {
                     <p-table [value]="product.orders" dataKey="id">
                         <ng-template #header>
                             <tr>
-                                <th pSortableColumn="id">Id <p-sortIcon field="price" /></th>
-                                <th pSortableColumn="customer">Customer <p-sortIcon field="customer" /></th>
-                                <th pSortableColumn="date">Date <p-sortIcon field="date" /></th>
-                                <th pSortableColumn="amount">Amount <p-sortIcon field="amount" /></th>
-                                <th pSortableColumn="status">Status <p-sortIcon field="status" /></th>
+                                <th pSortableColumn="id">
+                                    <div class="flex items-center gap-2">
+                                        Id
+                                        <p-sortIcon field="price" />
+                                    </div>
+                                </th>
+                                <th pSortableColumn="customer">
+                                    <div class="flex items-center gap-2">
+                                        Customer
+                                        <p-sortIcon field="customer" />
+                                    </div>
+                                </th>
+                                <th pSortableColumn="date">
+                                    <div class="flex items-center gap-2">
+                                        Date
+                                        <p-sortIcon field="date" />
+                                    </div>
+                                </th>
+                                <th pSortableColumn="amount">
+                                    <div class="flex items-center gap-2">
+                                        Amount
+                                        <p-sortIcon field="amount" />
+                                    </div>
+                                </th>
+                                <th pSortableColumn="status">
+                                    <div class="flex items-center gap-2">
+                                        Status
+                                        <p-sortIcon field="status" />
+                                    </div>
+                                </th>
                                 <th style="width: 4rem"></th>
                             </tr>
                         </ng-template>
@@ -269,12 +289,12 @@ export class RowExpansionDoc {
         <ng-template #header>
             <tr>
                 <th style="width: 5rem"></th>
-                <th pSortableColumn="name">Name <p-sortIcon field="name" /></th>
+                <th>Name</th>
                 <th>Image</th>
-                <th pSortableColumn="price">Price <p-sortIcon field="price" /></th>
-                <th pSortableColumn="category">Category <p-sortIcon field="category" /></th>
-                <th pSortableColumn="rating">Reviews <p-sortIcon field="rating" /></th>
-                <th pSortableColumn="inventoryStatus">Status <p-sortIcon field="inventoryStatus" /></th>
+                <th>Price</th>
+                <th>Category</th>
+                <th>Reviews</th>
+                <th>Status</th>
             </tr>
         </ng-template>
         <ng-template #body let-product let-expanded="expanded">
@@ -300,11 +320,36 @@ export class RowExpansionDoc {
                         <p-table [value]="product.orders" dataKey="id">
                             <ng-template #header>
                                 <tr>
-                                    <th pSortableColumn="id">Id <p-sortIcon field="price" /></th>
-                                    <th pSortableColumn="customer">Customer <p-sortIcon field="customer" /></th>
-                                    <th pSortableColumn="date">Date <p-sortIcon field="date" /></th>
-                                    <th pSortableColumn="amount">Amount <p-sortIcon field="amount" /></th>
-                                    <th pSortableColumn="status">Status <p-sortIcon field="status" /></th>
+                                    <th pSortableColumn="id">
+                                        <div class="flex items-center gap-2">
+                                            Id
+                                            <p-sortIcon field="price" />
+                                        </div>
+                                    </th>
+                                    <th pSortableColumn="customer">
+                                        <div class="flex items-center gap-2">
+                                            Customer
+                                            <p-sortIcon field="customer" />
+                                        </div>
+                                    </th>
+                                    <th pSortableColumn="date">
+                                        <div class="flex items-center gap-2">
+                                            Date
+                                            <p-sortIcon field="date" />
+                                        </div>
+                                    </th>
+                                    <th pSortableColumn="amount">
+                                        <div class="flex items-center gap-2">
+                                            Amount
+                                            <p-sortIcon field="amount" />
+                                        </div>
+                                    </th>
+                                    <th pSortableColumn="status">
+                                        <div class="flex items-center gap-2">
+                                            Status
+                                            <p-sortIcon field="status" />
+                                        </div>
+                                    </th>
                                     <th style="width: 4rem"></th>
                                 </tr>
                             </ng-template>

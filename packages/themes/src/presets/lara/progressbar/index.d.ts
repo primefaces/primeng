@@ -1,3 +1,2 @@
-import { ProgressBarDesignTokens } from '../../types/progressbar';
-declare const _default: ProgressBarDesignTokens;
-export default _default;
+export * from '@primeuix/themes/lara/progressbar';
+export { default } from '@primeuix/themes/lara/progressbar';

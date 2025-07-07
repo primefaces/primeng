@@ -15,6 +15,7 @@ import { ObjectsDoc } from '@/doc/autocomplete/objectsdoc';
 import { ReactiveFormsDoc } from '@/doc/autocomplete/reactiveformsdoc';
 import { SizesDoc } from '@/doc/autocomplete/sizesdoc';
 import { TemplateDoc } from '@/doc/autocomplete/templatedoc';
+import { TemplateDrivenFormsDoc } from '@/doc/autocomplete/templatedrivenformsdoc';
 import { VirtualScrollDoc } from '@/doc/autocomplete/virtualscrolldoc';
 import { ChangeDetectionStrategy, Component } from '@angular/core';
 
@@ -42,11 +43,6 @@ export class AutoCompleteDemo {
             id: 'basic',
             label: 'Basic',
             component: BasicDoc
-        },
-        {
-            id: 'reactive-forms',
-            label: 'Reactive Forms',
-            component: ReactiveFormsDoc
         },
         {
             id: 'dropdown',
@@ -104,14 +100,22 @@ export class AutoCompleteDemo {
             component: FilledDoc
         },
         {
+            id: 'disabled',
+            label: 'Disabled',
+            component: DisabledDoc
+        },
+        {
             id: 'invalid',
             label: 'Invalid',
             component: InvalidDoc
         },
         {
-            id: 'disabled',
-            label: 'Disabled',
-            component: DisabledDoc
+            id: 'forms',
+            label: 'Forms',
+            children: [
+                { id: 'templatedriven', label: 'Template Driven', component: TemplateDrivenFormsDoc },
+                { id: 'reactive', label: 'Reactive Forms', component: ReactiveFormsDoc }
+            ]
         },
         {
             id: 'accessibility',

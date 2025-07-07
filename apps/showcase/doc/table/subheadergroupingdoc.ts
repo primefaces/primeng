@@ -36,7 +36,9 @@ import { ChangeDetectionStrategy, ChangeDetectorRef, Component } from '@angular/
                     </ng-template>
                     <ng-template #groupfooter let-customer>
                         <tr>
-                            <td colspan="5" class="text-right font-bold pr-12">Total Customers: {{ calculateCustomerTotal(customer.representative.name) }}</td>
+                            <td colspan="5">
+                                <div class="text-right font-bold pe-12">Total Customers: {{ calculateCustomerTotal(customer.representative.name) }}</div>
+                            </td>
                         </tr>
                     </ng-template>
                     <ng-template #body let-customer let-rowIndex="rowIndex">
@@ -136,10 +138,10 @@ export class SubheaderGroupingDoc {
             </td>
         </tr>
     </ng-template>
-    <ng-template #groupfooter let-customer>
+   <ng-template #groupfooter let-customer>
         <tr>
-            <td colspan="5" class="text-right font-bold pr-12">
-                Total Customers: {{calculateCustomerTotal(customer.representative.name)}}
+            <td colspan="5">
+                <div class="text-right font-bold pe-12">Total Customers: {{ calculateCustomerTotal(customer.representative.name) }}</div>
             </td>
         </tr>
     </ng-template>
@@ -189,8 +191,8 @@ export class SubheaderGroupingDoc {
         </ng-template>
         <ng-template #groupfooter let-customer>
             <tr>
-                <td colspan="5" class="text-right font-bold pr-12">
-                    Total Customers: {{calculateCustomerTotal(customer.representative.name)}}
+                <td colspan="5">
+                    <div class="text-right font-bold">Total Customers: {{ calculateCustomerTotal(customer.representative.name) }}</div>
                 </td>
             </tr>
         </ng-template>
@@ -200,7 +202,7 @@ export class SubheaderGroupingDoc {
                     {{customer.name}}
                 </td>
                 <td>
-                    <div class="flex items-center gap-2">
+                    <div class="flex items-center gap-2 pe-12">
                         <img src="https://primefaces.org/cdn/primeng/images/demo/flag/flag_placeholder.png" [class]="'flag flag-' + customer.country.code" style="width: 20px" />
                         <span>{{ customer.country.name }}</span>
                     </div>

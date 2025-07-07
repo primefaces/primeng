@@ -1,3 +1,2 @@
-import { MeterGroupDesignTokens } from '../../types/metergroup';
-declare const _default: MeterGroupDesignTokens;
-export default _default;
+export * from '@primeuix/themes/aura/metergroup';
+export { default } from '@primeuix/themes/aura/metergroup';

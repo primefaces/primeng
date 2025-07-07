@@ -1,3 +1,2 @@
-import { ProgressSpinnerDesignTokens } from '../../types/progressspinner';
-declare const _default: ProgressSpinnerDesignTokens;
-export default _default;
+export * from '@primeuix/themes/material/progressspinner';
+export { default } from '@primeuix/themes/material/progressspinner';

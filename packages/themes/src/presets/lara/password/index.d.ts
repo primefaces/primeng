@@ -1,3 +1,2 @@
-import { PasswordDesignTokens } from '../../types/password';
-declare const _default: PasswordDesignTokens;
-export default _default;
+export * from '@primeuix/themes/lara/password';
+export { default } from '@primeuix/themes/lara/password';

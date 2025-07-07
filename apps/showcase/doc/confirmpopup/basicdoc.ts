@@ -27,7 +27,7 @@ export class BasicDoc {
 
     confirm1(event: Event) {
         this.confirmationService.confirm({
-            target: event.target as EventTarget,
+            target: event.currentTarget as EventTarget,
             message: 'Are you sure you want to proceed?',
             icon: 'pi pi-exclamation-triangle',
             rejectButtonProps: {
@@ -49,7 +49,7 @@ export class BasicDoc {
 
     confirm2(event: Event) {
         this.confirmationService.confirm({
-            target: event.target as EventTarget,
+            target: event.currentTarget as EventTarget,
             message: 'Do you want to delete this record?',
             icon: 'pi pi-info-circle',
             rejectButtonProps: {
@@ -101,7 +101,7 @@ export class ConfirmPopupBasicDemo {
 
     confirm1(event: Event) {
         this.confirmationService.confirm({
-            target: event.target as EventTarget,
+            target: event.currentTarget as EventTarget,
             message: 'Are you sure you want to proceed?',
             icon: 'pi pi-exclamation-triangle',
             rejectButtonProps: {
@@ -123,7 +123,7 @@ export class ConfirmPopupBasicDemo {
 
     confirm2(event: Event) {
         this.confirmationService.confirm({
-            target: event.target as EventTarget,
+            target: event.currentTarget as EventTarget,
             message: 'Do you want to delete this record?',
             icon: 'pi pi-info-circle',
             rejectButtonProps: {

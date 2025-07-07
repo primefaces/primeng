@@ -15,35 +15,24 @@ import { TagStyle } from './style/tagstyle';
     template: `
         <ng-content></ng-content>
         <ng-container *ngIf="!iconTemplate && !_iconTemplate">
-            <span class="p-tag-icon" [ngClass]="icon" *ngIf="icon"></span>
+            <span [class]="cx('icon')" [ngClass]="icon" *ngIf="icon"></span>
         </ng-container>
-        <span class="p-tag-icon" *ngIf="iconTemplate || _iconTemplate">
+        <span [class]="cx('icon')" *ngIf="iconTemplate || _iconTemplate">
             <ng-template *ngTemplateOutlet="iconTemplate || _iconTemplate"></ng-template>
         </span>
-        <span class="p-tag-label">{{ value }}</span>
+        <span [class]="cx('label')">{{ value }}</span>
     `,
     changeDetection: ChangeDetectionStrategy.OnPush,
     encapsulation: ViewEncapsulation.None,
     providers: [TagStyle],
     host: {
-        '[class]': 'containerClass()',
-        '[style]': 'style'
+        '[class]': "cn(cx('root'), styleClass)"
     }
 })
 export class Tag extends BaseComponent implements AfterContentInit {
     /**
-     * Inline style of the component.
-     * @group Props
-     */
-    @Input() get style(): { [klass: string]: any } | null | undefined {
-        return this._style;
-    }
-    set style(value: { [klass: string]: any } | null | undefined) {
-        this._style = value;
-        this.cd.markForCheck();
-    }
-    /**
      * Style class of the component.
+     * @deprecated since v20.0.0, use `class` instead.
      * @group Props
      */
     @Input() styleClass: string | undefined;
@@ -74,8 +63,6 @@ export class Tag extends BaseComponent implements AfterContentInit {
 
     _iconTemplate: TemplateRef<any> | undefined;
 
-    _style: { [klass: string]: any } | null | undefined;
-
     _componentStyle = inject(TagStyle);
 
     ngAfterContentInit() {
@@ -86,24 +73,6 @@ export class Tag extends BaseComponent implements AfterContentInit {
                     break;
             }
         });
-    }
-
-    containerClass() {
-        let classes = 'p-tag p-component';
-
-        if (this.severity) {
-            classes += ` p-tag-${this.severity}`;
-        }
-
-        if (this.rounded) {
-            classes += ' p-tag-rounded';
-        }
-
-        if (this.styleClass) {
-            classes += ` ${this.styleClass}`;
-        }
-
-        return classes;
     }
 }
 

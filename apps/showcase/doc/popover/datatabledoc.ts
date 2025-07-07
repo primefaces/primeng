@@ -19,7 +19,7 @@ import { Popover } from 'primeng/popover';
                         <th class="w-1/6">Id</th>
                         <th class="w-1/6">Code</th>
                         <th class="w-1/6">Name</th>
-                        <th class="w-1/6" pSortableColumn="price">Price <p-sortIcon field="price" /></th>
+                        <th class="w-1/6">Price</th>
                         <th class="w-1/6">Image</th>
                         <th class="w-1/6">Details</th>
                     </tr>
@@ -45,7 +45,7 @@ import { Popover } from 'primeng/popover';
                         <div class="flex justify-center rounded">
                             <div class="relative mx-auto">
                                 <img class="rounded w-44 sm:w-64" [src]="'https://primefaces.org/cdn/primeng/images/demo/product/' + selectedProduct.image" [alt]="selectedProduct.name" />
-                                <p-tag [value]="selectedProduct.inventoryStatus" [severity]="getSeverity(selectedProduct)" class="absolute" styleClass="dark:!bg-surface-900" [style.left.px]="4" [style.top.px]="4" />
+                                <p-tag [value]="selectedProduct.inventoryStatus" [severity]="getSeverity(selectedProduct)" class="absolute dark:!bg-surface-900" [style.left.px]="4" [style.top.px]="4" />
                             </div>
                         </div>
                         <div class="pt-4">
@@ -106,7 +106,7 @@ export class DataTableDoc implements OnInit {
             <th class="w-1/6">Id</th>
             <th class="w-1/6">Code</th>
             <th class="w-1/6">Name</th>
-            <th class="w-1/6" pSortableColumn="price">Price <p-sortIcon field="price" /></th>
+            <th class="w-1/6">Price</th>
             <th class="w-1/6">Image</th>
             <th class="w-1/6">Details</th>
         </tr>
@@ -143,8 +143,7 @@ export class DataTableDoc implements OnInit {
                     <p-tag
                         [value]="selectedProduct.inventoryStatus"
                         [severity]="getSeverity(selectedProduct)"
-                        class="absolute"
-                        styleClass="dark:!bg-surface-900"
+                        class="absolute dark:!bg-surface-900"
                         [style.left.px]="4"
                         [style.top.px]="4"
                     />
@@ -191,7 +190,7 @@ export class DataTableDoc implements OnInit {
                 <th class="w-1/6">Id</th>
                 <th class="w-1/6">Code</th>
                 <th class="w-1/6">Name</th>
-                <th class="w-1/6" pSortableColumn="price">Price <p-sortIcon field="price" /></th>
+                <th class="w-1/6">Price</th>
                 <th class="w-1/6">Image</th>
                 <th class="w-1/6">Details</th>
             </tr>
@@ -228,8 +227,7 @@ export class DataTableDoc implements OnInit {
                         <p-tag
                             [value]="selectedProduct.inventoryStatus"
                             [severity]="getSeverity(selectedProduct)"
-                            class="absolute"
-                            styleClass="dark:!bg-surface-900"
+                            class="absolute dark:!bg-surface-900"
                             [style.left.px]="4"
                             [style.top.px]="4"
                         />

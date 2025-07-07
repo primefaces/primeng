@@ -12,6 +12,7 @@ import { OptionalDoc } from '@/doc/inputmask/optionaldoc';
 import { ReactiveFormsDoc } from '@/doc/inputmask/reactiveformsdoc';
 import { SizesDoc } from '@/doc/inputmask/sizesdoc';
 import { SlotCharDoc } from '@/doc/inputmask/slotchardoc';
+import { TemplateDrivenFormsDoc } from '@/doc/inputmask/templatedrivenformsdoc';
 import { Component } from '@angular/core';
 
 @Component({
@@ -37,11 +38,6 @@ export class InputMaskDemo {
             id: 'basic',
             label: 'Basic',
             component: BasicDoc
-        },
-        {
-            id: 'reactive-forms',
-            label: 'Reactive Forms',
-            component: ReactiveFormsDoc
         },
         {
             id: 'mask',
@@ -79,16 +75,23 @@ export class InputMaskDemo {
             component: SizesDoc
         },
         {
+            id: 'disabled',
+            label: 'Disabled',
+            component: DisabledDoc
+        },
+        {
             id: 'invalid',
             label: 'Invalid',
             component: InvalidDoc
         },
         {
-            id: 'disabled',
-            label: 'Disabled',
-            component: DisabledDoc
+            id: 'forms',
+            label: 'Forms',
+            children: [
+                { id: 'templatedriven', label: 'Template Driven', component: TemplateDrivenFormsDoc },
+                { id: 'reactive', label: 'Reactive Forms', component: ReactiveFormsDoc }
+            ]
         },
-
         {
             id: 'accessibility',
             label: 'Accessibility',
