@@ -2687,7 +2687,7 @@ export class TTScrollableView extends BaseComponent implements AfterViewInit, On
         '[class]': 'cx("sortableColumn")',
         '[tabindex]': 'isEnabled() ? "0" : null',
         role: 'columnheader',
-        '[aria-sort]': 'ariaSorted'
+        '[attr.aria-sort]': 'ariaSorted'
     },
     providers: [TreeTableStyle]
 })
