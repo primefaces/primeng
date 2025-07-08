@@ -1698,7 +1698,9 @@ export class MultiSelect extends BaseEditableHolder implements OnInit, AfterView
                 event.preventDefault();
             } else {
                 if (this.focusedOptionIndex() !== -1) {
-                    this.onOptionSelect({ originalEvent: event, option: this.visibleOptions()[this.focusedOptionIndex()] });
+                    const option = this.visibleOptions()[this.focusedOptionIndex()];
+
+                    !this.isSelected(option) && this.onOptionSelect({ originalEvent: event, option });
                 }
 
                 this.overlayVisible && this.hide(this.filter);
