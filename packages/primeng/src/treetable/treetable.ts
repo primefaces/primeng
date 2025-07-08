@@ -178,7 +178,7 @@ export class TreeTableService {
         </p-paginator>
 
         <div [class]="cx('wrapper')" *ngIf="!scrollable">
-            <table role="table" #table [ngClass]="tableStyleClass" [ngStyle]="tableStyle">
+            <table role="treegrid" #table [ngClass]="tableStyleClass" [ngStyle]="tableStyle">
                 <ng-container *ngTemplateOutlet="colGroupTemplate || _colGroupTemplate; context: { $implicit: columns }"></ng-container>
                 <thead role="rowgroup" [class]="cx('thead')">
                     <ng-container *ngTemplateOutlet="headerTemplate || _headerTemplate; context: { $implicit: columns }"></ng-container>
@@ -534,6 +534,7 @@ export class TreeTable extends BaseComponent implements AfterContentInit, OnInit
      * @group Props
      */
     @Input() paginatorLocale: string | undefined;
+
     /**
      * Number of total records, defaults to length of value when not defined.
      * @group Props
@@ -541,10 +542,12 @@ export class TreeTable extends BaseComponent implements AfterContentInit, OnInit
     @Input() get totalRecords(): number {
         return this._totalRecords;
     }
+
     set totalRecords(val: number) {
         this._totalRecords = val;
         this.tableService.onTotalRecordsChange(this._totalRecords);
     }
+
     /**
      * Name of the field to sort data by default.
      * @group Props
@@ -552,9 +555,11 @@ export class TreeTable extends BaseComponent implements AfterContentInit, OnInit
     @Input() get sortField(): string | undefined | null {
         return this._sortField;
     }
+
     set sortField(val: string | undefined | null) {
         this._sortField = val;
     }
+
     /**
      * Order to sort when default sorting is enabled.
      * @defaultValue 1
@@ -563,9 +568,11 @@ export class TreeTable extends BaseComponent implements AfterContentInit, OnInit
     @Input() get sortOrder(): number {
         return this._sortOrder;
     }
+
     set sortOrder(val: number) {
         this._sortOrder = val;
     }
+
     /**
      * An array of SortMeta objects to sort the data by default in multiple sort mode.
      * @defaultValue null
@@ -574,9 +581,11 @@ export class TreeTable extends BaseComponent implements AfterContentInit, OnInit
     @Input() get multiSortMeta(): SortMeta[] | undefined | null {
         return this._multiSortMeta;
     }
+
     set multiSortMeta(val: SortMeta[] | undefined | null) {
         this._multiSortMeta = val;
     }
+
     /**
      * Selected row in single mode or an array of values in multiple mode.
      * @defaultValue null
@@ -585,9 +594,11 @@ export class TreeTable extends BaseComponent implements AfterContentInit, OnInit
     @Input() get selection(): any {
         return this._selection;
     }
+
     set selection(val: any) {
         this._selection = val;
     }
+
     /**
      * An array of objects to display.
      * @defaultValue null
@@ -596,9 +607,11 @@ export class TreeTable extends BaseComponent implements AfterContentInit, OnInit
     @Input() get value(): TreeNode<any>[] | undefined {
         return this._value;
     }
+
     set value(val: TreeNode<any>[] | undefined) {
         this._value = val;
     }
+
     /**
      * Indicates the height of rows to be scrolled.
      * @defaultValue 28
@@ -608,10 +621,12 @@ export class TreeTable extends BaseComponent implements AfterContentInit, OnInit
     @Input() get virtualRowHeight(): number {
         return this._virtualRowHeight;
     }
+
     set virtualRowHeight(val: number) {
         this._virtualRowHeight = val;
         console.log('The virtualRowHeight property is deprecated, use virtualScrollItemSize property instead.');
     }
+
     /**
      * A map of keys to control the selection state.
      * @group Props
@@ -619,10 +634,12 @@ export class TreeTable extends BaseComponent implements AfterContentInit, OnInit
     @Input() get selectionKeys(): any {
         return this._selectionKeys;
     }
+
     set selectionKeys(value: any) {
         this._selectionKeys = value;
         this.selectionKeysChange.emit(this._selectionKeys);
     }
+
     /**
      * Whether to show grid lines between cells.
      * @defaultValue false
@@ -1366,6 +1383,7 @@ export class TreeTable extends BaseComponent implements AfterContentInit, OnInit
             rows: event.last - event.first
         });
     }
+
     /**
      * Resets scroll to top.
      * @group Method
@@ -1374,6 +1392,7 @@ export class TreeTable extends BaseComponent implements AfterContentInit, OnInit
         if (this.virtualScroll) this.scrollToVirtualIndex(0);
         else this.scrollTo({ top: 0 });
     }
+
     /**
      * Scrolls to given index when using virtual scroll.
      * @param {number} index - index of the element.
@@ -1388,6 +1407,7 @@ export class TreeTable extends BaseComponent implements AfterContentInit, OnInit
             (<any>this.scrollableViewChild).scrollToVirtualIndex(index);
         }
     }
+
     /**
      * Scrolls to given index.
      * @param {ScrollToOptions} options - Scroll options.
@@ -2006,7 +2026,11 @@ export class TreeTable extends BaseComponent implements AfterContentInit, OnInit
                 delete this.selectionKeys[this.nodeKey(node)];
             }
 
-            if (childPartialSelected || (checkedChildCount > 0 && checkedChildCount !== node.children.length)) this.selectionKeys[this.nodeKey(node)] = { checked: false, partialChecked: true };
+            if (childPartialSelected || (checkedChildCount > 0 && checkedChildCount !== node.children.length))
+                this.selectionKeys[this.nodeKey(node)] = {
+                    checked: false,
+                    partialChecked: true
+                };
             else this.selectionKeys[this.nodeKey(node)] = { checked: false, partialChecked: false };
         }
 
@@ -2241,6 +2265,7 @@ export class TreeTable extends BaseComponent implements AfterContentInit, OnInit
 
         return !empty;
     }
+
     /**
      * Clears the sort and paginator state.
      * @group Method
@@ -2434,7 +2459,7 @@ export class TTBody {
         </ng-container>
 
         <ng-template #buildInItems let-items let-scrollerOptions="options">
-            <table role="table" #scrollTable [class]="tt.tableStyleClass" [ngClass]="scrollerOptions.contentStyleClass" [ngStyle]="tt.tableStyle" [style]="scrollerOptions.contentStyle">
+            <table role="treegrid" #scrollTable [class]="tt.tableStyleClass" [ngClass]="scrollerOptions.contentStyleClass" [ngStyle]="tt.tableStyle" [style]="scrollerOptions.contentStyle">
                 <ng-container
                     *ngTemplateOutlet="frozen ? tt.frozenColGroupTemplate || tt._frozenColGroupTemplate || tt.colGroupTemplate || tt._colGroupTemplate : tt.colGroupTemplate || tt._colGroupTemplate; context: { $implicit: columns }"
                 ></ng-container>
@@ -2510,6 +2535,7 @@ export class TTScrollableView extends BaseComponent implements AfterViewInit, On
     @Input() get scrollHeight(): string | undefined | null {
         return this._scrollHeight;
     }
+
     set scrollHeight(val: string | undefined | null) {
         this._scrollHeight = val;
         if (val != null && (val.includes('%') || val.includes('calc'))) {
@@ -3047,7 +3073,7 @@ export class TTReorderableColumn implements AfterViewInit, OnDestroy {
     standalone: false,
     host: {
         '[class]': 'cx("row")',
-        '[aria-checked]': 'selected'
+        '[aria-selected]': 'selected'
     },
     providers: [TreeTableStyle]
 })
@@ -3799,13 +3825,13 @@ export class TTRow extends BaseComponent {
         const rows = this.el.nativeElement ? [...find(this.el.nativeElement.parentNode, 'tr')] : undefined;
 
         if (rows && isNotEmpty(rows)) {
-            const hasSelectedRow = rows.some((row) => getAttribute(row, 'data-p-highlight') || row.getAttribute('aria-checked') === 'true');
+            const hasSelectedRow = rows.some((row) => getAttribute(row, 'data-p-highlight') || row.getAttribute('aria-selected') === 'true');
             rows.forEach((row: any) => {
                 row.tabIndex = -1;
             });
 
             if (hasSelectedRow) {
-                const selectedNodes = rows.filter((node) => getAttribute(node, 'data-p-highlight') || node.getAttribute('aria-checked') === 'true');
+                const selectedNodes = rows.filter((node) => getAttribute(node, 'data-p-highlight') || node.getAttribute('aria-selected') === 'true');
                 (selectedNodes[0] as any).tabIndex = 0;
 
                 return;
