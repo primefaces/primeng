@@ -7,6 +7,7 @@ import {
     ChangeDetectionStrategy,
     ChangeDetectorRef,
     Component,
+    computed,
     ContentChild,
     ContentChildren,
     Directive,
@@ -28,6 +29,7 @@ import {
     Output,
     QueryList,
     Renderer2,
+    signal,
     SimpleChanges,
     TemplateRef,
     ViewChild,
@@ -4873,11 +4875,12 @@ export class CellEditor implements AfterContentInit {
 @Component({
     selector: 'p-tableRadioButton',
     standalone: false,
-    template: ` <p-radioButton #rb [(ngModel)]="checked" [disabled]="disabled()" [inputId]="inputId()" [name]="name()" [ariaLabel]="ariaLabel" [binary]="true" [value]="value" (onClick)="onClick($event)" /> `,
+    template: ` <p-radioButton #rb [(ngModel)]="checked" [disabled]="disabled()" [inputId]="inputId()" [name]="name()" [ariaLabel]="resolvedAriaLabel()" [binary]="true" [value]="value" (onClick)="onClick($event)" /> `,
     changeDetection: ChangeDetectionStrategy.OnPush,
     encapsulation: ViewEncapsulation.None
 })
 export class TableRadioButton implements OnInit, OnDestroy {
+    readonly dt = inject(Table);
     @Input() value: any;
 
     readonly disabled = input<boolean | undefined, unknown>(undefined, { transform: booleanAttribute });
@@ -4885,28 +4888,37 @@ export class TableRadioButton implements OnInit, OnDestroy {
     readonly inputId = input<string | undefined>();
     readonly name = input<string | undefined>();
 
-    @Input() ariaLabel: string | undefined;
+    readonly ariaLabel = input<string | undefined>();
+    readonly resolvedAriaLabel = computed(() => {
+        const ariaLabel = this.ariaLabel();
+
+        if (ariaLabel) {
+            return ariaLabel;
+        }
+
+        if (this.dt.config.translation.aria) {
+            return (this.checked() ? this.dt.config.translation.aria.selectRow : this.dt.config.translation.aria.unselectRow) ?? null;
+        }
+
+        return null;
+    });
 
     @ViewChild('rb') inputViewChild: Nullable<RadioButton>;
 
-    checked: boolean | undefined;
+    checked = signal<boolean | undefined>(undefined);
 
     subscription: Subscription;
 
-    constructor(
-        public dt: Table,
-        public cd: ChangeDetectorRef
-    ) {
+    constructor(public cd: ChangeDetectorRef) {
         this.subscription = this.dt.tableService.selectionSource$.subscribe(() => {
-            this.checked = this.dt.isSelected(this.value);
+            this.checked.set(this.dt.isSelected(this.value));
 
-            this.ariaLabel = this.ariaLabel || this.dt.config.translation.aria ? (this.checked ? this.dt.config.translation.aria.selectRow : this.dt.config.translation.aria.unselectRow) : undefined;
             this.cd.markForCheck();
         });
     }
 
     ngOnInit() {
-        this.checked = this.dt.isSelected(this.value);
+        this.checked.set(this.dt.isSelected(this.value));
     }
 
     onClick(event: RadioButtonClickEvent) {
@@ -4935,10 +4947,10 @@ export class TableRadioButton implements OnInit, OnDestroy {
     selector: 'p-tableCheckbox',
     standalone: false,
     template: `
-        <p-checkbox [(ngModel)]="checked" [binary]="true" (onChange)="onClick($event)" [required]="required()" [disabled]="disabled()" [inputId]="inputId()" [name]="name()" [ariaLabel]="ariaLabel">
+        <p-checkbox [(ngModel)]="checked" [binary]="true" (onChange)="onClick($event)" [required]="required()" [disabled]="disabled()" [inputId]="inputId()" [name]="name()" [ariaLabel]="resolvedAriaLabel()">
             @if (dt.checkboxIconTemplate || dt._checkboxIconTemplate; as template) {
                 <ng-template pTemplate="icon">
-                    <ng-template *ngTemplateOutlet="template; context: { $implicit: checked }" />
+                    <ng-template *ngTemplateOutlet="template; context: { $implicit: checked() }" />
                 </ng-template>
             }
         </p-checkbox>
@@ -4947,6 +4959,8 @@ export class TableRadioButton implements OnInit, OnDestroy {
     encapsulation: ViewEncapsulation.None
 })
 export class TableCheckbox implements OnInit, OnDestroy {
+    readonly dt = inject(Table);
+
     @Input() value: any;
 
     readonly disabled = input<boolean | undefined, unknown>(undefined, { transform: booleanAttribute });
@@ -4955,26 +4969,38 @@ export class TableCheckbox implements OnInit, OnDestroy {
     readonly inputId = input<string | undefined>();
     readonly name = input<string | undefined>();
 
-    @Input() ariaLabel: string | undefined;
+    readonly ariaLabel = input<string | undefined>();
+    readonly resolvedAriaLabel = computed(() => {
+        const ariaLabel = this.ariaLabel();
 
-    checked: boolean | undefined;
+        if (ariaLabel) {
+            return ariaLabel;
+        }
+
+        if (this.dt.config.translation.aria) {
+            return (this.checked() ? this.dt.config.translation.aria.selectRow : this.dt.config.translation.aria.unselectRow) ?? null;
+        }
+
+        return null;
+    });
+
+    checked = signal<boolean | undefined>(undefined);
 
     subscription: Subscription;
 
     constructor(
-        public dt: Table,
         public tableService: TableService,
         public cd: ChangeDetectorRef
     ) {
         this.subscription = this.dt.tableService.selectionSource$.subscribe(() => {
-            this.checked = this.dt.isSelected(this.value) && !this.disabled();
-            this.ariaLabel = this.ariaLabel || this.dt.config.translation.aria ? (this.checked ? this.dt.config.translation.aria.selectRow : this.dt.config.translation.aria.unselectRow) : undefined;
+            this.checked.set(this.dt.isSelected(this.value) && !this.disabled());
+
             this.cd.markForCheck();
         });
     }
 
     ngOnInit() {
-        this.checked = this.dt.isSelected(this.value);
+        this.checked.set(this.dt.isSelected(this.value));
     }
 
     onClick({ originalEvent }: CheckboxChangeEvent) {
@@ -5001,10 +5027,10 @@ export class TableCheckbox implements OnInit, OnDestroy {
     selector: 'p-tableHeaderCheckbox',
     standalone: false,
     template: `
-        <p-checkbox [(ngModel)]="checked" (onChange)="onClick($event)" [binary]="true" [disabled]="isDisabled()" [inputId]="inputId()" [name]="name()" [ariaLabel]="ariaLabel">
+        <p-checkbox [(ngModel)]="checked" (onChange)="onClick($event)" [binary]="true" [disabled]="isDisabled()" [inputId]="inputId()" [name]="name()" [ariaLabel]="resolvedAriaLabel()">
             @if (dt.headerCheckboxIconTemplate || dt._headerCheckboxIconTemplate; as template) {
                 <ng-template pTemplate="icon">
-                    <ng-template *ngTemplateOutlet="template; context: { $implicit: checked }" />
+                    <ng-template *ngTemplateOutlet="template; context: { $implicit: checked() }" />
                 </ng-template>
             }
         </p-checkbox>
@@ -5013,41 +5039,54 @@ export class TableCheckbox implements OnInit, OnDestroy {
     encapsulation: ViewEncapsulation.None
 })
 export class TableHeaderCheckbox implements OnInit, OnDestroy {
+    readonly dt = inject(Table);
+
     readonly disabled = input<boolean | undefined, unknown>(undefined, { transform: booleanAttribute });
     readonly inputId = input<string | undefined>();
     readonly name = input<string | undefined>();
 
-    @Input() ariaLabel: string | undefined;
-
-    checked: boolean | undefined;
+    checked = signal<boolean | undefined>(undefined);
 
     selectionChangeSubscription: Subscription;
 
     valueChangeSubscription: Subscription;
 
+    readonly ariaLabel = input<string | undefined>();
+    readonly resolvedAriaLabel = computed(() => {
+        const ariaLabel = this.ariaLabel();
+
+        if (ariaLabel) {
+            return ariaLabel;
+        }
+
+        if (this.dt.config.translation.aria) {
+            return (this.checked() ? this.dt.config.translation.aria.selectAll : this.dt.config.translation.aria.unselectAll) ?? null;
+        }
+
+        return null;
+    });
+
     constructor(
-        public dt: Table,
         public tableService: TableService,
         public cd: ChangeDetectorRef
     ) {
         this.valueChangeSubscription = this.dt.tableService.valueSource$.subscribe(() => {
-            this.checked = this.updateCheckedState();
-            this.ariaLabel = this.ariaLabel || this.dt.config.translation.aria ? (this.checked ? this.dt.config.translation.aria.selectAll : this.dt.config.translation.aria.unselectAll) : undefined;
+            this.checked.set(this.updateCheckedState());
         });
 
         this.selectionChangeSubscription = this.dt.tableService.selectionSource$.subscribe(() => {
-            this.checked = this.updateCheckedState();
+            this.checked.set(this.updateCheckedState());
         });
     }
 
     ngOnInit() {
-        this.checked = this.updateCheckedState();
+        this.checked.set(this.updateCheckedState());
     }
 
     onClick(event: CheckboxChangeEvent) {
         if (!this.disabled()) {
             if (this.dt.value && this.dt.value.length > 0) {
-                this.dt.toggleRowsWithCheckbox(event, this.checked);
+                this.dt.toggleRowsWithCheckbox(event, this.checked());
             }
         }
 
