@@ -42,7 +42,7 @@ import { FileUploadStyle } from './style/fileuploadstyle';
 @Component({
     selector: '[pFileContent]',
     standalone: true,
-    template: `@for (file of files(); track file?.name; let index = $index) {
+    template: `@for (file of files(); track file?.name + '-' + $index; let index = $index) {
         <div [class]="cx('file')">
             <img role="presentation" [class]="cx('fileThumbnail')" [attr.alt]="file.name" [src]="file.objectURL" [width]="previewWidth()" />
             <div [class]="cx('fileInfo')">
@@ -802,12 +802,14 @@ export class FileUpload extends BaseComponent implements AfterViewInit, AfterCon
             return;
         }
 
-        this.msgs = [];
         if (!this.multiple) {
             this.files = [];
         }
 
+        this.msgs = [];
+        this.files = this.files || [];
         let files = event.dataTransfer ? event.dataTransfer.files : event.target.files;
+
         for (let i = 0; i < files.length; i++) {
             let file = files[i];
 
