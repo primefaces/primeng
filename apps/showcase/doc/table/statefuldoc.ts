@@ -104,7 +104,7 @@ import { ChangeDetectionStrategy, ChangeDetectorRef, Component } from '@angular/
                             </td>
                         </tr>
                     </ng-template>
-                    <ng-template emptymessage>
+                    <ng-template #emptymessage>
                         <tr>
                             <td colspan="4">No customers found.</td>
                         </tr>
