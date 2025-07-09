@@ -1386,18 +1386,16 @@ export class AutoComplete extends BaseInput implements AfterViewChecked, AfterCo
                 this.updateModel([...(this.modelValue() || []), event.target.value]);
                 this.inputEL.nativeElement.value = '';
             }
+            event.preventDefault();
         }
-        if (!this.overlayVisible) {
-            this.onArrowDownKey(event);
-        } else {
+        if (this.overlayVisible) {
             if (this.focusedOptionIndex() !== -1) {
                 this.onOptionSelect(event, this.visibleOptions()[this.focusedOptionIndex()]);
             }
 
             this.hide();
+            event.preventDefault();
         }
-
-        event.preventDefault();
     }
 
     onEscapeKey(event) {
