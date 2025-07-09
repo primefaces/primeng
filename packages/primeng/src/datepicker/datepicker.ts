@@ -883,10 +883,10 @@ export class DatePicker extends BaseInput implements OnInit, AfterContentInit, A
      * Set the date to highlight on first opening if the field is blank.
      * @group Props
      */
-    @Input() get defaultDate(): Date {
+    @Input() get defaultDate(): Date | null {
         return this._defaultDate;
     }
-    set defaultDate(defaultDate: Date) {
+    set defaultDate(defaultDate: Date | null) {
         this._defaultDate = defaultDate;
 
         if (this.initialized) {
