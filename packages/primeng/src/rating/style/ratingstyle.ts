@@ -16,7 +16,7 @@ const classes = {
         'p-rating',
         {
             'p-readonly': instance.readonly,
-            'p-disabled': instance.disabled()
+            'p-disabled': instance.$disabled()
         }
     ],
     option: ({ instance, star, value }) => [

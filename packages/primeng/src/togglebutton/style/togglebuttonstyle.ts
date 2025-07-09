@@ -21,7 +21,7 @@ const classes = {
         {
             'p-togglebutton-checked': instance.checked,
             'p-invalid': instance.invalid(),
-            'p-disabled': instance.disabled(),
+            'p-disabled': instance.$disabled(),
             'p-togglebutton-sm p-inputfield-sm': instance.size === 'small',
             'p-togglebutton-lg p-inputfield-lg': instance.size === 'large',
             'p-togglebutton-fluid': instance.fluid()

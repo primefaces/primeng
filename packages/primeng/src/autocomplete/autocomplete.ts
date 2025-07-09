@@ -27,7 +27,7 @@ import {
     ViewChild,
     ViewEncapsulation
 } from '@angular/core';
-import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
+import { NG_VALUE_ACCESSOR } from '@angular/forms';
 import { equals, findLastIndex, findSingle, focus, isEmpty, isNotEmpty, resolveFieldData, uuid } from '@primeuix/utils';
 import { OverlayOptions, OverlayService, PrimeTemplate, ScrollerOptions, SharedModule, TranslationKeys } from 'primeng/api';
 import { AutoFocus } from 'primeng/autofocus';
@@ -82,10 +82,10 @@ export const AUTOCOMPLETE_VALUE_ACCESSOR: any = {
             [attr.pattern]="pattern()"
             [attr.size]="inputSize()"
             [attr.maxlength]="maxlength()"
-            [attr.tabindex]="!disabled() ? tabindex : -1"
+            [attr.tabindex]="!$disabled() ? tabindex : -1"
             [attr.required]="required() ? '' : undefined"
             [attr.readonly]="readonly ? '' : undefined"
-            [attr.disabled]="disabled() ? '' : undefined"
+            [attr.disabled]="$disabled() ? '' : undefined"
             [attr.aria-label]="ariaLabel"
             [attr.aria-labelledby]="ariaLabelledBy"
             [attr.aria-required]="required()"
@@ -101,7 +101,7 @@ export const AUTOCOMPLETE_VALUE_ACCESSOR: any = {
             (keyup)="onInputKeyUp($event)"
             [fluid]="hasFluid"
         />
-        <ng-container *ngIf="$filled() && !disabled() && showClear && !loading">
+        <ng-container *ngIf="$filled() && !$disabled() && showClear && !loading">
             <svg data-p-icon="chevron-times" *ngIf="!clearIconTemplate && !_clearIconTemplate" [class]="cx('clearIcon')" (click)="clear()" [attr.aria-hidden]="true" />
             <span *ngIf="clearIconTemplate || _clearIconTemplate" [class]="cx('clearIcon')" (click)="clear()" [attr.aria-hidden]="true">
                 <ng-template *ngTemplateOutlet="clearIconTemplate || _clearIconTemplate"></ng-template>
@@ -162,10 +162,10 @@ export const AUTOCOMPLETE_VALUE_ACCESSOR: any = {
                     role="combobox"
                     [attr.placeholder]="!$filled() ? placeholder : null"
                     aria-autocomplete="list"
-                    [attr.tabindex]="!disabled() ? tabindex : -1"
+                    [attr.tabindex]="!$disabled() ? tabindex : -1"
                     [attr.required]="required() ? '' : undefined"
                     [attr.readonly]="readonly ? '' : undefined"
-                    [attr.disabled]="disabled() ? '' : undefined"
+                    [attr.disabled]="$disabled() ? '' : undefined"
                     [attr.aria-label]="ariaLabel"
                     [attr.aria-labelledby]="ariaLabelledBy"
                     [attr.aria-required]="required()"
@@ -188,7 +188,7 @@ export const AUTOCOMPLETE_VALUE_ACCESSOR: any = {
                 <ng-template *ngTemplateOutlet="loadingIconTemplate || _loadingIconTemplate"></ng-template>
             </span>
         </ng-container>
-        <button #ddBtn type="button" [attr.aria-label]="dropdownAriaLabel" [class]="cx('dropdown')" [disabled]="disabled()" pRipple (click)="handleDropdownClick($event)" *ngIf="dropdown" [attr.tabindex]="tabindex">
+        <button #ddBtn type="button" [attr.aria-label]="dropdownAriaLabel" [class]="cx('dropdown')" [disabled]="$disabled()" pRipple (click)="handleDropdownClick($event)" *ngIf="dropdown" [attr.tabindex]="tabindex">
             <span *ngIf="dropdownIcon" [ngClass]="dropdownIcon" [attr.aria-hidden]="true"></span>
             <ng-container *ngIf="!dropdownIcon">
                 <svg data-p-icon="chevron-down" *ngIf="!dropdownIconTemplate && !_dropdownIconTemplate" />
@@ -298,7 +298,7 @@ export const AUTOCOMPLETE_VALUE_ACCESSOR: any = {
         '[style]': "sx('root')"
     }
 })
-export class AutoComplete extends BaseInput implements AfterViewChecked, AfterContentInit, OnDestroy, ControlValueAccessor {
+export class AutoComplete extends BaseInput implements AfterViewChecked, AfterContentInit, OnDestroy {
     /**
      * Minimum number of characters to initiate a search.
      * @deprecated since v20.0.0, use `minQueryLength` instead.
@@ -757,10 +757,6 @@ export class AutoComplete extends BaseInput implements AfterViewChecked, AfterCo
 
     _suggestions = signal<any>(null);
 
-    onModelChange: Function = () => {};
-
-    onModelTouched: Function = () => {};
-
     timeout: Nullable<any>;
 
     overlayVisible: boolean | undefined;
@@ -1075,7 +1071,7 @@ export class AutoComplete extends BaseInput implements AfterViewChecked, AfterCo
     }
 
     onContainerClick(event) {
-        if (this.disabled() || this.loading || this.isInputClicked(event) || this.isDropdownClicked(event)) {
+        if (this.$disabled() || this.loading || this.isInputClicked(event) || this.isDropdownClicked(event)) {
             return;
         }
 
@@ -1158,7 +1154,7 @@ export class AutoComplete extends BaseInput implements AfterViewChecked, AfterCo
     }
 
     onInputFocus(event) {
-        if (this.disabled()) {
+        if (this.$disabled()) {
             // For ScreenReaders
             return;
         }
@@ -1175,7 +1171,7 @@ export class AutoComplete extends BaseInput implements AfterViewChecked, AfterCo
     }
 
     onMultipleContainerFocus(event) {
-        if (this.disabled()) {
+        if (this.$disabled()) {
             // For ScreenReaders
             return;
         }
@@ -1189,7 +1185,7 @@ export class AutoComplete extends BaseInput implements AfterViewChecked, AfterCo
     }
 
     onMultipleContainerKeyDown(event) {
-        if (this.disabled()) {
+        if (this.$disabled()) {
             event.preventDefault();
 
             return;
@@ -1230,7 +1226,7 @@ export class AutoComplete extends BaseInput implements AfterViewChecked, AfterCo
     }
 
     onKeyDown(event) {
-        if (this.disabled()) {
+        if (this.$disabled()) {
             event.preventDefault();
 
             return;
@@ -1586,13 +1582,6 @@ export class AutoComplete extends BaseInput implements AfterViewChecked, AfterCo
         this.onClear.emit();
     }
 
-    writeValue(value: any): void {
-        this.value = value;
-        this.writeModelValue(value);
-        this.updateInputValue();
-        this.cd.markForCheck();
-    }
-
     hasSelectedOption() {
         return isNotEmpty(this.modelValue());
     }
@@ -1628,14 +1617,6 @@ export class AutoComplete extends BaseInput implements AfterViewChecked, AfterCo
         return this.optionGroupChildren ? resolveFieldData(optionGroup, this.optionGroupChildren) : optionGroup.items;
     }
 
-    registerOnChange(fn: Function): void {
-        this.onModelChange = fn;
-    }
-
-    registerOnTouched(fn: Function): void {
-        this.onModelTouched = fn;
-    }
-
     onOverlayAnimationStart(event: AnimationEvent) {
         if (event.toState === 'visible') {
             this.itemsWrapper = <any>findSingle(this.overlayViewChild.overlayViewChild?.nativeElement, this.virtualScroll ? '.p-scroller' : '.p-autocomplete-panel');
@@ -1660,6 +1641,19 @@ export class AutoComplete extends BaseInput implements AfterViewChecked, AfterCo
                 }
             }
         }
+    }
+
+    /**
+     * @override
+     *
+     * @see {@link BaseEditableHolder.writeControlValue}
+     * Writes the value to the control.
+     */
+    writeControlValue(value: any, setModelValue: (value: any) => void): void {
+        this.value = value;
+        setModelValue(value);
+        this.updateInputValue();
+        this.cd.markForCheck();
     }
 
     ngOnDestroy() {

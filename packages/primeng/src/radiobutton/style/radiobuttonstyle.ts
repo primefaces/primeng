@@ -18,7 +18,7 @@ const classes = {
         'p-radiobutton p-component',
         {
             'p-radiobutton-checked': instance.checked,
-            'p-disabled': instance.disabled(),
+            'p-disabled': instance.$disabled(),
             'p-invalid': instance.invalid(),
             'p-variant-filled': instance.$variant() === 'filled',
             'p-radiobutton-sm p-inputfield-sm': instance.size() === 'small',

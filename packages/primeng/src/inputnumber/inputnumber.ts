@@ -23,7 +23,7 @@ import {
     ViewChild,
     ViewEncapsulation
 } from '@angular/core';
-import { ControlValueAccessor, NG_VALUE_ACCESSOR, NgControl } from '@angular/forms';
+import { NG_VALUE_ACCESSOR, NgControl } from '@angular/forms';
 import { getSelection } from '@primeuix/utils';
 import { PrimeTemplate, SharedModule } from 'primeng/api';
 import { AutoFocus } from 'primeng/autofocus';
@@ -79,7 +79,7 @@ export const INPUTNUMBER_VALUE_ACCESSOR: any = {
             [attr.step]="step() ?? 1"
             [attr.required]="required() ? '' : undefined"
             [attr.readonly]="readonly ? '' : undefined"
-            [attr.disabled]="disabled() ? '' : undefined"
+            [attr.disabled]="$disabled() ? '' : undefined"
             inputmode="decimal"
             (input)="onUserInput($event)"
             (keydown)="onInputKeyDown($event)"
@@ -102,7 +102,7 @@ export const INPUTNUMBER_VALUE_ACCESSOR: any = {
             <button
                 type="button"
                 [class]="cn(cx('incrementButton'), incrementButtonClass)"
-                [attr.disabled]="disabled() ? '' : undefined"
+                [attr.disabled]="$disabled() ? '' : undefined"
                 tabindex="-1"
                 (mousedown)="onUpButtonMouseDown($event)"
                 (mouseup)="onUpButtonMouseUp()"
@@ -122,7 +122,7 @@ export const INPUTNUMBER_VALUE_ACCESSOR: any = {
             <button
                 type="button"
                 [class]="cn(cx('decrementButton'), decrementButtonClass)"
-                [attr.disabled]="disabled() ? '' : undefined"
+                [attr.disabled]="$disabled() ? '' : undefined"
                 tabindex="-1"
                 [attr.aria-hidden]="true"
                 (mousedown)="onDownButtonMouseDown($event)"
@@ -143,7 +143,7 @@ export const INPUTNUMBER_VALUE_ACCESSOR: any = {
             *ngIf="showButtons && buttonLayout !== 'stacked'"
             type="button"
             [class]="cx('incrementButton')"
-            [attr.disabled]="disabled() ? '' : undefined"
+            [attr.disabled]="$disabled() ? '' : undefined"
             tabindex="-1"
             [attr.aria-hidden]="true"
             (mousedown)="onUpButtonMouseDown($event)"
@@ -163,7 +163,7 @@ export const INPUTNUMBER_VALUE_ACCESSOR: any = {
             *ngIf="showButtons && buttonLayout !== 'stacked'"
             type="button"
             [class]="cx('decrementButton')"
-            [attr.disabled]="disabled() ? '' : undefined"
+            [attr.disabled]="$disabled() ? '' : undefined"
             tabindex="-1"
             [attr.aria-hidden]="true"
             (mousedown)="onDownButtonMouseDown($event)"
@@ -189,7 +189,7 @@ export const INPUTNUMBER_VALUE_ACCESSOR: any = {
         '[class]': "cn(cx('root'), styleClass)"
     }
 })
-export class InputNumber extends BaseInput implements OnInit, AfterContentInit, OnChanges, ControlValueAccessor {
+export class InputNumber extends BaseInput implements OnInit, AfterContentInit, OnChanges {
     /**
      * Displays spinner buttons.
      * @group Props
@@ -414,10 +414,6 @@ export class InputNumber extends BaseInput implements OnInit, AfterContentInit, 
     _decrementButtonIconTemplate: TemplateRef<any> | undefined;
 
     value: Nullable<number>;
-
-    onModelChange: Function = () => {};
-
-    onModelTouched: Function = () => {};
 
     focused: Nullable<boolean>;
 
@@ -703,7 +699,7 @@ export class InputNumber extends BaseInput implements OnInit, AfterContentInit, 
             return;
         }
 
-        if (!this.disabled()) {
+        if (!this.$disabled()) {
             this.input?.nativeElement.focus();
             this.repeat(event, null, 1);
             event.preventDefault();
@@ -711,13 +707,13 @@ export class InputNumber extends BaseInput implements OnInit, AfterContentInit, 
     }
 
     onUpButtonMouseUp() {
-        if (!this.disabled()) {
+        if (!this.$disabled()) {
             this.clearTimer();
         }
     }
 
     onUpButtonMouseLeave() {
-        if (!this.disabled()) {
+        if (!this.$disabled()) {
             this.clearTimer();
         }
     }
@@ -729,7 +725,7 @@ export class InputNumber extends BaseInput implements OnInit, AfterContentInit, 
     }
 
     onUpButtonKeyUp() {
-        if (!this.disabled()) {
+        if (!this.$disabled()) {
             this.clearTimer();
         }
     }
@@ -739,7 +735,7 @@ export class InputNumber extends BaseInput implements OnInit, AfterContentInit, 
             this.clearTimer();
             return;
         }
-        if (!this.disabled()) {
+        if (!this.$disabled()) {
             this.input?.nativeElement.focus();
             this.repeat(event, null, -1);
             event.preventDefault();
@@ -747,19 +743,19 @@ export class InputNumber extends BaseInput implements OnInit, AfterContentInit, 
     }
 
     onDownButtonMouseUp() {
-        if (!this.disabled()) {
+        if (!this.$disabled()) {
             this.clearTimer();
         }
     }
 
     onDownButtonMouseLeave() {
-        if (!this.disabled()) {
+        if (!this.$disabled()) {
             this.clearTimer();
         }
     }
 
     onDownButtonKeyUp() {
-        if (!this.disabled()) {
+        if (!this.$disabled()) {
             this.clearTimer();
         }
     }
@@ -989,7 +985,7 @@ export class InputNumber extends BaseInput implements OnInit, AfterContentInit, 
     }
 
     onPaste(event: ClipboardEvent) {
-        if (!this.disabled() && !this.readonly) {
+        if (!this.$disabled() && !this.readonly) {
             event.preventDefault();
             let data = (event.clipboardData || (this.document as any).defaultView['clipboardData']).getData('Text');
             if (data) {
@@ -1414,18 +1410,16 @@ export class InputNumber extends BaseInput implements OnInit, AfterContentInit, 
         }
     }
 
-    writeValue(value: any): void {
+    /**
+     * @override
+     *
+     * @see {@link BaseEditableHolder.writeControlValue}
+     * Writes the value to the control.
+     */
+    writeControlValue(value: any, setModelValue: (value: any) => void): void {
         this.value = value ? Number(value) : value;
-        this.writeModelValue(value);
+        setModelValue(value);
         this.cd.markForCheck();
-    }
-
-    registerOnChange(fn: Function): void {
-        this.onModelChange = fn;
-    }
-
-    registerOnTouched(fn: Function): void {
-        this.onModelTouched = fn;
     }
 
     clearTimer() {

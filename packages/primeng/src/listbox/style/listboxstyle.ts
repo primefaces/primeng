@@ -16,7 +16,7 @@ const classes = {
         'p-listbox p-component',
         {
             'p-listbox-striped': instance.striped,
-            'p-disabled': instance.disabled(),
+            'p-disabled': instance.$disabled(),
             'p-invalid': instance.invalid(),
             'p-listbox-fluid': instance.fluid()
         }

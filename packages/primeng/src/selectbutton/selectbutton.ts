@@ -18,13 +18,13 @@ import {
     TemplateRef,
     ViewEncapsulation
 } from '@angular/core';
-import { ControlValueAccessor, FormsModule, NG_VALUE_ACCESSOR } from '@angular/forms';
+import { FormsModule, NG_VALUE_ACCESSOR } from '@angular/forms';
 import { equals, resolveFieldData } from '@primeuix/utils';
 import { PrimeTemplate, SharedModule } from 'primeng/api';
+import { BaseEditableHolder } from 'primeng/baseeditableholder';
 import { ToggleButton } from 'primeng/togglebutton';
 import { SelectButtonChangeEvent, SelectButtonOptionClickEvent } from './selectbutton.interface';
 import { SelectButtonStyle } from './style/selectbuttonstyle';
-import { BaseEditableHolder } from 'primeng/baseeditableholder';
 
 export const SELECTBUTTON_VALUE_ACCESSOR: any = {
     provide: NG_VALUE_ACCESSOR,
@@ -47,7 +47,7 @@ export const SELECTBUTTON_VALUE_ACCESSOR: any = {
                 [ngModel]="isSelected(option)"
                 [onLabel]="this.getOptionLabel(option)"
                 [offLabel]="this.getOptionLabel(option)"
-                [disabled]="disabled() || isOptionDisabled(option)"
+                [disabled]="$disabled() || isOptionDisabled(option)"
                 (onChange)="onOptionSelect($event, option, i)"
                 [allowEmpty]="getAllowEmpty()"
                 [size]="size()"
@@ -72,7 +72,7 @@ export const SELECTBUTTON_VALUE_ACCESSOR: any = {
         '[attr.data-pc-name]': '"selectbutton"'
     }
 })
-export class SelectButton extends BaseEditableHolder implements AfterContentInit, ControlValueAccessor {
+export class SelectButton extends BaseEditableHolder implements AfterContentInit {
     /**
      * An array of selectitems to display as the available options.
      * @group Props
@@ -181,10 +181,6 @@ export class SelectButton extends BaseEditableHolder implements AfterContentInit
 
     value: any;
 
-    onModelChange: Function = () => {};
-
-    onModelTouched: Function = () => {};
-
     focusedIndex: number = 0;
 
     _componentStyle = inject(SelectButtonStyle);
@@ -208,22 +204,8 @@ export class SelectButton extends BaseEditableHolder implements AfterContentInit
         return this.optionDisabled ? resolveFieldData(option, this.optionDisabled) : option.disabled !== undefined ? option.disabled : false;
     }
 
-    writeValue(value: any): void {
-        this.value = value;
-        this.writeModelValue(this.value);
-        this.cd.markForCheck();
-    }
-
-    registerOnChange(fn: Function): void {
-        this.onModelChange = fn;
-    }
-
-    registerOnTouched(fn: Function): void {
-        this.onModelTouched = fn;
-    }
-
     onOptionSelect(event, option, index) {
-        if (this.disabled() || this.isOptionDisabled(option)) {
+        if (this.$disabled() || this.isOptionDisabled(option)) {
             return;
         }
 
@@ -324,6 +306,18 @@ export class SelectButton extends BaseEditableHolder implements AfterContentInit
                     break;
             }
         });
+    }
+
+    /**
+     * @override
+     *
+     * @see {@link BaseEditableHolder.writeControlValue}
+     * Writes the value to the control.
+     */
+    writeControlValue(value: any, setModelValue: (value: any) => void): void {
+        this.value = value;
+        setModelValue(this.value);
+        this.cd.markForCheck();
     }
 }
 

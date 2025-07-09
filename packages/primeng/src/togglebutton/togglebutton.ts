@@ -18,7 +18,7 @@ import {
     QueryList,
     TemplateRef
 } from '@angular/core';
-import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
+import { NG_VALUE_ACCESSOR } from '@angular/forms';
 import { PrimeTemplate, SharedModule } from 'primeng/api';
 import { BaseEditableHolder } from 'primeng/baseeditableholder';
 import { Ripple } from 'primeng/ripple';
@@ -62,7 +62,7 @@ export const TOGGLEBUTTON_VALUE_ACCESSOR: any = {
     providers: [TOGGLEBUTTON_VALUE_ACCESSOR, ToggleButtonStyle],
     changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class ToggleButton extends BaseEditableHolder implements AfterContentInit, ControlValueAccessor {
+export class ToggleButton extends BaseEditableHolder implements AfterContentInit {
     @HostListener('keydown', ['$event']) onKeyDown(event: KeyboardEvent) {
         switch (event.code) {
             case 'Enter':
@@ -77,7 +77,7 @@ export class ToggleButton extends BaseEditableHolder implements AfterContentInit
     }
 
     @HostListener('click', ['$event']) toggle(event: Event) {
-        if (!this.disabled() && !(this.allowEmpty === false && this.checked)) {
+        if (!this.$disabled() && !(this.allowEmpty === false && this.checked)) {
             this.checked = !this.checked;
             this.writeModelValue(this.checked);
             this.onModelChange(this.checked);
@@ -183,28 +183,10 @@ export class ToggleButton extends BaseEditableHolder implements AfterContentInit
 
     checked: boolean = false;
 
-    onModelChange: Function = () => {};
-
-    onModelTouched: Function = () => {};
-
     _componentStyle = inject(ToggleButtonStyle);
 
     onBlur() {
         this.onModelTouched();
-    }
-
-    writeValue(value: any): void {
-        this.checked = value;
-        this.writeModelValue(value);
-        this.cd.markForCheck();
-    }
-
-    registerOnChange(fn: Function): void {
-        this.onModelChange = fn;
-    }
-
-    registerOnTouched(fn: Function): void {
-        this.onModelTouched = fn;
     }
 
     get hasOnLabel(): boolean {
@@ -237,6 +219,18 @@ export class ToggleButton extends BaseEditableHolder implements AfterContentInit
                     break;
             }
         });
+    }
+
+    /**
+     * @override
+     *
+     * @see {@link BaseEditableHolder.writeControlValue}
+     * Writes the value to the control.
+     */
+    writeControlValue(value: any, setModelValue: (value: any) => void): void {
+        this.checked = value;
+        setModelValue(value);
+        this.cd.markForCheck();
     }
 }
 

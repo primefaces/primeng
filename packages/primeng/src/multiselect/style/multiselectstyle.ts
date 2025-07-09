@@ -26,7 +26,7 @@ const classes = {
         {
             'p-multiselect p-component p-inputwrapper': true,
             'p-multiselect-display-chip': instance.display === 'chip',
-            'p-disabled': instance.disabled(),
+            'p-disabled': instance.$disabled(),
             'p-invalid': instance.invalid(),
             'p-variant-filled': instance.$variant(),
             'p-focus': instance.focused,
