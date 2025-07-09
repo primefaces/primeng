@@ -1424,10 +1424,6 @@ export class AutoComplete extends BaseInput implements AfterViewChecked, AfterCo
 
             event.stopPropagation(); // To prevent onBackspaceKeyOnMultiple method
         }
-
-        if (!this.multiple && this.showClear && this.findSelectedOptionIndex() != -1) {
-            this.clear();
-        }
     }
 
     onArrowLeftKeyOnMultiple(event) {
