@@ -172,7 +172,7 @@ export class SelectItem extends BaseComponent {
             type="text"
             [attr.id]="inputId"
             [class]="cx('label')"
-            aria-haspopup="listbox"
+            [attr.aria-haspopup]="'listbox'"
             [attr.placeholder]="modelValue() === undefined || modelValue() === null ? placeholder() : undefined"
             [attr.aria-label]="ariaLabel || (label() === 'p-emptylabel' ? undefined : label())"
             (input)="onEditableInput($event)"
