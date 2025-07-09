@@ -183,7 +183,7 @@ export class MenubarService {
     encapsulation: ViewEncapsulation.None,
     host: {
         '[id]': 'root ? menuId : null',
-        '[aria-activedescendant]': 'focusedItemId',
+        '[attr.aria-activedescendant]': 'focusedItemId',
         '[class]': "level === 0 ? cx('rootList') : cx('submenu')",
         'data-pc-section': 'menu',
         role: 'menubar',
