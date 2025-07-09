@@ -3671,7 +3671,7 @@ export class TreeTableCellEditor extends BaseComponent implements AfterContentIn
         '[tabindex]': "'0'",
         '[attr.aria-expanded]': 'expanded',
         '[attr.aria-level]': 'level',
-        '[data-pc-section]': 'row',
+        '[attr.data-pc-section]': 'row',
         '[role]': 'row'
     },
     providers: [TreeTableStyle]

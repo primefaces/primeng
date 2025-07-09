@@ -3756,7 +3756,7 @@ export class SortIcon extends BaseComponent implements OnInit, OnDestroy {
     host: {
         '[class]': "cx('selectableRow')",
         '[tabindex]': 'setRowTabIndex()',
-        '[data-p-selectable-row]': 'true'
+        '[attr.data-p-selectable-row]': 'true'
     },
     providers: [TableStyle]
 })
