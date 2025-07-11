@@ -1,5 +1,5 @@
 import { CommonModule, isPlatformBrowser } from '@angular/common';
-import { AfterContentInit, ChangeDetectionStrategy, Component, computed, contentChild, ContentChildren, ElementRef, EventEmitter, forwardRef, inject, Input, NgModule, numberAttribute, Output, QueryList, ViewEncapsulation } from '@angular/core';
+import { AfterContentInit, ChangeDetectionStrategy, Component, computed, contentChild, ContentChildren, ElementRef, EventEmitter, forwardRef, inject, Input, NgModule, numberAttribute, Output, QueryList, signal, ViewEncapsulation } from '@angular/core';
 import { addClass, getHeight, getOuterHeight, getOuterWidth, getWidth, hasClass, isRTL, removeClass } from '@primeuix/utils';
 import { PrimeTemplate, SharedModule } from 'primeng/api';
 import { BaseComponent } from 'primeng/basecomponent';
@@ -20,29 +20,30 @@ import { SplitterStyle } from './style/splitterstyle';
             <div [class]="cn(cx('panel'), panelStyleClass)" [ngStyle]="panelStyle" tabindex="-1" [attr.data-pc-name]="'splitterpanel'" [attr.data-pc-section]="'panel'">
                 <ng-container *ngTemplateOutlet="panel"></ng-container>
             </div>
-            <div
-                *ngIf="i !== panels.length - 1"
-                [class]="cx('gutter')"
-                role="separator"
-                tabindex="-1"
-                (mousedown)="onGutterMouseDown($event, i)"
-                (touchstart)="onGutterTouchStart($event, i)"
-                (touchmove)="onGutterTouchMove($event)"
-                (touchend)="onGutterTouchEnd($event)"
-                [attr.data-p-gutter-resizing]="false"
-                [attr.data-pc-section]="'gutter'"
-            >
-                <div
-                    [class]="cx('gutterHandle')"
-                    tabindex="0"
-                    [ngStyle]="gutterStyle()"
-                    [attr.aria-orientation]="layout"
-                    [attr.aria-valuenow]="prevSize"
-                    [attr.data-pc-section]="'gutterhandle'"
-                    (keyup)="onGutterKeyUp($event)"
-                    (keydown)="onGutterKeyDown($event, i)"
-                ></div>
-            </div>
+            @if (i !== panels.length - 1) {
+                    <div
+                        [class]="cx('gutter')"
+                        tabindex="-1"
+                        (mousedown)="onGutterMouseDown($event, i)"
+                        (touchstart)="onGutterTouchStart($event, i)"
+                        (touchmove)="onGutterTouchMove($event)"
+                        (touchend)="onGutterTouchEnd($event)"
+                        [attr.data-p-gutter-resizing]="false"
+                        [attr.data-pc-section]="'gutter'"
+                    >
+                        <div
+                            [class]="cx('gutterHandle')"
+                            tabindex="0"
+                            role="separator"
+                            [attr.aria-orientation]="layout"
+                            [attr.aria-valuenow]="prevSize().toFixed(4)"
+                            [ngStyle]="gutterStyle()"
+                            [attr.data-pc-section]="'gutterhandle'"
+                            (keyup)="onGutterKeyUp($event)"
+                            (keydown)="onGutterKeyDown($event, i)"
+                        ></div>
+                    </div>
+                }
         </ng-template>
     `,
     encapsulation: ViewEncapsulation.None,
@@ -177,7 +178,7 @@ export class Splitter extends BaseComponent implements AfterContentInit {
 
     timer: any;
 
-    prevSize: any;
+    prevSize = signal(0);
 
     _componentStyle = inject(SplitterStyle);
 
@@ -227,7 +228,7 @@ export class Splitter extends BaseComponent implements AfterContentInit {
 
                     this._panelSizes = _panelSizes;
 
-                    this.prevSize = parseFloat(_panelSizes[0]).toFixed(4);
+                    this.prevSize.set(parseFloat(_panelSizes[0]));
                 }
             }
         }
@@ -287,7 +288,7 @@ export class Splitter extends BaseComponent implements AfterContentInit {
             newNextPanelSize = (this.nextPanelSize as number) - newPos;
         }
 
-        this.prevSize = parseFloat(newPrevPanelSize).toFixed(4);
+        this.prevSize.set(parseFloat(newPrevPanelSize));
 
         if (this.validateResize(newPrevPanelSize, newNextPanelSize)) {
             (this.prevPanelElement as HTMLElement).style.flexBasis = 'calc(' + newPrevPanelSize + '% - ' + (this.panels.length - 1) * this.gutterSize + 'px)';
