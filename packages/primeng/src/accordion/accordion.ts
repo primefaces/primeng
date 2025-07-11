@@ -6,7 +6,6 @@ import { BlockableUI, SharedModule } from 'primeng/api';
 import { BaseComponent } from 'primeng/basecomponent';
 import { ChevronDownIcon, ChevronUpIcon } from 'primeng/icons';
 import { Ripple } from 'primeng/ripple';
-import { transformToBoolean } from 'primeng/utils';
 import { AccordionStyle } from './style/accordionstyle';
 
 /**
@@ -76,7 +75,7 @@ export class AccordionPanel extends BaseComponent {
      * @defaultValue false
      * @group Props
      */
-    disabled: InputSignalWithTransform<any, boolean> = input(false, { transform: (v: any) => transformToBoolean(v) });
+    disabled: InputSignalWithTransform<boolean, unknown> = input(false, { transform: booleanAttribute });
 
     active = computed(() => (this.pcAccordion.multiple() ? this.valueEquals(this.pcAccordion.value(), this.value()) : this.pcAccordion.value() === this.value()));
 
@@ -348,7 +347,7 @@ export class Accordion extends BaseComponent implements BlockableUI {
      * @defaultValue false
      * @group Props
      */
-    multiple = input(false, { transform: (v: any) => transformToBoolean(v) });
+    multiple = input(false, { transform: booleanAttribute });
     /**
      * Class of the element.
      * @deprecated since v20.0.0, use `class` instead.
@@ -370,7 +369,7 @@ export class Accordion extends BaseComponent implements BlockableUI {
      * @defaultValue false
      * @group Props
      */
-    selectOnFocus = input(false, { transform: (v: any) => transformToBoolean(v) });
+    selectOnFocus = input(false, { transform: booleanAttribute });
     /**
      * Transition options of the animation.
      * @group Props
