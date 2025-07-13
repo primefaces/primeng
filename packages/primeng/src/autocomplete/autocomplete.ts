@@ -1134,23 +1134,7 @@ export class AutoComplete extends BaseInput implements AfterViewChecked, AfterCo
     }
 
     onInputChange(event) {
-        if (this.forceSelection) {
-            let valid = false;
-
-            if (this.visibleOptions()) {
-                const matchedValue = this.visibleOptions().find((option) => this.isOptionMatched(option, this.inputEL.nativeElement.value || ''));
-
-                if (matchedValue !== undefined) {
-                    valid = true;
-                    !this.isSelected(matchedValue) && this.onOptionSelect(event, matchedValue);
-                }
-            }
-
-            if (!valid) {
-                this.inputEL.nativeElement.value = '';
-                !this.multiple && this.updateModel(null);
-            }
-        }
+        this.updateInputWithForceSelection(event);
     }
 
     onInputFocus(event) {
@@ -1515,6 +1499,27 @@ export class AutoComplete extends BaseInput implements AfterViewChecked, AfterCo
         }
     }
 
+    updateInputWithForceSelection(event: any) {
+        const input = this.inputEL.nativeElement;
+        if (!this.forceSelection || !input.value) {
+            return;
+        }
+
+        const matchedOption = this.visibleOptions()?.find((option) => this.isOptionMatched(option, input.value || ''));
+
+        if (!matchedOption && !this.overlayVisible) {
+            input.value = '';
+            if (!this.multiple) {
+                this.clear();
+            }
+            return;
+        }
+
+        if (matchedOption && !this.isSelected(matchedOption)) {
+            this.onOptionSelect(event, matchedOption);
+        }
+    }
+
     autoUpdateModel() {
         if ((this.selectOnFocus || this.autoHighlight) && this.autoOptionFocus && !this.hasSelectedOption()) {
             const focusedOptionIndex = this.findFirstFocusedOptionIndex();
@@ -1568,6 +1573,7 @@ export class AutoComplete extends BaseInput implements AfterViewChecked, AfterCo
             this.focusedOptionIndex.set(-1);
             isFocus && focus(this.inputEL.nativeElement);
             this.onHide.emit();
+            this.updateInputWithForceSelection(null);
             this.cd.markForCheck();
         };
 
