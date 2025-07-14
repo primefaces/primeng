@@ -19,6 +19,8 @@ const classes = {
     rootList: 'p-menubar-root-list',
     item: ({ instance, processedItem }) => [
         'p-menubar-item',
+        instance.getItemProp(processedItem, 'styleClass'),
+        instance.getItemProp(processedItem, 'class'),
         {
             'p-menubar-item-active': instance.isItemActive(processedItem),
             'p-focus': instance.isItemFocused(processedItem),
