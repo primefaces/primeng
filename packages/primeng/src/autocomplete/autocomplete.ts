@@ -1506,7 +1506,7 @@ export class AutoComplete extends BaseInput implements AfterViewChecked, AfterCo
             return;
         }
 
-        const matchedOption = this.visibleOptions()?.find((option) => this.isOptionMatched(option, input.value || ''));
+        const matchedOption = this.visibleOptions()?.find((option) => this.isOptionMatched(option, input.value));
 
         if (!matchedOption) {
             input.value = '';
