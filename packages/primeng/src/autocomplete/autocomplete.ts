@@ -1501,13 +1501,14 @@ export class AutoComplete extends BaseInput implements AfterViewChecked, AfterCo
 
     updateInputWithForceSelection(event: any) {
         const input = this.inputEL.nativeElement;
-        if (!this.forceSelection || !input.value) {
+
+        if (!this.forceSelection || this.overlayVisible || !input.value) {
             return;
         }
 
         const matchedOption = this.visibleOptions()?.find((option) => this.isOptionMatched(option, input.value || ''));
 
-        if (!matchedOption && !this.overlayVisible) {
+        if (!matchedOption) {
             input.value = '';
             if (!this.multiple) {
                 this.clear();
