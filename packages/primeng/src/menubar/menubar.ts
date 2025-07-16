@@ -32,7 +32,6 @@ import { findLastIndex, findSingle, focus, isEmpty, isNotEmpty, isPrintableChara
 import { MenuItem, PrimeTemplate, SharedModule } from 'primeng/api';
 import { BadgeModule } from 'primeng/badge';
 import { BaseComponent } from 'primeng/basecomponent';
-import { AngleDownIcon, AngleRightIcon, BarsIcon } from 'primeng/icons';
 import { Ripple } from 'primeng/ripple';
 import { TooltipModule } from 'primeng/tooltip';
 import { VoidListener } from 'primeng/ts-helpers';
@@ -58,7 +57,7 @@ export class MenubarService {
 @Component({
     selector: 'p-menubarSub, p-menubarsub, [pMenubarSub]',
     standalone: true,
-    imports: [CommonModule, RouterModule, Ripple, TooltipModule, AngleDownIcon, AngleRightIcon, BadgeModule, SharedModule],
+    imports: [CommonModule, RouterModule, Ripple, TooltipModule, BadgeModule, SharedModule],
     template: `
         <ng-template ngFor let-processedItem [ngForOf]="items" let-index="index">
             <li
@@ -85,7 +84,7 @@ export class MenubarService {
                 [attr.aria-setsize]="getAriaSetSize()"
                 [attr.aria-posinset]="getAriaPosInset(index)"
                 [style]="getItemProp(processedItem, 'style')"
-                [class]="cn(cx('item', { instance: this, processedItem }), processedItem?.styleClass)"
+                [class]="cn(cx('item', { instance: this, processedItem }), getItemProp(processedItem, 'styleClass'))"
                 pTooltip
                 [tooltipOptions]="getItemProp(processedItem, 'tooltipOptions')"
             >
@@ -96,7 +95,7 @@ export class MenubarService {
                             [attr.href]="getItemProp(processedItem, 'url')"
                             [attr.data-automationid]="getItemProp(processedItem, 'automationId')"
                             [attr.data-pc-section]="'action'"
-                            [target]="getItemProp(processedItem, 'target')"
+                            [attr.target]="getItemProp(processedItem, 'target')"
                             [class]="cx('itemLink')"
                             [attr.tabindex]="-1"
                             pRipple
@@ -257,33 +256,12 @@ export class MenubarSub extends BaseComponent implements OnInit, OnDestroy {
         return processedItem.item && processedItem.item?.id ? processedItem.item.id : `${this.menuId}_${processedItem.key}`;
     }
 
-    getItemKey(processedItem: any): string {
-        return this.getItemId(processedItem);
-    }
-
     getItemLabelId(processedItem: any): string {
         return `${this.menuId}_${processedItem.key}_label`;
     }
 
-    getItemClass(processedItem: any) {
-        return {
-            ...this.getItemProp(processedItem, 'class'),
-            'p-menubar-item': true,
-            'p-menubar-item-active': this.isItemActive(processedItem),
-            'p-focus': this.isItemFocused(processedItem),
-            'p-disabled': this.isItemDisabled(processedItem)
-        };
-    }
-
     getItemLabel(processedItem: any): string {
         return this.getItemProp(processedItem, 'label');
-    }
-
-    getSeparatorItemClass(processedItem: any) {
-        return {
-            ...this.getItemProp(processedItem, 'class'),
-            'p-menubar-separator': true
-        };
     }
 
     isItemVisible(processedItem: any): boolean {
@@ -335,7 +313,7 @@ export class MenubarSub extends BaseComponent implements OnInit, OnDestroy {
 @Component({
     selector: 'p-menubar',
     standalone: true,
-    imports: [CommonModule, RouterModule, MenubarSub, TooltipModule, BarsIcon, BadgeModule, SharedModule],
+    imports: [CommonModule, RouterModule, MenubarSub, TooltipModule, BadgeModule, SharedModule],
     template: `
         <div [class]="cx('start')" *ngIf="startTemplate || _startTemplate">
             <ng-container *ngTemplateOutlet="startTemplate || _startTemplate"></ng-container>
@@ -379,6 +357,7 @@ export class MenubarSub extends BaseComponent implements OnInit, OnDestroy {
             (blur)="onMenuBlur($event)"
             (keydown)="onKeyDown($event)"
             (itemMouseEnter)="onItemMouseEnter($event)"
+            (mouseleave)="onMouseLeave($event)"
         ></ul>
         <div [class]="cx('end')" *ngIf="endTemplate || _endTemplate; else legacy">
             <ng-container *ngTemplateOutlet="endTemplate || _endTemplate"></ng-container>
@@ -558,7 +537,9 @@ export class Menubar extends BaseComponent implements AfterContentInit, OnDestro
         this.bindMatchMediaListener();
         this.menubarService.autoHide = this.autoHide;
         this.menubarService.autoHideDelay = this.autoHideDelay;
-        this.mouseLeaveSubscriber = this.menubarService.mouseLeft$.subscribe(() => this.unbindOutsideClickListener());
+        this.mouseLeaveSubscriber = this.menubarService.mouseLeft$.subscribe(() => {
+            this.hide();
+        });
         this.id = this.id || uuid('pn_id_');
     }
 
@@ -727,6 +708,17 @@ export class Menubar extends BaseComponent implements AfterContentInit, OnDestro
             }
         } else {
             this.onItemChange({ event, processedItem: event.processedItem, focus: this.autoDisplay }, 'hover');
+        }
+    }
+
+    onMouseLeave(event: any) {
+        const autoHideEnabled = this.menubarService.autoHide;
+        const autoHideDelay = this.menubarService.autoHideDelay;
+
+        if (autoHideEnabled) {
+            setTimeout(() => {
+                this.menubarService.mouseLeaves.next(true);
+            }, autoHideDelay);
         }
     }
 

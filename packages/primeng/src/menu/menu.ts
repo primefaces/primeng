@@ -193,7 +193,7 @@ export class MenuItemContent extends BaseComponent {
                     <ng-template ngFor let-item let-j="index" [ngForOf]="submenu.items">
                         <li [class]="cx('separator')" *ngIf="item.separator && (item.visible !== false || submenu.visible !== false)" role="separator"></li>
                         <li
-                            [class]="cx('item', { item, id: menuitemId(item, id, i, j) })"
+                            [class]="cn(cx('item', { item, id: menuitemId(item, id, i, j) }), item?.styleClass)"
                             *ngIf="!item.separator && item.visible !== false && (item.visible !== undefined || submenu.visible !== false)"
                             [pMenuItemContent]="item"
                             [itemTemplate]="itemTemplate ?? _itemTemplate"
@@ -214,7 +214,7 @@ export class MenuItemContent extends BaseComponent {
                 <ng-template ngFor let-item let-i="index" [ngForOf]="model" *ngIf="!hasSubMenu()">
                     <li [class]="cx('separator')" *ngIf="item.separator && item.visible !== false" role="separator"></li>
                     <li
-                        [class]="cx('item', { item, id: menuitemId(item, id, i) })"
+                        [class]="cn(cx('item', { item, id: menuitemId(item, id, i) }), item?.styleClass)"
                         *ngIf="!item.separator && item.visible !== false"
                         [pMenuItemContent]="item"
                         [itemTemplate]="itemTemplate ?? _itemTemplate"

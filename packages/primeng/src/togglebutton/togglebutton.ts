@@ -44,7 +44,8 @@ export const TOGGLEBUTTON_VALUE_ACCESSOR: any = {
         '[class]': "cn(cx('root'), styleClass)",
         '[attr.aria-labelledby]': 'ariaLabelledBy',
         '[attr.aria-pressed]': 'checked',
-        '[attr.role]': '"button"'
+        '[attr.role]': '"button"',
+        '[attr.tabindex]': '!$disabled() ? 0 : -1'
     },
     template: `<span [class]="cx('content')">
         <ng-container *ngTemplateOutlet="contentTemplate || _contentTemplate; context: { $implicit: checked }"></ng-container>
@@ -63,7 +64,8 @@ export const TOGGLEBUTTON_VALUE_ACCESSOR: any = {
     changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class ToggleButton extends BaseEditableHolder implements AfterContentInit {
-    @HostListener('keydown', ['$event']) onKeyDown(event: KeyboardEvent) {
+    @HostListener('keydown', ['$event'])
+    onKeyDown(event: KeyboardEvent) {
         switch (event.code) {
             case 'Enter':
                 this.toggle(event);
@@ -76,7 +78,8 @@ export class ToggleButton extends BaseEditableHolder implements AfterContentInit
         }
     }
 
-    @HostListener('click', ['$event']) toggle(event: Event) {
+    @HostListener('click', ['$event'])
+    toggle(event: Event) {
         if (!this.$disabled() && !(this.allowEmpty === false && this.checked)) {
             this.checked = !this.checked;
             this.writeModelValue(this.checked);

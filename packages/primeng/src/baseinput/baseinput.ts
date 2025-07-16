@@ -29,43 +29,43 @@ export class BaseInput extends BaseEditableHolder {
      * @defaultValue undefined
      * @group Props
      */
-    inputSize = input<number>();
+    inputSize = input<number | null | undefined>();
     /**
      * Specifies the value must match the pattern.
      * @defaultValue undefined
      * @group Props
      */
-    pattern = input<string>();
+    pattern = input<string | null | undefined>();
     /**
      * The value must be greater than or equal to the value.
      * @defaultValue undefined
      * @group Props
      */
-    min = input<number>();
+    min = input<number | null | undefined>();
     /**
      * The value must be less than or equal to the value.
      * @defaultValue undefined
      * @group Props
      */
-    max = input<number>();
+    max = input<number | null | undefined>();
     /**
      * Unless the step is set to the any literal, the value must be min + an integral multiple of the step.
      * @defaultValue undefined
      * @group Props
      */
-    step = input<number>();
+    step = input<number | null | undefined>();
     /**
      * The number of characters (code points) must not be less than the value of the attribute, if non-empty.
      * @defaultValue undefined
      * @group Props
      */
-    minlength = input<number>();
+    minlength = input<number | null | undefined>();
     /**
      * The number of characters (code points) must not exceed the value of the attribute.
      * @defaultValue undefined
      * @group Props
      */
-    maxlength = input<number>();
+    maxlength = input<number | null | undefined>();
 
     $variant = computed(() => this.variant() || this.config.inputStyle() || this.config.inputVariant());
 
