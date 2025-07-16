@@ -32,6 +32,7 @@ import { findLastIndex, findSingle, focus, isEmpty, isNotEmpty, isPrintableChara
 import { MenuItem, PrimeTemplate, SharedModule } from 'primeng/api';
 import { BadgeModule } from 'primeng/badge';
 import { BaseComponent } from 'primeng/basecomponent';
+import { AngleDownIcon, AngleRightIcon, BarsIcon } from 'primeng/icons';
 import { Ripple } from 'primeng/ripple';
 import { TooltipModule } from 'primeng/tooltip';
 import { VoidListener } from 'primeng/ts-helpers';
@@ -57,7 +58,7 @@ export class MenubarService {
 @Component({
     selector: 'p-menubarSub, p-menubarsub, [pMenubarSub]',
     standalone: true,
-    imports: [CommonModule, RouterModule, Ripple, TooltipModule, BadgeModule, SharedModule],
+    imports: [CommonModule, RouterModule, Ripple, TooltipModule, AngleDownIcon, AngleRightIcon, BadgeModule, SharedModule],
     template: `
         <ng-template ngFor let-processedItem [ngForOf]="items" let-index="index">
             <li
@@ -313,7 +314,7 @@ export class MenubarSub extends BaseComponent implements OnInit, OnDestroy {
 @Component({
     selector: 'p-menubar',
     standalone: true,
-    imports: [CommonModule, RouterModule, MenubarSub, TooltipModule, BadgeModule, SharedModule],
+    imports: [CommonModule, RouterModule, MenubarSub, TooltipModule, BarsIcon, BadgeModule, SharedModule],
     template: `
         <div [class]="cx('start')" *ngIf="startTemplate || _startTemplate">
             <ng-container *ngTemplateOutlet="startTemplate || _startTemplate"></ng-container>
