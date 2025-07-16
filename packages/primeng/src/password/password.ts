@@ -395,7 +395,7 @@ export const Password_VALUE_ACCESSOR: any = {
 @Component({
     selector: 'p-password',
     standalone: true,
-    imports: [CommonModule, InputText, AutoFocus, TimesIcon, EyeSlashIcon, EyeIcon, MapperPipe, SharedModule],
+    imports: [CommonModule, InputText, AutoFocus, TimesIcon, EyeSlashIcon, EyeIcon, SharedModule],
     template: `
         <input
             #input
@@ -408,7 +408,7 @@ export const Password_VALUE_ACCESSOR: any = {
             [pSize]="size()"
             [ngStyle]="inputStyle"
             [class]="cn(cx('pcInputText'), inputStyleClass)"
-            [attr.type]="unmasked | mapper: inputType"
+            [attr.type]="unmasked ? 'text' : 'password'"
             [attr.placeholder]="placeholder"
             [attr.autocomplete]="autocomplete"
             [value]="value"

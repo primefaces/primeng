@@ -61,10 +61,21 @@ export class SafeHtmlPipe implements PipeTransform {
     }
 }
 
+export function sanitizeHtml(value: string): SafeHtml | string {
+    const platformId = inject(PLATFORM_ID);
+    const sanitizer = inject(DomSanitizer);
+
+    if (!value || !isPlatformBrowser(platformId)) {
+        return value;
+    }
+
+    return sanitizer.bypassSecurityTrustHtml(value);
+}
+
 @Component({
     selector: '[pMenuItemContent]',
     standalone: true,
-    imports: [CommonModule, RouterModule, Ripple, TooltipModule, BadgeModule, SharedModule, SafeHtmlPipe],
+    imports: [CommonModule, RouterModule, Ripple, TooltipModule, BadgeModule, SharedModule],
     template: ` <div [class]="cx('itemContent')" (click)="onItemClick($event, item)" [attr.data-pc-section]="'content'">
         <ng-container *ngIf="!itemTemplate">
             <a
@@ -111,7 +122,7 @@ export class SafeHtmlPipe implements PipeTransform {
         <ng-template #itemContent>
             <span [class]="cx('itemIcon', { item })" *ngIf="item.icon" [style]="item.iconStyle"></span>
             <span [class]="cx('itemLabel')" *ngIf="item.escape !== false; else htmlLabel">{{ item.label }}</span>
-            <ng-template #htmlLabel><span class="p-menu-item-label" [innerHTML]="item.label | safeHtml"></span></ng-template>
+            <ng-template #htmlLabel><span class="p-menu-item-label" [innerHTML]="sanitizeHtml(item.label)"></span></ng-template>
             <p-badge *ngIf="item.badge" [styleClass]="item.badgeStyleClass" [value]="item.badge" />
         </ng-template>
     </div>`,
@@ -145,7 +156,7 @@ export class MenuItemContent extends BaseComponent {
 @Component({
     selector: 'p-menu',
     standalone: true,
-    imports: [CommonModule, RouterModule, MenuItemContent, TooltipModule, BadgeModule, SharedModule, SafeHtmlPipe],
+    imports: [CommonModule, RouterModule, MenuItemContent, TooltipModule, BadgeModule, SharedModule],
     template: `
         <div
             #container
@@ -186,7 +197,7 @@ export class MenuItemContent extends BaseComponent {
                     <li [class]="cx('submenuLabel')" [attr.data-automationid]="submenu.automationId" *ngIf="!submenu.separator" pTooltip [tooltipOptions]="submenu.tooltipOptions" role="none" [attr.id]="menuitemId(submenu, id, i)">
                         <ng-container *ngIf="!submenuHeaderTemplate && !_submenuHeaderTemplate">
                             <span *ngIf="submenu.escape !== false; else htmlSubmenuLabel">{{ submenu.label }}</span>
-                            <ng-template #htmlSubmenuLabel><span [innerHTML]="submenu.label | safeHtml"></span></ng-template>
+                            <ng-template #htmlSubmenuLabel><span [innerHTML]="sanitizeHtml(submenu.label)"></span></ng-template>
                         </ng-container>
                         <ng-container *ngTemplateOutlet="submenuHeaderTemplate ?? _submenuHeaderTemplate; context: { $implicit: submenu }"></ng-container>
                     </li>
