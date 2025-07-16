@@ -107,7 +107,7 @@ import { ContextMenuStyle } from './style/contextmenustyle';
                     [attr.aria-setsize]="getAriaSetSize()"
                     [attr.aria-posinset]="getAriaPosInset(index)"
                     [style]="getItemProp(processedItem, 'style')"
-                    [class]="cn(cx('item', { instance: this, processedItem }), processedItem?.styleClass)"
+                    [class]="cn(cx('item', { instance: this, processedItem }), getItemProp(processedItem, 'styleClass'))"
                     pTooltip
                     [tooltipOptions]="getItemProp(processedItem, 'tooltipOptions')"
                 >

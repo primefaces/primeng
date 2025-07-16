@@ -85,7 +85,7 @@ export class MenubarService {
                 [attr.aria-setsize]="getAriaSetSize()"
                 [attr.aria-posinset]="getAriaPosInset(index)"
                 [style]="getItemProp(processedItem, 'style')"
-                [class]="cn(cx('item', { instance: this, processedItem }), processedItem?.styleClass)"
+                [class]="cn(cx('item', { instance: this, processedItem }), getItemProp(processedItem, 'styleClass'))"
                 pTooltip
                 [tooltipOptions]="getItemProp(processedItem, 'tooltipOptions')"
             >
@@ -96,7 +96,7 @@ export class MenubarService {
                             [attr.href]="getItemProp(processedItem, 'url')"
                             [attr.data-automationid]="getItemProp(processedItem, 'automationId')"
                             [attr.data-pc-section]="'action'"
-                            [target]="getItemProp(processedItem, 'target')"
+                            [attr.target]="getItemProp(processedItem, 'target')"
                             [class]="cx('itemLink')"
                             [attr.tabindex]="-1"
                             pRipple
