@@ -113,8 +113,6 @@ export class Splitter extends BaseComponent implements AfterContentInit {
         this._panelSizes = val;
 
         if (this.el && this.el.nativeElement && this.panels.length > 0) {
-            console.log(this.el.nativeElement);
-
             let children = [...this.el.nativeElement.children].filter((child) => hasClass(child, 'p-splitterpanel'));
             let _panelSizes = [];
 
