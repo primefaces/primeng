@@ -119,6 +119,26 @@ export interface LocaleSettings {
      */
     weekHeader?: string;
 }
+
+/**
+ * Custom date format for a single day for the date picker display
+ * @group Interface
+ */
+export interface DatePickerDay {
+    day: number;
+    month: number;
+    year: number;
+    selectable: boolean;
+    today?: boolean;
+    otherMonth?: boolean;
+}
+
+/**
+ * An array of days that contains date values in a custom format
+ * @group Types
+ */
+export type DatePickerWeek = DatePickerDay[];
+
 /**
  * Month interface.
  * @group Interface
@@ -133,9 +153,9 @@ export interface Month {
      */
     year?: number;
     /**
-     * Array of dates.
+     * Array of weeks, each containing an array of days.
      */
-    dates?: Date[];
+    dates?: DatePickerWeek[];
     /**
      * Array of week numbers.
      */
