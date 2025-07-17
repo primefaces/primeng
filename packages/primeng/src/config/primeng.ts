@@ -203,7 +203,7 @@ export class PrimeNG extends ThemeProvider {
     }
 
     setConfig(config: PrimeNGConfigType): void {
-        const { csp, ripple, inputStyle, inputVariant, theme, overlayOptions, translation, filterMatchModeOptions, overlayAppendTo } = config || {};
+        const { csp, ripple, inputStyle, inputVariant, theme, overlayOptions, translation, filterMatchModeOptions, overlayAppendTo, zIndex } = config || {};
 
         if (csp) this.csp.set(csp);
         if (overlayAppendTo) this.overlayAppendTo.set(overlayAppendTo);
@@ -213,6 +213,7 @@ export class PrimeNG extends ThemeProvider {
         if (overlayOptions) this.overlayOptions = overlayOptions;
         if (translation) this.setTranslation(translation);
         if (filterMatchModeOptions) this.filterMatchModeOptions = filterMatchModeOptions;
+        if (zIndex) this.zIndex = zIndex;
 
         if (theme)
             this.setThemeConfig({
