@@ -366,7 +366,7 @@ export class InputOtp extends BaseEditableHolder implements AfterContentInit {
                 break;
 
             default:
-                if ((this.integerOnly && !(Number(event.key) >= 0 && Number(event.key) <= 9)) || (this.tokens.join('').length >= this.length && event.code !== 'Delete')) {
+                if ((this.integerOnly && !(Number(event.key) >= 0 && Number(event.key) <= 9))) {
                     event.preventDefault();
                 }
 
