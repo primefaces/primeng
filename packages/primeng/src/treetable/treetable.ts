@@ -2687,7 +2687,7 @@ export class TTScrollableView extends BaseComponent implements AfterViewInit, On
         '[class]': 'cx("sortableColumn")',
         '[tabindex]': 'isEnabled() ? "0" : null',
         role: 'columnheader',
-        '[aria-sort]': 'ariaSorted'
+        '[attr.aria-sort]': 'ariaSorted'
     },
     providers: [TreeTableStyle]
 })
@@ -3047,7 +3047,7 @@ export class TTReorderableColumn implements AfterViewInit, OnDestroy {
     standalone: false,
     host: {
         '[class]': 'cx("row")',
-        '[aria-checked]': 'selected'
+        '[attr.aria-checked]': 'selected'
     },
     providers: [TreeTableStyle]
 })
@@ -3669,9 +3669,9 @@ export class TreeTableCellEditor extends BaseComponent implements AfterContentIn
     host: {
         '[class]': `'p-element ' + styleClass`,
         '[tabindex]': "'0'",
-        '[aria-expanded]': 'expanded',
-        '[aria-level]': 'level',
-        '[data-pc-section]': 'row',
+        '[attr.aria-expanded]': 'expanded',
+        '[attr.aria-level]': 'level',
+        '[attr.data-pc-section]': 'row',
         '[role]': 'row'
     },
     providers: [TreeTableStyle]

@@ -29,7 +29,7 @@ const classes = {
         'p-treeselect p-component p-inputwrapper',
         {
             'p-treeselect-display-chip': instance.display === 'chip',
-            'p-disabled': instance.disabled(),
+            'p-disabled': instance.$disabled(),
             'p-invalid': instance.invalid(),
             'p-focus': instance.focused,
             'p-variant-filled': instance.$variant() === 'filled',

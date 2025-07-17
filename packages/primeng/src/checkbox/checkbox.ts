@@ -23,7 +23,7 @@ import {
     ViewChild,
     ViewEncapsulation
 } from '@angular/core';
-import { ControlValueAccessor, FormControl, NG_VALUE_ACCESSOR, NgControl } from '@angular/forms';
+import { FormControl, NG_VALUE_ACCESSOR, NgControl } from '@angular/forms';
 import { contains, equals } from '@primeuix/utils';
 import { PrimeTemplate, SharedModule } from 'primeng/api';
 import { BaseEditableHolder } from 'primeng/baseeditableholder';
@@ -56,7 +56,7 @@ export const CHECKBOX_VALUE_ACCESSOR: any = {
             [attr.tabindex]="tabindex"
             [attr.required]="required() ? '' : undefined"
             [attr.readonly]="readonly ? '' : undefined"
-            [attr.disabled]="disabled() ? '' : undefined"
+            [attr.disabled]="$disabled() ? '' : undefined"
             [attr.aria-labelledby]="ariaLabelledBy"
             [attr.aria-label]="ariaLabel"
             [style]="inputStyle"
@@ -83,10 +83,10 @@ export const CHECKBOX_VALUE_ACCESSOR: any = {
         '[class]': "cn(cx('root'), styleClass)",
         '[attr.data-p-highlight]': 'checked',
         '[attr.data-p-checked]': 'checked',
-        '[attr.data-p-disabled]': 'disabled()'
+        '[attr.data-p-disabled]': '$disabled()'
     }
 })
-export class Checkbox extends BaseEditableHolder implements AfterContentInit, ControlValueAccessor {
+export class Checkbox extends BaseEditableHolder implements AfterContentInit {
     /**
      * Value of the checkbox.
      * @group Props
@@ -216,10 +216,6 @@ export class Checkbox extends BaseEditableHolder implements AfterContentInit, Co
 
     _checkboxIconTemplate: TemplateRef<any> | undefined;
 
-    onModelChange: Function = () => {};
-
-    onModelTouched: Function = () => {};
-
     focused: boolean = false;
 
     _componentStyle = inject(CheckboxStyle);
@@ -302,17 +298,15 @@ export class Checkbox extends BaseEditableHolder implements AfterContentInit, Co
         this.inputViewChild.nativeElement.focus();
     }
 
-    writeValue(model: any): void {
-        this.writeModelValue(model);
+    /**
+     * @override
+     *
+     * @see {@link BaseEditableHolder.writeControlValue}
+     * Writes the value to the control.
+     */
+    writeControlValue(value: any, setModelValue: (value: any) => void): void {
+        setModelValue(value);
         this.cd.markForCheck();
-    }
-
-    registerOnChange(fn: Function): void {
-        this.onModelChange = fn;
-    }
-
-    registerOnTouched(fn: Function): void {
-        this.onModelTouched = fn;
     }
 }
 

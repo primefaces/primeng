@@ -551,8 +551,8 @@ export class Carousel extends BaseComponent implements AfterContentInit {
         if (!this.carouselStyle) {
             this.carouselStyle = this.renderer.createElement('style');
             this.carouselStyle.type = 'text/css';
-            setAttribute(this.carouselStyle, 'nonce', this.config?.csp()?.nonce);
             this.renderer.appendChild(this.document.head, this.carouselStyle);
+            setAttribute(this.carouselStyle, 'nonce', this.config?.csp()?.nonce);
         }
 
         let innerHTML = `

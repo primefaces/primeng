@@ -20,7 +20,7 @@ const classes = {
         {
             'p-toggleswitch p-component': true,
             'p-toggleswitch-checked': instance.checked(),
-            'p-disabled': instance.disabled(),
+            'p-disabled': instance.$disabled(),
             'p-invalid': instance.invalid()
         }
     ],

@@ -23,9 +23,9 @@ const classes = {
         'p-cascadeselect p-component p-inputwrapper',
         {
             'p-cascadeselect p-component p-inputwrapper': true,
-            'p-cascadeselect-clearable': instance.showClear && !instance.disabled(),
+            'p-cascadeselect-clearable': instance.showClear && !instance.$disabled(),
             'p-cascadeselect-mobile': instance.queryMatches(),
-            'p-disabled': instance.disabled(),
+            'p-disabled': instance.$disabled(),
             'p-invalid': instance.invalid(),
             'p-focus': instance.focused,
             'p-inputwrapper-filled': instance.modelValue(),

@@ -57,11 +57,11 @@ export const TREESELECT_VALUE_ACCESSOR: any = {
                 role="combobox"
                 [attr.id]="inputId"
                 readonly
-                [attr.disabled]="disabled() ? '' : undefined"
+                [attr.disabled]="$disabled() ? '' : undefined"
                 (focus)="onInputFocus($event)"
                 (blur)="onInputBlur($event)"
                 (keydown)="onKeyDown($event)"
-                [attr.tabindex]="!disabled() ? tabindex : -1"
+                [attr.tabindex]="!$disabled() ? tabindex : -1"
                 [attr.aria-controls]="overlayVisible ? listId : null"
                 [attr.aria-haspopup]="'tree'"
                 [attr.aria-expanded]="overlayVisible ?? false"
@@ -88,7 +88,7 @@ export const TREESELECT_VALUE_ACCESSOR: any = {
                 </ng-template>
             </div>
         </div>
-        <ng-container *ngIf="checkValue() && !disabled() && showClear">
+        <ng-container *ngIf="checkValue() && !$disabled() && showClear">
             <svg data-p-icon="times" *ngIf="!clearIconTemplate && !_clearIconTemplate" [class]="cx('clearIcon')" (click)="clear($event)" />
             <span *ngIf="clearIconTemplate || clearIconTemplate" [class]="cx('clearIcon')" (click)="clear($event)">
                 <ng-template *ngTemplateOutlet="clearIconTemplate || _clearIconTemplate"></ng-template>
@@ -593,10 +593,6 @@ export class TreeSelect extends BaseEditableHolder implements AfterContentInit {
 
     public templateMap: any;
 
-    onModelChange: Function = () => {};
-
-    onModelTouched: Function = () => {};
-
     listId: string = '';
 
     _componentStyle = inject(TreeSelectStyle);
@@ -707,7 +703,7 @@ export class TreeSelect extends BaseEditableHolder implements AfterContentInit {
     }
 
     onClick(event: any) {
-        if (this.disabled()) {
+        if (this.$disabled()) {
             return;
         }
 
@@ -984,7 +980,7 @@ export class TreeSelect extends BaseEditableHolder implements AfterContentInit {
     }
 
     onInputFocus(event: Event) {
-        if (this.disabled()) {
+        if (this.$disabled()) {
             // For ScreenReaders
             return;
         }
@@ -999,18 +995,16 @@ export class TreeSelect extends BaseEditableHolder implements AfterContentInit {
         this.onModelTouched();
     }
 
-    writeValue(value: any): void {
+    /**
+     * @override
+     *
+     * @see {@link BaseEditableHolder.writeControlValue}
+     * Writes the value to the control.
+     */
+    writeControlValue(value: any): void {
         this.value = value;
         this.updateTreeState();
         this.cd.markForCheck();
-    }
-
-    registerOnChange(fn: Function): void {
-        this.onModelChange = fn;
-    }
-
-    registerOnTouched(fn: Function): void {
-        this.onModelTouched = fn;
     }
 
     get emptyValue() {

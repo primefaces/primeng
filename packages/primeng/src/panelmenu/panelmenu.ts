@@ -60,7 +60,7 @@ import { PanelMenuStyle } from './style/panelmenustyle';
                     [attr.aria-level]="level + 1"
                     [attr.aria-setsize]="getAriaSetSize()"
                     [attr.aria-posinset]="getAriaPosInset(index)"
-                    [class]="cn(cx('item', { processedItem }, processedItem.styleClass))"
+                    [class]="cn(cx('item', { processedItem }), getItemProp(processedItem, 'styleClass'))"
                     [ngStyle]="getItemProp(processedItem, 'style')"
                     [pTooltip]="getItemProp(processedItem, 'tooltip')"
                     [attr.data-p-disabled]="isItemDisabled(processedItem)"

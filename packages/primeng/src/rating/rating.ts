@@ -18,7 +18,7 @@ import {
     TemplateRef,
     ViewEncapsulation
 } from '@angular/core';
-import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
+import { NG_VALUE_ACCESSOR } from '@angular/forms';
 import { focus, getFirstFocusableElement, uuid } from '@primeuix/utils';
 import { PrimeTemplate, SharedModule } from 'primeng/api';
 import { AutoFocus } from 'primeng/autofocus';
@@ -52,7 +52,7 @@ export const RATING_VALUE_ACCESSOR: any = {
                         [attr.value]="modelValue()"
                         [attr.required]="required() ? '' : undefined"
                         [attr.readonly]="readonly ? '' : undefined"
-                        [attr.disabled]="disabled() ? '' : undefined"
+                        [attr.disabled]="$disabled() ? '' : undefined"
                         [checked]="value === star + 1"
                         [attr.aria-label]="starAriaLabel(star + 1)"
                         (focus)="onInputFocus($event, star + 1)"
@@ -88,7 +88,7 @@ export const RATING_VALUE_ACCESSOR: any = {
         '[attr.data-pc-section]': "'root'"
     }
 })
-export class Rating extends BaseEditableHolder implements OnInit, ControlValueAccessor {
+export class Rating extends BaseEditableHolder implements OnInit {
     /**
      * When present, changing the value is not possible.
      * @group Props
@@ -157,10 +157,6 @@ export class Rating extends BaseEditableHolder implements OnInit, ControlValueAc
 
     value: Nullable<number>;
 
-    onModelChange: Function = () => {};
-
-    onModelTouched: Function = () => {};
-
     public starsArray: Nullable<number[]>;
 
     isFocusVisibleItem: boolean = true;
@@ -199,7 +195,7 @@ export class Rating extends BaseEditableHolder implements OnInit, ControlValueAc
     }
 
     onOptionClick(event, value) {
-        if (!this.readonly && !this.disabled()) {
+        if (!this.readonly && !this.$disabled()) {
             this.onOptionSelect(event, value);
             this.isFocusVisibleItem = false;
             const firstFocusableEl = <any>getFirstFocusableElement(event.currentTarget, '');
@@ -209,7 +205,7 @@ export class Rating extends BaseEditableHolder implements OnInit, ControlValueAc
     }
 
     onOptionSelect(event, value) {
-        if (!this.readonly && !this.disabled()) {
+        if (!this.readonly && !this.$disabled()) {
             if (this.focusedOptionIndex() === value || value === this.value) {
                 this.focusedOptionIndex.set(-1);
                 this.updateModel(event, null);
@@ -231,7 +227,7 @@ export class Rating extends BaseEditableHolder implements OnInit, ControlValueAc
     }
 
     onInputFocus(event, value) {
-        if (!this.readonly && !this.disabled()) {
+        if (!this.readonly && !this.$disabled()) {
             this.focusedOptionIndex.set(value);
             this.isFocusVisibleItem = event.sourceCapabilities?.firesTouchEvents === false;
 
@@ -258,17 +254,15 @@ export class Rating extends BaseEditableHolder implements OnInit, ControlValueAc
         return !this.value || i >= this.value ? this.offIconTemplate || this._offIconTemplate : this.onIconTemplate || this.offIconTemplate;
     }
 
-    writeValue(value: any): void {
+    /**
+     * @override
+     *
+     * @see {@link BaseEditableHolder.writeControlValue}
+     * Writes the value to the control.
+     */
+    writeControlValue(value: any, setModelValue: (value: any) => void): void {
         this.value = value;
-        this.writeModelValue(value);
-    }
-
-    registerOnChange(fn: Function): void {
-        this.onModelChange = fn;
-    }
-
-    registerOnTouched(fn: Function): void {
-        this.onModelTouched = fn;
+        setModelValue(value);
     }
 
     get isCustomIcon(): boolean {
