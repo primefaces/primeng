@@ -67,7 +67,7 @@
                         "development": {
                             "optimization": false,
                             "extractLicenses": false,
-                            "sourceMap": false,
+                            "sourceMap": true,
                             "namedChunks": false,
                             "fileReplacements": [
                                 {
