@@ -395,7 +395,7 @@ export const Password_VALUE_ACCESSOR: any = {
 @Component({
     selector: 'p-password',
     standalone: true,
-    imports: [CommonModule, InputText, AutoFocus, TimesIcon, EyeSlashIcon, EyeIcon, MapperPipe, SharedModule],
+    imports: [CommonModule, InputText, AutoFocus, TimesIcon, EyeSlashIcon, EyeIcon, SharedModule],
     template: `
         <input
             #input
@@ -408,7 +408,7 @@ export const Password_VALUE_ACCESSOR: any = {
             [pSize]="size()"
             [ngStyle]="inputStyle"
             [class]="cn(cx('pcInputText'), inputStyleClass)"
-            [attr.type]="unmasked | mapper: inputType"
+            [attr.type]="unmasked ? 'text' : 'password'"
             [attr.placeholder]="placeholder"
             [attr.autocomplete]="autocomplete"
             [value]="value"
@@ -417,7 +417,7 @@ export const Password_VALUE_ACCESSOR: any = {
             [attr.maxlength]="maxlength() || maxLength"
             [attr.minlength]="minlength()"
             [attr.required]="required() ? '' : undefined"
-            [attr.disabled]="disabled() ? '' : undefined"
+            [attr.disabled]="$disabled() ? '' : undefined"
             [invalid]="invalid()"
             (input)="onInput($event)"
             (focus)="onInputFocus($event)"
@@ -427,7 +427,7 @@ export const Password_VALUE_ACCESSOR: any = {
             [pAutoFocus]="autofocus"
         />
         <ng-container *ngIf="showClear && value != null">
-            <TimesIcon *ngIf="!clearIconTemplate && !_clearIconTemplate" [class]="cx('clearIcon')" (click)="clear()" [attr.data-pc-section]="'clearIcon'" />
+            <svg data-p-icon="times" *ngIf="!clearIconTemplate && !_clearIconTemplate" [class]="cx('clearIcon')" (click)="clear()" [attr.data-pc-section]="'clearIcon'" />
             <span (click)="clear()" [class]="cx('clearIcon')" [attr.data-pc-section]="'clearIcon'">
                 <ng-template *ngTemplateOutlet="clearIconTemplate || _clearIconTemplate"></ng-template>
             </span>
@@ -435,13 +435,13 @@ export const Password_VALUE_ACCESSOR: any = {
 
         <ng-container *ngIf="toggleMask">
             <ng-container *ngIf="unmasked">
-                <EyeSlashIcon [class]="cx('maskIcon')" *ngIf="!hideIconTemplate && !_hideIconTemplate" (click)="onMaskToggle()" [attr.data-pc-section]="'hideIcon'" />
+                <svg data-p-icon="eyeslash" [class]="cx('maskIcon')" *ngIf="!hideIconTemplate && !_hideIconTemplate" (click)="onMaskToggle()" [attr.data-pc-section]="'hideIcon'" />
                 <span *ngIf="hideIconTemplate || _hideIconTemplate" (click)="onMaskToggle()">
                     <ng-template *ngTemplateOutlet="hideIconTemplate || _hideIconTemplate; context: { class: cx('maskIcon') }"></ng-template>
                 </span>
             </ng-container>
             <ng-container *ngIf="!unmasked">
-                <EyeIcon *ngIf="!showIconTemplate && !_showIconTemplate" [class]="cx('unmaskIcon')" (click)="onMaskToggle()" [attr.data-pc-section]="'showIcon'" />
+                <svg data-p-icon="eye" *ngIf="!showIconTemplate && !_showIconTemplate" [class]="cx('unmaskIcon')" (click)="onMaskToggle()" [attr.data-pc-section]="'showIcon'" />
                 <span *ngIf="showIconTemplate || _showIconTemplate" (click)="onMaskToggle()">
                     <ng-template *ngTemplateOutlet="showIconTemplate || _showIconTemplate; context: { class: cx('unmaskIcon') }"></ng-template>
                 </span>
@@ -682,10 +682,6 @@ export class Password extends BaseInput implements OnInit, AfterContentInit {
 
     value: Nullable<string> = null;
 
-    onModelChange: Function = () => {};
-
-    onModelTouched: Function = () => {};
-
     translationSubscription: Nullable<Subscription>;
 
     _componentStyle = inject(PasswordStyle);
@@ -875,23 +871,6 @@ export class Password extends BaseInput implements OnInit, AfterContentInit {
         return level;
     }
 
-    writeValue(value: any): void {
-        if (value === undefined) this.value = null;
-        else this.value = value;
-
-        if (this.feedback) this.updateUI(this.value || '');
-        this.writeModelValue(this.value);
-        this.cd.markForCheck();
-    }
-
-    registerOnChange(fn: Function): void {
-        this.onModelChange = fn;
-    }
-
-    registerOnTouched(fn: Function): void {
-        this.onModelTouched = fn;
-    }
-
     bindScrollListener() {
         if (isPlatformBrowser(this.platformId)) {
             if (!this.scrollHandler) {
@@ -968,6 +947,21 @@ export class Password extends BaseInput implements OnInit, AfterContentInit {
         this.onModelChange(this.value);
         this.writeValue(this.value);
         this.onClear.emit();
+    }
+
+    /**
+     * @override
+     *
+     * @see {@link BaseEditableHolder.writeControlValue}
+     * Writes the value to the control.
+     */
+    writeControlValue(value: any, setModelValue: (value: any) => void): void {
+        if (value === undefined) this.value = null;
+        else this.value = value;
+
+        if (this.feedback) this.updateUI(this.value || '');
+        setModelValue(this.value);
+        this.cd.markForCheck();
     }
 
     ngOnDestroy() {

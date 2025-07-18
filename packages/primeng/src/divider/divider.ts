@@ -20,7 +20,7 @@ import { DividerStyle } from './style/dividerstyle';
     changeDetection: ChangeDetectionStrategy.OnPush,
     encapsulation: ViewEncapsulation.None,
     host: {
-        '[aria-orientation]': 'layout',
+        '[attr.aria-orientation]': 'layout',
         'data-pc-name': 'divider',
         role: 'separator',
         '[class]': "cn(cx('root'), styleClass)",

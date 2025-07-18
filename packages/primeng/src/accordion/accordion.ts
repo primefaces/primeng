@@ -104,11 +104,11 @@ export class AccordionPanel extends BaseComponent {
         } @else {
             <ng-container *ngIf="active()">
                 <span *ngIf="pcAccordion.collapseIcon" [class]="pcAccordion.collapseIcon" [ngClass]="pcAccordion.iconClass" [attr.aria-hidden]="true"></span>
-                <ChevronUpIcon *ngIf="!pcAccordion.collapseIcon" [ngClass]="pcAccordion.iconClass" [attr.aria-hidden]="true" />
+                <svg data-p-icon="chevron-up" *ngIf="!pcAccordion.collapseIcon" [class]="pcAccordion.iconClass" [attr.aria-hidden]="true" />
             </ng-container>
             <ng-container *ngIf="!active()">
                 <span *ngIf="pcAccordion.expandIcon" [class]="pcAccordion.expandIcon" [ngClass]="pcAccordion.iconClass" [attr.aria-hidden]="true"></span>
-                <ChevronDownIcon *ngIf="!pcAccordion.expandIcon" [ngClass]="pcAccordion.iconClass" [attr.aria-hidden]="true" />
+                <svg data-p-icon="chevron-down" *ngIf="!pcAccordion.expandIcon" [class]="pcAccordion.iconClass" [attr.aria-hidden]="true" />
             </ng-container>
         }
     `,
@@ -272,7 +272,7 @@ export class AccordionHeader extends BaseComponent {
     selector: 'p-accordion-content, p-accordioncontent',
     imports: [CommonModule],
     standalone: true,
-    template: ` <div [class]="cx('content')">
+    template: ` <div [class]="cx('content')" [@content]="active() ? { value: 'visible', params: { transitionParams: pcAccordion.transitionOptions } } : { value: 'hidden', params: { transitionParams: pcAccordion.transitionOptions } }">
         <ng-content />
     </div>`,
     changeDetection: ChangeDetectionStrategy.OnPush,
@@ -283,10 +283,7 @@ export class AccordionHeader extends BaseComponent {
         '[attr.role]': '"region"',
         '[attr.data-pc-name]': '"accordioncontent"',
         '[attr.data-p-active]': 'active()',
-        '[attr.aria-labelledby]': 'ariaLabelledby()',
-        '[@content]': `active()
-            ? { value: 'visible', params: { transitionParams: pcAccordion.transitionOptions } }
-            : { value: 'hidden', params: { transitionParams: pcAccordion.transitionOptions } }`
+        '[attr.aria-labelledby]': 'ariaLabelledby()'
     },
     animations: [
         trigger('content', [
@@ -294,7 +291,8 @@ export class AccordionHeader extends BaseComponent {
                 'hidden',
                 style({
                     height: '0',
-                    paddingBottom: '0'
+                    paddingBottom: '0',
+                    visibility: 'hidden'
                 })
             ),
             state(

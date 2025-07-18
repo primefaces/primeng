@@ -1,14 +1,13 @@
 import { Injectable } from '@angular/core';
-import { css, dt } from '@primeuix/styled';
 import { style } from '@primeuix/styles/listbox';
 import { BaseStyle } from 'primeng/base';
 
-const theme = css`
+const theme = /*css*/ `
     ${style}
 
     /* For PrimeNG */
     .p-listbox.ng-invalid.ng-dirty {
-        border-color: ${dt('listbox.invalid.border.color')};
+        border-color: dt('listbox.invalid.border.color');
     }
 `;
 
@@ -17,7 +16,7 @@ const classes = {
         'p-listbox p-component',
         {
             'p-listbox-striped': instance.striped,
-            'p-disabled': instance.disabled(),
+            'p-disabled': instance.$disabled(),
             'p-invalid': instance.invalid(),
             'p-listbox-fluid': instance.fluid()
         }

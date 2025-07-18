@@ -1,14 +1,13 @@
 import { Injectable } from '@angular/core';
-import { css, dt } from '@primeuix/styled';
 import { style } from '@primeuix/styles/datepicker';
 import { BaseStyle } from 'primeng/base';
 
-const theme = css`
+const theme = /*css*/ `
     ${style}
 
     /* For PrimeNG */
     .p-datepicker.ng-invalid.ng-dirty .p-inputtext {
-        border-color: ${dt('inputtext.invalid.border.color')};
+        border-color: dt('inputtext.invalid.border.color');
     }
 `;
 
@@ -37,7 +36,7 @@ const classes = {
         {
             'p-datepicker-panel p-component': true,
             'p-datepicker-panel-inline': instance.inline,
-            'p-disabled': instance.disabled(),
+            'p-disabled': instance.$disabled(),
             'p-datepicker-timeonly': instance.timeOnly
         }
     ],
@@ -79,7 +78,7 @@ const classes = {
         return {
             'p-datepicker-day': true,
             'p-datepicker-day-selected': !instance.isRangeSelection() && instance.isSelected(date) && date.selectable,
-            'p-disabled': instance.disabled() || !date.selectable,
+            'p-disabled': instance.$disabled() || !date.selectable,
             [selectedDayClass]: true
         };
     },

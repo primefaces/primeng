@@ -79,7 +79,7 @@ export const CASCADESELECT_VALUE_ACCESSOR: any = {
                             <span [class]="cx('optionText')" [attr.data-pc-section]="'text'">{{ getOptionLabelToRender(processedOption) }}</span>
                         </ng-template>
                         <span [class]="cx('groupIcon')" *ngIf="isOptionGroup(processedOption)" [attr.data-pc-section]="'groupIcon'">
-                            <AngleRightIcon *ngIf="!groupicon" />
+                            <svg data-p-icon="angle-right" *ngIf="!groupicon" />
                             <ng-template *ngTemplateOutlet="groupicon"></ng-template>
                         </span>
                     </div>
@@ -253,13 +253,13 @@ export class CascadeSelectSub extends BaseComponent implements OnInit {
                 role="combobox"
                 [attr.name]="name()"
                 [attr.required]="required() ? '' : undefined"
-                [attr.disabled]="disabled() ? '' : undefined"
+                [attr.disabled]="$disabled() ? '' : undefined"
                 [attr.placeholder]="placeholder"
-                [attr.tabindex]="!disabled() ? tabindex : -1"
+                [attr.tabindex]="!$disabled() ? tabindex : -1"
                 [attr.id]="inputId"
                 [attr.aria-label]="ariaLabel"
                 [attr.aria-labelledby]="ariaLabelledBy"
-                aria-haspopup="tree"
+                [attr.aria-haspopup]="'tree'"
                 [attr.aria-expanded]="overlayVisible ?? false"
                 [attr.aria-controls]="overlayVisible ? id + '_tree' : null"
                 [attr.aria-activedescendant]="focused ? focusedOptionId : undefined"
@@ -278,8 +278,8 @@ export class CascadeSelectSub extends BaseComponent implements OnInit {
             </ng-template>
         </span>
 
-        <ng-container *ngIf="$filled() && !disabled() && showClear">
-            <TimesIcon *ngIf="!clearIconTemplate && !_clearIconTemplate" [class]="cx('clearIcon')" (click)="clear($event)" [attr.data-pc-section]="'clearicon'" [attr.aria-hidden]="true" />
+        <ng-container *ngIf="$filled() && !$disabled() && showClear">
+            <svg data-p-icon="times" *ngIf="!clearIconTemplate && !_clearIconTemplate" [class]="cx('clearIcon')" (click)="clear($event)" [attr.data-pc-section]="'clearicon'" [attr.aria-hidden]="true" />
             <span *ngIf="clearIconTemplate || _clearIconTemplate" [class]="cx('clearIcon')" (click)="clear($event)" [attr.data-pc-section]="'clearicon'" [attr.aria-hidden]="true">
                 <ng-template *ngTemplateOutlet="clearIconTemplate || _clearIconTemplate"></ng-template>
             </span>
@@ -296,7 +296,7 @@ export class CascadeSelectSub extends BaseComponent implements OnInit {
                 </ng-container>
             </ng-container>
             <ng-template #elseBlock>
-                <ChevronDownIcon *ngIf="!triggerIconTemplate && !_triggerIconTemplate" [styleClass]="cx('dropdownIcon')" />
+                <svg data-p-icon="chevron-down" *ngIf="!triggerIconTemplate && !_triggerIconTemplate" [class]="cx('dropdownIcon')" />
                 <span *ngIf="triggerIconTemplate || _triggerIconTemplate" [class]="cx('dropdownIcon')">
                     <ng-template *ngTemplateOutlet="triggerIconTemplate || _triggerIconTemplate"></ng-template>
                 </span>
@@ -694,10 +694,6 @@ export class CascadeSelect extends BaseEditableHolder implements OnInit, AfterCo
 
     searchTimeout: any;
 
-    onModelChange: Function = () => {};
-
-    onModelTouched: Function = () => {};
-
     focusedOptionInfo = signal<any>({ index: -1, level: 0, parentKey: '' });
 
     activeOptionPath = signal<any>([]);
@@ -852,7 +848,7 @@ export class CascadeSelect extends BaseEditableHolder implements OnInit, AfterCo
     }
 
     onInputFocus(event: FocusEvent) {
-        if (this.disabled()) {
+        if (this.$disabled()) {
             // For screenreaders
             return;
         }
@@ -870,7 +866,7 @@ export class CascadeSelect extends BaseEditableHolder implements OnInit, AfterCo
     }
 
     onInputKeyDown(event: KeyboardEvent) {
-        if (this.disabled() || this.loading) {
+        if (this.$disabled() || this.loading) {
             event.preventDefault();
 
             return;
@@ -1153,7 +1149,7 @@ export class CascadeSelect extends BaseEditableHolder implements OnInit, AfterCo
     }
 
     onContainerClick(event: MouseEvent) {
-        if (this.disabled() || this.loading) {
+        if (this.$disabled() || this.loading) {
             return;
         }
 
@@ -1508,18 +1504,16 @@ export class CascadeSelect extends BaseEditableHolder implements OnInit, AfterCo
         }
     }
 
-    writeValue(value: any): void {
+    /**
+     * @override
+     *
+     * @see {@link BaseEditableHolder.writeControlValue}
+     * Writes the value to the control.
+     */
+    writeControlValue(value: any, setModelValue: (value: any) => void): void {
         this.value = value;
-        this.updateModel(value);
+        setModelValue(value);
         this.cd.markForCheck();
-    }
-
-    registerOnChange(fn: Function): void {
-        this.onModelChange = fn;
-    }
-
-    registerOnTouched(fn: Function): void {
-        this.onModelTouched = fn;
     }
 
     ngOnDestroy() {

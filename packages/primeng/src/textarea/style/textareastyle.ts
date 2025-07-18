@@ -1,17 +1,16 @@
 import { Injectable } from '@angular/core';
-import { css, dt } from '@primeuix/styled';
 import { style } from '@primeuix/styles/textarea';
 import { BaseStyle } from 'primeng/base';
 
-const theme = css`
+const theme = /*css*/ `
     ${style}
 
     /* For PrimeNG */
     .p-textarea.ng-invalid.ng-dirty {
-        border-color: ${dt('textarea.invalid.border.color')};
+        border-color: dt('textarea.invalid.border.color');
     }
     .p-textarea.ng-invalid.ng-dirty::placeholder {
-        color: ${dt('textarea.invalid.placeholder.color')};
+        color: dt('textarea.invalid.placeholder.color');
     }
 `;
 
@@ -25,8 +24,7 @@ const classes = {
             'p-textarea-fluid': instance.hasFluid,
             'p-inputfield-sm p-textarea-sm': instance.pSize === 'small',
             'p-textarea-lg p-inputfield-lg': instance.pSize === 'large',
-            'p-invalid': instance.invalid(),
-            'p-disabled': instance.disabled()
+            'p-invalid': instance.invalid()
         }
     ]
 };

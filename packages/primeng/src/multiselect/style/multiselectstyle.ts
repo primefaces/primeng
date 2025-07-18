@@ -1,19 +1,18 @@
 import { Injectable } from '@angular/core';
-import { css, dt } from '@primeuix/styled';
 import { style } from '@primeuix/styles/multiselect';
 import { BaseStyle } from 'primeng/base';
 
-const theme = css`
+const theme = /*css*/ `
     ${style}
 
     /* For PrimeNG */
    .p-multiselect.ng-invalid.ng-dirty {
-        border-color: ${dt('multiselect.invalid.border.color')};
+        border-color: dt('multiselect.invalid.border.color');
     }
     p-multiSelect.ng-invalid.ng-dirty .p-multiselect-label.p-placeholder,
     p-multi-select.ng-invalid.ng-dirty .p-multiselect-label.p-placeholder,
     p-multiselect.ng-invalid.ng-dirty .p-multiselect-label.p-placeholder {
-        color: ${dt('multiselect.invalid.placeholder.color')};
+        color: dt('multiselect.invalid.placeholder.color');
     }
 `;
 
@@ -27,7 +26,7 @@ const classes = {
         {
             'p-multiselect p-component p-inputwrapper': true,
             'p-multiselect-display-chip': instance.display === 'chip',
-            'p-disabled': instance.disabled(),
+            'p-disabled': instance.$disabled(),
             'p-invalid': instance.invalid(),
             'p-variant-filled': instance.$variant(),
             'p-focus': instance.focused,
@@ -51,7 +50,7 @@ const classes = {
     dropdown: 'p-multiselect-dropdown',
     loadingIcon: 'p-multiselect-loading-icon',
     dropdownIcon: 'p-multiselect-dropdown-icon',
-    overlay: 'p-multiselect-overlay p-component',
+    overlay: 'p-multiselect-overlay p-component-overlay p-component',
     header: 'p-multiselect-header',
     pcFilterContainer: 'p-multiselect-filter-container',
     pcFilter: 'p-multiselect-filter',

@@ -85,7 +85,7 @@ export class MenubarService {
                 [attr.aria-setsize]="getAriaSetSize()"
                 [attr.aria-posinset]="getAriaPosInset(index)"
                 [style]="getItemProp(processedItem, 'style')"
-                [class]="cn(cx('item', { instance: this, processedItem }), processedItem?.styleClass)"
+                [class]="cn(cx('item', { instance: this, processedItem }), getItemProp(processedItem, 'styleClass'))"
                 pTooltip
                 [tooltipOptions]="getItemProp(processedItem, 'tooltipOptions')"
             >
@@ -96,7 +96,7 @@ export class MenubarService {
                             [attr.href]="getItemProp(processedItem, 'url')"
                             [attr.data-automationid]="getItemProp(processedItem, 'automationId')"
                             [attr.data-pc-section]="'action'"
-                            [target]="getItemProp(processedItem, 'target')"
+                            [attr.target]="getItemProp(processedItem, 'target')"
                             [class]="cx('itemLink')"
                             [attr.tabindex]="-1"
                             pRipple
@@ -113,8 +113,8 @@ export class MenubarService {
 
                             <ng-container *ngIf="isItemGroup(processedItem)">
                                 <ng-container *ngIf="!submenuiconTemplate">
-                                    <AngleDownIcon [class]="cx('submenuIcon')" *ngIf="root" [attr.data-pc-section]="'submenuicon'" />
-                                    <AngleRightIcon [class]="cx('submenuIcon')" *ngIf="!root" [attr.data-pc-section]="'submenuicon'" />
+                                    <svg data-p-icon="angle-down" [class]="cx('submenuIcon')" *ngIf="root" [attr.data-pc-section]="'submenuicon'" />
+                                    <svg data-p-icon="angle-right" [class]="cx('submenuIcon')" *ngIf="!root" [attr.data-pc-section]="'submenuicon'" />
                                 </ng-container>
                                 <ng-template *ngTemplateOutlet="submenuiconTemplate" [attr.data-pc-section]="'submenuicon'"></ng-template>
                             </ng-container>
@@ -150,8 +150,8 @@ export class MenubarService {
                             <p-badge *ngIf="getItemProp(processedItem, 'badge')" [class]="getItemProp(processedItem, 'badgeStyleClass')" [value]="getItemProp(processedItem, 'badge')" />
                             <ng-container *ngIf="isItemGroup(processedItem)">
                                 <ng-container *ngIf="!submenuiconTemplate">
-                                    <AngleDownIcon [class]="cx('submenuIcon')" [attr.data-pc-section]="'submenuicon'" *ngIf="root" />
-                                    <AngleRightIcon [class]="cx('submenuIcon')" [attr.data-pc-section]="'submenuicon'" *ngIf="!root" />
+                                    <svg data-p-icon="angle-down" [class]="cx('submenuIcon')" [attr.data-pc-section]="'submenuicon'" *ngIf="root" />
+                                    <svg data-p-icon="angle-right" [class]="cx('submenuIcon')" [attr.data-pc-section]="'submenuicon'" *ngIf="!root" />
                                 </ng-container>
                                 <ng-template *ngTemplateOutlet="submenuiconTemplate" [attr.data-pc-section]="'submenuicon'"></ng-template>
                             </ng-container>
@@ -183,7 +183,7 @@ export class MenubarService {
     encapsulation: ViewEncapsulation.None,
     host: {
         '[id]': 'root ? menuId : null',
-        '[aria-activedescendant]': 'focusedItemId',
+        '[attr.aria-activedescendant]': 'focusedItemId',
         '[class]': "level === 0 ? cx('rootList') : cx('submenu')",
         'data-pc-section': 'menu',
         role: 'menubar',
@@ -257,33 +257,12 @@ export class MenubarSub extends BaseComponent implements OnInit, OnDestroy {
         return processedItem.item && processedItem.item?.id ? processedItem.item.id : `${this.menuId}_${processedItem.key}`;
     }
 
-    getItemKey(processedItem: any): string {
-        return this.getItemId(processedItem);
-    }
-
     getItemLabelId(processedItem: any): string {
         return `${this.menuId}_${processedItem.key}_label`;
     }
 
-    getItemClass(processedItem: any) {
-        return {
-            ...this.getItemProp(processedItem, 'class'),
-            'p-menubar-item': true,
-            'p-menubar-item-active': this.isItemActive(processedItem),
-            'p-focus': this.isItemFocused(processedItem),
-            'p-disabled': this.isItemDisabled(processedItem)
-        };
-    }
-
     getItemLabel(processedItem: any): string {
         return this.getItemProp(processedItem, 'label');
-    }
-
-    getSeparatorItemClass(processedItem: any) {
-        return {
-            ...this.getItemProp(processedItem, 'class'),
-            'p-menubar-separator': true
-        };
     }
 
     isItemVisible(processedItem: any): boolean {
@@ -354,7 +333,7 @@ export class MenubarSub extends BaseComponent implements OnInit, OnDestroy {
             (click)="menuButtonClick($event)"
             (keydown)="menuButtonKeydown($event)"
         >
-            <BarsIcon *ngIf="!menuIconTemplate && !_menuIconTemplate" />
+            <svg data-p-icon="bars" *ngIf="!menuIconTemplate && !_menuIconTemplate" />
             <ng-template *ngTemplateOutlet="menuIconTemplate || _menuIconTemplate"></ng-template>
         </a>
         <ul
@@ -379,6 +358,7 @@ export class MenubarSub extends BaseComponent implements OnInit, OnDestroy {
             (blur)="onMenuBlur($event)"
             (keydown)="onKeyDown($event)"
             (itemMouseEnter)="onItemMouseEnter($event)"
+            (mouseleave)="onMouseLeave($event)"
         ></ul>
         <div [class]="cx('end')" *ngIf="endTemplate || _endTemplate; else legacy">
             <ng-container *ngTemplateOutlet="endTemplate || _endTemplate"></ng-container>
@@ -558,7 +538,9 @@ export class Menubar extends BaseComponent implements AfterContentInit, OnDestro
         this.bindMatchMediaListener();
         this.menubarService.autoHide = this.autoHide;
         this.menubarService.autoHideDelay = this.autoHideDelay;
-        this.mouseLeaveSubscriber = this.menubarService.mouseLeft$.subscribe(() => this.unbindOutsideClickListener());
+        this.mouseLeaveSubscriber = this.menubarService.mouseLeft$.subscribe(() => {
+            this.hide();
+        });
         this.id = this.id || uuid('pn_id_');
     }
 
@@ -727,6 +709,17 @@ export class Menubar extends BaseComponent implements AfterContentInit, OnDestro
             }
         } else {
             this.onItemChange({ event, processedItem: event.processedItem, focus: this.autoDisplay }, 'hover');
+        }
+    }
+
+    onMouseLeave(event: any) {
+        const autoHideEnabled = this.menubarService.autoHide;
+        const autoHideDelay = this.menubarService.autoHideDelay;
+
+        if (autoHideEnabled) {
+            setTimeout(() => {
+                this.menubarService.mouseLeaves.next(true);
+            }, autoHideDelay);
         }
     }
 

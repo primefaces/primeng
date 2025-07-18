@@ -42,7 +42,7 @@ import { FileUploadStyle } from './style/fileuploadstyle';
 @Component({
     selector: '[pFileContent]',
     standalone: true,
-    template: `@for (file of files(); track file?.name; let index = $index) {
+    template: `@for (file of files(); track file?.name + '-' + $index; let index = $index) {
         <div [class]="cx('file')">
             <img role="presentation" [class]="cx('fileThumbnail')" [attr.alt]="file.name" [src]="file.objectURL" [width]="previewWidth()" />
             <div [class]="cx('fileInfo')">
@@ -56,7 +56,7 @@ import { FileUploadStyle } from './style/fileuploadstyle';
                         @if (fileRemoveIconTemplate()) {
                             <ng-template *ngTemplateOutlet="fileRemoveIconTemplate(); context: { class: iconClass, file: file, index: index }"></ng-template>
                         } @else {
-                            <TimesIcon [styleClass]="iconClass" [attr.aria-hidden]="true" />
+                            <svg data-p-icon="times" [class]="iconClass" [attr.aria-hidden]="true" />
                         }
                     </ng-template>
                 </p-button>
@@ -147,13 +147,15 @@ export class FileContent extends BaseComponent {
                             [attr.title]="''"
                             [attr.data-pc-section]="'input'"
                         />
-                        <span *ngIf="chooseIcon" [class]="chooseIcon" [attr.aria-label]="true" [attr.data-pc-section]="'chooseicon'"></span>
-                        <ng-container *ngIf="!chooseIcon">
-                            <PlusIcon *ngIf="!chooseIconTemplate && !_chooseIconTemplate" [attr.aria-label]="true" [attr.data-pc-section]="'chooseicon'" />
-                            <span *ngIf="chooseIconTemplate || _chooseIconTemplate" [attr.aria-label]="true" [attr.data-pc-section]="'chooseicon'">
-                                <ng-template *ngTemplateOutlet="chooseIconTemplate || _chooseIconTemplate"></ng-template>
-                            </span>
-                        </ng-container>
+                        <ng-template #icon>
+                            <span *ngIf="chooseIcon" [class]="chooseIcon" [attr.aria-label]="true" [attr.data-pc-section]="'chooseicon'"></span>
+                            <ng-container *ngIf="!chooseIcon">
+                                <svg data-p-icon="plus" *ngIf="!chooseIconTemplate && !_chooseIconTemplate" [attr.aria-label]="true" [attr.data-pc-section]="'chooseicon'" />
+                                <span *ngIf="chooseIconTemplate || _chooseIconTemplate" [attr.aria-label]="true" [attr.data-pc-section]="'chooseicon'">
+                                    <ng-template *ngTemplateOutlet="chooseIconTemplate || _chooseIconTemplate"></ng-template>
+                                </span>
+                            </ng-container>
+                        </ng-template>
                     </p-button>
 
                     <p-button
@@ -164,22 +166,26 @@ export class FileContent extends BaseComponent {
                         [styleClass]="cn(cx('pcUploadButton'), uploadStyleClass)"
                         [buttonProps]="uploadButtonProps"
                     >
-                        <span *ngIf="uploadIcon" [ngClass]="uploadIcon" [attr.aria-hidden]="true"></span>
-                        <ng-container *ngIf="!uploadIcon">
-                            <UploadIcon *ngIf="!uploadIconTemplate && !_uploadIconTemplate" />
-                            <span *ngIf="uploadIconTemplate || _uploadIconTemplate" [attr.aria-hidden]="true">
-                                <ng-template *ngTemplateOutlet="uploadIconTemplate || _uploadIconTemplate"></ng-template>
-                            </span>
-                        </ng-container>
+                        <ng-template #icon>
+                            <span *ngIf="uploadIcon" [ngClass]="uploadIcon" [attr.aria-hidden]="true"></span>
+                            <ng-container *ngIf="!uploadIcon">
+                                <svg data-p-icon="upload" *ngIf="!uploadIconTemplate && !_uploadIconTemplate" />
+                                <span *ngIf="uploadIconTemplate || _uploadIconTemplate" [attr.aria-hidden]="true">
+                                    <ng-template *ngTemplateOutlet="uploadIconTemplate || _uploadIconTemplate"></ng-template>
+                                </span>
+                            </ng-container>
+                        </ng-template>
                     </p-button>
                     <p-button *ngIf="!auto && showCancelButton" [label]="cancelButtonLabel" (onClick)="clear()" [disabled]="!hasFiles() || uploading" [styleClass]="cn(cx('pcCancelButton'), cancelStyleClass)" [buttonProps]="cancelButtonProps">
-                        <span *ngIf="cancelIcon" [ngClass]="cancelIcon"></span>
-                        <ng-container *ngIf="!cancelIcon">
-                            <TimesIcon *ngIf="!cancelIconTemplate && !_cancelIconTemplate" [attr.aria-hidden]="true" />
-                            <span *ngIf="cancelIconTemplate || _cancelIconTemplate" [attr.aria-hidden]="true">
-                                <ng-template *ngTemplateOutlet="cancelIconTemplate || _cancelIconTemplate"></ng-template>
-                            </span>
-                        </ng-container>
+                        <ng-template #icon>
+                            <span *ngIf="cancelIcon" [ngClass]="cancelIcon"></span>
+                            <ng-container *ngIf="!cancelIcon">
+                                <svg data-p-icon="times" *ngIf="!cancelIconTemplate && !_cancelIconTemplate" [attr.aria-hidden]="true" />
+                                <span *ngIf="cancelIconTemplate || _cancelIconTemplate" [attr.aria-hidden]="true">
+                                    <ng-template *ngTemplateOutlet="cancelIconTemplate || _cancelIconTemplate"></ng-template>
+                                </span>
+                            </ng-container>
+                        </ng-template>
                     </p-button>
                 </ng-container>
                 <ng-container
@@ -268,7 +274,7 @@ export class FileContent extends BaseComponent {
                         @if (hasFiles() && !auto) {
                             <span *ngIf="uploadIcon" class="p-button-icon p-button-icon-left" [ngClass]="uploadIcon"></span>
                             <ng-container *ngIf="!uploadIcon">
-                                <UploadIcon *ngIf="!uploadIconTemplate && !_uploadIconTemplate" [styleClass]="'p-button-icon p-button-icon-left'" />
+                                <svg data-p-icon="upload" *ngIf="!uploadIconTemplate && !_uploadIconTemplate" [class]="'p-button-icon p-button-icon-left'" />
                                 <span *ngIf="_uploadIconTemplate || uploadIconTemplate" class="p-button-icon p-button-icon-left">
                                     <ng-template *ngTemplateOutlet="_uploadIconTemplate || uploadIconTemplate"></ng-template>
                                 </span>
@@ -276,7 +282,7 @@ export class FileContent extends BaseComponent {
                         } @else {
                             <span *ngIf="chooseIcon" class="p-button-icon p-button-icon-left pi" [ngClass]="chooseIcon"></span>
                             <ng-container *ngIf="!chooseIcon">
-                                <PlusIcon *ngIf="!chooseIconTemplate && !_chooseIconTemplate" [attr.data-pc-section]="'uploadicon'" />
+                                <svg data-p-icon="plus" *ngIf="!chooseIconTemplate && !_chooseIconTemplate" [attr.data-pc-section]="'uploadicon'" />
                                 <ng-template *ngTemplateOutlet="chooseIconTemplate || _chooseIconTemplate"></ng-template>
                             </ng-container>
                         }
@@ -796,12 +802,14 @@ export class FileUpload extends BaseComponent implements AfterViewInit, AfterCon
             return;
         }
 
-        this.msgs = [];
         if (!this.multiple) {
             this.files = [];
         }
 
+        this.msgs = [];
+        this.files = this.files || [];
         let files = event.dataTransfer ? event.dataTransfer.files : event.target.files;
+
         for (let i = 0; i < files.length; i++) {
             let file = files[i];
 
@@ -961,7 +969,7 @@ export class FileUpload extends BaseComponent implements AfterViewInit, AfterCon
                                 } else {
                                     this.onError.emit({ files: this.files });
                                 }
-                                this.uploadedFiles.push(...this.files);
+                                this.uploadedFiles = [...this.uploadedFiles, ...this.files];
                                 this.clear();
                                 break;
                             case HttpEventType.UploadProgress: {
@@ -1001,7 +1009,6 @@ export class FileUpload extends BaseComponent implements AfterViewInit, AfterCon
      */
     clear() {
         this.files = [];
-        this.uploadedFileCount = 0;
         this.onClear.emit();
         this.clearInputElement();
         this.msgs = [];

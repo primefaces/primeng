@@ -4,8 +4,8 @@ import { PrimeTemplate, SharedModule } from 'primeng/api';
 import { BaseComponent } from 'primeng/basecomponent';
 import { ButtonModule } from 'primeng/button';
 import { TimesIcon } from 'primeng/icons';
-import { InplaceStyle } from './style/inplacestyle';
 import { Ripple } from 'primeng/ripple';
+import { InplaceStyle } from './style/inplacestyle';
 
 @Component({
     selector: 'p-inplacedisplay, p-inplaceDisplay',
@@ -40,11 +40,13 @@ export class InplaceContent {}
             <ng-container *ngTemplateOutlet="contentTemplate || _contentTemplate; context: { closeCallback: onDeactivateClick.bind(this) }"></ng-container>
 
             <ng-container *ngIf="closable">
-                <button *ngIf="closeIcon" type="button" [icon]="closeIcon" pButton pRipple (click)="onDeactivateClick($event)" [attr.aria-label]="closeAriaLabel"></button>
-                <button *ngIf="!closeIcon" type="button" pButton pRipple [ngClass]="'p-button-icon-only'" (click)="onDeactivateClick($event)" [attr.aria-label]="closeAriaLabel">
-                    <TimesIcon *ngIf="!closeIconTemplate && !_closeIconTemplate" />
+                <p-button *ngIf="closeIcon" type="button" [icon]="closeIcon" pRipple (click)="onDeactivateClick($event)" [attr.aria-label]="closeAriaLabel"></p-button>
+                <p-button *ngIf="!closeIcon" type="button" pRipple (click)="onDeactivateClick($event)" [attr.aria-label]="closeAriaLabel">
+                    <ng-template #icon>
+                        <svg data-p-icon="times" *ngIf="!closeIconTemplate && !_closeIconTemplate" />
+                    </ng-template>
                     <ng-template *ngTemplateOutlet="closeIconTemplate || _closeIconTemplate"></ng-template>
-                </button>
+                </p-button>
             </ng-container>
         </div>
     `,
@@ -64,6 +66,7 @@ export class Inplace extends BaseComponent implements AfterContentInit {
     @Input({ transform: booleanAttribute }) active: boolean | undefined = false;
     /**
      * Displays a button to switch back to display mode.
+     * @deprecated since v20.0.0, use `closeCallback` within content template.
      * @group Props
      */
     @Input({ transform: booleanAttribute }) closable: boolean | undefined = false;

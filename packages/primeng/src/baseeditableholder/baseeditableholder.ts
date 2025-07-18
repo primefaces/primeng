@@ -1,9 +1,9 @@
 import { booleanAttribute, computed, Directive, input, signal } from '@angular/core';
-import { isNotEmpty } from '@primeuix/utils';
-import { BaseComponent } from 'primeng/basecomponent';
+import { ControlValueAccessor } from '@angular/forms';
+import { BaseModelHolder } from 'primeng/basemodelholder';
 
 @Directive({ standalone: true })
-export class BaseEditableHolder extends BaseComponent {
+export class BaseEditableHolder extends BaseModelHolder implements ControlValueAccessor {
     /**
      * There must be a value (if set).
      * @defaultValue false
@@ -29,11 +29,37 @@ export class BaseEditableHolder extends BaseComponent {
      */
     name = input<string | undefined>();
 
-    modelValue = signal<string | string[] | any | undefined>(undefined);
+    _disabled = signal<boolean>(false);
 
-    $filled = computed(() => isNotEmpty(this.modelValue()));
+    $disabled = computed(() => this.disabled() || this._disabled());
 
-    writeModelValue(value: any, event?: any) {
-        this.modelValue.set(value);
+    onModelChange: Function = () => {};
+
+    onModelTouched: Function = () => {};
+
+    writeDisabledState(value: boolean) {
+        this._disabled.set(value);
+    }
+
+    writeControlValue(value: any, setModelValue?: (value: any) => void) {
+        // NOOP - this method should be overridden in the derived classes
+    }
+
+    /**** Angular ControlValueAccessors ****/
+    writeValue(value: any) {
+        this.writeControlValue(value, this.writeModelValue.bind(this));
+    }
+
+    registerOnChange(fn: Function) {
+        this.onModelChange = fn;
+    }
+
+    registerOnTouched(fn: Function) {
+        this.onModelTouched = fn;
+    }
+
+    setDisabledState(val: boolean) {
+        this.writeDisabledState(val);
+        this.cd.markForCheck();
     }
 }

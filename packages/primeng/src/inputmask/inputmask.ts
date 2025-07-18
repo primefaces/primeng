@@ -46,7 +46,7 @@ import {
     ViewChild,
     ViewEncapsulation
 } from '@angular/core';
-import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
+import { NG_VALUE_ACCESSOR } from '@angular/forms';
 import { getUserAgent, isClient } from '@primeuix/utils';
 import { PrimeTemplate, SharedModule } from 'primeng/api';
 import { AutoFocus } from 'primeng/autofocus';
@@ -93,7 +93,7 @@ export const INPUTMASK_VALUE_ACCESSOR: any = {
             [attr.aria-required]="ariaRequired"
             [attr.required]="required() ? '' : undefined"
             [attr.readonly]="readonly ? '' : undefined"
-            [attr.disabled]="disabled() ? '' : undefined"
+            [attr.disabled]="$disabled() ? '' : undefined"
             (focus)="onInputFocus($event)"
             (blur)="onInputBlur($event)"
             (keydown)="onInputKeydown($event)"
@@ -106,8 +106,8 @@ export const INPUTMASK_VALUE_ACCESSOR: any = {
             [attr.data-pc-section]="'root'"
             [fluid]="hasFluid"
         />
-        <ng-container *ngIf="value != null && $filled() && showClear && !disabled()">
-            <TimesIcon *ngIf="!clearIconTemplate && !_clearIconTemplate" [styleClass]="cx('clearIcon')" (click)="clear()" [attr.data-pc-section]="'clearIcon'" />
+        <ng-container *ngIf="value != null && $filled() && showClear && !$disabled()">
+            <svg data-p-icon="times" *ngIf="!clearIconTemplate && !_clearIconTemplate" [class]="cx('clearIcon')" (click)="clear()" [attr.data-pc-section]="'clearIcon'" />
             <span *ngIf="clearIconTemplate || _clearIconTemplate" [class]="cx('clearIcon')" (click)="clear()" [attr.data-pc-section]="'clearIcon'">
                 <ng-template *ngTemplateOutlet="clearIconTemplate || _clearIconTemplate"></ng-template>
             </span>
@@ -117,7 +117,7 @@ export const INPUTMASK_VALUE_ACCESSOR: any = {
     changeDetection: ChangeDetectionStrategy.OnPush,
     encapsulation: ViewEncapsulation.None
 })
-export class InputMask extends BaseInput implements OnInit, AfterContentInit, ControlValueAccessor {
+export class InputMask extends BaseInput implements OnInit, AfterContentInit {
     /**
      * HTML5 input type.
      * @group Props
@@ -275,10 +275,6 @@ export class InputMask extends BaseInput implements OnInit, AfterContentInit, Co
 
     _mask: Nullable<string>;
 
-    onModelChange: Function = () => {};
-
-    onModelTouched: Function = () => {};
-
     input: Nullable<HTMLInputElement>;
 
     defs: Nullable<{ [klass: string]: any }>;
@@ -370,27 +366,6 @@ export class InputMask extends BaseInput implements OnInit, AfterContentInit, Co
             }
         }
         this.defaultBuffer = this.buffer.join('');
-    }
-
-    writeValue(value: any): void {
-        this.value = value;
-        this.writeModelValue(this.value);
-
-        if (this.inputViewChild && this.inputViewChild.nativeElement) {
-            if (this.value == undefined || this.value == null) this.inputViewChild.nativeElement.value = '';
-            else this.inputViewChild.nativeElement.value = this.value;
-
-            this.checkVal();
-            this.focusText = this.inputViewChild.nativeElement.value;
-        }
-    }
-
-    registerOnChange(fn: Function): void {
-        this.onModelChange = fn;
-    }
-
-    registerOnTouched(fn: Function): void {
-        this.onModelTouched = fn;
     }
 
     caret(first?: number, last?: number): Caret | undefined {
@@ -802,6 +777,25 @@ export class InputMask extends BaseInput implements OnInit, AfterContentInit, Co
         this.value = null;
         this.onModelChange(this.value);
         this.onClear.emit();
+    }
+
+    /**
+     * @override
+     *
+     * @see {@link BaseEditableHolder.writeControlValue}
+     * Writes the value to the control.
+     */
+    writeControlValue(value: any, setModelValue: (value: any) => void): void {
+        this.value = value;
+        setModelValue(this.value);
+
+        if (this.inputViewChild && this.inputViewChild.nativeElement) {
+            if (this.value == undefined || this.value == null) this.inputViewChild.nativeElement.value = '';
+            else this.inputViewChild.nativeElement.value = this.value;
+
+            this.checkVal();
+            this.focusText = this.inputViewChild.nativeElement.value;
+        }
     }
 }
 

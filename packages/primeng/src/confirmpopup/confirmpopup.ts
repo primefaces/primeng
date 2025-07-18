@@ -83,8 +83,10 @@ import { ConfirmPopupStyle } from './style/confirmpopupstyle';
                         [buttonProps]="getRejectButtonProps()"
                         [autofocus]="autoFocusReject"
                     >
-                        <i [class]="confirmation?.rejectIcon" *ngIf="confirmation?.rejectIcon; else rejecticon"></i>
-                        <ng-template #rejecticon *ngTemplateOutlet="rejectIconTemplate || _rejectIconTemplate"></ng-template>
+                        <ng-template #icon>
+                            <i [class]="confirmation?.rejectIcon" *ngIf="confirmation?.rejectIcon; else rejecticon"></i>
+                            <ng-template #rejecticon *ngTemplateOutlet="rejectIconTemplate || _rejectIconTemplate"></ng-template>
+                        </ng-template>
                     </p-button>
                     <p-button
                         type="button"
@@ -98,8 +100,10 @@ import { ConfirmPopupStyle } from './style/confirmpopupstyle';
                         [buttonProps]="getAcceptButtonProps()"
                         [autofocus]="autoFocusAccept"
                     >
-                        <i [class]="confirmation?.acceptIcon" *ngIf="confirmation?.acceptIcon; else accepticontemplate"></i>
-                        <ng-template #accepticontemplate *ngTemplateOutlet="acceptIconTemplate || _acceptIconTemplate"></ng-template>
+                        <ng-template #icon>
+                            <i [class]="confirmation?.acceptIcon" *ngIf="confirmation?.acceptIcon; else accepticontemplate"></i>
+                            <ng-template #accepticontemplate *ngTemplateOutlet="acceptIconTemplate || _acceptIconTemplate"></ng-template>
+                        </ng-template>
                     </p-button>
                 </div>
             </ng-template>

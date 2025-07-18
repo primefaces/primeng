@@ -43,7 +43,6 @@ import { DatePickerModule } from 'primeng/datepicker';
 import { ConnectedOverlayScrollHandler, DomHandler } from 'primeng/dom';
 import { ArrowDownIcon } from 'primeng/icons/arrowdown';
 import { ArrowUpIcon } from 'primeng/icons/arrowup';
-import { CheckIcon } from 'primeng/icons/check';
 import { FilterIcon } from 'primeng/icons/filter';
 import { FilterFillIcon } from 'primeng/icons/filterfill';
 import { FilterSlashIcon } from 'primeng/icons/filterslash';
@@ -91,14 +90,12 @@ export class TableService {
     private selectionSource = new Subject();
     private contextMenuSource = new Subject<any>();
     private valueSource = new Subject<any>();
-    private totalRecordsSource = new Subject<any>();
     private columnsSource = new Subject();
 
     sortSource$ = this.sortSource.asObservable();
     selectionSource$ = this.selectionSource.asObservable();
     contextMenuSource$ = this.contextMenuSource.asObservable();
     valueSource$ = this.valueSource.asObservable();
-    totalRecordsSource$ = this.totalRecordsSource.asObservable();
     columnsSource$ = this.columnsSource.asObservable();
 
     onSort(sortMeta: SortMeta | SortMeta[] | null) {
@@ -117,10 +114,6 @@ export class TableService {
         this.valueSource.next(value);
     }
 
-    onTotalRecordsChange(value: number) {
-        this.totalRecordsSource.next(value);
-    }
-
     onColumnsChange(columns: any[]) {
         this.columnsSource.next(columns);
     }
@@ -136,7 +129,7 @@ export class TableService {
         <div [class]="cx('mask')" *ngIf="loading && showLoader">
             <i *ngIf="loadingIcon" [class]="cn(cx('loadingIcon'), loadingIcon)"></i>
             <ng-container *ngIf="!loadingIcon">
-                <SpinnerIcon *ngIf="!loadingIconTemplate && !_loadingIconTemplate" [spin]="true" [styleClass]="cx('loadingIcon')" />
+                <svg data-p-icon="spinner" *ngIf="!loadingIconTemplate && !_loadingIconTemplate" [spin]="true" [class]="cx('loadingIcon')" />
                 <span *ngIf="loadingIconTemplate || _loadingIconTemplate" [class]="cx('loadingIcon')">
                     <ng-template *ngTemplateOutlet="loadingIconTemplate || _loadingIconTemplate"></ng-template>
                 </span>
@@ -335,13 +328,13 @@ export class TableService {
             <ng-container *ngTemplateOutlet="summaryTemplate || _summaryTemplate"></ng-container>
         </div>
 
-        <div #resizeHelper [ngClass]="cx('columnResizeIndicator')" style="display:none" *ngIf="resizableColumns"></div>
-        <span #reorderIndicatorUp [ngClass]="cx('rowReorderIndicatorUp')" style="display: none;" *ngIf="reorderableColumns">
-            <ArrowDownIcon *ngIf="!reorderIndicatorUpIconTemplate && !_reorderIndicatorUpIconTemplate" />
+        <div #resizeHelper [ngClass]="cx('columnResizeIndicator')" [style.display]="'none'" *ngIf="resizableColumns"></div>
+        <span #reorderIndicatorUp [ngClass]="cx('rowReorderIndicatorUp')" [style.display]="'none'" *ngIf="reorderableColumns">
+            <svg data-p-icon="arrow-down" *ngIf="!reorderIndicatorUpIconTemplate && !_reorderIndicatorUpIconTemplate" />
             <ng-template *ngTemplateOutlet="reorderIndicatorUpIconTemplate || _reorderIndicatorUpIconTemplate"></ng-template>
         </span>
-        <span #reorderIndicatorDown [ngClass]="cx('rowReorderIndicatorDown')" style="display: none;" *ngIf="reorderableColumns">
-            <ArrowUpIcon *ngIf="!reorderIndicatorDownIconTemplate && !_reorderIndicatorDownIconTemplate" />
+        <span #reorderIndicatorDown [ngClass]="cx('rowReorderIndicatorDown')" [style.display]="'none'" *ngIf="reorderableColumns">
+            <svg data-p-icon="arrow-up" *ngIf="!reorderIndicatorDownIconTemplate && !_reorderIndicatorDownIconTemplate" />
             <ng-template *ngTemplateOutlet="reorderIndicatorDownIconTemplate || _reorderIndicatorDownIconTemplate"></ng-template>
         </span>
     `,
@@ -771,13 +764,8 @@ export class Table<RowData = any> extends BaseComponent implements OnInit, After
      * Number of total records, defaults to length of value when not defined.
      * @group Props
      */
-    @Input() get totalRecords(): number {
-        return this._totalRecords;
-    }
-    set totalRecords(val: number) {
-        this._totalRecords = val;
-        this.tableService.onTotalRecordsChange(this._totalRecords);
-    }
+    @Input() totalRecords: number = 0;
+
     /**
      * Name of the field to sort data by default.
      * @group Props
@@ -1349,6 +1337,11 @@ export class Table<RowData = any> extends BaseComponent implements OnInit, After
 
     ngOnChanges(simpleChange: SimpleChanges) {
         super.ngOnChanges(simpleChange);
+
+        if (simpleChange.totalRecords && simpleChange.totalRecords.firstChange) {
+            this._totalRecords = simpleChange.totalRecords.currentValue;
+        }
+
         if (simpleChange.value) {
             if (this.isStateful() && !this.stateRestored && isPlatformBrowser(this.platformId)) {
                 this.restoreState();
@@ -1357,7 +1350,7 @@ export class Table<RowData = any> extends BaseComponent implements OnInit, After
             this._value = simpleChange.value.currentValue;
 
             if (!this.lazy) {
-                this.totalRecords = this._value ? this._value.length : 0;
+                this.totalRecords = this._totalRecords === 0 && this._value ? this._value.length : (this._totalRecords ?? 0);
 
                 if (this.sortMode == 'single' && (this.sortField || this.groupRowsBy)) this.sortSingle();
                 else if (this.sortMode == 'multiple' && (this.multiSortMeta || this.groupRowsBy)) this.sortMultiple();
@@ -2192,11 +2185,10 @@ export class Table<RowData = any> extends BaseComponent implements OnInit, After
             if (!this.value) {
                 return;
             }
-
             if (!this.hasFilter()) {
                 this.filteredValue = null;
                 if (this.paginator) {
-                    this.totalRecords = this.value ? this.value.length : 0;
+                    this.totalRecords = this._totalRecords === 0 && this.value ? this.value.length : this._totalRecords;
                 }
             } else {
                 let globalFilterFieldsArray;
@@ -2264,7 +2256,7 @@ export class Table<RowData = any> extends BaseComponent implements OnInit, After
                 }
 
                 if (this.paginator) {
-                    this.totalRecords = this.filteredValue ? this.filteredValue.length : this.value ? this.value.length : 0;
+                    this.totalRecords = this.filteredValue ? this.filteredValue.length : this._totalRecords === 0 && this.value ? this.value.length : (this._totalRecords ?? 0);
                 }
             }
         }
@@ -2341,7 +2333,7 @@ export class Table<RowData = any> extends BaseComponent implements OnInit, After
         if (this.lazy) {
             this.onLazyLoad.emit(this.createLazyLoadMetadata());
         } else {
-            this.totalRecords = this._value ? this._value.length : 0;
+            this.totalRecords = this._totalRecords === 0 && this._value ? this._value.length : (this._totalRecords ?? 0);
         }
     }
 
@@ -3007,8 +2999,8 @@ export class Table<RowData = any> extends BaseComponent implements OnInit, After
         headers.forEach((header) => widths.push(DomHandler.getOuterWidth(header)));
         state.columnWidths = widths.join(',');
 
-        if (this.columnResizeMode === 'expand') {
-            state.tableWidth = DomHandler.getOuterWidth(this.tableViewChild?.nativeElement);
+        if (this.columnResizeMode === 'expand' && this.tableViewChild) {
+            state.tableWidth = DomHandler.getOuterWidth(this.tableViewChild.nativeElement);
         }
     }
 
@@ -3572,7 +3564,7 @@ export class FrozenColumn implements AfterViewInit {
         '[class]': "cx('sortableColumn')",
         '[tabindex]': 'isEnabled() ? "0" : null',
         '[role]': '"columnheader"',
-        '[aria-sort]': 'sortOrder'
+        '[attr.aria-sort]': 'sortOrder'
     },
     providers: [TableStyle]
 })
@@ -3671,9 +3663,9 @@ export class SortableColumn extends BaseComponent implements OnInit, OnDestroy {
     standalone: false,
     template: `
         <ng-container *ngIf="!(dt.sortIconTemplate || dt._sortIconTemplate)">
-            <SortAltIcon [styleClass]="cx('sortableColumnIcon')" *ngIf="sortOrder === 0" />
-            <SortAmountUpAltIcon [styleClass]="cx('sortableColumnIcon')" *ngIf="sortOrder === 1" />
-            <SortAmountDownIcon [styleClass]="cx('sortableColumnIcon')" *ngIf="sortOrder === -1" />
+            <svg data-p-icon="sort-alt" [class]="cx('sortableColumnIcon')" *ngIf="sortOrder === 0" />
+            <svg data-p-icon="sort-amount-up-alt" [class]="cx('sortableColumnIcon')" *ngIf="sortOrder === 1" />
+            <svg data-p-icon="sort-amount-down" [class]="cx('sortableColumnIcon')" *ngIf="sortOrder === -1" />
         </ng-container>
         <span *ngIf="dt.sortIconTemplate || dt._sortIconTemplate" [class]="cx('sortableColumnIcon')">
             <ng-template *ngTemplateOutlet="dt.sortIconTemplate || dt._sortIconTemplate; context: { $implicit: sortOrder }"></ng-template>
@@ -3764,7 +3756,7 @@ export class SortIcon extends BaseComponent implements OnInit, OnDestroy {
     host: {
         '[class]': "cx('selectableRow')",
         '[tabindex]': 'setRowTabIndex()',
-        '[data-p-selectable-row]': 'true'
+        '[attr.data-p-selectable-row]': 'true'
     },
     providers: [TableStyle]
 })
@@ -5273,8 +5265,8 @@ export class ReorderableRow implements AfterViewInit {
             >
                 <ng-template #icon>
                     <ng-container>
-                        <FilterIcon *ngIf="!filterIconTemplate && !_filterIconTemplate && !hasFilter" />
-                        <FilterFillIcon *ngIf="!filterIconTemplate && !_filterIconTemplate && hasFilter" />
+                        <svg data-p-icon="filter" *ngIf="!filterIconTemplate && !_filterIconTemplate && !hasFilter" />
+                        <svg data-p-icon="filter-fill" *ngIf="!filterIconTemplate && !_filterIconTemplate && hasFilter" />
                         <span class="pi-filter-icon" *ngIf="filterIconTemplate || _filterIconTemplate">
                             <ng-template *ngTemplateOutlet="filterIconTemplate || _filterIconTemplate; context: { hasFilter: hasFilter }"></ng-template>
                         </span>
@@ -5353,8 +5345,10 @@ export class ReorderableRow implements AfterViewInit {
                                     [label]="removeRuleButtonLabel"
                                     [buttonProps]="filterButtonProps?.popover?.removeRule"
                                 >
-                                    <TrashIcon *ngIf="!removeRuleIconTemplate && !_removeRuleIconTemplate" />
-                                    <ng-template *ngTemplateOutlet="removeRuleIconTemplate || _removeRuleIconTemplate"></ng-template>
+                                    <ng-template #icon>
+                                        <svg data-p-icon="trash" *ngIf="!removeRuleIconTemplate && !_removeRuleIconTemplate" />
+                                        <ng-template *ngTemplateOutlet="removeRuleIconTemplate || _removeRuleIconTemplate"></ng-template>
+                                    </ng-template>
                                 </p-button>
                             </div>
                         </div>
@@ -5370,8 +5364,10 @@ export class ReorderableRow implements AfterViewInit {
                             (onClick)="addConstraint()"
                             [buttonProps]="filterButtonProps?.popover?.addRule"
                         >
-                            <PlusIcon *ngIf="!addRuleIconTemplate && !_addRuleIconTemplate" />
-                            <ng-template *ngTemplateOutlet="addRuleIconTemplate || _addRuleIconTemplate"></ng-template>
+                            <ng-template #icon>
+                                <svg data-p-icon="plus" *ngIf="!addRuleIconTemplate && !_addRuleIconTemplate" />
+                                <ng-template *ngTemplateOutlet="addRuleIconTemplate || _addRuleIconTemplate"></ng-template>
+                            </ng-template>
                         </p-button>
                     </div>
                     <div [class]="cx('filterButtonbar')">
@@ -6281,7 +6277,6 @@ export class ColumnFilterFormElement implements OnInit {
         SortAltIcon,
         SortAmountUpAltIcon,
         SortAmountDownIcon,
-        CheckIcon,
         FilterIcon,
         FilterFillIcon,
         FilterSlashIcon,

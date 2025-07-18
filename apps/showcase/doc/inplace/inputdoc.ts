@@ -16,7 +16,7 @@ import { Component } from '@angular/core';
                 <ng-template #content let-closeCallback="closeCallback">
                     <span class="inline-flex gap-2">
                         <input type="text" pInputText [pAutoFocus]="true" />
-                        <button type="button" pButton (click)="closeCallback($event)" variant="text" severity="danger">
+                        <button type="button" pButton (click)="closeCallback($event)" text severity="danger">
                             <i class="pi pi-times" pButtonIcon></i>
                         </button>
                     </span>
@@ -35,7 +35,7 @@ export class InputDoc {
     <ng-template #content let-closeCallback="closeCallback">
         <span class="inline-flex gap-2">
             <input type="text" pInputText [pAutoFocus]="true" />
-            <button type="button" pButton (click)="closeCallback($event)" variant="text" severity="danger">
+            <button type="button" pButton (click)="closeCallback($event)" text severity="danger">
                 <i class="pi pi-times" pButtonIcon></i>
             </button>
         </span>
@@ -49,7 +49,7 @@ export class InputDoc {
         <ng-template #content let-closeCallback="closeCallback">
             <span class="inline-flex gap-2">
                 <input type="text" pInputText [pAutoFocus]="true" />
-                <button type="button" pButton (click)="closeCallback($event)" variant="text" severity="danger">
+                <button type="button" pButton (click)="closeCallback($event)" text severity="danger">
                     <i class="pi pi-times" pButtonIcon></i>
                 </button>
             </span>

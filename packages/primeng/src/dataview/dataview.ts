@@ -41,7 +41,7 @@ import { DataViewStyle } from './style/dataviewstyle';
             <div [class]="cx('loadingOverlay')">
                 <i *ngIf="loadingIcon" [class]="cn(cx('loadingIcon'), 'pi-spin' + loadingIcon)"></i>
                 <ng-container *ngIf="!loadingIcon">
-                    <SpinnerIcon *ngIf="!loadingicon" [spin]="true" [styleClass]="cx('loadingIcon')" />
+                    <svg data-p-icon="spinner" *ngIf="!loadingicon" [spin]="true" [class]="cx('loadingIcon')" />
                     <ng-template *ngTemplateOutlet="loadingicon"></ng-template>
                 </ng-container>
             </div>

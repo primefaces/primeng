@@ -1,13 +1,12 @@
 import { Injectable } from '@angular/core';
-import { css, dt } from '@primeuix/styled';
 import { style } from '@primeuix/styles/toggleswitch';
 import { BaseStyle } from 'primeng/base';
 
-const theme = css`
+const theme = /*css*/ `
     ${style}
 
     p-toggleswitch.ng-invalid.ng-dirty > .p-toggleswitch-slider {
-        border-color: ${dt('toggleswitch.invalid.border.color')};
+        border-color: dt('toggleswitch.invalid.border.color');
     }
 `;
 
@@ -21,7 +20,7 @@ const classes = {
         {
             'p-toggleswitch p-component': true,
             'p-toggleswitch-checked': instance.checked(),
-            'p-disabled': instance.disabled(),
+            'p-disabled': instance.$disabled(),
             'p-invalid': instance.invalid()
         }
     ],
