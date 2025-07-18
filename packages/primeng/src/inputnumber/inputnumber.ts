@@ -674,10 +674,14 @@ export class InputNumber extends BaseInput implements OnInit, AfterContentInit, 
         this.spin(event, dir);
     }
 
+    addWithPrecision(base: number, increment: number, precision: number = 10): number {
+        return Math.round((base + increment) * precision) / precision;
+    }    
+
     spin(event: Event, dir: number) {
         let step = (this.step() ?? 1) * dir;
         let currentValue = this.parseValue(this.input?.nativeElement.value) || 0;
-        let newValue = this.validateValue((currentValue as number) + step);
+        let newValue = this.validateValue(this.addWithPrecision((currentValue as number), step));
         if (this.maxlength() && this.maxlength() < this.formatValue(newValue).length) {
             return;
         }
