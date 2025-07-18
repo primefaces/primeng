@@ -2,11 +2,13 @@ import { Component, computed, inject } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { Ripple } from 'primeng/ripple';
 import { AppConfigService } from '@/service/appconfigservice';
+import { BadgeModule } from 'primeng/badge';
+import { TooltipModule } from 'primeng/tooltip';
 
 @Component({
     selector: 'overview-doc',
     standalone: true,
-    imports: [CommonModule, Ripple],
+    imports: [CommonModule, Ripple, BadgeModule, TooltipModule],
     template: ` <div>
         <div style="border-radius: 50px; max-height: 500px" class="overflow-hidden mb-8 flex items-center">
             <img alt="PrimeNG Designer" src="https://primefaces.org/cdn/primeng/images/uikit/primeone-cover-{{ isDarkMode() ? 'dark' : 'light' }}.jpeg" class="w-full" />
@@ -220,7 +222,7 @@ import { AppConfigService } from '@/service/appconfigservice';
                                 </li>
                                 <li class="flex items-center mb-4">
                                     <i class="pi pi-check-circle text-green-500 mr-2"></i>
-                                    <span>Lifetime Support</span>
+                                    <span class="inline-flex items-center gap-2">1 Year Free Updates <p-badge pTooltip="$99 for + 1 Year" value="?" severity="secondary" /></span>
                                 </li>
                                 <li class="flex items-center mb-4">
                                     <i class="pi pi-check-circle text-green-500 mr-2"></i>
@@ -264,7 +266,7 @@ import { AppConfigService } from '@/service/appconfigservice';
                                 </li>
                                 <li class="flex items-center mb-4">
                                     <i class="pi pi-check-circle text-green-500 mr-2"></i>
-                                    <span>Lifetime Support</span>
+                                    <span class="inline-flex items-center gap-2">1 Year Free Updates <p-badge pTooltip="$249 for + 1 Year" value="?" severity="secondary" /></span>
                                 </li>
                                 <li class="flex items-center mb-4">
                                     <i class="pi pi-check-circle text-green-500 mr-2"></i>
@@ -306,7 +308,7 @@ import { AppConfigService } from '@/service/appconfigservice';
                                 </li>
                                 <li class="flex items-center mb-4">
                                     <i class="pi pi-check-circle text-green-500 mr-2"></i>
-                                    <span>Lifetime Support</span>
+                                    <span class="inline-flex items-center gap-2">1 Year Free Updates <p-badge pTooltip="Contact Us" value="?" severity="secondary" /></span>
                                 </li>
                                 <li class="flex items-center mb-4">
                                     <i class="pi pi-check-circle text-green-500 mr-2"></i>

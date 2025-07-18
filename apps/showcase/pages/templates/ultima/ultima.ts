@@ -193,13 +193,13 @@ export class UltimaPage {
                 title: 'Basic License',
                 price: '$59',
                 discount_price: '$39',
-                included: ['Non Commercial Usage', 'Single End Product, No Multi-Use', '1 Year Free Updates']
+                included: ['Non Commercial Usage', 'Single End Product, No Multi-Use', '1 Year Free Updates | $19 for +1 year']
             },
             {
                 title: 'Extended License',
                 price: '$590',
                 discount_price: '$390',
-                included: ['Commercial Usage', 'Multiple End Products', '1 Year Free Updates']
+                included: ['Commercial Usage', 'Multiple End Products', '1 Year Free Updates | $190 for +1 year']
             }
         ]
     };
