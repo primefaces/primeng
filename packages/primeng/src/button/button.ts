@@ -10,14 +10,14 @@ import {
     ContentChild,
     ContentChildren,
     Directive,
-    EventEmitter,
     inject,
     input,
     Input,
     NgModule,
     numberAttribute,
     OnDestroy,
-    Output,
+    output,
+    OutputEmitterRef,
     QueryList,
     TemplateRef,
     ViewEncapsulation
@@ -618,21 +618,21 @@ export class Button extends BaseComponent implements AfterContentInit {
      * @param {MouseEvent} event - Mouse event.
      * @group Emits
      */
-    @Output() onClick: EventEmitter<MouseEvent> = new EventEmitter();
+    onClick: OutputEmitterRef<MouseEvent> = output<MouseEvent>();
     /**
      * Callback to execute when button is focused.
      * This event is intended to be used with the <p-button> component. Using a regular <button> element, use (focus).
      * @param {FocusEvent} event - Focus event.
      * @group Emits
      */
-    @Output() onFocus: EventEmitter<FocusEvent> = new EventEmitter<FocusEvent>();
+    onFocus: OutputEmitterRef<FocusEvent> = output<FocusEvent>();
     /**
      * Callback to execute when button loses focus.
      * This event is intended to be used with the <p-button> component. Using a regular <button> element, use (blur).
      * @param {FocusEvent} event - Focus event.
      * @group Emits
      */
-    @Output() onBlur: EventEmitter<FocusEvent> = new EventEmitter<FocusEvent>();
+    onBlur: OutputEmitterRef<FocusEvent> = output<FocusEvent>();
     /**
      * Template of the content.
      * @group Templates

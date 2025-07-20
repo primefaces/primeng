@@ -1,6 +1,6 @@
 import { animate, state, style, transition, trigger } from '@angular/animations';
 import { CommonModule } from '@angular/common';
-import { ChangeDetectionStrategy, Component, computed, ContentChild, EventEmitter, forwardRef, HostListener, inject, Input, input, InputSignalWithTransform, model, NgModule, Output, signal, TemplateRef, ViewEncapsulation } from '@angular/core';
+import { ChangeDetectionStrategy, Component, computed, ContentChild, forwardRef, HostListener, inject, Input, input, InputSignalWithTransform, model, NgModule, output, OutputEmitterRef, signal, TemplateRef, ViewEncapsulation } from '@angular/core';
 import { findSingle, focus, getAttribute, uuid } from '@primeuix/utils';
 import { BlockableUI, SharedModule } from 'primeng/api';
 import { BaseComponent } from 'primeng/basecomponent';
@@ -382,13 +382,13 @@ export class Accordion extends BaseComponent implements BlockableUI {
      * @param {AccordionTabCloseEvent} event - Custom tab close event.
      * @group Emits
      */
-    @Output() onClose: EventEmitter<AccordionTabCloseEvent> = new EventEmitter();
+    onClose: OutputEmitterRef<AccordionTabCloseEvent> = output<AccordionTabCloseEvent>();
     /**
      * Callback to invoke when a tab gets expanded.
      * @param {AccordionTabOpenEvent} event - Custom tab open event.
      * @group Emits
      */
-    @Output() onOpen: EventEmitter<AccordionTabOpenEvent> = new EventEmitter();
+    onOpen: OutputEmitterRef<AccordionTabOpenEvent> = output<AccordionTabOpenEvent>();
 
     id = signal(uuid('pn_id_'));
 

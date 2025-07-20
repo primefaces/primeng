@@ -7,13 +7,13 @@ import {
     ContentChild,
     ContentChildren,
     ElementRef,
-    EventEmitter,
     inject,
     Input,
     NgModule,
     NgZone,
     numberAttribute,
-    Output,
+    output,
+    OutputEmitterRef,
     QueryList,
     SimpleChanges,
     TemplateRef,
@@ -275,7 +275,7 @@ export class Carousel extends BaseComponent implements AfterContentInit {
      * @param {CarouselPageEvent} event - Custom page event.
      * @group Emits
      */
-    @Output() onPage: EventEmitter<CarouselPageEvent> = new EventEmitter<CarouselPageEvent>();
+    onPage: OutputEmitterRef<CarouselPageEvent> = output<CarouselPageEvent>();
 
     @ViewChild('itemsContainer') itemsContainer: ElementRef | undefined;
 

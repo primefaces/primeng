@@ -9,7 +9,6 @@ import {
     ContentChildren,
     effect,
     ElementRef,
-    EventEmitter,
     forwardRef,
     HostListener,
     inject,
@@ -18,7 +17,8 @@ import {
     NgModule,
     numberAttribute,
     OnInit,
-    Output,
+    output,
+    OutputEmitterRef,
     QueryList,
     signal,
     SimpleChanges,
@@ -142,11 +142,11 @@ export class CascadeSelectSub extends BaseComponent implements OnInit {
 
     @Input({ transform: booleanAttribute }) root: boolean | undefined;
 
-    @Output() onChange: EventEmitter<any> = new EventEmitter();
+    onChange: OutputEmitterRef<any> = output<any>();
 
-    @Output() onFocusChange: EventEmitter<any> = new EventEmitter();
+    onFocusChange: OutputEmitterRef<any> = output<any>();
 
-    @Output() onFocusEnterChange: EventEmitter<any> = new EventEmitter();
+    onFocusEnterChange: OutputEmitterRef<any> = output<any>();
 
     _componentStyle = inject(CascadeSelectStyle);
 
@@ -562,54 +562,54 @@ export class CascadeSelect extends BaseEditableHolder implements OnInit, AfterCo
      * @param {CascadeSelectChangeEvent} event - Custom change event.
      * @group Emits
      */
-    @Output() onChange: EventEmitter<CascadeSelectChangeEvent> = new EventEmitter<CascadeSelectChangeEvent>();
+    onChange: OutputEmitterRef<CascadeSelectChangeEvent> = output<CascadeSelectChangeEvent>();
     /**
      * Callback to invoke when a group changes.
      * @param {Event} event - Browser event.
      * @group Emits
      */
-    @Output() onGroupChange: EventEmitter<Event> = new EventEmitter<Event>();
+    onGroupChange: OutputEmitterRef<Event> = output<Event>();
     /**
      * Callback to invoke when the overlay is shown.
      * @param {CascadeSelectShowEvent} event - Custom overlay show event.
      * @group Emits
      */
-    @Output() onShow: EventEmitter<CascadeSelectShowEvent> = new EventEmitter<CascadeSelectShowEvent>();
+    onShow: OutputEmitterRef<CascadeSelectShowEvent> = output<CascadeSelectShowEvent>();
     /**
      * Callback to invoke when the overlay is hidden.
      * @param {CascadeSelectHideEvent} event - Custom overlay hide event.
      * @group Emits
      */
-    @Output() onHide: EventEmitter<CascadeSelectHideEvent> = new EventEmitter<CascadeSelectHideEvent>();
+    onHide: OutputEmitterRef<CascadeSelectHideEvent> = output<CascadeSelectHideEvent>();
     /**
      * Callback to invoke when the clear token is clicked.
      * @group Emits
      */
-    @Output() onClear: EventEmitter<any> = new EventEmitter();
+    onClear: OutputEmitterRef<any | MouseEvent> = output<any | MouseEvent>();
     /**
      * Callback to invoke before overlay is shown.
      * @param {CascadeSelectBeforeShowEvent} event - Custom overlay show event.
      * @group Emits
      */
-    @Output() onBeforeShow: EventEmitter<CascadeSelectBeforeShowEvent> = new EventEmitter<CascadeSelectBeforeShowEvent>();
+    onBeforeShow: OutputEmitterRef<CascadeSelectBeforeShowEvent> = output<CascadeSelectBeforeShowEvent>();
     /**
      * Callback to invoke before overlay is hidden.
      * @param {CascadeSelectBeforeHideEvent} event - Custom overlay hide event.
      * @group Emits
      */
-    @Output() onBeforeHide: EventEmitter<CascadeSelectBeforeHideEvent> = new EventEmitter<CascadeSelectBeforeHideEvent>();
+    onBeforeHide: OutputEmitterRef<CascadeSelectBeforeHideEvent> = output<CascadeSelectBeforeHideEvent>();
     /**
      * Callback to invoke when input receives focus.
      * @param {FocusEvent} event - Focus event.
      * @group Emits
      */
-    @Output() onFocus: EventEmitter<FocusEvent> = new EventEmitter<FocusEvent>();
+    onFocus: OutputEmitterRef<FocusEvent> = output<FocusEvent>();
     /**
      * Callback to invoke when input loses focus.
      * @param {FocusEvent} event - Focus event.
      * @group Emits
      */
-    @Output() onBlur: EventEmitter<FocusEvent> = new EventEmitter<FocusEvent>();
+    onBlur: OutputEmitterRef<FocusEvent> = output<FocusEvent>();
 
     @ViewChild('focusInput') focusInputViewChild: Nullable<ElementRef>;
 
@@ -1341,7 +1341,7 @@ export class CascadeSelect extends BaseEditableHolder implements OnInit, AfterCo
             this.updateModel(null);
             this.focusedOptionInfo.set({ index: -1, level: 0, parentKey: '' });
             this.activeOptionPath.set([]);
-            this.onClear.emit();
+            this.onClear.emit(event);
         }
 
         event && event.stopPropagation();
