@@ -1,5 +1,5 @@
 import { CommonModule } from '@angular/common';
-import { ChangeDetectionStrategy, Component, ViewEncapsulation } from '@angular/core';
+import { ChangeDetectionStrategy, Component } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { RouterModule } from '@angular/router';
 import { AvatarModule } from 'primeng/avatar';
@@ -87,7 +87,7 @@ import { Tag } from 'primeng/tag';
                 <ng-template #body let-data>
                     <tr>
                         <td style="width: 1rem">
-                            <p-tableCheckbox [value]="data" />
+                            <p-table-checkbox [value]="data" />
                         </td>
 
                         <td style="width: 1rem; padding: 0.5rem">

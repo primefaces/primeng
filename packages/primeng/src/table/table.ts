@@ -5231,7 +5231,7 @@ export class ReorderableRow implements AfterViewInit {
     standalone: false,
     template: `
         <div [class]="cx('filter')">
-            <p-columnFilterFormElement
+            <p-column-filter-form-element
                 *ngIf="display === 'row'"
                 class="p-fluid"
                 [type]="type"
@@ -5251,7 +5251,7 @@ export class ReorderableRow implements AfterViewInit {
                 [useGrouping]="useGrouping"
                 [showButtons]="showButtons"
                 [filterOn]="filterOn"
-            ></p-columnFilterFormElement>
+            ></p-column-filter-form-element>
             <p-button
                 *ngIf="showMenuButton"
                 [styleClass]="cx('pcColumnFilterButton')"
@@ -5316,7 +5316,7 @@ export class ReorderableRow implements AfterViewInit {
                                 (ngModelChange)="onMenuMatchModeChange($event, fieldConstraint)"
                                 [styleClass]="cx('pcFilterConstraintDropdown')"
                             ></p-select>
-                            <p-columnFilterFormElement
+                            <p-column-filter-form-element
                                 [type]="type"
                                 [field]="field"
                                 [filterConstraint]="fieldConstraint"
@@ -5332,7 +5332,7 @@ export class ReorderableRow implements AfterViewInit {
                                 [currencyDisplay]="currencyDisplay"
                                 [useGrouping]="useGrouping"
                                 [filterOn]="filterOn"
-                            ></p-columnFilterFormElement>
+                            ></p-column-filter-form-element>
                             <div>
                                 <p-button
                                     *ngIf="showRemoveIcon"

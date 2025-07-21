@@ -67,7 +67,7 @@ import { TooltipModule } from 'primeng/tooltip';
                 <ng-template #header>
                     <tr>
                         <th style="width: 1rem">
-                            <p-tableHeaderCheckbox />
+                            <p-table-header-checkbox />
                         </th>
                         <th>Name</th>
                         <th>Title</th>
@@ -81,7 +81,7 @@ import { TooltipModule } from 'primeng/tooltip';
                 <ng-template #body let-data>
                     <tr>
                         <td style="width: 1rem">
-                            <p-tableCheckbox [value]="data" />
+                            <p-table-checkbox [value]="data" />
                         </td>
                         <td>
                             <div class="flex items-center">
