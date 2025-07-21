@@ -3659,7 +3659,7 @@ export class SortableColumn extends BaseComponent implements OnInit, OnDestroy {
 }
 
 @Component({
-    selector: 'p-sortIcon',
+    selector: 'p-sortIcon, p-sort-icon, p-sorticon',
     standalone: false,
     template: `
         <ng-container *ngIf="!(dt.sortIconTemplate || dt._sortIconTemplate)">
@@ -4815,7 +4815,7 @@ export class CancelEditableRow extends BaseComponent {
 }
 
 @Component({
-    selector: 'p-cellEditor',
+    selector: 'p-cellEditor, p-cell-editor, p-celleditor',
     standalone: false,
     template: `
         <ng-container *ngIf="editing">
@@ -4864,7 +4864,7 @@ export class CellEditor implements AfterContentInit {
 }
 
 @Component({
-    selector: 'p-tableRadioButton',
+    selector: 'p-tableRadioButton, p-table-radiobutton, p-table-radio-button',
     standalone: false,
     template: ` <p-radioButton #rb [(ngModel)]="checked" [disabled]="disabled()" [inputId]="inputId()" [name]="name()" [ariaLabel]="ariaLabel" [binary]="true" [value]="value" (onClick)="onClick($event)" /> `,
     changeDetection: ChangeDetectionStrategy.OnPush,
@@ -4925,7 +4925,7 @@ export class TableRadioButton implements OnInit, OnDestroy {
 }
 
 @Component({
-    selector: 'p-tableCheckbox',
+    selector: 'p-tableCheckbox, p-table-checkbox',
     standalone: false,
     template: `
         <p-checkbox [(ngModel)]="checked" [binary]="true" (onChange)="onClick($event)" [required]="required()" [disabled]="disabled()" [inputId]="inputId()" [name]="name()" [ariaLabel]="ariaLabel">
@@ -4991,7 +4991,7 @@ export class TableCheckbox implements OnInit, OnDestroy {
 }
 
 @Component({
-    selector: 'p-tableHeaderCheckbox',
+    selector: 'p-tableHeaderCheckbox, p-table-header-checkbox',
     standalone: false,
     template: `
         <p-checkbox [(ngModel)]="checked" (onChange)="onClick($event)" [binary]="true" [disabled]="isDisabled()" [inputId]="inputId()" [name]="name()" [ariaLabel]="ariaLabel">
@@ -5227,7 +5227,7 @@ export class ReorderableRow implements AfterViewInit {
 }
 
 @Component({
-    selector: 'p-columnFilter',
+    selector: 'p-columnFilter, p-column-filter',
     standalone: false,
     template: `
         <div [class]="cx('filter')">
@@ -6116,7 +6116,7 @@ export class ColumnFilter extends BaseComponent implements AfterContentInit {
 }
 
 @Component({
-    selector: 'p-columnFilterFormElement',
+    selector: 'p-columnFilterFormElement, p-column-filter-form-element',
     standalone: false,
     template: `
         <ng-container *ngIf="filterTemplate; else builtInElement">
