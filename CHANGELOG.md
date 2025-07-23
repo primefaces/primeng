@@ -54,6 +54,30 @@
 - Add defaultColor prop to ColorPicker [#18538](https://github.com/primefaces/primeng/issues/18538)
 - Remove unused theme styles from BaseStyle [#18558](https://github.com/primefaces/primeng/issues/18558)
 
+## [19.1.4](https://github.com/primefaces/primeng/tree/19.1.4) (2025-07-20)
+[Full Changelog](https://github.com/primefaces/primeng/compare/19.1.3...19.1.4)
+
+**Fixed bugs:**
+- Multiselect label's ellipsis doesn't work [#18562](https://github.com/primefaces/primeng/issues/18562)
+- Content Security Policy error (CSP) on components [#18613](https://github.com/primefaces/primeng/issues/18613)
+- Menubar: submenu's border radius style using wrong token name [#17612](https://github.com/primefaces/primeng/issues/17612)
+
+## [19.1.3](https://github.com/primefaces/primeng/tree/19.1.3) (2025-07-07)
+[Full Changelog](https://github.com/primefaces/primeng/compare/19.1.2...19.1.3)
+
+**Fixed bugs:**
+- ColorPicker: *.png missing [#13820](https://github.com/primefaces/primeng/issues/13820)
+- Accordion Functionality Memory Leak [#18296](https://github.com/primefaces/primeng/issues/18296)
+- Memory leak in ConfirmDialog [#18208](https://github.com/primefaces/primeng/issues/18208)
+- SelectButton's allowEmpty=false is broken for multiple=false [#18211](https://github.com/primefaces/primeng/issues/18211)
+- InputNumber gets touched right after changing a digit before blur happens [#18311](https://github.com/primefaces/primeng/issues/18311)
+- Table: redundant role on table, tbody and thead [#18313](https://github.com/primefaces/primeng/issues/18313)
+- Regression: Autocomplete selectedItem template now forced into p-chip after PR #18126 [#18289](https://github.com/primefaces/primeng/issues/18289)
+- pSortableColumn on th causes a11y errors because applying role [#18280](https://github.com/primefaces/primeng/issues/18280)
+- ToggleButton: missing disabled attribute [#18152](https://github.com/primefaces/primeng/issues/18152)
+- PrimeNG 19.1.2: p-progressSpinner's stroke is missing [#18347](https://github.com/primefaces/primeng/issues/18347)
+- Fix check containerViewChild for undefined in saveColumnWidths 2 [#18332](https://github.com/primefaces/primeng/issues/18332)
+
 ## [19.1.2](https://github.com/primefaces/primeng/tree/19.1.2) (2025-05-01)
 [Full Changelog](https://github.com/primefaces/primeng/compare/19.1.1...19.1.2)
 
