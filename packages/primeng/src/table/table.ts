@@ -2532,22 +2532,32 @@ export class Table<RowData = any> extends BaseComponent implements OnInit, After
         delete this.editingRowKeys[dataKeyValue];
     }
 
+    private collapseRow(dataKeyValue: string, rowData: any, event?: Event) {
+        delete this.expandedRowKeys[dataKeyValue];
+        this.onRowCollapse.emit({
+            originalEvent: <Event>event,
+            data: rowData
+        });
+    }
+
+    private collapseAllRows(event?: Event) {
+        for (const dataKeyValue in this.expandedRowKeys) {
+            const evData = this.processedData.find((data) => data[this.dataKey] === dataKeyValue);
+            this.collapseRow(dataKeyValue, evData, event);
+        }
+    }
+
     toggleRow(rowData: any, event?: Event) {
         if (!this.dataKey && !this.groupRowsBy) {
             throw new Error('dataKey or groupRowsBy must be defined to use row expansion');
         }
 
         let dataKeyValue = this.groupRowsBy ? String(ObjectUtils.resolveFieldData(rowData, this.groupRowsBy)) : String(ObjectUtils.resolveFieldData(rowData, this.dataKey));
-
         if (this.expandedRowKeys[dataKeyValue] != null) {
-            delete this.expandedRowKeys[dataKeyValue];
-            this.onRowCollapse.emit({
-                originalEvent: <Event>event,
-                data: rowData
-            });
+            this.collapseRow(dataKeyValue, rowData, event);
         } else {
             if (this.rowExpandMode === 'single') {
-                this.expandedRowKeys = {};
+                this.collapseAllRows(null);
             }
 
             this.expandedRowKeys[dataKeyValue] = true;
