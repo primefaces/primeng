@@ -2661,6 +2661,17 @@ export class Table<RowData = any> extends BaseComponent implements OnInit, After
         event.dataTransfer.setData('text', 'b'); // For firefox
     }
 
+    onColumnDragEnd(event: any) {
+        event.preventDefault();
+        if (this.draggedColumn) {
+            (<ElementRef>this.reorderIndicatorUpViewChild).nativeElement.style.display = 'none';
+            (<ElementRef>this.reorderIndicatorDownViewChild).nativeElement.style.display = 'none';
+            this.draggedColumn.draggable = false;
+            this.draggedColumn = null;
+            this.dropPosition = null;
+        }
+    }
+
     onColumnDragEnter(event: any, dropHeader: any) {
         if (this.reorderableColumns && this.draggedColumn && dropHeader) {
             event.preventDefault();
@@ -4289,6 +4300,8 @@ export class ReorderableColumn extends BaseComponent implements AfterViewInit, O
 
     dragLeaveListener: VoidListener;
 
+    dragEndListener: VoidListener;
+
     mouseDownListener: VoidListener;
 
     _componentStyle = inject(TableStyle);
@@ -4315,6 +4328,8 @@ export class ReorderableColumn extends BaseComponent implements AfterViewInit, O
 
                 this.dragStartListener = this.renderer.listen(this.el.nativeElement, 'dragstart', this.onDragStart.bind(this));
 
+                this.dragEndListener = this.renderer.listen(this.el.nativeElement, 'dragend', this.onDragEnd.bind(this));
+
                 this.dragOverListener = this.renderer.listen(this.el.nativeElement, 'dragover', this.onDragOver.bind(this));
 
                 this.dragEnterListener = this.renderer.listen(this.el.nativeElement, 'dragenter', this.onDragEnter.bind(this));
@@ -4333,6 +4348,11 @@ export class ReorderableColumn extends BaseComponent implements AfterViewInit, O
         if (this.dragStartListener) {
             this.dragStartListener();
             this.dragStartListener = null;
+        }
+
+        if (this.dragEndListener) {
+            this.dragEndListener();
+            this.dragEndListener = null;
         }
 
         if (this.dragOverListener) {
@@ -4370,6 +4390,11 @@ export class ReorderableColumn extends BaseComponent implements AfterViewInit, O
 
     onDragLeave(event: any) {
         this.dt.onColumnDragLeave(event);
+    }
+
+    onDragEnd(event: any) {
+        this.dt.onColumnDragEnd(event);
+        this.el.nativeElement.draggable = false;
     }
 
     @HostListener('drop', ['$event'])
