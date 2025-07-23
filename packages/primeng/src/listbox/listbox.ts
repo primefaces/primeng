@@ -85,7 +85,7 @@ export const LISTBOX_VALUE_ACCESSOR: any = {
                     [binary]="true"
                 >
                     <ng-container *ngIf="checkIconTemplate || _checkIconTemplate">
-                        <ng-template #icon>
+                        <ng-template #checkboxicon>
                             <ng-template *ngTemplateOutlet="checkIconTemplate || _checkIconTemplate; context: { $implicit: allSelected() }"></ng-template>
                         </ng-template>
                     </ng-container>
@@ -238,7 +238,7 @@ export const LISTBOX_VALUE_ACCESSOR: any = {
                                         [binary]="true"
                                     >
                                         <ng-container *ngIf="checkIconTemplate || _checkIconTemplate">
-                                            <ng-template #icon>
+                                            <ng-template #checkboxicon>
                                                 <ng-template *ngTemplateOutlet="checkIconTemplate || _checkIconTemplate; context: { $implicit: isSelected(option) }"></ng-template>
                                             </ng-template>
                                         </ng-container>
