@@ -431,6 +431,8 @@ export class ConfirmDialog extends BaseComponent implements OnInit, OnDestroy {
                 return;
             }
             if (confirmation.key === this.key) {
+                this.resetConfirmationOptionsToDefault();
+
                 this.confirmation = confirmation;
 
                 const keys = Object.keys(confirmation);
@@ -645,6 +647,42 @@ export class ConfirmDialog extends BaseComponent implements OnInit, OnDestroy {
 
     getRejectButtonProps() {
         return this.option('rejectButtonProps');
+    }
+
+    resetConfirmationOptionsToDefault(): void {
+        this.header = undefined;
+        this.icon = undefined;
+        this.message = undefined;
+        this.style = undefined;
+        this.styleClass = undefined;
+        this.maskStyleClass = undefined;
+        this.acceptIcon = undefined;
+        this.acceptLabel = undefined;
+        this.acceptAriaLabel = undefined;
+        this.rejectIcon = undefined;
+        this.rejectLabel = undefined;
+        this.rejectAriaLabel = undefined;
+        this.acceptVisible = true;
+        this.rejectVisible = true;
+        this.acceptButtonStyleClass = undefined;
+        this.rejectButtonStyleClass = undefined;
+        this.closeOnEscape = true;
+        this.dismissableMask = undefined;
+        this.blockScroll = true;
+        this.rtl = false;
+        this.closable = true;
+        this.appendTo = 'body';
+        this.key = undefined;
+        this.autoZIndex = true;
+        this.baseZIndex = 0;
+        this.transitionOptions = '150ms cubic-bezier(0, 0, 0.2, 1)';
+        this.focusTrap = true;
+        this.defaultFocus = 'accept';
+        this.breakpoints = undefined;
+        this.draggable = true;
+        this.acceptButtonStyleClass = undefined;
+        this.rejectButtonStyleClass = undefined;
+        this.confirmation = null;
     }
 }
 
