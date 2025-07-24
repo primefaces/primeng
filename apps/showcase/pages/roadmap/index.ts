@@ -41,28 +41,28 @@ import { Meta, Title } from '@angular/platform-browser';
                                     <h2 class="text-lg font-bold mt-0 mb-2">&#64;primeuix/themes</h2>
                                     <p class="mt-0 mb-4 leading-normal">Migrate to the new theming package that is shared between all Prime UI libraries.</p>
                                     <div class="bg-surface-200 dark:bg-surface-600 rounded">
-                                        <div class="bg-blue-500 rounded" style="width: 50%; height: 4px"></div>
+                                        <div class="bg-blue-500 rounded" style="width: 100%; height: 4px"></div>
+                                    </div>
+                                </div>
+                                <div class="p-4 bg-surface-0 dark:bg-surface-900 rounded border-blue-500 border-l-4">
+                                    <h2 class="text-lg font-bold mt-0 mb-2">Form Enhancements</h2>
+                                    <p class="mt-0 mb-4 leading-normal">First class support for template-driven and reactive forms.</p>
+                                    <div class="bg-surface-200 dark:bg-surface-600 rounded">
+                                        <div class="bg-blue-500 rounded" style="width: 100%; height: 4px"></div>
                                     </div>
                                 </div>
                                 <div class="p-4 bg-surface-0 dark:bg-surface-900 rounded border-blue-500 border-l-4">
                                     <h2 class="text-lg font-bold mt-0 mb-2">PrimeNG v20</h2>
                                     <p class="mt-0 mb-4 leading-normal">Release of v20 after Angular v20 release featuring primeuix migration.</p>
                                     <div class="bg-surface-200 dark:bg-surface-600 rounded">
-                                        <div class="bg-blue-500 rounded" style="width: 0%; height: 4px"></div>
+                                        <div class="bg-blue-500 rounded" style="width: 100%; height: 4px"></div>
                                     </div>
                                 </div>
                             </div>
                             <div class="flex-1 flex gap-4 flex-col">
                                 <div class="p-4 bg-surface-0 dark:bg-surface-900 rounded border-blue-500 border-l-4">
-                                    <h2 class="text-lg font-bold mt-0 mb-2">Modernize Angular APIs</h2>
-                                    <p class="mt-0 mb-4 leading-normal">Refactor components to utilize the modern Angular APIs.</p>
-                                    <div class="bg-surface-200 dark:bg-surface-600 rounded">
-                                        <div class="bg-blue-500 rounded" style="width: 0%; height: 4px"></div>
-                                    </div>
-                                </div>
-                                <div class="p-4 bg-surface-0 dark:bg-surface-900 rounded border-blue-500 border-l-4">
-                                    <h2 class="text-lg font-bold mt-0 mb-2">Pass-Through Attributes</h2>
-                                    <p class="mt-0 mb-4 leading-normal">Bring the PT feature of PrimeVue to PrimeNG to expose component internals, and offer new customization options.</p>
+                                    <h2 class="text-lg font-bold mt-0 mb-2">Remastered Components - Phase I</h2>
+                                    <p class="mt-0 mb-4 leading-normal">Initiate internal modernization of components to utilize the modern Angular APIs featuring new test suite, pass-through attributes, signals, control flow, zoneless and more.</p>
                                     <div class="bg-surface-200 dark:bg-surface-600 rounded">
                                         <div class="bg-blue-500 rounded" style="width: 0%; height: 4px"></div>
                                     </div>
@@ -70,8 +70,15 @@ import { Meta, Title } from '@angular/platform-browser';
                             </div>
                             <div class="flex-1 flex gap-4 flex-col">
                                 <div class="p-4 bg-surface-0 dark:bg-surface-900 rounded border-blue-500 border-l-4">
-                                    <h2 class="text-lg font-bold mt-0 mb-2">PrimeNG+</h2>
-                                    <p class="mt-0 mb-4 leading-normal">Initiate the advanced UI suite with complex enterprise grade components including Event Calendar, Data Grid, Text Editor, Charts, TimeLine, PDF Viewer...</p>
+                                    <h2 class="text-lg font-bold mt-0 mb-2">Remastered Components - Phase II</h2>
+                                    <p class="mt-0 mb-4 leading-normal">Continue internal modernization of components.</p>
+                                    <div class="bg-surface-200 dark:bg-surface-600 rounded">
+                                        <div class="bg-blue-500 rounded" style="width: 0%; height: 4px"></div>
+                                    </div>
+                                </div>
+                                <div class="p-4 bg-surface-0 dark:bg-surface-900 rounded border-blue-500 border-l-4">
+                                    <h2 class="text-lg font-bold mt-0 mb-2">PrimeNG v21</h2>
+                                    <p class="mt-0 mb-4 leading-normal">Angular v21 compatible version.</p>
                                     <div class="bg-surface-200 dark:bg-surface-600 rounded">
                                         <div class="bg-blue-500 rounded" style="width: 0%; height: 4px"></div>
                                     </div>
@@ -116,6 +123,15 @@ import { Meta, Title } from '@angular/platform-browser';
                                         <div class="bg-violet-500 rounded" style="width: 100%; height: 4px"></div>
                                     </div>
                                 </div>
+                            </div>
+                            <div class="flex-1 flex gap-4 flex-col">
+                                <div class="p-4 bg-surface-0 dark:bg-surface-900 rounded border-violet-500 border-l-4">
+                                    <h2 class="text-lg font-bold mt-0 mb-2">Template Updates</h2>
+                                    <p class="mt-0 mb-4 leading-normal">Update all templates to Angular and PrimeNG v20.</p>
+                                    <div class="bg-surface-200 dark:bg-surface-600 rounded">
+                                        <div class="bg-violet-500 rounded" style="width: 0%; height: 4px"></div>
+                                    </div>
+                                </div>
                                 <div class="p-4 bg-surface-0 dark:bg-surface-900 rounded border-violet-500 border-l-4">
                                     <h2 class="text-lg font-bold mt-0 mb-2">Avalon Remaster</h2>
                                     <p class="mt-0 mb-4 leading-normal">Redesigned version of Avalon with a fresh look and feel.</p>
@@ -124,7 +140,6 @@ import { Meta, Title } from '@angular/platform-browser';
                                     </div>
                                 </div>
                             </div>
-                            <div class="flex-1 flex gap-4 flex-col"></div>
                             <div class="flex-1 flex gap-4 flex-col"></div>
                         </div>
                         <div class="flex gap-4 border-b border-surface pb-4">

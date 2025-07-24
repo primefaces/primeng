@@ -10,8 +10,8 @@ import { ChangeDetectorRef, Component, OnInit } from '@angular/core';
         <app-docsectiontext>
             <p>Items can be reordered using drag and drop by enabling <i>dragdrop</i> property. Depends on <i>&#64;angular/cdk</i> package.</p>
         </app-docsectiontext>
-        <div class="card xl:flex xl:justify-center">
-            <p-orderList [value]="products" [listStyle]="{ 'max-height': '30rem' }" header="List of Products" [dragdrop]="true">
+        <div class="card sm:flex sm:justify-center">
+            <p-orderList [value]="products" [listStyle]="{ 'max-height': '30rem' }" header="List of Products" [dragdrop]="true" [responsive]="true" breakpoint="575px">
                 <ng-template let-product #item>
                     <div class="flex flex-wrap p-2 items-center gap-4">
                         <img src="https://primefaces.org/cdn/primeng/images/demo/product/{{ product.image }}" [alt]="product.name" class="w-16 shadow shrink-0 rounded-border" />
@@ -61,7 +61,9 @@ export class DragDropDoc implements OnInit {
     [value]="products"
     [listStyle]="{ 'max-height': '30rem' }"
     header="List of Products"
-    [dragdrop]="true">
+    [dragdrop]="true"
+    [responsive]="true"
+    breakpoint="575px">
         <ng-template let-product #item>
             <div class="flex flex-wrap p-2 items-center gap-4">
                 <img
@@ -84,12 +86,14 @@ export class DragDropDoc implements OnInit {
         </ng-template>
 </p-orderList>`,
 
-        html: `<div class="card xl:flex xl:justify-center">
+        html: `<div class="card sm:flex sm:justify-center">
     <p-orderList
         [value]="products"
         [listStyle]="{ 'max-height': '30rem' }"
         header="List of Products"
-        [dragdrop]="true">
+        [dragdrop]="true"
+        [responsive]="true"
+        breakpoint="575px">
             <ng-template let-product #item>
                 <div class="flex flex-wrap p-2 items-center gap-4">
                     <img

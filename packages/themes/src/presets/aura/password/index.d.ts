@@ -1,3 +1,2 @@
-import { PasswordDesignTokens } from '../../types/password';
-declare const _default: PasswordDesignTokens;
-export default _default;
+export * from '@primeuix/themes/aura/password';
+export { default } from '@primeuix/themes/aura/password';

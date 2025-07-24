@@ -1,44 +1,54 @@
 import { Injectable } from '@angular/core';
 import { BaseStyle } from 'primeng/base';
 
-const theme = ({ dt }) => `
-p-inputmask {
-    position: relative;
-}
+const theme = /*css*/ `
+    /* For PrimeNG */
+    p-inputmask {
+        position: relative;
+    }
 
-.p-inputmask-clear-icon {
-    position: absolute;
-    top: 50%;
-    margin-top: -0.5rem;
-    cursor: pointer;
-    inset-inline-end: ${dt('form.field.padding.x')};
-    color: ${dt('form.field.icon.color')};
-}
+    .p-inputmask-clear-icon {
+        position: absolute;
+        top: 50%;
+        margin-top: -0.5rem;
+        cursor: pointer;
+        inset-inline-end: dt('form.field.padding.x');
+        color: dt('form.field.icon.color');
+    }
 
-p-inputMask.ng-invalid.ng-dirty > .p-inputtext,
-p-input-mask.ng-invalid.ng-dirty > .p-inputtext,
-p-inputmask.ng-invalid.ng-dirty > .p-inputtext {
-    border-color: ${dt('inputtext.invalid.border.color')};
-}
+    p-inputMask:has(.p-inputtext-fluid),
+    p-input-mask:has(.p-inputtext-fluid),
+    p-inputmask:has(.p-inputtext-fluid) {
+        width: 100%;
+    }
 
-p-inputMask.ng-invalid.ng-dirty > .p-inputtext:enabled:focus,
-p-input-mask.ng-invalid.ng-dirty > .p-inputtext:enabled:focus,
-p-inputmask.ng-invalid.ng-dirty > .p-inputtext:enabled:focus {
-    border-color: ${dt('inputtext.focus.border.color')};
-}
+    p-inputMask.ng-invalid.ng-dirty > .p-inputtext,
+    p-input-mask.ng-invalid.ng-dirty > .p-inputtext,
+    p-inputmask.ng-invalid.ng-dirty > .p-inputtext {
+        border-color: dt('inputtext.invalid.border.color');
+    }
 
-p-inputMask.ng-invalid.ng-dirty > .p-inputtext::placeholder,
-p-input-mask.ng-invalid.ng-dirty > .p-inputtext::placeholder,
-p-inputmask.ng-invalid.ng-dirty > .p-inputtext::placeholder {
-    color: ${dt('inputtext.invalid.placeholder.color')};
-}
+    p-inputMask.ng-invalid.ng-dirty > .p-inputtext:enabled:focus,
+    p-input-mask.ng-invalid.ng-dirty > .p-inputtext:enabled:focus,
+    p-inputmask.ng-invalid.ng-dirty > .p-inputtext:enabled:focus {
+        border-color: dt('inputtext.focus.border.color');
+    }
+
+    p-inputMask.ng-invalid.ng-dirty > .p-inputtext::placeholder,
+    p-input-mask.ng-invalid.ng-dirty > .p-inputtext::placeholder,
+    p-inputmask.ng-invalid.ng-dirty > .p-inputtext::placeholder {
+        color: dt('inputtext.invalid.placeholder.color');
+    }
 `;
 
 const classes = {
-    root: ({ instance }) => ({
-        'p-inputmask': true,
-        'p-filled': instance.variant ? instance.variant === 'filled' : instance.config.inputStyle() === 'filled'
-    })
+    root: ({ instance }) => [
+        'p-inputmask',
+        {
+            'p-variant-filled': instance.$variant() === 'filled'
+        }
+    ],
+    clearIcon: 'p-inputmask-clear-icon'
 };
 
 @Injectable()
@@ -64,7 +74,11 @@ export enum InputMaskClasses {
     /**
      * Class name of the root element
      */
-    root = 'p-inputmask'
+    root = 'p-inputmask',
+    /**
+     * Class name of the clear icon element
+     */
+    clearIcon = 'p-inputmask-clear-icon'
 }
 
 export interface InputMaskStyle extends BaseStyle {}

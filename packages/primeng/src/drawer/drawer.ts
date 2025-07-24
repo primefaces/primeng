@@ -21,10 +21,11 @@ import {
     ViewChild,
     ViewEncapsulation
 } from '@angular/core';
-import { addClass, appendChild, blockBodyScroll, setAttribute, unblockBodyScroll } from '@primeuix/utils';
+import { addClass, appendChild, removeClass, setAttribute } from '@primeuix/utils';
 import { PrimeTemplate, SharedModule } from 'primeng/api';
 import { BaseComponent } from 'primeng/basecomponent';
 import { Button, ButtonProps } from 'primeng/button';
+import { blockBodyScroll, unblockBodyScroll } from 'primeng/dom';
 import { TimesIcon } from 'primeng/icons';
 import { Nullable, VoidListener } from 'primeng/ts-helpers';
 import { ZIndexUtils } from 'primeng/utils';
@@ -44,21 +45,12 @@ const hideAnimation = animation([animate('{{transition}}', style({ transform: '{
     template: `
         <div
             #container
-            [ngClass]="{
-                'p-drawer': true,
-                'p-drawer-active': visible,
-                'p-drawer-left': position === 'left' && !fullScreen,
-                'p-drawer-right': position === 'right' && !fullScreen,
-                'p-drawer-top': position === 'top' && !fullScreen,
-                'p-drawer-bottom': position === 'bottom' && !fullScreen,
-                'p-drawer-full': fullScreen || position === 'full'
-            }"
+            [class]="cn(cx('root'), styleClass)"
             *ngIf="visible"
             [@panelState]="{ value: 'visible', params: { transform: transformOptions, transition: transitionOptions } }"
             (@panelState.start)="onAnimationStart($event)"
             (@panelState.done)="onAnimationEnd($event)"
             [style]="style"
-            [class]="styleClass"
             role="complementary"
             [attr.data-pc-name]="'sidebar'"
             [attr.data-pc-section]="'root'"
@@ -72,7 +64,7 @@ const hideAnimation = animation([animate('{{transition}}', style({ transform: '{
                     <div *ngIf="header" [class]="cx('title')">{{ header }}</div>
                     <p-button
                         *ngIf="showCloseIcon && closable"
-                        [ngClass]="cx('closeButton')"
+                        [ngClass]="cx('pcCloseButton')"
                         (onClick)="close($event)"
                         (keydown.enter)="close($event)"
                         [buttonProps]="closeButtonProps"
@@ -81,7 +73,7 @@ const hideAnimation = animation([animate('{{transition}}', style({ transform: '{
                         [attr.data-pc-group-section]="'iconcontainer'"
                     >
                         <ng-template #icon>
-                            <TimesIcon *ngIf="!closeIconTemplate && !_closeIconTemplate" [attr.data-pc-section]="'closeicon'" />
+                            <svg data-p-icon="times" *ngIf="!closeIconTemplate && !_closeIconTemplate" [attr.data-pc-section]="'closeicon'" />
                             <ng-template *ngTemplateOutlet="closeIconTemplate || _closeIconTemplate"></ng-template>
                         </ng-template>
                     </p-button>
@@ -255,8 +247,6 @@ export class Drawer extends BaseComponent implements AfterViewInit, AfterContent
      */
     @Output() visibleChange: EventEmitter<boolean> = new EventEmitter<boolean>();
 
-    @ViewChild('maskRef') maskRef: ElementRef | undefined;
-
     @ViewChild('container') containerViewChild: ElementRef | undefined;
 
     @ViewChild('closeButton') closeButtonViewChild: ElementRef | undefined;
@@ -389,15 +379,15 @@ export class Drawer extends BaseComponent implements AfterViewInit, AfterContent
     }
 
     enableModality() {
-        const activeDrawers = this.document.querySelectorAll('.p-drawer-active');
+        const activeDrawers = this.document.querySelectorAll('.p-drawer-open');
         const activeDrawersLength = activeDrawers.length;
         const zIndex = activeDrawersLength == 1 ? String(parseInt((this.container as HTMLDivElement).style.zIndex) - 1) : String(parseInt((activeDrawers[activeDrawersLength - 1] as HTMLElement).style.zIndex) - 1);
 
         if (!this.mask) {
             this.mask = this.renderer.createElement('div');
-            this.renderer.setStyle(this.mask, 'zIndex', zIndex);
-            setAttribute(this.mask, 'style', this.maskStyle);
-            addClass(this.mask, 'p-overlay-mask p-drawer-mask p-overlay-mask-enter');
+            setAttribute(this.mask, 'style', this.getMaskStyle());
+            setAttribute(this.mask, 'style', `z-index: ${zIndex}`);
+            addClass(this.mask, this.cx('mask'));
 
             if (this.dismissible) {
                 this.maskClickListener = this.renderer.listen(this.mask, 'click', (event: any) => {
@@ -414,8 +404,17 @@ export class Drawer extends BaseComponent implements AfterViewInit, AfterContent
         }
     }
 
+    getMaskStyle() {
+        return this.maskStyle
+            ? Object.entries(this.maskStyle)
+                  .map(([key, value]) => `${key}: ${value}`)
+                  .join('; ')
+            : '';
+    }
+
     disableModality() {
         if (this.mask) {
+            removeClass(this.mask, 'p-overlay-mask-enter');
             addClass(this.mask, 'p-overlay-mask-leave');
             this.animationEndListener = this.renderer.listen(this.mask, 'animationend', this.destroyModal.bind(this));
         }

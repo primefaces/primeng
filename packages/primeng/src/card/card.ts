@@ -14,34 +14,37 @@ import { CardStyle } from './style/cardstyle';
     standalone: true,
     imports: [CommonModule, SharedModule],
     template: `
-        <div [ngClass]="'p-card p-component'" [ngStyle]="_style()" [class]="styleClass" [attr.data-pc-name]="'card'">
-            <div class="p-card-header" *ngIf="headerFacet || headerTemplate || _headerTemplate">
-                <ng-content select="p-header"></ng-content>
-                <ng-container *ngTemplateOutlet="headerTemplate || _headerTemplate"></ng-container>
+        <div [class]="cx('header')" *ngIf="headerFacet || headerTemplate || _headerTemplate">
+            <ng-content select="p-header"></ng-content>
+            <ng-container *ngTemplateOutlet="headerTemplate || _headerTemplate"></ng-container>
+        </div>
+        <div [class]="cx('body')">
+            <div [class]="cx('title')" *ngIf="header || titleTemplate || _titleTemplate">
+                <ng-container *ngIf="header && !_titleTemplate && !titleTemplate">{{ header }}</ng-container>
+                <ng-container *ngTemplateOutlet="titleTemplate || _titleTemplate"></ng-container>
             </div>
-            <div class="p-card-body">
-                <div class="p-card-title" *ngIf="header || titleTemplate || _titleTemplate">
-                    <ng-container *ngIf="header && !_titleTemplate && !titleTemplate">{{ header }}</ng-container>
-                    <ng-container *ngTemplateOutlet="titleTemplate || _titleTemplate"></ng-container>
-                </div>
-                <div class="p-card-subtitle" *ngIf="subheader || subtitleTemplate || _subtitleTemplate">
-                    <ng-container *ngIf="subheader && !_subtitleTemplate && !subtitleTemplate">{{ subheader }}</ng-container>
-                    <ng-container *ngTemplateOutlet="subtitleTemplate || _subtitleTemplate"></ng-container>
-                </div>
-                <div class="p-card-content">
-                    <ng-content></ng-content>
-                    <ng-container *ngTemplateOutlet="contentTemplate || _contentTemplate"></ng-container>
-                </div>
-                <div class="p-card-footer" *ngIf="footerFacet || footerTemplate || _footerTemplate">
-                    <ng-content select="p-footer"></ng-content>
-                    <ng-container *ngTemplateOutlet="footerTemplate || _footerTemplate"></ng-container>
-                </div>
+            <div [class]="cx('subtitle')" *ngIf="subheader || subtitleTemplate || _subtitleTemplate">
+                <ng-container *ngIf="subheader && !_subtitleTemplate && !subtitleTemplate">{{ subheader }}</ng-container>
+                <ng-container *ngTemplateOutlet="subtitleTemplate || _subtitleTemplate"></ng-container>
+            </div>
+            <div [class]="cx('content')">
+                <ng-content></ng-content>
+                <ng-container *ngTemplateOutlet="contentTemplate || _contentTemplate"></ng-container>
+            </div>
+            <div [class]="cx('footer')" *ngIf="footerFacet || footerTemplate || _footerTemplate">
+                <ng-content select="p-footer"></ng-content>
+                <ng-container *ngTemplateOutlet="footerTemplate || _footerTemplate"></ng-container>
             </div>
         </div>
     `,
     changeDetection: ChangeDetectionStrategy.OnPush,
     encapsulation: ViewEncapsulation.None,
-    providers: [CardStyle]
+    providers: [CardStyle],
+    host: {
+        '[class]': "cn(cx('root'), styleClass)",
+        '[attr.data-pc-name]': '"card"',
+        '[style]': '_style()'
+    }
 })
 export class Card extends BaseComponent implements AfterContentInit, BlockableUI {
     /**
@@ -65,6 +68,7 @@ export class Card extends BaseComponent implements AfterContentInit, BlockableUI
     }
     /**
      * Class of the element.
+     * @deprecated since v20.0.0, use `class` instead.
      * @group Props
      */
     @Input() styleClass: string | undefined;

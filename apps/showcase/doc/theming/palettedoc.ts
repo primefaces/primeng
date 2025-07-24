@@ -13,7 +13,7 @@ import { Component } from '@angular/core';
 })
 export class PaletteDoc {
     code1 = {
-        typescript: `import { palette } from '@primeng/themes';`
+        typescript: `import { palette } from '@primeuix/themes';`
     };
 
     code2 = {

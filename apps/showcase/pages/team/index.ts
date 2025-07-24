@@ -60,11 +60,6 @@ import { CommonModule } from '@angular/common';
                         <span>Front-End Developer</span>
                     </div>
                     <div class="flex flex-col items-center flex-auto">
-                        <img src="https://primefaces.org/cdn/primeng/images/team/umit.jpg" class="rounded-full mb-6" alt="Ümit Çelik" />
-                        <span class="mb-2 text-xl font-bold">Ümit Çelik</span>
-                        <span>UI/UX Designer</span>
-                    </div>
-                    <div class="flex flex-col items-center flex-auto">
                         <img src="https://primefaces.org/cdn/primeng/images/team/mehmet.jpg" class="rounded-full mb-6" alt="Mehmet Çetin" />
                         <span class="mb-2 text-xl font-bold">Mehmet Çetin</span>
                         <span>Front-End Developer</span>

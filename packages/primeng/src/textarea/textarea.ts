@@ -1,6 +1,7 @@
-import { AfterViewInit, booleanAttribute, Directive, EventEmitter, HostListener, inject, Input, NgModule, OnDestroy, OnInit, Optional, Output } from '@angular/core';
-import { NgControl, NgModel } from '@angular/forms';
-import { BaseComponent } from 'primeng/basecomponent';
+import { AfterViewInit, booleanAttribute, computed, Directive, EventEmitter, HostListener, inject, input, Input, NgModule, OnDestroy, OnInit, Output } from '@angular/core';
+import { NgControl } from '@angular/forms';
+import { BaseModelHolder } from 'primeng/basemodelholder';
+import { Fluid } from 'primeng/fluid';
 import { Subscription } from 'rxjs';
 import { TextareaStyle } from './style/textareastyle';
 
@@ -12,39 +13,41 @@ import { TextareaStyle } from './style/textareastyle';
     selector: '[pTextarea], [pInputTextarea]',
     standalone: true,
     host: {
-        class: 'p-textarea p-component',
-        '[class.p-filled]': 'filled',
-        '[class.p-textarea-resizable]': 'autoResize',
-        '[class.p-variant-filled]': 'variant === "filled" || config.inputStyle() === "filled" || config.inputVariant() === "filled"',
-        '[class.p-textarea-fluid]': 'hasFluid',
-        '[class.p-textarea-sm]': 'pSize === "small"',
-        '[class.p-inputfield-sm]': 'pSize === "small"',
-        '[class.p-textarea-lg]': 'pSize === "large"',
-        '[class.p-inputfield-lg]': 'pSize === "large"'
+        '[class]': "cx('root')"
     },
     providers: [TextareaStyle]
 })
-export class Textarea extends BaseComponent implements OnInit, AfterViewInit, OnDestroy {
+export class Textarea extends BaseModelHolder implements OnInit, AfterViewInit, OnDestroy {
     /**
      * When present, textarea size changes as being typed.
      * @group Props
      */
     @Input({ transform: booleanAttribute }) autoResize: boolean | undefined;
     /**
-     * Specifies the input variant of the component.
-     * @group Props
-     */
-    @Input() variant: 'filled' | 'outlined';
-    /**
-     * Spans 100% width of the container when enabled.
-     * @group Props
-     */
-    @Input({ transform: booleanAttribute }) fluid: boolean = false;
-    /**
      * Defines the size of the component.
      * @group Props
      */
     @Input() pSize: 'large' | 'small';
+    /**
+     * Specifies the input variant of the component.
+     * @defaultValue undefined
+     * @group Props
+     */
+    variant = input<'filled' | 'outlined' | undefined>();
+    /**
+     * Spans 100% width of the container when enabled.
+     * @defaultValue undefined
+     * @group Props
+     */
+    fluid = input(undefined, { transform: booleanAttribute });
+    /**
+     * When present, it specifies that the component should have invalid state style.
+     * @defaultValue false
+     * @group Props
+     */
+    invalid = input(undefined, { transform: booleanAttribute });
+
+    $variant = computed(() => this.variant() || this.config.inputStyle() || this.config.inputVariant());
     /**
      * Callback to invoke on textarea resize.
      * @param {(Event | {})} event - Custom resize event.
@@ -52,49 +55,33 @@ export class Textarea extends BaseComponent implements OnInit, AfterViewInit, On
      */
     @Output() onResize: EventEmitter<Event | {}> = new EventEmitter<Event | {}>();
 
-    filled: boolean | undefined;
-
-    cachedScrollHeight: number | undefined;
-
     ngModelSubscription: Subscription | undefined;
 
     ngControlSubscription: Subscription | undefined;
 
     _componentStyle = inject(TextareaStyle);
 
-    constructor(
-        @Optional() public ngModel: NgModel,
-        @Optional() public control: NgControl
-    ) {
-        super();
+    ngControl = inject(NgControl, { optional: true, self: true });
+
+    pcFluid: Fluid = inject(Fluid, { optional: true, host: true, skipSelf: true });
+
+    get hasFluid() {
+        return this.fluid() ?? !!this.pcFluid;
     }
 
     ngOnInit() {
         super.ngOnInit();
-        if (this.ngModel) {
-            this.ngModelSubscription = (this.ngModel as any).valueChanges.subscribe(() => {
+        if (this.ngControl) {
+            this.ngControlSubscription = (this.ngControl as any).valueChanges.subscribe(() => {
                 this.updateState();
             });
         }
-
-        if (this.control) {
-            this.ngControlSubscription = (this.control as any).valueChanges.subscribe(() => {
-                this.updateState();
-            });
-        }
-    }
-
-    get hasFluid() {
-        const nativeElement = this.el.nativeElement;
-        const fluidComponent = nativeElement.closest('p-fluid');
-        return this.fluid || !!fluidComponent;
     }
 
     ngAfterViewInit() {
         super.ngAfterViewInit();
         if (this.autoResize) this.resize();
 
-        this.updateFilledState();
         this.cd.detectChanges();
     }
 
@@ -104,11 +91,8 @@ export class Textarea extends BaseComponent implements OnInit, AfterViewInit, On
 
     @HostListener('input', ['$event'])
     onInput(e: Event) {
+        this.writeModelValue(e.target['value']);
         this.updateState();
-    }
-
-    updateFilledState() {
-        this.filled = this.el.nativeElement.value && this.el.nativeElement.value.length;
     }
 
     resize(event?: Event) {
@@ -126,8 +110,6 @@ export class Textarea extends BaseComponent implements OnInit, AfterViewInit, On
     }
 
     updateState() {
-        this.updateFilledState();
-
         if (this.autoResize) {
             this.resize();
         }

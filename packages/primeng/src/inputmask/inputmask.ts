@@ -39,7 +39,6 @@ import {
     inject,
     Input,
     NgModule,
-    numberAttribute,
     OnInit,
     Output,
     QueryList,
@@ -47,11 +46,11 @@ import {
     ViewChild,
     ViewEncapsulation
 } from '@angular/core';
-import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
+import { NG_VALUE_ACCESSOR } from '@angular/forms';
 import { getUserAgent, isClient } from '@primeuix/utils';
 import { PrimeTemplate, SharedModule } from 'primeng/api';
 import { AutoFocus } from 'primeng/autofocus';
-import { BaseComponent } from 'primeng/basecomponent';
+import { BaseInput } from 'primeng/baseinput';
 import { TimesIcon } from 'primeng/icons';
 import { InputText } from 'primeng/inputtext';
 import { Nullable } from 'primeng/ts-helpers';
@@ -75,38 +74,41 @@ export const INPUTMASK_VALUE_ACCESSOR: any = {
         <input
             #input
             pInputText
-            [class]="styleClass"
-            [ngClass]="inputClass"
+            [class]="cn(cx('root'), styleClass)"
             [attr.id]="inputId"
             [attr.type]="type"
-            [attr.name]="name"
+            [attr.name]="name()"
+            [invalid]="invalid()"
             [ngStyle]="style"
             [attr.placeholder]="placeholder"
             [attr.title]="title"
-            [pSize]="size"
+            [pSize]="size()"
+            [attr.size]="inputSize()"
             [attr.autocomplete]="autocomplete"
-            [attr.maxlength]="maxlength"
+            [attr.maxlength]="maxlength()"
+            [attr.minlength]="minlength()"
             [attr.tabindex]="tabindex"
             [attr.aria-label]="ariaLabel"
             [attr.aria-labelledBy]="ariaLabelledBy"
             [attr.aria-required]="ariaRequired"
-            [disabled]="disabled"
-            [readonly]="readonly"
-            [attr.required]="required"
+            [attr.required]="required() ? '' : undefined"
+            [attr.readonly]="readonly ? '' : undefined"
+            [attr.disabled]="$disabled() ? '' : undefined"
             (focus)="onInputFocus($event)"
             (blur)="onInputBlur($event)"
             (keydown)="onInputKeydown($event)"
             (keypress)="onKeyPress($event)"
-            [variant]="variant"
+            [variant]="$variant()"
             [pAutoFocus]="autofocus"
             (input)="onInputChange($event)"
             (paste)="handleInputChange($event)"
             [attr.data-pc-name]="'inputmask'"
             [attr.data-pc-section]="'root'"
+            [fluid]="hasFluid"
         />
-        <ng-container *ngIf="value != null && filled && showClear && !disabled">
-            <TimesIcon *ngIf="!clearIconTemplate && !_clearIconTemplate" [styleClass]="'p-inputmask-clear-icon'" (click)="clear()" [attr.data-pc-section]="'clearIcon'" />
-            <span *ngIf="clearIconTemplate || _clearIconTemplate" class="p-inputmask-clear-icon" (click)="clear()" [attr.data-pc-section]="'clearIcon'">
+        <ng-container *ngIf="value != null && $filled() && showClear && !$disabled()">
+            <svg data-p-icon="times" *ngIf="!clearIconTemplate && !_clearIconTemplate" [class]="cx('clearIcon')" (click)="clear()" [attr.data-pc-section]="'clearIcon'" />
+            <span *ngIf="clearIconTemplate || _clearIconTemplate" [class]="cx('clearIcon')" (click)="clear()" [attr.data-pc-section]="'clearIcon'">
                 <ng-template *ngTemplateOutlet="clearIconTemplate || _clearIconTemplate"></ng-template>
             </span>
         </ng-container>
@@ -115,7 +117,7 @@ export const INPUTMASK_VALUE_ACCESSOR: any = {
     changeDetection: ChangeDetectionStrategy.OnPush,
     encapsulation: ViewEncapsulation.None
 })
-export class InputMask extends BaseComponent implements OnInit, AfterContentInit, ControlValueAccessor {
+export class InputMask extends BaseInput implements OnInit, AfterContentInit {
     /**
      * HTML5 input type.
      * @group Props
@@ -157,16 +159,6 @@ export class InputMask extends BaseComponent implements OnInit, AfterContentInit
      */
     @Input() placeholder: string | undefined;
     /**
-     * Defines the size of the component.
-     * @group Props
-     */
-    @Input() size: 'large' | 'small';
-    /**
-     * Maximum number of character allows in the input field.
-     * @group Props
-     */
-    @Input({ transform: numberAttribute }) maxlength: number | undefined;
-    /**
      * Specifies tab order of the element.
      * @group Props
      */
@@ -176,11 +168,6 @@ export class InputMask extends BaseComponent implements OnInit, AfterContentInit
      * @group Props
      */
     @Input() title: string | undefined;
-    /**
-     * Specifies the input variant of the component.
-     * @group Props
-     */
-    @Input() variant: 'filled' | 'outlined';
     /**
      * Used to define a string that labels the input element.
      * @group Props
@@ -197,11 +184,6 @@ export class InputMask extends BaseComponent implements OnInit, AfterContentInit
      */
     @Input({ transform: booleanAttribute }) ariaRequired: boolean | undefined;
     /**
-     * When present, it specifies that the element value cannot be altered.
-     * @group Props
-     */
-    @Input({ transform: booleanAttribute }) disabled: boolean | undefined;
-    /**
      * When present, it specifies that an input field is read-only.
      * @group Props
      */
@@ -212,16 +194,6 @@ export class InputMask extends BaseComponent implements OnInit, AfterContentInit
      */
     @Input({ transform: booleanAttribute }) unmask: boolean | undefined;
     /**
-     * Name of the input field.
-     * @group Props
-     */
-    @Input() name: string | undefined;
-    /**
-     * When present, it specifies that an input field must be filled out before submitting the form.
-     * @group Props
-     */
-    @Input({ transform: booleanAttribute }) required: boolean | undefined;
-    /**
      * Regex pattern for alpha characters
      * @group Props
      */
@@ -231,15 +203,6 @@ export class InputMask extends BaseComponent implements OnInit, AfterContentInit
      * @group Props
      */
     @Input({ transform: booleanAttribute }) autofocus: boolean | undefined;
-    /**
-     * When present, the input gets a focus automatically on load.
-     * @group Props
-     * @deprecated Use autofocus property instead.
-     */
-    @Input({ transform: booleanAttribute }) set autoFocus(value: boolean | undefined) {
-        this.autofocus = value;
-        console.log('autoFocus is deprecated. Use autofocus property instead.');
-    }
     /**
      * Used to define a string that autocomplete attribute the current element.
      * @group Props
@@ -312,13 +275,7 @@ export class InputMask extends BaseComponent implements OnInit, AfterContentInit
 
     _mask: Nullable<string>;
 
-    onModelChange: Function = () => {};
-
-    onModelTouched: Function = () => {};
-
     input: Nullable<HTMLInputElement>;
-
-    filled: Nullable<boolean>;
 
     defs: Nullable<{ [klass: string]: any }>;
 
@@ -345,10 +302,6 @@ export class InputMask extends BaseComponent implements OnInit, AfterContentInit
     androidChrome: boolean = true;
 
     focused: Nullable<boolean>;
-
-    get inputClass() {
-        return this._componentStyle.classes.root({ instance: this });
-    }
 
     _componentStyle = inject(InputMaskStyle);
 
@@ -413,32 +366,6 @@ export class InputMask extends BaseComponent implements OnInit, AfterContentInit
             }
         }
         this.defaultBuffer = this.buffer.join('');
-    }
-
-    writeValue(value: any): void {
-        this.value = value;
-
-        if (this.inputViewChild && this.inputViewChild.nativeElement) {
-            if (this.value == undefined || this.value == null) this.inputViewChild.nativeElement.value = '';
-            else this.inputViewChild.nativeElement.value = this.value;
-
-            this.checkVal();
-            this.focusText = this.inputViewChild.nativeElement.value;
-            this.updateFilledState();
-        }
-    }
-
-    registerOnChange(fn: Function): void {
-        this.onModelChange = fn;
-    }
-
-    registerOnTouched(fn: Function): void {
-        this.onModelTouched = fn;
-    }
-
-    setDisabledState(val: boolean): void {
-        this.disabled = val;
-        this.cd.markForCheck();
     }
 
     caret(first?: number, last?: number): Caret | undefined {
@@ -580,10 +507,9 @@ export class InputMask extends BaseComponent implements OnInit, AfterContentInit
         if (!this.keepBuffer) {
             this.checkVal();
         }
-        this.updateFilledState();
         this.onBlur.emit(e);
 
-        if (this.inputViewChild?.nativeElement.value != this.focusText || this.inputViewChild?.nativeElement.value != this.value) {
+        if (this.modelValue() != this.focusText || this.modelValue() != this.value) {
             this.updateModel(e);
             let event = this.document.createEvent('HTMLEvents');
             event.initEvent('change', true, false);
@@ -695,8 +621,6 @@ export class InputMask extends BaseComponent implements OnInit, AfterContentInit
         }
 
         this.updateModel(e);
-
-        this.updateFilledState();
 
         if (completed) {
             this.onComplete.emit();
@@ -839,13 +763,9 @@ export class InputMask extends BaseComponent implements OnInit, AfterContentInit
         const updatedValue = this.unmask ? this.getUnmaskedValue() : (e.target as HTMLInputElement).value;
         if (updatedValue !== null || updatedValue !== undefined) {
             this.value = updatedValue;
+            this.writeModelValue(this.value);
             this.onModelChange(this.value);
         }
-    }
-
-    updateFilledState() {
-        this.filled = this.inputViewChild?.nativeElement && this.inputViewChild.nativeElement.value != '';
-        this.cd.markForCheck();
     }
 
     focus() {
@@ -857,6 +777,25 @@ export class InputMask extends BaseComponent implements OnInit, AfterContentInit
         this.value = null;
         this.onModelChange(this.value);
         this.onClear.emit();
+    }
+
+    /**
+     * @override
+     *
+     * @see {@link BaseEditableHolder.writeControlValue}
+     * Writes the value to the control.
+     */
+    writeControlValue(value: any, setModelValue: (value: any) => void): void {
+        this.value = value;
+        setModelValue(this.value);
+
+        if (this.inputViewChild && this.inputViewChild.nativeElement) {
+            if (this.value == undefined || this.value == null) this.inputViewChild.nativeElement.value = '';
+            else this.inputViewChild.nativeElement.value = this.value;
+
+            this.checkVal();
+            this.focusText = this.inputViewChild.nativeElement.value;
+        }
     }
 }
 

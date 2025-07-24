@@ -1,8 +1,7 @@
-import { AfterViewInit, booleanAttribute, Directive, DoCheck, HostListener, inject, Input, NgModule, Optional } from '@angular/core';
-import { NgModel } from '@angular/forms';
-import { isEmpty } from '@primeuix/utils';
-import { BaseComponent } from 'primeng/basecomponent';
-import { Nullable } from 'primeng/ts-helpers';
+import { AfterViewInit, booleanAttribute, computed, Directive, DoCheck, HostListener, inject, input, Input, NgModule } from '@angular/core';
+import { NgControl } from '@angular/forms';
+import { BaseModelHolder } from 'primeng/basemodelholder';
+import { Fluid } from 'primeng/fluid';
 import { InputTextStyle } from './style/inputtextstyle';
 
 /**
@@ -13,66 +12,60 @@ import { InputTextStyle } from './style/inputtextstyle';
     selector: '[pInputText]',
     standalone: true,
     host: {
-        class: 'p-inputtext p-component',
-        '[class.p-filled]': 'filled',
-        '[class.p-variant-filled]': '(variant ?? (config.inputStyle() || config.inputVariant())) === "filled"',
-        '[class.p-inputtext-fluid]': 'hasFluid',
-        '[class.p-inputtext-sm]': 'pSize === "small"',
-        '[class.p-inputfield-sm]': 'pSize === "small"',
-        '[class.p-inputtext-lg]': 'pSize === "large"',
-        '[class.p-inputfield-lg]': 'pSize === "large"'
+        '[class]': "cx('root')"
     },
     providers: [InputTextStyle]
 })
-export class InputText extends BaseComponent implements DoCheck, AfterViewInit {
-    /**
-     * Specifies the input variant of the component.
-     * @group Props
-     */
-    @Input() variant: 'filled' | 'outlined';
-    /**
-     * Spans 100% width of the container when enabled.
-     * @group Props
-     */
-    @Input({ transform: booleanAttribute }) fluid: boolean | undefined;
+export class InputText extends BaseModelHolder implements DoCheck, AfterViewInit {
+    ngControl = inject(NgControl, { optional: true, self: true });
+
+    pcFluid: Fluid = inject(Fluid, { optional: true, host: true, skipSelf: true });
+
     /**
      * Defines the size of the component.
      * @group Props
      */
     @Input('pSize') pSize: 'large' | 'small';
+    /**
+     * Specifies the input variant of the component.
+     * @defaultValue undefined
+     * @group Props
+     */
+    variant = input<'filled' | 'outlined' | undefined>();
+    /**
+     * Spans 100% width of the container when enabled.
+     * @defaultValue undefined
+     * @group Props
+     */
+    fluid = input(undefined, { transform: booleanAttribute });
+    /**
+     * When present, it specifies that the component should have invalid state style.
+     * @defaultValue false
+     * @group Props
+     */
+    invalid = input(undefined, { transform: booleanAttribute });
 
-    filled: Nullable<boolean>;
+    $variant = computed(() => this.variant() || this.config.inputStyle() || this.config.inputVariant());
 
     _componentStyle = inject(InputTextStyle);
 
-    get hasFluid() {
-        const nativeElement = this.el.nativeElement;
-        const fluidComponent = nativeElement.closest('p-fluid');
-
-        return isEmpty(this.fluid) ? !!fluidComponent : this.fluid;
-    }
-
-    constructor(@Optional() public ngModel: NgModel) {
-        super();
-    }
-
     ngAfterViewInit() {
         super.ngAfterViewInit();
-        this.updateFilledState();
+        this.writeModelValue(this.ngControl?.value ?? this.el.nativeElement.value);
         this.cd.detectChanges();
     }
 
     ngDoCheck() {
-        this.updateFilledState();
+        this.writeModelValue(this.ngControl?.value ?? this.el.nativeElement.value);
     }
 
     @HostListener('input', ['$event'])
     onInput() {
-        this.updateFilledState();
+        this.writeModelValue(this.ngControl?.value ?? this.el.nativeElement.value);
     }
 
-    updateFilledState() {
-        this.filled = (this.el.nativeElement.value && this.el.nativeElement.value.length) || (this.ngModel && this.ngModel.model);
+    get hasFluid() {
+        return this.fluid() ?? !!this.pcFluid;
     }
 }
 

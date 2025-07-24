@@ -1,6 +1,6 @@
 {
-    "id": 92,
-    "content": "Introducing the all-new Theme Designer! 🚀",
+    "id": 95,
+    "content": "PrimeNG v20.0.0 has arrived! 🛩️",
     "linkText": "Learn More",
-    "routerLink": "/designer"
+    "routerLink": "/migration/v20"
 }

@@ -14,7 +14,7 @@ import { Component } from '@angular/core';
             </p>
         </app-docsectiontext>
         <div class="card flex justify-center">
-            <p-treeselect class="md:w-80 w-full" containerStyleClass="w-full" [(ngModel)]="selectedNodes" [options]="nodes" placeholder="Select Item" [filter]="true" [filterInputAutoFocus]="true" />
+            <p-treeselect class="md:w-80 w-full" [(ngModel)]="selectedNodes" [options]="nodes" placeholder="Select Item" [filter]="true" [filterInputAutoFocus]="true" />
         </div>
         <app-code [code]="code" selector="tree-select-filter-demo"></app-code>
     `
@@ -29,10 +29,10 @@ export class FilterDoc {
     }
 
     code: Code = {
-        basic: `<p-treeselect class="md:w-80 w-full" containerStyleClass="w-full" [(ngModel)]="selectedNodes" [options]="nodes" placeholder="Select Item" [filter]="true" [filterInputAutoFocus]="true" />`,
+        basic: `<p-treeselect class="md:w-80 w-full" [(ngModel)]="selectedNodes" [options]="nodes" placeholder="Select Item" [filter]="true" [filterInputAutoFocus]="true" />`,
 
         html: `<div class="card flex justify-center">
-    <p-treeselect class="md:w-80 w-full" containerStyleClass="w-full" [(ngModel)]="selectedNodes" [options]="nodes"placeholder="Select Item" [filter]="true" [filterInputAutoFocus]="true" />
+    <p-treeselect class="md:w-80 w-full" [(ngModel)]="selectedNodes" [options]="nodes"placeholder="Select Item" [filter]="true" [filterInputAutoFocus]="true" />
 </div>`,
 
         typescript: `import { Component } from '@angular/core';

@@ -1,6 +1,6 @@
 import { DOCUMENT } from '@angular/common';
 import { Injectable, inject } from '@angular/core';
-import { setAttribute, setAttributes } from '@primeuix/utils';
+import { setAttributes } from '@primeuix/utils';
 
 let _id = 0;
 
@@ -20,16 +20,16 @@ export class UseStyle {
 
         if (!styleRef.isConnected) {
             cssRef = css;
-            setAttributes(styleRef, {
-                type: 'text/css',
-                media,
-                nonce
-            });
 
             const HEAD = this.document.head;
 
             first && HEAD.firstChild ? HEAD.insertBefore(styleRef, HEAD.firstChild) : HEAD.appendChild(styleRef);
-            setAttribute(styleRef, 'data-primeng-style-id', name);
+            setAttributes(styleRef, {
+                type: 'text/css',
+                media,
+                nonce,
+                'data-primeng-style-id': name
+            });
         }
 
         if (styleRef.textContent !== cssRef) {

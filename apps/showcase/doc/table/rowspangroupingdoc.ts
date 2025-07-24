@@ -20,7 +20,6 @@ import { ChangeDetectionStrategy, ChangeDetectorRef, Component } from '@angular/
                             <th>Country</th>
                             <th>Company</th>
                             <th>Status</th>
-                            <th>Date</th>
                         </tr>
                     </ng-template>
                     <ng-template #body let-customer let-rowIndex="rowIndex" let-rowgroup="rowgroup" let-rowspan="rowspan">
@@ -113,7 +112,6 @@ export class RowspanGroupingDoc {
             <th>Country</th>
             <th>Company</th>
             <th>Status</th>
-            <th>Date</th>
         </tr>
     </ng-template>
     <ng-template #body let-customer let-rowIndex="rowIndex" let-rowgroup="rowgroup" let-rowspan="rowspan">
@@ -153,7 +151,6 @@ export class RowspanGroupingDoc {
                 <th>Country</th>
                 <th>Company</th>
                 <th>Status</th>
-                <th>Date</th>
             </tr>
         </ng-template>
         <ng-template #body let-customer let-rowIndex="rowIndex" let-rowgroup="rowgroup" let-rowspan="rowspan">

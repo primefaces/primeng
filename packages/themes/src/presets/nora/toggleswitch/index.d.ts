@@ -1,3 +1,2 @@
-import { ToggleSwitchDesignTokens } from '../../types/toggleswitch';
-declare const _default: ToggleSwitchDesignTokens;
-export default _default;
+export * from '@primeuix/themes/nora/toggleswitch';
+export { default } from '@primeuix/themes/nora/toggleswitch';

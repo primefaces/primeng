@@ -9,6 +9,7 @@ import {
     EventEmitter,
     forwardRef,
     inject,
+    input,
     Input,
     NgModule,
     numberAttribute,
@@ -17,10 +18,10 @@ import {
     TemplateRef,
     ViewEncapsulation
 } from '@angular/core';
-import { ControlValueAccessor, FormsModule, NG_VALUE_ACCESSOR } from '@angular/forms';
+import { FormsModule, NG_VALUE_ACCESSOR } from '@angular/forms';
 import { equals, resolveFieldData } from '@primeuix/utils';
 import { PrimeTemplate, SharedModule } from 'primeng/api';
-import { BaseComponent } from 'primeng/basecomponent';
+import { BaseEditableHolder } from 'primeng/baseeditableholder';
 import { ToggleButton } from 'primeng/togglebutton';
 import { SelectButtonChangeEvent, SelectButtonOptionClickEvent } from './selectbutton.interface';
 import { SelectButtonStyle } from './style/selectbuttonstyle';
@@ -40,39 +41,38 @@ export const SELECTBUTTON_VALUE_ACCESSOR: any = {
     imports: [ToggleButton, FormsModule, CommonModule, SharedModule],
     template: `
         @for (option of options; track getOptionLabel(option); let i = $index) {
-            <p-toggleButton
+            <p-togglebutton
                 [autofocus]="autofocus"
                 [styleClass]="styleClass"
                 [ngModel]="isSelected(option)"
                 [onLabel]="this.getOptionLabel(option)"
                 [offLabel]="this.getOptionLabel(option)"
-                [disabled]="disabled || isOptionDisabled(option)"
+                [disabled]="$disabled() || isOptionDisabled(option)"
                 (onChange)="onOptionSelect($event, option, i)"
                 [allowEmpty]="getAllowEmpty()"
-                [size]="size"
+                [size]="size()"
+                [fluid]="fluid()"
             >
                 @if (itemTemplate || _itemTemplate) {
                     <ng-template #content>
                         <ng-container *ngTemplateOutlet="itemTemplate || _itemTemplate; context: { $implicit: option, index: i }"></ng-container>
                     </ng-template>
                 }
-            </p-toggleButton>
+            </p-togglebutton>
         }
     `,
     providers: [SELECTBUTTON_VALUE_ACCESSOR, SelectButtonStyle],
     changeDetection: ChangeDetectionStrategy.OnPush,
     encapsulation: ViewEncapsulation.None,
     host: {
-        '[class.p-selectbutton]': 'true',
-        '[class.p-component]': 'true',
-        '[style]': 'style',
+        '[class]': "cx('root')",
         '[attr.role]': '"group"',
         '[attr.aria-labelledby]': 'ariaLabelledBy',
-        '[attr.data-pc-section]': "'root'",
-        '[attr.data-pc-name]': "'selectbutton'"
+        '[attr.data-pc-section]': '"root"',
+        '[attr.data-pc-name]': '"selectbutton"'
     }
 })
-export class SelectButton extends BaseComponent implements AfterContentInit, ControlValueAccessor {
+export class SelectButton extends BaseEditableHolder implements AfterContentInit {
     /**
      * An array of selectitems to display as the available options.
      * @group Props
@@ -124,11 +124,6 @@ export class SelectButton extends BaseComponent implements AfterContentInit, Con
      */
     @Input({ transform: booleanAttribute }) allowEmpty: boolean = true;
     /**
-     * Inline style of the component.
-     * @group Props
-     */
-    @Input() style: any;
-    /**
      * Style class of the component.
      * @group Props
      */
@@ -139,16 +134,6 @@ export class SelectButton extends BaseComponent implements AfterContentInit, Con
      */
     @Input() ariaLabelledBy: string | undefined;
     /**
-     * Defines the size of the component.
-     * @group Props
-     */
-    @Input() size: 'large' | 'small';
-    /**
-     * When present, it specifies that the element should be disabled.
-     * @group Props
-     */
-    @Input({ transform: booleanAttribute }) disabled: boolean | undefined;
-    /**
      * A property to uniquely identify a value in options.
      * @group Props
      */
@@ -158,6 +143,18 @@ export class SelectButton extends BaseComponent implements AfterContentInit, Con
      * @group Props
      */
     @Input({ transform: booleanAttribute }) autofocus: boolean | undefined;
+    /**
+     * Specifies the size of the component.
+     * @defaultValue undefined
+     * @group Props
+     */
+    size = input<'large' | 'small' | undefined>();
+    /**
+     * Spans 100% width of the container when enabled.
+     * @defaultValue undefined
+     * @group Props
+     */
+    fluid = input(undefined, { transform: booleanAttribute });
     /**
      * Callback to invoke on input click.
      * @param {SelectButtonOptionClickEvent} event - Custom click event.
@@ -184,10 +181,6 @@ export class SelectButton extends BaseComponent implements AfterContentInit, Con
 
     value: any;
 
-    onModelChange: Function = () => {};
-
-    onModelTouched: Function = () => {};
-
     focusedIndex: number = 0;
 
     _componentStyle = inject(SelectButtonStyle);
@@ -211,26 +204,8 @@ export class SelectButton extends BaseComponent implements AfterContentInit, Con
         return this.optionDisabled ? resolveFieldData(option, this.optionDisabled) : option.disabled !== undefined ? option.disabled : false;
     }
 
-    writeValue(value: any): void {
-        this.value = value;
-        this.cd.markForCheck();
-    }
-
-    registerOnChange(fn: Function): void {
-        this.onModelChange = fn;
-    }
-
-    registerOnTouched(fn: Function): void {
-        this.onModelTouched = fn;
-    }
-
-    setDisabledState(val: boolean): void {
-        this.disabled = val;
-        this.cd.markForCheck();
-    }
-
     onOptionSelect(event, option, index) {
-        if (this.disabled || this.isOptionDisabled(option)) {
+        if (this.$disabled() || this.isOptionDisabled(option)) {
             return;
         }
 
@@ -255,6 +230,7 @@ export class SelectButton extends BaseComponent implements AfterContentInit, Con
 
         this.focusedIndex = index;
         this.value = newValue;
+        this.writeModelValue(this.value);
         this.onModelChange(this.value);
 
         this.onChange.emit({
@@ -330,6 +306,18 @@ export class SelectButton extends BaseComponent implements AfterContentInit, Con
                     break;
             }
         });
+    }
+
+    /**
+     * @override
+     *
+     * @see {@link BaseEditableHolder.writeControlValue}
+     * Writes the value to the control.
+     */
+    writeControlValue(value: any, setModelValue: (value: any) => void): void {
+        this.value = value;
+        setModelValue(this.value);
+        this.cd.markForCheck();
     }
 }
 

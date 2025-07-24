@@ -6,12 +6,14 @@ import {
     booleanAttribute,
     ChangeDetectionStrategy,
     Component,
+    computed,
     ContentChild,
     ContentChildren,
     ElementRef,
     EventEmitter,
     forwardRef,
     inject,
+    input,
     Input,
     NgModule,
     NgZone,
@@ -24,32 +26,13 @@ import {
     ViewChild,
     ViewEncapsulation
 } from '@angular/core';
-import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
-import {
-    absolutePosition,
-    addClass,
-    addStyle,
-    appendChild,
-    blockBodyScroll,
-    find,
-    findSingle,
-    getFocusableElements,
-    getIndex,
-    getOuterWidth,
-    hasClass,
-    isDate,
-    isNotEmpty,
-    isTouchDevice,
-    relativePosition,
-    setAttribute,
-    unblockBodyScroll,
-    uuid
-} from '@primeuix/utils';
+import { NG_VALUE_ACCESSOR } from '@angular/forms';
+import { absolutePosition, addClass, addStyle, appendChild, find, findSingle, getFocusableElements, getIndex, getOuterWidth, hasClass, isDate, isNotEmpty, isTouchDevice, relativePosition, setAttribute, uuid } from '@primeuix/utils';
 import { OverlayService, PrimeTemplate, SharedModule, TranslationKeys } from 'primeng/api';
 import { AutoFocus } from 'primeng/autofocus';
-import { BaseComponent } from 'primeng/basecomponent';
+import { BaseInput } from 'primeng/baseinput';
 import { Button } from 'primeng/button';
-import { ConnectedOverlayScrollHandler } from 'primeng/dom';
+import { blockBodyScroll, ConnectedOverlayScrollHandler, unblockBodyScroll } from 'primeng/dom';
 import { CalendarIcon, ChevronDownIcon, ChevronLeftIcon, ChevronRightIcon, ChevronUpIcon, TimesIcon } from 'primeng/icons';
 import { InputText } from 'primeng/inputtext';
 import { Ripple } from 'primeng/ripple';
@@ -73,432 +56,421 @@ export const DATEPICKER_VALUE_ACCESSOR: any = {
     standalone: true,
     imports: [CommonModule, Button, Ripple, ChevronLeftIcon, ChevronRightIcon, ChevronUpIcon, ChevronDownIcon, TimesIcon, CalendarIcon, AutoFocus, InputText, SharedModule],
     template: `
-        <span #container [ngClass]="rootClass" [ngStyle]="style" [class]="styleClass">
-            <ng-template [ngIf]="!inline">
-                <input
-                    #inputfield
-                    pInputText
-                    [pSize]="size"
-                    type="text"
-                    role="combobox"
-                    [attr.id]="inputId"
-                    [attr.name]="name"
-                    [attr.required]="required"
-                    [attr.aria-required]="required"
-                    aria-autocomplete="none"
-                    aria-haspopup="dialog"
-                    [attr.aria-expanded]="overlayVisible ?? false"
-                    [attr.aria-controls]="overlayVisible ? panelId : null"
-                    [attr.aria-labelledby]="ariaLabelledBy"
-                    [attr.aria-label]="ariaLabel"
-                    [value]="inputFieldValue"
-                    (focus)="onInputFocus($event)"
-                    (keydown)="onInputKeydown($event)"
-                    (click)="onInputClick()"
-                    (blur)="onInputBlur($event)"
-                    [readonly]="readonlyInput"
-                    (input)="onUserInput($event)"
-                    [ngStyle]="inputStyle"
-                    [class]="inputStyleClass"
-                    [ngClass]="'p-datepicker-input'"
-                    [placeholder]="placeholder || ''"
-                    [disabled]="disabled"
-                    [attr.tabindex]="tabindex"
-                    [attr.inputmode]="touchUI ? 'off' : null"
-                    autocomplete="off"
-                    [pAutoFocus]="autofocus"
-                    [variant]="variant"
-                    [fluid]="hasFluid"
-                />
-                <ng-container *ngIf="showClear && !disabled && value != null">
-                    <TimesIcon *ngIf="!clearIconTemplate && !_clearIconTemplate" [class]="'p-datepicker-clear-icon'" (click)="clear()" />
-                    <span *ngIf="clearIconTemplate || _clearIconTemplate" class="p-datepicker-clear-icon" (click)="clear()">
-                        <ng-template *ngTemplateOutlet="clearIconTemplate || _clearIconTemplate"></ng-template>
-                    </span>
-                </ng-container>
-                <button
-                    type="button"
-                    [attr.aria-label]="iconButtonAriaLabel"
-                    aria-haspopup="dialog"
-                    [attr.aria-expanded]="overlayVisible ?? false"
-                    [attr.aria-controls]="overlayVisible ? panelId : null"
-                    *ngIf="showIcon && iconDisplay === 'button'"
-                    (click)="onButtonClick($event, inputfield)"
-                    class="p-datepicker-dropdown"
-                    [disabled]="disabled"
-                    tabindex="0"
-                >
-                    <span *ngIf="icon" [ngClass]="icon"></span>
-                    <ng-container *ngIf="!icon">
-                        <CalendarIcon *ngIf="!triggerIconTemplate && !_triggerIconTemplate" />
-                        <ng-template *ngTemplateOutlet="triggerIconTemplate || _triggerIconTemplate"></ng-template>
-                    </ng-container>
-                </button>
-                <ng-container *ngIf="iconDisplay === 'input' && showIcon">
-                    <span class="p-datepicker-input-icon-container">
-                        <CalendarIcon
-                            (click)="onButtonClick($event)"
-                            *ngIf="!inputIconTemplate && !_inputIconTemplate"
-                            [ngClass]="{
-                                'p-datepicker-input-icon': showOnFocus
-                            }"
-                        />
-
-                        <ng-container *ngTemplateOutlet="inputIconTemplate || _inputIconTemplate; context: { clickCallBack: onButtonClick.bind(this) }"></ng-container>
-                    </span>
-                </ng-container>
-            </ng-template>
-            <div
-                #contentWrapper
-                [attr.id]="panelId"
-                [class]="panelStyleClass"
-                [ngStyle]="panelStyle"
-                [ngClass]="panelClass"
-                [@overlayAnimation]="{
-                    value: 'visible',
-                    params: { showTransitionParams: showTransitionOptions, hideTransitionParams: hideTransitionOptions }
-                }"
-                [attr.aria-label]="getTranslation('chooseDate')"
-                [attr.role]="inline ? null : 'dialog'"
-                [attr.aria-modal]="inline ? null : 'true'"
-                [@.disabled]="inline === true"
-                (@overlayAnimation.start)="onOverlayAnimationStart($event)"
-                (@overlayAnimation.done)="onOverlayAnimationDone($event)"
-                (click)="onOverlayClick($event)"
-                *ngIf="inline || overlayVisible"
+        <ng-template [ngIf]="!inline">
+            <input
+                #inputfield
+                pInputText
+                [pSize]="size()"
+                [attr.size]="inputSize()"
+                type="text"
+                role="combobox"
+                [attr.id]="inputId"
+                [attr.name]="name()"
+                [attr.aria-required]="required()"
+                aria-autocomplete="none"
+                aria-haspopup="dialog"
+                [attr.aria-expanded]="overlayVisible ?? false"
+                [attr.aria-controls]="overlayVisible ? panelId : null"
+                [attr.aria-labelledby]="ariaLabelledBy"
+                [attr.aria-label]="ariaLabel"
+                [value]="inputFieldValue"
+                (focus)="onInputFocus($event)"
+                (keydown)="onInputKeydown($event)"
+                (click)="onInputClick()"
+                (blur)="onInputBlur($event)"
+                [attr.required]="required() ? '' : undefined"
+                [attr.readonly]="readonlyInput ? '' : undefined"
+                [attr.disabled]="$disabled() ? '' : undefined"
+                (input)="onUserInput($event)"
+                [ngStyle]="inputStyle"
+                [class]="cn(cx('pcInputText'), inputStyleClass)"
+                [attr.placeholder]="placeholder"
+                [attr.tabindex]="tabindex"
+                [attr.inputmode]="touchUI ? 'off' : null"
+                autocomplete="off"
+                [pAutoFocus]="autofocus"
+                [variant]="$variant()"
+                [fluid]="hasFluid"
+                [invalid]="invalid()"
+            />
+            <ng-container *ngIf="showClear && !$disabled() && value != null">
+                <svg data-p-icon="times" *ngIf="!clearIconTemplate && !_clearIconTemplate" [class]="cx('clearIcon')" (click)="clear()" />
+                <span *ngIf="clearIconTemplate || _clearIconTemplate" [class]="cx('clearIcon')" (click)="clear()">
+                    <ng-template *ngTemplateOutlet="clearIconTemplate || _clearIconTemplate"></ng-template>
+                </span>
+            </ng-container>
+            <button
+                type="button"
+                [attr.aria-label]="iconButtonAriaLabel"
+                aria-haspopup="dialog"
+                [attr.aria-expanded]="overlayVisible ?? false"
+                [attr.aria-controls]="overlayVisible ? panelId : null"
+                *ngIf="showIcon && iconDisplay === 'button'"
+                (click)="onButtonClick($event, inputfield)"
+                [class]="cx('dropdown')"
+                [disabled]="$disabled()"
+                tabindex="0"
             >
-                <ng-content select="p-header"></ng-content>
-                <ng-container *ngTemplateOutlet="headerTemplate || _headerTemplate"></ng-container>
-                <ng-container *ngIf="!timeOnly">
-                    <div class="p-datepicker-calendar-container">
-                        <div class="p-datepicker-calendar" *ngFor="let month of months; let i = index">
-                            <div class="p-datepicker-header">
-                                <p-button
-                                    size="small"
-                                    rounded
-                                    text
-                                    (keydown)="onContainerButtonKeydown($event)"
-                                    styleClass="p-datepicker-prev-button p-button-icon-only"
-                                    (onClick)="onPrevButtonClick($event)"
-                                    [ngStyle]="{ visibility: i === 0 ? 'visible' : 'hidden' }"
-                                    type="button"
-                                    [ariaLabel]="prevIconAriaLabel"
-                                >
-                                    <ChevronLeftIcon *ngIf="!previousIconTemplate && !_previousIconTemplate" />
+                <span *ngIf="icon" [ngClass]="icon"></span>
+                <ng-container *ngIf="!icon">
+                    <svg data-p-icon="calendar" *ngIf="!triggerIconTemplate && !_triggerIconTemplate" />
+                    <ng-template *ngTemplateOutlet="triggerIconTemplate || _triggerIconTemplate"></ng-template>
+                </ng-container>
+            </button>
+            <ng-container *ngIf="iconDisplay === 'input' && showIcon">
+                <span [class]="cx('inputIconContainer')">
+                    <svg data-p-icon="calendar" (click)="onButtonClick($event)" *ngIf="!inputIconTemplate && !_inputIconTemplate" [class]="cx('inputIcon')" />
+
+                    <ng-container *ngTemplateOutlet="inputIconTemplate || _inputIconTemplate; context: { clickCallBack: onButtonClick.bind(this) }"></ng-container>
+                </span>
+            </ng-container>
+        </ng-template>
+        <div
+            #contentWrapper
+            [attr.id]="panelId"
+            [ngStyle]="panelStyle"
+            [class]="cn(cx('panel'), panelStyleClass)"
+            [@overlayAnimation]="{
+                value: 'visible',
+                params: { showTransitionParams: showTransitionOptions, hideTransitionParams: hideTransitionOptions }
+            }"
+            [attr.aria-label]="getTranslation('chooseDate')"
+            [attr.role]="inline ? null : 'dialog'"
+            [attr.aria-modal]="inline ? null : 'true'"
+            [@.disabled]="inline === true"
+            (@overlayAnimation.start)="onOverlayAnimationStart($event)"
+            (@overlayAnimation.done)="onOverlayAnimationDone($event)"
+            (click)="onOverlayClick($event)"
+            *ngIf="inline || overlayVisible"
+        >
+            <ng-content select="p-header"></ng-content>
+            <ng-container *ngTemplateOutlet="headerTemplate || _headerTemplate"></ng-container>
+            <ng-container *ngIf="!timeOnly">
+                <div [class]="cx('calendarContainer')">
+                    <div [class]="cx('calendar')" *ngFor="let month of months; let i = index">
+                        <div [class]="cx('header')">
+                            <p-button
+                                rounded
+                                variant="text"
+                                severity="secondary"
+                                (keydown)="onContainerButtonKeydown($event)"
+                                [styleClass]="cx('pcPrevButton')"
+                                (onClick)="onPrevButtonClick($event)"
+                                [ngStyle]="{ visibility: i === 0 ? 'visible' : 'hidden' }"
+                                type="button"
+                                [ariaLabel]="prevIconAriaLabel"
+                            >
+                                <ng-template #icon>
+                                    <svg data-p-icon="chevron-left" *ngIf="!previousIconTemplate && !_previousIconTemplate" />
                                     <span *ngIf="previousIconTemplate || _previousIconTemplate">
                                         <ng-template *ngTemplateOutlet="previousIconTemplate || _previousIconTemplate"></ng-template>
                                     </span>
-                                </p-button>
-                                <div class="p-datepicker-title">
-                                    <button
-                                        *ngIf="currentView === 'date'"
-                                        type="button"
-                                        (click)="switchToMonthView($event)"
-                                        (keydown)="onContainerButtonKeydown($event)"
-                                        class="p-datepicker-select-month"
-                                        [disabled]="switchViewButtonDisabled()"
-                                        [attr.aria-label]="this.getTranslation('chooseMonth')"
-                                        pRipple
-                                    >
-                                        {{ getMonthName(month.month) }}
-                                    </button>
-                                    <button
-                                        *ngIf="currentView !== 'year'"
-                                        type="button"
-                                        (click)="switchToYearView($event)"
-                                        (keydown)="onContainerButtonKeydown($event)"
-                                        class="p-datepicker-select-year"
-                                        [disabled]="switchViewButtonDisabled()"
-                                        [attr.aria-label]="getTranslation('chooseYear')"
-                                        pRipple
-                                    >
-                                        {{ getYear(month) }}
-                                    </button>
-                                    <span class="p-datepicker-decade" *ngIf="currentView === 'year'">
-                                        <ng-container *ngIf="!decadeTemplate && !_decadeTemplate">{{ yearPickerValues()[0] }} - {{ yearPickerValues()[yearPickerValues().length - 1] }}</ng-container>
-                                        <ng-container *ngTemplateOutlet="decadeTemplate || _decadeTemplate; context: { $implicit: yearPickerValues }"></ng-container>
-                                    </span>
-                                </div>
-                                <p-button
-                                    rounded
-                                    text
-                                    size="small"
+                                </ng-template>
+                            </p-button>
+                            <div [class]="cx('title')">
+                                <button
+                                    *ngIf="currentView === 'date'"
+                                    type="button"
+                                    (click)="switchToMonthView($event)"
                                     (keydown)="onContainerButtonKeydown($event)"
-                                    styleClass="p-datepicker-next-button p-button-icon-only"
-                                    (onClick)="onNextButtonClick($event)"
-                                    [ngStyle]="{ visibility: i === months.length - 1 ? 'visible' : 'hidden' }"
-                                    [ariaLabel]="nextIconAriaLabel"
+                                    [class]="cx('selectMonth')"
+                                    [attr.disabled]="switchViewButtonDisabled() ? '' : undefined"
+                                    [attr.aria-label]="this.getTranslation('chooseMonth')"
+                                    pRipple
                                 >
-                                    <ChevronRightIcon *ngIf="!nextIconTemplate && !_nextIconTemplate" />
-
-                                    <span *ngIf="nextIconTemplate || _nextIconTemplate">
+                                    {{ getMonthName(month.month) }}
+                                </button>
+                                <button
+                                    *ngIf="currentView !== 'year'"
+                                    type="button"
+                                    (click)="switchToYearView($event)"
+                                    (keydown)="onContainerButtonKeydown($event)"
+                                    [class]="cx('selectYear')"
+                                    [attr.disabled]="switchViewButtonDisabled() ? '' : undefined"
+                                    [attr.aria-label]="getTranslation('chooseYear')"
+                                    pRipple
+                                >
+                                    {{ getYear(month) }}
+                                </button>
+                                <span [class]="cx('decade')" *ngIf="currentView === 'year'">
+                                    <ng-container *ngIf="!decadeTemplate && !_decadeTemplate">{{ yearPickerValues()[0] }} - {{ yearPickerValues()[yearPickerValues().length - 1] }}</ng-container>
+                                    <ng-container *ngTemplateOutlet="decadeTemplate || _decadeTemplate; context: { $implicit: yearPickerValues }"></ng-container>
+                                </span>
+                            </div>
+                            <p-button
+                                rounded
+                                variant="text"
+                                severity="secondary"
+                                (keydown)="onContainerButtonKeydown($event)"
+                                [styleClass]="cx('pcNextButton')"
+                                (onClick)="onNextButtonClick($event)"
+                                [ngStyle]="{ visibility: i === months.length - 1 ? 'visible' : 'hidden' }"
+                                [ariaLabel]="nextIconAriaLabel"
+                            >
+                                <ng-template #icon>
+                                    <svg data-p-icon="chevron-right" *ngIf="!nextIconTemplate && !_nextIconTemplate" />
+                                    <ng-container *ngIf="nextIconTemplate || _nextIconTemplate">
                                         <ng-template *ngTemplateOutlet="nextIconTemplate || _nextIconTemplate"></ng-template>
-                                    </span>
-                                </p-button>
-                            </div>
-                            <table class="p-datepicker-day-view" role="grid" *ngIf="currentView === 'date'">
-                                <thead>
-                                    <tr>
-                                        <th *ngIf="showWeek" class="p-datepicker-weekheader p-disabled">
-                                            <span>{{ getTranslation('weekHeader') }}</span>
-                                        </th>
-                                        <th class="p-datepicker-weekday-cell" scope="col" *ngFor="let weekDay of weekDays; let begin = first; let end = last">
-                                            <span class="p-datepicker-weekday">{{ weekDay }}</span>
-                                        </th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    <tr *ngFor="let week of month.dates; let j = index">
-                                        <td *ngIf="showWeek" class="p-datepicker-weeknumber">
-                                            <span class="p-datepicker-weeklabel-container p-disabled">
-                                                {{ month.weekNumbers[j] }}
-                                            </span>
-                                        </td>
-                                        <td
-                                            *ngFor="let date of week"
-                                            [attr.aria-label]="date.day"
-                                            [ngClass]="{
-                                                'p-datepicker-day-cell': true,
-                                                'p-datepicker-other-month': date.otherMonth,
-                                                'p-datepicker-today': date.today
-                                            }"
-                                        >
-                                            <ng-container *ngIf="date.otherMonth ? showOtherMonths : true">
-                                                <span
-                                                    [ngClass]="dayClass(date)"
-                                                    (click)="onDateSelect($event, date)"
-                                                    draggable="false"
-                                                    [attr.data-date]="formatDateKey(formatDateMetaToDate(date))"
-                                                    (keydown)="onDateCellKeydown($event, date, i)"
-                                                    pRipple
-                                                >
-                                                    <ng-container *ngIf="!dateTemplate && !_dateTemplate && (date.selectable || (!disabledDateTemplate && !_disabledDateTemplate))">{{ date.day }}</ng-container>
-                                                    <ng-container *ngIf="date.selectable || (!disabledDateTemplate && !_disabledDateTemplate)">
-                                                        <ng-container *ngTemplateOutlet="dateTemplate || _dateTemplate; context: { $implicit: date }"></ng-container>
-                                                    </ng-container>
-                                                    <ng-container *ngIf="!date.selectable">
-                                                        <ng-container *ngTemplateOutlet="disabledDateTemplate || _disabledDateTemplate; context: { $implicit: date }"></ng-container>
-                                                    </ng-container>
-                                                </span>
-                                                <div *ngIf="isSelected(date)" class="p-hidden-accessible" aria-live="polite">
-                                                    {{ date.day }}
-                                                </div>
-                                            </ng-container>
-                                        </td>
-                                    </tr>
-                                </tbody>
-                            </table>
+                                    </ng-container>
+                                </ng-template>
+                            </p-button>
                         </div>
+                        <table [class]="cx('dayView')" role="grid" *ngIf="currentView === 'date'">
+                            <thead>
+                                <tr>
+                                    <th *ngIf="showWeek" [class]="cx('weekHeader')">
+                                        <span>{{ getTranslation('weekHeader') }}</span>
+                                    </th>
+                                    <th [class]="cx('weekDayCell')" scope="col" *ngFor="let weekDay of weekDays; let begin = first; let end = last">
+                                        <span [class]="cx('weekDay')">{{ weekDay }}</span>
+                                    </th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr *ngFor="let week of month.dates; let j = index">
+                                    <td *ngIf="showWeek" [class]="cx('weekNumber')">
+                                        <span [class]="cx('weekLabelContainer')">
+                                            {{ month.weekNumbers[j] }}
+                                        </span>
+                                    </td>
+                                    <td *ngFor="let date of week" [attr.aria-label]="date.day" [class]="cx('dayCell', { date })">
+                                        <ng-container *ngIf="date.otherMonth ? showOtherMonths : true">
+                                            <span [ngClass]="dayClass(date)" (click)="onDateSelect($event, date)" draggable="false" [attr.data-date]="formatDateKey(formatDateMetaToDate(date))" (keydown)="onDateCellKeydown($event, date, i)" pRipple>
+                                                <ng-container *ngIf="!dateTemplate && !_dateTemplate && (date.selectable || (!disabledDateTemplate && !_disabledDateTemplate))">{{ date.day }}</ng-container>
+                                                <ng-container *ngIf="date.selectable || (!disabledDateTemplate && !_disabledDateTemplate)">
+                                                    <ng-container *ngTemplateOutlet="dateTemplate || _dateTemplate; context: { $implicit: date }"></ng-container>
+                                                </ng-container>
+                                                <ng-container *ngIf="!date.selectable">
+                                                    <ng-container *ngTemplateOutlet="disabledDateTemplate || _disabledDateTemplate; context: { $implicit: date }"></ng-container>
+                                                </ng-container>
+                                            </span>
+                                            <div *ngIf="isSelected(date)" class="p-hidden-accessible" aria-live="polite">
+                                                {{ date.day }}
+                                            </div>
+                                        </ng-container>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
                     </div>
-                    <div class="p-datepicker-month-view" *ngIf="currentView === 'month'">
-                        <span
-                            *ngFor="let m of monthPickerValues(); let i = index"
-                            (click)="onMonthSelect($event, i)"
-                            (keydown)="onMonthCellKeydown($event, i)"
-                            [ngClass]="{
-                                'p-datepicker-month': true,
-                                'p-datepicker-month-selected': isMonthSelected(i),
-                                'p-disabled': isMonthDisabled(i)
-                            }"
-                            pRipple
-                        >
+                </div>
+                <div [class]="cx('monthView')" *ngIf="currentView === 'month'">
+                    <span *ngFor="let m of monthPickerValues(); let i = index" (click)="onMonthSelect($event, i)" (keydown)="onMonthCellKeydown($event, i)" [class]="cx('month', { month: m, index: i })" pRipple>
+                        {{ m }}
+                        <div *ngIf="isMonthSelected(i)" class="p-hidden-accessible" aria-live="polite">
                             {{ m }}
-                            <div *ngIf="isMonthSelected(i)" class="p-hidden-accessible" aria-live="polite">
-                                {{ m }}
-                            </div>
-                        </span>
-                    </div>
-                    <div class="p-datepicker-year-view" *ngIf="currentView === 'year'">
-                        <span
-                            *ngFor="let y of yearPickerValues()"
-                            (click)="onYearSelect($event, y)"
-                            (keydown)="onYearCellKeydown($event, y)"
-                            [ngClass]="{
-                                'p-datepicker-year': true,
-                                'p-datepicker-year-selected': isYearSelected(y),
-                                'p-disabled': isYearDisabled(y)
-                            }"
-                            pRipple
-                        >
+                        </div>
+                    </span>
+                </div>
+                <div [class]="cx('yearView')" *ngIf="currentView === 'year'">
+                    <span *ngFor="let y of yearPickerValues()" (click)="onYearSelect($event, y)" (keydown)="onYearCellKeydown($event, y)" [class]="cx('year', { year: y })" pRipple>
+                        {{ y }}
+                        <div *ngIf="isYearSelected(y)" class="p-hidden-accessible" aria-live="polite">
                             {{ y }}
-                            <div *ngIf="isYearSelected(y)" class="p-hidden-accessible" aria-live="polite">
-                                {{ y }}
-                            </div>
-                        </span>
-                    </div>
-                </ng-container>
-                <div class="p-datepicker-time-picker" *ngIf="(showTime || timeOnly) && currentView === 'date'">
-                    <div class="p-datepicker-hour-picker">
-                        <p-button
-                            rounded
-                            text
-                            size="small"
-                            styleClass="p-datepicker-increment-button p-button-icon-only"
-                            (keydown)="onContainerButtonKeydown($event)"
-                            (keydown.enter)="incrementHour($event)"
-                            (keydown.space)="incrementHour($event)"
-                            (mousedown)="onTimePickerElementMouseDown($event, 0, 1)"
-                            (mouseup)="onTimePickerElementMouseUp($event)"
-                            (keyup.enter)="onTimePickerElementMouseUp($event)"
-                            (keyup.space)="onTimePickerElementMouseUp($event)"
-                            (mouseleave)="onTimePickerElementMouseLeave()"
-                            [attr.aria-label]="getTranslation('nextHour')"
-                        >
-                            <ChevronUpIcon *ngIf="!incrementIconTemplate && !_incrementIconTemplate" />
-
-                            <ng-template *ngTemplateOutlet="incrementIconTemplate || _incrementIconTemplate"></ng-template>
-                        </p-button>
-                        <span><ng-container *ngIf="currentHour < 10">0</ng-container>{{ currentHour }}</span>
-                        <p-button
-                            rounded
-                            text
-                            size="small"
-                            styleClass="p-datepicker-increment-button p-button-icon-only"
-                            (keydown)="onContainerButtonKeydown($event)"
-                            (keydown.enter)="decrementHour($event)"
-                            (keydown.space)="decrementHour($event)"
-                            (mousedown)="onTimePickerElementMouseDown($event, 0, -1)"
-                            (mouseup)="onTimePickerElementMouseUp($event)"
-                            (keyup.enter)="onTimePickerElementMouseUp($event)"
-                            (keyup.space)="onTimePickerElementMouseUp($event)"
-                            (mouseleave)="onTimePickerElementMouseLeave()"
-                            [attr.aria-label]="getTranslation('prevHour')"
-                        >
-                            <ChevronDownIcon *ngIf="!decrementIconTemplate && !_decrementIconTemplate" />
-
-                            <ng-template *ngTemplateOutlet="decrementIconTemplate || _decrementIconTemplate"></ng-template>
-                        </p-button>
-                    </div>
-                    <div class="p-datepicker-separator">
-                        <span>{{ timeSeparator }}</span>
-                    </div>
-                    <div class="p-datepicker-minute-picker">
-                        <p-button
-                            rounded
-                            text
-                            size="small"
-                            styleClass="p-datepicker-increment-button p-button-icon-only"
-                            (keydown)="onContainerButtonKeydown($event)"
-                            (keydown.enter)="incrementMinute($event)"
-                            (keydown.space)="incrementMinute($event)"
-                            (mousedown)="onTimePickerElementMouseDown($event, 1, 1)"
-                            (mouseup)="onTimePickerElementMouseUp($event)"
-                            (keyup.enter)="onTimePickerElementMouseUp($event)"
-                            (keyup.space)="onTimePickerElementMouseUp($event)"
-                            (mouseleave)="onTimePickerElementMouseLeave()"
-                            [attr.aria-label]="getTranslation('nextMinute')"
-                        >
-                            <ChevronUpIcon *ngIf="!incrementIconTemplate && !_incrementIconTemplate" />
-
-                            <ng-template *ngTemplateOutlet="incrementIconTemplate || _incrementIconTemplate"></ng-template>
-                        </p-button>
-                        <span><ng-container *ngIf="currentMinute < 10">0</ng-container>{{ currentMinute }}</span>
-                        <p-button
-                            rounded
-                            text
-                            size="small"
-                            styleClass="p-datepicker-increment-button p-button-icon-only"
-                            (keydown)="onContainerButtonKeydown($event)"
-                            (keydown.enter)="decrementMinute($event)"
-                            (keydown.space)="decrementMinute($event)"
-                            (mousedown)="onTimePickerElementMouseDown($event, 1, -1)"
-                            (mouseup)="onTimePickerElementMouseUp($event)"
-                            (keyup.enter)="onTimePickerElementMouseUp($event)"
-                            (keyup.space)="onTimePickerElementMouseUp($event)"
-                            (mouseleave)="onTimePickerElementMouseLeave()"
-                            [attr.aria-label]="getTranslation('prevMinute')"
-                        >
-                            <ChevronDownIcon *ngIf="!decrementIconTemplate && !_decrementIconTemplate" />
-                            <ng-container *ngIf="decrementIconTemplate || _decrementIconTemplate">
-                                <ng-template *ngTemplateOutlet="decrementIconTemplate || _decrementIconTemplate"></ng-template>
-                            </ng-container>
-                        </p-button>
-                    </div>
-                    <div class="p-datepicker-separator" *ngIf="showSeconds">
-                        <span>{{ timeSeparator }}</span>
-                    </div>
-                    <div class="p-datepicker-second-picker" *ngIf="showSeconds">
-                        <p-button
-                            rounded
-                            text
-                            size="small"
-                            styleClass="p-datepicker-increment-button p-button-icon-only"
-                            (keydown)="onContainerButtonKeydown($event)"
-                            (keydown.enter)="incrementSecond($event)"
-                            (keydown.space)="incrementSecond($event)"
-                            (mousedown)="onTimePickerElementMouseDown($event, 2, 1)"
-                            (mouseup)="onTimePickerElementMouseUp($event)"
-                            (keyup.enter)="onTimePickerElementMouseUp($event)"
-                            (keyup.space)="onTimePickerElementMouseUp($event)"
-                            (mouseleave)="onTimePickerElementMouseLeave()"
-                            [attr.aria-label]="getTranslation('nextSecond')"
-                        >
-                            <ChevronUpIcon *ngIf="!incrementIconTemplate && !_incrementIconTemplate" />
-
-                            <ng-template *ngTemplateOutlet="incrementIconTemplate || _incrementIconTemplate"></ng-template>
-                        </p-button>
-                        <span><ng-container *ngIf="currentSecond < 10">0</ng-container>{{ currentSecond }}</span>
-                        <p-button
-                            rounded
-                            text
-                            size="small"
-                            styleClass="p-datepicker-increment-button p-button-icon-only"
-                            (keydown)="onContainerButtonKeydown($event)"
-                            (keydown.enter)="decrementSecond($event)"
-                            (keydown.space)="decrementSecond($event)"
-                            (mousedown)="onTimePickerElementMouseDown($event, 2, -1)"
-                            (mouseup)="onTimePickerElementMouseUp($event)"
-                            (keyup.enter)="onTimePickerElementMouseUp($event)"
-                            (keyup.space)="onTimePickerElementMouseUp($event)"
-                            (mouseleave)="onTimePickerElementMouseLeave()"
-                            [attr.aria-label]="getTranslation('prevSecond')"
-                        >
-                            <ChevronDownIcon *ngIf="!decrementIconTemplate && !_decrementIconTemplate" />
-
-                            <ng-template *ngTemplateOutlet="decrementIconTemplate || _decrementIconTemplate"></ng-template>
-                        </p-button>
-                    </div>
-                    <div class="p-datepicker-separator" *ngIf="hourFormat == '12'">
-                        <span>{{ timeSeparator }}</span>
-                    </div>
-                    <div class="p-datepicker-ampm-picker" *ngIf="hourFormat == '12'">
-                        <p-button
-                            size="small"
-                            text
-                            rounded
-                            styleClass="p-datepicker-increment-button p-button-icon-only"
-                            (keydown)="onContainerButtonKeydown($event)"
-                            (onClick)="toggleAMPM($event)"
-                            (keydown.enter)="toggleAMPM($event)"
-                            [attr.aria-label]="getTranslation('am')"
-                        >
-                            <ChevronUpIcon *ngIf="!incrementIconTemplate && !_incrementIconTemplate" />
-                            <ng-template *ngTemplateOutlet="incrementIconTemplate || _incrementIconTemplate"></ng-template>
-                        </p-button>
-                        <span>{{ pm ? 'PM' : 'AM' }}</span>
-                        <p-button
-                            size="small"
-                            text
-                            rounded
-                            styleClass="p-datepicker-increment-button p-button-icon-only"
-                            (keydown)="onContainerButtonKeydown($event)"
-                            (click)="toggleAMPM($event)"
-                            (keydown.enter)="toggleAMPM($event)"
-                            [attr.aria-label]="getTranslation('pm')"
-                        >
-                            <ChevronDownIcon *ngIf="!decrementIconTemplate && !_decrementIconTemplate" />
-                            <ng-template *ngTemplateOutlet="decrementIconTemplate || _decrementIconTemplate"></ng-template>
-                        </p-button>
-                    </div>
+                        </div>
+                    </span>
                 </div>
-                <div class="p-datepicker-buttonbar" *ngIf="showButtonBar">
-                    <p-button size="small" styleClass="p-datepicker-today-button" [label]="getTranslation('today')" (keydown)="onContainerButtonKeydown($event)" (onClick)="onTodayButtonClick($event)" [ngClass]="todayButtonStyleClass" />
-                    <p-button size="small" styleClass="p-datepicker-clear-button" [label]="getTranslation('clear')" (keydown)="onContainerButtonKeydown($event)" (onClick)="onClearButtonClick($event)" [ngClass]="clearButtonStyleClass" />
+            </ng-container>
+            <div [class]="cx('timePicker')" *ngIf="(showTime || timeOnly) && currentView === 'date'">
+                <div [class]="cx('hourPicker')">
+                    <p-button
+                        rounded
+                        variant="text"
+                        severity="secondary"
+                        [styleClass]="cx('pcIncrementButton')"
+                        (keydown)="onContainerButtonKeydown($event)"
+                        (keydown.enter)="incrementHour($event)"
+                        (keydown.space)="incrementHour($event)"
+                        (mousedown)="onTimePickerElementMouseDown($event, 0, 1)"
+                        (mouseup)="onTimePickerElementMouseUp($event)"
+                        (keyup.enter)="onTimePickerElementMouseUp($event)"
+                        (keyup.space)="onTimePickerElementMouseUp($event)"
+                        (mouseleave)="onTimePickerElementMouseLeave()"
+                        [attr.aria-label]="getTranslation('nextHour')"
+                    >
+                        <ng-template #icon>
+                            <svg data-p-icon="chevron-up" *ngIf="!incrementIconTemplate && !_incrementIconTemplate" />
+                            <ng-template *ngTemplateOutlet="incrementIconTemplate || _incrementIconTemplate"></ng-template>
+                        </ng-template>
+                    </p-button>
+                    <span><ng-container *ngIf="currentHour < 10">0</ng-container>{{ currentHour }}</span>
+                    <p-button
+                        rounded
+                        variant="text"
+                        severity="secondary"
+                        [styleClass]="cx('pcDecrementButton')"
+                        (keydown)="onContainerButtonKeydown($event)"
+                        (keydown.enter)="decrementHour($event)"
+                        (keydown.space)="decrementHour($event)"
+                        (mousedown)="onTimePickerElementMouseDown($event, 0, -1)"
+                        (mouseup)="onTimePickerElementMouseUp($event)"
+                        (keyup.enter)="onTimePickerElementMouseUp($event)"
+                        (keyup.space)="onTimePickerElementMouseUp($event)"
+                        (mouseleave)="onTimePickerElementMouseLeave()"
+                        [attr.aria-label]="getTranslation('prevHour')"
+                    >
+                        <ng-template #icon>
+                            <svg data-p-icon="chevron-down" *ngIf="!decrementIconTemplate && !_decrementIconTemplate" />
+                            <ng-template *ngTemplateOutlet="decrementIconTemplate || _decrementIconTemplate"></ng-template>
+                        </ng-template>
+                    </p-button>
                 </div>
-                <ng-content select="p-footer"></ng-content>
-                <ng-container *ngTemplateOutlet="footerTemplate || _footerTemplate"></ng-container>
+                <div class="p-datepicker-separator">
+                    <span>{{ timeSeparator }}</span>
+                </div>
+                <div [class]="cx('minutePicker')">
+                    <p-button
+                        rounded
+                        variant="text"
+                        severity="secondary"
+                        [styleClass]="cx('pcIncrementButton')"
+                        (keydown)="onContainerButtonKeydown($event)"
+                        (keydown.enter)="incrementMinute($event)"
+                        (keydown.space)="incrementMinute($event)"
+                        (mousedown)="onTimePickerElementMouseDown($event, 1, 1)"
+                        (mouseup)="onTimePickerElementMouseUp($event)"
+                        (keyup.enter)="onTimePickerElementMouseUp($event)"
+                        (keyup.space)="onTimePickerElementMouseUp($event)"
+                        (mouseleave)="onTimePickerElementMouseLeave()"
+                        [attr.aria-label]="getTranslation('nextMinute')"
+                    >
+                        <ng-template #icon>
+                            <svg data-p-icon="chevron-up" *ngIf="!incrementIconTemplate && !_incrementIconTemplate" />
+                            <ng-template *ngTemplateOutlet="incrementIconTemplate || _incrementIconTemplate"></ng-template>
+                        </ng-template>
+                    </p-button>
+                    <span><ng-container *ngIf="currentMinute < 10">0</ng-container>{{ currentMinute }}</span>
+                    <p-button
+                        rounded
+                        variant="text"
+                        severity="secondary"
+                        [styleClass]="cx('pcDecrementButton')"
+                        (keydown)="onContainerButtonKeydown($event)"
+                        (keydown.enter)="decrementMinute($event)"
+                        (keydown.space)="decrementMinute($event)"
+                        (mousedown)="onTimePickerElementMouseDown($event, 1, -1)"
+                        (mouseup)="onTimePickerElementMouseUp($event)"
+                        (keyup.enter)="onTimePickerElementMouseUp($event)"
+                        (keyup.space)="onTimePickerElementMouseUp($event)"
+                        (mouseleave)="onTimePickerElementMouseLeave()"
+                        [attr.aria-label]="getTranslation('prevMinute')"
+                    >
+                        <ng-template #icon>
+                            <svg data-p-icon="chevron-down" *ngIf="!decrementIconTemplate && !_decrementIconTemplate" />
+                            <ng-template *ngTemplateOutlet="decrementIconTemplate || _decrementIconTemplate"></ng-template>
+                        </ng-template>
+                    </p-button>
+                </div>
+                <div [class]="cx('separator')" *ngIf="showSeconds">
+                    <span>{{ timeSeparator }}</span>
+                </div>
+                <div [class]="cx('secondPicker')" *ngIf="showSeconds">
+                    <p-button
+                        rounded
+                        variant="text"
+                        severity="secondary"
+                        [styleClass]="cx('pcIncrementButton')"
+                        (keydown)="onContainerButtonKeydown($event)"
+                        (keydown.enter)="incrementSecond($event)"
+                        (keydown.space)="incrementSecond($event)"
+                        (mousedown)="onTimePickerElementMouseDown($event, 2, 1)"
+                        (mouseup)="onTimePickerElementMouseUp($event)"
+                        (keyup.enter)="onTimePickerElementMouseUp($event)"
+                        (keyup.space)="onTimePickerElementMouseUp($event)"
+                        (mouseleave)="onTimePickerElementMouseLeave()"
+                        [attr.aria-label]="getTranslation('nextSecond')"
+                    >
+                        <ng-template #icon>
+                            <svg data-p-icon="chevron-up" *ngIf="!incrementIconTemplate && !_incrementIconTemplate" />
+                            <ng-template *ngTemplateOutlet="incrementIconTemplate || _incrementIconTemplate"></ng-template>
+                        </ng-template>
+                    </p-button>
+                    <span><ng-container *ngIf="currentSecond < 10">0</ng-container>{{ currentSecond }}</span>
+                    <p-button
+                        rounded
+                        variant="text"
+                        severity="secondary"
+                        [styleClass]="cx('pcDecrementButton')"
+                        (keydown)="onContainerButtonKeydown($event)"
+                        (keydown.enter)="decrementSecond($event)"
+                        (keydown.space)="decrementSecond($event)"
+                        (mousedown)="onTimePickerElementMouseDown($event, 2, -1)"
+                        (mouseup)="onTimePickerElementMouseUp($event)"
+                        (keyup.enter)="onTimePickerElementMouseUp($event)"
+                        (keyup.space)="onTimePickerElementMouseUp($event)"
+                        (mouseleave)="onTimePickerElementMouseLeave()"
+                        [attr.aria-label]="getTranslation('prevSecond')"
+                    >
+                        <ng-template #icon>
+                            <svg data-p-icon="chevron-down" *ngIf="!decrementIconTemplate && !_decrementIconTemplate" />
+                            <ng-template *ngTemplateOutlet="decrementIconTemplate || _decrementIconTemplate"></ng-template>
+                        </ng-template>
+                    </p-button>
+                </div>
+                <div [class]="cx('separator')" *ngIf="hourFormat == '12'">
+                    <span>{{ timeSeparator }}</span>
+                </div>
+                <div [class]="cx('ampmPicker')" *ngIf="hourFormat == '12'">
+                    <p-button
+                        text
+                        rounded
+                        severity="secondary"
+                        [styleClass]="cx('pcIncrementButton')"
+                        (keydown)="onContainerButtonKeydown($event)"
+                        (onClick)="toggleAMPM($event)"
+                        (keydown.enter)="toggleAMPM($event)"
+                        [attr.aria-label]="getTranslation('am')"
+                    >
+                        <ng-template #icon>
+                            <svg data-p-icon="chevron-up" *ngIf="!incrementIconTemplate && !_incrementIconTemplate" />
+                            <ng-template *ngTemplateOutlet="incrementIconTemplate || _incrementIconTemplate"></ng-template>
+                        </ng-template>
+                    </p-button>
+                    <span>{{ pm ? 'PM' : 'AM' }}</span>
+                    <p-button
+                        text
+                        rounded
+                        severity="secondary"
+                        [styleClass]="cx('pcDecrementButton')"
+                        (keydown)="onContainerButtonKeydown($event)"
+                        (click)="toggleAMPM($event)"
+                        (keydown.enter)="toggleAMPM($event)"
+                        [attr.aria-label]="getTranslation('pm')"
+                    >
+                        <ng-template #icon>
+                            <svg data-p-icon="chevron-down" *ngIf="!decrementIconTemplate && !_decrementIconTemplate" />
+                            <ng-template *ngTemplateOutlet="decrementIconTemplate || _decrementIconTemplate"></ng-template>
+                        </ng-template>
+                    </p-button>
+                </div>
             </div>
-        </span>
+            <div [class]="cx('buttonbar')" *ngIf="showButtonBar">
+                <p-button
+                    size="small"
+                    [styleClass]="cx('pcTodayButton')"
+                    [label]="getTranslation('today')"
+                    (keydown)="onContainerButtonKeydown($event)"
+                    (onClick)="onTodayButtonClick($event)"
+                    [ngClass]="todayButtonStyleClass"
+                    severity="secondary"
+                    variant="text"
+                    size="small"
+                />
+                <p-button
+                    size="small"
+                    [styleClass]="cx('pcClearButton')"
+                    [label]="getTranslation('clear')"
+                    (keydown)="onContainerButtonKeydown($event)"
+                    (onClick)="onClearButtonClick($event)"
+                    [ngClass]="clearButtonStyleClass"
+                    severity="secondary"
+                    variant="text"
+                    size="small"
+                />
+            </div>
+            <ng-content select="p-footer"></ng-content>
+            <ng-container *ngTemplateOutlet="footerTemplate || _footerTemplate"></ng-container>
+        </div>
     `,
     animations: [
         trigger('overlayAnimation', [
@@ -525,17 +497,17 @@ export const DATEPICKER_VALUE_ACCESSOR: any = {
     ],
     providers: [DATEPICKER_VALUE_ACCESSOR, DatePickerStyle],
     changeDetection: ChangeDetectionStrategy.OnPush,
-    encapsulation: ViewEncapsulation.None
+    encapsulation: ViewEncapsulation.None,
+    host: {
+        '[class]': "cn(cx('root'), styleClass)",
+        '[style]': "sx('root')"
+    }
 })
-export class DatePicker extends BaseComponent implements OnInit, AfterContentInit, AfterViewInit, OnDestroy, ControlValueAccessor {
+export class DatePicker extends BaseInput implements OnInit, AfterContentInit, AfterViewInit, OnDestroy {
     @Input() iconDisplay: 'input' | 'button' = 'button';
     /**
-     * Inline style of the component.
-     * @group Props
-     */
-    @Input() style: { [klass: string]: any } | null | undefined;
-    /**
      * Style class of the component.
+     * @deprecated since v20.0.0, use `class` instead.
      * @group Props
      */
     @Input() styleClass: string | undefined;
@@ -549,11 +521,6 @@ export class DatePicker extends BaseComponent implements OnInit, AfterContentIni
      * @group Props
      */
     @Input() inputId: string | undefined;
-    /**
-     * Name of the input element.
-     * @group Props
-     */
-    @Input() name: string | undefined;
     /**
      * Style class of the input field.
      * @group Props
@@ -580,11 +547,6 @@ export class DatePicker extends BaseComponent implements OnInit, AfterContentIni
      * @group Props
      */
     @Input() iconAriaLabel: string | undefined;
-    /**
-     * When specified, disables the component.
-     * @group Props
-     */
-    @Input({ transform: booleanAttribute }) disabled: boolean | undefined;
     /**
      * Format of the date which can also be defined at locale settings.
      * @group Props
@@ -630,20 +592,10 @@ export class DatePicker extends BaseComponent implements OnInit, AfterContentIni
      */
     @Input({ transform: booleanAttribute }) showIcon: boolean | undefined;
     /**
-     * Whether the component should span the full width of its parent.
-     * @group Props
-     */
-    @Input({ transform: booleanAttribute }) fluid: boolean | undefined;
-    /**
      * Icon of the datepicker button.
      * @group Props
      */
     @Input() icon: string | undefined;
-    /**
-     * Target element to attach the overlay, valid values are "body" or a local ng-template variable of another element (note: use binding with brackets for template variables, e.g. [appendTo]="mydiv" for a div element having#mydiv as variable name).
-     * @group Props
-     */
-    @Input() appendTo: HTMLElement | ElementRef | TemplateRef<any> | string | null | undefined | any;
     /**
      * When specified, prevents entering the date manually with keyboard.
      * @group Props
@@ -654,18 +606,6 @@ export class DatePicker extends BaseComponent implements OnInit, AfterContentIni
      * @group Props
      */
     @Input() shortYearCutoff: any = '+10';
-    /**
-     * Whether the month should be rendered as a dropdown instead of text.
-     * @group Props
-     * @deprecated Navigator is always on.
-     */
-    @Input({ transform: booleanAttribute }) monthNavigator: boolean | undefined;
-    /**
-     * Whether the year should be rendered as a dropdown instead of text.
-     * @group Props
-     * @deprecated  Navigator is always on.
-     */
-    @Input({ transform: booleanAttribute }) yearNavigator: boolean | undefined;
     /**
      * Specifies 12 or 24 hour format.
      * @group Props
@@ -705,11 +645,6 @@ export class DatePicker extends BaseComponent implements OnInit, AfterContentIni
      * @group Props
      */
     @Input({ transform: booleanAttribute }) showSeconds: boolean = false;
-    /**
-     * When present, it specifies that an input field must be filled out before submitting the form.
-     * @group Props
-     */
-    @Input({ transform: booleanAttribute }) required: boolean | undefined;
     /**
      * When disabled, datepicker will not be visible with input focus.
      * @group Props
@@ -826,16 +761,6 @@ export class DatePicker extends BaseComponent implements OnInit, AfterContentIni
      */
     @Input({ transform: numberAttribute }) tabindex: number | undefined;
     /**
-     * Specifies the input variant of the component.
-     * @group Props
-     */
-    @Input() variant: 'filled' | 'outlined';
-    /**
-     * Defines the size of the component.
-     * @group Props
-     */
-    @Input() size: 'large' | 'small';
-    /**
      * The minimum selectable date.
      * @group Props
      */
@@ -888,25 +813,6 @@ export class DatePicker extends BaseComponent implements OnInit, AfterContentIni
 
         if (this.currentMonth != undefined && this.currentMonth != null && this.currentYear) {
             this.createMonths(this.currentMonth, this.currentYear);
-        }
-    }
-    /**
-     * The range of years displayed in the year drop-down in (nnnn:nnnn) format such as (2000:2020).
-     * @group Props
-     * @deprecated Years are based on decades by default.
-     */
-    @Input() get yearRange(): string {
-        return this._yearRange;
-    }
-    set yearRange(yearRange: string) {
-        this._yearRange = yearRange;
-
-        if (yearRange) {
-            const years = yearRange.split(':');
-            const yearStart = parseInt(years[0]);
-            const yearEnd = parseInt(years[1]);
-
-            this.populateYearOptions(yearStart, yearEnd);
         }
     }
     /**
@@ -963,14 +869,6 @@ export class DatePicker extends BaseComponent implements OnInit, AfterContentIni
         this.createWeekDays();
     }
     /**
-     * Option to set datepicker locale.
-     * @group Props
-     * @deprecated Locale property has no effect, use new i18n API instead.
-     */
-    @Input() set locale(newLocale: LocaleSettings) {
-        console.log('Locale property has no effect, use new i18n API instead.');
-    }
-    /**
      * Type of view to display, valid values are "date" for datepicker and "month" for month picker.
      * @group Props
      */
@@ -985,10 +883,10 @@ export class DatePicker extends BaseComponent implements OnInit, AfterContentIni
      * Set the date to highlight on first opening if the field is blank.
      * @group Props
      */
-    @Input() get defaultDate(): Date {
+    @Input() get defaultDate(): Date | null {
         return this._defaultDate;
     }
-    set defaultDate(defaultDate: Date) {
+    set defaultDate(defaultDate: Date | null) {
         this._defaultDate = defaultDate;
 
         if (this.initialized) {
@@ -999,7 +897,12 @@ export class DatePicker extends BaseComponent implements OnInit, AfterContentIni
             this.createMonths(this.currentMonth, this.currentYear);
         }
     }
-
+    /**
+     * Target element to attach the overlay, valid values are "body" or a local ng-template variable of another element (note: use binding with brackets for template variables, e.g. [appendTo]="mydiv" for a div element having #mydiv as variable name).
+     * @defaultValue 'self'
+     * @group Props
+     */
+    appendTo = input<HTMLElement | ElementRef | TemplateRef<any> | 'self' | 'body' | null | undefined | any>(undefined);
     /**
      * Callback to invoke on focus of input field.
      * @param {Event} event - browser event.
@@ -1070,8 +973,6 @@ export class DatePicker extends BaseComponent implements OnInit, AfterContentIni
      */
     @Output() onShow: EventEmitter<any> = new EventEmitter<any>();
 
-    @ViewChild('container', { static: false }) containerViewChild: Nullable<ElementRef>;
-
     @ViewChild('inputfield', { static: false }) inputfieldViewChild: Nullable<ElementRef>;
 
     @ViewChild('contentWrapper', { static: false }) set content(content: ElementRef) {
@@ -1110,7 +1011,7 @@ export class DatePicker extends BaseComponent implements OnInit, AfterContentIni
     currentMinute: Nullable<number>;
 
     currentSecond: Nullable<number>;
-
+    p;
     pm: Nullable<boolean>;
 
     mask: Nullable<HTMLDivElement>;
@@ -1123,9 +1024,7 @@ export class DatePicker extends BaseComponent implements OnInit, AfterContentIni
 
     overlayVisible: Nullable<boolean>;
 
-    onModelChange: Function = () => {};
-
-    onModelTouched: Function = () => {};
+    $appendTo = computed(() => this.appendTo() || this.config.overlayAppendTo());
 
     calendarElement: Nullable<HTMLElement | ElementRef>;
 
@@ -1142,10 +1041,6 @@ export class DatePicker extends BaseComponent implements OnInit, AfterContentIni
     focus: Nullable<boolean>;
 
     isKeydown: Nullable<boolean>;
-
-    filled: Nullable<boolean>;
-
-    inputFieldValue: Nullable<string> = null;
 
     _minDate?: Date | null;
 
@@ -1323,20 +1218,6 @@ export class DatePicker extends BaseComponent implements OnInit, AfterContentIni
         return this.currentView === 'year' ? this.getTranslation('nextDecade') : this.currentView === 'month' ? this.getTranslation('nextYear') : this.getTranslation('nextMonth');
     }
 
-    get rootClass() {
-        return this._componentStyle.classes.root({ instance: this });
-    }
-
-    get panelClass() {
-        return this._componentStyle.classes.panel({ instance: this });
-    }
-
-    get hasFluid() {
-        const nativeElement = this.el.nativeElement;
-        const fluidComponent = nativeElement.closest('p-fluid');
-        return this.fluid || !!fluidComponent;
-    }
-
     constructor(
         private zone: NgZone,
         public overlayService: OverlayService
@@ -1376,11 +1257,11 @@ export class DatePicker extends BaseComponent implements OnInit, AfterContentIni
         if (this.inline) {
             this.contentViewChild && this.contentViewChild.nativeElement.setAttribute(this.attributeSelector, '');
 
-            if (!this.disabled && !this.inline) {
+            if (!this.$disabled() && !this.inline) {
                 this.initFocusableCell();
                 if (this.numberOfMonths === 1) {
                     if (this.contentViewChild && this.contentViewChild.nativeElement) {
-                        this.contentViewChild.nativeElement.style.width = getOuterWidth(this.containerViewChild?.nativeElement) + 'px';
+                        this.contentViewChild.nativeElement.style.width = getOuterWidth(this.el?.nativeElement) + 'px';
                     }
                 }
             }
@@ -1609,7 +1490,7 @@ export class DatePicker extends BaseComponent implements OnInit, AfterContentIni
     }
 
     navBackward(event: any) {
-        if (this.disabled) {
+        if (this.$disabled()) {
             event.preventDefault();
             return;
         }
@@ -1640,7 +1521,7 @@ export class DatePicker extends BaseComponent implements OnInit, AfterContentIni
     }
 
     navForward(event: any) {
-        if (this.disabled) {
+        if (this.$disabled()) {
             event.preventDefault();
             return;
         }
@@ -1674,7 +1555,7 @@ export class DatePicker extends BaseComponent implements OnInit, AfterContentIni
         this.currentYear--;
         let _yearOptions = <number[]>this.yearOptions;
 
-        if (this.yearNavigator && this.currentYear < _yearOptions[0]) {
+        if (this.currentYear < _yearOptions[0]) {
             let difference = _yearOptions[_yearOptions.length - 1] - _yearOptions[0];
             this.populateYearOptions(_yearOptions[0] - difference, _yearOptions[_yearOptions.length - 1] - difference);
         }
@@ -1692,7 +1573,7 @@ export class DatePicker extends BaseComponent implements OnInit, AfterContentIni
         this.currentYear++;
         let _yearOptions = <number[]>this.yearOptions;
 
-        if (this.yearNavigator && this.currentYear > _yearOptions[_yearOptions.length - 1]) {
+        if (this.currentYear > _yearOptions[_yearOptions.length - 1]) {
             let difference = _yearOptions[_yearOptions.length - 1] - _yearOptions[0];
             this.populateYearOptions(_yearOptions[0] + difference, _yearOptions[_yearOptions.length - 1] + difference);
         }
@@ -1709,7 +1590,7 @@ export class DatePicker extends BaseComponent implements OnInit, AfterContentIni
     }
 
     onDateSelect(event: Event, dateMeta: any) {
-        if (this.disabled || !dateMeta.selectable) {
+        if (this.$disabled() || !dateMeta.selectable) {
             event.preventDefault();
             return;
         }
@@ -1798,12 +1679,16 @@ export class DatePicker extends BaseComponent implements OnInit, AfterContentIni
             }
         }
 
+        this.writeModelValue(formattedValue);
+
         this.inputFieldValue = formattedValue;
-        this.updateFilledState();
+
         if (this.inputfieldViewChild && this.inputfieldViewChild.nativeElement) {
             this.inputfieldViewChild.nativeElement.value = this.inputFieldValue;
         }
     }
+
+    inputFieldValue: Nullable<string> = null;
 
     formatDateTime(date: any) {
         let formattedValue = this.keepInvalid ? date : null;
@@ -1910,6 +1795,7 @@ export class DatePicker extends BaseComponent implements OnInit, AfterContentIni
         this.value = value;
 
         if (this.dataType == 'date') {
+            this.writeModelValue(this.value);
             this.onModelChange(this.value);
         } else if (this.dataType == 'string') {
             if (this.isSingleSelection()) {
@@ -1919,6 +1805,7 @@ export class DatePicker extends BaseComponent implements OnInit, AfterContentIni
                 if (Array.isArray(this.value)) {
                     stringArrValue = this.value.map((date: Date) => this.formatDateTime(date));
                 }
+                this.writeModelValue(stringArrValue);
                 this.onModelChange(stringArrValue);
             }
         }
@@ -2176,7 +2063,7 @@ export class DatePicker extends BaseComponent implements OnInit, AfterContentIni
     }
 
     onButtonClick(event: Event, inputfield: any = this.inputfieldViewChild?.nativeElement) {
-        if (this.disabled) {
+        if (this.$disabled()) {
             return;
         }
 
@@ -2190,6 +2077,8 @@ export class DatePicker extends BaseComponent implements OnInit, AfterContentIni
 
     clear() {
         this.value = null;
+        this.inputFieldValue = null;
+        this.writeModelValue(this.value);
         this.onModelChange(this.value);
         this.updateInputfield();
         this.onClear.emit();
@@ -2211,7 +2100,7 @@ export class DatePicker extends BaseComponent implements OnInit, AfterContentIni
     }
 
     switchViewButtonDisabled() {
-        return this.numberOfMonths > 1 || this.disabled;
+        return this.numberOfMonths > 1 || this.$disabled();
     }
 
     onPrevButtonClick(event: Event) {
@@ -2232,7 +2121,7 @@ export class DatePicker extends BaseComponent implements OnInit, AfterContentIni
                     this.trapFocus(event);
                 }
                 if (this.inline) {
-                    const headerElements = findSingle(this.containerViewChild?.nativeElement, '.p-datepicker-header');
+                    const headerElements = findSingle(this.el?.nativeElement, '.p-datepicker-header');
                     const element = event.target;
                     if (this.timeOnly) {
                         return;
@@ -2729,7 +2618,7 @@ export class DatePicker extends BaseComponent implements OnInit, AfterContentIni
 
             if (!this.preventFocus && (!this.navigationState || !this.navigationState.button)) {
                 setTimeout(() => {
-                    if (!this.disabled) {
+                    if (!this.$disabled()) {
                         cell.focus();
                     }
                 }, 1);
@@ -2913,21 +2802,21 @@ export class DatePicker extends BaseComponent implements OnInit, AfterContentIni
     }
 
     onTimePickerElementMouseDown(event: Event, type: number, direction: number) {
-        if (!this.disabled) {
+        if (!this.$disabled()) {
             this.repeat(event, null, type, direction);
             event.preventDefault();
         }
     }
 
     onTimePickerElementMouseUp(event: Event) {
-        if (!this.disabled) {
+        if (!this.$disabled()) {
             this.clearTimePickerTimer();
             this.updateTime();
         }
     }
 
     onTimePickerElementMouseLeave() {
-        if (!this.disabled && this.timePickerTimer) {
+        if (!this.$disabled() && this.timePickerTimer) {
             this.clearTimePickerTimer();
             this.updateTime();
         }
@@ -3076,7 +2965,6 @@ export class DatePicker extends BaseComponent implements OnInit, AfterContentIni
             this.updateModel(value);
         }
 
-        this.filled = (val != null && val.length) as any;
         this.onInput.emit(event);
     }
 
@@ -3216,9 +3104,8 @@ export class DatePicker extends BaseComponent implements OnInit, AfterContentIni
             case 'visibleTouchUI':
                 if (!this.inline) {
                     this.overlay = event.element;
-                    this.overlay?.setAttribute(this.attributeSelector as string, '');
-
-                    const styles = !this.inline ? { position: 'absolute', top: '0', left: '0' } : undefined;
+                    this.attrSelector && this.overlay.setAttribute(this.attrSelector, '');
+                    const styles = !this.inline ? { position: 'absolute', top: '0' } : undefined;
                     addStyle(this.overlay, styles);
 
                     this.appendOverlay();
@@ -3260,14 +3147,14 @@ export class DatePicker extends BaseComponent implements OnInit, AfterContentIni
     }
 
     appendOverlay() {
-        if (this.appendTo) {
-            if (this.appendTo === 'body') this.document.body.appendChild(<HTMLElement>this.overlay);
-            else appendChild(this.appendTo, this.overlay);
+        if (this.$appendTo() && this.$appendTo() !== 'self') {
+            if (this.$appendTo() === 'body') this.document.body.appendChild(<HTMLElement>this.overlay);
+            else appendChild(this.$appendTo(), this.overlay);
         }
     }
 
     restoreOverlayAppend() {
-        if (this.overlay && this.appendTo) {
+        if (this.overlay && this.$appendTo() !== 'self') {
             this.el.nativeElement.appendChild(this.overlay);
         }
     }
@@ -3276,19 +3163,20 @@ export class DatePicker extends BaseComponent implements OnInit, AfterContentIni
         if (this.touchUI) {
             this.enableModality(this.overlay);
         } else if (this.overlay) {
-            if (this.appendTo) {
-                if (this.view === 'date') {
-                    if (!this.overlay.style.width) {
-                        this.overlay.style.width = getOuterWidth(this.overlay) + 'px';
-                    }
-                    if (!this.overlay.style.minWidth) {
-                        this.overlay.style.minWidth = getOuterWidth(this.inputfieldViewChild?.nativeElement) + 'px';
-                    }
-                } else {
-                    if (!this.overlay.style.width) {
-                        this.overlay.style.width = getOuterWidth(this.inputfieldViewChild?.nativeElement) + 'px';
-                    }
+            if (this.view === 'date') {
+                if (!this.overlay.style.width) {
+                    this.overlay.style.width = getOuterWidth(this.overlay) + 'px';
                 }
+                if (!this.overlay.style.minWidth) {
+                    this.overlay.style.minWidth = getOuterWidth(this.inputfieldViewChild?.nativeElement) + 'px';
+                }
+            } else {
+                if (!this.overlay.style.width) {
+                    this.overlay.style.width = getOuterWidth(this.inputfieldViewChild?.nativeElement) + 'px';
+                }
+            }
+
+            if (this.$appendTo() && this.$appendTo() !== 'self') {
                 absolutePosition(this.overlay, this.inputfieldViewChild?.nativeElement);
             } else {
                 relativePosition(this.overlay, this.inputfieldViewChild?.nativeElement);
@@ -3357,36 +3245,6 @@ export class DatePicker extends BaseComponent implements OnInit, AfterContentIni
             this.animationEndListener();
             this.animationEndListener = null;
         }
-    }
-
-    writeValue(value: any): void {
-        this.value = value;
-        if (this.value && typeof this.value === 'string') {
-            try {
-                this.value = this.parseValueFromString(this.value);
-            } catch {
-                if (this.keepInvalid) {
-                    this.value = value;
-                }
-            }
-        }
-
-        this.updateInputfield();
-        this.updateUI();
-        this.cd.markForCheck();
-    }
-
-    registerOnChange(fn: Function): void {
-        this.onModelChange = fn;
-    }
-
-    registerOnTouched(fn: Function): void {
-        this.onModelTouched = fn;
-    }
-
-    setDisabledState(val: boolean): void {
-        this.disabled = val;
-        this.cd.markForCheck();
     }
 
     getDateFormat() {
@@ -3718,10 +3576,6 @@ export class DatePicker extends BaseComponent implements OnInit, AfterContentIni
         return date;
     }
 
-    updateFilledState() {
-        this.filled = (this.inputFieldValue && this.inputFieldValue != '') as boolean;
-    }
-
     isValidDateForTimeConstraints(selectedDate: Date) {
         if (this.keepInvalid) {
             return true; // If we are keeping invalid dates, we don't need to check for time constraints
@@ -3841,7 +3695,7 @@ export class DatePicker extends BaseComponent implements OnInit, AfterContentIni
 
     bindScrollListener() {
         if (!this.scrollHandler) {
-            this.scrollHandler = new ConnectedOverlayScrollHandler(this.containerViewChild?.nativeElement, () => {
+            this.scrollHandler = new ConnectedOverlayScrollHandler(this.el?.nativeElement, () => {
                 if (this.overlayVisible) {
                     this.hideOverlay();
                 }
@@ -3882,6 +3736,29 @@ export class DatePicker extends BaseComponent implements OnInit, AfterContentIni
         this.unbindDocumentResizeListener();
         this.unbindScrollListener();
         this.overlay = null;
+    }
+
+    /**
+     * @override
+     *
+     * @see {@link BaseEditableHolder.writeControlValue}
+     * Writes the value to the control.
+     */
+    writeControlValue(value: any): void {
+        this.value = value;
+        if (this.value && typeof this.value === 'string') {
+            try {
+                this.value = this.parseValueFromString(this.value);
+            } catch {
+                if (this.keepInvalid) {
+                    this.value = value;
+                }
+            }
+        }
+
+        this.updateInputfield();
+        this.updateUI();
+        this.cd.markForCheck();
     }
 
     ngOnDestroy() {

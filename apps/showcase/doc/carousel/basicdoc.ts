@@ -105,8 +105,8 @@ export class CarouselBasicDemo implements OnInit {
     constructor(private productService: ProductService) {}
 
     ngOnInit() {
-        this.productService.getProductsSmall().then((products) => {
-            this.products = products;
+        this.productService.getProductsSmall().then(data => {
+            this.products = data.slice(0, 9);
         });
 
        this.responsiveOptions = [
@@ -168,8 +168,8 @@ export class CarouselBasicDemo implements OnInit {
     ) {}
 
     ngOnInit() {
-        this.productService.getProductsSmall().then((products) => {
-            this.products = products;
+        this.productService.getProductsSmall().then((data) => {
+            this.products = data.slice(0, 9);
             this.cdr.detectChanges();
         });
 

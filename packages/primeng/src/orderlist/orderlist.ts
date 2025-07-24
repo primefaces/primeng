@@ -20,12 +20,12 @@ import {
     ViewEncapsulation
 } from '@angular/core';
 import { FormsModule } from '@angular/forms';
-import { find, findIndexInList, findSingle, hasClass, insertIntoOrderedArray, isHidden, scrollInView, setAttribute, uuid } from '@primeuix/utils';
+import { findIndexInList, setAttribute, uuid } from '@primeuix/utils';
 import { FilterService, PrimeTemplate, SharedModule } from 'primeng/api';
 import { BaseComponent } from 'primeng/basecomponent';
-import { ButtonDirective, ButtonProps } from 'primeng/button';
+import { ButtonModule, ButtonProps } from 'primeng/button';
 import { AngleDoubleDownIcon, AngleDoubleUpIcon, AngleDownIcon, AngleUpIcon } from 'primeng/icons';
-import { Listbox } from 'primeng/listbox';
+import { Listbox, ListboxChangeEvent } from 'primeng/listbox';
 import { Ripple } from 'primeng/ripple';
 import { Nullable } from 'primeng/ts-helpers';
 import { OrderListFilterEvent, OrderListFilterOptions, OrderListSelectionChangeEvent } from './orderlist.interface';
@@ -38,100 +38,80 @@ import { OrderListStyle } from './style/orderliststyle';
 @Component({
     selector: 'p-orderList, p-orderlist, p-order-list',
     standalone: true,
-    imports: [CommonModule, ButtonDirective, Ripple, DragDropModule, AngleDoubleDownIcon, AngleDoubleUpIcon, AngleUpIcon, AngleDownIcon, Listbox, FormsModule, SharedModule],
+    imports: [CommonModule, ButtonModule, Ripple, DragDropModule, AngleDoubleDownIcon, AngleDoubleUpIcon, AngleUpIcon, AngleDownIcon, Listbox, FormsModule, SharedModule],
     template: `
-        <div
-            [ngClass]="{
-                'p-orderlist p-component': true,
-                'p-orderlist-striped': stripedRows,
-                'p-orderlist-controls-left': controlsPosition === 'left',
-                'p-orderlist-controls-right': controlsPosition === 'right'
-            }"
-            [ngStyle]="style"
-            [class]="styleClass"
-            [attr.data-pc-section]="'root'"
-        >
-            <div class="p-orderlist-controls" [attr.data-pc-section]="'controls'">
-                <button type="button" [disabled]="moveDisabled()" pButton pRipple class="p-button-icon-only" (click)="moveUp()" [attr.aria-label]="moveUpAriaLabel" [attr.data-pc-section]="'moveUpButton'" [buttonProps]="getButtonProps('up')">
-                    <AngleUpIcon *ngIf="!moveUpIconTemplate && !_moveUpIconTemplate" [attr.data-pc-section]="'moveupicon'" />
-                    <ng-template *ngTemplateOutlet="moveUpIconTemplate || _moveUpIconTemplate"></ng-template>
-                </button>
-                <button type="button" [disabled]="moveDisabled()" pButton pRipple class="p-button-icon-only" (click)="moveTop()" [attr.aria-label]="moveTopAriaLabel" [attr.data-pc-section]="'moveTopButton'" [buttonProps]="getButtonProps('top')">
-                    <AngleDoubleUpIcon *ngIf="!moveTopIconTemplate && !_moveTopIconTemplate" [attr.data-pc-section]="'movetopicon'" />
-                    <ng-template *ngTemplateOutlet="moveTopIconTemplate || _moveTopIconTemplate"></ng-template>
-                </button>
-                <button type="button" [disabled]="moveDisabled()" pButton pRipple class="p-button-icon-only" (click)="moveDown()" [attr.aria-label]="moveDownAriaLabel" [attr.data-pc-section]="'moveDownButton'" [buttonProps]="getButtonProps('down')">
-                    <AngleDownIcon *ngIf="!moveDownIconTemplate && !_moveDownIconTemplate" [attr.data-pc-section]="'movedownicon'" />
-                    <ng-template *ngTemplateOutlet="moveDownIconTemplate || _moveDownIconTemplate"></ng-template>
-                </button>
-                <button
-                    type="button"
-                    [disabled]="moveDisabled()"
-                    pButton
-                    pRipple
-                    class="p-button-icon-only"
-                    (click)="moveBottom()"
-                    [attr.aria-label]="moveBottomAriaLabel"
-                    [attr.data-pc-section]="'moveBottomButton'"
-                    [buttonProps]="getButtonProps('bottom')"
-                >
-                    <AngleDoubleDownIcon *ngIf="!moveBottomIconTemplate && !_moveBottomIconTemplate" [attr.data-pc-section]="'movebottomicon'" />
-                    <ng-template *ngTemplateOutlet="moveBottomIconTemplate || _moveBottomIconTemplate"></ng-template>
-                </button>
-            </div>
-            <div class="p-orderlist-list-container" [attr.data-pc-section]="'container'">
-                <p-listbox
-                    #listelement
-                    [multiple]="true"
-                    [options]="value"
-                    [(ngModel)]="d_selection"
-                    optionLabel="name"
-                    [id]="id + '_list'"
-                    [listStyle]="listStyle"
-                    [striped]="stripedRows"
-                    [tabindex]="tabindex"
-                    (onFocus)="onListFocus($event)"
-                    (onBlur)="onListBlur($event)"
-                    (keydown)="onItemKeydown($event)"
-                    [ariaLabel]="ariaLabel"
-                    [disabled]="disabled"
-                    [metaKeySelection]="metaKeySelection"
-                    [scrollHeight]="scrollHeight"
-                    [autoOptionFocus]="autoOptionFocus"
-                    [filter]="filterBy"
-                    [filterBy]="filterBy"
-                    [filterLocale]="filterLocale"
-                    [filterPlaceHolder]="filterPlaceholder"
-                    [dragdrop]="dragdrop"
-                    (onDrop)="onDrop($event)"
-                >
-                    <ng-container *ngIf="headerTemplate || _headerTemplate">
-                        <ng-template #header>
-                            <ng-template *ngTemplateOutlet="headerTemplate || _headerTemplate"></ng-template>
-                        </ng-template>
-                    </ng-container>
-                    <ng-container *ngIf="itemTemplate || _itemTemplate">
-                        <ng-template #item let-option let-selected="selected" let-index="index">
-                            <ng-template *ngTemplateOutlet="itemTemplate || _itemTemplate; context: { $implicit: option, selected: selected, index: index }"></ng-template>
-                        </ng-template>
-                    </ng-container>
-                    <ng-container *ngIf="emptyMessageTemplate || _emptyMessageTemplate">
-                        <ng-template #empty>
-                            <ng-template *ngTemplateOutlet="emptyMessageTemplate || _emptyMessageTemplate"></ng-template>
-                        </ng-template>
-                    </ng-container>
-                    <ng-container *ngIf="emptyFilterMessageTemplate || _emptyFilterMessageTemplate">
-                        <ng-template #emptyfilter>
-                            <ng-template *ngTemplateOutlet="emptyFilterMessageTemplate || _emptyFilterMessageTemplate"></ng-template>
-                        </ng-template>
-                    </ng-container>
-                </p-listbox>
-            </div>
+        <div [class]="cx('controls')" [attr.data-pc-section]="'controls'">
+            <button type="button" [disabled]="moveDisabled()" pButton pRipple (click)="moveUp()" [attr.aria-label]="moveUpAriaLabel" [attr.data-pc-section]="'moveUpButton'" [buttonProps]="getButtonProps('up')">
+                <svg data-p-icon="angle-up" *ngIf="!moveUpIconTemplate && !_moveUpIconTemplate" [attr.data-pc-section]="'moveupicon'" pButtonIcon />
+                <ng-template *ngTemplateOutlet="moveUpIconTemplate || _moveUpIconTemplate"></ng-template>
+            </button>
+            <button type="button" [disabled]="moveDisabled()" pButton pRipple (click)="moveTop()" [attr.aria-label]="moveTopAriaLabel" [attr.data-pc-section]="'moveTopButton'" [buttonProps]="getButtonProps('top')">
+                <svg data-p-icon="angle-double-up" *ngIf="!moveTopIconTemplate && !_moveTopIconTemplate" [attr.data-pc-section]="'movetopicon'" pButtonIcon />
+                <ng-template *ngTemplateOutlet="moveTopIconTemplate || _moveTopIconTemplate"></ng-template>
+            </button>
+            <button type="button" [disabled]="moveDisabled()" pButton pRipple (click)="moveDown()" [attr.aria-label]="moveDownAriaLabel" [attr.data-pc-section]="'moveDownButton'" [buttonProps]="getButtonProps('down')">
+                <svg data-p-icon="angle-down" *ngIf="!moveDownIconTemplate && !_moveDownIconTemplate" [attr.data-pc-section]="'movedownicon'" pButtonIcon />
+                <ng-template *ngTemplateOutlet="moveDownIconTemplate || _moveDownIconTemplate"></ng-template>
+            </button>
+            <button type="button" [disabled]="moveDisabled()" pButton pRipple (click)="moveBottom()" [attr.aria-label]="moveBottomAriaLabel" [attr.data-pc-section]="'moveBottomButton'" [buttonProps]="getButtonProps('bottom')">
+                <svg data-p-icon="angle-double-down" *ngIf="!moveBottomIconTemplate && !_moveBottomIconTemplate" [attr.data-pc-section]="'movebottomicon'" pButtonIcon />
+                <ng-template *ngTemplateOutlet="moveBottomIconTemplate || _moveBottomIconTemplate"></ng-template>
+            </button>
         </div>
+        <p-listbox
+            #listelement
+            [multiple]="true"
+            [options]="value"
+            [(ngModel)]="d_selection"
+            optionLabel="name"
+            [id]="id + '_list'"
+            [listStyle]="listStyle"
+            [striped]="stripedRows"
+            [tabindex]="tabindex"
+            (onFocus)="onListFocus($event)"
+            (onBlur)="onListBlur($event)"
+            (onChange)="onChangeSelection($event)"
+            [ariaLabel]="ariaLabel"
+            [disabled]="disabled"
+            [metaKeySelection]="metaKeySelection"
+            [scrollHeight]="scrollHeight"
+            [autoOptionFocus]="autoOptionFocus"
+            [filter]="filterBy"
+            [filterBy]="filterBy"
+            [filterLocale]="filterLocale"
+            [filterPlaceHolder]="filterPlaceholder"
+            [dragdrop]="dragdrop"
+            (onDrop)="onDrop($event)"
+        >
+            <ng-container *ngIf="headerTemplate || _headerTemplate">
+                <ng-template #header>
+                    <ng-template *ngTemplateOutlet="headerTemplate || _headerTemplate"></ng-template>
+                </ng-template>
+            </ng-container>
+            <ng-container *ngIf="itemTemplate || _itemTemplate">
+                <ng-template #item let-option let-selected="selected" let-index="index">
+                    <ng-template *ngTemplateOutlet="itemTemplate || _itemTemplate; context: { $implicit: option, selected: selected, index: index }"></ng-template>
+                </ng-template>
+            </ng-container>
+            <ng-container *ngIf="emptyMessageTemplate || _emptyMessageTemplate">
+                <ng-template #empty>
+                    <ng-template *ngTemplateOutlet="emptyMessageTemplate || _emptyMessageTemplate"></ng-template>
+                </ng-template>
+            </ng-container>
+            <ng-container *ngIf="emptyFilterMessageTemplate || _emptyFilterMessageTemplate">
+                <ng-template #emptyfilter>
+                    <ng-template *ngTemplateOutlet="emptyFilterMessageTemplate || _emptyFilterMessageTemplate"></ng-template>
+                </ng-template>
+            </ng-container>
+        </p-listbox>
     `,
     changeDetection: ChangeDetectionStrategy.OnPush,
     encapsulation: ViewEncapsulation.None,
-    providers: [OrderListStyle]
+    providers: [OrderListStyle],
+    host: {
+        '[class]': "cn(cx('root'), styleClass)",
+        '[attr.data-pc-section]': "'root'"
+    }
 })
 export class OrderList extends BaseComponent implements AfterContentInit {
     /**
@@ -141,13 +121,8 @@ export class OrderList extends BaseComponent implements AfterContentInit {
     @Input() header: string | undefined;
 
     /**
-     * Inline style of the component.
-     * @group Props
-     */
-    @Input() style: { [klass: string]: any } | null | undefined;
-
-    /**
      * Style class of the component.
+     * @deprecated since v20.0.0, use `class` instead.
      * @group Props
      */
     @Input() styleClass: string | undefined;
@@ -246,7 +221,7 @@ export class OrderList extends BaseComponent implements AfterContentInit {
      * When present, it specifies that the component should be disabled.
      * @group Props
      */
-    @Input({ transform: booleanAttribute }) disabled: boolean = false;
+    @Input({ transform: booleanAttribute }) disabled: boolean;
 
     /**
      * Function to optimize the dom operations by delegating to ngForTrackBy, default algorithm checks for object identity.
@@ -460,12 +435,6 @@ export class OrderList extends BaseComponent implements AfterContentInit {
 
     id: string = uuid('pn_id_');
 
-    focused: boolean = false;
-
-    focusedOptionIndex: any = -1;
-
-    focusedOption: any | undefined;
-
     public filterValue: Nullable<string>;
 
     public visibleOptions: Nullable<any[]>;
@@ -500,23 +469,6 @@ export class OrderList extends BaseComponent implements AfterContentInit {
                 filter: (value) => this.onFilterKeyup(value),
                 reset: () => this.resetFilter()
             };
-        }
-    }
-
-    ngAfterViewChecked() {
-        if (this.movedUp || this.movedDown) {
-            let listItems = find(this.listViewChild?.el.nativeElement, 'li.p-listbox-option-selected');
-
-            let listItem;
-
-            if (listItems.length > 0) {
-                if (this.movedUp) listItem = listItems[0];
-                else listItem = listItems[listItems.length - 1];
-
-                scrollInView(this.listViewChild?.el.nativeElement, listItem);
-            }
-            this.movedUp = false;
-            this.movedDown = false;
         }
     }
 
@@ -592,40 +544,14 @@ export class OrderList extends BaseComponent implements AfterContentInit {
         });
     }
 
-    onItemClick(event, item: any, index?: number, selectedId?: string) {
-        this.itemTouched = false;
-        let focusedIndex = index ? index : findIndexInList(this.focusedOption, this.value);
-        let selectedIndex = findIndexInList(item, this.d_selection);
-        let selected = selectedIndex !== -1;
-        let metaSelection = this.itemTouched ? false : this.metaKeySelection;
-
-        if (selectedId) {
-            this.focusedOptionIndex = selectedId;
-        }
-
-        if (metaSelection) {
-            let metaKey = event.metaKey || event.ctrlKey;
-
-            if (selected && metaKey) {
-                this.d_selection = this.d_selection.filter((val, focusedIndex) => focusedIndex !== selectedIndex);
-            } else {
-                this.d_selection = metaKey ? (this.d_selection ? [...this.d_selection] : []) : [];
-                insertIntoOrderedArray(item, focusedIndex, this.d_selection, this.value);
-            }
-        } else {
-            if (selected) {
-                this.d_selection = this.d_selection.filter((val, focusedIndex) => focusedIndex !== selectedIndex);
-            } else {
-                this.d_selection = this.d_selection ? [...this.d_selection] : [];
-                insertIntoOrderedArray(item, focusedIndex, this.d_selection, this.value);
-            }
-        }
+    onChangeSelection(e: ListboxChangeEvent) {
+        this.d_selection = e.value;
 
         //binding
-        this.selectionChange.emit(this.d_selection);
+        this.selectionChange.emit(e.value);
 
         //event
-        this.onSelectionChange.emit({ originalEvent: event, value: this.d_selection });
+        this.onSelectionChange.emit({ originalEvent: e.originalEvent, value: e.value });
     }
 
     onFilterKeyup(event: KeyboardEvent) {
@@ -662,10 +588,6 @@ export class OrderList extends BaseComponent implements AfterContentInit {
         } else {
             return true;
         }
-    }
-
-    onItemTouchEnd() {
-        this.itemTouched = true;
     }
 
     isSelected(item: any) {
@@ -786,213 +708,26 @@ export class OrderList extends BaseComponent implements AfterContentInit {
             }
 
             moveItemInArray(this.value as any[], previousIndex, currentIndex);
-            this.changeFocusedOptionIndex(currentIndex);
             this.onReorder.emit([event.item.data]);
         }
     }
 
     onListFocus(event) {
-        const focusableEl = findSingle(this.listViewChild.el.nativeElement, '[data-p-highlight="true"]') || findSingle(this.listViewChild.el.nativeElement, '[data-pc-section="item"]');
-
-        if (focusableEl) {
-            const findIndex = findIndexInList(focusableEl, this.listViewChild.el.nativeElement.children);
-            this.focused = true;
-            const index = this.focusedOptionIndex !== -1 ? this.focusedOptionIndex : focusableEl ? findIndex : -1;
-
-            this.changeFocusedOptionIndex(index);
-        }
-
         this.onFocus.emit(event);
     }
 
     onListBlur(event) {
-        this.focused = false;
-        this.focusedOption = null;
-        this.focusedOptionIndex = -1;
         this.onBlur.emit(event);
-    }
-
-    onItemKeydown(event: KeyboardEvent) {
-        switch (event.code) {
-            case 'ArrowDown':
-                this.onArrowDownKey(event);
-                break;
-            case 'ArrowUp':
-                this.onArrowUpKey(event);
-                break;
-            case 'Home':
-                this.onHomeKey(event);
-                break;
-            case 'End':
-                this.onEndKey(event);
-                break;
-            case 'Enter':
-                this.onEnterKey(event);
-                break;
-            case 'Space':
-                this.onSpaceKey(event);
-                break;
-            case 'KeyA':
-                if (event.ctrlKey) {
-                    this.d_selection = [...this.value];
-                    this.selectionChange.emit(this.d_selection);
-                }
-            default:
-                break;
-        }
-    }
-
-    onOptionMouseDown(index) {
-        this.focused = true;
-        this.focusedOptionIndex = index;
-    }
-
-    onArrowDownKey(event) {
-        const optionIndex = this.findNextOptionIndex(this.focusedOptionIndex);
-
-        this.changeFocusedOptionIndex(optionIndex);
-
-        if (event.shiftKey) {
-            this.onEnterKey(event);
-        }
-
-        event.preventDefault();
-    }
-    onArrowUpKey(event) {
-        const optionIndex = this.findPrevOptionIndex(this.focusedOptionIndex);
-
-        this.changeFocusedOptionIndex(optionIndex);
-
-        if (event.shiftKey) {
-            this.onEnterKey(event);
-        }
-
-        event.preventDefault();
-    }
-
-    onHomeKey(event) {
-        if (event.ctrlKey && event.shiftKey) {
-            let visibleOptions = this.getVisibleOptions();
-            let focusedIndex = findIndexInList(this.focusedOption, visibleOptions);
-            this.d_selection = [...this.value].slice(0, focusedIndex + 1);
-            this.selectionChange.emit(this.d_selection);
-        } else {
-            this.changeFocusedOptionIndex(0);
-        }
-
-        event.preventDefault();
-    }
-
-    onEndKey(event) {
-        if (event.ctrlKey && event.shiftKey) {
-            let visibleOptions = this.getVisibleOptions();
-            let focusedIndex = findIndexInList(this.focusedOption, visibleOptions);
-            this.d_selection = [...this.value].slice(focusedIndex, visibleOptions.length - 1);
-            this.selectionChange.emit(this.d_selection);
-        } else {
-            this.changeFocusedOptionIndex(find(this.listViewChild.el.nativeElement, '[data-pc-section="item"]').length - 1);
-        }
-
-        event.preventDefault();
-    }
-
-    onEnterKey(event) {
-        this.onItemClick(event, this.focusedOption);
-
-        event.preventDefault();
-    }
-
-    onSpaceKey(event) {
-        event.preventDefault();
-
-        if (event.shiftKey && this.selection && this.selection.length > 0) {
-            let visibleOptions = this.getVisibleOptions();
-            let lastSelectedIndex = this.getLatestSelectedVisibleOptionIndex(visibleOptions);
-
-            if (lastSelectedIndex !== -1) {
-                let focusedIndex = findIndexInList(this.focusedOption, visibleOptions);
-                this.d_selection = [...visibleOptions.slice(Math.min(lastSelectedIndex, focusedIndex), Math.max(lastSelectedIndex, focusedIndex) + 1)];
-                this.selectionChange.emit(this.d_selection);
-                this.onSelectionChange.emit({ originalEvent: event, value: this.d_selection });
-
-                return;
-            }
-        }
-
-        this.onEnterKey(event);
-    }
-
-    findNextOptionIndex(index) {
-        const items = find(this.listViewChild.el.nativeElement, '[data-pc-section="item"]');
-        const matchedOptionIndex = [...items].findIndex((link) => link.id === index);
-
-        return matchedOptionIndex > -1 ? matchedOptionIndex + 1 : 0;
-    }
-
-    findPrevOptionIndex(index) {
-        const items = find(this.listViewChild.el.nativeElement, '[data-pc-section="item"]');
-        const matchedOptionIndex = [...items].findIndex((link) => link.id === index);
-
-        return matchedOptionIndex > -1 ? matchedOptionIndex - 1 : 0;
-    }
-
-    getLatestSelectedVisibleOptionIndex(visibleOptions: any[]): number {
-        const latestSelectedItem = [...this.d_selection].reverse().find((item) => visibleOptions.includes(item));
-
-        return latestSelectedItem !== undefined ? visibleOptions.indexOf(latestSelectedItem) : -1;
     }
 
     getVisibleOptions() {
         return this.visibleOptions && this.visibleOptions.length > 0 ? this.visibleOptions : this.value && this.value.length > 0 ? this.value : null;
     }
 
-    getFocusedOption(index: number) {
-        if (index === -1) return null;
-
-        return this.visibleOptions && this.visibleOptions.length ? this.visibleOptions[index] : this.value && this.value.length ? this.value[index] : null;
-    }
-
-    changeFocusedOptionIndex(index) {
-        const items = find(this.listViewChild.el.nativeElement, '[data-pc-section="item"]');
-
-        let order = index >= items.length ? items.length - 1 : index < 0 ? 0 : index;
-
-        this.focusedOptionIndex = items[order] ? items[order].getAttribute('id') : -1;
-        this.focusedOption = this.getFocusedOption(order);
-
-        this.scrollInView(this.focusedOptionIndex);
-    }
-
-    scrollInView(id) {
-        const element = findSingle(this.listViewChild.el.nativeElement, `[data-pc-section="item"][id="${id}"]`);
-
-        if (element) {
-            element.scrollIntoView && element.scrollIntoView({ block: 'nearest', inline: 'nearest' });
-        }
-    }
-
-    findNextItem(item: any): HTMLElement | null {
-        let nextItem = item.nextElementSibling;
-
-        if (nextItem) return !hasClass(nextItem, 'p-orderlist-item') || isHidden(nextItem) ? this.findNextItem(nextItem) : nextItem;
-        else return null;
-    }
-
-    findPrevItem(item: any): HTMLElement | null {
-        let prevItem = item.previousElementSibling;
-
-        if (prevItem) return !hasClass(prevItem, 'p-orderlist-item') || isHidden(prevItem) ? this.findPrevItem(prevItem) : prevItem;
-        else return null;
-    }
-
     moveDisabled() {
         if (this.disabled || !this.selection.length) {
             return true;
         }
-    }
-
-    focusedOptionId() {
-        return this.focusedOptionIndex !== -1 ? this.focusedOptionIndex : null;
     }
 
     createStyle() {
@@ -1005,21 +740,21 @@ export class OrderList extends BaseComponent implements AfterContentInit {
 
                 let innerHTML = `
                     @media screen and (max-width: ${this.breakpoint}) {
-                        .p-orderlist[${this.id}] {
+                        .p-orderlist[${this.attrSelector}] {
                             flex-direction: column;
                         }
 
-                        .p-orderlist[${this.id}] .p-orderlist-controls {
+                        .p-orderlist[${this.attrSelector}] .p-orderlist-controls {
                             padding: var(--content-padding);
                             flex-direction: row;
                         }
 
-                        .p-orderlist[${this.id}] .p-orderlist-controls .p-button {
+                        .p-orderlist[${this.attrSelector}] .p-orderlist-controls .p-button {
                             margin-right: var(--inline-spacing);
                             margin-bottom: 0;
                         }
 
-                        .p-orderlist[${this.id}] .p-orderlist-controls .p-button:last-child {
+                        .p-orderlist[${this.attrSelector}] .p-orderlist-controls .p-button:last-child {
                             margin-right: 0;
                         }
                     }

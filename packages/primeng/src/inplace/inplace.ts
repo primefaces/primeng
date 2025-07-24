@@ -4,8 +4,8 @@ import { PrimeTemplate, SharedModule } from 'primeng/api';
 import { BaseComponent } from 'primeng/basecomponent';
 import { ButtonModule } from 'primeng/button';
 import { TimesIcon } from 'primeng/icons';
-import { InplaceStyle } from './style/inplacestyle';
 import { Ripple } from 'primeng/ripple';
+import { InplaceStyle } from './style/inplacestyle';
 
 @Component({
     selector: 'p-inplacedisplay, p-inplaceDisplay',
@@ -31,28 +31,32 @@ export class InplaceContent {}
     standalone: true,
     imports: [CommonModule, ButtonModule, TimesIcon, SharedModule, Ripple],
     template: `
-        <div [ngClass]="{ 'p-inplace p-component': true, 'p-inplace-closable': closable }" [ngStyle]="style" [class]="styleClass" [attr.aria-live]="'polite'">
-            <div class="p-inplace-display" (click)="onActivateClick($event)" tabindex="0" role="button" (keydown)="onKeydown($event)" [ngClass]="{ 'p-disabled': disabled }" *ngIf="!active">
-                <ng-content select="[pInplaceDisplay]"></ng-content>
-                <ng-container *ngTemplateOutlet="displayTemplate || _displayTemplate"></ng-container>
-            </div>
-            <div class="p-inplace-content" *ngIf="active">
-                <ng-content select="[pInplaceContent]"></ng-content>
-                <ng-container *ngTemplateOutlet="contentTemplate || _contentTemplate; context: { closeCallback: onDeactivateClick.bind(this) }"></ng-container>
+        <div [class]="cx('display')" (click)="onActivateClick($event)" tabindex="0" role="button" (keydown)="onKeydown($event)" [ngClass]="{ 'p-disabled': disabled }" *ngIf="!active">
+            <ng-content select="[pInplaceDisplay]"></ng-content>
+            <ng-container *ngTemplateOutlet="displayTemplate || _displayTemplate"></ng-container>
+        </div>
+        <div [class]="cx('content')" *ngIf="active">
+            <ng-content select="[pInplaceContent]"></ng-content>
+            <ng-container *ngTemplateOutlet="contentTemplate || _contentTemplate; context: { closeCallback: onDeactivateClick.bind(this) }"></ng-container>
 
-                <ng-container *ngIf="closable">
-                    <button *ngIf="closeIcon" type="button" [icon]="closeIcon" pButton pRipple (click)="onDeactivateClick($event)" [attr.aria-label]="closeAriaLabel"></button>
-                    <button *ngIf="!closeIcon" type="button" pButton pRipple [ngClass]="'p-button-icon-only'" (click)="onDeactivateClick($event)" [attr.aria-label]="closeAriaLabel">
-                        <TimesIcon *ngIf="!closeIconTemplate && !_closeIconTemplate" />
-                        <ng-template *ngTemplateOutlet="closeIconTemplate || _closeIconTemplate"></ng-template>
-                    </button>
-                </ng-container>
-            </div>
+            <ng-container *ngIf="closable">
+                <p-button *ngIf="closeIcon" type="button" [icon]="closeIcon" pRipple (click)="onDeactivateClick($event)" [attr.aria-label]="closeAriaLabel"></p-button>
+                <p-button *ngIf="!closeIcon" type="button" pRipple (click)="onDeactivateClick($event)" [attr.aria-label]="closeAriaLabel">
+                    <ng-template #icon>
+                        <svg data-p-icon="times" *ngIf="!closeIconTemplate && !_closeIconTemplate" />
+                    </ng-template>
+                    <ng-template *ngTemplateOutlet="closeIconTemplate || _closeIconTemplate"></ng-template>
+                </p-button>
+            </ng-container>
         </div>
     `,
     changeDetection: ChangeDetectionStrategy.OnPush,
     encapsulation: ViewEncapsulation.None,
-    providers: [InplaceStyle]
+    providers: [InplaceStyle],
+    host: {
+        '[attr.aria-live]': "'polite'",
+        '[class]': "cn(cx('root'), styleClass)"
+    }
 })
 export class Inplace extends BaseComponent implements AfterContentInit {
     /**
@@ -62,6 +66,7 @@ export class Inplace extends BaseComponent implements AfterContentInit {
     @Input({ transform: booleanAttribute }) active: boolean | undefined = false;
     /**
      * Displays a button to switch back to display mode.
+     * @deprecated since v20.0.0, use `closeCallback` within content template.
      * @group Props
      */
     @Input({ transform: booleanAttribute }) closable: boolean | undefined = false;
@@ -76,17 +81,14 @@ export class Inplace extends BaseComponent implements AfterContentInit {
      */
     @Input({ transform: booleanAttribute }) preventClick: boolean | undefined;
     /**
-     * Inline style of the element.
-     * @group Props
-     */
-    @Input() style: { [klass: string]: any } | null | undefined;
-    /**
      * Class of the element.
+     * @deprecated since v20.0.0, use `class` instead.
      * @group Props
      */
     @Input() styleClass: string | undefined;
     /**
      * Icon to display in the close button.
+     * @deprecated since v20.0.0, use `class` instead.
      * @group Props
      */
     @Input() closeIcon: string | undefined;

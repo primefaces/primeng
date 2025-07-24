@@ -15,7 +15,7 @@ import { Component } from '@angular/core';
                     <i class="pi pi-arrow-down"></i>
                 </span>
             </div>
-            <div class="h-[30rem]"></div>
+            <div class="h-[40rem]"></div>
             <div class="flex flex-wrap justify-center gap-8">
                 <div
                     pAnimateOnScroll
@@ -139,7 +139,7 @@ export class BasicDoc {
             <i class="pi pi-arrow-down"></i>
         </span>
     </div>
-    <div class="h-[30rem]"></div>
+    <div class="h-[40rem]"></div>
     <div class="flex flex-wrap justify-center gap-8">
         <div
             pAnimateOnScroll
@@ -263,7 +263,7 @@ export class BasicDoc {
             <i class="pi pi-arrow-down"></i>
         </span>
     </div>
-    <div class="h-[30rem]"></div>
+    <div class="h-[40rem]"></div>
     <div class="flex flex-wrap justify-center gap-8">
         <div
             pAnimateOnScroll

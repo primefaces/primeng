@@ -1,3 +1,2 @@
-import { ImageCompareDesignTokens } from '../../types/imagecompare';
-declare const _default: ImageCompareDesignTokens;
-export default _default;
+export * from '@primeuix/themes/material/imagecompare';
+export { default } from '@primeuix/themes/material/imagecompare';

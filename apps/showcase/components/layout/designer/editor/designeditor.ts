@@ -130,6 +130,7 @@ import { Subscription } from 'rxjs';
 })
 export class DesignEditor implements OnInit, OnDestroy {
     colorScheme = computed(() => this.designerService.designer().theme.preset?.semantic.colorScheme);
+
     designerService: DesignerService = inject(DesignerService);
 
     configService: AppConfigService = inject(AppConfigService);
@@ -154,16 +155,17 @@ export class DesignEditor implements OnInit, OnDestroy {
 
     constructor() {
         this.routeSubscription = this.router.events.subscribe((event: NavigationEnd) => {
-            const url = event.url;
-            if (url) {
-                this.currentPath.set(url.split('/')[1]);
+            if (event.url) {
+                const url = event.url.split('/')[1] === 'table' ? 'datatable' : event.url.split('/')[1];
+                this.currentPath.set(url);
             }
         });
     }
 
     ngOnInit() {
         if (!this.currentPath()) {
-            this.currentPath.set(this.router.routerState.snapshot.url.split('/')[1]);
+            const url = this.router.routerState.snapshot.url.split('/')[1] === 'table' ? 'datatable' : this.router.routerState.snapshot.url.split('/')[1];
+            this.currentPath.set(url);
         }
     }
 

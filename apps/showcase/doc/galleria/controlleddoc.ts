@@ -34,7 +34,7 @@ export class ControlledDoc implements OnInit {
     }
 
     set activeIndex(newValue) {
-        if (this.images && 0 <= newValue && newValue <= this.images.length - 1) {
+        if (this.images() && 0 <= newValue && newValue <= this.images().length - 1) {
             this._activeIndex = newValue;
         }
     }
@@ -113,7 +113,7 @@ export class GalleriaControlledDemo implements OnInit {
     }
 
     set activeIndex(newValue) {
-        if (this.images && 0 <= newValue && newValue <= this.images.length - 1) {
+        if (this.images() && 0 <= newValue && newValue <= this.images().length - 1) {
             this._activeIndex = newValue;
         }
     }

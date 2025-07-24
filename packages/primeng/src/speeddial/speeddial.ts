@@ -41,7 +41,7 @@ import { SpeedDialStyle } from './style/speeddialstyle';
     standalone: true,
     imports: [CommonModule, ButtonModule, Ripple, TooltipModule, RouterModule, PlusIcon, SharedModule],
     template: `
-        <div #container [ngClass]="containerClass()" [class]="className" [style]="style" [ngStyle]="rootStyles" [attr.data-pc-name]="'speeddial'" [attr.data-pc-section]="'root'">
+        <div #container [class]="cn(cx('root'), className)" [style]="style" [ngStyle]="sx('root')" [attr.data-pc-name]="'speeddial'" [attr.data-pc-section]="'root'">
             <ng-container *ngIf="!buttonTemplate && !_buttonTemplate">
                 <button
                     type="button"
@@ -49,7 +49,7 @@ import { SpeedDialStyle } from './style/speeddialstyle';
                     pRipple
                     [style]="buttonStyle"
                     [icon]="buttonIconClass"
-                    [class]="buttonClass()"
+                    [class]="cn(cx('pcButton'), buttonClassName)"
                     [disabled]="disabled"
                     [attr.aria-expanded]="visible"
                     [attr.aria-haspopup]="true"
@@ -61,7 +61,7 @@ import { SpeedDialStyle } from './style/speeddialstyle';
                     [attr.data-pc-name]="'button'"
                     [buttonProps]="buttonProps"
                 >
-                    <PlusIcon pButtonIcon *ngIf="!buttonIconClass && !iconTemplate && !_iconTemplate" />
+                    <svg data-p-icon="plus" pButtonIcon *ngIf="!buttonIconClass && !iconTemplate && !_iconTemplate" />
                     <ng-container *ngTemplateOutlet="iconTemplate || _iconTemplate"></ng-container>
                 </button>
             </ng-container>
@@ -70,7 +70,7 @@ import { SpeedDialStyle } from './style/speeddialstyle';
             </ng-container>
             <ul
                 #list
-                class="p-speeddial-list"
+                [class]="cx('list')"
                 role="menu"
                 [id]="id + '_list'"
                 (focus)="onFocus($event)"
@@ -79,15 +79,14 @@ import { SpeedDialStyle } from './style/speeddialstyle';
                 [attr.aria-activedescendant]="focused ? focusedOptionId : undefined"
                 [tabindex]="-1"
                 [attr.data-pc-section]="'menu'"
-                [ngStyle]="listStyles"
+                [ngStyle]="sx('list')"
             >
                 <li
                     *ngFor="let item of model; let i = index"
                     [ngStyle]="getItemStyle(i)"
-                    class="p-speeddial-item"
+                    [class]="cx('item', { item, i })"
                     pTooltip
                     [tooltipOptions]="item.tooltipOptions || getTooltipOptions(item)"
-                    [ngClass]="{ 'p-hidden': item.visible === false, 'p-focus': focusedOptionId == id + '_' + i }"
                     [id]="id + '_' + i"
                     [attr.aria-controls]="id + '_item'"
                     role="menuitem"
@@ -101,7 +100,7 @@ import { SpeedDialStyle } from './style/speeddialstyle';
                             type="button"
                             pButton
                             pRipple
-                            class="p-speeddial-action"
+                            [class]="cx('pcAction')"
                             severity="secondary"
                             [rounded]="true"
                             size="small"
@@ -118,7 +117,7 @@ import { SpeedDialStyle } from './style/speeddialstyle';
                 </li>
             </ul>
         </div>
-        <div *ngIf="mask && visible" [ngClass]="{ 'p-speeddial-mask': true, 'p-speeddial-mask-visible': visible }" [class]="maskClassName" [ngStyle]="maskStyle"></div>
+        <div *ngIf="mask && visible" [class]="cn(cx('mask'), maskClassName)" [ngStyle]="maskStyle"></div>
     `,
     changeDetection: ChangeDetectionStrategy.OnPush,
     encapsulation: ViewEncapsulation.None,
@@ -325,17 +324,6 @@ export class SpeedDial extends BaseComponent implements AfterViewInit, AfterCont
 
     get focusedOptionId() {
         return this.focusedOptionIndex() !== -1 ? this.focusedOptionIndex() : null;
-    }
-
-    // @todo rootStyles & listStyles will be refactored in the future in passthrough implementation.
-    get rootStyles() {
-        const _style = this._componentStyle?.inlineStyles['root'];
-        return _style ? _style({ props: this }) : {};
-    }
-
-    get listStyles() {
-        const _style = this._componentStyle?.inlineStyles['list'];
-        return _style ? _style({ props: this }) : {};
     }
 
     getTooltipOptions(item: MenuItem) {
@@ -687,23 +675,6 @@ export class SpeedDial extends BaseComponent implements AfterViewInit, AfterCont
         const length = (this.model as MenuItem[]).length;
 
         return (this.visible ? index : length - index - 1) * this.transitionDelay;
-    }
-
-    containerClass() {
-        return {
-            ['p-speeddial p-component' + ` p-speeddial-${this.type}`]: true,
-            [`p-speeddial-direction-${this.direction}`]: this.type !== 'circle',
-            'p-speeddial-open': this.visible,
-            'p-disabled': this.disabled
-        };
-    }
-
-    buttonClass() {
-        const baseClass = 'p-button-icon-only p-speeddial-button p-button-rounded';
-        const rotateClass = this.rotateAnimation && !this.hideIcon ? 'p-speeddial-rotate' : '';
-        const customClass = this.buttonClassName ? this.buttonClassName : '';
-
-        return `${baseClass} ${rotateClass} ${customClass}`;
     }
 
     get buttonIconClass() {

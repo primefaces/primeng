@@ -1,47 +1,23 @@
 import { Injectable } from '@angular/core';
+import { style } from '@primeuix/styles/selectbutton';
 import { BaseStyle } from 'primeng/base';
 
-const theme = ({ dt }) => `
-.p-selectbutton {
-    display: inline-flex;
-    user-select: none;
-    vertical-align: bottom;
-    outline-color: transparent;
-    border-radius: ${dt('selectbutton.border.radius')};
-}
+const theme = /*css*/ `
+    ${style}
 
-.p-selectbutton .p-togglebutton {
-    border-radius: 0;
-    border-width: 1px 1px 1px 0;
-}
-
-.p-selectbutton .p-togglebutton:focus-visible {
-    position: relative;
-    z-index: 1;
-}
-
-.p-selectbutton .p-togglebutton:first-child {
-    border-inline-start-width: 1px;
-    border-start-start-radius: ${dt('selectbutton.border.radius')};
-    border-end-start-radius: ${dt('selectbutton.border.radius')};
-}
-
-.p-selectbutton .p-togglebutton:last-child {
-    border-start-end-radius: ${dt('selectbutton.border.radius')};
-    border-end-end-radius: ${dt('selectbutton.border.radius')};
-}
-
-.p-selectbutton.ng-invalid.ng-dirty {
-    outline: 1px solid ${dt('selectbutton.invalid.border.color')};
-    outline-offset: 0;
-}
+    /* For PrimeNG */
+    .p-selectbutton.ng-invalid.ng-dirty {
+        outline: 1px solid dt('selectbutton.invalid.border.color');
+        outline-offset: 0;
+    }
 `;
 
 const classes = {
-    root: ({ props }) => [
+    root: ({ instance }) => [
         'p-selectbutton p-component',
         {
-            'p-invalid': props.invalid
+            'p-invalid': instance.invalid(),
+            'p-selectbutton-fluid': instance.fluid()
         }
     ]
 };

@@ -8,32 +8,10 @@ import { MenuItem } from 'primeng/api';
     standalone: false,
     template: `
         <app-docsectiontext>
-            <p>Items with navigation are defined with templating to be able to use a routerLink directive, an external link or programmatic navigation.</p>
+            <p>Menu items support navigation via routerLink, programmatic routing using commands, or external URLs.</p>
         </app-docsectiontext>
         <div class="card">
-            <p-menubar [model]="items">
-                <ng-template #item let-item>
-                    <ng-container *ngIf="item.route; else urlRef">
-                        <a [routerLink]="item.route" class="p-menubar-item-link">
-                            <span [class]="item.icon"></span>
-                            <span class="ml-2">{{ item.label }}</span>
-                        </a>
-                    </ng-container>
-                    <ng-template #urlRef>
-                        <a *ngIf="item.url; else noLink" [href]="item.url" class="p-menubar-item-link">
-                            <span [class]="item.icon"></span>
-                            <span class="ml-2">{{ item.label }}</span>
-                        </a>
-                    </ng-template>
-                    <ng-template #noLink>
-                        <div class="p-menubar-item-link">
-                            <span [class]="item.icon"></span>
-                            <span class="ml-2">{{ item.label }}</span>
-                            <span class="pi pi-fw pi-angle-down ml-2"></span>
-                        </div>
-                    </ng-template>
-                </ng-template>
-            </p-menubar>
+            <p-menubar [model]="items" />
         </div>
         <app-code [code]="code" selector="menubar-router-demo"></app-code>
     `
@@ -51,11 +29,11 @@ export class RouterDoc implements OnInit {
                 items: [
                     {
                         label: 'Installation',
-                        route: '/installation'
+                        routerLink: '/installation'
                     },
                     {
                         label: 'Configuration',
-                        route: '/configuration'
+                        routerLink: '/configuration'
                     }
                 ]
             },
@@ -84,54 +62,10 @@ export class RouterDoc implements OnInit {
     }
 
     code: Code = {
-        basic: `<p-menubar [model]="items">
-    <ng-template  #item let-item>
-        <ng-container *ngIf="item.route; else urlRef">
-            <a [routerLink]="item.route" class="p-menubar-item-link">
-                <span [class]="item.icon"></span>
-                <span class="ml-2">{{ item.label }}</span>
-            </a>
-        </ng-container>
-        <ng-template #urlRef>
-            <a *ngIf="item.url; else noLink" [href]="item.url" class="p-menubar-item-link">
-                <span [class]="item.icon"></span>
-                <span class="ml-2">{{ item.label }}</span>
-            </a>
-        </ng-template>
-        <ng-template #noLink>
-            <div class="p-menubar-item-link">
-                <span [class]="item.icon"></span>
-                <span class="ml-2">{{ item.label }}</span>
-                <span class="pi pi-fw pi-angle-down ml-2"></span>
-            </div>
-        </ng-template>
-    </ng-template>
-</p-menubar>`,
+        basic: `<p-menubar [model]="items" />`,
 
         html: `<div class="card">
-    <p-menubar [model]="items">
-        <ng-template  #item let-item>
-            <ng-container *ngIf="item.route; else urlRef">
-                <a [routerLink]="item.route" class="p-menubar-item-link">
-                    <span [class]="item.icon"></span>
-                    <span class="ml-2">{{ item.label }}</span>
-                </a>
-            </ng-container>
-            <ng-template #urlRef>
-                <a *ngIf="item.url; else noLink" [href]="item.url" class="p-menubar-item-link">
-                    <span [class]="item.icon"></span>
-                    <span class="ml-2">{{ item.label }}</span>
-                </a>
-            </ng-template>
-            <ng-template #noLink>
-                <div class="p-menubar-item-link">
-                    <span [class]="item.icon"></span>
-                    <span class="ml-2">{{ item.label }}</span>
-                    <span class="pi pi-fw pi-angle-down ml-2"></span>
-                </div>
-            </ng-template>
-        </ng-template>
-    </p-menubar>
+    <p-menubar [model]="items" />
 </div>`,
 
         typescript: `import { Component, OnInit } from '@angular/core';
@@ -144,7 +78,7 @@ import { Router } from '@angular/router';
     selector: 'menubar-router-demo',
     templateUrl: './menubar-router-demo.html',
     standalone: true,
-    imports: [Menubar, CommonModule],
+    imports: [Menubar, CommonModule]
 })
 export class MenubarRouterDemo implements OnInit {
     items: MenuItem[] | undefined;
@@ -159,11 +93,11 @@ export class MenubarRouterDemo implements OnInit {
                 items: [
                     {
                         label: 'Installation',
-                        route: '/installation'
+                        routerLink: '/installation'
                     },
                     {
                         label: 'Configuration',
-                        route: '/configuration'
+                        routerLink: '/configuration'
                     }
                 ]
             },

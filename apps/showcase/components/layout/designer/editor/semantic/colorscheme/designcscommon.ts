@@ -1,10 +1,10 @@
-import { ChangeDetectionStrategy, Component, Input } from '@angular/core';
-import { CommonModule } from '@angular/common';
-import { DesignTokenField } from '@/components/layout/designer/editor/designtokenfield';
-import { FieldsetModule } from 'primeng/fieldset';
-import { FormsModule } from '@angular/forms';
-import { palette } from '@primeng/themes';
 import { DesignColorPalette } from '@/components/layout/designer/editor/designcolorpalette';
+import { DesignTokenField } from '@/components/layout/designer/editor/designtokenfield';
+import { CommonModule } from '@angular/common';
+import { ChangeDetectionStrategy, Component, Input } from '@angular/core';
+import { FormsModule } from '@angular/forms';
+import { palette } from '@primeuix/themes';
+import { FieldsetModule } from 'primeng/fieldset';
 
 @Component({
     selector: 'design-cs-common',
@@ -93,6 +93,7 @@ export class DesignCSCommon {
     @Input() colorScheme: any;
 
     onSurfaceColorChange(event: any) {
+        //@ts-ignore
         this.colorScheme.surface = { ...{ 0: '#ffffff' }, ...palette(event.target.value) };
     }
 }

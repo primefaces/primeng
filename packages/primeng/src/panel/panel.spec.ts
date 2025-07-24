@@ -19,7 +19,7 @@ describe('Panel', () => {
     });
 
     it('should display the header', () => {
-        panel.header = 'PrimeNG Panel Header';
+        panel._header = 'PrimeNG Panel Header';
         fixture.detectChanges();
         const headerEl = fixture.debugElement.query(By.css('.p-panel-title'));
         expect(headerEl.nativeElement.textContent).toContain('PrimeNG Panel Header');

@@ -87,6 +87,8 @@ import tree from '@primeng/themes/lara/tree';
 import treeselect from '@primeng/themes/lara/treeselect';
 import treetable from '@primeng/themes/lara/treetable';
 import virtualscroller from '@primeng/themes/lara/virtualscroller';
+import type { LaraBaseDesignTokens } from '@primeuix/themes/lara/base';
+import type { Preset } from '@primeuix/themes/types';
 
 export default {
     ...base,
@@ -151,6 +153,7 @@ export default {
         progressspinner,
         radiobutton,
         rating,
+        ripple,
         scrollpanel,
         select,
         selectbutton,
@@ -176,8 +179,7 @@ export default {
         treetable,
         toast,
         toolbar,
-        virtualscroller,
         tooltip,
-        ripple
+        virtualscroller
     }
-};
+} as Preset<LaraBaseDesignTokens>;

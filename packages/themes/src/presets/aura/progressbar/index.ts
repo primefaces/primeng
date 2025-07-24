@@ -1,17 +1,2 @@
-import { ProgressBarDesignTokens } from '../../../../types/progressbar';
-
-export default {
-    root: {
-        background: '{content.border.color}',
-        borderRadius: '{content.border.radius}',
-        height: '1.25rem'
-    },
-    value: {
-        background: '{primary.color}'
-    },
-    label: {
-        color: '{primary.contrast.color}',
-        fontSize: '0.75rem',
-        fontWeight: '600'
-    }
-} as ProgressBarDesignTokens;
+export * from '@primeuix/themes/aura/progressbar';
+export { default } from '@primeuix/themes/aura/progressbar';
