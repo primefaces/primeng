@@ -678,7 +678,8 @@ export class InputNumber extends BaseInput implements OnInit, AfterContentInit, 
         let step = (this.step() ?? 1) * dir;
         let currentValue = this.parseValue(this.input?.nativeElement.value) || 0;
         let newValue = this.validateValue((currentValue as number) + step);
-        if (this.maxlength() && this.maxlength() < this.formatValue(newValue).length) {
+        let rawValue = newValue.toString().replace(/[^\d]/g, '');
+        if (this.maxlength() && this.maxlength() < rawValue.length) {
             return;
         }
         this.updateInput(newValue, null, 'spin', null);
