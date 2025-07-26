@@ -207,7 +207,7 @@ export class InputOtp extends BaseEditableHolder implements AfterContentInit {
     }
 
     get inputType(): string {
-        return this.mask ? 'password' : 'text';
+        return this.mask ? 'password' : this.integerOnly ? 'number' : 'text';
     }
 
     _componentStyle = inject(InputOtpStyle);
