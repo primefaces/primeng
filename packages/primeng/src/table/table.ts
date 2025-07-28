@@ -342,7 +342,6 @@ export class TableService {
     changeDetection: ChangeDetectionStrategy.Default,
     encapsulation: ViewEncapsulation.None,
     host: {
-        '[attr.id]': 'id',
         '[class]': "cn(cx('root'), styleClass)"
     }
 })
