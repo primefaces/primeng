@@ -19,6 +19,10 @@ const theme = /*css*/ `
         justify-content: flex-start;
         gap: dt('accordion.header.padding');
     }
+
+    .p-accordioncontent.ng-animating {
+        overflow: hidden;
+    }
 `;
 
 const classes = {
