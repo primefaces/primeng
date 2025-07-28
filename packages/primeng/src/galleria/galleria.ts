@@ -51,7 +51,7 @@ import { GalleriaStyle } from './style/galleriastyle';
     standalone: false,
     template: `
         <div *ngIf="fullScreen; else windowed" #container>
-            <div *ngIf="maskVisible" #mask [ngClass]="cx('mask')" [class]="maskClass" [attr.role]="fullScreen ? 'dialog' : 'region'" [attr.aria-modal]="fullScreen ? 'true' : undefined" (click)="onMaskHide()">
+            <div *ngIf="maskVisible" #mask [ngClass]="cx('mask')" [class]="maskClass" [attr.role]="fullScreen ? 'dialog' : 'region'" [attr.aria-modal]="fullScreen ? 'true' : undefined" (click)="onMaskHide($event)">
                 <p-galleriaContent
                     *ngIf="visible"
                     [@animation]="{
@@ -365,9 +365,11 @@ export class Galleria extends BaseComponent implements OnChanges, OnDestroy {
         }
     }
 
-    onMaskHide() {
-        this.visible = false;
-        this.visibleChange.emit(false);
+    onMaskHide(event?: MouseEvent) {
+        if (!event || event.target === event.currentTarget) {
+            this.visible = false;
+            this.visibleChange.emit(false);
+        }
     }
 
     onActiveItemChange(index: number) {
