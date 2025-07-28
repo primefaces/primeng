@@ -23,10 +23,7 @@ export class AppDocApiSection {
 
     docs = input<any[] | undefined>([]);
 
-    _docs = computed(() => {
-        console.log(this.docs(), this.createDocs());
-        return this.docs() && this.createDocs();
-    });
+    _docs = computed(() => this.docs() && this.createDocs());
 
     constructor(
         private location: Location,
