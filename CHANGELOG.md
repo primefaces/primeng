@@ -1,4 +1,25 @@
 # Changelog
+## [20.0.1](https://github.com/primefaces/primeng/tree/20.0.1) (2025-07-28)
+[Full Changelog](https://github.com/primefaces/primeng/compare/20.0.0...20.0.1)
+
+**Fixed bugs:**
+- Broken link in docs [#18695](https://github.com/primefaces/primeng/issues/18695)
+- Checkbox: icon template does not work when written as #icon [#18284](https://github.com/primefaces/primeng/issues/18284)
+- Primeng 20 showcase still shows rc.1 [#18619](https://github.com/primefaces/primeng/issues/18619)
+- docs: svg ‎<mask> tag not closed in Toolbar custom component [#18650](https://github.com/primefaces/primeng/issues/18650)
+- p-tableCheckbox gets deselected when it gets disabled [#18624](https://github.com/primefaces/primeng/issues/18624)
+- Listbox: Incorrect value in the search field's aria-owns attribute [#18663](https://github.com/primefaces/primeng/issues/18663)
+- Galery Issue in examples [#18648](https://github.com/primefaces/primeng/issues/18648)
+- Broken link in docs [#18695](https://github.com/primefaces/primeng/issues/18695)
+- ID on p-table is not taken into account [#18691](https://github.com/primefaces/primeng/issues/18691)
+- Editor doc missing link [#18661](https://github.com/primefaces/primeng/issues/18661)
+- p-columnFilter is not kebab-case (Should be p-column-filter or p-columnfilter) [#18659](https://github.com/primefaces/primeng/issues/18659)
+- ConfirmDialog: ignored acceptButtonProps [#18618](https://github.com/primefaces/primeng/issues/18618)
+- Listbox: Misaligned checkbox in multiselect mode with filter enabled (PrimeNG v20) [#18656](https://github.com/primefaces/primeng/issues/18656)
+- TS2344 Type Error in @primeuix/themes with Angular 20 + PrimeNG 20 [#18626](https://github.com/primefaces/primeng/issues/18626)
+- Customizing color does no longer work as expected with PrimeNG 20 [#18649](https://github.com/primefaces/primeng/issues/18649)
+- Accordion - Content Panel doesn't disappear when collapsed [#18616](https://github.com/primefaces/primeng/issues/18616)
+
 ## [20.0.0](https://github.com/primefaces/primeng/tree/20.0.0) (2025-07-16)
 [Full Changelog](https://github.com/primefaces/primeng/compare/20.0.-1...20.0.0)
 
