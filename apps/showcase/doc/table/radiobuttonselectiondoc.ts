@@ -24,7 +24,7 @@ import { ChangeDetectionStrategy, ChangeDetectorRef, Component } from '@angular/
                     <ng-template #body let-product>
                         <tr>
                             <td>
-                                <p-tableRadioButton [value]="product" />
+                                <p-table-radio-button [value]="product" />
                             </td>
                             <td>{{ product.code }}</td>
                             <td>{{ product.name }}</td>
@@ -69,7 +69,7 @@ export class RadioButtonSelectionDoc {
     <ng-template #body let-product>
         <tr>
             <td>
-                <p-tableRadioButton [value]="product" />
+                <p-table-radio-button [value]="product" />
             </td>
             <td>{{product.code}}</td>
             <td>{{product.name}}</td>
@@ -92,7 +92,7 @@ export class RadioButtonSelectionDoc {
         <ng-template #body let-product>
             <tr>
                 <td>
-                    <p-tableRadioButton [value]="product" />
+                    <p-table-radio-button [value]="product" />
                 </td>
                 <td>{{product.code}}</td>
                 <td>{{product.name}}</td>

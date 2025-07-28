@@ -19,7 +19,7 @@ import { FilterMatchMode, FilterService, SelectItem } from 'primeng/api';
                     </tr>
                     <tr>
                         <th *ngFor="let col of columns">
-                            <p-columnFilter type="text" [field]="col.field" [matchModeOptions]="matchModeOptions" [matchMode]="'custom-equals'" />
+                            <p-column-filter type="text" [field]="col.field" [matchModeOptions]="matchModeOptions" [matchMode]="'custom-equals'" />
                         </th>
                     </tr>
                 </ng-template>
@@ -90,7 +90,7 @@ export class TableIntegrationDoc implements OnInit {
         </tr>
         <tr>
             <th *ngFor="let col of columns">
-                <p-columnFilter type="text" [field]="col.field" [matchModeOptions]="matchModeOptions" [matchMode]="'custom-equals'" />
+                <p-column-filter type="text" [field]="col.field" [matchModeOptions]="matchModeOptions" [matchMode]="'custom-equals'" />
             </th>
         </tr>
     </ng-template>
@@ -108,7 +108,7 @@ export class TableIntegrationDoc implements OnInit {
             </tr>
             <tr>
                 <th *ngFor="let col of columns">
-                    <p-columnFilter type="text" [field]="col.field" [matchModeOptions]="matchModeOptions" [matchMode]="'custom-equals'" />
+                    <p-column-filter type="text" [field]="col.field" [matchModeOptions]="matchModeOptions" [matchMode]="'custom-equals'" />
                 </th>
             </tr>
         </ng-template>

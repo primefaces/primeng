@@ -35,26 +35,26 @@ import { TableLazyLoadEvent } from 'primeng/table';
                     <ng-template pTemplate="header">
                         <tr>
                             <th style="width: 4rem"></th>
-                            <th pSortableColumn="name">Name <p-sortIcon field="name" /></th>
-                            <th pSortableColumn="country.name">Country <p-sortIcon field="country.name" /></th>
-                            <th pSortableColumn="company">Company <p-sortIcon field="company" /></th>
-                            <th pSortableColumn="representative.name">Representative <p-sortIcon field="representative.name" /></th>
+                            <th pSortableColumn="name">Name <p-sort-icon field="name" /></th>
+                            <th pSortableColumn="country.name">Country <p-sort-icon field="country.name" /></th>
+                            <th pSortableColumn="company">Company <p-sort-icon field="company" /></th>
+                            <th pSortableColumn="representative.name">Representative <p-sort-icon field="representative.name" /></th>
                         </tr>
                         <tr>
                             <th style="width: 4rem">
-                                <p-tableHeaderCheckbox />
+                                <p-table-header-checkbox />
                             </th>
                             <th>
-                                <p-columnFilter type="text" field="name" />
+                                <p-column-filter type="text" field="name" />
                             </th>
                             <th>
-                                <p-columnFilter type="text" field="country.name" />
+                                <p-column-filter type="text" field="country.name" />
                             </th>
                             <th>
-                                <p-columnFilter type="text" field="company" />
+                                <p-column-filter type="text" field="company" />
                             </th>
                             <th>
-                                <p-columnFilter field="representative" matchMode="in" [showMenu]="false">
+                                <p-column-filter field="representative" matchMode="in" [showMenu]="false">
                                     <ng-template pTemplate="filter" let-value let-filter="filterCallback">
                                         <p-multiselect [(ngModel)]="value" appendTo="body" [options]="representatives" placeholder="Any" (onChange)="filter($event.value)" optionLabel="name" [maxSelectedLabels]="1" [selectedItemsLabel]="'{0} items'">
                                             <ng-template let-option pTemplate="item">
@@ -65,14 +65,14 @@ import { TableLazyLoadEvent } from 'primeng/table';
                                             </ng-template>
                                         </p-multiselect>
                                     </ng-template>
-                                </p-columnFilter>
+                                </p-column-filter>
                             </th>
                         </tr>
                     </ng-template>
                     <ng-template pTemplate="body" let-customer>
                         <tr>
                             <td>
-                                <p-tableCheckbox [value]="customer"></p-tableCheckbox>
+                                <p-table-checkbox [value]="customer"></p-table-checkbox>
                             </td>
                             <td>{{ customer.name }}</td>
                             <td>{{ customer.country.name }}</td>
@@ -176,33 +176,33 @@ export class LazyLoadDoc implements OnInit {
         <tr>
             <th style="width: 4rem"></th>
             <th pSortableColumn="name">
-                Name <p-sortIcon field="name" />
+                Name <p-sort-icon field="name" />
             </th>
             <th pSortableColumn="country.name">
-                Country <p-sortIcon field="country.name" />
+                Country <p-sort-icon field="country.name" />
             </th>
             <th pSortableColumn="company">
-                Company <p-sortIcon field="company" />
+                Company <p-sort-icon field="company" />
             </th>
             <th pSortableColumn="representative.name">
-                Representative <p-sortIcon field="representative.name" />
+                Representative <p-sort-icon field="representative.name" />
             </th>
         </tr>
         <tr>
             <th style="width: 4rem">
-                <p-tableHeaderCheckbox />
+                <p-table-header-checkbox />
             </th>
             <th>
-                <p-columnFilter type="text" field="name" />
+                <p-column-filter type="text" field="name" />
             </th>
             <th>
-                <p-columnFilter type="text" field="country.name" />
+                <p-column-filter type="text" field="country.name" />
             </th>
             <th>
-                <p-columnFilter type="text" field="company" />
+                <p-column-filter type="text" field="company" />
             </th>
             <th>
-                <p-columnFilter field="representative" matchMode="in" [showMenu]="false">
+                <p-column-filter field="representative" matchMode="in" [showMenu]="false">
                     <ng-template pTemplate="filter" let-value let-filter="filterCallback">
                         <p-multiselect [(ngModel)]="value" appendTo="body" [options]="representatives" placeholder="Any" (onChange)="filter($event.value)" optionLabel="name" [maxSelectedLabels]="1" [selectedItemsLabel]="'{0} items'">
                             <ng-template let-option pTemplate="item">
@@ -213,14 +213,14 @@ export class LazyLoadDoc implements OnInit {
                             </ng-template>
                         </p-multiselect>
                     </ng-template>
-                </p-columnFilter>
+                </p-column-filter>
             </th>
         </tr>
     </ng-template>
     <ng-template pTemplate="body" let-customer>
         <tr>
             <td>
-                <p-tableCheckbox [value]="customer"></p-tableCheckbox>
+                <p-table-checkbox [value]="customer"></p-table-checkbox>
             </td>
             <td>{{ customer.name }}</td>
             <td>{{ customer.country.name }}</td>
@@ -249,26 +249,26 @@ export class LazyLoadDoc implements OnInit {
         <ng-template pTemplate="header">
             <tr>
                 <th style="width: 4rem"></th>
-                <th pSortableColumn="name">Name <p-sortIcon field="name" /></th>
-                <th pSortableColumn="country.name">Country <p-sortIcon field="country.name" /></th>
-                <th pSortableColumn="company">Company <p-sortIcon field="company" /></th>
-                <th pSortableColumn="representative.name">Representative <p-sortIcon field="representative.name" /></th>
+                <th pSortableColumn="name">Name <p-sort-icon field="name" /></th>
+                <th pSortableColumn="country.name">Country <p-sort-icon field="country.name" /></th>
+                <th pSortableColumn="company">Company <p-sort-icon field="company" /></th>
+                <th pSortableColumn="representative.name">Representative <p-sort-icon field="representative.name" /></th>
             </tr>
             <tr>
                 <th style="width: 4rem">
-                    <p-tableHeaderCheckbox />
+                    <p-table-header-checkbox />
                 </th>
                 <th>
-                    <p-columnFilter type="text" field="name" />
+                    <p-column-filter type="text" field="name" />
                 </th>
                 <th>
-                    <p-columnFilter type="text" field="country.name" />
+                    <p-column-filter type="text" field="country.name" />
                 </th>
                 <th>
-                    <p-columnFilter type="text" field="company" />
+                    <p-column-filter type="text" field="company" />
                 </th>
                 <th>
-                    <p-columnFilter field="representative" matchMode="in" [showMenu]="false">
+                    <p-column-filter field="representative" matchMode="in" [showMenu]="false">
                         <ng-template pTemplate="filter" let-value let-filter="filterCallback">
                             <p-multiselect [(ngModel)]="value" appendTo="body" [options]="representatives" placeholder="Any" (onChange)="filter($event.value)" optionLabel="name" [maxSelectedLabels]="1" [selectedItemsLabel]="'{0} items'">
                                 <ng-template let-option pTemplate="item">
@@ -279,14 +279,14 @@ export class LazyLoadDoc implements OnInit {
                                 </ng-template>
                             </p-multiselect>
                         </ng-template>
-                    </p-columnFilter>
+                    </p-column-filter>
                 </th>
             </tr>
         </ng-template>
         <ng-template pTemplate="body" let-customer>
             <tr>
                 <td>
-                    <p-tableCheckbox [value]="customer"></p-tableCheckbox>
+                    <p-table-checkbox [value]="customer"></p-table-checkbox>
                 </td>
                 <td>{{ customer.name }}</td>
                 <td>{{ customer.country.name }}</td>

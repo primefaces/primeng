@@ -8,7 +8,7 @@ import { ChangeDetectionStrategy, ChangeDetectorRef, Component } from '@angular/
     standalone: false,
     template: ` <app-docsectiontext>
             <p>
-                A column can be made sortable by adding the <i>pSortableColumn</i> directive whose value is the field to sort against and a sort indicator via <i>p-sortIcon</i> component. For dynamic columns, setting
+                A column can be made sortable by adding the <i>pSortableColumn</i> directive whose value is the field to sort against and a sort indicator via <i>p-sort-icon</i> component. For dynamic columns, setting
                 <i>pSortableColumnDisabled</i> property as true disables sorting for that particular column.
             </p>
             <p>
@@ -24,25 +24,25 @@ import { ChangeDetectionStrategy, ChangeDetectorRef, Component } from '@angular/
                             <th pSortableColumn="code" style="width:20%">
                                 <div class="flex items-center gap-2">
                                     Code
-                                    <p-sortIcon field="code" />
+                                    <p-sort-icon field="code" />
                                 </div>
                             </th>
                             <th pSortableColumn="name" style="width:20%">
                                 <div class="flex items-center gap-2">
                                     Name
-                                    <p-sortIcon field="name" />
+                                    <p-sort-icon field="name" />
                                 </div>
                             </th>
                             <th pSortableColumn="category" style="width:20%">
                                 <div class="flex items-center gap-2">
                                     Category
-                                    <p-sortIcon field="category" />
+                                    <p-sort-icon field="category" />
                                 </div>
                             </th>
                             <th pSortableColumn="quantity" style="width:20%">
                                 <div class="flex items-center gap-2">
                                     Quantity
-                                    <p-sortIcon field="quantity" />
+                                    <p-sort-icon field="quantity" />
                                 </div>
                             </th>
                         </tr>
@@ -83,25 +83,25 @@ export class SingleColumnSortDoc {
             <th pSortableColumn="code" style="width:20%">
                 <div class="flex items-center gap-2">
                     Code
-                    <p-sortIcon field="code" />
+                    <p-sort-icon field="code" />
                 </div>
             </th>
             <th pSortableColumn="name" style="width:20%">
                 <div class="flex items-center gap-2">
                     Name
-                    <p-sortIcon field="name" />
+                    <p-sort-icon field="name" />
                 </div>
             </th>
             <th pSortableColumn="category" style="width:20%">
                 <div class="flex items-center gap-2">
                     Category
-                    <p-sortIcon field="category" />
+                    <p-sort-icon field="category" />
                 </div>
             </th>
             <th pSortableColumn="quantity" style="width:20%">
                 <div class="flex items-center gap-2">
                     Quantity
-                    <p-sortIcon field="quantity" />
+                    <p-sort-icon field="quantity" />
                 </div>
             </th>
         </tr>
@@ -122,25 +122,25 @@ export class SingleColumnSortDoc {
                 <th pSortableColumn="code" style="width:20%">
                     <div class="flex items-center gap-2">
                         Code
-                        <p-sortIcon field="code" />
+                        <p-sort-icon field="code" />
                     </div>
                 </th>
                 <th pSortableColumn="name" style="width:20%">
                     <div class="flex items-center gap-2">
                         Name
-                        <p-sortIcon field="name" />
+                        <p-sort-icon field="name" />
                     </div>
                 </th>
                 <th pSortableColumn="category" style="width:20%">
                     <div class="flex items-center gap-2">
                         Category
-                        <p-sortIcon field="category" />
+                        <p-sort-icon field="category" />
                     </div>
                 </th>
                 <th pSortableColumn="quantity" style="width:20%">
                     <div class="flex items-center gap-2">
                         Quantity
-                        <p-sortIcon field="quantity" />
+                        <p-sort-icon field="quantity" />
                     </div>
                 </th>
             </tr>

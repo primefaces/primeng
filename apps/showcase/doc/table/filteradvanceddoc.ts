@@ -29,19 +29,19 @@ import { Table } from 'primeng/table';
                             <th style="min-width:15rem">
                                 <div class="flex items-center justify-between">
                                     Name
-                                    <p-columnFilter type="text" field="name" display="menu" />
+                                    <p-column-filter type="text" field="name" display="menu" />
                                 </div>
                             </th>
                             <th style="min-width:15rem">
                                 <div class="flex items-center justify-between">
                                     Country
-                                    <p-columnFilter type="text" field="country.name" display="menu" />
+                                    <p-column-filter type="text" field="country.name" display="menu" />
                                 </div>
                             </th>
                             <th style="min-width:15rem">
                                 <div class="flex items-center justify-between">
                                     Agent
-                                    <p-columnFilter field="representative" matchMode="in" display="menu" [showMatchModes]="false" [showOperator]="false" [showAddButton]="false">
+                                    <p-column-filter field="representative" matchMode="in" display="menu" [showMatchModes]="false" [showOperator]="false" [showAddButton]="false">
                                         <ng-template #filter let-value let-filter="filterCallback">
                                             <p-multiselect [(ngModel)]="value" [options]="representatives" placeholder="Any" (onChange)="filter($event.value)" optionLabel="name" style="min-width: 14rem" [panelStyle]="{ minWidth: '16rem' }">
                                                 <ng-template let-option #item>
@@ -52,25 +52,25 @@ import { Table } from 'primeng/table';
                                                 </ng-template>
                                             </p-multiselect>
                                         </ng-template>
-                                    </p-columnFilter>
+                                    </p-column-filter>
                                 </div>
                             </th>
                             <th style="min-width:10rem">
                                 <div class="flex items-center justify-between">
                                     Date
-                                    <p-columnFilter type="date" field="date" display="menu"></p-columnFilter>
+                                    <p-column-filter type="date" field="date" display="menu"></p-column-filter>
                                 </div>
                             </th>
                             <th style="min-width:10rem">
                                 <div class="flex items-center justify-between">
                                     Balance
-                                    <p-columnFilter type="numeric" field="balance" display="menu" currency="USD" />
+                                    <p-column-filter type="numeric" field="balance" display="menu" currency="USD" />
                                 </div>
                             </th>
                             <th style="min-width:10rem">
                                 <div class="flex items-center justify-between">
                                     Status
-                                    <p-columnFilter field="status" matchMode="equals" display="menu">
+                                    <p-column-filter field="status" matchMode="equals" display="menu">
                                         <ng-template #filter let-value let-filter="filterCallback">
                                             <p-select [(ngModel)]="value" [options]="statuses" (onChange)="filter($event.value)" placeholder="Select One" class="w-full">
                                                 <ng-template let-option #item>
@@ -78,13 +78,13 @@ import { Table } from 'primeng/table';
                                                 </ng-template>
                                             </p-select>
                                         </ng-template>
-                                    </p-columnFilter>
+                                    </p-column-filter>
                                 </div>
                             </th>
                             <th style="min-width:10rem">
                                 <div class="flex items-center justify-between">
                                     Activity
-                                    <p-columnFilter field="activity" matchMode="between" display="menu" [showMatchModes]="false" [showOperator]="false" [showAddButton]="false">
+                                    <p-column-filter field="activity" matchMode="between" display="menu" [showMatchModes]="false" [showOperator]="false" [showAddButton]="false">
                                         <ng-template #filter let-value let-filter="filterCallback">
                                             <p-slider [(ngModel)]="value" [range]="true" class="m-4" (onSlideEnd)="filter($event.values)" />
                                             <div class="flex items-center px-2">
@@ -92,13 +92,13 @@ import { Table } from 'primeng/table';
                                                 <span *ngIf="value">{{ value[0] }} - {{ value[1] }}</span>
                                             </div>
                                         </ng-template>
-                                    </p-columnFilter>
+                                    </p-column-filter>
                                 </div>
                             </th>
                             <th style="width: 3rem">
                                 <div class="flex items-center justify-between">
                                     Verified
-                                    <p-columnFilter type="boolean" field="verified" display="menu" />
+                                    <p-column-filter type="boolean" field="verified" display="menu" />
                                 </div>
                             </th>
                         </tr>
@@ -227,19 +227,19 @@ export class FilterAdvancedDoc {
             <th style="min-width:15rem">
                 <div class="flex items-center justify-between">
                     Name
-                    <p-columnFilter type="text" field="name" display="menu" />
+                    <p-column-filter type="text" field="name" display="menu" />
                 </div>
             </th>
             <th style="min-width:15rem">
                 <div class="flex items-center justify-between">
                     Country
-                    <p-columnFilter type="text" field="country.name" display="menu" />
+                    <p-column-filter type="text" field="country.name" display="menu" />
                 </div>
             </th>
             <th style="min-width:15rem">
                 <div class="flex items-center justify-between">
                     Agent
-                    <p-columnFilter field="representative" matchMode="in" display="menu" [showMatchModes]="false" [showOperator]="false" [showAddButton]="false">
+                    <p-column-filter field="representative" matchMode="in" display="menu" [showMatchModes]="false" [showOperator]="false" [showAddButton]="false">
                         <ng-template #filter let-value let-filter="filterCallback">
                             <p-multiselect [(ngModel)]="value" [options]="representatives" placeholder="Any" (onChange)="filter($event.value)" optionLabel="name" style="min-width: 14rem" [panelStyle]="{ minWidth: '16rem' }">
                                 <ng-template let-option #item>
@@ -250,25 +250,25 @@ export class FilterAdvancedDoc {
                                 </ng-template>
                             </p-multiselect>
                         </ng-template>
-                    </p-columnFilter>
+                    </p-column-filter>
                 </div>
             </th>
             <th style="min-width:10rem">
                 <div class="flex items-center justify-between">
                     Date
-                    <p-columnFilter type="date" field="date" display="menu"></p-columnFilter>
+                    <p-column-filter type="date" field="date" display="menu"></p-column-filter>
                 </div>
             </th>
             <th style="min-width:10rem">
                 <div class="flex items-center justify-between">
                     Balance
-                    <p-columnFilter type="numeric" field="balance" display="menu" currency="USD" />
+                    <p-column-filter type="numeric" field="balance" display="menu" currency="USD" />
                 </div>
             </th>
             <th style="min-width:10rem">
                 <div class="flex items-center justify-between">
                     Status
-                    <p-columnFilter field="status" matchMode="equals" display="menu">
+                    <p-column-filter field="status" matchMode="equals" display="menu">
                         <ng-template #filter let-value let-filter="filterCallback">
                             <p-select [(ngModel)]="value" [options]="statuses" (onChange)="filter($event.value)" placeholder="Select One" class="w-full">
                                 <ng-template let-option #item>
@@ -276,13 +276,13 @@ export class FilterAdvancedDoc {
                                 </ng-template>
                             </p-select>
                         </ng-template>
-                    </p-columnFilter>
+                    </p-column-filter>
                 </div>
             </th>
             <th style="min-width:10rem">
                 <div class="flex items-center justify-between">
                     Activity
-                    <p-columnFilter field="activity" matchMode="between" display="menu" [showMatchModes]="false" [showOperator]="false" [showAddButton]="false">
+                    <p-column-filter field="activity" matchMode="between" display="menu" [showMatchModes]="false" [showOperator]="false" [showAddButton]="false">
                         <ng-template #filter let-value let-filter="filterCallback">
                             <p-slider [(ngModel)]="value" [range]="true" class="m-4" (onSlideEnd)="filter($event.values)" />
                             <div class="flex items-center px-2">
@@ -290,13 +290,13 @@ export class FilterAdvancedDoc {
                                 <span *ngIf="value">{{ value[0] }} - {{ value[1] }}</span>
                             </div>
                         </ng-template>
-                    </p-columnFilter>
+                    </p-column-filter>
                 </div>
             </th>
             <th style="width: 3rem">
                 <div class="flex items-center justify-between">
                     Verified
-                    <p-columnFilter type="boolean" field="verified" display="menu" />
+                    <p-column-filter type="boolean" field="verified" display="menu" />
                 </div>
             </th>
         </tr>
@@ -365,19 +365,19 @@ export class FilterAdvancedDoc {
                 <th style="min-width:15rem">
                     <div class="flex items-center justify-between">
                         Name
-                        <p-columnFilter type="text" field="name" display="menu" />
+                        <p-column-filter type="text" field="name" display="menu" />
                     </div>
                 </th>
                 <th style="min-width:15rem">
                     <div class="flex items-center justify-between">
                         Country
-                        <p-columnFilter type="text" field="country.name" display="menu" />
+                        <p-column-filter type="text" field="country.name" display="menu" />
                     </div>
                 </th>
                 <th style="min-width:15rem">
                     <div class="flex items-center justify-between">
                         Agent
-                        <p-columnFilter field="representative" matchMode="in" display="menu" [showMatchModes]="false" [showOperator]="false" [showAddButton]="false">
+                        <p-column-filter field="representative" matchMode="in" display="menu" [showMatchModes]="false" [showOperator]="false" [showAddButton]="false">
                             <ng-template #filter let-value let-filter="filterCallback">
                                 <p-multiselect [(ngModel)]="value" [options]="representatives" placeholder="Any" (onChange)="filter($event.value)" optionLabel="name" style="min-width: 14rem" [panelStyle]="{ minWidth: '16rem' }">
                                     <ng-template let-option #item>
@@ -388,25 +388,25 @@ export class FilterAdvancedDoc {
                                     </ng-template>
                                 </p-multiselect>
                             </ng-template>
-                        </p-columnFilter>
+                        </p-column-filter>
                     </div>
                 </th>
                 <th style="min-width:10rem">
                     <div class="flex items-center justify-between">
                         Date
-                        <p-columnFilter type="date" field="date" display="menu"></p-columnFilter>
+                        <p-column-filter type="date" field="date" display="menu"></p-column-filter>
                     </div>
                 </th>
                 <th style="min-width:10rem">
                     <div class="flex items-center justify-between">
                         Balance
-                        <p-columnFilter type="numeric" field="balance" display="menu" currency="USD" />
+                        <p-column-filter type="numeric" field="balance" display="menu" currency="USD" />
                     </div>
                 </th>
                 <th style="min-width:10rem">
                     <div class="flex items-center justify-between">
                         Status
-                        <p-columnFilter field="status" matchMode="equals" display="menu">
+                        <p-column-filter field="status" matchMode="equals" display="menu">
                             <ng-template #filter let-value let-filter="filterCallback">
                                 <p-select [(ngModel)]="value" [options]="statuses" (onChange)="filter($event.value)" placeholder="Select One" class="w-full">
                                     <ng-template let-option #item>
@@ -414,13 +414,13 @@ export class FilterAdvancedDoc {
                                     </ng-template>
                                 </p-select>
                             </ng-template>
-                        </p-columnFilter>
+                        </p-column-filter>
                     </div>
                 </th>
                 <th style="min-width:10rem">
                     <div class="flex items-center justify-between">
                         Activity
-                        <p-columnFilter field="activity" matchMode="between" display="menu" [showMatchModes]="false" [showOperator]="false" [showAddButton]="false">
+                        <p-column-filter field="activity" matchMode="between" display="menu" [showMatchModes]="false" [showOperator]="false" [showAddButton]="false">
                             <ng-template #filter let-value let-filter="filterCallback">
                                 <p-slider [(ngModel)]="value" [range]="true" class="m-4" (onSlideEnd)="filter($event.values)" />
                                 <div class="flex items-center px-2">
@@ -428,13 +428,13 @@ export class FilterAdvancedDoc {
                                     <span *ngIf="value">{{ value[0] }} - {{ value[1] }}</span>
                                 </div>
                             </ng-template>
-                        </p-columnFilter>
+                        </p-column-filter>
                     </div>
                 </th>
                 <th style="width: 3rem">
                     <div class="flex items-center justify-between">
                         Verified
-                        <p-columnFilter type="boolean" field="verified" display="menu" />
+                        <p-column-filter type="boolean" field="verified" display="menu" />
                     </div>
                 </th>
             </tr>

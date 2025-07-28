@@ -12,7 +12,7 @@ import { ChangeDetectionStrategy, ChangeDetectorRef, Component } from '@angular/
                     <ng-template pTemplate="header">
                         <tr>
                             <th style="width: 4rem">
-                                <p-tableHeaderCheckbox></p-tableHeaderCheckbox>
+                                <p-table-header-checkbox></p-table-header-checkbox>
                             </th>
                             <th style="min-width:200px">Code</th>
                             <th style="min-width:200px">Name</th>
@@ -23,7 +23,7 @@ import { ChangeDetectionStrategy, ChangeDetectorRef, Component } from '@angular/
                     <ng-template pTemplate="body" let-product>
                         <tr>
                             <td>
-                                <p-tableCheckbox [value]="product"></p-tableCheckbox>
+                                <p-table-checkbox [value]="product"></p-table-checkbox>
                             </td>
                             <td>{{ product.code }}</td>
                             <td>{{ product.name }}</td>
@@ -59,7 +59,7 @@ export class PageOnlySelectionDoc {
     <ng-template pTemplate="header">
         <tr>
             <th style="width: 4rem">
-                <p-tableHeaderCheckbox></p-tableHeaderCheckbox>
+                <p-table-header-checkbox></p-table-header-checkbox>
             </th>
             <th style="min-width:200px">Code</th>
             <th style="min-width:200px">Name</th>
@@ -70,7 +70,7 @@ export class PageOnlySelectionDoc {
     <ng-template pTemplate="body" let-product>
         <tr>
             <td>
-                <p-tableCheckbox [value]="product"></p-tableCheckbox>
+                <p-table-checkbox [value]="product"></p-table-checkbox>
             </td>
             <td>{{product.code}}</td>
             <td>{{product.name}}</td>
@@ -85,7 +85,7 @@ export class PageOnlySelectionDoc {
         <ng-template pTemplate="header">
             <tr>
                 <th style="width: 4rem">
-                    <p-tableHeaderCheckbox></p-tableHeaderCheckbox>
+                    <p-table-header-checkbox></p-table-header-checkbox>
                 </th>
                 <th style="min-width:200px">Code</th>
                 <th style="min-width:200px">Name</th>
@@ -96,7 +96,7 @@ export class PageOnlySelectionDoc {
         <ng-template pTemplate="body" let-product>
             <tr>
                 <td>
-                    <p-tableCheckbox [value]="product"></p-tableCheckbox>
+                    <p-table-checkbox [value]="product"></p-table-checkbox>
                 </td>
                 <td>{{product.code}}</td>
                 <td>{{product.name}}</td>

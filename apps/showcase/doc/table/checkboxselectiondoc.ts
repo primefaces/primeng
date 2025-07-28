@@ -15,7 +15,7 @@ import { ChangeDetectionStrategy, ChangeDetectorRef, Component } from '@angular/
                     <ng-template #header>
                         <tr>
                             <th style="width: 4rem">
-                                <p-tableHeaderCheckbox />
+                                <p-table-header-checkbox />
                             </th>
                             <th>Code</th>
                             <th>Name</th>
@@ -26,7 +26,7 @@ import { ChangeDetectionStrategy, ChangeDetectorRef, Component } from '@angular/
                     <ng-template #body let-product>
                         <tr>
                             <td>
-                                <p-tableCheckbox [value]="product" />
+                                <p-table-checkbox [value]="product" />
                             </td>
                             <td>{{ product.code }}</td>
                             <td>{{ product.name }}</td>
@@ -61,7 +61,7 @@ export class CheckboxSelectionDoc {
         basic: `<p-table [value]="products" [(selection)]="selectedProducts" dataKey="code" [tableStyle]="{'min-width': '50rem'}">
     <ng-template #header>
         <tr>
-            <th style="width: 4rem"><p-tableHeaderCheckbox /></th>
+            <th style="width: 4rem"><p-table-header-checkbox /></th>
             <th>Code</th>
             <th>Name</th>
             <th>Category</th>
@@ -71,7 +71,7 @@ export class CheckboxSelectionDoc {
     <ng-template #body let-product>
         <tr>
             <td>
-                <p-tableCheckbox [value]="product" />
+                <p-table-checkbox [value]="product" />
             </td>
             <td>{{product.code}}</td>
             <td>{{product.name}}</td>
@@ -84,7 +84,7 @@ export class CheckboxSelectionDoc {
     <p-table [value]="products" [(selection)]="selectedProducts" dataKey="code" [tableStyle]="{'min-width': '50rem'}">
         <ng-template #header>
             <tr>
-                <th style="width: 4rem"><p-tableHeaderCheckbox /></th>
+                <th style="width: 4rem"><p-table-header-checkbox /></th>
                 <th>Code</th>
                 <th>Name</th>
                 <th>Category</th>
@@ -94,7 +94,7 @@ export class CheckboxSelectionDoc {
         <ng-template #body let-product>
             <tr>
                 <td>
-                    <p-tableCheckbox [value]="product" />
+                    <p-table-checkbox [value]="product" />
                 </td>
                 <td>{{product.code}}</td>
                 <td>{{product.name}}</td>

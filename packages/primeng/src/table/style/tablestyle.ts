@@ -116,7 +116,7 @@ const theme = /*css*/ `
         color: dt('datatable.row.selected.color');
     }
 
-    p-sortIcon {
+    p-sort-icon {
         display: inline-flex;
         align-items: center;
         gap: dt('datatable.header.cell.gap');

@@ -63,38 +63,38 @@ interface ExportColumn {
                     <ng-template #header>
                         <tr>
                             <th style="width: 3rem">
-                                <p-tableHeaderCheckbox />
+                                <p-table-header-checkbox />
                             </th>
                             <th style="min-width: 16rem">Code</th>
                             <th pSortableColumn="name" style="min-width:16rem">
                                 <div class="flex items-center gap-2">
                                     Name
-                                    <p-sortIcon field="name" />
+                                    <p-sort-icon field="name" />
                                 </div>
                             </th>
                             <th>Image</th>
                             <th pSortableColumn="price" style="min-width: 8rem">
                                 <div class="flex items-center gap-2">
                                     Price
-                                    <p-sortIcon field="price" />
+                                    <p-sort-icon field="price" />
                                 </div>
                             </th>
                             <th pSortableColumn="category" style="min-width:10rem">
                                 <div class="flex items-center gap-2">
                                     Category
-                                    <p-sortIcon field="category" />
+                                    <p-sort-icon field="category" />
                                 </div>
                             </th>
                             <th pSortableColumn="rating" style="min-width: 12rem">
                                 <div class="flex items-center gap-2">
                                     Reviews
-                                    <p-sortIcon field="rating" />
+                                    <p-sort-icon field="rating" />
                                 </div>
                             </th>
                             <th pSortableColumn="inventoryStatus" style="min-width: 12rem">
                                 <div class="flex items-center gap-2">
                                     Status
-                                    <p-sortIcon field="inventoryStatus" />
+                                    <p-sort-icon field="inventoryStatus" />
                                 </div>
                             </th>
                             <th style="min-width: 12rem"></th>
@@ -103,7 +103,7 @@ interface ExportColumn {
                     <ng-template #body let-product>
                         <tr>
                             <td style="width: 3rem">
-                                <p-tableCheckbox [value]="product" />
+                                <p-table-checkbox [value]="product" />
                             </td>
                             <td style="min-width: 12rem">{{ product.code }}</td>
                             <td style="min-width: 16rem">{{ product.name }}</td>
@@ -233,38 +233,38 @@ export class ProductsDoc {
     <ng-template #header>
         <tr>
             <th style="width: 3rem">
-                <p-tableHeaderCheckbox />
+                <p-table-header-checkbox />
             </th>
             <th style="min-width: 16rem">Code</th>
             <th pSortableColumn="name" style="min-width:16rem">
                 <div class="flex items-center gap-2">
                     Name
-                    <p-sortIcon field="name" />
+                    <p-sort-icon field="name" />
                 </div>
             </th>
             <th>Image</th>
             <th pSortableColumn="price" style="min-width: 8rem">
                 <div class="flex items-center gap-2">
                     Price
-                    <p-sortIcon field="price" />
+                    <p-sort-icon field="price" />
                 </div>
             </th>
             <th pSortableColumn="category" style="min-width:10rem">
                 <div class="flex items-center gap-2">
                     Category
-                    <p-sortIcon field="category" />
+                    <p-sort-icon field="category" />
                 </div>
             </th>
             <th pSortableColumn="rating" style="min-width: 12rem">
                 <div class="flex items-center gap-2">
                     Reviews
-                    <p-sortIcon field="rating" />
+                    <p-sort-icon field="rating" />
                 </div>
             </th>
             <th pSortableColumn="inventoryStatus" style="min-width: 12rem">
                 <div class="flex items-center gap-2">
                     Status
-                    <p-sortIcon field="inventoryStatus" />
+                    <p-sort-icon field="inventoryStatus" />
                 </div>
             </th>
             <th style="min-width: 12rem"></th>
@@ -273,7 +273,7 @@ export class ProductsDoc {
     <ng-template #body let-product>
         <tr>
             <td style="width: 3rem">
-                <p-tableCheckbox [value]="product" />
+                <p-table-checkbox [value]="product" />
             </td>
             <td style="min-width: 12rem">{{ product.code }}</td>
             <td style="min-width: 16rem">{{ product.name }}</td>
@@ -397,38 +397,38 @@ export class ProductsDoc {
         <ng-template #header>
             <tr>
                 <th style="width: 3rem">
-                    <p-tableHeaderCheckbox />
+                    <p-table-header-checkbox />
                 </th>
                 <th style="min-width: 16rem">Code</th>
                 <th pSortableColumn="name" style="min-width:16rem">
                     <div class="flex items-center gap-2">
                         Name
-                        <p-sortIcon field="name" />
+                        <p-sort-icon field="name" />
                     </div>
                 </th>
                 <th>Image</th>
                 <th pSortableColumn="price" style="min-width: 8rem">
                     <div class="flex items-center gap-2">
                         Price
-                        <p-sortIcon field="price" />
+                        <p-sort-icon field="price" />
                     </div>
                 </th>
                 <th pSortableColumn="category" style="min-width:10rem">
                     <div class="flex items-center gap-2">
                         Category
-                        <p-sortIcon field="category" />
+                        <p-sort-icon field="category" />
                     </div>
                 </th>
                 <th pSortableColumn="rating" style="min-width: 12rem">
                     <div class="flex items-center gap-2">
                         Reviews
-                        <p-sortIcon field="rating" />
+                        <p-sort-icon field="rating" />
                     </div>
                 </th>
                 <th pSortableColumn="inventoryStatus" style="min-width: 12rem">
                     <div class="flex items-center gap-2">
                         Status
-                        <p-sortIcon field="inventoryStatus" />
+                        <p-sort-icon field="inventoryStatus" />
                     </div>
                 </th>
                 <th style="min-width: 12rem"></th>
@@ -437,7 +437,7 @@ export class ProductsDoc {
         <ng-template #body let-product>
             <tr>
                 <td style="width: 3rem">
-                    <p-tableCheckbox [value]="product" />
+                    <p-table-checkbox [value]="product" />
                 </td>
                 <td style="min-width: 12rem">{{ product.code }}</td>
                 <td style="min-width: 16rem">{{ product.name }}</td>
