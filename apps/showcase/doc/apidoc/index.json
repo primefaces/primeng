@@ -4788,6 +4788,9 @@
     "baseinput": {
         "components": {}
     },
+    "basemodelholder": {
+        "components": {}
+    },
     "blockui": {
         "components": {
             "BlockUI": {
@@ -5342,6 +5345,13 @@
                             "description": "Used to define a string that autocomplete attribute the current element."
                         },
                         {
+                            "name": "buttonProps",
+                            "optional": false,
+                            "readonly": false,
+                            "type": "any",
+                            "description": "Button props as an object."
+                        },
+                        {
                             "name": "autofocus",
                             "optional": false,
                             "readonly": false,
@@ -5356,13 +5366,6 @@
                             "type": "InputSignalWithTransform<boolean, unknown>",
                             "default": "undefined",
                             "description": "Spans 100% width of the container when enabled."
-                        },
-                        {
-                            "name": "buttonProps",
-                            "optional": false,
-                            "readonly": false,
-                            "type": "any",
-                            "description": "Used to pass all properties of the ButtonProps to the Button component."
                         }
                     ]
                 },
@@ -11792,14 +11795,14 @@
                             "optional": false,
                             "readonly": false,
                             "type": "string[]",
-                            "description": "Whitelist of formats to display, see here for available options."
+                            "description": "Whitelist of formats to display, see [here](https://quilljs.com/docs/formats/) for available options."
                         },
                         {
                             "name": "modules",
                             "optional": false,
                             "readonly": false,
                             "type": "object",
-                            "description": "Modules configuration of Editor, see here for available options."
+                            "description": "Modules configuration of Editor, see [here](https://quilljs.com/docs/modules/) for available options."
                         },
                         {
                             "name": "bounds",
@@ -14275,7 +14278,8 @@
                             "readonly": false,
                             "type": "boolean",
                             "default": "false",
-                            "description": "Displays a button to switch back to display mode."
+                            "description": "Displays a button to switch back to display mode.",
+                            "deprecated": "since v20.0.0, use "
                         },
                         {
                             "name": "disabled",
@@ -15725,38 +15729,6 @@
                     "description": "Defines the input properties of the component.",
                     "values": [
                         {
-                            "name": "required",
-                            "optional": false,
-                            "readonly": false,
-                            "type": "InputSignalWithTransform<boolean, unknown>",
-                            "default": "false",
-                            "description": "There must be a value (if set)."
-                        },
-                        {
-                            "name": "invalid",
-                            "optional": false,
-                            "readonly": false,
-                            "type": "InputSignalWithTransform<boolean, unknown>",
-                            "default": "false",
-                            "description": "When present, it specifies that the component should have invalid state style."
-                        },
-                        {
-                            "name": "disabled",
-                            "optional": false,
-                            "readonly": false,
-                            "type": "InputSignalWithTransform<boolean, unknown>",
-                            "default": "false",
-                            "description": "When present, it specifies that the component should have disabled state style."
-                        },
-                        {
-                            "name": "name",
-                            "optional": false,
-                            "readonly": false,
-                            "type": "InputSignal<string>",
-                            "default": "undefined",
-                            "description": "When present, it specifies that the name of the input."
-                        },
-                        {
                             "name": "pSize",
                             "optional": false,
                             "readonly": false,
@@ -15778,6 +15750,14 @@
                             "type": "InputSignalWithTransform<boolean, unknown>",
                             "default": "undefined",
                             "description": "Spans 100% width of the container when enabled."
+                        },
+                        {
+                            "name": "invalid",
+                            "optional": false,
+                            "readonly": false,
+                            "type": "InputSignalWithTransform<boolean, unknown>",
+                            "default": "false",
+                            "description": "When present, it specifies that the component should have invalid state style."
                         }
                     ]
                 }
@@ -27801,6 +27781,7 @@
                             "optional": false,
                             "readonly": false,
                             "type": "number",
+                            "default": "0",
                             "description": "Number of total records, defaults to length of value when not defined."
                         },
                         {
@@ -29520,38 +29501,6 @@
                     "description": "Defines the input properties of the component.",
                     "values": [
                         {
-                            "name": "required",
-                            "optional": false,
-                            "readonly": false,
-                            "type": "InputSignalWithTransform<boolean, unknown>",
-                            "default": "false",
-                            "description": "There must be a value (if set)."
-                        },
-                        {
-                            "name": "invalid",
-                            "optional": false,
-                            "readonly": false,
-                            "type": "InputSignalWithTransform<boolean, unknown>",
-                            "default": "false",
-                            "description": "When present, it specifies that the component should have invalid state style."
-                        },
-                        {
-                            "name": "disabled",
-                            "optional": false,
-                            "readonly": false,
-                            "type": "InputSignalWithTransform<boolean, unknown>",
-                            "default": "false",
-                            "description": "When present, it specifies that the component should have disabled state style."
-                        },
-                        {
-                            "name": "name",
-                            "optional": false,
-                            "readonly": false,
-                            "type": "InputSignal<string>",
-                            "default": "undefined",
-                            "description": "When present, it specifies that the name of the input."
-                        },
-                        {
                             "name": "autoResize",
                             "optional": false,
                             "readonly": false,
@@ -29581,6 +29530,14 @@
                             "type": "InputSignalWithTransform<boolean, unknown>",
                             "default": "undefined",
                             "description": "Spans 100% width of the container when enabled."
+                        },
+                        {
+                            "name": "invalid",
+                            "optional": false,
+                            "readonly": false,
+                            "type": "InputSignalWithTransform<boolean, unknown>",
+                            "default": "false",
+                            "description": "When present, it specifies that the component should have invalid state style."
                         }
                     ]
                 },

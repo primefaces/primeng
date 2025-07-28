@@ -94,12 +94,12 @@ export class Editor extends BaseEditableHolder implements AfterContentInit {
      */
     @Input() placeholder: string | undefined;
     /**
-     * Whitelist of formats to display, see here for available options.
+     * Whitelist of formats to display, see [here](https://quilljs.com/docs/formats/) for available options.
      * @group Props
      */
     @Input() formats: string[] | undefined;
     /**
-     * Modules configuration of Editor, see here for available options.
+     * Modules configuration of Editor, see [here](https://quilljs.com/docs/modules/) for available options.
      * @group Props
      */
     @Input() modules: object | undefined;
