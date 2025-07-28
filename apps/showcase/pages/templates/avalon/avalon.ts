@@ -198,13 +198,13 @@ export class AvalonPage {
                 title: 'Basic License',
                 price: '$49',
                 discount_price: '$29',
-                included: ['Non Commercial Usage', 'Single End Product, No Multi-Use', '1 Year Free Updates']
+                included: ['Non Commercial Usage', 'Single End Product, No Multi-Use', '1 Year Free Updates | $19 for +1 year']
             },
             {
                 title: 'Extended License',
                 price: '$490',
                 discount_price: '$290',
-                included: ['Commercial Usage', 'Multiple End Products', '1 Year Free Updates']
+                included: ['Commercial Usage', 'Multiple End Products', '1 Year Free Updates | $190 for +1 year']
             }
         ]
     };

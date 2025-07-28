@@ -1,6 +1,7 @@
 {
-    "id": 96,
-    "content": "PrimeNG v20.0.1 has arrived! 🛩️",
+    "id": 85,
+    "content": "Summer Sale is here 🏖️ Get 50% off with code PRSM25",
     "linkText": "Learn More",
-    "routerLink": "/migration/v20"
+    "linkHref": "https://www.primefaces.org/blog/summer-sale-2025",
+    "target": "_blank"
 }
