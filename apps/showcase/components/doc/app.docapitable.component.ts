@@ -8,7 +8,7 @@ import { Router } from '@angular/router';
     standalone: false,
     template: ` <ng-container *ngIf="data">
         <div *ngIf="parentId" class="my-4 pt-4">
-            <app-docsectiontext [parentId]="parentId" [parentTitle]="parentTitle" [parentDescription]="parentDescription" [level]="2"></app-docsectiontext>
+            <app-docsectiontext [level]="2"></app-docsectiontext>
         </div>
         <app-docsectiontext [id]="id" [title]="label" [level]="3">
             <p>{{ description || null }}</p>
@@ -53,6 +53,7 @@ import { Router } from '@angular/router';
                                                         'doc-option-parameter-type': label === 'Emitters',
                                                         'text-primary-700': label === 'Templates'
                                                     }"
+                                                    class="doc-option-link"
                                                     >{{ value || '-' }}</a
                                                 >
                                                 <ng-template #elseBlock>
