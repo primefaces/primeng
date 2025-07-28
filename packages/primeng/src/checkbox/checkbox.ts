@@ -27,7 +27,6 @@ import { FormControl, NG_VALUE_ACCESSOR, NgControl } from '@angular/forms';
 import { contains, equals } from '@primeuix/utils';
 import { PrimeTemplate, SharedModule } from 'primeng/api';
 import { BaseEditableHolder } from 'primeng/baseeditableholder';
-import { CheckIcon, MinusIcon } from 'primeng/icons';
 import { Nullable } from 'primeng/ts-helpers';
 import { CheckboxChangeEvent } from './checkbox.interface';
 import { CheckboxStyle } from './style/checkboxstyle';
@@ -44,7 +43,7 @@ export const CHECKBOX_VALUE_ACCESSOR: any = {
 @Component({
     selector: 'p-checkbox, p-checkBox, p-check-box',
     standalone: true,
-    imports: [CommonModule, CheckIcon, MinusIcon, SharedModule],
+    imports: [CommonModule, SharedModule],
     template: `
         <input
             #input
@@ -226,6 +225,9 @@ export class Checkbox extends BaseEditableHolder implements AfterContentInit {
         this.templates.forEach((item) => {
             switch (item.getType()) {
                 case 'icon':
+                    this._checkboxIconTemplate = item.template;
+                    break;
+                case 'checkboxicon':
                     this._checkboxIconTemplate = item.template;
                     break;
             }
