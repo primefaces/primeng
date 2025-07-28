@@ -128,7 +128,7 @@ import {
                         (click)="$event.preventDefault()"
                     >
                         <ng-container *ngIf="tree.checkboxIconTemplate || tree._checkboxIconTemplate">
-                            <ng-template #icon>
+                            <ng-template #checkboxicon>
                                 <ng-template
                                     *ngTemplateOutlet="
                                         tree.checkboxIconTemplate || tree._checkboxIconTemplate;
