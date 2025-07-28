@@ -37,7 +37,6 @@ import { BaseComponent } from 'primeng/basecomponent';
 import { BaseInput } from 'primeng/baseinput';
 import { unblockBodyScroll } from 'primeng/dom';
 import { IconField } from 'primeng/iconfield';
-import { BlankIcon, CheckIcon, ChevronDownIcon, SearchIcon, TimesIcon } from 'primeng/icons';
 import { InputIcon } from 'primeng/inputicon';
 import { InputText } from 'primeng/inputtext';
 import { Overlay } from 'primeng/overlay';
@@ -57,7 +56,7 @@ export const SELECT_VALUE_ACCESSOR: any = {
 @Component({
     selector: 'p-selectItem',
     standalone: true,
-    imports: [CommonModule, SharedModule, Ripple, CheckIcon, BlankIcon],
+    imports: [CommonModule, SharedModule, Ripple],
     template: `
         <li
             [id]="id"
@@ -129,10 +128,11 @@ export class SelectItem extends BaseComponent {
  * Select is used to choose an item from a collection of options.
  * @group Components
  */
+
 @Component({
     selector: 'p-select',
     standalone: true,
-    imports: [CommonModule, SelectItem, Overlay, Tooltip, AutoFocus, TimesIcon, ChevronDownIcon, SearchIcon, InputText, IconField, InputIcon, Scroller, SharedModule],
+    imports: [CommonModule, SelectItem, Overlay, Tooltip, AutoFocus, InputText, IconField, InputIcon, Scroller, SharedModule],
     template: `
         <span
             #focusInput
