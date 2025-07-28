@@ -2288,7 +2288,7 @@ export class Table<RowData = any> extends BaseComponent implements OnInit, After
         let dataFieldValue = ObjectUtils.resolveFieldData(rowData, field);
         let filterConstraint = (<any>this.filterService).filters[filterMatchMode];
 
-        return filterConstraint(dataFieldValue, filterValue, this.filterLocale);
+        return filterConstraint(dataFieldValue, filterValue, this.filterLocale, rowData);
     }
 
     hasFilter() {
