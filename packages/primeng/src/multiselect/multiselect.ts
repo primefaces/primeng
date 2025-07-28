@@ -82,7 +82,7 @@ export const MULTISELECT_VALUE_ACCESSOR: any = {
         >
             <p-checkbox [ngModel]="selected" [binary]="true" [tabindex]="-1" [variant]="variant" [ariaLabel]="label">
                 <ng-container *ngIf="itemCheckboxIconTemplate">
-                    <ng-template #checkboxicon let-klass="class">
+                    <ng-template #icon let-klass="class">
                         <ng-template *ngTemplateOutlet="itemCheckboxIconTemplate; context: { checked: selected, class: klass }"></ng-template>
                     </ng-template>
                 </ng-container>
@@ -285,7 +285,7 @@ export class MultiSelectItem extends BaseComponent {
                                 [disabled]="$disabled()"
                                 #headerCheckbox
                             >
-                                <ng-template #checkboxicon let-klass="class">
+                                <ng-template #icon let-klass="class">
                                     <svg data-p-icon="check" *ngIf="!headerCheckboxIconTemplate && !_headerCheckboxIconTemplate && allSelected()" [class]="klass" [attr.data-pc-section]="'icon'" />
                                     <ng-template
                                         *ngTemplateOutlet="

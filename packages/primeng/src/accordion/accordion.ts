@@ -272,7 +272,7 @@ export class AccordionHeader extends BaseComponent {
     selector: 'p-accordion-content, p-accordioncontent',
     imports: [CommonModule],
     standalone: true,
-    template: ` <div [class]="cx('content')" [@content]="active() ? { value: 'visible', params: { transitionParams: pcAccordion.transitionOptions } } : { value: 'hidden', params: { transitionParams: pcAccordion.transitionOptions } }">
+    template: `<div [class]="cx('content')" [@content]="active() ? { value: 'visible', params: { transitionParams: pcAccordion.transitionOptions } } : { value: 'hidden', params: { transitionParams: pcAccordion.transitionOptions } }">
         <ng-content />
     </div>`,
     changeDetection: ChangeDetectionStrategy.OnPush,
@@ -291,7 +291,10 @@ export class AccordionHeader extends BaseComponent {
                 'hidden',
                 style({
                     height: '0',
-                    paddingBottom: '0',
+                    // To prevent memory leak, Angular issue. https://github.com/primefaces/primeng/issues/18546
+                    paddingBlock: '0',
+                    borderBlockWidth: '0',
+                    //
                     visibility: 'hidden'
                 })
             ),

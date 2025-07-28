@@ -129,6 +129,7 @@ export class SelectItem extends BaseComponent {
  * Select is used to choose an item from a collection of options.
  * @group Components
  */
+
 @Component({
     selector: 'p-select',
     standalone: true,

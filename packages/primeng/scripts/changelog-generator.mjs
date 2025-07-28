@@ -1,7 +1,15 @@
-const fs = require('fs');
+import * as fs from 'fs';
+import * as path from 'path';
+import { dirname } from 'path';
+import * as TypeDoc from 'typedoc';
+import { fileURLToPath } from 'url';
+
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = dirname(__filename);
 
 const tsvFilePath = '';
-const outputFilePath = '../CHANGELOG.md';
+const outputFilePath = path.resolve(__dirname, '../../../CHANGELOG.md');
+
 const today = new Date().toISOString().split('T')[0];
 
 fs.readFile(tsvFilePath, 'utf8', (err, data) => {
