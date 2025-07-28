@@ -23,7 +23,10 @@ export class AppDocApiSection {
 
     docs = input<any[] | undefined>([]);
 
-    _docs = computed(() => this.docs() && this.createDocs());
+    _docs = computed(() => {
+        console.log(this.docs(), this.createDocs());
+        return this.docs() && this.createDocs();
+    });
 
     constructor(
         private location: Location,
@@ -56,7 +59,7 @@ export class AppDocApiSection {
 
         for (const docName of this.docs()) {
             const moduleName = docName.toLowerCase();
-            let module = APIDoc[moduleName] ? APIDoc[moduleName] : APIDoc[this.docs()[0].toLowerCase()]?.components[docName];
+            let module = APIDoc[this.docs()[0].toLowerCase()]?.components[docName];
             let newDoc = {
                 id: `api.${this.isInterface(module) ? this.docs()[0].toLowerCase() + '.interfaces' : moduleName}`,
                 isInterface: this.isInterface(module),
@@ -68,8 +71,8 @@ export class AppDocApiSection {
 
             if (module) {
                 let props =
-                    module.components && module.components[docName]
-                        ? module.components[docName].props
+                    module.components && module.components[docName.toLowerCase()]
+                        ? module.components[docName.toLowerCase()].props
                         : module.props
                           ? module.props
                           : module.interfaces && ObjectUtils.isNotEmpty(module.interfaces.components)

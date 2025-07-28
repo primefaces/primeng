@@ -5224,7 +5224,10 @@ export class ReorderableRow implements AfterViewInit {
         this.unbindEvents();
     }
 }
-
+/**
+ * Column Filter Component.
+ * @group Components
+ */
 @Component({
     selector: 'p-columnFilter, p-column-filter, p-columnfilter',
     standalone: false,
@@ -5272,6 +5275,7 @@ export class ReorderableRow implements AfterViewInit {
                     </ng-container>
                 </ng-template>
             </p-button>
+
             <div
                 *ngIf="showMenu && overlayVisible"
                 [class]="cx('filterOverlay')"
@@ -5419,22 +5423,23 @@ export class ColumnFilter extends BaseComponent implements AfterContentInit {
      */
     @Input({ transform: booleanAttribute }) showOperator: boolean = true;
     /**
-     * Decides whether to display clear filter button.
+     * Decides whether to display clear filter button when display is menu.
+     * @defaultValue true
      * @group Props
      */
     @Input({ transform: booleanAttribute }) showClearButton: boolean = true;
     /**
-     * Decides whether to display apply filter button.
+     * Decides whether to display apply filter button when display is menu.
      * @group Props
      */
     @Input({ transform: booleanAttribute }) showApplyButton: boolean = true;
     /**
-     * Decides whether to display filter match modes.
+     * Decides whether to display filter match modes when display is menu.
      * @group Props
      */
     @Input({ transform: booleanAttribute }) showMatchModes: boolean = true;
     /**
-     * Decides whether to display add filter button.
+     * Decides whether to display add filter button when display is menu.
      * @group Props
      */
     @Input({ transform: booleanAttribute }) showAddButton: boolean = true;
@@ -5526,15 +5531,16 @@ export class ColumnFilter extends BaseComponent implements AfterContentInit {
      * @defaultValue {
      filter: { severity: 'secondary', text: true, rounded: true },
      inline: {
-     clear: { severity: 'secondary', text: true, rounded: true }
+        clear: { severity: 'secondary', text: true, rounded: true }
      },
      popover: {
-     addRule: { severity: 'info', text: true, size: 'small' },
-     removeRule: { severity: 'danger', text: true, size: 'small' },
-     apply: { size: 'small' },
-     clear: { outlined: true, size: 'small' }
+         addRule: { severity: 'info', text: true, size: 'small' },
+         removeRule: { severity: 'danger', text: true, size: 'small' },
+         apply: { size: 'small' },
+         clear: { outlined: true, size: 'small' }
+        }
      }
-     }
+     @group Props
      */
     @Input() filterButtonProps: TableFilterButtonPropsOptions = {
         filter: { severity: 'secondary', text: true, rounded: true },
@@ -5573,26 +5579,49 @@ export class ColumnFilter extends BaseComponent implements AfterContentInit {
 
     overlaySubscription: Subscription | undefined;
 
-    @ContentChild('header', { descendants: false }) _headerTemplate: TemplateRef<any>;
-    headerTemplate: Nullable<TemplateRef<any>>;
+    /**
+     * Custom header template.
+     * @group Templates
+     */
+    @ContentChild('header', { descendants: false }) headerTemplate: TemplateRef<any>;
+    _headerTemplate: Nullable<TemplateRef<any>>;
 
-    @ContentChild('filter', { descendants: false }) _filterTemplate: TemplateRef<any>;
-    filterTemplate: Nullable<TemplateRef<any>>;
+    /**
+     * Custom filter template.
+     * @group Templates
+     */
+    @ContentChild('filter', { descendants: false }) filterTemplate: TemplateRef<any>;
+    _filterTemplate: Nullable<TemplateRef<any>>;
 
-    @ContentChild('footer', { descendants: false }) _footerTemplate: TemplateRef<any>;
-    footerTemplate: Nullable<TemplateRef<any>>;
+    /**
+     * Custom footer template.
+     * @group Templates
+     */
+    @ContentChild('footer', { descendants: false }) footerTemplate: TemplateRef<any>;
+    _footerTemplate: Nullable<TemplateRef<any>>;
+    /**
+     * Custom filter icon template.
+     * @group Templates
+     */
+    @ContentChild('filtericon', { descendants: false }) filterIconTemplate: TemplateRef<any>;
+    _filterIconTemplate: Nullable<TemplateRef<any>>;
 
-    @ContentChild('filtericon', { descendants: false }) _filterIconTemplate: TemplateRef<any>;
-    filterIconTemplate: Nullable<TemplateRef<any>>;
+    /**
+     * Custom remove rule button icon template.
+     * @group Templates
+     */
+    @ContentChild('removeruleicon', { descendants: false }) removeRuleIconTemplate: TemplateRef<any>;
+    _removeRuleIconTemplate: Nullable<TemplateRef<any>>;
 
-    @ContentChild('removeruleicon', { descendants: false }) _removeRuleIconTemplate: TemplateRef<any>;
-    removeRuleIconTemplate: Nullable<TemplateRef<any>>;
+    /**
+     * Custom add rule button icon template.
+     * @group Templates
+     */
+    @ContentChild('addruleicon', { descendants: false }) addRuleIconTemplate: TemplateRef<any>;
+    _addRuleIconTemplate: Nullable<TemplateRef<any>>;
 
-    @ContentChild('addruleicon', { descendants: false }) _addRuleIconTemplate: TemplateRef<any>;
-    addRuleIconTemplate: Nullable<TemplateRef<any>>;
-
-    @ContentChild('clearfiltericon', { descendants: false }) _clearFilterIconTemplate: TemplateRef<any>;
-    clearFilterIconTemplate: Nullable<TemplateRef<any>>;
+    @ContentChild('clearfiltericon', { descendants: false }) clearFilterIconTemplate: TemplateRef<any>;
+    _clearFilterIconTemplate: Nullable<TemplateRef<any>>;
 
     operatorOptions: any[] | undefined;
 
@@ -5730,35 +5759,35 @@ export class ColumnFilter extends BaseComponent implements AfterContentInit {
         (this._templates as QueryList<PrimeTemplate>).forEach((item) => {
             switch (item.getType()) {
                 case 'header':
-                    this.headerTemplate = item.template;
+                    this._headerTemplate = item.template;
                     break;
 
                 case 'filter':
-                    this.filterTemplate = item.template;
+                    this._filterTemplate = item.template;
                     break;
 
                 case 'footer':
-                    this.footerTemplate = item.template;
+                    this._footerTemplate = item.template;
                     break;
 
                 case 'filtericon':
-                    this.filterIconTemplate = item.template;
+                    this._filterIconTemplate = item.template;
                     break;
 
                 case 'clearfiltericon':
-                    this.clearFilterIconTemplate = item.template;
+                    this._clearFilterIconTemplate = item.template;
                     break;
 
                 case 'removeruleicon':
-                    this.removeRuleIconTemplate = item.template;
+                    this._removeRuleIconTemplate = item.template;
                     break;
 
                 case 'addruleicon':
-                    this.addRuleIconTemplate = item.template;
+                    this._addRuleIconTemplate = item.template;
                     break;
 
                 default:
-                    this.filterTemplate = item.template;
+                    this._filterTemplate = item.template;
                     break;
             }
         });

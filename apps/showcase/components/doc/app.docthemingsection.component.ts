@@ -43,6 +43,7 @@ export class AppDocThemingSectionComponent {
 
     createDocs() {
         const docName = this.header.toLowerCase().replace(/\s+/g, '');
+        console.log(docName);
         if (ThemeDoc[docName]) {
             this.tokensDoc.set(ThemeDoc[docName]);
             this.navItems.update((prev) => [
