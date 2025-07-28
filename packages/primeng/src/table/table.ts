@@ -5226,7 +5226,7 @@ export class ReorderableRow implements AfterViewInit {
 }
 
 @Component({
-    selector: 'p-columnFilter',
+    selector: 'p-columnFilter, p-column-filter, p-columnfilter',
     standalone: false,
     template: `
         <div [class]="cx('filter')">
