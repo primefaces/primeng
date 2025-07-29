@@ -445,6 +445,8 @@ export class ButtonDirective extends BaseComponent implements AfterViewInit, OnD
         <button
             [attr.type]="type || buttonProps?.type"
             [attr.aria-label]="ariaLabel || buttonProps?.ariaLabel"
+            [attr.aria-controls]="ariaControls || buttonProps?.ariaControls"
+            [attr.aria-expanded]="ariaExpanded || buttonProps?.ariaExpanded"
             [ngStyle]="style || buttonProps?.style"
             [disabled]="disabled || loading || buttonProps?.disabled"
             [class]="cn(cx('root'), styleClass, buttonProps?.styleClass)"
@@ -591,6 +593,16 @@ export class Button extends BaseComponent implements AfterContentInit {
      * @defaultValue secondary
      */
     @Input() badgeSeverity: 'success' | 'info' | 'warn' | 'danger' | 'help' | 'primary' | 'secondary' | 'contrast' | null | undefined = 'secondary';
+    /**
+     * Used to indicate if a control is expanded or collapsed, and whether or not the controlled elements are displayed or hidden.
+     * @group Props
+     */
+    @Input() ariaControls: string | undefined;
+    /**
+     * Used to identify the element whose contents or presentation are controlled by the button.
+     * @group Props
+     */
+    @Input() ariaExpanded: boolean | undefined;
     /**
      * Used to define a string that autocomplete attribute the current element.
      * @group Props
