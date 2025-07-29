@@ -28,7 +28,7 @@ const classes = {
             'p-multiselect-display-chip': instance.display === 'chip',
             'p-disabled': instance.$disabled(),
             'p-invalid': instance.invalid(),
-            'p-variant-filled': instance.$variant(),
+            'p-variant-filled': instance.$variant() === 'filled',
             'p-focus': instance.focused,
             'p-inputwrapper-filled': instance.$filled(),
             'p-inputwrapper-focus': instance.focused || instance.overlayVisible,
