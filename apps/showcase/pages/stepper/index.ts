@@ -14,7 +14,7 @@ import { Component } from '@angular/core';
         header="Stepper"
         description="The Stepper component displays a wizard-like workflow by guiding users through the multi-step progression."
         [docs]="docs"
-        [apiDocs]="['Stepper', 'StepItem', 'StepPanel']"
+        [apiDocs]="['Stepper', 'Step', 'StepItem', 'StepPanel']"
         themeDocs="stepper"
     ></app-doc>`,
     standalone: true,

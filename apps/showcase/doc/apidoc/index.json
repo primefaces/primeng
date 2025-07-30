@@ -4788,6 +4788,9 @@
     "baseinput": {
         "components": {}
     },
+    "basemodelholder": {
+        "components": {}
+    },
     "blockui": {
         "components": {
             "BlockUI": {
@@ -5342,6 +5345,13 @@
                             "description": "Used to define a string that autocomplete attribute the current element."
                         },
                         {
+                            "name": "buttonProps",
+                            "optional": false,
+                            "readonly": false,
+                            "type": "any",
+                            "description": "Button props as an object."
+                        },
+                        {
                             "name": "autofocus",
                             "optional": false,
                             "readonly": false,
@@ -5356,13 +5366,6 @@
                             "type": "InputSignalWithTransform<boolean, unknown>",
                             "default": "undefined",
                             "description": "Spans 100% width of the container when enabled."
-                        },
-                        {
-                            "name": "buttonProps",
-                            "optional": false,
-                            "readonly": false,
-                            "type": "any",
-                            "description": "Used to pass all properties of the ButtonProps to the Button component."
                         }
                     ]
                 },
@@ -11792,14 +11795,14 @@
                             "optional": false,
                             "readonly": false,
                             "type": "string[]",
-                            "description": "Whitelist of formats to display, see here for available options."
+                            "description": "Whitelist of formats to display, see [here](https://quilljs.com/docs/formats/) for available options."
                         },
                         {
                             "name": "modules",
                             "optional": false,
                             "readonly": false,
                             "type": "object",
-                            "description": "Modules configuration of Editor, see here for available options."
+                            "description": "Modules configuration of Editor, see [here](https://quilljs.com/docs/modules/) for available options."
                         },
                         {
                             "name": "bounds",
@@ -14275,7 +14278,8 @@
                             "readonly": false,
                             "type": "boolean",
                             "default": "false",
-                            "description": "Displays a button to switch back to display mode."
+                            "description": "Displays a button to switch back to display mode.",
+                            "deprecated": "since v20.0.0, use "
                         },
                         {
                             "name": "disabled",
@@ -15725,38 +15729,6 @@
                     "description": "Defines the input properties of the component.",
                     "values": [
                         {
-                            "name": "required",
-                            "optional": false,
-                            "readonly": false,
-                            "type": "InputSignalWithTransform<boolean, unknown>",
-                            "default": "false",
-                            "description": "There must be a value (if set)."
-                        },
-                        {
-                            "name": "invalid",
-                            "optional": false,
-                            "readonly": false,
-                            "type": "InputSignalWithTransform<boolean, unknown>",
-                            "default": "false",
-                            "description": "When present, it specifies that the component should have invalid state style."
-                        },
-                        {
-                            "name": "disabled",
-                            "optional": false,
-                            "readonly": false,
-                            "type": "InputSignalWithTransform<boolean, unknown>",
-                            "default": "false",
-                            "description": "When present, it specifies that the component should have disabled state style."
-                        },
-                        {
-                            "name": "name",
-                            "optional": false,
-                            "readonly": false,
-                            "type": "InputSignal<string>",
-                            "default": "undefined",
-                            "description": "When present, it specifies that the name of the input."
-                        },
-                        {
                             "name": "pSize",
                             "optional": false,
                             "readonly": false,
@@ -15778,6 +15750,14 @@
                             "type": "InputSignalWithTransform<boolean, unknown>",
                             "default": "undefined",
                             "description": "Spans 100% width of the container when enabled."
+                        },
+                        {
+                            "name": "invalid",
+                            "optional": false,
+                            "readonly": false,
+                            "type": "InputSignalWithTransform<boolean, unknown>",
+                            "default": "false",
+                            "description": "When present, it specifies that the component should have invalid state style."
                         }
                     ]
                 }
@@ -26939,269 +26919,6 @@
             }
         }
     },
-    "columnfilter": {
-        "interfaces": {
-            "components": {
-                "ColumnFilterProps": {
-                    "description": "Defines valid properties in ColumnFilter component.",
-                    "props": {
-                        "description": "Defines the input properties of the component.",
-                        "values": [
-                            {
-                                "name": "field",
-                                "optional": false,
-                                "readonly": false,
-                                "type": "string",
-                                "default": "text",
-                                "description": "Property represented by the column."
-                            },
-                            {
-                                "name": "type",
-                                "optional": false,
-                                "readonly": false,
-                                "type": "string",
-                                "default": "text",
-                                "description": "Type of the input."
-                            },
-                            {
-                                "name": "display",
-                                "optional": false,
-                                "readonly": false,
-                                "type": "string",
-                                "default": "row",
-                                "description": "Filter display."
-                            },
-                            {
-                                "name": "showMenu",
-                                "optional": false,
-                                "readonly": false,
-                                "type": "boolean",
-                                "default": "false",
-                                "description": "Decides whether to display filter menu popup."
-                            },
-                            {
-                                "name": "matchMode",
-                                "optional": false,
-                                "readonly": false,
-                                "type": "string",
-                                "description": "Filter match mode."
-                            },
-                            {
-                                "name": "operator",
-                                "optional": false,
-                                "readonly": false,
-                                "type": "string",
-                                "default": "'AND'",
-                                "description": "Filter operator."
-                            },
-                            {
-                                "name": "showOperator",
-                                "optional": false,
-                                "readonly": false,
-                                "type": "boolean",
-                                "default": "false",
-                                "description": "Decides whether to display filter operator."
-                            },
-                            {
-                                "name": "showClearButton",
-                                "optional": false,
-                                "readonly": false,
-                                "type": "boolean",
-                                "default": "false",
-                                "description": "Decides whether to display clear filter button."
-                            },
-                            {
-                                "name": "showApplyButton",
-                                "optional": false,
-                                "readonly": false,
-                                "type": "boolean",
-                                "default": "false",
-                                "description": "Decides whether to display apply filter button."
-                            },
-                            {
-                                "name": "showMatchModes",
-                                "optional": false,
-                                "readonly": false,
-                                "type": "boolean",
-                                "default": "false",
-                                "description": "Decides whether to display filter match modes."
-                            },
-                            {
-                                "name": "showAddButton",
-                                "optional": false,
-                                "readonly": false,
-                                "type": "boolean",
-                                "default": "false",
-                                "description": "Decides whether to display add filter button."
-                            },
-                            {
-                                "name": "hideOnClear",
-                                "optional": false,
-                                "readonly": false,
-                                "type": "boolean",
-                                "default": "false",
-                                "description": "Decides whether to close popup on clear button click."
-                            },
-                            {
-                                "name": "placeholder",
-                                "optional": false,
-                                "readonly": false,
-                                "type": "string",
-                                "description": "Filter placeholder."
-                            },
-                            {
-                                "name": "matchModeOptions",
-                                "optional": false,
-                                "readonly": false,
-                                "type": "SelectItem<any>[]",
-                                "description": "Filter match mode options."
-                            },
-                            {
-                                "name": "maxConstraints",
-                                "optional": false,
-                                "readonly": false,
-                                "type": "number",
-                                "default": "2",
-                                "description": "Defines maximum amount of constraints."
-                            },
-                            {
-                                "name": "minFractionDigits",
-                                "optional": false,
-                                "readonly": false,
-                                "type": "number",
-                                "description": "Defines minimum fraction of digits."
-                            },
-                            {
-                                "name": "maxFractionDigits",
-                                "optional": false,
-                                "readonly": false,
-                                "type": "number",
-                                "description": "Defines maximum fraction of digits."
-                            },
-                            {
-                                "name": "prefix",
-                                "optional": false,
-                                "readonly": false,
-                                "type": "string",
-                                "description": "Defines prefix of the filter."
-                            },
-                            {
-                                "name": "suffix",
-                                "optional": false,
-                                "readonly": false,
-                                "type": "string",
-                                "description": "Defines suffix of the filter."
-                            },
-                            {
-                                "name": "locale",
-                                "optional": false,
-                                "readonly": false,
-                                "type": "string",
-                                "description": "Defines filter locale."
-                            },
-                            {
-                                "name": "localeMatcher",
-                                "optional": false,
-                                "readonly": false,
-                                "type": "string",
-                                "description": "Defines filter locale matcher."
-                            },
-                            {
-                                "name": "currency",
-                                "optional": false,
-                                "readonly": false,
-                                "type": "boolean",
-                                "default": "false",
-                                "description": "Enables currency input."
-                            },
-                            {
-                                "name": "currencyDisplay",
-                                "optional": false,
-                                "readonly": false,
-                                "type": "string",
-                                "description": "Defines the display of the currency input."
-                            },
-                            {
-                                "name": "useGrouping",
-                                "optional": false,
-                                "readonly": false,
-                                "type": "boolean",
-                                "default": "false",
-                                "description": "Defines if filter grouping will be enabled."
-                            },
-                            {
-                                "name": "showButtons",
-                                "optional": false,
-                                "readonly": false,
-                                "type": "boolean",
-                                "default": "false",
-                                "description": "Defines the visibility of buttons."
-                            },
-                            {
-                                "name": "ariaLabel",
-                                "optional": false,
-                                "readonly": false,
-                                "type": "string",
-                                "description": "Defines the aria-label of the form element."
-                            }
-                        ]
-                    }
-                }
-            },
-            "templates": {
-                "description": "Defines the templates used by the component.",
-                "values": [
-                    {
-                        "parent": "table",
-                        "name": "filter",
-                        "parameters": [
-                            {
-                                "name": "context",
-                                "type": "{\n  \t $implicit: string, // filterConstraint.value.\n  \t filterCallback: undefined, // filter callback.\n  \t type: string, // Type of the input.\n  \t filterConstraint: string, // Filter constraint.\n  \t placeholder: boolean, // Input placeholder.\n  \t minFractionDigits: number, // Minimum fraction of digits.\n  \t maxFractionDigits: number, // Maximum fraction of digits.\n  \t prefix: string, // Input prefix.\n  \t suffix: string, // Input suffix.\n  \t locale: string, // Locale.\n  \t localeMatcher: string, // Locale matcher.\n  \t currency: boolean, // Enables currency input.\n  \t currencyDisplay: boolean, // Display of the currency input.\n  \t useGrouping: boolean, // Defines if filter grouping will be enabled.\n  \t showButtons: boolean, // Defines the visibility of buttons.\n  }"
-                            }
-                        ],
-                        "description": "Custom filter template."
-                    },
-                    {
-                        "parent": "table",
-                        "name": "header",
-                        "parameters": [],
-                        "description": "Custom header template."
-                    },
-                    {
-                        "parent": "table",
-                        "name": "footer",
-                        "parameters": [],
-                        "description": "Custom footer template."
-                    },
-                    {
-                        "parent": "table",
-                        "name": "filterIcon",
-                        "parameters": [],
-                        "description": "Custom filter icon template."
-                    },
-                    {
-                        "parent": "table",
-                        "name": "removeRuleIcon",
-                        "parameters": [],
-                        "description": "Custom remove rule icon template."
-                    },
-                    {
-                        "parent": "table",
-                        "name": "addRuleIcon",
-                        "parameters": [],
-                        "description": "Custom add rule icon template."
-                    },
-                    {
-                        "parent": "table",
-                        "name": "clearFilterIcon",
-                        "parameters": [],
-                        "description": "Custom clear filter icon template."
-                    }
-                ]
-            }
-        }
-    },
     "table": {
         "components": {
             "Table": {
@@ -27801,6 +27518,7 @@
                             "optional": false,
                             "readonly": false,
                             "type": "number",
+                            "default": "0",
                             "description": "Number of total records, defaults to length of value when not defined."
                         },
                         {
@@ -28124,6 +27842,291 @@
                                 }
                             ],
                             "description": "Scrolls to given index."
+                        }
+                    ]
+                }
+            },
+            "ColumnFilter": {
+                "description": "Column Filter Component.",
+                "props": {
+                    "description": "Defines the input properties of the component.",
+                    "values": [
+                        {
+                            "name": "field",
+                            "optional": false,
+                            "readonly": false,
+                            "type": "string",
+                            "description": "Property represented by the column."
+                        },
+                        {
+                            "name": "type",
+                            "optional": false,
+                            "readonly": false,
+                            "type": "string",
+                            "default": "text",
+                            "description": "Type of the input."
+                        },
+                        {
+                            "name": "display",
+                            "optional": false,
+                            "readonly": false,
+                            "type": "string",
+                            "default": "row",
+                            "description": "Filter display."
+                        },
+                        {
+                            "name": "showMenu",
+                            "optional": false,
+                            "readonly": false,
+                            "type": "boolean",
+                            "default": "true",
+                            "description": "Decides whether to display filter menu popup."
+                        },
+                        {
+                            "name": "matchMode",
+                            "optional": false,
+                            "readonly": false,
+                            "type": "string",
+                            "description": "Filter match mode."
+                        },
+                        {
+                            "name": "operator",
+                            "optional": false,
+                            "readonly": false,
+                            "type": "string",
+                            "default": "'AND'",
+                            "description": "Filter operator."
+                        },
+                        {
+                            "name": "showOperator",
+                            "optional": false,
+                            "readonly": false,
+                            "type": "boolean",
+                            "default": "true",
+                            "description": "Decides whether to display filter operator."
+                        },
+                        {
+                            "name": "showClearButton",
+                            "optional": false,
+                            "readonly": false,
+                            "type": "boolean",
+                            "default": "true",
+                            "description": "Decides whether to display clear filter button when display is menu."
+                        },
+                        {
+                            "name": "showApplyButton",
+                            "optional": false,
+                            "readonly": false,
+                            "type": "boolean",
+                            "default": "true",
+                            "description": "Decides whether to display apply filter button when display is menu."
+                        },
+                        {
+                            "name": "showMatchModes",
+                            "optional": false,
+                            "readonly": false,
+                            "type": "boolean",
+                            "default": "true",
+                            "description": "Decides whether to display filter match modes when display is menu."
+                        },
+                        {
+                            "name": "showAddButton",
+                            "optional": false,
+                            "readonly": false,
+                            "type": "boolean",
+                            "default": "true",
+                            "description": "Decides whether to display add filter button when display is menu."
+                        },
+                        {
+                            "name": "hideOnClear",
+                            "optional": false,
+                            "readonly": false,
+                            "type": "boolean",
+                            "default": "true",
+                            "description": "Decides whether to close popup on clear button click."
+                        },
+                        {
+                            "name": "placeholder",
+                            "optional": false,
+                            "readonly": false,
+                            "type": "string",
+                            "description": "Filter placeholder."
+                        },
+                        {
+                            "name": "matchModeOptions",
+                            "optional": false,
+                            "readonly": false,
+                            "type": "SelectItem<any>[]",
+                            "description": "Filter match mode options."
+                        },
+                        {
+                            "name": "maxConstraints",
+                            "optional": false,
+                            "readonly": false,
+                            "type": "number",
+                            "default": "2",
+                            "description": "Defines maximum amount of constraints."
+                        },
+                        {
+                            "name": "minFractionDigits",
+                            "optional": false,
+                            "readonly": false,
+                            "type": "number",
+                            "description": "Defines minimum fraction of digits."
+                        },
+                        {
+                            "name": "maxFractionDigits",
+                            "optional": false,
+                            "readonly": false,
+                            "type": "number",
+                            "description": "Defines maximum fraction of digits."
+                        },
+                        {
+                            "name": "prefix",
+                            "optional": false,
+                            "readonly": false,
+                            "type": "string",
+                            "description": "Defines prefix of the filter."
+                        },
+                        {
+                            "name": "suffix",
+                            "optional": false,
+                            "readonly": false,
+                            "type": "string",
+                            "description": "Defines suffix of the filter."
+                        },
+                        {
+                            "name": "locale",
+                            "optional": false,
+                            "readonly": false,
+                            "type": "string",
+                            "description": "Defines filter locale."
+                        },
+                        {
+                            "name": "localeMatcher",
+                            "optional": false,
+                            "readonly": false,
+                            "type": "string",
+                            "description": "Defines filter locale matcher."
+                        },
+                        {
+                            "name": "currency",
+                            "optional": false,
+                            "readonly": false,
+                            "type": "string",
+                            "description": "Enables currency input."
+                        },
+                        {
+                            "name": "currencyDisplay",
+                            "optional": false,
+                            "readonly": false,
+                            "type": "string",
+                            "description": "Defines the display of the currency input."
+                        },
+                        {
+                            "name": "filterOn",
+                            "optional": false,
+                            "readonly": false,
+                            "type": "string",
+                            "default": "enter",
+                            "description": "Default trigger to run filtering on built-in text and numeric filters, valid values are 'enter' and 'input'."
+                        },
+                        {
+                            "name": "useGrouping",
+                            "optional": false,
+                            "readonly": false,
+                            "type": "boolean",
+                            "default": "true",
+                            "description": "Defines if filter grouping will be enabled."
+                        },
+                        {
+                            "name": "showButtons",
+                            "optional": false,
+                            "readonly": false,
+                            "type": "boolean",
+                            "default": "true",
+                            "description": "Defines the visibility of buttons."
+                        },
+                        {
+                            "name": "ariaLabel",
+                            "optional": false,
+                            "readonly": false,
+                            "type": "string",
+                            "description": "Defines the aria-label of the form element."
+                        },
+                        {
+                            "name": "filterButtonProps",
+                            "optional": false,
+                            "readonly": false,
+                            "type": "TableFilterButtonPropsOptions",
+                            "default": "{\n     filter: { severity: 'secondary', text: true, rounded: true },\n     inline: {\n        clear: { severity: 'secondary', text: true, rounded: true }\n     },\n     popover: {\n         addRule: { severity: 'info', text: true, size: 'small' },\n         removeRule: { severity: 'danger', text: true, size: 'small' },\n         apply: { size: 'small' },\n         clear: { outlined: true, size: 'small' }\n        }\n     }",
+                            "description": "Used to pass all filter button property object"
+                        }
+                    ]
+                },
+                "emits": {
+                    "description": "Defines emit that determine the behavior of the component based on a given condition or report the actions that the component takes.",
+                    "values": [
+                        {
+                            "name": "onShow",
+                            "parameters": [
+                                {
+                                    "name": "event",
+                                    "type": "{ originalEvent: AnimationEvent }"
+                                }
+                            ],
+                            "description": "Callback to invoke on overlay is shown."
+                        },
+                        {
+                            "name": "onHide",
+                            "parameters": [
+                                {
+                                    "name": "event",
+                                    "type": "{ originalEvent: AnimationEvent }"
+                                }
+                            ],
+                            "description": "Callback to invoke on overlay is hidden."
+                        }
+                    ]
+                },
+                "templates": {
+                    "description": "Defines the templates used by the component.",
+                    "values": [
+                        {
+                            "name": "header",
+                            "description": "Custom header template.",
+                            "type": "TemplateRef<any>",
+                            "parameters": []
+                        },
+                        {
+                            "name": "filter",
+                            "description": "Custom filter template.",
+                            "type": "TemplateRef<any>",
+                            "parameters": []
+                        },
+                        {
+                            "name": "footer",
+                            "description": "Custom footer template.",
+                            "type": "TemplateRef<any>",
+                            "parameters": []
+                        },
+                        {
+                            "name": "filtericon",
+                            "description": "Custom filter icon template.",
+                            "type": "TemplateRef<any>",
+                            "parameters": []
+                        },
+                        {
+                            "name": "removeruleicon",
+                            "description": "Custom remove rule button icon template.",
+                            "type": "TemplateRef<any>",
+                            "parameters": []
+                        },
+                        {
+                            "name": "addruleicon",
+                            "description": "Custom add rule button icon template.",
+                            "type": "TemplateRef<any>",
+                            "parameters": []
                         }
                     ]
                 }
@@ -29520,38 +29523,6 @@
                     "description": "Defines the input properties of the component.",
                     "values": [
                         {
-                            "name": "required",
-                            "optional": false,
-                            "readonly": false,
-                            "type": "InputSignalWithTransform<boolean, unknown>",
-                            "default": "false",
-                            "description": "There must be a value (if set)."
-                        },
-                        {
-                            "name": "invalid",
-                            "optional": false,
-                            "readonly": false,
-                            "type": "InputSignalWithTransform<boolean, unknown>",
-                            "default": "false",
-                            "description": "When present, it specifies that the component should have invalid state style."
-                        },
-                        {
-                            "name": "disabled",
-                            "optional": false,
-                            "readonly": false,
-                            "type": "InputSignalWithTransform<boolean, unknown>",
-                            "default": "false",
-                            "description": "When present, it specifies that the component should have disabled state style."
-                        },
-                        {
-                            "name": "name",
-                            "optional": false,
-                            "readonly": false,
-                            "type": "InputSignal<string>",
-                            "default": "undefined",
-                            "description": "When present, it specifies that the name of the input."
-                        },
-                        {
                             "name": "autoResize",
                             "optional": false,
                             "readonly": false,
@@ -29581,6 +29552,14 @@
                             "type": "InputSignalWithTransform<boolean, unknown>",
                             "default": "undefined",
                             "description": "Spans 100% width of the container when enabled."
+                        },
+                        {
+                            "name": "invalid",
+                            "optional": false,
+                            "readonly": false,
+                            "type": "InputSignalWithTransform<boolean, unknown>",
+                            "default": "false",
+                            "description": "When present, it specifies that the component should have invalid state style."
                         }
                     ]
                 },

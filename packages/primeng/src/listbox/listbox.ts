@@ -62,35 +62,24 @@ export const LISTBOX_VALUE_ACCESSOR: any = {
             <ng-container *ngTemplateOutlet="headerTemplate || _headerTemplate; context: { $implicit: modelValue(), options: visibleOptions() }"></ng-container>
         </div>
         <div [class]="cx('header')" *ngIf="(checkbox && multiple && showToggleAll) || filter">
-            <div *ngIf="checkbox && multiple && showToggleAll" class="p-checkbox p-component" [ngClass]="{ 'p-checkbox-disabled': $disabled() }" (click)="onToggleAll($event)" (keydown)="onHeaderCheckboxKeyDown($event)">
-                <div class="p-hidden-accessible" [attr.data-p-hidden-accessible]="true">
-                    <input
-                        #headerchkbox
-                        type="checkbox"
-                        readonly="readonly"
-                        [attr.checked]="allSelected()"
-                        [attr.disabled]="$disabled() ? '' : undefined"
-                        (focus)="onHeaderCheckboxFocus($event)"
-                        (blur)="onHeaderCheckboxBlur()"
-                        [attr.aria-label]="toggleAllAriaLabel"
-                    />
-                </div>
-                <p-checkbox
-                    *ngIf="checkbox && multiple"
-                    [class]="cx('optionCheckIcon')"
-                    [ngModel]="allSelected()"
-                    [disabled]="$disabled()"
-                    [tabindex]="-1"
-                    [variant]="config.inputStyle() === 'filled' || config.inputVariant() === 'filled' ? 'filled' : 'outlined'"
-                    [binary]="true"
-                >
-                    <ng-container *ngIf="checkIconTemplate || _checkIconTemplate">
-                        <ng-template #icon>
-                            <ng-template *ngTemplateOutlet="checkIconTemplate || _checkIconTemplate; context: { $implicit: allSelected() }"></ng-template>
-                        </ng-template>
-                    </ng-container>
-                </p-checkbox>
-            </div>
+            <p-checkbox
+                #headerchkbox
+                (onChange)="onToggleAll($event)"
+                *ngIf="checkbox && multiple"
+                [class]="cx('optionCheckIcon')"
+                [ngModel]="allSelected()"
+                [disabled]="$disabled()"
+                [tabindex]="-1"
+                [variant]="config.inputStyle() === 'filled' || config.inputVariant() === 'filled' ? 'filled' : 'outlined'"
+                [binary]="true"
+                [attr.aria-label]="toggleAllAriaLabel"
+            >
+                <ng-container *ngIf="checkIconTemplate || _checkIconTemplate">
+                    <ng-template #icon>
+                        <ng-template *ngTemplateOutlet="checkIconTemplate || _checkIconTemplate; context: { $implicit: allSelected() }"></ng-template>
+                    </ng-template>
+                </ng-container>
+            </p-checkbox>
             <ng-container *ngIf="filterTemplate || _filterTemplate; else builtInFilterElement">
                 <ng-container *ngTemplateOutlet="filterTemplate || _filterTemplate; context: { options: filterOptions }"></ng-container>
             </ng-container>
@@ -172,7 +161,7 @@ export const LISTBOX_VALUE_ACCESSOR: any = {
 
                 <ng-template #buildInItems let-items let-scrollerOptions="options">
                     <ul
-                        #list
+                        [id]="id + '_list'"
                         [class]="cx('list')"
                         role="listbox"
                         [tabindex]="-1"
@@ -1026,9 +1015,6 @@ export class Listbox extends BaseEditableHolder implements AfterContentInit, OnI
             this.updateModel(value, event);
             this.onChange.emit({ originalEvent: event, value: this.value });
         }
-
-        event.preventDefault();
-        // event.stopPropagation();
     }
 
     allSelected() {
@@ -1109,14 +1095,6 @@ export class Listbox extends BaseEditableHolder implements AfterContentInit, OnI
         this.startRangeIndex.set(-1);
         this.searchValue = '';
         this.onBlur.emit(event);
-    }
-
-    onHeaderCheckboxFocus(event) {
-        this.headerCheckboxFocus = true;
-    }
-
-    onHeaderCheckboxBlur() {
-        this.headerCheckboxFocus = false;
     }
 
     onHeaderCheckboxKeyDown(event) {
