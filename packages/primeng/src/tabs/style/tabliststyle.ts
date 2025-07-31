@@ -3,12 +3,7 @@ import { BaseStyle } from 'primeng/base';
 
 const classes = {
     root: 'p-tablist',
-    content: ({ instance }) => [
-        'p-tablist-content',
-        {
-            'p-tablist-viewport': instance.scrollable()
-        }
-    ],
+    content: 'p-tablist-content p-tablist-viewport',
     tabList: 'p-tablist-tab-list',
     activeBar: 'p-tablist-active-bar',
     prevButton: 'p-tablist-prev-button p-tablist-nav-button',
