@@ -22,7 +22,7 @@ import {
     TemplateRef,
     ViewEncapsulation
 } from '@angular/core';
-import { absolutePosition, addClass, focus, getOffset, isIOS, isTouchDevice } from '@primeuix/utils';
+import { absolutePosition, addClass, appendChild, focus, getOffset, isIOS, isTouchDevice } from '@primeuix/utils';
 import { Confirmation, ConfirmationService, OverlayService, PrimeTemplate, SharedModule, TranslationKeys } from 'primeng/api';
 import { BaseComponent } from 'primeng/basecomponent';
 import { ButtonModule } from 'primeng/button';
@@ -47,6 +47,7 @@ import { ConfirmPopupStyle } from './style/confirmpopupstyle';
             pFocusTrap
             [class]="cn(cx('root'), styleClass)"
             [ngStyle]="style"
+            [attr.dir]="dir"
             role="alertdialog"
             (click)="onOverlayClick($event)"
             [@animation]="{
@@ -66,7 +67,7 @@ import { ConfirmPopupStyle } from './style/confirmpopupstyle';
                     </ng-container>
                     <ng-template #withoutContentTemplate>
                         <i [class]="cx('icon')" *ngIf="confirmation?.icon"></i>
-                        <span [class]="cx('message')">{{ confirmation?.message }}</span>
+                        <span dir="ltr" [class]="cx('message')">{{ confirmation?.message }}</span>
                     </ng-template>
                 </div>
                 <div [class]="cx('footer')">
@@ -185,6 +186,16 @@ export class ConfirmPopup extends BaseComponent implements AfterContentInit, OnD
         this._visible = value;
         this.cd.markForCheck();
     }
+    /**
+     * Sets the text direction. Defaults to `'ltr'`.
+     * @group Props
+     */
+    @Input() dir: 'ltr' | 'rtl' = 'ltr';
+    /**
+     * Target element to attach the panel, valid values are "body" or a local ng-template variable of another element (note: use binding with brackets for template variables, e.g. [appendTo]="mydiv" for a div element having #mydiv as variable name).
+     * @group Props
+     */
+    @Input() appendTo: HTMLElement | ElementRef | TemplateRef<any> | string | null | undefined | any = 'body';
 
     container: Nullable<HTMLDivElement>;
 
@@ -309,7 +320,7 @@ export class ConfirmPopup extends BaseComponent implements AfterContentInit, OnD
     onAnimationStart(event: AnimationEvent) {
         if (event.toState === 'open') {
             this.container = event.element;
-            this.renderer.appendChild(this.document.body, this.container);
+            this.appendContainer();
             this.align();
             this.bindListeners();
 
@@ -354,7 +365,7 @@ export class ConfirmPopup extends BaseComponent implements AfterContentInit, OnD
         (this.container as HTMLDivElement).style.setProperty('--p-confirmpopup-arrow-left', `${arrowLeft}px`);
 
         if (containerOffset.top < targetOffset.top) {
-            addClass(this.container, 'p-confirm-popup-flipped');
+            addClass(this.container, 'p-confirmpopup-flipped');
         }
     }
 
@@ -490,8 +501,15 @@ export class ConfirmPopup extends BaseComponent implements AfterContentInit, OnD
         this.container = null;
     }
 
+    appendContainer() {
+        if (this.appendTo) {
+            if (this.appendTo === 'body') this.renderer.appendChild(this.document.body, this.container);
+            else appendChild(this.appendTo, this.container);
+        }
+    }
+
     restoreAppend() {
-        if (this.container) {
+        if (this.container && this.appendTo === 'body') {
             this.renderer.removeChild(this.document.body, this.container);
         }
 
