@@ -532,6 +532,8 @@ export class Dialog extends BaseComponent implements OnInit, AfterContentInit, O
 
     headlessT: TemplateRef<any> | undefined;
 
+    private zIndexForLayering?: number;
+
     get maximizeLabel(): string {
         return this.config.getTranslation(TranslationKeys.ARIA)['maximizeLabel'];
     }
@@ -710,6 +712,8 @@ export class Dialog extends BaseComponent implements OnInit, AfterContentInit, O
         if (this.autoZIndex) {
             ZIndexUtils.set('modal', this.container, this.baseZIndex + this.config.zIndex.modal);
             (this.wrapper as HTMLElement).style.zIndex = String(parseInt((this.container as HTMLDivElement).style.zIndex, 10) - 1);
+        } else {
+            this.zIndexForLayering = ZIndexUtils.generateZIndex('modal', (this.baseZIndex ?? 0) + this.config.zIndex.modal);
         }
     }
 
@@ -944,7 +948,10 @@ export class Dialog extends BaseComponent implements OnInit, AfterContentInit, O
 
         this.documentEscapeListener = this.renderer.listen(documentTarget, 'keydown', (event) => {
             if (event.key == 'Escape') {
-                this.close(event);
+                const currentZIndex = ZIndexUtils.getCurrent();
+                if (parseInt((this.container as HTMLDivElement).style.zIndex) == currentZIndex || this.zIndexForLayering == currentZIndex) {
+                    this.close(event);
+                }
             }
         });
     }
@@ -1044,6 +1051,9 @@ export class Dialog extends BaseComponent implements OnInit, AfterContentInit, O
 
         if (this.container && this.autoZIndex) {
             ZIndexUtils.clear(this.container);
+        }
+        if (this.zIndexForLayering) {
+            ZIndexUtils.revertZIndex(this.zIndexForLayering);
         }
 
         this.container = null;
