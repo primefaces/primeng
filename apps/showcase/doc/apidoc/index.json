@@ -31968,6 +31968,13 @@
                             "description": "Establishes relationships between the component and label(s) where its value should be one or more element IDs."
                         },
                         {
+                            "name": "togglerAriaLabel",
+                            "optional": false,
+                            "readonly": false,
+                            "type": "string",
+                            "description": "Defines a string that labels the toggler icon for accessibility."
+                        },
+                        {
                             "name": "placeholder",
                             "optional": false,
                             "readonly": false,
