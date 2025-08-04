@@ -5,7 +5,7 @@ import { CommonModule, DOCUMENT } from '@angular/common';
 import { afterNextRender, booleanAttribute, Component, computed, ElementRef, Inject, Input, OnDestroy, Renderer2 } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { RouterModule } from '@angular/router';
-//import docsearch from '@docsearch/js';
+import docsearch from '@docsearch/js';
 import { DomHandler } from 'primeng/dom';
 import { StyleClass } from 'primeng/styleclass';
 
@@ -93,7 +93,7 @@ import { StyleClass } from 'primeng/styleclass';
             </div>
 
             <ul class="topbar-items">
-                <li *ngIf="false">
+                <li>
                     <div id="docsearch"></div>
                 </li>
                 <li>
@@ -167,7 +167,7 @@ export class AppTopBarComponent implements OnDestroy {
 
         afterNextRender(() => {
             this.bindScrollListener();
-            //this.initDocSearch();
+            this.initDocSearch();
         });
     }
 
@@ -199,14 +199,14 @@ export class AppTopBarComponent implements OnDestroy {
         this.configService.appState.update((state) => ({ ...state, darkTheme: !state.darkTheme }));
     }
 
-    /*initDocSearch() {
+    initDocSearch() {
         docsearch({
-            appId: 'XG1L2MUWT9',
-            apiKey: '0c7d92ce7c38649263123110162ac181',
-            indexName: 'primeng',
+            appId: '1ZVNZFT7L4',
+            apiKey: '4bd9719a938144ee6c07f8904b7ae49f',
+            indexName: 'v19-primeng',
             container: '#docsearch'
         });
-    }*/
+    }
 
     bindScrollListener() {
         if (!this.scrollListener) {
