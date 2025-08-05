@@ -1,28 +1,27 @@
 import { Injectable } from '@angular/core';
-import { css, dt } from '@primeuix/styled';
 import { style } from '@primeuix/styles/inputnumber';
 import { BaseStyle } from 'primeng/base';
 
-const theme = css`
+const theme = /*css*/ `
     ${style}
 
     /* For PrimeNG */
     p-inputNumber.ng-invalid.ng-dirty > .p-inputtext,
     p-input-number.ng-invalid.ng-dirty > .p-inputtext,
     p-inputnumber.ng-invalid.ng-dirty > .p-inputtext {
-        border-color: ${dt('inputtext.invalid.border.color')};
+        border-color: dt('inputtext.invalid.border.color');
     }
 
     p-inputNumber.ng-invalid.ng-dirty > .p-inputtext:enabled:focus,
     p-input-number.ng-invalid.ng-dirty > .p-inputtext:enabled:focus,
     p-inputnumber.ng-invalid.ng-dirty > .p-inputtext:enabled:focus {
-        border-color: ${dt('inputtext.focus.border.color')};
+        border-color: dt('inputtext.focus.border.color');
     }
 
     p-inputNumber.ng-invalid.ng-dirty > .p-inputtext::placeholder,
     p-input-number.ng-invalid.ng-dirty > .p-inputtext::placeholder,
     p-inputnumber.ng-invalid.ng-dirty > .p-inputtext::placeholder {
-        color: ${dt('inputtext.invalid.placeholder.color')};
+        color: dt('inputtext.invalid.placeholder.color');
     }
 `;
 
@@ -44,13 +43,13 @@ const classes = {
     incrementButton: ({ instance }) => [
         'p-inputnumber-button p-inputnumber-increment-button',
         {
-            'p-disabled': instance.showButtons && instance.max() !== null && instance.maxlength()
+            'p-disabled': instance.showButtons && instance.max() != null && instance.maxlength()
         }
     ],
     decrementButton: ({ instance }) => [
         'p-inputnumber-button p-inputnumber-decrement-button',
         {
-            'p-disabled': instance.showButtons && instance.min() !== null && instance.minlength()
+            'p-disabled': instance.showButtons && instance.min() != null && instance.minlength()
         }
     ],
     clearIcon: 'p-inputnumber-clear-icon'

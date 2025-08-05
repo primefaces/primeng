@@ -59,7 +59,7 @@ export const TOGGLESWITCH_VALUE_ACCESSOR: any = {
             [class]="cx('input')"
             [checked]="checked()"
             [attr.required]="required() ? '' : undefined"
-            [attr.disabled]="disabled() ? '' : undefined"
+            [attr.disabled]="$disabled() ? '' : undefined"
             [attr.aria-checked]="checked()"
             [attr.aria-labelledby]="ariaLabelledBy"
             [attr.aria-label]="ariaLabel"
@@ -165,10 +165,6 @@ export class ToggleSwitch extends BaseEditableHolder implements AfterContentInit
 
     focused: boolean = false;
 
-    onModelChange: Function = () => {};
-
-    onModelTouched: Function = () => {};
-
     _componentStyle = inject(ToggleSwitchStyle);
 
     @ContentChildren(PrimeTemplate) templates!: QueryList<PrimeTemplate>;
@@ -192,7 +188,7 @@ export class ToggleSwitch extends BaseEditableHolder implements AfterContentInit
     }
 
     onClick(event: Event) {
-        if (!this.disabled() && !this.readonly) {
+        if (!this.$disabled() && !this.readonly) {
             this.writeModelValue(this.checked() ? this.falseValue : this.trueValue);
 
             this.onModelChange(this.modelValue());
@@ -214,21 +210,19 @@ export class ToggleSwitch extends BaseEditableHolder implements AfterContentInit
         this.onModelTouched();
     }
 
-    writeValue(value: any): void {
-        this.writeModelValue(value);
-        this.cd.markForCheck();
-    }
-
-    registerOnChange(fn: Function): void {
-        this.onModelChange = fn;
-    }
-
-    registerOnTouched(fn: Function): void {
-        this.onModelTouched = fn;
-    }
-
     checked() {
         return this.modelValue() === this.trueValue;
+    }
+
+    /**
+     * @override
+     *
+     * @see {@link BaseEditableHolder.writeControlValue}
+     * Writes the value to the control.
+     */
+    writeControlValue(value: any, setModelValue: (value: any) => void): void {
+        setModelValue(value);
+        this.cd.markForCheck();
     }
 }
 

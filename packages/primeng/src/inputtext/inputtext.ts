@@ -1,6 +1,6 @@
 import { AfterViewInit, booleanAttribute, computed, Directive, DoCheck, HostListener, inject, input, Input, NgModule } from '@angular/core';
 import { NgControl } from '@angular/forms';
-import { BaseEditableHolder } from 'primeng/baseeditableholder';
+import { BaseModelHolder } from 'primeng/basemodelholder';
 import { Fluid } from 'primeng/fluid';
 import { InputTextStyle } from './style/inputtextstyle';
 
@@ -16,7 +16,7 @@ import { InputTextStyle } from './style/inputtextstyle';
     },
     providers: [InputTextStyle]
 })
-export class InputText extends BaseEditableHolder implements DoCheck, AfterViewInit {
+export class InputText extends BaseModelHolder implements DoCheck, AfterViewInit {
     ngControl = inject(NgControl, { optional: true, self: true });
 
     pcFluid: Fluid = inject(Fluid, { optional: true, host: true, skipSelf: true });
@@ -38,6 +38,12 @@ export class InputText extends BaseEditableHolder implements DoCheck, AfterViewI
      * @group Props
      */
     fluid = input(undefined, { transform: booleanAttribute });
+    /**
+     * When present, it specifies that the component should have invalid state style.
+     * @defaultValue false
+     * @group Props
+     */
+    invalid = input(undefined, { transform: booleanAttribute });
 
     $variant = computed(() => this.variant() || this.config.inputStyle() || this.config.inputVariant());
 
@@ -54,8 +60,8 @@ export class InputText extends BaseEditableHolder implements DoCheck, AfterViewI
     }
 
     @HostListener('input', ['$event'])
-    onInput(event: Event) {
-        this.writeModelValue(this.ngControl?.value ?? this.el.nativeElement.value, event);
+    onInput() {
+        this.writeModelValue(this.ngControl?.value ?? this.el.nativeElement.value);
     }
 
     get hasFluid() {

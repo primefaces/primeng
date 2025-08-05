@@ -52,29 +52,29 @@ import { ImageStyle } from './style/imagestyle';
                 <ng-container *ngTemplateOutlet="indicatorTemplate || _indicatorTemplate"></ng-container>
             </ng-container>
             <ng-template #defaultTemplate>
-                <EyeIcon [styleClass]="cx('previewIcon')" />
+                <svg data-p-icon="eye" [class]="cx('previewIcon')" />
             </ng-template>
         </button>
         <div #mask [class]="cx('mask')" *ngIf="maskVisible" [attr.aria-modal]="maskVisible" role="dialog" (click)="onMaskClick()" (keydown)="onMaskKeydown($event)" pFocusTrap>
             <div [class]="cx('toolbar')" (click)="handleToolbarClick($event)">
                 <button [class]="cx('rotateRightButton')" (click)="rotateRight()" type="button" [attr.aria-label]="rightAriaLabel()">
-                    <RefreshIcon *ngIf="!rotateRightIconTemplate && !_rotateRightIconTemplate" />
+                    <svg data-p-icon="refresh" *ngIf="!rotateRightIconTemplate && !_rotateRightIconTemplate" />
                     <ng-template *ngTemplateOutlet="rotateRightIconTemplate || _rotateRightIconTemplate"></ng-template>
                 </button>
                 <button [class]="cx('rotateLeftButton')" (click)="rotateLeft()" type="button" [attr.aria-label]="leftAriaLabel()">
-                    <UndoIcon *ngIf="!rotateLeftIconTemplate && !_rotateLeftIconTemplate" />
+                    <svg data-p-icon="undo" *ngIf="!rotateLeftIconTemplate && !_rotateLeftIconTemplate" />
                     <ng-template *ngTemplateOutlet="rotateLeftIconTemplate || _rotateLeftIconTemplate"></ng-template>
                 </button>
                 <button [class]="cx('zoomOutButton')" (click)="zoomOut()" type="button" [disabled]="isZoomOutDisabled" [attr.aria-label]="zoomOutAriaLabel()">
-                    <SearchMinusIcon *ngIf="!zoomOutIconTemplate && !_zoomOutIconTemplate" />
+                    <svg data-p-icon="search-minus" *ngIf="!zoomOutIconTemplate && !_zoomOutIconTemplate" />
                     <ng-template *ngTemplateOutlet="zoomOutIconTemplate || _zoomOutIconTemplate"></ng-template>
                 </button>
                 <button [class]="cx('zoomInButton')" (click)="zoomIn()" type="button" [disabled]="isZoomInDisabled" [attr.aria-label]="zoomInAriaLabel()">
-                    <SearchPlusIcon *ngIf="!zoomInIconTemplate && !_zoomInIconTemplate" />
+                    <svg data-p-icon="search-plus" *ngIf="!zoomInIconTemplate && !_zoomInIconTemplate" />
                     <ng-template *ngTemplateOutlet="zoomInIconTemplate || _zoomInIconTemplate"></ng-template>
                 </button>
                 <button [class]="cx('closeButton')" type="button" (click)="closePreview()" [attr.aria-label]="closeAriaLabel()" #closeButton>
-                    <TimesIcon *ngIf="!closeIconTemplate && !_closeIconTemplate" />
+                    <svg data-p-icon="times" *ngIf="!closeIconTemplate && !_closeIconTemplate" />
                     <ng-template *ngTemplateOutlet="closeIconTemplate || _closeIconTemplate"></ng-template>
                 </button>
             </div>

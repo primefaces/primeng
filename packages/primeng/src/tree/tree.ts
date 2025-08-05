@@ -103,11 +103,11 @@ import {
                     <button type="button" [attr.data-pc-section]="'toggler'" [class]="cx('nodeToggleButton')" (click)="toggle($event)" pRipple tabindex="-1">
                         <ng-container *ngIf="!tree.togglerIconTemplate && !tree._togglerIconTemplate">
                             <ng-container *ngIf="!node.loading">
-                                <ChevronRightIcon *ngIf="!node.expanded" [styleClass]="cx('nodeToggleIcon')" />
-                                <ChevronDownIcon *ngIf="node.expanded" [styleClass]="cx('nodeToggleIcon')" />
+                                <svg data-p-icon="chevron-right" *ngIf="!node.expanded" [class]="cx('nodeToggleIcon')" />
+                                <svg data-p-icon="chevron-down" *ngIf="node.expanded" [class]="cx('nodeToggleIcon')" />
                             </ng-container>
                             <ng-container *ngIf="loadingMode === 'icon' && node.loading">
-                                <SpinnerIcon [styleClass]="cn(cx('nodeToggleIcon'), 'pi-spin')" />
+                                <svg data-p-icon="spinner" [class]="cx('nodeToggleIcon')" spin />
                             </ng-container>
                         </ng-container>
                         <span *ngIf="tree.togglerIconTemplate || tree._togglerIconTemplate" [class]="cx('nodeToggleIcon')">
@@ -711,7 +711,7 @@ export class UITreeNode extends BaseComponent implements OnInit {
         <div [class]="cx('mask')" *ngIf="loading && loadingMode === 'mask'">
             <i *ngIf="loadingIcon" [class]="cn(cx('loadingIcon'), 'pi-spin' + loadingIcon)"></i>
             <ng-container *ngIf="!loadingIcon">
-                <SpinnerIcon *ngIf="!loadingIconTemplate && !_loadingIconTemplate" [spin]="true" [styleClass]="cx('loadingIcon')" />
+                <svg data-p-icon="spinner" *ngIf="!loadingIconTemplate && !_loadingIconTemplate" spin [class]="cx('loadingIcon')" />
                 <span *ngIf="loadingIconTemplate || _loadingIconTemplate" [class]="cx('loadingIcon')">
                     <ng-template *ngTemplateOutlet="loadingIconTemplate || _loadingIconTemplate"></ng-template>
                 </span>
@@ -734,7 +734,7 @@ export class UITreeNode extends BaseComponent implements OnInit {
                     (input)="_filter($event.target?.value)"
                 />
                 <p-inputicon>
-                    <SearchIcon *ngIf="!filterIconTemplate && !_filterIconTemplate" [class]="cx('filterIcon')" />
+                    <svg data-p-icon="search" *ngIf="!filterIconTemplate && !_filterIconTemplate" [class]="cx('filterIcon')" />
                     <span *ngIf="filterIconTemplate || _filterIconTemplate" [class]="cx('filterIcon')">
                         <ng-template *ngTemplateOutlet="filterIconTemplate || _filterIconTemplate"></ng-template>
                     </span>

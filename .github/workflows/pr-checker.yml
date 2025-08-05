@@ -19,7 +19,7 @@ jobs:
 
         strategy:
             matrix:
-                node-version: [18.x, 20.x]
+                node-version: [20.x]
 
         steps:
             - name: Verify Linked Issue

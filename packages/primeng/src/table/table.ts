@@ -43,7 +43,6 @@ import { DatePickerModule } from 'primeng/datepicker';
 import { ConnectedOverlayScrollHandler, DomHandler } from 'primeng/dom';
 import { ArrowDownIcon } from 'primeng/icons/arrowdown';
 import { ArrowUpIcon } from 'primeng/icons/arrowup';
-import { CheckIcon } from 'primeng/icons/check';
 import { FilterIcon } from 'primeng/icons/filter';
 import { FilterFillIcon } from 'primeng/icons/filterfill';
 import { FilterSlashIcon } from 'primeng/icons/filterslash';
@@ -91,14 +90,12 @@ export class TableService {
     private selectionSource = new Subject();
     private contextMenuSource = new Subject<any>();
     private valueSource = new Subject<any>();
-    private totalRecordsSource = new Subject<any>();
     private columnsSource = new Subject();
 
     sortSource$ = this.sortSource.asObservable();
     selectionSource$ = this.selectionSource.asObservable();
     contextMenuSource$ = this.contextMenuSource.asObservable();
     valueSource$ = this.valueSource.asObservable();
-    totalRecordsSource$ = this.totalRecordsSource.asObservable();
     columnsSource$ = this.columnsSource.asObservable();
 
     onSort(sortMeta: SortMeta | SortMeta[] | null) {
@@ -117,10 +114,6 @@ export class TableService {
         this.valueSource.next(value);
     }
 
-    onTotalRecordsChange(value: number) {
-        this.totalRecordsSource.next(value);
-    }
-
     onColumnsChange(columns: any[]) {
         this.columnsSource.next(columns);
     }
@@ -136,7 +129,7 @@ export class TableService {
         <div [class]="cx('mask')" *ngIf="loading && showLoader">
             <i *ngIf="loadingIcon" [class]="cn(cx('loadingIcon'), loadingIcon)"></i>
             <ng-container *ngIf="!loadingIcon">
-                <SpinnerIcon *ngIf="!loadingIconTemplate && !_loadingIconTemplate" [spin]="true" [styleClass]="cx('loadingIcon')" />
+                <svg data-p-icon="spinner" *ngIf="!loadingIconTemplate && !_loadingIconTemplate" [spin]="true" [class]="cx('loadingIcon')" />
                 <span *ngIf="loadingIconTemplate || _loadingIconTemplate" [class]="cx('loadingIcon')">
                     <ng-template *ngTemplateOutlet="loadingIconTemplate || _loadingIconTemplate"></ng-template>
                 </span>
@@ -335,13 +328,13 @@ export class TableService {
             <ng-container *ngTemplateOutlet="summaryTemplate || _summaryTemplate"></ng-container>
         </div>
 
-        <div #resizeHelper [ngClass]="cx('columnResizeIndicator')" style="display:none" *ngIf="resizableColumns"></div>
-        <span #reorderIndicatorUp [ngClass]="cx('rowReorderIndicatorUp')" style="display: none;" *ngIf="reorderableColumns">
-            <ArrowDownIcon *ngIf="!reorderIndicatorUpIconTemplate && !_reorderIndicatorUpIconTemplate" />
+        <div #resizeHelper [ngClass]="cx('columnResizeIndicator')" [style.display]="'none'" *ngIf="resizableColumns"></div>
+        <span #reorderIndicatorUp [ngClass]="cx('rowReorderIndicatorUp')" [style.display]="'none'" *ngIf="reorderableColumns">
+            <svg data-p-icon="arrow-down" *ngIf="!reorderIndicatorUpIconTemplate && !_reorderIndicatorUpIconTemplate" />
             <ng-template *ngTemplateOutlet="reorderIndicatorUpIconTemplate || _reorderIndicatorUpIconTemplate"></ng-template>
         </span>
-        <span #reorderIndicatorDown [ngClass]="cx('rowReorderIndicatorDown')" style="display: none;" *ngIf="reorderableColumns">
-            <ArrowUpIcon *ngIf="!reorderIndicatorDownIconTemplate && !_reorderIndicatorDownIconTemplate" />
+        <span #reorderIndicatorDown [ngClass]="cx('rowReorderIndicatorDown')" [style.display]="'none'" *ngIf="reorderableColumns">
+            <svg data-p-icon="arrow-up" *ngIf="!reorderIndicatorDownIconTemplate && !_reorderIndicatorDownIconTemplate" />
             <ng-template *ngTemplateOutlet="reorderIndicatorDownIconTemplate || _reorderIndicatorDownIconTemplate"></ng-template>
         </span>
     `,
@@ -349,7 +342,6 @@ export class TableService {
     changeDetection: ChangeDetectionStrategy.Default,
     encapsulation: ViewEncapsulation.None,
     host: {
-        '[attr.id]': 'id',
         '[class]': "cn(cx('root'), styleClass)"
     }
 })
@@ -771,13 +763,8 @@ export class Table<RowData = any> extends BaseComponent implements OnInit, After
      * Number of total records, defaults to length of value when not defined.
      * @group Props
      */
-    @Input() get totalRecords(): number {
-        return this._totalRecords;
-    }
-    set totalRecords(val: number) {
-        this._totalRecords = val;
-        this.tableService.onTotalRecordsChange(this._totalRecords);
-    }
+    @Input() totalRecords: number = 0;
+
     /**
      * Name of the field to sort data by default.
      * @group Props
@@ -1349,6 +1336,11 @@ export class Table<RowData = any> extends BaseComponent implements OnInit, After
 
     ngOnChanges(simpleChange: SimpleChanges) {
         super.ngOnChanges(simpleChange);
+
+        if (simpleChange.totalRecords && simpleChange.totalRecords.firstChange) {
+            this._totalRecords = simpleChange.totalRecords.currentValue;
+        }
+
         if (simpleChange.value) {
             if (this.isStateful() && !this.stateRestored && isPlatformBrowser(this.platformId)) {
                 this.restoreState();
@@ -1357,7 +1349,7 @@ export class Table<RowData = any> extends BaseComponent implements OnInit, After
             this._value = simpleChange.value.currentValue;
 
             if (!this.lazy) {
-                this.totalRecords = this._value ? this._value.length : 0;
+                this.totalRecords = this._totalRecords === 0 && this._value ? this._value.length : (this._totalRecords ?? 0);
 
                 if (this.sortMode == 'single' && (this.sortField || this.groupRowsBy)) this.sortSingle();
                 else if (this.sortMode == 'multiple' && (this.multiSortMeta || this.groupRowsBy)) this.sortMultiple();
@@ -2192,11 +2184,10 @@ export class Table<RowData = any> extends BaseComponent implements OnInit, After
             if (!this.value) {
                 return;
             }
-
             if (!this.hasFilter()) {
                 this.filteredValue = null;
                 if (this.paginator) {
-                    this.totalRecords = this.value ? this.value.length : 0;
+                    this.totalRecords = this._totalRecords === 0 && this.value ? this.value.length : this._totalRecords;
                 }
             } else {
                 let globalFilterFieldsArray;
@@ -2264,7 +2255,7 @@ export class Table<RowData = any> extends BaseComponent implements OnInit, After
                 }
 
                 if (this.paginator) {
-                    this.totalRecords = this.filteredValue ? this.filteredValue.length : this.value ? this.value.length : 0;
+                    this.totalRecords = this.filteredValue ? this.filteredValue.length : this._totalRecords === 0 && this.value ? this.value.length : (this._totalRecords ?? 0);
                 }
             }
         }
@@ -2341,7 +2332,7 @@ export class Table<RowData = any> extends BaseComponent implements OnInit, After
         if (this.lazy) {
             this.onLazyLoad.emit(this.createLazyLoadMetadata());
         } else {
-            this.totalRecords = this._value ? this._value.length : 0;
+            this.totalRecords = this._totalRecords === 0 && this._value ? this._value.length : (this._totalRecords ?? 0);
         }
     }
 
@@ -3007,8 +2998,8 @@ export class Table<RowData = any> extends BaseComponent implements OnInit, After
         headers.forEach((header) => widths.push(DomHandler.getOuterWidth(header)));
         state.columnWidths = widths.join(',');
 
-        if (this.columnResizeMode === 'expand') {
-            state.tableWidth = DomHandler.getOuterWidth(this.tableViewChild?.nativeElement);
+        if (this.columnResizeMode === 'expand' && this.tableViewChild) {
+            state.tableWidth = DomHandler.getOuterWidth(this.tableViewChild.nativeElement);
         }
     }
 
@@ -3572,7 +3563,7 @@ export class FrozenColumn implements AfterViewInit {
         '[class]': "cx('sortableColumn')",
         '[tabindex]': 'isEnabled() ? "0" : null',
         '[role]': '"columnheader"',
-        '[aria-sort]': 'sortOrder'
+        '[attr.aria-sort]': 'sortOrder'
     },
     providers: [TableStyle]
 })
@@ -3671,9 +3662,9 @@ export class SortableColumn extends BaseComponent implements OnInit, OnDestroy {
     standalone: false,
     template: `
         <ng-container *ngIf="!(dt.sortIconTemplate || dt._sortIconTemplate)">
-            <SortAltIcon [styleClass]="cx('sortableColumnIcon')" *ngIf="sortOrder === 0" />
-            <SortAmountUpAltIcon [styleClass]="cx('sortableColumnIcon')" *ngIf="sortOrder === 1" />
-            <SortAmountDownIcon [styleClass]="cx('sortableColumnIcon')" *ngIf="sortOrder === -1" />
+            <svg data-p-icon="sort-alt" [class]="cx('sortableColumnIcon')" *ngIf="sortOrder === 0" />
+            <svg data-p-icon="sort-amount-up-alt" [class]="cx('sortableColumnIcon')" *ngIf="sortOrder === 1" />
+            <svg data-p-icon="sort-amount-down" [class]="cx('sortableColumnIcon')" *ngIf="sortOrder === -1" />
         </ng-container>
         <span *ngIf="dt.sortIconTemplate || dt._sortIconTemplate" [class]="cx('sortableColumnIcon')">
             <ng-template *ngTemplateOutlet="dt.sortIconTemplate || dt._sortIconTemplate; context: { $implicit: sortOrder }"></ng-template>
@@ -3764,7 +3755,7 @@ export class SortIcon extends BaseComponent implements OnInit, OnDestroy {
     host: {
         '[class]': "cx('selectableRow')",
         '[tabindex]': 'setRowTabIndex()',
-        '[data-p-selectable-row]': 'true'
+        '[attr.data-p-selectable-row]': 'true'
     },
     providers: [TableStyle]
 })
@@ -4968,7 +4959,7 @@ export class TableCheckbox implements OnInit, OnDestroy {
         public cd: ChangeDetectorRef
     ) {
         this.subscription = this.dt.tableService.selectionSource$.subscribe(() => {
-            this.checked = this.dt.isSelected(this.value) && !this.disabled();
+            this.checked = this.dt.isSelected(this.value);
             this.ariaLabel = this.ariaLabel || (this.dt.config.translation.aria ? (this.checked ? this.dt.config.translation.aria.selectRow : this.dt.config.translation.aria.unselectRow) : undefined);
             this.cd.markForCheck();
         });
@@ -5233,9 +5224,12 @@ export class ReorderableRow implements AfterViewInit {
         this.unbindEvents();
     }
 }
-
+/**
+ * Column Filter Component.
+ * @group Components
+ */
 @Component({
-    selector: 'p-columnFilter',
+    selector: 'p-columnFilter, p-column-filter, p-columnfilter',
     standalone: false,
     template: `
         <div [class]="cx('filter')">
@@ -5273,14 +5267,15 @@ export class ReorderableRow implements AfterViewInit {
             >
                 <ng-template #icon>
                     <ng-container>
-                        <FilterIcon *ngIf="!filterIconTemplate && !_filterIconTemplate && !hasFilter" />
-                        <FilterFillIcon *ngIf="!filterIconTemplate && !_filterIconTemplate && hasFilter" />
+                        <svg data-p-icon="filter" *ngIf="!filterIconTemplate && !_filterIconTemplate && !hasFilter" />
+                        <svg data-p-icon="filter-fill" *ngIf="!filterIconTemplate && !_filterIconTemplate && hasFilter" />
                         <span class="pi-filter-icon" *ngIf="filterIconTemplate || _filterIconTemplate">
                             <ng-template *ngTemplateOutlet="filterIconTemplate || _filterIconTemplate; context: { hasFilter: hasFilter }"></ng-template>
                         </span>
                     </ng-container>
                 </ng-template>
             </p-button>
+
             <div
                 *ngIf="showMenu && overlayVisible"
                 [class]="cx('filterOverlay')"
@@ -5353,8 +5348,10 @@ export class ReorderableRow implements AfterViewInit {
                                     [label]="removeRuleButtonLabel"
                                     [buttonProps]="filterButtonProps?.popover?.removeRule"
                                 >
-                                    <TrashIcon *ngIf="!removeRuleIconTemplate && !_removeRuleIconTemplate" />
-                                    <ng-template *ngTemplateOutlet="removeRuleIconTemplate || _removeRuleIconTemplate"></ng-template>
+                                    <ng-template #icon>
+                                        <svg data-p-icon="trash" *ngIf="!removeRuleIconTemplate && !_removeRuleIconTemplate" />
+                                        <ng-template *ngTemplateOutlet="removeRuleIconTemplate || _removeRuleIconTemplate"></ng-template>
+                                    </ng-template>
                                 </p-button>
                             </div>
                         </div>
@@ -5370,8 +5367,10 @@ export class ReorderableRow implements AfterViewInit {
                             (onClick)="addConstraint()"
                             [buttonProps]="filterButtonProps?.popover?.addRule"
                         >
-                            <PlusIcon *ngIf="!addRuleIconTemplate && !_addRuleIconTemplate" />
-                            <ng-template *ngTemplateOutlet="addRuleIconTemplate || _addRuleIconTemplate"></ng-template>
+                            <ng-template #icon>
+                                <svg data-p-icon="plus" *ngIf="!addRuleIconTemplate && !_addRuleIconTemplate" />
+                                <ng-template *ngTemplateOutlet="addRuleIconTemplate || _addRuleIconTemplate"></ng-template>
+                            </ng-template>
                         </p-button>
                     </div>
                     <div [class]="cx('filterButtonbar')">
@@ -5424,22 +5423,23 @@ export class ColumnFilter extends BaseComponent implements AfterContentInit {
      */
     @Input({ transform: booleanAttribute }) showOperator: boolean = true;
     /**
-     * Decides whether to display clear filter button.
+     * Decides whether to display clear filter button when display is menu.
+     * @defaultValue true
      * @group Props
      */
     @Input({ transform: booleanAttribute }) showClearButton: boolean = true;
     /**
-     * Decides whether to display apply filter button.
+     * Decides whether to display apply filter button when display is menu.
      * @group Props
      */
     @Input({ transform: booleanAttribute }) showApplyButton: boolean = true;
     /**
-     * Decides whether to display filter match modes.
+     * Decides whether to display filter match modes when display is menu.
      * @group Props
      */
     @Input({ transform: booleanAttribute }) showMatchModes: boolean = true;
     /**
-     * Decides whether to display add filter button.
+     * Decides whether to display add filter button when display is menu.
      * @group Props
      */
     @Input({ transform: booleanAttribute }) showAddButton: boolean = true;
@@ -5531,15 +5531,16 @@ export class ColumnFilter extends BaseComponent implements AfterContentInit {
      * @defaultValue {
      filter: { severity: 'secondary', text: true, rounded: true },
      inline: {
-     clear: { severity: 'secondary', text: true, rounded: true }
+        clear: { severity: 'secondary', text: true, rounded: true }
      },
      popover: {
-     addRule: { severity: 'info', text: true, size: 'small' },
-     removeRule: { severity: 'danger', text: true, size: 'small' },
-     apply: { size: 'small' },
-     clear: { outlined: true, size: 'small' }
+         addRule: { severity: 'info', text: true, size: 'small' },
+         removeRule: { severity: 'danger', text: true, size: 'small' },
+         apply: { size: 'small' },
+         clear: { outlined: true, size: 'small' }
+        }
      }
-     }
+     @group Props
      */
     @Input() filterButtonProps: TableFilterButtonPropsOptions = {
         filter: { severity: 'secondary', text: true, rounded: true },
@@ -5578,26 +5579,49 @@ export class ColumnFilter extends BaseComponent implements AfterContentInit {
 
     overlaySubscription: Subscription | undefined;
 
-    @ContentChild('header', { descendants: false }) _headerTemplate: TemplateRef<any>;
-    headerTemplate: Nullable<TemplateRef<any>>;
+    /**
+     * Custom header template.
+     * @group Templates
+     */
+    @ContentChild('header', { descendants: false }) headerTemplate: TemplateRef<any>;
+    _headerTemplate: Nullable<TemplateRef<any>>;
 
-    @ContentChild('filter', { descendants: false }) _filterTemplate: TemplateRef<any>;
-    filterTemplate: Nullable<TemplateRef<any>>;
+    /**
+     * Custom filter template.
+     * @group Templates
+     */
+    @ContentChild('filter', { descendants: false }) filterTemplate: TemplateRef<any>;
+    _filterTemplate: Nullable<TemplateRef<any>>;
 
-    @ContentChild('footer', { descendants: false }) _footerTemplate: TemplateRef<any>;
-    footerTemplate: Nullable<TemplateRef<any>>;
+    /**
+     * Custom footer template.
+     * @group Templates
+     */
+    @ContentChild('footer', { descendants: false }) footerTemplate: TemplateRef<any>;
+    _footerTemplate: Nullable<TemplateRef<any>>;
+    /**
+     * Custom filter icon template.
+     * @group Templates
+     */
+    @ContentChild('filtericon', { descendants: false }) filterIconTemplate: TemplateRef<any>;
+    _filterIconTemplate: Nullable<TemplateRef<any>>;
 
-    @ContentChild('filtericon', { descendants: false }) _filterIconTemplate: TemplateRef<any>;
-    filterIconTemplate: Nullable<TemplateRef<any>>;
+    /**
+     * Custom remove rule button icon template.
+     * @group Templates
+     */
+    @ContentChild('removeruleicon', { descendants: false }) removeRuleIconTemplate: TemplateRef<any>;
+    _removeRuleIconTemplate: Nullable<TemplateRef<any>>;
 
-    @ContentChild('removeruleicon', { descendants: false }) _removeRuleIconTemplate: TemplateRef<any>;
-    removeRuleIconTemplate: Nullable<TemplateRef<any>>;
+    /**
+     * Custom add rule button icon template.
+     * @group Templates
+     */
+    @ContentChild('addruleicon', { descendants: false }) addRuleIconTemplate: TemplateRef<any>;
+    _addRuleIconTemplate: Nullable<TemplateRef<any>>;
 
-    @ContentChild('addruleicon', { descendants: false }) _addRuleIconTemplate: TemplateRef<any>;
-    addRuleIconTemplate: Nullable<TemplateRef<any>>;
-
-    @ContentChild('clearfiltericon', { descendants: false }) _clearFilterIconTemplate: TemplateRef<any>;
-    clearFilterIconTemplate: Nullable<TemplateRef<any>>;
+    @ContentChild('clearfiltericon', { descendants: false }) clearFilterIconTemplate: TemplateRef<any>;
+    _clearFilterIconTemplate: Nullable<TemplateRef<any>>;
 
     operatorOptions: any[] | undefined;
 
@@ -5735,35 +5759,35 @@ export class ColumnFilter extends BaseComponent implements AfterContentInit {
         (this._templates as QueryList<PrimeTemplate>).forEach((item) => {
             switch (item.getType()) {
                 case 'header':
-                    this.headerTemplate = item.template;
+                    this._headerTemplate = item.template;
                     break;
 
                 case 'filter':
-                    this.filterTemplate = item.template;
+                    this._filterTemplate = item.template;
                     break;
 
                 case 'footer':
-                    this.footerTemplate = item.template;
+                    this._footerTemplate = item.template;
                     break;
 
                 case 'filtericon':
-                    this.filterIconTemplate = item.template;
+                    this._filterIconTemplate = item.template;
                     break;
 
                 case 'clearfiltericon':
-                    this.clearFilterIconTemplate = item.template;
+                    this._clearFilterIconTemplate = item.template;
                     break;
 
                 case 'removeruleicon':
-                    this.removeRuleIconTemplate = item.template;
+                    this._removeRuleIconTemplate = item.template;
                     break;
 
                 case 'addruleicon':
-                    this.addRuleIconTemplate = item.template;
+                    this._addRuleIconTemplate = item.template;
                     break;
 
                 default:
-                    this.filterTemplate = item.template;
+                    this._filterTemplate = item.template;
                     break;
             }
         });
@@ -6281,7 +6305,6 @@ export class ColumnFilterFormElement implements OnInit {
         SortAltIcon,
         SortAmountUpAltIcon,
         SortAmountDownIcon,
-        CheckIcon,
         FilterIcon,
         FilterFillIcon,
         FilterSlashIcon,

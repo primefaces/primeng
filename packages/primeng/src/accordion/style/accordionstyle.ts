@@ -1,14 +1,13 @@
 import { Injectable } from '@angular/core';
-import { css } from '@primeuix/styled';
 import { style } from '@primeuix/styles/accordion';
 import { BaseStyle } from 'primeng/base';
 
-const theme = ({ dt }) => css`
+const theme = /*css*/ `
     ${style}
 
     /*For PrimeNG*/
     .p-accordionpanel:not(.p-accordionpanel-active) > .p-accordioncontent,
-    .p-accordioncontent.ng-animating {
+    .p-accordioncontent-content.ng-animating {
         overflow: hidden;
     }
 
@@ -18,7 +17,11 @@ const theme = ({ dt }) => css`
 
     .p-accordionheader:has(.p-accordionheader-toggle-icon.icon-start) {
         justify-content: flex-start;
-        gap: ${dt('accordion.header.padding')};
+        gap: dt('accordion.header.padding');
+    }
+
+    .p-accordioncontent.ng-animating {
+        overflow: hidden;
     }
 `;
 

@@ -146,6 +146,13 @@ import { TagModule } from 'primeng/tag';
                             <td>None</td>
                             <td><p-tag value="deprecated" severity="warn" /></td>
                         </tr>
+                        <tr>
+                            <td>Inplace closable property.</td>
+                            <td>v20</td>
+                            <td>Use templating with <i>closeCallback</i>.</td>
+                            <td>None</td>
+                            <td><p-tag value="deprecated" severity="warn" /></td>
+                        </tr>
                     </tbody>
                 </table>
             </div>

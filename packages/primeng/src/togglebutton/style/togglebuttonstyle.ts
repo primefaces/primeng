@@ -1,9 +1,8 @@
 import { Injectable } from '@angular/core';
 import { style } from '@primeuix/styles/togglebutton';
-import { css, dt } from '@primeuix/styled';
 import { BaseStyle } from 'primeng/base';
 
-const theme = css`
+const theme = /*css*/ `
     ${style}
 
     /* For PrimeNG (iconPos) */
@@ -12,7 +11,7 @@ const theme = css`
     }
 
     .p-togglebutton.ng-invalid.ng-dirty {
-        border-color: ${dt('togglebutton.invalid.border.color')};
+        border-color: dt('togglebutton.invalid.border.color');
     }
 `;
 
@@ -22,7 +21,7 @@ const classes = {
         {
             'p-togglebutton-checked': instance.checked,
             'p-invalid': instance.invalid(),
-            'p-disabled': instance.disabled(),
+            'p-disabled': instance.$disabled(),
             'p-togglebutton-sm p-inputfield-sm': instance.size === 'small',
             'p-togglebutton-lg p-inputfield-lg': instance.size === 'large',
             'p-togglebutton-fluid': instance.fluid()

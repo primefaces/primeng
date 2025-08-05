@@ -19,7 +19,6 @@ import {
     OnDestroy,
     Output,
     QueryList,
-    SimpleChanges,
     TemplateRef,
     ViewEncapsulation
 } from '@angular/core';
@@ -269,19 +268,6 @@ export class ButtonDirective extends BaseComponent implements AfterViewInit, OnD
         this.initialized = true;
     }
 
-    ngOnChanges(simpleChanges: SimpleChanges) {
-        super.ngOnChanges(simpleChanges);
-        const { buttonProps } = simpleChanges;
-
-        if (buttonProps) {
-            const props = buttonProps.currentValue;
-
-            for (const property in props) {
-                this[property] = props[property];
-            }
-        }
-    }
-
     getStyleClass(): string[] {
         const styleClass: string[] = [INTERNAL_BUTTON_CLASSES.button, INTERNAL_BUTTON_CLASSES.component];
 
@@ -457,26 +443,26 @@ export class ButtonDirective extends BaseComponent implements AfterViewInit, OnD
     imports: [CommonModule, Ripple, AutoFocus, SpinnerIcon, BadgeModule, SharedModule],
     template: `
         <button
-            [attr.type]="type"
-            [attr.aria-label]="ariaLabel"
-            [ngStyle]="style"
-            [disabled]="disabled || loading"
-            [class]="cn(cx('root'), styleClass)"
+            [attr.type]="type || buttonProps?.type"
+            [attr.aria-label]="ariaLabel || buttonProps?.ariaLabel"
+            [ngStyle]="style || buttonProps?.style"
+            [disabled]="disabled || loading || buttonProps?.disabled"
+            [class]="cn(cx('root'), styleClass, buttonProps?.styleClass)"
             (click)="onClick.emit($event)"
             (focus)="onFocus.emit($event)"
             (blur)="onBlur.emit($event)"
             pRipple
             [attr.data-pc-name]="'button'"
             [attr.data-pc-section]="'root'"
-            [attr.tabindex]="tabindex"
-            [pAutoFocus]="autofocus"
+            [attr.tabindex]="tabindex || buttonProps?.tabindex"
+            [pAutoFocus]="autofocus || buttonProps?.autofocus"
         >
             <ng-content></ng-content>
             <ng-container *ngTemplateOutlet="contentTemplate || _contentTemplate"></ng-container>
             <ng-container *ngIf="loading">
                 <ng-container *ngIf="!loadingIconTemplate && !_loadingIconTemplate">
                     <span *ngIf="loadingIcon" [class]="cx('loadingIcon')" [attr.aria-hidden]="true" [attr.data-pc-section]="'loadingicon'"></span>
-                    <SpinnerIcon *ngIf="!loadingIcon" [styleClass]="cn(cx('loadingIcon'), spinnerIconClass())" [spin]="true" [attr.aria-hidden]="true" [attr.data-pc-section]="'loadingicon'" />
+                    <svg data-p-icon="spinner" *ngIf="!loadingIcon" [class]="cn(cx('loadingIcon'), spinnerIconClass())" [spin]="true" [attr.aria-hidden]="true" [attr.data-pc-section]="'loadingicon'" />
                 </ng-container>
                 <ng-template [ngIf]="loadingIconTemplate || _loadingIconTemplate" *ngTemplateOutlet="loadingIconTemplate || _loadingIconTemplate; context: { class: cx('loadingIcon') }"></ng-template>
             </ng-container>
@@ -611,6 +597,11 @@ export class Button extends BaseComponent implements AfterContentInit {
      */
     @Input() ariaLabel: string | undefined;
     /**
+     * Button props as an object.
+     * @group Props
+     */
+    @Input() buttonProps: any | ButtonProps;
+    /**
      * When present, it specifies that the component should automatically get focus on load.
      * @group Props
      */
@@ -658,22 +649,8 @@ export class Button extends BaseComponent implements AfterContentInit {
      **/
     @ContentChild('icon') iconTemplate: TemplateRef<any> | undefined;
 
-    _buttonProps: any | undefined;
-    /**
-     * Used to pass all properties of the ButtonProps to the Button component.
-     * @group Props
-     */
-    @Input() get buttonProps(): any | undefined {
-        return this._buttonProps;
-    }
-    set buttonProps(val: any | undefined) {
-        this._buttonProps = val;
+    @ContentChildren(PrimeTemplate) templates: QueryList<PrimeTemplate> | undefined;
 
-        if (val && typeof val === 'object') {
-            //@ts-ignore
-            Object.entries(val).forEach(([k, v]) => this[`_${k}`] !== v && (this[`_${k}`] = v));
-        }
-    }
     pcFluid: Fluid = inject(Fluid, { optional: true, host: true, skipSelf: true });
 
     get hasFluid() {
@@ -681,8 +658,6 @@ export class Button extends BaseComponent implements AfterContentInit {
     }
 
     _componentStyle = inject(ButtonStyle);
-
-    @ContentChildren(PrimeTemplate) templates: QueryList<PrimeTemplate> | undefined;
 
     _contentTemplate: TemplateRef<any> | undefined;
 
@@ -710,19 +685,6 @@ export class Button extends BaseComponent implements AfterContentInit {
                     break;
             }
         });
-    }
-
-    ngOnChanges(simpleChanges: SimpleChanges) {
-        super.ngOnChanges(simpleChanges);
-        const { buttonProps } = simpleChanges;
-
-        if (buttonProps) {
-            const props = buttonProps.currentValue;
-
-            for (const property in props) {
-                this[property] = props[property];
-            }
-        }
     }
 
     spinnerIconClass(): string {

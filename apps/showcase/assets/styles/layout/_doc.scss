@@ -170,20 +170,27 @@
     margin-bottom: 1rem;
 }
 
-.doc-section-nav {
+.doc-section-nav-container {
     position: sticky;
     top: 6rem;
     right: 0;
     width: 14rem;
-    max-height: calc(100vh - 15rem);
-    list-style: none;
     margin: 0;
     padding-block: 0.25rem;
     padding-inline: 0;
     margin-inline-start: 4rem;
-    overflow-y: auto;
-    overflow-x: hidden;
+    display: flex;
+    flex-direction: column;
     align-self: flex-start;
+    max-height: calc(100vh - 14rem);
+}
+
+
+.doc-section-nav {
+    list-style: none;
+    overflow-y: scroll;
+    overflow-x: hidden;
+
 
     >.navbar-item {
         .navbar-item-content {

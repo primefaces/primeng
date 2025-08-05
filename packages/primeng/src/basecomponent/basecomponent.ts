@@ -60,6 +60,7 @@ export class BaseComponent {
 
     ngOnInit() {
         if (this.document) {
+            this._loadCoreStyles();
             this._loadStyles();
         }
     }
@@ -103,7 +104,7 @@ export class BaseComponent {
     }
 
     _loadCoreStyles() {
-        if (!Base.isStyleNameLoaded('base') && this._name) {
+        if (!Base.isStyleNameLoaded('base') && this.componentStyle?.name) {
             this.baseComponentStyle.loadCSS(this.styleOptions);
             this.componentStyle && this.componentStyle?.loadCSS(this.styleOptions);
             Base.setLoadedStyleName(this.componentStyle?.name);

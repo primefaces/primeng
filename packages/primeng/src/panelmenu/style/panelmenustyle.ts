@@ -1,9 +1,8 @@
 import { Injectable } from '@angular/core';
-import { css } from '@primeuix/styled';
 import { style } from '@primeuix/styles/panelmenu';
 import { BaseStyle } from 'primeng/base';
 
-const theme = css`
+const theme = /*css*/ `
     ${style}
     /*For PrimeNG*/
     .p-panelmenu-item:not(.ng-animating) {

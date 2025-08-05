@@ -98,7 +98,7 @@ export interface InputOtpInputTemplateContext {
                     [attr.tabindex]="tabindex"
                     [attr.required]="required() ? '' : undefined"
                     [attr.readonly]="readonly ? '' : undefined"
-                    [attr.disabled]="disabled() ? '' : undefined"
+                    [attr.disabled]="$disabled() ? '' : undefined"
                     (input)="onInput($event, i - 1)"
                     (focus)="onInputFocus($event)"
                     (blur)="onInputBlur($event)"
@@ -198,10 +198,6 @@ export class InputOtp extends BaseEditableHolder implements AfterContentInit {
 
     tokens: any = [];
 
-    onModelChange: Function = () => {};
-
-    onModelTouched: Function = () => {};
-
     value: any;
 
     $variant = computed(() => this.variant() || this.config.inputStyle() || this.config.inputVariant());
@@ -271,21 +267,6 @@ export class InputOtp extends BaseEditableHolder implements AfterContentInit {
         });
     }
 
-    writeValue(value: any): void {
-        if (value) {
-            if (Array.isArray(value) && value.length > 0) {
-                this.value = value.slice(0, this.length);
-            } else {
-                this.value = value.toString().split('').slice(0, this.length);
-            }
-        } else {
-            this.value = value;
-        }
-        this.writeModelValue(this.value);
-        this.updateTokens();
-        this.cd.markForCheck();
-    }
-
     updateTokens() {
         if (this.value !== null && this.value !== undefined) {
             if (Array.isArray(this.value)) {
@@ -307,14 +288,6 @@ export class InputOtp extends BaseEditableHolder implements AfterContentInit {
             return this.autofocus;
         }
         return false;
-    }
-
-    registerOnChange(fn: Function): void {
-        this.onModelChange = fn;
-    }
-
-    registerOnTouched(fn: Function): void {
-        this.onModelTouched = fn;
     }
 
     moveToPrev(event) {
@@ -402,7 +375,7 @@ export class InputOtp extends BaseEditableHolder implements AfterContentInit {
     }
 
     onPaste(event) {
-        if (!this.disabled() && !this.readonly) {
+        if (!this.$disabled() && !this.readonly) {
             let paste = event.clipboardData.getData('text');
 
             if (paste.length) {
@@ -428,6 +401,27 @@ export class InputOtp extends BaseEditableHolder implements AfterContentInit {
 
     trackByFn(index: number) {
         return index;
+    }
+
+    /**
+     * @override
+     *
+     * @see {@link BaseEditableHolder.writeControlValue}
+     * Writes the value to the control.
+     */
+    writeControlValue(value: any, setModelValue: (value: any) => void): void {
+        if (value) {
+            if (Array.isArray(value) && value.length > 0) {
+                this.value = value.slice(0, this.length);
+            } else {
+                this.value = value.toString().split('').slice(0, this.length);
+            }
+        } else {
+            this.value = value;
+        }
+        setModelValue(this.value);
+        this.updateTokens();
+        this.cd.markForCheck();
     }
 }
 

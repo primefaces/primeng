@@ -46,12 +46,12 @@ import { CarouselStyle } from './style/carouselstyle';
                 <p-button *ngIf="showNavigators" [class]="cx('pcPrevButton')" [attr.aria-label]="ariaPrevButtonLabel()" (click)="navBackward($event)" [text]="true" [buttonProps]="prevButtonProps">
                     <ng-template #icon>
                         <ng-container *ngIf="!previousIconTemplate && !_previousIconTemplate && !prevButtonProps?.icon">
-                            <ChevronLeftIcon *ngIf="!isVertical()" />
-                            <ChevronUpIcon *ngIf="isVertical()" />
+                            <svg data-p-icon="chevron-left" *ngIf="!isVertical()" />
+                            <svg data-p-icon="chevron-up" *ngIf="isVertical()" />
                         </ng-container>
-                        <span *ngIf="(previousIconTemplate || _previousIconTemplate) && !prevButtonProps?.icon">
+                        <ng-container *ngIf="(previousIconTemplate || _previousIconTemplate) && !prevButtonProps?.icon">
                             <ng-template *ngTemplateOutlet="previousIconTemplate || _previousIconTemplate"></ng-template>
-                        </span>
+                        </ng-container>
                     </ng-template>
                 </p-button>
                 <div [class]="cx('viewport')" [ngStyle]="{ height: isVertical() ? verticalViewPortHeight : 'auto' }" (touchend)="onTouchEnd($event)" (touchstart)="onTouchStart($event)" (touchmove)="onTouchMove($event)">
@@ -82,8 +82,8 @@ import { CarouselStyle } from './style/carouselstyle';
                 <p-button type="button" *ngIf="showNavigators" [class]="cx('pcNextButton')" (click)="navForward($event)" [attr.aria-label]="ariaNextButtonLabel()" [buttonProps]="nextButtonProps" [text]="true">
                     <ng-template #icon>
                         <ng-container *ngIf="!nextIconTemplate && !_nextIconTemplate && !nextButtonProps?.icon">
-                            <ChevronRightIcon *ngIf="!isVertical()" />
-                            <ChevronDownIcon *ngIf="isVertical()" />
+                            <svg data-p-icon="chevron-right" *ngIf="!isVertical()" />
+                            <svg data-p-icon="chevron-down" *ngIf="isVertical()" />
                         </ng-container>
                         <span *ngIf="nextIconTemplate || (_nextIconTemplate && !nextButtonProps?.icon)">
                             <ng-template *ngTemplateOutlet="nextIconTemplate || _nextIconTemplate"></ng-template>
@@ -551,8 +551,8 @@ export class Carousel extends BaseComponent implements AfterContentInit {
         if (!this.carouselStyle) {
             this.carouselStyle = this.renderer.createElement('style');
             this.carouselStyle.type = 'text/css';
-            setAttribute(this.carouselStyle, 'nonce', this.config?.csp()?.nonce);
             this.renderer.appendChild(this.document.head, this.carouselStyle);
+            setAttribute(this.carouselStyle, 'nonce', this.config?.csp()?.nonce);
         }
 
         let innerHTML = `

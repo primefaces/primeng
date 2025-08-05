@@ -32,7 +32,17 @@ import { ChipStyle } from './style/chipstyle';
                     [attr.aria-label]="removeAriaLabel"
                     role="button"
                 ></span>
-                <TimesCircleIcon tabindex="0" *ngIf="!removeIcon" [class]="cx('removeIcon')" [attr.data-pc-section]="'removeicon'" (click)="close($event)" (keydown)="onKeydown($event)" [attr.aria-label]="removeAriaLabel" role="button" />
+                <svg
+                    data-p-icon="times-circle"
+                    tabindex="0"
+                    *ngIf="!removeIcon"
+                    [class]="cx('removeIcon')"
+                    [attr.data-pc-section]="'removeicon'"
+                    (click)="close($event)"
+                    (keydown)="onKeydown($event)"
+                    [attr.aria-label]="removeAriaLabel"
+                    role="button"
+                />
             </ng-container>
             <span *ngIf="removeIconTemplate || _removeIconTemplate" tabindex="0" [attr.data-pc-section]="'removeicon'" [class]="cx('removeIcon')" (click)="close($event)" (keydown)="onKeydown($event)" [attr.aria-label]="removeAriaLabel" role="button">
                 <ng-template *ngTemplateOutlet="removeIconTemplate || _removeIconTemplate"></ng-template>

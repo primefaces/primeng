@@ -1,6 +1,6 @@
 import { AfterViewInit, booleanAttribute, computed, Directive, EventEmitter, HostListener, inject, input, Input, NgModule, OnDestroy, OnInit, Output } from '@angular/core';
 import { NgControl } from '@angular/forms';
-import { BaseEditableHolder } from 'primeng/baseeditableholder';
+import { BaseModelHolder } from 'primeng/basemodelholder';
 import { Fluid } from 'primeng/fluid';
 import { Subscription } from 'rxjs';
 import { TextareaStyle } from './style/textareastyle';
@@ -17,7 +17,7 @@ import { TextareaStyle } from './style/textareastyle';
     },
     providers: [TextareaStyle]
 })
-export class Textarea extends BaseEditableHolder implements OnInit, AfterViewInit, OnDestroy {
+export class Textarea extends BaseModelHolder implements OnInit, AfterViewInit, OnDestroy {
     /**
      * When present, textarea size changes as being typed.
      * @group Props
@@ -40,6 +40,12 @@ export class Textarea extends BaseEditableHolder implements OnInit, AfterViewIni
      * @group Props
      */
     fluid = input(undefined, { transform: booleanAttribute });
+    /**
+     * When present, it specifies that the component should have invalid state style.
+     * @defaultValue false
+     * @group Props
+     */
+    invalid = input(undefined, { transform: booleanAttribute });
 
     $variant = computed(() => this.variant() || this.config.inputStyle() || this.config.inputVariant());
     /**

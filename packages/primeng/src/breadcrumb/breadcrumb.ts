@@ -34,7 +34,7 @@ import { BreadCrumbStyle } from './style/breadcrumbstyle';
                             [attr.tabindex]="home.disabled ? null : '0'"
                         >
                             <span *ngIf="home.icon" [class]="cn(cx('itemIcon'), home.icon)" [ngStyle]="home?.style"></span>
-                            <HomeIcon *ngIf="!home.icon" [class]="cx('itemIcon')" />
+                            <svg data-p-icon="home" *ngIf="!home.icon" [class]="cx('itemIcon')" />
                             <ng-container *ngIf="home.label">
                                 <span *ngIf="home.escape !== false; else htmlHomeLabel" [class]="cx('itemLabel')">{{ home.label }}</span>
                                 <ng-template #htmlHomeLabel><span [class]="cx('itemLabel')" [innerHTML]="home.label"></span></ng-template>
@@ -59,7 +59,7 @@ import { BreadCrumbStyle } from './style/breadcrumbstyle';
                             [state]="home.state"
                         >
                             <span *ngIf="home.icon" [class]="cn(cx('itemIcon'), home.icon)" [style]="home.iconStyle"></span>
-                            <HomeIcon *ngIf="!home.icon" [styleClass]="cx('itemIcon')" />
+                            <svg data-p-icon="home" *ngIf="!home.icon" [class]="cx('itemIcon')" />
                             <ng-container *ngIf="home.label">
                                 <span *ngIf="home.escape !== false; else htmlHomeRouteLabel" [class]="cx('itemLabel')">{{ home.label }}</span>
                                 <ng-template #htmlHomeRouteLabel><span [class]="cx('itemLabel')" [innerHTML]="home.label"></span></ng-template>
@@ -68,7 +68,7 @@ import { BreadCrumbStyle } from './style/breadcrumbstyle';
                     }
                 </li>
                 <li *ngIf="model && home" [class]="cx('separator')" [attr.data-pc-section]="'separator'">
-                    <ChevronRightIcon *ngIf="!separatorTemplate && !_separatorTemplate" />
+                    <svg data-p-icon="chevron-right" *ngIf="!separatorTemplate && !_separatorTemplate" />
                     <ng-template *ngTemplateOutlet="separatorTemplate || _separatorTemplate"></ng-template>
                 </li>
                 <ng-template ngFor let-menuitem let-end="last" [ngForOf]="model">
@@ -127,7 +127,7 @@ import { BreadCrumbStyle } from './style/breadcrumbstyle';
                         }
                     </li>
                     <li *ngIf="!end && menuitem.visible !== false" [class]="cx('separator')" [attr.data-pc-section]="'separator'">
-                        <ChevronRightIcon *ngIf="!separatorTemplate && !_separatorTemplate" />
+                        <svg data-p-icon="chevron-right" *ngIf="!separatorTemplate && !_separatorTemplate" />
                         <ng-template *ngTemplateOutlet="separatorTemplate || _separatorTemplate"></ng-template>
                     </li>
                 </ng-template>

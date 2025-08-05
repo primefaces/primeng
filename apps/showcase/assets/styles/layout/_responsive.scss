@@ -9,7 +9,6 @@
         max-width: 1728px;
         margin: 0 auto;
     }
-
 }
 
 @media screen and (max-width: 1199px) {
@@ -89,8 +88,12 @@
             top: 0;
             left: 0;
             background-color: rgba(0, 0, 0, 0.4);
-            transition: background-color .5s;
+            transition: background-color 0.5s;
         }
+    }
+
+    .doc-section-nav-container {
+        display: none;
     }
 
     .doc-section-nav {
