@@ -11,4 +11,4 @@ export interface TagTemplates {
     icon(): TemplateRef<any>;
 }
 
-export type TagSeverity = 'success' | 'secondary' | 'info' | 'warn' | 'danger' | 'contrast' | undefined;
+export type TagSeverity = string | 'success' | 'secondary' | 'info' | 'warn' | 'danger' | 'contrast' | undefined | null;
