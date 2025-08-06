@@ -8,6 +8,7 @@ import { InvalidDoc } from '@/doc/radiobutton/invaliddoc';
 import { RadioButtonDocModule } from '@/doc/radiobutton/radiobuttondoc.module';
 import { ReactiveFormsDoc } from '@/doc/radiobutton/reactiveformsdoc';
 import { SizesDoc } from '@/doc/radiobutton/sizesdoc';
+import { TemplateDrivenFormsDoc } from '@/doc/radiobutton/templatedrivenformsdoc';
 import { Component } from '@angular/core';
 
 @Component({
@@ -35,11 +36,6 @@ export class RadioButtonDemo {
             component: GroupDoc
         },
         {
-            id: 'reactive-forms',
-            label: 'Reactive Forms',
-            component: ReactiveFormsDoc
-        },
-        {
             id: 'dynamic',
             label: 'Dynamic',
             component: DynamicDoc
@@ -55,16 +51,23 @@ export class RadioButtonDemo {
             component: SizesDoc
         },
         {
+            id: 'disabled',
+            label: 'Disabled',
+            component: DisabledDoc
+        },
+        {
             id: 'invalid',
             label: 'Invalid',
             component: InvalidDoc
         },
         {
-            id: 'disabled',
-            label: 'Disabled',
-            component: DisabledDoc
+            id: 'forms',
+            label: 'Forms',
+            children: [
+                { id: 'templatedriven', label: 'Template Driven', component: TemplateDrivenFormsDoc },
+                { id: 'reactive', label: 'Reactive Forms', component: ReactiveFormsDoc }
+            ]
         },
-
         {
             id: 'accessibility',
             label: 'Accessibility',

@@ -12,6 +12,7 @@ import { SizeDoc } from '@/doc/knob/sizedoc';
 import { StepDoc } from '@/doc/knob/stepdoc';
 import { StrokeDoc } from '@/doc/knob/strokedoc';
 import { TemplateDoc } from '@/doc/knob/templatedoc';
+import { TemplateDrivenFormsDoc } from '@/doc/knob/templatedrivenformsdoc';
 import { Component } from '@angular/core';
 
 @Component({
@@ -30,11 +31,6 @@ export class KnobDemo {
             id: 'basic',
             label: 'Basic',
             component: BasicDoc
-        },
-        {
-            id: 'reactive-forms',
-            label: 'Reactive Forms',
-            component: ReactiveFormsDoc
         },
         {
             id: 'minmax',
@@ -75,6 +71,14 @@ export class KnobDemo {
             id: 'readonly',
             label: 'ReadOnly',
             component: ReadonlyDoc
+        },
+        {
+            id: 'forms',
+            label: 'Forms',
+            children: [
+                { id: 'templatedriven', label: 'Template Driven', component: TemplateDrivenFormsDoc },
+                { id: 'reactive', label: 'Reactive Forms', component: ReactiveFormsDoc }
+            ]
         },
         {
             id: 'disabled',

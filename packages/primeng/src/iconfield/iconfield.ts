@@ -16,9 +16,7 @@ import { IconFieldStyle } from './style/iconfieldstyle';
     encapsulation: ViewEncapsulation.None,
     changeDetection: ChangeDetectionStrategy.OnPush,
     host: {
-        class: 'p-iconfield',
-        '[class.p-iconfield-left]': 'iconPosition === "left"',
-        '[class.p-iconfield-right]': 'iconPosition === "right"'
+        '[class]': "cn(cx('root'), styleClass)"
     }
 })
 export class IconField extends BaseComponent {
@@ -27,12 +25,9 @@ export class IconField extends BaseComponent {
      * @group Props
      */
     @Input() iconPosition: 'right' | 'left' = 'left';
-
-    @HostBinding('class') get _styleClass() {
-        return this.styleClass;
-    }
     /**
      * Style class of the component.
+     * @deprecated since v20.0.0, use `class` instead.
      * @group Props
      */
     @Input() styleClass: string;

@@ -1,37 +1,13 @@
 import { Injectable } from '@angular/core';
+import { style } from '@primeuix/styles/card';
 import { BaseStyle } from 'primeng/base';
 
-const theme = ({ dt }) => `
-.p-card {
-    background: ${dt('card.background')};
-    color: ${dt('card.color')};
-    box-shadow: ${dt('card.shadow')};
-    border-radius: ${dt('card.border.radius')};
-    display: flex;
-    flex-direction: column;
-}
+const theme = /*css*/ `
+    ${style}
 
-.p-card-caption {
-    display: flex;
-    flex-direction: column;
-    gap: ${dt('card.caption.gap')};
-}
-
-.p-card-body {
-    padding: ${dt('card.body.padding')};
-    display: flex;
-    flex-direction: column;
-    gap: ${dt('card.body.gap')};
-}
-
-.p-card-title {
-    font-size: ${dt('card.title.font.size')};
-    font-weight: ${dt('card.title.font.weight')};
-}
-
-.p-card-subtitle {
-    color: ${dt('card.subtitle.color')};
-}
+    .p-card {
+        display: block;
+    }
 `;
 
 const classes = {

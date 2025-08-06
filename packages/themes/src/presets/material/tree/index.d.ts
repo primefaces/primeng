@@ -1,3 +1,2 @@
-import { TreeDesignTokens } from '../../types/tree';
-declare const _default: TreeDesignTokens;
-export default _default;
+export * from '@primeuix/themes/material/tree';
+export { default } from '@primeuix/themes/material/tree';

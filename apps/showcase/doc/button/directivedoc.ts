@@ -6,15 +6,12 @@ import { Component } from '@angular/core';
     standalone: false,
     template: `
         <app-docsectiontext>
-            <p>
-                Button can also be used as directive using <i>pButton</i> along with <i>pButtonLabel</i> and <i>pButtonIcon</i> helper directives. In contrary of p-button component, pButton directive does not utilize ripple effect, use
-                <i>pRipple</i> directive to enable ripple.
-            </p>
+            <p>Button can also be used as directive using <i>pButton</i> along with <i>pButtonLabel</i> and <i>pButtonIcon</i> helper directives.</p>
         </app-docsectiontext>
         <div class="card flex justify-center">
-            <button pButton pRipple severity="success">
-                <WindowMaximizeIcon pButtonIcon />
-                <span pButtonLabel>label</span>
+            <button pButton>
+                <i class="pi pi-check" pButtonIcon></i>
+                <span pButtonLabel>Save</span>
             </button>
         </div>
         <app-code [code]="code" selector="button-directive-demo"></app-code>
@@ -22,27 +19,26 @@ import { Component } from '@angular/core';
 })
 export class DirectiveDoc {
     code: Code = {
-        basic: `<button pButton pRipple severity="success">
-    <WindowMaximizeIcon pButtonIcon />
-    <span pButtonLabel>label</span>
+        basic: `<button pButton>
+    <i class="pi pi-check" pButtonIcon></i>
+    <span pButtonLabel>Save</span>
 </button>`,
 
         html: `<div class="card flex justify-center">
-    <button pButton pRipple severity="success">
-        <WindowMaximizeIcon pButtonIcon />
-        <span pButtonLabel>label</span>
+    <button pButton>
+        <i class="pi pi-check" pButtonIcon></i>
+        <span pButtonLabel>Save</span>
     </button>
 </div>`,
 
         typescript: `import { Component } from '@angular/core';
 import { ButtonModule } from 'primeng/button';
-import { RippleModule } from 'primeng/ripple';
 
 @Component({
     selector: 'button-directive-demo',
     templateUrl: './button-directive-demo.html',
     standalone: true,
-    imports: [ButtonModule, RippleModule]
+    imports: [ButtonModule]
 })
 export class ButtonDirectiveDemo { }`
     };

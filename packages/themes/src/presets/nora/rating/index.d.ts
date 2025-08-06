@@ -1,3 +1,2 @@
-import { RatingDesignTokens } from '../../types/rating';
-declare const _default: RatingDesignTokens;
-export default _default;
+export * from '@primeuix/themes/nora/rating';
+export { default } from '@primeuix/themes/nora/rating';

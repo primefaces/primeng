@@ -17,6 +17,7 @@ import { ReactiveFormsDoc } from '@/doc/select/reactiveformsdoc';
 import { SelectDocModule } from '@/doc/select/selectdoc.module';
 import { SizesDoc } from '@/doc/select/sizesdoc';
 import { TemplateDoc } from '@/doc/select/templatedoc';
+import { TemplateDrivenFormsDoc } from '@/doc/select/templatedrivenformsdoc';
 import { VirtualScrollDoc } from '@/doc/select/virtualscrolldoc';
 import { Component } from '@angular/core';
 
@@ -37,11 +38,6 @@ export class SelectDemo {
             id: 'basic',
             label: 'Basic',
             component: BasicDoc
-        },
-        {
-            id: 'reactive-forms',
-            label: 'Reactive Forms',
-            component: ReactiveFormsDoc
         },
         {
             id: 'checkmark',
@@ -110,16 +106,23 @@ export class SelectDemo {
             component: SizesDoc
         },
         {
+            id: 'disabled',
+            label: 'Disabled',
+            component: DisabledDoc
+        },
+        {
             id: 'invalid',
             label: 'Invalid',
             component: InvalidDoc
         },
         {
-            id: 'disabled',
-            label: 'Disabled',
-            component: DisabledDoc
+            id: 'forms',
+            label: 'Forms',
+            children: [
+                { id: 'templatedriven', label: 'Template Driven', component: TemplateDrivenFormsDoc },
+                { id: 'reactive', label: 'Reactive Forms', component: ReactiveFormsDoc }
+            ]
         },
-
         {
             id: 'accessibility',
             label: 'Accessibility',

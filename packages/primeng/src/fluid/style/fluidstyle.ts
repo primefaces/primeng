@@ -1,11 +1,6 @@
 import { Injectable } from '@angular/core';
+import { style } from '@primeuix/styles/progressbar';
 import { BaseStyle } from 'primeng/base';
-
-const theme = ({ dt }) => `
-    .p-fluid{
-        width:100%
-    }
-`;
 
 const classes = {
     root: 'p-fluid'
@@ -17,7 +12,7 @@ export class FluidStyle extends BaseStyle {
 
     classes = classes;
 
-    theme = theme;
+    theme = style;
 }
 
 /**

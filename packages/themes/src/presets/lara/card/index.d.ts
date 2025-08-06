@@ -1,3 +1,2 @@
-import { CardDesignTokens } from '../../types/card';
-declare const _default: CardDesignTokens;
-export default _default;
+export * from '@primeuix/themes/lara/card';
+export { default } from '@primeuix/themes/lara/card';

@@ -1,3 +1,2 @@
-import { DatePickerDesignTokens } from '../../types/datepicker';
-declare const _default: DatePickerDesignTokens;
-export default _default;
+export * from '@primeuix/themes/material/datepicker';
+export { default } from '@primeuix/themes/material/datepicker';

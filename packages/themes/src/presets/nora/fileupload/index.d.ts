@@ -1,3 +1,2 @@
-import { FileUploadDesignTokens } from '../../types/fileupload';
-declare const _default: FileUploadDesignTokens;
-export default _default;
+export * from '@primeuix/themes/nora/fileupload';
+export { default } from '@primeuix/themes/nora/fileupload';

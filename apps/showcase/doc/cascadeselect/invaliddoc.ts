@@ -6,18 +6,20 @@ import { Component } from '@angular/core';
     standalone: false,
     template: `
         <app-docsectiontext>
-            <p>Invalid state style is added using the <i>ng-invalid</i> and <i>ng-dirty</i> class to indicate a failed validation.</p>
+            <p>The invalid state is applied using the <i>⁠invalid</i> property to indicate failed validation, which can be integrated with Angular Forms.</p>
         </app-docsectiontext>
-        <div class="card flex justify-center">
+        <div class="card flex flex-wrap justify-center gap-4">
+            <p-cascadeselect [(ngModel)]="selectedCity1" [invalid]="!selectedCity1" [options]="countries" optionLabel="cname" optionGroupLabel="name" [optionGroupChildren]="['states', 'cities']" class="w-full sm:w-56" placeholder="Select a City" />
             <p-cascadeselect
-                class="ng-invalid ng-dirty"
-                [(ngModel)]="selectedCity"
+                [(ngModel)]="selectedCity2"
+                [invalid]="!selectedCity2"
                 [options]="countries"
                 optionLabel="cname"
                 optionGroupLabel="name"
                 [optionGroupChildren]="['states', 'cities']"
-                [style]="{ minWidth: '14rem' }"
+                class="w-full sm:w-56"
                 placeholder="Select a City"
+                variant="filled"
             />
         </div>
         <app-code [code]="code" selector="cascade-select-invalid-demo"></app-code>
@@ -26,7 +28,9 @@ import { Component } from '@angular/core';
 export class InvalidDoc {
     countries: any[] | undefined;
 
-    selectedCity: any;
+    selectedCity1: any;
+
+    selectedCity2: any;
 
     ngOnInit() {
         this.countries = [
@@ -106,10 +110,12 @@ export class InvalidDoc {
     }
 
     code: Code = {
-        basic: `<p-cascadeselect class="ng-invalid ng-dirty" [(ngModel)]="selectedCity" [options]="countries" optionLabel="cname" optionGroupLabel="name" [optionGroupChildren]="['states', 'cities']" [style]="{ minWidth: '14rem' }" placeholder="Select a City" />`,
+        basic: `<p-cascadeselect [(ngModel)]="selectedCity1" [invalid]="!selectedCity1" [options]="countries" optionLabel="cname" optionGroupLabel="name" [optionGroupChildren]="['states', 'cities']" class="w-full sm:w-56" placeholder="Select a City" />
+<p-cascadeselect [(ngModel)]="selectedCity2" [invalid]="!selectedCity2" [options]="countries" optionLabel="cname" optionGroupLabel="name" [optionGroupChildren]="['states', 'cities']" class="w-full sm:w-56" placeholder="Select a City" variant="filled" />`,
 
-        html: `<div class="card flex justify-center">
-    <p-cascadeselect class="ng-invalid ng-dirty" [(ngModel)]="selectedCity" [options]="countries" optionLabel="cname" optionGroupLabel="name" [optionGroupChildren]="['states', 'cities']" [style]="{ minWidth: '14rem' }" placeholder="Select a City" />
+        html: `<div class="card flex flex-wrap justify-center gap-4">
+    <p-cascadeselect [(ngModel)]="selectedCity1" [invalid]="!selectedCity1" [options]="countries" optionLabel="cname" optionGroupLabel="name" [optionGroupChildren]="['states', 'cities']" class="w-full sm:w-56" placeholder="Select a City" />
+    <p-cascadeselect [(ngModel)]="selectedCity2" [invalid]="!selectedCity2" [options]="countries" optionLabel="cname" optionGroupLabel="name" [optionGroupChildren]="['states', 'cities']" class="w-full sm:w-56" placeholder="Select a City" variant="filled" />
 </div>`,
 
         typescript: `import { Component, OnInit } from '@angular/core';
@@ -125,7 +131,9 @@ import { CascadeSelect } from 'primeng/cascadeselect';
 export class CascadeSelectInvalidDemo implements OnInit {
     countries: any[] | undefined;
 
-    selectedCity: any;
+    selectedCity1: any;
+
+    selectedCity2: any;
 
     ngOnInit() {
         this.countries = [

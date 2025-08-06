@@ -1,7 +1,8 @@
 import { ChangeDetectionStrategy, Component, Input, signal } from '@angular/core';
 /* @todo: Change the import path */
 import APIDoc from '@/doc/apidoc/index.json';
-import ThemeDoc from '@/doc/apidoc/themedoc.json';
+//import ThemeDoc from '@/doc/apidoc/themedoc.json';
+import ThemeDoc from '@primeuix/themes/tokens';
 
 @Component({
     selector: 'app-docthemingsection',

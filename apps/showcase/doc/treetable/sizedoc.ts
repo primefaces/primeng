@@ -15,7 +15,7 @@ import { TreeNode } from 'primeng/api';
                 <p-selectbutton [options]="sizes" [(ngModel)]="selectedSize" [multiple]="false" optionLabel="name" optionValue="class" />
             </div>
             <p-deferred-demo (load)="loadDemoData()">
-                <p-treetable [value]="files" [scrollable]="true" [tableStyle]="{ 'min-width': '50rem' }" [styleClass]="selectedSize">
+                <p-treetable [value]="files" [scrollable]="true" [tableStyle]="{ 'min-width': '50rem' }" [class]="selectedSize">
                     <ng-template #header>
                         <tr>
                             <th>Name</th>
@@ -63,7 +63,7 @@ export class SizeDoc {
         basic: `<div class="flex justify-center mb-4">
     <p-selectbutton [options]="sizes" [(ngModel)]="selectedSize" [multiple]="false" optionLabel="name" optionValue="class" />
 </div>
-<p-treetable [value]="files" [scrollable]="true" [tableStyle]="{'min-width':'50rem'}" [styleClass]="selectedSize">
+<p-treetable [value]="files" [scrollable]="true" [tableStyle]="{'min-width':'50rem'}" [class]="selectedSize">
     <ng-template #header>
         <tr>
             <th>Name</th>
@@ -87,7 +87,7 @@ export class SizeDoc {
     <div class="flex justify-center mb-4">
         <p-selectbutton [options]="sizes" [(ngModel)]="selectedSize" [multiple]="false" optionLabel="name" optionValue="class" />
     </div>
-    <p-treetable [value]="files" [scrollable]="true" [tableStyle]="{'min-width':'50rem'}" [styleClass]="selectedSize">
+    <p-treetable [value]="files" [scrollable]="true" [tableStyle]="{'min-width':'50rem'}" [class]="selectedSize">
         <ng-template #header>
             <tr>
                 <th>Name</th>

@@ -33,7 +33,7 @@ body:
 
         ### PrimeNG Version
 
-        Ensure that you are using PrimeNG version v19. Issues related to other versions will not be reviewed as they are part of PrimeNG LTS, which has an internal ticket management system.
+        Ensure that you are using PrimeNG version v20. Issues related to other versions will not be reviewed as they are part of PrimeNG LTS, which has an internal ticket management system.
 
 
         ### Provide a Pull Request
@@ -126,12 +126,12 @@ body:
     attributes:
       label: PrimeNG version
       description: >-
-        Only issues related to v19 are valid, previous versions are covered by
+        Only issues related to v20 are valid, previous versions are covered by
         PrimeNG LTS service.
       options:
-        - v19
+        - v20
+        - v19 (LTS Only)
         - v18 (LTS Only)
-        - v17 (LTS Only)
     validations:
       required: true
   - type: input

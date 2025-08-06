@@ -13,7 +13,7 @@ import { Component } from '@angular/core';
     template: ` <app-doc
         docTitle="Angular FileUpload Component"
         header="FileUpload"
-        description="FileUpload is an advanced uploader with drag and drop support, multi file uploads, auto uploading, progress tracking and validations."
+        description="FileUpload is an advanced uploader with dragdrop support, multi file uploads, auto uploading, progress tracking and validations."
         [docs]="docs"
         [apiDocs]="['FileUpload']"
         themeDocs="fileupload"
@@ -37,16 +37,15 @@ export class FileUploadDemo {
             component: AutoDoc
         },
         {
-            id: 'template',
-            label: 'Template',
-            component: TemplateDoc
-        },
-        {
             id: 'advanced',
             label: 'Advanced',
             component: AdvancedDoc
         },
-
+        {
+            id: 'template',
+            label: 'Template',
+            component: TemplateDoc
+        },
         {
             id: 'accessibility',
             label: 'Accessibility',

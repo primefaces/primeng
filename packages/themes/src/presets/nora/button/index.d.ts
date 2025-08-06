@@ -1,3 +1,2 @@
-import { ButtonDesignTokens } from '../../types/button';
-declare const _default: ButtonDesignTokens;
-export default _default;
+export * from '@primeuix/themes/nora/button';
+export { default } from '@primeuix/themes/nora/button';

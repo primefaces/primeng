@@ -10,7 +10,7 @@ import { MenuItem } from 'primeng/api';
             <p>Custom content can be placed inside the items using the <i>item</i> template. The divider between the items has its own <i>separator</i> template.</p>
         </app-docsectiontext>
         <div class="card flex justify-center">
-            <p-breadcrumb class="max-w-full" [model]="items" [home]="home">
+            <p-breadcrumb [model]="items" [home]="home">
                 <ng-template #item let-item>
                     <a class="cursor-pointer" [routerLink]="item.url">
                         <i [class]="item.icon"></i>
@@ -34,7 +34,7 @@ export class TemplateDoc implements OnInit {
     }
 
     code: Code = {
-        basic: `<p-breadcrumb class="max-w-full" [model]="items" [home]="home">
+        basic: `<p-breadcrumb [model]="items" [home]="home">
     <ng-template #item let-item>
         <a class="cursor-pointer" [routerLink]="item.url">
             <i [class]="item.icon"></i>
@@ -44,7 +44,7 @@ export class TemplateDoc implements OnInit {
 </p-breadcrumb>`,
 
         html: `<div class="card flex justify-center">
-    <p-breadcrumb class="max-w-full" [model]="items" [home]="home">
+    <p-breadcrumb [model]="items" [home]="home">
         <ng-template #item let-item>
             <a class="cursor-pointer" [routerLink]="item.url">
                 <i [class]="item.icon"></i>

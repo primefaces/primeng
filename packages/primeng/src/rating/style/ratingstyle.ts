@@ -1,71 +1,34 @@
 import { Injectable } from '@angular/core';
+import { style } from '@primeuix/styles/rating';
 import { BaseStyle } from 'primeng/base';
 
-const theme = ({ dt }) => `
-.p-rating {
-    position: relative;
-    display: flex;
-    align-items: center;
-    gap: ${dt('rating.gap')};
-}
+const theme = /*css*/ `
+    ${style}
 
-.p-rating-option {
-    display: inline-flex;
-    align-items: center;
-    cursor: pointer;
-    outline-color: transparent;
-    border-radius: 50%;
-    transition: background ${dt('rating.transition.duration')}, color ${dt('rating.transition.duration')}, border-color ${dt('rating.transition.duration')}, outline-color ${dt('rating.transition.duration')}, box-shadow ${dt(
-        'rating.transition.duration'
-    )};
-}
-
-.p-rating-option.p-focus-visible {
-    box-shadow: ${dt('rating.focus.ring.shadow')};
-    outline: ${dt('rating.focus.ring.width')} ${dt('rating.focus.ring.style')} ${dt('rating.focus.ring.color')};
-    outline-offset: ${dt('rating.focus.ring.offset')};
-}
-
-.p-rating-icon {
-    color: ${dt('rating.icon.color')};
-    transition: background ${dt('rating.transition.duration')}, color ${dt('rating.transition.duration')}, border-color ${dt('rating.transition.duration')}, outline-color ${dt('rating.transition.duration')}, box-shadow ${dt(
-        'rating.transition.duration'
-    )};
-    font-size: ${dt('rating.icon.size')};
-    width: ${dt('rating.icon.size')};
-    height: ${dt('rating.icon.size')};
-}
-
-.p-rating:not(.p-disabled):not(.p-readonly) .p-rating-option:hover .p-rating-icon {
-    color: ${dt('rating.icon.hover.color')};
-}
-
-.p-rating-option-active .p-rating-icon {
-    color: ${dt('rating.icon.active.color')};
-}
-
-/* For PrimeNG */
-p-rating.ng-invalid.ng-dirty > .p-rating > .p-rating-icon {
-    stroke: ${dt('rating.invalid.icon.color')};
-}`;
+    /* For PrimeNG */
+    p-rating.ng-invalid.ng-dirty > .p-rating > .p-rating-icon {
+        stroke: dt('rating.invalid.icon.color');
+    }
+`;
 
 const classes = {
-    root: ({ props }) => [
+    root: ({ instance }) => [
         'p-rating',
         {
-            'p-readonly': props.readonly,
-            'p-disabled': props.disabled
+            'p-readonly': instance.readonly,
+            'p-disabled': instance.$disabled()
         }
     ],
-    option: ({ instance, props, value }) => [
+    option: ({ instance, star, value }) => [
         'p-rating-option',
+
         {
-            'p-rating-option-active': value <= props.modelValue,
-            'p-focus-visible': value === instance.focusedOptionIndex() && instance.isFocusVisibleItem
+            'p-rating-option-active': star + 1 <= value,
+            'p-focus-visible': star + 1 === instance.focusedOptionIndex() && instance.isFocusVisibleItem
         }
     ],
-    onIcon: 'p-rating-icon p-rating-on-icon',
-    offIcon: 'p-rating-icon p-rating-off-icon'
+    onIcon: ({ instance }) => ['p-rating-icon p-rating-on-icon', { 'p-invalid': instance.invalid() }],
+    offIcon: ({ instance }) => ['p-rating-icon p-rating-off-icon', { 'p-invalid': instance.invalid() }]
 };
 
 @Injectable()

@@ -6,6 +6,7 @@ import { FormatDoc } from '@/doc/colorpicker/formatdoc';
 import { ImportDoc } from '@/doc/colorpicker/importdoc';
 import { InlineDoc } from '@/doc/colorpicker/inlinedoc';
 import { ReactiveFormsDoc } from '@/doc/colorpicker/reactiveformsdoc';
+import { TemplateDrivenFormsDoc } from '@/doc/colorpicker/templatedrivenformsdoc';
 import { Component } from '@angular/core';
 
 @Component({
@@ -26,11 +27,6 @@ export class ColorPickerDemo {
             component: BasicDoc
         },
         {
-            id: 'reactive-forms',
-            label: 'Reactive Forms',
-            component: ReactiveFormsDoc
-        },
-        {
             id: 'inline',
             label: 'Inline',
             component: InlineDoc
@@ -39,6 +35,14 @@ export class ColorPickerDemo {
             id: 'format',
             label: 'Format',
             component: FormatDoc
+        },
+        {
+            id: 'forms',
+            label: 'Forms',
+            children: [
+                { id: 'templatedriven', label: 'Template Driven', component: TemplateDrivenFormsDoc },
+                { id: 'reactive', label: 'Reactive Forms', component: ReactiveFormsDoc }
+            ]
         },
         {
             id: 'disabled',

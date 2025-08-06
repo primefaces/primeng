@@ -20,9 +20,9 @@ import { Component } from '@angular/core';
                         <ng-template #content let-activateCallback="activateCallback">
                             <div class="flex flex-col h-48">
                                 <div class="border-2 border-dashed border-surface-200 dark:border-surface-700 rounded bg-surface-50 dark:bg-surface-950 flex-auto flex justify-center items-center font-medium">Content I</div>
-                                <div class="flex pt-6 justify-end">
-                                    <p-button label="Next" icon="pi pi-arrow-right" iconPos="right" (onClick)="activateCallback(2)" />
-                                </div>
+                            </div>
+                            <div class="flex pt-6 justify-end">
+                                <p-button label="Next" icon="pi pi-arrow-right" iconPos="right" (onClick)="activateCallback(2)" />
                             </div>
                         </ng-template>
                     </p-step-panel>
@@ -72,9 +72,9 @@ export class BasicDoc {
                     >
                         Content I
                     </div>
-                    <div class="flex pt-6 justify-end">
-                        <p-button label="Next" icon="pi pi-arrow-right" iconPos="right" (onClick)="activateCallback(2)" />
-                    </div>
+                </div>
+                <div class="flex pt-6 justify-end">
+                    <p-button label="Next" icon="pi pi-arrow-right" iconPos="right" (onClick)="activateCallback(2)" />
                 </div>
             </ng-template>
         </p-step-panel>
@@ -128,9 +128,9 @@ export class BasicDoc {
                         >
                             Content I
                         </div>
-                        <div class="flex pt-6 justify-end">
-                            <p-button label="Next" icon="pi pi-arrow-right" iconPos="right" (onClick)="activateCallback(2)" />
-                        </div>
+                    </div>
+                    <div class="flex pt-6 justify-end">
+                        <p-button label="Next" icon="pi pi-arrow-right" iconPos="right" (onClick)="activateCallback(2)" />
                     </div>
                 </ng-template>
             </p-step-panel>

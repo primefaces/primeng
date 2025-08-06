@@ -55,10 +55,11 @@ import {
     resolveFieldData
 } from '@primeuix/utils';
 import { BlockableUI, FilterMetadata, FilterService, PrimeTemplate, ScrollerOptions, SharedModule, SortMeta, TreeNode, TreeTableNode } from 'primeng/api';
+import { BadgeModule } from 'primeng/badge';
 import { BaseComponent } from 'primeng/basecomponent';
 import { Checkbox } from 'primeng/checkbox';
 import { DomHandler } from 'primeng/dom';
-import { ArrowDownIcon, ArrowUpIcon, CheckIcon, ChevronDownIcon, ChevronRightIcon, MinusIcon, SortAltIcon, SortAmountDownIcon, SortAmountUpAltIcon, SpinnerIcon } from 'primeng/icons';
+import { ArrowDownIcon, ArrowUpIcon, CheckIcon, ChevronDownIcon, ChevronRightIcon, SortAltIcon, SortAmountDownIcon, SortAmountUpAltIcon, SpinnerIcon } from 'primeng/icons';
 import { PaginatorModule } from 'primeng/paginator';
 import { Ripple } from 'primeng/ripple';
 import { Scroller } from 'primeng/scroller';
@@ -124,155 +125,141 @@ export class TreeTableService {
     selector: 'p-treeTable, p-treetable, p-tree-table',
     standalone: false,
     template: `
-        <div
-            #container
-            [ngStyle]="style"
-            [class]="styleClass"
-            data-scrollselectors=".p-treetable-scrollable-body"
-            [ngClass]="{
-                'p-treetable p-component': true,
-                'p-treetable-gridlines': showGridlines,
-                'p-treetable-hoverable-rows': rowHover || selectionMode === 'single' || selectionMode === 'multiple',
-                'p-treetable-auto-layout': autoLayout,
-                'p-treetable-resizable': resizableColumns,
-                'p-treetable-resizable-fit': resizableColumns && columnResizeMode === 'fit',
-                'p-treetable-flex-scrollable': scrollable && scrollHeight === 'flex'
-            }"
-        >
-            <div class="p-treetable-loading" *ngIf="loading && showLoader">
-                <div class="p-overlay-mask p-treetable-mask">
-                    <i *ngIf="loadingIcon" [class]="'p-treetable-loading-icon pi-spin ' + loadingIcon"></i>
-                    <ng-container *ngIf="!loadingIcon">
-                        <SpinnerIcon *ngIf="!loadingIconTemplate && !_loadingIconTemplate" [spin]="true" [styleClass]="'p-treetable-loading-icon'" />
-                        <span *ngIf="loadingIconTemplate || _loadingIconTemplate" class="p-treetable-loading-icon">
-                            <ng-template *ngTemplateOutlet="loadingIconTemplate || _loadingIconTemplate"></ng-template>
-                        </span>
-                    </ng-container>
-                </div>
+        <div [class]="cx('loading')" *ngIf="loading && showLoader">
+            <div [class]="cx('mask')">
+                <i *ngIf="loadingIcon" [class]="cn(cx('loadingIcon'), 'pi-spin' + loadingIcon)"></i>
+                <ng-container *ngIf="!loadingIcon">
+                    <svg data-p-icon="spinner" *ngIf="!loadingIconTemplate && !_loadingIconTemplate" [spin]="true" [class]="cx('loadingIcon')" />
+                    <span *ngIf="loadingIconTemplate || _loadingIconTemplate" [class]="cx('loadingIcon')">
+                        <ng-template *ngTemplateOutlet="loadingIconTemplate || _loadingIconTemplate"></ng-template>
+                    </span>
+                </ng-container>
             </div>
-            <div *ngIf="captionTemplate || _captionTemplate" class="p-treetable-header">
-                <ng-container *ngTemplateOutlet="captionTemplate || _captionTemplate"></ng-container>
-            </div>
-            <p-paginator
-                [rows]="rows"
-                [first]="first"
-                [totalRecords]="totalRecords"
-                [pageLinkSize]="pageLinks"
-                styleClass="p-paginator-top"
-                [alwaysShow]="alwaysShowPaginator"
-                (onPageChange)="onPageChange($event)"
-                [rowsPerPageOptions]="rowsPerPageOptions"
-                *ngIf="paginator && (paginatorPosition === 'top' || paginatorPosition == 'both')"
-                [templateLeft]="paginatorLeftTemplate ?? _paginatorLeftTemplate"
-                [templateRight]="paginatorRightTemplate ?? _paginatorRightTemplate"
-                [dropdownAppendTo]="paginatorDropdownAppendTo"
-                [currentPageReportTemplate]="currentPageReportTemplate"
-                [showFirstLastIcon]="showFirstLastIcon"
-                [dropdownItemTemplate]="paginatorDropdownItemTemplate ?? _paginatorDropdownItemTemplate"
-                [showCurrentPageReport]="showCurrentPageReport"
-                [showJumpToPageDropdown]="showJumpToPageDropdown"
-                [showPageLinks]="showPageLinks"
-                [styleClass]="paginatorStyleClass"
-                [locale]="paginatorLocale"
-            >
-                <ng-template pTemplate="firstpagelinkicon" *ngIf="paginatorFirstPageLinkIconTemplate || _paginatorFirstPageLinkIconTemplate">
-                    <ng-container *ngTemplateOutlet="paginatorFirstPageLinkIconTemplate || _paginatorFirstPageLinkIconTemplate"></ng-container>
-                </ng-template>
-
-                <ng-template pTemplate="previouspagelinkicon" *ngIf="paginatorPreviousPageLinkIconTemplate || _paginatorPreviousPageLinkIconTemplate">
-                    <ng-container *ngTemplateOutlet="paginatorPreviousPageLinkIconTemplate || _paginatorPreviousPageLinkIconTemplate"></ng-container>
-                </ng-template>
-
-                <ng-template pTemplate="lastpagelinkicon" *ngIf="paginatorLastPageLinkIconTemplate || _paginatorLastPageLinkIconTemplate">
-                    <ng-container *ngTemplateOutlet="paginatorLastPageLinkIconTemplate || _paginatorLastPageLinkIconTemplate"></ng-container>
-                </ng-template>
-
-                <ng-template pTemplate="nextpagelinkicon" *ngIf="paginatorNextPageLinkIconTemplate || _paginatorNextPageLinkIconTemplate">
-                    <ng-container *ngTemplateOutlet="paginatorNextPageLinkIconTemplate || _paginatorNextPageLinkIconTemplate"></ng-container>
-                </ng-template>
-            </p-paginator>
-
-            <div class="p-treetable-wrapper" *ngIf="!scrollable">
-                <table role="table" #table [ngClass]="tableStyleClass" [ngStyle]="tableStyle">
-                    <ng-container *ngTemplateOutlet="colGroupTemplate || _colGroupTemplate; context: { $implicit: columns }"></ng-container>
-                    <thead role="rowgroup" class="p-treetable-thead">
-                        <ng-container *ngTemplateOutlet="headerTemplate || _headerTemplate; context: { $implicit: columns }"></ng-container>
-                    </thead>
-                    <tbody class="p-treetable-tbody" role="rowgroup" [pTreeTableBody]="columns" [pTreeTableBodyTemplate]="bodyTemplate ?? _bodyTemplate"></tbody>
-                    <tfoot class="p-treetable-tfoot" role="rowgroup">
-                        <ng-container *ngTemplateOutlet="footerTemplate || _footerTemplate; context: { $implicit: columns }"></ng-container>
-                    </tfoot>
-                </table>
-            </div>
-
-            <div class="p-treetable-scrollable-wrapper" *ngIf="scrollable">
-                <div
-                    class="p-treetable-scrollable-view p-treetable-frozen-view"
-                    *ngIf="frozenColumns || frozenBodyTemplate || _frozenBodyTemplate"
-                    #scrollableFrozenView
-                    [ttScrollableView]="frozenColumns"
-                    [frozen]="true"
-                    [ngStyle]="{ width: frozenWidth }"
-                    [scrollHeight]="scrollHeight"
-                ></div>
-                <div class="p-treetable-scrollable-view" #scrollableView [ttScrollableView]="columns" [frozen]="false" [scrollHeight]="scrollHeight" [ngStyle]="{ left: frozenWidth, width: 'calc(100% - ' + frozenWidth + ')' }"></div>
-            </div>
-
-            <p-paginator
-                [rows]="rows"
-                [first]="first"
-                [totalRecords]="totalRecords"
-                [pageLinkSize]="pageLinks"
-                styleClass="p-paginator-bottom"
-                [alwaysShow]="alwaysShowPaginator"
-                (onPageChange)="onPageChange($event)"
-                [rowsPerPageOptions]="rowsPerPageOptions"
-                *ngIf="paginator && (paginatorPosition === 'bottom' || paginatorPosition == 'both')"
-                [templateLeft]="paginatorLeftTemplate ?? _paginatorLeftTemplate"
-                [templateRight]="paginatorRightTemplate ?? _paginatorRightTemplate"
-                [dropdownAppendTo]="paginatorDropdownAppendTo"
-                [currentPageReportTemplate]="currentPageReportTemplate"
-                [showFirstLastIcon]="showFirstLastIcon"
-                [dropdownItemTemplate]="paginatorDropdownItemTemplate ?? _paginatorDropdownItemTemplate"
-                [showCurrentPageReport]="showCurrentPageReport"
-                [showJumpToPageDropdown]="showJumpToPageDropdown"
-                [showPageLinks]="showPageLinks"
-                [styleClass]="paginatorStyleClass"
-                [locale]="paginatorLocale"
-            >
-                <ng-template pTemplate="firstpagelinkicon" *ngIf="paginatorFirstPageLinkIconTemplate || _paginatorFirstPageLinkIconTemplate">
-                    <ng-container *ngTemplateOutlet="paginatorFirstPageLinkIconTemplate || _paginatorFirstPageLinkIconTemplate"></ng-container>
-                </ng-template>
-
-                <ng-template pTemplate="previouspagelinkicon" *ngIf="paginatorPreviousPageLinkIconTemplate || _paginatorPreviousPageLinkIconTemplate">
-                    <ng-container *ngTemplateOutlet="paginatorPreviousPageLinkIconTemplate || _paginatorPreviousPageLinkIconTemplate"></ng-container>
-                </ng-template>
-
-                <ng-template pTemplate="lastpagelinkicon" *ngIf="paginatorLastPageLinkIconTemplate || _paginatorLastPageLinkIconTemplate">
-                    <ng-container *ngTemplateOutlet="paginatorLastPageLinkIconTemplate || _paginatorLastPageLinkIconTemplate"></ng-container>
-                </ng-template>
-
-                <ng-template pTemplate="nextpagelinkicon" *ngIf="paginatorNextPageLinkIconTemplate || _paginatorNextPageLinkIconTemplate">
-                    <ng-container *ngTemplateOutlet="paginatorNextPageLinkIconTemplate || _paginatorNextPageLinkIconTemplate"></ng-container>
-                </ng-template>
-            </p-paginator>
-            <div *ngIf="summaryTemplate || _summaryTemplate" class="p-treetable-footer">
-                <ng-container *ngTemplateOutlet="summaryTemplate || _summaryTemplate"></ng-container>
-            </div>
-
-            <div #resizeHelper class="p-column-resizer-helper" style="display:none" *ngIf="resizableColumns"></div>
-            <span #reorderIndicatorUp class="p-treetable-reorder-indicator-up" style="display: none;" *ngIf="reorderableColumns">
-                <ArrowDownIcon *ngIf="!reorderIndicatorUpIconTemplate && !_reorderIndicatorUpIconTemplate" />
-                <ng-template *ngTemplateOutlet="reorderIndicatorUpIconTemplate || _reorderIndicatorUpIconTemplate"></ng-template>
-            </span>
-            <span #reorderIndicatorDown class="p-treetable-reorder-indicator-down" style="display: none;" *ngIf="reorderableColumns">
-                <ArrowUpIcon *ngIf="!reorderIndicatorDownIconTemplate && !_reorderIndicatorDownIconTemplate" />
-                <ng-template *ngTemplateOutlet="reorderIndicatorDownIconTemplate || _reorderIndicatorDownIconTemplate"></ng-template>
-            </span>
         </div>
+        <div *ngIf="captionTemplate || _captionTemplate" [class]="cx('header')">
+            <ng-container *ngTemplateOutlet="captionTemplate || _captionTemplate"></ng-container>
+        </div>
+        <p-paginator
+            [rows]="rows"
+            [first]="first"
+            [totalRecords]="totalRecords"
+            [pageLinkSize]="pageLinks"
+            [styleClass]="cx('pcPaginator')"
+            [alwaysShow]="alwaysShowPaginator"
+            (onPageChange)="onPageChange($event)"
+            [rowsPerPageOptions]="rowsPerPageOptions"
+            *ngIf="paginator && (paginatorPosition === 'top' || paginatorPosition == 'both')"
+            [templateLeft]="paginatorLeftTemplate ?? _paginatorLeftTemplate"
+            [templateRight]="paginatorRightTemplate ?? _paginatorRightTemplate"
+            [appendTo]="paginatorDropdownAppendTo"
+            [currentPageReportTemplate]="currentPageReportTemplate"
+            [showFirstLastIcon]="showFirstLastIcon"
+            [dropdownItemTemplate]="paginatorDropdownItemTemplate ?? _paginatorDropdownItemTemplate"
+            [showCurrentPageReport]="showCurrentPageReport"
+            [showJumpToPageDropdown]="showJumpToPageDropdown"
+            [showPageLinks]="showPageLinks"
+            [locale]="paginatorLocale"
+        >
+            <ng-template pTemplate="firstpagelinkicon" *ngIf="paginatorFirstPageLinkIconTemplate || _paginatorFirstPageLinkIconTemplate">
+                <ng-container *ngTemplateOutlet="paginatorFirstPageLinkIconTemplate || _paginatorFirstPageLinkIconTemplate"></ng-container>
+            </ng-template>
+
+            <ng-template pTemplate="previouspagelinkicon" *ngIf="paginatorPreviousPageLinkIconTemplate || _paginatorPreviousPageLinkIconTemplate">
+                <ng-container *ngTemplateOutlet="paginatorPreviousPageLinkIconTemplate || _paginatorPreviousPageLinkIconTemplate"></ng-container>
+            </ng-template>
+
+            <ng-template pTemplate="lastpagelinkicon" *ngIf="paginatorLastPageLinkIconTemplate || _paginatorLastPageLinkIconTemplate">
+                <ng-container *ngTemplateOutlet="paginatorLastPageLinkIconTemplate || _paginatorLastPageLinkIconTemplate"></ng-container>
+            </ng-template>
+
+            <ng-template pTemplate="nextpagelinkicon" *ngIf="paginatorNextPageLinkIconTemplate || _paginatorNextPageLinkIconTemplate">
+                <ng-container *ngTemplateOutlet="paginatorNextPageLinkIconTemplate || _paginatorNextPageLinkIconTemplate"></ng-container>
+            </ng-template>
+        </p-paginator>
+
+        <div [class]="cx('wrapper')" *ngIf="!scrollable">
+            <table role="table" #table [ngClass]="tableStyleClass" [ngStyle]="tableStyle">
+                <ng-container *ngTemplateOutlet="colGroupTemplate || _colGroupTemplate; context: { $implicit: columns }"></ng-container>
+                <thead role="rowgroup" [class]="cx('thead')">
+                    <ng-container *ngTemplateOutlet="headerTemplate || _headerTemplate; context: { $implicit: columns }"></ng-container>
+                </thead>
+                <tbody [class]="cx('tbody')" role="rowgroup" [pTreeTableBody]="columns" [pTreeTableBodyTemplate]="bodyTemplate ?? _bodyTemplate"></tbody>
+                <tfoot [class]="cx('tfoot')" role="rowgroup">
+                    <ng-container *ngTemplateOutlet="footerTemplate || _footerTemplate; context: { $implicit: columns }"></ng-container>
+                </tfoot>
+            </table>
+        </div>
+
+        <div [class]="cx('scrollableWrapper')" *ngIf="scrollable">
+            <div
+                [ngClass]="[cx('scrollableView'), cx('frozenView')]"
+                *ngIf="frozenColumns || frozenBodyTemplate || _frozenBodyTemplate"
+                #scrollableFrozenView
+                [ttScrollableView]="frozenColumns"
+                [frozen]="true"
+                [ngStyle]="{ width: frozenWidth }"
+                [scrollHeight]="scrollHeight"
+            ></div>
+            <div [class]="cx('scrollableView')" #scrollableView [ttScrollableView]="columns" [frozen]="false" [scrollHeight]="scrollHeight" [ngStyle]="{ left: frozenWidth, width: 'calc(100% - ' + frozenWidth + ')' }"></div>
+        </div>
+
+        <p-paginator
+            [rows]="rows"
+            [first]="first"
+            [totalRecords]="totalRecords"
+            [pageLinkSize]="pageLinks"
+            [styleClass]="cx('pcPaginator')"
+            [alwaysShow]="alwaysShowPaginator"
+            (onPageChange)="onPageChange($event)"
+            [rowsPerPageOptions]="rowsPerPageOptions"
+            *ngIf="paginator && (paginatorPosition === 'bottom' || paginatorPosition == 'both')"
+            [templateLeft]="paginatorLeftTemplate ?? _paginatorLeftTemplate"
+            [templateRight]="paginatorRightTemplate ?? _paginatorRightTemplate"
+            [appendTo]="paginatorDropdownAppendTo"
+            [currentPageReportTemplate]="currentPageReportTemplate"
+            [showFirstLastIcon]="showFirstLastIcon"
+            [dropdownItemTemplate]="paginatorDropdownItemTemplate ?? _paginatorDropdownItemTemplate"
+            [showCurrentPageReport]="showCurrentPageReport"
+            [showJumpToPageDropdown]="showJumpToPageDropdown"
+            [showPageLinks]="showPageLinks"
+            [locale]="paginatorLocale"
+        >
+            <ng-template pTemplate="firstpagelinkicon" *ngIf="paginatorFirstPageLinkIconTemplate || _paginatorFirstPageLinkIconTemplate">
+                <ng-container *ngTemplateOutlet="paginatorFirstPageLinkIconTemplate || _paginatorFirstPageLinkIconTemplate"></ng-container>
+            </ng-template>
+
+            <ng-template pTemplate="previouspagelinkicon" *ngIf="paginatorPreviousPageLinkIconTemplate || _paginatorPreviousPageLinkIconTemplate">
+                <ng-container *ngTemplateOutlet="paginatorPreviousPageLinkIconTemplate || _paginatorPreviousPageLinkIconTemplate"></ng-container>
+            </ng-template>
+
+            <ng-template pTemplate="lastpagelinkicon" *ngIf="paginatorLastPageLinkIconTemplate || _paginatorLastPageLinkIconTemplate">
+                <ng-container *ngTemplateOutlet="paginatorLastPageLinkIconTemplate || _paginatorLastPageLinkIconTemplate"></ng-container>
+            </ng-template>
+
+            <ng-template pTemplate="nextpagelinkicon" *ngIf="paginatorNextPageLinkIconTemplate || _paginatorNextPageLinkIconTemplate">
+                <ng-container *ngTemplateOutlet="paginatorNextPageLinkIconTemplate || _paginatorNextPageLinkIconTemplate"></ng-container>
+            </ng-template>
+        </p-paginator>
+        <div *ngIf="summaryTemplate || _summaryTemplate" [class]="cx('footer')">
+            <ng-container *ngTemplateOutlet="summaryTemplate || _summaryTemplate"></ng-container>
+        </div>
+
+        <div #resizeHelper [class]="cx('columnResizerHelper')" [style.display]="'none'" *ngIf="resizableColumns"></div>
+        <span #reorderIndicatorUp [class]="cx('reorderIndicatorUp')" [style.display]="'none'" *ngIf="reorderableColumns">
+            <svg data-p-icon="arrow-down" *ngIf="!reorderIndicatorUpIconTemplate && !_reorderIndicatorUpIconTemplate" />
+            <ng-template *ngTemplateOutlet="reorderIndicatorUpIconTemplate || _reorderIndicatorUpIconTemplate"></ng-template>
+        </span>
+        <span #reorderIndicatorDown [class]="cx('reorderIndicatorDown')" [style.display]="'none'" *ngIf="reorderableColumns">
+            <svg data-p-icon="arrow-up" *ngIf="!reorderIndicatorDownIconTemplate && !_reorderIndicatorDownIconTemplate" />
+            <ng-template *ngTemplateOutlet="reorderIndicatorDownIconTemplate || _reorderIndicatorDownIconTemplate"></ng-template>
+        </span>
     `,
     providers: [TreeTableService, TreeTableStyle],
-    encapsulation: ViewEncapsulation.None
+    encapsulation: ViewEncapsulation.None,
+    host: {
+        '[class]': "cn(cx('root'), styleClass)",
+        '[attr.data-scrollselectors]': "'.p-treetable-scrollable-body'"
+    }
 })
 export class TreeTable extends BaseComponent implements AfterContentInit, OnInit, OnDestroy, BlockableUI, OnChanges {
     _componentStyle = inject(TreeTableStyle);
@@ -282,12 +269,8 @@ export class TreeTable extends BaseComponent implements AfterContentInit, OnInit
      */
     @Input() columns: any[] | undefined;
     /**
-     * Inline style of the component.
-     * @group Props
-     */
-    @Input() style: { [klass: string]: any } | null | undefined;
-    /**
      * Style class of the component.
+     * @deprecated since v20.0.0, use `class` instead.
      * @group Props
      */
     @Input() styleClass: string | undefined;
@@ -760,8 +743,6 @@ export class TreeTable extends BaseComponent implements AfterContentInit, OnInit
      * @group Emits
      */
     @Output() selectionKeysChange: EventEmitter<any> = new EventEmitter();
-
-    @ViewChild('container') containerViewChild: Nullable<ElementRef>;
 
     @ViewChild('resizeHelper') resizeHelperViewChild: Nullable<ElementRef>;
 
@@ -1432,17 +1413,17 @@ export class TreeTable extends BaseComponent implements AfterContentInit, OnInit
     }
 
     onColumnResizeBegin(event: MouseEvent) {
-        let containerLeft = <any>getOffset(this.containerViewChild?.nativeElement).left;
-        this.lastResizerHelperX = event.pageX - containerLeft + this.containerViewChild?.nativeElement.scrollLeft;
+        let containerLeft = <any>getOffset(this.el?.nativeElement).left;
+        this.lastResizerHelperX = event.pageX - containerLeft + this.el?.nativeElement.scrollLeft;
         event.preventDefault();
     }
 
     onColumnResize(event: MouseEvent) {
-        let containerLeft = <any>getOffset(this.containerViewChild?.nativeElement).left;
-        addClass(this.containerViewChild?.nativeElement, 'p-unselectable-text');
-        (<ElementRef>this.resizeHelperViewChild).nativeElement.style.height = this.containerViewChild?.nativeElement.offsetHeight + 'px';
+        let containerLeft = <any>getOffset(this.el?.nativeElement).left;
+        addClass(this.el?.nativeElement, 'p-unselectable-text');
+        (<ElementRef>this.resizeHelperViewChild).nativeElement.style.height = this.el?.nativeElement.offsetHeight + 'px';
         (<ElementRef>this.resizeHelperViewChild).nativeElement.style.top = 0 + 'px';
-        (<ElementRef>this.resizeHelperViewChild).nativeElement.style.left = event.pageX - containerLeft + this.containerViewChild?.nativeElement.scrollLeft + 'px';
+        (<ElementRef>this.resizeHelperViewChild).nativeElement.style.left = event.pageX - containerLeft + this.el?.nativeElement.scrollLeft + 'px';
 
         (<ElementRef>this.resizeHelperViewChild).nativeElement.style.display = 'block';
     }
@@ -1501,7 +1482,7 @@ export class TreeTable extends BaseComponent implements AfterContentInit, OnInit
 
                     const scrollableBodyTableWidth = column ? scrollableBodyTable.offsetWidth + delta : newColumnWidth;
                     const scrollableHeaderTableWidth = column ? scrollableHeaderTable.offsetWidth + delta : newColumnWidth;
-                    const isContainerInViewport = this.containerViewChild?.nativeElement.offsetWidth >= scrollableBodyTableWidth;
+                    const isContainerInViewport = this.el?.nativeElement.offsetWidth >= scrollableBodyTableWidth;
 
                     let setWidth = (container: HTMLElement, table: HTMLElement, width: number, isContainerInViewport: boolean) => {
                         if (container && table) {
@@ -1521,7 +1502,7 @@ export class TreeTable extends BaseComponent implements AfterContentInit, OnInit
                     (<ElementRef>this.tableViewChild).nativeElement.style.width = this.tableViewChild?.nativeElement.offsetWidth + delta + 'px';
                     column.style.width = newColumnWidth + 'px';
                     let containerWidth = this.tableViewChild?.nativeElement.style.width;
-                    (<ElementRef>this.containerViewChild).nativeElement.style.width = containerWidth + 'px';
+                    (<ElementRef>this.el).nativeElement.style.width = containerWidth + 'px';
                 }
             }
 
@@ -1532,7 +1513,7 @@ export class TreeTable extends BaseComponent implements AfterContentInit, OnInit
         }
 
         (this.resizeHelperViewChild as ElementRef).nativeElement.style.display = 'none';
-        removeClass(this.containerViewChild?.nativeElement, 'p-unselectable-text');
+        removeClass(this.el?.nativeElement, 'p-unselectable-text');
     }
 
     findParentScrollableView(column: any) {
@@ -1576,7 +1557,7 @@ export class TreeTable extends BaseComponent implements AfterContentInit, OnInit
     onColumnDragEnter(event: DragEvent, dropHeader: any) {
         if (this.reorderableColumns && this.draggedColumn && dropHeader) {
             event.preventDefault();
-            let containerOffset = <any>getOffset(this.containerViewChild?.nativeElement);
+            let containerOffset = <any>getOffset(this.el?.nativeElement);
             let dropHeaderOffset = <any>getOffset(dropHeader);
 
             if (this.draggedColumn != dropHeader) {
@@ -2403,13 +2384,13 @@ export class TTBody {
     selector: '[ttScrollableView]',
     standalone: false,
     template: `
-        <div #scrollHeader class="p-treetable-scrollable-header">
-            <div #scrollHeaderBox class="p-treetable-scrollable-header-box">
-                <table class="p-treetable-scrollable-header-table" [ngClass]="tt.tableStyleClass" [ngStyle]="tt.tableStyle">
+        <div #scrollHeader [class]="cx('scrollableHeader')">
+            <div #scrollHeaderBox [class]="cx('scrollableHeaderBox')">
+                <table [class]="cn(cx('scrollableHeaderTable'), tt.tableStyleClass)" [ngStyle]="tt.tableStyle">
                     <ng-container
                         *ngTemplateOutlet="frozen ? tt.frozenColGroupTemplate || tt._frozenColGroupTemplate || tt.colGroupTemplate || tt._colGroupTemplate : tt.colGroupTemplate || tt._colGroupTemplate; context: { $implicit: columns }"
                     ></ng-container>
-                    <thead role="rowgroup" class="p-treetable-thead">
+                    <thead role="rowgroup" [class]="cx('thead')">
                         <ng-container
                             *ngTemplateOutlet="frozen ? tt.frozenHeaderTemplate || tt._frozenHeaderTemplate || tt.headerTemplate || tt._headerTemplate : tt.headerTemplate || tt._headerTemplate; context: { $implicit: columns }"
                         ></ng-container>
@@ -2422,7 +2403,7 @@ export class TTBody {
             *ngIf="tt.virtualScroll"
             #scroller
             [items]="tt.serializedValue"
-            styleClass="p-treetable-scrollable-body"
+            [styleClass]="cx('scrollableBody')"
             [style]="{ height: tt.scrollHeight !== 'flex' ? tt.scrollHeight : undefined }"
             [scrollHeight]="scrollHeight !== 'flex' ? undefined : '100%'"
             [itemSize]="tt.virtualScrollItemSize || tt._virtualRowHeight"
@@ -2442,7 +2423,7 @@ export class TTBody {
         <ng-container *ngIf="!tt.virtualScroll">
             <div
                 #scrollBody
-                class="p-treetable-scrollable-body"
+                [class]="cx('scrollableBody')"
                 [ngStyle]="{
                     'max-height': tt.scrollHeight !== 'flex' ? scrollHeight : undefined,
                     'overflow-y': !frozen && tt.scrollHeight ? 'scroll' : undefined
@@ -2459,23 +2440,23 @@ export class TTBody {
                 ></ng-container>
                 <tbody
                     role="rowgroup"
-                    class="p-treetable-tbody"
+                    [class]="cx('tbody')"
                     [pTreeTableBody]="columns"
                     [pTreeTableBodyTemplate]="frozen ? tt.frozenBodyTemplate || tt._frozenBodyTemplate || tt.bodyTemplate || tt._bodyTemplate : tt.bodyTemplate || tt._bodyTemplate"
                     [serializedNodes]="items"
                     [frozen]="frozen"
                 ></tbody>
             </table>
-            <div #scrollableAligner style="background-color:transparent" *ngIf="frozen"></div>
+            <div #scrollableAligner [style.background-color]="'transparent'" *ngIf="frozen"></div>
         </ng-template>
 
-        <div #scrollFooter *ngIf="tt.footerTemplate || tt._footerTemplate" class="p-treetable-scrollable-footer">
-            <div #scrollFooterBox class="p-treetable-scrollable-footer-box">
-                <table class="p-treetable-scrollable-footer-table" [ngClass]="tt.tableStyleClass" [ngStyle]="tt.tableStyle">
+        <div #scrollFooter *ngIf="tt.footerTemplate || tt._footerTemplate" [class]="cx('scrollableFooter')">
+            <div #scrollFooterBox [class]="cx('scrollableFooterBox')">
+                <table [class]="cx('scrollableFooterTable')" [ngClass]="tt.tableStyleClass" [ngStyle]="tt.tableStyle">
                     <ng-container
                         *ngTemplateOutlet="frozen ? tt.frozenColGroupTemplate || tt._frozenColGroupTemplate || tt.colGroupTemplate || tt._colGroupTemplate : tt.colGroupTemplate || tt._colGroupTemplate; context: { $implicit: columns }"
                     ></ng-container>
-                    <tfoot role="rowgroup" class="p-treetable-tfoot">
+                    <tfoot role="rowgroup" [class]="cx('tfoot')">
                         <ng-container
                             *ngTemplateOutlet="frozen ? tt.frozenFooterTemplate || tt._frozenFooterTemplate || tt.footerTemplate || tt._footerTemplate : tt.footerTemplate || tt._footerTemplate; context: { $implicit: columns }"
                         ></ng-container>
@@ -2484,9 +2465,10 @@ export class TTBody {
             </div>
         </div>
     `,
-    encapsulation: ViewEncapsulation.None
+    encapsulation: ViewEncapsulation.None,
+    providers: [TreeTableStyle]
 })
-export class TTScrollableView implements AfterViewInit, OnDestroy {
+export class TTScrollableView extends BaseComponent implements AfterViewInit, OnDestroy {
     @Input('ttScrollableView') columns: any[] | undefined;
 
     @Input({ transform: booleanAttribute }) frozen: boolean | undefined;
@@ -2523,6 +2505,8 @@ export class TTScrollableView implements AfterViewInit, OnDestroy {
 
     preventBodyScrollPropagation: boolean | undefined;
 
+    _componentStyle = inject(TreeTableStyle);
+
     @Input() get scrollHeight(): string | undefined | null {
         return this._scrollHeight;
     }
@@ -2534,14 +2518,15 @@ export class TTScrollableView implements AfterViewInit, OnDestroy {
     }
 
     constructor(
-        @Inject(PLATFORM_ID) private platformId: any,
-        private renderer: Renderer2,
         public tt: TreeTable,
         public el: ElementRef,
         public zone: NgZone
-    ) {}
+    ) {
+        super();
+    }
 
     ngAfterViewInit() {
+        super.ngAfterViewInit();
         if (isPlatformBrowser(this.platformId)) {
             if (!this.frozen) {
                 if (this.tt.frozenColumns || this.tt.frozenBodyTemplate || this.tt._frozenBodyTemplate) {
@@ -2688,6 +2673,7 @@ export class TTScrollableView implements AfterViewInit, OnDestroy {
     }
 
     ngOnDestroy() {
+        super.ngOnDestroy();
         this.unbindEvents();
 
         this.frozenSiblingBody = null;
@@ -2698,14 +2684,14 @@ export class TTScrollableView implements AfterViewInit, OnDestroy {
     selector: '[ttSortableColumn]',
     standalone: false,
     host: {
-        '[class.p-sortable-column]': 'isEnabled()',
-        '[class.p-treetable-column-sorted]': 'sorted',
-        '[attr.tabindex]': 'isEnabled() ? "0" : null',
-        '[attr.role]': '"columnheader"',
+        '[class]': 'cx("sortableColumn")',
+        '[tabindex]': 'isEnabled() ? "0" : null',
+        role: 'columnheader',
         '[attr.aria-sort]': 'ariaSorted'
-    }
+    },
+    providers: [TreeTableStyle]
 })
-export class TTSortableColumn implements OnInit, OnDestroy {
+export class TTSortableColumn extends BaseComponent implements OnInit, OnDestroy {
     @Input('ttSortableColumn') field: string | undefined;
 
     @Input({ transform: booleanAttribute }) ttSortableColumnDisabled: boolean | undefined;
@@ -2714,6 +2700,8 @@ export class TTSortableColumn implements OnInit, OnDestroy {
 
     subscription: Subscription | undefined;
 
+    _componentStyle = inject(TreeTableStyle);
+
     get ariaSorted() {
         if (this.sorted && this.tt.sortOrder < 0) return 'descending';
         else if (this.sorted && this.tt.sortOrder > 0) return 'ascending';
@@ -2721,6 +2709,7 @@ export class TTSortableColumn implements OnInit, OnDestroy {
     }
 
     constructor(public tt: TreeTable) {
+        super();
         if (this.isEnabled()) {
             this.subscription = this.tt.tableService.sortSource$.subscribe((sortMeta) => {
                 this.updateSortState();
@@ -2729,6 +2718,7 @@ export class TTSortableColumn implements OnInit, OnDestroy {
     }
 
     ngOnInit() {
+        super.ngOnInit();
         if (this.isEnabled()) {
             this.updateSortState();
         }
@@ -2761,6 +2751,7 @@ export class TTSortableColumn implements OnInit, OnDestroy {
     }
 
     ngOnDestroy() {
+        super.ngOnDestroy();
         if (this.subscription) {
             this.subscription.unsubscribe();
         }
@@ -2770,18 +2761,22 @@ export class TTSortableColumn implements OnInit, OnDestroy {
 @Component({
     selector: 'p-treeTableSortIcon, p-treetable-sort-icon, p-tree-table-sort-icon',
     standalone: false,
-    template: ` <ng-container *ngIf="!tt.sortIconTemplate && !tt._sortIconTemplate">
-            <SortAltIcon [styleClass]="'p-sortable-column-icon'" *ngIf="sortOrder === 0" />
-            <SortAmountUpAltIcon [styleClass]="'p-sortable-column-icon'" *ngIf="sortOrder === 1" />
-            <SortAmountDownIcon [styleClass]="'p-sortable-column-icon'" *ngIf="sortOrder === -1" />
+    template: `
+        <ng-container *ngIf="!tt.sortIconTemplate && !tt._sortIconTemplate">
+            <svg data-p-icon="sort-alt" [class]="cx('sortableColumnIcon')" *ngIf="sortOrder === 0" />
+            <svg data-p-icon="sort-amount-up-alt" [class]="cx('sortableColumnIcon')" *ngIf="sortOrder === 1" />
+            <svg data-p-icon="sort-amount-down" [class]="cx('sortableColumnIcon')" *ngIf="sortOrder === -1" />
         </ng-container>
-        <span *ngIf="tt.sortIconTemplate || tt._sortIconTemplate" class="p-sortable-column-icon">
+        <span *ngIf="tt.sortIconTemplate || tt._sortIconTemplate" [class]="cx('sortableColumnIcon')">
             <ng-template *ngTemplateOutlet="tt.sortIconTemplate || tt._sortIconTemplate; context: { $implicit: sortOrder }"></ng-template>
-        </span>`,
+        </span>
+        <p-badge *ngIf="isMultiSorted()" [class]="cx('sortableColumnBadge')" [value]="getBadgeValue()" size="small"></p-badge>
+    `,
     encapsulation: ViewEncapsulation.None,
-    changeDetection: ChangeDetectionStrategy.OnPush
+    changeDetection: ChangeDetectionStrategy.OnPush,
+    providers: [TreeTableStyle]
 })
-export class TTSortIcon implements OnInit, OnDestroy {
+export class TTSortIcon extends BaseComponent implements OnInit, OnDestroy {
     @Input() field: string | undefined;
 
     @Input() ariaLabelDesc: string | undefined;
@@ -2792,10 +2787,13 @@ export class TTSortIcon implements OnInit, OnDestroy {
 
     sortOrder: number | undefined;
 
+    _componentStyle = inject(TreeTableStyle);
+
     constructor(
         public tt: TreeTable,
         public cd: ChangeDetectorRef
     ) {
+        super();
         this.subscription = this.tt.tableService.sortSource$.subscribe((sortMeta) => {
             this.updateSortState();
             this.cd.markForCheck();
@@ -2803,11 +2801,29 @@ export class TTSortIcon implements OnInit, OnDestroy {
     }
 
     ngOnInit() {
+        super.ngOnInit();
         this.updateSortState();
     }
 
     onClick(event: Event) {
         event.preventDefault();
+    }
+
+    getMultiSortMetaIndex() {
+        let multiSortMeta = this.tt._multiSortMeta;
+        let index = -1;
+
+        if (multiSortMeta && this.tt.sortMode === 'multiple' && multiSortMeta.length > 1) {
+            for (let i = 0; i < multiSortMeta.length; i++) {
+                let meta = multiSortMeta[i];
+                if (meta.field === this.field || meta.field === this.field) {
+                    index = i;
+                    break;
+                }
+            }
+        }
+
+        return index;
     }
 
     updateSortState() {
@@ -2819,7 +2835,16 @@ export class TTSortIcon implements OnInit, OnDestroy {
         }
     }
 
+    getBadgeValue() {
+        return this.getMultiSortMetaIndex() + 1;
+    }
+
+    isMultiSorted() {
+        return this.tt.sortMode === 'multiple' && this.getMultiSortMetaIndex() > -1;
+    }
+
     ngOnDestroy() {
+        super.ngOnDestroy();
         if (this.subscription) {
             this.subscription.unsubscribe();
         }
@@ -3021,11 +3046,12 @@ export class TTReorderableColumn implements AfterViewInit, OnDestroy {
     selector: '[ttSelectableRow]',
     standalone: false,
     host: {
-        '[class.p-treetable-row-selected]': 'selected',
+        '[class]': 'cx("row")',
         '[attr.aria-checked]': 'selected'
-    }
+    },
+    providers: [TreeTableStyle]
 })
-export class TTSelectableRow implements OnInit, OnDestroy {
+export class TTSelectableRow extends BaseComponent implements OnInit, OnDestroy {
     @Input('ttSelectableRow') rowNode: any;
 
     @Input({ transform: booleanAttribute }) ttSelectableRowDisabled: boolean | undefined;
@@ -3034,10 +3060,13 @@ export class TTSelectableRow implements OnInit, OnDestroy {
 
     subscription: Subscription | undefined;
 
+    _componentStyle = inject(TreeTableStyle);
+
     constructor(
         public tt: TreeTable,
         public tableService: TreeTableService
     ) {
+        super();
         if (this.isEnabled()) {
             this.subscription = this.tt.tableService.selectionSource$.subscribe(() => {
                 this.selected = this.tt.isSelected(this.rowNode.node);
@@ -3046,6 +3075,7 @@ export class TTSelectableRow implements OnInit, OnDestroy {
     }
 
     ngOnInit() {
+        super.ngOnInit();
         if (this.isEnabled()) {
             this.selected = this.tt.isSelected(this.rowNode.node);
         }
@@ -3098,6 +3128,7 @@ export class TTSelectableRow implements OnInit, OnDestroy {
     }
 
     ngOnDestroy() {
+        super.ngOnDestroy();
         if (this.subscription) {
             this.subscription.unsubscribe();
         }
@@ -3108,10 +3139,11 @@ export class TTSelectableRow implements OnInit, OnDestroy {
     selector: '[ttSelectableRowDblClick]',
     standalone: false,
     host: {
-        '[class.p-treetable-row-selected]': 'selected'
-    }
+        '[class]': 'cx("row")'
+    },
+    providers: [TreeTableStyle]
 })
-export class TTSelectableRowDblClick implements OnInit, OnDestroy {
+export class TTSelectableRowDblClick extends BaseComponent implements OnInit, OnDestroy {
     @Input('ttSelectableRowDblClick') rowNode: any;
 
     @Input({ transform: booleanAttribute }) ttSelectableRowDisabled: boolean | undefined;
@@ -3120,10 +3152,13 @@ export class TTSelectableRowDblClick implements OnInit, OnDestroy {
 
     subscription: Subscription | undefined;
 
+    _componentStyle = inject(TreeTableStyle);
+
     constructor(
         public tt: TreeTable,
         public tableService: TreeTableService
     ) {
+        super();
         if (this.isEnabled()) {
             this.subscription = this.tt.tableService.selectionSource$.subscribe(() => {
                 this.selected = this.tt.isSelected(this.rowNode.node);
@@ -3132,6 +3167,7 @@ export class TTSelectableRowDblClick implements OnInit, OnDestroy {
     }
 
     ngOnInit() {
+        super.ngOnInit();
         if (this.isEnabled()) {
             this.selected = this.tt.isSelected(this.rowNode.node);
         }
@@ -3152,6 +3188,7 @@ export class TTSelectableRowDblClick implements OnInit, OnDestroy {
     }
 
     ngOnDestroy() {
+        super.ngOnDestroy();
         if (this.subscription) {
             this.subscription.unsubscribe();
         }
@@ -3162,11 +3199,12 @@ export class TTSelectableRowDblClick implements OnInit, OnDestroy {
     selector: '[ttContextMenuRow]',
     standalone: false,
     host: {
-        '[class.p-treetable-contextmenu-row-selected]': 'selected',
-        '[attr.tabindex]': 'isEnabled() ? 0 : undefined'
-    }
+        '[class]': 'cx("contextMenuRow")',
+        '[tabindex]': 'isEnabled() ? 0 : undefined'
+    },
+    providers: [TreeTableStyle]
 })
-export class TTContextMenuRow {
+export class TTContextMenuRow extends BaseComponent {
     @Input('ttContextMenuRow') rowNode: any | undefined;
 
     @Input({ transform: booleanAttribute }) ttContextMenuRowDisabled: boolean | undefined;
@@ -3175,11 +3213,13 @@ export class TTContextMenuRow {
 
     subscription: Subscription | undefined;
 
+    _componentStyle = inject(TreeTableStyle);
+
     constructor(
         public tt: TreeTable,
-        public tableService: TreeTableService,
-        private el: ElementRef
+        public tableService: TreeTableService
     ) {
+        super();
         if (this.isEnabled()) {
             this.subscription = this.tt.tableService.contextMenuSource$.subscribe((node) => {
                 this.selected = this.tt.equals(this.rowNode.node, node);
@@ -3206,6 +3246,7 @@ export class TTContextMenuRow {
     }
 
     ngOnDestroy() {
+        super.ngOnDestroy();
         if (this.subscription) {
             this.subscription.unsubscribe();
         }
@@ -3216,7 +3257,7 @@ export class TTContextMenuRow {
     selector: 'p-treeTableCheckbox, p-treetable-checkbox, p-tree-table-checkbox',
     standalone: false,
     template: `
-        <p-checkbox [ngModel]="checked" (onChange)="onClick($event)" [binary]="true" [disabled]="disabled" [indeterminate]="partialChecked" styleClass="p-treetable-node-checkbox" [tabIndex]="-1">
+        <p-checkbox [ngModel]="checked" (onChange)="onClick($event)" [binary]="true" [disabled]="disabled" [indeterminate]="partialChecked" [styleClass]="cx('pcNodeCheckbox')" [tabIndex]="-1">
             <ng-container *ngIf="tt.checkboxIconTemplate || tt._checkboxIconTemplate">
                 <ng-template pTemplate="icon">
                     <ng-template *ngTemplateOutlet="tt.checkboxIconTemplate || tt._checkboxIconTemplate; context: { $implicit: checked, partialSelected: partialChecked }"></ng-template>
@@ -3225,9 +3266,10 @@ export class TTContextMenuRow {
         </p-checkbox>
     `,
     encapsulation: ViewEncapsulation.None,
-    changeDetection: ChangeDetectionStrategy.OnPush
+    changeDetection: ChangeDetectionStrategy.OnPush,
+    providers: [TreeTableStyle]
 })
-export class TTCheckbox {
+export class TTCheckbox extends BaseComponent {
     @Input({ transform: booleanAttribute }) disabled: boolean | undefined;
 
     @Input('value') rowNode: any;
@@ -3240,11 +3282,14 @@ export class TTCheckbox {
 
     subscription: Subscription | undefined;
 
+    _componentStyle = inject(TreeTableStyle);
+
     constructor(
         public tt: TreeTable,
         public tableService: TreeTableService,
         public cd: ChangeDetectorRef
     ) {
+        super();
         this.subscription = this.tt.tableService.selectionSource$.subscribe(() => {
             if (this.tt.selectionKeys) {
                 this.checked = this.tt.isNodeSelected(this.rowNode.node);
@@ -3258,6 +3303,7 @@ export class TTCheckbox {
     }
 
     ngOnInit() {
+        super.ngOnInit();
         if (this.tt.selectionKeys) {
             this.checked = this.tt.isNodeSelected(this.rowNode.node);
             this.partialChecked = this.tt.isNodePartialSelected(this.rowNode.node);
@@ -3296,6 +3342,7 @@ export class TTCheckbox {
     }
 
     ngOnDestroy() {
+        super.ngOnDestroy();
         if (this.subscription) {
             this.subscription.unsubscribe();
         }
@@ -3515,7 +3562,8 @@ export class TTEditableColumn implements AfterViewInit {
         let targetCell = this.findPreviousEditableColumn(currentCell);
 
         if (targetCell) {
-            invokeElementMethod(targetCell, 'click', undefined);
+            // @ts-ignore
+            invokeElementMethod(targetCell as HTMLElement, 'click', undefined);
             event.preventDefault();
         }
     }
@@ -3526,6 +3574,7 @@ export class TTEditableColumn implements AfterViewInit {
         let targetCell = this.findNextEditableColumn(currentCell);
 
         if (targetCell) {
+            // @ts-ignore
             invokeElementMethod(targetCell, 'click', undefined);
             event.preventDefault();
         }
@@ -3619,14 +3668,15 @@ export class TreeTableCellEditor extends BaseComponent implements AfterContentIn
     standalone: false,
     host: {
         '[class]': `'p-element ' + styleClass`,
-        '[attr.tabindex]': "'0'",
+        '[tabindex]': "'0'",
         '[attr.aria-expanded]': 'expanded',
         '[attr.aria-level]': 'level',
         '[attr.data-pc-section]': 'row',
-        '[attr.role]': 'row'
-    }
+        '[role]': 'row'
+    },
+    providers: [TreeTableStyle]
 })
-export class TTRow {
+export class TTRow extends BaseComponent {
     get level() {
         return this.rowNode?.['level'] + 1;
     }
@@ -3641,11 +3691,15 @@ export class TTRow {
 
     @Input('ttRow') rowNode: any;
 
+    _componentStyle = inject(TreeTableStyle);
+
     constructor(
         public tt: TreeTable,
         public el: ElementRef,
         public zone: NgZone
-    ) {}
+    ) {
+        super();
+    }
 
     @HostListener('keydown', ['$event'])
     onKeyDown(event: KeyboardEvent) {
@@ -3714,7 +3768,7 @@ export class TTRow {
     }
 
     onArrowLeftKey(event: KeyboardEvent) {
-        const container = this.tt.containerViewChild?.nativeElement;
+        const container = this.tt.el?.nativeElement;
         const expandedRows = find(container, '[aria-expanded="true"]');
         const lastExpandedRow = expandedRows[expandedRows.length - 1];
 
@@ -3729,13 +3783,13 @@ export class TTRow {
     }
 
     onHomeKey(event: KeyboardEvent) {
-        const firstElement = <any>findSingle(this.tt.containerViewChild?.nativeElement, `tr[aria-level="${this.level}"]`);
+        const firstElement = <any>findSingle(this.tt.el?.nativeElement, `tr[aria-level="${this.level}"]`);
         firstElement && focus(firstElement);
         event.preventDefault();
     }
 
     onEndKey(event: KeyboardEvent) {
-        const nodes = <any>find(this.tt.containerViewChild?.nativeElement, `tr[aria-level="${this.level}"]`);
+        const nodes = <any>find(this.tt.el?.nativeElement, `tr[aria-level="${this.level}"]`);
         const lastElement = nodes[nodes.length - 1];
         focus(lastElement);
         event.preventDefault();
@@ -3794,7 +3848,7 @@ export class TTRow {
     restoreFocus(index?) {
         this.zone.runOutsideAngular(() => {
             setTimeout(() => {
-                const container = this.tt.containerViewChild?.nativeElement;
+                const container = this.tt.el?.nativeElement;
                 const row = <any>findSingle(container, '.p-treetable-tbody').children[<number>index || this.tt.toggleRowIndex];
                 const rows = [...find(container, 'tr')];
 
@@ -3820,7 +3874,7 @@ export class TTRow {
     template: `
         <button
             type="button"
-            class="p-treetable-toggler"
+            [class]="cx('toggler')"
             (click)="onClick($event)"
             tabindex="-1"
             pRipple
@@ -3831,16 +3885,19 @@ export class TTRow {
             [attr.aria-label]="toggleButtonAriaLabel"
         >
             <ng-container *ngIf="!tt.togglerIconTemplate && !tt._togglerIconTemplate">
-                <ChevronDownIcon *ngIf="rowNode.node.expanded" [attr.aria-hidden]="true" />
-                <ChevronRightIcon *ngIf="!rowNode.node.expanded" [attr.aria-hidden]="true" />
+                <svg data-p-icon="chevron-down" *ngIf="rowNode.node.expanded" [attr.aria-hidden]="true" />
+                <svg data-p-icon="chevron-right" *ngIf="!rowNode.node.expanded" [attr.aria-hidden]="true" />
             </ng-container>
             <ng-template *ngTemplateOutlet="tt.togglerIconTemplate || tt._togglerIconTemplate; context: { $implicit: rowNode.node.expanded }"></ng-template>
         </button>
     `,
-    encapsulation: ViewEncapsulation.None
+    encapsulation: ViewEncapsulation.None,
+    providers: [TreeTableStyle]
 })
 export class TreeTableToggler extends BaseComponent {
     @Input() rowNode: any;
+
+    _componentStyle = inject(TreeTableStyle);
 
     constructor(public tt: TreeTable) {
         super();
@@ -3884,8 +3941,8 @@ export class TreeTableToggler extends BaseComponent {
         SortAltIcon,
         SortAmountUpAltIcon,
         SortAmountDownIcon,
+        BadgeModule,
         CheckIcon,
-        MinusIcon,
         ChevronDownIcon,
         ChevronRightIcon,
         Checkbox,

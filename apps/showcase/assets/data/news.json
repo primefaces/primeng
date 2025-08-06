@@ -1,6 +1,7 @@
 {
-    "id": 92,
-    "content": "Introducing the all-new Theme Designer! 🚀",
+    "id": 85,
+    "content": "Summer Sale is here 🏖️ Get 50% off with code PRSM25",
     "linkText": "Learn More",
-    "routerLink": "/designer"
+    "linkHref": "https://www.primefaces.org/blog/summer-sale-2025",
+    "target": "_blank"
 }
