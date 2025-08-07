@@ -632,11 +632,11 @@ export class ConfirmDialog extends BaseComponent implements OnInit, OnDestroy {
     }
 
     get acceptButtonLabel(): string {
-        return this.option('acceptLabel') || this.config.getTranslation(TranslationKeys.ACCEPT);
+        return this.option('acceptLabel') || this.getAcceptButtonProps()?.label || this.config.getTranslation(TranslationKeys.ACCEPT);
     }
 
     get rejectButtonLabel(): string {
-        return this.option('rejectLabel') || this.config.getTranslation(TranslationKeys.REJECT);
+        return this.option('rejectLabel') || this.getRejectButtonProps()?.label || this.config.getTranslation(TranslationKeys.REJECT);
     }
 
     getAcceptButtonProps() {
