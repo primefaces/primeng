@@ -3543,7 +3543,7 @@ export class DatePicker extends BaseInput implements OnInit, AfterContentInit, A
             month = 1;
             day = doy;
             do {
-                dim = this.getDaysCountInMonth(year, month - 1);
+                dim = this.getDaysCountInMonth(month - 1, year);
                 if (day <= dim) {
                     break;
                 }
