@@ -36,7 +36,7 @@ import { fromEvent } from 'rxjs';
                 }
             </ul>
 
-            <div class="mt-8 p-4 rounded-lg border border-surface-200 dark:border-surface-800 bg-surface-0 dark:bg-surface-900 w-full">
+            <div class="mt-8 p-4 rounded-lg border border-surface-200 dark:border-surface-800 bg-surface-0 dark:bg-surface-900 w-full" *ngIf="false">
                 <img src="https://primefaces.org/cdn/discount/primestore-summersale-2025-sm.jpg" class="w-full rounded-lg" alt="Summer Sale 2025" />
                 <div class="text-xl font-semibold flex flex-col gap-2 text-center mt-4">
                     <span class="leading-none">SUMMER SALE</span>
