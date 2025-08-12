@@ -5647,6 +5647,8 @@ export class ColumnFilter extends BaseComponent implements AfterContentInit {
 
     overlayId: any;
 
+    filterApplied: boolean = false;
+
     get fieldConstraints(): FilterMetadata[] | undefined | null {
         return this.dt.filters ? <FilterMetadata[]>this.dt.filters[<string>this.field] : null;
     }
@@ -6015,7 +6017,7 @@ export class ColumnFilter extends BaseComponent implements AfterContentInit {
 
     get hasFilter(): boolean {
         let fieldFilter = this.dt.filters[<string>this.field];
-        if (fieldFilter) {
+        if (fieldFilter && this.filterApplied) {
             if (Array.isArray(fieldFilter)) return !this.dt.isFilterBlank((<FilterMetadata[]>fieldFilter)[0].value);
             else return !this.dt.isFilterBlank(fieldFilter.value);
         }
@@ -6112,11 +6114,13 @@ export class ColumnFilter extends BaseComponent implements AfterContentInit {
     clearFilter() {
         this.initFieldFilterConstraint();
         this.dt._filter();
+        this.filterApplied = false;
         if (this.hideOnClear) this.hide();
     }
 
     applyFilter() {
         this.dt._filter();
+        this.filterApplied = true;
         this.hide();
     }
 
@@ -6260,6 +6264,7 @@ export class ColumnFilterFormElement implements OnInit {
     ngOnInit() {
         this.filterCallback = (value: any) => {
             (<any>this.filterConstraint).value = value;
+            this.colFilter.filterApplied = this.filterConstraint.value && this.filterConstraint.value.length !== 0;
             this.dt._filter();
         };
     }
@@ -6268,11 +6273,16 @@ export class ColumnFilterFormElement implements OnInit {
         (<any>this.filterConstraint).value = value;
 
         if (this.type === 'date' || this.type === 'boolean' || ((this.type === 'text' || this.type === 'numeric') && this.filterOn === 'input') || !value) {
+            this.colFilter.filterApplied = true;
+            if ((value && value.length === 0) || !value) {
+                this.colFilter.filterApplied = false;
+            }
             this.dt._filter();
         }
     }
 
     onTextInputEnterKeyDown(event: KeyboardEvent) {
+        this.colFilter.filterApplied = this.filterConstraint.value && this.filterConstraint.value.length !== 0;
         this.dt._filter();
         event.preventDefault();
     }
