@@ -1353,7 +1353,7 @@ export class Table<RowData = any> extends BaseComponent implements OnInit, After
 
                 if (this.sortMode == 'single' && (this.sortField || this.groupRowsBy)) this.sortSingle();
                 else if (this.sortMode == 'multiple' && (this.multiSortMeta || this.groupRowsBy)) this.sortMultiple();
-                else if (this.hasFilter())
+                else if (this.hasFilter)
                     //sort already filters
                     this._filter();
             }
@@ -1613,7 +1613,7 @@ export class Table<RowData = any> extends BaseComponent implements OnInit, After
                     this._value = [...this.value];
                 }
 
-                if (this.hasFilter()) {
+                if (this.hasFilter) {
                     this._filter();
                 }
             }
@@ -1652,7 +1652,7 @@ export class Table<RowData = any> extends BaseComponent implements OnInit, After
                     this._value = [...this.value];
                 }
 
-                if (this.hasFilter()) {
+                if (this.hasFilter) {
                     this._filter();
                 }
             }
@@ -2184,7 +2184,7 @@ export class Table<RowData = any> extends BaseComponent implements OnInit, After
             if (!this.value) {
                 return;
             }
-            if (!this.hasFilter()) {
+            if (!this.hasFilter) {
                 this.filteredValue = null;
                 if (this.paginator) {
                     this.totalRecords = this._totalRecords === 0 && this.value ? this.value.length : this._totalRecords;
@@ -2887,7 +2887,7 @@ export class Table<RowData = any> extends BaseComponent implements OnInit, After
             state.multiSortMeta = this.multiSortMeta;
         }
 
-        if (this.hasFilter()) {
+        if (this.hasFilter) {
             state.filters = this.filters;
         }
 
@@ -5697,6 +5697,10 @@ export class ColumnFilter extends BaseComponent implements AfterContentInit {
         return this.config.translation ? (this.overlayVisible ? this.config.translation.aria.hideFilterMenu : this.config.translation.aria.showFilterMenu) : undefined;
     }
 
+    get hasFilter(): boolean {
+        return this.filterApplied;
+    }
+
     get removeRuleButtonAriaLabel() {
         return this.config.translation ? this.config.translation.removeRule : undefined;
     }
@@ -6015,14 +6019,18 @@ export class ColumnFilter extends BaseComponent implements AfterContentInit {
         return this.dt.filters[<string>this.field] && !this.dt.isFilterBlank((<FilterMetadata>this.dt.filters[<string>this.field]).value);
     }
 
-    get hasFilter(): boolean {
+    setHasFilter(newValue: boolean): void {
         let fieldFilter = this.dt.filters[<string>this.field];
-        if (fieldFilter && this.filterApplied) {
-            if (Array.isArray(fieldFilter)) return !this.dt.isFilterBlank((<FilterMetadata[]>fieldFilter)[0].value);
-            else return !this.dt.isFilterBlank(fieldFilter.value);
+        if (fieldFilter && newValue) {
+            if (Array.isArray(fieldFilter)){
+                this.filterApplied = !this.dt.isFilterBlank((<FilterMetadata[]>fieldFilter)[0].value);
+            }
+            else  {
+                this.filterApplied = !this.dt.isFilterBlank(fieldFilter.value);
+            }
+        } else {
+            this.filterApplied = false;
         }
-
-        return false;
     }
 
     isOutsideClicked(event: any): boolean {
@@ -6114,13 +6122,13 @@ export class ColumnFilter extends BaseComponent implements AfterContentInit {
     clearFilter() {
         this.initFieldFilterConstraint();
         this.dt._filter();
-        this.filterApplied = false;
+        this.setHasFilter(false);
         if (this.hideOnClear) this.hide();
     }
 
     applyFilter() {
         this.dt._filter();
-        this.filterApplied = true;
+        this.setHasFilter(true);
         this.hide();
     }
 
@@ -6264,7 +6272,7 @@ export class ColumnFilterFormElement implements OnInit {
     ngOnInit() {
         this.filterCallback = (value: any) => {
             (<any>this.filterConstraint).value = value;
-            this.colFilter.filterApplied = this.filterConstraint.value && this.filterConstraint.value.length !== 0;
+            this.colFilter.setHasFilter(true);
             this.dt._filter();
         };
     }
@@ -6273,16 +6281,13 @@ export class ColumnFilterFormElement implements OnInit {
         (<any>this.filterConstraint).value = value;
 
         if (this.type === 'date' || this.type === 'boolean' || ((this.type === 'text' || this.type === 'numeric') && this.filterOn === 'input') || !value) {
-            this.colFilter.filterApplied = true;
-            if ((value && value.length === 0) || !value) {
-                this.colFilter.filterApplied = false;
-            }
+            this.colFilter.setHasFilter(true);
             this.dt._filter();
         }
     }
 
     onTextInputEnterKeyDown(event: KeyboardEvent) {
-        this.colFilter.filterApplied = this.filterConstraint.value && this.filterConstraint.value.length !== 0;
+        this.colFilter.setHasFilter(true);
         this.dt._filter();
         event.preventDefault();
     }
