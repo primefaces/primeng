@@ -2738,7 +2738,7 @@ export class DatePicker extends BaseInput implements OnInit, AfterContentInit, A
                 returnTimeTriple[2] = this.minDate.getSeconds();
                 break;
             case isMinDate && !minHoursExceeds12 && this.minDate.getHours() - 1 === convertedHour && this.minDate.getHours() > convertedHour:
-                returnTimeTriple[0] = 11;
+                returnTimeTriple[0] = this.minDate.getHours();
                 this.pm = true;
             case isMinDate && this.minDate.getHours() === convertedHour && this.minDate.getMinutes() > minute:
                 returnTimeTriple[1] = this.minDate.getMinutes();
