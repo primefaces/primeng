@@ -5698,7 +5698,11 @@ export class ColumnFilter extends BaseComponent implements AfterContentInit {
     }
 
     get hasFilter(): boolean {
-        return [null, ''].includes(this.fieldConstraints[0]?.value) ? false : this.filterApplied;
+        if (!this.filterApplied) {
+            return false;
+        }
+        this.setHasFilter(true);
+        return this.filterApplied;
     }
 
     get removeRuleButtonAriaLabel() {
