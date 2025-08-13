@@ -1,6 +1,6 @@
 import { DOCUMENT } from '@angular/common';
 import { Injectable, inject } from '@angular/core';
-import { setAttributes } from '@primeuix/utils';
+import { setAttribute, setAttributes } from '@primeuix/utils';
 
 let _id = 0;
 
@@ -22,6 +22,8 @@ export class UseStyle {
             cssRef = css;
 
             const HEAD = this.document.head;
+
+            setAttribute(styleRef, 'nonce', nonce);
 
             first && HEAD.firstChild ? HEAD.insertBefore(styleRef, HEAD.firstChild) : HEAD.appendChild(styleRef);
             setAttributes(styleRef, {
