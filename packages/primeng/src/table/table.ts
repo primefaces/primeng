@@ -5698,7 +5698,7 @@ export class ColumnFilter extends BaseComponent implements AfterContentInit {
     }
 
     get hasFilter(): boolean {
-        return [null, ""].includes(this.fieldConstraints[0]?.value) ? false : this.filterApplied;
+        return [null, ''].includes(this.fieldConstraints[0]?.value) ? false : this.filterApplied;
     }
 
     get removeRuleButtonAriaLabel() {
@@ -6022,10 +6022,9 @@ export class ColumnFilter extends BaseComponent implements AfterContentInit {
     setHasFilter(newValue: boolean): void {
         let fieldFilter = this.dt.filters[<string>this.field];
         if (fieldFilter && newValue) {
-            if (Array.isArray(fieldFilter)){
+            if (Array.isArray(fieldFilter)) {
                 this.filterApplied = !this.dt.isFilterBlank((<FilterMetadata[]>fieldFilter)[0].value);
-            }
-            else  {
+            } else {
                 this.filterApplied = !this.dt.isFilterBlank(fieldFilter.value);
             }
         } else {
