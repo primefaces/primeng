@@ -1182,6 +1182,7 @@ export class GalleriaThumbnails implements OnInit, AfterContentChecked, AfterVie
     createStyle() {
         if (!this.thumbnailsStyle) {
             this.thumbnailsStyle = this.document.createElement('style');
+            setAttribute(this.thumbnailsStyle, 'nonce', this.galleria.config?.csp()?.nonce);
             this.document.body.appendChild(this.thumbnailsStyle);
         }
 
