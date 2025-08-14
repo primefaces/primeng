@@ -87,7 +87,7 @@ const hideAnimation = animation([animate('{{transition}}', style({ transform: '{
                 </ng-container>
 
                 <ng-template #notHeadless>
-                    <div *ngIf="resizable" [ngClass]="cx('resizeHandle')" style="z-index: 90;" (mousedown)="initResize($event)"></div>
+                    <div *ngIf="resizable" [ngClass]="cx('resizeHandle')" [style.z-index]="'90'" (mousedown)="initResize($event)"></div>
                     <div #titlebar [ngClass]="cx('header')" (mousedown)="initDrag($event)" *ngIf="showHeader">
                         <span [id]="ariaLabelledBy" [ngClass]="cx('title')" *ngIf="!_headerTemplate && !headerTemplate && !headerT">{{ header }}</span>
                         <ng-container *ngTemplateOutlet="_headerTemplate || headerTemplate || headerT"></ng-container>

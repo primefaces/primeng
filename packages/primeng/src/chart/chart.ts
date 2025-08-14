@@ -12,7 +12,7 @@ import { SharedModule } from 'primeng/api';
     standalone: true,
     imports: [CommonModule, SharedModule],
     template: `
-        <div style="position:relative" [style.width]="responsive && !width ? null : width" [style.height]="responsive && !height ? null : height">
+        <div [style.position]="'relative'" [style.width]="responsive && !width ? null : width" [style.height]="responsive && !height ? null : height">
             <canvas role="img" [attr.aria-label]="ariaLabel" [attr.aria-labelledby]="ariaLabelledBy" [attr.width]="responsive && !width ? null : width" [attr.height]="responsive && !height ? null : height" (click)="onCanvasClick($event)"></canvas>
         </div>
     `,
