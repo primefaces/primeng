@@ -8,6 +8,6 @@ import { Component } from '@angular/core';
 })
 export class ImportDoc {
     code: Code = {
-        typescript: `import { DialogModule } from 'primeng/dialog';`
+        typescript: `import { Dialog } from 'primeng/dialog';`
     };
 }

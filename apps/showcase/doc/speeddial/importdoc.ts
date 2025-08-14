@@ -8,6 +8,6 @@ import { Component } from '@angular/core';
 })
 export class ImportDoc {
     code: Code = {
-        typescript: `import { SpeedDialModule } from 'primeng/speeddial';`
+        typescript: `import { SpeedDial } from 'primeng/speeddial';`
     };
 }

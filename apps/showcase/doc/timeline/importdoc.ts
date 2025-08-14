@@ -8,6 +8,6 @@ import { Component } from '@angular/core';
 })
 export class ImportDoc {
     code: Code = {
-        typescript: `import { TimelineModule } from 'primeng/timeline';`
+        typescript: `import { Timeline } from 'primeng/timeline';`
     };
 }

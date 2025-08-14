@@ -8,6 +8,6 @@ import { Component } from '@angular/core';
 })
 export class ImportDoc {
     code: Code = {
-        typescript: `import { RadioButtonModule } from 'primeng/radiobutton';`
+        typescript: `import { RadioButton } from 'primeng/radiobutton';`
     };
 }

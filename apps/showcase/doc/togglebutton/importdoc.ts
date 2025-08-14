@@ -8,6 +8,6 @@ import { Component } from '@angular/core';
 })
 export class ImportDoc {
     code: Code = {
-        typescript: `import { ToggleButtonModule } from 'primeng/togglebutton';`
+        typescript: `import { ToggleButton } from 'primeng/togglebutton';`
     };
 }

@@ -8,7 +8,7 @@ import { Component } from '@angular/core';
 })
 export class ImportDoc {
     code: Code = {
-        typescript: `import { AvatarModule } from 'primeng/avatar';
+        typescript: `import { Avatar } from 'primeng/avatar';
 import { AvatarGroupModule } from 'primeng/avatargroup';`
     };
 }

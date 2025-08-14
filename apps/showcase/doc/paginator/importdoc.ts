@@ -8,6 +8,6 @@ import { Component } from '@angular/core';
 })
 export class ImportDoc {
     code: Code = {
-        typescript: `import { PaginatorModule } from 'primeng/paginator';`
+        typescript: `import { Paginator } from 'primeng/paginator';`
     };
 }

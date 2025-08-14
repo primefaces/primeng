@@ -8,6 +8,6 @@ import { Component } from '@angular/core';
 })
 export class ImportDoc {
     code: Code = {
-        typescript: `import { IftaLabelModule } from 'primeng/iftalabel';`
+        typescript: `import { IftaLabel } from 'primeng/iftalabel';`
     };
 }

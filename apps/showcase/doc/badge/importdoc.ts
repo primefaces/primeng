@@ -8,7 +8,7 @@ import { Component } from '@angular/core';
 })
 export class ImportDoc {
     code: Code = {
-        typescript: `import { BadgeModule } from 'primeng/badge';
+        typescript: `import { Badge } from 'primeng/badge';
 import { OverlayBadgeModule } from 'primeng/overlaybadge';`
     };
 }

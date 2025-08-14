@@ -8,6 +8,6 @@ import { Component } from '@angular/core';
 })
 export class ImportDoc {
     code: Code = {
-        typescript: `import { KeyFilterModule } from 'primeng/keyfilter';`
+        typescript: `import { KeyFilter } from 'primeng/keyfilter';`
     };
 }

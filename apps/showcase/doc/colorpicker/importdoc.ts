@@ -7,6 +7,6 @@ import { Component } from '@angular/core';
 })
 export class ImportDoc {
     code: Code = {
-        typescript: `import { ColorPickerModule } from 'primeng/colorpicker';`
+        typescript: `import { ColorPicker } from 'primeng/colorpicker';`
     };
 }

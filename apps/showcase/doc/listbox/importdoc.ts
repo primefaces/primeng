@@ -8,6 +8,6 @@ import { Component } from '@angular/core';
 })
 export class ImportDoc {
     code: Code = {
-        typescript: `import { ListboxModule } from 'primeng/listbox';`
+        typescript: `import { Listbox } from 'primeng/listbox';`
     };
 }
