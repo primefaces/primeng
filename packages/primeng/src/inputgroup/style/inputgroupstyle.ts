@@ -32,6 +32,10 @@ const theme = /*css*/ `
         border-start-end-radius: dt('inputgroup.addon.border.radius');
         border-end-end-radius: dt('inputgroup.addon.border.radius');
     }
+
+    .p-inputgroup > p-inputmask > .p-inputtext {
+        width: 100%;
+    }
 `;
 
 const classes = {
