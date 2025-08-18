@@ -5338,6 +5338,20 @@
                             "description": "Severity type of the badge."
                         },
                         {
+                            "name": "ariaControls",
+                            "optional": false,
+                            "readonly": false,
+                            "type": "string",
+                            "description": "Used to identify the element whose contents or presentation are controlled by the button."
+                        },
+                        {
+                            "name": "ariaExpanded",
+                            "optional": false,
+                            "readonly": false,
+                            "type": "boolean",
+                            "description": "Used to indicate if a control is expanded or collapsed, and whether or not the controlled elements are displayed or hidden."
+                        },
+                        {
                             "name": "ariaLabel",
                             "optional": false,
                             "readonly": false,
