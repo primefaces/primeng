@@ -15,4 +15,8 @@ export interface FilterMetadata {
      * The operator for filtering.
      */
     operator?: string;
+    /**
+     * Whether the filter should be marked as applied for filter indicator.
+     */
+    filterApplied?: boolean;
 }
