@@ -21608,6 +21608,20 @@
                             "description": "Defines a string that labels the move to bottom button for accessibility."
                         },
                         {
+                            "name": "sourceAriaLabel",
+                            "optional": false,
+                            "readonly": false,
+                            "type": "string",
+                            "description": "Defines a string that labels the source list for accessibility."
+                        },
+                        {
+                            "name": "targetAriaLabel",
+                            "optional": false,
+                            "readonly": false,
+                            "type": "string",
+                            "description": "Defines a string that labels the target list for accessibility."
+                        },
+                        {
                             "name": "targetHeader",
                             "optional": false,
                             "readonly": false,
