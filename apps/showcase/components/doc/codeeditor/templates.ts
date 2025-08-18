@@ -1057,6 +1057,7 @@ import { DynamicDialogModule } from 'primeng/dynamicdialog';
 import { EditorModule } from 'primeng/editor';
 import { FieldsetModule } from 'primeng/fieldset';
 import { FileUploadModule } from 'primeng/fileupload';
+import { FluidModule } from 'primeng/fluid';
 import { FocusTrapModule } from 'primeng/focustrap';
 import { GalleriaModule } from 'primeng/galleria';
 import { IftaLabelModule } from 'primeng/iftalabel';
@@ -1122,6 +1123,7 @@ import { InputIconModule } from 'primeng/inputicon';
 import { DrawerModule } from 'primeng/drawer';
 import { KeyFilterModule } from 'primeng/keyfilter';
 import { ThemeSwitcher } from './themeswitcher';
+import { MessageService } from 'primeng/api';
 
     ${serviceImports}
 
@@ -1163,6 +1165,7 @@ import { ThemeSwitcher } from './themeswitcher';
     EditorModule,
     FieldsetModule,
     FileUploadModule,
+    FluidModule,
     FocusTrapModule,
     GalleriaModule,
     IftaLabelModule,
@@ -1265,6 +1268,7 @@ import { ThemeSwitcher } from './themeswitcher';
     EditorModule,
     FieldsetModule,
     FileUploadModule,
+    FluidModule,
     FocusTrapModule,
     GalleriaModule,
     IftaLabelModule,
@@ -1330,7 +1334,10 @@ import { ThemeSwitcher } from './themeswitcher';
     AutoFocusModule,
     OverlayBadgeModule,
           ],
-      providers: [ ${providers} ]
+      providers: [
+        MessageService,
+        ${providers}
+      ]
     })
     export class ImportsModule {}
     `;
