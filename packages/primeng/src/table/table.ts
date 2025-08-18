@@ -2147,7 +2147,7 @@ export class Table<RowData = any> extends BaseComponent implements OnInit, After
             clearTimeout(this.filterTimeout);
         }
         if (!this.isFilterBlank(value)) {
-            this.filters[field] = { value: value, matchMode: matchMode };
+            (<any>this.filters[field]) = { value: value, matchMode: matchMode, applyFilter: true };
         } else if (this.filters[field]) {
             delete this.filters[field];
         }
@@ -5698,7 +5698,7 @@ export class ColumnFilter extends BaseComponent implements AfterContentInit {
     }
 
     get hasFilter(): boolean {
-        if (!this.filterApplied) {
+        if (!this.filterApplied && !((<any>this.fieldConstraints)?.applyFilter ?? false)) {
             return false;
         }
         // Because Table's clearFilterValues method may have been called (which clears all filters, but doesn't update filterApplied), must call setHasFilter to make sure that filterApplied is up to date.
