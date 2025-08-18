@@ -2147,7 +2147,7 @@ export class Table<RowData = any> extends BaseComponent implements OnInit, After
             clearTimeout(this.filterTimeout);
         }
         if (!this.isFilterBlank(value)) {
-            this.filters[field] = { value: value, matchMode: matchMode, filterApplied: true };
+            this.filters[field] = { value: value, matchMode: matchMode };
         } else if (this.filters[field]) {
             delete this.filters[field];
         }
@@ -2341,11 +2341,9 @@ export class Table<RowData = any> extends BaseComponent implements OnInit, After
             if (Array.isArray(filterMetadata)) {
                 for (let filter of filterMetadata) {
                     filter.value = null;
-                    filter.filterApplied = false;
                 }
             } else if (filterMetadata) {
                 filterMetadata.value = null;
-                filterMetadata.filterApplied = false;
             }
         }
     }
@@ -5649,6 +5647,8 @@ export class ColumnFilter extends BaseComponent implements AfterContentInit {
 
     overlayId: any;
 
+    filterApplied: boolean = false;
+
     get fieldConstraints(): FilterMetadata[] | undefined | null {
         return this.dt.filters ? <FilterMetadata[]>this.dt.filters[<string>this.field] : null;
     }
@@ -5698,12 +5698,12 @@ export class ColumnFilter extends BaseComponent implements AfterContentInit {
     }
 
     get hasFilter(): boolean {
-        if (Array.isArray(this.fieldConstraints)) {
-            return this.fieldConstraints[0].filterApplied ?? false;
+        if (!this.filterApplied) {
+            return false;
         }
-        else {
-            return ((this.fieldConstraints as FilterMetadata)?.filterApplied) ?? false;
-        }
+        // Because Table's clearFilterValues method may have been called (which clears all filters, but doesn't update filterApplied), must call setHasFilter to make sure that filterApplied is up to date.
+        this.setHasFilter(true);
+        return this.filterApplied;
     }
 
     get removeRuleButtonAriaLabel() {
@@ -6025,17 +6025,15 @@ export class ColumnFilter extends BaseComponent implements AfterContentInit {
     }
 
     setHasFilter(newValue: boolean): void {
-        let fieldFilter: FilterMetadata | FilterMetadata[] = this.dt.filters[<string>this.field];
-        if (!fieldFilter) return;
-
-        const applyFilter = (filter: FilterMetadata) => {
-            filter.filterApplied = newValue && !this.dt.isFilterBlank(filter.value);
-        };
-
-        if (Array.isArray(fieldFilter)) {
-            applyFilter(fieldFilter[0]);
+        let fieldFilter = this.dt.filters[<string>this.field];
+        if (fieldFilter && newValue) {
+            if (Array.isArray(fieldFilter)) {
+                this.filterApplied = !this.dt.isFilterBlank((<FilterMetadata[]>fieldFilter)[0].value);
+            } else {
+                this.filterApplied = !this.dt.isFilterBlank(fieldFilter.value);
+            }
         } else {
-            applyFilter(fieldFilter);
+            this.filterApplied = false;
         }
     }
 
