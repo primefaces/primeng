@@ -5701,6 +5701,9 @@ export class ColumnFilter extends BaseComponent implements AfterContentInit {
         if (!this.filterApplied && !((<any>this.fieldConstraints)?.applyFilter ?? false)) {
             return false;
         }
+        if (!Array.isArray(this.fieldConstraints) && (<any>this.fieldConstraints)?.hasOwnProperty('applyFilter')) {
+            delete this.dt.filters[<string>this.field]['applyFilter'];
+        }
         // Because Table's clearFilterValues method may have been called (which clears all filters, but doesn't update filterApplied), must call setHasFilter to make sure that filterApplied is up to date.
         this.setHasFilter(true);
         return this.filterApplied;
