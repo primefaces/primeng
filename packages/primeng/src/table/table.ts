@@ -5700,9 +5700,8 @@ export class ColumnFilter extends BaseComponent implements AfterContentInit {
     get hasFilter(): boolean {
         if (Array.isArray(this.fieldConstraints)) {
             return this.fieldConstraints[0].filterApplied ?? false;
-        }
-        else {
-            return ((this.fieldConstraints as FilterMetadata)?.filterApplied) ?? false;
+        } else {
+            return (this.fieldConstraints as FilterMetadata)?.filterApplied ?? false;
         }
     }
 
