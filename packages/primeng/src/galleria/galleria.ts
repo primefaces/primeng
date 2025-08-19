@@ -1126,6 +1126,7 @@ export class GalleriaThumbnails extends BaseComponent implements OnInit, AfterCo
     createStyle() {
         if (!this.thumbnailsStyle) {
             this.thumbnailsStyle = this.document.createElement('style');
+            setAttribute(this.thumbnailsStyle, 'nonce', this.galleria.config?.csp()?.nonce);
             this.document.body.appendChild(this.thumbnailsStyle);
         }
 

@@ -1,7 +1,7 @@
 {
-    "id": 85,
-    "content": "Summer Sale is here 🏖️ Get 50% off with code PRSM25",
+    "id": 86,
+    "content": "All Premium Templates Now Upgraded to v20 🎉",
     "linkText": "Learn More",
-    "linkHref": "https://www.primefaces.org/blog/summer-sale-2025",
+    "routerLink": "/templates",
     "target": "_blank"
 }
