@@ -988,6 +988,9 @@ export class InputNumber extends BaseInput implements OnInit, AfterContentInit, 
         if (!this.$disabled() && !this.readonly) {
             event.preventDefault();
             let data = (event.clipboardData || (this.document as any).defaultView['clipboardData']).getData('Text');
+            if (this.inputId === 'integeronly' && /[^\d-]/.test(data)) {
+                return;
+            }
             if (data) {
                 if (this.maxlength()) {
                     data = data.toString().substring(0, this.maxlength());
