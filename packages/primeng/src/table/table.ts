@@ -5699,20 +5699,6 @@ export class ColumnFilter extends BaseComponent implements AfterContentInit {
         return this.config.translation ? (this.overlayVisible ? this.config.translation.aria.hideFilterMenu : this.config.translation.aria.showFilterMenu) : undefined;
     }
 
-    get hasFilter(): boolean {
-        // Special case, this can only happen when legacy "filter(value: any, field: string, matchMode: string) " is programmatically called
-        if ((<any>this.fieldConstraints)?.applyFilter) {
-            delete (<any>this.fieldConstraints).applyFilter;
-            this.setHasFilter(true);
-        }
-        if (!this.filterApplied) {
-            return false;
-        }
-        // Because Table's clearFilterValues method may have been called (which clears all filters, but doesn't update filterApplied), must call setHasFilter to make sure that filterApplied is up to date.
-        this.setHasFilter(true);
-        return this.filterApplied;
-    }
-
     get removeRuleButtonAriaLabel() {
         return this.config.translation ? this.config.translation.removeRule : undefined;
     }
@@ -6042,6 +6028,20 @@ export class ColumnFilter extends BaseComponent implements AfterContentInit {
         } else {
             this.filterApplied = false;
         }
+    }
+
+    get hasFilter(): boolean {
+        // Special case, this can only happen when legacy "filter(value: any, field: string, matchMode: string) " is programmatically called
+        if ((<any>this.fieldConstraints)?.applyFilter) {
+            delete (<any>this.fieldConstraints).applyFilter;
+            this.setHasFilter(true);
+        }
+        if (!this.filterApplied) {
+            return false;
+        }
+        // Because Table's clearFilterValues method may have been called (which clears all filters, but doesn't update filterApplied), must call setHasFilter to make sure that filterApplied is up to date.
+        this.setHasFilter(true);
+        return this.filterApplied;
     }
 
     isOutsideClicked(event: any): boolean {
