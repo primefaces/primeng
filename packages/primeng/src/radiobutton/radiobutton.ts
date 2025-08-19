@@ -65,16 +65,15 @@ export class RadioControlRegistry {
             [attr.disabled]="$disabled() ? '' : undefined"
             [checked]="checked"
             [attr.value]="modelValue()"
-            [attr.aria-labelledby]="ariaLabelledBy"
-            [attr.aria-label]="ariaLabel"
-            [attr.tabindex]="tabindex"
-            [attr.aria-checked]="checked"
-            (focus)="onInputFocus($event)"
-            (blur)="onInputBlur($event)"
-            (change)="onChange($event)"
-            [pAutoFocus]="autofocus"
-        />
-        <div [class]="cx('box')" [attr.data-pc-section]="'input'">
+                [attr.aria-labelledby]="ariaLabelledBy"
+                [attr.aria-label]="ariaLabel"
+                [attr.tabindex]="tabindex"
+                (focus)="onInputFocus($event)"
+                (blur)="onInputBlur($event)"
+                (change)="onChange($event)"
+                [pAutoFocus]="autofocus"
+            />
+            <div [class]="cx('box')" [attr.data-pc-section]="'input'">
             <div [class]="cx('icon')" [attr.data-pc-section]="'icon'"></div>
         </div>
     `,
