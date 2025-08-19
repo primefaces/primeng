@@ -319,7 +319,7 @@ export class UITreeNode extends BaseComponent implements OnInit {
         let dragNodeScope = this.tree.dragNodeScope;
         let isValidDropPointIndex = this.tree.dragNodeTree === this.tree ? position === 1 || dragNodeIndex !== <number>this.index - 1 : true;
 
-        if (this.tree.allowDrop(<TreeNode>dragNode, <TreeNode>this.node, dragNodeScope) && isValidDropPointIndex) {
+        if (this.tree.allowDrop(<TreeNode>dragNode, <TreeNode>this.node, dragNodeScope, 'between') && isValidDropPointIndex) {
             let dropParams = { ...this.createDropPointEventMetadata(<number>position) };
 
             if (this.tree.validateDrop) {
@@ -327,6 +327,7 @@ export class UITreeNode extends BaseComponent implements OnInit {
                     originalEvent: event,
                     dragNode: dragNode,
                     dropNode: this.node,
+                    dropPoint: 'between',
                     index: this.index,
                     accept: () => {
                         this.processPointDrop(dropParams);
@@ -338,6 +339,7 @@ export class UITreeNode extends BaseComponent implements OnInit {
                     originalEvent: event,
                     dragNode: dragNode,
                     dropNode: this.node,
+                    dropPoint: 'between',
                     index: this.index
                 });
             }
@@ -384,7 +386,7 @@ export class UITreeNode extends BaseComponent implements OnInit {
     }
 
     onDropPointDragEnter(event: Event, position: number) {
-        if (this.tree.allowDrop(<TreeNode>this.tree.dragNode, <TreeNode>this.node, this.tree.dragNodeScope)) {
+        if (this.tree.allowDrop(<TreeNode>this.tree.dragNode, <TreeNode>this.node, this.tree.dragNodeScope, 'between')) {
             if (position < 0) this.draghoverPrev = true;
             else this.draghoverNext = true;
         }
@@ -439,6 +441,7 @@ export class UITreeNode extends BaseComponent implements OnInit {
                         originalEvent: event,
                         dragNode: dragNode,
                         dropNode: this.node,
+                        dropPoint: 'node',
                         index: this.index,
                         accept: () => {
                             this.processNodeDrop(dropParams);
@@ -450,6 +453,7 @@ export class UITreeNode extends BaseComponent implements OnInit {
                         originalEvent: event,
                         dragNode: dragNode,
                         dropNode: this.node,
+                        dropPoint: 'node',
                         index: this.index
                     });
                 }
@@ -1646,7 +1650,7 @@ export class Tree extends BaseComponent implements OnInit, AfterContentInit, OnC
         }
     }
 
-    allowDrop(dragNode: TreeNode, dropNode: TreeNode<any> | null, dragNodeScope: any): boolean {
+    allowDrop(dragNode: TreeNode, dropNode: TreeNode<any> | null, dragNodeScope: any, dropPoint: 'node' | 'between' = 'node'): boolean {
         if (!dragNode) {
             //prevent random html elements to be dragged
             return false;
