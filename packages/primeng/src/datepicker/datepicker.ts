@@ -1480,7 +1480,7 @@ export class DatePicker extends BaseInput implements OnInit, AfterContentInit, A
 
         if (this.showTime) {
             this.currentMinute = date.getMinutes();
-            this.currentSecond = date.getSeconds();
+            this.currentSecond = this.showSeconds ? date.getSeconds() : 0;
             this.setCurrentHourPM(date.getHours());
         } else if (this.timeOnly) {
             this.currentMinute = 0;
@@ -3059,7 +3059,7 @@ export class DatePicker extends BaseInput implements OnInit, AfterContentInit, A
         if (this.showTime || this.timeOnly) {
             this.setCurrentHourPM(val.getHours());
             this.currentMinute = val.getMinutes();
-            this.currentSecond = val.getSeconds();
+            this.currentSecond = this.showSeconds ? val.getSeconds() : 0;
         }
     }
 
