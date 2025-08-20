@@ -6132,14 +6132,14 @@ export class ColumnFilter extends BaseComponent implements AfterContentInit {
 
     clearFilter() {
         this.initFieldFilterConstraint();
-        this.dt._filter();
         this.setHasFilter(false);
+        this.dt._filter();
         if (this.hideOnClear) this.hide();
     }
 
     applyFilter() {
-        this.dt._filter();
         this.setHasFilter(true);
+        this.dt._filter();
         this.hide();
     }
 
