@@ -1380,6 +1380,7 @@ export class AutoComplete extends BaseInput implements AfterViewChecked, AfterCo
         if (!this.typeahead) {
             if (this.multiple) {
                 this.updateModel([...(this.modelValue() || []), event.target.value]);
+                this.onSelect.emit({ originalEvent: event, value: event.target.value });
                 this.inputEL.nativeElement.value = '';
             }
         }
