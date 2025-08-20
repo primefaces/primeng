@@ -3084,6 +3084,7 @@ export class Table<RowData = any> extends BaseComponent implements OnInit, After
     createStyleElement() {
         this.styleElement = this.renderer.createElement('style');
         this.styleElement.type = 'text/css';
+        DomHandler.setAttribute(this.styleElement, 'nonce', this.config?.csp()?.nonce);
         this.renderer.appendChild(this.document.head, this.styleElement);
         DomHandler.setAttribute(this.styleElement, 'nonce', this.config?.csp()?.nonce);
     }
@@ -3097,6 +3098,7 @@ export class Table<RowData = any> extends BaseComponent implements OnInit, After
             if (!this.responsiveStyleElement) {
                 this.responsiveStyleElement = this.renderer.createElement('style');
                 this.responsiveStyleElement.type = 'text/css';
+                DomHandler.setAttribute(this.responsiveStyleElement, 'nonce', this.config?.csp()?.nonce);
                 this.renderer.appendChild(this.document.head, this.responsiveStyleElement);
 
                 let innerHTML = `
