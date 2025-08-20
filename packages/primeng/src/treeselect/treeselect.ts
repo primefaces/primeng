@@ -152,6 +152,7 @@ export const TREESELECT_VALUE_ACCESSOR: any = {
                             [_templateMap]="templateMap"
                             [loading]="loading"
                             [filterInputAutoFocus]="filterInputAutoFocus"
+                            [togglerAriaLabel]="togglerAriaLabel"
                         >
                             <ng-container *ngIf="emptyTemplate || _emptyTemplate">
                                 <ng-template #empty>
@@ -232,6 +233,11 @@ export class TreeSelect extends BaseEditableHolder implements AfterContentInit {
      * @group Props
      */
     @Input() ariaLabelledBy: string | undefined;
+    /**
+     * Defines a string that labels the toggler icon for accessibility.
+     * @group Props
+     */
+    @Input() togglerAriaLabel: string | undefined;
     /**
      * Label to display when there are no selections.
      * @group Props
