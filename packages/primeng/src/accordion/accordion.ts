@@ -292,8 +292,10 @@ export class AccordionHeader extends BaseComponent {
                 style({
                     height: '0',
                     // To prevent memory leak, Angular issue. https://github.com/primefaces/primeng/issues/18546
-                    paddingBlock: '0',
-                    borderBlockWidth: '0',
+                    paddingBlockStart: '0',
+                    paddingBlockEnd: '0',
+                    borderBlockStartWidth: '0',
+                    borderBlockEndWidth: '0',
                     //
                     visibility: 'hidden'
                 })
