@@ -1353,7 +1353,7 @@ export class Table<RowData = any> extends BaseComponent implements OnInit, After
 
                 if (this.sortMode == 'single' && (this.sortField || this.groupRowsBy)) this.sortSingle();
                 else if (this.sortMode == 'multiple' && (this.multiSortMeta || this.groupRowsBy)) this.sortMultiple();
-                else if (this.hasFilter)
+                else if (this.hasFilter())
                     //sort already filters
                     this._filter();
             }
@@ -1613,7 +1613,7 @@ export class Table<RowData = any> extends BaseComponent implements OnInit, After
                     this._value = [...this.value];
                 }
 
-                if (this.hasFilter) {
+                if (this.hasFilter()) {
                     this._filter();
                 }
             }
@@ -1652,7 +1652,7 @@ export class Table<RowData = any> extends BaseComponent implements OnInit, After
                     this._value = [...this.value];
                 }
 
-                if (this.hasFilter) {
+                if (this.hasFilter()) {
                     this._filter();
                 }
             }
@@ -2184,7 +2184,7 @@ export class Table<RowData = any> extends BaseComponent implements OnInit, After
             if (!this.value) {
                 return;
             }
-            if (!this.hasFilter) {
+            if (!this.hasFilter()) {
                 this.filteredValue = null;
                 if (this.paginator) {
                     this.totalRecords = this._totalRecords === 0 && this.value ? this.value.length : this._totalRecords;
@@ -2887,7 +2887,7 @@ export class Table<RowData = any> extends BaseComponent implements OnInit, After
             state.multiSortMeta = this.multiSortMeta;
         }
 
-        if (this.hasFilter) {
+        if (this.hasFilter()) {
             state.filters = this.filters;
         }
 
