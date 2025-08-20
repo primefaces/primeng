@@ -2959,6 +2959,16 @@ export class Table<RowData = any> extends BaseComponent implements OnInit, After
 
             if (state.filters) {
                 this.restoringFilter = true;
+                // When restoring with given value, set applyFilter true to fill the filter icon
+                for (const key in state.filters) {
+                    if (state.filters.hasOwnProperty(key) && (state.filters[key]['value'] || state.filters[key][0]['value'])) {
+                        if (Array.isArray(state.filters[key])) {
+                            state.filters[key][0]['applyFilter'] = true;
+                        } else {
+                            state.filters[key]['applyFilter'] = true;
+                        }
+                    }
+                }
                 this.filters = state.filters;
             }
 
@@ -6031,9 +6041,13 @@ export class ColumnFilter extends BaseComponent implements AfterContentInit {
     }
 
     get hasFilter(): boolean {
-        // Special case, this can only happen when legacy "filter(value: any, field: string, matchMode: string) " is programmatically called
-        if ((<any>this.fieldConstraints)?.applyFilter) {
+        if (!Array.isArray(this.fieldConstraints) && (<any>this.fieldConstraints)?.applyFilter) {
+            // Special case, this can only happen when legacy "filter(value: any, field: string, matchMode: string) " is programmatically called
             delete (<any>this.fieldConstraints).applyFilter;
+            this.setHasFilter(true);
+        } else if (Array.isArray(this.fieldConstraints) && (<any>this.fieldConstraints[0])?.applyFilter) {
+            // Special case, this can only happen when table is restored with filter values
+            delete (<any>this.fieldConstraints[0]).applyFilter;
             this.setHasFilter(true);
         }
         if (!this.filterApplied) {
