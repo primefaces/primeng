@@ -6042,11 +6042,11 @@ export class ColumnFilter extends BaseComponent implements AfterContentInit {
 
     get hasFilter(): boolean {
         if (!Array.isArray(this.fieldConstraints) && (<any>this.fieldConstraints)?.applyFilter) {
-            // Special case, this can only happen when legacy "filter(value: any, field: string, matchMode: string)" is programmatically called or when the table state is restored with filter value (type object)
+            // This can only happen when legacy "filter(value: any, field: string, matchMode: string)" is programmatically called or when the table state is restored with filter value (type object)
             delete (<any>this.fieldConstraints).applyFilter;
             this.setHasFilter(true);
         } else if (Array.isArray(this.fieldConstraints) && (<any>this.fieldConstraints[0])?.applyFilter) {
-            // Special case, this can only happen when the table state is restored with filter value (type array)
+            // This can only happen when the table state is restored with filter value (type array)
             delete (<any>this.fieldConstraints[0]).applyFilter;
             this.setHasFilter(true);
         }
