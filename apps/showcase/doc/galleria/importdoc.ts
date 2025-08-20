@@ -8,6 +8,6 @@ import { Component } from '@angular/core';
 })
 export class ImportDoc {
     code: Code = {
-        typescript: `import { GalleriaModule } from 'primeng/galleria';`
+        typescript: `import { Galleria } from 'primeng/galleria';`
     };
 }

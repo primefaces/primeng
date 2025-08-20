@@ -7,6 +7,6 @@ import { Component } from '@angular/core';
 })
 export class ImportDoc {
     code: Code = {
-        typescript: `import { SelectButtonModule } from 'primeng/selectbutton';`
+        typescript: `import { SelectButton } from 'primeng/selectbutton';`
     };
 }

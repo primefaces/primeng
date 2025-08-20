@@ -7,6 +7,6 @@ import { Component } from '@angular/core';
 })
 export class ImportDoc {
     code: Code = {
-        typescript: `import { DatePickerModule } from 'primeng/datepicker';`
+        typescript: `import { DatePicker } from 'primeng/datepicker';`
     };
 }

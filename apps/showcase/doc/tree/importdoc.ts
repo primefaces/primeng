@@ -8,6 +8,6 @@ import { Component } from '@angular/core';
 })
 export class ImportDoc {
     code: Code = {
-        typescript: `import { TreeModule } from 'primeng/tree';`
+        typescript: `import { Tree } from 'primeng/tree';`
     };
 }

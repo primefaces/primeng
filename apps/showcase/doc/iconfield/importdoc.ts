@@ -7,7 +7,7 @@ import { Component } from '@angular/core';
 })
 export class ImportDoc {
     code: Code = {
-        typescript: `import { IconFieldModule } from 'primeng/iconfield';
+        typescript: `import { IconField } from 'primeng/iconfield';
 import { InputIconModule } from 'primeng/inputicon';`
     };
 }

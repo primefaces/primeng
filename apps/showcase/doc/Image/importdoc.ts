@@ -8,6 +8,6 @@ import { Component } from '@angular/core';
 })
 export class ImportDoc {
     code: Code = {
-        typescript: `import { ImageModule } from 'primeng/image';`
+        typescript: `import { Image } from 'primeng/image';`
     };
 }
