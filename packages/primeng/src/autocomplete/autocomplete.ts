@@ -10,7 +10,6 @@ import {
     ContentChild,
     ContentChildren,
     ElementRef,
-    EventEmitter,
     forwardRef,
     HostListener,
     inject,
@@ -20,7 +19,8 @@ import {
     NgZone,
     numberAttribute,
     OnDestroy,
-    Output,
+    output,
+    OutputEmitterRef,
     QueryList,
     signal,
     TemplateRef,
@@ -602,67 +602,67 @@ export class AutoComplete extends BaseInput implements AfterViewChecked, AfterCo
      * @param {AutoCompleteCompleteEvent} event - Custom complete event.
      * @group Emits
      */
-    @Output() completeMethod: EventEmitter<AutoCompleteCompleteEvent> = new EventEmitter<AutoCompleteCompleteEvent>();
+    completeMethod: OutputEmitterRef<AutoCompleteCompleteEvent> = output<AutoCompleteCompleteEvent>();
     /**
      * Callback to invoke when a suggestion is selected.
      * @param {AutoCompleteSelectEvent} event - custom select event.
      * @group Emits
      */
-    @Output() onSelect: EventEmitter<AutoCompleteSelectEvent> = new EventEmitter<AutoCompleteSelectEvent>();
+    onSelect: OutputEmitterRef<AutoCompleteSelectEvent> = output<AutoCompleteSelectEvent>();
     /**
      * Callback to invoke when a selected value is removed.
      * @param {AutoCompleteUnselectEvent} event - custom unselect event.
      * @group Emits
      */
-    @Output() onUnselect: EventEmitter<AutoCompleteUnselectEvent> = new EventEmitter<AutoCompleteUnselectEvent>();
+    onUnselect: OutputEmitterRef<AutoCompleteUnselectEvent> = output<AutoCompleteUnselectEvent>();
     /**
      * Callback to invoke when the component receives focus.
      * @param {Event} event - Browser event.
      * @group Emits
      */
-    @Output() onFocus: EventEmitter<Event> = new EventEmitter();
+    onFocus: OutputEmitterRef<Event> = output<Event>();
     /**
      * Callback to invoke when the component loses focus.
      * @param {Event} event - Browser event.
      * @group Emits
      */
-    @Output() onBlur: EventEmitter<Event> = new EventEmitter();
+    onBlur: OutputEmitterRef<Event> = output<Event>();
     /**
      * Callback to invoke to when dropdown button is clicked.
      * @param {AutoCompleteDropdownClickEvent} event - custom dropdown click event.
      * @group Emits
      */
-    @Output() onDropdownClick: EventEmitter<AutoCompleteDropdownClickEvent> = new EventEmitter<AutoCompleteDropdownClickEvent>();
+    onDropdownClick: OutputEmitterRef<AutoCompleteDropdownClickEvent> = output<AutoCompleteDropdownClickEvent>();
     /**
      * Callback to invoke when clear button is clicked.
      * @param {Event} event - Browser event.
      * @group Emits
      */
-    @Output() onClear: EventEmitter<Event | undefined> = new EventEmitter<Event | undefined>();
+    onClear: OutputEmitterRef<Event | undefined> = output<Event | undefined>();
     /**
      * Callback to invoke on input key up.
      * @param {KeyboardEvent} event - Keyboard event.
      * @group Emits
      */
-    @Output() onKeyUp: EventEmitter<KeyboardEvent> = new EventEmitter();
+    onKeyUp: OutputEmitterRef<KeyboardEvent> = output<KeyboardEvent>();
     /**
      * Callback to invoke on overlay is shown.
      * @param {Event} event - Browser event.
      * @group Emits
      */
-    @Output() onShow: EventEmitter<Event> = new EventEmitter<Event>();
+    onShow: OutputEmitterRef<Event | undefined> = output<Event | undefined>();
     /**
      * Callback to invoke on overlay is hidden.
      * @param {Event} event - Browser event.
      * @group Emits
      */
-    @Output() onHide: EventEmitter<Event> = new EventEmitter<Event>();
+    onHide: OutputEmitterRef<Event | undefined> = output<Event | undefined>();
     /**
      * Callback to invoke on lazy load data.
      * @param {AutoCompleteLazyLoadEvent} event - Lazy load event.
      * @group Emits
      */
-    @Output() onLazyLoad: EventEmitter<AutoCompleteLazyLoadEvent> = new EventEmitter<AutoCompleteLazyLoadEvent>();
+    onLazyLoad: OutputEmitterRef<AutoCompleteLazyLoadEvent> = output<AutoCompleteLazyLoadEvent>();
 
     @ViewChild('focusInput') inputEL: Nullable<ElementRef>;
 
@@ -1114,7 +1114,7 @@ export class AutoComplete extends BaseInput implements AfterViewChecked, AfterCo
             }
 
             if (query.length === 0 && !this.multiple) {
-                this.onClear.emit();
+                this.onClear.emit(undefined);
 
                 setTimeout(() => {
                     this.hide();
@@ -1557,7 +1557,7 @@ export class AutoComplete extends BaseInput implements AfterViewChecked, AfterCo
         if (isFocus) {
             focus(this.inputEL.nativeElement);
         }
-        this.onShow.emit();
+        this.onShow.emit(null);
         this.cd.markForCheck();
     }
 
@@ -1567,7 +1567,7 @@ export class AutoComplete extends BaseInput implements AfterViewChecked, AfterCo
             this.overlayVisible = false;
             this.focusedOptionIndex.set(-1);
             isFocus && focus(this.inputEL.nativeElement);
-            this.onHide.emit();
+            this.onHide.emit(null);
             this.cd.markForCheck();
         };
 
@@ -1579,7 +1579,7 @@ export class AutoComplete extends BaseInput implements AfterViewChecked, AfterCo
     clear() {
         this.updateModel(null);
         this.inputEL.nativeElement.value = '';
-        this.onClear.emit();
+        this.onClear.emit(null);
     }
 
     hasSelectedOption() {
