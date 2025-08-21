@@ -854,6 +854,10 @@ export class TieredMenu extends BaseComponent implements OnInit, OnDestroy {
 
     onArrowLeftKey(event: KeyboardEvent) {
         const processedItem = this.visibleItems[this.focusedItemInfo().index];
+        if (!processedItem) {
+            event.preventDefault();
+            return;
+        }
         const parentItem = this.activeItemPath().find((p) => p.key === processedItem.parentKey);
         const root = isEmpty(processedItem.parent);
 
