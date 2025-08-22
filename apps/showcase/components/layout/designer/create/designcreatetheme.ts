@@ -1,5 +1,4 @@
 import { DesignerService } from '@/service/designerservice';
-import { CommonModule } from '@angular/common';
 import { ChangeDetectionStrategy, Component, inject } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import Aura from '@primeuix/themes/aura';
@@ -7,7 +6,12 @@ import Lara from '@primeuix/themes/lara';
 import Nora from '@primeuix/themes/nora';
 import { MessageService } from 'primeng/api';
 import { DividerModule } from 'primeng/divider';
-import { FileUploadModule } from 'primeng/fileupload';
+import { FileSelectEvent, FileUploadModule } from 'primeng/fileupload';
+
+interface PresetOption {
+    label: string;
+    value: string;
+}
 
 const presets = {
     Aura,
@@ -18,7 +22,16 @@ const presets = {
 @Component({
     selector: 'design-create-theme',
     standalone: true,
-    imports: [CommonModule, FormsModule, DividerModule, FileUploadModule],
+    imports: [FormsModule, DividerModule, FileUploadModule],
+    styles: `
+        .active-selection {
+            @apply bg-zinc-950 text-white dark:bg-white dark:text-black;
+        }
+
+        .hover-selection {
+            @apply hover:bg-gray-100 dark:hover:bg-surface-800;
+        }
+    `,
     template: `<section class="mb-6">
             <span class="block text-lg font-semibold mb-2">Theme Name</span>
             <input [(ngModel)]="themeName" type="text" autocomplete="off" class="px-3 py-2 rounded-md border border-surface-300 dark:border-surface-700 flex-1" maxlength="25" />
@@ -35,18 +48,19 @@ const presets = {
                     <span class="text-muted-color">Variety of built-in themes with distinct characteristics.</span>
                     <div class="flex justify-between">
                         <div class="flex">
-                            <button
-                                *ngFor="let presetOption of presetOptions"
-                                type="button"
-                                (click)="updateBasePreset(presetOption)"
-                                class="border border-surface-200 dark:border-surface-700 px-3 py-2 border-r-0 last:border-r first:rounded-l-md last:rounded-r-md transition-colors duration-200"
-                                [ngClass]="{
-                                    'bg-zinc-950 text-white dark:bg-white dark:text-black': presetOption.value === basePreset,
-                                    'hover:bg-gray-100 dark:hover:bg-surface-800': presetOption.value !== basePreset
-                                }"
-                            >
-                                {{ presetOption.label }}
-                            </button>
+                            @for (presetOption of presetOptions; track presetOption) {
+                                <button
+                                    type="button"
+                                    (click)="updateBasePreset(presetOption)"
+                                    class="border border-surface-200 dark:border-surface-700 px-3 py-2 border-r-0 last:border-r first:rounded-l-md last:rounded-r-md transition-colors duration-200"
+                                    [class]="{
+                                        'active-selection': presetOption.value === basePreset,
+                                        'hover-selection': presetOption.value !== basePreset
+                                    }"
+                                >
+                                    {{ presetOption.label }}
+                                </button>
+                            }
                         </div>
                         <button type="button" (click)="createThemeFromPreset()" class="btn-design">Create</button>
                     </div>
@@ -73,7 +87,7 @@ const presets = {
                     </div>
                 </div>
             </div>
-        </section> `,
+        </section>`,
     changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class DesignCreateTheme {
@@ -83,11 +97,11 @@ export class DesignCreateTheme {
 
     themeName: string;
 
-    basePreset: string = 'Aura';
+    basePreset = 'Aura';
 
-    figmaData: any;
+    figmaData: string | ArrayBuffer;
 
-    presetOptions = [
+    presetOptions: PresetOption[] = [
         { label: 'Aura', value: 'Aura' },
         { label: 'Lara', value: 'Lara' },
         { label: 'Nora', value: 'Nora' }
@@ -120,7 +134,7 @@ export class DesignCreateTheme {
         }
     }
 
-    onFileSelect(event: any) {
+    onFileSelect(event: FileSelectEvent) {
         const file = event.files[0];
 
         if (!file) {
@@ -140,7 +154,7 @@ export class DesignCreateTheme {
         reader.readAsText(file);
     }
 
-    updateBasePreset(preset: any) {
+    updateBasePreset(preset: PresetOption) {
         this.basePreset = preset.value;
     }
 }
