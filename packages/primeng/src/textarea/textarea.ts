@@ -1,4 +1,4 @@
-import { AfterViewInit, booleanAttribute, computed, Directive, EventEmitter, HostListener, inject, input, Input, NgModule, OnDestroy, OnInit, Output } from '@angular/core';
+import { AfterViewChecked, AfterViewInit, booleanAttribute, computed, Directive, EventEmitter, HostListener, inject, input, Input, NgModule, OnDestroy, OnInit, Output } from '@angular/core';
 import { NgControl } from '@angular/forms';
 import { BaseModelHolder } from 'primeng/basemodelholder';
 import { Fluid } from 'primeng/fluid';
@@ -17,7 +17,7 @@ import { TextareaStyle } from './style/textareastyle';
     },
     providers: [TextareaStyle]
 })
-export class Textarea extends BaseModelHolder implements OnInit, AfterViewInit, OnDestroy {
+export class Textarea extends BaseModelHolder implements OnInit, AfterViewInit, AfterViewChecked, OnDestroy {
     /**
      * When present, textarea size changes as being typed.
      * @group Props
@@ -55,8 +55,6 @@ export class Textarea extends BaseModelHolder implements OnInit, AfterViewInit, 
      */
     @Output() onResize: EventEmitter<Event | {}> = new EventEmitter<Event | {}>();
 
-    ngModelSubscription: Subscription | undefined;
-
     ngControlSubscription: Subscription | undefined;
 
     _componentStyle = inject(TextareaStyle);
@@ -86,7 +84,10 @@ export class Textarea extends BaseModelHolder implements OnInit, AfterViewInit, 
     }
 
     ngAfterViewChecked() {
-        if (this.autoResize) this.resize();
+        if (this.autoResize) {
+            this.resize();
+        }
+        this.writeModelValue(this.ngControl?.value ?? this.el.nativeElement.value);
     }
 
     @HostListener('input', ['$event'])
@@ -116,10 +117,6 @@ export class Textarea extends BaseModelHolder implements OnInit, AfterViewInit, 
     }
 
     ngOnDestroy() {
-        if (this.ngModelSubscription) {
-            this.ngModelSubscription.unsubscribe();
-        }
-
         if (this.ngControlSubscription) {
             this.ngControlSubscription.unsubscribe();
         }
