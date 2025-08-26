@@ -345,7 +345,7 @@ export class TableService {
         '[class]': "cn(cx('root'), styleClass)"
     }
 })
-export class Table<RowData = any> extends BaseComponent implements OnInit, AfterViewInit, AfterContentInit, BlockableUI, OnChanges {
+export class Table<RowData = any> extends BaseComponent implements OnInit, AfterViewInit, AfterContentInit, BlockableUI, OnChanges, OnDestroy {
     /**
      * An array of objects to represent dynamic columns that are frozen.
      * @group Props
@@ -3157,6 +3157,11 @@ export class Table<RowData = any> extends BaseComponent implements OnInit, After
 
         this.destroyStyleElement();
         this.destroyResponsiveStyle();
+
+        if (this.filterTimeout) {
+            clearTimeout(this.filterTimeout);
+        }
+
         super.ngOnDestroy();
     }
 }
