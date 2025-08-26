@@ -2,6 +2,7 @@ import { ConfigurationDocModule } from '@/doc/configuration/configurationdoc.mod
 import { CspDoc } from '@/doc/configuration/cspdoc';
 import { DynamicDoc } from '@/doc/configuration/dynamicdoc';
 import { FilterModeDoc } from '@/doc/configuration/filtermodedoc';
+import { FloatVariantDoc } from '@/doc/configuration/floatvariantdoc';
 import { InputVariantDoc } from '@/doc/configuration/inputvariantdoc';
 import { ApiDoc } from '@/doc/configuration/locale/apidoc';
 import { RepositoryDoc } from '@/doc/configuration/locale/repositorydoc';
@@ -46,6 +47,11 @@ export class ConfigurationDemo {
             id: 'inputvariant',
             label: 'InputVariant',
             component: InputVariantDoc
+        },
+        {
+            id: 'floatvariant',
+            label: 'FloatVariant',
+            component: FloatVariantDoc
         },
         {
             id: 'zIndex',
