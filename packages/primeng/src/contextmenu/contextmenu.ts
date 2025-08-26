@@ -5,6 +5,7 @@ import {
     booleanAttribute,
     ChangeDetectionStrategy,
     Component,
+    computed,
     ContentChild,
     ContentChildren,
     effect,
@@ -13,6 +14,7 @@ import {
     forwardRef,
     Inject,
     inject,
+    input,
     Input,
     NgModule,
     numberAttribute,
@@ -48,13 +50,13 @@ import {
 import { MenuItem, OverlayService, PrimeTemplate, SharedModule } from 'primeng/api';
 import { BadgeModule } from 'primeng/badge';
 import { BaseComponent } from 'primeng/basecomponent';
+import { DomHandler } from 'primeng/dom';
 import { AngleRightIcon } from 'primeng/icons';
 import { Ripple } from 'primeng/ripple';
 import { TooltipModule } from 'primeng/tooltip';
 import { VoidListener } from 'primeng/ts-helpers';
 import { ZIndexUtils } from 'primeng/utils';
 import { ContextMenuStyle } from './style/contextmenustyle';
-import { DomHandler } from '../dom/domhandler';
 
 @Component({
     selector: 'p-contextMenuSub, p-contextmenu-sub',
@@ -105,7 +107,7 @@ import { DomHandler } from '../dom/domhandler';
                     [attr.aria-setsize]="getAriaSetSize()"
                     [attr.aria-posinset]="getAriaPosInset(index)"
                     [style]="getItemProp(processedItem, 'style')"
-                    [class]="cn(cx('item', { instance: this, processedItem }), processedItem?.styleClass)"
+                    [class]="cn(cx('item', { instance: this, processedItem }), getItemProp(processedItem, 'styleClass'))"
                     pTooltip
                     [tooltipOptions]="getItemProp(processedItem, 'tooltipOptions')"
                 >
@@ -114,7 +116,6 @@ import { DomHandler } from '../dom/domhandler';
                             <a
                                 *ngIf="!getItemProp(processedItem, 'routerLink')"
                                 [attr.href]="getItemProp(processedItem, 'url')"
-                                [attr.aria-hidden]="true"
                                 [attr.data-automationid]="getItemProp(processedItem, 'automationId')"
                                 [attr.data-pc-section]="'action'"
                                 [target]="getItemProp(processedItem, 'target')"
@@ -137,7 +138,7 @@ import { DomHandler } from '../dom/domhandler';
                                 <ng-template #htmlLabel> <span [class]="cx('itemLabel')" [innerHTML]="getItemLabel(processedItem)" [attr.data-pc-section]="'label'"></span> </ng-template>
                                 <p-badge *ngIf="getItemProp(processedItem, 'badge')" [class]="getItemProp(processedItem, 'badgeStyleClass')" [value]="getItemProp(processedItem, 'badge')" />
                                 <ng-container *ngIf="isItemGroup(processedItem)">
-                                    <AngleRightIcon *ngIf="!contextMenu.submenuIconTemplate && !contextMenu._submenuIconTemplate" [class]="cx('submenuIcon')" [attr.data-pc-section]="'submenuicon'" [attr.aria-hidden]="true" />
+                                    <svg data-p-icon="angle-right" *ngIf="!contextMenu.submenuIconTemplate && !contextMenu._submenuIconTemplate" [class]="cx('submenuIcon')" [attr.data-pc-section]="'submenuicon'" [attr.aria-hidden]="true" />
                                     <ng-template
                                         *ngTemplateOutlet="contextMenu.submenuIconTemplate || contextMenu._submenuIconTemplate; context: { class: 'p-contextmenu-submenu-icon' }"
                                         [attr.data-pc-section]="'submenuicon'"
@@ -150,7 +151,6 @@ import { DomHandler } from '../dom/domhandler';
                                 [routerLink]="getItemProp(processedItem, 'routerLink')"
                                 [attr.data-automationid]="getItemProp(processedItem, 'automationId')"
                                 [attr.tabindex]="-1"
-                                [attr.aria-hidden]="true"
                                 [attr.data-pc-section]="'action'"
                                 [queryParams]="getItemProp(processedItem, 'queryParams')"
                                 [routerLinkActiveOptions]="getItemProp(processedItem, 'routerLinActiveOptions') || { exact: false }"
@@ -181,7 +181,7 @@ import { DomHandler } from '../dom/domhandler';
                                 </ng-template>
                                 <p-badge *ngIf="getItemProp(processedItem, 'badge')" [class]="getItemProp(processedItem, 'badgeStyleClass')" [value]="getItemProp(processedItem, 'badge')" />
                                 <ng-container *ngIf="isItemGroup(processedItem)">
-                                    <AngleRightIcon *ngIf="!contextMenu.submenuIconTemplate && !contextMenu._submenuIconTemplate" [class]="cx('submenuIcon')" [attr.data-pc-section]="'submenuicon'" [attr.aria-hidden]="true" />
+                                    <svg data-p-icon="angle-right" *ngIf="!contextMenu.submenuIconTemplate && !contextMenu._submenuIconTemplate" [class]="cx('submenuIcon')" [attr.data-pc-section]="'submenuicon'" [attr.aria-hidden]="true" />
                                     <ng-template
                                         *ngTemplateOutlet="!contextMenu.submenuIconTemplate || !contextMenu._submenuIconTemplate; context: { class: 'p-contextmenu-submenu-icon' }"
                                         [attr.data-pc-section]="'submenuicon'"
@@ -463,6 +463,12 @@ export class ContextMenu extends BaseComponent implements OnInit, AfterContentIn
      */
     @Input({ transform: numberAttribute }) pressDelay: number | undefined = 500;
     /**
+     * Target element to attach the overlay, valid values are "body" or a local ng-template variable of another element (note: use binding with brackets for template variables, e.g. [appendTo]="mydiv" for a div element having #mydiv as variable name).
+     * @defaultValue 'self'
+     * @group Props
+     */
+    appendTo = input<HTMLElement | ElementRef | TemplateRef<any> | 'self' | 'body' | null | undefined | any>(undefined);
+    /**
      * Callback to invoke when overlay menu is shown.
      * @group Emits
      */
@@ -504,6 +510,8 @@ export class ContextMenu extends BaseComponent implements OnInit, AfterContentIn
     focusedItemInfo = signal<any>({ index: -1, level: 0, parentKey: '', item: null });
 
     submenuVisible = signal<boolean>(false);
+
+    $appendTo = computed(() => this.appendTo() || this.config.overlayAppendTo());
 
     searchValue: string = '';
 
@@ -598,12 +606,6 @@ export class ContextMenu extends BaseComponent implements OnInit, AfterContentIn
 
                 this.documentClickListener = this.renderer.listen(documentTarget, 'click', (event) => {
                     if (this.containerViewChild.nativeElement.offsetParent && this.isOutsideClicked(event) && !event.ctrlKey && event.button !== 2 && this.triggerEvent !== 'click') {
-                        this.hide();
-                    }
-                });
-
-                this.documentTriggerListener = this.renderer.listen(documentTarget, this.triggerEvent, (event) => {
-                    if (this.containerViewChild.nativeElement.offsetParent && this.isOutsideClicked(event)) {
                         this.hide();
                     }
                 });
@@ -1036,6 +1038,7 @@ export class ContextMenu extends BaseComponent implements OnInit, AfterContentIn
     show(event: any) {
         this.activeItemPath.set([]);
         this.focusedItemInfo.set({ index: -1, level: 0, parentKey: '', item: null });
+        focus(this.rootmenu?.sublistViewChild?.nativeElement);
 
         this.pageX = event.pageX;
         this.pageY = event.pageY;

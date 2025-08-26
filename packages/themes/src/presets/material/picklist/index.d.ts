@@ -1,1 +1,2 @@
-export * from '@primeuix/themes/types/picklist';
+export * from '@primeuix/themes/material/picklist';
+export { default } from '@primeuix/themes/material/picklist';

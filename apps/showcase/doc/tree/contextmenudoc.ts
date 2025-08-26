@@ -11,7 +11,7 @@ import { MenuItem, MessageService, TreeNode } from 'primeng/api';
             <p>Tree requires a collection of <i>TreeNode</i> instances as a value.</p>
         </app-docsectiontext>
         <div class="card">
-            <p-tree [value]="files" styleClass="w-full md:w-[30rem]" selectionMode="single" [(selection)]="selectedFile" [contextMenu]="cm" />
+            <p-tree [value]="files" class="w-full md:w-[30rem]" selectionMode="single" [(selection)]="selectedFile" [contextMenu]="cm" />
             <p-contextmenu #cm [model]="items" />
             <p-toast />
         </div>
@@ -49,12 +49,12 @@ export class ContextMenuDoc implements OnInit {
     }
 
     code: Code = {
-        basic: `<p-tree [value]="files" styleClass="w-full md:w-[30rem]" selectionMode="single" [(selection)]="selectedFile" [contextMenu]="cm" />
+        basic: `<p-tree [value]="files" class="w-full md:w-[30rem]" selectionMode="single" [(selection)]="selectedFile" [contextMenu]="cm" />
 <p-contextmenu #cm [model]="items" />
 <p-toast />`,
 
         html: `<div class="card">
-    <p-tree [value]="files" styleClass="w-full md:w-[30rem]" selectionMode="single" [(selection)]="selectedFile" [contextMenu]="cm" />
+    <p-tree [value]="files" class="w-full md:w-[30rem]" selectionMode="single" [(selection)]="selectedFile" [contextMenu]="cm" />
     <p-contextmenu #cm [model]="items" />
     <p-toast />
 </div>`,

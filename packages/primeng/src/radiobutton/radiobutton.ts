@@ -1,12 +1,12 @@
 import { CommonModule } from '@angular/common';
 import { booleanAttribute, ChangeDetectionStrategy, Component, computed, ElementRef, EventEmitter, forwardRef, inject, Injectable, Injector, input, Input, NgModule, numberAttribute, OnDestroy, OnInit, Output, ViewChild } from '@angular/core';
-import { ControlValueAccessor, NG_VALUE_ACCESSOR, NgControl } from '@angular/forms';
+import { NG_VALUE_ACCESSOR, NgControl } from '@angular/forms';
 import { SharedModule } from 'primeng/api';
 import { AutoFocus } from 'primeng/autofocus';
+import { BaseEditableHolder } from 'primeng/baseeditableholder';
 import { Nullable } from 'primeng/ts-helpers';
 import { RadioButtonClickEvent } from './radiobutton.interface';
 import { RadioButtonStyle } from './style/radiobuttonstyle';
-import { BaseEditableHolder } from '../baseeditableholder/baseeditableholder';
 
 export const RADIO_VALUE_ACCESSOR: any = {
     provide: NG_VALUE_ACCESSOR,
@@ -61,10 +61,10 @@ export class RadioControlRegistry {
             type="radio"
             [class]="cx('input')"
             [attr.name]="name()"
-            [attr.disabled]="disabled()"
-            [attr.required]="required()"
+            [attr.required]="required() ? '' : undefined"
+            [attr.disabled]="$disabled() ? '' : undefined"
             [checked]="checked"
-            [value]="modelValue()"
+            [attr.value]="modelValue()"
             [attr.aria-labelledby]="ariaLabelledBy"
             [attr.aria-label]="ariaLabel"
             [attr.tabindex]="tabindex"
@@ -86,7 +86,7 @@ export class RadioControlRegistry {
         '[class]': "cx('root')"
     }
 })
-export class RadioButton extends BaseEditableHolder implements ControlValueAccessor, OnInit, OnDestroy {
+export class RadioButton extends BaseEditableHolder implements OnInit, OnDestroy {
     /**
      * Value of the radiobutton.
      * @group Props
@@ -161,11 +161,7 @@ export class RadioButton extends BaseEditableHolder implements ControlValueAcces
 
     @ViewChild('input') inputViewChild!: ElementRef;
 
-    $variant = computed(() => this.config.inputStyle() || this.variant() || this.config.inputVariant());
-
-    public onModelChange: Function = () => {};
-
-    public onModelTouched: Function = () => {};
+    $variant = computed(() => this.variant() || this.config.inputStyle() || this.config.inputVariant());
 
     public checked: Nullable<boolean>;
 
@@ -186,33 +182,19 @@ export class RadioButton extends BaseEditableHolder implements ControlValueAcces
     }
 
     onChange(event) {
-        if (!this.disabled()) {
+        if (!this.$disabled()) {
             this.select(event);
         }
     }
 
     select(event: Event) {
-        if (!this.disabled()) {
+        if (!this.$disabled()) {
             this.checked = true;
             this.writeModelValue(this.checked);
             this.onModelChange(this.value);
             this.registry.select(this);
             this.onClick.emit({ originalEvent: event, value: this.value });
         }
-    }
-
-    writeValue(value: any): void {
-        this.checked = !this.binary ? value == this.value : !!value;
-        this.writeModelValue(this.checked);
-        this.cd.markForCheck();
-    }
-
-    registerOnChange(fn: Function): void {
-        this.onModelChange = fn;
-    }
-
-    registerOnTouched(fn: Function): void {
-        this.onModelTouched = fn;
     }
 
     onInputFocus(event: Event) {
@@ -232,6 +214,18 @@ export class RadioButton extends BaseEditableHolder implements ControlValueAcces
      */
     public focus() {
         this.inputViewChild.nativeElement.focus();
+    }
+
+    /**
+     * @override
+     *
+     * @see {@link BaseEditableHolder.writeControlValue}
+     * Writes the value to the control.
+     */
+    writeControlValue(value: any, setModelValue: (value: any) => void): void {
+        this.checked = !this.binary ? value == this.value : !!value;
+        setModelValue(this.checked);
+        this.cd.markForCheck();
     }
 
     ngOnDestroy() {

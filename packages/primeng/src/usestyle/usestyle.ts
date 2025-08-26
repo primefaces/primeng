@@ -20,16 +20,18 @@ export class UseStyle {
 
         if (!styleRef.isConnected) {
             cssRef = css;
-            setAttributes(styleRef, {
-                type: 'text/css',
-                media,
-                nonce
-            });
 
             const HEAD = this.document.head;
 
+            setAttribute(styleRef, 'nonce', nonce);
+
             first && HEAD.firstChild ? HEAD.insertBefore(styleRef, HEAD.firstChild) : HEAD.appendChild(styleRef);
-            setAttribute(styleRef, 'data-primeng-style-id', name);
+            setAttributes(styleRef, {
+                type: 'text/css',
+                media,
+                nonce,
+                'data-primeng-style-id': name
+            });
         }
 
         if (styleRef.textContent !== cssRef) {

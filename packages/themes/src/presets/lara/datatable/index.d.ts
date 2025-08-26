@@ -1,1 +1,2 @@
-export * from '@primeuix/themes/types/datatable';
+export * from '@primeuix/themes/lara/datatable';
+export { default } from '@primeuix/themes/lara/datatable';

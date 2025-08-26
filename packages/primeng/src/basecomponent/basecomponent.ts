@@ -1,5 +1,5 @@
 import { DOCUMENT, isPlatformServer } from '@angular/common';
-import { ChangeDetectorRef, computed, Directive, ElementRef, inject, Injector, input, Input, PLATFORM_ID, Renderer2, SimpleChanges, TemplateRef } from '@angular/core';
+import { ChangeDetectorRef, Directive, ElementRef, inject, Injector, Input, PLATFORM_ID, Renderer2, SimpleChanges } from '@angular/core';
 import { Theme, ThemeService } from '@primeuix/styled';
 import { cn, getKeyValue, uuid } from '@primeuix/utils';
 import { Base, BaseStyle } from 'primeng/base';
@@ -31,13 +31,6 @@ export class BaseComponent {
     public rootEl: any;
 
     @Input() dt: Object | undefined;
-    /**
-     * Target element to attach the overlay, valid values are "body" or a local ng-template variable of another element (note: use binding with brackets for template variables, e.g. [appendTo]="mydiv" for a div element having #mydiv as variable name).
-     * @group Props
-     */
-    appendTo = input<HTMLElement | ElementRef | TemplateRef<any> | string | null | undefined | any>(undefined);
-
-    $appendTo = computed(() => this.appendTo() || this.config.overlayAppendTo());
 
     get styleOptions() {
         return { nonce: this.config?.csp().nonce };
@@ -67,6 +60,7 @@ export class BaseComponent {
 
     ngOnInit() {
         if (this.document) {
+            this._loadCoreStyles();
             this._loadStyles();
         }
     }
@@ -110,7 +104,7 @@ export class BaseComponent {
     }
 
     _loadCoreStyles() {
-        if (!Base.isStyleNameLoaded('base') && this._name) {
+        if (!Base.isStyleNameLoaded('base') && this.componentStyle?.name) {
             this.baseComponentStyle.loadCSS(this.styleOptions);
             this.componentStyle && this.componentStyle?.loadCSS(this.styleOptions);
             Base.setLoadedStyleName(this.componentStyle?.name);
@@ -180,7 +174,7 @@ export class BaseComponent {
 
     sx(key = '', when = true, params = {}) {
         if (when) {
-            const self = this._getOptionValue(this.$style.inlineStyles, key, { instance: this, ...params });
+            const self = this._getOptionValue(this.$style?.inlineStyles, key, { instance: this, ...params });
             //const base = this._getOptionValue(BaseComponentStyle.inlineStyles, key, { ...this.$params, ...params });
 
             return self;

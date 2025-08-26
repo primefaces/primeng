@@ -38,7 +38,7 @@ import { Component } from '@angular/core';
                         </tr>
                         <tr>
                             <td>border-surface</td>
-                            <td>Default primary emphasis color.</td>
+                            <td>Content border color.</td>
                         </tr>
                         <tr>
                             <td>bg-emphasis</td>

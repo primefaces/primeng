@@ -1,1 +1,2 @@
-export * from '@primeuix/themes/types/autocomplete';
+export * from '@primeuix/themes/aura/autocomplete';
+export { default } from '@primeuix/themes/aura/autocomplete';

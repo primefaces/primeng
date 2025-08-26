@@ -4,12 +4,14 @@ import {
     booleanAttribute,
     ChangeDetectionStrategy,
     Component,
+    computed,
     ContentChild,
     ContentChildren,
     ElementRef,
     EventEmitter,
     HostBinding,
     inject,
+    input,
     Input,
     NgModule,
     numberAttribute,
@@ -46,13 +48,13 @@ import { PaginatorStyle } from './style/paginatorstyle';
         </div>
         <span [class]="cx('current')" *ngIf="showCurrentPageReport">{{ currentPageReport }}</span>
         <button *ngIf="showFirstLastIcon" type="button" (click)="changePageToFirst($event)" pRipple [class]="cx('first')" [attr.aria-label]="getAriaLabel('firstPageLabel')">
-            <AngleDoubleLeftIcon *ngIf="!firstPageLinkIconTemplate && !_firstPageLinkIconTemplate" [styleClass]="cx('firstIcon')" />
+            <svg data-p-icon="angle-double-left" *ngIf="!firstPageLinkIconTemplate && !_firstPageLinkIconTemplate" [class]="cx('firstIcon')" />
             <span [class]="cx('firstIcon')" *ngIf="firstPageLinkIconTemplate || _firstPageLinkIconTemplate">
                 <ng-template *ngTemplateOutlet="firstPageLinkIconTemplate || _firstPageLinkIconTemplate"></ng-template>
             </span>
         </button>
         <button type="button" [disabled]="isFirstPage() || empty()" (click)="changePageToPrev($event)" pRipple [class]="cx('prev')" [attr.aria-label]="getAriaLabel('prevPageLabel')">
-            <AngleLeftIcon *ngIf="!previousPageLinkIconTemplate && !_previousPageLinkIconTemplate" [styleClass]="cx('prevIcon')" />
+            <svg data-p-icon="angle-left" *ngIf="!previousPageLinkIconTemplate && !_previousPageLinkIconTemplate" [class]="cx('prevIcon')" />
             <span [class]="cx('prevIcon')" *ngIf="previousPageLinkIconTemplate || _previousPageLinkIconTemplate">
                 <ng-template *ngTemplateOutlet="previousPageLinkIconTemplate || _previousPageLinkIconTemplate"></ng-template>
             </span>
@@ -92,13 +94,13 @@ import { PaginatorStyle } from './style/paginatorstyle';
             </ng-template>
         </p-select>
         <button type="button" [disabled]="isLastPage() || empty()" (click)="changePageToNext($event)" pRipple [class]="cx('next')" [attr.aria-label]="getAriaLabel('nextPageLabel')">
-            <AngleRightIcon *ngIf="!nextPageLinkIconTemplate && !_nextPageLinkIconTemplate" [styleClass]="cx('nextIcon')" />
+            <svg data-p-icon="angle-right" *ngIf="!nextPageLinkIconTemplate && !_nextPageLinkIconTemplate" [class]="cx('nextIcon')" />
             <span [class]="cx('nextIcon')" *ngIf="nextPageLinkIconTemplate || _nextPageLinkIconTemplate">
                 <ng-template *ngTemplateOutlet="nextPageLinkIconTemplate || _nextPageLinkIconTemplate"></ng-template>
             </span>
         </button>
         <button *ngIf="showFirstLastIcon" type="button" [disabled]="isLastPage() || empty()" (click)="changePageToLast($event)" pRipple [class]="cx('last')" [attr.aria-label]="getAriaLabel('lastPageLabel')">
-            <AngleDoubleRightIcon *ngIf="!lastPageLinkIconTemplate && !_lastPageLinkIconTemplate" [styleClass]="cx('lastIcon')" />
+            <svg data-p-icon="angle-double-right" *ngIf="!lastPageLinkIconTemplate && !_lastPageLinkIconTemplate" [class]="cx('lastIcon')" />
             <span [class]="cx('lastIcon')" *ngIf="lastPageLinkIconTemplate || _lastPageLinkIconTemplate">
                 <ng-template *ngTemplateOutlet="lastPageLinkIconTemplate || _lastPageLinkIconTemplate"></ng-template>
             </span>
@@ -251,7 +253,12 @@ export class Paginator extends BaseComponent implements OnInit, AfterContentInit
     set first(val: number) {
         this._first = val;
     }
-
+    /**
+     * Target element to attach the overlay, valid values are "body" or a local ng-template variable of another element (note: use binding with brackets for template variables, e.g. [appendTo]="mydiv" for a div element having #mydiv as variable name).
+     * @defaultValue 'self'
+     * @group Props
+     */
+    appendTo = input<HTMLElement | ElementRef | TemplateRef<any> | 'self' | 'body' | null | undefined | any>(undefined);
     /**
      * Callback to invoke when page changes, the event object contains information about the new state.
      * @param {PaginatorState} event - Paginator state.
@@ -314,6 +321,8 @@ export class Paginator extends BaseComponent implements OnInit, AfterContentInit
     _page: number = 0;
 
     _componentStyle = inject(PaginatorStyle);
+
+    $appendTo = computed(() => this.appendTo() || this.config.overlayAppendTo());
 
     @HostBinding('style.display') get display(): string {
         return this.alwaysShow || (this.pageLinks && this.pageLinks.length > 1) ? null : 'none';

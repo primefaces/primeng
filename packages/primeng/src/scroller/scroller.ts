@@ -70,7 +70,7 @@ import { ScrollerStyle } from './style/scrollerstyle';
                             <ng-container *ngTemplateOutlet="loaderIconTemplate || _loaderIconTemplate; context: { options: { styleClass: 'p-virtualscroller-loading-icon' } }"></ng-container>
                         </ng-container>
                         <ng-template #buildInLoaderIcon>
-                            <SpinnerIcon [styleClass]="cn(cx('loadingIcon'), ' pi-spin')" [attr.data-pc-section]="'loadingIcon'" />
+                            <svg data-p-icon="spinner" [class]="cx('loadingIcon')" [spin]="true" [attr.data-pc-section]="'loadingIcon'" />
                         </ng-template>
                     </ng-template>
                 </div>

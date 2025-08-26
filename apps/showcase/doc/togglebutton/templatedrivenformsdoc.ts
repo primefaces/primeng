@@ -16,7 +16,9 @@ import { MessageService } from 'primeng/api';
                         <p-message severity="error" size="small" variant="simple">Consent is mandatory.</p-message>
                     }
                 </div>
-                <button pButton severity="secondary" type="submit"><span pButtonLabel>Submit</span></button>
+                <button pButton type="submit">
+                    <span pButtonLabel>Submit</span>
+                </button>
             </form>
         </div>
         <app-code [code]="code" selector="toggle-button-template-driven-forms-demo"></app-code>
@@ -42,7 +44,7 @@ export class TemplateDrivenFormsDoc {
             <p-message severity="error" size="small" variant="simple">Consent is mandatory.</p-message>
         }
     </div>
-    <button pButton severity="secondary" type="submit"><span pButtonLabel>Submit</span></button>
+    <button pButton type="submit"><span pButtonLabel>Submit</span></button>
 </form>`,
 
         html: `<p-toast />
@@ -54,7 +56,7 @@ export class TemplateDrivenFormsDoc {
                 <p-message severity="error" size="small" variant="simple">Consent is mandatory.</p-message>
             }
         </div>
-        <button pButton severity="secondary" type="submit"><span pButtonLabel>Submit</span></button>
+        <button pButton type="submit"><span pButtonLabel>Submit</span></button>
     </form>
 </div>`,
 

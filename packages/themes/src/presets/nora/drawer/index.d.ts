@@ -1,1 +1,2 @@
-export * from '@primeuix/themes/types/drawer';
+export * from '@primeuix/themes/nora/drawer';
+export { default } from '@primeuix/themes/nora/drawer';

@@ -8,8 +8,8 @@ import { IftaLabelDoc } from '@/doc/textarea/iftalabeldoc';
 import { ImportDoc } from '@/doc/textarea/importdoc';
 import { InvalidDoc } from '@/doc/textarea/invaliddoc';
 import { ReactiveFormsDoc } from '@/doc/textarea/reactiveformsdoc';
-import { TemplateDrivenFormsDoc } from '@/doc/textarea/templatedrivenformsdoc';
 import { SizesDoc } from '@/doc/textarea/sizesdoc';
+import { TemplateDrivenFormsDoc } from '@/doc/textarea/templatedrivenformsdoc';
 import { TextareaDocModule } from '@/doc/textarea/texteareadoc.module';
 import { Component } from '@angular/core';
 
@@ -56,12 +56,9 @@ export class TextareaDemo {
             component: FilledDoc
         },
         {
-            id: 'forms',
-            label: 'Forms',
-            children: [
-                { id: 'templatedriven', label: 'Template Driven', component: TemplateDrivenFormsDoc },
-                { id: 'reactive', label: 'Reactive Forms', component: ReactiveFormsDoc }
-            ]
+            id: 'disabled',
+            label: 'Disabled',
+            component: DisabledDoc
         },
         {
             id: 'invalid',
@@ -69,11 +66,13 @@ export class TextareaDemo {
             component: InvalidDoc
         },
         {
-            id: 'disabled',
-            label: 'Disabled',
-            component: DisabledDoc
+            id: 'forms',
+            label: 'Forms',
+            children: [
+                { id: 'templatedriven', label: 'Template Driven', component: TemplateDrivenFormsDoc },
+                { id: 'reactive', label: 'Reactive Forms', component: ReactiveFormsDoc }
+            ]
         },
-
         {
             id: 'accessibility',
             label: 'Accessibility',

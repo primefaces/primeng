@@ -1,13 +1,13 @@
 import { CommonModule, isPlatformBrowser } from '@angular/common';
-import { booleanAttribute, ChangeDetectionStrategy, Component, ElementRef, EventEmitter, forwardRef, HostListener, inject, input, Input, NgModule, NgZone, numberAttribute, OnDestroy, Output, ViewChild, ViewEncapsulation } from '@angular/core';
-import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
+import { booleanAttribute, ChangeDetectionStrategy, Component, ElementRef, EventEmitter, forwardRef, HostListener, inject, Input, NgModule, NgZone, numberAttribute, OnDestroy, Output, ViewChild, ViewEncapsulation } from '@angular/core';
+import { NG_VALUE_ACCESSOR } from '@angular/forms';
 import { addClass, getWindowScrollLeft, getWindowScrollTop, isRTL, removeClass } from '@primeuix/utils';
 import { SharedModule } from 'primeng/api';
 import { AutoFocus } from 'primeng/autofocus';
+import { BaseEditableHolder } from 'primeng/baseeditableholder';
 import { Nullable, VoidListener } from 'primeng/ts-helpers';
 import { SliderChangeEvent, SliderSlideEndEvent } from './slider.interface';
 import { SliderStyle } from './style/sliderstyle';
-import { BaseEditableHolder } from 'primeng/baseeditableholder';
 
 export const SLIDER_VALUE_ACCESSOR: any = {
     provide: NG_VALUE_ACCESSOR,
@@ -60,7 +60,7 @@ export const SLIDER_VALUE_ACCESSOR: any = {
             (touchend)="onDragEnd($event)"
             (mousedown)="onMouseDown($event)"
             (keydown)="onKeyDown($event)"
-            [attr.tabindex]="disabled() ? null : tabindex"
+            [attr.tabindex]="$disabled() ? null : tabindex"
             role="slider"
             [attr.aria-valuemin]="min"
             [attr.aria-valuenow]="value"
@@ -82,7 +82,7 @@ export const SLIDER_VALUE_ACCESSOR: any = {
             (touchstart)="onDragStart($event, 0)"
             (touchmove)="onDrag($event)"
             (touchend)="onDragEnd($event)"
-            [attr.tabindex]="disabled() ? null : tabindex"
+            [attr.tabindex]="$disabled() ? null : tabindex"
             role="slider"
             [attr.aria-valuemin]="min"
             [attr.aria-valuenow]="value ? value[0] : null"
@@ -104,7 +104,7 @@ export const SLIDER_VALUE_ACCESSOR: any = {
             (touchstart)="onDragStart($event, 1)"
             (touchmove)="onDrag($event)"
             (touchend)="onDragEnd($event)"
-            [attr.tabindex]="disabled() ? null : tabindex"
+            [attr.tabindex]="$disabled() ? null : tabindex"
             role="slider"
             [attr.aria-valuemin]="min"
             [attr.aria-valuenow]="value ? value[1] : null"
@@ -124,7 +124,7 @@ export const SLIDER_VALUE_ACCESSOR: any = {
         '[class]': "cn(cx('root'), styleClass)"
     }
 })
-export class Slider extends BaseEditableHolder implements OnDestroy, ControlValueAccessor {
+export class Slider extends BaseEditableHolder implements OnDestroy {
     /**
      * When enabled, displays an animation on click of the slider bar.
      * @group Props
@@ -156,12 +156,8 @@ export class Slider extends BaseEditableHolder implements OnDestroy, ControlValu
      */
     @Input({ transform: booleanAttribute }) range: boolean | undefined;
     /**
-     * Inline style of the component.
-     * @group Props
-     */
-    @Input() style: { [klass: string]: any } | null | undefined;
-    /**
      * Style class of the component.
+     * @deprecated since v20.0.0, use `class` instead.
      * @group Props
      */
     @Input() styleClass: string | undefined;
@@ -220,10 +216,6 @@ export class Slider extends BaseEditableHolder implements OnDestroy, ControlValu
 
     bottom: Nullable<number>;
 
-    public onModelChange: Function = () => {};
-
-    public onModelTouched: Function = () => {};
-
     public dragging: Nullable<boolean>;
 
     public dragListener: VoidListener;
@@ -256,7 +248,7 @@ export class Slider extends BaseEditableHolder implements OnDestroy, ControlValu
     }
 
     onMouseDown(event: Event, index?: number) {
-        if (this.disabled()) {
+        if (this.$disabled()) {
             return;
         }
 
@@ -279,7 +271,7 @@ export class Slider extends BaseEditableHolder implements OnDestroy, ControlValu
     }
 
     onDragStart(event: TouchEvent, index?: number) {
-        if (this.disabled()) {
+        if (this.$disabled()) {
             return;
         }
 
@@ -308,7 +300,7 @@ export class Slider extends BaseEditableHolder implements OnDestroy, ControlValu
     }
 
     onDrag(event: TouchEvent) {
-        if (this.disabled()) {
+        if (this.$disabled()) {
             return;
         }
 
@@ -327,7 +319,7 @@ export class Slider extends BaseEditableHolder implements OnDestroy, ControlValu
     }
 
     onDragEnd(event: TouchEvent) {
-        if (this.disabled()) {
+        if (this.$disabled()) {
             return;
         }
 
@@ -344,7 +336,7 @@ export class Slider extends BaseEditableHolder implements OnDestroy, ControlValu
     }
 
     onBarClick(event: Event) {
-        if (this.disabled()) {
+        if (this.$disabled()) {
             return;
         }
 
@@ -520,23 +512,6 @@ export class Slider extends BaseEditableHolder implements OnDestroy, ControlValu
         this.updateHandleValue();
     }
 
-    writeValue(value: any): void {
-        if (this.range) this.values = value || [0, 0];
-        else this.value = value || 0;
-
-        this.updateHandleValue();
-        this.updateDiffAndOffset();
-        this.cd.markForCheck();
-    }
-
-    registerOnChange(fn: Function): void {
-        this.onModelChange = fn;
-    }
-
-    registerOnTouched(fn: Function): void {
-        this.onModelTouched = fn;
-    }
-
     get rangeStartLeft() {
         if (!this.isVertical()) return this.handleValues[0] > 100 ? 100 + '%' : this.handleValues[0] + '%';
         return null;
@@ -691,6 +666,21 @@ export class Slider extends BaseEditableHolder implements OnDestroy, ControlValu
     }
     get maxVal() {
         return Math.max((this.values as number[])[1], (this.values as number[])[0]);
+    }
+
+    /**
+     * @override
+     *
+     * @see {@link BaseEditableHolder.writeControlValue}
+     * Writes the value to the control.
+     */
+    writeControlValue(value: any): void {
+        if (this.range) this.values = value || [0, 0];
+        else this.value = value || 0;
+
+        this.updateHandleValue();
+        this.updateDiffAndOffset();
+        this.cd.markForCheck();
     }
 }
 

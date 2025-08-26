@@ -1,14 +1,13 @@
 import { Injectable } from '@angular/core';
-import { css, dt } from '@primeuix/styled';
 import { style } from '@primeuix/styles/datepicker';
 import { BaseStyle } from 'primeng/base';
 
-const theme = css`
+const theme = /*css*/ `
     ${style}
 
     /* For PrimeNG */
     .p-datepicker.ng-invalid.ng-dirty .p-inputtext {
-        border-color: ${dt('inputtext.invalid.border.color')};
+        border-color: dt('inputtext.invalid.border.color');
     }
 `;
 
@@ -24,7 +23,7 @@ const classes = {
             'p-datepicker-fluid': instance.hasFluid,
             'p-inputwrapper-filled': instance.$filled(),
             'p-variant-filled': instance.$variant() === 'filled',
-            'p-inputwrapper-focus': instance.focus,
+            'p-inputwrapper-focus': instance.focus || instance.overlayVisible,
             'p-focus': instance.focus || instance.overlayVisible
         }
     ],
@@ -37,7 +36,7 @@ const classes = {
         {
             'p-datepicker-panel p-component': true,
             'p-datepicker-panel-inline': instance.inline,
-            'p-disabled': instance.disabled(),
+            'p-disabled': instance.$disabled(),
             'p-datepicker-timeonly': instance.timeOnly
         }
     ],
@@ -79,16 +78,16 @@ const classes = {
         return {
             'p-datepicker-day': true,
             'p-datepicker-day-selected': !instance.isRangeSelection() && instance.isSelected(date) && date.selectable,
-            'p-disabled': instance.disabled() || !date.selectable,
+            'p-disabled': instance.$disabled() || !date.selectable,
             [selectedDayClass]: true
         };
     },
     monthView: 'p-datepicker-month-view',
-    month: ({ instance, i }) => [
+    month: ({ instance, index }) => [
         'p-datepicker-month',
         {
-            'p-datepicker-month-selected': instance.isMonthSelected(i),
-            'p-disabled': instance.isMonthDisabled(i)
+            'p-datepicker-month-selected': instance.isMonthSelected(index),
+            'p-disabled': instance.isMonthDisabled(index)
         }
     ],
     yearView: 'p-datepicker-year-view',

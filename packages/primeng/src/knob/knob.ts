@@ -3,9 +3,9 @@ import { booleanAttribute, ChangeDetectionStrategy, Component, EventEmitter, for
 import { NG_VALUE_ACCESSOR } from '@angular/forms';
 import { $dt } from '@primeuix/styled';
 import { SharedModule } from 'primeng/api';
+import { BaseEditableHolder } from 'primeng/baseeditableholder';
 import { VoidListener } from 'primeng/ts-helpers';
 import { KnobStyle } from './style/knobstyle';
-import { BaseEditableHolder } from 'primeng/baseeditableholder';
 
 export const KNOB_VALUE_ACCESSOR: any = {
     provide: NG_VALUE_ACCESSOR,
@@ -34,11 +34,11 @@ export const KNOB_VALUE_ACCESSOR: any = {
             (touchend)="onTouchEnd($event)"
             [attr.aria-valuemin]="min"
             [attr.aria-valuemax]="max"
-            [attr.required]="required()"
+            [attr.required]="required() ? '' : undefined"
             [attr.aria-valuenow]="_value"
             [attr.aria-labelledby]="ariaLabelledBy"
             [attr.aria-label]="ariaLabel"
-            [attr.tabindex]="readonly || disabled() ? -1 : tabindex"
+            [attr.tabindex]="readonly || $disabled() ? -1 : tabindex"
             [attr.data-pc-section]="'svg'"
         >
             <path [attr.d]="rangePath()" [attr.stroke-width]="strokeWidth" [attr.stroke]="rangeColor" [class]="cx('range')"></path>
@@ -54,12 +54,7 @@ export const KNOB_VALUE_ACCESSOR: any = {
     host: {
         '[attr.data-pc-name]': "'knob'",
         '[attr.data-pc-section]': "'root'",
-        '[class]': "cn(cx('root'), styleClass)",
-        '[attr.disabled]': 'disabled()',
-        '[attr.name]': 'name()',
-        '[attr.min]': 'min',
-        '[attr.required]': 'required()',
-        '[attr.step]': 'step'
+        '[class]': "cn(cx('root'), styleClass)"
     }
 })
 export class Knob extends BaseEditableHolder {
@@ -166,10 +161,6 @@ export class Knob extends BaseEditableHolder {
 
     windowTouchEndListener: VoidListener;
 
-    onModelChange: Function = () => {};
-
-    onModelTouched: Function = () => {};
-
     _componentStyle = inject(KnobStyle);
 
     mapRange(x: number, inMin: number, inMax: number, outMin: number, outMax: number) {
@@ -177,7 +168,7 @@ export class Knob extends BaseEditableHolder {
     }
 
     onClick(event: MouseEvent) {
-        if (!this.disabled() && !this.readonly) {
+        if (!this.$disabled() && !this.readonly) {
             this.updateValue(event.offsetX, event.offsetY);
         }
     }
@@ -204,7 +195,7 @@ export class Knob extends BaseEditableHolder {
     }
 
     onMouseDown(event: MouseEvent) {
-        if (!this.disabled() && !this.readonly) {
+        if (!this.$disabled() && !this.readonly) {
             const window = this.document.defaultView || 'window';
             this.windowMouseMoveListener = this.renderer.listen(window, 'mousemove', this.onMouseMove.bind(this));
             this.windowMouseUpListener = this.renderer.listen(window, 'mouseup', this.onMouseUp.bind(this));
@@ -213,7 +204,7 @@ export class Knob extends BaseEditableHolder {
     }
 
     onMouseUp(event: MouseEvent) {
-        if (!this.disabled() && !this.readonly) {
+        if (!this.$disabled() && !this.readonly) {
             if (this.windowMouseMoveListener) {
                 this.windowMouseMoveListener();
                 this.windowMouseUpListener = null;
@@ -228,7 +219,7 @@ export class Knob extends BaseEditableHolder {
     }
 
     onTouchStart(event: TouchEvent) {
-        if (!this.disabled() && !this.readonly) {
+        if (!this.$disabled() && !this.readonly) {
             const window = this.document.defaultView || 'window';
             this.windowTouchMoveListener = this.renderer.listen(window, 'touchmove', this.onTouchMove.bind(this));
             this.windowTouchEndListener = this.renderer.listen(window, 'touchend', this.onTouchEnd.bind(this));
@@ -237,7 +228,7 @@ export class Knob extends BaseEditableHolder {
     }
 
     onTouchEnd(event: TouchEvent) {
-        if (!this.disabled() && !this.readonly) {
+        if (!this.$disabled() && !this.readonly) {
             if (this.windowTouchMoveListener) {
                 this.windowTouchMoveListener();
             }
@@ -251,14 +242,14 @@ export class Knob extends BaseEditableHolder {
     }
 
     onMouseMove(event: MouseEvent) {
-        if (!this.disabled() && !this.readonly) {
+        if (!this.$disabled() && !this.readonly) {
             this.updateValue(event.offsetX, event.offsetY);
             event.preventDefault();
         }
     }
 
     onTouchMove(event: Event) {
-        if (!this.disabled() && !this.readonly && event instanceof TouchEvent && event.touches.length === 1) {
+        if (!this.$disabled() && !this.readonly && event instanceof TouchEvent && event.touches.length === 1) {
             const rect = this.el.nativeElement.children[0].getBoundingClientRect();
             const touch = event.targetTouches.item(0);
             if (touch) {
@@ -280,7 +271,7 @@ export class Knob extends BaseEditableHolder {
     }
 
     onKeyDown(event: KeyboardEvent) {
-        if (!this.disabled() && !this.readonly) {
+        if (!this.$disabled() && !this.readonly) {
             switch (event.code) {
                 case 'ArrowRight':
 
@@ -324,20 +315,6 @@ export class Knob extends BaseEditableHolder {
                 }
             }
         }
-    }
-
-    writeValue(value: any): void {
-        this.value = value;
-        this.writeModelValue(this.value);
-        this.cd.markForCheck();
-    }
-
-    registerOnChange(fn: Function): void {
-        this.onModelChange = fn;
-    }
-
-    registerOnTouched(fn: Function): void {
-        this.onModelTouched = fn;
     }
 
     rangePath() {
@@ -403,6 +380,18 @@ export class Knob extends BaseEditableHolder {
 
     get _value(): number {
         return this.value != null ? this.value : this.min;
+    }
+
+    /**
+     * @override
+     *
+     * @see {@link BaseEditableHolder.writeControlValue}
+     * Writes the value to the control.
+     */
+    writeControlValue(value: any, setModelValue: (value: any) => void): void {
+        this.value = value;
+        setModelValue(this.value);
+        this.cd.markForCheck();
     }
 }
 

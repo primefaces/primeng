@@ -8,35 +8,10 @@ import { MenuItem } from 'primeng/api';
     standalone: false,
     template: `
         <app-docsectiontext>
-            <p>Items with navigation are defined with templating to be able to use a router link component, an external link or programmatic navigation.</p>
+            <p>Menu items support navigation via routerLink, programmatic routing using commands, or external URLs.</p>
         </app-docsectiontext>
         <div class="card flex justify-center">
-            <p-tieredmenu [model]="items">
-                <ng-template #item let-item let-hasSubmenu="hasSubmenu">
-                    <ng-container *ngIf="item.route; else withoutRoute">
-                        <a [routerLink]="item.route" [href]="item.href" class="p-tieredmenu-item-link">
-                            <span class="item.icon"></span>
-                            <span class="ml-2">{{ item.label }}</span>
-                        </a>
-                    </ng-container>
-                    <ng-template #withoutRoute>
-                        <ng-container *ngIf="item.url; else withoutUrl">
-                            <a [href]="item.url" [target]="item.target" class="p-tieredmenu-item-link">
-                                <span [class]="item.icon"></span>
-                                <span class="ml-2">{{ item.label }}</span>
-                                <span *ngIf="hasSubmenu" class="pi pi-angle-right ml-auto"></span>
-                            </a>
-                        </ng-container>
-                        <ng-template #withoutUrl>
-                            <a class="p-tieredmenu-item-link">
-                                <span [class]="item.icon"></span>
-                                <span class="ml-2">{{ item.label }}</span>
-                                <span *ngIf="hasSubmenu" class="pi pi-angle-right ml-auto"></span>
-                            </a>
-                        </ng-template>
-                    </ng-template>
-                </ng-template>
-            </p-tieredmenu>
+            <p-tieredmenu [model]="items" />
         </div>
         <app-code [code]="code" selector="tiered-menu-router-demo"></app-code>
     `
@@ -54,11 +29,11 @@ export class RouterDoc implements OnInit {
                 items: [
                     {
                         label: 'Theming',
-                        route: '/theming'
+                        routerLink: '/theming'
                     },
                     {
-                        label: 'Colors',
-                        route: '/colors'
+                        label: 'UI Kit',
+                        routerLink: '/uikit'
                     }
                 ]
             },
@@ -87,61 +62,9 @@ export class RouterDoc implements OnInit {
     }
 
     code: Code = {
-        basic: `<p-tieredmenu [model]="items">
-    <ng-template #item let-item let-hasSubmenu="hasSubmenu">
-        <ng-container *ngIf="item.route; else withoutRoute">
-            <a [routerLink]="item.route" [href]="item.href" class="p-tieredmenu-item-link">
-                <span class="item.icon"></span>
-                <span class="ml-2">{{ item.label }}</span>
-            </a>
-        </ng-container>
-        <ng-template #withoutRoute>
-            <ng-container *ngIf="item.url; else withoutUrl">
-                <a [href]="item.url" [target]="item.target" class="p-tieredmenu-item-link">
-                    <span [class]="item.icon"></span>
-                    <span class="ml-2">{{ item.label }}</span>
-                    <span *ngIf="hasSubmenu" class="pi pi-angle-right ml-auto"></span>
-                </a>
-            </ng-container>
-            <ng-template #withoutUrl>
-                <a class="p-tieredmenu-item-link">
-                    <span [class]="item.icon"></span>
-                    <span class="ml-2">{{ item.label }}</span>
-                    <span *ngIf="hasSubmenu" class="pi pi-angle-right ml-auto"></span>
-                </a>
-            </ng-template>
-        </ng-template>
-    </ng-template>
-</p-tieredmenu>`,
+        basic: `<p-tieredmenu [model]="items" />`,
 
-        html: `<div class="card flex justify-center">
-    <p-tieredmenu [model]="items">
-        <ng-template #item let-item let-hasSubmenu="hasSubmenu">
-            <ng-container *ngIf="item.route; else withoutRoute">
-                <a [routerLink]="item.route" [href]="item.href" class="p-tieredmenu-item-link">
-                    <span class="item.icon"></span>
-                    <span class="ml-2">{{ item.label }}</span>
-                </a>
-            </ng-container>
-            <ng-template #withoutRoute>
-                <ng-container *ngIf="item.url; else withoutUrl">
-                    <a [href]="item.url" [target]="item.target" class="p-tieredmenu-item-link">
-                        <span [class]="item.icon"></span>
-                        <span class="ml-2">{{ item.label }}</span>
-                        <span *ngIf="hasSubmenu" class="pi pi-angle-right ml-auto"></span>
-                    </a>
-                </ng-container>
-                <ng-template #withoutUrl>
-                    <a class="p-tieredmenu-item-link">
-                        <span [class]="item.icon"></span>
-                        <span class="ml-2">{{ item.label }}</span>
-                        <span *ngIf="hasSubmenu" class="pi pi-angle-right ml-auto"></span>
-                    </a>
-                </ng-template>
-            </ng-template>
-        </ng-template>
-    </p-tieredmenu>
-</div>`,
+        html: `<p-tieredmenu [model]="items" />`,
 
         typescript: `import { Component, OnInit } from '@angular/core';
 import { MenuItem } from 'primeng/api';
@@ -169,11 +92,11 @@ export class TieredMenuRouterDemo implements OnInit {
                 items: [
                     {
                         label: 'Theming',
-                        route: '/theming'
+                        routerLink: '/theming'
                     },
                     {
-                        label: 'Colors',
-                        route: '/colors'
+                        label: 'UI Kit',
+                        routerLink: '/uikit'
                     }
                 ]
             },
@@ -200,8 +123,6 @@ export class TieredMenuRouterDemo implements OnInit {
             }
         ];
     }
-
-
 }`
     };
 }

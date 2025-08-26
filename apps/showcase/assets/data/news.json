@@ -1,6 +1,7 @@
 {
-    "id": 92,
-    "content": "Introducing the all-new Theme Designer! 🚀",
+    "id": 86,
+    "content": "All Premium Templates Now Upgraded to v20 🎉",
     "linkText": "Learn More",
-    "routerLink": "/designer"
+    "routerLink": "/templates",
+    "target": "_blank"
 }

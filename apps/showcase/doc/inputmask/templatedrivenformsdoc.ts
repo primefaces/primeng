@@ -11,7 +11,7 @@ import { MessageService } from 'primeng/api';
         <div class="card flex justify-center">
             <form #exampleForm="ngForm" (ngSubmit)="onSubmit(exampleForm)" class="flex justify-center flex-col gap-4 md:w-56">
                 <div class="flex flex-col gap-1">
-                    <p-inputmask name="serial" mask="99-999999" #serialNumber="ngModel" [(ngModel)]="value" placeholder="99-999999" [invalid]="serialNumber.invalid && (serialNumber.touched || exampleForm.submitted)" required />
+                    <p-inputmask name="serial" mask="99-999999" #serialNumber="ngModel" [(ngModel)]="value" placeholder="99-999999" [invalid]="serialNumber.invalid && (serialNumber.touched || exampleForm.submitted)" required fluid />
                     @if (serialNumber.invalid && (serialNumber.touched || exampleForm.submitted)) {
                         <p-message severity="error" size="small" variant="simple">Serial number is required.</p-message>
                     }
@@ -39,7 +39,7 @@ export class TemplateDrivenFormsDoc {
     code: Code = {
         basic: `<form #exampleForm="ngForm" (ngSubmit)="onSubmit(exampleForm)" class="flex justify-center flex-col gap-4 md:w-56">
     <div class="flex flex-col gap-1">
-        <p-inputmask name="serial" mask="99-999999" #serialNumber="ngModel" [(ngModel)]="value" placeholder="99-999999" [invalid]="serialNumber.invalid && (serialNumber.touched || exampleForm.submitted)" required />
+        <p-inputmask name="serial" mask="99-999999" #serialNumber="ngModel" [(ngModel)]="value" placeholder="99-999999" [invalid]="serialNumber.invalid && (serialNumber.touched || exampleForm.submitted)" required fluid />
         @if (serialNumber.invalid && (serialNumber.touched || exampleForm.submitted)) {
             <p-message severity="error" size="small" variant="simple">Serial number is required.</p-message>
         }
@@ -50,7 +50,7 @@ export class TemplateDrivenFormsDoc {
         html: `<div class="card flex justify-center">
     <form #exampleForm="ngForm" (ngSubmit)="onSubmit(exampleForm)" class="flex justify-center flex-col gap-4 md:w-56">
         <div class="flex flex-col gap-1">
-            <p-inputmask name="serial" mask="99-999999" #serialNumber="ngModel" [(ngModel)]="value" placeholder="99-999999" [invalid]="serialNumber.invalid && (serialNumber.touched || exampleForm.submitted)" required />
+            <p-inputmask name="serial" mask="99-999999" #serialNumber="ngModel" [(ngModel)]="value" placeholder="99-999999" [invalid]="serialNumber.invalid && (serialNumber.touched || exampleForm.submitted)" required fluid />
             @if (serialNumber.invalid && (serialNumber.touched || exampleForm.submitted)) {
                 <p-message severity="error" size="small" variant="simple">Serial number is required.</p-message>
             }

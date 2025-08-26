@@ -4,6 +4,7 @@ import {
     AfterContentInit,
     ChangeDetectionStrategy,
     Component,
+    computed,
     ContentChild,
     ContentChildren,
     ElementRef,
@@ -257,6 +258,12 @@ export class Overlay extends BaseComponent implements AfterContentInit, OnDestro
         this._options = val;
     }
     /**
+     * Target element to attach the overlay, valid values are "body" or a local ng-template variable of another element (note: use binding with brackets for template variables, e.g. [appendTo]="mydiv" for a div element having #mydiv as variable name).
+     * @defaultValue 'self'
+     * @group Props
+     */
+    appendTo = input<HTMLElement | ElementRef | TemplateRef<any> | 'self' | 'body' | null | undefined | any>(undefined);
+    /**
      * This EventEmitter is used to notify changes in the visibility state of a component.
      * @param {Boolean} boolean - Value of visibility as boolean.
      * @group Emits
@@ -311,6 +318,8 @@ export class Overlay extends BaseComponent implements AfterContentInit, OnDestro
     @ContentChildren(PrimeTemplate) templates: QueryList<any> | undefined;
 
     hostAttrSelector = input<string>();
+
+    $appendTo = computed(() => this.appendTo() || this.config.overlayAppendTo());
 
     _contentTemplate: TemplateRef<any> | undefined;
 

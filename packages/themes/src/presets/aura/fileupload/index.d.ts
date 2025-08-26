@@ -1,1 +1,2 @@
-export * from '@primeuix/themes/types/fileupload';
+export * from '@primeuix/themes/aura/fileupload';
+export { default } from '@primeuix/themes/aura/fileupload';

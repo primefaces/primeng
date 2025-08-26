@@ -11,7 +11,7 @@ const classes = {
     root: ({ instance }) => [
         'p-slider p-component',
         {
-            'p-disabled': instance.disabled(),
+            'p-disabled': instance.$disabled(),
             'p-invalid': instance.invalid(),
             'p-slider-horizontal': instance.orientation === 'horizontal',
             'p-slider-vertical': instance.orientation === 'vertical',

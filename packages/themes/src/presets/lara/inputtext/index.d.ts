@@ -1,1 +1,2 @@
-export * from '@primeuix/themes/types/inputtext';
+export * from '@primeuix/themes/lara/inputtext';
+export { default } from '@primeuix/themes/lara/inputtext';

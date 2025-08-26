@@ -17,7 +17,7 @@ interface Column {
         </app-docsectiontext>
         <div class="card">
             <p-deferred-demo (load)="loadDemoData()">
-                <p-treetable [value]="files" [columns]="cols" [resizableColumns]="true" [scrollable]="true" scrollHeight="200px" [tableStyle]="{ 'min-width': '50rem' }">
+                <p-treetable [value]="files" [columns]="cols" [resizableColumns]="true" [scrollable]="true" scrollHeight="200px" [tableStyle]="{ 'min-width': '50rem' }" showGridlines>
                     <ng-template #colgroup let-columns>
                         <colgroup>
                             <col *ngFor="let col of columns" />
@@ -62,7 +62,7 @@ export class ResizeScrollableDoc {
     }
 
     code: Code = {
-        basic: `<p-treetable [value]="files" [columns]="cols" [resizableColumns]="true" [scrollable]="true" scrollHeight="200px">
+        basic: `<p-treetable [value]="files" [columns]="cols" [resizableColumns]="true" [scrollable]="true" scrollHeight="200px" showGridlines>
     <ng-template #colgroup let-columns>
         <colgroup>
             <col *ngFor="let col of columns">
@@ -86,7 +86,7 @@ export class ResizeScrollableDoc {
 </p-treetable>`,
 
         html: `<div class="card">
-    <p-treetable [value]="files" [columns]="cols" [resizableColumns]="true" [scrollable]="true" scrollHeight="200px">
+    <p-treetable [value]="files" [columns]="cols" [resizableColumns]="true" [scrollable]="true" scrollHeight="200px" showGridlines>
         <ng-template #colgroup let-columns>
             <colgroup>
                 <col *ngFor="let col of columns">

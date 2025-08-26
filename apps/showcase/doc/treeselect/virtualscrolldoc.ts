@@ -14,7 +14,6 @@ import { Component } from '@angular/core';
         <div class="card flex justify-center">
             <p-treeselect
                 class="w-full md:w-80"
-                containerStyleClass="w-full"
                 [(ngModel)]="selectedNodes"
                 [options]="nodes"
                 display="chip"
@@ -38,10 +37,10 @@ export class VirtualScrollDoc {
     }
 
     code: Code = {
-        basic: `<p-treeselect class="w-full md:w-80" containerStyleClass="w-full" [(ngModel)]="selectedNodes" [options]="nodes" display="chip" [metaKeySelection]="false" selectionMode="checkbox" placeholder="Select Item" [virtualScroll]="true" [virtualScrollItemSize]="46" [virtualScrollOptions]="{scrollHeight: '200px'}" />`,
+        basic: `<p-treeselect class="w-full md:w-80" [(ngModel)]="selectedNodes" [options]="nodes" display="chip" [metaKeySelection]="false" selectionMode="checkbox" placeholder="Select Item" [virtualScroll]="true" [virtualScrollItemSize]="46" [virtualScrollOptions]="{scrollHeight: '200px'}" />`,
 
         html: `<div class="card flex justify-center">
-    <p-treeselect class="w-full md:w-80" containerStyleClass="w-full" [(ngModel)]="selectedNodes" [options]="nodes" display="chip" [metaKeySelection]="false" selectionMode="checkbox" placeholder="Select Item" [virtualScroll]="true" [virtualScrollItemSize]="46" [virtualScrollOptions]="{scrollHeight: '200px'}" />
+    <p-treeselect class="w-full md:w-80" [(ngModel)]="selectedNodes" [options]="nodes" display="chip" [metaKeySelection]="false" selectionMode="checkbox" placeholder="Select Item" [virtualScroll]="true" [virtualScrollItemSize]="46" [virtualScrollOptions]="{scrollHeight: '200px'}" />
 </div>`,
         typescript: `import { Component } from '@angular/core';
 import { NodeService } from '@/service/nodeservice';

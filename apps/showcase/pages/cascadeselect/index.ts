@@ -62,12 +62,9 @@ export class CascadeSelectDemo {
             component: FilledDoc
         },
         {
-            id: 'forms',
-            label: 'Forms',
-            children: [
-                { id: 'templatedriven', label: 'Template Driven', component: TemplateDrivenFormsDoc },
-                { id: 'reactive', label: 'Reactive Forms', component: ReactiveFormsDoc }
-            ]
+            id: 'disabled',
+            label: 'Disabled',
+            component: DisabledDoc
         },
         {
             id: 'invalid',
@@ -75,11 +72,13 @@ export class CascadeSelectDemo {
             component: InvalidDoc
         },
         {
-            id: 'disabled',
-            label: 'Disabled',
-            component: DisabledDoc
+            id: 'forms',
+            label: 'Forms',
+            children: [
+                { id: 'templatedriven', label: 'Template Driven', component: TemplateDrivenFormsDoc },
+                { id: 'reactive', label: 'Reactive Forms', component: ReactiveFormsDoc }
+            ]
         },
-
         {
             id: 'accessibility',
             label: 'Accessibility',

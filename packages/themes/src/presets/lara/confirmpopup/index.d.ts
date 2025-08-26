@@ -1,1 +1,2 @@
-export * from '@primeuix/themes/types/confirmpopup';
+export * from '@primeuix/themes/lara/confirmpopup';
+export { default } from '@primeuix/themes/lara/confirmpopup';

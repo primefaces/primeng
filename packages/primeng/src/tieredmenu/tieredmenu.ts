@@ -4,6 +4,7 @@ import {
     booleanAttribute,
     ChangeDetectionStrategy,
     Component,
+    computed,
     ContentChild,
     ContentChildren,
     effect,
@@ -85,7 +86,7 @@ import { TieredMenuStyle } from './style/tieredmenustyle';
                     [attr.aria-setsize]="getAriaSetSize()"
                     [attr.aria-posinset]="getAriaPosInset(index)"
                     [ngStyle]="getItemProp(processedItem, 'style')"
-                    [class]="cx('item', { processedItem })"
+                    [class]="cn(cx('item', { processedItem }), getItemProp(processedItem, 'styleClass'))"
                     pTooltip
                     [tooltipOptions]="getItemProp(processedItem, 'tooltipOptions')"
                 >
@@ -118,7 +119,7 @@ import { TieredMenuStyle } from './style/tieredmenustyle';
                                 <span *ngIf="getItemProp(processedItem, 'badge')" [class]="cn(cx('itemBadge'), getItemProp(processedItem, 'badgeStyleClass'))">{{ getItemProp(processedItem, 'badge') }}</span>
 
                                 <ng-container *ngIf="isItemGroup(processedItem)">
-                                    <AngleRightIcon *ngIf="!tieredMenu.submenuIconTemplate && !tieredMenu._submenuIconTemplate" [class]="cx('submenuIcon')" [attr.data-pc-section]="'submenuicon'" [attr.aria-hidden]="true" />
+                                    <svg data-p-icon="angle-right" *ngIf="!tieredMenu.submenuIconTemplate && !tieredMenu._submenuIconTemplate" [class]="cx('submenuIcon')" [attr.data-pc-section]="'submenuicon'" [attr.aria-hidden]="true" />
                                     <ng-template *ngTemplateOutlet="tieredMenu.submenuIconTemplate || tieredMenu._submenuIconTemplate" [attr.data-pc-section]="'submenuicon'" [attr.aria-hidden]="true"></ng-template>
                                 </ng-container>
                             </a>
@@ -159,7 +160,7 @@ import { TieredMenuStyle } from './style/tieredmenustyle';
                                 <span *ngIf="getItemProp(processedItem, 'badge')" [class]="cn(cx('itemBadge'), getItemProp(processedItem, 'badgeStyleClass'))">{{ getItemProp(processedItem, 'badge') }}</span>
 
                                 <ng-container *ngIf="isItemGroup(processedItem)">
-                                    <AngleRightIcon *ngIf="!tieredMenu.submenuIconTemplate && !tieredMenu._submenuIconTemplate" [class]="cx('submenuIcon')" [attr.data-pc-section]="'submenuicon'" [attr.aria-hidden]="true" />
+                                    <svg data-p-icon="angle-right" *ngIf="!tieredMenu.submenuIconTemplate && !tieredMenu._submenuIconTemplate" [class]="cx('submenuIcon')" [attr.data-pc-section]="'submenuicon'" [attr.aria-hidden]="true" />
                                     <ng-template *ngTemplateOutlet="tieredMenu.submenuIconTemplate || tieredMenu._submenuIconTemplate" [attr.data-pc-section]="'submenuicon'" [attr.aria-hidden]="true"></ng-template>
                                 </ng-container>
                             </a>
@@ -473,6 +474,12 @@ export class TieredMenu extends BaseComponent implements OnInit, OnDestroy {
      */
     @Input({ transform: numberAttribute }) tabindex: number = 0;
     /**
+     * Target element to attach the overlay, valid values are "body" or a local ng-template variable of another element (note: use binding with brackets for template variables, e.g. [appendTo]="mydiv" for a div element having #mydiv as variable name).
+     * @defaultValue 'self'
+     * @group Props
+     */
+    appendTo = input<HTMLElement | ElementRef | TemplateRef<any> | 'self' | 'body' | null | undefined | any>(undefined);
+    /**
      * Callback to invoke when overlay menu is shown.
      * @group Emits
      */
@@ -498,6 +505,8 @@ export class TieredMenu extends BaseComponent implements OnInit, OnDestroy {
     @ContentChild('item', { descendants: false }) itemTemplate: TemplateRef<any>;
 
     @ContentChildren(PrimeTemplate) templates: QueryList<PrimeTemplate> | undefined;
+
+    $appendTo = computed(() => this.appendTo() || this.config.overlayAppendTo());
 
     container: HTMLDivElement | undefined;
 
@@ -993,7 +1002,7 @@ export class TieredMenu extends BaseComponent implements OnInit, OnDestroy {
     }
 
     appendOverlay() {
-        if (this.$appendTo()) {
+        if (this.$appendTo() && this.$appendTo() !== 'self') {
             if (this.$appendTo() === 'body') this.renderer.appendChild(this.document.body, this.container);
             else appendChild(this.$appendTo(), this.container);
         }

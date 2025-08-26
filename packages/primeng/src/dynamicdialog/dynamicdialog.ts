@@ -24,13 +24,29 @@ const hideAnimation = animation([animate('{{transition}}', style({ transform: '{
     standalone: true,
     imports: [CommonModule, SharedModule, DynamicDialogContent, WindowMaximizeIcon, WindowMinimizeIcon, TimesIcon, Button, FocusTrap],
     template: `
-        <div #mask [style]="sx('mask')" [class]="cn(cx('mask'), ddconfig.maskStyleClass)">
+        <div
+            #mask
+            [ngStyle]="{
+                position: 'fixed',
+                height: '100%',
+                width: '100%',
+                left: 0,
+                top: 0,
+                display: 'flex',
+                'justify-content': position === 'left' || position === 'topleft' || position === 'bottomleft' ? 'flex-start' : position === 'right' || position === 'topright' || position === 'bottomright' ? 'flex-end' : 'center',
+                'align-items': position === 'top' || position === 'topleft' || position === 'topright' ? 'flex-start' : position === 'bottom' || position === 'bottomleft' || position === 'bottomright' ? 'flex-end' : 'center',
+                'pointer-events': ddconfig.modal ? 'auto' : 'none'
+            }"
+            [class]="ddconfig.maskStyleClass"
+            [ngClass]="maskClass"
+        >
             <div
                 *ngIf="visible"
                 #container
-                [class]="cn(cx('root'), ddconfig.styleClass)"
-                [ngStyle]="ddconfig.style"
-                [style]="sx('root')"
+                [ngClass]="{ 'p-dialog p-component': true, 'p-dialog-maximized': maximizable && maximized }"
+                [ngStyle]="{ display: 'flex', 'flex-direction': 'column', 'pointer-events': 'auto' }"
+                [style]="ddconfig.style"
+                [class]="ddconfig.styleClass"
                 [@animation]="{
                     value: 'visible',
                     params: {
@@ -49,40 +65,38 @@ const hideAnimation = animation([animate('{{transition}}', style({ transform: '{
                 [attr.aria-modal]="true"
                 [attr.id]="dialogId"
             >
-                <div *ngIf="ddconfig.resizable" [class]="cx('resizeHandle')" (mousedown)="initResize($event)"></div>
-                <div #titlebar [class]="cx('header')" (mousedown)="initDrag($event)" *ngIf="ddconfig.showHeader !== false">
+                <div *ngIf="ddconfig.resizable" [ngClass]="'p-resizable-handle'" style="z-index: 90;" (mousedown)="initResize($event)"></div>
+                <div #titlebar [ngClass]="'p-dialog-header'" (mousedown)="initDrag($event)" *ngIf="ddconfig.showHeader !== false">
                     <ng-container *ngComponentOutlet="headerTemplate"></ng-container>
                     <ng-container *ngIf="!headerTemplate">
-                        <span [class]="cx('title')" [id]="ariaLabelledBy">{{ ddconfig.header }}</span>
-                        <div [class]="cx('headerActions')">
-                            <p-button *ngIf="ddconfig.maximizable" [styleClass]="cx('pcMaximizeButton')" (onClick)="maximize()" (keydown.enter)="maximize()" rounded text [tabindex]="maximizable ? '0' : '-1'">
-                                <ng-container *ngIf="!maximizeIcon">
-                                    <WindowMaximizeIcon *ngIf="!maximized && !maximizeIconTemplate" />
-                                    <WindowMinimizeIcon *ngIf="maximized && !minimizeIconTemplate" />
-                                </ng-container>
-                                <ng-container *ngIf="!maximized">
-                                    <ng-template *ngTemplateOutlet="maximizeIconTemplate"></ng-template>
-                                </ng-container>
-                                <ng-container *ngIf="maximized">
-                                    <ng-template *ngTemplateOutlet="minimizeIconTemplate"></ng-template>
-                                </ng-container>
+                        <span [ngClass]="'p-dialog-title'" [id]="ariaLabelledBy">{{ ddconfig.header }}</span>
+                        <div [ngClass]="'p-dialog-header-actions'">
+                            <p-button *ngIf="ddconfig.maximizable" [styleClass]="'p-dialog-maximize-button'" (onClick)="maximize()" (keydown.enter)="maximize()" rounded text [tabindex]="maximizable ? '0' : '-1'">
+                                <ng-template #icon>
+                                    <ng-container *ngIf="!maximized">
+                                        <svg data-p-icon="window-maximize" *ngIf="!maximizeIconTemplate" />
+                                        <ng-template *ngTemplateOutlet="maximizeIconTemplate"></ng-template>
+                                    </ng-container>
+                                    <ng-container *ngIf="maximized">
+                                        <svg data-p-icon="window-minimize" *ngIf="!minimizeIconTemplate" />
+                                        <ng-template *ngTemplateOutlet="minimizeIconTemplate"></ng-template>
+                                    </ng-container>
+                                </ng-template>
                             </p-button>
-                            <p-button *ngIf="closable" [styleClass]="cx('pcCloseButton')" [ariaLabel]="ddconfig.closeAriaLabel || defaultCloseAriaLabel" (onClick)="hide()" (keydown.enter)="hide()" rounded text severity="secondary">
-                                <ng-container *ngIf="!closeIconTemplate">
-                                    <TimesIcon />
-                                </ng-container>
-                                <span *ngIf="closeIconTemplate">
+                            <p-button *ngIf="closable" [styleClass]="'p-dialog-close-button'" [ariaLabel]="ddconfig.closeAriaLabel || defaultCloseAriaLabel" (onClick)="hide()" (keydown.enter)="hide()" rounded text severity="secondary">
+                                <ng-template #icon>
+                                    <svg *ngIf="!closeIconTemplate" data-p-icon="times" />
                                     <ng-template *ngTemplateOutlet="closeIconTemplate"></ng-template>
-                                </span>
+                                </ng-template>
                             </p-button>
                         </div>
                     </ng-container>
                 </div>
-                <div #content [class]="cx('content')" [style]="ddconfig.contentStyle">
+                <div #content [ngClass]="'p-dialog-content'" [ngStyle]="ddconfig.contentStyle">
                     <ng-template pDynamicDialogContent *ngIf="!contentTemplate"></ng-template>
                     <ng-container *ngComponentOutlet="contentTemplate"></ng-container>
                 </div>
-                <div #footer [class]="cx('footer')" *ngIf="ddconfig.footer || footerTemplate">
+                <div #footer [ngClass]="'p-dialog-footer'" *ngIf="ddconfig.footer || footerTemplate">
                     <ng-container *ngIf="!footerTemplate">
                         {{ ddconfig.footer }}
                     </ng-container>
@@ -257,6 +271,17 @@ export class DynamicDialogComponent extends BaseComponent implements AfterViewIn
         return this.ddconfig?.templates?.closeicon;
     }
 
+    get maskClass() {
+        const positions = ['left', 'right', 'top', 'topleft', 'topright', 'bottom', 'bottomleft', 'bottomright'];
+        const pos = positions.find((item) => item === this.position);
+
+        return {
+            'p-dialog-mask': true,
+            'p-overlay-mask p-overlay-mask-enter': this.ddconfig.modal || this.ddconfig.dismissableMask,
+            [`p-dialog-${pos}`]: pos
+        };
+    }
+
     get dialogId() {
         return this.attrSelector;
     }
@@ -285,6 +310,7 @@ export class DynamicDialogComponent extends BaseComponent implements AfterViewIn
             if (!this.styleElement) {
                 this.styleElement = this.renderer.createElement('style');
                 this.styleElement.type = 'text/css';
+                setAttribute(this.styleElement, 'nonce', this.config?.csp()?.nonce);
                 this.renderer.appendChild(this.document.head, this.styleElement);
                 let innerHTML = '';
                 for (let breakpoint in this.breakpoints) {

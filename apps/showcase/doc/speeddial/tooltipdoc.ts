@@ -87,10 +87,10 @@ export class SpeedDialTooltipDemo implements OnInit {
                 },
             },
             {
-                label: 'Angular Website',
+                label: 'Angular.dev',
                 icon: 'pi pi-external-link',
                 target: '_blank',
-                url: 'http://angular.io',
+                url: 'https://angular.dev',
             },
         ];
     }
@@ -133,10 +133,10 @@ export class SpeedDialTooltipDemo implements OnInit {
                 }
             },
             {
-                label: 'Angular Website',
+                label: 'Angular.dev',
                 icon: 'pi pi-external-link',
                 target: '_blank',
-                url: 'http://angular.io'
+                url: 'https://angular.dev'
             }
         ];
     }

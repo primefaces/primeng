@@ -1,1 +1,2 @@
-export * from '@primeuix/themes/types/panel';
+export * from '@primeuix/themes/nora/panel';
+export { default } from '@primeuix/themes/nora/panel';

@@ -28,6 +28,7 @@ import {
 import { FormsModule } from '@angular/forms';
 import { find, findSingle, focus, hasClass, removeAccents, resolveFieldData } from '@primeuix/utils';
 import { BlockableUI, PrimeTemplate, ScrollerOptions, SharedModule, TranslationKeys, TreeDragDropService, TreeNode } from 'primeng/api';
+import { AutoFocusModule } from 'primeng/autofocus';
 import { BaseComponent } from 'primeng/basecomponent';
 import { Checkbox } from 'primeng/checkbox';
 import { IconField } from 'primeng/iconfield';
@@ -52,7 +53,6 @@ import {
     TreeScrollEvent,
     TreeScrollIndexChangeEvent
 } from './tree.interface';
-import { AutoFocusModule } from 'primeng/autofocus';
 
 @Component({
     selector: 'p-treeNode',
@@ -103,14 +103,14 @@ import { AutoFocusModule } from 'primeng/autofocus';
                     <button type="button" [attr.data-pc-section]="'toggler'" [class]="cx('nodeToggleButton')" (click)="toggle($event)" pRipple tabindex="-1">
                         <ng-container *ngIf="!tree.togglerIconTemplate && !tree._togglerIconTemplate">
                             <ng-container *ngIf="!node.loading">
-                                <ChevronRightIcon *ngIf="!node.expanded" [styleClass]="cx('nodeToggleIcon')" />
-                                <ChevronDownIcon *ngIf="node.expanded" [styleClass]="cx('nodeToggleIcon')" />
+                                <svg data-p-icon="chevron-right" *ngIf="!node.expanded" [class]="cx('nodeToggleIcon')" />
+                                <svg data-p-icon="chevron-down" *ngIf="node.expanded" [class]="cx('nodeToggleIcon')" />
                             </ng-container>
                             <ng-container *ngIf="loadingMode === 'icon' && node.loading">
-                                <SpinnerIcon [styleClass]="cn(cx('nodeToggleIcon'), 'pi-spin')" />
+                                <svg data-p-icon="spinner" [class]="cx('nodeToggleIcon')" spin />
                             </ng-container>
                         </ng-container>
-                        <span *ngIf="tree.togglerIconTemplate || tree._togglerIconTemplate" [styleClass]="cx('nodeToggleIcon')">
+                        <span *ngIf="tree.togglerIconTemplate || tree._togglerIconTemplate" [class]="cx('nodeToggleIcon')">
                             <ng-template *ngTemplateOutlet="tree.togglerIconTemplate || tree._togglerIconTemplate; context: { $implicit: node.expanded, loading: node.loading }"></ng-template>
                         </span>
                     </button>
@@ -694,7 +694,7 @@ export class UITreeNode extends BaseComponent implements OnInit {
 
     focusVirtualNode() {
         this.timeout = setTimeout(() => {
-            let node = <any>findSingle(document.body, `[data-id="${<TreeNode>this.node?.key ?? <TreeNode>this.node?.data}"]`);
+            let node = <any>findSingle(this.tree?.contentViewChild.nativeElement, `[data-id="${<TreeNode>this.node?.key ?? <TreeNode>this.node?.data}"]`);
             focus(node);
         }, 1);
     }
@@ -711,7 +711,7 @@ export class UITreeNode extends BaseComponent implements OnInit {
         <div [class]="cx('mask')" *ngIf="loading && loadingMode === 'mask'">
             <i *ngIf="loadingIcon" [class]="cn(cx('loadingIcon'), 'pi-spin' + loadingIcon)"></i>
             <ng-container *ngIf="!loadingIcon">
-                <SpinnerIcon *ngIf="!loadingIconTemplate && !_loadingIconTemplate" [spin]="true" [styleClass]="cx('loadingIcon')" />
+                <svg data-p-icon="spinner" *ngIf="!loadingIconTemplate && !_loadingIconTemplate" spin [class]="cx('loadingIcon')" />
                 <span *ngIf="loadingIconTemplate || _loadingIconTemplate" [class]="cx('loadingIcon')">
                     <ng-template *ngTemplateOutlet="loadingIconTemplate || _loadingIconTemplate"></ng-template>
                 </span>
@@ -731,10 +731,10 @@ export class UITreeNode extends BaseComponent implements OnInit {
                     [class]="cx('pcFilterInput')"
                     [attr.placeholder]="filterPlaceholder"
                     (keydown.enter)="$event.preventDefault()"
-                    (input)="_filter($event.target.value)"
+                    (input)="_filter($event.target?.value)"
                 />
                 <p-inputicon>
-                    <SearchIcon *ngIf="!filterIconTemplate && !_filterIconTemplate" [class]="cx('filterIcon')" />
+                    <svg data-p-icon="search" *ngIf="!filterIconTemplate && !_filterIconTemplate" [class]="cx('filterIcon')" />
                     <span *ngIf="filterIconTemplate || _filterIconTemplate" [class]="cx('filterIcon')">
                         <ng-template *ngTemplateOutlet="filterIconTemplate || _filterIconTemplate"></ng-template>
                     </span>
@@ -751,7 +751,7 @@ export class UITreeNode extends BaseComponent implements OnInit {
                 [styleClass]="cx('wrapper')"
                 [style]="{ height: scrollHeight !== 'flex' ? scrollHeight : undefined }"
                 [scrollHeight]="scrollHeight !== 'flex' ? undefined : '100%'"
-                [itemSize]="virtualScrollItemSize || _virtualNodeHeight"
+                [itemSize]="virtualScrollItemSize"
                 [lazy]="lazy"
                 (onScroll)="onScroll.emit($event)"
                 (onScrollIndexChange)="onScrollIndexChange.emit($event)"
@@ -759,7 +759,7 @@ export class UITreeNode extends BaseComponent implements OnInit {
                 [options]="virtualScrollOptions"
             >
                 <ng-template #content let-items let-scrollerOptions="options">
-                    <ul *ngIf="items" [class]="cx('rootChildren')" [ngClass]="scrollerOptions.contentStyleClass" [style]="scrollerOptions.contentStyle" role="tree" [attr.aria-label]="ariaLabel" [attr.aria-labelledby]="ariaLabelledBy">
+                    <ul *ngIf="items" #content [class]="cx('rootChildren')" [ngClass]="scrollerOptions.contentStyleClass" [style]="scrollerOptions.contentStyle" role="tree" [attr.aria-label]="ariaLabel" [attr.aria-labelledby]="ariaLabelledBy">
                         <p-treeNode
                             #treeNode
                             *ngFor="let rowNode of items; let firstChild = first; let lastChild = last; let index = index; trackBy: trackBy"
@@ -784,7 +784,7 @@ export class UITreeNode extends BaseComponent implements OnInit {
             </p-scroller>
             <ng-container *ngIf="!virtualScroll">
                 <div #wrapper [class]="cx('wrapper')" [style.max-height]="scrollHeight">
-                    <ul [class]="cx('rootChildren')" *ngIf="getRootNode()" role="tree" [attr.aria-label]="ariaLabel" [attr.aria-labelledby]="ariaLabelledBy">
+                    <ul #content [class]="cx('rootChildren')" *ngIf="getRootNode()" role="tree" [attr.aria-label]="ariaLabel" [attr.aria-labelledby]="ariaLabelledBy">
                         <p-treeNode
                             *ngFor="let node of getRootNode(); let firstChild = first; let lastChild = last; let index = index; trackBy: trackBy.bind(this)"
                             [node]="node"
@@ -1002,19 +1002,6 @@ export class Tree extends BaseComponent implements OnInit, AfterContentInit, OnC
      */
     @Input({ transform: booleanAttribute }) highlightOnSelect: boolean = false;
     /**
-     * Height of the node.
-     * @group Props
-     * @deprecated use virtualScrollItemSize property instead.
-     */
-    _virtualNodeHeight: number | undefined;
-    @Input() get virtualNodeHeight(): number | undefined {
-        return this._virtualNodeHeight;
-    }
-    set virtualNodeHeight(val: number | undefined) {
-        this._virtualNodeHeight = val;
-        console.log('The virtualNodeHeight property is deprecated, use virtualScrollItemSize property instead.');
-    }
-    /**
      * Callback to invoke on selection change.
      * @param {(TreeNode<any> | TreeNode<any>[] | null)} event - Custom selection change event.
      * @group Emits
@@ -1142,6 +1129,8 @@ export class Tree extends BaseComponent implements OnInit, AfterContentInit, OnC
     @ViewChild('scroller') scroller: Nullable<Scroller>;
 
     @ViewChild('wrapper') wrapperViewChild: Nullable<ElementRef>;
+
+    @ViewChild('content') contentViewChild: Nullable<ElementRef>;
 
     @ContentChildren(PrimeTemplate) private templates: QueryList<PrimeTemplate> | undefined;
 

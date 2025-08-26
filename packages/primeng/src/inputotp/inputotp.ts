@@ -21,10 +21,10 @@ import {
 import { NG_VALUE_ACCESSOR } from '@angular/forms';
 import { PrimeTemplate, SharedModule } from 'primeng/api';
 import { AutoFocus } from 'primeng/autofocus';
-import { InputText } from 'primeng/inputtext';
-import { InputOtpStyle } from './style/inputotpstyle';
-import { Nullable } from 'primeng/ts-helpers';
 import { BaseEditableHolder } from 'primeng/baseeditableholder';
+import { InputText } from 'primeng/inputtext';
+import { Nullable } from 'primeng/ts-helpers';
+import { InputOtpStyle } from './style/inputotpstyle';
 
 export const INPUT_OTP_VALUE_ACCESSOR: any = {
     provide: NG_VALUE_ACCESSOR,
@@ -88,17 +88,17 @@ export interface InputOtpInputTemplateContext {
                     type="text"
                     pInputText
                     [value]="getModelValue(i)"
-                    [maxLength]="i === 1 ? length : 1"
-                    [type]="inputType"
+                    [attr.maxlength]="i === 1 ? length : 1"
+                    [attr.type]="inputType"
                     [class]="cn(cx('pcInputText'), styleClass)"
                     [pSize]="size()"
                     [variant]="$variant()"
                     [invalid]="invalid()"
-                    [readonly]="readonly"
-                    [disabled]="disabled()"
-                    [name]="name()"
-                    [required]="required()"
-                    [tabindex]="tabindex"
+                    [attr.name]="name()"
+                    [attr.tabindex]="tabindex"
+                    [attr.required]="required() ? '' : undefined"
+                    [attr.readonly]="readonly ? '' : undefined"
+                    [attr.disabled]="$disabled() ? '' : undefined"
                     (input)="onInput($event, i - 1)"
                     (focus)="onInputFocus($event)"
                     (blur)="onInputBlur($event)"
@@ -124,7 +124,7 @@ export class InputOtp extends BaseEditableHolder implements AfterContentInit {
      * When present, it specifies that an input field is read-only.
      * @group Props
      */
-    @Input() readonly: boolean = false;
+    @Input({ transform: booleanAttribute }) readonly: boolean;
     /**
      * Index of the element in tabbing order.
      * @group Props
@@ -198,13 +198,9 @@ export class InputOtp extends BaseEditableHolder implements AfterContentInit {
 
     tokens: any = [];
 
-    onModelChange: Function = () => {};
-
-    onModelTouched: Function = () => {};
-
     value: any;
 
-    $variant = computed(() => this.config.inputStyle() || this.variant() || this.config.inputVariant());
+    $variant = computed(() => this.variant() || this.config.inputStyle() || this.config.inputVariant());
 
     get inputMode(): string {
         return this.integerOnly ? 'numeric' : 'text';
@@ -271,21 +267,6 @@ export class InputOtp extends BaseEditableHolder implements AfterContentInit {
         });
     }
 
-    writeValue(value: any): void {
-        if (value) {
-            if (Array.isArray(value) && value.length > 0) {
-                this.value = value.slice(0, this.length);
-            } else {
-                this.value = value.toString().split('').slice(0, this.length);
-            }
-        } else {
-            this.value = value;
-        }
-        this.writeModelValue(this.value);
-        this.updateTokens();
-        this.cd.markForCheck();
-    }
-
     updateTokens() {
         if (this.value !== null && this.value !== undefined) {
             if (Array.isArray(this.value)) {
@@ -307,14 +288,6 @@ export class InputOtp extends BaseEditableHolder implements AfterContentInit {
             return this.autofocus;
         }
         return false;
-    }
-
-    registerOnChange(fn: Function): void {
-        this.onModelChange = fn;
-    }
-
-    registerOnTouched(fn: Function): void {
-        this.onModelTouched = fn;
     }
 
     moveToPrev(event) {
@@ -402,7 +375,7 @@ export class InputOtp extends BaseEditableHolder implements AfterContentInit {
     }
 
     onPaste(event) {
-        if (!this.disabled() && !this.readonly) {
+        if (!this.$disabled() && !this.readonly) {
             let paste = event.clipboardData.getData('text');
 
             if (paste.length) {
@@ -428,6 +401,27 @@ export class InputOtp extends BaseEditableHolder implements AfterContentInit {
 
     trackByFn(index: number) {
         return index;
+    }
+
+    /**
+     * @override
+     *
+     * @see {@link BaseEditableHolder.writeControlValue}
+     * Writes the value to the control.
+     */
+    writeControlValue(value: any, setModelValue: (value: any) => void): void {
+        if (value) {
+            if (Array.isArray(value) && value.length > 0) {
+                this.value = value.slice(0, this.length);
+            } else {
+                this.value = value.toString().split('').slice(0, this.length);
+            }
+        } else {
+            this.value = value;
+        }
+        setModelValue(this.value);
+        this.updateTokens();
+        this.cd.markForCheck();
     }
 }
 

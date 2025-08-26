@@ -22,11 +22,12 @@ import {
     TemplateRef,
     ViewEncapsulation
 } from '@angular/core';
-import { absolutePosition, addClass, findSingle, getOffset, isIOS, isTouchDevice } from '@primeuix/utils';
+import { absolutePosition, addClass, focus, getOffset, isIOS, isTouchDevice } from '@primeuix/utils';
 import { Confirmation, ConfirmationService, OverlayService, PrimeTemplate, SharedModule, TranslationKeys } from 'primeng/api';
 import { BaseComponent } from 'primeng/basecomponent';
 import { ButtonModule } from 'primeng/button';
 import { ConnectedOverlayScrollHandler } from 'primeng/dom';
+import { FocusTrap } from 'primeng/focustrap';
 import { Nullable, VoidListener } from 'primeng/ts-helpers';
 import { ZIndexUtils } from 'primeng/utils';
 import { Subscription } from 'rxjs';
@@ -39,10 +40,11 @@ import { ConfirmPopupStyle } from './style/confirmpopupstyle';
 @Component({
     selector: 'p-confirmpopup',
     standalone: true,
-    imports: [CommonModule, SharedModule, ButtonModule],
+    imports: [CommonModule, SharedModule, ButtonModule, FocusTrap],
     template: `
         <div
             *ngIf="visible"
+            pFocusTrap
             [class]="cn(cx('root'), styleClass)"
             [ngStyle]="style"
             role="alertdialog"
@@ -79,9 +81,12 @@ import { ConfirmPopupStyle } from './style/confirmpopupstyle';
                         *ngIf="confirmation?.rejectVisible !== false"
                         [attr.aria-label]="rejectButtonLabel"
                         [buttonProps]="getRejectButtonProps()"
+                        [autofocus]="autoFocusReject"
                     >
-                        <i [class]="confirmation?.rejectIcon" *ngIf="confirmation?.rejectIcon; else rejecticon"></i>
-                        <ng-template #rejecticon *ngTemplateOutlet="rejectIconTemplate || _rejectIconTemplate"></ng-template>
+                        <ng-template #icon>
+                            <i [class]="confirmation?.rejectIcon" *ngIf="confirmation?.rejectIcon; else rejecticon"></i>
+                            <ng-template #rejecticon *ngTemplateOutlet="rejectIconTemplate || _rejectIconTemplate"></ng-template>
+                        </ng-template>
                     </p-button>
                     <p-button
                         type="button"
@@ -93,9 +98,12 @@ import { ConfirmPopupStyle } from './style/confirmpopupstyle';
                         *ngIf="confirmation?.acceptVisible !== false"
                         [attr.aria-label]="acceptButtonLabel"
                         [buttonProps]="getAcceptButtonProps()"
+                        [autofocus]="autoFocusAccept"
                     >
-                        <i [class]="confirmation?.acceptIcon" *ngIf="confirmation?.acceptIcon; else accepticontemplate"></i>
-                        <ng-template #accepticontemplate *ngTemplateOutlet="acceptIconTemplate || _acceptIconTemplate"></ng-template>
+                        <ng-template #icon>
+                            <i [class]="confirmation?.acceptIcon" *ngIf="confirmation?.acceptIcon; else accepticontemplate"></i>
+                            <ng-template #accepticontemplate *ngTemplateOutlet="acceptIconTemplate || _acceptIconTemplate"></ng-template>
+                        </ng-template>
                     </p-button>
                 </div>
             </ng-template>
@@ -183,6 +191,10 @@ export class ConfirmPopup extends BaseComponent implements AfterContentInit, OnD
     subscription: Subscription;
 
     confirmation: Nullable<Confirmation>;
+
+    autoFocusAccept: boolean = false;
+
+    autoFocusReject: boolean = false;
 
     @ContentChild('content', { descendants: false }) contentTemplate: Nullable<TemplateRef<any>>;
 
@@ -301,10 +313,8 @@ export class ConfirmPopup extends BaseComponent implements AfterContentInit, OnD
             this.align();
             this.bindListeners();
 
-            const element = this.getElementToFocus();
-            if (element) {
-                element.focus();
-            }
+            this.autoFocusAccept = this.defaultFocus === undefined || this.defaultFocus === 'accept' ? true : false;
+            this.autoFocusReject = this.defaultFocus === 'reject' ? true : false;
         }
     }
 
@@ -322,19 +332,6 @@ export class ConfirmPopup extends BaseComponent implements AfterContentInit, OnD
 
     getRejectButtonProps() {
         return this.option('rejectButtonProps');
-    }
-
-    getElementToFocus() {
-        switch (this.defaultFocus) {
-            case 'accept':
-                return <any>findSingle(this.container, '.p-confirm-popup-accept-button');
-
-            case 'reject':
-                return <any>findSingle(this.container, '.p-confirm-popup-reject-button');
-
-            case 'none':
-                return null;
-        }
     }
 
     align() {
@@ -371,6 +368,7 @@ export class ConfirmPopup extends BaseComponent implements AfterContentInit, OnD
         }
 
         this.hide();
+        focus(this.confirmation?.target as any);
     }
 
     onReject() {
@@ -379,6 +377,7 @@ export class ConfirmPopup extends BaseComponent implements AfterContentInit, OnD
         }
 
         this.hide();
+        focus(this.confirmation?.target as any);
     }
 
     onOverlayClick(event: MouseEvent) {

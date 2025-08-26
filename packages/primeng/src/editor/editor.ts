@@ -1,12 +1,12 @@
 import { CommonModule, isPlatformServer } from '@angular/common';
 import { AfterContentInit, afterNextRender, ChangeDetectionStrategy, Component, ContentChild, ContentChildren, EventEmitter, forwardRef, inject, Input, NgModule, Output, QueryList, TemplateRef, ViewEncapsulation } from '@angular/core';
-import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
+import { NG_VALUE_ACCESSOR } from '@angular/forms';
 import { findSingle } from '@primeuix/utils';
 import { Header, PrimeTemplate, SharedModule } from 'primeng/api';
+import { BaseEditableHolder } from 'primeng/baseeditableholder';
 import { Nullable } from 'primeng/ts-helpers';
 import { EditorInitEvent, EditorSelectionChangeEvent, EditorTextChangeEvent } from './editor.interface';
 import { EditorStyle } from './style/editorstyle';
-import { BaseInput } from 'primeng/baseinput';
 
 export const EDITOR_VALUE_ACCESSOR: any = {
     provide: NG_VALUE_ACCESSOR,
@@ -76,7 +76,7 @@ export const EDITOR_VALUE_ACCESSOR: any = {
         '[class]': "cn(cx('root'), styleClass)"
     }
 })
-export class Editor extends BaseInput implements AfterContentInit, ControlValueAccessor {
+export class Editor extends BaseEditableHolder implements AfterContentInit {
     /**
      * Inline style of the container.
      * @group Props
@@ -94,12 +94,12 @@ export class Editor extends BaseInput implements AfterContentInit, ControlValueA
      */
     @Input() placeholder: string | undefined;
     /**
-     * Whitelist of formats to display, see here for available options.
+     * Whitelist of formats to display, see [here](https://quilljs.com/docs/formats/) for available options.
      * @group Props
      */
     @Input() formats: string[] | undefined;
     /**
-     * Modules configuration of Editor, see here for available options.
+     * Modules configuration of Editor, see [here](https://quilljs.com/docs/modules/) for available options.
      * @group Props
      */
     @Input() modules: object | undefined;
@@ -160,10 +160,6 @@ export class Editor extends BaseInput implements AfterContentInit, ControlValueA
 
     _readonly: boolean = false;
 
-    onModelChange: Function = () => {};
-
-    onModelTouched: Function = () => {};
-
     quill: any;
 
     dynamicQuill: any;
@@ -207,7 +203,13 @@ export class Editor extends BaseInput implements AfterContentInit, ControlValueA
         });
     }
 
-    writeValue(value: any): void {
+    /**
+     * @override
+     *
+     * @see {@link BaseEditableHolder.writeControlValue}
+     * Writes the value to the control.
+     */
+    writeControlValue(value: any): void {
         this.value = value;
 
         if (this.quill) {
@@ -233,14 +235,6 @@ export class Editor extends BaseInput implements AfterContentInit, ControlValueA
                 }
             }
         }
-    }
-
-    registerOnChange(fn: Function): void {
-        this.onModelChange = fn;
-    }
-
-    registerOnTouched(fn: Function): void {
-        this.onModelTouched = fn;
     }
 
     getQuill() {

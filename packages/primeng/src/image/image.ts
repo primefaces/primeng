@@ -5,12 +5,14 @@ import {
     booleanAttribute,
     ChangeDetectionStrategy,
     Component,
+    computed,
     ContentChild,
     ContentChildren,
     ElementRef,
     EventEmitter,
     HostListener,
     inject,
+    input,
     Input,
     NgModule,
     Output,
@@ -21,9 +23,9 @@ import {
 } from '@angular/core';
 import { SafeUrl } from '@angular/platform-browser';
 import { addClass, appendChild, focus } from '@primeuix/utils';
-import { blockBodyScroll, unblockBodyScroll } from 'primeng/dom';
 import { PrimeTemplate, SharedModule } from 'primeng/api';
 import { BaseComponent } from 'primeng/basecomponent';
+import { blockBodyScroll, unblockBodyScroll } from 'primeng/dom';
 import { FocusTrap } from 'primeng/focustrap';
 import { EyeIcon, RefreshIcon, SearchMinusIcon, SearchPlusIcon, TimesIcon, UndoIcon } from 'primeng/icons';
 import { Nullable } from 'primeng/ts-helpers';
@@ -46,33 +48,33 @@ import { ImageStyle } from './style/imagestyle';
         <ng-container *ngTemplateOutlet="imageTemplate || _imageTemplate; context: { errorCallback: imageError.bind(this) }"></ng-container>
 
         <button *ngIf="preview" [attr.aria-label]="zoomImageAriaLabel" type="button" [class]="cx('previewMask')" (click)="onImageClick()" #previewButton [ngStyle]="{ height: height + 'px', width: width + 'px' }">
-            <ng-container *ngIf="indicatorTemplate || !_indicatorTemplate; else defaultTemplate">
+            <ng-container *ngIf="indicatorTemplate || _indicatorTemplate; else defaultTemplate">
                 <ng-container *ngTemplateOutlet="indicatorTemplate || _indicatorTemplate"></ng-container>
             </ng-container>
             <ng-template #defaultTemplate>
-                <EyeIcon [styleClass]="cx('previewIcon')" />
+                <svg data-p-icon="eye" [class]="cx('previewIcon')" />
             </ng-template>
         </button>
         <div #mask [class]="cx('mask')" *ngIf="maskVisible" [attr.aria-modal]="maskVisible" role="dialog" (click)="onMaskClick()" (keydown)="onMaskKeydown($event)" pFocusTrap>
             <div [class]="cx('toolbar')" (click)="handleToolbarClick($event)">
                 <button [class]="cx('rotateRightButton')" (click)="rotateRight()" type="button" [attr.aria-label]="rightAriaLabel()">
-                    <RefreshIcon *ngIf="!rotateRightIconTemplate && !_rotateRightIconTemplate" />
+                    <svg data-p-icon="refresh" *ngIf="!rotateRightIconTemplate && !_rotateRightIconTemplate" />
                     <ng-template *ngTemplateOutlet="rotateRightIconTemplate || _rotateRightIconTemplate"></ng-template>
                 </button>
                 <button [class]="cx('rotateLeftButton')" (click)="rotateLeft()" type="button" [attr.aria-label]="leftAriaLabel()">
-                    <UndoIcon *ngIf="!rotateLeftIconTemplate && !_rotateLeftIconTemplate" />
+                    <svg data-p-icon="undo" *ngIf="!rotateLeftIconTemplate && !_rotateLeftIconTemplate" />
                     <ng-template *ngTemplateOutlet="rotateLeftIconTemplate || _rotateLeftIconTemplate"></ng-template>
                 </button>
                 <button [class]="cx('zoomOutButton')" (click)="zoomOut()" type="button" [disabled]="isZoomOutDisabled" [attr.aria-label]="zoomOutAriaLabel()">
-                    <SearchMinusIcon *ngIf="!zoomOutIconTemplate && !_zoomOutIconTemplate" />
+                    <svg data-p-icon="search-minus" *ngIf="!zoomOutIconTemplate && !_zoomOutIconTemplate" />
                     <ng-template *ngTemplateOutlet="zoomOutIconTemplate || _zoomOutIconTemplate"></ng-template>
                 </button>
                 <button [class]="cx('zoomInButton')" (click)="zoomIn()" type="button" [disabled]="isZoomInDisabled" [attr.aria-label]="zoomInAriaLabel()">
-                    <SearchPlusIcon *ngIf="!zoomInIconTemplate && !_zoomInIconTemplate" />
+                    <svg data-p-icon="search-plus" *ngIf="!zoomInIconTemplate && !_zoomInIconTemplate" />
                     <ng-template *ngTemplateOutlet="zoomInIconTemplate || _zoomInIconTemplate"></ng-template>
                 </button>
                 <button [class]="cx('closeButton')" type="button" (click)="closePreview()" [attr.aria-label]="closeAriaLabel()" #closeButton>
-                    <TimesIcon *ngIf="!closeIconTemplate && !_closeIconTemplate" />
+                    <svg data-p-icon="times" *ngIf="!closeIconTemplate && !_closeIconTemplate" />
                     <ng-template *ngTemplateOutlet="closeIconTemplate || _closeIconTemplate"></ng-template>
                 </button>
             </div>
@@ -198,6 +200,12 @@ export class Image extends BaseComponent implements AfterContentInit {
      */
     @Input() hideTransitionOptions: string = '150ms cubic-bezier(0, 0, 0.2, 1)';
     /**
+     * Target element to attach the overlay, valid values are "body" or a local ng-template variable of another element (note: use binding with brackets for template variables, e.g. [appendTo]="mydiv" for a div element having #mydiv as variable name).
+     * @defaultValue 'self'
+     * @group Props
+     */
+    appendTo = input<HTMLElement | ElementRef | TemplateRef<any> | 'self' | 'body' | null | undefined | any>(undefined);
+    /**
      * Triggered when the preview overlay is shown.
      * @group Emits
      */
@@ -283,6 +291,8 @@ export class Image extends BaseComponent implements AfterContentInit {
     wrapper: Nullable<HTMLElement>;
 
     _componentStyle = inject(ImageStyle);
+
+    $appendTo = computed(() => this.appendTo() || this.config.overlayAppendTo());
 
     public get isZoomOutDisabled(): boolean {
         return this.scale - this.zoomSettings.step <= this.zoomSettings.min;
@@ -460,7 +470,7 @@ export class Image extends BaseComponent implements AfterContentInit {
     }
 
     appendContainer() {
-        if (this.$appendTo()) {
+        if (this.$appendTo() && this.$appendTo() !== 'self') {
             if (this.$appendTo() === 'body') this.document.body.appendChild(this.wrapper as HTMLElement);
             else appendChild(this.$appendTo(), this.wrapper);
         }
@@ -472,13 +482,6 @@ export class Image extends BaseComponent implements AfterContentInit {
 
     get zoomImageAriaLabel() {
         return this.config.translation.aria ? this.config.translation.aria.zoomImage : undefined;
-    }
-
-    containerClass() {
-        return {
-            'p-image p-component': true,
-            'p-image-preview': this.preview
-        };
     }
 
     handleToolbarClick(event: MouseEvent): void {

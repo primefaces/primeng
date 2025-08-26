@@ -9,7 +9,7 @@ import { Component } from '@angular/core';
             <p>Splitters can be combined to create advanced layouts.</p>
         </app-docsectiontext>
         <div class="card">
-            <p-splitter [style]="{ height: '300px' }" [panelSizes]="[20, 80]" [minSizes]="[10, 0]" styleClass="mb-8">
+            <p-splitter [style]="{ height: '300px' }" [panelSizes]="[20, 80]" [minSizes]="[10, 0]" class="mb-8">
                 <ng-template #panel>
                     <div class="col flex w-full items-center justify-center">Panel 1</div>
                 </ng-template>
@@ -37,7 +37,7 @@ import { Component } from '@angular/core';
 })
 export class NestedDoc {
     code: Code = {
-        basic: `<p-splitter [style]="{ height: '300px' }" [panelSizes]="[20, 80]" [minSizes]="[10, 0]" styleClass="mb-8">
+        basic: `<p-splitter [style]="{ height: '300px' }" [panelSizes]="[20, 80]" [minSizes]="[10, 0]" class="mb-8">
     <ng-template #panel>
         <div class="col flex w-full items-center justify-center">Panel 1</div>
     </ng-template>
@@ -61,7 +61,7 @@ export class NestedDoc {
 </p-splitter>`,
 
         html: `<div class="card">
-    <p-splitter [style]="{ height: '300px' }" [panelSizes]="[20, 80]" [minSizes]="[10, 0]" styleClass="mb-8">
+    <p-splitter [style]="{ height: '300px' }" [panelSizes]="[20, 80]" [minSizes]="[10, 0]" class="mb-8">
         <ng-template #panel>
             <div class="col flex w-full items-center justify-center">Panel 1</div>
         </ng-template>

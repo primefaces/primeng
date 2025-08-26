@@ -13,6 +13,7 @@ import {
     forwardRef,
     Inject,
     inject,
+    input,
     Input,
     NgModule,
     numberAttribute,
@@ -60,11 +61,22 @@ export class SafeHtmlPipe implements PipeTransform {
     }
 }
 
+export function sanitizeHtml(value: string): SafeHtml | string {
+    const platformId = inject(PLATFORM_ID);
+    const sanitizer = inject(DomSanitizer);
+
+    if (!value || !isPlatformBrowser(platformId)) {
+        return value;
+    }
+
+    return sanitizer.bypassSecurityTrustHtml(value);
+}
+
 @Component({
     selector: '[pMenuItemContent]',
     standalone: true,
-    imports: [CommonModule, RouterModule, Ripple, TooltipModule, BadgeModule, SharedModule, SafeHtmlPipe],
-    template: `
+    imports: [CommonModule, RouterModule, Ripple, TooltipModule, BadgeModule, SharedModule],
+    template: ` <div [class]="cx('itemContent')" (click)="onItemClick($event, item)" [attr.data-pc-section]="'content'">
         <ng-container *ngIf="!itemTemplate">
             <a
                 *ngIf="!item?.routerLink"
@@ -110,15 +122,10 @@ export class SafeHtmlPipe implements PipeTransform {
         <ng-template #itemContent>
             <span [class]="cx('itemIcon', { item })" *ngIf="item.icon" [style]="item.iconStyle"></span>
             <span [class]="cx('itemLabel')" *ngIf="item.escape !== false; else htmlLabel">{{ item.label }}</span>
-            <ng-template #htmlLabel><span class="p-menu-item-label" [innerHTML]="item.label | safeHtml"></span></ng-template>
+            <ng-template #htmlLabel><span class="p-menu-item-label" [innerHTML]="sanitizeHtml(item.label)"></span></ng-template>
             <p-badge *ngIf="item.badge" [styleClass]="item.badgeStyleClass" [value]="item.badge" />
         </ng-template>
-    `,
-    host: {
-        'data-pc-section': 'content',
-        '[class]': "cx('itemContent')",
-        '(click)': 'onItemClick($event, item)'
-    },
+    </div>`,
     encapsulation: ViewEncapsulation.None,
     providers: [MenuStyle]
 })
@@ -149,7 +156,7 @@ export class MenuItemContent extends BaseComponent {
 @Component({
     selector: 'p-menu',
     standalone: true,
-    imports: [CommonModule, RouterModule, MenuItemContent, TooltipModule, BadgeModule, SharedModule, SafeHtmlPipe],
+    imports: [CommonModule, RouterModule, MenuItemContent, TooltipModule, BadgeModule, SharedModule],
     template: `
         <div
             #container
@@ -190,14 +197,14 @@ export class MenuItemContent extends BaseComponent {
                     <li [class]="cx('submenuLabel')" [attr.data-automationid]="submenu.automationId" *ngIf="!submenu.separator" pTooltip [tooltipOptions]="submenu.tooltipOptions" role="none" [attr.id]="menuitemId(submenu, id, i)">
                         <ng-container *ngIf="!submenuHeaderTemplate && !_submenuHeaderTemplate">
                             <span *ngIf="submenu.escape !== false; else htmlSubmenuLabel">{{ submenu.label }}</span>
-                            <ng-template #htmlSubmenuLabel><span [innerHTML]="submenu.label | safeHtml"></span></ng-template>
+                            <ng-template #htmlSubmenuLabel><span [innerHTML]="sanitizeHtml(submenu.label)"></span></ng-template>
                         </ng-container>
                         <ng-container *ngTemplateOutlet="submenuHeaderTemplate ?? _submenuHeaderTemplate; context: { $implicit: submenu }"></ng-container>
                     </li>
                     <ng-template ngFor let-item let-j="index" [ngForOf]="submenu.items">
                         <li [class]="cx('separator')" *ngIf="item.separator && (item.visible !== false || submenu.visible !== false)" role="separator"></li>
                         <li
-                            [class]="cx('item', { item, menuItemId: menuitemId(item, id, i, j) })"
+                            [class]="cn(cx('item', { item, id: menuitemId(item, id, i, j) }), item?.styleClass)"
                             *ngIf="!item.separator && item.visible !== false && (item.visible !== undefined || submenu.visible !== false)"
                             [pMenuItemContent]="item"
                             [itemTemplate]="itemTemplate ?? _itemTemplate"
@@ -218,7 +225,7 @@ export class MenuItemContent extends BaseComponent {
                 <ng-template ngFor let-item let-i="index" [ngForOf]="model" *ngIf="!hasSubMenu()">
                     <li [class]="cx('separator')" *ngIf="item.separator && item.visible !== false" role="separator"></li>
                     <li
-                        [class]="cx('item', { item, menuItemId: menuitemId(item, id, i) })"
+                        [class]="cn(cx('item', { item, id: menuitemId(item, id, i) }), item?.styleClass)"
                         *ngIf="!item.separator && item.visible !== false"
                         [pMenuItemContent]="item"
                         [itemTemplate]="itemTemplate ?? _itemTemplate"
@@ -308,6 +315,12 @@ export class Menu extends BaseComponent implements AfterContentInit, OnDestroy {
      */
     @Input({ transform: numberAttribute }) tabindex: number = 0;
     /**
+     * Target element to attach the overlay, valid values are "body" or a local ng-template variable of another element (note: use binding with brackets for template variables, e.g. [appendTo]="mydiv" for a div element having #mydiv as variable name).
+     * @defaultValue 'self'
+     * @group Props
+     */
+    appendTo = input<HTMLElement | ElementRef | TemplateRef<any> | 'self' | 'body' | null | undefined | any>(undefined);
+    /**
      * Callback to invoke when overlay menu is shown.
      * @group Emits
      */
@@ -333,6 +346,8 @@ export class Menu extends BaseComponent implements AfterContentInit, OnDestroy {
     @ViewChild('list') listViewChild: Nullable<ElementRef>;
 
     @ViewChild('container') containerViewChild: Nullable<ElementRef>;
+
+    $appendTo = computed(() => this.appendTo() || this.config.overlayAppendTo());
 
     container: HTMLDivElement | undefined;
 
@@ -560,6 +575,7 @@ export class Menu extends BaseComponent implements AfterContentInit, OnDestroy {
     onListFocus(event: Event) {
         if (!this.focused) {
             this.focused = true;
+            !this.popup && this.changeFocusedOptionIndex(0);
             this.onFocus.emit(event);
         }
     }
@@ -677,7 +693,6 @@ export class Menu extends BaseComponent implements AfterContentInit, OnDestroy {
 
     changeFocusedOptionIndex(index) {
         const links = find(this.containerViewChild.nativeElement, 'li[data-pc-section="menuitem"][data-p-disabled="false"]');
-
         if (links.length > 0) {
             let order = index >= links.length ? links.length - 1 : index < 0 ? 0 : index;
             order > -1 && this.focusedOptionIndex.set(links[order].getAttribute('id'));

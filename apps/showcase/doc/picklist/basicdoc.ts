@@ -14,7 +14,7 @@ import { ChangeDetectorRef, Component } from '@angular/core';
             </p>
         </app-docsectiontext>
         <div class="card">
-            <p-picklist [source]="sourceProducts" [target]="targetProducts" [dragdrop]="true" [responsive]="true" [sourceStyle]="{ height: '30rem' }" [targetStyle]="{ height: '30rem' }" breakpoint="1400px">
+            <p-picklist [source]="sourceProducts" [target]="targetProducts" [dragdrop]="true" [responsive]="true" breakpoint="1400px">
                 <ng-template let-item #item>
                     {{ item.name }}
                 </ng-template>
@@ -42,14 +42,14 @@ export class BasicDoc {
     }
 
     code: Code = {
-        basic: `<p-picklist [source]="sourceProducts" [target]="targetProducts" [dragdrop]="true" [responsive]="true" [sourceStyle]="{ height: '30rem' }" [targetStyle]="{ height: '30rem' }" breakpoint="1400px">
+        basic: `<p-picklist [source]="sourceProducts" [target]="targetProducts" [dragdrop]="true" [responsive]="true" breakpoint="1400px">
     <ng-template let-item #item>
         {{ item.name }}
     </ng-template>
 </p-picklist>`,
 
         html: `<div class="card">
-    <p-picklist [source]="sourceProducts" [target]="targetProducts" [dragdrop]="true" [responsive]="true" [sourceStyle]="{ height: '30rem' }" [targetStyle]="{ height: '30rem' }" breakpoint="1400px">
+    <p-picklist [source]="sourceProducts" [target]="targetProducts" [dragdrop]="true" [responsive]="true" breakpoint="1400px">
         <ng-template let-item #item>
             {{ item.name }}
         </ng-template>

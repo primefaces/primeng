@@ -43,7 +43,7 @@ export class PrimeNG extends ThemeProvider {
 
     floatVariant = signal<'in' | 'over' | 'on'>(null);
 
-    overlayAppendTo = signal<HTMLElement | ElementRef | TemplateRef<any> | string | null | undefined | any>('self');
+    overlayAppendTo = signal<HTMLElement | ElementRef | TemplateRef<any> | 'self' | 'body' | null | undefined | any>('self');
 
     overlayOptions: OverlayOptions = {};
 
@@ -84,6 +84,7 @@ export class PrimeNG extends ThemeProvider {
         accept: 'Yes',
         reject: 'No',
         choose: 'Choose',
+        completed: 'Completed',
         upload: 'Upload',
         cancel: 'Cancel',
         pending: 'Pending',

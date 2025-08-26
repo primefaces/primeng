@@ -297,6 +297,10 @@ export const routes: Routes = [
             {
                 path: 'designer',
                 loadChildren: () => import('@/pages/designer/routes')
+            },
+            {
+                path: 'migration',
+                loadChildren: () => import('@/pages/migration/routes')
             }
         ]
     },

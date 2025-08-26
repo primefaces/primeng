@@ -22,10 +22,10 @@ import {
     ViewEncapsulation
 } from '@angular/core';
 import { addClass, appendChild, removeClass, setAttribute } from '@primeuix/utils';
-import { blockBodyScroll, unblockBodyScroll } from 'primeng/dom';
 import { PrimeTemplate, SharedModule } from 'primeng/api';
 import { BaseComponent } from 'primeng/basecomponent';
 import { Button, ButtonProps } from 'primeng/button';
+import { blockBodyScroll, unblockBodyScroll } from 'primeng/dom';
 import { TimesIcon } from 'primeng/icons';
 import { Nullable, VoidListener } from 'primeng/ts-helpers';
 import { ZIndexUtils } from 'primeng/utils';
@@ -73,7 +73,7 @@ const hideAnimation = animation([animate('{{transition}}', style({ transform: '{
                         [attr.data-pc-group-section]="'iconcontainer'"
                     >
                         <ng-template #icon>
-                            <TimesIcon *ngIf="!closeIconTemplate && !_closeIconTemplate" [attr.data-pc-section]="'closeicon'" />
+                            <svg data-p-icon="times" *ngIf="!closeIconTemplate && !_closeIconTemplate" [attr.data-pc-section]="'closeicon'" />
                             <ng-template *ngTemplateOutlet="closeIconTemplate || _closeIconTemplate"></ng-template>
                         </ng-template>
                     </p-button>

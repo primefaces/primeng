@@ -1,1 +1,2 @@
-export * from '@primeuix/themes/types/password';
+export * from '@primeuix/themes/material/password';
+export { default } from '@primeuix/themes/material/password';

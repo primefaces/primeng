@@ -31,11 +31,11 @@ import {
     ViewEncapsulation
 } from '@angular/core';
 import { addClass, find, findSingle, focus, getAttribute, removeClass, setAttribute, uuid } from '@primeuix/utils';
-import { blockBodyScroll, unblockBodyScroll } from 'primeng/dom';
 import { PrimeTemplate, SharedModule } from 'primeng/api';
 import { BaseComponent } from 'primeng/basecomponent';
+import { blockBodyScroll, unblockBodyScroll } from 'primeng/dom';
 import { FocusTrap } from 'primeng/focustrap';
-import { ChevronDownIcon, ChevronLeftIcon, ChevronRightIcon, ChevronUpIcon, TimesIcon, WindowMaximizeIcon, WindowMinimizeIcon } from 'primeng/icons';
+import { ChevronDownIcon, ChevronLeftIcon, ChevronRightIcon, ChevronUpIcon, TimesIcon } from 'primeng/icons';
 import { Ripple } from 'primeng/ripple';
 import { VoidListener } from 'primeng/ts-helpers';
 import { ZIndexUtils } from 'primeng/utils';
@@ -51,7 +51,7 @@ import { GalleriaStyle } from './style/galleriastyle';
     standalone: false,
     template: `
         <div *ngIf="fullScreen; else windowed" #container>
-            <div *ngIf="maskVisible" #mask [ngClass]="cx('mask')" [class]="maskClass" [attr.role]="fullScreen ? 'dialog' : 'region'" [attr.aria-modal]="fullScreen ? 'true' : undefined">
+            <div *ngIf="maskVisible" #mask [ngClass]="cx('mask')" [class]="maskClass" [attr.role]="fullScreen ? 'dialog' : 'region'" [attr.aria-modal]="fullScreen ? 'true' : undefined" (click)="onMaskHide($event)">
                 <p-galleriaContent
                     *ngIf="visible"
                     [@animation]="{
@@ -365,9 +365,11 @@ export class Galleria extends BaseComponent implements OnChanges, OnDestroy {
         }
     }
 
-    onMaskHide() {
-        this.visible = false;
-        this.visibleChange.emit(false);
+    onMaskHide(event?: MouseEvent) {
+        if (!event || event.target === event.currentTarget) {
+            this.visible = false;
+            this.visibleChange.emit(false);
+        }
     }
 
     onActiveItemChange(index: number) {
@@ -434,9 +436,9 @@ export class Galleria extends BaseComponent implements OnChanges, OnDestroy {
     selector: 'p-galleriaContent',
     standalone: false,
     template: `
-        <div [attr.id]="id" [attr.role]="'region'" *ngIf="value && value.length > 0" [class]="cx('root')" [ngStyle]="!galleria.fullScreen ? galleria.containerStyle : {}" pFocusTrap [pFocusTrapDisabled]="!fullScreen">
+        <div [attr.id]="id" [attr.role]="'region'" *ngIf="value && value.length > 0" [class]="cn(cx('root'), galleria.containerClass)" [ngStyle]="!galleria.fullScreen ? galleria.containerStyle : {}" pFocusTrap [pFocusTrapDisabled]="!fullScreen">
             <button *ngIf="galleria.fullScreen" type="button" [class]="cx('closeButton')" (click)="maskHide.emit()" [attr.aria-label]="closeAriaLabel()" [attr.data-pc-section]="'closebutton'">
-                <TimesIcon *ngIf="!galleria.closeIconTemplate && !galleria._closeIconTemplate" [styleClass]="cx('closeIcon')" />
+                <svg data-p-icon="times" *ngIf="!galleria.closeIconTemplate && !galleria._closeIconTemplate" [class]="cx('closeIcon')" />
                 <ng-template *ngTemplateOutlet="galleria.closeIconTemplate || galleria._closeIconTemplate"></ng-template>
             </button>
             <div *ngIf="galleria.templates && (galleria.headerFacet || galleria.headerTemplate)" [class]="cx('header')">
@@ -741,14 +743,14 @@ export class GalleriaItemSlot {
     template: `
         <div [class]="cx('items')">
             <button *ngIf="showItemNavigators" type="button" role="navigation" [class]="cx('prevButton')" (click)="navBackward($event)" (focus)="onButtonFocus('left')" (blur)="onButtonBlur('left')">
-                <ChevronLeftIcon *ngIf="!galleria.itemPreviousIconTemplate && !galleria._itemPreviousIconTemplate" [styleClass]="cx('prevIcon')" />
+                <svg data-p-icon="chevron-left" *ngIf="!galleria.itemPreviousIconTemplate && !galleria._itemPreviousIconTemplate" [class]="cx('prevIcon')" />
                 <ng-template *ngTemplateOutlet="galleria.itemPreviousIconTemplate || galleria._itemPreviousIconTemplate"></ng-template>
             </button>
             <div [id]="id + '_item_' + activeIndex" role="group" [class]="cx('item')" [attr.aria-label]="ariaSlideNumber(activeIndex + 1)" [attr.aria-roledescription]="ariaSlideLabel()">
                 <p-galleriaItemSlot type="item" [item]="activeItem" [templates]="templates" [class]="cx('item')"></p-galleriaItemSlot>
             </div>
             <button *ngIf="showItemNavigators" type="button" [class]="cx('nextButton')" (click)="navForward($event)" role="navigation" (focus)="onButtonFocus('right')" (blur)="onButtonBlur('right')">
-                <ChevronRightIcon *ngIf="!galleria.itemNextIconTemplate && !galleria._itemNextIconTemplate" [styleClass]="cx('nextIcon')" />
+                <svg data-p-icon="chevron-right" *ngIf="!galleria.itemNextIconTemplate && !galleria._itemNextIconTemplate" [class]="cx('nextIcon')" />
                 <ng-template *ngTemplateOutlet="galleria.itemNextIconTemplate || galleria._itemNextIconTemplate"></ng-template>
             </button>
             <div [class]="cx('caption')" *ngIf="captionFacet || galleria.captionTemplate">
@@ -954,8 +956,8 @@ export class GalleriaItem extends BaseComponent implements OnChanges {
             <div [class]="cx('thumbnailContent')">
                 <button *ngIf="showThumbnailNavigators" type="button" [class]="cx('thumbnailPrevButton')" (click)="navBackward($event)" pRipple [attr.aria-label]="ariaPrevButtonLabel()">
                     <ng-container *ngIf="!galleria.previousThumbnailIconTemplate && !galleria._previousThumbnailIconTemplate">
-                        <ChevronLeftIcon *ngIf="!isVertical" [styleClass]="cx('thumbnailPrevIcon')" />
-                        <ChevronUpIcon *ngIf="isVertical" [styleClass]="cx('thumbnailPrevIcon')" />
+                        <svg data-p-icon="chevron-left" *ngIf="!isVertical" [class]="cx('thumbnailPrevIcon')" />
+                        <svg data-p-icon="chevron-up" *ngIf="isVertical" [class]="cx('thumbnailPrevIcon')" />
                     </ng-container>
                     <ng-template *ngTemplateOutlet="galleria.previousThumbnailIconTemplate || galleria._previousThumbnailIconTemplate"></ng-template>
                 </button>
@@ -986,8 +988,8 @@ export class GalleriaItem extends BaseComponent implements OnChanges {
                 </div>
                 <button *ngIf="showThumbnailNavigators" type="button" [class]="cx('thumbnailNextButton')" (click)="navForward($event)" pRipple [attr.aria-label]="ariaNextButtonLabel()">
                     <ng-container *ngIf="!galleria.nextThumbnailIconTemplate && !galleria._nextThumbnailIconTemplate">
-                        <ChevronRightIcon *ngIf="!isVertical" [ngClass]="cx('thumbnailNextIcon')" />
-                        <ChevronDownIcon *ngIf="isVertical" [ngClass]="cx('thumbnailNextIcon')" />
+                        <svg data-p-icon="chevron-right" *ngIf="!isVertical" [class]="cx('thumbnailNextIcon')" />
+                        <svg data-p-icon="chevron-down" *ngIf="isVertical" [class]="cx('thumbnailNextIcon')" />
                     </ng-container>
                     <ng-template *ngTemplateOutlet="galleria.nextThumbnailIconTemplate || galleria._nextThumbnailIconTemplate"></ng-template>
                 </button>
@@ -1124,6 +1126,7 @@ export class GalleriaThumbnails extends BaseComponent implements OnInit, AfterCo
     createStyle() {
         if (!this.thumbnailsStyle) {
             this.thumbnailsStyle = this.document.createElement('style');
+            setAttribute(this.thumbnailsStyle, 'nonce', this.galleria.config?.csp()?.nonce);
             this.document.body.appendChild(this.thumbnailsStyle);
         }
 
@@ -1488,7 +1491,7 @@ export class GalleriaThumbnails extends BaseComponent implements OnInit, AfterCo
 }
 
 @NgModule({
-    imports: [CommonModule, SharedModule, Ripple, TimesIcon, ChevronRightIcon, ChevronUpIcon, ChevronDownIcon, ChevronLeftIcon, WindowMaximizeIcon, WindowMinimizeIcon, FocusTrap],
+    imports: [CommonModule, SharedModule, Ripple, TimesIcon, ChevronRightIcon, ChevronUpIcon, ChevronDownIcon, ChevronLeftIcon, FocusTrap],
     exports: [CommonModule, Galleria, GalleriaContent, GalleriaItemSlot, GalleriaItem, GalleriaThumbnails, SharedModule],
     declarations: [Galleria, GalleriaContent, GalleriaItemSlot, GalleriaItem, GalleriaThumbnails]
 })

@@ -1,1 +1,2 @@
-export * from '@primeuix/themes/types/message';
+export * from '@primeuix/themes/material/message';
+export { default } from '@primeuix/themes/material/message';

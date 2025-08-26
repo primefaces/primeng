@@ -1,16 +1,16 @@
 import { animate, AnimationEvent, style, transition, trigger } from '@angular/animations';
 import { CommonModule, isPlatformBrowser } from '@angular/common';
-import { AfterViewInit, booleanAttribute, ChangeDetectionStrategy, Component, ElementRef, EventEmitter, forwardRef, inject, Input, NgModule, numberAttribute, OnDestroy, Output, ViewChild, ViewEncapsulation } from '@angular/core';
-import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
+import { AfterViewInit, booleanAttribute, ChangeDetectionStrategy, Component, computed, ElementRef, EventEmitter, forwardRef, inject, input, Input, NgModule, OnDestroy, Output, TemplateRef, ViewChild, ViewEncapsulation } from '@angular/core';
+import { NG_VALUE_ACCESSOR } from '@angular/forms';
 import { absolutePosition, cn, isTouchDevice, relativePosition } from '@primeuix/utils';
 import { OverlayService, SharedModule, TranslationKeys } from 'primeng/api';
 import { AutoFocusModule } from 'primeng/autofocus';
+import { BaseEditableHolder } from 'primeng/baseeditableholder';
 import { ConnectedOverlayScrollHandler, DomHandler } from 'primeng/dom';
 import { Nullable, VoidListener } from 'primeng/ts-helpers';
 import { ZIndexUtils } from 'primeng/utils';
 import { ColorPickerChangeEvent } from './colorpicker.interface';
 import { ColorPickerStyle } from './style/colorpickerstyle';
-import { BaseEditableHolder } from 'primeng/baseeditableholder';
 
 export const COLORPICKER_VALUE_ACCESSOR: any = {
     provide: NG_VALUE_ACCESSOR,
@@ -31,9 +31,9 @@ export const COLORPICKER_VALUE_ACCESSOR: any = {
             #input
             type="text"
             [class]="cx('preview')"
-            readonly="readonly"
+            readonly
             [attr.tabindex]="tabindex"
-            [disabled]="disabled()"
+            [attr.disabled]="$disabled() ? '' : undefined"
             (click)="onInputClick()"
             (keydown)="onInputKeydown($event)"
             (focus)="onInputFocus()"
@@ -78,7 +78,7 @@ export const COLORPICKER_VALUE_ACCESSOR: any = {
         '[attr.data-pc-section]': '"root"'
     }
 })
-export class ColorPicker extends BaseEditableHolder implements ControlValueAccessor, OnDestroy, AfterViewInit {
+export class ColorPicker extends BaseEditableHolder implements OnDestroy, AfterViewInit {
     /**
      * Style class of the component.
      * @deprecated since v20.0.0, use `class` instead.
@@ -111,11 +111,6 @@ export class ColorPicker extends BaseEditableHolder implements ControlValueAcces
      */
     @Input({ transform: booleanAttribute }) autoZIndex: boolean = true;
     /**
-     * Base zIndex value to use in layering.
-     * @group Props
-     */
-    @Input({ transform: numberAttribute }) baseZIndex: number = 0;
-    /**
      * Transition options of the show animation.
      * @group Props
      */
@@ -130,6 +125,17 @@ export class ColorPicker extends BaseEditableHolder implements ControlValueAcces
      * @group Props
      */
     @Input({ transform: booleanAttribute }) autofocus: boolean | undefined;
+    /**
+     * Default color to display initially when model value is not present.
+     * @group Props
+     */
+    @Input() defaultColor: string | undefined = 'ff0000';
+    /**
+     * Target element to attach the overlay, valid values are "body" or a local ng-template variable of another element (note: use binding with brackets for template variables, e.g. [appendTo]="mydiv" for a div element having #mydiv as variable name).
+     * @defaultValue 'self'
+     * @group Props
+     */
+    appendTo = input<HTMLElement | ElementRef | TemplateRef<any> | 'self' | 'body' | null | undefined | any>(undefined);
     /**
      * Callback to invoke on value change.
      * @param {ColorPickerChangeEvent} event - Custom value change event.
@@ -149,6 +155,8 @@ export class ColorPicker extends BaseEditableHolder implements ControlValueAcces
 
     @ViewChild('input') inputViewChild: Nullable<ElementRef>;
 
+    $appendTo = computed(() => this.appendTo() || this.config.overlayAppendTo());
+
     value: any = { h: 0, s: 100, b: 100 };
 
     inputBgColor: string | undefined;
@@ -156,12 +164,6 @@ export class ColorPicker extends BaseEditableHolder implements ControlValueAcces
     shown: Nullable<boolean>;
 
     overlayVisible: Nullable<boolean>;
-
-    defaultColor: string = 'ff0000';
-
-    onModelChange: Function = () => {};
-
-    onModelTouched: Function = () => {};
 
     documentClickListener: VoidListener;
 
@@ -218,7 +220,7 @@ export class ColorPicker extends BaseEditableHolder implements ControlValueAcces
     }
 
     onHueMousedown(event: MouseEvent) {
-        if (this.disabled()) {
+        if (this.$disabled()) {
             return;
         }
 
@@ -230,7 +232,7 @@ export class ColorPicker extends BaseEditableHolder implements ControlValueAcces
     }
 
     onHueDragStart(event: TouchEvent) {
-        if (this.disabled()) {
+        if (this.$disabled()) {
             return;
         }
 
@@ -239,7 +241,7 @@ export class ColorPicker extends BaseEditableHolder implements ControlValueAcces
     }
 
     onColorDragStart(event: TouchEvent) {
-        if (this.disabled()) {
+        if (this.$disabled()) {
             return;
         }
 
@@ -263,7 +265,7 @@ export class ColorPicker extends BaseEditableHolder implements ControlValueAcces
     }
 
     onColorMousedown(event: MouseEvent) {
-        if (this.disabled()) {
+        if (this.$disabled()) {
             return;
         }
 
@@ -334,30 +336,6 @@ export class ColorPicker extends BaseEditableHolder implements ControlValueAcces
 
     updateModel(): void {
         this.onModelChange(this.getValueToUpdate());
-        this.cd.markForCheck();
-    }
-
-    writeValue(value: any): void {
-        if (value) {
-            switch (this.format) {
-                case 'hex':
-                    this.value = this.HEXtoHSB(value);
-                    break;
-
-                case 'rgb':
-                    this.value = this.RGBtoHSB(value);
-                    break;
-
-                case 'hsb':
-                    this.value = value;
-                    break;
-            }
-        } else {
-            this.value = this.HEXtoHSB(this.defaultColor);
-        }
-
-        this.updateColorSelector();
-        this.updateUI();
         this.cd.markForCheck();
     }
 
@@ -492,14 +470,6 @@ export class ColorPicker extends BaseEditableHolder implements ControlValueAcces
         });
 
         this.selfClick = true;
-    }
-
-    registerOnChange(fn: Function): void {
-        this.onModelChange = fn;
-    }
-
-    registerOnTouched(fn: Function): void {
-        this.onModelTouched = fn;
     }
 
     bindDocumentClickListener() {
@@ -755,6 +725,36 @@ export class ColorPicker extends BaseEditableHolder implements ControlValueAcces
             this.updateColorSelector();
             this.updateUI();
         }
+    }
+
+    /**
+     * @override
+     *
+     * @see {@link BaseEditableHolder.writeControlValue}
+     * Writes the value to the control.
+     */
+    writeControlValue(value: any): void {
+        if (value) {
+            switch (this.format) {
+                case 'hex':
+                    this.value = this.HEXtoHSB(value);
+                    break;
+
+                case 'rgb':
+                    this.value = this.RGBtoHSB(value);
+                    break;
+
+                case 'hsb':
+                    this.value = value;
+                    break;
+            }
+        } else {
+            this.value = this.HEXtoHSB(this.defaultColor);
+        }
+
+        this.updateColorSelector();
+        this.updateUI();
+        this.cd.markForCheck();
     }
 
     ngOnDestroy() {

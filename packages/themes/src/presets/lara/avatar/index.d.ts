@@ -1,1 +1,2 @@
-export * from '@primeuix/themes/types/avatar';
+export * from '@primeuix/themes/lara/avatar';
+export { default } from '@primeuix/themes/lara/avatar';

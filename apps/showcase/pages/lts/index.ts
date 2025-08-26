@@ -51,15 +51,23 @@ import { TagModule } from 'primeng/tag';
                         <tbody>
                             <tr class="text-lg text-surface-800 dark:text-surface-50">
                                 <td class="p-2">
-                                    <p-tag value="v19" styleClass="text-lg px-4"></p-tag>
+                                    <p-tag value="v20" class="text-lg px-4"></p-tag>
                                 </td>
                                 <td class="p-2">STS</td>
+                                <td class="p-2">After v21 release</td>
+                                <td class="p-2">After v23 release</td>
+                            </tr>
+                            <tr class="text-lg text-surface-800 dark:text-surface-50">
+                                <td class="p-2">
+                                    <p-tag value="v19" class="text-lg px-4"></p-tag>
+                                </td>
+                                <td class="p-2">LTS</td>
                                 <td class="p-2">After v20 release</td>
                                 <td class="p-2">After v22 release</td>
                             </tr>
                             <tr class="text-lg text-surface-800 dark:text-surface-50">
                                 <td class="p-2">
-                                    <p-tag value="v18" styleClass="text-lg px-4" severity="success"></p-tag>
+                                    <p-tag value="v18" class="text-lg px-4" severity="success"></p-tag>
                                 </td>
                                 <td class="p-2">LTS</td>
                                 <td class="p-2">After v19 release</td>
@@ -68,15 +76,15 @@ import { TagModule } from 'primeng/tag';
 
                             <tr class="text-lg text-surface-800 dark:text-surface-50">
                                 <td class="p-2">
-                                    <p-tag value="v17" styleClass="text-lg px-4" severity="success"></p-tag>
+                                    <p-tag value="v17" class="text-lg px-4" severity="danger"></p-tag>
                                 </td>
-                                <td class="p-2">LTS</td>
+                                <td class="p-2">Legacy</td>
                                 <td class="p-2">After v18 release</td>
                                 <td class="p-2">After v20 release</td>
                             </tr>
                             <tr class="text-lg text-surface-800 dark:text-surface-50">
                                 <td class="p-2">
-                                    <p-tag value="v16" styleClass="text-lg px-4" severity="danger"></p-tag>
+                                    <p-tag value="v16" class="text-lg px-4" severity="danger"></p-tag>
                                 </td>
                                 <td class="p-2">Legacy</td>
                                 <td class="p-2">After v17 release</td>
@@ -84,7 +92,7 @@ import { TagModule } from 'primeng/tag';
                             </tr>
                             <tr class="text-lg text-surface-800 dark:text-surface-50">
                                 <td class="p-2">
-                                    <p-tag value="v15" styleClass="text-lg px-4" severity="danger"></p-tag>
+                                    <p-tag value="v15" class="text-lg px-4" severity="danger"></p-tag>
                                 </td>
                                 <td class="p-2">Legacy</td>
                                 <td class="p-2">After v16 release</td>
@@ -92,7 +100,7 @@ import { TagModule } from 'primeng/tag';
                             </tr>
                             <tr class="text-lg text-surface-800 dark:text-surface-50">
                                 <td class="p-2">
-                                    <p-tag value="v14" styleClass="text-lg px-4" severity="danger"></p-tag>
+                                    <p-tag value="v14" class="text-lg px-4" severity="danger"></p-tag>
                                 </td>
                                 <td class="p-2">Legacy</td>
                                 <td class="p-2">After v15 release</td>
@@ -100,7 +108,7 @@ import { TagModule } from 'primeng/tag';
                             </tr>
                             <tr class="text-lg text-surface-800 dark:text-surface-50">
                                 <td class="p-2">
-                                    <p-tag value="v13" styleClass="text-lg px-4" severity="danger"></p-tag>
+                                    <p-tag value="v13" class="text-lg px-4" severity="danger"></p-tag>
                                 </td>
                                 <td class="p-2">Legacy</td>
                                 <td class="p-2">After v14 release</td>
@@ -108,7 +116,7 @@ import { TagModule } from 'primeng/tag';
                             </tr>
                             <tr class="text-lg text-surface-800 dark:text-surface-50">
                                 <td class="p-2">
-                                    <p-tag value="v12" styleClass="text-lg px-4" severity="danger"></p-tag>
+                                    <p-tag value="v12" class="text-lg px-4" severity="danger"></p-tag>
                                 </td>
                                 <td class="p-2">Legacy</td>
                                 <td class="p-2">After v13 release</td>

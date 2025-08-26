@@ -60,7 +60,7 @@ import { PanelMenuStyle } from './style/panelmenustyle';
                     [attr.aria-level]="level + 1"
                     [attr.aria-setsize]="getAriaSetSize()"
                     [attr.aria-posinset]="getAriaPosInset(index)"
-                    [class]="cn(cx('item', { processedItem }, processedItem.styleClass))"
+                    [class]="cn(cx('item', { processedItem }), getItemProp(processedItem, 'styleClass'))"
                     [ngStyle]="getItemProp(processedItem, 'style')"
                     [pTooltip]="getItemProp(processedItem, 'tooltip')"
                     [attr.data-p-disabled]="isItemDisabled(processedItem)"
@@ -78,8 +78,8 @@ import { PanelMenuStyle } from './style/panelmenustyle';
                             >
                                 <ng-container *ngIf="isItemGroup(processedItem)">
                                     <ng-container *ngIf="!panelMenu.submenuIconTemplate && !panelMenu._submenuIconTemplate">
-                                        <ChevronDownIcon [styleClass]="cn(cx('submenuIcon'), getItemProp(processedItem, 'icon'))" *ngIf="isItemActive(processedItem)" [ngStyle]="getItemProp(processedItem, 'iconStyle')" />
-                                        <ChevronRightIcon [styleClass]="cn(cx('submenuIcon'), getItemProp(processedItem, 'icon'))" *ngIf="!isItemActive(processedItem)" [ngStyle]="getItemProp(processedItem, 'iconStyle')" />
+                                        <svg data-p-icon="chevron-down" [class]="cn(cx('submenuIcon'), getItemProp(processedItem, 'icon'))" *ngIf="isItemActive(processedItem)" [ngStyle]="getItemProp(processedItem, 'iconStyle')" />
+                                        <svg data-p-icon="chevron-right" [class]="cn(cx('submenuIcon'), getItemProp(processedItem, 'icon'))" *ngIf="!isItemActive(processedItem)" [ngStyle]="getItemProp(processedItem, 'iconStyle')" />
                                     </ng-container>
                                     <ng-template *ngTemplateOutlet="panelMenu.submenuIconTemplate || panelMenu._submenuIconTemplate"></ng-template>
                                 </ng-container>
@@ -107,14 +107,14 @@ import { PanelMenuStyle } from './style/panelmenustyle';
                             >
                                 <ng-container *ngIf="isItemGroup(processedItem)">
                                     <ng-container *ngIf="!panelMenu.submenuIconTemplate && !panelMenu._submenuIconTemplate">
-                                        <ChevronDownIcon *ngIf="isItemActive(processedItem)" [styleClass]="cn(cx('submenuIcon'), getItemProp(processedItem, 'icon'))" [ngStyle]="getItemProp(processedItem, 'iconStyle')" />
-                                        <ChevronRightIcon *ngIf="!isItemActive(processedItem)" [styleClass]="cn(cx('submenuIcon'), getItemProp(processedItem, 'icon'))" [ngStyle]="getItemProp(processedItem, 'iconStyle')" />
+                                        <svg data-p-icon="chevron-down" *ngIf="isItemActive(processedItem)" [class]="cn(cx('submenuIcon'), getItemProp(processedItem, 'icon'))" [ngStyle]="getItemProp(processedItem, 'iconStyle')" />
+                                        <svg data-p-icon="chevron-right" *ngIf="!isItemActive(processedItem)" [class]="cn(cx('submenuIcon'), getItemProp(processedItem, 'icon'))" [ngStyle]="getItemProp(processedItem, 'iconStyle')" />
                                     </ng-container>
                                     <ng-template *ngTemplateOutlet="panelMenu.submenuIconTemplate && panelMenu._submenuIconTemplate"></ng-template>
                                 </ng-container>
                                 <span [class]="cn(cx('itemIcon'), getItemProp(processedItem, 'icon'))" *ngIf="processedItem.icon" [ngStyle]="getItemProp(processedItem, 'iconStyle')"></span>
-                                <ng-template #htmlLabel><span [class]="cx('itemLabel')" [innerHTML]="getItemProp(processedItem, 'label')"></span></ng-template>
-                                <ng-template #htmlRouteLabel><span [class]="cx('itemLabel')" [innerHTML]="getItemProp(processedItem, 'label')"></span></ng-template>
+                                <span *ngIf="getItemProp(processedItem, 'label')" [class]="cx('itemLabel')" [innerHTML]="getItemProp(processedItem, 'label')"></span>
+
                                 <span [class]="cn(cx('badge'), getItemProp(processedItem, 'badgeStyleClass'))" *ngIf="processedItem.badge">{{ processedItem.badge }}</span>
                             </a>
                         </ng-container>
@@ -755,8 +755,8 @@ export class PanelMenuList extends BaseComponent implements OnChanges {
                             >
                                 <ng-container *ngIf="isItemGroup(item)">
                                     <ng-container *ngIf="!headerIconTemplate && !_headerIconTemplate">
-                                        <ChevronDownIcon [styleClass]="cx('headerIcon')" *ngIf="isItemActive(item)" />
-                                        <ChevronRightIcon [styleClass]="cx('headerIcon')" *ngIf="!isItemActive(item)" />
+                                        <svg data-p-icon="chevron-down" [class]="cx('headerIcon')" *ngIf="isItemActive(item)" />
+                                        <svg data-p-icon="chevron-right" [class]="cx('headerIcon')" *ngIf="!isItemActive(item)" />
                                     </ng-container>
                                     <ng-template *ngTemplateOutlet="headerIconTemplate || _headerIconTemplate"></ng-template>
                                 </ng-container>
@@ -786,8 +786,8 @@ export class PanelMenuList extends BaseComponent implements OnChanges {
                         >
                             <ng-container *ngIf="isItemGroup(item)">
                                 <ng-container *ngIf="!headerIconTemplate && !_headerIconTemplate">
-                                    <ChevronDownIcon [styleClass]="cx('headerIcon')" *ngIf="isItemActive(item)" />
-                                    <ChevronRightIcon [styleClass]="cx('headerIcon')" *ngIf="!isItemActive(item)" />
+                                    <svg data-p-icon="chevron-down" [class]="cx('headerIcon')" *ngIf="isItemActive(item)" />
+                                    <svg data-p-icon="chevron-right" [class]="cx('headerIcon')" *ngIf="!isItemActive(item)" />
                                 </ng-container>
                                 <ng-template *ngTemplateOutlet="headerIconTemplate || _headerIconTemplate"></ng-template>
                             </ng-container>

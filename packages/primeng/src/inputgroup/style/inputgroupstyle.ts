@@ -1,9 +1,8 @@
 import { Injectable } from '@angular/core';
-import { BaseStyle } from 'primeng/base';
-import { css, dt } from '@primeuix/styled';
 import { style } from '@primeuix/styles/inputgroup';
+import { BaseStyle } from 'primeng/base';
 
-const theme = css`
+const theme = /*css*/ `
     ${style}
 
     /*For PrimeNG*/
@@ -25,13 +24,17 @@ const theme = css`
     }
 
     .p-inputgroup:has(> p-button:first-child) .p-button {
-        border-start-start-radius: ${dt('inputgroup.addon.border.radius')};
-        border-end-start-radius: ${dt('inputgroup.addon.border.radius')};
+        border-start-start-radius: dt('inputgroup.addon.border.radius');
+        border-end-start-radius: dt('inputgroup.addon.border.radius');
     }
 
     .p-inputgroup:has(> p-button:last-child) .p-button {
-        border-start-end-radius: ${dt('inputgroup.addon.border.radius')};
-        border-end-end-radius: ${dt('inputgroup.addon.border.radius')};
+        border-start-end-radius: dt('inputgroup.addon.border.radius');
+        border-end-end-radius: dt('inputgroup.addon.border.radius');
+    }
+
+    .p-inputgroup > p-inputmask > .p-inputtext {
+        width: 100%;
     }
 `;
 

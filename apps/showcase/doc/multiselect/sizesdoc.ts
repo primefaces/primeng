@@ -14,9 +14,9 @@ interface City {
             <p>MultiSelect provides <i>small</i> and <i>large</i> sizes as alternatives to the base.</p>
         </app-docsectiontext>
         <div class="card flex flex-col items-center gap-4">
-            <p-multiselect [(ngModel)]="value1" [options]="cities" optionLabel="name" [maxSelectedLabels]="3" styleClass="w-full md:w-80" size="small" placeholder="Small" />
-            <p-multiselect [(ngModel)]="value2" [options]="cities" optionLabel="name" [maxSelectedLabels]="3" styleClass="w-full md:w-80" placeholder="Normal" />
-            <p-multiselect [(ngModel)]="value3" [options]="cities" optionLabel="name" [maxSelectedLabels]="3" styleClass="w-full md:w-80" size="large" placeholder="Large" />
+            <p-multiselect [(ngModel)]="value1" [options]="cities" optionLabel="name" [maxSelectedLabels]="3" class="w-full md:w-80" size="small" placeholder="Small" />
+            <p-multiselect [(ngModel)]="value2" [options]="cities" optionLabel="name" [maxSelectedLabels]="3" class="w-full md:w-80" placeholder="Normal" />
+            <p-multiselect [(ngModel)]="value3" [options]="cities" optionLabel="name" [maxSelectedLabels]="3" class="w-full md:w-80" size="large" placeholder="Large" />
         </div>
         <app-code [code]="code" selector="multi-select-sizes-demo"></app-code>
     `
@@ -41,14 +41,14 @@ export class SizesDoc implements OnInit {
     }
 
     code: Code = {
-        basic: `<p-multiselect [(ngModel)]="value1" [options]="cities" optionLabel="name" [maxSelectedLabels]="3" styleClass="w-full md:w-80" size="small" placeholder="Small" />
-<p-multiselect [(ngModel)]="value2" [options]="cities" optionLabel="name" [maxSelectedLabels]="3" styleClass="w-full md:w-80" placeholder="Normal" />
-<p-multiselect [(ngModel)]="value3" [options]="cities" optionLabel="name" [maxSelectedLabels]="3" styleClass="w-full md:w-80" size="large" placeholder="Large" />`,
+        basic: `<p-multiselect [(ngModel)]="value1" [options]="cities" optionLabel="name" [maxSelectedLabels]="3" class="w-full md:w-80" size="small" placeholder="Small" />
+<p-multiselect [(ngModel)]="value2" [options]="cities" optionLabel="name" [maxSelectedLabels]="3" class="w-full md:w-80" placeholder="Normal" />
+<p-multiselect [(ngModel)]="value3" [options]="cities" optionLabel="name" [maxSelectedLabels]="3" class="w-full md:w-80" size="large" placeholder="Large" />`,
 
         html: `<div class="card flex flex-col items-center gap-4">
-    <p-multiselect [(ngModel)]="value1" [options]="cities" optionLabel="name" [maxSelectedLabels]="3" styleClass="w-full md:w-80" size="small" placeholder="Small" />
-    <p-multiselect [(ngModel)]="value2" [options]="cities" optionLabel="name" [maxSelectedLabels]="3" styleClass="w-full md:w-80" placeholder="Normal" />
-    <p-multiselect [(ngModel)]="value3" [options]="cities" optionLabel="name" [maxSelectedLabels]="3" styleClass="w-full md:w-80" size="large" placeholder="Large" />
+    <p-multiselect [(ngModel)]="value1" [options]="cities" optionLabel="name" [maxSelectedLabels]="3" class="w-full md:w-80" size="small" placeholder="Small" />
+    <p-multiselect [(ngModel)]="value2" [options]="cities" optionLabel="name" [maxSelectedLabels]="3" class="w-full md:w-80" placeholder="Normal" />
+    <p-multiselect [(ngModel)]="value3" [options]="cities" optionLabel="name" [maxSelectedLabels]="3" class="w-full md:w-80" size="large" placeholder="Large" />
 </div>`,
 
         typescript: `import { Component, OnInit } from '@angular/core';
