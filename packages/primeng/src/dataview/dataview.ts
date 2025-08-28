@@ -67,7 +67,6 @@ import { DataViewStyle } from './style/dataviewstyle';
                 [pageLinkSize]="pageLinks"
                 [alwaysShow]="alwaysShowPaginator"
                 (onPageChange)="paginate($event)"
-                [styleClass]="cx('pcPaginator', { position: 'top' })"
                 [rowsPerPageOptions]="rowsPerPageOptions"
                 [appendTo]="paginatorDropdownAppendTo"
                 [dropdownScrollHeight]="paginatorDropdownScrollHeight"
@@ -79,7 +78,7 @@ import { DataViewStyle } from './style/dataviewstyle';
                 [showCurrentPageReport]="showCurrentPageReport"
                 [showJumpToPageDropdown]="showJumpToPageDropdown"
                 [showPageLinks]="showPageLinks"
-                [styleClass]="paginatorStyleClass"
+                [styleClass]="[paginatorStyleClass, cx('pcPaginator', { position: 'top' })].filter(Boolean).join(' ')"
             ></p-paginator>
         }
         <div [class]="cx('content')">
@@ -120,7 +119,6 @@ import { DataViewStyle } from './style/dataviewstyle';
                 [pageLinkSize]="pageLinks"
                 [alwaysShow]="alwaysShowPaginator"
                 (onPageChange)="paginate($event)"
-                [styleClass]="cx('pcPaginator', { position: 'bottom' })"
                 [rowsPerPageOptions]="rowsPerPageOptions"
                 [appendTo]="paginatorDropdownAppendTo"
                 [dropdownScrollHeight]="paginatorDropdownScrollHeight"
@@ -132,7 +130,7 @@ import { DataViewStyle } from './style/dataviewstyle';
                 [showCurrentPageReport]="showCurrentPageReport"
                 [showJumpToPageDropdown]="showJumpToPageDropdown"
                 [showPageLinks]="showPageLinks"
-                [styleClass]="paginatorStyleClass"
+                [styleClass]="[paginatorStyleClass, cx('pcPaginator', { position: 'bottom' })].filter(Boolean).join(' ')"
             ></p-paginator>
         }
         @if (footer || footerTemplate) {
