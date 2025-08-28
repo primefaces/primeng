@@ -107,7 +107,7 @@ export class StyleClass implements OnDestroy {
             if (!this.animating) {
                 this.animating = true;
 
-                if (this.enterActiveClass === 'animate-slidedown') {
+                if (this.enterActiveClass.includes('slidedown')) {
                     (this.target as HTMLElement).style.height = '0px';
                     removeClass(this.target, 'hidden');
                     (this.target as HTMLElement).style.maxHeight = (this.target as HTMLElement).scrollHeight + 'px';
@@ -127,7 +127,7 @@ export class StyleClass implements OnDestroy {
                     }
                     this.enterListener && this.enterListener();
 
-                    if (this.enterActiveClass === 'animate-slidedown') {
+                    if (this.enterActiveClass.includes('slidedown')) {
                         (this.target as HTMLElement).style.maxHeight = '';
                     }
                     this.animating = false;
