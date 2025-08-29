@@ -8,14 +8,14 @@ import {
     ContentChild,
     ContentChildren,
     ElementRef,
-    EventEmitter,
     forwardRef,
     inject,
     input,
     Input,
     NgModule,
     numberAttribute,
-    Output,
+    output,
+    OutputEmitterRef,
     QueryList,
     signal,
     SimpleChanges,
@@ -185,19 +185,19 @@ export class Checkbox extends BaseEditableHolder implements AfterContentInit {
      * @param {CheckboxChangeEvent} event - Custom value change event.
      * @group Emits
      */
-    @Output() onChange: EventEmitter<CheckboxChangeEvent> = new EventEmitter();
+    onChange: OutputEmitterRef<CheckboxChangeEvent> = output<CheckboxChangeEvent>();
     /**
      * Callback to invoke when the receives focus.
      * @param {Event} event - Browser event.
      * @group Emits
      */
-    @Output() onFocus: EventEmitter<Event> = new EventEmitter<Event>();
+    onFocus: OutputEmitterRef<Event> = output<Event>();
     /**
      * Callback to invoke when the loses focus.
      * @param {Event} event - Browser event.
      * @group Emits
      */
-    @Output() onBlur: EventEmitter<Event> = new EventEmitter<Event>();
+    onBlur: OutputEmitterRef<Event> = output<Event>();
 
     @ViewChild('input') inputViewChild: Nullable<ElementRef>;
 
