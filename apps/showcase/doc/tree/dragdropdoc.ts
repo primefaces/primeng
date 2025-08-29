@@ -8,13 +8,23 @@ import { TreeDragDropService, TreeNode } from 'primeng/api';
     standalone: false,
     template: `
         <app-docsectiontext>
-            <p>Nodes can be reordered within the same tree and also can be transferred between other trees using drag&drop.</p>
+            <p>Nodes can be reordered by dragging and dropping. A blue line indicates the drop position. Dropping a node onto a folder will make it a child of that folder.</p>
         </app-docsectiontext>
         <div class="card">
-            <p-tree [value]="files" class="w-full md:w-[30rem]" [draggableNodes]="true" [droppableNodes]="true" draggableScope="self" droppableScope="self" />
+            <p-tree [value]="files" class="w-full md:w-[30rem]" [draggableNodes]="true" [droppableNodes]="true" (onNodeDrop)="onNodeDrop($event)" />
         </div>
         <app-code [code]="code" selector="tree-drag-drop-demo"></app-code>
     `,
+    styles: [
+        `
+            :host ::ng-deep {
+                /* More specific selector to target the content of the node being dragged over */
+                .p-treenode.p-treenode-dragover > .p-treenode-content {
+                    border-top: 2px solid #007bff;
+                }
+            }
+        `
+    ],
     providers: [TreeDragDropService]
 })
 export class DragDropDoc implements OnInit {
@@ -26,11 +36,64 @@ export class DragDropDoc implements OnInit {
         this.nodeService.getFiles().then((data) => (this.files = data));
     }
 
+    onNodeDrop(event) {
+        const dragNode = event.dragNode;
+        const dropNode = event.dropNode;
+        const dropIndex = event.index;
+
+        this.removeNode(dragNode, this.files);
+
+        if (dropNode) {
+            // If dropping onto a folder, add as a child
+            if (dropNode.children) {
+                dropNode.children.push(dragNode);
+            }
+            // Otherwise, drop as a sibling
+            else {
+                const dropNodeParent = this.findParent(dropNode, this.files);
+                if (dropNodeParent && dropNodeParent.children) {
+                    dropNodeParent.children.splice(dropIndex, 0, dragNode);
+                } else {
+                    this.files.splice(dropIndex, 0, dragNode);
+                }
+            }
+        } else {
+            // Dropped at root level
+            this.files.splice(dropIndex, 0, dragNode);
+        }
+
+        this.files = [...this.files];
+    }
+
+    removeNode(node: TreeNode, tree: TreeNode[]) {
+        const parent = this.findParent(node, tree);
+        if (parent && parent.children) {
+            parent.children = parent.children.filter((c) => c.key !== node.key);
+        } else {
+            this.files = this.files.filter((n) => n.key !== node.key);
+        }
+    }
+
+    findParent(node: TreeNode, tree: TreeNode[]): TreeNode | null {
+        for (const n of tree) {
+            if (n.children && n.children.some((c) => c.key === node.key)) {
+                return n;
+            }
+            if (n.children) {
+                const parent = this.findParent(node, n.children);
+                if (parent) {
+                    return parent;
+                }
+            }
+        }
+        return null;
+    }
+
     code: Code = {
-        basic: `<p-tree [value]="files" class="w-full md:w-[30rem]" [draggableNodes]="true" [droppableNodes]="true" draggableScope="self" droppableScope="self" />`,
+        basic: `<p-tree [value]="files" class="w-full md:w-[30rem]" [draggableNodes]="true" [droppableNodes]="true" (onNodeDrop)="onNodeDrop($event)" />`,
 
         html: `<div class="card">
-    <p-tree [value]="files" class="w-full md:w-[30rem]" [draggableNodes]="true" [droppableNodes]="true" draggableScope="self" droppableScope="self" />
+    <p-tree [value]="files" class="w-full md:w-[30rem]" [draggableNodes]="true" [droppableNodes]="true" (onNodeDrop)="onNodeDrop($event)" />
 </div>`,
 
         typescript: `import { Component, OnInit } from '@angular/core';
@@ -41,6 +104,15 @@ import { Tree } from 'primeng/tree';
 @Component({
     selector: 'tree-drag-drop-demo',
     templateUrl: './tree-drag-drop-demo.html',
+    styles: [
+        \`
+            :host ::ng-deep {
+                .p-treenode.p-treenode-dragover > .p-treenode-content {
+                    border-top: 2px solid #007bff;
+                }
+            }
+        \`
+    ],
     standalone: true,
     imports: [Tree],
     providers: [TreeDragDropService, NodeService]
@@ -53,11 +125,62 @@ export class TreeDragDropDemo implements OnInit {
     ngOnInit() {
         this.nodeService.getFiles().then((data) => (this.files = data));
     }
+
+    onNodeDrop(event) {
+        const dragNode = event.dragNode;
+        const dropNode = event.dropNode;
+        const dropIndex = event.index;
+
+        this.removeNode(dragNode, this.files);
+
+        if (dropNode) {
+            // If dropping onto a folder, add as a child
+            if (dropNode.children) {
+                dropNode.children.push(dragNode);
+            }
+            // Otherwise, drop as a sibling
+            else {
+                const dropNodeParent = this.findParent(dropNode, this.files);
+                if (dropNodeParent && dropNodeParent.children) {
+                    dropNodeParent.children.splice(dropIndex, 0, dragNode);
+                } else {
+                    this.files.splice(dropIndex, 0, dragNode);
+                }
+            }
+        } else {
+            // Dropped at root level
+            this.files.splice(dropIndex, 0, dragNode);
+        }
+
+        this.files = [...this.files];
+    }
+
+    removeNode(node: TreeNode, tree: TreeNode[]) {
+        const parent = this.findParent(node, tree);
+        if (parent && parent.children) {
+            parent.children = parent.children.filter((c) => c.key !== node.key);
+        } else {
+            this.files = this.files.filter((n) => n.key !== node.key);
+        }
+    }
+
+    findParent(node: TreeNode, tree: TreeNode[]): TreeNode | null {
+        for (const n of tree) {
+            if (n.children && n.children.some((c) => c.key === node.key)) {
+                return n;
+            }
+            if (n.children) {
+                const parent = this.findParent(node, n.children);
+                if (parent) {
+                    return parent;
+                }
+            }
+        }
+        return null;
+    }
 }`,
-
         service: ['NodeService'],
-
-        data: `
+        data: \`
     /* NodeService */
 {
     key: '0',
@@ -84,6 +207,6 @@ export class TreeDragDropDemo implements OnInit {
         }
     ]
 },
-...`
+...\`
     };
 }
