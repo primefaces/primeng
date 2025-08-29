@@ -46,6 +46,14 @@
         }
     }
     
+    .p-datatable-tbody > tr.drop-top {
+        border-top: 2px solid var(--primary-color);
+    }
+
+    .p-datatable-tbody > tr.drop-bottom {
+        border-bottom: 2px solid var(--primary-color);
+    }
+
     [pDraggable] {
         cursor: move;
     }

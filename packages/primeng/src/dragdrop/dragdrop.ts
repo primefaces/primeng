@@ -209,8 +209,6 @@ export class Droppable implements AfterViewInit, OnDestroy {
      */
     @Output() onDrop: EventEmitter<DragEvent> = new EventEmitter();
 
-    dragCounter: number = 0;
-
     constructor(
         public el: ElementRef,
         public zone: NgZone,
@@ -253,8 +251,6 @@ export class Droppable implements AfterViewInit, OnDestroy {
             event.preventDefault();
             this.onDrop.emit(event);
         }
-
-        this.dragCounter = 0;
     }
 
     @HostListener('dragenter', ['$event'])
@@ -265,7 +261,6 @@ export class Droppable implements AfterViewInit, OnDestroy {
             (event.dataTransfer as DataTransfer).dropEffect = this.dropEffect;
         }
 
-        this.dragCounter++;
         addClass(this.el.nativeElement, 'p-draggable-enter');
         this.onDragEnter.emit(event);
     }
@@ -273,9 +268,8 @@ export class Droppable implements AfterViewInit, OnDestroy {
     @HostListener('dragleave', ['$event'])
     dragLeave(event: DragEvent) {
         event.preventDefault();
-        this.dragCounter--;
 
-        if (this.dragCounter === 0) {
+        if (!this.el.nativeElement.contains(event.relatedTarget)) {
             removeClass(this.el.nativeElement, 'p-draggable-enter');
             this.onDragLeave.emit(event);
         }
