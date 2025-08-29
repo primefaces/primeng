@@ -11,7 +11,7 @@ import { Component, OnInit } from '@angular/core';
             <p>Drag and Drop to Table</p>
         </app-docsectiontext>
         <div class="card grid grid-cols-12 gap-4 grid-nogutter">
-            <div class="col-span-12 md:col-span-6 drag-column">
+            <div class="col-span-12 md:col-span-6 drag-column" pDroppable="products" (onDrop)="dropOnAvailable()">
                 <div *ngFor="let product of availableProducts">
                     <div class="product-item" pDraggable="products" (onDragStart)="dragStart(product)" (onDragEnd)="dragEnd()">
                         <div class="image-container">
@@ -133,6 +133,15 @@ export class DataTableDoc implements OnInit {
         }
     }
 
+    dropOnAvailable() {
+        if (this.draggedProduct && this.draggedProductIndex > -1) {
+            this.selectedProducts = this.selectedProducts.filter((p) => p.id !== this.draggedProduct.id);
+            this.availableProducts = [...this.availableProducts, this.draggedProduct];
+            this.draggedProduct = null;
+            this.draggedProductIndex = -1;
+        }
+    }
+
     dragEnd() {
         this.draggedProduct = null;
         this.draggedProductIndex = -1;
@@ -156,7 +165,7 @@ export class DataTableDoc implements OnInit {
 
     code: Code = {
         basic: `<div class="card grid grid-cols-12 gap-4 grid-nogutter">
-    <div class="col-span-12 md:col-span-6 drag-column">
+    <div class="col-span-12 md:col-span-6 drag-column" pDroppable="products" (onDrop)="dropOnAvailable()">
         <div *ngFor="let product of availableProducts">
             <div
                 class="product-item"
@@ -218,7 +227,7 @@ export class DataTableDoc implements OnInit {
     </div>
 </div>`,
         html: `<div class="card grid grid-cols-12 gap-4 grid-nogutter">
-    <div class="col-span-12 md:col-span-6 drag-column">
+    <div class="col-span-12 md:col-span-6 drag-column" pDroppable="products" (onDrop)="dropOnAvailable()">
         <div *ngFor="let product of availableProducts">
             <div
                 class="product-item"
@@ -339,11 +348,11 @@ import { Tag } from 'primeng/tag';
                 }
             }
 
-            .p-datatable-tbody > tr.drop-top {
+            .p-datatable-tbody tr.drop-top {
                 border-top: 2px solid #007bff;
             }
 
-            .p-datatable-tbody > tr.drop-bottom {
+            .p-datatable-tbody tr.drop-bottom {
                 border-bottom: 2px solid #007bff;
             }
 
@@ -441,6 +450,15 @@ export class DragDropDataTableDemo implements OnInit {
             this.selectedProducts = newSelectedProducts;
             this.draggedProduct = null;
             this.resetDropState();
+        }
+    }
+
+    dropOnAvailable() {
+        if (this.draggedProduct && this.draggedProductIndex > -1) {
+            this.selectedProducts = this.selectedProducts.filter((p) => p.id !== this.draggedProduct.id);
+            this.availableProducts = [...this.availableProducts, this.draggedProduct];
+            this.draggedProduct = null;
+            this.draggedProductIndex = -1;
         }
     }
 
