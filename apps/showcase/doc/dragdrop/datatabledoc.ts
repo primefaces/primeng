@@ -189,39 +189,30 @@ export class DataTableDoc implements OnInit {
             </div>
         </div>
     </div>
-    <div class="col-span-12 md:col-span-6 drop-column" pDroppable="products" (onDrop)="drop()">
-    <p-table [value]="selectedProducts">
-        <ng-template pTemplate="header">
-            <tr>
-                <th>
-                    ID
-                </th>
-                <th>
-                    Category
-                </th>
-                <th>
-                    Name
-                </th>
-                <th>
-                    Price
-                </th>
-            </tr>
-        </ng-template>
-        <ng-template pTemplate="body" let-product>
-            <tr>
-                <td>
-                    {{product.id}}
-                </td>
-                <td>
-                    {{product.category}}
-                </td>
-                <td>
-                    {{product.name}}
-                </td>
-                <td>
-                    {{product.price}}
-                </td>
-            </tr>
+    <div class="col-span-12 md:col-span-6 drop-column">
+        <p-table [value]="selectedProducts" pDroppable="products" (onDrop)="drop()">
+            <ng-template pTemplate="header">
+                <tr>
+                    <th>ID</th>
+                    <th>Category</th>
+                    <th>Name</th>
+                    <th>Price</th>
+                </tr>
+            </ng-template>
+            <ng-template pTemplate="body" let-product let-i="rowIndex">
+                <tr
+                    pDraggable="products"
+                    pDroppable="products"
+                    (onDragStart)="dragStart(product)"
+                    (onDragEnd)="dragEnd()"
+                    (onDrop)="drop(i)"
+                    (dragover)="onDragOver($event, i)"
+                    [ngClass]="{ 'drop-top': dropState.index === i && dropState.position === 'top', 'drop-bottom': dropState.index === i && dropState.position === 'bottom' }">
+                    <td>{{ product.id }}</td>
+                    <td>{{ product.category }}</td>
+                    <td>{{ product.name }}</td>
+                    <td>{{ product.price }}</td>
+                </tr>
             </ng-template>
         </p-table>
     </div>
@@ -260,39 +251,30 @@ export class DataTableDoc implements OnInit {
             </div>
         </div>
     </div>
-    <div class="col-span-12 md:col-span-6 drop-column" pDroppable="products" (onDrop)="drop()">
-    <p-table [value]="selectedProducts">
-        <ng-template pTemplate="header">
-            <tr>
-                <th>
-                    ID
-                </th>
-                <th>
-                    Category
-                </th>
-                <th>
-                    Name
-                </th>
-                <th>
-                    Price
-                </th>
-            </tr>
-        </ng-template>
-        <ng-template pTemplate="body" let-product>
-            <tr>
-                <td>
-                    {{product.id}}
-                </td>
-                <td>
-                    {{product.category}}
-                </td>
-                <td>
-                    {{product.name}}
-                </td>
-                <td>
-                    {{product.price}}
-                </td>
-            </tr>
+    <div class="col-span-12 md:col-span-6 drop-column">
+        <p-table [value]="selectedProducts" pDroppable="products" (onDrop)="drop()">
+            <ng-template pTemplate="header">
+                <tr>
+                    <th>ID</th>
+                    <th>Category</th>
+                    <th>Name</th>
+                    <th>Price</th>
+                </tr>
+            </ng-template>
+            <ng-template pTemplate="body" let-product let-i="rowIndex">
+                <tr
+                    pDraggable="products"
+                    pDroppable="products"
+                    (onDragStart)="dragStart(product)"
+                    (onDragEnd)="dragEnd()"
+                    (onDrop)="drop(i)"
+                    (dragover)="onDragOver($event, i)"
+                    [ngClass]="{ 'drop-top': dropState.index === i && dropState.position === 'top', 'drop-bottom': dropState.index === i && dropState.position === 'bottom' }">
+                    <td>{{ product.id }}</td>
+                    <td>{{ product.category }}</td>
+                    <td>{{ product.name }}</td>
+                    <td>{{ product.price }}</td>
+                </tr>
             </ng-template>
         </p-table>
     </div>
@@ -357,6 +339,14 @@ import { Tag } from 'primeng/tag';
                 }
             }
 
+            .p-datatable-tbody > tr.drop-top {
+                border-top: 2px solid #007bff;
+            }
+
+            .p-datatable-tbody > tr.drop-bottom {
+                border-bottom: 2px solid #007bff;
+            }
+
             [pDraggable] {
                 cursor: move;
             }
@@ -389,6 +379,13 @@ export class DragDropDataTableDemo implements OnInit {
 
     draggedProduct: Product | undefined | null;
 
+    draggedProductIndex: number = -1;
+
+    dropState = {
+        index: -1,
+        position: null
+    };
+
     constructor(private productService: ProductService) {}
 
     ngOnInit() {
@@ -396,32 +393,65 @@ export class DragDropDataTableDemo implements OnInit {
         this.productService.getProductsSmall().then((products) => (this.availableProducts = products));
     }
 
-    dragStart(product: Product) {
-        this.draggedProduct = product;
+    onDragOver(event: DragEvent, index: number) {
+        event.preventDefault();
+        const rowElement = (event.target as HTMLElement).closest('tr');
+        if (rowElement) {
+            const rect = rowElement.getBoundingClientRect();
+            const midpoint = rect.top + rect.height / 2;
+            const position = event.clientY < midpoint ? 'top' : 'bottom';
+            this.dropState = { index, position };
+        }
     }
 
-    drop() {
+    dragStart(product: Product) {
+        this.draggedProduct = product;
+        this.draggedProductIndex = this.selectedProducts?.findIndex((p) => p.id === product.id) ?? -1;
+    }
+
+    drop(dropOnRowIndex?: number) {
         if (this.draggedProduct) {
-            let draggedProductIndex = this.findIndex(this.draggedProduct);
-            this.selectedProducts = [...(this.selectedProducts as Product[]), this.draggedProduct];
-            this.availableProducts = this.availableProducts?.filter((val, i) => i != draggedProductIndex);
+            let newSelectedProducts = this.selectedProducts ? [...this.selectedProducts] : [];
+            let finalDropIndex;
+
+            if (dropOnRowIndex !== undefined) {
+                finalDropIndex = this.dropState.position === 'top' ? dropOnRowIndex : dropOnRowIndex + 1;
+            }
+
+            if (this.draggedProductIndex > -1) {
+                // Reordering
+                const [draggedItem] = newSelectedProducts.splice(this.draggedProductIndex, 1);
+                if (finalDropIndex !== undefined) {
+                    newSelectedProducts.splice(finalDropIndex, 0, draggedItem);
+                } else {
+                    newSelectedProducts.push(draggedItem);
+                }
+            } else {
+                // New item
+                if (this.availableProducts) {
+                    this.availableProducts = this.availableProducts.filter((p) => p.id !== this.draggedProduct.id);
+                }
+                if (finalDropIndex !== undefined) {
+                    newSelectedProducts.splice(finalDropIndex, 0, this.draggedProduct);
+                } else {
+                    newSelectedProducts.push(this.draggedProduct);
+                }
+            }
+
+            this.selectedProducts = newSelectedProducts;
             this.draggedProduct = null;
+            this.resetDropState();
         }
     }
 
     dragEnd() {
         this.draggedProduct = null;
+        this.draggedProductIndex = -1;
+        this.resetDropState();
     }
 
-    findIndex(product: Product) {
-        let index = -1;
-        for (let i = 0; i < (this.availableProducts as Product[]).length; i++) {
-            if (product.id === (this.availableProducts as Product[])[i].id) {
-                index = i;
-                break;
-            }
-        }
-        return index;
+    resetDropState() {
+        this.dropState = { index: -1, position: null };
     }
 
     getSeverity(status: string) {
@@ -435,7 +465,6 @@ export class DragDropDataTableDemo implements OnInit {
         }
     }
 }`,
-
         data: `
 ...
 {

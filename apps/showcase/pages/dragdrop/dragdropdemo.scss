@@ -46,14 +46,6 @@
         }
     }
     
-    .p-datatable-tbody > tr.drop-top {
-        border-top: 2px solid #007bff;
-    }
-
-    .p-datatable-tbody > tr.drop-bottom {
-        border-bottom: 2px solid #007bff;
-    }
-
     [pDraggable] {
         cursor: move;
     }
