@@ -2,20 +2,6 @@ import { Injectable } from '@angular/core';
 import { style } from '@primeuix/styles/iconfield';
 import { BaseStyle } from 'primeng/base';
 
-const theme = /*css*/ `
-    ${style}
-
-    /* For PrimeNG */
-    .p-iconfield p-inputmask:not(:first-child) .p-inputtext {
-        padding-inline-start: calc((dt('form.field.padding.x') * 2) + dt('icon.size'));
-    }
-
-    .p-iconfield p-inputmask:not(:last-child) .p-inputtext {
-        padding-inline-end: calc((dt('form.field.padding.x') * 2) + dt('icon.size'));
-    }
-  
-`;
-
 const classes = {
     root: ({ instance }) => [
         'p-iconfield',
@@ -30,7 +16,7 @@ const classes = {
 export class IconFieldStyle extends BaseStyle {
     name = 'iconfield';
 
-    theme = theme;
+    theme = style;
 
     classes = classes;
 }
