@@ -8,8 +8,7 @@ import { TreeDragDropService, TreeNode } from 'primeng/api';
     standalone: false,
     template: `
         <app-docsectiontext>
-            <p>Nodes can be reordered within the same tree and also can be transferred between other trees using drag&drop.</p>
-            <p>Note: This demo implementation inserts dropped nodes as siblings. Dropping inside a folder is not supported in this example.</p>
+            <p>Nodes can be reordered by dragging and dropping. A blue line indicates the drop position. Dropping a node onto a folder will make it a child of that folder.</p>
         </app-docsectiontext>
         <div class="card">
             <p-tree [value]="files" class="w-full md:w-[30rem]" [draggableNodes]="true" [droppableNodes]="true" (onNodeDrop)="onNodeDrop($event)" />
@@ -18,14 +17,9 @@ import { TreeDragDropService, TreeNode } from 'primeng/api';
     `,
     styles: [
         `
-            /*
-            * ::ng-deep is used here to style the PrimeNG p-tree component's internal elements.
-            * This is necessary because the default styles for drag-and-drop do not provide a clear
-            * line indicator as requested. This approach is scoped to the component and is
-            * a common workaround for styling third-party component internals.
-            */
             :host ::ng-deep {
-                .p-treenode-content.p-treenode-dragover {
+                /* More specific selector to target the content of the node being dragged over */
+                .p-treenode.p-treenode-dragover > .p-treenode-content {
                     border-top: 2px solid #007bff;
                 }
             }
@@ -47,25 +41,27 @@ export class DragDropDoc implements OnInit {
         const dropNode = event.dropNode;
         const dropIndex = event.index;
 
-        // 1. Remove node from its original position
         this.removeNode(dragNode, this.files);
 
-        // 2. Insert node into its new position
         if (dropNode) {
-            // Dropped on another node, insert it as a sibling at the given index
-            const dropNodeParent = this.findParent(dropNode, this.files);
-            if (dropNodeParent && dropNodeParent.children) {
-                dropNodeParent.children.splice(dropIndex, 0, dragNode);
-            } else {
-                // Drop node is a root node, so insert at root level
-                this.files.splice(dropIndex, 0, dragNode);
+            // If dropping onto a folder, add as a child
+            if (dropNode.children) {
+                dropNode.children.push(dragNode);
+            }
+            // Otherwise, drop as a sibling
+            else {
+                const dropNodeParent = this.findParent(dropNode, this.files);
+                if (dropNodeParent && dropNodeParent.children) {
+                    dropNodeParent.children.splice(dropIndex, 0, dragNode);
+                } else {
+                    this.files.splice(dropIndex, 0, dragNode);
+                }
             }
         } else {
-            // Dropped at the root level (not on any specific node)
+            // Dropped at root level
             this.files.splice(dropIndex, 0, dragNode);
         }
 
-        // 3. Trigger change detection
         this.files = [...this.files];
     }
 
@@ -74,7 +70,6 @@ export class DragDropDoc implements OnInit {
         if (parent && parent.children) {
             parent.children = parent.children.filter((c) => c.key !== node.key);
         } else {
-            // It's a root node
             this.files = this.files.filter((n) => n.key !== node.key);
         }
     }
@@ -111,14 +106,8 @@ import { Tree } from 'primeng/tree';
     templateUrl: './tree-drag-drop-demo.html',
     styles: [
         \`
-            /*
-            * ::ng-deep is used here to style the PrimeNG p-tree component's internal elements.
-            * This is necessary because the default styles for drag-and-drop do not provide a clear
-            * line indicator as requested. This approach is scoped to the component and is
-            * a common workaround for styling third-party component internals.
-            */
             :host ::ng-deep {
-                .p-treenode-content.p-treenode-dragover {
+                .p-treenode.p-treenode-dragover > .p-treenode-content {
                     border-top: 2px solid #007bff;
                 }
             }
@@ -142,25 +131,27 @@ export class TreeDragDropDemo implements OnInit {
         const dropNode = event.dropNode;
         const dropIndex = event.index;
 
-        // 1. Remove node from its original position
         this.removeNode(dragNode, this.files);
 
-        // 2. Insert node into its new position
         if (dropNode) {
-            // Dropped on another node, insert it as a sibling at the given index
-            const dropNodeParent = this.findParent(dropNode, this.files);
-            if (dropNodeParent && dropNodeParent.children) {
-                dropNodeParent.children.splice(dropIndex, 0, dragNode);
-            } else {
-                // Drop node is a root node, so insert at root level
-                this.files.splice(dropIndex, 0, dragNode);
+            // If dropping onto a folder, add as a child
+            if (dropNode.children) {
+                dropNode.children.push(dragNode);
+            }
+            // Otherwise, drop as a sibling
+            else {
+                const dropNodeParent = this.findParent(dropNode, this.files);
+                if (dropNodeParent && dropNodeParent.children) {
+                    dropNodeParent.children.splice(dropIndex, 0, dragNode);
+                } else {
+                    this.files.splice(dropIndex, 0, dragNode);
+                }
             }
         } else {
-            // Dropped at the root level (not on any specific node)
+            // Dropped at root level
             this.files.splice(dropIndex, 0, dragNode);
         }
 
-        // 3. Trigger change detection
         this.files = [...this.files];
     }
 
@@ -169,7 +160,6 @@ export class TreeDragDropDemo implements OnInit {
         if (parent && parent.children) {
             parent.children = parent.children.filter((c) => c.key !== node.key);
         } else {
-            // It's a root node
             this.files = this.files.filter((n) => n.key !== node.key);
         }
     }
@@ -189,10 +179,8 @@ export class TreeDragDropDemo implements OnInit {
         return null;
     }
 }`,
-
         service: ['NodeService'],
-
-        data: `
+        data: \`
     /* NodeService */
 {
     key: '0',
@@ -219,6 +207,6 @@ export class TreeDragDropDemo implements OnInit {
         }
     ]
 },
-...`
+...\`
     };
 }
