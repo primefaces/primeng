@@ -98,7 +98,7 @@ export class Message extends BaseComponent implements AfterContentInit {
      * @defaultValue 'info'
      * @group Props
      */
-    @Input() severity: string | 'success' | 'info' | 'warn' | 'error' | 'secondary' | 'contrast' | undefined | null = 'info';
+    @Input() severity: 'success' | 'info' | 'warn' | 'error' | 'secondary' | 'contrast' | undefined | null = 'info';
     /**
      * Text content.
      * @deprecated since v20.0.0. Use content projection instead '<p-message>Content</p-message>'.
