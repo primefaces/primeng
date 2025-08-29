@@ -42,14 +42,12 @@ import { DataViewStyle } from './style/dataviewstyle';
                 <div [class]="cx('loadingOverlay')">
                     @if (loadingIcon) {
                         <i [class]="cn(cx('loadingIcon'), 'pi-spin' + loadingIcon)"></i>
-                    }
-                    @else {
+                    } @else {
                         <ng-container>
                             <svg data-p-icon="spinner" [spin]="true" [class]="cx('loadingIcon')" />
                             <ng-template *ngTemplateOutlet="loadingicon"></ng-template>
                         </ng-container>
                     }
-                    
                 </div>
             </div>
         }
@@ -78,7 +76,7 @@ import { DataViewStyle } from './style/dataviewstyle';
                 [showCurrentPageReport]="showCurrentPageReport"
                 [showJumpToPageDropdown]="showJumpToPageDropdown"
                 [showPageLinks]="showPageLinks"
-                [styleClass]="[paginatorStyleClass, cx('pcPaginator', { position: 'top' })].filter(Boolean).join(' ')"
+                [styleClass]="cn(cx('pcPaginator', { position: 'top' }), paginatorStyleClass)"
             ></p-paginator>
         }
         <div [class]="cx('content')">
@@ -130,7 +128,7 @@ import { DataViewStyle } from './style/dataviewstyle';
                 [showCurrentPageReport]="showCurrentPageReport"
                 [showJumpToPageDropdown]="showJumpToPageDropdown"
                 [showPageLinks]="showPageLinks"
-                [styleClass]="[paginatorStyleClass, cx('pcPaginator', { position: 'bottom' })].filter(Boolean).join(' ')"
+                [styleClass]="cn(cx('pcPaginator', { position: 'bottom' }), paginatorStyleClass)"
             ></p-paginator>
         }
         @if (footer || footerTemplate) {
