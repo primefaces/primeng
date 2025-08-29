@@ -8,6 +8,6 @@ import { Component } from '@angular/core';
 })
 export class ImportDoc {
     code: Code = {
-        typescript: `import { DataViewModule } from 'primeng/dataview';`
+        typescript: `import { DataView } from 'primeng/dataview';`
     };
 }

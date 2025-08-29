@@ -7,6 +7,6 @@ import { Component } from '@angular/core';
 })
 export class ImportDoc {
     code: Code = {
-        typescript: `import { CascadeSelectModule } from 'primeng/cascadeselect';`
+        typescript: `import { CascadeSelect } from 'primeng/cascadeselect';`
     };
 }

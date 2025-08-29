@@ -8,6 +8,6 @@ import { Component } from '@angular/core';
 })
 export class ImportDoc {
     code: Code = {
-        typescript: `import { InplaceModule } from 'primeng/inplace';`
+        typescript: `import { Inplace } from 'primeng/inplace';`
     };
 }
