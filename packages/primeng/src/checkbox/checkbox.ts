@@ -31,7 +31,7 @@ import { Nullable } from 'primeng/ts-helpers';
 import { CheckboxChangeEvent } from './checkbox.interface';
 import { CheckboxStyle } from './style/checkboxstyle';
 import { CheckIcon } from 'primeng/icons/check';
-
+import { MinusIcon } from 'primeng/icons/minus';
 export const CHECKBOX_VALUE_ACCESSOR: any = {
     provide: NG_VALUE_ACCESSOR,
     useExisting: forwardRef(() => Checkbox),
@@ -44,7 +44,7 @@ export const CHECKBOX_VALUE_ACCESSOR: any = {
 @Component({
     selector: 'p-checkbox, p-checkBox, p-check-box',
     standalone: true,
-    imports: [CommonModule, SharedModule, CheckIcon],
+    imports: [CommonModule, SharedModule, CheckIcon, MinusIcon],
     template: `
         <input
             #input
