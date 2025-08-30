@@ -1,6 +1,7 @@
 import { AccessibilityDoc } from '@/doc/splitter/accessibilitydoc';
 import { HorizontalDoc } from '@/doc/splitter/horizontaldoc';
 import { ImportDoc } from '@/doc/splitter/importdoc';
+import { MinMaxDoc } from '@/doc/splitter/minmaxdoc';
 import { NestedDoc } from '@/doc/splitter/nesteddoc';
 import { SizeDoc } from '@/doc/splitter/sizedoc';
 import { SplitterDocModule } from '@/doc/splitter/splitterdoc.module';
@@ -28,6 +29,11 @@ export class SplitterDemo {
             id: 'size',
             label: 'Size',
             component: SizeDoc
+        },
+        {
+            id: 'minmax',
+            label: 'Min / Max Sizes',
+            component: MinMaxDoc
         },
         {
             id: 'vertical',
