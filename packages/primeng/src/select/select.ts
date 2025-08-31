@@ -329,7 +329,7 @@ export class SelectItem extends BaseComponent {
                                 </li>
                                 <li *ngIf="!filterValue && isEmpty()" [class]="cx('emptyMessage')" [ngStyle]="{ height: scrollerOptions.itemSize + 'px' }" role="option">
                                     @if (!emptyTemplate && !_emptyTemplate) {
-                                        {{ emptyMessageLabel }}
+                                        {{ emptyFilterMessageLabel || emptyMessageLabel }}
                                     } @else {
                                         <ng-container #empty *ngTemplateOutlet="emptyTemplate || _emptyTemplate"></ng-container>
                                     }
