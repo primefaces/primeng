@@ -38,7 +38,7 @@ import { Tabs } from './tabs';
 export class TabPanel extends BaseComponent {
     pcTabs = inject<Tabs>(forwardRef(() => Tabs));
     /**
-     * When enabled, tab is not rendered at all. Default to false that hides tab with css.
+     * When enabled, tab is not rendered until activation. Default to false.
      * @type boolean
      * @defaultValue false
      * @group Props
@@ -51,12 +51,9 @@ export class TabPanel extends BaseComponent {
      */
     value = model<string | number | undefined>(undefined);
     /**
-     * Defining if the lazy loaded content should remains in the DOM even after tab deactivation.
-     * @type boolean
-     * @defaultValue true
-     * @group Props
+     * Template for initializing complex content when lazy mode is enabled.
+     * @group Templates
      */
-
     content = contentChild('content');
 
     id = computed(() => `${this.pcTabs.id()}_tabpanel_${this.value()}`);
