@@ -26926,6 +26926,21 @@
                                 "type": "boolean",
                                 "default": "false",
                                 "description": "Whether to trigger leave animation when escape key pressed."
+                            },
+                            {
+                                "name": "hideOnResize",
+                                "optional": false,
+                                "readonly": false,
+                                "type": "boolean",
+                                "default": "false",
+                                "description": "Whether to trigger leave animation when the target element resized."
+                            },
+                            {
+                                "name": "hideOnResizeTarget",
+                                "optional": false,
+                                "readonly": false,
+                                "type": "string",
+                                "description": "Target element to listen resize. Valid values are \"window\", \"document\" or target element selector."
                             }
                         ]
                     }
