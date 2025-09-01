@@ -72,7 +72,7 @@ export class StyleClass implements OnDestroy {
      */
     @Input({ transform: booleanAttribute }) hideOnResize: boolean | undefined;
     /**
-     * Target element to listen resize. Valid values are "window", "document" or target element.
+     * Target element to listen resize. Valid values are "window", "document" or target element selector.
      * @group Props
      */
     @Input() hideOnResizeTarget: string | undefined;

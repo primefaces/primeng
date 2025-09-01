@@ -26926,7 +26926,7 @@
                                 "optional": false,
                                 "readonly": false,
                                 "type": "string",
-                                "description": "Target element to listen resize. Valid values are \"window\", \"document\" or target element."
+                                "description": "Target element to listen resize. Valid values are \"window\", \"document\" or target element selector."
                             }
                         ]
                     }
