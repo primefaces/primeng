@@ -7,13 +7,12 @@ import { Component } from '@angular/core';
     template: `
         <app-docsectiontext>
             <p>
-                By default, all projected tab contents are rendered, even for inactive tabs. To override this behavior, you can wrap the content in an <i><ng-template #content>your content</ng-template></i
-                >, enabling lazy loading — the content will only be rendered when the tab becomes active. Once lazy-loaded content is rendered, it remains in the DOM even if the tab becomes inactive. You can change this behavior by setting the
-                <i>cache</i> property to <i>false</i>, which will cause the lazy content to be recreated on each activation.
+                By default, inactive tab's content is rendered. You can use the <i>lazy</i> input (globally on <i>Tabs</i> or only for the desired <i>TabPanel</i>) to override this behavior and render content only when the tab becomes active. If the
+                lazy tab contains complex components that should only be initialized when the tab becomes active, you should encapsulate this content inside <i>&lt;ng-template #content&gt;your content&lt;/ng-template&gt;</i>.
             </p>
         </app-docsectiontext>
         <div class="card">
-            <p-tabs value="0">
+            <p-tabs lazy value="0">
                 <p-tablist>
                     <p-tab value="0">Header I</p-tab>
                     <p-tab value="1">Header II</p-tab>
@@ -28,10 +27,13 @@ import { Component } from '@angular/core';
                         </p>
                     </p-tabpanel>
                     <p-tabpanel value="1">
-                        <ng-template #content>Complex content to lazy load</ng-template>
+                        <p class="m-0">
+                            Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam, eaque ipsa quae ab illo inventore veritatis et quasi architecto beatae vitae dicta sunt explicabo. Nemo
+                            enim ipsam voluptatem quia voluptas sit aspernatur aut odit aut fugit, sed quia consequuntur magni dolores eos qui ratione voluptatem sequi nesciunt. Consectetur, adipisci velit, sed quia non numquam eius modi.
+                        </p>
                     </p-tabpanel>
                     <p-tabpanel value="2">
-                        <ng-template #content>Complex content to lazy load</ng-template>
+                        <ng-template #content>Complex components that should only be initialized when the tab becomes active</ng-template>
                     </p-tabpanel>
                 </p-tabpanels>
             </p-tabs>
@@ -41,7 +43,7 @@ import { Component } from '@angular/core';
 })
 export class LazyDoc {
     code: Code = {
-        basic: `<p-tabs value="0">
+        basic: `<p-tabs lazy value="0">
     <p-tablist>
         <p-tab value="0">Header I</p-tab>
         <p-tab value="1">Header II</p-tab>
@@ -57,11 +59,17 @@ export class LazyDoc {
                 anim id est laborum.
             </p>
         </p-tabpanel>
-       <p-tabpanel value="1">
-            <ng-template>Complex content to lazy load</ng-template>
+        <p-tabpanel value="1">
+            <p class="m-0">
+                Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem
+                aperiam, eaque ipsa quae ab illo inventore veritatis et quasi architecto beatae vitae dicta sunt explicabo.
+                Nemo enim ipsam voluptatem quia voluptas sit aspernatur aut odit aut fugit, sed quia consequuntur magni
+                dolores eos qui ratione voluptatem sequi nesciunt. Consectetur, adipisci velit, sed quia non numquam eius
+                modi.
+            </p>
         </p-tabpanel>
         <p-tabpanel value="2">
-              <ng-template>Complex content to lazy load</ng-template>
+            <ng-template #content>Complex components that should only be initialized when the tab becomes active</ng-template>
         </p-tabpanel>
     </p-tabpanels>
 </p-tabs>`,
@@ -75,20 +83,26 @@ export class LazyDoc {
         </p-tablist>
         <p-tabpanels>
             <p-tabpanel value="0">
-                <p class="m-0">
-                    Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et
-                    dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex
-                    ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat
-                    nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit
-                    anim id est laborum.
-                </p>
-            </p-tabpanel>
-            <p-tabpanel value="1">
-                <ng-template #content>Complex content to lazy load</ng-template>
-            </p-tabpanel>
-            <p-tabpanel value="2">
-                <ng-template #content>Complex content to lazy load</ng-template>
-            </p-tabpanel>
+            <p class="m-0">
+                Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et
+                dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex
+                ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat
+                nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit
+                anim id est laborum.
+            </p>
+        </p-tabpanel>
+        <p-tabpanel value="1">
+            <p class="m-0">
+                Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem
+                aperiam, eaque ipsa quae ab illo inventore veritatis et quasi architecto beatae vitae dicta sunt explicabo.
+                Nemo enim ipsam voluptatem quia voluptas sit aspernatur aut odit aut fugit, sed quia consequuntur magni
+                dolores eos qui ratione voluptatem sequi nesciunt. Consectetur, adipisci velit, sed quia non numquam eius
+                modi.
+            </p>
+        </p-tabpanel>
+        <p-tabpanel value="2">
+            <ng-template #content>Complex components that should only be initialized when the tab becomes active</ng-template>
+        </p-tabpanel>
         </p-tabpanels>
     </p-tabs>
 </div>`,

@@ -14,10 +14,12 @@ import { Tabs } from './tabs';
     standalone: true,
     imports: [NgTemplateOutlet],
     template: `
-        @if (lazyContent() && initialized()) {
-            <ng-container *ngTemplateOutlet="lazyContent()" />
-        } @else {
+        <ng-template #defaultContent>
             <ng-content />
+        </ng-template>
+
+        @if (shouldRender()) {
+            <ng-container *ngTemplateOutlet="content() ? content() : defaultContent" />
         }
     `,
     changeDetection: ChangeDetectionStrategy.OnPush,
@@ -36,6 +38,13 @@ import { Tabs } from './tabs';
 export class TabPanel extends BaseComponent {
     pcTabs = inject<Tabs>(forwardRef(() => Tabs));
     /**
+     * When enabled, tab is not rendered at all. Default to false that hides tab with css.
+     * @type boolean
+     * @defaultValue false
+     * @group Props
+     */
+    lazy = input(false, { transform: booleanAttribute });
+    /**
      * Value of the active tab.
      * @defaultValue undefined
      * @group Props
@@ -47,29 +56,30 @@ export class TabPanel extends BaseComponent {
      * @defaultValue true
      * @group Props
      */
-    cache = input(true, { transform: booleanAttribute });
+
+    content = contentChild('content');
 
     id = computed(() => `${this.pcTabs.id()}_tabpanel_${this.value()}`);
-
-    lazyContent = contentChild('content');
 
     ariaLabelledby = computed(() => `${this.pcTabs.id()}_tab_${this.value()}`);
 
     active = computed(() => equals(this.pcTabs.value(), this.value()));
 
+    _lazy = computed(() => this.pcTabs.lazy() || this.lazy());
+
     _componentStyle = inject(TabPanelStyle);
 
-    private _initialized = false;
+    private hasBeenRendered = false;
 
-    initialized = computed(() => {
-        if (!this.cache()) {
-            return this.active();
+    readonly shouldRender = computed(() => {
+        if (!this._lazy()) {
+            return true;
         }
 
-        if (!this._initialized && this.active()) {
-            this._initialized = true;
+        if (!this.hasBeenRendered && this.active()) {
+            this.hasBeenRendered = true;
         }
 
-        return this._initialized;
+        return this.hasBeenRendered;
     });
 }
