@@ -80,7 +80,7 @@ export class HideOnResizeDoc {
             leaveActiveClass="animate-fadeout"
             leaveToClass="hidden"
             [hideOnResize]="true"
-            hideOnResizeTarget=".resizable-container"
+            resizeSelector=".resizable-container"
             label="Show Resizable Panel"
         />
 
