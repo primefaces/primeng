@@ -7,12 +7,13 @@ import { ButtonModule } from 'primeng/button';
 import { InputTextModule } from 'primeng/inputtext';
 import { StyleClass } from 'primeng/styleclass';
 import { AnimationDoc } from './animationdoc';
+import { HideOnResizeDoc } from './hideonresizedoc';
 import { ImportDoc } from './importdoc';
 import { ToggleClassDoc } from './toggleclassdoc';
 
 @NgModule({
     imports: [CommonModule, RouterModule, AppCodeModule, AppDocModule, StyleClass, ButtonModule, InputTextModule],
-    declarations: [ImportDoc, ToggleClassDoc, AnimationDoc],
+    declarations: [ImportDoc, ToggleClassDoc, AnimationDoc, HideOnResizeDoc],
     exports: [AppDocModule]
 })
 export class StyleClassDocModule {}
