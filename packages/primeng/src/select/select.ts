@@ -1383,7 +1383,7 @@ export class Select extends BaseInput implements OnInit, AfterViewInit, AfterCon
         this.focused = false;
         this.onBlur.emit(event);
 
-        if (!this.preventModelTouched) {
+        if (!this.preventModelTouched && !this.overlayVisible) {
             this.onModelTouched();
         }
         this.preventModelTouched = false;
