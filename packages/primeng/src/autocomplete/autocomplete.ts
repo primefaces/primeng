@@ -57,7 +57,7 @@ export const AUTOCOMPLETE_VALUE_ACCESSOR: any = {
     standalone: true,
     imports: [CommonModule, Overlay, InputText, Ripple, Scroller, AutoFocus, TimesCircleIcon, SpinnerIcon, TimesIcon, ChevronDownIcon, Chip, SharedModule],
     template: `
-        <div #container [ngClass]="rootClass" [ngStyle]="style" style="position: relative;" [class]="styleClass" (click)="onContainerClick($event)">
+        <div #container [ngClass]="rootClass" [ngStyle]="style" [style.position]="'relative'" [class]="styleClass" (click)="onContainerClick($event)">
             <input
                 *ngIf="!multiple"
                 #focusInput
