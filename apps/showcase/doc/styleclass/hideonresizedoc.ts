@@ -7,14 +7,23 @@ import { Component } from '@angular/core';
     template: `
         <app-docsectiontext>
             <p>
-                When <i>hideOnResize</i> is enabled, the leave animation is triggered automatically when resizing occurs. Use the <i>hideOnResizeTarget</i> property to specify whether to listen to window resize events or element-specific resize
-                events. Set <i>hideOnResizeTarget</i> to "window" (default) or "document" for browser resize, or a CSS selector to observe the target element's dimensions.
+                When <i>hideOnResize</i> is enabled, the leave animation is triggered automatically when resizing occurs. Use the <i>resizeSelector</i> property to specify whether to listen to window resize events or element-specific resize events.
+                Set <i>resizeSelector</i> to "window" (default) or "document" for browser resize, or a CSS selector to observe the target element's dimensions.
             </p>
         </app-docsectiontext>
         <div class="card">
             <div class="flex justify-center">
                 <div class="flex flex-col items-center gap-4 w-[25rem]">
-                    <p-button pStyleClass=".window-responsive-box" enterFromClass="hidden" enterActiveClass="animate-fadein" leaveActiveClass="animate-fadeout" leaveToClass="hidden" [hideOnResize]="true" label="Show Window Responsive Content" />
+                    <p-button
+                        pStyleClass=".window-responsive-box"
+                        enterFromClass="hidden"
+                        enterActiveClass="animate-fadein"
+                        leaveActiveClass="animate-fadeout"
+                        leaveToClass="hidden"
+                        [hideOnResize]="true"
+                        resizeSelector="window"
+                        label="Show Window Responsive Content"
+                    />
                     <div class="window-responsive-box hidden animate-duration-300 border border-lg border-surface">
                         <div class="p-4 flex flex-col gap-2">
                             <h3 class="text-xl font-bold">Window Responsive Panel</h3>
@@ -25,7 +34,16 @@ import { Component } from '@angular/core';
                 </div>
 
                 <div class="flex flex-col items-center gap-4 w-[25rem]">
-                    <p-button pStyleClass=".resizable-container" enterFromClass="hidden" enterActiveClass="animate-fadein" leaveActiveClass="animate-fadeout" leaveToClass="hidden" [hideOnResize]="true" label="Show Resizable Panel" />
+                    <p-button
+                        pStyleClass=".resizable-container"
+                        enterFromClass="hidden"
+                        enterActiveClass="animate-fadein"
+                        leaveActiveClass="animate-fadeout"
+                        leaveToClass="hidden"
+                        [hideOnResize]="true"
+                        resizeSelector=".resizable-container"
+                        label="Show Resizable Panel"
+                    />
 
                     <div class="resizable-container hidden animate-duration-300 border border-lg border-surface w-[20rem] w-max-[25rem] w-min-[15rem] overflow-auto resize">
                         <div class="p-4 h-full flex flex-col gap-2">
@@ -78,7 +96,7 @@ export class HideOnResizeDoc {
         html: `<div class="card">
     <div class="flex justify-center">
         <div class="flex flex-col items-center gap-4 w-[25rem]">
-            <p-button pStyleClass=".window-responsive-box" enterFromClass="hidden" enterActiveClass="animate-fadein" leaveActiveClass="animate-fadeout" leaveToClass="hidden" [hideOnResize]="true" label="Show Window Responsive Content" />
+            <p-button pStyleClass=".window-responsive-box" enterFromClass="hidden" enterActiveClass="animate-fadein" leaveActiveClass="animate-fadeout" leaveToClass="hidden" [hideOnResize]="true" resizeSelector="window" label="Show Window Responsive Content" />
             <div class="window-responsive-box hidden animate-duration-300 border border-lg border-surface">
                 <div class="p-4 flex flex-col gap-2">
                     <h3 class="text-xl font-bold">Window Responsive Panel</h3>
@@ -96,7 +114,7 @@ export class HideOnResizeDoc {
                 leaveActiveClass="animate-fadeout"
                 leaveToClass="hidden"
                 [hideOnResize]="true"
-                hideOnResizeTarget="window"
+                resizeSelector=".resizable-container"
                 label="Show Resizable Panel"
             />
 

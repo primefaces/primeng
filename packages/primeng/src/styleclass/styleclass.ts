@@ -75,7 +75,7 @@ export class StyleClass implements OnDestroy {
      * Target element to listen resize. Valid values are "window", "document" or target element selector.
      * @group Props
      */
-    @Input() hideOnResizeTarget: string | undefined;
+    @Input() resizeSelector: string | undefined;
 
     eventListener: VoidListener;
 
@@ -257,7 +257,7 @@ export class StyleClass implements OnDestroy {
     }
 
     bindResizeListener() {
-        this._resizeTarget = getTargetElement(this.hideOnResizeTarget);
+        this._resizeTarget = getTargetElement(this.resizeSelector);
         if (isElement(this._resizeTarget)) {
             this.bindElementResizeListener();
         } else {
