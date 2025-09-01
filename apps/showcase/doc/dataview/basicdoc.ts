@@ -61,7 +61,7 @@ export class BasicDoc {
         basic: `<p-dataview #dv [value]="products()">
     <ng-template #list let-items>
         <div class="grid grid-cols-12 gap-4 grid-nogutter">
-            <div class="col-span-12" *ngFor="let item of items; let first = first" class="col-span-12">
+            <div class="col-span-12" *ngFor="let item of items; let first = first">
                 <div
                     class="flex flex-col sm:flex-row sm:items-center p-6 gap-4"
                     [ngClass]="{ 'border-t border-surface-200 dark:border-surface-700': !first }"
@@ -123,7 +123,7 @@ export class BasicDoc {
     <p-dataview #dv [value]="products()">
         <ng-template #list let-items>
             <div class="grid grid-cols-12 gap-4 grid-nogutter">
-                <div class="col-span-12" *ngFor="let item of items; let first = first" class="col-span-12">
+                <div class="col-span-12" *ngFor="let item of items; let first = first">
                     <div
                         class="flex flex-col sm:flex-row sm:items-center p-6 gap-4"
                         [ngClass]="{ 'border-t border-surface-200 dark:border-surface-700': !first }"
@@ -202,7 +202,7 @@ export class DataViewBasicDemo {
     products = signal<any>([]);
 
     productService = inject(ProductService);
-    
+
     ngOnInit() {
         this.productService.getProducts().then((data) => {
             const d = data.slice(0, 5);
