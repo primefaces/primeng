@@ -7,8 +7,8 @@ import { Component } from '@angular/core';
     template: `
         <app-docsectiontext>
             <p>
-                By default, inactive tab's content is rendered. You can use the <i>lazy</i> input (globally on <i>Tabs</i> or only for the desired <i>TabPanel</i>) to override this behavior and render content only when the tab becomes active. If the
-                lazy tab contains complex components that should only be initialized when the tab becomes active, you should encapsulate this content inside <i>&lt;ng-template #content&gt;your content&lt;/ng-template&gt;</i>.
+                By default, inactive tab's content is rendered (but hidden). You can use the lazy input (either globally on <i>Tabs</i> or individually on a <i>TabPanel</i>) to change this behavior so that content is only rendered when the tab
+                becomes active. If a lazy tab contains complex components that should only be initialized when the tab is activated, you should wrap the content inside: <i>&lt;ng-template #content&gt;your content&lt;/ng-template&gt;</i>.
             </p>
         </app-docsectiontext>
         <div class="card">
