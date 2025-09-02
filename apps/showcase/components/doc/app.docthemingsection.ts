@@ -1,12 +1,12 @@
 import { ChangeDetectionStrategy, Component, Input, signal } from '@angular/core';
 /* @todo: Change the import path */
 import APIDoc from '@/doc/apidoc/index.json';
-import ThemeDoc from '@/doc/apidoc/themedoc.json';
+// import ThemeDoc from '@/doc/apidoc/themedoc.json';
 import { CommonModule } from '@angular/common';
 import { AppDocApiTable } from './app.docapitable';
 import { AppDocSectionNav } from './app.docsection-nav';
 import { AppDocStyledPreset } from './app.docstyledpreset';
-
+import ThemeDoc from '@primeuix/themes/tokens';
 @Component({
     selector: 'app-docthemingsection',
     standalone: true,

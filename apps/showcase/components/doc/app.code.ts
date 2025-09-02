@@ -205,7 +205,7 @@ export class AppCode {
 }
 
 @NgModule({
-    imports: [AppCodeComponent],
-    exports: [AppCodeComponent]
+    imports: [AppCode],
+    exports: [AppCode]
 })
 export class AppCodeModule {}

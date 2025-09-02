@@ -159,22 +159,26 @@ import { ReactiveFormsModule } from '@angular/forms';
 ```
 
 ### PrimeNG Components (Import as Needed)
+**IMPORTANT**: Always import PrimeNG components as modules (e.g., `AnimateOnScrollModule` not `AnimateOnScroll`)
+
 ```typescript
 import { ButtonModule } from 'primeng/button';
 import { TableModule } from 'primeng/table';
-import { Dialog } from 'primeng/dialog';
+import { DialogModule } from 'primeng/dialog';  // Use DialogModule, not Dialog
 import { DropdownModule } from 'primeng/dropdown';
 import { InputTextModule } from 'primeng/inputtext';
 import { CheckboxModule } from 'primeng/checkbox';
 import { RadioButtonModule } from 'primeng/radiobutton';
 import { CalendarModule } from 'primeng/calendar';
 import { ToastModule } from 'primeng/toast';
-import { SelectButton } from 'primeng/selectbutton';
+import { SelectButtonModule } from 'primeng/selectbutton';  // Use SelectButtonModule, not SelectButton
 import { MultiSelectModule } from 'primeng/multiselect';
 import { ContextMenuModule } from 'primeng/contextmenu';
 import { ToggleSwitchModule } from 'primeng/toggleswitch';
 import { IconFieldModule } from 'primeng/iconfield';
 import { InputIconModule } from 'primeng/inputicon';
+import { AnimateOnScrollModule } from 'primeng/animateonscroll';
+import { AvatarModule } from 'primeng/avatar';
 ```
 
 ## Component Priority Order
