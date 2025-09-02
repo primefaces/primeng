@@ -84,7 +84,7 @@ export const LISTBOX_VALUE_ACCESSOR: any = {
                 <ng-container *ngTemplateOutlet="filterTemplate || _filterTemplate; context: { options: filterOptions }"></ng-container>
             </ng-container>
             <ng-template #builtInFilterElement>
-                <div *ngIf="filter">
+                @if (filter) {
                     <p-iconfield>
                         <input
                             #filterInput
@@ -110,7 +110,7 @@ export const LISTBOX_VALUE_ACCESSOR: any = {
                             </span>
                         </p-inputicon>
                     </p-iconfield>
-                </div>
+                }
                 <span role="status" [attr.aria-live]="'polite'" class="p-hidden-accessible" [attr.data-p-hidden-accessible]="true">
                     {{ filterResultMessageText }}
                 </span>

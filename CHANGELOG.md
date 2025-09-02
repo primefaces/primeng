@@ -1,4 +1,29 @@
 # Changelog
+## [20.1.0](https://github.com/primefaces/primeng/tree/20.1.0) (2025-09-01)
+[Full Changelog](https://github.com/primefaces/primeng/compare/20.0.1...20.1.0)
+
+**Fixed bugs:**
+- Missing Module in Drawer Documentation [#18457](https://github.com/primefaces/primeng/issues/18457)
+- PickList: Source and target listbox missing aria-label [#17453](https://github.com/primefaces/primeng/issues/17453)
+- Autocomplete when multiple=true and typeahead=false ignores unique=true [#18534](https://github.com/primefaces/primeng/issues/18534)
+- Tabs not displaying correctly on mobile screen [#18714](https://github.com/primefaces/primeng/issues/18714)
+- Textarea with Float Label: Label does not float if initial value is not empty [#18665](https://github.com/primefaces/primeng/issues/18665)
+- Accordion Console Warning [#18741](https://github.com/primefaces/primeng/issues/18741)
+- CSP nonce applied after appending element (regression) [#18632](https://github.com/primefaces/primeng/issues/18632)
+- TreeSelect showClear option is not centered [#18735](https://github.com/primefaces/primeng/issues/18735)
+- InputMask width issue w/inputGroup [#18765](https://github.com/primefaces/primeng/issues/18765)
+- TieredMenu: Cannot read properties of undefined (reading 'parent') when using arrow-left [#18773](https://github.com/primefaces/primeng/issues/18773)
+- pStyleClass | Use includes() instead of strict equality for enterActiveClass check [#18813](https://github.com/primefaces/primeng/issues/18813)
+- InputNumber of type integeronly accepts floating point number in Copy&Paste actions [#18778](https://github.com/primefaces/primeng/issues/18778)
+- Dataview's paginator doesn't have correct styling CSS classes [#18812](https://github.com/primefaces/primeng/issues/18812)
+- IconField | styling inconsistent when used with InputMask [#18804](https://github.com/primefaces/primeng/issues/18804)
+- StyleClass | hideOnResize support [#18824](https://github.com/primefaces/primeng/issues/18824)
+- Fix Dataview Remove redundant class binding [#18460](https://github.com/primefaces/primeng/issues/18460)
+- Dialog: Escape listener closes everything always [#16955](https://github.com/primefaces/primeng/issues/16955)
+- ListBox filter input width does not match component's width [#18707](https://github.com/primefaces/primeng/issues/18707)
+- Select: Select field becomes invalid/dirty before releasing selected option [#18802](https://github.com/primefaces/primeng/issues/18802)
+- The minus icon in indeterminate checkbox is not visible in v20.0.1 [#18791](https://github.com/primefaces/primeng/issues/18791)
+
 ## ![LTS](https://www.primefaces.org/wp-content/uploads/2020/01/lts-icon-24.png "PrimeNG LTS") [19.1.5-lts](https://www.npmjs.com/package/primeng/v/19.1.5-lts) (2025-08-19)
 
 **Fixed bugs:**

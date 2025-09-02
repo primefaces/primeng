@@ -14,6 +14,10 @@ const theme = /*css*/ `
         display: flex;
         align-items: center;
     }
+
+    .p-listbox-header > .p-iconfield {
+        flex-grow: 1;
+    }
 `;
 
 const classes = {

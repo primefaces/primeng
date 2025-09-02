@@ -1,4 +1,5 @@
 import { AnimationDoc } from '@/doc/styleclass/animationdoc';
+import { HideOnResizeDoc } from '@/doc/styleclass/hideonresizedoc';
 import { ImportDoc } from '@/doc/styleclass/importdoc';
 import { StyleClassDocModule } from '@/doc/styleclass/styleclassdoc.module';
 import { ToggleClassDoc } from '@/doc/styleclass/toggleclassdoc';
@@ -31,6 +32,11 @@ export class StyleClassDemo {
             id: 'animation',
             label: 'Animation',
             component: AnimationDoc
+        },
+        {
+            id: 'hideonresize',
+            label: 'Hide On Resize',
+            component: HideOnResizeDoc
         }
     ];
 }

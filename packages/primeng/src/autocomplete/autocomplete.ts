@@ -49,6 +49,7 @@ export const AUTOCOMPLETE_VALUE_ACCESSOR: any = {
     useExisting: forwardRef(() => AutoComplete),
     multi: true
 };
+
 /**
  * AutoComplete is an input component that provides real-time suggestions when being typed.
  * @group Components
@@ -516,6 +517,7 @@ export class AutoComplete extends BaseInput implements AfterViewChecked, AfterCo
      * @group Props
      */
     @Input() overlayOptions: OverlayOptions | undefined;
+
     /**
      * An array of suggestions to display.
      * @group Props
@@ -523,10 +525,12 @@ export class AutoComplete extends BaseInput implements AfterViewChecked, AfterCo
     @Input() get suggestions(): any[] {
         return this._suggestions();
     }
+
     set suggestions(value: any[]) {
         this._suggestions.set(value);
         this.handleSuggestionsChange();
     }
+
     /**
      * Property name or getter function to use as the label of an option.
      * @group Props
@@ -1063,9 +1067,11 @@ export class AutoComplete extends BaseInput implements AfterViewChecked, AfterCo
     isInputClicked(event) {
         return event.target === this.inputEL.nativeElement;
     }
+
     isDropdownClicked(event) {
         return this.dropdownButton?.nativeElement ? event.target === this.dropdownButton.nativeElement || this.dropdownButton.nativeElement.contains(event.target) : false;
     }
+
     equalityKey() {
         return this.dataKey; // TODO: The 'optionValue' properties can be added.
     }
@@ -1379,8 +1385,10 @@ export class AutoComplete extends BaseInput implements AfterViewChecked, AfterCo
     onEnterKey(event) {
         if (!this.typeahead) {
             if (this.multiple) {
-                this.updateModel([...(this.modelValue() || []), event.target.value]);
-                this.inputEL.nativeElement.value = '';
+                if (!this.isSelected(event.target.value)) {
+                    this.updateModel([...(this.modelValue() || []), event.target.value]);
+                    this.inputEL.nativeElement.value = '';
+                }
             }
         }
         if (!this.overlayVisible) {
