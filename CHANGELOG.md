@@ -1,4 +1,12 @@
 # Changelog
+## [20.1.1](https://github.com/primefaces/primeng/tree/20.1.1) (2025-09-02)
+[Full Changelog](https://github.com/primefaces/primeng/compare/20.1.0...20.1.1)
+
+**Fixed bugs:**
+- InputNumber - incrementButtonClass and decrementButtonClass ignored in horizontal layout [#18823](https://github.com/primefaces/primeng/issues/18823)
+- StyleClass | update enter logic [#18829](https://github.com/primefaces/primeng/issues/18829)
+- IconField | styling inconsistent when used with InputMask [#18804](https://github.com/primefaces/primeng/issues/18804)
+
 ## [20.1.0](https://github.com/primefaces/primeng/tree/20.1.0) (2025-09-01)
 [Full Changelog](https://github.com/primefaces/primeng/compare/20.0.1...20.1.0)
 
