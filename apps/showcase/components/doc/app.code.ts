@@ -96,7 +96,7 @@ import { useCodeSandbox, useStackBlitz } from './codeeditor';
         </div>
     `
 })
-export class AppCodeComponent {
+export class AppCode {
     @Input() code!: Code;
 
     @Input() service!: any;
