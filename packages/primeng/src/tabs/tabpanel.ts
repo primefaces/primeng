@@ -37,8 +37,9 @@ import { Tabs } from './tabs';
 })
 export class TabPanel extends BaseComponent {
     pcTabs = inject<Tabs>(forwardRef(() => Tabs));
+
     /**
-     * When enabled, tab is not rendered until activation. Default to false.
+     * When enabled, tab is not rendered until activation.
      * @type boolean
      * @defaultValue false
      * @group Props
@@ -51,7 +52,7 @@ export class TabPanel extends BaseComponent {
      */
     value = model<string | number | undefined>(undefined);
     /**
-     * Template for initializing complex content when lazy mode is enabled.
+     * Template for initializing complex content when lazy is enabled.
      * @group Templates
      */
     content = contentChild('content');
@@ -62,21 +63,22 @@ export class TabPanel extends BaseComponent {
 
     active = computed(() => equals(this.pcTabs.value(), this.value()));
 
-    _lazy = computed(() => this.pcTabs.lazy() || this.lazy());
-
-    _componentStyle = inject(TabPanelStyle);
+    isLazyEnabled = computed(() => this.pcTabs.lazy() || this.lazy());
 
     private hasBeenRendered = false;
 
-    readonly shouldRender = computed(() => {
-        if (!this._lazy()) {
+    shouldRender = computed(() => {
+        if (!this.isLazyEnabled() || this.hasBeenRendered) {
             return true;
         }
 
-        if (!this.hasBeenRendered && this.active()) {
+        if (this.active()) {
             this.hasBeenRendered = true;
+            return true;
         }
 
-        return this.hasBeenRendered;
+        return false;
     });
+
+    _componentStyle = inject(TabPanelStyle);
 }
