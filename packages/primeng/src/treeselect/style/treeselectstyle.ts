@@ -50,6 +50,7 @@ const classes = {
             'p-treeselect-label-empty': !instance.placeholder && instance.emptyValue
         }
     ],
+    clearIcon: 'p-treeselect-clear-icon',
     chip: 'p-treeselect-chip-item',
     pcChip: 'p-treeselect-chip',
     dropdown: 'p-treeselect-dropdown',
@@ -96,6 +97,10 @@ export enum TreeSelectClasses {
      * Class name of the chip item element
      */
     chipItem = 'p-treeselect-chip-item',
+    /**
+     * Class name of the clear icon element
+     */
+    clearIcon = 'p-treeselect-clear-icon',
     /**
      * Class name of the chip element
      */

@@ -43,7 +43,7 @@ const theme = /*css*/ `
 
 const classes = {
     root: ({ instance }) => [
-        'p-inputmask',
+        'p-inputmask p-component p-inputwrapper',
         {
             'p-variant-filled': instance.$variant() === 'filled'
         }
