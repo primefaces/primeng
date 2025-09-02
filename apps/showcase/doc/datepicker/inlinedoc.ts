@@ -2,7 +2,7 @@ import { Code } from '@/domain/code';
 import { Component } from '@angular/core';
 
 @Component({
-    selector: 'datepicker-inline-demo',
+    selector: 'date-picker-inline-demo',
     standalone: false,
     template: `
         <app-docsectiontext>
@@ -11,7 +11,7 @@ import { Component } from '@angular/core';
         <div class="card flex justify-center">
             <p-datepicker class="max-w-full" [(ngModel)]="date" [inline]="true" [showWeek]="true" />
         </div>
-        <app-code [code]="code" selector="datepicker-inline-demo"></app-code>
+        <app-code [code]="code" selector="date-picker-inline-demo"></app-code>
     `
 })
 export class InlineDoc {
@@ -29,8 +29,8 @@ import { FormsModule } from '@angular/forms';
 import { DatePicker } from 'primeng/datepicker';
 
 @Component({
-    selector: 'datepicker-inline-demo',
-    templateUrl: './datepicker-inline-demo.html',
+    selector: 'date-picker-inline-demo',
+    templateUrl: './date-picker-inline-demo.html',
     standalone: true,
     imports: [FormsModule, DatePicker]
 })
