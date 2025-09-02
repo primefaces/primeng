@@ -1,9 +1,9 @@
-import { Location } from '@angular/common';
+import { CommonModule, Location } from '@angular/common';
 import { Component, ElementRef, Input, numberAttribute } from '@angular/core';
-
 @Component({
     selector: 'app-docsectiontext',
-    standalone: false,
+    standalone: true,
+    imports: [CommonModule],
     template: `
         <h2 class="doc-section-label" *ngIf="level === 2">
             {{ title }}
@@ -21,7 +21,7 @@ import { Component, ElementRef, Input, numberAttribute } from '@angular/core';
         </div>
     `
 })
-export class AppDocSectionTextComponent {
+export class AppDocSectionText {
     @Input() title!: string;
 
     @Input() id!: string;

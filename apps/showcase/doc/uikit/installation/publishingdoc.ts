@@ -1,10 +1,10 @@
 import { Component } from '@angular/core';
-import { AppDocModule } from '@/components/doc/app.doc.module';
+import { AppDocSectionTextComponent } from '@/components/doc/app.docsectiontext.component';
 
 @Component({
     selector: 'publishing-doc',
     standalone: true,
-    imports: [AppDocModule],
+    imports: [AppDocSectionTextComponent],
     template: `<app-docsectiontext>
         <p>To make PrimeOne available as a shared library:</p>
         <ul class="leading-normal px-10 m-0 list-disc">

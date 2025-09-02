@@ -1,9 +1,9 @@
 import { Code, ExtFile, RouteFile } from '@/domain/code';
 import { CommonModule, DOCUMENT, isPlatformBrowser } from '@angular/common';
-import { booleanAttribute, Component, ElementRef, Inject, Input, NgModule, PLATFORM_ID, ViewChild } from '@angular/core';
+import { Component, ElementRef, Inject, Input, NgModule, PLATFORM_ID, ViewChild, booleanAttribute } from '@angular/core';
 import { ButtonModule } from 'primeng/button';
 import { TooltipModule } from 'primeng/tooltip';
-import { useCodeSandbox, useStackBlitz } from './codeeditor';
+import { useCodeSandbox, useStackBlitz } from '../codeeditor';
 
 @Component({
     selector: 'app-code',
@@ -178,7 +178,7 @@ export class AppCodeComponent {
 
             if (!str.includes(importModuleStatement)) {
                 let modifiedCodeWithImportsModule = str.replace(/import\s+{[^{}]*}\s+from\s+'[^']+';[\r\n]*/g, (match) => {
-                    if (match.includes('Module') && !match.includes('ReactiveFormsModule') && !match.includes('Ref')) {
+                    if (match.includes('Module') && !match.includes('ReactiveFormsModule')) {
                         return '';
                     }
                     return match;

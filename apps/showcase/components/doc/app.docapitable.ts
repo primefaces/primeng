@@ -1,14 +1,16 @@
 import { AppConfigService } from '@/service/appconfigservice';
-import { Location } from '@angular/common';
+import { CommonModule, Location } from '@angular/common';
 import { booleanAttribute, ChangeDetectionStrategy, Component, Input, numberAttribute, ViewContainerRef } from '@angular/core';
 import { Router } from '@angular/router';
+import { AppDocSectionTextComponent } from './app.docsectiontext';
 
 @Component({
     selector: 'app-docapitable',
-    standalone: false,
+    standalone: true,
+    imports: [CommonModule, AppDocSectionTextComponent],
     template: ` <ng-container *ngIf="data">
         <div *ngIf="parentId" class="my-4 pt-4">
-            <app-docsectiontext [level]="2"></app-docsectiontext>
+            <app-docsectiontext [parentId]="parentId" [parentTitle]="parentTitle" [parentDescription]="parentDescription" [level]="2"></app-docsectiontext>
         </div>
         <app-docsectiontext [id]="id" [title]="label" [level]="3">
             <p>{{ description || null }}</p>
@@ -53,7 +55,6 @@ import { Router } from '@angular/router';
                                                         'doc-option-parameter-type': label === 'Emitters',
                                                         'text-primary-700': label === 'Templates'
                                                     }"
-                                                    class="doc-option-link"
                                                     >{{ value || '-' }}</a
                                                 >
                                                 <ng-template #elseBlock>

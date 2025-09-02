@@ -1,12 +1,16 @@
 import { ChangeDetectionStrategy, Component, Input, signal } from '@angular/core';
 /* @todo: Change the import path */
 import APIDoc from '@/doc/apidoc/index.json';
-//import ThemeDoc from '@/doc/apidoc/themedoc.json';
-import ThemeDoc from '@primeuix/themes/tokens';
+import ThemeDoc from '@/doc/apidoc/themedoc.json';
+import { CommonModule } from '@angular/common';
+import { AppDocApiTable } from './app.docapitable';
+import { AppDocSectionNav } from './app.docsection-nav';
+import { AppDocStyledPreset } from './app.docstyledpreset';
 
 @Component({
     selector: 'app-docthemingsection',
-    standalone: false,
+    standalone: true,
+    imports: [CommonModule, AppDocApiTable, AppDocStyledPreset, AppDocSectionNav],
     template: `
         <div class="doc-main">
             <div class="doc-intro">
@@ -24,7 +28,7 @@ import ThemeDoc from '@primeuix/themes/tokens';
     `,
     changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class AppDocThemingSectionComponent {
+export class AppDocThemingSection {
     @Input() header!: string;
 
     @Input() docs: string;

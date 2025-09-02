@@ -1,13 +1,17 @@
 import { Doc } from '@/domain/doc';
-import { DOCUMENT } from '@angular/common';
+import { CommonModule, DOCUMENT } from '@angular/common';
 import { ChangeDetectionStrategy, Component, inject, Input, OnChanges, OnInit, Renderer2, signal, SimpleChanges, ViewEncapsulation } from '@angular/core';
 import { Meta, Title } from '@angular/platform-browser';
 import { Router } from '@angular/router';
 import { AppDocService } from './app.doc.service';
+import { AppDocFeaturesSection } from './app.docfeaturessection';
+import { AppDocApiSection } from './app.docapisection';
+import { AppDocThemingSection } from './app.docthemingsection';
 
 @Component({
     selector: 'app-doc',
-    standalone: false,
+    standalone: true,
+    imports: [CommonModule, AppDocFeaturesSection, AppDocApiSection, AppDocThemingSection],
     template: ` <div class="doc-component">
         <ul class="doc-tabmenu">
             @if (docs && apiDocs) {

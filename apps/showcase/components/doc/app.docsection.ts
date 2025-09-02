@@ -1,9 +1,13 @@
 import { Doc } from '@/domain/doc';
+import { CommonModule } from '@angular/common';
 import { ChangeDetectionStrategy, Component, Input } from '@angular/core';
+import { AppDocApiTable } from './app.docapitable';
+import { AppDocSectionText } from './app.docsectiontext';
 
 @Component({
     selector: 'app-docsection',
-    standalone: false,
+    standalone: true,
+    imports: [CommonModule, AppDocSectionText, AppDocApiTable],
     template: `
         <ng-container *ngIf="docs && docs.length">
             <section class="py-6" *ngFor="let doc of docs; trackBy: trackById">
@@ -37,7 +41,7 @@ import { ChangeDetectionStrategy, Component, Input } from '@angular/core';
     `,
     changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class AppDocSectionsComponent {
+export class AppDocSection {
     @Input() docs!: Doc[];
 
     @Input() apiDocs!: any[];

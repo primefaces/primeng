@@ -1,8 +1,11 @@
 import { ChangeDetectionStrategy, Component, Input, ViewEncapsulation } from '@angular/core';
+import { AppDocSection } from './app.docsection';
+import { AppDocSectionNav } from './app.docsection-nav';
 
 @Component({
     selector: 'app-docfeaturessection',
-    standalone: false,
+    standalone: true,
+    imports: [AppDocSection, AppDocSectionNav],
     template: ` <div class="doc-main">
             <div class="doc-intro">
                 <h1>{{ header }}</h1>

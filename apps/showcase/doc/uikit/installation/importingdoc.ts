@@ -1,10 +1,10 @@
 import { Component } from '@angular/core';
-import { AppDocModule } from '@/components/doc/app.doc.module';
+import { AppDocSectionText } from '@/components/doc/app.docsectiontext';
 
 @Component({
     selector: 'importing-doc',
     standalone: true,
-    imports: [AppDocModule],
+    imports: [AppDocSectionText],
     template: `<app-docsectiontext>
         <ul class="leading-normal px-10 m-0 list-disc">
             <li class="p-2"><b>Download the latest .fig UI Kit</b> - From your PrimeStore panel, download the latest PrimeOne package. The archive contains the .fig UI Kit.</li>

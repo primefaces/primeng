@@ -3,11 +3,14 @@ import { Location } from '@angular/common';
 import { ChangeDetectionStrategy, Component, computed, input, Input } from '@angular/core';
 import { Router } from '@angular/router';
 import { ObjectUtils } from 'primeng/utils';
-import { AppDocApiTable } from './app.docapitable.component';
+import { AppDocApiTable } from './app.docapitable';
+import { AppDocSection } from './app.docsection';
+import { AppDocSectionNav } from './app.docsection-nav';
 
 @Component({
     selector: 'app-docapisection',
-    standalone: false,
+    standalone: true,
+    imports: [AppDocSection, AppDocSectionNav],
     template: ` <div class="doc-main">
             <div class="doc-intro">
                 <h1>{{ header }} {{ !header.toLowerCase().includes('api') ? 'API' : null }}</h1>
@@ -56,7 +59,7 @@ export class AppDocApiSection {
 
         for (const docName of this.docs()) {
             const moduleName = docName.toLowerCase();
-            let module = APIDoc[this.docs()[0].toLowerCase()]?.components[docName];
+            let module = APIDoc[moduleName] ? APIDoc[moduleName] : APIDoc[this.docs()[0].toLowerCase()]?.components[docName];
             let newDoc = {
                 id: `api.${this.isInterface(module) ? this.docs()[0].toLowerCase() + '.interfaces' : moduleName}`,
                 isInterface: this.isInterface(module),
@@ -68,8 +71,8 @@ export class AppDocApiSection {
 
             if (module) {
                 let props =
-                    module.components && module.components[docName.toLowerCase()]
-                        ? module.components[docName.toLowerCase()].props
+                    module.components && module.components[docName]
+                        ? module.components[docName].props
                         : module.props
                           ? module.props
                           : module.interfaces && ObjectUtils.isNotEmpty(module.interfaces.components)
