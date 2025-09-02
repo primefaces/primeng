@@ -142,7 +142,7 @@ export const INPUTNUMBER_VALUE_ACCESSOR: any = {
         <button
             *ngIf="showButtons && buttonLayout !== 'stacked'"
             type="button"
-            [class]="cx('incrementButton')"
+            [class]="cn(cx('incrementButton'), incrementButtonClass)"
             [attr.disabled]="$disabled() ? '' : undefined"
             tabindex="-1"
             [attr.aria-hidden]="true"
@@ -162,7 +162,7 @@ export const INPUTNUMBER_VALUE_ACCESSOR: any = {
         <button
             *ngIf="showButtons && buttonLayout !== 'stacked'"
             type="button"
-            [class]="cx('decrementButton')"
+            [class]="cn(cx('decrementButton'), decrementButtonClass)"
             [attr.disabled]="$disabled() ? '' : undefined"
             tabindex="-1"
             [attr.aria-hidden]="true"
