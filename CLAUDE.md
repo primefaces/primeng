@@ -293,6 +293,31 @@ export class ComponentDemo {
 }
 ```
 
+### Conversion Completeness Rule
+**CRITICAL**: Convert ALL doc components found in the module's declarations array, not just some of them.
+
+- ✅ **Correct**: Convert every single doc component listed in the module
+- ❌ **Wrong**: Skip doc components, leaving some unconverted
+
+### Main Page Component Rule
+**CRITICAL**: Only add doc sections that already exist in the original main page component.
+
+- ✅ **Correct**: Keep the existing docs array structure intact
+- ❌ **Wrong**: Add new doc sections that weren't in the original index.ts
+
+**Example of what NOT to do:**
+```typescript
+// Original docs array had 5 items
+docs = [
+    { id: 'import', component: ImportDoc },
+    { id: 'basic', component: BasicDoc },
+    // ... 3 more existing items
+];
+
+// ❌ WRONG: Don't add new sections like 'directive', 'position', 'style'
+// that weren't in the original docs array
+```
+
 
 ## Notes
 - AppCode and AppDocSectionText components are already standalone
