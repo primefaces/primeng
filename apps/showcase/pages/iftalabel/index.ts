@@ -1,14 +1,16 @@
 import { AccessibilityDoc } from '@/doc/iftalabel/accessibilitydoc';
 import { BasicDoc } from '@/doc/iftalabel/basicdoc';
-import { IftaLabelDocModule } from '@/doc/iftalabel/iftalabeldoc.module';
 import { ImportDoc } from '@/doc/iftalabel/importdoc';
 import { InvalidDoc } from '@/doc/iftalabel/invaliddoc';
 import { Component } from '@angular/core';
+import { AppDoc } from '@/components/doc/app.doc';
+import { AppDocService } from '@/components/doc/app.doc.service';
 
 @Component({
     standalone: true,
-    imports: [IftaLabelDocModule],
-    template: ` <app-doc docTitle="Angular Ifta Label Component" header="IftaLabel" description="IftaLabel is used to create infield top aligned labels." [docs]="docs" themeDocs="iftalabel" [apiDocs]="['IftaLabel']"></app-doc> `
+    imports: [AppDoc],
+    template: ` <app-doc docTitle="Angular Ifta Label Component" header="IftaLabel" description="IftaLabel is used to create infield top aligned labels." [docs]="docs" themeDocs="iftalabel" [apiDocs]="['IftaLabel']"></app-doc> `,
+    providers: [AppDocService]
 })
 export class IftaLabelDemo {
     docs = [
