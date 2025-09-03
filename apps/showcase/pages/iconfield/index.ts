@@ -1,17 +1,19 @@
 import { AccessibilityDoc } from '@/doc/iconfield/accessibilitydoc';
 import { BasicDoc } from '@/doc/iconfield/basicdoc';
 import { FloatLabelDoc } from '@/doc/iconfield/floatlabeldoc';
-import { IconFieldDocModule } from '@/doc/iconfield/iconfielddoc.module';
 import { IftaLabelDoc } from '@/doc/iconfield/iftalabeldoc';
 import { ImportDoc } from '@/doc/iconfield/importdoc';
 import { SizesDoc } from '@/doc/iconfield/sizesdoc';
 import { TemplateDoc } from '@/doc/iconfield/templatedoc';
 import { Component } from '@angular/core';
+import { AppDoc } from '@/components/doc/app.doc';
+import { AppDocService } from '@/components/doc/app.doc.service';
 
 @Component({
     template: ` <app-doc docTitle="Angular IconField Component" header="IconField" description="IconField wraps an input and an icon." [docs]="docs" [apiDocs]="['IconField', 'InputIcon']" themeDocs="iconfield"></app-doc>`,
     standalone: true,
-    imports: [IconFieldDocModule]
+    imports: [AppDoc],
+    providers: [AppDocService]
 })
 export class IconFieldDemo {
     docs = [
