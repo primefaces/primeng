@@ -1,10 +1,15 @@
 import { Code } from '@/domain/code';
 import { PhotoService } from '@/service/photoservice';
 import { Component, model, OnInit } from '@angular/core';
+import { CommonModule } from '@angular/common';
+import { GalleriaModule } from 'primeng/galleria';
+import { AppCode } from '@/components/doc/app.code';
+import { AppDocSectionText } from '@/components/doc/app.docsectiontext';
 
 @Component({
     selector: 'galleria-caption-demo',
-    standalone: false,
+    standalone: true,
+    imports: [CommonModule, GalleriaModule, AppCode, AppDocSectionText],
     template: `
         <app-docsectiontext>
             <p>Description of an image is specified with the <i>caption</i> template.</p>
