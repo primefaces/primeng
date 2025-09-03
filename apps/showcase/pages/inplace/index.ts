@@ -2,14 +2,15 @@ import { AccessibilityDoc } from '@/doc/inplace/accessibilitydoc';
 import { BasicDoc } from '@/doc/inplace/basicdoc';
 import { ImageDoc } from '@/doc/inplace/imagedoc';
 import { ImportDoc } from '@/doc/inplace/importdoc';
-import { InplaceDocModule } from '@/doc/inplace/inplacedoc.module';
 import { InputDoc } from '@/doc/inplace/inputdoc';
 import { LazyDoc } from '@/doc/inplace/lazydoc';
 import { Component } from '@angular/core';
+import { AppDoc } from '@/components/doc/app.doc';
+import { AppDocService } from '@/components/doc/app.doc.service';
 
 @Component({
     standalone: true,
-    imports: [InplaceDocModule],
+    imports: [AppDoc],
     template: ` <app-doc
         docTitle="Angular Inplace Component"
         header="Inplace"
@@ -17,7 +18,8 @@ import { Component } from '@angular/core';
         [docs]="docs"
         [apiDocs]="['Inplace']"
         themeDocs="Inplace"
-    ></app-doc>`
+    ></app-doc>`,
+    providers: [AppDocService]
 })
 export class InplaceDemo {
     docs = [
