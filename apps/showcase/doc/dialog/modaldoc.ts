@@ -1,9 +1,14 @@
 import { Code } from '@/domain/code';
 import { Component } from '@angular/core';
+import { DialogModule } from 'primeng/dialog';
+import { ButtonModule } from 'primeng/button';
+import { AppCode } from '@/components/doc/app.code';
+import { AppDocSectionText } from '@/components/doc/app.docsectiontext';
 
 @Component({
     selector: 'dialog-modal-demo',
-    standalone: false,
+    standalone: true,
+    imports: [DialogModule, ButtonModule, AppCode, AppDocSectionText],
     template: `
         <app-docsectiontext>
             <p>Mask layer behind the Dialog can be turned on by setting the <i>modal</i> property to <i>true</i>.</p>

@@ -1,6 +1,5 @@
 import { AccessibilityDoc } from '@/doc/dialog/accessibilitydoc';
 import { BasicDoc } from '@/doc/dialog/basicdoc';
-import { DialogDocModule } from '@/doc/dialog/dialogdoc.module';
 import { HeadlessDoc } from '@/doc/dialog/headlessdoc';
 import { ImportDoc } from '@/doc/dialog/importdoc';
 import { LongContentDoc } from '@/doc/dialog/longcontentdoc';
@@ -10,11 +9,14 @@ import { ResponsiveDoc } from '@/doc/dialog/responsivedoc';
 import { TemplateDoc } from '@/doc/dialog/templatedoc';
 import { WithoutModalDoc } from '@/doc/dialog/withoutmodaldoc';
 import { Component } from '@angular/core';
+import { AppDoc } from '@/components/doc/app.doc';
+import { AppDocService } from '@/components/doc/app.doc.service';
 
 @Component({
     standalone: true,
-    imports: [DialogDocModule],
-    template: ` <app-doc docTitle="Angular Dialog Component" header="Dialog" description="Dialog is a container to display content in an overlay window." [docs]="docs" [apiDocs]="['Dialog']" themeDocs="dialog"></app-doc> `
+    imports: [AppDoc],
+    template: ` <app-doc docTitle="Angular Dialog Component" header="Dialog" description="Dialog is a container to display content in an overlay window." [docs]="docs" [apiDocs]="['Dialog']" themeDocs="dialog"></app-doc> `,
+    providers: [AppDocService]
 })
 export class DialogDemo {
     docs = [
