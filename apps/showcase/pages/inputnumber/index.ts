@@ -6,7 +6,6 @@ import { FilledDoc } from '@/doc/inputnumber/filleddoc';
 import { FloatlabelDoc } from '@/doc/inputnumber/floatlabeldoc';
 import { IftaLabelDoc } from '@/doc/inputnumber/iftalabeldoc';
 import { ImportDoc } from '@/doc/inputnumber/importdoc';
-import { InputNumberDocModule } from '@/doc/inputnumber/inputnumberdoc.module';
 import { InvalidDoc } from '@/doc/inputnumber/invaliddoc';
 import { LocaleDoc } from '@/doc/inputnumber/localedoc';
 import { NumeralsDoc } from '@/doc/inputnumber/numeralsdoc';
@@ -16,11 +15,14 @@ import { SizesDoc } from '@/doc/inputnumber/sizesdoc';
 import { TemplateDrivenFormsDoc } from '@/doc/inputnumber/templatedrivenformsdoc';
 import { VerticalDoc } from '@/doc/inputnumber/verticaldoc';
 import { Component } from '@angular/core';
+import { AppDoc } from '@/components/doc/app.doc';
+import { AppDocService } from '@/components/doc/app.doc.service';
 
 @Component({
     template: `<app-doc docTitle="Angular InputNumber Component" header="InputNumber" description="InputNumber is an input component to provide numerical input." [docs]="docs" [apiDocs]="['InputNumber']" themeDocs="inputnumber"></app-doc> `,
     standalone: true,
-    imports: [InputNumberDocModule]
+    imports: [AppDoc],
+    providers: [AppDocService]
 })
 export class InputNumberDemo {
     docs = [
