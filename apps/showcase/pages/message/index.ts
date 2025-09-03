@@ -6,17 +6,19 @@ import { FormDoc } from '@/doc/message/formdoc';
 import { IconDoc } from '@/doc/message/icondoc';
 import { ImportDoc } from '@/doc/message/importdoc';
 import { LifeDoc } from '@/doc/message/lifedoc';
-import { MessageDocModule } from '@/doc/message/messagedoc.module';
 import { OutlinedDoc } from '@/doc/message/outlineddoc';
 import { SeverityDoc } from '@/doc/message/severitydoc';
 import { SimpleDoc } from '@/doc/message/simpledoc';
 import { SizesDoc } from '@/doc/message/sizesdoc';
 import { Component } from '@angular/core';
+import { AppDoc } from '@/components/doc/app.doc';
+import { AppDocService } from '@/components/doc/app.doc.service';
 
 @Component({
     template: `<app-doc docTitle="Angular Message Component" header="Message" description="Message component is used to display inline messages." [docs]="docs" [apiDocs]="['Message']" themeDocs="message"></app-doc>`,
-    imports: [MessageDocModule],
-    standalone: true
+    imports: [AppDoc],
+    standalone: true,
+    providers: [AppDocService]
 })
 export class MessageDemo {
     docs = [
