@@ -1,10 +1,17 @@
 import { Code } from '@/domain/code';
 import { Component } from '@angular/core';
+import { CommonModule } from '@angular/common';
 import { ConfirmationService, MessageService } from 'primeng/api';
+import { ConfirmDialogModule } from 'primeng/confirmdialog';
+import { ToastModule } from 'primeng/toast';
+import { ButtonModule } from 'primeng/button';
+import { AppCode } from '@/components/doc/app.code';
+import { AppDocSectionText } from '@/components/doc/app.docsectiontext';
 
 @Component({
     selector: 'confirm-dialog-template-demo',
-    standalone: false,
+    standalone: true,
+    imports: [CommonModule, ConfirmDialogModule, ToastModule, ButtonModule, AppCode, AppDocSectionText],
     template: `
         <app-docsectiontext>
             <p>
