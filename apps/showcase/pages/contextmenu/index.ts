@@ -1,20 +1,22 @@
 import { AccessibilityDoc } from '@/doc/contextmenu/accessibilitydoc';
 import { BasicDoc } from '@/doc/contextmenu/basicdoc';
 import { CommandDoc } from '@/doc/contextmenu/commanddoc';
-import { ContextMenuDocModule } from '@/doc/contextmenu/contextmenudoc.module';
 import { DocumentDoc } from '@/doc/contextmenu/documentdoc';
 import { ImportDoc } from '@/doc/contextmenu/importdoc';
 import { RouterDoc } from '@/doc/contextmenu/routerdoc';
 import { TableDoc } from '@/doc/contextmenu/tabledoc';
 import { TemplateDoc } from '@/doc/contextmenu/templatedoc';
 import { Component } from '@angular/core';
+import { AppDoc } from '@/components/doc/app.doc';
+import { AppDocService } from '@/components/doc/app.doc.service';
 
 @Component({
     standalone: true,
-    imports: [ContextMenuDocModule],
+    imports: [AppDoc],
     template: `
         <app-doc docTitle="Angular ContextMenu Component" header="ContextMenu" description="ContextMenu displays an overlay menu on right click of its target." [docs]="docs" [apiDocs]="['ContextMenu', 'MenuItem']" themeDocs="contextmenu"></app-doc>
-    `
+    `,
+    providers: [AppDocService]
 })
 export class ContextMenuDemo {
     docs = [
@@ -53,7 +55,6 @@ export class ContextMenuDemo {
             label: 'Table',
             component: TableDoc
         },
-
         {
             id: 'accessibility',
             label: 'Accessibility',
