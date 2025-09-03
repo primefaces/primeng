@@ -1,14 +1,15 @@
 import { AccessibilityDoc } from '@/doc/confirmpopup/accessibilitydoc';
 import { BasicDoc } from '@/doc/confirmpopup/basicdoc';
-import { ConfirmPopupDocModule } from '@/doc/confirmpopup/confirmpopupdoc.module';
 import { HeadlessDoc } from '@/doc/confirmpopup/headlessdoc';
 import { ImportDoc } from '@/doc/confirmpopup/importdoc';
 import { TemplateDoc } from '@/doc/confirmpopup/templatedoc';
 import { Component } from '@angular/core';
+import { AppDoc } from '@/components/doc/app.doc';
+import { AppDocService } from '@/components/doc/app.doc.service';
 
 @Component({
     standalone: true,
-    imports: [ConfirmPopupDocModule],
+    imports: [AppDoc],
     template: `
         <app-doc
             docTitle="Angular ConfirmPopup Component"
@@ -18,7 +19,8 @@ import { Component } from '@angular/core';
             [apiDocs]="['ConfirmPopup', 'Confirmation', 'ConfirmationService']"
             themeDocs="confirmPopup"
         ></app-doc>
-    `
+    `,
+    providers: [AppDocService]
 })
 export class ConfirmPopupDemo {
     docs = [
