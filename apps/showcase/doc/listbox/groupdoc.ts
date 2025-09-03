@@ -1,6 +1,10 @@
 import { Code } from '@/domain/code';
 import { Component } from '@angular/core';
 import { SelectItemGroup } from 'primeng/api';
+import { FormsModule } from '@angular/forms';
+import { ListboxModule } from 'primeng/listbox';
+import { AppCodeModule } from '@/components/doc/app.code';
+import { AppDocSectionText } from '@/components/doc/app.docsectiontext';
 
 interface Country {
     name: string;
@@ -9,7 +13,8 @@ interface Country {
 
 @Component({
     selector: 'group-doc',
-    standalone: false,
+    standalone: true,
+    imports: [FormsModule, ListboxModule, AppCodeModule, AppDocSectionText],
     template: `
         <app-docsectiontext>
             <p>Options can be grouped when a nested data structures is provided.</p>
