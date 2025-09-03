@@ -3,16 +3,18 @@ import { BasicDoc } from '@/doc/menu/basicdoc';
 import { CommandDoc } from '@/doc/menu/commanddoc';
 import { GroupDoc } from '@/doc/menu/groupdoc';
 import { ImportDoc } from '@/doc/menu/importdoc';
-import { MenuDocModule } from '@/doc/menu/menudoc.module';
 import { PopupDoc } from '@/doc/menu/popupdoc';
 import { RouterDoc } from '@/doc/menu/routerdoc';
 import { TemplateDoc } from '@/doc/menu/templatedoc';
 import { Component } from '@angular/core';
+import { AppDoc } from '@/components/doc/app.doc';
+import { AppDocService } from '@/components/doc/app.doc.service';
 
 @Component({
     template: `<app-doc docTitle="Angular Menu Component" header="Menu" description="Menu is a navigation / command component that supports dynamic and static positioning." [docs]="docs" [apiDocs]="['Menu', 'MenuItem']" themeDocs="menu"></app-doc> `,
     standalone: true,
-    imports: [MenuDocModule]
+    imports: [AppDoc],
+    providers: [AppDocService]
 })
 export class MenuDemo {
     docs = [
@@ -51,7 +53,6 @@ export class MenuDemo {
             label: 'Router',
             component: RouterDoc
         },
-
         {
             id: 'accessibility',
             label: 'Accessibility',
