@@ -8,18 +8,18 @@ import { ImportDoc } from '@/doc/password/importdoc';
 import { InvalidDoc } from '@/doc/password/invaliddoc';
 import { LocaleDoc } from '@/doc/password/localedoc';
 import { MeterDoc } from '@/doc/password/meterdoc';
-import { PasswordDocModule } from '@/doc/password/passworddoc.module';
 import { ReactiveFormsDoc } from '@/doc/password/reactiveformsdoc';
 import { SizesDoc } from '@/doc/password/sizesdoc';
 import { TemplateDoc } from '@/doc/password/templatedoc';
 import { TemplateDrivenFormsDoc } from '@/doc/password/templatedrivenformsdoc';
 import { ToggleMaskDoc } from '@/doc/password/togglemaskdoc';
 import { Component } from '@angular/core';
+import { AppDoc } from '@/components/doc/app.doc';
 
 @Component({
     template: `<app-doc docTitle="Angular Password Component" header="Password" description="Password displays strength indicator for password fields." [docs]="docs" [apiDocs]="['Password', 'PasswordDirective']" themeDocs="password"></app-doc>`,
     standalone: true,
-    imports: [PasswordDocModule]
+    imports: [AppDoc]
 })
 export class PasswordDemo {
     docs = [
