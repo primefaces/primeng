@@ -1,6 +1,6 @@
 {
     "name": "showcase",
-    "version": "20.0.1",
+    "version": "20.1.1",
     "license": "SEE LICENSE IN LICENSE.md",
     "type": "module",
     "scripts": {
@@ -37,7 +37,7 @@
         "express": "^4.19.2",
         "file-saver": "^2.0.5",
         "jasmine-core": "~4.6.0",
-        "jspdf": "^2.5.1",
+        "jspdf": "^3.0.2",
         "jspdf-autotable": "^3.5.28",
         "primeicons": "catalog:",
         "primeng": "workspace:*",

@@ -6,7 +6,7 @@ import { Component, OnInit } from '@angular/core';
     standalone: false,
     template: `
         <app-docsectiontext>
-            <p>The <i>severity</i> option specifies the type of the message.</p>
+            <p>The icon of a message is specified with the <i>icon</i> property.</p>
         </app-docsectiontext>
         <div class="card flex justify-center align-center gap-4">
             <p-message severity="info" icon="pi pi-send" text="Info Message" styleClass="h-full" />

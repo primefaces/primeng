@@ -74,11 +74,11 @@ export const INPUTMASK_VALUE_ACCESSOR: any = {
         <input
             #input
             pInputText
-            [class]="cn(cx('root'), styleClass)"
             [attr.id]="inputId"
             [attr.type]="type"
             [attr.name]="name()"
             [invalid]="invalid()"
+            [class]="styleClass"
             [ngStyle]="style"
             [attr.placeholder]="placeholder"
             [attr.title]="title"
@@ -115,7 +115,10 @@ export const INPUTMASK_VALUE_ACCESSOR: any = {
     `,
     providers: [INPUTMASK_VALUE_ACCESSOR, InputMaskStyle],
     changeDetection: ChangeDetectionStrategy.OnPush,
-    encapsulation: ViewEncapsulation.None
+    encapsulation: ViewEncapsulation.None,
+    host: {
+        '[class]': "cx('root')"
+    }
 })
 export class InputMask extends BaseInput implements OnInit, AfterContentInit {
     /**

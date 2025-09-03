@@ -1,5 +1,5 @@
 import { booleanAttribute, Directive, ElementRef, HostListener, Input, NgModule, NgZone, OnDestroy, Renderer2 } from '@angular/core';
-import { addClass, hasClass, removeClass } from '@primeuix/utils';
+import { addClass, getTargetElement, hasClass, isElement, removeClass } from '@primeuix/utils';
 import { VoidListener } from 'primeng/ts-helpers';
 
 /**
@@ -66,12 +66,26 @@ export class StyleClass implements OnDestroy {
      * @group Props
      */
     @Input({ transform: booleanAttribute }) hideOnEscape: boolean | undefined;
+    /**
+     * Whether to trigger leave animation when the target element resized.
+     * @group Props
+     */
+    @Input({ transform: booleanAttribute }) hideOnResize: boolean | undefined;
+    /**
+     * Target element to listen resize. Valid values are "window", "document" or target element selector.
+     * @group Props
+     */
+    @Input() resizeSelector: string | undefined;
 
     eventListener: VoidListener;
 
     documentClickListener: VoidListener;
 
     documentKeydownListener: VoidListener;
+
+    windowResizeListener: VoidListener;
+
+    resizeObserver: ResizeObserver | undefined;
 
     target: HTMLElement | null | undefined;
 
@@ -85,9 +99,11 @@ export class StyleClass implements OnDestroy {
 
     _leaveClass: string | undefined;
 
+    _resizeTarget: any;
+
     @HostListener('click', ['$event'])
     clickListener() {
-        this.target = this.resolveTarget();
+        this.target ||= getTargetElement(this.selector, this.el.nativeElement) as HTMLElement;
 
         if (this.toggleClass) {
             this.toggle();
@@ -107,11 +123,11 @@ export class StyleClass implements OnDestroy {
             if (!this.animating) {
                 this.animating = true;
 
-                if (this.enterActiveClass === 'animate-slidedown') {
+                if (this.enterActiveClass.includes('slidedown')) {
                     (this.target as HTMLElement).style.height = '0px';
-                    removeClass(this.target, 'hidden');
+                    removeClass(this.target, this.enterFromClass || 'hidden');
                     (this.target as HTMLElement).style.maxHeight = (this.target as HTMLElement).scrollHeight + 'px';
-                    addClass(this.target, 'hidden');
+                    addClass(this.target, this.enterFromClass || 'hidden');
                     (this.target as HTMLElement).style.height = '';
                 }
 
@@ -127,7 +143,7 @@ export class StyleClass implements OnDestroy {
                     }
                     this.enterListener && this.enterListener();
 
-                    if (this.enterActiveClass === 'animate-slidedown') {
+                    if (this.enterActiveClass.includes('slidedown')) {
                         (this.target as HTMLElement).style.maxHeight = '';
                     }
                     this.animating = false;
@@ -149,6 +165,10 @@ export class StyleClass implements OnDestroy {
 
         if (this.hideOnEscape) {
             this.bindDocumentKeydownListener();
+        }
+
+        if (this.hideOnResize) {
+            this.bindResizeListener();
         }
     }
 
@@ -187,28 +207,9 @@ export class StyleClass implements OnDestroy {
         if (this.hideOnEscape) {
             this.unbindDocumentKeydownListener();
         }
-    }
 
-    resolveTarget() {
-        if (this.target) {
-            return this.target;
-        }
-
-        switch (this.selector) {
-            case '@next':
-                return this.el.nativeElement.nextElementSibling;
-
-            case '@prev':
-                return this.el.nativeElement.previousElementSibling;
-
-            case '@parent':
-                return this.el.nativeElement.parentElement;
-
-            case '@grandparent':
-                return this.el.nativeElement.parentElement.parentElement;
-
-            default:
-                return document.querySelector(this.selector as string);
+        if (this.hideOnResize) {
+            this.unbindResizeListener();
         }
     }
 
@@ -255,13 +256,75 @@ export class StyleClass implements OnDestroy {
         }
     }
 
+    bindResizeListener() {
+        this._resizeTarget = getTargetElement(this.resizeSelector);
+        if (isElement(this._resizeTarget)) {
+            this.bindElementResizeListener();
+        } else {
+            this.bindWindowResizeListener();
+        }
+    }
+
+    unbindResizeListener() {
+        this.unbindWindowResizeListener();
+        this.unbindElementResizeListener();
+    }
+
+    bindWindowResizeListener() {
+        if (!this.windowResizeListener) {
+            this.zone.runOutsideAngular(() => {
+                this.windowResizeListener = this.renderer.listen(window, 'resize', () => {
+                    if (!this.isVisible()) {
+                        this.unbindWindowResizeListener();
+                    } else {
+                        this.leave();
+                    }
+                });
+            });
+        }
+    }
+
+    unbindWindowResizeListener() {
+        if (this.windowResizeListener) {
+            this.windowResizeListener();
+            this.windowResizeListener = null;
+        }
+    }
+
+    bindElementResizeListener() {
+        if (!this.resizeObserver && this._resizeTarget) {
+            let isFirstResize = true;
+            this.resizeObserver = new ResizeObserver(() => {
+                if (isFirstResize) {
+                    isFirstResize = false;
+                    return;
+                }
+
+                if (this.isVisible()) {
+                    this.leave();
+                }
+            });
+            this.resizeObserver.observe(this._resizeTarget);
+        }
+    }
+
+    unbindElementResizeListener() {
+        if (this.resizeObserver) {
+            this.resizeObserver.disconnect();
+            this.resizeObserver = undefined;
+        }
+    }
+
     ngOnDestroy() {
         this.target = null;
+        this._resizeTarget = null;
+
         if (this.eventListener) {
             this.eventListener();
         }
         this.unbindDocumentClickListener();
         this.unbindDocumentKeydownListener();
+        this.unbindResizeListener();
     }
 }
 

@@ -142,7 +142,7 @@ export const INPUTNUMBER_VALUE_ACCESSOR: any = {
         <button
             *ngIf="showButtons && buttonLayout !== 'stacked'"
             type="button"
-            [class]="cx('incrementButton')"
+            [class]="cn(cx('incrementButton'), incrementButtonClass)"
             [attr.disabled]="$disabled() ? '' : undefined"
             tabindex="-1"
             [attr.aria-hidden]="true"
@@ -162,7 +162,7 @@ export const INPUTNUMBER_VALUE_ACCESSOR: any = {
         <button
             *ngIf="showButtons && buttonLayout !== 'stacked'"
             type="button"
-            [class]="cx('decrementButton')"
+            [class]="cn(cx('decrementButton'), decrementButtonClass)"
             [attr.disabled]="$disabled() ? '' : undefined"
             tabindex="-1"
             [attr.aria-hidden]="true"
@@ -988,6 +988,9 @@ export class InputNumber extends BaseInput implements OnInit, AfterContentInit, 
         if (!this.$disabled() && !this.readonly) {
             event.preventDefault();
             let data = (event.clipboardData || (this.document as any).defaultView['clipboardData']).getData('Text');
+            if (this.inputId === 'integeronly' && /[^\d-]/.test(data)) {
+                return;
+            }
             if (data) {
                 if (this.maxlength()) {
                     data = data.toString().substring(0, this.maxlength());
