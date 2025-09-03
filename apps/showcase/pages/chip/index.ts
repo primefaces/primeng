@@ -1,15 +1,17 @@
 import { AccessibilityDoc } from '@/doc/chip/accessibilitydoc';
 import { BasicDoc } from '@/doc/chip/basicdoc';
-import { ChipDocModule } from '@/doc/chip/chipdoc.module';
 import { IconDoc } from '@/doc/chip/icondoc';
 import { ImageDoc } from '@/doc/chip/imagedoc';
 import { ImportDoc } from '@/doc/chip/importdoc';
 import { TemplateDoc } from '@/doc/chip/templatedoc';
+import { AppDoc } from '@/components/doc/app.doc';
+import { AppDocService } from '@/components/doc/app.doc.service';
 import { Component } from '@angular/core';
 
 @Component({
     standalone: true,
-    imports: [ChipDocModule],
+    imports: [AppDoc],
+    providers: [AppDocService],
     template: ` <app-doc docTitle="Angular Chip Component" header="Chip" description="Chip represents entities using icons, labels and images." [docs]="docs" [apiDocs]="['Chip']" themeDocs="chip"></app-doc>`
 })
 export class ChipDemo {
@@ -39,7 +41,6 @@ export class ChipDemo {
             label: 'Template',
             component: TemplateDoc
         },
-
         {
             id: 'accessibility',
             label: 'Accessibility',
