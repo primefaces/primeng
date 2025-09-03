@@ -1,9 +1,15 @@
 import { Code } from '@/domain/code';
 import { Component } from '@angular/core';
+import { DrawerModule } from 'primeng/drawer';
+import { ButtonModule } from 'primeng/button';
+import { AvatarModule } from 'primeng/avatar';
+import { AppCode } from '@/components/doc/app.code';
+import { AppDocSectionText } from '@/components/doc/app.docsectiontext';
 
 @Component({
     selector: 'template-doc',
-    standalone: false,
+    standalone: true,
+    imports: [DrawerModule, ButtonModule, AvatarModule, AppCode, AppDocSectionText],
     template: `
         <app-docsectiontext>
             <p>Drawer is customizable by <i>header</i>, <i>content</i>, <i>footer</i> templates.</p>
