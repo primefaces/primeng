@@ -70,7 +70,8 @@ export class Textarea extends BaseModelHolder implements OnInit, AfterViewInit, 
     ngOnInit() {
         super.ngOnInit();
         if (this.ngControl) {
-            this.ngControlSubscription = (this.ngControl as any).valueChanges.subscribe(() => {
+            this.ngControlSubscription = (this.ngControl as any).valueChanges.subscribe((value: string | undefined) => {
+                this.writeModelValue(value);
                 this.updateState();
             });
         }
