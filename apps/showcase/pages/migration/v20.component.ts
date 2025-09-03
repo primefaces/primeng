@@ -4,11 +4,13 @@ import { DeprecationsDoc } from '@/doc/migration/v20/deprecationsdoc';
 import { RemovalsDoc } from '@/doc/migration/v20/removalsdoc';
 import { OverviewDoc } from '@/doc/migration/v20/overviewdoc';
 import { Component } from '@angular/core';
-import { AppDoc } from '@/components/doc/app.doc.component';
+import { AppDoc } from '@/components/doc/app.doc';
+import { AppDocService } from '@/components/doc/app.doc.service';
 @Component({
     imports: [AppDoc],
     standalone: true,
-    template: `<app-doc docTitle="Migration - PrimeNG v20" header="Migration" description="Migration guide to PrimeNG v20." [docs]="docs"></app-doc>`
+    template: `<app-doc docTitle="Migration - PrimeNG v20" header="Migration" description="Migration guide to PrimeNG v20." [docs]="docs"></app-doc>`,
+    providers: [AppDocService]
 })
 export class v20MigrationDemoComponent {
     docs = [
