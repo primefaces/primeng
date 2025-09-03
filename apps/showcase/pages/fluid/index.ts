@@ -1,13 +1,15 @@
 import { AccessibilityDoc } from '@/doc/fluid/accessibilitydoc';
 import { BasicDoc } from '@/doc/fluid/basicdoc';
-import { FluidDocModule } from '@/doc/fluid/fluiddoc.module';
 import { ImportDoc } from '@/doc/fluid/importdoc';
 import { Component } from '@angular/core';
+import { AppDoc } from '@/components/doc/app.doc';
+import { AppDocService } from '@/components/doc/app.doc.service';
 
 @Component({
     standalone: true,
-    imports: [FluidDocModule],
-    template: ` <app-doc docTitle="Angular Fluid Component" header="Fluid" description="Fluid is a layout component to make descendant components span full width of their container." [docs]="docs" themeDocs="fluid"></app-doc> `
+    imports: [AppDoc],
+    template: ` <app-doc docTitle="Angular Fluid Component" header="Fluid" description="Fluid is a layout component to make descendant components span full width of their container." [docs]="docs" themeDocs="fluid"></app-doc> `,
+    providers: [AppDocService]
 })
 export class FluidDemo {
     docs = [
