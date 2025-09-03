@@ -1,5 +1,4 @@
-import { AppCodeModule } from '@/components/doc/app.code.component';
-import { AppDocModule } from '@/components/doc/app.doc.module';
+import { AppDocSectionText } from '@/components/doc/app.docsectiontext';
 import { CommonModule } from '@angular/common';
 import { Component } from '@angular/core';
 import { RouterModule } from '@angular/router';
@@ -7,7 +6,7 @@ import { RouterModule } from '@angular/router';
 @Component({
     selector: 'overview-doc',
     standalone: true,
-    imports: [CommonModule, AppCodeModule, AppDocModule, RouterModule],
+    imports: [CommonModule, AppDocSectionText, RouterModule],
     template: `<app-docsectiontext>
         <p>
             The <a routerLink="/theming">theming api</a> is open and source freely available with an extensive documentation. Theme Designer is a tool build on top of this theming api with important features to make theming easier. Designer consists

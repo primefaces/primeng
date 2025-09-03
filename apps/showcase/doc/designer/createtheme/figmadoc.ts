@@ -1,5 +1,4 @@
-import { AppCodeModule } from '@/components/doc/app.code.component';
-import { AppDocModule } from '@/components/doc/app.doc.module';
+import { AppDocSectionText } from '@/components/doc/app.docsectiontext';
 import { CommonModule } from '@angular/common';
 import { Component } from '@angular/core';
 import { RouterModule } from '@angular/router';
@@ -7,7 +6,7 @@ import { RouterModule } from '@angular/router';
 @Component({
     selector: 'figma-doc',
     standalone: true,
-    imports: [CommonModule, AppCodeModule, AppDocModule, RouterModule],
+    imports: [CommonModule, AppDocSectionText, RouterModule],
     template: `<app-docsectiontext>
         <p>
             The <a routerLink="/uikit">Figma UI Kit</a> and the theming api is fully synchorized, meaning the design tokens in Figma map to the CSS variables in the code. The mapping is created via the
