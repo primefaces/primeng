@@ -18,7 +18,7 @@ interface City {
 @Component({
     selector: 'template-driven-forms-doc',
     standalone: true,
-    imports: [CommonModule, AppDocSectionText, AppCode, FormsModule, SelectModule, ToastModule, MessageModule, ButtonModule],
+    imports: [CommonModule, AppDocSectionText, AppCode, FormsModule, SelectModule, ToastModule, MessageModule, ButtonModule, CommonModule],
     template: `
         <app-docsectiontext> </app-docsectiontext>
         <p-toast />
