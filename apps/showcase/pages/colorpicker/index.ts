@@ -5,7 +5,6 @@ import { FormatDoc } from '@/doc/colorpicker/formatdoc';
 import { ImportDoc } from '@/doc/colorpicker/importdoc';
 import { InlineDoc } from '@/doc/colorpicker/inlinedoc';
 import { ReactiveFormsDoc } from '@/doc/colorpicker/reactiveformsdoc';
-import { StyleDoc } from '@/doc/colorpicker/styledoc';
 import { TemplateDrivenFormsDoc } from '@/doc/colorpicker/templatedrivenformsdoc';
 import { Component } from '@angular/core';
 import { AppDoc } from '@/components/doc/app.doc';
@@ -51,11 +50,6 @@ export class ColorPickerDemo {
             id: 'disabled',
             label: 'Disabled',
             component: DisabledDoc
-        },
-        {
-            id: 'style',
-            label: 'Style',
-            component: StyleDoc
         },
         {
             id: 'accessibility',
