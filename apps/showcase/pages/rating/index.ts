@@ -3,17 +3,19 @@ import { BasicDoc } from '@/doc/rating/basicdoc';
 import { DisabledDoc } from '@/doc/rating/disableddoc';
 import { ImportDoc } from '@/doc/rating/importdoc';
 import { NumberOfStarsDoc } from '@/doc/rating/numberofstarsdoc';
-import { RatingDocModule } from '@/doc/rating/ratingdoc.module';
 import { ReactiveFormsDoc } from '@/doc/rating/reactiveformsdoc';
 import { ReadOnlyDoc } from '@/doc/rating/readonlydoc';
 import { TemplateDoc } from '@/doc/rating/templatedoc';
 import { TemplateDrivenFormsDoc } from '@/doc/rating/templatedrivenformsdoc';
 import { Component } from '@angular/core';
+import { AppDoc } from '@/components/doc/app.doc';
+import { AppDocService } from '@/components/doc/app.doc.service';
 
 @Component({
     template: `<app-doc docTitle="Angular Rating Component" header="Rating" description="Rating component is a star based selection input." [docs]="docs" [apiDocs]="['Rating']" themeDocs="rating"></app-doc>`,
     standalone: true,
-    imports: [RatingDocModule]
+    imports: [AppDoc],
+    providers: [AppDocService]
 })
 export class RatingDemo {
     docs = [
