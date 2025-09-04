@@ -20,17 +20,19 @@ import { ScopedTokensDoc } from '@/doc/theming/scopedtokensdoc';
 import { SpecificityDoc } from '@/doc/theming/specificitydoc';
 import { SurfaceDoc } from '@/doc/theming/surfacedoc';
 import { ThemeDoc } from '@/doc/theming/themedoc';
-import { ThemingDocModule } from '@/doc/theming/themingdoc.module';
 import { UpdatePresetDoc } from '@/doc/theming/updatepresetdoc';
 import { UpdatePrimaryPaletteDoc } from '@/doc/theming/updateprimarypalettedoc';
 import { UpdateSurfacePaletteDoc } from '@/doc/theming/updatesurfacepalettedoc';
 import { UsePresetDoc } from '@/doc/theming/usepresetdoc';
 import { Component } from '@angular/core';
+import { AppDoc } from '@/components/doc/app.doc';
+import { AppDocService } from '@/components/doc/app.doc.service';
 
 @Component({
     template: `<app-doc docTitle="Theming - PrimeNG" header="Theming" description="Choose from a variety of pre-styled themes or develop your own." [docs]="docs"></app-doc>`,
-    imports: [ThemingDocModule],
-    standalone: true
+    imports: [AppDoc],
+    standalone: true,
+    providers: [AppDocService]
 })
 export class ThemingDemo {
     docs = [
