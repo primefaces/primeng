@@ -658,6 +658,12 @@ export class InputMask extends BaseInput implements OnInit, AfterContentInit {
                 this.buffer[i] = this.getPlaceholder(i);
                 while (pos++ < test.length) {
                     c = test.charAt(pos - 1);
+                    if (c === this.getPlaceholder(i)) {
+                        lastMatch = i;
+                        if (!this.keepBuffer) {
+                            i = this.len; // Empty slot. Stop processing.
+                        }
+                    }
                     if (this.tests[i].test(c)) {
                         if (!this.keepBuffer) {
                             this.buffer[i] = c;
