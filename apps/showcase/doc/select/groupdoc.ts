@@ -1,10 +1,16 @@
 import { Code } from '@/domain/code';
 import { Component } from '@angular/core';
 import { SelectItemGroup } from 'primeng/api';
+import { AppDocSectionText } from '@/components/doc/app.docsectiontext';
+import { AppCode } from '@/components/doc/app.code';
+import { FormsModule } from '@angular/forms';
+import { SelectModule } from 'primeng/select';
+import { CommonModule } from '@angular/common';
 
 @Component({
     selector: 'select-group-demo',
-    standalone: false,
+    standalone: true,
+    imports: [CommonModule, AppDocSectionText, AppCode, FormsModule, SelectModule],
     template: `
         <app-docsectiontext>
             <p>Options can be grouped when a nested data structures is provided.</p>
