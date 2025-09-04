@@ -6,8 +6,9 @@ import { EventDoc } from '@/doc/tooltip/eventdoc';
 import { ImportDoc } from '@/doc/tooltip/importdoc';
 import { OptionsDoc } from '@/doc/tooltip/optionsdoc';
 import { PositionDoc } from '@/doc/tooltip/positiondoc';
-import { TooltipDocModule } from '@/doc/tooltip/tooltipdoc.module';
 import { Component } from '@angular/core';
+import { AppDoc } from '@/components/doc/app.doc';
+import { AppDocService } from '@/components/doc/app.doc.service';
 
 @Component({
     template: `<app-doc
@@ -19,7 +20,8 @@ import { Component } from '@angular/core';
         themeDocs="tooltip"
     ></app-doc>`,
     standalone: true,
-    imports: [TooltipDocModule]
+    imports: [AppDoc],
+    providers: [AppDocService]
 })
 export class TooltipDemo {
     docs = [
