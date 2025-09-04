@@ -2,11 +2,12 @@ import { AccessibilityDoc } from '@/doc/stepper/accessibilitydoc';
 import { BasicDoc } from '@/doc/stepper/basicdoc';
 import { ImportDoc } from '@/doc/stepper/importdoc';
 import { LinearDoc } from '@/doc/stepper/lineardoc';
-import { StepperDocModule } from '@/doc/stepper/stepperdoc.module';
 import { StepsOnlyDoc } from '@/doc/stepper/stepsonly';
 import { TemplateDoc } from '@/doc/stepper/templatedoc';
 import { VerticalDoc } from '@/doc/stepper/verticaldoc';
+import { AppDoc } from '@/components/doc/app.doc';
 import { Component } from '@angular/core';
+import { AppDocService } from '@/components/doc/app.doc.service';
 
 @Component({
     template: `<app-doc
@@ -18,7 +19,8 @@ import { Component } from '@angular/core';
         themeDocs="stepper"
     ></app-doc>`,
     standalone: true,
-    imports: [StepperDocModule]
+    imports: [AppDoc],
+    providers: [AppDocService]
 })
 export class StepperDemo {
     docs = [
