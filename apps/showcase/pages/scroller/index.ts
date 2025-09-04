@@ -7,15 +7,18 @@ import { ImportDoc } from '@/doc/scroller/importdoc';
 import { LazyLoadDoc } from '@/doc/scroller/lazyloaddoc';
 import { LoaderDoc } from '@/doc/scroller/loaderdoc';
 import { ProgrammaticDoc } from '@/doc/scroller/programmaticdoc';
+import { ScrollOptionsDoc } from '@/doc/scroller/scrolloptionsdoc';
 import { TemplateDoc } from '@/doc/scroller/templatedoc';
-import { VirtualScrollerDocModule } from '@/doc/scroller/scrollerdoc.module';
 import { Component } from '@angular/core';
+import { AppDoc } from '@/components/doc/app.doc';
+import { AppDocService } from '@/components/doc/app.doc.service';
 
 @Component({
     template: `<app-doc docTitle="Angular Virtual Scroller Component" header="Scroller" description="VirtualScroller is a performance-approach to handle huge data efficiently." [docs]="docs" [apiDocs]="['Scroller']" themeDocs="scroller"></app-doc>`,
     standalone: true,
-    imports: [VirtualScrollerDocModule],
-    styleUrl: './scrollerdemo.scss'
+    imports: [AppDoc],
+    styleUrl: './scrollerdemo.scss',
+    providers: [AppDocService]
 })
 export class VirtualScrollerDemo {
     docs = [
@@ -63,6 +66,11 @@ export class VirtualScrollerDemo {
             id: 'template',
             label: 'Template',
             component: TemplateDoc
+        },
+        {
+            id: 'scrolloptions',
+            label: 'Scroll Options',
+            component: ScrollOptionsDoc
         },
         {
             id: 'accessibility',
