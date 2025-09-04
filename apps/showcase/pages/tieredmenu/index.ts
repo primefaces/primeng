@@ -5,13 +5,15 @@ import { ImportDoc } from '@/doc/tieredmenu/importdoc';
 import { PopupDoc } from '@/doc/tieredmenu/popupdoc';
 import { RouterDoc } from '@/doc/tieredmenu/routerdoc';
 import { TemplateDoc } from '@/doc/tieredmenu/templatedoc';
-import { TieredMenuDocModule } from '@/doc/tieredmenu/tieredmenudoc.module';
+import { AppDoc } from '@/components/doc/app.doc';
 import { Component } from '@angular/core';
+import { AppDocService } from '@/components/doc/app.doc.service';
 
 @Component({
     template: `<app-doc docTitle="Angular TieredMenu Component" header="TieredMenu" description="TieredMenu displays submenus in nested overlays." [docs]="docs" [apiDocs]="['TieredMenu', 'MenuItem']" themeDocs="tieredmenu"></app-doc>`,
     standalone: true,
-    imports: [TieredMenuDocModule]
+    imports: [AppDoc],
+    providers: [AppDocService]
 })
 export class TieredMenuDemo {
     docs = [
@@ -45,7 +47,6 @@ export class TieredMenuDemo {
             label: 'Router',
             component: RouterDoc
         },
-
         {
             id: 'accessibility',
             label: 'Accessibility',
