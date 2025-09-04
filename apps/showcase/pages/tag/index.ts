@@ -4,14 +4,16 @@ import { IconDoc } from '@/doc/tag/icondoc';
 import { ImportDoc } from '@/doc/tag/importdoc';
 import { PillDoc } from '@/doc/tag/pilldoc';
 import { SeverityDoc } from '@/doc/tag/severitydoc';
-import { TagDocModule } from '@/doc/tag/tagdoc.module';
 import { TemplateDoc } from '@/doc/tag/templatedoc';
 import { Component } from '@angular/core';
+import { AppDoc } from '@/components/doc/app.doc';
+import { AppDocService } from '@/components/doc/app.doc.service';
 
 @Component({
     template: `<app-doc docTitle="Angular Tag Component" header="Tag" description="Tag component is used to categorize content." [docs]="docs" [apiDocs]="['Tag']" themeDocs="tag"></app-doc>`,
     standalone: true,
-    imports: [TagDocModule]
+    imports: [AppDoc],
+    providers: [AppDocService]
 })
 export class TagDemo {
     docs = [
