@@ -10,13 +10,15 @@ import { InvalidDoc } from '@/doc/textarea/invaliddoc';
 import { ReactiveFormsDoc } from '@/doc/textarea/reactiveformsdoc';
 import { SizesDoc } from '@/doc/textarea/sizesdoc';
 import { TemplateDrivenFormsDoc } from '@/doc/textarea/templatedrivenformsdoc';
-import { TextareaDocModule } from '@/doc/textarea/texteareadoc.module';
 import { Component } from '@angular/core';
+import { AppDoc } from '@/components/doc/app.doc';
+import { AppDocService } from '@/components/doc/app.doc.service';
 
 @Component({
     standalone: true,
-    imports: [TextareaDocModule],
-    template: `<app-doc docTitle="Angular Textarea Component" header="Textarea" description="Textarea adds styling and autoResize functionality to standard textarea element." [docs]="docs" [apiDocs]="['Textarea']" themeDocs="textearea"></app-doc>`
+    imports: [AppDoc],
+    template: `<app-doc docTitle="Angular Textarea Component" header="Textarea" description="Textarea adds styling and autoResize functionality to standard textarea element." [docs]="docs" [apiDocs]="['Textarea']" themeDocs="textearea"></app-doc>`,
+    providers: [AppDocService]
 })
 export class TextareaDemo {
     docs = [

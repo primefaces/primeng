@@ -1,9 +1,14 @@
 import { Code } from '@/domain/code';
 import { Component } from '@angular/core';
+import { AppCode } from '@/components/doc/app.code';
+import { AppDocSectionText } from '@/components/doc/app.docsectiontext';
+import { KeyFilterModule } from 'primeng/keyfilter';
+import { TextareaModule } from 'primeng/textarea';
 
 @Component({
     selector: 'key-filter-doc',
-    standalone: false,
+    standalone: true,
+    imports: [AppCode, AppDocSectionText, KeyFilterModule, TextareaModule],
     template: `
         <app-docsectiontext>
             <p>InputText has built-in key filtering support to block certain keys, refer to <a href="/keyfilter">keyfilter</a> page for more information.</p>
