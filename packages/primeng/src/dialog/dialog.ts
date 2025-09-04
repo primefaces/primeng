@@ -77,7 +77,7 @@ const hideAnimation = animation([animate('{{transition}}', style({ transform: '{
                         <span [id]="ariaLabelledBy" [class]="cx('title')" *ngIf="!_headerTemplate && !headerTemplate && !headerT">{{ header }}</span>
                         <ng-container *ngTemplateOutlet="_headerTemplate || headerTemplate || headerT"></ng-container>
                         <div [class]="cx('headerActions')">
-                            <p-button *ngIf="maximizable" [styleClass]="cx('pcMaximizeButton')" (onClick)="maximize()" (keydown.enter)="maximize()" [tabindex]="maximizable ? '0' : '-1'" [ariaLabel]="maximizeLabel" [buttonProps]="maximizeButtonProps">
+                            <p-button *ngIf="maximizable" [styleClass]="cx('pcMaximizeButton')" (onClick)="maximize()" (keydown.enter)="maximize()" [tabindex]="maximizable ? '0' : '-1'" [ariaLabel]="maximizeLabel" [buttonProps]="maximizeButtonProps" [dt]="maximizeButtonDt">
                                 <ng-template #icon>
                                     <span *ngIf="maximizeIcon && !_maximizeiconTemplate && !_minimizeiconTemplate" [ngClass]="maximized ? minimizeIcon : maximizeIcon"></span>
                                     <ng-container *ngIf="!maximizeIcon && !maximizeButtonProps?.icon">
@@ -92,7 +92,7 @@ const hideAnimation = animation([animate('{{transition}}', style({ transform: '{
                                     </ng-container>
                                 </ng-template>
                             </p-button>
-                            <p-button *ngIf="closable" [styleClass]="cx('pcCloseButton')" [ariaLabel]="closeAriaLabel" (onClick)="close($event)" (keydown.enter)="close($event)" [tabindex]="closeTabindex" [buttonProps]="closeButtonProps">
+                            <p-button *ngIf="closable" [styleClass]="cx('pcCloseButton')" [ariaLabel]="closeAriaLabel" (onClick)="close($event)" (keydown.enter)="close($event)" [tabindex]="closeTabindex" [buttonProps]="closeButtonProps" [dt]="closeButtonDt">
                                 <ng-template #icon>
                                     <ng-container *ngIf="!_closeiconTemplate && !closeIconTemplate && !closeIconT && !closeButtonProps?.icon">
                                         <span *ngIf="closeIcon" [class]="closeIcon"></span>
@@ -283,6 +283,10 @@ export class Dialog extends BaseComponent implements OnInit, AfterContentInit, O
         rounded: true
     };
     /**
+     * pass scoped design tokens for the close button
+     */
+    @Input() closeButtonDt: Object | undefined;
+    /**
      * Used to pass all properties of the ButtonProps to the Button component.
      * @group Props
      */
@@ -291,6 +295,10 @@ export class Dialog extends BaseComponent implements OnInit, AfterContentInit, O
         variant: 'text',
         rounded: true
     };
+    /**
+     * pass scoped design tokens for the maximize button
+     */
+    @Input() maximizeButtonDt: Object | undefined;
     /**
      * Specifies the visibility of the dialog.
      * @group Props
