@@ -10,10 +10,11 @@ import { RaisedTextDoc } from '@/doc/splitbutton/raisedtextdoc';
 import { RoundedDoc } from '@/doc/splitbutton/roundeddoc';
 import { SeverityDoc } from '@/doc/splitbutton/severitydoc';
 import { SizesDoc } from '@/doc/splitbutton/sizesdoc';
-import { SplitButtonDocModule } from '@/doc/splitbutton/splitbuttondoc.module';
 import { TemplateDoc } from '@/doc/splitbutton/templatedoc';
 import { TextDoc } from '@/doc/splitbutton/textdoc';
+import { AppDoc } from '@/components/doc/app.doc';
 import { Component } from '@angular/core';
+import { AppDocService } from '@/components/doc/app.doc.service';
 
 @Component({
     template: `<app-doc
@@ -25,7 +26,8 @@ import { Component } from '@angular/core';
         themeDocs="splitbutton"
     ></app-doc>`,
     standalone: true,
-    imports: [SplitButtonDocModule]
+    imports: [AppDoc],
+    providers: [AppDocService]
 })
 export class SplitButtonDemo {
     docs = [
