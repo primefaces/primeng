@@ -2,10 +2,16 @@ import { Code } from '@/domain/code';
 import { NodeService } from '@/service/nodeservice';
 import { Component, OnInit } from '@angular/core';
 import { MessageService, TreeNode } from 'primeng/api';
+import { FormsModule } from '@angular/forms';
+import { TreeModule } from 'primeng/tree';
+import { ToastModule } from 'primeng/toast';
+import { AppCode } from '@/components/doc/app.code';
+import { AppDocSectionText } from '@/components/doc/app.docsectiontext';
 
 @Component({
     selector: 'event-doc',
-    standalone: false,
+    standalone: true,
+    imports: [TreeModule, FormsModule, ToastModule, AppCode, AppDocSectionText],
     template: `
         <app-docsectiontext>
             <p>An event is provided for each type of user interaction such as expand, collapse and selection.</p>
