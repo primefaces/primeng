@@ -9,13 +9,11 @@ import { PluginDoc } from '@/doc/tailwind/plugindoc';
 import { Component } from '@angular/core';
 import { DarkModeDoc } from '@/doc/tailwind/darkmodedoc';
 import { AppDoc } from '@/components/doc/app.doc';
-import { AppDocService } from '@/components/doc/app.doc.service';
 
 @Component({
     template: `<app-doc docTitle="Tailwind CSS - PrimeNG" header="Tailwind CSS" description="Integration between PrimeNG and Tailwind CSS." [docs]="docs"></app-doc>`,
     standalone: true,
-    imports: [AppDoc],
-    providers: [AppDocService]
+    imports: [AppDoc]
 })
 export class TailwindDemo {
     docs = [

@@ -4,7 +4,6 @@ import { ImportDoc } from '@/doc/styleclass/importdoc';
 import { ToggleClassDoc } from '@/doc/styleclass/toggleclassdoc';
 import { Component } from '@angular/core';
 import { AppDoc } from '@/components/doc/app.doc';
-import { AppDocService } from '@/components/doc/app.doc.service';
 
 @Component({
     template: `<app-doc
@@ -15,8 +14,7 @@ import { AppDocService } from '@/components/doc/app.doc.service';
         [apiDocs]="['StyleClass']"
     ></app-doc>`,
     standalone: true,
-    imports: [AppDoc],
-    providers: [AppDocService]
+    imports: [AppDoc]
 })
 export class StyleClassDemo {
     docs = [

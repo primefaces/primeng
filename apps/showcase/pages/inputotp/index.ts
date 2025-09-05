@@ -10,14 +10,12 @@ import { TemplateDoc } from '@/doc/inputotp/templatedoc';
 import { TemplateDrivenFormsDoc } from '@/doc/inputotp/templatedrivenformsdoc';
 import { Component, ViewEncapsulation } from '@angular/core';
 import { AppDoc } from '@/components/doc/app.doc';
-import { AppDocService } from '@/components/doc/app.doc.service';
 
 @Component({
     standalone: true,
     imports: [AppDoc],
     template: ` <app-doc docTitle="Angular Otp Input Component" header="InputOtp" description="Input Otp is used to enter one time passwords." [docs]="docs" [apiDocs]="['InputOtp']" themeDocs="inputotp"></app-doc> `,
-    encapsulation: ViewEncapsulation.None,
-    providers: [AppDocService]
+    encapsulation: ViewEncapsulation.None
 })
 export class InputOtpDemo {
     docs = [

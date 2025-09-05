@@ -6,13 +6,11 @@ import { ImportDoc } from '@/doc/paginator/importdoc';
 import { TemplateDoc } from '@/doc/paginator/templatedoc';
 import { Component } from '@angular/core';
 import { AppDoc } from '@/components/doc/app.doc';
-import { AppDocService } from '@/components/doc/app.doc.service';
 
 @Component({
     template: `<app-doc docTitle="Angular Paginator Component" header="Paginator" description="Paginator displays data in paged format and provides navigation between pages." [docs]="docs" [apiDocs]="['Paginator']" themeDocs="paginator"></app-doc>`,
     standalone: true,
     imports: [AppDoc],
-    providers: [AppDocService],
     styles: `
         .image-gallery {
             text-align: center;

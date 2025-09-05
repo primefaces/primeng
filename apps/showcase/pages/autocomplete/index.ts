@@ -18,7 +18,6 @@ import { TemplateDrivenFormsDoc } from '@/doc/autocomplete/templatedrivenformsdo
 import { VirtualScrollDoc } from '@/doc/autocomplete/virtualscrolldoc';
 import { ChangeDetectionStrategy, Component } from '@angular/core';
 import { AppDoc } from '@/components/doc/app.doc';
-import { AppDocService } from '@/components/doc/app.doc.service';
 
 @Component({
     template: `<app-doc
@@ -31,7 +30,6 @@ import { AppDocService } from '@/components/doc/app.doc.service';
     ></app-doc>`,
     standalone: true,
     imports: [AppDoc],
-    providers: [AppDocService],
     changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class AutoCompleteDemo {

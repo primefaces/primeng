@@ -12,12 +12,10 @@ import { SizeDoc } from '@/doc/avatar/sizedoc';
 import { TemplateDoc } from '@/doc/avatar/templatedoc';
 import { Component } from '@angular/core';
 import { AppDoc } from '@/components/doc/app.doc';
-import { AppDocService } from '@/components/doc/app.doc.service';
 
 @Component({
     standalone: true,
     imports: [AppDoc],
-    providers: [AppDocService],
     template: ` <app-doc docTitle="Angular Avatar Component" header="Avatar" description="Avatar represents people using icons, labels and images." [docs]="docs" [apiDocs]="['Avatar', 'AvatarGroup']" [themeDocs]="'Avatar'"></app-doc>`
 })
 export class AvatarDemo {

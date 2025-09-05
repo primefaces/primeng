@@ -9,14 +9,12 @@ import { AppDoc } from '@/components/doc/app.doc';
 import { TemplateDoc } from '@/doc/speeddial/templatedoc';
 import { TooltipDoc } from '@/doc/speeddial/tooltipdoc';
 import { Component } from '@angular/core';
-import { AppDocService } from '@/components/doc/app.doc.service';
 
 @Component({
     template: `<app-doc docTitle="Angular Speed Dial Component" header="Speed Dial" description="SpeedDial is a floating button with a popup menu." [docs]="docs" [apiDocs]="['SpeedDial']" themeDocs="speeddial"></app-doc>`,
     standalone: true,
     imports: [AppDoc],
-    styleUrl: './speeddialdemo.scss',
-    providers: [AppDocService]
+    styleUrl: './speeddialdemo.scss'
 })
 export class SpeedDialDemo {
     docs = [

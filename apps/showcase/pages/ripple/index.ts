@@ -4,14 +4,11 @@ import { DefaultDoc } from '@/doc/ripple/defaultdoc';
 import { ImportDoc } from '@/doc/ripple/importdoc';
 import { Component } from '@angular/core';
 import { AppDoc } from '@/components/doc/app.doc';
-import { AppDocService } from '@/components/doc/app.doc.service';
-
 @Component({
     template: `<app-doc docTitle="Angular Ripple Component" header="Ripple" description="Ripple directive adds ripple effect to the host element." [docs]="docs" themeDocs="ripple"></app-doc>`,
     standalone: true,
     imports: [AppDoc],
-    styleUrl: './rippledemo.scss',
-    providers: [AppDocService]
+    styleUrl: './rippledemo.scss'
 })
 export class RippleDemo {
     docs = [

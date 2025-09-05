@@ -7,7 +7,6 @@ import { PassingDataDoc } from '@/doc/dynamicdialog/passingdatadoc';
 import { UsageDoc } from '@/doc/dynamicdialog/usagedoc';
 import { Component } from '@angular/core';
 import { AppDoc } from '@/components/doc/app.doc';
-import { AppDocService } from '@/components/doc/app.doc.service';
 
 @Component({
     standalone: true,
@@ -21,8 +20,7 @@ import { AppDocService } from '@/components/doc/app.doc.service';
             [apiDocs]="['DynamicDialog-Ref', 'DynamicDialog-Config', 'DialogService']"
             themeDocs="dynamicdialog"
         ></app-doc>
-    `,
-    providers: [AppDocService]
+    `
 })
 export class DynamicDialogDemo {
     docs = [

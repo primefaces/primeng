@@ -11,14 +11,12 @@ import { ScrollOptionsDoc } from '@/doc/scroller/scrolloptionsdoc';
 import { TemplateDoc } from '@/doc/scroller/templatedoc';
 import { Component } from '@angular/core';
 import { AppDoc } from '@/components/doc/app.doc';
-import { AppDocService } from '@/components/doc/app.doc.service';
 
 @Component({
     template: `<app-doc docTitle="Angular Virtual Scroller Component" header="Scroller" description="VirtualScroller is a performance-approach to handle huge data efficiently." [docs]="docs" [apiDocs]="['Scroller']" themeDocs="scroller"></app-doc>`,
     standalone: true,
     imports: [AppDoc],
-    styleUrl: './scrollerdemo.scss',
-    providers: [AppDocService]
+    styleUrl: './scrollerdemo.scss'
 })
 export class VirtualScrollerDemo {
     docs = [

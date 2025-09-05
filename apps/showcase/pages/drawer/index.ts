@@ -8,13 +8,11 @@ import { SizeDoc } from '@/doc/drawer/sizedoc';
 import { TemplateDoc } from '@/doc/drawer/templatedoc';
 import { Component } from '@angular/core';
 import { AppDoc } from '@/components/doc/app.doc';
-import { AppDocService } from '@/components/doc/app.doc.service';
 
 @Component({
     standalone: true,
     imports: [AppDoc],
-    template: ` <app-doc docTitle="Angular Drawer Component" header="Drawer" description="Drawer is a container component displayed as an overlay." [docs]="docs" [apiDocs]="['Drawer']" themeDocs="drawer"></app-doc> `,
-    providers: [AppDocService]
+    template: ` <app-doc docTitle="Angular Drawer Component" header="Drawer" description="Drawer is a container component displayed as an overlay." [docs]="docs" [apiDocs]="['Drawer']" themeDocs="drawer"></app-doc> `
 })
 export class DrawerDemo {
     docs = [

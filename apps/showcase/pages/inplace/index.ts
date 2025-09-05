@@ -6,7 +6,6 @@ import { InputDoc } from '@/doc/inplace/inputdoc';
 import { LazyDoc } from '@/doc/inplace/lazydoc';
 import { Component } from '@angular/core';
 import { AppDoc } from '@/components/doc/app.doc';
-import { AppDocService } from '@/components/doc/app.doc.service';
 
 @Component({
     standalone: true,
@@ -18,8 +17,7 @@ import { AppDocService } from '@/components/doc/app.doc.service';
         [docs]="docs"
         [apiDocs]="['Inplace']"
         themeDocs="Inplace"
-    ></app-doc>`,
-    providers: [AppDocService]
+    ></app-doc>`
 })
 export class InplaceDemo {
     docs = [

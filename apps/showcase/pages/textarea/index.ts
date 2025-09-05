@@ -12,13 +12,11 @@ import { SizesDoc } from '@/doc/textarea/sizesdoc';
 import { TemplateDrivenFormsDoc } from '@/doc/textarea/templatedrivenformsdoc';
 import { Component } from '@angular/core';
 import { AppDoc } from '@/components/doc/app.doc';
-import { AppDocService } from '@/components/doc/app.doc.service';
 
 @Component({
     standalone: true,
     imports: [AppDoc],
-    template: `<app-doc docTitle="Angular Textarea Component" header="Textarea" description="Textarea adds styling and autoResize functionality to standard textarea element." [docs]="docs" [apiDocs]="['Textarea']" themeDocs="textearea"></app-doc>`,
-    providers: [AppDocService]
+    template: `<app-doc docTitle="Angular Textarea Component" header="Textarea" description="Textarea adds styling and autoResize functionality to standard textarea element." [docs]="docs" [apiDocs]="['Textarea']" themeDocs="textearea"></app-doc>`
 })
 export class TextareaDemo {
     docs = [

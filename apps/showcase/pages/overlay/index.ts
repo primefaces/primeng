@@ -14,7 +14,6 @@ import { OverlayTemplateDemo } from '@/doc/overlay/templatedoc';
 import { TransitionOptionsDoc } from '@/doc/overlay/transitionoptionsdoc';
 import { Component } from '@angular/core';
 import { AppDoc } from '@/components/doc/app.doc';
-import { AppDocService } from '@/components/doc/app.doc.service';
 
 @Component({
     template: `<app-doc
@@ -26,8 +25,7 @@ import { AppDocService } from '@/components/doc/app.doc.service';
         themeDocs="overlay"
     ></app-doc>`,
     standalone: true,
-    imports: [AppDoc],
-    providers: [AppDocService]
+    imports: [AppDoc]
 })
 export class OverlayDemo {
     docs = [

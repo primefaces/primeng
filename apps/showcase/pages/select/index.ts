@@ -20,13 +20,11 @@ import { TemplateDrivenFormsDoc } from '@/doc/select/templatedrivenformsdoc';
 import { VirtualScrollDoc } from '@/doc/select/virtualscrolldoc';
 import { AppDoc } from '@/components/doc/app.doc';
 import { Component } from '@angular/core';
-import { AppDocService } from '@/components/doc/app.doc.service';
 
 @Component({
     template: `<app-doc docTitle="Angular Select Component" header="Select" description="Select is used to choose an item from a collection of options." [docs]="docs" [apiDocs]="['Select']" themeDocs="select"></app-doc> `,
     standalone: true,
     imports: [AppDoc],
-    providers: [AppDocService],
     styleUrl: './selectdemo.scss'
 })
 export class SelectDemo {

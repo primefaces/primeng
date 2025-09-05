@@ -47,14 +47,12 @@ import { VirtualScrollDoc } from '@/doc/table/virtualscrolldoc';
 import { VirtualScrollLazyDoc } from '@/doc/table/virtualscrolllazydoc';
 import { Component } from '@angular/core';
 import { AppDoc } from '@/components/doc/app.doc';
-import { AppDocService } from '@/components/doc/app.doc.service';
 
 @Component({
     template: `<app-doc docTitle="Angular Table Component" header="Table" description="Table displays data in tabular format." [docs]="docs" [apiDocs]="['Table', 'ColumnFilter']" themeDocs="table"></app-doc>`,
     standalone: true,
     imports: [AppDoc],
-    styleUrl: './tabledemo.scss',
-    providers: [AppDocService]
+    styleUrl: './tabledemo.scss'
 })
 export class TableDemo {
     docs = [

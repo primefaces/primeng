@@ -10,7 +10,6 @@ import { TemplateDoc } from '@/doc/selectbutton/templatedoc';
 import { TemplateDrivenFormsDoc } from '@/doc/selectbutton/templatedrivenformsdoc';
 import { AppDoc } from '@/components/doc/app.doc';
 import { Component } from '@angular/core';
-import { AppDocService } from '@/components/doc/app.doc.service';
 
 @Component({
     template: `<app-doc
@@ -22,8 +21,7 @@ import { AppDocService } from '@/components/doc/app.doc.service';
         themeDocs="selectbutton"
     ></app-doc>`,
     standalone: true,
-    imports: [AppDoc],
-    providers: [AppDocService]
+    imports: [AppDoc]
 })
 export class SelectButtonDemo {
     docs = [

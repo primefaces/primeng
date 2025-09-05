@@ -5,13 +5,11 @@ import { TemplateDoc } from '@/doc/panel/templatedoc';
 import { ToggleableDoc } from '@/doc/panel/toggleabledoc';
 import { Component } from '@angular/core';
 import { AppDoc } from '@/components/doc/app.doc';
-import { AppDocService } from '@/components/doc/app.doc.service';
 
 @Component({
     template: `<app-doc docTitle="Angular Panel Component" header="Panel" description="Panel is a container component with an optional content toggle feature." [docs]="docs" [apiDocs]="['Panel']" themeDocs="panel"></app-doc>`,
     standalone: true,
-    imports: [AppDoc],
-    providers: [AppDocService]
+    imports: [AppDoc]
 })
 export class PanelDemo {
     docs = [

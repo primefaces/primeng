@@ -6,13 +6,11 @@ import { SelectionDoc } from '@/doc/organizationchart/selectiondoc';
 import { TemplateDoc } from '@/doc/organizationchart/templatedoc';
 import { Component } from '@angular/core';
 import { AppDoc } from '@/components/doc/app.doc';
-import { AppDocService } from '@/components/doc/app.doc.service';
 
 @Component({
     template: ` <app-doc docTitle="Angular Organization Chart Component" header="OrganizationChart" description="OrganizationChart visualizes hierarchical organization data." [docs]="docs" [apiDocs]="['OrganizationChart']"></app-doc>`,
     standalone: true,
     imports: [AppDoc],
-    providers: [AppDocService],
     styleUrl: './organizationchartdemo.scss'
 })
 export class OrganizationChartDemo {

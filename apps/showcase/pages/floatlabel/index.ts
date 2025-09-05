@@ -5,13 +5,11 @@ import { InvalidDoc } from '@/doc/floatlabel/invaliddoc';
 import { VariantsDoc } from '@/doc/floatlabel/variantsdoc';
 import { Component } from '@angular/core';
 import { AppDoc } from '@/components/doc/app.doc';
-import { AppDocService } from '@/components/doc/app.doc.service';
 
 @Component({
     standalone: true,
     imports: [AppDoc],
-    template: ` <app-doc docTitle="Angular Float Label Component" header="FloatLabel" description="FloatLabel appears on top of the input field when focused." [docs]="docs" themeDocs="floatlabel" [apiDocs]="['FloatLabel']"></app-doc> `,
-    providers: [AppDocService]
+    template: ` <app-doc docTitle="Angular Float Label Component" header="FloatLabel" description="FloatLabel appears on top of the input field when focused." [docs]="docs" themeDocs="floatlabel" [apiDocs]="['FloatLabel']"></app-doc> `
 })
 export class FloatLabelDemo {
     docs = [

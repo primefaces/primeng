@@ -4,13 +4,11 @@ import { ImportDoc } from '@/doc/breadcrumb/importdoc';
 import { RouterDoc } from '@/doc/breadcrumb/routerdoc';
 import { TemplateDoc } from '@/doc/breadcrumb/templatedoc';
 import { AppDoc } from '@/components/doc/app.doc';
-import { AppDocService } from '@/components/doc/app.doc.service';
 import { Component } from '@angular/core';
 
 @Component({
     standalone: true,
     imports: [AppDoc],
-    providers: [AppDocService],
     template: `
         <app-doc docTitle="Angular Breadcrumb Component" header="Breadcrumb" description="Breadcrumb provides contextual information about page hierarchy." [docs]="docs" [apiDocs]="['Breadcrumb', 'MenuItem']" themeDocs="Breadcrumb"></app-doc>
     `

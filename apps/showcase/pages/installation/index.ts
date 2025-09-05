@@ -6,13 +6,11 @@ import { VerifyDoc } from '@/doc/installation/verifydoc';
 import { CommonModule } from '@angular/common';
 import { Component } from '@angular/core';
 import { AppDoc } from '@/components/doc/app.doc';
-import { AppDocService } from '@/components/doc/app.doc.service';
 
 @Component({
     standalone: true,
     imports: [CommonModule, AppDoc],
-    template: `<app-doc docTitle="Getting Started - PrimeNG" header="Installation" description="Setting up PrimeNG in an Angular CLI project." [docs]="docs"></app-doc>`,
-    providers: [AppDocService]
+    template: `<app-doc docTitle="Getting Started - PrimeNG" header="Installation" description="Setting up PrimeNG in an Angular CLI project." [docs]="docs"></app-doc>`
 })
 export class InstallationDemo {
     docs = [

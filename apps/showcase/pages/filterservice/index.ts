@@ -6,13 +6,11 @@ import { TableIntegrationDoc } from '@/doc/filterservice/tableintegrationdoc';
 import { UsageDoc } from '@/doc/filterservice/usagedoc';
 import { Component } from '@angular/core';
 import { AppDoc } from '@/components/doc/app.doc';
-import { AppDocService } from '@/components/doc/app.doc.service';
 
 @Component({
     standalone: true,
     imports: [AppDoc],
-    template: ` <app-doc docTitle="FilterService - PrimeNG" header="FilterService" description="FilterService is a helper utility to filter collections against constraints." [docs]="docs"></app-doc>`,
-    providers: [AppDocService]
+    template: ` <app-doc docTitle="FilterService - PrimeNG" header="FilterService" description="FilterService is a helper utility to filter collections against constraints." [docs]="docs"></app-doc>`
 })
 export class FilterServiceDemo {
     docs = [

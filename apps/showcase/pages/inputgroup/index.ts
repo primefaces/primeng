@@ -8,13 +8,11 @@ import { ImportDoc } from '@/doc/inputgroup/importdoc';
 import { MultipleDoc } from '@/doc/inputgroup/multipledoc';
 import { Component } from '@angular/core';
 import { AppDoc } from '@/components/doc/app.doc';
-import { AppDocService } from '@/components/doc/app.doc.service';
 
 @Component({
     template: `<app-doc docTitle="Angular InputGroup Component" header="InputGroup" description="Text, icon, buttons and other content can be grouped next to an input." [docs]="docs" themeDocs="inputgroup"></app-doc> `,
     standalone: true,
-    imports: [AppDoc],
-    providers: [AppDocService]
+    imports: [AppDoc]
 })
 export class InputGroupDemo {
     docs = [

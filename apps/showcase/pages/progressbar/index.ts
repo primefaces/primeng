@@ -6,13 +6,11 @@ import { IndeterminateDoc } from '@/doc/progressbar/indeterminatedoc';
 import { TemplateDoc } from '@/doc/progressbar/templatedoc';
 import { Component } from '@angular/core';
 import { AppDoc } from '@/components/doc/app.doc';
-import { AppDocService } from '@/components/doc/app.doc.service';
 
 @Component({
     template: `<app-doc docTitle="Angular ProgressBar Component" header="ProgressBar" description="ProgressBar is a process status indicator." [docs]="docs" [apiDocs]="['ProgressBar']" themeDocs="progressbar"></app-doc>`,
     standalone: true,
-    imports: [AppDoc],
-    providers: [AppDocService]
+    imports: [AppDoc]
 })
 export class ProgressBarDemo {
     docs = [

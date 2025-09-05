@@ -14,13 +14,11 @@ import { TemplateDoc } from '@/doc/knob/templatedoc';
 import { TemplateDrivenFormsDoc } from '@/doc/knob/templatedrivenformsdoc';
 import { Component } from '@angular/core';
 import { AppDoc } from '@/components/doc/app.doc';
-import { AppDocService } from '@/components/doc/app.doc.service';
 
 @Component({
     template: `<app-doc docTitle="Angular Knob Component" header="Knob" description="Knob is a form component to define number inputs with a dial." [docs]="docs" [apiDocs]="['Knob']" themeDocs="knob"></app-doc> `,
     standalone: true,
-    imports: [AppDoc],
-    providers: [AppDocService]
+    imports: [AppDoc]
 })
 export class KnobDemo {
     docs = [

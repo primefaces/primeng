@@ -18,13 +18,11 @@ import { SizesDoc } from '@/doc/button/sizesdoc';
 import { TemplateDoc } from '@/doc/button/templatedoc';
 import { TextDoc } from '@/doc/button/textdoc';
 import { AppDoc } from '@/components/doc/app.doc';
-import { AppDocService } from '@/components/doc/app.doc.service';
 import { Component } from '@angular/core';
 
 @Component({
     standalone: true,
     imports: [AppDoc],
-    providers: [AppDocService],
     template: `
         <app-doc docTitle="Angular Button Component" header="Button" description="Button is an extension to standard button element with icons and theming." [docs]="docs" [apiDocs]="['Button', 'ButtonDirective']" themeDocs="button"></app-doc>
     `

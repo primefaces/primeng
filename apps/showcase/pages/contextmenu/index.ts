@@ -8,15 +8,13 @@ import { TableDoc } from '@/doc/contextmenu/tabledoc';
 import { TemplateDoc } from '@/doc/contextmenu/templatedoc';
 import { Component } from '@angular/core';
 import { AppDoc } from '@/components/doc/app.doc';
-import { AppDocService } from '@/components/doc/app.doc.service';
 
 @Component({
     standalone: true,
     imports: [AppDoc],
     template: `
         <app-doc docTitle="Angular ContextMenu Component" header="ContextMenu" description="ContextMenu displays an overlay menu on right click of its target." [docs]="docs" [apiDocs]="['ContextMenu', 'MenuItem']" themeDocs="contextmenu"></app-doc>
-    `,
-    providers: [AppDocService]
+    `
 })
 export class ContextMenuDemo {
     docs = [

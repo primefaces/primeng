@@ -9,13 +9,11 @@ import { TemplateDoc } from '@/doc/toggleswitch/templatedoc';
 import { TemplateDrivenFormsDoc } from '@/doc/toggleswitch/templatedrivenformsdoc';
 import { Component } from '@angular/core';
 import { AppDoc } from '@/components/doc/app.doc';
-import { AppDocService } from '@/components/doc/app.doc.service';
 
 @Component({
     template: `<app-doc docTitle="Angular ToggleSwitch Component" header="ToggleSwitch" description="ToggleSwitch is used to select a boolean value." [docs]="docs" [apiDocs]="['ToggleSwitch']" themeDocs="toggleswitch"></app-doc>`,
     standalone: true,
-    imports: [AppDoc],
-    providers: [AppDocService]
+    imports: [AppDoc]
 })
 export class ToggleSwitchDemo {
     docs = [

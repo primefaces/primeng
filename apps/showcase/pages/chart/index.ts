@@ -17,12 +17,10 @@ import { StackedBarDoc } from '@/doc/chart/stackedbardoc';
 import { VerticalBarDoc } from '@/doc/chart/verticalbardoc';
 import { Component } from '@angular/core';
 import { AppDoc } from '@/components/doc/app.doc';
-import { AppDocService } from '@/components/doc/app.doc.service';
 
 @Component({
     standalone: true,
     imports: [AppDoc],
-    providers: [AppDocService],
     template: ` <app-doc docTitle="Angular Chart Component" header="Charts" description="Chart components are based on Charts.js 3.3.2+, an open source HTML5 based charting library." [docs]="docs" [apiDocs]="apiDocs"></app-doc> `
 })
 export class ChartDemo {

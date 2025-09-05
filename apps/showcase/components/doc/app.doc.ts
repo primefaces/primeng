@@ -12,6 +12,7 @@ import { AppDocThemingSection } from './app.docthemingsection';
     selector: 'app-doc',
     standalone: true,
     imports: [CommonModule, AppDocFeaturesSection, AppDocApiSection, AppDocThemingSection],
+    providers: [AppDocService],
     template: ` <div class="doc-component">
         <ul class="doc-tabmenu">
             @if (docs && apiDocs) {

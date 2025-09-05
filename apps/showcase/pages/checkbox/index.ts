@@ -11,13 +11,11 @@ import { ReactiveFormsDoc } from '@/doc/checkbox/reactiveformsdoc';
 import { SizesDoc } from '@/doc/checkbox/sizesdoc';
 import { TemplateDrivenFormsDoc } from '@/doc/checkbox/templatedrivenformsdoc';
 import { AppDoc } from '@/components/doc/app.doc';
-import { AppDocService } from '@/components/doc/app.doc.service';
 import { Component } from '@angular/core';
 
 @Component({
     standalone: true,
     imports: [AppDoc],
-    providers: [AppDocService],
     template: ` <app-doc docTitle="Angular Checkbox Component" header="Checkbox" description="Checkbox is an extension to standard checkbox element with theming." [docs]="docs" [apiDocs]="['Checkbox']" themeDocs="checkbox"></app-doc> `
 })
 export class CheckboxDemo {

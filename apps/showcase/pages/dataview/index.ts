@@ -5,10 +5,8 @@ import { LayoutDoc } from '@/doc/dataview/layoutdoc';
 import { LoadingDoc } from '@/doc/dataview/loadingdoc';
 import { PaginationDoc } from '@/doc/dataview/paginationdoc';
 import { SortingDoc } from '@/doc/dataview/sortingdoc';
-import { StyleDoc } from '@/doc/dataview/styledoc';
 import { Component } from '@angular/core';
 import { AppDoc } from '@/components/doc/app.doc';
-import { AppDocService } from '@/components/doc/app.doc.service';
 
 @Component({
     standalone: true,
@@ -23,8 +21,7 @@ import { AppDocService } from '@/components/doc/app.doc.service';
             themeDocs="dataview"
         ></app-doc>
     `,
-    styleUrls: ['./dataviewdemo.scss'],
-    providers: [AppDocService]
+    styleUrls: ['./dataviewdemo.scss']
 })
 export class DataViewDemo {
     docs = [

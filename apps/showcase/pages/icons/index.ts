@@ -9,7 +9,6 @@ import { SizeDoc } from '@/doc/icons/sizedoc';
 import { SpinDoc } from '@/doc/icons/spindoc';
 import { Component } from '@angular/core';
 import { AppDoc } from '@/components/doc/app.doc';
-import { AppDocService } from '@/components/doc/app.doc.service';
 
 @Component({
     standalone: true,
@@ -22,8 +21,7 @@ import { AppDocService } from '@/components/doc/app.doc.service';
             [docs]="docs"
         ></app-doc>
     `,
-    styleUrls: ['./iconsdemo.component.scss'],
-    providers: [AppDocService]
+    styleUrls: ['./iconsdemo.component.scss']
 })
 export class IconsDemo {
     docs = [

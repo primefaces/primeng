@@ -3,13 +3,11 @@ import { BasicDoc } from '@/doc/blockui/basicdoc';
 import { DocumentDoc } from '@/doc/blockui/documentdoc';
 import { ImportDoc } from '@/doc/blockui/importdoc';
 import { AppDoc } from '@/components/doc/app.doc';
-import { AppDocService } from '@/components/doc/app.doc.service';
 import { Component } from '@angular/core';
 
 @Component({
     standalone: true,
     imports: [AppDoc],
-    providers: [AppDocService],
     template: ` <app-doc docTitle="Angular BlockUI Component" header="BlockUI" description="BlockUI can either block other components or the whole page." [docs]="docs" [apiDocs]="['BlockUI']" themeDocs="BlockUI"></app-doc>`,
     styles: [
         `

@@ -8,12 +8,10 @@ import { ReactiveFormsDoc } from '@/doc/colorpicker/reactiveformsdoc';
 import { TemplateDrivenFormsDoc } from '@/doc/colorpicker/templatedrivenformsdoc';
 import { Component } from '@angular/core';
 import { AppDoc } from '@/components/doc/app.doc';
-import { AppDocService } from '@/components/doc/app.doc.service';
 
 @Component({
     standalone: true,
     imports: [AppDoc],
-    providers: [AppDocService],
     template: ` <app-doc docTitle="Angular ColorPicker Component" header="ColorPicker" description="ColorPicker is an input component to select a color." [docs]="docs" [apiDocs]="['ColorPicker']" themeDocs="colorpicker"></app-doc>`
 })
 export class ColorPickerDemo {

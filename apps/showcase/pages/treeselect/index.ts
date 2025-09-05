@@ -17,7 +17,6 @@ import { TemplateDrivenFormsDoc } from '@/doc/treeselect/templatedrivenformsdoc'
 import { VirtualScrollDoc } from '@/doc/treeselect/virtualscrolldoc';
 import { Component } from '@angular/core';
 import { AppDoc } from '@/components/doc/app.doc';
-import { AppDocService } from '@/components/doc/app.doc.service';
 
 @Component({
     template: `<app-doc
@@ -29,8 +28,7 @@ import { AppDocService } from '@/components/doc/app.doc.service';
         themeDocs="treeselect"
     ></app-doc>`,
     standalone: true,
-    imports: [AppDoc],
-    providers: [AppDocService]
+    imports: [AppDoc]
 })
 export class TreeSelectDemo {
     docs = [

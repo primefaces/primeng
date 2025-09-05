@@ -11,7 +11,6 @@ import { TemplateDrivenFormsDoc } from '@/doc/radiobutton/templatedrivenformsdoc
 import { Component } from '@angular/core';
 import { AppDoc } from '@/components/doc/app.doc';
 import { AppDocService } from '@/components/doc/app.doc.service';
-
 @Component({
     template: `<app-doc
         docTitle="Angular RadioButton Component"
@@ -22,8 +21,7 @@ import { AppDocService } from '@/components/doc/app.doc.service';
         themeDocs="radiobutton"
     ></app-doc>`,
     standalone: true,
-    imports: [AppDoc],
-    providers: [AppDocService]
+    imports: [AppDoc]
 })
 export class RadioButtonDemo {
     docs = [

@@ -10,13 +10,11 @@ import { TemplateDrivenFormsDoc } from '@/doc/slider/templatedrivenformsdoc';
 import { VerticalDoc } from '@/doc/slider/verticaldoc';
 import { AppDoc } from '@/components/doc/app.doc';
 import { Component } from '@angular/core';
-import { AppDocService } from '@/components/doc/app.doc.service';
 
 @Component({
     template: `<app-doc docTitle="Angular Slider Component" header="Slider" description="Slider is a component to provide input with a drag handle." [docs]="docs" [apiDocs]="['Slider']" themeDocs="slider"></app-doc>`,
     standalone: true,
-    imports: [AppDoc],
-    providers: [AppDocService]
+    imports: [AppDoc]
 })
 export class SliderDemo {
     docs = [

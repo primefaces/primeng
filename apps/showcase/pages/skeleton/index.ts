@@ -6,14 +6,12 @@ import { ListDoc } from '@/doc/skeleton/listdoc';
 import { ShapesDoc } from '@/doc/skeleton/shapesdoc';
 import { AppDoc } from '@/components/doc/app.doc';
 import { Component } from '@angular/core';
-import { AppDocService } from '@/components/doc/app.doc.service';
 
 @Component({
     template: `<app-doc docTitle="Angular Skeleton Component" header="Skeleton" description="Skeleton is a placeholder to display instead of the actual content." [docs]="docs" [apiDocs]="['Skeleton']" themeDocs="skeleton"></app-doc>`,
     standalone: true,
     imports: [AppDoc],
-    styleUrl: './skeletondemo.scss',
-    providers: [AppDocService]
+    styleUrl: './skeletondemo.scss'
 })
 export class SkeletonDemo {
     docs = [

@@ -20,14 +20,12 @@ import { ResponsiveDoc } from '@/doc/galleria/responsivedoc';
 import { ThumbnailDoc } from '@/doc/galleria/thumbnaildoc';
 import { Component } from '@angular/core';
 import { AppDoc } from '@/components/doc/app.doc';
-import { AppDocService } from '@/components/doc/app.doc.service';
 
 @Component({
     template: ` <app-doc docTitle="Angular Gallery Component" header="Galleria" description="Galleria is an advanced content gallery component." [docs]="docs" [apiDocs]="['Galleria']"></app-doc>`,
     standalone: true,
     imports: [AppDoc],
-    styleUrl: './galleriademo.scss',
-    providers: [AppDocService]
+    styleUrl: './galleriademo.scss'
 })
 export class GalleriaDemo {
     docs = [

@@ -4,7 +4,6 @@ import { CusstomDoc } from '@/doc/scrollpanel/customdoc';
 import { ImportDoc } from '@/doc/scrollpanel/importdoc';
 import { AppDoc } from '@/components/doc/app.doc';
 import { Component } from '@angular/core';
-import { AppDocService } from '@/components/doc/app.doc.service';
 
 @Component({
     template: `<app-doc
@@ -16,8 +15,7 @@ import { AppDocService } from '@/components/doc/app.doc.service';
         themeDocs="scrollpanel"
     ></app-doc>`,
     standalone: true,
-    imports: [AppDoc],
-    providers: [AppDocService]
+    imports: [AppDoc]
 })
 export class ScrollPanelDemo {
     docs = [

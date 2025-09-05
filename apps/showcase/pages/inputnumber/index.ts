@@ -16,13 +16,11 @@ import { TemplateDrivenFormsDoc } from '@/doc/inputnumber/templatedrivenformsdoc
 import { VerticalDoc } from '@/doc/inputnumber/verticaldoc';
 import { Component } from '@angular/core';
 import { AppDoc } from '@/components/doc/app.doc';
-import { AppDocService } from '@/components/doc/app.doc.service';
 
 @Component({
     template: `<app-doc docTitle="Angular InputNumber Component" header="InputNumber" description="InputNumber is an input component to provide numerical input." [docs]="docs" [apiDocs]="['InputNumber']" themeDocs="inputnumber"></app-doc> `,
     standalone: true,
-    imports: [AppDoc],
-    providers: [AppDocService]
+    imports: [AppDoc]
 })
 export class InputNumberDemo {
     docs = [

@@ -4,7 +4,6 @@ import { ElementDoc } from '@/doc/scrolltop/elementdoc';
 import { ImportDoc } from '@/doc/scrolltop/importdoc';
 import { AppDoc } from '@/components/doc/app.doc';
 import { Component } from '@angular/core';
-import { AppDocService } from '@/components/doc/app.doc.service';
 
 @Component({
     standalone: true,
@@ -17,8 +16,7 @@ import { AppDocService } from '@/components/doc/app.doc.service';
         [apiDocs]="['ScrollTop']"
         themeDocs="scrollTop"
     ></app-doc>`,
-    styleUrls: ['./scrolltopdemo.scss'],
-    providers: [AppDocService]
+    styleUrls: ['./scrolltopdemo.scss']
 })
 export class ScrollTopDemo {
     docs = [

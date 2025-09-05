@@ -26,13 +26,11 @@ import { UpdateSurfacePaletteDoc } from '@/doc/theming/updatesurfacepalettedoc';
 import { UsePresetDoc } from '@/doc/theming/usepresetdoc';
 import { Component } from '@angular/core';
 import { AppDoc } from '@/components/doc/app.doc';
-import { AppDocService } from '@/components/doc/app.doc.service';
 
 @Component({
     template: `<app-doc docTitle="Theming - PrimeNG" header="Theming" description="Choose from a variety of pre-styled themes or develop your own." [docs]="docs"></app-doc>`,
     imports: [AppDoc],
-    standalone: true,
-    providers: [AppDocService]
+    standalone: true
 })
 export class ThemingDemo {
     docs = [

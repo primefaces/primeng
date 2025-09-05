@@ -12,7 +12,6 @@ import { SizesDoc } from '@/doc/inputtext/sizesdoc';
 import { TemplateDrivenFormsDoc } from '@/doc/inputtext/templatedrivenformsdoc';
 import { Component } from '@angular/core';
 import { AppDoc } from '@/components/doc/app.doc';
-import { AppDocService } from '@/components/doc/app.doc.service';
 
 @Component({
     standalone: true,
@@ -24,8 +23,7 @@ import { AppDocService } from '@/components/doc/app.doc.service';
         [apiDocs]="['InputText']"
         [docs]="docs"
         themeDocs="inputtext"
-    ></app-doc> `,
-    providers: [AppDocService]
+    ></app-doc> `
 })
 export class InputTextDemo {
     docs = [

@@ -5,7 +5,6 @@ import { ImportDoc } from '@/doc/confirmpopup/importdoc';
 import { TemplateDoc } from '@/doc/confirmpopup/templatedoc';
 import { Component } from '@angular/core';
 import { AppDoc } from '@/components/doc/app.doc';
-import { AppDocService } from '@/components/doc/app.doc.service';
 
 @Component({
     standalone: true,
@@ -19,8 +18,7 @@ import { AppDocService } from '@/components/doc/app.doc.service';
             [apiDocs]="['ConfirmPopup', 'Confirmation', 'ConfirmationService']"
             themeDocs="confirmPopup"
         ></app-doc>
-    `,
-    providers: [AppDocService]
+    `
 })
 export class ConfirmPopupDemo {
     docs = [

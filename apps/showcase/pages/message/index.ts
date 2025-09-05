@@ -12,13 +12,11 @@ import { SimpleDoc } from '@/doc/message/simpledoc';
 import { SizesDoc } from '@/doc/message/sizesdoc';
 import { Component } from '@angular/core';
 import { AppDoc } from '@/components/doc/app.doc';
-import { AppDocService } from '@/components/doc/app.doc.service';
 
 @Component({
     template: `<app-doc docTitle="Angular Message Component" header="Message" description="Message component is used to display inline messages." [docs]="docs" [apiDocs]="['Message']" themeDocs="message"></app-doc>`,
     imports: [AppDoc],
-    standalone: true,
-    providers: [AppDocService]
+    standalone: true
 })
 export class MessageDemo {
     docs = [

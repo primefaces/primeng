@@ -12,13 +12,11 @@ import { SizesDoc } from '@/doc/cascadeselect/sizesdoc';
 import { TemplateDoc } from '@/doc/cascadeselect/templatedoc';
 import { TemplateDrivenFormsDoc } from '@/doc/cascadeselect/templatedrivenformsdoc';
 import { AppDoc } from '@/components/doc/app.doc';
-import { AppDocService } from '@/components/doc/app.doc.service';
 import { Component } from '@angular/core';
 
 @Component({
     standalone: true,
     imports: [AppDoc],
-    providers: [AppDocService],
     template: ` <app-doc docTitle="Angular CascadeSelect Component" header="CascadeSelect" description="CascadeSelect displays a nested structure of options." [docs]="docs" [apiDocs]="['CascadeSelect']" themeDocs="CascadeSelect"></app-doc> `
 })
 export class CascadeSelectDemo {

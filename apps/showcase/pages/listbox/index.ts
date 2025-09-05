@@ -14,13 +14,11 @@ import { TemplateDrivenFormsDoc } from '@/doc/listbox/templatedrivenformsdoc';
 import { VirtualScrollDoc } from '@/doc/listbox/virtualscrolldoc';
 import { Component } from '@angular/core';
 import { AppDoc } from '@/components/doc/app.doc';
-import { AppDocService } from '@/components/doc/app.doc.service';
 
 @Component({
     template: `<app-doc docTitle="Angular Listbox Component" header="Listbox" description="Listbox is used to select one or more values from a list of items." [docs]="docs" [apiDocs]="['Listbox']" themeDocs="listbox"></app-doc> `,
     standalone: true,
-    imports: [AppDoc],
-    providers: [AppDocService]
+    imports: [AppDoc]
 })
 export class ListboxDemo {
     docs = [

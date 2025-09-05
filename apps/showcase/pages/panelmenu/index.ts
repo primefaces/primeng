@@ -8,13 +8,11 @@ import { RouterDoc } from '@/doc/panelmenu/routerdoc';
 import { TemplateDoc } from '@/doc/panelmenu/templatedoc';
 import { Component } from '@angular/core';
 import { AppDoc } from '@/components/doc/app.doc';
-import { AppDocService } from '@/components/doc/app.doc.service';
 
 @Component({
     template: `<app-doc docTitle="Angular PanelMenu Component" header="PanelMenu" description="PanelMenu is a hybrid of Accordion and Tree components." [docs]="docs" [apiDocs]="['PanelMenu', 'MenuItem']" themeDocs="panelmenu"></app-doc>`,
     standalone: true,
-    imports: [AppDoc],
-    providers: [AppDocService]
+    imports: [AppDoc]
 })
 export class PanelMenuDemo {
     docs = [

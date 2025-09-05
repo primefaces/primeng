@@ -17,13 +17,11 @@ import { TemplateDrivenFormsDoc } from '@/doc/multiselect/templatedrivenformsdoc
 import { VirtualScrollDoc } from '@/doc/multiselect/virtualscrolldoc';
 import { Component } from '@angular/core';
 import { AppDoc } from '@/components/doc/app.doc';
-import { AppDocService } from '@/components/doc/app.doc.service';
 
 @Component({
     template: `<app-doc docTitle="Angular MultiSelect Component" header="MultiSelect" description="MultiSelect is used to select multiple items from a collection." [docs]="docs" [apiDocs]="['MultiSelect']" themeDocs="multiselect"></app-doc> `,
     standalone: true,
-    imports: [AppDoc],
-    providers: [AppDocService]
+    imports: [AppDoc]
 })
 export class MultiSelectDemo {
     docs = [

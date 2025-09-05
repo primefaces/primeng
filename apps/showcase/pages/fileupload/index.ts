@@ -6,7 +6,6 @@ import { ImportDoc } from '@/doc/fileupload/importdoc';
 import { TemplateDoc } from '@/doc/fileupload/templatedoc';
 import { Component } from '@angular/core';
 import { AppDoc } from '@/components/doc/app.doc';
-import { AppDocService } from '@/components/doc/app.doc.service';
 
 @Component({
     standalone: true,
@@ -18,8 +17,7 @@ import { AppDocService } from '@/components/doc/app.doc.service';
         [docs]="docs"
         [apiDocs]="['FileUpload']"
         themeDocs="fileupload"
-    ></app-doc>`,
-    providers: [AppDocService]
+    ></app-doc>`
 })
 export class FileUploadDemo {
     docs = [
