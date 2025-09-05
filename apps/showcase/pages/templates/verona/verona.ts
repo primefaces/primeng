@@ -119,8 +119,9 @@ export class VeronaPage {
         {
             id: 4,
             title: 'Figma File',
-            description:
-                'Powered by Figma as the design tool. It will be possible to download the Figma file after your purchase. Note that PrimeNG UI components are excluded from the template Figma file as they are available in PrimeOne for Figma only.',
+            description: `Verona uses Figma as the design tool. It will be possible to download the Figma file after your purchase. You can
+                <a href="https://www.figma.com/file/PgQXX4HXMPeCkT74tGajod/Preview-%7C-Verona-2022?node-id=1303%3A750" target="_blank" rel="noopener noreferrer">preview the Figma file</a> before the purchase. Note that PrimeNG UI components are excluded from the Verona Figma file as they
+                are available in <a href="/uikit">PrimeOne for Figma</a> only.`,
             src: 'https://primefaces.org/cdn/primeng/images/templates/verona/features-animation-figma.png'
         }
     ];
@@ -170,7 +171,7 @@ export class VeronaPage {
         {
             id: 4,
             title: 'Menu Themes',
-            description: 'Verona offers 10 special layout themes featuring gorgeous gradients.',
+            description: 'Verona offers 17 special layout themes featuring gorgeous gradients.',
             src: 'https://primefaces.org/cdn/primeng/images/templates/verona/features-animation-orientations.png'
         }
     ];
