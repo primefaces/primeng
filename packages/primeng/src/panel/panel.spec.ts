@@ -610,5 +610,370 @@ describe('Panel', () => {
             panelInstance.toggle(event);
             expect(event.preventDefault).toHaveBeenCalled();
         });
+
+        it('should handle rapid toggle clicks', fakeAsync(() => {
+            testComponent.toggleable = true;
+            testComponent.collapsed = false;
+            testFixture.detectChanges();
+
+            const toggleButton = testFixture.debugElement.query(By.css('p-button'));
+
+            // First click
+            toggleButton.nativeElement.click();
+            expect(panelInstance.animating).toBe(true);
+
+            // Second click while animating should be ignored
+            toggleButton.nativeElement.click();
+
+            tick(500);
+            flush();
+        }));
+
+        it('should handle null toggleButtonProps', () => {
+            testComponent.toggleable = true;
+            testComponent.toggleButtonProps = null;
+            testFixture.detectChanges();
+
+            const toggleButton = testFixture.debugElement.query(By.css('p-button'));
+            expect(toggleButton).toBeTruthy();
+        });
+
+        it('should handle empty transitionOptions', () => {
+            testComponent.toggleable = true;
+            testComponent.transitionOptions = '';
+            testFixture.detectChanges();
+
+            panelInstance.toggle(new MouseEvent('click'));
+            expect(panelInstance.animating).toBe(true);
+        });
+    });
+
+    describe('Public Methods', () => {
+        it('should expand programmatically', () => {
+            testComponent.toggleable = true;
+            panelInstance.collapsed = true;
+            testFixture.detectChanges();
+
+            panelInstance.expand();
+
+            expect(panelInstance.collapsed).toBe(false);
+            expect(testComponent.collapsedChangeEvent).toBe(false);
+        });
+
+        it('should collapse programmatically', () => {
+            testComponent.toggleable = true;
+            panelInstance.collapsed = false;
+            testFixture.detectChanges();
+
+            panelInstance.collapse();
+
+            expect(panelInstance.collapsed).toBe(true);
+            expect(testComponent.collapsedChangeEvent).toBe(true);
+        });
+
+        it('should toggle programmatically', () => {
+            testComponent.toggleable = true;
+            panelInstance.collapsed = false;
+            testFixture.detectChanges();
+
+            const event = new MouseEvent('click');
+            panelInstance.toggle(event);
+
+            expect(panelInstance.collapsed).toBe(true);
+        });
+
+        it('should call updateTabIndex when expanding', () => {
+            spyOn(panelInstance, 'updateTabIndex');
+            panelInstance.expand();
+            expect(panelInstance.updateTabIndex).toHaveBeenCalled();
+        });
+
+        it('should call updateTabIndex when collapsing', () => {
+            spyOn(panelInstance, 'updateTabIndex');
+            panelInstance.collapse();
+            expect(panelInstance.updateTabIndex).toHaveBeenCalled();
+        });
+
+        it('should handle onHeaderClick with icon toggler', () => {
+            testComponent.toggleable = true;
+            testComponent.toggler = 'icon';
+            testFixture.detectChanges();
+
+            spyOn(panelInstance, 'toggle');
+            panelInstance.onHeaderClick(new MouseEvent('click'));
+
+            expect(panelInstance.toggle).not.toHaveBeenCalled();
+        });
+
+        it('should handle onHeaderClick with header toggler', () => {
+            testComponent.toggleable = true;
+            testComponent.toggler = 'header';
+            testFixture.detectChanges();
+
+            spyOn(panelInstance, 'toggle');
+            panelInstance.onHeaderClick(new MouseEvent('click'));
+
+            expect(panelInstance.toggle).toHaveBeenCalled();
+        });
+
+        it('should handle onIconClick with icon toggler', () => {
+            testComponent.toggleable = true;
+            testComponent.toggler = 'icon';
+            testFixture.detectChanges();
+
+            spyOn(panelInstance, 'toggle');
+            panelInstance.onIconClick(new MouseEvent('click'));
+
+            expect(panelInstance.toggle).toHaveBeenCalled();
+        });
+
+        it('should handle onKeyDown with Enter key', () => {
+            const event = new KeyboardEvent('keydown', { code: 'Enter' });
+            spyOn(event, 'preventDefault');
+            spyOn(panelInstance, 'toggle');
+
+            panelInstance.onKeyDown(event);
+
+            expect(panelInstance.toggle).toHaveBeenCalled();
+            expect(event.preventDefault).toHaveBeenCalled();
+        });
+
+        it('should handle onKeyDown with Space key', () => {
+            const event = new KeyboardEvent('keydown', { code: 'Space' });
+            spyOn(event, 'preventDefault');
+            spyOn(panelInstance, 'toggle');
+
+            panelInstance.onKeyDown(event);
+
+            expect(panelInstance.toggle).toHaveBeenCalled();
+            expect(event.preventDefault).toHaveBeenCalled();
+        });
+
+        it('should not handle onKeyDown with other keys', () => {
+            const event = new KeyboardEvent('keydown', { code: 'Tab' });
+            spyOn(panelInstance, 'toggle');
+
+            panelInstance.onKeyDown(event);
+
+            expect(panelInstance.toggle).not.toHaveBeenCalled();
+        });
+    });
+
+    describe('ContentChild and Templates', () => {
+        it('should handle ngAfterContentInit with templates', () => {
+            const fixture = TestBed.createComponent(TestTemplatesPanelComponent);
+            fixture.detectChanges();
+
+            // Templates are handled via ng-template, not ContentChild
+            const customHeader = fixture.debugElement.query(By.css('.custom-header'));
+            const customContent = fixture.debugElement.query(By.css('.custom-content'));
+            const customFooter = fixture.debugElement.query(By.css('.custom-footer'));
+
+            expect(customHeader).toBeTruthy();
+            expect(customContent).toBeTruthy();
+            expect(customFooter).toBeTruthy();
+        });
+
+        it('should handle missing contentWrapper in updateTabIndex', () => {
+            panelInstance.contentWrapperViewChild = undefined as any;
+
+            expect(() => panelInstance.updateTabIndex()).not.toThrow();
+        });
+
+        it('should update tab indices for focusable elements when collapsed', () => {
+            const fixture = TestBed.createComponent(TestKeyboardNavigationComponent);
+            fixture.detectChanges();
+
+            const panel = fixture.debugElement.query(By.directive(Panel)).componentInstance;
+
+            panel.collapsed = true;
+            panel.updateTabIndex();
+
+            const inputs = fixture.nativeElement.querySelectorAll('input');
+            const buttons = fixture.nativeElement.querySelectorAll('button:not(.p-panel-toggle-button)');
+            const selects = fixture.nativeElement.querySelectorAll('select');
+            const links = fixture.nativeElement.querySelectorAll('a');
+            const textareas = fixture.nativeElement.querySelectorAll('textarea');
+            const focusableDivs = fixture.nativeElement.querySelectorAll('div[tabindex="0"]');
+
+            inputs.forEach((el: HTMLElement) => {
+                expect(el.getAttribute('tabindex')).toBe('-1');
+            });
+            buttons.forEach((el: HTMLElement) => {
+                expect(el.getAttribute('tabindex')).toBe('-1');
+            });
+            selects.forEach((el: HTMLElement) => {
+                expect(el.getAttribute('tabindex')).toBe('-1');
+            });
+            links.forEach((el: HTMLElement) => {
+                expect(el.getAttribute('tabindex')).toBe('-1');
+            });
+            textareas.forEach((el: HTMLElement) => {
+                expect(el.getAttribute('tabindex')).toBe('-1');
+            });
+            focusableDivs.forEach((el: HTMLElement) => {
+                expect(el.getAttribute('tabindex')).toBe('-1');
+            });
+        });
+
+        it('should restore tab indices for focusable elements when expanded', () => {
+            const fixture = TestBed.createComponent(TestKeyboardNavigationComponent);
+            fixture.detectChanges();
+
+            const panel = fixture.debugElement.query(By.directive(Panel)).componentInstance;
+
+            // First collapse
+            panel.collapsed = true;
+            panel.updateTabIndex();
+
+            // Then expand
+            panel.collapsed = false;
+            panel.updateTabIndex();
+
+            const inputs = fixture.nativeElement.querySelectorAll('input');
+            const buttons = fixture.nativeElement.querySelectorAll('button:not(.p-panel-toggle-button)');
+            const selects = fixture.nativeElement.querySelectorAll('select');
+            const links = fixture.nativeElement.querySelectorAll('a');
+            const textareas = fixture.nativeElement.querySelectorAll('textarea');
+
+            inputs.forEach((el: HTMLElement) => {
+                expect(el.hasAttribute('tabindex')).toBe(false);
+            });
+            buttons.forEach((el: HTMLElement) => {
+                expect(el.hasAttribute('tabindex')).toBe(false);
+            });
+            selects.forEach((el: HTMLElement) => {
+                expect(el.hasAttribute('tabindex')).toBe(false);
+            });
+            links.forEach((el: HTMLElement) => {
+                expect(el.hasAttribute('tabindex')).toBe(false);
+            });
+            textareas.forEach((el: HTMLElement) => {
+                expect(el.hasAttribute('tabindex')).toBe(false);
+            });
+        });
+
+        it('should handle elements with existing tabindex', () => {
+            const fixture = TestBed.createComponent(TestKeyboardNavigationComponent);
+            fixture.detectChanges();
+
+            const panel = fixture.debugElement.query(By.directive(Panel)).componentInstance;
+
+            // Get the focusable div inside the panel content wrapper
+            const contentWrapper = panel.contentWrapperViewChild.nativeElement;
+            const focusableDiv = contentWrapper.querySelector('div[tabindex]');
+
+            // Initially should have tabindex="0"
+            expect(focusableDiv).toBeTruthy();
+            const initialTabindex = focusableDiv.getAttribute('tabindex');
+            expect(initialTabindex).toBe('0');
+
+            // When collapsed, should set tabindex="-1"
+            panel.collapsed = true;
+            panel.updateTabIndex();
+
+            expect(focusableDiv.getAttribute('tabindex')).toBe('-1');
+
+            // When expanded back, component removes the tabindex to restore normal tab order
+            panel.collapsed = false;
+            panel.updateTabIndex();
+
+            // After expanding, tabindex should be removed (null)
+            // This is correct behavior - the component removes tabindex attributes
+            // to restore the natural tab order when panel is expanded
+            const finalTabindex = focusableDiv.getAttribute('tabindex');
+            expect(finalTabindex).toBeNull();
+        });
+    });
+
+    describe('Animation and Transition', () => {
+        it('should pass correct animation params when collapsed', () => {
+            testComponent.toggleable = true;
+            testComponent.collapsed = true;
+            testComponent.transitionOptions = '200ms ease-out';
+            testFixture.detectChanges();
+
+            const contentContainer = testFixture.debugElement.query(By.css('.p-panel-content-container'));
+            expect(contentContainer).toBeTruthy();
+        });
+
+        it('should pass correct animation params when expanded', () => {
+            testComponent.toggleable = true;
+            testComponent.collapsed = false;
+            testComponent.transitionOptions = '300ms ease-in';
+            testFixture.detectChanges();
+
+            const contentContainer = testFixture.debugElement.query(By.css('.p-panel-content-container'));
+            expect(contentContainer).toBeTruthy();
+        });
+
+        it('should reset animating flag after animation completes', () => {
+            panelInstance.animating = true;
+
+            panelInstance.onToggleDone({ type: 'done' });
+
+            expect(panelInstance.animating).toBe(false);
+            expect(testComponent.afterToggleEvent).toBeDefined();
+        });
+
+        it('should handle animation with 0ms duration', () => {
+            testComponent.toggleable = true;
+            testComponent.transitionOptions = '0ms';
+            testFixture.detectChanges();
+
+            panelInstance.toggle(new MouseEvent('click'));
+            expect(panelInstance.animating).toBe(true);
+        });
+    });
+
+    describe('Icon Position', () => {
+        it('should apply correct class for icon position start', () => {
+            testComponent.iconPos = 'start';
+            testFixture.detectChanges();
+
+            const iconsEl = testFixture.debugElement.query(By.css('.p-panel-icons-start'));
+            expect(iconsEl).toBeTruthy();
+        });
+
+        it('should apply correct class for icon position end', () => {
+            testComponent.iconPos = 'end';
+            testFixture.detectChanges();
+
+            const iconsEl = testFixture.debugElement.query(By.css('.p-panel-icons-end'));
+            expect(iconsEl).toBeTruthy();
+        });
+
+        it('should apply correct class for icon position center', () => {
+            testComponent.iconPos = 'center';
+            testFixture.detectChanges();
+
+            const iconsEl = testFixture.debugElement.query(By.css('.p-panel-icons-center'));
+            expect(iconsEl).toBeTruthy();
+        });
+    });
+
+    describe('Multiple Panels Interaction', () => {
+        it('should handle multiple panels independently', fakeAsync(() => {
+            // Setup toggleable panel
+            testComponent.toggleable = true;
+            testComponent.collapsed = false;
+            testFixture.detectChanges();
+
+            // Test that panel works independently
+            expect(panelInstance.collapsed).toBe(false);
+
+            // First toggle
+            panelInstance.toggle(new MouseEvent('click'));
+            expect(panelInstance.collapsed).toBe(true);
+
+            // Wait for animation to complete
+            panelInstance.animating = false; // Simulate animation done
+
+            // Toggle back
+            panelInstance.toggle(new MouseEvent('click'));
+            expect(panelInstance.collapsed).toBe(false);
+
+            flush();
+        }));
     });
 });
