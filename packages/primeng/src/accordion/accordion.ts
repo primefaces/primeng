@@ -155,6 +155,10 @@ export class AccordionHeader extends BaseComponent {
     @ContentChild('toggleicon') toggleicon: TemplateRef<AccordionToggleIconTemplateContext> | undefined;
 
     @HostListener('click', ['$event']) onClick(event?: MouseEvent | KeyboardEvent) {
+        if (this.disabled()) {
+            return;
+        }
+
         const wasActive = this.active();
 
         this.changeActiveValue();
@@ -170,7 +174,9 @@ export class AccordionHeader extends BaseComponent {
     }
 
     @HostListener('focus', ['$event']) onFocus() {
-        this.pcAccordion.selectOnFocus() && this.changeActiveValue();
+        if (!this.disabled() && this.pcAccordion.selectOnFocus()) {
+            this.changeActiveValue();
+        }
     }
 
     @HostListener('keydown', ['$event']) onKeydown(event: KeyboardEvent) {
@@ -263,7 +269,9 @@ export class AccordionHeader extends BaseComponent {
     }
 
     private onEnterKey(event: KeyboardEvent) {
-        this.changeActiveValue();
+        if (!this.disabled()) {
+            this.changeActiveValue();
+        }
         event.preventDefault();
     }
 }
