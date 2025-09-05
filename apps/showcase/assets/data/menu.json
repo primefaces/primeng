@@ -376,7 +376,7 @@
                         {
                             "name": "ImageCompare",
                             "routerLink": "/imagecompare",
-                            "badge":"NEW"
+                            "badge": "NEW"
                         }
                     ]
                 },
@@ -507,7 +507,7 @@
                 },
                 {
                     "name": "Migration to V18+",
-                    "href": "https://primeng.org/guides/migration"
+                    "href": "/guides/migration"
                 },
                 {
                     "name": "PrimeFlex",
@@ -541,7 +541,6 @@
                 }
             ]
         },
-        
         {
             "name": "Discover",
             "icon": "pi pi-search",
