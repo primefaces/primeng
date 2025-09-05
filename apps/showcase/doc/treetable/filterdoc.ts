@@ -6,8 +6,8 @@ import { SelectButtonModule } from 'primeng/selectbutton';
 import { InputTextModule } from 'primeng/inputtext';
 import { IconFieldModule } from 'primeng/iconfield';
 import { InputIconModule } from 'primeng/inputicon';
-import { AppCodeComponent } from '@/components/doc/app.code.component';
-import { AppDocSectionTextComponent } from '@/components/doc/app.docsectiontext.component';
+import { AppCode } from '@/components/doc/app.code';
+import { AppDocSectionText } from '@/components/doc/app.docsectiontext';
 import { DeferredDemo } from '@/components/demo/deferreddemo';
 import { Code } from '@/domain/code';
 import { NodeService } from '@/service/nodeservice';
@@ -21,7 +21,7 @@ interface Column {
 @Component({
     selector: 'filter-doc',
     standalone: true,
-    imports: [CommonModule, FormsModule, TreeTableModule, SelectButtonModule, InputTextModule, IconFieldModule, InputIconModule, AppCodeComponent, AppDocSectionTextComponent, DeferredDemo],
+    imports: [CommonModule, FormsModule, TreeTableModule, SelectButtonModule, InputTextModule, IconFieldModule, InputIconModule, AppCode, AppDocSectionText, DeferredDemo],
     template: `
         <app-docsectiontext>
             <p>

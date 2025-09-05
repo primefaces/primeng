@@ -1,8 +1,8 @@
 import { CommonModule } from '@angular/common';
 import { ChangeDetectionStrategy, Component } from '@angular/core';
 import { TreeTableModule } from 'primeng/treetable';
-import { AppCodeComponent } from '@/components/doc/app.code.component';
-import { AppDocSectionTextComponent } from '@/components/doc/app.docsectiontext.component';
+import { AppCode } from '@/components/doc/app.code';
+import { AppDocSectionText } from '@/components/doc/app.docsectiontext';
 import { DeferredDemo } from '@/components/demo/deferreddemo';
 import { Code } from '@/domain/code';
 import { NodeService } from '@/service/nodeservice';
@@ -16,7 +16,7 @@ interface Column {
 @Component({
     selector: 'dynamic-columns-doc',
     standalone: true,
-    imports: [CommonModule, TreeTableModule, AppCodeComponent, AppDocSectionTextComponent, DeferredDemo],
+    imports: [CommonModule, TreeTableModule, AppCode, AppDocSectionText, DeferredDemo],
     template: `
         <app-docsectiontext>
             <p>Columns can be created programmatically.</p>

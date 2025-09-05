@@ -1,7 +1,7 @@
 import { ChangeDetectionStrategy, Component } from '@angular/core';
 import { TreeTableModule } from 'primeng/treetable';
-import { AppCodeComponent } from '@/components/doc/app.code.component';
-import { AppDocSectionTextComponent } from '@/components/doc/app.docsectiontext.component';
+import { AppCode } from '@/components/doc/app.code';
+import { AppDocSectionText } from '@/components/doc/app.docsectiontext';
 import { DeferredDemo } from '@/components/demo/deferreddemo';
 import { Code } from '@/domain/code';
 import { NodeService } from '@/service/nodeservice';
@@ -10,7 +10,7 @@ import { TreeNode } from 'primeng/api';
 @Component({
     selector: 'gridlines-doc',
     standalone: true,
-    imports: [TreeTableModule, AppCodeComponent, AppDocSectionTextComponent, DeferredDemo],
+    imports: [TreeTableModule, AppCode, AppDocSectionText, DeferredDemo],
     template: ` <section class="py-6">
         <app-docsectiontext>
             <p>Enabling <i>showGridlines</i> displays grid lines.</p>
