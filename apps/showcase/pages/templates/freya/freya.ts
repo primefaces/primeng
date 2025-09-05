@@ -118,8 +118,9 @@ export class FreyaPage {
         {
             id: 4,
             title: 'Figma File',
-            description:
-                'Powered by Figma as the design tool. It will be possible to download the Figma file after your purchase. Note that PrimeNG UI components are excluded from the template Figma file as they are available in PrimeOne for Figma only.',
+            description: `Freya uses Figma as the design tool. It will be possible to download the Figma file after your purchase. You can
+                <a href="https://www.figma.com/file/eYBoRNff6GPTlrgYZaMStp/Preview-%7C-Freya-2022?node-id=0%3A1&t=MGAABDlOnz4QBcEk-1" target="_blank" rel="noopener noreferrer">preview the Figma file</a> before the purchase. Note that PrimeNG UI components are excluded from the Freya Figma
+                file as they are available in <a hrefo="/uikit">PrimeOne for Figma</a> only.`,
             src: 'https://primefaces.org/cdn/primeng/images/templates/freya/features-animation-figma.png'
         }
     ];
