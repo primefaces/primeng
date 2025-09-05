@@ -20447,6 +20447,13 @@
                             "description": "Icon class of the chip icon."
                         },
                         {
+                            "name": "removeTokenIcon",
+                            "optional": false,
+                            "readonly": false,
+                            "type": "string",
+                            "description": "Icon class of the remove token icon."
+                        },
+                        {
                             "name": "optionLabel",
                             "optional": false,
                             "readonly": false,
