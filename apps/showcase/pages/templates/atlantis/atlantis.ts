@@ -55,7 +55,7 @@ export class AtlantisPage {
         dashboard1: 'https://primefaces.org/cdn/primeng/images/templates/atlantis/atlantis-hero-dashboard1.png',
         dashboard2: 'https://primefaces.org/cdn/primeng/images/templates/atlantis/atlantis-hero-dashboard2.png',
         description: 'A spectacular application template for Angular based on CLI featuring light-dark modes with 8 surface colors, 7 menu layouts, various menu themes, sample apps, ready to use template pages and 3 presets.',
-        liveHref: 'https://www.primefaces.org/atlantis-ng/',
+        liveHref: 'https://atlantis.primeng.org/',
         docHref: 'https://www.primefaces.org/atlantis-ng/documentation/'
     };
 

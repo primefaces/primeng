@@ -55,7 +55,7 @@ export class FreyaPage {
         dashboard1: 'https://primefaces.org/cdn/primeng/images/templates/freya/freya-hero-dashboard1.png',
         dashboard2: 'https://primefaces.org/cdn/primeng/images/templates/freya/freya-hero-dashboard2.png',
         description: 'Freya is a modern and clean application template for PrimeNG featuring a dark mode, attractive themes, customizable menu orientations, widgets, apps and template pages.',
-        liveHref: 'https://www.primefaces.org/freya-ng/',
+        liveHref: 'https://freya.primeng.org/',
         docHref: 'https://freya.primeng.org/documentation'
     };
 
