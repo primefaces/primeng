@@ -635,7 +635,7 @@ export class Dialog extends BaseComponent implements OnInit, AfterContentInit, O
         return false;
     }
 
-    focus(focusParentElement?: HTMLElement) {
+    focus(focusParentElement: HTMLElement = this.contentViewChild?.nativeElement) {
         let focused = this._focus(focusParentElement);
 
         if (!focused) {
