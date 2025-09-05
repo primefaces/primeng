@@ -1,6 +1,16 @@
+import { CommonModule } from '@angular/common';
+import { ChangeDetectionStrategy, Component } from '@angular/core';
+import { FormsModule } from '@angular/forms';
+import { TreeTableModule } from 'primeng/treetable';
+import { SelectButtonModule } from 'primeng/selectbutton';
+import { InputTextModule } from 'primeng/inputtext';
+import { IconFieldModule } from 'primeng/iconfield';
+import { InputIconModule } from 'primeng/inputicon';
+import { AppCodeComponent } from '@/components/doc/app.code.component';
+import { AppDocSectionTextComponent } from '@/components/doc/app.docsectiontext.component';
+import { DeferredDemo } from '@/components/demo/deferreddemo';
 import { Code } from '@/domain/code';
 import { NodeService } from '@/service/nodeservice';
-import { ChangeDetectionStrategy, Component } from '@angular/core';
 import { TreeNode } from 'primeng/api';
 
 interface Column {
@@ -10,7 +20,8 @@ interface Column {
 
 @Component({
     selector: 'filter-doc',
-    standalone: false,
+    standalone: true,
+    imports: [CommonModule, FormsModule, TreeTableModule, SelectButtonModule, InputTextModule, IconFieldModule, InputIconModule, AppCodeComponent, AppDocSectionTextComponent, DeferredDemo],
     template: `
         <app-docsectiontext>
             <p>

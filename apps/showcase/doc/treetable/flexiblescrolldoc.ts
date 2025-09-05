@@ -1,11 +1,18 @@
+import { ChangeDetectionStrategy, ChangeDetectorRef, Component } from '@angular/core';
+import { TreeTableModule } from 'primeng/treetable';
+import { ButtonModule } from 'primeng/button';
+import { DialogModule } from 'primeng/dialog';
+import { AppCodeComponent } from '@/components/doc/app.code.component';
+import { AppDocSectionTextComponent } from '@/components/doc/app.docsectiontext.component';
+import { DeferredDemo } from '@/components/demo/deferreddemo';
 import { Code } from '@/domain/code';
 import { NodeService } from '@/service/nodeservice';
-import { ChangeDetectionStrategy, ChangeDetectorRef, Component } from '@angular/core';
 import { TreeNode } from 'primeng/api';
 
 @Component({
     selector: 'flexible-scroll-doc',
-    standalone: false,
+    standalone: true,
+    imports: [TreeTableModule, ButtonModule, DialogModule, AppCodeComponent, AppDocSectionTextComponent, DeferredDemo],
     template: ` <app-docsectiontext>
             <p>
                 Flex scroll feature makes the scrollable viewport section dynamic instead of a fixed value so that it can grow or shrink relative to the parent size of the table. Click the button below to display a maximizable Dialog where data

@@ -1,11 +1,17 @@
+import { ChangeDetectionStrategy, ChangeDetectorRef, Component } from '@angular/core';
+import { TreeTableModule } from 'primeng/treetable';
+import { ButtonModule } from 'primeng/button';
+import { AppCodeComponent } from '@/components/doc/app.code.component';
+import { AppDocSectionTextComponent } from '@/components/doc/app.docsectiontext.component';
+import { DeferredDemo } from '@/components/demo/deferreddemo';
 import { Code } from '@/domain/code';
 import { NodeService } from '@/service/nodeservice';
-import { ChangeDetectionStrategy, ChangeDetectorRef, Component } from '@angular/core';
 import { TreeNode } from 'primeng/api';
 
 @Component({
     selector: 'controlled-doc',
-    standalone: false,
+    standalone: true,
+    imports: [TreeTableModule, ButtonModule, AppCodeComponent, AppDocSectionTextComponent, DeferredDemo],
     template: ` <app-docsectiontext>
             <p>Expansion state is controlled with <i>expandedKeys</i> property.</p>
         </app-docsectiontext>
