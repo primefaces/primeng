@@ -8,6 +8,6 @@ import { Component } from '@angular/core';
 })
 export class ImportDoc {
     code: Code = {
-        typescript: `import { AutoCompleteModule } from 'primeng/autocomplete';`
+        typescript: `import { AutoComplete } from 'primeng/autocomplete';`
     };
 }

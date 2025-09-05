@@ -8,6 +8,6 @@ import { Component } from '@angular/core';
 })
 export class ImportDoc {
     code: Code = {
-        typescript: `import { DragDropModule } from 'primeng/dragdrop';`
+        typescript: `import { DragDrop } from 'primeng/dragdrop';`
     };
 }

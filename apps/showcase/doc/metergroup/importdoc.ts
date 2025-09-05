@@ -8,6 +8,6 @@ import { Component } from '@angular/core';
 })
 export class ImportDoc {
     code: Code = {
-        typescript: `import { MeterGroupModule } from 'primeng/metergroup';`
+        typescript: `import { MeterGroup } from 'primeng/metergroup';`
     };
 }

@@ -8,6 +8,6 @@ import { Component } from '@angular/core';
 })
 export class ImportDoc {
     code: Code = {
-        typescript: `import { SelectModule } from 'primeng/select';`
+        typescript: `import { Select } from 'primeng/select';`
     };
 }
