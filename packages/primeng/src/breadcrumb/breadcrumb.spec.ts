@@ -206,7 +206,7 @@ describe('Breadcrumb', () => {
         });
 
         it('should have required dependencies injected', () => {
-            // router is private, so we can't directly access it
+            expect(breadcrumbInstance.router).toBeTruthy();
             expect(breadcrumbInstance._componentStyle).toBeTruthy();
             expect(breadcrumbInstance.constructor.name).toBe('Breadcrumb');
         });
