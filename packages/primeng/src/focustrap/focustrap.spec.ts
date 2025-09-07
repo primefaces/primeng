@@ -560,7 +560,7 @@ describe('FocusTrap', () => {
             directive.onLastHiddenElementFocus(focusEvent);
 
             // Link element should be the last focusable, but we test the flow works
-            expect(directive.onLastHiddenElementFocus).not.toThrow();
+            expect(() => directive.onLastHiddenElementFocus(focusEvent)).not.toThrow();
         });
 
         it('should handle elements with tabindex', () => {

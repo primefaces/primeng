@@ -1010,7 +1010,11 @@ describe('Inplace', () => {
             expect(priceInput).toBeTruthy();
             expect(formActions).toBeTruthy();
 
-            // Check initial values
+            // Additional change detection for NgModel binding
+            fixture.detectChanges();
+            tick();
+
+            // Check initial values - NgModel needs time to bind
             expect(nameInput.value).toBe('Sample Product');
             expect(+priceInput.value).toBe(29.99);
             flush();
