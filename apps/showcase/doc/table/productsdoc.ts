@@ -21,6 +21,10 @@ import { AppDocSectionText } from '@/components/doc/app.docsectiontext';
 import { AppCode } from '@/components/doc/app.code';
 import { DeferredDemo } from '@/components/demo/deferreddemo';
 import { ConfirmDialogModule } from 'primeng/confirmdialog';
+import { IconFieldModule } from 'primeng/iconfield';
+import { InputIconModule } from 'primeng/inputicon';
+import { RatingModule } from 'primeng/rating';
+import { TextareaModule } from 'primeng/textarea';
 
 interface Column {
     field: string;
@@ -38,12 +42,15 @@ interface ExportColumn {
     standalone: true,
     imports: [
         CommonModule,
+        IconFieldModule,
+        InputIconModule,
         FormsModule,
         TableModule,
         ToastModule,
         ToolbarModule,
         ButtonModule,
         FileUploadModule,
+        RatingModule,
         DialogModule,
         InputTextModule,
         InputNumberModule,
@@ -53,7 +60,8 @@ interface ExportColumn {
         AppDocSectionText,
         AppCode,
         DeferredDemo,
-        ConfirmDialogModule
+        ConfirmDialogModule,
+        TextareaModule
     ],
     template: ` <app-docsectiontext>
             <p>CRUD implementation example with a Dialog.</p>
