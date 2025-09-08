@@ -10,7 +10,7 @@ import { MenuItem } from 'primeng/api';
             <p>Breadcrumb provides contextual information about page hierarchy.</p>
         </app-docsectiontext>
         <div class="card flex justify-center">
-            <p-breadcrumb class="max-w-full" [model]="items" [home]="home" />
+            <p-breadcrumb [model]="items" [home]="home" />
         </div>
         <app-code [code]="code" selector="breadcrumb-basic-demo"></app-code>
     `
@@ -27,10 +27,10 @@ export class BasicDoc implements OnInit {
     }
 
     code: Code = {
-        basic: `<p-breadcrumb class="max-w-full" [model]="items" [home]="home" />`,
+        basic: `<p-breadcrumb [model]="items" [home]="home" />`,
 
         html: `<div class="card flex justify-center">
-    <p-breadcrumb class="max-w-full" [model]="items" [home]="home" />
+    <p-breadcrumb [model]="items" [home]="home" />
 </div>`,
 
         typescript: `import { Component, OnInit } from '@angular/core';

@@ -22,10 +22,14 @@ import { KeyfilterDoc } from './keyfilterdoc';
 import { ReactiveFormsDoc } from './reactiveformsdoc';
 import { SizesDoc } from './sizesdoc';
 import { StyleDoc } from './styledoc';
+import { TemplateDrivenFormsDoc } from './templatedrivenformsdoc';
+import { ButtonModule } from 'primeng/button';
+import { MessageModule } from 'primeng/message';
+import { ToastModule } from 'primeng/toast';
 
 @NgModule({
-    imports: [CommonModule, AppCodeModule, InputTextModule, FormsModule, ReactiveFormsModule, TextareaModule, AppDocModule, KeyFilterModule, FloatLabelModule, RouterModule, IftaLabelModule],
+    imports: [CommonModule, AppCodeModule, InputTextModule, FormsModule, ReactiveFormsModule, TextareaModule, AppDocModule, KeyFilterModule, FloatLabelModule, RouterModule, IftaLabelModule, ButtonModule, MessageModule, ToastModule],
     exports: [AppDocModule],
-    declarations: [ImportDoc, BasicDoc, AutoResizeDoc, FloatlabelDoc, InvalidDoc, DisabledDoc, KeyfilterDoc, StyleDoc, AccessibilityDoc, ReactiveFormsDoc, FilledDoc, IftaLabelDoc, SizesDoc]
+    declarations: [ImportDoc, BasicDoc, AutoResizeDoc, FloatlabelDoc, InvalidDoc, DisabledDoc, KeyfilterDoc, StyleDoc, AccessibilityDoc, ReactiveFormsDoc, FilledDoc, IftaLabelDoc, SizesDoc, TemplateDrivenFormsDoc]
 })
 export class TextareaDocModule {}

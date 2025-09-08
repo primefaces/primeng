@@ -1,3 +1,4 @@
+import { getCSSVariableByRegex } from '@primeuix/utils';
 /**
  * @dynamic is for runtime initializing DomHandler.browser
  *
@@ -136,17 +137,19 @@ export class DomHandler {
             top: -1 * windowScrollTop,
             left: -1 * windowScrollLeft
         };
-        let top: number, left: number;
+        let top: number,
+            left: number,
+            origin: string = 'top';
 
         if (targetOffset.top + targetHeight + elementDimensions.height > viewport.height) {
             top = targetOffset.top - relativeElementOffset.top - elementDimensions.height;
-            element.style.transformOrigin = 'bottom';
+            origin = 'bottom';
             if (targetOffset.top + top < 0) {
                 top = -1 * targetOffset.top;
             }
         } else {
             top = targetHeight + targetOffset.top - relativeElementOffset.top;
-            element.style.transformOrigin = 'top';
+            origin = 'top';
         }
 
         const horizontalOverflow = targetOffset.left + elementDimensions.width - viewport.width;
@@ -164,7 +167,13 @@ export class DomHandler {
 
         element.style.top = top + 'px';
         element.style.left = left + 'px';
-        gutter && (element.style.marginTop = origin === 'bottom' ? 'calc(var(--p-anchor-gutter) * -1)' : 'calc(var(--p-anchor-gutter))');
+        element.style.transformOrigin = origin;
+
+        if (gutter) {
+            const gutterValue = getCSSVariableByRegex(/-anchor-gutter$/)?.value;
+
+            element.style.marginTop = origin === 'bottom' ? `calc(${gutterValue ?? '2px'} * -1)` : (gutterValue ?? '');
+        }
     }
 
     public static absolutePosition(element: any, target: any, gutter: boolean = true): void {
@@ -841,4 +850,16 @@ export class DomHandler {
                 [contenteditable]:not([tabIndex = "-1"]):not([disabled]):not([style*="display:none"]):not([hidden])${selector}`)
             : false;
     }
+}
+
+import { $dt } from '@primeuix/styled';
+import * as utils from '@primeuix/utils';
+
+// @todo: update this when we remove the old domhandler
+export function blockBodyScroll() {
+    utils.blockBodyScroll({ variableName: $dt('scrollbar.width').name });
+}
+
+export function unblockBodyScroll() {
+    utils.unblockBodyScroll({ variableName: $dt('scrollbar.width').name });
 }

@@ -10,6 +10,7 @@ import { InputtextDocModule } from '@/doc/inputtext/inputtextdoc.module';
 import { InvalidDoc } from '@/doc/inputtext/invaliddoc';
 import { ReactiveFormsDoc } from '@/doc/inputtext/reactiveformsdoc';
 import { SizesDoc } from '@/doc/inputtext/sizesdoc';
+import { TemplateDrivenFormsDoc } from '@/doc/inputtext/templatedrivenformsdoc';
 import { Component } from '@angular/core';
 
 @Component({
@@ -37,11 +38,6 @@ export class InputTextDemo {
             component: BasicDoc
         },
         {
-            id: 'reactive-forms',
-            label: 'Reactive Forms',
-            component: ReactiveFormsDoc
-        },
-        {
             id: 'floatlabel',
             label: 'Float Label',
             component: FloatLabelDoc
@@ -67,16 +63,23 @@ export class InputTextDemo {
             component: FilledDoc
         },
         {
+            id: 'disabled',
+            label: 'Disabled',
+            component: DisabledDoc
+        },
+        {
             id: 'invalid',
             label: 'Invalid',
             component: InvalidDoc
         },
         {
-            id: 'disabled',
-            label: 'Disabled',
-            component: DisabledDoc
+            id: 'forms',
+            label: 'Forms',
+            children: [
+                { id: 'templatedriven', label: 'Template Driven', component: TemplateDrivenFormsDoc },
+                { id: 'reactive', label: 'Reactive Forms', component: ReactiveFormsDoc }
+            ]
         },
-
         {
             id: 'accessibility',
             label: 'Accessibility',

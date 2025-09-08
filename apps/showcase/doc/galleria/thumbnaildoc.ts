@@ -33,7 +33,7 @@ import { Component, OnInit } from '@angular/core';
 export class ThumbnailDoc implements OnInit {
     images: any[] | undefined;
 
-    position: string = 'bottom';
+    position: 'left' | 'right' | 'top' | 'bottom' = 'bottom';
 
     positionOptions = [
         {
@@ -122,7 +122,7 @@ import { FormsModule } from '@angular/forms';
 export class GalleriaThumbnailDemo implements OnInit {
     images: any[] | undefined;
 
-    position: string = 'bottom';
+    position: 'left' | 'right' | 'top' | 'bottom' = 'bottom' = 'bottom';
 
     positionOptions = [
         {

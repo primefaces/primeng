@@ -17,7 +17,7 @@ interface Column {
         </app-docsectiontext>
         <div class="card">
             <p-deferred-demo (load)="loadDemoData()">
-                <p-treetable [value]="files" [columns]="cols" [resizableColumns]="true" [tableStyle]="{ 'min-width': '50rem' }">
+                <p-treetable [value]="files" [columns]="cols" [resizableColumns]="true" [tableStyle]="{ 'min-width': '50rem' }" showGridlines>
                     <ng-template #header let-columns>
                         <tr>
                             <th *ngFor="let col of columns" ttResizableColumn>
@@ -28,7 +28,7 @@ interface Column {
                     <ng-template #body let-rowNode let-rowData="rowData" let-columns="columns">
                         <tr [ttRow]="rowNode">
                             <td *ngFor="let col of columns; let i = index">
-                                <p-treeTableToggler [rowNode]="rowNode" *ngIf="i === 0" />
+                                <p-treetable-toggler [rowNode]="rowNode" *ngIf="i === 0" />
                                 {{ rowData[col.field] }}
                             </td>
                         </tr>
@@ -57,7 +57,7 @@ export class ResizeFitDoc {
     }
 
     code: Code = {
-        basic: `<p-treetable [value]="files" [columns]="cols" [resizableColumns]="true" [tableStyle]="{'min-width': '50rem'}">
+        basic: `<p-treetable [value]="files" [columns]="cols" [resizableColumns]="true" [tableStyle]="{'min-width': '50rem'}" showGridlines>
     <ng-template #header let-columns>
         <tr>
             <th *ngFor="let col of columns" ttResizableColumn>
@@ -68,7 +68,7 @@ export class ResizeFitDoc {
     <ng-template #body let-rowNode let-rowData="rowData" let-columns="columns">
         <tr [ttRow]="rowNode">
             <td *ngFor="let col of columns; let i = index">
-                <p-treeTableToggler [rowNode]="rowNode" *ngIf="i === 0" />
+                <p-treetable-toggler [rowNode]="rowNode" *ngIf="i === 0" />
                 {{ rowData[col.field] }}
             </td>
         </tr>
@@ -76,7 +76,7 @@ export class ResizeFitDoc {
 </p-treetable>`,
 
         html: `<div class="card">
-    <p-treetable [value]="files" [columns]="cols" [resizableColumns]="true" [tableStyle]="{'min-width': '50rem'}">
+    <p-treetable [value]="files" [columns]="cols" [resizableColumns]="true" [tableStyle]="{'min-width': '50rem'}" showGridlines>
         <ng-template #header let-columns>
             <tr>
                 <th *ngFor="let col of columns" ttResizableColumn>
@@ -87,7 +87,7 @@ export class ResizeFitDoc {
         <ng-template #body let-rowNode let-rowData="rowData" let-columns="columns">
             <tr [ttRow]="rowNode">
                 <td *ngFor="let col of columns; let i = index">
-                    <p-treeTableToggler [rowNode]="rowNode" *ngIf="i === 0" />
+                    <p-treetable-toggler [rowNode]="rowNode" *ngIf="i === 0" />
                     {{ rowData[col.field] }}
                 </td>
             </tr>

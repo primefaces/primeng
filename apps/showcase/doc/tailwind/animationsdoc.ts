@@ -15,16 +15,35 @@ import { Component } from '@angular/core';
             </div>
         </div>
         <app-code [code]="code" selector="code" [hideToggleCode]="true" [hideCodeSandbox]="true" [hideStackBlitz]="true"></app-code>
+        <h3>Enter and Leave</h3>
+        <p>
+            In addition to the prebuilt animations, you may also build your own declaratively using the <i>animate-enter</i> and <i>animate-leave</i> along with the opacity, rotate, scale and translate parameters. These animations work perfectly with
+            the <a [routerLink]="'/animateonscroll'">AnimateOnScroll</a> directive, visit this directive for various examples.
+        </p>
+        <button pButton pRipple label="Learn More" [routerLink]="'/animateonscroll'" class="mb-4"></button>
+
         <h3>Animations</h3>
         <div class="doc-tablewrapper">
             <table class="doc-table">
                 <thead>
                     <tr>
-                        <th>Class</th>
+                        <th class="w-1/3">Class</th>
                         <th>Property</th>
                     </tr>
                 </thead>
                 <tbody>
+                    <tr>
+                        <td>animate-enter</td>
+                        <td>animation-name: enter; <br />--p-enter-opacity: initial; <br />--p-enter-scale: initial; <br />--p-enter-rotate: initial; <br />--p-enter-translate-x: initial; <br />--p-enter-translate-y: initial;</td>
+                    </tr>
+                    <tr>
+                        <td>animate-leave</td>
+                        <td>animation-name: leave; <br />--p-leave-opacity: initial; <br />--p-leave-scale: initial; <br />--p-leave-rotate: initial; <br />--p-leave-translate-x: initial; <br />--p-leave-translate-y: initial;</td>
+                    </tr>
+                    <tr>
+                        <td>animate-leave</td>
+                        <td>fadein 0.15s linear</td>
+                    </tr>
                     <tr>
                         <td>animate-fadein</td>
                         <td>fadein 0.15s linear</td>
@@ -126,7 +145,7 @@ import { Component } from '@angular/core';
             <table class="doc-table">
                 <thead>
                     <tr>
-                        <th>Class</th>
+                        <th class="w-1/3">Class</th>
                         <th>Property</th>
                     </tr>
                 </thead>
@@ -175,6 +194,10 @@ import { Component } from '@angular/core';
                         <td>animate-duration-3000</td>
                         <td>animation-duration: 300ms</td>
                     </tr>
+                    <tr>
+                        <td>animate-duration-[value]</td>
+                        <td>animation-duration: value</td>
+                    </tr>
                 </tbody>
             </table>
         </div>
@@ -184,7 +207,7 @@ import { Component } from '@angular/core';
             <table class="doc-table">
                 <thead>
                     <tr>
-                        <th>Class</th>
+                        <th class="w-1/3">Class</th>
                         <th>Property</th>
                     </tr>
                 </thead>
@@ -238,7 +261,7 @@ import { Component } from '@angular/core';
             <table class="doc-table">
                 <thead>
                     <tr>
-                        <th>Class</th>
+                        <th class="w-1/3">Class</th>
                         <th>Property</th>
                     </tr>
                 </thead>
@@ -264,7 +287,7 @@ import { Component } from '@angular/core';
             <table class="doc-table">
                 <thead>
                     <tr>
-                        <th>Class</th>
+                        <th class="w-1/3">Class</th>
                         <th>Property</th>
                     </tr>
                 </thead>
@@ -294,7 +317,7 @@ import { Component } from '@angular/core';
             <table class="doc-table">
                 <thead>
                     <tr>
-                        <th>Class</th>
+                        <th class="w-1/3">Class</th>
                         <th>Property</th>
                     </tr>
                 </thead>
@@ -324,7 +347,7 @@ import { Component } from '@angular/core';
             <table class="doc-table">
                 <thead>
                     <tr>
-                        <th>Class</th>
+                        <th class="w-1/3">Class</th>
                         <th>Property</th>
                     </tr>
                 </thead>
@@ -354,7 +377,7 @@ import { Component } from '@angular/core';
             <table class="doc-table">
                 <thead>
                     <tr>
-                        <th>Class</th>
+                        <th class="w-1/3">Class</th>
                         <th>Property</th>
                     </tr>
                 </thead>
@@ -376,7 +399,7 @@ import { Component } from '@angular/core';
             <table class="doc-table">
                 <thead>
                     <tr>
-                        <th>Class</th>
+                        <th class="w-1/3">Class</th>
                         <th>Property</th>
                     </tr>
                 </thead>
@@ -388,6 +411,134 @@ import { Component } from '@angular/core';
                     <tr>
                         <td>backface-hidden</td>
                         <td>backface-visibility: hidden</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+
+        <h3>Fade In and Out</h3>
+        <p>
+            Values are derived from the Tailwind CSS <a href="https://tailwindcss.com/docs/opacity" target="_blank" rel="noopener noreferrer">opacity</a> e.g. <i>fade-in-50</i> and <i>fade-out-20</i>. Arbitrary values such as <i>fade-in-[15]</i> are
+            also supported.
+        </p>
+        <div class="doc-tablewrapper">
+            <table class="doc-table">
+                <thead>
+                    <tr>
+                        <th class="w-1/3">Class</th>
+                        <th>Property</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>fade-in-&#123;value&#125;</td>
+                        <td>--p-enter-opacity: &#123;value&#125;</td>
+                    </tr>
+                    <tr>
+                        <td>fade-out-&#123;value&#125;</td>
+                        <td>--p-leave-opacity: &#123;value&#125;</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+
+        <h3>Zoom In and Out</h3>
+        <p>
+            Values are derived from the Tailwind CSS <a href="https://tailwindcss.com/docs/scale" target="_blank" rel="noopener noreferrer">scale</a> e.g. <i>zoom-in-50</i> and <i>zoom-out-75</i>. Arbitrary values such as <i>zoom-in-[0.8]</i> are
+            also supported.
+        </p>
+        <div class="doc-tablewrapper">
+            <table class="doc-table">
+                <thead>
+                    <tr>
+                        <th class="w-1/3">Class</th>
+                        <th>Property</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>zoom-in-&#123;value&#125;</td>
+                        <td>--p-enter-scale: &#123;value&#125;</td>
+                    </tr>
+                    <tr>
+                        <td>zoom-out-&#123;value&#125;</td>
+                        <td>--p-leave-scale: &#123;value&#125;</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+
+        <h3>Spin In and Out</h3>
+        <p>
+            Values are derived from the Tailwind CSS <a href="https://tailwindcss.com/docs/rotate" target="_blank" rel="noopener noreferrer">rotate</a> e.g. <i>spin-in-45</i> and <i>spin-out-90</i>. Arbitrary values such as <i>spin-in-[60deg]</i> are
+            also supported.
+        </p>
+        <div class="doc-tablewrapper">
+            <table class="doc-table">
+                <thead>
+                    <tr>
+                        <th class="w-1/3">Class</th>
+                        <th>Property</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>spin-in-&#123;value&#125;</td>
+                        <td>--p-enter-rotate: &#123;value&#125;</td>
+                    </tr>
+                    <tr>
+                        <td>spin-out-&#123;value&#125;</td>
+                        <td>--p-leave-rotate: &#123;value&#125;</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+
+        <h3>Slide In and Out</h3>
+        <p>
+            Values are derived from the Tailwind CSS <a href="https://tailwindcss.com/docs/translate" target="_blank" rel="noopener noreferrer">translate</a> e.g. <i>slide-in-from-t-50</i> and <i>slide-out-to-l-8</i>. Arbitrary values such as
+            <i>slide-in-from-b-[8px]</i> are also supported.
+        </p>
+        <div class="doc-tablewrapper">
+            <table class="doc-table">
+                <thead>
+                    <tr>
+                        <th class="w-1/3">Class</th>
+                        <th>Property</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>slide-in-from-t-&#123;value&#125;</td>
+                        <td>--p-enter-translate-y: -&#123;value&#125;</td>
+                    </tr>
+                    <tr>
+                        <td>slide-in-from-b-&#123;value&#125;</td>
+                        <td>--p-enter-translate-y: &#123;value&#125;</td>
+                    </tr>
+                    <tr>
+                        <td>slide-in-from-l-&#123;value&#125;</td>
+                        <td>--p-enter-translate-x: -&#123;value&#125;</td>
+                    </tr>
+                    <tr>
+                        <td>slide-in-from-r-&#123;value&#125;</td>
+                        <td>--p-enter-translate-x: &#123;value&#125;</td>
+                    </tr>
+                    <tr>
+                        <td>slide-out-to-t-&#123;value&#125;</td>
+                        <td>--p-leave-translate-y: -&#123;value&#125;</td>
+                    </tr>
+                    <tr>
+                        <td>slide-out-to-b-&#123;value&#125;</td>
+                        <td>--p-leave-translate-y: &#123;value&#125;</td>
+                    </tr>
+                    <tr>
+                        <td>slide-out-to-l-&#123;value&#125;</td>
+                        <td>--p-leave-translate-x: -&#123;value&#125;</td>
+                    </tr>
+                    <tr>
+                        <td>slide-out-to-r-&#123;value&#125;</td>
+                        <td>--p-leave-translate-x: &#123;value&#125;</td>
                     </tr>
                 </tbody>
             </table>

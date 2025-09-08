@@ -6,7 +6,7 @@ import { Component, Input } from '@angular/core';
     standalone: false,
     template: `
         <app-docsectiontext>
-            <p>ProgressSpinner can be customized with styling property like <i>styleClass</i>, <i>strokeWidth</i> and <i>fill</i>.</p>
+            <p>ProgressSpinner can be customized with styling property like <i>strokeWidth</i> and <i>fill</i>.</p>
         </app-docsectiontext>
         <div class="card flex justify-center">
             <p-progress-spinner strokeWidth="8" fill="transparent" animationDuration=".5s" [style]="{ width: '50px', height: '50px' }" />

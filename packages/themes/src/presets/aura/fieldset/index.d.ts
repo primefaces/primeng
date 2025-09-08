@@ -1,3 +1,2 @@
-import { FieldsetDesignTokens } from '../../types/fieldset';
-declare const _default: FieldsetDesignTokens;
-export default _default;
+export * from '@primeuix/themes/aura/fieldset';
+export { default } from '@primeuix/themes/aura/fieldset';

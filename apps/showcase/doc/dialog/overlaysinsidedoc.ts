@@ -20,7 +20,7 @@ interface City {
             <p-button (click)="showDialog()" icon="pi pi-external-link" label="Show"></p-button>
             <p-dialog header="Header" [(visible)]="visible" [style]="{ width: '50vw' }">
                 <div class="flex py-2 justify-center">
-                    <p-dropdown appendTo="body" [options]="cities" [(ngModel)]="selectedCity" placeholder="Select a City" optionLabel="name"></p-dropdown>
+                    <p-select appendTo="body" [options]="cities" [(ngModel)]="selectedCity" placeholder="Select a City" optionLabel="name"></p-select>
                 </div>
             </p-dialog>
         </div>
@@ -52,7 +52,7 @@ export class OverlaysInsideDoc implements OnInit {
         basic: `<p-button (click)="showDialog()" icon="pi pi-external-link" label="Show"></p-button>
 <p-dialog header="Header" [(visible)]="visible" [style]="{ width: '50vw' }">
     <div class="flex py-2 justify-center">
-        <p-dropdown appendTo="body" [options]="cities" [(ngModel)]="selectedCity" placeholder="Select a City" optionLabel="name"></p-dropdown>
+        <p-select appendTo="body" [options]="cities" [(ngModel)]="selectedCity" placeholder="Select a City" optionLabel="name"></p-select>
     </div>
 </p-dialog>`,
 
@@ -61,7 +61,7 @@ export class OverlaysInsideDoc implements OnInit {
     <p-button (click)="showDialog()" icon="pi pi-external-link" label="Show"></p-button>
     <p-dialog header="Header" [(visible)]="visible" [style]="{ width: '50vw' }">
         <div class="flex py-2 justify-center">
-            <p-dropdown appendTo="body" [options]="cities" [(ngModel)]="selectedCity" placeholder="Select a City" optionLabel="name"></p-dropdown>
+            <p-select appendTo="body" [options]="cities" [(ngModel)]="selectedCity" placeholder="Select a City" optionLabel="name"></p-select>
         </div>
     </p-dialog>
 </div>`,

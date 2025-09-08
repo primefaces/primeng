@@ -26,12 +26,11 @@ import { absolutePosition, addClass, appendChild, findSingle, getOffset, isIOS, 
 import { OverlayService, PrimeTemplate, SharedModule } from 'primeng/api';
 import { BaseComponent } from 'primeng/basecomponent';
 import { ConnectedOverlayScrollHandler } from 'primeng/dom';
-import { TimesIcon } from 'primeng/icons';
-import { Ripple } from 'primeng/ripple';
 import { Nullable, VoidListener } from 'primeng/ts-helpers';
 import { ZIndexUtils } from 'primeng/utils';
 import { Subscription } from 'rxjs';
 import { PopoverStyle } from './style/popoverstyle';
+import { $dt } from '@primeuix/styled';
 
 /**
  * Popover is a container component that can overlay other components on page.
@@ -44,9 +43,8 @@ import { PopoverStyle } from './style/popoverstyle';
     template: `
         <div
             *ngIf="render"
-            [ngClass]="'p-popover p-component'"
+            [class]="cn(cx('root'), styleClass)"
             [ngStyle]="style"
-            [class]="styleClass"
             (click)="onOverlayClick($event)"
             [@animation]="{
                 value: overlayVisible ? 'open' : 'close',
@@ -59,7 +57,7 @@ import { PopoverStyle } from './style/popoverstyle';
             [attr.aria-label]="ariaLabel"
             [attr.aria-labelledBy]="ariaLabelledBy"
         >
-            <div class="p-popover-content" (click)="onContentClick($event)" (mousedown)="onContentClick($event)">
+            <div [class]="cx('content')" (click)="onContentClick($event)" (mousedown)="onContentClick($event)">
                 <ng-content></ng-content>
                 <ng-template *ngTemplateOutlet="contentTemplate || _contentTemplate; context: { closeCallback: onCloseClick.bind(this) }"></ng-template>
             </div>
@@ -336,9 +334,10 @@ export class Popover extends BaseComponent implements AfterContentInit, OnDestro
         if (containerOffset.left < targetOffset.left) {
             arrowLeft = targetOffset.left - containerOffset.left - parseFloat(borderRadius!) * 2;
         }
-        this.container?.style.setProperty('--overlayArrowLeft', `${arrowLeft}px`);
+        this.container?.style.setProperty($dt('popover.arrow.left').name, `${arrowLeft}px`);
 
         if (containerOffset.top < targetOffset.top) {
+            this.container.setAttribute('data-p-popover-flipped', 'true');
             addClass(this.container, 'p-popover-flipped');
         }
     }
@@ -346,6 +345,7 @@ export class Popover extends BaseComponent implements AfterContentInit, OnDestro
     onAnimationStart(event: AnimationEvent) {
         if (event.toState === 'open') {
             this.container = event.element;
+            this.container?.setAttribute(this.attrSelector, '');
             this.appendContainer();
             this.align();
             this.bindDocumentClickListener();

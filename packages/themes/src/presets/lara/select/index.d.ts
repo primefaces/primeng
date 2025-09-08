@@ -1,3 +1,2 @@
-import { SelectDesignTokens } from '../../types/select';
-declare const _default: SelectDesignTokens;
-export default _default;
+export * from '@primeuix/themes/lara/select';
+export { default } from '@primeuix/themes/lara/select';

@@ -1,3 +1,2 @@
-import { TooltipDesignTokens } from '../../types/tooltip';
-declare const _default: TooltipDesignTokens;
-export default _default;
+export * from '@primeuix/themes/nora/tooltip';
+export { default } from '@primeuix/themes/nora/tooltip';

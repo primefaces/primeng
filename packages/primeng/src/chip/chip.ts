@@ -16,25 +16,35 @@ import { ChipStyle } from './style/chipstyle';
     imports: [CommonModule, TimesCircleIcon, SharedModule],
     template: `
         <ng-content></ng-content>
-        <img class="p-chip-image" [src]="image" *ngIf="image; else iconTemplate" (error)="imageError($event)" [alt]="alt" />
-        <ng-template #iconTemplate><span *ngIf="icon" [class]="icon" [ngClass]="'p-chip-icon'" [attr.data-pc-section]="'icon'"></span></ng-template>
-        <div class="p-chip-label" *ngIf="label" [attr.data-pc-section]="'label'">{{ label }}</div>
+        <img [class]="cx('image')" [src]="image" *ngIf="image; else iconTemplate" (error)="imageError($event)" [alt]="alt" />
+        <ng-template #iconTemplate><span *ngIf="icon" [class]="icon" [ngClass]="cx('icon')" [attr.data-pc-section]="'icon'"></span></ng-template>
+        <div [class]="cx('label')" *ngIf="label" [attr.data-pc-section]="'label'">{{ label }}</div>
         <ng-container *ngIf="removable">
             <ng-container *ngIf="!removeIconTemplate && !_removeIconTemplate">
                 <span
                     tabindex="0"
                     *ngIf="removeIcon"
                     [class]="removeIcon"
-                    [ngClass]="'p-chip-remove-icon'"
+                    [ngClass]="cx('removeIcon')"
                     [attr.data-pc-section]="'removeicon'"
                     (click)="close($event)"
                     (keydown)="onKeydown($event)"
                     [attr.aria-label]="removeAriaLabel"
                     role="button"
                 ></span>
-                <TimesCircleIcon tabindex="0" *ngIf="!removeIcon" [class]="'p-chip-remove-icon'" [attr.data-pc-section]="'removeicon'" (click)="close($event)" (keydown)="onKeydown($event)" [attr.aria-label]="removeAriaLabel" role="button" />
+                <svg
+                    data-p-icon="times-circle"
+                    tabindex="0"
+                    *ngIf="!removeIcon"
+                    [class]="cx('removeIcon')"
+                    [attr.data-pc-section]="'removeicon'"
+                    (click)="close($event)"
+                    (keydown)="onKeydown($event)"
+                    [attr.aria-label]="removeAriaLabel"
+                    role="button"
+                />
             </ng-container>
-            <span *ngIf="removeIconTemplate || _removeIconTemplate" tabindex="0" [attr.data-pc-section]="'removeicon'" class="p-chip-remove-icon" (click)="close($event)" (keydown)="onKeydown($event)" [attr.aria-label]="removeAriaLabel" role="button">
+            <span *ngIf="removeIconTemplate || _removeIconTemplate" tabindex="0" [attr.data-pc-section]="'removeicon'" [class]="cx('removeIcon')" (click)="close($event)" (keydown)="onKeydown($event)" [attr.aria-label]="removeAriaLabel" role="button">
                 <ng-template *ngTemplateOutlet="removeIconTemplate || _removeIconTemplate"></ng-template>
             </span>
         </ng-container>
@@ -43,8 +53,7 @@ import { ChipStyle } from './style/chipstyle';
     encapsulation: ViewEncapsulation.None,
     providers: [ChipStyle],
     host: {
-        '[class]': 'containerClass()',
-        '[style]': 'style',
+        '[class]': "cn(cx('root'), styleClass)",
         '[style.display]': '!visible && "none"',
         '[attr.data-pc-name]': "'chip'",
         '[attr.aria-label]': 'label',
@@ -73,12 +82,8 @@ export class Chip extends BaseComponent implements AfterContentInit {
      */
     @Input() alt: string | undefined;
     /**
-     * Inline style of the element.
-     * @group Props
-     */
-    @Input() style: { [klass: string]: any } | null | undefined;
-    /**
      * Class of the element.
+     * @deprecated since v20.0.0, use `class` instead.
      * @group Props
      */
     @Input() styleClass: string | undefined;
@@ -167,9 +172,6 @@ export class Chip extends BaseComponent implements AfterContentInit {
             if (currentValue.alt !== undefined) {
                 this.alt = currentValue.alt;
             }
-            if (currentValue.style !== undefined) {
-                this.style = currentValue.style;
-            }
             if (currentValue.styleClass !== undefined) {
                 this.styleClass = currentValue.styleClass;
             }
@@ -180,16 +182,6 @@ export class Chip extends BaseComponent implements AfterContentInit {
                 this.removeIcon = currentValue.removeIcon;
             }
         }
-    }
-
-    containerClass() {
-        let classes = 'p-chip p-component';
-
-        if (this.styleClass) {
-            classes += ` ${this.styleClass}`;
-        }
-
-        return classes;
     }
 
     close(event: MouseEvent) {

@@ -92,33 +92,25 @@ export interface DataViewLayoutChangeEvent {
  */
 export interface DataViewTemplates {
     /**
-     * Custom list item template.
-     * @param {Object} context - data of the item.
+     * Custom list template.
+     * @param {Object} context - data of the DataView.
      */
-    listItem(context: {
+    list(context: {
         /**
-         * Row data.
+         * Rows data.
          */
         $implicit: any;
-        /**
-         * Row index.
-         */
-        rowIndex: number;
-    }): TemplateRef<{ $implicit: any; rowIndex: number }>;
+    }): TemplateRef<{ $implicit: any }>;
     /**
-     * Custom grid item template.
-     * @param {Object} context - data of the item.
+     * Custom grid template.
+     * @param {Object} context - data of the DataView.
      */
-    gridItem(context: {
+    grid(context: {
         /**
-         * Row data.
+         * Rows data.
          */
         $implicit: any;
-        /**
-         * Row index.
-         */
-        rowIndex: number;
-    }): TemplateRef<{ $implicit: any; rowIndex: number }>;
+    }): TemplateRef<{ $implicit: any }>;
     /**
      * Custom paginator left template.
      * @param {Object} context - paginator state.
@@ -152,7 +144,7 @@ export interface DataViewTemplates {
     /**
      * Custom empty message template.
      */
-    empty(): TemplateRef<any>;
+    emptymessage(): TemplateRef<any>;
     /**
      * Custom header template.
      */

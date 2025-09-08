@@ -6,7 +6,7 @@ import { Component } from '@angular/core';
     standalone: false,
     template: `
         <app-docsectiontext>
-            <p>When <i>indeterminate</i> is present, the checkbox masks the actual value visually.</p>
+            <p>The <i>indeterminate</i> state indicates that a checkbox is neither "on" or "off".</p>
         </app-docsectiontext>
         <div class="card flex justify-center gap-4">
             <p-checkbox [(ngModel)]="checked" [binary]="true" [indeterminate]="true" />

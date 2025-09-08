@@ -6,6 +6,7 @@ import { ImportDoc } from '@/doc/togglebutton/importdoc';
 import { InvalidDoc } from '@/doc/togglebutton/invaliddoc';
 import { ReactiveFormsDoc } from '@/doc/togglebutton/reactiveformsdoc';
 import { SizesDoc } from '@/doc/togglebutton/sizesdoc';
+import { TemplateDrivenFormsDoc } from '@/doc/togglebutton/templatedrivenformsdoc';
 import { ToggleButtonDocModule } from '@/doc/togglebutton/togglebuttondoc.module';
 import { Component } from '@angular/core';
 
@@ -27,11 +28,6 @@ export class ToggleButtonDemo {
             component: BasicDoc
         },
         {
-            id: 'reactive-forms',
-            label: 'Reactive Forms',
-            component: ReactiveFormsDoc
-        },
-        {
             id: 'customized',
             label: 'Customized',
             component: CustomizedDoc
@@ -42,14 +38,22 @@ export class ToggleButtonDemo {
             component: SizesDoc
         },
         {
+            id: 'disabled',
+            label: 'Disabled',
+            component: DisabledDoc
+        },
+        {
             id: 'invalid',
             label: 'Invalid',
             component: InvalidDoc
         },
         {
-            id: 'disabled',
-            label: 'Disabled',
-            component: DisabledDoc
+            id: 'forms',
+            label: 'Forms',
+            children: [
+                { id: 'templatedriven', label: 'Template Driven', component: TemplateDrivenFormsDoc },
+                { id: 'reactive', label: 'Reactive Forms', component: ReactiveFormsDoc }
+            ]
         },
         {
             id: 'accessibility',

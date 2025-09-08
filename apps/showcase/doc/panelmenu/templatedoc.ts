@@ -10,7 +10,7 @@ import { MenuItem } from 'primeng/api';
             <p>PanelMenu requires a collection of menuitems as its <i>model</i>.</p>
         </app-docsectiontext>
         <div class="card flex flex-col items-center">
-            <p-panelmenu [model]="items" styleClass="w-full md:w-80">
+            <p-panelmenu [model]="items" class="w-full md:w-80">
                 <ng-template #item let-item>
                     <a pRipple class="flex items-center px-4 py-2 cursor-pointer group">
                         <i [class]="item.icon + ' text-primary group-hover:text-inherit'"></i>
@@ -113,7 +113,7 @@ export class TemplateDoc implements OnInit {
     }
 
     code: Code = {
-        basic: `<p-panelmenu [model]="items" styleClass="w-full md:w-80">
+        basic: `<p-panelmenu [model]="items" class="w-full md:w-80">
     <ng-template #item let-item>
         <a pRipple class="flex items-center px-4 py-2 cursor-pointer group">
             <i [class]="item.icon + ' text-primary group-hover:text-inherit'"></i>
@@ -130,7 +130,7 @@ export class TemplateDoc implements OnInit {
 </p-panelmenu>`,
 
         html: `<div class="card flex flex-col items-center">
-    <p-panelmenu [model]="items" styleClass="w-full md:w-80">
+    <p-panelmenu [model]="items" class="w-full md:w-80">
         <ng-template #item let-item>
             <a pRipple class="flex items-center px-4 py-2 cursor-pointer group">
                 <i [class]="item.icon + ' text-primary group-hover:text-inherit'"></i>

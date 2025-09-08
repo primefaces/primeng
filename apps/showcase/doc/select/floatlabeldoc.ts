@@ -18,17 +18,17 @@ interface City {
         </app-docsectiontext>
         <div class="card flex flex-wrap justify-center items-end gap-4">
             <p-floatlabel class="w-full md:w-56">
-                <p-select [(ngModel)]="value1" inputId="over_label" [options]="cities" optionLabel="name" styleClass="w-full" />
+                <p-select [(ngModel)]="value1" inputId="over_label" [options]="cities" optionLabel="name" class="w-full" />
                 <label for="over_label">Over Label</label>
             </p-floatlabel>
 
             <p-floatlabel class="w-full md:w-56" variant="in">
-                <p-select [(ngModel)]="value2" inputId="in_label" [options]="cities" optionLabel="name" styleClass="w-full" variant="filled" />
+                <p-select [(ngModel)]="value2" inputId="in_label" [options]="cities" optionLabel="name" class="w-full" variant="filled" />
                 <label for="in_label">In Label</label>
             </p-floatlabel>
 
             <p-floatlabel class="w-full md:w-56" variant="on">
-                <p-select [(ngModel)]="value3" inputId="on_label" [options]="cities" optionLabel="name" styleClass="w-full" />
+                <p-select [(ngModel)]="value3" inputId="on_label" [options]="cities" optionLabel="name" class="w-full" />
                 <label for="on_label">On Label</label>
             </p-floatlabel>
         </div>
@@ -56,33 +56,33 @@ export class FloatLabelDoc implements OnInit {
 
     code: Code = {
         basic: `<p-floatlabel class="w-full md:w-56">
-    <p-select [(ngModel)]="value1" inputId="over_label" [options]="cities" optionLabel="name" styleClass="w-full" />
+    <p-select [(ngModel)]="value1" inputId="over_label" [options]="cities" optionLabel="name" class="w-full" />
     <label for="over_label">Over Label</label>
 </p-floatlabel>
 
 <p-floatlabel class="w-full md:w-56" variant="in">
-    <p-select [(ngModel)]="value2" inputId="in_label" [options]="cities" optionLabel="name" styleClass="w-full" variant="filled" />
+    <p-select [(ngModel)]="value2" inputId="in_label" [options]="cities" optionLabel="name" class="w-full" variant="filled" />
     <label for="in_label">In Label</label>
 </p-floatlabel>
 
 <p-floatlabel class="w-full md:w-56" variant="on">
-    <p-select [(ngModel)]="value3" inputId="on_label" [options]="cities" optionLabel="name" styleClass="w-full" />
+    <p-select [(ngModel)]="value3" inputId="on_label" [options]="cities" optionLabel="name" class="w-full" />
     <label for="on_label">On Label</label>
 </p-floatlabel>`,
 
         html: `<div class="card flex flex-wrap justify-center items-end gap-4">
     <p-floatlabel class="w-full md:w-56">
-        <p-select [(ngModel)]="value1" inputId="over_label" [options]="cities" optionLabel="name" styleClass="w-full" />
+        <p-select [(ngModel)]="value1" inputId="over_label" [options]="cities" optionLabel="name" class="w-full" />
         <label for="over_label">Over Label</label>
     </p-floatlabel>
 
     <p-floatlabel class="w-full md:w-56" variant="in">
-        <p-select [(ngModel)]="value2" inputId="in_label" [options]="cities" optionLabel="name" styleClass="w-full" variant="filled" />
+        <p-select [(ngModel)]="value2" inputId="in_label" [options]="cities" optionLabel="name" class="w-full" variant="filled" />
         <label for="in_label">In Label</label>
     </p-floatlabel>
 
     <p-floatlabel class="w-full md:w-56" variant="on">
-        <p-select [(ngModel)]="value3" inputId="on_label" [options]="cities" optionLabel="name" styleClass="w-full" />
+        <p-select [(ngModel)]="value3" inputId="on_label" [options]="cities" optionLabel="name" class="w-full" />
         <label for="on_label">On Label</label>
     </p-floatlabel>
 </div>`,

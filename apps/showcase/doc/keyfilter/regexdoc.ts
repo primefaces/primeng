@@ -32,28 +32,28 @@ export class RegexDoc {
         html: `<div class="card flex flex-wrap gap-4">
     <div class="flex-auto">
         <label for="blockspace" class="font-bold block mb-2"> Block Space </label>
-        <input pInputText id="blockspace" pKeyFilter="int" class="w-full" />
+        <input pInputText id="blockspace" [pKeyFilter]="blockSpace" class="w-full" />
     </div>
     <div class="flex-auto">
         <label for="block" class="font-bold block mb-2"> Block < > * ! </label>
-        <input pInputText id="block" pKeyFilter="int" class="w-full" />
+        <input pInputText id="block" [pKeyFilter]="blockChars" class="w-full" />
     </div>
 </div>`,
 
         typescript: `import { Component } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { InputTextModule } from 'primeng/inputtext';
+import { KeyFilterModule } from 'primeng/keyfilter';
 
 @Component({
     selector: 'key-filter-reg-exp-demo',
     templateUrl: './key-filter-reg-exp-demo.html',
     standalone: true,
-    imports: [FormsModule, InputTextModule]
+    imports: [FormsModule, InputTextModule, KeyFilterModule]
 })
 export class KeyFilterRegExpDemo {
-    blockSpace: RegExp = /[^\s]/;
-
-    blockChars: RegExp = /^[^<>*!]+$/;
+     blockSpace: RegExp = /^[^\\s]+$/;
+     blockChars: RegExp = /^[^<>*!]+$/;
 }`
     };
 }

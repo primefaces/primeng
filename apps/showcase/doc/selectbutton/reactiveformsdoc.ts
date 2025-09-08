@@ -1,6 +1,7 @@
 import { Code } from '@/domain/code';
-import { Component, OnInit } from '@angular/core';
-import { FormControl, FormGroup } from '@angular/forms';
+import { Component, inject } from '@angular/core';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { MessageService } from 'primeng/api';
 
 @Component({
     selector: 'reactive-forms-doc',
@@ -9,61 +10,119 @@ import { FormControl, FormGroup } from '@angular/forms';
         <app-docsectiontext>
             <p>SelectButton can also be used with reactive forms. In this case, the <i>formControlName</i> property is used to bind the component to a form control.</p>
         </app-docsectiontext>
+        <p-toast />
         <div class="card flex justify-center">
-            <form [formGroup]="formGroup">
-                <p-selectbutton [options]="stateOptions" formControlName="value" optionLabel="label" optionValue="value" />
+            <form [formGroup]="exampleForm" (ngSubmit)="onSubmit()" class="flex flex-col gap-4">
+                <div class="flex flex-col gap-1">
+                    <p-selectbutton [options]="stateOptions" formControlName="value" [invalid]="isInvalid('value')" optionLabel="label" optionValue="value" />
+                    @if (isInvalid('value')) {
+                        <p-message severity="error" size="small" variant="simple">Selection is required</p-message>
+                    }
+                </div>
+                <button pButton type="submit"><span pButtonLabel>Submit</span></button>
             </form>
         </div>
         <app-code [code]="code" selector="select-button-reactive-forms-demo"></app-code>
     `
 })
-export class ReactiveFormsDoc implements OnInit {
-    formGroup!: FormGroup;
+export class ReactiveFormsDoc {
+    messageService = inject(MessageService);
+
+    exampleForm: FormGroup | undefined;
+
+    formSubmitted: boolean = false;
 
     stateOptions: any[] = [
-        { label: 'Off', value: 'off' },
-        { label: 'On', value: 'on' }
+        { label: 'One-Way', value: 'one-way' },
+        { label: 'Return', value: 'return' }
     ];
 
-    ngOnInit() {
-        this.formGroup = new FormGroup({
-            value: new FormControl('on')
+    constructor(private fb: FormBuilder) {
+        this.exampleForm = this.fb.group({
+            value: ['', Validators.required]
         });
     }
 
+    onSubmit() {
+        this.formSubmitted = true;
+        if (this.exampleForm.valid) {
+            this.messageService.add({ severity: 'success', summary: 'Success', detail: 'Form is submitted', life: 3000 });
+            this.exampleForm.reset();
+            this.formSubmitted = false;
+        }
+    }
+
+    isInvalid(controlName: string) {
+        const control = this.exampleForm.get(controlName);
+        return control?.invalid && (control.touched || this.formSubmitted);
+    }
+
     code: Code = {
-        basic: `<form [formGroup]="formGroup">
-    <p-selectbutton [options]="stateOptions" formControlName="value" optionLabel="label" optionValue="value" />
+        basic: `<form [formGroup]="exampleForm" (ngSubmit)="onSubmit()" class="flex flex-col gap-4">
+    <div class="flex flex-col gap-1">
+        <p-selectbutton [options]="stateOptions" formControlName="value" [invalid]="isInvalid('value')" optionLabel="label" optionValue="value" />
+        @if (isInvalid('value')) {
+            <p-message severity="error" size="small" variant="simple">Selection is required</p-message>
+        }
+    </div>
+    <button pButton type="submit"><span pButtonLabel>Submit</span></button>
 </form>`,
 
         html: `<div class="card flex justify-center">
-    <form [formGroup]="formGroup">
-        <p-selectbutton [options]="stateOptions" formControlName="value" optionLabel="label" optionValue="value" />
+    <form [formGroup]="exampleForm" (ngSubmit)="onSubmit()" class="flex flex-col gap-4">
+        <div class="flex flex-col gap-1">
+            <p-selectbutton [options]="stateOptions" formControlName="value" [invalid]="isInvalid('value')" optionLabel="label" optionValue="value" />
+            @if (isInvalid('value')) {
+                <p-message severity="error" size="small" variant="simple">Selection is required</p-message>
+            }
+        </div>
+        <button pButton type="submit"><span pButtonLabel>Submit</span></button>
     </form>
 </div>`,
 
-        typescript: `import { Component, OnInit } from '@angular/core';
-import { FormControl, FormGroup, ReactiveFormsModule } from '@angular/forms';
-import { SelectButton } from 'primeng/selectbutton';
+        typescript: `import { Component, inject } from '@angular/core';
+import { FormBuilder, FormGroup, Validators, ReactiveFormsModule } from '@angular/forms';
+import { SelectButtonModule } from 'primeng/selectbutton';
+import { ButtonModule } from 'primeng/button';
+import { ToastModule } from 'primeng/toast';
+import { MessageModule } from 'primeng/message';
 
 @Component({
     selector: 'select-button-reactive-forms-demo',
     templateUrl: './select-button-reactive-forms-demo.html',
     standalone: true,
-    imports: [ReactiveFormsModule, SelectButton]
+    imports: [ReactiveFormsModule, SelectButtonModule, ButtonModule, ToastModule, MessageModule]
 })
 export class SelectButtonReactiveFormsDemo implements OnInit {
-    formGroup!: FormGroup;
+    messageService = inject(MessageService);
+
+    exampleForm: FormGroup | undefined;
+
+    formSubmitted: boolean = false;
 
     stateOptions: any[] = [
-        { label: 'Off', value: 'off' },
-        { label: 'On', value: 'on' }
+        { label: 'One-Way', value: 'one-way' },
+        { label: 'Return', value: 'return' }
     ];
 
-    ngOnInit() {
-        this.formGroup = new FormGroup({
-            value: new FormControl('on')
+    constructor(private fb: FormBuilder) {
+        this.exampleForm = this.fb.group({
+            value: ['', Validators.required]
         });
+    }
+
+    onSubmit() {
+        this.formSubmitted = true;
+        if (this.exampleForm.valid) {
+            this.messageService.add({ severity: 'success', summary: 'Success', detail: 'Form is submitted', life: 3000 });
+            this.exampleForm.reset();
+            this.formSubmitted = false;
+        }
+    }
+
+    isInvalid(controlName: string) {
+        const control = this.exampleForm.get(controlName);
+        return control?.invalid && (control.touched || this.formSubmitted);
     }
 }`
     };

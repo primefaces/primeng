@@ -1,6 +1,7 @@
 {
-    "id": 1,
-    "content": "PrimeNG v19 Final is out now 🚀",
+    "id": 86,
+    "content": "All Premium Templates Now Upgraded to v20 🎉",
     "linkText": "Learn More",
-    "linkHref": "['/theming']"
+    "routerLink": "/templates",
+    "target": "_blank"
 }

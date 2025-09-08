@@ -10,17 +10,18 @@ interface AutoCompleteCompleteEvent {
     selector: 'invalid-doc',
     standalone: false,
     template: ` <app-docsectiontext>
-            <p>Invalid state style is added using the <i>ng-invalid</i> and <i>ng-dirty</i> class to indicate a failed validation.</p>
+            <p>The invalid state is applied using the <i>⁠invalid</i> property to indicate failed validation, which can be integrated with Angular Forms.</p>
         </app-docsectiontext>
-        <div class="card flex justify-center">
-            <p-autocomplete [(ngModel)]="selectedItem" [suggestions]="suggestions" class="ng-invalid ng-dirty" (completeMethod)="search($event)" placeholder="Code" />
+        <div class="card flex flex-wrap justify-center gap-4">
+            <p-autocomplete [(ngModel)]="value1" [suggestions]="suggestions" [invalid]="!value1" (completeMethod)="search($event)" placeholder="Code" />
+            <p-autocomplete [(ngModel)]="value2" [suggestions]="suggestions" [invalid]="!value2" (completeMethod)="search($event)" variant="filled" placeholder="Code" />
         </div>
         <app-code [code]="code" selector="autocomplete-invalid-demo"></app-code>`
 })
 export class InvalidDoc {
-    items: any[] | undefined;
+    value1: any;
 
-    selectedItem: any;
+    value2: any;
 
     suggestions: any[] | undefined;
 
@@ -29,10 +30,12 @@ export class InvalidDoc {
     }
 
     code: Code = {
-        basic: `<p-autocomplete class="ng-invalid ng-dirty" [(ngModel)]="selectedItem" [suggestions]="suggestions" (completeMethod)="search($event)" placeholder="Code" />`,
+        basic: `<p-autocomplete [(ngModel)]="value1" [suggestions]="suggestions" [invalid]="!value1" (completeMethod)="search($event)" placeholder="Code" />
+<p-autocomplete [(ngModel)]="value2" [suggestions]="suggestions" [invalid]="!value2" (completeMethod)="search($event)" variant="filled" placeholder="Code" />`,
 
-        html: `<div class="card flex justify-center">
-    <p-autocomplete class="ng-invalid ng-dirty" [(ngModel)]="selectedItem" [suggestions]="suggestions" (completeMethod)="search($event)" placeholder="Code" />
+        html: `<div class="card flex flex-wrap justify-center gap-4">
+    <p-autocomplete [(ngModel)]="value1" [suggestions]="suggestions" [invalid]="!value1" (completeMethod)="search($event)" placeholder="Code" />
+    <p-autocomplete [(ngModel)]="value2" [suggestions]="suggestions" [invalid]="!value2" (completeMethod)="search($event)" variant="filled" placeholder="Code" />
 </div>`,
 
         typescript: `import { Component } from '@angular/core';
@@ -51,14 +54,15 @@ interface AutoCompleteCompleteEvent {
     imports: [FormsModule, AutoComplete]
 })
 export class AutocompleteInvalidDemo {
-    items: any[] | undefined;
 
-    selectedItem: any;
+    value1: any;
+
+    value2: any;
 
     suggestions: any[] | undefined;
 
     search(event: AutoCompleteCompleteEvent) {
-        this.suggestions = [...Array(10).keys()].map(item => event.query + '-' + item);
+        this.suggestions = [...Array(10).keys()].map((item) => event.query + '-' + item);
     }
 }`
     };

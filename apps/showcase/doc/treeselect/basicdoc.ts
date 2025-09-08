@@ -11,7 +11,7 @@ import { Component } from '@angular/core';
             <p>In single selection mode, value binding should be the <i>key</i> value of a node.</p>
         </app-docsectiontext>
         <div class="card flex justify-center">
-            <p-treeselect class="md:w-80 w-full" containerStyleClass="w-full" [(ngModel)]="selectedNodes" [options]="nodes" placeholder="Select Item" />
+            <p-treeselect class="md:w-80 w-full" [(ngModel)]="selectedNodes" [options]="nodes" placeholder="Select Item" />
         </div>
         <app-code [code]="code" selector="tree-select-basic-demo"></app-code>
     `
@@ -26,10 +26,10 @@ export class BasicDoc {
     }
 
     code: Code = {
-        basic: `<p-treeselect class="md:w-80 w-full" containerStyleClass="w-full" [(ngModel)]="selectedNodes" [options]="nodes" placeholder="Select Item" />`,
+        basic: `<p-treeselect class="md:w-80 w-full" [(ngModel)]="selectedNodes" [options]="nodes" placeholder="Select Item" />`,
 
         html: `<div class="card flex justify-center">
-    <p-treeselect class="md:w-80 w-full" containerStyleClass="w-full" [(ngModel)]="selectedNodes" [options]="nodes" placeholder="Select Item" />
+    <p-treeselect class="md:w-80 w-full" [(ngModel)]="selectedNodes" [options]="nodes" placeholder="Select Item" />
 </div>`,
 
         typescript: `import { Component } from '@angular/core';

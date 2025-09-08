@@ -13,8 +13,8 @@ import { Component } from '@angular/core';
                     <div
                         class="color-box"
                         [ngStyle]="{
-                            backgroundColor: 'var(--surface-' + shade + ')',
-                            color: shade < 600 ? 'var(--surface-900)' : 'var(--surface-0)'
+                            backgroundColor: 'var(--p-surface-' + shade + ')',
+                            color: shade < 600 ? 'var(--p-surface-900)' : 'var(--p-surface-0)'
                         }"
                     >
                         surface-{{ shade }}

@@ -2,7 +2,6 @@ import { AccessibilityDoc } from '@/doc/badge/accessibilitydoc';
 import { BadgeDocModule } from '@/doc/badge/badgedoc.module';
 import { BasicDoc } from '@/doc/badge/basicdoc';
 import { ButtonDoc } from '@/doc/badge/buttondoc';
-import { DirectiveDoc } from '@/doc/badge/directivedoc';
 import { ImportDoc } from '@/doc/badge/importdoc';
 import { OverlayDoc } from '@/doc/badge/overlaydoc';
 import { SeverityDoc } from '@/doc/badge/severitydoc';
@@ -25,11 +24,6 @@ export class BadgeDemo {
             id: 'basic',
             label: 'Basic',
             component: BasicDoc
-        },
-        {
-            id: 'directive',
-            label: 'Directive',
-            component: DirectiveDoc
         },
         {
             id: 'severity',

@@ -51,7 +51,7 @@ import { MenuItem } from 'primeng/api';
 export class BasicDoc implements OnInit {
     items: MenuItem[] | undefined;
 
-    position: string = 'bottom';
+    position: 'left' | 'right' | 'top' | 'bottom' = 'bottom';
 
     positionOptions = [
         {
@@ -153,7 +153,7 @@ import { TooltipModule } from 'primeng/tooltip';
 export class DockBasicDemo implements OnInit {
     items: MenuItem[] | undefined;
 
-    position: string = 'bottom';
+    position: 'left' | 'right' | 'top' | 'bottom' = 'bottom';
 
     positionOptions = [
         {

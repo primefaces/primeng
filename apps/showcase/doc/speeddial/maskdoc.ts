@@ -51,7 +51,7 @@ export class MaskDoc implements OnInit {
             {
                 icon: 'pi pi-external-link',
                 target: '_blank',
-                url: 'http://angular.io'
+                url: 'https://angular.dev'
             }
         ];
     }
@@ -110,7 +110,7 @@ export class SpeedDialMaskDemo implements OnInit {
             {
                 icon: 'pi pi-external-link',
                 target: '_blank',
-                url: 'http://angular.io'
+                url: 'https://angular.dev'
             }
         ];
     }

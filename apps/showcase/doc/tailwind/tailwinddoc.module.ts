@@ -19,10 +19,11 @@ import { HeadlessDoc } from './headlessdoc';
 import { OverrideDoc } from './overridedoc';
 import { OverviewDoc } from './overviewdoc';
 import { PluginDoc } from './plugindoc';
+import { DarkModeDoc } from './darkmodedoc';
 
 @NgModule({
     imports: [CommonModule, RouterModule, AppCodeModule, AppDocModule, Tag, Button, InputText, Textarea, Select, DatePicker, FormsModule, Dialog],
-    declarations: [OverviewDoc, PluginDoc, ExtensionsDoc, OverrideDoc, ColorPaletteDoc, FormDoc, HeadlessDoc, AnimationsDoc],
+    declarations: [OverviewDoc, PluginDoc, ExtensionsDoc, OverrideDoc, ColorPaletteDoc, FormDoc, HeadlessDoc, AnimationsDoc, DarkModeDoc],
     exports: [AppDocModule]
 })
 export class TailwindDocModule {}

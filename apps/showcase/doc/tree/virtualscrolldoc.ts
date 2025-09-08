@@ -1,6 +1,6 @@
 import { Code } from '@/domain/code';
 import { NodeService } from '@/service/nodeservice';
-import { ChangeDetectorRef, Component, OnInit } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { TreeNode } from 'primeng/api';
 
 @Component({
@@ -10,42 +10,26 @@ import { TreeNode } from 'primeng/api';
         <app-docsectiontext>
             <p>VirtualScroller is a performance-approach to handle huge data efficiently. Setting <i>virtualScroll</i> property as true and providing a <i>virtualScrollItemSize</i> in pixels would be enough to enable this functionality.</p>
         </app-docsectiontext>
-        <div class="card flex justify-center">
-            <p-tree styleClass="w-full md:w-[30rem]" scrollHeight="250px" [virtualScroll]="true" [virtualScrollItemSize]="46" [value]="files" />
+        <div class="card">
+            <p-tree [value]="nodes" scrollHeight="250px" [virtualScroll]="true" [virtualScrollItemSize]="46" />
         </div>
         <app-code [code]="code" selector="tree-virtual-scroll-demo"></app-code>
     `
 })
 export class VirtualScrollDoc implements OnInit {
-    loading: boolean = false;
+    nodes!: TreeNode[];
 
-    files!: TreeNode[];
-
-    constructor(
-        private nodeService: NodeService,
-        private cd: ChangeDetectorRef
-    ) {}
+    constructor(private nodeService: NodeService) {}
 
     ngOnInit() {
-        this.nodeService.getFiles().then((data) => {
-            this.files = this.duplicateData(data, 50);
-            this.cd.markForCheck();
-        });
-    }
-
-    duplicateData(data: TreeNode[], count: number): TreeNode[] {
-        let duplicatedData: TreeNode[] = [];
-        for (let i = 0; i < count; i++) {
-            duplicatedData = [...duplicatedData, ...data.map((item) => ({ ...item }))];
-        }
-        return duplicatedData;
+        this.nodes = this.nodeService.generateNodes(150);
     }
 
     code: Code = {
-        basic: `<p-tree [value]="files" styleClass="w-full md:w-[30rem]" scrollHeight="250px" [virtualScroll]="true" [virtualScrollItemSize]="46" />`,
+        basic: `<p-tree [value]="nodes" scrollHeight="250px" [virtualScroll]="true" [virtualScrollItemSize]="46" />`,
 
-        html: `<div class="card flex justify-center">
-    <p-tree [value]="files" styleClass="w-full md:w-[30rem]" scrollHeight="250px" [virtualScroll]="true" [virtualScrollItemSize]="46" />
+        html: `<div class="card">
+    <p-tree [value]="nodes" scrollHeight="250px" [virtualScroll]="true" [virtualScrollItemSize]="46" />
 </div>`,
 
         typescript: `import { ChangeDetectorRef, Component, OnInit } from '@angular/core';
@@ -61,57 +45,42 @@ import { Tree } from 'primeng/tree';
     providers: [NodeService]
 })
 export class TreeVirtualScrollDemo implements OnInit {
-    loading: boolean = false;
+    nodes!: TreeNode[];
 
-    files!: TreeNode[];
-
-    constructor(private nodeService: NodeService, private cd: ChangeDetectorRef) {}
+    constructor(private nodeService: NodeService) {}
 
     ngOnInit() {
-        this.nodeService.getFiles().then((data) => {
-            this.files = this.duplicateData(data, 50);
-            this.cd.markForCheck();
-        });
+        this.nodes = this.nodeService.generateNodes(150);
     }
-
-    duplicateData(data: TreeNode[], count: number): TreeNode[] {
-        let duplicatedData: TreeNode[] = [];
-        for (let i = 0; i < count; i++) {
-            duplicatedData = [...duplicatedData, ...data.map((item) => ({ ...item }))];
-        }
-        return duplicatedData;
-    }
-
 }`,
         service: ['NodeService'],
 
         data: `
-/* NodeService */
-{
-key: '0',
-label: 'Documents',
-data: 'Documents Folder',
-icon: 'pi pi-fw pi-inbox',
-children: [
-{
-    key: '0-0',
-    label: 'Work',
-    data: 'Work Folder',
-    icon: 'pi pi-fw pi-cog',
-    children: [
-        { key: '0-0-0', label: 'Expenses.doc', icon: 'pi pi-fw pi-file', data: 'Expenses Document' },
-        { key: '0-0-1', label: 'Resume.doc', icon: 'pi pi-fw pi-file', data: 'Resume Document' }
-    ]
-},
-{
-    key: '0-1',
-    label: 'Home',
-    data: 'Home Folder',
-    icon: 'pi pi-fw pi-home',
-    children: [{ key: '0-1-0', label: 'Invoices.txt', icon: 'pi pi-fw pi-file', data: 'Invoices for this month' }]
+import { Injectable } from '@angular/core';
+import { TreeNode } from 'primeng/api';
+
+@Injectable()
+export class NodeService {
+    generateNodes(count: number): TreeNode[] {
+        return this.createNodes(count);
+    }
+
+    createNodes(length: number, parentKey?: string): TreeNode[] {
+        const _createNodes = (length: number, level: number, parentKey?: string): TreeNode[] => {
+            const nodes: TreeNode[] = [];
+            for (let i = 0; i < length; i++) {
+                const key = parentKey ? \`\${parentKey}-\${i}\` : \`\${i}\`;
+                nodes.push({
+                    key,
+                    label: \`Node \${key}\`,
+                    children: level < 2 ? _createNodes(5, level + 1, key) : []
+                });
+            }
+            return nodes;
+        };
+        return _createNodes(length, 0, parentKey);
+    }
 }
-]
-},
-...`
+`
     };
 }

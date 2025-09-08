@@ -1,5 +1,5 @@
 import { Code } from '@/domain/code';
-import { Component, OnInit } from '@angular/core';
+import { Component } from '@angular/core';
 
 interface City {
     name: string;
@@ -11,37 +11,42 @@ interface City {
     standalone: false,
     template: `
         <app-docsectiontext>
-            <p>Invalid state style is added using the <i>ng-invalid</i> and <i>ng-dirty</i> class to indicate a failed validation.</p>
+            <p>The invalid state is applied using the <i>⁠invalid</i> property to indicate failed validation, which can be integrated with Angular Forms.</p>
         </app-docsectiontext>
-        <div class="card flex justify-center">
-            <p-multiselect [options]="cities" [(ngModel)]="selectedCities" class="ng-dirty ng-invalid" optionLabel="name" placeholder="Select Cities" [maxSelectedLabels]="3" styleClass="w-full md:w-80" />
+        <div class="card flex justify-center gap-4">
+            <p-multiselect [options]="cities" [(ngModel)]="selectedCities1" [invalid]="value1" optionLabel="name" placeholder="Select Cities" [maxSelectedLabels]="3" class="w-full md:w-80" />
+            <p-multiselect [options]="cities" [(ngModel)]="selectedCities2" [invalid]="value2" optionLabel="name" placeholder="Select Cities" [maxSelectedLabels]="3" class="w-full md:w-80" variant="filled" />
         </div>
         <app-code [code]="code" selector="multi-select-invalid-demo"></app-code>
     `
 })
-export class InvalidDoc implements OnInit {
-    cities!: City[];
+export class InvalidDoc {
+    value1: boolean = true;
 
-    selectedCities!: City[];
+    value2: boolean = true;
 
-    ngOnInit() {
-        this.cities = [
-            { name: 'New York', code: 'NY' },
-            { name: 'Rome', code: 'RM' },
-            { name: 'London', code: 'LDN' },
-            { name: 'Istanbul', code: 'IST' },
-            { name: 'Paris', code: 'PRS' }
-        ];
-    }
+    cities: City[] = [
+        { name: 'New York', code: 'NY' },
+        { name: 'Rome', code: 'RM' },
+        { name: 'London', code: 'LDN' },
+        { name: 'Istanbul', code: 'IST' },
+        { name: 'Paris', code: 'PRS' }
+    ];
+
+    selectedCities1!: City[];
+
+    selectedCities2!: City[];
 
     code: Code = {
-        basic: `<p-multiselect [options]="cities" [(ngModel)]="selectedCities" class="ng-dirty ng-invalid" optionLabel="name" [maxSelectedLabels]="3" styleClass="w-full md:w-80" />`,
+        basic: `<p-multiselect [options]="cities" [(ngModel)]="selectedCities1" [invalid]="value1" optionLabel="name" placeholder="Select Cities" [maxSelectedLabels]="3" class="w-full md:w-80" />
+<p-multiselect [options]="cities" [(ngModel)]="selectedCities2" [invalid]="value2" optionLabel="name" placeholder="Select Cities" [maxSelectedLabels]="3" class="w-full md:w-80" variant="filled" />`,
 
-        html: `<div class="card flex justify-center">
-    <p-multiselect [options]="cities" [(ngModel)]="selectedCities" class="ng-dirty ng-invalid" optionLabel="name" [maxSelectedLabels]="3" styleClass="w-full md:w-80" />
+        html: `<div class="card flex justify-center gap-4">
+    <p-multiselect [options]="cities" [(ngModel)]="selectedCities1" [invalid]="value1" optionLabel="name" placeholder="Select Cities" [maxSelectedLabels]="3" class="w-full md:w-80" />
+    <p-multiselect [options]="cities" [(ngModel)]="selectedCities2" [invalid]="value2" optionLabel="name" placeholder="Select Cities" [maxSelectedLabels]="3" class="w-full md:w-80" variant="filled" />
 </div>`,
 
-        typescript: `import { Component, OnInit } from '@angular/core';
+        typescript: `import { Component } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { MultiSelectModule } from 'primeng/multiselect';
 
@@ -56,20 +61,22 @@ interface City {
     standalone: true,
     imports: [FormsModule, MultiSelectModule]
 })
-export class MultiSelectInvalidDemo implements OnInit {
-    cities!: City[];
+export class MultiSelectInvalidDemo {
+    value1: boolean = true;
 
-    selectedCities!: City[];
+    value2: boolean = true;
 
-    ngOnInit() {
-        this.cities = [
-            { name: 'New York', code: 'NY' },
-            { name: 'Rome', code: 'RM' },
-            { name: 'London', code: 'LDN' },
-            { name: 'Istanbul', code: 'IST' },
-            { name: 'Paris', code: 'PRS' }
-        ];
-    }
+    cities: City[] = [
+        { name: 'New York', code: 'NY' },
+        { name: 'Rome', code: 'RM' },
+        { name: 'London', code: 'LDN' },
+        { name: 'Istanbul', code: 'IST' },
+        { name: 'Paris', code: 'PRS' }
+    ];
+
+    selectedCities1!: City[];
+
+    selectedCities2!: City[];
 }`
     };
 }

@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { BaseStyle } from 'primeng/base';
 
-const theme = ({ dt }) => `
+const theme = /*css*/ `
 .p-overlaybadge {
     position: relative;
 }
@@ -13,9 +13,9 @@ const theme = ({ dt }) => `
     transform: translate(50%, -50%);
     transform-origin: 100% 0;
     margin: 0;
-    outline-width: ${dt('overlaybadge.outline.width')};
+    outline-width: dt('overlaybadge.outline.width');
     outline-style: solid;
-    outline-color: ${dt('overlaybadge.outline.color')};
+    outline-color: dt('overlaybadge.outline.color');
 }
 `;
 

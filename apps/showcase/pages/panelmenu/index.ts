@@ -10,7 +10,7 @@ import { TemplateDoc } from '@/doc/panelmenu/templatedoc';
 import { Component } from '@angular/core';
 
 @Component({
-    template: `<app-doc docTitle="Angular PanelMenu Component" header="PanelMenu" description="PanelMenu is a hybrid of Accordion and Tree components." [docs]="docs" [apiDocs]="['PanelMenu', 'MenuItem']"></app-doc>`,
+    template: `<app-doc docTitle="Angular PanelMenu Component" header="PanelMenu" description="PanelMenu is a hybrid of Accordion and Tree components." [docs]="docs" [apiDocs]="['PanelMenu', 'MenuItem']" themeDocs="panelmenu"></app-doc>`,
     standalone: true,
     imports: [PanelMenuDocModule]
 })

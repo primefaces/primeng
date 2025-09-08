@@ -46,7 +46,7 @@ export class TemplateDoc {
             rejectButtonProps: {
                 label: 'Cancel',
                 icon: 'pi pi-times',
-                outlined: true,
+                variant: 'outlined',
                 size: 'small'
             },
             acceptButtonProps: {
@@ -112,7 +112,7 @@ export class ConfirmDialogTemplateDemo {
             rejectButtonProps: {
                 label: 'Cancel',
                 icon: 'pi pi-times',
-                outlined: true,
+                variant: 'outlined',
                 size: 'small'
             },
             acceptButtonProps: {

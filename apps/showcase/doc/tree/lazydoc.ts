@@ -15,11 +15,11 @@ import { TreeNode } from 'primeng/api';
         <div class="card flex flex-wrap gap-4">
             <div class="flex-auto md:flex md:justify-start md:items-center flex-col">
                 <label for="mask" class="font-bold block mb-2">Mask Mode</label>
-                <p-tree styleClass="w-full md:w-[30rem]" [value]="nodes" (onNodeExpand)="onNodeExpand($event)" [loading]="loading" />
+                <p-tree class="w-full md:w-[30rem]" [value]="nodes" (onNodeExpand)="onNodeExpand($event)" [loading]="loading" />
             </div>
             <div class="flex-auto md:flex md:justify-start md:items-center flex-col">
                 <label for="icon" class="font-bold block mb-2">Icon Mode</label>
-                <p-tree styleClass="w-full md:w-[30rem]" [value]="nodes2" loadingMode="icon" (onNodeExpand)="onNodeExpand2($event)" />
+                <p-tree class="w-full md:w-[30rem]" [value]="nodes2" loadingMode="icon" (onNodeExpand)="onNodeExpand2($event)" />
             </div>
         </div>
         <app-code [code]="code" selector="tree-lazy-demo"></app-code>
@@ -135,17 +135,17 @@ export class LazyDoc implements OnInit {
     }
 
     code: Code = {
-        basic: `<p-tree styleClass="w-full md:w-[30rem]" [value]="nodes" (onNodeExpand)="onNodeExpand($event)" [loading]="loading" />
-<p-tree styleClass="w-full md:w-[30rem]" [value]="nodes2" loadingMode="icon" (onNodeExpand)="onNodeExpand2($event)" />`,
+        basic: `<p-tree class="w-full md:w-[30rem]" [value]="nodes" (onNodeExpand)="onNodeExpand($event)" [loading]="loading" />
+<p-tree class="w-full md:w-[30rem]" [value]="nodes2" loadingMode="icon" (onNodeExpand)="onNodeExpand2($event)" />`,
 
         html: `<div class="card flex flex-wrap gap-4">
     <div class="flex-auto md:flex md:justify-start md:items-center flex-col">
         <label for="mask" class="font-bold block mb-2">Mask Mode</label>
-        <p-tree styleClass="w-full md:w-[30rem]" [value]="nodes" (onNodeExpand)="onNodeExpand($event)" [loading]="loading" />
+        <p-tree class="w-full md:w-[30rem]" [value]="nodes" (onNodeExpand)="onNodeExpand($event)" [loading]="loading" />
     </div>
     <div class="flex-auto md:flex md:justify-start md:items-center flex-col">
         <label for="icon" class="font-bold block mb-2">Icon Mode</label>
-        <p-tree styleClass="w-full md:w-[30rem]" [value]="nodes2" loadingMode="icon" (onNodeExpand)="onNodeExpand2($event)" />
+        <p-tree class="w-full md:w-[30rem]" [value]="nodes2" loadingMode="icon" (onNodeExpand)="onNodeExpand2($event)" />
     </div>
 </div>`,
 

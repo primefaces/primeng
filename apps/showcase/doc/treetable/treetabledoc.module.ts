@@ -34,7 +34,6 @@ import { GridlinesDoc } from './gridlinesdoc';
 import { ImportDoc } from './importdoc';
 import { LazyLoadDoc } from './lazyloaddoc';
 import { PaginatorBasicDoc } from './paginatorbasicdoc';
-import { PaginatorLocaleDoc } from './paginatorlocaledoc';
 import { PaginatorTemplateDoc } from './paginatortemplatedoc';
 import { ReorderDoc } from './reorderdoc';
 import { FrozenColumnsDoc } from './scrollfrozencolumnsdoc';
@@ -102,7 +101,6 @@ import { TemplateDoc } from './templatedoc';
         ContextMenuDoc,
         StyleDoc,
         AccessibilityDoc,
-        PaginatorLocaleDoc,
         ResizeScrollableDoc,
         SizeDoc,
         GridlinesDoc,

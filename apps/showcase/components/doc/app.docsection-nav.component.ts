@@ -10,30 +10,44 @@ import { fromEvent } from 'rxjs';
     selector: 'app-docsection-nav',
     standalone: false,
     template: `
-        <ul #nav class="doc-section-nav">
-            @for (doc of docs(); track doc.label) {
-                @if (!doc.isInterface) {
-                    <li class="navbar-item" [ngClass]="{ 'active-navbar-item': activeId() === doc.id }">
-                        <div class="navbar-item-content">
-                            <button (click)="onButtonClick(doc)">{{ doc.label }}</button>
-                        </div>
-                        @if (doc.children) {
-                            <ul>
-                                @for (child of doc.children; track child.label) {
-                                    <li class="navbar-item" [ngClass]="{ 'active-navbar-item': activeId() === child.id }">
-                                        <div class="navbar-item-content">
-                                            <button (click)="onButtonClick(child)">
-                                                {{ child.label }}
-                                            </button>
-                                        </div>
-                                    </li>
-                                }
-                            </ul>
-                        }
-                    </li>
+        <div class="doc-section-nav-container">
+            <ul #nav class="doc-section-nav">
+                @for (doc of docs(); track doc.label) {
+                    @if (!doc.isInterface) {
+                        <li class="navbar-item" [ngClass]="{ 'active-navbar-item': activeId() === doc.id }">
+                            <div class="navbar-item-content">
+                                <button (click)="onButtonClick(doc)">{{ doc.label }}</button>
+                            </div>
+                            @if (doc.children) {
+                                <ul>
+                                    @for (child of doc.children; track child.label) {
+                                        <li class="navbar-item" [ngClass]="{ 'active-navbar-item': activeId() === child.id }">
+                                            <div class="navbar-item-content">
+                                                <button (click)="onButtonClick(child)">
+                                                    {{ child.label }}
+                                                </button>
+                                            </div>
+                                        </li>
+                                    }
+                                </ul>
+                            }
+                        </li>
+                    }
                 }
-            }
-        </ul>
+            </ul>
+
+            <div class="mt-8 p-4 rounded-lg border border-surface-200 dark:border-surface-800 bg-surface-0 dark:bg-surface-900 w-full" *ngIf="false">
+                <img src="https://primefaces.org/cdn/discount/primestore-summersale-2025-sm.jpg" class="w-full rounded-lg" alt="Summer Sale 2025" />
+                <div class="text-xl font-semibold flex flex-col gap-2 text-center mt-4">
+                    <span class="leading-none">SUMMER SALE</span>
+                    <span class="leading-none text-primary">2025</span>
+                </div>
+                <div class="text-center text-sm mt-4 text-muted-color">Use coupon code <b>PRSM25</b> at checkout to get 50% OFF everything in PrimeStore and PrimeBlocks.</div>
+                <span class="flex justify-center">
+                    <a pButton label="Learn More" size="small" href="https://www.primefaces.org/blog/summer-sale-2025" target="_blank" rel="noopener" class="mt-4 inline-flex" rounded> </a>
+                </span>
+            </div>
+        </div>
     `
 })
 export class AppDocSectionNavComponent implements OnInit {

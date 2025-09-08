@@ -1,16 +1,2 @@
-import { InputOtpDesignTokens } from '../../../../types/inputotp';
-
-export default {
-    root: {
-        gap: '0.5rem'
-    },
-    input: {
-        width: '2.5rem',
-        sm: {
-            width: '2rem'
-        },
-        lg: {
-            width: '3rem'
-        }
-    }
-} as InputOtpDesignTokens;
+export * from '@primeuix/themes/aura/inputotp';
+export { default } from '@primeuix/themes/aura/inputotp';

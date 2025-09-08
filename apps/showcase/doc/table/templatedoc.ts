@@ -47,7 +47,11 @@ interface Column {
                             </td>
                         </tr>
                     </ng-template>
-                    <ng-template #footer> In total there are {{ products ? products.length : 0 }} products. </ng-template>
+                    <ng-template #footer>
+                        <tr>
+                            <td colspan="6">In total there are {{ products ? products.length : 0 }} products.</td>
+                        </tr>
+                    </ng-template>
                 </p-table>
             </div>
         </p-deferred-demo>
@@ -125,7 +129,11 @@ export class TemplateDoc {
             </td>
         </tr>
     </ng-template>
-    <ng-template #footer> In total there are {{ products ? products.length : 0 }} products. </ng-template>
+    <ng-template #footer>
+        <tr>
+            <td colspan="6">In total there are {{ products ? products.length : 0 }} products.</td>
+        </tr>
+    </ng-template>
 </p-table>`,
         html: `<div class="card">
     <p-table [value]="products" [tableStyle]="{ 'min-width': '60rem' }">
@@ -163,7 +171,11 @@ export class TemplateDoc {
                 </td>
             </tr>
         </ng-template>
-        <ng-template #footer> In total there are {{ products ? products.length : 0 }} products. </ng-template>
+        <ng-template #footer>
+            <tr>
+                <td colspan="6">In total there are {{ products ? products.length : 0 }} products.</td>
+            </tr>
+        </ng-template>
     </p-table>
 </div>`,
         typescript: `import { Component, OnInit } from '@angular/core';

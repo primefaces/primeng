@@ -20,6 +20,7 @@ dist
 *.launch
 .settings/
 *.sublime-workspace
+/.vscode
 
 # misc
 /.sass-cache

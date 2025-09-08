@@ -10,7 +10,7 @@ import { MegaMenuItem } from 'primeng/api';
             <p>Custom content can be placed between p-megamenu tags. Megamenu should be <i>horizontal</i> for custom content.</p>
         </app-docsectiontext>
         <div class="card">
-            <p-megamenu [model]="items" [style]="{ 'border-radius': '3rem', display: 'flex' }" styleClass="p-4 bg-surface-0 dark:bg-surface-900">
+            <p-megamenu [model]="items" [style]="{ 'border-radius': '3rem', display: 'flex' }" class="p-4 bg-surface-0 dark:bg-surface-900">
                 <ng-template #start>
                     <svg width="31" height="33" viewBox="0 0 31 33" fill="none" xmlns="http://www.w3.org/2000/svg">
                         <path d="M15.1934 0V0V0L0.0391235 5.38288L2.35052 25.3417L15.1934 32.427V32.427V32.427L28.0364 25.3417L30.3478 5.38288L15.1934 0Z" fill="var(--p-primary-color)" />
@@ -131,7 +131,7 @@ export class TemplateDoc implements OnInit {
     }
 
     code: Code = {
-        basic: `<p-megamenu [model]="items" [style]="{ 'border-radius': '3rem', display: 'flex' }" styleClass="p-4 bg-surface-0 dark:bg-surface-900">
+        basic: `<p-megamenu [model]="items" [style]="{ 'border-radius': '3rem', display: 'flex' }" class="p-4 bg-surface-0 dark:bg-surface-900">
     <ng-template #start>
         <svg width="33" height="35" viewBox="0 0 33 35" fill="none" xmlns="http://www.w3.org/2000/svg" class="h-8">
             <path d="..." fill="var(--primary-color)" />
@@ -163,7 +163,7 @@ export class TemplateDoc implements OnInit {
 </p-megamenu>`,
 
         html: `<div class="card">
-    <p-megamenu [model]="items" [style]="{ 'border-radius': '3rem', display: 'flex' }" styleClass="p-4 bg-surface-0 dark:bg-surface-900">
+    <p-megamenu [model]="items" [style]="{ 'border-radius': '3rem', display: 'flex' }" class="p-4 bg-surface-0 dark:bg-surface-900">
         <ng-template #start>
             <svg width="31" height="33" viewBox="0 0 31 33" fill="none" xmlns="http://www.w3.org/2000/svg">
                 <path

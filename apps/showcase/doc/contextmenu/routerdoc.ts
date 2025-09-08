@@ -8,7 +8,7 @@ import { MenuItem } from 'primeng/api';
     standalone: false,
     template: `
         <app-docsectiontext>
-            <p>Items with navigation are defined with templating to be able to use a <i>routerLink</i> directive, an external link or programmatic navigation.</p>
+            <p>Menu items support navigation via routerLink, programmatic routing using commands, or external URLs.</p>
         </app-docsectiontext>
         <div class="card flex justify-center">
             <span #span class="inline-flex items-center justify-center border-2 border-primary rounded w-16 h-16" aria-haspopup="true">
@@ -37,22 +37,7 @@ import { MenuItem } from 'primeng/api';
                     <path d="M11.4013 8.27235L8.00893 7.94938L10.2705 5.68861H12.5321L11.4013 8.27235Z" fill="var(--ground-background)" />
                 </svg>
             </span>
-            <p-contextMenu [target]="span" [model]="items">
-                <ng-template #item let-item>
-                    <ng-container *ngIf="item.route; else elseBlock">
-                        <a [routerLink]="item.route" class="p-contextmenu-item-link">
-                            <span [class]="item.icon"></span>
-                            <span class="ml-2">{{ item.label }}</span>
-                        </a>
-                    </ng-container>
-                    <ng-template #elseBlock>
-                        <a [href]="item.url" class="p-contextmenu-item-link">
-                            <span [class]="item.icon"></span>
-                            <span class="ml-2">{{ item.label }}</span>
-                        </a>
-                    </ng-template>
-                </ng-template>
-            </p-contextMenu>
+            <p-contextmenu [target]="span" [model]="items" />
         </div>
         <app-code [code]="code" selector="context-menu-router-demo"></app-code>
     `
@@ -62,28 +47,35 @@ export class RouterDoc implements OnInit {
 
     constructor(private router: Router) {}
 
+    ngOnInit() {
+        this.items = [
+            {
+                label: 'Router Link',
+                icon: 'pi pi-palette',
+                routerLink: '/theming'
+            },
+            {
+                label: 'Programmatic',
+                icon: 'pi pi-link',
+                command: () => {
+                    this.router.navigate(['/installation']);
+                }
+            },
+            {
+                label: 'External',
+                icon: 'pi pi-home',
+                url: 'https://angular.io//'
+            }
+        ];
+    }
+
     code: Code = {
         basic: `<span #span class="inline-flex items-center justify-center border-2 border-primary rounded w-16 h-16" aria-haspopup="true">
     <svg width="31" height="33" viewBox="0 0 31 33" fill="none" xmlns="http://www.w3.org/2000/svg">
         <path d="..." fill="var(--p-primary-color)" />
     </svg>
 </span>
-<p-contextMenu [target]="span" [model]="items">
-    <ng-template #item let-item>
-        <ng-container *ngIf="item.route; else elseBlock">
-            <a [routerLink]="item.route" class="p-contextmenu-item-link">
-                <span [class]="item.icon"></span>
-                <span class="ml-2">{{ item.label }}</span>
-            </a>
-        </ng-container>
-        <ng-template #elseBlock>
-            <a [href]="item.url" class="p-contextmenu-item-link">
-                <span [class]="item.icon"></span>
-                <span class="ml-2">{{ item.label }}</span>
-            </a>
-        </ng-template>
-    </ng-template>
-</p-contextMenu>`,
+<p-contextmenu [target]="span" [model]="items" />`,
 
         html: `<div class="card flex justify-center">
     <span #span class="inline-flex items-center justify-center border-2 border-primary rounded w-16 h-16" aria-haspopup="true">
@@ -153,22 +145,7 @@ export class RouterDoc implements OnInit {
             />
         </svg>
     </span>
-    <p-contextMenu [target]="span" [model]="items">
-        <ng-template #item let-item>
-            <ng-container *ngIf="item.route; else elseBlock">
-                <a [routerLink]="item.route" class="p-contextmenu-item-link">
-                    <span [class]="item.icon"></span>
-                    <span class="ml-2">{{ item.label }}</span>
-                </a>
-            </ng-container>
-            <ng-template #elseBlock>
-                <a [href]="item.url" class="p-contextmenu-item-link">
-                    <span [class]="item.icon"></span>
-                    <span class="ml-2">{{ item.label }}</span>
-                </a>
-            </ng-template>
-        </ng-template>
-    </p-contextMenu>
+    <p-contextmenu [target]="span" [model]="items" />
 </div>`,
 
         typescript: `import { Component, OnInit } from '@angular/core';
@@ -193,7 +170,7 @@ export class ContextMenuRouterDemo implements OnInit {
             {
                 label: 'Router Link',
                 icon: 'pi pi-palette',
-                route: '/theming'
+                routerLink: '/theming'
             },
             {
                 label: 'Programmatic',
@@ -211,26 +188,4 @@ export class ContextMenuRouterDemo implements OnInit {
     }
 }`
     };
-
-    ngOnInit() {
-        this.items = [
-            {
-                label: 'Router Link',
-                icon: 'pi pi-palette',
-                route: '/theming'
-            },
-            {
-                label: 'Programmatic',
-                icon: 'pi pi-link',
-                command: () => {
-                    this.router.navigate(['/installation']);
-                }
-            },
-            {
-                label: 'External',
-                icon: 'pi pi-home',
-                url: 'https://angular.io//'
-            }
-        ];
-    }
 }

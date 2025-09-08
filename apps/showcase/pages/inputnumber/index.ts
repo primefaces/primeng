@@ -13,6 +13,7 @@ import { NumeralsDoc } from '@/doc/inputnumber/numeralsdoc';
 import { PrefixSuffixDoc } from '@/doc/inputnumber/prefixsuffixdoc';
 import { ReactiveFormsDoc } from '@/doc/inputnumber/reactiveformsdoc';
 import { SizesDoc } from '@/doc/inputnumber/sizesdoc';
+import { TemplateDrivenFormsDoc } from '@/doc/inputnumber/templatedrivenformsdoc';
 import { VerticalDoc } from '@/doc/inputnumber/verticaldoc';
 import { Component } from '@angular/core';
 
@@ -32,11 +33,6 @@ export class InputNumberDemo {
             id: 'numerals',
             label: 'Numerals',
             component: NumeralsDoc
-        },
-        {
-            id: 'reactive-forms',
-            label: 'Reactive Forms',
-            component: ReactiveFormsDoc
         },
         {
             id: 'locale',
@@ -84,16 +80,23 @@ export class InputNumberDemo {
             component: FilledDoc
         },
         {
+            id: 'disabled',
+            label: 'Disabled',
+            component: DisabledDoc
+        },
+        {
             id: 'invalid',
             label: 'Invalid',
             component: InvalidDoc
         },
         {
-            id: 'disabled',
-            label: 'Disabled',
-            component: DisabledDoc
+            id: 'forms',
+            label: 'Forms',
+            children: [
+                { id: 'templatedriven', label: 'Template Driven', component: TemplateDrivenFormsDoc },
+                { id: 'reactive', label: 'Reactive Forms', component: ReactiveFormsDoc }
+            ]
         },
-
         {
             id: 'accessibility',
             label: 'Accessibility',

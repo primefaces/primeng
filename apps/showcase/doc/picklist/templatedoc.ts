@@ -8,22 +8,11 @@ import { ChangeDetectorRef, Component } from '@angular/core';
     standalone: false,
     template: `
         <app-docsectiontext>
-            <p>For custom content support define an <i>option</i> template that gets the item instance as a parameter. In addition <i>sourceheader</i> and <i>targetheader</i> templates are provided for further customization.</p>
+            <p>For custom content support define an <i>item</i> template that gets the item instance as a parameter. In addition <i>sourceheader</i> and <i>targetheader</i> templates are provided for further customization.</p>
         </app-docsectiontext>
         <div class="card">
-            <p-picklist
-                [source]="sourceProducts"
-                [target]="targetProducts"
-                [dragdrop]="true"
-                [responsive]="true"
-                [sourceStyle]="{ height: '30rem' }"
-                [targetStyle]="{ height: '30rem' }"
-                sourceFilterPlaceholder="Search by name"
-                targetFilterPlaceholder="Search by name"
-                breakpoint="1400px"
-                scrollHeight="20rem"
-            >
-                <ng-template let-option let-selected="selected" #option>
+            <p-picklist [source]="sourceProducts" [target]="targetProducts" [dragdrop]="true" [responsive]="true" sourceFilterPlaceholder="Search by name" targetFilterPlaceholder="Search by name" breakpoint="1400px" scrollHeight="20rem">
+                <ng-template let-option let-selected="selected" #item>
                     <div class="flex flex-wrap p-1 items-center gap-4 w-full">
                         <img class="w-12 shrink-0 rounded" src="https://primefaces.org/cdn/primeng/images/demo/product/{{ option.image }}" [alt]="option.name" />
                         <div class="flex-1 flex flex-col">
@@ -50,20 +39,8 @@ export class TemplateDoc {
 
     targetProducts!: Product[];
     code: Code = {
-        basic: `<p-picklist
-    [source]="sourceProducts"
-    [target]="targetProducts"
-    [dragdrop]="true"
-    [responsive]="true"
-    [sourceStyle]="{ height: '30rem' }"
-    [targetStyle]="{ height: '30rem' }"
-    filterBy="name"
-    sourceFilterPlaceholder="Search by name"
-    targetFilterPlaceholder="Search by name"
-    breakpoint="1400px"
-    scrollHeight="480px"
->
-    <ng-template let-option let-selected="selected" #option>
+        basic: `<p-picklist [source]="sourceProducts" [target]="targetProducts" [dragdrop]="true" [responsive]="true" sourceFilterPlaceholder="Search by name" targetFilterPlaceholder="Search by name" breakpoint="1400px" scrollHeight="20rem">
+    <ng-template let-option let-selected="selected" #item>
         <div class="flex flex-wrap p-1 items-center gap-4 w-full">
             <img
                 class="w-12 shrink-0 rounded"
@@ -87,20 +64,8 @@ export class TemplateDoc {
 </p-picklist>`,
 
         html: `<div class="card">
-    <p-picklist
-        [source]="sourceProducts"
-        [target]="targetProducts"
-        [dragdrop]="true"
-        [responsive]="true"
-        [sourceStyle]="{ height: '30rem' }"
-        [targetStyle]="{ height: '30rem' }"
-        filterBy="name"
-        sourceFilterPlaceholder="Search by name"
-        targetFilterPlaceholder="Search by name"
-        breakpoint="1400px"
-        scrollHeight="480px"
-    >
-        <ng-template let-option let-selected="selected" #option>
+    <p-picklist [source]="sourceProducts" [target]="targetProducts" [dragdrop]="true" [responsive]="true" sourceFilterPlaceholder="Search by name" targetFilterPlaceholder="Search by name" breakpoint="1400px" scrollHeight="20rem">
+        <ng-template let-option let-selected="selected" #item>
             <div class="flex flex-wrap p-1 items-center gap-4 w-full">
                 <img
                     class="w-12 shrink-0 rounded"

@@ -6,22 +6,27 @@ import { Component } from '@angular/core';
     standalone: false,
     template: `
         <app-docsectiontext>
-            <p>Invalid state style is added using the <i>ng-invalid</i> and <i>ng-dirty</i> class to indicate a failed validation.</p>
+            <p>The invalid state is applied using the <i>⁠invalid</i> property to indicate failed validation, which can be integrated with Angular Forms.</p>
         </app-docsectiontext>
-        <div class="card flex justify-center">
-            <p-password [(ngModel)]="value" class="ng-invalid ng-dirty" autocomplete="off" placeholder="Password" />
+        <div class="card flex flex-wrap justify-center gap-4">
+            <p-password [(ngModel)]="value1" [invalid]="!value1" placeholder="Password" />
+            <p-password [(ngModel)]="value2" [invalid]="!value2" variant="filled" placeholder="Password" />
         </div>
         <app-code [code]="code" selector="password-invalid-demo"></app-code>
     `
 })
 export class InvalidDoc {
-    value!: string;
+    value1!: string;
+
+    value2!: string;
 
     code: Code = {
-        basic: `<p-password [(ngModel)]="value" class="ng-invalid ng-dirty" placeholder="Password" />`,
+        basic: `<p-password [(ngModel)]="value1" [invalid]="!value1" placeholder="Password" />
+<p-password [(ngModel)]="value2" [invalid]="!value2" variant="filled" placeholder="Password" />`,
 
-        html: `<div class="card flex justify-center">
-    <p-password [(ngModel)]="value" class="ng-invalid ng-dirty" placeholder="Password" />
+        html: `<div class="card flex flex-wrap justify-center gap-4">
+    <p-password [(ngModel)]="value1" [invalid]="!value1" placeholder="Password" />
+    <p-password [(ngModel)]="value2" [invalid]="!value2" variant="filled" placeholder="Password" />
 </div>`,
 
         typescript: `import { Component } from '@angular/core';
@@ -35,7 +40,9 @@ import { FormsModule } from '@angular/forms';
     imports: [FormsModule, PasswordModule]
 })
 export class PasswordInvalidDemo {
-    value!: string;
+    value1!: string;
+
+    value2!: string;
 }`
     };
 }

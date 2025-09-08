@@ -24,7 +24,7 @@ import { PrimeNG } from 'primeng/config';
                             <p-button (onClick)="uploadEvent(uploadCallback)" icon="pi pi-cloud-upload" [rounded]="true" [outlined]="true" severity="success" [disabled]="!files || files.length === 0" />
                             <p-button (onClick)="clearCallback()" icon="pi pi-times" [rounded]="true" [outlined]="true" severity="danger" [disabled]="!files || files.length === 0" />
                         </div>
-                        <p-progressbar [value]="totalSizePercent" [showValue]="false" class="w-full" styleClass="md:w-20rem h-1 w-full md:ml-auto">
+                        <p-progressbar [value]="totalSizePercent" [showValue]="false" class="w-full" class="md:w-20rem h-1 w-full md:ml-auto">
                             <span class="whitespace-nowrap">{{ totalSize }}B / 1Mb</span>
                         </p-progressbar>
                     </div>
@@ -40,7 +40,7 @@ import { PrimeNG } from 'primeng/config';
                                     </div>
                                     <span class="font-semibold text-ellipsis max-w-60 whitespace-nowrap overflow-hidden">{{ file.name }}</span>
                                     <div>{{ formatSize(file.size) }}</div>
-                                    <p-badge value="Pending" severity="warning" />
+                                    <p-badge value="Pending" severity="warn" />
                                     <p-button icon="pi pi-times" (click)="onRemoveTemplatingFile($event, file, removeFileCallback, index)" [outlined]="true" [rounded]="true" severity="danger" />
                                 </div>
                             </div>
@@ -142,7 +142,7 @@ export class TemplateDoc {
                 <p-button (onClick)="uploadEvent(uploadCallback)" icon="pi pi-cloud-upload" [rounded]="true" [outlined]="true" severity="success" [disabled]="!files || files.length === 0" />
                 <p-button (onClick)="clearCallback()" icon="pi pi-times" [rounded]="true" [outlined]="true" severity="danger" [disabled]="!files || files.length === 0" />
             </div>
-            <p-progressbar [value]="totalSizePercent" [showValue]="false" class="w-full" styleClass="md:w-20rem h-1 w-full md:ml-auto">
+            <p-progressbar [value]="totalSizePercent" [showValue]="false" class="w-full" class="md:w-20rem h-1 w-full md:ml-auto">
                 <span class="whitespace-nowrap">{{ totalSize }}B / 1Mb</span>
             </p-progressbar>
         </div>
@@ -158,7 +158,7 @@ export class TemplateDoc {
                         </div>
                         <span class="font-semibold text-ellipsis max-w-60 whitespace-nowrap overflow-hidden">{{ file.name }}</span>
                         <div>{{ formatSize(file.size) }}</div>
-                        <p-badge value="Pending" severity="warning" />
+                        <p-badge value="Pending" severity="warn" />
                         <p-button icon="pi pi-times" (click)="onRemoveTemplatingFile($event, file, removeFileCallback, index)" [outlined]="true" [rounded]="true" severity="danger" />
                     </div>
                 </div>
@@ -197,7 +197,7 @@ export class TemplateDoc {
                     <p-button (onClick)="uploadEvent(uploadCallback)" icon="pi pi-cloud-upload" [rounded]="true" [outlined]="true" severity="success" [disabled]="!files || files.length === 0" />
                     <p-button (onClick)="clearCallback()" icon="pi pi-times" [rounded]="true" [outlined]="true" severity="danger" [disabled]="!files || files.length === 0" />
                 </div>
-                <p-progressbar [value]="totalSizePercent" [showValue]="false" class="w-full" styleClass="md:w-20rem h-1 w-full md:ml-auto">
+                <p-progressbar [value]="totalSizePercent" [showValue]="false" class="w-full" class="md:w-20rem h-1 w-full md:ml-auto">
                     <span class="whitespace-nowrap">{{ totalSize }}B / 1Mb</span>
                 </p-progressbar>
             </div>
@@ -213,7 +213,7 @@ export class TemplateDoc {
                             </div>
                             <span class="font-semibold text-ellipsis max-w-60 whitespace-nowrap overflow-hidden">{{ file.name }}</span>
                             <div>{{ formatSize(file.size) }}</div>
-                            <p-badge value="Pending" severity="warning" />
+                            <p-badge value="Pending" severity="warn" />
                             <p-button icon="pi pi-times" (click)="onRemoveTemplatingFile($event, file, removeFileCallback, index)" [outlined]="true" [rounded]="true" severity="danger" />
                         </div>
                     </div>

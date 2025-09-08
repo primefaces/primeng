@@ -34,6 +34,7 @@ import { SakaiSeparator } from './sakaiseparator';
         <template-configuration
             title="Angular with CLI"
             description="Sakai is powered by Angular CLI to get started in no time following the best practices like service based component interaction modular design and strict mode support"
+            appName="sakai"
         ></template-configuration>
         <sakai-separator></sakai-separator>
         <template-features-animation [featuresData]="animationFeaturesData1"></template-features-animation>
@@ -46,6 +47,7 @@ export class SakaiPage {
 
     templateHeroData = {
         pattern: 'https://primefaces.org/cdn/primeng/images/templates/sakai/sakai-hero-pattern.png',
+        patternClass: 'select-none absolute z-[6] opacity-60 w-[50rem] h-[18rem] md:w-[52rem] md:h-[20rem] lg:w-[64rem] lg:h-[28rem] bottom-[26rem] md:bottom-0 left-0',
         dashboard1: 'https://primefaces.org/cdn/primeng/images/templates/sakai/sakai-hero-dashboard1.png',
         dashboard2: 'https://primefaces.org/cdn/primeng/images/templates/sakai/sakai-hero-dashboard2.png',
         description: 'Sakai is an application template for Angular and is distributed as a CLI project.',

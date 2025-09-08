@@ -6,15 +6,12 @@ import { Component } from '@angular/core';
     standalone: false,
     template: `
         <app-docsectiontext>
-            <p>
-                A group is created by wrapping the input and icon with the <i>IconField</i> component. Each icon is defined as a child of <i>InputIcon</i> component. In addition, position of the icon can be changed using <i>iconPosition</i> property
-                that the default value is <i>right</i> and also <i>left</i> option is available.
-            </p>
+            <p>IconField is compatible with the pSize setting of the input field.</p>
         </app-docsectiontext>
         <div class="card flex flex-col items-center gap-4">
             <p-iconfield>
                 <p-inputicon class="pi pi-search" />
-                <input pInputText [(ngModel)]="value1" placeholder="Small" size="small" />
+                <input pInputText [(ngModel)]="value1" placeholder="Small" pSize="small" />
             </p-iconfield>
 
             <p-iconfield>
@@ -24,7 +21,7 @@ import { Component } from '@angular/core';
 
             <p-iconfield>
                 <p-inputicon class="pi pi-lock" />
-                <input pInputText [(ngModel)]="value3" placeholder="Large" size="large" />
+                <input pInputText [(ngModel)]="value3" placeholder="Large" pSize="large" />
                 <p-inputicon class="pi pi-spin pi-spinner" />
             </p-iconfield>
         </div>
@@ -41,7 +38,7 @@ export class SizesDoc {
     code: Code = {
         basic: `<p-iconfield>
     <p-inputicon class="pi pi-search" />
-    <input pInputText [(ngModel)]="value1" placeholder="Small" size="small" />
+    <input pInputText [(ngModel)]="value1" placeholder="Small" pSize="small" />
 </p-iconfield>
 
 <p-iconfield>
@@ -51,14 +48,14 @@ export class SizesDoc {
 
 <p-iconfield>
     <p-inputicon class="pi pi-lock" />
-    <input pInputText [(ngModel)]="value3" placeholder="Large" size="large" />
+    <input pInputText [(ngModel)]="value3" placeholder="Large" pSize="large" />
     <p-inputicon class="pi pi-spin pi-spinner" />
 </p-iconfield>`,
 
         html: `<div class="card flex flex-col items-center gap-4">
     <p-iconfield>
         <p-inputicon class="pi pi-search" />
-        <input pInputText [(ngModel)]="value1" placeholder="Small" size="small" />
+        <input pInputText [(ngModel)]="value1" placeholder="Small" pSize="small" />
     </p-iconfield>
 
     <p-iconfield>
@@ -68,7 +65,7 @@ export class SizesDoc {
 
     <p-iconfield>
         <p-inputicon class="pi pi-lock" />
-        <input pInputText [(ngModel)]="value3" placeholder="Large" size="large" />
+        <input pInputText [(ngModel)]="value3" placeholder="Large" pSize="large" />
         <p-inputicon class="pi pi-spin pi-spinner" />
     </p-iconfield>
 </div>`,

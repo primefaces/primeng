@@ -9,10 +9,7 @@ import { Component } from '@angular/core';
             <p>Templating allows customizing the content where the icon instance is available as the implicit variable.</p>
         </app-docsectiontext>
         <div class="card flex justify-center">
-            <p-rating [(ngModel)]="value" stars="5">
-                <ng-template #cancelicon>
-                    <img src="https://primefaces.org/cdn/primeng/images/demo/rating/cancel.png" height="24" width="24" />
-                </ng-template>
+            <p-rating [(ngModel)]="value">
                 <ng-template #onicon>
                     <img src="https://primefaces.org/cdn/primeng/images/demo/rating/custom-icon-active.png" height="24" width="24" />
                 </ng-template>
@@ -28,10 +25,7 @@ export class TemplateDoc {
     value!: number;
 
     code: Code = {
-        basic: `<p-rating [(ngModel)]="value" stars="5">
-    <ng-template #cancelicon>
-        <img src="https://primefaces.org/cdn/primeng/images/demo/rating/cancel.png" height="24" width="24" />
-    </ng-template>
+        basic: `<p-rating [(ngModel)]="value">
     <ng-template #onicon>
         <img src="https://primefaces.org/cdn/primeng/images/demo/rating/custom-icon-active.png" height="24" width="24" />
     </ng-template>
@@ -41,10 +35,7 @@ export class TemplateDoc {
 </p-rating>`,
 
         html: `<div class="card flex justify-center">
-    <p-rating [(ngModel)]="value" stars="5">
-        <ng-template #cancelicon>
-            <img src="https://primefaces.org/cdn/primeng/images/demo/rating/cancel.png" height="24" width="24" />
-        </ng-template>
+    <p-rating [(ngModel)]="value">
         <ng-template #onicon>
             <img src="https://primefaces.org/cdn/primeng/images/demo/rating/custom-icon-active.png" height="24"  width="24" />
         </ng-template>

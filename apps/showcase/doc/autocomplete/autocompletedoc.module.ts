@@ -26,9 +26,12 @@ import { SizesDoc } from './sizesdoc';
 import { StyleDoc } from './styledoc';
 import { TemplateDoc } from './templatedoc';
 import { VirtualScrollDoc } from './virtualscrolldoc';
+import { TemplateDrivenFormsDoc } from './templatedrivenformsdoc';
+import { MessageModule } from 'primeng/message';
+import { ToastModule } from 'primeng/toast';
 
 @NgModule({
-    imports: [CommonModule, RouterModule, AppCodeModule, FormsModule, AppDocModule, AutoCompleteModule, ReactiveFormsModule, RouterModule, FloatLabelModule, IftaLabelModule, ButtonModule],
+    imports: [CommonModule, RouterModule, AppCodeModule, FormsModule, AppDocModule, AutoCompleteModule, ReactiveFormsModule, RouterModule, FloatLabelModule, IftaLabelModule, ButtonModule, MessageModule, ToastModule],
     exports: [AppDocModule],
     declarations: [
         ImportDoc,
@@ -48,7 +51,8 @@ import { VirtualScrollDoc } from './virtualscrolldoc';
         DisabledDoc,
         InvalidDoc,
         FilledDoc,
-        SizesDoc
+        SizesDoc,
+        TemplateDrivenFormsDoc
     ]
 })
 export class AutoCompleteDocModule {}

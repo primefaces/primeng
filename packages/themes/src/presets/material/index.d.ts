@@ -1,2 +1,1 @@
-declare const _default: any;
-export default _default;
+export { default } from '@primeuix/themes/material';

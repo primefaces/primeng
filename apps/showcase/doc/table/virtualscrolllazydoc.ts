@@ -2,7 +2,7 @@ import { Car } from '@/domain/car';
 import { Code } from '@/domain/code';
 import { CarService } from '@/service/carservice';
 import { ChangeDetectionStrategy, Component } from '@angular/core';
-import { LazyLoadEvent } from 'primeng/api';
+import { TableLazyLoadEvent } from 'primeng/table';
 
 interface Column {
     field: string;
@@ -70,7 +70,7 @@ export class VirtualScrollLazyDoc {
         this.virtualCars = Array.from({ length: 10000 });
     }
 
-    loadCarsLazy(event: LazyLoadEvent) {
+    loadCarsLazy(event: TableLazyLoadEvent) {
         //simulate remote connection with a timeout
         setTimeout(
             () => {
@@ -137,7 +137,7 @@ export class VirtualScrollLazyDoc {
     </p-table>
 </div>`,
         typescript: `import { Component, OnInit } from '@angular/core';
-import { LazyLoadEvent } from 'primeng/api';
+import { TableLazyLoadEvent } from 'primeng/table';
 import { Car } from '@/domain/car';
 import { CarService } from '@/service/carservice';
 import { TableModule } from 'primeng/table';
@@ -177,7 +177,7 @@ export class TableVirtualScrollLazyDemo implements OnInit{
         this.virtualCars = Array.from({ length: 10000 });
     }
 
-    loadCarsLazy(event: LazyLoadEvent) {
+    loadCarsLazy(event: TableLazyLoadEvent) {
         //simulate remote connection with a timeout
         setTimeout(() => {
             //load data of required page

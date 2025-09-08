@@ -21,14 +21,36 @@ import { InvalidDoc } from './invaliddoc';
 import { LazyDoc } from './lazydoc';
 import { MultipleDoc } from './multipledoc';
 import { ReactiveFormsDoc } from './reactiveformsdoc';
+import { TemplateDrivenFormsDoc } from './templatedrivenformsdoc';
 import { SizesDoc } from './sizesdoc';
 import { StyleDoc } from './styledoc';
 import { TemplateDoc } from './templatedoc';
 import { VirtualScrollDoc } from './virtualscrolldoc';
+import { ToastModule } from 'primeng/toast';
+import { MessageModule } from 'primeng/message';
 
 @NgModule({
-    imports: [CommonModule, AppCodeModule, AppDocModule, TreeSelectModule, FormsModule, ReactiveFormsModule, RouterModule, FloatLabelModule, IftaLabelModule, ButtonModule],
+    imports: [CommonModule, AppCodeModule, AppDocModule, TreeSelectModule, FormsModule, ReactiveFormsModule, RouterModule, FloatLabelModule, IftaLabelModule, ButtonModule, ToastModule, MessageModule],
     exports: [AppDocModule],
-    declarations: [ImportDoc, BasicDoc, MultipleDoc, CheckboxDoc, LazyDoc, VirtualScrollDoc, FilterDoc, FloatLabelDoc, InvalidDoc, DisabledDoc, StyleDoc, AccessibilityDoc, ReactiveFormsDoc, FilledDoc, IftaLabelDoc, TemplateDoc, SizesDoc]
+    declarations: [
+        ImportDoc,
+        BasicDoc,
+        MultipleDoc,
+        CheckboxDoc,
+        LazyDoc,
+        VirtualScrollDoc,
+        FilterDoc,
+        FloatLabelDoc,
+        InvalidDoc,
+        DisabledDoc,
+        StyleDoc,
+        AccessibilityDoc,
+        ReactiveFormsDoc,
+        FilledDoc,
+        IftaLabelDoc,
+        TemplateDoc,
+        SizesDoc,
+        TemplateDrivenFormsDoc
+    ]
 })
 export class TreeSelectDocModule {}

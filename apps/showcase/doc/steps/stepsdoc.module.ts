@@ -8,7 +8,6 @@ import { RouterModule } from '@angular/router';
 import { ButtonModule } from 'primeng/button';
 import { CardModule } from 'primeng/card';
 import { Checkbox } from 'primeng/checkbox';
-import { DropdownModule } from 'primeng/dropdown';
 import { InputMask } from 'primeng/inputmask';
 import { InputTextModule } from 'primeng/inputtext';
 import { StepsModule } from 'primeng/steps';
@@ -26,7 +25,7 @@ import { SeatDemo } from './seatdemo';
 import { StyleDoc } from './styledoc';
 
 @NgModule({
-    imports: [CommonModule, AppCodeModule, StepsModule, ToastModule, AppDocModule, FormsModule, DropdownModule, InputTextModule, InputMask, Checkbox, CardModule, ButtonModule, RouterModule],
+    imports: [CommonModule, AppCodeModule, StepsModule, ToastModule, AppDocModule, FormsModule, InputTextModule, InputMask, Checkbox, CardModule, ButtonModule, RouterModule],
     declarations: [BasicDoc, ImportDoc, StyleDoc, InteractiveDoc, ConfirmationDemo, PaymentDemo, PersonalDemo, SeatDemo, RoutingDoc, ControlledDoc, AccessibilityDoc],
     exports: [AppDocModule],
     providers: [TicketService]

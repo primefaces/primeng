@@ -4,9 +4,11 @@ import { ImportDoc } from '@/doc/inputotp/importdoc';
 import { InputOtpDocModule } from '@/doc/inputotp/inputotpdoc.module';
 import { IntegerOnlyDoc } from '@/doc/inputotp/integeronlydoc';
 import { MaskDoc } from '@/doc/inputotp/maskdoc';
+import { ReactiveFormsDoc } from '@/doc/inputotp/reactiveformsdoc';
 import { SampleDoc } from '@/doc/inputotp/sampledoc';
 import { SizesDoc } from '@/doc/inputotp/sizesdoc';
 import { TemplateDoc } from '@/doc/inputotp/templatedoc';
+import { TemplateDrivenFormsDoc } from '@/doc/inputotp/templatedrivenformsdoc';
 import { Component, ViewEncapsulation } from '@angular/core';
 
 @Component({
@@ -46,6 +48,14 @@ export class InputOtpDemo {
             id: 'template',
             label: 'Template',
             component: TemplateDoc
+        },
+        {
+            id: 'forms',
+            label: 'Forms',
+            children: [
+                { id: 'templatedriven', label: 'Template Driven', component: TemplateDrivenFormsDoc },
+                { id: 'reactive', label: 'Reactive Forms', component: ReactiveFormsDoc }
+            ]
         },
         {
             id: 'sample',

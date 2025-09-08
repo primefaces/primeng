@@ -37,9 +37,13 @@ import { TemplatesDoc } from './templatesdoc';
 import { TimeDoc } from './timedoc';
 import { TouchUIDoc } from './touchuidoc';
 import { YearDoc } from './yeardoc';
+import { TemplateDrivenFormsDoc } from './templatedrivenformsdoc';
+import { ButtonModule } from 'primeng/button';
+import { MessageModule } from 'primeng/message';
+import { ToastModule } from 'primeng/toast';
 
 @NgModule({
-    imports: [CommonModule, RouterModule, AppCodeModule, AppDocModule, FormsModule, ReactiveFormsModule, FloatLabelModule, IftaLabelModule, DatePickerModule, FluidModule],
+    imports: [CommonModule, RouterModule, AppCodeModule, AppDocModule, FormsModule, ReactiveFormsModule, FloatLabelModule, IftaLabelModule, DatePickerModule, FluidModule, ButtonModule, MessageModule, ToastModule],
     exports: [AppDocModule],
     declarations: [
         ImportDoc,
@@ -70,7 +74,8 @@ import { YearDoc } from './yeardoc';
         SizesDoc,
         FilledDoc,
         InvalidDoc,
-        DisabledDoc
+        DisabledDoc,
+        TemplateDrivenFormsDoc
     ]
 })
 export class DatePickerDocModule {}

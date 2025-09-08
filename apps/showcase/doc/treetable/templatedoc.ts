@@ -29,7 +29,7 @@ interface Column {
                     <ng-template #body let-rowNode let-rowData="rowData" let-columns="columns">
                         <tr [ttRow]="rowNode">
                             <td *ngFor="let col of columns; let i = index; let last = last">
-                                <p-treeTableToggler [rowNode]="rowNode" *ngIf="i === 0" />
+                                <p-treetable-toggler [rowNode]="rowNode" *ngIf="i === 0" />
                                 {{ rowData[col.field] }}
                                 <ng-container *ngIf="last">
                                     <p-button icon="pi pi-search" rounded="true" [style]="{ 'margin-right': '.5em' }" />
@@ -79,8 +79,8 @@ export class TemplateDoc {
     <ng-template #body let-rowNode let-rowData="rowData" let-columns="columns">
         <tr [ttRow]="rowNode">
             <td *ngFor="let col of columns; let i = index; let last = last">
-                <p-treeTableToggler [rowNode]="rowNode" *ngIf="i === 0" />
-                {{ rowData[col.field] }}
+                <p-treetable-toggler [rowNode]="rowNode" *ngIf="i === 0" />
+                    {{ rowData[col.field] }}
                 <ng-container *ngIf="last">
                     <p-button icon="pi pi-search" rounded="true" [style]="{ 'margin-right': '.5em' }" />
                     <p-button icon="pi pi-pencil" rounded="true" severity="success" />
@@ -108,8 +108,8 @@ export class TemplateDoc {
         <ng-template #body let-rowNode let-rowData="rowData" let-columns="columns">
             <tr [ttRow]="rowNode">
                 <td *ngFor="let col of columns; let i = index; let last = last">
-                    <p-treeTableToggler [rowNode]="rowNode" *ngIf="i === 0" />
-                    {{ rowData[col.field] }}
+                    <p-treetable-toggler [rowNode]="rowNode" *ngIf="i === 0" />
+                        {{ rowData[col.field] }}
                     <ng-container *ngIf="last">
                         <p-button icon="pi pi-search" rounded="true" [style]="{ 'margin-right': '.5em' }" />
                         <p-button icon="pi pi-pencil" rounded="true" severity="success" />

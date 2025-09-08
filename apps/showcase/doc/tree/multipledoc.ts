@@ -19,7 +19,7 @@ import { TreeNode } from 'primeng/api';
                 <p-toggleswitch inputId="input-metakey" [(ngModel)]="metaKeySelection" />
                 <label for="input-metakey">MetaKey</label>
             </div>
-            <p-tree [metaKeySelection]="metaKeySelection" [value]="files" styleClass="w-full md:w-[30rem]" selectionMode="multiple" [(selection)]="selectedFiles" />
+            <p-tree [metaKeySelection]="metaKeySelection" [value]="files" class="w-full md:w-[30rem]" selectionMode="multiple" [(selection)]="selectedFiles" />
         </div>
         <app-code [code]="code" selector="tree-multiple-demo"></app-code>
     `
@@ -42,14 +42,14 @@ export class MultipleDoc implements OnInit {
     <p-toggleswitch inputId="input-metakey" [(ngModel)]="metaKeySelection" />
     <label for="input-metakey">MetaKey</label>
 </div>
-<p-tree [metaKeySelection]="metaKeySelection" [value]="files" styleClass="w-full md:w-[30rem]" selectionMode="multiple" [(selection)]="selectedFiles" />`,
+<p-tree [metaKeySelection]="metaKeySelection" [value]="files" class="w-full md:w-[30rem]" selectionMode="multiple" [(selection)]="selectedFiles" />`,
 
         html: `<div class="card">
     <div class="flex items-center mb-6 gap-2">
         <p-toggleswitch inputId="input-metakey" [(ngModel)]="metaKeySelection" />
         <label for="input-metakey">MetaKey</label>
     </div>
-    <p-tree [metaKeySelection]="metaKeySelection" [value]="files" styleClass="w-full md:w-[30rem]" selectionMode="multiple" [(selection)]="selectedFiles" />
+    <p-tree [metaKeySelection]="metaKeySelection" [value]="files" class="w-full md:w-[30rem]" selectionMode="multiple" [(selection)]="selectedFiles" />
 </div>`,
 
         typescript: `import { Component, OnInit } from '@angular/core';
@@ -63,7 +63,7 @@ import { FormsModule } from '@angular/forms';
     selector: 'tree-multiple-demo',
     templateUrl: './tree-multiple-demo.html',
     standalone: true,
-    imports: [Tree, InputSwitchModule, ToggleSwitchModule],
+    imports: [Tree, ToggleSwitchModule],
     providers: [NodeService]
 })
 export class TreeMultipleDemo implements OnInit {

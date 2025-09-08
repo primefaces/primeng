@@ -36,7 +36,7 @@ import { ChangeDetectionStrategy, ChangeDetectorRef, Component } from '@angular/
                             <td>{{ calculateCustomerTotal(customer.representative.name) }}</td>
                         </tr>
                     </ng-template>
-                    <ng-template #rowexpansion let-customer>
+                    <ng-template #expandedrow let-customer>
                         <tr>
                             <td>
                                 {{ customer.name }}
@@ -152,7 +152,7 @@ export class ExpandableRowGroupDoc {
             <td>{{calculateCustomerTotal(customer.representative.name)}}</td>
         </tr>
     </ng-template>
-    <ng-template #rowexpansion let-customer>
+    <ng-template #expandedrow let-customer>
         <tr>
             <td>
                 {{customer.name}}
@@ -215,7 +215,7 @@ export class ExpandableRowGroupDoc {
                 <td>{{calculateCustomerTotal(customer.representative.name)}}</td>
             </tr>
         </ng-template>
-        <ng-template #rowexpansion let-customer>
+        <ng-template #expandedrow let-customer>
             <tr>
                 <td>
                     {{customer.name}}

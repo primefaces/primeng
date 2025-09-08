@@ -1,6 +1,6 @@
 import { Code } from '@/domain/code';
 import { Component, OnInit } from '@angular/core';
-import { DropdownFilterOptions } from 'primeng/dropdown';
+import { SelectFilterOptions } from 'primeng/select';
 
 interface City {
     name: string;
@@ -64,12 +64,12 @@ export class CustomFilterDoc implements OnInit {
         ];
     }
 
-    resetFunction(options: DropdownFilterOptions) {
+    resetFunction(options: SelectFilterOptions) {
         options.reset();
         this.filterValue = '';
     }
 
-    customFilterFunction(event: KeyboardEvent, options: DropdownFilterOptions) {
+    customFilterFunction(event: KeyboardEvent, options: SelectFilterOptions) {
         options.filter(event);
     }
 
@@ -169,7 +169,7 @@ export class CustomFilterDoc implements OnInit {
 </div>`,
 
         typescript: `import { Component, OnInit } from '@angular/core';
-import { DropdownFilterOptions } from 'primeng/dropdown';
+import { SelectFilterOptions } from 'primeng/select';
 import { FormsModule } from '@angular/forms';
 import { SelectModule } from 'primeng/select';
 import { InputGroupModule } from 'primeng/inputgroup';
@@ -207,12 +207,12 @@ export class SelectCustomFilterDemo implements OnInit {
         ];
     }
 
-    resetFunction(options: DropdownFilterOptions) {
+    resetFunction(options: SelectFilterOptions) {
         options.reset();
         this.filterValue = '';
     }
 
-    customFilterFunction(event: KeyboardEvent, options: DropdownFilterOptions) {
+    customFilterFunction(event: KeyboardEvent, options: SelectFilterOptions) {
         options.filter(event);
     }
 }`

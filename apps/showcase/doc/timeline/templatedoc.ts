@@ -17,7 +17,7 @@ interface EventItem {
             <p>Sample implementation with custom content and styled markers.</p>
         </app-docsectiontext>
         <div class="card">
-            <p-timeline [value]="events" align="alternate" styleClass="customized-timeline">
+            <p-timeline [value]="events" align="alternate" class="customized-timeline">
                 <ng-template #marker let-event>
                     <span class="flex w-8 h-8 items-center justify-center text-white rounded-full z-10 shadow-sm" [style]="{ 'background-color': event.color }">
                         <i [class]="event.icon"></i>
@@ -51,7 +51,7 @@ export class TemplateDoc {
     }
 
     code: Code = {
-        basic: `<p-timeline [value]="events" align="alternate" styleClass="customized-timeline">
+        basic: `<p-timeline [value]="events" align="alternate" class="customized-timeline">
     <ng-template #marker let-event>
         <span class="flex w-8 h-8 items-center justify-center text-white rounded-full z-10 shadow-sm" [style]="{ 'background-color': event.color }">
             <i [class]="event.icon"></i>
@@ -70,7 +70,7 @@ export class TemplateDoc {
 </p-timeline>`,
 
         html: `<div class="card">
-    <p-timeline [value]="events" align="alternate" styleClass="customized-timeline">
+    <p-timeline [value]="events" align="alternate" class="customized-timeline">
         <ng-template #marker let-event>
             <span class="flex w-8 h-8 items-center justify-center text-white rounded-full z-10 shadow-sm" [style]="{ 'background-color': event.color }">
                 <i [class]="event.icon"></i>

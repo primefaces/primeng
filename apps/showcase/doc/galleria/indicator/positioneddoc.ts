@@ -35,7 +35,7 @@ import { Component, OnInit, model } from '@angular/core';
 export class PositionedDoc implements OnInit {
     images = model([]);
 
-    position: string = 'bottom';
+    position: 'left' | 'right' | 'top' | 'bottom' = 'bottom';
 
     showIndicatorsOnItem: boolean = false;
 
@@ -100,7 +100,7 @@ import { FormsModule } from '@angular/forms';
 export class GalleriaIndicatorPositionedDemo implements OnInit {
     images = model([]);
 
-    position: string = 'bottom';
+    position: 'left' | 'right' | 'top' | 'bottom' = 'bottom';
 
     showIndicatorsOnItem: boolean = false;
 

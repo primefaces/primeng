@@ -39,7 +39,7 @@ import { ChangeDetectionStrategy, ChangeDetectorRef, Component } from '@angular/
                         </tr>
                     </ng-template>
                     <ng-template #footer>
-                        <tr>
+                        <tr class="font-bold">
                             <td>Id</td>
                             <td>Name</td>
                             <td>Country</td>
@@ -105,7 +105,7 @@ export class HorizontalScrollDoc {
         </tr>
     </ng-template>
     <ng-template #footer>
-        <tr>
+        <tr class="font-bold">
             <td>Id</td>
             <td>Name</td>
             <td>Country</td>
@@ -147,7 +147,7 @@ export class HorizontalScrollDoc {
             </tr>
         </ng-template>
         <ng-template #footer>
-            <tr>
+            <tr class="font-bold">
                 <td>Id</td>
                 <td>Name</td>
                 <td>Country</td>

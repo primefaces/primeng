@@ -1,3 +1,2 @@
-import { MultiSelectDesignTokens } from '../../types/multiselect';
-declare const _default: MultiSelectDesignTokens;
-export default _default;
+export * from '@primeuix/themes/nora/multiselect';
+export { default } from '@primeuix/themes/nora/multiselect';

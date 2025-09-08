@@ -28,11 +28,11 @@ import { MessageService, SelectItem } from 'primeng/api';
                 <p-table [value]="products" dataKey="id" editMode="row" [tableStyle]="{ 'min-width': '50rem' }">
                     <ng-template #header>
                         <tr>
-                            <th style="width:20%">Code</th>
-                            <th style="width:20%">Name</th>
-                            <th style="width:20%">Inventory Status</th>
-                            <th style="width:20%">Price</th>
-                            <th style="width:20%"></th>
+                            <th style="width:22%">Code</th>
+                            <th style="width:22%">Name</th>
+                            <th style="width:22%">Inventory Status</th>
+                            <th style="width:22%">Price</th>
+                            <th style="width:12%"></th>
                         </tr>
                     </ng-template>
                     <ng-template #body let-product let-editing="editing" let-ri="rowIndex">
@@ -141,11 +141,11 @@ export class RowEditDoc {
         basic: `<p-table [value]="products" dataKey="id" editMode="row" [tableStyle]="{'min-width': '50rem'}">
     <ng-template #header>
         <tr>
-            <th style="width:20%">Code</th>
-            <th style="width:20%">Name</th>
-            <th style="width:20%">Inventory Status</th>
-            <th style="width:20%">Price</th>
-            <th style="width:20%"></th>
+            <th style="width:22%">Code</th>
+            <th style="width:22%">Name</th>
+            <th style="width:22%">Inventory Status</th>
+            <th style="width:22%">Price</th>
+            <th style="width:12%"></th>
         </tr>
     </ng-template>
     <ng-template #body let-product let-editing="editing" let-ri="rowIndex">
@@ -253,11 +253,11 @@ export class RowEditDoc {
     <p-table [value]="products" dataKey="id" editMode="row" [tableStyle]="{'min-width': '50rem'}">
         <ng-template #header>
             <tr>
-                <th style="width:20%">Code</th>
-                <th style="width:20%">Name</th>
-                <th style="width:20%">Inventory Status</th>
-                <th style="width:20%">Price</th>
-                <th style="width:20%"></th>
+                <th style="width:22%">Code</th>
+                <th style="width:22%">Name</th>
+                <th style="width:22%">Inventory Status</th>
+                <th style="width:22%">Price</th>
+                <th style="width:12%"></th>
             </tr>
         </ng-template>
         <ng-template #body let-product let-editing="editing" let-ri="rowIndex">

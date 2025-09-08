@@ -6,7 +6,7 @@ import { Component } from '@angular/core';
     standalone: false,
     template: `
         <app-docsectiontext>
-            <p>Dialog automatically displays a scroller when content exceeeds viewport.</p>
+            <p>Dialog automatically displays a scroller when content exceeds viewport.</p>
         </app-docsectiontext>
         <div class="card flex justify-center">
             <p-button (click)="showDialog()" label="Show" />

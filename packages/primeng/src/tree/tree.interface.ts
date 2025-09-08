@@ -46,6 +46,13 @@ export interface TreeNodeCollapseEvent extends TreeNodeSelectEvent {}
  */
 export interface TreeNodeContextMenuSelectEvent extends TreeNodeSelectEvent {}
 /**
+ * Custom node double click event.
+ * @see {@link Tree.onNodeDoubleClick}
+ * @extends {TreeNodeSelectEvent}
+ * @group Events
+ */
+export interface TreeNodeDoubleClickEvent extends TreeNodeSelectEvent {}
+/**
  * Custom node drop event.
  * @see {@link Tree.onNodeDrop}
  * @group Events

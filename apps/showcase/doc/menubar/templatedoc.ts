@@ -196,7 +196,6 @@ export class TemplateDoc implements OnInit {
 
         typescript: `import { Component, OnInit } from '@angular/core';
 import { MenuItem } from 'primeng/api';
-import { Menubar } from 'primeng/menubar';
 import { BadgeModule } from 'primeng/badge';
 import { AvatarModule } from 'primeng/avatar';
 import { InputTextModule } from 'primeng/inputtext';
@@ -210,8 +209,6 @@ import { Ripple } from 'primeng/ripple';
     imports: [Menubar, BadgeModule, AvatarModule, InputTextModule, Ripple, CommonModule]
 })
 export class MenubarTemplateDemo implements OnInit {
-    items: MenuItem[] | undefined;
-
     items: MenuItem[] | undefined;
 
     ngOnInit() {

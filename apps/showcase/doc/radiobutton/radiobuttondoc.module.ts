@@ -13,12 +13,16 @@ import { GroupDoc } from './groupdoc';
 import { ImportDoc } from './importdoc';
 import { InvalidDoc } from './invaliddoc';
 import { ReactiveFormsDoc } from './reactiveformsdoc';
+import { TemplateDrivenFormsDoc } from './templatedrivenformsdoc';
 import { SizesDoc } from './sizesdoc';
 import { StyleDoc } from './styledoc';
+import { ButtonModule } from 'primeng/button';
+import { ToastModule } from 'primeng/toast';
+import { MessageModule } from 'primeng/message';
 
 @NgModule({
-    imports: [CommonModule, AppCodeModule, AppDocModule, RadioButton, FormsModule, ReactiveFormsModule, RouterModule],
+    imports: [CommonModule, AppCodeModule, AppDocModule, RadioButton, FormsModule, ReactiveFormsModule, RouterModule, ButtonModule, ToastModule, MessageModule],
     exports: [AppDocModule],
-    declarations: [ImportDoc, GroupDoc, DynamicDoc, InvalidDoc, DisabledDoc, StyleDoc, AccessibilityDoc, ReactiveFormsDoc, FilledDoc, SizesDoc]
+    declarations: [ImportDoc, GroupDoc, DynamicDoc, InvalidDoc, DisabledDoc, StyleDoc, AccessibilityDoc, ReactiveFormsDoc, FilledDoc, SizesDoc, TemplateDrivenFormsDoc]
 })
 export class RadioButtonDocModule {}

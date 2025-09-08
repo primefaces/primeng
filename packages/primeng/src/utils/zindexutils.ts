@@ -35,7 +35,9 @@ function ZIndexUtils() {
                 el.style.zIndex = '';
             }
         },
-        getCurrent: () => getCurrentZIndex()
+        getCurrent: () => getCurrentZIndex(),
+        generateZIndex,
+        revertZIndex
     };
 }
 

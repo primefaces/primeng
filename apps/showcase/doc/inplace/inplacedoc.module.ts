@@ -4,6 +4,7 @@ import { CommonModule } from '@angular/common';
 import { NgModule } from '@angular/core';
 import { RouterModule } from '@angular/router';
 import { AutoFocusModule } from 'primeng/autofocus';
+import { ButtonModule } from 'primeng/button';
 import { InplaceModule } from 'primeng/inplace';
 import { InputTextModule } from 'primeng/inputtext';
 import { TableModule } from 'primeng/table';
@@ -17,7 +18,7 @@ import { LazyDoc } from './lazydoc';
 import { StyleDoc } from './styledoc';
 
 @NgModule({
-    imports: [CommonModule, RouterModule, AppCodeModule, AppDocModule, InplaceModule, InputTextModule, TableModule, AutoFocusModule],
+    imports: [CommonModule, RouterModule, AppCodeModule, AppDocModule, InplaceModule, InputTextModule, ButtonModule, TableModule, AutoFocusModule],
     declarations: [BasicDoc, DataDoc, ImageDoc, ImportDoc, InputDoc, StyleDoc, LazyDoc, AccessibilityDoc],
     exports: [AppDocModule]
 })

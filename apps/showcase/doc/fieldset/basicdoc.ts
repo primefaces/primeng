@@ -6,7 +6,7 @@ import { Component } from '@angular/core';
     standalone: false,
     template: `
         <app-docsectiontext>
-            <p>PrimeIcons is available at npm, run the following command to download it to your project.</p>
+            <p>A simple Fieldset is created with a <i>legend</i> property along with the content as children.</p>
         </app-docsectiontext>
         <div class="card flex justify-center">
             <p-fieldset legend="Header">

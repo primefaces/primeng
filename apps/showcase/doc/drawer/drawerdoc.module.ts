@@ -8,7 +8,6 @@ import { AvatarModule } from 'primeng/avatar';
 import { ButtonModule } from 'primeng/button';
 import { Drawer } from 'primeng/drawer';
 import { Ripple } from 'primeng/ripple';
-import { SidebarModule } from 'primeng/sidebar';
 import { StyleClass } from 'primeng/styleclass';
 import { AccessibilityDoc } from './accessibilitydoc';
 import { BasicDoc } from './basicdoc';
@@ -21,7 +20,7 @@ import { StyleDoc } from './styledoc';
 import { TemplateDoc } from './templatedoc';
 
 @NgModule({
-    imports: [CommonModule, FormsModule, AppCodeModule, RouterModule, SidebarModule, ButtonModule, AppDocModule, AvatarModule, Ripple, StyleClass, Drawer],
+    imports: [CommonModule, FormsModule, AppCodeModule, RouterModule, ButtonModule, AppDocModule, AvatarModule, Ripple, StyleClass, Drawer],
     declarations: [BasicDoc, TemplateDoc, ImportDoc, StyleDoc, PositionDoc, FullScreenDoc, SizeDoc, AccessibilityDoc, HeadlessDoc],
     exports: [AppDocModule]
 })

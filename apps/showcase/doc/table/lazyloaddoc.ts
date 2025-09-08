@@ -2,7 +2,7 @@ import { Code } from '@/domain/code';
 import { Customer, Representative } from '@/domain/customer';
 import { CustomerService } from '@/service/customerservice';
 import { ChangeDetectionStrategy, ChangeDetectorRef, Component, OnInit } from '@angular/core';
-import { LazyLoadEvent } from 'primeng/api';
+import { TableLazyLoadEvent } from 'primeng/table';
 
 @Component({
     selector: 'lazy-load-doc',
@@ -123,7 +123,7 @@ export class LazyLoadDoc implements OnInit {
         ];
     }
 
-    loadCustomers(event: LazyLoadEvent) {
+    loadCustomers(event: TableLazyLoadEvent) {
         this.loading = true;
 
         setTimeout(() => {
@@ -297,7 +297,7 @@ export class LazyLoadDoc implements OnInit {
     </p-table>
 </div>`,
         typescript: `import { Component, OnInit } from '@angular/core';
-import { LazyLoadEvent } from 'primeng/api';
+import { TableLazyLoadEvent } from 'primeng/table';
 import { Customer, Representative } from '@/domain/customer';
 import { CustomerService } from '@/service/customerservice';
 import { TableModule } from 'primeng/table';
@@ -309,7 +309,7 @@ import { HttpClientModule } from '@angular/common/http';
     templateUrl: 'table-lazy-load-demo.html',
     standalone: true,
     imports: [TableModule, MultiSelectModule, HttpClientModule],
-    providers: [CustomerService]
+    providers: [CustomerService]
 })
 export class TableLazyLoadDemo implements OnInit{
     customers!: Customer[];
@@ -343,7 +343,7 @@ export class TableLazyLoadDemo implements OnInit{
         this.loading = true;
     }
 
-    loadCustomers(event: LazyLoadEvent) {
+    loadCustomers(event: TableLazyLoadEvent) {
         this.loading = true;
 
         setTimeout(() => {

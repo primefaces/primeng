@@ -29,7 +29,7 @@ import { ButtonModule } from 'primeng/button';
                     </ng-container>
                 </div>
                 <p class="text-muted-color text-center mt-6 mb-0">{{ license?.description }}</p>
-                <p class="text-muted-color text-center mt-6 mb-0">
+                <p *ngIf="license.documentLink" class="text-muted-color text-center mt-6 mb-0">
                     Visit the
                     <a [href]="license?.documentLink" class="text-primary cursor-pointer transition-all hover:underline" target="_blank"> official documentation </a>
                      for more information.

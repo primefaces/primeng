@@ -1,3 +1,2 @@
-import { CheckboxDesignTokens } from '../../types/checkbox';
-declare const _default: CheckboxDesignTokens;
-export default _default;
+export * from '@primeuix/themes/nora/checkbox';
+export { default } from '@primeuix/themes/nora/checkbox';

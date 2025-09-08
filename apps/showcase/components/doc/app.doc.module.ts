@@ -16,11 +16,24 @@ import { RouterModule } from '@angular/router';
 import { AppDocThemingSectionComponent } from './app.docthemingsection.component';
 import { AppDocFeaturesSection } from './app.docfeaturessection.component';
 import { AppDocService } from './app.doc.service';
+import { AppDocStyledPresetComponent } from '@/components/doc/app.docstyledpreset.component';
 
 @NgModule({
     imports: [CommonModule, FormsModule, ButtonModule, InputTextModule, TooltipModule, AppCodeModule, RouterModule],
-    exports: [AppDocSectionTextComponent, AppDocApiSection, AppDocFeaturesSection, AppDocSectionNavComponent, AppDocSectionsComponent, AppDevelopmentSection, AppDoc, AppDocApiTable, AppDocThemingSectionComponent],
-    declarations: [AppDocFeaturesSection, AppDocSectionTextComponent, AppDocApiSection, AppDocSectionNavComponent, AppDocSectionsComponent, AppDevelopmentSection, AppDoc, AppDocApiTable, AppDocThemingSectionComponent],
+    exports: [
+        AppDocSectionTextComponent,
+        AppDocStyledPresetComponent,
+        CommonModule,
+        AppDocApiSection,
+        AppDocFeaturesSection,
+        AppDocSectionNavComponent,
+        AppDocSectionsComponent,
+        AppDevelopmentSection,
+        AppDoc,
+        AppDocApiTable,
+        AppDocThemingSectionComponent
+    ],
+    declarations: [AppDocFeaturesSection, AppDocApiSection, AppDocStyledPresetComponent, AppDocSectionNavComponent, AppDocSectionsComponent, AppDocSectionTextComponent, AppDevelopmentSection, AppDoc, AppDocApiTable, AppDocThemingSectionComponent],
     providers: [AppDocService]
 })
 export class AppDocModule {}

@@ -11,10 +11,10 @@ interface City {
     standalone: false,
     template: `
         <app-docsectiontext>
-            <p>Invalid state style is added using the <i>ng-invalid</i> and <i>ng-dirty</i> class to indicate a failed validation.</p>
+            <p>The invalid state is applied using the <i>⁠invalid</i> property to indicate failed validation, which can be integrated with Angular Forms.</p>
         </app-docsectiontext>
         <div class="card flex justify-center">
-            <p-listbox [options]="cities" [(ngModel)]="selectedCity" optionLabel="name" class="ng-invalid ng-dirty w-full md:w-56" />
+            <p-listbox [options]="cities" [(ngModel)]="selectedCity" optionLabel="name" class="w-full md:w-56" [invalid]="selectedCity === undefined" />
         </div>
         <app-code [code]="code" selector="listbox-invalid-demo"></app-code>
     `
@@ -35,10 +35,10 @@ export class InvalidDoc implements OnInit {
     }
 
     code: Code = {
-        basic: `<p-listbox [options]="cities" [(ngModel)]="selectedCity" optionLabel="name" class="ng-invalid ng-dirty w-full md:w-56" />`,
+        basic: `<p-listbox [options]="cities" [(ngModel)]="selectedCity" optionLabel="name" class="w-full md:w-56" [invalid]="selectedCity === undefined" />`,
 
         html: `<div class="card flex justify-center">
-    <p-listbox [options]="cities" [(ngModel)]="selectedCity" optionLabel="name" class="ng-invalid ng-dirty w-full md:w-56" />
+    <p-listbox [options]="cities" [(ngModel)]="selectedCity" optionLabel="name" class="w-full md:w-56" [invalid]="selectedCity === undefined" />
 </div>`,
 
         typescript: `import { Component, ngOnInit } from '@angular/core';

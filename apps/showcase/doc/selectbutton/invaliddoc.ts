@@ -6,10 +6,10 @@ import { Component } from '@angular/core';
     standalone: false,
     template: `
         <app-docsectiontext>
-            <p>Invalid state style is added using the <i>ng-invalid</i> and <i>ng-dirty</i> class to indicate a failed validation.</p>
+            <p>The invalid state is applied using the <i>⁠invalid</i> property to indicate failed validation, which can be integrated with Angular Forms.</p>
         </app-docsectiontext>
         <div class="card flex justify-center">
-            <p-selectbutton [options]="stateOptions" [(ngModel)]="value" optionLabel="label" optionValue="value" class="ng-invalid ng-dirty" />
+            <p-selectbutton [options]="stateOptions" [(ngModel)]="value" optionLabel="label" optionValue="value" [invalid]="value === undefined" />
         </div>
         <app-code [code]="code" selector="select-button-invalid-demo"></app-code>
     `
@@ -20,13 +20,13 @@ export class InvalidDoc {
         { label: 'Return', value: 'return' }
     ];
 
-    value: string = 'off';
+    value: string | undefined;
 
     code: Code = {
-        basic: `<p-selectbutton [options]="stateOptions" [(ngModel)]="value" optionLabel="label" optionValue="value" class="ng-invalid ng-dirty" />`,
+        basic: `<p-selectbutton [options]="stateOptions" [(ngModel)]="value" optionLabel="label" optionValue="value" [invalid]="value === null" />`,
 
         html: `<div class="card flex justify-center">
-    <p-selectbutton [options]="stateOptions" [(ngModel)]="value" optionLabel="label" optionValue="value" class="ng-invalid ng-dirty" />
+    <p-selectbutton [options]="stateOptions" [(ngModel)]="value" optionLabel="label" optionValue="value" [invalid]="value === null" />
 </div>`,
 
         typescript: `import { Component } from '@angular/core';
@@ -42,10 +42,10 @@ import { SelectButton } from 'primeng/selectbutton';
 export class SelectButtonInvalidDemo {
     stateOptions: any[] = [
         { label: 'One-Way', value: 'one-way' },
-        { label: 'Return', value: 'return' },
+        { label: 'Return', value: 'return' }
     ];
 
-    value: string = 'off';
+    value: string | undefined;
 }`
     };
 }

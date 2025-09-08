@@ -8,7 +8,7 @@ import { Router } from '@angular/router';
     standalone: false,
     template: ` <ng-container *ngIf="data">
         <div *ngIf="parentId" class="my-4 pt-4">
-            <app-docsectiontext [parentId]="parentId" [parentTitle]="parentTitle" [parentDescription]="parentDescription" [level]="2"></app-docsectiontext>
+            <app-docsectiontext [level]="2"></app-docsectiontext>
         </div>
         <app-docsectiontext [id]="id" [title]="label" [level]="3">
             <p>{{ description || null }}</p>
@@ -18,7 +18,7 @@ import { Router } from '@angular/router';
             <table class="doc-table">
                 <thead>
                     <tr>
-                        <th *ngFor="let key of getKeys(data[0])">
+                        <th *ngFor="let key of getKeys(data[0])" [style]="{ 'min-width': key === 'variable' && '30rem' }">
                             <ng-container *ngIf="key !== 'readonly' && key !== 'optional' && key !== 'deprecated'">
                                 {{ key }}
                             </ng-container>
@@ -53,6 +53,7 @@ import { Router } from '@angular/router';
                                                         'doc-option-parameter-type': label === 'Emitters',
                                                         'text-primary-700': label === 'Templates'
                                                     }"
+                                                    class="doc-option-link"
                                                     >{{ value || '-' }}</a
                                                 >
                                                 <ng-template #elseBlock>
@@ -71,17 +72,21 @@ import { Router } from '@angular/router';
                                         <span>null</span>
                                     </ng-template>
                                 </ng-container>
-                                <span
+                                <div
                                     [ngClass]="{
                                         'doc-option-dark': isDarkMode && entry[0] === 'default',
                                         'doc-option-light': !isDarkMode && entry[0] === 'default',
                                         'doc-option-default': entry[0] === 'default',
-                                        'doc-option-description': entry[0] === 'description'
+                                        'doc-option-description': entry[0] === 'description',
+                                        'doc-option-return-type': entry[0] === 'variable',
+                                        'min-w-full': entry[0] === 'variable'
                                     }"
+                                    style="display: inline"
                                     *ngIf="entry[0] !== 'name' && entry[0] !== 'type' && entry[0] !== 'parameters'"
                                     [id]="id + '.' + entry[0]"
-                                    >{{ entry[1] }}
-                                </span>
+                                >
+                                    {{ entry[1] }}
+                                </div>
                             </ng-container>
                         </td>
                     </tr>

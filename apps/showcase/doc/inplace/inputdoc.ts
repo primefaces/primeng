@@ -6,10 +6,7 @@ import { Component } from '@angular/core';
     standalone: false,
     template: `
         <app-docsectiontext>
-            <p>
-                Inplace can be used within a form to display a value as read only before making it editable. The
-                <i>closable</i> property adds a close button next to the content to switch back to read only mode.
-            </p>
+            <p>The <i>closeCallback</i> switches the state back to display mode when called from an event.</p>
         </app-docsectiontext>
         <div class="card">
             <p-inplace>
@@ -17,9 +14,11 @@ import { Component } from '@angular/core';
                     <span>Click to Edit</span>
                 </ng-template>
                 <ng-template #content let-closeCallback="closeCallback">
-                    <span class="inline-flex items-center gap-2">
+                    <span class="inline-flex gap-2">
                         <input type="text" pInputText [pAutoFocus]="true" />
-                        <button (click)="closeCallback($event)" pButton icon="pi pi-times" text severity="danger"></button>
+                        <button type="button" pButton (click)="closeCallback($event)" text severity="danger">
+                            <i class="pi pi-times" pButtonIcon></i>
+                        </button>
                     </span>
                 </ng-template>
             </p-inplace>
@@ -34,9 +33,11 @@ export class InputDoc {
         <span>Click to Edit</span>
     </ng-template>
     <ng-template #content let-closeCallback="closeCallback">
-        <span class="inline-flex items-center gap-2">
-            <input type="text" pInputText autofocus />
-            <button (click)="closeCallback($event)" pButton icon="pi pi-times" text severity="danger"></button>
+        <span class="inline-flex gap-2">
+            <input type="text" pInputText [pAutoFocus]="true" />
+            <button type="button" pButton (click)="closeCallback($event)" text severity="danger">
+                <i class="pi pi-times" pButtonIcon></i>
+            </button>
         </span>
     </ng-template>
 </p-inplace>`,
@@ -46,9 +47,11 @@ export class InputDoc {
             <span>Click to Edit</span>
         </ng-template>
         <ng-template #content let-closeCallback="closeCallback">
-            <span class="inline-flex items-center gap-2">
-                <input type="text" pInputText autofocus />
-                <button (click)="closeCallback($event)" pButton icon="pi pi-times" text severity="danger"></button>
+            <span class="inline-flex gap-2">
+                <input type="text" pInputText [pAutoFocus]="true" />
+                <button type="button" pButton (click)="closeCallback($event)" text severity="danger">
+                    <i class="pi pi-times" pButtonIcon></i>
+                </button>
             </span>
         </ng-template>
     </p-inplace>
@@ -56,13 +59,14 @@ export class InputDoc {
         typescript: `import { Component } from '@angular/core';
 import { InplaceModule } from 'primeng/inplace';
 import { InputTextModule } from 'primeng/inputtext';
+import { ButtonModule } from 'primeng/button';
 import { AutoFocusModule } from 'primeng/autofocus';
 
 @Component({
     selector: 'inplace-input-demo',
     templateUrl: './inplace-input-demo.html',
     standalone: true,
-    imports: [InplaceModule, InputTextModule, AutoFocusModule]
+    imports: [InplaceModule, InputTextModule, ButtonModule, AutoFocusModule]
 })
 export class InplaceInputDemo {}`
     };

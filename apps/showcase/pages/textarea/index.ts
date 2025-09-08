@@ -9,6 +9,7 @@ import { ImportDoc } from '@/doc/textarea/importdoc';
 import { InvalidDoc } from '@/doc/textarea/invaliddoc';
 import { ReactiveFormsDoc } from '@/doc/textarea/reactiveformsdoc';
 import { SizesDoc } from '@/doc/textarea/sizesdoc';
+import { TemplateDrivenFormsDoc } from '@/doc/textarea/templatedrivenformsdoc';
 import { TextareaDocModule } from '@/doc/textarea/texteareadoc.module';
 import { Component } from '@angular/core';
 
@@ -28,11 +29,6 @@ export class TextareaDemo {
             id: 'basic',
             label: 'Basic',
             component: BasicDoc
-        },
-        {
-            id: 'reactive-forms',
-            label: 'Reactive Forms',
-            component: ReactiveFormsDoc
         },
         {
             id: 'autoresize',
@@ -60,16 +56,23 @@ export class TextareaDemo {
             component: FilledDoc
         },
         {
+            id: 'disabled',
+            label: 'Disabled',
+            component: DisabledDoc
+        },
+        {
             id: 'invalid',
             label: 'Invalid',
             component: InvalidDoc
         },
         {
-            id: 'disabled',
-            label: 'Disabled',
-            component: DisabledDoc
+            id: 'forms',
+            label: 'Forms',
+            children: [
+                { id: 'templatedriven', label: 'Template Driven', component: TemplateDrivenFormsDoc },
+                { id: 'reactive', label: 'Reactive Forms', component: ReactiveFormsDoc }
+            ]
         },
-
         {
             id: 'accessibility',
             label: 'Accessibility',

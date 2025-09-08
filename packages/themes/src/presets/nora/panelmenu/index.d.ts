@@ -1,3 +1,2 @@
-import { PanelMenuDesignTokens } from '../../types/panelmenu';
-declare const _default: PanelMenuDesignTokens;
-export default _default;
+export * from '@primeuix/themes/nora/panelmenu';
+export { default } from '@primeuix/themes/nora/panelmenu';

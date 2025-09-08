@@ -47,7 +47,7 @@ export class ColumnResizeScrollableModeDoc {
     }
 
     code: Code = {
-        basic: `<p-table [value]="customers" [scrollable]="true" scrollHeight="400px" [resizableColumns]="true" styleClass="p-datatable-gridlines" [tableStyle]="{'min-width': '50rem'}">
+        basic: `<p-table [value]="customers" showGridlines [scrollable]="true" scrollHeight="400px" [resizableColumns]="true" [tableStyle]="{ 'min-width': '50rem' }">
     <ng-template #header>
         <tr>
             <th pResizableColumn>Name</th>
@@ -58,31 +58,33 @@ export class ColumnResizeScrollableModeDoc {
     </ng-template>
     <ng-template #body let-customer>
         <tr>
-            <td>{{customer.name}}</td>
-            <td>{{customer.country.name}}</td>
-            <td>{{customer.company}}</td>
-            <td>{{customer.representative.name}}</td>
+            <td>{{ customer.name }}</td>
+            <td>{{ customer.country.name }}</td>
+            <td>{{ customer.company }}</td>
+            <td>{{ customer.representative.name }}</td>
         </tr>
     </ng-template>
 </p-table>`,
-        html: `<p-table [value]="customers" [scrollable]="true" scrollHeight="400px" [resizableColumns]="true" styleClass="p-datatable-gridlines" [tableStyle]="{'min-width': '50rem'}">
-    <ng-template #header>
-        <tr>
-            <th pResizableColumn>Name</th>
-            <th pResizableColumn>Country</th>
-            <th pResizableColumn>Company</th>
-            <th pResizableColumn>Representative</th>
-        </tr>
-    </ng-template>
-    <ng-template #body let-customer>
-        <tr>
-            <td>{{customer.name}}</td>
-            <td>{{customer.country.name}}</td>
-            <td>{{customer.company}}</td>
-            <td>{{customer.representative.name}}</td>
-        </tr>
-    </ng-template>
-</p-table>`,
+        html: `<div class="card">
+    <p-table [value]="customers" showGridlines [scrollable]="true" scrollHeight="400px" [resizableColumns]="true" [tableStyle]="{ 'min-width': '50rem' }">
+        <ng-template #header>
+            <tr>
+                <th pResizableColumn>Name</th>
+                <th pResizableColumn>Country</th>
+                <th pResizableColumn>Company</th>
+                <th pResizableColumn>Representative</th>
+            </tr>
+        </ng-template>
+        <ng-template #body let-customer>
+            <tr>
+                <td>{{ customer.name }}</td>
+                <td>{{ customer.country.name }}</td>
+                <td>{{ customer.company }}</td>
+                <td>{{ customer.representative.name }}</td>
+            </tr>
+        </ng-template>
+    </p-table>
+</div>`,
         typescript: `import { Component, OnInit } from '@angular/core';
 import { Customer } from '@/domain/customer';
 import { CustomerService } from '@/service/customerservice';

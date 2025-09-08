@@ -11,7 +11,7 @@ import { TreeDragDropService, TreeNode } from 'primeng/api';
             <p>Nodes can be reordered within the same tree and also can be transferred between other trees using drag&drop.</p>
         </app-docsectiontext>
         <div class="card">
-            <p-tree [value]="files" styleClass="w-full md:w-[30rem]" [draggableNodes]="true" [droppableNodes]="true" draggableScope="self" droppableScope="self" />
+            <p-tree [value]="files" class="w-full md:w-[30rem]" [draggableNodes]="true" [droppableNodes]="true" draggableScope="self" droppableScope="self" />
         </div>
         <app-code [code]="code" selector="tree-drag-drop-demo"></app-code>
     `,
@@ -27,10 +27,10 @@ export class DragDropDoc implements OnInit {
     }
 
     code: Code = {
-        basic: `<p-tree [value]="files" styleClass="w-full md:w-[30rem]" [draggableNodes]="true" [droppableNodes]="true" draggableScope="self" droppableScope="self" />`,
+        basic: `<p-tree [value]="files" class="w-full md:w-[30rem]" [draggableNodes]="true" [droppableNodes]="true" draggableScope="self" droppableScope="self" />`,
 
         html: `<div class="card">
-    <p-tree [value]="files" styleClass="w-full md:w-[30rem]" [draggableNodes]="true" [droppableNodes]="true" draggableScope="self" droppableScope="self" />
+    <p-tree [value]="files" class="w-full md:w-[30rem]" [draggableNodes]="true" [droppableNodes]="true" draggableScope="self" droppableScope="self" />
 </div>`,
 
         typescript: `import { Component, OnInit } from '@angular/core';

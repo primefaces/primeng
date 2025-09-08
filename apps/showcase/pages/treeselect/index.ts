@@ -13,6 +13,7 @@ import { MultipleDoc } from '@/doc/treeselect/multipledoc';
 import { ReactiveFormsDoc } from '@/doc/treeselect/reactiveformsdoc';
 import { SizesDoc } from '@/doc/treeselect/sizesdoc';
 import { TemplateDoc } from '@/doc/treeselect/templatedoc';
+import { TemplateDrivenFormsDoc } from '@/doc/treeselect/templatedrivenformsdoc';
 import { TreeSelectDocModule } from '@/doc/treeselect/treeselectdoc.module';
 import { VirtualScrollDoc } from '@/doc/treeselect/virtualscrolldoc';
 import { Component } from '@angular/core';
@@ -40,11 +41,6 @@ export class TreeSelectDemo {
             id: 'basic',
             label: 'Basic',
             component: BasicDoc
-        },
-        {
-            id: 'reactive-forms',
-            label: 'Reactive Forms',
-            component: ReactiveFormsDoc
         },
         {
             id: 'multiple',
@@ -97,16 +93,23 @@ export class TreeSelectDemo {
             component: FilledDoc
         },
         {
+            id: 'disabled',
+            label: 'Disabled',
+            component: DisabledDoc
+        },
+        {
             id: 'invalid',
             label: 'Invalid',
             component: InvalidDoc
         },
         {
-            id: 'disabled',
-            label: 'Disabled',
-            component: DisabledDoc
+            id: 'forms',
+            label: 'Forms',
+            children: [
+                { id: 'templatedriven', label: 'Template Driven', component: TemplateDrivenFormsDoc },
+                { id: 'reactive', label: 'Reactive Forms', component: ReactiveFormsDoc }
+            ]
         },
-
         {
             id: 'accessibility',
             label: 'Accessibility',

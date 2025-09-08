@@ -42,7 +42,7 @@ export class BadgeDirective extends BaseComponent implements OnChanges, AfterVie
      * Severity type of the badge.
      * @group Props
      */
-    @Input() severity: 'success' | 'info' | 'warn' | 'danger' | 'help' | 'primary' | 'secondary' | 'contrast' | null | undefined;
+    @Input() severity: 'secondary' | 'info' | 'success' | 'warn' | 'danger' | 'contrast' | null | undefined;
     /**
      * Value to display inside the badge.
      * @group Props
@@ -105,6 +105,7 @@ export class BadgeDirective extends BaseComponent implements OnChanges, AfterVie
     }
 
     public ngAfterViewInit(): void {
+        super.ngAfterViewInit();
         this.id = uuid('pn_id_') + '_badge';
         this.renderBadgeContent();
     }
@@ -247,22 +248,17 @@ export class BadgeDirective extends BaseComponent implements OnChanges, AfterVie
     encapsulation: ViewEncapsulation.None,
     providers: [BadgeStyle],
     host: {
-        '[class]': 'containerClass()',
-        '[style.display]': 'badgeDisabled() && "none"',
-        '[style]': 'style()'
+        '[class]': "cn(cx('root'), styleClass())",
+        '[style.display]': 'badgeDisabled() ? "none" : null'
     }
 })
 export class Badge extends BaseComponent {
     /**
      * Class of the element.
+     * @deprecated since v20.0.0, use `class` instead.
      * @group Props
      */
     styleClass = input<string>();
-    /**
-     * Inline style of the element.
-     * @group Props
-     */
-    style = input<{ [klass: string]: any } | null>();
     /**
      * Size of the badge, valid options are "large" and "xlarge".
      * @group Props
@@ -277,7 +273,7 @@ export class Badge extends BaseComponent {
      * Severity type of the badge.
      * @group Props
      */
-    severity = input<'success' | 'info' | 'warn' | 'danger' | 'help' | 'primary' | 'secondary' | 'contrast' | null>();
+    severity = input<'secondary' | 'info' | 'success' | 'warn' | 'danger' | 'contrast' | null>();
     /**
      * Value to display inside the badge.
      * @group Props
@@ -290,40 +286,6 @@ export class Badge extends BaseComponent {
     badgeDisabled = input<boolean, boolean>(false, { transform: booleanAttribute });
 
     _componentStyle = inject(BadgeStyle);
-
-    /**
-     * Computes the container class for the badge element based on its properties.
-     * @returns An object representing the CSS classes to be applied to the badge container.
-     */
-    containerClass = computed<string>(() => {
-        let classes = 'p-badge p-component';
-
-        if (isNotEmpty(this.value()) && String(this.value()).length === 1) {
-            classes += ' p-badge-circle';
-        }
-
-        if (this.badgeSize() === 'large') {
-            classes += ' p-badge-lg';
-        } else if (this.badgeSize() === 'xlarge') {
-            classes += ' p-badge-xl';
-        } else if (this.badgeSize() === 'small') {
-            classes += ' p-badge-sm';
-        }
-
-        if (isEmpty(this.value())) {
-            classes += ' p-badge-dot';
-        }
-
-        if (this.styleClass()) {
-            classes += ` ${this.styleClass()}`;
-        }
-
-        if (this.severity()) {
-            classes += ` p-badge-${this.severity()}`;
-        }
-
-        return classes;
-    });
 }
 
 @NgModule({

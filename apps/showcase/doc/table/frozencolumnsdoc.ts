@@ -13,7 +13,7 @@ import { ChangeDetectionStrategy, ChangeDetectorRef, Component } from '@angular/
             <div class="card">
                 <p-togglebutton [(ngModel)]="balanceFrozen" [onIcon]="'pi pi-lock'" offIcon="pi pi-lock-open" [onLabel]="'Balance'" offLabel="Balance" />
 
-                <p-table [value]="customers" [scrollable]="true" scrollHeight="400px" styleClass="mt-4">
+                <p-table [value]="customers" [scrollable]="true" scrollHeight="400px" class="mt-4">
                     <ng-template #header>
                         <tr>
                             <th style="min-width:200px" pFrozenColumn class="font-bold">Name</th>
@@ -71,7 +71,7 @@ export class FrozenColumnsDoc {
 
     code: Code = {
         basic: `<p-togglebutton [(ngModel)]="balanceFrozen" [onIcon]="'pi pi-lock'" offIcon="pi pi-lock-open" [onLabel]="'Balance'" offLabel="Balance" />
-<p-table [value]="customers" [scrollable]="true" scrollHeight="400px" styleClass="mt-4">
+<p-table [value]="customers" [scrollable]="true" scrollHeight="400px" class="mt-4">
     <ng-template #header>
         <tr>
             <th style="min-width:200px" pFrozenColumn>Name</th>
@@ -101,7 +101,7 @@ export class FrozenColumnsDoc {
 </p-table>`,
         html: `<div class="card">
     <p-togglebutton [(ngModel)]="balanceFrozen" [onIcon]="'pi pi-lock'" offIcon="pi pi-lock-open" [onLabel]="'Balance'" offLabel="Balance" />
-    <p-table [value]="customers" [scrollable]="true" scrollHeight="400px" styleClass="mt-4">
+    <p-table [value]="customers" [scrollable]="true" scrollHeight="400px" class="mt-4">
         <ng-template #header>
             <tr>
                 <th style="min-width:200px" pFrozenColumn>Name</th>

@@ -16,10 +16,10 @@ import { TreeNode } from 'primeng/api';
         </app-docsectiontext>
         <div class="card flex flex-wrap gap-4">
             <div class="flex-auto md:flex md:justify-start md:items-center flex-col">
-                <p-tree [value]="files" styleClass="w-full md:w-[30rem]" [filter]="true" filterPlaceholder="Lenient Filter" />
+                <p-tree [value]="files" [filter]="true" filterPlaceholder="Lenient Filter" />
             </div>
             <div class="flex-auto md:flex md:justify-start md:items-center flex-col">
-                <p-tree [value]="files2" styleClass="w-full md:w-[30rem]" [filter]="true" filterMode="strict" filterPlaceholder="Strict Filter" />
+                <p-tree [value]="files2" [filter]="true" filterMode="strict" filterPlaceholder="Strict Filter" />
             </div>
         </div>
         <app-code [code]="code" selector="tree-filter-demo"></app-code>
@@ -40,15 +40,15 @@ export class FilterDoc implements OnInit {
     }
 
     code: Code = {
-        basic: `<p-tree [value]="files" styleClass="w-full md:w-[30rem]" [filter]="true" filterPlaceholder="Lenient Filter" />
-<p-tree [value]="files2" styleClass="w-full md:w-[30rem]" [filter]="true" filterMode="strict" filterPlaceholder="Strict Filter" />`,
+        basic: `<p-tree [value]="files" [filter]="true" filterPlaceholder="Lenient Filter" />
+<p-tree [value]="files2" [filter]="true" filterMode="strict" filterPlaceholder="Strict Filter" />`,
 
         html: `<div class="card flex flex-wrap gap-4">
     <div class="flex-auto md:flex md:justify-start md:items-center flex-col">
-        <p-tree [value]="files" styleClass="w-full md:w-[30rem]" [filter]="true" filterPlaceholder="Lenient Filter" />
+        <p-tree [value]="files" [filter]="true" filterPlaceholder="Lenient Filter" />
     </div>
     <div class="flex-auto md:flex md:justify-start md:items-center flex-col">
-        <p-tree [value]="files2" styleClass="w-full md:w-[30rem]" [filter]="true" filterMode="strict" filterPlaceholder="Strict Filter" />
+        <p-tree [value]="files2" [filter]="true" filterMode="strict" filterPlaceholder="Strict Filter" />
     </div>
 </div>`,
 

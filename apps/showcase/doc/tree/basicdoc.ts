@@ -11,7 +11,7 @@ import { TreeNode } from 'primeng/api';
             <p>Tree component requires an array of <i>TreeNode</i> objects as its <i>value</i>.</p>
         </app-docsectiontext>
         <div class="card">
-            <p-tree [value]="files" styleClass="w-full md:w-[30rem]" />
+            <p-tree [value]="files" class="w-full md:w-[30rem]" />
         </div>
         <app-code [code]="code" selector="tree-basic-demo"></app-code>
     `
@@ -26,10 +26,10 @@ export class BasicDoc implements OnInit {
     }
 
     code: Code = {
-        basic: `<p-tree [value]="files" styleClass="w-full md:w-[30rem]" />`,
+        basic: `<p-tree [value]="files" class="w-full md:w-[30rem]" />`,
 
         html: `<div class="card">
-    <p-tree [value]="files" styleClass="w-full md:w-[30rem]" />
+    <p-tree [value]="files" class="w-full md:w-[30rem]" />
 </div>`,
 
         typescript: `import { Component, OnInit } from '@angular/core';

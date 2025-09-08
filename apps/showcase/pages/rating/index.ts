@@ -7,6 +7,7 @@ import { RatingDocModule } from '@/doc/rating/ratingdoc.module';
 import { ReactiveFormsDoc } from '@/doc/rating/reactiveformsdoc';
 import { ReadOnlyDoc } from '@/doc/rating/readonlydoc';
 import { TemplateDoc } from '@/doc/rating/templatedoc';
+import { TemplateDrivenFormsDoc } from '@/doc/rating/templatedrivenformsdoc';
 import { Component } from '@angular/core';
 
 @Component({
@@ -27,11 +28,6 @@ export class RatingDemo {
             component: BasicDoc
         },
         {
-            id: 'reactive-forms',
-            label: 'Reactive Forms',
-            component: ReactiveFormsDoc
-        },
-        {
             id: 'numberofstars',
             label: 'Number of Stars',
             component: NumberOfStarsDoc
@@ -43,7 +39,7 @@ export class RatingDemo {
         },
         {
             id: 'readonly',
-            label: 'ReadOnly',
+            label: 'Readonly',
             component: ReadOnlyDoc
         },
         {
@@ -51,7 +47,14 @@ export class RatingDemo {
             label: 'Disabled',
             component: DisabledDoc
         },
-
+        {
+            id: 'forms',
+            label: 'Forms',
+            children: [
+                { id: 'templatedriven', label: 'Template Driven', component: TemplateDrivenFormsDoc },
+                { id: 'reactive', label: 'Reactive Forms', component: ReactiveFormsDoc }
+            ]
+        },
         {
             id: 'accessibility',
             label: 'Accessibility',

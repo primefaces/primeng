@@ -14,8 +14,8 @@ interface UploadEvent {
         <app-docsectiontext>
             <p>FileUpload basic <i>mode</i> provides a simpler UI as an alternative to default advanced mode.</p>
         </app-docsectiontext>
-        <div class="card flex flex-col gap-6 items-center justify-center">
-            <p-toast />
+        <p-toast />
+        <div class="card flex flex-wrap gap-6 items-center justify-between">
             <p-fileupload #fu mode="basic" chooseLabel="Choose" chooseIcon="pi pi-upload" name="demo[]" url="https://www.primefaces.org/cdn/api/upload.php" accept="image/*" maxFileSize="1000000" (onUpload)="onUpload($event)" />
             <p-button label="Upload" (onClick)="fu.upload()" severity="secondary" />
         </div>
@@ -33,7 +33,7 @@ export class BasicDoc {
     code: Code = {
         basic: `<p-fileupload #fu mode="basic" chooseLabel="Choose" chooseIcon="pi pi-upload" name="demo[]" url="https://www.primefaces.org/cdn/api/upload.php" accept="image/*" maxFileSize="1000000" (onUpload)="onUpload($event)" />
 <p-button label="Upload" (onClick)="fu.upload()" severity="secondary" />`,
-        html: `<div class="card flex flex-col gap-6 items-center justify-center">
+        html: `<div class="card flex flex-wrap gap-6 items-center justify-between">
     <p-toast />
     <p-fileupload #fu mode="basic" chooseLabel="Choose" chooseIcon="pi pi-upload" name="demo[]" url="https://www.primefaces.org/cdn/api/upload.php" accept="image/*" maxFileSize="1000000" (onUpload)="onUpload($event)" />
     <p-button label="Upload" (onClick)="fu.upload()" severity="secondary" />

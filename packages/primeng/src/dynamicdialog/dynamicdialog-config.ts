@@ -61,7 +61,7 @@ export class DynamicDialogConfig<DataType = any, InputValuesType extends Record<
      */
     baseZIndex?: number;
     /**
-     * Whether to automatically manage layering.
+     * Whether to re-enforce layering through applying zIndex.
      * @group Props
      */
     autoZIndex?: boolean = false;
@@ -76,7 +76,7 @@ export class DynamicDialogConfig<DataType = any, InputValuesType extends Record<
      */
     rtl?: boolean = false;
     /**
-     * Inline style of the comopnent.
+     * Inline style of the component.
      * @group Props
      */
     style?: { [klass: string]: any } | null | undefined;

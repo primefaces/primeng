@@ -15,7 +15,6 @@ import { GridlinesDoc } from '@/doc/treetable/gridlinesdoc';
 import { ImportDoc } from '@/doc/treetable/importdoc';
 import { LazyLoadDoc } from '@/doc/treetable/lazyloaddoc';
 import { PaginatorBasicDoc } from '@/doc/treetable/paginatorbasicdoc';
-import { PaginatorLocaleDoc } from '@/doc/treetable/paginatorlocaledoc';
 import { PaginatorTemplateDoc } from '@/doc/treetable/paginatortemplatedoc';
 import { ReorderDoc } from '@/doc/treetable/reorderdoc';
 import { FrozenColumnsDoc } from '@/doc/treetable/scrollfrozencolumnsdoc';
@@ -89,11 +88,6 @@ export class TreeTableDemo {
                     id: 'paginatorbasic',
                     label: 'Basic',
                     component: PaginatorBasicDoc
-                },
-                {
-                    id: 'paginatorlocale',
-                    label: 'Locale',
-                    component: PaginatorLocaleDoc
                 },
                 {
                     id: 'paginatortemplate',

@@ -11,9 +11,9 @@ import { Component } from '@angular/core';
 
         <div class="card">
             <div class="flex mb-4 gap-2 justify-end">
-                <p-button (onClick)="active = '0'" [rounded]="true" label="1" class="w-8 h-8 p-0" [outlined]="active !== '0'" />
-                <p-button (onClick)="active = '1'" [rounded]="true" label="2" class="w-8 h-8 p-0" [outlined]="active !== '1'" />
-                <p-button (onClick)="active = '2'" [rounded]="true" label="3" class="w-8 h-8 p-0" [outlined]="active !== '2'" />
+                <p-button (onClick)="active = '0'" [rounded]="true" label="1" styleClass="w-8 h-8 p-0" [outlined]="active !== '0'" />
+                <p-button (onClick)="active = '1'" [rounded]="true" label="2" styleClass="w-8 h-8 p-0" [outlined]="active !== '1'" />
+                <p-button (onClick)="active = '2'" [rounded]="true" label="3" styleClass="w-8 h-8 p-0" [outlined]="active !== '2'" />
             </div>
 
             <p-accordion [(value)]="active">
@@ -56,9 +56,9 @@ export class ControlledDoc {
 
     code: Code = {
         basic: `<div class="flex mb-4 gap-2 justify-end">
-        <p-button (onClick)="active = '0'" [rounded]="true" label="1" class="w-8 h-8 p-0" [outlined]="active !== '0'" />
-        <p-button (onClick)="active = '1'" [rounded]="true" label="2" class="w-8 h-8 p-0" [outlined]="active !== '1'" />
-        <p-button (onClick)="active = '2'" [rounded]="true" label="3" class="w-8 h-8 p-0" [outlined]="active !== '2'" />
+        <p-button (onClick)="active = '0'" [rounded]="true" label="1" styleClass="w-8 h-8 p-0" [outlined]="active !== '0'" />
+        <p-button (onClick)="active = '1'" [rounded]="true" label="2" styleClass="w-8 h-8 p-0" [outlined]="active !== '1'" />
+        <p-button (onClick)="active = '2'" [rounded]="true" label="3" styleClass="w-8 h-8 p-0" [outlined]="active !== '2'" />
     </div>
 
     <p-accordion [(value)]="active">
@@ -100,9 +100,9 @@ export class ControlledDoc {
 
         html: `<div class="card">
     <div class="flex mb-4 gap-2 justify-end">
-        <p-button (onClick)="active = '0'" [rounded]="true" label="1" class="w-8 h-8 p-0" [outlined]="active !== '0'" />
-        <p-button (onClick)="active = '1'" [rounded]="true" label="2" class="w-8 h-8 p-0" [outlined]="active !== '1'" />
-        <p-button (onClick)="active = '2'" [rounded]="true" label="3" class="w-8 h-8 p-0" [outlined]="active !== '2'" />
+        <p-button (onClick)="active = '0'" [rounded]="true" label="1" styleClass="w-8 h-8 p-0" [outlined]="active !== '0'" />
+        <p-button (onClick)="active = '1'" [rounded]="true" label="2" styleClass="w-8 h-8 p-0" [outlined]="active !== '1'" />
+        <p-button (onClick)="active = '2'" [rounded]="true" label="3" styleClass="w-8 h-8 p-0" [outlined]="active !== '2'" />
     </div>
 
     <p-accordion [(value)]="active">

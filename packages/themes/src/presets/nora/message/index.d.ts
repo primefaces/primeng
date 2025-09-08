@@ -1,3 +1,2 @@
-import { MessageDesignTokens } from '../../types/message';
-declare const _default: MessageDesignTokens;
-export default _default;
+export * from '@primeuix/themes/nora/message';
+export { default } from '@primeuix/themes/nora/message';

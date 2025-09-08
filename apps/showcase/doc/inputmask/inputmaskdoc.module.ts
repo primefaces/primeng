@@ -19,13 +19,17 @@ import { InvalidDoc } from './invaliddoc';
 import { MaskDoc } from './maskdoc';
 import { OptionalDoc } from './optionaldoc';
 import { ReactiveFormsDoc } from './reactiveformsdoc';
+import { TemplateDrivenFormsDoc } from './templatedrivenformsdoc';
 import { SizesDoc } from './sizesdoc';
 import { SlotCharDoc } from './slotchardoc';
 import { StyleDoc } from './styledoc';
+import { ButtonModule } from 'primeng/button';
+import { ToastModule } from 'primeng/toast';
+import { MessageModule } from 'primeng/message';
 
 @NgModule({
-    imports: [CommonModule, FormsModule, ReactiveFormsModule, InputMaskModule, RouterModule, AppCodeModule, AppDocModule, FloatLabelModule, FluidModule, IftaLabelModule],
+    imports: [CommonModule, FormsModule, ReactiveFormsModule, InputMaskModule, RouterModule, AppCodeModule, AppDocModule, FloatLabelModule, FluidModule, IftaLabelModule, ButtonModule, ToastModule, MessageModule],
     exports: [AppDocModule],
-    declarations: [ImportDoc, BasicDoc, MaskDoc, SlotCharDoc, OptionalDoc, FloatlabelDoc, DisabledDoc, InvalidDoc, StyleDoc, AccessibilityDoc, ReactiveFormsDoc, FilledDoc, SizesDoc, IftaLabelDoc]
+    declarations: [ImportDoc, BasicDoc, MaskDoc, SlotCharDoc, OptionalDoc, FloatlabelDoc, DisabledDoc, InvalidDoc, StyleDoc, AccessibilityDoc, ReactiveFormsDoc, FilledDoc, SizesDoc, IftaLabelDoc, TemplateDrivenFormsDoc]
 })
 export class InputMaskDocModule {}

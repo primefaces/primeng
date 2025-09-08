@@ -15,10 +15,14 @@ import { MaskDoc } from './maskdoc';
 import { SampleDoc } from './sampledoc';
 import { SizesDoc } from './sizesdoc';
 import { TemplateDoc } from './templatedoc';
+import { ReactiveFormsDoc } from './reactiveformsdoc';
+import { TemplateDrivenFormsDoc } from './templatedrivenformsdoc';
+import { ToastModule } from 'primeng/toast';
+import { MessageModule } from 'primeng/message';
 
 @NgModule({
-    imports: [CommonModule, RouterModule, AppCodeModule, AppDocModule, FormsModule, ReactiveFormsModule, InputOtp, InputTextModule, ButtonModule],
+    imports: [CommonModule, RouterModule, AppCodeModule, AppDocModule, FormsModule, ReactiveFormsModule, InputOtp, InputTextModule, ButtonModule, ToastModule, MessageModule],
     exports: [AppDocModule],
-    declarations: [ImportDoc, BasicDoc, MaskDoc, IntegerOnlyDoc, TemplateDoc, SampleDoc, SizesDoc, AccessibilityDoc]
+    declarations: [ImportDoc, BasicDoc, MaskDoc, IntegerOnlyDoc, TemplateDoc, SampleDoc, SizesDoc, AccessibilityDoc, ReactiveFormsDoc, TemplateDrivenFormsDoc]
 })
 export class InputOtpDocModule {}

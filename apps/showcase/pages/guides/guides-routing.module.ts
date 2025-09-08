@@ -1,9 +1,8 @@
 import { NgModule } from '@angular/core';
 import { RouterModule } from '@angular/router';
 import { AccessibilityDemoComponent } from './accessibility/accessibilitydemo.component';
-import { TemplateUpdateDemoComponent } from './templateupdate/templateupdatedemo.component';
 import { PrimeFlexDemoComponent } from './primeflex/primeflexdemo.component';
-import { MigrationDemoComponent } from './migration/migration.component';
+import { TemplateUpdateDemoComponent } from './templateupdate/templateupdatedemo.component';
 
 @NgModule({
     imports: [
@@ -11,8 +10,7 @@ import { MigrationDemoComponent } from './migration/migration.component';
             { path: '', redirectTo: 'accessibility', pathMatch: 'full' },
             { path: 'accessibility', component: AccessibilityDemoComponent },
             { path: 'templateupdate', component: TemplateUpdateDemoComponent },
-            { path: 'primeflex', component: PrimeFlexDemoComponent },
-            { path: 'migration', component: MigrationDemoComponent }
+            { path: 'primeflex', component: PrimeFlexDemoComponent }
         ])
     ],
     exports: [RouterModule]

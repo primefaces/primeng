@@ -10,7 +10,7 @@ import { Component } from '@angular/core';
         </app-docsectiontext>
         <div class="card flex justify-center">
             <p-iftalabel class="w-full md:w-56">
-                <p-cascadeselect [(ngModel)]="selectedCity" inputId="cs_city" [options]="countries" optionLabel="cname" optionGroupLabel="name" [optionGroupChildren]="['states', 'cities']" styleClass="w-full" />
+                <p-cascadeselect [(ngModel)]="selectedCity" inputId="cs_city" [options]="countries" optionLabel="cname" optionGroupLabel="name" [optionGroupChildren]="['states', 'cities']" class="w-full" />
                 <label for="cs_city">City</label>
             </p-iftalabel>
         </div>
@@ -24,13 +24,13 @@ export class IftaLabelDoc {
     selectedCity: any;
     code: Code = {
         basic: `<p-iftalabel class="w-full md:w-56">
-    <p-cascadeselect [(ngModel)]="selectedCity" inputId="cs_city" [options]="countries" optionLabel="cname" optionGroupLabel="name" [optionGroupChildren]="['states', 'cities']" styleClass="w-full" />
+    <p-cascadeselect [(ngModel)]="selectedCity" inputId="cs_city" [options]="countries" optionLabel="cname" optionGroupLabel="name" [optionGroupChildren]="['states', 'cities']" class="w-full" />
     <label for="cs_city">City</label>
 </p-iftalabel>`,
 
         html: `<div class="card flex justify-center">
     <p-iftalabel class="w-full md:w-56">
-        <p-cascadeselect [(ngModel)]="selectedCity" inputId="cs_city" [options]="countries" optionLabel="cname" optionGroupLabel="name" [optionGroupChildren]="['states', 'cities']" styleClass="w-full" />
+        <p-cascadeselect [(ngModel)]="selectedCity" inputId="cs_city" [options]="countries" optionLabel="cname" optionGroupLabel="name" [optionGroupChildren]="['states', 'cities']" class="w-full" />
         <label for="cs_city">City</label>
     </p-iftalabel>
 </div>`,

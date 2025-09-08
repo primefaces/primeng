@@ -6,6 +6,7 @@ import { ImportDoc } from '@/doc/editor/importdoc';
 import { QuillDoc } from '@/doc/editor/quilldoc';
 import { ReactiveFormsDoc } from '@/doc/editor/reactiveformsdoc';
 import { ReadOnlyDoc } from '@/doc/editor/readonlydoc';
+import { TemplateDrivenFormsDoc } from '@/doc/editor/templatedrivenformsdoc';
 import { Component } from '@angular/core';
 
 @Component({
@@ -31,11 +32,6 @@ export class EditorDemo {
             component: BasicDoc
         },
         {
-            id: 'reactive-forms',
-            label: 'Reactive Forms',
-            component: ReactiveFormsDoc
-        },
-        {
             id: 'readonly',
             label: 'ReadOnly',
             component: ReadOnlyDoc
@@ -44,6 +40,14 @@ export class EditorDemo {
             id: 'template',
             label: 'Template',
             component: CustomToolbarDoc
+        },
+        {
+            id: 'forms',
+            label: 'Forms',
+            children: [
+                { id: 'templatedriven', label: 'Template Driven', component: TemplateDrivenFormsDoc },
+                { id: 'reactive', label: 'Reactive Forms', component: ReactiveFormsDoc }
+            ]
         },
 
         {

@@ -13330,7 +13330,7 @@
                             "optional": true,
                             "readonly": false,
                             "type": "Object",
-                            "description": "Inline style of the comopnent."
+                            "description": "Inline style of the component."
                         },
                         {
                             "name": "contentStyle",
@@ -20828,7 +20828,7 @@
                             "parameters": [
                                 {
                                     "name": "value",
-                                    "type": "void"
+                                    "type": "AnimationEvent"
                                 }
                             ],
                             "description": "Callback to invoke when overlay panel becomes visible."
@@ -20838,7 +20838,7 @@
                             "parameters": [
                                 {
                                     "name": "value",
-                                    "type": "void"
+                                    "type": "AnimationEvent"
                                 }
                             ],
                             "description": "Callback to invoke when overlay panel becomes hidden."
@@ -31723,7 +31723,7 @@
                     },
                     {
                         "parent": "table",
-                        "name": "rowexpansion",
+                        "name": "expandedrow",
                         "parameters": [
                             {
                                 "name": "context",
@@ -31789,7 +31789,7 @@
                     },
                     {
                         "parent": "table",
-                        "name": "frozenrowexpansion",
+                        "name": "frozenexpandedrow",
                         "parameters": [
                             {
                                 "name": "context",
