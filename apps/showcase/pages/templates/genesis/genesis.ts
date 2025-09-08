@@ -1,8 +1,8 @@
-import { TemplateConfigurationModule } from '@/components/template/templateconfiguration';
-import { TemplateFeaturesModule } from '@/components/template/templatefeatures';
-import { TemplateFeaturesAnimationModule } from '@/components/template/templatefeaturesanimation/templatefeaturesanimation';
-import { TemplateHeroModule } from '@/components/template/templatehero/templatehero';
-import { TemplateLicenseModule } from '@/components/template/templatelicense';
+import { TemplateConfiguration } from '@/components/template/templateconfiguration';
+import { TemplateFeatures } from '@/components/template/templatefeatures';
+import { TemplateFeaturesAnimation } from '@/components/template/templatefeaturesanimation/templatefeaturesanimation';
+import { TemplateHero } from '@/components/template/templatehero/templatehero';
+import { TemplateLicense } from '@/components/template/templatelicense';
 import { Component } from '@angular/core';
 import { GenesisLogo } from './genesislogo';
 import { GenesisSeparator } from './genesisseparator';
@@ -10,7 +10,7 @@ import { GenesisSeparator } from './genesisseparator';
 @Component({
     standalone: true,
     selector: 'genesis-page',
-    imports: [TemplateHeroModule, TemplateLicenseModule, GenesisSeparator, TemplateFeaturesAnimationModule, TemplateConfigurationModule, TemplateFeaturesModule],
+    imports: [TemplateHero, TemplateLicense, GenesisSeparator, TemplateFeaturesAnimation, TemplateConfiguration, TemplateFeatures],
     template: `
         <div class="template">
             <template-hero [templateHeroData]="templateHeroData" [templateLogo]="genesisLogo"></template-hero>
