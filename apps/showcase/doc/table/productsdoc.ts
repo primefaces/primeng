@@ -186,7 +186,7 @@ interface ExportColumn {
 
                             <div>
                                 <label for="inventoryStatus" class="block font-bold mb-3">Inventory Status</label>
-                                <p-select [(ngModel)]="product.inventoryStatus" inputId="inventoryStatus" [options]="statuses" optionLabel="label" placeholder="Select a Status" fluid />
+                                <p-select [(ngModel)]="product.inventoryStatus" inputId="inventoryStatus" [options]="statuses" optionLabel="label" optionValue="label" placeholder="Select a Status" fluid />
                             </div>
 
                             <div>
@@ -356,7 +356,7 @@ export class ProductsDoc {
 
             <div>
                 <label for="inventoryStatus" class="block font-bold mb-3">Inventory Status</label>
-                <p-select [(ngModel)]="product.inventoryStatus" inputId="inventoryStatus" [options]="statuses" optionLabel="label" placeholder="Select a Status" fluid />
+                <p-select [(ngModel)]="product.inventoryStatus" inputId="inventoryStatus" [options]="statuses" optionLabel="label" optionValue="label" placeholder="Select a Status" fluid />
             </div>
 
             <div>
@@ -520,7 +520,7 @@ export class ProductsDoc {
 
                 <div>
                     <label for="inventoryStatus" class="block font-bold mb-3">Inventory Status</label>
-                    <p-select [(ngModel)]="product.inventoryStatus" inputId="inventoryStatus" [options]="statuses" optionLabel="label" placeholder="Select a Status" fluid />
+                    <p-select [(ngModel)]="product.inventoryStatus" inputId="inventoryStatus" [options]="statuses" optionLabel="label" optionValue="label" placeholder="Select a Status" fluid />
                 </div>
 
                 <div>
