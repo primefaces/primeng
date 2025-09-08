@@ -575,23 +575,6 @@ describe('DynamicDialogComponent', () => {
             flush();
         }));
 
-        // TODO: will be revised.
-        // it('should handle maximize button keyboard activation', fakeAsync(() => {
-        //     const maximizeButton = fixture.debugElement.query(By.css('.p-dialog-maximize-button'));
-        //     expect(maximizeButton).toBeTruthy(); // Make sure button exists
-
-        //     spyOn(component, 'maximize').and.callThrough();
-
-        //     // Trigger keydown.enter event through Angular's event system
-        //     maximizeButton.triggerEventHandler('keydown.enter', null);
-        //     tick();
-        //     fixture.detectChanges();
-
-        //     expect(component.maximize).toHaveBeenCalled();
-        //     expect(component.maximized).toBe(true);
-        //     flush();
-        // }));
-
         it('should apply maximized class when maximized', () => {
             component.maximize();
             fixture.detectChanges();
