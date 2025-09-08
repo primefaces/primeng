@@ -551,7 +551,7 @@ describe('Breadcrumb', () => {
     });
 
     describe('Template Tests', () => {
-        it('should handle #item template processing (yeni approach)', fakeAsync(() => {
+        it('should handle #item template processing', fakeAsync(() => {
             const itemTemplateFixture = TestBed.createComponent(TestItemTemplateBreadcrumbComponent);
             itemTemplateFixture.detectChanges();
             tick(100);
@@ -564,7 +564,7 @@ describe('Breadcrumb', () => {
             flush();
         }));
 
-        it('should handle pTemplate item processing (eski approach)', fakeAsync(() => {
+        it('should handle pTemplate item processing', fakeAsync(() => {
             const pTemplateFixture = TestBed.createComponent(TestPTemplateItemBreadcrumbComponent);
             pTemplateFixture.detectChanges();
             tick(100);

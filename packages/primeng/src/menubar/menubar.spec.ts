@@ -1,8 +1,7 @@
-import { Component, DebugElement, ViewChild } from '@angular/core';
+import { Component, DebugElement } from '@angular/core';
 import { ComponentFixture, fakeAsync, flush, TestBed, tick } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
-import { Router } from '@angular/router';
 import { RouterTestingModule } from '@angular/router/testing';
 import { MenuItem, SharedModule } from 'primeng/api';
 import { Menubar } from './menubar';
@@ -537,7 +536,7 @@ describe('Menubar', () => {
             flush();
         }));
 
-        it('should handle #item template processing (yeni approach)', fakeAsync(() => {
+        it('should handle #item template processing', fakeAsync(() => {
             const itemTemplateFixture = TestBed.createComponent(TestItemTemplateMenubarComponent);
             itemTemplateFixture.detectChanges();
             tick(100);
@@ -550,7 +549,7 @@ describe('Menubar', () => {
             flush();
         }));
 
-        it('should handle pTemplate processing (eski approach)', fakeAsync(() => {
+        it('should handle pTemplate processing', fakeAsync(() => {
             const pTemplateFixture = TestBed.createComponent(TestPTemplateMenubarComponent);
             pTemplateFixture.detectChanges();
             tick(100);

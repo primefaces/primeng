@@ -269,7 +269,7 @@ describe('ProgressBar', () => {
     });
 
     describe('Templates', () => {
-        it('should handle pTemplate content processing (eski approach)', fakeAsync(() => {
+        it('should handle pTemplate content processing', fakeAsync(() => {
             const templateFixture = TestBed.createComponent(TestPTemplateProgressBarComponent);
             templateFixture.detectChanges();
             tick(100);
@@ -286,7 +286,7 @@ describe('ProgressBar', () => {
             flush();
         }));
 
-        it('should handle #content template processing (yeni approach)', fakeAsync(() => {
+        it('should handle #content template processing', fakeAsync(() => {
             const contentTemplateFixture = TestBed.createComponent(TestContentTemplateProgressBarComponent);
             contentTemplateFixture.detectChanges();
             tick(100);

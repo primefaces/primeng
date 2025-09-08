@@ -323,7 +323,7 @@ describe('Tag', () => {
     });
 
     describe('Icon Template Tests', () => {
-        it('should handle #icon template processing (yeni approach)', fakeAsync(() => {
+        it('should handle #icon template processing', fakeAsync(() => {
             const iconTemplateFixture = TestBed.createComponent(TestIconTemplateTagComponent);
             iconTemplateFixture.detectChanges();
             tick(100);
@@ -345,7 +345,7 @@ describe('Tag', () => {
             flush();
         }));
 
-        it('should handle pTemplate icon processing (eski approach)', fakeAsync(() => {
+        it('should handle pTemplate icon processing', fakeAsync(() => {
             const pTemplateFixture = TestBed.createComponent(TestPTemplateTagComponent);
             pTemplateFixture.detectChanges();
             tick(100);

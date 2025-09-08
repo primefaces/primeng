@@ -406,7 +406,7 @@ describe('TieredMenu', () => {
             templateFixture.detectChanges();
         });
 
-        it('should handle pTemplate content processing (eski approach)', fakeAsync(() => {
+        it('should handle pTemplate content processing', fakeAsync(() => {
             const pTemplateFixture = TestBed.createComponent(TestTemplateTieredMenuComponent);
             pTemplateFixture.detectChanges();
             tick(100);
@@ -426,7 +426,7 @@ describe('TieredMenu', () => {
             flush();
         }));
 
-        it('should handle #item template processing (yeni approach)', fakeAsync(() => {
+        it('should handle #item template processing', fakeAsync(() => {
             const itemTemplateFixture = TestBed.createComponent(TestContentTemplateTieredMenuComponent);
             itemTemplateFixture.detectChanges();
             tick(100);
