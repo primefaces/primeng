@@ -1341,7 +1341,7 @@ export class CascadeSelect extends BaseEditableHolder implements OnInit, AfterCo
             this.updateModel(null);
             this.focusedOptionInfo.set({ index: -1, level: 0, parentKey: '' });
             this.activeOptionPath.set([]);
-            this.onClear.emit();
+            this.onClear.emit(event);
         }
 
         event && event.stopPropagation();
