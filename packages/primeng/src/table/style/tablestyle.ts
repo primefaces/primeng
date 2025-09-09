@@ -130,6 +130,11 @@ const theme = /*css*/ `
         display: block;
         width: 100%;
     }
+
+    .p-datatable-hoverable .p-datatable-tbody > tr:not(.p-datatable-row-selected):hover td {
+        background: dt('datatable.row.hover.background');
+        color: dt('datatable.row.hover.color');
+    }
 `;
 
 const classes = {
