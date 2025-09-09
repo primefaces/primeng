@@ -107,13 +107,19 @@ const theme = /*css*/ `
         color: dt('datatable.header.cell.selected.color');
     }
 
-    .p-datatable.p-datatable-striped .p-datatable-tbody > tr:nth-child(odd) {
+    .p-datatable.p-datatable-striped .p-datatable-tbody > tr:nth-child(odd):not(.p-datatable-row-selected) td {
         background: dt('datatable.row.striped.background');
     }
 
     .p-datatable.p-datatable-striped .p-datatable-tbody > tr:nth-child(odd).p-datatable-row-selected {
         background: dt('datatable.row.selected.background');
         color: dt('datatable.row.selected.color');
+    }
+
+    .p-datatable-striped.p-datatable-hoverable .p-datatable-tbody > tr:not(.p-datatable-row-selected):hover td {
+        background: dt('datatable.row.hover.background');
+        color: dt('datatable.row.hover.color');
+        transition: background var(--p-datatable-transition-duration), color var(--p-datatable-transition-duration);
     }
 
     p-sortIcon, p-sort-icon, p-sorticon {
