@@ -1,11 +1,11 @@
 import { CommonModule, isPlatformServer } from '@angular/common';
-import { AfterContentInit, afterNextRender, ChangeDetectionStrategy, Component, ContentChild, ContentChildren, EventEmitter, forwardRef, inject, Input, NgModule, Output, QueryList, TemplateRef, ViewEncapsulation } from '@angular/core';
+import { AfterContentInit, afterNextRender, ChangeDetectionStrategy, Component, ContentChild, ContentChildren, EventEmitter, forwardRef, inject, Input, NgModule, OnDestroy, Output, QueryList, TemplateRef, ViewEncapsulation } from '@angular/core';
 import { NG_VALUE_ACCESSOR } from '@angular/forms';
 import { findSingle } from '@primeuix/utils';
 import { Header, PrimeTemplate, SharedModule } from 'primeng/api';
 import { BaseEditableHolder } from 'primeng/baseeditableholder';
 import { Nullable } from 'primeng/ts-helpers';
-import { EditorInitEvent, EditorSelectionChangeEvent, EditorTextChangeEvent } from './editor.interface';
+import { EditorBlurEvent, EditorChangeEvent, EditorFocusEvent, EditorInitEvent, EditorSelectionChangeEvent, EditorTextChangeEvent } from './editor.interface';
 import { EditorStyle } from './style/editorstyle';
 
 export const EDITOR_VALUE_ACCESSOR: any = {
@@ -76,7 +76,7 @@ export const EDITOR_VALUE_ACCESSOR: any = {
         '[class]': "cn(cx('root'), styleClass)"
     }
 })
-export class Editor extends BaseEditableHolder implements AfterContentInit {
+export class Editor extends BaseEditableHolder implements AfterContentInit, OnDestroy {
     /**
      * Inline style of the container.
      * @group Props
@@ -151,6 +151,24 @@ export class Editor extends BaseEditableHolder implements AfterContentInit {
      * @group Emits
      */
     @Output() onSelectionChange: EventEmitter<EditorSelectionChangeEvent> = new EventEmitter<EditorSelectionChangeEvent>();
+    /**
+     * Callback to invoke when editor content changes (combines both text and selection changes).
+     * @param {EditorChangeEvent} event - custom event.
+     * @group Emits
+     */
+    @Output() onEditorChange: EventEmitter<EditorChangeEvent> = new EventEmitter<EditorChangeEvent>();
+    /**
+     * Callback to invoke when editor receives focus.
+     * @param {EditorFocusEvent} event - custom event.
+     * @group Emits
+     */
+    @Output() onFocus: EventEmitter<EditorFocusEvent> = new EventEmitter<EditorFocusEvent>();
+    /**
+     * Callback to invoke when editor loses focus.
+     * @param {EditorBlurEvent} event - custom event.
+     * @group Emits
+     */
+    @Output() onBlur: EventEmitter<EditorBlurEvent> = new EventEmitter<EditorBlurEvent>();
 
     @ContentChild(Header) toolbar: any;
 
@@ -179,6 +197,10 @@ export class Editor extends BaseEditableHolder implements AfterContentInit {
     }
 
     private quillElements!: { editorElement: HTMLElement; toolbarElement: HTMLElement };
+
+    private focusListener: (() => void) | null = null;
+
+    private blurListener: (() => void) | null = null;
 
     _componentStyle = inject(EditorStyle);
 
@@ -285,7 +307,7 @@ export class Editor extends BaseEditableHolder implements AfterContentInit {
             this.quill.setContents(this.quill.clipboard.convert(isQuill2 ? { html: this.value } : this.value));
         }
 
-        this.quill.on('text-change', (delta: any, oldContents: any, source: any) => {
+        this.quill.on('text-change', (delta: any, oldContents: any, source: 'user' | 'api' | 'silent') => {
             if (source === 'user') {
                 let html = isQuill2 ? this.quill.getSemanticHTML() : findSingle(editorElement, '.ql-editor').innerHTML;
                 let text = this.quill.getText().trim();
@@ -305,7 +327,7 @@ export class Editor extends BaseEditableHolder implements AfterContentInit {
             }
         });
 
-        this.quill.on('selection-change', (range: string, oldRange: string, source: string) => {
+        this.quill.on('selection-change', (range: any, oldRange: any, source: 'user' | 'api' | 'silent') => {
             this.onSelectionChange.emit({
                 range: range,
                 oldRange: oldRange,
@@ -313,9 +335,47 @@ export class Editor extends BaseEditableHolder implements AfterContentInit {
             });
         });
 
+        this.quill.on('editor-change', (eventName: 'text-change' | 'selection-change', ...args: any[]) => {
+            this.onEditorChange.emit({
+                eventName: eventName,
+                args: args
+            });
+        });
+
+        const editorEl = this.quill.root;
+
+        this.focusListener = () => {
+            this.onFocus.emit({
+                source: 'user'
+            });
+        };
+
+        this.blurListener = () => {
+            this.onBlur.emit({
+                source: 'user'
+            });
+        };
+
+        editorEl.addEventListener('focus', this.focusListener);
+        editorEl.addEventListener('blur', this.blurListener);
+
         this.onInit.emit({
             editor: this.quill
         });
+    }
+
+    ngOnDestroy(): void {
+        if (this.quill && this.quill.root) {
+            const editorEl = this.quill.root;
+            if (this.focusListener) {
+                editorEl.removeEventListener('focus', this.focusListener);
+                this.focusListener = null;
+            }
+            if (this.blurListener) {
+                editorEl.removeEventListener('blur', this.blurListener);
+                this.blurListener = null;
+            }
+        }
     }
 
     private initQuillElements(): void {

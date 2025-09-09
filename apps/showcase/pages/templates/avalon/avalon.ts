@@ -118,8 +118,9 @@ export class AvalonPage {
         {
             id: 4,
             title: 'Figma File',
-            description:
-                'Powered by Figma as the design tool. It will be possible to download the Figma file after your purchase. Note that PrimeNG UI components are excluded from the template Figma file as they are available in PrimeOne for Figma only.',
+            description: `Avalon uses Figma as the design tool. It will be possible to download the Figma file after your purchase. You can
+                <a href="https://www.figma.com/design/kOSpIMmOxQ3vWq7md9ZIqZ/Preview-%7C-Avalon-%7C-2.0.0?node-id=6184-14861&t=2WN09Iqp8HcYlKkE-1" target="_blank" rel="noopener noreferrer">preview the Figma file</a> before the purchase. Note that PrimeNG UI components are excluded from the
+                Avalon Figma file as they are available in <a href="/uikit">PrimeOne for Figma</a> only.`,
             src: 'https://primefaces.org/cdn/primeng/images/templates/avalon/features-animation-figma.png'
         }
     ];

@@ -76,7 +76,7 @@ export class GenesisPage {
         {
             title: 'Top Notch Quality',
             description: 'Superior standards with 100% compatibility for strict mode and linting tools.',
-            src: 'https://primefaces.org/cdn/primevue/images/templates/apollo/apollo-features2-quality.png',
+            src: 'https://primefaces.org/cdn/primeng/images/templates/apollo/apollo-features2-quality.png',
             darkSrc: 'https://primefaces.org/cdn/primeng/images/templates/apollo/apollo-features2-quality-dark.png'
         },
         {
@@ -94,7 +94,7 @@ export class GenesisPage {
         {
             title: 'Mobile Experience',
             description: 'Touch optimized enhanced mobile experience with responsive design.',
-            src: 'https://primefaces.org/cdn/primeng/images/templates/apollo/apollo-features2-mobile.png'
+            src: 'https://primefaces.org/cdn/primeng/images/templates/genesis/mobile-experience.png'
         }
     ];
 
@@ -129,7 +129,7 @@ export class GenesisPage {
         {
             id: 1,
             title: 'Tailwind CSS',
-            description: 'The demo content is built with TailwindCSS, while the application shell uses custom CSS, offering flexibility and efficiency for responsive design.',
+            description: 'Built with TailwindCSS, offering flexibility and efficiency for responsive design. Enjoy the power of Tailwind, a favorite among developers.',
             src: 'https://primefaces.org/cdn/primeng/images/templates/common/tailwind.png'
         },
         {
@@ -148,7 +148,7 @@ export class GenesisPage {
             id: 4,
             title: 'Figma File',
             description:
-                'Powered by Figma as the design tool. It will be possible to download the Figma file after your purchase. Note that PrimeNG UI components are excluded from the template Figma file as they are available in PrimeOne for Figma only.',
+                'Genesis uses Figma as the design tool. It will be possible to download the Figma file after your purchase. You can <a href="https://www.figma.com/design/bGujrJyznnSatJFMtkXbTN/Preview-%7C-Genesis?node-id=0-1&t=etuXAwkUAEuhJ3p0-1" target="_blank" rel="noopener noreferrer">preview the Figma file</a> before the purchase. Note that PrimeNG UI components are excluded from the Genesis Figma file as they are available in PrimeOne for Figma only.',
             src: 'https://primefaces.org/cdn/primeng/images/templates/genesis/animation-figma.png'
         }
     ];

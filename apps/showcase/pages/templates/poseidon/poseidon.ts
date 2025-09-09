@@ -51,7 +51,7 @@ export class PoseidonPage {
         {
             title: 'Fully Responsive',
             description: 'Crafted to provide optimal viewing and interaction experience for a wide range of devices.',
-            src: 'https://primefaces.org/cdn/primevue/images/templates/poseidon/nextgen/poseidon-responsive.png'
+            src: 'https://primefaces.org/cdn/primeng/images/templates/poseidon/nextgen/poseidon-responsive.png'
         },
         {
             title: 'Support',
@@ -81,7 +81,7 @@ export class PoseidonPage {
         {
             title: 'Mobile Experience',
             description: 'Touch optimized enhanced mobile experience with responsive design.',
-            src: 'https://primefaces.org/cdn/primeng/images/templates/apollo/apollo-features2-mobile.png'
+            src: 'https://primefaces.org/cdn/primeng/images/templates/poseidon/nextgen/poseidon-mobile.png'
         }
     ];
 
@@ -109,8 +109,10 @@ export class PoseidonPage {
             title: 'Figma File',
             width: 1440,
             height: 1788,
-            description:
-                'Powered by Figma as the design tool. It will be possible to download the Figma file after your purchase. Note that PrimeNG UI components are excluded from the template Figma file as they are available in PrimeOne for Figma only.',
+            description: `Poseidon uses Figma as the design tool. It will be possible to download the Figma file after your purchase.
+                    You can <a href="https://www.figma.com/design/eMNbyxsMp3H0PQbMyyGK77/Preview-%7C-Poseidon?node-id=0-1&t=wJRSplRnKvjqju9S-1" target="_blank" rel="noopener noreferrer">preview the Figma file</a> the Figma file before the purchase.
+                    Note that PrimeNG UI components are excluded from the
+                    Avalon Figma file as they are available in <a href="/uikit">PrimeOne for Figma</a> only.`,
             src: 'https://primefaces.org/cdn/primeng/images/templates/poseidon/nextgen/poseidon-figma.png'
         }
     ];
@@ -118,56 +120,56 @@ export class PoseidonPage {
     animationFeaturesData2 = [
         {
             id: 1,
-            title: 'Light / Dark / Dim Modes',
+            title: 'Light and Dark Modes',
             description: '2 color schemes with numerous surface color alternatives for each.',
             src: 'https://primefaces.org/cdn/primeng/images/templates/poseidon/nextgen/poseidon-lightdark.png'
         },
         {
             id: 2,
             title: 'Component Themes',
-            description: 'Poseidon offers 17 fully customizable built-in themes featuring different presets such as Aura and Lara.',
+            description: 'Poseidon offers 17 fully customizable built-in themes featuring different presets such as Aura, Lara and Nora.',
             src: 'https://primefaces.org/cdn/primeng/images/templates/poseidon/nextgen/poseidon-component.png'
         },
         {
             id: 3,
             title: '7 Menu Orientations',
-            description: 'Static, Overlay, Slim, Slim+, Reveal, Drawer and Horizontal are the available menu layouts depending on your preference.',
+            description: 'Poseidon has 7 menu layouts to choose from; Static, Overlay, Horizontal, Compact, Slim, Reveal and Drawer.',
             type: 'inline-animation',
             inlineFeaturesData: [
                 {
                     id: 1,
                     title: 'Static',
-                    src: 'https://primefaces.org/cdn/primevue/images/templates/poseidon/nextgen/poseidon-static.png'
+                    src: 'https://primefaces.org/cdn/primeng/images/templates/poseidon/nextgen/poseidon-static.png'
                 },
                 {
                     id: 2,
                     title: 'Overlay',
-                    src: 'https://primefaces.org/cdn/primevue/images/templates/poseidon/nextgen/poseidon-overlay.png'
+                    src: 'https://primefaces.org/cdn/primeng/images/templates/poseidon/nextgen/poseidon-overlay.png'
                 },
                 {
                     id: 3,
                     title: 'Horizontal',
-                    src: 'https://primefaces.org/cdn/primevue/images/templates/poseidon/nextgen/poseidon-horizontal.png'
+                    src: 'https://primefaces.org/cdn/primeng/images/templates/poseidon/nextgen/poseidon-horizontal.png'
                 },
                 {
                     id: 4,
                     title: 'Drawer',
-                    src: 'https://primefaces.org/cdn/primevue/images/templates/poseidon/nextgen/poseidon-drawer.png'
+                    src: 'https://primefaces.org/cdn/primeng/images/templates/poseidon/nextgen/poseidon-drawer.png'
                 },
                 {
                     id: 5,
                     title: 'Slim',
-                    src: 'https://primefaces.org/cdn/primevue/images/templates/poseidon/nextgen/poseidon-slim.png'
+                    src: 'https://primefaces.org/cdn/primeng/images/templates/poseidon/nextgen/poseidon-slim.png'
                 },
                 {
                     id: 6,
                     title: 'Compact',
-                    src: 'https://primefaces.org/cdn/primevue/images/templates/poseidon/nextgen/poseidon-compact.png'
+                    src: 'https://primefaces.org/cdn/primeng/images/templates/poseidon/nextgen/poseidon-compact.png'
                 },
                 {
                     id: 7,
                     title: 'Reveal',
-                    src: 'https://primefaces.org/cdn/primevue/images/templates/poseidon/nextgen/poseidon-reveal.png'
+                    src: 'https://primefaces.org/cdn/primeng/images/templates/poseidon/nextgen/poseidon-reveal.png'
                 }
             ]
         },

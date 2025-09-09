@@ -42,7 +42,7 @@ import { DomSanitizer, SafeHtml } from '@angular/platform-browser';
                         </div>
                         <div class="flex-1">
                             <h5 class="text-lg lg:text-xl font-semibold m-0">{{ data.title }}</h5>
-                            <p class="text-sm lg:text-base text-muted-color mt-1 mb-0 [&>a]:text-primary [&>a]:hover:underline" [innerHTML]="getSanitizedDescription(data.description)"></p>
+                            <p class="text-sm lg:text-base text-muted-color mt-1 mb-0 [&>a]:text-primary" [innerHTML]="getSanitizedDescription(data.description)"></p>
                         </div>
                     </div>
                 </div>
