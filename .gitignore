@@ -31,6 +31,7 @@ npm-debug.log
 testem.log
 /typings
 .angular
+TEST.md
 
 # e2e
 /e2e/*.js
