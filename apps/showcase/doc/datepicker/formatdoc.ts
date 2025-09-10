@@ -2,7 +2,7 @@ import { Code } from '@/domain/code';
 import { Component } from '@angular/core';
 
 @Component({
-    selector: 'datepicker-format-demo',
+    selector: 'date-picker-format-demo',
     standalone: false,
     template: `
         <app-docsectiontext>
@@ -30,7 +30,7 @@ import { Component } from '@angular/core';
         <div class="card flex justify-center">
             <p-datepicker [(ngModel)]="date" dateFormat="dd.mm.yy" />
         </div>
-        <app-code [code]="code" selector="datepicker-format-demo"></app-code>
+        <app-code [code]="code" selector="date-picker-format-demo"></app-code>
     `
 })
 export class FormatDoc {
@@ -48,8 +48,8 @@ import { FormsModule } from '@angular/forms';
 import { DatePicker } from 'primeng/datepicker';
 
 @Component({
-    selector: 'datepicker-format-demo',
-    templateUrl: './datepicker-format-demo.html',
+    selector: 'date-picker-format-demo',
+    templateUrl: './date-picker-format-demo.html',
     standalone: true,
     imports: [FormsModule, DatePicker]
 })

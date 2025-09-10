@@ -1,7 +1,7 @@
 import { Code } from '@/domain/code';
 import { Component } from '@angular/core';
 @Component({
-    selector: 'datepicker-import-doc',
+    selector: 'date-picker-import-doc',
     standalone: false,
     template: ` <app-code [code]="code" [hideToggleCode]="true"></app-code> `
 })

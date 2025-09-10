@@ -2,7 +2,7 @@ import { Code } from '@/domain/code';
 import { Component } from '@angular/core';
 
 @Component({
-    selector: 'datepicker-basic-demo',
+    selector: 'date-picker-basic-demo',
     standalone: false,
     template: `
         <app-docsectiontext>
@@ -11,7 +11,7 @@ import { Component } from '@angular/core';
         <div class="card flex justify-center">
             <p-datepicker [(ngModel)]="date" />
         </div>
-        <app-code [code]="code" selector="datepicker-basic-demo"></app-code>
+        <app-code [code]="code" selector="date-picker-basic-demo"></app-code>
     `
 })
 export class BasicDoc {
@@ -29,8 +29,8 @@ import { DatePicker } from 'primeng/datepicker';
 import { FormsModule } from '@angular/forms';
 
 @Component({
-    selector: 'datepicker-basic-demo',
-    templateUrl: './datepicker-basic-demo.html',
+    selector: 'date-picker-basic-demo',
+    templateUrl: './date-picker-basic-demo.html',
     standalone: true,
     imports: [FormsModule, DatePicker]
 })

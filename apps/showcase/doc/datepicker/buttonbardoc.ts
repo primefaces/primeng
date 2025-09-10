@@ -2,7 +2,7 @@ import { Code } from '@/domain/code';
 import { Component } from '@angular/core';
 
 @Component({
-    selector: 'datepicker-buttonbar-demo',
+    selector: 'date-picker-buttonbar-demo',
     standalone: false,
     template: `
         <app-docsectiontext>
@@ -11,7 +11,7 @@ import { Component } from '@angular/core';
         <div class="card flex justify-center">
             <p-datepicker [(ngModel)]="date" [showButtonBar]="true" />
         </div>
-        <app-code [code]="code" selector="datepicker-buttonbar-demo"></app-code>
+        <app-code [code]="code" selector="date-picker-buttonbar-demo"></app-code>
     `
 })
 export class ButtonBarDoc {
@@ -29,8 +29,8 @@ import { FormsModule } from '@angular/forms';
 import { DatePicker } from 'primeng/datepicker';
 
 @Component({
-    selector: 'datepicker-buttonbar-demo',
-    templateUrl: './datepicker-buttonbar-demo.html',
+    selector: 'date-picker-buttonbar-demo',
+    templateUrl: './date-picker-buttonbar-demo.html',
     standalone: true,
     imports: [FormsModule, DatePicker]
 })

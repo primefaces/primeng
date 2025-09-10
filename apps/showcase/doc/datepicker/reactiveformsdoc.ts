@@ -22,7 +22,7 @@ import { MessageService } from 'primeng/api';
                 <button pButton severity="secondary" type="submit"><span pButtonLabel>Submit</span></button>
             </form>
         </div>
-        <app-code [code]="code" selector="datepicker-reactive-forms-demo"></app-code>
+        <app-code [code]="code" selector="date-picker-reactive-forms-demo"></app-code>
     `
 })
 export class ReactiveFormsDoc {
@@ -63,7 +63,8 @@ export class ReactiveFormsDoc {
     <button pButton severity="secondary" type="submit"><span pButtonLabel>Submit</span></button>
 </form>`,
 
-        html: `<div class="card flex justify-center">
+        html: `<p-toast />
+<div class="card flex justify-center">
     <form [formGroup]="exampleForm" (ngSubmit)="onSubmit()" class="flex flex-col gap-4">
         <div class="flex flex-col gap-1">
             <p-datepicker formControlName="selectedDate" [invalid]="isInvalid('selectedDate')" />
@@ -81,10 +82,11 @@ import { DatePickerModule } from 'primeng/datepicker';
 import { MessageModule } from 'primeng/message';
 import { ToastModule } from 'primeng/toast';
 import { ButtonModule } from 'primeng/button';
+import { MessageService } from 'primeng/api';
 
 @Component({
-    selector: 'datepicker-reactive-forms-demo',
-    templateUrl: './datepicker-reactive-forms-demo.html',
+    selector: 'date-picker-reactive-forms-demo',
+    templateUrl: './date-picker-reactive-forms-demo.html',
     standalone: true,
     imports: [ReactiveFormsModule, DatePickerModule, MessageModule, ToastModule, ButtonModule]
 })

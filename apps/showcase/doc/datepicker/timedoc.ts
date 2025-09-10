@@ -2,7 +2,7 @@ import { Code } from '@/domain/code';
 import { Component } from '@angular/core';
 
 @Component({
-    selector: 'datepicker-time-demo',
+    selector: 'date-picker-time-demo',
     standalone: false,
     template: `
         <app-docsectiontext>
@@ -12,11 +12,11 @@ import { Component } from '@angular/core';
         <p-fluid class="card flex flex-wrap gap-4">
             <div class="flex-auto">
                 <label for="calendar-12h" class="font-bold block mb-2"> 12h Format </label>
-                <p-datepicker inputId="calendar-12h" [(ngModel)]="datetime12h" [showTime]="true" [hourFormat]="12" />
+                <p-datepicker inputId="calendar-12h" [(ngModel)]="datetime12h" [showTime]="true" hourFormat="12" />
             </div>
             <div class="flex-auto">
                 <label for="calendar-24h" class="font-bold block mb-2"> 24h Format </label>
-                <p-datepicker inputId="calendar-24h" [(ngModel)]="datetime24h" [showTime]="true" [hourFormat]="24" />
+                <p-datepicker inputId="calendar-24h" [(ngModel)]="datetime24h" [showTime]="true" hourFormat="24" />
             </div>
             <div class="flex-auto">
                 <label for="calendar-timeonly" class="font-bold block mb-2"> Time Only </label>
@@ -24,7 +24,7 @@ import { Component } from '@angular/core';
             </div>
         </p-fluid>
 
-        <app-code [code]="code" selector="datepicker-time-demo"></app-code>
+        <app-code [code]="code" selector="date-picker-time-demo"></app-code>
     `
 })
 export class TimeDoc {
@@ -44,11 +44,11 @@ export class TimeDoc {
         html: `<p-fluid class="card flex flex-wrap gap-4">
     <div class="flex-auto">
         <label for="calendar-12h" class="font-bold block mb-2"> 12h Format </label>
-        <p-datepicker inputId="calendar-12h" [(ngModel)]="datetime12h" [showTime]="true" [hourFormat]="12" />
+        <p-datepicker inputId="calendar-12h" [(ngModel)]="datetime12h" [showTime]="true" hourFormat="12" />
     </div>
     <div class="flex-auto">
         <label for="calendar-24h" class="font-bold block mb-2"> 24h Format </label>
-        <p-datepicker inputId="calendar-24h" [(ngModel)]="datetime24h" [showTime]="true" [hourFormat]="24" />
+        <p-datepicker inputId="calendar-24h" [(ngModel)]="datetime24h" [showTime]="true" hourFormat="24" />
     </div>
     <div class="flex-auto">
         <label for="calendar-timeonly" class="font-bold block mb-2"> Time Only </label>
@@ -62,8 +62,8 @@ import { DatePicker } from 'primeng/datepicker';
 import { Fluid } from 'primeng/fluid';
 
 @Component({
-    selector: 'datepicker-time-demo',
-    templateUrl: './datepicker-time-demo.html',
+    selector: 'date-picker-time-demo',
+    templateUrl: './date-picker-time-demo.html',
     standalone: true,
     imports: [FormsModule, DatePicker, Fluid]
 })

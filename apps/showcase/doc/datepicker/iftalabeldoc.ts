@@ -2,7 +2,7 @@ import { Code } from '@/domain/code';
 import { Component } from '@angular/core';
 
 @Component({
-    selector: 'datepicker-ifta-label-demo',
+    selector: 'date-picker-ifta-label-demo',
     standalone: false,
     template: `
         <app-docsectiontext>
@@ -14,7 +14,7 @@ import { Component } from '@angular/core';
                 <label for="date">Date</label>
             </p-iftalabel>
         </div>
-        <app-code [code]="code" selector="datepicker-ifta-label-demo"></app-code>
+        <app-code [code]="code" selector="date-picker-ifta-label-demo"></app-code>
     `
 })
 export class IftaLabelDoc {
@@ -39,12 +39,12 @@ import { DatePickerModule } from 'primeng/datepicker';
 import { IftaLabelModule } from 'primeng/iftalabel';
 
 @Component({
-    selector: 'datepicker-ifta-label-demo',
-    templateUrl: './datepicker-ifta-label-demo.html',
+    selector: 'date-picker-ifta-label-demo',
+    templateUrl: './date-picker-ifta-label-demo.html',
     standalone: true,
     imports: [FormsModule, DatePickerModule, IftaLabelModule]
 })
-export class DatepickerIftaLabelDemo {
+export class DatePickerIftaLabelDemo {
     value: Date | undefined;
 }`
     };
