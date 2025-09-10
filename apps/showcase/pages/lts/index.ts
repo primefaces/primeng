@@ -59,7 +59,7 @@ import { TagModule } from 'primeng/tag';
                             </tr>
                             <tr class="text-lg text-surface-800 dark:text-surface-50">
                                 <td class="p-2">
-                                    <p-tag value="v19" class="text-lg px-4"></p-tag>
+                                    <p-tag value="v19" class="text-lg px-4" severity="success"></p-tag>
                                 </td>
                                 <td class="p-2">LTS</td>
                                 <td class="p-2">After v20 release</td>
