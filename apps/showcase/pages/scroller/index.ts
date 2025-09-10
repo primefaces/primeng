@@ -10,6 +10,7 @@ import { ProgrammaticDoc } from '@/doc/scroller/programmaticdoc';
 import { TemplateDoc } from '@/doc/scroller/templatedoc';
 import { VirtualScrollerDocModule } from '@/doc/scroller/scrollerdoc.module';
 import { Component } from '@angular/core';
+import { VariableItemSizesDoc } from '@/doc/scroller/variablesizesdoc';
 
 @Component({
     template: `<app-doc docTitle="Angular Virtual Scroller Component" header="Scroller" description="VirtualScroller is a performance-approach to handle huge data efficiently." [docs]="docs" [apiDocs]="['Scroller']" themeDocs="scroller"></app-doc>`,
@@ -38,6 +39,11 @@ export class VirtualScrollerDemo {
             id: 'grid',
             label: 'Grid',
             component: GridDoc
+        },
+        {
+            id: 'variable',
+            label: 'Variable Sizes',
+            component: VariableItemSizesDoc
         },
         {
             id: 'delay',
