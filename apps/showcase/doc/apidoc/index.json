@@ -11866,6 +11866,36 @@
                                 }
                             ],
                             "description": "Callback to invoke when selection of the text changes."
+                        },
+                        {
+                            "name": "onEditorChange",
+                            "parameters": [
+                                {
+                                    "name": "event",
+                                    "type": "EditorChangeEvent"
+                                }
+                            ],
+                            "description": "Callback to invoke when editor content changes (combines both text and selection changes)."
+                        },
+                        {
+                            "name": "onFocus",
+                            "parameters": [
+                                {
+                                    "name": "event",
+                                    "type": "EditorFocusEvent"
+                                }
+                            ],
+                            "description": "Callback to invoke when editor receives focus."
+                        },
+                        {
+                            "name": "onBlur",
+                            "parameters": [
+                                {
+                                    "name": "event",
+                                    "type": "EditorBlurEvent"
+                                }
+                            ],
+                            "description": "Callback to invoke when editor loses focus."
                         }
                     ]
                 },
@@ -11909,15 +11939,15 @@
                                 "name": "delta",
                                 "optional": false,
                                 "readonly": false,
-                                "type": "string",
-                                "description": "Representation of the change."
+                                "type": "QuillDelta",
+                                "description": "Representation of the change as Quill Delta."
                             },
                             {
                                 "name": "source",
                                 "optional": false,
                                 "readonly": false,
-                                "type": "string",
-                                "description": "Source of change. Will be either 'user' or 'api'."
+                                "type": "\"api\" | \"silent\" | \"user\"",
+                                "description": "Source of change. Will be 'user', 'api', or 'silent'."
                             }
                         ]
                     },
@@ -11929,22 +11959,68 @@
                                 "name": "range",
                                 "optional": false,
                                 "readonly": false,
-                                "type": "string",
+                                "type": "QuillRange",
                                 "description": "Representation of the selection boundaries."
                             },
                             {
                                 "name": "oldRange",
                                 "optional": false,
                                 "readonly": false,
-                                "type": "string",
+                                "type": "QuillRange",
                                 "description": "Representation of the previous selection boundaries."
                             },
                             {
                                 "name": "source",
                                 "optional": false,
                                 "readonly": false,
-                                "type": "string",
-                                "description": "Source of change. Will be either 'user' or 'api'."
+                                "type": "\"api\" | \"silent\" | \"user\"",
+                                "description": "Source of change. Will be 'user', 'api', or 'silent'."
+                            }
+                        ]
+                    },
+                    {
+                        "name": "EditorChangeEvent",
+                        "description": "Custom editor change event.",
+                        "props": [
+                            {
+                                "name": "eventName",
+                                "optional": false,
+                                "readonly": false,
+                                "type": "\"text-change\" | \"selection-change\"",
+                                "description": "Type of change ('text-change' or 'selection-change')."
+                            },
+                            {
+                                "name": "args",
+                                "optional": false,
+                                "readonly": false,
+                                "type": "any[]",
+                                "description": "Arguments passed to the change event."
+                            }
+                        ]
+                    },
+                    {
+                        "name": "EditorFocusEvent",
+                        "description": "Custom focus event.",
+                        "props": [
+                            {
+                                "name": "source",
+                                "optional": false,
+                                "readonly": false,
+                                "type": "\"api\" | \"silent\" | \"user\"",
+                                "description": "Source of the focus event."
+                            }
+                        ]
+                    },
+                    {
+                        "name": "EditorBlurEvent",
+                        "description": "Custom blur event.",
+                        "props": [
+                            {
+                                "name": "source",
+                                "optional": false,
+                                "readonly": false,
+                                "type": "\"api\" | \"silent\" | \"user\"",
+                                "description": "Source of the blur event."
                             }
                         ]
                     },
@@ -21612,14 +21688,14 @@
                             "optional": false,
                             "readonly": false,
                             "type": "string",
-                            "description": "Defines a string that labels the source list for accessibility."
+                            "description": "Defines a string that labels the source list."
                         },
                         {
                             "name": "targetAriaLabel",
                             "optional": false,
                             "readonly": false,
                             "type": "string",
-                            "description": "Defines a string that labels the target list for accessibility."
+                            "description": "Defines a string that labels the target list."
                         },
                         {
                             "name": "targetHeader",
@@ -26936,7 +27012,7 @@
                                 "description": "Whether to trigger leave animation when the target element resized."
                             },
                             {
-                                "name": "hideOnResizeTarget",
+                                "name": "resizeSelector",
                                 "optional": false,
                                 "readonly": false,
                                 "type": "string",
@@ -32451,6 +32527,10 @@
                     {
                         "class": "p-treeselect-chip-item",
                         "description": "Class name of the chip item element"
+                    },
+                    {
+                        "class": "p-treeselect-clear-icon",
+                        "description": "Class name of the clear icon element"
                     },
                     {
                         "class": "p-treeselect-chip",
