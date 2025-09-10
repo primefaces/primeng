@@ -77,7 +77,15 @@ const hideAnimation = animation([animate('{{transition}}', style({ transform: '{
                         <span [id]="ariaLabelledBy" [class]="cx('title')" *ngIf="!_headerTemplate && !headerTemplate && !headerT">{{ header }}</span>
                         <ng-container *ngTemplateOutlet="_headerTemplate || headerTemplate || headerT"></ng-container>
                         <div [class]="cx('headerActions')">
-                            <p-button *ngIf="maximizable" [styleClass]="cx('pcMaximizeButton')" (onClick)="maximize()" (keydown.enter)="maximize()" [tabindex]="maximizable ? '0' : '-1'" [ariaLabel]="maximizeLabel" [buttonProps]="maximizeButtonProps">
+                            <p-button
+                                *ngIf="maximizable"
+                                [styleClass]="cx('pcMaximizeButton')"
+                                [ariaLabel]="maximized ? minimizeLabel : maximizeLabel"
+                                (onClick)="maximize()"
+                                (keydown.enter)="maximize()"
+                                [tabindex]="maximizable ? '0' : '-1'"
+                                [buttonProps]="maximizeButtonProps"
+                            >
                                 <ng-template #icon>
                                     <span *ngIf="maximizeIcon && !_maximizeiconTemplate && !_minimizeiconTemplate" [ngClass]="maximized ? minimizeIcon : maximizeIcon"></span>
                                     <ng-container *ngIf="!maximizeIcon && !maximizeButtonProps?.icon">
@@ -536,6 +544,10 @@ export class Dialog extends BaseComponent implements OnInit, AfterContentInit, O
 
     get maximizeLabel(): string {
         return this.config.getTranslation(TranslationKeys.ARIA)['maximizeLabel'];
+    }
+
+    get minimizeLabel(): string {
+        return this.config.getTranslation(TranslationKeys.ARIA)['minimizeLabel'];
     }
     zone: NgZone = inject(NgZone);
 
