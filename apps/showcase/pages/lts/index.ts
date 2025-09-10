@@ -46,6 +46,7 @@ import { TagModule } from 'primeng/tag';
                                 <th class="text-surface-900 dark:text-surface-0 font-semibold text-xl text-left p-2">Status</th>
                                 <th class="text-surface-900 dark:text-surface-0 font-semibold text-xl text-left p-2">End of STS</th>
                                 <th class="text-surface-900 dark:text-surface-0 font-semibold text-xl text-left p-2">End of LTS</th>
+                                <th class="text-surface-900 dark:text-surface-0 font-semibold text-xl text-left p-2">Changes</th>
                             </tr>
                         </thead>
                         <tbody>
@@ -56,6 +57,7 @@ import { TagModule } from 'primeng/tag';
                                 <td class="p-2">STS</td>
                                 <td class="p-2">After v21 release</td>
                                 <td class="p-2">After v23 release</td>
+                                <td class="p-2"></td>
                             </tr>
                             <tr class="text-lg text-surface-800 dark:text-surface-50">
                                 <td class="p-2">
@@ -64,6 +66,7 @@ import { TagModule } from 'primeng/tag';
                                 <td class="p-2">LTS</td>
                                 <td class="p-2">After v20 release</td>
                                 <td class="p-2">After v22 release</td>
+                                <td class="p-2"><a href="https://github.com/primefaces/primeng/blob/master/CHANGELOG-LTS-19.md" target="_blank" rel="noopener noreferrer">Changelog</a></td>
                             </tr>
                             <tr class="text-lg text-surface-800 dark:text-surface-50">
                                 <td class="p-2">
@@ -72,6 +75,7 @@ import { TagModule } from 'primeng/tag';
                                 <td class="p-2">LTS</td>
                                 <td class="p-2">After v19 release</td>
                                 <td class="p-2">After v21 release</td>
+                                <td class="p-2"><a href="https://github.com/primefaces/primeng/blob/master/CHANGELOG-LTS-18.md" target="_blank" rel="noopener noreferrer">Changelog</a></td>
                             </tr>
 
                             <tr class="text-lg text-surface-800 dark:text-surface-50">
@@ -81,6 +85,7 @@ import { TagModule } from 'primeng/tag';
                                 <td class="p-2">Legacy</td>
                                 <td class="p-2">After v18 release</td>
                                 <td class="p-2">After v20 release</td>
+                                <td class="p-2"></td>
                             </tr>
                             <tr class="text-lg text-surface-800 dark:text-surface-50">
                                 <td class="p-2">
@@ -89,6 +94,7 @@ import { TagModule } from 'primeng/tag';
                                 <td class="p-2">Legacy</td>
                                 <td class="p-2">After v17 release</td>
                                 <td class="p-2">After v19 release</td>
+                                <td class="p-2"></td>
                             </tr>
                             <tr class="text-lg text-surface-800 dark:text-surface-50">
                                 <td class="p-2">
@@ -97,6 +103,7 @@ import { TagModule } from 'primeng/tag';
                                 <td class="p-2">Legacy</td>
                                 <td class="p-2">After v16 release</td>
                                 <td class="p-2">After v18 release</td>
+                                <td class="p-2"></td>
                             </tr>
                             <tr class="text-lg text-surface-800 dark:text-surface-50">
                                 <td class="p-2">
@@ -105,6 +112,7 @@ import { TagModule } from 'primeng/tag';
                                 <td class="p-2">Legacy</td>
                                 <td class="p-2">After v15 release</td>
                                 <td class="p-2">After v17 release</td>
+                                <td class="p-2"></td>
                             </tr>
                             <tr class="text-lg text-surface-800 dark:text-surface-50">
                                 <td class="p-2">
@@ -113,6 +121,7 @@ import { TagModule } from 'primeng/tag';
                                 <td class="p-2">Legacy</td>
                                 <td class="p-2">After v14 release</td>
                                 <td class="p-2">After v16 release</td>
+                                <td class="p-2"></td>
                             </tr>
                             <tr class="text-lg text-surface-800 dark:text-surface-50">
                                 <td class="p-2">
@@ -121,6 +130,7 @@ import { TagModule } from 'primeng/tag';
                                 <td class="p-2">Legacy</td>
                                 <td class="p-2">After v13 release</td>
                                 <td class="p-2">After v15 release</td>
+                                <td class="p-2"></td>
                             </tr>
                         </tbody>
                     </table>
