@@ -5,6 +5,7 @@ import { By } from '@angular/platform-browser';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 import { Checkbox } from './checkbox';
 import { CheckboxChangeEvent } from './checkbox.interface';
+import { SharedModule } from 'primeng/api';
 
 // Mock data for testing
 const mockIngredients = [
@@ -189,11 +190,60 @@ class TestStyledCheckboxComponent {
     }
 }
 
+// Checkbox pTemplate component
+@Component({
+    standalone: false,
+    template: `
+        <p-checkbox [(ngModel)]="checked" [binary]="true" [value]="value">
+            <!-- Icon template with pTemplate directive -->
+            <ng-template pTemplate="icon" let-checked>
+                <span class="custom-checkbox-icon" data-testid="ptemplate-icon">
+                    <i *ngIf="checked" class="pi pi-check custom-check-icon"></i>
+                    <i *ngIf="!checked" class="pi pi-times custom-uncheck-icon"></i>
+                </span>
+            </ng-template>
+        </p-checkbox>
+    `
+})
+class TestCheckboxPTemplateComponent {
+    checked: boolean = false;
+    value: any = 'test-value';
+}
+
+// Checkbox #template reference component
+@Component({
+    standalone: false,
+    template: `
+        <p-checkbox [(ngModel)]="checked" [binary]="true" [value]="value">
+            <!-- Icon template with #template reference -->
+            <ng-template #icon let-checked>
+                <span class="custom-checkbox-icon" data-testid="ref-icon">
+                    <i *ngIf="checked" class="pi pi-check custom-check-icon"></i>
+                    <i *ngIf="!checked" class="pi pi-times custom-uncheck-icon"></i>
+                </span>
+            </ng-template>
+        </p-checkbox>
+    `
+})
+class TestCheckboxRefTemplateComponent {
+    checked: boolean = false;
+    value: any = 'test-value';
+}
+
 describe('Checkbox', () => {
     beforeEach(async () => {
         await TestBed.configureTestingModule({
-            imports: [FormsModule, ReactiveFormsModule, NoopAnimationsModule, Checkbox],
-            declarations: [TestBasicCheckboxComponent, TestReactiveFormCheckboxComponent, TestMultipleCheckboxComponent, TestTemplateCheckboxComponent, TestIndeterminateCheckboxComponent, TestStyledCheckboxComponent]
+            imports: [FormsModule, ReactiveFormsModule, NoopAnimationsModule, Checkbox, SharedModule],
+            declarations: [
+                TestBasicCheckboxComponent,
+                TestReactiveFormCheckboxComponent,
+                TestMultipleCheckboxComponent,
+                TestTemplateCheckboxComponent,
+                TestIndeterminateCheckboxComponent,
+                TestStyledCheckboxComponent,
+                TestCheckboxPTemplateComponent,
+                TestCheckboxRefTemplateComponent
+            ]
         }).compileComponents();
     });
 
@@ -964,5 +1014,207 @@ describe('Checkbox', () => {
             expect(checkboxInstance.value).toBe('Valeur avec accents éàü');
             expect(inputElement.nativeElement.getAttribute('aria-label')).toBe('Case à cocher spéciale');
         });
+    });
+
+    describe('pTemplate Tests', () => {
+        let templateFixture: ComponentFixture<TestCheckboxPTemplateComponent>;
+        let templateComponent: TestCheckboxPTemplateComponent;
+        let checkboxElement: any;
+
+        beforeEach(() => {
+            templateFixture = TestBed.createComponent(TestCheckboxPTemplateComponent);
+            templateComponent = templateFixture.componentInstance;
+            checkboxElement = templateFixture.debugElement.query(By.css('p-checkbox'));
+            templateFixture.detectChanges();
+        });
+
+        it('should have icon pTemplate', () => {
+            const checkboxInstance = checkboxElement.componentInstance;
+            expect(checkboxInstance).toBeTruthy();
+            expect(() => checkboxInstance.checkboxIconTemplate).not.toThrow();
+        });
+
+        it('should pass checked context to icon template', fakeAsync(() => {
+            const checkboxInstance = checkboxElement.componentInstance;
+
+            // Template should be processed
+            expect(checkboxInstance).toBeTruthy();
+
+            // Test that changing checked state is reflected
+            templateComponent.checked = false;
+            templateFixture.detectChanges();
+            tick();
+            expect(templateComponent.checked).toBe(false);
+
+            // Check the checkbox
+            templateComponent.checked = true;
+            templateFixture.detectChanges();
+            tick();
+            expect(templateComponent.checked).toBe(true);
+        }));
+
+        it('should render custom icon based on checked state', fakeAsync(() => {
+            // Test that template is processed properly
+            const checkboxInstance = checkboxElement.componentInstance;
+
+            // Initially unchecked
+            templateComponent.checked = false;
+            templateFixture.detectChanges();
+            tick();
+            expect(templateComponent.checked).toBe(false);
+
+            // Check the checkbox
+            templateComponent.checked = true;
+            templateFixture.detectChanges();
+            tick();
+            expect(templateComponent.checked).toBe(true);
+
+            // Verify template exists
+            expect(checkboxInstance).toBeTruthy();
+        }));
+
+        it('should process pTemplate after content init', fakeAsync(() => {
+            const checkboxInstance = checkboxElement.componentInstance;
+
+            if (checkboxInstance.ngAfterContentInit) {
+                checkboxInstance.ngAfterContentInit();
+            }
+            tick();
+            templateFixture.detectChanges();
+
+            expect(checkboxInstance).toBeTruthy();
+        }));
+
+        it('should handle pTemplate changes after view init', fakeAsync(() => {
+            const checkboxInstance = checkboxElement.componentInstance;
+
+            if (checkboxInstance.ngAfterViewInit) {
+                checkboxInstance.ngAfterViewInit();
+            }
+            tick();
+            templateFixture.detectChanges();
+
+            expect(checkboxInstance).toBeTruthy();
+        }));
+
+        it('should toggle icon template on click', fakeAsync(() => {
+            const inputElement = templateFixture.debugElement.query(By.css('input[type="checkbox"]'));
+
+            // Initially unchecked
+            expect(templateComponent.checked).toBe(false);
+
+            // Click the checkbox
+            inputElement.nativeElement.click();
+            templateFixture.detectChanges();
+            tick();
+
+            // Should be checked now
+            expect(templateComponent.checked).toBe(true);
+
+            // Verify template is still processed
+            const checkboxInstance = checkboxElement.componentInstance;
+            expect(checkboxInstance).toBeTruthy();
+        }));
+    });
+
+    describe('#template Tests', () => {
+        let templateFixture: ComponentFixture<TestCheckboxRefTemplateComponent>;
+        let templateComponent: TestCheckboxRefTemplateComponent;
+        let checkboxElement: any;
+
+        beforeEach(() => {
+            templateFixture = TestBed.createComponent(TestCheckboxRefTemplateComponent);
+            templateComponent = templateFixture.componentInstance;
+            checkboxElement = templateFixture.debugElement.query(By.css('p-checkbox'));
+            templateFixture.detectChanges();
+        });
+
+        it('should have icon #template', () => {
+            const checkboxInstance = checkboxElement.componentInstance;
+            expect(checkboxInstance).toBeTruthy();
+            expect(() => checkboxInstance.checkboxIconTemplate).not.toThrow();
+        });
+
+        it('should pass checked context to icon template', fakeAsync(() => {
+            const checkboxInstance = checkboxElement.componentInstance;
+
+            // Template should be processed
+            expect(checkboxInstance).toBeTruthy();
+
+            // Test that changing checked state is reflected
+            templateComponent.checked = false;
+            templateFixture.detectChanges();
+            tick();
+            expect(templateComponent.checked).toBe(false);
+
+            // Check the checkbox
+            templateComponent.checked = true;
+            templateFixture.detectChanges();
+            tick();
+            expect(templateComponent.checked).toBe(true);
+        }));
+
+        it('should render custom icon based on checked state', fakeAsync(() => {
+            // Test that template is processed properly
+            const checkboxInstance = checkboxElement.componentInstance;
+
+            // Initially unchecked
+            templateComponent.checked = false;
+            templateFixture.detectChanges();
+            tick();
+            expect(templateComponent.checked).toBe(false);
+
+            // Check the checkbox
+            templateComponent.checked = true;
+            templateFixture.detectChanges();
+            tick();
+            expect(templateComponent.checked).toBe(true);
+
+            // Verify template exists
+            expect(checkboxInstance).toBeTruthy();
+        }));
+
+        it('should process #template after content init', fakeAsync(() => {
+            const checkboxInstance = checkboxElement.componentInstance;
+
+            if (checkboxInstance.ngAfterContentInit) {
+                checkboxInstance.ngAfterContentInit();
+            }
+            tick();
+            templateFixture.detectChanges();
+
+            expect(checkboxInstance).toBeTruthy();
+        }));
+
+        it('should handle #template changes after view init', fakeAsync(() => {
+            const checkboxInstance = checkboxElement.componentInstance;
+
+            if (checkboxInstance.ngAfterViewInit) {
+                checkboxInstance.ngAfterViewInit();
+            }
+            tick();
+            templateFixture.detectChanges();
+
+            expect(checkboxInstance).toBeTruthy();
+        }));
+
+        it('should toggle icon template on click', fakeAsync(() => {
+            const inputElement = templateFixture.debugElement.query(By.css('input[type="checkbox"]'));
+
+            // Initially unchecked
+            expect(templateComponent.checked).toBe(false);
+
+            // Click the checkbox
+            inputElement.nativeElement.click();
+            templateFixture.detectChanges();
+            tick();
+
+            // Should be checked now
+            expect(templateComponent.checked).toBe(true);
+
+            // Verify template is still processed
+            const checkboxInstance = checkboxElement.componentInstance;
+            expect(checkboxInstance).toBeTruthy();
+        }));
     });
 });

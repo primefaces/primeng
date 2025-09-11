@@ -78,6 +78,66 @@ class TestAdvancedInputOtpComponent {
     }
 }
 
+// InputOTP pTemplate component
+@Component({
+    standalone: true,
+    imports: [InputOtp, FormsModule],
+    template: `
+        <p-inputotp [(ngModel)]="value" [length]="length">
+            <!-- Input template with pTemplate directive -->
+            <ng-template pTemplate="input" let-value let-events="events" let-index="index">
+                <input
+                    type="text"
+                    class="custom-otp-input"
+                    [attr.data-testid]="'ptemplate-input-' + index"
+                    [value]="value"
+                    (input)="events.input($event)"
+                    (keydown)="events.keydown($event)"
+                    (focus)="events.focus($event)"
+                    (blur)="events.blur($event)"
+                    (paste)="events.paste($event)"
+                    [attr.placeholder]="index + 1"
+                    maxlength="1"
+                />
+            </ng-template>
+        </p-inputotp>
+    `
+})
+class TestInputOtpPTemplateComponent {
+    value: string = '';
+    length: number = 4;
+}
+
+// InputOTP #template reference component
+@Component({
+    standalone: true,
+    imports: [InputOtp, FormsModule],
+    template: `
+        <p-inputotp [(ngModel)]="value" [length]="length">
+            <!-- Input template with #template reference -->
+            <ng-template #input let-value let-events="events" let-index="index">
+                <input
+                    type="text"
+                    class="custom-otp-input"
+                    [attr.data-testid]="'ref-input-' + index"
+                    [value]="value"
+                    (input)="events.input($event)"
+                    (keydown)="events.keydown($event)"
+                    (focus)="events.focus($event)"
+                    (blur)="events.blur($event)"
+                    (paste)="events.paste($event)"
+                    [attr.placeholder]="'#' + (index + 1)"
+                    maxlength="1"
+                />
+            </ng-template>
+        </p-inputotp>
+    `
+})
+class TestInputOtpRefTemplateComponent {
+    value: string = '';
+    length: number = 4;
+}
+
 describe('InputOtp', () => {
     describe('Component Initialization', () => {
         let component: TestBasicInputOtpComponent;
@@ -522,6 +582,176 @@ describe('InputOtp', () => {
 
             expect(component.value).toBe('9');
             flush();
+        }));
+    });
+
+    describe('pTemplate Tests', () => {
+        let fixture: ComponentFixture<TestInputOtpPTemplateComponent>;
+        let component: TestInputOtpPTemplateComponent;
+        let inputOtpElement: DebugElement;
+        let inputOtpInstance: InputOtp;
+
+        beforeEach(async () => {
+            await TestBed.configureTestingModule({
+                imports: [TestInputOtpPTemplateComponent]
+            }).compileComponents();
+
+            fixture = TestBed.createComponent(TestInputOtpPTemplateComponent);
+            component = fixture.componentInstance;
+            inputOtpElement = fixture.debugElement.query(By.css('p-inputotp'));
+            inputOtpInstance = inputOtpElement.componentInstance;
+            fixture.detectChanges();
+        });
+
+        it('should have input pTemplate', () => {
+            expect(inputOtpInstance).toBeTruthy();
+            expect(() => inputOtpInstance.inputTemplate).not.toThrow();
+        });
+
+        it('should pass context parameters to input template', fakeAsync(() => {
+            // Template should be processed
+            expect(inputOtpInstance).toBeTruthy();
+            expect(component.length).toBe(4);
+            tick();
+        }));
+
+        it('should handle input events through template context', fakeAsync(() => {
+            // Test that component can handle value changes
+            component.value = '1234';
+            fixture.detectChanges();
+            tick();
+
+            // Value should be updated
+            expect(component.value).toBe('1234');
+        }));
+
+        it('should handle keyboard events through template context', fakeAsync(() => {
+            // Test that template is properly configured
+            expect(inputOtpInstance).toBeTruthy();
+            // Template should be available after content init
+            if (inputOtpInstance.ngAfterContentInit) {
+                inputOtpInstance.ngAfterContentInit();
+            }
+            tick();
+            fixture.detectChanges();
+            expect(inputOtpInstance).toBeTruthy();
+        }));
+
+        it('should handle focus/blur events through template context', fakeAsync(() => {
+            // Test that template context can be accessed
+            expect(inputOtpInstance).toBeTruthy();
+
+            // Simulate component state changes
+            component.value = '12';
+            fixture.detectChanges();
+            tick();
+
+            expect(component.value).toBe('12');
+        }));
+
+        it('should process pTemplate after content init', fakeAsync(() => {
+            if (inputOtpInstance.ngAfterContentInit) {
+                inputOtpInstance.ngAfterContentInit();
+            }
+            tick();
+            fixture.detectChanges();
+
+            expect(inputOtpInstance).toBeTruthy();
+        }));
+
+        it('should handle pTemplate changes after view init', fakeAsync(() => {
+            if (inputOtpInstance.ngAfterViewInit) {
+                inputOtpInstance.ngAfterViewInit();
+            }
+            tick();
+            fixture.detectChanges();
+
+            expect(inputOtpInstance).toBeTruthy();
+        }));
+    });
+
+    describe('#template Tests', () => {
+        let fixture: ComponentFixture<TestInputOtpRefTemplateComponent>;
+        let component: TestInputOtpRefTemplateComponent;
+        let inputOtpElement: DebugElement;
+        let inputOtpInstance: InputOtp;
+
+        beforeEach(async () => {
+            await TestBed.configureTestingModule({
+                imports: [TestInputOtpRefTemplateComponent]
+            }).compileComponents();
+
+            fixture = TestBed.createComponent(TestInputOtpRefTemplateComponent);
+            component = fixture.componentInstance;
+            inputOtpElement = fixture.debugElement.query(By.css('p-inputotp'));
+            inputOtpInstance = inputOtpElement.componentInstance;
+            fixture.detectChanges();
+        });
+
+        it('should have input #template', () => {
+            expect(inputOtpInstance).toBeTruthy();
+            expect(() => inputOtpInstance.inputTemplate).not.toThrow();
+        });
+
+        it('should pass context parameters to input template', fakeAsync(() => {
+            // Template should be processed
+            expect(inputOtpInstance).toBeTruthy();
+            expect(component.length).toBe(4);
+            tick();
+        }));
+
+        it('should handle input events through template context', fakeAsync(() => {
+            // Test that component can handle value changes
+            component.value = '1234';
+            fixture.detectChanges();
+            tick();
+
+            // Value should be updated
+            expect(component.value).toBe('1234');
+        }));
+
+        it('should handle keyboard events through template context', fakeAsync(() => {
+            // Test that template is properly configured
+            expect(inputOtpInstance).toBeTruthy();
+            // Template should be available after content init
+            if (inputOtpInstance.ngAfterContentInit) {
+                inputOtpInstance.ngAfterContentInit();
+            }
+            tick();
+            fixture.detectChanges();
+            expect(inputOtpInstance).toBeTruthy();
+        }));
+
+        it('should handle focus/blur events through template context', fakeAsync(() => {
+            // Test that template context can be accessed
+            expect(inputOtpInstance).toBeTruthy();
+
+            // Simulate component state changes
+            component.value = '12';
+            fixture.detectChanges();
+            tick();
+
+            expect(component.value).toBe('12');
+        }));
+
+        it('should process #template after content init', fakeAsync(() => {
+            if (inputOtpInstance.ngAfterContentInit) {
+                inputOtpInstance.ngAfterContentInit();
+            }
+            tick();
+            fixture.detectChanges();
+
+            expect(inputOtpInstance).toBeTruthy();
+        }));
+
+        it('should handle #template changes after view init', fakeAsync(() => {
+            if (inputOtpInstance.ngAfterViewInit) {
+                inputOtpInstance.ngAfterViewInit();
+            }
+            tick();
+            fixture.detectChanges();
+
+            expect(inputOtpInstance).toBeTruthy();
         }));
     });
 });

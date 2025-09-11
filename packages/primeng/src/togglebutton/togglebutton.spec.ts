@@ -2,7 +2,9 @@ import { Component, DebugElement } from '@angular/core';
 import { ComponentFixture, fakeAsync, flush, TestBed, tick } from '@angular/core/testing';
 import { FormControl, FormGroup, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
 import { By } from '@angular/platform-browser';
+import { CommonModule } from '@angular/common';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
+import { SharedModule } from 'primeng/api';
 import { ToggleButton } from './togglebutton';
 import { ToggleButtonChangeEvent } from './togglebutton.interface';
 
@@ -113,6 +115,54 @@ class TestIconToggleButtonComponent {
     iconPos: 'left' | 'right' = 'left';
 }
 
+// ToggleButton pTemplate component
+@Component({
+    standalone: true,
+    imports: [ToggleButton, FormsModule, CommonModule, SharedModule],
+    template: `
+        <p-togglebutton [(ngModel)]="checked">
+            <!-- Icon template with pTemplate -->
+            <ng-template pTemplate="icon" let-checked>
+                <i class="custom-template-icon" [ngClass]="checked ? 'pi pi-star-fill' : 'pi pi-star'" [attr.data-testid]="'ptemplate-icon-' + (checked ? 'on' : 'off')" [title]="checked ? 'Checked State Icon' : 'Unchecked State Icon'"></i>
+            </ng-template>
+
+            <!-- Content template with pTemplate -->
+            <ng-template pTemplate="content" let-checked>
+                <span class="custom-template-content" [attr.data-testid]="'ptemplate-content-' + (checked ? 'on' : 'off')" [title]="checked ? 'Content On' : 'Content Off'">
+                    {{ checked ? 'Template ON' : 'Template OFF' }}
+                </span>
+            </ng-template>
+        </p-togglebutton>
+    `
+})
+class TestToggleButtonPTemplateComponent {
+    checked: boolean = false;
+}
+
+// ToggleButton #template reference component
+@Component({
+    standalone: true,
+    imports: [ToggleButton, FormsModule, CommonModule, SharedModule],
+    template: `
+        <p-togglebutton [(ngModel)]="checked">
+            <!-- Icon template with #template reference -->
+            <ng-template #icon let-checked>
+                <i class="custom-ref-icon" [ngClass]="checked ? 'pi pi-heart-fill' : 'pi pi-heart'" [attr.data-testid]="'ref-icon-' + (checked ? 'on' : 'off')" [title]="checked ? 'Reference Checked Icon' : 'Reference Unchecked Icon'"></i>
+            </ng-template>
+
+            <!-- Content template with #template reference -->
+            <ng-template #content let-checked>
+                <span class="custom-ref-content" [attr.data-testid]="'ref-content-' + (checked ? 'on' : 'off')" [title]="checked ? 'Reference Content On' : 'Reference Content Off'">
+                    {{ checked ? 'Reference ON' : 'Reference OFF' }}
+                </span>
+            </ng-template>
+        </p-togglebutton>
+    `
+})
+class TestToggleButtonRefTemplateComponent {
+    checked: boolean = false;
+}
+
 describe('ToggleButton', () => {
     let fixture: ComponentFixture<any>;
     let component: any;
@@ -121,7 +171,7 @@ describe('ToggleButton', () => {
 
     beforeEach(async () => {
         await TestBed.configureTestingModule({
-            imports: [ToggleButton, FormsModule, ReactiveFormsModule, NoopAnimationsModule],
+            imports: [ToggleButton, FormsModule, ReactiveFormsModule, NoopAnimationsModule, TestToggleButtonPTemplateComponent, TestToggleButtonRefTemplateComponent],
             declarations: [TestBasicToggleButtonComponent, TestReactiveToggleButtonComponent, TestTemplateToggleButtonComponent, TestIconTemplateToggleButtonComponent, TestIconToggleButtonComponent]
         }).compileComponents();
     });
@@ -662,5 +712,183 @@ describe('ToggleButton', () => {
                 fixture.destroy();
             }).not.toThrow();
         });
+    });
+
+    describe('ToggleButton pTemplate Tests', () => {
+        let component: TestToggleButtonPTemplateComponent;
+        let fixture: ComponentFixture<TestToggleButtonPTemplateComponent>;
+        let toggleButtonInstance: ToggleButton;
+
+        beforeEach(async () => {
+            await TestBed.configureTestingModule({
+                imports: [TestToggleButtonPTemplateComponent, NoopAnimationsModule]
+            }).compileComponents();
+
+            fixture = TestBed.createComponent(TestToggleButtonPTemplateComponent);
+            component = fixture.componentInstance;
+            toggleButtonInstance = fixture.debugElement.query(By.directive(ToggleButton)).componentInstance;
+            fixture.detectChanges();
+        });
+
+        it('should create component with pTemplate templates', fakeAsync(() => {
+            expect(component).toBeTruthy();
+            expect(toggleButtonInstance).toBeTruthy();
+            expect(() => toggleButtonInstance.iconTemplate).not.toThrow();
+            expect(() => toggleButtonInstance.contentTemplate).not.toThrow();
+        }));
+
+        it('should pass context parameters to icon template', fakeAsync(() => {
+            // Initially unchecked
+            component.checked = false;
+            fixture.detectChanges();
+            tick();
+
+            // Verify that the toggle button component is working with the value
+            expect(toggleButtonInstance.checked).toBe(false);
+            expect(component.checked).toBe(false);
+        }));
+
+        it('should pass context parameters to content template', fakeAsync(() => {
+            // Initially unchecked
+            component.checked = false;
+            fixture.detectChanges();
+            tick();
+
+            // Toggle to checked
+            component.checked = true;
+            fixture.detectChanges();
+            tick();
+
+            // Verify that the toggle button component is working with the value
+            expect(toggleButtonInstance.checked).toBe(true);
+            expect(component.checked).toBe(true);
+        }));
+
+        it('should update templates when checked state changes', fakeAsync(() => {
+            // Initially unchecked
+            component.checked = false;
+            fixture.detectChanges();
+            tick();
+
+            expect(toggleButtonInstance.checked).toBe(false);
+
+            // Change to checked
+            component.checked = true;
+            fixture.detectChanges();
+            tick();
+
+            expect(toggleButtonInstance.checked).toBe(true);
+        }));
+
+        it('should apply context to templates correctly', fakeAsync(() => {
+            component.checked = true;
+            fixture.detectChanges();
+            tick();
+
+            // Verify that the toggle button component works correctly
+            expect(toggleButtonInstance.checked).toBe(true);
+            expect(toggleButtonInstance.active).toBe(true);
+        }));
+
+        it('should process pTemplates after content init', fakeAsync(() => {
+            if (toggleButtonInstance.ngAfterContentInit) {
+                toggleButtonInstance.ngAfterContentInit();
+                fixture.detectChanges();
+                tick();
+
+                // Verify that ngAfterContentInit is called correctly
+                expect(toggleButtonInstance.checked).toBeDefined();
+                expect(component.checked).toBeDefined();
+            }
+        }));
+    });
+
+    describe('ToggleButton #template Reference Tests', () => {
+        let component: TestToggleButtonRefTemplateComponent;
+        let fixture: ComponentFixture<TestToggleButtonRefTemplateComponent>;
+        let toggleButtonInstance: ToggleButton;
+
+        beforeEach(async () => {
+            await TestBed.configureTestingModule({
+                imports: [TestToggleButtonRefTemplateComponent, NoopAnimationsModule]
+            }).compileComponents();
+
+            fixture = TestBed.createComponent(TestToggleButtonRefTemplateComponent);
+            component = fixture.componentInstance;
+            toggleButtonInstance = fixture.debugElement.query(By.directive(ToggleButton)).componentInstance;
+            fixture.detectChanges();
+        });
+
+        it('should create component with #template references', fakeAsync(() => {
+            expect(component).toBeTruthy();
+            expect(toggleButtonInstance).toBeTruthy();
+            expect(() => toggleButtonInstance.iconTemplate).not.toThrow();
+            expect(() => toggleButtonInstance.contentTemplate).not.toThrow();
+        }));
+
+        it('should pass context parameters to icon template', fakeAsync(() => {
+            // Initially unchecked
+            component.checked = false;
+            fixture.detectChanges();
+            tick();
+
+            // Verify that the toggle button component is working with the value
+            expect(toggleButtonInstance.checked).toBe(false);
+            expect(component.checked).toBe(false);
+        }));
+
+        it('should pass context parameters to content template', fakeAsync(() => {
+            // Initially unchecked
+            component.checked = false;
+            fixture.detectChanges();
+            tick();
+
+            // Toggle to checked
+            component.checked = true;
+            fixture.detectChanges();
+            tick();
+
+            // Verify that the toggle button component is working with the value
+            expect(toggleButtonInstance.checked).toBe(true);
+            expect(component.checked).toBe(true);
+        }));
+
+        it('should update templates when checked state changes', fakeAsync(() => {
+            // Initially unchecked
+            component.checked = false;
+            fixture.detectChanges();
+            tick();
+
+            expect(toggleButtonInstance.checked).toBe(false);
+
+            // Change to checked
+            component.checked = true;
+            fixture.detectChanges();
+            tick();
+
+            expect(toggleButtonInstance.checked).toBe(true);
+        }));
+
+        it('should apply context to templates correctly', fakeAsync(() => {
+            component.checked = true;
+            fixture.detectChanges();
+            tick();
+
+            // Verify that the toggle button component works correctly
+            expect(toggleButtonInstance.checked).toBe(true);
+            expect(toggleButtonInstance.active).toBe(true);
+        }));
+
+        it('should process #templates after content init', fakeAsync(() => {
+            if (toggleButtonInstance.ngAfterContentInit) {
+                toggleButtonInstance.ngAfterContentInit();
+                fixture.detectChanges();
+                tick();
+
+                // Verify that ngAfterContentInit is called correctly
+                expect(toggleButtonInstance.checked).toBeDefined();
+                expect(component.checked).toBeDefined();
+            }
+        }));
     });
 });

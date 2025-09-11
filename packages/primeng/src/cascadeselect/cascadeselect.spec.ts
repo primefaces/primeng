@@ -52,6 +52,144 @@ const mockCountries = [
     }
 ];
 
+// CascadeSelect pTemplate component
+@Component({
+    standalone: false,
+    template: `
+        <p-cascadeselect [(ngModel)]="value" [options]="options" [optionLabel]="optionLabel" [optionGroupLabel]="optionGroupLabel" [optionGroupChildren]="optionGroupChildren" [showClear]="true" [loading]="loading">
+            <!-- Value template with pTemplate directive -->
+            <ng-template pTemplate="value" let-value let-placeholder="placeholder">
+                <div class="custom-value" data-testid="ptemplate-value">
+                    <span *ngIf="value">{{ value.cname || value.name }} - Custom</span>
+                    <span *ngIf="!value">{{ placeholder }}</span>
+                </div>
+            </ng-template>
+
+            <!-- Option template -->
+            <ng-template pTemplate="option" let-option let-level="level">
+                <div class="custom-option" data-testid="ptemplate-option">
+                    <i class="pi pi-map-marker" *ngIf="level === 0"></i>
+                    <i class="pi pi-building" *ngIf="level === 1"></i>
+                    <i class="pi pi-home" *ngIf="level === 2"></i>
+                    <span>{{ option.name || option.cname }}</span>
+                </div>
+            </ng-template>
+
+            <!-- Header template -->
+            <ng-template pTemplate="header">
+                <div class="custom-header" data-testid="ptemplate-header">
+                    <i class="pi pi-search"></i>
+                    <span>Select Location</span>
+                </div>
+            </ng-template>
+
+            <!-- Footer template -->
+            <ng-template pTemplate="footer">
+                <div class="custom-footer" data-testid="ptemplate-footer">
+                    <small>Choose your preferred location</small>
+                </div>
+            </ng-template>
+
+            <!-- Trigger icon template -->
+            <ng-template pTemplate="triggericon">
+                <i class="pi pi-chevron-down custom-trigger" data-testid="ptemplate-triggericon"></i>
+            </ng-template>
+
+            <!-- Loading icon template -->
+            <ng-template pTemplate="loadingicon">
+                <i class="pi pi-spin pi-cog custom-loading" data-testid="ptemplate-loadingicon"></i>
+            </ng-template>
+
+            <!-- Option group icon template -->
+            <ng-template pTemplate="optiongroupicon">
+                <i class="pi pi-angle-right custom-group-icon" data-testid="ptemplate-optiongroupicon"></i>
+            </ng-template>
+
+            <!-- Clear icon template -->
+            <ng-template pTemplate="clearicon">
+                <i class="pi pi-times custom-clear" data-testid="ptemplate-clearicon"></i>
+            </ng-template>
+        </p-cascadeselect>
+    `
+})
+class TestCascadeSelectPTemplateComponent {
+    value: any;
+    options: any[] = mockCountries;
+    optionLabel: string = 'cname';
+    optionGroupLabel: string = 'name';
+    optionGroupChildren: string[] = ['states', 'cities'];
+    loading: boolean = false;
+}
+
+// CascadeSelect #template reference component
+@Component({
+    standalone: false,
+    template: `
+        <p-cascadeselect [(ngModel)]="value" [options]="options" [optionLabel]="optionLabel" [optionGroupLabel]="optionGroupLabel" [optionGroupChildren]="optionGroupChildren" [showClear]="true" [loading]="loading">
+            <!-- Value template with #template reference -->
+            <ng-template #value let-value let-placeholder="placeholder">
+                <div class="custom-value" data-testid="ref-value">
+                    <span *ngIf="value">{{ value.cname || value.name }} - Ref</span>
+                    <span *ngIf="!value">{{ placeholder }}</span>
+                </div>
+            </ng-template>
+
+            <!-- Option template -->
+            <ng-template #option let-option let-level="level">
+                <div class="custom-option" data-testid="ref-option">
+                    <i class="pi pi-map-marker" *ngIf="level === 0"></i>
+                    <i class="pi pi-building" *ngIf="level === 1"></i>
+                    <i class="pi pi-home" *ngIf="level === 2"></i>
+                    <span>{{ option.name || option.cname }}</span>
+                </div>
+            </ng-template>
+
+            <!-- Header template -->
+            <ng-template #header>
+                <div class="custom-header" data-testid="ref-header">
+                    <i class="pi pi-search"></i>
+                    <span>Select Location</span>
+                </div>
+            </ng-template>
+
+            <!-- Footer template -->
+            <ng-template #footer>
+                <div class="custom-footer" data-testid="ref-footer">
+                    <small>Choose your preferred location</small>
+                </div>
+            </ng-template>
+
+            <!-- Trigger icon template -->
+            <ng-template #triggericon>
+                <i class="pi pi-chevron-down custom-trigger" data-testid="ref-triggericon"></i>
+            </ng-template>
+
+            <!-- Loading icon template -->
+            <ng-template #loadingicon>
+                <i class="pi pi-spin pi-cog custom-loading" data-testid="ref-loadingicon"></i>
+            </ng-template>
+
+            <!-- Option group icon template -->
+            <ng-template #optiongroupicon>
+                <i class="pi pi-angle-right custom-group-icon" data-testid="ref-optiongroupicon"></i>
+            </ng-template>
+
+            <!-- Clear icon template -->
+            <ng-template #clearicon>
+                <i class="pi pi-times custom-clear" data-testid="ref-clearicon"></i>
+            </ng-template>
+        </p-cascadeselect>
+    `
+})
+class TestCascadeSelectRefTemplateComponent {
+    value: any;
+    options: any[] = mockCountries;
+    optionLabel: string = 'cname';
+    optionGroupLabel: string = 'name';
+    optionGroupChildren: string[] = ['states', 'cities'];
+    loading: boolean = false;
+}
+
 @Component({
     standalone: false,
     template: `
@@ -294,7 +432,16 @@ describe('CascadeSelect', () => {
     beforeEach(async () => {
         await TestBed.configureTestingModule({
             imports: [CascadeSelectModule, SharedModule, FormsModule, ReactiveFormsModule, NoopAnimationsModule],
-            declarations: [TestBasicCascadeSelectComponent, TestClearableCascadeSelectComponent, TestTemplateCascadeSelectComponent, TestReactiveFormCascadeSelectComponent, TestDisabledCascadeSelectComponent, TestLoadingCascadeSelectComponent]
+            declarations: [
+                TestBasicCascadeSelectComponent,
+                TestClearableCascadeSelectComponent,
+                TestTemplateCascadeSelectComponent,
+                TestReactiveFormCascadeSelectComponent,
+                TestDisabledCascadeSelectComponent,
+                TestLoadingCascadeSelectComponent,
+                TestCascadeSelectPTemplateComponent,
+                TestCascadeSelectRefTemplateComponent
+            ]
         }).compileComponents();
 
         fixture = TestBed.createComponent(CascadeSelect);
@@ -904,7 +1051,7 @@ describe('CascadeSelect', () => {
             ];
             testFixture.detectChanges();
 
-            const cascadeSelectInstance = testFixture.debugElement.query(By.css('p-cascadeselect')).componentInstance;
+            const _cascadeSelectInstance = testFixture.debugElement.query(By.css('p-cascadeselect')).componentInstance;
 
             // Simply test that destroy doesn't throw errors - memory leak detection is complex
             expect(() => {
@@ -997,7 +1144,7 @@ describe('CascadeSelect', () => {
 
         it('should handle updateOn blur strategy', fakeAsync(() => {
             // Create a new form with updateOn blur for testing
-            const blurForm = new FormGroup({
+            const _blurForm = new FormGroup({
                 selectedCity: new FormControl(null, {
                     validators: Validators.required,
                     updateOn: 'blur'
@@ -1198,6 +1345,172 @@ describe('CascadeSelect', () => {
             expect(testComponent.options).toBeDefined();
             expect(testComponent.options.length).toBe(1);
             flush();
+        }));
+    });
+
+    describe('pTemplate Tests', () => {
+        let templateFixture: ComponentFixture<TestCascadeSelectPTemplateComponent>;
+        let cascadeSelectElement: any;
+
+        beforeEach(() => {
+            templateFixture = TestBed.createComponent(TestCascadeSelectPTemplateComponent);
+            cascadeSelectElement = templateFixture.debugElement.query(By.css('p-cascadeselect'));
+            templateFixture.detectChanges();
+        });
+
+        it('should have value pTemplate', () => {
+            const cascadeSelectInstance = cascadeSelectElement.componentInstance;
+            expect(cascadeSelectInstance).toBeTruthy();
+            expect(() => cascadeSelectInstance.valueTemplate).not.toThrow();
+        });
+
+        it('should have option pTemplate', () => {
+            const cascadeSelectInstance = cascadeSelectElement.componentInstance;
+            expect(cascadeSelectInstance).toBeTruthy();
+            expect(() => cascadeSelectInstance.optionTemplate).not.toThrow();
+        });
+
+        it('should have header pTemplate', () => {
+            const cascadeSelectInstance = cascadeSelectElement.componentInstance;
+            expect(cascadeSelectInstance).toBeTruthy();
+            expect(() => cascadeSelectInstance.headerTemplate).not.toThrow();
+        });
+
+        it('should have footer pTemplate', () => {
+            const cascadeSelectInstance = cascadeSelectElement.componentInstance;
+            expect(cascadeSelectInstance).toBeTruthy();
+            expect(() => cascadeSelectInstance.footerTemplate).not.toThrow();
+        });
+
+        it('should have triggericon pTemplate', () => {
+            const cascadeSelectInstance = cascadeSelectElement.componentInstance;
+            expect(cascadeSelectInstance).toBeTruthy();
+            expect(() => cascadeSelectInstance.triggerIconTemplate).not.toThrow();
+        });
+
+        it('should have loadingicon pTemplate', () => {
+            const cascadeSelectInstance = cascadeSelectElement.componentInstance;
+            expect(cascadeSelectInstance).toBeTruthy();
+            expect(() => cascadeSelectInstance.loadingIconTemplate).not.toThrow();
+        });
+
+        it('should have optiongroupicon pTemplate', () => {
+            const cascadeSelectInstance = cascadeSelectElement.componentInstance;
+            expect(cascadeSelectInstance).toBeTruthy();
+            expect(() => cascadeSelectInstance.groupIconTemplate).not.toThrow();
+        });
+
+        it('should have clearicon pTemplate', () => {
+            const cascadeSelectInstance = cascadeSelectElement.componentInstance;
+            expect(cascadeSelectInstance).toBeTruthy();
+            expect(() => cascadeSelectInstance.clearIconTemplate).not.toThrow();
+        });
+
+        it('should process all pTemplates after content init', fakeAsync(() => {
+            const cascadeSelectInstance = cascadeSelectElement.componentInstance;
+
+            if (cascadeSelectInstance.ngAfterContentInit) {
+                cascadeSelectInstance.ngAfterContentInit();
+            }
+            tick();
+            templateFixture.detectChanges();
+
+            expect(cascadeSelectInstance).toBeTruthy();
+        }));
+
+        it('should handle pTemplate changes after view init', fakeAsync(() => {
+            const cascadeSelectInstance = cascadeSelectElement.componentInstance;
+
+            if (cascadeSelectInstance.ngAfterViewInit) {
+                cascadeSelectInstance.ngAfterViewInit();
+            }
+            tick();
+            templateFixture.detectChanges();
+
+            expect(cascadeSelectInstance).toBeTruthy();
+        }));
+    });
+
+    describe('#template Tests', () => {
+        let templateFixture: ComponentFixture<TestCascadeSelectRefTemplateComponent>;
+        let cascadeSelectElement: any;
+
+        beforeEach(() => {
+            templateFixture = TestBed.createComponent(TestCascadeSelectRefTemplateComponent);
+            cascadeSelectElement = templateFixture.debugElement.query(By.css('p-cascadeselect'));
+            templateFixture.detectChanges();
+        });
+
+        it('should have value #template', () => {
+            const cascadeSelectInstance = cascadeSelectElement.componentInstance;
+            expect(cascadeSelectInstance).toBeTruthy();
+            expect(() => cascadeSelectInstance.valueTemplate).not.toThrow();
+        });
+
+        it('should have option #template', () => {
+            const cascadeSelectInstance = cascadeSelectElement.componentInstance;
+            expect(cascadeSelectInstance).toBeTruthy();
+            expect(() => cascadeSelectInstance.optionTemplate).not.toThrow();
+        });
+
+        it('should have header #template', () => {
+            const cascadeSelectInstance = cascadeSelectElement.componentInstance;
+            expect(cascadeSelectInstance).toBeTruthy();
+            expect(() => cascadeSelectInstance.headerTemplate).not.toThrow();
+        });
+
+        it('should have footer #template', () => {
+            const cascadeSelectInstance = cascadeSelectElement.componentInstance;
+            expect(cascadeSelectInstance).toBeTruthy();
+            expect(() => cascadeSelectInstance.footerTemplate).not.toThrow();
+        });
+
+        it('should have triggericon #template', () => {
+            const cascadeSelectInstance = cascadeSelectElement.componentInstance;
+            expect(cascadeSelectInstance).toBeTruthy();
+            expect(() => cascadeSelectInstance.triggerIconTemplate).not.toThrow();
+        });
+
+        it('should have loadingicon #template', () => {
+            const cascadeSelectInstance = cascadeSelectElement.componentInstance;
+            expect(cascadeSelectInstance).toBeTruthy();
+            expect(() => cascadeSelectInstance.loadingIconTemplate).not.toThrow();
+        });
+
+        it('should have optiongroupicon #template', () => {
+            const cascadeSelectInstance = cascadeSelectElement.componentInstance;
+            expect(cascadeSelectInstance).toBeTruthy();
+            expect(() => cascadeSelectInstance.groupIconTemplate).not.toThrow();
+        });
+
+        it('should have clearicon #template', () => {
+            const cascadeSelectInstance = cascadeSelectElement.componentInstance;
+            expect(cascadeSelectInstance).toBeTruthy();
+            expect(() => cascadeSelectInstance.clearIconTemplate).not.toThrow();
+        });
+
+        it('should process all #templates after content init', fakeAsync(() => {
+            const cascadeSelectInstance = cascadeSelectElement.componentInstance;
+
+            if (cascadeSelectInstance.ngAfterContentInit) {
+                cascadeSelectInstance.ngAfterContentInit();
+            }
+            tick();
+            templateFixture.detectChanges();
+
+            expect(cascadeSelectInstance).toBeTruthy();
+        }));
+
+        it('should handle #template changes after view init', fakeAsync(() => {
+            const cascadeSelectInstance = cascadeSelectElement.componentInstance;
+
+            if (cascadeSelectInstance.ngAfterViewInit) {
+                cascadeSelectInstance.ngAfterViewInit();
+            }
+            tick();
+            templateFixture.detectChanges();
+
+            expect(cascadeSelectInstance).toBeTruthy();
         }));
     });
 

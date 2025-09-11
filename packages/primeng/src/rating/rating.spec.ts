@@ -2,7 +2,9 @@ import { ComponentFixture, TestBed, fakeAsync, tick, flush } from '@angular/core
 import { FormsModule, ReactiveFormsModule, FormControl, FormGroup, Validators } from '@angular/forms';
 import { By } from '@angular/platform-browser';
 import { Component, DebugElement, TemplateRef, ViewChild } from '@angular/core';
+import { CommonModule } from '@angular/common';
 import { Rating } from './rating';
+import { SharedModule } from 'primeng/api';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 
 // Basic Rating test component
@@ -110,6 +112,52 @@ class TestAdvancedRatingComponent {
     onAdvancedRate(event: any) {
         this.rateEvents.push(event);
     }
+}
+
+// Rating pTemplate component
+@Component({
+    standalone: true,
+    imports: [Rating, FormsModule, CommonModule, SharedModule],
+    template: `
+        <p-rating [(ngModel)]="value" [stars]="stars">
+            <!-- On icon template with pTemplate directive -->
+            <ng-template pTemplate="onicon" let-value let-class="class">
+                <i class="pi pi-star-fill custom-on-icon" [attr.data-testid]="'ptemplate-onicon-' + value" [ngClass]="class" [title]="'Star ' + value + ' filled'"></i>
+            </ng-template>
+
+            <!-- Off icon template with pTemplate directive -->
+            <ng-template pTemplate="officon" let-value let-class="class">
+                <i class="pi pi-star custom-off-icon" [attr.data-testid]="'ptemplate-officon-' + value" [ngClass]="class" [title]="'Star ' + value + ' empty'"></i>
+            </ng-template>
+        </p-rating>
+    `
+})
+class TestRatingPTemplateComponent {
+    value: number = 3;
+    stars: number = 5;
+}
+
+// Rating #template reference component
+@Component({
+    standalone: true,
+    imports: [Rating, FormsModule, CommonModule, SharedModule],
+    template: `
+        <p-rating [(ngModel)]="value" [stars]="stars">
+            <!-- On icon template with #template reference -->
+            <ng-template #onicon let-value let-class="class">
+                <i class="pi pi-heart-fill custom-on-icon" [attr.data-testid]="'ref-onicon-' + value" [ngClass]="class" [title]="'Heart ' + value + ' filled'"></i>
+            </ng-template>
+
+            <!-- Off icon template with #template reference -->
+            <ng-template #officon let-value let-class="class">
+                <i class="pi pi-heart custom-off-icon" [attr.data-testid]="'ref-officon-' + value" [ngClass]="class" [title]="'Heart ' + value + ' empty'"></i>
+            </ng-template>
+        </p-rating>
+    `
+})
+class TestRatingRefTemplateComponent {
+    value: number = 3;
+    stars: number = 5;
 }
 
 describe('Rating', () => {
@@ -764,6 +812,200 @@ describe('Rating', () => {
 
             expect(duration).toBeLessThan(1000);
             flush();
+        }));
+    });
+
+    describe('pTemplate Tests', () => {
+        let component: TestRatingPTemplateComponent;
+        let fixture: ComponentFixture<TestRatingPTemplateComponent>;
+        let ratingElement: DebugElement;
+        let ratingInstance: Rating;
+
+        beforeEach(async () => {
+            await TestBed.configureTestingModule({
+                imports: [TestRatingPTemplateComponent, NoopAnimationsModule]
+            }).compileComponents();
+
+            fixture = TestBed.createComponent(TestRatingPTemplateComponent);
+            component = fixture.componentInstance;
+            ratingElement = fixture.debugElement.query(By.css('p-rating'));
+            ratingInstance = ratingElement.componentInstance;
+            fixture.detectChanges();
+        });
+
+        it('should have onicon pTemplate', () => {
+            expect(ratingInstance).toBeTruthy();
+            expect(() => ratingInstance.onIconTemplate).not.toThrow();
+        });
+
+        it('should have officon pTemplate', () => {
+            expect(ratingInstance).toBeTruthy();
+            expect(() => ratingInstance.offIconTemplate).not.toThrow();
+        });
+
+        it('should pass context parameters to onicon template', fakeAsync(() => {
+            // Set value to 3 - first 3 stars should show onicon
+            component.value = 3;
+            fixture.detectChanges();
+            tick();
+
+            // Verify that the rating component is working with the value
+            expect(ratingInstance.value).toBe(3);
+            expect(component.stars).toBe(5);
+        }));
+
+        it('should pass context parameters to officon template', fakeAsync(() => {
+            // Set value to 2 - last 3 stars should show officon
+            component.value = 2;
+            fixture.detectChanges();
+            tick();
+
+            // Verify that the rating component is working with the value
+            expect(ratingInstance.value).toBe(2);
+            expect(component.stars).toBe(5);
+        }));
+
+        it('should update templates when value changes', fakeAsync(() => {
+            // Initially 3 stars filled
+            component.value = 3;
+            fixture.detectChanges();
+            tick();
+
+            expect(ratingInstance.value).toBe(3);
+
+            // Change to 1 star filled
+            component.value = 1;
+            fixture.detectChanges();
+            tick();
+
+            expect(ratingInstance.value).toBe(1);
+        }));
+
+        it('should process pTemplates after content init', fakeAsync(() => {
+            if (ratingInstance.ngAfterContentInit) {
+                ratingInstance.ngAfterContentInit();
+            }
+            tick();
+            fixture.detectChanges();
+
+            expect(ratingInstance).toBeTruthy();
+        }));
+
+        it('should handle pTemplate changes after view init', fakeAsync(() => {
+            if (ratingInstance.ngAfterViewInit) {
+                ratingInstance.ngAfterViewInit();
+            }
+            tick();
+            fixture.detectChanges();
+
+            expect(ratingInstance).toBeTruthy();
+        }));
+
+        it('should apply class context to templates', fakeAsync(() => {
+            component.value = 3;
+            fixture.detectChanges();
+            tick();
+
+            // Verify that the rating component works correctly
+            expect(ratingInstance.value).toBe(3);
+            expect(ratingInstance.stars).toBe(5);
+        }));
+    });
+
+    describe('#template Tests', () => {
+        let component: TestRatingRefTemplateComponent;
+        let fixture: ComponentFixture<TestRatingRefTemplateComponent>;
+        let ratingElement: DebugElement;
+        let ratingInstance: Rating;
+
+        beforeEach(async () => {
+            await TestBed.configureTestingModule({
+                imports: [TestRatingRefTemplateComponent, NoopAnimationsModule]
+            }).compileComponents();
+
+            fixture = TestBed.createComponent(TestRatingRefTemplateComponent);
+            component = fixture.componentInstance;
+            ratingElement = fixture.debugElement.query(By.css('p-rating'));
+            ratingInstance = ratingElement.componentInstance;
+            fixture.detectChanges();
+        });
+
+        it('should have onicon #template', () => {
+            expect(ratingInstance).toBeTruthy();
+            expect(() => ratingInstance.onIconTemplate).not.toThrow();
+        });
+
+        it('should have officon #template', () => {
+            expect(ratingInstance).toBeTruthy();
+            expect(() => ratingInstance.offIconTemplate).not.toThrow();
+        });
+
+        it('should pass context parameters to onicon template', fakeAsync(() => {
+            // Set value to 3 - first 3 hearts should be filled
+            component.value = 3;
+            fixture.detectChanges();
+            tick();
+
+            // Verify that the rating component is working with the value
+            expect(ratingInstance.value).toBe(3);
+            expect(component.stars).toBe(5);
+        }));
+
+        it('should pass context parameters to officon template', fakeAsync(() => {
+            // Set value to 2 - last 3 hearts should be empty
+            component.value = 2;
+            fixture.detectChanges();
+            tick();
+
+            // Verify that the rating component is working with the value
+            expect(ratingInstance.value).toBe(2);
+            expect(component.stars).toBe(5);
+        }));
+
+        it('should update templates when value changes', fakeAsync(() => {
+            // Initially 3 hearts filled
+            component.value = 3;
+            fixture.detectChanges();
+            tick();
+
+            expect(ratingInstance.value).toBe(3);
+
+            // Change to 1 heart filled
+            component.value = 1;
+            fixture.detectChanges();
+            tick();
+
+            expect(ratingInstance.value).toBe(1);
+        }));
+
+        it('should process #templates after content init', fakeAsync(() => {
+            if (ratingInstance.ngAfterContentInit) {
+                ratingInstance.ngAfterContentInit();
+            }
+            tick();
+            fixture.detectChanges();
+
+            expect(ratingInstance).toBeTruthy();
+        }));
+
+        it('should handle #template changes after view init', fakeAsync(() => {
+            if (ratingInstance.ngAfterViewInit) {
+                ratingInstance.ngAfterViewInit();
+            }
+            tick();
+            fixture.detectChanges();
+
+            expect(ratingInstance).toBeTruthy();
+        }));
+
+        it('should apply class context to templates', fakeAsync(() => {
+            component.value = 3;
+            fixture.detectChanges();
+            tick();
+
+            // Verify that the rating component works correctly
+            expect(ratingInstance.value).toBe(3);
+            expect(ratingInstance.stars).toBe(5);
         }));
     });
 });

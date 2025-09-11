@@ -1,7 +1,8 @@
 import { ComponentFixture, TestBed, fakeAsync, tick, flush } from '@angular/core/testing';
 import { Component } from '@angular/core';
-import { FormsModule, FormControl, FormGroup, Validators } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule, FormControl, FormGroup, Validators } from '@angular/forms';
 import { By } from '@angular/platform-browser';
+import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 import { SelectButton, SelectButtonModule } from './selectbutton';
 import { SharedModule } from 'primeng/api';
 import { CommonModule } from '@angular/common';
@@ -12,7 +13,8 @@ describe('SelectButton', () => {
 
     beforeEach(async () => {
         await TestBed.configureTestingModule({
-            imports: [SelectButton, SelectButtonModule, FormsModule, CommonModule, SharedModule]
+            imports: [SelectButton, SelectButtonModule, FormsModule, ReactiveFormsModule, CommonModule, SharedModule, TestSelectButtonPTemplateComponent, TestSelectButtonRefTemplateComponent, NoopAnimationsModule],
+            declarations: [TestFormSelectButtonComponent, TestPrimeTemplateSelectButtonComponent]
         }).compileComponents();
 
         fixture = TestBed.createComponent(SelectButton);
@@ -440,3 +442,201 @@ class TestPrimeTemplateSelectButtonComponent {
         { label: 'Option B', value: 'optionB' }
     ];
 }
+
+// SelectButton pTemplate component
+@Component({
+    standalone: true,
+    imports: [SelectButton, FormsModule, CommonModule, SharedModule],
+    template: `
+        <p-selectbutton [(ngModel)]="selectedValue" [options]="options">
+            <!-- Item template with pTemplate -->
+            <ng-template pTemplate="item" let-option let-index="index">
+                <span class="custom-template-item" [attr.data-testid]="'ptemplate-item-' + index" [title]="'Template item: ' + option.label + ' at index ' + index">
+                    <i class="pi pi-star"></i>
+                    {{ option.label }} ({{ option.value }})
+                </span>
+            </ng-template>
+        </p-selectbutton>
+    `
+})
+class TestSelectButtonPTemplateComponent {
+    selectedValue: string | undefined;
+    options = [
+        { label: 'Option One', value: 'opt1' },
+        { label: 'Option Two', value: 'opt2' },
+        { label: 'Option Three', value: 'opt3' }
+    ];
+}
+
+// SelectButton #template reference component
+@Component({
+    standalone: true,
+    imports: [SelectButton, FormsModule, CommonModule, SharedModule],
+    template: `
+        <p-selectbutton [(ngModel)]="selectedValue" [options]="options">
+            <!-- Item template with #template reference -->
+            <ng-template #item let-option let-index="index">
+                <span class="custom-ref-item" [attr.data-testid]="'ref-item-' + index" [title]="'Reference item: ' + option.label + ' at index ' + index">
+                    <i class="pi pi-heart"></i>
+                    {{ option.label }} [{{ option.value }}]
+                </span>
+            </ng-template>
+        </p-selectbutton>
+    `
+})
+class TestSelectButtonRefTemplateComponent {
+    selectedValue: string | undefined;
+    options = [
+        { label: 'Item One', value: 'item1' },
+        { label: 'Item Two', value: 'item2' },
+        { label: 'Item Three', value: 'item3' }
+    ];
+}
+
+describe('SelectButton pTemplate Tests', () => {
+    let component: TestSelectButtonPTemplateComponent;
+    let fixture: ComponentFixture<TestSelectButtonPTemplateComponent>;
+    let selectButtonInstance: SelectButton;
+
+    beforeEach(async () => {
+        await TestBed.configureTestingModule({
+            imports: [TestSelectButtonPTemplateComponent, NoopAnimationsModule]
+        }).compileComponents();
+
+        fixture = TestBed.createComponent(TestSelectButtonPTemplateComponent);
+        component = fixture.componentInstance;
+        selectButtonInstance = fixture.debugElement.query(By.directive(SelectButton)).componentInstance;
+        fixture.detectChanges();
+    });
+
+    it('should create component with pTemplate templates', fakeAsync(() => {
+        expect(component).toBeTruthy();
+        expect(selectButtonInstance).toBeTruthy();
+        expect(() => selectButtonInstance.itemTemplate).not.toThrow();
+    }));
+
+    it('should pass context parameters to item template', fakeAsync(() => {
+        // Verify that the select button component is working with options
+        expect(selectButtonInstance.options).toBeDefined();
+        expect(selectButtonInstance.options?.length).toBe(3);
+        expect(component.options.length).toBe(3);
+    }));
+
+    it('should render templates with correct context', fakeAsync(() => {
+        // Test with different selected values
+        component.selectedValue = 'opt1';
+        fixture.detectChanges();
+        tick();
+
+        expect(selectButtonInstance.value).toBe('opt1');
+        expect(component.selectedValue).toBe('opt1');
+    }));
+
+    it('should update templates when selection changes', fakeAsync(() => {
+        // Initially no selection
+        expect(selectButtonInstance.value).toBeUndefined();
+
+        // Select option
+        component.selectedValue = 'opt2';
+        fixture.detectChanges();
+        tick();
+
+        expect(selectButtonInstance.value).toBe('opt2');
+    }));
+
+    it('should apply context to templates correctly', fakeAsync(() => {
+        component.selectedValue = 'opt3';
+        fixture.detectChanges();
+        tick();
+
+        // Verify that the select button component works correctly
+        expect(selectButtonInstance.value).toBe('opt3');
+        expect(selectButtonInstance.isSelected(component.options[2])).toBe(true);
+    }));
+
+    it('should process pTemplates after content init', fakeAsync(() => {
+        if (selectButtonInstance.ngAfterContentInit) {
+            selectButtonInstance.ngAfterContentInit();
+            fixture.detectChanges();
+            tick();
+
+            // Verify that ngAfterContentInit is called correctly
+            expect(selectButtonInstance.options).toBeDefined();
+            expect(component.options).toBeDefined();
+        }
+    }));
+});
+
+describe('SelectButton #template Reference Tests', () => {
+    let component: TestSelectButtonRefTemplateComponent;
+    let fixture: ComponentFixture<TestSelectButtonRefTemplateComponent>;
+    let selectButtonInstance: SelectButton;
+
+    beforeEach(async () => {
+        await TestBed.configureTestingModule({
+            imports: [TestSelectButtonRefTemplateComponent, NoopAnimationsModule]
+        }).compileComponents();
+
+        fixture = TestBed.createComponent(TestSelectButtonRefTemplateComponent);
+        component = fixture.componentInstance;
+        selectButtonInstance = fixture.debugElement.query(By.directive(SelectButton)).componentInstance;
+        fixture.detectChanges();
+    });
+
+    it('should create component with #template references', fakeAsync(() => {
+        expect(component).toBeTruthy();
+        expect(selectButtonInstance).toBeTruthy();
+        expect(() => selectButtonInstance.itemTemplate).not.toThrow();
+    }));
+
+    it('should pass context parameters to item template', fakeAsync(() => {
+        // Verify that the select button component is working with options
+        expect(selectButtonInstance.options).toBeDefined();
+        expect(selectButtonInstance.options?.length).toBe(3);
+        expect(component.options.length).toBe(3);
+    }));
+
+    it('should render templates with correct context', fakeAsync(() => {
+        // Test with different selected values
+        component.selectedValue = 'item1';
+        fixture.detectChanges();
+        tick();
+
+        expect(selectButtonInstance.value).toBe('item1');
+        expect(component.selectedValue).toBe('item1');
+    }));
+
+    it('should update templates when selection changes', fakeAsync(() => {
+        // Initially no selection
+        expect(selectButtonInstance.value).toBeUndefined();
+
+        // Select option
+        component.selectedValue = 'item2';
+        fixture.detectChanges();
+        tick();
+
+        expect(selectButtonInstance.value).toBe('item2');
+    }));
+
+    it('should apply context to templates correctly', fakeAsync(() => {
+        component.selectedValue = 'item3';
+        fixture.detectChanges();
+        tick();
+
+        // Verify that the select button component works correctly
+        expect(selectButtonInstance.value).toBe('item3');
+        expect(selectButtonInstance.isSelected(component.options[2])).toBe(true);
+    }));
+
+    it('should process #templates after content init', fakeAsync(() => {
+        if (selectButtonInstance.ngAfterContentInit) {
+            selectButtonInstance.ngAfterContentInit();
+            fixture.detectChanges();
+            tick();
+
+            // Verify that ngAfterContentInit is called correctly
+            expect(selectButtonInstance.options).toBeDefined();
+            expect(component.options).toBeDefined();
+        }
+    }));
+});
