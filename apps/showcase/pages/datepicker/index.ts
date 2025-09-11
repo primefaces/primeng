@@ -22,6 +22,8 @@ import { SizesDoc } from '@/doc/datepicker/sizesdoc';
 import { TemplateDrivenFormsDoc } from '@/doc/datepicker/templatedrivenformsdoc';
 import { TimeDoc } from '@/doc/datepicker/timedoc';
 import { YearDoc } from '@/doc/datepicker/yeardoc';
+import { FluidDoc } from '@/doc/datepicker/fluiddoc';
+import { ClearIconDoc } from '@/doc/datepicker/clearicondoc';
 import { Component } from '@angular/core';
 import { AppDoc } from '@/components/doc/app.doc';
 
@@ -118,9 +120,19 @@ export class DatePickerDemo {
             component: IftaLabelDoc
         },
         {
+            id: 'clearicon',
+            label: 'Clear Icon',
+            component: ClearIconDoc
+        },
+        {
             id: 'sizes',
             label: 'Sizes',
             component: SizesDoc
+        },
+        {
+            id: 'fluid',
+            label: 'Fluid',
+            component: FluidDoc
         },
         {
             id: 'filled',

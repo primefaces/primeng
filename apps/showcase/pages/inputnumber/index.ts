@@ -14,6 +14,8 @@ import { ReactiveFormsDoc } from '@/doc/inputnumber/reactiveformsdoc';
 import { SizesDoc } from '@/doc/inputnumber/sizesdoc';
 import { TemplateDrivenFormsDoc } from '@/doc/inputnumber/templatedrivenformsdoc';
 import { VerticalDoc } from '@/doc/inputnumber/verticaldoc';
+import { FluidDoc } from '@/doc/inputnumber/fluiddoc';
+import { ClearIconDoc } from '@/doc/inputnumber/clearicondoc';
 import { Component } from '@angular/core';
 import { AppDoc } from '@/components/doc/app.doc';
 
@@ -70,9 +72,19 @@ export class InputNumberDemo {
             component: IftaLabelDoc
         },
         {
+            id: 'clearicon',
+            label: 'Clear Icon',
+            component: ClearIconDoc
+        },
+        {
             id: 'sizes',
             label: 'Sizes',
             component: SizesDoc
+        },
+        {
+            id: 'fluid',
+            label: 'Fluid',
+            component: FluidDoc
         },
         {
             id: 'filled',

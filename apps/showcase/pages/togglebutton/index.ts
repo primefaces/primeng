@@ -7,6 +7,7 @@ import { InvalidDoc } from '@/doc/togglebutton/invaliddoc';
 import { ReactiveFormsDoc } from '@/doc/togglebutton/reactiveformsdoc';
 import { SizesDoc } from '@/doc/togglebutton/sizesdoc';
 import { TemplateDrivenFormsDoc } from '@/doc/togglebutton/templatedrivenformsdoc';
+import { FluidDoc } from '@/doc/togglebutton/fluiddoc';
 import { Component } from '@angular/core';
 import { AppDoc } from '@/components/doc/app.doc';
 
@@ -36,6 +37,11 @@ export class ToggleButtonDemo {
             id: 'sizes',
             label: 'Sizes',
             component: SizesDoc
+        },
+        {
+            id: 'fluid',
+            label: 'Fluid',
+            component: FluidDoc
         },
         {
             id: 'disabled',

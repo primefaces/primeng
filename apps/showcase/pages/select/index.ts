@@ -18,6 +18,7 @@ import { SizesDoc } from '@/doc/select/sizesdoc';
 import { TemplateDoc } from '@/doc/select/templatedoc';
 import { TemplateDrivenFormsDoc } from '@/doc/select/templatedrivenformsdoc';
 import { VirtualScrollDoc } from '@/doc/select/virtualscrolldoc';
+import { FluidDoc } from '@/doc/select/fluiddoc';
 import { AppDoc } from '@/components/doc/app.doc';
 import { Component } from '@angular/core';
 
@@ -65,16 +66,10 @@ export class SelectDemo {
             component: FilterDoc
         },
         {
-            id: 'clearicon',
-            label: 'Clear Icon',
-            component: ClearIconDoc
-        },
-        {
             id: 'loadingstate',
             label: 'Loading State',
             component: LoadingStateDoc
         },
-
         {
             id: 'virtualscroll',
             label: 'Virtual Scroll',
@@ -101,9 +96,19 @@ export class SelectDemo {
             component: IftaLabelDoc
         },
         {
+            id: 'clearicon',
+            label: 'Clear Icon',
+            component: ClearIconDoc
+        },
+        {
             id: 'sizes',
             label: 'Sizes',
             component: SizesDoc
+        },
+        {
+            id: 'fluid',
+            label: 'Fluid',
+            component: FluidDoc
         },
         {
             id: 'disabled',

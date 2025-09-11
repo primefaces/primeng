@@ -8,6 +8,7 @@ import { ReactiveFormsDoc } from '@/doc/selectbutton/reactiveformsdoc';
 import { SizesDoc } from '@/doc/selectbutton/sizesdoc';
 import { TemplateDoc } from '@/doc/selectbutton/templatedoc';
 import { TemplateDrivenFormsDoc } from '@/doc/selectbutton/templatedrivenformsdoc';
+import { FluidDoc } from '@/doc/selectbutton/fluiddoc';
 import { AppDoc } from '@/components/doc/app.doc';
 import { Component } from '@angular/core';
 
@@ -49,6 +50,11 @@ export class SelectButtonDemo {
             id: 'sizes',
             label: 'Sizes',
             component: SizesDoc
+        },
+        {
+            id: 'fluid',
+            label: 'Fluid',
+            component: FluidDoc
         },
         {
             id: 'disabled',

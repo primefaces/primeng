@@ -13,6 +13,8 @@ import { SizesDoc } from '@/doc/password/sizesdoc';
 import { TemplateDoc } from '@/doc/password/templatedoc';
 import { TemplateDrivenFormsDoc } from '@/doc/password/templatedrivenformsdoc';
 import { ToggleMaskDoc } from '@/doc/password/togglemaskdoc';
+import { FluidDoc } from '@/doc/password/fluiddoc';
+import { ClearIconDoc } from '@/doc/password/clearicondoc';
 import { Component } from '@angular/core';
 import { AppDoc } from '@/components/doc/app.doc';
 
@@ -65,9 +67,19 @@ export class PasswordDemo {
             component: IftaLabelDoc
         },
         {
+            id: 'clearicon',
+            label: 'Clear Icon',
+            component: ClearIconDoc
+        },
+        {
             id: 'sizes',
             label: 'Sizes',
             component: SizesDoc
+        },
+        {
+            id: 'fluid',
+            label: 'Fluid',
+            component: FluidDoc
         },
         {
             id: 'filled',

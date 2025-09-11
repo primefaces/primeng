@@ -10,6 +10,7 @@ import { InvalidDoc } from '@/doc/inputtext/invaliddoc';
 import { ReactiveFormsDoc } from '@/doc/inputtext/reactiveformsdoc';
 import { SizesDoc } from '@/doc/inputtext/sizesdoc';
 import { TemplateDrivenFormsDoc } from '@/doc/inputtext/templatedrivenformsdoc';
+import { FluidDoc } from '@/doc/inputtext/fluiddoc';
 import { Component } from '@angular/core';
 import { AppDoc } from '@/components/doc/app.doc';
 
@@ -51,6 +52,11 @@ export class InputTextDemo {
             id: 'sizes',
             label: 'Sizes',
             component: SizesDoc
+        },
+        {
+            id: 'fluid',
+            label: 'Fluid',
+            component: FluidDoc
         },
         {
             id: 'helptext',

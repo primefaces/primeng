@@ -12,6 +12,8 @@ import { ReactiveFormsDoc } from '@/doc/inputmask/reactiveformsdoc';
 import { SizesDoc } from '@/doc/inputmask/sizesdoc';
 import { SlotCharDoc } from '@/doc/inputmask/slotchardoc';
 import { TemplateDrivenFormsDoc } from '@/doc/inputmask/templatedrivenformsdoc';
+import { FluidDoc } from '@/doc/inputmask/fluiddoc';
+import { ClearIconDoc } from '@/doc/inputmask/clearicondoc';
 import { Component } from '@angular/core';
 import { AppDoc } from '@/components/doc/app.doc';
 
@@ -70,9 +72,19 @@ export class InputMaskDemo {
             component: IftaLabelDoc
         },
         {
+            id: 'clearicon',
+            label: 'Clear Icon',
+            component: ClearIconDoc
+        },
+        {
             id: 'sizes',
             label: 'Sizes',
             component: SizesDoc
+        },
+        {
+            id: 'fluid',
+            label: 'Fluid',
+            component: FluidDoc
         },
         {
             id: 'disabled',

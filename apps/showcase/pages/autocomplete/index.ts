@@ -16,6 +16,8 @@ import { SizesDoc } from '@/doc/autocomplete/sizesdoc';
 import { TemplateDoc } from '@/doc/autocomplete/templatedoc';
 import { TemplateDrivenFormsDoc } from '@/doc/autocomplete/templatedrivenformsdoc';
 import { VirtualScrollDoc } from '@/doc/autocomplete/virtualscrolldoc';
+import { FluidDoc } from '@/doc/autocomplete/fluiddoc';
+import { ClearIconDoc } from '@/doc/autocomplete/clearicondoc';
 import { ChangeDetectionStrategy, Component } from '@angular/core';
 import { AppDoc } from '@/components/doc/app.doc';
 
@@ -90,9 +92,19 @@ export class AutoCompleteDemo {
             component: IftaLabelDoc
         },
         {
+            id: 'clearicon',
+            label: 'Clear Icon',
+            component: ClearIconDoc
+        },
+        {
             id: 'sizes',
             label: 'Sizes',
             component: SizesDoc
+        },
+        {
+            id: 'fluid',
+            label: 'Fluid',
+            component: FluidDoc
         },
         {
             id: 'filled',

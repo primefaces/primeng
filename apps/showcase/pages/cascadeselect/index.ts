@@ -11,6 +11,8 @@ import { ReactiveFormsDoc } from '@/doc/cascadeselect/reactiveformsdoc';
 import { SizesDoc } from '@/doc/cascadeselect/sizesdoc';
 import { TemplateDoc } from '@/doc/cascadeselect/templatedoc';
 import { TemplateDrivenFormsDoc } from '@/doc/cascadeselect/templatedrivenformsdoc';
+import { FluidDoc } from '@/doc/cascadeselect/fluiddoc';
+import { ClearIconDoc } from '@/doc/cascadeselect/clearicondoc';
 import { AppDoc } from '@/components/doc/app.doc';
 import { Component } from '@angular/core';
 
@@ -52,9 +54,19 @@ export class CascadeSelectDemo {
             component: IftaLabelDoc
         },
         {
+            id: 'clearicon',
+            label: 'Clear Icon',
+            component: ClearIconDoc
+        },
+        {
             id: 'sizes',
             label: 'Sizes',
             component: SizesDoc
+        },
+        {
+            id: 'fluid',
+            label: 'Fluid',
+            component: FluidDoc
         },
         {
             id: 'filled',

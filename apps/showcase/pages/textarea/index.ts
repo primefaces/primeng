@@ -10,6 +10,7 @@ import { InvalidDoc } from '@/doc/textarea/invaliddoc';
 import { ReactiveFormsDoc } from '@/doc/textarea/reactiveformsdoc';
 import { SizesDoc } from '@/doc/textarea/sizesdoc';
 import { TemplateDrivenFormsDoc } from '@/doc/textarea/templatedrivenformsdoc';
+import { FluidDoc } from '@/doc/textarea/fluiddoc';
 import { Component } from '@angular/core';
 import { AppDoc } from '@/components/doc/app.doc';
 
@@ -49,6 +50,11 @@ export class TextareaDemo {
             id: 'sizes',
             label: 'Sizes',
             component: SizesDoc
+        },
+        {
+            id: 'fluid',
+            label: 'Fluid',
+            component: FluidDoc
         },
         {
             id: 'filled',

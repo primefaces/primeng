@@ -15,6 +15,8 @@ import { SizesDoc } from '@/doc/treeselect/sizesdoc';
 import { TemplateDoc } from '@/doc/treeselect/templatedoc';
 import { TemplateDrivenFormsDoc } from '@/doc/treeselect/templatedrivenformsdoc';
 import { VirtualScrollDoc } from '@/doc/treeselect/virtualscrolldoc';
+import { FluidDoc } from '@/doc/treeselect/fluiddoc';
+import { ClearIconDoc } from '@/doc/treeselect/clearicondoc';
 import { Component } from '@angular/core';
 import { AppDoc } from '@/components/doc/app.doc';
 
@@ -83,9 +85,19 @@ export class TreeSelectDemo {
             component: IftaLabelDoc
         },
         {
+            id: 'clearicon',
+            label: 'Clear Icon',
+            component: ClearIconDoc
+        },
+        {
             id: 'sizes',
             label: 'Sizes',
             component: SizesDoc
+        },
+        {
+            id: 'fluid',
+            label: 'Fluid',
+            component: FluidDoc
         },
         {
             id: 'filled',

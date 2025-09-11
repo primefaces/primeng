@@ -3,7 +3,7 @@ import { Component, OnInit } from '@angular/core';
 import { AppDocSectionText } from '@/components/doc/app.docsectiontext';
 import { AppCode } from '@/components/doc/app.code';
 import { FormsModule } from '@angular/forms';
-import { Select } from 'primeng/select';
+import { SelectModule } from 'primeng/select';
 
 interface City {
     name: string;
@@ -11,24 +11,20 @@ interface City {
 }
 
 @Component({
-    selector: 'select-clear-icon-demo',
+    selector: 'select-fluid-demo',
     standalone: true,
-    imports: [AppDocSectionText, AppCode, FormsModule, Select],
+    imports: [AppDocSectionText, AppCode, FormsModule, SelectModule],
     template: `
         <app-docsectiontext>
-            <p>The <i>clearIcon</i> template allows you to customize the icon used to clear the input field.</p>
+            <p>The fluid prop makes the component take up the full width of its container when set to true.</p>
         </app-docsectiontext>
-        <div class="card flex justify-center">
-            <p-select [options]="cities" [(ngModel)]="selectedCity" optionLabel="name" [showClear]="true" placeholder="Select a City" class="w-full md:w-56">
-                <ng-template #clearicon>
-                    <i class="pi pi-times-circle"></i>
-                </ng-template>
-            </p-select>
+        <div class="card">
+            <p-select [options]="cities" [(ngModel)]="selectedCity" optionLabel="name" placeholder="Select a City" fluid />
         </div>
-        <app-code [code]="code" selector="select-clear-icon-demo"></app-code>
+        <app-code [code]="code" selector="select-fluid-demo"></app-code>
     `
 })
-export class ClearIconDoc implements OnInit {
+export class FluidDoc implements OnInit {
     cities: City[];
 
     selectedCity: City | undefined;
@@ -44,10 +40,10 @@ export class ClearIconDoc implements OnInit {
     }
 
     code: Code = {
-        basic: `<p-select [options]="cities" [(ngModel)]="selectedCity" optionLabel="name" [showClear]="true" placeholder="Select a City" class="w-full md:w-56" />`,
+        basic: `<p-select [options]="cities" [(ngModel)]="selectedCity" optionLabel="name" placeholder="Select a City" class="w-full md:w-56" />`,
 
         html: `<div class="card flex justify-center">
-    <p-select [options]="cities" [(ngModel)]="selectedCity" optionLabel="name" [showClear]="true" placeholder="Select a City" class="w-full md:w-56" />
+    <p-select [options]="cities" [(ngModel)]="selectedCity" optionLabel="name" placeholder="Select a City" class="w-full md:w-56" />
 </div>`,
 
         typescript: `import { Component, OnInit } from '@angular/core';
@@ -60,12 +56,12 @@ interface City {
 }
 
 @Component({
-    selector: 'select-clear-icon-demo',
-    templateUrl: './select-clear-icon-demo.html',
+    selector: 'select-fluid-demo',
+    templateUrl: './select-fluid-demo.html',
     standalone: true,
     imports: [FormsModule, Select]
 })
-export class SelectClearIconDemo implements OnInit {
+export class SelectFluidDemo implements OnInit {
     cities: City[] | undefined;
 
     selectedCity: City | undefined;
