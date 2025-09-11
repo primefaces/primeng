@@ -1,10 +1,11 @@
-import { AppDocModule } from '@/components/doc/app.doc.module';
 import { Component } from '@angular/core';
 import { TagModule } from 'primeng/tag';
+import { AppDocSectionText } from '@/components/doc/app.docsectiontext';
 
 @Component({
     selector: 'v20-breaking-doc',
-    imports: [AppDocModule, TagModule],
+    standalone: true,
+    imports: [TagModule, AppDocSectionText],
     template: `
         <app-docsectiontext>
             <p>The list of items that were deprecated in previous releases and removed in this iteration.</p>

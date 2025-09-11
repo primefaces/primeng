@@ -1,6 +1,13 @@
+import { CommonModule } from '@angular/common';
+import { ChangeDetectionStrategy, Component } from '@angular/core';
+import { TreeTableModule } from 'primeng/treetable';
+import { ToastModule } from 'primeng/toast';
+import { ContextMenuModule } from 'primeng/contextmenu';
+import { AppCode } from '@/components/doc/app.code';
+import { AppDocSectionText } from '@/components/doc/app.docsectiontext';
+import { DeferredDemo } from '@/components/demo/deferreddemo';
 import { Code } from '@/domain/code';
 import { NodeService } from '@/service/nodeservice';
-import { ChangeDetectionStrategy, Component } from '@angular/core';
 import { MenuItem, MessageService, TreeNode } from 'primeng/api';
 
 interface Column {
@@ -10,7 +17,8 @@ interface Column {
 
 @Component({
     selector: 'context-menu-doc',
-    standalone: false,
+    standalone: true,
+    imports: [CommonModule, TreeTableModule, ToastModule, ContextMenuModule, AppCode, AppDocSectionText, DeferredDemo],
     template: `
         <app-docsectiontext>
             <p>TreeTable has exclusive integration with ContextMenu using the <i>contextMenu</i> event to open a menu on right click alont with <i>contextMenuSelection</i> properties to control the selection via the menu.</p>

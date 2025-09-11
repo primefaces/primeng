@@ -1,5 +1,9 @@
 import { Code } from '@/domain/code';
 import { Component, OnInit } from '@angular/core';
+import { AppDocSectionText } from '@/components/doc/app.docsectiontext';
+import { AppCode } from '@/components/doc/app.code';
+import { FormsModule } from '@angular/forms';
+import { Select } from 'primeng/select';
 
 interface City {
     name: string;
@@ -8,7 +12,8 @@ interface City {
 
 @Component({
     selector: 'select-clear-icon-demo',
-    standalone: false,
+    standalone: true,
+    imports: [AppDocSectionText, AppCode, FormsModule, Select],
     template: `
         <app-docsectiontext>
             <p>When <i>showClear</i> is enabled, a clear icon is added to reset the Select.</p>

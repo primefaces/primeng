@@ -1,9 +1,13 @@
 import { Code } from '@/domain/code';
 import { Component } from '@angular/core';
+import { InplaceModule } from 'primeng/inplace';
+import { AppCodeModule } from '@/components/doc/app.code';
+import { AppDocSectionText } from '@/components/doc/app.docsectiontext';
 
 @Component({
     selector: 'basic-doc',
-    standalone: false,
+    standalone: true,
+    imports: [AppDocSectionText, AppCodeModule, InplaceModule],
     template: `
         <app-docsectiontext>
             <p><i>Inplace</i> component requires <i>display</i> and <i>content</i> templates to define the content of each state.</p>

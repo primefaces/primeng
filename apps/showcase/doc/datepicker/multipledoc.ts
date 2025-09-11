@@ -1,9 +1,14 @@
 import { Code } from '@/domain/code';
 import { Component } from '@angular/core';
+import { FormsModule } from '@angular/forms';
+import { DatePickerModule } from 'primeng/datepicker';
+import { AppCode } from '@/components/doc/app.code';
+import { AppDocSectionText } from '@/components/doc/app.docsectiontext';
 
 @Component({
     selector: 'datepicker-multiple-demo',
-    standalone: false,
+    standalone: true,
+    imports: [FormsModule, DatePickerModule, AppCode, AppDocSectionText],
     template: `
         <app-docsectiontext>
             <p>In order to choose multiple dates, set <i>selectionMode</i> as <i>multiple</i>. In this mode, the value binding should be an array.</p>

@@ -1,10 +1,15 @@
 import { Code } from '@/domain/code';
 import { ChangeDetectorRef, Component } from '@angular/core';
 import { TreeNode } from 'primeng/api';
+import { FormsModule } from '@angular/forms';
+import { TreeSelectModule } from 'primeng/treeselect';
+import { AppCode } from '@/components/doc/app.code';
+import { AppDocSectionText } from '@/components/doc/app.docsectiontext';
 
 @Component({
     selector: 'lazy-doc',
-    standalone: false,
+    standalone: true,
+    imports: [FormsModule, TreeSelectModule, AppCode, AppDocSectionText],
     template: `
         <app-docsectiontext>
             <p>

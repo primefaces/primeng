@@ -1,8 +1,13 @@
 import { Component } from '@angular/core';
+import { FormsModule } from '@angular/forms';
+import { AppCode } from '@/components/doc/app.code';
+import { AppDocSectionText } from '@/components/doc/app.docsectiontext';
+import { ToggleSwitchModule } from 'primeng/toggleswitch';
 
 @Component({
     selector: 'scoped-tokens-doc',
-    standalone: false,
+    standalone: true,
+    imports: [FormsModule, AppCode, AppDocSectionText, ToggleSwitchModule],
     template: `
         <app-docsectiontext>
             <p>Design tokens can be scoped to a certain component using the <i>dt</i> property. In this example, first switch uses the global tokens whereas second one overrides the global with its own tokens.</p>

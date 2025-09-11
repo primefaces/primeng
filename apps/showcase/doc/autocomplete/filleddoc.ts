@@ -1,5 +1,9 @@
 import { Code } from '@/domain/code';
 import { Component } from '@angular/core';
+import { FormsModule } from '@angular/forms';
+import { AutoCompleteModule } from 'primeng/autocomplete';
+import { AppDocSectionText } from '@/components/doc/app.docsectiontext';
+import { AppCode } from '@/components/doc/app.code';
 
 interface AutoCompleteCompleteEvent {
     originalEvent: Event;
@@ -8,7 +12,8 @@ interface AutoCompleteCompleteEvent {
 
 @Component({
     selector: 'filled-doc',
-    standalone: false,
+    standalone: true,
+    imports: [FormsModule, AutoCompleteModule, AppDocSectionText, AppCode],
     template: ` <app-docsectiontext>
             <p>Specify the <i>variant</i> property as <i>filled</i> to display the component with a higher visual emphasis than the default <i>outlined</i> style.</p>
         </app-docsectiontext>

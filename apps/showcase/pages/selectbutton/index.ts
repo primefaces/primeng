@@ -5,10 +5,10 @@ import { ImportDoc } from '@/doc/selectbutton/importdoc';
 import { InvalidDoc } from '@/doc/selectbutton/invaliddoc';
 import { MultipleDoc } from '@/doc/selectbutton/multipledoc';
 import { ReactiveFormsDoc } from '@/doc/selectbutton/reactiveformsdoc';
-import { SelectButtonDocModule } from '@/doc/selectbutton/selectbuttondoc.module';
 import { SizesDoc } from '@/doc/selectbutton/sizesdoc';
 import { TemplateDoc } from '@/doc/selectbutton/templatedoc';
 import { TemplateDrivenFormsDoc } from '@/doc/selectbutton/templatedrivenformsdoc';
+import { AppDoc } from '@/components/doc/app.doc';
 import { Component } from '@angular/core';
 
 @Component({
@@ -21,7 +21,7 @@ import { Component } from '@angular/core';
         themeDocs="selectbutton"
     ></app-doc>`,
     standalone: true,
-    imports: [SelectButtonDocModule]
+    imports: [AppDoc]
 })
 export class SelectButtonDemo {
     docs = [

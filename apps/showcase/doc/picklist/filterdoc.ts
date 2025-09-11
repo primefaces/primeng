@@ -2,10 +2,16 @@ import { Code } from '@/domain/code';
 import { Product } from '@/domain/product';
 import { ProductService } from '@/service/productservice';
 import { ChangeDetectorRef, Component } from '@angular/core';
+import { CommonModule } from '@angular/common';
+import { PickListModule } from 'primeng/picklist';
+import { AppCode } from '@/components/doc/app.code';
+import { AppDocSectionText } from '@/components/doc/app.docsectiontext';
 
 @Component({
     selector: 'filter-doc',
-    standalone: false,
+    standalone: true,
+    imports: [CommonModule, PickListModule, AppCode, AppDocSectionText],
+    providers: [ProductService],
     template: `
         <app-docsectiontext>
             <p>Filter value is checked against the property of an object configured with the <i>filterBy</i> property.</p>

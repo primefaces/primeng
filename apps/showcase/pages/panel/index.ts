@@ -1,15 +1,15 @@
 import { AccessibilityDoc } from '@/doc/panel/accessibilitydoc';
 import { BasicDoc } from '@/doc/panel/basicdoc';
 import { ImportDoc } from '@/doc/panel/importdoc';
-import { PanelDocModule } from '@/doc/panel/paneldoc.module';
 import { TemplateDoc } from '@/doc/panel/templatedoc';
 import { ToggleableDoc } from '@/doc/panel/toggleabledoc';
 import { Component } from '@angular/core';
+import { AppDoc } from '@/components/doc/app.doc';
 
 @Component({
     template: `<app-doc docTitle="Angular Panel Component" header="Panel" description="Panel is a container component with an optional content toggle feature." [docs]="docs" [apiDocs]="['Panel']" themeDocs="panel"></app-doc>`,
     standalone: true,
-    imports: [PanelDocModule]
+    imports: [AppDoc]
 })
 export class PanelDemo {
     docs = [
@@ -33,7 +33,6 @@ export class PanelDemo {
             label: 'Template',
             component: TemplateDoc
         },
-
         {
             id: 'accessibility',
             label: 'Accessibility',

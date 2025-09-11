@@ -1,9 +1,13 @@
 import { Code } from '@/domain/code';
 import { Component } from '@angular/core';
+import { AppDocSectionText } from '@/components/doc/app.docsectiontext';
+import { AppCode } from '@/components/doc/app.code';
+import { SkeletonModule } from 'primeng/skeleton';
 
 @Component({
     selector: 'shapes-doc',
-    standalone: false,
+    standalone: true,
+    imports: [AppDocSectionText, AppCode, SkeletonModule],
     template: `
         <app-docsectiontext>
             <p>Various shapes and sizes can be created using styling properties like <i>shape</i>, <i>width</i>, <i>height</i>, <i>borderRadius</i> and <i>class</i>.</p>

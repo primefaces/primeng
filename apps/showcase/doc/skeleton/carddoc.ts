@@ -1,9 +1,13 @@
 import { Code } from '@/domain/code';
 import { Component } from '@angular/core';
+import { AppDocSectionText } from '@/components/doc/app.docsectiontext';
+import { AppCode } from '@/components/doc/app.code';
+import { SkeletonModule } from 'primeng/skeleton';
 
 @Component({
     selector: 'card-doc',
-    standalone: false,
+    standalone: true,
+    imports: [AppDocSectionText, AppCode, SkeletonModule],
     template: `
         <app-docsectiontext>
             <p>Sample Card implementation using different Skeleton components and Tailwind CSS utilities.</p>

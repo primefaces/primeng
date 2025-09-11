@@ -3,10 +3,17 @@ import { Customer, Representative } from '@/domain/customer';
 import { CustomerService } from '@/service/customerservice';
 import { ChangeDetectionStrategy, ChangeDetectorRef, Component, OnInit } from '@angular/core';
 import { TableLazyLoadEvent } from 'primeng/table';
+import { FormsModule } from '@angular/forms';
+import { TableModule } from 'primeng/table';
+import { MultiSelectModule } from 'primeng/multiselect';
+import { AppDocSectionText } from '@/components/doc/app.docsectiontext';
+import { AppCode } from '@/components/doc/app.code';
+import { DeferredDemo } from '@/components/demo/deferreddemo';
 
 @Component({
     selector: 'lazy-load-doc',
-    standalone: false,
+    standalone: true,
+    imports: [FormsModule, TableModule, MultiSelectModule, AppDocSectionText, AppCode, DeferredDemo],
     template: ` <app-docsectiontext>
             <p>
                 Lazy mode is handy to deal with large datasets, instead of loading the entire data, small chunks of data is loaded by invoking onLazyLoad callback everytime <i>paging</i>, <i>sorting</i> and <i>filtering</i> happens. Sample here loads

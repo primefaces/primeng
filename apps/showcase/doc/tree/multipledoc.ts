@@ -2,10 +2,16 @@ import { Code } from '@/domain/code';
 import { NodeService } from '@/service/nodeservice';
 import { Component, OnInit } from '@angular/core';
 import { TreeNode } from 'primeng/api';
+import { FormsModule } from '@angular/forms';
+import { TreeModule } from 'primeng/tree';
+import { ToggleSwitchModule } from 'primeng/toggleswitch';
+import { AppCode } from '@/components/doc/app.code';
+import { AppDocSectionText } from '@/components/doc/app.docsectiontext';
 
 @Component({
     selector: 'multiple-doc',
-    standalone: false,
+    standalone: true,
+    imports: [TreeModule, FormsModule, ToggleSwitchModule, AppCode, AppDocSectionText],
     template: `
         <app-docsectiontext>
             <p>

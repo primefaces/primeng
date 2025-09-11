@@ -1,9 +1,13 @@
 import { Code } from '@/domain/code';
 import { Component } from '@angular/core';
+import { ImageModule } from 'primeng/image';
+import { AppCodeModule } from '@/components/doc/app.code';
+import { AppDocSectionText } from '@/components/doc/app.docsectiontext';
 
 @Component({
     selector: 'template-doc',
-    standalone: false,
+    standalone: true,
+    imports: [AppDocSectionText, AppCodeModule, ImageModule],
     template: `
         <app-docsectiontext>
             <p>An eye icon is displayed by default when the image is hovered in preview mode. Use the <i>indicator</i> template for custom content.</p>

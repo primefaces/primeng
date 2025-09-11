@@ -1,6 +1,13 @@
 import { Code } from '@/domain/code';
-import { Component, inject } from '@angular/core';
+import { Component, inject, OnInit } from '@angular/core';
 import { MessageService } from 'primeng/api';
+import { FormsModule } from '@angular/forms';
+import { ListboxModule } from 'primeng/listbox';
+import { ButtonModule } from 'primeng/button';
+import { ToastModule } from 'primeng/toast';
+import { MessageModule } from 'primeng/message';
+import { AppCodeModule } from '@/components/doc/app.code';
+import { AppDocSectionText } from '@/components/doc/app.docsectiontext';
 
 interface City {
     name: string;
@@ -9,7 +16,8 @@ interface City {
 
 @Component({
     selector: 'template-driven-forms-doc',
-    standalone: false,
+    standalone: true,
+    imports: [FormsModule, ListboxModule, ButtonModule, ToastModule, MessageModule, AppCodeModule, AppDocSectionText],
     template: `
         <app-docsectiontext> </app-docsectiontext>
         <p-toast />
@@ -27,7 +35,7 @@ interface City {
         <app-code [code]="code" selector="autocomplete-template-driven-forms-demo"></app-code>
     `
 })
-export class TemplateDrivenFormsDoc {
+export class TemplateDrivenFormsDoc implements OnInit {
     messageService = inject(MessageService);
 
     selectedCity!: City;

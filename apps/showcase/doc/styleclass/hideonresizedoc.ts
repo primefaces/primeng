@@ -1,9 +1,14 @@
 import { Code } from '@/domain/code';
 import { Component } from '@angular/core';
+import { AppCode } from '@/components/doc/app.code';
+import { AppDocSectionText } from '@/components/doc/app.docsectiontext';
+import { StyleClassModule } from 'primeng/styleclass';
+import { ButtonModule } from 'primeng/button';
 
 @Component({
     selector: 'hide-on-resize-doc',
-    standalone: false,
+    standalone: true,
+    imports: [AppDocSectionText, AppCode, StyleClassModule, ButtonModule],
     template: `
         <app-docsectiontext>
             <p>

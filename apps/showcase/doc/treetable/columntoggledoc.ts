@@ -2,6 +2,13 @@ import { Code } from '@/domain/code';
 import { NodeService } from '@/service/nodeservice';
 import { ChangeDetectionStrategy, Component } from '@angular/core';
 import { TreeNode } from 'primeng/api';
+import { CommonModule } from '@angular/common';
+import { FormsModule } from '@angular/forms';
+import { TreeTableModule } from 'primeng/treetable';
+import { MultiSelectModule } from 'primeng/multiselect';
+import { DeferredDemo } from '@/components/demo/deferreddemo';
+import { AppCode } from '@/components/doc/app.code';
+import { AppDocSectionText } from '@/components/doc/app.docsectiontext';
 
 interface Column {
     field: string;
@@ -10,7 +17,8 @@ interface Column {
 
 @Component({
     selector: 'column-toggle-doc',
-    standalone: false,
+    standalone: true,
+    imports: [CommonModule, FormsModule, TreeTableModule, MultiSelectModule, DeferredDemo, AppCode, AppDocSectionText],
     template: `
         <app-docsectiontext>
             <p>Column visibility based on a condition can be implemented with dynamic columns, in this sample a MultiSelect is used to manage the visible columns.</p>

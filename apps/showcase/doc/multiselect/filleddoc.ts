@@ -1,5 +1,9 @@
 import { Code } from '@/domain/code';
 import { Component, OnInit } from '@angular/core';
+import { FormsModule } from '@angular/forms';
+import { MultiSelectModule } from 'primeng/multiselect';
+import { AppCodeModule } from '@/components/doc/app.code';
+import { AppDocSectionText } from '@/components/doc/app.docsectiontext';
 
 interface City {
     name: string;
@@ -8,7 +12,8 @@ interface City {
 
 @Component({
     selector: 'filled-doc',
-    standalone: false,
+    standalone: true,
+    imports: [FormsModule, MultiSelectModule, AppCodeModule, AppDocSectionText],
     template: `
         <app-docsectiontext>
             <p>Specify the <i>variant</i> property as <i>filled</i> to display the component with a higher visual emphasis than the default <i>outlined</i> style.</p>

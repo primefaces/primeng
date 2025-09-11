@@ -1,10 +1,18 @@
 import { Code } from '@/domain/code';
 import { Component, OnInit } from '@angular/core';
 import { MegaMenuItem } from 'primeng/api';
+import { CommonModule } from '@angular/common';
+import { MegaMenuModule } from 'primeng/megamenu';
+import { ButtonModule } from 'primeng/button';
+import { AvatarModule } from 'primeng/avatar';
+import { RippleModule } from 'primeng/ripple';
+import { AppCodeModule } from '@/components/doc/app.code';
+import { AppDocSectionText } from '@/components/doc/app.docsectiontext';
 
 @Component({
     selector: 'template-doc',
-    standalone: false,
+    standalone: true,
+    imports: [CommonModule, MegaMenuModule, ButtonModule, AvatarModule, RippleModule, AppCodeModule, AppDocSectionText],
     template: `
         <app-docsectiontext>
             <p>Custom content can be placed between p-megamenu tags. Megamenu should be <i>horizontal</i> for custom content.</p>

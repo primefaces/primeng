@@ -1,8 +1,11 @@
 import { Component } from '@angular/core';
+import { AppDocSectionText } from '@/components/doc/app.docsectiontext';
+import { RouterModule } from '@angular/router';
 
 @Component({
     selector: 'drawer-style-doc',
-    standalone: false,
+    standalone: true,
+    imports: [AppDocSectionText, RouterModule],
     template: `
         <app-docsectiontext>
             <p>

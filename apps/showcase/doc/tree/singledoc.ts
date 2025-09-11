@@ -2,10 +2,15 @@ import { Code } from '@/domain/code';
 import { NodeService } from '@/service/nodeservice';
 import { Component, OnInit } from '@angular/core';
 import { TreeNode } from 'primeng/api';
+import { FormsModule } from '@angular/forms';
+import { TreeModule } from 'primeng/tree';
+import { AppCode } from '@/components/doc/app.code';
+import { AppDocSectionText } from '@/components/doc/app.docsectiontext';
 
 @Component({
     selector: 'single-doc',
-    standalone: false,
+    standalone: true,
+    imports: [TreeModule, FormsModule, AppCode, AppDocSectionText],
     template: `
         <app-docsectiontext>
             <p>Single node selection is configured by setting <i>selectionMode</i> as <i>single</i> along with <i>selection</i> properties to manage the selection value binding.</p>

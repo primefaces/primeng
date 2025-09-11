@@ -2,6 +2,11 @@ import { Car } from '@/domain/car';
 import { Code } from '@/domain/code';
 import { CarService } from '@/service/carservice';
 import { ChangeDetectionStrategy, Component } from '@angular/core';
+import { CommonModule } from '@angular/common';
+import { TableModule } from 'primeng/table';
+import { AppDocSectionText } from '@/components/doc/app.docsectiontext';
+import { AppCode } from '@/components/doc/app.code';
+import { DeferredDemo } from '@/components/demo/deferreddemo';
 
 interface Column {
     field: string;
@@ -10,7 +15,8 @@ interface Column {
 
 @Component({
     selector: 'virtual-scroll-doc',
-    standalone: false,
+    standalone: true,
+    imports: [CommonModule, TableModule, AppDocSectionText, AppCode, DeferredDemo],
     template: ` <app-docsectiontext>
             <p>
                 Virtual Scrolling is an efficient way to render large amount data. Usage is similar to regular scrolling with the addition of <i>virtualScrollerOptions</i> property to define a fixed <i>itemSize</i>. Internally, VirtualScroller

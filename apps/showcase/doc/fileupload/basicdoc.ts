@@ -1,6 +1,11 @@
 import { Code } from '@/domain/code';
 import { Component } from '@angular/core';
 import { MessageService } from 'primeng/api';
+import { FileUploadModule } from 'primeng/fileupload';
+import { ToastModule } from 'primeng/toast';
+import { ButtonModule } from 'primeng/button';
+import { AppCode } from '@/components/doc/app.code';
+import { AppDocSectionText } from '@/components/doc/app.docsectiontext';
 
 interface UploadEvent {
     originalEvent: Event;
@@ -9,7 +14,8 @@ interface UploadEvent {
 
 @Component({
     selector: 'file-upload-basic-demo',
-    standalone: false,
+    standalone: true,
+    imports: [FileUploadModule, ToastModule, ButtonModule, AppCode, AppDocSectionText],
     template: `
         <app-docsectiontext>
             <p>FileUpload basic <i>mode</i> provides a simpler UI as an alternative to default advanced mode.</p>

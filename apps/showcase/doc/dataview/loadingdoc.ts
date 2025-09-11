@@ -2,10 +2,20 @@ import { Code } from '@/domain/code';
 import { Product } from '@/domain/product';
 import { ProductService } from '@/service/productservice';
 import { Component, signal } from '@angular/core';
+import { CommonModule } from '@angular/common';
+import { FormsModule } from '@angular/forms';
+import { RouterModule } from '@angular/router';
+import { DataViewModule } from 'primeng/dataview';
+import { SkeletonModule } from 'primeng/skeleton';
+import { SelectButtonModule } from 'primeng/selectbutton';
+import { AppCode } from '@/components/doc/app.code';
+import { AppDocSectionText } from '@/components/doc/app.docsectiontext';
 
 @Component({
     selector: 'data-view-loading-demo',
-    standalone: false,
+    standalone: true,
+    imports: [CommonModule, FormsModule, RouterModule, DataViewModule, SkeletonModule, SelectButtonModule, AppCode, AppDocSectionText],
+    providers: [ProductService],
     template: `
         <app-docsectiontext>
             <p>While data is being loaded. <a routerLink="/skeleton">Skeleton</a> component may be used to indicate the busy state.</p>

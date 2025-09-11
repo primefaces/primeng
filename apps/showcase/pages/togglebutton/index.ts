@@ -7,13 +7,13 @@ import { InvalidDoc } from '@/doc/togglebutton/invaliddoc';
 import { ReactiveFormsDoc } from '@/doc/togglebutton/reactiveformsdoc';
 import { SizesDoc } from '@/doc/togglebutton/sizesdoc';
 import { TemplateDrivenFormsDoc } from '@/doc/togglebutton/templatedrivenformsdoc';
-import { ToggleButtonDocModule } from '@/doc/togglebutton/togglebuttondoc.module';
 import { Component } from '@angular/core';
+import { AppDoc } from '@/components/doc/app.doc';
 
 @Component({
     template: `<app-doc docTitle="Angular ToggleButton Component" header="ToggleButton" description="ToggleButton is used to select a boolean value using a button." [docs]="docs" [apiDocs]="['ToggleButton']" themeDocs="togglebutton"></app-doc>`,
     standalone: true,
-    imports: [ToggleButtonDocModule]
+    imports: [AppDoc]
 })
 export class ToggleButtonDemo {
     docs = [

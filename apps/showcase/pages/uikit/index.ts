@@ -2,7 +2,6 @@ import { CommonModule } from '@angular/common';
 import { Component } from '@angular/core';
 import { RouterModule } from '@angular/router';
 import { RippleModule } from 'primeng/ripple';
-import { AppDocModule } from '@/components/doc/app.doc.module';
 import { AddingPrimeIconsDoc } from '@/doc/uikit/addingprimeiconsdoc';
 import { ComponentsDoc } from '@/doc/uikit/faq/componentsdoc';
 import { DesignChangesDoc } from '@/doc/uikit/workflow/designchangesdoc';
@@ -20,10 +19,12 @@ import { TokensStudioSetupDoc } from '@/doc/uikit/workflow/tokensstudiosetupdoc'
 import { UpdatePrimeOneDoc } from '@/doc/uikit/updateprimeonedoc';
 import { UpdatesDoc } from '@/doc/uikit/faq/updatesdoc';
 import { UsageDoc } from '@/doc/uikit/faq/usagedoc';
+import { AppDocSectionNav } from '@/components/doc/app.docsection-nav';
+import { AppDocSection } from '@/components/doc/app.docsection';
 
 @Component({
     standalone: true,
-    imports: [CommonModule, AppDocModule, RippleModule, RouterModule],
+    imports: [CommonModule, AppDocSectionNav, AppDocSection, RippleModule, RouterModule],
     template: `
         <div class="doc">
             <div class="doc-main">

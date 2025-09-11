@@ -4,10 +4,15 @@ import { ProductService } from '@/service/productservice';
 import { ChangeDetectionStrategy, Component, ViewChild } from '@angular/core';
 import { SortEvent } from 'primeng/api';
 import { Table } from 'primeng/table';
+import { TableModule } from 'primeng/table';
+import { AppDocSectionText } from '@/components/doc/app.docsectiontext';
+import { AppCode } from '@/components/doc/app.code';
+import { DeferredDemo } from '@/components/demo/deferreddemo';
 
 @Component({
     selector: 'removable-sort-doc',
-    standalone: false,
+    standalone: true,
+    imports: [TableModule, AppDocSectionText, AppCode, DeferredDemo],
     template: ` <app-docsectiontext>
             <p>The removable sort can be implemented using the <i>customSort</i> property.</p>
         </app-docsectiontext>

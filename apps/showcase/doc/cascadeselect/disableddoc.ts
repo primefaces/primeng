@@ -1,9 +1,13 @@
 import { Code } from '@/domain/code';
 import { Component } from '@angular/core';
+import { CascadeSelectModule } from 'primeng/cascadeselect';
+import { AppCode } from '@/components/doc/app.code';
+import { AppDocSectionText } from '@/components/doc/app.docsectiontext';
 
 @Component({
     selector: 'cascade-select-disabled-demo',
-    standalone: false,
+    standalone: true,
+    imports: [CascadeSelectModule, AppCode, AppDocSectionText],
     template: `
         <app-docsectiontext>
             <p>When <i>disabled</i> is present, the element cannot be edited and focused.</p>

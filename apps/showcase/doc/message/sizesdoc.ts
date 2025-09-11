@@ -1,9 +1,13 @@
 import { Code } from '@/domain/code';
 import { Component } from '@angular/core';
+import { MessageModule } from 'primeng/message';
+import { AppCodeModule } from '@/components/doc/app.code';
+import { AppDocSectionText } from '@/components/doc/app.docsectiontext';
 
 @Component({
     selector: 'sizes-doc',
-    standalone: false,
+    standalone: true,
+    imports: [MessageModule, AppCodeModule, AppDocSectionText],
     template: `
         <app-docsectiontext>
             <p>Message provides <i>small</i> and <i>large</i> sizes as alternatives to the base.</p>

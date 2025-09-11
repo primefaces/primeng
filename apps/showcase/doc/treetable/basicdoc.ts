@@ -2,10 +2,15 @@ import { Code } from '@/domain/code';
 import { NodeService } from '@/service/nodeservice';
 import { ChangeDetectionStrategy, ChangeDetectorRef, Component } from '@angular/core';
 import { TreeNode } from 'primeng/api';
+import { TreeTableModule } from 'primeng/treetable';
+import { DeferredDemo } from '@/components/demo/deferreddemo';
+import { AppCode } from '@/components/doc/app.code';
+import { AppDocSectionText } from '@/components/doc/app.docsectiontext';
 
 @Component({
     selector: 'basic-doc',
-    standalone: false,
+    standalone: true,
+    imports: [TreeTableModule, DeferredDemo, AppCode, AppDocSectionText],
     template: ` <app-docsectiontext>
             <p>TreeTable requires a collection of <i>TreeNode</i> instances as a <i>value</i> components as children for the representation.</p>
         </app-docsectiontext>
