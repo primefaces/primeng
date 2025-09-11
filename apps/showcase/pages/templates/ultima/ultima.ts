@@ -94,7 +94,7 @@ export class UltimaPage {
         {
             id: 2,
             title: 'PrimeBlocks',
-            description: `Designed to be fully compatible with upcoming next-gen PrimeBlocks, choose from the extensive range of blocks and customize the way you like.`,
+            description: `Fully compatible with PrimeBlocks, choose from the wide range of blocks and customize the way you like. Note that PrimeBlocks is not included in the template and requires a separate purchase.`,
             src: 'https://primefaces.org/cdn/primeng/images/templates/common/primeblocks.png'
         },
         {
