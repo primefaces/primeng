@@ -1,9 +1,13 @@
+import { AppCode } from '@/components/doc/app.code';
+import { AppDocSectionText } from '@/components/doc/app.docsectiontext';
 import { Code } from '@/domain/code';
 import { Component } from '@angular/core';
+import { TabsModule } from 'primeng/tabs';
 
 @Component({
     selector: 'lazy-doc',
-    standalone: false,
+    standalone: true,
+    imports: [AppDocSectionText, AppCode, TabsModule],
     template: `
         <app-docsectiontext>
             <p>
