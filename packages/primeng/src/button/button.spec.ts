@@ -640,7 +640,7 @@ describe('Button', () => {
     });
 
     describe('Templates', () => {
-        // TEST.md: pTemplate Approach (Eski) - @ContentChildren(PrimeTemplate) testleri
+        // pTemplate Approach - @ContentChildren(PrimeTemplate) testleri
         describe('pTemplate Approach Tests', () => {
             it('should handle pTemplate content processing', fakeAsync(() => {
                 const templateFixture = TestBed.createComponent(TestTemplatePButtonComponent);
@@ -818,7 +818,7 @@ describe('Button', () => {
             }));
         });
 
-        // TEST.md: Template comparison and integration tests
+        // Template comparison and integration tests
         describe('Template Integration Tests', () => {
             it('should render different template types correctly', fakeAsync(() => {
                 // Test both pTemplate and #content template approaches

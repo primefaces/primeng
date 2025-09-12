@@ -73,7 +73,7 @@ export const CASCADESELECT_VALUE_ACCESSOR: any = {
                         [attr.data-pc-section]="'content'"
                     >
                         <ng-container *ngIf="optionTemplate; else defaultOptionTemplate">
-                            <ng-container *ngTemplateOutlet="optionTemplate; context: { $implicit: processedOption?.option }"></ng-container>
+                            <ng-container *ngTemplateOutlet="optionTemplate; context: { $implicit: processedOption?.option, level: level }"></ng-container>
                         </ng-container>
                         <ng-template #defaultOptionTemplate>
                             <span [class]="cx('optionText')" [attr.data-pc-section]="'text'">{{ getOptionLabelToRender(processedOption) }}</span>
@@ -792,6 +792,14 @@ export class CascadeSelect extends BaseEditableHolder implements OnInit, AfterCo
 
                 case 'option':
                     this._optionTemplate = item.template;
+                    break;
+
+                case 'header':
+                    this._headerTemplate = item.template;
+                    break;
+
+                case 'footer':
+                    this._footerTemplate = item.template;
                     break;
 
                 case 'triggericon':
