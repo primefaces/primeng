@@ -58,8 +58,8 @@ catalogs:
       specifier: ^20.0.4
       version: 20.2.4
     '@angular/ssr':
-      specifier: ^20.0.3
-      version: 20.2.2
+      specifier: ^20.3.0
+      version: 20.3.0
     ng-packagr:
       specifier: 20.0.1
       version: 20.0.1
@@ -95,7 +95,7 @@ importers:
     devDependencies:
       '@angular-devkit/build-angular':
         specifier: catalog:angular20
-        version: 20.2.2(3csjfup3stwvjud5fe6xxjx7d4)
+        version: 20.2.2(7wxnipd2t4ow6bt7xlkdstkece)
       '@angular-eslint/eslint-plugin':
         specifier: catalog:angular20
         version: 20.2.0(@typescript-eslint/utils@8.43.0(eslint@9.35.0(jiti@2.5.1))(typescript@5.8.3))(eslint@9.35.0(jiti@2.5.1))(typescript@5.8.3)
@@ -188,7 +188,7 @@ importers:
         version: 12.5.0
       ng-packagr:
         specifier: catalog:angular20
-        version: 20.0.1(@angular/compiler-cli@20.2.4(@angular/compiler@20.2.4)(typescript@5.8.3))(tailwindcss@3.4.17(ts-node@10.9.2(@types/node@22.18.1)(typescript@5.8.3)))(tslib@2.8.1)(typescript@5.8.3)
+        version: 20.0.1(@angular/compiler-cli@20.2.4(@angular/compiler@20.2.4)(typescript@5.8.3))(tailwindcss@3.4.17)(tslib@2.8.1)(typescript@5.8.3)
       pnpm:
         specifier: ^9.6.0
         version: 9.15.9
@@ -225,7 +225,7 @@ importers:
         version: 20.2.2(@angular/common@20.2.4(@angular/core@20.2.4(@angular/compiler@20.2.4)(rxjs@7.8.2)(zone.js@0.15.1))(rxjs@7.8.2))(@angular/core@20.2.4(@angular/compiler@20.2.4)(rxjs@7.8.2)(zone.js@0.15.1))(rxjs@7.8.2)
       '@angular/ssr':
         specifier: catalog:angular20
-        version: 20.2.2(cdybr2j2pqou4bgphj5khbx274)
+        version: 20.3.0(cdybr2j2pqou4bgphj5khbx274)
       '@docsearch/css':
         specifier: ^3.3.4
         version: 3.9.0
@@ -790,8 +790,8 @@ packages:
       '@angular/platform-browser': 20.2.4
       rxjs: ^6.5.3 || ^7.4.0
 
-  '@angular/ssr@20.2.2':
-    resolution: {integrity: sha512-zPvleEZr0Kt99EiVPqXrwIYT1Bysfk4qZkBpjVvUm8OSXtzimlM0kS+l6plKZ2kys0P4qvpdOzuh5vMz/tNo4Q==}
+  '@angular/ssr@20.3.0':
+    resolution: {integrity: sha512-vVe3xfikXRUpQvrYf2egB+oH6DRvmeEIS7mVwyGSLBkBD2UHDIrNEExGQL0TpDOzq1yff6bvNtK6COrIhsDRpg==}
     peerDependencies:
       '@angular/common': ^20.0.0
       '@angular/core': ^20.0.0
@@ -7130,13 +7130,13 @@ snapshots:
     transitivePeerDependencies:
       - chokidar
 
-  '@angular-devkit/build-angular@20.2.2(3csjfup3stwvjud5fe6xxjx7d4)':
+  '@angular-devkit/build-angular@20.2.2(7wxnipd2t4ow6bt7xlkdstkece)':
     dependencies:
       '@ampproject/remapping': 2.3.0
       '@angular-devkit/architect': 0.2002.2(chokidar@4.0.3)
       '@angular-devkit/build-webpack': 0.2002.2(chokidar@4.0.3)(webpack-dev-server@5.2.2(webpack@5.101.2(esbuild@0.25.9)))(webpack@5.101.2(esbuild@0.25.9))
       '@angular-devkit/core': 20.2.2(chokidar@4.0.3)
-      '@angular/build': 20.2.2(n2a5ek46kjpqufrkwrcvxasexe)
+      '@angular/build': 20.2.2(usnkaaaxsrz7mftemvf66zxxmi)
       '@angular/compiler-cli': 20.2.4(@angular/compiler@20.2.4)(typescript@5.8.3)
       '@babel/core': 7.28.3
       '@babel/generator': 7.28.3
@@ -7192,10 +7192,10 @@ snapshots:
       '@angular/core': 20.2.4(@angular/compiler@20.2.4)(rxjs@7.8.2)(zone.js@0.15.1)
       '@angular/platform-browser': 20.2.4(@angular/animations@20.2.4(@angular/core@20.2.4(@angular/compiler@20.2.4)(rxjs@7.8.2)(zone.js@0.15.1)))(@angular/common@20.2.4(@angular/core@20.2.4(@angular/compiler@20.2.4)(rxjs@7.8.2)(zone.js@0.15.1))(rxjs@7.8.2))(@angular/core@20.2.4(@angular/compiler@20.2.4)(rxjs@7.8.2)(zone.js@0.15.1))
       '@angular/platform-server': 20.2.4(@angular/common@20.2.4(@angular/core@20.2.4(@angular/compiler@20.2.4)(rxjs@7.8.2)(zone.js@0.15.1))(rxjs@7.8.2))(@angular/compiler@20.2.4)(@angular/core@20.2.4(@angular/compiler@20.2.4)(rxjs@7.8.2)(zone.js@0.15.1))(@angular/platform-browser@20.2.4(@angular/animations@20.2.4(@angular/core@20.2.4(@angular/compiler@20.2.4)(rxjs@7.8.2)(zone.js@0.15.1)))(@angular/common@20.2.4(@angular/core@20.2.4(@angular/compiler@20.2.4)(rxjs@7.8.2)(zone.js@0.15.1))(rxjs@7.8.2))(@angular/core@20.2.4(@angular/compiler@20.2.4)(rxjs@7.8.2)(zone.js@0.15.1)))(rxjs@7.8.2)
-      '@angular/ssr': 20.2.2(cdybr2j2pqou4bgphj5khbx274)
+      '@angular/ssr': 20.3.0(cdybr2j2pqou4bgphj5khbx274)
       esbuild: 0.25.9
       karma: 6.4.4
-      ng-packagr: 20.0.1(@angular/compiler-cli@20.2.4(@angular/compiler@20.2.4)(typescript@5.8.3))(tailwindcss@3.4.17(ts-node@10.9.2(@types/node@22.18.1)(typescript@5.8.3)))(tslib@2.8.1)(typescript@5.8.3)
+      ng-packagr: 20.0.1(@angular/compiler-cli@20.2.4(@angular/compiler@20.2.4)(typescript@5.8.3))(tailwindcss@3.4.17)(tslib@2.8.1)(typescript@5.8.3)
       tailwindcss: 3.4.17(ts-node@10.9.2(@types/node@22.18.1)(typescript@5.8.3))
     transitivePeerDependencies:
       - '@angular/compiler'
@@ -7309,7 +7309,7 @@ snapshots:
       '@angular/core': 20.2.4(@angular/compiler@20.2.4)(rxjs@7.8.2)(zone.js@0.15.1)
       tslib: 2.8.1
 
-  '@angular/build@20.2.2(n2a5ek46kjpqufrkwrcvxasexe)':
+  '@angular/build@20.2.2(usnkaaaxsrz7mftemvf66zxxmi)':
     dependencies:
       '@ampproject/remapping': 2.3.0
       '@angular-devkit/architect': 0.2002.2(chokidar@4.0.3)
@@ -7345,11 +7345,11 @@ snapshots:
       '@angular/core': 20.2.4(@angular/compiler@20.2.4)(rxjs@7.8.2)(zone.js@0.15.1)
       '@angular/platform-browser': 20.2.4(@angular/animations@20.2.4(@angular/core@20.2.4(@angular/compiler@20.2.4)(rxjs@7.8.2)(zone.js@0.15.1)))(@angular/common@20.2.4(@angular/core@20.2.4(@angular/compiler@20.2.4)(rxjs@7.8.2)(zone.js@0.15.1))(rxjs@7.8.2))(@angular/core@20.2.4(@angular/compiler@20.2.4)(rxjs@7.8.2)(zone.js@0.15.1))
       '@angular/platform-server': 20.2.4(@angular/common@20.2.4(@angular/core@20.2.4(@angular/compiler@20.2.4)(rxjs@7.8.2)(zone.js@0.15.1))(rxjs@7.8.2))(@angular/compiler@20.2.4)(@angular/core@20.2.4(@angular/compiler@20.2.4)(rxjs@7.8.2)(zone.js@0.15.1))(@angular/platform-browser@20.2.4(@angular/animations@20.2.4(@angular/core@20.2.4(@angular/compiler@20.2.4)(rxjs@7.8.2)(zone.js@0.15.1)))(@angular/common@20.2.4(@angular/core@20.2.4(@angular/compiler@20.2.4)(rxjs@7.8.2)(zone.js@0.15.1))(rxjs@7.8.2))(@angular/core@20.2.4(@angular/compiler@20.2.4)(rxjs@7.8.2)(zone.js@0.15.1)))(rxjs@7.8.2)
-      '@angular/ssr': 20.2.2(cdybr2j2pqou4bgphj5khbx274)
+      '@angular/ssr': 20.3.0(cdybr2j2pqou4bgphj5khbx274)
       karma: 6.4.4
       less: 4.4.0
       lmdb: 3.4.2
-      ng-packagr: 20.0.1(@angular/compiler-cli@20.2.4(@angular/compiler@20.2.4)(typescript@5.8.3))(tailwindcss@3.4.17(ts-node@10.9.2(@types/node@22.18.1)(typescript@5.8.3)))(tslib@2.8.1)(typescript@5.8.3)
+      ng-packagr: 20.0.1(@angular/compiler-cli@20.2.4(@angular/compiler@20.2.4)(typescript@5.8.3))(tailwindcss@3.4.17)(tslib@2.8.1)(typescript@5.8.3)
       postcss: 8.5.6
       tailwindcss: 3.4.17(ts-node@10.9.2(@types/node@22.18.1)(typescript@5.8.3))
     transitivePeerDependencies:
@@ -7474,7 +7474,7 @@ snapshots:
       rxjs: 7.8.2
       tslib: 2.8.1
 
-  '@angular/ssr@20.2.2(cdybr2j2pqou4bgphj5khbx274)':
+  '@angular/ssr@20.3.0(cdybr2j2pqou4bgphj5khbx274)':
     dependencies:
       '@angular/common': 20.2.4(@angular/core@20.2.4(@angular/compiler@20.2.4)(rxjs@7.8.2)(zone.js@0.15.1))(rxjs@7.8.2)
       '@angular/core': 20.2.4(@angular/compiler@20.2.4)(rxjs@7.8.2)(zone.js@0.15.1)
@@ -12294,7 +12294,7 @@ snapshots:
 
   neo-async@2.6.2: {}
 
-  ng-packagr@20.0.1(@angular/compiler-cli@20.2.4(@angular/compiler@20.2.4)(typescript@5.8.3))(tailwindcss@3.4.17(ts-node@10.9.2(@types/node@22.18.1)(typescript@5.8.3)))(tslib@2.8.1)(typescript@5.8.3):
+  ng-packagr@20.0.1(@angular/compiler-cli@20.2.4(@angular/compiler@20.2.4)(typescript@5.8.3))(tailwindcss@3.4.17)(tslib@2.8.1)(typescript@5.8.3):
     dependencies:
       '@ampproject/remapping': 2.3.0
       '@angular/compiler-cli': 20.2.4(@angular/compiler@20.2.4)(typescript@5.8.3)
