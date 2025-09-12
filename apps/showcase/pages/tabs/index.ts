@@ -5,6 +5,7 @@ import { TemplateDoc } from '@/doc/tabs/customtemplatedoc';
 import { DisabledDoc } from '@/doc/tabs/disableddoc';
 import { DynamicDoc } from '@/doc/tabs/dynamicdoc';
 import { ImportDoc } from '@/doc/tabs/importdoc';
+import { LazyDoc } from '@/doc/tabs/lazydoc';
 import { ScrollableDoc } from '@/doc/tabs/scrollabledoc';
 import { TabmenuDoc } from '@/doc/tabs/tabmenudoc';
 import { Component } from '@angular/core';
@@ -41,6 +42,11 @@ export class TabsDemo {
             id: 'scrollable',
             label: 'Scrollable',
             component: ScrollableDoc
+        },
+        {
+            id: 'lazy',
+            label: 'Lazy',
+            component: LazyDoc
         },
         {
             id: 'disabled',
