@@ -178,7 +178,8 @@ export class PrimeNG extends ThemeProvider {
             selectColor: 'Select a color',
             removeLabel: 'Remove',
             browseFiles: 'Browse Files',
-            maximizeLabel: 'Maximize'
+            maximizeLabel: 'Maximize',
+            minimizeLabel: 'Minimize'
         }
     };
 
