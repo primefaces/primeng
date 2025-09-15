@@ -1,4 +1,3 @@
-import { GuidesDocModule } from '@/doc/guides/guidesdoc.module';
 import { CommonModule } from '@angular/common';
 import { NgModule } from '@angular/core';
 import { AccessibilityDemoComponent } from './accessibility/accessibilitydemo.component';
@@ -7,7 +6,6 @@ import { PrimeFlexDemoComponent } from './primeflex/primeflexdemo.component';
 import { TemplateUpdateDemoComponent } from './templateupdate/templateupdatedemo.component';
 
 @NgModule({
-    imports: [CommonModule, GuidesRoutingModule, GuidesDocModule],
-    declarations: [AccessibilityDemoComponent, TemplateUpdateDemoComponent, PrimeFlexDemoComponent]
+    imports: [CommonModule, GuidesRoutingModule, AccessibilityDemoComponent, TemplateUpdateDemoComponent, PrimeFlexDemoComponent]
 })
 export class GuidesModule {}

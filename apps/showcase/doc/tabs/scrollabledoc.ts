@@ -1,9 +1,14 @@
 import { Code } from '@/domain/code';
 import { Component } from '@angular/core';
+import { CommonModule } from '@angular/common';
+import { AppDocSectionText } from '@/components/doc/app.docsectiontext';
+import { AppCode } from '@/components/doc/app.code';
+import { TabsModule } from 'primeng/tabs';
 
 @Component({
     selector: 'scrollable-doc',
-    standalone: false,
+    standalone: true,
+    imports: [CommonModule, AppDocSectionText, AppCode, TabsModule],
     template: `
         <app-docsectiontext>
             <p>Adding <i>scrollable</i> property displays navigational buttons at each side to scroll between tabs.</p>

@@ -1,10 +1,10 @@
 import { Component } from '@angular/core';
-import { AppDocModule } from '@/components/doc/app.doc.module';
+import { AppDocSectionText } from '@/components/doc/app.docsectiontext';
 
 @Component({
     selector: 'update-primeone-doc',
     standalone: true,
-    imports: [AppDocModule],
+    imports: [AppDocSectionText],
     template: `<app-docsectiontext>
         <p>When a new version of PrimeOne is released, follow the steps below to update your files:</p>
         <ul class="leading-normal px-10 mb-2 list-disc">

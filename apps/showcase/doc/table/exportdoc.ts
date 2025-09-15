@@ -2,6 +2,12 @@ import { Code } from '@/domain/code';
 import { Product } from '@/domain/product';
 import { ProductService } from '@/service/productservice';
 import { ChangeDetectionStrategy, ChangeDetectorRef, Component } from '@angular/core';
+import { CommonModule } from '@angular/common';
+import { TableModule } from 'primeng/table';
+import { ButtonModule } from 'primeng/button';
+import { AppDocSectionText } from '@/components/doc/app.docsectiontext';
+import { AppCode } from '@/components/doc/app.code';
+import { DeferredDemo } from '@/components/demo/deferreddemo';
 
 interface Column {
     field: string;
@@ -16,7 +22,8 @@ interface ExportColumn {
 
 @Component({
     selector: 'export-doc',
-    standalone: false,
+    standalone: true,
+    imports: [CommonModule, TableModule, ButtonModule, AppDocSectionText, AppCode, DeferredDemo],
     template: ` <app-docsectiontext>
             <p>Table can export its data to CSV format.</p>
         </app-docsectiontext>

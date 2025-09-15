@@ -1,9 +1,19 @@
 import { Code } from '@/domain/code';
 import { Component } from '@angular/core';
+import { CommonModule } from '@angular/common';
+import { FormsModule } from '@angular/forms';
+import { AppDocSectionText } from '@/components/doc/app.docsectiontext';
+import { AppCode } from '@/components/doc/app.code';
+import { StepperModule } from 'primeng/stepper';
+import { ButtonModule } from 'primeng/button';
+import { PasswordModule } from 'primeng/password';
+import { ToggleButtonModule } from 'primeng/togglebutton';
+import { InputTextModule } from 'primeng/inputtext';
 
 @Component({
     selector: 'template-doc',
-    standalone: false,
+    standalone: true,
+    imports: [CommonModule, FormsModule, AppDocSectionText, AppCode, StepperModule, ButtonModule, PasswordModule, ToggleButtonModule, InputTextModule],
     template: `
         <app-docsectiontext>
             <p>Stepper provides various templating options to customize the default UI design.</p>

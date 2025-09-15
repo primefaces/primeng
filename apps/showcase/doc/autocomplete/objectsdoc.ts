@@ -1,6 +1,10 @@
 import { Code } from '@/domain/code';
 import { CountryService } from '@/service/countryservice';
 import { Component, OnInit } from '@angular/core';
+import { FormsModule } from '@angular/forms';
+import { AutoCompleteModule } from 'primeng/autocomplete';
+import { AppDocSectionText } from '@/components/doc/app.docsectiontext';
+import { AppCode } from '@/components/doc/app.code';
 
 interface AutoCompleteCompleteEvent {
     originalEvent: Event;
@@ -9,7 +13,8 @@ interface AutoCompleteCompleteEvent {
 
 @Component({
     selector: 'autocomplete-objects-demo',
-    standalone: false,
+    standalone: true,
+    imports: [FormsModule, AutoCompleteModule, AppDocSectionText, AppCode],
     template: ` <app-docsectiontext>
             <p>
                 AutoComplete can also work with objects using the <i>optionLabel</i> property that defines the label to display as a suggestion. The value passed to the model would still be the object instance of a suggestion. Here is an example with

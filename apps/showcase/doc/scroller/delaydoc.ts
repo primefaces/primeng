@@ -1,9 +1,14 @@
 import { Code } from '@/domain/code';
 import { Component } from '@angular/core';
+import { ScrollerModule } from 'primeng/scroller';
+import { AppCode } from '@/components/doc/app.code';
+import { AppDocSectionText } from '@/components/doc/app.docsectiontext';
+import { CommonModule } from '@angular/common';
 
 @Component({
     selector: 'delay-doc',
-    standalone: false,
+    standalone: true,
+    imports: [ScrollerModule, AppCode, AppDocSectionText, CommonModule],
     template: `
         <app-docsectiontext>
             <p>Scroll delay is adjusted by using <i>delay</i> property.</p>

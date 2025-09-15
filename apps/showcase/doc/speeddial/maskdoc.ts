@@ -1,10 +1,16 @@
 import { Code } from '@/domain/code';
 import { Component, OnInit } from '@angular/core';
 import { MenuItem, MessageService } from 'primeng/api';
+import { AppDocSectionText } from '@/components/doc/app.docsectiontext';
+import { AppCode } from '@/components/doc/app.code';
+import { SpeedDialModule } from 'primeng/speeddial';
+import { ToastModule } from 'primeng/toast';
+import { RouterModule } from '@angular/router';
 
 @Component({
     selector: 'mask-doc',
-    standalone: false,
+    standalone: true,
+    imports: [AppDocSectionText, AppCode, SpeedDialModule, ToastModule, RouterModule],
     template: `
         <app-docsectiontext>
             <p>Adding <i>mask</i> property displays a modal layer behind the popup items.</p>

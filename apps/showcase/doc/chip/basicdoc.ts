@@ -1,9 +1,13 @@
 import { Code } from '@/domain/code';
 import { Component } from '@angular/core';
+import { AppCode } from '@/components/doc/app.code';
+import { AppDocSectionText } from '@/components/doc/app.docsectiontext';
+import { ChipModule } from 'primeng/chip';
 
 @Component({
     selector: 'chip-basic-demo',
-    standalone: false,
+    standalone: true,
+    imports: [AppCode, AppDocSectionText, ChipModule],
     template: `
         <app-docsectiontext>
             <p>

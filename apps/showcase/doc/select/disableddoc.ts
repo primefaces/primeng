@@ -1,5 +1,9 @@
 import { Code } from '@/domain/code';
 import { Component } from '@angular/core';
+import { AppDocSectionText } from '@/components/doc/app.docsectiontext';
+import { AppCode } from '@/components/doc/app.code';
+import { FormsModule } from '@angular/forms';
+import { SelectModule } from 'primeng/select';
 
 interface City {
     name: string;
@@ -8,7 +12,8 @@ interface City {
 
 @Component({
     selector: 'select-disabled-demo',
-    standalone: false,
+    standalone: true,
+    imports: [AppDocSectionText, AppCode, FormsModule, SelectModule],
     template: `
         <app-docsectiontext>
             <p>When <i>disabled</i> is present, the element cannot be edited and focused.</p>

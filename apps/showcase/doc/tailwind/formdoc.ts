@@ -1,9 +1,18 @@
 import { Code } from '@/domain/code';
+import { CommonModule } from '@angular/common';
 import { Component } from '@angular/core';
+import { FormsModule } from '@angular/forms';
+import { AppCode } from '@/components/doc/app.code';
+import { AppDocSectionText } from '@/components/doc/app.docsectiontext';
+import { DatePickerModule } from 'primeng/datepicker';
+import { InputTextModule } from 'primeng/inputtext';
+import { SelectModule } from 'primeng/select';
+import { TextareaModule } from 'primeng/textarea';
 
 @Component({
     selector: 'form-doc',
-    standalone: false,
+    standalone: true,
+    imports: [CommonModule, FormsModule, AppCode, AppDocSectionText, DatePickerModule, InputTextModule, SelectModule, TextareaModule],
     template: `
         <app-docsectiontext>
             <p>Using Tailwind utilities for the responsive layout of a form with PrimeNG components.</p>

@@ -1,5 +1,9 @@
 import { Code } from '@/domain/code';
 import { Component, OnInit } from '@angular/core';
+import { AppDocSectionText } from '@/components/doc/app.docsectiontext';
+import { AppCode } from '@/components/doc/app.code';
+import { FormsModule } from '@angular/forms';
+import { Select } from 'primeng/select';
 
 interface City {
     name: string;
@@ -8,13 +12,18 @@ interface City {
 
 @Component({
     selector: 'select-clear-icon-demo',
-    standalone: false,
+    standalone: true,
+    imports: [AppDocSectionText, AppCode, FormsModule, Select],
     template: `
         <app-docsectiontext>
-            <p>When <i>showClear</i> is enabled, a clear icon is added to reset the Select.</p>
+            <p>The <i>clearIcon</i> template allows you to customize the icon used to clear the input field.</p>
         </app-docsectiontext>
         <div class="card flex justify-center">
-            <p-select [options]="cities" [(ngModel)]="selectedCity" optionLabel="name" [showClear]="true" placeholder="Select a City" class="w-full md:w-56" />
+            <p-select [options]="cities" [(ngModel)]="selectedCity" optionLabel="name" [showClear]="true" placeholder="Select a City" class="w-full md:w-56">
+                <ng-template #clearicon>
+                    <i class="pi pi-times-circle"></i>
+                </ng-template>
+            </p-select>
         </div>
         <app-code [code]="code" selector="select-clear-icon-demo"></app-code>
     `

@@ -1,6 +1,5 @@
 import { AccessibilityDoc } from '@/doc/chart/accessibilitydoc';
 import { BasicDoc } from '@/doc/chart/basicdoc';
-import { ChartDocModule } from '@/doc/chart/chartdoc.module';
 import { ChartjsDoc } from '@/doc/chart/chartjsdoc';
 import { ComboDoc } from '@/doc/chart/combodoc';
 import { DoughnutDoc } from '@/doc/chart/doughnutdoc';
@@ -17,11 +16,12 @@ import { RadarDoc } from '@/doc/chart/radardoc';
 import { StackedBarDoc } from '@/doc/chart/stackedbardoc';
 import { VerticalBarDoc } from '@/doc/chart/verticalbardoc';
 import { Component } from '@angular/core';
+import { AppDoc } from '@/components/doc/app.doc';
 
 @Component({
     standalone: true,
-    imports: [ChartDocModule],
-    template: ` <app-doc docTitle="Angular Chart Component" header="Charts" description="Chart components are based on Charts.js 3.3.2+, an open source HTML5 based charting library." [docs]="docs" [apiDocs]="['Chart']"></app-doc> `
+    imports: [AppDoc],
+    template: ` <app-doc docTitle="Angular Chart Component" header="Charts" description="Chart components are based on Charts.js 3.3.2+, an open source HTML5 based charting library." [docs]="docs" [apiDocs]="apiDocs"></app-doc> `
 })
 export class ChartDemo {
     docs = [

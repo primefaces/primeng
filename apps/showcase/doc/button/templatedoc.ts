@@ -1,9 +1,13 @@
 import { Code } from '@/domain/code';
 import { Component } from '@angular/core';
+import { AppCode } from '@/components/doc/app.code';
+import { AppDocSectionText } from '@/components/doc/app.docsectiontext';
+import { ButtonModule } from 'primeng/button';
 
 @Component({
     selector: 'button-template-demo',
-    standalone: false,
+    standalone: true,
+    imports: [AppCode, AppDocSectionText, ButtonModule],
     template: `
         <app-docsectiontext>
             <p>Custom content inside a button is defined as children.</p>

@@ -1,9 +1,14 @@
 import { Code } from '@/domain/code';
 import { Component } from '@angular/core';
+import { AppDocSectionText } from '@/components/doc/app.docsectiontext';
+import { AppCode } from '@/components/doc/app.code';
+import { StepperModule } from 'primeng/stepper';
+import { ButtonModule } from 'primeng/button';
 
 @Component({
     selector: 'basic-doc',
-    standalone: false,
+    standalone: true,
+    imports: [AppDocSectionText, AppCode, StepperModule, ButtonModule],
     template: `
         <app-docsectiontext>
             <p>Stepper consists of a combination of <i>StepList</i>, <i>Step</i>, <i>StepPanels</i> and <i>StepPanel</i> components. The <i>value</i> property is essential for associating Step and StepPanel with each other.</p>

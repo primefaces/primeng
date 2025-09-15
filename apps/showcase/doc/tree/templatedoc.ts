@@ -1,10 +1,15 @@
 import { Code } from '@/domain/code';
 import { Component, OnInit } from '@angular/core';
 import { TreeNode } from 'primeng/api';
+import { TreeModule } from 'primeng/tree';
+import { AppCode } from '@/components/doc/app.code';
+import { AppDocSectionText } from '@/components/doc/app.docsectiontext';
+import { CommonModule } from '@angular/common';
 
 @Component({
     selector: 'template-doc',
-    standalone: false,
+    standalone: true,
+    imports: [TreeModule, AppCode, AppDocSectionText, CommonModule],
     template: `
         <app-docsectiontext>
             <p>Custom node content instead of a node label is defined with the <i>pTemplate</i> property.</p>

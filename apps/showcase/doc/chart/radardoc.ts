@@ -3,9 +3,14 @@ import { AppConfigService } from '@/service/appconfigservice';
 import { DesignerService } from '@/service/designerservice';
 import { isPlatformBrowser } from '@angular/common';
 import { ChangeDetectorRef, Component, effect, inject, OnInit, PLATFORM_ID } from '@angular/core';
+import { AppCode } from '@/components/doc/app.code';
+import { AppDocSectionText } from '@/components/doc/app.docsectiontext';
+import { ChartModule } from 'primeng/chart';
+
 @Component({
     selector: 'chart-radar-demo',
-    standalone: false,
+    standalone: true,
+    imports: [AppCode, AppDocSectionText, ChartModule],
     template: `
         <app-docsectiontext>
             <p>A radar chart is a graphical method of displaying multivariate data in the form of a two-dimensional chart of three or more quantitative variables represented on axes starting from the same point.</p>

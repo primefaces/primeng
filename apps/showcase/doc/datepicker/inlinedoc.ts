@@ -1,9 +1,14 @@
 import { Code } from '@/domain/code';
 import { Component } from '@angular/core';
+import { FormsModule } from '@angular/forms';
+import { DatePickerModule } from 'primeng/datepicker';
+import { AppCode } from '@/components/doc/app.code';
+import { AppDocSectionText } from '@/components/doc/app.docsectiontext';
 
 @Component({
     selector: 'datepicker-inline-demo',
-    standalone: false,
+    standalone: true,
+    imports: [FormsModule, DatePickerModule, AppCode, AppDocSectionText],
     template: `
         <app-docsectiontext>
             <p>DatePicker is displayed as a popup by default, add <i>inline</i> property to customize this behavior.</p>
