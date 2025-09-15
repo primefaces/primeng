@@ -1,5 +1,9 @@
 import { Code } from '@/domain/code';
 import { Component, OnInit } from '@angular/core';
+import { FormsModule } from '@angular/forms';
+import { ListboxModule } from 'primeng/listbox';
+import { AppCodeModule } from '@/components/doc/app.code';
+import { AppDocSectionText } from '@/components/doc/app.docsectiontext';
 
 interface Country {
     name: string;
@@ -8,14 +12,15 @@ interface Country {
 
 @Component({
     selector: 'template-doc',
-    standalone: false,
+    standalone: true,
+    imports: [FormsModule, ListboxModule, AppCodeModule, AppDocSectionText],
     template: `
         <app-docsectiontext>
-            <p>Custom content for an option is displayed with the <i>pTemplate</i> property that takes an option as a parameter.</p>
+            <p>For custom content support define a template named <i>item</i> where the default local template variable refers to an option.</p>
         </app-docsectiontext>
         <div class="card flex justify-center">
             <p-listbox [options]="countries" [(ngModel)]="selectedCountry" optionLabel="name" class="w-full md:w-56">
-                <ng-template let-country #item>
+                <ng-template #item let-country>
                     <div class="flex items-center gap-2">
                         <img src="https://primefaces.org/cdn/primeng/images/demo/flag/flag_placeholder.png" [class]="'flag flag-' + country.code.toLowerCase()" style="width: 18px" />
                         <div>{{ country.name }}</div>
@@ -48,7 +53,7 @@ export class TemplateDoc implements OnInit {
 
     code: Code = {
         basic: `<p-listbox [options]="countries" [(ngModel)]="selectedCountry" optionLabel="name" class="w-full md:w-56">
-    <ng-template let-country #item>
+    <ng-template #item let-country>
         <div class="flex items-center gap-2">
             <img src="https://primefaces.org/cdn/primeng/images/demo/flag/flag_placeholder.png" [class]="'flag flag-' + country.code.toLowerCase()" style="width: 18px" />
             <div>{{ country.name }}</div>
@@ -58,7 +63,7 @@ export class TemplateDoc implements OnInit {
 
         html: `<div class="card flex justify-center">
     <p-listbox [options]="countries" [(ngModel)]="selectedCountry" optionLabel="name" class="w-full md:w-56">
-        <ng-template let-country #item>
+        <ng-template #item let-country>
             <div class="flex items-center gap-2">
                 <img src="https://primefaces.org/cdn/primeng/images/demo/flag/flag_placeholder.png" [class]="'flag flag-' + country.code.toLowerCase()" style="width: 18px" />
                 <div>{{ country.name }}</div>

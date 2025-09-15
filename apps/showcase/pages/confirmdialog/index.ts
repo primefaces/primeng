@@ -1,15 +1,14 @@
 import { AccessibilityDoc } from '@/doc/confirmdialog/accessibilitydoc';
 import { BasicDoc } from '@/doc/confirmdialog/basicdoc';
-import { ConfirmDialogDocModule } from '@/doc/confirmdialog/confirmdialogdoc.module';
 import { HeadlessDoc } from '@/doc/confirmdialog/headlessdoc';
 import { ImportDoc } from '@/doc/confirmdialog/importdoc';
 import { PositionDoc } from '@/doc/confirmdialog/positiondoc';
 import { TemplateDoc } from '@/doc/confirmdialog/templatedoc';
 import { Component } from '@angular/core';
-
+import { AppDoc } from '@/components/doc/app.doc';
 @Component({
     standalone: true,
-    imports: [ConfirmDialogDocModule],
+    imports: [AppDoc],
     template: `
         <app-doc
             docTitle="Angular ConfirmDialog Component"

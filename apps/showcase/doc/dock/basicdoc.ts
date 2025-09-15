@@ -1,10 +1,18 @@
 import { Code } from '@/domain/code';
 import { Component, OnInit } from '@angular/core';
+import { CommonModule } from '@angular/common';
+import { FormsModule } from '@angular/forms';
 import { MenuItem } from 'primeng/api';
+import { DockModule } from 'primeng/dock';
+import { RadioButtonModule } from 'primeng/radiobutton';
+import { TooltipModule } from 'primeng/tooltip';
+import { AppCode } from '@/components/doc/app.code';
+import { AppDocSectionText } from '@/components/doc/app.docsectiontext';
 
 @Component({
     selector: 'dock-basic-demo',
-    standalone: false,
+    standalone: true,
+    imports: [CommonModule, FormsModule, DockModule, RadioButtonModule, TooltipModule, AppCode, AppDocSectionText],
     template: `
         <app-docsectiontext>
             <p>

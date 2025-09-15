@@ -1,3 +1,2 @@
-import { AutoCompleteDesignTokens } from '../../types/autocomplete';
-declare const _default: AutoCompleteDesignTokens;
-export default _default;
+export * from '@primeuix/themes/material/autocomplete';
+export { default } from '@primeuix/themes/material/autocomplete';

@@ -2,16 +2,22 @@ import { Code } from '@/domain/code';
 import { Product } from '@/domain/product';
 import { ProductService } from '@/service/productservice';
 import { ChangeDetectorRef, Component, OnInit } from '@angular/core';
+import { CommonModule } from '@angular/common';
+import { OrderListModule } from 'primeng/orderlist';
+import { AppCodeModule } from '@/components/doc/app.code';
+import { AppDocSectionText } from '@/components/doc/app.docsectiontext';
 
 @Component({
     selector: 'template-doc',
-    standalone: false,
+    standalone: true,
+    imports: [CommonModule, OrderListModule, AppCodeModule, AppDocSectionText],
+    providers: [ProductService],
     template: `
         <app-docsectiontext>
-            <p>For custom content support define an <i>option</i> template that gets the item instance as a parameter. In addition <i>header</i> template is provided for further customization.</p>
+            <p>For custom content support define an <i>item</i> template that gets the item instance as a parameter. In addition <i>header</i> template is provided for further customization.</p>
         </app-docsectiontext>
-        <div class="card xl:flex xl:justify-center">
-            <p-orderlist [value]="products" dataKey="id" breakpoint="575px" scrollHeight="20rem">
+        <div class="card sm:flex sm:justify-center">
+            <p-orderlist [value]="products" dataKey="id" [responsive]="true" breakpoint="575px" scrollHeight="20rem">
                 <ng-template let-option let-selected="selected" #item>
                     <div class="flex flex-wrap p-1 items-center gap-4 w-full">
                         <img class="w-12 shrink-0 rounded" src="https://primefaces.org/cdn/primeng/images/demo/product/{{ option.image }}" [alt]="option.name" />
@@ -38,12 +44,7 @@ import { ChangeDetectorRef, Component, OnInit } from '@angular/core';
 export class TemplateDoc implements OnInit {
     products!: Product[];
     code: Code = {
-        basic: `<p-orderlist
-    [value]="products"
-    dataKey="id"
-    breakpoint="575px"
-    scrollHeight="20rem"
->
+        basic: `<p-orderlist [value]="products" dataKey="id" [responsive]="true" breakpoint="575px" scrollHeight="20rem">
     <ng-template let-option let-selected="selected" #item>
         <div class="flex flex-wrap p-1 items-center gap-4 w-full">
             <img
@@ -68,13 +69,8 @@ export class TemplateDoc implements OnInit {
     </ng-template>
 </p-orderlist>`,
 
-        html: `<div class="card xl:flex xl:justify-center">
-    <p-orderlist
-        [value]="products"
-        dataKey="id"
-        breakpoint="575px"
-        scrollHeight="20rem"
-    >
+        html: `<div class="card sm:flex sm:justify-center">
+    <p-orderlist [value]="products" dataKey="id" [responsive]="true" breakpoint="575px" scrollHeight="20rem">
         <ng-template let-option let-selected="selected" #item>
             <div class="flex flex-wrap p-1 items-center gap-4 w-full">
                 <img

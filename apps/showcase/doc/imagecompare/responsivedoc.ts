@@ -1,9 +1,13 @@
 import { Code } from '@/domain/code';
 import { Component } from '@angular/core';
+import { ImageCompareModule } from 'primeng/imagecompare';
+import { AppCodeModule } from '@/components/doc/app.code';
+import { AppDocSectionText } from '@/components/doc/app.docsectiontext';
 
 @Component({
     selector: 'responsive-doc',
-    standalone: false,
+    standalone: true,
+    imports: [AppDocSectionText, AppCodeModule, ImageCompareModule],
     template: `
         <app-docsectiontext>
             <p>Apply responsive styles to the container element to optimize display per screen size.</p>

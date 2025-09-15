@@ -1,9 +1,19 @@
 import { Code } from '@/domain/code';
 import { Component } from '@angular/core';
+import { CommonModule } from '@angular/common';
+import { FormsModule } from '@angular/forms';
+import { AppDocSectionText } from '@/components/doc/app.docsectiontext';
+import { AppCode } from '@/components/doc/app.code';
+import { StepperModule } from 'primeng/stepper';
+import { ButtonModule } from 'primeng/button';
+import { PasswordModule } from 'primeng/password';
+import { ToggleButtonModule } from 'primeng/togglebutton';
+import { InputTextModule } from 'primeng/inputtext';
 
 @Component({
     selector: 'template-doc',
-    standalone: false,
+    standalone: true,
+    imports: [CommonModule, FormsModule, AppDocSectionText, AppCode, StepperModule, ButtonModule, PasswordModule, ToggleButtonModule, InputTextModule],
     template: `
         <app-docsectiontext>
             <p>Stepper provides various templating options to customize the default UI design.</p>
@@ -107,7 +117,7 @@ import { Component } from '@angular/core';
 
                     <p-step-panel [value]="3">
                         <ng-template #content let-activateCallback="activateCallback">
-                            <div class="flex flex-col gap-2 mx-auto" style="min-height: 16rem; max-width: 24rem">
+                            <div class="flex flex-col items-center gap-2 mx-auto" style="min-height: 16rem; max-width: 24rem">
                                 <div class="text-center mt-4 mb-4 text-xl font-semibold">Account created successfully</div>
                                 <div class="text-center">
                                     <img alt="logo" src="https://primefaces.org/cdn/primeng/images/stepper/content.svg" />
@@ -252,7 +262,7 @@ export class TemplateDoc {
 
         <p-step-panel [value]="3">
             <ng-template #content let-activateCallback="activateCallback">
-                <div class="flex flex-col gap-2 mx-auto" style="min-height: 16rem; max-width: 24rem">
+                <div class="flex flex-col items-center gap-2 mx-auto" style="min-height: 16rem; max-width: 24rem">
                     <div class="text-center mt-4 mb-4 text-xl font-semibold">Account created successfully</div>
                     <div class="text-center">
                         <img alt="logo" src="https://primefaces.org/cdn/primeng/images/stepper/content.svg" />
@@ -365,7 +375,7 @@ export class TemplateDoc {
 
             <p-step-panel [value]="3">
                 <ng-template #content let-activateCallback="activateCallback">
-                    <div class="flex flex-col gap-2 mx-auto" style="min-height: 16rem; max-width: 24rem">
+                    <div class="flex flex-col items-center gap-2 mx-auto" style="min-height: 16rem; max-width: 24rem">
                         <div class="text-center mt-4 mb-4 text-xl font-semibold">Account created successfully</div>
                         <div class="text-center">
                             <img alt="logo" src="https://primefaces.org/cdn/primeng/images/stepper/content.svg" />

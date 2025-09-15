@@ -28,7 +28,7 @@ import fileupload from '@primeng/themes/nora/fileupload';
 import floatlabel from '@primeng/themes/nora/floatlabel';
 import galleria from '@primeng/themes/nora/galleria';
 import iconfield from '@primeng/themes/nora/iconfield';
-import iftalabel from '@primeng/themes/nora/iftalabel'; // Verify the component name
+import iftalabel from '@primeng/themes/nora/iftalabel';
 import image from '@primeng/themes/nora/image';
 import imagecompare from '@primeng/themes/nora/imagecompare';
 import inlinemessage from '@primeng/themes/nora/inlinemessage';
@@ -87,6 +87,8 @@ import tree from '@primeng/themes/nora/tree';
 import treeselect from '@primeng/themes/nora/treeselect';
 import treetable from '@primeng/themes/nora/treetable';
 import virtualscroller from '@primeng/themes/nora/virtualscroller';
+import type { NoraBaseDesignTokens } from '@primeuix/themes/nora/base';
+import type { Preset } from '@primeuix/themes/types';
 
 export default {
     ...base,
@@ -151,6 +153,7 @@ export default {
         progressspinner,
         radiobutton,
         rating,
+        ripple,
         scrollpanel,
         select,
         selectbutton,
@@ -169,15 +172,14 @@ export default {
         tag,
         terminal,
         timeline,
-        toast,
         togglebutton,
         toggleswitch,
-        toolbar,
-        tooltip,
         tree,
         treeselect,
         treetable,
-        virtualscroller,
-        ripple
+        toast,
+        toolbar,
+        tooltip,
+        virtualscroller
     }
-};
+} as Preset<NoraBaseDesignTokens>;

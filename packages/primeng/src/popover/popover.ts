@@ -43,9 +43,8 @@ import { $dt } from '@primeuix/styled';
     template: `
         <div
             *ngIf="render"
-            [ngClass]="'p-popover p-component'"
+            [class]="cn(cx('root'), styleClass)"
             [ngStyle]="style"
-            [class]="styleClass"
             (click)="onOverlayClick($event)"
             [@animation]="{
                 value: overlayVisible ? 'open' : 'close',
@@ -58,7 +57,7 @@ import { $dt } from '@primeuix/styled';
             [attr.aria-label]="ariaLabel"
             [attr.aria-labelledBy]="ariaLabelledBy"
         >
-            <div class="p-popover-content" (click)="onContentClick($event)" (mousedown)="onContentClick($event)">
+            <div [class]="cx('content')" (click)="onContentClick($event)" (mousedown)="onContentClick($event)">
                 <ng-content></ng-content>
                 <ng-template *ngTemplateOutlet="contentTemplate || _contentTemplate; context: { closeCallback: onCloseClick.bind(this) }"></ng-template>
             </div>
@@ -346,6 +345,7 @@ export class Popover extends BaseComponent implements AfterContentInit, OnDestro
     onAnimationStart(event: AnimationEvent) {
         if (event.toState === 'open') {
             this.container = event.element;
+            this.container?.setAttribute(this.attrSelector, '');
             this.appendContainer();
             this.align();
             this.bindDocumentClickListener();

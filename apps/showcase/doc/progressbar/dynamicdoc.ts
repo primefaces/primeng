@@ -1,10 +1,16 @@
 import { Code } from '@/domain/code';
 import { ChangeDetectorRef, Component, NgZone, OnDestroy, OnInit } from '@angular/core';
 import { MessageService } from 'primeng/api';
+import { ProgressBarModule } from 'primeng/progressbar';
+import { ToastModule } from 'primeng/toast';
+import { AppCode } from '@/components/doc/app.code';
+import { AppDocSectionText } from '@/components/doc/app.docsectiontext';
 
 @Component({
     selector: 'dynamic-doc',
-    standalone: false,
+    standalone: true,
+    imports: [ProgressBarModule, ToastModule, AppCode, AppDocSectionText],
+    providers: [MessageService],
     template: `
         <app-docsectiontext>
             <p>Value is reactive so updating it dynamically changes the bar as well.</p>
@@ -14,8 +20,7 @@ import { MessageService } from 'primeng/api';
             <p-progressbar [value]="value" />
         </div>
         <app-code [code]="code" selector="progress-bar-dynamic-demo"></app-code>
-    `,
-    providers: [MessageService]
+    `
 })
 export class DynamicDoc implements OnInit, OnDestroy {
     value: number = 0;

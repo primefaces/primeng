@@ -2,10 +2,16 @@ import { Code } from '@/domain/code';
 import { Product } from '@/domain/product';
 import { ProductService } from '@/service/productservice';
 import { ChangeDetectionStrategy, ChangeDetectorRef, Component } from '@angular/core';
+import { TableModule } from 'primeng/table';
+import { AppDocSectionText } from '@/components/doc/app.docsectiontext';
+import { AppCode } from '@/components/doc/app.code';
+import { DeferredDemo } from '@/components/demo/deferreddemo';
+import { CommonModule } from '@angular/common';
 
 @Component({
     selector: 'presort-doc',
-    standalone: false,
+    standalone: true,
+    imports: [TableModule, AppDocSectionText, AppCode, DeferredDemo, CommonModule],
     template: ` <app-docsectiontext>
             <p>
                 Defining a default <i>sortField</i> and <i>sortOrder</i> displays data as sorted initially in single column sorting. In <i>multiple</i> sort mode, <i>multiSortMeta</i> should be used instead by providing an array of
@@ -18,24 +24,34 @@ import { ChangeDetectionStrategy, ChangeDetectorRef, Component } from '@angular/
                     <ng-template #header>
                         <tr>
                             <th pSortableColumn="code" style="width:20%">
-                                Code
-                                <p-sortIcon field="code" />
+                                <div class="flex items-center gap-2">
+                                    Code
+                                    <p-sortIcon field="code" />
+                                </div>
                             </th>
                             <th pSortableColumn="name" style="width:20%">
-                                Name
-                                <p-sortIcon field="name" />
+                                <div class="flex items-center gap-2">
+                                    Name
+                                    <p-sortIcon field="name" />
+                                </div>
                             </th>
                             <th pSortableColumn="price" style="width:20%">
-                                Price
-                                <p-sortIcon field="price" />
+                                <div class="flex items-center gap-2">
+                                    Price
+                                    <p-sortIcon field="price" />
+                                </div>
                             </th>
                             <th pSortableColumn="category" style="width:20%">
-                                Category
-                                <p-sortIcon field="category" />
+                                <div class="flex items-center gap-2">
+                                    Category
+                                    <p-sortIcon field="category" />
+                                </div>
                             </th>
                             <th pSortableColumn="quantity" style="width:20%">
-                                Quantity
-                                <p-sortIcon field="quantity" />
+                                <div class="flex items-center gap-2">
+                                    Quantity
+                                    <p-sortIcon field="quantity" />
+                                </div>
                             </th>
                         </tr>
                     </ng-template>
@@ -74,19 +90,34 @@ export class PreSortDoc {
     <ng-template #header>
         <tr>
             <th pSortableColumn="code" style="width:20%">
-                Code <p-sortIcon field="code" />
+                <div class="flex items-center gap-2">
+                    Code
+                    <p-sortIcon field="code" />
+                </div>
             </th>
             <th pSortableColumn="name" style="width:20%">
-                Name <p-sortIcon field="name" />
+                <div class="flex items-center gap-2">
+                    Name
+                    <p-sortIcon field="name" />
+                </div>
             </th>
             <th pSortableColumn="price" style="width:20%">
-                Price <p-sortIcon field="price" />
+                <div class="flex items-center gap-2">
+                    Price
+                    <p-sortIcon field="price" />
+                </div>
             </th>
             <th pSortableColumn="category" style="width:20%">
-                Category <p-sortIcon field="category" />
+                <div class="flex items-center gap-2">
+                    Category
+                    <p-sortIcon field="category" />
+                </div>
             </th>
             <th pSortableColumn="quantity" style="width:20%">
-                Quantity <p-sortIcon field="quantity" />
+                <div class="flex items-center gap-2">
+                    Quantity
+                    <p-sortIcon field="quantity" />
+                </div>
             </th>
         </tr>
     </ng-template>
@@ -105,19 +136,34 @@ export class PreSortDoc {
         <ng-template #header>
             <tr>
                 <th pSortableColumn="code" style="width:20%">
-                    Code <p-sortIcon field="code" />
+                    <div class="flex items-center gap-2">
+                        Code
+                        <p-sortIcon field="code" />
+                    </div>
                 </th>
                 <th pSortableColumn="name" style="width:20%">
-                    Name <p-sortIcon field="name" />
+                    <div class="flex items-center gap-2">
+                        Name
+                        <p-sortIcon field="name" />
+                    </div>
                 </th>
                 <th pSortableColumn="price" style="width:20%">
-                    Price <p-sortIcon field="price" />
+                    <div class="flex items-center gap-2">
+                        Price
+                        <p-sortIcon field="price" />
+                    </div>
                 </th>
                 <th pSortableColumn="category" style="width:20%">
-                    Category <p-sortIcon field="category" />
+                    <div class="flex items-center gap-2">
+                        Category
+                        <p-sortIcon field="category" />
+                    </div>
                 </th>
                 <th pSortableColumn="quantity" style="width:20%">
-                    Quantity <p-sortIcon field="quantity" />
+                    <div class="flex items-center gap-2">
+                        Quantity
+                        <p-sortIcon field="quantity" />
+                    </div>
                 </th>
             </tr>
         </ng-template>

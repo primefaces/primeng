@@ -15,10 +15,9 @@ import {
     OnDestroy,
     QueryList,
     TemplateRef,
-    ViewChild,
     ViewEncapsulation
 } from '@angular/core';
-import { addClass, blockBodyScroll, removeClass, unblockBodyScroll } from '@primeuix/utils';
+import { blockBodyScroll, unblockBodyScroll } from '@primeuix/utils';
 import { PrimeTemplate, SharedModule } from 'primeng/api';
 import { BaseComponent } from 'primeng/basecomponent';
 import { ZIndexUtils } from 'primeng/utils';
@@ -33,22 +32,18 @@ import { BlockUiStyle } from './style/blockuistyle';
     standalone: true,
     imports: [CommonModule, SharedModule],
     template: `
-        <div
-            #mask
-            [class]="styleClass"
-            [attr.aria-busy]="blocked"
-            [ngClass]="{ 'p-blockui-mask-document': !target, 'p-blockui p-blockui-mask p-overlay-mask': true }"
-            [ngStyle]="{ display: 'none' }"
-            [attr.data-pc-name]="'blockui'"
-            [attr.data-pc-section]="'root'"
-        >
-            <ng-content></ng-content>
-            <ng-container *ngTemplateOutlet="contentTemplate || _contentTemplate"></ng-container>
-        </div>
+        <ng-content></ng-content>
+        <ng-container *ngTemplateOutlet="contentTemplate || _contentTemplate"></ng-container>
     `,
     changeDetection: ChangeDetectionStrategy.OnPush,
     encapsulation: ViewEncapsulation.None,
-    providers: [BlockUiStyle]
+    providers: [BlockUiStyle],
+    host: {
+        '[attr.aria-busy]': 'blocked',
+        '[attr.data-pc-name]': "'blockui'",
+        '[attr.data-pc-section]': "'root'",
+        '[class]': "cn(cx('root'), styleClass)"
+    }
 })
 export class BlockUI extends BaseComponent implements AfterViewInit, AfterContentInit, OnDestroy {
     /**
@@ -68,6 +63,7 @@ export class BlockUI extends BaseComponent implements AfterViewInit, AfterConten
     @Input({ transform: numberAttribute }) baseZIndex: number = 0;
     /**
      * Class of the element.
+     * @deprecated since v20.0.0, use `class` instead.
      * @group Props
      */
     @Input() styleClass: string | undefined;
@@ -79,7 +75,7 @@ export class BlockUI extends BaseComponent implements AfterViewInit, AfterConten
         return this._blocked;
     }
     set blocked(val: boolean) {
-        if (this.mask && this.mask.nativeElement) {
+        if (this.el && this.el.nativeElement) {
             if (val) this.block();
             else this.unblock();
         } else {
@@ -91,8 +87,6 @@ export class BlockUI extends BaseComponent implements AfterViewInit, AfterConten
      * @group Templates
      */
     @ContentChild('content', { descendants: false }) contentTemplate: TemplateRef<any> | undefined;
-
-    @ViewChild('mask') mask: ElementRef | undefined;
 
     _blocked: boolean = false;
 
@@ -134,37 +128,39 @@ export class BlockUI extends BaseComponent implements AfterViewInit, AfterConten
     block() {
         if (isPlatformBrowser(this.platformId)) {
             this._blocked = true;
-            (this.mask as ElementRef).nativeElement.style.display = 'flex';
+            (this.el as ElementRef).nativeElement.style.display = 'flex';
 
             if (this.target) {
-                this.target.getBlockableElement().appendChild((this.mask as ElementRef).nativeElement);
+                this.target.getBlockableElement().appendChild((this.el as ElementRef).nativeElement);
                 this.target.getBlockableElement().style.position = 'relative';
             } else {
-                this.renderer.appendChild(this.document.body, (this.mask as ElementRef).nativeElement);
+                this.renderer.appendChild(this.document.body, (this.el as ElementRef).nativeElement);
+                //@ts-ignore
                 blockBodyScroll();
             }
 
             if (this.autoZIndex) {
-                ZIndexUtils.set('modal', (this.mask as ElementRef).nativeElement, this.baseZIndex + this.config.zIndex.modal);
+                ZIndexUtils.set('modal', (this.el as ElementRef).nativeElement, this.baseZIndex + this.config.zIndex.modal);
             }
         }
     }
 
     unblock() {
-        if (isPlatformBrowser(this.platformId) && this.mask && !this.animationEndListener) {
-            // this.animationEndListener = this.renderer.listen(this.mask.nativeElement, 'animationend', this.destroyModal.bind(this));
+        if (isPlatformBrowser(this.platformId) && this.el && !this.animationEndListener) {
+            // this.animationEndListener = this.renderer.listen(this.el.nativeElement, 'animationend', this.destroyModal.bind(this));
             // TODO Add animation
             this.destroyModal();
-            // addClass(this.mask.nativeElement, 'p-overlay-mask-leave');
+            // addClass(this.el.nativeElement, 'p-overlay-mask-leave');
         }
     }
 
     destroyModal() {
         this._blocked = false;
-        if (this.mask && isPlatformBrowser(this.platformId)) {
-            ZIndexUtils.clear(this.mask.nativeElement);
-            // removeClass(this.mask.nativeElement, 'p-overlay-mask-leave');
-            this.renderer.removeChild(this.el.nativeElement, this.mask.nativeElement);
+        if (this.el && isPlatformBrowser(this.platformId)) {
+            ZIndexUtils.clear(this.el.nativeElement);
+            // removeClass(this.el.nativeElement, 'p-overlay-mask-leave');
+            this.renderer.removeChild(this.el.nativeElement, this.el.nativeElement);
+            //@ts-ignore
             unblockBodyScroll();
         }
         this.unbindAnimationEndListener();
@@ -172,7 +168,7 @@ export class BlockUI extends BaseComponent implements AfterViewInit, AfterConten
     }
 
     unbindAnimationEndListener() {
-        if (this.animationEndListener && this.mask) {
+        if (this.animationEndListener && this.el) {
             this.animationEndListener();
             this.animationEndListener = null;
         }

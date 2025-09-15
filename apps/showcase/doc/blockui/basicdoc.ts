@@ -1,9 +1,15 @@
 import { Code } from '@/domain/code';
 import { Component } from '@angular/core';
+import { BlockUIModule } from 'primeng/blockui';
+import { ButtonModule } from 'primeng/button';
+import { PanelModule } from 'primeng/panel';
+import { AppCode } from '@/components/doc/app.code';
+import { AppDocSectionText } from '@/components/doc/app.docsectiontext';
 
 @Component({
     selector: 'block-ui-basic-demo',
-    standalone: false,
+    standalone: true,
+    imports: [BlockUIModule, ButtonModule, PanelModule, AppCode, AppDocSectionText],
     template: `
         <app-docsectiontext>
             <p>The element to block should be placed as a child of BlockUI and <i>blocked</i> property is required to control the state.</p>
@@ -12,7 +18,7 @@ import { Component } from '@angular/core';
             <p-button label="Block" (click)="blockedPanel = true" />
             <p-button label="Unblock" (click)="blockedPanel = false" />
             <p-blockui [target]="pnl" [blocked]="blockedPanel" />
-            <p-panel #pnl header="Header" styleClass="mt-6">
+            <p-panel #pnl header="Header" class="mt-6">
                 <p class="m-0">
                     Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo
                     consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
@@ -29,7 +35,7 @@ export class BasicDoc {
         basic: `<p-button label="Block" (click)="blockedPanel = true" />
 <p-button label="Unblock" (click)="blockedPanel = false" />
 <p-blockui [target]="pnl" [blocked]="blockedPanel" />
-<p-panel #pnl header="Header" styleClass="mt-6">
+<p-panel #pnl header="Header" class="mt-6">
     <p class="m-0">
         Lorem ipsum dolor sit amet, consectetur adipiscing elit...
     </p>
@@ -38,7 +44,7 @@ export class BasicDoc {
     <p-button label="Block" (click)="blockedPanel = true" />
     <p-button label="Unblock" (click)="blockedPanel = false" />
     <p-blockui [target]="pnl" [blocked]="blockedPanel" />
-    <p-panel #pnl header="Header" styleClass="mt-6">
+    <p-panel #pnl header="Header" class="mt-6">
         <p class="m-0">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
             Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.
             Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat

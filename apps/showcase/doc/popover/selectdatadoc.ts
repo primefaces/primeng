@@ -1,10 +1,15 @@
 import { Code } from '@/domain/code';
 import { Component, ViewChild } from '@angular/core';
-import { Popover } from 'primeng/popover';
+import { CommonModule } from '@angular/common';
+import { Popover, PopoverModule } from 'primeng/popover';
+import { ButtonModule } from 'primeng/button';
+import { AppCode } from '@/components/doc/app.code';
+import { AppDocSectionText } from '@/components/doc/app.docsectiontext';
 
 @Component({
     selector: 'basic-doc',
-    standalone: false,
+    standalone: true,
+    imports: [CommonModule, PopoverModule, ButtonModule, AppCode, AppDocSectionText],
     template: `
         <app-docsectiontext>
             <p>In this sample, data is retrieved from the content inside the popover.</p>

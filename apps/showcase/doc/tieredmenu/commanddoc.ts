@@ -1,10 +1,16 @@
 import { Code } from '@/domain/code';
 import { Component, OnInit } from '@angular/core';
 import { MenuItem, MessageService } from 'primeng/api';
+import { AppDocSectionText } from '@/components/doc/app.docsectiontext';
+import { AppCode } from '@/components/doc/app.code';
+import { TieredMenuModule } from 'primeng/tieredmenu';
+import { ToastModule } from 'primeng/toast';
 
 @Component({
     selector: 'command-doc',
-    standalone: false,
+    standalone: true,
+    imports: [AppDocSectionText, AppCode, TieredMenuModule, ToastModule],
+    providers: [MessageService],
     template: `
         <app-docsectiontext>
             <p>The <i>command</i> property defines the callback to run when an item is activated by click or a key event.</p>

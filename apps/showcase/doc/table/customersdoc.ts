@@ -3,10 +3,26 @@ import { Customer, Representative } from '@/domain/customer';
 import { CustomerService } from '@/service/customerservice';
 import { ChangeDetectionStrategy, ChangeDetectorRef, Component } from '@angular/core';
 import { Table } from 'primeng/table';
+import { CommonModule } from '@angular/common';
+import { FormsModule } from '@angular/forms';
+import { TableModule } from 'primeng/table';
+import { ButtonModule } from 'primeng/button';
+import { IconFieldModule } from 'primeng/iconfield';
+import { InputIconModule } from 'primeng/inputicon';
+import { InputTextModule } from 'primeng/inputtext';
+import { MultiSelectModule } from 'primeng/multiselect';
+import { SelectModule } from 'primeng/select';
+import { TagModule } from 'primeng/tag';
+import { SliderModule } from 'primeng/slider';
+import { ProgressBarModule } from 'primeng/progressbar';
+import { AppDocSectionText } from '@/components/doc/app.docsectiontext';
+import { AppCode } from '@/components/doc/app.code';
+import { DeferredDemo } from '@/components/demo/deferreddemo';
 
 @Component({
     selector: 'customers-doc',
-    standalone: false,
+    standalone: true,
+    imports: [CommonModule, FormsModule, TableModule, ButtonModule, IconFieldModule, InputIconModule, InputTextModule, MultiSelectModule, SelectModule, TagModule, SliderModule, ProgressBarModule, AppDocSectionText, AppCode, DeferredDemo],
     template: ` <app-docsectiontext>
             <p>DataTable with selection, pagination, filtering, sorting and templating.</p>
         </app-docsectiontext>
@@ -44,21 +60,21 @@ import { Table } from 'primeng/table';
                                 <p-tableHeaderCheckbox />
                             </th>
                             <th pSortableColumn="name" style="min-width: 14rem">
-                                <div class="flex justify-between items-center">
+                                <div class="flex justify-between items-center gap-2">
                                     Name
                                     <p-sortIcon field="name" />
                                     <p-columnFilter type="text" field="name" display="menu" class="ml-auto" />
                                 </div>
                             </th>
                             <th pSortableColumn="country.name" style="min-width: 14rem">
-                                <div class="flex justify-between items-center">
+                                <div class="flex justify-between items-center gap-2">
                                     Country
                                     <p-sortIcon field="country.name" />
                                     <p-columnFilter type="text" field="country.name" display="menu" class="ml-auto" />
                                 </div>
                             </th>
                             <th pSortableColumn="representative.name" style="min-width: 14rem">
-                                <div class="flex justify-between items-center">
+                                <div class="flex justify-between items-center gap-2">
                                     Agent
                                     <p-sortIcon field="representative.name" />
                                     <p-columnFilter field="representative" matchMode="in" display="menu" [showMatchModes]="false" [showOperator]="false" [showAddButton]="false" class="ml-auto">
@@ -75,42 +91,42 @@ import { Table } from 'primeng/table';
                                     </p-columnFilter>
                                 </div>
                             </th>
-                            <th pSortableColumn="date" style="min-width: 10rem">
-                                <div class="flex justify-between items-center">
+                            <th pSortableColumn="date" style="min-width: 14rem">
+                                <div class="flex justify-between items-center gap-2">
                                     Date
                                     <p-sortIcon field="date" />
                                     <p-columnFilter type="date" field="date" display="menu" class="ml-auto" />
                                 </div>
                             </th>
-                            <th pSortableColumn="balance" style="min-width: 10rem">
-                                <div class="flex justify-between items-center">
+                            <th pSortableColumn="balance" style="min-width: 14rem">
+                                <div class="flex justify-between items-center gap-2">
                                     Balance
                                     <p-sortIcon field="balance" />
                                     <p-columnFilter type="numeric" field="balance" display="menu" currency="USD" class="ml-auto" />
                                 </div>
                             </th>
-                            <th pSortableColumn="status" style="min-width: 10rem">
-                                <div class="flex justify-between items-center">
+                            <th pSortableColumn="status" style="min-width: 14rem">
+                                <div class="flex justify-between items-center gap-2">
                                     Status
                                     <p-sortIcon field="status" />
                                     <p-columnFilter field="status" matchMode="equals" display="menu" class="ml-auto">
                                         <ng-template #filter let-value let-filter="filterCallback">
-                                            <p-dropdown [(ngModel)]="value" [options]="statuses" (onChange)="filter($event.value)" placeholder="Any">
+                                            <p-select [(ngModel)]="value" [options]="statuses" (onChange)="filter($event.value)" placeholder="Any">
                                                 <ng-template let-option #item>
                                                     <p-tag [value]="option.label" [severity]="getSeverity(option.label)" />
                                                 </ng-template>
-                                            </p-dropdown>
+                                            </p-select>
                                         </ng-template>
                                     </p-columnFilter>
                                 </div>
                             </th>
-                            <th pSortableColumn="activity" style="min-width: 10rem">
-                                <div class="flex justify-between items-center">
+                            <th pSortableColumn="activity" style="min-width: 14rem">
+                                <div class="flex justify-between items-center gap-2">
                                     Activity
                                     <p-sortIcon field="activity" />
                                     <p-columnFilter field="activity" matchMode="between" display="menu" [showMatchModes]="false" [showOperator]="false" [showAddButton]="false" class="ml-auto">
                                         <ng-template #filter let-filter="filterCallback">
-                                            <p-slider [(ngModel)]="activityValues" [range]="true" (onSlideEnd)="filter($event.values)" styleClass="m-4"></p-slider>
+                                            <p-slider [(ngModel)]="activityValues" [range]="true" (onSlideEnd)="filter($event.values)" class="m-4"></p-slider>
                                             <div class="flex items-center justify-between px-2">
                                                 <span>{{ activityValues[0] }}</span>
                                                 <span>{{ activityValues[1] }}</span>
@@ -255,21 +271,21 @@ export class CustomersDoc {
                 <p-tableHeaderCheckbox />
             </th>
             <th pSortableColumn="name" style="min-width: 14rem">
-                <div class="flex justify-between items-center">
+                <div class="flex justify-between items-center gap-2">
                     Name
                     <p-sortIcon field="name" />
                     <p-columnFilter type="text" field="name" display="menu" class="ml-auto" />
                 </div>
             </th>
             <th pSortableColumn="country.name" style="min-width: 14rem">
-                <div class="flex justify-between items-center">
+                <div class="flex justify-between items-center gap-2">
                     Country
                     <p-sortIcon field="country.name" />
                     <p-columnFilter type="text" field="country.name" display="menu" class="ml-auto" />
                 </div>
             </th>
             <th pSortableColumn="representative.name" style="min-width: 14rem">
-                <div class="flex justify-between items-center">
+                <div class="flex justify-between items-center gap-2">
                     Agent
                     <p-sortIcon field="representative.name" />
                     <p-columnFilter field="representative" matchMode="in" display="menu" [showMatchModes]="false" [showOperator]="false" [showAddButton]="false" class="ml-auto">
@@ -286,42 +302,42 @@ export class CustomersDoc {
                     </p-columnFilter>
                 </div>
             </th>
-            <th pSortableColumn="date" style="min-width: 10rem">
-                <div class="flex justify-between items-center">
+            <th pSortableColumn="date" style="min-width: 14rem">
+                <div class="flex justify-between items-center gap-2">
                     Date
                     <p-sortIcon field="date" />
                     <p-columnFilter type="date" field="date" display="menu" class="ml-auto" />
                 </div>
             </th>
-            <th pSortableColumn="balance" style="min-width: 10rem">
-                <div class="flex justify-between items-center">
+            <th pSortableColumn="balance" style="min-width: 14rem">
+                <div class="flex justify-between items-center gap-2">
                     Balance
                     <p-sortIcon field="balance" />
                     <p-columnFilter type="numeric" field="balance" display="menu" currency="USD" class="ml-auto" />
                 </div>
             </th>
-            <th pSortableColumn="status" style="min-width: 10rem">
-                <div class="flex justify-between items-center">
+            <th pSortableColumn="status" style="min-width: 14rem">
+                <div class="flex justify-between items-center gap-2">
                     Status
                     <p-sortIcon field="status" />
                     <p-columnFilter field="status" matchMode="equals" display="menu" class="ml-auto">
                         <ng-template #filter let-value let-filter="filterCallback">
-                            <p-dropdown [(ngModel)]="value" [options]="statuses" (onChange)="filter($event.value)" placeholder="Any">
+                            <p-select [(ngModel)]="value" [options]="statuses" (onChange)="filter($event.value)" placeholder="Any">
                                 <ng-template let-option #item>
                                     <p-tag [value]="option.label" [severity]="getSeverity(option.label)" />
                                 </ng-template>
-                            </p-dropdown>
+                            </p-select>
                         </ng-template>
                     </p-columnFilter>
                 </div>
             </th>
-            <th pSortableColumn="activity" style="min-width: 10rem">
-                <div class="flex justify-between items-center">
+            <th pSortableColumn="activity" style="min-width: 14rem">
+                <div class="flex justify-between items-center gap-2">
                     Activity
                     <p-sortIcon field="activity" />
                     <p-columnFilter field="activity" matchMode="between" display="menu" [showMatchModes]="false" [showOperator]="false" [showAddButton]="false" class="ml-auto">
                         <ng-template #filter let-filter="filterCallback">
-                            <p-slider [(ngModel)]="activityValues" [range]="true" (onSlideEnd)="filter($event.values)" styleClass="m-4"></p-slider>
+                            <p-slider [(ngModel)]="activityValues" [range]="true" (onSlideEnd)="filter($event.values)" class="m-4"></p-slider>
                             <div class="flex items-center justify-between px-2">
                                 <span>{{ activityValues[0] }}</span>
                                 <span>{{ activityValues[1] }}</span>
@@ -409,21 +425,21 @@ export class CustomersDoc {
                     <p-tableHeaderCheckbox />
                 </th>
                 <th pSortableColumn="name" style="min-width: 14rem">
-                    <div class="flex justify-between items-center">
+                    <div class="flex justify-between items-center gap-2">
                         Name
                         <p-sortIcon field="name" />
                         <p-columnFilter type="text" field="name" display="menu" class="ml-auto" />
                     </div>
                 </th>
                 <th pSortableColumn="country.name" style="min-width: 14rem">
-                    <div class="flex justify-between items-center">
+                    <div class="flex justify-between items-center gap-2">
                         Country
                         <p-sortIcon field="country.name" />
                         <p-columnFilter type="text" field="country.name" display="menu" class="ml-auto" />
                     </div>
                 </th>
                 <th pSortableColumn="representative.name" style="min-width: 14rem">
-                    <div class="flex justify-between items-center">
+                    <div class="flex justify-between items-center gap-2">
                         Agent
                         <p-sortIcon field="representative.name" />
                         <p-columnFilter field="representative" matchMode="in" display="menu" [showMatchModes]="false" [showOperator]="false" [showAddButton]="false" class="ml-auto">
@@ -440,42 +456,42 @@ export class CustomersDoc {
                         </p-columnFilter>
                     </div>
                 </th>
-                <th pSortableColumn="date" style="min-width: 10rem">
-                    <div class="flex justify-between items-center">
+                <th pSortableColumn="date" style="min-width: 14rem">
+                    <div class="flex justify-between items-center gap-2">
                         Date
                         <p-sortIcon field="date" />
                         <p-columnFilter type="date" field="date" display="menu" class="ml-auto" />
                     </div>
                 </th>
-                <th pSortableColumn="balance" style="min-width: 10rem">
-                    <div class="flex justify-between items-center">
+                <th pSortableColumn="balance" style="min-width: 14rem">
+                    <div class="flex justify-between items-center gap-2">
                         Balance
                         <p-sortIcon field="balance" />
                         <p-columnFilter type="numeric" field="balance" display="menu" currency="USD" class="ml-auto" />
                     </div>
                 </th>
-                <th pSortableColumn="status" style="min-width: 10rem">
-                    <div class="flex justify-between items-center">
+                <th pSortableColumn="status" style="min-width: 14rem">
+                    <div class="flex justify-between items-center gap-2">
                         Status
                         <p-sortIcon field="status" />
                         <p-columnFilter field="status" matchMode="equals" display="menu" class="ml-auto">
                             <ng-template #filter let-value let-filter="filterCallback">
-                                <p-dropdown [(ngModel)]="value" [options]="statuses" (onChange)="filter($event.value)" placeholder="Any">
+                                <p-select [(ngModel)]="value" [options]="statuses" (onChange)="filter($event.value)" placeholder="Any">
                                     <ng-template let-option #item>
                                         <p-tag [value]="option.label" [severity]="getSeverity(option.label)" />
                                     </ng-template>
-                                </p-dropdown>
+                                </p-select>
                             </ng-template>
                         </p-columnFilter>
                     </div>
                 </th>
-                <th pSortableColumn="activity" style="min-width: 10rem">
-                    <div class="flex justify-between items-center">
+                <th pSortableColumn="activity" style="min-width: 14rem">
+                    <div class="flex justify-between items-center gap-2">
                         Activity
                         <p-sortIcon field="activity" />
                         <p-columnFilter field="activity" matchMode="between" display="menu" [showMatchModes]="false" [showOperator]="false" [showAddButton]="false" class="ml-auto">
                             <ng-template #filter let-filter="filterCallback">
-                                <p-slider [(ngModel)]="activityValues" [range]="true" (onSlideEnd)="filter($event.values)" styleClass="m-4"></p-slider>
+                                <p-slider [(ngModel)]="activityValues" [range]="true" (onSlideEnd)="filter($event.values)" class="m-4"></p-slider>
                                 <div class="flex items-center justify-between px-2">
                                     <span>{{ activityValues[0] }}</span>
                                     <span>{{ activityValues[1] }}</span>
@@ -543,7 +559,7 @@ import { HttpClientModule } from '@angular/common/http';
 import { CommonModule } from '@angular/common';
 import { MultiSelectModule } from 'primeng/multiselect';
 import { InputTextModule } from 'primeng/inputtext';
-import { DropdownModule } from 'primeng/dropdown';
+import { SelectModule } from 'primeng/select';
 import { Slider } from 'primeng/slider';
 import { ProgressBar } from 'primeng/progressbar';
 
@@ -551,8 +567,8 @@ import { ProgressBar } from 'primeng/progressbar';
     selector: 'table-customers-demo',
     templateUrl: 'table-customers-demo.html',
     standalone: true,
-    imports: [TableModule, Tag, ButtonModule,IconField, InputIcon, HttpClientModule,
-    CommonModule, MultiSelectModule, InputTextModule, DropdownModule, Slider, ProgressBar ],
+    imports: [TableModule, Tag, ButtonModule, IconField, InputIcon, HttpClientModule,
+    CommonModule, MultiSelectModule, InputTextModule, SelectModule, Slider, ProgressBar ],
     providers: [CustomerService],
     styles: [
     \`
@@ -604,7 +620,7 @@ import { ProgressBar } from 'primeng/progressbar';
                 cursor: auto;
             }
 
-            .p-dropdown-label:not(.p-placeholder) {
+            .p-select-label:not(.p-placeholder) {
                 text-transform: uppercase;
             }
         }

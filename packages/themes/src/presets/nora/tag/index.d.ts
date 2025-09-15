@@ -1,3 +1,2 @@
-import { TagDesignTokens } from '../../types/tag';
-declare const _default: TagDesignTokens;
-export default _default;
+export * from '@primeuix/themes/nora/tag';
+export { default } from '@primeuix/themes/nora/tag';

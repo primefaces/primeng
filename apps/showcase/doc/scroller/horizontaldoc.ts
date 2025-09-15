@@ -1,9 +1,14 @@
 import { Code } from '@/domain/code';
 import { ChangeDetectionStrategy, Component } from '@angular/core';
+import { ScrollerModule } from 'primeng/scroller';
+import { AppCode } from '@/components/doc/app.code';
+import { AppDocSectionText } from '@/components/doc/app.docsectiontext';
+import { CommonModule } from '@angular/common';
 
 @Component({
     selector: 'horizontal-doc',
-    standalone: false,
+    standalone: true,
+    imports: [ScrollerModule, AppCode, AppDocSectionText, CommonModule],
     template: `
         <app-docsectiontext>
             <p>Setting <i>orientation</i> to <i>horizontal</i> enables scrolling horizontally. In this case, the <i>itemSize</i> should refer to the width of an item.</p>

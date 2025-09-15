@@ -1,8 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 import { DialogService, DynamicDialogComponent, DynamicDialogRef } from 'primeng/dynamicdialog';
+import { ButtonModule } from 'primeng/button';
 
 @Component({
-    standalone: false,
+    standalone: true,
+    imports: [ButtonModule],
     template: `
         <div>
             <p>

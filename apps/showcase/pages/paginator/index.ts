@@ -1,15 +1,16 @@
 import { AccessibilityDoc } from '@/doc/paginator/accessibilitydoc';
 import { BasicDoc } from '@/doc/paginator/basicdoc';
 import { CurrentPageReportDoc } from '@/doc/paginator/currentpagereportdoc';
+import { ImagesDoc } from '@/doc/paginator/imagesdoc';
 import { ImportDoc } from '@/doc/paginator/importdoc';
-import { PaginatorDocModule } from '@/doc/paginator/paginatordoc.module';
 import { TemplateDoc } from '@/doc/paginator/templatedoc';
 import { Component } from '@angular/core';
+import { AppDoc } from '@/components/doc/app.doc';
 
 @Component({
     template: `<app-doc docTitle="Angular Paginator Component" header="Paginator" description="Paginator displays data in paged format and provides navigation between pages." [docs]="docs" [apiDocs]="['Paginator']" themeDocs="paginator"></app-doc>`,
     standalone: true,
-    imports: [PaginatorDocModule],
+    imports: [AppDoc],
     styles: `
         .image-gallery {
             text-align: center;
@@ -39,7 +40,11 @@ export class PaginatorDemo {
             label: 'Current Page Report',
             component: CurrentPageReportDoc
         },
-
+        {
+            id: 'images',
+            label: 'Images',
+            component: ImagesDoc
+        },
         {
             id: 'accessibility',
             label: 'Accessibility',

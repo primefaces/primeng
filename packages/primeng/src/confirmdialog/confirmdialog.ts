@@ -47,7 +47,7 @@ const hideAnimation = animation([animate('{{transition}}', style({ transform: '{
             (visibleChange)="onVisibleChange($event)"
             role="alertdialog"
             [closable]="option('closable')"
-            [styleClass]="containerClass"
+            [styleClass]="cn(cx('root'), styleClass)"
             [modal]="true"
             [header]="option('header')"
             [closeOnEscape]="option('closeOnEscape')"
@@ -56,6 +56,7 @@ const hideAnimation = animation([animate('{{transition}}', style({ transform: '{
             [position]="position"
             [style]="style"
             [dismissableMask]="dismissableMask"
+            [draggable]="draggable"
         >
             @if (headlessTemplate || _headlessTemplate) {
                 <ng-template #headless>
@@ -73,9 +74,7 @@ const hideAnimation = animation([animate('{{transition}}', style({ transform: '{
             } @else {
                 @if (headerTemplate || _headerTemplate) {
                     <ng-template #header>
-                        <div [ngClass]="cx('header')">
-                            <ng-container *ngTemplateOutlet="headerTemplate || _headerTemplate"></ng-container>
-                        </div>
+                        <ng-container *ngTemplateOutlet="headerTemplate || _headerTemplate"></ng-container>
                     </ng-template>
                 }
 
@@ -88,7 +87,7 @@ const hideAnimation = animation([animate('{{transition}}', style({ transform: '{
                     @if (messageTemplate || _messageTemplate) {
                         <ng-template *ngTemplateOutlet="messageTemplate || _messageTemplate; context: { $implicit: confirmation }"></ng-template>
                     } @else {
-                        <span [ngClass]="cx('message')" [innerHTML]="option('message')"> </span>
+                        <span [class]="cx('message')" [innerHTML]="option('message')"> </span>
                     }
                 </ng-template>
             }
@@ -106,10 +105,12 @@ const hideAnimation = animation([animate('{{transition}}', style({ transform: '{
                         [ariaLabel]="option('rejectButtonProps', 'ariaLabel')"
                         [buttonProps]="getRejectButtonProps()"
                     >
-                        @if (rejectIcon && !rejectIconTemplate && !_rejectIconTemplate) {
-                            <i *ngIf="option('rejectIcon')" [class]="option('rejectIcon')"></i>
-                        }
-                        <ng-template *ngTemplateOutlet="rejectIconTemplate || _rejectIconTemplate"></ng-template>
+                        <ng-template #icon>
+                            @if (rejectIcon && !rejectIconTemplate && !_rejectIconTemplate) {
+                                <i *ngIf="option('rejectIcon')" [class]="option('rejectIcon')"></i>
+                            }
+                            <ng-template *ngTemplateOutlet="rejectIconTemplate || _rejectIconTemplate"></ng-template>
+                        </ng-template>
                     </p-button>
                     <p-button
                         [label]="acceptButtonLabel"
@@ -119,10 +120,12 @@ const hideAnimation = animation([animate('{{transition}}', style({ transform: '{
                         [ariaLabel]="option('acceptButtonProps', 'ariaLabel')"
                         [buttonProps]="getAcceptButtonProps()"
                     >
-                        @if (acceptIcon && !_acceptIconTemplate && !acceptIconTemplate) {
-                            <i *ngIf="option('acceptIcon')" [class]="option('acceptIcon')"></i>
-                        }
-                        <ng-template *ngTemplateOutlet="acceptIconTemplate || _acceptIconTemplate"></ng-template>
+                        <ng-template #icon>
+                            @if (acceptIcon && !_acceptIconTemplate && !acceptIconTemplate) {
+                                <i *ngIf="option('acceptIcon')" [class]="option('acceptIcon')"></i>
+                            }
+                            <ng-template *ngTemplateOutlet="acceptIconTemplate || _acceptIconTemplate"></ng-template>
+                        </ng-template>
                     </p-button>
                 }
             </ng-template>
@@ -311,10 +314,10 @@ export class ConfirmDialog extends BaseComponent implements OnInit, OnDestroy {
      *  Allows getting the position of the component.
      * @group Props
      */
-    @Input() get position(): string {
+    @Input() get position() {
         return this._position;
     }
-    set position(value: string) {
+    set position(value: 'center' | 'top' | 'bottom' | 'left' | 'right' | 'topleft' | 'topright' | 'bottomleft' | 'bottomright') {
         this._position = value;
 
         switch (value) {
@@ -339,6 +342,11 @@ export class ConfirmDialog extends BaseComponent implements OnInit, OnDestroy {
                 break;
         }
     }
+    /**
+     * Enables dragging to change the position using header.
+     * @group Props
+     */
+    @Input({ transform: booleanAttribute }) draggable: boolean = true;
     /**
      * Callback to invoke when dialog is hidden.
      * @param {ConfirmEventType} enum - Custom confirm event.
@@ -398,7 +406,7 @@ export class ConfirmDialog extends BaseComponent implements OnInit, OnDestroy {
 
     preWidth: number | undefined;
 
-    _position: string = 'center';
+    _position: 'center' | 'top' | 'bottom' | 'left' | 'right' | 'topleft' | 'topright' | 'bottomleft' | 'bottomright' = 'center';
 
     transformOptions: any = 'scale(0.7)';
 
@@ -409,10 +417,6 @@ export class ConfirmDialog extends BaseComponent implements OnInit, OnDestroy {
     ariaLabelledBy: string = this.getAriaLabelledBy();
 
     translationSubscription: Subscription | undefined;
-
-    get containerClass(): string {
-        return this.cx('root') + ' ' + this.styleClass || ' ';
-    }
 
     constructor(
         private confirmationService: ConfirmationService,
@@ -500,7 +504,7 @@ export class ConfirmDialog extends BaseComponent implements OnInit, OnDestroy {
     }
 
     option(name: string, k?: string) {
-        const source: { [key: string]: any } = this || this;
+        const source: { [key: string]: any } = this;
         if (source.hasOwnProperty(name)) {
             if (k) {
                 return source[k];
@@ -542,6 +546,7 @@ export class ConfirmDialog extends BaseComponent implements OnInit, OnDestroy {
         if (!this.styleElement) {
             this.styleElement = this.document.createElement('style');
             this.styleElement.type = 'text/css';
+            setAttribute(this.styleElement, 'nonce', this.config?.csp()?.nonce);
             this.document.head.appendChild(this.styleElement);
             let innerHTML = '';
             for (let breakpoint in this.breakpoints) {
@@ -570,6 +575,8 @@ export class ConfirmDialog extends BaseComponent implements OnInit, OnDestroy {
     hide(type?: ConfirmEventType) {
         this.onHide.emit(type);
         this.visible = false;
+        // Unsubscribe from confirmation events when the dialogue is closed, because events are created when the dialogue is opened.
+        this.unsubscribeConfirmationEvents();
         this.confirmation = null;
     }
 
@@ -582,6 +589,8 @@ export class ConfirmDialog extends BaseComponent implements OnInit, OnDestroy {
 
     ngOnDestroy() {
         this.subscription.unsubscribe();
+        // Unsubscribe from confirmation events if the dialogue is opened and this component is somehow destroyed.
+        this.unsubscribeConfirmationEvents();
 
         if (this.translationSubscription) {
             this.translationSubscription.unsubscribe();
@@ -614,12 +623,19 @@ export class ConfirmDialog extends BaseComponent implements OnInit, OnDestroy {
         this.hide(ConfirmEventType.REJECT);
     }
 
+    unsubscribeConfirmationEvents() {
+        if (this.confirmation) {
+            this.confirmation.acceptEvent?.unsubscribe();
+            this.confirmation.rejectEvent?.unsubscribe();
+        }
+    }
+
     get acceptButtonLabel(): string {
-        return this.option('acceptLabel') || this.config.getTranslation(TranslationKeys.ACCEPT);
+        return this.option('acceptLabel') || this.getAcceptButtonProps()?.label || this.config.getTranslation(TranslationKeys.ACCEPT);
     }
 
     get rejectButtonLabel(): string {
-        return this.option('rejectLabel') || this.config.getTranslation(TranslationKeys.REJECT);
+        return this.option('rejectLabel') || this.getRejectButtonProps()?.label || this.config.getTranslation(TranslationKeys.REJECT);
     }
 
     getAcceptButtonProps() {

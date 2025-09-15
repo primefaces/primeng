@@ -1,9 +1,14 @@
 import { Code } from '@/domain/code';
 import { Component } from '@angular/core';
+import { AppCode } from '@/components/doc/app.code';
+import { AppDocSectionText } from '@/components/doc/app.docsectiontext';
+import { ButtonGroupModule } from 'primeng/buttongroup';
+import { ButtonModule } from 'primeng/button';
 
 @Component({
     selector: 'button-group-demo',
-    standalone: false,
+    standalone: true,
+    imports: [AppCode, AppDocSectionText, ButtonGroupModule, ButtonModule],
     template: `
         <app-docsectiontext>
             <p>Multiple buttons are grouped when wrapped inside an element with <i>ButtonGroup</i> component.</p>
@@ -35,13 +40,13 @@ export class ButtonGroupDoc {
 </div>`,
 
         typescript: `import { Component } from '@angular/core';
-import { ButtonModule } from 'primeng/button';
+import { ButtonGroupModule } from 'primeng/buttongroup';
 
 @Component({
     selector: 'button-group-demo',
     templateUrl: './button-group-demo.html',
     standalone: true,
-    imports: [ButtonModule]
+    imports: [ButtonGroupModule]
 })
 export class ButtonGroupDemo { }`
     };

@@ -1,9 +1,13 @@
 import { Code } from '@/domain/code';
 import { Component } from '@angular/core';
+import { MeterGroupModule } from 'primeng/metergroup';
+import { AppCodeModule } from '@/components/doc/app.code';
+import { AppDocSectionText } from '@/components/doc/app.docsectiontext';
 
 @Component({
     selector: 'min-max-doc',
-    standalone: false,
+    standalone: true,
+    imports: [MeterGroupModule, AppCodeModule, AppDocSectionText],
     template: `
         <app-docsectiontext>
             <p>Boundaries are configured with the <i>min</i> and <i>max</i> values whose defaults are 0 and 100 respectively.</p>

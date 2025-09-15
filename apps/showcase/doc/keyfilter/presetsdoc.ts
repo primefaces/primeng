@@ -1,9 +1,14 @@
 import { Code } from '@/domain/code';
 import { Component } from '@angular/core';
+import { InputTextModule } from 'primeng/inputtext';
+import { KeyFilterModule } from 'primeng/keyfilter';
+import { AppCodeModule } from '@/components/doc/app.code';
+import { AppDocSectionText } from '@/components/doc/app.docsectiontext';
 
 @Component({
     selector: 'presets-doc',
-    standalone: false,
+    standalone: true,
+    imports: [InputTextModule, KeyFilterModule, AppCodeModule, AppDocSectionText],
     template: `
         <app-docsectiontext>
             <p>KeyFilter provides various presets configured with the <i>pKeyFilter</i> property.</p>
@@ -84,12 +89,13 @@ export class PresetsDoc {
         typescript: `import { Component } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { InputTextModule } from 'primeng/inputtext';
+import { KeyFilterModule } from 'primeng/keyfilter';
 
 @Component({
     selector: 'key-filter-presets-demo',
     templateUrl: './key-filter-presets-demo.html',
     standalone: true,
-    imports: [FormsModule, InputTextModule]
+    imports: [FormsModule, InputTextModule, KeyFilterModule]
 })
 export class KeyFilterPresetsDemo {}`
     };

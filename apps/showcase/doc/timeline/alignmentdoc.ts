@@ -1,5 +1,8 @@
 import { Code } from '@/domain/code';
 import { Component } from '@angular/core';
+import { AppCode } from '@/components/doc/app.code';
+import { AppDocSectionText } from '@/components/doc/app.docsectiontext';
+import { TimelineModule } from 'primeng/timeline';
 
 interface EventItem {
     status?: string;
@@ -11,7 +14,8 @@ interface EventItem {
 
 @Component({
     selector: 'alignment-doc',
-    standalone: false,
+    standalone: true,
+    imports: [AppDocSectionText, TimelineModule, AppCode],
     template: `
         <app-docsectiontext>
             <p>Content location relative the line is defined with the <i>align</i> property.</p>

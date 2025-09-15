@@ -1,8 +1,10 @@
+import { AppDocSectionText } from '@/components/doc/app.docsectiontext';
 import { Component } from '@angular/core';
 
 @Component({
     selector: 'steps-accessibility-doc',
-    standalone: false,
+    standalone: true,
+    imports: [AppDocSectionText],
     template: ` <div>
         <app-docsectiontext>
             <h3>Screen Reader</h3>

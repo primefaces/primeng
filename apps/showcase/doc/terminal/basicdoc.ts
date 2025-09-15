@@ -1,11 +1,15 @@
 import { Code } from '@/domain/code';
 import { Component, OnDestroy } from '@angular/core';
 import { TerminalService } from 'primeng/terminal';
+import { TerminalModule } from 'primeng/terminal';
 import { Subscription } from 'rxjs';
+import { AppDocSectionText } from '@/components/doc/app.docsectiontext';
+import { AppCode } from '@/components/doc/app.code';
 
 @Component({
     selector: 'basic-doc',
-    standalone: false,
+    standalone: true,
+    imports: [AppDocSectionText, AppCode, TerminalModule],
     template: `
         <app-docsectiontext>
             <p>Commands are processed using observables via the <i>TerminalService</i>. Import this service into your component and subscribe to <i>commandHandler</i> to process commands by sending replies with <i>sendResponse</i> function.</p>

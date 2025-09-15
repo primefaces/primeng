@@ -1,9 +1,14 @@
 import { Code } from '@/domain/code';
 import { Component } from '@angular/core';
+import { ButtonModule } from 'primeng/button';
+import { OverlayModule } from 'primeng/overlay';
+import { AppCode } from '@/components/doc/app.code';
+import { AppDocSectionText } from '@/components/doc/app.docsectiontext';
 
 @Component({
     selector: 'overlay-template-demo',
-    standalone: false,
+    standalone: true,
+    imports: [ButtonModule, OverlayModule, AppCode, AppDocSectionText],
     template: ` <app-docsectiontext>
             <p>Content can be customized with the <i>content</i> template.</p>
         </app-docsectiontext>

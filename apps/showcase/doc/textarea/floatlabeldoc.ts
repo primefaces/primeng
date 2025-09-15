@@ -1,9 +1,16 @@
 import { Code } from '@/domain/code';
 import { Component } from '@angular/core';
+import { FormsModule } from '@angular/forms';
+import { RouterModule } from '@angular/router';
+import { AppCode } from '@/components/doc/app.code';
+import { AppDocSectionText } from '@/components/doc/app.docsectiontext';
+import { FloatLabelModule } from 'primeng/floatlabel';
+import { TextareaModule } from 'primeng/textarea';
 
 @Component({
     selector: 'floatlabel-doc',
-    standalone: false,
+    standalone: true,
+    imports: [FormsModule, RouterModule, AppCode, AppDocSectionText, FloatLabelModule, TextareaModule],
     template: `
         <app-docsectiontext>
             <p>

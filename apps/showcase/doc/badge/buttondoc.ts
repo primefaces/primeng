@@ -1,9 +1,13 @@
 import { Code } from '@/domain/code';
 import { Component } from '@angular/core';
+import { ButtonModule } from 'primeng/button';
+import { AppCode } from '@/components/doc/app.code';
+import { AppDocSectionText } from '@/components/doc/app.docsectiontext';
 
 @Component({
     selector: 'badge-button-demo',
-    standalone: false,
+    standalone: true,
+    imports: [ButtonModule, AppCode, AppDocSectionText],
     template: `
         <app-docsectiontext>
             <p>Buttons have built-in support for badges to display a badge inline.</p>

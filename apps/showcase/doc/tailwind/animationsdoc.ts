@@ -1,9 +1,17 @@
 import { Code } from '@/domain/code';
+import { CommonModule } from '@angular/common';
 import { Component } from '@angular/core';
+import { FormsModule } from '@angular/forms';
+import { RouterModule } from '@angular/router';
+import { AppCode } from '@/components/doc/app.code';
+import { AppDocSectionText } from '@/components/doc/app.docsectiontext';
+import { ButtonModule } from 'primeng/button';
+import { SelectModule } from 'primeng/select';
 
 @Component({
     selector: 'animations-doc',
-    standalone: false,
+    standalone: true,
+    imports: [CommonModule, FormsModule, RouterModule, AppCode, AppDocSectionText, ButtonModule, SelectModule],
     template: `
         <app-docsectiontext>
             <p>The plugin also adds extended animation utilities that can be used with the <a routerLink="/styleclass">styleclass</a> and <a routerLink="/animateonscroll">animateonscroll</a> directives.</p>

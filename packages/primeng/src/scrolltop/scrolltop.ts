@@ -28,17 +28,17 @@ import { ScrollTopStyle } from './style/scrolltopstyle';
             (@animation.done)="onLeave($event)"
             [attr.aria-label]="buttonAriaLabel"
             (click)="onClick()"
-            [styleClass]="getStyleClass()"
+            [styleClass]="cn(cx('root'), styleClass)"
             [ngStyle]="style"
             type="button"
             [buttonProps]="buttonProps"
         >
             <ng-template #icon>
                 <ng-container *ngIf="!iconTemplate && !_iconTemplate">
-                    <span *ngIf="_icon" [class]="_icon" [ngClass]="'p-scrolltop-icon'"></span>
-                    <ChevronUpIcon *ngIf="!_icon" [styleClass]="'p-scrolltop-icon'" [ngStyle]="{ 'font-size': '1rem', scale: '1.5' }" />
+                    <span *ngIf="_icon" [class]="cn(cx('icon'), _icon)"></span>
+                    <svg data-p-icon="chevron-up" *ngIf="!_icon" [class]="cx('icon')" />
                 </ng-container>
-                <ng-template [ngIf]="!icon" *ngTemplateOutlet="iconTemplate || _iconTemplate; context: { styleClass: 'p-scrolltop-icon' }"></ng-template>
+                <ng-template [ngIf]="!icon" *ngTemplateOutlet="iconTemplate || _iconTemplate; context: { styleClass: cx('icon') }"></ng-template>
             </ng-template>
         </p-button>
     `,
@@ -117,7 +117,7 @@ export class ScrollTop extends BaseComponent implements OnInit, AfterContentInit
      * Used to pass all properties of the ButtonProps to the Button component.
      * @group Props
      */
-    @Input() buttonProps: ButtonProps = { rounded: true };
+    @Input() buttonProps: ButtonProps = { rounded: true, severity: 'success' };
     /**
      * Template of the icon.
      * @group Templates
@@ -223,10 +223,6 @@ export class ScrollTop extends BaseComponent implements OnInit, AfterContentInit
             this.documentScrollListener();
             this.documentScrollListener = null;
         }
-    }
-
-    getStyleClass() {
-        return `p-scrolltop p-button${this.styleClass ? ` ${this.styleClass}` : ''}${this.target !== 'window' ? ' p-scrolltop-sticky' : ''}`;
     }
 
     ngOnDestroy() {

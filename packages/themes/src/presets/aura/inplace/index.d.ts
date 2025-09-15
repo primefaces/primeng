@@ -1,3 +1,2 @@
-import { InplaceDesignTokens } from '../../types/inplace';
-declare const _default: InplaceDesignTokens;
-export default _default;
+export * from '@primeuix/themes/aura/inplace';
+export { default } from '@primeuix/themes/aura/inplace';

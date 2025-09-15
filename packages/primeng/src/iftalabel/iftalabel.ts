@@ -17,7 +17,7 @@ import { IftaLabelStyle } from './style/iftalabelstyle';
     encapsulation: ViewEncapsulation.None,
     providers: [IftaLabelStyle],
     host: {
-        class: 'p-iftalabel'
+        '[class]': "cx('root')"
     }
 })
 export class IftaLabel extends BaseComponent {

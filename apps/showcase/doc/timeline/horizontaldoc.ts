@@ -1,9 +1,13 @@
 import { Code } from '@/domain/code';
 import { Component } from '@angular/core';
+import { AppCode } from '@/components/doc/app.code';
+import { AppDocSectionText } from '@/components/doc/app.docsectiontext';
+import { TimelineModule } from 'primeng/timeline';
 
 @Component({
     selector: 'horizontal-doc',
-    standalone: false,
+    standalone: true,
+    imports: [AppDocSectionText, TimelineModule, AppCode],
     template: `
         <app-docsectiontext>
             <p>TimeLine orientation is controlled with the <i>layout</i> property, default is <i>vertical</i> having <i>horizontal</i> as the alternative.</p>

@@ -1,10 +1,14 @@
 import { Code } from '@/domain/code';
 import { Component, OnInit } from '@angular/core';
 import { MenuItem } from 'primeng/api';
+import { AppDocSectionText } from '@/components/doc/app.docsectiontext';
+import { AppCode } from '@/components/doc/app.code';
+import { TieredMenuModule } from 'primeng/tieredmenu';
 
 @Component({
     selector: 'basic-doc',
-    standalone: false,
+    standalone: true,
+    imports: [AppDocSectionText, AppCode, TieredMenuModule],
     template: `
         <app-docsectiontext>
             <p>TieredMenu requires a collection of menuitems as its <i>model</i>.</p>

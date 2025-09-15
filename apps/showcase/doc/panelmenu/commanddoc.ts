@@ -1,17 +1,22 @@
 import { Code } from '@/domain/code';
 import { Component, OnInit } from '@angular/core';
 import { MenuItem, MessageService } from 'primeng/api';
+import { PanelMenu } from 'primeng/panelmenu';
+import { ToastModule } from 'primeng/toast';
+import { AppCode } from '@/components/doc/app.code';
+import { AppDocSectionText } from '@/components/doc/app.docsectiontext';
 
 @Component({
     selector: 'command-doc',
-    standalone: false,
+    standalone: true,
+    imports: [PanelMenu, ToastModule, AppCode, AppDocSectionText],
     template: `
         <app-docsectiontext>
             <p>The <i>command</i> property defines the callback to run when an item is activated by click or a key event.</p>
         </app-docsectiontext>
         <div class="card flex justify-center">
             <p-toast />
-            <p-panelmenu [model]="items" styleClass="w-full md:w-80" />
+            <p-panelmenu [model]="items" class="w-full md:w-80" />
         </div>
         <app-code [code]="code" selector="panel-menu-command-demo"></app-code>
     `,
@@ -93,11 +98,11 @@ export class CommandDoc implements OnInit {
 
     code: Code = {
         basic: `<p-toast />
-<p-panelmenu [model]="items" styleClass="w-full md:w-80" />`,
+<p-panelmenu [model]="items" class="w-full md:w-80" />`,
 
         html: `<div class="card flex justify-center">
     <p-toast />
-    <p-panelmenu [model]="items" styleClass="w-full md:w-80" />
+    <p-panelmenu [model]="items" class="w-full md:w-80" />
 </div>`,
 
         typescript: `import { Component, OnInit } from '@angular/core';

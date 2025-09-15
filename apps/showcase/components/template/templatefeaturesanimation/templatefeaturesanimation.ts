@@ -1,12 +1,12 @@
-import { CommonModule, NgOptimizedImage, isPlatformBrowser } from '@angular/common';
-import { ChangeDetectionStrategy, ChangeDetectorRef, Component, ElementRef, Inject, Input, NgModule, PLATFORM_ID, ViewEncapsulation } from '@angular/core';
-import { SharedModule } from 'primeng/api';
-import { TemplateFeaturesAnimationInlineModule } from './templatefeaturesanimationinline';
+import { CommonModule, isPlatformBrowser } from '@angular/common';
+import { ChangeDetectionStrategy, ChangeDetectorRef, Component, ElementRef, Inject, Input, PLATFORM_ID, ViewEncapsulation } from '@angular/core';
+import { TemplateFeaturesAnimationInline } from './templatefeaturesanimationinline';
 import { AnimateOnScrollModule } from 'primeng/animateonscroll';
 import { DomSanitizer, SafeHtml } from '@angular/platform-browser';
 @Component({
     selector: 'template-features-animation',
-    standalone: false,
+    standalone: true,
+    imports: [CommonModule, AnimateOnScrollModule, TemplateFeaturesAnimationInline],
     template: `
         <div class="template-features px-6 py-6 sm:px-10 sm:py-5 lg:py-20 lg:px-8 rounded-2xl lg:rounded-3xl bg-surface-0 dark:bg-surface-900">
             <ng-container *ngIf="!!title">
@@ -42,7 +42,7 @@ import { DomSanitizer, SafeHtml } from '@angular/platform-browser';
                         </div>
                         <div class="flex-1">
                             <h5 class="text-lg lg:text-xl font-semibold m-0">{{ data.title }}</h5>
-                            <p class="text-sm lg:text-base text-muted-color mt-1 mb-0 [&>a]:text-primary [&>a]:hover:underline" [innerHTML]="getSanitizedDescription(data.description)"></p>
+                            <p class="text-sm lg:text-base text-muted-color mt-1 mb-0 [&>a]:text-primary" [innerHTML]="getSanitizedDescription(data.description)"></p>
                         </div>
                     </div>
                 </div>
@@ -144,10 +144,3 @@ export class TemplateFeaturesAnimation {
         }
     }
 }
-
-@NgModule({
-    imports: [CommonModule, SharedModule, TemplateFeaturesAnimationInlineModule, NgOptimizedImage, AnimateOnScrollModule],
-    exports: [TemplateFeaturesAnimation, SharedModule],
-    declarations: [TemplateFeaturesAnimation]
-})
-export class TemplateFeaturesAnimationModule {}

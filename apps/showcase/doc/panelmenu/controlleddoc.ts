@@ -1,17 +1,22 @@
 import { Code } from '@/domain/code';
 import { Component, OnInit } from '@angular/core';
 import { MenuItem } from 'primeng/api';
+import { PanelMenu } from 'primeng/panelmenu';
+import { ButtonModule } from 'primeng/button';
+import { AppCode } from '@/components/doc/app.code';
+import { AppDocSectionText } from '@/components/doc/app.docsectiontext';
 
 @Component({
     selector: 'controlled-doc',
-    standalone: false,
+    standalone: true,
+    imports: [PanelMenu, ButtonModule, AppCode, AppDocSectionText],
     template: `
         <app-docsectiontext>
             <p>Menu items can be controlled programmatically.</p>
         </app-docsectiontext>
         <div class="card flex flex-col items-center gap-4">
             <p-button label="Toggle All" [text]="true" (onClick)="toggleAll()" />
-            <p-panelmenu [model]="items" styleClass="w-full md:w-80" />
+            <p-panelmenu [model]="items" class="w-full md:w-80" />
         </div>
         <app-code [code]="code" selector="panel-menu-controlled-demo"></app-code>
     `
@@ -108,11 +113,11 @@ export class ControlledDoc implements OnInit {
 
     code: Code = {
         basic: `<p-button label="Toggle All" [text]="true" (onClick)="toggleAll()" />
-<p-panelmenu [model]="items" styleClass="w-full md:w-80" />`,
+<p-panelmenu [model]="items" class="w-full md:w-80" />`,
 
         html: `<div class="card flex justify-center">
     <p-button label="Toggle All" [text]="true" (onClick)="toggleAll()" />
-    <p-panelmenu [model]="items" styleClass="w-full md:w-80" />
+    <p-panelmenu [model]="items" class="w-full md:w-80" />
 </div>`,
 
         typescript: `import { Component, OnInit } from '@angular/core';

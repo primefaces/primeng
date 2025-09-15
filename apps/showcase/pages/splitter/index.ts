@@ -3,14 +3,14 @@ import { HorizontalDoc } from '@/doc/splitter/horizontaldoc';
 import { ImportDoc } from '@/doc/splitter/importdoc';
 import { NestedDoc } from '@/doc/splitter/nesteddoc';
 import { SizeDoc } from '@/doc/splitter/sizedoc';
-import { SplitterDocModule } from '@/doc/splitter/splitterdoc.module';
 import { VerticalDoc } from '@/doc/splitter/verticaldoc';
 import { Component } from '@angular/core';
+import { AppDoc } from '@/components/doc/app.doc';
 
 @Component({
     template: `<app-doc docTitle="Angular Splitter Component" header="Splitter" description="Splitter is utilized to separate and resize panels." [docs]="docs" [apiDocs]="['Splitter']" themeDocs="splitter"></app-doc>`,
     standalone: true,
-    imports: [SplitterDocModule]
+    imports: [AppDoc]
 })
 export class SplitterDemo {
     docs = [

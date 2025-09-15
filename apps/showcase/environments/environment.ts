@@ -3,8 +3,9 @@
 // The list of file replacements can be found in `angular.json`.
 
 export const environment = {
-    production: false,
-    apiUrl: 'https://www.primefaces.org/data/customers'
+    production: true,
+    apiUrl: 'https://www.primefaces.org/data/customers',
+    baseUrl: 'https://primefaces.org/themedesigner'
 };
 
 /*

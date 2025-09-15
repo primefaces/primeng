@@ -1,9 +1,13 @@
 import { Code } from '@/domain/code';
 import { Component } from '@angular/core';
+import { ImageModule } from 'primeng/image';
+import { AppCodeModule } from '@/components/doc/app.code';
+import { AppDocSectionText } from '@/components/doc/app.docsectiontext';
 
 @Component({
     selector: 'image-preview-demo',
-    standalone: false,
+    standalone: true,
+    imports: [AppDocSectionText, AppCodeModule, ImageModule],
     template: `
         <app-docsectiontext>
             <p>Preview mode displays a modal layer when the image is clicked that provides transformation options such as rotating and zooming.</p>

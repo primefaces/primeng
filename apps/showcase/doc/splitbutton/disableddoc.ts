@@ -1,10 +1,16 @@
 import { Code } from '@/domain/code';
 import { Component } from '@angular/core';
 import { MenuItem, MessageService } from 'primeng/api';
+import { AppCode } from '@/components/doc/app.code';
+import { AppDocSectionText } from '@/components/doc/app.docsectiontext';
+import { SplitButtonModule } from 'primeng/splitbutton';
+import { ToastModule } from 'primeng/toast';
+import { RouterModule } from '@angular/router';
 
 @Component({
     selector: 'disabled-doc',
-    standalone: false,
+    standalone: true,
+    imports: [AppCode, AppDocSectionText, SplitButtonModule, ToastModule, RouterModule],
     template: `
         <app-docsectiontext>
             <p>
@@ -35,7 +41,7 @@ export class DisabledDoc {
                     this.delete();
                 }
             },
-            { label: 'Angular Website', url: 'http://angular.io' },
+            { label: 'Angular.dev', url: 'https://angular.dev' },
             { separator: true },
             { label: 'Upload', routerLink: ['/fileupload'] }
         ];
@@ -92,7 +98,7 @@ export class SplitButtonDisabledDemo {
                     this.delete();
                 }
             },
-            { label: 'Angular Website', url: 'http://angular.io' },
+            { label: 'Angular.dev', url: 'https://angular.dev' },
             { separator: true },
             { label: 'Upload', routerLink: ['/fileupload'] }
         ];

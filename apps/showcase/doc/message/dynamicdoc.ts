@@ -1,9 +1,15 @@
 import { Code } from '@/domain/code';
 import { Component, signal } from '@angular/core';
+import { CommonModule } from '@angular/common';
+import { MessageModule } from 'primeng/message';
+import { ButtonModule } from 'primeng/button';
+import { AppCodeModule } from '@/components/doc/app.code';
+import { AppDocSectionText } from '@/components/doc/app.docsectiontext';
 
 @Component({
     selector: 'dynamic-doc',
-    standalone: false,
+    standalone: true,
+    imports: [CommonModule, MessageModule, ButtonModule, AppCodeModule, AppDocSectionText],
     template: `
         <app-docsectiontext>
             <p>Multiple messages can be displayed using the standard <i>for</i> block.</p>

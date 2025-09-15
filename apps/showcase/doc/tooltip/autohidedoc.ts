@@ -1,9 +1,14 @@
 import { Code } from '@/domain/code';
 import { Component } from '@angular/core';
+import { AppCode } from '@/components/doc/app.code';
+import { AppDocSectionText } from '@/components/doc/app.docsectiontext';
+import { InputTextModule } from 'primeng/inputtext';
+import { TooltipModule } from 'primeng/tooltip';
 
 @Component({
     selector: 'auto-hide-doc',
-    standalone: false,
+    standalone: true,
+    imports: [AppCode, AppDocSectionText, InputTextModule, TooltipModule],
     template: `
         <app-docsectiontext>
             <p>

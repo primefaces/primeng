@@ -1,8 +1,10 @@
 import { Component } from '@angular/core';
+import { AppDocSectionText } from '@/components/doc/app.docsectiontext';
 
 @Component({
     selector: 'chip-accessibility-doc',
-    standalone: false,
+    standalone: true,
+    imports: [AppDocSectionText],
     template: ` <div>
         <app-docsectiontext>
             <div class="doc-section-description">

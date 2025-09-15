@@ -2,10 +2,17 @@ import { Code } from '@/domain/code';
 import { Product } from '@/domain/product';
 import { ProductService } from '@/service/productservice';
 import { ChangeDetectorRef, Component, OnInit } from '@angular/core';
+import { CommonModule } from '@angular/common';
+import { AppDocSectionText } from '@/components/doc/app.docsectiontext';
+import { AppCode } from '@/components/doc/app.code';
+import { CarouselModule } from 'primeng/carousel';
+import { ButtonModule } from 'primeng/button';
+import { TagModule } from 'primeng/tag';
 
 @Component({
     selector: 'carousel-template-demo',
-    standalone: false,
+    standalone: true,
+    imports: [CommonModule, AppDocSectionText, AppCode, CarouselModule, ButtonModule, TagModule],
     template: `
         <app-docsectiontext>
             <p>Custom content projection is available using the <i>header</i> and <i>footer</i> templates.</p>
@@ -20,7 +27,7 @@ import { ChangeDetectorRef, Component, OnInit } from '@angular/core';
                         <div class="mb-4">
                             <div class="relative mx-auto">
                                 <img src="https://primefaces.org/cdn/primeng/images/demo/product/{{ product.image }}" [alt]="product.name" class="w-full rounded-border" />
-                                <p-tag [value]="product.inventoryStatus" [severity]="getSeverity(product.inventoryStatus)" class="absolute" styleClass="dark:!bg-surface-900" [ngStyle]="{ 'left.px': 5, 'top.px': 5 }" />
+                                <p-tag [value]="product.inventoryStatus" [severity]="getSeverity(product.inventoryStatus)" class="absolute dark:!bg-surface-900" [ngStyle]="{ 'left.px': 5, 'top.px': 5 }" />
                             </div>
                         </div>
                         <div class="mb-4 font-medium">{{ product.name }}</div>
@@ -107,8 +114,7 @@ export class TemplateDoc implements OnInit {
                         <p-tag
                             [value]="product.inventoryStatus"
                             [severity]="getSeverity(product.inventoryStatus)"
-                            class="absolute"
-                            styleClass="dark:!bg-surface-900"
+                            class="absolute dark:!bg-surface-900"
                             [ngStyle]="{ 'left.px': 5, 'top.px': 5 }" />
                     </div>
                 </div>
@@ -150,8 +156,7 @@ export class TemplateDoc implements OnInit {
                             <p-tag
                                 [value]="product.inventoryStatus"
                                 [severity]="getSeverity(product.inventoryStatus)"
-                                class="absolute"
-                                styleClass="dark:!bg-surface-900"
+                                class="absolute dark:!bg-surface-900"
                                 [ngStyle]="{ 'left.px': 5, 'top.px': 5 }" />
                         </div>
                     </div>

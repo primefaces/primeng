@@ -1,10 +1,14 @@
+import { AppCode } from '@/components/doc/app.code';
+import { AppDocSectionText } from '@/components/doc/app.docsectiontext';
 import { Code } from '@/domain/code';
 import { Component, OnInit } from '@angular/core';
 import { MenuItem } from 'primeng/api';
+import { StepsModule } from 'primeng/steps';
 
 @Component({
     selector: 'basic-doc',
-    standalone: false,
+    standalone: true,
+    imports: [AppDocSectionText, StepsModule, AppCode],
     template: `
         <app-docsectiontext>
             <p>Steps requires a collection of menuitems as its <i>model</i>.</p>

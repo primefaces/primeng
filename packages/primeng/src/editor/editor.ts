@@ -1,11 +1,11 @@
 import { CommonModule, isPlatformServer } from '@angular/common';
-import { AfterContentInit, afterNextRender, ChangeDetectionStrategy, Component, ContentChild, ContentChildren, EventEmitter, forwardRef, inject, Input, NgModule, Output, QueryList, TemplateRef, ViewEncapsulation } from '@angular/core';
-import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
+import { AfterContentInit, afterNextRender, ChangeDetectionStrategy, Component, ContentChild, ContentChildren, EventEmitter, forwardRef, inject, Input, NgModule, OnDestroy, Output, QueryList, TemplateRef, ViewEncapsulation } from '@angular/core';
+import { NG_VALUE_ACCESSOR } from '@angular/forms';
 import { findSingle } from '@primeuix/utils';
 import { Header, PrimeTemplate, SharedModule } from 'primeng/api';
-import { BaseComponent } from 'primeng/basecomponent';
+import { BaseEditableHolder } from 'primeng/baseeditableholder';
 import { Nullable } from 'primeng/ts-helpers';
-import { EditorInitEvent, EditorSelectionChangeEvent, EditorTextChangeEvent } from './editor.interface';
+import { EditorBlurEvent, EditorChangeEvent, EditorFocusEvent, EditorInitEvent, EditorSelectionChangeEvent, EditorTextChangeEvent } from './editor.interface';
 import { EditorStyle } from './style/editorstyle';
 
 export const EDITOR_VALUE_ACCESSOR: any = {
@@ -22,63 +22,61 @@ export const EDITOR_VALUE_ACCESSOR: any = {
     standalone: true,
     imports: [CommonModule, SharedModule],
     template: `
-        <div [ngClass]="'p-editor-container'" [class]="styleClass">
-            <div class="p-editor-toolbar" *ngIf="toolbar || headerTemplate || _headerTemplate">
-                <ng-content select="p-header"></ng-content>
-                <ng-container *ngTemplateOutlet="headerTemplate || _headerTemplate"></ng-container>
-            </div>
-            <div class="p-editor-toolbar" *ngIf="!toolbar && !headerTemplate && !_headerTemplate">
-                <span class="ql-formats">
-                    <select class="ql-header">
-                        <option value="1">Heading</option>
-                        <option value="2">Subheading</option>
-                        <option selected>Normal</option>
-                    </select>
-                    <select class="ql-font">
-                        <option selected>Sans Serif</option>
-                        <option value="serif">Serif</option>
-                        <option value="monospace">Monospace</option>
-                    </select>
-                </span>
-                <span class="ql-formats">
-                    <button class="ql-bold" aria-label="Bold" type="button"></button>
-                    <button class="ql-italic" aria-label="Italic" type="button"></button>
-                    <button class="ql-underline" aria-label="Underline" type="button"></button>
-                </span>
-                <span class="ql-formats">
-                    <select class="ql-color"></select>
-                    <select class="ql-background"></select>
-                </span>
-                <span class="ql-formats">
-                    <button class="ql-list" value="ordered" aria-label="Ordered List" type="button"></button>
-                    <button class="ql-list" value="bullet" aria-label="Unordered List" type="button"></button>
-                    <select class="ql-align">
-                        <option selected></option>
-                        <option value="center">center</option>
-                        <option value="right">right</option>
-                        <option value="justify">justify</option>
-                    </select>
-                </span>
-                <span class="ql-formats">
-                    <button class="ql-link" aria-label="Insert Link" type="button"></button>
-                    <button class="ql-image" aria-label="Insert Image" type="button"></button>
-                    <button class="ql-code-block" aria-label="Insert Code Block" type="button"></button>
-                </span>
-                <span class="ql-formats">
-                    <button class="ql-clean" aria-label="Remove Styles" type="button"></button>
-                </span>
-            </div>
-            <div class="p-editor-content" [ngStyle]="style"></div>
+        <div [class]="cx('toolbar')" *ngIf="toolbar || headerTemplate || _headerTemplate">
+            <ng-content select="p-header"></ng-content>
+            <ng-container *ngTemplateOutlet="headerTemplate || _headerTemplate"></ng-container>
         </div>
+        <div [class]="cx('toolbar')" *ngIf="!toolbar && !headerTemplate && !_headerTemplate">
+            <span class="ql-formats">
+                <select class="ql-header">
+                    <option value="1">Heading</option>
+                    <option value="2">Subheading</option>
+                    <option selected>Normal</option>
+                </select>
+                <select class="ql-font">
+                    <option selected>Sans Serif</option>
+                    <option value="serif">Serif</option>
+                    <option value="monospace">Monospace</option>
+                </select>
+            </span>
+            <span class="ql-formats">
+                <button class="ql-bold" aria-label="Bold" type="button"></button>
+                <button class="ql-italic" aria-label="Italic" type="button"></button>
+                <button class="ql-underline" aria-label="Underline" type="button"></button>
+            </span>
+            <span class="ql-formats">
+                <select class="ql-color"></select>
+                <select class="ql-background"></select>
+            </span>
+            <span class="ql-formats">
+                <button class="ql-list" value="ordered" aria-label="Ordered List" type="button"></button>
+                <button class="ql-list" value="bullet" aria-label="Unordered List" type="button"></button>
+                <select class="ql-align">
+                    <option selected></option>
+                    <option value="center">center</option>
+                    <option value="right">right</option>
+                    <option value="justify">justify</option>
+                </select>
+            </span>
+            <span class="ql-formats">
+                <button class="ql-link" aria-label="Insert Link" type="button"></button>
+                <button class="ql-image" aria-label="Insert Image" type="button"></button>
+                <button class="ql-code-block" aria-label="Insert Code Block" type="button"></button>
+            </span>
+            <span class="ql-formats">
+                <button class="ql-clean" aria-label="Remove Styles" type="button"></button>
+            </span>
+        </div>
+        <div [class]="cx('content')" [ngStyle]="style"></div>
     `,
     providers: [EDITOR_VALUE_ACCESSOR, EditorStyle],
     changeDetection: ChangeDetectionStrategy.OnPush,
     encapsulation: ViewEncapsulation.None,
     host: {
-        class: 'p-editor'
+        '[class]': "cn(cx('root'), styleClass)"
     }
 })
-export class Editor extends BaseComponent implements AfterContentInit, ControlValueAccessor {
+export class Editor extends BaseEditableHolder implements AfterContentInit, OnDestroy {
     /**
      * Inline style of the container.
      * @group Props
@@ -86,6 +84,7 @@ export class Editor extends BaseComponent implements AfterContentInit, ControlVa
     @Input() style: { [klass: string]: any } | null | undefined;
     /**
      * Style class of the container.
+     * @deprecated since v20.0.0, use `class` instead.
      * @group Props
      */
     @Input() styleClass: string | undefined;
@@ -95,12 +94,12 @@ export class Editor extends BaseComponent implements AfterContentInit, ControlVa
      */
     @Input() placeholder: string | undefined;
     /**
-     * Whitelist of formats to display, see here for available options.
+     * Whitelist of formats to display, see [here](https://quilljs.com/docs/formats/) for available options.
      * @group Props
      */
     @Input() formats: string[] | undefined;
     /**
-     * Modules configuration of Editor, see here for available options.
+     * Modules configuration of Editor, see [here](https://quilljs.com/docs/modules/) for available options.
      * @group Props
      */
     @Input() modules: object | undefined;
@@ -152,6 +151,24 @@ export class Editor extends BaseComponent implements AfterContentInit, ControlVa
      * @group Emits
      */
     @Output() onSelectionChange: EventEmitter<EditorSelectionChangeEvent> = new EventEmitter<EditorSelectionChangeEvent>();
+    /**
+     * Callback to invoke when editor content changes (combines both text and selection changes).
+     * @param {EditorChangeEvent} event - custom event.
+     * @group Emits
+     */
+    @Output() onEditorChange: EventEmitter<EditorChangeEvent> = new EventEmitter<EditorChangeEvent>();
+    /**
+     * Callback to invoke when editor receives focus.
+     * @param {EditorFocusEvent} event - custom event.
+     * @group Emits
+     */
+    @Output() onFocus: EventEmitter<EditorFocusEvent> = new EventEmitter<EditorFocusEvent>();
+    /**
+     * Callback to invoke when editor loses focus.
+     * @param {EditorBlurEvent} event - custom event.
+     * @group Emits
+     */
+    @Output() onBlur: EventEmitter<EditorBlurEvent> = new EventEmitter<EditorBlurEvent>();
 
     @ContentChild(Header) toolbar: any;
 
@@ -160,10 +177,6 @@ export class Editor extends BaseComponent implements AfterContentInit, ControlVa
     delayedCommand: Function | null = null;
 
     _readonly: boolean = false;
-
-    onModelChange: Function = () => {};
-
-    onModelTouched: Function = () => {};
 
     quill: any;
 
@@ -184,6 +197,10 @@ export class Editor extends BaseComponent implements AfterContentInit, ControlVa
     }
 
     private quillElements!: { editorElement: HTMLElement; toolbarElement: HTMLElement };
+
+    private focusListener: (() => void) | null = null;
+
+    private blurListener: (() => void) | null = null;
 
     _componentStyle = inject(EditorStyle);
 
@@ -208,7 +225,13 @@ export class Editor extends BaseComponent implements AfterContentInit, ControlVa
         });
     }
 
-    writeValue(value: any): void {
+    /**
+     * @override
+     *
+     * @see {@link BaseEditableHolder.writeControlValue}
+     * Writes the value to the control.
+     */
+    writeControlValue(value: any): void {
         this.value = value;
 
         if (this.quill) {
@@ -234,14 +257,6 @@ export class Editor extends BaseComponent implements AfterContentInit, ControlVa
                 }
             }
         }
-    }
-
-    registerOnChange(fn: Function): void {
-        this.onModelChange = fn;
-    }
-
-    registerOnTouched(fn: Function): void {
-        this.onModelTouched = fn;
     }
 
     getQuill() {
@@ -292,7 +307,7 @@ export class Editor extends BaseComponent implements AfterContentInit, ControlVa
             this.quill.setContents(this.quill.clipboard.convert(isQuill2 ? { html: this.value } : this.value));
         }
 
-        this.quill.on('text-change', (delta: any, oldContents: any, source: any) => {
+        this.quill.on('text-change', (delta: any, oldContents: any, source: 'user' | 'api' | 'silent') => {
             if (source === 'user') {
                 let html = isQuill2 ? this.quill.getSemanticHTML() : findSingle(editorElement, '.ql-editor').innerHTML;
                 let text = this.quill.getText().trim();
@@ -312,7 +327,7 @@ export class Editor extends BaseComponent implements AfterContentInit, ControlVa
             }
         });
 
-        this.quill.on('selection-change', (range: string, oldRange: string, source: string) => {
+        this.quill.on('selection-change', (range: any, oldRange: any, source: 'user' | 'api' | 'silent') => {
             this.onSelectionChange.emit({
                 range: range,
                 oldRange: oldRange,
@@ -320,9 +335,47 @@ export class Editor extends BaseComponent implements AfterContentInit, ControlVa
             });
         });
 
+        this.quill.on('editor-change', (eventName: 'text-change' | 'selection-change', ...args: any[]) => {
+            this.onEditorChange.emit({
+                eventName: eventName,
+                args: args
+            });
+        });
+
+        const editorEl = this.quill.root;
+
+        this.focusListener = () => {
+            this.onFocus.emit({
+                source: 'user'
+            });
+        };
+
+        this.blurListener = () => {
+            this.onBlur.emit({
+                source: 'user'
+            });
+        };
+
+        editorEl.addEventListener('focus', this.focusListener);
+        editorEl.addEventListener('blur', this.blurListener);
+
         this.onInit.emit({
             editor: this.quill
         });
+    }
+
+    ngOnDestroy(): void {
+        if (this.quill && this.quill.root) {
+            const editorEl = this.quill.root;
+            if (this.focusListener) {
+                editorEl.removeEventListener('focus', this.focusListener);
+                this.focusListener = null;
+            }
+            if (this.blurListener) {
+                editorEl.removeEventListener('blur', this.blurListener);
+                this.blurListener = null;
+            }
+        }
     }
 
     private initQuillElements(): void {

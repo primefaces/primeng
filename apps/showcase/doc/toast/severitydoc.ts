@@ -1,10 +1,16 @@
 import { Code } from '@/domain/code';
 import { Component } from '@angular/core';
 import { MessageService } from 'primeng/api';
+import { AppDocSectionText } from '@/components/doc/app.docsectiontext';
+import { AppCode } from '@/components/doc/app.code';
+import { ToastModule } from 'primeng/toast';
+import { ButtonModule } from 'primeng/button';
+import { Ripple } from 'primeng/ripple';
 
 @Component({
     selector: 'severity-doc',
-    standalone: false,
+    standalone: true,
+    imports: [AppDocSectionText, AppCode, ToastModule, ButtonModule, Ripple],
     template: `
         <app-docsectiontext>
             <p>

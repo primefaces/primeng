@@ -2,15 +2,15 @@ import { AccessibilityDoc } from '@/doc/organizationchart/accessibilitydoc';
 import { BasicDoc } from '@/doc/organizationchart/basicdoc';
 import { ColoredDoc } from '@/doc/organizationchart/colored.doc';
 import { ImportDoc } from '@/doc/organizationchart/importdoc';
-import { OrganizationChartDocModule } from '@/doc/organizationchart/organizationchartdoc.module';
 import { SelectionDoc } from '@/doc/organizationchart/selectiondoc';
 import { TemplateDoc } from '@/doc/organizationchart/templatedoc';
 import { Component } from '@angular/core';
+import { AppDoc } from '@/components/doc/app.doc';
 
 @Component({
     template: ` <app-doc docTitle="Angular Organization Chart Component" header="OrganizationChart" description="OrganizationChart visualizes hierarchical organization data." [docs]="docs" [apiDocs]="['OrganizationChart']"></app-doc>`,
     standalone: true,
-    imports: [OrganizationChartDocModule],
+    imports: [AppDoc],
     styleUrl: './organizationchartdemo.scss'
 })
 export class OrganizationChartDemo {
@@ -40,7 +40,6 @@ export class OrganizationChartDemo {
             label: 'Colored',
             component: ColoredDoc
         },
-
         {
             id: 'accessibility',
             label: 'Accessibility',

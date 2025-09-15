@@ -1,9 +1,13 @@
 import { Code } from '@/domain/code';
 import { Component } from '@angular/core';
+import { RouterModule } from '@angular/router';
+import { AppCodeModule } from '@/components/doc/app.code';
+import { AppDocSectionText } from '@/components/doc/app.docsectiontext';
 
 @Component({
     selector: 'order-list-accessibility-doc',
-    standalone: false,
+    standalone: true,
+    imports: [RouterModule, AppCodeModule, AppDocSectionText],
     template: ` <app-docsectiontext>
         <h3>Screen Reader</h3>
         <p>

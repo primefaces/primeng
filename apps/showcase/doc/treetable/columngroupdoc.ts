@@ -1,10 +1,14 @@
 import { Code } from '@/domain/code';
 import { ChangeDetectionStrategy, Component } from '@angular/core';
 import { TreeNode } from 'primeng/api';
+import { TreeTableModule } from 'primeng/treetable';
+import { DeferredDemo } from '@/components/demo/deferreddemo';
+import { AppCode } from '@/components/doc/app.code';
 
 @Component({
     selector: 'column-group-doc',
-    standalone: false,
+    standalone: true,
+    imports: [TreeTableModule, DeferredDemo, AppCode],
     template: `
         <div class="card">
             <p-deferred-demo (load)="loadDemoData()">

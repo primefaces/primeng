@@ -1,3 +1,2 @@
-import { GalleriaDesignTokens } from '../../types/galleria';
-declare const _default: GalleriaDesignTokens;
-export default _default;
+export * from '@primeuix/themes/material/galleria';
+export { default } from '@primeuix/themes/material/galleria';

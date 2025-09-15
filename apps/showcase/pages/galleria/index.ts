@@ -7,7 +7,6 @@ import { ControlledDoc } from '@/doc/galleria/controlleddoc';
 import { CustomContentDoc } from '@/doc/galleria/fullscreen/customcontentdoc';
 import { WithoutThumbnailsDoc } from '@/doc/galleria/fullscreen/withoutthumbnailsdoc';
 import { WithThumbnailsDoc } from '@/doc/galleria/fullscreen/withthumbnailsdoc';
-import { GalleriaDocModule } from '@/doc/galleria/galleriadoc.module';
 import { ImportDoc } from '@/doc/galleria/importdoc';
 import { ClickEventDoc } from '@/doc/galleria/indicator/clickeventdoc';
 import { HoverEventDoc } from '@/doc/galleria/indicator/hovereventdoc';
@@ -20,11 +19,12 @@ import { ItemWithoutThumbnailsDoc } from '@/doc/galleria/navigator/itemwithoutth
 import { ResponsiveDoc } from '@/doc/galleria/responsivedoc';
 import { ThumbnailDoc } from '@/doc/galleria/thumbnaildoc';
 import { Component } from '@angular/core';
+import { AppDoc } from '@/components/doc/app.doc';
 
 @Component({
     template: ` <app-doc docTitle="Angular Gallery Component" header="Galleria" description="Galleria is an advanced content gallery component." [docs]="docs" [apiDocs]="['Galleria']"></app-doc>`,
     standalone: true,
-    imports: [GalleriaDocModule],
+    imports: [AppDoc],
     styleUrl: './galleriademo.scss'
 })
 export class GalleriaDemo {

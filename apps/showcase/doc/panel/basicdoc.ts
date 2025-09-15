@@ -1,9 +1,13 @@
 import { Code } from '@/domain/code';
 import { Component } from '@angular/core';
+import { PanelModule } from 'primeng/panel';
+import { AppCode } from '@/components/doc/app.code';
+import { AppDocSectionText } from '@/components/doc/app.docsectiontext';
 
 @Component({
     selector: 'basic-doc',
-    standalone: false,
+    standalone: true,
+    imports: [PanelModule, AppCode, AppDocSectionText],
     template: `
         <app-docsectiontext>
             <p>A simple Panel is created with a <i>header</i> property along with the content as children.</p>

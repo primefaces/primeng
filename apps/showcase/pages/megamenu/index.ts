@@ -2,15 +2,16 @@ import { AccessibilityDoc } from '@/doc/megamenu/accessibilitydoc';
 import { BasicDoc } from '@/doc/megamenu/basicdoc';
 import { CommandDoc } from '@/doc/megamenu/commanddoc';
 import { ImportDoc } from '@/doc/megamenu/importdoc';
-import { MegaMenuDocModule } from '@/doc/megamenu/megamenudoc.module';
 import { RouterDoc } from '@/doc/megamenu/routerdoc';
 import { TemplateDoc } from '@/doc/megamenu/templatedoc';
 import { VerticalDoc } from '@/doc/megamenu/verticaldoc';
 import { Component } from '@angular/core';
+import { AppDoc } from '@/components/doc/app.doc';
+import { AppDocService } from '@/components/doc/app.doc.service';
 
 @Component({
     standalone: true,
-    imports: [MegaMenuDocModule],
+    imports: [AppDoc],
     template: `<app-doc docTitle="Angular MegaMenu Component" header="MegaMenu" description="MegaMenu is navigation component that displays submenus together." [docs]="docs" [apiDocs]="['MegaMenu', 'MegaMenuItem']" themeDocs="megamenu"></app-doc>`,
     styles: [
         `
@@ -20,7 +21,8 @@ import { Component } from '@angular/core';
                 }
             }
         `
-    ]
+    ],
+    providers: [AppDocService]
 })
 export class MegaMenuDemo {
     docs = [
@@ -54,7 +56,6 @@ export class MegaMenuDemo {
             label: 'Router',
             component: RouterDoc
         },
-
         {
             id: 'accessibility',
             label: 'Accessibility',

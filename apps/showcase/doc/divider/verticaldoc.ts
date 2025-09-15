@@ -1,9 +1,13 @@
 import { Code } from '@/domain/code';
 import { Component } from '@angular/core';
+import { AppCode } from '@/components/doc/app.code';
+import { AppDocSectionText } from '@/components/doc/app.docsectiontext';
+import { DividerModule } from 'primeng/divider';
 
 @Component({
     selector: 'divider-vertical-demo',
-    standalone: false,
+    standalone: true,
+    imports: [AppCode, AppDocSectionText, DividerModule],
     template: `
         <app-docsectiontext>
             <p>Vertical divider is enabled by setting the <i>layout</i> property as <i>vertical</i>.</p>

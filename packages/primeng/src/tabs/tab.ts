@@ -6,6 +6,7 @@ import { BaseComponent } from 'primeng/basecomponent';
 import { Ripple } from 'primeng/ripple';
 import { TabList } from './tablist';
 import { Tabs } from './tabs';
+import { TabStyle } from './style/tabstyle';
 
 /**
  * Defines valid properties in Tab component.
@@ -19,10 +20,7 @@ import { Tabs } from './tabs';
     changeDetection: ChangeDetectionStrategy.OnPush,
     encapsulation: ViewEncapsulation.None,
     host: {
-        '[class.p-tab]': 'true',
-        '[class.p-tab-active]': 'active()',
-        '[class.p-disabled]': 'disabled()',
-        '[class.p-component]': 'true',
+        '[class]': 'cx("root")',
         '[attr.data-pc-name]': '"tab"',
         '[attr.id]': 'id()',
         '[attr.aria-controls]': 'ariaControls()',
@@ -32,7 +30,8 @@ import { Tabs } from './tabs';
         '[attr.data-p-active]': 'active()',
         '[attr.tabindex]': 'tabindex()'
     },
-    hostDirectives: [Ripple]
+    hostDirectives: [Ripple],
+    providers: [TabStyle]
 })
 export class Tab extends BaseComponent implements AfterViewInit, OnDestroy {
     /**
@@ -53,6 +52,8 @@ export class Tab extends BaseComponent implements AfterViewInit, OnDestroy {
     pcTabList = inject(forwardRef(() => TabList));
 
     el = inject(ElementRef);
+
+    _componentStyle = inject(TabStyle);
 
     ripple = computed(() => this.config.ripple());
 

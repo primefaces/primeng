@@ -1,10 +1,10 @@
 import { CommonModule, isPlatformBrowser } from '@angular/common';
-import { ChangeDetectionStrategy, ChangeDetectorRef, Component, ElementRef, Inject, Input, NgModule, PLATFORM_ID, ViewEncapsulation } from '@angular/core';
-import { SharedModule } from 'primeng/api';
+import { ChangeDetectionStrategy, ChangeDetectorRef, Component, ElementRef, Inject, Input, PLATFORM_ID, ViewEncapsulation } from '@angular/core';
 
 @Component({
     selector: 'template-features-animation-inline',
-    standalone: false,
+    standalone: true,
+    imports: [CommonModule],
     template: `
         <div class="w-full py-8 rounded-xl bg-surface-50 dark:bg-surface-800 relative flex flex-col items-center justify-center">
             <div class="hidden sm:flex items-center gap-0.5 xl:gap-1 rounded-full border border-surface p-1 w-[90%] bg-surface-0 dark:bg-surface-900">
@@ -110,10 +110,3 @@ export class TemplateFeaturesAnimationInline {
         }
     }
 }
-
-@NgModule({
-    imports: [CommonModule, SharedModule],
-    exports: [TemplateFeaturesAnimationInline, SharedModule],
-    declarations: [TemplateFeaturesAnimationInline]
-})
-export class TemplateFeaturesAnimationInlineModule {}

@@ -14,23 +14,17 @@ import { AvatarStyle } from './style/avatarstyle';
     imports: [CommonModule, SharedModule],
     template: `
         <ng-content></ng-content>
-        <span class="p-avatar-text" *ngIf="label; else iconTemplate">{{ label }}</span>
-        <ng-template #iconTemplate><span [class]="icon" [ngClass]="'p-avatar-icon'" *ngIf="icon; else imageTemplate"></span></ng-template>
+        <span [class]="cx('label')" *ngIf="label; else iconTemplate">{{ label }}</span>
+        <ng-template #iconTemplate><span [class]="icon" [ngClass]="cx('icon')" *ngIf="icon; else imageTemplate"></span></ng-template>
         <ng-template #imageTemplate> <img [src]="image" *ngIf="image" (error)="imageError($event)" [attr.aria-label]="ariaLabel" /></ng-template>
     `,
     changeDetection: ChangeDetectionStrategy.OnPush,
     encapsulation: ViewEncapsulation.None,
     host: {
-        '[class.p-avatar]': 'true',
-        '[class.p-component]': 'true',
-        '[class.p-avatar-circle]': 'shape === "circle"',
-        '[class.p-avatar-lg]': 'size === "large"',
-        '[class.p-avatar-xl]': 'size === "xlarge"',
-        '[class.p-avatar-image]': 'image != null',
+        '[class]': "cn(cx('root'), styleClass)",
         '[attr.data-pc-name]': '"avatar"',
         '[attr.aria-label]': 'ariaLabel',
-        '[attr.aria-labelledby]': 'ariaLabelledBy',
-        '[style]': 'style'
+        '[attr.aria-labelledby]': 'ariaLabelledBy'
     },
     providers: [AvatarStyle]
 })
@@ -61,12 +55,8 @@ export class Avatar extends BaseComponent {
      */
     @Input() shape: 'square' | 'circle' | undefined = 'square';
     /**
-     * Inline style of the element.
-     * @group Props
-     */
-    @Input() style: { [klass: string]: any } | null | undefined;
-    /**
      * Class of the element.
+     * @deprecated since v20.0.0, use `class` instead.
      * @group Props
      */
     @Input() styleClass: string | undefined;
@@ -91,10 +81,6 @@ export class Avatar extends BaseComponent {
 
     imageError(event: Event) {
         this.onImageError.emit(event);
-    }
-
-    @HostBinding('class') get hostClass(): any {
-        return this.styleClass;
     }
 }
 

@@ -1,4 +1,3 @@
-import { ConfigurationDocModule } from '@/doc/configuration/configurationdoc.module';
 import { CspDoc } from '@/doc/configuration/cspdoc';
 import { DynamicDoc } from '@/doc/configuration/dynamicdoc';
 import { FilterModeDoc } from '@/doc/configuration/filtermodedoc';
@@ -11,13 +10,13 @@ import { ProviderDoc } from '@/doc/configuration/providerdoc';
 import { RippleDoc } from '@/doc/configuration/rippledoc';
 import { ThemeDoc } from '@/doc/configuration/themedoc';
 import { ZIndexDoc } from '@/doc/configuration/zindexdoc';
-import { CommonModule } from '@angular/common';
 import { Component } from '@angular/core';
+import { AppDoc } from '@/components/doc/app.doc';
 
 @Component({
     selector: 'configuration',
     standalone: true,
-    imports: [CommonModule, ConfigurationDocModule],
+    imports: [AppDoc],
     template: `<app-doc docTitle="Configuration - PrimeNG" header="Configuration" description="Application wide configuration for PrimeNG." [docs]="docs"></app-doc>`
 })
 export class ConfigurationDemo {

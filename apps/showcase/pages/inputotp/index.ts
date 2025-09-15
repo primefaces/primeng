@@ -1,17 +1,19 @@
 import { AccessibilityDoc } from '@/doc/inputotp/accessibilitydoc';
 import { BasicDoc } from '@/doc/inputotp/basicdoc';
 import { ImportDoc } from '@/doc/inputotp/importdoc';
-import { InputOtpDocModule } from '@/doc/inputotp/inputotpdoc.module';
 import { IntegerOnlyDoc } from '@/doc/inputotp/integeronlydoc';
 import { MaskDoc } from '@/doc/inputotp/maskdoc';
+import { ReactiveFormsDoc } from '@/doc/inputotp/reactiveformsdoc';
 import { SampleDoc } from '@/doc/inputotp/sampledoc';
 import { SizesDoc } from '@/doc/inputotp/sizesdoc';
 import { TemplateDoc } from '@/doc/inputotp/templatedoc';
+import { TemplateDrivenFormsDoc } from '@/doc/inputotp/templatedrivenformsdoc';
 import { Component, ViewEncapsulation } from '@angular/core';
+import { AppDoc } from '@/components/doc/app.doc';
 
 @Component({
     standalone: true,
-    imports: [InputOtpDocModule],
+    imports: [AppDoc],
     template: ` <app-doc docTitle="Angular Otp Input Component" header="InputOtp" description="Input Otp is used to enter one time passwords." [docs]="docs" [apiDocs]="['InputOtp']" themeDocs="inputotp"></app-doc> `,
     encapsulation: ViewEncapsulation.None
 })
@@ -46,6 +48,14 @@ export class InputOtpDemo {
             id: 'template',
             label: 'Template',
             component: TemplateDoc
+        },
+        {
+            id: 'forms',
+            label: 'Forms',
+            children: [
+                { id: 'templatedriven', label: 'Template Driven', component: TemplateDrivenFormsDoc },
+                { id: 'reactive', label: 'Reactive Forms', component: ReactiveFormsDoc }
+            ]
         },
         {
             id: 'sample',

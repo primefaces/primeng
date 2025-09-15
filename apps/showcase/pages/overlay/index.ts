@@ -7,13 +7,13 @@ import { EventsDoc } from '@/doc/overlay/eventsdoc';
 import { HideOnEscapeDoc } from '@/doc/overlay/hideonescapedoc';
 import { ImportDoc } from '@/doc/overlay/importdoc';
 import { ModeDoc } from '@/doc/overlay/modedoc';
-import { OverlayDocModule } from '@/doc/overlay/overlaydoc.module';
 import { ResponsiveDoc } from '@/doc/overlay/responsivedoc';
 import { StyleDoc } from '@/doc/overlay/styledoc';
 import { TargetDoc } from '@/doc/overlay/targetdoc';
 import { OverlayTemplateDemo } from '@/doc/overlay/templatedoc';
 import { TransitionOptionsDoc } from '@/doc/overlay/transitionoptionsdoc';
 import { Component } from '@angular/core';
+import { AppDoc } from '@/components/doc/app.doc';
 
 @Component({
     template: `<app-doc
@@ -25,7 +25,7 @@ import { Component } from '@angular/core';
         themeDocs="overlay"
     ></app-doc>`,
     standalone: true,
-    imports: [OverlayDocModule]
+    imports: [AppDoc]
 })
 export class OverlayDemo {
     docs = [

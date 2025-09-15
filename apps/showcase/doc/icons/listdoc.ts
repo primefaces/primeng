@@ -1,9 +1,13 @@
 import { default as IconData } from '@/assets/data/icons.json';
 import { Component } from '@angular/core';
+import { CommonModule } from '@angular/common';
+import { InputTextModule } from 'primeng/inputtext';
+import { AppDocSectionText } from '@/components/doc/app.docsectiontext';
 
 @Component({
     selector: 'list-doc',
-    standalone: false,
+    standalone: true,
+    imports: [AppDocSectionText, CommonModule, InputTextModule],
     template: `
         <app-docsectiontext>
             <p>

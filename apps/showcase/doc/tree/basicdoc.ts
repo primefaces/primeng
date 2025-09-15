@@ -2,16 +2,20 @@ import { Code } from '@/domain/code';
 import { NodeService } from '@/service/nodeservice';
 import { Component, OnInit } from '@angular/core';
 import { TreeNode } from 'primeng/api';
+import { TreeModule } from 'primeng/tree';
+import { AppCode } from '@/components/doc/app.code';
+import { AppDocSectionText } from '@/components/doc/app.docsectiontext';
 
 @Component({
     selector: 'basic-doc',
-    standalone: false,
+    standalone: true,
+    imports: [TreeModule, AppCode, AppDocSectionText],
     template: `
         <app-docsectiontext>
             <p>Tree component requires an array of <i>TreeNode</i> objects as its <i>value</i>.</p>
         </app-docsectiontext>
         <div class="card">
-            <p-tree [value]="files" styleClass="w-full md:w-[30rem]" />
+            <p-tree [value]="files" class="w-full md:w-[30rem]" />
         </div>
         <app-code [code]="code" selector="tree-basic-demo"></app-code>
     `
@@ -26,10 +30,10 @@ export class BasicDoc implements OnInit {
     }
 
     code: Code = {
-        basic: `<p-tree [value]="files" styleClass="w-full md:w-[30rem]" />`,
+        basic: `<p-tree [value]="files" class="w-full md:w-[30rem]" />`,
 
         html: `<div class="card">
-    <p-tree [value]="files" styleClass="w-full md:w-[30rem]" />
+    <p-tree [value]="files" class="w-full md:w-[30rem]" />
 </div>`,
 
         typescript: `import { Component, OnInit } from '@angular/core';

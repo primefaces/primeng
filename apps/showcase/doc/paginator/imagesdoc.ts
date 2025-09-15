@@ -1,10 +1,13 @@
 import { Code } from '@/domain/code';
 import { Component } from '@angular/core';
-import { PaginatorState } from 'primeng/paginator';
+import { PaginatorState, PaginatorModule } from 'primeng/paginator';
+import { AppCode } from '@/components/doc/app.code';
+import { AppDocSectionText } from '@/components/doc/app.docsectiontext';
 
 @Component({
     selector: 'images-doc',
-    standalone: false,
+    standalone: true,
+    imports: [PaginatorModule, AppCode, AppDocSectionText],
     template: `
         <app-docsectiontext>
             <p>Sample image gallery implementation using paginator.</p>

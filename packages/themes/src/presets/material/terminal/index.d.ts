@@ -1,3 +1,2 @@
-import { TerminalDesignTokens } from '../../types/terminal';
-declare const _default: TerminalDesignTokens;
-export default _default;
+export * from '@primeuix/themes/material/terminal';
+export { default } from '@primeuix/themes/material/terminal';

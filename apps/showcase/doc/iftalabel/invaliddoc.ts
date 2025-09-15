@@ -1,16 +1,22 @@
 import { Code } from '@/domain/code';
 import { Component } from '@angular/core';
+import { FormsModule } from '@angular/forms';
+import { IftaLabelModule } from 'primeng/iftalabel';
+import { InputTextModule } from 'primeng/inputtext';
+import { AppCodeModule } from '@/components/doc/app.code';
+import { AppDocSectionText } from '@/components/doc/app.docsectiontext';
 
 @Component({
     selector: 'invalid-doc',
-    standalone: false,
+    standalone: true,
+    imports: [AppDocSectionText, AppCodeModule, FormsModule, IftaLabelModule, InputTextModule],
     template: `
         <app-docsectiontext>
             <p>When the form element is invalid, the label is also highlighted.</p>
         </app-docsectiontext>
         <div class="card flex justify-center">
             <p-iftalabel>
-                <input pInputText id="username" [(ngModel)]="value" class="ng-dirty ng-invalid" autocomplete="off" />
+                <input pInputText id="username" [(ngModel)]="value" [invalid]="!value" autocomplete="off" />
                 <label for="username">Username</label>
             </p-iftalabel>
         </div>
@@ -22,13 +28,13 @@ export class InvalidDoc {
 
     code: Code = {
         basic: `<p-iftalabel>
-    <input pInputText id="username" [(ngModel)]="value" class="ng-dirty ng-invalid" />
+    <input pInputText id="username" [(ngModel)]="value" [invalid]="!value" />
     <label for="username">Username</label>
 </p-iftalabel>`,
 
         html: `<div class="card flex justify-center">
     <p-iftalabel>
-        <input pInputText id="username" [(ngModel)]="value" class="ng-dirty ng-invalid" />
+        <input pInputText id="username" [(ngModel)]="value" [invalid]="!value" />
         <label for="username">Username</label>
     </p-iftalabel>
 </div>`,

@@ -1,9 +1,13 @@
 import { Code } from '@/domain/code';
 import { Component } from '@angular/core';
+import { DividerModule } from 'primeng/divider';
+import { AppCode } from '@/components/doc/app.code';
+import { AppDocSectionText } from '@/components/doc/app.docsectiontext';
 
 @Component({
     selector: 'divider-basic-demo',
-    standalone: false,
+    standalone: true,
+    imports: [DividerModule, AppCode, AppDocSectionText],
     template: `
         <app-docsectiontext>
             <p>Divider is basically placed between the items to separate.</p>

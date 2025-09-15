@@ -1,9 +1,13 @@
 import { Code } from '@/domain/code';
 import { Component } from '@angular/core';
+import { AppDocSectionText } from '@/components/doc/app.docsectiontext';
+import { AppCode } from '@/components/doc/app.code';
+import { AvatarModule } from 'primeng/avatar';
 
 @Component({
     selector: 'avatar-template-demo',
-    standalone: false,
+    standalone: true,
+    imports: [AppDocSectionText, AppCode, AvatarModule],
     template: `
         <app-docsectiontext>
             <p>Content can easily be customized with the dynamic content instead of using the built-in modes.</p>

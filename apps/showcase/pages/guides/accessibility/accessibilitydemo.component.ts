@@ -5,10 +5,12 @@ import { SemanticHTMLDoc } from '@/doc/guides/accessibility/semantichtmldoc';
 import { WAIARIADoc } from '@/doc/guides/accessibility/waiariadoc';
 import { WCAGDoc } from '@/doc/guides/accessibility/wcagdoc';
 import { Component } from '@angular/core';
+import { AppDoc } from '@/components/doc/app.doc';
 
 @Component({
     selector: 'accessibility',
-    standalone: false,
+    standalone: true,
+    imports: [AppDoc],
     templateUrl: './accessibilitydemo.component.html'
 })
 export class AccessibilityDemoComponent {

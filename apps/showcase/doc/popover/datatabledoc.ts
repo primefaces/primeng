@@ -2,12 +2,20 @@ import { Code } from '@/domain/code';
 import { Product } from '@/domain/product';
 import { ProductService } from '@/service/productservice';
 import { ChangeDetectorRef, Component, OnInit, ViewChild } from '@angular/core';
+import { CommonModule } from '@angular/common';
 import { MessageService } from 'primeng/api';
-import { Popover } from 'primeng/popover';
+import { Popover, PopoverModule } from 'primeng/popover';
+import { TableModule } from 'primeng/table';
+import { ButtonModule } from 'primeng/button';
+import { TagModule } from 'primeng/tag';
+import { AppCode } from '@/components/doc/app.code';
+import { AppDocSectionText } from '@/components/doc/app.docsectiontext';
 
 @Component({
     selector: 'data-table-doc',
-    standalone: false,
+    standalone: true,
+    imports: [CommonModule, PopoverModule, TableModule, ButtonModule, TagModule, AppCode, AppDocSectionText],
+    providers: [MessageService, ProductService],
     template: `
         <app-docsectiontext>
             <p>Place the Popover outside of the data iteration components to avoid rendering it multiple times.</p>
@@ -19,7 +27,7 @@ import { Popover } from 'primeng/popover';
                         <th class="w-1/6">Id</th>
                         <th class="w-1/6">Code</th>
                         <th class="w-1/6">Name</th>
-                        <th class="w-1/6" pSortableColumn="price">Price <p-sortIcon field="price" /></th>
+                        <th class="w-1/6">Price</th>
                         <th class="w-1/6">Image</th>
                         <th class="w-1/6">Details</th>
                     </tr>
@@ -45,7 +53,7 @@ import { Popover } from 'primeng/popover';
                         <div class="flex justify-center rounded">
                             <div class="relative mx-auto">
                                 <img class="rounded w-44 sm:w-64" [src]="'https://primefaces.org/cdn/primeng/images/demo/product/' + selectedProduct.image" [alt]="selectedProduct.name" />
-                                <p-tag [value]="selectedProduct.inventoryStatus" [severity]="getSeverity(selectedProduct)" class="absolute" styleClass="dark:!bg-surface-900" [style.left.px]="4" [style.top.px]="4" />
+                                <p-tag [value]="selectedProduct.inventoryStatus" [severity]="getSeverity(selectedProduct)" class="absolute dark:!bg-surface-900" [style.left.px]="4" [style.top.px]="4" />
                             </div>
                         </div>
                         <div class="pt-4">
@@ -78,8 +86,7 @@ import { Popover } from 'primeng/popover';
             </p-popover>
         </div>
         <app-code [code]="code" selector="popover-data-table-demo" [extFiles]="extFiles"></app-code>
-    `,
-    providers: [MessageService]
+    `
 })
 export class DataTableDoc implements OnInit {
     constructor(
@@ -106,7 +113,7 @@ export class DataTableDoc implements OnInit {
             <th class="w-1/6">Id</th>
             <th class="w-1/6">Code</th>
             <th class="w-1/6">Name</th>
-            <th class="w-1/6" pSortableColumn="price">Price <p-sortIcon field="price" /></th>
+            <th class="w-1/6">Price</th>
             <th class="w-1/6">Image</th>
             <th class="w-1/6">Details</th>
         </tr>
@@ -143,8 +150,7 @@ export class DataTableDoc implements OnInit {
                     <p-tag
                         [value]="selectedProduct.inventoryStatus"
                         [severity]="getSeverity(selectedProduct)"
-                        class="absolute"
-                        styleClass="dark:!bg-surface-900"
+                        class="absolute dark:!bg-surface-900"
                         [style.left.px]="4"
                         [style.top.px]="4"
                     />
@@ -191,7 +197,7 @@ export class DataTableDoc implements OnInit {
                 <th class="w-1/6">Id</th>
                 <th class="w-1/6">Code</th>
                 <th class="w-1/6">Name</th>
-                <th class="w-1/6" pSortableColumn="price">Price <p-sortIcon field="price" /></th>
+                <th class="w-1/6">Price</th>
                 <th class="w-1/6">Image</th>
                 <th class="w-1/6">Details</th>
             </tr>
@@ -228,8 +234,7 @@ export class DataTableDoc implements OnInit {
                         <p-tag
                             [value]="selectedProduct.inventoryStatus"
                             [severity]="getSeverity(selectedProduct)"
-                            class="absolute"
-                            styleClass="dark:!bg-surface-900"
+                            class="absolute dark:!bg-surface-900"
                             [style.left.px]="4"
                             [style.top.px]="4"
                         />

@@ -11,15 +11,15 @@ import { LazyDoc } from '@/doc/tree/lazydoc';
 import { MultipleDoc } from '@/doc/tree/multipledoc';
 import { SingleDoc } from '@/doc/tree/singledoc';
 import { TemplateDoc } from '@/doc/tree/templatedoc';
-import { TreeDocModule } from '@/doc/tree/treedoc.module';
 import { VirtualScrollDoc } from '@/doc/tree/virtualscrolldoc';
 import { LazyVirtualScrollDoc } from '@/doc/tree/virtualscrolllazydoc';
 import { Component } from '@angular/core';
+import { AppDoc } from '@/components/doc/app.doc';
 
 @Component({
     template: `<app-doc docTitle="Angular Tree Component" header="Tree" description="Tree is used to display hierarchical data." [docs]="docs" [apiDocs]="['Tree', 'TreeNode']" themeDocs="tree"></app-doc>`,
     standalone: true,
-    imports: [TreeDocModule]
+    imports: [AppDoc]
 })
 export class TreeDemo {
     docs = [

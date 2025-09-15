@@ -1,3 +1,2 @@
-import { ImageDesignTokens } from '../../types/image';
-declare const _default: ImageDesignTokens;
-export default _default;
+export * from '@primeuix/themes/material/image';
+export { default } from '@primeuix/themes/material/image';

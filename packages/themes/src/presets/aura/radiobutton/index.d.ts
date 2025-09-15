@@ -1,3 +1,2 @@
-import { RadioButtonDesignTokens } from '../../types/radiobutton';
-declare const _default: RadioButtonDesignTokens;
-export default _default;
+export * from '@primeuix/themes/aura/radiobutton';
+export { default } from '@primeuix/themes/aura/radiobutton';

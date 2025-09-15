@@ -1,11 +1,11 @@
-import { TemplateSeparatorModule } from '@/components/template/templateseparator';
+import { TemplateSeparator } from '@/components/template/templateseparator';
 import { AppConfigService } from '@/service/appconfigservice';
 import { Component, inject } from '@angular/core';
 
 @Component({
     standalone: true,
     selector: 'avalon-separator',
-    imports: [TemplateSeparatorModule],
+    imports: [TemplateSeparator],
     template: `
         <template-separator>
             <svg width="66" height="32" viewBox="0 0 66 32" fill="none" xmlns="http://www.w3.org/2000/svg">

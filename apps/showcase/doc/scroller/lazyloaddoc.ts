@@ -1,5 +1,9 @@
 import { Code } from '@/domain/code';
 import { ChangeDetectionStrategy, ChangeDetectorRef, Component } from '@angular/core';
+import { ScrollerModule } from 'primeng/scroller';
+import { AppCode } from '@/components/doc/app.code';
+import { AppDocSectionText } from '@/components/doc/app.docsectiontext';
+import { CommonModule } from '@angular/common';
 
 interface LazyEvent {
     first: number;
@@ -7,7 +11,8 @@ interface LazyEvent {
 }
 @Component({
     selector: 'lazy-load-doc',
-    standalone: false,
+    standalone: true,
+    imports: [ScrollerModule, AppCode, AppDocSectionText, CommonModule],
     template: `
         <app-docsectiontext>
             <p>

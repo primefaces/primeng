@@ -15,7 +15,6 @@ import { GridlinesDoc } from '@/doc/treetable/gridlinesdoc';
 import { ImportDoc } from '@/doc/treetable/importdoc';
 import { LazyLoadDoc } from '@/doc/treetable/lazyloaddoc';
 import { PaginatorBasicDoc } from '@/doc/treetable/paginatorbasicdoc';
-import { PaginatorLocaleDoc } from '@/doc/treetable/paginatorlocaledoc';
 import { PaginatorTemplateDoc } from '@/doc/treetable/paginatortemplatedoc';
 import { ReorderDoc } from '@/doc/treetable/reorderdoc';
 import { FrozenColumnsDoc } from '@/doc/treetable/scrollfrozencolumnsdoc';
@@ -29,8 +28,8 @@ import { SizeDoc } from '@/doc/treetable/sizedoc';
 import { SortMultipleColumnsDoc } from '@/doc/treetable/sortmultiplecolumnsdoc';
 import { SortSingleColumnDoc } from '@/doc/treetable/sortsinglecolumndoc';
 import { TemplateDoc } from '@/doc/treetable/templatedoc';
-import { TreeTableDocModule } from '@/doc/treetable/treetabledoc.module';
 import { Component } from '@angular/core';
+import { AppDoc } from '@/components/doc/app.doc';
 
 @Component({
     template: `<app-doc
@@ -42,7 +41,7 @@ import { Component } from '@angular/core';
         themeDocs="treetable"
     ></app-doc>`,
     standalone: true,
-    imports: [TreeTableDocModule]
+    imports: [AppDoc]
 })
 export class TreeTableDemo {
     docs = [
@@ -89,11 +88,6 @@ export class TreeTableDemo {
                     id: 'paginatorbasic',
                     label: 'Basic',
                     component: PaginatorBasicDoc
-                },
-                {
-                    id: 'paginatorlocale',
-                    label: 'Locale',
-                    component: PaginatorLocaleDoc
                 },
                 {
                     id: 'paginatortemplate',

@@ -1,5 +1,11 @@
 import { Code } from '@/domain/code';
 import { Component } from '@angular/core';
+import { CommonModule } from '@angular/common';
+import { AppCode } from '@/components/doc/app.code';
+import { AppDocSectionText } from '@/components/doc/app.docsectiontext';
+import { ButtonModule } from 'primeng/button';
+import { CardModule } from 'primeng/card';
+import { TimelineModule } from 'primeng/timeline';
 
 interface EventItem {
     status?: string;
@@ -11,13 +17,14 @@ interface EventItem {
 
 @Component({
     selector: 'template-doc',
-    standalone: false,
+    standalone: true,
+    imports: [CommonModule, AppDocSectionText, TimelineModule, CardModule, ButtonModule, AppCode],
     template: `
         <app-docsectiontext>
             <p>Sample implementation with custom content and styled markers.</p>
         </app-docsectiontext>
         <div class="card">
-            <p-timeline [value]="events" align="alternate" styleClass="customized-timeline">
+            <p-timeline [value]="events" align="alternate" class="customized-timeline">
                 <ng-template #marker let-event>
                     <span class="flex w-8 h-8 items-center justify-center text-white rounded-full z-10 shadow-sm" [style]="{ 'background-color': event.color }">
                         <i [class]="event.icon"></i>
@@ -51,7 +58,7 @@ export class TemplateDoc {
     }
 
     code: Code = {
-        basic: `<p-timeline [value]="events" align="alternate" styleClass="customized-timeline">
+        basic: `<p-timeline [value]="events" align="alternate" class="customized-timeline">
     <ng-template #marker let-event>
         <span class="flex w-8 h-8 items-center justify-center text-white rounded-full z-10 shadow-sm" [style]="{ 'background-color': event.color }">
             <i [class]="event.icon"></i>
@@ -70,7 +77,7 @@ export class TemplateDoc {
 </p-timeline>`,
 
         html: `<div class="card">
-    <p-timeline [value]="events" align="alternate" styleClass="customized-timeline">
+    <p-timeline [value]="events" align="alternate" class="customized-timeline">
         <ng-template #marker let-event>
             <span class="flex w-8 h-8 items-center justify-center text-white rounded-full z-10 shadow-sm" [style]="{ 'background-color': event.color }">
                 <i [class]="event.icon"></i>

@@ -5,14 +5,14 @@ import { CheckboxDoc } from '@/doc/inputgroup/checkboxdoc';
 import { FloatLabelDoc } from '@/doc/inputgroup/floatlabeldoc';
 import { IftaLabelDoc } from '@/doc/inputgroup/iftalabeldoc';
 import { ImportDoc } from '@/doc/inputgroup/importdoc';
-import { InputGroupDocModule } from '@/doc/inputgroup/inputgroupddoc.module';
 import { MultipleDoc } from '@/doc/inputgroup/multipledoc';
 import { Component } from '@angular/core';
+import { AppDoc } from '@/components/doc/app.doc';
 
 @Component({
     template: `<app-doc docTitle="Angular InputGroup Component" header="InputGroup" description="Text, icon, buttons and other content can be grouped next to an input." [docs]="docs" themeDocs="inputgroup"></app-doc> `,
     standalone: true,
-    imports: [InputGroupDocModule]
+    imports: [AppDoc]
 })
 export class InputGroupDemo {
     docs = [

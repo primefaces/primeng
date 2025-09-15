@@ -2,16 +2,21 @@ import { Code } from '@/domain/code';
 import { NodeService } from '@/service/nodeservice';
 import { Component, OnInit } from '@angular/core';
 import { TreeNode } from 'primeng/api';
+import { FormsModule } from '@angular/forms';
+import { TreeModule } from 'primeng/tree';
+import { AppCode } from '@/components/doc/app.code';
+import { AppDocSectionText } from '@/components/doc/app.docsectiontext';
 
 @Component({
     selector: 'checkbox-doc',
-    standalone: false,
+    standalone: true,
+    imports: [TreeModule, FormsModule, AppCode, AppDocSectionText],
     template: `
         <app-docsectiontext>
             <p>Selection of multiple nodes via checkboxes is enabled by configuring <i>selectionMode</i> as <i>checkbox</i>.</p>
         </app-docsectiontext>
         <div class="card">
-            <p-tree [value]="files" selectionMode="checkbox" styleClass="w-full md:w-[30rem]" [(selection)]="selectedFiles" />
+            <p-tree [value]="files" selectionMode="checkbox" class="w-full md:w-[30rem]" [(selection)]="selectedFiles" />
         </div>
         <app-code [code]="code" selector="tree-checkbox-demo"></app-code>
     `
@@ -28,10 +33,10 @@ export class CheckboxDoc implements OnInit {
     }
 
     code: Code = {
-        basic: `<p-tree [value]="files" selectionMode="checkbox" styleClass="w-full md:w-[30rem]" [(selection)]="selectedFiles" />`,
+        basic: `<p-tree [value]="files" selectionMode="checkbox" class="w-full md:w-[30rem]" [(selection)]="selectedFiles" />`,
 
         html: `<div class="card">
-    <p-tree [value]="files" selectionMode="checkbox" styleClass="w-full md:w-[30rem]" [(selection)]="selectedFiles" />
+    <p-tree [value]="files" selectionMode="checkbox" class="w-full md:w-[30rem]" [(selection)]="selectedFiles" />
 </div>`,
 
         typescript: `import { Component, OnInit } from '@angular/core';

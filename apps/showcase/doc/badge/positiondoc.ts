@@ -1,9 +1,13 @@
 import { Code } from '@/domain/code';
 import { Component } from '@angular/core';
+import { BadgeModule } from 'primeng/badge';
+import { AppCode } from '@/components/doc/app.code';
+import { AppDocSectionText } from '@/components/doc/app.docsectiontext';
 
 @Component({
     selector: 'badge-position-demo',
-    standalone: false,
+    standalone: true,
+    imports: [BadgeModule, AppCode, AppDocSectionText],
     template: `
         <app-docsectiontext>
             <p>A Badge can be positioned at the top right corner of an element by adding <i>p-overlay-badge</i> style class to the element and embedding the badge inside.</p>

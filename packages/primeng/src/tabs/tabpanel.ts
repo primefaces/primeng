@@ -3,6 +3,7 @@ import { ChangeDetectionStrategy, Component, computed, forwardRef, inject, model
 import { equals } from '@primeuix/utils';
 import { BaseComponent } from 'primeng/basecomponent';
 import { Tabs } from './tabs';
+import { TabPanelStyle } from './style/tabpanelstyle';
 
 /**
  * TabPanel is a helper component for Tabs component.
@@ -18,14 +19,14 @@ import { Tabs } from './tabs';
     changeDetection: ChangeDetectionStrategy.OnPush,
     encapsulation: ViewEncapsulation.None,
     host: {
-        '[class.p-tabpanel]': 'true',
-        '[class.p-component]': 'true',
+        '[class]': 'cx("root")',
         '[attr.data-pc-name]': '"tabpanel"',
         '[attr.id]': 'id()',
         '[attr.role]': '"tabpanel"',
         '[attr.aria-labelledby]': 'ariaLabelledby()',
         '[attr.data-p-active]': 'active()'
-    }
+    },
+    providers: [TabPanelStyle]
 })
 export class TabPanel extends BaseComponent {
     pcTabs = inject(forwardRef(() => Tabs));
@@ -41,4 +42,6 @@ export class TabPanel extends BaseComponent {
     ariaLabelledby = computed(() => `${this.pcTabs.id()}_tab_${this.value()}`);
 
     active = computed(() => equals(this.pcTabs.value(), this.value()));
+
+    _componentStyle = inject(TabPanelStyle);
 }

@@ -3,10 +3,23 @@ import { Product } from '@/domain/product';
 import { ProductService } from '@/service/productservice';
 import { ChangeDetectionStrategy, ChangeDetectorRef, Component } from '@angular/core';
 import { MessageService, SelectItem } from 'primeng/api';
+import { CommonModule } from '@angular/common';
+import { FormsModule } from '@angular/forms';
+import { TableModule } from 'primeng/table';
+import { ToastModule } from 'primeng/toast';
+import { InputTextModule } from 'primeng/inputtext';
+import { SelectModule } from 'primeng/select';
+import { TagModule } from 'primeng/tag';
+import { ButtonModule } from 'primeng/button';
+import { RippleModule } from 'primeng/ripple';
+import { AppDocSectionText } from '@/components/doc/app.docsectiontext';
+import { AppCode } from '@/components/doc/app.code';
+import { DeferredDemo } from '@/components/demo/deferreddemo';
 
 @Component({
     selector: 'row-edit-doc',
-    standalone: false,
+    standalone: true,
+    imports: [CommonModule, FormsModule, TableModule, ToastModule, InputTextModule, SelectModule, TagModule, ButtonModule, RippleModule, AppDocSectionText, AppCode, DeferredDemo],
     template: ` <app-docsectiontext>
             <p>
                 Row editing toggles the visibility of all the editors in the row at once and provides additional options to save and cancel editing. Row editing functionality is enabled by setting the <i>editMode</i> to "row" on table, defining a
@@ -28,11 +41,11 @@ import { MessageService, SelectItem } from 'primeng/api';
                 <p-table [value]="products" dataKey="id" editMode="row" [tableStyle]="{ 'min-width': '50rem' }">
                     <ng-template #header>
                         <tr>
-                            <th style="width:20%">Code</th>
-                            <th style="width:20%">Name</th>
-                            <th style="width:20%">Inventory Status</th>
-                            <th style="width:20%">Price</th>
-                            <th style="width:20%"></th>
+                            <th style="width:22%">Code</th>
+                            <th style="width:22%">Name</th>
+                            <th style="width:22%">Inventory Status</th>
+                            <th style="width:22%">Price</th>
+                            <th style="width:12%"></th>
                         </tr>
                     </ng-template>
                     <ng-template #body let-product let-editing="editing" let-ri="rowIndex">
@@ -141,11 +154,11 @@ export class RowEditDoc {
         basic: `<p-table [value]="products" dataKey="id" editMode="row" [tableStyle]="{'min-width': '50rem'}">
     <ng-template #header>
         <tr>
-            <th style="width:20%">Code</th>
-            <th style="width:20%">Name</th>
-            <th style="width:20%">Inventory Status</th>
-            <th style="width:20%">Price</th>
-            <th style="width:20%"></th>
+            <th style="width:22%">Code</th>
+            <th style="width:22%">Name</th>
+            <th style="width:22%">Inventory Status</th>
+            <th style="width:22%">Price</th>
+            <th style="width:12%"></th>
         </tr>
     </ng-template>
     <ng-template #body let-product let-editing="editing" let-ri="rowIndex">
@@ -253,11 +266,11 @@ export class RowEditDoc {
     <p-table [value]="products" dataKey="id" editMode="row" [tableStyle]="{'min-width': '50rem'}">
         <ng-template #header>
             <tr>
-                <th style="width:20%">Code</th>
-                <th style="width:20%">Name</th>
-                <th style="width:20%">Inventory Status</th>
-                <th style="width:20%">Price</th>
-                <th style="width:20%"></th>
+                <th style="width:22%">Code</th>
+                <th style="width:22%">Name</th>
+                <th style="width:22%">Inventory Status</th>
+                <th style="width:22%">Price</th>
+                <th style="width:12%"></th>
             </tr>
         </ng-template>
         <ng-template #body let-product let-editing="editing" let-ri="rowIndex">

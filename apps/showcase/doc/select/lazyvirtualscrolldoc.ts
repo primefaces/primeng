@@ -1,10 +1,14 @@
 import { Code } from '@/domain/code';
 import { Component } from '@angular/core';
 import { ScrollerOptions, SelectItem } from 'primeng/api';
+import { AppCode } from '@/components/doc/app.code';
+import { FormsModule } from '@angular/forms';
+import { SelectModule } from 'primeng/select';
 
 @Component({
     selector: 'select-lazy-virtualscroll-demo',
-    standalone: false,
+    standalone: true,
+    imports: [AppCode, FormsModule, SelectModule],
     template: `
         <div class="card flex justify-center">
             <p-select [options]="items" [(ngModel)]="selectedItem" placeholder="Select Item" [virtualScroll]="true" [virtualScrollItemSize]="38" [virtualScrollOptions]="options" class="w-full md:w-56" />

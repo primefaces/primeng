@@ -1,8 +1,11 @@
 import { Component } from '@angular/core';
+import { RouterModule } from '@angular/router';
+import { AppDocSectionText } from '@/components/doc/app.docsectiontext';
 
 @Component({
     selector: 'download-doc',
-    standalone: false,
+    standalone: true,
+    imports: [RouterModule, AppDocSectionText],
     template: `
         <app-docsectiontext>
             <p>Welcome to the Prime UI Ecosystem! Once you have PrimeNG up and running, we recommend exploring the following resources to gain a deeper understanding of the library.</p>

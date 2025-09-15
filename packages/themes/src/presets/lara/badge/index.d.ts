@@ -1,3 +1,2 @@
-import { BadgeDesignTokens } from '../../types/badge';
-declare const _default: BadgeDesignTokens;
-export default _default;
+export * from '@primeuix/themes/lara/badge';
+export { default } from '@primeuix/themes/lara/badge';

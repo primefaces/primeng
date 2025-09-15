@@ -1,10 +1,14 @@
 import { Code } from '@/domain/code';
 import { Component, OnInit } from '@angular/core';
 import { MegaMenuItem } from 'primeng/api';
+import { MegaMenuModule } from 'primeng/megamenu';
+import { AppCodeModule } from '@/components/doc/app.code';
+import { AppDocSectionText } from '@/components/doc/app.docsectiontext';
 
 @Component({
     selector: 'vertical-doc',
-    standalone: false,
+    standalone: true,
+    imports: [MegaMenuModule, AppCodeModule, AppDocSectionText],
     template: `
         <app-docsectiontext>
             <p>Layout of the MegaMenu is changed with the <i>orientation</i> property that accepts <i>horizontal</i> and <i>vertical</i> as options.</p>

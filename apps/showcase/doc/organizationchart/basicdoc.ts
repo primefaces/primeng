@@ -1,10 +1,14 @@
 import { Code } from '@/domain/code';
 import { Component } from '@angular/core';
 import { TreeNode } from 'primeng/api';
+import { OrganizationChartModule } from 'primeng/organizationchart';
+import { AppCode } from '@/components/doc/app.code';
+import { AppDocSectionText } from '@/components/doc/app.docsectiontext';
 
 @Component({
     selector: 'basic-doc',
-    standalone: false,
+    standalone: true,
+    imports: [OrganizationChartModule, AppCode, AppDocSectionText],
     template: `
         <app-docsectiontext>
             <p>OrganizationChart requires a collection of <i>TreeNode</i> instances as a <i>value</i>.</p>

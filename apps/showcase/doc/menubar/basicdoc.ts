@@ -1,10 +1,14 @@
 import { Code } from '@/domain/code';
 import { Component, OnInit } from '@angular/core';
 import { MenuItem } from 'primeng/api';
+import { MenubarModule } from 'primeng/menubar';
+import { AppCodeModule } from '@/components/doc/app.code';
+import { AppDocSectionText } from '@/components/doc/app.docsectiontext';
 
 @Component({
     selector: 'basic-doc',
-    standalone: false,
+    standalone: true,
+    imports: [MenubarModule, AppCodeModule, AppDocSectionText],
     template: `
         <app-docsectiontext>
             <p>Menubar requires nested menuitems as its model.</p>

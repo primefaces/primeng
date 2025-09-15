@@ -1,16 +1,17 @@
 import { AccessibilityDoc } from '@/doc/colorpicker/accessibilitydoc';
 import { BasicDoc } from '@/doc/colorpicker/basicdoc';
-import { ColorPickerDocModule } from '@/doc/colorpicker/colorpickerdoc.module';
 import { DisabledDoc } from '@/doc/colorpicker/disableddoc';
 import { FormatDoc } from '@/doc/colorpicker/formatdoc';
 import { ImportDoc } from '@/doc/colorpicker/importdoc';
 import { InlineDoc } from '@/doc/colorpicker/inlinedoc';
 import { ReactiveFormsDoc } from '@/doc/colorpicker/reactiveformsdoc';
+import { TemplateDrivenFormsDoc } from '@/doc/colorpicker/templatedrivenformsdoc';
 import { Component } from '@angular/core';
+import { AppDoc } from '@/components/doc/app.doc';
 
 @Component({
     standalone: true,
-    imports: [ColorPickerDocModule],
+    imports: [AppDoc],
     template: ` <app-doc docTitle="Angular ColorPicker Component" header="ColorPicker" description="ColorPicker is an input component to select a color." [docs]="docs" [apiDocs]="['ColorPicker']" themeDocs="colorpicker"></app-doc>`
 })
 export class ColorPickerDemo {
@@ -26,11 +27,6 @@ export class ColorPickerDemo {
             component: BasicDoc
         },
         {
-            id: 'reactive-forms',
-            label: 'Reactive Forms',
-            component: ReactiveFormsDoc
-        },
-        {
             id: 'inline',
             label: 'Inline',
             component: InlineDoc
@@ -41,11 +37,18 @@ export class ColorPickerDemo {
             component: FormatDoc
         },
         {
+            id: 'forms',
+            label: 'Forms',
+            children: [
+                { id: 'templatedriven', label: 'Template Driven', component: TemplateDrivenFormsDoc },
+                { id: 'reactive', label: 'Reactive Forms', component: ReactiveFormsDoc }
+            ]
+        },
+        {
             id: 'disabled',
             label: 'Disabled',
             component: DisabledDoc
         },
-
         {
             id: 'accessibility',
             label: 'Accessibility',

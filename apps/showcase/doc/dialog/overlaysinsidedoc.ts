@@ -1,5 +1,11 @@
 import { Code } from '@/domain/code';
 import { Component, OnInit } from '@angular/core';
+import { FormsModule } from '@angular/forms';
+import { DialogModule } from 'primeng/dialog';
+import { ButtonModule } from 'primeng/button';
+import { SelectModule } from 'primeng/select';
+import { AppCode } from '@/components/doc/app.code';
+import { AppDocSectionText } from '@/components/doc/app.docsectiontext';
 
 interface City {
     name: string;
@@ -8,7 +14,8 @@ interface City {
 
 @Component({
     selector: 'dialog-overlays-inside-demo',
-    standalone: false,
+    standalone: true,
+    imports: [FormsModule, DialogModule, ButtonModule, SelectModule, AppCode, AppDocSectionText],
     template: `
         <app-docsectiontext>
             <p>
@@ -20,7 +27,7 @@ interface City {
             <p-button (click)="showDialog()" icon="pi pi-external-link" label="Show"></p-button>
             <p-dialog header="Header" [(visible)]="visible" [style]="{ width: '50vw' }">
                 <div class="flex py-2 justify-center">
-                    <p-dropdown appendTo="body" [options]="cities" [(ngModel)]="selectedCity" placeholder="Select a City" optionLabel="name"></p-dropdown>
+                    <p-select appendTo="body" [options]="cities" [(ngModel)]="selectedCity" placeholder="Select a City" optionLabel="name"></p-select>
                 </div>
             </p-dialog>
         </div>
@@ -52,7 +59,7 @@ export class OverlaysInsideDoc implements OnInit {
         basic: `<p-button (click)="showDialog()" icon="pi pi-external-link" label="Show"></p-button>
 <p-dialog header="Header" [(visible)]="visible" [style]="{ width: '50vw' }">
     <div class="flex py-2 justify-center">
-        <p-dropdown appendTo="body" [options]="cities" [(ngModel)]="selectedCity" placeholder="Select a City" optionLabel="name"></p-dropdown>
+        <p-select appendTo="body" [options]="cities" [(ngModel)]="selectedCity" placeholder="Select a City" optionLabel="name"></p-select>
     </div>
 </p-dialog>`,
 
@@ -61,7 +68,7 @@ export class OverlaysInsideDoc implements OnInit {
     <p-button (click)="showDialog()" icon="pi pi-external-link" label="Show"></p-button>
     <p-dialog header="Header" [(visible)]="visible" [style]="{ width: '50vw' }">
         <div class="flex py-2 justify-center">
-            <p-dropdown appendTo="body" [options]="cities" [(ngModel)]="selectedCity" placeholder="Select a City" optionLabel="name"></p-dropdown>
+            <p-select appendTo="body" [options]="cities" [(ngModel)]="selectedCity" placeholder="Select a City" optionLabel="name"></p-select>
         </div>
     </p-dialog>
 </div>`,

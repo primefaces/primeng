@@ -2,10 +2,15 @@ import { Car } from '@/domain/car';
 import { Code } from '@/domain/code';
 import { CarService } from '@/service/carservice';
 import { Component } from '@angular/core';
+import { InplaceModule } from 'primeng/inplace';
+import { TableModule } from 'primeng/table';
+import { AppCodeModule } from '@/components/doc/app.code';
+import { AppDocSectionText } from '@/components/doc/app.docsectiontext';
 
 @Component({
     selector: 'data-doc',
-    standalone: false,
+    standalone: true,
+    imports: [AppDocSectionText, AppCodeModule, InplaceModule, TableModule],
     template: `
         <div class="card">
             <p-inplace>

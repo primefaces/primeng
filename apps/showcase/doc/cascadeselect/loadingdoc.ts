@@ -1,9 +1,13 @@
 import { Code } from '@/domain/code';
 import { Component } from '@angular/core';
+import { CascadeSelectModule } from 'primeng/cascadeselect';
+import { AppCode } from '@/components/doc/app.code';
+import { AppDocSectionText } from '@/components/doc/app.docsectiontext';
 
 @Component({
     selector: 'cascade-select-loading-demo',
-    standalone: false,
+    standalone: true,
+    imports: [CascadeSelectModule, AppCode, AppDocSectionText],
     template: `
         <app-docsectiontext>
             <p>Loading state can be used <i>loading</i> property.</p>

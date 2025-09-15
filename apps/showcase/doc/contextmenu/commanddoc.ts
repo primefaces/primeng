@@ -1,8 +1,12 @@
 import { Code } from '@/domain/code';
 import { Component, OnInit, ViewChild } from '@angular/core';
+import { CommonModule } from '@angular/common';
 import { MenuItem, MessageService } from 'primeng/api';
-import { ContextMenu } from 'primeng/contextmenu';
-
+import { ContextMenu, ContextMenuModule } from 'primeng/contextmenu';
+import { ToastModule } from 'primeng/toast';
+import { Tag } from 'primeng/tag';
+import { AppCode } from '@/components/doc/app.code';
+import { AppDocSectionText } from '@/components/doc/app.docsectiontext';
 interface Users {
     id: number;
     name: string;
@@ -12,7 +16,8 @@ interface Users {
 
 @Component({
     selector: 'context-menu-command-demo',
-    standalone: false,
+    standalone: true,
+    imports: [CommonModule, ContextMenuModule, ToastModule, Tag, AppCode, AppDocSectionText],
     template: `
         <app-docsectiontext>
             <p>The function to invoke when an item is clicked is defined using the <i>command</i> property.</p>

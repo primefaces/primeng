@@ -7,14 +7,16 @@
         "strict": false,
         "paths": {
             "primeng/*": ["../../packages/primeng/src/*/public_api"],
-            "@primeng/themes/*": ["../../packages/themes/src/presets/*"],
-            "@primeng/themes": ["../../packages/themes/src/index.ts"],
-            "@primeuix/themes/styles/*": ["../../../../packages/themes/src/styles/*"],
-            "@primeuix/themes/*": ["../../../../packages/themes/src/presets/*"],
+            "@primeuix/styled/*": ["../../../../packages/styled/dist/*"],
+            "@primeuix/styles/*": ["../../../../packages/styles/dist/*"],
+            "@primeuix/themes/*": ["../../../../packages/themes/dist/*"],
+            "@primeuix/utils/*": ["../../../../packages/utils/dist/*"],
 
             "@/*": ["./*"]
         }
     },
+    "include": ["../../packages/primeng/src/**/*.d.ts", "../../node_modules/@primeuix/styles/**/*.d.ts", "../../node_modules/@primeuix/themes/**/*.d.ts"],
+    "exclude": ["node_modules", "**/node_modules", "**/dist", "**/*.spec.ts", "**/*.test.ts"],
     "files": ["app/main.ts", "server/main.server.ts", "server/server.ts", "app/polyfills.ts"],
     "angularCompilerOptions": {
         "enableI18nLegacyMessageIdFormat": false,

@@ -1,9 +1,16 @@
 import { Code } from '@/domain/code';
 import { Component } from '@angular/core';
+import { FormsModule } from '@angular/forms';
+import { RouterModule } from '@angular/router';
+import { InputMaskModule } from 'primeng/inputmask';
+import { FloatLabelModule } from 'primeng/floatlabel';
+import { AppCodeModule } from '@/components/doc/app.code';
+import { AppDocSectionText } from '@/components/doc/app.docsectiontext';
 
 @Component({
     selector: 'floatlabel-doc',
-    standalone: false,
+    standalone: true,
+    imports: [FormsModule, RouterModule, InputMaskModule, FloatLabelModule, AppCodeModule, AppDocSectionText],
     template: `
         <app-docsectiontext>
             <p>FloatLabel visually integrates a label with its form element. Visit <a routerLink="/floatlabel">FloatLabel</a> documentation for more information.</p>

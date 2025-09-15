@@ -1,10 +1,18 @@
 import { Code } from '@/domain/code';
 import { Component } from '@angular/core';
-import { PaginatorState } from 'primeng/paginator';
+import { PaginatorState, PaginatorModule } from 'primeng/paginator';
+import { ButtonModule } from 'primeng/button';
+import { DividerModule } from 'primeng/divider';
+import { SelectModule } from 'primeng/select';
+import { SliderModule } from 'primeng/slider';
+import { FormsModule } from '@angular/forms';
+import { AppCode } from '@/components/doc/app.code';
+import { AppDocSectionText } from '@/components/doc/app.docsectiontext';
 
 @Component({
     selector: 'template-doc',
-    standalone: false,
+    standalone: true,
+    imports: [PaginatorModule, ButtonModule, DividerModule, SelectModule, SliderModule, FormsModule, AppCode, AppDocSectionText],
     template: `
         <app-docsectiontext>
             <p>Templating allows overriding the default content of the UI elements by defining callbacks using the element name.</p>

@@ -1,9 +1,13 @@
 import { Code } from '@/domain/code';
 import { Component } from '@angular/core';
+import { MeterGroupModule } from 'primeng/metergroup';
+import { AppCodeModule } from '@/components/doc/app.code';
+import { AppDocSectionText } from '@/components/doc/app.docsectiontext';
 
 @Component({
     selector: 'vertical-doc',
-    standalone: false,
+    standalone: true,
+    imports: [MeterGroupModule, AppCodeModule, AppDocSectionText],
     template: `
         <app-docsectiontext>
             <p>Layout of the MeterGroup is configured with the <i>orientation</i> property that accepts either <i>horizontal</i> or <i>vertical</i> as available options.</p>

@@ -13,9 +13,12 @@ import { MultipleDoc } from '@/doc/treeselect/multipledoc';
 import { ReactiveFormsDoc } from '@/doc/treeselect/reactiveformsdoc';
 import { SizesDoc } from '@/doc/treeselect/sizesdoc';
 import { TemplateDoc } from '@/doc/treeselect/templatedoc';
-import { TreeSelectDocModule } from '@/doc/treeselect/treeselectdoc.module';
+import { TemplateDrivenFormsDoc } from '@/doc/treeselect/templatedrivenformsdoc';
 import { VirtualScrollDoc } from '@/doc/treeselect/virtualscrolldoc';
+import { FluidDoc } from '@/doc/treeselect/fluiddoc';
+import { ClearIconDoc } from '@/doc/treeselect/clearicondoc';
 import { Component } from '@angular/core';
+import { AppDoc } from '@/components/doc/app.doc';
 
 @Component({
     template: `<app-doc
@@ -27,7 +30,7 @@ import { Component } from '@angular/core';
         themeDocs="treeselect"
     ></app-doc>`,
     standalone: true,
-    imports: [TreeSelectDocModule]
+    imports: [AppDoc]
 })
 export class TreeSelectDemo {
     docs = [
@@ -40,11 +43,6 @@ export class TreeSelectDemo {
             id: 'basic',
             label: 'Basic',
             component: BasicDoc
-        },
-        {
-            id: 'reactive-forms',
-            label: 'Reactive Forms',
-            component: ReactiveFormsDoc
         },
         {
             id: 'multiple',
@@ -87,9 +85,19 @@ export class TreeSelectDemo {
             component: IftaLabelDoc
         },
         {
+            id: 'clearicon',
+            label: 'Clear Icon',
+            component: ClearIconDoc
+        },
+        {
             id: 'sizes',
             label: 'Sizes',
             component: SizesDoc
+        },
+        {
+            id: 'fluid',
+            label: 'Fluid',
+            component: FluidDoc
         },
         {
             id: 'filled',
@@ -97,16 +105,23 @@ export class TreeSelectDemo {
             component: FilledDoc
         },
         {
+            id: 'disabled',
+            label: 'Disabled',
+            component: DisabledDoc
+        },
+        {
             id: 'invalid',
             label: 'Invalid',
             component: InvalidDoc
         },
         {
-            id: 'disabled',
-            label: 'Disabled',
-            component: DisabledDoc
+            id: 'forms',
+            label: 'Forms',
+            children: [
+                { id: 'templatedriven', label: 'Template Driven', component: TemplateDrivenFormsDoc },
+                { id: 'reactive', label: 'Reactive Forms', component: ReactiveFormsDoc }
+            ]
         },
-
         {
             id: 'accessibility',
             label: 'Accessibility',

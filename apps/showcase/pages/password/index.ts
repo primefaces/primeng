@@ -8,17 +8,20 @@ import { ImportDoc } from '@/doc/password/importdoc';
 import { InvalidDoc } from '@/doc/password/invaliddoc';
 import { LocaleDoc } from '@/doc/password/localedoc';
 import { MeterDoc } from '@/doc/password/meterdoc';
-import { PasswordDocModule } from '@/doc/password/passworddoc.module';
 import { ReactiveFormsDoc } from '@/doc/password/reactiveformsdoc';
 import { SizesDoc } from '@/doc/password/sizesdoc';
 import { TemplateDoc } from '@/doc/password/templatedoc';
+import { TemplateDrivenFormsDoc } from '@/doc/password/templatedrivenformsdoc';
 import { ToggleMaskDoc } from '@/doc/password/togglemaskdoc';
+import { FluidDoc } from '@/doc/password/fluiddoc';
+import { ClearIconDoc } from '@/doc/password/clearicondoc';
 import { Component } from '@angular/core';
+import { AppDoc } from '@/components/doc/app.doc';
 
 @Component({
     template: `<app-doc docTitle="Angular Password Component" header="Password" description="Password displays strength indicator for password fields." [docs]="docs" [apiDocs]="['Password', 'PasswordDirective']" themeDocs="password"></app-doc>`,
     standalone: true,
-    imports: [PasswordDocModule]
+    imports: [AppDoc]
 })
 export class PasswordDemo {
     docs = [
@@ -32,11 +35,7 @@ export class PasswordDemo {
             label: 'Basic',
             component: BasicDoc
         },
-        {
-            id: 'reactive-forms',
-            label: 'Reactive Forms',
-            component: ReactiveFormsDoc
-        },
+
         {
             id: 'meter',
             label: 'Meter',
@@ -68,9 +67,19 @@ export class PasswordDemo {
             component: IftaLabelDoc
         },
         {
+            id: 'clearicon',
+            label: 'Clear Icon',
+            component: ClearIconDoc
+        },
+        {
             id: 'sizes',
             label: 'Sizes',
             component: SizesDoc
+        },
+        {
+            id: 'fluid',
+            label: 'Fluid',
+            component: FluidDoc
         },
         {
             id: 'filled',
@@ -78,16 +87,23 @@ export class PasswordDemo {
             component: FilledDoc
         },
         {
+            id: 'disabled',
+            label: 'Disabled',
+            component: DisabledDoc
+        },
+        {
             id: 'invalid',
             label: 'Invalid',
             component: InvalidDoc
         },
         {
-            id: 'disabled',
-            label: 'Disabled',
-            component: DisabledDoc
+            id: 'forms',
+            label: 'Forms',
+            children: [
+                { id: 'templatedriven', label: 'Template Driven', component: TemplateDrivenFormsDoc },
+                { id: 'reactive', label: 'Reactive Forms', component: ReactiveFormsDoc }
+            ]
         },
-
         {
             id: 'accessibility',
             label: 'Accessibility',

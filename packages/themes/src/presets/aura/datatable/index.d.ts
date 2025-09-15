@@ -1,3 +1,2 @@
-import { DataTableDesignTokens } from '../../types/datatable';
-declare const _default: DataTableDesignTokens;
-export default _default;
+export * from '@primeuix/themes/aura/datatable';
+export { default } from '@primeuix/themes/aura/datatable';

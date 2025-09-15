@@ -1,10 +1,14 @@
 import { Code } from '@/domain/code';
 import { Component } from '@angular/core';
 import { MenuItem, PrimeIcons } from 'primeng/api';
+import { MenuModule } from 'primeng/menu';
+import { AppCodeModule } from '@/components/doc/app.code';
+import { AppDocSectionText } from '@/components/doc/app.docsectiontext';
 
 @Component({
     selector: 'prime-icons-constants-demo',
-    standalone: false,
+    standalone: true,
+    imports: [AppDocSectionText, AppCodeModule, MenuModule],
     template: `
         <app-docsectiontext>
             <p>Constants API is available to reference icons easily when used programmatically.</p>

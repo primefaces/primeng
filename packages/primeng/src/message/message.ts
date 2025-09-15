@@ -20,7 +20,7 @@ import { MessageStyle } from './style/messagestyle';
             <div
                 class="p-message p-component"
                 [attr.aria-live]="'polite'"
-                [ngClass]="containerClass"
+                [class]="cn(cx('root'), styleClass)"
                 [attr.role]="'alert'"
                 [@messageAnimation]="{
                     value: 'visible()',
@@ -30,12 +30,12 @@ import { MessageStyle } from './style/messagestyle';
                     }
                 }"
             >
-                <div class="p-message-content">
+                <div [class]="cx('content')">
                     @if (iconTemplate || _iconTemplate) {
                         <ng-container *ngTemplateOutlet="iconTemplate || iconTemplate"></ng-container>
                     }
                     @if (icon) {
-                        <i class="p-message-icon" [ngClass]="icon"></i>
+                        <i [class]="cn(cx('icon'), icon)"></i>
                     }
 
                     <div *ngIf="!escape; else escapeOut">
@@ -54,15 +54,15 @@ import { MessageStyle } from './style/messagestyle';
                         </span>
                     }
                     @if (closable) {
-                        <button pRipple type="button" class="p-message-close-button" (click)="close($event)" [attr.aria-label]="closeAriaLabel">
+                        <button pRipple type="button" [class]="cx('closeButton')" (click)="close($event)" [attr.aria-label]="closeAriaLabel">
                             @if (closeIcon) {
-                                <i class="p-message-close-icon" [ngClass]="closeIcon"></i>
+                                <i [class]="cn(cx('closeIcon'), closeIcon)" [ngClass]="closeIcon"></i>
                             }
                             @if (closeIconTemplate || _closeIconTemplate) {
                                 <ng-container *ngTemplateOutlet="closeIconTemplate || _closeIconTemplate"></ng-container>
                             }
                             @if (!closeIconTemplate && !_closeIconTemplate && !closeIcon) {
-                                <TimesIcon styleClass="p-message-close-icon" />
+                                <svg data-p-icon="times" [class]="cx('closeIcon')" />
                             }
                         </button>
                     }
@@ -101,12 +101,13 @@ export class Message extends BaseComponent implements AfterContentInit {
     @Input() severity: string | 'success' | 'info' | 'warn' | 'error' | 'secondary' | 'contrast' | undefined | null = 'info';
     /**
      * Text content.
+     * @deprecated since v20.0.0. Use content projection instead '<p-message>Content</p-message>'.
      * @group Props
      */
     @Input() text: string | undefined;
     /**
      * Whether displaying messages would be escaped or not.
-     * @deprecated Use content projection instead '<p-message>Content</p-message>'.
+     * @deprecated since v20.0.0. Use content projection instead '<p-message>Content</p-message>'.
      * @group Props
      */
     @Input({ transform: booleanAttribute }) escape: boolean = true;
@@ -176,12 +177,6 @@ export class Message extends BaseComponent implements AfterContentInit {
         return this.config.translation.aria ? this.config.translation.aria.close : undefined;
     }
 
-    get containerClass(): string {
-        const variantClass = this.variant === 'outlined' ? 'p-message-outlined' : this.variant === 'simple' ? 'p-message-simple' : '';
-        const sizeClass = this.size === 'small' ? 'p-message-sm' : this.size === 'large' ? 'p-message-lg' : '';
-
-        return `p-message-${this.severity} ${variantClass} ${sizeClass}`.trim() + (this.styleClass ? ' ' + this.styleClass : '');
-    }
     visible = signal<boolean>(true);
 
     _componentStyle = inject(MessageStyle);

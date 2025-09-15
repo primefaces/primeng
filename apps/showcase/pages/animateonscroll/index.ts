@@ -1,7 +1,8 @@
 import { AccessibilityDoc } from '@/doc/animateonscroll/accessibilitydoc';
-import { AnimateOnScrollDocModule } from '@/doc/animateonscroll/animateonscrolldoc.module';
 import { BasicDoc } from '@/doc/animateonscroll/basicdoc';
 import { ImportDoc } from '@/doc/animateonscroll/importdoc';
+import { AppDoc } from '@/components/doc/app.doc';
+import { AppDocService } from '@/components/doc/app.doc.service';
 import { Component } from '@angular/core';
 
 @Component({
@@ -12,8 +13,9 @@ import { Component } from '@angular/core';
         [docs]="docs"
         [apiDocs]="['AnimateOnScroll']"
     ></app-doc>`,
-    imports: [AnimateOnScrollDocModule],
-    standalone: true
+    standalone: true,
+    imports: [AppDoc],
+    providers: [AppDocService]
 })
 export class AnimateOnScrollDemo {
     docs = [

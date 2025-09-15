@@ -1,9 +1,14 @@
 import { Code } from '@/domain/code';
 import { Component } from '@angular/core';
+import { FormsModule } from '@angular/forms';
+import { CheckboxModule } from 'primeng/checkbox';
+import { AppCode } from '@/components/doc/app.code';
+import { AppDocSectionText } from '@/components/doc/app.docsectiontext';
 
 @Component({
     selector: 'checkbox-label-demo',
-    standalone: false,
+    standalone: true,
+    imports: [FormsModule, CheckboxModule, AppCode, AppDocSectionText],
     template: `
         <app-docsectiontext>
             <p>The label attribute provides a label text for the checkbox. This label is also clickable and toggles the checked state.</p>

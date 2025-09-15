@@ -17,72 +17,66 @@ import { BreadCrumbStyle } from './style/breadcrumbstyle';
     standalone: true,
     imports: [CommonModule, RouterModule, TooltipModule, ChevronRightIcon, HomeIcon, SharedModule],
     template: `
-        <nav [class]="styleClass" [ngStyle]="style" [ngClass]="'p-breadcrumb p-component'" [attr.data-pc-name]="'breadcrumb'" [attr.data-pc-section]="'root'">
-            <ol [attr.data-pc-section]="'menu'" class="p-breadcrumb-list">
-                <li
-                    [class]="home.styleClass"
-                    [attr.id]="home.id"
-                    [ngClass]="{ 'p-breadcrumb-home-item': true, 'p-disabled': home.disabled }"
-                    [ngStyle]="home.style"
-                    *ngIf="home && home.visible !== false"
-                    pTooltip
-                    [tooltipOptions]="home.tooltipOptions"
-                    [attr.data-pc-section]="'home'"
-                >
-                    <a
-                        [href]="home.url ? home.url : null"
-                        *ngIf="!home.routerLink"
-                        [attr.aria-label]="homeAriaLabel"
-                        class="p-breadcrumb-item-link"
-                        (click)="onClick($event, home)"
-                        [target]="home.target"
-                        [attr.title]="home.title"
-                        [attr.tabindex]="home.disabled ? null : '0'"
-                    >
-                        <span *ngIf="home.icon" class="p-breadcrumb-item-icon" [ngClass]="home.icon" [ngStyle]="home?.style"></span>
-                        <HomeIcon *ngIf="!home.icon" [styleClass]="'p-breadcrumb-item-icon'" />
-                        <ng-container *ngIf="home.label">
-                            <span *ngIf="home.escape !== false; else htmlHomeLabel" class="p-breadcrumb-item-label">{{ home.label }}</span>
-                            <ng-template #htmlHomeLabel><span class="p-breadcrumb-item-label" [innerHTML]="home.label"></span></ng-template>
-                        </ng-container>
-                    </a>
-                    <a
-                        *ngIf="home.routerLink"
-                        [routerLink]="home.routerLink"
-                        [attr.aria-label]="homeAriaLabel"
-                        [queryParams]="home.queryParams"
-                        [routerLinkActiveOptions]="home.routerLinkActiveOptions || { exact: false }"
-                        class="p-breadcrumb-item-link"
-                        (click)="onClick($event, home)"
-                        [target]="home.target"
-                        [attr.title]="home.title"
-                        [attr.tabindex]="home.disabled ? null : '0'"
-                        [fragment]="home.fragment"
-                        [queryParamsHandling]="home.queryParamsHandling"
-                        [preserveFragment]="home.preserveFragment"
-                        [skipLocationChange]="home.skipLocationChange"
-                        [replaceUrl]="home.replaceUrl"
-                        [state]="home.state"
-                    >
-                        <span *ngIf="home.icon" class="p-breadcrumb-item-icon" [ngClass]="home.icon" [ngStyle]="home.iconStyle"></span>
-                        <HomeIcon *ngIf="!home.icon" [styleClass]="'p-breadcrumb-item-icon'" />
-                        <ng-container *ngIf="home.label">
-                            <span *ngIf="home.escape !== false; else htmlHomeRouteLabel" class="p-breadcrumb-item-label">{{ home.label }}</span>
-                            <ng-template #htmlHomeRouteLabel><span class="p-breadcrumb-item-label" [innerHTML]="home.label"></span></ng-template>
-                        </ng-container>
-                    </a>
+        <nav [class]="cn(cx('root'), styleClass)" [style]="style" [attr.data-pc-name]="'breadcrumb'" [attr.data-pc-section]="'root'">
+            <ol [attr.data-pc-section]="'menu'" [class]="cx('list')">
+                <li [attr.id]="home.id" [class]="cn(cx('homeItem'), home.styleClass)" [ngStyle]="home.style" *ngIf="home && home.visible !== false" pTooltip [tooltipOptions]="home.tooltipOptions" [attr.data-pc-section]="'home'">
+                    @if (itemTemplate || _itemTemplate) {
+                        <ng-template *ngTemplateOutlet="itemTemplate || _itemTemplate; context: { $implicit: home }"></ng-template>
+                    } @else {
+                        <a
+                            [href]="home.url ? home.url : null"
+                            *ngIf="!home.routerLink"
+                            [attr.aria-label]="homeAriaLabel"
+                            [class]="cx('itemLink')"
+                            (click)="onClick($event, home)"
+                            [target]="home.target"
+                            [attr.title]="home.title"
+                            [attr.tabindex]="home.disabled ? null : '0'"
+                        >
+                            <span *ngIf="home.icon" [class]="cn(cx('itemIcon'), home.icon)" [ngStyle]="home?.style"></span>
+                            <svg data-p-icon="home" *ngIf="!home.icon" [class]="cx('itemIcon')" />
+                            <ng-container *ngIf="home.label">
+                                <span *ngIf="home.escape !== false; else htmlHomeLabel" [class]="cx('itemLabel')">{{ home.label }}</span>
+                                <ng-template #htmlHomeLabel><span [class]="cx('itemLabel')" [innerHTML]="home.label"></span></ng-template>
+                            </ng-container>
+                        </a>
+                        <a
+                            *ngIf="home.routerLink"
+                            [routerLink]="home.routerLink"
+                            [attr.aria-label]="homeAriaLabel"
+                            [queryParams]="home.queryParams"
+                            [routerLinkActiveOptions]="home.routerLinkActiveOptions || { exact: false }"
+                            [class]="cx('itemLink')"
+                            (click)="onClick($event, home)"
+                            [target]="home.target"
+                            [attr.title]="home.title"
+                            [attr.tabindex]="home.disabled ? null : '0'"
+                            [fragment]="home.fragment"
+                            [queryParamsHandling]="home.queryParamsHandling"
+                            [preserveFragment]="home.preserveFragment"
+                            [skipLocationChange]="home.skipLocationChange"
+                            [replaceUrl]="home.replaceUrl"
+                            [state]="home.state"
+                        >
+                            <span *ngIf="home.icon" [class]="cn(cx('itemIcon'), home.icon)" [style]="home.iconStyle"></span>
+                            <svg data-p-icon="home" *ngIf="!home.icon" [class]="cx('itemIcon')" />
+                            <ng-container *ngIf="home.label">
+                                <span *ngIf="home.escape !== false; else htmlHomeRouteLabel" [class]="cx('itemLabel')">{{ home.label }}</span>
+                                <ng-template #htmlHomeRouteLabel><span [class]="cx('itemLabel')" [innerHTML]="home.label"></span></ng-template>
+                            </ng-container>
+                        </a>
+                    }
                 </li>
-                <li *ngIf="model && home" class="p-breadcrumb-separator" [attr.data-pc-section]="'separator'">
-                    <ChevronRightIcon *ngIf="!separatorTemplate && !_separatorTemplate" />
+                <li *ngIf="model && home" [class]="cx('separator')" [attr.data-pc-section]="'separator'">
+                    <svg data-p-icon="chevron-right" *ngIf="!separatorTemplate && !_separatorTemplate" />
                     <ng-template *ngTemplateOutlet="separatorTemplate || _separatorTemplate"></ng-template>
                 </li>
                 <ng-template ngFor let-menuitem let-end="last" [ngForOf]="model">
                     <li
                         *ngIf="menuitem.visible !== false"
-                        [class]="menuitem.styleClass"
+                        [class]="cn(cx('item', { menuitem }), menuitem.styleClass)"
                         [attr.id]="menuitem.id"
-                        [ngStyle]="menuitem.style"
-                        [ngClass]="{ 'p-breadcrumb-item': true, 'p-disabled': menuitem.disabled }"
+                        [style]="menuitem.style"
                         pTooltip
                         [tooltipOptions]="menuitem.tooltipOptions"
                         [attr.data-pc-section]="'menuitem'"
@@ -93,17 +87,17 @@ import { BreadCrumbStyle } from './style/breadcrumbstyle';
                             <a
                                 *ngIf="!menuitem?.routerLink"
                                 [attr.href]="menuitem?.url ? menuitem?.url : null"
-                                class="p-breadcrumb-item-link"
+                                [class]="cx('itemLink')"
                                 (click)="onClick($event, menuitem)"
                                 [target]="menuitem?.target"
                                 [attr.title]="menuitem?.title"
                                 [attr.tabindex]="menuitem?.disabled ? null : '0'"
                             >
                                 <ng-container *ngIf="!itemTemplate && !_itemTemplate">
-                                    <span *ngIf="menuitem?.icon" class="p-breadcrumb-item-icon" [ngClass]="menuitem?.icon" [ngStyle]="menuitem?.iconStyle"></span>
+                                    <span *ngIf="menuitem?.icon" [class]="cn(cx('itemIcon'), menuitem?.icon)" [style]="menuitem?.iconStyle"></span>
                                     <ng-container *ngIf="menuitem?.label">
-                                        <span *ngIf="menuitem?.escape !== false; else htmlLabel" class="p-breadcrumb-item-label">{{ menuitem?.label }}</span>
-                                        <ng-template #htmlLabel><span class="p-breadcrumb-item-label" [innerHTML]="menuitem?.label"></span></ng-template>
+                                        <span *ngIf="menuitem?.escape !== false; else htmlLabel" [class]="cx('itemLabel')">{{ menuitem?.label }}</span>
+                                        <ng-template #htmlLabel><span [class]="cx('itemLabel')" [innerHTML]="menuitem?.label"></span></ng-template>
                                     </ng-container>
                                 </ng-container>
                             </a>
@@ -112,7 +106,7 @@ import { BreadCrumbStyle } from './style/breadcrumbstyle';
                                 [routerLink]="menuitem?.routerLink"
                                 [queryParams]="menuitem?.queryParams"
                                 [routerLinkActiveOptions]="menuitem?.routerLinkActiveOptions || { exact: false }"
-                                class="p-breadcrumb-item-link"
+                                [class]="cx('itemLink')"
                                 (click)="onClick($event, menuitem)"
                                 [target]="menuitem?.target"
                                 [attr.title]="menuitem?.title"
@@ -124,16 +118,16 @@ import { BreadCrumbStyle } from './style/breadcrumbstyle';
                                 [replaceUrl]="menuitem?.replaceUrl"
                                 [state]="menuitem?.state"
                             >
-                                <span *ngIf="menuitem?.icon" class="p-breadcrumb-item-icon" [ngClass]="menuitem?.icon" [ngStyle]="menuitem?.iconStyle"></span>
+                                <span *ngIf="menuitem?.icon" [class]="cn(cx('itemIcon'), menuitem?.icon)" [style]="menuitem?.iconStyle"></span>
                                 <ng-container *ngIf="menuitem?.label">
-                                    <span *ngIf="menuitem?.escape !== false; else htmlRouteLabel" class="p-breadcrumb-item-label">{{ menuitem?.label }}</span>
-                                    <ng-template #htmlRouteLabel><span class="p-breadcrumb-item-label" [innerHTML]="menuitem?.label"></span></ng-template>
+                                    <span *ngIf="menuitem?.escape !== false; else htmlRouteLabel" [class]="cx('itemLabel')">{{ menuitem?.label }}</span>
+                                    <ng-template #htmlRouteLabel><span [class]="cx('itemLabel')" [innerHTML]="menuitem?.label"></span></ng-template>
                                 </ng-container>
                             </a>
                         }
                     </li>
-                    <li *ngIf="!end && menuitem.visible !== false" class="p-breadcrumb-separator" [attr.data-pc-section]="'separator'">
-                        <ChevronRightIcon *ngIf="!separatorTemplate && !_separatorTemplate" />
+                    <li *ngIf="!end && menuitem.visible !== false" [class]="cx('separator')" [attr.data-pc-section]="'separator'">
+                        <svg data-p-icon="chevron-right" *ngIf="!separatorTemplate && !_separatorTemplate" />
                         <ng-template *ngTemplateOutlet="separatorTemplate || _separatorTemplate"></ng-template>
                     </li>
                 </ng-template>

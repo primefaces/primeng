@@ -1,5 +1,11 @@
 import { Code } from '@/domain/code';
 import { Component } from '@angular/core';
+import { FormsModule } from '@angular/forms';
+import { AutoCompleteModule } from 'primeng/autocomplete';
+import { FloatLabelModule } from 'primeng/floatlabel';
+import { RouterModule } from '@angular/router';
+import { AppDocSectionText } from '@/components/doc/app.docsectiontext';
+import { AppCode } from '@/components/doc/app.code';
 
 interface AutoCompleteCompleteEvent {
     originalEvent: Event;
@@ -8,7 +14,8 @@ interface AutoCompleteCompleteEvent {
 
 @Component({
     selector: 'float-label-doc',
-    standalone: false,
+    standalone: true,
+    imports: [FormsModule, AutoCompleteModule, FloatLabelModule, RouterModule, AppDocSectionText, AppCode],
     template: ` <app-docsectiontext>
             <p>
                 A floating label appears on top of the input field when focused. Visit

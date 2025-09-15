@@ -1,5 +1,5 @@
 import { CommonModule } from '@angular/common';
-import { AfterViewChecked, AfterViewInit, ChangeDetectionStrategy, Component, inject, Input, NgModule, OnDestroy, ViewEncapsulation } from '@angular/core';
+import { AfterViewChecked, AfterViewInit, ChangeDetectionStrategy, Component, ElementRef, HostListener, inject, Input, NgModule, OnDestroy, ViewChild, ViewEncapsulation } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { find } from '@primeuix/utils';
 import { SharedModule } from 'primeng/api';
@@ -17,24 +17,25 @@ import { TerminalService } from './terminalservice';
     standalone: true,
     imports: [CommonModule, FormsModule, SharedModule],
     template: `
-        <div [ngClass]="'p-terminal p-component'" [ngStyle]="style" [class]="styleClass" (click)="focus(in)">
-            <div class="p-terminal-welcome-message" *ngIf="welcomeMessage">{{ welcomeMessage }}</div>
-            <div class="p-terminal-command-list">
-                <div class="p-terminal-command" *ngFor="let command of commands">
-                    <span class="p-terminal-prompt-label">{{ prompt }}</span>
-                    <span class="p-terminal-command-value">{{ command.text }}</span>
-                    <div class="p-terminal-command-response" [attr.aria-live]="'polite'">{{ command.response }}</div>
-                </div>
+        <div [class]="cx('welcomeMessage')" *ngIf="welcomeMessage">{{ welcomeMessage }}</div>
+        <div [class]="cx('commandList')">
+            <div [class]="cx('command')" *ngFor="let command of commands">
+                <span [class]="cx('promptLabel')">{{ prompt }}</span>
+                <span [class]="cx('commandValue')">{{ command.text }}</span>
+                <div [class]="cx('commandResponse')" [attr.aria-live]="'polite'">{{ command.response }}</div>
             </div>
-            <div class="p-terminal-prompt">
-                <span class="p-terminal-prompt-label">{{ prompt }}</span>
-                <input #in type="text" [(ngModel)]="command" class="p-terminal-prompt-value" autocomplete="off" (keydown)="handleCommand($event)" autofocus />
-            </div>
+        </div>
+        <div [class]="cx('prompt')">
+            <span [class]="cx('promptLabel')">{{ prompt }}</span>
+            <input #in type="text" [(ngModel)]="command" [class]="cx('promptValue')" autocomplete="off" (keydown)="handleCommand($event)" autofocus />
         </div>
     `,
     changeDetection: ChangeDetectionStrategy.OnPush,
     encapsulation: ViewEncapsulation.None,
-    providers: [TerminalStyle]
+    providers: [TerminalStyle],
+    host: {
+        '[class]': "cn(cx('root'), styleClass)"
+    }
 })
 export class Terminal extends BaseComponent implements AfterViewInit, AfterViewChecked, OnDestroy {
     /**
@@ -48,12 +49,8 @@ export class Terminal extends BaseComponent implements AfterViewInit, AfterViewC
      */
     @Input() prompt: string | undefined;
     /**
-     * Inline style of the component.
-     * @group Props
-     */
-    @Input() style: { [klass: string]: any } | null | undefined;
-    /**
      * Style class of the component.
+     * @deprecated since v20.0.0, use `class` instead.
      * @group Props
      */
     @Input() styleClass: string | undefined;
@@ -69,6 +66,13 @@ export class Terminal extends BaseComponent implements AfterViewInit, AfterViewC
     subscription: Subscription;
 
     _componentStyle = inject(TerminalStyle);
+
+    @ViewChild('in') inputRef!: ElementRef<HTMLInputElement>;
+
+    @HostListener('click')
+    onHostClick() {
+        this.focus(this.inputRef?.nativeElement);
+    }
 
     constructor(public terminalService: TerminalService) {
         super();

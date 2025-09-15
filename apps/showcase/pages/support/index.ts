@@ -78,7 +78,7 @@ import { Component } from '@angular/core';
                         </ul>
                     </div>
                     <a
-                        href="mailto:primetek.com.tr?subject=PrimeNG%20PRO%20Support"
+                        href="mailto:contact@primetek.com.tr?subject=PrimeNG%20PRO%20Support"
                         class="block mt-4 w-full bg-primary rounded-border py-3 px-4 hover:bg-primary-emphasis text-center transition-all duration-300 text-primary-contrast font-semibold text-lg leading-none"
                     >
                         Buy Now

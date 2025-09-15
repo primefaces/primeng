@@ -1,6 +1,10 @@
 import { Code } from '@/domain/code';
 import { Component } from '@angular/core';
 import { MessageService } from 'primeng/api';
+import { AppCode } from '@/components/doc/app.code';
+import { AppDocSectionText } from '@/components/doc/app.docsectiontext';
+import { FileUploadModule } from 'primeng/fileupload';
+import { ToastModule } from 'primeng/toast';
 
 interface UploadEvent {
     originalEvent: Event;
@@ -9,7 +13,8 @@ interface UploadEvent {
 
 @Component({
     selector: 'file-upload-auto-demo',
-    standalone: false,
+    standalone: true,
+    imports: [AppCode, AppDocSectionText, FileUploadModule, ToastModule],
     template: `
         <app-docsectiontext>
             <p>When <i>auto</i> property is enabled, a file gets uploaded instantly after selection.</p>

@@ -1,9 +1,13 @@
 import { Code } from '@/domain/code';
 import { Component } from '@angular/core';
+import { RippleModule } from 'primeng/ripple';
+import { AppCode } from '@/components/doc/app.code';
+import { AppDocSectionText } from '@/components/doc/app.docsectiontext';
 
 @Component({
     selector: 'custom-doc',
-    standalone: false,
+    standalone: true,
+    imports: [RippleModule, AppCode, AppDocSectionText],
     template: `
         <app-docsectiontext>
             <p>Styling Demo Content.</p>

@@ -1,9 +1,12 @@
 import { TicketService } from '@/service/ticketservice';
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
+import { ButtonModule } from 'primeng/button';
+import { CardModule } from 'primeng/card';
 
 @Component({
-    standalone: false,
+    standalone: true,
+    imports: [CardModule, ButtonModule],
     template: `
         <div class="stepsdemo-content">
             <p-card>

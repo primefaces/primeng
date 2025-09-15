@@ -1,16 +1,21 @@
 import { Code } from '@/domain/code';
 import { Component, OnInit } from '@angular/core';
 import { TreeNode } from 'primeng/api';
+import { TreeModule } from 'primeng/tree';
+import { AppCode } from '@/components/doc/app.code';
+import { AppDocSectionText } from '@/components/doc/app.docsectiontext';
+import { CommonModule } from '@angular/common';
 
 @Component({
     selector: 'template-doc',
-    standalone: false,
+    standalone: true,
+    imports: [TreeModule, AppCode, AppDocSectionText, CommonModule],
     template: `
         <app-docsectiontext>
             <p>Custom node content instead of a node label is defined with the <i>pTemplate</i> property.</p>
         </app-docsectiontext>
         <div class="card">
-            <p-tree [value]="nodes" styleClass="w-full md:w-[30rem]">
+            <p-tree [value]="nodes" class="w-full md:w-[30rem]">
                 <ng-template let-node pTemplate="url">
                     <a [href]="node.data" target="_blank" rel="noopener noreferrer" class="text-surface-700 dark:text-surface-100 hover:text-primary">{{ node.label }}</a>
                 </ng-template>
@@ -51,7 +56,7 @@ export class TemplateDoc implements OnInit {
     }
 
     code: Code = {
-        basic: `<p-tree [value]="nodes" styleClass="w-full md:w-[30rem]">
+        basic: `<p-tree [value]="nodes" class="w-full md:w-[30rem]">
     <ng-template let-node pTemplate="url">
         <a [href]="node.data" target="_blank" rel="noopener noreferrer" class="text-surface-700 dark:text-surface-100 hover:text-primary">
             {{ node.label }}
@@ -63,7 +68,7 @@ export class TemplateDoc implements OnInit {
 </p-tree>`,
 
         html: `<div class="card">
-    <p-tree [value]="nodes" styleClass="w-full md:w-[30rem]">
+    <p-tree [value]="nodes" class="w-full md:w-[30rem]">
         <ng-template let-node pTemplate="url">
             <a [href]="node.data" target="_blank" rel="noopener noreferrer" class="text-surface-700 dark:text-surface-100 hover:text-primary">
                {{ node.label }}

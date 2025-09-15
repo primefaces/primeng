@@ -1,7 +1,9 @@
 import { CommonModule, isPlatformBrowser } from '@angular/common';
-import { AfterViewInit, booleanAttribute, ChangeDetectionStrategy, Component, ElementRef, EventEmitter, Inject, Input, NgModule, NgZone, OnDestroy, Output, PLATFORM_ID, ViewEncapsulation } from '@angular/core';
+import { AfterViewInit, booleanAttribute, ChangeDetectionStrategy, Component, ElementRef, EventEmitter, inject, Inject, Input, NgModule, NgZone, OnDestroy, Output, PLATFORM_ID, ViewEncapsulation } from '@angular/core';
 import Chart from 'chart.js/auto';
 import { SharedModule } from 'primeng/api';
+import { BaseComponent } from 'primeng/basecomponent';
+import { ChartStyle } from './style/chartstyle';
 
 /**
  * Chart groups a collection of contents in tabs.
@@ -12,14 +14,17 @@ import { SharedModule } from 'primeng/api';
     standalone: true,
     imports: [CommonModule, SharedModule],
     template: `
-        <div style="position:relative" [style.width]="responsive && !width ? null : width" [style.height]="responsive && !height ? null : height">
-            <canvas role="img" [attr.aria-label]="ariaLabel" [attr.aria-labelledby]="ariaLabelledBy" [attr.width]="responsive && !width ? null : width" [attr.height]="responsive && !height ? null : height" (click)="onCanvasClick($event)"></canvas>
-        </div>
+        <canvas role="img" [attr.aria-label]="ariaLabel" [attr.aria-labelledby]="ariaLabelledBy" [attr.width]="responsive && !width ? null : width" [attr.height]="responsive && !height ? null : height" (click)="onCanvasClick($event)"></canvas>
     `,
     changeDetection: ChangeDetectionStrategy.OnPush,
-    encapsulation: ViewEncapsulation.None
+    encapsulation: ViewEncapsulation.None,
+    host: {
+        '[class]': "cx('root')",
+        '[style]': "sx('root')"
+    },
+    providers: [ChartStyle]
 })
-export class UIChart implements AfterViewInit, OnDestroy {
+export class UIChart extends BaseComponent implements AfterViewInit, OnDestroy {
     /**
      * Type of the chart.
      * @group Props
@@ -93,13 +98,17 @@ export class UIChart implements AfterViewInit, OnDestroy {
 
     chart: any;
 
+    _componentStyle = inject(ChartStyle);
+
     constructor(
-        @Inject(PLATFORM_ID) private platformId: any,
         public el: ElementRef,
         private zone: NgZone
-    ) {}
+    ) {
+        super();
+    }
 
     ngAfterViewInit() {
+        super.ngAfterViewInit();
         this.initChart();
         this.initialized = true;
     }
@@ -126,7 +135,7 @@ export class UIChart implements AfterViewInit, OnDestroy {
             }
 
             this.zone.runOutsideAngular(() => {
-                this.chart = new Chart(this.el.nativeElement.children[0].children[0], {
+                this.chart = new Chart(this.el.nativeElement.children[0], {
                     type: this.type,
                     data: this.data,
                     options: this.options,
@@ -137,7 +146,7 @@ export class UIChart implements AfterViewInit, OnDestroy {
     }
 
     getCanvas() {
-        return this.el.nativeElement.children[0].children[0];
+        return this.el.nativeElement.children[0];
     }
 
     getBase64Image() {
@@ -164,6 +173,7 @@ export class UIChart implements AfterViewInit, OnDestroy {
     }
 
     ngOnDestroy() {
+        super.ngOnDestroy();
         if (this.chart) {
             this.chart.destroy();
             this.initialized = false;

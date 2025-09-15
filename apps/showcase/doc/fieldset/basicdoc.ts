@@ -1,12 +1,16 @@
 import { Code } from '@/domain/code';
 import { Component } from '@angular/core';
+import { FieldsetModule } from 'primeng/fieldset';
+import { AppCode } from '@/components/doc/app.code';
+import { AppDocSectionText } from '@/components/doc/app.docsectiontext';
 
 @Component({
     selector: 'fieldset-basic-demo',
-    standalone: false,
+    standalone: true,
+    imports: [FieldsetModule, AppCode, AppDocSectionText],
     template: `
         <app-docsectiontext>
-            <p>PrimeIcons is available at npm, run the following command to download it to your project.</p>
+            <p>A simple Fieldset is created with a <i>legend</i> property along with the content as children.</p>
         </app-docsectiontext>
         <div class="card flex justify-center">
             <p-fieldset legend="Header">

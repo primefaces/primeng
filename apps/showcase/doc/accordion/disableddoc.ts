@@ -1,9 +1,13 @@
 import { Code } from '@/domain/code';
 import { Component } from '@angular/core';
+import { AccordionModule } from 'primeng/accordion';
+import { AppCode } from '@/components/doc/app.code';
+import { AppDocSectionText } from '@/components/doc/app.docsectiontext';
 
 @Component({
     selector: 'disabled-doc',
-    standalone: false,
+    standalone: true,
+    imports: [AccordionModule, AppCode, AppDocSectionText],
     template: `
         <app-docsectiontext>
             <p>Enabling <i>disabled</i> property of an AccordionTab prevents user interaction.</p>

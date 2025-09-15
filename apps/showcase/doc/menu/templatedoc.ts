@@ -1,10 +1,18 @@
 import { Code } from '@/domain/code';
 import { Component, OnInit } from '@angular/core';
 import { MenuItem } from 'primeng/api';
+import { CommonModule } from '@angular/common';
+import { MenuModule } from 'primeng/menu';
+import { BadgeModule } from 'primeng/badge';
+import { AvatarModule } from 'primeng/avatar';
+import { Ripple } from 'primeng/ripple';
+import { AppCodeModule } from '@/components/doc/app.code';
+import { AppDocSectionText } from '@/components/doc/app.docsectiontext';
 
 @Component({
     selector: 'template-doc',
-    standalone: false,
+    standalone: true,
+    imports: [CommonModule, MenuModule, BadgeModule, AvatarModule, Ripple, AppCodeModule, AppDocSectionText],
     template: `
         <app-docsectiontext>
             <p>

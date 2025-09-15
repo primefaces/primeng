@@ -1,8 +1,11 @@
 import { Component } from '@angular/core';
+import { RouterModule } from '@angular/router';
+import { AppDocSectionText } from '@/components/doc/app.docsectiontext';
 
 @Component({
     selector: 'inplace-accessibility-doc',
-    standalone: false,
+    standalone: true,
+    imports: [AppDocSectionText, RouterModule],
     template: ` <div>
         <app-docsectiontext>
             <h3>Screen Reader</h3>

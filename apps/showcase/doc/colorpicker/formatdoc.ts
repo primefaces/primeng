@@ -1,9 +1,15 @@
 import { Code } from '@/domain/code';
 import { Component } from '@angular/core';
+import { CommonModule } from '@angular/common';
+import { FormsModule } from '@angular/forms';
+import { ColorPickerModule } from 'primeng/colorpicker';
+import { AppCode } from '@/components/doc/app.code';
+import { AppDocSectionText } from '@/components/doc/app.docsectiontext';
 
 @Component({
     selector: 'color-picker-format-demo',
-    standalone: false,
+    standalone: true,
+    imports: [CommonModule, FormsModule, ColorPickerModule, AppCode, AppDocSectionText],
     template: `
         <app-docsectiontext>
             <p>Default color format to use in value binding is <i>hex</i> and other possible values can be <i>rgb</i> and <i>hsb</i> using the <i>format</i> property.</p>
@@ -11,17 +17,17 @@ import { Component } from '@angular/core';
         <div class="card flex flex-wrap gap-4">
             <div class="flex-1 flex flex-col items-center">
                 <label for="cp-hex" class="font-bold block mb-2"> HEX </label>
-                <p-colorpicker [(ngModel)]="color" inputId="cp-hex" />
+                <p-colorpicker [(ngModel)]="color" inputId="cp-hex" class="mb-4" />
                 <span>{{ color }}</span>
             </div>
             <div class="flex-1 flex flex-col items-center">
                 <label for="cp-rgb" class="font-bold block mb-2"> RGB </label>
-                <p-colorpicker [(ngModel)]="colorRGB" format="rgb" inputId="cp-rgb" />
+                <p-colorpicker [(ngModel)]="colorRGB" format="rgb" inputId="cp-rgb" class="mb-4" />
                 <span>{{ 'r:' + colorRGB.r + ' g:' + colorRGB.g + ' b:' + colorRGB.b }}</span>
             </div>
             <div class="flex-1 flex flex-col items-center">
                 <label for="cp-hsb" class="font-bold block mb-2"> HSB </label>
-                <p-colorpicker [(ngModel)]="colorHSB" format="hsb" inputId="cp-hsb" />
+                <p-colorpicker [(ngModel)]="colorHSB" format="hsb" inputId="cp-hsb" class="mb-4" />
                 <span>{{ 'h:' + colorHSB.h + ' s:' + colorHSB.s + ' b:' + colorHSB.b }}</span>
             </div>
         </div>
@@ -45,17 +51,17 @@ export class FormatDoc {
         html: `<div class="card flex flex-wrap gap-4">
     <div class="flex-1 flex flex-col items-center">
         <label for="cp-hex" class="font-bold block mb-2"> HEX </label>
-        <p-colorpicker [(ngModel)]="color" inputId="cp-hex" />
+        <p-colorpicker [(ngModel)]="color" inputId="cp-hex" class="mb-4" />
         <span>{{ color }}</span>
     </div>
     <div class="flex-1 flex flex-col items-center">
         <label for="cp-rgb" class="font-bold block mb-2"> RGB </label>
-        <p-colorpicker [(ngModel)]="colorRGB" format="rgb" inputId="cp-rgb" />
+        <p-colorpicker [(ngModel)]="colorRGB" format="rgb" inputId="cp-rgb" class="mb-4" />
         <span>{{ 'r:' + colorRGB.r + ' g:' + colorRGB.g + ' b:' + colorRGB.b }}</span>
     </div>
     <div class="flex-1 flex flex-col items-center">
         <label for="cp-hsb" class="font-bold block mb-2"> HSB </label>
-        <p-colorpicker [(ngModel)]="colorHSB" format="hsb" inputId="cp-hsb" />
+        <p-colorpicker [(ngModel)]="colorHSB" format="hsb" inputId="cp-hsb" class="mb-4" />
         <span>{{ 'h:' + colorHSB.h + ' s:' + colorHSB.s + ' b:' + colorHSB.b }}</span>
     </div>
 </div>`,

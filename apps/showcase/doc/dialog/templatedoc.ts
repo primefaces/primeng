@@ -1,9 +1,16 @@
 import { Code } from '@/domain/code';
 import { Component } from '@angular/core';
+import { DialogModule } from 'primeng/dialog';
+import { ButtonModule } from 'primeng/button';
+import { InputTextModule } from 'primeng/inputtext';
+import { AvatarModule } from 'primeng/avatar';
+import { AppCode } from '@/components/doc/app.code';
+import { AppDocSectionText } from '@/components/doc/app.docsectiontext';
 
 @Component({
     selector: 'dialog-template-demo',
-    standalone: false,
+    standalone: true,
+    imports: [DialogModule, ButtonModule, InputTextModule, AvatarModule, AppCode, AppDocSectionText],
     template: `
         <app-docsectiontext>
             <p>Dialog can be customized using <i>header</i> and <i>footer</i> templates.</p>

@@ -3,16 +3,16 @@ import { BasicDoc } from '@/doc/metergroup/basicdoc';
 import { IconDoc } from '@/doc/metergroup/icondoc';
 import { ImportDoc } from '@/doc/metergroup/importdoc';
 import { LabelDoc } from '@/doc/metergroup/labeldoc';
-import { MeterGroupDocModule } from '@/doc/metergroup/metergroupdoc.module';
 import { MinMaxDoc } from '@/doc/metergroup/minmaxdoc';
 import { MultipleDoc } from '@/doc/metergroup/multipledoc';
 import { TemplateDoc } from '@/doc/metergroup/templatedoc';
 import { VerticalDoc } from '@/doc/metergroup/verticaldoc';
 import { Component } from '@angular/core';
+import { AppDoc } from '@/components/doc/app.doc';
 
 @Component({
     standalone: true,
-    imports: [MeterGroupDocModule],
+    imports: [AppDoc],
     template: ` <app-doc docTitle="Angular MeterGroup Component" header="MeterGroup" description="MeterGroup displays scalar measurements within a known range." [docs]="docs" [apiDocs]="['MeterGroup']" themeDocs="metergroup"></app-doc>`
 })
 export class MeterGroupDemo {
@@ -57,7 +57,6 @@ export class MeterGroupDemo {
             label: 'Template',
             component: TemplateDoc
         },
-
         {
             id: 'accessibility',
             label: 'Accessibility',

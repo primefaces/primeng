@@ -1,15 +1,18 @@
 import { Code } from '@/domain/code';
 import { Component } from '@angular/core';
+import { AppCodeModule } from '@/components/doc/app.code';
+import { AppDocSectionText } from '@/components/doc/app.docsectiontext';
 
 @Component({
     selector: 'input-number-accessibility-doc',
-    standalone: false,
+    standalone: true,
+    imports: [AppCodeModule, AppDocSectionText],
     template: ` <div>
         <app-docsectiontext>
             <h3>Screen Reader</h3>
             <p>
-                Value to describe the component can either be provided via <i>label</i> tag combined with <i>inputId</i> prop or using <i>ariaLabelledBy</i>, <i>ariaLabel</i> props. The input element uses <i>spinbutton</i> role in addition to the
-                <i>aria-valuemin</i>, <i>aria-valuemax</i> and <i>aria-valuenow</i> attributes.
+                Value to describe the component can either be provided via <i>label</i> tag combined with <i>inputId</i> prop or using <i>ariaLabelledBy</i>, <i>ariaLabel</i>, <i>ariaDescribedBy</i> props. The input element uses
+                <i>spinbutton</i> role in addition to the <i>aria-valuemin</i>, <i>aria-valuemax</i> and <i>aria-valuenow</i> attributes.
             </p>
         </app-docsectiontext>
 
@@ -68,6 +71,9 @@ export class AccessibilityDoc {
 <span id="label_number">Number</span>
 <p-inputnumber ariaLabelledBy="label_number" />
 
-<p-inputnumber ariaLabel="Number" />`
+<p-inputnumber ariaLabel="Number" />
+
+<p-inputnumber ariaDescribedBy="describe" />
+<small id="describe">Information</small>`
     };
 }

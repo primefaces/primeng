@@ -1,9 +1,13 @@
-import { Code } from '@/domain/code';
 import { Component } from '@angular/core';
+import { Code } from '@/domain/code';
+import { AppCode } from '@/components/doc/app.code';
+import { AppDocSectionText } from '@/components/doc/app.docsectiontext';
+import { TagModule } from 'primeng/tag';
 
 @Component({
     selector: 'icon-doc',
-    standalone: false,
+    standalone: true,
+    imports: [AppCode, AppDocSectionText, TagModule],
     template: `
         <app-docsectiontext>
             <p>A font icon next to the value can be displayed with the <i>icon</i> property.</p>
@@ -40,13 +44,13 @@ export class IconDoc {
     <p-tag icon="pi pi-cog" severity="contrast" value="Contrast" />
 </div>`,
         typescript: `import { Component } from '@angular/core';
-import { Tag } from 'primeng/tag';
+import { TagModule } from 'primeng/tag';
 
 @Component({
     selector: 'tag-icon-demo',
     templateUrl: './tag-icon-demo.html',
     standalone: true,
-    imports: [Tag]
+    imports: [TagModule]
 })
 export class TagIconDemo {}`
     };

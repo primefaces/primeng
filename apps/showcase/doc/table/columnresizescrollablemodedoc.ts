@@ -2,10 +2,15 @@ import { Code } from '@/domain/code';
 import { Customer } from '@/domain/customer';
 import { CustomerService } from '@/service/customerservice';
 import { ChangeDetectionStrategy, ChangeDetectorRef, Component } from '@angular/core';
+import { CommonModule } from '@angular/common';
+import { TableModule } from 'primeng/table';
+import { AppCode } from '@/components/doc/app.code';
+import { DeferredDemo } from '@/components/demo/deferreddemo';
 
 @Component({
     selector: 'column-resize-scrollable-mode-doc',
-    standalone: false,
+    standalone: true,
+    imports: [CommonModule, TableModule, AppCode, DeferredDemo],
     template: ` <p-deferred-demo (load)="loadDemoData()">
             <div class="card">
                 <p-table [value]="customers" showGridlines [scrollable]="true" scrollHeight="400px" [resizableColumns]="true" [tableStyle]="{ 'min-width': '50rem' }">
@@ -47,7 +52,7 @@ export class ColumnResizeScrollableModeDoc {
     }
 
     code: Code = {
-        basic: `<p-table [value]="customers" [scrollable]="true" scrollHeight="400px" [resizableColumns]="true" styleClass="p-datatable-gridlines" [tableStyle]="{'min-width': '50rem'}">
+        basic: `<p-table [value]="customers" showGridlines [scrollable]="true" scrollHeight="400px" [resizableColumns]="true" [tableStyle]="{ 'min-width': '50rem' }">
     <ng-template #header>
         <tr>
             <th pResizableColumn>Name</th>
@@ -58,31 +63,33 @@ export class ColumnResizeScrollableModeDoc {
     </ng-template>
     <ng-template #body let-customer>
         <tr>
-            <td>{{customer.name}}</td>
-            <td>{{customer.country.name}}</td>
-            <td>{{customer.company}}</td>
-            <td>{{customer.representative.name}}</td>
+            <td>{{ customer.name }}</td>
+            <td>{{ customer.country.name }}</td>
+            <td>{{ customer.company }}</td>
+            <td>{{ customer.representative.name }}</td>
         </tr>
     </ng-template>
 </p-table>`,
-        html: `<p-table [value]="customers" [scrollable]="true" scrollHeight="400px" [resizableColumns]="true" styleClass="p-datatable-gridlines" [tableStyle]="{'min-width': '50rem'}">
-    <ng-template #header>
-        <tr>
-            <th pResizableColumn>Name</th>
-            <th pResizableColumn>Country</th>
-            <th pResizableColumn>Company</th>
-            <th pResizableColumn>Representative</th>
-        </tr>
-    </ng-template>
-    <ng-template #body let-customer>
-        <tr>
-            <td>{{customer.name}}</td>
-            <td>{{customer.country.name}}</td>
-            <td>{{customer.company}}</td>
-            <td>{{customer.representative.name}}</td>
-        </tr>
-    </ng-template>
-</p-table>`,
+        html: `<div class="card">
+    <p-table [value]="customers" showGridlines [scrollable]="true" scrollHeight="400px" [resizableColumns]="true" [tableStyle]="{ 'min-width': '50rem' }">
+        <ng-template #header>
+            <tr>
+                <th pResizableColumn>Name</th>
+                <th pResizableColumn>Country</th>
+                <th pResizableColumn>Company</th>
+                <th pResizableColumn>Representative</th>
+            </tr>
+        </ng-template>
+        <ng-template #body let-customer>
+            <tr>
+                <td>{{ customer.name }}</td>
+                <td>{{ customer.country.name }}</td>
+                <td>{{ customer.company }}</td>
+                <td>{{ customer.representative.name }}</td>
+            </tr>
+        </ng-template>
+    </p-table>
+</div>`,
         typescript: `import { Component, OnInit } from '@angular/core';
 import { Customer } from '@/domain/customer';
 import { CustomerService } from '@/service/customerservice';

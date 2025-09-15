@@ -2,10 +2,14 @@ import { Code } from '@/domain/code';
 import { Component } from '@angular/core';
 import { DialogService, DynamicDialogRef } from 'primeng/dynamicdialog';
 import { ProductListDemo } from './productlistdemo';
+import { AppCode } from '@/components/doc/app.code';
+import { AppDocSectionText } from '@/components/doc/app.docsectiontext';
+import { RouterModule } from '@angular/router';
 
 @Component({
     selector: 'customization-doc',
-    standalone: false,
+    standalone: true,
+    imports: [AppDocSectionText, AppCode, RouterModule],
     template: `
         <app-docsectiontext>
             <p>DynamicDialog uses the Dialog component internally, visit <a [routerLink]="'/dialog'">dialog</a> for more information about the available props.</p>

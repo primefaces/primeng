@@ -1,5 +1,8 @@
 import { Code } from '@/domain/code';
 import { Component } from '@angular/core';
+import { AppCode } from '@/components/doc/app.code';
+import { AppDocSectionText } from '@/components/doc/app.docsectiontext';
+import { TimelineModule } from 'primeng/timeline';
 
 interface EventItem {
     status?: string;
@@ -11,7 +14,8 @@ interface EventItem {
 
 @Component({
     selector: 'opposite-doc',
-    standalone: false,
+    standalone: true,
+    imports: [AppDocSectionText, TimelineModule, AppCode],
     template: `
         <app-docsectiontext>
             <p>Additional content at the other side of the line can be provided with the <i>opposite</i> property.</p>

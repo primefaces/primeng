@@ -1,9 +1,12 @@
 import { Code } from '@/domain/code';
 import { Component } from '@angular/core';
+import { AppDocSectionText } from '@/components/doc/app.docsectiontext';
+import { AppCode } from '@/components/doc/app.code';
 
 @Component({
     selector: 'select-accessibility-doc',
-    standalone: false,
+    standalone: true,
+    imports: [AppDocSectionText, AppCode],
     template: ` <div>
         <app-docsectiontext>
             <h3>Screen Reader</h3>

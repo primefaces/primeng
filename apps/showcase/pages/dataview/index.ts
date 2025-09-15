@@ -1,16 +1,16 @@
 import { AccessibilityDoc } from '@/doc/dataview/accessibilitydoc';
 import { BasicDoc } from '@/doc/dataview/basicdoc';
-import { DataViewDocModule } from '@/doc/dataview/dataviewdoc.module';
 import { ImportDoc } from '@/doc/dataview/importdoc';
 import { LayoutDoc } from '@/doc/dataview/layoutdoc';
 import { LoadingDoc } from '@/doc/dataview/loadingdoc';
 import { PaginationDoc } from '@/doc/dataview/paginationdoc';
 import { SortingDoc } from '@/doc/dataview/sortingdoc';
 import { Component } from '@angular/core';
+import { AppDoc } from '@/components/doc/app.doc';
 
 @Component({
     standalone: true,
-    imports: [DataViewDocModule],
+    imports: [AppDoc],
     template: `
         <app-doc
             docTitle="Angular DataView Component"
@@ -55,7 +55,6 @@ export class DataViewDemo {
             label: 'Loading',
             component: LoadingDoc
         },
-
         {
             id: 'accessibility',
             label: 'Accessibility',

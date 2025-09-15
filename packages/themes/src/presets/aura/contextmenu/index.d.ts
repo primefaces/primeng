@@ -1,3 +1,2 @@
-import { ContextMenuDesignTokens } from '../../types/contextmenu';
-declare const _default: ContextMenuDesignTokens;
-export default _default;
+export * from '@primeuix/themes/aura/contextmenu';
+export { default } from '@primeuix/themes/aura/contextmenu';

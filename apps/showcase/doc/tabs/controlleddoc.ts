@@ -1,9 +1,14 @@
 import { Code } from '@/domain/code';
 import { Component } from '@angular/core';
+import { AppDocSectionText } from '@/components/doc/app.docsectiontext';
+import { AppCode } from '@/components/doc/app.code';
+import { TabsModule } from 'primeng/tabs';
+import { ButtonModule } from 'primeng/button';
 
 @Component({
     selector: 'controlled-doc',
-    standalone: false,
+    standalone: true,
+    imports: [AppDocSectionText, AppCode, TabsModule, ButtonModule],
     template: `
         <app-docsectiontext>
             <p>Tabs can be controlled programmatically using <i>value</i> property as a model.</p>

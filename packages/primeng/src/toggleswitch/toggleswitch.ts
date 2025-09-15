@@ -9,7 +9,9 @@ import {
     ElementRef,
     EventEmitter,
     forwardRef,
+    HostListener,
     inject,
+    input,
     Input,
     NgModule,
     numberAttribute,
@@ -22,7 +24,7 @@ import {
 import { NG_VALUE_ACCESSOR } from '@angular/forms';
 import { PrimeTemplate, SharedModule } from 'primeng/api';
 import { AutoFocus } from 'primeng/autofocus';
-import { BaseComponent } from 'primeng/basecomponent';
+import { BaseEditableHolder } from 'primeng/baseeditableholder';
 import { ToggleSwitchStyle } from './style/toggleswitchstyle';
 import { ToggleSwitchChangeEvent } from './toggleswitch.interface';
 
@@ -49,46 +51,47 @@ export const TOGGLESWITCH_VALUE_ACCESSOR: any = {
     standalone: true,
     imports: [CommonModule, AutoFocus, SharedModule],
     template: `
-        <div [ngClass]="cx('root')" [style]="sx('root')" [ngStyle]="style" [class]="styleClass" (click)="onClick($event)" [attr.data-pc-name]="'toggleswitch'" [attr.data-pc-section]="'root'">
-            <input
-                #input
-                [attr.id]="inputId"
-                type="checkbox"
-                role="switch"
-                [ngClass]="cx('input')"
-                [checked]="checked()"
-                [disabled]="disabled"
-                [attr.aria-checked]="checked()"
-                [attr.aria-labelledby]="ariaLabelledBy"
-                [attr.aria-label]="ariaLabel"
-                [attr.name]="name"
-                [attr.tabindex]="tabindex"
-                (focus)="onFocus()"
-                (blur)="onBlur()"
-                [attr.data-pc-section]="'hiddenInput'"
-                [pAutoFocus]="autofocus"
-            />
-            <span [ngClass]="cx('slider')" [attr.data-pc-section]="'slider'">
-                <div [ngClass]="cx('handle')">
-                    @if (handleTemplate || _handleTemplate) {
-                        <ng-container *ngTemplateOutlet="handleTemplate || _handleTemplate; context: { checked: checked() }" />
-                    }
-                </div>
-            </span>
+        <input
+            #input
+            [attr.id]="inputId"
+            type="checkbox"
+            role="switch"
+            [class]="cx('input')"
+            [checked]="checked()"
+            [attr.required]="required() ? '' : undefined"
+            [attr.disabled]="$disabled() ? '' : undefined"
+            [attr.aria-checked]="checked()"
+            [attr.aria-labelledby]="ariaLabelledBy"
+            [attr.aria-label]="ariaLabel"
+            [attr.name]="name()"
+            [attr.tabindex]="tabindex"
+            (focus)="onFocus()"
+            (blur)="onBlur()"
+            [attr.data-pc-section]="'hiddenInput'"
+            [pAutoFocus]="autofocus"
+        />
+        <div [class]="cx('slider')" [attr.data-pc-section]="'slider'">
+            <div [class]="cx('handle')">
+                @if (handleTemplate || _handleTemplate) {
+                    <ng-container *ngTemplateOutlet="handleTemplate || _handleTemplate; context: { checked: checked() }" />
+                }
+            </div>
         </div>
     `,
     providers: [TOGGLESWITCH_VALUE_ACCESSOR, ToggleSwitchStyle],
     changeDetection: ChangeDetectionStrategy.OnPush,
-    encapsulation: ViewEncapsulation.None
+    encapsulation: ViewEncapsulation.None,
+    host: {
+        '[class]': "cn(cx('root'), styleClass)",
+        '[style]': "sx('root')",
+        '[attr.data-pc-name]': "'toggleswitch'",
+        '[attr.data-pc-section]': "'root'"
+    }
 })
-export class ToggleSwitch extends BaseComponent implements AfterContentInit {
-    /**
-     * Inline style of the component.
-     * @group Props
-     */
-    @Input() style: { [klass: string]: any } | null | undefined;
+export class ToggleSwitch extends BaseEditableHolder implements AfterContentInit {
     /**
      * Style class of the component.
+     * @deprecated since v20.0.0, use `class` instead.
      * @group Props
      */
     @Input() styleClass: string | undefined;
@@ -102,16 +105,6 @@ export class ToggleSwitch extends BaseComponent implements AfterContentInit {
      * @group Props
      */
     @Input() inputId: string | undefined;
-    /**
-     * Name of the input element.
-     * @group Props
-     */
-    @Input() name: string | undefined;
-    /**
-     * When present, it specifies that the element should be disabled.
-     * @group Props
-     */
-    @Input({ transform: booleanAttribute }) disabled: boolean | undefined;
     /**
      * When present, it specifies that the component cannot be edited.
      * @group Props
@@ -132,6 +125,12 @@ export class ToggleSwitch extends BaseComponent implements AfterContentInit {
      * @group Props
      */
     @Input() ariaLabel: string | undefined;
+    /**
+     * Specifies the size of the component.
+     * @defaultValue undefined
+     * @group Props
+     */
+    size = input<'large' | 'small' | undefined>();
     /**
      * Establishes relationships between the component and label(s) where its value should be one or more element IDs.
      * @group Props
@@ -164,17 +163,16 @@ export class ToggleSwitch extends BaseComponent implements AfterContentInit {
 
     _handleTemplate: TemplateRef<any> | undefined;
 
-    modelValue: any = false;
-
     focused: boolean = false;
-
-    onModelChange: Function = () => {};
-
-    onModelTouched: Function = () => {};
 
     _componentStyle = inject(ToggleSwitchStyle);
 
     @ContentChildren(PrimeTemplate) templates!: QueryList<PrimeTemplate>;
+
+    @HostListener('click', ['$event'])
+    onHostClick(event: MouseEvent) {
+        this.onClick(event);
+    }
 
     ngAfterContentInit() {
         this.templates.forEach((item) => {
@@ -190,13 +188,13 @@ export class ToggleSwitch extends BaseComponent implements AfterContentInit {
     }
 
     onClick(event: Event) {
-        if (!this.disabled && !this.readonly) {
-            this.modelValue = this.checked() ? this.falseValue : this.trueValue;
+        if (!this.$disabled() && !this.readonly) {
+            this.writeModelValue(this.checked() ? this.falseValue : this.trueValue);
 
-            this.onModelChange(this.modelValue);
+            this.onModelChange(this.modelValue());
             this.onChange.emit({
                 originalEvent: event,
-                checked: this.modelValue
+                checked: this.modelValue()
             });
 
             this.input.nativeElement.focus();
@@ -212,26 +210,19 @@ export class ToggleSwitch extends BaseComponent implements AfterContentInit {
         this.onModelTouched();
     }
 
-    writeValue(value: any): void {
-        this.modelValue = value;
-        this.cd.markForCheck();
-    }
-
-    registerOnChange(fn: Function): void {
-        this.onModelChange = fn;
-    }
-
-    registerOnTouched(fn: Function): void {
-        this.onModelTouched = fn;
-    }
-
-    setDisabledState(val: boolean): void {
-        this.disabled = val;
-        this.cd.markForCheck();
-    }
-
     checked() {
-        return this.modelValue === this.trueValue;
+        return this.modelValue() === this.trueValue;
+    }
+
+    /**
+     * @override
+     *
+     * @see {@link BaseEditableHolder.writeControlValue}
+     * Writes the value to the control.
+     */
+    writeControlValue(value: any, setModelValue: (value: any) => void): void {
+        setModelValue(value);
+        this.cd.markForCheck();
     }
 }
 

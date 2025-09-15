@@ -1,9 +1,13 @@
 import { Code } from '@/domain/code';
 import { Component } from '@angular/core';
+import { AppCode } from '@/components/doc/app.code';
+import { AppDocSectionText } from '@/components/doc/app.docsectiontext';
+import { TextareaModule } from 'primeng/textarea';
 
 @Component({
     selector: 'autoresize-doc',
-    standalone: false,
+    standalone: true,
+    imports: [AppCode, AppDocSectionText, TextareaModule],
     template: `
         <app-docsectiontext>
             <p>When <i>autoResize</i> is enabled, textarea grows instead of displaying a scrollbar.</p>

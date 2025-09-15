@@ -1,9 +1,14 @@
 import { Code } from '@/domain/code';
 import { Component } from '@angular/core';
+import { FormsModule } from '@angular/forms';
+import { InputOtpModule } from 'primeng/inputotp';
+import { AppCodeModule } from '@/components/doc/app.code';
+import { AppDocSectionText } from '@/components/doc/app.docsectiontext';
 
 @Component({
     selector: 'template-doc',
-    standalone: false,
+    standalone: true,
+    imports: [FormsModule, InputOtpModule, AppCodeModule, AppDocSectionText],
     template: `
         <app-docsectiontext>
             <p>Define a template with your own UI elements with bindings to the provided events and attributes to replace the default design.</p>

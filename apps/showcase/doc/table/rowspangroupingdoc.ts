@@ -2,10 +2,17 @@ import { Code } from '@/domain/code';
 import { Customer } from '@/domain/customer';
 import { CustomerService } from '@/service/customerservice';
 import { ChangeDetectionStrategy, ChangeDetectorRef, Component } from '@angular/core';
+import { CommonModule } from '@angular/common';
+import { TableModule } from 'primeng/table';
+import { TagModule } from 'primeng/tag';
+import { AppDocSectionText } from '@/components/doc/app.docsectiontext';
+import { AppCode } from '@/components/doc/app.code';
+import { DeferredDemo } from '@/components/demo/deferreddemo';
 
 @Component({
     selector: 'rowspan-grouping-doc',
-    standalone: false,
+    standalone: true,
+    imports: [CommonModule, TableModule, TagModule, AppDocSectionText, AppCode, DeferredDemo],
     template: ` <app-docsectiontext>
             <p>When <i>rowGroupMode</i> is configured to be <i>rowspan</i>, the grouping column spans multiple rows.</p>
         </app-docsectiontext>
@@ -20,7 +27,6 @@ import { ChangeDetectionStrategy, ChangeDetectorRef, Component } from '@angular/
                             <th>Country</th>
                             <th>Company</th>
                             <th>Status</th>
-                            <th>Date</th>
                         </tr>
                     </ng-template>
                     <ng-template #body let-customer let-rowIndex="rowIndex" let-rowgroup="rowgroup" let-rowspan="rowspan">
@@ -113,7 +119,6 @@ export class RowspanGroupingDoc {
             <th>Country</th>
             <th>Company</th>
             <th>Status</th>
-            <th>Date</th>
         </tr>
     </ng-template>
     <ng-template #body let-customer let-rowIndex="rowIndex" let-rowgroup="rowgroup" let-rowspan="rowspan">
@@ -153,7 +158,6 @@ export class RowspanGroupingDoc {
                 <th>Country</th>
                 <th>Company</th>
                 <th>Status</th>
-                <th>Date</th>
             </tr>
         </ng-template>
         <ng-template #body let-customer let-rowIndex="rowIndex" let-rowgroup="rowgroup" let-rowspan="rowspan">

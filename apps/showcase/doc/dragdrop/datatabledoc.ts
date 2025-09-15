@@ -2,10 +2,18 @@ import { Code } from '@/domain/code';
 import { Product } from '@/domain/product';
 import { ProductService } from '@/service/productservice';
 import { Component, OnInit } from '@angular/core';
+import { CommonModule } from '@angular/common';
+import { DragDropModule } from 'primeng/dragdrop';
+import { TableModule } from 'primeng/table';
+import { TagModule } from 'primeng/tag';
+import { AppCode } from '@/components/doc/app.code';
+import { AppDocSectionText } from '@/components/doc/app.docsectiontext';
 
 @Component({
     selector: 'drag-drop-data-table-demo',
-    standalone: false,
+    standalone: true,
+    imports: [CommonModule, DragDropModule, TableModule, TagModule, AppCode, AppDocSectionText],
+    providers: [ProductService],
     template: `
         <app-docsectiontext>
             <p>Drag and Drop to Table</p>

@@ -17,10 +17,7 @@ import { FloatLabelStyle } from './style/floatlabelstyle';
     encapsulation: ViewEncapsulation.None,
     providers: [FloatLabelStyle],
     host: {
-        '[class.p-floatlabel]': 'true',
-        '[class.p-floatlabel-over]': "variant === 'over'",
-        '[class.p-floatlabel-on]': "variant === 'on'",
-        '[class.p-floatlabel-in]': "variant === 'in'"
+        '[class]': "cx('root')"
     }
 })
 export class FloatLabel extends BaseComponent {

@@ -8,6 +8,7 @@ import { AppFooterComponent } from './footer/app.footer.component';
 import { AppMenuComponent } from './menu/app.menu.component';
 import { AppNewsComponent } from './news/app.news.component';
 import { AppTopBarComponent } from './topbar/app.topbar.component';
+import { AppDesigner } from '@/components/layout/designer/app.designer';
 
 @Component({
     selector: 'app-main',
@@ -23,10 +24,11 @@ import { AppTopBarComponent } from './topbar/app.topbar.component';
                 </div>
             </div>
             <app-footer />
+            <app-designer />
         </div>
     `,
     standalone: true,
-    imports: [RouterOutlet, AppFooterComponent, CommonModule, AppNewsComponent, AppMenuComponent, AppTopBarComponent]
+    imports: [RouterOutlet, AppFooterComponent, CommonModule, AppNewsComponent, AppMenuComponent, AppTopBarComponent, AppDesigner]
 })
 export class AppMainComponent {
     configService: AppConfigService = inject(AppConfigService);

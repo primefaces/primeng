@@ -1,9 +1,13 @@
-import { Code } from '@/domain/code';
 import { Component } from '@angular/core';
+import { Code } from '@/domain/code';
+import { AppCode } from '@/components/doc/app.code';
+import { AppDocSectionText } from '@/components/doc/app.docsectiontext';
+import { TagModule } from 'primeng/tag';
 
 @Component({
     selector: 'tag-template-demo',
-    standalone: false,
+    standalone: true,
+    imports: [AppCode, AppDocSectionText, TagModule],
     template: `
         <app-docsectiontext>
             <p>Children of the component are passed as the content for templating.</p>
@@ -40,13 +44,13 @@ export class TemplateDoc {
     </p-tag>
 </div>`,
         typescript: `import { Component } from '@angular/core';
-import { Tag } from 'primeng/tag';
+import { TagModule } from 'primeng/tag';
 
 @Component({
     selector: 'tag-template-demo',
     templateUrl: './tag-template-demo.html',
     standalone: true,
-    imports: [Tag]
+    imports: [TagModule]
 })
 export class TagTemplateDemo {}`
     };

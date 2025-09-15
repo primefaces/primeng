@@ -1,15 +1,15 @@
 import { AccessibilityDoc } from '@/doc/carousel/accessibilitydoc';
 import { BasicDoc } from '@/doc/carousel/basicdoc';
-import { CarouselDocModule } from '@/doc/carousel/carouseldoc.module';
 import { CircularDoc } from '@/doc/carousel/circulardoc';
 import { ImportDoc } from '@/doc/carousel/importdoc';
 import { ResponsiveDoc } from '@/doc/carousel/responsivedoc';
 import { VerticalDoc } from '@/doc/carousel/verticaldoc';
+import { AppDoc } from '@/components/doc/app.doc';
 import { Component } from '@angular/core';
 
 @Component({
     standalone: true,
-    imports: [CarouselDocModule],
+    imports: [AppDoc],
     template: ` <app-doc docTitle="Angular Carousel Component" header="Carousel" description="Carousel is a content slider featuring various customization options." [docs]="docs" [apiDocs]="['Carousel']" themeDocs="Carousel"></app-doc> `
     // styles: [
     //     `

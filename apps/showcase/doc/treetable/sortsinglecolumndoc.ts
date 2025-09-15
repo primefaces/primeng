@@ -2,6 +2,11 @@ import { Code } from '@/domain/code';
 import { NodeService } from '@/service/nodeservice';
 import { ChangeDetectionStrategy, Component } from '@angular/core';
 import { TreeNode } from 'primeng/api';
+import { CommonModule } from '@angular/common';
+import { TreeTableModule } from 'primeng/treetable';
+import { DeferredDemo } from '@/components/demo/deferreddemo';
+import { AppCode } from '@/components/doc/app.code';
+import { AppDocSectionText } from '@/components/doc/app.docsectiontext';
 
 interface Column {
     field: string;
@@ -10,7 +15,8 @@ interface Column {
 
 @Component({
     selector: 'sort-single-column-doc',
-    standalone: false,
+    standalone: true,
+    imports: [CommonModule, TreeTableModule, DeferredDemo, AppCode, AppDocSectionText],
     template: `
         <app-docsectiontext>
             <p>Sorting on a column is enabled by adding the <i>ttSortableColumn</i> property.</p>
@@ -21,8 +27,10 @@ interface Column {
                     <ng-template #header let-columns>
                         <tr>
                             <th *ngFor="let col of columns" [ttSortableColumn]="col.field">
-                                {{ col.header }}
-                                <p-treetable-sort-icon [field]="col.field" />
+                                <div class="flex items-center gap-2">
+                                    {{ col.header }}
+                                    <p-treetable-sort-icon [field]="col.field" />
+                                </div>
                             </th>
                         </tr>
                     </ng-template>
@@ -63,8 +71,10 @@ export class SortSingleColumnDoc {
     <ng-template #header let-columns>
         <tr>
             <th *ngFor="let col of columns" [ttSortableColumn]="col.field">
-                {{ col.header }}
-                <p-treetable-sort-icon [field]="col.field" />
+                <div class="flex items-center gap-2">
+                    {{ col.header }}
+                    <p-treetable-sort-icon [field]="col.field" />
+                </div>
             </th>
         </tr>
     </ng-template>
@@ -83,8 +93,10 @@ export class SortSingleColumnDoc {
         <ng-template #header let-columns>
             <tr>
                 <th *ngFor="let col of columns" [ttSortableColumn]="col.field">
-                    {{ col.header }}
-                    <p-treetable-sort-icon [field]="col.field" />
+                    <div class="flex items-center gap-2">
+                        {{ col.header }}
+                        <p-treetable-sort-icon [field]="col.field" />
+                    </div>
                 </th>
             </tr>
         </ng-template>

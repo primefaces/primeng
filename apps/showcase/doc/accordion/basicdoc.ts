@@ -1,9 +1,13 @@
 import { Code } from '@/domain/code';
 import { Component } from '@angular/core';
+import { AccordionModule } from 'primeng/accordion';
+import { AppCode } from '@/components/doc/app.code';
+import { AppDocSectionText } from '@/components/doc/app.docsectiontext';
 
 @Component({
     selector: 'basic-doc',
-    standalone: false,
+    standalone: true,
+    imports: [AccordionModule, AppCode, AppDocSectionText],
     template: `
         <app-docsectiontext>
             <p>Accordion is defined using <i>AccordionPanel</i>, <i>AccordionHeader</i> and <i>AccordionContent</i> components. Each AccordionPanel must contain a unique <i>value</i> property to specify the active item.</p>

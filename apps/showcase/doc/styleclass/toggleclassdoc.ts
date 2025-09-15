@@ -1,9 +1,15 @@
 import { Code } from '@/domain/code';
 import { Component } from '@angular/core';
+import { AppCode } from '@/components/doc/app.code';
+import { AppDocSectionText } from '@/components/doc/app.docsectiontext';
+import { StyleClassModule } from 'primeng/styleclass';
+import { ButtonModule } from 'primeng/button';
+import { InputTextModule } from 'primeng/inputtext';
 
 @Component({
     selector: 'toggle-class-doc',
-    standalone: false,
+    standalone: true,
+    imports: [AppDocSectionText, AppCode, StyleClassModule, ButtonModule, InputTextModule],
     template: `
         <app-docsectiontext>
             <p>

@@ -1,3 +1,2 @@
-import { OrganizationChartDesignTokens } from '../../types/organizationchart';
-declare const _default: OrganizationChartDesignTokens;
-export default _default;
+export * from '@primeuix/themes/aura/organizationchart';
+export { default } from '@primeuix/themes/aura/organizationchart';

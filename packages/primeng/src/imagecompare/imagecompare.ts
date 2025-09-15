@@ -19,7 +19,7 @@ import { ImageCompareStyle } from './style/imagecomparestyle';
         <input type="range" min="0" max="100" value="50" (input)="onSlide($event)" [class]="cx('slider')" />
     `,
     host: {
-        class: 'p-imagecompare',
+        '[class]': "cx('root')",
         '[attr.tabindex]': 'tabindex',
         '[attr.aria-labelledby]': 'ariaLabelledby',
         '[attr.aria-label]': 'ariaLabel'
@@ -29,8 +29,6 @@ import { ImageCompareStyle } from './style/imagecomparestyle';
     providers: [ImageCompareStyle]
 })
 export class ImageCompare extends BaseComponent implements AfterContentInit {
-    isRTL: boolean = false;
-
     /**
      * Index of the element in tabbing order.
      * @defaultValue 0
@@ -69,6 +67,8 @@ export class ImageCompare extends BaseComponent implements AfterContentInit {
     _componentStyle = inject(ImageCompareStyle);
 
     mutationObserver: MutationObserver;
+
+    isRTL: boolean = false;
 
     ngOnInit() {
         super.ngOnInit();

@@ -2,7 +2,7 @@ import { AccessibilityDoc } from '@/doc/scrollpanel/accessibilitydoc';
 import { BasicDoc } from '@/doc/scrollpanel/basicdoc';
 import { CusstomDoc } from '@/doc/scrollpanel/customdoc';
 import { ImportDoc } from '@/doc/scrollpanel/importdoc';
-import { ScrollPanelDocModule } from '@/doc/scrollpanel/scrollpaneldoc.module';
+import { AppDoc } from '@/components/doc/app.doc';
 import { Component } from '@angular/core';
 
 @Component({
@@ -15,7 +15,7 @@ import { Component } from '@angular/core';
         themeDocs="scrollpanel"
     ></app-doc>`,
     standalone: true,
-    imports: [ScrollPanelDocModule]
+    imports: [AppDoc]
 })
 export class ScrollPanelDemo {
     docs = [

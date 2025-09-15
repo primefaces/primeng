@@ -1,9 +1,14 @@
 import { Code } from '@/domain/code';
 import { Component } from '@angular/core';
+import { FormsModule } from '@angular/forms';
+import { CheckboxModule } from 'primeng/checkbox';
+import { AppCode } from '@/components/doc/app.code';
+import { AppDocSectionText } from '@/components/doc/app.docsectiontext';
 
 @Component({
     selector: 'checkbox-sizes-demo',
-    standalone: false,
+    standalone: true,
+    imports: [FormsModule, CheckboxModule, AppCode, AppDocSectionText],
     template: `
         <app-docsectiontext>
             <p>Checkbox provides <i>small</i> and <i>large</i> sizes as alternatives to the base.</p>

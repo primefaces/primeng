@@ -1,22 +1,24 @@
 import { AccessibilityDoc } from '@/doc/listbox/accessibilitydoc';
 import { BasicDoc } from '@/doc/listbox/basicdoc';
+import { CheckboxDoc } from '@/doc/listbox/checkboxdoc';
 import { CheckmarkDoc } from '@/doc/listbox/checkmarkdoc';
 import { DisabledDoc } from '@/doc/listbox/disableddoc';
 import { FilterDoc } from '@/doc/listbox/filterdoc';
 import { GroupDoc } from '@/doc/listbox/groupdoc';
 import { ImportDoc } from '@/doc/listbox/importdoc';
 import { InvalidDoc } from '@/doc/listbox/invaliddoc';
-import { ListboxDocModule } from '@/doc/listbox/listboxdoc.module';
 import { MultipleDoc } from '@/doc/listbox/multipledoc';
 import { ReactiveFormsDoc } from '@/doc/listbox/reactiveformsdoc';
 import { TemplateDoc } from '@/doc/listbox/templatedoc';
+import { TemplateDrivenFormsDoc } from '@/doc/listbox/templatedrivenformsdoc';
 import { VirtualScrollDoc } from '@/doc/listbox/virtualscrolldoc';
 import { Component } from '@angular/core';
+import { AppDoc } from '@/components/doc/app.doc';
 
 @Component({
     template: `<app-doc docTitle="Angular Listbox Component" header="Listbox" description="Listbox is used to select one or more values from a list of items." [docs]="docs" [apiDocs]="['Listbox']" themeDocs="listbox"></app-doc> `,
     standalone: true,
-    imports: [ListboxDocModule]
+    imports: [AppDoc]
 })
 export class ListboxDemo {
     docs = [
@@ -31,14 +33,14 @@ export class ListboxDemo {
             component: BasicDoc
         },
         {
-            id: 'reactive-forms',
-            label: 'Reactive Forms',
-            component: ReactiveFormsDoc
-        },
-        {
             id: 'checkmark',
             label: 'Checkmark',
             component: CheckmarkDoc
+        },
+        {
+            id: 'checkbox',
+            label: 'Checkbox',
+            component: CheckboxDoc
         },
         {
             id: 'multiple',
@@ -75,7 +77,14 @@ export class ListboxDemo {
             label: 'Disabled',
             component: DisabledDoc
         },
-
+        {
+            id: 'forms',
+            label: 'Forms',
+            children: [
+                { id: 'templatedriven', label: 'Template Driven', component: TemplateDrivenFormsDoc },
+                { id: 'reactive', label: 'Reactive Forms', component: ReactiveFormsDoc }
+            ]
+        },
         {
             id: 'accessibility',
             label: 'Accessibility',

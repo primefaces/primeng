@@ -1,22 +1,2 @@
-import { ProgressSpinnerDesignTokens } from '../../../../types/progressspinner';
-
-export default {
-    colorScheme: {
-        light: {
-            root: {
-                colorOne: '{pink.500}',
-                colorTwo: '{sky.500}',
-                colorThree: '{emerald.500}',
-                colorFour: '{amber.500}'
-            }
-        },
-        dark: {
-            root: {
-                colorOne: '{pink.400}',
-                colorTwo: '{sky.400}',
-                colorThree: '{emerald.400}',
-                colorFour: '{amber.400}'
-            }
-        }
-    }
-} as ProgressSpinnerDesignTokens;
+export * from '@primeuix/themes/lara/progressspinner';
+export { default } from '@primeuix/themes/lara/progressspinner';

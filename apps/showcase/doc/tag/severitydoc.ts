@@ -1,9 +1,13 @@
-import { Code } from '@/domain/code';
 import { Component } from '@angular/core';
+import { Code } from '@/domain/code';
+import { AppCode } from '@/components/doc/app.code';
+import { AppDocSectionText } from '@/components/doc/app.docsectiontext';
+import { TagModule } from 'primeng/tag';
 
 @Component({
     selector: 'severity-doc',
-    standalone: false,
+    standalone: true,
+    imports: [AppCode, AppDocSectionText, TagModule],
     template: `
         <app-docsectiontext>
             <p>Severity defines the color of the tag, possible values are <i>success</i>, <i>info</i>, <i>warn</i> and <i>danger</i> in addition to the default theme color.</p>
@@ -39,13 +43,13 @@ export class SeverityDoc {
     <p-tag severity="contrast" value="Contrast"/>
 </div>`,
         typescript: `import { Component } from '@angular/core';
-import { Tag } from 'primeng/tag';
+import { TagModule } from 'primeng/tag';
 
 @Component({
     selector: 'tag-severity-demo',
     templateUrl: './tag-severity-demo.html',
     standalone: true,
-    imports: [Tag]
+    imports: [TagModule]
 })
 export class TagSeverityDemo {}`
     };

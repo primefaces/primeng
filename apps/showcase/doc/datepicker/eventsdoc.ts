@@ -1,8 +1,10 @@
 import { Component, Input } from '@angular/core';
+import { AppDocSectionText } from '@/components/doc/app.docsectiontext';
 
 @Component({
     selector: 'events-doc',
-    standalone: false,
+    standalone: true,
+    imports: [AppDocSectionText],
     template: ` <section class="py-6">
         <app-docsectiontext [title]="title" [id]="id"></app-docsectiontext>
         <div class="doc-tablewrapper">

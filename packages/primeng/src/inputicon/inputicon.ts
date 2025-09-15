@@ -17,20 +17,16 @@ import { InputIconStyle } from './style/inputiconstyle';
     changeDetection: ChangeDetectionStrategy.OnPush,
     providers: [InputIconStyle],
     host: {
-        '[class]': 'styleClass',
-        '[class.p-inputicon]': 'true'
+        '[class]': "cn(cx('root'), styleClass)"
     }
 })
 export class InputIcon extends BaseComponent {
     /**
      * Style class of the element.
+     * @deprecated since v20.0.0, use `class` instead.
      * @group Props
      */
     @Input() styleClass: string | undefined;
-
-    @HostBinding('class') get hostClasses(): string {
-        return this.styleClass;
-    }
 
     _componentStyle = inject(InputIconStyle);
 }
