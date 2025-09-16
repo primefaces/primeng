@@ -1,5 +1,11 @@
 import { Code } from '@/domain/code';
 import { Component, OnInit } from '@angular/core';
+import { AppDocSectionText } from '@/components/doc/app.docsectiontext';
+import { AppCode } from '@/components/doc/app.code';
+import { FormsModule } from '@angular/forms';
+import { SelectModule } from 'primeng/select';
+import { IftaLabelModule } from 'primeng/iftalabel';
+import { RouterModule } from '@angular/router';
 
 interface City {
     name: string;
@@ -8,7 +14,8 @@ interface City {
 
 @Component({
     selector: 'select-iftalabel-demo',
-    standalone: false,
+    standalone: true,
+    imports: [AppDocSectionText, AppCode, FormsModule, SelectModule, IftaLabelModule, RouterModule],
     template: `
         <app-docsectiontext>
             <p>IftaLabel is used to create infield top aligned labels. Visit <a routerLink="/iftalabel">IftaLabel</a> documentation for more information.</p>

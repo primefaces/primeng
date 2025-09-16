@@ -1,10 +1,11 @@
-import { AppDocModule } from '@/components/doc/app.doc.module';
 import { Component } from '@angular/core';
 import { TagModule } from 'primeng/tag';
+import { AppDocSectionText } from '@/components/doc/app.docsectiontext';
 
 @Component({
     selector: 'v20-deprecations-doc',
-    imports: [AppDocModule, TagModule],
+    standalone: true,
+    imports: [TagModule, AppDocSectionText],
     template: `
         <app-docsectiontext>
             <p>The following items are marked as deprecated. These are subject to soft deprecation, which means they are no longer recommended for use, but will remain available and will not be removed in future releases.</p>

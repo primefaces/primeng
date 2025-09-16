@@ -2,10 +2,14 @@ import { Code } from '@/domain/code';
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { MenuItem } from 'primeng/api';
+import { AppDocSectionText } from '@/components/doc/app.docsectiontext';
+import { AppCode } from '@/components/doc/app.code';
+import { TieredMenuModule } from 'primeng/tieredmenu';
 
 @Component({
     selector: 'router-doc',
-    standalone: false,
+    standalone: true,
+    imports: [AppDocSectionText, AppCode, TieredMenuModule],
     template: `
         <app-docsectiontext>
             <p>Menu items support navigation via routerLink, programmatic routing using commands, or external URLs.</p>

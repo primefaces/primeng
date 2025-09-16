@@ -2,10 +2,17 @@ import { Code } from '@/domain/code';
 import { NodeService } from '@/service/nodeservice';
 import { Component, OnInit } from '@angular/core';
 import { MenuItem, MessageService, TreeNode } from 'primeng/api';
+import { FormsModule } from '@angular/forms';
+import { TreeModule } from 'primeng/tree';
+import { ContextMenuModule } from 'primeng/contextmenu';
+import { ToastModule } from 'primeng/toast';
+import { AppCode } from '@/components/doc/app.code';
+import { AppDocSectionText } from '@/components/doc/app.docsectiontext';
 
 @Component({
     selector: 'context-menu-doc',
-    standalone: false,
+    standalone: true,
+    imports: [TreeModule, FormsModule, ContextMenuModule, ToastModule, AppCode, AppDocSectionText],
     template: `
         <app-docsectiontext>
             <p>Tree requires a collection of <i>TreeNode</i> instances as a value.</p>

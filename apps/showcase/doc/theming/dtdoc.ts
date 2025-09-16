@@ -1,8 +1,11 @@
 import { Component } from '@angular/core';
+import { AppCode } from '@/components/doc/app.code';
+import { AppDocSectionText } from '@/components/doc/app.docsectiontext';
 
 @Component({
     selector: 'dt-doc',
-    standalone: false,
+    standalone: true,
+    imports: [AppCode, AppDocSectionText],
     template: `
         <app-docsectiontext>
             <p>The <i>$dt</i> function returns the information about a token like the full path and value. This would be useful if you need to access tokens programmatically.</p>

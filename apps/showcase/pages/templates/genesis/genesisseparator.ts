@@ -1,11 +1,11 @@
-import { TemplateSeparatorModule } from '@/components/template/templateseparator';
+import { TemplateSeparator } from '@/components/template/templateseparator';
 import { AppConfigService } from '@/service/appconfigservice';
 import { Component, inject } from '@angular/core';
 
 @Component({
     standalone: true,
     selector: 'genesis-separator',
-    imports: [TemplateSeparatorModule],
+    imports: [TemplateSeparator],
     template: `
         <template-separator>
             <svg xmlns="http://www.w3.org/2000/svg" width="24" height="25" viewBox="0 0 24 25" fill="none">

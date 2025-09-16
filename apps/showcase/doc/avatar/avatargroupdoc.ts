@@ -1,9 +1,14 @@
 import { Code } from '@/domain/code';
 import { Component } from '@angular/core';
+import { AppDocSectionText } from '@/components/doc/app.docsectiontext';
+import { AppCode } from '@/components/doc/app.code';
+import { AvatarModule } from 'primeng/avatar';
+import { AvatarGroupModule } from 'primeng/avatargroup';
 
 @Component({
     selector: 'avatar-group-demo',
-    standalone: false,
+    standalone: true,
+    imports: [AppDocSectionText, AppCode, AvatarModule, AvatarGroupModule],
     template: `
         <app-docsectiontext>
             <p>Grouping is available by wrapping multiple Avatar components inside an <i>AvatarGroup</i>.</p>

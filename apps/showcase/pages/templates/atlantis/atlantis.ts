@@ -1,29 +1,16 @@
-import { TemplateConfigurationModule } from '@/components/template/templateconfiguration';
-import { TemplateFeaturesModule } from '@/components/template/templatefeatures';
-import { TemplateFeaturesAnimationModule } from '@/components/template/templatefeaturesanimation/templatefeaturesanimation';
-import { TemplateHeroModule } from '@/components/template/templatehero/templatehero';
-import { TemplateLicenseModule } from '@/components/template/templatelicense';
-import { TemplateRelatedModule } from '@/components/template/templaterelated';
-import { TemplateSeparatorModule } from '@/components/template/templateseparator';
-import { TemplateYoutubeModule } from '@/components/template/templateyoutube';
+import { TemplateConfiguration } from '@/components/template/templateconfiguration';
+import { TemplateFeatures } from '@/components/template/templatefeatures';
+import { TemplateFeaturesAnimation } from '@/components/template/templatefeaturesanimation/templatefeaturesanimation';
+import { TemplateHero } from '@/components/template/templatehero/templatehero';
+import { TemplateLicense } from '@/components/template/templatelicense';
+import { TemplateYoutube } from '@/components/template/templateyoutube';
 import { Component } from '@angular/core';
 import { AtlantisLogo } from './atlantislogo';
 import { AtlantisSeparator } from './atlantisseparator';
 @Component({
     standalone: true,
     selector: 'atlantis-page',
-    imports: [
-        TemplateHeroModule,
-        TemplateSeparatorModule,
-        TemplateFeaturesAnimationModule,
-        TemplateFeaturesModule,
-        TemplateConfigurationModule,
-        TemplateFeaturesAnimationModule,
-        TemplateRelatedModule,
-        TemplateYoutubeModule,
-        TemplateLicenseModule,
-        AtlantisSeparator
-    ],
+    imports: [TemplateHero, TemplateFeaturesAnimation, TemplateFeatures, TemplateConfiguration, TemplateFeaturesAnimation, TemplateYoutube, TemplateLicense, AtlantisSeparator],
     template: `<div class="atlantis template">
         <template-hero [templateHeroData]="templateHeroData" [templateLogo]="atlantisLogo"></template-hero>
         <atlantis-separator></atlantis-separator>
@@ -106,7 +93,7 @@ export class AtlantisPage {
         {
             id: 2,
             title: 'PrimeBlocks',
-            description: `Designed to be fully compatible with upcoming next-gen PrimeBlocks, choose from the extensive range of blocks and customize the way you like.`,
+            description: `Fully compatible with PrimeBlocks, choose from the wide range of blocks and customize the way you like. Note that PrimeBlocks is not included in the template and requires a separate purchase.`,
             src: 'https://primefaces.org/cdn/primeng/images/templates/common/primeblocks.png'
         },
         {

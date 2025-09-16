@@ -1,12 +1,12 @@
 import { AppConfigService } from '@/service/appconfigservice';
 import { CommonModule } from '@angular/common';
-import { ChangeDetectionStrategy, Component, Input, NgModule, ViewEncapsulation } from '@angular/core';
+import { ChangeDetectionStrategy, Component, Input, ViewEncapsulation } from '@angular/core';
 import { DomSanitizer } from '@angular/platform-browser';
-import { SharedModule } from 'primeng/api';
 import { AnimateOnScrollModule } from 'primeng/animateonscroll';
 @Component({
     selector: 'template-features',
-    standalone: false,
+    standalone: true,
+    imports: [CommonModule, AnimateOnScrollModule],
     template: `
         <div class="template-features">
             <ng-container *ngIf="displayType === 'horizontal'; else vertical">
@@ -81,10 +81,3 @@ export class TemplateFeatures {
         }
     }
 }
-
-@NgModule({
-    imports: [CommonModule, SharedModule, AnimateOnScrollModule],
-    exports: [TemplateFeatures, SharedModule],
-    declarations: [TemplateFeatures]
-})
-export class TemplateFeaturesModule {}

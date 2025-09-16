@@ -1,10 +1,14 @@
 import { Code } from '@/domain/code';
 import { Component } from '@angular/core';
 import { MenuItem } from 'primeng/api';
+import { BreadcrumbModule } from 'primeng/breadcrumb';
+import { AppCode } from '@/components/doc/app.code';
+import { AppDocSectionText } from '@/components/doc/app.docsectiontext';
 
 @Component({
     selector: 'breadcrumb-router-demo',
-    standalone: false,
+    standalone: true,
+    imports: [BreadcrumbModule, AppCode, AppDocSectionText],
     template: `
         <app-docsectiontext>
             <p>Menu items support navigation via routerLink, programmatic routing using commands, or external URLs.</p>

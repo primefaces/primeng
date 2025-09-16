@@ -1,9 +1,15 @@
 import { Code } from '@/domain/code';
 import { ChangeDetectionStrategy, ChangeDetectorRef, Component } from '@angular/core';
+import { CommonModule } from '@angular/common';
+import { TableModule } from 'primeng/table';
+import { AppDocSectionText } from '@/components/doc/app.docsectiontext';
+import { AppCode } from '@/components/doc/app.code';
+import { DeferredDemo } from '@/components/demo/deferreddemo';
 
 @Component({
     selector: 'column-group-doc',
-    standalone: false,
+    standalone: true,
+    imports: [CommonModule, TableModule, AppDocSectionText, AppCode, DeferredDemo],
     template: ` <app-docsectiontext>
             <p>Columns can be grouped using rowspan and <i>colspan</i> properties.</p>
         </app-docsectiontext>

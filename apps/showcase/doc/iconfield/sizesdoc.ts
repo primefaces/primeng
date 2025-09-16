@@ -1,9 +1,16 @@
 import { Code } from '@/domain/code';
 import { Component } from '@angular/core';
+import { FormsModule } from '@angular/forms';
+import { IconFieldModule } from 'primeng/iconfield';
+import { InputIconModule } from 'primeng/inputicon';
+import { InputTextModule } from 'primeng/inputtext';
+import { AppCodeModule } from '@/components/doc/app.code';
+import { AppDocSectionText } from '@/components/doc/app.docsectiontext';
 
 @Component({
     selector: 'sizes-doc',
-    standalone: false,
+    standalone: true,
+    imports: [AppDocSectionText, AppCodeModule, FormsModule, IconFieldModule, InputIconModule, InputTextModule],
     template: `
         <app-docsectiontext>
             <p>IconField is compatible with the pSize setting of the input field.</p>

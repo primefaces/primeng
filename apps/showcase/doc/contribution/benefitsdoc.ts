@@ -1,8 +1,11 @@
 import { Component } from '@angular/core';
+import { RouterModule } from '@angular/router';
+import { AppDocSectionText } from '@/components/doc/app.docsectiontext';
 
 @Component({
     selector: 'benefits-doc',
-    standalone: false,
+    standalone: true,
+    imports: [RouterModule, AppDocSectionText],
     template: `
         <app-docsectiontext>
             <p>

@@ -1,9 +1,16 @@
 import { Code } from '@/domain/code';
 import { Component, OnInit } from '@angular/core';
+import { PanelModule } from 'primeng/panel';
+import { AvatarModule } from 'primeng/avatar';
+import { ButtonModule } from 'primeng/button';
+import { MenuModule } from 'primeng/menu';
+import { AppCode } from '@/components/doc/app.code';
+import { AppDocSectionText } from '@/components/doc/app.docsectiontext';
 
 @Component({
     selector: 'template-doc',
-    standalone: false,
+    standalone: true,
+    imports: [PanelModule, AvatarModule, ButtonModule, MenuModule, AppCode, AppDocSectionText],
     template: `
         <app-docsectiontext>
             <p>Header and Footers sections can be customized using <i>header</i> and <i>footer</i> templates.</p>

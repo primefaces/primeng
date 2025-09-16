@@ -1,5 +1,9 @@
 import { Code } from '@/domain/code';
 import { Component, OnInit } from '@angular/core';
+import { AppDocSectionText } from '@/components/doc/app.docsectiontext';
+import { AppCode } from '@/components/doc/app.code';
+import { FormsModule } from '@angular/forms';
+import { SelectModule } from 'primeng/select';
 
 interface City {
     name: string;
@@ -8,7 +12,8 @@ interface City {
 
 @Component({
     selector: 'select-loading-state-demo',
-    standalone: false,
+    standalone: true,
+    imports: [AppDocSectionText, AppCode, FormsModule, SelectModule],
     template: `
         <app-docsectiontext>
             <p>Loading state can be used <i>loading</i> property.</p>

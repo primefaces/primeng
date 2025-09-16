@@ -1,9 +1,13 @@
+import { AppCode } from '@/components/doc/app.code';
+import { AppDocSectionText } from '@/components/doc/app.docsectiontext';
 import { Code } from '@/domain/code';
 import { Component } from '@angular/core';
+import { SplitterModule } from 'primeng/splitter';
 
 @Component({
     selector: 'nested-doc',
-    standalone: false,
+    standalone: true,
+    imports: [AppDocSectionText, SplitterModule, AppCode],
     template: `
         <app-docsectiontext>
             <p>Splitters can be combined to create advanced layouts.</p>

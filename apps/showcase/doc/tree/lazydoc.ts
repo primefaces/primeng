@@ -1,10 +1,14 @@
 import { Code } from '@/domain/code';
 import { ChangeDetectorRef, Component, OnInit } from '@angular/core';
 import { TreeNode } from 'primeng/api';
+import { TreeModule } from 'primeng/tree';
+import { AppCode } from '@/components/doc/app.code';
+import { AppDocSectionText } from '@/components/doc/app.docsectiontext';
 
 @Component({
     selector: 'lazy-demo',
-    standalone: false,
+    standalone: true,
+    imports: [TreeModule, AppCode, AppDocSectionText],
     template: `
         <app-docsectiontext>
             <p>

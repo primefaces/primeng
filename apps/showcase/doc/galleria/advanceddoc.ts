@@ -1,12 +1,17 @@
 import { Code } from '@/domain/code';
 import { PhotoService } from '@/service/photoservice';
-import { isPlatformBrowser } from '@angular/common';
+import { isPlatformBrowser, CommonModule } from '@angular/common';
 import { ChangeDetectorRef, Component, Inject, OnDestroy, OnInit, PLATFORM_ID, ViewChild } from '@angular/core';
 import { Galleria } from 'primeng/galleria';
+import { GalleriaModule } from 'primeng/galleria';
+import { ButtonModule } from 'primeng/button';
+import { AppCode } from '@/components/doc/app.code';
+import { AppDocSectionText } from '@/components/doc/app.docsectiontext';
 
 @Component({
     selector: 'galleria-advanced-doc',
-    standalone: false,
+    standalone: true,
+    imports: [CommonModule, GalleriaModule, ButtonModule, AppCode, AppDocSectionText],
     template: `
         <app-docsectiontext>
             <p>Galleria can be extended further to implement complex requirements.</p>

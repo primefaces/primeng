@@ -1,9 +1,13 @@
 import { Code } from '@/domain/code';
 import { Component } from '@angular/core';
+import { AppCode } from '@/components/doc/app.code';
+import { AppDocSectionText } from '@/components/doc/app.docsectiontext';
+import { ButtonModule } from 'primeng/button';
 
 @Component({
     selector: 'button-directive-demo',
-    standalone: false,
+    standalone: true,
+    imports: [AppCode, AppDocSectionText, ButtonModule],
     template: `
         <app-docsectiontext>
             <p>Button can also be used as directive using <i>pButton</i> along with <i>pButtonLabel</i> and <i>pButtonIcon</i> helper directives.</p>

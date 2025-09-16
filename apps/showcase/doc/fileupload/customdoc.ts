@@ -1,10 +1,15 @@
 import { Code } from '@/domain/code';
 import { Component } from '@angular/core';
 import { MessageService } from 'primeng/api';
+import { AppCode } from '@/components/doc/app.code';
+import { AppDocSectionText } from '@/components/doc/app.docsectiontext';
+import { FileUploadModule } from 'primeng/fileupload';
+import { ToastModule } from 'primeng/toast';
 
 @Component({
     selector: 'file-upload-custom-demo',
-    standalone: false,
+    standalone: true,
+    imports: [AppCode, AppDocSectionText, FileUploadModule, ToastModule],
     template: `
         <app-docsectiontext>
             <p>FileUpload basic <i>mode</i> provides a simpler UI as an alternative to default advanced mode.</p>

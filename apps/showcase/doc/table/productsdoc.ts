@@ -4,6 +4,27 @@ import { ProductService } from '@/service/productservice';
 import { ChangeDetectionStrategy, ChangeDetectorRef, Component, ViewChild } from '@angular/core';
 import { ConfirmationService, MessageService } from 'primeng/api';
 import { Table } from 'primeng/table';
+import { CommonModule } from '@angular/common';
+import { FormsModule } from '@angular/forms';
+import { TableModule } from 'primeng/table';
+import { ToastModule } from 'primeng/toast';
+import { ToolbarModule } from 'primeng/toolbar';
+import { ButtonModule } from 'primeng/button';
+import { FileUploadModule } from 'primeng/fileupload';
+import { DialogModule } from 'primeng/dialog';
+import { InputTextModule } from 'primeng/inputtext';
+import { InputNumberModule } from 'primeng/inputnumber';
+import { SelectModule } from 'primeng/select';
+import { RadioButtonModule } from 'primeng/radiobutton';
+import { TagModule } from 'primeng/tag';
+import { AppDocSectionText } from '@/components/doc/app.docsectiontext';
+import { AppCode } from '@/components/doc/app.code';
+import { DeferredDemo } from '@/components/demo/deferreddemo';
+import { ConfirmDialogModule } from 'primeng/confirmdialog';
+import { IconFieldModule } from 'primeng/iconfield';
+import { InputIconModule } from 'primeng/inputicon';
+import { RatingModule } from 'primeng/rating';
+import { TextareaModule } from 'primeng/textarea';
 
 interface Column {
     field: string;
@@ -18,7 +39,30 @@ interface ExportColumn {
 
 @Component({
     selector: 'products-doc',
-    standalone: false,
+    standalone: true,
+    imports: [
+        CommonModule,
+        IconFieldModule,
+        InputIconModule,
+        FormsModule,
+        TableModule,
+        ToastModule,
+        ToolbarModule,
+        ButtonModule,
+        FileUploadModule,
+        RatingModule,
+        DialogModule,
+        InputTextModule,
+        InputNumberModule,
+        SelectModule,
+        RadioButtonModule,
+        TagModule,
+        AppDocSectionText,
+        AppCode,
+        DeferredDemo,
+        ConfirmDialogModule,
+        TextareaModule
+    ],
     template: ` <app-docsectiontext>
             <p>CRUD implementation example with a Dialog.</p>
         </app-docsectiontext>
@@ -142,7 +186,7 @@ interface ExportColumn {
 
                             <div>
                                 <label for="inventoryStatus" class="block font-bold mb-3">Inventory Status</label>
-                                <p-select [(ngModel)]="product.inventoryStatus" inputId="inventoryStatus" [options]="statuses" optionLabel="label" placeholder="Select a Status" fluid />
+                                <p-select [(ngModel)]="product.inventoryStatus" inputId="inventoryStatus" [options]="statuses" optionLabel="label" optionValue="label" placeholder="Select a Status" fluid />
                             </div>
 
                             <div>
@@ -186,7 +230,7 @@ interface ExportColumn {
                     </ng-template>
                 </p-dialog>
 
-                <p-confirmDialog [style]="{ width: '450px' }" />
+                <p-confirmdialog [style]="{ width: '450px' }" />
             </div>
         </p-deferred-demo>
         <app-code [code]="code" selector="table-products-demo" [extFiles]="extFiles"></app-code>`,
@@ -312,7 +356,7 @@ export class ProductsDoc {
 
             <div>
                 <label for="inventoryStatus" class="block font-bold mb-3">Inventory Status</label>
-                <p-select [(ngModel)]="product.inventoryStatus" inputId="inventoryStatus" [options]="statuses" optionLabel="label" placeholder="Select a Status" fluid />
+                <p-select [(ngModel)]="product.inventoryStatus" inputId="inventoryStatus" [options]="statuses" optionLabel="label" optionValue="label" placeholder="Select a Status" fluid />
             </div>
 
             <div>
@@ -476,7 +520,7 @@ export class ProductsDoc {
 
                 <div>
                     <label for="inventoryStatus" class="block font-bold mb-3">Inventory Status</label>
-                    <p-select [(ngModel)]="product.inventoryStatus" inputId="inventoryStatus" [options]="statuses" optionLabel="label" placeholder="Select a Status" fluid />
+                    <p-select [(ngModel)]="product.inventoryStatus" inputId="inventoryStatus" [options]="statuses" optionLabel="label" optionValue="label" placeholder="Select a Status" fluid />
                 </div>
 
                 <div>

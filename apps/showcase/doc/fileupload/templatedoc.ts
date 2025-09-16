@@ -1,11 +1,20 @@
 import { Code } from '@/domain/code';
 import { Component } from '@angular/core';
+import { CommonModule } from '@angular/common';
 import { MessageService } from 'primeng/api';
 import { PrimeNG } from 'primeng/config';
+import { FileUploadModule } from 'primeng/fileupload';
+import { ToastModule } from 'primeng/toast';
+import { ButtonModule } from 'primeng/button';
+import { BadgeModule } from 'primeng/badge';
+import { ProgressBarModule } from 'primeng/progressbar';
+import { AppCode } from '@/components/doc/app.code';
+import { AppDocSectionText } from '@/components/doc/app.docsectiontext';
 
 @Component({
     selector: 'file-upload-template-demo',
-    standalone: false,
+    standalone: true,
+    imports: [CommonModule, FileUploadModule, ToastModule, ButtonModule, BadgeModule, ProgressBarModule, AppCode, AppDocSectionText],
     template: `
         <app-docsectiontext>
             <p>

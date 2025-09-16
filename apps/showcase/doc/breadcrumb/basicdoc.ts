@@ -1,10 +1,14 @@
 import { Code } from '@/domain/code';
 import { Component, OnInit } from '@angular/core';
 import { MenuItem } from 'primeng/api';
+import { BreadcrumbModule } from 'primeng/breadcrumb';
+import { AppCode } from '@/components/doc/app.code';
+import { AppDocSectionText } from '@/components/doc/app.docsectiontext';
 
 @Component({
     selector: 'breadcrumb-basic-demo',
-    standalone: false,
+    standalone: true,
+    imports: [BreadcrumbModule, AppCode, AppDocSectionText],
     template: `
         <app-docsectiontext>
             <p>Breadcrumb provides contextual information about page hierarchy.</p>
