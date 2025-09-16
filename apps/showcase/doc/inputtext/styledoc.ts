@@ -2,7 +2,7 @@ import { Component } from '@angular/core';
 
 @Component({
     selector: 'input-text-style-doc',
-    standalone: false,
+    standalone: true,
     template: `
         <div class="doc-tablewrapper">
             <table class="doc-table">

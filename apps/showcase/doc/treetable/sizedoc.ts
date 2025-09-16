@@ -2,10 +2,18 @@ import { Code } from '@/domain/code';
 import { NodeService } from '@/service/nodeservice';
 import { ChangeDetectionStrategy, Component } from '@angular/core';
 import { TreeNode } from 'primeng/api';
+import { CommonModule } from '@angular/common';
+import { FormsModule } from '@angular/forms';
+import { TreeTableModule } from 'primeng/treetable';
+import { SelectButtonModule } from 'primeng/selectbutton';
+import { DeferredDemo } from '@/components/demo/deferreddemo';
+import { AppCode } from '@/components/doc/app.code';
+import { AppDocSectionText } from '@/components/doc/app.docsectiontext';
 
 @Component({
     selector: 'size-doc',
-    standalone: false,
+    standalone: true,
+    imports: [CommonModule, FormsModule, TreeTableModule, SelectButtonModule, DeferredDemo, AppCode, AppDocSectionText],
     template: ` <section class="py-6">
         <app-docsectiontext>
             <p>In addition to a regular treetable, alternatives with alternative sizes are available. Add <i>p-treetable-sm</i> class to reduce the size of treetable or <i>p-treetable-lg</i> to enlarge it.</p>

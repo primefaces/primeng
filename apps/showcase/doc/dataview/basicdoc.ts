@@ -2,10 +2,18 @@ import { Code } from '@/domain/code';
 import { Product } from '@/domain/product';
 import { ProductService } from '@/service/productservice';
 import { Component, inject, signal } from '@angular/core';
+import { CommonModule } from '@angular/common';
+import { DataViewModule } from 'primeng/dataview';
+import { ButtonModule } from 'primeng/button';
+import { TagModule } from 'primeng/tag';
+import { AppCode } from '@/components/doc/app.code';
+import { AppDocSectionText } from '@/components/doc/app.docsectiontext';
 
 @Component({
     selector: 'data-view-basic-demo',
-    standalone: false,
+    standalone: true,
+    imports: [CommonModule, DataViewModule, ButtonModule, TagModule, AppCode, AppDocSectionText],
+    providers: [ProductService],
     template: `
         <app-docsectiontext>
             <p>DataView requires a value to display along with a <i>list</i> template that receives an object in the collection to return content.</p>

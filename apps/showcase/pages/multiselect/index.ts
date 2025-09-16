@@ -10,18 +10,20 @@ import { IftaLabelDoc } from '@/doc/multiselect/iftalabeldoc';
 import { ImportDoc } from '@/doc/multiselect/importdoc';
 import { InvalidDoc } from '@/doc/multiselect/invaliddoc';
 import { LoadingStateDoc } from '@/doc/multiselect/loadingstatedoc';
-import { MultiSelectDocModule } from '@/doc/multiselect/multiselectdoc.module';
 import { ReactiveFormsDoc } from '@/doc/multiselect/reactiveformsdoc';
 import { SizesDoc } from '@/doc/multiselect/sizesdoc';
 import { TemplateDoc } from '@/doc/multiselect/templatedoc';
 import { TemplateDrivenFormsDoc } from '@/doc/multiselect/templatedrivenformsdoc';
 import { VirtualScrollDoc } from '@/doc/multiselect/virtualscrolldoc';
+import { ClearIconDoc } from '@/doc/multiselect/clearicondoc';
+import { FluidDoc } from '@/doc/multiselect/fluiddoc';
 import { Component } from '@angular/core';
+import { AppDoc } from '@/components/doc/app.doc';
 
 @Component({
     template: `<app-doc docTitle="Angular MultiSelect Component" header="MultiSelect" description="MultiSelect is used to select multiple items from a collection." [docs]="docs" [apiDocs]="['MultiSelect']" themeDocs="multiselect"></app-doc> `,
     standalone: true,
-    imports: [MultiSelectDocModule]
+    imports: [AppDoc]
 })
 export class MultiSelectDemo {
     docs = [
@@ -76,9 +78,19 @@ export class MultiSelectDemo {
             component: IftaLabelDoc
         },
         {
+            id: 'clearicon',
+            label: 'Clear Icon',
+            component: ClearIconDoc
+        },
+        {
             id: 'sizes',
             label: 'Sizes',
             component: SizesDoc
+        },
+        {
+            id: 'fluid',
+            label: 'Fluid',
+            component: FluidDoc
         },
         {
             id: 'filled',

@@ -1,29 +1,16 @@
-import { TemplateConfigurationModule } from '@/components/template/templateconfiguration';
-import { TemplateFeaturesModule } from '@/components/template/templatefeatures';
-import { TemplateFeaturesAnimationModule } from '@/components/template/templatefeaturesanimation/templatefeaturesanimation';
-import { TemplateHeroModule } from '@/components/template/templatehero/templatehero';
-import { TemplateLicenseModule } from '@/components/template/templatelicense';
-import { TemplateRelatedModule } from '@/components/template/templaterelated';
-import { TemplateSeparatorModule } from '@/components/template/templateseparator';
-import { TemplateYoutubeModule } from '@/components/template/templateyoutube';
+import { TemplateConfiguration } from '@/components/template/templateconfiguration';
+import { TemplateFeatures } from '@/components/template/templatefeatures';
+import { TemplateFeaturesAnimation } from '@/components/template/templatefeaturesanimation/templatefeaturesanimation';
+import { TemplateHero } from '@/components/template/templatehero/templatehero';
+import { TemplateLicense } from '@/components/template/templatelicense';
+import { TemplateYoutube } from '@/components/template/templateyoutube';
 import { Component } from '@angular/core';
 import { AtlantisLogo } from './atlantislogo';
 import { AtlantisSeparator } from './atlantisseparator';
 @Component({
     standalone: true,
     selector: 'atlantis-page',
-    imports: [
-        TemplateHeroModule,
-        TemplateSeparatorModule,
-        TemplateFeaturesAnimationModule,
-        TemplateFeaturesModule,
-        TemplateConfigurationModule,
-        TemplateFeaturesAnimationModule,
-        TemplateRelatedModule,
-        TemplateYoutubeModule,
-        TemplateLicenseModule,
-        AtlantisSeparator
-    ],
+    imports: [TemplateHero, TemplateFeaturesAnimation, TemplateFeatures, TemplateConfiguration, TemplateFeaturesAnimation, TemplateYoutube, TemplateLicense, AtlantisSeparator],
     template: `<div class="atlantis template">
         <template-hero [templateHeroData]="templateHeroData" [templateLogo]="atlantisLogo"></template-hero>
         <atlantis-separator></atlantis-separator>
@@ -55,7 +42,7 @@ export class AtlantisPage {
         dashboard1: 'https://primefaces.org/cdn/primeng/images/templates/atlantis/atlantis-hero-dashboard1.png',
         dashboard2: 'https://primefaces.org/cdn/primeng/images/templates/atlantis/atlantis-hero-dashboard2.png',
         description: 'A spectacular application template for Angular based on CLI featuring light-dark modes with 8 surface colors, 7 menu layouts, various menu themes, sample apps, ready to use template pages and 3 presets.',
-        liveHref: 'https://www.primefaces.org/atlantis-ng/',
+        liveHref: 'https://atlantis.primeng.org/',
         docHref: 'https://www.primefaces.org/atlantis-ng/documentation/'
     };
 
@@ -106,7 +93,7 @@ export class AtlantisPage {
         {
             id: 2,
             title: 'PrimeBlocks',
-            description: `Designed to be fully compatible with upcoming next-gen PrimeBlocks, choose from the extensive range of blocks and customize the way you like.`,
+            description: `Fully compatible with PrimeBlocks, choose from the wide range of blocks and customize the way you like. Note that PrimeBlocks is not included in the template and requires a separate purchase.`,
             src: 'https://primefaces.org/cdn/primeng/images/templates/common/primeblocks.png'
         },
         {
@@ -118,8 +105,9 @@ export class AtlantisPage {
         {
             id: 4,
             title: 'Figma File',
-            description:
-                'Powered by Figma as the design tool. It will be possible to download the Figma file after your purchase. Note that PrimeNG UI components are excluded from the template Figma file as they are available in PrimeOne for Figma only.',
+            description: `Atlantis uses Figma as the design tool. It will be possible to download the Figma file after your purchase. You can
+                <a href="https://www.figma.com/file/two0OGwOwHfq0sdjeK34l0/Preview-%7C-Atlantis-2022?node-id=15%3A1427&t=2lNJ5EzW0xuvQWdm-1" target="_blank" rel="noopener noreferrer">preview the Figma file</a> before the purchase. Note that PrimeNG UI components are excluded from the
+                Atlantis Figma file as they are available in <a href="/uikit">PrimeOne for Figma</a> only.`,
             src: 'https://primefaces.org/cdn/primeng/images/templates/atlantis/features-animation-figma.png'
         }
     ];
@@ -134,7 +122,7 @@ export class AtlantisPage {
         {
             id: 2,
             title: 'Component Themes',
-            description: '17 built-in theme colors with the power of 3 presets: Aura, Lara and Nora.',
+            description: '17 built-in theme colors with the power of 2 presets: Aura and Lara.',
             src: 'https://primefaces.org/cdn/primeng/images/templates/atlantis/features-animation-component-themes.png'
         },
         {

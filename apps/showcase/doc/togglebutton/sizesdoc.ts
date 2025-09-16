@@ -1,9 +1,14 @@
 import { Code } from '@/domain/code';
 import { Component } from '@angular/core';
+import { FormsModule } from '@angular/forms';
+import { ToggleButtonModule } from 'primeng/togglebutton';
+import { AppCode } from '@/components/doc/app.code';
+import { AppDocSectionText } from '@/components/doc/app.docsectiontext';
 
 @Component({
     selector: 'sizes-doc',
-    standalone: false,
+    standalone: true,
+    imports: [FormsModule, ToggleButtonModule, AppCode, AppDocSectionText],
     template: `
         <app-docsectiontext>
             <p>ToggleButton provides <i>small</i> and <i>large</i> sizes as alternatives to the base.</p>

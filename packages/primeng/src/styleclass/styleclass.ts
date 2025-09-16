@@ -125,9 +125,9 @@ export class StyleClass implements OnDestroy {
 
                 if (this.enterActiveClass.includes('slidedown')) {
                     (this.target as HTMLElement).style.height = '0px';
-                    removeClass(this.target, 'hidden');
+                    removeClass(this.target, this.enterFromClass || 'hidden');
                     (this.target as HTMLElement).style.maxHeight = (this.target as HTMLElement).scrollHeight + 'px';
-                    addClass(this.target, 'hidden');
+                    addClass(this.target, this.enterFromClass || 'hidden');
                     (this.target as HTMLElement).style.height = '';
                 }
 

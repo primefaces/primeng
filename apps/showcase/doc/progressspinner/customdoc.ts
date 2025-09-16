@@ -1,9 +1,13 @@
 import { Code } from '@/domain/code';
 import { Component, Input } from '@angular/core';
+import { ProgressSpinnerModule } from 'primeng/progressspinner';
+import { AppCode } from '@/components/doc/app.code';
+import { AppDocSectionText } from '@/components/doc/app.docsectiontext';
 
 @Component({
     selector: 'custom-doc',
-    standalone: false,
+    standalone: true,
+    imports: [ProgressSpinnerModule, AppCode, AppDocSectionText],
     template: `
         <app-docsectiontext>
             <p>ProgressSpinner can be customized with styling property like <i>strokeWidth</i> and <i>fill</i>.</p>

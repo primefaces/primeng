@@ -1,8 +1,12 @@
+import { CommonModule } from '@angular/common';
 import { Component } from '@angular/core';
+import { AppCode } from '@/components/doc/app.code';
+import { AppDocSectionText } from '@/components/doc/app.docsectiontext';
 
 @Component({
     selector: 'color-palette-doc',
-    standalone: false,
+    standalone: true,
+    imports: [CommonModule, AppCode, AppDocSectionText],
     template: `
         <app-docsectiontext> <p>PrimeNG color palette as utility classes.</p></app-docsectiontext>
         <div class="card">

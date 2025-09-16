@@ -1,11 +1,9 @@
-import { TemplateConfigurationModule } from '@/components/template/templateconfiguration';
-import { TemplateFeaturesModule } from '@/components/template/templatefeatures';
-import { TemplateFeaturesAnimationModule } from '@/components/template/templatefeaturesanimation/templatefeaturesanimation';
-import { TemplateHeroModule } from '@/components/template/templatehero/templatehero';
-import { TemplateLicenseModule } from '@/components/template/templatelicense';
-import { TemplateRelatedModule } from '@/components/template/templaterelated';
-import { TemplateSeparatorModule } from '@/components/template/templateseparator';
-import { TemplateYoutubeModule } from '@/components/template/templateyoutube';
+import { TemplateConfiguration } from '@/components/template/templateconfiguration';
+import { TemplateFeatures } from '@/components/template/templatefeatures';
+import { TemplateFeaturesAnimation } from '@/components/template/templatefeaturesanimation/templatefeaturesanimation';
+import { TemplateHero } from '@/components/template/templatehero/templatehero';
+import { TemplateLicense } from '@/components/template/templatelicense';
+import { TemplateYoutube } from '@/components/template/templateyoutube';
 import { Component } from '@angular/core';
 import { ApolloLogo } from './apollologo';
 import { ApolloSeparator } from './apolloseparator';
@@ -13,18 +11,7 @@ import { ApolloSeparator } from './apolloseparator';
 @Component({
     standalone: true,
     selector: 'apollo-page',
-    imports: [
-        TemplateHeroModule,
-        TemplateSeparatorModule,
-        TemplateFeaturesAnimationModule,
-        TemplateFeaturesModule,
-        TemplateConfigurationModule,
-        TemplateFeaturesAnimationModule,
-        TemplateRelatedModule,
-        TemplateYoutubeModule,
-        TemplateLicenseModule,
-        ApolloSeparator
-    ],
+    imports: [TemplateHero, TemplateFeaturesAnimation, TemplateFeatures, TemplateConfiguration, TemplateFeaturesAnimation, TemplateYoutube, TemplateLicense, ApolloSeparator],
     template: `<div class="apollo template">
         <template-hero [templateHeroData]="templateHeroData" [templateLogo]="apolloLogo"></template-hero>
         <div [style.display]="'none'">
@@ -108,7 +95,7 @@ export class ApolloPage {
         {
             id: 2,
             title: 'PrimeBlocks',
-            description: `Designed to be fully compatible with upcoming next-gen PrimeBlocks, choose from the extensive range of blocks and customize the way you like.`,
+            description: `Fully compatible with PrimeBlocks, choose from the wide range of blocks and customize the way you like. Note that PrimeBlocks is not included in the template and requires a separate purchase.`,
             src: 'https://primefaces.org/cdn/primeng/images/templates/common/primeblocks.png'
         },
         {
@@ -122,8 +109,11 @@ export class ApolloPage {
             title: 'Figma File',
             width: 1440,
             height: 1788,
-            description:
-                'Powered by Figma as the design tool. It will be possible to download the Figma file after your purchase. Note that PrimeNG UI components are excluded from the template Figma file as they are available in PrimeOne for Figma only.',
+            description: `
+                    Apollo uses Figma as the design tool. It will be possible to download the Figma file after your purchase. You can
+                    <a href="https://www.figma.com/file/zQOW0XBXdCTqODzEOqwBtt/Preview-%7C-Apollo-2022?node-id=335%3A21768&t=urYI89V3PLNAZEJG-1/" target="_blank" rel="noopener noreferrer">preview the Figma file</a>
+                    before the purchase. Note that PrimeNG UI components are excluded from the Apollo Figma file as they are available in
+                    <a href="/uikit">PrimeOne for Figma</a> only.`,
             src: 'https://primefaces.org/cdn/primeng/images/templates/apollo/features-animation-figma.png'
         }
     ];

@@ -1,6 +1,5 @@
 import { AccessibilityDoc } from '@/doc/cascadeselect/accessibilitydoc';
 import { BasicDoc } from '@/doc/cascadeselect/basicdoc';
-import { CascadeSelectDocModule } from '@/doc/cascadeselect/cascasdeselectdoc.module';
 import { DisabledDoc } from '@/doc/cascadeselect/disableddoc';
 import { FilledDoc } from '@/doc/cascadeselect/filleddoc';
 import { FloatLabelDoc } from '@/doc/cascadeselect/floatlabeldoc';
@@ -12,11 +11,14 @@ import { ReactiveFormsDoc } from '@/doc/cascadeselect/reactiveformsdoc';
 import { SizesDoc } from '@/doc/cascadeselect/sizesdoc';
 import { TemplateDoc } from '@/doc/cascadeselect/templatedoc';
 import { TemplateDrivenFormsDoc } from '@/doc/cascadeselect/templatedrivenformsdoc';
+import { FluidDoc } from '@/doc/cascadeselect/fluiddoc';
+import { ClearIconDoc } from '@/doc/cascadeselect/clearicondoc';
+import { AppDoc } from '@/components/doc/app.doc';
 import { Component } from '@angular/core';
 
 @Component({
     standalone: true,
-    imports: [CascadeSelectDocModule],
+    imports: [AppDoc],
     template: ` <app-doc docTitle="Angular CascadeSelect Component" header="CascadeSelect" description="CascadeSelect displays a nested structure of options." [docs]="docs" [apiDocs]="['CascadeSelect']" themeDocs="CascadeSelect"></app-doc> `
 })
 export class CascadeSelectDemo {
@@ -52,9 +54,19 @@ export class CascadeSelectDemo {
             component: IftaLabelDoc
         },
         {
+            id: 'clearicon',
+            label: 'Clear Icon',
+            component: ClearIconDoc
+        },
+        {
             id: 'sizes',
             label: 'Sizes',
             component: SizesDoc
+        },
+        {
+            id: 'fluid',
+            label: 'Fluid',
+            component: FluidDoc
         },
         {
             id: 'filled',

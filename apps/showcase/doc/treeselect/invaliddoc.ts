@@ -1,10 +1,15 @@
 import { Code } from '@/domain/code';
 import { NodeService } from '@/service/nodeservice';
 import { Component } from '@angular/core';
+import { FormsModule } from '@angular/forms';
+import { TreeSelectModule } from 'primeng/treeselect';
+import { AppCode } from '@/components/doc/app.code';
+import { AppDocSectionText } from '@/components/doc/app.docsectiontext';
 
 @Component({
     selector: 'invalid-doc',
-    standalone: false,
+    standalone: true,
+    imports: [FormsModule, TreeSelectModule, AppCode, AppDocSectionText],
     template: `
         <app-docsectiontext>
             <p>The invalid state is applied using the <i>⁠invalid</i> property to indicate failed validation, which can be integrated with Angular Forms.</p>

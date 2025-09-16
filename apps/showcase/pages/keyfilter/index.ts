@@ -1,9 +1,9 @@
 import { AccessibilityDoc } from '@/doc/keyfilter/accessibilitydoc';
 import { ImportDoc } from '@/doc/keyfilter/importdoc';
-import { KeyFilterDocModule } from '@/doc/keyfilter/keyfilterdoc.module';
 import { PresetsDoc } from '@/doc/keyfilter/presetsdoc';
 import { RegexDoc } from '@/doc/keyfilter/regexdoc';
 import { Component } from '@angular/core';
+import { AppDoc } from '@/components/doc/app.doc';
 
 @Component({
     template: `<app-doc
@@ -14,7 +14,7 @@ import { Component } from '@angular/core';
         [apiDocs]="['KeyFilter']"
     ></app-doc>`,
     standalone: true,
-    imports: [KeyFilterDocModule]
+    imports: [AppDoc]
 })
 export class KeyFilterDemo {
     docs = [
