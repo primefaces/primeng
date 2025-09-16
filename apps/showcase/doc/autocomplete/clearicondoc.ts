@@ -16,14 +16,10 @@ interface AutoCompleteCompleteEvent {
     standalone: true,
     imports: [FormsModule, AutoCompleteModule, AppDocSectionText, AppCode],
     template: ` <app-docsectiontext>
-            <p>The <i>clearIcon</i> template allows you to customize the icon used to clear the input field.</p>
+            <p>When <i>showClear</i> is enabled, a clear icon is displayed to clear the value.</p>
         </app-docsectiontext>
         <div class="card flex justify-center">
-            <p-autocomplete [(ngModel)]="value" [suggestions]="items" (completeMethod)="search($event)" [showClear]="true">
-                <ng-template #clearicon>
-                    <i class="pi pi-times-circle"></i>
-                </ng-template>
-            </p-autocomplete>
+            <p-autocomplete [(ngModel)]="value" [suggestions]="items" (completeMethod)="search($event)" [showClear]="true" />
         </div>
         <app-code [code]="code" selector="autocomplete-clear-icon-demo"></app-code>`
 })
@@ -33,18 +29,10 @@ export class ClearIconDoc {
     value: any;
 
     code: Code = {
-        basic: `<p-autocomplete [(ngModel)]="value" [suggestions]="items" (completeMethod)="search($event)" [showClear]="true">
-    <ng-template #clearicon>
-        <i class="pi pi-times-circle"></i>
-    </ng-template>
-</p-autocomplete>`,
+        basic: `<p-autocomplete [(ngModel)]="value" [suggestions]="items" (completeMethod)="search($event)" [showClear]="true" />`,
 
         html: `<div class="card flex justify-center">
-    <p-autocomplete [(ngModel)]="value" [suggestions]="items" (completeMethod)="search($event)" [showClear]="true">
-        <ng-template #clearicon>
-            <i class="pi pi-times-circle"></i>
-        </ng-template>
-    </p-autocomplete>
+    <p-autocomplete [(ngModel)]="value" [suggestions]="items" (completeMethod)="search($event)" [showClear]="true" />
 </div>`,
 
         typescript: `import { Component } from '@angular/core';

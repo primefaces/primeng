@@ -11,14 +11,10 @@ import { AppDocSectionText } from '@/components/doc/app.docsectiontext';
     imports: [FormsModule, CascadeSelectModule, AppCode, AppDocSectionText],
     template: `
         <app-docsectiontext>
-            <p>The <i>clearIcon</i> template allows you to customize the icon used to clear the input field.</p>
+            <p>When <i>showClear</i> is enabled, a clear icon is displayed to clear the value.</p>
         </app-docsectiontext>
         <div class="card flex justify-center">
-            <p-cascadeselect [(ngModel)]="selectedCity" [options]="countries" optionLabel="cname" optionGroupLabel="name" [optionGroupChildren]="['states', 'cities']" placeholder="Select a City" [style]="{ minWidth: '14rem' }" [showClear]="true">
-                <ng-template #clearicon>
-                    <i class="pi pi-times-circle"></i>
-                </ng-template>
-            </p-cascadeselect>
+            <p-cascadeselect [(ngModel)]="selectedCity" [options]="countries" optionLabel="cname" optionGroupLabel="name" [optionGroupChildren]="['states', 'cities']" placeholder="Select a City" [style]="{ minWidth: '14rem' }" [showClear]="true" />
         </div>
         <app-code [code]="code" selector="cascade-select-clear-icon-demo"></app-code>
     `
@@ -106,18 +102,10 @@ export class ClearIconDoc {
     }
 
     code: Code = {
-        basic: `<p-cascadeselect [(ngModel)]="selectedCity" [options]="countries" optionLabel="cname" optionGroupLabel="name" [optionGroupChildren]="['states', 'cities']" placeholder="Select a City" [style]="{ minWidth: '14rem' }" [showClear]="true" >
-    <ng-template #clearicon>
-        <i class="pi pi-times-circle"></i>
-    </ng-template>  
-</p-cascadeselect>`,
+        basic: `<p-cascadeselect [(ngModel)]="selectedCity" [options]="countries" optionLabel="cname" optionGroupLabel="name" [optionGroupChildren]="['states', 'cities']" placeholder="Select a City" [style]="{ minWidth: '14rem' }" [showClear]="true" />`,
 
         html: `<div class="card flex justify-center">
-    <p-cascadeselect [(ngModel)]="selectedCity" [options]="countries" optionLabel="cname" optionGroupLabel="name" [optionGroupChildren]="['states', 'cities']" placeholder="Select a City" [style]="{ minWidth: '14rem' }" [showClear]="true" >
-        <ng-template #clearicon>
-            <i class="pi pi-times-circle"></i>
-        </ng-template>  
-    </p-cascadeselect>
+    <p-cascadeselect [(ngModel)]="selectedCity" [options]="countries" optionLabel="cname" optionGroupLabel="name" [optionGroupChildren]="['states', 'cities']" placeholder="Select a City" [style]="{ minWidth: '14rem' }" [showClear]="true" />
 </div>`,
 
         typescript: `import { Component, OnInit } from '@angular/core';

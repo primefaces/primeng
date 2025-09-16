@@ -12,14 +12,10 @@ import { AppDocSectionText } from '@/components/doc/app.docsectiontext';
     imports: [FormsModule, RouterModule, InputNumberModule, AppCodeModule, AppDocSectionText],
     template: `
         <app-docsectiontext>
-            <p>The <i>clearIcon</i> template allows you to customize the icon used to clear the input field.</p>
+            <p>When <i>showClear</i> is enabled, a clear icon is displayed to clear the value.</p>
         </app-docsectiontext>
         <div class="card flex justify-center">
-            <p-inputnumber [(ngModel)]="value" inputId="price_input" mode="currency" currency="USD" locale="en-US" [showClear]="true">
-                <ng-template #clearicon>
-                    <i class="pi pi-times"></i>
-                </ng-template>
-            </p-inputnumber>
+            <p-inputnumber [(ngModel)]="value" inputId="price_input" mode="currency" currency="USD" locale="en-US" [showClear]="true" />
         </div>
         <app-code [code]="code" selector="input-number-clear-icon-demo"></app-code>
     `
@@ -28,18 +24,10 @@ export class ClearIconDoc {
     value: number | undefined;
 
     code: Code = {
-        basic: `<p-inputnumber [(ngModel)]="value" inputId="price_input" mode="currency" currency="USD" locale="en-US" [showClear]="true">
-    <ng-template #clearicon>
-        <i class="pi pi-times"></i>
-    </ng-template>  
-</p-inputnumber>`,
+        basic: `<p-inputnumber [(ngModel)]="value" inputId="price_input" mode="currency" currency="USD" locale="en-US" [showClear]="true" />`,
 
         html: `<div class="card flex justify-center">
-    <p-inputnumber [(ngModel)]="value" inputId="price_input" mode="currency" currency="USD" locale="en-US" [showClear]="true">
-        <ng-template #clearicon>
-            <i class="pi pi-times"></i>
-        </ng-template>  
-    </p-inputnumber>
+    <p-inputnumber [(ngModel)]="value" inputId="price_input" mode="currency" currency="USD" locale="en-US" [showClear]="true" />
 </div>`,
 
         typescript: `import { Component } from '@angular/core';

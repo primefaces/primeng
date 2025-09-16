@@ -13,14 +13,10 @@ import { AppDocSectionText } from '@/components/doc/app.docsectiontext';
     imports: [TreeSelectModule, FormsModule, RouterModule, AppCode, AppDocSectionText],
     template: `
         <app-docsectiontext>
-            <p>The <i>clearIcon</i> template allows you to customize the icon used to clear the input field.</p>
+            <p>When <i>showClear</i> is enabled, a clear icon is displayed to clear the value.</p>
         </app-docsectiontext>
         <div class="card flex justify-center">
-            <p-treeselect [(ngModel)]="selectedNodes" [options]="nodes" placeholder="Select Item" class="md:w-80 w-full" [showClear]="true">
-                <ng-template #clearicon>
-                    <i class="pi pi-times-circle"></i>
-                </ng-template>
-            </p-treeselect>
+            <p-treeselect [(ngModel)]="selectedNodes" [options]="nodes" placeholder="Select Item" class="md:w-80 w-full" [showClear]="true" />
         </div>
         <app-code [code]="code" selector="tree-select-clear-icon-demo"></app-code>
     `
@@ -35,18 +31,10 @@ export class ClearIconDoc {
     }
 
     code: Code = {
-        basic: `<p-treeselect [(ngModel)]="selectedNodes" [options]="nodes" placeholder="Select Item" class="md:w-80 w-full" [showClear]="true">
-    <ng-template #clearicon>
-        <i class="pi pi-times-circle"></i>
-    </ng-template>
-</p-treeselect>`,
+        basic: `<p-treeselect [(ngModel)]="selectedNodes" [options]="nodes" placeholder="Select Item" class="md:w-80 w-full" [showClear]="true" />`,
 
         html: `<div class="card flex justify-center">
-    <p-treeselect [(ngModel)]="selectedNodes" [options]="nodes" placeholder="Select Item" class="md:w-80 w-full" [showClear]="true">
-        <ng-template #clearicon>
-            <i class="pi pi-times-circle"></i>
-        </ng-template>
-    </p-treeselect>
+    <p-treeselect [(ngModel)]="selectedNodes" [options]="nodes" placeholder="Select Item" class="md:w-80 w-full" [showClear]="true" />
 </div>`,
 
         typescript: `import { Component } from '@angular/core';

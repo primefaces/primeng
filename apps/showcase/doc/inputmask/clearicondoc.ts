@@ -11,14 +11,10 @@ import { AppDocSectionText } from '@/components/doc/app.docsectiontext';
     imports: [FormsModule, InputMaskModule, AppCodeModule, AppDocSectionText],
     template: `
         <app-docsectiontext>
-            <p>InputMask is used as a controlled input with <i>ngModel</i> properties.</p>
+            <p>When <i>showClear</i> is enabled, a clear icon is displayed to clear the value.</p>
         </app-docsectiontext>
         <div class="card flex justify-center">
-            <p-inputmask mask="99-999999" [(ngModel)]="value" placeholder="99-999999" [showClear]="true">
-                <ng-template #clearicon>
-                    <i class="pi pi-times-circle"></i>
-                </ng-template>
-            </p-inputmask>
+            <p-inputmask mask="99-999999" [(ngModel)]="value" placeholder="99-999999" [showClear]="true" />
         </div>
         <app-code [code]="code" selector="input-mask-clear-icon-demo"></app-code>
     `
@@ -27,18 +23,10 @@ export class ClearIconDoc {
     value: string | undefined;
 
     code: Code = {
-        basic: `<p-inputmask mask="99-999999" [(ngModel)]="value" placeholder="99-999999" [showClear]="true">
-    <ng-template #clearicon>
-        <i class="pi pi-times-circle"></i>
-    </ng-template>
-</p-inputmask>`,
+        basic: `<p-inputmask mask="99-999999" [(ngModel)]="value" placeholder="99-999999" [showClear]="true" />`,
 
         html: `<div class="card flex justify-center">
-    <p-inputmask mask="99-999999" [(ngModel)]="value" placeholder="99-999999" [showClear]="true">
-        <ng-template #clearicon>
-            <i class="pi pi-times-circle"></i>
-        </ng-template>
-    </p-inputmask>
+    <p-inputmask mask="99-999999" [(ngModel)]="value" placeholder="99-999999" [showClear]="true" />
 </div>`,
 
         typescript: `import { Component } from '@angular/core';

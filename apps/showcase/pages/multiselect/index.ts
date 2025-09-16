@@ -15,6 +15,8 @@ import { SizesDoc } from '@/doc/multiselect/sizesdoc';
 import { TemplateDoc } from '@/doc/multiselect/templatedoc';
 import { TemplateDrivenFormsDoc } from '@/doc/multiselect/templatedrivenformsdoc';
 import { VirtualScrollDoc } from '@/doc/multiselect/virtualscrolldoc';
+import { ClearIconDoc } from '@/doc/multiselect/clearicondoc';
+import { FluidDoc } from '@/doc/multiselect/fluiddoc';
 import { Component } from '@angular/core';
 import { AppDoc } from '@/components/doc/app.doc';
 
@@ -71,14 +73,29 @@ export class MultiSelectDemo {
             component: FloatLabelDoc
         },
         {
+            id: 'clearicon',
+            label: 'Clear Icon',
+            component: ClearIconDoc
+        },
+        {
             id: 'iftalabel',
             label: 'Ifta Label',
             component: IftaLabelDoc
         },
         {
+            id: 'clearicon',
+            label: 'Clear Icon',
+            component: ClearIconDoc
+        },
+        {
             id: 'sizes',
             label: 'Sizes',
             component: SizesDoc
+        },
+        {
+            id: 'fluid',
+            label: 'Fluid',
+            component: FluidDoc
         },
         {
             id: 'filled',
