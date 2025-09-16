@@ -1,11 +1,11 @@
 import { CommonModule } from '@angular/common';
-import { ChangeDetectionStrategy, Component, Input, NgModule, ViewEncapsulation } from '@angular/core';
-import { SharedModule } from 'primeng/api';
+import { ChangeDetectionStrategy, Component, Input, ViewEncapsulation } from '@angular/core';
 import { ButtonModule } from 'primeng/button';
 
 @Component({
     selector: 'template-license',
-    standalone: false,
+    standalone: true,
+    imports: [CommonModule, ButtonModule],
     template: `
         <div class="px-6 py-6 sm:px-10 sm:py-10 lg:py-20 lg:px-8 rounded-3xl bg-surface-0 dark:bg-surface-900">
             <div class="template-license max-w-3xl mx-auto">
@@ -43,10 +43,3 @@ import { ButtonModule } from 'primeng/button';
 export class TemplateLicense {
     @Input() license;
 }
-
-@NgModule({
-    imports: [CommonModule, SharedModule, ButtonModule],
-    exports: [TemplateLicense, SharedModule],
-    declarations: [TemplateLicense]
-})
-export class TemplateLicenseModule {}

@@ -2,12 +2,12 @@ import { AccessibilityDoc } from '@/doc/scrolltop/accessibilitydoc';
 import { BasicDoc } from '@/doc/scrolltop/basicdoc';
 import { ElementDoc } from '@/doc/scrolltop/elementdoc';
 import { ImportDoc } from '@/doc/scrolltop/importdoc';
-import { ScrollTopDocModule } from '@/doc/scrolltop/scrolltopdoc.module';
+import { AppDoc } from '@/components/doc/app.doc';
 import { Component } from '@angular/core';
 
 @Component({
     standalone: true,
-    imports: [ScrollTopDocModule],
+    imports: [AppDoc],
     template: ` <app-doc
         docTitle="Angular Scroll Top Component"
         header="ScrollTop"

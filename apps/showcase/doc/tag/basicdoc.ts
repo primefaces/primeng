@@ -1,9 +1,13 @@
-import { Code } from '@/domain/code';
 import { Component } from '@angular/core';
+import { Code } from '@/domain/code';
+import { AppCode } from '@/components/doc/app.code';
+import { AppDocSectionText } from '@/components/doc/app.docsectiontext';
+import { TagModule } from 'primeng/tag';
 
 @Component({
     selector: 'basic-doc',
-    standalone: false,
+    standalone: true,
+    imports: [AppCode, AppDocSectionText, TagModule],
     template: `
         <app-docsectiontext>
             <p>Label of the tag is defined with the <i>value</i> property.</p>
@@ -21,13 +25,13 @@ export class BasicDoc {
     <p-tag value="New" />
 </div>`,
         typescript: `import { Component } from '@angular/core';
-import { Tag } from 'primeng/tag';
+import { TagModule } from 'primeng/tag';
 
 @Component({
     selector: 'tag-basic-demo',
     templateUrl: './tag-basic-demo.html',
     standalone: true,
-    imports: [Tag]
+    imports: [TagModule]
 })
 export class TagBasicDemo {}`
     };

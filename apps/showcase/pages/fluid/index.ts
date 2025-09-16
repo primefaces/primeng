@@ -1,12 +1,12 @@
 import { AccessibilityDoc } from '@/doc/fluid/accessibilitydoc';
 import { BasicDoc } from '@/doc/fluid/basicdoc';
-import { FluidDocModule } from '@/doc/fluid/fluiddoc.module';
 import { ImportDoc } from '@/doc/fluid/importdoc';
 import { Component } from '@angular/core';
+import { AppDoc } from '@/components/doc/app.doc';
 
 @Component({
     standalone: true,
-    imports: [FluidDocModule],
+    imports: [AppDoc],
     template: ` <app-doc docTitle="Angular Fluid Component" header="Fluid" description="Fluid is a layout component to make descendant components span full width of their container." [docs]="docs" themeDocs="fluid"></app-doc> `
 })
 export class FluidDemo {

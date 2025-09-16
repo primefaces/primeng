@@ -1,9 +1,13 @@
 import { Code } from '@/domain/code';
 import { Component } from '@angular/core';
+import { AccordionModule } from 'primeng/accordion';
+import { AppCode } from '@/components/doc/app.code';
+import { AppDocSectionText } from '@/components/doc/app.docsectiontext';
 
 @Component({
     selector: 'multiple-doc',
-    standalone: false,
+    standalone: true,
+    imports: [AccordionModule, AppCode, AppDocSectionText],
     template: `
         <app-docsectiontext>
             <p>Only one tab at a time can be active by default, enabling <i>multiple</i> property changes this behavior to allow multiple tabs. In this case <i>activeIndex</i> needs to be an array.</p>

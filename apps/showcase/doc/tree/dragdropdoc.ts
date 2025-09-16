@@ -2,10 +2,14 @@ import { Code } from '@/domain/code';
 import { NodeService } from '@/service/nodeservice';
 import { Component, OnInit } from '@angular/core';
 import { TreeDragDropService, TreeNode } from 'primeng/api';
+import { TreeModule } from 'primeng/tree';
+import { AppCode } from '@/components/doc/app.code';
+import { AppDocSectionText } from '@/components/doc/app.docsectiontext';
 
 @Component({
     selector: 'drag-drop-doc',
-    standalone: false,
+    standalone: true,
+    imports: [TreeModule, AppCode, AppDocSectionText],
     template: `
         <app-docsectiontext>
             <p>Nodes can be reordered within the same tree and also can be transferred between other trees using drag&drop.</p>

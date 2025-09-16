@@ -1,9 +1,15 @@
 import { Code } from '@/domain/code';
 import { Component } from '@angular/core';
+import { BlockUIModule } from 'primeng/blockui';
+import { ButtonModule } from 'primeng/button';
+import { PanelModule } from 'primeng/panel';
+import { AppCode } from '@/components/doc/app.code';
+import { AppDocSectionText } from '@/components/doc/app.docsectiontext';
 
 @Component({
     selector: 'block-ui-basic-demo',
-    standalone: false,
+    standalone: true,
+    imports: [BlockUIModule, ButtonModule, PanelModule, AppCode, AppDocSectionText],
     template: `
         <app-docsectiontext>
             <p>The element to block should be placed as a child of BlockUI and <i>blocked</i> property is required to control the state.</p>

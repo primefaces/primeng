@@ -1,29 +1,16 @@
-import { TemplateConfigurationModule } from '@/components/template/templateconfiguration';
-import { TemplateFeaturesModule } from '@/components/template/templatefeatures';
-import { TemplateFeaturesAnimationModule } from '@/components/template/templatefeaturesanimation/templatefeaturesanimation';
-import { TemplateHeroModule } from '@/components/template/templatehero/templatehero';
-import { TemplateLicenseModule } from '@/components/template/templatelicense';
-import { TemplateRelatedModule } from '@/components/template/templaterelated';
-import { TemplateSeparatorModule } from '@/components/template/templateseparator';
-import { TemplateYoutubeModule } from '@/components/template/templateyoutube';
+import { TemplateConfiguration } from '@/components/template/templateconfiguration';
+import { TemplateFeatures } from '@/components/template/templatefeatures';
+import { TemplateFeaturesAnimation } from '@/components/template/templatefeaturesanimation/templatefeaturesanimation';
+import { TemplateHero } from '@/components/template/templatehero/templatehero';
+import { TemplateLicense } from '@/components/template/templatelicense';
+import { TemplateYoutube } from '@/components/template/templateyoutube';
 import { Component } from '@angular/core';
 import { FreyaLogo } from './freyalogo';
 import { FreyaSeparator } from './freyaseparator';
 @Component({
     standalone: true,
     selector: 'freya-page',
-    imports: [
-        TemplateHeroModule,
-        TemplateSeparatorModule,
-        TemplateFeaturesAnimationModule,
-        TemplateFeaturesModule,
-        TemplateConfigurationModule,
-        TemplateFeaturesAnimationModule,
-        TemplateRelatedModule,
-        TemplateYoutubeModule,
-        TemplateLicenseModule,
-        FreyaSeparator
-    ],
+    imports: [TemplateHero, TemplateFeaturesAnimation, TemplateFeatures, TemplateConfiguration, TemplateFeaturesAnimation, TemplateYoutube, TemplateLicense, FreyaSeparator],
     template: `<div class="freya template">
         <template-hero [templateHeroData]="templateHeroData" [templateLogo]="freyaLogo"></template-hero>
         <freya-separator></freya-separator>
@@ -55,7 +42,7 @@ export class FreyaPage {
         dashboard1: 'https://primefaces.org/cdn/primeng/images/templates/freya/freya-hero-dashboard1.png',
         dashboard2: 'https://primefaces.org/cdn/primeng/images/templates/freya/freya-hero-dashboard2.png',
         description: 'Freya is a modern and clean application template for PrimeNG featuring a dark mode, attractive themes, customizable menu orientations, widgets, apps and template pages.',
-        liveHref: 'https://www.primefaces.org/freya-ng/',
+        liveHref: 'https://freya.primeng.org/',
         docHref: 'https://freya.primeng.org/documentation'
     };
 
@@ -106,7 +93,7 @@ export class FreyaPage {
         {
             id: 2,
             title: 'PrimeBlocks',
-            description: `Designed to be fully compatible with upcoming next-gen PrimeBlocks, choose from the extensive range of blocks and customize the way you like.`,
+            description: `Fully compatible with PrimeBlocks, choose from the wide range of blocks and customize the way you like. Note that PrimeBlocks is not included in the template and requires a separate purchase.`,
             src: 'https://primefaces.org/cdn/primeng/images/templates/common/primeblocks.png'
         },
         {
@@ -118,8 +105,9 @@ export class FreyaPage {
         {
             id: 4,
             title: 'Figma File',
-            description:
-                'Powered by Figma as the design tool. It will be possible to download the Figma file after your purchase. Note that PrimeNG UI components are excluded from the template Figma file as they are available in PrimeOne for Figma only.',
+            description: `Freya uses Figma as the design tool. It will be possible to download the Figma file after your purchase. You can
+                <a href="https://www.figma.com/file/eYBoRNff6GPTlrgYZaMStp/Preview-%7C-Freya-2022?node-id=0%3A1&t=MGAABDlOnz4QBcEk-1" target="_blank" rel="noopener noreferrer">preview the Figma file</a> before the purchase. Note that PrimeNG UI components are excluded from the Freya Figma
+                file as they are available in <a hrefo="/uikit">PrimeOne for Figma</a> only.`,
             src: 'https://primefaces.org/cdn/primeng/images/templates/freya/features-animation-figma.png'
         }
     ];

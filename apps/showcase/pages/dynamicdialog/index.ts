@@ -1,16 +1,16 @@
 import { CloseDoc } from '@/doc/dynamicdialog/closedoc';
 import { CustomizationDoc } from '@/doc/dynamicdialog/customizationdoc';
-import { DynamicDialogDocModule } from '@/doc/dynamicdialog/dynamicdialogdoc.module';
 import { ExampleDoc } from '@/doc/dynamicdialog/exampledoc';
 import { ImportDoc } from '@/doc/dynamicdialog/importdoc';
 import { OpenDoc } from '@/doc/dynamicdialog/opendoc';
 import { PassingDataDoc } from '@/doc/dynamicdialog/passingdatadoc';
 import { UsageDoc } from '@/doc/dynamicdialog/usagedoc';
 import { Component } from '@angular/core';
+import { AppDoc } from '@/components/doc/app.doc';
 
 @Component({
     standalone: true,
-    imports: [DynamicDialogDocModule],
+    imports: [AppDoc],
     template: `
         <app-doc
             docTitle="Angular Dynamic Dialog Component"

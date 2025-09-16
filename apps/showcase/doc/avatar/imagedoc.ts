@@ -1,9 +1,14 @@
 import { Code } from '@/domain/code';
 import { Component } from '@angular/core';
+import { AppDocSectionText } from '@/components/doc/app.docsectiontext';
+import { AppCode } from '@/components/doc/app.code';
+import { AvatarModule } from 'primeng/avatar';
+import { OverlayBadgeModule } from 'primeng/overlaybadge';
 
 @Component({
     selector: 'avatar-image-demo',
-    standalone: false,
+    standalone: true,
+    imports: [AppDocSectionText, AppCode, AvatarModule, OverlayBadgeModule],
     template: `
         <app-docsectiontext>
             <p>Use the <i>image</i> property to display an image as an Avatar.</p>
