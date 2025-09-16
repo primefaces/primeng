@@ -1,9 +1,14 @@
 import { Code } from '@/domain/code';
 import { Component } from '@angular/core';
+import { AppCode } from '@/components/doc/app.code';
+import { AppDocSectionText } from '@/components/doc/app.docsectiontext';
+import { ButtonModule } from 'primeng/button';
+import { RouterModule } from '@angular/router';
 
 @Component({
     selector: 'button-link-demo',
-    standalone: false,
+    standalone: true,
+    imports: [AppCode, AppDocSectionText, ButtonModule, RouterModule],
     template: `
         <app-docsectiontext>
             <p>A button can be rendered as a link when <i>link</i> property is present, while the <i>pButton</i> directive can be applied on an anchor element to style the link as a button.</p>

@@ -4,15 +4,15 @@ import { CommandDoc } from '@/doc/panelmenu/commanddoc';
 import { ControlledDoc } from '@/doc/panelmenu/controlleddoc';
 import { ImportDoc } from '@/doc/panelmenu/importdoc';
 import { MultipleDoc } from '@/doc/panelmenu/multipledoc';
-import { PanelMenuDocModule } from '@/doc/panelmenu/panelmenudoc.module';
 import { RouterDoc } from '@/doc/panelmenu/routerdoc';
 import { TemplateDoc } from '@/doc/panelmenu/templatedoc';
 import { Component } from '@angular/core';
+import { AppDoc } from '@/components/doc/app.doc';
 
 @Component({
     template: `<app-doc docTitle="Angular PanelMenu Component" header="PanelMenu" description="PanelMenu is a hybrid of Accordion and Tree components." [docs]="docs" [apiDocs]="['PanelMenu', 'MenuItem']" themeDocs="panelmenu"></app-doc>`,
     standalone: true,
-    imports: [PanelMenuDocModule]
+    imports: [AppDoc]
 })
 export class PanelMenuDemo {
     docs = [
@@ -51,7 +51,6 @@ export class PanelMenuDemo {
             label: 'Router',
             component: RouterDoc
         },
-
         {
             id: 'accessibility',
             label: 'Accessibility',

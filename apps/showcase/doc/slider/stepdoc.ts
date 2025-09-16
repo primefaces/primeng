@@ -1,9 +1,14 @@
 import { Code } from '@/domain/code';
 import { Component } from '@angular/core';
+import { FormsModule } from '@angular/forms';
+import { SliderModule } from 'primeng/slider';
+import { AppDocSectionText } from '@/components/doc/app.docsectiontext';
+import { AppCode } from '@/components/doc/app.code';
 
 @Component({
     selector: 'step-doc',
-    standalone: false,
+    standalone: true,
+    imports: [FormsModule, SliderModule, AppDocSectionText, AppCode],
     template: `
         <app-docsectiontext>
             <p>Size of each movement is defined with the <i>step</i> property.</p>

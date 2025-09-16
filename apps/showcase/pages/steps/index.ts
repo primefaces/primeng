@@ -4,7 +4,7 @@ import { ControlledDoc } from '@/doc/steps/controlleddoc';
 import { ImportDoc } from '@/doc/steps/importdoc';
 import { InteractiveDoc } from '@/doc/steps/interactivedoc';
 import { RoutingDoc } from '@/doc/steps/routingdoc';
-import { StepsDocModule } from '@/doc/steps/stepsdoc.module';
+import { AppDoc } from '@/components/doc/app.doc';
 import { Component } from '@angular/core';
 
 @Component({
@@ -17,7 +17,7 @@ import { Component } from '@angular/core';
         themeDocs="steps"
     ></app-doc>`,
     standalone: true,
-    imports: [StepsDocModule],
+    imports: [AppDoc],
     styleUrl: './stepsdemo.scss'
 })
 export class StepsDemo {

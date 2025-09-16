@@ -1,5 +1,4 @@
 import { AccessibilityDoc } from '@/doc/autocomplete/accessibilitydoc';
-import { AutoCompleteDocModule } from '@/doc/autocomplete/autocompletedoc.module';
 import { BasicDoc } from '@/doc/autocomplete/basicdoc';
 import { DisabledDoc } from '@/doc/autocomplete/disableddoc';
 import { DropdownDoc } from '@/doc/autocomplete/dropdowndoc';
@@ -17,7 +16,10 @@ import { SizesDoc } from '@/doc/autocomplete/sizesdoc';
 import { TemplateDoc } from '@/doc/autocomplete/templatedoc';
 import { TemplateDrivenFormsDoc } from '@/doc/autocomplete/templatedrivenformsdoc';
 import { VirtualScrollDoc } from '@/doc/autocomplete/virtualscrolldoc';
+import { FluidDoc } from '@/doc/autocomplete/fluiddoc';
+import { ClearIconDoc } from '@/doc/autocomplete/clearicondoc';
 import { ChangeDetectionStrategy, Component } from '@angular/core';
+import { AppDoc } from '@/components/doc/app.doc';
 
 @Component({
     template: `<app-doc
@@ -29,7 +31,7 @@ import { ChangeDetectionStrategy, Component } from '@angular/core';
         themeDocs="AutoComplete"
     ></app-doc>`,
     standalone: true,
-    imports: [AutoCompleteDocModule],
+    imports: [AppDoc],
     changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class AutoCompleteDemo {
@@ -90,9 +92,19 @@ export class AutoCompleteDemo {
             component: IftaLabelDoc
         },
         {
+            id: 'clearicon',
+            label: 'Clear Icon',
+            component: ClearIconDoc
+        },
+        {
             id: 'sizes',
             label: 'Sizes',
             component: SizesDoc
+        },
+        {
+            id: 'fluid',
+            label: 'Fluid',
+            component: FluidDoc
         },
         {
             id: 'filled',

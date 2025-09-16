@@ -1,9 +1,14 @@
 import { Code } from '@/domain/code';
 import { Component, OnInit } from '@angular/core';
+import { MessageModule } from 'primeng/message';
+import { AvatarModule } from 'primeng/avatar';
+import { AppCodeModule } from '@/components/doc/app.code';
+import { AppDocSectionText } from '@/components/doc/app.docsectiontext';
 
 @Component({
     selector: 'icon-doc',
-    standalone: false,
+    standalone: true,
+    imports: [MessageModule, AvatarModule, AppCodeModule, AppDocSectionText],
     template: `
         <app-docsectiontext>
             <p>The icon of a message is specified with the <i>icon</i> property.</p>

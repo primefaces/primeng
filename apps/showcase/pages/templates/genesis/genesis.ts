@@ -1,8 +1,8 @@
-import { TemplateConfigurationModule } from '@/components/template/templateconfiguration';
-import { TemplateFeaturesModule } from '@/components/template/templatefeatures';
-import { TemplateFeaturesAnimationModule } from '@/components/template/templatefeaturesanimation/templatefeaturesanimation';
-import { TemplateHeroModule } from '@/components/template/templatehero/templatehero';
-import { TemplateLicenseModule } from '@/components/template/templatelicense';
+import { TemplateConfiguration } from '@/components/template/templateconfiguration';
+import { TemplateFeatures } from '@/components/template/templatefeatures';
+import { TemplateFeaturesAnimation } from '@/components/template/templatefeaturesanimation/templatefeaturesanimation';
+import { TemplateHero } from '@/components/template/templatehero/templatehero';
+import { TemplateLicense } from '@/components/template/templatelicense';
 import { Component } from '@angular/core';
 import { GenesisLogo } from './genesislogo';
 import { GenesisSeparator } from './genesisseparator';
@@ -10,7 +10,7 @@ import { GenesisSeparator } from './genesisseparator';
 @Component({
     standalone: true,
     selector: 'genesis-page',
-    imports: [TemplateHeroModule, TemplateLicenseModule, GenesisSeparator, TemplateFeaturesAnimationModule, TemplateConfigurationModule, TemplateFeaturesModule],
+    imports: [TemplateHero, TemplateLicense, GenesisSeparator, TemplateFeaturesAnimation, TemplateConfiguration, TemplateFeatures],
     template: `
         <div class="template">
             <template-hero [templateHeroData]="templateHeroData" [templateLogo]="genesisLogo"></template-hero>
@@ -76,7 +76,7 @@ export class GenesisPage {
         {
             title: 'Top Notch Quality',
             description: 'Superior standards with 100% compatibility for strict mode and linting tools.',
-            src: 'https://primefaces.org/cdn/primevue/images/templates/apollo/apollo-features2-quality.png',
+            src: 'https://primefaces.org/cdn/primeng/images/templates/apollo/apollo-features2-quality.png',
             darkSrc: 'https://primefaces.org/cdn/primeng/images/templates/apollo/apollo-features2-quality-dark.png'
         },
         {
@@ -94,7 +94,7 @@ export class GenesisPage {
         {
             title: 'Mobile Experience',
             description: 'Touch optimized enhanced mobile experience with responsive design.',
-            src: 'https://primefaces.org/cdn/primeng/images/templates/apollo/apollo-features2-mobile.png'
+            src: 'https://primefaces.org/cdn/primeng/images/templates/genesis/mobile-experience.png'
         }
     ];
 
@@ -129,13 +129,13 @@ export class GenesisPage {
         {
             id: 1,
             title: 'Tailwind CSS',
-            description: 'The demo content is built with TailwindCSS, while the application shell uses custom CSS, offering flexibility and efficiency for responsive design.',
+            description: 'Built with TailwindCSS, offering flexibility and efficiency for responsive design. Enjoy the power of Tailwind, a favorite among developers.',
             src: 'https://primefaces.org/cdn/primeng/images/templates/common/tailwind.png'
         },
         {
             id: 2,
             title: 'PrimeBlocks',
-            description: `Designed to be fully compatible with upcoming next-gen PrimeBlocks, choose from the extensive range of blocks and customize the way you like.`,
+            description: `Fully compatible with PrimeBlocks, choose from the wide range of blocks and customize the way you like. Note that PrimeBlocks is not included in the template and requires a separate purchase.`,
             src: 'https://primefaces.org/cdn/primeng/images/templates/common/primeblocks.png'
         },
         {
@@ -148,7 +148,7 @@ export class GenesisPage {
             id: 4,
             title: 'Figma File',
             description:
-                'Powered by Figma as the design tool. It will be possible to download the Figma file after your purchase. Note that PrimeNG UI components are excluded from the template Figma file as they are available in PrimeOne for Figma only.',
+                'Genesis uses Figma as the design tool. It will be possible to download the Figma file after your purchase. You can <a href="https://www.figma.com/design/bGujrJyznnSatJFMtkXbTN/Preview-%7C-Genesis?node-id=0-1&t=etuXAwkUAEuhJ3p0-1" target="_blank" rel="noopener noreferrer">preview the Figma file</a> before the purchase. Note that PrimeNG UI components are excluded from the Genesis Figma file as they are available in PrimeOne for Figma only.',
             src: 'https://primefaces.org/cdn/primeng/images/templates/genesis/animation-figma.png'
         }
     ];

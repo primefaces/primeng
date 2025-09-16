@@ -5,7 +5,7 @@ import { LinearDoc } from '@/doc/speeddial/lineardoc';
 import { MaskDoc } from '@/doc/speeddial/maskdoc';
 import { QuarterCircleDoc } from '@/doc/speeddial/quartercircledoc';
 import { SemiCircleDoc } from '@/doc/speeddial/semicircledoc';
-import { SpeedDialDocModule } from '@/doc/speeddial/speeddialdoc.module';
+import { AppDoc } from '@/components/doc/app.doc';
 import { TemplateDoc } from '@/doc/speeddial/templatedoc';
 import { TooltipDoc } from '@/doc/speeddial/tooltipdoc';
 import { Component } from '@angular/core';
@@ -13,7 +13,7 @@ import { Component } from '@angular/core';
 @Component({
     template: `<app-doc docTitle="Angular Speed Dial Component" header="Speed Dial" description="SpeedDial is a floating button with a popup menu." [docs]="docs" [apiDocs]="['SpeedDial']" themeDocs="speeddial"></app-doc>`,
     standalone: true,
-    imports: [SpeedDialDocModule],
+    imports: [AppDoc],
     styleUrl: './speeddialdemo.scss'
 })
 export class SpeedDialDemo {

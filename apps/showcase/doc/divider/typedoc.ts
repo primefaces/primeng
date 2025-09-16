@@ -1,9 +1,13 @@
 import { Code } from '@/domain/code';
 import { Component } from '@angular/core';
+import { DividerModule } from 'primeng/divider';
+import { AppCode } from '@/components/doc/app.code';
+import { AppDocSectionText } from '@/components/doc/app.docsectiontext';
 
 @Component({
     selector: 'divider-type-demo',
-    standalone: false,
+    standalone: true,
+    imports: [DividerModule, AppCode, AppDocSectionText],
     template: `
         <app-docsectiontext>
             <p>Style of the border is configured with the <i>type</i> property that can either be <i>solid</i>, <i>dotted</i> or <i>dashed</i>.</p>

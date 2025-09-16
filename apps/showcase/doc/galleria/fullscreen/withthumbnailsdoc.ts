@@ -1,10 +1,16 @@
 import { Code } from '@/domain/code';
 import { PhotoService } from '@/service/photoservice';
 import { Component, model, OnInit } from '@angular/core';
+import { CommonModule } from '@angular/common';
+import { GalleriaModule } from 'primeng/galleria';
+import { ButtonModule } from 'primeng/button';
+import { AppCode } from '@/components/doc/app.code';
+import { AppDocSectionText } from '@/components/doc/app.docsectiontext';
 
 @Component({
     selector: 'with-thumbnails-doc',
-    standalone: false,
+    standalone: true,
+    imports: [CommonModule, GalleriaModule, ButtonModule, AppCode, AppDocSectionText],
     template: `
         <app-docsectiontext>
             <p>Full screen mode is enabled by adding <i>fullScreen</i> property.</p>

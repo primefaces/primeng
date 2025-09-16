@@ -41,17 +41,17 @@ import { StatefulDoc } from '@/doc/table/statefuldoc';
 import { StripedDoc } from '@/doc/table/stripeddoc';
 import { StyleDoc } from '@/doc/table/styledoc';
 import { SubheaderGroupingDoc } from '@/doc/table/subheadergroupingdoc';
-import { TableDocModule } from '@/doc/table/tabledoc.module';
 import { TemplateDoc } from '@/doc/table/templatedoc';
 import { VerticalScrollDoc } from '@/doc/table/verticalscrolldoc';
 import { VirtualScrollDoc } from '@/doc/table/virtualscrolldoc';
 import { VirtualScrollLazyDoc } from '@/doc/table/virtualscrolllazydoc';
 import { Component } from '@angular/core';
+import { AppDoc } from '@/components/doc/app.doc';
 
 @Component({
     template: `<app-doc docTitle="Angular Table Component" header="Table" description="Table displays data in tabular format." [docs]="docs" [apiDocs]="['Table', 'ColumnFilter']" themeDocs="table"></app-doc>`,
     standalone: true,
-    imports: [TableDocModule],
+    imports: [AppDoc],
     styleUrl: './tabledemo.scss'
 })
 export class TableDemo {

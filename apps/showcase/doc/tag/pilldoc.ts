@@ -1,9 +1,13 @@
-import { Code } from '@/domain/code';
 import { Component } from '@angular/core';
+import { Code } from '@/domain/code';
+import { AppCode } from '@/components/doc/app.code';
+import { AppDocSectionText } from '@/components/doc/app.docsectiontext';
+import { TagModule } from 'primeng/tag';
 
 @Component({
     selector: 'pill-doc',
-    standalone: false,
+    standalone: true,
+    imports: [AppCode, AppDocSectionText, TagModule],
     template: `
         <app-docsectiontext>
             <p>Enabling <i>rounded</i>, displays a tag as a pill.</p>
@@ -39,13 +43,13 @@ export class PillDoc {
     <p-tag severity="contrast" value="Contrast" [rounded]="true" />
 </div>`,
         typescript: `import { Component } from '@angular/core';
-import { Tag } from 'primeng/tag';
+import { TagModule } from 'primeng/tag';
 
 @Component({
     selector: 'tag-pill-demo',
     templateUrl: './tag-pill-demo.html',
     standalone: true,
-    imports: [Tag]
+    imports: [TagModule]
 })
 export class TagPillDemo {}`
     };

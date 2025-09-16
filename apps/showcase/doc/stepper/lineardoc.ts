@@ -1,9 +1,14 @@
 import { Code } from '@/domain/code';
 import { Component } from '@angular/core';
+import { AppDocSectionText } from '@/components/doc/app.docsectiontext';
+import { AppCode } from '@/components/doc/app.code';
+import { StepperModule } from 'primeng/stepper';
+import { ButtonModule } from 'primeng/button';
 
 @Component({
     selector: 'linear-doc',
-    standalone: false,
+    standalone: true,
+    imports: [AppDocSectionText, AppCode, StepperModule, ButtonModule],
     template: `
         <app-docsectiontext>
             <p>When <i>linear</i> property is set to true, current step must be completed in order to move to the next step.</p>

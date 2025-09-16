@@ -1,9 +1,14 @@
 import { Code } from '@/domain/code';
 import { Component } from '@angular/core';
+import { FieldsetModule } from 'primeng/fieldset';
+import { AvatarModule } from 'primeng/avatar';
+import { AppCode } from '@/components/doc/app.code';
+import { AppDocSectionText } from '@/components/doc/app.docsectiontext';
 
 @Component({
     selector: 'fieldset-template-demo',
-    standalone: false,
+    standalone: true,
+    imports: [FieldsetModule, AvatarModule, AppCode, AppDocSectionText],
     template: `
         <app-docsectiontext>
             <p>Header section can also be defined with custom content instead of primitive values.</p>

@@ -1,11 +1,11 @@
 import { CommonModule } from '@angular/common';
-import { ChangeDetectionStrategy, Component, NgModule, ViewEncapsulation } from '@angular/core';
-import { SharedModule } from 'primeng/api';
+import { ChangeDetectionStrategy, Component, ViewEncapsulation } from '@angular/core';
 import { DividerModule } from 'primeng/divider';
 
 @Component({
     selector: 'template-separator',
-    standalone: false,
+    standalone: true,
+    imports: [CommonModule, DividerModule],
     template: `
         <div class="flex items-center w-full gap-6">
             <p-divider class="flex-1" />
@@ -19,10 +19,3 @@ import { DividerModule } from 'primeng/divider';
     encapsulation: ViewEncapsulation.None
 })
 export class TemplateSeparator {}
-
-@NgModule({
-    imports: [CommonModule, SharedModule, DividerModule],
-    exports: [TemplateSeparator, SharedModule],
-    declarations: [TemplateSeparator]
-})
-export class TemplateSeparatorModule {}

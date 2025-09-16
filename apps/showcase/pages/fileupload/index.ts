@@ -2,14 +2,14 @@ import { AccessibilityDoc } from '@/doc/fileupload/accessibilitydoc';
 import { AdvancedDoc } from '@/doc/fileupload/advanceddoc';
 import { AutoDoc } from '@/doc/fileupload/autodoc';
 import { BasicDoc } from '@/doc/fileupload/basicdoc';
-import { FileUploadDocModule } from '@/doc/fileupload/fileuploaddoc.module';
 import { ImportDoc } from '@/doc/fileupload/importdoc';
 import { TemplateDoc } from '@/doc/fileupload/templatedoc';
 import { Component } from '@angular/core';
+import { AppDoc } from '@/components/doc/app.doc';
 
 @Component({
     standalone: true,
-    imports: [FileUploadDocModule],
+    imports: [AppDoc],
     template: ` <app-doc
         docTitle="Angular FileUpload Component"
         header="FileUpload"

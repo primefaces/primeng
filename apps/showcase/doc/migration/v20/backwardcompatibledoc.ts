@@ -1,11 +1,12 @@
-import { AppCodeModule } from '@/components/doc/app.code.component';
-import { AppDocModule } from '@/components/doc/app.doc.module';
-import { Code } from '@/domain/code';
 import { Component } from '@angular/core';
+import { Code } from '@/domain/code';
+import { AppCodeModule } from '@/components/doc/app.code';
+import { AppDocSectionText } from '@/components/doc/app.docsectiontext';
 
 @Component({
     selector: 'v20-backward-compatible-doc',
-    imports: [AppDocModule, AppCodeModule],
+    standalone: true,
+    imports: [AppCodeModule, AppDocSectionText],
     template: `
         <app-docsectiontext>
             <h4>Form Enhancements</h4>

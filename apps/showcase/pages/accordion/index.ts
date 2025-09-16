@@ -1,5 +1,4 @@
 import { AccessibilityDoc } from '@/doc/accordion/accessibilitydoc';
-import { AccordionDocModule } from '@/doc/accordion/accordiondoc.module';
 import { BasicDoc } from '@/doc/accordion/basicdoc';
 import { ControlledDoc } from '@/doc/accordion/controlleddoc';
 import { DisabledDoc } from '@/doc/accordion/disableddoc';
@@ -7,7 +6,9 @@ import { DynamicDoc } from '@/doc/accordion/dynamicdoc';
 import { ImportDoc } from '@/doc/accordion/importdoc';
 import { MultipleDoc } from '@/doc/accordion/multipledoc';
 import { TemplateDoc } from '@/doc/accordion/templatedoc';
+import { AppDoc } from '@/components/doc/app.doc';
 import { Component } from '@angular/core';
+import { AppDocService } from '@/components/doc/app.doc.service';
 
 @Component({
     template: `<app-doc
@@ -18,7 +19,8 @@ import { Component } from '@angular/core';
         [apiDocs]="['Accordion', 'AccordionPanel', 'AccordionHeader']"
         themeDocs="accordion"
     ></app-doc>`,
-    imports: [AccordionDocModule],
+    imports: [AppDoc],
+    providers: [AppDocService],
     standalone: true
 })
 export class AccordionDemo {

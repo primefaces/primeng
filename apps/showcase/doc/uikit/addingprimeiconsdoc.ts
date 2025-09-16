@@ -1,10 +1,10 @@
 import { Component } from '@angular/core';
-import { AppDocModule } from '@/components/doc/app.doc.module';
+import { AppDocSectionText } from '@/components/doc/app.docsectiontext';
 
 @Component({
     selector: 'adding-prime-icons-doc',
     standalone: true,
-    imports: [AppDocModule],
+    imports: [AppDocSectionText],
     template: `<app-docsectiontext>
         <p>PrimeOne uses PrimeIcons, the official icon library by PrimeTek. To use it effectively within your design system, you need to add PrimeIcons to your Figma environment by following these steps:</p>
         <ul class="leading-normal px-10 mb-2 list-disc">

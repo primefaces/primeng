@@ -2,12 +2,20 @@ import { Code } from '@/domain/code';
 import { Product } from '@/domain/product';
 import { ProductService } from '@/service/productservice';
 import { ChangeDetectorRef, Component, OnInit, ViewChild } from '@angular/core';
+import { CommonModule } from '@angular/common';
 import { MessageService } from 'primeng/api';
-import { Popover } from 'primeng/popover';
+import { Popover, PopoverModule } from 'primeng/popover';
+import { TableModule } from 'primeng/table';
+import { ButtonModule } from 'primeng/button';
+import { TagModule } from 'primeng/tag';
+import { AppCode } from '@/components/doc/app.code';
+import { AppDocSectionText } from '@/components/doc/app.docsectiontext';
 
 @Component({
     selector: 'data-table-doc',
-    standalone: false,
+    standalone: true,
+    imports: [CommonModule, PopoverModule, TableModule, ButtonModule, TagModule, AppCode, AppDocSectionText],
+    providers: [MessageService, ProductService],
     template: `
         <app-docsectiontext>
             <p>Place the Popover outside of the data iteration components to avoid rendering it multiple times.</p>
@@ -78,8 +86,7 @@ import { Popover } from 'primeng/popover';
             </p-popover>
         </div>
         <app-code [code]="code" selector="popover-data-table-demo" [extFiles]="extFiles"></app-code>
-    `,
-    providers: [MessageService]
+    `
 })
 export class DataTableDoc implements OnInit {
     constructor(

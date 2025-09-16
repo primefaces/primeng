@@ -1,6 +1,5 @@
 import { AccessibilityDoc } from '@/doc/checkbox/accessibilitydoc';
 import { BasicDoc } from '@/doc/checkbox/basicdoc';
-import { CheckboxDocModule } from '@/doc/checkbox/checkboxdoc.module';
 import { DisabledDoc } from '@/doc/checkbox/disableddoc';
 import { DynamicDoc } from '@/doc/checkbox/dynamicdoc';
 import { FilledDoc } from '@/doc/checkbox/filleddoc';
@@ -11,11 +10,12 @@ import { MultipleDoc } from '@/doc/checkbox/multipledoc';
 import { ReactiveFormsDoc } from '@/doc/checkbox/reactiveformsdoc';
 import { SizesDoc } from '@/doc/checkbox/sizesdoc';
 import { TemplateDrivenFormsDoc } from '@/doc/checkbox/templatedrivenformsdoc';
+import { AppDoc } from '@/components/doc/app.doc';
 import { Component } from '@angular/core';
 
 @Component({
     standalone: true,
-    imports: [CheckboxDocModule],
+    imports: [AppDoc],
     template: ` <app-doc docTitle="Angular Checkbox Component" header="Checkbox" description="Checkbox is an extension to standard checkbox element with theming." [docs]="docs" [apiDocs]="['Checkbox']" themeDocs="checkbox"></app-doc> `
 })
 export class CheckboxDemo {

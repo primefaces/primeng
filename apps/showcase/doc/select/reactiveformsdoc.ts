@@ -2,6 +2,14 @@ import { Code } from '@/domain/code';
 import { Component, inject } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { MessageService } from 'primeng/api';
+import { AppDocSectionText } from '@/components/doc/app.docsectiontext';
+import { AppCode } from '@/components/doc/app.code';
+import { ReactiveFormsModule } from '@angular/forms';
+import { SelectModule } from 'primeng/select';
+import { ToastModule } from 'primeng/toast';
+import { MessageModule } from 'primeng/message';
+import { ButtonModule } from 'primeng/button';
+import { CommonModule } from '@angular/common';
 
 interface City {
     name: string;
@@ -10,7 +18,8 @@ interface City {
 
 @Component({
     selector: 'reactive-forms-doc',
-    standalone: false,
+    standalone: true,
+    imports: [CommonModule, AppDocSectionText, AppCode, ReactiveFormsModule, SelectModule, ToastModule, MessageModule, ButtonModule],
     template: `
         <app-docsectiontext>
             <p>Select can also be used with reactive forms. In this case, the <i>formControlName</i> property is used to bind the component to a form control.</p>
