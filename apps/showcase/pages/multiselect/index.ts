@@ -73,11 +73,6 @@ export class MultiSelectDemo {
             component: FloatLabelDoc
         },
         {
-            id: 'clearicon',
-            label: 'Clear Icon',
-            component: ClearIconDoc
-        },
-        {
             id: 'iftalabel',
             label: 'Ifta Label',
             component: IftaLabelDoc
