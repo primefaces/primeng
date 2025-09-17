@@ -2,7 +2,7 @@
 
 ## Version Support
 
-**STS** means open source short term support whereas **LTS** stands for commercial long term support. Legacy versions are only supported by [PrimeNG PRO](https://www.primefaces.org/support).
+**STS** means open source short term support whereas **LTS** stands for commercial long term support. Legacy versions are only supported by [PrimeNG PRO](https://primeng.org/support).
 
 | Version | Status | End of STS | End of LTS | Changes |
 |---------|--------|------------|------------|---------|
