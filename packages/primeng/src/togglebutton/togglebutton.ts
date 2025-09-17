@@ -14,6 +14,7 @@ import {
     Input,
     NgModule,
     numberAttribute,
+    OnInit,
     Output,
     QueryList,
     TemplateRef
@@ -43,9 +44,10 @@ export const TOGGLEBUTTON_VALUE_ACCESSOR: any = {
     host: {
         '[class]': "cn(cx('root'), styleClass)",
         '[attr.aria-labelledby]': 'ariaLabelledBy',
-        '[attr.aria-pressed]': 'checked',
+        '[attr.aria-label]': 'ariaLabel',
+        '[attr.aria-pressed]': 'checked ? "true" : "false"',
         '[attr.role]': '"button"',
-        '[attr.tabindex]': '!$disabled() ? 0 : -1'
+        '[attr.tabindex]': 'tabindex !== undefined ? tabindex : (!$disabled() ? 0 : -1)'
     },
     template: `<span [class]="cx('content')">
         <ng-container *ngTemplateOutlet="contentTemplate || _contentTemplate; context: { $implicit: checked }"></ng-container>
@@ -63,7 +65,7 @@ export const TOGGLEBUTTON_VALUE_ACCESSOR: any = {
     providers: [TOGGLEBUTTON_VALUE_ACCESSOR, ToggleButtonStyle],
     changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class ToggleButton extends BaseEditableHolder implements AfterContentInit {
+export class ToggleButton extends BaseEditableHolder implements OnInit, AfterContentInit {
     @HostListener('keydown', ['$event'])
     onKeyDown(event: KeyboardEvent) {
         switch (event.code) {
@@ -186,6 +188,13 @@ export class ToggleButton extends BaseEditableHolder implements AfterContentInit
 
     checked: boolean = false;
 
+    ngOnInit() {
+        super.ngOnInit();
+        if (this.checked === null || this.checked === undefined) {
+            this.checked = false;
+        }
+    }
+
     _componentStyle = inject(ToggleButtonStyle);
 
     onBlur() {
@@ -197,7 +206,7 @@ export class ToggleButton extends BaseEditableHolder implements AfterContentInit
     }
 
     get hasOffLabel(): boolean {
-        return (this.onLabel && this.onLabel.length > 0) as boolean;
+        return (this.offLabel && this.offLabel.length > 0) as boolean;
     }
 
     get active() {

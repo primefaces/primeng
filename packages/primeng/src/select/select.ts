@@ -1127,6 +1127,11 @@ export class Select extends BaseInput implements OnInit, AfterViewInit, AfterCon
     }
 
     onOptionSelect(event, option, isHide = true, preventChange = false) {
+        // Check if option is disabled before proceeding
+        if (this.isOptionDisabled(option)) {
+            return;
+        }
+
         if (!this.isSelected(option)) {
             const value = this.getOptionValue(option);
             this.updateModel(value, event);
@@ -1654,7 +1659,7 @@ export class Select extends BaseInput implements OnInit, AfterViewInit, AfterCon
     }
 
     onHomeKey(event: any, pressedInInputText: boolean = false) {
-        if (pressedInInputText) {
+        if (pressedInInputText && event.currentTarget && event.currentTarget.setSelectionRange) {
             const target = event.currentTarget;
             if (event.shiftKey) {
                 target.setSelectionRange(0, target.value.length);
@@ -1672,7 +1677,7 @@ export class Select extends BaseInput implements OnInit, AfterViewInit, AfterCon
     }
 
     onEndKey(event: any, pressedInInputText = false) {
-        if (pressedInInputText) {
+        if (pressedInInputText && event.currentTarget && event.currentTarget.setSelectionRange) {
             const target = event.currentTarget;
 
             if (event.shiftKey) {

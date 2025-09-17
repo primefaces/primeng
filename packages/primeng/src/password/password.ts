@@ -257,14 +257,18 @@ export class PasswordDirective extends BaseEditableHolder implements OnDestroy {
                 this.showOverlay();
             }
 
-            this.renderer.setStyle(this.meter, 'backgroundPosition', meterPos);
+            if (this.meter) {
+                this.renderer.setStyle(this.meter, 'backgroundPosition', meterPos);
+            }
 
-            (this.info as HTMLDivElement).textContent = label;
+            if (this.info) {
+                (this.info as HTMLDivElement).textContent = label;
+            }
         }
     }
 
     updateMeter() {
-        if (this.labelSignal()) {
+        if (this.labelSignal() && this.meter && this.info) {
             const label = this.labelSignal();
             const strengthClass = this.strengthClass(label.toLowerCase());
             const width = this.getWidth(label.toLowerCase());
@@ -864,8 +868,8 @@ export class Password extends BaseInput implements OnInit, AfterContentInit {
     testStrength(str: string) {
         let level = 0;
 
-        if (this.strongCheckRegExp.test(str)) level = 3;
-        else if (this.mediumCheckRegExp.test(str)) level = 2;
+        if (this.strongCheckRegExp?.test(str)) level = 3;
+        else if (this.mediumCheckRegExp?.test(str)) level = 2;
         else if (str.length) level = 1;
 
         return level;

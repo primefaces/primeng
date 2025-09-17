@@ -169,7 +169,7 @@ export class Drawer extends BaseComponent implements AfterViewInit, AfterContent
      * @group Props
      */
     @Input() get visible(): boolean {
-        return this._visible as boolean;
+        return this._visible ?? false;
     }
     set visible(val: boolean) {
         this._visible = val;

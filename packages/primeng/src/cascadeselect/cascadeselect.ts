@@ -73,7 +73,7 @@ export const CASCADESELECT_VALUE_ACCESSOR: any = {
                         [attr.data-pc-section]="'content'"
                     >
                         <ng-container *ngIf="optionTemplate; else defaultOptionTemplate">
-                            <ng-container *ngTemplateOutlet="optionTemplate; context: { $implicit: processedOption?.option }"></ng-container>
+                            <ng-container *ngTemplateOutlet="optionTemplate; context: { $implicit: processedOption?.option, level: level }"></ng-container>
                         </ng-container>
                         <ng-template #defaultOptionTemplate>
                             <span [class]="cx('optionText')" [attr.data-pc-section]="'text'">{{ getOptionLabelToRender(processedOption) }}</span>
@@ -794,6 +794,14 @@ export class CascadeSelect extends BaseEditableHolder implements OnInit, AfterCo
                     this._optionTemplate = item.template;
                     break;
 
+                case 'header':
+                    this._headerTemplate = item.template;
+                    break;
+
+                case 'footer':
+                    this._footerTemplate = item.template;
+                    break;
+
                 case 'triggericon':
                     this._triggerIconTemplate = item.template;
                     break;
@@ -1341,7 +1349,7 @@ export class CascadeSelect extends BaseEditableHolder implements OnInit, AfterCo
             this.updateModel(null);
             this.focusedOptionInfo.set({ index: -1, level: 0, parentKey: '' });
             this.activeOptionPath.set([]);
-            this.onClear.emit();
+            this.onClear.emit(event);
         }
 
         event && event.stopPropagation();
