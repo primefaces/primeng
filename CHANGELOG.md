@@ -1,4 +1,7 @@
 # Changelog
+
+Long Term Support releases: [CHANGELOG-LTS](./changelog/CHANGELOG-LTS.md)
+
 ## [20.1.2](https://github.com/primefaces/primeng/tree/20.1.2) (2025-09-15)
 [Full Changelog](https://github.com/primefaces/primeng/compare/20.1.1...20.1.2)
 
