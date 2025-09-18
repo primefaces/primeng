@@ -13,6 +13,10 @@ const theme = /*css*/ `
     .p-cascadeselect.ng-invalid.ng-dirty:not(.ng-untouched):not(.ng-pristine) .p-cascadeselect-label.p-placeholder {
         color: dt('cascadeselect.invalid.placeholder.color');
     }
+
+    .p-cascadeselect-fluid .p-cascadeselect-option-list {
+        min-width: auto;
+    }
 `;
 const inlineStyles = {
     root: ({ instance }) => ({ position: instance.$appendTo() === 'self' ? 'relative' : undefined })
