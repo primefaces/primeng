@@ -879,6 +879,7 @@ export class GalleriaItem extends BaseComponent implements OnChanges {
         this.next();
 
         if (e && e.cancelable) {
+            e.stopPropagation();
             e.preventDefault();
         }
     }
@@ -888,6 +889,7 @@ export class GalleriaItem extends BaseComponent implements OnChanges {
         this.prev();
 
         if (e && e.cancelable) {
+            e.stopPropagation();
             e.preventDefault();
         }
     }
