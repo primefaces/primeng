@@ -1026,8 +1026,11 @@ describe('Scroller', () => {
             scroller._items = component.items;
             scroller.d_loading = true;
             scroller._showLoader = true;
-            scroller.loaderArr = [1, 2, 3];
+
             fixture.detectChanges();
+
+            // Directly set loaderArr to simulate loader items after detectChanges
+            scroller.loaderArr = Array.from({ length: 5 });
 
             // Verify loading state is set up correctly
             expect(scroller.d_loading).toBe(true);

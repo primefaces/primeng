@@ -32,14 +32,14 @@ import { MessageStyle } from './style/messagestyle';
             >
                 <div [class]="cx('content')">
                     @if (iconTemplate || _iconTemplate) {
-                        <ng-container *ngTemplateOutlet="iconTemplate || iconTemplate"></ng-container>
+                        <ng-container *ngTemplateOutlet="iconTemplate || _iconTemplate"></ng-container>
                     }
                     @if (icon) {
                         <i [class]="cn(cx('icon'), icon)"></i>
                     }
 
                     @if (containerTemplate || _containerTemplate) {
-                        <ng-container *ngTemplateOutlet="containerTemplate || _containerTemplate; context: { closeCallback: close.bind(this) }"></ng-container>
+                        <ng-container *ngTemplateOutlet="containerTemplate || _containerTemplate; context: { closeCallback: closeCallback }"></ng-container>
                     } @else {
                         <div *ngIf="!escape; else escapeOut">
                             <span *ngIf="!escape" [ngClass]="cx('text')" [innerHTML]="text"></span>
@@ -206,6 +206,10 @@ export class Message extends BaseComponent implements AfterContentInit {
     _iconTemplate: TemplateRef<any> | undefined;
 
     _closeIconTemplate: TemplateRef<any> | undefined;
+
+    closeCallback = (event: Event) => {
+        this.close(event);
+    };
 
     ngOnInit() {
         super.ngOnInit();

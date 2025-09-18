@@ -473,12 +473,16 @@ describe('Message', () => {
         });
 
         it('should provide closeCallback context to container template', fakeAsync(() => {
-            tick();
-            fixture.detectChanges();
-
             const messageEl = fixture.debugElement.query(By.css('p-message'));
             const messageInstance = messageEl.componentInstance as Message;
+
+            // Spy on close method before ngAfterContentInit
             spyOn(messageInstance, 'close');
+
+            // Trigger ngAfterContentInit to process templates
+            messageInstance.ngAfterContentInit();
+            tick();
+            fixture.detectChanges();
 
             const customCloseButton = fixture.debugElement.query(By.css('.custom-close-button'));
             expect(customCloseButton).toBeTruthy();
@@ -579,12 +583,16 @@ describe('Message', () => {
         }));
 
         it('should handle closeCallback in pTemplate container', fakeAsync(() => {
-            tick();
-            fixture.detectChanges();
-
             const messageEl = fixture.debugElement.query(By.css('p-message'));
             const messageInstance = messageEl.componentInstance as Message;
+
+            // Spy on close method before ngAfterContentInit
             spyOn(messageInstance, 'close');
+
+            // Trigger ngAfterContentInit to process templates
+            messageInstance.ngAfterContentInit();
+            tick();
+            fixture.detectChanges();
 
             const ptemplateCloseButton = fixture.debugElement.query(By.css('.ptemplate-close'));
             expect(ptemplateCloseButton).toBeTruthy();
