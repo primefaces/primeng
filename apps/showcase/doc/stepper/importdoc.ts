@@ -10,6 +10,6 @@ import { AppCode } from '@/components/doc/app.code';
 })
 export class ImportDoc {
     code: Code = {
-        typescript: `import { StepperModule } from 'primeng/stepper';`
+        typescript: `import { Stepper } from 'primeng/stepper';`
     };
 }

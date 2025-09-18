@@ -10,6 +10,6 @@ import { AppCode } from '@/components/doc/app.code';
 })
 export class ImportDoc {
     code: Code = {
-        typescript: `import { AccordionModule } from 'primeng/accordion';`
+        typescript: `import { Accordion } from 'primeng/accordion';`
     };
 }
