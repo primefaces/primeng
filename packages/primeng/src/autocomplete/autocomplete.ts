@@ -1383,25 +1383,20 @@ export class AutoComplete extends BaseInput implements AfterViewChecked, AfterCo
     }
 
     onEnterKey(event) {
-        if (!this.typeahead) {
-            if (this.multiple) {
-                if (!this.isSelected(event.target.value)) {
-                    this.updateModel([...(this.modelValue() || []), event.target.value]);
-                    this.inputEL.nativeElement.value = '';
-                }
-            }
+        if (this.overlayVisible || this.multiple) {
+            event.preventDefault();
         }
-        if (!this.overlayVisible) {
-            return;
-        } else {
+        if (this.typeahead) {
             if (this.focusedOptionIndex() !== -1) {
                 this.onOptionSelect(event, this.visibleOptions()[this.focusedOptionIndex()]);
             }
-
             this.hide();
+        } else if (this.multiple) {
+            if (!this.isSelected(event.target.value)) {
+                this.updateModel([...(this.modelValue() || []), event.target.value]);
+                this.inputEL.nativeElement.value = '';
+            }
         }
-
-        event.preventDefault();
     }
 
     onEscapeKey(event) {
