@@ -22,7 +22,7 @@ import {
     ViewEncapsulation,
     ViewRef
 } from '@angular/core';
-import { absolutePosition, addClass, appendChild, findSingle, getOffset, isIOS, isTouchDevice } from '@primeuix/utils';
+import { absolutePosition, addClass, appendChild, findSingle, getOffset, isIOS, isTouchDevice, removeClass } from '@primeuix/utils';
 import { OverlayService, PrimeTemplate, SharedModule } from 'primeng/api';
 import { BaseComponent } from 'primeng/basecomponent';
 import { ConnectedOverlayScrollHandler } from 'primeng/dom';
@@ -336,9 +336,12 @@ export class Popover extends BaseComponent implements AfterContentInit, OnDestro
         }
         this.container?.style.setProperty($dt('popover.arrow.left').name, `${arrowLeft}px`);
 
-        if (containerOffset.top < targetOffset.top) {
-            this.container.setAttribute('data-p-popover-flipped', 'true');
+        const flipped = containerOffset.top < targetOffset.top;
+        this.container.setAttribute('data-p-popover-flipped', Boolean(flipped).toString());
+        if (flipped) {
             addClass(this.container, 'p-popover-flipped');
+        } else {
+            removeClass(this.container, 'p-popover-flipped');
         }
     }
 
