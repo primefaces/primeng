@@ -57,7 +57,7 @@ import { TagModule } from 'primeng/tag';
                                 <td class="p-2">STS</td>
                                 <td class="p-2">After v21 release</td>
                                 <td class="p-2">After v23 release</td>
-                                <td class="p-2"></td>
+                                <td class="p-2"><a href="https://github.com/primefaces/primeng/blob/master/CHANGELOG.md" target="_blank" rel="noopener noreferrer">Changelog</a></td>
                             </tr>
                             <tr class="text-lg text-surface-800 dark:text-surface-50">
                                 <td class="p-2">
