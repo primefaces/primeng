@@ -1,4 +1,4 @@
-import { Component, DebugElement } from '@angular/core';
+import { Component, DebugElement, TemplateRef, ViewChild } from '@angular/core';
 import { ComponentFixture, fakeAsync, flush, TestBed, tick } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
@@ -1033,4 +1033,259 @@ describe('Menubar', () => {
             expect(processedItems[1].items.length).toBe(2);
         });
     });
+
+    describe('iconTemplate Functionality', () => {
+        let menubarElement: DebugElement;
+        let menubarInstance: Menubar;
+        let fixture: ComponentFixture<any>;
+
+        // --- Tests for TestIconTemplateBasicComponent ---
+        describe('Basic iconTemplate rendering', () => {
+            beforeEach(async () => {
+                await TestBed.configureTestingModule({
+                    declarations: [TestIconTemplateBasicComponent, Menubar, TestTargetComponent],
+                    imports: [NoopAnimationsModule, RouterTestingModule.withRoutes([{ path: '', component: TestTargetComponent }]), SharedModule],
+                    providers: [MenubarService, MenuBarStyle] // Ensure services are provided
+                }).compileComponents();
+
+                fixture = TestBed.createComponent(TestIconTemplateBasicComponent);
+                fixture.detectChanges();
+                menubarElement = fixture.debugElement.query(By.directive(Menubar));
+                menubarInstance = menubarElement.componentInstance;
+                fixture.detectChanges();
+            });
+
+            it('should render the iconTemplate content for the first item', () => {
+                const firstMenuItem = menubarElement.queryAll(By.css('li[data-pc-section="menuitem"]'))[0];
+                const iconSlot = firstMenuItem.query(By.css('[data-pc-section="icon"]'));
+
+                expect(iconSlot).toBeTruthy();
+                expect(iconSlot.nativeElement.textContent.trim()).toBe('Menu Item 1 Icon');
+            });
+
+            it('should render the standard icon for the second item', () => {
+                const secondMenuItem = menubarElement.queryAll(By.css('li[data-pc-section="menuitem"]'))[1];
+                const iconSpan = secondMenuItem.query(By.css('[data-pc-section="icon"] span.p-menubar-item-icon'));
+
+                expect(iconSpan).toBeTruthy();
+                expect(iconSpan.nativeElement.classList).toContain('pi-star');
+            });
+        });
+
+        // --- Tests for TestIconTemplatePrecedenceComponent ---
+        describe('iconTemplate precedence over icon', () => {
+            beforeEach(async () => {
+                await TestBed.configureTestingModule({
+                    declarations: [TestIconTemplatePrecedenceComponent, Menubar, TestTargetComponent],
+                    imports: [NoopAnimationsModule, RouterTestingModule.withRoutes([{ path: '', component: TestTargetComponent }]), SharedModule],
+                    providers: [MenubarService, MenuBarStyle]
+                }).compileComponents();
+
+                fixture = TestBed.createComponent(TestIconTemplatePrecedenceComponent);
+                fixture.detectChanges();
+                menubarElement = fixture.debugElement.query(By.directive(Menubar));
+                menubarInstance = menubarElement.componentInstance;
+                fixture.detectChanges();
+            });
+
+            it('should render iconTemplate when both icon and iconTemplate are provided', () => {
+                const menuItem = menubarElement.query(By.css('li[data-pc-section="menuitem"]'));
+                const iconSlot = menuItem.query(By.css('[data-pc-section="icon"]'));
+
+                expect(iconSlot).toBeTruthy();
+                expect(iconSlot.nativeElement.textContent.trim()).toBe('Template Icon');
+            });
+
+            it('should not render the standard icon when iconTemplate is present', () => {
+                const menuItem = menubarElement.query(By.css('li[data-pc-section="menuitem"]'));
+                const standardIcon = menuItem.query(By.css('[data-pc-section="icon"] span.p-menubar-item-icon'));
+
+                expect(standardIcon).toBeFalsy();
+            });
+        });
+
+        // --- Tests for TestIconTemplateImageComponent ---
+        describe('iconTemplate with an image', () => {
+            beforeEach(async () => {
+                await TestBed.configureTestingModule({
+                    declarations: [TestIconTemplateImageComponent, Menubar, TestTargetComponent],
+                    imports: [NoopAnimationsModule, RouterTestingModule.withRoutes([{ path: '', component: TestTargetComponent }]), SharedModule],
+                    providers: [MenubarService, MenuBarStyle]
+                }).compileComponents();
+
+                fixture = TestBed.createComponent(TestIconTemplateImageComponent);
+                fixture.detectChanges();
+                menubarElement = fixture.debugElement.query(By.directive(Menubar));
+                menubarInstance = menubarElement.componentInstance;
+                fixture.detectChanges();
+            });
+
+            it('should render an image within the iconTemplate', () => {
+                const menuItem = menubarElement.query(By.css('li[data-pc-section="menuitem"]'));
+                const iconSlot = menuItem.query(By.css('[data-pc-section="icon"]'));
+                const imgElement = iconSlot.query(By.css('img.test-custom-icon-img'));
+
+                expect(imgElement).toBeTruthy();
+                expect(imgElement.nativeElement.getAttribute('src')).toBe('/assets/test-icon.png');
+                expect(imgElement.nativeElement.getAttribute('alt')).toBe('Custom Icon Image');
+            });
+        });
+
+        // --- Tests for TestDisabledIconTemplateComponent ---
+        describe('iconTemplate with disabled items', () => {
+            beforeEach(async () => {
+                await TestBed.configureTestingModule({
+                    declarations: [TestDisabledIconTemplateComponent, Menubar, TestTargetComponent],
+                    imports: [NoopAnimationsModule, RouterTestingModule.withRoutes([{ path: '', component: TestTargetComponent }]), SharedModule],
+                    providers: [MenubarService, MenuBarStyle]
+                }).compileComponents();
+
+                fixture = TestBed.createComponent(TestDisabledIconTemplateComponent);
+                fixture.detectChanges();
+                menubarElement = fixture.debugElement.query(By.directive(Menubar));
+                menubarInstance = menubarElement.componentInstance;
+                fixture.detectChanges();
+            });
+
+            it('should render iconTemplate for enabled item', () => {
+                const enabledMenuItem = menubarElement.queryAll(By.css('li[data-pc-section="menuitem"]'))[0];
+                const iconSlot = enabledMenuItem.query(By.css('[data-pc-section="icon"]'));
+
+                expect(iconSlot).toBeTruthy();
+                expect(iconSlot.nativeElement.textContent.trim()).toBe('Enabled Icon');
+                expect(enabledMenuItem.nativeElement.getAttribute('data-p-disabled')).toBe('false');
+            });
+
+            it('should render iconTemplate for disabled item', () => {
+                const disabledMenuItem = menubarElement.queryAll(By.css('li[data-pc-section="menuitem"]'))[1];
+                const iconSlot = disabledMenuItem.query(By.css('[data-pc-section="icon"]'));
+
+                expect(iconSlot).toBeTruthy();
+                expect(iconSlot.nativeElement.textContent.trim()).toBe('Disabled Icon');
+                expect(disabledMenuItem.nativeElement.getAttribute('data-p-disabled')).toBe('true');
+            });
+        });
+
+        // --- Add Accessibility Tests for iconTemplate ---
+        describe('Accessibility with iconTemplate', () => {
+            beforeEach(async () => {
+                await TestBed.configureTestingModule({
+                    declarations: [TestIconTemplateBasicComponent, Menubar, TestTargetComponent],
+                    imports: [NoopAnimationsModule, RouterTestingModule.withRoutes([{ path: '', component: TestTargetComponent }]), SharedModule],
+                    providers: [MenubarService, MenuBarStyle]
+                }).compileComponents();
+
+                fixture = TestBed.createComponent(TestIconTemplateBasicComponent);
+                fixture.detectChanges();
+                menubarElement = fixture.debugElement.query(By.directive(Menubar));
+                menubarInstance = menubarElement.componentInstance;
+                fixture.detectChanges();
+            });
+
+            it('should maintain ARIA attributes when using iconTemplate', () => {
+                const firstMenuItem = menubarElement.query(By.css('li[data-pc-section="menuitem"]'));
+
+                expect(firstMenuItem.nativeElement.getAttribute('role')).toBe('menuitem');
+                // Assuming the label is present, aria-label should be set
+                expect(firstMenuItem.nativeElement.hasAttribute('aria-label')).toBe(true);
+            });
+
+            it('should ensure focusable elements are correctly rendered with iconTemplate', () => {
+                const firstMenuItem = menubarElement.query(By.css('li[data-pc-section="menuitem"]'));
+                const linkElement = firstMenuItem.query(By.css('a.p-menubar-item-link'));
+
+                expect(linkElement).toBeTruthy();
+                expect(linkElement.nativeElement.getAttribute('tabindex')).toBe('-1'); // Ensure it's focusable via JS
+            });
+        });
+    });
 });
+
+@Component({
+    standalone: false,
+    template: `
+        <p-menubar [model]="items">
+            <ng-template #customIconTemplate let-item="item">
+                <div class="custom-icon-content">{{ item.label }} Icon</div>
+            </ng-template>
+            <ng-template pTemplate="item" let-item>
+                <span class="p-menubar-item-label">{{ item.label }}</span>
+            </ng-template>
+        </p-menubar>
+    `
+})
+class TestIconTemplateBasicComponent {
+    @ViewChild('customIconTemplate') customIconTemplate!: TemplateRef<any>;
+    items: MenuItem[] = [];
+
+    ngOnInit() {
+        this.items = [
+            { label: 'Menu Item 1', iconTemplate: this.customIconTemplate },
+            { label: 'Menu Item 2', icon: 'pi pi-star' } // Standard icon
+        ];
+    }
+}
+
+@Component({
+    standalone: false,
+    template: `
+        <p-menubar [model]="items">
+            <ng-template #customIconTemplate let-item="item">
+                <div class="custom-icon-precedence">Template Icon</div>
+            </ng-template>
+        </p-menubar>
+    `
+})
+class TestIconTemplatePrecedenceComponent {
+    @ViewChild('customIconTemplate') customIconTemplate!: TemplateRef<any>;
+    items: MenuItem[] = [];
+
+    ngOnInit() {
+        this.items = [
+            // Item with both icon and iconTemplate
+            { label: 'Precedence Test', icon: 'pi pi-cog', iconTemplate: this.customIconTemplate }
+        ];
+    }
+}
+
+// Test Component for iconTemplate with an Image
+@Component({
+    standalone: false,
+    template: `
+        <p-menubar [model]="items">
+            <ng-template #imageIconTemplate let-item="item">
+                <img [src]="item.iconUrl" alt="Custom Icon Image" class="test-custom-icon-img" />
+            </ng-template>
+        </p-menubar>
+    `
+})
+class TestIconTemplateImageComponent {
+    @ViewChild('imageIconTemplate') imageIconTemplate!: TemplateRef<any>;
+    items: MenuItem[] = [];
+
+    ngOnInit() {
+        this.items = [{ label: 'Image Icon', iconTemplate: this.imageIconTemplate, iconUrl: '/assets/test-icon.png' }];
+    }
+}
+
+@Component({
+    standalone: false,
+    template: `
+        <p-menubar [model]="items">
+            <ng-template #disabledIconTemplate let-item="item">
+                <div class="custom-disabled-icon">Disabled Icon</div>
+            </ng-template>
+        </p-menubar>
+    `
+})
+class TestDisabledIconTemplateComponent {
+    @ViewChild('disabledIconTemplate') disabledIconTemplate!: TemplateRef<any>;
+    items: MenuItem[] = [];
+
+    ngOnInit() {
+        this.items = [
+            { label: 'Enabled Item', iconTemplate: this.disabledIconTemplate },
+            { label: 'Disabled Item', iconTemplate: this.disabledIconTemplate, disabled: true }
+        ];
+    }
+}

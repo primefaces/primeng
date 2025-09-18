@@ -103,6 +103,9 @@ export class MenubarService {
                         >
                             <span *ngIf="getItemProp(processedItem, 'icon')" [class]="cn(cx('itemIcon'), getItemProp(processedItem, 'icon'))" [style]="getItemProp(processedItem, 'iconStyle')" [attr.data-pc-section]="'icon'" [attr.tabindex]="-1">
                             </span>
+                            <ng-container *ngIf="getItemProp(processedItem, 'iconTemplate')" [attr.data-pc-section]="'icon'">
+                                <ng-template *ngTemplateOutlet="getItemProp(processedItem, 'iconTemplate'); context: { $implicit: processedItem.item, root: root, level: level }"></ng-template>
+                            </ng-container>
                             <span *ngIf="getItemProp(processedItem, 'escape'); else htmlLabel" [class]="cx('itemLabel')" [attr.data-pc-section]="'label'" [id]="getItemLabelId(processedItem)">
                                 {{ getItemLabel(processedItem) }}
                             </span>
@@ -194,6 +197,8 @@ export class MenubarSub extends BaseComponent implements OnInit, OnDestroy {
     @Input() items: any[];
 
     @Input() itemTemplate: TemplateRef<any> | undefined;
+
+    @Input() iconTemplate: TemplateRef<any> | undefined;
 
     @Input({ transform: booleanAttribute }) root: boolean = false;
 
@@ -628,6 +633,10 @@ export class Menubar extends BaseComponent implements AfterContentInit, OnDestro
                     parent,
                     parentKey
                 };
+
+                if (item.iconTemplate) {
+                    newItem.item.iconTemplate = item.iconTemplate;
+                }
 
                 newItem['items'] = this.createProcessedItems(item.items, level + 1, newItem, key);
                 processedItems.push(newItem);

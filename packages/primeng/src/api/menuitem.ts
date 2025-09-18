@@ -1,3 +1,4 @@
+import { TemplateRef } from '@angular/core';
 import { QueryParamsHandling } from '@angular/router';
 import { MegaMenuItem } from './megamenuitem';
 import { TooltipOptions } from './tooltipoptions';
@@ -110,7 +111,7 @@ export interface MenuItem {
     /**
      *  How to handle query parameters in the router link for the next navigation. One of:
         merge : Merge new with current parameters.
-        preserve : Preserve current parameters.k. 
+        preserve : Preserve current parameters.k.
      */
     queryParamsHandling?: QueryParamsHandling;
     /**
@@ -146,6 +147,7 @@ export interface MenuItem {
     /**
      * Optional
      */
+    iconTemplate?: TemplateRef<any>;
     [key: string]: any;
 }
 
