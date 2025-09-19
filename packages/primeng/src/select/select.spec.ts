@@ -930,6 +930,70 @@ describe('Select', () => {
 
             expect(selectInstance.modelValue()).toBe(initialValue);
         });
+
+        it('should display disabled option label when set as initial value', fakeAsync(() => {
+            // Setup disabled option
+            const disabledOption = { name: 'Disabled Option', code: 'disabled1', disabled: true };
+            component.options = [disabledOption, { name: 'Option 2', code: 'opt2' }, { name: 'Option 3', code: 'opt3' }];
+            fixture.detectChanges();
+
+            // Set disabled option as initial value
+            component.selectedValue = 'disabled1';
+            fixture.detectChanges();
+            tick();
+
+            // Update the view and let computed values update
+            selectInstance.cd.detectChanges();
+            fixture.detectChanges();
+            tick();
+
+            // Check the DOM element with p-select-label class
+            const labelElement = fixture.debugElement.query(By.css('.p-select-label'));
+            expect(labelElement).toBeTruthy();
+            expect(labelElement.nativeElement.textContent.trim()).toBe('Disabled Option');
+
+            // Verify the option is actually disabled
+            expect(selectInstance.isOptionDisabled(disabledOption)).toBe(true);
+        }));
+
+        it('should display disabled grouped option label when set as initial value', fakeAsync(() => {
+            // Setup grouped options with disabled item
+            const groupedOptions = [
+                {
+                    label: 'Group 1',
+                    value: 'g1',
+                    items: [
+                        { label: 'Berlin', value: 'Berlin', disabled: true },
+                        { label: 'Munich', value: 'Munich' }
+                    ]
+                },
+                {
+                    label: 'Group 2',
+                    value: 'g2',
+                    items: [
+                        { label: 'New York', value: 'NewYork' },
+                        { label: 'Chicago', value: 'Chicago' }
+                    ]
+                }
+            ];
+
+            // Create a new select instance with grouped options
+            selectInstance.group = true;
+            selectInstance.options = groupedOptions;
+            selectInstance.optionGroupChildren = 'items';
+            selectInstance.optionLabel = 'label';
+            selectInstance.optionValue = 'value';
+
+            // Set disabled option as initial value
+            selectInstance.writeModelValue('Berlin');
+            fixture.detectChanges();
+            tick();
+
+            // Check the DOM element with p-select-label class
+            const labelElement = fixture.debugElement.query(By.css('.p-select-label'));
+            expect(labelElement).toBeTruthy();
+            expect(labelElement.nativeElement.textContent.trim()).toBe('Berlin');
+        }));
     });
 
     describe('Public Methods', () => {
@@ -1106,8 +1170,12 @@ describe('Select', () => {
             const keyEvent = new KeyboardEvent('keydown', { code: 'Enter' });
             selectInstance.onKeyDown(keyEvent);
             tick();
+            fixture.detectChanges();
 
-            expect(selectInstance.modelValue()).toBe(component.options[0].code);
+            // Check DOM label element shows selected option
+            const labelElement = fixture.debugElement.query(By.css('.p-select-label'));
+            expect(labelElement).toBeTruthy();
+            expect(labelElement.nativeElement.textContent.trim()).toBe(component.options[0].name);
             flush();
         }));
 
@@ -1481,8 +1549,12 @@ describe('Select - Grouped Options', () => {
         const cityOption = component.groupedOptions[0].items[0];
         selectInstance.onOptionSelect(new Event('click'), cityOption);
         tick();
+        fixture.detectChanges();
 
-        expect(selectInstance.modelValue()).toBe(cityOption.code);
+        // Check DOM label element shows selected grouped option
+        const labelElement = fixture.debugElement.query(By.css('.p-select-label'));
+        expect(labelElement).toBeTruthy();
+        expect(labelElement.nativeElement.textContent.trim()).toBe(cityOption.cname);
         flush();
     }));
 });
@@ -1555,8 +1627,10 @@ describe('Select - pTemplate Content Projection', () => {
         if (customSelected) {
             expect(customSelected.nativeElement.textContent).toContain('Selected: Template Option 1');
         } else {
-            // Verify component received the value
-            expect(selectInstance.modelValue()).toBe('tpl1');
+            // Check DOM label element instead of instance
+            const labelElement = fixture.debugElement.query(By.css('.p-select-label'));
+            expect(labelElement).toBeTruthy();
+            expect(labelElement.nativeElement.textContent.trim()).toBe('Template Option 1');
         }
         flush();
     }));
@@ -3012,8 +3086,10 @@ describe('Select Advanced Accessibility', () => {
             tick();
             fixture.detectChanges();
 
-            // The selected option should be reflected in the display
-            expect(selectInstance.modelValue()).toBe(component.options[0].code);
+            // The selected option should be reflected in the DOM display
+            const labelElement = fixture.debugElement.query(By.css('.p-select-label'));
+            expect(labelElement).toBeTruthy();
+            expect(labelElement.nativeElement.textContent.trim()).toBe(component.options[0].name);
             flush();
         }));
 

@@ -954,10 +954,20 @@ export class Select extends BaseInput implements OnInit, AfterViewInit, AfterCon
         // use  getAllVisibleAndNonVisibleOptions verses just visible options
         // this will find the selected option whether or not the user is currently filtering  because the filtered (i.e. visible) options, are a subset of all the options
         const options = this.getAllVisibleAndNonVisibleOptions();
-        // use isOptionEqualsModelValue for the use case where the dropdown is initalized with a disabled option
-        const selectedOptionIndex = options.findIndex((option) => this.isOptionValueEqualsModelValue(option));
 
-        return selectedOptionIndex !== -1 ? this.getOptionLabel(options[selectedOptionIndex]) : this.placeholder() || 'p-emptylabel';
+        // use isOptionEqualsModelValue for the use case where the dropdown is initalized with a disabled option
+        const selectedOptionIndex = options.findIndex((option) => {
+            const isEqual = this.isOptionValueEqualsModelValue(option);
+            return isEqual;
+        });
+
+        if (selectedOptionIndex !== -1) {
+            const selectedOption = options[selectedOptionIndex];
+            // Always show the label for selected options, even if disabled
+            return this.getOptionLabel(selectedOption);
+        }
+
+        return this.placeholder() || 'p-emptylabel';
     });
 
     selectedOption: any;
@@ -1165,7 +1175,8 @@ export class Select extends BaseInput implements OnInit, AfterViewInit, AfterCon
     }
 
     private isOptionValueEqualsModelValue(option: any) {
-        return this.isValidOption(option) && equals(this.modelValue(), this.getOptionValue(option), this.equalityKey());
+        // Don't check isValidOption here since we need to match disabled options too
+        return option !== undefined && option !== null && !this.isOptionGroup(option) && equals(this.modelValue(), this.getOptionValue(option), this.equalityKey());
     }
 
     ngAfterViewInit() {
@@ -1216,11 +1227,7 @@ export class Select extends BaseInput implements OnInit, AfterViewInit, AfterCon
     }
 
     isOptionDisabled(option: any) {
-        if (this.getOptionValue(this.modelValue()) === this.getOptionValue(option) || (this.getOptionLabel(this.modelValue() === this.getOptionLabel(option)) && option.disabled === false)) {
-            return false;
-        } else {
-            return this.optionDisabled ? resolveFieldData(option, this.optionDisabled) : option && option.disabled !== undefined ? option.disabled : false;
-        }
+        return this.optionDisabled ? resolveFieldData(option, this.optionDisabled) : option && option.disabled !== undefined ? option.disabled : false;
     }
 
     getOptionGroupLabel(optionGroup: any) {
