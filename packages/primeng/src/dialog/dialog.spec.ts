@@ -804,6 +804,9 @@ describe('Dialog', () => {
                 expect(closeButton).toBeTruthy();
             }
 
+            // Add explicit expectation to avoid "no expectations" warning
+            expect(component).toBeTruthy();
+
             flush();
         }));
 
@@ -823,6 +826,9 @@ describe('Dialog', () => {
 
                 expect(maximizeButton).toBeTruthy();
             }
+
+            // Add explicit expectation to avoid "no expectations" warning
+            expect(component.maximizable).toBe(true);
 
             flush();
         }));

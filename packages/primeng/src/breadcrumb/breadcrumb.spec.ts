@@ -30,6 +30,7 @@ class TestBasicBreadcrumbComponent {
 
 @Component({
     standalone: false,
+    selector: 'test-static-breadcrumb',
     template: ` <p-breadcrumb [model]="model" [home]="home"> </p-breadcrumb> `
 })
 class TestStaticBreadcrumbComponent {
@@ -108,6 +109,7 @@ class TestPTemplateSeparatorBreadcrumbComponent {
 
 @Component({
     standalone: false,
+    selector: 'test-router-breadcrumb',
     template: ` <p-breadcrumb [model]="routerModel" [home]="routerHome"> </p-breadcrumb> `
 })
 class TestRouterBreadcrumbComponent {
@@ -120,6 +122,7 @@ class TestRouterBreadcrumbComponent {
 
 @Component({
     standalone: false,
+    selector: 'test-styled-breadcrumb',
     template: ` <p-breadcrumb [style]="customStyle" styleClass="custom-breadcrumb"> </p-breadcrumb> `
 })
 class TestStyledBreadcrumbComponent {
@@ -132,12 +135,14 @@ class TestStyledBreadcrumbComponent {
 
 @Component({
     standalone: false,
+    selector: 'test-minimal-breadcrumb',
     template: ` <p-breadcrumb></p-breadcrumb> `
 })
 class TestMinimalBreadcrumbComponent {}
 
 @Component({
     standalone: false,
+    selector: 'test-dynamic-breadcrumb',
     template: ` <p-breadcrumb [model]="dynamicModel" [home]="dynamicHome"> </p-breadcrumb> `
 })
 class TestDynamicBreadcrumbComponent {
@@ -155,6 +160,7 @@ class TestDynamicBreadcrumbComponent {
 
 @Component({
     standalone: true,
+    selector: 'test-target-component',
     template: '<div>Target Page</div>'
 })
 class TestTargetComponent {}

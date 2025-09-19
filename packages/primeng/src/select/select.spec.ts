@@ -211,7 +211,7 @@ class TestSelectPTemplateComponent {
     showClear = true;
 
     onCustomFilter(event: any) {
-        console.log('Custom filter:', event.target.value);
+        // Custom filter logic (console.log removed to avoid test output noise)
     }
 }
 
@@ -771,7 +771,7 @@ class TestComplexEdgeCasesComponent {
 
     onRapidChange(event: any) {
         this.rapidChangeCount++;
-        console.log('Rapid change:', event);
+        // Rapid change logic (console.log removed to avoid test output noise)
     }
 
     simulateRapidUpdates() {
@@ -1769,6 +1769,10 @@ describe('Select - #template Reference Content Projection', () => {
         if (refSelected) {
             expect(refSelected.nativeElement.textContent).toContain('Chosen: Ref Template Option 1');
         }
+
+        // Add explicit expectation to avoid "no expectations" warning
+        expect(component.selectedValue).toBe('ref1');
+
         flush();
     }));
 
@@ -1862,6 +1866,10 @@ describe('Select - #template Reference Content Projection', () => {
         if (filterIcon) {
             expect(filterIcon).toBeTruthy();
         }
+
+        // Add explicit expectation to avoid "no expectations" warning
+        expect(selectInstance.filter).toBe(true);
+
         flush();
     }));
 

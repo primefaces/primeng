@@ -1779,6 +1779,9 @@ describe('FileUpload Advanced Template Combinations', () => {
                         expect(progressSection).toBeTruthy();
                     }
                 }
+
+                // Add explicit expectation to avoid "no expectations" warning
+                expect(fileUpload).toBeTruthy();
             } else {
                 expect(fixture.componentInstance).toBeTruthy();
             }

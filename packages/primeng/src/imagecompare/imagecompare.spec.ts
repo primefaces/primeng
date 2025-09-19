@@ -4,9 +4,10 @@ import { Component, DebugElement } from '@angular/core';
 import { ImageCompare, ImageCompareModule } from './imagecompare';
 import { SharedModule } from 'primeng/api';
 
+// Using image paths from photoservice.ts to ensure consistency
 const mockImages = {
-    leftImage: 'https://primefaces.org/cdn/primevue/images/compare/island1.jpg',
-    rightImage: 'https://primefaces.org/cdn/primevue/images/compare/island2.jpg'
+    leftImage: 'https://primefaces.org/cdn/primeng/images/galleria/galleria3.jpg',
+    rightImage: 'https://primefaces.org/cdn/primeng/images/galleria/galleria4.jpg'
 };
 
 @Component({
