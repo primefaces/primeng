@@ -2147,7 +2147,7 @@ export class Table<RowData = any> extends BaseComponent implements OnInit, After
             clearTimeout(this.filterTimeout);
         }
         if (!this.isFilterBlank(value)) {
-            this.filters[field] = { value: value, matchMode: matchMode };
+            (<any>this.filters[field]) = { value: value, matchMode: matchMode, applyFilter: true };
         } else if (this.filters[field]) {
             delete this.filters[field];
         }
@@ -2959,6 +2959,16 @@ export class Table<RowData = any> extends BaseComponent implements OnInit, After
 
             if (state.filters) {
                 this.restoringFilter = true;
+                // When restoring with given value, set applyFilter true to fill the filter icon
+                for (const key in state.filters) {
+                    if (state.filters.hasOwnProperty(key) && (state.filters[key]['value'] || state.filters[key][0]['value'])) {
+                        if (Array.isArray(state.filters[key])) {
+                            state.filters[key][0]['applyFilter'] = true;
+                        } else {
+                            state.filters[key]['applyFilter'] = true;
+                        }
+                    }
+                }
                 this.filters = state.filters;
             }
 
@@ -5649,6 +5659,8 @@ export class ColumnFilter extends BaseComponent implements AfterContentInit {
 
     overlayId: any;
 
+    filterApplied: boolean = false;
+
     get fieldConstraints(): FilterMetadata[] | undefined | null {
         return this.dt.filters ? <FilterMetadata[]>this.dt.filters[<string>this.field] : null;
     }
@@ -6015,14 +6027,35 @@ export class ColumnFilter extends BaseComponent implements AfterContentInit {
         return this.dt.filters[<string>this.field] && !this.dt.isFilterBlank((<FilterMetadata>this.dt.filters[<string>this.field]).value);
     }
 
-    get hasFilter(): boolean {
+    setHasFilter(newValue: boolean): void {
         let fieldFilter = this.dt.filters[<string>this.field];
-        if (fieldFilter) {
-            if (Array.isArray(fieldFilter)) return !this.dt.isFilterBlank((<FilterMetadata[]>fieldFilter)[0].value);
-            else return !this.dt.isFilterBlank(fieldFilter.value);
+        if (fieldFilter && newValue) {
+            if (Array.isArray(fieldFilter)) {
+                this.filterApplied = !this.dt.isFilterBlank((<FilterMetadata[]>fieldFilter)[0].value);
+            } else {
+                this.filterApplied = !this.dt.isFilterBlank(fieldFilter.value);
+            }
+        } else {
+            this.filterApplied = false;
         }
+    }
 
-        return false;
+    get hasFilter(): boolean {
+        if (!Array.isArray(this.fieldConstraints) && (<any>this.fieldConstraints)?.applyFilter) {
+            // This can only happen when legacy "filter(value: any, field: string, matchMode: string)" is programmatically called or when the table state is restored with filter value (type object)
+            delete (<any>this.fieldConstraints).applyFilter;
+            this.setHasFilter(true);
+        } else if (Array.isArray(this.fieldConstraints) && (<any>this.fieldConstraints[0])?.applyFilter) {
+            // This can only happen when the table state is restored with filter value (type array)
+            delete (<any>this.fieldConstraints[0]).applyFilter;
+            this.setHasFilter(true);
+        }
+        if (!this.filterApplied) {
+            return false;
+        }
+        // Because Table's clearFilterValues method may have been called (which clears all filters, but doesn't update filterApplied), must call setHasFilter to make sure that filterApplied is up to date.
+        this.setHasFilter(true);
+        return this.filterApplied;
     }
 
     isOutsideClicked(event: any): boolean {
@@ -6113,11 +6146,13 @@ export class ColumnFilter extends BaseComponent implements AfterContentInit {
 
     clearFilter() {
         this.initFieldFilterConstraint();
+        this.setHasFilter(false);
         this.dt._filter();
         if (this.hideOnClear) this.hide();
     }
 
     applyFilter() {
+        this.setHasFilter(true);
         this.dt._filter();
         this.hide();
     }
@@ -6262,6 +6297,7 @@ export class ColumnFilterFormElement implements OnInit {
     ngOnInit() {
         this.filterCallback = (value: any) => {
             (<any>this.filterConstraint).value = value;
+            this.colFilter.setHasFilter(true);
             this.dt._filter();
         };
     }
@@ -6270,11 +6306,13 @@ export class ColumnFilterFormElement implements OnInit {
         (<any>this.filterConstraint).value = value;
 
         if (this.type === 'date' || this.type === 'boolean' || ((this.type === 'text' || this.type === 'numeric') && this.filterOn === 'input') || !value) {
+            this.colFilter.setHasFilter(true);
             this.dt._filter();
         }
     }
 
     onTextInputEnterKeyDown(event: KeyboardEvent) {
+        this.colFilter.setHasFilter(true);
         this.dt._filter();
         event.preventDefault();
     }
