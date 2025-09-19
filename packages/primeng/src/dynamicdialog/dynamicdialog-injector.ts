@@ -6,7 +6,7 @@ export class DynamicDialogInjector implements Injector {
         private _additionalTokens: WeakMap<any, any>
     ) {}
 
-    get<T>(token: ProviderToken<T>, notFoundValue?: T, options?: InjectOptions): T {
+    get<T>(token: ProviderToken<T>, notFoundValue?: T, options?: InjectOptions | i0.InjectFlags): T {
         const value = this._additionalTokens.get(token);
 
         if (value) return value;
