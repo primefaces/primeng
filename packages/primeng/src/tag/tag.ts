@@ -3,6 +3,7 @@ import { AfterContentInit, booleanAttribute, ChangeDetectionStrategy, Component,
 import { PrimeTemplate, SharedModule } from 'primeng/api';
 import { BaseComponent } from 'primeng/basecomponent';
 import { TagStyle } from './style/tagstyle';
+import { TagSeverity } from './tag.interface';
 
 /**
  * Tag component is used to categorize content.
@@ -40,7 +41,7 @@ export class Tag extends BaseComponent implements AfterContentInit {
      * Severity type of the tag.
      * @group Props
      */
-    @Input() severity: string | 'success' | 'secondary' | 'info' | 'warn' | 'danger' | 'contrast' | undefined | null;
+    @Input() severity: TagSeverity;
     /**
      * Value to display inside the tag.
      * @group Props
