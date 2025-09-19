@@ -14,7 +14,15 @@ import { AppCode } from '@/components/doc/app.code';
             <p>SelectButton requires a value to bind and a collection of options.</p>
         </app-docsectiontext>
         <div class="card flex justify-center">
-            <p-selectbutton [options]="stateOptions" [(ngModel)]="value" optionLabel="label" optionValue="value" aria-labelledby="basic" />
+            <p-selectbutton [options]="options" [(ngModel)]="selection" />
+
+            <p-selectbutton [options]="options" [(ngModel)]="selection">
+                <ng-template #item let-item>
+                    <i [class]="item.icon"></i>
+                </ng-template>
+            </p-selectbutton>
+
+            <p-selectbutton [options]="options" [(ngModel)]="value" optionLabel="label" optionValue="value" aria-labelledby="basic" />
         </div>
         <app-code [code]="code" selector="select-button-basic-demo"></app-code>
     `
@@ -25,8 +33,8 @@ export class BasicDoc {
         { label: 'Return', value: 'return' }
     ];
 
-    value: string = 'one-way';
-
+    selection: (typeof this.options)[number] | undefined;
+    value: string = '2';
     code: Code = {
         basic: `<p-selectbutton [options]="stateOptions" [(ngModel)]="value" optionLabel="label" optionValue="value" aria-labelledby="basic" />`,
 
