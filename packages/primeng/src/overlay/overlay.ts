@@ -351,6 +351,13 @@ export class Overlay extends BaseComponent implements AfterContentInit, OnDestro
 
     _options: OverlayOptions | undefined;
 
+    /**
+     * The last target element position to align the overlay when the target moves and appendTo is 'body'.
+     */
+    private lastTargetPosition: { top: number; left: number } = { top: 0, left: 0 };
+    private mutationObserver: MutationObserver | null = null;
+    private checkMovementTimeout = null;
+
     modalVisible: boolean = false;
 
     isOverlayClicked: boolean = false;
@@ -366,8 +373,6 @@ export class Overlay extends BaseComponent implements AfterContentInit, OnDestro
     _componentStyle = inject(OverlayStyle);
 
     private documentKeyboardListener: VoidListener;
-
-    private window: Window | null;
 
     protected transformOptions: any = {
         default: 'scaleY(0.8)',
@@ -494,6 +499,7 @@ export class Overlay extends BaseComponent implements AfterContentInit, OnDestro
                 this.hostAttrSelector() && this.overlayEl && this.overlayEl.setAttribute(this.hostAttrSelector(), '');
                 DomHandler.appendOverlay(this.overlayEl, this.$appendTo() === 'body' ? this.document.body : this.$appendTo(), this.$appendTo());
                 this.alignOverlay();
+                this.saveTargetPosition();
                 break;
 
             case 'void':
@@ -505,6 +511,18 @@ export class Overlay extends BaseComponent implements AfterContentInit, OnDestro
         }
 
         this.handleEvents('onAnimationStart', event);
+    }
+
+    private saveTargetPosition() {
+        if (this.$appendTo() !== 'body') {
+            return;
+        }
+        this.lastTargetPosition = this.getTargetPosition();
+    }
+
+    private getTargetPosition() {
+        const rect = (this.targetEl as Element)?.getBoundingClientRect();
+        return rect ? { top: Math.round(rect.top), left: Math.round(rect.left) } : null;
     }
 
     onOverlayContentAnimationDone(event: AnimationEvent) {
@@ -547,6 +565,7 @@ export class Overlay extends BaseComponent implements AfterContentInit, OnDestro
         this.bindDocumentClickListener();
         this.bindDocumentResizeListener();
         this.bindDocumentKeyboardListener();
+        this.bindMutationObserver();
     }
 
     unbindListeners() {
@@ -554,6 +573,7 @@ export class Overlay extends BaseComponent implements AfterContentInit, OnDestro
         this.unbindDocumentClickListener();
         this.unbindDocumentResizeListener();
         this.unbindDocumentKeyboardListener();
+        this.unbindMutationObserver();
     }
 
     bindScrollListener() {
@@ -637,6 +657,38 @@ export class Overlay extends BaseComponent implements AfterContentInit, OnDestro
         if (this.documentKeyboardListener) {
             this.documentKeyboardListener();
             this.documentKeyboardListener = null;
+        }
+    }
+
+    bindMutationObserver() {
+        // Only necessary when overlay is appended to the body
+        if (this.mutationObserver === null && this.$appendTo() === 'body') {
+            this.mutationObserver = new MutationObserver(() => this.checkTargetMovement());
+            this.mutationObserver.observe(document.body, { childList: true, attributes: true, subtree: true });
+        }
+    }
+
+    unbindMutationObserver() {
+        this.mutationObserver?.disconnect();
+        this.mutationObserver = null;
+    }
+
+    private checkTargetMovement() {
+        if (this.visible) {
+            const pos = this.getTargetPosition();
+            if (!pos) {
+                return;
+            }
+            if (!this.lastTargetPosition || this.lastTargetPosition.top !== pos.top || this.lastTargetPosition.left !== pos.left) {
+                this.lastTargetPosition = pos;
+                this.alignOverlay();
+                // recheck until the element position is stable
+                if (this.checkMovementTimeout) clearTimeout(this.checkMovementTimeout);
+                this.checkMovementTimeout = setTimeout(() => {
+                    this.checkMovementTimeout = null;
+                    this.checkTargetMovement();
+                }, 100);
+            }
         }
     }
 
