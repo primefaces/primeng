@@ -986,6 +986,13 @@ export class Select extends BaseInput implements OnInit, AfterViewInit, AfterCon
 
                 if (selectedOptionIndex !== -1 || modelValue === undefined || (typeof modelValue === 'string' && modelValue.length === 0) || this.isModelValueNotSet() || this.editable) {
                     this.selectedOption = visibleOptions[selectedOptionIndex];
+                } else {
+                    // If no valid selected option found but we have a model value,
+                    // try to find the option including disabled ones for template display
+                    const disabledSelectedIndex = visibleOptions.findIndex((option) => this.isSelected(option));
+                    if (disabledSelectedIndex !== -1) {
+                        this.selectedOption = visibleOptions[disabledSelectedIndex];
+                    }
                 }
             }
 
