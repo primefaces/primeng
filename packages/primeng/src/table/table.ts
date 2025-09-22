@@ -3501,6 +3501,8 @@ export class FrozenColumn implements AfterViewInit, OnDestroy {
 
     @Input() alignFrozen: string = 'left';
 
+    private resizeObserver?: ResizeObserver;
+
     constructor(private el: ElementRef) {}
 
     ngAfterViewInit() {
@@ -3513,7 +3515,7 @@ export class FrozenColumn implements AfterViewInit, OnDestroy {
         });
 
         resizeObserver.observe(this.el.nativeElement);
-        this.observer = resizeObserver;
+        this.resizeObserver = resizeObserver;
     }
 
     @HostListener('window:resize', ['$event'])
@@ -3560,11 +3562,9 @@ export class FrozenColumn implements AfterViewInit, OnDestroy {
         }
     }
 
-    private observer?: any;
-
     ngOnDestroy() {
-        if (this.observer) {
-            this.observer.disconnect();
+        if (this.resizeObserver) {
+            this.resizeObserver.disconnect();
         }
     }
 }
