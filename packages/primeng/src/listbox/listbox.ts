@@ -116,9 +116,9 @@ export const LISTBOX_VALUE_ACCESSOR: any = {
                 </span>
             </ng-template>
         </div>
-        <div #container [class]="cn(cx('listContainer'), listStyleClass)" [ngStyle]="listStyle" [style.max-height]="virtualScroll ? 'auto' : scrollHeight || 'auto'">
+        <div #container [class]="cn(cx('listContainer'), listStyleClass)" [ngStyle]="listStyle" [style.max-height]="virtualScroll ? 'auto' : scrollHeight || 'auto'" cdkDropList [cdkDropListData]="cdkDropData()" (cdkDropListDropped)="drop($event)">
             @if (hasFilter() && isEmpty()) {
-                <div [class]="cx('emptyMessage')" [cdkDropListData]="$any([])" (cdkDropListDropped)="drop($event)" cdkDropList>
+                <div [class]="cx('emptyMessage')">
                     @if (!emptyFilterTemplate && !_emptyFilterTemplate && !_emptyTemplate && !emptyTemplate) {
                         {{ emptyFilterMessageText }}
                     } @else {
@@ -126,7 +126,7 @@ export const LISTBOX_VALUE_ACCESSOR: any = {
                     }
                 </div>
             } @else if (!hasFilter() && isEmpty()) {
-                <div [class]="cx('emptyMessage')" [cdkDropListData]="$any([])" (cdkDropListDropped)="drop($event)" cdkDropList>
+                <div [class]="cx('emptyMessage')">
                     @if (!emptyTemplate && !_emptyTemplate) {
                         {{ emptyMessage }}
                     } @else {
@@ -174,9 +174,6 @@ export const LISTBOX_VALUE_ACCESSOR: any = {
                         (focus)="onListFocus($event)"
                         (blur)="onListBlur($event)"
                         (keydown)="onListKeyDown($event)"
-                        cdkDropList
-                        [cdkDropListData]="items"
-                        (cdkDropListDropped)="drop($event)"
                     >
                         <ng-template ngFor let-option [ngForOf]="items" let-i="index">
                             <ng-container *ngIf="isOptionGroup(option)">
@@ -545,6 +542,18 @@ export class Listbox extends BaseEditableHolder implements AfterContentInit, OnI
      * @group Props
      */
     @Input({ transform: booleanAttribute }) dragdrop: boolean = false;
+    /**
+     * Array to use for CDK drop list data binding. When not provided, uses options array.
+     * @group Props
+     */
+    @Input() dropListData: any[] | undefined;
+
+    /**
+     * Computed property for stable CDK drop list data reference
+     */
+    cdkDropData = computed(() => {
+        return this.dropListData || this._options();
+    });
     /**
      * Spans 100% width of the container when enabled.
      * @defaultValue undefined

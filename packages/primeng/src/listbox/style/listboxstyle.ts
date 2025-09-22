@@ -18,6 +18,10 @@ const theme = /*css*/ `
     .p-listbox-header > .p-iconfield {
         flex-grow: 1;
     }
+
+    .p-listbox-list-container {
+        height: 100%;
+    }
 `;
 
 const classes = {
