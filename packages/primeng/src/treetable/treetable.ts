@@ -178,7 +178,7 @@ export class TreeTableService {
         </p-paginator>
 
         <div [class]="cx('wrapper')" *ngIf="!scrollable">
-            <table role="table" #table [ngClass]="tableStyleClass" [ngStyle]="tableStyle">
+            <table role="treegrid" #table [ngClass]="tableStyleClass" [ngStyle]="tableStyle">
                 <ng-container *ngTemplateOutlet="colGroupTemplate || _colGroupTemplate; context: { $implicit: columns }"></ng-container>
                 <thead role="rowgroup" [class]="cx('thead')">
                     <ng-container *ngTemplateOutlet="headerTemplate || _headerTemplate; context: { $implicit: columns }"></ng-container>
@@ -2434,7 +2434,7 @@ export class TTBody {
         </ng-container>
 
         <ng-template #buildInItems let-items let-scrollerOptions="options">
-            <table role="table" #scrollTable [class]="tt.tableStyleClass" [ngClass]="scrollerOptions.contentStyleClass" [ngStyle]="tt.tableStyle" [style]="scrollerOptions.contentStyle">
+            <table role="treegrid" #scrollTable [class]="tt.tableStyleClass" [ngClass]="scrollerOptions.contentStyleClass" [ngStyle]="tt.tableStyle" [style]="scrollerOptions.contentStyle">
                 <ng-container
                     *ngTemplateOutlet="frozen ? tt.frozenColGroupTemplate || tt._frozenColGroupTemplate || tt.colGroupTemplate || tt._colGroupTemplate : tt.colGroupTemplate || tt._colGroupTemplate; context: { $implicit: columns }"
                 ></ng-container>
@@ -3047,7 +3047,7 @@ export class TTReorderableColumn implements AfterViewInit, OnDestroy {
     standalone: false,
     host: {
         '[class]': 'cx("row")',
-        '[attr.aria-checked]': 'selected'
+        '[attr.aria-selected]': 'selected'
     },
     providers: [TreeTableStyle]
 })
@@ -3799,13 +3799,13 @@ export class TTRow extends BaseComponent {
         const rows = this.el.nativeElement ? [...find(this.el.nativeElement.parentNode, 'tr')] : undefined;
 
         if (rows && isNotEmpty(rows)) {
-            const hasSelectedRow = rows.some((row) => getAttribute(row, 'data-p-highlight') || row.getAttribute('aria-checked') === 'true');
+            const hasSelectedRow = rows.some((row) => getAttribute(row, 'data-p-highlight') || row.getAttribute('aria-selected') === 'true');
             rows.forEach((row: any) => {
                 row.tabIndex = -1;
             });
 
             if (hasSelectedRow) {
-                const selectedNodes = rows.filter((node) => getAttribute(node, 'data-p-highlight') || node.getAttribute('aria-checked') === 'true');
+                const selectedNodes = rows.filter((node) => getAttribute(node, 'data-p-highlight') || node.getAttribute('aria-selected') === 'true');
                 (selectedNodes[0] as any).tabIndex = 0;
 
                 return;
