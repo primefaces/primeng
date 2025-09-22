@@ -3489,7 +3489,7 @@ export class RowGroupHeader {
         '[class.p-datatable-frozen-column-left]': 'alignFrozen === "left"'
     }
 })
-export class FrozenColumn implements AfterViewInit {
+export class FrozenColumn implements AfterViewInit, OnDestroy {
     @Input() get frozen(): boolean {
         return this._frozen;
     }
@@ -3501,17 +3501,19 @@ export class FrozenColumn implements AfterViewInit {
 
     @Input() alignFrozen: string = 'left';
 
-    constructor(
-        private el: ElementRef,
-        private zone: NgZone
-    ) {}
+    constructor(private el: ElementRef) {}
 
     ngAfterViewInit() {
-        this.zone.runOutsideAngular(() => {
-            setTimeout(() => {
-                this.recalculateColumns();
-            }, 1000);
+        this.observeChanges();
+    }
+
+    private observeChanges() {
+        const resizeObserver = new ResizeObserver(() => {
+            this.recalculateColumns();
         });
+
+        resizeObserver.observe(this.el.nativeElement);
+        this.observer = resizeObserver;
     }
 
     @HostListener('window:resize', ['$event'])
@@ -3555,6 +3557,14 @@ export class FrozenColumn implements AfterViewInit {
                     filterRow.children[index].style.right = this.el.nativeElement.style.right;
                 }
             }
+        }
+    }
+
+    private observer?: any;
+
+    ngOnDestroy() {
+        if (this.observer) {
+            this.observer.disconnect();
         }
     }
 }
